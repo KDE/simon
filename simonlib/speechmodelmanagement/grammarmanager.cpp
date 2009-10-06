@@ -26,7 +26,9 @@
 #include <QMutexLocker>
 #include <QDateTime>
 #include <simonlogging/logger.h>
-#include "wordlistmanager.h"
+#include <speechmodelmanagement/scenariomanager.h>
+#include <speechmodelmanagement/scenario.h>
+#include <speechmodelmanagement/shadowvocabulary.h>
 #include "speechmodelmanagementconfiguration.h"
 
 
@@ -177,7 +179,11 @@ QStringList GrammarManager::getExamples(const QString& word, const QString& term
 				alreadyUsed = true;
 			} else
 			{
-				QString exampleWord =WordListManager::getInstance()->getRandomWord(terminals[j], includeShadow);
+				//QString exampleWord =WordListManager::getInstance()->getRandomWord(terminals[j], includeShadow);
+				QString exampleWord = ScenarioManager::getInstance()->getCurrentScenario()->getRandomWord(terminals[j]);
+				if (exampleWord.isNull() && includeShadow) {
+					exampleWord = ScenarioManager::getInstance()->getShadowVocabulary()->getRandomWord(terminals[j]);
+				}
 				if (exampleWord.isEmpty())
 				{
 					badWord = true;

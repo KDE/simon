@@ -24,6 +24,7 @@
 #include "TrainSamples/trainingswizard.h"
 
 #include <speechmodelmanagement/activevocabulary.h>
+#include <speechmodelmanagement/scenariomanager.h>
 #include <speechmodelmanagement/shadowvocabulary.h>
 
 #include <speechmodelmanagement/scenario.h>
@@ -35,7 +36,6 @@
 #include <KProgressDialog>
 #include <QCoreApplication>
 #include <KIcon>
-#include <KStandardDirs>
 #include <KDebug>
 #include <QSortFilterProxyModel>
 
@@ -81,10 +81,10 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	activeProxy->setFilterKeyColumn(0);
 	ui.tvActiveVocab->setModel(activeProxy);
 	
-	shadowVocab = ShadowVocabulary::createVocabulary(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
+	
 	shadowProxy = new QSortFilterProxyModel(this);
 	shadowProxy->setFilterKeyColumn(0);
-	shadowProxy->setSourceModel(shadowVocab);
+	shadowProxy->setSourceModel(ScenarioManager::getInstance()->getShadowVocabulary());
 	ui.tvShadowVocab->setModel(shadowProxy);
 }
 
@@ -108,7 +108,6 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
 	kDebug() << "Displaying scenario " << scenario->name();
 
-	kDebug() << "Scenario contains: " << scenario->vocabulary()->wordCount() << " words";
 	activeProxy->setSourceModel(scenario->vocabulary());
 }
 
@@ -116,20 +115,22 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 void VocabularyViewPrivate::showImportDictDialog()
 {
 	ImportDictView *importDictView = new ImportDictView(this);
-	//connect(importDictView, SIGNAL(dictGenerated(Vocabulary*, VocabularyTarget::VocabularyType)), this, SLOT(importDict(Vocabulary*, VocabularyTarget::VocabularyType)));
-	importDictView->exec();
-	importDictView->deleteLater();
-}
+	Vocabulary::VocabularyType type;
+	QList<Word*>* words = importDictView->importDict(type);
+	bool worked = true;
+	if (words) {
+		switch (type) {
+			case Vocabulary::ActiveVocabulary:
+				worked = scenario->vocabulary()->addWords(words);
+				break;
+			case Vocabulary::ShadowVocabulary:
+				worked = ScenarioManager::getInstance()->getShadowVocabulary()->addWords(words);
+				break;
+		}
+	}
+	if (!worked)  KMessageBox::error(this, i18n("Couldn't add words to the list"));
 
-/**
- * \brief Import an existing dictionary
- * \author Peter Grasch
- */
-void VocabularyViewPrivate::importDict(WordList* list, WordListTarget::WordListType type)
-{
-	//if (list) {
-	//	wordListManager->addWords(list, true, ((type == VocabularyTarget::ShadowList) ? true : false));
-	//}
+	importDictView->deleteLater();
 }
 
 /**
@@ -171,7 +172,6 @@ void VocabularyViewPrivate::deleteSelectedWord()
 	}
 	del->deleteLater();
 }
-
 
 
 /**
@@ -303,6 +303,5 @@ void VocabularyViewPrivate::deleteTrainingWord()
  */
 VocabularyViewPrivate::~VocabularyViewPrivate()
 {
-	delete shadowVocab;
 }
 

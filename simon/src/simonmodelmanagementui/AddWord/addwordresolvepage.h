@@ -31,9 +31,6 @@
 	\date 20.12.2007
 	@author Peter Grasch
 */
-class WordListManager;
-class GrammarManager;
-
 class AddWordResolvePage : public QWizardPage
 {
 Q_OBJECT
@@ -42,8 +39,6 @@ private:
 	bool terminalDirty;
 	Ui::ResolveWordPage ui;
 	bool alreadyTriedToConvinceAboutCapitalization;
-	WordListManager *wordListManager;
-	GrammarManager *grammarManager;
 private slots:
 	void suggest();
 	void createExamples();

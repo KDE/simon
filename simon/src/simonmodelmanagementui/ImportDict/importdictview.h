@@ -24,7 +24,7 @@
 
 #include <QWizard>
 #include <speechmodelbase/word.h>
-#include <speechmodelmanagement/wordlisttype.h>
+#include <speechmodelmanagement/vocabulary.h>
 
 
 /**
@@ -44,12 +44,6 @@ class ImportDictView : public QWizard {
 private:
 	ImportDictWorkingPage *workingPage;
 	
-signals:
-	void dictGenerated(WordList*, WordListTarget::WordListType type);
-
-private slots:
-	void dictReady(WordList * list);
-
 public slots:
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
@@ -62,6 +56,8 @@ public slots:
 	QWizardPage* createImportSPHINXPage();
 	ImportDictWorkingPage* createImportDictWorkingPage();
 	QWizardPage* createFinishedPage();
+
+	QList<Word*>* importDict(Vocabulary::VocabularyType& type);
 
 
 public:

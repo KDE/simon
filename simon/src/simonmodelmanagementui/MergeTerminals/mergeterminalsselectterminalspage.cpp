@@ -20,7 +20,7 @@
 
 #include "mergeterminalsselectterminalspage.h"
 
-#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/scenariomanager.h>
 
 MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {
@@ -36,7 +36,8 @@ MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* pa
 void MergeTerminalsSelectTerminalsPage::initializePage()
 {
 	QStringList availableTerminals;
-	availableTerminals = WordListManager::getInstance()->getTerminals(true);
+	availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+			(SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
 	ui.lwA->clear();
 	ui.lwB->clear();
 	ui.lwA->addItems(availableTerminals);

@@ -21,8 +21,11 @@
 #include "addwordresolvepage.h"
 #include <KDebug>
 #define  q_Ml if(KMessageBox::questionYesNo(this, 
-#include <speechmodelmanagement/grammarmanager.h>
-#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/scenariomanager.h>
+#include <speechmodelmanagement/scenario.h>
+#include <speechmodelmanagement/speechmodel.h>
+//#include <speechmodelmanagement/grammarmanager.h>
+//#include <speechmodelmanagement/wordlistmanager.h>
 #include <QtGlobal>
 #define MKW "funzus"
 #define meCh7 word.endsWith
@@ -43,8 +46,6 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 	setTitle(i18n("Define Word"));
 	ui.setupUi(this); 
 	ui.twSuggestions->verticalHeader()->hide();
-	this->grammarManager = GrammarManager::getInstance();
-	this->wordListManager = WordListManager::getInstance();
 	connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
 	connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
@@ -72,11 +73,12 @@ bool AddWordResolvePage::validatePage()
 		KMessageBox::error(this, i18n("Words are not allowed to contain spaces"));
 		return false;
 	}
-	Word *search = new Word(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
-	bool exists = WordListManager::getInstance()->mainWordListContains(search);
-	delete search;
+	bool exists = ScenarioManager::getInstance()->getCurrentScenario()->containsWord(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
+//	Word *search = new Word(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
+//		WordListManager::getInstance()->mainWordListContains(search);
+//	delete search;
 	if (exists) {
-		KMessageBox::error(this, i18n("The Wordlist already contains this Word."));
+		KMessageBox::error(this, i18n("The vocabulary already contains this word."));
 		return false;
 	}
 	return true;
@@ -111,7 +113,11 @@ void AddWordResolvePage::initializePage()
 
 	ui.cbType->clear();
 	ui.leSampa->clear();
-	QStringList terminals = wordListManager->getTerminals();
+	QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+					(SpeechModel::ModelElements)
+					(SpeechModel::ShadowVocabulary|
+					SpeechModel::ScenarioVocabulary|
+					SpeechModel::ScenarioGrammar)); //wordListManager->getTerminals();
 	terminals.removeAll("NS_E"); //remove sentence structures
 	terminals.removeAll("NS_B");
 	ui.cbType->addItems(terminals);
@@ -127,8 +133,10 @@ void AddWordResolvePage::fetchSimilar()
 {
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	disconnect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
-	WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
-	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, sType, false);
+	//WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
+	//WordList* similar = wordListManager->getWords(ui.leWord->text(), true, sType, false);
+	//TODO: Port to scenarios
+	WordList *similar = new WordList();
 	displayWords(similar);
 
 	if (ui.twSuggestions->rowCount() > 0)
@@ -165,7 +173,8 @@ void AddWordResolvePage::createExamples()
 			(sender() != ui.pbReGuess)) return;
 	
 	QString terminal = ui.cbType->currentText();
-	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
+	//TODO: implement
+	QStringList examples;// = grammarManager->getExamples(ui.leWord->text(), terminal,2);
 
 	if (examples.count() == 2) 
 	{

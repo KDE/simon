@@ -45,19 +45,49 @@ private:
 
 
 protected:
+	QStringList terminals; //terminal cache
 	QList<Word*> m_words;
+
 	virtual QVariant data(const QModelIndex &index, int role) const;
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-	Vocabulary();
+
+	void sortWords();
+	bool appendWordRaw(Word* w);
+	bool insertWordRaw(int pos, Word* w);
+
 
 public:
+	Vocabulary();
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 
+
+	/**
+	 * Adds the specified words to the vocabulary
+	 */
+	virtual bool addWords(QList<Word*> *w);
+	virtual bool addWord(Word* w);
+
 	bool removeWord(Word* w);
 
+	QString getRandomWord(const QString& terminal);
+	bool containsWord(const QString& word);
+	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
+
 	int wordCount() { return m_words.count(); }
-	virtual ~Vocabulary() {}
+	virtual ~Vocabulary();
+
+	bool renameTerminal(const QString& from, const QString& to);
+
+	QStringList getTerminals();
+
+	QList<Word*>* findWords(const QString& name);
+
+enum VocabularyType {
+	ShadowVocabulary = 0,
+	ActiveVocabulary = 1
+};
+
 };
 
 #endif

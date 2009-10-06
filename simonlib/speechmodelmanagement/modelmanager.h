@@ -53,16 +53,7 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 	public slots:
 		void modelHasChanged();
 
-	protected:
-		static ModelManager* instance;
-	
 	public:
-		static ModelManager* getInstance(QObject *parent=0)
-		{
-			if (!instance) instance = new ModelManager(parent);
-			return instance;
-		}
-	
 		ModelManager(QObject *parent=0);
 		void startGroup();
 		void commitGroup(bool silent=false);

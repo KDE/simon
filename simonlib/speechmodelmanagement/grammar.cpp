@@ -18,6 +18,8 @@
  */
 
 #include "grammar.h"
+#include "scenario.h"
+#include <QMutexLocker>
 
 /**
  * Empty, private constructor
@@ -42,6 +44,7 @@ Grammar* Grammar::createGrammar(Scenario *parent, const QDomElement& elem)
 
 bool Grammar::deSerialize(const QDomElement& grammarElem)
 {
+	QMutexLocker lock(&structuresLock);
 	if (grammarElem.isNull())
 		return false;
 	
@@ -61,6 +64,7 @@ bool Grammar::deSerialize(const QDomElement& grammarElem)
 
 QDomElement Grammar::serialize(QDomDocument *doc)
 {
+	QMutexLocker lock(&structuresLock);
 	QDomElement elem = doc->createElement("grammar");
 
 	foreach (const QString& structure, m_structures) {
@@ -70,5 +74,51 @@ QDomElement Grammar::serialize(QDomDocument *doc)
 	}
 
 	return elem;
+}
+
+bool Grammar::renameTerminal(QString terminal, const QString& newName)
+{
+	QMutexLocker lock(&structuresLock);
+
+	//make the terminal regex-able :)
+	terminal.replace(".", "\\.");
+	terminal.replace("-", "\\-");
+	terminal.replace("!", "\\!");
+	terminal.replace("?", "\\?");
+	terminal.replace("*", "\\*");
+	terminal.replace("\\", "\\\\");
+	terminal.replace("^", "\\^");
+	terminal.replace("$", "\\$");
+
+	QStringList newStructures;
+	//replace using regex patterns
+	for (int j=0; j < m_structures.count(); j++)
+	{
+		QStringList currentStructure = m_structures.at(j).split(" ");
+		for (int i=0; i < currentStructure.count(); i++)
+		{
+			if (currentStructure[i] == terminal)
+				currentStructure.replace(i, newName);
+		}
+		m_structures.replace(j, currentStructure.join(" "));
+	}
+
+	return parentScenario->save();
+}
+
+QStringList Grammar::getTerminals()
+{
+	QMutexLocker lock(&structuresLock);
+	QStringList out;
+	QStringList terminalsInStruct;
+	foreach (const QString& structure, m_structures)
+	{
+		terminalsInStruct.clear();
+		terminalsInStruct = structure.split(" ");
+		for (int j=0; j < terminalsInStruct.count(); j++)
+			if (!out.contains(terminalsInStruct[j]))
+				out << terminalsInStruct[j];
+	}
+	return out;
 }
 

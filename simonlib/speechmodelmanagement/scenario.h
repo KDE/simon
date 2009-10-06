@@ -24,11 +24,14 @@
 #include <QList>
 #include <QObject>
 #include <KIcon>
+#include "speechmodel.h"
+#include "scenariomanager.h"
 #include "simonmodelmanagement_export.h"
 
 class ScenarioObject;
 class Author;
 class Action;
+class Word;
 class VersionNumber;
 class Grammar;
 class ActiveVocabulary;
@@ -55,6 +58,8 @@ private:
 	QList<Action*> m_actions;
 	QList<TrainingText*> m_texts;
 
+	bool emitChangedIfTrue(bool input);
+
 public:
 	Scenario(const QString& scenarioId);
 
@@ -62,10 +67,23 @@ public:
 	QString name() { return m_name; }
 	QString id() { return m_scenarioId; }
 
-	ActiveVocabulary* vocabulary() { return m_vocabulary; }
+	bool addWords(QList<Word*>* w);
+	bool addWord(Word* w);
+	bool removeWord(Word* w);
+
+	QList<Word*>* findWords(const QString& name);
+
+	QStringList getTerminals(SpeechModel::ModelElements elements);
+	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+
+	QString getRandomWord(const QString& terminal);
+	bool containsWord(const QString& word);
+	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
 	bool init(QString path=QString());
 	bool save(QString path=QString());
+
+	ActiveVocabulary* vocabulary() { return m_vocabulary; }
 
 	~Scenario();
 

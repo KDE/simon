@@ -25,14 +25,23 @@
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 
-#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/vocabulary.h>
+#include <speechmodelmanagement/scenario.h>
 #include <speechmodelmanagement/trainingmanager.h>
+#include <speechmodelmanagement/scenariomanager.h>
 
 #include <QWizardPage>
 #include <KMessageBox>
 #include <KLineEdit>
 #include <KStandardDirs>
 
+bool isWordLessThan(Word *w1, Word *w2)
+{
+	if (w1->getLexiconWord() < w2->getLexiconWord())
+		return true;
+	else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) || 
+						((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
+}
 
 /**
  * @brief Constructor
@@ -47,9 +56,10 @@
  * Qt Windowflags - default 0
 */
 
-AddWordView::AddWordView(QWidget *parent)
+AddWordView::AddWordView(Vocabulary *vocab, QWidget *parent)
 	: QWizard(parent),
-	listToAdd(new WordList()),
+	targetVocabulary(vocab),
+	listToAdd(new QList<Word*>()),
 	record1(createRecordPage("wordExample1", 1, 2)),
 	record2(createRecordPage("wordExample2", 2, 2))
 {
@@ -58,7 +68,8 @@ AddWordView::AddWordView(QWidget *parent)
 	this->addPage(record1);
 	this->addPage(record2);
 	this->addPage(createFinishedPage());
-	
+
+
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 
 	setWindowTitle(i18n("Add Word"));
@@ -83,7 +94,7 @@ void AddWordView::accept()
 		promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
 		recordingCount++;
 	}
-	listToAdd->append(Word(word, field("wordPronunciation").toString(),
+	listToAdd->append(new Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), recordingCount));
 	
 	if (wordsToAdd.count() > 0)
@@ -115,6 +126,7 @@ void AddWordView::cleanUp()
 			commitList();
 		else 
 		{
+			qDeleteAll(*listToAdd);
 			listToAdd->clear();
 			promptsToAdd.clear();
 		}
@@ -197,13 +209,26 @@ void AddWordView::commitList()
 
 	for (int i=0; i < listToAdd->count(); i++)
 	{
-		Word w = listToAdd->takeAt(i);
-		w.setProbability(TrainingManager::getInstance()->getProbability(w.getWord()));
+		Word *w = listToAdd->takeAt(i);
+		w->setProbability(TrainingManager::getInstance()->getProbability(w->getWord()));
 		listToAdd->insert(i, w);
 	}
 
-	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
-	listToAdd = new WordList();
+	//sort the list
+	qSort(listToAdd->begin(), listToAdd->end(), isWordLessThan);
+
+	bool success=true;
+	if (!targetVocabulary) {
+		Scenario *s = ScenarioManager::getInstance()->getCurrentScenario();
+		if (s)	
+			success = s->addWords(listToAdd);
+		else success = false;
+	} else success = targetVocabulary->addWords(listToAdd);
+	
+	if (!success)
+		KMessageBox::sorry(this, "Couldn't add word(s).");
+
+	listToAdd = new QList<Word*>();
 	ModelManagerUiProxy::getInstance()->commitGroup();
 }
 
@@ -239,6 +264,7 @@ void AddWordView::createWord(QString word)
 	setField("wordNameIntro", word);
 	next(); //continue to page 2
 }
+
 
 AddWordView::~AddWordView()
 {

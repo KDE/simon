@@ -45,9 +45,12 @@ protected:
 
 public:
 	static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
+	bool addWords(QList<Word*>* w);
+	bool addWord(Word* w);
 	bool removeWord(Word* w);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	bool renameTerminal(const QString& from, const QString& to);
 };
 
 #endif

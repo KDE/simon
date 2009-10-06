@@ -44,14 +44,17 @@ class QWizardPage;
 class AddWordRecordPage;
 class AddWordResolvePage;
 class AddWordIntroPage;
+class Vocabulary;
 
 class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 {
 	Q_OBJECT
 
 	private:
+		Vocabulary *targetVocabulary;
+
 		QStringList wordsToAdd;
-		WordList *listToAdd;
+		QList<Word*> *listToAdd;
 		QHash<QString,QString> promptsToAdd;
 		
 		void hideEvent(QHideEvent *event) { 
@@ -79,7 +82,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		void accept();
 		
 	public:
-		AddWordView(QWidget *parent);
+		AddWordView(Vocabulary *vocab=0, QWidget *parent=0);
 		~AddWordView();
     
 		void createWord(QString word);

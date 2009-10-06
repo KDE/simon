@@ -25,15 +25,11 @@
 #include <KLocalizedString>
 #include <speechmodelmanagement/trainingmanager.h>
 
+ModelManagerUiProxy* ModelManagerUiProxy::instance;
 
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 {
 	connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
-
-	if (ModelManager::instance)
-		ModelManager::instance->deleteLater();
-	
-	ModelManager::instance = this;
 }
 
 
@@ -41,59 +37,6 @@ void ModelManagerUiProxy::slotModelChanged()
 {
 	emit recompileModel();
 }
-
-//TODO: is this deprecated?
-void ModelManagerUiProxy::displayCompilationProtocol(const QString& protocol)
-{
-	KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
-}
-
-void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
-{
-	if (KMessageBox::questionYesNo(0, i18n("The sample \"%1\" could not be found neither on the local computer nor the "
-"server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes)
-	{
-		//kick some poor samples ass
-		startGroup();
-		QString sampleBaseName = sample.left(sample.length()-4);
-		kDebug() << "Deleting: " << sampleBaseName;
-		bool succ = TrainingManager::getInstance()->removeSample(sampleBaseName);
-		if (succ)
-			TrainingManager::getInstance()->savePrompts();
-
-		commitGroup(false /*silent*/);
-
-		if (!succ)
-			KMessageBox::error(0, i18n("Couldn't remove Sample from the Trainingscorpus"));
-	}
-}
-
-
-
-
-void ModelManagerUiProxy::wordUndefined(const QString& word)
-{
-	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
-"in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
-		return;
-//	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
-
-	AddWordView *addWordView = new AddWordView(0);
-	addWordView->createWord(word);
-	addWordView->show();
-	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
-}
-
-void ModelManagerUiProxy::classUndefined(const QString& undefClass)
-{
-	KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
-}
-
-void ModelManagerUiProxy::phonemeUndefined(const QString& phoneme)
-{
-	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
-}
-
 
 bool ModelManagerUiProxy::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
 			const QByteArray& activeVocab, const QByteArray& activeLexicon)

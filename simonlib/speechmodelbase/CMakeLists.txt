@@ -14,8 +14,7 @@ set( speechmodelbase_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/word.h
-	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/word.cpp
 )
 
 
@@ -28,12 +27,10 @@ set( speechmodelbase_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/model.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
 )
 
 kde4_add_library( speechmodelbase  SHARED ${speechmodelbase_LIB_SRCS} )
 
-#TODO: Remove simoncommandpluginbase; It's just for testing
 target_link_libraries( speechmodelbase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
 	${KDE4_KDEUI_LIBS} )
 

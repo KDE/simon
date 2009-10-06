@@ -20,6 +20,7 @@
 #ifndef GRAMMAR_H
 #define GRAMMAR_H
 #include <QStringList>
+#include <QMutex>
 
 #include "speechmodelbase_export.h"
 #include <simonscenariobase/scenarioobject.h>
@@ -30,6 +31,7 @@ class SPEECHMODELBASE_EXPORT Grammar : public ScenarioObject
 {
 
 private:
+	QMutex structuresLock;
 	QStringList m_structures;
 
 protected:
@@ -39,6 +41,9 @@ public:
 	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	bool renameTerminal(QString terminal, const QString& newName);
+
+	QStringList getTerminals();
 
 	int structureCount() { return m_structures.count(); }
 };

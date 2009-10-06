@@ -59,7 +59,6 @@ QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
 	if (!index.isValid()) return QVariant();
 
 	Word *word = m_words.at(index.row());
-	if (!word) return QVariant();
 
 	if (role == Qt::BackgroundRole)
 	{
@@ -76,11 +75,22 @@ QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
 	return Vocabulary::data(index, role);
 }
 
+bool ActiveVocabulary::addWords(QList<Word*>* w)
+{
+	if (!Vocabulary::addWords(w)) return false;
+	return parentScenario->save();
+}
+
+bool ActiveVocabulary::addWord(Word *w)
+{
+	if (!Vocabulary::addWord(w)) return false;
+	return parentScenario->save();
+}
+
 bool ActiveVocabulary::removeWord(Word* w)
 {
 	if (Vocabulary::removeWord(w)) {
 		return parentScenario->save();
-//		return true;
 	}
 	return false;
 }
@@ -94,6 +104,13 @@ bool ActiveVocabulary::deSerialize(const QDomElement& elem)
 QDomElement ActiveVocabulary::serialize(QDomDocument *doc)
 {
 	return Vocabulary::serialize(doc);
+}
+
+bool ActiveVocabulary::renameTerminal(const QString& from, const QString& to)
+{
+	if (Vocabulary::renameTerminal(from, to))
+		return parentScenario->save();
+	return false;
 }
 
 

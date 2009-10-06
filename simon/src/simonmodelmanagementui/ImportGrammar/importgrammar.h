@@ -44,7 +44,7 @@ private:
 	QString encoding;
 	bool includeUnknown;
 	QStringList importFile(QString path);
-	QStringList terminals(WordList *in);
+	QStringList terminals(QList<Word*> *in);
 	QStringList readFile(QString path);
 
 public:

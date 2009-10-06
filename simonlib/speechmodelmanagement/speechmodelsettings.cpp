@@ -23,7 +23,6 @@
 #include <KMessageBox>
 #include <KGlobal>
 #include <KPageWidget>
-#include "modelmanager.h"
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory, 
@@ -58,7 +57,7 @@ void SpeechModelSettings::save()
 	KCModule::save();
 	if (smpFreq != SpeechModelManagementConfiguration::modelSampleRate()) {
 		//it changed
-		ModelManager::getInstance()->modelHasChanged();
+		KMessageBox::information(this, i18n("The sample rate has been changed. This will influence the generated speech model.\n\nHowever, the model needs to be recompiled. Please start a manual synchronization now."));
 	}
 }
 

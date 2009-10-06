@@ -84,7 +84,6 @@ private:
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class
 	TrayIconManager *trayManager; //!< Handles the TrayIcon
-	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
 	VocabularyView *vocabularyView;
 	GrammarView *grammarView; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"

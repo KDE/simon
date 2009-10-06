@@ -37,6 +37,8 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 	
 	//clean member
 	qDeleteAll(m_words);
+	m_words.clear();
+	terminals.clear();
 
 	QDomElement wordElem = vocabularyElem.firstChildElement();
 
@@ -50,8 +52,9 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 		QString terminal = terminalElem.text();
 		int probability = TrainingManager::getInstance()->getProbability(name);
 
+		if (!terminals.contains(terminal)) terminals << terminal;
+
 		m_words << new Word(name, pronunciation, terminal, probability);
-		//m_words << new Word(QString("test"), QString("test"), QString("test"));
 
 		wordElem = wordElem.nextSiblingElement();
 	}
@@ -86,6 +89,7 @@ QDomElement Vocabulary::serialize(QDomDocument *doc)
 
 bool Vocabulary::removeWord(Word* w)
 {
+	//not updating terminal cache...
 	for (int i=0; i < m_words.count(); i++) {
 		if (m_words.at(i) == w) {
 			beginRemoveRows(QModelIndex(), i, i);
@@ -104,9 +108,6 @@ QVariant Vocabulary::data(const QModelIndex &index, int role) const
 
 	Word *word = m_words.at(index.row());
 
-	if (!word) {
-		return QVariant();
-	}
 	if (role == Qt::DisplayRole) 
 	{
 		switch (index.column())
@@ -167,6 +168,68 @@ QVariant Vocabulary::headerData(int column, Qt::Orientation orientation,
 }
 
 
+void Vocabulary::sortWords()
+{
+	//qSort will sort based on pointer addresses so this is obviously bogus
+//	qSort(m_words.begin(), m_words.end());
+}
+
+bool Vocabulary::appendWordRaw(Word* w)
+{
+	return insertWordRaw(wordCount(), w);
+}
+
+bool Vocabulary::insertWordRaw(int pos, Word* w)
+{
+	m_words.insert(pos, w);
+	return true;
+}
+
+bool Vocabulary::addWord(Word *w)
+{
+	QList<Word*> *wList = new QList<Word*>();
+	wList->append(w);
+	return addWords(wList);
+}
+
+/**
+ * The list of words has to be sorted
+ * The input list will be destroyed!
+ */
+bool Vocabulary::addWords(QList<Word*> *w)
+{
+	if (!w) return false;
+
+	kDebug() << this;
+
+	//insertion
+	for (int i=0; i < m_words.count(); i++) {
+		if (!( *(m_words[i]) < *(w->at(0)) )) {
+		//	kDebug() << m_words[i]->getWord() << " !< " << w->at(0)->getWord();
+			if (!terminals.contains(w->at(0)->getTerminal()))
+				terminals << w->at(0)->getTerminal();
+			m_words.insert(i, w->takeAt(0));
+			if (w->isEmpty()) break;
+		} //else
+		//	kDebug() << m_words[i]->getWord() << " < " << w->at(0)->getWord();
+	}
+
+	if (!w->isEmpty()) {
+		foreach (Word *word, *w) {
+		//	kDebug() << "Appending: " << word->getWord();
+			if (!terminals.contains(word->getTerminal()))
+				terminals << word->getTerminal();
+			m_words.append(word);
+		}
+	}
+
+	delete w;
+	
+	reset();
+
+	return true;
+}
+
 QModelIndex Vocabulary::parent(const QModelIndex &index) const
 {
 	Q_UNUSED(index);
@@ -186,5 +249,52 @@ int Vocabulary::columnCount(const QModelIndex &parent) const
 	return 4;
 }
 
+bool Vocabulary::containsWord(const QString& word)
+{
+	Q_UNUSED(word);
+	//TODO: implement
+	return false;
+}
 
+bool Vocabulary::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
+{
+	Q_UNUSED(word);
+	//TODO: implement
+	return false;
+}
+
+QString Vocabulary::getRandomWord(const QString& terminal)
+{
+	Q_UNUSED(terminal);
+	//TODO: implement
+	return QString();
+}
+
+bool Vocabulary::renameTerminal(const QString& from, const QString& to)
+{
+	foreach (Word *w, m_words)
+		if (w->getTerminal() == from)
+			w->setTerminal(to);
+	return true;
+}
+
+QStringList Vocabulary::getTerminals()
+{
+	return terminals;
+}
+
+/*
+ * @warning:	This returns a list containing shallow copies of the words of the vocabulary
+ * 		Don't delete its contents!
+ */
+QList<Word*>* Vocabulary::findWords(const QString& name)
+{
+	//TODO: implement
+	return new QList<Word*>();
+}
+
+Vocabulary::~Vocabulary()
+{
+	qDeleteAll(m_words);
+}
 

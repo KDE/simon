@@ -19,10 +19,9 @@
 
 
 #include "mergeterminals.h"
+#include <speechmodelmanagement/scenariomanager.h>
+#include "modelmanageruiproxy.h"
 #include <KLocalizedString>
-
-#include <speechmodelmanagement/wordlistmanager.h>
-#include <speechmodelmanagement/grammarmanager.h>
 
 MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 {
@@ -30,32 +29,29 @@ MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 
 void MergeTerminals::run()
 {
+	ModelManagerUiProxy::getInstance()->startGroup();
+
 	emit status(i18n("Processing Words of Terminal %1", this->terminalA));
 	emit progress(0,100);
 
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	WordListManager *wordListManager = WordListManager::getInstance();
+	SpeechModel::ModelElements elements = SpeechModel::ScenarioVocabulary;
+	if (includeGrammar)
+		elements = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elements);
 
-	wordListManager->renameTerminal(terminalA, newName, includeShadow);
+	if (includeShadow)
+		elements = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elements);
+
+	ScenarioManager::getInstance()->renameTerminal(terminalA, newName, elements);
 
 	emit status(i18n("Processing Words of Terminal %1", this->terminalB));
-	emit progress(45,100);
+	emit progress(50,100);
 
-	wordListManager->renameTerminal(terminalB, newName, includeShadow);
+	ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);
 
-	if (includeGrammar)
-	{
-		emit status(i18n("Adapting Grammar"));
-		emit progress(90,100);
-		grammarManager->renameTerminal(terminalA, newName);
-		emit progress(95,100);
-		grammarManager->renameTerminal(terminalB, newName);
-	}
+	ModelManagerUiProxy::getInstance()->commitGroup();
 
 	emit status(i18n("Finished"));
 	emit progress(100,100);
-	wordListManager->save();
-	//grammarManager->save(); saved automagically
 	emit done();
 }
 

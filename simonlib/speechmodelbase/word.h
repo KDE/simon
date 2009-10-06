@@ -204,4 +204,6 @@ public:
 
 };
 
+bool isWordLessThan(Word *w1, Word *w2);
+
 #endif

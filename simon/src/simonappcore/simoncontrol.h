@@ -38,6 +38,7 @@
 #include <QStringList>
 #include <QList>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
+#include <speechmodelmanagement/scenariomanager.h>
 #include "simonappcore_export.h"
 
 class QSettings;
@@ -45,14 +46,12 @@ class QVariant;
 class RecognitionControl;
 class ActionManager;
 
-class Scenario;
-class ScenarioDisplay;
+class ShadowVocabulary;
 
 class SIMONAPPCORE_EXPORT SimonControl : public QObject {
 	Q_OBJECT
 
 public:
-	
 	enum SystemStatus {
 		Disconnected=0,
 		Connecting=1,
@@ -82,12 +81,6 @@ public:
 	bool startMinimized();
 	QString adminPassword();
 
-	QList<Scenario*> getScenarios() { return scenarios; }
-	void registerScenarioDisplay(ScenarioDisplay *display) {
-		scenarioDisplays.append(display);
-	}
-	Scenario *getScenario(const QString& id);
-	
 signals:
 	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
@@ -112,9 +105,6 @@ public slots:
 	void abortConnecting();
 
 	void compileModel();
-	// If force is true, every registered display will switch to this scenario
-	// if not, only displays that already display the scenario will be updated
-	void updateDisplays(Scenario* scenario, bool force=false);
 
 private slots:
 	void slotConnectionError(const QString& err);
@@ -135,10 +125,6 @@ private:
 	SimonControl::SystemStatus status;
 	
 	RecognitionControl *recognitionControl; //!< Julius Backend
-
-	QList<Scenario*> scenarios;
-	QList<ScenarioDisplay*> scenarioDisplays;
-	void setupScenarios();
 };
 
 #endif

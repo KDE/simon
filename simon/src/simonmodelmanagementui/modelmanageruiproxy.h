@@ -45,16 +45,15 @@ private slots:
 
 private:
 	static ModelManagerUiProxy *instance;
+	ModelManagerUiProxy(QObject *parent=0);
 
 public:
-	ModelManagerUiProxy(QObject *parent=0);
-	~ModelManagerUiProxy();
+	static ModelManagerUiProxy* getInstance() {
+		if (!instance) instance = new ModelManagerUiProxy();
+		return instance;
+	}
 
-	void sampleNotAvailable(const QString&);
-	void wordUndefined(const QString&);
-	void classUndefined(const QString&);
- 	void phonemeUndefined(const QString&);
-	void displayCompilationProtocol(const QString& protocol);
+	~ModelManagerUiProxy();
 
 	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
 				const QByteArray& activeVocab, const QByteArray& activeLexicon);

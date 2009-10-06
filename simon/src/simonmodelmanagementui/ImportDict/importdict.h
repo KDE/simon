@@ -24,6 +24,7 @@
 
 #include "dict.h"
 #include <speechmodelbase/word.h>
+#include <speechmodelmanagement/vocabulary.h>
 #include <QThread>
 
 class Dict;
@@ -42,21 +43,27 @@ private:
 	QString encoding; //!< the encoding of the dictionary
 	int type;
 	Dict *dict;
+	QList<Word*> *wordList;
 	bool deleteFileWhenDone;
+
 signals:
 	void status(QString);
 	void progress(int);
-	void finished(WordList*);
+	//void finished(WordList*);
 	void opened();
+	void failed();
+	void successful();
+
 private slots:
 	void loadProgress(int prog);
 	void openingFinished();
 public slots:
 	void deleteDict();
 public:
+    QList<Word*>* getCurrentWordList();
     ImportDict(QObject *parent=0);
     void run();
-    void parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone=false);
+    void parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone);
     ~ImportDict();
 
 };

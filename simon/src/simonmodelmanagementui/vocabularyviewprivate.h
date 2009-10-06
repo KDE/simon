@@ -31,8 +31,8 @@
 #include <simonscenariobase/scenariodisplay.h>
 
 
-class ShadowVocabulary;
 class QSortFilterProxyModel;
+class AddWordView;
 
 /**
  *	@class VocabularyViewPrivate
@@ -47,7 +47,6 @@ class QSortFilterProxyModel;
 class VocabularyViewPrivate : public QWidget, public ScenarioDisplay {
 	Q_OBJECT
 private:
-	ShadowVocabulary *shadowVocab;
 	QSortFilterProxyModel *activeProxy;
 	QSortFilterProxyModel *shadowProxy;
 
@@ -64,7 +63,6 @@ public slots:
 	void deleteTrainingWord();
 	void deleteSelectedWord();
 	void trainList();
-	void importDict(WordList* list, WordListTarget::WordListType type);
 	void refreshActiveView();
 	void refreshShadowView();
 	void showImportDictDialog();
@@ -72,7 +70,7 @@ public slots:
 
 public:
 	VocabularyViewPrivate(QWidget *parent);
-	
+
 	~VocabularyViewPrivate();
 
 };

@@ -23,7 +23,7 @@
 #include "../AddWord/addwordview.h"
 
 #include <speechmodelmanagement/trainingmanager.h>
-#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/scenariomanager.h>
 #include <speechmodelbase/trainingtext.h>
 
 #include <QWizardPage>
@@ -128,7 +128,7 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 		if (KMessageBox::questionYesNoCancel(0, i18n("Your vocabulary does not define all words used in this text. These words are "
 "missing:\n%1\n\nDo you want to add them now?", missingWords.join(", "))) == KMessageBox::Yes)
 		{
-			AddWordView *addWord = new AddWordView(this);
+			AddWordView *addWord = new AddWordView(0);
 			addWord->addWords(missingWords);
 			if (!addWord->exec())
 				return false;

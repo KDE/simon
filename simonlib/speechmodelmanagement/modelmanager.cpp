@@ -18,8 +18,6 @@
  */
 
 #include "modelmanager.h"
-#include "grammarmanager.h"
-#include "wordlistmanager.h"
 #include "trainingmanager.h"
 #include "speechmodelmanagementconfiguration.h"
 
@@ -29,6 +27,8 @@
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
 
+#include <speechmodelmanagement/scenariomanager.h>
+
 #include <KStandardDirs>
 #include <QFile>
 #include <QFileInfo>
@@ -36,25 +36,17 @@
 #include <QDir>
 
 
-ModelManager* ModelManager::instance;
-
 ModelManager::ModelManager(QObject* parent) : QObject(parent),
 	modelChangedFlag(false),
 	inGroup(false)
 {
-	connect (WordListManager::getInstance(), SIGNAL(wordlistChanged()), 
-		  this, SLOT(modelHasChanged()));
-
-	connect (WordListManager::getInstance(), SIGNAL(shadowListChanged()), 
+	connect (ScenarioManager::getInstance(), SIGNAL(scenariosChanged()), 
 		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
 		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingSettingsChanged()),
-		  this, SLOT(modelHasChanged()));
-	
-	connect (GrammarManager::getInstance(), SIGNAL(structuresChanged()), 
 		  this, SLOT(modelHasChanged()));
 }
 
@@ -165,7 +157,7 @@ QByteArray ModelManager::getSample(const QString& sampleName)
 
 WordListContainer* ModelManager::getWordListContainer()
 {
-	WordList *simpleVocabList = WordListManager::getInstance()->getSimpleVocab();
+/*	WordList *simpleVocabList = WordListManager::getInstance()->getSimpleVocab();
 	WordListManager::getInstance()->saveWordList(simpleVocabList, 
 						      KStandardDirs::locateLocal("tmp", "simplevocab"));
 	delete simpleVocabList;
@@ -180,7 +172,8 @@ WordListContainer* ModelManager::getWordListContainer()
 		|| (!activeLexicon.open(QIODevice::ReadOnly)))
 		return 0;
 
-	return new WordListContainer(simpleVocab.readAll(), activeVocab.readAll(), activeLexicon.readAll());
+	return new WordListContainer(simpleVocab.readAll(), activeVocab.readAll(), activeLexicon.readAll());*/
+	return 0;
 }
 
 QDateTime ModelManager::getWordListModifiedTime()
@@ -204,14 +197,15 @@ QDateTime ModelManager::getWordListModifiedTime()
 bool ModelManager::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
 			const QByteArray& activeVocab, const QByteArray& activeLexicon)
 {
-	if (!WordListManager::getInstance()->refreshWordListFiles(simpleVocab, activeVocab, activeLexicon))
+/*	if (!WordListManager::getInstance()->refreshWordListFiles(simpleVocab, activeVocab, activeLexicon))
 		return false;
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("WordListDate", changedTime);
 	config.sync();
-	return true;
+	return true;*/
+	return false;
 }
 
 GrammarContainer* ModelManager::getGrammarContainer()
@@ -236,13 +230,14 @@ QDateTime ModelManager::getGrammarModifiedTime()
 
 bool ModelManager::storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures)
 {
-	if (!GrammarManager::getInstance()->refreshFiles(grammarStructures)) return false;
+/*	if (!GrammarManager::getInstance()->refreshFiles(grammarStructures)) return false;
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("GrammarDate", changedTime);
 	config.sync();
-	return true;
+	return true;*/
+	return false;
 }
 
 
@@ -277,7 +272,7 @@ QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed)
 {
-	if (!WordListManager::getInstance()->refreshShadowListFiles(shadowVocab)) return false;
+/*	if (!WordListManager::getInstance()->refreshShadowListFiles(shadowVocab)) return false;
 	
 	QFile treeHedF(KStandardDirs::locateLocal("appdata", "model/tree1.hed"));
 	if (!treeHedF.open(QIODevice::WriteOnly))
@@ -290,7 +285,8 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, const 
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("LanguageDescriptionDate", changedTime);
 	config.sync();
-	return true;
+	return true;*/
+	return false;
 }
 
 

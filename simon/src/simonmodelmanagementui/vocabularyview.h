@@ -47,7 +47,7 @@ protected:
 
 public:
 	VocabularyView(QWidget *parent);
-	
+
 	~VocabularyView();
 
 };

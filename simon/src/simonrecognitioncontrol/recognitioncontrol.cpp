@@ -26,6 +26,8 @@
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
 
+#include <speechmodelmanagement/trainingmanager.h>
+
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
@@ -93,8 +95,7 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
-	timeoutWatcher(new QTimer(this)),
-	modelManager(new ModelManagerUiProxy(this))
+	timeoutWatcher(new QTimer(this))
 {
 	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
@@ -112,7 +113,7 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
 	
 	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
-	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
+	connect(ModelManagerUiProxy::getInstance(), SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
 void RecognitionControl::actOnAutoConnect()
@@ -380,13 +381,13 @@ void RecognitionControl::sendActiveModelModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::ActiveModelDate
-		<< modelManager->getActiveContainerModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
 	socket->write(toWrite);
 }
 	
 bool RecognitionControl::sendActiveModel()
 {
-	Model *model = modelManager->createActiveContainer();
+	Model *model = ModelManagerUiProxy::getInstance()->createActiveContainer();
 	if (!model) {
 		emit synchronisationWarning(i18n("Couldn't create model container"));
 		sendRequest(Simond::ErrorRetrievingActiveModel);
@@ -398,7 +399,7 @@ bool RecognitionControl::sendActiveModel()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << modelManager->getActiveContainerModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime()
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
@@ -419,7 +420,7 @@ bool RecognitionControl::sendActiveModel()
 
 void RecognitionControl::sendActiveModelSampleRate()
 {
-	qint32 smpFreq = modelManager->getActiveModelSampleRate();
+	qint32 smpFreq = ModelManagerUiProxy::getInstance()->getActiveModelSampleRate();
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -434,7 +435,7 @@ void RecognitionControl::sendModelSrcModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::ModelSrcDate
-		<< modelManager->getSrcContainerModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getSrcContainerModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -444,7 +445,7 @@ void RecognitionControl::sendWordListModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::WordListDate
-		<< modelManager->getWordListModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getWordListModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -455,11 +456,11 @@ void RecognitionControl::sendWordList()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	WordListContainer *wordList = modelManager->getWordListContainer();
+	WordListContainer *wordList = ModelManagerUiProxy::getInstance()->getWordListContainer();
 	if (!wordList)
 		sendRequest(Simond::ErrorRetrievingWordList);
 	
-	bodyStream << modelManager->getWordListModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getWordListModifiedTime()
 		<< wordList->simpleVocab()
 		<< wordList->activeVocab()
 		<< wordList->activeLexicon();
@@ -480,7 +481,7 @@ void RecognitionControl::sendGrammarModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::GrammarDate
-		<< modelManager->getGrammarModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getGrammarModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -492,9 +493,9 @@ void RecognitionControl::sendGrammar()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	GrammarContainer *grammar = modelManager->getGrammarContainer();
+	GrammarContainer *grammar = ModelManagerUiProxy::getInstance()->getGrammarContainer();
 	
-	bodyStream << modelManager->getGrammarModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getGrammarModifiedTime()
 		<< grammar->grammarStructures();
 
 	out << (qint32) Simond::Grammar
@@ -513,7 +514,7 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::LanguageDescriptionDate
-		<< modelManager->getLanguageDescriptionModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -525,9 +526,9 @@ void RecognitionControl::sendLanguageDescription()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	LanguageDescriptionContainer *languageDescription = modelManager->getLanguageDescriptionContainer();
+	LanguageDescriptionContainer *languageDescription = ModelManagerUiProxy::getInstance()->getLanguageDescriptionContainer();
 	
-	bodyStream << modelManager->getLanguageDescriptionModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime()
 		<< languageDescription->treeHed()
 		<< languageDescription->shadowVocab();
 
@@ -547,7 +548,7 @@ void RecognitionControl::sendTrainingModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::TrainingDate
-		<< modelManager->getTrainingModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -559,9 +560,9 @@ void RecognitionControl::sendTraining()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	TrainingContainer *training = modelManager->getTrainingContainer();
+	TrainingContainer *training = ModelManagerUiProxy::getInstance()->getTrainingContainer();
 	
-	bodyStream << modelManager->getTrainingModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime()
 		<< training->sampleRate()
 		<< training->wavConfig()
 		<< training->prompts();
@@ -577,17 +578,17 @@ void RecognitionControl::sendTraining()
 
 void RecognitionControl::synchronizeSamples()
 {
-	Q_ASSERT(modelManager);
+	Q_ASSERT(ModelManagerUiProxy::getInstance());
 	
-	modelManager->buildMissingSamplesList();
+	ModelManagerUiProxy::getInstance()->buildMissingSamplesList();
 	fetchMissingSamples();
 }
 
 void RecognitionControl::fetchMissingSamples()
 {
-	Q_ASSERT(modelManager);
+	Q_ASSERT(ModelManagerUiProxy::getInstance());
 	
-	QString sample = modelManager->missingSample();
+	QString sample = ModelManagerUiProxy::getInstance()->missingSample();
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
@@ -615,7 +616,7 @@ void RecognitionControl::sendSample(QString sampleName)
 	
 	sampleName += ".wav";
 	
-	QByteArray sample = modelManager->getSample(sampleName);
+	QByteArray sample = ModelManagerUiProxy::getInstance()->getSample(sampleName);
 	
 	if (sample.isNull())
 	{
@@ -624,7 +625,7 @@ void RecognitionControl::sendSample(QString sampleName)
 			synchronisationOperation->canceled();
 
 		synchronisationDone();
-		modelManager->sampleNotAvailable(sampleName);
+		sampleNotAvailable(sampleName);
 		return;
 	}
 
@@ -667,7 +668,7 @@ void RecognitionControl::startSynchronisation()
 	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kDebug() << "Starting synchronisation";
-	modelManager->startGroup();
+	ModelManagerUiProxy::getInstance()->startGroup();
 	sendRequest(Simond::StartSynchronisation);
 	kDebug() << stillToProcess.count();
 }
@@ -693,7 +694,7 @@ void RecognitionControl::synchronisationDone()
 		synchronisationOperation=NULL;
 	}
 
-	modelManager->commitGroup(true /*silent*/);
+	ModelManagerUiProxy::getInstance()->commitGroup(true /*silent*/);
 }
 
 
@@ -825,7 +826,7 @@ void RecognitionControl::messageReceived()
 					msg >> dict;
 					msg >> dfa;
 					
-					modelManager->storeActiveModel(changedTime, sampleRate, 
+					ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate, 
 									hmmDefs, tiedList, dict, dfa);
 					
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
@@ -916,7 +917,7 @@ void RecognitionControl::messageReceived()
 					msg >> wavConfig;
 					msg >> prompts;
 					
-					modelManager->storeTraining(changedTime, sampleRate,wavConfig,prompts);
+					ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,wavConfig,prompts);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
@@ -982,7 +983,7 @@ void RecognitionControl::messageReceived()
 					msg >> vocab;
 					msg >> lexicon;
 					
-					modelManager->storeWordList(changedTime,simple,vocab,lexicon);
+					ModelManagerUiProxy::getInstance()->storeWordList(changedTime,simple,vocab,lexicon);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					synchronisationOperation->update(i18n("Synchronizing Grammar"), 24);
@@ -1047,7 +1048,7 @@ void RecognitionControl::messageReceived()
 					msg >> changedTime;
 					msg >> grammar;
 					
-					modelManager->storeGrammar(changedTime,grammar);
+					ModelManagerUiProxy::getInstance()->storeGrammar(changedTime,grammar);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					sendLanguageDescriptionModifiedDate();
@@ -1109,7 +1110,7 @@ void RecognitionControl::messageReceived()
 					msg >> changedTime;
 					msg >> treeHed;
 					msg >> shadowVocab;
-					modelManager->storeLanguageDescription(changedTime,shadowVocab, treeHed);
+					ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
 					sendRequest(Simond::StartTrainingsSampleSynchronisation);
@@ -1146,7 +1147,7 @@ void RecognitionControl::messageReceived()
 				case Simond::ErrorRetrievingTrainingsSample:
 				{
 					advanceStream(sizeof(qint32));
-					modelManager->sampleNotAvailable(modelManager->missingSample());
+					sampleNotAvailable(ModelManagerUiProxy::getInstance()->missingSample());
 					synchronisationDone();
 					break;
 				}
@@ -1184,7 +1185,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					kDebug() << "Server sent Trainings-Sample";
 					
-					if (!modelManager->storeSample(sample))
+					if (!ModelManagerUiProxy::getInstance()->storeSample(sample))
 					{
 						sendRequest(Simond::TrainingsSampleStorageFailed);
 						synchronisationDone();
@@ -1322,7 +1323,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->wordUndefined(QString::fromUtf8(word));
+					wordUndefined(QString::fromUtf8(word));
 					break;
 				}	
 				case Simond::ModelCompilationClassUndefined: {
@@ -1333,7 +1334,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->classUndefined(QString::fromUtf8(undefClass));
+					classUndefined(QString::fromUtf8(undefClass));
 					break;
 				}	
 				case Simond::ModelCompilationPhonemeUndefined: {
@@ -1344,7 +1345,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->phonemeUndefined(QString::fromUtf8(phoneme));
+					phonemeUndefined(QString::fromUtf8(phoneme));
 					break;
 				}
 
@@ -1368,7 +1369,7 @@ void RecognitionControl::messageReceived()
 					msg >> protocol;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					modelManager->displayCompilationProtocol(QString::fromUtf8(protocol));
+					displayCompilationProtocol(QString::fromUtf8(protocol));
 				}
 				
 
@@ -1559,6 +1560,61 @@ void RecognitionControl::resumeRecognition()
 //	sendRequest(Simond::ResumeRecognition);
 }
 
+void RecognitionControl::displayCompilationProtocol(const QString& protocol)
+{
+	KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
+}
+
+void RecognitionControl::sampleNotAvailable(const QString& sample)
+{
+	if (KMessageBox::questionYesNo(0, i18n("The sample \"%1\" could not be found neither on the local computer nor the "
+"server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes)
+	{
+		//kick some poor samples ass
+		ModelManagerUiProxy::getInstance()->startGroup();
+		QString sampleBaseName = sample.left(sample.length()-4);
+		kDebug() << "Deleting: " << sampleBaseName;
+		bool succ = TrainingManager::getInstance()->removeSample(sampleBaseName);
+		if (succ)
+			TrainingManager::getInstance()->savePrompts();
+
+		ModelManagerUiProxy::getInstance()->commitGroup(false /*silent*/);
+
+		if (!succ)
+			KMessageBox::error(0, i18n("Couldn't remove Sample from the Trainingscorpus"));
+	}
+}
+
+
+
+
+void RecognitionControl::wordUndefined(const QString& word)
+{
+	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
+"in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
+		return;
+//	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
+
+	//FIXME: fix me!
+/*	AddWordView *addWordView = new AddWordView(0);
+	addWordView->createWord(word);
+	addWordView->show();
+	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));*/
+}
+
+void RecognitionControl::classUndefined(const QString& undefClass)
+{
+	KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
+}
+
+void RecognitionControl::phonemeUndefined(const QString& phoneme)
+{
+	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
+}
+
+
+
+
 /**
  *	@brief Destructor
  *	
@@ -1568,7 +1624,6 @@ RecognitionControl::~RecognitionControl()
 {
     delete socket;
     delete timeoutWatcher;
-    delete modelManager;
 }
 
 

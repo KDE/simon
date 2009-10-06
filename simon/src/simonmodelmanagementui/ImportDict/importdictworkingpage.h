@@ -40,8 +40,9 @@ class ImportDictWorkingPage : public QWizardPage
 {
 	Q_OBJECT
 signals:
-	void wordListImported(WordList* wlist);
+	void done();
 	void failed();
+	
 private:
 	QProgressBar *pbMain;
 	ImportDict *import; //!< Underlying concept class
@@ -67,6 +68,7 @@ public slots:
 
 public:
 	void initializePage();
+	QList<Word*>* getCurrentWordList();
     ImportDictWorkingPage(QWidget* parent);
 
     ~ImportDictWorkingPage();

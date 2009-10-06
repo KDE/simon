@@ -49,7 +49,6 @@ void VocabularyView::displayScenarioPrivate(Scenario *scenario)
 }
 
 
-
 /**
  * @brief Destructor
  *

@@ -21,9 +21,10 @@
 #include "trainingmanager.h"
 
 #include <simonlogging/logger.h>
-#include "wordlistmanager.h"
 #include "speechmodelmanagementconfiguration.h"
 #include "xmltrainingtext.h"
+#include "scenariomanager.h"
+#include "scenario.h"
 
 #include <QFile>
 #include <QDir>
@@ -336,7 +337,8 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
 			word.remove ( "]" );
 			word = word.trimmed();
 			
-			if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
+			//if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
+			if (!ScenarioManager::getInstance()->getCurrentScenario()->containsWord(word))
 			{
 				if (!strListAllWords.contains(word))
 					strListAllWords.append ( word );

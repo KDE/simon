@@ -34,6 +34,8 @@
 
 #include <simonmodelmanagementui/vocabularyview.h>
 
+#include <speechmodelmanagement/scenariomanager.h>
+
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
@@ -144,7 +146,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
 	vocabularyView = new VocabularyView(this);
-	control->registerScenarioDisplay(vocabularyView);
+	ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
 	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
 	this->grammarView = new GrammarView(this);
@@ -158,7 +160,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	settingsShown=false;
 
 	cbCurrentScenario = new QComboBox(this);
-	QList<Scenario*> scenarioList = control->getScenarios();
+	QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
 	foreach (Scenario* s, scenarioList) {
 		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
 	}
@@ -195,13 +197,13 @@ void SimonView::updateScenarioDisplays()
 	if (currentIndex == -1) return;
 
 	QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
-	Scenario *scenario = control->getScenario(currentId);
+	Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
 	kDebug() << "Scenario " << scenario;
 	if (!scenario) {
 		KMessageBox::error(this, i18n("Couldn't retrieve Scenario \"%1\"", currentId));
 		return;
 	}
-	control->updateDisplays(scenario, true);
+	ScenarioManager::getInstance()->updateDisplays(scenario, true);
 }
 
 void SimonView::setupActions()
@@ -392,8 +394,9 @@ void SimonView::showRunDialog ()
  */
 void SimonView::showAddWordDialog ( )
 {
-	AddWordView *addWordView = new AddWordView(this);
+	AddWordView *addWordView = new AddWordView();
 	addWordView->show();
+	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
 }
 
 

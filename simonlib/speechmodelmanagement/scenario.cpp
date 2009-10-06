@@ -27,9 +27,6 @@
 
 #include <simonactions/action.h>
 
-//Just for testing of the actions
-#include <commandpluginbase/commandmanager.h>
-
 #include "version.h"
 
 
@@ -171,11 +168,6 @@ bool Scenario::init(QString path)
 			kDebug() << "Couldn't load action";
 		} else {
 			m_actions << a;
-
-			//begin test
-		//	RecognitionResult r("", "sdofij", "sdofij", QList<float>() << 1.0f);
-		//	a->manager()->processResult(r);
-			//end test
 		}
 
 		pluginElem = pluginElem.nextSiblingElement();
@@ -288,6 +280,91 @@ bool Scenario::save(QString path)
 	file.write(doc.toString().toUtf8());
 
 	return true;
+}
+
+bool Scenario::emitChangedIfTrue(bool input)
+{
+	if (input) {
+		emit changed(this);
+		return true;
+	}
+	return false;
+}
+
+bool Scenario::addWords(QList<Word*>* w)
+{
+	return emitChangedIfTrue(m_vocabulary->addWords(w));
+}
+
+bool Scenario::addWord(Word* w)
+{
+	return emitChangedIfTrue(m_vocabulary->addWord(w));
+}
+
+bool Scenario::removeWord(Word* w)
+{
+	return emitChangedIfTrue(m_vocabulary->removeWord(w));
+}
+
+QStringList Scenario::getTerminals(SpeechModel::ModelElements elements)
+{
+	QStringList terminals;
+
+	if (elements & SpeechModel::ScenarioVocabulary)
+		terminals = m_vocabulary->getTerminals();
+
+	if (elements & SpeechModel::ScenarioGrammar) {
+		QStringList grammarTerminals = m_grammar->getTerminals();
+		foreach (const QString& terminal, grammarTerminals)
+			if (!terminals.contains(terminal))
+				terminals << terminal;
+	}
+
+	return terminals;
+}
+
+bool Scenario::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
+{
+	bool success = true;
+	bool scenarioChanged = false;
+
+	if (affect & SpeechModel::ScenarioVocabulary) {
+		if (m_vocabulary->renameTerminal(terminal, newName))
+			scenarioChanged=true;
+		else
+			success=false;
+	}
+
+	if (affect & SpeechModel::ScenarioGrammar) {
+		if (m_grammar->renameTerminal(terminal, newName))
+			scenarioChanged=true;
+		else
+			success=false;
+	}
+
+	if (scenarioChanged) emit changed(this);
+
+	return success;
+}
+
+QList<Word*>* Scenario::findWords(const QString& name)
+{
+	return m_vocabulary->findWords(name);
+}
+
+QString Scenario::getRandomWord(const QString& terminal)
+{
+	return m_vocabulary->getRandomWord(terminal);
+}
+
+bool Scenario::containsWord(const QString& word)
+{
+	return emitChangedIfTrue(m_vocabulary->containsWord(word));
+}
+
+bool Scenario::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
+{
+	return emitChangedIfTrue(m_vocabulary->containsWord(word, terminal, pronunciation));
 }
 
 Scenario::~Scenario()
