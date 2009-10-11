@@ -144,7 +144,6 @@ SoundDeviceList* SoundControl::getInputDevices()
 		
 		if (deviceInfo->maxInputChannels > 0)
 		{ 	//yay it's an input-device!
-			//TODO: samplerate as double? wtf?
 			sdl->append(SoundDevice ( i, QString(deviceInfo->name), deviceInfo->maxInputChannels, (int) deviceInfo->defaultSampleRate ));
 		}
 	}

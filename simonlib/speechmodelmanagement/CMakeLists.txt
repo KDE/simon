@@ -15,7 +15,6 @@ set( simonmodelmanagement_LIB_SRCS
 	#	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/xmltrainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp

@@ -23,6 +23,14 @@
 #include <QDomDocument>
 #include <QDomElement>
 
+bool isWordLessThan(Word *w1, Word *w2)
+{
+	if (w1->getLexiconWord() < w2->getLexiconWord())
+		return true;
+	else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) || 
+						((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
+}
+
 /**
  * Empty, private constructor
  */
@@ -87,7 +95,7 @@ QDomElement Vocabulary::serialize(QDomDocument *doc)
 	return elem;
 }
 
-bool Vocabulary::removeWord(Word* w)
+bool Vocabulary::removeWord(Word* w, bool deleteWord)
 {
 	//not updating terminal cache...
 	for (int i=0; i < m_words.count(); i++) {
@@ -95,6 +103,7 @@ bool Vocabulary::removeWord(Word* w)
 			beginRemoveRows(QModelIndex(), i, i);
 			m_words.removeAt(i);
 			endRemoveRows();
+			if (deleteWord) delete w;
 			return true;
 		}
 	}
@@ -132,7 +141,7 @@ QModelIndex Vocabulary::index(int row, int column,
 	if (!hasIndex(row, column, parent) || parent.isValid())
 		return QModelIndex();
 
-	return createIndex(row, column, (void*) m_words.at(row));
+	return createIndex(row, column,  m_words.at(row));
 }
 
 
@@ -170,8 +179,7 @@ QVariant Vocabulary::headerData(int column, Qt::Orientation orientation,
 
 void Vocabulary::sortWords()
 {
-	//qSort will sort based on pointer addresses so this is obviously bogus
-//	qSort(m_words.begin(), m_words.end());
+	qSort(m_words.begin(), m_words.end(), isWordLessThan);
 }
 
 bool Vocabulary::appendWordRaw(Word* w)
@@ -205,13 +213,20 @@ bool Vocabulary::addWords(QList<Word*> *w)
 	//insertion
 	for (int i=0; i < m_words.count(); i++) {
 		if (!( *(m_words[i]) < *(w->at(0)) )) {
-		//	kDebug() << m_words[i]->getWord() << " !< " << w->at(0)->getWord();
-			if (!terminals.contains(w->at(0)->getTerminal()))
-				terminals << w->at(0)->getTerminal();
-			m_words.insert(i, w->takeAt(0));
-			if (w->isEmpty()) break;
+			if (*(m_words[i]) != *(w->at(0)))
+			{
+				//kDebug() << m_words[i]->getWord() << " !< " << w->at(0)->getWord();
+				if (!terminals.contains(w->at(0)->getTerminal()))
+					terminals << w->at(0)->getTerminal();
+				m_words.insert(i, w->takeAt(0));
+				if (w->isEmpty()) break;
+			} else {
+				//word already in the list
+				delete w->takeAt(0);
+
+			}
 		} //else
-		//	kDebug() << m_words[i]->getWord() << " < " << w->at(0)->getWord();
+			//kDebug() << m_words[i]->getWord() << " < " << w->at(0)->getWord();
 	}
 
 	if (!w->isEmpty()) {
@@ -229,6 +244,8 @@ bool Vocabulary::addWords(QList<Word*> *w)
 
 	return true;
 }
+
+
 
 QModelIndex Vocabulary::parent(const QModelIndex &index) const
 {
@@ -251,22 +268,35 @@ int Vocabulary::columnCount(const QModelIndex &parent) const
 
 bool Vocabulary::containsWord(const QString& word)
 {
-	Q_UNUSED(word);
-	//TODO: implement
+	foreach (Word *w, m_words)
+		if (QString::compare(w->getWord(), word, Qt::CaseInsensitive)==0)
+			return true;
 	return false;
 }
 
 bool Vocabulary::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
 {
-	Q_UNUSED(word);
-	//TODO: implement
+	foreach (Word *w, m_words)
+		if ((*w) == Word(word, terminal, pronunciation))
+			return true;
 	return false;
 }
 
 QString Vocabulary::getRandomWord(const QString& terminal)
 {
-	Q_UNUSED(terminal);
-	//TODO: implement
+	int starting = qrand() % m_words.count();
+
+	//start at this random position
+	for (int i=starting; i < m_words.count(); i++)
+		if (m_words[i]->getTerminal() == terminal)
+			return m_words[i]->getWord();
+
+	//no matching word found? start at 0
+	for (int i=0; i < starting; i++)
+		if (m_words[i]->getTerminal() == terminal)
+			return m_words[i]->getWord();
+
+	//still none? ok, there is nothing to see here...
 	return QString();
 }
 
@@ -287,10 +317,23 @@ QStringList Vocabulary::getTerminals()
  * @warning:	This returns a list containing shallow copies of the words of the vocabulary
  * 		Don't delete its contents!
  */
-QList<Word*>* Vocabulary::findWords(const QString& name)
+QList<Word*> Vocabulary::findWords(const QString& name)
 {
-	//TODO: implement
-	return new QList<Word*>();
+	QList<Word*> out;
+
+	Word *search = new Word(name, QString(), QString());
+	QList<Word*>::iterator begin = qLowerBound(m_words.begin(), m_words.end(), 
+			search, isWordLessThan);
+	delete search;
+
+	while (begin != m_words.end()) {
+		if ((*begin)->getWord().compare(name, Qt::CaseInsensitive)== 0) 
+			out << *begin;
+		else break;
+		begin++;
+	}
+
+	return out;
 }
 
 Vocabulary::~Vocabulary()

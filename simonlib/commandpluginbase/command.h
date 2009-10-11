@@ -38,9 +38,6 @@ class QDomDocument;
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- *
- * 	@TODO: For all plugins:
- * 		* Add methods serialize()
  */
 class Command;
 

@@ -68,7 +68,7 @@ public:
 	virtual bool addWords(QList<Word*> *w);
 	virtual bool addWord(Word* w);
 
-	bool removeWord(Word* w);
+	bool removeWord(Word* w, bool deleteWord=true);
 
 	QString getRandomWord(const QString& terminal);
 	bool containsWord(const QString& word);
@@ -81,7 +81,7 @@ public:
 
 	QStringList getTerminals();
 
-	QList<Word*>* findWords(const QString& name);
+	QList<Word*> findWords(const QString& name);
 
 enum VocabularyType {
 	ShadowVocabulary = 0,

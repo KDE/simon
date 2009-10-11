@@ -145,29 +145,44 @@ void VocabularyViewPrivate::deleteSelectedWord()
 {
 	if (!scenario) return;
 
-	QModelIndex selectedIndex = ui.tvActiveVocab->currentIndex();
+	bool isShadowed = true;
+	QAbstractItemView *view;
+
+	if (ui.twVocabularies->currentIndex() == 0) {
+		view = ui.tvActiveVocab;
+		isShadowed = false;
+	}  else {
+		view = ui.tvShadowVocab;
+		isShadowed = true;
+	}
+
+	QSortFilterProxyModel* m = static_cast<QSortFilterProxyModel*>(view->model());
+	QModelIndex selectedIndex = m->mapToSource(view->currentIndex());
 	if (!selectedIndex.isValid()) {
 		KMessageBox::information(this, i18n("Please select a word first"));
 		return;
 	}
 
-	Word *w = static_cast<Word*>(ui.tvActiveVocab->currentIndex().internalPointer());
+	Word *w = static_cast<Word*>(selectedIndex.internalPointer());
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
-	//TODO: shadow list display is not supported yet so this is always false
-	bool isShadowed = false;
-
-	if (del->exec(*w, isShadowed))
+	if (del->exec(w, isShadowed))
 	{
 		//delete the word
 		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow) {
-			KMessageBox::information(this, i18n("Not yet supported"));
-			//scenario->vocabulary()->removeWord(w);
-			//success = wordListManager->moveToShadow(w);
+			//this request has to come from a word that is currently in the active
+			//vocabulary
+			scenario->vocabulary()->removeWord(w, false /* don't delete the word */);
+			ScenarioManager::getInstance()->getShadowVocabulary()->addWord(w);
 		}
 		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely) {
-			scenario->vocabulary()->removeWord(w);
-			delete w;
+			if (ui.twVocabularies->currentIndex() == 0) {
+				//active dictionary
+				scenario->vocabulary()->removeWord(w);
+			} else {
+				//shadow vocabulary
+				ScenarioManager::getInstance()->getShadowVocabulary()->removeWord(w);
+			}
 		}
 	}
 	del->deleteLater();

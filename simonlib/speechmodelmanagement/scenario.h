@@ -71,7 +71,7 @@ public:
 	bool addWord(Word* w);
 	bool removeWord(Word* w);
 
-	QList<Word*>* findWords(const QString& name);
+	QList<Word*> findWords(const QString& name);
 
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);

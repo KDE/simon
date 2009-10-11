@@ -87,9 +87,9 @@ bool ActiveVocabulary::addWord(Word *w)
 	return parentScenario->save();
 }
 
-bool ActiveVocabulary::removeWord(Word* w)
+bool ActiveVocabulary::removeWord(Word* w, bool deleteWord)
 {
-	if (Vocabulary::removeWord(w)) {
+	if (Vocabulary::removeWord(w, deleteWord)) {
 		return parentScenario->save();
 	}
 	return false;

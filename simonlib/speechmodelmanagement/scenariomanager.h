@@ -65,7 +65,7 @@ public:
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
 
-	QList<Word*>* findWords(const QString& name, SpeechModel::ModelElements elements);
+	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements);
 
 	
 public slots:

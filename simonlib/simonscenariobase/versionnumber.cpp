@@ -155,7 +155,6 @@ QDomElement VersionNumber::serialize(QDomDocument *doc)
 
 	QDomText t = doc->createTextNode(toString());
 	elem.appendChild(t);
-	//TODO: fill it with data
 
 	return elem;
 }

@@ -117,7 +117,7 @@ void AddWordResolvePage::initializePage()
 					(SpeechModel::ModelElements)
 					(SpeechModel::ShadowVocabulary|
 					SpeechModel::ScenarioVocabulary|
-					SpeechModel::ScenarioGrammar)); //wordListManager->getTerminals();
+					SpeechModel::ScenarioGrammar));
 	terminals.removeAll("NS_E"); //remove sentence structures
 	terminals.removeAll("NS_B");
 	ui.cbType->addItems(terminals);
@@ -136,32 +136,33 @@ void AddWordResolvePage::fetchSimilar()
 	//WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
 	//WordList* similar = wordListManager->getWords(ui.leWord->text(), true, sType, false);
 	//TODO: Port to scenarios
-	WordList *similar = new WordList();
+	QList<Word*> similar = ScenarioManager::getInstance()->findWords(ui.leWord->text(), 
+			(SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
+			SpeechModel::AllScenariosVocabulary));
 	displayWords(similar);
 
 	if (ui.twSuggestions->rowCount() > 0)
 		ui.twSuggestions->selectRow(0);
 
-	if (similar->count() > 0)
+	if (similar.count() > 0)
 	{
 		//select the first suggestion
 		if (ui.leSampa->text().isEmpty() || (ui.leSampa->text() == suggestedSampa))
 		{
-			suggestedSampa = similar->at(0).getPronunciation();
+			suggestedSampa = similar[0]->getPronunciation();
 			ui.leSampa->setText(suggestedSampa);
 		}
 		if (!terminalDirty)
 		{
-			QString suggestedTerminal  = similar->at(0).getTerminal();
+			QString suggestedTerminal  = similar[0]->getTerminal();
 			ui.cbType->setCurrentIndex(ui.cbType->findText(suggestedTerminal));
 			terminalDirty=false;
 		}
 	}
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	connect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
-	delete similar;
-	
 }
+
 /**
  * \brief Creates two examples utilizing the grammarManger and sets the lineedit to the found examples
  * \author Peter Grasch 
@@ -228,21 +229,21 @@ void AddWordResolvePage::suggest()
  * \author Peter Grasch
  * @param words The words to display
  */
-void AddWordResolvePage::displayWords(WordList *words)
+void AddWordResolvePage::displayWords(QList<Word*> words)
 {
 	int i=0;
 	int limit=1000;
-	if (words->count() > limit)
+	if (words.count() > limit)
 		KMessageBox::information(this, i18n("The search for similar words yielded more than 1000 results.\n\nOnly the first 1000 are shown."));
 	setUpdatesEnabled(false); //to prevent endless lookups
 	ui.twSuggestions->clearContents();
-	ui.twSuggestions->setRowCount(qMin(words->count(), 1000));
-	while ((i < words->count()) && (i < limit))
+	ui.twSuggestions->setRowCount(qMin(words.count(), 1000));
+	while ((i < words.count()) && (i < limit))
 	{
-		ui.twSuggestions->setItem(i, 0, new QTableWidgetItem(words->at(i).getWord()));
-		ui.twSuggestions->setItem(i, 1, new QTableWidgetItem(words->at(i).getPronunciation()));
-		ui.twSuggestions->setItem(i, 2, new QTableWidgetItem(words->at(i).getTerminal()));
-		ui.twSuggestions->setItem(i, 3, new  QTableWidgetItem(QString().setNum(words->at(i).getPropability())));
+		ui.twSuggestions->setItem(i, 0, new QTableWidgetItem(words.at(i)->getWord()));
+		ui.twSuggestions->setItem(i, 1, new QTableWidgetItem(words.at(i)->getPronunciation()));
+		ui.twSuggestions->setItem(i, 2, new QTableWidgetItem(words.at(i)->getTerminal()));
+		ui.twSuggestions->setItem(i, 3, new  QTableWidgetItem(QString().setNum(words.at(i)->getPropability())));
 
 		for (int j = 0; j<4; j++)
 			ui.twSuggestions->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);

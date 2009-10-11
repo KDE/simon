@@ -132,7 +132,7 @@ QStringList ImportGrammar::importFile(QString path)
 	emit status(i18n("Processing..."));
 	emit fileProgress(0, structures.count());
 
-	QList<Word*>* lookupResult = new QList<Word*>();
+	QList<Word*> lookupResult;
 
 	QString currentSentence;
 	int progress=0;
@@ -162,7 +162,6 @@ QStringList ImportGrammar::importFile(QString path)
 			QStringList wordTerminals=terminals(lookupResult);
 			if (wordTerminals.count()==0) {
 				//dont delete the contents of the list
-				delete lookupResult;
 				lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
 										SpeechModel::ShadowVocabulary);
 				wordTerminals = terminals(lookupResult);
@@ -189,9 +188,6 @@ QStringList ImportGrammar::importFile(QString path)
 				else 
 					words.replace(j, wordTerminals[0]);
 			}*/
-
-				
-			delete lookupResult;
 		}
 		if (everyWordSure)
 		{
@@ -205,11 +201,11 @@ QStringList ImportGrammar::importFile(QString path)
 	return out;
 }
 
-QStringList ImportGrammar::terminals(QList<Word*> *in)
+QStringList ImportGrammar::terminals(QList<Word*> in)
 {
 	QStringList terminals;
 	QString terminal;
-	foreach (Word* w, *in)
+	foreach (Word* w, in)
 	{
 		terminal = w->getTerminal();
 		if (!terminals.contains(terminal)) terminals << terminal;

@@ -20,25 +20,6 @@
 
 #include "trainingtext.h"
 
-/**
- * TODO: Remove me!
- * @brief Constructor
- *
- *	@author Peter Grasch
- * \param QString name
- * The name of the text
- * \param QStringList pages
- * The pages of the text
- * \param float relevance
- * The relevance of the text - the higher the better it'd be to train the text
- */
-TrainingText::TrainingText(QString name_, QString path_, QStringList pages_) : ScenarioObject(NULL),
-	name(name_),
-	path(path_),
-	pages(pages_)
-{
-}
-
 TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 {
 }
@@ -67,14 +48,11 @@ bool TrainingText::deSerialize(const QDomElement& elem)
 		pageElem = pageElem.nextSiblingElement();
 	}
 
-	//TODO: remove path...
-	this->path=QString();
 	return true;
 }
 
 QDomElement TrainingText::serialize(QDomDocument *doc)
 {
-	//TODO: Implement
 	QDomElement textElem = doc->createElement("trainingstexts");
 	textElem.setAttribute("name", name);
 	foreach (const QString& page, pages) {
@@ -85,17 +63,6 @@ QDomElement TrainingText::serialize(QDomDocument *doc)
 
 	return textElem;
 }
-
-// bool TrainingText::save()
-// {
-// 	XMLTrainingText *text = new XMLTrainingText(path);
-// 	text->setTitle(name);
-// 	text->addPages(pages);
-// 	text->save(path);
-// 	delete text;
-// 
-// 	return true;
-// }
 
 /**
  * @brief Destructor

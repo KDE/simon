@@ -39,7 +39,6 @@ class Scenario;
 class SPEECHMODELBASE_EXPORT TrainingText : public ScenarioObject {
 protected:
 	QString name;
-	QString path;
 	QStringList pages;
 	float relevance;
 	TrainingText( Scenario *parent );
@@ -58,13 +57,6 @@ public:
 	 */
 	QString getName() const { return this->name; }
 	
-	/**
-		 * \brief Returns the path to the text
-		 * \author Peter Grasch
-		 * \return
-		 * path
-	 */
-	QString getPath() const { return this->path; }
 	
 	/**
 	 * \brief Returns the page count of the text
@@ -112,8 +104,6 @@ public:
 	 */
 	void setRelevance( float relevance ) {	this->relevance = relevance; }
 	
-	TrainingText( QString name, QString path, QStringList pages );
-
 	/**
 	 * \brief reimplement this in your *TrainingText class to store the text
 	 * \author Peter Grasch

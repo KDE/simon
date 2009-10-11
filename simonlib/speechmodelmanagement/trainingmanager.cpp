@@ -22,7 +22,6 @@
 
 #include <simonlogging/logger.h>
 #include "speechmodelmanagementconfiguration.h"
-#include "xmltrainingtext.h"
 #include "scenariomanager.h"
 #include "scenario.h"
 
@@ -259,9 +258,11 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
  */
 bool TrainingManager::deleteText ( int index )
 {
-	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
+	//TODO: Port to scenarios
+	return true;
+/*	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
 	kDebug() << "removing " << trainingTexts->at ( index )->getPath().toAscii();
-	return QFile::remove( trainingTexts->at ( index )->getPath().toAscii() );
+	return QFile::remove( trainingTexts->at ( index )->getPath().toAscii() );*/
 }
 
 /**
@@ -274,6 +275,9 @@ TrainingList* TrainingManager::readTrainingTexts ()
 {
 	Logger::log ( i18n ( "[INF] Reading the trainingstexts" ));
 
+	//TODO: Port to scenarios
+	return new TrainingList();
+	/*
 	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
 
 	for ( int i=0; i < textsrcs.count(); i++ )
@@ -281,11 +285,11 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		QString path = textsrcs.at ( i );
 		XMLTrainingText *text = new XMLTrainingText ( path );
 		text->load ( path );
-		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed*/
+		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed
 		trainingTexts->append ( text );
 	}
 	
-	return trainingTexts;
+	return trainingTexts;*/
 }
 
 bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
@@ -375,8 +379,6 @@ TrainingText* TrainingManager::getText ( int i )
  */
 float TrainingManager::calcRelevance ( TrainingText *text )
 {
-	Logger::log ( i18n ( "[INF] Calculating relevance" ) +"\""+text->getName() +"\" ("+
-	              text->getPath() +")" );
 	QString currPage;
 	QStringList words;
 	int wordCount=0;
@@ -507,11 +509,14 @@ bool TrainingManager::saveTrainingsText(const QString& name, const QStringList p
 		index++;
 
 	QString path = textDir+name+QString::number(index)+".xml";
- 	XMLTrainingText *text = new XMLTrainingText (name, path.toUtf8(),pages);
+	//TODO: Port to scenarios
+	return true;
+
+ 	/*XMLTrainingText *text = new XMLTrainingText (name, path.toUtf8(),pages);
 	bool succ = text->save();
 	delete text;
 
-	return succ;
+	return succ;*/
 }
 
 bool TrainingManager::defaultToPowerTrain()

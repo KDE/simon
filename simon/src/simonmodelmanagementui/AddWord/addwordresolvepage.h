@@ -53,7 +53,7 @@ public:
 	const QString getTerminal() { return ui.cbType->currentText(); }
 
 	void initializePage();
-	void displayWords(WordList *words);
+	void displayWords(QList<Word*> words);
 	bool validatePage();
 
 };

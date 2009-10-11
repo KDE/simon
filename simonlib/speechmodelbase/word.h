@@ -176,6 +176,12 @@ public:
 		
 		return false;
 	}
+	
+	
+	bool operator==(const Word& w2) const
+	{
+		return ((getWord() == w2.getWord()) && (getTerminal() == w2.getTerminal()) && (getPronunciation() == w2.getPronunciation()));
+	}
 
 	
 	/**

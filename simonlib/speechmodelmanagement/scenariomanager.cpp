@@ -41,9 +41,7 @@ bool ScenarioManager::init()
 	if (!setupScenarios())
 		succ = false;
 
-	shadowVocab = ShadowVocabulary::createVocabulary();
-	if (!shadowVocab) return false;
-
+	shadowVocab = new ShadowVocabulary();
 	connect(shadowVocab, SIGNAL(changed()), this, SLOT(shadowVocabularyChanged()));
 	return succ;
 }
@@ -117,7 +115,8 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 	ScenarioActions=8*/
 	QStringList terminals;
 
-	terminals << getCurrentScenario()->getTerminals(elements);
+	if ((elements & SpeechModel::ScenarioGrammar) || (elements & SpeechModel::ScenarioVocabulary))
+		terminals << getCurrentScenario()->getTerminals(elements);
 
 	if (elements & SpeechModel::ShadowVocabulary) {
 		QStringList shadowTerminals = shadowVocab->getTerminals();
@@ -125,6 +124,8 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 			if (!terminals.contains(terminal))
 				terminals << terminal;
 	}
+
+	terminals.sort();
 
 	return terminals;
 }
@@ -144,18 +145,26 @@ bool ScenarioManager::renameTerminal(const QString& terminal, const QString& new
 	return success;
 }
 
-QList<Word*>* ScenarioManager::findWords(const QString& name, SpeechModel::ModelElements elements)
+QList<Word*> ScenarioManager::findWords(const QString& name, SpeechModel::ModelElements elements)
 {
-	QList<Word*>* words = new QList<Word*>();
+	QList<Word*> words;
 	if (elements & SpeechModel::ShadowVocabulary) {
-		QList<Word*>* newWords = shadowVocab->findWords(name);
-		if (newWords) words->append(*newWords);
+			kDebug() << "Finding words from shadow vocabulary ";
+		QList<Word*> newWords = shadowVocab->findWords(name);
+		words.append(newWords);
 	}
 
-	if (elements & SpeechModel::ScenarioVocabulary) {
-		QList<Word*>* newWords = getCurrentScenario()->findWords(name);
-		if (newWords) words->append(*newWords);
-	}
+	if (elements & SpeechModel::AllScenariosVocabulary) {
+		foreach (Scenario* s, scenarios) {
+			kDebug() << "Finding words for scenario " << s;
+			QList<Word*> newWords = s->findWords(name);
+			words.append(newWords);
+		}
+	} else 
+		if (elements & SpeechModel::ScenarioVocabulary) {
+			QList<Word*> newWords = getCurrentScenario()->findWords(name);
+			words.append(newWords);
+		}
 
 	return words;
 }

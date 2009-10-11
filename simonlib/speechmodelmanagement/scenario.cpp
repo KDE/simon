@@ -347,7 +347,7 @@ bool Scenario::renameTerminal(const QString& terminal, const QString& newName, S
 	return success;
 }
 
-QList<Word*>* Scenario::findWords(const QString& name)
+QList<Word*> Scenario::findWords(const QString& name)
 {
 	return m_vocabulary->findWords(name);
 }
