@@ -140,3 +140,101 @@ QString Grammar::getExampleSentence(const QString& terminal)
 	return QString(); //no sentence found
 }
 
+
+QVariant Grammar::data(const QModelIndex &index, int role) const
+{
+	if (!index.isValid()) return QVariant();
+
+	if (role == Qt::DisplayRole) 
+	{
+		switch (index.column())
+		{
+			case 0:
+				return m_structures.at(index.row());
+		}
+	}
+
+	return QVariant();
+}
+
+QString Grammar::getStructure(int index)
+{
+	if (index < m_structures.count())
+		return m_structures[index];
+	
+	return QString();
+}
+
+Qt::ItemFlags Grammar::flags(const QModelIndex &index) const
+{
+	if (!index.isValid())
+		return 0;
+
+	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
+QVariant Grammar::headerData(int column, Qt::Orientation orientation,
+			int role) const
+{
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+	{
+		switch (column)
+		{
+			case 0:
+				return i18n("Sentence");
+		}
+	}
+	
+	//default
+	return QVariant();
+}
+
+bool Grammar::addStructure(const QString& newStructure)
+{
+	int count = m_structures.count();
+	beginInsertRows(QModelIndex(), count, count);
+	m_structures << newStructure;
+	endInsertRows();
+
+	return parentScenario->save();
+}
+
+bool Grammar::deleteStructure(int index)
+{
+	if (index > m_structures.count()) return false;
+
+	beginRemoveRows(QModelIndex(), index, index);
+	m_structures.removeAt(index);
+	endRemoveRows();
+
+	return parentScenario->save();
+}
+
+
+QModelIndex Grammar::parent(const QModelIndex &index) const
+{
+	Q_UNUSED(index);
+	return QModelIndex();
+}
+
+int Grammar::rowCount(const QModelIndex &parent) const
+{
+	if (!parent.isValid())
+		return m_structures.count();
+	else return 0;
+}
+
+int Grammar::columnCount(const QModelIndex &parent) const
+{
+	Q_UNUSED(parent);
+	return 1;
+}
+
+QModelIndex Grammar::index(int row, int column, const QModelIndex &parent) const
+{
+	if (!hasIndex(row, column, parent) || parent.isValid())
+		return QModelIndex();
+
+	return createIndex(row, column);
+}
+

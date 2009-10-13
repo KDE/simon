@@ -21,21 +21,34 @@
 #define GRAMMAR_H
 #include <QStringList>
 #include <QMutex>
+#include <QAbstractItemModel>
 
-#include "speechmodelbase_export.h"
+#include "simonmodelmanagement_export.h"
 #include <simonscenariobase/scenarioobject.h>
 
 class Scenario;
 
-class SPEECHMODELBASE_EXPORT Grammar : public ScenarioObject
+class MODELMANAGEMENT_EXPORT Grammar : public ScenarioObject, public QAbstractItemModel
 {
 
 private:
 	QMutex structuresLock;
 	QStringList m_structures;
 
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	QVariant headerData(int, Qt::Orientation orientation,
+				int role = Qt::DisplayRole) const;
+	QModelIndex parent(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+
+
+
 protected:
 	Grammar(Scenario *parent);
+
+	virtual QVariant data(const QModelIndex &index, int role) const;
+	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
 	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
@@ -44,6 +57,12 @@ public:
 	bool renameTerminal(QString terminal, const QString& newName);
 
 	QString getExampleSentence(const QString& terminal);
+
+	QString getStructure(int index);
+
+
+	bool addStructure(const QString& newStructure);
+	bool deleteStructure(int index);
 
 	QStringList getTerminals();
 

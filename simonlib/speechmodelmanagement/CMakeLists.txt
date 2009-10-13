@@ -12,12 +12,9 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LI
 include(KDE4Defaults)
 
 set( simonmodelmanagement_LIB_SRCS
-	#	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/grammarmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
@@ -31,8 +28,6 @@ set( simonmodelmanagement_LIB_SRCS
 set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
-  #  ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.h
-  #  ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
   ${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h

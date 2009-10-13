@@ -19,11 +19,6 @@
 
 #include "pronunciationtrainingconfiguration.h"
 #include "pronunciationtrainingcommandmanager.h"
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/grammarmanager.h>
-#else
-#include <speechmodelmanagement/grammarmanager.h>
-#endif
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <KAboutData>
@@ -48,7 +43,7 @@ PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(QWidget *
 					"pronunciationtrainingrc");
 
 	ui.cbTerminal->clear();
-	ui.cbTerminal->addItems(GrammarManager::getInstance()->getTerminals());
+//	ui.cbTerminal->addItems(GrammarManager::getInstance()->getTerminals());
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));

@@ -178,7 +178,6 @@ void AddWordResolvePage::fetchSimilar()
  */
 void AddWordResolvePage::createExamples()
 {
-	kDebug() << "createExamples() called";
 	if (ui.cbType->currentIndex() == -1) return;
 	if ((ui.leWord->text() == wordLastUsedToGenerateExamples)&&
 	    (ui.cbType->currentText() == terminalLastUsedToGenerateExamples)&&
@@ -189,7 +188,6 @@ void AddWordResolvePage::createExamples()
 	QStringList examples;
 	examples = ScenarioManager::getInstance()->getExampleSentences(ui.leWord->text(), terminal, 2, 
 			(SpeechModel::ModelElements) (SpeechModel::AllScenariosGrammar));
-	kDebug() << examples;
 
 	if (examples.count() == 2) 
 	{

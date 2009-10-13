@@ -85,10 +85,7 @@
 */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 		: SimonMainWindow(parent, flags),
-	shownDialogs(0),
-	control(new SimonControl(this)),
-	trayManager(new TrayIconManager(this)),
-	configDialog(new KCMultiDialog(this))
+	shownDialogs(0)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
@@ -97,6 +94,11 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//showing splash
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
+	info->writeToSplash ( i18n ( "Loading core..." ) );
+
+	control = (new SimonControl(this));
+	trayManager = (new TrayIconManager(this));
+	configDialog = (new KCMultiDialog(this));
 
 	Logger::log ( i18n ( "[INF] Loading configuration modules..." ) );
 
@@ -117,8 +119,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	}
 
 
-	info->writeToSplash ( i18n ( "Loading program..." ) );
-	
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
 

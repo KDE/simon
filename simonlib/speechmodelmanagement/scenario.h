@@ -74,6 +74,8 @@ public:
 
 	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
+	QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(), 
+			const QString& toDemonstrateTerminal=QString());
 
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
@@ -86,6 +88,7 @@ public:
 	bool save(QString path=QString());
 
 	ActiveVocabulary* vocabulary() { return m_vocabulary; }
+	Grammar* grammar() { return m_grammar; }
 
 	~Scenario();
 

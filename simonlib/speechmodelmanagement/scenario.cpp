@@ -352,10 +352,45 @@ QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type
 	return m_vocabulary->findWords(name, type);
 }
 
+QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate, 
+			const QString& toDemonstrateTerminal)
+{
+
+	int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
+	//this occurance of the terminal in the sentence is going to be replaced
+	//by the word we should put in a random sentence
+	int selectedOccurance = qrand() % terminalOccuranceCount;
+
+	QStringList segmentedTerminals = terminalSentence.split(" ");
+
+	QStringList actualSentence;
+
+	ok = true;
+
+	int currentOccuranceCounter = 0;
+	foreach (const QString& terminalNow, segmentedTerminals) {
+		if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+			if (currentOccuranceCounter == selectedOccurance) {
+				actualSentence.append(toDemonstrate);
+				continue;
+			}
+		}
+
+		QString randomWord = m_vocabulary->getRandomWord(terminalNow);
+		if (randomWord.isNull()) {
+			if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+				actualSentence.append(toDemonstrate);
+			} else ok = false;
+		}  else {
+			actualSentence.append(randomWord);
+		}
+	}
+
+	return actualSentence.join(" ");
+}
+
 QStringList Scenario::getExampleSentences(const QString& name, const QString& terminal, int count)
 {
-	//TODO: implement
-	kDebug() << "Begin: getExampleSentences";
 	QStringList out;
 
 	int failedCounter = 0;
@@ -364,44 +399,14 @@ QStringList Scenario::getExampleSentences(const QString& name, const QString& te
 		QString terminalSentence = m_grammar->getExampleSentence(terminal);
 		if (terminalSentence.isNull()) {
 			//no sentence found
-			kDebug() << "No sentence found for " << name << terminal << count;
 			return out;
 		}
 
-		kDebug() << "Sentence for "  << name << terminal << count << " - " << terminalSentence;
+		bool ok = true;
+		QString resolvedSentence = fillGrammarSentenceWithExamples(terminalSentence, ok, name, terminal);
 
-		int terminalOccuranceCount = terminalSentence.count(terminal);
-		//this occurance of the terminal in the sentence is going to be replaced
-		//by the word we should put in a random sentence
-		int selectedOccurance = qrand() % terminalOccuranceCount;
-
-		QStringList segmentedTerminals = terminalSentence.split(" ");
-		kDebug() << segmentedTerminals;
-
-		QStringList actualSentence;
-
-		bool couldntResolveWord = false;
-
-		int currentOccuranceCounter = 0;
-		foreach (const QString& terminalNow, segmentedTerminals) {
-			if (terminalNow == terminal) 
-				if (currentOccuranceCounter == selectedOccurance) {
-					actualSentence.append(name);
-					continue;
-				}
-
-			QString randomWord = m_vocabulary->getRandomWord(terminalNow);
-			if (randomWord.isNull()) {
-				if (terminalNow == terminal) {
-					actualSentence.append(name);
-				} else couldntResolveWord = true;
-			}  else {
-				actualSentence.append(randomWord);
-			}
-		}
-		if (!couldntResolveWord) {
-			out << actualSentence.join(" ");
-			kDebug() << "Adding sentence " << actualSentence;
+		if (ok) {
+			out << resolvedSentence;
 		} else {
 			i--;
 			if (failedCounter++ == 10)
