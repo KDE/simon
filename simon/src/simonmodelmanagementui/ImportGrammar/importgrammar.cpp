@@ -157,13 +157,13 @@ QStringList ImportGrammar::importFile(QString path)
 		{
 			//first: quick lookup
 			lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
-										SpeechModel::ScenarioVocabulary);
+										SpeechModel::ScenarioVocabulary, Vocabulary::ExactMatch);
 
 			QStringList wordTerminals=terminals(lookupResult);
 			if (wordTerminals.count()==0) {
 				//dont delete the contents of the list
 				lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
-										SpeechModel::ShadowVocabulary);
+										SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
 				wordTerminals = terminals(lookupResult);
 			}
 			

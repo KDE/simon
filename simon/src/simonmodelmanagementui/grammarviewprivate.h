@@ -23,13 +23,14 @@
 
 #include "ui_grammarview.h"
 #include <QTimer>
+#include <simonscenariobase/scenariodisplay.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class GrammarManager;
 
-class GrammarViewPrivate : public QWidget
+class GrammarViewPrivate : public QWidget, public ScenarioDisplay 
 {
 Q_OBJECT
 private:
@@ -48,6 +49,8 @@ public slots:
 	void load();
 	void save();
 	void defaults();
+
+	void displayScenarioPrivate(Scenario *scenario);
 
 public:
     GrammarViewPrivate(QWidget* parent);

@@ -347,9 +347,69 @@ bool Scenario::renameTerminal(const QString& terminal, const QString& newName, S
 	return success;
 }
 
-QList<Word*> Scenario::findWords(const QString& name)
+QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type)
 {
-	return m_vocabulary->findWords(name);
+	return m_vocabulary->findWords(name, type);
+}
+
+QStringList Scenario::getExampleSentences(const QString& name, const QString& terminal, int count)
+{
+	//TODO: implement
+	kDebug() << "Begin: getExampleSentences";
+	QStringList out;
+
+	int failedCounter = 0;
+
+	for (int i=0; i < count; i++) {
+		QString terminalSentence = m_grammar->getExampleSentence(terminal);
+		if (terminalSentence.isNull()) {
+			//no sentence found
+			kDebug() << "No sentence found for " << name << terminal << count;
+			return out;
+		}
+
+		kDebug() << "Sentence for "  << name << terminal << count << " - " << terminalSentence;
+
+		int terminalOccuranceCount = terminalSentence.count(terminal);
+		//this occurance of the terminal in the sentence is going to be replaced
+		//by the word we should put in a random sentence
+		int selectedOccurance = qrand() % terminalOccuranceCount;
+
+		QStringList segmentedTerminals = terminalSentence.split(" ");
+		kDebug() << segmentedTerminals;
+
+		QStringList actualSentence;
+
+		bool couldntResolveWord = false;
+
+		int currentOccuranceCounter = 0;
+		foreach (const QString& terminalNow, segmentedTerminals) {
+			if (terminalNow == terminal) 
+				if (currentOccuranceCounter == selectedOccurance) {
+					actualSentence.append(name);
+					continue;
+				}
+
+			QString randomWord = m_vocabulary->getRandomWord(terminalNow);
+			if (randomWord.isNull()) {
+				if (terminalNow == terminal) {
+					actualSentence.append(name);
+				} else couldntResolveWord = true;
+			}  else {
+				actualSentence.append(randomWord);
+			}
+		}
+		if (!couldntResolveWord) {
+			out << actualSentence.join(" ");
+			kDebug() << "Adding sentence " << actualSentence;
+		} else {
+			i--;
+			if (failedCounter++ == 10)
+				break;
+		}
+	}
+
+	return out;
 }
 
 QString Scenario::getRandomWord(const QString& terminal)

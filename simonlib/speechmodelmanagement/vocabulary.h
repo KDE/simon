@@ -57,6 +57,12 @@ protected:
 
 
 public:
+	enum MatchType {
+	    ExactMatch=1,
+	    SimilarMatch=2,
+	    ContainsMatch=4
+    };
+
 	Vocabulary();
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
@@ -81,12 +87,13 @@ public:
 
 	QStringList getTerminals();
 
-	QList<Word*> findWords(const QString& name);
+	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
 
 enum VocabularyType {
 	ShadowVocabulary = 0,
 	ActiveVocabulary = 1
 };
+
 
 };
 

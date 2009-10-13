@@ -145,29 +145,46 @@ bool ScenarioManager::renameTerminal(const QString& terminal, const QString& new
 	return success;
 }
 
-QList<Word*> ScenarioManager::findWords(const QString& name, SpeechModel::ModelElements elements)
+QList<Word*> ScenarioManager::findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType type)
 {
 	QList<Word*> words;
 	if (elements & SpeechModel::ShadowVocabulary) {
-			kDebug() << "Finding words from shadow vocabulary ";
-		QList<Word*> newWords = shadowVocab->findWords(name);
+		QList<Word*> newWords = shadowVocab->findWords(name, type);
 		words.append(newWords);
 	}
 
 	if (elements & SpeechModel::AllScenariosVocabulary) {
 		foreach (Scenario* s, scenarios) {
-			kDebug() << "Finding words for scenario " << s;
-			QList<Word*> newWords = s->findWords(name);
+			QList<Word*> newWords = s->findWords(name, type);
 			words.append(newWords);
 		}
 	} else 
 		if (elements & SpeechModel::ScenarioVocabulary) {
-			QList<Word*> newWords = getCurrentScenario()->findWords(name);
+			QList<Word*> newWords = getCurrentScenario()->findWords(name, type);
 			words.append(newWords);
 		}
 
 	return words;
 }
+
+QStringList ScenarioManager::getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements)
+{
+	QStringList outSentences;
+
+	if (elements == SpeechModel::AllScenariosGrammar) {
+		foreach (Scenario* s, scenarios) {
+			outSentences.append(s->getExampleSentences(name, terminal, count));
+		}
+	} 
+
+	if (elements == SpeechModel::ScenarioGrammar) {
+		outSentences.append(getCurrentScenario()->getExampleSentences(name, terminal, count));
+	}
+
+
+	return outSentences;
+}
+
 
 ScenarioManager::~ScenarioManager()
 {

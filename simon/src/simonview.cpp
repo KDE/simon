@@ -150,6 +150,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
 	this->grammarView = new GrammarView(this);
+	ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
 	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );

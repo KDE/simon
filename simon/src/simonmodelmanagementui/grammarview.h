@@ -24,17 +24,22 @@
 #include "simonmodelmanagementui_export.h"
 #include <speechgui/inlinewidget.h>
 
+#include <simonscenariobase/scenariodisplay.h>
+
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class GrammarViewPrivate;
 
-class SIMONMODELMANAGEMENTUI_EXPORT GrammarView : public InlineWidget
+class SIMONMODELMANAGEMENTUI_EXPORT GrammarView : public InlineWidget, public ScenarioDisplay 
 {
 Q_OBJECT
 private:
 	GrammarViewPrivate *d;
 
+
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
 
 public:
     GrammarView(QWidget* parent=0);

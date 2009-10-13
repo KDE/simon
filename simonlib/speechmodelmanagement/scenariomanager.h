@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QList>
 #include "speechmodel.h"
+#include "vocabulary.h"
 #include "simonmodelmanagement_export.h"
 
 class Word;
@@ -65,7 +66,9 @@ public:
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
 
-	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements);
+	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
+
+	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
 
 	
 public slots:

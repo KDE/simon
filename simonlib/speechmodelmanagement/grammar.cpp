@@ -20,6 +20,7 @@
 #include "grammar.h"
 #include "scenario.h"
 #include <QMutexLocker>
+#include <QtGlobal>
 
 /**
  * Empty, private constructor
@@ -120,5 +121,22 @@ QStringList Grammar::getTerminals()
 				out << terminalsInStruct[j];
 	}
 	return out;
+}
+
+QString Grammar::getExampleSentence(const QString& terminal)
+{
+	int start = qrand() % m_structures.count();
+
+	//start at this random position
+	for (int i=start; i < m_structures.count(); i++)
+		if (m_structures.at(i).contains(terminal))
+			return m_structures.at(i);
+
+	//not found? ok start backwards
+	for (int i=start-1; i > 0; i--)
+		if (m_structures.at(i).contains(terminal))
+			return m_structures.at(i);
+
+	return QString(); //no sentence found
 }
 

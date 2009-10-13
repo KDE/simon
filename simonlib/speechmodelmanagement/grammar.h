@@ -43,6 +43,8 @@ public:
 	QDomElement serialize(QDomDocument *doc);
 	bool renameTerminal(QString terminal, const QString& newName);
 
+	QString getExampleSentence(const QString& terminal);
+
 	QStringList getTerminals();
 
 	int structureCount() { return m_structures.count(); }

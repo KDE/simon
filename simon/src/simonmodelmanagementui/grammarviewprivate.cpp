@@ -23,9 +23,11 @@
 #include "MergeTerminals/mergeterminalswizard.h"
 #include "RenameTerminal/renameterminalwizard.h"
 
+#include <KDebug>
 #include <KMessageBox>
 #include <KGlobal>
 #include <speechmodelmanagement/grammarmanager.h>
+#include <speechmodelmanagement/scenario.h>
 
 
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
@@ -52,6 +54,14 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 	connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
 	
 	load();
+}
+
+void GrammarViewPrivate::displayScenarioPrivate(Scenario *scenario)
+{
+	kDebug() << "Displaying scenario " << scenario->name();
+
+	//activeProxy->setSourceModel(scenario->vocabulary());
+	
 }
 
 void GrammarViewPrivate::slotChanged()

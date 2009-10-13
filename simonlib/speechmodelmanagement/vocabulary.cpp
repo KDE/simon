@@ -23,6 +23,9 @@
 #include <QDomDocument>
 #include <QDomElement>
 
+//sonnet speller
+#include <sonnet/speller.h>
+
 bool isWordLessThan(Word *w1, Word *w2)
 {
 	if (w1->getLexiconWord() < w2->getLexiconWord())
@@ -291,8 +294,8 @@ QString Vocabulary::getRandomWord(const QString& terminal)
 		if (m_words[i]->getTerminal() == terminal)
 			return m_words[i]->getWord();
 
-	//no matching word found? start at 0
-	for (int i=0; i < starting; i++)
+	//no matching word found? go backwards
+	for (int i=starting-1; i > 0; i--)
 		if (m_words[i]->getTerminal() == terminal)
 			return m_words[i]->getWord();
 
@@ -317,23 +320,69 @@ QStringList Vocabulary::getTerminals()
  * @warning:	This returns a list containing shallow copies of the words of the vocabulary
  * 		Don't delete its contents!
  */
-QList<Word*> Vocabulary::findWords(const QString& name)
+QList<Word*> Vocabulary::findWords(const QString& name, Vocabulary::MatchType type)
 {
 	QList<Word*> out;
 
-	Word *search = new Word(name, QString(), QString());
-	QList<Word*>::iterator begin = qLowerBound(m_words.begin(), m_words.end(), 
-			search, isWordLessThan);
-	delete search;
+	if (type & Vocabulary::ExactMatch) {
+		Word *search = new Word(name, QString(), QString());
+		QList<Word*>::iterator begin = qLowerBound(m_words.begin(), m_words.end(), 
+				search, isWordLessThan);
+		delete search;
 
-	while (begin != m_words.end()) {
-		if ((*begin)->getWord().compare(name, Qt::CaseInsensitive)== 0) 
-			out << *begin;
-		else break;
-		begin++;
+		while (begin != m_words.end()) {
+			if ((*begin)->getWord().compare(name, Qt::CaseInsensitive)== 0) 
+				out << *begin;
+			else break;
+			begin++;
+		}
+	} 
+	if (type & Vocabulary::ContainsMatch) {
+		foreach (Word *w, m_words) {
+			if (w->getWord().contains(name, Qt::CaseInsensitive)) {
+				kDebug() << "Adding " << w->getWord() << " matching " << name;
+
+				out << w;
+			}
+		}
 	}
 
-	return out;
+	if (type & Vocabulary::SimilarMatch) {
+		Sonnet::Speller spell;
+		QStringList suggestions = spell.suggest(name);
+		foreach (const QString& suggestion, suggestions)
+			out.append(findWords(suggestion, Vocabulary::ExactMatch));
+	}
+
+	//sort
+	qSort(out.begin(), out.end(), isWordLessThan);
+
+	if (out.count() <= 1)
+		return out; //no doubles
+
+	//remove doubles
+	QList<Word*> uniqueOut;
+	uniqueOut.append(out.takeAt(0));
+
+	//optimized remove doubles that takes into account that the list is sorted
+	while (!out.isEmpty()) {
+		if ((uniqueOut.at(uniqueOut.count()-1)) != out.at(0))
+			uniqueOut.append(out.takeAt(0));
+		else out.removeAt(0);
+	}
+	/*foreach (Word* w, out) {
+		bool contains=false;
+		foreach (Word *w2, uniqueOut) {
+			if (*w2 == *w) {
+				contains = true;
+				break;
+			}
+		}
+		if (!contains)
+			uniqueOut.append(w);
+	}*/
+
+	return uniqueOut;
 }
 
 Vocabulary::~Vocabulary()

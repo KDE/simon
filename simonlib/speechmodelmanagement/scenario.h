@@ -25,6 +25,7 @@
 #include <QObject>
 #include <KIcon>
 #include "speechmodel.h"
+#include "vocabulary.h"
 #include "scenariomanager.h"
 #include "simonmodelmanagement_export.h"
 
@@ -71,7 +72,8 @@ public:
 	bool addWord(Word* w);
 	bool removeWord(Word* w);
 
-	QList<Word*> findWords(const QString& name);
+	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+	QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
 
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
