@@ -18,29 +18,40 @@
  */
 
 
-#ifndef LANGUAGEDESCRIPTIONCONTAINER_H
-#define LANGUAGEDESCRIPTIONCONTAINER_H
+#ifndef DROPLISTVIEW_H
+#define DROPLISTVIEW_H
 
-#include "speechmodelbase_export.h"
+#include <QListView>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
 
-#include <QByteArray>
-
-class SPEECHMODELBASE_EXPORT LanguageDescriptionContainer
+/**
+ *	@class DropListView
+ *	@brief Extends the QListView with Drop functions
+ *
+ *	Implements the Drop- (from Drag and Drop) functions:
+ *		dragEnterEvent(QDragEnterEvent)
+ *		dropEvent(QDragEvent)
+ *		dragMoveEvent(QDrapMoveEvent)
+ *
+ *	@version 0.1
+ *	@date 28.01.2006
+ *	@author Peter Grasch
+ */
+class DropListView : public QListView
 {
-	private:
-		QByteArray m_shadowVocab;
-		
-		QByteArray m_treeHed;
+	Q_OBJECT
+signals:
+	void droppedText(QString text);
+protected:
+	void dragEnterEvent(QDragEnterEvent *event);
+	void dropEvent(QDropEvent *event);
+	void dragMoveEvent(QDragMoveEvent *event);
+public:
+    DropListView(QWidget *parent);
 
-	public:
-		LanguageDescriptionContainer(const QByteArray& shadowVocab, 
-				const QByteArray&  treeHed);
-			       
-		~LanguageDescriptionContainer();
-		
-
-		QByteArray shadowVocab() { return m_shadowVocab; }
-		QByteArray treeHed() { return m_treeHed; }
+    ~DropListView();
 
 };
 

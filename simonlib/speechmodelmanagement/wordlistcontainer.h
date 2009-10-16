@@ -18,30 +18,30 @@
  */
 
 
-#ifndef IMPORTTRAININGTEXTWORKINGPAGE_H
-#define IMPORTTRAININGTEXTWORKINGPAGE_H
+#ifndef WORDLISTCONTAINER_H
+#define WORDLISTCONTAINER_H
 
-#include <QWizardPage>
-#include "ui_importtrainingtextworkingpage.h"
 
-/**
- * \class ImportTrainingTextWorkingPage
- * \brief Imports the given trainingstext
- * \author Peter Grasch
- * \version 0.1
- */
-class ImportTrainingTextWorkingPage : public QWizardPage {
-	Q_OBJECT 
+#include "simonmodelmanagement_export.h"
+#include <QByteArray>
+
+class MODELMANAGEMENT_EXPORT WordListContainer
+{
 	private:
-		Ui::ImportTextWorkingPage ui;
+		QByteArray m_simpleVocab;
+		QByteArray m_activeVocab;
+		QByteArray m_activeLexicon;
 
-	public slots:
-		void startImport(KUrl path);
-		void parseFile(QString path);
-
-		void initializePage();
 	public:
-		ImportTrainingTextWorkingPage(QWidget* parent);
+		WordListContainer(const QByteArray& simpleVocab,
+				const QByteArray& activeVocab, const QByteArray& activeLexicon);
+			       
+		~WordListContainer();
+		
+		QByteArray simpleVocab() { return m_simpleVocab; }
+		QByteArray activeVocab() { return m_activeVocab; }
+		QByteArray activeLexicon() { return m_activeLexicon; }
+		
 };
 
 #endif

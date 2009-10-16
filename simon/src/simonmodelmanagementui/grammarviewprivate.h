@@ -50,8 +50,6 @@ private slots:
 //	void slotChanged();
 
 public slots:
-	void mergeGrammar(QStringList);
-	
 	void displayScenarioPrivate(Scenario *scenario);
 
 public:

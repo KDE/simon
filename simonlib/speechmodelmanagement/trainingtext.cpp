@@ -19,11 +19,16 @@
 
 
 #include "trainingtext.h"
+#include "trainingmanager.h"
 
 TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 {
 }
 
+TrainingText::TrainingText(const QString& _name, const QStringList& _pages, float _relevance) : ScenarioObject(0),
+	name(_name), pages(_pages), relevance(_relevance)
+{
+}
 
 TrainingText* TrainingText::createTrainingText(Scenario *parent, const QDomElement& elem)
 {
@@ -48,12 +53,14 @@ bool TrainingText::deSerialize(const QDomElement& elem)
 		pageElem = pageElem.nextSiblingElement();
 	}
 
+	relevance = -1;
+
 	return true;
 }
 
 QDomElement TrainingText::serialize(QDomDocument *doc)
 {
-	QDomElement textElem = doc->createElement("trainingstexts");
+	QDomElement textElem = doc->createElement("trainingtext");
 	textElem.setAttribute("name", name);
 	foreach (const QString& page, pages) {
 		QDomElement pageElem = doc->createElement("page");
@@ -62,6 +69,15 @@ QDomElement TrainingText::serialize(QDomDocument *doc)
 	}
 
 	return textElem;
+}
+
+
+float TrainingText::getRelevance() 
+{
+	if (relevance == -1)
+		relevance = TrainingManager::getInstance()->calcRelevance(this);
+
+	return relevance;
 }
 
 /**

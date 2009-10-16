@@ -61,10 +61,12 @@ public:
 	QString getStructure(int index);
 
 
-	bool addStructure(const QString& newStructure);
+	bool addStructures(const QStringList& newStructures);
+	bool addStructure(const QString& newStructure, bool save=true);
 	bool deleteStructure(int index);
 
 	QStringList getTerminals();
+	QStringList getStructures() { return m_structures; }
 
 	int structureCount() { return m_structures.count(); }
 };

@@ -132,16 +132,20 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 
 bool ScenarioManager::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
 {
+	kDebug() << "Start renaming terminal...";
 	bool success = true;
 
+	kDebug() << "Renaming in shadow...";
 	if (affect & SpeechModel::ShadowVocabulary) {
 		if (!(shadowVocab->renameTerminal(terminal, newName)))
 			success=false;
 	}
 
+	kDebug() << "Renaming in current...";
 	if (!getCurrentScenario()->renameTerminal(terminal, newName, affect))
 		success = false;
 
+	kDebug() << "Renaming done...";
 	return success;
 }
 

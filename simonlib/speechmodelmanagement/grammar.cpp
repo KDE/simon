@@ -25,7 +25,7 @@
 /**
  * Empty, private constructor
  */
-Grammar::Grammar(Scenario *parent) : ScenarioObject(parent)
+Grammar::Grammar(Scenario *parent) : ScenarioObject(parent), structuresLock(QMutex::Recursive)
 {
 }
 
@@ -189,12 +189,23 @@ QVariant Grammar::headerData(int column, Qt::Orientation orientation,
 	return QVariant();
 }
 
-bool Grammar::addStructure(const QString& newStructure)
+bool Grammar::addStructures(const QStringList& newStructures)
+{
+	foreach (const QString& structure, newStructures)
+		if (!addStructure(structure, false /* don't save */))
+			return false;
+
+	return parentScenario->save();
+}
+
+bool Grammar::addStructure(const QString& newStructure, bool save)
 {
 	int count = m_structures.count();
 	beginInsertRows(QModelIndex(), count, count);
 	m_structures << newStructure;
 	endInsertRows();
+
+	if (!save) return true;
 
 	return parentScenario->save();
 }

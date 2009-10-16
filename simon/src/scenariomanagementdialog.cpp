@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,30 +18,24 @@
  */
 
 
-#ifndef IMPORTTRAININGTEXTWORKINGPAGE_H
-#define IMPORTTRAININGTEXTWORKINGPAGE_H
+#include "scenariomanagementdialog.h"
+#include <QWidget>
+#include <speechmodelmanagement/scenariomanager.h>
 
-#include <QWizardPage>
-#include "ui_importtrainingtextworkingpage.h"
 
-/**
- * \class ImportTrainingTextWorkingPage
- * \brief Imports the given trainingstext
- * \author Peter Grasch
- * \version 0.1
- */
-class ImportTrainingTextWorkingPage : public QWizardPage {
-	Q_OBJECT 
-	private:
-		Ui::ImportTextWorkingPage ui;
+ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent)
+{
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
 
-	public slots:
-		void startImport(KUrl path);
-		void parseFile(QString path);
+	setMainWidget( widget );
+	setCaption( i18n("Manage scenarios") );
+	
 
-		void initializePage();
-	public:
-		ImportTrainingTextWorkingPage(QWidget* parent);
-};
+}
 
-#endif
+
+ScenarioManagementDialog::~ScenarioManagementDialog()
+{
+}
+

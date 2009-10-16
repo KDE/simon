@@ -21,8 +21,8 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
-#include <speechmodelbase/word.h>
-#include <speechmodelbase/trainingtext.h>
+#include "word.h"
+#include "trainingtext.h"
 #include <QHash>
 #include <QMutex>
 #include <QList>
@@ -70,18 +70,13 @@ Q_OBJECT
 
 	public:
 		QString htkify(const QString& in);
-		bool saveTrainingsText(const QString& name, const QStringList pages);
-		//TODO: Port me to friends for the modelmanager
+
 		PromptsTable* getPrompts();
 		bool writePromptsFile(PromptsTable* prompts, QString path);
-		//end
 
 		static TrainingManager* getInstance();
 
 		bool init();
-
-//		int getProbability ( QString name, PromptsTable *promptsTable );
-		TrainingList* readTrainingTexts ();
 
 		int getProbability ( QString name );
 		PromptsTable* readPrompts ( QString pathToPrompts );
@@ -98,30 +93,11 @@ Q_OBJECT
 
 		QString getPage ( int i );
 
-		/**
-		 * @brief Getter method for the QList of training texts
-		 *
-		 * @return TrainingList*
-		 * The TrainingList (member)
-		 */
-		TrainingList* getList()
-		{
-			return trainingTexts;
-		}
+		float calcRelevance ( const TrainingText *text );
 
-
-		bool deleteText ( int index );
-
-		float calcRelevance ( TrainingText *text );
 		QString getTrainingDir();
 
-		void trainWords ( const WordList *words );
-
-		bool trainText ( int i );
-		TrainingText* getText ( int i );
-
 		void trainingSettingsSaved();
-
 
 		bool defaultToPowerTrain();
 

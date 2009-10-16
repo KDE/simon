@@ -228,6 +228,14 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="cbBuildSentences">
+         <property name="text">
+          <string>Build sentences</string>
+         </property>
+        </widget>
+       </item>
+
+       <item>
         <widget class="KPushButton" name="pbAddToTraining">
          <property name="text">
           <string>Add to Training</string>

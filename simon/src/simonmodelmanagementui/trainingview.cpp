@@ -34,6 +34,11 @@ TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), 
 	guessChildTriggers ( ( QObject* ) this );
 }
 
+void TrainingView::displayScenarioPrivate(Scenario *scenario)
+{
+	d->displayScenario(scenario);
+}
+
 
 TrainingView::~TrainingView()
 {

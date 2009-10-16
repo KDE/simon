@@ -21,6 +21,7 @@
 #include "simonview.h"
 
 #include "inlinewidgetview.h"
+#include "scenariomanagementdialog.h"
 
 
 #include <simonlogging/logger.h>
@@ -143,6 +144,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
 	this->trainDialog = new TrainingView(this);
+	ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
 	vocabularyView = new VocabularyView(this);
@@ -323,7 +325,10 @@ void SimonView::setupActions()
 
 void SimonView::manageScenarios()
 {
-	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
+//	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
+	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
+	dlg->exec();
+	dlg->deleteLater();
 }
 
 /**

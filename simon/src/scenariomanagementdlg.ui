@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScenarioManagementDlg</class>
+ <widget class="QWidget" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>471</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Manage scenarios</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTableView" name="tvScenarios"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="KPushButton" name="pbGetNewScenarios">
+       <property name="text">
+        <string>Get new scenarios</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbCreateScenario">
+       <property name="text">
+        <string>Create scenario</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbDeleteScenario">
+       <property name="text">
+        <string>Delete scenario</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+</ui>

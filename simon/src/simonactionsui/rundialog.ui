@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>RunDlg</class>
- <widget class="QWidget" name="RunDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="RunDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,119 +10,118 @@
     <height>470</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Run</string>
   </property>
-  <property name="windowIcon" >
+  <property name="windowIcon">
    <iconset>
-    <normaloff/>
-   </iconset>
+    <normaloff>../../../../../trunk/simon/src/simonactionsui</normaloff>../../../../../trunk/simon/src/simonactionsui</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" >
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QSplitter" name="splitter" >
-     <property name="orientation" >
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="KListWidget" name="lwCategories" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+     <widget class="KListWidget" name="lwCategories">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="baseSize" >
+      <property name="baseSize">
        <size>
         <width>180</width>
         <height>0</height>
        </size>
       </property>
      </widget>
-     <widget class="KListWidget" name="lwCommands" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
+     <widget class="KListWidget" name="lwCommands">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="baseSize" >
+      <property name="baseSize">
        <size>
         <width>180</width>
         <height>0</height>
        </size>
       </property>
-      <property name="viewMode" >
+      <property name="viewMode">
        <enum>QListView::ListMode</enum>
       </property>
-      <property name="wordWrap" >
+      <property name="wordWrap">
        <bool>true</bool>
       </property>
-      <property name="sortingEnabled" >
+      <property name="sortingEnabled">
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QScrollArea" name="scrollArea" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>6</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="minimumSize" >
+      <property name="minimumSize">
        <size>
         <width>260</width>
         <height>0</height>
        </size>
       </property>
-      <property name="baseSize" >
+      <property name="baseSize">
        <size>
         <width>500</width>
         <height>0</height>
        </size>
       </property>
-      <property name="widgetResizable" >
+      <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents" >
-       <property name="geometry" >
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>254</width>
-         <height>402</height>
+         <height>378</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QFrame" name="frmCommandInfo" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+         <widget class="QFrame" name="frmCommandInfo">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="baseSize" >
+          <property name="baseSize">
            <size>
             <width>500</width>
             <height>0</height>
            </size>
           </property>
-          <property name="frameShape" >
+          <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
-          <property name="frameShadow" >
+          <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout" >
+          <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <spacer name="verticalSpacer_3" >
-             <property name="orientation" >
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType" >
+             <property name="sizeType">
               <enum>QSizePolicy::Preferred</enum>
              </property>
-             <property name="sizeHint" stdset="0" >
+             <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
                <height>20</height>
@@ -130,13 +130,13 @@
             </spacer>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2" >
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <spacer name="horizontalSpacer" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -145,24 +145,24 @@
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="lbIcon" >
-               <property name="minimumSize" >
+              <widget class="QLabel" name="lbIcon">
+               <property name="minimumSize">
                 <size>
                  <width>64</width>
                  <height>64</height>
                 </size>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string/>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_2" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -173,13 +173,13 @@
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4" >
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <spacer name="horizontalSpacer_6" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -188,25 +188,25 @@
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="lbName" >
-               <property name="font" >
+              <widget class="QLabel" name="lbName">
+               <property name="font">
                 <font>
                  <pointsize>9</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string/>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_5" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -217,14 +217,14 @@
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer_4" >
-             <property name="orientation" >
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType" >
+             <property name="sizeType">
               <enum>QSizePolicy::Preferred</enum>
              </property>
-             <property name="sizeHint" stdset="0" >
+             <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
                <height>40</height>
@@ -233,17 +233,17 @@
             </spacer>
            </item>
            <item>
-            <layout class="QFormLayout" name="flDetails" />
+            <layout class="QFormLayout" name="flDetails"/>
            </item>
            <item>
-            <spacer name="verticalSpacer" >
-             <property name="orientation" >
+            <spacer name="verticalSpacer">
+             <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType" >
+             <property name="sizeType">
               <enum>QSizePolicy::Preferred</enum>
              </property>
-             <property name="sizeHint" stdset="0" >
+             <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
                <height>57</height>
@@ -252,13 +252,13 @@
             </spacer>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3" >
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <spacer name="horizontalSpacer_3" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -267,18 +267,18 @@
               </spacer>
              </item>
              <item>
-              <widget class="KPushButton" name="pbTrigger" >
-               <property name="text" >
+              <widget class="KPushButton" name="pbTrigger">
+               <property name="text">
                 <string>Trigger</string>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_4" >
-               <property name="orientation" >
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" stdset="0" >
+               <property name="sizeHint" stdset="0">
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -289,14 +289,14 @@
             </layout>
            </item>
            <item>
-            <spacer name="verticalSpacer_2" >
-             <property name="orientation" >
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType" >
+             <property name="sizeType">
               <enum>QSizePolicy::Preferred</enum>
              </property>
-             <property name="sizeHint" stdset="0" >
+             <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
                <height>154</height>
@@ -313,33 +313,20 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5" >
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="KPushButton" name="pbNewCommand" >
-       <property name="text" >
-        <string>New Command</string>
+      <widget class="KPushButton" name="pbManagePlugins">
+       <property name="text">
+        <string>Manage Plug-Ins</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbImportActivities" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="toolTip" >
-        <string/>
-       </property>
-       <property name="text" >
-        <string>Import Activities</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -348,21 +335,28 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditCommand" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="pbNewCommand">
+       <property name="text">
+        <string>New Command</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbEditCommand">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Edit</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbDeleteCommand" >
-       <property name="enabled" >
+      <widget class="KPushButton" name="pbDeleteCommand">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Delete</string>
        </property>
       </widget>

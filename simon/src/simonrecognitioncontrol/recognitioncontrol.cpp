@@ -28,11 +28,11 @@
 
 #include <speechmodelmanagement/trainingmanager.h>
 
-#include <speechmodelbase/wordlistcontainer.h>
-#include <speechmodelbase/grammarcontainer.h>
-#include <speechmodelbase/languagedescriptioncontainer.h>
-#include <speechmodelbase/trainingcontainer.h>
-#include <speechmodelbase/model.h>
+#include <speechmodelmanagement/wordlistcontainer.h>
+#include <speechmodelmanagement/grammarcontainer.h>
+#include <speechmodelmanagement/languagedescriptioncontainer.h>
+#include <speechmodelmanagement/trainingcontainer.h>
+#include <speechmodelmanagement/model.h>
 
 #include <simonprogresstracking/operation.h>
 #include <simonrecognitionresult/recognitionresult.h>

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,31 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "word.h"
+#include "trainingmanager.h"
 
-#ifndef WORDLISTCONTAINER_H
-#define WORDLISTCONTAINER_H
-
-#include "speechmodelbase_export.h"
-
-#include <QByteArray>
-
-class SPEECHMODELBASE_EXPORT WordListContainer
+bool isWordLessThan(Word *w1, Word *w2)
 {
-	private:
-		QByteArray m_simpleVocab;
-		QByteArray m_activeVocab;
-		QByteArray m_activeLexicon;
+	if (w1->getLexiconWord() < w2->getLexiconWord())
+		return true;
+	else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) || 
+						((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
+}
 
-	public:
-		WordListContainer(const QByteArray& simpleVocab,
-				const QByteArray& activeVocab, const QByteArray& activeLexicon);
-			       
-		~WordListContainer();
-		
-		QByteArray simpleVocab() { return m_simpleVocab; }
-		QByteArray activeVocab() { return m_activeVocab; }
-		QByteArray activeLexicon() { return m_activeLexicon; }
-		
-};
 
-#endif
+int Word::getPropability()
+{
+	if (probability == -1)
+		probability = TrainingManager::getInstance()->getProbability (getWord());
+	return probability;
+}
+
+
+

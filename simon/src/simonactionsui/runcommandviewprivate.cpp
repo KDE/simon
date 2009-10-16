@@ -60,7 +60,6 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.lwCommands->setIconSize(QSize(24,24));
 
 	ui.pbNewCommand->setIcon(KIcon("list-add"));
-	ui.pbImportActivities->setIcon(KIcon("document-import"));
 	ui.pbEditCommand->setIcon(KIcon("edit-rename"));
 	ui.pbDeleteCommand->setIcon(KIcon("edit-delete"));
 }

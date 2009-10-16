@@ -21,11 +21,11 @@
 #include "trainingmanager.h"
 #include "speechmodelmanagementconfiguration.h"
 
-#include <speechmodelbase/model.h>
-#include <speechmodelbase/wordlistcontainer.h>
-#include <speechmodelbase/grammarcontainer.h>
-#include <speechmodelbase/languagedescriptioncontainer.h>
-#include <speechmodelbase/trainingcontainer.h>
+#include <speechmodelmanagement/model.h>
+#include <speechmodelmanagement/wordlistcontainer.h>
+#include <speechmodelmanagement/grammarcontainer.h>
+#include <speechmodelmanagement/languagedescriptioncontainer.h>
+#include <speechmodelmanagement/trainingcontainer.h>
 
 #include <speechmodelmanagement/scenariomanager.h>
 

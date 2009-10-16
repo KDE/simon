@@ -36,6 +36,7 @@ class Word;
 class VersionNumber;
 class Grammar;
 class ActiveVocabulary;
+class TrainingTextCollection;
 class TrainingText;
 
 class MODELMANAGEMENT_EXPORT Scenario : public QObject {
@@ -55,11 +56,13 @@ private:
 	QList<Author*> m_authors;
 	VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
 	ActiveVocabulary *m_vocabulary;
+	TrainingTextCollection *m_texts;
 	Grammar *m_grammar;
 	QList<Action*> m_actions;
-	QList<TrainingText*> m_texts;
 
 	bool emitChangedIfTrue(bool input);
+
+	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix);
 
 public:
 	Scenario(const QString& scenarioId);
@@ -72,7 +75,13 @@ public:
 	bool addWord(Word* w);
 	bool removeWord(Word* w);
 
+	bool addStructures(const QStringList& newStructures);
+
 	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+
+	QStringList getAllPossibleSentences();
+	QStringList getAllPossibleSentencesOfStructure(const QString& structure);
+
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
 	QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(), 
 			const QString& toDemonstrateTerminal=QString());
@@ -89,6 +98,10 @@ public:
 
 	ActiveVocabulary* vocabulary() { return m_vocabulary; }
 	Grammar* grammar() { return m_grammar; }
+	TrainingTextCollection* texts() { return m_texts; }
+
+	bool removeText(TrainingText* text);
+	bool addTrainingText(TrainingText* text);
 
 	~Scenario();
 

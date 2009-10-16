@@ -18,36 +18,23 @@
  */
 
 
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef GRAMMARCONTAINER_H
+#define GRAMMARCONTAINER_H
 
+#include "simonmodelmanagement_export.h"
+#include <QByteArray>
 
-#include "speechmodelbase_export.h"
-
-#include <QString>
-#include <QHash>
-#include <QStringList>
-
-class SPEECHMODELBASE_EXPORT Model
+class MODELMANAGEMENT_EXPORT GrammarContainer
 {
 	private:
-		qint32 m_sampleRate;
-		QByteArray m_hmmDefs;
-		QByteArray m_tiedList;
-		QByteArray m_dict;
-		QByteArray m_dfa;
+		QByteArray m_grammarStructures;
 
 	public:
-		Model(qint32 sampleRate, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+		GrammarContainer(const QByteArray& grammarStructures);
 			       
-		~Model();
+		~GrammarContainer();
 		
-		qint32 sampleRate() { return m_sampleRate; }
-		QByteArray hmmDefs() { return m_hmmDefs; }
-		QByteArray tiedList() { return m_tiedList; }
-		QByteArray dict() { return m_dict; }
-		QByteArray dfa() { return m_dfa; }
+		QByteArray grammarStructures() { return m_grammarStructures; }
 		
 };
 

@@ -24,7 +24,7 @@
 
 #include "ui_vocabulary.h"
 
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 #include <speechmodelmanagement/vocabulary.h>
 #include <speechmodelmanagement/activevocabulary.h>
 #include <speechmodelmanagement/wordlisttype.h>
@@ -50,23 +50,23 @@ private:
 	QSortFilterProxyModel *activeProxy;
 	QSortFilterProxyModel *shadowProxy;
 
-	bool abortVocabInsertion;
 	Ui::VocabularyView ui;
 
-	void setDirty ( bool dirty );
+	QList<Word*> trainingVocabulary;
+
+	Word *getCurrentlySelectedWord(bool &isShadowed);
 
 
 public slots:
-	void abortInsertion() { abortVocabInsertion = true; }
-	void markWordToTrain( Word word );
-	void copyWordToTrain();
-	void deleteTrainingWord();
-	void deleteSelectedWord();
-	void trainList();
 	void refreshActiveView();
 	void refreshShadowView();
 	void showImportDictDialog();
 	void displayScenarioPrivate(Scenario *scenario);
+	void deleteSelectedWord();
+
+	void copyWordToTrain();
+	void deleteTrainingWord();
+	void trainList();
 
 public:
 	VocabularyViewPrivate(QWidget *parent);

@@ -49,12 +49,11 @@
  */
 VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 {
-	abortVocabInsertion = false;
-	
 	ui.setupUi(this);
 
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
+
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
@@ -86,6 +85,11 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	shadowProxy->setFilterKeyColumn(0);
 	shadowProxy->setSourceModel(ScenarioManager::getInstance()->getShadowVocabulary());
 	ui.tvShadowVocab->setModel(shadowProxy);
+
+/*	QSortFilterProxyModel *trainingVocProxy = new QSortFilterProxyModel(this);
+	trainingVocProxy->setFilterKeyColumn(0);
+	trainingVocProxy->setSourceModel(&trainingVocabulary);
+	ui.lvTrainingWords->setModel(trainingVocProxy);*/
 }
 
 void VocabularyViewPrivate::refreshActiveView()
@@ -133,6 +137,27 @@ void VocabularyViewPrivate::showImportDictDialog()
 	importDictView->deleteLater();
 }
 
+Word* VocabularyViewPrivate::getCurrentlySelectedWord(bool& isShadowed)
+{
+	QAbstractItemView *view;
+	if (ui.twVocabularies->currentIndex() == 0) {
+		view = ui.tvActiveVocab;
+		isShadowed = false;
+	}  else {
+		view = ui.tvShadowVocab;
+		isShadowed = true;
+	}
+
+	QSortFilterProxyModel* m = static_cast<QSortFilterProxyModel*>(view->model());
+	QModelIndex selectedIndex = m->mapToSource(view->currentIndex());
+	if (!selectedIndex.isValid()) {
+		KMessageBox::information(this, i18n("Please select a word first"));
+		return NULL;
+	}
+
+	return static_cast<Word*>(selectedIndex.internalPointer());
+}
+
 /**
  * \brief Displays a dialog to ask the user what to do
  * \author Peter Grasch
@@ -146,24 +171,9 @@ void VocabularyViewPrivate::deleteSelectedWord()
 	if (!scenario) return;
 
 	bool isShadowed = true;
-	QAbstractItemView *view;
+	
+	Word *w = getCurrentlySelectedWord(isShadowed);
 
-	if (ui.twVocabularies->currentIndex() == 0) {
-		view = ui.tvActiveVocab;
-		isShadowed = false;
-	}  else {
-		view = ui.tvShadowVocab;
-		isShadowed = true;
-	}
-
-	QSortFilterProxyModel* m = static_cast<QSortFilterProxyModel*>(view->model());
-	QModelIndex selectedIndex = m->mapToSource(view->currentIndex());
-	if (!selectedIndex.isValid()) {
-		KMessageBox::information(this, i18n("Please select a word first"));
-		return;
-	}
-
-	Word *w = static_cast<Word*>(selectedIndex.internalPointer());
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
 	if (del->exec(w, isShadowed))
@@ -190,64 +200,6 @@ void VocabularyViewPrivate::deleteSelectedWord()
 
 
 /**
- * @brief Marks a word for Training
- *
- * @author Peter Grasch
- */
-void VocabularyViewPrivate::markWordToTrain(Word word)
-{
-	//this->trainingvocabulary.append( word );
-	//ui.lwTrainingWords->addItem( word.getWord() );
-}
-
-
-
-/**
- * @brief Filters the QList
- *
- * @param QString filter
- * The pattern which the Vocablist is matched against
- * @author Peter Grasch
- */
-//void VocabularyViewPrivate::filterListbyPattern(QString filter)
-//{
-	//if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
-	
-	//Vocabulary* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
-	//			WordListManager::PartialMatch, false /* display words twice which are in the active AND the shadowdict*/);
-	
-	//VocabularyModel *model = dynamic_cast<VocabularyModel*>(ui.tvActiveVocab->model());
-	//if (!model)
-//		ui.tvActiveVocab->setModel(new VocabularyModel(limitedVocab, ui.tvActiveVocab));
-//	else model->updateVocabulary(limitedVocab);
-//}
-
-/**
- * \brief Trains the list of words to train
- * Tells the TrainingView to guide the user to the process of training the
- * Wordlist given in lwTrainingWords (member)
- * \author Peter Grasch
- */
-void VocabularyViewPrivate::trainList()
-{
-/*	if (this->trainingvocabulary.count()==0)
-	{
-		KMessageBox::error(this, i18n("Please select a few words for the special training by dragging them from the "
-"list on your left to the list above.\n\nIf you just want to train your model "
-"using generic texts use the \"Training\" option in the Toolbar."));
-		return;
-	}
-
-	TrainingsWizard *wizard = new TrainingsWizard(this);
-	if (wizard->init(trainingvocabulary)&& wizard->exec())
-	{
-		trainingvocabulary.clear();
-		ui.lwTrainingWords->clear();
-	}
-	wizard->deleteLater();*/
-}
-
-/**
  * @brief Copies a word to the Traininglist
  *
  * Copies the currently selected word from the tvActiveVocab to the
@@ -257,17 +209,12 @@ void VocabularyViewPrivate::trainList()
  */
 void VocabularyViewPrivate::copyWordToTrain()
 {
-/*	if (!ui.tvActiveVocab->currentIndex().isValid())
-	{
-		KMessageBox::information(this,i18n("Please select a word first"));
-		return;
-	}
-	Word *w = static_cast<Word*>(ui.tvActiveVocab->currentIndex().internalPointer());
+	bool isShadowed;
+	Word *w = getCurrentlySelectedWord(isShadowed);
 	if (!w) return;
-	
-	this->trainingvocabulary.append(*w);
-	
-	ui.lwTrainingWords->addItem(w->getWord());*/
+
+	trainingVocabulary.append(w);
+	ui.lwTrainingWords->addItem(QString("%1 (%2)").arg(w->getWord()).arg(w->getTerminal()));
 }
 
 
@@ -283,30 +230,41 @@ void VocabularyViewPrivate::copyWordToTrain()
  */
 void VocabularyViewPrivate::deleteTrainingWord()
 {
-	/*
-	if (ui.lwTrainingWords->item(ui.lwTrainingWords->currentRow()))
-	{
-		QString word = ui.lwTrainingWords->takeItem(ui.lwTrainingWords->currentRow())->text();
-		
-		int i=0;
-		while  (i < trainingvocabulary.count())
-		{
-			if (trainingvocabulary.at(i).getWord() == word)
-				trainingvocabulary.removeAt(i--);
-			i++;
-		}
-		i=0;
-		while  (i < ui.lwTrainingWords->count())
-		{
-			if (ui.lwTrainingWords->item(i)->text() == word)
-				ui.lwTrainingWords->takeItem(i--);
-			i++;
-		}
-	} else
+	int index = ui.lwTrainingWords->currentRow();
+	if (index == -1) {
 		KMessageBox::information(this, i18n("Please select a word scheduled for training first."));
-		*/
+		return;
+	}
+
+	delete ui.lwTrainingWords->takeItem(index);
+	trainingVocabulary.removeAt(index);
 }
 
+
+
+/**
+ * \brief Trains the list of words to train
+ * Tells the TrainingView to guide the user to the process of training the
+ * Wordlist given in lwTrainingWords (member)
+ * \author Peter Grasch
+ */
+void VocabularyViewPrivate::trainList()
+{
+	if (trainingVocabulary.count()==0) {
+		KMessageBox::error(this, i18n("Please select a few words for the special training by dragging them from the "
+"list on your left to the list above.\n\nIf you just want to train your model "
+"using generic texts use the \"Training\" option in the Toolbar."));
+		return;
+	}
+
+	TrainingsWizard *wizard = new TrainingsWizard(this);
+	if (wizard->init(trainingVocabulary, ui.cbBuildSentences->isChecked())&& wizard->exec())
+	{
+		trainingVocabulary.clear();
+		ui.lwTrainingWords->clear();
+	}
+	wizard->deleteLater();
+}
 
 
 /**

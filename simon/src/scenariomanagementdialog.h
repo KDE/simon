@@ -18,25 +18,29 @@
  */
 
 
-#ifndef GRAMMARCONTAINER_H
-#define GRAMMARCONTAINER_H
+#ifndef SCENARIOMANAGEMENTDIALOG_H
+#define SCENARIOMANAGEMENTDIALOG_H
 
-#include "speechmodelbase_export.h"
 
-#include <QByteArray>
 
-class SPEECHMODELBASE_EXPORT GrammarContainer
-{
-	private:
-		QByteArray m_grammarStructures;
+#include <KDialog>
+#include <QList>
 
-	public:
-		GrammarContainer(const QByteArray& grammarStructures);
-			       
-		~GrammarContainer();
-		
-		QByteArray grammarStructures() { return m_grammarStructures; }
-		
+#include "ui_scenariomanagementdlg.h"
+
+class ScenarioManagementDialog : public KDialog    {
+	Q_OBJECT
+
+private:
+	Ui::ScenarioManagementDlg ui;
+	
+
+public:
+	explicit ScenarioManagementDialog(QWidget *parent = 0);
+
+	~ScenarioManagementDialog();
+
 };
 
 #endif
+

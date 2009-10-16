@@ -18,30 +18,31 @@
  */
 
 
-#ifndef IMPORTTRAININGTEXTWORKINGPAGE_H
-#define IMPORTTRAININGTEXTWORKINGPAGE_H
+#ifndef TRAININGCONTAINER_H
+#define TRAININGCONTAINER_H
 
-#include <QWizardPage>
-#include "ui_importtrainingtextworkingpage.h"
+#include "simonmodelmanagement_export.h"
 
-/**
- * \class ImportTrainingTextWorkingPage
- * \brief Imports the given trainingstext
- * \author Peter Grasch
- * \version 0.1
- */
-class ImportTrainingTextWorkingPage : public QWizardPage {
-	Q_OBJECT 
+#include <QByteArray>
+#include <QHash>
+
+class MODELMANAGEMENT_EXPORT TrainingContainer
+{
 	private:
-		Ui::ImportTextWorkingPage ui;
+		qint32 m_sampleRate;
+		QByteArray m_wavConfig;
+		QByteArray m_prompts;
 
-	public slots:
-		void startImport(KUrl path);
-		void parseFile(QString path);
-
-		void initializePage();
 	public:
-		ImportTrainingTextWorkingPage(QWidget* parent);
+		TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
+				const QByteArray& prompts);
+			       
+		~TrainingContainer();
+		
+		int sampleRate() { return m_sampleRate; }
+		QByteArray wavConfig() { return m_wavConfig; }
+		QByteArray prompts() { return m_prompts; }
+		
 };
 
 #endif

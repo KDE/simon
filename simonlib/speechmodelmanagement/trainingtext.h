@@ -22,8 +22,8 @@
 #define TRAININGTEXT_H
 
 #include <QStringList>
-#include "speechmodelbase_export.h"
 #include <simonscenariobase/scenarioobject.h>
+#include "simonmodelmanagement_export.h"
 #include <KDebug>
 
 /**
@@ -36,13 +36,14 @@
  */
 class Scenario;
 
-class SPEECHMODELBASE_EXPORT TrainingText : public ScenarioObject {
+class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject {
 protected:
 	QString name;
 	QStringList pages;
 	float relevance;
 	TrainingText( Scenario *parent );
 public:
+	TrainingText(const QString& name, const QStringList& pages, float relevance=-1);
 
 	static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
 
@@ -93,7 +94,7 @@ public:
 	 * \return 
 	 * relevance
 	 */
-	float getRelevance() const { return this->relevance; }
+	float getRelevance();
 	
 	
 	/**
@@ -104,14 +105,7 @@ public:
 	 */
 	void setRelevance( float relevance ) {	this->relevance = relevance; }
 	
-	/**
-	 * \brief reimplement this in your *TrainingText class to store the text
-	 * \author Peter Grasch
-	 */
-	virtual bool save()
-	{ return true; }
-
-	virtual ~TrainingText();
+	~TrainingText();
 
 };
 

@@ -23,7 +23,7 @@
 
 
 #include "dict.h"
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 #include <speechmodelmanagement/vocabulary.h>
 #include <QThread>
 

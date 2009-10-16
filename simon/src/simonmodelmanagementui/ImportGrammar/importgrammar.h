@@ -23,7 +23,7 @@
 
 #include <QThread>
 #include <QStringList>
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -38,7 +38,7 @@ signals:
 	void allProgress(int /*all progress*/,
 			int /*all max*/);
 
-	void grammarCreated(QStringList grammar);
+	void grammarCreated();
 private:
 	QStringList files;
 	QString encoding;

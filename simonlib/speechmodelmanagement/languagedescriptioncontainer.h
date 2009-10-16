@@ -18,31 +18,30 @@
  */
 
 
-#ifndef TRAININGCONTAINER_H
-#define TRAININGCONTAINER_H
+#ifndef LANGUAGEDESCRIPTIONCONTAINER_H
+#define LANGUAGEDESCRIPTIONCONTAINER_H
 
-#include "speechmodelbase_export.h"
 
+#include "simonmodelmanagement_export.h"
 #include <QByteArray>
-#include <QHash>
 
-class SPEECHMODELBASE_EXPORT TrainingContainer
+class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
 {
 	private:
-		qint32 m_sampleRate;
-		QByteArray m_wavConfig;
-		QByteArray m_prompts;
+		QByteArray m_shadowVocab;
+		
+		QByteArray m_treeHed;
 
 	public:
-		TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
-				const QByteArray& prompts);
+		LanguageDescriptionContainer(const QByteArray& shadowVocab, 
+				const QByteArray&  treeHed);
 			       
-		~TrainingContainer();
+		~LanguageDescriptionContainer();
 		
-		int sampleRate() { return m_sampleRate; }
-		QByteArray wavConfig() { return m_wavConfig; }
-		QByteArray prompts() { return m_prompts; }
-		
+
+		QByteArray shadowVocab() { return m_shadowVocab; }
+		QByteArray treeHed() { return m_treeHed; }
+
 };
 
 #endif

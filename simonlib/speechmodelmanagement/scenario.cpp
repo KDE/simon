@@ -23,7 +23,7 @@
 #include <simonscenariobase/versionnumber.h>
 #include "activevocabulary.h"
 #include "grammar.h"
-#include "trainingtext.h"
+#include "trainingtextcollection.h"
 
 #include <simonactions/action.h>
 
@@ -41,6 +41,7 @@ Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId),
 	m_simonMinVersion(NULL),
 	m_simonMaxVersion(NULL),
 	m_vocabulary(NULL),
+	m_texts(NULL),
 	m_grammar(NULL)
 {
 }
@@ -112,7 +113,6 @@ bool Scenario::init(QString path)
 	
 	//clear authors
 	qDeleteAll(m_authors);
-	kDebug() << "hi";
 
 	QDomElement authorsElem = docElem.firstChildElement("authors");
 	QDomElement authorElem = authorsElem.firstChildElement();
@@ -177,19 +177,12 @@ bool Scenario::init(QString path)
 
 	//  Trainingstexts
 	//************************************************/
-	QDomElement textsElem = docElem.firstChildElement("trainingstexts");
-	QDomElement textElem = textsElem.firstChildElement();
-	while (!textElem.isNull()) {
-		TrainingText *t = TrainingText::createTrainingText(this, textElem);
-		if (!t) {
-			kDebug() << "Couldn't load trainingtext";
-		} else {
-			m_texts << t;
-			kDebug() << "Trainingtext loaded: " << t->getName();
-		}
-		textElem = textElem.nextSiblingElement();
+	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
+	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
+	if (!m_texts) {
+		kDebug() << "Trainingtextcollection could not be loaded!";
+		return false;
 	}
-
 
 	return true;
 }
@@ -265,11 +258,7 @@ bool Scenario::save(QString path)
 
 	//  Trainingstexts
 	//************************************************/
-	QDomElement textsElem = doc.createElement("texts");
-	foreach (TrainingText *t, m_texts) {
-		textsElem.appendChild(t->serialize(&doc));
-	}
-	rootElem.appendChild(textsElem);
+	rootElem.appendChild(m_texts->serialize(&doc));
 
 	doc.appendChild(rootElem);
 	
@@ -305,6 +294,12 @@ bool Scenario::removeWord(Word* w)
 {
 	return emitChangedIfTrue(m_vocabulary->removeWord(w));
 }
+
+bool Scenario::addStructures(const QStringList& newStructures)
+{
+	return m_grammar->addStructures(newStructures);
+}
+	
 
 QStringList Scenario::getTerminals(SpeechModel::ModelElements elements)
 {
@@ -417,6 +412,49 @@ QStringList Scenario::getExampleSentences(const QString& name, const QString& te
 	return out;
 }
 
+QStringList Scenario::getAllPossibleSentences()
+{
+	QStringList terminalSentences = m_grammar->getStructures();
+
+	QStringList allSentences;
+
+	foreach (const QString& structure, terminalSentences) {
+		allSentences.append(getAllPossibleSentencesOfStructure(structure));
+	}
+	return allSentences;
+}
+
+QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structure)
+{
+	//Object, Command
+	QStringList structureElements = structure.split(" ");
+	QList< QList<Word*> > sentenceMatrix;
+
+	foreach (const QString& element, structureElements)
+		sentenceMatrix.append(m_vocabulary->findWordsByTerminal(element));
+
+	//sentences: ( (Window, Test), (Next, Previous) )
+	
+	return getValidSentences(sentenceMatrix);
+}
+
+QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix)
+{
+	QStringList out;
+	QList<Word*> poss = sentenceMatrix.takeAt(0);
+	foreach (Word *w, poss) {
+		if (sentenceMatrix.count() == 0) {
+			out.append(w->getWord());
+		} else {
+			QStringList returned = getValidSentences(sentenceMatrix);
+			foreach (const QString& ret, returned)
+				out.append(w->getWord()+" "+ret);
+		}
+	}
+	return out;
+}
+
+
 QString Scenario::getRandomWord(const QString& terminal)
 {
 	return m_vocabulary->getRandomWord(terminal);
@@ -432,12 +470,22 @@ bool Scenario::containsWord(const QString& word, const QString& terminal, const 
 	return emitChangedIfTrue(m_vocabulary->containsWord(word, terminal, pronunciation));
 }
 
+bool Scenario::removeText(TrainingText* text)
+{
+	return m_texts->removeText(text);
+}
+
+bool Scenario::addTrainingText(TrainingText* text)
+{
+	return m_texts->addTrainingText(text);
+}
+
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);
 	qDeleteAll(m_actions);
-	qDeleteAll(m_texts);
 	delete m_grammar;
+	delete m_texts;
 	delete m_vocabulary;
 	delete m_simonMinVersion;
 	delete m_simonMaxVersion;

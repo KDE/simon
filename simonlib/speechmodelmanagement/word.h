@@ -23,7 +23,7 @@
 #include <QString>
 #include <QList>
 #include <KLocalizedString>
-#include "speechmodelbase_export.h"
+#include "simonmodelmanagement_export.h"
 
 /**
  *	@class Word
@@ -41,7 +41,7 @@ class Word;
 
 typedef QList<Word> WordList; //!< QList from Word
 
-class SPEECHMODELBASE_EXPORT Word {
+class MODELMANAGEMENT_EXPORT Word {
 
 private:
 	QString word; //!< Saves the represented word
@@ -121,13 +121,6 @@ public:
 	}
 
 	/**
-	 * \brief Sets the probability to the given probability
-	 * \author Peter Grasch
-	 * @param newProbability 
-	 */
-	void setProbability(int newProbability) { this->probability=newProbability; }
-	
-	/**
 	 * @brief Getter-Method: terminal
 	 *
 	 * @author Peter Grasch
@@ -192,11 +185,8 @@ public:
 	 * Returns the probability (how well it has been trained) of the word
 	 * 
 	 */
-	int getPropability() const
-	{
-		return this->probability;
-	}
-
+	int getPropability();
+	
 
 	/**
 	* @brief Destructor

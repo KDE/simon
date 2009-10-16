@@ -27,28 +27,13 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="twTrainingWords">
+    <widget class="QTableView" name="tvTrainingTexts">
      <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
-     <column>
-      <property name="text">
-       <string>Name</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Pages</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Recognition Rate</string>
-      </property>
-     </column>
     </widget>
    </item>
    <item>

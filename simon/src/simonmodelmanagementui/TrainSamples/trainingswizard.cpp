@@ -24,7 +24,8 @@
 
 #include <speechmodelmanagement/trainingmanager.h>
 #include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelbase/trainingtext.h>
+#include <speechmodelmanagement/scenario.h>
+#include <speechmodelmanagement/trainingtext.h>
 
 #include <QWizardPage>
 #include <QStringList>
@@ -52,64 +53,79 @@ bool TrainingsWizard::init(const QStringList& prompts)
 	return init(prompts, i18n("Training"));
 }
 
-bool TrainingsWizard::init(const WordList &wList) 
+/**
+ * \param smartSentences If this is true, the trainingswizard will try to ask the user for 
+ * 		meaningful sentences utilizing the individual words
+ */
+bool TrainingsWizard::init(const QList<Word*>& wList, bool smartSentences) 
 {
 	QStringList pages;
 
-	//we try to guess the perfect amount of words/page
-	//We first go through the possible words/page word counts from 5 to 12
-	//If we find a perfect match (means we have x pages with the /same/ amount of words
-	//on them, we found a perfect words/page value
-	//If not, we try to find the w/p count that leaves the last page with the closest
-	//value of w/p than the others.
-	//for example if we have given 37 words, we would end up with the following:
-	//
-	//	+---------+-----------------+
-	//	| w/p     |    w/p last page|
-	//	+---------------------------+
-	//	|  5      |         2	    |
-	//	|  6      |         1	    |
-	//	|  7      |         2	    |
-	//	|  8      |         5	    |
-	//	|  9      |         1	    |
-	//	|  10     |         7	    |
-	//	|  11     |         4	    |
-	//	|  12     |         1	    |
-	//	+---------+-----------------+
-	//
-	//In this case the perfect amount of w/p would be 10 because even the last page
-	//would have enough words for perfect accuracy
-
-	short wordCount = wList.count();
-	short wordsPerPage=5;
-
-	short maxLeftOver=0;
-	short leftOverWordsPerPage=5;
-
-	while ( ( wordCount%wordsPerPage != 0 ) && ( wordsPerPage <=12 ) )
-	{
-		if ( wordCount%wordsPerPage > maxLeftOver )
-		{
-			maxLeftOver = wordCount%wordsPerPage;
-			leftOverWordsPerPage = wordsPerPage;
+	if (smartSentences) {
+		//resolve sentences
+		foreach (Word *w, wList) {
+			QStringList examples = ScenarioManager::getInstance()->
+				getCurrentScenario()->getExampleSentences(w->getWord(), w->getTerminal(), 1);
+			if (examples.isEmpty())
+				pages << w->getWord();
+			else pages << examples[0];
 		}
+	} else {
+		//we try to guess the perfect amount of words/page
+		//We first go through the possible words/page word counts from 5 to 12
+		//If we find a perfect match (means we have x pages with the /same/ amount of words
+		//on them, we found a perfect words/page value
+		//If not, we try to find the w/p count that leaves the last page with the closest
+		//value of w/p than the others.
+		//for example if we have given 37 words, we would end up with the following:
+		//
+		//	+---------+-----------------+
+		//	| w/p     |    w/p last page|
+		//	+---------------------------+
+		//	|  5      |         2	    |
+		//	|  6      |         1	    |
+		//	|  7      |         2	    |
+		//	|  8      |         5	    |
+		//	|  9      |         1	    |
+		//	|  10     |         7	    |
+		//	|  11     |         4	    |
+		//	|  12     |         1	    |
+		//	+---------+-----------------+
+		//
+		//In this case the perfect amount of w/p would be 10 because even the last page
+		//would have enough words for perfect accuracy
 
-		wordsPerPage++;
-	}
-	if ( wordsPerPage==13 ) wordsPerPage=leftOverWordsPerPage;
+		short wordCount = wList.count();
+		short wordsPerPage=5;
 
-	QString page;
-	QString time;
-	for ( int i=0; i< ceil((double)wordCount/wordsPerPage); i++ )
-	{
-		page="";
-		for ( int j=0; ( j<wordsPerPage ) && ( j+ ( i*wordsPerPage ) < wordCount ); j++ )
+		short maxLeftOver=0;
+		short leftOverWordsPerPage=5;
+
+		while ( ( wordCount%wordsPerPage != 0 ) && ( wordsPerPage <=12 ) )
 		{
-			page += wList.at(j+(i*wordsPerPage)).getWord() + QString(" ");
-		}
-		page = page.trimmed();
+			if ( wordCount%wordsPerPage > maxLeftOver )
+			{
+				maxLeftOver = wordCount%wordsPerPage;
+				leftOverWordsPerPage = wordsPerPage;
+			}
 
-		pages.append(page);
+			wordsPerPage++;
+		}
+		if ( wordsPerPage==13 ) wordsPerPage=leftOverWordsPerPage;
+
+		QString page;
+		QString time;
+		for ( int i=0; i< ceil((double)wordCount/wordsPerPage); i++ )
+		{
+			page="";
+			for ( int j=0; ( j<wordsPerPage ) && ( j+ ( i*wordsPerPage ) < wordCount ); j++ )
+			{
+				page += wList.at(j+(i*wordsPerPage))->getWord() + QString(" ");
+			}
+			page = page.trimmed();
+
+			pages.append(page);
+		}
 	}
 	
 	return init(pages, i18n("Special Training"));

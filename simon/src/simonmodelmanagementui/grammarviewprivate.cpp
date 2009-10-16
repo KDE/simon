@@ -76,20 +76,9 @@ void GrammarViewPrivate::currentSelectionChanged()
 		ui.pbDelete->setEnabled(true);
 
 		QString selectedStructure = ScenarioManager::getInstance()->getCurrentScenario()->grammar()->getStructure(structureIndex);
-		kDebug() << "Selected structure: " << selectedStructure;
 
-		//get some examples...
-		QStringList uniqueExamples;
-		for(int i=0; i < 25; i++) {
-			bool ok = true;
-			QString example = ScenarioManager::getInstance()->getCurrentScenario()->fillGrammarSentenceWithExamples(selectedStructure, ok);
-			if (ok && (!uniqueExamples.contains(example)))
-				uniqueExamples << example;
-		}
-
-		uniqueExamples.sort();
-
-		ui.lwExamples->addItems(uniqueExamples);
+		QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getAllPossibleSentencesOfStructure(selectedStructure);
+		ui.lwExamples->addItems(examples);
 	}
 }
 
@@ -134,22 +123,6 @@ void GrammarViewPrivate::showRenameWizard()
 	renameTerminalWizard->restart();
 	renameTerminalWizard->exec();
 	renameTerminalWizard->deleteLater();
-}
-
-
-
-void GrammarViewPrivate::mergeGrammar(QStringList grammar)
-{
-	//TODO: implement
-/*	QStringList toInsert;
-	
-	QStringList currentStructures = ui.kcfg_GrammarStructures->items();
-	for (int i=0; i < grammar.count(); i++)
-	{
-		if (!currentStructures.contains(grammar[i]))
-			toInsert << grammar[i];
-	}
-	ui.kcfg_GrammarStructures->insertStringList(toInsert);*/
 }
 
 

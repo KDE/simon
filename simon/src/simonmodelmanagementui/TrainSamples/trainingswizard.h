@@ -21,7 +21,7 @@
 #define TRAININGSWIZARD_H
 
 #include <QWizard>
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 
 class QWizard;
 class QStringList;
@@ -44,7 +44,7 @@ class TrainingsWizard : public QWizard
 	public:
 		TrainingsWizard(QWidget *parent=0);
 		bool init(const QStringList &prompts);
-		bool init(const WordList &wList);
+		bool init(const QList<Word*>& wList, bool smartSentences=false);
 		bool init(const TrainingText &text);
 		~TrainingsWizard();
 

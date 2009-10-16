@@ -210,7 +210,6 @@ void AddWordView::commitList()
 	for (int i=0; i < listToAdd->count(); i++)
 	{
 		Word *w = listToAdd->takeAt(i);
-		w->setProbability(TrainingManager::getInstance()->getProbability(w->getWord()));
 		listToAdd->insert(i, w);
 	}
 

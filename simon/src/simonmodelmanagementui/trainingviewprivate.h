@@ -24,13 +24,15 @@
 
 #include <QWidget>
 
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
+#include <simonscenariobase/scenariodisplay.h>
 
-class WordListView;
 class ImportTrainingDirectory;
 class TrainingManager;
-class RecWidget;
+class TrainingText;
 class ImportTrainingTexts;
+class QSortFilterProxyModel;
+
 /**
  *	@class TrainingViewPrivate
  *	@brief Provides the UI for the Training process
@@ -39,17 +41,21 @@ class ImportTrainingTexts;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingViewPrivate : public QWidget {
+class TrainingViewPrivate : public QWidget, public ScenarioDisplay  {
 	Q_OBJECT
 
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	ImportTrainingTexts *import;
+	QSortFilterProxyModel *textsProxy;
+
+	TrainingText* getCurrentlySelectedText();
+
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
 
 
 public slots:
-	void loadList();
-
 	void deleteSelected();
 
 	void trainSelected();

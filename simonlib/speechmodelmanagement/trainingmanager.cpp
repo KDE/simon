@@ -250,48 +250,6 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 }
 
 
-/**
- * \brief Deletes the given file from the harddrive
- * \author Peter Grasch
- * \param int index
- * The index of the text to delete
- */
-bool TrainingManager::deleteText ( int index )
-{
-	//TODO: Port to scenarios
-	return true;
-/*	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
-	kDebug() << "removing " << trainingTexts->at ( index )->getPath().toAscii();
-	return QFile::remove( trainingTexts->at ( index )->getPath().toAscii() );*/
-}
-
-/**
- * @brief Read the Training Texts and returns the list
- *
- * @return TrainingList*
- * The TrainingList (member)
- */
-TrainingList* TrainingManager::readTrainingTexts ()
-{
-	Logger::log ( i18n ( "[INF] Reading the trainingstexts" ));
-
-	//TODO: Port to scenarios
-	return new TrainingList();
-	/*
-	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
-
-	for ( int i=0; i < textsrcs.count(); i++ )
-	{
-		QString path = textsrcs.at ( i );
-		XMLTrainingText *text = new XMLTrainingText ( path );
-		text->load ( path );
-		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed
-		trainingTexts->append ( text );
-	}
-	
-	return trainingTexts;*/
-}
-
 bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 {
 	QMutexLocker lock(&promptsLock);
@@ -352,23 +310,6 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
 	return strListAllWords;
 }
 
-/**
- * \brief Returns the Text <i>
- * \author Peter Grasch
- * \param int i
- * The index of the text
- * \return TraininText*
- * Pointer to the TrainingText
- */
-TrainingText* TrainingManager::getText ( int i )
-{
-	if ( this->trainingTexts && (trainingTexts->count() > i))
-	{
-		return this->trainingTexts->at ( i );
-	} else return NULL;
-}
-
-
 
 /**
  * \brief Calculates the relevance of the given text with the given wordlist
@@ -377,7 +318,7 @@ TrainingText* TrainingManager::getText ( int i )
  * @param wlist The wordlist as reference
  * @return An index of how well simon would recognize it - the lower the worse
  */
-float TrainingManager::calcRelevance ( TrainingText *text )
+float TrainingManager::calcRelevance ( const TrainingText *text )
 {
 	QString currPage;
 	QStringList words;
@@ -497,26 +438,6 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 		dirty=true;
 		return true;
 	} else return false;
-}
-
-bool TrainingManager::saveTrainingsText(const QString& name, const QStringList pages)
-{
-	QString textDir = KStandardDirs::locateLocal("appdata", "texts/");
-	int index=1;
-
-	//find next free path
-	while (QFile::exists(QString(textDir+name+QString::number(index)+".xml").toUtf8()))
-		index++;
-
-	QString path = textDir+name+QString::number(index)+".xml";
-	//TODO: Port to scenarios
-	return true;
-
- 	/*XMLTrainingText *text = new XMLTrainingText (name, path.toUtf8(),pages);
-	bool succ = text->save();
-	delete text;
-
-	return succ;*/
 }
 
 bool TrainingManager::defaultToPowerTrain()

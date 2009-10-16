@@ -16,6 +16,7 @@ set( simonmodelmanagementui_LIB_SRCS
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/droplistview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp

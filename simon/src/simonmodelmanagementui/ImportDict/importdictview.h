@@ -23,7 +23,7 @@
 
 
 #include <QWizard>
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 #include <speechmodelmanagement/vocabulary.h>
 
 

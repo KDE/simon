@@ -23,7 +23,7 @@
 
 #include <QWizardPage>
 #include "ui_importgrammarworkingpage.h"
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -32,7 +32,7 @@ class ImportGrammarWorkingPage : public QWizardPage
 {
 Q_OBJECT
 signals:
-	void grammarCreated(QStringList);
+	void grammarCreated();
 private:
 	bool completed;
 	Ui::ImportGrammarWorkingPage ui;

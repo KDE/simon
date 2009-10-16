@@ -26,7 +26,7 @@
 
 #include "simonmodelmanagement_export.h"
 
-#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/word.h>
 
 class QDomElement;
 class QDomDocument;
@@ -88,6 +88,10 @@ public:
 	QStringList getTerminals();
 
 	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+	QList<Word*> findWordsByTerminal(const QString& terminal);
+
+	void clear();
+	void deleteAll();
 
 enum VocabularyType {
 	ShadowVocabulary = 0,

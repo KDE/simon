@@ -26,14 +26,6 @@
 //sonnet speller
 #include <sonnet/speller.h>
 
-bool isWordLessThan(Word *w1, Word *w2)
-{
-	if (w1->getLexiconWord() < w2->getLexiconWord())
-		return true;
-	else return ((w1->getLexiconWord() == w2->getLexiconWord()) && ((w1->getPronunciation() < w2->getPronunciation()) || 
-						((w1->getPronunciation() == w2->getPronunciation()) && (w1->getTerminal() < w2->getTerminal()))));
-}
-
 /**
  * Empty, private constructor
  */
@@ -211,14 +203,11 @@ bool Vocabulary::addWords(QList<Word*> *w)
 {
 	if (!w) return false;
 
-	kDebug() << this;
-
 	//insertion
 	for (int i=0; i < m_words.count(); i++) {
 		if (!( *(m_words[i]) < *(w->at(0)) )) {
 			if (*(m_words[i]) != *(w->at(0)))
 			{
-				//kDebug() << m_words[i]->getWord() << " !< " << w->at(0)->getWord();
 				if (!terminals.contains(w->at(0)->getTerminal()))
 					terminals << w->at(0)->getTerminal();
 				m_words.insert(i, w->takeAt(0));
@@ -228,13 +217,11 @@ bool Vocabulary::addWords(QList<Word*> *w)
 				delete w->takeAt(0);
 
 			}
-		} //else
-			//kDebug() << m_words[i]->getWord() << " < " << w->at(0)->getWord();
+		}
 	}
 
 	if (!w->isEmpty()) {
 		foreach (Word *word, *w) {
-		//	kDebug() << "Appending: " << word->getWord();
 			if (!terminals.contains(word->getTerminal()))
 				terminals << word->getTerminal();
 			m_words.append(word);
@@ -370,19 +357,39 @@ QList<Word*> Vocabulary::findWords(const QString& name, Vocabulary::MatchType ty
 			uniqueOut.append(out.takeAt(0));
 		else out.removeAt(0);
 	}
-	/*foreach (Word* w, out) {
-		bool contains=false;
-		foreach (Word *w2, uniqueOut) {
-			if (*w2 == *w) {
-				contains = true;
-				break;
-			}
-		}
-		if (!contains)
-			uniqueOut.append(w);
-	}*/
 
 	return uniqueOut;
+}
+
+
+/*
+ * @warning:	This returns a list containing shallow copies of the words of the vocabulary
+ * 		Don't delete its contents!
+ */
+QList<Word*> Vocabulary::findWordsByTerminal(const QString& terminal)
+{
+	QList<Word*> out;
+
+	foreach (Word *w, m_words)
+		if (w->getTerminal() == terminal)
+			out.append(w);
+
+	return out;
+}
+
+void Vocabulary::deleteAll()
+{
+	qDeleteAll(m_words);
+	clear();
+}
+
+/*
+ * \brief this will remove all the words - but doesn't delete them! Use deleteAll for that!
+ */
+void Vocabulary::clear()
+{
+	m_words.clear();
+	reset();
 }
 
 Vocabulary::~Vocabulary()

@@ -24,8 +24,10 @@
 #include <KFilterDev>
 #include <KMimeType>
 #include <QTextCodec>
+#include <KDebug>
 #include <kencodingdetector.h>
 #include <speechmodelmanagement/speechmodel.h>
+#include <speechmodelmanagement/scenario.h>
 #include <speechmodelmanagement/scenariomanager.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
@@ -47,7 +49,8 @@ void ImportGrammar::run()
 		emit allProgress(i+1, files.count());
 		QFile::remove(files[i]);
 	}
-	emit grammarCreated(sentences);
+	ScenarioManager::getInstance()->getCurrentScenario()->addStructures(sentences);
+	emit grammarCreated();
 }
 
 
@@ -68,7 +71,11 @@ QStringList ImportGrammar::readFile(QString path)
 		//seek back to the beginning and parse file using the guessed encoding
 		QByteArray preview = file->peek(5000);
 		KEncodingDetector detector;
+#ifdef Q_OS_WIN32
 		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+#else
+		detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+#endif
 		QString out=detector.decode(preview);
 		codec = QTextCodec::codecForName(detector.encoding());
 	} else 
@@ -158,14 +165,19 @@ QStringList ImportGrammar::importFile(QString path)
 			//first: quick lookup
 			lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
 										SpeechModel::ScenarioVocabulary, Vocabulary::ExactMatch);
+			kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
 
 			QStringList wordTerminals=terminals(lookupResult);
 			if (wordTerminals.count()==0) {
 				//dont delete the contents of the list
 				lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
 										SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
+
+				kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
+
 				wordTerminals = terminals(lookupResult);
 			}
+			kDebug() << wordTerminals;
 			
 			if (wordTerminals.count() != 1 /*change this to include ambigous terminals */)
 			{
@@ -192,6 +204,7 @@ QStringList ImportGrammar::importFile(QString path)
 		if (everyWordSure)
 		{
 			//add to output
+			kDebug() << "Found sentence: " << words.join(" ");
 			out << words.join(" ");
 		}
 		emit fileProgress(++progress, max);
