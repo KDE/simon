@@ -22,11 +22,11 @@
 #define SCENARIODISPLAY_H
 #include <QString>
 #include <QDomElement>
-#include "simonscenariobase_export.h"
+#include "simonmodelmanagement_export.h"
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT ScenarioDisplay{
+class MODELMANAGEMENT_EXPORT ScenarioDisplay{
 
 protected:
 	Scenario *scenario;

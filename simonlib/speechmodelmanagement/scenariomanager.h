@@ -69,6 +69,7 @@ public:
 	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
 
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
+	bool setupScenarios();
 
 	
 public slots:
@@ -84,7 +85,6 @@ private:
 	QList<Scenario*> scenarios;
 	QList<ScenarioDisplay*> scenarioDisplays;
 
-	bool setupScenarios();
 };
 
 #endif

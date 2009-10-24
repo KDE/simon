@@ -32,8 +32,12 @@ class ScenarioManagementDialog : public KDialog    {
 	Q_OBJECT
 
 private:
-	Ui::ScenarioManagementDlg ui;
+	Ui::Dialog ui;
+
+	void initDisplay();
 	
+public slots:
+	int exec();
 
 public:
 	explicit ScenarioManagementDialog(QWidget *parent = 0);

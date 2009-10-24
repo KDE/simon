@@ -22,7 +22,7 @@
 #define TRAININGVIEW_H
 #include "inlinewidget.h"
 #include <speechmodelmanagement/word.h>
-#include <simonscenariobase/scenariodisplay.h>
+#include <speechmodelmanagement/scenariodisplay.h>
 #include "simonmodelmanagementui_export.h"
 
 class TrainingViewPrivate;

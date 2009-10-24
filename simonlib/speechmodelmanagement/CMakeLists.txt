@@ -25,12 +25,15 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtextcollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistcontainer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/word.cpp
 
+	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.cpp
 )
 
 
@@ -40,6 +43,7 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
   ${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.h
   ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
@@ -53,6 +57,9 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/model.h
 
+
+${CMAKE_CURRENT_SOURCE_DIR}/author.h
+${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 )
 
 
@@ -68,7 +75,7 @@ kde4_add_kcfg_files(simonmodelmanagement_LIB_SRCS
 kde4_add_library( simonmodelmanagement SHARED ${simonmodelmanagement_LIB_SRCS} )
 target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
 	simonxml simonlogging speechgui speechmodelbase simonprogresstracking  simonactions 
-	simonscenariobase simoncommandpluginbase )
+	simoncommandpluginbase simonscenariobase )
 
 
 set_target_properties( simonmodelmanagement

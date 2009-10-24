@@ -31,7 +31,7 @@
 
 class ScenarioObject;
 class Author;
-class Action;
+class ActionCollection;
 class Word;
 class VersionNumber;
 class Grammar;
@@ -58,7 +58,7 @@ private:
 	ActiveVocabulary *m_vocabulary;
 	TrainingTextCollection *m_texts;
 	Grammar *m_grammar;
-	QList<Action*> m_actions;
+	ActionCollection* m_actionCollection;
 
 	bool emitChangedIfTrue(bool input);
 
@@ -70,6 +70,10 @@ public:
 	KIcon icon() { return KIcon(m_iconSrc); }
 	QString name() { return m_name; }
 	QString id() { return m_scenarioId; }
+	QString licence() { return m_licence; }
+	VersionNumber* simonMinVersion() { return m_simonMinVersion; }
+	VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
+	QList<Author*> authors() { return m_authors; }
 
 	bool addWords(QList<Word*>* w);
 	bool addWord(Word* w);
@@ -99,6 +103,7 @@ public:
 	ActiveVocabulary* vocabulary() { return m_vocabulary; }
 	Grammar* grammar() { return m_grammar; }
 	TrainingTextCollection* texts() { return m_texts; }
+	ActionCollection* actionCollection() { return m_actionCollection; }
 
 	bool removeText(TrainingText* text);
 	bool addTrainingText(TrainingText* text);

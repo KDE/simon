@@ -113,7 +113,7 @@ bool AICommandManager::load()
 {
 	if (parser) return true;
 	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
+	AIConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()));
 	AIConfiguration::getInstance()->setManager(this);
 	AIConfiguration::getInstance()->load();
 	
@@ -136,7 +136,7 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *pare
 	Q_UNUSED(parentScenario);
 	if (parser) return true;
 	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
+	AIConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()));
 	AIConfiguration::getInstance()->setManager(this);
 	AIConfiguration::getInstance()->load();
 	

@@ -18,14 +18,15 @@
  */
 
 #include "scenario.h"
-#include <simonscenariobase/scenarioobject.h>
-#include <simonscenariobase/author.h>
+#include "author.h"
 #include <simonscenariobase/versionnumber.h>
 #include "activevocabulary.h"
 #include "grammar.h"
 #include "trainingtextcollection.h"
 
-#include <simonactions/action.h>
+#include "actioncollection.h"
+
+#include <simonscenariobase/scenarioobject.h>
 
 #include "version.h"
 
@@ -160,19 +161,12 @@ bool Scenario::init(QString path)
 
 	//  Actions
 	//************************************************/
-	QDomElement actionsElem = docElem.firstChildElement("actions");
-	QDomElement pluginElem = actionsElem.firstChildElement();
-	while (!pluginElem.isNull()) {
-		Action *a = Action::createAction(this, pluginElem);
-		if (!a) {
-			kDebug() << "Couldn't load action";
-		} else {
-			m_actions << a;
-		}
-
-		pluginElem = pluginElem.nextSiblingElement();
+	QDomElement actionsElement = docElem.firstChildElement("actions");
+	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
+	if (!m_actionCollection) {
+		kDebug() << "ActionCollection could not be loaded!";
+		return false;
 	}
-
 
 
 	//  Trainingstexts
@@ -249,11 +243,7 @@ bool Scenario::save(QString path)
 
 	//  Actions
 	//************************************************/
-	QDomElement actionsElem = doc.createElement("actions");
-	foreach (Action *a, m_actions) {
-		actionsElem.appendChild(a->serialize(&doc));
-	}
-	rootElem.appendChild(actionsElem);
+	rootElem.appendChild(m_actionCollection->serialize(&doc));
 
 
 	//  Trainingstexts
@@ -483,7 +473,7 @@ bool Scenario::addTrainingText(TrainingText* text)
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);
-	qDeleteAll(m_actions);
+	delete m_actionCollection;
 	delete m_grammar;
 	delete m_texts;
 	delete m_vocabulary;

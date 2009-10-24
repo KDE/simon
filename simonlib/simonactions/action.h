@@ -59,6 +59,7 @@ class SIMONACTIONS_EXPORT Action : public QObject, public ScenarioObject
 
 		QIcon icon();
 		QPointer<CommandManager> manager() { return m_manager; }
+		bool hasCommands();
 		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
 
 		bool deSerialize(const QDomElement&);

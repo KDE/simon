@@ -156,6 +156,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );
+	ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
 
 
 	info->writeToSplash ( i18n ( "Loading Interface..." ) );
@@ -163,11 +164,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	settingsShown=false;
 
 	cbCurrentScenario = new QComboBox(this);
-	QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
-	foreach (Scenario* s, scenarioList) {
-		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
-	}
 
+	displayScenarios();
 	updateScenarioDisplays();
 	
 	setupActions();
@@ -191,6 +189,18 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	if (!control->startMinimized())
 		show();
 }
+
+void SimonView::displayScenarios()
+{
+	cbCurrentScenario->clear();
+
+	QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
+	foreach (Scenario* s, scenarioList) {
+		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
+	}
+}
+
+
 
 void SimonView::updateScenarioDisplays()
 {
@@ -327,7 +337,14 @@ void SimonView::manageScenarios()
 {
 //	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
 	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
-	dlg->exec();
+	if (dlg->exec()) {
+		//reload scenario information
+		if (!ScenarioManager::getInstance()->setupScenarios())
+			KMessageBox::sorry(this, i18n("Couldn't re-initialize scenarios. Please restart simon!"));
+
+		displayScenarios();
+		updateScenarioDisplays();
+	}
 	dlg->deleteLater();
 }
 

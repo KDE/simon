@@ -28,7 +28,7 @@
 #include <speechmodelmanagement/vocabulary.h>
 #include <speechmodelmanagement/activevocabulary.h>
 #include <speechmodelmanagement/wordlisttype.h>
-#include <simonscenariobase/scenariodisplay.h>
+#include <speechmodelmanagement/scenariodisplay.h>
 
 
 class QSortFilterProxyModel;

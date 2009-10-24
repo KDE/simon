@@ -158,6 +158,14 @@ QIcon Action::icon()
 	return QIcon(); 
 }
 
+bool Action::hasCommands()
+{
+	if (!m_manager)
+		return false;
+
+	return m_manager->hasCommands();
+}
+
 
 Action::~Action()
 {

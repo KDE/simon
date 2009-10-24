@@ -46,7 +46,8 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 
 	//connect(&autoSaveTimer, SIGNAL(timeout()), this, SLOT(save()));
 	
-	connect(ui.lvStructures, SIGNAL(activated(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+//	connect(ui.lvStructures, SIGNAL(activated(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+	connect(ui.lvStructures, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
 	
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));

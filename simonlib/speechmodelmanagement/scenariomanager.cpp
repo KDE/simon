@@ -22,12 +22,14 @@
 
 #include <speechmodelmanagement/scenario.h>
 #include <speechmodelmanagement/shadowvocabulary.h>
-#include <simonscenariobase/scenariodisplay.h>
+#include "scenariodisplay.h"
 
 #include <QFileInfo>
 #include <KDebug>
 #include <KGlobal>
 #include <KStandardDirs>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 ScenarioManager* ScenarioManager::instance;
 
@@ -77,26 +79,19 @@ bool ScenarioManager::setupScenarios()
 {
 	bool success = true;
 
+	qDeleteAll(scenarios);
+	scenarios.clear();
+
 	kDebug() << "Setting up scenarios...";
-	//Currently loads all scenarios
-	//Should be replaced with "only selected ones" through the manage scenario action
-	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
-	QStringList scenarioIds;
 
-	foreach (const QString& src, scenarioSrcs) {
-		QFileInfo f(src);
-		QString idToBe = f.fileName();
-		if (!scenarioIds.contains(idToBe)) 
-			scenarioIds << idToBe;
-	}
-
-	kDebug() << "Found scenarios: " << scenarioIds;
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+	QStringList  scenarioIds = cg.readEntry("SelectedScenarios", QStringList());
 
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
 		kDebug() << "Initializing scenario" << id;
 		if (!s->init()) {
-//			KMessageBox::error(0, i18n("Failed to initialize scenario \"%1\"").arg(id));
 			success = false;
 		} else {
 			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
@@ -104,15 +99,12 @@ bool ScenarioManager::setupScenarios()
 			scenarios << s;
 		}
 	}
+
 	return success;
 }
 
 QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 {
-	/*ShadowVocabulary=1,
-	ScenarioVocabulary=2,
-	ScenarioGrammar=4,
-	ScenarioActions=8*/
 	QStringList terminals;
 
 	if ((elements & SpeechModel::ScenarioGrammar) || (elements & SpeechModel::ScenarioVocabulary))

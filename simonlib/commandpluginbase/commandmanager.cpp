@@ -124,17 +124,87 @@ bool CommandManager::deleteCommand(Command *command)
 {
 	if (!commands) return false;
 
-	if (commands->removeAll(command) > 0)
-		return save();
+	for (int i=0; i < commands->count(); i++) {
+		if (commands->at(i) == command) {
+			beginRemoveRows(QModelIndex(), i, i);
+			commands->removeAt(i);
+			endRemoveRows();
+			return save();
+		}
+	}
 
 	return false;
 }
 
 
+QVariant CommandManager::data(const QModelIndex &index, int role) const
+{
+	if (!index.isValid() || !commands) return QVariant();
+
+	if (role == Qt::DisplayRole) 
+		return commands->at(index.row())->getTrigger();
+
+	if (role == Qt::DecorationRole)
+		return commands->at(index.row())->getIcon();
+
+	return QVariant();
+}
+
+Qt::ItemFlags CommandManager::flags(const QModelIndex &index) const
+{
+	if (!index.isValid())
+		return 0;
+
+	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
+QVariant CommandManager::headerData(int column, Qt::Orientation orientation,
+			int role) const
+{
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+		switch (column)
+		{
+			case 0:
+				return i18n("Trigger");
+		}
+	}
+	
+	//default
+	return QVariant();
+}
+
+
+QModelIndex CommandManager::parent(const QModelIndex &index) const
+{
+	Q_UNUSED(index);
+	return QModelIndex();
+}
+
+int CommandManager::rowCount(const QModelIndex &parent) const
+{
+	if (!parent.isValid() && commands)
+		return commands->count();
+	else return 0;
+}
+
+int CommandManager::columnCount(const QModelIndex &parent) const
+{
+	Q_UNUSED(parent);
+	return 1;
+}
+
+QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent) const
+{
+	if (!hasIndex(row, column, parent) || parent.isValid() || !commands)
+		return QModelIndex();
+
+	return createIndex(row, column, commands->at(row));
+}
+
+
+
 CommandManager::~CommandManager()
 {
-	kDebug() << "DELETING COMMAND MANAGER";
-
 	if (commands)
 		qDeleteAll(*commands);
 

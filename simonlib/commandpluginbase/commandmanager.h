@@ -27,6 +27,7 @@
 #include <QList>
 #include <QObject>
 #include <KIcon>
+#include <QAbstractItemModel>
 #include <QDomElement>
 
 class CommandManager;
@@ -45,7 +46,7 @@ class Scenario;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QObject{
+class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QAbstractItemModel {
 Q_OBJECT
 signals:
 	void commandsFound(CommandList*);
@@ -54,6 +55,18 @@ protected:
 	QList<QAction*> guiActions;
 	CommandList *commands;
 	virtual bool trigger(const QString& triggerName);
+
+
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	QVariant headerData(int, Qt::Orientation orientation,
+				int role = Qt::DisplayRole) const;
+	QObject* parent() { return QObject::parent(); }
+	QModelIndex parent(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+
+	virtual QVariant data(const QModelIndex &index, int role) const;
+	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
 	virtual const QString name() const=0;
@@ -91,7 +104,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CommandManager(QObject* parent, const QVariantList& args) : QObject(parent),
+	CommandManager(QObject* parent, const QVariantList& args) : QAbstractItemModel(parent),
 		commands(0)
 	{
 		Q_UNUSED(args);

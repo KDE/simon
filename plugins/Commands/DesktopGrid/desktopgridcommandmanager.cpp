@@ -77,7 +77,7 @@ void DesktopGridCommandManager::activate()
  
 bool DesktopGridCommandManager::load()
 {
-	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
+	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
 	return true;
 }
 

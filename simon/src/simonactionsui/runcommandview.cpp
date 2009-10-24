@@ -41,6 +41,11 @@ RunCommandView::RunCommandView(QWidget* parent)
 	guessChildTriggers((QObject*)this);
 }
 
+void RunCommandView::displayScenarioPrivate(Scenario *scenario)
+{
+	d->displayScenario(scenario);
+}
+
 /**
  *	@brief Destructor
  *

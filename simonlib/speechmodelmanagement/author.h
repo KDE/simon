@@ -20,13 +20,13 @@
 #ifndef AUTHOR_H
 #define AUTHOR_H
 
-#include "simonscenariobase_export.h"
-#include "scenarioobject.h"
+#include "simonmodelmanagement_export.h"
+#include <simonscenariobase/scenarioobject.h>
 #include <QString>
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT Author: public ScenarioObject{
+class MODELMANAGEMENT_EXPORT Author: public ScenarioObject{
 
 private:
 	QString m_name;

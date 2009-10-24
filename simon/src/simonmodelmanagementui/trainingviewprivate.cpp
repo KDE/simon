@@ -59,8 +59,6 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
-	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
-
 	textsProxy = new QSortFilterProxyModel();
 	textsProxy->setFilterKeyColumn(0);
 	ui.tvTrainingTexts->setModel(textsProxy);

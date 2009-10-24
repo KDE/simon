@@ -94,6 +94,7 @@ private:
 
 	void setupSignalSlots();
 	void setupActions();
+	void displayScenarios();
 
 private slots:
 	void manageScenarios();
