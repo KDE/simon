@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "executablecommandmanager.h"
-#include "xmlexecutablecommand.h"
 #include "executablecommand.h"
 #include "createexecutablecommandwidget.h"
 #include <simonlogging/logger.h>
@@ -32,9 +31,6 @@ K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
-#ifndef SIMON_SCENARIOS
-	, xmlExecutableCommand(new XMLExecutableCommand())
-#endif
 {
 }
 
@@ -43,7 +39,8 @@ bool ExecutableCommandManager::addCommand(Command *command)
 	if (dynamic_cast<ExecutableCommand*>(command))
 	{
 		this->commands->append(command);
-		return save();
+		reset();
+		//return save();
 	}
 	return false;
 }
@@ -90,36 +87,7 @@ bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem, Scen
 	return true;
 }
 
-
-bool ExecutableCommandManager::load()
-{
-	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
-	Logger::log(i18n("[INF] Loading executable commands from %1", commandPath));
-
-#ifndef SIMON_SCENARIOS
-	bool ok = false;
-	this->commands = xmlExecutableCommand->load(ok, commandPath);
-	return ok;
-#else
-	return true;
-#endif
-}
-
-bool ExecutableCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/executables.xml");
-	Logger::log(i18n("[INF] Saving executable commands to %1", commandPath));
-#ifndef SIMON_SCENARIOS
-	return xmlExecutableCommand->save(commands, commandPath);
-#else
-	return true;
-#endif
-}
-
 ExecutableCommandManager::~ExecutableCommandManager()
 {
-#ifndef SIMON_SCENARIOS
-	if (xmlExecutableCommand) xmlExecutableCommand->deleteLater();
-#endif
 }
 

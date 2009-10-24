@@ -103,19 +103,23 @@ void RunCommandViewPrivate::triggerCommand()
 void RunCommandViewPrivate::addCommand()
 {
 	NewCommand *newCommand = new NewCommand(this);
-//	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(NULL/*newCommand*/));
+
+	newCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*newCommand*/));
 	
-	Action *a = getCurrentlySelectedAction();
-		
 	Command *com=NULL;
-	if (a)
+
+	Action *a = getCurrentlySelectedAction();
+
+	if (a && a->manager())
 		com = newCommand->newCommand(a->manager()->name());
 	else 
 		com = newCommand->newCommand();
-	if (com)
-	{
-		//ActionManager::getInstance()->addCommand(com);
-		updateCommandDetail();
+
+	if (com) {
+		if (!scenario->actionCollection()->addCommand(com))
+			KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
+
+		//updateCommandDetail();
 	}
 	
 	delete newCommand;

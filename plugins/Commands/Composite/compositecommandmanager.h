@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 #include <QVariantList>
 
-class XMLCompositeCommand;
 class CreateCompositeCommandWidget;
 /**
  *	@class CompositeCommandManager
@@ -35,14 +34,10 @@ class CreateCompositeCommandWidget;
  */
 class CompositeCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLCompositeCommand* xmlCompositeCommand;
 public:
 	const KIcon icon() const;
 	bool addCommand(Command *command);
 	const QString name() const;
-	bool load();
-	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);

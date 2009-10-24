@@ -46,8 +46,7 @@ public slots:
 	void toggle();
 public:
 	const QString name() const;
-	bool load();
-	bool save();
+	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	bool addCommand(Command *) { return false; }
 
 

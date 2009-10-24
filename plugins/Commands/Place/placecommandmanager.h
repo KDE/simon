@@ -23,7 +23,6 @@
 
 #include <commandpluginbase/commandmanager.h>
 
-class XMLPlaceCommand;
 class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
@@ -35,13 +34,9 @@ class CreateCommandWidget;
  */
 class PlaceCommandManager : public CommandManager{
 Q_OBJECT
-private:
-	XMLPlaceCommand* xmlPlaceCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 
 	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);

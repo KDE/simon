@@ -27,6 +27,8 @@
 #include "simonmodelmanagement_export.h"
 
 class Action;
+class CreateCommandWidget;
+class Command;
 
 class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public QAbstractItemModel {
 
@@ -52,6 +54,10 @@ public:
 	static ActionCollection* createActionCollection(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+
+	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
+
+	bool addCommand(Command *command);
 
 	~ActionCollection();
 

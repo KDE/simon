@@ -19,7 +19,6 @@
 
 #include "shortcutcommandmanager.h"
 #include <simonlogging/logger.h>
-#include "xmlshortcutcommand.h"
 #include "shortcutcommand.h"
 #include "createshortcutcommandwidget.h"
 #include <KLocalizedString>
@@ -32,10 +31,7 @@ K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 
-ShortcutCommandManager::ShortcutCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
-#ifndef SIMON_SCENARIOS
-	xmlShortcutCommand(new XMLShortcutCommand())
-#endif
+ShortcutCommandManager::ShortcutCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args)
 {
 }
 
@@ -50,7 +46,7 @@ bool ShortcutCommandManager::addCommand(Command *command)
 	if (dynamic_cast<const ShortcutCommand*>(command))
 	{
 		this->commands->append(command);
-		return save();
+		//return save();
 	}
 	return false;
 }
@@ -65,19 +61,6 @@ const KIcon ShortcutCommandManager::icon() const
 	return ShortcutCommand::staticCategoryIcon();
 }
 
-bool ShortcutCommandManager::load()
-{
-	QString commandPath = KStandardDirs::locate("appdata", "conf/shortcuts.xml");
-	Logger::log(i18n("[INF] Loading shortcuts from %1", commandPath));
-
-	bool ok = false;
-#ifndef SIMON_SCENARIOS
-	this->commands = xmlShortcutCommand->load(ok, commandPath);
-	return ok;
-#else
-	return true;
-#endif
-}
 
 bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
 {
@@ -105,21 +88,6 @@ bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, Scenar
 
 
 
-bool ShortcutCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/shortcuts.xml");
-	Logger::log(i18n("[INF] Saving Shortcuts to %1", commandPath));
-#ifndef SIMON_SCENARIOS
-	return xmlShortcutCommand->save(commands, commandPath);
-#else
-	return true;
-#endif
-}
-
-
 ShortcutCommandManager::~ShortcutCommandManager ()
 {
-#ifndef SIMON_SCENARIOS
-	if (xmlShortcutCommand) xmlShortcutCommand->deleteLater();
-#endif
 }

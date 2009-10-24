@@ -21,7 +21,6 @@
 #include "compositecommand.h"
 #include "delaycommand.h"
 
-#include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>
 
 #include <QListWidget>
@@ -30,7 +29,7 @@
 #include <QStringList>
 
 CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
-	allCommands(ActionManager::getInstance()->getCommandList()),
+//	allCommands(ActionManager::getInstance()->getCommandList()),
 	model(new CommandTableModel())
 {
 	ui.setupUi(this);

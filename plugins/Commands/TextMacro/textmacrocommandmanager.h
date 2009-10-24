@@ -23,7 +23,6 @@
 
 #include <commandpluginbase/commandmanager.h>
 
-class XMLTextMacroCommand;
 class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
@@ -35,13 +34,9 @@ class CreateCommandWidget;
  */
 class TextMacroCommandManager : public CommandManager{
 Q_OBJECT
-private:
-	XMLTextMacroCommand* xmlTextMacroCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

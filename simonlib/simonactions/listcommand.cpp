@@ -19,10 +19,11 @@
 
 #include "listcommand.h"
 #include "commandlistwidget.h"
-#include "actionmanager.h"
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
+#include <QDomElement>
+#include <QDomDocument>
 #include <QTableWidgetItem>
 #include <QObject>
 #include <QTableWidgetSelectionRange>
@@ -117,7 +118,7 @@ bool ListCommand::processRequest(int index)
 		clw->close();
 		stopGreedy();
 		usleep(300000);
-		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+		//ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		emit entrySelected();
 	}
 	return false;

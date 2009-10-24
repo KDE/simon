@@ -42,16 +42,6 @@ const QString DictationCommandManager::name() const
 	return i18n("Dictation");
 }
 
-bool DictationCommandManager::load()
-{
-	return true;
-}
-
-bool DictationCommandManager::save()
-{
-	return true;
-}
-
 DictationCommandManager::~DictationCommandManager()
 {
 }

@@ -811,16 +811,6 @@ CommandConfiguration* CalculatorCommandManager::getConfigurationPage()
 	return CalculatorConfiguration::getInstance();
 }
 
-bool CalculatorCommandManager::load()
-{
-	return true;
-}
-
-bool CalculatorCommandManager::save()
-{
-	return true;
-}
-
 void CalculatorCommandManager::activate()
 {
 	clear();

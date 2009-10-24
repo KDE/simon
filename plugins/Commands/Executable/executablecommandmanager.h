@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 #include <QVariantList>
 
-class XMLExecutableCommand;
 class CreateExecutableCommandWidget;
 /**
  *	@class ExecutableCommandManager
@@ -35,14 +34,10 @@ class CreateExecutableCommandWidget;
  */
 class ExecutableCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLExecutableCommand* xmlExecutableCommand;
 public:
 	bool addCommand(Command *command);
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);

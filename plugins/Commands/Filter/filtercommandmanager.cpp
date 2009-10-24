@@ -95,16 +95,12 @@ bool FilterCommandManager::trigger(const QString& triggerName)
 	return false;
 }
 
-bool FilterCommandManager::load()
+bool FilterCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
-	FilterConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
+	FilterConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
 	return true;
 }
 
-bool FilterCommandManager::save()
-{
-	return true;
-}
 
 FilterCommandManager::~FilterCommandManager()
 {

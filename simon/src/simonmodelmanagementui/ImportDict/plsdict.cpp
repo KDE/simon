@@ -81,6 +81,11 @@ bool PLSDict::startElement(const QString&,
 		currentTagType = PLSDict::Lexeme;
 		currentWord=QString();
 		phonemeDefinitions.clear();
+
+		int typeIndex = attributes.index("role");
+		if (typeIndex != -1) 
+			currentTerminal = attributes.value(typeIndex);
+		else currentTerminal = i18n("Unknown");
 	}
 	else
 	if (qName == "grapheme")
@@ -141,7 +146,7 @@ bool PLSDict::endElement(const QString&, const QString&,
 		{
 			words << currentWord.trimmed();
 			pronunciations << phonemeDefinition;
-			terminals << i18n("Unknown"); // no terminal info available
+			terminals << currentTerminal;
 		}
 		//cleanup
 		currentWord=QString();

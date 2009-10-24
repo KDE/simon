@@ -72,8 +72,6 @@ public:
 	virtual const QString name() const=0;
 	virtual const QString preferredTrigger() const;
 	virtual const KIcon icon() const { return KIcon(); }
-	virtual bool load()=0;
-	virtual bool save()=0;
 	virtual bool addCommand(Command *command)=0;
 
 	virtual QList<QAction*> getGuiActions();

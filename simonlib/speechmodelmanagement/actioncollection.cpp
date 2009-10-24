@@ -20,6 +20,7 @@
 #include "actioncollection.h"
 #include <KDebug>
 #include <simonactions/action.h>
+#include <commandpluginbase/createcommandwidget.h>
 #include <commandpluginbase/commandmanager.h>
 
 ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
@@ -140,8 +141,45 @@ QModelIndex ActionCollection::index(int row, int column, const QModelIndex &pare
 	return createIndex(row, column, m_actionsWithCommands.at(row));
 }
 
+QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *parent)
+{
+	QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
+	
+	foreach (Action* action, m_actions)
+	{
+		CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
+		if (widget)
+			*out << widget;
+	}
+	return out;
+}
 
+bool ActionCollection::addCommand(Command *command)
+{
+	if (!command) return false;
+	
+	int i=0;
+	int indexToInsertIntoActionsWithCommands=0;
+	bool added=false;
+	while (!added && (i< m_actions.count())) {
+		CommandManager *man = m_actions.at(i)->manager();
+		bool hadCommands = man->hasCommands();
+		added = man->addCommand(command);
+		if (added) {
+			beginInsertRows(QModelIndex(), indexToInsertIntoActionsWithCommands,
+					indexToInsertIntoActionsWithCommands);
+			m_actionsWithCommands.insert(indexToInsertIntoActionsWithCommands,
+					m_actions.at(i));
+			endInsertRows();
+			break;
+		}
+		if (hadCommands)
+			indexToInsertIntoActionsWithCommands++;
+		i++;
+	}
 
+	return added;
+}
 
 ActionCollection::~ActionCollection()
 {

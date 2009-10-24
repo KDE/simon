@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "compositecommandmanager.h"
-#include "xmlcompositecommand.h"
 #include "compositecommand.h"
 #include "createcompositecommandwidget.h"
 #include <simonlogging/logger.h>
@@ -32,9 +31,6 @@ K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
 
 
 CompositeCommandManager::CompositeCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
-#ifndef SIMON_SCENARIOS
-	, xmlCompositeCommand(new XMLCompositeCommand())
-#endif
 {
 }
 
@@ -48,7 +44,7 @@ bool CompositeCommandManager::addCommand(Command *command)
 	if (dynamic_cast<CompositeCommand*>(command))
 	{
 		this->commands->append(command);
-		return save();
+		//return save();
 	}
 	return false;
 }
@@ -98,34 +94,7 @@ bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem, Scena
 	return true;
 }
 
-bool CompositeCommandManager::load()
-{
-	QString commandPath = KStandardDirs::locate("appdata", "conf/composites.xml");
-	Logger::log(i18n("[INF] Loading composite commands from %1", commandPath));
-
-	bool ok = false;
-#ifndef SIMON_SCENARIOS
-	this->commands = xmlCompositeCommand->load(ok, commandPath);
-	return ok;
-#else
-	return true;
-#endif
-}
-
-bool CompositeCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/composites.xml");
-	Logger::log(i18n("[INF] Saving composite commands to %1", commandPath));
-#ifndef SIMON_SCENARIOS
-	return xmlCompositeCommand->save(commands, commandPath);
-#else
-	return true;
-#endif
-}
 
 CompositeCommandManager::~CompositeCommandManager()
 {
-#ifndef SIMON_SCENARIOS
-	if (xmlCompositeCommand) xmlCompositeCommand->deleteLater();
-#endif
 }

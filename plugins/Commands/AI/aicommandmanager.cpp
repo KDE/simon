@@ -108,27 +108,6 @@ bool AICommandManager::setupParser()
 	dlg->deleteLater();
 	return true;
 }
- 
-bool AICommandManager::load()
-{
-	if (parser) return true;
-	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()));
-	AIConfiguration::getInstance()->setManager(this);
-	AIConfiguration::getInstance()->load();
-	
-	if (!setupParser()) return false;
-
-	
-	festivalProc = new KProcess(this);
-	festivalProc->setProgram(KStandardDirs::findExe("festival"));
-	festivalProc->start();
-	if (!festivalProc->waitForStarted(1000))
-		return false;
-	
- 	festivalProc->write("(voice_us2_mbrola)\n");
-	return true;
-}
 	
 bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parentScenario)
 {
@@ -150,11 +129,6 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *pare
 		return false;
 	
  	festivalProc->write("(voice_us2_mbrola)\n");
-	return true;
-}
-
-bool AICommandManager::save()
-{
 	return true;
 }
 

@@ -98,8 +98,7 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
+	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	CommandConfiguration* getConfigurationPage();
 
     /**

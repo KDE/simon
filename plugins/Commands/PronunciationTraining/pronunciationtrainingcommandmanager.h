@@ -44,9 +44,8 @@ public slots:
 	void activateTraining();
 public:
 	const QString name() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *) { return false; }
+	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 
 	CommandConfiguration* getConfigurationPage();
 

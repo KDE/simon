@@ -45,10 +45,9 @@ public slots:
 public:
 	const QString preferredTrigger() const;
 	const QString name() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *) { return false; }
 
+	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 
 	CommandConfiguration* getConfigurationPage();
 

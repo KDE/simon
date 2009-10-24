@@ -19,7 +19,6 @@
 
 #include "textmacrocommandmanager.h"
 #include <simonlogging/logger.h>
-#include "xmltextmacrocommand.h"
 #include "textmacrocommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -32,8 +31,7 @@ K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,
 K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
 
 
-TextMacroCommandManager::TextMacroCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
-	xmlTextMacroCommand(new XMLTextMacroCommand())
+TextMacroCommandManager::TextMacroCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args)
 {
 }
 
@@ -48,7 +46,7 @@ bool TextMacroCommandManager::addCommand(Command *command)
 	if (dynamic_cast<TextMacroCommand*>(command))
 	{
 		this->commands->append(command);
-		return save();
+		//return save();
 	}
 	return false;
 }
@@ -56,16 +54,6 @@ bool TextMacroCommandManager::addCommand(Command *command)
 const KIcon TextMacroCommandManager::icon() const
 {
 	return TextMacroCommand::staticCategoryIcon();
-}
-
-bool TextMacroCommandManager::load()
-{
-	QString commandPath = KStandardDirs::locate("appdata", "conf/textmacros.xml");
-	Logger::log(i18n("[INF] Loading text-macro commands from %1", commandPath));
-
-	bool ok = false;
-	this->commands = xmlTextMacroCommand->load(ok, commandPath);
-	return ok;
 }
 
 bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
@@ -97,15 +85,6 @@ CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *pa
 	return new CreateTextMacroCommandWidget(parent);
 }
 
-bool TextMacroCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/textmacros.xml");
-	Logger::log(i18n("[INF] Saving text-macro commands to %1", commandPath));
-	return xmlTextMacroCommand->save(commands, commandPath);
-}
-
-
 TextMacroCommandManager::~TextMacroCommandManager()
 {
-	if (xmlTextMacroCommand) xmlTextMacroCommand->deleteLater();
 }

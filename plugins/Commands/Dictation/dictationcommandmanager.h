@@ -41,8 +41,6 @@ public:
 	const QString preferredTrigger() const { return ""; }
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
 
     /**
     * @brief Constructor

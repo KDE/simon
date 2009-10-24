@@ -24,7 +24,6 @@
 #include <commandpluginbase/commandmanager.h>
 
 
-class XMLShortcutCommand;
 class CreateCommandWidget;
 
 /**
@@ -37,13 +36,9 @@ class CreateCommandWidget;
  */
 class ShortcutCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLShortcutCommand* xmlShortcutCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 	bool deSerializeCommands(const QDomElement& elem, Scenario *scenario);

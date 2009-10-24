@@ -18,7 +18,6 @@
  */
 
 #include "commandsettings.h"
-#include "actionmanager.h"
 
 #include <QListWidget>
 #include <QVariant>
@@ -100,7 +99,7 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 
 	load();
 
-	ActionManager::getInstance()->setConfigurationDialog(this);
+	//ActionManager::getInstance()->setConfigurationDialog(this);
 }
 
 void CommandSettings::updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger)

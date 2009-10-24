@@ -442,7 +442,7 @@ void KeyboardCommandManager::backSpace()
 }
 
 
-bool KeyboardCommandManager::load()
+bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
 
 	if (numberIdentifiers.isEmpty())
@@ -479,14 +479,8 @@ bool KeyboardCommandManager::load()
 	return true;
 }
 
-bool KeyboardCommandManager::save()
-{
-	return true;
-}
-
 KeyboardCommandManager::~KeyboardCommandManager()
 {
-	kDebug() << "DELETING COMMAND MANAGER";
 	keyboardWidget->deleteLater();
 	activateAction->deleteLater();
 	delete setContainer;

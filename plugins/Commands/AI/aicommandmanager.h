@@ -48,9 +48,7 @@ protected:
 public:
 	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	const QString name() const;
-	bool load();
 	bool setupParser();
-	bool save();
 	bool addCommand(Command *) { return false; }
 
 	CommandConfiguration* getConfigurationPage();

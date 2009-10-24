@@ -75,18 +75,12 @@ void DesktopGridCommandManager::activate()
 	screenGrid->show();
 }
  
-bool DesktopGridCommandManager::load()
+bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
 	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
 	return true;
 }
 
-
-
-bool DesktopGridCommandManager::save()
-{
-	return true;
-}
 
 DesktopGridCommandManager::~DesktopGridCommandManager()
 {

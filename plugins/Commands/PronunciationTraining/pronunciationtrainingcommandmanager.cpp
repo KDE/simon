@@ -68,14 +68,9 @@ bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 	return true;
 }
  
-bool PronunciationTrainingCommandManager::load()
+bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
-	PronunciationTrainingConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
-	return true;
-}
-
-bool PronunciationTrainingCommandManager::save()
-{
+	PronunciationTrainingConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
 	return true;
 }
 

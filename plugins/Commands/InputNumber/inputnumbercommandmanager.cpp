@@ -224,16 +224,6 @@ bool InputNumberCommandManager::trigger(const QString& triggerName)
 }
 
 
-bool InputNumberCommandManager::load()
-{
-	return true;
-}
-
-bool InputNumberCommandManager::save()
-{
-	return true;
-}
-
 InputNumberCommandManager::~InputNumberCommandManager()
 {
 	widget->deleteLater();

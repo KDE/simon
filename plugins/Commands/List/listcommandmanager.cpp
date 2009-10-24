@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "listcommandmanager.h"
-#include "xmllistcommand.h"
 #include <simonactions/listcommand.h>
 #include "createlistcommandwidget.h"
 #include <simonlogging/logger.h>
@@ -31,8 +30,7 @@ K_PLUGIN_FACTORY( ListCommandPluginFactory,
 K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
 
 
-ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
-	xmlListCommand(new XMLListCommand())
+ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args)
 {
 }
 
@@ -46,7 +44,7 @@ bool ListCommandManager::addCommand(Command *command)
 	if (dynamic_cast<ListCommand*>(command))
 	{
 		this->commands->append(command);
-		return save();
+		//return save();
 	}
 	return false;
 }
@@ -60,16 +58,6 @@ const QString ListCommandManager::name() const
 CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 {
 	return new CreateListCommandWidget(parent);
-}
-
-bool ListCommandManager::load()
-{
-	QString commandPath = KStandardDirs::locate("appdata", "conf/lists.xml");
-	Logger::log(i18n("[INF] Loading list commands from %1", commandPath));
-
-	bool ok = false;
-	this->commands = xmlListCommand->load(ok, commandPath);
-	return ok;
 }
 
 bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
@@ -110,14 +98,6 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *
 	return true;
 }
 
-bool ListCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/lists.xml");
-	Logger::log(i18n("[INF] Saving list commands to %1", commandPath));
-	return xmlListCommand->save(commands, commandPath);
-}
-
 ListCommandManager::~ListCommandManager()
 {
-	if (xmlListCommand) xmlListCommand->deleteLater();
 }
