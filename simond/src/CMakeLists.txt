@@ -26,7 +26,7 @@ add_definitions(-DSIMON_SCENARIOS)
 endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES}
-${QT_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess
+${QT_LIBRARIES} simonscenarios simonmodelcompilation simonddatabaseaccess
 simonrecognitionresult julius sent)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
