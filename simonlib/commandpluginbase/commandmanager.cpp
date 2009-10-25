@@ -20,7 +20,10 @@
 #include "commandmanager.h"
 #include "commandconfiguration.h"
 #include <KLocalizedString>
+#include <speechmodelmanagement/scenario.h>
 #include <QAction>
+#include <QDomElement>
+#include <QDomDocument>
 
 bool CommandManager::trigger(const QString& triggerName)
 {
@@ -35,10 +38,7 @@ bool CommandManager::trigger(const QString& triggerName)
 		{
 			if (commands->at(i)->trigger())
 				done=true;
-
-			//uncomment the following line if you don't want to allow multiple commands with the
-			//same name. (this is just commented out for testing)
-			//break;
+			break;
 		}
 	}
 	return done;
@@ -130,13 +130,37 @@ bool CommandManager::deleteCommand(Command *command)
 			commands->removeAt(i);
 			endRemoveRows();
 			//TODO: implement
-			//return save();
+			return parentScenario->save();
 		}
 	}
 
 	return false;
 }
 
+bool CommandManager::deSerialize(const QDomElement& elem)
+{
+	QDomElement configElem = elem.firstChildElement("config");
+	if (!deSerializeConfig(configElem, parentScenario)) {
+		kDebug() << "Couldn't load config of plugin";
+		return false;
+	}
+	QDomElement commandsElem = elem.firstChildElement("commands");
+	if (!deSerializeCommands(commandsElem, parentScenario)) {
+		kDebug() << "Couldn't load commands of plugin";
+		return false;
+	}
+	return true;
+}
+
+QDomElement CommandManager::serialize(QDomDocument *doc)
+{
+	QDomElement pluginElem = doc->createElement("plugin");
+
+	pluginElem.appendChild(serializeConfig(doc, parentScenario));
+	pluginElem.appendChild(serializeCommands(doc, parentScenario));
+
+	return pluginElem;
+}
 
 QVariant CommandManager::data(const QModelIndex &index, int role) const
 {

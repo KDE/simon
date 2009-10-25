@@ -111,23 +111,16 @@ bool Action::deSerialize(const QDomElement& pluginElem)
 		}
 	}
 	
-	QDomElement configElem = pluginElem.firstChildElement("config");
-	if (!m_manager->deSerializeConfig(configElem, parentScenario)) {
-		kDebug() << "Couldn't load config of plugin";
+	if (!m_manager->deSerialize(pluginElem))
 		return false;
-	}
-	QDomElement commandsElem = pluginElem.firstChildElement("commands");
-	if (!m_manager->deSerializeCommands(commandsElem, parentScenario)) {
-		kDebug() << "Couldn't load commands of plugin";
-		return false;
-	}
 
 	return true;
 }
 
 QDomElement Action::serialize(QDomDocument *doc)
 {
-	QDomElement pluginElem = doc->createElement("plugin");
+	QDomElement pluginElem = m_manager->serialize(doc);
+
 	pluginElem.setAttribute("name", m_source);
 	pluginElem.setAttribute("trigger", m_trigger);
 	QDomElement pluginCompatibilityElem = doc->createElement("pluginCompatibility");
@@ -142,10 +135,6 @@ QDomElement Action::serialize(QDomDocument *doc)
 	pluginCompatibilityElem.appendChild(maximumVersionElem);
 
 	pluginElem.appendChild(pluginCompatibilityElem);
-
-	pluginElem.appendChild(m_manager->serializeConfig(doc, parentScenario));
-
-	pluginElem.appendChild(m_manager->serializeCommands(doc, parentScenario));
 
 	return pluginElem;
 }

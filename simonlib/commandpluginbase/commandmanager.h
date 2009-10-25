@@ -24,6 +24,7 @@
 
 #include "command.h"
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simonscenariobase/scenarioobject.h>
 #include <QList>
 #include <QObject>
 #include <KIcon>
@@ -46,7 +47,7 @@ class Scenario;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QAbstractItemModel {
+class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QAbstractItemModel, public ScenarioObject {
 Q_OBJECT
 signals:
 	void commandsFound(CommandList*);
@@ -91,6 +92,9 @@ public:
 
 	virtual bool deleteCommand(Command *command);
 
+	virtual bool deSerialize(const QDomElement&);
+	virtual QDomElement serialize(QDomDocument *doc);
+
 	virtual bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	virtual QDomElement serializeConfig(QDomDocument *doc, Scenario *parent);
 
@@ -102,7 +106,8 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CommandManager(QObject* parent, const QVariantList& args) : QAbstractItemModel(parent),
+	CommandManager(Scenario *parentScenario, QObject* parent, const QVariantList& args) : QAbstractItemModel(parent),
+		ScenarioObject(parentScenario),
 		commands(0)
 	{
 		Q_UNUSED(args);

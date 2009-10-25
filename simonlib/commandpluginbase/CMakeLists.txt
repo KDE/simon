@@ -27,7 +27,9 @@ set( simoncommandpluginbase_LIB_HDRS
 
 kde4_add_library( simoncommandpluginbase  SHARED
 	${simoncommandpluginbase_LIB_SRCS} )
-target_link_libraries( simoncommandpluginbase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simoninfo simonrecognitionresult )
+target_link_libraries( simoncommandpluginbase ${QT_LIBRARIES}
+	${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} simoninfo
+	simonrecognitionresult simonscenariobase simonmodelmanagement )
 
 
 set_target_properties( simoncommandpluginbase
