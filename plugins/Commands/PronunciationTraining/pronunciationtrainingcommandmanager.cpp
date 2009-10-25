@@ -34,7 +34,7 @@ K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingc
 
 
 
-PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	activateAction(new KAction(this))
 {
 	activateAction->setText(i18n("Activate Pronunciation Training"));

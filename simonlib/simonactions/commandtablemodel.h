@@ -24,7 +24,7 @@
 #include <QAbstractTableModel>
 #include <QStringList>
 #include <QMutex>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include "actionlib_export.h"
 
 

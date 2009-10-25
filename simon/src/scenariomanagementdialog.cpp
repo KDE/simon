@@ -29,10 +29,10 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KStandardDirs>
-#include <speechmodelmanagement/author.h>
+#include <simonscenarios/author.h>
 #include <simonscenariobase/versionnumber.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/scenariomanager.h>
 
 
 ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent)

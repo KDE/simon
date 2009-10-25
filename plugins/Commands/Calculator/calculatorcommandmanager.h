@@ -20,7 +20,7 @@
 #ifndef CALCULATORCOMMANDMANAGER_H
 #define CALCULATORCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <QList>
@@ -121,7 +121,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    CalculatorCommandManager(QObject *parent, const QVariantList& args);
+    CalculatorCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~CalculatorCommandManager();

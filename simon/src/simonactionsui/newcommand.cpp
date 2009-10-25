@@ -19,8 +19,8 @@
 
 #include "newcommand.h"
 
-#include <commandpluginbase/command.h>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/command.h>
+#include <simonscenarios/createcommandwidget.h>
 #include <simonactions/actionmanager.h>
 
 #include <KUrl>

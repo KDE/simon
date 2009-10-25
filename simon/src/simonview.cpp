@@ -35,13 +35,13 @@
 
 #include <simonmodelmanagementui/vocabularyview.h>
 
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenariomanager.h>
 
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonactions/actionmanager.h>
-#include <speechmodelmanagement/scenario.h>
+#include <simonscenarios/scenario.h>
 
 #include <QTimer>
 #include <QPixmap>
@@ -105,7 +105,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
-	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
+	configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
 	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");

@@ -20,7 +20,7 @@
 #ifndef EXECUTABLECOMMANDMANAGER_H
 #define EXECUTABLECOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
 class CreateExecutableCommandWidget;
@@ -47,7 +47,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ExecutableCommandManager(QObject *parent, const QVariantList& args);
+    ExecutableCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~ExecutableCommandManager();

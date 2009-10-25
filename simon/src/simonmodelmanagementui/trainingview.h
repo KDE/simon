@@ -21,8 +21,8 @@
 #ifndef TRAININGVIEW_H
 #define TRAININGVIEW_H
 #include "inlinewidget.h"
-#include <speechmodelmanagement/word.h>
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/scenariodisplay.h>
 #include "simonmodelmanagementui_export.h"
 
 class TrainingViewPrivate;

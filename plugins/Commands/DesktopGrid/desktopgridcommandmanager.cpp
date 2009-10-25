@@ -34,7 +34,7 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 
 
-DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args),
+DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	activateAction(new KAction(this))
 {
 	activateAction->setText(i18n("Activate Desktopgrid"));

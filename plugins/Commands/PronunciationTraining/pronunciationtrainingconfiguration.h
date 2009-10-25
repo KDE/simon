@@ -20,7 +20,7 @@
 #ifndef PRONUNCIATIONTRAININGCONFIGURATION_H 
 #define PRONUNCIATIONTRAININGCONFIGURATION_H 
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_pronunciationtrainingconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>

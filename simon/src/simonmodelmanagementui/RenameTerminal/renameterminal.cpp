@@ -19,8 +19,8 @@
 
 
 #include "renameterminal.h"
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/speechmodel.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
 RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
 {}

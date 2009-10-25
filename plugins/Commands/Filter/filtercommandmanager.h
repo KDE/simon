@@ -20,7 +20,7 @@
 #ifndef FILTERCOMMANDMANAGER_H
 #define FILTERCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -57,7 +57,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    FilterCommandManager(QObject *parent, const QVariantList& args);
+    FilterCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~FilterCommandManager();

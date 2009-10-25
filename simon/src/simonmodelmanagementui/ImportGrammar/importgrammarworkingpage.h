@@ -23,7 +23,7 @@
 
 #include <QWizardPage>
 #include "ui_importgrammarworkingpage.h"
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */

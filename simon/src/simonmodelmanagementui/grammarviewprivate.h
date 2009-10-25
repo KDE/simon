@@ -23,7 +23,7 @@
 
 #include "ui_grammarview.h"
 #include <QTimer>
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/scenariodisplay.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

@@ -18,7 +18,7 @@
  */
 #include "trainsampleintropage.h"
 
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
 
 #include <QVBoxLayout>
 #include <QLabel>

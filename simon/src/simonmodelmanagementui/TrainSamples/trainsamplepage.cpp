@@ -18,7 +18,7 @@
  */
 #include "trainsamplepage.h"
 #include <simonsound/recwidget.h>
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
 
 #include <QDateTime>
 #include <QDir>

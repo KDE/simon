@@ -30,7 +30,7 @@ K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 
-ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
 {
 }
 

@@ -30,7 +30,7 @@ K_PLUGIN_FACTORY( CompositeCommandPluginFactory,
 K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
 
 
-CompositeCommandManager::CompositeCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+CompositeCommandManager::CompositeCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
 {
 }
 

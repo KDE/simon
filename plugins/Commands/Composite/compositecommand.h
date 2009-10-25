@@ -20,7 +20,7 @@
 #ifndef COMPOSITECOMMAND_H
 #define COMPOSITECOMMAND_H
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QList>
 #include <KUrl>
 

@@ -22,7 +22,7 @@
 #define TEXTMACRO_H
 
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 
 
 /**

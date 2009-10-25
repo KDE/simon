@@ -26,7 +26,7 @@
 
 #include "simonmodelmanagement_export.h"
 
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 
 class QDomElement;
 class QDomDocument;

@@ -21,7 +21,7 @@
 #include "addwordrecordpage.h"
 #include "../TrainSamples/trainsamplepage.h"
 #include <simonsound/recwidget.h>
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
 #include <QDate>
 #include <QTime>
 #include <QDir>

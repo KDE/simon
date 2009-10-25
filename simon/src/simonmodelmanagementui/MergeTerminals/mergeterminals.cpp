@@ -19,7 +19,7 @@
 
 
 #include "mergeterminals.h"
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenariomanager.h>
 #include "modelmanageruiproxy.h"
 #include <KLocalizedString>
 

@@ -20,7 +20,7 @@
 
 #include "mergeterminalsselectterminalspage.h"
 
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenariomanager.h>
 
 MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {

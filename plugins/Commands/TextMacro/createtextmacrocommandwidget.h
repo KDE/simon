@@ -21,7 +21,7 @@
 #define CREATETEXTMACROCOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createtextmacrocommandwidget.h"
 
 class Command;

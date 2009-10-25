@@ -22,7 +22,7 @@
 #define PLACECOMMAND_H
 
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <KUrl>
 #include <KIcon>
 

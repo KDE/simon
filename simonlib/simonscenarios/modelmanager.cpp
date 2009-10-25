@@ -21,13 +21,13 @@
 #include "trainingmanager.h"
 #include "speechmodelmanagementconfiguration.h"
 
-#include <speechmodelmanagement/model.h>
-#include <speechmodelmanagement/wordlistcontainer.h>
-#include <speechmodelmanagement/grammarcontainer.h>
-#include <speechmodelmanagement/languagedescriptioncontainer.h>
-#include <speechmodelmanagement/trainingcontainer.h>
+#include <simonscenarios/model.h>
+#include <simonscenarios/wordlistcontainer.h>
+#include <simonscenarios/grammarcontainer.h>
+#include <simonscenarios/languagedescriptioncontainer.h>
+#include <simonscenarios/trainingcontainer.h>
 
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenariomanager.h>
 
 #include <KStandardDirs>
 #include <QFile>

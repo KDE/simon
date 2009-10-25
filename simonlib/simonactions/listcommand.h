@@ -20,7 +20,7 @@
 #ifndef LISTCOMMAND_H
 #define LISTCOMMAND_H
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include "greedyreceiver.h"
 #include "actionlib_export.h"
 #include <QList>

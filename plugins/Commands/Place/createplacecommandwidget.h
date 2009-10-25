@@ -21,7 +21,7 @@
 #define CREATEPLACECOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createplacecommandwidget.h"
 
 class Command;

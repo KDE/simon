@@ -21,8 +21,8 @@
 #define CREATECOMPOSITECOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/command.h>
 #include "ui_createcompositecommandwidget.h"
 
 class Command;

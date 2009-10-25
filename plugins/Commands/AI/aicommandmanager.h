@@ -20,7 +20,7 @@
 #ifndef AICOMMANDMANAGER_H
 #define AICOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -58,7 +58,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    AICommandManager(QObject *parent, const QVariantList& args);
+    AICommandManager(QObject* parentScenario, const QVariantList& args);
 
     
     ~AICommandManager();

@@ -18,7 +18,7 @@ kde4_add_plugin(simoninputnumbercommandplugin ${simoninputnumbercommandplugin_SR
 
 
 target_link_libraries(simoninputnumbercommandplugin ${KDE4_KDEUI_LIBS}
-	simoncommandpluginbase simonactions eventsimulation)
+	simonscenarios simonactions eventsimulation)
 
 install(TARGETS simoninputnumbercommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin )
 install( FILES simoninputnumbercommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin )

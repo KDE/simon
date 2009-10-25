@@ -22,6 +22,7 @@
 
 #include "simonmodelmanagement_export.h"
 #include <KCModule>
+#include <KSharedConfig>
 
 class KSharedConfig;
 class QString;

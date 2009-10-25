@@ -20,7 +20,7 @@
 #ifndef LISTCOMMANDMANAGER_H
 #define LISTCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
 class CreateListCommandWidget;
@@ -47,7 +47,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ListCommandManager(QObject *parent, const QVariantList& args);
+    ListCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~ListCommandManager();

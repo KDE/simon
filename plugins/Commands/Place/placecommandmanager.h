@@ -21,7 +21,7 @@
 #ifndef PLACECOMMANDMANAGER_H
 #define PLACECOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 class CreateCommandWidget;
 /**
@@ -48,7 +48,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PlaceCommandManager(QObject *parent, const QVariantList& args);
+    PlaceCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~PlaceCommandManager();

@@ -17,7 +17,7 @@ kde4_add_plugin(simonfilterplugin ${simonfilterplugin_SRCS})
 
 
 target_link_libraries(simonfilterplugin ${KDE4_KDEUI_LIBS}
-	eventsimulation simonlogging simoncommandpluginbase simonactions simoninfo)
+	eventsimulation simonlogging simonscenarios simonactions simoninfo)
 
 install(TARGETS simonfilterplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
 install( FILES simonfilterplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandfilterplugin )

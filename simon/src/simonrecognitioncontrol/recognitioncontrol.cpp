@@ -26,13 +26,13 @@
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
 
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
 
-#include <speechmodelmanagement/wordlistcontainer.h>
-#include <speechmodelmanagement/grammarcontainer.h>
-#include <speechmodelmanagement/languagedescriptioncontainer.h>
-#include <speechmodelmanagement/trainingcontainer.h>
-#include <speechmodelmanagement/model.h>
+#include <simonscenarios/wordlistcontainer.h>
+#include <simonscenarios/grammarcontainer.h>
+#include <simonscenarios/languagedescriptioncontainer.h>
+#include <simonscenarios/trainingcontainer.h>
+#include <simonscenarios/model.h>
 
 #include <simonprogresstracking/operation.h>
 #include <simonrecognitionresult/recognitionresult.h>

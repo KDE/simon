@@ -22,7 +22,7 @@
 #define KEYBOARDCONFIGURATION_H
 
 #include "keyboardset.h"
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>

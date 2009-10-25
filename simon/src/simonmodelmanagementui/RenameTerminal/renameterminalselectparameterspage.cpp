@@ -19,8 +19,8 @@
 
 
 #include "renameterminalselectparameterspage.h"
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/speechmodel.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
 RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
  : QWizardPage(parent)

@@ -21,11 +21,11 @@
 #include "addwordresolvepage.h"
 #include <KDebug>
 #define  q_Ml if(KMessageBox::questionYesNo(this, 
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/speechmodel.h>
-//#include <speechmodelmanagement/grammarmanager.h>
-//#include <speechmodelmanagement/wordlistmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/speechmodel.h>
+//#include <simonscenarios/grammarmanager.h>
+//#include <simonscenarios/wordlistmanager.h>
 #include <QtGlobal>
 #define MKW "funzus"
 #define meCh7 word.endsWith

@@ -106,7 +106,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CommandManager(Scenario *parentScenario, QObject* parent, const QVariantList& args) : QAbstractItemModel(parent),
+	CommandManager(Scenario *parentScenario, const QVariantList& args) : QAbstractItemModel((QObject*) parentScenario),
 		ScenarioObject(parentScenario),
 		commands(0)
 	{

@@ -22,7 +22,7 @@
 #define IMPORTDICTWORKINGPAGE_H
 
 #include <QWizardPage>
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 
 class QProgressBar;
 class QLabel;

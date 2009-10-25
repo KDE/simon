@@ -21,7 +21,7 @@
 #include <KService>
 #include <KPluginInfo>
 #include <KDebug>
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
 Action::Action(Scenario *parent, const QString& source, const QString& trigger) : ScenarioObject(parent),

@@ -20,7 +20,7 @@
 #ifndef DICTATIONCOMMANDMANAGER_H
 #define DICTATIONCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
 /**
@@ -47,7 +47,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    DictationCommandManager(QObject *parent, const QVariantList& args);
+    DictationCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~DictationCommandManager();

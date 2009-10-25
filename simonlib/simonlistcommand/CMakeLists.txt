@@ -30,7 +30,7 @@ kde4_add_library( simonlistcommand  SHARED
 	${simonlistcommand_LIB_SRCS} )
 
 target_link_libraries( simonlistcommand ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-	simonactions simoncommandpluginbase )
+	simonactions simonscenarios )
 
 
 set_target_properties( simonlistcommand

@@ -23,8 +23,8 @@
 
 
 #include <QWizard>
-#include <speechmodelmanagement/word.h>
-#include <speechmodelmanagement/vocabulary.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/vocabulary.h>
 
 
 /**

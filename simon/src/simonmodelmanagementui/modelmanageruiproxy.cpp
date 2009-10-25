@@ -23,7 +23,7 @@
 #include <KDebug>
 #include <KStandardDirs>
 #include <KLocalizedString>
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
 
 ModelManagerUiProxy* ModelManagerUiProxy::instance;
 

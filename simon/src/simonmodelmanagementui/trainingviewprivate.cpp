@@ -21,9 +21,9 @@
 
 
 #include "ImportTrainingData/importtrainingdirectory.h"
-#include <speechmodelmanagement/trainingmanager.h>
-#include <speechmodelmanagement/trainingtextcollection.h>
-#include <speechmodelmanagement/scenario.h>
+#include <simonscenarios/trainingmanager.h>
+#include <simonscenarios/trainingtextcollection.h>
+#include <simonscenarios/scenario.h>
 #include "ImportTrainingTexts/importtrainingtexts.h"
 #include "TrainSamples/trainingswizard.h"
 

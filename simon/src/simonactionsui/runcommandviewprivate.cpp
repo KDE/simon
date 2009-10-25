@@ -28,10 +28,10 @@
 #include <QItemSelectionModel>
 //#include <simonactions/actionmanager.h>
 //#include <simonactions/commandmodel.h>
-#include <simonactions/action.h>
-#include <commandpluginbase/commandmanager.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/actioncollection.h>
+#include <simonscenarios/action.h>
+#include <simonscenarios/commandmanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/actioncollection.h>
 #include "newcommand.h"
 #include "commandpreviewwidget.h"
 

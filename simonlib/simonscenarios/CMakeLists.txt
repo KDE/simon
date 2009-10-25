@@ -4,7 +4,7 @@ include(SimonDirs)
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
 			${CMAKE_CURRENT_SOURCE_DIR}/..
-			${CMAKE_CURRENT_SOURCE_DIR}/../speechmodelbase
+			${CMAKE_CURRENT_SOURCE_DIR}/../
 			${CMAKE_CURRENT_SOURCE_DIR}/../speechgui
 )
 
@@ -88,8 +88,8 @@ kde4_add_kcfg_files(simonscenarios_LIB_SRCS
 
 kde4_add_library( simonscenarios SHARED ${simonscenarios_LIB_SRCS} )
 target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
-	simonxml simonlogging speechgui speechmodelbase simonprogresstracking  
-	simonscenariobase simonscenarioactions )
+	simonxml simonlogging speechgui  simonprogresstracking  
+	simonscenariobase simoninfo )
 
 
 set_target_properties( simonscenarios
@@ -102,8 +102,8 @@ install( FILES ${simonscenarios_LIB_HDRS}
 )
  
 install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES simonmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
-install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/modelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
+install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
 
 install(FILES
 ${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION

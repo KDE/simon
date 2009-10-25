@@ -20,7 +20,7 @@
 #ifndef FILTERCONFIGURATION_H
 #define FILTERCONFIGURATION_H
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_filterconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>

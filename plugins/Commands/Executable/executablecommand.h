@@ -20,7 +20,7 @@
 #ifndef EXECUTABLECOMMAND_H
 #define EXECUTABLECOMMAND_H
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QDomElement>
 #include <KUrl>
 class QDomDocument;

@@ -21,8 +21,8 @@
 #define CREATELISTCOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/command.h>
 #include "ui_createlistcommandwidget.h"
 
 class Command;

@@ -20,8 +20,8 @@
 
 #include "scenariomanager.h"
 
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/shadowvocabulary.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/shadowvocabulary.h>
 #include "scenariodisplay.h"
 
 #include <QFileInfo>

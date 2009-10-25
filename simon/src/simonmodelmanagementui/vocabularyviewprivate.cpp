@@ -23,11 +23,11 @@
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
 
-#include <speechmodelmanagement/activevocabulary.h>
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/shadowvocabulary.h>
+#include <simonscenarios/activevocabulary.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/shadowvocabulary.h>
 
-#include <speechmodelmanagement/scenario.h>
+#include <simonscenarios/scenario.h>
 
 #include <simonlogging/logger.h>
 

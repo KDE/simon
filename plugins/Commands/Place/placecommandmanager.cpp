@@ -30,7 +30,7 @@ K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
         
 K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
-PlaceCommandManager::PlaceCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
+PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 

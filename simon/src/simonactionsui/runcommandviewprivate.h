@@ -21,8 +21,8 @@
 #define RUNCOMMANDVIEWPRIVATE_H
 
 #include "ui_rundialog.h"
-#include <commandpluginbase/command.h>
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/command.h>
+#include <simonscenarios/scenariodisplay.h>
 #include <KIcon>
 
 class Command;

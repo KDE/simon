@@ -24,7 +24,7 @@
 #include "inlinewidget.h"
 #include "simonmodelmanagementui_export.h"
 
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/scenariodisplay.h>
 
 
 class VocabularyViewPrivate;

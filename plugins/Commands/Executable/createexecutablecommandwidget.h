@@ -21,7 +21,7 @@
 #define CREATEEXECUTABLECOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createexecutablecommandwidget.h"
 
 class Command;

@@ -20,7 +20,7 @@
 #ifndef DELAYCOMMAND_H
 #define DELAYCOMMAND_H
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QList>
 #include <KUrl>
 

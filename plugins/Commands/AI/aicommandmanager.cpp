@@ -25,6 +25,7 @@
 #include <QDebug>
 #include <KProcess>
 #include <KProgressDialog>
+#include <simonscenarios/scenario.h>
 #include "aiconfiguration.h"
 #include "aimlparser.h"
 
@@ -37,7 +38,7 @@ K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 
 
-AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	parser(0),
 	festivalProc(0)
 {
@@ -109,10 +110,10 @@ bool AICommandManager::setupParser()
 	return true;
 }
 	
-bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parentScenario)
+bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(parentScenario);
+	Q_UNUSED(parent);
 	if (parser) return true;
 	
 	AIConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()));

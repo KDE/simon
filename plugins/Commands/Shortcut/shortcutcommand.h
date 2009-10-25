@@ -22,7 +22,7 @@
 #define SHORTCUTCOMMAND_H
 
 #include <QKeySequence>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 
 
 /**

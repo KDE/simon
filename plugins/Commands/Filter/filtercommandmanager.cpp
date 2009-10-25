@@ -35,7 +35,7 @@ K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
 
 
-FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	isActive(false),
 	activateAction(new KAction(this))
 {

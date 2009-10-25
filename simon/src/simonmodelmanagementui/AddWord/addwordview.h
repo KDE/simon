@@ -37,7 +37,7 @@
 #include <QWizard>
 #include <QStringList>
 #include <QHash>
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 #include "../simonmodelmanagementui_export.h"
 
 class QWizardPage;

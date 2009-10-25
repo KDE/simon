@@ -21,7 +21,7 @@
 #ifndef TEXTMACROCOMMANDMANAGER_H
 #define TEXTMACROCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 class CreateCommandWidget;
 /**
@@ -47,7 +47,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommandManager(QObject *parent, const QVariantList& args);
+    TextMacroCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~TextMacroCommandManager();

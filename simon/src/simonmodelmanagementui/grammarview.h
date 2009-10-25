@@ -24,7 +24,7 @@
 #include "simonmodelmanagementui_export.h"
 #include <speechgui/inlinewidget.h>
 
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/scenariodisplay.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

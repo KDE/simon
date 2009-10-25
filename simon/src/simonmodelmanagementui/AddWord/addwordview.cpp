@@ -25,10 +25,10 @@
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 
-#include <speechmodelmanagement/vocabulary.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/trainingmanager.h>
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/vocabulary.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/trainingmanager.h>
+#include <simonscenarios/scenariomanager.h>
 
 #include <QWizardPage>
 #include <KMessageBox>

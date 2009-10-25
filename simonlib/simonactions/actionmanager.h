@@ -24,11 +24,11 @@
 #include <QObject>
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <simonactions/greedyreceiver.h>
 #include "actionlib_export.h"
 #include <KIcon>
-#include "action.h"
+#include <simonscenarios/action.h>
 
 class CommandManager;
 class CreateCommandWidget;

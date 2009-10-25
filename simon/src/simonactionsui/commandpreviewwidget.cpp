@@ -18,7 +18,7 @@
  */
 
 #include "commandpreviewwidget.h"
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QModelIndex>
 #include <QMap>
 #include <QFormLayout>

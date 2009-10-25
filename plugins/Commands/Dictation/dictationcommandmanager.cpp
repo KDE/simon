@@ -27,7 +27,7 @@ K_PLUGIN_FACTORY( DictationCommandPluginFactory,
 K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
 
 
-DictationCommandManager::DictationCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+DictationCommandManager::DictationCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
 {
 }
 

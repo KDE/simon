@@ -29,7 +29,7 @@
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KPageWidget>
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <kgenericfactory.h>
 
 

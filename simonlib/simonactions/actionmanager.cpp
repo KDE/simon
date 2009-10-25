@@ -23,9 +23,9 @@
 #include "listcommand.h"
 
 #include <simoninfo/simoninfo.h>
-#include <commandpluginbase/commandconfiguration.h>
-#include <commandpluginbase/commandmanager.h>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/commandconfiguration.h>
+#include <simonscenarios/commandmanager.h>
+#include <simonscenarios/createcommandwidget.h>
 
 #include <QFile>
 #include <QMetaObject>

@@ -26,9 +26,9 @@
 #include <QTextCodec>
 #include <KDebug>
 #include <kencodingdetector.h>
-#include <speechmodelmanagement/speechmodel.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/scenariomanager.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {

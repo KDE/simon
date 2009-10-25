@@ -20,7 +20,7 @@
 #include "commandmanager.h"
 #include "commandconfiguration.h"
 #include <KLocalizedString>
-#include <speechmodelmanagement/scenario.h>
+#include <simonscenarios/scenario.h>
 #include <QAction>
 #include <QDomElement>
 #include <QDomDocument>

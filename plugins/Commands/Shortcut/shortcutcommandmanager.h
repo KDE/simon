@@ -21,7 +21,7 @@
 #ifndef SHORTCUTCOMMANDMANAGER_H
 #define SHORTCUTCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 
 class CreateCommandWidget;

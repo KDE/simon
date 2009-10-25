@@ -30,7 +30,7 @@ K_PLUGIN_FACTORY( ListCommandPluginFactory,
 K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
 
 
-ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args)
+ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 

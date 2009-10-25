@@ -21,7 +21,7 @@
 #define CREATESHORTCUTCOMMANDWIDGET_H
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
 
 

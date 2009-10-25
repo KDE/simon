@@ -21,7 +21,7 @@
 #define COMMANDLISTWIDGET_H
 
 #include "actionlib_export.h"
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QList>
 #include <QTimer>
 #include <QWidget>

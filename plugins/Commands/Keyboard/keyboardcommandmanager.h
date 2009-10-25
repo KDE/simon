@@ -20,7 +20,7 @@
 #ifndef KEYBOARDCOMMANDMANAGER_H
 #define KEYBOARDCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <KXMLGUIClient>
@@ -106,7 +106,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    KeyboardCommandManager(QObject *parent, const QVariantList& args);
+    KeyboardCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~KeyboardCommandManager();

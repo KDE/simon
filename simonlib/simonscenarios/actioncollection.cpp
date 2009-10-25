@@ -19,9 +19,9 @@
 
 #include "actioncollection.h"
 #include <KDebug>
-#include <simonactions/action.h>
-#include <commandpluginbase/createcommandwidget.h>
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/action.h>
+#include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/commandmanager.h>
 
 ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
 {

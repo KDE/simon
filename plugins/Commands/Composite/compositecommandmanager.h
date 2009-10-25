@@ -20,7 +20,7 @@
 #ifndef COMPOSITECOMMANDMANAGER_H
 #define COMPOSITECOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
 class CreateCompositeCommandWidget;
@@ -47,7 +47,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    CompositeCommandManager(QObject *parent, const QVariantList& args);
+    CompositeCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~CompositeCommandManager();

@@ -21,7 +21,7 @@
 #define TRAININGSWIZARD_H
 
 #include <QWizard>
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 
 class QWizard;
 class QStringList;

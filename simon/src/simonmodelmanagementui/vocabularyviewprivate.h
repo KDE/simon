@@ -24,11 +24,11 @@
 
 #include "ui_vocabulary.h"
 
-#include <speechmodelmanagement/word.h>
-#include <speechmodelmanagement/vocabulary.h>
-#include <speechmodelmanagement/activevocabulary.h>
-#include <speechmodelmanagement/wordlisttype.h>
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/vocabulary.h>
+#include <simonscenarios/activevocabulary.h>
+#include <simonscenarios/wordlisttype.h>
+#include <simonscenarios/scenariodisplay.h>
 
 
 class QSortFilterProxyModel;

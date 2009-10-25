@@ -20,7 +20,7 @@
 #ifndef PRONUNCIATIONTRAININGCOMMANDMANAGER_H
 #define PRONUNCIATIONTRAININGCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -54,7 +54,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PronunciationTrainingCommandManager(QObject *parent, const QVariantList& args);
+    PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~PronunciationTrainingCommandManager();

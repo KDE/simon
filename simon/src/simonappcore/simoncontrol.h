@@ -38,7 +38,7 @@
 #include <QStringList>
 #include <QList>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
-#include <speechmodelmanagement/scenariomanager.h>
+#include <simonscenarios/scenariomanager.h>
 #include "simonappcore_export.h"
 
 class QSettings;

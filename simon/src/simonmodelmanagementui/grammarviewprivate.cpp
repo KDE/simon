@@ -29,9 +29,9 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KGlobal>
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/grammar.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/grammar.h>
 
 
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)

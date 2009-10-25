@@ -22,10 +22,10 @@
 
 #include "../AddWord/addwordview.h"
 
-#include <speechmodelmanagement/trainingmanager.h>
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/scenario.h>
-#include <speechmodelmanagement/trainingtext.h>
+#include <simonscenarios/trainingmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/trainingtext.h>
 
 #include <QWizardPage>
 #include <QStringList>

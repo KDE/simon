@@ -23,7 +23,7 @@
 
 #include <QThread>
 #include <QStringList>
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

@@ -20,7 +20,7 @@
 #ifndef CALCULATORCONFIGURATION_H
 #define CALCULATORCONFIGURATION_H
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_calculatorconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>

@@ -40,7 +40,7 @@ K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 
 QStringList KeyboardCommandManager::numberIdentifiers;
 
-KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	keyboardWidget(new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	activateAction(new KAction(this)),
 	keyboardSet(NULL)

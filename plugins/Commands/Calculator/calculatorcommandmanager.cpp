@@ -42,7 +42,7 @@ K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 QStringList CalculatorCommandManager::numberIdentifiers;
 
-CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	commandListWidget(new CommandListWidget()),
 	currentResult(0),

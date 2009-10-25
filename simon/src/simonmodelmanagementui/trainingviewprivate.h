@@ -24,8 +24,8 @@
 
 #include <QWidget>
 
-#include <speechmodelmanagement/word.h>
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/scenariodisplay.h>
 
 class ImportTrainingDirectory;
 class TrainingManager;

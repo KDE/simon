@@ -24,9 +24,9 @@
 #include "xmltrainingtextlist.h"
 
 #include <simonlogging/logger.h>
-#include <speechmodelmanagement/trainingmanager.h>
-#include <speechmodelmanagement/scenariomanager.h>
-#include <speechmodelmanagement/scenario.h>
+#include <simonscenarios/trainingmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
 
 #include <QFile>
 #include <QFileInfo>

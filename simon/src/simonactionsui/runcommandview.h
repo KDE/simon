@@ -22,7 +22,7 @@
 
 #include "inlinewidget.h"
 #include "simonactionsui_export.h"
-#include <speechmodelmanagement/scenariodisplay.h>
+#include <simonscenarios/scenariodisplay.h>
 
 class RunCommandViewPrivate;
 class Scenario;

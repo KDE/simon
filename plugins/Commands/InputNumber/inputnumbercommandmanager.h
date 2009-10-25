@@ -20,7 +20,7 @@
 #ifndef INPUTNUMBERCOMMANDMANAGER_H
 #define INPUTNUMBERCOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
@@ -80,7 +80,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    InputNumberCommandManager(QObject *parent, const QVariantList& args);
+    InputNumberCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~InputNumberCommandManager();

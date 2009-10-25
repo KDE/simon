@@ -19,7 +19,7 @@
 
 
 #include "deleteworddialog.h"
-#include <speechmodelmanagement/word.h>
+#include <simonscenarios/word.h>
 #include <KIconLoader>
 
 /**
