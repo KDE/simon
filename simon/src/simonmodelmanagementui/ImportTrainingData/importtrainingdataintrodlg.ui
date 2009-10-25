@@ -78,7 +78,7 @@ Using this wizard you can import training data collected e.g. by previous simon 
 </item>
 
 <item>
-    <spacer name="verticalSpacer" >
+    <spacer name="verticalSpacer2" >
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
@@ -116,7 +116,7 @@ Using this wizard you can import training data collected e.g. by previous simon 
 	</layout>
 </item>
 <item>
-    <spacer name="verticalSpacer" >
+    <spacer name="verticalSpacer3" >
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>

@@ -59,7 +59,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget" >
+     <widget class="QWidget" name="layoutWidget2" >
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QLabel" name="lbTerminalB" >
