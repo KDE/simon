@@ -18,22 +18,23 @@
  */
 
 #include "runcommandviewprivate.h"
-#include <KMessageBox>
-#include <KIcon>
-#include <QWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QSize>
-#include <QSortFilterProxyModel>
-#include <QItemSelectionModel>
-//#include <simonactions/actionmanager.h>
-//#include <simonactions/commandmodel.h>
 #include <simonscenarios/action.h>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
 #include "newcommand.h"
 #include "commandpreviewwidget.h"
+
+#include <QWidget>
+#include <QTableWidgetItem>
+#include <QHeaderView>
+#include <QSize>
+#include <QSortFilterProxyModel>
+#include <QItemSelectionModel>
+
+#include <KMessageBox>
+#include <KIcon>
+#include <KCMultiDialog>
 
 
 /**
@@ -49,6 +50,7 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
 	connect ( ui.pbDeleteCommand, SIGNAL(clicked()), this, SLOT(deleteCommand()));
+	connect ( ui.pbManagePlugins, SIGNAL(clicked()), this, SLOT(managePlugIns()));
 
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(triggerCommand()));
 
@@ -76,6 +78,21 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.lvCommands->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateCommandDetail()));
 }
 
+void RunCommandViewPrivate::managePlugIns()
+{
+	KCMultiDialog *dlg = (new KCMultiDialog(this));
+
+	KPageWidgetItem *commandSettingsItem = dlg->addModule("simonactionsconfig"/*, QStringList() << ""*/);
+/*	if (commandSettingsItem) {
+		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
+		KCModule *module = proxy->realModule();
+	}*/
+
+	if (dlg->exec()) {
+		;
+	}
+	dlg->deleteLater();
+}
 
 void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {

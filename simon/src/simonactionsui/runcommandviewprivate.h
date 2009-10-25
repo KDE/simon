@@ -62,6 +62,8 @@ private slots:
 	void fetchCommandsFromCategory();
 	void updateCommandDetail();
 
+	void managePlugIns();
+
 
 public:
 	void displayScenarioPrivate(Scenario *scenario);
