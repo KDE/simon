@@ -20,6 +20,7 @@
 #include "executablecommand.h"
 #include "createexecutablecommandwidget.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
@@ -40,7 +41,7 @@ bool ExecutableCommandManager::addCommand(Command *command)
 	{
 		this->commands->append(command);
 		reset();
-		//return save();
+		return parentScenario->save();
 	}
 	return false;
 }
