@@ -2,7 +2,6 @@ find_package(KDE4 REQUIRED)
 add_definitions(-DUSE_WITH_SIMON)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/po)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/adinstreamer)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/commandpluginbase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactions)
@@ -23,7 +22,6 @@ install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COM
 
 
 message(STATUS "Enabling simons experimental scenario support.")
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarioactions)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarios)
 

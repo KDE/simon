@@ -11,7 +11,7 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
 include(KDE4Defaults)
 
-set( simonmodelmanagement_LIB_SRCS
+set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
@@ -33,10 +33,18 @@ set( simonmodelmanagement_LIB_SRCS
 
 	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/command.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/action.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
+
 )
 
 
-set( simonmodelmanagement_LIB_HDRS
+set( simonscenarios_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
@@ -58,35 +66,47 @@ set( simonmodelmanagement_LIB_HDRS
 
 ${CMAKE_CURRENT_SOURCE_DIR}/author.h
 ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
+
+	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/command.h
+	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.h
+	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/action.h
+	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.h
+
 )
 
 
 
-kde4_add_ui_files( simonmodelmanagement_LIB_SRCS
+kde4_add_ui_files( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 )
 
-kde4_add_kcfg_files(simonmodelmanagement_LIB_SRCS
+kde4_add_kcfg_files(simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfgc
 )
 
-kde4_add_library( simonmodelmanagement SHARED ${simonmodelmanagement_LIB_SRCS} )
-target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
+kde4_add_library( simonscenarios SHARED ${simonscenarios_LIB_SRCS} )
+target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
 	simonxml simonlogging speechgui speechmodelbase simonprogresstracking  
 	simonscenariobase simonscenarioactions )
 
 
-set_target_properties( simonmodelmanagement
+set_target_properties( simonscenarios
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
-install( FILES ${simonmodelmanagement_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechmodelmanagement
+install( FILES ${simonscenarios_LIB_HDRS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonscenarios
   COMPONENT simondevel
 )
  
-install( TARGETS simonmodelmanagement DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
-install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
+install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+install( FILES simonmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/modelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
 
+install(FILES
+${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
+${SERVICETYPES_INSTALL_DIR} COMPONENT simon)
+ 
 	

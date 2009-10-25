@@ -20,14 +20,14 @@
 #ifndef COMMANDCONFIGURATION_H
 #define COMMANDCONFIGURATION_H
 
-#include "simoncommandpluginbase_export.h"
+#include "simonmodelmanagement_export.h"
 #include <KCModule>
 
 class KSharedConfig;
 class QString;
 class KComponentData;
 
-class SIMONCOMMANDPLUGINBASE_EXPORT CommandConfiguration : public KCModule
+class MODELMANAGEMENT_EXPORT CommandConfiguration : public KCModule
 {
 	Q_OBJECT
 	

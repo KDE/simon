@@ -20,7 +20,7 @@
 #ifndef CREATECOMMANDWIDGET_H
 #define CREATECOMMANDWIDGET_H
 
-#include "simoncommandpluginbase_export.h"
+#include "simonmodelmanagement_export.h"
 
 #include <QWidget>
 
@@ -35,7 +35,7 @@ class KIcon;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class SIMONCOMMANDPLUGINBASE_EXPORT CreateCommandWidget : public QWidget{
+class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget{
 Q_OBJECT
 
 signals:

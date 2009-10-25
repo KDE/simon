@@ -27,11 +27,11 @@
 #include <KLocalizedString>
 #include <QDomElement>
 #include <simonscenariobase/scenarioobject.h>
-#include "actionlib_export.h"
+#include "simonmodelmanagement_export.h"
 class CommandManager;
 class VersionNumber;
 
-class SIMONACTIONS_EXPORT Action : public QObject, public ScenarioObject
+class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
 	Q_OBJECT
 	private:

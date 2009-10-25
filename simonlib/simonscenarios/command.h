@@ -20,7 +20,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "simoncommandpluginbase_export.h"
+#include "simonmodelmanagement_export.h"
 
 #include <QList>
 #include <QObject>
@@ -48,7 +48,7 @@ class Command;
 typedef QList<Command*> CommandList;
 
 
-class SIMONCOMMANDPLUGINBASE_EXPORT Command : public QObject{
+class MODELMANAGEMENT_EXPORT  Command : public QObject{
 
 Q_OBJECT
 

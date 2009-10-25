@@ -20,7 +20,7 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
 
-#include "simoncommandpluginbase_export.h"
+#include "simonmodelmanagement_export.h"
 
 #include "command.h"
 #include <simonrecognitionresult/recognitionresult.h>
@@ -47,7 +47,7 @@ class Scenario;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QAbstractItemModel, public ScenarioObject {
+class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public ScenarioObject {
 Q_OBJECT
 signals:
 	void commandsFound(CommandList*);
