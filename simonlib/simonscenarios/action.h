@@ -29,6 +29,7 @@
 #include <simonscenariobase/scenarioobject.h>
 #include "simonmodelmanagement_export.h"
 class CommandManager;
+class Command;
 class VersionNumber;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
@@ -64,6 +65,8 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 
 		bool deSerialize(const QDomElement&);
 		QDomElement serialize(QDomDocument *doc);
+
+		bool removeCommand(Command *command);
 
 		~Action();
 

@@ -62,9 +62,6 @@ private slots:
 	void fetchCommandsFromCategory();
 	void updateCommandDetail();
 
-	void commandAdded(Command* com);
-	void commandRemoved(const QString& trigger, const QString& category);
-
 
 public:
 	void displayScenarioPrivate(Scenario *scenario);

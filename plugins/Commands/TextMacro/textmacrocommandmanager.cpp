@@ -19,6 +19,7 @@
 
 #include "textmacrocommandmanager.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include "textmacrocommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -45,8 +46,10 @@ bool TextMacroCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<TextMacroCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		//return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }

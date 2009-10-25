@@ -19,6 +19,7 @@
 
 #include "shortcutcommandmanager.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include "shortcutcommand.h"
 #include "createshortcutcommandwidget.h"
 #include <KLocalizedString>
@@ -45,8 +46,10 @@ bool ShortcutCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<const ShortcutCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		//return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }

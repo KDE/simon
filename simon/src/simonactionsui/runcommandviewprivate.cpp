@@ -79,15 +79,13 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 
 void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-	kDebug() << "Displaying scenario " << scenario->name();
-
 	ui.leActionsFilter->clear();
 
 	ActionCollection *actionCollection = scenario->actionCollection();
 	commandsProxy->setSourceModel(NULL);
 	actionsProxy->setSourceModel(actionCollection);
 	ui.lvActions->setCurrentIndex(actionsProxy->index(0,0));
-	fetchCommandsFromCategory();
+//	fetchCommandsFromCategory();
 }
 
 
@@ -116,10 +114,10 @@ void RunCommandViewPrivate::addCommand()
 		com = newCommand->newCommand();
 
 	if (com) {
-		if (!scenario->actionCollection()->addCommand(com))
+		if (!scenario->addCommand(com))
 			KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
 
-		//updateCommandDetail();
+		ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
 	}
 	
 	delete newCommand;
@@ -147,7 +145,6 @@ void RunCommandViewPrivate::fetchCommandsFromCategory()
 	commandsProxy->setSourceModel(cm);
 	if (cm->hasCommands()) {
 		ui.lvCommands->setCurrentIndex(commandsProxy->index(0,0));
-		updateCommandDetail();
 	}
 }
 
@@ -219,58 +216,35 @@ void RunCommandViewPrivate::updateCommandDetail()
 }
 
 
-void RunCommandViewPrivate::commandAdded(Command* com)
-{
-/*	if ((!ui.lwCategories->item(ui.lwCategories->currentRow())) ||
-		(com->getCategoryText() != ui.lwCategories->item(ui.lwCategories->currentRow())->text()))
-	{
-		if (ui.lwCategories->findItems(com->getCategoryText(), Qt::MatchExactly).isEmpty())
-			ui.lwCategories->addItem(new QListWidgetItem(com->getCategoryIcon(), com->getCategoryText()));
-
-		return;
-	}
-
-	ui.lwCommands->addItem(new QListWidgetItem(com->getIcon(), com->getTrigger()));*/
-}
-
-void RunCommandViewPrivate::commandRemoved(const QString& trigger, const QString& category)
-{
-/*	if ((!ui.lwCategories->item(ui.lwCategories->currentRow())) ||
-		(category != ui.lwCategories->item(ui.lwCategories->currentRow())->text()))
-		return;
-
-	QList<QListWidgetItem*> items = ui.lwCommands->findItems(trigger, Qt::MatchExactly);
-	foreach (QListWidgetItem* item, items)
-		delete item;*/
-}
 
 
 void RunCommandViewPrivate::editCommand()
 {
-/*	Command *command = getCurrentCommand();
+	Command *command = getCurrentCommand();
 	if (!command) return;
 
-	NewCommand *editCommand = new NewCommand(this);*/
-//	editCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(NULL/*editCommand*/));
-/*	editCommand->init(command);
+	NewCommand *editCommand = new NewCommand(this);
+	editCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*editCommand*/));
+	editCommand->init(command);
 	Command *newCommand = editCommand->newCommand();
 	if (newCommand)
 	{
-//		ActionManager::getInstance()->deleteCommand(command);
-//		ActionManager::getInstance()->addCommand(newCommand);
-	}*/
+		ScenarioManager::getInstance()->getCurrentScenario()->removeCommand(command);
+		ScenarioManager::getInstance()->getCurrentScenario()->addCommand(newCommand);
+		ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
+	}
 }
 
 void RunCommandViewPrivate::deleteCommand()
 {
-/*	Command *command = getCurrentCommand();
+	Command *command = getCurrentCommand();
 	if (!command) return;
 	
-	if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove that command?"), i18n("Remove Command")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove the command \"%1\"?", command->getTrigger()), i18n("Remove Command")) == KMessageBox::Yes)
 	{
-//		ActionManager::getInstance()->deleteCommand(command);
+		ScenarioManager::getInstance()->getCurrentScenario()->removeCommand(command);
 		updateCommandDetail();
-	}*/
+	}
 }
 
 /**

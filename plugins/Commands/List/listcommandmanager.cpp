@@ -20,6 +20,7 @@
 #include <simonactions/listcommand.h>
 #include "createlistcommandwidget.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
@@ -43,8 +44,10 @@ bool ListCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<ListCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		//return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }

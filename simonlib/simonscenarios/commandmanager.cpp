@@ -129,6 +129,7 @@ bool CommandManager::deleteCommand(Command *command)
 			beginRemoveRows(QModelIndex(), i, i);
 			commands->removeAt(i);
 			endRemoveRows();
+			delete command;
 			return parentScenario->save();
 		}
 	}

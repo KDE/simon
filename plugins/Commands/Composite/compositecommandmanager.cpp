@@ -19,6 +19,7 @@
 #include "compositecommandmanager.h"
 #include "compositecommand.h"
 #include "createcompositecommandwidget.h"
+#include <simonscenarios/scenario.h>
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -43,8 +44,10 @@ bool CompositeCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<CompositeCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		//return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }

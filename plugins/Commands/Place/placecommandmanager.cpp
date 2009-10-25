@@ -20,6 +20,7 @@
 #include "placecommandmanager.h"
 #include "createplacecommandwidget.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include "placecommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -55,9 +56,10 @@ bool PlaceCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<PlaceCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		//TODO implement scenario equivalent
-		//return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }

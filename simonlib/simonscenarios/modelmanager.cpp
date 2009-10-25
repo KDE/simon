@@ -37,8 +37,8 @@
 
 
 ModelManager::ModelManager(QObject* parent) : QObject(parent),
-	modelChangedFlag(false),
-	inGroup(false)
+	inGroup(false),
+	modelChangedFlag(false)
 {
 	connect (ScenarioManager::getInstance(), SIGNAL(scenariosChanged()), 
 		  this, SLOT(modelHasChanged()));

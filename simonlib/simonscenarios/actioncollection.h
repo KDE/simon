@@ -59,6 +59,8 @@ public:
 
 	bool addCommand(Command *command);
 
+	bool removeCommand(Command *command);
+
 	~ActionCollection();
 
 };

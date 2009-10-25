@@ -165,7 +165,7 @@ bool ActionCollection::addCommand(Command *command)
 		CommandManager *man = m_actions.at(i)->manager();
 		bool hadCommands = man->hasCommands();
 		added = man->addCommand(command);
-		if (added) {
+		if (added && !hadCommands) {
 			beginInsertRows(QModelIndex(), indexToInsertIntoActionsWithCommands,
 					indexToInsertIntoActionsWithCommands);
 			m_actionsWithCommands.insert(indexToInsertIntoActionsWithCommands,
@@ -179,6 +179,18 @@ bool ActionCollection::addCommand(Command *command)
 	}
 
 	return added;
+}
+
+bool ActionCollection::removeCommand(Command *command)
+{
+	bool removed=false;
+	foreach (Action *a, m_actions) {
+		if (a->removeCommand(command))
+			removed = true;
+		else
+			break;
+	}
+	return removed;
 }
 
 ActionCollection::~ActionCollection()

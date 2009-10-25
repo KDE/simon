@@ -37,6 +37,7 @@ class Word;
 class Scenario;
 class ScenarioDisplay;
 class ShadowVocabulary;
+class Command;
 
 class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject {
 Q_OBJECT

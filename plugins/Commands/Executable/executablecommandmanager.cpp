@@ -39,8 +39,9 @@ bool ExecutableCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<ExecutableCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		reset();
+		endInsertRows();
 		return parentScenario->save();
 	}
 	return false;

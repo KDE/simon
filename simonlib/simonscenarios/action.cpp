@@ -77,7 +77,7 @@ void Action::init(const QString& source, const QString& trigger)
 	m_version = pluginInfo.version();
 
 	if (factory) {
-		m_manager = factory->create<CommandManager>();
+		m_manager = factory->create<CommandManager>((QObject*)parentScenario);
 		if (m_manager == NULL) {
 			kWarning() << "Failed to create instance of " << source;
 			return;
@@ -153,6 +153,11 @@ bool Action::hasCommands()
 		return false;
 
 	return m_manager->hasCommands();
+}
+
+bool Action::removeCommand(Command *command)
+{
+	return m_manager->deleteCommand(command);
 }
 
 

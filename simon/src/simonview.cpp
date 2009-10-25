@@ -110,14 +110,14 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
 
-	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
-	if (commandSettingsItem)
-	{
-		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
+//	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
+//	if (commandSettingsItem)
+//	{
+//		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
 		//ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
 		//ActionManager::getInstance()->setMainWindow(this);
 		//ActionManager::getInstance()->init();
-	}
+//	}
 
 
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
