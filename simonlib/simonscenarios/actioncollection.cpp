@@ -95,10 +95,10 @@ QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *
 	return out;
 }
 
-QList<KCModule*>* ActionCollection::getConfigurationWidgets(QWidget *parent)
+/*QList<KCModule*>* ActionCollection::getConfigurationWidgets(QWidget *parent)
 {
 
-}
+}*/
 
 /*bool ActionCollection::addCommand(Command *command)
 {
