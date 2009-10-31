@@ -45,6 +45,8 @@ protected:
 public slots:
 	void toggle();
 public:
+	const KIcon icon() const;
+
 	const QString name() const;
 	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	bool addCommand(Command *) { return false; }

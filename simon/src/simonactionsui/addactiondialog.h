@@ -17,34 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef ADDACTIONDIALOG_H
+#define ADDACTIONDIALOG_H
 
-#ifndef SCENARIOOBJECT_H
-#define SCENARIOOBJECT_H
-#include <QString>
-#include <QDomElement>
-#include "simonscenariobase_export.h"
 
-class Scenario;
+#include <KDialog>
+#include "ui_addactiondlg.h"
 
-class SCENARIOBASE_EXPORT ScenarioObject{
+class Action;
+class ActionModel;
+class QSortFilterProxyModel;
 
-protected:
-	Scenario *parentScenario;
+class AddActionDialog : public KDialog {
+
+Q_OBJECT
+
+private:
+	Ui::DlgAddAction ui;
+	QSortFilterProxyModel *proxyModel;
+	ActionModel *actionModel;
+
 public:
-	
-	ScenarioObject(Scenario *parentScenario)
-		: parentScenario(parentScenario)
-	{
-	}
-
-	virtual void assignParent(Scenario *parent) { parentScenario = parent; }
-
-	virtual bool deSerialize(const QDomElement&)=0;
-
-	virtual QDomElement serialize(QDomDocument *doc)=0;
-
-	virtual ~ScenarioObject() {}
-
+	Action* getAction();
+	int exec();
+	AddActionDialog(QWidget *parent=0);
+	~AddActionDialog();
 };
 
+
+
 #endif
+
+

@@ -44,7 +44,7 @@ const KIcon PlaceCommandManager::icon() const
 
 CreateCommandWidget* PlaceCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreatePlaceCommandWidget(parent);
+	return new CreatePlaceCommandWidget(this, parent);
 }
 
 const QString PlaceCommandManager::name() const

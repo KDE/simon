@@ -45,9 +45,9 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		bool m_enabledByDefault;
 
 		void init(const QString& source, const QString& trigger=QString());
-		Action(Scenario *parent, const QString& source, const QString& trigger);
 	public:
-		Action(const QString& source, const QString& trigger=QString());
+		void assignParent(Scenario *s);
+		Action(Scenario *parent, const QString& source, const QString& trigger);
 		typedef QPointer<Action> Ptr;
 
 		static Action* createAction(Scenario *parent, const QDomElement& elem);

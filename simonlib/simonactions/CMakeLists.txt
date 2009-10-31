@@ -10,7 +10,7 @@ include(KDE4Defaults)
 set( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandtablemodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
 	#	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.cpp
@@ -25,9 +25,9 @@ set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h
 )
 
-kde4_add_ui_files( simonactions_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
-)
+#kde4_add_ui_files( simonactions_LIB_SRCS
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
+	#)
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 

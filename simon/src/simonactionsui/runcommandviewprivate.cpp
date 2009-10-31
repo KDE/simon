@@ -23,6 +23,7 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
 #include "newcommand.h"
+#include "manageactionsdialog.h"
 #include "commandpreviewwidget.h"
 
 #include <QWidget>
@@ -56,10 +57,13 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 
 	ui.lvActions->setIconSize(QSize(24,24));
 	ui.lvCommands->setIconSize(QSize(24,24));
+	ui.lvActions->setSpacing(2);
+	ui.lvCommands->setSpacing(2);
 
 	ui.pbNewCommand->setIcon(KIcon("list-add"));
 	ui.pbEditCommand->setIcon(KIcon("edit-rename"));
 	ui.pbDeleteCommand->setIcon(KIcon("edit-delete"));
+	ui.pbManagePlugins->setIcon(KIcon("configure"));
 
 	commandsProxy = new QSortFilterProxyModel(this);
 	commandsProxy->setFilterKeyColumn(0);
@@ -80,13 +84,7 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 
 void RunCommandViewPrivate::managePlugIns()
 {
-	KCMultiDialog *dlg = (new KCMultiDialog(this));
-
-	KPageWidgetItem *commandSettingsItem = dlg->addModule("simonactionsconfig"/*, QStringList() << ""*/);
-/*	if (commandSettingsItem) {
-		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
-		KCModule *module = proxy->realModule();
-	}*/
+	ManageActionsDialog *dlg = new ManageActionsDialog(this);
 
 	if (dlg->exec()) {
 		;
@@ -99,10 +97,12 @@ void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 	ui.leActionsFilter->clear();
 
 	ActionCollection *actionCollection = scenario->actionCollection();
+
 	commandsProxy->setSourceModel(NULL);
-	actionsProxy->setSourceModel(actionCollection);
+
+	actionsProxy->setSourceModel((QAbstractItemModel*) actionCollection->getProxy());
+
 	ui.lvActions->setCurrentIndex(actionsProxy->index(0,0));
-//	fetchCommandsFromCategory();
 }
 
 
@@ -122,19 +122,18 @@ void RunCommandViewPrivate::addCommand()
 	newCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*newCommand*/));
 	
 	Command *com=NULL;
+	bool succ;
 
 	Action *a = getCurrentlySelectedAction();
 
 	if (a && a->manager())
-		com = newCommand->newCommand(a->manager()->name());
+		succ = newCommand->newCommand(a->manager()->name());
 	else 
-		com = newCommand->newCommand();
+		succ = newCommand->newCommand();
 
-	if (com) {
-		if (!scenario->addCommand(com))
-			KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
-
-		ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
+	if (!succ) {
+		KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
+		//ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
 	}
 	
 	delete newCommand;
@@ -243,11 +242,11 @@ void RunCommandViewPrivate::editCommand()
 	NewCommand *editCommand = new NewCommand(this);
 	editCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*editCommand*/));
 	editCommand->init(command);
-	Command *newCommand = editCommand->newCommand();
-	if (newCommand)
+	bool succ = editCommand->newCommand();
+	if (succ)
 	{
 		ScenarioManager::getInstance()->getCurrentScenario()->removeCommand(command);
-		ScenarioManager::getInstance()->getCurrentScenario()->addCommand(newCommand);
+		//ScenarioManager::getInstance()->getCurrentScenario()->addCommand(newCommand);
 		ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
 	}
 }

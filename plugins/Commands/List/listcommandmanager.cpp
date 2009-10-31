@@ -60,7 +60,7 @@ const QString ListCommandManager::name() const
 
 CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateListCommandWidget(parent);
+	return new CreateListCommandWidget(this, parent);
 }
 
 bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)

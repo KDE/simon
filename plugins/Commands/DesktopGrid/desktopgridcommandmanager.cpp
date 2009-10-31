@@ -44,6 +44,11 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVar
 	guiActions << activateAction;
 }
 
+const KIcon DesktopGridCommandManager::icon() const
+{
+	return KIcon("games-config-board");
+}
+
 
 const QString DesktopGridCommandManager::preferredTrigger() const
 {

@@ -20,11 +20,15 @@
 #include "actioncollection.h"
 #include <KDebug>
 #include <simonscenarios/action.h>
+#include <simonscenarios/scenario.h>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/actioncommandmodel.h>
+#include "actioncommandmodel.h"
 
 ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
 {
+	proxy = new ActionCommandModel(this);
 
 }
 
@@ -58,12 +62,12 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 			kDebug() << "Couldn't load action";
 		} else {
 			m_actions << a;
-			if (a->hasCommands())
-				m_actionsWithCommands << a;
 		}
 
 		pluginElem = pluginElem.nextSiblingElement();
 	}
+	proxy->update();
+	reset();
 	return true;
 }
 
@@ -73,73 +77,10 @@ QDomElement ActionCollection::serialize(QDomDocument *doc)
 	foreach (Action *a, m_actions) {
 		actionsElem.appendChild(a->serialize(doc));
 	}
+	proxy->update();
 	return actionsElem;
 }
 
-
-QVariant ActionCollection::data(const QModelIndex &index, int role) const
-{
-	if (!index.isValid()) return QVariant();
-
-	if (role == Qt::DisplayRole) 
-		return m_actionsWithCommands.at(index.row())->manager()->name();
-
-	if (role == Qt::DecorationRole)
-		return m_actionsWithCommands.at(index.row())->manager()->icon();
-
-	return QVariant();
-}
-
-Qt::ItemFlags ActionCollection::flags(const QModelIndex &index) const
-{
-	if (!index.isValid())
-		return 0;
-
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-}
-
-QVariant ActionCollection::headerData(int column, Qt::Orientation orientation,
-			int role) const
-{
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-		switch (column)
-		{
-			case 0:
-				return i18n("Action");
-		}
-	}
-	
-	//default
-	return QVariant();
-}
-
-
-QModelIndex ActionCollection::parent(const QModelIndex &index) const
-{
-	Q_UNUSED(index);
-	return QModelIndex();
-}
-
-int ActionCollection::rowCount(const QModelIndex &parent) const
-{
-	if (!parent.isValid())
-		return m_actionsWithCommands.count();
-	else return 0;
-}
-
-int ActionCollection::columnCount(const QModelIndex &parent) const
-{
-	Q_UNUSED(parent);
-	return 1;
-}
-
-QModelIndex ActionCollection::index(int row, int column, const QModelIndex &parent) const
-{
-	if (!hasIndex(row, column, parent) || parent.isValid())
-		return QModelIndex();
-
-	return createIndex(row, column, m_actionsWithCommands.at(row));
-}
 
 QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *parent)
 {
@@ -154,44 +95,107 @@ QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *
 	return out;
 }
 
-bool ActionCollection::addCommand(Command *command)
+QList<KCModule*>* ActionCollection::getConfigurationWidgets(QWidget *parent)
+{
+
+}
+
+/*bool ActionCollection::addCommand(Command *command)
 {
 	if (!command) return false;
 	
 	int i=0;
-	int indexToInsertIntoActionsWithCommands=0;
 	bool added=false;
 	while (!added && (i< m_actions.count())) {
 		CommandManager *man = m_actions.at(i)->manager();
-		bool hadCommands = man->hasCommands();
 		added = man->addCommand(command);
-		if (added && !hadCommands) {
-			beginInsertRows(QModelIndex(), indexToInsertIntoActionsWithCommands,
-					indexToInsertIntoActionsWithCommands);
-			m_actionsWithCommands.insert(indexToInsertIntoActionsWithCommands,
-					m_actions.at(i));
-			endInsertRows();
-			break;
-		}
-		if (hadCommands)
-			indexToInsertIntoActionsWithCommands++;
 		i++;
 	}
 
+	proxy->update();
 	return added;
-}
+}*/
 
 bool ActionCollection::removeCommand(Command *command)
 {
 	bool removed=false;
 	foreach (Action *a, m_actions) {
-		if (a->removeCommand(command))
+		if (a->removeCommand(command)) {
 			removed = true;
-		else
 			break;
+		}
 	}
+	proxy->update();
 	return removed;
 }
+
+bool ActionCollection::addAction(Action *action)
+{
+	action->assignParent(parentScenario);
+	action->deSerialize(QDomElement());
+
+	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	m_actions << action;
+	endInsertRows();
+
+	proxy->update();
+
+	return parentScenario->save();
+}
+
+bool ActionCollection::deleteAction(Action *action)
+{
+	for (int i=0; i <m_actions.count(); i++) {
+		if (m_actions[i] == action) {
+			beginRemoveRows(QModelIndex(), i, i);
+			m_actions.takeAt(i);
+			endRemoveRows();
+		}
+	}
+	delete action;
+
+	proxy->update();
+	return parentScenario->save();
+}
+
+bool ActionCollection::moveActionUp(Action *action)
+{
+	bool moved = false;
+
+	for (int i=1; i <m_actions.count(); i++) {
+		if (m_actions[i] == action) {
+			m_actions.takeAt(i);
+			m_actions.insert(i-1, action);
+			emit dataChanged(index(i-1, 0), 
+					  index(i, columnCount()));
+			moved = true;
+			break;
+		}
+	}
+	proxy->update();
+
+	return moved;
+}
+
+bool ActionCollection::moveActionDown(Action *action)
+{
+	bool moved = false;
+
+	for (int i=0; i <m_actions.count()-1; i++) {
+		if (m_actions[i] == action) {
+			m_actions.takeAt(i);
+			m_actions.insert(i+1, action);
+			emit dataChanged(index(i, 0), 
+					  index(i+1, columnCount()));
+			moved = true;
+			break;
+		}
+	}
+	proxy->update();
+
+	return moved;
+}
+
 
 ActionCollection::~ActionCollection()
 {

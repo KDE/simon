@@ -41,6 +41,7 @@ public:
 	const QString preferredTrigger() const { return ""; }
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
+	const KIcon icon() const;
 
     /**
     * @brief Constructor

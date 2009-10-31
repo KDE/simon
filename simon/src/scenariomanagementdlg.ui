@@ -17,7 +17,7 @@
    <item>
     <widget class="KActionSelector" name="asScenarios">
      <property name="showUpDownButtons">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
     </widget>
    </item>

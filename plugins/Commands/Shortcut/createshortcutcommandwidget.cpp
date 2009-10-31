@@ -21,7 +21,7 @@
 #include "shortcutcommand.h"
 
 
-CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
+CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent) : CreateCommandWidget(manager, parent)
 {
 	ui.setupUi(this);
 

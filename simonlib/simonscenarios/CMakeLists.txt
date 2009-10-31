@@ -40,6 +40,8 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/action.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
 
 )
 
@@ -73,6 +75,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/action.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.h
+	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
+	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
 
 )
 

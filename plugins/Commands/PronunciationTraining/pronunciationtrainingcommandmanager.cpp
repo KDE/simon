@@ -74,6 +74,11 @@ bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& e
 	return true;
 }
 
+const KIcon PronunciationTrainingCommandManager::icon() const
+{
+	return KIcon("applications-education");
+}
+
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {
 }

@@ -50,6 +50,7 @@ public:
 	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 
 	CommandConfiguration* getConfigurationPage();
+	const KIcon icon() const;
 
     /**
     * @brief Constructor

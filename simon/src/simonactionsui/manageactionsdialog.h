@@ -17,34 +17,38 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef MANAGEACTIONSDIALOG_H
+#define MANAGEACTIONSDIALOG_H
 
-#ifndef SCENARIOOBJECT_H
-#define SCENARIOOBJECT_H
-#include <QString>
-#include <QDomElement>
-#include "simonscenariobase_export.h"
 
-class Scenario;
+#include <KDialog>
+#include <KPageWidget>
+#include "ui_manageactionsdlg.h"
+class Action;
 
-class SCENARIOBASE_EXPORT ScenarioObject{
+class ManageActionsDialog : public KDialog {
 
-protected:
-	Scenario *parentScenario;
+Q_OBJECT
+
+private:
+	Ui::DlgManageActions ui;
+	KPageWidget *pageWidget;
+
+	Action* getCurrentlySelectedAction();
+
+private slots:
+	void add();
+	void remove();
+	void moveUp();
+	void moveDown();
+
 public:
-	
-	ScenarioObject(Scenario *parentScenario)
-		: parentScenario(parentScenario)
-	{
-	}
-
-	virtual void assignParent(Scenario *parent) { parentScenario = parent; }
-
-	virtual bool deSerialize(const QDomElement&)=0;
-
-	virtual QDomElement serialize(QDomDocument *doc)=0;
-
-	virtual ~ScenarioObject() {}
-
+	int exec();
+	ManageActionsDialog(QWidget *parent=0);
+	~ManageActionsDialog();
 };
 
+
+
 #endif
+

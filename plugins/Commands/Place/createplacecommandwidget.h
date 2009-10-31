@@ -26,6 +26,7 @@
 
 class Command;
 class ImportPlaceWizard;
+class CommandManager;
 
 /**
  *	@class CreatePlaceCommandWidget
@@ -56,7 +57,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreatePlaceCommandWidget(QWidget *parent=0);
+	CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreatePlaceCommandWidget();

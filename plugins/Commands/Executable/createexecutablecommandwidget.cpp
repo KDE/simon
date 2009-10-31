@@ -22,7 +22,7 @@
 #include "ImportProgram/importprogramwizard.h"
 #include <KLineEdit>
 
-CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 	importWizard(0)
 {
 	ui.setupUi(this);

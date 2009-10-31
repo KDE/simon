@@ -18,3 +18,10 @@
  */
 
 #include "createcommandwidget.h"
+#include "commandmanager.h"
+
+bool CreateCommandWidget::addCommand(const QString& name, const QString& iconSrc)
+{
+	return m_manager->addCommand(createCommand(name, iconSrc));
+}
+

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=text-speak
+Icon=text-field
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondictationcommandplugin
 Name=simon Dictation Plugin

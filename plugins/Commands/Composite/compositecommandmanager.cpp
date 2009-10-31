@@ -60,7 +60,7 @@ const QString CompositeCommandManager::name() const
 
 CreateCommandWidget* CompositeCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateCompositeCommandWidget(parent);
+	return new CreateCompositeCommandWidget(this, parent);
 }
 
 bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)

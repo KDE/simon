@@ -26,6 +26,7 @@
 
 
 class Command;
+class CommandManager;
 
 /**
  *	@class CreateShortcutCommandWidget
@@ -58,7 +59,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateShortcutCommandWidget(QWidget *parent=0);
+	CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateShortcutCommandWidget();

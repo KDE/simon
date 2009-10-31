@@ -108,7 +108,7 @@ public:
 	bool removeText(TrainingText* text);
 	bool addTrainingText(TrainingText* text);
 
-	bool addCommand(Command *command);
+//	bool addCommand(Command *command);
 	bool removeCommand(Command *command);
 
 	~Scenario();

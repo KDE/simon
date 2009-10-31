@@ -44,6 +44,11 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 	setCaption( i18n("Manage scenarios") );
 
 	initDisplay();
+
+	connect(ui.asScenarios->availableListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+			  this, SLOT(availableScenarioSelected()));
+	connect(ui.asScenarios->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+			  this, SLOT(selectedScenarioSelected()));
 }
 
 void ScenarioManagementDialog::initDisplay()
@@ -69,10 +74,6 @@ void ScenarioManagementDialog::initDisplay()
 	}
 
 	kDebug() << "Found scenarios: " << scenarioIds;
-	/*	QString licence() { return m_licence; }
-	QString simonMinVersion() { return m_simonMinVersion; }
-	QString simonMaxVersion() { return m_simonMaxVersion; }
-	QString authors() { return m_authors; }*/
 
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
@@ -111,7 +112,19 @@ void ScenarioManagementDialog::initDisplay()
 			item->setData(Qt::UserRole, id);
 		}
 	}
+	ui.asScenarios->setButtonsEnabled();
 }
+
+void ScenarioManagementDialog::availableScenarioSelected()
+{
+	ui.asScenarios->setButtonsEnabled();
+}
+
+void ScenarioManagementDialog::selectedScenarioSelected()
+{
+	ui.asScenarios->setButtonsEnabled();
+}
+
 
 int ScenarioManagementDialog::exec()
 {

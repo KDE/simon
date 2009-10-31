@@ -27,7 +27,7 @@
 #include <KMessageBox>
 #include <QStringList>
 
-CreateListCommandWidget::CreateListCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 //	allCommands(ActionManager::getInstance()->getCommandList()),
 	model(new CommandTableModel())
 {
@@ -46,7 +46,7 @@ CreateListCommandWidget::CreateListCommandWidget(QWidget* parent) : CreateComman
 	ui.tvCommands->setModel(model);
 
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
-	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
+	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToList()));
 	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
@@ -144,7 +144,7 @@ bool CreateListCommandWidget::init(Command* command)
 }
 
 
-void CreateListCommandWidget::addCommand()
+void CreateListCommandWidget::addCommandToList()
 {
 	model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
 	enableButtons(ui.tvCommands->currentIndex());

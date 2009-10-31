@@ -46,7 +46,7 @@ private:
 	CommandTableModel *model;
 
 private slots:
-	void addCommand();
+	void addCommandToList();
 	void removeCommand();
 	void moveUp();
 	void moveDown();
@@ -63,7 +63,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateListCommandWidget(QWidget *parent=0);
+	CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateListCommandWidget();

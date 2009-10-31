@@ -22,44 +22,45 @@
 #define ACTIONCOLLECTION_H
 #include <QString>
 #include <QList>
-#include <QAbstractItemModel>
+#include "actionmodel.h"
 #include <simonscenariobase/scenarioobject.h>
 #include "simonmodelmanagement_export.h"
 
 class Action;
 class CreateCommandWidget;
 class Command;
+class ActionCommandModel;
 
-class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public QAbstractItemModel {
+class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel {
 
 private:
-	QList<Action*> m_actions;
-	QList<Action*> m_actionsWithCommands;
+	ActionCommandModel *proxy;
 
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
-
-
-protected:
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
-	ActionCollection(Scenario *parent);
 
 public:
+	ActionCollection(Scenario *parent);
+
 	static ActionCollection* createActionCollection(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 
 	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
+	//QList<KCModule*>* getConfigurationWidgets(QWidget *parent);
 
-	bool addCommand(Command *command);
+	ActionCommandModel* getProxy() { return proxy; }
+
+//	bool addCommand(Command *command);
+
+
+	QList<Action*> actions() { return m_actions; }
 
 	bool removeCommand(Command *command);
+
+	bool addAction(Action *action);
+	bool deleteAction(Action *action);
+
+	bool moveActionUp(Action *action);
+	bool moveActionDown(Action *action);
 
 	~ActionCollection();
 

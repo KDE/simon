@@ -35,6 +35,10 @@ private:
 	Ui::Dialog ui;
 
 	void initDisplay();
+
+private slots:
+	void availableScenarioSelected();
+	void selectedScenarioSelected();
 	
 public slots:
 	int exec();

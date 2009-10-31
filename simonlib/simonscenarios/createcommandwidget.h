@@ -25,6 +25,7 @@
 #include <QWidget>
 
 class Command;
+class CommandManager;
 class KIcon;
 
 /**
@@ -42,6 +43,9 @@ signals:
 	void completeChanged();
 	void commandSuggested(Command*);
 
+private:
+	CommandManager *m_manager;
+
 public:
 	/**
 	* @brief Creates the command
@@ -58,6 +62,8 @@ public:
 	*/
 	virtual Command* createCommand(const QString& name, const QString& iconSrc)=0;
 
+	virtual bool addCommand(const QString& name, const QString& iconSrc);
+
 	virtual bool init(Command* command)=0;
 	virtual bool isComplete()=0;
 
@@ -66,7 +72,8 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateCommandWidget(QWidget *parent=0) : QWidget(parent)
+	CreateCommandWidget(CommandManager *manager, QWidget *parent=0) : QWidget(parent),
+			m_manager(manager)
 	{}
 
 

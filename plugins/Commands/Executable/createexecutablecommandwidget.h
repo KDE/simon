@@ -26,6 +26,7 @@
 
 class Command;
 class ImportProgramWizard;
+class CommandManager;
 
 /**
  *	@class CreateExecutableCommandWidget
@@ -57,7 +58,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateExecutableCommandWidget(QWidget *parent=0);
+	CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateExecutableCommandWidget();

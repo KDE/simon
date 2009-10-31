@@ -25,6 +25,7 @@
 #include "ui_createtextmacrocommandwidget.h"
 
 class Command;
+class CommandManager;
 
 /**
  *	@class CreateTextMacroCommandWidget
@@ -51,7 +52,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateTextMacroCommandWidget(QWidget *parent=0);
+	CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateTextMacroCommandWidget();

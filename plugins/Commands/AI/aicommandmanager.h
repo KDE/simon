@@ -48,6 +48,7 @@ protected:
 public:
 	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	const QString name() const;
+	const KIcon icon() const;
 	bool setupParser();
 	bool addCommand(Command *) { return false; }
 

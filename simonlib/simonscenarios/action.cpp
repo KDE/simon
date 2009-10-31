@@ -32,17 +32,6 @@ Action::Action(Scenario *parent, const QString& source, const QString& trigger) 
 	init(source, trigger);
 }
 
-/**
- * Deprecated constructor kept for compatibility reasons for now
- * FIXME: Remove it
- */
-
-Action::Action(const QString& source, const QString& trigger) : ScenarioObject(NULL), m_source(source),
-	pluginMinVersion(0),
-	pluginMaxVersion(0)
-{
-	init(source, trigger);
-}
 
 Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
 {
@@ -57,6 +46,16 @@ Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
 	}
 
 	return a;
+}
+
+void Action::assignParent(Scenario *s)
+{
+	ScenarioObject::assignParent(s);
+	pluginMinVersion->assignParent(s);
+	if (m_manager)
+		m_manager->assignParent(s);
+	if (pluginMaxVersion)
+		pluginMaxVersion->assignParent(s);
 }
 
 void Action::init(const QString& source, const QString& trigger)
@@ -85,6 +84,11 @@ void Action::init(const QString& source, const QString& trigger)
 		if (trigger.isNull()) {
 			m_trigger = m_manager->preferredTrigger();
 		}
+
+		if (parentScenario == NULL) {
+			//automatic mode
+			pluginMinVersion = new VersionNumber(NULL, m_version);
+		}
 	} else {
 		kWarning() << "Factory not found!";
 		m_manager = NULL;
@@ -94,20 +98,22 @@ void Action::init(const QString& source, const QString& trigger)
 bool Action::deSerialize(const QDomElement& pluginElem)
 {
 	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
-	QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
+	if (!pluginCompatibilityElem.isNull()) {
+		QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
 
-	pluginMinVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem);
-	pluginMaxVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem.nextSiblingElement());
+		pluginMinVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem);
+		pluginMaxVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem.nextSiblingElement());
 
-	if (!pluginMinVersion) {
-		kDebug() << "Couldn't parse version requirements of plugin";
-		return false;
-	} else {
-		VersionNumber pluginCurVersion(parentScenario, getPluginVersion());
-		if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) || 
-			(pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
-			kDebug() << "Scenario not compatible with this version of the plugin ";
+		if (!pluginMinVersion) {
+			kDebug() << "Couldn't parse version requirements of plugin";
 			return false;
+		} else {
+			VersionNumber pluginCurVersion(parentScenario, getPluginVersion());
+			if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) || 
+				(pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
+				kDebug() << "Scenario not compatible with this version of the plugin ";
+				return false;
+			}
 		}
 	}
 	

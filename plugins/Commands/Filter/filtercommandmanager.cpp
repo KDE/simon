@@ -52,6 +52,10 @@ const QString FilterCommandManager::name() const
 	return i18n("Filter");
 }
 
+const KIcon FilterCommandManager::icon() const
+{
+	return KIcon("view-filter");
+}
 
 void FilterCommandManager::updateAction()
 {

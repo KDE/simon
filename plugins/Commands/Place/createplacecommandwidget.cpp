@@ -21,7 +21,7 @@
 #include "placecommand.h"
 #include "ImportPlace/importplacewizard.h"
 
-CreatePlaceCommandWidget::CreatePlaceCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 	importWizard(0)
 {
 	ui.setupUi(this);

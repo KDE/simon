@@ -85,7 +85,7 @@ bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, Scena
 
 CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateTextMacroCommandWidget(parent);
+	return new CreateTextMacroCommandWidget(this, parent);
 }
 
 TextMacroCommandManager::~TextMacroCommandManager()

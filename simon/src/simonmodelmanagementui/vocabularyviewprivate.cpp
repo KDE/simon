@@ -85,11 +85,6 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	shadowProxy->setFilterKeyColumn(0);
 	shadowProxy->setSourceModel(ScenarioManager::getInstance()->getShadowVocabulary());
 	ui.tvShadowVocab->setModel(shadowProxy);
-
-/*	QSortFilterProxyModel *trainingVocProxy = new QSortFilterProxyModel(this);
-	trainingVocProxy->setFilterKeyColumn(0);
-	trainingVocProxy->setSourceModel(&trainingVocabulary);
-	ui.lvTrainingWords->setModel(trainingVocProxy);*/
 }
 
 void VocabularyViewPrivate::refreshActiveView()

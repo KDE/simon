@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=games-config-board
+Icon=applications-education
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonpronunciationtrainingplugin
 Name=simon pronunciation training Plugin

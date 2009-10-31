@@ -44,6 +44,7 @@ public slots:
 	void activateTraining();
 public:
 	const QString name() const;
+	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 

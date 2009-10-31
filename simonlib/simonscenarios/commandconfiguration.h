@@ -46,8 +46,6 @@ class MODELMANAGEMENT_EXPORT CommandConfiguration : public KCModule
 		~CommandConfiguration();
 		virtual void destroy();
 		
-// 		KSharedConfig::Ptr* getConfig() { return &config; }
-
 	public slots:
 		virtual void save()=0;
 		virtual void load()=0;

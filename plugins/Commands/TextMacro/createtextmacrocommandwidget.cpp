@@ -20,7 +20,7 @@
 #include "createtextmacrocommandwidget.h"
 #include "textmacrocommand.h"
 
-CreateTextMacroCommandWidget::CreateTextMacroCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
+CreateTextMacroCommandWidget::CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent) : CreateCommandWidget(manager, parent)
 {
 	ui.setupUi(this);
 

@@ -42,6 +42,11 @@ const QString DictationCommandManager::name() const
 	return i18n("Dictation");
 }
 
+const KIcon DictationCommandManager::icon() const
+{
+	return KIcon("text-field");
+}
+
 DictationCommandManager::~DictationCommandManager()
 {
 }

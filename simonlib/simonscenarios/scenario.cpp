@@ -470,10 +470,10 @@ bool Scenario::addTrainingText(TrainingText* text)
 	return m_texts->addTrainingText(text);
 }
 
-bool Scenario::addCommand(Command *command)
+/*bool Scenario::addCommand(Command *command)
 {
 	return m_actionCollection->addCommand(command);
-}
+}*/
 
 bool Scenario::removeCommand(Command *command)
 {

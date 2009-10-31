@@ -56,7 +56,7 @@ bool ShortcutCommandManager::addCommand(Command *command)
 
 CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateShortcutCommandWidget(parent);
+	return new CreateShortcutCommandWidget(this, parent);
 }
 
 const KIcon ShortcutCommandManager::icon() const

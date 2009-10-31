@@ -28,6 +28,7 @@
 class Command;
 class CommandTableModel;
 class ImportProgramWizard;
+class CommandManager;
 
 /**
  *	@class CreateCompositeCommandWidget
@@ -47,8 +48,8 @@ private:
 	CommandTableModel *model;
 
 private slots:
-	void addDelay();
-	void addCommand();
+	void addDelayToComp();
+	void addCommandToComp();
 	void removeCommand();
 	void moveUp();
 	void moveDown();
@@ -65,7 +66,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateCompositeCommandWidget(QWidget *parent=0);
+	CreateCompositeCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateCompositeCommandWidget();

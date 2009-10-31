@@ -60,7 +60,7 @@ const KIcon ExecutableCommandManager::icon() const
 
 CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateExecutableCommandWidget(parent);
+	return new CreateExecutableCommandWidget(this, parent);
 }
 
 
