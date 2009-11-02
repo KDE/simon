@@ -95,7 +95,7 @@ bool ScenarioManager::setupScenarios()
 			success = false;
 		} else {
 			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
-			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(scenariosChanged()));
+			connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
 			scenarios << s;
 		}
 	}

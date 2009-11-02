@@ -59,10 +59,8 @@ const KIcon TextMacroCommandManager::icon() const
 	return TextMacroCommand::staticCategoryIcon();
 }
 
-bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
+bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	Q_UNUSED(scenario);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();

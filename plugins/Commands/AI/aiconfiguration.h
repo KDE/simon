@@ -35,29 +35,18 @@ class AIConfiguration : public CommandConfiguration
 		Ui::AIConfigurationDlg ui;
 		AICommandManager *manager;
 		
-		static QPointer<AIConfiguration> instance;
 		QString storedAimlSet;
  
-	public slots:
-		virtual void save();
-		virtual void load();
-		virtual void defaults();
-	
 	public:
-		static AIConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) {
-				instance = new AIConfiguration(parent, args);
-			}
-			return instance;
-		}
-		
-		void setManager(AICommandManager *manager);
-		AIConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		AIConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~AIConfiguration();
 
+		void setManager(AICommandManager *manager);
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
+		virtual void defaults();
+
 		QString aimlSet() { return storedAimlSet; }
-		
-		void destroy();
 };
 
 #endif

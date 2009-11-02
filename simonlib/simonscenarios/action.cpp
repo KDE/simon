@@ -145,6 +145,13 @@ QDomElement Action::serialize(QDomDocument *doc)
 	return pluginElem;
 }
 
+CommandConfiguration* Action::getConfigurationPage()
+{
+	Q_ASSERT(m_manager);
+	return m_manager->getConfigurationPage();
+
+}
+
 QIcon Action::icon()
 {
 	if (m_manager) 

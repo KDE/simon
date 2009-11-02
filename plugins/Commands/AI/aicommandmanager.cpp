@@ -31,7 +31,6 @@
 
 K_PLUGIN_FACTORY( AIPluginFactory, 
 			registerPlugin< AICommandManager >(); 
-			registerPlugin< AIConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
@@ -56,7 +55,7 @@ const KIcon AICommandManager::icon() const
 
 CommandConfiguration* AICommandManager::getConfigurationPage()
 {
-	return AIConfiguration::getInstance();
+	return config;
 }
 
 bool AICommandManager::trigger(const QString& triggerName)
@@ -97,7 +96,7 @@ bool AICommandManager::setupParser()
 	parser->loadVars(KStandardDirs::locate("data", "ai/util/bot.xml"), true);
 	parser->loadSubstitutions(KStandardDirs::locate("data", "ai/util/substitutions.xml"));
 	
-	QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+AIConfiguration::getInstance()->aimlSet()+"/");
+	QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+"/");
 	
 	QDir aimlDir(aimlDirString);
 	QStringList aimls = aimlDir.entryList(QStringList() << "*.aiml", QDir::Files);
@@ -115,18 +114,16 @@ bool AICommandManager::setupParser()
 	return true;
 }
 	
-bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
+bool AICommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(parent);
 	if (parser) return true;
 	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()));
-	AIConfiguration::getInstance()->setManager(this);
-	AIConfiguration::getInstance()->load();
+	config = new AIConfiguration(parentScenario);
+	static_cast<AIConfiguration*>(config)->setManager(this);
+	config->deSerialize(elem);
 	
 	if (!setupParser()) return false;
-
 	
 	festivalProc = new KProcess(this);
 	festivalProc->setProgram(KStandardDirs::findExe("festival"));

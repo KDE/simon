@@ -63,10 +63,8 @@ CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 	return new CreateListCommandWidget(this, parent);
 }
 
-bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
+bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	Q_UNUSED(parent);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();

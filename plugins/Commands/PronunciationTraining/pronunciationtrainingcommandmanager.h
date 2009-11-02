@@ -40,15 +40,14 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public slots:
-
 	void activateTraining();
+
 public:
+	const QString preferredTrigger() const;
 	const QString name() const;
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
-	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
-
-	CommandConfiguration* getConfigurationPage();
+	bool deSerializeConfig(const QDomElement& elem);
 
     /**
     * @brief Constructor

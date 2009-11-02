@@ -27,6 +27,7 @@
 class KPushButton;
 class QGridLayout;
 class QLabel;
+class DesktopGridConfiguration;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -38,6 +39,7 @@ private slots:
 	void regionSelected();
 
 private:
+	DesktopGridConfiguration *config;
 	QList<KPushButton*> btns;
 	QGridLayout *buttons;
 
@@ -52,7 +54,7 @@ public slots:
 
 
 public:
-    ScreenGrid(QWidget* parent=0);
+    ScreenGrid(DesktopGridConfiguration* _config, QWidget* parent=0);
     void keyPressEvent(QKeyEvent *event);
     void setButtonFontSize(KPushButton *btn);
 

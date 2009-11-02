@@ -343,11 +343,6 @@ bool KeyboardCommandManager::trigger(const QString& triggerName)
 }
 
 
-CommandConfiguration* KeyboardCommandManager::getConfigurationPage()
-{
-	return KeyboardConfiguration::getInstance(this);
-}
-
 KeyboardConfiguration* KeyboardCommandManager::getKeyboardConfiguration()
 {
 	return static_cast<KeyboardConfiguration*>(getConfigurationPage());
@@ -442,9 +437,8 @@ void KeyboardCommandManager::backSpace()
 }
 
 
-bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
+bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
@@ -475,7 +469,9 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem, Scenario
 	connect(ui.pbAlt, SIGNAL(toggled(bool)), this, SLOT(alt(bool)));
 	connect(ui.pbAltGr, SIGNAL(toggled(bool)), this, SLOT(altGr(bool)));
 	connect(ui.pbSuper, SIGNAL(toggled(bool)), this, SLOT(super(bool)));
-	rebuildGui();
+
+	config = new KeyboardConfiguration(this, parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 
@@ -485,3 +481,4 @@ KeyboardCommandManager::~KeyboardCommandManager()
 	activateAction->deleteLater();
 	delete setContainer;
 }
+

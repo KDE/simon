@@ -1,5 +1,4 @@
-/*
- *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
+/* *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
  *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -35,17 +34,17 @@
 #include <qinputdialog.h>
 #include <QTableView>
 #include <QDebug>
+#include <simonscenarios/scenario.h>
 
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
-QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
 
-KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandManager, QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("keyboard", ki18n( "Keyboard" ), 
+KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent,  "keyboard", ki18n( "Keyboard" ), 
 				      "0.1", ki18n("Input signes with ease"),
 				      "input-keyboard",
-				      KeyboardCommandPluginFactory::componentData(),parent),
+				      KeyboardCommandPluginFactory::componentData()),
 				      storedSet(NULL),
 				      commandManager(_commandManager),
 				      setContainer(_commandManager->getKeyboardSetContainer())
@@ -54,8 +53,6 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"simonkeyboardrc");
-
 	QObject::connect(ui.cbShowNumpad, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbCaseSensitivity, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
         connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
@@ -111,161 +108,135 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 
 bool KeyboardConfiguration::showNumpad()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("NumPad", false);
+	return ui.cbShowNumpad->isChecked();
 }
 
 bool KeyboardConfiguration::caseSensitive()
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("CaseSensitivity", false);
+	return ui.cbCaseSensitivity->isChecked();
 }
 
 bool KeyboardConfiguration::enableNumberBasedSelection()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("EnableNumberBasedSelection", false);
+	return ui.cbEnableNumberBasedSelection->isChecked();
 }
 
 QString KeyboardConfiguration::numberBasedSelectionTrigger()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("NumberBasedSelectionTrigger", i18n("Select number"));
+	return ui.leNumberBasedSelectionTrigger->text();
 }
 
 bool KeyboardConfiguration::enableNumberWriteOut()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("EnableNumberWriteOut", true);
+	return ui.cbEnableNumberWriteOut->isChecked();
 }
-
 
 QString KeyboardConfiguration::numberBackspaceTrigger()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("NumberBackspace", i18n("Number backspace"));
+	return ui.leNumberBackspaceTrigger->text();
 }
 
 QString KeyboardConfiguration::numberWriteOutTrigger()
 {
-	KConfigGroup cg(config, "NumPad");
-	return cg.readEntry("NumberWriteOutTrigger", i18n("Write out number"));
+	return ui.leNumberWriteOutTrigger->text();
 }
 
 bool KeyboardConfiguration::capsLock()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("CapsLock", false);
+	return ui.cbCapsLock->isChecked();
 }
 
 bool KeyboardConfiguration::shift()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Shift", true);
+	return ui.cbShift->isChecked();
 }
 
 QString KeyboardConfiguration::shiftTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("ShiftTrigger", i18n("Shift"));
+	return ui.leShiftTrigger->text();
 }
 
 QString KeyboardConfiguration::capsLockTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("CapsLockTrigger", i18n("Caps lock"));
+	return ui.leCapsLockTrigger->text();
 }
 
 bool KeyboardConfiguration::backspace()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Backspace", true);
+	return ui.cbBackspace->isChecked();
 }
 
 bool KeyboardConfiguration::returnKey()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Return", true);
+	return ui.cbReturn->isChecked();
 }
 
 QString KeyboardConfiguration::returnKeyTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("ReturnTrigger", i18n("Return"));
+	return ui.leReturnTrigger->text();
 }
 
 QString KeyboardConfiguration::backspaceTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("BackspaceTrigger", i18n("Backspace"));
+	return ui.leBackspaceTrigger->text();
 }
 
 bool KeyboardConfiguration::control()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Control", true);
+	return ui.cbControl->isChecked();
 }
 
 QString KeyboardConfiguration::controlTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("ControlTrigger", i18n("Control"));
+	return ui.leControlTrigger->text();
 }
 
 bool KeyboardConfiguration::alt()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Alt", false);
+	return ui.cbAlt->isChecked();
 }
 
 QString KeyboardConfiguration::altTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("AltTrigger", i18n("Alternate"));
+	return ui.leAltTrigger->text();
 }
 
 bool KeyboardConfiguration::altGr()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("AltGr", false);
+	return ui.cbAltGr->isChecked();
 }
 
 QString KeyboardConfiguration::altGrTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("AltGrTrigger", i18n("Alternate Graphics"));
+	return ui.leAltGrTrigger->text();
 }
 
 bool KeyboardConfiguration::super()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("Super", false);
+	return ui.cbSuper->isChecked();
 }
 
 QString KeyboardConfiguration::superTrigger()
 {
-	KConfigGroup cg(config, "SpecialKeys");
-	return cg.readEntry("SuperTrigger", i18n("Super"));
+	return ui.leSuperTrigger->text();
 }
 
 QPoint KeyboardConfiguration::keyboardPosition()
 {
-	KConfigGroup cg(config, "KeyboardGeometry");
-	return cg.readEntry("Position", QPoint());
+	return m_keyboardPosition;
 }
 
 QSize KeyboardConfiguration::keyboardSize()
 {
-	KConfigGroup cg(config, "KeyboardGeometry");
-	return cg.readEntry("Size", QSize());
+	return m_keyboardSize;
 }
 
 void KeyboardConfiguration::saveKeyboardGeometry(const QPoint& position, const QSize& size)
 {
-	KConfigGroup cg(config, "KeyboardGeometry");
-	cg.writeEntry("Position", position);
-	cg.writeEntry("Size", size);
-	cg.sync();
+	m_keyboardSize = size;
+	m_keyboardPosition = position;
+
+	parentScenario->save();
 }
 
 void KeyboardConfiguration::addSet()
@@ -503,123 +474,183 @@ void KeyboardConfiguration::refreshTabDetail()
 	ui.tvTabContent->setModel(setContainer->getTab(currentSet, currentTab));
 }
 
-void KeyboardConfiguration::save()
+
+QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 {
-	kDebug() << "Save";
-	Q_ASSERT(config);
+	QDomElement configElem = doc->createElement("config");
+
+	//general
+	QDomElement caseSensitivityElem = doc->createElement("caseSensitivity");
+	caseSensitivityElem.appendChild(doc->createTextNode(ui.cbCaseSensitivity->isChecked() ? "1" : "0"));
+	configElem.appendChild(caseSensitivityElem);
+
+	QDomElement selectedSetElem = doc->createElement("selectedSet");
+	selectedSetElem.appendChild(doc->createTextNode(ui.cbSets->currentText()));
+	configElem.appendChild(selectedSetElem);
+
+	//numpad
+	QDomElement numpadElem= doc->createElement("numpad");
+
+	QDomElement showNumPadElem = doc->createElement("showNumpad");
+	showNumPadElem.appendChild(doc->createTextNode(ui.cbShowNumpad->isChecked() ? "1" : "0"));
+	numpadElem.appendChild(showNumPadElem);
+
+	QDomElement numberBackspaceElem = doc->createElement("numberBackspace");
+	numberBackspaceElem.appendChild(doc->createTextNode(ui.leNumberBackspaceTrigger->text()));
+	numpadElem.appendChild(numberBackspaceElem);
+
+	QDomElement enableNumberBasedSelectionElem = doc->createElement("enableNumberBasedSelection");
+	enableNumberBasedSelectionElem.appendChild(doc->createTextNode(ui.cbEnableNumberBasedSelection->isChecked() ? "1" : "0"));
+	numpadElem.appendChild(enableNumberBasedSelectionElem);
+
+	QDomElement numberBasedSelectionTriggerElem = doc->createElement("numberBasedSelectionTrigger");
+	numberBasedSelectionTriggerElem.appendChild(doc->createTextNode(ui.leNumberBasedSelectionTrigger->text()));
+	numpadElem.appendChild(numberBasedSelectionTriggerElem);
+
+	QDomElement enableNumberWriteOutElem = doc->createElement("enableNumberWriteOut");
+	enableNumberWriteOutElem.appendChild(doc->createTextNode(ui.cbEnableNumberWriteOut->isChecked() ? "1" : "0"));
+	numpadElem.appendChild(enableNumberWriteOutElem);
+
+	QDomElement numberWriteOutTriggerElem = doc->createElement("numberWriteOutTrigger");
+	numberWriteOutTriggerElem.appendChild(doc->createTextNode(ui.leNumberBasedSelectionTrigger->text()));
+	numpadElem.appendChild(numberWriteOutTriggerElem);
+
+	configElem.appendChild(numpadElem);
 	
-	KConfigGroup cg(config, "");
-	cg.writeEntry("CaseSensitivity", ui.cbCaseSensitivity->isChecked());
-	cg.writeEntry("SelectedSet", ui.cbSets->currentText());
-        cg.sync();
 
-	KConfigGroup cgNumPad(config, "NumPad");
-	cgNumPad.writeEntry("NumPad", ui.cbShowNumpad->isChecked());
-	cgNumPad.writeEntry("NumberBackspace", ui.leNumberBackspaceTrigger->text());
-	cgNumPad.writeEntry("EnableNumberBasedSelection", ui.cbEnableNumberBasedSelection->isChecked());
-	cgNumPad.writeEntry("NumberBasedSelectionTrigger", ui.leNumberBasedSelectionTrigger->text());
-	cgNumPad.writeEntry("EnableNumberWriteOut", ui.cbEnableNumberWriteOut->isChecked());
-	cgNumPad.writeEntry("NumberWriteOutTrigger", ui.leNumberWriteOutTrigger->text());
-	cgNumPad.sync();
+	//special keys
+	QDomElement specialKeysElem= doc->createElement("specialKeys");
 
-	KConfigGroup cgSpecialKeys(config, "SpecialKeys");
-	cgSpecialKeys.writeEntry("Shift", ui.cbShift->isChecked());
-	cgSpecialKeys.writeEntry("ShiftTrigger", ui.leShiftTrigger->text());
-	cgSpecialKeys.writeEntry("Backspace", ui.cbBackspace->isChecked());
-	cgSpecialKeys.writeEntry("BackspaceTrigger", ui.leBackspaceTrigger->text());
-	cgSpecialKeys.writeEntry("Control", ui.cbControl->isChecked());
-	cgSpecialKeys.writeEntry("ControlTrigger", ui.leControlTrigger->text());
-	cgSpecialKeys.writeEntry("CapsLock", ui.cbCapsLock->isChecked());
-	cgSpecialKeys.writeEntry("CapsLockTrigger", ui.leCapsLockTrigger->text());
-	cgSpecialKeys.writeEntry("Return", ui.cbReturn->isChecked());
-	cgSpecialKeys.writeEntry("ReturnTrigger", ui.leReturnTrigger->text());
+	QDomElement shiftElem = doc->createElement("shift");
+	shiftElem.appendChild(doc->createTextNode(ui.cbShift->isChecked() ? "1" : "0"));
+	QDomElement shiftTriggerElem = doc->createElement("shiftTrigger");
+	shiftTriggerElem.appendChild(doc->createTextNode(ui.leShiftTrigger->text()));
+	specialKeysElem.appendChild(shiftElem);
+	specialKeysElem.appendChild(shiftTriggerElem);
 
-	cgSpecialKeys.writeEntry("Alt", ui.cbAlt->isChecked());
-	cgSpecialKeys.writeEntry("AltTrigger", ui.leAltTrigger->text());
-	cgSpecialKeys.writeEntry("AltGr", ui.cbAltGr->isChecked());
-	cgSpecialKeys.writeEntry("AltGrTrigger", ui.leAltGrTrigger->text());
-	cgSpecialKeys.writeEntry("Super", ui.cbSuper->isChecked());
-	cgSpecialKeys.writeEntry("SuperTrigger", ui.leSuperTrigger->text());
-	cgSpecialKeys.sync();
+	QDomElement backspaceElem = doc->createElement("backspace");
+	backspaceElem.appendChild(doc->createTextNode(ui.cbBackspace->isChecked() ? "1" : "0"));
+	QDomElement backspaceTriggerElem = doc->createElement("backspaceTrigger");
+	backspaceTriggerElem.appendChild(doc->createTextNode(ui.leBackspaceTrigger->text()));
+	specialKeysElem.appendChild(backspaceElem);
+	specialKeysElem.appendChild(backspaceTriggerElem);
 
-	if (!setContainer->save()) {
-		KMessageBox::sorry(this, i18n("Failed to save keyboard sets"));
-		return;
-	}
+	QDomElement controlElem = doc->createElement("control");
+	controlElem.appendChild(doc->createTextNode(ui.cbControl->isChecked() ? "1" : "0"));
+	QDomElement controlTriggerElem = doc->createElement("controlTrigger");
+	controlTriggerElem.appendChild(doc->createTextNode(ui.leControlTrigger->text()));
+	specialKeysElem.appendChild(controlElem);
+	specialKeysElem.appendChild(controlTriggerElem);
 
-	if (!ui.cbSets->currentText().isEmpty()) { KeyboardSet *s = setContainer->findSet(ui.cbSets->currentText());
-		storedSet = s;
-	}
+	QDomElement capsLockElem = doc->createElement("capsLock");
+	capsLockElem.appendChild(doc->createTextNode(ui.cbCapsLock->isChecked() ? "1" : "0"));
+	QDomElement capsLockTriggerElem = doc->createElement("capsLockTrigger");
+	capsLockTriggerElem.appendChild(doc->createTextNode(ui.leCapsLockTrigger->text()));
+	specialKeysElem.appendChild(capsLockElem);
+	specialKeysElem.appendChild(capsLockTriggerElem);
+
+	QDomElement returnElem = doc->createElement("return");
+	returnElem.appendChild(doc->createTextNode(ui.cbReturn->isChecked() ? "1" : "0"));
+	QDomElement returnTriggerElem = doc->createElement("returnTrigger");
+	returnTriggerElem.appendChild(doc->createTextNode(ui.leReturnTrigger->text()));
+	specialKeysElem.appendChild(returnElem);
+	specialKeysElem.appendChild(returnTriggerElem);
+
+	QDomElement altElem = doc->createElement("alt");
+	altElem.appendChild(doc->createTextNode(ui.cbAlt->isChecked() ? "1" : "0"));
+	QDomElement altTriggerElem = doc->createElement("altTrigger");
+	altTriggerElem.appendChild(doc->createTextNode(ui.leAltTrigger->text()));
+	specialKeysElem.appendChild(altElem);
+	specialKeysElem.appendChild(altTriggerElem);
+
+	QDomElement altGrElem = doc->createElement("altGr");
+	altGrElem.appendChild(doc->createTextNode(ui.cbAltGr->isChecked() ? "1" : "0"));
+	QDomElement altGrTriggerElem = doc->createElement("altGrTrigger");
+	altGrTriggerElem.appendChild(doc->createTextNode(ui.leAltGrTrigger->text()));
+	specialKeysElem.appendChild(altGrElem);
+	specialKeysElem.appendChild(altGrTriggerElem);
+	
+	QDomElement superElem = doc->createElement("super");
+	superElem.appendChild(doc->createTextNode(ui.cbSuper->isChecked() ? "1" : "0"));
+	QDomElement superTriggerElem = doc->createElement("superTrigger");
+	superTriggerElem.appendChild(doc->createTextNode(ui.leSuperTrigger->text()));
+	specialKeysElem.appendChild(superElem);
+	specialKeysElem.appendChild(superTriggerElem);
+	
+	configElem.appendChild(specialKeysElem);
+	
+	//sets
+	QDomElement setsElem = setContainer->serialize(doc);
+	configElem.appendChild(setsElem);
+
+	if (!ui.cbSets->currentText().isEmpty()) 
+		storedSet = setContainer->findSet(ui.cbSets->currentText());
+	
 	commandManager->rebuildGui();
 
-	emit changed(false);
+	return configElem;
 }
 
-void KeyboardConfiguration::destroy()
+bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 {
-	deleteLater();
-	instance=0;
-}
- 
-void KeyboardConfiguration::load()
-{
-	kDebug() << "Load";
-        Q_ASSERT(config);
-	KConfigGroup cg(config, "");
-	ui.cbCaseSensitivity->setChecked(cg.readEntry("CaseSensitivity", false));
-
-	KConfigGroup cgNumPad(config, "NumPad");
-	ui.cbShowNumpad->setChecked(cgNumPad.readEntry("NumPad", false));
-	ui.leNumberBackspaceTrigger->setText(cgNumPad.readEntry("NumberBackspace", i18n("Number Backspace")));
-	ui.cbEnableNumberBasedSelection->setChecked(cgNumPad.readEntry("EnableNumberBasedSelection", false));
-	ui.leNumberBasedSelectionTrigger->setText(cgNumPad.readEntry("NumberBasedSelectionTrigger", i18n("Select number")));
-	ui.cbEnableNumberWriteOut->setChecked(cg.readEntry("EnableNumberWriteOut", true));
-	ui.leNumberWriteOutTrigger->setText(cgNumPad.readEntry("NumberWriteOutTrigger", i18n("Write number")));
-
-	KConfigGroup cgSpecialKeys(config, "SpecialKeys");
-	ui.cbShift->setChecked(cgSpecialKeys.readEntry("Shift", true));
-	ui.leShiftTrigger->setText(cgSpecialKeys.readEntry("ShiftTrigger", i18n("Shift")));
-	ui.cbBackspace->setChecked(cgSpecialKeys.readEntry("Backspace", true));
-	ui.leBackspaceTrigger->setText(cgSpecialKeys.readEntry("BackspaceTrigger", i18n("Backspace")));
-	ui.cbCapsLock->setChecked(cgSpecialKeys.readEntry("CapsLock", false));
-	ui.leCapsLockTrigger->setText(cgSpecialKeys.readEntry("CapsLockTrigger", i18n("CapsLock")));
-	ui.cbControl->setChecked(cgSpecialKeys.readEntry("Control", true));
-	ui.leControlTrigger->setText(cgSpecialKeys.readEntry("ControlTrigger", i18n("Control")));
-	ui.cbReturn->setChecked(cgSpecialKeys.readEntry("Return", true));
-	ui.leReturnTrigger->setText(cgSpecialKeys.readEntry("ReturnTrigger", i18n("Return")));
-	ui.cbAlt->setChecked(cgSpecialKeys.readEntry("Alt", false));
-	ui.leAltTrigger->setText(cgSpecialKeys.readEntry("AltTrigger", i18n("Alternate")));
-	ui.cbAltGr->setChecked(cgSpecialKeys.readEntry("AltGr", false));
-	ui.leAltGrTrigger->setText(cgSpecialKeys.readEntry("AltGrTrigger", i18n("Alternate Graphic")));
-	ui.cbSuper->setChecked(cgSpecialKeys.readEntry("Super", false));
-	ui.leSuperTrigger->setText(cgSpecialKeys.readEntry("SuperTrigger", i18n("Super")));
-
-	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
-	cg.sync();
-
-	setContainer->clear();
-	if (!setContainer->load()) {
-		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
-		return;
+	QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
+	if (caseSensitivityElem.isNull()) {
+		defaults();
+		return true;
 	}
+	ui.cbCaseSensitivity->setChecked(caseSensitivityElem.text() == "1");
 
-	refreshCbSets();
-
-
+	QString selectedSet = elem.firstChildElement("selectedSet").text();
 	int index = ui.cbSets->findText(selectedSet);
 	if (index != -1) {
 		ui.cbSets->setCurrentIndex(index);
 		refreshCbTabs();
 	}
-	
 	KeyboardSet *newStoredSet = setContainer->findSet(selectedSet);
-	
 	storedSet = newStoredSet;
-	commandManager->rebuildGui();
 
-	emit changed(false);
+	setContainer->clear();
+	if (!setContainer->deSerialize(elem.firstChildElement("keyboardSets"))) {
+		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
+		return false;
+	}
+
+	//numpad
+	QDomElement numpadElement = elem.firstChildElement("numpad");
+	ui.cbShowNumpad->setChecked(numpadElement.firstChildElement("showNumpad").text() == "1");
+	
+	ui.leNumberBackspaceTrigger->setText(numpadElement.firstChildElement("numberBackspace").text());
+
+	ui.cbEnableNumberBasedSelection->setChecked(numpadElement.firstChildElement("enableNumberBasedSelection").text() == "1");
+	ui.leNumberBasedSelectionTrigger->setText(numpadElement.firstChildElement("numberBasedSelectionTrigger").text());
+
+	ui.cbEnableNumberWriteOut->setChecked(numpadElement.firstChildElement("enableNumberWriteOut").text() == "1");
+	ui.leNumberWriteOutTrigger->setText(numpadElement.firstChildElement("numberWriteOutTrigger").text());
+
+	//special keys
+	QDomElement specialKeysElement = elem.firstChildElement("specialKeys");
+	ui.cbShift->setChecked(specialKeysElement.firstChildElement("shift").text() == "1");
+	ui.leShiftTrigger->setText(specialKeysElement.firstChildElement("shiftTrigger").text());
+	ui.cbBackspace->setChecked(specialKeysElement.firstChildElement("backspace").text() == "1");
+	ui.leBackspaceTrigger->setText(specialKeysElement.firstChildElement("backspaceTrigger").text());
+	ui.cbCapsLock->setChecked(specialKeysElement.firstChildElement("capsLock").text() == "1");
+	ui.leCapsLockTrigger->setText(specialKeysElement.firstChildElement("capsLockTrigger").text());
+	ui.cbControl->setChecked(specialKeysElement.firstChildElement("control").text() == "1");
+	ui.leControlTrigger->setText(specialKeysElement.firstChildElement("controlTrigger").text());
+	ui.cbReturn->setChecked(specialKeysElement.firstChildElement("return").text() == "1");
+	ui.leReturnTrigger->setText(specialKeysElement.firstChildElement("returnTrigger").text());
+	ui.cbAlt->setChecked(specialKeysElement.firstChildElement("alt").text() == "1");
+	ui.leAltTrigger->setText(specialKeysElement.firstChildElement("altTrigger").text());
+	ui.cbAltGr->setChecked(specialKeysElement.firstChildElement("altGr").text() == "1");
+	ui.leAltGrTrigger->setText(specialKeysElement.firstChildElement("altGrTrigger").text());
+	ui.cbSuper->setChecked(specialKeysElement.firstChildElement("super").text() == "1");
+	ui.leSuperTrigger->setText(specialKeysElement.firstChildElement("superTrigger").text());
+
+	refreshCbSets();
+	commandManager->rebuildGui();
+	return true;
 }
- 
+
 void KeyboardConfiguration::defaults()
 {
 	ui.cbCaseSensitivity->setChecked(false);
@@ -648,14 +679,18 @@ void KeyboardConfiguration::defaults()
 	ui.cbSuper->setChecked(false);
 	ui.leSuperTrigger->setText(i18n("Super"));
 
-	save();
+	QString selectedSet = "Basic";
+
+	int index = ui.cbSets->findText(selectedSet);
+	if (index != -1) {
+		ui.cbSets->setCurrentIndex(index);
+		refreshCbTabs();
+	}
 }
 
 KeyboardConfiguration::~KeyboardConfiguration()
 {
 	//don't delete my precious!
 	ui.tvTabContent->setModel(NULL);
-
-	kDebug() << "Deleting keyboardconfiguration";
-	//setContainer managed by manager
 }
+

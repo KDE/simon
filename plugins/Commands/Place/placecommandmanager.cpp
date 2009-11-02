@@ -65,10 +65,8 @@ bool PlaceCommandManager::addCommand(Command *command)
 }
 
 
-bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
+bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	Q_UNUSED(parent);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();

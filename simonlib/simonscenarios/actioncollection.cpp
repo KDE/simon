@@ -95,10 +95,26 @@ QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *
 	return out;
 }
 
-/*QList<KCModule*>* ActionCollection::getConfigurationWidgets(QWidget *parent)
+QList<CommandConfiguration*>* ActionCollection::getConfigurationPages()
 {
+	QList<CommandConfiguration*>* configs = new QList<CommandConfiguration*>();
+	foreach (Action* a, m_actions) {
+		CommandConfiguration *cm = a->getConfigurationPage();
+		if (cm)
+			configs->append(cm);
+	}
+	return configs;
+}
 
-}*/
+QList<QAction*> ActionCollection::getGuiActions()
+{
+	QList<QAction*> guiActions;
+	foreach (Action* a, m_actions) {
+		guiActions << a->manager()->getGuiActions();
+	}
+	return guiActions;
+}
+
 
 /*bool ActionCollection::addCommand(Command *command)
 {

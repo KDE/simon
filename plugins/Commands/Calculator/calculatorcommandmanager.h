@@ -54,10 +54,10 @@ private:
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
 
-	double currentResult;
 	bool resultCurrentlyDisplayed;
 
 	CommandListWidget *commandListWidget;
+	double currentResult;
 	void sendOperator(const QString operatorStr);
 	void sendBracket(const QString bracketStr);
 	void sendNumber(const QString bracketStr);
@@ -108,7 +108,8 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	CommandConfiguration* getConfigurationPage();
+
+	bool deSerializeConfig(const QDomElement& elem);
 
 	CommandList* getCommands() const { 
 		kWarning() << "Calc: Getting commands...";

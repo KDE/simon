@@ -22,8 +22,13 @@
 
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonscenarios/action.h>
+#include <simonscenarios/commandconfiguration.h>
 #include <simonscenarios/actioncollection.h>
 #include <KMessageBox>
+#include <KCModule>
+#include <KAboutData>
+#include <KPageWidget>
 
 ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 	pageWidget(new KPageWidget(this))
@@ -54,6 +59,8 @@ ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 
 	ui.lvPlugins->setIconSize(QSize(24,24));
 	ui.lvPlugins->setSpacing(2);
+
+	setButtons(KDialog::Ok);
 }
 
 int ManageActionsDialog::exec()
@@ -61,8 +68,34 @@ int ManageActionsDialog::exec()
 	ActionCollection *aC = ScenarioManager::getInstance()->getCurrentScenario()->actionCollection();
 	ui.lvPlugins->setModel(aC);
 
-	return KDialog::exec();
+	configurationPages = aC->getConfigurationPages();
+	if (!configurationPages) return 0;
 
+	kDebug() << "Received configuration pages: " << configurationPages->count();
+	foreach (CommandConfiguration *m, *configurationPages) {
+		registerCommandConfiguration(m);
+	}
+
+	int ret = KDialog::exec();
+	if (ret) {
+		//write configuration changes of the plugins
+		ScenarioManager::getInstance()->getCurrentScenario()->save();
+	}
+	return ret;
+}
+
+void ManageActionsDialog::registerCommandConfiguration(CommandConfiguration *m)
+{
+	QString moduleName = m->aboutData()->programName();
+	ProtectorWidget *p = new ProtectorWidget(m, pageWidget);
+	KPageWidgetItem *newItem = pageWidget->addPage(p, moduleName);
+
+	kDebug() << "Adding module: " << moduleName;
+
+	QString moduleIcon = m->aboutData()->programIconName();
+	newItem->setIcon(KIcon(moduleIcon));
+
+	pages.insert(m, newItem);
 }
 
 void ManageActionsDialog::add()
@@ -74,6 +107,8 @@ void ManageActionsDialog::add()
 		Q_ASSERT(newAction);
 
 		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->addAction(newAction);
+
+		registerCommandConfiguration(newAction->getConfigurationPage());
 	}
 	a->deleteLater();
 }
@@ -89,10 +124,19 @@ Action* ManageActionsDialog::getCurrentlySelectedAction()
 void ManageActionsDialog::remove()
 {
 	Action *a = getCurrentlySelectedAction();
-	if (!a) KMessageBox::information(this, i18n("Please select an action"));
+	if (!a) {
+		KMessageBox::information(this, i18n("Please select an action"));
+		return;
+	}
 
-	if (KMessageBox::questionYesNo(this, i18n("Do you really want to remove this action from this scenario?\n\nWARNING: All associated commands and configuration will be irreversibly deleted!")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNo(this, i18n("Do you really want to remove this action from this scenario?\n\nWARNING: All associated commands and configuration will be irreversibly deleted!")) == KMessageBox::Yes) {
+		CommandConfiguration *c = a->getConfigurationPage();
+		pageWidget->removePage(pages.value(c));
+		pages.remove(c);
+
 		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->deleteAction(a);
+
+	}
 }
 
 void ManageActionsDialog::moveUp()
@@ -118,8 +162,13 @@ void ManageActionsDialog::moveDown()
 }
 
 
-
 ManageActionsDialog::~ManageActionsDialog()
 {
+	QList<KPageWidgetItem*> items = pages.values();
+	foreach (KPageWidgetItem *i, items) {
+		pageWidget->removePage(i);
+	}
+	pages.clear();
+	delete configurationPages;
 }
 

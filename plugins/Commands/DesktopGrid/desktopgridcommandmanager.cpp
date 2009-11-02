@@ -27,7 +27,6 @@
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
 			registerPlugin< DesktopGridCommandManager >(); 
-			registerPlugin< DesktopGridConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
@@ -49,7 +48,6 @@ const KIcon DesktopGridCommandManager::icon() const
 	return KIcon("games-config-board");
 }
 
-
 const QString DesktopGridCommandManager::preferredTrigger() const
 {
 	return i18n("Desktopgrid");
@@ -58,11 +56,6 @@ const QString DesktopGridCommandManager::preferredTrigger() const
 const QString DesktopGridCommandManager::name() const
 {
 	return i18n("Desktopgrid");
-}
-
-CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
-{
-	return DesktopGridConfiguration::getInstance();
 }
 
 bool DesktopGridCommandManager::trigger(const QString& triggerName)
@@ -76,18 +69,18 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 void DesktopGridCommandManager::activate()
 {
 	Logger::log(i18n("[INF] Activating desktopgrid"));
-	ScreenGrid *screenGrid = new ScreenGrid();
+	ScreenGrid *screenGrid = new ScreenGrid(static_cast<DesktopGridConfiguration*>(config));
 	screenGrid->show();
 }
  
-bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
+bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
+	config = new DesktopGridConfiguration(parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 
 
 DesktopGridCommandManager::~DesktopGridCommandManager()
 {
-// 	DesktopGridConfiguration::getInstance()->destroy();
 }

@@ -29,7 +29,9 @@
 class Action;
 class CreateCommandWidget;
 class Command;
+class QAction;
 class ActionCommandModel;
+class CommandConfiguration;
 
 class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel {
 
@@ -45,7 +47,7 @@ public:
 	QDomElement serialize(QDomDocument *doc);
 
 	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
-	//QList<KCModule*>* getConfigurationWidgets(QWidget *parent);
+	QList<CommandConfiguration*>* getConfigurationPages();
 
 	ActionCommandModel* getProxy() { return proxy; }
 
@@ -62,6 +64,7 @@ public:
 	bool moveActionUp(Action *action);
 	bool moveActionDown(Action *action);
 
+	QList<QAction*> getGuiActions();
 	~ActionCollection();
 
 };

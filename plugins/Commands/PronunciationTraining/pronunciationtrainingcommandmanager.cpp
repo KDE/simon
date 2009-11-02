@@ -27,7 +27,6 @@
 
 K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory, 
 			registerPlugin< PronunciationTrainingCommandManager >(); 
-			registerPlugin< PronunciationTrainingConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingcommand") )
@@ -49,28 +48,31 @@ const QString PronunciationTrainingCommandManager::name() const
 	return i18n("Pronunciation Training");
 }
 
-CommandConfiguration* PronunciationTrainingCommandManager::getConfigurationPage()
-{
-	return PronunciationTrainingConfiguration::getInstance();
-}
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
 	fprintf(stderr, "Activating training...\n");
 }
 
+const QString PronunciationTrainingCommandManager::preferredTrigger() const
+{
+	return i18n("Pronunciation Training");
+}
+
+
 bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != PronunciationTrainingConfiguration::getInstance()->trigger()) return false;
+	if (!triggerName.isEmpty()) return false;
 
 	Logger::log(i18n("[INF] Activating pronunciationtraining"));
 	activateTraining();
 	return true;
 }
  
-bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
+bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	PronunciationTrainingConfiguration::getInstance(dynamic_cast<QWidget*>(QObject::parent()), QVariantList())->load();
+	config = new PronunciationTrainingConfiguration(parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 

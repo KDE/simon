@@ -55,8 +55,8 @@ class KeyboardSetContainer
 
 		KeyboardSet* findSet(const QString& setName);
 
-		bool load();
-		bool save();
+		bool deSerialize(const QDomElement&);
+		QDomElement serialize(QDomDocument *doc);
 		~KeyboardSetContainer();
 
 };

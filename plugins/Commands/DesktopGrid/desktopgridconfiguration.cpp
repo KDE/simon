@@ -26,69 +26,48 @@
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 
-QPointer<DesktopGridConfiguration> DesktopGridConfiguration::instance;
 
-
-DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("desktopgrid", ki18n( "Desktopgrid" ),
+DesktopGridConfiguration::DesktopGridConfiguration(Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent, "desktopgrid", ki18n( "Desktopgrid" ),
 				      "0.1", ki18n("Voice controlled mouse clicks"),
 				      "games-config-board",
-				      DesktopGridPluginFactory::componentData(),
-				      parent)
+				      DesktopGridPluginFactory::componentData())
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(DesktopGridPluginFactory::componentData(),
-					"desktopgridrc");
-
 	QObject::connect(ui.cbUseRealTransparency, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	
-// 	if (instance) instance->deleteLater();
-// 	instance = this;
 }
 
 bool DesktopGridConfiguration::useRealTransparency()
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("RealTransparency", true);
+	return ui.cbUseRealTransparency->isChecked();
 }
 
-void DesktopGridConfiguration::save()
+bool DesktopGridConfiguration::deSerialize(const QDomElement& elem)
 {
-	Q_ASSERT(config);
-	
-	KConfigGroup cg(config, "");
-	cg.writeEntry("RealTransparency", ui.cbUseRealTransparency->isChecked());
+	QDomElement realTransElem = elem.firstChildElement("realTransparency");
+	bool ok;
+	int realTransparency = realTransElem.text().toInt(&ok);
+	if (!ok) defaults();
+	else 
+		ui.cbUseRealTransparency->setChecked(realTransparency);
 
-	cg.sync();
-	
-	emit changed(false);
+	return true;
 }
 
-void DesktopGridConfiguration::destroy()
+QDomElement DesktopGridConfiguration::serialize(QDomDocument *doc)
 {
-	deleteLater();
-	instance=0;
-}
- 
-void DesktopGridConfiguration::load()
-{
-	Q_ASSERT(config);
-
-	KConfigGroup cg(config, "");
-	ui.cbUseRealTransparency->setChecked(cg.readEntry("RealTransparency", true));
-
-	cg.sync();
-	
-	emit changed(false);
+	QDomElement configElem = doc->createElement("config");
+	QDomElement realTransElem = doc->createElement("realTransparency");
+	realTransElem.appendChild(doc->createTextNode(QString::number(ui.cbUseRealTransparency->isChecked() ? 1 : 0)));
+	configElem.appendChild(realTransElem);
+	return configElem;
 }
  
 void DesktopGridConfiguration::defaults()
 {
 	ui.cbUseRealTransparency->setChecked(true);
- 
-	save();
 }
 
 DesktopGridConfiguration::~DesktopGridConfiguration()

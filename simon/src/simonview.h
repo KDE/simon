@@ -38,6 +38,7 @@
 #include "ui_simonview.h"
 #include "simonmainwindow.h"
 #include <simoncontrol.h>
+#include <simonscenarios/scenariodisplay.h>
 
 #include <QList>
 #include <QMutex>
@@ -65,7 +66,7 @@ class VocabularyView;
 class QComboBox;
 
 
-class SimonView : public SimonMainWindow    {
+class SimonView : public SimonMainWindow, public ScenarioDisplay    {
 	
 	Q_OBJECT
 
@@ -95,6 +96,9 @@ private:
 	void setupSignalSlots();
 	void setupActions();
 	void displayScenarios();
+
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
 
 private slots:
 	void manageScenarios();

@@ -55,8 +55,9 @@ signals:
 protected:
 	QList<QAction*> guiActions;
 	CommandList *commands;
-	virtual bool trigger(const QString& triggerName);
+	CommandConfiguration *config;
 
+	virtual bool trigger(const QString& triggerName);
 
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	QVariant headerData(int, Qt::Orientation orientation,
@@ -95,11 +96,11 @@ public:
 	virtual bool deSerialize(const QDomElement&);
 	virtual QDomElement serialize(QDomDocument *doc);
 
-	virtual bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
-	virtual QDomElement serializeConfig(QDomDocument *doc, Scenario *parent);
+	virtual bool deSerializeConfig(const QDomElement& elem);
+	virtual QDomElement serializeConfig(QDomDocument *doc);
 
-	virtual bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
-	virtual QDomElement serializeCommands(QDomDocument *doc, Scenario *parent);
+	virtual bool deSerializeCommands(const QDomElement& elem);
+	virtual QDomElement serializeCommands(QDomDocument *doc);
 
 	/**
 	* @brief Constructor
@@ -108,7 +109,7 @@ public:
 	*/
 	CommandManager(Scenario *parentScenario, const QVariantList& args) : QAbstractItemModel((QObject*) parentScenario),
 		ScenarioObject(parentScenario),
-		commands(0)
+		commands(0), config(0)
 	{
 		Q_UNUSED(args);
 	}

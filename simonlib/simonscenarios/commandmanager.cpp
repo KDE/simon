@@ -44,29 +44,28 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 	
-bool CommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
+bool CommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(parent);
 	return true;
 }
 
-QDomElement CommandManager::serializeConfig(QDomDocument *doc, Scenario *parent)
+QDomElement CommandManager::serializeConfig(QDomDocument *doc)
 {
-	Q_UNUSED(parent);
+	if (config) 
+		return config->serialize(doc);
+	
 	return doc->createElement("config");
 }
 
-bool CommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
+bool CommandManager::deSerializeCommands(const QDomElement& elem)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(parent);
 	return true;
 }
 
-QDomElement CommandManager::serializeCommands(QDomDocument *doc, Scenario *parent)
+QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 {
-	Q_UNUSED(parent);
 	QDomElement commandsElem = doc->createElement("commands");
 	if (commands) {
 		foreach (Command *c, *commands)
@@ -107,12 +106,10 @@ CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
 /**
  * \brief Returns the configuration page of the plugin
  * \author Peter Grasch
- * 
- * If you want your Plugin to be configurable you will have to reimplement this.
  */
 CommandConfiguration* CommandManager::getConfigurationPage()
 {
-	return 0;
+	return config;
 }
 
 const QString CommandManager::preferredTrigger() const
@@ -140,12 +137,12 @@ bool CommandManager::deleteCommand(Command *command)
 bool CommandManager::deSerialize(const QDomElement& elem)
 {
 	QDomElement configElem = elem.firstChildElement("config");
-	if (!deSerializeConfig(configElem, parentScenario)) {
+	if (!deSerializeConfig(configElem)) {
 		kDebug() << "Couldn't load config of plugin";
 		return false;
 	}
 	QDomElement commandsElem = elem.firstChildElement("commands");
-	if (!deSerializeCommands(commandsElem, parentScenario)) {
+	if (!deSerializeCommands(commandsElem)) {
 		kDebug() << "Couldn't load commands of plugin";
 		return false;
 	}
@@ -156,8 +153,8 @@ QDomElement CommandManager::serialize(QDomDocument *doc)
 {
 	QDomElement pluginElem = doc->createElement("plugin");
 
-	pluginElem.appendChild(serializeConfig(doc, parentScenario));
-	pluginElem.appendChild(serializeCommands(doc, parentScenario));
+	pluginElem.appendChild(serializeConfig(doc));
+	pluginElem.appendChild(serializeCommands(doc));
 
 	return pluginElem;
 }
@@ -233,10 +230,10 @@ CommandManager::~CommandManager()
 	if (commands)
 		qDeleteAll(*commands);
 
+	if (config)
+		delete config;
+
 	foreach (QAction* action, guiActions) {
 		action->deleteLater();
 	}
-
-//	if (getConfigurationPage())
-//		getConfigurationPage()->destroy();
 }

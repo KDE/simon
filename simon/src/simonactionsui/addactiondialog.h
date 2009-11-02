@@ -36,6 +36,9 @@ private:
 	Ui::DlgAddAction ui;
 	QSortFilterProxyModel *proxyModel;
 	ActionModel *actionModel;
+ 
+private slots:
+	void watchButtonOk();
 
 public:
 	Action* getAction();

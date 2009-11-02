@@ -46,7 +46,7 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public:
-	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
+	bool deSerializeConfig(const QDomElement& elem);
 	const QString name() const;
 	const KIcon icon() const;
 	bool setupParser();

@@ -43,6 +43,16 @@ AddActionDialog::AddActionDialog(QWidget* parent) : KDialog(parent), proxyModel(
 
 	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	connect(ui.leFilter, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
+	enableButtonOk(false);
+
+	connect(ui.lvActions, SIGNAL(clicked(const QModelIndex&)), this, SLOT(watchButtonOk()));
+	connect(ui.leFilter, SIGNAL(textChanged(const QString&)),  this, SLOT(watchButtonOk()));
+}
+
+void AddActionDialog::watchButtonOk()
+{
+	QModelIndex index = ui.lvActions->currentIndex();
+	enableButtonOk(index.isValid());
 }
 
 int AddActionDialog::exec()

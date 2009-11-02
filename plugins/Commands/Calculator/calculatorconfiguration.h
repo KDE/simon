@@ -31,16 +31,12 @@ class CalculatorConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::CalculatorConfigurationDlg ui;
-		static QPointer<CalculatorConfiguration> instance;
  
 	public slots:
-		virtual void save();
-		virtual void load();
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 
-	private slots:
-		void slotChanged();
-	
 	public:
 		enum OutputModeSelection {
 			AlwaysAsk=1,
@@ -58,11 +54,7 @@ class CalculatorConfiguration : public CommandConfiguration
 		};
 
 
-		static CalculatorConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new CalculatorConfiguration(parent, args);
-			return instance;
-		}
-		CalculatorConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~CalculatorConfiguration();
 
 		

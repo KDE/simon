@@ -21,34 +21,38 @@
 #define COMMANDCONFIGURATION_H
 
 #include "simonmodelmanagement_export.h"
-#include <KCModule>
-#include <KSharedConfig>
+#include <simonscenariobase/scenarioobject.h>
+#include <QWidget>
 
-class KSharedConfig;
+class Scenario;
 class QString;
 class KComponentData;
+class KAboutData;
 
-class MODELMANAGEMENT_EXPORT CommandConfiguration : public KCModule
+class MODELMANAGEMENT_EXPORT CommandConfiguration : public QWidget, public ScenarioObject
 {
 	Q_OBJECT
-	
+	signals:
+		void changed(bool);
 	protected:
-		KSharedConfig::Ptr config;
- 
+		KAboutData *about;
+	
 	private slots:
 		void slotChanged();
 	
 	public:
-		CommandConfiguration(const QByteArray& internalName, const KLocalizedString& name, 
+		CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name, 
 				      const QByteArray& version, const KLocalizedString& desc,
 				      const QString& iconName, const KComponentData& componentData,
-				      QWidget *parent=0, const QVariantList &args = QVariantList());
+				      const QVariantList &args = QVariantList());
 		~CommandConfiguration();
-		virtual void destroy();
+		KAboutData* aboutData() { return about; }
 		
 	public slots:
-		virtual void save()=0;
-		virtual void load()=0;
+		virtual bool deSerialize(const QDomElement&)=0;
+		virtual QDomElement serialize(QDomDocument *doc)=0;
+	/*	virtual void save()=0;
+		virtual void load()=0;*/
 		virtual void defaults()=0;
 		
 };

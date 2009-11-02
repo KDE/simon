@@ -40,8 +40,8 @@
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
-#include <simonactions/actionmanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonscenarios/actioncollection.h>
 
 #include <QTimer>
 #include <QPixmap>
@@ -85,8 +85,8 @@
  *
 */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
-		: SimonMainWindow(parent, flags),
-	shownDialogs(0)
+		: SimonMainWindow(parent, flags), ScenarioDisplay(),
+	shownDialogs(0), configDialog(0)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
@@ -99,29 +99,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	control = (new SimonControl(this));
 	trayManager = (new TrayIconManager(this));
-	configDialog = (new KCMultiDialog(this));
-
-	Logger::log ( i18n ( "[INF] Loading configuration modules..." ) );
-
-	configDialog->addModule("simongeneralconfig", QStringList() << "");
-	configDialog->addModule("simonsoundconfig", QStringList() << "");
-	configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
-	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
-	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
-
-//	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
-//	if (commandSettingsItem)
-//	{
-//		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
-		//ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
-		//ActionManager::getInstance()->setMainWindow(this);
-		//ActionManager::getInstance()->init();
-//	}
-
 
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
-
 
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
@@ -141,6 +120,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
+
+	ScenarioManager::getInstance()->registerScenarioDisplay(this);
 
 	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
 	this->trainDialog = new TrainingView(this);
@@ -329,13 +310,17 @@ void SimonView::setupActions()
 			      actionCollection());
 
 	setupGUI();
+	displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
+}
 
-	//ActionManager::getInstance()->publishGuiActions();
+void SimonView::displayScenarioPrivate(Scenario *scenario)
+{
+	unplugActionList("command_actionlist");
+	plugActionList("command_actionlist", scenario->actionCollection()->getGuiActions());
 }
 
 void SimonView::manageScenarios()
 {
-//	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
 	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
 	if (dlg->exec()) {
 		//reload scenario information
@@ -430,6 +415,15 @@ void SimonView::showAddWordDialog ( )
  */
 void SimonView::showSystemDialog ()
 {
+	if (!configDialog)
+		configDialog = (new KCMultiDialog(this));
+
+	configDialog->addModule("simongeneralconfig", QStringList() << "");
+	configDialog->addModule("simonsoundconfig", QStringList() << "");
+	configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
+	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
+	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
 	configDialog->show();
 }
 
@@ -686,5 +680,6 @@ SimonView::~SimonView()
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	delete trayManager;
 	delete control;
+	delete configDialog;
 	Logger::close();
 }

@@ -40,7 +40,7 @@ public:
 	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *scenario);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor

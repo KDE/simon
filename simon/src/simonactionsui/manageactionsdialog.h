@@ -22,9 +22,14 @@
 
 
 #include <KDialog>
-#include <KPageWidget>
+#include <QHash>
+#include <QWidget>
+#include <QVBoxLayout>
 #include "ui_manageactionsdlg.h"
 class Action;
+class CommandConfiguration;
+class KPageWidget;
+class KPageWidgetItem;
 
 class ManageActionsDialog : public KDialog {
 
@@ -34,7 +39,13 @@ private:
 	Ui::DlgManageActions ui;
 	KPageWidget *pageWidget;
 
+	QHash<CommandConfiguration*, KPageWidgetItem*> pages;
+
+	QList<CommandConfiguration*>* configurationPages;
+
 	Action* getCurrentlySelectedAction();
+
+	void registerCommandConfiguration(CommandConfiguration *m);
 
 private slots:
 	void add();
@@ -48,6 +59,23 @@ public:
 	~ManageActionsDialog();
 };
 
+class ProtectorWidget : public QWidget {
+	private:
+		QWidget* m_widget;
+
+	public:
+		ProtectorWidget(QWidget *w, QWidget *parent) : QWidget(parent), m_widget(w)
+		{
+			QVBoxLayout *lay = new QVBoxLayout(this);
+			lay->addWidget(m_widget);
+		}
+
+		~ProtectorWidget() 
+		{
+			//don't delete m_widget
+			m_widget->setParent(NULL);
+		}
+};
 
 
 #endif

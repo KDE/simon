@@ -65,10 +65,8 @@ const KIcon ShortcutCommandManager::icon() const
 }
 
 
-bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
+bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	Q_UNUSED(scenario);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();

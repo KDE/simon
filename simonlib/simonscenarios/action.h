@@ -31,6 +31,7 @@
 class CommandManager;
 class Command;
 class VersionNumber;
+class CommandConfiguration;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
@@ -67,6 +68,7 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		QDomElement serialize(QDomDocument *doc);
 
 		bool removeCommand(Command *command);
+		CommandConfiguration* getConfigurationPage();
 
 		~Action();
 

@@ -25,26 +25,17 @@
 #include <KComponentData>
 #include <QVariantList>
 
-CommandConfiguration::CommandConfiguration(const QByteArray& internalName, const KLocalizedString& name, 
+CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name, 
 					    const QByteArray& version, const KLocalizedString& desc,
 					    const QString& iconName, const KComponentData& componentData,
-					    QWidget *parent, const QVariantList &args)
-			: KCModule( componentData, parent )
+					    const QVariantList &args)
+			: QWidget(), ScenarioObject(parent)
 {
 	Q_UNUSED(args);
 
-	KAboutData *about = new KAboutData(
-				internalName, "", name,
+	about = new KAboutData(internalName, "", name,
 				version, desc, KAboutData::License_GPL);
-#if KDE_IS_VERSION(4,0,80)
 	about->setProgramIconName(iconName);
-#endif
-	setAboutData( about );
-}
-
-void CommandConfiguration::destroy()
-{
-	deleteLater();
 }
 
 
@@ -55,5 +46,5 @@ void CommandConfiguration::slotChanged()
 
 CommandConfiguration::~CommandConfiguration()
 {
-	
+	delete about;
 }
