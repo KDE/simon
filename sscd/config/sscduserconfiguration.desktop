@@ -1,0 +1,24 @@
+[Desktop Entry]
+Type=Service
+Icon=user-properties
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsscdsettings
+
+X-DocPath=help:/sscd/using-kapp.html
+
+X-KDE-FactoryName=sscdsettingsfactory
+X-KDE-ParentComponents=libsscdsettings
+
+X-KDE-ParentApp=sscd
+X-KDE-System-Settings-Parent-Category=sscd
+
+
+X-KDE-PluginKeyword=SSCDUserConfiguration
+
+Name=User
+Name[de]=Benutzer
+Name[fr]=Utilisateur
+
+Comment=Userconfiguration
+Comment[de]=Benutzerkonfiguration
+Comment[fr]=Configuration de l'utilisateur
