@@ -1,0 +1,4 @@
+File=sscdconfiguration.kcfg
+ClassName=SSCDConfiguration
+Singleton=true
+Mutators=true

@@ -35,7 +35,13 @@ ShadowVocabulary::ShadowVocabulary() : Vocabulary()
 		loadFailed = true;
 	} else {
 		f.readLine(); //skip document type
-		f.readLine(); //skip root element
+		QString root = QString::fromUtf8(f.readLine()); //skip root element
+
+		root = root.mid(26, 19);
+
+		lastModifiedDate = QDateTime::fromString(root, Qt::ISODate);
+
+		kDebug() << root << lastModifiedDate;;
 
 		while (!f.atEnd()) {
 			//<word>
@@ -78,14 +84,21 @@ int ShadowVocabulary::columnCount(const QModelIndex &parent) const
 	return 3;
 }
 
+void ShadowVocabulary::touch()
+{
+	lastModifiedDate = QDateTime::currentDateTime();
+}
+
 bool ShadowVocabulary::save()
 {
+	touch();
+
 	QFile f(KStandardDirs::locateLocal("appdata", "shadowvocabulary.xml"));
 	if (!f.open(QIODevice::WriteOnly))
 		return false;
 
 	f.write("<!DOCTYPE Vocabulary>\n");
-	f.write("<vocabulary>\n"); 
+	f.write("<vocabulary lastModified=\""+lastModifiedDate.toString(Qt::ISODate).toUtf8()+"\">\n"); 
 
 	foreach (Word *w, m_words) {
 		//<word>

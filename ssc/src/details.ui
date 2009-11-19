@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserDetails</class>
+ <widget class="QWidget" name="UserDetails">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>801</width>
+    <height>573</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Details</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout_2">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lbSurname">
+       <property name="text">
+        <string>Surname:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="leSurname"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lbGivenName">
+       <property name="text">
+        <string>Given name:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="KLineEdit" name="leGivenName"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lbInstition">
+       <property name="text">
+        <string>Institution(s):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QListView" name="lvInstitution">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="kpushbutton">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Sex:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QRadioButton" name="rbMale">
+         <property name="text">
+          <string>Male</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="rbFemale">
+         <property name="text">
+          <string>Female</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="lbBirthYear">
+       <property name="text">
+        <string>Birth year:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="leBirthYear">
+       <property name="inputMask">
+        <string>9999; </string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>ZIP Code:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="leZIPCode">
+       <property name="inputMask">
+        <string>99990; </string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Education:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QPlainTextEdit" name="teEducation"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Current occupation:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="KLineEdit" name="leCurrentOccupation"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Mothers Tongue:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QComboBox" name="cbMothersTongue"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Diagnosis:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPlainTextEdit" name="teDiagnosis"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Orientation:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cbOrientation">
+       <item>
+        <property name="text">
+         <string>1: Very Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2: Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3: Satisfactory</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4: Acceptable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5: Not acceptable</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Communication:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="cbCommunication">
+       <item>
+        <property name="text">
+         <string>1: Very Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2: Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3: Satisfactory</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4: Acceptable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5: Not acceptable</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Motor function:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="cbMotorFunction">
+       <item>
+        <property name="text">
+         <string>1: Very Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2: Good</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3: Satisfactory</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4: Acceptable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5: Not acceptable</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Mouth motoric / teeth:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPlainTextEdit" name="teMouthMotoric"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Interview:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QCheckBox" name="cbInterviewPossible">
+       <property name="text">
+        <string>Interview possible</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Repeating:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QCheckBox" name="cbRepeatingPossible">
+       <property name="text">
+        <string>Repeating possible</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

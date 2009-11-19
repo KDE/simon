@@ -95,6 +95,26 @@ namespace Simond
 		TrainingsSample=2074,
 		TrainingsSampleStorageFailed=2075,
 		TrainingsSampleSynchronisationComplete=2076,
+
+		GetScenarioList=2081,
+		ErrorRetrievingScenarioList=2082,
+		ScenarioList=2083,
+
+		GetSelectedScenarioDate=2084,
+		SelectedScenarioDate=2085,
+		GetSelectedScenarioList=2086,
+		ErrorRetrievingSelectedScenarioList=2087,
+		SelectedScenarioList=2088,
+		SelectedScenarioListStorageFailed=2089,
+
+		StartScenarioSynchronisation=2091,
+		GetScenarioDate=2092,
+		ScenarioDate=2093,
+		GetScenario=2094,
+		ErrorRetrievingScenario=2095,
+		Scenario=2096,
+		ScenarioStorageFailed=2097,
+		ScenarioSynchronisationComplete=2098,
 		
 		SynchronisationComplete=2101,
 		SynchronisationCommitFailed=2102,

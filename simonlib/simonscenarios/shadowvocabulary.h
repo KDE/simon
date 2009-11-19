@@ -24,6 +24,7 @@
 #include "simonmodelmanagement_export.h"
 #include "vocabulary.h"
 #include <QObject>
+#include <QDateTime>
 
 
 class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
@@ -32,11 +33,17 @@ class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
 signals:
 	void changed();
 
+private:
+	QDateTime lastModifiedDate;
+	void touch();
+
 protected:
 	bool loadFailed;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
+	QDateTime lastModified() { return  lastModifiedDate; }
+
 	ShadowVocabulary();
 	bool save();
 	bool addWord(Word* w);

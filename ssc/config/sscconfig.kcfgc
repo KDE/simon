@@ -1,0 +1,4 @@
+File=sscconfig.kcfg
+ClassName=SSCConfig
+Singleton=true
+Mutators=true

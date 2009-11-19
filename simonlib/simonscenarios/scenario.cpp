@@ -43,7 +43,8 @@ Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId),
 	m_simonMaxVersion(NULL),
 	m_vocabulary(NULL),
 	m_texts(NULL),
-	m_grammar(NULL)
+	m_grammar(NULL),
+	m_actionCollection(NULL)
 {
 }
 
@@ -72,9 +73,76 @@ bool Scenario::init(QString path)
 	}
 	file.close();
 
-	bool ok=true;
+	if (!skim(path, &doc)) return false;
 
 	QDomElement docElem = doc.documentElement();
+
+
+	//  Vocab
+	//************************************************/
+	kDebug() << "About to create the vocabulay...";
+	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
+	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
+	if (!m_vocabulary) {
+		kDebug() << "Vocabulary could not be loaded!";
+		return false;
+	}
+	kDebug() << m_vocabulary->wordCount() << " words loaded";
+
+
+	//  Grammar
+	//************************************************/
+	QDomElement grammarElem = docElem.firstChildElement("grammar");
+	m_grammar = Grammar::createGrammar(this, grammarElem);
+	if (!m_grammar) {
+		kDebug() << "Grammar could not be loaded!";
+		return false;
+	}
+	kDebug() << m_grammar->structureCount() << " structurs loaded";
+
+
+	//  Actions
+	//************************************************/
+	QDomElement actionsElement = docElem.firstChildElement("actions");
+	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
+	if (!m_actionCollection) {
+		kDebug() << "ActionCollection could not be loaded!";
+		return false;
+	}
+
+
+	//  Trainingstexts
+	//************************************************/
+	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
+	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
+	if (!m_texts) {
+		kDebug() << "Trainingtextcollection could not be loaded!";
+		return false;
+	}
+
+	return true;
+}
+
+bool Scenario::skim(QString path, QDomDocument* doc)
+{
+	if (path.isNull())
+		path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+
+	if (!doc) {
+		doc = new QDomDocument("scenario");
+		QFile file(path);
+		if (!file.open(QIODevice::ReadOnly))
+			return false;
+		if (!doc->setContent(&file)) {
+			file.close();
+			return false;
+		}
+		file.close();
+	}
+
+	bool ok=true;
+
+	QDomElement docElem = doc->documentElement();
 
 	//  Scenario Infos 
 	//************************************************/
@@ -84,6 +152,7 @@ bool Scenario::init(QString path)
 	//version of the scenario
 	m_version = docElem.attribute("version").toInt(&ok);
 	m_iconSrc = docElem.attribute("icon");
+	m_lastModifiedDate = QDateTime::fromString(docElem.attribute("lastModified"), Qt::ISODate);
 	if (!ok) return false;
 
 	kDebug() << "Loading scenario " << m_name << " version " << m_version;
@@ -135,49 +204,6 @@ bool Scenario::init(QString path)
 	m_licence = docElem.firstChildElement("licence").text();
 	kDebug() << "Licence: " << m_licence;
 		
-
-	//  Vocab
-	//************************************************/
-	kDebug() << "About to create the vocabulay...";
-	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
-	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
-	if (!m_vocabulary) {
-		kDebug() << "Vocabulary could not be loaded!";
-		return false;
-	}
-	kDebug() << m_vocabulary->wordCount() << " words loaded";
-
-
-	//  Grammar
-	//************************************************/
-	QDomElement grammarElem = docElem.firstChildElement("grammar");
-	m_grammar = Grammar::createGrammar(this, grammarElem);
-	if (!m_grammar) {
-		kDebug() << "Grammar could not be loaded!";
-		return false;
-	}
-	kDebug() << m_grammar->structureCount() << " structurs loaded";
-
-
-	//  Actions
-	//************************************************/
-	QDomElement actionsElement = docElem.firstChildElement("actions");
-	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
-	if (!m_actionCollection) {
-		kDebug() << "ActionCollection could not be loaded!";
-		return false;
-	}
-
-
-	//  Trainingstexts
-	//************************************************/
-	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
-	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
-	if (!m_texts) {
-		kDebug() << "Trainingtextcollection could not be loaded!";
-		return false;
-	}
-
 	return true;
 }
 
@@ -190,14 +216,34 @@ bool Scenario::init(QString path)
  */
 bool Scenario::save(QString path)
 {
+	m_lastModifiedDate = QDateTime::currentDateTime();
+	QString serialized = serialize();
+
+	if (serialized.isNull()) return false;
+	
 	if (path.isNull())
 		path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
 
+	QFile file(path);
+	if (!file.open(QIODevice::WriteOnly))
+		return false;
+
+	file.write(serialized.toUtf8());
+
+	emit changed(this);
+
+	return true;
+}
+
+
+QString Scenario::serialize()
+{
 	QDomDocument doc("scenario");
 	QDomElement rootElem = doc.createElement("scenario");
 	rootElem.setAttribute("name", m_name);
 	rootElem.setAttribute("version", m_version);
 	rootElem.setAttribute("icon", m_iconSrc);
+	rootElem.setAttribute("lastModified", m_lastModifiedDate.toString(Qt::ISODate));
 
 	//  simon compatibility 
 	//************************************************/
@@ -251,38 +297,22 @@ bool Scenario::save(QString path)
 	rootElem.appendChild(m_texts->serialize(&doc));
 
 	doc.appendChild(rootElem);
-	
-	QFile file(path);
-	if (!file.open(QIODevice::WriteOnly))
-		return false;
-
-	file.write(doc.toString().toUtf8());
-
-	return true;
-}
-
-bool Scenario::emitChangedIfTrue(bool input)
-{
-	if (input) {
-		emit changed(this);
-		return true;
-	}
-	return false;
+	return doc.toString();
 }
 
 bool Scenario::addWords(QList<Word*>* w)
 {
-	return emitChangedIfTrue(m_vocabulary->addWords(w));
+	return (m_vocabulary->addWords(w));
 }
 
 bool Scenario::addWord(Word* w)
 {
-	return emitChangedIfTrue(m_vocabulary->addWord(w));
+	return (m_vocabulary->addWord(w));
 }
 
 bool Scenario::removeWord(Word* w)
 {
-	return emitChangedIfTrue(m_vocabulary->removeWord(w));
+	return (m_vocabulary->removeWord(w));
 }
 
 bool Scenario::addStructures(const QStringList& newStructures)
@@ -452,12 +482,12 @@ QString Scenario::getRandomWord(const QString& terminal)
 
 bool Scenario::containsWord(const QString& word)
 {
-	return emitChangedIfTrue(m_vocabulary->containsWord(word));
+	return (m_vocabulary->containsWord(word));
 }
 
 bool Scenario::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
 {
-	return emitChangedIfTrue(m_vocabulary->containsWord(word, terminal, pronunciation));
+	return (m_vocabulary->containsWord(word, terminal, pronunciation));
 }
 
 bool Scenario::removeText(TrainingText* text)

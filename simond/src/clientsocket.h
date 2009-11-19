@@ -81,8 +81,6 @@ class ClientSocket : public QSslSocket
 		void recognitionPaused();
 		void recognitionResumed();
 
-		bool sendWordList();
-		bool sendGrammar();
 		bool sendLanguageDescription();
 		bool sendTraining();
 
@@ -99,6 +97,11 @@ class ClientSocket : public QSslSocket
 		
 		void synchronisationComplete();
 		void synchronisationDone();
+
+		void fetchScenario();
+		void sendScenario(const QString& scenarioId);
+		void sendSelectedScenarioList();
+		void synchronizeAlreadyAvailableScenarios();
 		
 		void synchronizeSamples();
 		void fetchTrainingSample();

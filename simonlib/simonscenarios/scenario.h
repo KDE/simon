@@ -23,6 +23,8 @@
 #include <QString>
 #include <QList>
 #include <QObject>
+#include <QDateTime>
+#include <QDomDocument>
 #include <KIcon>
 #include "speechmodel.h"
 #include "vocabulary.h"
@@ -48,6 +50,8 @@ signals:
 private:
 	QString m_scenarioId;
 
+	QDateTime m_lastModifiedDate;
+
 	int m_version;
 
 	QString m_name;
@@ -59,8 +63,6 @@ private:
 	TrainingTextCollection *m_texts;
 	Grammar *m_grammar;
 	ActionCollection* m_actionCollection;
-
-	bool emitChangedIfTrue(bool input);
 
 	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix);
 
@@ -74,6 +76,9 @@ public:
 	VersionNumber* simonMinVersion() { return m_simonMinVersion; }
 	VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
 	QList<Author*> authors() { return m_authors; }
+	QDateTime modifiedDate() { return m_lastModifiedDate; }
+
+	QString serialize();
 
 	bool addWords(QList<Word*>* w);
 	bool addWord(Word* w);
@@ -97,6 +102,7 @@ public:
 	bool containsWord(const QString& word);
 	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
+	bool skim(QString path=QString(), QDomDocument* doc=NULL);
 	bool init(QString path=QString());
 	bool save(QString path=QString());
 

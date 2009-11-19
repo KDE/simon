@@ -71,7 +71,6 @@ int ManageActionsDialog::exec()
 	configurationPages = aC->getConfigurationPages();
 	if (!configurationPages) return 0;
 
-	kDebug() << "Received configuration pages: " << configurationPages->count();
 	foreach (CommandConfiguration *m, *configurationPages) {
 		registerCommandConfiguration(m);
 	}
@@ -89,8 +88,6 @@ void ManageActionsDialog::registerCommandConfiguration(CommandConfiguration *m)
 	QString moduleName = m->aboutData()->programName();
 	ProtectorWidget *p = new ProtectorWidget(m, pageWidget);
 	KPageWidgetItem *newItem = pageWidget->addPage(p, moduleName);
-
-	kDebug() << "Adding module: " << moduleName;
 
 	QString moduleIcon = m->aboutData()->programIconName();
 	newItem->setIcon(KIcon(moduleIcon));

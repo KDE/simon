@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Service
+Icon=ssc
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsscsettings
+
+# X-DocPath=help:/ssc/configuration.html
+
+X-KDE-FactoryName=sscsettingsfactory
+X-KDE-ParentComponents=libsscsettings
+
+X-KDE-ParentApp=ssc
+X-KDE-System-Settings-Parent-Category=ssc
+
+X-KDE-PluginKeyword=SSCConfiguration
+
+
+Name=SSC
+
+Comment=Configuration of the simon sample collector
+Comment[de]=Konfiguration des simon Sample-Sammlers

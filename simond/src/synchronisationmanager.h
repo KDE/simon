@@ -26,8 +26,6 @@
 #include <QMap>
 
 class Model;
-class WordListContainer;
-class GrammarContainer;
 class LanguageDescriptionContainer;
 class TrainingContainer;
 
@@ -38,22 +36,22 @@ class SynchronisationManager : public QObject
 	private:
 		QString username;
 		QStringList missingFiles;
-		//QString currentSrcContainerPath;
-		//QDateTime currentSrcContainerDate;
+		QStringList missingScenarios;
+		QStringList commonScenarios;
 		QString srcContainerTempPath;
 		bool cleanTemp();
 
 		QString getLatestPath(const QMap<QDateTime, QString>& models);
 
-		QMap<QDateTime, QString> getWordLists(); //lexicon, vocab
-		QMap<QDateTime, QString> getGrammars(); //grammars
 		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
 		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
 
-		QString getLatestWordListPath();
-		QString getLatestGrammarPath();
 		QString getLatestLanguageDescriptionPath();
 		QString getLatestTrainingPath();
+
+		QStringList getAllScenarios();
+		QStringList getAllScenarioIds();
+		QString getLatestScenarioPath(const QString& id);
 	
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
@@ -74,17 +72,6 @@ class SynchronisationManager : public QObject
 
 		void setCurrentSrcContainerTime(const QDateTime& time);
 		
-		QDateTime getWordListDate(QString path=QString());
-		bool hasWordList(const QString& modelPath=QString());
-		WordListContainer* getWordList();
-		bool storeWordList(const QDateTime& changedDate, const QByteArray& simpleVocab,
-					const QByteArray& activeVocab, const QByteArray& activeLexicon);
-		
-		QDateTime getGrammarDate(QString path=QString());
-		bool hasGrammar(const QString& modelPath=QString());
-		GrammarContainer* getGrammar();
-		bool storeGrammar(const QDateTime& changedDate, const QByteArray& grammarStructures);
-		
 		QDateTime getLanguageDescriptionDate(QString path=QString());
 		bool hasLanguageDescription(const QString& modelPath=QString());
 		LanguageDescriptionContainer* getLanguageDescription();
@@ -97,6 +84,20 @@ class SynchronisationManager : public QObject
 		bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 		
+		void buildMissingScenarios(const QStringList& remoteScenarioList);
+		QByteArray getScenario(const QString& scenarioId);
+		bool storeScenario(const QByteArray& scenario);
+		QDateTime localScenarioDate(const QString& scenarioId);
+		QDateTime scenarioDate(const QString& path);
+		QString missingScenario();
+		QString commonScenario();
+		void couldntRetreiveScenario();
+		void scenarioUpToDate();
+
+		QDateTime selectedScenariosDate();
+		QStringList getSelectedScenarioList();
+		bool storeSelectedScenarioList(const QStringList& scenarioIds);
+
 		void buildMissingSamples();
 		QByteArray getSample(const QString& sampleName);
 		QString missingSample();
@@ -116,10 +117,9 @@ class SynchronisationManager : public QObject
 		bool removeExcessModelBackups();
 		
 		void modelCompiled();
-		bool copyWordList(const QString& source, const QString& dest);
-		bool copyGrammar(const QString& source, const QString& dest);
 		bool copyTrainingData(const QString& source, const QString& dest);
 		bool copyLanguageDescription(const QString& source, const QString& dest);
+		bool copyScenarios(const QString& source, const QString& dest);
 		bool switchToModel(const QDateTime& modelDate);
 
 		~SynchronisationManager();

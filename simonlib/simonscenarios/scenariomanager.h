@@ -59,10 +59,14 @@ public:
 	void registerScenarioDisplay(ScenarioDisplay *display) {
 		scenarioDisplays.append(display);
 	}
+
 	Scenario *getScenario(const QString& id);
 	Scenario *getCurrentScenario() { return currentScenario; }
+
 	bool init();
 	ShadowVocabulary* getShadowVocabulary();
+
+	bool storeScenario(const QString& id, const QByteArray& data);
 
 	QStringList getTerminals(SpeechModel::ModelElements elements);
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
@@ -71,6 +75,8 @@ public:
 
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
 	bool setupScenarios();
+
+	QStringList getAllAvailableScenarioIds();
 
 	
 public slots:

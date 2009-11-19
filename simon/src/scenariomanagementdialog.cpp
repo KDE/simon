@@ -22,6 +22,7 @@
 #include <QWidget>
 #include <QListWidget>
 #include <QVariant>
+#include <QDateTime>
 #include <QFileInfo>
 #include <QListWidgetItem>
 #include <KSharedConfig>
@@ -63,22 +64,13 @@ void ScenarioManagementDialog::initDisplay()
 	QStringList  selectedIds = cg.readEntry("SelectedScenarios", QStringList());
 
 
-	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
-	QStringList scenarioIds;
-
-	foreach (const QString& src, scenarioSrcs) {
-		QFileInfo f(src);
-		QString idToBe = f.fileName();
-		if (!scenarioIds.contains(idToBe)) 
-			scenarioIds << idToBe;
-	}
-
+	QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
 	kDebug() << "Found scenarios: " << scenarioIds;
 
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
 		kDebug() << "Initializing scenario" << id;
-		if (!s->init()) {
+		if (!s->skim()) {
 			KMessageBox::information(this, i18n("Could not init scenario \"%1\"", id));
 		} else {
 			QListWidget *target;
@@ -139,6 +131,7 @@ int ScenarioManagementDialog::exec()
 		KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 		KConfigGroup cg(config, "");
 		cg.writeEntry("SelectedScenarios", ids);
+		cg.writeEntry("LastModified", QDateTime::currentDateTime());
 	}
 
 	return ret;

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=ksimond
+Name[fr]=ksimond
+Name[x-test]=xxksimondxx
+Exec=ksimond %i -caption "%c"
+Icon=ksimond
+Type=Application
+DocPath=ksimond/index.html
+GenericName=KDE Front-End to simond
+GenericName[de]=Ein KDE Front-End für simond
+GenericName[fr]=Interface graphique KDE de simond
+Terminal=0
+Categories=Qt;KDE;Utility;Accessibility;
+X-KDE-StartupNotify=false

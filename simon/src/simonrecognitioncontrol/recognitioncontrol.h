@@ -78,6 +78,7 @@ private:
 	AdinStreamer *adinStreamer;
 	QMutex messageLocker;
 	QByteArray stillToProcess;
+	QStringList missingScenarios;
 	bool recognitionReady;
 	QSslSocket *socket; //!< QSslSocket for communicating with the simond-socket
 
@@ -152,16 +153,18 @@ private slots:
 	void timeoutReached();
 	void messageReceived();
 	bool sendActiveModel();
-	void sendModelSrcModifiedDate();
 	void sendActiveModelModifiedDate();
 	void sendActiveModelSampleRate();
 
+	void sendScenarioList();
 
-	void sendWordListModifiedDate();
-	void sendWordList();
+	void sendSelectedScenarioListModifiedDate();
+	void sendSelectedScenarioList();
 
-	void sendGrammarModifiedDate();
-	void sendGrammar();
+	void requestMissingScenario();
+
+	void sendScenarioModifiedDate(QString scenarioId);
+	void sendScenario(QString scenarioId);
 
 	void sendLanguageDescriptionModifiedDate();
 	void sendLanguageDescription();

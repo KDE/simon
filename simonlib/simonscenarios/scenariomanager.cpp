@@ -44,8 +44,31 @@ bool ScenarioManager::init()
 		succ = false;
 
 	shadowVocab = new ShadowVocabulary();
-	connect(shadowVocab, SIGNAL(changed()), this, SLOT(shadowVocabularyChanged()));
+	connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
 	return succ;
+}
+
+
+QStringList ScenarioManager::getAllAvailableScenarioIds()
+{
+	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
+	QStringList scenarioIds;
+
+	foreach (const QString& src, scenarioSrcs) {
+		QFileInfo f(src);
+		QString idToBe = f.fileName();
+		if (!scenarioIds.contains(idToBe)) 
+			scenarioIds << idToBe;
+	}
+	return scenarioIds;
+}
+
+bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
+{
+	QFile f(KGlobal::dirs()->locateLocal("appdata", "scenarios/"+id));
+	if (!f.open(QIODevice::WriteOnly)) return false;
+	f.write(data);
+	return true;
 }
 
 

@@ -63,10 +63,8 @@ CreateCommandWidget* CompositeCommandManager::getCreateCommandWidget(QWidget *pa
 	return new CreateCompositeCommandWidget(this, parent);
 }
 
-bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
+bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	Q_UNUSED(parent);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();

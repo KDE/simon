@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=sscd
+Name[fr]=sscd
+Name[x-test]=xxsscdxx
+Exec=sscd %i -caption "%c"
+Icon=sscd
+Type=Application
+DocPath=sscd/index.html
+GenericName=Sample Collection Server
+Terminal=1
+Categories=Qt;KDE;Utility;Accessibility;

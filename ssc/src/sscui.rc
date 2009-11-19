@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="ssc" version="1">
+	<ToolBar name="mainToolBar" >
+		<text>Main actions</text>
+		<Action name="connect" />
+		<Action name="disconnect" />
+	</ToolBar>
+	<MenuBar>
+		<Menu name="sscd">
+			<text>Server</text>
+			<Action name="connect" />
+			<Action name="disconnect" />
+		</Menu>
+		<Menu name="settings">
+			<text>Preferences</text>
+			<Action name="configuration" />
+		</Menu>
+	</MenuBar>
+</gui>
+

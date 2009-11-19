@@ -61,6 +61,7 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 
 		wordElem = wordElem.nextSiblingElement();
 	}
+	kDebug() << "Loaded " << m_words.count() << "words";
 
 	return true;
 }
