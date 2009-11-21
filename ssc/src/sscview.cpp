@@ -29,6 +29,7 @@
 #include <simonprogresstracking/compositeprogresswidget.h>
 
 #include <sscobjects/user.h>
+#include <sscobjects/userininstitution.h>
 
 #include <QStringList>
 
@@ -66,19 +67,47 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 
 User* SSCView::retrieveUser()
 {
-	bool ok;
-	qint32 id = ui.cbPatientId->currentText().toInt(&ok);
-	if (!ok) {
-		KMessageBox::information(this, i18n("Please enter a valid user id."));
-		return NULL;
+	User *u = NULL;
+	SSCConfig::self()->readConfig();
+	kDebug() << SSCConfig::useInstitutionSpecificIDs();
+	kDebug() << SSCConfig::referenceInstitute();
+	if (SSCConfig::useInstitutionSpecificIDs())  {
+		u = getInstituteSpecificUser();
+	} else {
+		bool ok;
+		qint32 id = ui.cbPatientId->currentText().toInt(&ok);
+		if (!ok) {
+			KMessageBox::information(this, i18n("Please enter a valid user id."));
+			return NULL;
+		}
+		u = SSCDAccess::getInstance()->getUser(id);
 	}
 
-	User *u = SSCDAccess::getInstance()->getUser(id);
 	if (!u) {
 		KMessageBox::sorry(this, i18n("Couldn't retrieve user: %1", SSCDAccess::getInstance()->lastError()));
 		return NULL;
 	}
 	return u;
+}
+
+/*
+ * Only call this if the user set to use institute specific ids; Otherwise
+ * the behaviour is undefined
+ */
+User* SSCView::getInstituteSpecificUser()
+{
+	if (ui.cbPatientId->currentText().isEmpty()) return NULL;
+
+	bool ok;
+	QList<User*> users = SSCDAccess::getInstance()->getUsers(new User(0, "", "", ' ', 0, "",
+				"", "", "", "", "", -1, -1, -1, "", 2, 2) /* dummy user */,
+				SSCConfig::referenceInstitute(),
+				ui.cbPatientId->currentText(), &ok);
+
+	if (ok && (users.count() == 1)) 
+		return users[0];
+	else qDeleteAll(users);
+	return NULL;
 }
 
 void SSCView::displayUser(User* u)
@@ -104,7 +133,26 @@ void SSCView::findUser()
 	User *u = manageUsers->getUser();
 	if (u) {
 		displayUser(u);
-		ui.cbPatientId->setEditText(QString::number(u->userId()));
+
+		SSCConfig::self()->readConfig();
+		if (SSCConfig::useInstitutionSpecificIDs()) {
+			bool ok, found=false;
+			QList<UserInInstitution*> uiis = SSCDAccess::getInstance()->getUserInInstitutions(u->userId(), &ok);
+			if (ok) {
+				foreach (UserInInstitution *uii, uiis) {
+					if (uii->institutionId() == SSCConfig::referenceInstitute()) {
+						ui.cbPatientId->setEditText(uii->referenceId());
+						found = true;
+						break;
+					}
+				}
+			}
+
+			if (!found) {
+				KMessageBox::sorry(this, i18n("Couldn't resolve institution reference id of the given user.\n\nMaybe he is not on your institution? You might want to disable institution specific ids in the configuration."));
+			} 
+		} else
+			ui.cbPatientId->setEditText(QString::number(u->userId()));
 	}
 	manageUsers->deleteLater();
 }
@@ -238,6 +286,7 @@ void SSCView::connectToServer()
 
 	displayConnectionStatus(i18n("Connecting..."));
 
+	SSCConfig::self()->readConfig();
 	SSCDAccess::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
 }
 

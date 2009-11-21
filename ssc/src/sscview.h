@@ -78,6 +78,8 @@ private slots:
 
 private:
     Ui::SampleCollectorUi ui;
+
+    User* getInstituteSpecificUser();
 };
 
 #endif // ksimondVIEW_H

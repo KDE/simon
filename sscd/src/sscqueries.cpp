@@ -144,7 +144,11 @@ QSqlQuery SSCQueries::getUsers(bool includeUserId, bool includeSurname,
 	if (includeReferenceId)
 		query += " AND uii.InstitutionReferenceId = :referenceid";
 
-	query += " LIMIT 50";
+	query += " GROUP BY u.UserId, u.Surname, u.Forename, u.Sex, u.BirthYear, "
+			"u.ZIPCode, u.Education, u.Occupation, "
+			"u.MotherTongue, l.Name, "
+			"u.Diagnosis, u.Orientation, u.MotorFunction, u.Communication, u.MouthMotoric, "
+			"u.InterviewPossible, u.RepeatPossible LIMIT 50";
 
 	QSqlQuery q;
 	q.prepare(query);

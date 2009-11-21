@@ -61,6 +61,10 @@ void SSCConfiguration::load()
 // 	ui.cbCipher->addItems(cipherStrs);
 // 	ui.cbCipher->setCurrentIndex(selectedIndex);
 								
+	if (SSCConfig::useInstitutionSpecificIDs()) {
+		ui.lbInstitute->setEnabled(true);
+		ui.kcfg_ReferenceInstitute->setEnabled(true);
+	}
 	KCModule::load();
 }
 
@@ -68,6 +72,9 @@ void SSCConfiguration::save()
 {
 // 	SSCConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
 	KCModule::save();
+	SSCConfig::setUseInstitutionSpecificIDs(ui.kcfg_UseInstitutionSpecificIDs->isChecked());
+	SSCConfig::setReferenceInstitute(ui.kcfg_ReferenceInstitute->value());
+	SSCConfig::self()->config()->sync();
 }
 
 SSCConfiguration::~SSCConfiguration()

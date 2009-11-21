@@ -287,12 +287,6 @@ User* SSCDAccess::getUser(qint32 id)
 	stream >> type;
 
 	switch (type) {
-		case SSC::UserRetrievalFailed: {
-			lastErrorString = i18n("User ID not found");
-			return NULL;
-			break;
-					       }
-
 		case SSC::User: {
 			parseLengthHeader();
 			QByteArray userByte = stream.device()->read(length);
@@ -301,6 +295,12 @@ User* SSCDAccess::getUser(qint32 id)
 			u->deserialize(userByte);
 			return u;
 				}
+
+		case SSC::UserRetrievalFailed: {
+			lastErrorString = i18n("User ID not found");
+			return NULL;
+			break;
+					       }
 		default: {
 			lastErrorString = i18n("Unknown error");
 			break;
