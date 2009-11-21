@@ -17,38 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSCQUERIES_H
-#define SSCQUERIES_H
+#ifndef SSC_INSTITUTION_H
+#define SSC_INSTITUTION_H
 
-#include <QSqlQuery>
+#include <QString>
+#include "sscobject.h"
+#include "sscobjects_export.h"
 
-/**
- * \class SSCQueries
- * \brief Base query provider
- *
- * This is the base class for all query provider classes. It contains
- * standard compliant sql queries which should work for most databases.
- * In case an adaption is needed, you can subclass this class and 
- * override the queries in question through dynamic binding.
- */
-class SSCQueries
-{
-	public:
-		SSCQueries() {}
-		virtual ~SSCQueries() {}
+class SSCOBJECTS_EXPORT Institution : public SSCObject {
 
-		virtual QSqlQuery getUser();
-		virtual QSqlQuery addUser();
-		virtual QSqlQuery modifyUser();
-		virtual QSqlQuery removeUser();
+private:
+	qint32 m_id;
+	QString m_name;
 
-		virtual QSqlQuery getLanguages();
+public:
+	Institution(qint32 id, const QString& name);
 
-		virtual QSqlQuery getInstitutions();
-		virtual QSqlQuery addInstitution();
-		virtual QSqlQuery modifyInstitution();
-		virtual QSqlQuery removeInstitution();
+	Institution() {}
+
+	void deserialize(QByteArray data);
+	QByteArray serialize();
+
+	qint32 id() { return m_id; }
+	QString name() { return m_name; }
+	void setName(const QString& name) { m_name = name; }
+
+	~Institution() {}
 };
 
 #endif
+
+
 

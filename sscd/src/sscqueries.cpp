@@ -115,16 +115,30 @@ QSqlQuery SSCQueries::addUser()
 QSqlQuery SSCQueries::modifyUser()
 {
 	QSqlQuery q;
-	q.prepare("UPDATE User SET UserId=:userid, Surname=:surname, Forename=:forename, "
+	q.prepare("UPDATE User SET Surname=:surname, Forename=:forename, "
 			"Sex=:sex, BirthYear=:birthyear, ZIPCode=:zipcode, "
 			"Education=:education, Occupation=:currentoccupation, "
 			"MotherTongue=:mothertongue, Diagnosis=:diagnosis, "
 			"Orientation=:orientation, MotorFunction=:motorfunction, "
 			"Communication=:communication, MouthMotoric=:mouthmotoric, "
 			"InterviewPossible=:interviewpossible, "
-			"RepeatPossible=:repeatpossible);");
+			"RepeatPossible=:repeatpossible WHERE UserId=:userid;");
 	return q;
 }
+
+/*
+ * Removes the user from the database
+ *
+ * The query contains 1 placeholder: 
+ * 	:userid (maps to User::UserID)
+ */
+QSqlQuery SSCQueries::removeUser()
+{
+	QSqlQuery q;
+	q.prepare("DELETE FROM User WHERE UserId = :userid");
+	return q;
+}
+
 
 /*
  * Returns all available languages
@@ -137,4 +151,62 @@ QSqlQuery SSCQueries::getLanguages()
 	QSqlQuery q("SELECT LanguageId, Name from Language");
 	return q;
 }
+
+/*
+ * Returns all available institutions
+ *
+ * Institution::InstitutionId
+ * Institution::Name
+ */
+QSqlQuery SSCQueries::getInstitutions()
+{
+	QSqlQuery q("SELECT InstitutionId, Name from Institution");
+	return q;
+}
+
+
+/*
+ * Adds a new institution to the database
+ *
+ * The query contains 1 placeholder: 
+ * 	:name (maps to Institution::Name)
+ */
+QSqlQuery SSCQueries::addInstitution()
+{
+	QSqlQuery q;
+	q.prepare("INSERT INTO Institution (Name) VALUES "
+			"(:name);");
+	return q;
+
+}
+
+/*
+ * Modifies a institution
+ *
+ * The query contains 2 placeholders: 
+ * 	:institutionid (maps to Institution::InstitutionID)
+ * 	:name (maps to Institution::Name)
+ */
+QSqlQuery SSCQueries::modifyInstitution()
+{
+	QSqlQuery q;
+	q.prepare("UPDATE Institution SET Name=:name WHERE InstitutionId=:institutionid;");
+	return q;
+}
+
+/*
+ * Removes the institution from the database
+ *
+ * The query contains 1 placeholder: 
+ * 	:institutionid (maps to Institution::InstitutionID)
+ */
+QSqlQuery SSCQueries::removeInstitution()
+{
+	QSqlQuery q;
+	q.prepare("DELETE FROM Institution WHERE InstitutionId = :institutionid");
+	return q;
+}
+
+
+
 

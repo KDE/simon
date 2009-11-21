@@ -22,6 +22,8 @@
 
 #include <simonprogresstracking/operation.h>
 #include <sscprotocol/sscprotocol.h>
+#include <sscobjects/institution.h>
+#include <sscobjects/user.h>
 
 #include <stdio.h>
 
@@ -298,7 +300,6 @@ User* SSCDAccess::getUser(qint32 id)
 
 bool SSCDAccess::addUser(User* u)
 {
-	kDebug() << "Language: " << u->motherTongueId();
 	sendObject(SSC::AddUser, u);
 
 	QByteArray msg;
@@ -390,7 +391,152 @@ QList<Language*> SSCDAccess::getLanguages(bool *ok)
 			 }
 	}
 	return languages;
+}
 
+QList<Institution*> SSCDAccess::getInstitutions(bool* ok)
+{
+	sendRequest(SSC::GetInstitutions);
+
+	QList<Institution*> institutions;
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::Institutions: {
+			parseLengthHeader();
+
+			qint32 elementCount;
+			stream >> elementCount;
+			for (int i=0; i < elementCount; i++) {
+				QByteArray institutionByte;
+				stream >> institutionByte;
+				Institution *l = new Institution();
+				l->deserialize(institutionByte);
+				institutions << l;
+			}
+		        *ok = true;
+			break;
+			      }
+
+		case SSC::InstitutionRetrievalFailed: {
+			lastErrorString = i18n("Institutions could not be read");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return institutions;
+
+}
+
+bool SSCDAccess::addInstitution(Institution* i)
+{
+	sendObject(SSC::AddInstitution, i);
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::AddInstitutionFailed: {
+			lastErrorString = i18n("Couldn't add institution");
+			break;
+					 }
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+}
+
+bool SSCDAccess::modifyInstitution(Institution* i)
+{
+	sendObject(SSC::ModifyInstitution, i);
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::Ok: {
+			return true;
+			      }
+
+		case SSC::InstitutionRetrievalFailed: {
+			lastErrorString = i18n("Institution ID not found");
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+}
+
+bool SSCDAccess::deleteInstitution(Institution* i)
+{
+	sendRequest(SSC::RemoveInstitution, i->id());
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::RemoveInstitutionFailed: {
+			lastErrorString = i18n("Couldn't delete institution");
+			break;
+			}
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+}
+
+bool SSCDAccess::deleteUser(User* u)
+{
+	sendRequest(SSC::RemoveUser, u->userId());
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::RemoveUserFailed: {
+			lastErrorString = i18n("Couldn't delete user");
+			break;
+			}
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
 }
 
 /**

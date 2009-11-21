@@ -22,6 +22,7 @@
 #include "databaseaccess.h"
 #include <sscobjects/sscobject.h>
 #include <sscobjects/user.h>
+#include <sscobjects/institution.h>
 #include <sscobjects/language.h>
 
 #ifdef bzero
@@ -116,6 +117,28 @@ void ClientSocket::sendUser(qint32 id)
 	delete u;
 }
 
+void ClientSocket::removeUser(qint32 id)
+{
+	//TODO: Delete all associated samples
+	
+	if (!databaseAccess->removeUser(id)) {
+		sendCode(SSC::RemoveUserFailed);
+		return;
+	}
+
+	sendCode(SSC::Ok);
+}
+
+void ClientSocket::removeInstitution(qint32 id)
+{
+	if (!databaseAccess->removeInstitution(id)) {
+		sendCode(SSC::RemoveInstitutionFailed);
+		return;
+	}
+
+	sendCode(SSC::Ok);
+}
+
 void ClientSocket::sendLanguages()
 {
 	QList<Language*>* ll = databaseAccess->getLanguages();
@@ -131,6 +154,23 @@ void ClientSocket::sendLanguages()
 	sendObjects(SSC::Languages, sendMe);
 	qDeleteAll(*ll);
 	delete ll;
+}
+
+void ClientSocket::sendInstitutions()
+{
+	QList<Institution*>* ins = databaseAccess->getInstitutions();
+	if (!ins) {
+		sendCode(SSC::InstitutionRetrievalFailed);
+		return;
+	}
+	QList<SSCObject*> sendMe;
+
+	foreach (Institution* i, *ins)
+		sendMe << i;
+
+	sendObjects(SSC::Institutions, sendMe);
+	qDeleteAll(*ins);
+	delete ins;
 }
 
 
@@ -159,14 +199,10 @@ void ClientSocket::processRequest()
 
 			case SSC::AddUser:{
 				parseLengthHeader();
-				qDebug() << "Length: " << length;
 
 				QByteArray userByte = stream.device()->read(length);
 				User *u = new User();
 				u->deserialize(userByte);
-
-				qDebug() << userByte;
-				qDebug() << "Language: " << u->motherTongueId();
 
 				if (databaseAccess->addUser(u))
 					sendCode(SSC::Ok);
@@ -180,15 +216,66 @@ void ClientSocket::processRequest()
 				QByteArray userByte = stream.device()->read(length);
 				User *u = new User();
 				u->deserialize(userByte);
-				if (databaseAccess->modifyUser(u))
+				qDebug() << "Modifying user...";
+				if (databaseAccess->modifyUser(u)) {
+					qDebug() << "Success!";
 					sendCode(SSC::Ok);
-				else sendCode(SSC::UserRetrievalFailed);
+				}else {
+					qDebug() << "Modify failed!";
+					sendCode(SSC::UserRetrievalFailed);
+				}
 				break;
 					      }
-			case SSC::GetLanguages: {
-				sendLanguages();
+			case SSC::RemoveUser: {
+				qint32 id;
+				waitForMessage(sizeof(qint32), stream, msg);
+				stream >> id;
+				removeUser(id);
 				break;
 					   }
+
+			case SSC::GetLanguages:
+				sendLanguages();
+				break;
+
+			case SSC::GetInstitutions:
+				sendInstitutions();
+				break;
+
+			case SSC::AddInstitution:{
+				parseLengthHeader();
+
+				QByteArray institutionByte = stream.device()->read(length);
+				Institution *i = new Institution();
+				i->deserialize(institutionByte);
+
+				if (databaseAccess->addInstitution(i))
+					sendCode(SSC::Ok);
+				else sendCode(SSC::AddInstitutionFailed);
+
+				break;
+					  }
+
+			case SSC::ModifyInstitution: {
+				parseLengthHeader();
+				QByteArray institutionByte = stream.device()->read(length);
+				Institution *i = new Institution();
+				i->deserialize(institutionByte);
+				if (databaseAccess->modifyInstitution(i)) {
+					sendCode(SSC::Ok);
+				}else {
+					sendCode(SSC::InstitutionRetrievalFailed);
+				}
+				break;
+					      }
+			case SSC::RemoveInstitution: {
+				qint32 id;
+				waitForMessage(sizeof(qint32), stream, msg);
+				stream >> id;
+				removeInstitution(id);
+				break;
+					   }
+
 							
 		}
 		

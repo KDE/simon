@@ -5,6 +5,9 @@
 		<text>Main actions</text>
 		<Action name="connect" />
 		<Action name="disconnect" />
+		<Action name="adduser" />
+		<Action name="users" />
+		<Action name="institutions" />
 	</ToolBar>
 	<MenuBar>
 		<Menu name="sscd">
@@ -12,6 +15,13 @@
 			<Action name="connect" />
 			<Action name="disconnect" />
 		</Menu>
+		<Menu name="manage">
+			<text>Manage</text>
+			<Action name="adduser" />
+			<Action name="users" />
+			<Action name="institutions" />
+		</Menu>
+
 		<Menu name="settings">
 			<text>Preferences</text>
 			<Action name="configuration" />

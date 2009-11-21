@@ -22,6 +22,7 @@
 #include "mysqlqueries.h"
 #include <sscobjects/user.h>
 #include <sscobjects/language.h>
+#include <sscobjects/institution.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QFile>
@@ -96,6 +97,20 @@ bool DatabaseAccess::isConnected()
 }
 
 /**
+ * Executes the query and returns the success;
+ * If the query fails, the error message is propagated through error()
+ */
+bool DatabaseAccess::executeQuery(QSqlQuery& query)
+{
+	bool succ = query.exec();
+	if (!succ)
+		emit error(query.lastError().text());
+	return succ;
+}
+
+
+
+/**
  * Returns the requested user or NULL if the user was not found
  */
 User* DatabaseAccess::getUser(qint32 id)
@@ -150,11 +165,7 @@ bool DatabaseAccess::addUser(User *u)
 	q.bindValue(":interviewpossible", u->interviewPossible());
 	q.bindValue(":repeatpossible", u->repeatingPossible());
 
-	bool succ = q.exec();
-	if (!succ)
-		qDebug() << "Error: " << q.lastError().text();
-	else qDebug() << "Success!";
-	return succ;
+	return executeQuery(q);
 }
 
 bool DatabaseAccess::modifyUser(User *u)
@@ -178,9 +189,19 @@ bool DatabaseAccess::modifyUser(User *u)
 	q.bindValue(":interviewpossible", u->interviewPossible());
 	q.bindValue(":repeatpossible", u->repeatingPossible());
 
-	return q.exec();
+	qDebug() << "Executing modify query: " << u->userId();
+
+	return executeQuery(q);
 }
 
+bool DatabaseAccess::removeUser(qint32 id)
+{
+	QSqlQuery q = queryProvider->removeUser();
+
+	q.bindValue(":userid", id);
+
+	return executeQuery(q);
+}
 
 QList<Language*>* DatabaseAccess::getLanguages()
 {
@@ -200,6 +221,57 @@ QList<Language*>* DatabaseAccess::getLanguages()
 
 	return ll;
 }
+
+QList<Institution*>* DatabaseAccess::getInstitutions()
+{
+	QList<Institution*>* ins = new QList<Institution*>();
+
+	QSqlQuery q = queryProvider->getInstitutions();
+
+	if (!q.exec()) {
+		emit error(db->lastError().text());
+		return NULL;
+	}
+
+	while (q.next()) {
+		ins->append(new Institution(q.value(0).toInt(),
+			   q.value(1).toString()));
+	}
+
+	return ins;
+}
+
+
+
+bool DatabaseAccess::addInstitution(Institution *i)
+{
+	QSqlQuery q = queryProvider->addInstitution();
+
+	q.bindValue(":name", i->name());
+
+	return executeQuery(q);
+}
+
+bool DatabaseAccess::modifyInstitution(Institution *i)
+{
+	QSqlQuery q = queryProvider->modifyInstitution();
+
+	q.bindValue(":institutionid", i->id());
+	q.bindValue(":name", i->name());
+
+	return executeQuery(q);
+}
+
+bool DatabaseAccess::removeInstitution(qint32 id)
+{
+	QSqlQuery q = queryProvider->removeInstitution();
+
+	q.bindValue(":institutionid", id);
+
+	return executeQuery(q);
+}
+
+
 
 DatabaseAccess::~DatabaseAccess()
 {

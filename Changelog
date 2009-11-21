@@ -39,3 +39,19 @@ sam
 * Adding a new application to the simon suite: sam; The simon acoustic
   modeller is targeted towards power users who want to manually tweak
   their model
+
+ssc
+===
+
+* Adding new application to the simon suite: ssc; The simon sample collector
+  is a client to the sscd (see below). It is a streamlined application
+  to make collecting a large number of samples as easy as possible. ssc and
+  sscd are more likely to be used for research purposes.
+
+
+sscd
+===
+
+* Adding new application to the simon suite: sscd; The simon sample collector
+  daemon is the server component to ssc (sse above). ssc and sscd are more 
+  likely to be used for research purposes.

@@ -24,8 +24,10 @@
 #include <QList>
 
 class QSqlDatabase;
+class QSqlQuery;
 class User;
 class Language;
+class Institution;
 class SSCQueries;
 
 class DatabaseAccess : public QObject
@@ -39,6 +41,8 @@ class DatabaseAccess : public QObject
 		QSqlDatabase *db;
 		SSCQueries *queryProvider;
 
+		bool executeQuery(QSqlQuery& query);
+
 	public:
 		DatabaseAccess(QObject *parent=0);   
 		~DatabaseAccess();
@@ -51,7 +55,13 @@ class DatabaseAccess : public QObject
 		User* getUser(qint32 id);
 		bool addUser(User *u);
 		bool modifyUser(User *u);
+		bool removeUser(qint32 id);
+
 		QList<Language*>* getLanguages();
+		QList<Institution*>* getInstitutions();
+		bool addInstitution(Institution *i);
+		bool modifyInstitution(Institution *i);
+		bool removeInstitution(qint32 id);
 };
 
 #endif

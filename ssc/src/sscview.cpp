@@ -21,6 +21,7 @@
 #include "sscview.h"
 #include "sscconfig.h"
 #include "modifyuser.h"
+#include "manageinstitutions.h"
 #include <sscdaccess/sscdaccess.h>
 
 #include <simonprogresstracking/statusmanager.h>
@@ -58,8 +59,8 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 	connect(ui.cbPatientId, SIGNAL(returnPressed()), this, SLOT(getUser()));
 	connect(ui.cbPatientId, SIGNAL(currentIndexChanged(int)), this, SLOT(getUser()));
 	connect(ui.pbSelectPatient, SIGNAL(clicked()), this, SLOT(getUser()));
-	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
 	connect(ui.pbDetails, SIGNAL(clicked()), this, SLOT(userDetails()));
+	connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
 }
 
 User* SSCView::retrieveUser()
@@ -67,7 +68,7 @@ User* SSCView::retrieveUser()
 	bool ok;
 	qint32 id = ui.cbPatientId->currentText().toInt(&ok);
 	if (!ok) {
-		KMessageBox::information(this, i18n("User IDs are numbers"));
+		KMessageBox::information(this, i18n("Please enter a valid user id."));
 		return NULL;
 	}
 
@@ -109,6 +110,29 @@ void SSCView::setupActions()
 	actionCollection()->addAction("disconnect", disconnectAction);
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 				this, SLOT(disconnectFromServer()));
+
+	KAction* addUserAction = new KAction(this);
+	addUserAction->setText(i18n("Add user"));
+	addUserAction->setIcon(KIcon("list-add-user"));
+	actionCollection()->addAction("adduser", addUserAction);
+	connect(addUserAction, SIGNAL(triggered(bool)),
+				this, SLOT(addUser()));
+
+	KAction* usersAction = new KAction(this);
+	usersAction->setText(i18n("Manage users"));
+	usersAction->setIcon(KIcon("user-properties"));
+	actionCollection()->addAction("users", usersAction);
+	connect(usersAction, SIGNAL(triggered(bool)),
+				this, SLOT(listUsers()));
+
+	KAction* institutionsAction = new KAction(this);
+	institutionsAction->setText(i18n("Manage institutions"));
+	institutionsAction->setIcon(KIcon("user-group-properties"));
+	actionCollection()->addAction("institutions", institutionsAction);
+	connect(institutionsAction, SIGNAL(triggered(bool)),
+				this, SLOT(listInstitutions()));
+
+
 		   
 	KStandardAction::quit(this, SLOT(close()), actionCollection());
 
@@ -133,6 +157,18 @@ void SSCView::showConfigurationDialog()
 	delete configDialog;
 }
 
+void SSCView::listUsers()
+{
+
+}
+
+void SSCView::listInstitutions()
+{
+	ManageInstitutions *manageInstitutions = new ManageInstitutions(this);
+	manageInstitutions->exec();
+	manageInstitutions->deleteLater();
+}
+
 void SSCView::addUser()
 {
 	ModifyUser *m = new ModifyUser(this);
@@ -146,6 +182,16 @@ void SSCView::deleteUser()
 	if (!u) return;
 
 	kDebug() << "Deleting user " << u->surname();
+	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!", 
+					u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) ==
+					KMessageBox::Yes) {
+		if (!SSCDAccess::getInstance()->deleteUser(u))
+			KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccess::getInstance()->lastError()));
+		else {
+			ui.lbPatientName->clear();
+			ui.cbPatientId->clear();
+		}
+	}
 }
 
 void SSCView::userDetails()
@@ -184,13 +230,16 @@ void SSCView::connected()
 
 	ui.pbSelectPatient->setEnabled(true);
 	ui.pbSearchPatient->setEnabled(true);
-	ui.pbAdd->setEnabled(true);
 	ui.pbDetails->setEnabled(true);
 	ui.pbDelete->setEnabled(true);
 
 	ui.pbRepeat->setEnabled(false);
 	ui.pbTraining->setEnabled(false);
 	ui.pbInterview->setEnabled(false);
+
+	actionCollection()->action("adduser")->setEnabled(true);
+	actionCollection()->action("users")->setEnabled(true);
+	actionCollection()->action("institutions")->setEnabled(true);
 }
 
 /**
@@ -202,7 +251,6 @@ void SSCView::disconnected()
 
 	ui.pbSelectPatient->setEnabled(false);
 	ui.pbSearchPatient->setEnabled(false);
-	ui.pbAdd->setEnabled(false);
 	ui.pbDetails->setEnabled(false);
 	ui.pbDelete->setEnabled(false);
 
@@ -210,6 +258,9 @@ void SSCView::disconnected()
 	ui.pbTraining->setEnabled(false);
 	ui.pbInterview->setEnabled(false);
 
+	actionCollection()->action("adduser")->setEnabled(false);
+	actionCollection()->action("users")->setEnabled(false);
+	actionCollection()->action("institutions")->setEnabled(false);
 }
 
 

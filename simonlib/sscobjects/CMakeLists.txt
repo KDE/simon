@@ -9,7 +9,7 @@ set( sscobjects_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/user.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/language.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sscobject.cpp
-	#	${CMAKE_CURRENT_SOURCE_DIR}/institution.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/institution.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/sampletype.cpp

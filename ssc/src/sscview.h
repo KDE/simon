@@ -70,6 +70,9 @@ private slots:
     void deleteUser();
     void userDetails();
 
+    void listUsers();
+    void listInstitutions();
+
 private:
     Ui::SampleCollectorUi ui;
 };

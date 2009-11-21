@@ -34,6 +34,7 @@ class Operation;
 class SSCObject;
 
 class User;
+class Institution;
 
 const qint8 protocolVersion=1;
 
@@ -77,7 +78,14 @@ public:
 	bool addUser(User* u);
 	bool modifyUser(User* u);
 
+	bool deleteUser(User* u);
+
 	QList<Language*> getLanguages(bool *ok);
+
+	QList<Institution*> getInstitutions(bool *ok);
+	bool addInstitution(Institution* i);
+	bool modifyInstitution(Institution* i);
+	bool deleteInstitution(Institution* i);
 
 public slots:
 	void disconnectFromServer();

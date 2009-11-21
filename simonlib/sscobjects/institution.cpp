@@ -17,38 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSCQUERIES_H
-#define SSCQUERIES_H
+#include "institution.h"
+#include <QDataStream>
+#include <QByteArray>
 
-#include <QSqlQuery>
-
-/**
- * \class SSCQueries
- * \brief Base query provider
- *
- * This is the base class for all query provider classes. It contains
- * standard compliant sql queries which should work for most databases.
- * In case an adaption is needed, you can subclass this class and 
- * override the queries in question through dynamic binding.
- */
-class SSCQueries
+Institution::Institution(qint32 id, const QString& name) :
+	m_id(id),
+	m_name(name)
 {
-	public:
-		SSCQueries() {}
-		virtual ~SSCQueries() {}
+}
 
-		virtual QSqlQuery getUser();
-		virtual QSqlQuery addUser();
-		virtual QSqlQuery modifyUser();
-		virtual QSqlQuery removeUser();
+void Institution::deserialize(QByteArray data)
+{
+	QDataStream stream(&data, QIODevice::ReadOnly);
+	stream >> m_id;
+	stream >> m_name;
+}
 
-		virtual QSqlQuery getLanguages();
+QByteArray Institution::serialize()
+{
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-		virtual QSqlQuery getInstitutions();
-		virtual QSqlQuery addInstitution();
-		virtual QSqlQuery modifyInstitution();
-		virtual QSqlQuery removeInstitution();
-};
+	bodyStream << m_id;
+	bodyStream << m_name;
 
-#endif
+	return body;
+}
+
 

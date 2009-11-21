@@ -46,7 +46,10 @@ class ClientSocket : public QSslSocket
 		void sendObjects(SSC::Request code, QList<SSCObject*> objects);
 
 		void sendUser(qint32 id);
+		void removeUser(qint32 id);
 		void sendLanguages();
+		void sendInstitutions();
+		void removeInstitution(qint32 id);
 
 	private slots:
 		void slotSocketError();
