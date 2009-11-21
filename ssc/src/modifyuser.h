@@ -24,6 +24,7 @@
 #include "ui_details.h"
 
 class User;
+class UserInInstitution;
 
 class ModifyUser : protected KDialog {
 
@@ -31,13 +32,23 @@ Q_OBJECT
 
 private:
 	Ui::UserDetails ui;
+
+	QList<UserInInstitution*> uiisCurrent;
+	QList<UserInInstitution*> uiisAdd;
+	QList<UserInInstitution*> uiisDelete;
+
 	void init(User *u);
 	User* createUser(qint32 userId=0);
 	void displayUser(User *u);
 	void displayLanguages();
 
+	void commitUserInInstitutions(qint32 userId);
+	void displayCurrentInstitutionAssociation(qint32 userId);
+
 private slots:
 	void checkIfComplete();
+	void addInstitutionAssociation();
+	void removeInstitutionAssociation();
 
 public:
 	ModifyUser(QWidget *parent=0);

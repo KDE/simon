@@ -146,7 +146,6 @@ QSqlQuery SSCQueries::getUsers(bool includeUserId, bool includeSurname,
 
 	query += " LIMIT 50";
 
-	qDebug() << query;
 	QSqlQuery q;
 	q.prepare(query);
 			
@@ -187,7 +186,6 @@ QSqlQuery SSCQueries::addUser()
 			":communication, :mouthmotoric, "
 			":interviewpossible, :repeatpossible);");
 	return q;
-
 }
 
 /*
@@ -263,6 +261,21 @@ QSqlQuery SSCQueries::getInstitutions()
 	return q;
 }
 
+/*
+ * Returns the selected institution
+ *
+ * Institution::InstitutionId
+ * Institution::Name
+ *
+ * The query contains 1 placeholder: 
+ * 	:institutionid (maps to Institution::InstitutionId)
+ */
+QSqlQuery SSCQueries::getInstitution()
+{
+	QSqlQuery q("SELECT InstitutionId, Name from Institution WHERE Institution = :institutionid");
+	return q;
+}
+
 
 /*
  * Adds a new institution to the database
@@ -306,6 +319,52 @@ QSqlQuery SSCQueries::removeInstitution()
 	return q;
 }
 
+/*
+ * Returns all user - institution associations of the given user
+ *
+ * UserInInstitution::UserId
+ * UserInInstitution::InstitutionId
+ * UserInInstitution::InstitutionReferenceId
+ *
+ * The query contains 1 placeholder: 
+ * 	:userid (maps to UserInInstitution::UserId)
+ */
+QSqlQuery SSCQueries::getUserInstitutionAssociation()
+{
+	QSqlQuery q;
+	q.prepare("SELECT UserId, InstitutionId, InstitutionReferenceId from UserInInstitution WHERE UserId = :userid;");
+	return q;
+}
 
+/*
+ * Adds a new user - institution association to the database
+ *
+ * The query contains 3 placeholders: 
+ * 	:userid (maps to UserInInstitution::UserId)
+ * 	:institutionid (maps to UserInInstitution::InstitutionId)
+ * 	:referenceid (maps to UserInInstitution::InstitutionReferenceId)
+ */
+QSqlQuery SSCQueries::addUserInstitutionAssociation()
+{
+	QSqlQuery q;
+	q.prepare("INSERT INTO UserInInstitution (UserId, InstitutionId, InstitutionReferenceId) "
+			"VALUES (:userid, :institutionid, "
+		  	":referenceid);");
+	return q;
+}
+
+/*
+ * Removes the user - institution association from the database
+ *
+ * The query contains 1 placeholder: 
+ * 	:userid (maps to UserInInstitution::UserId)
+ * 	:institutionid (maps to UserInInstitution::InstitutionId)
+ */
+QSqlQuery SSCQueries::deleteUserInstitutionAssociation()
+{
+	QSqlQuery q;
+	q.prepare("DELETE FROM UserInInstitution WHERE UserId = :userid AND InstitutionId = :institutionid");
+	return q;
+}
 
 

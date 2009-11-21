@@ -17,20 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef MYSQLQUERIES_H
-#define MYSQLQUERIES_H
+#include "userininstitution.h"
+#include <QDataStream>
+#include <QByteArray>
 
-#include "sscqueries.h"
-
-class MYSQLQueries : public SSCQueries
+UserInInstitution::UserInInstitution(qint32 userId, qint32 institutionId, const QString& referenceId) :
+	m_userId(userId),
+	m_institutionId(institutionId),
+	m_referenceId(referenceId)
 {
-	public:
-		MYSQLQueries() {}
-		~MYSQLQueries() {}
+}
 
-		QSqlQuery lastInsertedId();
-};
+void UserInInstitution::deserialize(QByteArray data)
+{
+	QDataStream stream(&data, QIODevice::ReadOnly);
+	stream >> m_userId;
+	stream >> m_institutionId;
+	stream >> m_referenceId;
+}
 
-#endif
+QByteArray UserInInstitution::serialize()
+{
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
+	bodyStream << m_userId;
+	bodyStream << m_institutionId;
+	bodyStream << m_referenceId;
+
+	return body;
+}
 

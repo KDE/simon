@@ -23,6 +23,7 @@
 #include <sscobjects/sscobject.h>
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
+#include <sscobjects/userininstitution.h>
 #include <sscobjects/language.h>
 
 #ifdef bzero
@@ -72,7 +73,7 @@ void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray
 	}
 }
 
-void ClientSocket::sendObject(SSC::Request code, SSCObject* object)
+void ClientSocket::sendObject(qint32 code, SSCObject* object)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -85,7 +86,7 @@ void ClientSocket::sendObject(SSC::Request code, SSCObject* object)
 	write(body);
 }
 
-void ClientSocket::sendObjects(SSC::Request code, QList<SSCObject*> objects)
+void ClientSocket::sendObjects(qint32 code, QList<SSCObject*> objects)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -103,6 +104,22 @@ void ClientSocket::sendObjects(SSC::Request code, QList<SSCObject*> objects)
 
 	write(toWrite);
 	write(body);
+}
+
+/**
+ * Sends a request identified by the request id and with the given message 
+ * (usually an id)
+ */
+bool ClientSocket::sendResponse(qint32 request, qint32 message)
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << request << message;
+	if (write(toWrite) == -1) {
+		return false;
+	}
+
+	return true;
 }
 
 void ClientSocket::sendUser(qint32 id)
@@ -156,6 +173,16 @@ void ClientSocket::removeInstitution(qint32 id)
 	sendCode(SSC::Ok);
 }
 
+void ClientSocket::removeUserInInstitution(qint32 userId, qint32 institutionId)
+{
+	if (!databaseAccess->deleteUserInstitutionAssociation(userId, institutionId)) {
+		sendCode(SSC::UserRetrievalFailed);
+		return;
+	}
+
+	sendCode(SSC::Ok);
+}
+
 void ClientSocket::sendLanguages()
 {
 	QList<Language*>* ll = databaseAccess->getLanguages();
@@ -189,6 +216,24 @@ void ClientSocket::sendInstitutions()
 	qDeleteAll(*ins);
 	delete ins;
 }
+
+void ClientSocket::sendUserInstitutionAssociations(qint32 userId)
+{
+	QList<UserInInstitution*>* uiis = databaseAccess->getUserInstitutionAssociation(userId);
+	if (!uiis) {
+		sendCode(SSC::UserRetrievalFailed);
+		return;
+	}
+	QList<SSCObject*> sendMe;
+
+	foreach (UserInInstitution* uii, *uiis)
+		sendMe << uii;
+
+	sendObjects(SSC::UserInstitutionAssociations, sendMe);
+	qDeleteAll(*uiis);
+	delete uiis;
+}
+
 
 
 void ClientSocket::processRequest()
@@ -228,28 +273,29 @@ void ClientSocket::processRequest()
 				QString referenceId;
 				stream >> referenceId;
 				sendUsers(u, institutionId, referenceId);
+				delete u;
 				break;
 					    }
 
 			case SSC::AddUser:{
 				parseLengthHeader();
 
-				//QByteArray userByte = stream.device()->read(length);
 				QByteArray userByte;
 				stream >> userByte;
 				User *u = new User();
 				u->deserialize(userByte);
 
-				if (databaseAccess->addUser(u))
-					sendCode(SSC::Ok);
+				qint32 userId;
+				if (databaseAccess->addUser(u, userId))
+					sendResponse(SSC::UserAdded, userId);
 				else sendCode(SSC::AddUserFailed);
 
+				delete u;
 				break;
 					  }
 
 			case SSC::ModifyUser: {
 				parseLengthHeader();
-				//QByteArray userByte = stream.device()->read(length);
 				QByteArray userByte;
 				stream >> userByte;
 				User *u = new User();
@@ -259,6 +305,7 @@ void ClientSocket::processRequest()
 				}else {
 					sendCode(SSC::UserRetrievalFailed);
 				}
+				delete u;
 				break;
 					      }
 			case SSC::RemoveUser: {
@@ -280,7 +327,9 @@ void ClientSocket::processRequest()
 			case SSC::AddInstitution:{
 				parseLengthHeader();
 
-				QByteArray institutionByte = stream.device()->read(length);
+				//QByteArray institutionByte = stream.device()->read(length);
+				QByteArray institutionByte;
+				stream >> institutionByte;
 				Institution *i = new Institution();
 				i->deserialize(institutionByte);
 
@@ -288,12 +337,14 @@ void ClientSocket::processRequest()
 					sendCode(SSC::Ok);
 				else sendCode(SSC::AddInstitutionFailed);
 
+				delete i;
 				break;
 					  }
 
 			case SSC::ModifyInstitution: {
 				parseLengthHeader();
-				QByteArray institutionByte = stream.device()->read(length);
+				QByteArray institutionByte;
+				stream >> institutionByte;
 				Institution *i = new Institution();
 				i->deserialize(institutionByte);
 				if (databaseAccess->modifyInstitution(i)) {
@@ -301,6 +352,7 @@ void ClientSocket::processRequest()
 				}else {
 					sendCode(SSC::InstitutionRetrievalFailed);
 				}
+				delete i;
 				break;
 					      }
 			case SSC::RemoveInstitution: {
@@ -311,6 +363,43 @@ void ClientSocket::processRequest()
 				break;
 					   }
 
+			case SSC::GetUserInstitutionAssociations: {
+				qint32 id;
+				waitForMessage(sizeof(qint32), stream, msg);
+				stream >> id;
+				sendUserInstitutionAssociations(id);
+				break;
+								  }
+
+			case SSC::AddUserInstitutionAssociation:{
+				parseLengthHeader();
+
+				QByteArray uiiByte;
+				stream >> uiiByte;
+				UserInInstitution *uii = new UserInInstitution();
+				uii->deserialize(uiiByte);
+
+				int ret = databaseAccess->addUserInstitutionAssociation(uii);
+				switch (ret) {
+					case 0:
+						sendCode(SSC::Ok);
+					case -1:
+						sendCode(SSC::UserRetrievalFailed);
+					case -2:
+						sendCode(SSC::InstitutionRetrievalFailed);
+				}
+				delete uii;
+				break;
+					  }
+
+			case SSC::RemoveUserInstitutionAssociation: {
+				qint32 userId, institutionId;
+				waitForMessage(2*sizeof(qint32), stream, msg);
+				stream >> userId;
+				stream >> institutionId;
+				removeUserInInstitution(userId, institutionId);
+				break;
+					   }
 							
 		}
 		
@@ -320,7 +409,7 @@ void ClientSocket::processRequest()
 }
 
 
-void ClientSocket::sendCode(SSC::Request code)
+void ClientSocket::sendCode(qint32 code)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);

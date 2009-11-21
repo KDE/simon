@@ -35,6 +35,7 @@ class SSCObject;
 
 class User;
 class Institution;
+class UserInInstitution;
 
 const qint8 protocolVersion=1;
 
@@ -76,7 +77,7 @@ public:
 
 	User *getUser(qint32 id);
 	QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
-	bool addUser(User* u);
+	int addUser(User* u);
 	bool modifyUser(User* u);
 
 	bool deleteUser(User* u);
@@ -87,6 +88,11 @@ public:
 	bool addInstitution(Institution* i);
 	bool modifyInstitution(Institution* i);
 	bool deleteInstitution(Institution* i);
+
+
+	bool addUserInInstitution(UserInInstitution* uii);
+	bool deleteUserInInstitution(UserInInstitution* uii);
+	QList<UserInInstitution*> getUserInInstitutions(qint32 userId, bool *ok);
 
 public slots:
 	void disconnectFromServer();
@@ -103,12 +109,11 @@ private:
 private slots:
 	bool sendRequest (qint32 request);
 	bool sendRequest (qint32 request, qint32 message);
+	bool sendRequest (qint32 request, qint32 message, qint32 message2);
 	void sendObject(SSC::Request code, SSCObject* object);
 	void connectedTo();
 	void errorOccured();
 	void timeoutReached();
-
-	void messageReceived();
 };
 
 #endif

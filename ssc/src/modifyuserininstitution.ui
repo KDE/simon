@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>ModifyUserInInstitution</class>
+ <widget class="QWidget" name="ModifyUserInInstitution">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -59,7 +59,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="KLineEdit" name="leUserInIntitution"/>
+    <widget class="KLineEdit" name="leReferenceId"/>
    </item>
   </layout>
  </widget>

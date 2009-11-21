@@ -18,3 +18,11 @@
  */
 
 #include "mysqlqueries.h"
+
+QSqlQuery MYSQLQueries::lastInsertedId()
+{
+	QSqlQuery q("SELECT LAST_INSERT_ID();");
+	return q;
+
+}
+

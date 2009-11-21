@@ -52,10 +52,17 @@ class SSCQueries
 
 		virtual QSqlQuery getLanguages();
 
+		virtual QSqlQuery getInstitution();
 		virtual QSqlQuery getInstitutions();
 		virtual QSqlQuery addInstitution();
 		virtual QSqlQuery modifyInstitution();
 		virtual QSqlQuery removeInstitution();
+
+		virtual QSqlQuery addUserInstitutionAssociation();
+		virtual QSqlQuery deleteUserInstitutionAssociation();
+		virtual QSqlQuery getUserInstitutionAssociation();
+
+		virtual QSqlQuery lastInsertedId()=0;
 };
 
 #endif

@@ -23,6 +23,7 @@
 #include <simonprogresstracking/operation.h>
 #include <sscprotocol/sscprotocol.h>
 #include <sscobjects/institution.h>
+#include <sscobjects/userininstitution.h>
 #include <sscobjects/user.h>
 
 #include <stdio.h>
@@ -62,7 +63,6 @@ SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 {
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
-	connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
 	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
 	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()));
 
@@ -193,7 +193,6 @@ void SSCDAccess::connectedTo()
 
 /**
  * Sends a request identified by the request id
- * Peter Grasch
  */
 bool SSCDAccess::sendRequest(qint32 request)
 {
@@ -208,6 +207,10 @@ bool SSCDAccess::sendRequest(qint32 request)
 	return true;
 }
 
+/**
+ * Sends a request identified by the request id and with the given message 
+ * (usually an id)
+ */
 bool SSCDAccess::sendRequest (qint32 request, qint32 message)
 {
 	QByteArray toWrite;
@@ -221,18 +224,24 @@ bool SSCDAccess::sendRequest (qint32 request, qint32 message)
 	return true;
 }
 
-
 /**
- *	@brief Process the request
- *	
- *	Reads the new data from the socket and processes it
- *	
- *	@author Peter Grasch
+ * Sends a request identified by the request id and with the given messages
+ * (usually ids)
  */
-void SSCDAccess::messageReceived()
+bool SSCDAccess::sendRequest (qint32 request, qint32 message, qint32 message2)
 {
-	//read & respond?
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << request << message << message2;
+	if (socket->write(toWrite) == -1) {
+		lastErrorString = i18n("Couldn't write request");
+		return false;
+	}
+
+	return true;
 }
+
+
 
 void SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
@@ -356,7 +365,8 @@ QList<User*> SSCDAccess::getUsers(User *filterUser, qint32 institutionId, const 
 	return users;
 
 }
-bool SSCDAccess::addUser(User* u)
+
+int SSCDAccess::addUser(User* u)
 {
 	sendObject(SSC::AddUser, u);
 
@@ -366,8 +376,11 @@ bool SSCDAccess::addUser(User* u)
 	qint32 type;
 	stream >> type;
 	switch (type) { 
-		case SSC::Ok: {
-			return true;
+		case SSC::UserAdded: {
+			waitForMessage(sizeof(qint32),stream, msg);
+			qint32 userId;
+			stream >> userId;
+			return userId;
 			      }
 		case SSC::AddUserFailed: {
 			lastErrorString = i18n("Couldn't add user");
@@ -378,7 +391,7 @@ bool SSCDAccess::addUser(User* u)
 			break;
 			 }
 	}
-	return false;
+	return 0;
 }
 
 bool SSCDAccess::modifyUser(User* u)
@@ -596,6 +609,105 @@ bool SSCDAccess::deleteUser(User* u)
 	}
 	return false;
 }
+
+bool SSCDAccess::addUserInInstitution(UserInInstitution* uii)
+{
+	sendObject(SSC::AddUserInstitutionAssociation, uii);
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::UserRetrievalFailed: {
+			lastErrorString = i18n("Couldn't find user");
+			break;
+					 }
+		case SSC::InstitutionRetrievalFailed: {
+			lastErrorString = i18n("Couldn't find institution");
+			break;
+					 }
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+}
+
+bool SSCDAccess::deleteUserInInstitution(UserInInstitution* uii)
+{
+	sendRequest(SSC::RemoveUserInstitutionAssociation, uii->userId(), uii->institutionId());
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::UserRetrievalFailed: {
+			lastErrorString = i18n("Couldn't find record");
+			break;
+			}
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+}
+
+QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool *ok)
+{
+	sendRequest(SSC::GetUserInstitutionAssociations, userId);
+
+	QList<UserInInstitution*> userInInstitutions;
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::UserInstitutionAssociations: {
+			parseLengthHeader();
+
+			qint32 elementCount;
+			stream >> elementCount;
+			for (int i=0; i < elementCount; i++) {
+				QByteArray uiiByte;
+				stream >> uiiByte;
+				UserInInstitution *uii = new UserInInstitution();
+				uii->deserialize(uiiByte);
+				userInInstitutions << uii;
+			}
+		        *ok = true;
+			break;
+			      }
+
+		case SSC::UserRetrievalFailed: {
+			lastErrorString = i18n("User - institution associations could not be read");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return userInInstitutions;
+
+}
+
 
 /**
  *	@brief Destructor

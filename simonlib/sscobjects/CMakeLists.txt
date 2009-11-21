@@ -10,7 +10,7 @@ set( sscobjects_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/language.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sscobject.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/institution.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/sampletype.cpp
 )
@@ -20,9 +20,9 @@ set( sscobjects_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/sscobjects_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/user.h
   ${CMAKE_CURRENT_SOURCE_DIR}/language.cpp
- ${CMAKE_CURRENT_SOURCE_DIR}/sscobject.h
-  #  ${CMAKE_CURRENT_SOURCE_DIR}/institution.h
-  #${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/sscobject.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/institution.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/userininstitution.h
   #${CMAKE_CURRENT_SOURCE_DIR}/sample.h
   #${CMAKE_CURRENT_SOURCE_DIR}/sampletype.h
 )

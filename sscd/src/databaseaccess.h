@@ -22,10 +22,12 @@
 
 #include <QObject>
 #include <QList>
+#include <QMutex>
 
 class QSqlDatabase;
 class QSqlQuery;
 class User;
+class UserInInstitution;
 class Language;
 class Institution;
 class SSCQueries;
@@ -40,12 +42,17 @@ class DatabaseAccess : public QObject
 	private:
 		QSqlDatabase *db;
 		SSCQueries *queryProvider;
+		QMutex transactionLock;
 
 		bool executeQuery(QSqlQuery& query);
+		int getLastInsertedId();
 
 	public:
 		DatabaseAccess(QObject *parent=0);   
 		~DatabaseAccess();
+
+		void lockTranscation();
+		void unlockTransaction();
 
 		bool init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password);
 		void closeConnection();
@@ -54,15 +61,22 @@ class DatabaseAccess : public QObject
 
 		User* getUser(qint32 id);
 		QList<User*>* getUsers(User* filterUser, qint32 institutionId, const QString& referenceId);
-		bool addUser(User *u);
+		bool addUser(User *u, int& userId);
 		bool modifyUser(User *u);
 		bool removeUser(qint32 id);
+		int getLastUserId();
 
 		QList<Language*>* getLanguages();
+		Institution* getInstitution(qint32 id);
 		QList<Institution*>* getInstitutions();
 		bool addInstitution(Institution *i);
 		bool modifyInstitution(Institution *i);
 		bool removeInstitution(qint32 id);
+
+
+		int addUserInstitutionAssociation(UserInInstitution *uii);
+		bool deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId);
+		QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
 };
 
 #endif

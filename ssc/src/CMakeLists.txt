@@ -4,6 +4,7 @@ set(ssc_SRCS
    main.cpp
    sscview.cpp
    modifyuser.cpp
+   modifyuserininstitution.cpp
    manageinstitutions.cpp
    manageusers.cpp
    institutionmodel.cpp

@@ -91,7 +91,6 @@ void ManageUsers::findInstitution()
 	}
 
 	manageInstitutions->deleteLater();
-
 }
 
 User* ManageUsers::getCurrentlySelectedUser()

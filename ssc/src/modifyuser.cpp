@@ -18,14 +18,16 @@
  */
 
 #include "modifyuser.h"
+#include "modifyuserininstitution.h"
 
 #include <sscdaccess/sscdaccess.h>
 #include <sscobjects/user.h>
+#include <sscobjects/userininstitution.h>
 #include <sscobjects/language.h>
-#include <KUrl>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <KDebug>
 #include <KMessageBox>
-#include <KKeySequenceWidget>
 #include <KDialogButtonBox>
 
 ModifyUser::ModifyUser(QWidget* parent) : KDialog(parent)
@@ -43,9 +45,15 @@ ModifyUser::ModifyUser(QWidget* parent) : KDialog(parent)
 	connect(ui.leZIPCode, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 	connect(ui.teEducation, SIGNAL(textChanged()), this, SLOT(checkIfComplete()));
 	connect(ui.leCurrentOccupation, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+
+	connect(ui.pbAddInstitution, SIGNAL(clicked()), this, SLOT(addInstitutionAssociation()));
+	connect(ui.pbRemoveInstitution, SIGNAL(clicked()), this, SLOT(removeInstitutionAssociation()));
 	
 	checkIfComplete();
 	setCaption( i18n("") );
+
+	ui.twInstitutions->verticalHeader()->hide();
+	ui.twInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 void ModifyUser::checkIfComplete()
@@ -69,7 +77,6 @@ void ModifyUser::deleteLater()
 
 User* ModifyUser::createUser(qint32 userId)
 {
-	kDebug() << "Language: " << ui.cbMothersTongue->itemData(ui.cbMothersTongue->currentIndex(), Qt::UserRole).toString();
 	User *u = new User(userId,
 			ui.leSurname->text(),
 			ui.leGivenName->text(),
@@ -112,6 +119,73 @@ void ModifyUser::displayUser(User *u)
 	ui.cbRepeatingPossible->setChecked(u->repeatingPossible());
 }
 
+void ModifyUser::addInstitutionAssociation()
+{
+	ModifyUserInInstitution *modifyUserInInstitution = new ModifyUserInInstitution(this);
+	UserInInstitution *uiiN = modifyUserInInstitution->add();
+
+	foreach (UserInInstitution* uii, uiisAdd) {
+		//if already in here delete the new one
+		if ((uii->institutionId() == uiiN->institutionId()) && (uii->referenceId() == uiiN->referenceId())) {
+			delete uiiN;
+			return; // can't also be in uiisDelete; we checked when we addded it to uiisToAdd...
+		}
+	}
+
+
+	bool dontAdd = false;
+	foreach (UserInInstitution* uii, uiisDelete) {
+		//if in here delete the new one and simply remove the delete command
+		if ((uii->institutionId() == uiiN->institutionId()) && (uii->referenceId() == uiiN->referenceId())) {
+			dontAdd = true;
+			uiisDelete.removeAll(uii);
+			delete uii;
+		}
+	}
+
+	if (!dontAdd)
+		uiisAdd << uiiN;
+
+	int index = ui.twInstitutions->rowCount();
+
+	ui.twInstitutions->setRowCount(index+1);
+	QTableWidgetItem *institutionItem = new QTableWidgetItem(QString::number(uiiN->institutionId()));
+	institutionItem->setData(Qt::UserRole, QVariant::fromValue(uiiN));
+	
+	ui.twInstitutions->setItem(index, 0, institutionItem);
+	ui.twInstitutions->setItem(index, 1, new QTableWidgetItem(uiiN->referenceId()));
+
+	if (dontAdd)
+		delete uiiN;
+}
+
+void ModifyUser::removeInstitutionAssociation()
+{
+	QTableWidgetItem *selectedItem = ui.twInstitutions->item(ui.twInstitutions->currentRow(), 0);
+	if (!selectedItem) return;
+
+	if (!KMessageBox::questionYesNo(this, i18n("Do you really want to remove this user - institution association?")) == KMessageBox::Yes)
+		return;
+
+	UserInInstitution *uiiN = selectedItem->data(Qt::UserRole).value<UserInInstitution*>();
+
+	if (uiisAdd.removeAll(uiiN) == 0)
+		uiisDelete << uiiN;
+	else kDebug() << "Removed at least one uii to add";
+
+	//move up each item after this item
+	int thisRow = selectedItem->row();
+
+	delete ui.twInstitutions->takeItem(thisRow, 0);
+	delete ui.twInstitutions->takeItem(thisRow, 1);
+
+	for (int i=thisRow; i < ui.twInstitutions->rowCount()-1; i++)
+		for (int j=0; j < 2; j++)
+			ui.twInstitutions->setItem(i, j, ui.twInstitutions->takeItem(i+1, j));
+
+	ui.twInstitutions->setRowCount(ui.twInstitutions->rowCount()-1);
+}
+
 void ModifyUser::displayLanguages()
 {
 	ui.cbMothersTongue->clear();
@@ -132,19 +206,47 @@ void ModifyUser::displayLanguages()
 	ui.cbMothersTongue->setCurrentIndex(ui.cbMothersTongue->findData("de"));
 }
 
+void ModifyUser::displayCurrentInstitutionAssociation(qint32 userId)
+{
+	bool ok;
+	QList<UserInInstitution*> uiis = SSCDAccess::getInstance()->getUserInInstitutions(userId, &ok);
+	if (!ok) {
+		KMessageBox::sorry(this, i18n("Couldn't retrieve user - institution associations: %1", SSCDAccess::getInstance()->lastError()));
+		return;
+	}
+	kDebug() << "Received " << uiis.count() << " associations...";
+
+	ui.twInstitutions->setRowCount(uiis.count());
+	for (int i=0; i < uiis.count(); i++) {
+		QTableWidgetItem *institutionItem = new QTableWidgetItem(QString::number((uiis[i])->institutionId()));
+		institutionItem->setData(Qt::UserRole, QVariant::fromValue(uiis[i]));
+
+		ui.twInstitutions->setItem(i, 0, institutionItem);
+		ui.twInstitutions->setItem(i, 1, new QTableWidgetItem((uiis[i])->referenceId()));
+	}
+}
+
 int ModifyUser::newUser()
 {
 	displayLanguages();
 
 	int ret = KDialog::exec();
 	if (ret) {
+		bool succ = false;
 		//creating
 		User *newUser = createUser();
-		if (!SSCDAccess::getInstance()->addUser(newUser)) {
+		int userId = SSCDAccess::getInstance()->addUser(newUser);
+		if (!userId) {
 			KMessageBox::sorry(this, i18n("Couldn't add user: %1", SSCDAccess::getInstance()->lastError()));
-			return false;
+			succ = false;
 		}
+
+		if (succ)
+			commitUserInInstitutions(userId);
+				
 		delete newUser;
+
+		if (!succ) ret = 0;
 	}
 	return ret;
 }
@@ -153,18 +255,49 @@ int ModifyUser::modifyUser(User *u)
 {
 	displayLanguages();
 	displayUser(u);
+	displayCurrentInstitutionAssociation(u->userId());
 
 	int ret = KDialog::exec();
 	if (ret) {
 		//creating
+		bool succ = true;
 		User *newUser = createUser(u->userId());
 		if (!SSCDAccess::getInstance()->modifyUser(newUser)) {
 			KMessageBox::sorry(this, i18n("Couldn't modify user \"%1\": %2", u->userId(), SSCDAccess::getInstance()->lastError()));
-			return false;
+			succ = false;
 		}
-		delete newUser;	
+
+		if (succ)
+			commitUserInInstitutions(u->userId());
+
+		delete newUser;
+
+		if (!succ) ret = 0;
 	}
 	return ret;
+}
+
+void ModifyUser::commitUserInInstitutions(qint32 userId)
+{
+	foreach (UserInInstitution* uii, uiisDelete) {
+		uii->setUserId(userId);
+		if (!SSCDAccess::getInstance()->deleteUserInInstitution(uii)) {
+			KMessageBox::sorry(this, i18n("Couldn't delete user - institution association: %1", SSCDAccess::getInstance()->lastError()));
+		}
+	}
+	foreach (UserInInstitution* uii, uiisAdd) {
+		uii->setUserId(userId);
+		if (!SSCDAccess::getInstance()->addUserInInstitution(uii)) {
+			KMessageBox::sorry(this, i18n("Couldn't add user - institution association: %1", SSCDAccess::getInstance()->lastError()));
+		}
+	}
+
+	qDeleteAll(uiisAdd);
+	qDeleteAll(uiisDelete);
+	qDeleteAll(uiisCurrent);
+	uiisAdd.clear();
+	uiisDelete.clear();
+	uiisCurrent.clear();
 }
 
 ModifyUser::~ModifyUser()

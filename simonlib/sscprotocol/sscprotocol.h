@@ -62,11 +62,14 @@ namespace SSC
 		UserInstitutionAssociation=6028,
 		RemoveUserInstitutionAssociation=6029,
 		AddUserInstitutionAssociation=6030,
-		AddUser=6031,
-		AddUserFailed=6032,
-		ModifyUser=6033,
-		RemoveUser=6034,
-		RemoveUserFailed=6035,
+		GetUserInstitutionAssociations=6031,
+		UserInstitutionAssociations=6032,
+		AddUser=6033,
+		AddUserFailed=6034,
+		UserAdded=6035,
+		ModifyUser=6036,
+		RemoveUser=6037,
+		RemoveUserFailed=6038,
 
 		Sample=6041
 	};

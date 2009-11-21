@@ -17,20 +17,38 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef MYSQLQUERIES_H
-#define MYSQLQUERIES_H
+#ifndef SSC_USERININSTITUTION_H
+#define SSC_USERININSTITUTION_H
 
-#include "sscqueries.h"
+#include <QString>
+#include <QMetaType>
+#include "sscobject.h"
+#include "sscobjects_export.h"
 
-class MYSQLQueries : public SSCQueries
-{
-	public:
-		MYSQLQueries() {}
-		~MYSQLQueries() {}
+class SSCOBJECTS_EXPORT UserInInstitution : public SSCObject {
 
-		QSqlQuery lastInsertedId();
+private:
+	qint32 m_userId;
+	qint32 m_institutionId;
+	QString m_referenceId;
+
+public:
+	UserInInstitution(qint32 userId, qint32 institutionId, const QString& referenceId);
+	UserInInstitution() {}
+
+	void deserialize(QByteArray data);
+	QByteArray serialize();
+
+	qint32 userId() { return m_userId; }
+	qint32 institutionId() { return m_institutionId; }
+	QString referenceId() { return m_referenceId; }
+
+	void setUserId(qint32 userId) { m_userId = userId; }
+
+	~UserInInstitution() {}
 };
 
-#endif
+Q_DECLARE_METATYPE(UserInInstitution*);
 
+#endif
 

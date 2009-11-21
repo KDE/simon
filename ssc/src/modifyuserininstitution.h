@@ -17,18 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef MYSQLQUERIES_H
-#define MYSQLQUERIES_H
+#ifndef SSC_MODIFYUSERININSTITUTION_H
+#define SSC_MODIFYUSERININSTITUTION_H
 
-#include "sscqueries.h"
+#include <KDialog>
+#include "ui_modifyuserininstitution.h"
 
-class MYSQLQueries : public SSCQueries
-{
-	public:
-		MYSQLQueries() {}
-		~MYSQLQueries() {}
+class User;
+class Institution;
+class UserInInstitution;
 
-		QSqlQuery lastInsertedId();
+class ModifyUserInInstitution : protected KDialog {
+
+Q_OBJECT
+
+private:
+	Ui::ModifyUserInInstitution ui;
+
+private slots:
+	void checkIfComplete();
+	void findInstitution();
+
+public:
+	ModifyUserInInstitution(QWidget *parent=0);
+	~ModifyUserInInstitution();
+	UserInInstitution* add();
+
+public slots:
+	void deleteLater();
+
 };
 
 #endif

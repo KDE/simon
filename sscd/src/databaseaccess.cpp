@@ -23,19 +23,21 @@
 #include <sscobjects/user.h>
 #include <sscobjects/language.h>
 #include <sscobjects/institution.h>
+#include <sscobjects/userininstitution.h>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QFile>
 #include <QDebug>
 #include <QVariant>
 #include <QSqlDatabase>
+#include <QMutexLocker>
 
 
 /*
  * Constructor
  */
 DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
-	db(0), queryProvider(0)
+	db(0), queryProvider(0), transactionLock(QMutex::Recursive)
 {
 }
 
@@ -64,7 +66,7 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
 	db->setDatabaseName(dbName);
 
 	if (type == "QMYSQL") queryProvider = new MYSQLQueries();
-	else queryProvider = new SSCQueries();
+	//else queryProvider = new SSCQueries();
 
 	if (!db->open()) {	//open database
 		emit error(db->lastError().text());
@@ -75,6 +77,26 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
 	return true;
 }
 
+/**
+ * Locks the transaction mutex; Use this to execute multiple queries (even accross multiple function calls)
+ * that absolutely need to be sequential (prime example: LAST_INSERT_ID())
+ */
+void DatabaseAccess::lockTranscation()
+{
+	transactionLock.lock();
+}
+
+/**
+ * Unlocks the transaction mutex; Use this to execute multiple queries (even accross multiple function calls)
+ * that absolutely need to be sequential (prime example: LAST_INSERT_ID())
+ *
+ * You MUST NOT FORGET to call this after you called lockTransaction or ALL client threads will HANG on their
+ * next database request (forever).
+ */
+void DatabaseAccess::unlockTransaction()
+{
+	transactionLock.unlock();
+}
 
 
 /*
@@ -108,6 +130,16 @@ bool DatabaseAccess::executeQuery(QSqlQuery& query)
 	return succ;
 }
 
+/**
+ * Asks the database for the last inserted auto-increment id
+ */
+int DatabaseAccess::getLastInsertedId()
+{
+	QSqlQuery q = queryProvider->lastInsertedId();
+	if (!executeQuery(q) || !q.next()) return 0;
+
+	return q.value(0).toInt();
+}
 
 
 /**
@@ -115,6 +147,7 @@ bool DatabaseAccess::executeQuery(QSqlQuery& query)
  */
 User* DatabaseAccess::getUser(qint32 id)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->getUser();
 
 	q.bindValue(":userid", id);
@@ -150,6 +183,7 @@ User* DatabaseAccess::getUser(qint32 id)
  */
 QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QString& referenceId)
 {
+	QMutexLocker l(&transactionLock);
 	bool includeUserId = (u->userId() > 0);
 	bool includeSurname = (!u->surname().isEmpty());
 	bool includeGivenName = (!u->givenName().isEmpty());
@@ -220,12 +254,11 @@ QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QStr
 	}
 
 	return users;
-
-
 }
 
-bool DatabaseAccess::addUser(User *u)
+bool DatabaseAccess::addUser(User *u, int& userId)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->addUser();
 
 	q.bindValue(":surname", u->surname());
@@ -244,11 +277,80 @@ bool DatabaseAccess::addUser(User *u)
 	q.bindValue(":interviewpossible", u->interviewPossible());
 	q.bindValue(":repeatpossible", u->repeatingPossible());
 
+	if (!executeQuery(q)) return false;
+
+	userId = getLastInsertedId();
+	return true;
+}
+
+/**
+ * Adds a new user - institution association; If it fails, this function will return
+ * an error code:
+ * 	0: success
+ * 	-1: wrong user id
+ * 	-2: wrong institution id
+ */
+int DatabaseAccess::addUserInstitutionAssociation(UserInInstitution *uii)
+{
+	QMutexLocker l(&transactionLock);
+	QSqlQuery q = queryProvider->addUserInstitutionAssociation();
+
+	q.bindValue(":userid", uii->userId());
+	q.bindValue(":institutionid", uii->institutionId());
+	q.bindValue(":referenceid", uii->referenceId());
+
+	if (!executeQuery(q)) {
+		//determine cause of failure
+		Institution *i = getInstitution(uii->institutionId());
+		if (i) {
+			delete i;
+			return -1;
+		}
+		return -2;
+	}
+	return 0;
+}
+
+
+/**
+ * Deletes a user - institution association
+ */
+bool DatabaseAccess::deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId)
+{
+	QMutexLocker l(&transactionLock);
+	QSqlQuery q = queryProvider->deleteUserInstitutionAssociation();
+
+	q.bindValue(":userid", userId);
+	q.bindValue(":institutionid", institutionId);
+
 	return executeQuery(q);
 }
 
+
+QList<UserInInstitution*>* DatabaseAccess::getUserInstitutionAssociation(qint32 userId)
+{
+	QMutexLocker l(&transactionLock);
+	QList<UserInInstitution*>* uiis = new QList<UserInInstitution*>();
+
+	QSqlQuery q = queryProvider->getUserInstitutionAssociation();
+	q.bindValue(":userid", userId);
+
+	qDebug() << "Executing query...";
+	if (!executeQuery(q)) return NULL;
+	qDebug() << "Survived query...";
+
+	while (q.next()) {
+		uiis->append(new UserInInstitution(q.value(0).toInt(),
+			   q.value(1).toInt(), q.value(2).toString()));
+	}
+
+	return uiis;
+}
+
+
 bool DatabaseAccess::modifyUser(User *u)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->modifyUser();
 
 	q.bindValue(":userid", u->userId());
@@ -273,6 +375,7 @@ bool DatabaseAccess::modifyUser(User *u)
 
 bool DatabaseAccess::removeUser(qint32 id)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->removeUser();
 
 	q.bindValue(":userid", id);
@@ -282,14 +385,13 @@ bool DatabaseAccess::removeUser(qint32 id)
 
 QList<Language*>* DatabaseAccess::getLanguages()
 {
+	QMutexLocker l(&transactionLock);
 	QList<Language*>* ll = new QList<Language*>();
 
 	QSqlQuery q = queryProvider->getLanguages();
 
-	if (!q.exec()) {
-		emit error(db->lastError().text());
+	if (!executeQuery(q)) 
 		return NULL;
-	}
 
 	while (q.next()) {
 		ll->append(new Language(q.value(0).toString(),
@@ -299,16 +401,26 @@ QList<Language*>* DatabaseAccess::getLanguages()
 	return ll;
 }
 
+Institution* DatabaseAccess::getInstitution(qint32 id)
+{
+	QMutexLocker l(&transactionLock);
+	
+	QSqlQuery q = queryProvider->getInstitutions();
+	q.bindValue(":institutionid", id);
+
+	if (!executeQuery(q) || !q.first()) return NULL;
+
+	return new Institution(q.value(0).toInt(), q.value(1).toString());
+}
+
 QList<Institution*>* DatabaseAccess::getInstitutions()
 {
+	QMutexLocker l(&transactionLock);
 	QList<Institution*>* ins = new QList<Institution*>();
 
 	QSqlQuery q = queryProvider->getInstitutions();
 
-	if (!q.exec()) {
-		emit error(db->lastError().text());
-		return NULL;
-	}
+	if (!executeQuery(q)) return NULL;
 
 	while (q.next()) {
 		ins->append(new Institution(q.value(0).toInt(),
@@ -322,6 +434,7 @@ QList<Institution*>* DatabaseAccess::getInstitutions()
 
 bool DatabaseAccess::addInstitution(Institution *i)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->addInstitution();
 
 	q.bindValue(":name", i->name());
@@ -331,6 +444,7 @@ bool DatabaseAccess::addInstitution(Institution *i)
 
 bool DatabaseAccess::modifyInstitution(Institution *i)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->modifyInstitution();
 
 	q.bindValue(":institutionid", i->id());
@@ -341,6 +455,7 @@ bool DatabaseAccess::modifyInstitution(Institution *i)
 
 bool DatabaseAccess::removeInstitution(qint32 id)
 {
+	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->removeInstitution();
 
 	q.bindValue(":institutionid", id);

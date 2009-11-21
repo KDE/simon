@@ -42,9 +42,10 @@ class ClientSocket : public QSslSocket
 		DatabaseAccess *databaseAccess;
 		
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-		void sendCode(SSC::Request code);
-		void sendObject(SSC::Request code, SSCObject* object);
-		void sendObjects(SSC::Request code, QList<SSCObject*> objects);
+		void sendCode(qint32 code);
+		bool sendResponse(qint32 code, qint32 response);
+		void sendObject(qint32 code, SSCObject* object);
+		void sendObjects(qint32 code, QList<SSCObject*> objects);
 
 		void sendUser(qint32 id);
 		void sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId);
@@ -52,6 +53,8 @@ class ClientSocket : public QSslSocket
 		void sendLanguages();
 		void sendInstitutions();
 		void removeInstitution(qint32 id);
+		void removeUserInInstitution(qint32 userId, qint32 institutionId);
+		void sendUserInstitutionAssociations(qint32 userId);
 
 	private slots:
 		void slotSocketError();
