@@ -75,6 +75,7 @@ public:
 	QString lastError();
 
 	User *getUser(qint32 id);
+	QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
 	bool addUser(User* u);
 	bool modifyUser(User* u);
 

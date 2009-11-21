@@ -18,6 +18,7 @@
  */
 
 #include "sscqueries.h"
+#include <QDebug>
 
 /*
  * Returns the information on the user; This includes a human readable language name
@@ -55,6 +56,104 @@ QSqlQuery SSCQueries::getUser()
 			"Language l ON u.MotherTongue=l.LanguageId WHERE u.UserId = :userid");
 	return q;
 }
+
+/*
+ * Returns the information on the users matching the given criteria; This 
+ * includes a human readable language name from the language table.
+ *
+ * The placeholders can be controlled with the appropriate flags. To 
+ * limit the users by their sex for example, set includeSex = true and 
+ * you will get the placeholder :sex which you can bind with the desired value
+ *
+ * The return set will be limited to 50 entries!
+ *
+ * The returned view has the following fields:
+ *
+ * User::UserID
+ * User::Surname
+ * User::Forename
+ * User::Sex
+ * User::BirthYear
+ * User::ZIPCode
+ * User::Education
+ * User::Occupation
+ * User::MotherTongue (Alias: MotherTongueID)
+ * Language::Name (Alias: MotherTongUser::)
+ * User::Diagnosis
+ * User::Orientation
+ * User::MotorFunction
+ * User::Communciation
+ * User::MouthMotoric
+ * User::InterviewPossible
+ * User::RepeatPossible
+ *
+ * The query contains (up to) 18 placeholders: 
+ * 	:userid (maps to User::UserID)
+ */
+
+QSqlQuery SSCQueries::getUsers(bool includeUserId, bool includeSurname,
+				bool includeGivenName, bool includeSex, bool includeBirthYear,
+				bool includeZipcode, bool includeEducation, bool includeCurrentOccupation,
+				bool includeMotherTongue, bool includeDiagnosis, bool includeOrientation,
+				bool includeMotorfunction, bool includeCommunication, bool includeMouthMotoric,
+				bool includeInterviewPossible, bool includeRepeatingPossible, bool includeInstitutionId,
+				bool includeReferenceId)
+{
+	QString query = "SELECT u.UserId, u.Surname, u.Forename, u.Sex, u.BirthYear, "
+			"u.ZIPCode, u.Education, u.Occupation, "
+			"u.MotherTongue as MotherTongueID, l.Name as MotherTongue, "
+			"u.Diagnosis, u.Orientation, u.MotorFunction, u.Communication, u.MouthMotoric, "
+			"u.InterviewPossible, u.RepeatPossible from User u INNER JOIN "
+			"Language l ON u.MotherTongue=l.LanguageId LEFT OUTER JOIN UserInInstitution "
+			"uii ON u.UserId = uii.UserId WHERE 1=1 ";
+
+	if (includeUserId)
+		query += " AND u.UserId = :userid";
+	if (includeSurname)
+		query += " AND u.Surname LIKE :surname";
+	if (includeGivenName)
+		query += " AND u.Forename LIKE :forename";
+	if (includeSex)
+		query += " AND u.Sex = :sex";
+	if (includeBirthYear)
+		query += " AND u.BirthYear = :birthyear";
+	if (includeZipcode)
+		query += " AND u.ZIPCode LIKE :zipcode";
+	if (includeEducation)
+		query += " AND u.Education LIKE :education";
+	if (includeCurrentOccupation)
+		query += " AND u.Occupation LIKE :occupation";
+	if (includeMotherTongue)
+		query += " AND u.MotherTongue = :mothertongue";
+	if (includeDiagnosis)
+		query += " AND u.Diagnosis LIKE :diagnosis";
+	if (includeOrientation)
+		query += " AND u.Orientation = :orientation";
+	if (includeMotorfunction)
+		query += " AND u.MotorFunction = :motorfunction";
+	if (includeCommunication)
+		query += " AND u.Communication = :communication";
+	if (includeMouthMotoric)
+		query += " AND u.MouthMotoric LIKE :mouthmotoric";
+	if (includeInterviewPossible)
+		query += " AND u.InterviewPossible = :interviewpossible";
+	if (includeRepeatingPossible)
+		query += " AND u.RepeatPossible = :repeatpossible";
+	if (includeInstitutionId)
+		query += " AND uii.InstitutionId = :institutionid";
+	if (includeReferenceId)
+		query += " AND uii.InstitutionReferenceId = :referenceid";
+
+	query += " LIMIT 50";
+
+	qDebug() << query;
+	QSqlQuery q;
+	q.prepare(query);
+			
+	return q;
+
+}
+
 
 /*
  * Adds a new user to the database

@@ -22,9 +22,9 @@
 #include "sscconfig.h"
 #include "modifyuser.h"
 #include "manageinstitutions.h"
+#include "manageusers.h"
 #include <sscdaccess/sscdaccess.h>
 
-#include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>
 
@@ -59,6 +59,7 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 	connect(ui.cbPatientId, SIGNAL(returnPressed()), this, SLOT(getUser()));
 	connect(ui.cbPatientId, SIGNAL(currentIndexChanged(int)), this, SLOT(getUser()));
 	connect(ui.pbSelectPatient, SIGNAL(clicked()), this, SLOT(getUser()));
+	connect(ui.pbSearchPatient, SIGNAL(clicked()), this, SLOT(findUser()));
 	connect(ui.pbDetails, SIGNAL(clicked()), this, SLOT(userDetails()));
 	connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
 }
@@ -80,6 +81,11 @@ User* SSCView::retrieveUser()
 	return u;
 }
 
+void SSCView::displayUser(User* u)
+{
+	ui.lbPatientName->setText(u->surname()+", "+u->givenName());
+}
+
 /*
  * Fetches user information from sscd; Fired after the user enters the id in the user input field
  */
@@ -88,8 +94,19 @@ void SSCView::getUser()
 	User *u = retrieveUser();
 	if (!u) return;
 
-	ui.lbPatientName->setText(u->surname()+", "+u->givenName());
+	displayUser(u);
 	delete u;
+}
+
+void SSCView::findUser()
+{
+	ManageUsers *manageUsers = new ManageUsers(this);
+	User *u = manageUsers->getUser();
+	if (u) {
+		displayUser(u);
+		ui.cbPatientId->setEditText(QString::number(u->userId()));
+	}
+	manageUsers->deleteLater();
 }
 
 /**
@@ -159,7 +176,9 @@ void SSCView::showConfigurationDialog()
 
 void SSCView::listUsers()
 {
-
+	ManageUsers *manageUsers = new ManageUsers(this);
+	manageUsers->exec();
+	manageUsers->deleteLater();
 }
 
 void SSCView::listInstitutions()
@@ -181,7 +200,6 @@ void SSCView::deleteUser()
 	User *u = retrieveUser();
 	if (!u) return;
 
-	kDebug() << "Deleting user " << u->surname();
 	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!", 
 					u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) ==
 					KMessageBox::Yes) {
@@ -200,7 +218,9 @@ void SSCView::userDetails()
 	if (!u) return;
 
 	ModifyUser *m = new ModifyUser(this);
-	m->modifyUser(u);
+	if (m->modifyUser(u))
+		getUser();
+
 	m->deleteLater();
 }
 

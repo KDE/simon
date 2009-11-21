@@ -38,6 +38,14 @@ class SSCQueries
 		virtual ~SSCQueries() {}
 
 		virtual QSqlQuery getUser();
+		virtual QSqlQuery getUsers(bool includeUserId, bool includeSurname,
+				bool includeGivenName, bool includeSex, bool includeBirthYear,
+				bool includeZipcode, bool includeEducation, bool includeCurrentOccupation,
+				bool includeMotherTongue, bool includeDiagnosis, bool includeOrientation,
+				bool includeMotorfunction, bool includeCommunication, bool includeMouthMotoric,
+				bool includeInterviewPossible, bool includeRepeatingPossible, bool includeInstitutionId,
+				bool includeReferenceId);
+
 		virtual QSqlQuery addUser();
 		virtual QSqlQuery modifyUser();
 		virtual QSqlQuery removeUser();

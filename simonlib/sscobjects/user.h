@@ -21,6 +21,7 @@
 #define SSC_USER_H
 
 #include <QString>
+#include <QDebug>
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
@@ -42,8 +43,8 @@ private:
 	qint8 m_motorFunction;
 	qint8 m_communication;
 	QString m_mouthMotoric;
-	bool m_interviewPossible;
-	bool m_repeatingPossible;
+	qint8 m_interviewPossible;
+	qint8 m_repeatingPossible;
 	
 public:
 	User(qint32 userId,QString surname,
@@ -53,7 +54,7 @@ public:
 		QString motherTongueId,QString motherTongue,
 		QString diagnosis,qint8 orientation,
 		qint8 motorFunction,qint8 communication,QString mouthMotoric,
-		bool interviewPossible,bool repeatingPossible);
+		qint8 interviewPossible,qint8 repeatingPossible);
 
 	User() {}
 
@@ -75,8 +76,8 @@ public:
 	qint8 communication() { return m_communication; }
 	qint8 motorFunction() { return m_motorFunction; }
 	QString mouthMotoric() { return m_mouthMotoric; }
-	bool interviewPossible() { return m_interviewPossible; }
-	bool repeatingPossible() { return m_repeatingPossible; }
+	qint8 interviewPossible() { return m_interviewPossible; }
+	qint8 repeatingPossible() { return m_repeatingPossible; }
 
 	~User() {}
 };

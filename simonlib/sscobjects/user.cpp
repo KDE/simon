@@ -30,7 +30,7 @@ User::User(qint32 userId,QString surname,
 		QString diagnosis,qint8 orientation,
 		qint8 motorFunction,qint8 communication,
 		QString mouthMotoric,
-		bool interviewPossible,bool repeatingPossible) :
+		qint8 interviewPossible,qint8 repeatingPossible) :
 	m_userId(userId),
 	m_surname(surname),
 	m_givenName(givenName),
@@ -95,8 +95,6 @@ QByteArray User::serialize()
 	bodyStream << m_mouthMotoric;
 	bodyStream << m_interviewPossible;
 	bodyStream << m_repeatingPossible;
-
-	qDebug() << "User has been serialized: " << body;
 	return body;
 }
 

@@ -156,8 +156,7 @@ Institution* ManageInstitutions::getInstitution()
 	ui.wgModify->hide();
 	int ret = KDialog::exec();
 	if (ret) {
-		getCurrentlySelectedInstitution()
-		return NULL;
+		return getCurrentlySelectedInstitution();
 	}
 	return NULL;
 }
@@ -169,5 +168,7 @@ void ManageInstitutions::deleteLater()
 
 ManageInstitutions::~ManageInstitutions()
 {
+	model->deleteLater();
+	proxyModel->deleteLater();
 }
 

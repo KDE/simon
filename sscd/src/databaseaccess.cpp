@@ -128,7 +128,7 @@ User* DatabaseAccess::getUser(qint32 id)
 	return new User(q.value(0).toInt(),
 			   q.value(1).toString(),
 			   q.value(2).toString(),
-			   q.value(3).toChar(),
+			   q.value(3).toString().at(0),
 			   q.value(4).toInt(),
 			   q.value(5).toString(),
 			   q.value(6).toString(),
@@ -144,6 +144,85 @@ User* DatabaseAccess::getUser(qint32 id)
 			   q.value(16).toBool());
 }
 
+/**
+ * Returns all users matching the given filter criteria
+ * Criteria that doesn't contain valid data will be ignored
+ */
+QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QString& referenceId)
+{
+	bool includeUserId = (u->userId() > 0);
+	bool includeSurname = (!u->surname().isEmpty());
+	bool includeGivenName = (!u->givenName().isEmpty());
+	bool includeSex = ((u->sex() == 'M') || (u->sex() == 'F'));
+	bool includeBirthYear = (u->birthYear() > 1900);
+	bool includeZipcode = (!u->zipCode().isEmpty());
+	bool includeEducation = (!u->education().isEmpty());
+	bool includeCurrentOccupation = (!u->currentOccupation().isEmpty());
+	bool includeMotherTongue = (!u->motherTongueId().isEmpty());
+	bool includeDiagnosis = (!u->diagnosis().isEmpty());
+	bool includeOrientation = (u->orientation() > 0);
+	bool includeMotorfunction = (u->motorFunction() > 0);
+	bool includeCommunication = (u->communication() > 0);
+	bool includeMouthMotoric = (!u->mouthMotoric().isEmpty());
+	bool includeInterviewPossible = (u->interviewPossible() < 2);
+	bool includeRepeatingPossible = (u->repeatingPossible() < 2);
+	bool includeInstitutionId = (institutionId > 0);
+	bool includeReferenceId = ((institutionId > 0) && !referenceId.isEmpty());
+
+	QSqlQuery q = queryProvider->getUsers(includeUserId, includeSurname,
+				includeGivenName, includeSex, includeBirthYear,
+				includeZipcode, includeEducation, includeCurrentOccupation,
+				includeMotherTongue, includeDiagnosis, includeOrientation,
+				includeMotorfunction, includeCommunication, includeMouthMotoric,
+				includeInterviewPossible, includeRepeatingPossible, includeInstitutionId,
+				includeReferenceId);
+
+	if (includeUserId) q.bindValue(":userid", u->userId());
+	if (includeSurname) q.bindValue(":surname", "%"+u->surname()+"%");
+	if (includeGivenName) q.bindValue(":forename", "%"+u->givenName()+"%");
+	if (includeSex) q.bindValue(":sex", u->sex());
+	if (includeBirthYear) q.bindValue(":birthyear", u->birthYear());
+	if (includeZipcode) q.bindValue(":zipcode", "%"+u->zipCode()+"%");
+	if (includeEducation) q.bindValue(":education", "%"+u->education()+"%");
+	if (includeCurrentOccupation) q.bindValue(":currentoccupation", "%"+u->currentOccupation()+"%");
+	if (includeMotherTongue) q.bindValue(":mothertongue", u->motherTongueId());
+	if (includeDiagnosis) q.bindValue(":diagnosis", "%"+u->diagnosis()+"%");
+	if (includeOrientation) q.bindValue(":orientation", u->orientation());
+	if (includeMotorfunction) q.bindValue(":motorfunction", u->motorFunction());
+	if (includeCommunication) q.bindValue(":communication", u->communication());
+	if (includeMouthMotoric) q.bindValue(":mouthmotoric", "%"+u->mouthMotoric()+"%");
+	if (includeInterviewPossible) q.bindValue(":interviewpossible", u->interviewPossible());
+	if (includeRepeatingPossible) q.bindValue(":repeatpossible", u->repeatingPossible());
+	if (includeInstitutionId) q.bindValue(":institutionId", institutionId);
+	if (includeReferenceId) q.bindValue(":referenceId", referenceId);
+
+	if (!executeQuery(q)) return NULL;
+
+	QList<User*>* users = new QList<User*>();
+	while (q.next()) {
+		users->append(new User(q.value(0).toInt(),
+			   q.value(1).toString(),
+			   q.value(2).toString(),
+			   q.value(3).toString().at(0),
+			   q.value(4).toInt(),
+			   q.value(5).toString(),
+			   q.value(6).toString(),
+			   q.value(7).toString(),
+			   q.value(8).toString(),
+			   q.value(9).toString(),
+			   q.value(10).toString(),
+			   q.value(11).toInt(),
+			   q.value(12).toInt(),
+			   q.value(13).toInt(),
+			   q.value(14).toString(),
+			   q.value(15).toBool(),
+			   q.value(16).toBool()));
+	}
+
+	return users;
+
+
+}
 
 bool DatabaseAccess::addUser(User *u)
 {
@@ -188,8 +267,6 @@ bool DatabaseAccess::modifyUser(User *u)
 	q.bindValue(":mouthmotoric", u->mouthMotoric());
 	q.bindValue(":interviewpossible", u->interviewPossible());
 	q.bindValue(":repeatpossible", u->repeatingPossible());
-
-	qDebug() << "Executing modify query: " << u->userId();
 
 	return executeQuery(q);
 }

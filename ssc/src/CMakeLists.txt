@@ -5,7 +5,9 @@ set(ssc_SRCS
    sscview.cpp
    modifyuser.cpp
    manageinstitutions.cpp
+   manageusers.cpp
    institutionmodel.cpp
+   usermodel.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS

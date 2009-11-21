@@ -117,6 +117,23 @@ void ClientSocket::sendUser(qint32 id)
 	delete u;
 }
 
+void ClientSocket::sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId)
+{
+	QList<User*>* users = databaseAccess->getUsers(filterUser, institutionId, referenceId);
+	if (!users) {
+		sendCode(SSC::UserRetrievalFailed);
+		return;
+	}
+	QList<SSCObject*> sendMe;
+
+	foreach (User* u, *users)
+		sendMe << u;
+
+	sendObjects(SSC::Users, sendMe);
+	qDeleteAll(*users);
+	delete users;
+}
+
 void ClientSocket::removeUser(qint32 id)
 {
 	//TODO: Delete all associated samples
@@ -197,10 +214,29 @@ void ClientSocket::processRequest()
 				break;
 					   }
 
+			case SSC::GetUsers: {
+				parseLengthHeader();
+
+				QByteArray userByte;
+				stream >> userByte;
+
+				User *u = new User();
+				u->deserialize(userByte);
+
+				qint32 institutionId;
+				stream >> institutionId;
+				QString referenceId;
+				stream >> referenceId;
+				sendUsers(u, institutionId, referenceId);
+				break;
+					    }
+
 			case SSC::AddUser:{
 				parseLengthHeader();
 
-				QByteArray userByte = stream.device()->read(length);
+				//QByteArray userByte = stream.device()->read(length);
+				QByteArray userByte;
+				stream >> userByte;
 				User *u = new User();
 				u->deserialize(userByte);
 
@@ -213,15 +249,14 @@ void ClientSocket::processRequest()
 
 			case SSC::ModifyUser: {
 				parseLengthHeader();
-				QByteArray userByte = stream.device()->read(length);
+				//QByteArray userByte = stream.device()->read(length);
+				QByteArray userByte;
+				stream >> userByte;
 				User *u = new User();
 				u->deserialize(userByte);
-				qDebug() << "Modifying user...";
 				if (databaseAccess->modifyUser(u)) {
-					qDebug() << "Success!";
 					sendCode(SSC::Ok);
 				}else {
-					qDebug() << "Modify failed!";
 					sendCode(SSC::UserRetrievalFailed);
 				}
 				break;

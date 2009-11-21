@@ -52,6 +52,7 @@ public:
     void setupActions();
 
     User* retrieveUser();
+    void displayUser(User*);
 
 private slots:
     void showConfigurationDialog();
@@ -72,6 +73,8 @@ private slots:
 
     void listUsers();
     void listInstitutions();
+
+    void findUser();
 
 private:
     Ui::SampleCollectorUi ui;

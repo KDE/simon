@@ -30,6 +30,7 @@ const qint8 protocolVersion=1;
 
 class DatabaseAccess;
 class SSCObject;
+class User;
 
 class ClientSocket : public QSslSocket
 {
@@ -46,6 +47,7 @@ class ClientSocket : public QSslSocket
 		void sendObjects(SSC::Request code, QList<SSCObject*> objects);
 
 		void sendUser(qint32 id);
+		void sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId);
 		void removeUser(qint32 id);
 		void sendLanguages();
 		void sendInstitutions();

@@ -17,20 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSC_INSTITUTIONMODEL_H
-#define SSC_INSTITUTIONMODEL_H
+#ifndef SSC_USERMODEL_H
+#define SSC_USERMODEL_H
 
 #include <QList>
-#include <sscobjects/institution.h>
+#include <sscobjects/user.h>
 #include <QAbstractItemModel>
 
 
 
-class InstitutionModel : public QAbstractItemModel
+class UserModel : public QAbstractItemModel
 {
 
 private:
-	QList<Institution*> m_institutions;
+	QList<User*> m_users;
 
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	QVariant headerData(int, Qt::Orientation orientation,
@@ -39,6 +39,8 @@ private:
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
 
+	QString displayStringForGrade(const int grade) const;
+	QString displayStringBool(const bool b) const;
 
 
 protected:
@@ -46,9 +48,9 @@ protected:
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
-	InstitutionModel(QList<Institution*> institutions, QObject *parent=NULL);
-	void replaceData(QList<Institution*> newInstitutions);
-	~InstitutionModel() {qDeleteAll(m_institutions); }
+	UserModel(QList<User*> users, QObject *parent=NULL);
+	~UserModel() {qDeleteAll(m_users); }
+	void replaceData(QList<User*> newUsers);
 
 };
 

@@ -53,6 +53,7 @@ class DatabaseAccess : public QObject
 		bool isConnected();
 
 		User* getUser(qint32 id);
+		QList<User*>* getUsers(User* filterUser, qint32 institutionId, const QString& referenceId);
 		bool addUser(User *u);
 		bool modifyUser(User *u);
 		bool removeUser(qint32 id);

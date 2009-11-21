@@ -249,7 +249,9 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 
-	QByteArray body = object->serialize();
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << object->serialize();
 
 	stream << (qint32) code << (qint64) body.count();
 
@@ -298,6 +300,62 @@ User* SSCDAccess::getUser(qint32 id)
 	return NULL;
 }
 
+QList<User*> SSCDAccess::getUsers(User *filterUser, qint32 institutionId, const QString& referenceId, bool *ok)
+{
+	{ //send User and institution data
+		QByteArray toWrite;
+		QDataStream stream(&toWrite, QIODevice::WriteOnly);
+
+		QByteArray body;
+		QDataStream bodyStream(&body, QIODevice::WriteOnly);
+		bodyStream << filterUser->serialize() << institutionId << referenceId;
+
+		stream << (qint32) SSC::GetUsers << (qint64) body.count();
+
+		socket->write(toWrite);
+		socket->write(body);
+	}
+
+
+	QList<User*> users;
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::Users: {
+			parseLengthHeader();
+
+			qint32 elementCount;
+			stream >> elementCount;
+			for (int i=0; i < elementCount; i++) {
+				QByteArray userByte;
+				stream >> userByte;
+				User *l = new User();
+				l->deserialize(userByte);
+				users << l;
+			}
+		        *ok = true;
+			break;
+			      }
+
+		case SSC::UserRetrievalFailed: {
+			lastErrorString = i18n("Users could not be read");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return users;
+
+}
 bool SSCDAccess::addUser(User* u)
 {
 	sendObject(SSC::AddUser, u);
