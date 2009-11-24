@@ -62,6 +62,9 @@ class SSCQueries
 		virtual QSqlQuery deleteUserInstitutionAssociation();
 		virtual QSqlQuery getUserInstitutionAssociation();
 
+		virtual QSqlQuery addSample();
+		virtual QSqlQuery lastSampleId();
+
 		virtual QSqlQuery lastInsertedId()=0;
 };
 

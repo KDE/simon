@@ -16,48 +16,38 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
- 
-#ifndef PROGRESSWIDGET_H
-#define PROGRESSWIDGET_H
 
-#include <QWidget>
-#include <QPointer>
-#include "simonprogresstracking_export.h"
+#ifndef TRAINSAMPLEPAGE_H
+#define TRAINSAMPLEPAGE_H
 
-class Operation;
-class QLabel;
-class QPushButton;
-class QProgressBar;
-class KPushButton;
+#include <QString>
+#include <QWizardPage>
+class RecWidget; 
 
-/**
-	@author 
-*/
-class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
+class TrainSamplePage : public QWizardPage
 {
-Q_OBJECT
-	private:
-		Operation *op;
-		QLabel *name;
-		QLabel *currentAction;
-		QProgressBar *bar;
-		KPushButton *cancelButton;
+	Q_OBJECT
 	
-	public slots:
-		void update();
-
+	private:
+		RecWidget *recorder;
+		QString prompt;
+		QString fileName;
+	
 	public:
+		TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
+		~TrainSamplePage();
+		bool isComplete() const;
 
-		enum ProgressWidgetStyle {
-			Compact=1,
-			Large=2
-		};
-
-		ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
+		void initializePage();
+		bool validatePage();
+		void cleanupPage();
 		
-		QPointer<Operation> operation() { return op; }
-
-		~ProgressWidget();
+		QString getPrompt() { return prompt; }
+		QString getFileName() { return fileName; }
+		
+	public slots:
+		bool submit();
+		bool cleanUp();
 
 };
 

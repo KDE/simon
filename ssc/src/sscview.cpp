@@ -23,6 +23,7 @@
 #include "modifyuser.h"
 #include "manageinstitutions.h"
 #include "manageusers.h"
+#include "trainingswizard.h"
 #include <sscdaccess/sscdaccess.h>
 
 #include <simonprogresstracking/statusmanager.h>
@@ -42,7 +43,7 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
-SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
+SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent), trainingsWizard(new TrainingsWizard(this))
 {
 	ui.setupUi ( this );
 	setupActions();
@@ -63,6 +64,10 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 	connect(ui.pbSearchPatient, SIGNAL(clicked()), this, SLOT(findUser()));
 	connect(ui.pbDetails, SIGNAL(clicked()), this, SLOT(userDetails()));
 	connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
+
+	connect(ui.pbRepeat, SIGNAL(clicked()), this, SLOT(repeat()));
+	connect(ui.pbTraining, SIGNAL(clicked()), this, SLOT(training()));
+	connect(ui.pbInterview, SIGNAL(clicked()), this, SLOT(interview()));
 }
 
 User* SSCView::retrieveUser()
@@ -113,6 +118,9 @@ User* SSCView::getInstituteSpecificUser()
 void SSCView::displayUser(User* u)
 {
 	ui.lbPatientName->setText(u->surname()+", "+u->givenName());
+	ui.pbRepeat->setEnabled(u->repeatingPossible()==1);
+	ui.pbTraining->setEnabled(u->repeatingPossible()==1);
+	ui.pbInterview->setEnabled(u->interviewPossible()==1);
 }
 
 /*
@@ -258,6 +266,7 @@ void SSCView::deleteUser()
 			ui.cbPatientId->clear();
 		}
 	}
+	delete u;
 }
 
 void SSCView::userDetails()
@@ -270,6 +279,7 @@ void SSCView::userDetails()
 		getUser();
 
 	m->deleteLater();
+	delete u;
 }
 
 
@@ -374,6 +384,32 @@ void SSCView::displayConnectionStatus(const QString &status)
 }
 
 
+void SSCView::repeat()
+{
+	User *u = retrieveUser();
+	if (!u) return;
+	trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
+	delete u;
+}
+
+void SSCView::training()
+{
+	User *u = retrieveUser();
+	if (!u) return;
+	trainingsWizard->collectSamples(TrainingsWizard::Training, u->userId());
+	delete u;
+}
+
+void SSCView::interview()
+{
+	User *u = retrieveUser();
+	if (!u) return;
+	trainingsWizard->collectSamples(TrainingsWizard::Interview, u->userId());
+	delete u;
+}
+
+
 SSCView::~SSCView()
 {
+	trainingsWizard->deleteLater();
 }

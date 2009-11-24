@@ -40,6 +40,8 @@ class ClientSocket : public QSslSocket
 		QMutex messageLocker;
 
 		DatabaseAccess *databaseAccess;
+
+		QString samplePath(qint32 userId);
 		
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 		void sendCode(qint32 code);
@@ -55,6 +57,8 @@ class ClientSocket : public QSslSocket
 		void removeInstitution(qint32 id);
 		void removeUserInInstitution(qint32 userId, qint32 institutionId);
 		void sendUserInstitutionAssociations(qint32 userId);
+
+		void storeSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data);
 
 	private slots:
 		void slotSocketError();

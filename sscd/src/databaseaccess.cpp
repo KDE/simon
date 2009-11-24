@@ -463,6 +463,31 @@ bool DatabaseAccess::removeInstitution(qint32 id)
 	return executeQuery(q);
 }
 
+qint32 DatabaseAccess::nextSampleId()
+{
+	QMutexLocker l(&transactionLock);
+	QSqlQuery q = queryProvider->lastSampleId();
+	if (!executeQuery(q)) return -1;
+
+	if (!q.first()) //no rows
+		return 1;
+
+	return q.value(0).toInt()+1;
+}
+
+bool DatabaseAccess::storeSample(qint32 sampleId, qint32 userId, qint32 sampleType, const QString& prompt, const QString& samplePath)
+{
+	QMutexLocker l(&transactionLock);
+	QSqlQuery q = queryProvider->addSample();
+
+	q.bindValue(":sampleid", sampleId);
+	q.bindValue(":userid", userId);
+	q.bindValue(":sampleType", sampleType);
+	q.bindValue(":prompt", prompt);
+	q.bindValue(":path", samplePath);
+
+	return executeQuery(q);
+}
 
 
 DatabaseAccess::~DatabaseAccess()

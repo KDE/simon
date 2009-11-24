@@ -708,6 +708,43 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 
 }
 
+bool SSCDAccess::sendSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data)
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << userId << sampleType << prompt << data;
+
+	stream << (qint32) SSC::Sample << (qint64) body.count();
+
+	socket->write(toWrite);
+	socket->write(body);
+
+
+	QByteArray msg;
+	QDataStream streamRet(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),streamRet, msg);
+	qint32 type;
+	streamRet >> type;
+	switch (type) { 
+		case SSC::Ok: {
+			return true;
+			      }
+		case SSC::SampleStorageFailed: {
+			lastErrorString = i18n("Server failed to store sample");
+			break;
+					 }
+		default: {
+			lastErrorString = i18n("Unknown error");
+			break;
+			 }
+	}
+	return false;
+
+}
+
 
 /**
  *	@brief Destructor

@@ -17,6 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#define LINUX_BASE_DIR "/usr/share/ssc"
+
 #include "clientsocket.h"
 
 #include "databaseaccess.h"
@@ -400,6 +402,22 @@ void ClientSocket::processRequest()
 				removeUserInInstitution(userId, institutionId);
 				break;
 					   }
+
+			case SSC::Sample: {
+				parseLengthHeader();
+				qint32 userId, sampleType;
+				stream >> userId;
+				stream >> sampleType;
+
+				QString prompt;
+				stream >> prompt;
+				QByteArray data;
+				stream >> data;
+
+				storeSample(userId, sampleType, prompt, data);
+				break;
+					   }
+
 							
 		}
 		
@@ -408,6 +426,48 @@ void ClientSocket::processRequest()
 	}
 }
 
+void ClientSocket::storeSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data)
+{
+	qint32 sampleId;
+	databaseAccess->lockTranscation();
+	sampleId = databaseAccess->nextSampleId();
+	if (sampleId <= 0) {
+		qDebug() << "Sample id failed";
+		sendCode(SSC::SampleStorageFailed);
+		return;
+	}
+
+	QString fileName = samplePath(userId) + QDir::separator() + QString::number(sampleId)+".wav";
+	if (!databaseAccess->storeSample(sampleId, userId, sampleType, prompt, fileName))
+		sendCode(SSC::SampleStorageFailed);
+	else {
+		//store sample...
+		QFile f(fileName);
+		if ((!f.open(QIODevice::WriteOnly)) ||
+				(f.write(data)==-1))
+			sendCode(SSC::SampleStorageFailed);
+		else
+			sendCode(SSC::Ok);
+	}
+	databaseAccess->unlockTransaction();
+}
+
+QString ClientSocket::samplePath(qint32 userId)
+{
+	QString baseDir;
+#ifdef Q_OS_WIN32
+	baseDir = qApp()->applicationDirPath();
+#else
+	baseDir = LINUX_BASE_DIR;
+#endif
+	QString samplesDir = baseDir+QDir::separator()+"samples"+QDir::separator()+QString::number(userId);
+	QDir d(samplesDir);
+	if (!d.exists() && !d.mkpath(samplesDir)) {
+		qWarning() << "Couldn't create sample storage directory: " << samplesDir;
+		exit(1);
+	}
+	return samplesDir;
+}
 
 void ClientSocket::sendCode(qint32 code)
 {

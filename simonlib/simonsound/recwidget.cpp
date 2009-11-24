@@ -56,7 +56,7 @@
  * @param QWidget *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent)
+RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent), postProc(NULL)
 {	
 	KLocale::setMainCatalog("simonlib");
 	this->filename = filename;
@@ -67,8 +67,6 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
-	postProc = new PostProcessing();
-	connect(postProc, SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -309,6 +307,11 @@ void RecWidget::stopRecording()
 		pbDelete->setEnabled(true);
 
 		if (processInternal) {
+
+			if (!postProc) {
+				postProc = new PostProcessing();
+				connect(postProc, SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
+			}
 			if (!postProc->process(fName, filename, true))
 				KMessageBox::error(this, i18n("Post-Processing failed"));
 		}
@@ -395,6 +398,7 @@ RecWidget::~RecWidget()
 {
 	delete play;
  	delete rec;
+	delete postProc;
 }
 
 

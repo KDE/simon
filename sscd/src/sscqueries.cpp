@@ -371,4 +371,33 @@ QSqlQuery SSCQueries::deleteUserInstitutionAssociation()
 	return q;
 }
 
+/*
+ * Adds a new new sample to the database
+ *
+ * The query contains 4 placeholders: 
+ * 	:sampleid (maps to Sample::SampleId)
+ * 	:userid (maps to Sample::UserId)
+ * 	:typeid (maps to Sample::TypeId)
+ * 	:prompt (maps to Sample::Prompt)
+ * 	:path (maps to Sample::Path)
+ */
+QSqlQuery SSCQueries::addSample()
+{
+	QSqlQuery q;
+	q.prepare("INSERT INTO Sample (SampleId, UserId, TypeId, Prompt, Path) VALUES (:sampleid, :userid, :typeid, "
+		  	":prompt, :path);");
+	return q;
+}
+
+/*
+ * Retreives the highest sample id currently available
+ *
+ * Sample::SampleId
+ */
+QSqlQuery SSCQueries::lastSampleId()
+{
+	QSqlQuery q;
+	q.prepare("SELECT SampleId FROM Sample Order By SampleId DESC Limit 1;");
+	return q;
+}
 

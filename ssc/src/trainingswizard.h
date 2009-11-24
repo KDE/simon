@@ -16,49 +16,51 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
- 
-#ifndef PROGRESSWIDGET_H
-#define PROGRESSWIDGET_H
 
-#include <QWidget>
-#include <QPointer>
-#include "simonprogresstracking_export.h"
+#ifndef TRAININGSWIZARD_H
+#define TRAININGSWIZARD_H
 
-class Operation;
-class QLabel;
-class QPushButton;
-class QProgressBar;
-class KPushButton;
+#include <QWizard>
 
-/**
-	@author 
-*/
-class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
+class QWizard;
+class QStringList;
+
+class TrainingsWizard : public QWizard
 {
-Q_OBJECT
-	private:
-		Operation *op;
-		QLabel *name;
-		QLabel *currentAction;
-		QProgressBar *bar;
-		KPushButton *cancelButton;
-	
-	public slots:
-		void update();
+	Q_OBJECT
+
+	private slots:
+		void submit();
 
 	public:
+		TrainingsWizard(QWidget *parent=0);
+		//bool init(const TrainingText &text);
+		~TrainingsWizard();
 
-		enum ProgressWidgetStyle {
-			Compact=1,
-			Large=2
+		enum TrainingsType {
+			Repeating=1,
+			Training=2,
+			Interview=3
 		};
 
-		ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
-		
-		QPointer<Operation> operation() { return op; }
+		int collectSamples(TrainingsType type, qint32 userId);
 
-		~ProgressWidget();
+	private:
+		QWizardPage* createIntroPage();
+		QWizardPage* createFinishedPage();
+		bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
+
+		QStringList repeatPrompts();
+		QStringList trainingPrompts();
+		QStringList interviewQuestions();
+
+		QStringList parsePromptsFromFile(const QString& path);
+		bool cleanUp();
+
+
 
 };
+
+
 
 #endif

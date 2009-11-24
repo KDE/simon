@@ -36,6 +36,15 @@
       <label>the path to the SSL certificate.</label>
     </entry>
     
+    <entry name="DefaultToPowerTrain" type="Bool">
+      <label>wether power training is activated by default.</label>
+      <default>false</default>
+    </entry>
+    <entry name="SampleDirectory" type="String">
+      <label>the temporary directory where the samples are stored.</label>
+      <default code="true">KStandardDirs::locateLocal("appdata", "samples/")</default>
+    </entry>
+
   </group>
 
   

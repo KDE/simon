@@ -77,6 +77,9 @@ class DatabaseAccess : public QObject
 		int addUserInstitutionAssociation(UserInInstitution *uii);
 		bool deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId);
 		QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
+
+		qint32 nextSampleId();
+		bool storeSample(qint32 sampleId, qint32 userId, qint32 sampleType, const QString& prompt, const QString& samplePath);
 };
 
 #endif

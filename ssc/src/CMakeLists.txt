@@ -1,3 +1,4 @@
+find_package(Qt4 COMPONENTS QtConcurrent)
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib
 	../../simonlib/speechgui ../)
 set(ssc_SRCS
@@ -9,6 +10,10 @@ set(ssc_SRCS
    manageusers.cpp
    institutionmodel.cpp
    usermodel.cpp
+   trainingswizard.cpp
+   trainsamplepage.cpp
+   sendsamplespage.cpp
+   trainsampleintropage.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS
@@ -26,7 +31,7 @@ kde4_add_app_icon(ssc_SRCS
 kde4_add_executable(ssc ${ssc_SRCS})
 
 target_link_libraries(ssc ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo
-	simonprogresstracking sscdaccess sscobjects)
+	simonprogresstracking sscdaccess sscobjects simonsound)
 
 install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ssc)
 
@@ -35,3 +40,4 @@ install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ssc)
 
 install( FILES ssc.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR}  COMPONENT ssc)
 install(FILES sscui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT ssc)
+

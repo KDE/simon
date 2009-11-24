@@ -94,6 +94,9 @@ public:
 	bool deleteUserInInstitution(UserInInstitution* uii);
 	QList<UserInInstitution*> getUserInInstitutions(qint32 userId, bool *ok);
 
+
+	bool sendSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data);
+
 public slots:
 	void disconnectFromServer();
 	void connectTo( QString server, quint16 port, bool encrypted );

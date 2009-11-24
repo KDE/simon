@@ -29,6 +29,7 @@ class User;
 class KAction;
 class QCloseEvent;
 class KCMultiDialog;
+class TrainingsWizard;
 /**
  * @short Main view
  * @author Peter Grasch <grasch@simon-listens.org>
@@ -76,8 +77,13 @@ private slots:
 
     void findUser();
 
+    void repeat();
+    void training();
+    void interview();
+
 private:
     Ui::SampleCollectorUi ui;
+    TrainingsWizard *trainingsWizard;
 
     User* getInstituteSpecificUser();
 };

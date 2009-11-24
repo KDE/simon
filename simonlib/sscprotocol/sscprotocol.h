@@ -71,7 +71,8 @@ namespace SSC
 		RemoveUser=6037,
 		RemoveUserFailed=6038,
 
-		Sample=6041
+		Sample=6041,
+		SampleStorageFailed=6042
 	};
 }
 
