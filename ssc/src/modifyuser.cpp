@@ -19,6 +19,7 @@
 
 #include "modifyuser.h"
 #include "modifyuserininstitution.h"
+#include "sscconfig.h"
 
 #include <sscdaccess/sscdaccess.h>
 #include <sscobjects/user.h>
@@ -201,9 +202,7 @@ void ModifyUser::displayLanguages()
 		ui.cbMothersTongue->addItem(l->name(), l->id());
 	}
 
-	//TODO: make default configurable
-	//default to "de" language
-	ui.cbMothersTongue->setCurrentIndex(ui.cbMothersTongue->findData("de"));
+	ui.cbMothersTongue->setCurrentIndex(ui.cbMothersTongue->findData(SSCConfig::defaultLanguage()));
 }
 
 void ModifyUser::displayCurrentInstitutionAssociation(qint32 userId)
@@ -214,7 +213,6 @@ void ModifyUser::displayCurrentInstitutionAssociation(qint32 userId)
 		KMessageBox::sorry(this, i18n("Couldn't retrieve user - institution associations: %1", SSCDAccess::getInstance()->lastError()));
 		return;
 	}
-	kDebug() << "Received " << uiis.count() << " associations...";
 
 	ui.twInstitutions->setRowCount(uiis.count());
 	for (int i=0; i < uiis.count(); i++) {

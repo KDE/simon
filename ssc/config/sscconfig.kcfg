@@ -25,6 +25,11 @@
       <default>0</default>
     </entry>
 
+    <entry name="DefaultLanguage" type="String">
+      <label>the default langauge for new users.</label>
+      <default>de</default>
+    </entry>
+
    <entry name="UseEncryption" type="Bool">
       <label>wether we want to encrypt the communication between simon and simond.</label>
       <default>false</default>
