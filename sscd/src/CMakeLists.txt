@@ -12,7 +12,6 @@ set(sscd_SRCS
    main.cpp
    sscdcontrol.cpp
    clientsocket.cpp
-   basedirectory.h
    databaseaccess.cpp
    sscqueries.cpp
    mysqlqueries.cpp

@@ -32,21 +32,7 @@ SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 
 bool SSCDControl::init()
 {
-	QSettings settings(sscBaseDirectory()+QDir::separator()+"sscd.conf", QSettings::IniFormat);
-	settings.setValue("DatabaseType", "QMYSQL");
-	settings.setValue("DatabaseHost", "127.0.0.1");
-	settings.setValue("DatabasePort", 3306);
-	settings.setValue("DatabaseName", "ssc");
-	settings.setValue("DatabaseUser", "sscuser");
-	settings.setValue("DatabasePassword", "change me");
-	settings.setValue("Port", 4440);
-	settings.setValue("Bind", false);
-	settings.setValue("BindHost", "127.0.0.1");
-	qDebug() << settings.fileName();
-	settings.sync();
-	exit(0);
-
-
+	QSettings settings(SSCD_BASE_DIRECTORY+QDir::separator()+"sscd.conf", QSettings::IniFormat);
 	QString dbType = settings.value("DatabaseType", "QMYSQL").toString();
 	QString dbHost = settings.value("DatabaseHost", "127.0.0.1").toString();
 	qint16  dbPort = settings.value("DatabasePort", 3306).toInt();

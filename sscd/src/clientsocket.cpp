@@ -455,7 +455,7 @@ void ClientSocket::storeSample(qint32 userId, qint32 sampleType, const QString& 
 
 QString ClientSocket::samplePath(qint32 userId)
 {
-	QString baseDir = sscdBaseDirectory();
+	QString baseDir = SSCD_BASE_DIRECTORY;
 	QString samplesDir = baseDir+QDir::separator()+"samples"+QDir::separator()+QString::number(userId);
 	QDir d(samplesDir);
 	if (!d.exists() && !d.mkpath(samplesDir)) {
