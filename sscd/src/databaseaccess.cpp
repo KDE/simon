@@ -490,12 +490,13 @@ bool DatabaseAccess::storeSample(qint32 sampleId, qint32 userId, qint32 sampleTy
 	return executeQuery(q);
 }
 
-QStringList* DatabaseAccess::getSamplePaths(qint32 userId)
+QStringList* DatabaseAccess::getSamplePaths(qint32 id)
 {
 	QMutexLocker l(&transactionLock);
 	QStringList* paths = new QStringList();
 
 	QSqlQuery q = queryProvider->getSamplePaths();
+	q.bindValue(":userid", id);
 
 	if (!executeQuery(q)) return NULL;
 

@@ -9,7 +9,5 @@ include(${QT_USE_FILE})
 
 include_directories( ${QT_INCLUDES} ../simonlib )
 
-add_subdirectory( po )
-add_subdirectory( config )
 add_subdirectory( src )
 add_subdirectory( icons )

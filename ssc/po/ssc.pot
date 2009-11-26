@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-11-26 15:42+0100\n"
+"POT-Creation-Date: 2009-11-26 16:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,885 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: po/rc.cpp:1 rc.cpp:1
+#. i18n: file: config/sscconfig.kcfg:7
+#. i18n: ectx: label, entry (AutoConnect), group (ssc)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "wether to connect automatically during startup."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:11
+#. i18n: ectx: label, entry (Host), group (ssc)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "the server to connect to."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:15
+#. i18n: ectx: label, entry (Port), group (ssc)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "the port to connect to."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:19
+#. i18n: ectx: label, entry (UseInstitutionSpecificIDs), group (ssc)
+#: po/rc.cpp:12 rc.cpp:12
+msgid ""
+"wether we want to resolve users based on their reference id assigned by a "
+"specific institute."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:24
+#. i18n: ectx: label, entry (ReferenceInstitute), group (ssc)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "the institution who is used to resolve the reference ids."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:29
+#. i18n: ectx: label, entry (DefaultLanguage), group (ssc)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "the default langauge for new users."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:34
+#. i18n: ectx: label, entry (UseEncryption), group (ssc)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "wether we want to encrypt the communication between simon and simond."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:38
+#. i18n: ectx: label, entry (EncryptionMethod), group (ssc)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "The encryption method to use."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:41
+#. i18n: ectx: label, entry (Certificate), group (ssc)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "the path to the SSL certificate."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:45
+#. i18n: ectx: label, entry (DefaultToPowerTrain), group (ssc)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "wether power training is activated by default."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:49
+#. i18n: ectx: label, entry (SampleDirectory), group (ssc)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "the temporary directory where the samples are stored."
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, SSCConfiguration)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Form"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:20
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Connect automatically on startup"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:29
+#. i18n: ectx: property (text), widget (QLabel, lbHost)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "Host:"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:42
+#. i18n: ectx: property (text), widget (QLabel, lbPort)
+#: po/rc.cpp:45 rc.cpp:45
+msgid "Port:"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:64
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
+#: po/rc.cpp:48 rc.cpp:48
+msgid "Use institution specific ids instead of ssc ids"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:76
+#. i18n: ectx: property (text), widget (QLabel, lbInstitute)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "Institute:"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:107
+#. i18n: ectx: property (text), widget (QLabel, lbInstitute_2)
+#: po/rc.cpp:54 rc.cpp:54
+msgid ""
+"Default language (ISO Code):\n"
+"(requires restart)"
+msgstr ""
+
+#. i18n: file: src/details.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
+#. i18n: file: src/main.ui:99
+#. i18n: ectx: property (text), widget (KPushButton, pbDetails)
+#. i18n: file: src/details.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
+#. i18n: file: src/main.ui:99
+#. i18n: ectx: property (text), widget (KPushButton, pbDetails)
+#: po/rc.cpp:58 po/rc.cpp:385 rc.cpp:58 rc.cpp:385
+msgid "Details"
+msgstr ""
+
+#. i18n: file: src/details.ui:25
+#. i18n: ectx: property (text), widget (QLabel, lbSurname)
+#. i18n: file: src/finduser.ui:76
+#. i18n: ectx: property (text), widget (QLabel, lbSurname)
+#. i18n: file: src/details.ui:25
+#. i18n: ectx: property (text), widget (QLabel, lbSurname)
+#. i18n: file: src/finduser.ui:76
+#. i18n: ectx: property (text), widget (QLabel, lbSurname)
+#: po/rc.cpp:61 po/rc.cpp:199 rc.cpp:61 rc.cpp:199
+msgid "Surname:"
+msgstr ""
+
+#. i18n: file: src/details.ui:35
+#. i18n: ectx: property (text), widget (QLabel, lbGivenName)
+#. i18n: file: src/finduser.ui:86
+#. i18n: ectx: property (text), widget (QLabel, lbGivenName)
+#. i18n: file: src/details.ui:35
+#. i18n: ectx: property (text), widget (QLabel, lbGivenName)
+#. i18n: file: src/finduser.ui:86
+#. i18n: ectx: property (text), widget (QLabel, lbGivenName)
+#: po/rc.cpp:64 po/rc.cpp:202 rc.cpp:64 rc.cpp:202
+msgid "Given name:"
+msgstr ""
+
+#. i18n: file: src/details.ui:45
+#. i18n: ectx: property (text), widget (QLabel, lbInstition)
+#: po/rc.cpp:67 rc.cpp:67
+msgid "Institution(s):"
+msgstr ""
+
+#. i18n: file: src/details.ui:67
+#. i18n: ectx: property (text), widget (QPushButton, pbAddInstitution)
+#. i18n: file: src/finduser.ui:537
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#. i18n: file: src/institution.ui:57
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#. i18n: file: src/details.ui:67
+#. i18n: ectx: property (text), widget (QPushButton, pbAddInstitution)
+#. i18n: file: src/finduser.ui:537
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#. i18n: file: src/institution.ui:57
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#: po/rc.cpp:70 po/rc.cpp:343 po/rc.cpp:361 rc.cpp:70 rc.cpp:343 rc.cpp:361
+msgid "Add"
+msgstr ""
+
+#. i18n: file: src/details.ui:74
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveInstitution)
+#. i18n: file: src/finduser.ui:564
+#. i18n: ectx: property (text), widget (KPushButton, pbRemove)
+#. i18n: file: src/institution.ui:84
+#. i18n: ectx: property (text), widget (KPushButton, pbRemove)
+#. i18n: file: src/main.ui:109
+#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
+#. i18n: file: src/details.ui:74
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveInstitution)
+#. i18n: file: src/finduser.ui:564
+#. i18n: ectx: property (text), widget (KPushButton, pbRemove)
+#. i18n: file: src/institution.ui:84
+#. i18n: ectx: property (text), widget (KPushButton, pbRemove)
+#. i18n: file: src/main.ui:109
+#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
+#: po/rc.cpp:73 po/rc.cpp:349 po/rc.cpp:367 po/rc.cpp:388 rc.cpp:73 rc.cpp:349
+#: rc.cpp:367 rc.cpp:388
+msgid "Remove"
+msgstr ""
+
+#. i18n: file: src/details.ui:83
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: src/finduser.ui:174
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: src/details.ui:83
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#. i18n: file: src/finduser.ui:174
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:76 po/rc.cpp:229 rc.cpp:76 rc.cpp:229
+msgid "Sex:"
+msgstr ""
+
+#. i18n: file: src/details.ui:92
+#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
+#. i18n: file: src/finduser.ui:158
+#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
+#. i18n: file: src/details.ui:92
+#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
+#. i18n: file: src/finduser.ui:158
+#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
+#: po/rc.cpp:79 po/rc.cpp:223 rc.cpp:79 rc.cpp:223
+msgid "Male"
+msgstr ""
+
+#. i18n: file: src/details.ui:99
+#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
+#. i18n: file: src/finduser.ui:165
+#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
+#. i18n: file: src/details.ui:99
+#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
+#. i18n: file: src/finduser.ui:165
+#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
+#: po/rc.cpp:82 po/rc.cpp:226 rc.cpp:82 rc.cpp:226
+msgid "Female"
+msgstr ""
+
+#. i18n: file: src/details.ui:108
+#. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
+#. i18n: file: src/finduser.ui:115
+#. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
+#. i18n: file: src/details.ui:108
+#. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
+#. i18n: file: src/finduser.ui:115
+#. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
+#: po/rc.cpp:85 po/rc.cpp:208 rc.cpp:85 rc.cpp:208
+msgid "Birth year:"
+msgstr ""
+
+#. i18n: file: src/details.ui:115
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
+#: po/rc.cpp:88 rc.cpp:88
+msgid "9999; "
+msgstr ""
+
+#. i18n: file: src/details.ui:125
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: src/finduser.ui:132
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: src/details.ui:125
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: src/finduser.ui:132
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:91 po/rc.cpp:214 rc.cpp:91 rc.cpp:214
+msgid "ZIP Code:"
+msgstr ""
+
+#. i18n: file: src/details.ui:132
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: file: src/finduser.ui:122
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
+#. i18n: file: src/finduser.ui:139
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: file: src/details.ui:132
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: file: src/finduser.ui:122
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
+#. i18n: file: src/finduser.ui:139
+#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#: po/rc.cpp:94 po/rc.cpp:211 po/rc.cpp:217 rc.cpp:94 rc.cpp:211 rc.cpp:217
+msgid "99990; "
+msgstr ""
+
+#. i18n: file: src/details.ui:139
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: src/finduser.ui:197
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: src/details.ui:139
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: src/finduser.ui:197
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:97 po/rc.cpp:235 rc.cpp:97 rc.cpp:235
+msgid "Education:"
+msgstr ""
+
+#. i18n: file: src/details.ui:149
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: src/finduser.ui:214
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: src/details.ui:149
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: src/finduser.ui:214
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:100 po/rc.cpp:238 rc.cpp:100 rc.cpp:238
+msgid "Current occupation:"
+msgstr ""
+
+#. i18n: file: src/details.ui:159
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#. i18n: file: src/finduser.ui:228
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#. i18n: file: src/details.ui:159
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#. i18n: file: src/finduser.ui:228
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: po/rc.cpp:103 po/rc.cpp:241 rc.cpp:103 rc.cpp:241
+msgid "Mothers Tongue:"
+msgstr ""
+
+#. i18n: file: src/details.ui:179
+#. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
+#: po/rc.cpp:106 rc.cpp:106
+msgid "Institution"
+msgstr ""
+
+#. i18n: file: src/details.ui:184
+#. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
+#: po/rc.cpp:109 rc.cpp:109
+msgid "ReferenceId"
+msgstr ""
+
+#. i18n: file: src/details.ui:196
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: src/finduser.ui:238
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: src/details.ui:196
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#. i18n: file: src/finduser.ui:238
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: po/rc.cpp:112 po/rc.cpp:244 rc.cpp:112 rc.cpp:244
+msgid "Diagnosis:"
+msgstr ""
+
+#. i18n: file: src/details.ui:206
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: file: src/finduser.ui:292
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: file: src/details.ui:206
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: file: src/finduser.ui:292
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: po/rc.cpp:115 po/rc.cpp:253 rc.cpp:115 rc.cpp:253
+msgid "Orientation:"
+msgstr ""
+
+#. i18n: file: src/details.ui:214
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:250
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:286
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:305
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:353
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:394
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/details.ui:214
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:250
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:286
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:305
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:353
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:394
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:118 po/rc.cpp:136 po/rc.cpp:154 po/rc.cpp:259 po/rc.cpp:280
+#: po/rc.cpp:301 rc.cpp:118 rc.cpp:136 rc.cpp:154 rc.cpp:259 rc.cpp:280
+#: rc.cpp:301
+msgid "1: Very Good"
+msgstr ""
+
+#. i18n: file: src/details.ui:219
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:255
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:291
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:310
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:358
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:399
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/details.ui:219
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:255
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:291
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:310
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:358
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:399
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:121 po/rc.cpp:139 po/rc.cpp:157 po/rc.cpp:262 po/rc.cpp:283
+#: po/rc.cpp:304 rc.cpp:121 rc.cpp:139 rc.cpp:157 rc.cpp:262 rc.cpp:283
+#: rc.cpp:304
+msgid "2: Good"
+msgstr ""
+
+#. i18n: file: src/details.ui:224
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:260
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:296
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:315
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:363
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:404
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/details.ui:224
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:260
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:296
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:315
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:363
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:404
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:124 po/rc.cpp:142 po/rc.cpp:160 po/rc.cpp:265 po/rc.cpp:286
+#: po/rc.cpp:307 rc.cpp:124 rc.cpp:142 rc.cpp:160 rc.cpp:265 rc.cpp:286
+#: rc.cpp:307
+msgid "3: Satisfactory"
+msgstr ""
+
+#. i18n: file: src/details.ui:229
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:265
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:301
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:320
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:368
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:409
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/details.ui:229
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:265
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:301
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:320
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:368
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:409
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:127 po/rc.cpp:145 po/rc.cpp:163 po/rc.cpp:268 po/rc.cpp:289
+#: po/rc.cpp:310 rc.cpp:127 rc.cpp:145 rc.cpp:163 rc.cpp:268 rc.cpp:289
+#: rc.cpp:310
+msgid "4: Acceptable"
+msgstr ""
+
+#. i18n: file: src/details.ui:234
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:270
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:306
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:325
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:373
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:414
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/details.ui:234
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/details.ui:270
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/details.ui:306
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:325
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:373
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:414
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:130 po/rc.cpp:148 po/rc.cpp:166 po/rc.cpp:271 po/rc.cpp:292
+#: po/rc.cpp:313 rc.cpp:130 rc.cpp:148 rc.cpp:166 rc.cpp:271 rc.cpp:292
+#: rc.cpp:313
+msgid "5: Not acceptable"
+msgstr ""
+
+#. i18n: file: src/details.ui:242
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: src/finduser.ui:340
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: src/details.ui:242
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: src/finduser.ui:340
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: po/rc.cpp:133 po/rc.cpp:274 rc.cpp:133 rc.cpp:274
+msgid "Communication:"
+msgstr ""
+
+#. i18n: file: src/details.ui:278
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: src/finduser.ui:381
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: src/details.ui:278
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#. i18n: file: src/finduser.ui:381
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: po/rc.cpp:151 po/rc.cpp:295 rc.cpp:151 rc.cpp:295
+msgid "Motor function:"
+msgstr ""
+
+#. i18n: file: src/details.ui:314
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: file: src/finduser.ui:272
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: file: src/details.ui:314
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#. i18n: file: src/finduser.ui:272
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: po/rc.cpp:169 po/rc.cpp:250 rc.cpp:169 rc.cpp:250
+msgid "Mouth motoric / teeth:"
+msgstr ""
+
+#. i18n: file: src/details.ui:324
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: src/finduser.ui:422
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: src/details.ui:324
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: src/finduser.ui:422
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: po/rc.cpp:172 po/rc.cpp:316 rc.cpp:172 rc.cpp:316
+msgid "Interview:"
+msgstr ""
+
+#. i18n: file: src/details.ui:331
+#. i18n: ectx: property (text), widget (QCheckBox, cbInterviewPossible)
+#: po/rc.cpp:175 rc.cpp:175
+msgid "Interview possible"
+msgstr ""
+
+#. i18n: file: src/details.ui:341
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: file: src/finduser.ui:429
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: file: src/details.ui:341
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#. i18n: file: src/finduser.ui:429
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: po/rc.cpp:178 po/rc.cpp:319 rc.cpp:178 rc.cpp:319
+msgid "Repeating:"
+msgstr ""
+
+#. i18n: file: src/details.ui:348
+#. i18n: ectx: property (text), widget (QCheckBox, cbRepeatingPossible)
+#: po/rc.cpp:181 rc.cpp:181
+msgid "Repeating possible"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Users)
+#: po/rc.cpp:184 src/sscview.cpp:195 rc.cpp:184
+msgid "Manage users"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:30
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:187 rc.cpp:187
+msgid "Basic"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:38
+#. i18n: ectx: property (text), widget (QLabel, lbInstitution)
+#. i18n: file: src/modifyuserininstitution.ui:20
+#. i18n: ectx: property (text), widget (QLabel, lbInstitution)
+#. i18n: file: src/finduser.ui:38
+#. i18n: ectx: property (text), widget (QLabel, lbInstitution)
+#. i18n: file: src/modifyuserininstitution.ui:20
+#. i18n: ectx: property (text), widget (QLabel, lbInstitution)
+#: po/rc.cpp:190 po/rc.cpp:436 rc.cpp:190 rc.cpp:436
+msgid "Institution:"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:57
+#. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
+#. i18n: file: src/main.ui:89
+#. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
+#. i18n: file: src/modifyuserininstitution.ui:48
+#. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
+#. i18n: file: src/finduser.ui:57
+#. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
+#. i18n: file: src/main.ui:89
+#. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
+#. i18n: file: src/modifyuserininstitution.ui:48
+#. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
+#: po/rc.cpp:193 po/rc.cpp:382 po/rc.cpp:439 rc.cpp:193 rc.cpp:382 rc.cpp:439
+msgid "Search"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:66
+#. i18n: ectx: property (text), widget (QLabel, lbId)
+#. i18n: file: src/main.ui:38
+#. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
+#. i18n: file: src/finduser.ui:66
+#. i18n: ectx: property (text), widget (QLabel, lbId)
+#. i18n: file: src/main.ui:38
+#. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
+#: po/rc.cpp:196 po/rc.cpp:373 rc.cpp:196 rc.cpp:373
+msgid "User ID:"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:105
+#. i18n: ectx: property (text), widget (QLabel, lbReferenceId)
+#: po/rc.cpp:205 rc.cpp:205
+msgid "Reference Id:"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:148
+#. i18n: ectx: property (text), widget (QRadioButton, rbIgnored)
+#. i18n: file: src/finduser.ui:442
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewIgnored)
+#. i18n: file: src/finduser.ui:481
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingIgnored)
+#. i18n: file: src/finduser.ui:148
+#. i18n: ectx: property (text), widget (QRadioButton, rbIgnored)
+#. i18n: file: src/finduser.ui:442
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewIgnored)
+#. i18n: file: src/finduser.ui:481
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingIgnored)
+#: po/rc.cpp:220 po/rc.cpp:322 po/rc.cpp:331 src/manageusers.cpp:70 rc.cpp:220
+#: rc.cpp:322 rc.cpp:331
+msgid "Ignored"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:186
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: po/rc.cpp:232 rc.cpp:232
+msgid "Advanced 1"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:258
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: po/rc.cpp:247 rc.cpp:247
+msgid "Advanced 2"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:300
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:348
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:389
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:300
+#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:348
+#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:389
+#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#: po/rc.cpp:256 po/rc.cpp:277 po/rc.cpp:298 rc.cpp:256 rc.cpp:277 rc.cpp:298
+msgid "0: All"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:452
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
+#. i18n: file: src/finduser.ui:491
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
+#. i18n: file: src/finduser.ui:452
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
+#. i18n: file: src/finduser.ui:491
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
+#: po/rc.cpp:325 po/rc.cpp:334 src/usermodel.cpp:64 rc.cpp:325 rc.cpp:334
+msgid "Yes"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:459
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewNo)
+#. i18n: file: src/finduser.ui:498
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
+#. i18n: file: src/finduser.ui:459
+#. i18n: ectx: property (text), widget (QRadioButton, rbInterviewNo)
+#. i18n: file: src/finduser.ui:498
+#. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
+#: po/rc.cpp:328 po/rc.cpp:337 src/usermodel.cpp:65 rc.cpp:328 rc.cpp:337
+msgid "No"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:514
+#. i18n: ectx: property (text), widget (KPushButton, pbFilter)
+#: po/rc.cpp:340 rc.cpp:340
+msgid "Apply Filters"
+msgstr ""
+
+#. i18n: file: src/finduser.ui:557
+#. i18n: ectx: property (text), widget (KPushButton, pbEdit)
+#. i18n: file: src/institution.ui:77
+#. i18n: ectx: property (text), widget (KPushButton, pbEdit)
+#. i18n: file: src/finduser.ui:557
+#. i18n: ectx: property (text), widget (KPushButton, pbEdit)
+#. i18n: file: src/institution.ui:77
+#. i18n: ectx: property (text), widget (KPushButton, pbEdit)
+#: po/rc.cpp:346 po/rc.cpp:364 rc.cpp:346 rc.cpp:364
+msgid "Edit"
+msgstr ""
+
+#. i18n: file: src/institution.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
+#. i18n: file: src/main.ui:235
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#. i18n: file: src/institution.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
+#. i18n: file: src/main.ui:235
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:352 po/rc.cpp:430 src/manageinstitutions.cpp:51 rc.cpp:352
+#: rc.cpp:430
+msgid "Institutions"
+msgstr ""
+
+#. i18n: file: src/institution.ui:22
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#. i18n: file: src/main.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
+#. i18n: file: src/institution.ui:22
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#. i18n: file: src/main.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
+#: po/rc.cpp:355 po/rc.cpp:376 rc.cpp:355 rc.cpp:376
+msgid "Name:"
+msgstr ""
+
+#. i18n: file: src/institution.ui:32
+#. i18n: ectx: property (text), widget (KPushButton, pbFilter)
+#: po/rc.cpp:358 rc.cpp:358
+msgid "Filter"
+msgstr ""
+
+#. i18n: file: src/main.ui:14
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, SampleCollectorUi)
+#: po/rc.cpp:370 rc.cpp:370
+msgid "SSC"
+msgstr ""
+
+#. i18n: file: src/main.ui:79
+#. i18n: ectx: property (text), widget (KPushButton, pbSelectPatient)
+#: po/rc.cpp:379 rc.cpp:379
+msgid "Select"
+msgstr ""
+
+#. i18n: file: src/main.ui:139
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
+#. i18n: file: src/main.ui:210
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#. i18n: file: src/main.ui:139
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
+#. i18n: file: src/main.ui:210
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:391 po/rc.cpp:415 rc.cpp:391 rc.cpp:415
+msgid "Repeat"
+msgstr ""
+
+#. i18n: file: src/main.ui:142
+#. i18n: ectx: property (description), widget (QCommandLinkButton, pbRepeat)
+#: po/rc.cpp:394 rc.cpp:394
+msgid ""
+"The interviewer reads out words on the screen which are then repeated and "
+"recorded by the patient"
+msgstr ""
+
+#. i18n: file: src/main.ui:149
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbTraining)
+#. i18n: file: src/main.ui:215
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#. i18n: file: src/main.ui:149
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbTraining)
+#. i18n: file: src/main.ui:215
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:397 po/rc.cpp:418 src/trainingswizard.cpp:118
+#: src/trainsampleintropage.cpp:32 rc.cpp:397 rc.cpp:418
+msgid "Training"
+msgstr ""
+
+#. i18n: file: src/main.ui:152
+#. i18n: ectx: property (description), widget (QCommandLinkButton, pbTraining)
+#: po/rc.cpp:400 rc.cpp:400
+msgid "The user reads training texts from the screen."
+msgstr ""
+
+#. i18n: file: src/main.ui:159
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbInterview)
+#. i18n: file: src/main.ui:220
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#. i18n: file: src/main.ui:159
+#. i18n: ectx: property (text), widget (QCommandLinkButton, pbInterview)
+#. i18n: file: src/main.ui:220
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:403 po/rc.cpp:421 src/trainingswizard.cpp:123 rc.cpp:403
+#: rc.cpp:421
+msgid "Interview"
+msgstr ""
+
+#. i18n: file: src/main.ui:162
+#. i18n: ectx: property (description), widget (QCommandLinkButton, pbInterview)
+#: po/rc.cpp:406 rc.cpp:406
+msgid "The user answers interview questions freely. The answers are recorded."
+msgstr ""
+
+#. i18n: file: src/main.ui:195
+#. i18n: ectx: property (title), widget (QMenu, menuFile)
+#: po/rc.cpp:409 rc.cpp:409
+msgid "File"
+msgstr ""
+
+#. i18n: file: src/main.ui:205
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:412 rc.cpp:412
+msgid "Quit"
+msgstr ""
+
+#. i18n: file: src/main.ui:225
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:424 src/sscview.cpp:174 rc.cpp:424
+msgid "Connect"
+msgstr ""
+
+#. i18n: file: src/main.ui:230
+#. i18n: ectx: property (text), widget (QMenu, menuFile)
+#: po/rc.cpp:427 src/sscview.cpp:181 rc.cpp:427
+msgid "Disconnect"
+msgstr ""
+
+#. i18n: file: src/modifyuserininstitution.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ModifyUserInInstitution)
+#: po/rc.cpp:433 src/modifyuserininstitution.cpp:44 rc.cpp:433
+msgid "User - Institution"
+msgstr ""
+
+#. i18n: file: src/modifyuserininstitution.ui:57
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:442 rc.cpp:442
+msgid "Institution assigned ID:"
+msgstr ""
+
+#. i18n: file: src/sscui.rc:5
+#. i18n: ectx: ToolBar (mainToolBar)
+#: po/rc.cpp:445 rc.cpp:445
+msgid "Main actions"
+msgstr ""
+
+#. i18n: file: src/sscui.rc:14
+#. i18n: ectx: Menu (sscd)
+#: po/rc.cpp:448 rc.cpp:448
+msgid "Server"
+msgstr ""
+
+#. i18n: file: src/sscui.rc:19
+#. i18n: ectx: Menu (manage)
+#: po/rc.cpp:451 rc.cpp:451
+msgid "Manage"
+msgstr ""
+
+#. i18n: file: src/sscui.rc:26
+#. i18n: ectx: Menu (settings)
+#: po/rc.cpp:454 rc.cpp:454
+msgid "Preferences"
+msgstr ""
+
+#: po/rc.cpp:455 rc.cpp:455
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:2 rc.cpp:2
+#: po/rc.cpp:456 rc.cpp:456
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
@@ -49,10 +922,6 @@ msgstr ""
 
 #: src/main.cpp:16
 msgid "Peter Grasch"
-msgstr ""
-
-#: src/manageinstitutions.cpp:51
-msgid "Institutions"
 msgstr ""
 
 #: src/manageinstitutions.cpp:69
@@ -99,10 +968,6 @@ msgstr ""
 
 #: src/manageusers.cpp:51
 msgid "Users"
-msgstr ""
-
-#: src/manageusers.cpp:70
-msgid "Ignored"
 msgstr ""
 
 #: src/manageusers.cpp:75 src/modifyuser.cpp:197
@@ -161,10 +1026,6 @@ msgstr ""
 msgid "Couldn't add user - institution association: %1"
 msgstr ""
 
-#: src/modifyuserininstitution.cpp:44
-msgid "User - Institution"
-msgstr ""
-
 #: src/modifyuserininstitution.cpp:78
 msgid "Please enter a valid institution id"
 msgstr ""
@@ -220,20 +1081,8 @@ msgid ""
 "specific ids in the configuration."
 msgstr ""
 
-#: src/sscview.cpp:174
-msgid "Connect"
-msgstr ""
-
-#: src/sscview.cpp:181
-msgid "Disconnect"
-msgstr ""
-
 #: src/sscview.cpp:188
 msgid "Add user"
-msgstr ""
-
-#: src/sscview.cpp:195
-msgid "Manage users"
 msgstr ""
 
 #: src/sscview.cpp:202
@@ -270,14 +1119,6 @@ msgstr ""
 
 #: src/trainingswizard.cpp:113
 msgid "Repeating"
-msgstr ""
-
-#: src/trainingswizard.cpp:118 src/trainsampleintropage.cpp:32
-msgid "Training"
-msgstr ""
-
-#: src/trainingswizard.cpp:123
-msgid "Interview"
 msgstr ""
 
 #: src/trainingswizard.cpp:129
@@ -342,14 +1183,6 @@ msgstr ""
 
 #: src/usermodel.cpp:56
 msgid "Not acceptable"
-msgstr ""
-
-#: src/usermodel.cpp:64
-msgid "Yes"
-msgstr ""
-
-#: src/usermodel.cpp:65
-msgid "No"
 msgstr ""
 
 #: src/usermodel.cpp:132
