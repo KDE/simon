@@ -107,7 +107,7 @@ void ManageInstitutions::editInstitution()
 
 void ManageInstitutions::deleteInstitution()
 {
-	if ((KMessageBox::questionYesNo(this, i18n("WARNING!\nDeleting an entire institution means deleting ALL associated users and ALL their collected samples.\n\nAre you REALLY sure that you want to do this?")) != KMessageBox::Yes) || (KMessageBox::warningContinueCancel(this, i18n("Irreversibly delete institution and all associated users and samples?")) != KMessageBox::Continue))
+	if ((KMessageBox::questionYesNo(this, i18n("Do you really want to delete the institution? All user associations to this institution will also be deleted.")) != KMessageBox::Yes))
 		return;
 
 	Institution *i = getCurrentlySelectedInstitution();

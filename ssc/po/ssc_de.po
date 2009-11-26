@@ -1,117 +1,118 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# German translation for ssc.
+# Copyright (C) 2009 Peter Grasch
+# This file is distributed under the same license as the simon package.
+# Peter Grasch <grasch@simon-listens.org>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-11-26 15:42+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-11-26 15:43+0100\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: po/rc.cpp:1 rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Peter Grasch"
 
 #: po/rc.cpp:2 rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "grasch@simon-listens.org"
 
 #: src/institutionmodel.cpp:77 src/usermodel.cpp:130
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: src/institutionmodel.cpp:79
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/main.cpp:9
 msgid "simon sample collector"
-msgstr ""
+msgstr "simon sample collector"
 
 #: src/main.cpp:14
 msgid "ssc"
-msgstr ""
+msgstr "ssc"
 
 #: src/main.cpp:15
 msgid "(C) 2009 Peter Grasch"
-msgstr ""
+msgstr "(C) 2009 Peter Grasch"
 
 #: src/main.cpp:16
 msgid "Peter Grasch"
-msgstr ""
+msgstr "Peter Grasch"
 
 #: src/manageinstitutions.cpp:51
 msgid "Institutions"
-msgstr ""
+msgstr "Institutionen"
 
 #: src/manageinstitutions.cpp:69
 msgid "New Institution"
-msgstr ""
+msgstr "Neue Institution"
 
 #: src/manageinstitutions.cpp:69
 msgid "Institution name:"
-msgstr ""
+msgstr "Institutionsname:"
 
 #: src/manageinstitutions.cpp:74
 msgid "Could not add institution: %1"
-msgstr ""
+msgstr "Konnte institution nicht hinzufügen: %1"
 
 #: src/manageinstitutions.cpp:83
 msgid "Please select an institution"
-msgstr ""
+msgstr "Bitte wählen Sie eine Institution aus"
 
 #: src/manageinstitutions.cpp:95
 msgid "Modify \"%1\""
-msgstr ""
+msgstr "Verändere \"%1\""
 
 #: src/manageinstitutions.cpp:96
 msgid "New institution name for institution \"%1\":"
-msgstr ""
+msgstr "Neuer institutionsname für Institution \"%1\":"
 
 #: src/manageinstitutions.cpp:103
 msgid "Could not modify institution: %1"
-msgstr ""
+msgstr "Konnte Institution nicht bearbeiten: %1"
 
 #: src/manageinstitutions.cpp:110
 msgid ""
 "Do you really want to delete the institution? All user associations to this "
 "institution will also be deleted."
 msgstr ""
+"Wollen Sie die Institution wirklich löschen? Alle Benutzer-Institutionen "
+"Assoziationen werden ebenfalls gelöscht"
 
 #: src/manageinstitutions.cpp:117
 msgid "Could not delete institution: %1"
-msgstr ""
+msgstr "Konnte Institution nicht löschen: %1"
 
 #: src/manageinstitutions.cpp:132
 msgid "Could not retrieve institutions: %1"
-msgstr ""
+msgstr "Konnte Institutionen nicht empfangen: %1"
 
 #: src/manageusers.cpp:51
 msgid "Users"
-msgstr ""
+msgstr "Benutzer"
 
 #: src/manageusers.cpp:70
 msgid "Ignored"
-msgstr ""
+msgstr "Ignoriert"
 
 #: src/manageusers.cpp:75 src/modifyuser.cpp:197
 msgid "Couldn't retrieve languages: %1"
-msgstr ""
+msgstr "Konnte Sprachen nicht empfangen: %1"
 
 #: src/manageusers.cpp:100
 msgid "Please select an user"
-msgstr ""
+msgstr "Bitte wählen Sie einen Benutzer aus"
 
 #: src/manageusers.cpp:133 src/sscview.cpp:259
 msgid ""
@@ -120,58 +121,61 @@ msgid ""
 "All collected samples associated with this user will be irreversibly "
 "destroyed!"
 msgstr ""
+"Wollen Sie den Benutzer \"%1\" (\"%2\") wirklich löschen?\n"
+"\n"
+"Alle gesammelten Sprachdaten des Benutzers werden unwiederbringlich gelöscht!"
 
 #: src/manageusers.cpp:140 src/sscview.cpp:263
 msgid "Could not delete user: %1"
-msgstr ""
+msgstr "Konnte Benutzer nicht löschen: %1"
 
 #: src/manageusers.cpp:155
 msgid "InstitutionID is invalid"
-msgstr ""
+msgstr "InstitutionsId ist nicht korrekt"
 
 #: src/manageusers.cpp:185
 msgid "Could not retrieve users: %1"
-msgstr ""
+msgstr "Konnte Benutzer nicht empfangen: %1"
 
 #: src/modifyuser.cpp:54
 msgid "User management"
-msgstr ""
+msgstr "Benutzerverwaltung"
 
 #: src/modifyuser.cpp:168
 msgid "Do you really want to remove this user - institution association?"
-msgstr ""
+msgstr "Wollen Sie die Benutzer - Institutions Assoziation wirklich löschen?"
 
 #: src/modifyuser.cpp:213
 msgid "Couldn't retrieve user - institution associations: %1"
-msgstr ""
+msgstr "Konnte Benutzer - Institution Assoziation nicht empfangen: %1"
 
 #: src/modifyuser.cpp:238
 msgid "Couldn't add user: %1"
-msgstr ""
+msgstr "Konnte Benutzer nicht hinzufügen: %1"
 
 #: src/modifyuser.cpp:264
 msgid "Couldn't modify user \"%1\": %2"
-msgstr ""
+msgstr "Konnte Benutzer \"%1\" nicht verändern: %2"
 
 #: src/modifyuser.cpp:283
 msgid "Couldn't delete user - institution association: %1"
-msgstr ""
+msgstr "Konnte Benutzer - Institution Assoziation nicht löschen: %1"
 
 #: src/modifyuser.cpp:289
 msgid "Couldn't add user - institution association: %1"
-msgstr ""
+msgstr "Konnte Benutzer - Institution Assoziation nicht hinzufügen: %1"
 
 #: src/modifyuserininstitution.cpp:44
 msgid "User - Institution"
-msgstr ""
+msgstr "Benutzer - Institution"
 
 #: src/modifyuserininstitution.cpp:78
 msgid "Please enter a valid institution id"
-msgstr ""
+msgstr "Bitte geben Sie eine korrekte InstitutionId an"
 
 #: src/sendsamplespage.cpp:46
 msgid "Transmitting samples..."
-msgstr ""
+msgstr "Übertrage Sprachaten..."
 
 #: src/sendsamplespage.cpp:48
 msgid ""
@@ -179,38 +183,41 @@ msgid ""
 "\n"
 "Please be patient..."
 msgstr ""
+"Die gesammelten Sprachdaten werden jetzt an den Server übertragen.\n"
+"\n"
+"Bitte haben Sie einen Moment Geduld..."
 
 #: src/sendsamplespage.cpp:76
 msgid "Do you want to start sending the samples?"
-msgstr ""
+msgstr "Wollen Sie die Sprachdaten jetzt senden?"
 
 #: src/sendsamplespage.cpp:81
 msgid "Transmitting samples"
-msgstr ""
+msgstr "Übertrage Sprachaten"
 
 #: src/sendsamplespage.cpp:81
 msgid "Initializing"
-msgstr ""
+msgstr "Initalisierung"
 
 #: src/sendsamplespage.cpp:116
 msgid "Sending: %1"
-msgstr ""
+msgstr "Sende: %1"
 
 #: src/sendsamplespage.cpp:125
 msgid "Server couldn't process sample: %1"
-msgstr ""
+msgstr "Server konnte die Aufnahme nicht verarbeiten: %1"
 
 #: src/sendsamplespage.cpp:146
 msgid "Could not send sample"
-msgstr ""
+msgstr "Konnte Aufnahme nicht senden"
 
 #: src/sscview.cpp:85
 msgid "Please enter a valid user id."
-msgstr ""
+msgstr "Bitte geben Sie eine Korrekte BenutzerId ein."
 
 #: src/sscview.cpp:92
 msgid "Couldn't retrieve user: %1"
-msgstr ""
+msgstr "Konnte Benutzer nicht empfangen: %1"
 
 #: src/sscview.cpp:160
 msgid ""
@@ -219,79 +226,86 @@ msgid ""
 "Maybe he is not on your institution? You might want to disable institution "
 "specific ids in the configuration."
 msgstr ""
+"Konnte die InstitutionsreferenzId des gegebenen Benutzers nicht auflösen.\n"
+"\n"
+"Vielleicht ist er nicht in Ihrer Institution eingetragen? Vielleicht möchten "
+"Sie an diesem Punkt die Institutionsspezifischen Ids in der Konfiguration "
+"deaktivieren."
 
 #: src/sscview.cpp:174
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 #: src/sscview.cpp:181
 msgid "Disconnect"
-msgstr ""
+msgstr "Verbindung trennen"
 
 #: src/sscview.cpp:188
 msgid "Add user"
-msgstr ""
+msgstr "Benutzer hinzufügen"
 
 #: src/sscview.cpp:195
 msgid "Manage users"
-msgstr ""
+msgstr "Benutzer verwalten"
 
 #: src/sscview.cpp:202
 msgid "Manage institutions"
-msgstr ""
+msgstr "Institutionen verwalten"
 
 #: src/sscview.cpp:216
 msgid "Disconnected"
-msgstr ""
+msgstr "Nicht verbunden"
 
 #: src/sscview.cpp:293
 msgid "You are already connected."
-msgstr ""
+msgstr "Sie sind bereits verbunden."
 
 #: src/sscview.cpp:297
 msgid "Connecting..."
-msgstr ""
+msgstr "Verbinde..."
 
 #: src/sscview.cpp:308
 msgid "Connected"
-msgstr ""
+msgstr "Verbunden"
 
 #: src/sscview.cpp:329
 msgid "Not connected"
-msgstr ""
+msgstr "Nicht verbunden"
 
 #: src/sscview.cpp:369
 msgid "You are not connected."
-msgstr ""
+msgstr "Sie sind nicht verbunden."
 
 #: src/sscview.cpp:373
 msgid "Disconnecting..."
-msgstr ""
+msgstr "Trenne Verbindung..."
 
 #: src/trainingswizard.cpp:113
 msgid "Repeating"
-msgstr ""
+msgstr "Nachsprechen"
 
 #: src/trainingswizard.cpp:118 src/trainsampleintropage.cpp:32
 msgid "Training"
-msgstr ""
+msgstr "Training"
 
 #: src/trainingswizard.cpp:123
 msgid "Interview"
-msgstr ""
+msgstr "Interview"
 
 #: src/trainingswizard.cpp:129
 msgid "Invalid set of prompts"
-msgstr ""
+msgstr "Inkorrekte Prompts"
 
 #: src/trainingswizard.cpp:147
 msgid "Training completed"
-msgstr ""
+msgstr "Training abgeschlossen"
 
 #: src/trainingswizard.cpp:149
 msgid ""
 "The samples have been collected. They will now be transferred to the server."
 msgstr ""
+"Die nötigen Sprachdaten wurden aufgenommen. Sie werden nun vom Server "
+"verarbeitet."
 
 #: src/trainingswizard.cpp:192
 msgid ""
@@ -299,18 +313,22 @@ msgid ""
 "\n"
 "Please remove all files manually"
 msgstr ""
+"Konnte den Ordner, der die temporären, aufgenommenen Sprachdaten beinhaltet "
+"nicht bereinigen (%1).\n"
+"\n"
+"Bitte entfernen Sie alle Dateien aus dem Ordner manuell."
 
 #: src/trainsampleintropage.cpp:38
 msgid "This wizard will guide you through the collecting of speech samples."
-msgstr ""
+msgstr "Dieser Assistent führt Sie durch das Aufnehmen von Sprachdaten."
 
 #: src/trainsampleintropage.cpp:40
 msgid "Power Recording"
-msgstr ""
+msgstr "Power Aufnahme"
 
 #: src/trainsamplepage.cpp:42
 msgid "Page %1 of %2"
-msgstr ""
+msgstr "Seite %1 von %2"
 
 #: src/trainsamplepage.cpp:46
 msgid ""
@@ -319,86 +337,90 @@ msgid ""
 "Tip: Leave about one to two seconds \"silence\" before and after you read "
 "the text for best results!\n"
 msgstr ""
+"Bitte nehmen Sie den untenstehenden Text auf.\n"
+"\n"
+"Tipp: Lassen Sie etwa ein bis zwei Sekunden \"Stille\" vor und nach dem Text "
+"für beste Ergebnisse!\n"
 
 #: src/trainsamplepage.cpp:103
 msgid "Couldn't remove sample \"%1\"."
-msgstr ""
+msgstr "Konnte Sample nicht entfernen \"%1\"."
 
 #: src/usermodel.cpp:48
 msgid "Very good"
-msgstr ""
+msgstr "Sehr gut"
 
 #: src/usermodel.cpp:50
 msgid "Good"
-msgstr ""
+msgstr "Gut"
 
 #: src/usermodel.cpp:52
 msgid "Satisfactory"
-msgstr ""
+msgstr "Befriedigend"
 
 #: src/usermodel.cpp:54
 msgid "Acceptable"
-msgstr ""
+msgstr "Genügend"
 
 #: src/usermodel.cpp:56
 msgid "Not acceptable"
-msgstr ""
+msgstr "Nicht genügend"
 
 #: src/usermodel.cpp:64
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: src/usermodel.cpp:65
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: src/usermodel.cpp:132
 msgid "Surname"
-msgstr ""
+msgstr "Vorname"
 
 #: src/usermodel.cpp:134
 msgid "Forename"
-msgstr ""
+msgstr "Nachname"
 
 #: src/usermodel.cpp:136
 msgid "Sex"
-msgstr ""
+msgstr "Geschlecht"
 
 #: src/usermodel.cpp:138
 msgid "Birthyear"
-msgstr ""
+msgstr "Geburtsjahr"
 
 #: src/usermodel.cpp:140
 msgid "ZIP Code"
-msgstr ""
+msgstr "Postleitzahl"
 
 #: src/usermodel.cpp:142
 msgid "Occupation"
-msgstr ""
+msgstr "Tätigkeit"
 
 #: src/usermodel.cpp:144
 msgid "Mothertongue"
-msgstr ""
+msgstr "Muttersprache"
 
 #: src/usermodel.cpp:146
 msgid "Orientation"
-msgstr ""
+msgstr "Orientierung"
 
 #: src/usermodel.cpp:148
 msgid "Communication"
-msgstr ""
+msgstr "Kommunikation"
 
 #: src/usermodel.cpp:150
 msgid "Motor function"
-msgstr ""
+msgstr "Motorische Fähigkeiten"
 
 #: src/usermodel.cpp:152
 msgid "Interview Possible"
-msgstr ""
+msgstr "Interview möglich"
 
 #: src/usermodel.cpp:154
 msgid "Repeate Possible"
-msgstr ""
+msgstr "Nachsprechen möglich"
 
 #: sscdaccess/sscdaccess.cpp:101
 msgid ""
@@ -407,23 +429,27 @@ msgid ""
 "\n"
 "Do you still want to continue?"
 msgstr ""
+"Das Zertifikat der Gegenstelle ist selbstsigniert und damit nicht "
+"vertrauenswürdig.\n"
+"\n"
+"Wollen Sie trotzdem fortfahren?"
 
 #: sscdaccess/sscdaccess.cpp:102
 msgid "Self-Signed Certificate"
-msgstr ""
+msgstr "Selbstsigniertes Zertifikat"
 
 #: sscdaccess/sscdaccess.cpp:153
 msgid "Request timed out (10000 ms)"
-msgstr ""
+msgstr "Timeout (10000 ms)"
 
 #: sscdaccess/sscdaccess.cpp:203 sscdaccess/sscdaccess.cpp:220
 #: sscdaccess/sscdaccess.cpp:237
 msgid "Couldn't write request"
-msgstr ""
+msgstr "Konnte Anfrage nicht senden"
 
 #: sscdaccess/sscdaccess.cpp:300 sscdaccess/sscdaccess.cpp:412
 msgid "User ID not found"
-msgstr ""
+msgstr "BenutzerId nicht gefunden"
 
 #: sscdaccess/sscdaccess.cpp:305 sscdaccess/sscdaccess.cpp:360
 #: sscdaccess/sscdaccess.cpp:390 sscdaccess/sscdaccess.cpp:417
@@ -433,56 +459,56 @@ msgstr ""
 #: sscdaccess/sscdaccess.cpp:635 sscdaccess/sscdaccess.cpp:660
 #: sscdaccess/sscdaccess.cpp:702 sscdaccess/sscdaccess.cpp:748
 msgid "Unknown error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #: sscdaccess/sscdaccess.cpp:354
 msgid "Users could not be read"
-msgstr ""
+msgstr "Benutzer konnten nicht gelesen werden"
 
 #: sscdaccess/sscdaccess.cpp:386
 msgid "Couldn't add user"
-msgstr ""
+msgstr "Konnte Benutzer nicht hinzufügen"
 
 #: sscdaccess/sscdaccess.cpp:453
 msgid "Languages could not be read"
-msgstr ""
+msgstr "Sprachen konnten nicht gelesen werden"
 
 #: sscdaccess/sscdaccess.cpp:496
 msgid "Institutions could not be read"
-msgstr ""
+msgstr "Institutionen konnten nicht gelesen werden"
 
 #: sscdaccess/sscdaccess.cpp:525
 msgid "Couldn't add institution"
-msgstr ""
+msgstr "Konnte Institution nicht hinzufügnen"
 
 #: sscdaccess/sscdaccess.cpp:551
 msgid "Institution ID not found"
-msgstr ""
+msgstr "InstitutionId nicht gefunden"
 
 #: sscdaccess/sscdaccess.cpp:577
 msgid "Couldn't delete institution"
-msgstr ""
+msgstr "Konnte Institution nicht löschen"
 
 #: sscdaccess/sscdaccess.cpp:602
 msgid "Couldn't delete user"
-msgstr ""
+msgstr "Konnte Benutzer nicht löschen"
 
 #: sscdaccess/sscdaccess.cpp:627
 msgid "Couldn't find user"
-msgstr ""
+msgstr "Konnte Benutzer nicht finden"
 
 #: sscdaccess/sscdaccess.cpp:631
 msgid "Couldn't find institution"
-msgstr ""
+msgstr "Konnte Institution nicht finden"
 
 #: sscdaccess/sscdaccess.cpp:656
 msgid "Couldn't find record"
-msgstr ""
+msgstr "Konnte Datensatz nicht finden"
 
 #: sscdaccess/sscdaccess.cpp:696
 msgid "User - institution associations could not be read"
-msgstr ""
+msgstr "Benutzer - Institution Assoziation konnte nicht gelesen werden"
 
 #: sscdaccess/sscdaccess.cpp:744
 msgid "Server failed to store sample"
-msgstr ""
+msgstr "Server konnte die Aufnahme nicht speichern"

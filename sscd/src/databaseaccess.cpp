@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QVariant>
 #include <QSqlDatabase>
+#include <QStringList>
 #include <QMutexLocker>
 
 
@@ -487,6 +488,21 @@ bool DatabaseAccess::storeSample(qint32 sampleId, qint32 userId, qint32 sampleTy
 	q.bindValue(":path", samplePath);
 
 	return executeQuery(q);
+}
+
+QStringList* DatabaseAccess::getSamplePaths(qint32 userId)
+{
+	QMutexLocker l(&transactionLock);
+	QStringList* paths = new QStringList();
+
+	QSqlQuery q = queryProvider->getSamplePaths();
+
+	if (!executeQuery(q)) return NULL;
+
+	while (q.next()) 
+		paths->append(q.value(0).toString());
+
+	return paths;
 }
 
 

@@ -65,6 +65,8 @@ class SSCQueries
 		virtual QSqlQuery addSample();
 		virtual QSqlQuery lastSampleId();
 
+		virtual QSqlQuery getSamplePaths();
+
 		virtual QSqlQuery lastInsertedId()=0;
 };
 

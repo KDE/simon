@@ -157,11 +157,19 @@ void ClientSocket::sendUsers(User *filterUser, qint32 institutionId, const QStri
 void ClientSocket::removeUser(qint32 id)
 {
 	//TODO: Delete all associated samples
-	
-	if (!databaseAccess->removeUser(id)) {
+	QStringList *files = databaseAccess->getSamplePaths(id);
+
+	if (!files || !databaseAccess->removeUser(id)) {
 		sendCode(SSC::RemoveUserFailed);
 		return;
 	}
+
+	foreach (const QString& file, *files)
+		QFile::remove(file);
+
+	QDir d;
+	d.remove(samplePath(id));
+	delete files;
 
 	sendCode(SSC::Ok);
 }

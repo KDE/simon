@@ -51,7 +51,7 @@ ModifyUser::ModifyUser(QWidget* parent) : KDialog(parent)
 	connect(ui.pbRemoveInstitution, SIGNAL(clicked()), this, SLOT(removeInstitutionAssociation()));
 	
 	checkIfComplete();
-	setCaption( i18n("") );
+	setCaption( i18n("User management") );
 
 	ui.twInstitutions->verticalHeader()->hide();
 	ui.twInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);

@@ -401,3 +401,16 @@ QSqlQuery SSCQueries::lastSampleId()
 	return q;
 }
 
+/*
+ * Retreives the path of all files associated to a given user
+ *
+ * The query contains 4 placeholders: 
+ * 	:userid (maps to Sample::UserId)
+ */
+QSqlQuery SSCQueries::getSamplePaths()
+{
+	QSqlQuery q;
+	q.prepare("SELECT Path FROM Sample WHERE UserId = :userid;");
+	return q;
+}
+

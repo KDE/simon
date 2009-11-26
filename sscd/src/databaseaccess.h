@@ -30,6 +30,7 @@ class User;
 class UserInInstitution;
 class Language;
 class Institution;
+class QStringList;
 class SSCQueries;
 
 class DatabaseAccess : public QObject
@@ -80,6 +81,7 @@ class DatabaseAccess : public QObject
 
 		qint32 nextSampleId();
 		bool storeSample(qint32 sampleId, qint32 userId, qint32 sampleType, const QString& prompt, const QString& samplePath);
+		QStringList* getSamplePaths(qint32 userId);
 };
 
 #endif
