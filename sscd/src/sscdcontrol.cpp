@@ -18,7 +18,10 @@
  */
 
 #include "sscdcontrol.h"
+#include "basedirectory.h"
 #include "databaseaccess.h"
+#include <QSettings>
+#include <QDir>
 
 SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 	,db(new DatabaseAccess(this))
@@ -29,17 +32,32 @@ SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 
 bool SSCDControl::init()
 {
-	//TODO: configuration
-	QString dbType = "QMYSQL";
-	QString dbHost = "127.0.0.1";
-	qint16  dbPort = 3306;
-	QString dbName = "ssc";
-	QString dbUser = "sscuser";
-	QString dbPassword = "yIMS23q";
+	QSettings settings(sscBaseDirectory()+QDir::separator()+"sscd.conf", QSettings::IniFormat);
+	settings.setValue("DatabaseType", "QMYSQL");
+	settings.setValue("DatabaseHost", "127.0.0.1");
+	settings.setValue("DatabasePort", 3306);
+	settings.setValue("DatabaseName", "ssc");
+	settings.setValue("DatabaseUser", "sscuser");
+	settings.setValue("DatabasePassword", "change me");
+	settings.setValue("Port", 4440);
+	settings.setValue("Bind", false);
+	settings.setValue("BindHost", "127.0.0.1");
+	qDebug() << settings.fileName();
+	settings.sync();
+	exit(0);
 
-	int serverPort = 4440;
-	bool bindTo = false;
-	QString bindHost = "127.0.0.1";
+
+	QString dbType = settings.value("DatabaseType", "QMYSQL").toString();
+	QString dbHost = settings.value("DatabaseHost", "127.0.0.1").toString();
+	qint16  dbPort = settings.value("DatabasePort", 3306).toInt();
+	QString dbName = settings.value("DatabaseName", "ssc").toString();
+	QString dbUser = settings.value("DatabaseUser", "sscuser").toString();
+	QString dbPassword = settings.value("DatabasePassword", "").toString();
+
+	int serverPort = settings.value("Port", 4440).toInt();
+
+	bool bindTo = settings.value("Bind", false).toBool();
+	QString bindHost = settings.value("BindHost", "127.0.0.1").toString();
 
 	
 	if (!db->init(dbType, dbHost, dbPort, dbName, dbUser, dbPassword))

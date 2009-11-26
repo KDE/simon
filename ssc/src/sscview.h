@@ -83,7 +83,7 @@ private slots:
 
 private:
     Ui::SampleCollectorUi ui;
-    TrainingsWizard *trainingsWizard;
+    //TrainingsWizard *trainingsWizard;
 
     User* getInstituteSpecificUser();
 };

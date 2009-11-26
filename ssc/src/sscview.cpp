@@ -43,7 +43,7 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
-SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent), trainingsWizard(new TrainingsWizard(this))
+SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 {
 	ui.setupUi ( this );
 	setupActions();
@@ -388,28 +388,33 @@ void SSCView::repeat()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
 	trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
 	delete u;
+	trainingsWizard->deleteLater();
 }
 
 void SSCView::training()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
 	trainingsWizard->collectSamples(TrainingsWizard::Training, u->userId());
 	delete u;
+	trainingsWizard->deleteLater();
 }
 
 void SSCView::interview()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
 	trainingsWizard->collectSamples(TrainingsWizard::Interview, u->userId());
 	delete u;
+	trainingsWizard->deleteLater();
 }
 
 
 SSCView::~SSCView()
 {
-	trainingsWizard->deleteLater();
 }

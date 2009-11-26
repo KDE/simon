@@ -1,4 +1,5 @@
 include(FindPortaudio)
+find_package(Qt4 COMPONENTS QtCore QtSql QtNetwork)
 
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SSCD -DKDEWIN_STRINGS_H)
@@ -11,6 +12,7 @@ set(sscd_SRCS
    main.cpp
    sscdcontrol.cpp
    clientsocket.cpp
+   basedirectory.h
    databaseaccess.cpp
    sscqueries.cpp
    mysqlqueries.cpp
@@ -21,7 +23,8 @@ kde4_add_app_icon(sscd_SRCS
 
 kde4_add_executable(sscd ${sscd_SRCS})
 
-target_link_libraries(sscd ${QT_LIBRARIES} sscobjects)
+target_link_libraries(sscd ${QT_QTCORE_LIBRARY} ${QT_QTSQL_LIBRARY}
+	${QT_QTNETWORK_LIBRARY} sscobjects)
 
 install(TARGETS sscd DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd )
 

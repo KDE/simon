@@ -96,6 +96,7 @@ public:
 
 
 	bool sendSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data);
+	bool processSampleAnswer();
 
 public slots:
 	void disconnectFromServer();

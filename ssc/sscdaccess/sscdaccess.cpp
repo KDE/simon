@@ -26,7 +26,7 @@
 #include <sscobjects/userininstitution.h>
 #include <sscobjects/user.h>
 
-#include <stdio.h>
+#include <unistd.h>
 
 #include <QByteArray>
 #include <QSslSocket>
@@ -63,10 +63,10 @@ SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 {
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
-	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
-	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()));
+	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()), Qt::DirectConnection);
+	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()), Qt::DirectConnection);
 
-	connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
+	connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::DirectConnection);
 }
 
 
@@ -721,11 +721,19 @@ bool SSCDAccess::sendSample(qint32 userId, qint32 sampleType, const QString& pro
 
 	socket->write(toWrite);
 	socket->write(body);
+	return true;
+}
 
-
+bool SSCDAccess::processSampleAnswer()
+{
 	QByteArray msg;
 	QDataStream streamRet(&msg, QIODevice::ReadOnly);
-	waitForMessage(sizeof(qint32),streamRet, msg);
+	while ((unsigned int) streamRet.device()->bytesAvailable() < (unsigned int) sizeof(qint32)) {
+		kDebug() << "Bytes available: " << (unsigned int) streamRet.device()->bytesAvailable() <<
+			" looking for " << (unsigned int) sizeof(qint32);
+		usleep(200);
+		msg += socket->readAll();
+	}
 	qint32 type;
 	streamRet >> type;
 	switch (type) { 
@@ -742,7 +750,6 @@ bool SSCDAccess::sendSample(qint32 userId, qint32 sampleType, const QString& pro
 			 }
 	}
 	return false;
-
 }
 
 

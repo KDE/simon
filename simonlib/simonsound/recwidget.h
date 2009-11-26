@@ -31,7 +31,7 @@ class KPushButton;
 class QGroupBox;
 class QProgressBar;
 class QLabel;
-class KTextEdit;
+class QPlainTextEdit;
 class QFont;
 
 /**
@@ -57,7 +57,7 @@ signals:
 private:
 	QGroupBox *gbContainer;
 //	QLabel *toRecord;
-	KTextEdit *tePrompt;
+	QPlainTextEdit *tePrompt;
 	KPushButton *pbRecord;
 	KPushButton *pbPlay;
 	KPushButton *pbDelete;

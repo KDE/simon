@@ -17,11 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define LINUX_BASE_DIR "/usr/share/ssc"
 
 #include "clientsocket.h"
 
 #include "databaseaccess.h"
+#include "basedirectory.h"
+
 #include <sscobjects/sscobject.h>
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
@@ -454,12 +455,7 @@ void ClientSocket::storeSample(qint32 userId, qint32 sampleType, const QString& 
 
 QString ClientSocket::samplePath(qint32 userId)
 {
-	QString baseDir;
-#ifdef Q_OS_WIN32
-	baseDir = qApp()->applicationDirPath();
-#else
-	baseDir = LINUX_BASE_DIR;
-#endif
+	QString baseDir = sscdBaseDirectory();
 	QString samplesDir = baseDir+QDir::separator()+"samples"+QDir::separator()+QString::number(userId);
 	QDir d(samplesDir);
 	if (!d.exists() && !d.mkpath(samplesDir)) {

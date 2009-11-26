@@ -50,15 +50,22 @@ ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style,
 		
 		QHBoxLayout *hBox = new QHBoxLayout();
 		hBox->addWidget(currentAction);
-		if (style == Compact)
+		if (style == Compact) {
 			hBox->addWidget(bar);
-		hBox->addWidget(cancelButton);
+			hBox->addWidget(cancelButton);
+		}
 
 		QVBoxLayout *vBox = new QVBoxLayout(this);
 		vBox->addWidget(name);
 		vBox->addLayout(hBox);
-		if (style != Compact)
+		if (style != Compact) {
 			vBox->addWidget(bar);
+
+			QHBoxLayout *hBox2 = new QHBoxLayout();
+			hBox2->addStretch(2);
+			hBox2->addWidget(cancelButton);
+			vBox->addLayout(hBox2);
+		}
 		vBox->addWidget(new QSplitter(this));
 		connect(cancelButton, SIGNAL(clicked()), op, SLOT(cancel()));
 	}
