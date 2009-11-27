@@ -19,7 +19,7 @@
 
 #include "sendsamplespage.h"
 #include "sscconfig.h"
-#include <sscdaccess/sscdaccess.h>
+#include "sscdaccess.h"
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
 

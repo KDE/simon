@@ -20,7 +20,7 @@
 #include "manageinstitutions.h"
 #include "institutionmodel.h"
 
-#include <sscdaccess/sscdaccess.h>
+#include "sscdaccess.h"
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>
 #include <QInputDialog>

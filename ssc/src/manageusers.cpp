@@ -22,7 +22,7 @@
 #include "modifyuser.h"
 #include "manageinstitutions.h"
 
-#include <sscdaccess/sscdaccess.h>
+#include "sscdaccess.h"
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>

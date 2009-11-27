@@ -1,4 +1,4 @@
-find_package(Qt4 COMPONENTS QtConcurrent)
+find_package(Qt4 COMPONENTS QtConcurrent  QtNetwork)
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib
 	../../simonlib/speechgui ../)
 set(ssc_SRCS
@@ -14,6 +14,7 @@ set(ssc_SRCS
    trainsamplepage.cpp
    sendsamplespage.cpp
    trainsampleintropage.cpp
+   sscdaccess.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS

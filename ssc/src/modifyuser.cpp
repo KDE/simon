@@ -21,7 +21,7 @@
 #include "modifyuserininstitution.h"
 #include "sscconfig.h"
 
-#include <sscdaccess/sscdaccess.h>
+#include "sscdaccess.h"
 #include <sscobjects/user.h>
 #include <sscobjects/userininstitution.h>
 #include <sscobjects/language.h>
