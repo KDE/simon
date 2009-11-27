@@ -256,7 +256,10 @@ IF(WIN32 AND NOT UNIX)
 	 
 	SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simon.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" 0 	 
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simond.exe\\\" 0 	 
-	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ksimond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" 0") 	 
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ksimond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" 0
+	
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\sam.lnk\\\" \\\"$INSTDIR\\\\bin\\\\sam.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\sam.exe\\\" 0 	 
+	") 	 
 	 
 	 
 	 
@@ -265,6 +268,7 @@ IF(WIN32 AND NOT UNIX)
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\simon.lnk\\\" 	 
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\simond.lnk\\\" 	 
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\ksimond.lnk\\\" 	 
+	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\sam.lnk\\\" 	 
 	 ") 	 
 ENDIF(WIN32 AND NOT UNIX) 	 
  
