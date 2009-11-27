@@ -29,7 +29,6 @@ SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 	connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
 }
 
-
 bool SSCDControl::init()
 {
 	QSettings settings(SSCD_BASE_DIRECTORY+QDir::separator()+"sscd.conf", QSettings::IniFormat);
