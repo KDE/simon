@@ -28,6 +28,9 @@
 
 #include <unistd.h>
 
+#ifdef Q_OS_WIN32
+#endif
+
 #include <QByteArray>
 #include <QSslSocket>
 #include <QTimer>
@@ -731,7 +734,11 @@ bool SSCDAccess::processSampleAnswer()
 	while ((unsigned int) streamRet.device()->bytesAvailable() < (unsigned int) sizeof(qint32)) {
 		kDebug() << "Bytes available: " << (unsigned int) streamRet.device()->bytesAvailable() <<
 			" looking for " << (unsigned int) sizeof(qint32);
+#ifdef Q_OS_WIN32
+		Sleep(200);
+#else
 		usleep(200);
+#endif
 		msg += socket->readAll();
 	}
 	qint32 type;

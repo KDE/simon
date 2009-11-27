@@ -5,8 +5,8 @@ IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SSCD -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/
-	../../simonlib ${PORTAUDIO_DEFINITIONS})
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
+	../../simonlib)
 
 set(sscd_SRCS
    main.cpp

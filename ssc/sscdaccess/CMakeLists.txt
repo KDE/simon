@@ -1,26 +1,18 @@
 include(FindQt4)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_PATH})
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
+find_package(Qt4 COMPONENTS QtNetwork)
 
 set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 	../../simonlib)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SSCDACESS_LIB)
 
 
-IF(WIN32)
-	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
-ENDIF(WIN32)
 
-include(KDE4Defaults)
-
-set (QT_USE_QTMAIN true)
-set (QT_USE_QTNETWORK true)
-include(UseQt4)
 
 set( sscdaccess_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess.cpp
@@ -33,8 +25,8 @@ set( sscdaccess_LIB_HDRS
 kde4_add_library( sscdaccess  SHARED ${sscdaccess_LIB_SRCS} )
 
 
-target_link_libraries( sscdaccess ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} simonprogresstracking sscobjects )
+target_link_libraries( sscdaccess ${QT_QTCORE_LIBRARY}
+	${QT_QTNETWORK_LIBRARY} ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} sscobjects )
 
 set_target_properties( sscdaccess
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

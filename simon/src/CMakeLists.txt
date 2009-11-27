@@ -38,7 +38,8 @@ kde4_add_executable( simon ${simonGeneralSources} )
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simonactions simoninfo
-simonlogging simonxml speechgui simonsound simonmodelmanagementui 
+simonlogging simonxml speechgui simonsound simonscenarios 
+simonmodelmanagementui simonscenariobase
 simonrecognitioncontrol simonactionsui simonprogresstracking)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

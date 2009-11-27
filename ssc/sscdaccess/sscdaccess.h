@@ -21,12 +21,12 @@
 #ifndef SSCDACESS_H
 #define SSCDACESS_H
 
-#include "sscdaccess_export.h"
 #include <sscobjects/user.h>
 #include <sscobjects/language.h>
 #include <sscprotocol/sscprotocol.h>
 #include <QList>
 #include <QObject>
+#include "sscdaccess_export.h"
 
 class QSslSocket;
 class QTimer;
