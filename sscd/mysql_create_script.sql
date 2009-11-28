@@ -133,9 +133,9 @@ INSERT INTO Language (LanguageId, Name) VALUES ("de", "German"),  ("aa", "Afar")
 
 
 
-CREATE USER sscuser IDENTIFIED BY 'CHANGE ME NOW';
+CREATE USER sscuser IDENTIFIED BY 'BHB5U3Z86T';
 
-grant all privileges on ssc.* to sscuser identified by "CHANGE ME NOW";
+grant all privileges on ssc.* to sscuser identified by "BHB5U3Z86T";
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

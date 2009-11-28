@@ -65,6 +65,12 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
 	db->setUserName(user);
 	db->setPassword(password);
 	db->setDatabaseName(dbName);
+	
+	emit error("Host: "+host.toUtf8()+"\n"+
+	"Port: "+QString::number(port).toUtf8()+"\n"+
+	"User: "+user.toUtf8()+"\n"+
+	"Password: "+password.toUtf8()+"\n"+
+	"Database Name: "+dbName.toUtf8());
 
 	if (type == "QMYSQL") queryProvider = new MYSQLQueries();
 	//else queryProvider = new SSCQueries();

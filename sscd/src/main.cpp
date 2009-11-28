@@ -23,9 +23,12 @@
 
 #include <QApplication>
 #include "../../version.h"
+#include "basedirectory.h"
 
 int main(int argc, char **argv)
 {
+	QCoreApplication::addLibraryPath(SSCD_BASE_DIRECTORY);
+	
 	QCoreApplication app(argc,argv);
 
 	SSCDControl *control = new SSCDControl();

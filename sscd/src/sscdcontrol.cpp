@@ -32,12 +32,13 @@ SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 bool SSCDControl::init()
 {
 	QSettings settings(SSCD_BASE_DIRECTORY+QDir::separator()+"sscd.conf", QSettings::IniFormat);
+	
 	QString dbType = settings.value("DatabaseType", "QMYSQL").toString();
 	QString dbHost = settings.value("DatabaseHost", "127.0.0.1").toString();
 	qint16  dbPort = settings.value("DatabasePort", 3306).toInt();
 	QString dbName = settings.value("DatabaseName", "ssc").toString();
 	QString dbUser = settings.value("DatabaseUser", "sscuser").toString();
-	QString dbPassword = settings.value("DatabasePassword", "").toString();
+	QString dbPassword = settings.value("DatabasePassword", "").toString();	
 
 	int serverPort = settings.value("Port", 4440).toInt();
 
@@ -45,8 +46,10 @@ bool SSCDControl::init()
 	QString bindHost = settings.value("BindHost", "127.0.0.1").toString();
 
 	
-	if (!db->init(dbType, dbHost, dbPort, dbName, dbUser, dbPassword))
+	if (!db->init(dbType, dbHost, dbPort, dbName, dbUser, dbPassword)) {
+		qWarning() << "Database could not be opened. Aborting.";
 		return false;
+	}
 
 	if (bindTo) 
 		startServer(QHostAddress(bindHost), serverPort);
@@ -60,19 +63,22 @@ bool SSCDControl::init()
 
 void SSCDControl::handleError(const QString& error)
 {
-	qDebug() << error;
+QFile f("C:/error.log");
+f.open(QIODevice::Append|QIODevice::Append);
+f.write(SSCD_BASE_DIRECTORY.toUtf8()+"\n"+error.toUtf8()+"\n");
+	qWarning() << error;
 }
 
 void SSCDControl::startServer(const QHostAddress& allowedClient, quint16 port)
 {
-	qDebug() << "Starting server listening on port " << port;
+	qWarning() << "Starting server listening on port " << port;
 
 	listen(allowedClient, port);
 }
 
 void SSCDControl::stopServer()
 {
-	qDebug() << "Stopping server";
+	qWarning() << "Stopping server";
 
 	close();
 	

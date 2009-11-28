@@ -1,6 +1,11 @@
 find_package(Qt4 COMPONENTS QtConcurrent  QtNetwork)
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib
 	../../simonlib/speechgui ../)
+	
+set (QT_USE_QTNETWORK true)
+
+include(${QT_USE_FILE})
+
 set(ssc_SRCS
    main.cpp
    sscview.cpp
@@ -31,8 +36,7 @@ kde4_add_app_icon(ssc_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-ssc.png")
 kde4_add_executable(ssc ${ssc_SRCS})
 
-target_link_libraries(ssc ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo
-	simonprogresstracking sscdaccess sscobjects simonsound)
+target_link_libraries(ssc ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} simonprogresstracking sscobjects simonsound)
 
 install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ssc)
 

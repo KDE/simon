@@ -43,8 +43,9 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
+
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-${KDE4_KDEUI_LIBS} speechgui adinstreamer)
+${KDE4_KDEUI_LIBS} )
 
 
 set_target_properties( simonsound

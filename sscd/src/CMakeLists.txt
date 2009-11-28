@@ -5,6 +5,8 @@ IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SSCD -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
+set(QT_CONFIG "terminal")
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
 	../../simonlib)
 

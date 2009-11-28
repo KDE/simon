@@ -154,7 +154,7 @@ msgstr "Details"
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
 #: po/rc.cpp:61 po/rc.cpp:199 rc.cpp:61 rc.cpp:199
 msgid "Surname:"
-msgstr "Vorname:"
+msgstr "Nachname:"
 
 #. i18n: file: src/details.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
@@ -1215,7 +1215,7 @@ msgstr "Nicht genügend"
 
 #: src/usermodel.cpp:132
 msgid "Surname"
-msgstr "Vorname"
+msgstr "Nachname"
 
 #: src/usermodel.cpp:134
 msgid "Forename"
