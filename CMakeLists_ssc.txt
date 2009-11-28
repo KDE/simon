@@ -1,0 +1,163 @@
+project(ssc)
+
+cmake_minimum_required(VERSION 2.6)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
+if(WIN32)
+SET(CPACK_GENERATOR "NSIS")
+endif(WIN32)
+if(UNIX)
+SET(DESTDIR "/usr")
+SET(CPACK_SET_DESTDIR "ON") 
+SET(CPACK_GENERATOR "DEB;STGZ")
+#SET(CPACK_GENERATOR "RPM")
+endif(UNIX)
+
+INCLUDE(InstallRequiredSystemLibraries)
+
+IF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE amd64)
+	SET(CPACK_RPM_PACKAGE_ARCHITECTURE "x86_64")
+ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
+	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
+	SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
+ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.1.4-0ubuntu1), kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-mysql")
+SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
+	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
+
+SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
+SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
+SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+
+SET(CPACK_RPM_PACKAGE_LICENCE "GNU General Public License (GPL)")
+SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
+SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.1.0, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-sql-mysql, libqt4-x11, libqt4")
+
+SET(CPACK_PACKAGE_NAME "ssc")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Simon Sample Collector")
+SET(CPACK_PACKAGE_DESCRIPTION "The simon sample collector provides an easy to use solution to gather a lot of trainings data to be used for speech analysis.")
+SET(CPACK_PACKAGE_VENDOR "SIMON listens e.V.")
+#SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")
+set(CPACK_PACKAGE_VERSION "0.1")
+SET(CPACK_PACKAGE_VERSION_MAJOR "0")
+SET(CPACK_PACKAGE_VERSION_MINOR "1")
+SET(CPACK_PACKAGE_VERSION_PATCH "0")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "simon ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
+SET(CPACK_STRIP_FILES TRUE)
+SET(CPACK_SOURCE_STRIP_FILES TRUE)
+
+set(CPACK_SOURCE_IGNORE_FILES
+"~$"
+"/.svn/"
+"/build/"
+"\\\\.svn\\\\"
+"\\\\build\\\\"
+)
+
+# Devel
+set(CPACK_COMPONENTS_ALL  kdecore ssc sscd simon translations)
+
+#SET(CPACK_COMPONENT_DEVEL_DISPLAY_NAME "simon System Files")
+SET(CPACK_COMPONENT_KDECORE_DISPLAY_NAME "KDE System Files")
+SET(CPACK_COMPONENT_SSC_DISPLAY_NAME "SSC")
+SET(CPACK_COMPONENT_SSCD_DISPLAY_NAME "SSCD")
+SET(CPACK_COMPONENT_SIMON_DISPLAY_NAME "Libraries")
+SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_NAME "Translations")
+
+
+
+#SET(CPACK_COMPONENT_DEVEL_DISPLAY_DESCRIPTION "Contains a needed set of libraries.")
+SET(CPACK_COMPONENT_KDECORE_DISPLAY_DESCRIPTION "This contains a subset of the kde system files needed to run ssc.")
+SET(CPACK_COMPONENT_SSC_DISPLAY_DESCRIPTION "The SSC Client")
+SET(CPACK_COMPONENT_SSCD_DISPLAY_DESCRIPTION "The SSC Server")
+SET(CPACK_COMPONENT_SIMON_DISPLAY_DESCRIPTION "Common libraries")
+
+SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_DESCRIPTION "Translations of all the components.")
+
+set(CPACK_COMPONENT_SSC_DEPENDS simon )
+set(CPACK_COMPONENT_SSCD_DEPENDS ssc )
+
+
+set(CPACK_COMPONENT_KDECORE_GROUP "Applications")
+SET(CPACK_COMPONENT_SSC_GROUP "Applications")
+SET(CPACK_COMPONENT_SSCD_GROUP "Applications")
+SET(CPACK_COMPONENT_SIMON_GROUP "Applications")
+
+
+set(CPACK_COMPONENT_GROUP_APPLICATIONS_DESCRIPTION
+   "Runtime files. You will definitely want those if you want to use ssc.")
+
+   
+set(CPACK_ALL_INSTALL_TYPES Full User Developer)
+
+
+SET(CPACK_COMPONENT_KDECORE_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_SSC_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_SSCD_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_SIMON_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_TRANSLATIONS_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_KDECORE_REQUIRED) 	 
+
+IF(WIN32 AND NOT UNIX) 	 
+	# There is a bug in NSI that does not handle full unix paths properly. Make 	 
+	# sure there is at least one set of four (4) backlasshes. 	 
+	SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\installbanner.bmp") 	 
+	#SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\simon.exe") 	
+	SET(CPACK_NSIS_COMPRESSOR "/SOLID lzma") 	 
+	 
+	SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} ssc") 	 
+	SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki") 	 
+	SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.com") 	 
+	SET(CPACK_NSIS_CONTACT "support@simon-listens.org") 	 
+	SET(CPACK_NSIS_MODIFY_PATH ON) 	 
+	 
+	SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ssc.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ssc.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ssc.exe\\\" 0 	 
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\sscd.lnk\\\" \\\"$INSTDIR\\\\bin\\\\sscd.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\sscd.exe\\\" 0") 	 
+	 
+	 
+	 
+   SET(CPACK_NSIS_DELETE_ICONS_EXTRA " 	 
+	 !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP 	 
+	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\ssc.lnk\\\" 	 
+	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\sscd.lnk\\\" 		 
+	 ") 	 
+ENDIF(WIN32 AND NOT UNIX) 	 
+ 
+SET(CPACK_PACKAGE_EXECUTABLES "ssc" "ssc")
+
+include(CPack)
+
+#add_subdirectory(julius)
+
+find_package(KDE4 REQUIRED)
+if(WIN32)
+# old gcc because of MinGW
+#add_definitions(-std=c++98 -D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
+add_definitions(-D__INTERLOCKED_DECLARED)
+else(WIN32)
+	#add_definitions(-pedantic-errors -std=c++98 -Wno-variadic-macros)
+endif(WIN32)
+
+
+add_subdirectory(simonlib)
+#add_subdirectory(simon)
+#add_subdirectory(simond)
+#add_subdirectory(ksimond)
+#add_subdirectory(plugins)
+#add_subdirectory(sam)
+add_subdirectory(ssc)
+add_subdirectory(sscd)
+
+
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/version.h
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon
+  COMPONENT simondevel
+)
+
+
+if(WIN32)
+add_subdirectory(package/KDE)
+ENDIF(WIN32)
