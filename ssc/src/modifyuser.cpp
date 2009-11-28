@@ -124,6 +124,7 @@ void ModifyUser::addInstitutionAssociation()
 {
 	ModifyUserInInstitution *modifyUserInInstitution = new ModifyUserInInstitution(this);
 	UserInInstitution *uiiN = modifyUserInInstitution->add();
+	if (!uiiN) return
 
 	foreach (UserInInstitution* uii, uiisAdd) {
 		//if already in here delete the new one
