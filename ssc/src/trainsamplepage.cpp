@@ -32,7 +32,7 @@
 
 TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 	prompt(prompt_),
-	fileName( prompt_.replace(" ", "_").replace("/","_")
+	fileName( prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"")
 		+ "_S"
 		+ QString::number(nowPage)
 		+ "_"
