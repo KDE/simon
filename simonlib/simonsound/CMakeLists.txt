@@ -11,7 +11,6 @@ include(KDE4Defaults)
 
 set (QT_USE_QTMAIN true)
 
-
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
@@ -44,8 +43,14 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
+if (${USE_WITH_SIMON})
+	message(STATUS "Use with simon aktiviert")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-${KDE4_KDEUI_LIBS} )
+		${KDE4_KDEUI_LIBS} adinstreamer)
+elseif  (${USE_WITH_SIMON})
+target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+		${KDE4_KDEUI_LIBS} )
+endif (${USE_WITH_SIMON})
 
 
 set_target_properties( simonsound

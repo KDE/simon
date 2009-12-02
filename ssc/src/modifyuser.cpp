@@ -173,7 +173,6 @@ void ModifyUser::removeInstitutionAssociation()
 
 	if (uiisAdd.removeAll(uiiN) == 0)
 		uiisDelete << uiiN;
-	else kDebug() << "Removed at least one uii to add";
 
 	//move up each item after this item
 	int thisRow = selectedItem->row();
@@ -231,7 +230,7 @@ int ModifyUser::newUser()
 
 	int ret = KDialog::exec();
 	if (ret) {
-		bool succ = false;
+		bool succ = true;
 		//creating
 		User *newUser = createUser();
 		int userId = SSCDAccess::getInstance()->addUser(newUser);
@@ -240,7 +239,7 @@ int ModifyUser::newUser()
 			succ = false;
 		}
 
-		if (succ)
+		if (succ) 
 			commitUserInInstitutions(userId);
 				
 		delete newUser;

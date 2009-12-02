@@ -53,6 +53,8 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
 
 	}
 
+	disconnected();
+
 	connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(connected()));
 	connect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
@@ -319,6 +321,8 @@ void SSCView::connected()
 	actionCollection()->action("adduser")->setEnabled(true);
 	actionCollection()->action("users")->setEnabled(true);
 	actionCollection()->action("institutions")->setEnabled(true);
+
+	ui.cbPatientId->setEnabled(true);
 }
 
 /**
@@ -340,6 +344,8 @@ void SSCView::disconnected()
 	actionCollection()->action("adduser")->setEnabled(false);
 	actionCollection()->action("users")->setEnabled(false);
 	actionCollection()->action("institutions")->setEnabled(false);
+
+	ui.cbPatientId->setEnabled(false);
 }
 
 
@@ -388,30 +394,38 @@ void SSCView::repeat()
 {
 	User *u = retrieveUser();
 	if (!u) return;
-	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
-	trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
+	if (u->repeatingPossible()) {
+		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
+		trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
+		trainingsWizard->deleteLater();
+	}
 	delete u;
-	trainingsWizard->deleteLater();
 }
 
 void SSCView::training()
 {
 	User *u = retrieveUser();
 	if (!u) return;
-	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
-	trainingsWizard->collectSamples(TrainingsWizard::Training, u->userId());
+
+	if (u->repeatingPossible()) {
+		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
+		trainingsWizard->collectSamples(TrainingsWizard::Training, u->userId());
+		trainingsWizard->deleteLater();
+	}
 	delete u;
-	trainingsWizard->deleteLater();
 }
 
 void SSCView::interview()
 {
 	User *u = retrieveUser();
 	if (!u) return;
-	TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
-	trainingsWizard->collectSamples(TrainingsWizard::Interview, u->userId());
+
+	if (u->interviewPossible()) {
+		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
+		trainingsWizard->collectSamples(TrainingsWizard::Interview, u->userId());
+		trainingsWizard->deleteLater();
+	}
 	delete u;
-	trainingsWizard->deleteLater();
 }
 
 
