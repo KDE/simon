@@ -71,10 +71,8 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 	f.close();
 
 	Scenario *newScenario = new Scenario(id);
-	if (!setupScenario(newScenario)) {
-		kDebug() <<  "Scenario init failed!!!";
+	if (!setupScenario(newScenario))
 		return false;
-	}
 
 
 	for (int i=0; i < scenarios.count(); i++) {

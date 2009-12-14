@@ -444,8 +444,10 @@ void ClientSocket::processRequest()
 				QDateTime remoteSelectedScenarioDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteSelectedScenarioDate;
-				kDebug() << "Received selected scenario date" << remoteSelectedScenarioDate;
 				QDateTime localSelectedScenarioDate = synchronisationManager->selectedScenariosDate();
+
+				kDebug() << "Received selected scenario date" << remoteSelectedScenarioDate << localSelectedScenarioDate;
+
 				if (localSelectedScenarioDate < remoteSelectedScenarioDate) {
 					//clients version is newer
 					sendCode(Simond::GetSelectedScenarioList);
@@ -556,6 +558,7 @@ void ClientSocket::processRequest()
 				
 				Q_ASSERT(synchronisationManager);
 				
+				kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
 				if (remoteLanguageDescriptionDate != localLanguageDescriptionDate)
 				{
 					if (localLanguageDescriptionDate > remoteLanguageDescriptionDate)
@@ -897,7 +900,7 @@ void ClientSocket::synchronizeAlreadyAvailableScenarios()
 void ClientSocket::sendSelectedScenarioList()
 {
 	kDebug() << "Sending selected scenario list";
-	QStringList list = synchronisationManager->getSelectedScenarioList();
+	QStringList list = synchronisationManager->getLatestSelectedScenarioList();
 /*	if (list.isNull()) {
 		sendCode(Simond::ErrorRetrievingSelectedScenarioList);
 		return;

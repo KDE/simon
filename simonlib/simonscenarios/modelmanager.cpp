@@ -42,6 +42,9 @@ ModelManager::ModelManager(QObject* parent) : QObject(parent),
 {
 	connect (ScenarioManager::getInstance(), SIGNAL(scenariosChanged()), 
 		  this, SLOT(modelHasChanged()));
+
+	connect (ScenarioManager::getInstance(), SIGNAL(shadowVocabularyChanged()), 
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
 		  this, SLOT(modelHasChanged()));

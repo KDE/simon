@@ -319,7 +319,7 @@ bool SynchronisationManager::hasLanguageDescription(const QString& modelPath)
 
 	QDir dir(modelPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	if (entries.contains("shadow.voca") && 
+	if (entries.contains("shadowlexicon.xml") && 
 		entries.contains("tree1.hed"))
 		return true;
 	else return false;
@@ -332,7 +332,7 @@ LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
 	if (path.isNull()) return 0;
 
 	QFile treeHed(path+"tree1.hed");
-	QFile shadowVocab(path+"shadow.voca");
+	QFile shadowVocab(path+"shadowlexicon.xml");
 
 	if ((!treeHed.open(QIODevice::ReadOnly))
 		|| (!shadowVocab.open(QIODevice::ReadOnly)))
@@ -348,7 +348,7 @@ bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDa
 	if (username.isEmpty()) return false;
 
 	QFile treeHedFile(srcContainerTempPath+"tree1.hed");
-	QFile shadowVocabFile(srcContainerTempPath+"shadow.voca");
+	QFile shadowVocabFile(srcContainerTempPath+"shadowlexicon.xml");
 	
 	if ((!treeHedFile.open(QIODevice::WriteOnly))
 		|| (!shadowVocabFile.open(QIODevice::WriteOnly)))
@@ -622,7 +622,7 @@ bool SynchronisationManager::commit()
 			cGroup.readEntry("TrainingDate", QDateTime()));
 
 	//***************
-	newSrcContainerTime = qMax(newSrcContainerTime, selectedScenariosDate());
+	newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath));
 
 	QDir scenarioDir(srcContainerTempPath+"scenarios");
 	QStringList scenarios = scenarioDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
@@ -694,7 +694,6 @@ QMap<QDateTime, QString> SynchronisationManager::getTrainingDatas()
 			i++;
 	}
 	return models;
-
 }
 
 QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
@@ -707,7 +706,7 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
 	{
 		QString path = i.value()+QDir::separator();
 		if (!QFile::exists(path+"tree1.hed")||
-				!QFile::exists(path+"shadow.voca"))
+				!QFile::exists(path+"shadowlexicon.xml"))
 		{
 			//does not contain a valid language description
 			i = models.erase(i);
@@ -805,9 +804,9 @@ bool SynchronisationManager::copyTrainingData(const QString& sourcePath, const Q
 bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, const QString& targetPath)
 {
 	bool allFine=true;
-	if (!QFile::exists(targetPath+"shadow.voca") || !QFile::exists(targetPath+"tree1.hed"))
+	if (!QFile::exists(targetPath+"shadowlexicon.xml") || !QFile::exists(targetPath+"tree1.hed"))
 	{
-		if (!QFile::copy(sourcePath+"shadow.voca", targetPath+"shadow.voca")) allFine=false;
+		if (!QFile::copy(sourcePath+"shadowlexicon.xml", targetPath+"shadowlexicon.xml")) allFine=false;
 		if (!QFile::copy(sourcePath+"tree1.hed", targetPath+"tree1.hed")) allFine=false;
 
 		KConfig config( targetPath+"modelsrcrc", KConfig::SimpleConfig );
@@ -908,12 +907,35 @@ bool SynchronisationManager::removeExcessModelBackups()
 
 QDateTime SynchronisationManager::selectedScenariosDate()
 {
-	return getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath);
+	return getSelectedScenarioListModifiedDateFromPath(/* last path containing simonscenariosrc */);
 }
 
-QStringList SynchronisationManager::getSelectedScenarioList()
+QMap<QDateTime, QString> SynchronisationManager::getSelectedScenarioLists()
 {
-	QString path = srcContainerTempPath+QDir::separator()+"simonscenariosrc";
+	QMap<QDateTime, QString> models = getModels();
+
+	//remove every model that does not contain valid selected scenarios list
+	QMap<QDateTime, QString>::iterator i = models.begin();
+	while (i != models.end()) {
+		QString path = i.value()+QDir::separator();
+		if (!QFile::exists(path+"simonscenariosrc"))
+			i = models.erase(i);
+		else 
+			i++;
+	}
+	return models;
+}
+
+QString SynchronisationManager::getLatestSelectedScenarioListPath()
+{
+	QString dir = getLatestPath(getSelectedScenarioLists());
+	if (dir.isNull()) return QString();
+	
+	return dir+QDir::separator()+"simonscenariosrc";
+}
+
+QStringList SynchronisationManager::getLatestSelectedScenarioList()
+{
 	KConfig config( path, KConfig::SimpleConfig );
 	KConfigGroup cg(&config, "");
 	return cg.readEntry("SelectedScenarios", QStringList());

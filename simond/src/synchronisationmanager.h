@@ -46,9 +46,12 @@ class SynchronisationManager : public QObject
 
 		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
 		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
+		QMap<QDateTime, QString> getSelectedScenarioLists(); //treehed
 
 		QString getLatestLanguageDescriptionPath();
 		QString getLatestTrainingPath();
+		QString getLatestSelectedScenarioListPath();
+		QString getLatestSelectedScenarioList();
 
 		QStringList getAllScenarios();
 		QString getLatestScenarioPath(const QString& id);
