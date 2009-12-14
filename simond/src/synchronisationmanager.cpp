@@ -606,7 +606,7 @@ bool SynchronisationManager::abort()
 
 QDateTime SynchronisationManager::getSelectedScenarioListModifiedDateFromPath(const QString& path)
 {
-	KConfig config( path+QDir::separator()+"simonscenariosrc", KConfig::SimpleConfig );
+	KConfig config( path, KConfig::SimpleConfig );
 	KConfigGroup cg(&config, "");
 	return cg.readEntry("LastModified", QDateTime());
 }
@@ -622,7 +622,7 @@ bool SynchronisationManager::commit()
 			cGroup.readEntry("TrainingDate", QDateTime()));
 
 	//***************
-	newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath));
+	newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc"));
 
 	QDir scenarioDir(srcContainerTempPath+"scenarios");
 	QStringList scenarios = scenarioDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
@@ -907,7 +907,7 @@ bool SynchronisationManager::removeExcessModelBackups()
 
 QDateTime SynchronisationManager::selectedScenariosDate()
 {
-	return getSelectedScenarioListModifiedDateFromPath(/* last path containing simonscenariosrc */);
+	return getSelectedScenarioListModifiedDateFromPath(getLatestSelectedScenarioListPath());
 }
 
 QMap<QDateTime, QString> SynchronisationManager::getSelectedScenarioLists()
@@ -936,7 +936,7 @@ QString SynchronisationManager::getLatestSelectedScenarioListPath()
 
 QStringList SynchronisationManager::getLatestSelectedScenarioList()
 {
-	KConfig config( path, KConfig::SimpleConfig );
+	KConfig config( getLatestSelectedScenarioListPath(), KConfig::SimpleConfig );
 	KConfigGroup cg(&config, "");
 	return cg.readEntry("SelectedScenarios", QStringList());
 }

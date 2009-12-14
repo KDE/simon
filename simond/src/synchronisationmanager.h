@@ -51,7 +51,6 @@ class SynchronisationManager : public QObject
 		QString getLatestLanguageDescriptionPath();
 		QString getLatestTrainingPath();
 		QString getLatestSelectedScenarioListPath();
-		QString getLatestSelectedScenarioList();
 
 		QStringList getAllScenarios();
 		QString getLatestScenarioPath(const QString& id);
@@ -129,6 +128,7 @@ class SynchronisationManager : public QObject
 		void scenarioSynchronized();
 		QStringList getAllScenarioIds();
 
+		QStringList getLatestSelectedScenarioList();
 		~SynchronisationManager();
 		
 };
