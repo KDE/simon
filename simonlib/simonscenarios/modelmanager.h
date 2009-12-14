@@ -58,20 +58,9 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 		void startGroup();
 		void commitGroup(bool silent=false);
 
-		QDateTime getSrcContainerModifiedTime();
-		
-		WordListContainer* getWordListContainer();
-		QDateTime getWordListModifiedTime();
-		virtual bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
-					const QByteArray& activeVocab, const QByteArray& activeLexicon);
-		
-		GrammarContainer* getGrammarContainer();
-		QDateTime getGrammarModifiedTime();
-		virtual bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
-		
 		LanguageDescriptionContainer* getLanguageDescriptionContainer();
 		QDateTime getLanguageDescriptionModifiedTime();
-		virtual bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+		virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
 		TrainingContainer* getTrainingContainer();

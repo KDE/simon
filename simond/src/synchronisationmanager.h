@@ -39,6 +39,7 @@ class SynchronisationManager : public QObject
 		QStringList missingScenarios;
 		QStringList commonScenarios;
 		QString srcContainerTempPath;
+		bool removeAllFiles(const QString& dir);
 		bool cleanTemp();
 
 		QString getLatestPath(const QMap<QDateTime, QString>& models);
@@ -50,7 +51,6 @@ class SynchronisationManager : public QObject
 		QString getLatestTrainingPath();
 
 		QStringList getAllScenarios();
-		QStringList getAllScenarioIds();
 		QString getLatestScenarioPath(const QString& id);
 	
 	public:
@@ -95,8 +95,9 @@ class SynchronisationManager : public QObject
 		void scenarioUpToDate();
 
 		QDateTime selectedScenariosDate();
+		QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
 		QStringList getSelectedScenarioList();
-		bool storeSelectedScenarioList(const QStringList& scenarioIds);
+		bool storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds);
 
 		void buildMissingSamples();
 		QByteArray getSample(const QString& sampleName);
@@ -121,6 +122,9 @@ class SynchronisationManager : public QObject
 		bool copyLanguageDescription(const QString& source, const QString& dest);
 		bool copyScenarios(const QString& source, const QString& dest);
 		bool switchToModel(const QDateTime& modelDate);
+
+		void scenarioSynchronized();
+		QStringList getAllScenarioIds();
 
 		~SynchronisationManager();
 		

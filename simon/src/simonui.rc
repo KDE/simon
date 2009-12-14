@@ -15,7 +15,7 @@
 	</ToolBar>
 	<ToolBar name="scenario" >
 		<text>Scenario selection</text>
-		<Action name="scenarioLabel" />
+		<!--<Action name="scenarioLabel" />-->
 		<Action name="selectScenario" />
 		<Action name="manageScenarios" />
 	</ToolBar>

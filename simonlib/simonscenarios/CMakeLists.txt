@@ -24,8 +24,6 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtextcollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistcontainer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/grammarcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
@@ -59,8 +57,6 @@ set( simonscenarios_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
   ${CMAKE_CURRENT_SOURCE_DIR}/word.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/wordlistcontainer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammarcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/model.h

@@ -114,7 +114,8 @@ namespace Simond
 		ErrorRetrievingScenario=2095,
 		Scenario=2096,
 		ScenarioStorageFailed=2097,
-		ScenarioSynchronisationComplete=2098,
+		ScenarioStored=2098,
+		ScenarioSynchronisationComplete=2099,
 		
 		SynchronisationComplete=2101,
 		SynchronisationCommitFailed=2102,

@@ -46,6 +46,9 @@ signals:
 	void scenariosChanged();
 	void shadowVocabularyChanged();
 
+private:
+	bool setupScenario(Scenario *s);
+
 public:
 	static ScenarioManager *getInstance() {
 		if (!instance) instance = new ScenarioManager();
@@ -74,7 +77,7 @@ public:
 	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
 
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
-	bool setupScenarios();
+	bool setupScenarios(bool forceChange=false);
 
 	QStringList getAllAvailableScenarioIds();
 

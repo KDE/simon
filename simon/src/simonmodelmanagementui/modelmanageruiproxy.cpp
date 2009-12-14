@@ -38,7 +38,7 @@ void ModelManagerUiProxy::slotModelChanged()
 	emit recompileModel();
 }
 
-bool ModelManagerUiProxy::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+/*bool ModelManagerUiProxy::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
 			const QByteArray& activeVocab, const QByteArray& activeLexicon)
 {
 	bool succ = ModelManager::storeWordList(changedTime, simpleVocab, activeVocab, activeLexicon);
@@ -60,8 +60,9 @@ bool ModelManagerUiProxy::storeGrammar(const QDateTime& changedTime, const QByte
 	}
 	return succ;
 }
+*/
 
-bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 			const QByteArray& treeHed)
 {
 	bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed);

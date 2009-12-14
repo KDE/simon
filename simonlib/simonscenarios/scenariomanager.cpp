@@ -68,6 +68,27 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 	QFile f(KGlobal::dirs()->locateLocal("appdata", "scenarios/"+id));
 	if (!f.open(QIODevice::WriteOnly)) return false;
 	f.write(data);
+	f.close();
+
+	Scenario *newScenario = new Scenario(id);
+	if (!setupScenario(newScenario)) {
+		kDebug() <<  "Scenario init failed!!!";
+		return false;
+	}
+
+
+	for (int i=0; i < scenarios.count(); i++) {
+		if (scenarios[i]->id() == id) {
+			Scenario *s = scenarios.takeAt(i);
+			delete s;
+			scenarios.insert(i, newScenario);
+			break;
+		}
+	}
+
+	updateDisplays(newScenario, true);
+	emit scenariosChanged();
+
 	return true;
 }
 
@@ -98,7 +119,7 @@ Scenario* ScenarioManager::getScenario(const QString& id)
 	return NULL;
 }
 
-bool ScenarioManager::setupScenarios()
+bool ScenarioManager::setupScenarios(bool forceChange)
 {
 	bool success = true;
 
@@ -114,16 +135,27 @@ bool ScenarioManager::setupScenarios()
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
 		kDebug() << "Initializing scenario" << id;
-		if (!s->init()) {
-			success = false;
-		} else {
-			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
-			connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
+		
+		if (setupScenario(s))
 			scenarios << s;
-		}
+		else success = false;
 	}
 
+	if (forceChange)
+		emit scenariosChanged();
+
 	return success;
+}
+
+bool ScenarioManager::setupScenario(Scenario *s)
+{
+	if (!s->init()) {
+		kDebug() << "Couldn't init scenario";
+		return false;
+	}
+	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
+	connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
+	return true;
 }
 
 QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)

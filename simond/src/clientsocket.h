@@ -41,17 +41,10 @@ class ClientSocket : public QSslSocket
 
 	private:
 		bool synchronisationRunning;
-		enum ModelSource {
-			Undefined=0,
-			Client=1,
-			Server=2
-		};
 		
 		QString username;
 		QMutex messageLocker;
 		
-		ModelSource modelSource;
-
 		DatabaseAccess *databaseAccess;
 		RecognitionControl *recognitionControl;
 		SynchronisationManager *synchronisationManager;
@@ -98,7 +91,9 @@ class ClientSocket : public QSslSocket
 		void synchronisationComplete();
 		void synchronisationDone();
 
+		void sendScenarioList();
 		void fetchScenario();
+		void requestScenario(const QString& scenarioId);
 		void sendScenario(const QString& scenarioId);
 		void sendSelectedScenarioList();
 		void synchronizeAlreadyAvailableScenarios();

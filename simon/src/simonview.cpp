@@ -284,10 +284,9 @@ void SimonView::setupActions()
 	connect(recompile, SIGNAL(triggered(bool)),
 		control, SLOT(compileModel()));
 	
-	//QLabel *lbDesc = new QLabel(i18n("Scenario: "), this);
-	KAction* scenarioLabel = new KAction(this);
-	scenarioLabel->setText(i18n("Scenario:"));
-	actionCollection()->addAction("scenarioLabel", scenarioLabel);
+	//KAction* scenarioLabel = new KAction(this);
+	//scenarioLabel->setText(i18n("Scenario:"));
+	//actionCollection()->addAction("scenarioLabel", scenarioLabel);
 
 
 	KAction* currentScenarioAction = new KAction(this);
@@ -317,6 +316,7 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
 	unplugActionList("command_actionlist");
 	plugActionList("command_actionlist", scenario->actionCollection()->getGuiActions());
+	cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(scenario->id()));
 }
 
 void SimonView::manageScenarios()
@@ -324,7 +324,7 @@ void SimonView::manageScenarios()
 	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
 	if (dlg->exec()) {
 		//reload scenario information
-		if (!ScenarioManager::getInstance()->setupScenarios())
+		if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
 			KMessageBox::sorry(this, i18n("Couldn't re-initialize scenarios. Please restart simon!"));
 
 		displayScenarios();

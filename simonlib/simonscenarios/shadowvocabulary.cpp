@@ -31,51 +31,61 @@
 ShadowVocabulary::ShadowVocabulary() : Vocabulary()
 {
 	QFile f(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
-	if (!f.open(QIODevice::ReadOnly)) {
+
+	if (!reset(f)) 
 		loadFailed = true;
-	} else {
-		f.readLine(); //skip document type
-		QString root = QString::fromUtf8(f.readLine()); //skip root element
+}
 
-		root = root.mid(26, 19);
+bool ShadowVocabulary::reset(QIODevice& f)
+{
+	if (!f.open(QIODevice::ReadOnly))
+		return false;
 
-		lastModifiedDate = QDateTime::fromString(root, Qt::ISODate);
+	deleteAll();
 
-		kDebug() << root << lastModifiedDate;;
+	f.readLine(); //skip document type
+	QString root = QString::fromUtf8(f.readLine()); //skip root element
 
-		while (!f.atEnd()) {
-			//<word>
-			//	<name>
-			//		Aal
-			//	</name>
-			//	<pronunciation>
-			//		a: l
-			//	</pronunciation>
-			//	<terminal>
-			//		NOM
-			//	</terminal>
-			//</word>
-			f.readLine(); //skip word
-			f.readLine(); //skip name
-			QString name = QString::fromUtf8(f.readLine()).trimmed();
-			f.readLine(); //skip nameend
+	root = root.mid(26, 19);
 
-			f.readLine(); //skip pronunciation
-			QString pronunciation = QString::fromUtf8(f.readLine()).trimmed();
-			f.readLine(); //skip pronunciationend
+	lastModifiedDate = QDateTime::fromString(root, Qt::ISODate);
 
-			f.readLine(); //skip terminal
-			QString terminal = QString::fromUtf8(f.readLine()).trimmed();
-			f.readLine(); //skip terminalend
-			f.readLine(); //skip wordend
+	kDebug() << root << lastModifiedDate;;
 
-			if (terminal.isEmpty()) continue;
-			
-			if (!terminals.contains(terminal)) terminals << terminal;
+	while (!f.atEnd()) {
+		//<word>
+		//	<name>
+		//		Aal
+		//	</name>
+		//	<pronunciation>
+		//		a: l
+		//	</pronunciation>
+		//	<terminal>
+		//		NOM
+		//	</terminal>
+		//</word>
+		f.readLine(); //skip word
+		f.readLine(); //skip name
+		QString name = QString::fromUtf8(f.readLine()).trimmed();
+		f.readLine(); //skip nameend
 
-			m_words.append(new Word(name, pronunciation, terminal));
-		}
+		f.readLine(); //skip pronunciation
+		QString pronunciation = QString::fromUtf8(f.readLine()).trimmed();
+		f.readLine(); //skip pronunciationend
+
+		f.readLine(); //skip terminal
+		QString terminal = QString::fromUtf8(f.readLine()).trimmed();
+		f.readLine(); //skip terminalend
+		f.readLine(); //skip wordend
+
+		if (terminal.isEmpty()) continue;
+		
+		if (!terminals.contains(terminal)) terminals << terminal;
+
+		m_words.append(new Word(name, pronunciation, terminal));
 	}
+	QAbstractItemModel::reset();
+	return true;
 }
 
 int ShadowVocabulary::columnCount(const QModelIndex &parent) const

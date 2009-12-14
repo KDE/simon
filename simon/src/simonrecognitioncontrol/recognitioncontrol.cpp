@@ -28,8 +28,6 @@
 
 #include <simonscenarios/trainingmanager.h>
 
-#include <simonscenarios/wordlistcontainer.h>
-#include <simonscenarios/grammarcontainer.h>
 #include <simonscenarios/languagedescriptioncontainer.h>
 #include <simonscenarios/trainingcontainer.h>
 #include <simonscenarios/model.h>
@@ -472,9 +470,11 @@ void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 	Scenario *s = new Scenario(scenarioId);
 	if (!s->skim()) 
 		out << (qint32) Simond::ErrorRetrievingScenario;
-	else
+	else {
+		kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << s->modifiedDate();
 		out << (qint32) Simond::ScenarioDate
 			<< s->modifiedDate();
+	}
 
 	delete s;
 	socket->write(toWrite);
@@ -491,12 +491,18 @@ void RecognitionControl::sendScenario(QString scenarioId)
 	if (!f.open(QIODevice::ReadOnly)) {
 		kDebug() << "Couldn't retreive scenario";
 		out << (qint32) Simond::ErrorRetrievingScenario;
+		socket->write(toWrite);
 	} else {
 		kDebug() << "Really sending scenario...";
-		QByteArray serialized = f.readAll();
-		out << (qint32) Simond::Scenario << (qint64) (serialized.count()+sizeof(qint32)) << serialized;
+		QByteArray body;
+		QDataStream bodyStream(&body, QIODevice::WriteOnly);
+		QByteArray scenarioIdByte = scenarioId.toUtf8();
+		QByteArray scenarioByte = f.readAll();
+		bodyStream << scenarioIdByte << scenarioByte;
+		out << (qint32) Simond::Scenario << (qint64) (body.count());
+		socket->write(toWrite);
+		socket->write(body);
 	}
-	socket->write(toWrite);
 }
 
 void RecognitionControl::sendSelectedScenarioListModifiedDate()
@@ -524,94 +530,17 @@ void RecognitionControl::sendSelectedScenarioList()
 	
 	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup cg(config, "");
+	QDateTime lastModifiedDate = cg.readEntry("LastModified", QDateTime());
 	QStringList selectedScenarios = cg.readEntry("SelectedScenarios", QStringList());
 
-	bodyStream << selectedScenarios;
+	bodyStream << lastModifiedDate << selectedScenarios;
 	
-	out << (qint32) Simond::SelectedScenarioDate
+	out << (qint32) Simond::SelectedScenarioList
 		<< (qint64) body.count();
 	socket->write(toWrite);
 	socket->write(body);
 
 }
-
-
-/*void RecognitionControl::sendModelSrcModifiedDate()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::ModelSrcDate
-		<< ModelManagerUiProxy::getInstance()->getSrcContainerModifiedTime();
-	socket->write(toWrite);
-}
-
-void RecognitionControl::sendWordListModifiedDate()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::WordListDate
-		<< ModelManagerUiProxy::getInstance()->getWordListModifiedTime();
-	socket->write(toWrite);
-}
-
-void RecognitionControl::sendWordList()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	
-	WordListContainer *wordList = ModelManagerUiProxy::getInstance()->getWordListContainer();
-	if (!wordList)
-		sendRequest(Simond::ErrorRetrievingWordList);
-	
-	bodyStream << ModelManagerUiProxy::getInstance()->getWordListModifiedTime()
-		<< wordList->simpleVocab()
-		<< wordList->activeVocab()
-		<< wordList->activeLexicon();
-
-	out << (qint32) Simond::WordList
-		<< (qint64) body.count();
-
-	socket->write(toWrite);
-	socket->write(body);
-	
-	delete wordList;
-}
-
-
-
-void RecognitionControl::sendGrammarModifiedDate()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::GrammarDate
-		<< ModelManagerUiProxy::getInstance()->getGrammarModifiedTime();
-	socket->write(toWrite);
-}
-
-
-void RecognitionControl::sendGrammar()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	
-	GrammarContainer *grammar = ModelManagerUiProxy::getInstance()->getGrammarContainer();
-	
-	bodyStream << ModelManagerUiProxy::getInstance()->getGrammarModifiedTime()
-		<< grammar->grammarStructures();
-
-	out << (qint32) Simond::Grammar
-		<< (qint64) body.count();
-
-	socket->write(toWrite);
-	socket->write(body);
-	
-	delete grammar;
-}
-*/
 
 
 void RecognitionControl::sendLanguageDescriptionModifiedDate()
@@ -1016,7 +945,7 @@ void RecognitionControl::messageReceived()
 				
 				case Simond::ScenarioSynchronisationComplete:
 				{
-					kDebug() << "Server sent Synchronizationcomplete";
+					kDebug() << "Server sent scenario synchronizationcomplete";
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					requestMissingScenario();
@@ -1066,12 +995,13 @@ void RecognitionControl::messageReceived()
 					msg >> scenario;
 
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					kDebug() << "Server sent Scenario";
+					kDebug() << "Server sent Scenario " << scenarioId;
 					
 					if (!ScenarioManager::getInstance()->storeScenario(QString::fromUtf8(scenarioId), scenario))
 						sendRequest(Simond::ScenarioStorageFailed);
-					else 
-						sendRequest(Simond::StartScenarioSynchronisation);
+					else  {
+						sendRequest(Simond::ScenarioStored);
+					}
 					break;
 				}
 				
@@ -1108,6 +1038,19 @@ void RecognitionControl::messageReceived()
 					KConfigGroup cg(config, "");
 					cg.writeEntry("SelectedScenarios", list);
 					cg.writeEntry("LastModified", QDateTime::currentDateTime());
+
+					if (!ScenarioManager::getInstance()->setupScenarios())
+						emit synchronisationError(i18n("Couldn't re-initialize scenarios. Please restart simon!"));
+					break;
+				}
+				case Simond::SelectedScenarioListStorageFailed:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+	
+					kDebug() << "Server could not store selected scenario list";
+					emit synchronisationError(i18n("The server couldn't store the list of selected scenarios."));
+					sendTrainingModifiedDate();
 					break;
 				}
 				

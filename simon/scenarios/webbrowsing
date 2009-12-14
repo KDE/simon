@@ -1,98 +1,206 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scenario name="Webbrowsing" icon="internet-web-browser" version="1" changed="2009,8,1,15,23,41">
-  <simonCompatibility>
-    <!-- Minimum simon version to use this scenario -->
+<!DOCTYPE scenario>
+<scenario version="1" icon="internet-web-browser" name="Webbrowsing" lastModified="2009-11-03T17:05:23">
+ <simonCompatibility>
+  <minimumVersion>
+   <version>0.1.0</version>
+  </minimumVersion>
+  <maximumVersion>
+   <version>0.3.0</version>
+  </maximumVersion>
+ </simonCompatibility>
+ <authors>
+  <author>
+   <name>Peter Grasch</name>
+   <contact>grasch@simon-listens.org</contact>
+  </author>
+  <author>
+   <name>Franz Stieger</name>
+   <contact>f.stieger@cyber-byte.at</contact>
+  </author>
+ </authors>
+ <licence>GPL</licence>
+ <vocabulary>
+  <word>
+   <name>Computer</name>
+   <pronunciation>k O m p j u: t @ r</pronunciation>
+   <terminal>Trigger</terminal>
+  </word>
+  <word>
+   <name>Internet</name>
+   <pronunciation>I n t @ r n E t</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+ </vocabulary>
+ <grammar>
+  <structure>Trigger Command</structure>
+ </grammar>
+ <actions>
+  <plugin trigger="Exetrigger" name="simonexecutablecommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>rekonq</name>
+     <icon>rekonq</icon>
+     <workingdirectory></workingdirectory>
+     <executable>rekonq</executable>
+    </command>
+    <command>
+     <name>Blender</name>
+     <icon>blender</icon>
+     <workingdirectory></workingdirectory>
+     <executable>blender</executable>
+    </command>
+    <command>
+     <name>Mozilla Firefox</name>
+     <icon>firefox-icon</icon>
+     <workingdirectory></workingdirectory>
+     <executable>/usr/bin/firefox</executable>
+    </command>
+   </commands>
+   <pluginCompatibility>
     <minimumVersion>
-      <version>0.1</version>
+     <version>0.1.0</version>
     </minimumVersion>
-    <!-- Maximum simon version to use this scenario - empty if not limited -->
-    <maximumVersion>
-      <version>0.3.0</version>
-    </maximumVersion>
-  </simonCompatibility>
-  
-  <!-- Information on the author of the scenario -->
-  <authors>
-    <author>
-      <name>Peter Grasch</name>
-      <contact>grasch@simon-listens.org</contact>
-    </author>
-    <author>
-      <name>Franz Stieger</name>
-      <contact>f.stieger@cyber-byte.at</contact>
-    </author>
-  </authors>
-  
-  <!-- The licence of this scenario -->
-  <licence>GPL</licence>
-  
-  <!-- Vocabulary -->
-  <vocabulary>
-    <word>
-      <name>Computer</name>
-      <pronunciation>k O m p j u: t @ r</pronunciation>
-      <terminal>Trigger</terminal>
-    </word>
-    <word>
-      <name>Internet</name>
-      <pronunciation>I n t @ r n E t</pronunciation>
-      <terminal>Command</terminal>
-    </word>
-  </vocabulary>
-  
-  <!-- Grammar -->
-  <grammar>
-    <structure>Trigger Command</structure>
-  </grammar>
-  
-  <!-- Actions -->
-  <actions>
-    <!-- Plugins are identified by their storageId which is always unique -->
-    <plugin name="simonexecutablecommandplugin.desktop" trigger="Exetrigger">
-    
-      <!-- Scenario authors can again define minimum and maximum versions of the plugin -->
-      <pluginCompatibility>
-	<!-- Minimum plugin version to use this scenario -->
-	<minimumVersion>
-	  <version>0.1</version>
-	</minimumVersion>
-	<!-- Maximum plugin version to use this scenario - empty if not limited -->
-	<maximumVersion><version/></maximumVersion>
-      </pluginCompatibility>
-      
-      <config />
-      
-      <!-- The command information is provided by the commands serialize() function -->
-      <commands>
-        <command>
-	  <name>Firefox Web Browser</name>
-	  <icon>firefox-3.0</icon>
-	  <workingdirectory></workingdirectory>
-	  <executable>firefox</executable>
-	</command>
-      </commands>
-    </plugin>
-    <plugin name="simoninputnumbercommandplugin.desktop" trigger="">
-      <pluginCompatibility>
-	<minimumVersion><version>0.1</version></minimumVersion>
-	<maximumVersion><version/></maximumVersion>
-      </pluginCompatibility>
-      <!-- The plugin configuration is dumped by the plugin in its serializeConfig() method -->
-      <config>
-	<trigger>Input number</trigger>
-      </config>
-      <commands/>
-    </plugin>
-  </actions>
-  
-  <trainingstexts>
-    <text name="Blablub">
-      <page>Here it goes</page>
-      <page>Page number two</page>
-    </text>
-    <text name="Testtext #2">
-      <page>Lorem Ipsum Doleur</page>
-      <page>Sit Amet Stop</page>
-    </text>
-  </trainingstexts>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Computer" name="simonplacecommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Google</name>
+     <icon>kfind</icon>
+     <url></url>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="" name="simoninputnumbercommandplugin.desktop">
+   <config/>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Computer" name="simonfilterplugin.desktop">
+   <config>
+    <activateTrigger>Pause TEST</activateTrigger>
+    <deactivateTrigger>Resume TEST</deactivateTrigger>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Calculator" name="simoncalculatorcommandplugin.desktop">
+   <config>
+    <outputModeSelection>3</outputModeSelection>
+    <defaultOutputMode>3</defaultOutputMode>
+    <askTimeout>8</askTimeout>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Desktopgrid" name="simondesktopgridplugin.desktop">
+   <config>
+    <realTransparency>0</realTransparency>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Keyboard" name="simonkeyboardcommandplugin.desktop">
+   <config>
+    <caseSensitivity>1</caseSensitivity>
+    <selectedSet>Basic</selectedSet>
+    <numpad>
+     <showNumpad>1</showNumpad>
+     <numberBackspace>Number Backspaceasdf</numberBackspace>
+     <enableNumberBasedSelection>1</enableNumberBasedSelection>
+     <numberBasedSelectionTrigger>Select numberasdf</numberBasedSelectionTrigger>
+     <enableNumberWriteOut>0</enableNumberWriteOut>
+     <numberWriteOutTrigger>Select numberasdf</numberWriteOutTrigger>
+    </numpad>
+    <specialKeys>
+     <shift>0</shift>
+     <shiftTrigger>Shiftasdf</shiftTrigger>
+     <backspace>1</backspace>
+     <backspaceTrigger>Backspaceasdf</backspaceTrigger>
+     <control>0</control>
+     <controlTrigger>Controlasdf</controlTrigger>
+     <capsLock>1</capsLock>
+     <capsLockTrigger>CapsLockasdf</capsLockTrigger>
+     <return>1</return>
+     <returnTrigger>Returnasdf</returnTrigger>
+     <alt>1</alt>
+     <altTrigger>Alternateasdf</altTrigger>
+     <altGr>1</altGr>
+     <altGrTrigger>Alternate Graphicasdf</altGrTrigger>
+     <super>1</super>
+     <superTrigger>Superasdf</superTrigger>
+    </specialKeys>
+    <keyboardSets>
+     <set name="Basic">
+      <tab name="TabA">
+       <button>
+        <triggerShown>1</triggerShown>
+        <trigger>1</trigger>
+        <type value="1">1</type>
+       </button>
+       <button>
+        <triggerShown>2</triggerShown>
+        <trigger>2</trigger>
+        <type value="2">1</type>
+       </button>
+      </tab>
+     </set>
+    </keyboardSets>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Computer" name="simonfilterplugin.desktop">
+   <config>
+    <activateTrigger>Pause Dictation</activateTrigger>
+    <deactivateTrigger>Resume Dictation</deactivateTrigger>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+ </actions>
+ <trainingtexts>
+  <trainingtext name="Firefox: Basics">
+   <page>Computer Internet</page>
+  </trainingtext>
+ </trainingtexts>
 </scenario>

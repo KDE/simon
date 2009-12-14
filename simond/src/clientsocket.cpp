@@ -28,8 +28,6 @@
 #endif
 
 #include <simonscenarios/model.h>
-#include <simonscenarios/wordlistcontainer.h>
-#include <simonscenarios/grammarcontainer.h>
 #include <simonscenarios/languagedescriptioncontainer.h>
 #include <simonscenarios/trainingcontainer.h>
 
@@ -53,7 +51,6 @@
 
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
 	synchronisationRunning(false),
-	modelSource(ClientSocket::Undefined),
 	recognitionControl(0),
 	synchronisationManager(0),
 	modelCompilationManager(0)
@@ -335,9 +332,17 @@ void ClientSocket::processRequest()
 				kDebug() << "Scenario list: " << scenarioIds;
 				synchronisationManager->buildMissingScenarios(scenarioIds);
 
+				sendScenarioList();
+
+				break;
+			}
+
+			case Simond::StartScenarioSynchronisation:
+			{
 				fetchScenario();
 				break;
 			}
+
 
 			case Simond::GetScenario:
 			{
@@ -373,10 +378,12 @@ void ClientSocket::processRequest()
 				stream >> length;
 				waitForMessage(length, stream, msg);
 
+				QByteArray scenarioId;
 				QByteArray scenario;
+				stream >> scenarioId;
 				stream >> scenario;
 				
-				kDebug() << "Client sent scenario";
+				kDebug() << "Client sent scenario: " << scenarioId;
 				if (!synchronisationManager->storeScenario(scenario)) 
 					sendCode(Simond::ScenarioStorageFailed);
 
@@ -398,21 +405,37 @@ void ClientSocket::processRequest()
 				stream >> remoteScenarioDate;
 				kDebug() << "Received scenario date: " << remoteScenarioDate;
 	
-				QDateTime localScenarioDate = synchronisationManager->localScenarioDate(synchronisationManager->commonScenario());
+				//this is only triggered when we have a version of this scenario too
+				//so lets check if we want to keep ours or accept the new one
+				QString scenarioId = synchronisationManager->commonScenario();
+				QDateTime localScenarioDate = synchronisationManager->localScenarioDate(scenarioId);
+
+				kDebug() << "Remote date: " << remoteScenarioDate << "Local date: " << localScenarioDate;
+
 				if (remoteScenarioDate < localScenarioDate) {
 					//send our version
 					kDebug() << "Our version is more current";
+					sendScenario(scenarioId);
 
 				} else if (remoteScenarioDate > localScenarioDate) {
 					//request clients version
 					kDebug() << "Clients version is more current";
-					
+					requestScenario(scenarioId);
 				} else {
 					//identical
 					kDebug() << "Scenario is already up-to-date";
 					synchronisationManager->scenarioUpToDate();
+					synchronizeAlreadyAvailableScenarios();
 				}
-				synchronizeAlreadyAvailableScenarios();
+				break;
+			}
+
+			case Simond::ScenarioStorageFailed: // we should maybe do something here
+			case Simond::ScenarioStored:
+			{
+				kDebug() << "Client stored scenario";
+				synchronisationManager->scenarioSynchronized();
+				fetchScenario();
 				break;
 			}
 
@@ -444,11 +467,13 @@ void ClientSocket::processRequest()
 				qint64 length;
 				stream >> length;
 				waitForMessage(length, stream, msg);
+				QDateTime modifiedDate;
 				QStringList scenarioIds;
+				stream >> modifiedDate;
 				stream >> scenarioIds;
 				
 				kDebug() << "Selected scenario list: " << scenarioIds;
-				if (!synchronisationManager->storeSelectedScenarioList(scenarioIds)) {
+				if (!synchronisationManager->storeSelectedScenarioList(modifiedDate, scenarioIds)) {
 					sendCode(Simond::SelectedScenarioListStorageFailed);
 				}
 
@@ -459,17 +484,17 @@ void ClientSocket::processRequest()
 			case Simond::TrainingDate:
 			{
 				QDateTime remoteTrainingDate;
+				QDateTime localTrainingDate = synchronisationManager->getTrainingDate();
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteTrainingDate;
 				
 				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
 //				kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
-				if (remoteTrainingDate != synchronisationManager->getTrainingDate())
+				if (remoteTrainingDate != localTrainingDate)
 				{
 					//Training changed
-					if (modelSource == ClientSocket::Server)
+					if (localTrainingDate > remoteTrainingDate)
 					{
 						kDebug() << "Sending training";
 						if (!sendTraining())
@@ -525,25 +550,20 @@ void ClientSocket::processRequest()
 			case Simond::LanguageDescriptionDate:
 			{
 				QDateTime remoteLanguageDescriptionDate;
+				QDateTime localLanguageDescriptionDate=synchronisationManager->getLanguageDescriptionDate();
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteLanguageDescriptionDate;
 				
 				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-				kDebug() << remoteLanguageDescriptionDate;
-				kDebug() << synchronisationManager->getLanguageDescriptionDate();
-				
-				if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
+				if (remoteLanguageDescriptionDate != localLanguageDescriptionDate)
 				{
-					//LanguageDescription changed
-					if (modelSource == ClientSocket::Server)
+					if (localLanguageDescriptionDate > remoteLanguageDescriptionDate)
 					{
 						if (!sendLanguageDescription())
 							sendCode(Simond::GetLanguageDescription);
 					} else sendCode(Simond::GetLanguageDescription);
 				} else {
-					kDebug() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
 					synchronizeSamples();
 				}
@@ -800,8 +820,27 @@ void ClientSocket::fetchScenario()
 		return;
 	}
 	
-	QByteArray scenarioByte = scenario.toUtf8();
-	kDebug() << "Fetching scenario " << scenario;
+	requestScenario(scenario);
+}
+
+void ClientSocket::sendScenarioList()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << synchronisationManager->getAllScenarioIds();
+	
+	out << (qint32) Simond::ScenarioList
+		<< (qint64) body.count();
+	write(toWrite);
+	write(body);
+}
+
+void ClientSocket::requestScenario(const QString& scenarioId)
+{
+	QByteArray scenarioByte = scenarioId.toUtf8();
+	kDebug() << "Fetching scenario " << scenarioId;
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -810,7 +849,6 @@ void ClientSocket::fetchScenario()
 		<< scenarioByte;
 	write(toWrite);
 }
-
 
 void ClientSocket::sendScenario(const QString& scenarioId)
 {
@@ -821,12 +859,18 @@ void ClientSocket::sendScenario(const QString& scenarioId)
 		return;
 	}
 
+
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	bodyStream << scenarioId.toUtf8() << scenarioByte;
+
 	stream << (qint32) Simond::Scenario
-		<< (qint64) (scenarioByte.count()+sizeof(qint32)) /*separator*/
-		<< scenarioByte;
+		<< (qint64) (body.count());
 	write(toWrite);
+	write(body);
 }
 
 
@@ -1061,8 +1105,6 @@ void ClientSocket::synchronisationDone()
 	kDebug() << "Synchronisation done";
 	synchronisationRunning=false;
 	//reset modelsource
-	modelSource = ClientSocket::Undefined;
-	
 	Q_ASSERT(recognitionControl);
 	
 	if (!recognitionControl->isInitialized() && !modelCompilationManager->isRunning() && 

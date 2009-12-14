@@ -55,10 +55,10 @@ public:
 
 	~ModelManagerUiProxy();
 
-	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
-				const QByteArray& activeVocab, const QByteArray& activeLexicon);
-	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
-	bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+//	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+//				const QByteArray& activeVocab, const QByteArray& activeLexicon);
+//	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+	bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 				const QByteArray& treeHed);
 	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
 				const QByteArray& prompts);

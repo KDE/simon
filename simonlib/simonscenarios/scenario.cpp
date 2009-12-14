@@ -65,9 +65,12 @@ bool Scenario::init(QString path)
 
 	QDomDocument doc("scenario");
 	QFile file(path);
-	if (!file.open(QIODevice::ReadOnly))
+	if (!file.open(QIODevice::ReadOnly)) {
 		return false;
+		kDebug() << "Couldn't open file " << path;
+	}
 	if (!doc.setContent(&file)) {
+		kDebug() << "Couldn't parse xml at " << path;
 		file.close();
 		return false;
 	}
