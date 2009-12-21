@@ -574,6 +574,11 @@ bool Scenario::removeCommand(Command *command)
 	return m_actionCollection->removeCommand(command);
 }
 
+bool Scenario::processResult(RecognitionResult recognitionResult)
+{
+	return m_actionCollection->processResult(recognitionResult);
+}
+
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);

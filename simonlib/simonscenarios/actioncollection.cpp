@@ -212,6 +212,31 @@ bool ActionCollection::moveActionDown(Action *action)
 	return moved;
 }
 
+bool ActionCollection::processResult(RecognitionResult recognitionResult)
+{
+	int i=0;
+	bool commandFound=false;
+	QString currentTrigger;
+	QString realCommand;
+
+
+	while ((i<m_actions.count()) && (!commandFound))
+	{
+		currentTrigger = m_actions[i]->trigger();
+		kDebug() <<  "CurrentTrigger: " << currentTrigger.toUtf8().data();
+		RecognitionResult tempResult = recognitionResult;
+		if (tempResult.matchesTrigger(currentTrigger)) {
+			tempResult.removeTrigger(currentTrigger);
+
+			if(m_actions.at(i)->manager()->processResult(tempResult))
+				commandFound=true;
+		}
+		i++;
+	}
+
+	return commandFound;
+}
+
 
 ActionCollection::~ActionCollection()
 {

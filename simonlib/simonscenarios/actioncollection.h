@@ -24,6 +24,7 @@
 #include <QList>
 #include "actionmodel.h"
 #include <simonscenariobase/scenarioobject.h>
+#include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
 
 class Action;
@@ -63,6 +64,8 @@ public:
 
 	bool moveActionUp(Action *action);
 	bool moveActionDown(Action *action);
+
+	bool processResult(RecognitionResult recognitionResult);
 
 	QList<QAction*> getGuiActions();
 	~ActionCollection();

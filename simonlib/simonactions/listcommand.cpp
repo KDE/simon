@@ -32,6 +32,7 @@
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
+#include "actionmanager.h"
 
 
 QStringList ListCommand::numberIdentifiers;
@@ -118,7 +119,8 @@ bool ListCommand::processRequest(int index)
 		clw->close();
 		stopGreedy();
 		usleep(300000);
-		//ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+		//FIXME: Clean solution
+		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		emit entrySelected();
 	}
 	return false;

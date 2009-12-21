@@ -88,8 +88,8 @@ kde4_add_kcfg_files(simonscenarios_LIB_SRCS
 
 kde4_add_library( simonscenarios SHARED ${simonscenarios_LIB_SRCS} )
 target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
-	simonxml simonlogging speechgui  simonprogresstracking  
-	simonscenariobase simoninfo )
+	simonxml simonlogging simonprogresstracking  simoninfo simonrecognitionresult
+	simonscenariobase )
 
 
 set_target_properties( simonscenarios

@@ -85,6 +85,7 @@ int ManageActionsDialog::exec()
 
 void ManageActionsDialog::registerCommandConfiguration(CommandConfiguration *m)
 {
+	if (!m) return;
 	QString moduleName = m->aboutData()->programName();
 	ProtectorWidget *p = new ProtectorWidget(m, pageWidget);
 	KPageWidgetItem *newItem = pageWidget->addPage(p, moduleName);

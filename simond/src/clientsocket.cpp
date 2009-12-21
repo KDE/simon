@@ -233,7 +233,7 @@ void ClientSocket::processRequest()
 					if (remoteModelDate.isNull())
 						sendCode(Simond::GetActiveModelSampleRate);
 					else 
-						sendCode(Simond::GetModelSrcDate);
+						sendCode(Simond::GetScenarioList);
 				}
 				
 				break;

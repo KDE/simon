@@ -18,13 +18,14 @@
  */
 
 #include "greedyreceiver.h"
+#include "actionmanager.h"
 
 bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {
 	if (resultList->isEmpty()) return false;
 
 	if (resultList->count() > 1) {
-		//ActionManager::getInstance()->presentUserWithResults(resultList);
+		ActionManager::getInstance()->presentUserWithResults(resultList);
 		return true;
 	} else {
 		return greedyTriggerRaw(resultList->at(0));
@@ -43,11 +44,11 @@ bool GreedyReceiver::greedyTrigger(const QString&)
 
 void GreedyReceiver::startGreedy()
 {
-	//ActionManager::getInstance()->registerGreedyReceiver(this);
+	ActionManager::getInstance()->registerGreedyReceiver(this);
 }
 
 void GreedyReceiver::stopGreedy()
 {
-	//ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 }
 

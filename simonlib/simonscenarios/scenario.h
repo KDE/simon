@@ -29,6 +29,7 @@
 #include "speechmodel.h"
 #include "vocabulary.h"
 #include "scenariomanager.h"
+#include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
 
 class ScenarioObject;
@@ -121,6 +122,7 @@ public:
 
 //	bool addCommand(Command *command);
 	bool removeCommand(Command *command);
+	bool processResult(RecognitionResult recognitionResult);
 
 	~Scenario();
 

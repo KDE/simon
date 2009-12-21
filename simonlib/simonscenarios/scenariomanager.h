@@ -29,6 +29,10 @@
 #include <QObject>
 #include <QStringList>
 #include <QList>
+#include <simonrecognitionresult/recognitionresult.h>
+#include <simonactions/greedyreceiver.h>
+
+#include "command.h"
 #include "speechmodel.h"
 #include "vocabulary.h"
 #include "simonmodelmanagement_export.h"
@@ -38,6 +42,8 @@ class Scenario;
 class ScenarioDisplay;
 class ShadowVocabulary;
 class Command;
+class Action;
+class CommandManager;
 
 class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject {
 Q_OBJECT
@@ -48,6 +54,20 @@ signals:
 
 private:
 	bool setupScenario(Scenario *s);
+
+	/*
+	RecognitionResultList *currentlyPromptedListOfResults;
+	QList<GreedyReceiver*> *greedyReceivers;
+	float minimumConfidenceThreshold;
+	bool useDYM;
+
+	void triggerCommand();
+
+
+private slots:
+	void resultSelectionDone();
+	void retrieveRecognitionResultFilteringParameters();
+	*/
 
 public:
 	static ScenarioManager *getInstance() {
@@ -80,6 +100,20 @@ public:
 	bool setupScenarios(bool forceChange=false);
 
 	QStringList getAllAvailableScenarioIds();
+
+
+	bool triggerCommand(const QString& type, const QString& trigger);
+	bool processResult(RecognitionResult recognitionResult);
+	/*
+	void processRawResults(RecognitionResultList* recognitionResults);
+	void presentUserWithResults(RecognitionResultList* recognitionResults);
+
+	bool triggerCommand(const QString& type, const QString& trigger);
+	Command* getCommand(const QString& category, const QString& trigger);
+
+	void deRegisterGreedyReceiver(GreedyReceiver *);
+	void registerGreedyReceiver(GreedyReceiver *);
+	*/
 
 	
 public slots:

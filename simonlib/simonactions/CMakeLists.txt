@@ -11,7 +11,7 @@ set( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandtablemodel.cpp
 	#	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
-	#	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.cpp
@@ -19,7 +19,7 @@ set( simonactions_LIB_SRCS
 
 set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.h
-	#${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.h
   	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h

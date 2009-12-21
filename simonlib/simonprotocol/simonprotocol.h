@@ -53,25 +53,6 @@ namespace Simond
 		ActiveModelStorageFailed=2019,
 		
 		
-		GetModelSrcDate=2021,
-		ModelSrcDate=2022,
-		
-		GetWordListDate=2031,
-		WordListDate=2032,
-		GetWordList=2033,
-		ErrorRetrievingWordList=2034,
-		WordList=2035,
-		NoWordListAvailable=2036,
-		WordListStorageFailed=2037,
-		
-		GetGrammarDate=2041,
-		GrammarDate=2042,
-		GetGrammar=2043,
-		ErrorRetrievingGrammar=2044,
-		Grammar=2045,
-		NoGrammarAvailable=2046,
-		GrammarStorageFailed=2047,
-		
 		GetLanguageDescriptionDate=2051,
 		LanguageDescriptionDate=2052,
 		GetLanguageDescription=2053,

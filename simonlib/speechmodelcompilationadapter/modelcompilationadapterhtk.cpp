@@ -106,10 +106,13 @@ bool ModelCompilationAdapterHTK::storeModel(const QString& lexiconPathOut, const
 	QFile promptsFileOut(promptsPathOut);
 	if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly)) return false;
 
+	kDebug() << "Prompts out path: " << promptsPathOut;
 	QList<QByteArray> trainedVocabulary;
 	while (!promptsFile.atEnd()) {
 		QByteArray line = promptsFile.readLine();
 		int splitter = line.indexOf(" ");
+		kDebug() << "Wrote line: " << line;
+		kDebug() << "Wrote line: " << line.left(splitter) /*filename*/ + htkify(line.mid(splitter));
 		promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
 
 		QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
@@ -119,6 +122,7 @@ bool ModelCompilationAdapterHTK::storeModel(const QString& lexiconPathOut, const
 		}
 	}
 
+	promptsFile.close();
 	promptsFileOut.close();
 
 	/////  Lexicon  ////////////////

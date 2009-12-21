@@ -165,8 +165,8 @@ void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
 	if (status != SimonControl::ConnectedActivated) return;
 
 	kDebug() << "Received recognition results...";
-	ScenarioManager::getInstance()->processRawResults(recognitionResults);
-	//ActionManager::getInstance()->processRawResults(recognitionResults);
+	//ScenarioManager::getInstance()->processRawResults(recognitionResults);
+	ActionManager::getInstance()->processRawResults(recognitionResults);
 }
 
 

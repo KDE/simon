@@ -31,50 +31,19 @@
 #include <simonscenarios/action.h>
 
 class CommandManager;
-class CreateCommandWidget;
-class CommandSettings;
-class KCModule;
 class Action;
-class KXMLGUIClient;
-
-
-/*
- * class GreedyReceiver {
-	private:
-		QObject *m_receiver;
-		const char* m_slot;
-	public:
-		QObject* receiver() const { return m_receiver; }
-		const char* slot() const { return m_slot; }
-
-		GreedyReceiver(QObject *receiver, const char* slot) 
-			: m_receiver(receiver), m_slot(slot) {}
-}; */
 
 class SIMONACTIONS_EXPORT ActionManager : public QObject {
 
 Q_OBJECT
 
-signals:
-	void commandExecuted(QString trigger);
-	void guiAction(QString trigger);
-	void categoriesChanged(const QList<KIcon>& icons, const QStringList& names);
-	void commandAdded(Command*);
-	void commandRemoved(const QString& trigger, const QString& category);
-
 private:
 	static ActionManager* instance;
-	KXMLGUIClient *mainWindow;
-	CommandSettings* commandSettings;
 
 	QList<Action::Ptr> actions;
 
 	RecognitionResultList *currentlyPromptedListOfResults;
 	QList<GreedyReceiver*> *greedyReceivers;
-
-	bool askDeleteCommandByTrigger(QString trigger);
-	void deleteManager(CommandManager *manager);
-	void triggerCommand();
 
 	float minimumConfidenceThreshold;
 	bool useDYM;
@@ -84,44 +53,23 @@ protected:
 	ActionManager(QObject *parent=0);
 
 private slots:
-	void setupBackends(QList<Action::Ptr> pluginsToLoad);
 	void resultSelectionDone();
 	void retrieveRecognitionResultFilteringParameters();
 
 
 public:
-	void publishCategories();
-
 	static ActionManager* getInstance() {
 		if (!instance) instance = new ActionManager();
 		return instance;
 	}
 
-	void setMainWindow(KXMLGUIClient *window);
-	void setConfigurationDialog(KCModule*);
-	KCModule* getConfigurationDialog() { return (KCModule*) commandSettings; }
-	void init();
-
-	bool triggerCommand(const QString& type, const QString& trigger);
-	Command* getCommand(const QString& category, const QString& trigger);
-	CommandList* getCommandsOfCategory(const QString& category);
-
-
 	void processRawResults(RecognitionResultList* recognitionResults);
 	void presentUserWithResults(RecognitionResultList* recognitionResults);
 	void processResult(RecognitionResult recognitionResult);
-
-	bool addCommand(Command *command);
-	bool deleteCommand(Command *command);
-
-	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
-
-	CommandList* getCommandList();
+	bool triggerCommand(const QString& type, const QString& trigger);
 
 	void deRegisterGreedyReceiver(GreedyReceiver *);
 	void registerGreedyReceiver(GreedyReceiver *);
-
-	void publishGuiActions();
 
 	~ActionManager();
 
