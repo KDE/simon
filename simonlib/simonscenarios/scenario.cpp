@@ -60,7 +60,11 @@ Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId),
  */
 bool Scenario::init(QString path)
 {
-	if (path.isNull())
+	QDomDocument *doc=NULL;
+	bool deleteDoc;
+	if (!setupToParse(path, doc, deleteDoc)) return false;
+
+	/*if (path.isNull())
 		path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
 
 	QDomDocument doc("scenario");
@@ -74,59 +78,29 @@ bool Scenario::init(QString path)
 		file.close();
 		return false;
 	}
-	file.close();
+	file.close();*/
 
-	if (!skim(path, &doc)) return false;
+	if (!skim(path, doc)) return false;
 
-	QDomElement docElem = doc.documentElement();
-
-
-	//  Vocab
+	//  Language model
 	//************************************************/
-	kDebug() << "About to create the vocabulay...";
-	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
-	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
-	if (!m_vocabulary) {
-		kDebug() << "Vocabulary could not be loaded!";
-		return false;
-	}
-	kDebug() << m_vocabulary->wordCount() << " words loaded";
-
-
-	//  Grammar
-	//************************************************/
-	QDomElement grammarElem = docElem.firstChildElement("grammar");
-	m_grammar = Grammar::createGrammar(this, grammarElem);
-	if (!m_grammar) {
-		kDebug() << "Grammar could not be loaded!";
-		return false;
-	}
-	kDebug() << m_grammar->structureCount() << " structurs loaded";
+	if (!readLanguageModel(path, doc)) return false;
 
 
 	//  Actions
 	//************************************************/
-	QDomElement actionsElement = docElem.firstChildElement("actions");
-	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
-	if (!m_actionCollection) {
-		kDebug() << "ActionCollection could not be loaded!";
-		return false;
-	}
+	if (!readActions(path, doc)) return false;
 
 
 	//  Trainingstexts
 	//************************************************/
-	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
-	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
-	if (!m_texts) {
-		kDebug() << "Trainingtextcollection could not be loaded!";
-		return false;
-	}
+	if (!readTrainingsTexts(path, doc)) return false;
 
+	delete doc;
 	return true;
 }
 
-bool Scenario::skim(QString path, QDomDocument* doc)
+bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
 {
 	if (path.isNull())
 		path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
@@ -134,18 +108,28 @@ bool Scenario::skim(QString path, QDomDocument* doc)
 	if (!doc) {
 		doc = new QDomDocument("scenario");
 		QFile file(path);
-		if (!file.open(QIODevice::ReadOnly))
+		if (!file.open(QIODevice::ReadOnly)) {
+			delete doc;
 			return false;
+		}
 		if (!doc->setContent(&file)) {
 			file.close();
+			delete doc;
 			return false;
 		}
 		file.close();
+		deleteDoc = true;
 	}
+	return true;
+}
 
-	bool ok=true;
+bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
+{
+	setupToParse(path, doc, deleteDoc);
 
 	QDomElement docElem = doc->documentElement();
+
+	bool ok=true;
 
 	//  Scenario Infos 
 	//************************************************/
@@ -156,7 +140,10 @@ bool Scenario::skim(QString path, QDomDocument* doc)
 	m_version = docElem.attribute("version").toInt(&ok);
 	m_iconSrc = docElem.attribute("icon");
 	m_lastModifiedDate = QDateTime::fromString(docElem.attribute("lastModified"), Qt::ISODate);
-	if (!ok) return false;
+	if (!ok) {
+		if (deleteDoc) delete doc;
+		return false;
+	}
 
 	kDebug() << "Loading scenario " << m_name << " version " << m_version;
 
@@ -171,6 +158,7 @@ bool Scenario::skim(QString path, QDomDocument* doc)
 
 	if (!m_simonMinVersion) {
 		kDebug() << "Couldn't parse simon requirements!";
+		if (deleteDoc) delete doc;
 		return false;
 	}
 
@@ -178,6 +166,7 @@ bool Scenario::skim(QString path, QDomDocument* doc)
 	if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) || 
 		(m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
 		kDebug() << "Scenario not compatible with this simon version";
+		if (deleteDoc) delete doc;
 		return false;
 	}
 
@@ -207,6 +196,78 @@ bool Scenario::skim(QString path, QDomDocument* doc)
 	m_licence = docElem.firstChildElement("licence").text();
 	kDebug() << "Licence: " << m_licence;
 		
+	if (deleteDoc) delete doc;
+	return true;
+}
+
+
+bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc)
+{
+	if (!setupToParse(path, doc, deleteDoc)) return false;
+
+	QDomElement docElem = doc->documentElement();
+
+	//  Vocab
+	//************************************************/
+	kDebug() << "About to create the vocabulary...";
+	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
+	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
+	if (!m_vocabulary) {
+		kDebug() << "Vocabulary could not be loaded!";
+		if (deleteDoc) delete doc;
+		return false;
+	}
+	kDebug() << m_vocabulary->wordCount() << " words loaded";
+
+
+	//  Grammar
+	//************************************************/
+	QDomElement grammarElem = docElem.firstChildElement("grammar");
+	m_grammar = Grammar::createGrammar(this, grammarElem);
+	if (!m_grammar) {
+		kDebug() << "Grammar could not be loaded!";
+		if (deleteDoc) delete doc;
+		return false;
+	}
+	kDebug() << m_grammar->structureCount() << " structurs loaded";
+
+	if (deleteDoc) delete doc;
+	return true;
+}
+
+bool Scenario::readActions(QString path, QDomDocument* doc, bool deleteDoc)
+{
+	if (!setupToParse(path, doc, deleteDoc)) return false;
+
+	QDomElement docElem = doc->documentElement();
+
+	QDomElement actionsElement = docElem.firstChildElement("actions");
+	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
+
+	if (deleteDoc) delete doc;
+
+	if (!m_actionCollection) {
+		kDebug() << "ActionCollection could not be loaded!";
+		return false;
+	}
+	return true;
+}
+
+bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDoc)
+{
+	if (!setupToParse(path, doc, deleteDoc)) return false;
+
+	QDomElement docElem = doc->documentElement();
+
+	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
+	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
+
+	if (deleteDoc) delete doc;
+
+	if (!m_texts) {
+		kDebug() << "Trainingtextcollection could not be loaded!";
+		return false;
+	}
 	return true;
 }
 

@@ -30,9 +30,9 @@
 #include <KMessageBox>
 
 
-TrainSamplePage::TrainSamplePage(const QString& prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
+TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
 	prompt(prompt_),
-	fileName( TrainingManager::getInstance()->htkify(prompt_).replace(" ", "_")
+	fileName( prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"")
 		+ "_S"
 		+ QString::number(nowPage)
 		+ "_"

@@ -102,7 +102,7 @@ bool TrainingManager::deleteWord ( Word *w )
 {
 	if (!promptsTable) init();
 	
-	QString wordToDelete = htkify(w->getWord().toUpper());
+	QString wordToDelete = w->getLexiconWord();
 
 	QMutexLocker lock(&promptsLock);
 	
@@ -372,7 +372,7 @@ int TrainingManager::getProbability ( QString wordname )
 {
 	if (!promptsTable) init();
 	
-	wordname = htkify(wordname.toUpper());
+	wordname = wordname.toUpper();
 	if (wordRelevance.contains(wordname))
 		return wordRelevance.value(wordname);
 	
@@ -399,32 +399,14 @@ int TrainingManager::getProbability ( QString wordname )
 	return prob;
 }
 
-QString TrainingManager::htkify(const QString& in)
-{
-	QString out = in;
-	out.replace("0", "0"+i18n("ZERO"));
-	out.replace("1", "1"+i18n("ONE"));
-	out.replace("2", "2"+i18n("TWO"));
-	out.replace("3", "3"+i18n("THREE"));
-	out.replace("4", "4"+i18n("FOUR"));
-	out.replace("5", "5"+i18n("FIVE"));
-	out.replace("6", "6"+i18n("SIX"));
-	out.replace("7", "7"+i18n("SEVEN"));
-	out.replace("8", "8"+i18n("EIGHT"));
-	out.replace("9", "9"+i18n("NINE"));
-	return out;
-}
-
 bool TrainingManager::addSample ( const QString& fileBaseName, const QString& prompt )
 {
 	Q_ASSERT(promptsTable);
 	
-	QString htkPrompt = htkify(prompt);
-
 	if (promptsTable->contains(fileBaseName)) 
 		return false;
 
-	promptsTable->insert(fileBaseName, htkPrompt);
+	promptsTable->insert(fileBaseName, prompt);
 	dirty=true;
 	return true;
 }

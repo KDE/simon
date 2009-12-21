@@ -44,8 +44,6 @@ SynchronisationManager::SynchronisationManager(const QString& user_name, QObject
 	username(user_name),
 	srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName() + "/" + user_name + "/sync/"))
 {
-	QDir d(srcContainerTempPath);
-	d.mkdir("scenarios");
 }
 
 void SynchronisationManager::buildMissingScenarios(const QStringList& remoteScenarioList)
@@ -124,9 +122,9 @@ QString SynchronisationManager::commonScenario()
 
 void SynchronisationManager::scenarioSynchronized()
 {
-	if (!commonScenarios.isEmpty())
+	if (!commonScenarios.isEmpty()) {
 		commonScenarios.removeAt(0);
-	else if (!commonScenarios.isEmpty())
+	} else if (!missingScenarios.isEmpty())
 		missingScenarios.removeAt(0);
 }
 
@@ -136,12 +134,15 @@ bool SynchronisationManager::storeScenario(const QByteArray& scenario)
 	if (scenarioId.isNull())
 		scenarioId = commonScenario();
 
+	kDebug() << "Storing scenario at id: " << scenarioId;
 	scenarioSynchronized();
 	
 	QString path = srcContainerTempPath+QDir::separator()+"scenarios"+QDir::separator()+scenarioId;
 	QFile f(path);
-	if (!f.open(QIODevice::WriteOnly))
+	if (!f.open(QIODevice::WriteOnly)) {
+		kDebug() << "Cannot store scenario at: " << path;
 		return false;
+	}
 
 	f.write(scenario);
 	return true;
@@ -537,12 +538,19 @@ QString SynchronisationManager::missingSample()
 
 QDateTime SynchronisationManager::getCompileModelSrcDate()
 {
-	//FIXME: Implement support for scenarios
 	QDateTime trainingDate = getTrainingDate();
+	QDateTime scenarioRcDate = selectedScenariosDate();
 
-	if (trainingDate.isNull())
+	if (trainingDate.isNull() || scenarioRcDate.isNull()) 
 		return QDateTime();
-	return trainingDate;
+
+	QDateTime srcDate = qMax(trainingDate, scenarioRcDate);
+
+	QStringList scenarios = getLatestSelectedScenarioList();
+	foreach (const QString& scenarioId, scenarios)
+		srcDate = qMax(srcDate, localScenarioDate(scenarioId));
+
+	return srcDate;
 }
 
 QDateTime SynchronisationManager::getModelSrcDate()
@@ -555,19 +563,25 @@ QDateTime SynchronisationManager::getModelSrcDate()
 
 bool SynchronisationManager::hasModelSrc()
 {
-	//FIXME: scenarios
-	return false;
-//	return hasWordList() && hasGrammar() && hasTraining() && hasLanguageDescription();
+	//language description needed for tree.hed
+	return ((getLatestSelectedScenarioList().count() > 0) && hasTraining() && hasLanguageDescription());
 }
 
 bool SynchronisationManager::startSynchronisation()
 {
-	if (QFile::exists(srcContainerTempPath+"lock")) 
+	if (QFile::exists(srcContainerTempPath+"lock"))  {
+		kDebug() << "Lock exists";
 		return false;
+	}
+
+	QDir d(srcContainerTempPath);
+	d.mkdir("scenarios");
 
 	QFile lock(srcContainerTempPath+"lock");
-	if (!lock.open(QIODevice::WriteOnly))
+	if (!lock.open(QIODevice::WriteOnly)) {
+		kDebug() << "Cannot open lock file at" << srcContainerTempPath+"lock";
 		return false;
+	}
 
 	lock.write("Congratulations! You have discovered a secret message!");
 	lock.close();
@@ -589,14 +603,15 @@ bool SynchronisationManager::removeAllFiles(const QString& dir)
 
 bool SynchronisationManager::cleanTemp()
 {
-	kDebug() << "Seas";
-	bool allRemoved = removeAllFiles(srcContainerTempPath+QDir::separator()+"scenarios");
+	return removeDirectory(srcContainerTempPath) && QDir().mkpath(srcContainerTempPath) 
+		&& removeExcessModelBackups();
+/*	bool allRemoved = removeAllFiles(srcContainerTempPath+QDir::separator()+"scenarios");
 	kDebug() << allRemoved;
 	
 	allRemoved = removeAllFiles(srcContainerTempPath) && allRemoved;
 	kDebug() << allRemoved;
 
-	return (allRemoved && removeExcessModelBackups());
+	return (allRemoved && removeExcessModelBackups());*/
 }
 
 bool SynchronisationManager::abort()
@@ -634,6 +649,7 @@ bool SynchronisationManager::commit()
 
 	kDebug() << "New container time: " << newSrcContainerTime;
 	if (newSrcContainerTime.isNull()) {
+		kDebug() << "Calling cleanTemp";
 		return cleanTemp(); // nothing to process
 	}
 	
@@ -646,6 +662,8 @@ bool SynchronisationManager::commit()
 	kDebug() << "Copied training successfully: " << allCopied;
 	if (hasLanguageDescription(srcContainerTempPath) && !copyLanguageDescription(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
 	kDebug() << "Copied lang desc successfully: " << allCopied;
+	if (hasScenarioRc(srcContainerTempPath) && !copyScenarioRc(srcContainerTempPath, newSrcContainerPath)) allCopied = false;
+	kDebug() << "Copied scenariorc successfully: " << allCopied;
 	if (!copyScenarios(srcContainerTempPath, newSrcContainerPath)) allCopied = false;
 	kDebug() << "Copied scenarios successfully: " << allCopied;
 
@@ -719,22 +737,9 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
 
 bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 {
-	//FIXME: port to scenarios
-	return false;
-
-	/*
 	if (!startSynchronisation()) return false;
 
-	QString wordListPath, grammarPath, trainingPath, languageDescriptionPath;
-	QMap<QDateTime,QString> wordlistModels = getWordLists();
-	for (QMap<QDateTime,QString>::const_iterator i=wordlistModels.constBegin(); 
-			(i != wordlistModels.constEnd()) && (i.key() <= modelDate); i++)
-			wordListPath = i.value();
-
-	QMap<QDateTime,QString> grammarModels = getGrammars();
-	for (QMap<QDateTime,QString>::const_iterator i=grammarModels.constBegin(); 
-			(i != grammarModels.constEnd()) && (i.key() <= modelDate); i++)
-		grammarPath = i.value();
+	QString trainingPath, languageDescriptionPath, scenarioRcPath;
 
 	QMap<QDateTime,QString> trainingModels = getTrainingDatas();
 	for (QMap<QDateTime,QString>::const_iterator i=trainingModels.constBegin(); 
@@ -746,40 +751,64 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 			(i != languageDescriptionModels.constEnd()) && (i.key()<=modelDate); i++)
 		languageDescriptionPath = i.value();
 
-	if (wordListPath.isEmpty() || grammarPath.isEmpty() || trainingPath.isEmpty() || languageDescriptionPath.isEmpty()) {
+	QMap<QDateTime,QString> scenarioRcModels = getSelectedScenarioLists();
+	for (QMap<QDateTime,QString>::const_iterator i=scenarioRcModels.constBegin(); 
+			(i != scenarioRcModels.constEnd()) && (i.key()<=modelDate); i++)
+		scenarioRcPath = i.value();
+
+	if (trainingPath.isEmpty() || languageDescriptionPath.isEmpty() || scenarioRcPath.isEmpty()) {
 		abort();
 		kDebug() << "One of the paths is empty";
-		kDebug() << wordListPath << grammarPath << trainingPath << languageDescriptionPath;
+		kDebug() << trainingPath << languageDescriptionPath << scenarioRcPath;
 		return false;
 	}
 
 	bool allCopied=true;
-	if (!copyWordList(wordListPath, srcContainerTempPath)) allCopied=false;
 	if (!copyTrainingData(trainingPath, srcContainerTempPath)) allCopied=false;
-	if (!copyGrammar(grammarPath, srcContainerTempPath)) allCopied=false;
 	if (!copyLanguageDescription(languageDescriptionPath, srcContainerTempPath)) allCopied=false;
 
-	if (!allCopied)
-	{
+	//copy scenariosrc from closest  model date
+	if (!copyScenarioRc(scenarioRcPath, srcContainerTempPath)) allCopied=false;
+
+	//copy all scenarios from that date on to the current model path:
+	//	Simply call copyScenarios for every earlier scenario path to accumulate all scenarios
+	QMap<QDateTime,QString> allSrcModels = getModels();
+	QMap<QDateTime,QString>::const_iterator modelI = allSrcModels.constEnd();
+	modelI--;
+	while (modelI.key() > modelDate) {
+		if (modelI.key() <= modelDate)
+			if (!copyScenarios(modelI.value(), srcContainerTempPath)) 
+				allCopied=false;
+		if (modelI == allSrcModels.constBegin()) break;
+		modelI--;
+	}
+
+	if (!allCopied) {
 		abort();
-		kDebug() << "Could not copy everything";
+		kDebug() << "could not copy everything";
 		return false;
 	}
 
 	//updating date stamp
+	touchTempModel();
+
+	kDebug() << "Committing";
+	return commit();
+}
+
+void SynchronisationManager::touchTempModel()
+{
 	QDateTime newModelDate = QDateTime::currentDateTime();
 	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	cGroup.writeEntry("WordListDate", newModelDate);
-	cGroup.writeEntry("GrammarDate", newModelDate);
 	cGroup.writeEntry("TrainingDate", newModelDate);
 	cGroup.writeEntry("LanguageDescriptionDate", newModelDate);
 	config.sync();
 
-
-	kDebug() << "Committing";
-	return commit();
-	*/
+	KConfig scenarioRc( srcContainerTempPath+"simonscenariosrc", KConfig::SimpleConfig );
+	KConfigGroup scenarioRcGroup(&scenarioRc, "");
+	scenarioRcGroup.writeEntry("LastModified", newModelDate);
+	scenarioRc.sync();
 }
 
 
@@ -821,28 +850,22 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
 
 bool SynchronisationManager::copyScenarios(const QString& source, const QString& dest)
 {
-	if (!QFile::exists(source+QDir::separator()+"simonscenariosrc")) return true;
-	
 	QDir scenarioDir(source+QDir::separator()+"scenarios");
 
 	//problems with source or dest?
 	kDebug() << "Creating path: " <<  dest+QDir::separator()+"scenarios";
+	kDebug() << "scenarioDir:" << source+QDir::separator()+"scenarios";
 	QDir d(dest+QDir::separator()+"scenarios");
 	if (!scenarioDir.exists() || (!d.exists() && !d.mkpath(dest+QDir::separator()+"scenarios")))  {
 		kDebug() << "Failed to create target folders";
-		return false;
-	}
-
-	QString rcSource = source+QDir::separator()+"simonscenariosrc";
-	QString rcDest = dest+QDir::separator()+"simonscenariosrc";
-	if ((QFile::exists(rcDest) && !QFile::remove(rcDest)) || !QFile::copy(rcSource, rcDest)) {
-		kDebug() << "Failed to copy scenario rc from " << source+QDir::separator()+"simonscenariosrc" << "to "
-				<< dest+QDir::separator()+"simonscenariosrc";
-		exit(0);
+		kDebug() << "scenariodir exists: " << scenarioDir.exists();
+		kDebug() << "d exists: " << d.exists();
+		kDebug() << "d mkpath: " << d.mkpath(dest+QDir::separator()+"scenarios");
 		return false;
 	}
 
 	bool allCopied=true;
+
 	QStringList scenarios = scenarioDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	foreach (const QString& scenario, scenarios) {
 		QString scenarioPath = source+QDir::separator()+"scenarios"+QDir::separator()+scenario;
@@ -850,23 +873,44 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
 
 		kDebug() << "Copying scenario: " << scenarioPath << destPath;
 
-		if (!QFile::copy(scenarioPath, destPath)) {
+		if (!QFile::exists(destPath) && !QFile::copy(scenarioPath, destPath)) {
 			allCopied = false;
 			kDebug() << "Error: Copy failed";
-		}
+		} else
+			kDebug() << "Copying successful";
 	}
+	kDebug() << "All scenarios copied: " << allCopied;
 
 	return allCopied;
 }
 
+bool SynchronisationManager::copyScenarioRc(const QString& source, const QString& dest)
+{
+	QString rcSource = source+QDir::separator()+"simonscenariosrc";
+	QString rcDest = dest+QDir::separator()+"simonscenariosrc";
+	if ((!QFile::exists(rcDest)) && !QFile::copy(rcSource, rcDest)) {
+		kDebug() << "Failed to copy scenario rc from " << source+QDir::separator()+"simonscenariosrc" << "to "
+				<< dest+QDir::separator()+"simonscenariosrc";
+		return false;
+	}
+
+	return true;
+}
+
+bool SynchronisationManager::hasScenarioRc(const QString& modelPath)
+{
+	return QFile::exists(modelPath+QDir::separator()+"simonscenariosrc");
+}
 
 bool SynchronisationManager::removeExcessModelBackups()
 {
-	return true; //FIXME: scenarios
-	/*
-	int maxBackupedModels=5; //TODO make configurable
+	kDebug() << "Removing excess model backups";
+	KConfig config(KStandardDirs::locate("config", "simondrc"));
+	KConfigGroup cGroup(&config, "ModelManagement");
+	int maxBackupedModels = cGroup.readEntry("ModelBackups", 8);
 	
 	QMap<QDateTime, QString> models = getModels();
+
 
 	//date is ascending so the we can remove from the front until we have removed enough
 //	QMutableMapIterator<QDateTime, QString> i(models);
@@ -875,35 +919,58 @@ bool SynchronisationManager::removeExcessModelBackups()
 		QString modelToRemovePath = models.value(models.keys().at(0));
 		QString modelTargetPath = models.value(models.keys().at(1));
 
-		if (hasWordList(modelToRemovePath) && !copyWordList(modelToRemovePath, modelTargetPath))
+		//copy functions will not override if the same files are already in the target path
+		if (hasLanguageDescription(modelToRemovePath) && !copyLanguageDescription(modelToRemovePath, modelTargetPath)) {
+			kDebug() << "Language description failed";
 			return false;
-		if (hasGrammar(modelToRemovePath) && !copyGrammar(modelToRemovePath, modelTargetPath))
+		}
+		if (hasTraining(modelToRemovePath) && !copyTrainingData(modelToRemovePath, modelTargetPath)) {
+			kDebug() << "Training failed";
 			return false;
-		if (hasLanguageDescription(modelToRemovePath) && !copyLanguageDescription(modelToRemovePath, modelTargetPath))
+		}
+		if (hasScenarioRc(modelToRemovePath) && !copyScenarioRc(modelToRemovePath, modelTargetPath)) {
+			kDebug() << "ScenarioRc failed";
 			return false;
-		if (hasTraining(modelToRemovePath) && !copyTrainingData(modelToRemovePath, modelTargetPath))
+		}
+		if (!copyScenarios(modelToRemovePath, modelTargetPath)) {
+			kDebug() << "Scenarios failed";
 			return false;
+		}
 	
 		//remove modelToRemovePath
-		QDir oldModelDir(modelToRemovePath);
-		QStringList files = oldModelDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-		bool allRemoved=true;
-		foreach (const QString& file, files)
-		{
-			if (!QFile::remove(modelToRemovePath+file))
-				allRemoved=false;
-		}
-		oldModelDir.cdUp(); //move out of oldModelDir
-		if (!allRemoved || !oldModelDir.rmdir(modelToRemovePath))
+		if (!removeDirectory(modelToRemovePath)) {
+			kDebug() << "Removing directory failed: " << modelToRemovePath;
 			return false;
+		}
 
 		kDebug() << "Removed " << modelToRemovePath;
 		models.remove(models.keys().at(0));
 	}
 	
 	return true;
-	*/
 }
+
+bool SynchronisationManager::removeDirectory(const QString& dir)
+{
+	kDebug() << dir;
+	QDir directory(dir);
+	QStringList dirs = directory.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
+	foreach (const QString d, dirs)
+		if (!removeDirectory(dir+QDir::separator()+d)) {
+			kDebug() << "Sub directory remove failed: " << d;
+			return false;
+		}
+
+	if (!removeAllFiles(dir)) {
+		kDebug() << "removeAllFiles failed";
+		return false;
+	}
+
+	bool rmdir = directory.rmdir(dir);
+	kDebug() << "RmDir: " << rmdir;
+	return rmdir;
+}
+
 
 QDateTime SynchronisationManager::selectedScenariosDate()
 {
@@ -961,30 +1028,15 @@ QString SynchronisationManager::getLatestPath(const QMap<QDateTime, QString>& mo
 	return models.value(dates.at(dates.count()-1));
 }
 
-QString SynchronisationManager::getLexiconPath()
+QStringList SynchronisationManager::getScenarioPaths()
 {
-	//FIXME
-	return QString();
-}
+	QStringList srcs = getLatestSelectedScenarioList();
+	QStringList out;
+	foreach (const QString& id, srcs)
+		out << getLatestScenarioPath(id);
 
-QString SynchronisationManager::getGrammarPath()
-{
-	//FIXME
-	return QString();
+	return out;
 }
-
-QString SynchronisationManager::getVocabPath()
-{
-	//FIXME
-	return QString();
-}
-
-QString SynchronisationManager::getSimpleVocabPath()
-{
-	//FIXME
-	return QString();
-}
-
 
 QString SynchronisationManager::getPromptsPath()
 {

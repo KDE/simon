@@ -33,16 +33,17 @@
 
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
+#include <speechmodelcompilationadapter/modelcompilationadapter.h>
+#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 
 #include <QDir>
 #include <QDateTime>
 #include <QHostAddress>
-#include <QMutexLocker>
 #include <QMap>
 
 #include <KDebug>
 #include <KMessageBox>
-#include <KLocalizedString>
+#include <QString>
 #include <KStandardDirs>
 #include <KConfigGroup>
 
@@ -53,7 +54,8 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 	synchronisationRunning(false),
 	recognitionControl(0),
 	synchronisationManager(0),
-	modelCompilationManager(0)
+	modelCompilationManager(0),
+	modelCompilationAdapter(0)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -72,6 +74,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 		connect(this, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(slotSocketError()));
 		startServerEncryption();
 	}
+	
 }
 
 void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
@@ -135,9 +138,6 @@ void ClientSocket::processRequest()
 
 				if (databaseAccess->authenticateUser(user, pass))
 				{
-					//fprintf(stderr, "hier: %s\n", i18n("Test").toAscii().data());
-					i18n("");
-
 					//store authentication data
 					this->username = user;
 					
@@ -146,16 +146,25 @@ void ClientSocket::processRequest()
 					modelCompilationManager = new ModelCompilationManager(user, this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
-					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
-					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+					connect(modelCompilationManager, SIGNAL(status(QString, int, int)), this, SLOT(slotModelCompilationStatus(QString, int, int)));
+					connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationClassUndefined(const QString&)));
 					connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationWordUndefined(const QString&)));
 					connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+
+					if (modelCompilationAdapter) modelCompilationAdapter->deleteLater();
 					
+					modelCompilationAdapter = new ModelCompilationAdapterHTK(user, this);
+					connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
+					connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+					connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
+					connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 					
+
+				
 					if (recognitionControl) 
 						recognitionControl->deleteLater();
 
@@ -956,9 +965,10 @@ void ClientSocket::sendModelCompilationLog()
 	write(toWrite);
 }
 
-void ClientSocket::slotModelCompilationStatus(const QString& status, int progressNow, int progressMax)
+void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
 {
-// 	QMutexLocker l(&messageLocker);
+	progressNow += modelCompilationAdapter->maxProgress();
+	progressMax += modelCompilationAdapter->maxProgress();
 	QByteArray toWrite;
 	QByteArray statusByte = status.toUtf8();
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -974,12 +984,10 @@ void ClientSocket::slotModelCompilationStatus(const QString& status, int progres
 
 	write(toWrite);
 	write(body);
-// 	waitForBytesWritten(toWrite.count()+body.count());
 }
 
-void ClientSocket::slotModelCompilationError(const QString& error)
+void ClientSocket::slotModelCompilationError(QString error)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
@@ -998,7 +1006,6 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 
 void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = word.toUtf8();
@@ -1011,7 +1018,6 @@ void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 
 void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray classByte = undefClass.toUtf8();
@@ -1023,7 +1029,6 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 
 void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray phonemeByte = phoneme.toUtf8();
@@ -1033,22 +1038,55 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 	write(toWrite);
 }
 
+void ClientSocket::slotModelAdaptionComplete()
+{
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+									 
+	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
+				activeDir+"model.dict", activeDir+"model.dfa",
+				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+				activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+				activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
+				synchronisationManager->getWavConfigPath());
+}
+
+void ClientSocket::slotModelAdaptionAborted()
+{
+	activeModelCompilationAborted();
+}
+
+void ClientSocket::slotModelAdaptionStatus(QString status, int progressNow)
+{
+	slotModelCompilationStatus(status, progressNow-modelCompilationAdapter->maxProgress(), 0);
+}
+
+void ClientSocket::slotModelAdaptionError(QString error)
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	QByteArray errorByte = error.toUtf8();
+	bodyStream << errorByte << QByteArray();
+
+	stream << (qint32) Simond::ModelCompilationError
+		<< (qint64) body.count();
+	write(toWrite);
+	write(body);
+}
+
 
 
 void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
-	
+
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
-
-
-	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
-				activeDir+"model.dict", activeDir+"model.dfa",
-				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
-				synchronisationManager->getSimpleVocabPath(), synchronisationManager->getPromptsPath(), 
-				synchronisationManager->getTreeHedPath(), synchronisationManager->getWavConfigPath());
+	modelCompilationAdapter->startAdaption(activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+						activeDir+"prompts", synchronisationManager->getScenarioPaths(), 
+						synchronisationManager->getPromptsPath());
 }
 
 void ClientSocket::sendCode(Simond::Request code)
@@ -1110,8 +1148,8 @@ void ClientSocket::synchronisationDone()
 	//reset modelsource
 	Q_ASSERT(recognitionControl);
 	
-	if (!recognitionControl->isInitialized() && !modelCompilationManager->isRunning() && 
-			synchronisationManager->hasActiveModel())
+	if (!recognitionControl->isInitialized() && !modelCompilationAdapter->isRunning() &&
+			!modelCompilationManager->isRunning() && synchronisationManager->hasActiveModel())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
@@ -1292,4 +1330,6 @@ ClientSocket::~ClientSocket()
 		synchronisationManager->deleteLater();
 	if (modelCompilationManager) 
 		modelCompilationManager->deleteLater();
+	if (modelCompilationAdapter) 
+		modelCompilationAdapter->deleteLater();
 }

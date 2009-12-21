@@ -66,6 +66,8 @@ private:
 
 	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix);
 
+	bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
+
 public:
 	Scenario(const QString& scenarioId);
 
@@ -102,7 +104,10 @@ public:
 	bool containsWord(const QString& word);
 	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
-	bool skim(QString path=QString(), QDomDocument* doc=NULL);
+	bool skim(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
+	bool readLanguageModel(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
+	bool readActions(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
+	bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
 	bool init(QString path=QString());
 	bool save(QString path=QString());
 

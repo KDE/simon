@@ -30,7 +30,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
-#include <KLocalizedString>
+#include <QString>
 #include <KComponentData>
 #include <KAboutData>
 #include <KLocale>
@@ -117,12 +117,13 @@ bool ModelCompilationManager::parseConfiguration()
 			!QFile::exists(hVite))
 	{
 		//HTK not found
-		QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n");
+		QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n"
 #ifdef Q_OS_WIN32
-		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+		"More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows"
 #else
-		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+		"More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation"
 #endif
+		);
 		emit error(errorMsg);
 		return false;
 	}
@@ -202,7 +203,7 @@ QString ModelCompilationManager::getBuildLog()
  * to find common mistakes.
  * Only if processError does not know how to handle this error (i.e. not a common mistake) we will emit the given readableError.
  */
-void ModelCompilationManager::analyseError(const QString& readableError)
+void ModelCompilationManager::analyseError(QString readableError)
 {
 	if (!processError())
 		emit error(readableError);
@@ -303,7 +304,7 @@ void ModelCompilationManager::run()
 
 
 	if (!keepGoing) return;
-	Logger::log(i18n("[INF] Compiling model..."));
+	Logger::log("[INF] Compiling model...");
 	emit status(i18n("Preperation"), 0,2300);
 	
 

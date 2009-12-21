@@ -45,6 +45,7 @@ private:
 
 
 protected:
+	bool m_resolveProbability;
 	QStringList terminals; //terminal cache
 	QList<Word*> m_words;
 
@@ -81,6 +82,7 @@ public:
 	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
 	int wordCount() { return m_words.count(); }
+	QList<Word*> getWords() { return m_words; }
 	virtual ~Vocabulary();
 
 	bool renameTerminal(const QString& from, const QString& to);

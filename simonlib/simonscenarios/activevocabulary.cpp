@@ -27,6 +27,7 @@
  */
 ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(), ScenarioObject(parent)
 {
+	m_resolveProbability=true;
 	buildBrushes();
 }
 

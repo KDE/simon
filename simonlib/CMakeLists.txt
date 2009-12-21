@@ -18,6 +18,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprotocol)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscobjects)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscprotocol)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitionresult)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilationadapter)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprogresstracking)
 

@@ -69,8 +69,6 @@ Q_OBJECT
 		TrainingManager(QObject *parent=0);
 
 	public:
-		QString htkify(const QString& in);
-
 		PromptsTable* getPrompts();
 		bool writePromptsFile(PromptsTable* prompts, QString path);
 

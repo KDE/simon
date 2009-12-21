@@ -35,5 +35,10 @@
     </entry>
   </group>
 
-  
+  <group name="ModelManagement">
+    <entry name="ModelBackups" type="Int">
+      <label>how many model versions we should preserve.</label>
+      <default>8</default>
+    </entry>
+  </group>
 </kcfg>

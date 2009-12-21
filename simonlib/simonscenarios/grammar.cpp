@@ -30,6 +30,13 @@ Grammar::Grammar(Scenario *parent) : ScenarioObject(parent), structuresLock(QMut
 }
 
 /**
+ * Plain constructor for use as storage model
+ */
+Grammar::Grammar() : ScenarioObject(0), structuresLock(QMutex::Recursive)
+{
+}
+
+/**
  * Factory function
  * \author Peter Grasch
  */
@@ -189,17 +196,20 @@ QVariant Grammar::headerData(int column, Qt::Orientation orientation,
 	return QVariant();
 }
 
-bool Grammar::addStructures(const QStringList& newStructures)
+bool Grammar::addStructures(const QStringList& newStructures, bool save)
 {
 	foreach (const QString& structure, newStructures)
 		if (!addStructure(structure, false /* don't save */))
 			return false;
 
-	return parentScenario->save();
+	return (!save || parentScenario->save());
 }
 
 bool Grammar::addStructure(const QString& newStructure, bool save)
 {
+	//avoid doubles
+	if (m_structures.contains(newStructure)) return true;
+
 	int count = m_structures.count();
 	beginInsertRows(QModelIndex(), count, count);
 	m_structures << newStructure;

@@ -24,35 +24,43 @@
 #include <QDomElement>
 #include <KColorScheme>
 #include <KStandardDirs>
+#include <KFilterDev>
+#include <KMimeType>
 
 /**
  * Empty, private constructor
  */
 ShadowVocabulary::ShadowVocabulary() : Vocabulary()
 {
-	QFile f(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
+	m_resolveProbability=false;
+	QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
-	if (!reset(f)) 
+	QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
+						KMimeType::findByFileContent(vocabFilename)->name());
+
+	if (!reset(shadowVocabFile)) 
 		loadFailed = true;
+
+	delete shadowVocabFile;
 }
 
-bool ShadowVocabulary::reset(QIODevice& f)
+bool ShadowVocabulary::reset(QIODevice* f)
 {
-	if (!f.open(QIODevice::ReadOnly))
+	if (!f->open(QIODevice::ReadOnly))
 		return false;
 
 	deleteAll();
 
-	f.readLine(); //skip document type
-	QString root = QString::fromUtf8(f.readLine()); //skip root element
+	f->readLine(); //skip document type
+	QString root = QString::fromUtf8(f->readLine()); //skip root element
 
 	root = root.mid(26, 19);
 
 	lastModifiedDate = QDateTime::fromString(root, Qt::ISODate);
 
-	kDebug() << root << lastModifiedDate;;
+	kDebug() << root << lastModifiedDate;
 
-	while (!f.atEnd()) {
+	while (!f->atEnd()) {
 		//<word>
 		//	<name>
 		//		Aal
@@ -64,19 +72,19 @@ bool ShadowVocabulary::reset(QIODevice& f)
 		//		NOM
 		//	</terminal>
 		//</word>
-		f.readLine(); //skip word
-		f.readLine(); //skip name
-		QString name = QString::fromUtf8(f.readLine()).trimmed();
-		f.readLine(); //skip nameend
+		f->readLine(); //skip word
+		f->readLine(); //skip name
+		QString name = QString::fromUtf8(f->readLine()).trimmed();
+		f->readLine(); //skip nameend
 
-		f.readLine(); //skip pronunciation
-		QString pronunciation = QString::fromUtf8(f.readLine()).trimmed();
-		f.readLine(); //skip pronunciationend
+		f->readLine(); //skip pronunciation
+		QString pronunciation = QString::fromUtf8(f->readLine()).trimmed();
+		f->readLine(); //skip pronunciationend
 
-		f.readLine(); //skip terminal
-		QString terminal = QString::fromUtf8(f.readLine()).trimmed();
-		f.readLine(); //skip terminalend
-		f.readLine(); //skip wordend
+		f->readLine(); //skip terminal
+		QString terminal = QString::fromUtf8(f->readLine()).trimmed();
+		f->readLine(); //skip terminalend
+		f->readLine(); //skip wordend
 
 		if (terminal.isEmpty()) continue;
 		
@@ -104,11 +112,13 @@ bool ShadowVocabulary::save()
 	touch();
 
 	QFile f(KStandardDirs::locateLocal("appdata", "shadowvocabulary.xml"));
-	if (!f.open(QIODevice::WriteOnly))
+	QIODevice *shadowVocabFile = KFilterDev::device(&f, "application/x-gzip", false);
+
+	if (!shadowVocabFile->open(QIODevice::WriteOnly))
 		return false;
 
-	f.write("<!DOCTYPE Vocabulary>\n");
-	f.write("<vocabulary lastModified=\""+lastModifiedDate.toString(Qt::ISODate).toUtf8()+"\">\n"); 
+	shadowVocabFile->write("<!DOCTYPE Vocabulary>\n");
+	shadowVocabFile->write("<vocabulary lastModified=\""+lastModifiedDate.toString(Qt::ISODate).toUtf8()+"\">\n"); 
 
 	foreach (Word *w, m_words) {
 		//<word>
@@ -122,23 +132,26 @@ bool ShadowVocabulary::save()
 		//		NOM
 		//	</terminal>
 		//</word>
-		f.write("<word>\n"); 
-		f.write("\t<name>\n"); 
-		f.write("\t\t"+w->getWord().toUtf8()+"\n");
-		f.write("\t</name>\n"); 
+		shadowVocabFile->write("<word>\n"); 
+		shadowVocabFile->write("\t<name>\n"); 
+		shadowVocabFile->write("\t\t"+w->getWord().toUtf8()+"\n");
+		shadowVocabFile->write("\t</name>\n"); 
 
-		f.write("\t<pronunciation>\n");
-		f.write("\t\t"+w->getPronunciation().toUtf8()+"\n");
-		f.write("\t</pronunciation>\n"); 
+		shadowVocabFile->write("\t<pronunciation>\n");
+		shadowVocabFile->write("\t\t"+w->getPronunciation().toUtf8()+"\n");
+		shadowVocabFile->write("\t</pronunciation>\n"); 
 
-		f.write("\t<terminal>\n");
-		f.write("\t\t"+w->getTerminal().toUtf8()+"\n");
-		f.write("\t</terminal>\n"); 
-		f.write("</word>\n"); 
+		shadowVocabFile->write("\t<terminal>\n");
+		shadowVocabFile->write("\t\t"+w->getTerminal().toUtf8()+"\n");
+		shadowVocabFile->write("\t</terminal>\n"); 
+		shadowVocabFile->write("</word>\n"); 
 	}
 
 
-	f.write("</vocabulary>"); 
+	shadowVocabFile->write("</vocabulary>"); 
+	shadowVocabFile->close();
+	f.close();
+
 	emit changed();
 
 	return true;

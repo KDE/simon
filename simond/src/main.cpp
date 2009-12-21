@@ -26,6 +26,9 @@
 #include <KLocale>
 #include <KGlobal>
 #include <KComponentData>
+#include <KDebug>
+#include <KLocale>
+#include <KApplication>
 #include <QApplication>
 #include "../../version.h"
 
@@ -44,6 +47,7 @@ int main(int argc, char **argv)
 
 	QCoreApplication app(argc,argv);
 
+	KGlobal::locale();
 	SimondControl *control = new SimondControl();
 	if (!control->init())
 		return 2;

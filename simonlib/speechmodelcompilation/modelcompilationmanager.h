@@ -23,6 +23,7 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QString>
 #include "simonmodelcompilationmanagement_export.h"
 
 /**
@@ -39,8 +40,8 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread{
 Q_OBJECT
 signals:
-	void status(const QString&, int progressNow, int progressTotal=2300);
-	void error(const QString&);
+	void status(QString, int progressNow, int progressTotal=2300);
+	void error(QString);
 
 //	void userReadableError(const QString&);
 
@@ -67,7 +68,7 @@ private:
 	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
 	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
-	void analyseError(const QString& readableError);
+	void analyseError(QString readableError);
 	bool processError();
 
 	//config options
@@ -139,8 +140,10 @@ public:
 	bool startCompilation(const QString& hmmDefsPath, const QString& tiedListPath,
 			     const QString& dictPath, const QString& dfaPath,
 			     const QString& samplePath,
+
 			     const QString& lexiconPath, const QString& grammarPath, 
 			     const QString& vocabPath, const QString& promptsPath, 
+
 			     const QString& treeHedPath, const QString& wavConfigPath);
 	bool hasBuildLog();
 	QString getGraphicBuildLog();

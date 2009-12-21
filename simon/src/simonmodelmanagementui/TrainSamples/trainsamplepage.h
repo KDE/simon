@@ -34,7 +34,7 @@ class TrainSamplePage : public QWizardPage
 		QString fileName;
 	
 	public:
-		TrainSamplePage(const QString& prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
+		TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
 		~TrainSamplePage();
 		bool isComplete() const;
 

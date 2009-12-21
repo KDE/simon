@@ -51,6 +51,7 @@ protected:
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
+	Grammar();
 	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
@@ -61,7 +62,7 @@ public:
 	QString getStructure(int index);
 
 
-	bool addStructures(const QStringList& newStructures);
+	bool addStructures(const QStringList& newStructures, bool save=true);
 	bool addStructure(const QString& newStructure, bool save=true);
 	bool deleteStructure(int index);
 

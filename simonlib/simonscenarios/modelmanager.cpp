@@ -186,8 +186,9 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteA
 				        const QByteArray& treeHed)
 {
 	ShadowVocabulary *vocab = ScenarioManager::getInstance()->getShadowVocabulary();
-	QBuffer buffer(&shadowVocab);
+	QBuffer *buffer = new QBuffer(&shadowVocab);
 	if (!vocab->reset(buffer) || !vocab->save()) return false;
+	delete buffer;
 
 	QFile treeHedF(KStandardDirs::locateLocal("appdata", "model/tree1.hed"));
 	if (!treeHedF.open(QIODevice::WriteOnly))

@@ -40,13 +40,14 @@ class SynchronisationManager : public QObject
 		QStringList commonScenarios;
 		QString srcContainerTempPath;
 		bool removeAllFiles(const QString& dir);
+		bool removeDirectory(const QString& dir);
 		bool cleanTemp();
 
 		QString getLatestPath(const QMap<QDateTime, QString>& models);
 
 		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
 		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
-		QMap<QDateTime, QString> getSelectedScenarioLists(); //treehed
+		QMap<QDateTime, QString> getSelectedScenarioLists();
 
 		QString getLatestLanguageDescriptionPath();
 		QString getLatestTrainingPath();
@@ -54,6 +55,9 @@ class SynchronisationManager : public QObject
 
 		QStringList getAllScenarios();
 		QString getLatestScenarioPath(const QString& id);
+
+		void touchTempModel();
+
 	
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
@@ -96,6 +100,7 @@ class SynchronisationManager : public QObject
 		void couldntRetreiveScenario();
 		void scenarioUpToDate();
 
+		bool hasScenarioRc(const QString& modelPath=QString());
 		QDateTime selectedScenariosDate();
 		QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
 		QStringList getSelectedScenarioList();
@@ -106,10 +111,7 @@ class SynchronisationManager : public QObject
 		QString missingSample();
 		bool storeSample(const QByteArray& sample);
 
-		QString getLexiconPath();
-		QString getGrammarPath();
-		QString getVocabPath();
-		QString getSimpleVocabPath();
+		QStringList getScenarioPaths();
 		QString getPromptsPath();
 		QString getTreeHedPath();
 		QString getWavConfigPath();
@@ -122,6 +124,7 @@ class SynchronisationManager : public QObject
 		void modelCompiled();
 		bool copyTrainingData(const QString& source, const QString& dest);
 		bool copyLanguageDescription(const QString& source, const QString& dest);
+		bool copyScenarioRc(const QString& source, const QString& dest);
 		bool copyScenarios(const QString& source, const QString& dest);
 		bool switchToModel(const QDateTime& modelDate);
 

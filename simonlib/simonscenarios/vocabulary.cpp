@@ -29,7 +29,7 @@
 /**
  * Empty, private constructor
  */
-Vocabulary::Vocabulary()
+Vocabulary::Vocabulary() : m_resolveProbability(false)
 {
 }
 
@@ -53,7 +53,9 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 		QString name = nameElem.text();
 		QString pronunciation = pronunciationElem.text();
 		QString terminal = terminalElem.text();
-		int probability = TrainingManager::getInstance()->getProbability(name);
+		int probability=0;
+		if (m_resolveProbability)
+			probability = TrainingManager::getInstance()->getProbability(name);
 
 		if (!terminals.contains(terminal)) terminals << terminal;
 

@@ -162,9 +162,10 @@ void SimonControl::disconnectFromServer()
  */
 void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
 {
-	fprintf(stderr, "wordRecognised()\n");
 	if (status != SimonControl::ConnectedActivated) return;
 
+	kDebug() << "Received recognition results...";
+	ScenarioManager::getInstance()->processRawResults(recognitionResults);
 	//ActionManager::getInstance()->processRawResults(recognitionResults);
 }
 
