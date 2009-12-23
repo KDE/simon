@@ -23,6 +23,7 @@
 #include <QString>
 #include <QList>
 #include "actionmodel.h"
+#include "command.h"
 #include <simonscenariobase/scenarioobject.h>
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
@@ -39,7 +40,6 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
 private:
 	ActionCommandModel *proxy;
 
-
 public:
 	ActionCollection(Scenario *parent);
 
@@ -54,18 +54,22 @@ public:
 
 //	bool addCommand(Command *command);
 
-
 	QList<Action*> actions() { return m_actions; }
 
 	bool removeCommand(Command *command);
 
-	bool addAction(Action *action);
+	bool addAction(Action *action, bool silent, bool save);
 	bool deleteAction(Action *action);
 
 	bool moveActionUp(Action *action);
 	bool moveActionDown(Action *action);
 
 	bool processResult(RecognitionResult recognitionResult);
+	bool triggerCommand(const QString& type, const QString& trigger);
+
+	bool setTrigger(const QString& trigger);
+
+	CommandList* getCommandList();
 
 	QList<QAction*> getGuiActions();
 	~ActionCollection();

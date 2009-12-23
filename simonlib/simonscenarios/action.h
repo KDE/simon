@@ -36,6 +36,10 @@ class CommandConfiguration;
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
 	Q_OBJECT
+	
+	signals:
+		void changed();
+
 	private:
 		QString m_source;
 		QString m_trigger;
@@ -62,7 +66,7 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		QIcon icon();
 		QPointer<CommandManager> manager() { return m_manager; }
 		bool hasCommands();
-		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
+		bool setTrigger(const QString& newTrigger);
 
 		bool deSerialize(const QDomElement&);
 		QDomElement serialize(QDomDocument *doc);

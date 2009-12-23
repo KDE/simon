@@ -23,7 +23,7 @@
 #include <KColorScheme>
 
 /**
- * Empty, private constructor
+ * Constructor
  */
 ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(), ScenarioObject(parent)
 {

@@ -121,7 +121,6 @@ void RunCommandViewPrivate::addCommand()
 
 	newCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*newCommand*/));
 	
-	Command *com=NULL;
 	bool succ;
 
 	Action *a = getCurrentlySelectedAction();
@@ -131,10 +130,10 @@ void RunCommandViewPrivate::addCommand()
 	else 
 		succ = newCommand->newCommand();
 
-	if (!succ) {
-		KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
+	//if (!succ) {
+	//	KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
 		//ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
-	}
+	//}
 	
 	delete newCommand;
 }

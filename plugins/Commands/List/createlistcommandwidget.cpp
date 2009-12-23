@@ -21,6 +21,7 @@
 #include <simonactions/listcommand.h>
 
 #include <simonactions/commandtablemodel.h>
+#include <simonactions/actionmanager.h>
 
 #include <QListWidget>
 #include <QInputDialog>
@@ -28,7 +29,7 @@
 #include <QStringList>
 
 CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
-//	allCommands(ActionManager::getInstance()->getCommandList()),
+	allCommands(ActionManager::getInstance()->getCommandList()),
 	model(new CommandTableModel())
 {
 	ui.setupUi(this);

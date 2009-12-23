@@ -30,24 +30,25 @@
 /**
  * Empty, private constructor
  */
-ShadowVocabulary::ShadowVocabulary() : Vocabulary()
+ShadowVocabulary::ShadowVocabulary() : Vocabulary(), loadFailed(false)
 {
+	kDebug() << "Initializing shadow dictionary: " << this;
 	m_resolveProbability=false;
 	QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
 	QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,
 						KMimeType::findByFileContent(vocabFilename)->name());
 
-	if (!reset(shadowVocabFile)) 
-		loadFailed = true;
-
+	reset(shadowVocabFile);
 	delete shadowVocabFile;
 }
 
 bool ShadowVocabulary::reset(QIODevice* f)
 {
-	if (!f->open(QIODevice::ReadOnly))
+	if (!f->open(QIODevice::ReadOnly)) {
+		loadFailed = true;
 		return false;
+	}
 
 	deleteAll();
 
@@ -93,6 +94,7 @@ bool ShadowVocabulary::reset(QIODevice* f)
 		m_words.append(new Word(name, pronunciation, terminal));
 	}
 	QAbstractItemModel::reset();
+	loadFailed = false;
 	return true;
 }
 

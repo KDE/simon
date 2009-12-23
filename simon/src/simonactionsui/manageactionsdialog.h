@@ -48,10 +48,13 @@ private:
 	void registerCommandConfiguration(CommandConfiguration *m);
 
 private slots:
+	void applyTrigger(const QString&);
+	void applyTriggerToAll();
 	void add();
 	void remove();
 	void moveUp();
 	void moveDown();
+	void currentSelectionChanged();
 
 public:
 	int exec();

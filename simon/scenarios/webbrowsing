@@ -1,5 +1,5 @@
 <!DOCTYPE scenario>
-<scenario version="1" icon="internet-web-browser" name="Webbrowsing" lastModified="2009-11-03T17:05:23">
+<scenario version="1" icon="internet-web-browser" name="Webbrowsing" lastModified="2009-12-23T17:28:47">
  <simonCompatibility>
   <minimumVersion>
    <version>0.1.0</version>
@@ -21,37 +21,113 @@
  <licence>GPL</licence>
  <vocabulary>
   <word>
+   <name>Back</name>
+   <pronunciation>b ae k</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
    <name>Computer</name>
-   <pronunciation>k O m p j u: t @ r</pronunciation>
+   <pronunciation>k ax m p y uw t er</pronunciation>
    <terminal>Trigger</terminal>
   </word>
   <word>
-   <name>Internet</name>
-   <pronunciation>I n t @ r n E t</pronunciation>
+   <name>Desktopgrid</name>
+   <pronunciation>d eh s k t aa p g r ih d</pronunciation>
    <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Down</name>
+   <pronunciation>d aw n</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
+   <name>Eight</name>
+   <pronunciation>ey t</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Five</name>
+   <pronunciation>f ay v</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Forward</name>
+   <pronunciation>f ow r w er d</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
+   <name>Four</name>
+   <pronunciation>f ow r</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Go</name>
+   <pronunciation>g ow</pronunciation>
+   <terminal>Action</terminal>
+  </word>
+  <word>
+   <name>Internet</name>
+   <pronunciation>ih n t er n eh t</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Links</name>
+   <pronunciation>l ih ng k z</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Nine</name>
+   <pronunciation>n ay n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>One</name>
+   <pronunciation>w ah n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Page</name>
+   <pronunciation>p ey jh</pronunciation>
+   <terminal>Object</terminal>
+  </word>
+  <word>
+   <name>Seven</name>
+   <pronunciation>s eh v ih n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Six</name>
+   <pronunciation>s ih k s</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Three</name>
+   <pronunciation>th r iy</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Two</name>
+   <pronunciation>t uw</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Up</name>
+   <pronunciation>ah p</pronunciation>
+   <terminal>Direction</terminal>
   </word>
  </vocabulary>
  <grammar>
   <structure>Trigger Command</structure>
+  <structure>Action Direction</structure>
+  <structure>Number</structure>
+  <structure>Object Direction</structure>
  </grammar>
  <actions>
-  <plugin trigger="Exetrigger" name="simonexecutablecommandplugin.desktop">
+  <plugin trigger="Computer" name="simonexecutablecommandplugin.desktop">
    <config/>
    <commands>
     <command>
-     <name>rekonq</name>
-     <icon>rekonq</icon>
-     <workingdirectory></workingdirectory>
-     <executable>rekonq</executable>
-    </command>
-    <command>
-     <name>Blender</name>
-     <icon>blender</icon>
-     <workingdirectory></workingdirectory>
-     <executable>blender</executable>
-    </command>
-    <command>
-     <name>Mozilla Firefox</name>
+     <name>Internet</name>
      <icon>firefox-icon</icon>
      <workingdirectory></workingdirectory>
      <executable>/usr/bin/firefox</executable>
@@ -68,9 +144,24 @@
    <config/>
    <commands>
     <command>
-     <name>Google</name>
-     <icon>kfind</icon>
-     <url></url>
+     <name>ebay</name>
+     <icon>application-x-compressed-tar</icon>
+     <url>http://www.ebay.com</url>
+    </command>
+    <command>
+     <name>Facebook</name>
+     <icon>system-users</icon>
+     <url>http://www.facebook.com</url>
+    </command>
+    <command>
+     <name>Search</name>
+     <icon>system-search</icon>
+     <url>http://www.google.at</url>
+    </command>
+    <command>
+     <name>Amazon</name>
+     <icon>address-book-new</icon>
+     <url>http://www.amazon.com</url>
     </command>
    </commands>
    <pluginCompatibility>
@@ -80,9 +171,30 @@
     <maximumVersion/>
    </pluginCompatibility>
   </plugin>
-  <plugin trigger="" name="simoninputnumbercommandplugin.desktop">
+  <plugin trigger="" name="simonshortcutcommandplugin.desktop">
    <config/>
-   <commands/>
+   <commands>
+    <command>
+     <name>Page Up</name>
+     <icon>arrow-up-double</icon>
+     <shortcut>PgUp</shortcut>
+    </command>
+    <command>
+     <name>Page Down</name>
+     <icon>arrow-down-double</icon>
+     <shortcut>PgDown</shortcut>
+    </command>
+    <command>
+     <name>Go Back</name>
+     <icon>draw-arrow-back</icon>
+     <shortcut>Alt+Left</shortcut>
+    </command>
+    <command>
+     <name>Go Forward</name>
+     <icon>draw-arrow-forward</icon>
+     <shortcut>Alt+Right</shortcut>
+    </command>
+   </commands>
    <pluginCompatibility>
     <minimumVersion>
      <version>0.1.0</version>
@@ -90,26 +202,36 @@
     <maximumVersion/>
    </pluginCompatibility>
   </plugin>
-  <plugin trigger="Computer" name="simonfilterplugin.desktop">
-   <config>
-    <activateTrigger>Pause TEST</activateTrigger>
-    <deactivateTrigger>Resume TEST</deactivateTrigger>
-   </config>
-   <commands/>
-   <pluginCompatibility>
-    <minimumVersion>
-     <version>0.1.0</version>
-    </minimumVersion>
-    <maximumVersion/>
-   </pluginCompatibility>
-  </plugin>
-  <plugin trigger="Calculator" name="simoncalculatorcommandplugin.desktop">
-   <config>
-    <outputModeSelection>3</outputModeSelection>
-    <defaultOutputMode>3</defaultOutputMode>
-    <askTimeout>8</askTimeout>
-   </config>
-   <commands/>
+  <plugin trigger="Computer" name="simonlistcommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Links</name>
+     <icon>bookmarks</icon>
+     <childCommands>
+      <childCommand>
+       <trigger>Search</trigger>
+       <icon>system-search</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>Amazon</trigger>
+       <icon>address-book-new</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>ebay</trigger>
+       <icon>application-x-compressed-tar</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>Facebook</trigger>
+       <icon>system-users</icon>
+       <category>Place</category>
+      </childCommand>
+     </childCommands>
+    </command>
+   </commands>
    <pluginCompatibility>
     <minimumVersion>
      <version>0.1.0</version>
@@ -119,75 +241,7 @@
   </plugin>
   <plugin trigger="Desktopgrid" name="simondesktopgridplugin.desktop">
    <config>
-    <realTransparency>0</realTransparency>
-   </config>
-   <commands/>
-   <pluginCompatibility>
-    <minimumVersion>
-     <version>0.1.0</version>
-    </minimumVersion>
-    <maximumVersion/>
-   </pluginCompatibility>
-  </plugin>
-  <plugin trigger="Keyboard" name="simonkeyboardcommandplugin.desktop">
-   <config>
-    <caseSensitivity>1</caseSensitivity>
-    <selectedSet>Basic</selectedSet>
-    <numpad>
-     <showNumpad>1</showNumpad>
-     <numberBackspace>Number Backspaceasdf</numberBackspace>
-     <enableNumberBasedSelection>1</enableNumberBasedSelection>
-     <numberBasedSelectionTrigger>Select numberasdf</numberBasedSelectionTrigger>
-     <enableNumberWriteOut>0</enableNumberWriteOut>
-     <numberWriteOutTrigger>Select numberasdf</numberWriteOutTrigger>
-    </numpad>
-    <specialKeys>
-     <shift>0</shift>
-     <shiftTrigger>Shiftasdf</shiftTrigger>
-     <backspace>1</backspace>
-     <backspaceTrigger>Backspaceasdf</backspaceTrigger>
-     <control>0</control>
-     <controlTrigger>Controlasdf</controlTrigger>
-     <capsLock>1</capsLock>
-     <capsLockTrigger>CapsLockasdf</capsLockTrigger>
-     <return>1</return>
-     <returnTrigger>Returnasdf</returnTrigger>
-     <alt>1</alt>
-     <altTrigger>Alternateasdf</altTrigger>
-     <altGr>1</altGr>
-     <altGrTrigger>Alternate Graphicasdf</altGrTrigger>
-     <super>1</super>
-     <superTrigger>Superasdf</superTrigger>
-    </specialKeys>
-    <keyboardSets>
-     <set name="Basic">
-      <tab name="TabA">
-       <button>
-        <triggerShown>1</triggerShown>
-        <trigger>1</trigger>
-        <type value="1">1</type>
-       </button>
-       <button>
-        <triggerShown>2</triggerShown>
-        <trigger>2</trigger>
-        <type value="2">1</type>
-       </button>
-      </tab>
-     </set>
-    </keyboardSets>
-   </config>
-   <commands/>
-   <pluginCompatibility>
-    <minimumVersion>
-     <version>0.1.0</version>
-    </minimumVersion>
-    <maximumVersion/>
-   </pluginCompatibility>
-  </plugin>
-  <plugin trigger="Computer" name="simonfilterplugin.desktop">
-   <config>
-    <activateTrigger>Pause Dictation</activateTrigger>
-    <deactivateTrigger>Resume Dictation</deactivateTrigger>
+    <realTransparency>1</realTransparency>
    </config>
    <commands/>
    <pluginCompatibility>
@@ -199,8 +253,23 @@
   </plugin>
  </actions>
  <trainingtexts>
-  <trainingtext name="Firefox: Basics">
+  <trainingtext name="Internet: Complete">
    <page>Computer Internet</page>
+   <page>Page Down</page>
+   <page>Page Up</page>
+   <page>Go Back</page>
+   <page>Go Forward</page>
+   <page>Computer Links</page>
+   <page>Desktopgrid</page>
+   <page>One</page>
+   <page>Two</page>
+   <page>Three</page>
+   <page>Four</page>
+   <page>Five</page>
+   <page>Six</page>
+   <page>Seven</page>
+   <page>Eight</page>
+   <page>Nine</page>
   </trainingtext>
  </trainingtexts>
 </scenario>

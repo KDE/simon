@@ -18,6 +18,7 @@
  */
 
 #include "action.h"
+#include "scenario.h"
 #include <KService>
 #include <KPluginInfo>
 #include <KDebug>
@@ -47,6 +48,7 @@ Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
 
 	return a;
 }
+
 
 void Action::assignParent(Scenario *s)
 {
@@ -173,6 +175,12 @@ bool Action::removeCommand(Command *command)
 	return m_manager->deleteCommand(command);
 }
 
+bool Action::setTrigger(const QString& newTrigger)
+{
+	m_trigger=newTrigger;
+	emit changed();
+	return parentScenario->save();
+}
 
 Action::~Action()
 {

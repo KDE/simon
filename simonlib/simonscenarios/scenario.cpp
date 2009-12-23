@@ -38,7 +38,9 @@
 #include <KDebug>
 
 
-Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId),
+Scenario::Scenario(const QString& scenarioId) : m_inGroup(0),
+	m_dirty(true),
+	m_scenarioId(scenarioId),
 	m_simonMinVersion(NULL),
 	m_simonMaxVersion(NULL),
 	m_vocabulary(NULL),
@@ -280,6 +282,11 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
  */
 bool Scenario::save(QString path)
 {
+	if (m_inGroup > 0) {
+		m_dirty = true;
+		return true;
+	}
+
 	m_lastModifiedDate = QDateTime::currentDateTime();
 	QString serialized = serialize();
 
@@ -294,6 +301,7 @@ bool Scenario::save(QString path)
 
 	file.write(serialized.toUtf8());
 
+	m_dirty = false;
 	emit changed(this);
 
 	return true;
@@ -578,6 +586,33 @@ bool Scenario::processResult(RecognitionResult recognitionResult)
 {
 	return m_actionCollection->processResult(recognitionResult);
 }
+
+bool Scenario::triggerCommand(const QString& type, const QString& trigger)
+{
+	return m_actionCollection->triggerCommand(type, trigger);
+}
+
+CommandList* Scenario::getCommandList()
+{
+	return m_actionCollection->getCommandList();
+}
+
+
+void Scenario::startGroup()
+{
+	m_inGroup++;
+}
+
+bool Scenario::commitGroup()
+{
+	m_inGroup--;
+	bool success = true;
+	if ((m_inGroup == 0) && (m_dirty))
+		success = save();
+
+	return success;
+}
+
 
 Scenario::~Scenario()
 {

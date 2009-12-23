@@ -57,8 +57,6 @@ protected:
 	CommandList *commands;
 	CommandConfiguration *config;
 
-	virtual bool trigger(const QString& triggerName);
-
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	QVariant headerData(int, Qt::Orientation orientation,
 				int role = Qt::DisplayRole) const;
@@ -101,6 +99,9 @@ public:
 
 	virtual bool deSerializeCommands(const QDomElement& elem);
 	virtual QDomElement serializeCommands(QDomDocument *doc);
+
+	virtual bool trigger(const QString& triggerName);
+
 
 	/**
 	* @brief Constructor

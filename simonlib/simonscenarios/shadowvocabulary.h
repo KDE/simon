@@ -42,6 +42,7 @@ protected:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
+	bool isNull() { return loadFailed; }
 	QDateTime lastModified() { return  lastModifiedDate; }
 
 	ShadowVocabulary();

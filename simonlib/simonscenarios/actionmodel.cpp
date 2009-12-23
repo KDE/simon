@@ -26,13 +26,26 @@ ActionModel::ActionModel(QObject *parent) : QAbstractItemModel(parent)
 
 }
 
-bool ActionModel::addAction(Action* a)
+bool ActionModel::appendAction(Action* a, bool silent)
 {
-	beginInsertRows(QModelIndex(), m_actions.count(), m_actions.count());
+	if (!silent)
+		beginInsertRows(QModelIndex(), m_actions.count(), m_actions.count());
+
 	m_actions.append(a);
-	endInsertRows();
+	connect(a, SIGNAL(changed()), this, SLOT(updateAction()));
+
+	if (!silent)
+		endInsertRows();
 
 	return true;
+}
+
+void ActionModel::updateAction()
+{
+	Action *a = dynamic_cast<Action*>(sender());
+	if (!a) return;
+	int row = m_actions.indexOf(a);
+	emit dataChanged(index(row, 0), index(row, columnCount()));
 }
 
 bool ActionModel::takeAction(Action* a)

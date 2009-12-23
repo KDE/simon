@@ -56,11 +56,35 @@ ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(remove()));
 	connect(ui.pbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+	connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(applyTrigger(const QString&)));
+	connect(ui.pbApplyForAll, SIGNAL(clicked()), this, SLOT(applyTriggerToAll()));
 
 	ui.lvPlugins->setIconSize(QSize(24,24));
 	ui.lvPlugins->setSpacing(2);
 
 	setButtons(KDialog::Ok);
+
+	connect(ui.lvPlugins, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+}
+
+void ManageActionsDialog::applyTrigger(const QString& newTrigger)
+{
+	Action *a = getCurrentlySelectedAction();
+	if (!a) return;
+
+	a->setTrigger(newTrigger);
+}
+
+void ManageActionsDialog::applyTriggerToAll()
+{
+	QString trigger = ui.leTrigger->text();
+	ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->setTrigger(trigger);
+}
+
+void ManageActionsDialog::currentSelectionChanged()
+{
+	Action *a = getCurrentlySelectedAction();
+	ui.leTrigger->setText(a->trigger());
 }
 
 int ManageActionsDialog::exec()
@@ -75,11 +99,10 @@ int ManageActionsDialog::exec()
 		registerCommandConfiguration(m);
 	}
 
+	ScenarioManager::getInstance()->startGroup();
 	int ret = KDialog::exec();
-	if (ret) {
-		//write configuration changes of the plugins
-		ScenarioManager::getInstance()->getCurrentScenario()->save();
-	}
+	//write configuration changes of the plugins
+	ScenarioManager::getInstance()->commitGroup();
 	return ret;
 }
 
@@ -104,7 +127,7 @@ void ManageActionsDialog::add()
 
 		Q_ASSERT(newAction);
 
-		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->addAction(newAction);
+		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->addAction(newAction, false, true);
 
 		registerCommandConfiguration(newAction->getConfigurationPage());
 	}

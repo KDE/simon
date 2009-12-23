@@ -158,6 +158,11 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 	delete selectedRecognitionResults;
 }
 
+CommandList* ActionManager::getCommandList()
+{
+	return ScenarioManager::getInstance()->getCommandList();
+}
+
 void ActionManager::resultSelectionDone()
 {
 	fprintf(stderr, "resultSelectionDone()\n");

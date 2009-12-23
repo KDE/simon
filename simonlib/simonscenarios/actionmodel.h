@@ -28,6 +28,8 @@ class Action;
 
 class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel {
 
+	Q_OBJECT
+
 protected:
 	QList<Action*> m_actions;
 
@@ -40,11 +42,13 @@ protected:
 	virtual QVariant data(const QModelIndex &index, int role) const;
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
+private slots:
+	void updateAction();
 
 public:
 	ActionModel(QObject *parent=0);
 
-	bool addAction(Action*);
+	virtual bool appendAction(Action*, bool silent);
 	bool clearActions();
 	bool takeAction(Action*);
 

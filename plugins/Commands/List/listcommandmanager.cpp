@@ -81,14 +81,18 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 		QStringList childCommandTrigger;
 		QStringList childCommandIcons;
 		QStringList childCommandCategory;
-		while (!childCommandsElem.isNull()) {
-			QDomElement childCommandTriggerElem = childCommandsElem.firstChildElement();
+		while (!childCommandElem.isNull()) {
+			QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
 			QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
 			QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
 			childCommandTrigger << childCommandTriggerElem.text();
 			childCommandIcons << childCommandIconElem.text();
 			childCommandCategory << childCommandCategoryElem.text();
+			childCommandElem = childCommandElem.nextSiblingElement();
 		}
+		kDebug() << "Triggers: " << childCommandTrigger;
+		kDebug() << "Icons: " << childCommandIcons;
+		kDebug() << "Categories: " << childCommandCategory;
 
 		commands->append(new ListCommand(name.text(), icon.text(), 
 						childCommandTrigger, childCommandIcons, childCommandCategory));

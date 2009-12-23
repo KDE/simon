@@ -45,8 +45,9 @@ bool ScenarioManager::init()
 
 	shadowVocab = new ShadowVocabulary();
 	connect(shadowVocab, SIGNAL(changed()), this, SIGNAL(shadowVocabularyChanged()));
-	return succ;
+	return succ && !shadowVocab->isNull();
 }
+
 
 
 QStringList ScenarioManager::getAllAvailableScenarioIds()
@@ -237,15 +238,17 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
 
 bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger)
 {
-	//TODO
 	kDebug() << "Should execute command " << type << trigger;
+	foreach (Scenario *s, scenarios) {
+		if (s->triggerCommand(type, trigger))
+			return true;
+	}
 
 	return false;
 }
 
 bool ScenarioManager::processResult(RecognitionResult recognitionResult)
 {
-	//TODO
 	kDebug() << "Processing result " <<  recognitionResult.sentence().toUtf8().data();
 
 	foreach (Scenario *s, scenarios) {
@@ -257,202 +260,34 @@ bool ScenarioManager::processResult(RecognitionResult recognitionResult)
 	return false;
 }
 
-
-
-
-
-
-
-
-
-/*
-bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger)
+CommandList* ScenarioManager::getCommandList()
 {
-	if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
-		//result from a did-you-mean popup
-		QString selectedSentence = trigger;
-		selectedSentence.remove(QRegExp("^[0-9][0-9]?[0-9]?%: "));
-		for (int i=0; i< currentlyPromptedListOfResults->count(); i++)
-		{
-			QString sentence = currentlyPromptedListOfResults->at(i).sentence();
-			if (sentence == selectedSentence) {
-				fprintf(stderr, "Found the result!\n");
-				RecognitionResultList *list = new RecognitionResultList();
-				list->append(RecognitionResult(currentlyPromptedListOfResults->at(i)));
-				delete currentlyPromptedListOfResults;
-				currentlyPromptedListOfResults = 0;
-				processRawResults(list);
-				return true;
-			}
-		}
-		return true;
-	}
-
-	Command *com = getCommand(type, trigger);
-	if (com)
-		return com->trigger();
-	else return false;
-}
-
-Command* ActionManager::getCommand(const QString& category, const QString& trigger)
-{
-	foreach (Action::Ptr action, actions)
-	{
-		if (action->manager()->name() == category)
-		{
-			CommandList *list = action->manager()->getCommands();
-			foreach (Command* com, *list)
-			{
-				if (com->getTrigger() == trigger)
-					return com;
-			}
-			break;
+	CommandList* commandList = new CommandList();
+	foreach (Scenario *s, scenarios)  {
+		CommandList *list = s->getCommandList();
+		if (list) {
+			commandList->append(*list);
+			delete list;
 		}
 	}
-	return NULL;
+	
+	return commandList;
 }
 
-void ScenarioManager::resultSelectionDone()
+
+void ScenarioManager::startGroup()
 {
-	fprintf(stderr, "resultSelectionDone()\n");
-	delete currentlyPromptedListOfResults;
-	currentlyPromptedListOfResults = 0;
+	foreach (Scenario *s, scenarios) 
+		s->startGroup();
 }
 
-void ScenarioManager::retrieveRecognitionResultFilteringParameters()
+bool ScenarioManager::commitGroup()
 {
-	useDYM = commandSettings->useDYM();
-	minimumConfidenceThreshold = commandSettings->getMinimumConfidence();
+	bool success = true;
+	foreach (Scenario *s, scenarios) 
+		success = s->commitGroup() && success;
+	return success;
 }
-
-void ScenarioManager::processRawResults(RecognitionResultList* recognitionResults)
-{
-	if (recognitionResults->isEmpty())
-		return;
-
-	RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
-
-	if (!currentlyPromptedListOfResults || currentlyPromptedListOfResults->isEmpty()) {
-		for (int i=0; i < recognitionResults->count(); i++) {
-		//foreach (const RecognitionResult& result, recognitionResults) {
-			//if the recognition result has:
-			//	* One word that has a score of 0
-			//	* An average score of below the minimum confidence
-			//it will be not be included in the list of results
-			
-			QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
-
-			//calc average
-			float avg= recognitionResults->at(i).averageConfidenceScore();
-
-			if (!confidenceScores.contains(0) && (avg > minimumConfidenceThreshold))
-				selectedRecognitionResults->append(recognitionResults->at(i));
-		}
-
-		fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults->count());
-
-		if (selectedRecognitionResults->count() == 0) return;
-	} else {
-		//we are already asking...
-		selectedRecognitionResults->append(recognitionResults->at(0));
-	}
-
-	fprintf(stderr, "Greedy Recievers: %d\n", greedyReceivers->count());
-
-	if (!greedyReceivers->isEmpty()) {
-		for (int i=0; i < greedyReceivers->count(); i++) {
-			if (greedyReceivers->at(i)->greedyTriggerRawList(selectedRecognitionResults))
-				break;
-		}
-		delete selectedRecognitionResults;
-		return;
-	}
-
-	if (selectedRecognitionResults->count() == 1) {
-		processResult(selectedRecognitionResults->at(0));
-	} else {
-		presentUserWithResults(selectedRecognitionResults);
-	}
-	delete selectedRecognitionResults;
-}
-
-void ScenarioManager::presentUserWithResults(RecognitionResultList* recognitionResults)
-{
-	fprintf(stderr, "More than one possible recognition result ... should display list!\n");
-	if (!useDYM || (currentlyPromptedListOfResults && 
-				!currentlyPromptedListOfResults->isEmpty()))
-	{
-		//no double did-you-means...
-		processResult(recognitionResults->at(0));
-		return;
-	}
-
-	delete currentlyPromptedListOfResults;
-	currentlyPromptedListOfResults = new RecognitionResultList();
-
-	QStringList sentences;
-	QStringList trigger;
-	QStringList iconSrcs;
-	for (int i=0; i<recognitionResults->count(); i++) {
-
-		QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
-
-		float avg = recognitionResults->at(i).averageConfidenceScore();
-		avg *= 100;
-
-
-		sentences << QString("%1%: %2").arg(qRound(avg)).arg(recognitionResults->at(i).sentence());
-		iconSrcs << "";
-		trigger << "simonrecognitionresult";
-		currentlyPromptedListOfResults->append(recognitionResults->at(i));
-
-	}
-
-	ListCommand *list = new ListCommand(i18n("Did you mean ...?"), "help-hint", sentences, iconSrcs, trigger);
-	connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
-	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
-	connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
-	list->trigger();
-}
-
-
-
-void ScenarioManager::processResult(RecognitionResult recognitionResult)
-{
-	fprintf(stderr, "processResult()\n");
-	fprintf(stderr, "Verarbeite Ergebnis: %s\n", recognitionResult.sentence().toUtf8().data());
-	int i=0;
-	bool commandFound=false;
-	QString currentTrigger;
-	QString realCommand;
-	fprintf(stderr, "recognitionResult: %s\n", recognitionResult.sentence().toUtf8().data());
-	while ((i<actions.count()) && (!commandFound))
-	{
-		currentTrigger = actions[i]->trigger();
-		fprintf(stderr, "CurrentTrigger: %s\n", currentTrigger.toUtf8().data());
-		RecognitionResult tempResult = recognitionResult;
-		if (tempResult.matchesTrigger(currentTrigger)) {
-			tempResult.removeTrigger(currentTrigger);
-
-			if(actions.at(i)->manager()->processResult(tempResult))
-				commandFound=true;
-		}
-		i++;
-	}
-}
-
-void ScenarioManager::registerGreedyReceiver(GreedyReceiver *receiver)
-{
-	greedyReceivers->insert(0, receiver);
-}
-
-
-void ScenarioManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
-{
-	greedyReceivers->removeAll(receiver);
-}
-*/
-
 
 
 ScenarioManager::~ScenarioManager()

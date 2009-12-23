@@ -61,7 +61,8 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 		if (!a) {
 			kDebug() << "Couldn't load action";
 		} else {
-			m_actions << a;
+			//m_actions << a;
+			appendAction(a, true /*silent*/);
 		}
 
 		pluginElem = pluginElem.nextSiblingElement();
@@ -145,18 +146,15 @@ bool ActionCollection::removeCommand(Command *command)
 	return removed;
 }
 
-bool ActionCollection::addAction(Action *action)
+bool ActionCollection::addAction(Action *action, bool silent, bool save)
 {
 	action->assignParent(parentScenario);
 	action->deSerialize(QDomElement());
 
-	beginInsertRows(QModelIndex(), rowCount(), rowCount());
-	m_actions << action;
-	endInsertRows();
-
+	appendAction(action, silent);
 	proxy->update();
 
-	return parentScenario->save();
+	return (save) ? parentScenario->save() : true;
 }
 
 bool ActionCollection::deleteAction(Action *action)
@@ -223,7 +221,6 @@ bool ActionCollection::processResult(RecognitionResult recognitionResult)
 	while ((i<m_actions.count()) && (!commandFound))
 	{
 		currentTrigger = m_actions[i]->trigger();
-		kDebug() <<  "CurrentTrigger: " << currentTrigger.toUtf8().data();
 		RecognitionResult tempResult = recognitionResult;
 		if (tempResult.matchesTrigger(currentTrigger)) {
 			tempResult.removeTrigger(currentTrigger);
@@ -235,6 +232,39 @@ bool ActionCollection::processResult(RecognitionResult recognitionResult)
 	}
 
 	return commandFound;
+}
+
+bool ActionCollection::triggerCommand(const QString& type, const QString& trigger)
+{
+	foreach (Action *a, m_actions)
+		if (a->manager()->name() == type)
+			return a->manager()->trigger(trigger);
+	
+	return false;
+}
+
+bool ActionCollection::setTrigger(const QString& trigger)
+{
+	bool success = true;
+	parentScenario->startGroup();
+	foreach (Action *a, m_actions)
+		success = a->setTrigger(trigger) && success;
+	parentScenario->commitGroup();
+	
+	return success;
+}
+
+CommandList* ActionCollection::getCommandList()
+{
+	CommandList *commandList = new CommandList();
+	foreach (Action *a, m_actions) {
+		CommandList *list = a->manager()->getCommands();
+
+		if (list)
+			commandList->append(*list);
+	}
+	
+	return commandList;
 }
 
 

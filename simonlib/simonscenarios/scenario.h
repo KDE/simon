@@ -49,6 +49,8 @@ signals:
 	void changed(Scenario*);
 
 private:
+	int m_inGroup;
+	bool m_dirty;
 	QString m_scenarioId;
 
 	QDateTime m_lastModifiedDate;
@@ -122,7 +124,14 @@ public:
 
 //	bool addCommand(Command *command);
 	bool removeCommand(Command *command);
+
 	bool processResult(RecognitionResult recognitionResult);
+	bool triggerCommand(const QString& type, const QString& trigger);
+
+	CommandList* getCommandList();
+
+	void startGroup();
+	bool commitGroup();
 
 	~Scenario();
 

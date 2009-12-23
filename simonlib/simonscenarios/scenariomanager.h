@@ -104,16 +104,11 @@ public:
 
 	bool triggerCommand(const QString& type, const QString& trigger);
 	bool processResult(RecognitionResult recognitionResult);
-	/*
-	void processRawResults(RecognitionResultList* recognitionResults);
-	void presentUserWithResults(RecognitionResultList* recognitionResults);
 
-	bool triggerCommand(const QString& type, const QString& trigger);
-	Command* getCommand(const QString& category, const QString& trigger);
+	CommandList* getCommandList();
 
-	void deRegisterGreedyReceiver(GreedyReceiver *);
-	void registerGreedyReceiver(GreedyReceiver *);
-	*/
+	void startGroup();
+	bool commitGroup();
 
 	
 public slots:

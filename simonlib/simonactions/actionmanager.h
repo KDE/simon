@@ -71,6 +71,8 @@ public:
 	void deRegisterGreedyReceiver(GreedyReceiver *);
 	void registerGreedyReceiver(GreedyReceiver *);
 
+	CommandList* getCommandList();
+
 	~ActionManager();
 
 };

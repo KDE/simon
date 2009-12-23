@@ -65,7 +65,7 @@ int AddActionDialog::exec()
 	foreach (KService::Ptr service, services)
 	{
 		Action* action = new Action(NULL /* no parent scenario */, service->storageId(), QString());
-		actionModel->addAction(action);
+		actionModel->appendAction(action, false);
 	}
 
 	return KDialog::exec();

@@ -56,7 +56,7 @@ const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 QDomElement PlaceCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
 	QDomElement urlElem = doc->createElement("url");
-	urlElem.appendChild(doc->createTextNode(url.path()));
+	urlElem.appendChild(doc->createTextNode(url.pathOrUrl()));
 
 	commandElem.appendChild(urlElem);
 		

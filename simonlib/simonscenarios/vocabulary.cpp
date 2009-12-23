@@ -277,6 +277,8 @@ bool Vocabulary::containsWord(const QString& word, const QString& terminal, cons
 
 QString Vocabulary::getRandomWord(const QString& terminal)
 {
+	if (m_words.isEmpty()) return QString();
+
 	int starting = qrand() % m_words.count();
 
 	//start at this random position
