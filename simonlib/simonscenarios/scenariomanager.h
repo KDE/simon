@@ -55,20 +55,6 @@ signals:
 private:
 	bool setupScenario(Scenario *s);
 
-	/*
-	RecognitionResultList *currentlyPromptedListOfResults;
-	QList<GreedyReceiver*> *greedyReceivers;
-	float minimumConfidenceThreshold;
-	bool useDYM;
-
-	void triggerCommand();
-
-
-private slots:
-	void resultSelectionDone();
-	void retrieveRecognitionResultFilteringParameters();
-	*/
-
 public:
 	static ScenarioManager *getInstance() {
 		if (!instance) instance = new ScenarioManager();

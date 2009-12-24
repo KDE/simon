@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>423</height>
+    <width>598</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,14 +26,37 @@
      <item>
       <widget class="KPushButton" name="pbCreateScenario">
        <property name="text">
-        <string>Create scenario</string>
+        <string>New</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="KPushButton" name="pbGetNewScenarios">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Get new scenarios</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbImportScenario">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Import</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbExportScenario">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Export</string>
        </property>
       </widget>
      </item>
@@ -51,7 +74,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="kpushbutton">
+      <widget class="KPushButton" name="pbEditScenario">
        <property name="text">
         <string>Edit</string>
        </property>

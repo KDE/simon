@@ -22,11 +22,15 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
 set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanagementdialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/newauthor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/newscenario.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modifyscenario.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modifyauthor.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanagementdlg.ui
 )
 

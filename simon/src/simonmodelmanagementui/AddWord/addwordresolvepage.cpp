@@ -24,8 +24,6 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/speechmodel.h>
-//#include <simonscenarios/grammarmanager.h>
-//#include <simonscenarios/wordlistmanager.h>
 #include <QtGlobal>
 #define MKW "funzus"
 #define meCh7 word.endsWith
@@ -170,6 +168,7 @@ void AddWordResolvePage::fetchSimilar()
 	}
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	connect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
+	createExamples();
 }
 
 /**

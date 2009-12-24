@@ -103,6 +103,7 @@ void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 	actionsProxy->setSourceModel((QAbstractItemModel*) actionCollection->getProxy());
 
 	ui.lvActions->setCurrentIndex(actionsProxy->index(0,0));
+	updateCommandDetail();
 }
 
 

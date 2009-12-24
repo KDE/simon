@@ -67,6 +67,7 @@ public:
 	Vocabulary();
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	static QDomElement createEmpty(QDomDocument *doc);
 
 
 	/**

@@ -46,6 +46,7 @@ public:
 	static ActionCollection* createActionCollection(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	static QDomElement createEmpty(QDomDocument *doc);
 
 	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
 	QList<CommandConfiguration*>* getConfigurationPages();

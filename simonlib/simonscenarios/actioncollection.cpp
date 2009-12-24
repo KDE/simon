@@ -72,9 +72,14 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 	return true;
 }
 
+QDomElement ActionCollection::createEmpty(QDomDocument *doc)
+{
+	return doc->createElement("actions");
+}
+
 QDomElement ActionCollection::serialize(QDomDocument *doc)
 {
-	QDomElement actionsElem = doc->createElement("actions");
+	QDomElement actionsElem = createEmpty(doc);
 	foreach (Action *a, m_actions) {
 		actionsElem.appendChild(a->serialize(doc));
 	}

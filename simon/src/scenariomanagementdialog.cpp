@@ -19,6 +19,7 @@
 
 
 #include "scenariomanagementdialog.h"
+#include "newscenario.h"
 #include <QWidget>
 #include <QListWidget>
 #include <QVariant>
@@ -50,6 +51,46 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 			  this, SLOT(availableScenarioSelected()));
 	connect(ui.asScenarios->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
 			  this, SLOT(selectedScenarioSelected()));
+
+	connect(ui.pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
+	connect(ui.pbGetNewScenarios, SIGNAL(clicked()), this, SLOT(getNewScenarios()));
+	connect(ui.pbImportScenario, SIGNAL(clicked()), this, SLOT(importScenario()));
+	connect(ui.pbExportScenario, SIGNAL(clicked()), this, SLOT(exportScenario()));
+	connect(ui.pbEditScenario, SIGNAL(clicked()), this, SLOT(editScenario()));
+	connect(ui.pbDeleteScenario, SIGNAL(clicked()), this, SLOT(deleteScenario()));
+}
+
+void ScenarioManagementDialog::newScenario()
+{
+	NewScenario *newScenario = new NewScenario(this);
+	if (newScenario->newScenario())
+		initDisplay();
+	delete newScenario;
+}
+
+void ScenarioManagementDialog::editScenario()
+{
+
+}
+
+void ScenarioManagementDialog::importScenario()
+{
+
+}
+
+void ScenarioManagementDialog::exportScenario()
+{
+
+}
+
+void ScenarioManagementDialog::getNewScenarios()
+{
+
+}
+
+void ScenarioManagementDialog::deleteScenario()
+{
+
 }
 
 void ScenarioManagementDialog::initDisplay()

@@ -70,10 +70,15 @@ bool Grammar::deSerialize(const QDomElement& grammarElem)
 	return true;
 }
 
+QDomElement Grammar::createEmpty(QDomDocument *doc)
+{
+	return doc->createElement("grammar");
+}
+
 QDomElement Grammar::serialize(QDomDocument *doc)
 {
 	QMutexLocker lock(&structuresLock);
-	QDomElement elem = doc->createElement("grammar");
+	QDomElement elem = createEmpty(doc);
 
 	foreach (const QString& structure, m_structures) {
 		QDomElement structElem = doc->createElement("structure");
@@ -132,6 +137,8 @@ QStringList Grammar::getTerminals()
 
 QString Grammar::getExampleSentence(const QString& terminal)
 {
+	if (m_structures.count() == 0) return QString();
+
 	int start = qrand() % m_structures.count();
 
 	//start at this random position

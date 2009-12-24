@@ -55,6 +55,7 @@ public:
 	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	static QDomElement createEmpty(QDomDocument *doc);
 	bool renameTerminal(QString terminal, const QString& newName);
 
 	QString getExampleSentence(const QString& terminal);

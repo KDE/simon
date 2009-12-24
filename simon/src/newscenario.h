@@ -17,45 +17,45 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#ifndef SCENARIOMANAGEMENTDIALOG_H
-#define SCENARIOMANAGEMENTDIALOG_H
-
+#ifndef NEWSCENARIO_H
+#define NEWSCENARIO_H
 
 
 #include <KDialog>
 #include <QList>
+#include "ui_modifyscenario.h"
 
-#include "ui_scenariomanagementdlg.h"
+class Scenario;
+class Author;
 
-class ScenarioManagementDialog : public KDialog    {
-	Q_OBJECT
+class NewScenario : protected KDialog {
+
+Q_OBJECT
 
 private:
-	Ui::Dialog ui;
+	Ui::ModifyScenarioDlg ui;
+	QList<Author*> m_authors;
 
-	void initDisplay();
+	QString createId();
+	void updateAuthorDisplay();
 
-private slots:
-	void availableScenarioSelected();
-	void selectedScenarioSelected();
-
-	void newScenario();
-	void editScenario();
-	void importScenario();
-	void exportScenario();
-	void getNewScenarios();
-	void deleteScenario();
-	
-public slots:
 	int exec();
 
-public:
-	explicit ScenarioManagementDialog(QWidget *parent = 0);
+private slots:
+	void setWindowTitleToScenarioName(QString name);
+	void checkIfComplete();
+	void addAuthor();
+	void removeAuthor();
 
-	~ScenarioManagementDialog();
+public:
+	NewScenario(QWidget *parent=0);
+	~NewScenario();
+
+	bool newScenario();
+	bool editScenario(const QString& id);
 
 };
 
-#endif
 
+
+#endif

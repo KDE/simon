@@ -55,6 +55,7 @@ public:
 	static TrainingTextCollection* createTrainingTextCollection(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+	static QDomElement createEmpty(QDomDocument *doc);
 
 	bool removeText(TrainingText* text);
 	bool addTrainingText(TrainingText* text);

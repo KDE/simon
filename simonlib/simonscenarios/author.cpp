@@ -29,10 +29,10 @@ Author::Author(Scenario *parent) : ScenarioObject(parent)
 /**
  * Full, public constructor
  */
-Author::Author(Scenario *parent, const QString& name, const QString& contact) : ScenarioObject(parent)
+Author::Author(Scenario *parent, const QString& name, const QString& contact) : ScenarioObject(parent),
+	m_name(name),
+	m_contact(contact)
 {
-	m_name = name;
-	m_contact = contact;
 }
 
 /**

@@ -112,6 +112,8 @@ public:
 	bool readActions(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
 	bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
 	bool init(QString path=QString());
+	bool create(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+			VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
 	bool save(QString path=QString());
 
 	ActiveVocabulary* vocabulary() { return m_vocabulary; }

@@ -111,12 +111,8 @@ void GrammarViewPrivate::displayScenarioPrivate(Scenario *scenario)
 
 	Grammar *g = scenario->grammar();
 	grammarProxy->setSourceModel(g);
+	currentSelectionChanged();
 }
-
-//void GrammarViewPrivate::slotChanged()
-//{
-//	autoSaveTimer.start(5000);
-//}
 
 void GrammarViewPrivate::showRenameWizard()
 {

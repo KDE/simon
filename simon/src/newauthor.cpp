@@ -17,45 +17,41 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "newauthor.h"
 
-#ifndef SCENARIOMANAGEMENTDIALOG_H
-#define SCENARIOMANAGEMENTDIALOG_H
+#include <simonscenarios/author.h>
 
+#include <KMessageBox>
+#include <KDialogButtonBox>
 
+NewAuthor::NewAuthor(QWidget* parent) : KDialog(parent)
+{
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
 
-#include <KDialog>
-#include <QList>
-
-#include "ui_scenariomanagementdlg.h"
-
-class ScenarioManagementDialog : public KDialog    {
-	Q_OBJECT
-
-private:
-	Ui::Dialog ui;
-
-	void initDisplay();
-
-private slots:
-	void availableScenarioSelected();
-	void selectedScenarioSelected();
-
-	void newScenario();
-	void editScenario();
-	void importScenario();
-	void exportScenario();
-	void getNewScenarios();
-	void deleteScenario();
+	setMainWidget( widget );
+	setCaption( i18n("Author") );
 	
-public slots:
-	int exec();
+	connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+	connect(ui.leContact, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+	
+	checkIfComplete();
+}
 
-public:
-	explicit ScenarioManagementDialog(QWidget *parent = 0);
+Author* NewAuthor::newAuthor()
+{
+	if (!exec()) return NULL;
 
-	~ScenarioManagementDialog();
+	return new Author(NULL, ui.leName->text(), ui.leContact->text());
+}
 
-};
 
-#endif
+void NewAuthor::checkIfComplete()
+{
+	bool complete = !ui.leName->text().isEmpty() && !ui.leContact->text().isEmpty();
+	enableButtonOk(complete);
+}
 
+NewAuthor::~NewAuthor()
+{
+}

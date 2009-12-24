@@ -69,7 +69,6 @@ bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem)
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();
-	kDebug() << "CREATED COMMAND LIST";
 
 	if (elem.isNull()) return false;
 

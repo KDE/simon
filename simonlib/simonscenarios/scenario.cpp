@@ -66,22 +66,6 @@ bool Scenario::init(QString path)
 	bool deleteDoc;
 	if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	/*if (path.isNull())
-		path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
-
-	QDomDocument doc("scenario");
-	QFile file(path);
-	if (!file.open(QIODevice::ReadOnly)) {
-		return false;
-		kDebug() << "Couldn't open file " << path;
-	}
-	if (!doc.setContent(&file)) {
-		kDebug() << "Couldn't parse xml at " << path;
-		file.close();
-		return false;
-	}
-	file.close();*/
-
 	if (!skim(path, doc)) return false;
 
 	//  Language model
@@ -99,6 +83,25 @@ bool Scenario::init(QString path)
 	if (!readTrainingsTexts(path, doc)) return false;
 
 	delete doc;
+	return true;
+}
+
+bool Scenario::create(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+{
+	m_name = name;
+	m_iconSrc = iconSrc;
+	if (m_simonMinVersion) delete m_simonMinVersion;
+	m_simonMinVersion = simonMinVersion;
+	if (m_simonMaxVersion) delete m_simonMaxVersion;
+	m_simonMaxVersion = simonMaxVersion;
+	m_licence = licence;
+
+	qDeleteAll(m_authors);
+	m_authors.clear();
+	foreach (Author *a, authors)
+		m_authors << a;
+
 	return true;
 }
 
@@ -351,22 +354,34 @@ QString Scenario::serialize()
 
 	//  Vocab
 	//************************************************/
-	rootElem.appendChild(m_vocabulary->serialize(&doc));
+	if (!m_vocabulary)
+		rootElem.appendChild(Vocabulary::createEmpty(&doc));
+	else 
+		rootElem.appendChild(m_vocabulary->serialize(&doc));
 
 
 	//  Grammar
 	//************************************************/
-	rootElem.appendChild(m_grammar->serialize(&doc));
+	if (!m_grammar)
+		rootElem.appendChild(Grammar::createEmpty(&doc));
+	else 
+		rootElem.appendChild(m_grammar->serialize(&doc));
 
 
 	//  Actions
 	//************************************************/
-	rootElem.appendChild(m_actionCollection->serialize(&doc));
+	if (!m_actionCollection)
+		rootElem.appendChild(ActionCollection::createEmpty(&doc));
+	else 
+		rootElem.appendChild(m_actionCollection->serialize(&doc));
 
 
 	//  Trainingstexts
 	//************************************************/
-	rootElem.appendChild(m_texts->serialize(&doc));
+	if (!m_texts)
+		rootElem.appendChild(TrainingTextCollection::createEmpty(&doc));
+	else 
+		rootElem.appendChild(m_texts->serialize(&doc));
 
 	doc.appendChild(rootElem);
 	return doc.toString();

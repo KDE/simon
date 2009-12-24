@@ -68,9 +68,14 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 	return true;
 }
 
+QDomElement Vocabulary::createEmpty(QDomDocument *doc)
+{
+	return doc->createElement("vocabulary");
+}
+
 QDomElement Vocabulary::serialize(QDomDocument *doc)
 {
-	QDomElement elem = doc->createElement("vocabulary");
+	QDomElement elem = createEmpty(doc);
 
 	foreach (Word *w, m_words) {
 		QDomElement wordElem = doc->createElement("word");

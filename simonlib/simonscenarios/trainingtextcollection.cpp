@@ -59,9 +59,14 @@ bool TrainingTextCollection::deSerialize(const QDomElement& textsElem)
 	return true;
 }
 
+QDomElement TrainingTextCollection::createEmpty(QDomDocument *doc)
+{
+	return doc->createElement("trainingtexts");
+}
+
 QDomElement TrainingTextCollection::serialize(QDomDocument *doc)
 {
-	QDomElement textsElem = doc->createElement("trainingtexts");
+	QDomElement textsElem = createEmpty(doc);
 	foreach (TrainingText *t, m_texts) {
 		textsElem.appendChild(t->serialize(doc));
 	}
