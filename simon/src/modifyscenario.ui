@@ -85,14 +85,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="lbLicense">
+      <widget class="QLabel" name="lbLicence">
        <property name="text">
-        <string>License:</string>
+        <string>Licence:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbLicense">
+      <widget class="QComboBox" name="cbLicence">
        <property name="editable">
         <bool>true</bool>
        </property>

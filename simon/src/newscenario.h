@@ -40,6 +40,7 @@ private:
 	void updateAuthorDisplay();
 
 	int exec();
+	void displayScenario(Scenario *s);
 
 private slots:
 	void setWindowTitleToScenarioName(QString name);
@@ -52,6 +53,7 @@ public:
 	~NewScenario();
 
 	bool newScenario();
+	bool editScenario(Scenario *s);
 	bool editScenario(const QString& id);
 
 };

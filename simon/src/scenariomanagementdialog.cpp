@@ -52,6 +52,11 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 	connect(ui.asScenarios->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
 			  this, SLOT(selectedScenarioSelected()));
 
+	connect(ui.asScenarios->availableListWidget(), SIGNAL(clicked(const QModelIndex&)),
+			  this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
+	connect(ui.asScenarios->selectedListWidget(), SIGNAL(clicked(const QModelIndex&)),
+			  this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
+
 	connect(ui.pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
 	connect(ui.pbGetNewScenarios, SIGNAL(clicked()), this, SLOT(getNewScenarios()));
 	connect(ui.pbImportScenario, SIGNAL(clicked()), this, SLOT(importScenario()));
@@ -70,7 +75,15 @@ void ScenarioManagementDialog::newScenario()
 
 void ScenarioManagementDialog::editScenario()
 {
+	Scenario *s = getCurrentlySelectedScenario();
+	if (!s) return;
 
+	NewScenario *newScenario = new NewScenario(this);
+	if (newScenario->editScenario(s))
+		initDisplay();
+
+	delete newScenario;
+	delete s;
 }
 
 void ScenarioManagementDialog::importScenario()
@@ -88,9 +101,63 @@ void ScenarioManagementDialog::getNewScenarios()
 
 }
 
+Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
+{
+	if (!m_lastSelectedIndex.isValid())  {
+		KMessageBox::information(this, i18n("Please select a scenario to delete"));
+		return NULL;
+	}
+
+	QString scenarioSource = m_lastSelectedIndex.data(Qt::UserRole).toString();
+	Scenario *s = new Scenario(scenarioSource);
+	if (!s || !s->skim()) {
+		KMessageBox::sorry(this, i18n("Could not find scenario \"%1\"", scenarioSource));
+		delete s;
+		return NULL;
+	}
+
+	return s;
+}
+
 void ScenarioManagementDialog::deleteScenario()
 {
+	Scenario *s = getCurrentlySelectedScenario();
+	if (!s) return;
 
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?", 
+					s->name(), s->id())) == KMessageBox::Yes) {
+		QString path = KStandardDirs::locate("appdata", "scenarios/"+s->id());
+		QListWidget *available = ui.asScenarios->availableListWidget();
+		QListWidget *selected = ui.asScenarios->selectedListWidget();
+		bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
+
+		if (!QFile::remove(path)) {
+			KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user can not remove it. Please remove the file manually.\n\nIn the mean time, simon has automatically deactivated the scenario if it wasn't already.", path));
+			//remove it from selected if needed
+			if (wasSelected) {
+				//scenario was selected
+				//move to available
+				available->addItem(selected->takeItem(m_lastSelectedIndex.row()));
+			}
+		} else {
+			//worked out ok
+			QListWidgetItem *scenarioItem = NULL;
+			if (wasSelected)
+				scenarioItem = selected->takeItem(m_lastSelectedIndex.row());
+			else scenarioItem = available->takeItem(m_lastSelectedIndex.row());
+
+			delete scenarioItem;
+		}
+	}
+
+	delete s;
+	ui.asScenarios->setButtonsEnabled();
+}
+
+void ScenarioManagementDialog::updateLastSelectedIndex(const QModelIndex& index)
+{
+	kDebug() << "Updating index";
+	m_lastSelectedIndex = index;
 }
 
 void ScenarioManagementDialog::initDisplay()

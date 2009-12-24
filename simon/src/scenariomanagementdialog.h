@@ -21,12 +21,13 @@
 #ifndef SCENARIOMANAGEMENTDIALOG_H
 #define SCENARIOMANAGEMENTDIALOG_H
 
-
-
 #include <KDialog>
 #include <QList>
+#include <QModelIndex>
 
 #include "ui_scenariomanagementdlg.h"
+
+class Scenario;
 
 class ScenarioManagementDialog : public KDialog    {
 	Q_OBJECT
@@ -34,7 +35,11 @@ class ScenarioManagementDialog : public KDialog    {
 private:
 	Ui::Dialog ui;
 
+	QModelIndex m_lastSelectedIndex;
+
 	void initDisplay();
+
+	Scenario* getCurrentlySelectedScenario();
 
 private slots:
 	void availableScenarioSelected();
@@ -46,6 +51,8 @@ private slots:
 	void exportScenario();
 	void getNewScenarios();
 	void deleteScenario();
+
+	void updateLastSelectedIndex(const QModelIndex&);
 	
 public slots:
 	int exec();

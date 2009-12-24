@@ -116,6 +116,8 @@ void AddWordResolvePage::initializePage()
 					(SpeechModel::ModelElements)
 					(SpeechModel::ShadowVocabulary|
 					SpeechModel::ScenarioVocabulary|
+					SpeechModel::AllScenariosVocabulary|
+					SpeechModel::AllScenariosGrammar|
 					SpeechModel::ScenarioGrammar));
 	terminals.removeAll("NS_E"); //remove sentence structures
 	terminals.removeAll("NS_B");

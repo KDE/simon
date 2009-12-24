@@ -161,8 +161,22 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 {
 	QStringList terminals;
 
+
 	if ((elements & SpeechModel::ScenarioGrammar) || (elements & SpeechModel::ScenarioVocabulary))
 		terminals << getCurrentScenario()->getTerminals(elements);
+
+	SpeechModel::ModelElements foreignElements;
+	if (elements & SpeechModel::AllScenariosGrammar)
+		foreignElements = SpeechModel::ScenarioGrammar;
+	if (elements & SpeechModel::AllScenariosVocabulary)
+		foreignElements = (SpeechModel::ModelElements) (((int)foreignElements)|((int)SpeechModel::ScenarioVocabulary));
+
+	foreach (Scenario *s, scenarios) {
+		QStringList foreignTerminals = s->getTerminals(foreignElements);
+		foreach (const QString& terminal, foreignTerminals)
+			if (!terminals.contains(terminal))
+				terminals << terminal;
+	}
 
 	if (elements & SpeechModel::ShadowVocabulary) {
 		QStringList shadowTerminals = shadowVocab->getTerminals();
