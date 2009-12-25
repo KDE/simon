@@ -77,6 +77,7 @@ public:
 	KIcon icon() { return KIcon(m_iconSrc); }
 	QString iconSrc() { return m_iconSrc; }
 	QString name() { return m_name; }
+	int version() { return m_version; }
 	QString id() { return m_scenarioId; }
 	QString licence() { return m_licence; }
 	VersionNumber* simonMinVersion() { return m_simonMinVersion; }
@@ -113,9 +114,9 @@ public:
 	bool readActions(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
 	bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
 	bool init(QString path=QString());
-	bool create(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+	bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
 			VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
-	bool update(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+	bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
 			VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
 	bool save(QString path=QString());
 
@@ -139,6 +140,8 @@ public:
 	bool commitGroup();
 
 	~Scenario();
+
+	static QString createId(const QString& name);
 
 };
 

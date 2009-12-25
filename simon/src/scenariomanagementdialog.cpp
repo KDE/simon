@@ -36,9 +36,13 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KFileDialog>
+
+ 
+#include <knewstuff3/downloaddialog.h>
 
 
-ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent)
+ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent), m_dirty(false)
 {
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
@@ -81,6 +85,7 @@ void ScenarioManagementDialog::newScenario()
 	if (s) {
 		//add scenario to available
 		displayScenario(s, ui.asScenarios->availableListWidget());
+		m_dirty = true;
 	}
 	delete newScenario;
 	delete s;
@@ -100,17 +105,14 @@ void ScenarioManagementDialog::editScenario()
 		QListWidget *selected = ui.asScenarios->selectedListWidget();
 
 		QListWidgetItem *itemToUpdate = NULL;
-		if (selected->currentIndex() == m_lastSelectedIndex) {
+		if (selected->currentIndex() == m_lastSelectedIndex)
 			itemToUpdate = selected->currentItem();
-			kDebug() << "Selected! " << itemToUpdate;
-		} else {
+		else
 			itemToUpdate = available->currentItem();
-			kDebug() << "Available! " << itemToUpdate;
-		}
 
 		setupItemToScenario(itemToUpdate, s);
-		kDebug() << "Updated item";
-	} else kDebug() << "Nothing returned...";
+		m_dirty = true;
+	}
 
 	delete newScenario;
 	delete s;
@@ -118,23 +120,61 @@ void ScenarioManagementDialog::editScenario()
 
 void ScenarioManagementDialog::importScenario()
 {
+	QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
+	Scenario *s = new Scenario("");
+	if (!s->init(path)) {
+		KMessageBox::sorry(this, i18n("Could not load scenario."));
+		delete s;
+		return;
+	}
 
+	if (!s->save()) {
+		KMessageBox::sorry(this, i18n("Failed to store scenario"));
+		delete s;
+		return;
+	}
+	displayScenario(s, ui.asScenarios->availableListWidget());
+	delete s;
 }
 
 void ScenarioManagementDialog::exportScenario()
 {
+	Scenario *s = getCurrentlySelectedScenario();
+	if (!s) return;
 
+	if (!s->init()) {
+		KMessageBox::sorry(this, i18n("Could not load scenario."));
+		delete s;
+		return;
+	}
+
+	QString path = KFileDialog::getSaveFileName(KUrl(), QString(), this, i18n("Select scenario output file"));
+	if (!s->save(path)) {
+		KMessageBox::sorry(this, i18n("Failed to store scenario"));
+	}
+	delete s;
 }
 
 void ScenarioManagementDialog::getNewScenarios()
 {
+	if (m_dirty && (KMessageBox::questionYesNoCancel(this, i18n("Downloading new scenarios requires you to save your current "
+					"changes before continuing.\n\nSave your changes now?")) != KMessageBox::Yes))
+		return;
 
+	save();
+
+	KNS3::DownloadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
+	dialog.exec();
+	foreach (const KNS3::Entry& e, dialog.changedEntries()) {
+		kDebug() << "Changed Entry: " << e.name();
+	}
+	initDisplay();
 }
 
 Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
 {
 	if (!m_lastSelectedIndex.isValid())  {
-		KMessageBox::information(this, i18n("Please select a scenario to delete"));
+		KMessageBox::information(this, i18n("Please select a scenario from the list(s)"));
 		return NULL;
 	}
 
@@ -178,6 +218,7 @@ void ScenarioManagementDialog::deleteScenario()
 
 			delete scenarioItem;
 		}
+		m_dirty = true;
 	}
 
 	delete s;
@@ -193,21 +234,25 @@ void ScenarioManagementDialog::updateLastSelectedIndex(const QModelIndex& index)
 void ScenarioManagementDialog::slotAdded(QListWidgetItem*)
 {
 	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotMovedDown(QListWidgetItem*)
 {
 	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotMovedUp(QListWidgetItem*)
 {
 	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotRemoved(QListWidgetItem*)
 {
 	updateLastSelectedIndex(ui.asScenarios->availableListWidget()->currentIndex());
+	m_dirty = true;
 }
 
 
@@ -239,9 +284,11 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
 		strAuthors += i18nc("Name and contact information", "<p>%1 (%2)</p>", a->name(), a->contact());
 
 	tooltip = i18nc("Infos about the scenario", "<html><head /><body>"
-			"<h4>Licence</h4><p>%1</p>"
-			"<h4>Compatibility</h4><p>Minimum version: %2</p><p>Maximum version: %3</p>"
-			"<h4>Authors</h4><p>%4</p>", licence, minVersion, maxVersion, strAuthors);
+			"<h3>%1</h3>"
+			"<h4>Version</h4><p>%2</p>"
+			"<h4>Licence</h4><p>%3</p>"
+			"<h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</p>"
+			"<h4>Authors</h4><p>%6</p>", s->name(), s->version(), licence, minVersion, maxVersion, strAuthors);
 
 	item->setToolTip(tooltip);
 	item->setData(Qt::UserRole, s->id());
@@ -283,6 +330,7 @@ void ScenarioManagementDialog::initDisplay()
 		displayScenario(s, selected);
 	}
 	ui.asScenarios->setButtonsEnabled();
+	m_dirty = false;
 }
 
 void ScenarioManagementDialog::availableScenarioSelected()
@@ -295,22 +343,27 @@ void ScenarioManagementDialog::selectedScenarioSelected()
 	ui.asScenarios->setButtonsEnabled();
 }
 
+void ScenarioManagementDialog::save()
+{
+	QListWidget *s = ui.asScenarios->selectedListWidget();
+	QStringList ids;
+
+	for (int i=0; i < s->count(); i++)
+		ids << s->item(i)->data(Qt::UserRole).toString();
+
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+	cg.writeEntry("SelectedScenarios", ids);
+	cg.writeEntry("LastModified", QDateTime::currentDateTime());
+	m_dirty = false;
+}
 
 int ScenarioManagementDialog::exec()
 {
+	m_dirty = false;
 	int ret = KDialog::exec();
-	if (ret) {
-		QListWidget *s = ui.asScenarios->selectedListWidget();
-		QStringList ids;
-
-		for (int i=0; i < s->count(); i++)
-			ids << s->item(i)->data(Qt::UserRole).toString();
-
-		KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-		KConfigGroup cg(config, "");
-		cg.writeEntry("SelectedScenarios", ids);
-		cg.writeEntry("LastModified", QDateTime::currentDateTime());
-	}
+	if (ret)
+		save();
 
 	return ret;
 }

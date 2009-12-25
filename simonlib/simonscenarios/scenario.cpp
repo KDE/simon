@@ -33,6 +33,7 @@
 
 #include <KStandardDirs>
 #include <QDomDocument>
+#include <QDateTime>
 #include <QDomElement>
 #include <QFile>
 #include <KDebug>
@@ -86,10 +87,11 @@ bool Scenario::init(QString path)
 	return true;
 }
 
-bool Scenario::create(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+bool Scenario::create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
 		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
 {
 	m_name = name;
+	m_version = version;
 	m_iconSrc = iconSrc;
 	if (m_simonMinVersion) delete m_simonMinVersion;
 	m_simonMinVersion = simonMinVersion;
@@ -107,10 +109,10 @@ bool Scenario::create(const QString& name, const QString& iconSrc, VersionNumber
 	return true;
 }
 
-bool Scenario::update(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
 		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
 {
-	return create(name, iconSrc, simonMinVersion, simonMaxVersion, licence, authors);
+	return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, licence, authors);
 }
 
 bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
@@ -149,6 +151,9 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	
 	//name of the scenario
 	m_name = docElem.attribute("name");
+
+	if (m_scenarioId.isEmpty()) m_scenarioId = createId(m_name);
+
 	//version of the scenario
 	m_version = docElem.attribute("version").toInt(&ok);
 	m_iconSrc = docElem.attribute("icon");
@@ -165,6 +170,9 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	
 	QDomElement compatibilityElem = docElem.firstChildElement("simonCompatibility");
 	QDomElement simonMinVersionElem = compatibilityElem.firstChildElement();
+
+	if (m_simonMinVersion) delete m_simonMinVersion;
+	if (m_simonMaxVersion) delete m_simonMaxVersion;
 
 	m_simonMinVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem);
 	m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
@@ -188,6 +196,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	
 	//clear authors
 	qDeleteAll(m_authors);
+	m_authors.clear();
 
 	QDomElement authorsElem = docElem.firstChildElement("authors");
 	QDomElement authorElem = authorsElem.firstChildElement();
@@ -301,14 +310,20 @@ bool Scenario::save(QString path)
 	m_lastModifiedDate = QDateTime::currentDateTime();
 	QString serialized = serialize();
 
-	if (serialized.isNull()) return false;
+	if (serialized.isNull()) {
+		kDebug() << "serialized is null";
+		return false;
+	}
 	
-	if (path.isNull())
+	if (path.isNull()) {
 		path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
+	}
 
 	QFile file(path);
-	if (!file.open(QIODevice::WriteOnly))
+	if (!file.open(QIODevice::WriteOnly)) {
+		kDebug() << "couldn't open file at " << path;
 		return false;
+	}
 
 	file.write(serialized.toUtf8());
 
@@ -634,6 +649,13 @@ bool Scenario::commitGroup()
 		success = save();
 
 	return success;
+}
+
+QString Scenario::createId(const QString& name)
+{
+	QString id = name;
+	id.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
+	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh:mm:ss:zzz");
 }
 
 

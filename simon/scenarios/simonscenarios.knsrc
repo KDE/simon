@@ -1,0 +1,4 @@
+[KNewStuff3]
+ProvidersUrl=http://download.kde.org/khotnewstuff/simonscenarios-providers.xml
+Categories=
+TargetDir=simon/scenarios

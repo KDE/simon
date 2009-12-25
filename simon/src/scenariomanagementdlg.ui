@@ -32,9 +32,6 @@
      </item>
      <item>
       <widget class="KPushButton" name="pbGetNewScenarios">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
        <property name="text">
         <string>Get new scenarios</string>
        </property>

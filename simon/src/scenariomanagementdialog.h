@@ -37,11 +37,15 @@ private:
 
 	QModelIndex m_lastSelectedIndex;
 
+	bool m_dirty;
+
 	void initDisplay();
 	void displayScenario(Scenario *scenario, QListWidget* widget);
 	void setupItemToScenario(QListWidgetItem *item, Scenario *scenario);
 
 	Scenario* getCurrentlySelectedScenario();
+
+	void save();
 
 private slots:
 	void availableScenarioSelected();

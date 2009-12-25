@@ -40,6 +40,7 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 	
 	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
 	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
+	connect(ui.sbScenarioVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
 	connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
 	connect(ui.cbLicence, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
 
@@ -61,9 +62,8 @@ void NewScenario::checkIfComplete()
 
 QString NewScenario::createId()
 {
-	QString id = ui.leName->text();
-	id.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
-	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh:mm:ss:zzz");
+	QString name = ui.leName->text();
+	return Scenario::createId(name);
 }
 
 void NewScenario::setWindowTitleToScenarioName(QString name)
@@ -122,7 +122,7 @@ Scenario* NewScenario::newScenario()
 		Scenario *s = new Scenario(createId());
 		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
 		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
-		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
 			m_authors.clear();
 			KMessageBox::sorry(this, i18n("Scenario could not be created"));
 			delete s;
@@ -147,6 +147,7 @@ void NewScenario::displayScenario(Scenario *s)
 {
 	ui.leName->setText(s->name());
 	ui.leMinVersion->setText(s->simonMinVersion()->toString());
+	ui.sbScenarioVersion->setValue(s->version());
 	VersionNumber *max = s->simonMaxVersion();
 	QString maxStrVersion = "";
 	if (max)
@@ -170,7 +171,7 @@ Scenario* NewScenario::editScenario(Scenario *s)
 	{
 		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
 		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
-		if (!s->update(ui.leName->text(), ui.pbIcon->icon(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+		if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
 			KMessageBox::sorry(this, i18n("Scenario could not be updated"));
 			success = false;
 		} else if (!s->save()) {
@@ -188,3 +189,4 @@ Scenario* NewScenario::editScenario(Scenario *s)
 NewScenario::~NewScenario()
 {
 }
+
