@@ -54,7 +54,8 @@ private slots:
 	void newScenario();
 	void editScenario();
 	void importScenario();
-	void exportScenario();
+	void exportScenarioFile();
+	void exportScenarioGHNS();
 	void getNewScenarios();
 	void deleteScenario();
 

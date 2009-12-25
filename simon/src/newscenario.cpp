@@ -26,7 +26,7 @@
 
 #include <QDateTime>
 
-#include <KUrl>
+#include <KIcon>
 #include <KMessageBox>
 #include <KDialogButtonBox>
 
@@ -48,6 +48,8 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 	connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));
 	
 	checkIfComplete();
+	ui.pbAddAuthor->setIcon(KIcon("list-add"));
+	ui.pbRemoveAuthor->setIcon(KIcon("list-remove"));
 }
 
 void NewScenario::checkIfComplete()

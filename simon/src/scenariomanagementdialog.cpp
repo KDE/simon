@@ -28,6 +28,7 @@
 #include <QListWidget>
 #include <QSize>
 #include <QVariant>
+#include <QMenu>
 #include <QDateTime>
 #include <QFileInfo>
 #include <QListWidgetItem>
@@ -40,6 +41,7 @@
 
  
 #include <knewstuff3/downloaddialog.h>
+#include <knewstuff3/uploaddialog.h>
 
 
 ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent), m_dirty(false)
@@ -71,11 +73,31 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 	connect(ui.asScenarios, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotRemoved(QListWidgetItem*)));
 
 	connect(ui.pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
-	connect(ui.pbGetNewScenarios, SIGNAL(clicked()), this, SLOT(getNewScenarios()));
-	connect(ui.pbImportScenario, SIGNAL(clicked()), this, SLOT(importScenario()));
-	connect(ui.pbExportScenario, SIGNAL(clicked()), this, SLOT(exportScenario()));
 	connect(ui.pbEditScenario, SIGNAL(clicked()), this, SLOT(editScenario()));
 	connect(ui.pbDeleteScenario, SIGNAL(clicked()), this, SLOT(deleteScenario()));
+
+	QMenu *exportMenu = new QMenu(this);
+	QAction *ghnsExport = exportMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Publish"));
+	QAction *fileExport = exportMenu->addAction(KIcon("document-export"), i18n("Export to file"));
+
+	QMenu *importMenu = new QMenu(this);
+	QAction *ghnsImport = importMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Download"));
+	QAction *fileImport = importMenu->addAction(KIcon("document-import"), i18n("Import from file"));
+
+	connect(ghnsExport, SIGNAL(triggered()), this, SLOT(exportScenarioGHNS()));
+	connect(fileExport, SIGNAL(triggered()), this, SLOT(exportScenarioFile()));
+
+	connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewScenarios()));
+	connect(fileImport, SIGNAL(triggered()), this, SLOT(importScenario()));
+
+	ui.pbCreateScenario->setIcon(KIcon("list-add"));
+	ui.pbImportScenario->setIcon(KIcon("document-import"));
+	ui.pbExportScenario->setIcon(KIcon("document-export"));
+	ui.pbEditScenario->setIcon(KIcon("document-edit"));
+	ui.pbDeleteScenario->setIcon(KIcon("list-remove"));
+
+	ui.pbExportScenario->setMenu(exportMenu);
+	ui.pbImportScenario->setMenu(importMenu);
 }
 
 void ScenarioManagementDialog::newScenario()
@@ -121,6 +143,7 @@ void ScenarioManagementDialog::editScenario()
 void ScenarioManagementDialog::importScenario()
 {
 	QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
+	if (path.isEmpty()) return;
 	Scenario *s = new Scenario("");
 	if (!s->init(path)) {
 		KMessageBox::sorry(this, i18n("Could not load scenario."));
@@ -137,10 +160,23 @@ void ScenarioManagementDialog::importScenario()
 	delete s;
 }
 
-void ScenarioManagementDialog::exportScenario()
+void ScenarioManagementDialog::exportScenarioGHNS()
 {
 	Scenario *s = getCurrentlySelectedScenario();
 	if (!s) return;
+
+	QString path = KStandardDirs::locate("appdata", "scenarios/"+s->id());
+	KNS3::UploadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
+	dialog.setUploadFile(path);
+	dialog.setUploadName(s->name());
+	dialog.exec();
+}
+
+void ScenarioManagementDialog::exportScenarioFile()
+{
+	Scenario *s = getCurrentlySelectedScenario();
+	if (!s) return;
+
 
 	if (!s->init()) {
 		KMessageBox::sorry(this, i18n("Could not load scenario."));
@@ -149,6 +185,8 @@ void ScenarioManagementDialog::exportScenario()
 	}
 
 	QString path = KFileDialog::getSaveFileName(KUrl(), QString(), this, i18n("Select scenario output file"));
+	if (path.isEmpty()) return;
+
 	if (!s->save(path)) {
 		KMessageBox::sorry(this, i18n("Failed to store scenario"));
 	}

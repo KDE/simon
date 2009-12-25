@@ -424,6 +424,7 @@ void SimonView::showSystemDialog ()
 	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
+	configDialog->addModule("kcm_attica");
 	configDialog->show();
 }
 

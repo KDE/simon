@@ -31,13 +31,6 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbGetNewScenarios">
-       <property name="text">
-        <string>Get new scenarios</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="KPushButton" name="pbImportScenario">
        <property name="text">
         <string>Import</string>
