@@ -38,6 +38,8 @@ private:
 	QModelIndex m_lastSelectedIndex;
 
 	void initDisplay();
+	void displayScenario(Scenario *scenario, QListWidget* widget);
+	void setupItemToScenario(QListWidgetItem *item, Scenario *scenario);
 
 	Scenario* getCurrentlySelectedScenario();
 
@@ -53,6 +55,10 @@ private slots:
 	void deleteScenario();
 
 	void updateLastSelectedIndex(const QModelIndex&);
+	void slotAdded(QListWidgetItem*);
+	void slotMovedDown(QListWidgetItem*);
+	void slotMovedUp(QListWidgetItem*);
+	void slotRemoved(QListWidgetItem*);
 	
 public slots:
 	int exec();

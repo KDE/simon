@@ -97,12 +97,20 @@ bool Scenario::create(const QString& name, const QString& iconSrc, VersionNumber
 	m_simonMaxVersion = simonMaxVersion;
 	m_licence = licence;
 
-	qDeleteAll(m_authors);
+	foreach (Author *a, m_authors)
+		if (!authors.contains(a))
+			delete a;
 	m_authors.clear();
 	foreach (Author *a, authors)
 		m_authors << a;
 
 	return true;
+}
+
+bool Scenario::update(const QString& name, const QString& iconSrc, VersionNumber* simonMinVersion, 
+		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+{
+	return create(name, iconSrc, simonMinVersion, simonMaxVersion, licence, authors);
 }
 
 bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)

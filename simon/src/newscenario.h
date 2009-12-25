@@ -52,8 +52,8 @@ public:
 	NewScenario(QWidget *parent=0);
 	~NewScenario();
 
-	bool newScenario();
-	bool editScenario(Scenario *s);
+	Scenario* newScenario();
+	Scenario* editScenario(Scenario *s);
 	bool editScenario(const QString& id);
 
 };

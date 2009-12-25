@@ -20,8 +20,13 @@
 
 #include "scenariomanagementdialog.h"
 #include "newscenario.h"
+#include <simonscenarios/author.h>
+#include <simonscenariobase/versionnumber.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/scenariomanager.h>
 #include <QWidget>
 #include <QListWidget>
+#include <QSize>
 #include <QVariant>
 #include <QDateTime>
 #include <QFileInfo>
@@ -31,10 +36,6 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KStandardDirs>
-#include <simonscenarios/author.h>
-#include <simonscenariobase/versionnumber.h>
-#include <simonscenarios/scenario.h>
-#include <simonscenarios/scenariomanager.h>
 
 
 ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent)
@@ -57,6 +58,14 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 	connect(ui.asScenarios->selectedListWidget(), SIGNAL(clicked(const QModelIndex&)),
 			  this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
 
+	ui.asScenarios->selectedListWidget()->setIconSize(QSize(22,22));
+	ui.asScenarios->availableListWidget()->setIconSize(QSize(22,22));
+
+	connect(ui.asScenarios, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotAdded(QListWidgetItem*)));
+	connect(ui.asScenarios, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotMovedUp(QListWidgetItem*)));
+	connect(ui.asScenarios, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotMovedDown(QListWidgetItem*)));
+	connect(ui.asScenarios, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotRemoved(QListWidgetItem*)));
+
 	connect(ui.pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
 	connect(ui.pbGetNewScenarios, SIGNAL(clicked()), this, SLOT(getNewScenarios()));
 	connect(ui.pbImportScenario, SIGNAL(clicked()), this, SLOT(importScenario()));
@@ -68,9 +77,13 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 void ScenarioManagementDialog::newScenario()
 {
 	NewScenario *newScenario = new NewScenario(this);
-	if (newScenario->newScenario())
-		initDisplay();
+	Scenario *s = newScenario->newScenario();
+	if (s) {
+		//add scenario to available
+		displayScenario(s, ui.asScenarios->availableListWidget());
+	}
 	delete newScenario;
+	delete s;
 }
 
 void ScenarioManagementDialog::editScenario()
@@ -79,8 +92,25 @@ void ScenarioManagementDialog::editScenario()
 	if (!s) return;
 
 	NewScenario *newScenario = new NewScenario(this);
-	if (newScenario->editScenario(s))
-		initDisplay();
+	s = newScenario->editScenario(s);
+
+	if (s) {
+		//update description
+		QListWidget *available = ui.asScenarios->availableListWidget();
+		QListWidget *selected = ui.asScenarios->selectedListWidget();
+
+		QListWidgetItem *itemToUpdate = NULL;
+		if (selected->currentIndex() == m_lastSelectedIndex) {
+			itemToUpdate = selected->currentItem();
+			kDebug() << "Selected! " << itemToUpdate;
+		} else {
+			itemToUpdate = available->currentItem();
+			kDebug() << "Available! " << itemToUpdate;
+		}
+
+		setupItemToScenario(itemToUpdate, s);
+		kDebug() << "Updated item";
+	} else kDebug() << "Nothing returned...";
 
 	delete newScenario;
 	delete s;
@@ -160,6 +190,63 @@ void ScenarioManagementDialog::updateLastSelectedIndex(const QModelIndex& index)
 	m_lastSelectedIndex = index;
 }
 
+void ScenarioManagementDialog::slotAdded(QListWidgetItem*)
+{
+	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+}
+
+void ScenarioManagementDialog::slotMovedDown(QListWidgetItem*)
+{
+	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+}
+
+void ScenarioManagementDialog::slotMovedUp(QListWidgetItem*)
+{
+	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+}
+
+void ScenarioManagementDialog::slotRemoved(QListWidgetItem*)
+{
+	updateLastSelectedIndex(ui.asScenarios->availableListWidget()->currentIndex());
+}
+
+
+
+void ScenarioManagementDialog::displayScenario(Scenario *scenario, QListWidget* widget)
+{
+	QListWidgetItem *item = new QListWidgetItem(widget);
+
+	setupItemToScenario(item, scenario);
+}
+
+void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenario *s)
+{
+	item->setIcon(s->icon());
+	item->setText(s->name());
+	QString tooltip;
+	QString licence = s->licence();
+	QString minVersion = s->simonMinVersion()->toString();
+
+	QString maxVersion;
+	if (s->simonMaxVersion())
+		maxVersion = s->simonMaxVersion()->toString();
+	else
+		maxVersion = "-";
+
+	QString strAuthors;
+	QList<Author*>  authors = s->authors();
+	foreach (Author* a, authors)
+		strAuthors += i18nc("Name and contact information", "<p>%1 (%2)</p>", a->name(), a->contact());
+
+	tooltip = i18nc("Infos about the scenario", "<html><head /><body>"
+			"<h4>Licence</h4><p>%1</p>"
+			"<h4>Compatibility</h4><p>Minimum version: %2</p><p>Maximum version: %3</p>"
+			"<h4>Authors</h4><p>%4</p>", licence, minVersion, maxVersion, strAuthors);
+
+	item->setToolTip(tooltip);
+	item->setData(Qt::UserRole, s->id());
+}
+
 void ScenarioManagementDialog::initDisplay()
 {
 	QListWidget *available = ui.asScenarios->availableListWidget();
@@ -175,42 +262,25 @@ void ScenarioManagementDialog::initDisplay()
 	QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
 	kDebug() << "Found scenarios: " << scenarioIds;
 
+	QHash<QString, Scenario*> selectedList;
+
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
 		kDebug() << "Initializing scenario" << id;
 		if (!s->skim()) {
 			KMessageBox::information(this, i18n("Could not init scenario \"%1\"", id));
 		} else {
-			QListWidget *target;
 			if (selectedIds.contains(id))
-				target = selected;
-			else target = available;
-
-			QListWidgetItem *item = new QListWidgetItem(s->icon(), s->name(), target);
-
-			QString tooltip;
-			QString licence = s->licence();
-			QString minVersion = s->simonMinVersion()->toString();
-
-			QString maxVersion;
-			if (s->simonMaxVersion())
-				maxVersion = s->simonMaxVersion()->toString();
-			else
-				maxVersion = "-";
-
-			QString strAuthors;
-			QList<Author*>  authors = s->authors();
-			foreach (Author* a, authors)
-				strAuthors += i18nc("Name and contact information", "<p>%1 (%2)</p>", a->name(), a->contact());
-
-			tooltip = i18nc("Infos about the scenario", "<html><head /><body>"
-					"<h4>Licence</h4><p>%1</p>"
-					"<h4>Compatibility</h4><p>Minimum version: %2</p><p>Maximum version: %3</p>"
-					"<h4>Authors</h4><p>%4</p>", licence, minVersion, maxVersion, strAuthors);
-
-			item->setToolTip(tooltip);
-			item->setData(Qt::UserRole, id);
+				selectedList.insert(id, s);
+			else displayScenario(s, available);
 		}
+	}
+
+	foreach (const QString& id, selectedIds) {
+		Scenario *s = selectedList.value(id);
+		if (!s) continue;
+
+		displayScenario(s, selected);
 	}
 	ui.asScenarios->setButtonsEnabled();
 }

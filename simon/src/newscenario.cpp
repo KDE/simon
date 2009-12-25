@@ -112,9 +112,8 @@ int NewScenario::exec()
 	return KDialog::exec();
 }
 
-bool NewScenario::newScenario()
+Scenario* NewScenario::newScenario()
 {
-	bool success = true;
 	m_authors.clear();
 	ui.leMinVersion->setText(simon_version);
 	if (exec())
@@ -124,17 +123,24 @@ bool NewScenario::newScenario()
 		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
 		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
 		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+			m_authors.clear();
 			KMessageBox::sorry(this, i18n("Scenario could not be created"));
-			success = false;
+			delete s;
+			return NULL;
 		} else if (!s->save()) {
+			m_authors.clear();
 			KMessageBox::sorry(this, i18n("New scenario could not be saved"));
-			success = false;
+			delete s;
+			return NULL;
+		} else  {
+			m_authors.clear();
+			return s;
 		}
-		delete s;
-	} else
+	} else {
 		qDeleteAll(m_authors);
-	m_authors.clear();
-	return success;
+		m_authors.clear();
+		return NULL;
+	}
 }
 
 void NewScenario::displayScenario(Scenario *s)
@@ -148,28 +154,35 @@ void NewScenario::displayScenario(Scenario *s)
 	ui.leMaxVersion->setText(maxStrVersion);
 	ui.cbLicence->setEditText(s->licence());
 
-	ui.pbIcon->setIcon(s->icon());
+	ui.pbIcon->setIcon(s->iconSrc());
 
 	m_authors = s->authors();
 	updateAuthorDisplay();
 }
 
-bool NewScenario::editScenario(Scenario *s)
+Scenario* NewScenario::editScenario(Scenario *s)
 {
-	if (!s) return false;
+	if (!s) return s;
 
 	bool success = true;
 	displayScenario(s);
 	if (exec())
 	{
-		//TODO: updating
-		if (!s->save()) {
+		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
+		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
+		if (!s->update(ui.leName->text(), ui.pbIcon->icon(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+			KMessageBox::sorry(this, i18n("Scenario could not be updated"));
+			success = false;
+		} else if (!s->save()) {
 			KMessageBox::sorry(this, i18n("New scenario could not be saved"));
 			success = false;
 		}
 	}
 	m_authors.clear();
-	return success;
+
+	if (success == false) return NULL;
+
+	return s;
 }
 
 NewScenario::~NewScenario()
