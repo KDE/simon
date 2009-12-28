@@ -343,7 +343,6 @@ bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename,
 			return false;
 		}
 		outstream = new QTextStream(outfile);
-		//TODO Test encoding
 		outstream->setCodec("UTF-8");
 	}
 
@@ -358,7 +357,6 @@ bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename,
 		return false;
 	}
 	QTextStream vocab(vocabFile);
-	//TODO Test encoding
 	vocab.setCodec("UTF-8");
 
 	//print internal sentence structure
