@@ -20,10 +20,9 @@
 #ifndef SIMON_EXECUTABLECOMMANDMANAGER_H_1234C148A54C491F8324D40535523A70
 #define SIMON_EXECUTABLECOMMANDMANAGER_H_1234C148A54C491F8324D40535523A70
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
-class XMLExecutableCommand;
 class CreateExecutableCommandWidget;
 /**
  *	@class ExecutableCommandManager
@@ -35,24 +34,20 @@ class CreateExecutableCommandWidget;
  */
 class ExecutableCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLExecutableCommand* xmlExecutableCommand;
 public:
 	bool addCommand(Command *command);
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    ExecutableCommandManager(QObject *parent, const QVariantList& args);
+    ExecutableCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~ExecutableCommandManager();

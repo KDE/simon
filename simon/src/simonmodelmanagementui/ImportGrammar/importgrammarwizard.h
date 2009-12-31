@@ -30,8 +30,6 @@ class QWizardPage;
 class ImportGrammarWizard : public QWizard
 {
 Q_OBJECT
-signals:
-	void grammarCreated(QStringList);
 public:
     ImportGrammarWizard(QWidget* parent);
 

@@ -21,11 +21,12 @@
 #define SIMON_CREATEEXECUTABLECOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createexecutablecommandwidget.h"
 
 class Command;
 class ImportProgramWizard;
+class CommandManager;
 
 /**
  *	@class CreateExecutableCommandWidget
@@ -57,7 +58,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateExecutableCommandWidget(QWidget *parent=0);
+	CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateExecutableCommandWidget();

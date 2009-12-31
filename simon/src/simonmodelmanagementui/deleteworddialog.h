@@ -47,7 +47,7 @@ public:
 
 	explicit DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-	int exec(Word word, bool isShadowed);
+	int exec(Word *word, bool isShadowed);
 
 	DeletionType getDeletionType()
 	{

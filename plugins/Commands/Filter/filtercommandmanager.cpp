@@ -28,14 +28,13 @@
 
 K_PLUGIN_FACTORY( FilterPluginFactory, 
 			registerPlugin< FilterCommandManager >(); 
-			registerPlugin< FilterConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
 
 
-FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	isActive(false),
 	activateAction(new KAction(this))
 {
@@ -52,6 +51,10 @@ const QString FilterCommandManager::name() const
 	return i18n("Filter");
 }
 
+const KIcon FilterCommandManager::icon() const
+{
+	return KIcon("view-filter");
+}
 
 void FilterCommandManager::updateAction()
 {
@@ -72,20 +75,16 @@ void FilterCommandManager::toggle()
 	updateAction();
 }
 
-CommandConfiguration* FilterCommandManager::getConfigurationPage()
-{
-	return FilterConfiguration::getInstance();
-}
 
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
 	if (isActive) {
-		if (triggerName == FilterConfiguration::getInstance()->deactivateTrigger()) {
+		if (triggerName == static_cast<FilterConfiguration*>(config)->deactivateTrigger()) {
 			//make inactive
 			toggle();
 		}
 		return true;
-	} else if (triggerName == FilterConfiguration::getInstance()->activateTrigger()) {
+	} else if (triggerName == static_cast<FilterConfiguration*>(config)->activateTrigger()) {
 		//make active
 		toggle();
 		return true;
@@ -95,18 +94,14 @@ bool FilterCommandManager::trigger(const QString& triggerName)
 	return false;
 }
 
-bool FilterCommandManager::load()
+bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	FilterConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
+	config = new FilterConfiguration(parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 
-bool FilterCommandManager::save()
-{
-	return true;
-}
 
 FilterCommandManager::~FilterCommandManager()
 {
-// 	FilterConfiguration::getInstance()->destroy();
 }

@@ -26,9 +26,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class GrammarManager;
-class WordListManager;
-
 class QWizardPage;
 
 class MergeTerminalsWizard : public QWizard

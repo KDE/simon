@@ -20,7 +20,7 @@
 #ifndef SIMON_KEYBOARDCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_KEYBOARDCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <KXMLGUIClient>
@@ -98,16 +98,14 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
-	CommandConfiguration* getConfigurationPage();
+	bool deSerializeConfig(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    KeyboardCommandManager(QObject *parent, const QVariantList& args);
+    KeyboardCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~KeyboardCommandManager();

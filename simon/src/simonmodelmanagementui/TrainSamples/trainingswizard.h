@@ -17,11 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TRAININGSWIZARD_H_81DBD07A9C9E4223823558E55A8BAF3E
-#define SIMON_TRAININGSWIZARD_H_81DBD07A9C9E4223823558E55A8BAF3E
+#ifndef TRAININGSWIZARD_H
+#define TRAININGSWIZARD_H
 
 #include <QWizard>
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 
 class QWizard;
 class QStringList;
@@ -44,7 +44,7 @@ class TrainingsWizard : public QWizard
 	public:
 		TrainingsWizard(QWidget *parent=0);
 		bool init(const QStringList &prompts);
-		bool init(const WordList &wList);
+		bool init(const QList<Word*>& wList, bool smartSentences=false);
 		bool init(const TrainingText &text);
 		~TrainingsWizard();
 

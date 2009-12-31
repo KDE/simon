@@ -13,6 +13,7 @@ add_subdirectory(icons)
 add_subdirectory(themes)
 add_subdirectory(conf)
 add_subdirectory(model)
+add_subdirectory(scenarios)
 add_subdirectory(texts)
 
 install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simon)

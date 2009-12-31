@@ -21,9 +21,8 @@
 #ifndef SIMON_TEXTMACROCOMMANDMANAGER_H_EDFE3225C4B0465491338847D911E13A
 #define SIMON_TEXTMACROCOMMANDMANAGER_H_EDFE3225C4B0465491338847D911E13A
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
-class XMLTextMacroCommand;
 class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
@@ -35,24 +34,20 @@ class CreateCommandWidget;
  */
 class TextMacroCommandManager : public CommandManager{
 Q_OBJECT
-private:
-	XMLTextMacroCommand* xmlTextMacroCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *scenario);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommandManager(QObject *parent, const QVariantList& args);
+    TextMacroCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~TextMacroCommandManager();

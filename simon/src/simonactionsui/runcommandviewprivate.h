@@ -21,31 +21,36 @@
 #define SIMON_RUNCOMMANDVIEWPRIVATE_H_819E2A6755D948FA917DEBAE89DA9F2D
 
 #include "ui_rundialog.h"
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
+#include <simonscenarios/scenariodisplay.h>
 #include <KIcon>
 
 class Command;
+class Action;
 class RunCommand;
 class CommandPreviewWidget;
+class QSortFilterProxyModel;
 /**
  *	@class RunCommandViewPrivate
  *	@brief Provides a graphical frontend to run commands and perform 
  * 	system actions
  *
- *	@version 0.1
+ *	@version 0.2
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RunCommandViewPrivate : public QWidget {
+class RunCommandViewPrivate : public QWidget, public ScenarioDisplay {
 	Q_OBJECT
 
 private:
 	Ui::RunDlg ui;
 
-	QHash<QString, CommandList*> commands;
-
 	CommandPreviewWidget *commandPreviewWidget;
 	Command* getCurrentCommand();
+	Action *getCurrentlySelectedAction();
+	QSortFilterProxyModel *commandsProxy;
+	QSortFilterProxyModel *actionsProxy;
+	
 
 private slots:
 	void addCommand();
@@ -56,14 +61,15 @@ private slots:
 
 	void fetchCommandsFromCategory();
 	void updateCommandDetail();
-	void categoriesChanged(const QList<KIcon>& icons, const QStringList& names);
-	void commandAdded(Command* com);
-	void commandRemoved(const QString& trigger, const QString& category);
+
+	void managePlugIns();
+
 
 public:
-    RunCommandViewPrivate(QWidget *parent);
+	void displayScenarioPrivate(Scenario *scenario);
 
-    ~RunCommandViewPrivate();
+	RunCommandViewPrivate(QWidget *parent);
+	~RunCommandViewPrivate();
 
 };
 

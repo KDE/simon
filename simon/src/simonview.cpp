@@ -21,6 +21,7 @@
 #include "simonview.h"
 
 #include "inlinewidgetview.h"
+#include "scenariomanagementdialog.h"
 
 
 #include <simonlogging/logger.h>
@@ -32,13 +33,15 @@
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>
 
-#include <speechmodelmanagement/wordlistmanager.h>
-#include <simonmodelmanagementui/wordlistview.h>
+#include <simonmodelmanagementui/vocabularyview.h>
+
+#include <simonscenarios/scenariomanager.h>
 
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
-#include <simonactions/actionmanager.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/actioncollection.h>
 
 #include <QTimer>
 #include <QPixmap>
@@ -82,11 +85,8 @@
  *
 */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
-		: SimonMainWindow(parent, flags),
-	shownDialogs(0),
-	control(new SimonControl(this)),
-	trayManager(new TrayIconManager(this)),
-	configDialog(new KCMultiDialog(this))
+		: SimonMainWindow(parent, flags), ScenarioDisplay(),
+	shownDialogs(0), configDialog(0)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
@@ -95,30 +95,12 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//showing splash
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
+	info->writeToSplash ( i18n ( "Loading core..." ) );
 
-	Logger::log ( i18n ( "[INF] Loading configuration modules..." ) );
+	control = (new SimonControl(this));
+	trayManager = (new TrayIconManager(this));
 
-	configDialog->addModule("simongeneralconfig", QStringList() << "");
-	configDialog->addModule("simonsoundconfig", QStringList() << "");
-	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
-	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
-	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
-	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
-
-	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
-	if (commandSettingsItem)
-	{
-		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
-		ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
-		ActionManager::getInstance()->setMainWindow(this);
-		ActionManager::getInstance()->init();
-	}
-
-
-	info->writeToSplash ( i18n ( "Loading program..." ) );
-	
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
-
 
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
@@ -139,23 +121,34 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
+	ScenarioManager::getInstance()->registerScenarioDisplay(this);
+
 	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
 	this->trainDialog = new TrainingView(this);
+	ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
-	this->wordList = new WordListView(this);
+	vocabularyView = new VocabularyView(this);
+	ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
 	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
 	this->grammarView = new GrammarView(this);
+	ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
 	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );
+	ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
 
 
 	info->writeToSplash ( i18n ( "Loading Interface..." ) );
 	
 	settingsShown=false;
 
+	cbCurrentScenario = new QComboBox(this);
+
+	displayScenarios();
+	updateScenarioDisplays();
+	
 	setupActions();
 
 	setupSignalSlots();
@@ -176,6 +169,35 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	if (!control->startMinimized())
 		show();
+}
+
+void SimonView::displayScenarios()
+{
+	cbCurrentScenario->clear();
+
+	QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
+	foreach (Scenario* s, scenarioList) {
+		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
+	}
+}
+
+
+
+void SimonView::updateScenarioDisplays()
+{
+	//a scenario has been selected from the list of loaded scenarios
+	int currentIndex = cbCurrentScenario->currentIndex();
+	kDebug() << currentIndex;
+	if (currentIndex == -1) return;
+
+	QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
+	Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
+	kDebug() << "Scenario " << scenario;
+	if (!scenario) {
+		KMessageBox::error(this, i18n("Couldn't retrieve Scenario \"%1\"", currentId));
+		return;
+	}
+	ScenarioManager::getInstance()->updateDisplays(scenario, true);
 }
 
 void SimonView::setupActions()
@@ -262,6 +284,24 @@ void SimonView::setupActions()
 	connect(recompile, SIGNAL(triggered(bool)),
 		control, SLOT(compileModel()));
 	
+	//KAction* scenarioLabel = new KAction(this);
+	//scenarioLabel->setText(i18n("Scenario:"));
+	//actionCollection()->addAction("scenarioLabel", scenarioLabel);
+
+
+	KAction* currentScenarioAction = new KAction(this);
+	currentScenarioAction->setText(i18n("Synchronize"));
+	currentScenarioAction->setDefaultWidget(cbCurrentScenario);
+	actionCollection()->addAction("selectScenario", currentScenarioAction);
+
+
+	KAction* manageScenariosAction = new KAction(this);
+	manageScenariosAction->setText(i18n("Manage scenarios"));
+	manageScenariosAction->setIcon(KIcon("view-choose"));
+	actionCollection()->addAction("manageScenarios", manageScenariosAction);
+	connect(manageScenariosAction, SIGNAL(triggered(bool)),
+		this, SLOT(manageScenarios()));
+	
 	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
                                this, SLOT(showSystemDialog()));
 
@@ -269,8 +309,28 @@ void SimonView::setupActions()
 			      actionCollection());
 
 	setupGUI();
+	displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
+}
 
-	ActionManager::getInstance()->publishGuiActions();
+void SimonView::displayScenarioPrivate(Scenario *scenario)
+{
+	unplugActionList("command_actionlist");
+	plugActionList("command_actionlist", scenario->actionCollection()->getGuiActions());
+	cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(scenario->id()));
+}
+
+void SimonView::manageScenarios()
+{
+	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
+	if (dlg->exec()) {
+		//reload scenario information
+		if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
+			KMessageBox::sorry(this, i18n("Couldn't re-initialize scenarios. Please restart simon!"));
+
+		displayScenarios();
+		updateScenarioDisplays();
+	}
+	dlg->deleteLater();
 }
 
 /**
@@ -286,6 +346,7 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
+	connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
 }
 
 void SimonView::displayConnectionStatus(const QString &status)
@@ -341,8 +402,9 @@ void SimonView::showRunDialog ()
  */
 void SimonView::showAddWordDialog ( )
 {
-	AddWordView *addWordView = new AddWordView(this);
+	AddWordView *addWordView = new AddWordView();
 	addWordView->show();
+	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
 }
 
 
@@ -353,6 +415,16 @@ void SimonView::showAddWordDialog ( )
  */
 void SimonView::showSystemDialog ()
 {
+	if (!configDialog)
+		configDialog = (new KCMultiDialog(this));
+
+	configDialog->addModule("simongeneralconfig", QStringList() << "");
+	configDialog->addModule("simonsoundconfig", QStringList() << "");
+	configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
+	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
+	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
+	configDialog->addModule("kcm_attica");
 	configDialog->show();
 }
 
@@ -373,7 +445,7 @@ void SimonView::showTrainDialog ()
  */
 void SimonView::showWordListDialog ()
 {
-	ui.inlineView->toggleDisplay(wordList);
+	ui.inlineView->toggleDisplay(vocabularyView);
 }
 
 /**
@@ -609,5 +681,6 @@ SimonView::~SimonView()
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	delete trayManager;
 	delete control;
+	delete configDialog;
 	Logger::close();
 }

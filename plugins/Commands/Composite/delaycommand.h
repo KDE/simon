@@ -20,7 +20,7 @@
 #ifndef SIMON_DELAYCOMMAND_H_F5A3CC93AA8147729EE9C50D4454725E
 #define SIMON_DELAYCOMMAND_H_F5A3CC93AA8147729EE9C50D4454725E
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QList>
 #include <KUrl>
 

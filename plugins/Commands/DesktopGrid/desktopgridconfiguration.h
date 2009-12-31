@@ -20,10 +20,8 @@
 #ifndef SIMON_DESKTOPGRIDCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C
 #define SIMON_DESKTOPGRIDCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_desktopgridconfigurationdlg.h"
-#include <KSharedConfig>
-#include <QPointer>
 
 class DesktopGridConfiguration : public CommandConfiguration
 {
@@ -31,22 +29,15 @@ class DesktopGridConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::DesktopGridConfigurationDlg ui;
-		static QPointer<DesktopGridConfiguration> instance;
  
 	public slots:
-		virtual void save();
-		virtual void load();
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 	
 	public:
-		static DesktopGridConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new DesktopGridConfiguration(parent, args);
-			return instance;
-		}
-		DesktopGridConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~DesktopGridConfiguration();
-		
-		void destroy();
 		
 		//configuration options
 		bool useRealTransparency();

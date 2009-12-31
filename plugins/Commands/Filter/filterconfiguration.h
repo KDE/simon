@@ -20,7 +20,7 @@
 #ifndef SIMON_FILTERCONFIGURATION_H_292E2876D06A41AE941DEA08497D4BFE
 #define SIMON_FILTERCONFIGURATION_H_292E2876D06A41AE941DEA08497D4BFE
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_filterconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
@@ -31,27 +31,19 @@ class FilterConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::FilterConfigurationDlg ui;
-		static QPointer<FilterConfiguration> instance;
  
 	public slots:
-		virtual void save();
-		virtual void load();
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 	
 	public:
-		static FilterConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new FilterConfiguration(parent, args);
-			return instance;
-		}
-		FilterConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		FilterConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~FilterConfiguration();
-		
-		void destroy();
 		
 		//configuration options
 		QString deactivateTrigger() const;
 		QString activateTrigger() const;
-		bool useRealTransparency();
 };
 
 #endif

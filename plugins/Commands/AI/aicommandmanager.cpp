@@ -25,19 +25,19 @@
 #include <QDebug>
 #include <KProcess>
 #include <KProgressDialog>
+#include <simonscenarios/scenario.h>
 #include "aiconfiguration.h"
 #include "aimlparser.h"
 
 K_PLUGIN_FACTORY( AIPluginFactory, 
 			registerPlugin< AICommandManager >(); 
-			registerPlugin< AIConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 
 
-AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	parser(0),
 	festivalProc(0)
 {
@@ -48,9 +48,14 @@ const QString AICommandManager::name() const
 	return i18n("Artificial Intelligence");
 }
 
+const KIcon AICommandManager::icon() const
+{
+	return KIcon("view-media-artist");
+}
+
 CommandConfiguration* AICommandManager::getConfigurationPage()
 {
-	return AIConfiguration::getInstance();
+	return config;
 }
 
 bool AICommandManager::trigger(const QString& triggerName)
@@ -91,7 +96,7 @@ bool AICommandManager::setupParser()
 	parser->loadVars(KStandardDirs::locate("data", "ai/util/bot.xml"), true);
 	parser->loadSubstitutions(KStandardDirs::locate("data", "ai/util/substitutions.xml"));
 	
-	QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+AIConfiguration::getInstance()->aimlSet()+"/");
+	QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+"/");
 	
 	QDir aimlDir(aimlDirString);
 	QStringList aimls = aimlDir.entryList(QStringList() << "*.aiml", QDir::Files);
@@ -108,40 +113,17 @@ bool AICommandManager::setupParser()
 	dlg->deleteLater();
 	return true;
 }
- 
-bool AICommandManager::load()
-{
-	if (parser) return true;
 	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
-	AIConfiguration::getInstance()->setManager(this);
-	AIConfiguration::getInstance()->load();
-	
-	if (!setupParser()) return false;
-
-	
-	festivalProc = new KProcess(this);
-	festivalProc->setProgram(KStandardDirs::findExe("festival"));
-	festivalProc->start();
-	if (!festivalProc->waitForStarted(1000))
-		return false;
-	
- 	festivalProc->write("(voice_us2_mbrola)\n");
-	return true;
-}
-	
-bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parentScenario)
+bool AICommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(parentScenario);
 	if (parser) return true;
 	
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
-	AIConfiguration::getInstance()->setManager(this);
-	AIConfiguration::getInstance()->load();
+	config = new AIConfiguration(parentScenario);
+	static_cast<AIConfiguration*>(config)->setManager(this);
+	config->deSerialize(elem);
 	
 	if (!setupParser()) return false;
-
 	
 	festivalProc = new KProcess(this);
 	festivalProc->setProgram(KStandardDirs::findExe("festival"));
@@ -150,11 +132,6 @@ bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *pare
 		return false;
 	
  	festivalProc->write("(voice_us2_mbrola)\n");
-	return true;
-}
-
-bool AICommandManager::save()
-{
 	return true;
 }
 

@@ -11,7 +11,6 @@ include (KDE4Defaults)
 set (QT_USE_QTMAIN true)
 set (QT_USE_QTNETWORK true)
 set (QT_USE_QTSQL true)
-set (QT_USE_QTSVG true)
 
 include(${QT_USE_FILE})
 

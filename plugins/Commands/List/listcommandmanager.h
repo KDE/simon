@@ -20,10 +20,9 @@
 #ifndef SIMON_LISTCOMMANDMANAGER_H_84821C333D2D473289D5FBC6A6F02DE3
 #define SIMON_LISTCOMMANDMANAGER_H_84821C333D2D473289D5FBC6A6F02DE3
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
-class XMLListCommand;
 class CreateListCommandWidget;
 /**
  *	@class ListCommandManager
@@ -35,24 +34,20 @@ class CreateListCommandWidget;
  */
 class ListCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLListCommand* xmlListCommand;
 public:
 	const KIcon icon() const;
 	bool addCommand(Command *command);
 	const QString name() const;
-	bool load();
-	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    ListCommandManager(QObject *parent, const QVariantList& args);
+    ListCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~ListCommandManager();

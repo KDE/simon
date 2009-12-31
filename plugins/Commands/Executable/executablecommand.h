@@ -20,7 +20,7 @@
 #ifndef SIMON_EXECUTABLECOMMAND_H_1822E03B797C494599B9629C6B47E478
 #define SIMON_EXECUTABLECOMMAND_H_1822E03B797C494599B9629C6B47E478
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QDomElement>
 #include <KUrl>
 class QDomDocument;

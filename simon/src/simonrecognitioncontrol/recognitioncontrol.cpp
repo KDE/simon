@@ -26,11 +26,13 @@
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
 
-#include <speechmodelbase/wordlistcontainer.h>
-#include <speechmodelbase/grammarcontainer.h>
-#include <speechmodelbase/languagedescriptioncontainer.h>
-#include <speechmodelbase/trainingcontainer.h>
-#include <speechmodelbase/model.h>
+#include <simonscenarios/trainingmanager.h>
+
+#include <simonscenarios/languagedescriptioncontainer.h>
+#include <simonscenarios/trainingcontainer.h>
+#include <simonscenarios/model.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/scenariomanager.h>
 
 #include <simonprogresstracking/operation.h>
 #include <simonrecognitionresult/recognitionresult.h>
@@ -93,8 +95,7 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
-	timeoutWatcher(new QTimer(this)),
-	modelManager(new ModelManagerUiProxy(this))
+	timeoutWatcher(new QTimer(this))
 {
 	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
@@ -112,7 +113,7 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
 	
 	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
-	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
+	connect(ModelManagerUiProxy::getInstance(), SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
 void RecognitionControl::actOnAutoConnect()
@@ -380,13 +381,13 @@ void RecognitionControl::sendActiveModelModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::ActiveModelDate
-		<< modelManager->getActiveContainerModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime();
 	socket->write(toWrite);
 }
 	
 bool RecognitionControl::sendActiveModel()
 {
-	Model *model = modelManager->createActiveContainer();
+	Model *model = ModelManagerUiProxy::getInstance()->createActiveContainer();
 	if (!model) {
 		emit synchronisationWarning(i18n("Couldn't create model container"));
 		sendRequest(Simond::ErrorRetrievingActiveModel);
@@ -398,7 +399,7 @@ bool RecognitionControl::sendActiveModel()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << modelManager->getActiveContainerModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getActiveContainerModifiedTime()
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
@@ -419,7 +420,7 @@ bool RecognitionControl::sendActiveModel()
 
 void RecognitionControl::sendActiveModelSampleRate()
 {
-	qint32 smpFreq = modelManager->getActiveModelSampleRate();
+	qint32 smpFreq = ModelManagerUiProxy::getInstance()->getActiveModelSampleRate();
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -429,83 +430,117 @@ void RecognitionControl::sendActiveModelSampleRate()
 	socket->write(toWrite);
 }
 
-void RecognitionControl::sendModelSrcModifiedDate()
+void RecognitionControl::requestMissingScenario()
 {
+	if (missingScenarios.isEmpty()) {
+		sendRequest(Simond::ScenarioSynchronisationComplete);
+		return;
+	}
+
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::ModelSrcDate
-		<< modelManager->getSrcContainerModifiedTime();
+	QByteArray requestName = missingScenarios.takeAt(0).toUtf8();
+	
+	out << (qint32) Simond::GetScenario
+		<< (qint64) (requestName.count()+sizeof(qint32)) /*sep*/ << requestName;
 	socket->write(toWrite);
 }
 
-
-void RecognitionControl::sendWordListModifiedDate()
+void RecognitionControl::sendScenarioList()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::WordListDate
-		<< modelManager->getWordListModifiedTime();
-	socket->write(toWrite);
-}
 
-void RecognitionControl::sendWordList()
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	WordListContainer *wordList = modelManager->getWordListContainer();
-	if (!wordList)
-		sendRequest(Simond::ErrorRetrievingWordList);
+	bodyStream << ScenarioManager::getInstance()->getAllAvailableScenarioIds();
 	
-	bodyStream << modelManager->getWordListModifiedTime()
-		<< wordList->simpleVocab()
-		<< wordList->activeVocab()
-		<< wordList->activeLexicon();
-
-	out << (qint32) Simond::WordList
+	out << (qint32) Simond::ScenarioList
 		<< (qint64) body.count();
-
 	socket->write(toWrite);
 	socket->write(body);
-	
-	delete wordList;
 }
 
-
-
-void RecognitionControl::sendGrammarModifiedDate()
+void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << (qint32) Simond::GrammarDate
-		<< modelManager->getGrammarModifiedTime();
+
+	Scenario *s = new Scenario(scenarioId);
+	if (!s->skim()) 
+		out << (qint32) Simond::ErrorRetrievingScenario;
+	else {
+		kDebug() << "Sending scenario date of scenario " << scenarioId << ": " << s->modifiedDate();
+		out << (qint32) Simond::ScenarioDate
+			<< s->modifiedDate();
+	}
+
+	delete s;
 	socket->write(toWrite);
 }
 
+void RecognitionControl::sendScenario(QString scenarioId)
+{
+	checkIfSynchronisationIsAborting();
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
 
-void RecognitionControl::sendGrammar()
+	kDebug() << "Sending scenario " << scenarioId;
+	QFile f(KStandardDirs::locate("appdata", "scenarios/"+scenarioId));
+	if (!f.open(QIODevice::ReadOnly)) {
+		kDebug() << "Couldn't retreive scenario";
+		out << (qint32) Simond::ErrorRetrievingScenario;
+		socket->write(toWrite);
+	} else {
+		kDebug() << "Really sending scenario...";
+		QByteArray body;
+		QDataStream bodyStream(&body, QIODevice::WriteOnly);
+		QByteArray scenarioIdByte = scenarioId.toUtf8();
+		QByteArray scenarioByte = f.readAll();
+		bodyStream << scenarioIdByte << scenarioByte;
+		out << (qint32) Simond::Scenario << (qint64) (body.count());
+		socket->write(toWrite);
+		socket->write(body);
+	}
+}
+
+void RecognitionControl::sendSelectedScenarioListModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+	QDateTime lastModifiedDate = cg.readEntry("LastModified", QDateTime());
+
+	out << (qint32) Simond::SelectedScenarioDate
+			<< lastModifiedDate;
+
+	socket->write(toWrite);
+}
+
+void RecognitionControl::sendSelectedScenarioList()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	GrammarContainer *grammar = modelManager->getGrammarContainer();
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+	QDateTime lastModifiedDate = cg.readEntry("LastModified", QDateTime());
+	QStringList selectedScenarios = cg.readEntry("SelectedScenarios", QStringList());
+
+	bodyStream << lastModifiedDate << selectedScenarios;
 	
-	bodyStream << modelManager->getGrammarModifiedTime()
-		<< grammar->grammarStructures();
-
-	out << (qint32) Simond::Grammar
+	out << (qint32) Simond::SelectedScenarioList
 		<< (qint64) body.count();
-
 	socket->write(toWrite);
 	socket->write(body);
-	
-	delete grammar;
-}
 
+}
 
 
 void RecognitionControl::sendLanguageDescriptionModifiedDate()
@@ -513,7 +548,7 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::LanguageDescriptionDate
-		<< modelManager->getLanguageDescriptionModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -525,9 +560,9 @@ void RecognitionControl::sendLanguageDescription()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	LanguageDescriptionContainer *languageDescription = modelManager->getLanguageDescriptionContainer();
+	LanguageDescriptionContainer *languageDescription = ModelManagerUiProxy::getInstance()->getLanguageDescriptionContainer();
 	
-	bodyStream << modelManager->getLanguageDescriptionModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime()
 		<< languageDescription->treeHed()
 		<< languageDescription->shadowVocab();
 
@@ -547,7 +582,7 @@ void RecognitionControl::sendTrainingModifiedDate()
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::TrainingDate
-		<< modelManager->getTrainingModifiedTime();
+		<< ModelManagerUiProxy::getInstance()->getTrainingModifiedTime();
 	socket->write(toWrite);
 }
 
@@ -559,9 +594,9 @@ void RecognitionControl::sendTraining()
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	TrainingContainer *training = modelManager->getTrainingContainer();
+	TrainingContainer *training = ModelManagerUiProxy::getInstance()->getTrainingContainer();
 	
-	bodyStream << modelManager->getTrainingModifiedTime()
+	bodyStream << ModelManagerUiProxy::getInstance()->getTrainingModifiedTime()
 		<< training->sampleRate()
 		<< training->wavConfig()
 		<< training->prompts();
@@ -577,17 +612,17 @@ void RecognitionControl::sendTraining()
 
 void RecognitionControl::synchronizeSamples()
 {
-	Q_ASSERT(modelManager);
+	Q_ASSERT(ModelManagerUiProxy::getInstance());
 	
-	modelManager->buildMissingSamplesList();
+	ModelManagerUiProxy::getInstance()->buildMissingSamplesList();
 	fetchMissingSamples();
 }
 
 void RecognitionControl::fetchMissingSamples()
 {
-	Q_ASSERT(modelManager);
+	Q_ASSERT(ModelManagerUiProxy::getInstance());
 	
-	QString sample = modelManager->missingSample();
+	QString sample = ModelManagerUiProxy::getInstance()->missingSample();
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
@@ -608,14 +643,13 @@ void RecognitionControl::fetchMissingSamples()
 
 void RecognitionControl::sendSample(QString sampleName)
 {
-	kDebug() << sampleName;
 	checkIfSynchronisationIsAborting();
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
 	sampleName += ".wav";
 	
-	QByteArray sample = modelManager->getSample(sampleName);
+	QByteArray sample = ModelManagerUiProxy::getInstance()->getSample(sampleName);
 	
 	if (sample.isNull())
 	{
@@ -624,7 +658,7 @@ void RecognitionControl::sendSample(QString sampleName)
 			synchronisationOperation->canceled();
 
 		synchronisationDone();
-		modelManager->sampleNotAvailable(sampleName);
+		sampleNotAvailable(sampleName);
 		return;
 	}
 
@@ -667,7 +701,7 @@ void RecognitionControl::startSynchronisation()
 	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kDebug() << "Starting synchronisation";
-	modelManager->startGroup();
+	ModelManagerUiProxy::getInstance()->startGroup();
 	sendRequest(Simond::StartSynchronisation);
 	kDebug() << stillToProcess.count();
 }
@@ -693,7 +727,7 @@ void RecognitionControl::synchronisationDone()
 		synchronisationOperation=NULL;
 	}
 
-	modelManager->commitGroup(true /*silent*/);
+	ModelManagerUiProxy::getInstance()->commitGroup(true /*silent*/);
 }
 
 
@@ -825,11 +859,11 @@ void RecognitionControl::messageReceived()
 					msg >> dict;
 					msg >> dfa;
 					
-					modelManager->storeActiveModel(changedTime, sampleRate, 
+					ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate, 
 									hmmDefs, tiedList, dict, dfa);
 					
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					sendModelSrcModifiedDate();
+					sendScenarioList();
 					break;
 				}
 				
@@ -849,7 +883,7 @@ void RecognitionControl::messageReceived()
 
 					kDebug() << "No active model available";
 					emit synchronisationWarning(i18n("No Speech Model available: Recognition deactivated"));
-					sendModelSrcModifiedDate();
+					sendScenarioList();
 					
 					break;
 				}
@@ -861,20 +895,162 @@ void RecognitionControl::messageReceived()
 	
 					kDebug() << "Couldn't store active model on server";
 					emit synchronisationError(i18n("The server couldn't store the the active model."));
-					sendModelSrcModifiedDate();
+					sendScenarioList();
 					
 					break;
 				}
 				
-				case Simond::GetModelSrcDate:
+				case Simond::GetScenarioList:
 				{
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					
-					synchronisationOperation->update(i18n("Checking Source"), 9);
+					synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
 	
-					kDebug() << "Server requested Model src modified date";
-					sendModelSrcModifiedDate();
+					kDebug() << "Server requested scenario list";
+					sendScenarioList();
+					break;
+				}
+				
+				case Simond::ScenarioList:
+				{
+					checkIfSynchronisationIsAborting();
+					parseLengthHeader();
+
+					QStringList remoteScenarioList;
+					msg >> remoteScenarioList;
+					missingScenarios.clear();
+					QStringList localScenarioList = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
+
+					foreach (const QString& id, remoteScenarioList)
+						if (!localScenarioList.contains(id))
+							missingScenarios << id;
+
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
+					kDebug() << "Server sent scenario list";
+					sendRequest(Simond::StartScenarioSynchronisation);
+					break;
+				}
+
+				case Simond::ScenarioStorageFailed:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+	
+					kDebug() << "Server can't store scenario!";
+					emit synchronisationError(i18n("The server couldn't store the scenario."));
+					break;
+				}
+				
+				case Simond::ScenarioSynchronisationComplete:
+				{
+					kDebug() << "Server sent scenario synchronizationcomplete";
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+					requestMissingScenario();
+					break;
+				}
+				
+				case Simond::GetScenarioDate:
+				{
+					checkIfSynchronisationIsAborting();
+					parseLengthHeader();
+
+					QByteArray scenarioNameByte;
+					msg >> scenarioNameByte;
+
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kDebug() << "Server requested Scenario modified date for: " << scenarioNameByte;
+					
+					sendScenarioModifiedDate(QString::fromUtf8(scenarioNameByte));
+
+					break;
+				}
+				
+				case Simond::GetScenario:
+				{
+					checkIfSynchronisationIsAborting();
+					parseLengthHeader();
+
+					QByteArray scenarioNameByte;
+					msg >> scenarioNameByte;
+
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kDebug() << "Server requested Scenario: " << scenarioNameByte;
+					
+					sendScenario(QString::fromUtf8(scenarioNameByte));
+
+					break;
+				}
+				
+				case Simond::Scenario:
+				{
+					checkIfSynchronisationIsAborting();
+					parseLengthHeader();
+
+					QByteArray scenarioId;
+					QByteArray scenario;
+					msg >> scenarioId;
+					msg >> scenario;
+
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kDebug() << "Server sent Scenario " << scenarioId;
+					
+					if (!ScenarioManager::getInstance()->storeScenario(QString::fromUtf8(scenarioId), scenario))
+						sendRequest(Simond::ScenarioStorageFailed);
+					else  {
+						sendRequest(Simond::ScenarioStored);
+					}
+					break;
+				}
+				
+				case Simond::GetSelectedScenarioDate:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+					kDebug() << "Server requested selected scenario date";
+					sendSelectedScenarioListModifiedDate();
+					break;
+				}
+				
+				case Simond::GetSelectedScenarioList:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+					kDebug() << "Server requested selected scenarios";
+					sendSelectedScenarioList();
+					break;
+				}
+				
+				case Simond::SelectedScenarioList:
+				{
+					checkIfSynchronisationIsAborting();
+					parseLengthHeader();
+
+					QStringList list;
+					msg >> list;
+
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kDebug() << "Server sent Scenario list";
+
+					KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+					KConfigGroup cg(config, "");
+					cg.writeEntry("SelectedScenarios", list);
+					cg.writeEntry("LastModified", QDateTime::currentDateTime());
+
+					if (!ScenarioManager::getInstance()->setupScenarios())
+						emit synchronisationError(i18n("Couldn't re-initialize scenarios. Please restart simon!"));
+					break;
+				}
+				case Simond::SelectedScenarioListStorageFailed:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+	
+					kDebug() << "Server could not store selected scenario list";
+					emit synchronisationError(i18n("The server couldn't store the list of selected scenarios."));
+					sendTrainingModifiedDate();
 					break;
 				}
 				
@@ -916,11 +1092,11 @@ void RecognitionControl::messageReceived()
 					msg >> wavConfig;
 					msg >> prompts;
 					
-					modelManager->storeTraining(changedTime, sampleRate,wavConfig,prompts);
+					ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,wavConfig,prompts);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
-					sendWordListModifiedDate();
+					sendLanguageDescriptionModifiedDate();
 					break;
 				}
 				
@@ -930,7 +1106,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "No training available";
-					sendWordListModifiedDate();
+					sendLanguageDescriptionModifiedDate();
 					break;
 				}
 				
@@ -941,140 +1117,10 @@ void RecognitionControl::messageReceived()
 	
 					kDebug() << "Server could not store training";
 					emit synchronisationError(i18n("The server couldn't store the trainings corpus."));
-					sendWordListModifiedDate();
-					break;
-				}
-				
-				
-				case Simond::GetWordListDate:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-					
-					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 17);
-	
-					kDebug() << "Server Requested WordList modified date";
-					sendWordListModifiedDate();
-					break;
-				}
-				
-				case Simond::GetWordList:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-	
-					kDebug() << "Server Requested WordList";
-					sendWordList();
-					break;
-				}
-				
-				case Simond::WordList:
-				{
-					checkIfSynchronisationIsAborting();
-					kDebug() << "Server sent WordList";
-					
-					parseLengthHeader();
-
-					QByteArray simple, vocab, lexicon;
-					QDateTime changedTime;
-					msg >> changedTime;
-					msg >> simple;
-					msg >> vocab;
-					msg >> lexicon;
-					
-					modelManager->storeWordList(changedTime,simple,vocab,lexicon);
-					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					
-					synchronisationOperation->update(i18n("Synchronizing Grammar"), 24);
-					sendGrammarModifiedDate();
-					break;
-				}
-				
-				case Simond::NoWordListAvailable:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-		
-					kDebug() << "No wordlist available";
-					emit synchronisationError(i18n("No Wordlist available"));
-					sendGrammarModifiedDate();
-					break;
-				}
-				
-				case Simond::WordListStorageFailed:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-
-					kDebug() << "Server could not store wordlist";
-					emit synchronisationError(i18n("The server couldn't store the wordlist."));
-					sendGrammarModifiedDate();
-					break;
-				}
-				
-				case Simond::GetGrammarDate:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-					
-					synchronisationOperation->update(i18n("Synchronizing Grammar"), 31);
-
-					kDebug() << "Server Requested Grammar modified date";
-					sendGrammarModifiedDate();
-					break;
-				}
-				
-				case Simond::GetGrammar:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-
-					kDebug() << "Server requested Grammar";
-					sendGrammar();
-					break;
-				}
-				
-				case Simond::Grammar:
-				{
-					checkIfSynchronisationIsAborting();
-
-					kDebug() << "Server sent grammar";
-					
-					parseLengthHeader();
-					
-					QByteArray grammar;
-					QDateTime changedTime;
-					msg >> changedTime;
-					msg >> grammar;
-					
-					modelManager->storeGrammar(changedTime,grammar);
-					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					
 					sendLanguageDescriptionModifiedDate();
 					break;
 				}
-				
-				case Simond::NoGrammarAvailable:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-
-					kDebug() << "No grammar available";
-					sendLanguageDescriptionModifiedDate();
-					break;
-				}
-				
-				case Simond::GrammarStorageFailed:
-				{
-					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
-
-					kDebug() << "Server could not store grammar";
-					emit synchronisationError(i18n("The server couldn't store the grammar."));
-					sendLanguageDescriptionModifiedDate();
-					break;
-				}
-				
+							
 				case Simond::GetLanguageDescriptionDate:
 				{
 					advanceStream(sizeof(qint32));
@@ -1109,7 +1155,7 @@ void RecognitionControl::messageReceived()
 					msg >> changedTime;
 					msg >> treeHed;
 					msg >> shadowVocab;
-					modelManager->storeLanguageDescription(changedTime,shadowVocab, treeHed);
+					ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
 					sendRequest(Simond::StartTrainingsSampleSynchronisation);
@@ -1146,7 +1192,7 @@ void RecognitionControl::messageReceived()
 				case Simond::ErrorRetrievingTrainingsSample:
 				{
 					advanceStream(sizeof(qint32));
-					modelManager->sampleNotAvailable(modelManager->missingSample());
+					sampleNotAvailable(ModelManagerUiProxy::getInstance()->missingSample());
 					synchronisationDone();
 					break;
 				}
@@ -1184,7 +1230,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					kDebug() << "Server sent Trainings-Sample";
 					
-					if (!modelManager->storeSample(sample))
+					if (!ModelManagerUiProxy::getInstance()->storeSample(sample))
 					{
 						sendRequest(Simond::TrainingsSampleStorageFailed);
 						synchronisationDone();
@@ -1322,7 +1368,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->wordUndefined(QString::fromUtf8(word));
+					wordUndefined(QString::fromUtf8(word));
 					break;
 				}	
 				case Simond::ModelCompilationClassUndefined: {
@@ -1333,7 +1379,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->classUndefined(QString::fromUtf8(undefClass));
+					classUndefined(QString::fromUtf8(undefClass));
 					break;
 				}	
 				case Simond::ModelCompilationPhonemeUndefined: {
@@ -1344,7 +1390,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->phonemeUndefined(QString::fromUtf8(phoneme));
+					phonemeUndefined(QString::fromUtf8(phoneme));
 					break;
 				}
 
@@ -1368,7 +1414,7 @@ void RecognitionControl::messageReceived()
 					msg >> protocol;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					modelManager->displayCompilationProtocol(QString::fromUtf8(protocol));
+					displayCompilationProtocol(QString::fromUtf8(protocol));
 				}
 				
 
@@ -1489,7 +1535,7 @@ void RecognitionControl::messageReceived()
 				}
 				
 				default:
-					kDebug() << "Unknown request";
+					kDebug() << "Unknown request: " << request;
 			}
 		}
 
@@ -1559,6 +1605,61 @@ void RecognitionControl::resumeRecognition()
 //	sendRequest(Simond::ResumeRecognition);
 }
 
+void RecognitionControl::displayCompilationProtocol(const QString& protocol)
+{
+	KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
+}
+
+void RecognitionControl::sampleNotAvailable(const QString& sample)
+{
+	if (KMessageBox::questionYesNo(0, i18n("The sample \"%1\" could not be found neither on the local computer nor the "
+"server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes)
+	{
+		//kick some poor samples ass
+		ModelManagerUiProxy::getInstance()->startGroup();
+		QString sampleBaseName = sample.left(sample.length()-4);
+		kDebug() << "Deleting: " << sampleBaseName;
+		bool succ = TrainingManager::getInstance()->removeSample(sampleBaseName);
+		if (succ)
+			TrainingManager::getInstance()->savePrompts();
+
+		ModelManagerUiProxy::getInstance()->commitGroup(false /*silent*/);
+
+		if (!succ)
+			KMessageBox::error(0, i18n("Couldn't remove Sample from the Trainingscorpus"));
+	}
+}
+
+
+
+
+void RecognitionControl::wordUndefined(const QString& word)
+{
+	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
+"in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
+		return;
+//	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
+
+	//FIXME: fix me!
+/*	AddWordView *addWordView = new AddWordView(0);
+	addWordView->createWord(word);
+	addWordView->show();
+	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));*/
+}
+
+void RecognitionControl::classUndefined(const QString& undefClass)
+{
+	KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
+}
+
+void RecognitionControl::phonemeUndefined(const QString& phoneme)
+{
+	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
+}
+
+
+
+
 /**
  *	@brief Destructor
  *	
@@ -1568,7 +1669,6 @@ RecognitionControl::~RecognitionControl()
 {
     delete socket;
     delete timeoutWatcher;
-    delete modelManager;
 }
 
 

@@ -21,11 +21,12 @@
 #define SIMON_CREATEPLACECOMMANDWIDGET_H_ACEC852968EA4E5292BEFBCDC5983F84
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createplacecommandwidget.h"
 
 class Command;
 class ImportPlaceWizard;
+class CommandManager;
 
 /**
  *	@class CreatePlaceCommandWidget
@@ -56,7 +57,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreatePlaceCommandWidget(QWidget *parent=0);
+	CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreatePlaceCommandWidget();

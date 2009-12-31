@@ -21,15 +21,15 @@
 #include "compositecommand.h"
 #include "delaycommand.h"
 
-#include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>
+#include <simonactions/actionmanager.h>
 
 #include <QListWidget>
 #include <QInputDialog>
 #include <KMessageBox>
 #include <QStringList>
 
-CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 	allCommands(ActionManager::getInstance()->getCommandList()),
 	model(new CommandTableModel())
 {
@@ -48,8 +48,8 @@ CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget* parent) : Cr
 	ui.tvCommands->setModel(model);
 
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
-	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
-	connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelay()));
+	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToComp()));
+	connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelayToComp()));
 	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
@@ -156,7 +156,7 @@ bool CreateCompositeCommandWidget::init(Command* command)
 }
 
 
-void CreateCompositeCommandWidget::addCommand()
+void CreateCompositeCommandWidget::addCommandToComp()
 {
 	model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
 	enableButtons(ui.tvCommands->currentIndex());
@@ -171,7 +171,7 @@ void CreateCompositeCommandWidget::removeCommand()
 	emit completeChanged();
 }
 
-void CreateCompositeCommandWidget::addDelay()
+void CreateCompositeCommandWidget::addDelayToComp()
 {
 	int delay = ui.sbDelay->value();
 

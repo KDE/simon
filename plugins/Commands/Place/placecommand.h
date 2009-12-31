@@ -22,7 +22,7 @@
 #define SIMON_PLACECOMMAND_H_DFA997ECD2A140B19F98DACE4C6CCA9A
 
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <KUrl>
 #include <KIcon>
 

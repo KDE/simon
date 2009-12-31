@@ -18,8 +18,8 @@
  */
 
 
-#ifndef SIMON_SIMONCONTROL_H_A1A63FDA064440159332704A9B55F2AC
-#define SIMON_SIMONCONTROL_H_A1A63FDA064440159332704A9B55F2AC
+#ifndef SIMONCONTROL_H
+#define SIMONCONTROL_H
 
 /**
  *	@class SimonControl
@@ -38,6 +38,7 @@
 #include <QStringList>
 #include <QList>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
+#include <simonscenarios/scenariomanager.h>
 #include "simonappcore_export.h"
 
 class QSettings;
@@ -45,14 +46,12 @@ class QVariant;
 class RecognitionControl;
 class ActionManager;
 
-class Scenario;
-class ScenarioDisplay;
+class ShadowVocabulary;
 
 class SIMONAPPCORE_EXPORT SimonControl : public QObject {
 	Q_OBJECT
 
 public:
-	
 	enum SystemStatus {
 		Disconnected=0,
 		Connecting=1,
@@ -126,10 +125,6 @@ private:
 	SimonControl::SystemStatus status;
 	
 	RecognitionControl *recognitionControl; //!< Julius Backend
-
-	QList<Scenario*> scenarios;
-	QList<ScenarioDisplay*> scenarioDisplays;
-	void setupScenarios();
 };
 
 #endif

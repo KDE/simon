@@ -21,13 +21,14 @@
 #define SIMON_CREATECOMPOSITECOMMANDWIDGET_H_DE0706C6780A4A17A860240519ACCFFB
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/command.h>
 #include "ui_createcompositecommandwidget.h"
 
 class Command;
 class CommandTableModel;
 class ImportProgramWizard;
+class CommandManager;
 
 /**
  *	@class CreateCompositeCommandWidget
@@ -47,8 +48,8 @@ private:
 	CommandTableModel *model;
 
 private slots:
-	void addDelay();
-	void addCommand();
+	void addDelayToComp();
+	void addCommandToComp();
 	void removeCommand();
 	void moveUp();
 	void moveDown();
@@ -65,7 +66,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateCompositeCommandWidget(QWidget *parent=0);
+	CreateCompositeCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateCompositeCommandWidget();

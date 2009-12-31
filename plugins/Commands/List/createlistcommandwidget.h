@@ -21,8 +21,8 @@
 #define SIMON_CREATELISTCOMMANDWIDGET_H_EBCB1D84FCCB496290F4664A4759E20F
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/command.h>
 #include "ui_createlistcommandwidget.h"
 
 class Command;
@@ -46,7 +46,7 @@ private:
 	CommandTableModel *model;
 
 private slots:
-	void addCommand();
+	void addCommandToList();
 	void removeCommand();
 	void moveUp();
 	void moveDown();
@@ -63,7 +63,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateListCommandWidget(QWidget *parent=0);
+	CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateListCommandWidget();

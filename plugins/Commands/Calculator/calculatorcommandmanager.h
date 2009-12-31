@@ -20,7 +20,7 @@
 #ifndef SIMON_CALCULATORCOMMANDMANAGER_H_69F8482CCD434513BBC89310A2B529BE
 #define SIMON_CALCULATORCOMMANDMANAGER_H_69F8482CCD434513BBC89310A2B529BE
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <QList>
@@ -54,10 +54,10 @@ private:
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
 
-	double currentResult;
 	bool resultCurrentlyDisplayed;
 
 	CommandListWidget *commandListWidget;
+	double currentResult;
 	void sendOperator(const QString operatorStr);
 	void sendBracket(const QString bracketStr);
 	void sendNumber(const QString bracketStr);
@@ -108,10 +108,8 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
-//	bool deleteCommand(Command*) { return false; }
-	CommandConfiguration* getConfigurationPage();
+
+	bool deSerializeConfig(const QDomElement& elem);
 
 	CommandList* getCommands() const { 
 		kWarning() << "Calc: Getting commands...";
@@ -124,7 +122,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    CalculatorCommandManager(QObject *parent, const QVariantList& args);
+    CalculatorCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~CalculatorCommandManager();

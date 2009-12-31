@@ -8,10 +8,9 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonactions_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/action.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandtablemodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.cpp
@@ -21,21 +20,20 @@ set( simonactions_LIB_SRCS
 set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
-	${CMAKE_CURRENT_SOURCE_DIR}/action.h
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.h
   	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h
 )
 
-kde4_add_ui_files( simonactions_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
-)
+#kde4_add_ui_files( simonactions_LIB_SRCS
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
+	#)
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 
 target_link_libraries( simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
-${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult
-)
+${KDE4_KDEUI_LIBS} speechgui simonscenarios simonrecognitionresult
+simonscenariobase)
 
 set_target_properties( simonactions
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

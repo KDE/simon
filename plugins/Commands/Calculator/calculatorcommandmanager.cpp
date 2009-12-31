@@ -42,7 +42,7 @@ K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 QStringList CalculatorCommandManager::numberIdentifiers;
 
-CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	commandListWidget(new CommandListWidget()),
 	currentResult(0),
@@ -107,6 +107,14 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 			i18n("Format calculation and result as money"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 }
+	
+bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
+{
+	config = new CalculatorConfiguration(parentScenario);
+	config->deSerialize(elem);
+	return true;
+}
+
 
 const QString CalculatorCommandManager::preferredTrigger() const
 {
@@ -656,8 +664,8 @@ void CalculatorCommandManager::processRequest(int number)
 
 void CalculatorCommandManager::ok()
 {
-	CalculatorConfiguration::OutputModeSelection modeSelection= CalculatorConfiguration::getInstance()->outputModeSelection();
-	CalculatorConfiguration::OutputMode mode = CalculatorConfiguration::getInstance()->outputMode();
+	CalculatorConfiguration::OutputModeSelection modeSelection= static_cast<CalculatorConfiguration*>(config)->outputModeSelection();
+	CalculatorConfiguration::OutputMode mode = static_cast<CalculatorConfiguration*>(config)->outputMode();
 	kDebug() << modeSelection << mode;
 
 	switch (modeSelection) {
@@ -669,7 +677,7 @@ void CalculatorCommandManager::ok()
 			break;
 		case CalculatorConfiguration::AskButDefaultAfterTimeout:
 			commandListWidget->show();
-			commandListWidget->selectAfterTimeout((int) mode, CalculatorConfiguration::getInstance()->askTimeout());
+			commandListWidget->selectAfterTimeout((int) mode, static_cast<CalculatorConfiguration*>(config)->askTimeout());
 			break;
 	}
 }
@@ -805,21 +813,6 @@ bool CalculatorCommandManager::trigger(const QString& triggerName)
 	return true;
 }
 
-
-CommandConfiguration* CalculatorCommandManager::getConfigurationPage()
-{
-	return CalculatorConfiguration::getInstance();
-}
-
-bool CalculatorCommandManager::load()
-{
-	return true;
-}
-
-bool CalculatorCommandManager::save()
-{
-	return true;
-}
 
 void CalculatorCommandManager::activate()
 {

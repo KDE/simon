@@ -19,13 +19,16 @@
 
 
 #include "importgrammar.h"
-#include <speechmodelmanagement/wordlistmanager.h>
 #include <QFile>
 #include <KLocalizedString>
 #include <KFilterDev>
 #include <KMimeType>
 #include <QTextCodec>
+#include <KDebug>
 #include <kencodingdetector.h>
+#include <simonscenarios/speechmodel.h>
+#include <simonscenarios/scenario.h>
+#include <simonscenarios/scenariomanager.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {
@@ -46,7 +49,8 @@ void ImportGrammar::run()
 		emit allProgress(i+1, files.count());
 		QFile::remove(files[i]);
 	}
-	emit grammarCreated(sentences);
+	ScenarioManager::getInstance()->getCurrentScenario()->addStructures(sentences);
+	emit grammarCreated();
 }
 
 
@@ -67,7 +71,11 @@ QStringList ImportGrammar::readFile(QString path)
 		//seek back to the beginning and parse file using the guessed encoding
 		QByteArray preview = file->peek(5000);
 		KEncodingDetector detector;
+#ifdef Q_OS_WIN32
 		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+#else
+		detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+#endif
 		QString out=detector.decode(preview);
 		codec = QTextCodec::codecForName(detector.encoding());
 	} else 
@@ -131,8 +139,8 @@ QStringList ImportGrammar::importFile(QString path)
 	emit status(i18n("Processing..."));
 	emit fileProgress(0, structures.count());
 
-	WordList* lookupResult;
-	WordListManager *wordListManager = WordListManager::getInstance();
+	QList<Word*> lookupResult;
+
 	QString currentSentence;
 	int progress=0;
 	int max=structures.count();
@@ -154,14 +162,22 @@ QStringList ImportGrammar::importFile(QString path)
 		bool everyWordSure=true;
 		for (int j=0; (j < words.count()) && everyWordSure; j++)
 		{
-			lookupResult = wordListManager->getMainstreamWords(words[j] /*first - quick lookup*/);
-			
+			//first: quick lookup
+			lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
+										SpeechModel::ScenarioVocabulary, Vocabulary::ExactMatch);
+			kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
+
 			QStringList wordTerminals=terminals(lookupResult);
-			if (wordTerminals.count()==0)
-			{
-				lookupResult = wordListManager->getShadowedWords(words[j] /*extensive lookup*/);
+			if (wordTerminals.count()==0) {
+				//dont delete the contents of the list
+				lookupResult = ScenarioManager::getInstance()->findWords(words[j], 
+										SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
+
+				kDebug() << "Looking up " << words[j] << " found " << lookupResult.count() << " results in the active dictionary";
+
 				wordTerminals = terminals(lookupResult);
 			}
+			kDebug() << wordTerminals;
 			
 			if (wordTerminals.count() != 1 /*change this to include ambigous terminals */)
 			{
@@ -184,13 +200,11 @@ QStringList ImportGrammar::importFile(QString path)
 				else 
 					words.replace(j, wordTerminals[0]);
 			}*/
-
-				
-			delete lookupResult;
 		}
 		if (everyWordSure)
 		{
 			//add to output
+			kDebug() << "Found sentence: " << words.join(" ");
 			out << words.join(" ");
 		}
 		emit fileProgress(++progress, max);
@@ -200,13 +214,13 @@ QStringList ImportGrammar::importFile(QString path)
 	return out;
 }
 
-QStringList ImportGrammar::terminals(WordList *in)
+QStringList ImportGrammar::terminals(QList<Word*> in)
 {
 	QStringList terminals;
 	QString terminal;
-	for (int i=0; i < in->count(); i++)
+	foreach (Word* w, in)
 	{
-		terminal = in->at(i).getTerminal();
+		terminal = w->getTerminal();
 		if (!terminals.contains(terminal)) terminals << terminal;
 	}
 	if (!includeUnknown) terminals.removeAll(i18n("Unknown"));

@@ -66,8 +66,7 @@ QWizardPage* ImportGrammarWizard::createSelectFilesPage()
 QWizardPage* ImportGrammarWizard::createWorkingPage()
 {
 	ImportGrammarWorkingPage *working = new ImportGrammarWorkingPage(this);
-	connect(working, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
-	connect(working, SIGNAL(grammarCreated(QStringList)), this, SLOT(next()));
+	connect(working, SIGNAL(grammarCreated()), this, SLOT(next()));
 	connect(button(QWizard::CancelButton), SIGNAL(clicked()), working, SLOT(cancel()));
 	return working;
 }

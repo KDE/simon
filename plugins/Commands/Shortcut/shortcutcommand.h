@@ -22,7 +22,7 @@
 #define SIMON_SHORTCUTCOMMAND_H_51F6847BEF9D4333AA3B7713F789AB98
 
 #include <QKeySequence>
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 
 
 /**

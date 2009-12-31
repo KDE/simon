@@ -11,7 +11,6 @@ set (simoncompositecommandplugin_SRCS
 	compositecommand.cpp 
 	delaycommand.cpp 
 	compositecommandmanager.cpp 
-	xmlcompositecommand.cpp 
     )
 
 kde4_add_ui_files(simoncompositecommandplugin_SRCS 
@@ -22,9 +21,8 @@ kde4_add_plugin(simoncompositecommandplugin ${simoncompositecommandplugin_SRCS})
 
 
 target_link_libraries(simoncompositecommandplugin ${KDE4_KDEUI_LIBS}
-	${KDE4_KIO_LIBS} simoncommandpluginbase simonxml simonactions simonlogging)
+	${KDE4_KIO_LIBS} simonscenarios simonactions simonlogging)
 
-install( FILES composites.xml  DESTINATION ${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandcompositeplugin  )
 install(TARGETS simoncompositecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )
 install( FILES simoncompositecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )
 add_subdirectory(po)

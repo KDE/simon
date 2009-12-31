@@ -28,7 +28,7 @@
 #include <KLocalizedString>
 #include <KLocale>
 
-ProgressWidget::ProgressWidget(QPointer<Operation> O, QWidget* parent) : QWidget(parent),
+ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style, QWidget* parent) : QWidget(parent),
 	op(O)
 {
 	KLocale::setMainCatalog("simonlib");
@@ -50,12 +50,22 @@ ProgressWidget::ProgressWidget(QPointer<Operation> O, QWidget* parent) : QWidget
 		
 		QHBoxLayout *hBox = new QHBoxLayout();
 		hBox->addWidget(currentAction);
-		hBox->addWidget(bar);
-		hBox->addWidget(cancelButton);
+		if (style == Compact) {
+			hBox->addWidget(bar);
+			hBox->addWidget(cancelButton);
+		}
 
 		QVBoxLayout *vBox = new QVBoxLayout(this);
 		vBox->addWidget(name);
 		vBox->addLayout(hBox);
+		if (style != Compact) {
+			vBox->addWidget(bar);
+
+			QHBoxLayout *hBox2 = new QHBoxLayout();
+			hBox2->addStretch(2);
+			hBox2->addWidget(cancelButton);
+			vBox->addLayout(hBox2);
+		}
 		vBox->addWidget(new QSplitter(this));
 		connect(cancelButton, SIGNAL(clicked()), op, SLOT(cancel()));
 	}

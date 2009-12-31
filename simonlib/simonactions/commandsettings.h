@@ -25,7 +25,7 @@
 #include <QStringList>
 #include <QVariantList>
 #include <QHash>
-#include "action.h"
+#include <simonscenarios/action.h>
 
 class QListWidgetItem;
 class KPageWidget;

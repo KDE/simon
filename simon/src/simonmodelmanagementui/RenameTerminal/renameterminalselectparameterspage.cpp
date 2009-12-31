@@ -19,7 +19,8 @@
 
 
 #include "renameterminalselectparameterspage.h"
-#include <speechmodelmanagement/wordlistmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
 RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
  : QWizardPage(parent)
@@ -34,7 +35,8 @@ RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *
 void RenameTerminalSelectParametersPage::initializePage()
 {
 	QStringList availableTerminals;
-	availableTerminals = WordListManager::getInstance()->getTerminals(true);
+	availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+			(SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
 	ui.lwTerminal->clear();
 	ui.lwTerminal->addItems(availableTerminals);
 	

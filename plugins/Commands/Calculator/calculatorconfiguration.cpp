@@ -26,61 +26,33 @@
 
 K_PLUGIN_FACTORY_DECLARATION(CalculatorCommandPluginFactory)
 
-QPointer<CalculatorConfiguration> CalculatorConfiguration::instance;
 
-
-CalculatorConfiguration::CalculatorConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("calculator", ki18n( "Calculator" ),
+CalculatorConfiguration::CalculatorConfiguration(Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent, "calculator", ki18n( "Calculator" ),
 				      "0.1", ki18n("Calculate with your voice"),
 				      "accessories-calculator",
-				      CalculatorCommandPluginFactory::componentData(),
-				      parent)
+				      CalculatorCommandPluginFactory::componentData())
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(CalculatorCommandPluginFactory::componentData(),
-					"simoncalculatorrc");
 	connect(ui.rbOutputAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.rbOutputDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.rbAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.cbDefaultOutputMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 	connect(ui.sbOutputDefaultTimeout, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
-	load();
 }
 
 
-void CalculatorConfiguration::slotChanged()
+bool CalculatorConfiguration::deSerialize(const QDomElement& elem)
 {
-	emit changed(true);
-}
+	bool ok;
+	int outputModeSelection = elem.firstChildElement("outputModeSelection").text().toInt(&ok);
+	if (!ok) outputModeSelection = 0; //default;
 
-void CalculatorConfiguration::save()
-{
-	Q_ASSERT(config);
-	
-	KConfigGroup cg(config, "");
-	cg.writeEntry("OutputModeSelection", (int) outputModeSelection());
-	cg.writeEntry("DefaultOutputMode", ((int) outputMode())-1);
-	cg.writeEntry("AskTimeout", ui.sbOutputDefaultTimeout->value());
-	cg.sync();
-	
-	emit changed(false);
-}
-
-/*void CalculatorConfiguration::destroy()
-{
-	deleteLater();
-	instance=0;
-}*/
- 
-void CalculatorConfiguration::load()
-{
-	Q_ASSERT(config);
-
-	KConfigGroup cg(config, "");
 	CalculatorConfiguration::OutputModeSelection modeSelection = 
-			(CalculatorConfiguration::OutputModeSelection) cg.readEntry("OutputModeSelection", 0);
+			(CalculatorConfiguration::OutputModeSelection) outputModeSelection;
+	
 	switch (modeSelection) {
 		case CalculatorConfiguration::AlwaysAsk:
 			ui.rbOutputAsk->setChecked(true);
@@ -93,20 +65,41 @@ void CalculatorConfiguration::load()
 			break;
 	}
 
-	ui.cbDefaultOutputMode->setCurrentIndex(cg.readEntry("DefaultOutputMode", 0));
-	ui.sbOutputDefaultTimeout->setValue(cg.readEntry("AskTimeout", 12));
+	int defaultOutputMode = elem.firstChildElement("defaultOutputMode").text().toInt(&ok);
+	if (!ok) defaultOutputMode = 0;
+	ui.cbDefaultOutputMode->setCurrentIndex(defaultOutputMode);
 
-	cg.sync();
-	
+	int askTimeout = elem.firstChildElement("askTimeout").text().toFloat(&ok);
+	if (!ok) askTimeout = 12;
+	ui.sbOutputDefaultTimeout->setValue(askTimeout);
+
 	emit changed(false);
+	return true;
 }
- 
+
+QDomElement CalculatorConfiguration::serialize(QDomDocument *doc)
+{
+	QDomElement configElem = doc->createElement("config");
+	QDomElement outputModeSelectionElem = doc->createElement("outputModeSelection");
+	QDomElement defaultOutputModeElem = doc->createElement("defaultOutputMode");
+	QDomElement askTimeoutElem = doc->createElement("askTimeout");
+
+	outputModeSelectionElem.appendChild(doc->createTextNode(QString::number((int) outputModeSelection())));
+	defaultOutputModeElem.appendChild(doc->createTextNode(QString::number((int) outputMode()-1)));
+	askTimeoutElem.appendChild(doc->createTextNode(QString::number(ui.sbOutputDefaultTimeout->value())));
+
+	configElem.appendChild(outputModeSelectionElem);
+	configElem.appendChild(defaultOutputModeElem);
+	configElem.appendChild(askTimeoutElem);
+
+	return configElem;
+}
+
 void CalculatorConfiguration::defaults()
 {
 	ui.rbOutputAsk->animateClick();
 	ui.sbOutputDefaultTimeout->setValue(12);
 	ui.cbDefaultOutputMode->setCurrentIndex(0);
-	save();
 }
 
 /**

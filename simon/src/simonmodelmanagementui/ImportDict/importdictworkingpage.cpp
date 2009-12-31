@@ -61,9 +61,10 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent) : QWizardPage(pare
 	
 	connect(import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 	connect(import, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
-	connect(import, SIGNAL(finished(WordList*)), this, SIGNAL(wordListImported(WordList*)));
+	connect(import, SIGNAL(successful()), this, SIGNAL(done()));
+	connect(import, SIGNAL(failed()), this, SIGNAL(failed()));
 
-	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
+	connect(import, SIGNAL(successful()), this, SLOT(setCompleted()));
 }
 
 /**
@@ -163,6 +164,10 @@ void ImportDictWorkingPage::importSPHINX(QString path)
 }
 
 
+QList<Word*>* ImportDictWorkingPage::getCurrentWordList()
+{
+	return import->getCurrentWordList();
+}
 
 QString ImportDictWorkingPage::prepareDict(KUrl url)
 {

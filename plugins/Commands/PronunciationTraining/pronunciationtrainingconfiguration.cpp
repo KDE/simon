@@ -19,11 +19,6 @@
 
 #include "pronunciationtrainingconfiguration.h"
 #include "pronunciationtrainingcommandmanager.h"
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/grammarmanager.h>
-#else
-#include <speechmodelmanagement/grammarmanager.h>
-#endif
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <KAboutData>
@@ -31,75 +26,41 @@
 
 K_PLUGIN_FACTORY_DECLARATION(PronunciationTrainingPluginFactory)
 
-QPointer<PronunciationTrainingConfiguration> PronunciationTrainingConfiguration::instance;
 
-
-PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("pronunciationtraining", ki18n( "Pronunciation Training" ),
+PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent, "pronunciationtraining", ki18n( "Pronunciation Training" ),
 				      "0.1", ki18n("Pronunciation Training"),
-				      "games-config-board",
-				      PronunciationTrainingPluginFactory::componentData(),
-				      parent)
+				      "applications-education",
+				      PronunciationTrainingPluginFactory::componentData())
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(PronunciationTrainingPluginFactory::componentData(),
-					"pronunciationtrainingrc");
-
 	ui.cbTerminal->clear();
-	ui.cbTerminal->addItems(GrammarManager::getInstance()->getTerminals());
 
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
-	
-// 	if (instance) instance->deleteLater();
-// 	instance = this;
 }
 
-QString PronunciationTrainingConfiguration::trigger()
+
+bool PronunciationTrainingConfiguration::deSerialize(const QDomElement& elem)
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Start Training"));
+	ui.cbTerminal->setCurrentIndex(
+			ui.cbTerminal->findText(elem.firstChildElement("terminal").text()));
+	return true;
 }
 
-void PronunciationTrainingConfiguration::save()
+QDomElement PronunciationTrainingConfiguration::serialize(QDomDocument *doc)
 {
-	Q_ASSERT(config);
-	
-	KConfigGroup cg(config, "");
-	cg.writeEntry("Trigger", ui.leTrigger->text());
-	cg.writeEntry("Terminal", ui.cbTerminal->currentText());
-
-	cg.sync();
-	
-	emit changed(false);
+	QDomElement configElem = doc->createElement("config");
+	QDomElement terminalElem = doc->createElement("terminal");
+	terminalElem.appendChild(doc->createTextNode(ui.cbTerminal->currentText()));
+	configElem.appendChild(terminalElem);
+	return configElem;
 }
 
-void PronunciationTrainingConfiguration::destroy()
-{
-	deleteLater();
-	instance=0;
-}
- 
-void PronunciationTrainingConfiguration::load()
-{
-	Q_ASSERT(config);
 
-	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Start Training")));
-	ui.cbTerminal->setCurrentIndex(ui.cbTerminal->findText(cg.readEntry("Terminal")));
-
-	cg.sync();
-	
-	emit changed(false);
-}
- 
 void PronunciationTrainingConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Start Training"));
- 
-	save();
 }
 
 PronunciationTrainingConfiguration::~PronunciationTrainingConfiguration()

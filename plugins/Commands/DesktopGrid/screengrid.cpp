@@ -18,6 +18,7 @@
  */
 
 #include "screengrid.h"
+#include "desktopgridconfiguration.h"
 #include <QWidget>
 #include <QGridLayout>
 #include <KPushButton>
@@ -31,12 +32,11 @@
 #include <QColor>
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
-#include "desktopgridconfiguration.h"
 
 QStringList ScreenGrid::numberIdentifiers;
 
-ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
-		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint),
+ScreenGrid::ScreenGrid(DesktopGridConfiguration *_config, QWidget* parent): QWidget(parent, 
+		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint), config(_config),
 	buttons(new QGridLayout(this)),
 	background(0)
 {
@@ -73,7 +73,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	}
 
 	
-	if (!DesktopGridConfiguration::getInstance()->useRealTransparency())
+	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
 	{
 		background = new QLabel(this);
 		background->lower();
@@ -149,7 +149,7 @@ void ScreenGrid::regionSelected()
 	repaint();
 
 	
-	if (!DesktopGridConfiguration::getInstance()->useRealTransparency())
+	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
 	{
 		background->resize(size());
 		background->move(0,0);

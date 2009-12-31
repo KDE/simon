@@ -27,14 +27,13 @@
 
 K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory, 
 			registerPlugin< PronunciationTrainingCommandManager >(); 
-			registerPlugin< PronunciationTrainingConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingcommand") )
 
 
 
-PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	activateAction(new KAction(this))
 {
 	activateAction->setText(i18n("Activate Pronunciation Training"));
@@ -49,34 +48,37 @@ const QString PronunciationTrainingCommandManager::name() const
 	return i18n("Pronunciation Training");
 }
 
-CommandConfiguration* PronunciationTrainingCommandManager::getConfigurationPage()
-{
-	return PronunciationTrainingConfiguration::getInstance();
-}
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
 	fprintf(stderr, "Activating training...\n");
 }
 
+const QString PronunciationTrainingCommandManager::preferredTrigger() const
+{
+	return i18n("Pronunciation Training");
+}
+
+
 bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != PronunciationTrainingConfiguration::getInstance()->trigger()) return false;
+	if (!triggerName.isEmpty()) return false;
 
 	Logger::log(i18n("[INF] Activating pronunciationtraining"));
 	activateTraining();
 	return true;
 }
  
-bool PronunciationTrainingCommandManager::load()
+bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	PronunciationTrainingConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
+	config = new PronunciationTrainingConfiguration(parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 
-bool PronunciationTrainingCommandManager::save()
+const KIcon PronunciationTrainingCommandManager::icon() const
 {
-	return true;
+	return KIcon("applications-education");
 }
 
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()

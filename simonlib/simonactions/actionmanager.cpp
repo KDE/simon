@@ -19,13 +19,13 @@
 
 #include "actionmanager.h"
 
-#include "commandsettings.h"
 #include "listcommand.h"
 
 #include <simoninfo/simoninfo.h>
-#include <commandpluginbase/commandconfiguration.h>
-#include <commandpluginbase/commandmanager.h>
-#include <commandpluginbase/createcommandwidget.h>
+//#include <simonscenarios/commandconfiguration.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/commandmanager.h>
+#include <simonscenarios/createcommandwidget.h>
 
 #include <QFile>
 #include <QMetaObject>
@@ -48,8 +48,6 @@ ActionManager* ActionManager::instance;
 
 
 ActionManager::ActionManager(QObject* parent) : QObject(parent),
-	mainWindow(0),
-	commandSettings(0),
 	currentlyPromptedListOfResults(0),
 	greedyReceivers(new QList<GreedyReceiver*>()),
 	minimumConfidenceThreshold(0.7),
@@ -57,223 +55,6 @@ ActionManager::ActionManager(QObject* parent) : QObject(parent),
 {
 	KLocale::setMainCatalog("simonlib");
 }
-
-void ActionManager::init()
-{
-	if (commandSettings)
-	{
-		setupBackends(commandSettings->getActivePlugins());
-		retrieveRecognitionResultFilteringParameters();
-	}
-}
-
-void ActionManager::setMainWindow(KXMLGUIClient *window)
-{
-	this->mainWindow = window;
-}
-
-void ActionManager::setConfigurationDialog(KCModule* commandSettings)
-{
-	this->commandSettings = dynamic_cast<CommandSettings*>(commandSettings);
-	if (!this->commandSettings) return;
-	
-	connect(commandSettings, SIGNAL(actionsChanged(QList<Action::Ptr>)), this, SLOT(setupBackends(QList<Action::Ptr>)));
-	connect(commandSettings, SIGNAL(recognitionResultsFilterParametersChanged()), this, SLOT(retrieveRecognitionResultFilteringParameters()));
-	
-	foreach (Action::Ptr action, actions)
-		this->commandSettings->registerPlugIn(action->manager()->getConfigurationPage());
-}
-
-void ActionManager::deleteManager(CommandManager *manager)
-{
-	Q_ASSERT(manager);
-
-	if (commandSettings)
-		commandSettings->unregisterPlugIn(manager->getConfigurationPage());
-
-	foreach (Action::Ptr action, actions)
-	{
-		if (action->manager() == manager)
-		{
-			delete action;
-			actions.removeAll(action);
-		}
-	}
-}
-
-
-void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
-{
-	bool changed=false;
-
-	//iterate over all existing managers and find the ones we still use
-	//by comparing their source()'es;
-	//Change the trigger to the one given by the corresponding action in
-	//pluginsToLoad and copy it to the array of new managers
-	//Remove those already loaded commandmanagers from the pluginsToLoad
-	//list;
-	//
-	//Copy the remaining commandManagers from pluginsToLoad to the array
-	//retaining their positions
-	
-	int count = pluginsToLoad.count();
-	//Action::Ptr newActionsArray[count];
-	Action::Ptr *newActionsArray = new Action::Ptr[count];
-
-	int i=0;
-
-	while (pluginsToLoad.count() > 0)
-	{
-		Action *newAction = pluginsToLoad.takeAt(0);
-		if (!newAction) {
-			count--;
-			continue;
-		}
-		
-		QString source = newAction->source();
-
-		bool found = false;
-
-		//iterate over all loaded actions
-		//and try to find this one
-		for (int j=0; j < actions.count(); j++) {
-			if (!actions[j]) {
-				actions.removeAt(j--);
-				continue;
-			}
-			if (actions[j]->source() == source) {
-				//if found, move it with the appropriate spot
-				//in the array and apply the (possibly new)
-				//trigger
-				Action *alreadyLoadedAction = actions.takeAt(j);
-				if (newAction->trigger() != alreadyLoadedAction->trigger()) {
-					alreadyLoadedAction->setTrigger(newAction->trigger());
-					changed = true;
-				}
-				if (i != j) //position changed
-					changed=true;
-				newActionsArray[i] = alreadyLoadedAction;
-				found = true;
-				break;
-			}
-		}
-
-		if (!found) {
-			//if it was not found, copy it from pluginsToLoad
-			if (newAction->manager()) {
-				if (!newAction->manager()->load()) {
-					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
-							"Please check its configuration.", newAction->manager()->name()));
-				} else {
-					if (commandSettings) commandSettings->registerPlugIn(newAction->manager()->getConfigurationPage());
-				}
-				newActionsArray[i] = newAction;
-			}
-			changed=true;
-		}
-		i++;
-	}
-
-	// delete the actions remaining in the member variable as they are not
-	// used any longer and copy the array there
-	foreach (Action::Ptr action, actions)
-	{
-		changed=true;
-
-		if (!action) {
-			continue;
-		}
-
-		if (action->manager() && commandSettings)
-			commandSettings->unregisterPlugIn(action->manager()->getConfigurationPage());
-		delete action;
-	}
-	actions.clear();
-
-	for (int i=0; i < count; i++) {
-		actions << newActionsArray[i];
-	}
-
-	if (changed) {
-		publishCategories();
-	}
-
-	publishGuiActions();
-}
-
-
-void ActionManager::publishGuiActions()
-{
-	mainWindow->unplugActionList("command_actionlist");
-
-	QList<QAction*> guiActions;
-	foreach (Action::Ptr a, actions) {
-		if (!a) continue;
-		guiActions << a->manager()->getGuiActions();
-	}
-
-	mainWindow->plugActionList("command_actionlist", guiActions);
-}
-
-void ActionManager::publishCategories()
-{
-	QList<KIcon> icons;
-	QStringList names;
-	for (int i=0; i < actions.count(); i++)
-	{
-		if (!actions[i] || !actions[i]->manager() || (!actions[i]->manager()->hasCommands()))
-					continue;
-
-		names << actions[i]->manager()->name();
-		icons << actions[i]->manager()->icon();
-	}
-	emit categoriesChanged(icons, names);
-
-}
-
-QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *parent)
-{
-	QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
-	
-	foreach (Action::Ptr action, this->actions)
-	{
-		CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
-		if (widget)
-			*out << widget;
-	}
-	return out;
-}
-
-/**
-* \brief Goes through all the command-lists and asks to delete every command with the given trigger
-* \param trigger The trigger to match
-* \return True, if all matching commands where deleted.
-*/
-bool ActionManager::askDeleteCommandByTrigger(QString trigger)
-{
-	CommandList *list = getCommandList();
-	
-	Q_ASSERT(list);
-	bool allDeleted = true;
-	
-	for (int i=0; i < list->count(); i++)
-	{
-		Command *com = list->at(i);
-		if (!com) continue;
-		
-		if (com->getTrigger() == trigger) {
-			if (KMessageBox::questionYesNoCancel(0, i18n("The trigger \"%1\" is already assigned to another command.\n\nDo you want to delete the other command that uses the Trigger \"%1\"?", com->getTrigger())) == KMessageBox::Yes)
-			{
-				deleteCommand(com);
-			} else allDeleted = false;
-		}
-	}
-	
-	delete list;
-
-	return allDeleted;
-}
-
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {
@@ -285,88 +66,12 @@ void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 	greedyReceivers->removeAll(receiver);
 }
 
-bool ActionManager::addCommand(Command *command)
+void ActionManager::retrieveRecognitionResultFilteringParameters()
 {
-	if (!command) return false;
-	
-	if (!askDeleteCommandByTrigger(command->getTrigger())) 
-		return false;
-	
-	
-	int i=0;
-	bool added=false;
-	while (!added && (i< actions.count()))
-	{
-		CommandManager *man = actions.at(i)->manager();
-		added = man->addCommand(command);
-		i++;
-	}
-	if (!added)
-		KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", command->getTrigger()));
-	else 
-		emit commandAdded(command);
-
-	return added;
+	//TODO
+	//useDYM = commandSettings->useDYM();
+	//minimumConfidenceThreshold = commandSettings->getMinimumConfidence();
 }
-
-Command* ActionManager::getCommand(const QString& category, const QString& trigger)
-{
-	foreach (Action::Ptr action, actions)
-	{
-		if (action->manager()->name() == category)
-		{
-			CommandList *list = action->manager()->getCommands();
-			foreach (Command* com, *list)
-			{
-				if (com->getTrigger() == trigger)
-					return com;
-			}
-			break;
-		}
-	}
-	return NULL;
-}
-
-bool ActionManager::deleteCommand(Command *command)
-{
-	if (!command) return false;
-	
-	QString trigger = command->getTrigger();
-	QString cat = command->getCategoryText();
-	bool deleted;
-	for (int i=0; i < actions.count(); i++)
-	{
-		if (actions.at(i)->manager()->deleteCommand(command))
-			deleted = true;
-	}
-	
-	if (!deleted)
-		KMessageBox::error(0, i18n("Command could not be deleted."));
-	else {
-		//emit commandsChanged(getCommandList());
-		emit commandRemoved(trigger, cat);
-	}
-
-	//command will be deleted
-	return deleted;
-}
-
-CommandList* ActionManager::getCommandList()
-{
-	CommandList *out = new CommandList();
-	foreach (Action::Ptr action, this->actions)
-	{
-		CommandList *cur = action->manager()->getCommands();
-		
-		if (!cur) continue;
-		
-		for (int i=0; i < cur->count(); i++)
-			out->append(cur->at(i));
-	}
-	return out;
-}
-
-
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
@@ -390,59 +95,22 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 		return true;
 	}
 
-	Command *com = getCommand(type, trigger);
-	if (com)
-		return com->trigger();
-	else return false;
+	return ScenarioManager::getInstance()->triggerCommand(type, trigger);
 }
 
-CommandList* ActionManager::getCommandsOfCategory(const QString& category)
-{
-	foreach (Action::Ptr action, actions)
-		if (action->manager()->name() == category)
-			return action->manager()->getCommands();
-
-	return NULL;
-}
 
 
 void ActionManager::processResult(RecognitionResult recognitionResult)
 {
-	fprintf(stderr, "processResult()\n");
-	fprintf(stderr, "Verarbeite Ergebnis: %s\n", recognitionResult.sentence().toUtf8().data());
-	int i=0;
-	bool commandFound=false;
-	QString currentTrigger;
-	QString realCommand;
-	fprintf(stderr, "recognitionResult: %s\n", recognitionResult.sentence().toUtf8().data());
-	while ((i<actions.count()) && (!commandFound))
-	{
-		currentTrigger = actions[i]->trigger();
-		fprintf(stderr, "CurrentTrigger: %s\n", currentTrigger.toUtf8().data());
-		RecognitionResult tempResult = recognitionResult;
-		if (tempResult.matchesTrigger(currentTrigger)) {
-			tempResult.removeTrigger(currentTrigger);
-
-			if(actions.at(i)->manager()->processResult(tempResult))
-				commandFound=true;
-		}
-		i++;
-	}
-
-/*	if (!commandFound)
-		emit guiAction(finalResult.sentence());*/
-}
-
-void ActionManager::retrieveRecognitionResultFilteringParameters()
-{
-	useDYM = commandSettings->useDYM();
-	minimumConfidenceThreshold = commandSettings->getMinimumConfidence();
+	ScenarioManager::getInstance()->processResult(recognitionResult);
 }
 
 void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 {
 	if (recognitionResults->isEmpty())
 		return;
+
+	kDebug() << "Processing " << recognitionResults->count() << " raw results";
 
 	RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
 
@@ -488,6 +156,11 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 		presentUserWithResults(selectedRecognitionResults);
 	}
 	delete selectedRecognitionResults;
+}
+
+CommandList* ActionManager::getCommandList()
+{
+	return ScenarioManager::getInstance()->getCommandList();
 }
 
 void ActionManager::resultSelectionDone()

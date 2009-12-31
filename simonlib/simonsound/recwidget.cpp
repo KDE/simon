@@ -43,7 +43,7 @@
 
 #include <QFont>
 #include <KLocale>
-#include <KTextEdit>
+#include <QPlainTextEdit>
 
 /**
  * \brief Constructor
@@ -56,7 +56,7 @@
  * @param QWidget *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent)
+RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent), postProc(NULL)
 {	
 	KLocale::setMainCatalog("simonlib");
 	this->filename = filename;
@@ -67,8 +67,6 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
-	postProc = new PostProcessing();
-	connect(postProc, SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -82,8 +80,8 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QVBoxLayout *lay = new QVBoxLayout(gbContainer);
 
-	tePrompt = new KTextEdit(this);
-	tePrompt->setCurrentFont(SoundConfiguration::promptFont());
+	tePrompt = new QPlainTextEdit(this);
+	tePrompt->setFont(SoundConfiguration::promptFont());
 	tePrompt->setPlainText(text);
 	tePrompt->setReadOnly(true);
 	lay->addWidget(tePrompt);
@@ -148,7 +146,7 @@ void RecWidget::displayError(const QString& error)
 void RecWidget::changePromptFont(const QFont& font)
 {
 	QString text = tePrompt->toPlainText();
-	tePrompt->setCurrentFont(font);
+	tePrompt->setFont(font);
 	tePrompt->setPlainText(text);
 	resizePromptLabel();
 }
@@ -309,6 +307,11 @@ void RecWidget::stopRecording()
 		pbDelete->setEnabled(true);
 
 		if (processInternal) {
+
+			if (!postProc) {
+				postProc = new PostProcessing();
+				connect(postProc, SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
+			}
 			if (!postProc->process(fName, filename, true))
 				KMessageBox::error(this, i18n("Post-Processing failed"));
 		}
@@ -395,6 +398,7 @@ RecWidget::~RecWidget()
 {
 	delete play;
  	delete rec;
+	delete postProc;
 }
 
 

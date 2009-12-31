@@ -19,8 +19,8 @@
 
 #include "newcommand.h"
 
-#include <commandpluginbase/command.h>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/command.h>
+#include <simonscenarios/createcommandwidget.h>
 #include <simonactions/actionmanager.h>
 
 #include <KUrl>
@@ -127,7 +127,7 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 	else setCaption(i18n("Kommando"));
 }
 
-Command* NewCommand::newCommand(const QString& preSelectedCategory)
+bool NewCommand::newCommand(const QString& preSelectedCategory)
 {
 	if (!preSelectedCategory.isNull())
 		ui.cbType->setCurrentIndex(ui.cbType->findText(preSelectedCategory));
@@ -138,11 +138,11 @@ Command* NewCommand::newCommand(const QString& preSelectedCategory)
 		CreateCommandWidget *creater = dynamic_cast<CreateCommandWidget*>(ui.swCommandCreaters->currentWidget());
 		Q_ASSERT(creater);
 		
-		if (!creater) return 0;
+		if (!creater) return false;
 		
-		return creater->createCommand(ui.leTrigger->text(), ui.ibIcon->icon());
+		return creater->addCommand(ui.leTrigger->text(), ui.ibIcon->icon());
 	}
-	return 0;
+	return false;
 }
 
 NewCommand::~NewCommand()

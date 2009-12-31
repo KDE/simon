@@ -27,7 +27,7 @@ K_PLUGIN_FACTORY( DictationCommandPluginFactory,
 K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
 
 
-DictationCommandManager::DictationCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+DictationCommandManager::DictationCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
 {
 }
 
@@ -42,14 +42,9 @@ const QString DictationCommandManager::name() const
 	return i18n("Dictation");
 }
 
-bool DictationCommandManager::load()
+const KIcon DictationCommandManager::icon() const
 {
-	return true;
-}
-
-bool DictationCommandManager::save()
-{
-	return true;
+	return KIcon("text-field");
 }
 
 DictationCommandManager::~DictationCommandManager()

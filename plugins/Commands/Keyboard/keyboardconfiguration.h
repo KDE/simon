@@ -22,7 +22,7 @@
 #define SIMON_KEYBOARDCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
 
 #include "keyboardset.h"
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
@@ -38,13 +38,13 @@ class KeyboardConfiguration : public CommandConfiguration
 	Q_OBJECT
 
 	private:
+		QPoint m_keyboardPosition;
+		QSize m_keyboardSize;
+
 		KeyboardSet *storedSet;
 		Ui::KeyboardConfigurationDlg ui;
-		static QPointer<KeyboardConfiguration> instance;
-
 		KeyboardCommandManager *commandManager;
 		KeyboardSetContainer *setContainer;
-		KeyboardConfiguration(KeyboardCommandManager* _commandManager, QWidget *parent=0, const QVariantList &args = QVariantList());
 
         private slots:
                 void addSet();
@@ -63,19 +63,12 @@ class KeyboardConfiguration : public CommandConfiguration
                 void refreshTabDetail();
  
 	public slots:
-		virtual void save();
-		virtual void load();
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 	
 	public:
-		static KeyboardConfiguration *getInstance(KeyboardCommandManager* commandManager, QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) {
-				instance = new KeyboardConfiguration(commandManager, parent, args);
-				instance->load();
-			}
-
-			return instance;
-		}
+		KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
 		KeyboardSet *getStoredKeyboardSet() { return storedSet; }

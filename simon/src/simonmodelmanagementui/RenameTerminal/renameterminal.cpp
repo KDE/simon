@@ -19,8 +19,8 @@
 
 
 #include "renameterminal.h"
-#include <speechmodelmanagement/wordlistmanager.h>
-#include <speechmodelmanagement/grammarmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/speechmodel.h>
 
 RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
 {}
@@ -35,16 +35,13 @@ void RenameTerminal::run()
 {
 	emit progress(0);
 
-	WordListManager *wordListManager = WordListManager::getInstance();
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	wordListManager->renameTerminal(oldName, newName, includeShadow);
-	wordListManager->save();
-	emit progress(80);
+	SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
+	if (includeShadow)
+		elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
 	if (includeGrammar)
-	{
-		grammarManager->renameTerminal(oldName, newName);
-// 		grammarManager->save(); saved automagically
-	}
+		elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
+
+	ScenarioManager::getInstance()->renameTerminal(oldName, newName, elem);
 
 	emit progress(100);
 	emit done();

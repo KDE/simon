@@ -24,7 +24,9 @@
 #include "xmltrainingtextlist.h"
 
 #include <simonlogging/logger.h>
-#include <speechmodelmanagement/trainingmanager.h>
+#include <simonscenarios/trainingmanager.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
 
 #include <QFile>
 #include <QFileInfo>
@@ -79,9 +81,7 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 		path = tmpPath;
 		removeInput=true;
 	}
-	if (KMimeType::findByFileContent(path.path())->is("application/xml"))
-		processText(path.path(), removeInput);
-	else parseFile(path.path());
+	parseFile(path.path());
 	
 }
 
@@ -94,23 +94,6 @@ void ImportTrainingTextWorkingPage::initializePage()
 	} else startImport(KUrl(field("textDownloadURL").toString()));
 }
 
-
-/**
- * \brief Processes the text at the given path 
- * \author Peter Grasch
- * @param path the path to the new text
- */
-void ImportTrainingTextWorkingPage::processText(QString path, bool removeInput)
-{
-	QFileInfo fi = QFileInfo(path);
-	QFile::copy(path, KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName());
-
-	if (removeInput)
-		QFile::remove(path);
-	
-	//wizard()->next();
-	QTimer::singleShot(500, wizard(), SLOT(next()));
-}
 
 /**
  * \brief Parses the textfile at the given path
@@ -135,7 +118,6 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	if ((!file) || (!file->open(QIODevice::ReadOnly)))
 		return;
 
-	//TODO: determine encoding
 	QTextStream ts(file);
 	QString encoding = field("importTrainingTextLEncoding").toString();
 	if (encoding == i18n("Automatic"))
@@ -144,7 +126,13 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 		//seek back to the beginning and parse file using the guessed encoding
 		QByteArray preview = file->peek(5000);
 		KEncodingDetector detector;
+
+#ifdef Q_OS_WIN32
 		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+#else
+		detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+#endif
+
 		QString out=detector.decode(preview);
 		ts.setCodec(QTextCodec::codecForName(detector.encoding()));
 	} else 
@@ -201,8 +189,10 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 
 	QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
 
-	if (!TrainingManager::getInstance()->saveTrainingsText(field("importTrainingTextLTextname").toString(), sents))
+	TrainingText *t = new TrainingText(field("importTrainingTextLTextname").toString(), sents);
+	if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
 		KMessageBox::error(this, i18n("Couldn't store Trainingstext"));
+
 	ui.pbProgress->setValue(3);
 	QTimer::singleShot(500, wizard(), SLOT(next()));
 }

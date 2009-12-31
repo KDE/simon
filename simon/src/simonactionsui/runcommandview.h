@@ -22,17 +22,20 @@
 
 #include "inlinewidget.h"
 #include "simonactionsui_export.h"
+#include <simonscenarios/scenariodisplay.h>
 
 class RunCommandViewPrivate;
+class Scenario;
 
-class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget {
+class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget, public ScenarioDisplay  {
 	Q_OBJECT
 
 private:
 	RunCommandViewPrivate *d;
 
-public slots:
-// 	void loadCommands();
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
+
 
 public:
     RunCommandView(QWidget *parent);

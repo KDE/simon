@@ -18,13 +18,13 @@
  */
 
 
-#ifndef SIMON_IMPORTDICTVIEW_H_8F47D852CF9D43F3BB5D9E26CE6A761A
-#define SIMON_IMPORTDICTVIEW_H_8F47D852CF9D43F3BB5D9E26CE6A761A
+#ifndef IMPORTDICTVIEW_H
+#define IMPORTDICTVIEW_H
 
 
 #include <QWizard>
-#include <speechmodelbase/word.h>
-#include <speechmodelmanagement/wordlisttype.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/vocabulary.h>
 
 
 /**
@@ -44,12 +44,6 @@ class ImportDictView : public QWizard {
 private:
 	ImportDictWorkingPage *workingPage;
 	
-signals:
-	void dictGenerated(WordList*, WordListTarget::WordListType type);
-
-private slots:
-	void dictReady(WordList * list);
-
 public slots:
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
@@ -62,6 +56,8 @@ public slots:
 	QWizardPage* createImportSPHINXPage();
 	ImportDictWorkingPage* createImportDictWorkingPage();
 	QWizardPage* createFinishedPage();
+
+	QList<Word*>* importDict(Vocabulary::VocabularyType& type);
 
 
 public:

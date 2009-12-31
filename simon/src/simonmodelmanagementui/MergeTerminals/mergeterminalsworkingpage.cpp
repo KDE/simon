@@ -21,8 +21,6 @@
 #include "mergeterminalsworkingpage.h"
 #include "mergeterminals.h"
 
-#include <speechmodelmanagement/grammarmanager.h>
-
 
 MergeTerminalsWorkingPage::MergeTerminalsWorkingPage(QWidget* parent) : QWizardPage(parent),
 	mergeTerminals(new MergeTerminals(this))

@@ -21,9 +21,8 @@
 #ifndef SIMON_PLACECOMMANDMANAGER_H_13E3BA6102F247948BED6157FD9FFDA8
 #define SIMON_PLACECOMMANDMANAGER_H_13E3BA6102F247948BED6157FD9FFDA8
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
-class XMLPlaceCommand;
 class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
@@ -35,16 +34,12 @@ class CreateCommandWidget;
  */
 class PlaceCommandManager : public CommandManager{
 Q_OBJECT
-private:
-	XMLPlaceCommand* xmlPlaceCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
+	bool deSerializeCommands(const QDomElement& elem);
 
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
@@ -53,7 +48,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PlaceCommandManager(QObject *parent, const QVariantList& args);
+    PlaceCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~PlaceCommandManager();

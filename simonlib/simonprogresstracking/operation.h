@@ -111,6 +111,9 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 
 		void pushUpdate();
 		void registerWith(StatusManager *man);
+	
+	signals:
+		void aborting();
 
 };
 

@@ -20,7 +20,7 @@
 #ifndef SIMON_AICOMMANDMANAGER_H_6DBF1A00634B4F5BB3581C867E9B723C
 #define SIMON_AICOMMANDMANAGER_H_6DBF1A00634B4F5BB3581C867E9B723C
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -46,11 +46,10 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public:
-	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
+	bool deSerializeConfig(const QDomElement& elem);
 	const QString name() const;
-	bool load();
+	const KIcon icon() const;
 	bool setupParser();
-	bool save();
 	bool addCommand(Command *) { return false; }
 
 	CommandConfiguration* getConfigurationPage();
@@ -60,7 +59,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    AICommandManager(QObject *parent, const QVariantList& args);
+    AICommandManager(QObject* parentScenario, const QVariantList& args);
 
     
     ~AICommandManager();

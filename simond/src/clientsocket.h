@@ -20,12 +20,13 @@
 #ifndef SIMON_CLIENTSOCKET_H_4485408A4C1743CDB368CCC3616AC16F
 #define SIMON_CLIENTSOCKET_H_4485408A4C1743CDB368CCC3616AC16F
 
-#include <QSslSocket>
-#include <QList>
-#include <QMutex>
 #include "recognitioncontrol.h"
 #include <simonddatabaseaccess/databaseaccess.h>
 #include <simonprotocol/simonprotocol.h>
+#include <QSslSocket>
+#include <QList>
+#include <QMutex>
+#include <QString>
 
 
 const qint8 protocolVersion=2;
@@ -34,6 +35,7 @@ class DatabaseAccess;
 class RecognitionControl;
 class SynchronisationManager;
 class ModelCompilationManager;
+class ModelCompilationAdapter;
 
 class ClientSocket : public QSslSocket
 {
@@ -41,21 +43,15 @@ class ClientSocket : public QSslSocket
 
 	private:
 		bool synchronisationRunning;
-		enum ModelSource {
-			Undefined=0,
-			Client=1,
-			Server=2
-		};
 		
 		QString username;
 		QMutex messageLocker;
 		
-		ModelSource modelSource;
-
 		DatabaseAccess *databaseAccess;
 		RecognitionControl *recognitionControl;
 		SynchronisationManager *synchronisationManager;
 		ModelCompilationManager *modelCompilationManager;
+		ModelCompilationAdapter *modelCompilationAdapter;
 		
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
@@ -81,8 +77,6 @@ class ClientSocket : public QSslSocket
 		void recognitionPaused();
 		void recognitionResumed();
 
-		bool sendWordList();
-		bool sendGrammar();
 		bool sendLanguageDescription();
 		bool sendTraining();
 
@@ -91,14 +85,26 @@ class ClientSocket : public QSslSocket
 		void recompileModel();
 		
 		void sendModelCompilationLog();
-		void slotModelCompilationStatus(const QString& status, int progressNow, int progressMax);
-		void slotModelCompilationError(const QString& error);
+		void slotModelCompilationStatus(QString status, int progressNow, int progressMax);
+		void slotModelCompilationError(QString error);
 		void slotModelCompilationWordUndefined(const QString& word);
 		void slotModelCompilationPhonemeUndefined(const QString& phoneme);
 		void slotModelCompilationClassUndefined(const QString& undefClass);
-		
+
+		void slotModelAdaptionComplete();
+		void slotModelAdaptionAborted();
+		void slotModelAdaptionStatus(QString status, int progressNow);
+		void slotModelAdaptionError(QString error);
+
 		void synchronisationComplete();
 		void synchronisationDone();
+
+		void sendScenarioList();
+		void fetchScenario();
+		void requestScenario(const QString& scenarioId);
+		void sendScenario(const QString& scenarioId);
+		void sendSelectedScenarioList();
+		void synchronizeAlreadyAvailableScenarios();
 		
 		void synchronizeSamples();
 		void fetchTrainingSample();

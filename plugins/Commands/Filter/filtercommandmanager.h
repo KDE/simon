@@ -20,7 +20,7 @@
 #ifndef SIMON_FILTERCOMMANDMANAGER_H_04892F29B6DA47D6814F4E7C23D1DAD8
 #define SIMON_FILTERCOMMANDMANAGER_H_04892F29B6DA47D6814F4E7C23D1DAD8
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -45,20 +45,19 @@ protected:
 public slots:
 	void toggle();
 public:
+	const KIcon icon() const;
+
 	const QString name() const;
-	bool load();
-	bool save();
+	bool deSerializeConfig(const QDomElement& elem);
 	bool addCommand(Command *) { return false; }
 
-
-	CommandConfiguration* getConfigurationPage();
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    FilterCommandManager(QObject *parent, const QVariantList& args);
+    FilterCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~FilterCommandManager();

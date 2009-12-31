@@ -100,7 +100,6 @@ void DatabaseAccess::closeConnection()
 	db->close();
 }
 
-#include <KMessageBox>
 
 //USER
 bool DatabaseAccess::addUser(const QString& user, const QString& password)
@@ -111,8 +110,6 @@ bool DatabaseAccess::addUser(const QString& user, const QString& password)
 	q.bindValue(":password", password);
 	
 	if (!q.exec()) {
-		KMessageBox::information(0, q.lastError().text());
-		KMessageBox::information(0, q.lastQuery());
 		emit error(q.lastError().text());
 		return false;
 	}

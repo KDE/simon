@@ -18,12 +18,12 @@
  */
 
 
-#ifndef SIMON_IMPORTGRAMMAR_H_18BB1C74117E44A995D8DB8DA54E0988
-#define SIMON_IMPORTGRAMMAR_H_18BB1C74117E44A995D8DB8DA54E0988
+#ifndef IMPORTGRAMMAR_H
+#define IMPORTGRAMMAR_H
 
 #include <QThread>
 #include <QStringList>
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -38,13 +38,13 @@ signals:
 	void allProgress(int /*all progress*/,
 			int /*all max*/);
 
-	void grammarCreated(QStringList grammar);
+	void grammarCreated();
 private:
 	QStringList files;
 	QString encoding;
 	bool includeUnknown;
 	QStringList importFile(QString path);
-	QStringList terminals(WordList *in);
+	QStringList terminals(QList<Word*> in);
 	QStringList readFile(QString path);
 
 public:

@@ -28,21 +28,14 @@
 
 K_PLUGIN_FACTORY_DECLARATION(AIPluginFactory)
 
-QPointer<AIConfiguration> AIConfiguration::instance;
-
-AIConfiguration::AIConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("ai", ki18n( "Artificial Intelligence" ),
+AIConfiguration::AIConfiguration(Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent, "ai", ki18n( "Artificial Intelligence" ),
 				      "0.1", ki18n("Voice controlled chatbot"),
 				      "view-media-artist",
-				      AIPluginFactory::componentData(),
-				      parent),
-	manager(0)
+				      AIPluginFactory::componentData()), manager(0)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
-
-	config = KSharedConfig::openConfig(AIPluginFactory::componentData(),
-					"airc");
 
 	QObject::connect(ui.cbAimlSets, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
@@ -52,54 +45,44 @@ void AIConfiguration::setManager(AICommandManager *manager)
 	this->manager = manager;
 }
 
-void AIConfiguration::save()
+QDomElement AIConfiguration::serialize(QDomDocument *doc)
 {
-	Q_ASSERT(config);
-
 	QString oldStoredAimlSet = storedAimlSet;
 	storedAimlSet = ui.cbAimlSets->currentText();
 
-	if (storedAimlSet != oldStoredAimlSet)
-	{
-		if (manager) manager->setupParser();
+	QDomElement elem = doc->createElement("config");
+	QDomElement personalityElem = doc->createElement("personality");
+	personalityElem.appendChild(doc->createTextNode(storedAimlSet));
+	elem.appendChild(personalityElem);
 
-		KConfigGroup cg(config, "");
-		cg.writeEntry("Personality", storedAimlSet);
-		cg.sync();
-	}
+	if (storedAimlSet != oldStoredAimlSet)
+		if (manager) manager->setupParser();
 	
 	emit changed(false);
+
+	return elem;
 }
 
-void AIConfiguration::destroy()
-{
-	deleteLater();
-	instance=0;
-}
- 
-void AIConfiguration::load()
-{
-	Q_ASSERT(config);
 
+bool AIConfiguration::deSerialize(const QDomElement& elem)
+{
 	ui.cbAimlSets->clear();
 	ui.cbAimlSets->addItems(QDir(KStandardDirs::locate("data", "ai/aimls/")).entryList(QStringList(), QDir::Dirs|QDir::NoDotAndDotDot));
 
-	KConfigGroup cg(config, "");
+	QString personality = elem.firstChildElement("personality").text();
+	if (personality.isNull()) personality = "Alice"; //default
 
-	ui.cbAimlSets->setCurrentIndex(ui.cbAimlSets->findText(cg.readEntry("Personality", "Alice")));
+	ui.cbAimlSets->setCurrentIndex(ui.cbAimlSets->findText(personality));
 
 	storedAimlSet = ui.cbAimlSets->currentText();
 
-	cg.sync();
-	
 	emit changed(false);
+	return true;
 }
  
 void AIConfiguration::defaults()
 {
 	ui.cbAimlSets->setCurrentIndex(ui.cbAimlSets->findText("Alice"));
- 
-	save();
 }
 
 AIConfiguration::~AIConfiguration()

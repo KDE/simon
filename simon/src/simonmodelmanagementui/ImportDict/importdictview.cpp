@@ -51,8 +51,7 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
 
-	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(dictReady(WordList*)));
-	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
+	connect(workingPage, SIGNAL(done()), this, SLOT(next()));
 	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
 	addPage(workingPage);
 	addPage(createFinishedPage());
@@ -61,10 +60,10 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 }
 
 
-void ImportDictView::dictReady(WordList * list)
-{
-	emit dictGenerated(list, (WordListTarget::WordListType) field("targetType").toInt());
-}
+//void ImportDictView::dictReady(WordList * list)
+//{
+//	emit dictGenerated(list, (WordListTarget::WordListType) field("targetType").toInt());
+//}
 
 /**
  * \brief Creates the page to import a simon lexicon
@@ -173,6 +172,15 @@ QWizardPage* ImportDictView::createFinishedPage()
 	return finished;
 }
 
+
+QList<Word*>* ImportDictView::importDict(Vocabulary::VocabularyType& type)
+{
+	if (exec()) {
+		type = (Vocabulary::VocabularyType) field("targetType").toInt();
+		return workingPage->getCurrentWordList();
+	}
+	return NULL;
+}
 
 /**
  * \brief Destructor

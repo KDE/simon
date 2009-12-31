@@ -71,21 +71,9 @@ void KeyboardSetContainer::clear()
 	kDebug() << "Done clearing container";
 }
 
-bool KeyboardSetContainer::load()
+
+bool KeyboardSetContainer::deSerialize(const QDomElement& setsElem)
 {
-	QFile f(KStandardDirs::locate("appdata", "conf/keyboardsets.xml"));
-	if (!f.open(QIODevice::ReadOnly))
-		return false;
-
-	QDomDocument doc;
-	if (!doc.setContent(&f)) {
-		f.close();
-		return false;
-	}
-
-	f.close();
-
-	QDomElement setsElem = doc.documentElement();
 	if (setsElem.isNull()) return false;
 
 	QDomElement setElem = setsElem.firstChildElement();
@@ -100,26 +88,18 @@ bool KeyboardSetContainer::load()
 	return true;
 }
 
-bool KeyboardSetContainer::save()
+
+
+QDomElement KeyboardSetContainer::serialize(QDomDocument *doc)
 {
-	QDomDocument doc;
-	QDomElement setsElem = doc.createElement("keyboardsets");
+	QDomElement setsElem = doc->createElement("keyboardSets");
 
 	foreach (KeyboardSet *set, setList) {
-		QDomElement setElem = set->serialize(&doc);
+		QDomElement setElem = set->serialize(doc);
 		setsElem.appendChild(setElem);
 	}
 
-	doc.appendChild(setsElem);
-
-	QFile f(KStandardDirs::locateLocal("appdata", "conf/keyboardsets.xml"));
-	if (!f.open(QIODevice::WriteOnly))
-		return false;
-	
-	f.write(doc.toString().toUtf8());
-
-	f.close();
-	return true;
+	return setsElem;
 }
 
 

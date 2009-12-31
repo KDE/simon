@@ -18,11 +18,11 @@
  */
 
 
-#ifndef SIMON_IMPORTDICTWORKINGPAGE_H_42ADEDFF046B4610A6312492D4992F65
-#define SIMON_IMPORTDICTWORKINGPAGE_H_42ADEDFF046B4610A6312492D4992F65
+#ifndef IMPORTDICTWORKINGPAGE_H
+#define IMPORTDICTWORKINGPAGE_H
 
 #include <QWizardPage>
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 
 class QProgressBar;
 class QLabel;
@@ -40,8 +40,9 @@ class ImportDictWorkingPage : public QWizardPage
 {
 	Q_OBJECT
 signals:
-	void wordListImported(WordList* wlist);
+	void done();
 	void failed();
+	
 private:
 	QProgressBar *pbMain;
 	ImportDict *import; //!< Underlying concept class
@@ -67,6 +68,7 @@ public slots:
 
 public:
 	void initializePage();
+	QList<Word*>* getCurrentWordList();
     ImportDictWorkingPage(QWidget* parent);
 
     ~ImportDictWorkingPage();

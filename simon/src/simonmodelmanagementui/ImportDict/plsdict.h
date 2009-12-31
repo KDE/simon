@@ -51,6 +51,7 @@ private:
 	XMLSAXReader *reader;
 
 	QString currentWord;
+	QString currentTerminal;
 	QString currentPhonemeDefinition;
 	QStringList phonemeDefinitions;
 	

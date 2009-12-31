@@ -26,33 +26,24 @@
 #ifdef bzero
 #undef bzero
 #endif
-#ifdef SIMON_SCENARIOS
-#include <speechmodelbase_scenario/model.h>
-#include <speechmodelbase_scenario/wordlistcontainer.h>
-#include <speechmodelbase_scenario/grammarcontainer.h>
-#include <speechmodelbase_scenario/languagedescriptioncontainer.h>
-#include <speechmodelbase_scenario/trainingcontainer.h>
-#else
-#include <speechmodelbase/model.h>
-#include <speechmodelbase/wordlistcontainer.h>
-#include <speechmodelbase/grammarcontainer.h>
-#include <speechmodelbase/languagedescriptioncontainer.h>
-#include <speechmodelbase/trainingcontainer.h>
-#endif
 
+#include <simonscenarios/model.h>
+#include <simonscenarios/languagedescriptioncontainer.h>
+#include <simonscenarios/trainingcontainer.h>
 
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
+#include <speechmodelcompilationadapter/modelcompilationadapter.h>
+#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 
 #include <QDir>
 #include <QDateTime>
 #include <QHostAddress>
-#include <QMutexLocker>
 #include <QMap>
 
 #include <KDebug>
 #include <KMessageBox>
-#include <KLocalizedString>
+#include <QString>
 #include <KStandardDirs>
 #include <KConfigGroup>
 
@@ -61,10 +52,10 @@
 
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
 	synchronisationRunning(false),
-	modelSource(ClientSocket::Undefined),
 	recognitionControl(0),
 	synchronisationManager(0),
-	modelCompilationManager(0)
+	modelCompilationManager(0),
+	modelCompilationAdapter(0)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -83,6 +74,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 		connect(this, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(slotSocketError()));
 		startServerEncryption();
 	}
+	
 }
 
 void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
@@ -146,9 +138,6 @@ void ClientSocket::processRequest()
 
 				if (databaseAccess->authenticateUser(user, pass))
 				{
-					//fprintf(stderr, "hier: %s\n", i18n("Test").toAscii().data());
-					i18n("");
-
 					//store authentication data
 					this->username = user;
 					
@@ -157,16 +146,25 @@ void ClientSocket::processRequest()
 					modelCompilationManager = new ModelCompilationManager(user, this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
-					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
-					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+					connect(modelCompilationManager, SIGNAL(status(QString, int, int)), this, SLOT(slotModelCompilationStatus(QString, int, int)));
+					connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
 					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationClassUndefined(const QString&)));
 					connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationWordUndefined(const QString&)));
 					connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this, 
 							SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+
+					if (modelCompilationAdapter) modelCompilationAdapter->deleteLater();
 					
+					modelCompilationAdapter = new ModelCompilationAdapterHTK(user, this);
+					connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
+					connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
+					connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
+					connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 					
+
+				
 					if (recognitionControl) 
 						recognitionControl->deleteLater();
 
@@ -235,7 +233,7 @@ void ClientSocket::processRequest()
 					if (remoteModelDate.isNull())
 						sendCode(Simond::GetActiveModelSampleRate);
 					else 
-						sendCode(Simond::GetModelSrcDate);
+						sendCode(Simond::GetScenarioList);
 				}
 				
 				break;
@@ -273,7 +271,7 @@ void ClientSocket::processRequest()
 							tiedlist, dict, dfa)) {
 					sendCode(Simond::ActiveModelStorageFailed);
 				}
-				sendCode(Simond::GetModelSrcDate);
+				sendCode(Simond::GetScenarioList);
 				break;
 			}
 
@@ -303,13 +301,11 @@ void ClientSocket::processRequest()
 				kDebug() << "Got sample rate: " << sampleRate;
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
-				sendCode(Simond::GetModelSrcDate);
+				sendCode(Simond::GetScenarioList);
 				break;
 			}
 
-			case Simond::ModelSrcDate:
-			{
-				kDebug() << "Getting model-src-date";
+				/*kDebug() << "Getting model-src-date";
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
@@ -330,25 +326,186 @@ void ClientSocket::processRequest()
 				{
 					sendCode(Simond::GetTrainingDate);
 				} else synchronisationComplete();
+				*/
+
+			case Simond::ScenarioList:
+			{
+				kDebug() << "Received scenario list";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				QStringList scenarioIds;
+				stream >> scenarioIds;
 				
+				kDebug() << "Scenario list: " << scenarioIds;
+				synchronisationManager->buildMissingScenarios(scenarioIds);
+
+				sendScenarioList();
+
+				break;
+			}
+
+			case Simond::StartScenarioSynchronisation:
+			{
+				fetchScenario();
+				break;
+			}
+
+
+			case Simond::GetScenario:
+			{
+				kDebug() << "Received scenario";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				QByteArray scenarioId;
+				stream >> scenarioId;
+				
+				kDebug() << "Client requested scenario: " << scenarioId;
+				sendScenario(QString::fromUtf8(scenarioId));
 				break;
 			}
 			
+			case Simond::ErrorRetrievingScenario:
+			{
+				kDebug() << "Couldn't get scenario";
+				synchronisationManager->couldntRetreiveScenario();
+
+				fetchScenario();
+				break;
+			}
+	
+
+			case Simond::Scenario:
+			{
+				kDebug() << "Received scenario";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				QByteArray scenarioId;
+				QByteArray scenario;
+				stream >> scenarioId;
+				stream >> scenario;
+				
+				kDebug() << "Client sent scenario: " << scenarioId;
+				if (!synchronisationManager->storeScenario(scenario)) 
+					sendCode(Simond::ScenarioStorageFailed);
+
+				fetchScenario();
+				break;
+			}
+
+			case Simond::ScenarioSynchronisationComplete:
+			{
+				kDebug() << "Both now have the same number of scenarios; We have to synchronize those already on both host";
+				synchronizeAlreadyAvailableScenarios();
+				break;
+			}
+
+			case Simond::ScenarioDate:
+			{
+				QDateTime remoteScenarioDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteScenarioDate;
+				kDebug() << "Received scenario date: " << remoteScenarioDate;
+	
+				//this is only triggered when we have a version of this scenario too
+				//so lets check if we want to keep ours or accept the new one
+				QString scenarioId = synchronisationManager->commonScenario();
+				QDateTime localScenarioDate = synchronisationManager->localScenarioDate(scenarioId);
+
+				kDebug() << "Remote date: " << remoteScenarioDate << "Local date: " << localScenarioDate;
+
+				if (remoteScenarioDate < localScenarioDate) {
+					//send our version
+					kDebug() << "Our version is more current";
+					sendScenario(scenarioId);
+
+				} else if (remoteScenarioDate > localScenarioDate) {
+					//request clients version
+					kDebug() << "Clients version is more current";
+					requestScenario(scenarioId);
+				} else {
+					//identical
+					kDebug() << "Scenario is already up-to-date";
+					synchronisationManager->scenarioUpToDate();
+					synchronizeAlreadyAvailableScenarios();
+				}
+				break;
+			}
+
+			case Simond::ScenarioStorageFailed: // we should maybe do something here
+			case Simond::ScenarioStored:
+			{
+				kDebug() << "Client stored scenario";
+				synchronisationManager->scenarioSynchronized();
+				fetchScenario();
+				break;
+			}
+
+			case Simond::SelectedScenarioDate:
+			{
+				QDateTime remoteSelectedScenarioDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteSelectedScenarioDate;
+				QDateTime localSelectedScenarioDate = synchronisationManager->selectedScenariosDate();
+
+				kDebug() << "Received selected scenario date" << remoteSelectedScenarioDate << localSelectedScenarioDate;
+
+				if (localSelectedScenarioDate < remoteSelectedScenarioDate) {
+					//clients version is newer
+					sendCode(Simond::GetSelectedScenarioList);
+				} else if (localSelectedScenarioDate > remoteSelectedScenarioDate) {
+					//my version is newer
+					sendSelectedScenarioList();
+				} else {
+					//the same
+					kDebug() << "SelectedScenarios up-to-date";
+					sendCode(Simond::GetTrainingDate);
+				}
+				break;
+			}
+
+			case Simond::SelectedScenarioList:
+			{
+				kDebug() << "Received selected scenario list";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				QDateTime modifiedDate;
+				QStringList scenarioIds;
+				stream >> modifiedDate;
+				stream >> scenarioIds;
+				
+				kDebug() << "Selected scenario list: " << scenarioIds;
+				if (!synchronisationManager->storeSelectedScenarioList(modifiedDate, scenarioIds)) {
+					sendCode(Simond::SelectedScenarioListStorageFailed);
+				}
+
+				sendCode(Simond::GetTrainingDate);
+				break;
+			}
 			
 			case Simond::TrainingDate:
 			{
 				QDateTime remoteTrainingDate;
+				QDateTime localTrainingDate = synchronisationManager->getTrainingDate();
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteTrainingDate;
 				
 				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
 //				kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
-				if (remoteTrainingDate != synchronisationManager->getTrainingDate())
+				if (remoteTrainingDate != localTrainingDate)
 				{
 					//Training changed
-					if (modelSource == ClientSocket::Server)
+					if (localTrainingDate > remoteTrainingDate)
 					{
 						kDebug() << "Sending training";
 						if (!sendTraining())
@@ -359,7 +516,7 @@ void ClientSocket::processRequest()
 					}
 				} else {
 					kDebug() << "Training is up-to-date";
-					sendCode(Simond::GetWordListDate);
+					sendCode(Simond::GetLanguageDescriptionDate);
 				}
 				break;
 			}
@@ -396,171 +553,29 @@ void ClientSocket::processRequest()
 				{
 					sendCode(Simond::TrainingStorageFailed);
 				}
-				sendCode(Simond::GetWordListDate);
-				
-				break;
-			}
-			
-			
-			
-			case Simond::WordListDate:
-			{
-				kDebug() << "Received Wordlist-Date";
-				QDateTime remoteWordListDate;
-				waitForMessage(sizeof(QDateTime), stream, msg);
-				stream >> remoteWordListDate;
-				
-				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
-				
-				kDebug() << "Wordlist: " << remoteWordListDate << synchronisationManager->getWordListDate();
-			
-				
-				if (remoteWordListDate != synchronisationManager->getWordListDate())
-				{
-					kDebug() << "Remote wordlist not synchronized";
-					//wordlist changed
-					if (modelSource == ClientSocket::Server)
-					{
-						if (!sendWordList())
-							sendCode(Simond::GetWordList);
-					} else {
-						kDebug() << "Requesting Wordlist";
-						sendCode(Simond::GetWordList);
-					}
-				} else {
-					kDebug() << "Wordlist is up-to-date";
-					sendCode(Simond::GetGrammarDate);
-				}
-				
-				break;
-			}
-			
-			case Simond::ErrorRetrievingWordList:
-			{
-				kDebug() << "Couldn't get wordlist";
-				if (!synchronisationManager->hasWordList())
-					sendCode(Simond::NoWordListAvailable);
-				else sendWordList();
-				
-				break;
-			}
-			
-			case Simond::WordList:
-			{
-				kDebug() << "Received Wordlist";
-				Q_ASSERT(synchronisationManager);
-				
-				qint64 length;
-				waitForMessage(sizeof(qint64), stream, msg);
-				stream >> length;
-				
-				waitForMessage(length, stream, msg);
-				
-				QByteArray simple, vocab, lexicon;
-				QDateTime changedTime;
-				stream >> changedTime;
-				stream >> simple;
-				stream >> vocab;
-				stream >> lexicon;
-				
-				
-				if (!synchronisationManager->storeWordList(changedTime, simple, vocab, lexicon))
-				{
-					sendCode(Simond::WordListStorageFailed);
-				}
-				
-				sendCode(Simond::GetGrammarDate);
-				break;
-			}
-			
-			
-			case Simond::GrammarDate:
-			{
-				kDebug() << "Received grammar date";
-				QDateTime remoteGrammarDate;
-				waitForMessage(sizeof(QDateTime), stream, msg);
-				stream >> remoteGrammarDate;
-				
-				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
-
-				kDebug() << "Grammar: " << remoteGrammarDate << synchronisationManager->getGrammarDate();
-
-				if (remoteGrammarDate != synchronisationManager->getGrammarDate())
-				{
-					//grammar changed
-					if (modelSource == ClientSocket::Server)
-					{
-						if (!sendGrammar())
-							sendCode(Simond::GetGrammar);
-					} else sendCode(Simond::GetGrammar);
-				} else  {
-					kDebug() << "Grammar is up-to-date";
-					sendCode(Simond::GetLanguageDescriptionDate);
-				}
-					
-				break;
-			}
-			
-			case Simond::ErrorRetrievingGrammar:
-			{
-				kDebug() << "Couldn't get grammar";
-				if (!synchronisationManager->hasGrammar())
-					sendCode(Simond::NoGrammarAvailable);
-				else sendGrammar();
-				break;
-			}
-			
-			case Simond::Grammar:
-			{
-				kDebug() << "Received grammar";
-				Q_ASSERT(synchronisationManager);
-				
-				qint64 length;
-				waitForMessage(sizeof(qint64), stream, msg);
-				stream >> length;
-				
-				waitForMessage(length, stream, msg);
-				
-				QByteArray grammar;
-				QDateTime changedTime;
-				stream >> changedTime;
-				stream >> grammar;
-				
-				
-				if (!synchronisationManager->storeGrammar(changedTime, grammar)) {
-					sendCode(Simond::GrammarStorageFailed);
-				}
-				
 				sendCode(Simond::GetLanguageDescriptionDate);
+				
 				break;
 			}
-			
-			
 			
 			case Simond::LanguageDescriptionDate:
 			{
 				QDateTime remoteLanguageDescriptionDate;
+				QDateTime localLanguageDescriptionDate=synchronisationManager->getLanguageDescriptionDate();
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteLanguageDescriptionDate;
 				
 				Q_ASSERT(synchronisationManager);
-				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-				kDebug() << remoteLanguageDescriptionDate;
-				kDebug() << synchronisationManager->getLanguageDescriptionDate();
-				
-				if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
+				kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
+				if (remoteLanguageDescriptionDate != localLanguageDescriptionDate)
 				{
-					//LanguageDescription changed
-					if (modelSource == ClientSocket::Server)
+					if (localLanguageDescriptionDate > remoteLanguageDescriptionDate)
 					{
 						if (!sendLanguageDescription())
 							sendCode(Simond::GetLanguageDescription);
 					} else sendCode(Simond::GetLanguageDescription);
 				} else {
-					kDebug() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
 					synchronizeSamples();
 				}
@@ -788,8 +803,7 @@ void ClientSocket::fetchTrainingSample()
 	Q_ASSERT(synchronisationManager);
 	
 	QString sample = synchronisationManager->missingSample();
-	if (sample.isNull())
-	{
+	if (sample.isNull()) {
 		kDebug() << "Done fetching samples";
 		sendCode(Simond::TrainingsSampleSynchronisationComplete);
 		return;
@@ -807,7 +821,111 @@ void ClientSocket::fetchTrainingSample()
 	write(toWrite);
 }
 
+void ClientSocket::fetchScenario()
+{
+	Q_ASSERT(synchronisationManager);
 
+	QString scenario = synchronisationManager->missingScenario();
+	if (scenario.isNull()) {
+		kDebug() << "Done fetching scenarios";
+		sendCode(Simond::ScenarioSynchronisationComplete);
+		return;
+	}
+	
+	requestScenario(scenario);
+}
+
+void ClientSocket::sendScenarioList()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << synchronisationManager->getAllScenarioIds();
+	
+	out << (qint32) Simond::ScenarioList
+		<< (qint64) body.count();
+	write(toWrite);
+	write(body);
+}
+
+void ClientSocket::requestScenario(const QString& scenarioId)
+{
+	QByteArray scenarioByte = scenarioId.toUtf8();
+	kDebug() << "Fetching scenario " << scenarioId;
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::GetScenario
+		<< (qint64) (scenarioByte.count()+sizeof(qint32)) /*separator*/
+		<< scenarioByte;
+	write(toWrite);
+}
+
+void ClientSocket::sendScenario(const QString& scenarioId)
+{
+	kDebug() << "Sending scenario " << scenarioId;
+	QByteArray scenarioByte = synchronisationManager->getScenario(scenarioId);
+	if (scenarioByte.isNull()) {
+		sendCode(Simond::ErrorRetrievingScenario);
+		return;
+	}
+
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	bodyStream << scenarioId.toUtf8() << scenarioByte;
+
+	stream << (qint32) Simond::Scenario
+		<< (qint64) (body.count());
+	write(toWrite);
+	write(body);
+}
+
+
+void ClientSocket::synchronizeAlreadyAvailableScenarios()
+{
+	QString askFor = synchronisationManager->commonScenario();
+	if (askFor.isNull()) {
+		//done
+		sendCode(Simond::GetSelectedScenarioDate);
+		return;
+	}
+	QByteArray scenarioByte = askFor.toUtf8();
+	kDebug() << "Asking for date of " << scenarioByte;
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::GetScenarioDate
+		<< (qint64) (scenarioByte.count()+sizeof(qint32)) /*separator*/
+		<< scenarioByte;
+	write(toWrite);
+}
+
+
+void ClientSocket::sendSelectedScenarioList()
+{
+	kDebug() << "Sending selected scenario list";
+	QStringList list = synchronisationManager->getLatestSelectedScenarioList();
+/*	if (list.isNull()) {
+		sendCode(Simond::ErrorRetrievingSelectedScenarioList);
+		return;
+	}*/
+	QByteArray body;
+
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream <<  list;
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::Scenario
+		<< (qint64) (body.count()) /*separator*/;
+	write(toWrite);
+	write(body);
+}
 
 void ClientSocket::sendSample(QString sampleName)
 {
@@ -847,9 +965,10 @@ void ClientSocket::sendModelCompilationLog()
 	write(toWrite);
 }
 
-void ClientSocket::slotModelCompilationStatus(const QString& status, int progressNow, int progressMax)
+void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
 {
-// 	QMutexLocker l(&messageLocker);
+	progressNow += modelCompilationAdapter->maxProgress();
+	progressMax += modelCompilationAdapter->maxProgress();
 	QByteArray toWrite;
 	QByteArray statusByte = status.toUtf8();
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -865,12 +984,10 @@ void ClientSocket::slotModelCompilationStatus(const QString& status, int progres
 
 	write(toWrite);
 	write(body);
-// 	waitForBytesWritten(toWrite.count()+body.count());
 }
 
-void ClientSocket::slotModelCompilationError(const QString& error)
+void ClientSocket::slotModelCompilationError(QString error)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
@@ -889,7 +1006,6 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 
 void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = word.toUtf8();
@@ -902,7 +1018,6 @@ void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 
 void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray classByte = undefClass.toUtf8();
@@ -914,7 +1029,6 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 
 void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 {
-// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray phonemeByte = phoneme.toUtf8();
@@ -924,22 +1038,55 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 	write(toWrite);
 }
 
+void ClientSocket::slotModelAdaptionComplete()
+{
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+									 
+	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
+				activeDir+"model.dict", activeDir+"model.dfa",
+				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+				activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+				activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
+				synchronisationManager->getWavConfigPath());
+}
+
+void ClientSocket::slotModelAdaptionAborted()
+{
+	activeModelCompilationAborted();
+}
+
+void ClientSocket::slotModelAdaptionStatus(QString status, int progressNow)
+{
+	slotModelCompilationStatus(status, progressNow-modelCompilationAdapter->maxProgress(), 0);
+}
+
+void ClientSocket::slotModelAdaptionError(QString error)
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	QByteArray errorByte = error.toUtf8();
+	bodyStream << errorByte << QByteArray();
+
+	stream << (qint32) Simond::ModelCompilationError
+		<< (qint64) body.count();
+	write(toWrite);
+	write(body);
+}
+
 
 
 void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
-	
+
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
-
-
-	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
-				activeDir+"model.dict", activeDir+"model.dfa",
-				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
-				synchronisationManager->getSimpleVocabPath(), synchronisationManager->getPromptsPath(), 
-				synchronisationManager->getTreeHedPath(), synchronisationManager->getWavConfigPath());
+	modelCompilationAdapter->startAdaption(activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+						activeDir+"prompts", synchronisationManager->getScenarioPaths(), 
+						synchronisationManager->getPromptsPath());
 }
 
 void ClientSocket::sendCode(Simond::Request code)
@@ -999,12 +1146,10 @@ void ClientSocket::synchronisationDone()
 	kDebug() << "Synchronisation done";
 	synchronisationRunning=false;
 	//reset modelsource
-	modelSource = ClientSocket::Undefined;
-	
 	Q_ASSERT(recognitionControl);
 	
-	if (!recognitionControl->isInitialized() && !modelCompilationManager->isRunning() && 
-			synchronisationManager->hasActiveModel())
+	if (!recognitionControl->isInitialized() && !modelCompilationAdapter->isRunning() &&
+			!modelCompilationManager->isRunning() && synchronisationManager->hasActiveModel())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
@@ -1027,58 +1172,6 @@ void ClientSocket::synchronisationComplete()
 	}
 	
 	synchronisationDone();
-}
-
-bool ClientSocket::sendWordList()
-{
-	Q_ASSERT(synchronisationManager);
-	
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	
-	WordListContainer *wordList = synchronisationManager->getWordList();
-	if (!wordList) return false;
-	
-	bodyStream << synchronisationManager->getWordListDate()
-		<< wordList->simpleVocab()
-		<< wordList->activeVocab()
-		<< wordList->activeLexicon();
-
-	out << (qint32) Simond::WordList
-		<< (qint64) body.count();
-
-	write(toWrite);
-	write(body);
-	
-	delete wordList;
-	return true;
-}
-
-
-bool ClientSocket::sendGrammar()
-{
-	kDebug() << "Sending grammar...";
-	Q_ASSERT(synchronisationManager);
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	
-	GrammarContainer *grammar = synchronisationManager->getGrammar();
-	if (!grammar) return false;
-	
-	bodyStream << synchronisationManager->getGrammarDate()
-		<< grammar->grammarStructures();
-	out << (qint32) Simond::Grammar
-		<< (qint64) body.count();
-	write(toWrite);
-	write(body);
-	
-	kDebug() << "Done";
-	delete grammar;
-	return true;
 }
 
 
@@ -1237,4 +1330,6 @@ ClientSocket::~ClientSocket()
 		synchronisationManager->deleteLater();
 	if (modelCompilationManager) 
 		modelCompilationManager->deleteLater();
+	if (modelCompilationAdapter) 
+		modelCompilationAdapter->deleteLater();
 }

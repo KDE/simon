@@ -25,6 +25,7 @@
 #include "lexicondict.h"
 #include "plsdict.h"
 #include <QFile>
+#include <KDebug>
 #include <KLocalizedString>
 
 /**
@@ -33,6 +34,7 @@
  */
 ImportDict::ImportDict(QObject* parent) : QThread(parent),
 	dict(0),
+	wordList(0),
 	deleteFileWhenDone(false)
 {
 }
@@ -50,6 +52,12 @@ void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, b
 	start(/*QThread::IdlePriority*/);
 }
 
+QList<Word*>* ImportDict::getCurrentWordList()
+{
+	QList<Word*>* realList = wordList;
+	wordList = NULL;
+	return realList;
+}
 /**
  * \brief The main execution loop
  * Does the real world.
@@ -63,6 +71,9 @@ void ImportDict::run()
 	
 	emit progress(10);
 	if (dict) dict->deleteLater();
+	if (wordList) wordList->clear();
+	else wordList = new QList<Word*>();
+
 
 	switch (type)
 	{
@@ -79,6 +90,7 @@ void ImportDict::run()
 			dict = new SPHINXDict();
 			break;
 		default:
+			emit failed();
 			return; //unknown type
 	}
 	
@@ -93,29 +105,30 @@ void ImportDict::run()
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
 	dict->deleteLater();
+	dict=NULL;
 	
-	WordList* vocablist = new WordList();
-	
-	for (int i=0; i<words.count(); i++)
+	int wordCount = words.count();
+	for (int i=0; i<wordCount; i++)
 	{
-		vocablist->append ( Word(words.at(i), 
+		wordList->append( new Word(words.at(i), 
 				    pronunciations.at(i), 
 					terminals.at(i), 0 ) );
-		emit progress((int) ((((double) i)/((double)words.count())) *40+800));
+		if ((i%1000) == 0)
+			emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}
 	words.clear();
 	pronunciations.clear();
 	terminals.clear();
+
 	if (type != Dict::HTKLexicon)
 	{
 		emit status(i18n("Sorting Dictionary..."));
-		qSort(vocablist->begin(), vocablist->end());
+		kDebug() << "Sorting!";
+		qSort(wordList->begin(), wordList->end(), isWordLessThan);
 	}
-	
-	
 	emit progress(1000);
 	emit status(i18n("Storing Dictionary..."));
-	
+
 	Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
 
 	if (deleteFileWhenDone)
@@ -124,7 +137,7 @@ void ImportDict::run()
 		
 		QFile::remove(this->pathToDict);
 	}
-	emit finished(vocablist);
+	emit successful();
 }
 
 /**
@@ -149,7 +162,7 @@ void ImportDict::deleteDict()
 	if (isRunning()) terminate();
 	if (wait(2000))
 		if (dict) {
-			delete dict;
+			dict->deleteLater();
 			dict=NULL;
 		}
 }

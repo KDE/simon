@@ -22,7 +22,7 @@
 #define SIMON_TEXTMACRO_H_4490833F6B8D4F8AB97995EC2C0745D1
 
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 
 
 /**

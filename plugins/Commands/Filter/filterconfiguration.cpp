@@ -26,76 +26,64 @@
 
 K_PLUGIN_FACTORY_DECLARATION(FilterPluginFactory)
 
-QPointer<FilterConfiguration> FilterConfiguration::instance;
 
-
-FilterConfiguration::FilterConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("filter", ki18n( "Filter" ),
+FilterConfiguration::FilterConfiguration(Scenario *parent, const QVariantList &args)
+		: CommandConfiguration(parent, "filter", ki18n( "Filter" ),
 				      "0.1", ki18n("Filter recognition results"),
 				      "view-filter",
-				      FilterPluginFactory::componentData(),
-				      parent)
+				      FilterPluginFactory::componentData())
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(FilterPluginFactory::componentData(),
-					"filterrc");
-
 	QObject::connect(ui.leActivateTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.leDeactivateTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 }
 
 QString FilterConfiguration::deactivateTrigger() const
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("DeactivateTrigger", i18n("Resume recognition"));
+	return ui.leDeactivateTrigger->text();
 }
 
 QString FilterConfiguration::activateTrigger() const
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("ActivateTrigger", i18n("Pause recognition"));
+	return ui.leActivateTrigger->text();
 }
 
-void FilterConfiguration::save()
+bool FilterConfiguration::deSerialize(const QDomElement& elem)
 {
-	Q_ASSERT(config);
-	
-	KConfigGroup cg(config, "");
-	cg.writeEntry("ActivateTrigger", ui.leActivateTrigger->text());
-	cg.writeEntry("DeactivateTrigger", ui.leDeactivateTrigger->text());
+	QDomElement activateTriggerElem = elem.firstChildElement("activateTrigger");
+	QDomElement deActivateTriggerElem = elem.firstChildElement("deactivateTrigger");
 
-	cg.sync();
-	
-	emit changed(false);
+	if (activateTriggerElem.isNull() || deActivateTriggerElem.isNull()) {
+		defaults();
+	} else {
+		ui.leActivateTrigger->setText(activateTriggerElem.text());
+		ui.leDeactivateTrigger->setText(deActivateTriggerElem.text());
+	}
+	return true;
 }
 
-void FilterConfiguration::destroy()
+QDomElement FilterConfiguration::serialize(QDomDocument *doc)
 {
-	deleteLater();
-	instance=0;
-}
- 
-void FilterConfiguration::load()
-{
-	Q_ASSERT(config);
+	QDomElement configElem = doc->createElement("config");
 
-	KConfigGroup cg(config, "");
-	ui.leActivateTrigger->setText(cg.readEntry("ActivateTrigger", i18n("Pause recognition")));
-	ui.leDeactivateTrigger->setText(cg.readEntry("DeactivateTrigger", i18n("Resume recognition")));
+	QDomElement activateTriggerElem = doc->createElement("activateTrigger");
+	activateTriggerElem.appendChild(doc->createTextNode(activateTrigger()));
 
-	cg.sync();
-	
-	emit changed(false);
+	QDomElement deactivateTriggerElem = doc->createElement("deactivateTrigger");
+	deactivateTriggerElem.appendChild(doc->createTextNode(deactivateTrigger()));
+
+	configElem.appendChild(activateTriggerElem);
+	configElem.appendChild(deactivateTriggerElem);
+
+	return configElem;
 }
- 
+
 void FilterConfiguration::defaults()
 {
 	ui.leActivateTrigger->setText(i18n("Pause recognition"));
 	ui.leDeactivateTrigger->setText(i18n("Resume recognition"));
- 
-	save();
 }
 
 FilterConfiguration::~FilterConfiguration()

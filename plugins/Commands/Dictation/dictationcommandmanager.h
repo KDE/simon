@@ -20,7 +20,7 @@
 #ifndef SIMON_DICTATIONCOMMANDMANAGER_H_19E629596C1B44AF866AF7901F4DD37B
 #define SIMON_DICTATIONCOMMANDMANAGER_H_19E629596C1B44AF866AF7901F4DD37B
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
 /**
@@ -41,15 +41,14 @@ public:
 	const QString preferredTrigger() const { return ""; }
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
+	const KIcon icon() const;
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    DictationCommandManager(QObject *parent, const QVariantList& args);
+    DictationCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~DictationCommandManager();

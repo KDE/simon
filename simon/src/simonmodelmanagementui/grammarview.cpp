@@ -35,6 +35,11 @@ GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"),
 }
 
 
+void GrammarView::displayScenarioPrivate(Scenario *scenario)
+{
+	d->displayScenario(scenario);
+}
+
 GrammarView::~GrammarView()
 {
 }

@@ -20,7 +20,7 @@
 #ifndef SIMON_LISTCOMMAND_H_B003A824E4CE4D008341F2E92534890A
 #define SIMON_LISTCOMMAND_H_B003A824E4CE4D008341F2E92534890A
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include "greedyreceiver.h"
 #include "actionlib_export.h"
 #include <QList>

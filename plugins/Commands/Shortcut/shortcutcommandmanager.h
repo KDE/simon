@@ -21,10 +21,9 @@
 #ifndef SIMON_SHORTCUTCOMMANDMANAGER_H_8145931DA2E84AF5B282B047E2BD9FE9
 #define SIMON_SHORTCUTCOMMANDMANAGER_H_8145931DA2E84AF5B282B047E2BD9FE9
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 
-class XMLShortcutCommand;
 class CreateCommandWidget;
 
 /**
@@ -37,16 +36,12 @@ class CreateCommandWidget;
  */
 class ShortcutCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLShortcutCommand* xmlShortcutCommand;
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
-	bool deSerializeCommands(const QDomElement& elem, Scenario *scenario);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor

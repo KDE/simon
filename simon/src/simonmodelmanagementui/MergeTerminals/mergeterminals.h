@@ -26,7 +26,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class GrammarManager;
 
 class MergeTerminals : public QThread
 {

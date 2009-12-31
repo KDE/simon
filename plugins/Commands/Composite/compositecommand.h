@@ -20,7 +20,7 @@
 #ifndef SIMON_COMPOSITECOMMAND_H_A199F7E674344957A6099B02965126F1
 #define SIMON_COMPOSITECOMMAND_H_A199F7E674344957A6099B02965126F1
 
-#include <commandpluginbase/command.h>
+#include <simonscenarios/command.h>
 #include <QList>
 #include <KUrl>
 

@@ -20,7 +20,7 @@
 #include "placecommandmanager.h"
 #include "createplacecommandwidget.h"
 #include <simonlogging/logger.h>
-#include "xmlplacecommand.h"
+#include <simonscenarios/scenario.h>
 #include "placecommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -31,10 +31,7 @@ K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
         
 K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
-PlaceCommandManager::PlaceCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
-#ifndef SIMON_SCENARIOS
-	, xmlPlaceCommand(new XMLPlaceCommand())
-#endif
+PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
@@ -47,7 +44,7 @@ const KIcon PlaceCommandManager::icon() const
 
 CreateCommandWidget* PlaceCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreatePlaceCommandWidget(parent);
+	return new CreatePlaceCommandWidget(this, parent);
 }
 
 const QString PlaceCommandManager::name() const
@@ -59,31 +56,17 @@ bool PlaceCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<PlaceCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }
 
-bool PlaceCommandManager::load()
+
+bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	QString commandPath = KStandardDirs::locate("appdata", "conf/places.xml");
-	Logger::log(i18n("[INF] Loading place commands from %1", commandPath));
-
-	bool ok = false;
-#ifndef SIMON_SCENARIOS
-	this->commands = xmlPlaceCommand->load(ok, commandPath);
-	return ok;
-#else
-	return true;
-#endif
-}
-
-
-bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
-{
-	Q_UNUSED(parent);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();
@@ -104,21 +87,6 @@ bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem, Scenario 
 	return true;
 }
 
-bool PlaceCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/places.xml");
-	Logger::log(i18n("[INF] Saving place commands to %1", commandPath));
-
-#ifndef SIMON_SCENARIOS
-	return xmlPlaceCommand->save(commands, commandPath);
-#else
-	return true;
-#endif
-}
-
 PlaceCommandManager::~PlaceCommandManager() 
 {
-#ifndef SIMON_SCENARIOS
-	if (xmlPlaceCommand) xmlPlaceCommand->deleteLater();
-#endif
 }

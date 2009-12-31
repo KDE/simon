@@ -18,7 +18,7 @@
  */
 
 #include "greedyreceiver.h"
-#include <simonactions/actionmanager.h>
+#include "actionmanager.h"
 
 bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {

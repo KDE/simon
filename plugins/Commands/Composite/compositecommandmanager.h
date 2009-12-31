@@ -20,10 +20,9 @@
 #ifndef SIMON_COMPOSITECOMMANDMANAGER_H_F6E45596DD464FAFAB75EE58A7A9D2E9
 #define SIMON_COMPOSITECOMMANDMANAGER_H_F6E45596DD464FAFAB75EE58A7A9D2E9
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <QVariantList>
 
-class XMLCompositeCommand;
 class CreateCompositeCommandWidget;
 /**
  *	@class CompositeCommandManager
@@ -35,24 +34,20 @@ class CreateCompositeCommandWidget;
  */
 class CompositeCommandManager : public CommandManager {
 Q_OBJECT
-private:
-	XMLCompositeCommand* xmlCompositeCommand;
 public:
 	const KIcon icon() const;
 	bool addCommand(Command *command);
 	const QString name() const;
-	bool load();
-	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
+	bool deSerializeCommands(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    CompositeCommandManager(QObject *parent, const QVariantList& args);
+    CompositeCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~CompositeCommandManager();

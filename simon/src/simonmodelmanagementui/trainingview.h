@@ -18,19 +18,24 @@
  */
 
 
-#ifndef SIMON_TRAININGVIEW_H_D78BDCAA9F5047CF97304EFC17A139C4
-#define SIMON_TRAININGVIEW_H_D78BDCAA9F5047CF97304EFC17A139C4
+#ifndef TRAININGVIEW_H
+#define TRAININGVIEW_H
 #include "inlinewidget.h"
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/scenariodisplay.h>
 #include "simonmodelmanagementui_export.h"
 
 class TrainingViewPrivate;
+class Scenario;
 
-class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget {
+class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget, public ScenarioDisplay  {
 	Q_OBJECT
 
 	private:
 		TrainingViewPrivate *d;
+
+	protected:
+		void displayScenarioPrivate(Scenario *scenario);
 
 	public:
 		TrainingView(QWidget *parent);

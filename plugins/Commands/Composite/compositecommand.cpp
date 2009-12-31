@@ -18,10 +18,11 @@
  */
 
 #include "compositecommand.h"
-#include <simonactions/actionmanager.h>
 #include <unistd.h>
 #include <QObject>
 #include <QVariant>
+#include <QDomElement>
+#include <QDomDocument>
 #include <KIcon>
 #include <KProcess>
 #include <KLocalizedString>
@@ -95,8 +96,8 @@ bool CompositeCommand::triggerPrivate()
 			if (!ok) {kDebug() << "Not ok"; continue;}
 			kDebug() << "Sleeping: " << amount;
 			usleep(amount);
-		} else 
-			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
+		} /*else 
+			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);*/
 	}
 
 	return true;

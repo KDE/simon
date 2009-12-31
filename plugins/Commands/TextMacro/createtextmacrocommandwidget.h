@@ -21,10 +21,11 @@
 #define SIMON_CREATETEXTMACROCOMMANDWIDGET_H_AC24B475B30F4F5BBFF1B946B80CD373
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createtextmacrocommandwidget.h"
 
 class Command;
+class CommandManager;
 
 /**
  *	@class CreateTextMacroCommandWidget
@@ -51,7 +52,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateTextMacroCommandWidget(QWidget *parent=0);
+	CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateTextMacroCommandWidget();

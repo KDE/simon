@@ -18,12 +18,12 @@
  */
 
 
-#ifndef SIMON_IMPORTGRAMMARWORKINGPAGE_H_7DA31D56FF87420D90A0D712E8EFCCB7
-#define SIMON_IMPORTGRAMMARWORKINGPAGE_H_7DA31D56FF87420D90A0D712E8EFCCB7
+#ifndef IMPORTGRAMMARWORKINGPAGE_H
+#define IMPORTGRAMMARWORKINGPAGE_H
 
 #include <QWizardPage>
 #include "ui_importgrammarworkingpage.h"
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -32,7 +32,7 @@ class ImportGrammarWorkingPage : public QWizardPage
 {
 Q_OBJECT
 signals:
-	void grammarCreated(QStringList);
+	void grammarCreated();
 private:
 	bool completed;
 	Ui::ImportGrammarWorkingPage ui;

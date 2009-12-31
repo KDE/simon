@@ -4,7 +4,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/speechmodelmanagement ${KCFG_INSTALL_DIR} )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/simonscenarios ${KCFG_INSTALL_DIR} )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SIMONMODELMANAGEMENTUI_LIB)
 include(KDE4Defaults)
@@ -16,6 +16,7 @@ set( simonmodelmanagementui_LIB_SRCS
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/droplistview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
@@ -74,7 +75,6 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlist.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.ui
@@ -106,15 +106,16 @@ set( simonmodelmanagementui_LIB_HDRS
 
 set( simonmodelmanagementui_LIB_SRCS
 	${simonmodelmanagementui_LIB_SRCS}
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistviewprivate.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyviewprivate.cpp
 	)
 set( simonmodelmanagementui_LIB_HDRS
 	${simonmodelmanagementui_LIB_HDRS}
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.h
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.h
 	)
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlist.ui)
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.ui)
+
 
  kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
  	  speechmodelmanagementuiconfiguration.kcfgc)
@@ -123,7 +124,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonmodelmanagement simoninfo simonxml
+${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonscenarios simoninfo simonxml
 simonsound )
 
 set_target_properties( simonmodelmanagementui

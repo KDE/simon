@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QPointer>
+#include "simonprogresstracking_export.h"
 
 class Operation;
 class QLabel;
@@ -32,7 +33,7 @@ class KPushButton;
 /**
 	@author 
 */
-class ProgressWidget : public QWidget
+class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
 {
 Q_OBJECT
 	private:
@@ -46,7 +47,13 @@ Q_OBJECT
 		void update();
 
 	public:
-		ProgressWidget(QPointer<Operation> op, QWidget* parent=0);
+
+		enum ProgressWidgetStyle {
+			Compact=1,
+			Large=2
+		};
+
+		ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
 		
 		QPointer<Operation> operation() { return op; }
 

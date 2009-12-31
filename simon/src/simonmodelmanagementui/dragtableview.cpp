@@ -22,7 +22,7 @@
 #include <QApplication>
 #include <KLocalizedString>
 #include <simoninfo/simoninfo.h>
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 
 /**
  * @brief Constructor

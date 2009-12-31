@@ -17,20 +17,22 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TRAININGVIEWPRIVATE_H_7803319F35A546FD9197DF2BE8000311
-#define SIMON_TRAININGVIEWPRIVATE_H_7803319F35A546FD9197DF2BE8000311
+#ifndef TRAININGVIEWPRIVATE_H
+#define TRAININGVIEWPRIVATE_H
 
 #include "ui_trainmain.h"
 
 #include <QWidget>
 
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
+#include <simonscenarios/scenariodisplay.h>
 
-class WordListView;
 class ImportTrainingDirectory;
 class TrainingManager;
-class RecWidget;
+class TrainingText;
 class ImportTrainingTexts;
+class QSortFilterProxyModel;
+
 /**
  *	@class TrainingViewPrivate
  *	@brief Provides the UI for the Training process
@@ -39,17 +41,21 @@ class ImportTrainingTexts;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingViewPrivate : public QWidget {
+class TrainingViewPrivate : public QWidget, public ScenarioDisplay  {
 	Q_OBJECT
 
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	ImportTrainingTexts *import;
+	QSortFilterProxyModel *textsProxy;
+
+	TrainingText* getCurrentlySelectedText();
+
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
 
 
 public slots:
-	void loadList();
-
 	void deleteSelected();
 
 	void trainSelected();

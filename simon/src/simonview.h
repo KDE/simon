@@ -18,8 +18,8 @@
  */
 
 
-#ifndef SIMON_SIMONVIEW_H_10B05171A7544F64B469AB9A4E6F6142
-#define SIMON_SIMONVIEW_H_10B05171A7544F64B469AB9A4E6F6142
+#ifndef SIMONVIEW_H
+#define SIMONVIEW_H
 
 
 /**
@@ -38,6 +38,7 @@
 #include "ui_simonview.h"
 #include "simonmainwindow.h"
 #include <simoncontrol.h>
+#include <simonscenarios/scenariodisplay.h>
 
 #include <QList>
 #include <QMutex>
@@ -61,10 +62,11 @@ class KCMultiDialog;
 class KAction;
 class Operation;
 class QThread;
-class WordListView;
+class VocabularyView;
+class QComboBox;
 
 
-class SimonView : public SimonMainWindow    {
+class SimonView : public SimonMainWindow, public ScenarioDisplay    {
 	
 	Q_OBJECT
 
@@ -83,15 +85,24 @@ private:
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class
 	TrayIconManager *trayManager; //!< Handles the TrayIcon
-	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
-	WordListView *wordList; 
+	VocabularyView *vocabularyView;
 	GrammarView *grammarView; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	KCMultiDialog *configDialog;
 
+	QComboBox *cbCurrentScenario;
+
 	void setupSignalSlots();
 	void setupActions();
+	void displayScenarios();
+
+protected:
+	void displayScenarioPrivate(Scenario *scenario);
+
+private slots:
+	void manageScenarios();
+	void updateScenarioDisplays();
 
 public slots:
 	void displayConnectionStatus(const QString &status);

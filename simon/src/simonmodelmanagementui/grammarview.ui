@@ -17,17 +17,86 @@
     <normaloff/>
    </iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+
+  <layout class="QVBoxLayout" name="verticalLayout4" >
+     <item>
+
+  <layout class="QHBoxLayout" name="hori2" >
+     <item>
+  <layout class="QVBoxLayout" name="verticalLayout5" >
+     <item>
+	<widget class="QLabel" name="lbStructures" >
+	 <property name="text"><string>Sentences:</string></property>
+	 </widget>
+	</item>
+	<item>
+	<widget class="QListView" name="lvStructures" >
+	</widget>
+	</item>
+	</layout>
+	</item>
    <item>
-    <widget class="KEditListBox" name="kcfg_GrammarStructures" >
-     <property name="title" >
-      <string>Sentence Structures</string>
-     </property>
-     <property name="buttons" >
-      <set>KEditListBox::Add|KEditListBox::Remove</set>
-     </property>
-    </widget>
-   </item>
+		  <layout class="QVBoxLayout" name="vertiLayout10" >
+		   <item>
+		    <widget class="QLabel" name="lbExamples" >
+		      <property name="text"><string>Examples with your vocabulary:</string></property>
+		    </widget>
+		   </item>
+		   <item>
+		    <widget class="QListWidget" name="lwExamples" >
+		    </widget>
+		   </item>
+		  </layout>
+	 </item>
+	 </layout>
+	 </item>
+
+   <item>
+	    <layout class="QHBoxLayout" >
+		   <item>
+		    <layout class="QHBoxLayout" >
+		     <item>
+			  <spacer name="horizontalSpacer">
+			   <property name="orientation">
+			    <enum>Qt::Horizontal</enum>
+			   </property>
+			   <property name="sizeHint" stdset="0">
+			    <size>
+			     <width>40</width>
+			     <height>20</height>
+			    </size>
+			   </property>
+			  </spacer>
+		     </item>
+		     <item>
+		      <widget class="KPushButton" name="pbAdd" >
+		       <property name="text" >
+			<string>Add sentence</string>
+		       </property>
+		      </widget>
+		     </item>
+		     <item>
+		      <widget class="KPushButton" name="pbDelete" >
+		       <property name="text" >
+			<string>Delete sentence</string>
+		       </property>
+		      </widget>
+		     </item>
+		    </layout>
+		   </item>
+	     </layout>
+
+	 </item>
+  
+
+
+
+
+
+
+
+
+
    <item>
     <widget class="Line" name="line" >
      <property name="orientation" >

@@ -53,25 +53,6 @@ namespace Simond
 		ActiveModelStorageFailed=2019,
 		
 		
-		GetModelSrcDate=2021,
-		ModelSrcDate=2022,
-		
-		GetWordListDate=2031,
-		WordListDate=2032,
-		GetWordList=2033,
-		ErrorRetrievingWordList=2034,
-		WordList=2035,
-		NoWordListAvailable=2036,
-		WordListStorageFailed=2037,
-		
-		GetGrammarDate=2041,
-		GrammarDate=2042,
-		GetGrammar=2043,
-		ErrorRetrievingGrammar=2044,
-		Grammar=2045,
-		NoGrammarAvailable=2046,
-		GrammarStorageFailed=2047,
-		
 		GetLanguageDescriptionDate=2051,
 		LanguageDescriptionDate=2052,
 		GetLanguageDescription=2053,
@@ -95,6 +76,27 @@ namespace Simond
 		TrainingsSample=2074,
 		TrainingsSampleStorageFailed=2075,
 		TrainingsSampleSynchronisationComplete=2076,
+
+		GetScenarioList=2081,
+		ErrorRetrievingScenarioList=2082,
+		ScenarioList=2083,
+
+		GetSelectedScenarioDate=2084,
+		SelectedScenarioDate=2085,
+		GetSelectedScenarioList=2086,
+		ErrorRetrievingSelectedScenarioList=2087,
+		SelectedScenarioList=2088,
+		SelectedScenarioListStorageFailed=2089,
+
+		StartScenarioSynchronisation=2091,
+		GetScenarioDate=2092,
+		ScenarioDate=2093,
+		GetScenario=2094,
+		ErrorRetrievingScenario=2095,
+		Scenario=2096,
+		ScenarioStorageFailed=2097,
+		ScenarioStored=2098,
+		ScenarioSynchronisationComplete=2099,
 		
 		SynchronisationComplete=2101,
 		SynchronisationCommitFailed=2102,

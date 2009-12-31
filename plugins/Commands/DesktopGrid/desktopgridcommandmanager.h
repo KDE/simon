@@ -20,7 +20,7 @@
 #ifndef SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 #define SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -45,19 +45,18 @@ public slots:
 public:
 	const QString preferredTrigger() const;
 	const QString name() const;
-	bool load();
-	bool save();
 	bool addCommand(Command *) { return false; }
 
+	bool deSerializeConfig(const QDomElement& elem);
 
-	CommandConfiguration* getConfigurationPage();
+	const KIcon icon() const;
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    DesktopGridCommandManager(QObject *parent, const QVariantList& args);
+    DesktopGridCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~DesktopGridCommandManager();

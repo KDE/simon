@@ -18,12 +18,12 @@
  */
 
 
-#ifndef SIMON_ADDWORDRESOLVEPAGE_H_31B977E2D35744C38600767B532FF415
-#define SIMON_ADDWORDRESOLVEPAGE_H_31B977E2D35744C38600767B532FF415
+#ifndef ADDWORDRESOLVEPAGE_H
+#define ADDWORDRESOLVEPAGE_H
 
 #include <QWizardPage>
 #include "ui_resolvewordpage.h"
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 /**
 	\class AddWordResolvePage
 	\version 0.1
@@ -31,19 +31,14 @@
 	\date 20.12.2007
 	@author Peter Grasch
 */
-class WordListManager;
-class GrammarManager;
-
 class AddWordResolvePage : public QWizardPage
 {
 Q_OBJECT
 private:
-	QString suggestedSampa, wordLastUsedToGenerateExamples;
+	QString suggestedSampa, wordLastUsedToGenerateExamples, terminalLastUsedToGenerateExamples;
 	bool terminalDirty;
 	Ui::ResolveWordPage ui;
 	bool alreadyTriedToConvinceAboutCapitalization;
-	WordListManager *wordListManager;
-	GrammarManager *grammarManager;
 private slots:
 	void suggest();
 	void createExamples();
@@ -58,7 +53,7 @@ public:
 	const QString getTerminal() { return ui.cbType->currentText(); }
 
 	void initializePage();
-	void displayWords(WordList *words);
+	void displayWords(QList<Word*> words);
 	bool validatePage();
 
 };

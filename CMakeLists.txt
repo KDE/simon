@@ -284,7 +284,7 @@ if(WIN32)
 #add_definitions(-std=c++98 -D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 add_definitions(-D__INTERLOCKED_DECLARED)
 else(WIN32)
-add_definitions(-pedantic-errors -std=c++98 -Wno-variadic-macros)
+	#add_definitions(-pedantic-errors -std=c++98 -Wno-variadic-macros)
 endif(WIN32)
 
 
@@ -294,6 +294,8 @@ add_subdirectory(simond)
 add_subdirectory(ksimond)
 add_subdirectory(plugins)
 add_subdirectory(sam)
+add_subdirectory(ssc)
+add_subdirectory(sscd)
 
 
 install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/version.h

@@ -147,7 +147,7 @@ void CompositeProgressWidget::display(OperationList operations)
 	{
 		if (!op) continue;
 
-		ProgressWidget *widget = new ProgressWidget(op, designatedParent);
+		ProgressWidget *widget = new ProgressWidget(op, ProgressWidget::Compact, designatedParent);
 		popupWidget->layout()->addWidget(widget);
 		progressWidgets << widget;
 	}

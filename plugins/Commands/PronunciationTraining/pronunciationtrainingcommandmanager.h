@@ -20,7 +20,7 @@
 #ifndef SIMON_PRONUNCIATIONTRAININGCOMMANDMANAGER_H_08C58336D74C4721A047F68738AB6253
 #define SIMON_PRONUNCIATIONTRAININGCOMMANDMANAGER_H_08C58336D74C4721A047F68738AB6253
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
 
@@ -40,22 +40,21 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public slots:
-
 	void activateTraining();
-public:
-	const QString name() const;
-	bool load();
-	bool save();
-	bool addCommand(Command *) { return false; }
 
-	CommandConfiguration* getConfigurationPage();
+public:
+	const QString preferredTrigger() const;
+	const QString name() const;
+	const KIcon icon() const;
+	bool addCommand(Command *) { return false; }
+	bool deSerializeConfig(const QDomElement& elem);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    PronunciationTrainingCommandManager(QObject *parent, const QVariantList& args);
+    PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~PronunciationTrainingCommandManager();

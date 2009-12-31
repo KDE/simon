@@ -40,7 +40,7 @@ K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 
 QStringList KeyboardCommandManager::numberIdentifiers;
 
-KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	keyboardWidget(new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	activateAction(new KAction(this)),
 	keyboardSet(NULL)
@@ -343,11 +343,6 @@ bool KeyboardCommandManager::trigger(const QString& triggerName)
 }
 
 
-CommandConfiguration* KeyboardCommandManager::getConfigurationPage()
-{
-	return KeyboardConfiguration::getInstance(this);
-}
-
 KeyboardConfiguration* KeyboardCommandManager::getKeyboardConfiguration()
 {
 	return static_cast<KeyboardConfiguration*>(getConfigurationPage());
@@ -442,9 +437,8 @@ void KeyboardCommandManager::backSpace()
 }
 
 
-bool KeyboardCommandManager::load()
+bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
@@ -475,19 +469,16 @@ bool KeyboardCommandManager::load()
 	connect(ui.pbAlt, SIGNAL(toggled(bool)), this, SLOT(alt(bool)));
 	connect(ui.pbAltGr, SIGNAL(toggled(bool)), this, SLOT(altGr(bool)));
 	connect(ui.pbSuper, SIGNAL(toggled(bool)), this, SLOT(super(bool)));
-	rebuildGui();
-	return true;
-}
 
-bool KeyboardCommandManager::save()
-{
+	config = new KeyboardConfiguration(this, parentScenario);
+	config->deSerialize(elem);
 	return true;
 }
 
 KeyboardCommandManager::~KeyboardCommandManager()
 {
-	kDebug() << "DELETING COMMAND MANAGER";
 	keyboardWidget->deleteLater();
 	activateAction->deleteLater();
 	delete setContainer;
 }
+

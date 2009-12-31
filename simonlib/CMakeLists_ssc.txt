@@ -1,0 +1,30 @@
+find_package(KDE4 REQUIRED)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscobjects)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscprotocol)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonsound)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprogresstracking)
+
+#add_definitions(-DUSE_WITH_SIMON)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/po)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/adinstreamer)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactions)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonlogging)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoninfo)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonxml)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechgui)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodeltest)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprotocol)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitionresult)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilation)
+
+#install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}  COMPONENT simon)
+#install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )
+
+
+
+#message(STATUS "Enabling simons experimental scenario support.")
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarios)
+

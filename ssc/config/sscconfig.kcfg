@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile name="sscrc" />
+  <include>KStandardDirs</include>
+  <group name="ssc">
+    <entry name="AutoConnect" type="Bool">
+      <label>wether to connect automatically during startup.</label>
+      <default>true</default>
+    </entry>
+    <entry name="Host" type="String">
+      <label>the server to connect to.</label>
+      <default>127.0.0.1</default>
+    </entry>
+    <entry name="Port" type="Int">
+      <label>the port to connect to.</label>
+      <default>4440</default>
+    </entry>
+    <entry name="UseInstitutionSpecificIDs" type="Bool">
+      <label>wether we want to resolve users based on their reference id assigned by a specific institute.</label>
+      <default>false</default>
+    </entry>
+    
+    <entry name="ReferenceInstitute" type="Int">
+      <label>the institution who is used to resolve the reference ids.</label>
+      <default>0</default>
+    </entry>
+
+    <entry name="DefaultLanguage" type="String">
+      <label>the default langauge for new users.</label>
+      <default>de</default>
+    </entry>
+
+   <entry name="UseEncryption" type="Bool">
+      <label>wether we want to encrypt the communication between simon and simond.</label>
+      <default>false</default>
+    </entry>
+    <entry name="EncryptionMethod" type="String">
+      <label>The encryption method to use.</label>
+    </entry>
+    <entry name="Certificate" type="Url">
+      <label>the path to the SSL certificate.</label>
+    </entry>
+    
+    <entry name="DefaultToPowerTrain" type="Bool">
+      <label>wether power training is activated by default.</label>
+      <default>false</default>
+    </entry>
+    <entry name="SampleDirectory" type="String">
+      <label>the temporary directory where the samples are stored.</label>
+      <default code="true">KStandardDirs::locateLocal("appdata", "samples/")</default>
+    </entry>
+
+  </group>
+
+  
+</kcfg>

@@ -19,7 +19,7 @@
 
 
 #include "deleteworddialog.h"
-#include <speechmodelbase/word.h>
+#include <simonscenarios/word.h>
 #include <KIconLoader>
 
 /**
@@ -44,12 +44,12 @@ DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(
  * @param isShadowed Returns true if the word is in the shadow lexicon
  * @return False, if the dialog is aborted
  */
-int DeleteWordDialog::exec(Word word, bool isShadowed)
+int DeleteWordDialog::exec(Word *word, bool isShadowed)
 {
-	ui.lbName->setText(word.getWord());
-	ui.lbPronunciation->setText(word.getPronunciation());
-	ui.lbTerminal->setText(word.getTerminal());
-	ui.lbRecognitionRate->setText(QString::number(word.getPropability()));
+	ui.lbName->setText(word->getWord());
+	ui.lbPronunciation->setText(word->getPronunciation());
+	ui.lbTerminal->setText(word->getTerminal());
+	ui.lbRecognitionRate->setText(QString::number(word->getPropability()));
 	if (isShadowed)
 	{
 		ui.lbShadowDesc->setEnabled(false);

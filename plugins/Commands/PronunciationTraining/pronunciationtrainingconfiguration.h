@@ -20,7 +20,7 @@
 #ifndef SIMON_PRONUNCIATIONTRAININGCONFIGURATION_H_DF2B936F15A84FD8962EF68E1DAFE24F
 #define SIMON_PRONUNCIATIONTRAININGCONFIGURATION_H_DF2B936F15A84FD8962EF68E1DAFE24F 
 
-#include <commandpluginbase/commandconfiguration.h>
+#include <simonscenarios/commandconfiguration.h>
 #include "ui_pronunciationtrainingconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
@@ -31,22 +31,15 @@ class PronunciationTrainingConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::PronunciationTrainingConfigurationDlg ui;
-		static QPointer<PronunciationTrainingConfiguration> instance;
  
 	public slots:
-		virtual void save();
-		virtual void load();
+		virtual bool deSerialize(const QDomElement&);
+		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 	
 	public:
-		static PronunciationTrainingConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new PronunciationTrainingConfiguration(parent, args);
-			return instance;
-		}
-		PronunciationTrainingConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~PronunciationTrainingConfiguration();
-		
-		void destroy();
 		
 		//configuration options
 		QString trigger();

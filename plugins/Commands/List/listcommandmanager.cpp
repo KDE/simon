@@ -17,10 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "listcommandmanager.h"
-#include "xmllistcommand.h"
 #include <simonactions/listcommand.h>
 #include "createlistcommandwidget.h"
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
@@ -31,8 +31,7 @@ K_PLUGIN_FACTORY( ListCommandPluginFactory,
 K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
 
 
-ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
-	xmlListCommand(new XMLListCommand())
+ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
@@ -45,8 +44,10 @@ bool ListCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<ListCommand*>(command))
 	{
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		this->commands->append(command);
-		return save();
+		endInsertRows();
+		return parentScenario->save();
 	}
 	return false;
 }
@@ -59,23 +60,11 @@ const QString ListCommandManager::name() const
 
 CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateListCommandWidget(parent);
+	return new CreateListCommandWidget(this, parent);
 }
 
-bool ListCommandManager::load()
+bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 {
-	QString commandPath = KStandardDirs::locate("appdata", "conf/lists.xml");
-	Logger::log(i18n("[INF] Loading list commands from %1", commandPath));
-
-	bool ok = false;
-	this->commands = xmlListCommand->load(ok, commandPath);
-	return ok;
-}
-
-bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
-{
-	Q_UNUSED(parent);
-
 	if (commands)
 		qDeleteAll(*commands);
 	commands = new CommandList();
@@ -92,14 +81,18 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *
 		QStringList childCommandTrigger;
 		QStringList childCommandIcons;
 		QStringList childCommandCategory;
-		while (!childCommandsElem.isNull()) {
-			QDomElement childCommandTriggerElem = childCommandsElem.firstChildElement();
+		while (!childCommandElem.isNull()) {
+			QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
 			QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
 			QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
 			childCommandTrigger << childCommandTriggerElem.text();
 			childCommandIcons << childCommandIconElem.text();
 			childCommandCategory << childCommandCategoryElem.text();
+			childCommandElem = childCommandElem.nextSiblingElement();
 		}
+		kDebug() << "Triggers: " << childCommandTrigger;
+		kDebug() << "Icons: " << childCommandIcons;
+		kDebug() << "Categories: " << childCommandCategory;
 
 		commands->append(new ListCommand(name.text(), icon.text(), 
 						childCommandTrigger, childCommandIcons, childCommandCategory));
@@ -110,14 +103,6 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *
 	return true;
 }
 
-bool ListCommandManager::save()
-{
-	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/lists.xml");
-	Logger::log(i18n("[INF] Saving list commands to %1", commandPath));
-	return xmlListCommand->save(commands, commandPath);
-}
-
 ListCommandManager::~ListCommandManager()
 {
-	if (xmlListCommand) xmlListCommand->deleteLater();
 }

@@ -17,10 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_MODELMANAGERUIPROXY_H_E976001244F74B98889BDF22C72B7258
-#define SIMON_MODELMANAGERUIPROXY_H_E976001244F74B98889BDF22C72B7258
+#ifndef MODELMANAGERUIPROXY_H
+#define MODELMANAGERUIPROXY_H
 
-#include <speechmodelmanagement/modelmanager.h>
+#include <simonscenarios/modelmanager.h>
 
 #include "simonmodelmanagementui_export.h"
 
@@ -45,21 +45,20 @@ private slots:
 
 private:
 	static ModelManagerUiProxy *instance;
+	ModelManagerUiProxy(QObject *parent=0);
 
 public:
-	ModelManagerUiProxy(QObject *parent=0);
+	static ModelManagerUiProxy* getInstance() {
+		if (!instance) instance = new ModelManagerUiProxy();
+		return instance;
+	}
+
 	~ModelManagerUiProxy();
 
-	void sampleNotAvailable(const QString&);
-	void wordUndefined(const QString&);
-	void classUndefined(const QString&);
- 	void phonemeUndefined(const QString&);
-	void displayCompilationProtocol(const QString& protocol);
-
-	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
-				const QByteArray& activeVocab, const QByteArray& activeLexicon);
-	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
-	bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+//	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+//				const QByteArray& activeVocab, const QByteArray& activeLexicon);
+//	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+	bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 				const QByteArray& treeHed);
 	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
 				const QByteArray& prompts);

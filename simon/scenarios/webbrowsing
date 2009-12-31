@@ -1,0 +1,275 @@
+<!DOCTYPE scenario>
+<scenario version="1" icon="internet-web-browser" name="Webbrowsing" lastModified="2009-12-23T17:28:47">
+ <simonCompatibility>
+  <minimumVersion>
+   <version>0.1.0</version>
+  </minimumVersion>
+  <maximumVersion>
+   <version>0.3.0</version>
+  </maximumVersion>
+ </simonCompatibility>
+ <authors>
+  <author>
+   <name>Peter Grasch</name>
+   <contact>grasch@simon-listens.org</contact>
+  </author>
+  <author>
+   <name>Franz Stieger</name>
+   <contact>f.stieger@cyber-byte.at</contact>
+  </author>
+ </authors>
+ <licence>GPL</licence>
+ <vocabulary>
+  <word>
+   <name>Back</name>
+   <pronunciation>b ae k</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
+   <name>Computer</name>
+   <pronunciation>k ax m p y uw t er</pronunciation>
+   <terminal>Trigger</terminal>
+  </word>
+  <word>
+   <name>Desktopgrid</name>
+   <pronunciation>d eh s k t aa p g r ih d</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Down</name>
+   <pronunciation>d aw n</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
+   <name>Eight</name>
+   <pronunciation>ey t</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Five</name>
+   <pronunciation>f ay v</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Forward</name>
+   <pronunciation>f ow r w er d</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+  <word>
+   <name>Four</name>
+   <pronunciation>f ow r</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Go</name>
+   <pronunciation>g ow</pronunciation>
+   <terminal>Action</terminal>
+  </word>
+  <word>
+   <name>Internet</name>
+   <pronunciation>ih n t er n eh t</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Links</name>
+   <pronunciation>l ih ng k z</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Nine</name>
+   <pronunciation>n ay n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>One</name>
+   <pronunciation>w ah n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Page</name>
+   <pronunciation>p ey jh</pronunciation>
+   <terminal>Object</terminal>
+  </word>
+  <word>
+   <name>Seven</name>
+   <pronunciation>s eh v ih n</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Six</name>
+   <pronunciation>s ih k s</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Three</name>
+   <pronunciation>th r iy</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Two</name>
+   <pronunciation>t uw</pronunciation>
+   <terminal>Number</terminal>
+  </word>
+  <word>
+   <name>Up</name>
+   <pronunciation>ah p</pronunciation>
+   <terminal>Direction</terminal>
+  </word>
+ </vocabulary>
+ <grammar>
+  <structure>Trigger Command</structure>
+  <structure>Action Direction</structure>
+  <structure>Number</structure>
+  <structure>Object Direction</structure>
+ </grammar>
+ <actions>
+  <plugin trigger="Computer" name="simonexecutablecommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Internet</name>
+     <icon>firefox-icon</icon>
+     <workingdirectory></workingdirectory>
+     <executable>/usr/bin/firefox</executable>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Computer" name="simonplacecommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>ebay</name>
+     <icon>application-x-compressed-tar</icon>
+     <url>http://www.ebay.com</url>
+    </command>
+    <command>
+     <name>Facebook</name>
+     <icon>system-users</icon>
+     <url>http://www.facebook.com</url>
+    </command>
+    <command>
+     <name>Search</name>
+     <icon>system-search</icon>
+     <url>http://www.google.at</url>
+    </command>
+    <command>
+     <name>Amazon</name>
+     <icon>address-book-new</icon>
+     <url>http://www.amazon.com</url>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="" name="simonshortcutcommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Page Up</name>
+     <icon>arrow-up-double</icon>
+     <shortcut>PgUp</shortcut>
+    </command>
+    <command>
+     <name>Page Down</name>
+     <icon>arrow-down-double</icon>
+     <shortcut>PgDown</shortcut>
+    </command>
+    <command>
+     <name>Go Back</name>
+     <icon>draw-arrow-back</icon>
+     <shortcut>Alt+Left</shortcut>
+    </command>
+    <command>
+     <name>Go Forward</name>
+     <icon>draw-arrow-forward</icon>
+     <shortcut>Alt+Right</shortcut>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Computer" name="simonlistcommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Links</name>
+     <icon>bookmarks</icon>
+     <childCommands>
+      <childCommand>
+       <trigger>Search</trigger>
+       <icon>system-search</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>Amazon</trigger>
+       <icon>address-book-new</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>ebay</trigger>
+       <icon>application-x-compressed-tar</icon>
+       <category>Place</category>
+      </childCommand>
+      <childCommand>
+       <trigger>Facebook</trigger>
+       <icon>system-users</icon>
+       <category>Place</category>
+      </childCommand>
+     </childCommands>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+  <plugin trigger="Desktopgrid" name="simondesktopgridplugin.desktop">
+   <config>
+    <realTransparency>1</realTransparency>
+   </config>
+   <commands/>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+ </actions>
+ <trainingtexts>
+  <trainingtext name="Internet: Complete">
+   <page>Computer Internet</page>
+   <page>Page Down</page>
+   <page>Page Up</page>
+   <page>Go Back</page>
+   <page>Go Forward</page>
+   <page>Computer Links</page>
+   <page>Desktopgrid</page>
+   <page>One</page>
+   <page>Two</page>
+   <page>Three</page>
+   <page>Four</page>
+   <page>Five</page>
+   <page>Six</page>
+   <page>Seven</page>
+   <page>Eight</page>
+   <page>Nine</page>
+  </trainingtext>
+ </trainingtexts>
+</scenario>

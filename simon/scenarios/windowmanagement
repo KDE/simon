@@ -1,0 +1,71 @@
+<!DOCTYPE scenario>
+<scenario version="1" icon="window-duplicate" name="Window Management" lastModified="2009-11-03T17:05:23">
+ <simonCompatibility>
+  <minimumVersion>
+   <version>0.2.0</version>
+  </minimumVersion>
+  <maximumVersion/>
+ </simonCompatibility>
+ <authors>
+  <author>
+   <name>Peter Grasch</name>
+   <contact>grasch@simon-listens.org</contact>
+  </author>
+ </authors>
+ <licence>GPL</licence>
+ <vocabulary>
+  <word>
+   <name>Fenster</name>
+   <pronunciation>f E n s t @ r</pronunciation>
+   <terminal>Object</terminal>
+  </word>
+  <word>
+   <name>Nächstes</name>
+   <pronunciation>n E: C s t @ s</pronunciation>
+   <terminal>Operation</terminal>
+  </word>
+  <word>
+   <name>schließen</name>
+   <pronunciation>S l i: s @ n</pronunciation>
+   <terminal>Command</terminal>
+  </word>
+  <word>
+   <name>Vorheriges</name>
+   <pronunciation>f o: r h e: r I g @ s</pronunciation>
+   <terminal>Operation</terminal>
+  </word>
+ </vocabulary>
+ <grammar>
+  <structure>Operation Object</structure>
+  <structure>Object Command</structure>
+ </grammar>
+ <actions>
+  <plugin trigger="" name="simonshortcutcommandplugin.desktop">
+   <config/>
+   <commands>
+    <command>
+     <name>Fenster schließen</name>
+     <icon>window-close</icon>
+     <shortcut>Ctrl+F4</shortcut>
+    </command>
+    <command>
+     <name>Nächstes Fenster</name>
+     <icon>go-next-view</icon>
+     <shortcut>Alt+Tab</shortcut>
+    </command>
+    <command>
+     <name>Vorheriges Fenster</name>
+     <icon>go-previous-view</icon>
+     <shortcut>Alt+Shift+Tab</shortcut>
+    </command>
+   </commands>
+   <pluginCompatibility>
+    <minimumVersion>
+     <version>0.1.0</version>
+    </minimumVersion>
+    <maximumVersion/>
+   </pluginCompatibility>
+  </plugin>
+ </actions>
+ <trainingtexts/>
+</scenario>

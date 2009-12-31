@@ -81,6 +81,7 @@ void Operation::cancel()
 {
 	m_cancel=true;
 	m_status = Aborting;
+	emit aborting();
 	pushUpdate();
 }
 

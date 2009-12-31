@@ -20,7 +20,7 @@
 #ifndef SIMON_INPUTNUMBERCOMMANDMANAGER_H_23B4055BEBD242C7992B3FDD138177E0
 #define SIMON_INPUTNUMBERCOMMANDMANAGER_H_23B4055BEBD242C7992B3FDD138177E0
 
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
@@ -74,15 +74,13 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
-	bool load();
-	bool save();
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    InputNumberCommandManager(QObject *parent, const QVariantList& args);
+    InputNumberCommandManager(QObject* parent, const QVariantList& args);
 
     
     ~InputNumberCommandManager();

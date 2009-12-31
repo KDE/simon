@@ -112,12 +112,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbFuzzySearch" >
+        <widget class="QCheckBox" name="cbSimilarSearch" >
          <property name="text" >
-          <string>Also show non-perfect matches</string>
+          <string>Include similar words</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="cbContainsSearch" >
+         <property name="text" >
+          <string>Include all words containing the search string</string>
+         </property>
+        </widget>
+       </item>
+
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >
@@ -224,7 +232,8 @@
   <tabstop>leSampa</tabstop>
   <tabstop>twModules</tabstop>
   <tabstop>twSuggestions</tabstop>
-  <tabstop>cbFuzzySearch</tabstop>
+  <tabstop>cbSimilarSearch</tabstop>
+  <tabstop>cbContainsSearch</tabstop>
   <tabstop>leExample1</tabstop>
   <tabstop>leExample2</tabstop>
   <tabstop>pbReGuess</tabstop>

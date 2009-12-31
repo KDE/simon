@@ -25,7 +25,9 @@
 #include "simonspinbox.h"
 #include "soundconfig.h"
 
+#ifdef USE_WITH_SIMON
 #include <adinstreamer/adinstreamer.h>
+#endif
 
 #include <KMessageBox>
 #include <QVBoxLayout>
@@ -100,7 +102,9 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 
 	addConfig(SoundConfiguration::self(), this);
 
+#ifdef USE_WITH_SIMON
 	connect(AdinStreamer::getInstance(), SIGNAL(audioDeviceError()), this, SLOT(show()));
+#endif
 }
 
 
@@ -119,7 +123,9 @@ void SoundSettings::checkWithSuccessMessage()
 void SoundSettings::load()
 {
 #ifdef Q_OS_LINUX
+#ifdef USE_WITH_SIMON
 	AdinStreamer::getInstance()->stopSoundStream();
+#endif
 #endif
 
 	deviceUi.cbSoundInputDevice->clear();
@@ -178,7 +184,10 @@ void SoundSettings::load()
 
 #ifdef Q_OS_UNIX
 	if (hasChanged) emit changed(true);
+	
+#ifdef USE_WITH_SIMON
 	AdinStreamer::getInstance()->restartSoundStream();
+#endif
 #endif
 }
 
@@ -268,8 +277,10 @@ void SoundSettings::save()
 #endif
 	config->sync();
 
+#ifdef USE_WITH_SIMON
 	AdinStreamer::getInstance()->stopSoundStream();
 	AdinStreamer::getInstance()->restartSoundStream();
+#endif
 }
 
 void SoundSettings::slotChanged()

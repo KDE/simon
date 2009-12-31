@@ -23,31 +23,34 @@
 
 #include "ui_grammarview.h"
 #include <QTimer>
+#include <simonscenarios/scenariodisplay.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class GrammarManager;
+class QSortFilterProxyModel;
 
-class GrammarViewPrivate : public QWidget
+class GrammarViewPrivate : public QWidget, public ScenarioDisplay 
 {
 Q_OBJECT
 private:
 	Ui::GrammarView ui;
 	QTimer autoSaveTimer;
+	QSortFilterProxyModel *grammarProxy;
 
 private slots:
 	void showRenameWizard();
 	void showImportWizard();
 	void showMergeWizard();
-	void slotChanged();
+	
+	void currentSelectionChanged();
+
+	void addStructure();
+	void deleteStructure();
+//	void slotChanged();
 
 public slots:
-	void mergeGrammar(QStringList);
-	
-	void load();
-	void save();
-	void defaults();
+	void displayScenarioPrivate(Scenario *scenario);
 
 public:
     GrammarViewPrivate(QWidget* parent);

@@ -64,7 +64,8 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/mingwm10.dll"
   "${KDE4_BIN_INSTALL_DIR}/mingw-pcrecpp.dll"
   "${KDE4_BIN_INSTALL_DIR}/msvcp71.dll"
-  "${KDE4_BIN_INSTALL_DIR}/msvcr71.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libgcc_s_dw2-1.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/msvcr71.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtCore4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtDBus4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtGui4.dll"
@@ -204,6 +205,7 @@ install ( FILES
 
   install( FILES 
   "${QT_PLUGINS_DIR}/sqldrivers/qsqlite4.dll"
+  "${QT_PLUGINS_DIR}/sqldrivers/qsqlmysql4.dll"
 		DESTINATION  ${BIN_INSTALL_DIR}/sqldrivers COMPONENT kdecore )
   
   install( FILES 

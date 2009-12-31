@@ -33,7 +33,7 @@ K_EXPORT_PLUGIN( InputNumberCommandPluginFactory("simoninputnumbercommand") )
 
 QStringList InputNumberCommandManager::numberIdentifiers;
 
-InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	activateAction(new KAction(this))
 {
@@ -223,16 +223,6 @@ bool InputNumberCommandManager::trigger(const QString& triggerName)
 	return true;
 }
 
-
-bool InputNumberCommandManager::load()
-{
-	return true;
-}
-
-bool InputNumberCommandManager::save()
-{
-	return true;
-}
 
 InputNumberCommandManager::~InputNumberCommandManager()
 {

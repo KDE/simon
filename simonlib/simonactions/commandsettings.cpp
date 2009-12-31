@@ -18,7 +18,6 @@
  */
 
 #include "commandsettings.h"
-#include "actionmanager.h"
 
 #include <QListWidget>
 #include <QVariant>
@@ -30,7 +29,7 @@
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KPageWidget>
-#include <commandpluginbase/commandmanager.h>
+#include <simonscenarios/commandmanager.h>
 #include <kgenericfactory.h>
 
 
@@ -99,8 +98,6 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 			  this, SLOT(availablePluginSelectionChanged(QListWidgetItem*)));
 
 	load();
-
-	ActionManager::getInstance()->setConfigurationDialog(this);
 }
 
 void CommandSettings::updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger)
@@ -213,10 +210,7 @@ QList<Action::Ptr> CommandSettings::availableCommandManagers()
 	
 	foreach (KService::Ptr service, services)
 	{
-		/*fprintf(stderr, "Found service: %s\n", service->storageId().toUtf8().data());*/
 		Action::Ptr action = new Action(service->storageId());
-		/*fprintf(stderr, "Trigger: %s\n", action->trigger().toUtf8().data());
-		fprintf(stderr, "Manager name: %s\n", action->manager()->name().toUtf8().data());*/
 		actions.append(action);
 	}
 
@@ -301,7 +295,6 @@ void CommandSettings::displayList(QListWidget *listWidget, QList<Action::Ptr> ac
 
 		QString decorativeName;
 		if (!action->trigger().isEmpty()) {
-			//decorativeName = "huhu";
 			decorativeName = QString("%1 (%2)").arg(action->manager()->name()).arg(action->trigger());
 		} else {
 			decorativeName = action->manager()->name();
@@ -352,7 +345,6 @@ void CommandSettings::load()
 
 	QList<Action::Ptr> notSelectedPlugins;
 	QList<Action::Ptr> selectedPlugins;
-//	Action::Ptr selectedPluginsArr[pluginsToLoad.count()];
 	Action::Ptr *selectedPluginsArr = new Action::Ptr[pluginsToLoad.count()];
 
 	int loadedCount=0;
@@ -448,8 +440,6 @@ void CommandSettings::slotChanged()
  */
 CommandSettings::~CommandSettings()
 {
-//	kDebug() << "Clearing command settings";
-//	clear();
 }
 
 

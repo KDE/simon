@@ -21,12 +21,19 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
 
 set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanagementdialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/newauthor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/newscenario.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modifyscenario.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modifyauthor.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanagementdlg.ui
 )
+
 
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
@@ -34,8 +41,10 @@ kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-
 kde4_add_executable( simon ${simonGeneralSources} )
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simonactions simoninfo
-simonlogging simonxml speechgui simonsound simonmodelmanagementui 
+${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} simonappcore 
+simonactions simoninfo
+simonlogging simonxml speechgui simonsound simonscenarios 
+simonmodelmanagementui simonscenariobase
 simonrecognitioncontrol simonactionsui simonprogresstracking)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

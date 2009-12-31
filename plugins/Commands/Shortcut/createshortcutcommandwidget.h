@@ -21,11 +21,12 @@
 #define SIMON_CREATESHORTCUTCOMMANDWIDGET_H_83B3250DFAD6484386C5F490245A21C3
 
 #include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
+#include <simonscenarios/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
 
 
 class Command;
+class CommandManager;
 
 /**
  *	@class CreateShortcutCommandWidget
@@ -58,7 +59,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateShortcutCommandWidget(QWidget *parent=0);
+	CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
 
 
 	virtual ~CreateShortcutCommandWidget();
