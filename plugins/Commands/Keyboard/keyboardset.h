@@ -18,8 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef KEYBOARDSET_H
-#define KEYBOARDSET_H
+#ifndef SIMON_KEYBOARDSET_H_B8EE8A5392704A46A0D7BC23880E827C
+#define SIMON_KEYBOARDSET_H_B8EE8A5392704A46A0D7BC23880E827C
 
 #include "keyboardtab.h"
 #include <QList>

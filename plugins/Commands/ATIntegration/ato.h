@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ATO_H
-#define ATO_H
+#ifndef SIMON_ATO_H_41A2DE477ABC4B438699B1F9F856549D
+#define SIMON_ATO_H_41A2DE477ABC4B438699B1F9F856549D
 #include <QMetaType>
 
  struct ATOLocation

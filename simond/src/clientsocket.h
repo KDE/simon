@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CLIENTSOCKET_H
-#define CLIENTSOCKET_H
+#ifndef SIMON_CLIENTSOCKET_H_4485408A4C1743CDB368CCC3616AC16F
+#define SIMON_CLIENTSOCKET_H_4485408A4C1743CDB368CCC3616AC16F
 
 #include "recognitioncontrol.h"
 #include <simonddatabaseaccess/databaseaccess.h>

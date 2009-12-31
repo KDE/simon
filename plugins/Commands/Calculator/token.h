@@ -16,8 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef TOKEN_H
-#define TOKEN_H
+#ifndef SIMON_TOKEN_H_F9C205BEB5644D829F4AF5515883F7FD
+#define SIMON_TOKEN_H_F9C205BEB5644D829F4AF5515883F7FD
 
 class Token
 {

@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef AIMLPARSER_H
-#define AIMLPARSER_H
+#ifndef SIMON_AIMLPARSER_H_AED584817A104F9496E177E8ABC2573D
+#define SIMON_AIMLPARSER_H_AED584817A104F9496E177E8ABC2573D
 
 #include <QtXml>
 #include <QMap>

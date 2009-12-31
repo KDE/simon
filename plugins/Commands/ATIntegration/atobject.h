@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ATOBJECT_H
-#define ATOBJECT_H
+#ifndef SIMON_ATOBJECT_H_CA05C6F6C9B947B3ABFA9DADF4496635
+#define SIMON_ATOBJECT_H_CA05C6F6C9B947B3ABFA9DADF4496635
 
 #include <QWidget>
 class ATOMenu;

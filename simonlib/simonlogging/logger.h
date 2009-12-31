@@ -18,8 +18,8 @@
  */
 
 
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef SIMON_LOGGER_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
+#define SIMON_LOGGER_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
 
 #include "simonlogging_export.h"
 #include <QString>

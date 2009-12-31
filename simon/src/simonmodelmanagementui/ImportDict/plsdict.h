@@ -18,8 +18,8 @@
  */
 
 
-#ifndef PLSDICT_H
-#define PLSDICT_H
+#ifndef SIMON_PLSDICT_H_E6F757214F0F4DEC87C08BEACBF9A51E
+#define SIMON_PLSDICT_H_E6F757214F0F4DEC87C08BEACBF9A51E
 
 #include <QXmlDefaultHandler>
 #include "dict.h"

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef FILTERCONFIGURATION_H
-#define FILTERCONFIGURATION_H
+#ifndef SIMON_FILTERCONFIGURATION_H_292E2876D06A41AE941DEA08497D4BFE
+#define SIMON_FILTERCONFIGURATION_H_292E2876D06A41AE941DEA08497D4BFE
 
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_filterconfigurationdlg.h"

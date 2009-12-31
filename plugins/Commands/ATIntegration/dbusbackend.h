@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef DBUSBACKEND_H
-#define DBUSBACKEND_H
+#ifndef SIMON_DBUSBACKEND_H_CE8C354073E44D66B8AE75099BE48B70
+#define SIMON_DBUSBACKEND_H_CE8C354073E44D66B8AE75099BE48B70
 
 #include "atbackend.h"
 #include "ato.h"

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef TESTRESULT_H
-#define TESTRESULT_H
+#ifndef SIMON_TESTRESULT_H_8163A007180343A3A027C402EDCE6C93
+#define SIMON_TESTRESULT_H_8163A007180343A3A027C402EDCE6C93
 
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"

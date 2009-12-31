@@ -16,8 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef SIMONMAINWINDOW_H
-#define SIMONMAINWINDOW_H
+#ifndef SIMON_SIMONMAINWINDOW_H_BA327087B7A84ED3B931E302C697A6D1
+#define SIMON_SIMONMAINWINDOW_H_BA327087B7A84ED3B931E302C697A6D1
 
 #include <QObject>
 #include <kxmlguiwindow.h>

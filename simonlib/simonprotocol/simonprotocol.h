@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMONPROTOCOL_H
-#define SIMONPROTOCOL_H
+#ifndef SIMON_SIMONPROTOCOL_H_F0E4B83DBA554FB0A9D83585242F6E2B
+#define SIMON_SIMONPROTOCOL_H_F0E4B83DBA554FB0A9D83585242F6E2B
 
 /*
  * "length" always refers to a 64bit signed integer (qint64) which contains the length of the rest of the packet

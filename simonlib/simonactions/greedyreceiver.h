@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef GREEDYRECEIVER_H
-#define GREEDYRECEIVER_H
+#ifndef SIMON_GREEDYRECEIVER_H_561D6EF525114CB7B4D84C003137CBE9
+#define SIMON_GREEDYRECEIVER_H_561D6EF525114CB7B4D84C003137CBE9
 
 #include "actionlib_export.h"
 #include <simonrecognitionresult/recognitionresult.h>

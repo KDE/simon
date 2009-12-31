@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef COMMANDSETTINGS_H
-#define COMMANDSETTINGS_H
+#ifndef SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
+#define SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
 
 #include "ui_commandsettingsdlg.h"
 #include <KCModule>

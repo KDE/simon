@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef AICONFIGURATION_H
-#define AICONFIGURATION_H
+#ifndef SIMON_AICONFIGURATION_H_5E8C8114E79B4A54A9028B5E857F3F4A
+#define SIMON_AICONFIGURATION_H_5E8C8114E79B4A54A9028B5E857F3F4A
 
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_aiconfigurationdlg.h"

@@ -18,8 +18,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef KEYBOARDCONFIGURATION_H
-#define KEYBOARDCONFIGURATION_H
+#ifndef SIMON_KEYBOARDCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_KEYBOARDCONFIGURATION_H_4B4956DCAE204C49977297D20CB81F09
 
 #include "keyboardset.h"
 #include <simonscenarios/commandconfiguration.h>

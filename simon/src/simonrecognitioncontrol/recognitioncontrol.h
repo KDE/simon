@@ -18,8 +18,8 @@
  */
 
 
-#ifndef RECOGNITIONCONTROL_H
-#define RECOGNITIONCONTROL_H
+#ifndef SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
+#define SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
 
 #include "recognitioncontrol_export.h"
 #include <simonrecognitionresult/recognitionresult.h>

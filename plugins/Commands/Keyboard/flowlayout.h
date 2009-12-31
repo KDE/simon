@@ -39,8 +39,8 @@
  **
  ****************************************************************************/
 
- #ifndef FLOWLAYOUT_H
- #define FLOWLAYOUT_H
+ #ifndef SIMON_FLOWLAYOUT_H_69219538CAE0446A8CA5296C734B207C
+ #define SIMON_FLOWLAYOUT_H_69219538CAE0446A8CA5296C734B207C
 
  #include <QLayout>
  #include <QRect>

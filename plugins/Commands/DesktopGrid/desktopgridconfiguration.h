@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef DESKTOPGRIDCONFIGURATION_H
-#define DESKTOPGRIDCONFIGURATION_H
+#ifndef SIMON_DESKTOPGRIDCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C
+#define SIMON_DESKTOPGRIDCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C
 
 #include <simonscenarios/commandconfiguration.h>
 #include "ui_desktopgridconfigurationdlg.h"
