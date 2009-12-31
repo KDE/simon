@@ -341,7 +341,7 @@ void ScenarioManagementDialog::initDisplay()
 
 	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup cg(config, "");
-	QStringList  selectedIds = cg.readEntry("SelectedScenarios", QStringList());
+	QStringList  selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
 
 
 	QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
@@ -381,7 +381,7 @@ void ScenarioManagementDialog::selectedScenarioSelected()
 	ui.asScenarios->setButtonsEnabled();
 }
 
-void ScenarioManagementDialog::save()
+bool ScenarioManagementDialog::save()
 {
 	QListWidget *s = ui.asScenarios->selectedListWidget();
 	QStringList ids;
@@ -389,19 +389,28 @@ void ScenarioManagementDialog::save()
 	for (int i=0; i < s->count(); i++)
 		ids << s->item(i)->data(Qt::UserRole).toString();
 
+	if (ids.count() == 0) {
+		KMessageBox::information(this, i18n("You need at least one active scenario.\n\nPlease load a scenario.\n\nYour current (empty) configuration was not saved."));
+		return false;
+	}
+
 	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup cg(config, "");
 	cg.writeEntry("SelectedScenarios", ids);
 	cg.writeEntry("LastModified", QDateTime::currentDateTime());
 	m_dirty = false;
+	return true;
 }
 
 int ScenarioManagementDialog::exec()
 {
 	m_dirty = false;
-	int ret = KDialog::exec();
-	if (ret)
-		save();
+	int ret;
+	do
+	{
+		ret = KDialog::exec();
+		if (!ret) break;
+	} while (!save());
 
 	return ret;
 }

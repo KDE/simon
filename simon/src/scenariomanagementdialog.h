@@ -45,7 +45,7 @@ private:
 
 	Scenario* getCurrentlySelectedScenario();
 
-	void save();
+	bool save();
 
 private slots:
 	void availableScenarioSelected();

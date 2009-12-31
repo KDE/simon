@@ -1,0 +1,20 @@
+<!DOCTYPE scenario>
+<scenario version="1" icon="simon" name="General" lastModified="2009-12-31T19:41:35">
+ <simonCompatibility>
+  <minimumVersion>
+   <version>0.2.82</version>
+  </minimumVersion>
+  <maximumVersion/>
+ </simonCompatibility>
+ <authors>
+  <author>
+   <name>Anybody</name>
+   <contact>no@mail</contact>
+  </author>
+ </authors>
+ <licence>GPL</licence>
+ <vocabulary/>
+ <grammar/>
+ <actions/>
+ <trainingtexts/>
+</scenario>

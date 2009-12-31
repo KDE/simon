@@ -129,7 +129,8 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 
 	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup cg(config, "");
-	QStringList  scenarioIds = cg.readEntry("SelectedScenarios", QStringList());
+	QStringList  scenarioIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
+	kDebug() << "Loading scenario: " << scenarioIds;
 
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
