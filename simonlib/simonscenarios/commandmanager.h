@@ -84,6 +84,8 @@ public:
 		return (commands && !commands->isEmpty());
 	}
 
+	virtual void setFont(const QFont& font);
+
 	virtual CommandConfiguration* getConfigurationPage();
 	virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

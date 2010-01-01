@@ -182,6 +182,13 @@ bool Action::setTrigger(const QString& newTrigger)
 	return parentScenario->save();
 }
 
+void Action::setPluginFont(const QFont& font)
+{
+	m_manager->setFont(font);
+}
+
+
+
 Action::~Action()
 {
 	if (m_manager)

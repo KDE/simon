@@ -105,6 +105,7 @@ public:
 		this->commandTypes = newCommandTypes;
 		Command::change(newName, newIconSrc);
 	}
+	void setFont(const QFont& font);
 
     ~ListCommand();
 

@@ -19,6 +19,7 @@
 
 #include "listcommand.h"
 #include "commandlistwidget.h"
+#include "actionmanager.h"
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
@@ -32,7 +33,6 @@
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
-#include "actionmanager.h"
 
 
 QStringList ListCommand::numberIdentifiers;
@@ -119,7 +119,7 @@ bool ListCommand::processRequest(int index)
 		clw->close();
 		stopGreedy();
 		usleep(300000);
-		//FIXME: Clean solution
+		//TODO: Clean solution
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		emit entrySelected();
 	}
@@ -220,6 +220,12 @@ bool ListCommand::triggerPrivate()
 	clw->show();
 
 	return true;
+}
+
+void ListCommand::setFont(const QFont& font)
+{
+	kDebug() << "Setting font...";
+	clw->setFont(font);
 }
 
 ListCommand::~ListCommand()

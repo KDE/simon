@@ -47,6 +47,8 @@ KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantLi
 {
 	setContainer = new KeyboardSetContainer();
 
+	setFont(ActionManager::getInstance()->pluginBaseFont());
+
 	keyboardWidget->setWindowIcon(KIcon("input-keyboard"));
         ui.setupUi(keyboardWidget);
 	keyboardWidget->hide();
@@ -56,6 +58,11 @@ KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantLi
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
 	guiActions<<activateAction;
+}
+
+void KeyboardCommandManager::setFont(const QFont& font)
+{
+	keyboardWidget->setFont(font);
 }
 
 void KeyboardCommandManager::activate()

@@ -96,6 +96,7 @@ public:
 	void startGroup();
 	bool commitGroup();
 
+	void setPluginFont(const QFont& font);
 	
 public slots:
 	// If force is true, every registered display will switch to this scenario

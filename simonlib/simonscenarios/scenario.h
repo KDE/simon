@@ -141,6 +141,8 @@ public:
 
 	~Scenario();
 
+	void setPluginFont(const QFont& font);
+
 	static QString createId(const QString& name);
 
 };

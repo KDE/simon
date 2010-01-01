@@ -132,6 +132,11 @@ bool NewCommand::newCommand(const QString& preSelectedCategory)
 	if (!preSelectedCategory.isNull())
 		ui.cbType->setCurrentIndex(ui.cbType->findText(preSelectedCategory));
 
+	if (ui.swCommandCreaters->count() == 0) {
+		KMessageBox::information(this, i18n("No command plugins loaded that provide command engines.\n\nYou can load some in the \"Manage Plug-Ins\" dialog."));
+		return false;
+	}
+
 	if (KDialog::exec())
 	{
 		//creating

@@ -24,8 +24,7 @@
 #include <KCModule>
 #include <QStringList>
 #include <QVariantList>
-#include <QHash>
-#include <simonscenarios/action.h>
+#include <QFont>
 
 class QListWidgetItem;
 class KPageWidget;
@@ -43,7 +42,6 @@ class CommandSettings : public KCModule
 Q_OBJECT
 
 signals:
-	void actionsChanged(QList<Action::Ptr> actions);
 	void recognitionResultsFilterParametersChanged();
 
 private:
@@ -53,19 +51,7 @@ private:
 	Ui::CommandSettingsDlg ui;
 	KSharedConfig::Ptr config;
 	bool isChanged;
-
-	KPageWidget *pageWidget;
-	QHash<KCModule*, KPageWidgetItem*> moduleHash;
-
-	QList<Action::Ptr> actions;
-
-	QList<Action::Ptr> availableCommandManagers();
-
-	QStringList findDefaultPlugins(const QList<Action::Ptr>& actions);
-	
-	void updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger);
-
-	void displayList(QListWidget *listWidget, QList<Action::Ptr> actions);
+	QFont storedFont;
 
 public slots:
 	virtual void save();
@@ -73,14 +59,7 @@ public slots:
 	virtual void defaults();
  
 private slots:
-	void clear();
 	void slotChanged();
-	void pluginChanged(bool isChanged);
-	void activePluginSelectionChanged(QListWidgetItem* activePluginItem);
-	void availablePluginSelectionChanged(QListWidgetItem* availablePluginItem);
-	void currentTriggerChanged(const QString& newTrigger);
-	void applyToAllClicked();
-	void initPluginListWidgetItem(QListWidgetItem* item);
 
 public:
 	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
@@ -90,14 +69,11 @@ public:
 	}
 
 	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
-	QList<Action::Ptr> getActivePlugins();
 
-	float getMinimumConfidence();
+	float minimumConfidence();
 	bool useDYM();
+	QFont pluginBaseFont();
 	
-	void registerPlugIn(KCModule *plugin);
-	void unregisterPlugIn(KCModule *plugin);
-
 	~CommandSettings();
 };
 

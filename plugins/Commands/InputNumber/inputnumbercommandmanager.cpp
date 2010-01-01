@@ -38,6 +38,7 @@ InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVar
 	activateAction(new KAction(this))
 {
 	widget->setWindowIcon(KIcon("accessories-calculator"));
+	setFont(ActionManager::getInstance()->pluginBaseFont());
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 	ui.setupUi(widget);
 	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
@@ -77,6 +78,12 @@ const QString InputNumberCommandManager::preferredTrigger() const
 {
 	return i18n("Number");
 }
+
+void InputNumberCommandManager::setFont(const QFont& font)
+{
+	widget->setFont(font);
+}
+
 
 void InputNumberCommandManager::activate()
 {

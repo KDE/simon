@@ -17,12 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "simonview.h"
 
 #include "inlinewidgetview.h"
 #include "scenariomanagementdialog.h"
-
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
@@ -424,6 +422,7 @@ void SimonView::showSystemDialog ()
 	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
+	configDialog->addModule("simonactionsconfig", QStringList() << "");
 	configDialog->addModule("kcm_attica");
 	configDialog->show();
 }

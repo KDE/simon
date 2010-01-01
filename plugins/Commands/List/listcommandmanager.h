@@ -41,6 +41,7 @@ public:
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	bool deSerializeCommands(const QDomElement& elem);
+	void setFont(const QFont& font);
 
     /**
     * @brief Constructor

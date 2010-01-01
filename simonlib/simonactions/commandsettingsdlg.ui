@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CommandSettingsDlg</class>
- <widget class="QWidget" name="CommandSettingsDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="CommandSettingsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,103 +10,94 @@
     <height>420</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout2" >
-	     <item>
-		     <widget class="QLabel" name="lbMinimumConfidence" >
-		       <property name="text" >
-				<string>Minimum Confidence:</string>
-		       </property>
-		      </widget>
-	     </item>
-	     <item>
-		     <widget class="QDoubleSpinBox" name="sbMinimumConfidence" >
-			<property name="minimum" >
-			    <double>0.0</double>
-			   </property>
-			   <property name="maximum" >
-			    <double>1.0</double>
-			   </property>
-			   <property name="value" >
-			    <double>0.7</double>
-			   </property>
-			   <property name="singleStep" >
-			    <double>0.1</double>
-			   </property>
-		     </widget>
-	     </item>
-     </layout>
-   </item>
-   <item>
-     <widget class="QCheckBox" name="cbUseDYM" >
-	<property name="text" >
-		<string>Display selection popup for ambiguous results</string>
-	   </property>
+    <widget class="KTabWidget" name="twActionConfig">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Recognition</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout2">
+         <item>
+          <widget class="QLabel" name="lbMinimumConfidence">
+           <property name="text">
+            <string>Minimum Confidence:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="sbMinimumConfidence">
+           <property name="minimum">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>0.700000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbUseDYM">
+         <property name="text">
+          <string>Display selection popup for ambiguous results</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
-     <item>
-      <widget class="QLabel" name="lbTrigger" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Trigger:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KLineEdit" name="leTrigger" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="showClearButton" stdset="0" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pbApplyToAll" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Apply to all Plugins</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="KActionSelector" name="asCommandPlugins" >
-     <property name="availableLabel" >
-      <string>&amp;Available Plug-Ins:</string>
-     </property>
-     <property name="selectedLabel" >
-      <string>&amp;Selected Plug-Ins:</string>
-     </property>
-     <property name="showUpDownButtons" >
-      <bool>true</bool>
-     </property>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Plugin base font</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="KFontChooser" name="fcFont"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KActionSelector</class>
+   <class>KFontChooser</class>
    <extends>QWidget</extends>
-   <header>kactionselector.h</header>
+   <header>kfontdialog.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

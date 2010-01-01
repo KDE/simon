@@ -74,6 +74,8 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		bool removeCommand(Command *command);
 		CommandConfiguration* getConfigurationPage();
 
+		void setPluginFont(const QFont& font);
+
 		~Action();
 
 };

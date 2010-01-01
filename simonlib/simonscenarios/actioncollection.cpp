@@ -272,6 +272,13 @@ CommandList* ActionCollection::getCommandList()
 	return commandList;
 }
 
+void ActionCollection::setPluginFont(const QFont& font)
+{
+	foreach (Action *a, m_actions)
+		a->setPluginFont(font);
+}
+
+
 
 ActionCollection::~ActionCollection()
 {

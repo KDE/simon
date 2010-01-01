@@ -18,6 +18,7 @@
  */
 
 #include "commandlistwidget.h"
+#include "actionmanager.h"
 #include <QObject>
 #include <KPushButton>
 #include <QVBoxLayout>
@@ -35,8 +36,8 @@
 
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
-	pbCancel(new KPushButton(this)),
 	indexToSelectAfterTimeout(-1),
+	pbCancel(new KPushButton(this)),
 	twCommands(new QTableWidget(this)),
 	pbAutomaticSelection(new QProgressBar(this))
 {
@@ -47,6 +48,8 @@ CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOn
 
 	pbCancel->setText(i18n("Cancel"));
 	pbCancel->setIcon(KIcon("dialog-cancel"));
+
+	setFont(ActionManager::getInstance()->pluginBaseFont());
 
 	twCommands->verticalHeader()->hide();
 	if (twCommands->columnCount() < 2)
@@ -86,7 +89,6 @@ void CommandListWidget::runRequestSent()
 
 void CommandListWidget::runCommand()
 {
-	kDebug() << "hei";
 	toggleAfterTimeoutTimer.stop();
 	blinkTimer.stop();
 
@@ -113,6 +115,12 @@ void CommandListWidget::runCommand()
 	pbAutomaticSelection->hide();
 }
 
+void CommandListWidget::setFont(const QFont& font)
+{
+	QWidget::setFont(font);
+	resizeToFit();
+}
+
 void CommandListWidget::showEvent(QShowEvent *)
 {
 	pbAutomaticSelection->hide();
@@ -121,7 +129,7 @@ void CommandListWidget::showEvent(QShowEvent *)
 void CommandListWidget::closeEvent(QCloseEvent *)
 {
 	if (!runRequestEmitted) {
-		fprintf(stderr, "Emitting cancel...\n");
+		kDebug() << "Emitting cancel...\n";
 		emit canceled();
 	}
 	toggleAfterTimeoutTimer.stop();
@@ -182,12 +190,18 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 		twCommands->setItem(i, 1, com);
 
 	}
+	resizeToFit();
+	runRequestEmitted = false;
+}
+
+void CommandListWidget::resizeToFit()
+{
 	twCommands->resizeColumnsToContents();
 
 	QHeaderView *vhview = twCommands->verticalHeader();
 	QHeaderView *hhview = twCommands->horizontalHeader();
 	resize(QSize(hhview->sectionSize(0)+hhview->sectionSize(1)+25, 
-				(rowCount*vhview->sectionSize(0))+pbCancel->height()+pbAutomaticSelection->height()+40));
+				(twCommands->rowCount()*vhview->sectionSize(0))+pbCancel->height()+pbAutomaticSelection->height()+40));
 
 	//move to center of screen
 	QDesktopWidget* tmp = QApplication::desktop();
@@ -196,10 +210,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	y=(tmp->height()/2)-(height()/2);
 	
 	move(x,y);
-
-	runRequestEmitted = false;
 }
-
 
 void CommandListWidget::blink()
 {

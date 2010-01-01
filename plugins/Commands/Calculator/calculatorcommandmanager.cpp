@@ -67,6 +67,8 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
+	setFont(ActionManager::getInstance()->pluginBaseFont());
+
 	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
@@ -113,6 +115,11 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 	config = new CalculatorConfiguration(parentScenario);
 	config->deSerialize(elem);
 	return true;
+}
+
+void CalculatorCommandManager::setFont(const QFont& font)
+{
+	widget->setFont(font);
 }
 
 

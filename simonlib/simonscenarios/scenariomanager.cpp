@@ -147,6 +147,13 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 	return success;
 }
 
+void ScenarioManager::setPluginFont(const QFont& font)
+{
+	kDebug() << "Setting plugin font...";
+	foreach (Scenario *s, scenarios)
+		s->setPluginFont(font);
+}
+
 bool ScenarioManager::setupScenario(Scenario *s)
 {
 	if (!s->init()) {

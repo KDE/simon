@@ -103,6 +103,16 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 	return true;
 }
 
+void ListCommandManager::setFont(const QFont& font)
+{
+	foreach (Command *c, *commands) {
+		ListCommand *lc = dynamic_cast<ListCommand*>(c);
+		if (!lc) continue;
+		lc->setFont(font);
+	}
+}
+
+
 ListCommandManager::~ListCommandManager()
 {
 }

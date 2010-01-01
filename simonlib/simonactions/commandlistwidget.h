@@ -89,6 +89,9 @@ public:
 	void selectAfterTimeout(int index, int timeout /* in ms */);
 	void abortTimeoutSelection();
 
+	void setFont(const QFont& font);
+	void resizeToFit();
+
     	virtual ~CommandListWidget();
 
 private:

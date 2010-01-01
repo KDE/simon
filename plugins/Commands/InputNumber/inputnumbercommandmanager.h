@@ -74,6 +74,7 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
+	void setFont(const QFont& font);
 
     /**
     * @brief Constructor

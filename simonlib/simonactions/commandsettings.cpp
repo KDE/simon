@@ -30,6 +30,7 @@
 #include <KServiceTypeTrader>
 #include <KPageWidget>
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/scenariomanager.h>
 #include <kgenericfactory.h>
 
 
@@ -50,24 +51,11 @@ CommandSettings* CommandSettings::instance;
  */
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
 	forceChangeFlag(false),
-	isChanged(false),
-	pageWidget(new KPageWidget(this))
+	isChanged(false)
 {
 	Q_UNUSED(args)
 
-	QWidget *baseWidget = new QWidget(this);
-	ui.setupUi(baseWidget);
-
-	QVBoxLayout *lay=new QVBoxLayout(this);
-	lay->addWidget(pageWidget);
-
-
-	if (args.count() == 1)
-		pageWidget->setFaceType(KPageView::Tabbed);
-
-	KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18n("General"));
-	generalItem->setIcon(KIcon("fork"));
-	generalItem->setHeader("");
+	ui.setupUi(this);
 
 	KAboutData *about = new KAboutData(
 				"commandsettings", "", ki18n("Command Settings"),
@@ -81,241 +69,29 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	config = KSharedConfig::openConfig(KGlobal::mainComponent(),
 					"simoncommandrc");
 
-	QObject::connect(ui.asCommandPlugins, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotChanged()));
-	QObject::connect(ui.asCommandPlugins, SIGNAL(added(QListWidgetItem*)), this, SLOT(initPluginListWidgetItem(QListWidgetItem*)));
-	QObject::connect(ui.asCommandPlugins, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotChanged()));
-	QObject::connect(ui.asCommandPlugins, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
-	QObject::connect(ui.asCommandPlugins, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotChanged()));
-	QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(currentTriggerChanged(const QString&)));
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	QObject::connect(ui.pbApplyToAll, SIGNAL(clicked()), this, SLOT(applyToAllClicked()));
-	
-	QObject::connect(ui.asCommandPlugins->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
-			  this, SLOT(activePluginSelectionChanged(QListWidgetItem*)));
-	QObject::connect(ui.asCommandPlugins->availableListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
-			  this, SLOT(availablePluginSelectionChanged(QListWidgetItem*)));
+	QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
+	QObject::connect(ui.fcFont, SIGNAL(fontSelected(const QFont&)), this, SLOT(slotChanged()));
 
 	load();
 }
 
-void CommandSettings::updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger)
-{
-	if (!item) return;
-	QString displayName = item->data(Qt::UserRole).toString();
-	
-	if (!trigger.isEmpty())
-		displayName += " ("+trigger+")";
-
-	item->setData(Qt::UserRole+2, trigger);
-	item->setText(displayName);
-}
-
-void CommandSettings::initPluginListWidgetItem(QListWidgetItem *item)
-{
-	if (!item) return;
-	updatePluginListWidgetItem(item, item->data(Qt::UserRole+2).toString());
-}
-
-void CommandSettings::currentTriggerChanged(const QString& newTrigger)
-{
-	QListWidgetItem *pluginItem = ui.asCommandPlugins->selectedListWidget()->currentItem();
-	if (!pluginItem) return;
-	updatePluginListWidgetItem(pluginItem, newTrigger);
-}
-
-void CommandSettings::applyToAllClicked()
-{
-	QListWidget *selected = ui.asCommandPlugins->selectedListWidget();
-	QString trigger = ui.leTrigger->text();
-	for (int i=0; i < selected->count(); i++)
-		updatePluginListWidgetItem(selected->item(i), trigger);
-}
-
-void CommandSettings::registerPlugIn(KCModule *plugin)
-{
-	if (!plugin) return;
-
-	Q_ASSERT(plugin->aboutData());
-
-	QString moduleName = plugin->aboutData()->programName();
-#if KDE_IS_VERSION(4,0,80)
-	QString moduleIcon = plugin->aboutData()->programIconName();
-#endif
-	KPageWidgetItem *newItem = pageWidget->addPage(plugin, moduleName);
-#if KDE_IS_VERSION(4,0,80)
-	newItem->setIcon(KIcon(moduleIcon));
-#endif
-	newItem->setHeader("");
-	moduleHash.insert(plugin, newItem);
-
-	connect(plugin, SIGNAL(changed(bool)), this, SLOT(pluginChanged(bool)));
-}
-
-void CommandSettings::pluginChanged(bool isChanged)
-{
-	if (isChanged) emit changed(true);
-}
-
-void CommandSettings::activePluginSelectionChanged(QListWidgetItem* activePluginItem)
-{
-	ui.asCommandPlugins->setButtonsEnabled();
-
-	if (!activePluginItem)
-	{
-		ui.lbTrigger->setEnabled(false);
-		ui.leTrigger->setEnabled(false);
-		ui.pbApplyToAll->setEnabled(false);
-		return;
-	}
-	
-	ui.pbApplyToAll->setEnabled(true);
-	ui.lbTrigger->setEnabled(true);
-	ui.leTrigger->setEnabled(true);
-	
-	QString trigger = activePluginItem->data(Qt::UserRole+2).toString();
-	ui.leTrigger->setText(trigger);
-}
-
-void CommandSettings::availablePluginSelectionChanged(QListWidgetItem* availablePluginItem)
-{
-	Q_UNUSED(availablePluginItem);
-	ui.asCommandPlugins->setButtonsEnabled();
-}
-
-void CommandSettings::unregisterPlugIn(KCModule *plugin)
-{
-	pageWidget->removePage(moduleHash.value(plugin));
-	
-	moduleHash.remove(plugin);
-}
-
-//clears all modules but doesn't delete them
-void CommandSettings::clear()
-{
-	QList<KCModule*> modules = moduleHash.keys();
-	foreach (KCModule *m, modules)
-		unregisterPlugIn(m);
-}
-
-QList<Action::Ptr> CommandSettings::availableCommandManagers()
-{
-	QList<Action::Ptr> actions;
-	
-	KService::List services;
-	KServiceTypeTrader* trader = KServiceTypeTrader::self();
-
-	services = trader->query("simon/CommandPlugin");
-	
-	foreach (KService::Ptr service, services)
-	{
-		Action::Ptr action = new Action(service->storageId());
-		actions.append(action);
-	}
-
-	return actions;
-}
 
 void CommandSettings::save()
 {
 	KConfigGroup cg(config, "");
-	QListWidget *selected = ui.asCommandPlugins->selectedListWidget();
-	QStringList pluginsToLoad;
-	QStringList newTrigger;
-	for (int i=0; i < selected->count(); i++)
-	{
-		pluginsToLoad << selected->item(i)->data(Qt::UserRole+1).toString();
-		newTrigger << selected->item(i)->data(Qt::UserRole+2).toString();
-	}
-	
-	foreach (KCModule *module, moduleHash.keys()) {
-		module->save();
-	}
-
-	bool isChanged=false;
-	QStringList storedTrigger = cg.readEntry("Trigger", QStringList());
-	QStringList storedPluginsToLoad = cg.readEntry("SelectedPlugins", QStringList());
-	if (newTrigger != storedTrigger)
-	{
-		cg.writeEntry("Trigger", newTrigger);
-		isChanged=true;
-	}
-	
-	if (pluginsToLoad != storedPluginsToLoad)
-	{
-		cg.writeEntry("SelectedPlugins", pluginsToLoad);
-		isChanged=true;
-	}
-
-	if (forceChangeFlag) isChanged = true;
-
-	QList<Action::Ptr> newActions;
-	if (isChanged)
-	{
-		//build action list
-		for (int i=0; i < pluginsToLoad.count(); i++) {
-			bool found = false;
-			for (int j=0; (j<actions.count()) && (!found); j++) {
-				if (actions[j]->source() == pluginsToLoad[i]) {
-					Action::Ptr action = actions.takeAt(j);
-					action->setTrigger(newTrigger[i]);
-					newActions << action;
-					found=true;
-				}
-			}
-			if (!found) {
-				newActions <<  QPointer<Action>(new Action(pluginsToLoad[i], newTrigger[i]));
-			}
-		}
-		//cleaning de-selected actions
-		qDeleteAll(actions);
-		actions.clear();
-
-		actions = newActions;
-		emit actionsChanged(actions);
-	}
-	
 	cg.writeEntry("MinimumConfidence", ui.sbMinimumConfidence->value());
 	cg.writeEntry("UseDYM", ui.cbUseDYM->isChecked());
+	if (storedFont != ui.fcFont->font()) {
+		storedFont = ui.fcFont->font();
+		cg.writeEntry("PluginBaseFont", storedFont);
+		ScenarioManager::getInstance()->setPluginFont(storedFont);
+	}
 
 	cg.sync();
 	KCModule::save();
 	emit changed(false);
 	emit recognitionResultsFilterParametersChanged();
-}
-
-void CommandSettings::displayList(QListWidget *listWidget, QList<Action::Ptr> actions)
-{
-	if (!listWidget) return;
-	listWidget->clear();
-	foreach (Action::Ptr action, actions)
-	{
-		if (!action || !action->manager()) continue;
-
-		QString decorativeName;
-		if (!action->trigger().isEmpty()) {
-			decorativeName = QString("%1 (%2)").arg(action->manager()->name()).arg(action->trigger());
-		} else {
-			decorativeName = action->manager()->name();
-		}
-
-		QListWidgetItem *newItem = new QListWidgetItem(decorativeName);
-		newItem->setData(Qt::UserRole, action->manager()->name());
-		newItem->setData(Qt::UserRole+1, action->source());
-		newItem->setData(Qt::UserRole+2, action->trigger());
-		listWidget->addItem(newItem);
-	}
-}
-
-QStringList CommandSettings::findDefaultPlugins(const QList<Action::Ptr>& actions)
-{
-	QStringList defaultPluginList;
-	foreach (Action::Ptr action, actions) {
-		if (action && action->enabledByDefault())
-			defaultPluginList << action->source();
-	}
-	return defaultPluginList;
 }
 
 void CommandSettings::load()
@@ -324,76 +100,20 @@ void CommandSettings::load()
 
 	KConfigGroup cg(config, "");
 
-	QList<Action::Ptr> allPlugins = availableCommandManagers();
-	
-	QStringList trigger = cg.readEntry("Trigger", QStringList());
-
-	QStringList defaultPluginList=findDefaultPlugins(allPlugins);
-	QStringList pluginsToLoad = cg.readEntry("SelectedPlugins", defaultPluginList);
-
 	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.7f);
 	ui.sbMinimumConfidence->setValue(minimumConfidence);
 
 	ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", true));
+	storedFont = cg.readEntry("PluginBaseFont", QFont());
+	ui.fcFont->setFont(storedFont);
 
-	// ensure that trigger has the same amount of elements
-	// as pluginsToLoad
-	while (trigger.count() < pluginsToLoad.count())
-		trigger << QString();
-	while (trigger.count() > pluginsToLoad.count())
-		trigger.removeAt(trigger.count()-1);
-
-	QList<Action::Ptr> notSelectedPlugins;
-	QList<Action::Ptr> selectedPlugins;
-	Action::Ptr *selectedPluginsArr = new Action::Ptr[pluginsToLoad.count()];
-
-	int loadedCount=0;
-	while (!allPlugins.isEmpty())
-	{
-		Action *currentAction = allPlugins.takeAt(0); //take the first
-
-		//skip if faulty
-		//if the manager could not be loaded from the given storageid it is set to NULL
-		if (!currentAction)
-			continue;
-
-		if (pluginsToLoad.contains(currentAction->source())) { 
-			//if this is in the list to load or we never started before and the
-		        //load-by-default flag is set for this plugin
-			
-			int indexInList;
-
-			indexInList = pluginsToLoad.indexOf(currentAction->source());
-			if (!trigger[indexInList].isNull()) {
-				currentAction->setTrigger(trigger[indexInList]);
-			}
-			selectedPluginsArr[indexInList] = currentAction;
-			loadedCount++;
-		} else {
-			notSelectedPlugins.append(currentAction);
-		}
-	}
-
-	for (int i=0; i < loadedCount; i++) {
-		selectedPlugins << selectedPluginsArr[i];
-	}
-
-	displayList(ui.asCommandPlugins->availableListWidget(), notSelectedPlugins);
-	displayList(ui.asCommandPlugins->selectedListWidget(), selectedPlugins);
-
-	this->actions = selectedPlugins;
-	
 	cg.sync();
-
-	foreach (KCModule *module, moduleHash.keys()) {
-		module->load();
-	}
 
 	emit changed(false);
 	KCModule::load();
 }
 
-float CommandSettings::getMinimumConfidence()
+float CommandSettings::minimumConfidence()
 {
 	return ui.sbMinimumConfidence->value();
 }
@@ -403,24 +123,20 @@ bool CommandSettings::useDYM()
 	return ui.cbUseDYM->isChecked();
 }
 
-QList<Action::Ptr> CommandSettings::getActivePlugins()
+QFont CommandSettings::pluginBaseFont()
 {
-	return actions;
+	return storedFont;
 }
-
 
 void CommandSettings::defaults()
 {
-	foreach (KCModule *module, moduleHash.keys()) {
-		module->defaults();
-	}
 	KCModule::defaults();
 
 	KConfigGroup cg(config, "");
-	cg.writeEntry("Trigger", QStringList());
-	cg.writeEntry("SelectedPlugins", findDefaultPlugins(availableCommandManagers()));
 	cg.writeEntry("MinimumConfidence", 0.7f);
 	cg.writeEntry("UseDYM", true);
+	cg.writeEntry("PluginBaseFont", QFont());
+	storedFont = QFont();
 	cg.sync();
 	load();
 	forceChangeFlag = true;
@@ -430,7 +146,6 @@ void CommandSettings::defaults()
 
 void CommandSettings::slotChanged()
 {
-	ui.asCommandPlugins->setButtonsEnabled();
 	emit changed(true);
 }
 

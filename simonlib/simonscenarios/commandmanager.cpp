@@ -43,6 +43,13 @@ bool CommandManager::trigger(const QString& triggerName)
 	}
 	return done;
 }
+
+void CommandManager::setFont(const QFont& font)
+{
+	//reimplement this when you use graphical widgets in your
+	//command manager
+	Q_UNUSED(font);
+}
 	
 bool CommandManager::deSerializeConfig(const QDomElement& elem)
 {

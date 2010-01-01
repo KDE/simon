@@ -99,6 +99,7 @@ public:
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	bool deSerializeConfig(const QDomElement& elem);
+	void setFont(const QFont& font);
 
     /**
     * @brief Constructor

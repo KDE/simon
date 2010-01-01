@@ -69,6 +69,7 @@ public:
 	bool triggerCommand(const QString& type, const QString& trigger);
 
 	bool setTrigger(const QString& trigger);
+	void setPluginFont(const QFont& font);
 
 	CommandList* getCommandList();
 

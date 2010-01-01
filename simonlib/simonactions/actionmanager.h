@@ -31,6 +31,7 @@
 #include <simonscenarios/action.h>
 
 class CommandManager;
+class CommandSettings;
 class Action;
 
 class SIMONACTIONS_EXPORT ActionManager : public QObject {
@@ -72,6 +73,7 @@ public:
 	void registerGreedyReceiver(GreedyReceiver *);
 
 	CommandList* getCommandList();
+	QFont pluginBaseFont();
 
 	~ActionManager();
 

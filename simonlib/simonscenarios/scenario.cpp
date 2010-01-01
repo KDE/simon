@@ -658,6 +658,11 @@ QString Scenario::createId(const QString& name)
 	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh:mm:ss:zzz");
 }
 
+void Scenario::setPluginFont(const QFont& font)
+{
+	kDebug() << "Setting plugin font...";
+	m_actionCollection->setPluginFont(font);
+}
 
 Scenario::~Scenario()
 {

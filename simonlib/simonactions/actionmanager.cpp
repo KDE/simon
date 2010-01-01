@@ -20,6 +20,7 @@
 #include "actionmanager.h"
 
 #include "listcommand.h"
+#include "commandsettings.h"
 
 #include <simoninfo/simoninfo.h>
 //#include <simonscenarios/commandconfiguration.h>
@@ -83,7 +84,7 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 		{
 			QString sentence = currentlyPromptedListOfResults->at(i).sentence();
 			if (sentence == selectedSentence) {
-				fprintf(stderr, "Found the result!\n");
+				kDebug() << "Found the result!";
 				RecognitionResultList *list = new RecognitionResultList();
 				list->append(RecognitionResult(currentlyPromptedListOfResults->at(i)));
 				delete currentlyPromptedListOfResults;
@@ -131,7 +132,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 				selectedRecognitionResults->append(recognitionResults->at(i));
 		}
 
-		fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults->count());
+		kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
 
 		if (selectedRecognitionResults->count() == 0) return;
 	} else {
@@ -139,7 +140,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 		selectedRecognitionResults->append(recognitionResults->at(0));
 	}
 
-	fprintf(stderr, "Greedy Recievers: %d\n", greedyReceivers->count());
+	kDebug() << "Greedy Recievers: " << greedyReceivers->count();
 
 	if (!greedyReceivers->isEmpty()) {
 		for (int i=0; i < greedyReceivers->count(); i++) {
@@ -165,14 +166,14 @@ CommandList* ActionManager::getCommandList()
 
 void ActionManager::resultSelectionDone()
 {
-	fprintf(stderr, "resultSelectionDone()\n");
+	kDebug() << "resultSelectionDone()";
 	delete currentlyPromptedListOfResults;
 	currentlyPromptedListOfResults = 0;
 }
 
 void ActionManager::presentUserWithResults(RecognitionResultList* recognitionResults)
 {
-	fprintf(stderr, "More than one possible recognition result ... should display list!\n");
+	kDebug() << "More than one possible recognition result ... should display list!";
 	if (!useDYM || (currentlyPromptedListOfResults && 
 				!currentlyPromptedListOfResults->isEmpty()))
 	{
@@ -207,6 +208,11 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
 	connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
 	list->trigger();
+}
+
+QFont ActionManager::pluginBaseFont()
+{
+	return CommandSettings::getInstance()->pluginBaseFont();
 }
 
 
