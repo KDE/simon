@@ -69,9 +69,8 @@ void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 
 void ActionManager::retrieveRecognitionResultFilteringParameters()
 {
-	//TODO
-	//useDYM = commandSettings->useDYM();
-	//minimumConfidenceThreshold = commandSettings->getMinimumConfidence();
+	useDYM = CommandSettings::getInstance()->useDYM();
+	minimumConfidenceThreshold = CommandSettings::getInstance()->minimumConfidence();
 }
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)

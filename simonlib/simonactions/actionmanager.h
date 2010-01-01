@@ -55,10 +55,10 @@ protected:
 
 private slots:
 	void resultSelectionDone();
-	void retrieveRecognitionResultFilteringParameters();
 
 
 public:
+	void retrieveRecognitionResultFilteringParameters();
 	static ActionManager* getInstance() {
 		if (!instance) instance = new ActionManager();
 		return instance;

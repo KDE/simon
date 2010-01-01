@@ -1,5 +1,5 @@
 /*
- * $Id: pa_win_wmme.c,v 1.1.1.1 2007/09/28 02:50:56 sumomo Exp $
+ * $Id: pa_win_wmme.c,v 1.2 2009/11/25 07:42:25 sumomo Exp $
  * pa_win_wmme.c
  * Implementation of PortAudio for Windows MultiMedia Extensions (WMME)
  *
@@ -182,8 +182,8 @@ static int sNumAllocations = 0;
 #define PaDeviceIdToWinId(id) (((id) < sNumInputDevices) ? (id - 1) : (id - sNumInputDevices - 1))
 /************************************************* Prototypes **********/
 
-void Pa_InitializeNumDevices( void );
-PaError Pa_AllocateDevicePtrs( void );
+static void Pa_InitializeNumDevices( void );
+static PaError Pa_AllocateDevicePtrs( void );
 
 static void CALLBACK Pa_TimerCallback(UINT uID, UINT uMsg,
                                       DWORD dwUser, DWORD dw1, DWORD dw2);

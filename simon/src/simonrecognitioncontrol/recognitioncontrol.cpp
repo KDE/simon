@@ -24,6 +24,7 @@
 #include <adinstreamer/adinstreamer.h>
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
+#include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
 
 #include <simonscenarios/trainingmanager.h>
@@ -805,7 +806,7 @@ void RecognitionControl::messageReceived()
 				case Simond::SynchronisationAlreadyRunning:
 				{
 					advanceStream(sizeof(qint32));
-					emit synchronisationError(i18n("Synchronization already running"));
+					emit synchronisationError(i18n("The synchronization is already running.\n\nIf you are sure that this is a mistake, please disconnect from simond and re-connect."));
 					synchronisationDone();
 					break;
 				}
@@ -1635,16 +1636,30 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
 
 void RecognitionControl::wordUndefined(const QString& word)
 {
-	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
-"in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
-		return;
-//	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
+	int ret = KMessageBox::questionYesNoCancel(0, 
+			i18n("The word \"%1\" is used in your training-samples but is not contained "
+			"in your wordlist.\n\nWhat do you want to do?", word), QString(), 
+			KGuiItem(i18n("Remove samples containing the word"), KIcon("list-remove")), 
+			KGuiItem(i18n("Add the word"), KIcon("list-add")));
 
-	//FIXME: fix me!
-/*	AddWordView *addWordView = new AddWordView(0);
-	addWordView->createWord(word);
-	addWordView->show();
-	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));*/
+	switch (ret)
+	{
+		case KMessageBox::Cancel:
+			return;
+		case KMessageBox::Yes:
+			//removing the samples
+			if (!TrainingManager::getInstance()->removeWord(word))
+				KMessageBox::information(0,
+					i18n("Failed to remove word \"%1\" from the trainingscorpus"));
+			break;
+		case KMessageBox::No:
+			//adding the word
+			AddWordView *addWordView = new AddWordView(0);
+			addWordView->createWord(word);
+			addWordView->show();
+			connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
+			break;
+	}
 }
 
 void RecognitionControl::classUndefined(const QString& undefClass)
@@ -1656,9 +1671,6 @@ void RecognitionControl::phonemeUndefined(const QString& phoneme)
 {
 	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
 }
-
-
-
 
 /**
  *	@brief Destructor

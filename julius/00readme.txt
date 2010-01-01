@@ -4,6 +4,8 @@
 
                                 Julius
 
+                                                (Rev 4.1.4 2009/12/25)
+                                                (Rev 4.1.3 2009/11/02)
                                                 (Rev 4.1.2 2009/02/12)
                                                 (Rev 4.1.1 2008/12/13)
                                                 (Rev 4.1   2008/10/03)
@@ -46,19 +48,17 @@ on Windows (SAPI/console). Julius is distributed with open license
 together with source codes.
 
 
-What's new in Julius-4.1.2
+What's new in Julius-4.1.4
 ===========================
 
-Revision 4.1.2 includes many fixes for N-gram.
-It now allows over 2GB N-gram, improved support for SRILM, and
-correct handling of unknown words.  Some bugs and improvements
-that has been reported on the Forum has been also fixed.
-
-see "Release.txt" for more details of changes.
+This release contains minor fixes: improved Julius class definition
+on Microsoft Visual C++ 2008, fixes for audio input on Windows, and 
+support for Mac OS X 10.6 SDK.  Now you can select the audio device
+to use on Windows.  See "Release.txt" for details of the changes.
 
 
-Contents of Julius-4.1.2
-========================
+Contents of Julius-4.1.4
+=========================
 
 	(Documents with suffix "ja" are written in Japanese)
 
@@ -84,6 +84,7 @@ Contents of Julius-4.1.2
 	jclient-perl/		A simple perl version of module mode client
 	plugin/			Several plugin source codes and documentation
 	man/			Unix online manuals
+	msvc/			Files to compile on Microsoft VC++ 2008
 
 
 Documentation
@@ -92,11 +93,6 @@ Documentation
 The up-to-date documentations are available at the Julius Web site:
 
     http://julius.sourceforge.jp/en/
-
-For QA, discussion and development information, please see and join
-the Julius web forum at:
-
-    http://julius.sourceforge.jp/forum/
 
 
 License
@@ -109,6 +105,12 @@ included in this archive.
 
 Contact Us
 ===========
+
+For QA, discussion and development information, please see and join
+the Julius web forum at:
+
+    http://julius.sourceforge.jp/forum/
+
 
 The contact address of Julius/Julian development team is:
 (please replace 'at' with '@')

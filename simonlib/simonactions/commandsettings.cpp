@@ -18,6 +18,7 @@
  */
 
 #include "commandsettings.h"
+#include "actionmanager.h"
 
 #include <QListWidget>
 #include <QVariant>
@@ -91,7 +92,8 @@ void CommandSettings::save()
 	cg.sync();
 	KCModule::save();
 	emit changed(false);
-	emit recognitionResultsFilterParametersChanged();
+//	emit recognitionResultsFilterParametersChanged();
+	ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
 }
 
 void CommandSettings::load()

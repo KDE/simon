@@ -87,6 +87,8 @@ Q_OBJECT
 		bool addSample(const QString& fileBaseName, const QString& prompt);
 		bool removeSample(const QString& fileBaseName);
 
+		bool removeWord(const QString& word);
+
 		QStringList missingWords(const QStringList& prompts);
 
 		QString getPage ( int i );

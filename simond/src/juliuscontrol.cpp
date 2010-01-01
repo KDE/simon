@@ -481,8 +481,11 @@ void JuliusControl::stop()
 /*	pauseMutex.unlock();*/
 	if (!isRunning()) return;
 
-	if (recog)
+
+	if (recog) {
+		j_request_terminate(recog);
 		j_close_stream(recog);
+	}
 	//	recog->adin->ad_end();
 	//j_request_terminate(recog);
 	//quit();
@@ -497,11 +500,14 @@ void JuliusControl::stop()
 		wait(300);
 		//and take it away
 		close(tempSocket);
+		kDebug() << "here";
 
 		//wait for the thread event loop to finish
 		wait(1000);
+		kDebug() << "Is it STILL running? Let's have a look: " << isRunning();;
 		
 		while (isRunning()) {
+			kDebug() << "Terminating";
 			terminate();
 			wait(500);
 		}

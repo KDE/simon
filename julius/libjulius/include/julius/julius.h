@@ -12,7 +12,7 @@
  * @author Akinobu LEE
  * @date   Thu Mar 17 21:08:21 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.6 $
  * 
  */
 /*
@@ -27,17 +27,8 @@
 
 /* read configurable definitions */
 #if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-/*
- *
- *  You should define -DBUILD_JULIAN to compile Julian in WIN32(VC++)
- *
- */
-# ifdef BUILD_JULIAN
-# include <julius/config-win-julian.h>
-# else
-# include <julius/config-msvc-libjulius.h>
-# include <julius/config-msvc-libsent.h>
-# endif
+# include <config-msvc-libjulius.h>
+# include <config-msvc-libsent.h>
 #else
 #include <julius/config.h>
 #include <sent/config.h>

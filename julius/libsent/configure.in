@@ -3,7 +3,7 @@ dnl Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technolo
 dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 dnl
-dnl  $Id: configure.in,v 1.15 2009/06/20 07:47:06 sumomo Exp $
+dnl  $Id: configure.in,v 1.20 2009/12/17 10:01:58 sumomo Exp $
 dnl
 
 dnl Process this file with autoconf to produce a configure script.
@@ -11,7 +11,7 @@ AC_INIT(src/phmm/outprob.c)
 AC_CONFIG_HEADER(include/sent/config.h)
 AC_CONFIG_AUX_DIR(../support)
 
-LIBSENT_VERSION=4.1.2
+LIBSENT_VERSION=4.1.4
 
 dnl Checks for options
 # specify mic type
@@ -237,7 +237,10 @@ fi
 # if default is portaudio, guess WinMM / DirectSound / OSS / Solaris
 case $altype in
     portaudio)
-      case "$host_os" in
+      pa_system=no
+      AC_CHECK_LIB(portaudio,Pa_Initialize,AC_CHECK_HEADERS(portaudio.h, pa_system=yes))
+      if test "$pa_system" = no; then
+        case "$host_os" in
         linux*)
 	  altype="pa-oss"
           ;;
@@ -251,7 +254,10 @@ case $altype in
 		altype="pa-winmm"),
 	    altype="pa-winmm")
           ;;
-      esac
+        esac
+      else
+        altype="libportaudio"
+      fi
       ;;
 esac
 
@@ -307,9 +313,16 @@ case $altype in
           ;;
       esac
       ;;
+    libportaudio)
+      aldesc="PortAudio library (external)"
+      ADINOBJ="$ADINOBJ src/adin/adin_portaudio.o"
+      SOUNDLIB="$SOUNDLIB -lportaudio"
+      AC_DEFINE(USE_MIC)
+      ;;
     pa-*)
-      aldesc="PortAudio library"
+      aldesc="PortAudio library (internal)"
       ADINOBJ="$ADINOBJ src/adin/pa/pa_lib.o src/adin/pa/pa_convert.o src/adin/pa/pa_trace.o src/adin/pa/pablio.o src/adin/pa/ringbuffer.o"
+      SOUNDINC="-Isrc/adin/pa"
       AC_DEFINE(USE_MIC)
       case "$altype" in
         pa-winmm)

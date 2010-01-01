@@ -20,7 +20,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 18:12:30 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -253,7 +253,7 @@ CMN_realtime_new(Value *para, float weight)
   c = (CMNWork *)mymalloc(sizeof(CMNWork));
 
   c->cweight = weight;
-  c->mfcc_dim = para->mfcc_dim + (para->c0 ? 1 : 0);
+  c->mfcc_dim = para->mfcc_dim; // + (para->c0 ? 1 : 0);
   c->veclen = para->veclen;
   c->mean = para->cmn ? TRUE : FALSE;
   c->var = para->cvn ? TRUE : FALSE;

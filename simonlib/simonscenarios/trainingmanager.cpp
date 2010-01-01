@@ -422,6 +422,25 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 	} else return false;
 }
 
+bool TrainingManager::removeWord(const QString& word)
+{
+	QMutexLocker lock(&promptsLock);
+	QHash<QString,QString>::iterator i = promptsTable->begin();
+
+	while (i != promptsTable->end()) {
+		QString prompt = *i;
+		if (prompt.contains(word.toUpper())) {
+			QString key = i.key();
+			i++;
+			kDebug() << "Removing " << key;
+			promptsTable->remove(key);
+			dirty=true;
+		} else
+			i++;
+	}
+	return savePrompts();
+}
+
 bool TrainingManager::defaultToPowerTrain()
 {
 	return SpeechModelManagementConfiguration::defaultToPowerTrain();

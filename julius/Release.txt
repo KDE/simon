@@ -1,3 +1,44 @@
+4.1.4 (2009.12.25)
+===================
+
+New feature:
+ - added function to choose input audio device on MSVC compiled Julius,
+   by specifying a device ID with env. var. "PORTAUDIO_DEV_NUM".
+   The available device IDs will be listed in the system log at start up.
+ - You can now set a locale for a LM in Julius.cpp.
+
+Bug fixes:
+ - now can be compield on Mac OS X (OS X 10.6 SDK).
+ - fixes around portaudio for smaller latency and compatibility (Windows).
+
+
+4.1.3 (2009.11.02)
+===================
+
+New features:
+ - new MSVC support: please read "msvc/00README.txt"
+ - extended N-gram to support arbitrary N
+ - portaudio external library (V19) can be used instead of internal V18.
+   When configure detects portaudio library installed in your system, 
+   Julius will use it instead of internal V18.  You can also choose
+   input device by "PORTAUDIO_DEV" env. var. at V19library.  See the
+   log text at start up to know how to set it.
+ - allow word alignment output (-walign) in module mode
+
+Modified:
+ - ! now Julius do not perform CMN on 0'th cepstral coefficients,
+   which is the same as the old 4.0.x versions.
+ - j_get_current_filename() added on JuliusLib
+ - improved "--enable-wpair" handling
+
+Bug fixes:
+ - many bugs around audio open/close API on JuliusLib
+ - fail to do make in julius-simple
+ - unable to record inputs at cygwin
+ - segfault on adintool with "-server"
+ - occasional segfault at grammar recognition
+
+
 4.1.2 (2009.02.12)
 ===================
 

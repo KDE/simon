@@ -12,7 +12,7 @@
  * @author Akinobu Lee
  * @date   Mon Aug 11 17:05:17 2008
  * 
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 
@@ -349,7 +349,7 @@ fvin_read(float *vecbuf, int veclen)
   /* read one vector from the input */
   if (0/* error */) return ADIN_ERROR;
   if (0/* input should be segmented here */) return ADIN_SEGMENT;
-  if (0/* EOF */) return ADIN_ERROR;
+  if (0/* EOF */) return ADIN_EOF;
 
   return(0);			/* success */
 }

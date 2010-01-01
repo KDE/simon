@@ -65,8 +65,6 @@ bool ModelCompilationAdapterHTK::adaptModel(const QStringList& scenarioPaths, co
 		mergedVocabulary->addWords(wordsTmp);
 		delete s;
 	}
-	//if (!storeVocabulary(lexiconPathOut, simpleVocabPathOut, mergedVocabulary, mergedGrammar)) return false;
-	//if (!storeGrammar(grammarPathOut, mergedGrammar)) return false;
 	if (!storeModel(lexiconPathOut, simpleVocabPathOut, grammarPathOut, promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
 		return false;
 

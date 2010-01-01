@@ -210,6 +210,10 @@ bool Vocabulary::addWord(Word *w)
 bool Vocabulary::addWords(QList<Word*> *w)
 {
 	if (!w) return false;
+	if (w->isEmpty()) {
+		delete w;
+		return true;
+	}
 
 	//insertion
 	for (int i=0; i < m_words.count(); i++) {
@@ -223,7 +227,7 @@ bool Vocabulary::addWords(QList<Word*> *w)
 			} else {
 				//word already in the list
 				delete w->takeAt(0);
-
+				if (w->isEmpty()) break;
 			}
 		}
 	}
