@@ -34,10 +34,16 @@ class ImportTrainingTextWorkingPage : public QWizardPage {
 	Q_OBJECT 
 	private:
 		Ui::ImportTextWorkingPage ui;
+	
+	private slots:
+		void start();
 
 	public slots:
 		void startImport(KUrl path);
 		void parseFile(QString path);
+		void parseAdd();
+		QStringList parse(QIODevice *input, const QString& encoding);
+		void createTrainingsText(const QString& name, const QStringList& sentences);
 
 		void initializePage();
 	public:

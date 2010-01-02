@@ -1,50 +1,27 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DlgRemoveWord</class>
- <widget class="QWidget" name="DlgRemoveWord" >
-  <property name="geometry" >
+ <widget class="QWidget" name="DlgRemoveWord">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>571</width>
-    <height>376</height>
+    <height>457</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="_10" >
-     <item>
-      <widget class="QLabel" name="lbDeleteWord" >
-       <property name="minimumSize" >
-        <size>
-         <width>367</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text" >
-        <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">You are about to delete a word.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">To "delete" a word can have two different meanings.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Regardless of what type of deletion you choose, &lt;span style=" font-weight:600;">all trainignsmaterial referencing the word will be removed.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-       </property>
-       <property name="wordWrap" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -53,115 +30,66 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="lbIcon" >
-       <property name="minimumSize" >
-        <size>
-         <width>64</width>
-         <height>64</height>
-        </size>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-       <property name="scaledContents" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>5</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="_8" >
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QFrame" name="frmInfo" >
-       <property name="frameShape" >
+      <widget class="QFrame" name="frmInfo">
+       <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="frameShadow" >
+       <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QGridLayout" name="_9" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lbNameD" >
-          <property name="text" >
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="lbNameD">
+          <property name="text">
            <string>Name:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lbPronunciationD" >
-          <property name="text" >
+        <item row="0" column="1">
+         <widget class="QLabel" name="lbName">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="lbPronunciationD">
+          <property name="text">
            <string>Pronunciation:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="lbTerminalD" >
-          <property name="text" >
+        <item row="1" column="1">
+         <widget class="QLabel" name="lbPronunciation">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="lbTerminalD">
+          <property name="text">
            <string>Terminal:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" >
-         <widget class="QLabel" name="lbRecognitionRateD" >
-          <property name="text" >
+        <item row="2" column="1">
+         <widget class="QLabel" name="lbTerminal">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="lbRecognitionRateD">
+          <property name="text">
            <string>Recognition Rate:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" >
-         <widget class="QLabel" name="lbName" >
-          <property name="text" >
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLabel" name="lbPronunciation" >
-          <property name="text" >
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" >
-         <widget class="QLabel" name="lbTerminal" >
-          <property name="text" >
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1" >
-         <widget class="QLabel" name="lbRecognitionRate" >
-          <property name="text" >
+        <item row="3" column="1">
+         <widget class="QLabel" name="lbRecognitionRate">
+          <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
@@ -171,12 +99,47 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
+         <width>28</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbIcon">
+       <property name="minimumSize">
+        <size>
+         <width>64</width>
+         <height>64</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
          <height>20</height>
         </size>
        </property>
@@ -185,26 +148,26 @@ p, li { white-space: pre-wrap; }
     </layout>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbShadow" >
-     <property name="text" >
-      <string>Remove the word from the active vocabulary</string>
+    <widget class="QRadioButton" name="rbTerminal">
+     <property name="text">
+      <string>Move the word to the &quot;Unused&quot; terminal</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="_7" >
+    <layout class="QHBoxLayout" name="_12">
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>30</width>
          <height>20</height>
@@ -213,11 +176,11 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="lbShadowDesc" >
-       <property name="text" >
-        <string>The word will stay saved, but it will be moved to the shadow lexicon and thus no longer considered for recognition.</string>
+      <widget class="QLabel" name="lbTerminalDesc">
+       <property name="text">
+        <string>The word will stay in your active dictionary and all samples will be kept. The samples will still be used to improve the acoustic model but simon the word will no longer be considered during the recognition.</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>true</bool>
        </property>
       </widget>
@@ -225,23 +188,26 @@ p, li { white-space: pre-wrap; }
     </layout>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbDelete" >
-     <property name="text" >
-      <string>Completely remove the word</string>
+    <widget class="QRadioButton" name="rbShadow">
+     <property name="text">
+      <string>Move the word to the shadow dictioanary</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="_6" >
+    <layout class="QHBoxLayout" name="_7">
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>30</width>
          <height>20</height>
@@ -250,11 +216,90 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="lbDeleteDesc" >
-       <property name="text" >
-        <string>This will remove the word from both active and shadow vocabulary.</string>
+      <widget class="QLabel" name="lbShadowDesc">
+       <property name="text">
+        <string>The word will be removed from the active dictionary, but will be preserved in the shadow dictionary. The samples associated will be preserved and will be used again when you add the word again.</string>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbSoftDelete">
+     <property name="text">
+      <string>Delete the word but keep samples</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="_11">
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>30</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbSoftDeleteDesc">
+       <property name="text">
+        <string>This will remove the word from both active and shadow vocabulary. All associated samples will be kept and re-used when you add the word again.</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbDelete">
+     <property name="text">
+      <string>Delete the word and remove samples</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="_6">
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>30</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbDeleteDesc">
+       <property name="text">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This will remove the word from both active and shadow vocabulary. All associated samples will be deleted.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Warning: simon will also remove all samples of other words with the same name - even across scenarios!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="wordWrap">
         <bool>true</bool>
        </property>
       </widget>

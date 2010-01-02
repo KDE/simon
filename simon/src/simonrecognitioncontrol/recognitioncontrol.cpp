@@ -1648,7 +1648,7 @@ void RecognitionControl::wordUndefined(const QString& word)
 			return;
 		case KMessageBox::Yes:
 			//removing the samples
-			if (!TrainingManager::getInstance()->removeWord(word))
+			if (!TrainingManager::getInstance()->deleteWord(word))
 				KMessageBox::information(0,
 					i18n("Failed to remove word \"%1\" from the trainingscorpus"));
 			break;

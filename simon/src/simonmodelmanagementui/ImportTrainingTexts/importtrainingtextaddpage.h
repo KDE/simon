@@ -18,35 +18,33 @@
  */
 
 
-#ifndef SIMON_IMPORTTRAININGTEXTREMOTEPAGE_H_9FE4E0D9EAD24387B6A454C4C6765FBF
-#define SIMON_IMPORTTRAININGTEXTREMOTEPAGE_H_9FE4E0D9EAD24387B6A454C4C6765FBF
+#ifndef SIMON_IMPORTTRAININGTEXTADDPAGE_H_AF24F65507794B159E6935DCF9D975EC
+#define SIMON_IMPORTTRAININGTEXTADDPAGE_H_AF24F65507794B159E6935DCF9D975EC
 
 #include <QWizardPage>
-#include "ui_importtrainingtextremotepage.h"
+#include "ui_importtrainingtextaddpage.h"
 
-class QuickDownloader;
 /**
- * \class ImportTrainingTextRemotePage
+ * \class ImportTrainingTextAddPage
  * \author Peter Grasch
  * \version 0.1
- * \date 10.8.2007
- * \brief Displays the remote-importPage for the Trainingtexts
+ * \brief Asks the user for the file to import
+ * 
+ * Extends QWizardpage; Uses the QT-Mandatory-field mechanism
  */
-class ImportTrainingTextRemotePage : public QWizardPage {
-	Q_OBJECT
+class ImportTrainingTextAddPage : public QWizardPage {
+Q_OBJECT
 	private:
-		QuickDownloader *downloader;
-		Ui::ImportRemotePage ui;
-	private slots:
-		void importList(const QString& path);
-		
+		Ui::ImportTrainingTextAddPage ui;
 	public:
+		ImportTrainingTextAddPage(QWidget* parent);
+		bool isComplete() const;
 		void initializePage();
-		ImportTrainingTextRemotePage(QWidget* parent);
 		int nextId() const {
-			return 4;
+			return 4; //working page
 		}
-        ~ImportTrainingTextRemotePage();
 };
 
+
 #endif
+

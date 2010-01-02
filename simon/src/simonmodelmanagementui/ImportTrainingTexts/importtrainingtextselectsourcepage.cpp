@@ -44,9 +44,9 @@ int ImportTrainingTextSelectSourcePage::nextId() const
 {
 	if (ui.rbLocal->isChecked())
 	{
-		return 2;
-	} else {
 		return 3;
+	} else {
+		return 2;
 	}
 }
 

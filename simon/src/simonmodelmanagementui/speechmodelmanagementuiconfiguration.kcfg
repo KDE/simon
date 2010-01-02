@@ -4,10 +4,6 @@
   <include>KStandardDirs</include>
   
   <group name="Extension">
-    <entry name="TextOnlineUpdate" type="String">
-      <label>The url to the online text-list to get new trainingstexts.</label>
-      <default>http://simon.pytalhost.org/texts/list.xml</default>
-    </entry>
     <entry name="BompDownloadBase" type="String">
       <label>The url to the online text-list to get new trainingstexts.</label>
       <default>http://simon-listens.org/bomp</default>

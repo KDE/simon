@@ -31,7 +31,7 @@
 #include <KPushButton>
 #include <QFileDialog>
 #include "importtrainingtextlocalpage.h"
-#include "importtrainingtextremotepage.h"
+#include "importtrainingtextaddpage.h"
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextselectsourcepage.h"
 #include <KStandardDirs>
@@ -47,17 +47,17 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget* parent) : QWizard(parent),
 	this->addPage(createIntroPage());
 	
 	QWizardPage *source = createSourcePage();
+	QWizardPage *add = createAddPage();
 	QWizardPage *local = createLocalImportPage();
-	QWizardPage *remote = createRemoteImportPage();
 	QWizardPage *working = createWorkingPage();
 	
 	this->addPage(source);
+	this->addPage(add);
 	this->addPage(local);
-	this->addPage(remote);
 	this->addPage(working);
 	
 	this->addPage(createFinishedPage());
-	setWindowTitle(i18n("Importing Trainingstext"));
+	setWindowTitle(i18n("Add Trainingstext"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importtexts.png")));
 	
 }
@@ -103,18 +103,6 @@ QWizardPage* ImportTrainingTexts::createIntroPage()
 	return intro;
 }
 
-/**
- * \brief Creates the remoteimport
- * \author Peter Grasch
- * @return the wizardpage
- */
-QWizardPage* ImportTrainingTexts::createRemoteImportPage()
-{
-	ImportTrainingTextRemotePage *remoteImport = new ImportTrainingTextRemotePage(this);
-	
-	
-	return remoteImport;
-}
 
 /**
  * \brief Creates the localimportpage
@@ -126,6 +114,13 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 	ImportTrainingTextLocalPage *localImport = new ImportTrainingTextLocalPage(this);
 	
 	return localImport;
+}
+
+QWizardPage* ImportTrainingTexts::createAddPage()
+{
+	ImportTrainingTextAddPage *localAdd = new ImportTrainingTextAddPage(this);
+	
+	return localAdd;
 }
 
 

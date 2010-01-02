@@ -93,8 +93,6 @@ TrainingManager* TrainingManager::getInstance()
 /**
  * \brief Deletes the samples containing the given word
  * \author Peter Grasch
- * This will normally be used to delete a word from the language model (because no sample can contain a word
- * not in the model)
  * @param w The word to remove
  * @return Success
  */
@@ -118,6 +116,14 @@ bool TrainingManager::deleteWord ( Word *w )
 		}
 	}
 	return (savePrompts() && succ);
+}
+
+bool TrainingManager::deleteWord(const QString& word)
+{
+	Word *w = new Word(word, "", "");
+	bool succ = deleteWord(w);
+	delete w;
+	return succ;
 }
 
 /**
@@ -420,25 +426,6 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 		dirty=true;
 		return true;
 	} else return false;
-}
-
-bool TrainingManager::removeWord(const QString& word)
-{
-	QMutexLocker lock(&promptsLock);
-	QHash<QString,QString>::iterator i = promptsTable->begin();
-
-	while (i != promptsTable->end()) {
-		QString prompt = *i;
-		if (prompt.contains(word.toUpper())) {
-			QString key = i.key();
-			i++;
-			kDebug() << "Removing " << key;
-			promptsTable->remove(key);
-			dirty=true;
-		} else
-			i++;
-	}
-	return savePrompts();
 }
 
 bool TrainingManager::defaultToPowerTrain()

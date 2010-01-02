@@ -33,6 +33,7 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QTimer>
+#include <QBuffer>
 
 #include <KUrl>
 #include <KMimeType>
@@ -85,15 +86,31 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 	
 }
 
-void ImportTrainingTextWorkingPage::initializePage()
+void ImportTrainingTextWorkingPage::start()
 {
 	ui.pbProgress->setMaximum(0);
 	if (field("importTrainingTextLocal").toBool())
 	{
 		startImport(field("importTrainingTextLFilename").value<KUrl>());
-	} else startImport(KUrl(field("textDownloadURL").toString()));
+	} else {
+		//add
+		parseAdd();
+	}
+	wizard()->next();
 }
 
+void ImportTrainingTextWorkingPage::initializePage()
+{
+	QTimer::singleShot(200, this, SLOT(start()));
+}
+
+void ImportTrainingTextWorkingPage::parseAdd()
+{
+	QByteArray byte = field("importTrainingAddText").toString().toUtf8();
+	QBuffer inputBuffer(&byte, this);
+	QStringList sents = parse(&inputBuffer, "UTF-8");
+	createTrainingsText(field("importTrainingTextATextname").toString(), sents);
+}
 
 /**
  * \brief Parses the textfile at the given path
@@ -115,16 +132,27 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	ui.pbProgress->setValue(1);
 
 	QIODevice *file = KFilterDev::deviceForFile(tmpPath, KMimeType::findByFileContent(tmpPath)->name());
-	if ((!file) || (!file->open(QIODevice::ReadOnly)))
-		return;
-
-	QTextStream ts(file);
 	QString encoding = field("importTrainingTextLEncoding").toString();
+	QStringList sents = parse(file, encoding);
+	delete file;
+
+	QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
+	ui.pbProgress->setValue(3);
+
+	createTrainingsText(field("importTrainingTextLTextname").toString(), sents);
+}
+
+QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString& encoding)
+{
+	if ((!input) || (!input->open(QIODevice::ReadOnly)))
+		return QStringList();
+
+	QTextStream ts(input);
 	if (encoding == i18n("Automatic"))
 	{
 		//read first 5000 bytes and run encoding detection
-		//seek back to the beginning and parse file using the guessed encoding
-		QByteArray preview = file->peek(5000);
+		//seek back to the beginning and parse input using the guessed encoding
+		QByteArray preview = input->peek(5000);
 		KEncodingDetector detector;
 
 #ifdef Q_OS_WIN32
@@ -184,16 +212,15 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 		
 		tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
 	}
-	file->close();
-	delete file;
+	input->close();
+	return sents;
+}
 
-	QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
-
-	TrainingText *t = new TrainingText(field("importTrainingTextLTextname").toString(), sents);
+void ImportTrainingTextWorkingPage::createTrainingsText(const QString& name, const QStringList& sentences)
+{
+	TrainingText *t = new TrainingText(name, sentences);
 	if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
 		KMessageBox::error(this, i18n("Couldn't store Trainingstext"));
 
-	ui.pbProgress->setValue(3);
-	QTimer::singleShot(500, wizard(), SLOT(next()));
 }
 

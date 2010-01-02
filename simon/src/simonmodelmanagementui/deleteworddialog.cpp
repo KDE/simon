@@ -35,7 +35,7 @@ DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(
 	setMainWidget( widget );
 	setCaption( i18n("Remove Word") );
 
-	ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeEnormous));
+	ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeHuge));
 }
 
 /**
@@ -50,15 +50,33 @@ int DeleteWordDialog::exec(Word *word, bool isShadowed)
 	ui.lbPronunciation->setText(word->getPronunciation());
 	ui.lbTerminal->setText(word->getTerminal());
 	ui.lbRecognitionRate->setText(QString::number(word->getPropability()));
-	if (isShadowed)
-	{
-		ui.lbShadowDesc->setEnabled(false);
-		ui.rbShadow->setEnabled(false);
-		ui.rbDelete->setChecked(true);
+
+	ui.rbTerminal->setEnabled(!isShadowed);
+	ui.lbTerminalDesc->setEnabled(!isShadowed);
+	ui.rbShadow->setEnabled(!isShadowed);
+	ui.lbShadowDesc->setEnabled(!isShadowed);
+
+	if (isShadowed) {
+		ui.rbSoftDelete->setChecked(true);
 	} else {
-		ui.lbShadowDesc->setEnabled(true);
-		ui.rbShadow->setEnabled(true);
-		ui.rbShadow->setChecked(true);
+		ui.rbTerminal->setChecked(true);
 	}
 	return KDialog::exec();
 }
+
+DeleteWordDialog::DeletionType DeleteWordDialog::getDeletionType()
+{
+	if (ui.rbTerminal->isChecked())
+		return DeleteWordDialog::MoveToUnused;
+	if (ui.rbShadow->isChecked())
+		return DeleteWordDialog::MoveToShadow;
+	if (ui.rbSoftDelete->isChecked())
+		return DeleteWordDialog::SoftDelete;
+
+	//to make gcc happy this is commented out
+	//but it has the same effect (at least one radio button is
+	//checked at all time)
+	//if (ui.rbDelete->isChecked())
+	return DeleteWordDialog::HardDelete;
+}
+

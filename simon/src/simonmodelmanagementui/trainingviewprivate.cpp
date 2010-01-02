@@ -141,7 +141,7 @@ void TrainingViewPrivate::importTexts()
 	if (import->isVisible()) return;
 	import->restart();
 	import->start();
-	connect ( import, SIGNAL ( finished ( int ) ), this, SLOT ( loadList() ) );
+//	connect ( import, SIGNAL ( finished ( int ) ), this, SLOT ( loadList() ) );
 }
 
 

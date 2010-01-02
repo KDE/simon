@@ -51,7 +51,7 @@ public:
     //creating the pages for the wizard
     QWizardPage* createIntroPage();
     QWizardPage* createSourcePage();
-    QWizardPage* createRemoteImportPage();
+    QWizardPage* createAddPage();
     QWizardPage* createLocalImportPage();
     QWizardPage* createWorkingPage();
     QWizardPage* createFinishedPage();

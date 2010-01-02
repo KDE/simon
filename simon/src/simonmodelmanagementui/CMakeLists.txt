@@ -23,11 +23,11 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/xmltrainingtextlist.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextselectsourcepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtexts.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextaddpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdirectory.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdirectoryworkingpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdata.cpp
@@ -76,8 +76,8 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextaddpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdataintrodlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdataworkingdlg.ui

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ImportTrainingTextSelectSourcePage</class>
- <widget class="QWidget" name="ImportTrainingTextSelectSourcePage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportTrainingTextSelectSourcePage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,29 +10,29 @@
     <height>326</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <widget class="QLabel" name="lbDesc" >
-     <property name="text" >
-      <string>You can import trainingstexts from local text files or download predefined trainingstext from an online repository.</string>
+    <widget class="QLabel" name="lbDesc">
+     <property name="text">
+      <string>You can add trainingstexts freely or import it from local text files.</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_2" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Fixed</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>15</width>
        <height>20</height>
@@ -40,28 +41,31 @@
     </spacer>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbLocal" >
-     <property name="text" >
-      <string>Local text file</string>
+    <widget class="QRadioButton" name="rbAdd">
+     <property name="text">
+      <string>Add trainingstext</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbRemote" >
-     <property name="text" >
-      <string>Download text from online repository</string>
+    <widget class="QRadioButton" name="rbLocal">
+     <property name="text">
+      <string>Import from local text file</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_3" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

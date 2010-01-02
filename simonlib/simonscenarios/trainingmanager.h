@@ -79,6 +79,7 @@ Q_OBJECT
 		int getProbability ( QString name );
 		PromptsTable* readPrompts ( QString pathToPrompts );
 
+		bool deleteWord(const QString& word);
 		bool deleteWord ( Word *w );
 		bool savePrompts();
 
@@ -87,7 +88,6 @@ Q_OBJECT
 		bool addSample(const QString& fileBaseName, const QString& prompt);
 		bool removeSample(const QString& fileBaseName);
 
-		bool removeWord(const QString& word);
 
 		QStringList missingWords(const QStringList& prompts);
 

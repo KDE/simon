@@ -18,41 +18,37 @@
  */
 
 
-#ifndef SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
-#define SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
+#include "importtrainingtextaddpage.h"
+#include <QFile>
+#include <QTextCodec>
 
-#include <KDialog>
-#include "ui_removeword.h"
 
 /**
- \class DeleteWordDialog
- \author Peter Grasch
- \date 13.12.2007
- \brief Shows a dialog which lets the user decide if he just wants to move the word to the shadow list or delete it
- \version 0.1
-*/
-class Word;
-
-class DeleteWordDialog : public KDialog
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent 
+ * Parent of the wizardpage
+ */
+ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardPage(parent)
 {
+	ui.setupUi(this);
+	setTitle(i18n("Import Textfile"));
+	
+	registerField("importTrainingTextATextname*", ui.leName);
+	registerField("importTrainingAddText", ui.teText, "plainText", SIGNAL(textChanged()));
+}
 
-private:
-	Ui::DlgRemoveWord ui;
-public:
+void ImportTrainingTextAddPage::initializePage()
+{
+}
 
-	enum DeletionType {
-		MoveToUnused	= 0x00,
-		MoveToShadow	= 0x01,
-		SoftDelete	= 0x02,
-		HardDelete	= 0x03
-	};
 
-	explicit DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-	int exec(Word *word, bool isShadowed);
+bool ImportTrainingTextAddPage::isComplete() const
+{
+	return QWizardPage::isComplete();
+}
 
-	DeletionType getDeletionType();
 
-};
 
-#endif
+

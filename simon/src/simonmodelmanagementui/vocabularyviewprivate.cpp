@@ -26,6 +26,7 @@
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/shadowvocabulary.h>
+#include <simonscenarios/trainingmanager.h>
 
 #include <simonscenarios/scenario.h>
 
@@ -174,20 +175,31 @@ void VocabularyViewPrivate::deleteSelectedWord()
 	if (del->exec(w, isShadowed))
 	{
 		//delete the word
-		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow) {
-			//this request has to come from a word that is currently in the active
-			//vocabulary
-			scenario->vocabulary()->removeWord(w, false /* don't delete the word */);
-			ScenarioManager::getInstance()->getShadowVocabulary()->addWord(w);
-		}
-		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely) {
-			if (ui.twVocabularies->currentIndex() == 0) {
-				//active dictionary
-				scenario->vocabulary()->removeWord(w);
-			} else {
-				//shadow vocabulary
-				ScenarioManager::getInstance()->getShadowVocabulary()->removeWord(w);
-			}
+		switch (del->getDeletionType())
+		{
+			case DeleteWordDialog::MoveToUnused:
+				w->setTerminal(i18n("Unused"));
+				scenario->save(); //save changes
+				break;
+			case DeleteWordDialog::MoveToShadow:
+				//this request has to come from a word that is currently in the active
+				//vocabulary
+				scenario->vocabulary()->removeWord(w, false /* don't delete the word */);
+				ScenarioManager::getInstance()->getShadowVocabulary()->addWord(w);
+				break;
+				
+			case DeleteWordDialog::HardDelete:
+				TrainingManager::getInstance()->deleteWord(w);
+				//let it run into SoftDelete...
+			case DeleteWordDialog::SoftDelete:
+				if (!isShadowed) {
+					//active dictionary
+					scenario->vocabulary()->removeWord(w, true /*delete the word*/);
+				} else {
+					//shadow vocabulary
+					ScenarioManager::getInstance()->getShadowVocabulary()->removeWord(w, true /*delete the word*/);
+				}
+				break;
 		}
 	}
 	del->deleteLater();

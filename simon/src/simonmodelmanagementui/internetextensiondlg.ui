@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>InternetExtensionDlg</class>
- <widget class="QWidget" name="InternetExtensionDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="InternetExtensionDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,37 +10,30 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="gbTexts" >
-     <property name="title" >
-      <string>Texts</string>
+    <widget class="QGroupBox" name="gbUrls">
+     <property name="title">
+      <string>URLs</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QFormLayout" name="formLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lbTextDownloadURL" >
-          <property name="text" >
-           <string>Textdownload-URL:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="KLineEdit" name="kcfg_TextOnlineUpdate" />
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lbBompDownloadBase" >
-          <property name="text" >
+       <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::ExpandingFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="lbBompDownloadBase">
+          <property name="text">
            <string>BOMP Basis-URL:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
-         <widget class="KLineEdit" name="kcfg_BompDownloadBase" />
+        <item row="0" column="1">
+         <widget class="KLineEdit" name="kcfg_BompDownloadBase"/>
         </item>
        </layout>
       </item>
@@ -48,10 +42,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>61</height>
