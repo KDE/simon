@@ -62,6 +62,8 @@ public slots:
 	void refreshShadowView();
 	void showImportDictDialog();
 	void displayScenarioPrivate(Scenario *scenario);
+
+	void editSelectedWord();
 	void deleteSelectedWord();
 
 	void copyWordToTrain();

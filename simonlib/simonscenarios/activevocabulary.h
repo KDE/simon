@@ -47,6 +47,7 @@ public:
 	static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
 	bool addWords(QList<Word*>* w);
 	bool addWord(Word* w);
+	bool reOrder(Word* w);
 	bool removeWord(Word* w, bool deleteWord=true);
 	bool takeWord(Word*);
 	bool deSerialize(const QDomElement&);

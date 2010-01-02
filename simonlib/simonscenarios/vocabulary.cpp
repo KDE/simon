@@ -203,6 +203,13 @@ bool Vocabulary::addWord(Word *w)
 	return addWords(wList);
 }
 
+bool Vocabulary::reOrder(Word* w)
+{
+	if (!removeWord(w, false /* don't delete this */))
+		return false;
+	return addWord(w);
+}
+
 /**
  * The list of words has to be sorted
  * The input list will be destroyed!

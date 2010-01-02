@@ -76,6 +76,8 @@ public:
 	virtual bool addWords(QList<Word*> *w);
 	virtual bool addWord(Word* w);
 
+	virtual bool reOrder(Word* w);
+
 	bool removeWord(Word* w, bool deleteWord=true);
 
 	QString getRandomWord(const QString& terminal);

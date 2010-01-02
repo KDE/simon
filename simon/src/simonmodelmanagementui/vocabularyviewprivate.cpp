@@ -20,6 +20,7 @@
 
 #include "vocabularyviewprivate.h"
 #include "deleteworddialog.h"
+#include "editworddialog.h"
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
 
@@ -58,6 +59,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
+	connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
 	connect(ui.leActiveVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshActiveView()));
 	connect(ui.leShadowVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshShadowView()));
 	connect(ui.leActiveVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshActiveView()));
@@ -69,6 +71,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.pbImport->setIcon(KIcon("document-import"));
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
 	ui.pbAddToTraining->setIcon(KIcon("list-add"));
+	ui.pbEditWord->setIcon(KIcon("document-edit"));
 	ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
 	ui.pbTrainList->setIcon(KIcon("go-next"));
 
@@ -152,6 +155,31 @@ Word* VocabularyViewPrivate::getCurrentlySelectedWord(bool& isShadowed)
 	}
 
 	return static_cast<Word*>(selectedIndex.internalPointer());
+}
+
+
+void VocabularyViewPrivate::editSelectedWord()
+{
+	if (!scenario) return;
+
+	bool isShadowed = true;
+	
+	Word *w = getCurrentlySelectedWord(isShadowed);
+	bool success = true;
+
+	EditWordDialog *edit = new EditWordDialog(this);
+
+	if (edit->exec(w))
+	{
+		if (isShadowed)
+			success = ScenarioManager::getInstance()->getShadowVocabulary()->reOrder(w);
+		else
+			success = scenario->vocabulary()->reOrder(w);
+	}
+
+	edit->deleteLater();
+	if (!success)
+		KMessageBox::sorry(this, i18n("Failed to re-order the changed word."));
 }
 
 /**

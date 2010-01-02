@@ -91,6 +91,19 @@ public:
 	{
 		return this->word;
 	}
+
+	/**
+	 * \brief Setter-Method: word
+	 * \author Peter Grasch
+	 * @param word The (new) word of the word
+	 */
+	void setWord(QString word)
+	{
+		this->word = word;
+		this->lexiconWord = word.toUpper();
+	}
+
+
 	
 	/**
 	 * @brief Getter-Method: Lexiconword
@@ -118,6 +131,16 @@ public:
 	QString getPronunciation() const
 	{
 		return this->pronunciation;
+	}
+
+	/**
+	 * \brief Setter-Method: pronunciation
+	 * \author Peter Grasch
+	 * @param pronunciation The (new) pronunciation of the word
+	 */
+	void setPronunciation(QString pronunciation)
+	{
+		this->pronunciation = pronunciation;
 	}
 
 	/**

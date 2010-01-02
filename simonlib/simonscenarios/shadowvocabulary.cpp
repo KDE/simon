@@ -190,6 +190,12 @@ bool ShadowVocabulary::addWord(Word *w)
 	return save();
 }
 
+bool ShadowVocabulary::reOrder(Word* w)
+{
+	if (!Vocabulary::reOrder(w)) return false;
+	return save();
+}
+
 bool ShadowVocabulary::removeWord(Word* w, bool deleteWord)
 {
 	if (Vocabulary::removeWord(w, deleteWord)) {

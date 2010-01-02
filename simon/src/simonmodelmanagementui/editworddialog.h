@@ -18,37 +18,35 @@
  */
 
 
-#include "importtrainingtextaddpage.h"
-#include <QFile>
-#include <QTextCodec>
+#ifndef SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
+#define SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
 
+#include <KDialog>
+#include "ui_editword.h"
 
 /**
- * \brief Constructor
- * \author Peter Grasch
- * @param parent 
- * Parent of the wizardpage
- */
-ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardPage(parent)
+ \class EditWordDialog
+ \author Peter Grasch
+ \date 2.1.2010
+ \version 0.1
+*/
+class Word;
+
+class EditWordDialog : public KDialog
 {
-	ui.setupUi(this);
-	setTitle(i18n("Create Text"));
-	
-	registerField("importTrainingTextATextname*", ui.leName);
-	registerField("importTrainingAddText", ui.teText, "plainText", SIGNAL(textChanged()));
-}
 
-void ImportTrainingTextAddPage::initializePage()
-{
-}
+	Q_OBJECT
+private:
+	Ui::EditWordView ui;
 
+private slots:
+	void addTerminal();
+public:
 
+	explicit EditWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-bool ImportTrainingTextAddPage::isComplete() const
-{
-	return QWizardPage::isComplete();
-}
+	int exec(Word *word);
 
+};
 
-
-
+#endif

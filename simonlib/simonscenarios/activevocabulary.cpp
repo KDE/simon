@@ -88,6 +88,12 @@ bool ActiveVocabulary::addWord(Word *w)
 	return parentScenario->save();
 }
 
+bool ActiveVocabulary::reOrder(Word* w)
+{
+	if (!Vocabulary::reOrder(w)) return false;
+	return parentScenario->save();
+}
+
 bool ActiveVocabulary::removeWord(Word* w, bool deleteWord)
 {
 	if (Vocabulary::removeWord(w, deleteWord)) {

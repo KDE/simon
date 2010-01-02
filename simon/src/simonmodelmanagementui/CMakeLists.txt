@@ -15,6 +15,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanageruiproxy.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/editworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/droplistview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
@@ -74,6 +75,7 @@ set( simonmodelmanagementui_LIB_SRCS
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/editword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.ui

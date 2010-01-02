@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
+    <width>789</width>
     <height>425</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="KTabWidget" name="twVocabularies">
@@ -165,9 +165,16 @@
           </spacer>
          </item>
          <item>
+          <widget class="KPushButton" name="pbEditWord">
+           <property name="text">
+            <string>Edit Word</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="KPushButton" name="pbRemoveWord">
            <property name="text">
-            <string>Remove Selected Word</string>
+            <string>Remove Word</string>
            </property>
           </widget>
          </item>
@@ -234,7 +241,6 @@
          </property>
         </widget>
        </item>
-
        <item>
         <widget class="KPushButton" name="pbAddToTraining">
          <property name="text">
