@@ -18,27 +18,36 @@
  */
 
 
-#include "importgrammarselectfilespage.h"
-#include <KEditListBox>
-#include <kdeversion.h>
+#include "importgrammarselectinputpage.h"
 #include <QTextCodec>
 #include <QStringList>
+#include <KEditListBox>
+#include <kdeversion.h>
 
-ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWizardPage(parent)
+ImportGrammarSelectInputPage::ImportGrammarSelectInputPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Input Files"));
+	setTitle(i18n("Input"));
 	ui.setupUi(this);
 
 #if KDE_IS_VERSION(4,0,80)
 	ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
 #endif
 	
-	registerField("files*", ui.elbFiles, "items", SIGNAL(changed()));
-	registerField("encoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+	registerField("inputIsText", ui.rbText);
+
+	registerField("files", ui.elbFiles, "items", SIGNAL(changed()));
+	registerField("encoding", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 	registerField("includeUnknown", ui.cbIncludeUnknown);
+	registerField("grammarInputText", ui.teText, "plainText", SIGNAL(textChanged()));
+
+	connect(ui.teText, SIGNAL(textChanged()), this, SIGNAL(completeChanged()));
+	connect(ui.elbFiles, SIGNAL(changed()), this, SIGNAL(completeChanged()));
+	connect(ui.rbText, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+	ui.wgFileImport->hide();
+	ui.rbText->toggle();
 }
 
-void ImportGrammarSelectFilesPage::initializePage()
+void ImportGrammarSelectInputPage::initializePage()
 {
 	ui.cbEncoding->addItem(i18n("Automatic"));
 	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
@@ -49,12 +58,19 @@ void ImportGrammarSelectFilesPage::initializePage()
 	ui.cbEncoding->addItems(encodings);
 }
 
+bool ImportGrammarSelectInputPage::isComplete() const
+{
+	if (ui.rbFiles->isChecked())
+		return ui.elbFiles->count() > 0;
+	else
+		return !ui.teText->toPlainText().isEmpty();
+}
 
-void ImportGrammarSelectFilesPage::cleanupPage()
+void ImportGrammarSelectInputPage::cleanupPage()
 {
 	ui.elbFiles->clear();
 }
 
-ImportGrammarSelectFilesPage::~ImportGrammarSelectFilesPage()
+ImportGrammarSelectInputPage::~ImportGrammarSelectInputPage()
 {
 }

@@ -24,6 +24,7 @@
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <KStandardDirs>
+#include <KMessageBox>
 
 ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent),
 	completed(false),
@@ -76,27 +77,47 @@ void ImportGrammarWorkingPage::initializePage()
 	connect(grammarImporter, SIGNAL(terminated()), this, SLOT(processCompletion()));
 
 
-	QStringList files = field("files").toStringList();
+	bool isText = field("inputIsText").toBool();
+	if (isText) {
+		//bla
+		QString tempFileName = KStandardDirs::locateLocal("tmp", "grammarImport/importText");
 
-	int index=0;
-	QStringList tempFiles;
-	foreach (const QString& file, files)
-	{
-		KUrl srcUrl(file);
-		QString targetPath = KStandardDirs::locateLocal("tmp", "grammarImport/"+
-					QString::number(index)+"_"+srcUrl.fileName());
-		KIO::FileCopyJob *job = KIO::file_copy(srcUrl, targetPath, -1, KIO::Overwrite);
-		if (!job->exec()) {
-			job->ui()->showErrorMessage();
-			continue;
-		} else
-			tempFiles << targetPath;
-		index++;
-		delete job;
+		QFile f(tempFileName);
+		if (!f.open(QIODevice::WriteOnly)) {
+			KMessageBox::sorry(this, i18n("Could not open temporary file."));
+			return;
+		}
+
+		QByteArray textByte = field("grammarInputText").toString().toUtf8();
+		f.write(textByte);
+		f.close();
+		
+		grammarImporter->setFiles(QStringList() << tempFileName);
+		grammarImporter->setEncoding("UTF-8");
+	} else {
+
+		QStringList files = field("files").toStringList();
+
+		int index=0;
+		QStringList tempFiles;
+		foreach (const QString& file, files)
+		{
+			KUrl srcUrl(file);
+			QString targetPath = KStandardDirs::locateLocal("tmp", "grammarImport/"+
+						QString::number(index)+"_"+srcUrl.fileName());
+			KIO::FileCopyJob *job = KIO::file_copy(srcUrl, targetPath, -1, KIO::Overwrite);
+			if (!job->exec()) {
+				job->ui()->showErrorMessage();
+				continue;
+			} else
+				tempFiles << targetPath;
+			index++;
+			delete job;
+		}
+		grammarImporter->setFiles(tempFiles);
+		grammarImporter->setEncoding(field("encoding").toString());
 	}
 	
-	grammarImporter->setFiles(tempFiles);
-	grammarImporter->setEncoding(field("encoding").toString());
 	grammarImporter->setIncludeUnknown(field("includeUnknown").toBool());
 	grammarImporter->start();
 }

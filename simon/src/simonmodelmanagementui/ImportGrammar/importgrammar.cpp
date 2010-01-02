@@ -187,19 +187,6 @@ QStringList ImportGrammar::importFile(QString path)
 					everyWordSure = false;
 			} else 
 					words.replace(j, wordTerminals[0]);
-			/*
-			if (includeUnknown)
-			{
-				if (wordTerminals.count() != 1)
-					words.replace(j, i18n("Unknown"));
-				else 
-					words.replace(j, wordTerminals[0]);
-			} else {
-				if (wordTerminals.count() != 1)
-					everyWordSure = false;
-				else 
-					words.replace(j, wordTerminals[0]);
-			}*/
 		}
 		if (everyWordSure)
 		{

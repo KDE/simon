@@ -23,7 +23,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <KStandardDirs>
-#include "importgrammarselectfilespage.h"
+#include "importgrammarselectinputpage.h"
 #include "importgrammarworkingpage.h"
 
 ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
@@ -31,7 +31,7 @@ ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
 	setWindowTitle(i18n("Import Sentence Structures"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importgrammar.png")));
 	addPage(createIntroPage());
-	addPage(createSelectFilesPage());
+	addPage(createSelectInputPage());
 	addPage(createWorkingPage());
 	addPage(createFinishedPage());
 }
@@ -46,20 +46,21 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Welcome to the Import of your Grammar"));
-	desc->setText(i18n("This wizard will allow you to select textfiles which will then create your "
-"personal grammar profile.\n\nTo do this each of the files will be read by a "
+	desc->setText(i18n("This wizard will allow you to select textfiles or input text from which simon will "
+"then create your "
+"personal grammar profile.\n\nTo do this each of the files / the input text will be read by a "
 "grammar parser which will look up every single word in your dictionary-"
 "corpus. If the word is found its terminal will be added to the sentence. "
 "This way the parsers will find valid grammatical sentences on terminal "
-"level.\n\nThis process requires a large shadow-lexicon or targeted input "
+"level.\n\nThis process requires a large shadow-lexicon containing terminal information or targeted input "
 "material."));
 
 	return intro;
 }
 
-QWizardPage* ImportGrammarWizard::createSelectFilesPage()
+QWizardPage* ImportGrammarWizard::createSelectInputPage()
 {
-	return (QWizardPage*) new ImportGrammarSelectFilesPage(this);
+	return (QWizardPage*) new ImportGrammarSelectInputPage(this);
 }
 
 

@@ -22,20 +22,22 @@
 #define SIMON_IMPORTGRAMMARSELECTFILESPAGE_H_8E006FF97EF149AAB82E4AE50E1773ED
 
 #include <QWizardPage>
-#include "ui_selectfilestoreadpage.h"
+#include "ui_selectinputpage.h"
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class ImportGrammarSelectFilesPage : public QWizardPage
+class ImportGrammarSelectInputPage : public QWizardPage
 {
 Q_OBJECT
 private:
-	Ui::SelectFilesPage ui;
+	Ui::SelectInputPage ui;
 public:
 	void initializePage();
-    ImportGrammarSelectFilesPage(QWidget* parent);
 	void cleanupPage();
-    ~ImportGrammarSelectFilesPage();
+	bool isComplete() const;
+
+	ImportGrammarSelectInputPage(QWidget* parent);
+	~ImportGrammarSelectInputPage();
 
 };
 

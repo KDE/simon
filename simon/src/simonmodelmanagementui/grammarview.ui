@@ -1,151 +1,124 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>GrammarView</class>
- <widget class="QWidget" name="GrammarView" >
-  <property name="geometry" >
+ <widget class="QWidget" name="GrammarView">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
+    <width>653</width>
     <height>372</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Grammatik Settings</string>
   </property>
-  <property name="windowIcon" >
+  <property name="windowIcon">
    <iconset>
     <normaloff/>
    </iconset>
   </property>
-
-  <layout class="QVBoxLayout" name="verticalLayout4" >
-     <item>
-
-  <layout class="QHBoxLayout" name="hori2" >
-     <item>
-  <layout class="QVBoxLayout" name="verticalLayout5" >
-     <item>
-	<widget class="QLabel" name="lbStructures" >
-	 <property name="text"><string>Sentences:</string></property>
-	 </widget>
-	</item>
-	<item>
-	<widget class="QListView" name="lvStructures" >
-	</widget>
-	</item>
-	</layout>
-	</item>
+  <layout class="QVBoxLayout" name="verticalLayout4">
    <item>
-		  <layout class="QVBoxLayout" name="vertiLayout10" >
-		   <item>
-		    <widget class="QLabel" name="lbExamples" >
-		      <property name="text"><string>Examples with your vocabulary:</string></property>
-		    </widget>
-		   </item>
-		   <item>
-		    <widget class="QListWidget" name="lwExamples" >
-		    </widget>
-		   </item>
-		  </layout>
-	 </item>
-	 </layout>
-	 </item>
-
-   <item>
-	    <layout class="QHBoxLayout" >
-		   <item>
-		    <layout class="QHBoxLayout" >
-		     <item>
-			  <spacer name="horizontalSpacer">
-			   <property name="orientation">
-			    <enum>Qt::Horizontal</enum>
-			   </property>
-			   <property name="sizeHint" stdset="0">
-			    <size>
-			     <width>40</width>
-			     <height>20</height>
-			    </size>
-			   </property>
-			  </spacer>
-		     </item>
-		     <item>
-		      <widget class="KPushButton" name="pbAdd" >
-		       <property name="text" >
-			<string>Add sentence</string>
-		       </property>
-		      </widget>
-		     </item>
-		     <item>
-		      <widget class="KPushButton" name="pbDelete" >
-		       <property name="text" >
-			<string>Delete sentence</string>
-		       </property>
-		      </widget>
-		     </item>
-		    </layout>
-		   </item>
-	     </layout>
-
-	 </item>
-  
-
-
-
-
-
-
-
-
-
-   <item>
-    <widget class="Line" name="line" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="hori2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout5">
+       <item>
+        <widget class="QLabel" name="lbStructures">
+         <property name="text">
+          <string>Sentences:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="lvStructures"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="vertiLayout10">
+       <item>
+        <widget class="QLabel" name="lbExamples">
+         <property name="text">
+          <string>Examples with your vocabulary:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="lwExamples"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="pbImportTexts" >
-       <property name="text" >
-        <string>Import Texts</string>
-       </property>
-       <property name="checkable" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="pbRename" >
-       <property name="text" >
-        <string>Rename Terminal</string>
-       </property>
-       <property name="checkable" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="pbMerge" >
-       <property name="text" >
-        <string>Merge Terminals</string>
-       </property>
-       <property name="checkable" >
-        <bool>false</bool>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout">
+       <item>
+        <widget class="KPushButton" name="pbAdd">
+         <property name="text">
+          <string>Add sentence</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbDelete">
+         <property name="text">
+          <string>Delete sentence</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbImportTexts">
+         <property name="text">
+          <string>Import</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbRename">
+         <property name="text">
+          <string>Rename Terminal</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KPushButton" name="pbMerge">
+         <property name="text">
+          <string>Merge Terminals</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
-  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>

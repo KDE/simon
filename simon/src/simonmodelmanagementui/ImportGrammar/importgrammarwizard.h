@@ -34,7 +34,7 @@ public:
     ImportGrammarWizard(QWidget* parent);
 
 	QWizardPage* createIntroPage();
-	QWizardPage* createSelectFilesPage();
+	QWizardPage* createSelectInputPage();
 	QWizardPage* createWorkingPage();
 	QWizardPage* createFinishedPage();
 

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SelectInputPage</class>
+ <widget class="QWidget" name="SelectInputPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>544</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QLabel" name="lbUnknownDesc">
+     <property name="text">
+      <string>If you check the following field, sentences containing words with unknown terminals will also be imported (words with more than one terminal will still cause the word to be marked &quot;Unknown&quot; and will only be included if this field is set).</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbIncludeUnknown">
+     <property name="text">
+      <string>Also import unknown sentences</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbText">
+     <property name="text">
+      <string>Import Text</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KTextEdit" name="teText"/>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbFiles">
+     <property name="text">
+      <string>Import Files</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="wgFileImport" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="lbEncoding">
+          <property name="text">
+           <string>Encoding:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KComboBox" name="cbEncoding"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="KUrlRequester" name="urFileToAdd">
+        <property name="filter">
+         <string>Textfiles *.txt</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="KEditListBox" name="elbFiles">
+        <property name="title">
+         <string>Files to import</string>
+        </property>
+        <property name="buttons">
+         <set>KEditListBox::Add|KEditListBox::Remove</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>rbFiles</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>wgFileImport</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>108</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbText</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>teText</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>65</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

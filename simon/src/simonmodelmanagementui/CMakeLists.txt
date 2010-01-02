@@ -59,7 +59,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalswizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarwizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarselectfilespage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarselectinputpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammar.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalwizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.cpp
@@ -93,7 +93,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/selectfilestoreadpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/selectinputpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.ui

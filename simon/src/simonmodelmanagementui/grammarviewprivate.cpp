@@ -37,16 +37,13 @@
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 {
 	ui.setupUi(this);
-	ui.pbImportTexts->setIcon(KIcon("document-open"));
+	ui.pbImportTexts->setIcon(KIcon("document-import"));
 	ui.pbRename->setIcon(KIcon("document-properties"));
 	ui.pbMerge->setIcon(KIcon("arrow-down-double"));
 
 	ui.pbAdd->setIcon(KIcon("list-add"));
 	ui.pbDelete->setIcon(KIcon("list-remove"));
 
-	//connect(&autoSaveTimer, SIGNAL(timeout()), this, SLOT(save()));
-	
-//	connect(ui.lvStructures, SIGNAL(activated(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
 	connect(ui.lvStructures, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
 	
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
@@ -126,7 +123,6 @@ void GrammarViewPrivate::showRenameWizard()
 void GrammarViewPrivate::showImportWizard()
 {
 	ImportGrammarWizard *importGrammarWizard = new ImportGrammarWizard(this);
-	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
 	importGrammarWizard->exec();
 	importGrammarWizard->deleteLater();
 }

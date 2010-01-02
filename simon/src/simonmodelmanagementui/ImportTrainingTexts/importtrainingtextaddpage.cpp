@@ -35,7 +35,7 @@ ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardP
 	setTitle(i18n("Create Text"));
 	
 	registerField("importTrainingTextATextname*", ui.leName);
-	registerField("importTrainingAddText", ui.teText, "plainText", SIGNAL(textChanged()));
+	registerField("importTrainingAddText*", ui.teText, "plainText", SIGNAL(textChanged()));
 }
 
 void ImportTrainingTextAddPage::initializePage()
