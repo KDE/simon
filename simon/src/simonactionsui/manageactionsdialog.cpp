@@ -102,6 +102,8 @@ int ManageActionsDialog::exec()
 	ScenarioManager::getInstance()->startGroup();
 	int ret = KDialog::exec();
 	//write configuration changes of the plugins
+	if (ret)
+		ScenarioManager::getInstance()->getCurrentScenario()->save();
 	ScenarioManager::getInstance()->commitGroup();
 	return ret;
 }

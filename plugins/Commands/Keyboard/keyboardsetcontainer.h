@@ -41,9 +41,11 @@ class KeyboardSetContainer
 		void clear();
 
 		bool createSet(const QString& name);
+		bool editSet(const QString& curName, const QString& newName);
 		bool deleteSet(const QString& name);
 
 		bool createTab(const QString& set, const QString& name);
+		bool editTab(const QString& set, const QString& curName, const QString& newName);
 		bool deleteTab(const QString& set, const QString& name);
 		bool moveTabUp(const QString& set, const QString& tabName);
 		bool moveTabDown(const QString& set, const QString& tabName);

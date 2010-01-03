@@ -92,14 +92,14 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
+         <item row="0" column="4">
           <widget class="KPushButton" name="pbDeleteSet">
            <property name="text">
             <string>Delete</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
+         <item row="1" column="4">
           <widget class="KPushButton" name="pbDeleteTab">
            <property name="text">
             <string>Delete</string>
@@ -113,7 +113,21 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="3">
+         <item row="0" column="3">
+          <widget class="KPushButton" name="pbEditSet">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="KPushButton" name="pbEditTab">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
           <widget class="KPushButton" name="pbTabDown">
            <property name="text">
             <string>Down</string>
@@ -146,6 +160,13 @@
             <widget class="KPushButton" name="pbAddButton">
              <property name="text">
               <string>Add</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="KPushButton" name="pbEditButton">
+             <property name="text">
+              <string>Edit</string>
              </property>
             </widget>
            </item>
@@ -354,8 +375,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>541</width>
-            <height>492</height>
+            <width>542</width>
+            <height>484</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">

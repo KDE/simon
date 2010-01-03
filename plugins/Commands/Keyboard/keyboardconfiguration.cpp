@@ -21,7 +21,7 @@
 #include "keyboardcommandmanager.h"
 #include "keyboardtab.h"
 #include "keyboardsetcontainer.h"
-#include "keyboardaddbuttondialog.h"
+#include "keyboardmodifybuttondialog.h"
 
 #include <QVariantList>
 #include <kgenericfactory.h>
@@ -55,10 +55,13 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 	QObject::connect(ui.cbShowNumpad, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbCaseSensitivity, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
         connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
+	connect(ui.pbEditSet, SIGNAL(clicked()), this, SLOT(editSet()));
 	connect(ui.pbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
 	connect(ui.pbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
+	connect(ui.pbEditTab, SIGNAL(clicked()), this, SLOT(editTab()));
 	connect(ui.pbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
         connect(ui.pbAddButton, SIGNAL(clicked()), this, SLOT(addButton()));
+	connect(ui.pbEditButton, SIGNAL(clicked()), this, SLOT(editButton()));
 	connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
 	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
@@ -98,6 +101,10 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 	ui.pbDeleteSet->setIcon(KIcon("list-remove"));
 	ui.pbDeleteTab->setIcon(KIcon("list-remove"));
 	ui.pbDeleteButton->setIcon(KIcon("list-remove"));
+
+	ui.pbEditSet->setIcon(KIcon("document-edit"));
+	ui.pbEditTab->setIcon(KIcon("document-edit"));
+	ui.pbEditButton->setIcon(KIcon("document-edit"));
 
 	ui.pbTabUp->setIcon(KIcon("arrow-up"));
 	ui.pbUpButton->setIcon(KIcon("arrow-up"));
@@ -242,7 +249,7 @@ void KeyboardConfiguration::addSet()
 {	
         bool ok;
         QString inputText = QInputDialog::getText(this, "Add keyboard set", "Please enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
-	if (!inputText.isEmpty()) {
+	if (ok && !inputText.isEmpty()) {
 		if (!setContainer->createSet(inputText))
 			KMessageBox::sorry(this, i18n("Failed to add set"));
 		refreshCbSets();
@@ -252,6 +259,29 @@ void KeyboardConfiguration::addSet()
 		emit changed(true);
 	}
 }
+
+
+void KeyboardConfiguration::editSet()
+{
+	int currentIndex = ui.cbSets->currentIndex();
+	if(currentIndex == -1) {
+		KMessageBox::information(this, i18n("Please choose a set to be edited"));
+		return;
+	}
+
+	QString oldSetName = ui.cbSets->currentText();
+        bool ok;
+        QString inputText = QInputDialog::getText(this, "Edit keyboard set", "Please enter the new name of the set:", QLineEdit::Normal, oldSetName, &ok);
+	if (ok && !inputText.isEmpty() && (oldSetName != inputText)) {
+		if (!setContainer->editSet(oldSetName, inputText))
+			KMessageBox::sorry(this, i18n("Failed to edit set"));
+		refreshCbSets();
+		ui.cbSets->setCurrentIndex(currentIndex);
+		emit changed(true);
+	}
+}
+
+
 void KeyboardConfiguration::deleteSet()
 {	
         if(ui.cbSets->currentIndex() == -1) {
@@ -287,6 +317,33 @@ void KeyboardConfiguration::addTab()
 	refreshTabDetail();
 	emit changed(true);
 }
+
+void KeyboardConfiguration::editTab()
+{	
+	if(ui.cbSets->currentIndex() == -1)  {
+		KMessageBox::information(this, i18n("Please insert or select a set first"));
+		return;
+	}
+	QString oldName = ui.cbTabs->currentText();
+	int currentIndex = ui.cbTabs->currentIndex();
+	if (oldName.isEmpty()) {
+		KMessageBox::information(this, i18n("Please select the tab to be edited"));
+		return;
+	}
+
+	QString inputText = QInputDialog::getText(this, "Edit keyboard tab", "Please enter the new name of the tab:", QLineEdit::Normal, oldName);
+
+	if(!inputText.isEmpty()) {
+		if (!setContainer->editTab(ui.cbSets->currentText(), oldName, inputText))
+			KMessageBox::sorry(this, i18n("Failed to edit tab"));
+	}
+
+	refreshCbTabs();
+	ui.cbTabs->setCurrentIndex(currentIndex);
+	emit changed(true);
+}
+
+
 void KeyboardConfiguration::deleteTab()
 {	
 	if(ui.cbSets->currentIndex() == -1)  {
@@ -308,6 +365,8 @@ void KeyboardConfiguration::deleteTab()
 	emit changed(true);
 }
 
+
+
 void KeyboardConfiguration::addButton()
 {
 	if(ui.cbSets->currentIndex() == -1) {
@@ -318,16 +377,44 @@ void KeyboardConfiguration::addButton()
 		KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
 		return;
 	}
-	KeyboardAddButtonDialog *kab = new KeyboardAddButtonDialog(this);
-	KeyboardButton *kbb =  kab->addButton();
+	KeyboardModifyButtonDialog *modifyDialog = new KeyboardModifyButtonDialog(this);
+	KeyboardButton *kbb = modifyDialog->addButton();
 	if(kbb!=NULL)
 	{
-		if (!setContainer->addButton(ui.cbSets->currentText(),
+		if (setContainer->addButton(ui.cbSets->currentText(),
 						ui.cbTabs->currentText(), kbb))
-			KMessageBox::sorry(this, i18n("Failed to add button"));
-
-		emit changed(true);
+			emit changed(true);
 	}
+	modifyDialog->deleteLater();
+}
+
+
+void KeyboardConfiguration::editButton()
+{
+	//TODO
+	if(ui.cbSets->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please select a set to which to add the new button"));
+		return;
+	}
+	if(ui.cbTabs->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
+		return;
+	}
+
+	KeyboardButton *button = static_cast<KeyboardButton*>(ui.tvTabContent->currentIndex().internalPointer());
+	if (!button)  {
+		KMessageBox::information(this, i18n("Please select a button to delete from the list"));
+		return;
+	}
+
+	KeyboardModifyButtonDialog *modifyDialog = new KeyboardModifyButtonDialog(this);
+	
+	if (!modifyDialog->editButton(button))
+		KMessageBox::sorry(this, i18n("Failed to edit button"));
+	else
+		emit changed(true);
+	
+	modifyDialog->deleteLater();
 }
 
 void KeyboardConfiguration::deleteButton()
@@ -476,6 +563,8 @@ void KeyboardConfiguration::refreshTabDetail()
 
 QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 {
+	kDebug() << "Serialize is called...";
+
 	QDomElement configElem = doc->createElement("config");
 
 	//general
@@ -585,6 +674,7 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 	if (!ui.cbSets->currentText().isEmpty()) 
 		storedSet = setContainer->findSet(ui.cbSets->currentText());
 	
+	kDebug() << "Calling rebuild gui";
 	commandManager->rebuildGui();
 
 	return configElem;

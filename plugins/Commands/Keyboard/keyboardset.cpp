@@ -106,6 +106,13 @@ QString KeyboardSet::getSetName()
 	return setName;
 }
 
+void KeyboardSet::setSetName(const QString& newName)
+{
+	if (m_isNull) return;
+
+	setName = newName;
+}
+
 QDomElement KeyboardSet::serialize(QDomDocument* doc)
 {
 	if (m_isNull) return QDomElement();
@@ -136,6 +143,17 @@ bool KeyboardSet::createTab(const QString& name)
 	if (findTab(name)) return false; //make sure the name is unique
 
 	tabList.append(new KeyboardTab(name));
+	return true;
+}
+
+bool KeyboardSet::editTab(const QString& curName, const QString& newName)
+{
+	if (m_isNull) return false;
+	if (findTab(newName)) return false; //make sure the name is unique
+
+	KeyboardTab *tab = findTab(curName);
+	if (!tab) return false;
+	tab->setTabName(newName);
 	return true;
 }
 
@@ -194,6 +212,7 @@ bool KeyboardSet::addButton(const QString& tabName, KeyboardButton *button)
 
 	return tab->addButton(button);
 }
+
 
 bool KeyboardSet::deleteButton(const QString& tabName, KeyboardButton *button)
 {

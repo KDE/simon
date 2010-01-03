@@ -53,6 +53,7 @@ class KeyboardSet
 
 		KeyboardTab* getTab(const QString tabName);
 		bool createTab(const QString& name);
+		bool editTab(const QString& curName, const QString& newName);
 		bool deleteTab(const QString& name);
 		bool moveTabUp(const QString& tabName);
 		bool moveTabDown(const QString& tabName);
@@ -67,6 +68,7 @@ class KeyboardSet
 		QList<KeyboardButton*> getTabButtons(const QString& tabName);
 
 		QString getSetName();
+		void setSetName(const QString& newName);
 
 		QDomElement serialize(QDomDocument* doc);
 		~KeyboardSet();

@@ -40,11 +40,11 @@ class KeyboardButton : public KPushButton
 	Q_OBJECT
 
 	private:
+		QString value;
 		bool m_isNull;
 		QString triggerShown;
 		QString triggerReal;
 		Keyboard::ButtonType valueType;
-		QString value;
 		void setupGUI();
 	
 	public slots:
@@ -62,6 +62,11 @@ class KeyboardButton : public KPushButton
 		QString getValue();
 		QString getTriggerShown();
 		
+		void setTriggerShown(const QString& triggerShown);
+		void setTriggerReal(const QString& triggerReal);
+		void setValue(const QString& value);
+		void setButtonType(Keyboard::ButtonType valueType);
+
 		QDomElement serialize(QDomDocument *doc);
 };
 

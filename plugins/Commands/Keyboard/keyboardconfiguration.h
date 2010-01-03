@@ -48,10 +48,13 @@ class KeyboardConfiguration : public CommandConfiguration
 
         private slots:
                 void addSet();
+                void editSet();
 		void deleteSet();
 		void addTab();
+                void editTab();
 		void deleteTab();
 		void addButton();
+                void editButton();
 		void deleteButton();
 		void tabUp();
 		void tabDown();

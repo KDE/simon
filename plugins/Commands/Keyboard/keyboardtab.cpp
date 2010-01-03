@@ -73,6 +73,7 @@ bool KeyboardTab::addButton(KeyboardButton* b)
 	return true;
 }
 
+
 bool KeyboardTab::deleteButton(KeyboardButton* b)
 {
 	if (m_isNull) return false;
@@ -146,6 +147,13 @@ QString KeyboardTab::getTabName()
 	if (m_isNull) return QString();
 
 	return tabName;
+}
+
+void KeyboardTab::setTabName(const QString& newName)
+{
+	if (m_isNull) return;
+
+	tabName = newName;
 }
 
 QVariant KeyboardTab::data(const QModelIndex &index, int role) const

@@ -33,10 +33,10 @@ class QDomDocument;
 class KeyboardTab : public QAbstractItemModel
 {
 	private:
+		QList<KeyboardButton *> buttonList;
 		QString tabName;
 		bool m_isNull;
 
-		QList<KeyboardButton *> buttonList;
 		KeyboardButton* findButton(const QString& name, bool caseSensitive=true);
 		
 		
@@ -49,6 +49,7 @@ class KeyboardTab : public QAbstractItemModel
 		KeyboardTab(const QDomElement& elem);
 
 		QString getTabName();
+		void setTabName(const QString& newName);
 
 		bool addButton(KeyboardButton *button);
 		bool deleteButton(KeyboardButton *button);

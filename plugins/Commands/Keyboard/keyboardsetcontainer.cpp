@@ -135,6 +135,16 @@ bool KeyboardSetContainer::createSet(const QString& name)
 	return true;
 }
 
+bool KeyboardSetContainer::editSet(const QString& curName, const QString& newName)
+{
+	if (findSet(newName)) return false; //not unique
+
+	KeyboardSet *set = findSet(curName);
+	if (!set) return false;
+	set->setSetName(newName);
+	return true;
+}
+
 bool KeyboardSetContainer::deleteSet(const QString& name)
 {
 	KeyboardSet *set = findSet(name);
@@ -152,6 +162,14 @@ bool KeyboardSetContainer::createTab(const QString& setName, const QString& name
 	if (!set) return false;
 
 	return set->createTab(name);
+}
+
+bool KeyboardSetContainer::editTab(const QString& setName, const QString& curName, const QString& newName)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->editTab(curName, newName);
 }
 
 bool KeyboardSetContainer::deleteTab(const QString& setName, const QString& name)
@@ -214,6 +232,7 @@ bool KeyboardSetContainer::moveButtonDown(const QString& setName, const QString&
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {
+	kDebug() << "Deleting set container!";
 	qDeleteAll(setList);
 }
 

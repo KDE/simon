@@ -18,26 +18,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_KEYBOARDADDBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
-#define SIMON_KEYBOARDADDBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
+#ifndef SIMON_KEYBOARDMODIFYBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
+#define SIMON_KEYBOARDMODIFYBUTTONDIALOG_H_4611A4EC1B5D4DDD977397BEA2A39049
 
 #include <KDialog>
 #include "keyboardbutton.h"
-#include "ui_addbuttondlg.h"
+#include "ui_modifybuttondlg.h"
 
-class KeyboardAddButtonDialog : public KDialog
+class KeyboardModifyButtonDialog : public KDialog
 {
 	Q_OBJECT
 			
 	private:
-		Ui::AddButtonDlg ui;
-                bool *addOk;
+		Ui::ModifyButtonDlg ui;
                 int exec();
+		bool allFieldsEntered();
+		Keyboard::ButtonType getCurrentlySelectedButtonType();
+		QString getCurrentValue();
+
+		bool displayButton(KeyboardButton *button);
+		bool setCurrentlySelectedButtonType(Keyboard::ButtonType type);
+		bool setCurrentValue(const QString& value);
+
 		
 	public:
-                KeyboardAddButtonDialog(QWidget *parent=0);
+                KeyboardModifyButtonDialog(QWidget *parent=0);
                 KeyboardButton *addButton();
-		~KeyboardAddButtonDialog();
+                bool editButton(KeyboardButton* button);
+		~KeyboardModifyButtonDialog();
 		
 };
 

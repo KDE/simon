@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddButtonDlg</class>
- <widget class="QWidget" name="AddButtonDlg">
+ <class>ModifyButtonDlg</class>
+ <widget class="QWidget" name="ModifyButtonDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -59,7 +59,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QStackedWidget" name="stackedWidget">
+    <widget class="QStackedWidget" name="swValueType">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -98,7 +98,7 @@
   <connection>
    <sender>cbValueType</sender>
    <signal>activated(int)</signal>
-   <receiver>stackedWidget</receiver>
+   <receiver>swValueType</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">

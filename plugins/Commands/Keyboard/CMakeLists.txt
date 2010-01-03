@@ -13,14 +13,14 @@ set (simonkeyboardcommandplugin_SRCS
 	keyboardset.cpp
 	keyboardsetcontainer.cpp
 	keyboardbutton.cpp
-	keyboardaddbuttondialog.cpp
+	keyboardmodifybuttondialog.cpp
 	flowlayout.cpp
     )
 
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
 	keyboardwidget.ui
 	keyboardconfigurationdlg.ui
-	addbuttondlg.ui
+	modifybuttondlg.ui
     )
 
 kde4_add_plugin(simonkeyboardcommandplugin ${simonkeyboardcommandplugin_SRCS})

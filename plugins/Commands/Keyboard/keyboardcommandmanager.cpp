@@ -287,7 +287,6 @@ void KeyboardCommandManager::rebuildGui()
 	foreach (const QString& tabName, tabs) {
 		QWidget *w = new QWidget(ui.twTabs);
 		FlowLayout *flow = new FlowLayout(w);
-		//QHBoxLayout *flow = new QHBoxLayout(w);
 
 		QList<KeyboardButton*> buttons = keyboardSet->getTabButtons(tabName);
 		foreach (KeyboardButton* button, buttons) {

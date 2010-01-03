@@ -50,10 +50,11 @@ KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_i
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::ButtonType vType, QString v)
-	: KPushButton(0), triggerShown(triggerS),
+	: KPushButton(0), 
+	m_isNull(false),
+	triggerShown(triggerS),
 	triggerReal(triggerR),
 	valueType(vType),
-	m_isNull(false),
 	value(v)
 {
 	setupGUI();
@@ -90,6 +91,30 @@ QString KeyboardButton::getTriggerShown()
 	if (m_isNull) return QString();
 	return triggerShown;
 }
+
+
+void KeyboardButton::setTriggerShown(const QString& triggerShown)
+{
+	this->triggerShown = triggerShown;
+	setText(triggerShown);
+}
+
+void KeyboardButton::setTriggerReal(const QString& triggerReal)
+{
+	this->triggerReal = triggerReal;
+	setToolTip(triggerReal);
+}
+
+void KeyboardButton::setValue(const QString& value)
+{
+	this->value = value;
+}
+
+void KeyboardButton::setButtonType(Keyboard::ButtonType valueType)
+{
+	this->valueType = valueType;
+}
+
 
 bool KeyboardButton::trigger()
 {

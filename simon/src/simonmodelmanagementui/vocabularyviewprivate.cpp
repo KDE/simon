@@ -165,6 +165,7 @@ void VocabularyViewPrivate::editSelectedWord()
 	bool isShadowed = true;
 	
 	Word *w = getCurrentlySelectedWord(isShadowed);
+	if (!w) return;
 	bool success = true;
 
 	EditWordDialog *edit = new EditWordDialog(this);
@@ -197,6 +198,7 @@ void VocabularyViewPrivate::deleteSelectedWord()
 	bool isShadowed = true;
 	
 	Word *w = getCurrentlySelectedWord(isShadowed);
+	if (!w) return;
 
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 

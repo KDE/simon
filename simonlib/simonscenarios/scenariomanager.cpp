@@ -160,7 +160,7 @@ bool ScenarioManager::setupScenario(Scenario *s)
 		kDebug() << "Couldn't init scenario";
 		return false;
 	}
-	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
+//	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
 	connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
 	return true;
 }
