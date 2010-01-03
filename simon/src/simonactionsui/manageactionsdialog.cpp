@@ -127,7 +127,7 @@ void ManageActionsDialog::add()
 
 		Q_ASSERT(newAction);
 
-		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->addAction(newAction, false, true);
+		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->addAction(newAction, false /* silent */, true /* save */);
 
 		registerCommandConfiguration(newAction->getConfigurationPage());
 	}

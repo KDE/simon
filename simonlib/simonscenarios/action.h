@@ -68,6 +68,8 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		bool hasCommands();
 		bool setTrigger(const QString& newTrigger);
 
+//		bool initWithDefaults();
+
 		bool deSerialize(const QDomElement&);
 		QDomElement serialize(QDomDocument *doc);
 

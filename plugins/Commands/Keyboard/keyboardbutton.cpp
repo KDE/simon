@@ -53,8 +53,8 @@ KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::But
 	: KPushButton(0), triggerShown(triggerS),
 	triggerReal(triggerR),
 	valueType(vType),
-	value(v),
-	m_isNull(false)
+	m_isNull(false),
+	value(v)
 {
 	setupGUI();
 }

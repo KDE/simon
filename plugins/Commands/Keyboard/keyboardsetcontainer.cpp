@@ -65,16 +65,40 @@ KeyboardTab* KeyboardSetContainer::getTab(const QString& setName, const QString&
 
 void KeyboardSetContainer::clear()
 {
-	kDebug() << "Clearing container";
 	qDeleteAll(setList);
 	setList.clear();
-	kDebug() << "Done clearing container";
 }
 
 
+bool KeyboardSetContainer::loadFromFile(const QString& path)
+{
+	QDomDocument doc("keyboardsets");
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly))
+		return false;
+	if (!doc.setContent(&file)) {
+		file.close();
+		return false;
+	}
+	file.close();
+	return parseElement(doc.documentElement());
+}
+
 bool KeyboardSetContainer::deSerialize(const QDomElement& setsElem)
 {
-	if (setsElem.isNull()) return false;
+	if (setsElem.isNull()) {
+		kDebug() << "Should load defaults";
+		return loadFromFile(KStandardDirs::locate("appdata", "conf/keyboardsets.xml"));
+	}
+
+	return parseElement(setsElem);
+}
+
+
+bool KeyboardSetContainer::parseElement(const QDomElement& setsElem)
+{
+	if (setsElem.isNull())
+		return false;
 
 	QDomElement setElem = setsElem.firstChildElement();
 	while (!setElem.isNull()) {
@@ -86,9 +110,8 @@ bool KeyboardSetContainer::deSerialize(const QDomElement& setsElem)
 		setElem = setElem.nextSiblingElement();
 	}
 	return true;
+
 }
-
-
 
 QDomElement KeyboardSetContainer::serialize(QDomDocument *doc)
 {
@@ -191,7 +214,6 @@ bool KeyboardSetContainer::moveButtonDown(const QString& setName, const QString&
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {
-	kDebug() << "Deleting keyboardsetcontainer";
 	qDeleteAll(setList);
 }
 

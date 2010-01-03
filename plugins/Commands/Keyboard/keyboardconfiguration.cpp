@@ -49,7 +49,6 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 				      commandManager(_commandManager),
 				      setContainer(_commandManager->getKeyboardSetContainer())
 {
-	kDebug() << "Constructor";
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
@@ -593,6 +592,14 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 
 bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 {
+	setContainer->clear();
+	QDomElement setsElement = elem.firstChildElement("keyboardSets");
+	if (!setContainer->deSerialize(setsElement)) {
+		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
+		return false;
+	}
+
+	refreshCbSets();
 	QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
 	if (caseSensitivityElem.isNull()) {
 		defaults();
@@ -601,6 +608,7 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 	ui.cbCaseSensitivity->setChecked(caseSensitivityElem.text() == "1");
 
 	QString selectedSet = elem.firstChildElement("selectedSet").text();
+	
 	int index = ui.cbSets->findText(selectedSet);
 	if (index != -1) {
 		ui.cbSets->setCurrentIndex(index);
@@ -608,12 +616,6 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 	}
 	KeyboardSet *newStoredSet = setContainer->findSet(selectedSet);
 	storedSet = newStoredSet;
-
-	setContainer->clear();
-	if (!setContainer->deSerialize(elem.firstChildElement("keyboardSets"))) {
-		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
-		return false;
-	}
 
 	//numpad
 	QDomElement numpadElement = elem.firstChildElement("numpad");
@@ -646,7 +648,6 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 	ui.cbSuper->setChecked(specialKeysElement.firstChildElement("super").text() == "1");
 	ui.leSuperTrigger->setText(specialKeysElement.firstChildElement("superTrigger").text());
 
-	refreshCbSets();
 	commandManager->rebuildGui();
 	return true;
 }

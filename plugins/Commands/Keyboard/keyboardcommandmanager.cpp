@@ -88,11 +88,9 @@ void KeyboardCommandManager::activate()
 
 void KeyboardCommandManager::deregister()
 {
-	kDebug() << "deregister begin";
 	getKeyboardConfiguration()->saveKeyboardGeometry(keyboardWidget->pos(),
 										keyboardWidget->size());
 	stopGreedy();
-	kDebug() << "deregister end";
 }
 
 const KIcon KeyboardCommandManager::icon() const
@@ -446,6 +444,7 @@ void KeyboardCommandManager::backSpace()
 
 bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 {
+	kDebug() << "deSerializeConfig";
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
@@ -477,6 +476,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 	connect(ui.pbAltGr, SIGNAL(toggled(bool)), this, SLOT(altGr(bool)));
 	connect(ui.pbSuper, SIGNAL(toggled(bool)), this, SLOT(super(bool)));
 
+	if (!config) config->deleteLater();
 	config = new KeyboardConfiguration(this, parentScenario);
 	config->deSerialize(elem);
 	return true;
