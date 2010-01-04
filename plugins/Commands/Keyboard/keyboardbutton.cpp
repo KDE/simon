@@ -116,6 +116,7 @@ void KeyboardButton::setButtonType(Keyboard::ButtonType valueType)
 }
 
 
+#include <KDebug>
 bool KeyboardButton::trigger()
 {
 	if (m_isNull) return false;
@@ -134,6 +135,8 @@ bool KeyboardButton::trigger()
 			return false;
 			break;
 	}
+	kDebug() << "I was triggered!";
+	emit triggered();
 	return true;
 }
 

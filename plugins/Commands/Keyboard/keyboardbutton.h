@@ -39,12 +39,15 @@ class KeyboardButton : public KPushButton
 {
 	Q_OBJECT
 
+	signals:
+		void triggered();
+
 	private:
-		QString value;
 		bool m_isNull;
 		QString triggerShown;
 		QString triggerReal;
 		Keyboard::ButtonType valueType;
+		QString value;
 		void setupGUI();
 	
 	public slots:

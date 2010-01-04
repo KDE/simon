@@ -65,6 +65,11 @@ void KeyboardCommandManager::setFont(const QFont& font)
 	keyboardWidget->setFont(font);
 }
 
+void KeyboardCommandManager::untoggleShift()
+{
+	ui.pbShift->setChecked(false); //untoggle shift button
+}
+
 void KeyboardCommandManager::activate()
 {
 	QDesktopWidget* tmp = QApplication::desktop();
@@ -145,6 +150,7 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	kDebug()  << ui.pbCapsLock->isVisible() << inputText << ui.pbCapsLock->text().remove("&") << QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity);
         if (ui.pbCapsLock->isVisible() && (QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbCapsLock->animateClick();
+		kDebug() << "Unchecked shift button";
 		return true;
 	}
         if (ui.pbControl->isVisible() && (QString::compare(inputText, ui.pbControl->text().remove("&"), caseSensitivity)==0)) {
@@ -229,7 +235,10 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	if (currentTabName.isNull())
 		return false;
 
-	return keyboardSet->triggerButton(currentTabName, inputText);
+	bool buttonFound = keyboardSet->triggerButton(currentTabName, inputText);
+	if (buttonFound)
+		untoggleShift();
+	return buttonFound;
 }
 
 bool KeyboardCommandManager::switchToTab(const QString& tabName, bool caseSensitivity)
@@ -354,6 +363,8 @@ KeyboardConfiguration* KeyboardCommandManager::getKeyboardConfiguration()
 
 void KeyboardCommandManager::selectNumber()
 {
+	if (ui.leNumber->text().isEmpty()) return;
+
 	QStringList tabNames = keyboardSet->getAvailableTabs();
 	if (keyboardSet->triggerButton(tabNames[ui.twTabs->currentIndex()], ui.leNumber->text(), 
 			false /*case sensitivity does not matter with numbers so lets make it faster*/))
@@ -363,8 +374,11 @@ void KeyboardCommandManager::selectNumber()
 
 void KeyboardCommandManager::writeOutNumber()
 {
+	if (ui.leNumber->text().isEmpty()) return;
+
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 	ui.leNumber->clear();
+	untoggleShift();
 }
 
 void KeyboardCommandManager::numberBackSpace()
@@ -389,12 +403,13 @@ void KeyboardCommandManager::returnPressed()
 {
 	kDebug() << "Return";
 	EventHandler::getInstance()->sendWord("\n");
-
+	untoggleShift();
 }
 
 void KeyboardCommandManager::capsLock(bool down)
 {
 	kDebug() << "CapsLock";
+	untoggleShift();
 	if (down)
 		EventHandler::getInstance()->setModifier((int) Qt::SHIFT);
 	else
@@ -443,7 +458,6 @@ void KeyboardCommandManager::backSpace()
 
 bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	kDebug() << "deSerializeConfig";
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<

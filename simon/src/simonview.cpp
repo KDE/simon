@@ -413,17 +413,18 @@ void SimonView::showAddWordDialog ( )
  */
 void SimonView::showSystemDialog ()
 {
-	if (!configDialog)
+	if (!configDialog) {
 		configDialog = (new KCMultiDialog(this));
 
-	configDialog->addModule("simongeneralconfig", QStringList() << "");
-	configDialog->addModule("simonsoundconfig", QStringList() << "");
-	configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
-	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
-	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
-	configDialog->addModule("simonactionsconfig", QStringList() << "");
-	configDialog->addModule("kcm_attica");
+		configDialog->addModule("simongeneralconfig", QStringList() << "");
+		configDialog->addModule("simonsoundconfig", QStringList() << "");
+		configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
+		configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+		configDialog->addModule("simonrecognitionconfig", QStringList() << "");
+		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
+		configDialog->addModule("simonactionsconfig", QStringList() << "");
+		configDialog->addModule("kcm_attica");
+	}
 	configDialog->show();
 }
 

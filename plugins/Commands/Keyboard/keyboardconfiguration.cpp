@@ -576,6 +576,28 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 	selectedSetElem.appendChild(doc->createTextNode(ui.cbSets->currentText()));
 	configElem.appendChild(selectedSetElem);
 
+	QDomElement geometryElement = doc->createElement("keyboardGeometry");
+	QDomElement geometryPositionElement = doc->createElement("position");
+	QDomElement geometryPositionXElement = doc->createElement("x");
+	geometryPositionXElement.appendChild(doc->createTextNode(QString::number(m_keyboardPosition.x())));
+	QDomElement geometryPositionYElement = doc->createElement("y");
+	geometryPositionYElement.appendChild(doc->createTextNode(QString::number(m_keyboardPosition.y())));
+	geometryPositionElement.appendChild(geometryPositionXElement);
+	geometryPositionElement.appendChild(geometryPositionYElement);
+	geometryElement.appendChild(geometryPositionElement);
+
+	QDomElement geometrySizeElement = doc->createElement("size");
+	QDomElement geometrySizeWElement = doc->createElement("width");
+	geometrySizeWElement.appendChild(doc->createTextNode(QString::number(m_keyboardSize.width())));
+	QDomElement geometrySizeHElement = doc->createElement("height");
+	geometrySizeHElement.appendChild(doc->createTextNode(QString::number(m_keyboardSize.height())));
+	geometrySizeElement.appendChild(geometrySizeWElement);
+	geometrySizeElement.appendChild(geometrySizeHElement);
+	geometryElement.appendChild(geometrySizeElement);
+	
+	configElem.appendChild(geometryElement);
+
+
 	//numpad
 	QDomElement numpadElem= doc->createElement("numpad");
 
@@ -688,14 +710,27 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
 		return false;
 	}
-
 	refreshCbSets();
+
 	QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
 	if (caseSensitivityElem.isNull()) {
 		defaults();
 		return true;
 	}
 	ui.cbCaseSensitivity->setChecked(caseSensitivityElem.text() == "1");
+
+	QDomElement geometryElement = elem.firstChildElement("keyboardGeometry");
+	QDomElement geometryPositionElement = geometryElement.firstChildElement("position");
+	QDomElement geometryPositionXElement = geometryPositionElement.firstChildElement("x");
+	QDomElement geometryPositionYElement = geometryPositionElement.firstChildElement("y");
+	QDomElement geometrySizeElement = geometryElement.firstChildElement("size");
+	QDomElement geometrySizeWElement = geometrySizeElement.firstChildElement("width");
+	QDomElement geometrySizeHElement = geometrySizeElement.firstChildElement("height");
+
+	if (!geometryPositionXElement.isNull() && !geometryPositionYElement.isNull())
+		m_keyboardPosition = QPoint(geometryPositionXElement.text().toInt(), geometryPositionYElement.text().toInt());
+	if (!geometrySizeWElement.isNull() && !geometrySizeHElement.isNull())
+		m_keyboardSize = QSize(geometrySizeWElement.text().toInt(), geometrySizeHElement.text().toInt());
 
 	QString selectedSet = elem.firstChildElement("selectedSet").text();
 	

@@ -53,7 +53,6 @@ private:
 	QString getCurrentTabName();
 
 private slots:
-
 	void selectNumber();
 	void writeOutNumber();
 	void numberBackSpace();
@@ -83,6 +82,8 @@ private slots:
 	void send9() { processRequest(9); }
 
 	KeyboardConfiguration* getKeyboardConfiguration();
+
+	void untoggleShift();
 
 protected:
 	bool trigger(const QString& triggerName);
