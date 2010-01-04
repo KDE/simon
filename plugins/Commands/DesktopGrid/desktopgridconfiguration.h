@@ -21,26 +21,41 @@
 #define SIMON_DESKTOPGRIDCONFIGURATION_H_F800C7EC08DA40FEBD5B5BA233D7AC7C
 
 #include <simonscenarios/commandconfiguration.h>
+#include <eventsimulation/clickmode.h>
 #include "ui_desktopgridconfigurationdlg.h"
 
 class DesktopGridConfiguration : public CommandConfiguration
 {
 	Q_OBJECT
 	
-	private:
-		Ui::DesktopGridConfigurationDlg ui;
- 
 	public slots:
 		virtual bool deSerialize(const QDomElement&);
 		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
 	
 	public:
+		enum ActionSelection {
+			AlwaysAsk=1,
+			UseDefault=2,
+			AskButDefaultAfterTimeout=3
+		};
+
 		DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~DesktopGridConfiguration();
 		
 		//configuration options
 		bool useRealTransparency();
+		int askTimeout();
+		QString cancelTrigger();
+		ActionSelection actionSelection();
+		EventSimulation::ClickMode clickMode();
+
+	private:
+		Ui::DesktopGridConfigurationDlg ui;
+
+		void setActionSelection(ActionSelection actionSel);
+		void setClickMode(EventSimulation::ClickMode actionM);
+
 };
 
 #endif

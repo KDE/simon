@@ -22,6 +22,7 @@
 #define SIMON_EVENTHANDLER_H_E54B4D68778B4988A4AB1950123164C2
 
 #include "eventsimulation_export.h"
+#include "clickmode.h"
 
 class CoreEvents;
 class QChar;
@@ -51,7 +52,8 @@ public:
 
        ~EventHandler();
 
-	void click(int x, int y);
+	void click(int x, int y, EventSimulation::ClickMode);
+	void dragAndDrop(int xStart, int yStart, int x, int y);
 	void sendWord(const QString& word) const;
 	void sendShortcut(const QKeySequence& shortcut) const;
 

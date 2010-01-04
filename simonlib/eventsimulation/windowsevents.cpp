@@ -80,9 +80,18 @@ void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
 	if (mode & Down)
 	{
 		Input.type      = INPUT_MOUSE;
-		if (btn == Left)
-		Input.mi.dwFlags  = MOUSEEVENTF_LEFTDOWN;
-		else Input.mi.dwFlags  = MOUSEEVENTF_RIGHTDOWN;
+		switch (btn)
+		{
+			case Left: 
+				Input.mi.dwFlags  = MOUSEEVENTF_LEFTDOWN;
+				break;
+			case Middle: 
+				Input.mi.dwFlags  = MOUSEEVENTF_MIDDLEDOWN;
+				break;
+			case Right: 
+				Input.mi.dwFlags  = MOUSEEVENTF_RIGHTDOWN;
+				break;
+		}
 		
 		::SendInput(1,&Input,sizeof(INPUT));
 	}
@@ -91,9 +100,18 @@ void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
 	{
 		::ZeroMemory(&Input,sizeof(INPUT));
 		Input.type      = INPUT_MOUSE;
-		if (btn == Left)
-		Input.mi.dwFlags  = MOUSEEVENTF_LEFTUP;
-		else Input.mi.dwFlags  = MOUSEEVENTF_RIGHTUP;
+		switch (btn)
+		{
+			case Left: 
+				Input.mi.dwFlags  = MOUSEEVENTF_LEFTUP;
+				break;
+			case Middle: 
+				Input.mi.dwFlags  = MOUSEEVENTF_MIDDLEUP;
+				break;
+			case Right: 
+				Input.mi.dwFlags  = MOUSEEVENTF_RIGHTUP;
+				break;
+		}
 		::SendInput(1,&Input,sizeof(INPUT));
 	}
 }
@@ -103,19 +121,45 @@ void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
 /**
  * @brief simulates a mouseclick at the requested coordinates
  *
- * @param int x, int y
- * int x,y: coordinates on the display, where the mouseclick should be simulated
- * 
- * 
- * 
- * @author Phillip Goriup
+ * @author Phillip Goriup, Peter Grasch
  */
-void WindowsEvents::click(int x, int y)
+void WindowsEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
 {	
 	moveMouse(x, y);
-	activateMouseButton(Left, DownAndUp);
+
+	switch (clickMode) {
+		case EventSimulation::LMB:
+			activateMouseButton(Left, DownAndUp);
+			break;
+		case EventSimulation::LMBDouble:
+			activateMouseButton(Left, DownAndUp);
+			activateMouseButton(Left, DownAndUp);
+			break;
+		case EventSimulation::LMBDown:
+			activateMouseButton(Left, Down);
+			break;
+		case EventSimulation::LMBUp:
+			activateMouseButton(Left, Up);
+			break;
+		case EventSimulation::RMB:
+			activateMouseButton(Right, DownAndUp);
+			break;
+		case EventSimulation::MMB:
+			activateMouseButton(Middle, DownAndUp);
+			break;
+	}
+
+	XFlush(display);
 }
 
+void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
+{
+	moveMouse(xStart, yStart);
+	activateMouseButton(Left, Down);
+	Sleep(200);
+	moveMouse(x, y);
+	activateMouseButton(Left, Up);
+}
 
 
 /**

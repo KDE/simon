@@ -21,6 +21,7 @@
 // this needs to be included first because the 
 #include <KMessageBox>	// X11 headers included in the xevents header define "Status"
 
+#include <unistd.h>
 #include <KDebug>
 #include <KLocale>
 #include "xeventsprivate.h"
@@ -81,14 +82,54 @@ Display* XEventsPrivate::openDisplay(char* displayName)
  * @param x The x coordinate
  * @param y The y coordinate
  */
-void XEventsPrivate::click(int x, int y)
+void XEventsPrivate::click(int x, int y, EventSimulation::ClickMode clickMode)
 {
 	if (!display) return;
+
 	XTestFakeMotionEvent(display, 0, x, y, 10);
-	XTestFakeButtonEvent(display, 1, true, 10);
-	XTestFakeButtonEvent(display, 1, false, 10);
+
+	switch (clickMode) {
+		case EventSimulation::LMB:
+			XTestFakeButtonEvent(display, 1, true, 10);
+			XTestFakeButtonEvent(display, 1, false, 10);
+			break;
+		case EventSimulation::LMBDouble:
+			for (int i=0; i<2; i++) {
+				XTestFakeButtonEvent(display, 1, true, 10);
+				XTestFakeButtonEvent(display, 1, false, 10);
+			}
+			break;
+		case EventSimulation::LMBDown:
+			XTestFakeButtonEvent(display, 1, true, 10);
+			break;
+		case EventSimulation::LMBUp:
+			XTestFakeButtonEvent(display, 1, false, 10);
+			break;
+		case EventSimulation::RMB:
+			XTestFakeButtonEvent(display, 2, true, 10);
+			XTestFakeButtonEvent(display, 2, false, 10);
+			break;
+		case EventSimulation::MMB:
+			XTestFakeButtonEvent(display, 3, true, 10);
+			XTestFakeButtonEvent(display, 3, false, 10);
+			break;
+	}
+
 	XFlush(display);
 }
+
+void XEventsPrivate::dragAndDrop(int xStart, int yStart, int x, int y)
+{
+	if (!display) return;
+
+	XTestFakeMotionEvent(display, 0, xStart, yStart, 10);
+	XTestFakeButtonEvent(display, 1, true, 10);
+	XTestFakeMotionEvent(display, 0, x, y, 150);
+	XTestFakeButtonEvent(display, 1, false, 10);
+
+	XFlush(display);
+}
+
 
 /**
  * \brief Resolves the string to an appropriate keysym and sends it using pressKey(...)

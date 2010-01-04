@@ -21,6 +21,7 @@
 #define SIMON_COREEVENTS_H_5AB1C794A9624F49802445C0C89AB826
 
 #include <QHash>
+#include "clickmode.h"
 
 class QKeySequence;
 
@@ -62,7 +63,8 @@ protected:
 public:
 	CoreEvents();
 
-	virtual void click(int x, int y)=0;
+	virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
+	virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
 	
 	void sendKey(unsigned int key /*unicode representation*/);
 	virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;

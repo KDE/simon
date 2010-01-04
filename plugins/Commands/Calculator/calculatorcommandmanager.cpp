@@ -22,14 +22,16 @@
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <simoninfo/simoninfo.h>
+#include <simonactions/commandlistwidget.h>
 #include <unistd.h>
+#include <stdlib.h>
+
 #include <QDesktopWidget>
 #include <QDialog>
+#include <QList>
+
 #include <KLocalizedString>
 #include <KAction>
-#include <stdlib.h>
-#include <QList>
-#include <simonactions/commandlistwidget.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <KDebug>

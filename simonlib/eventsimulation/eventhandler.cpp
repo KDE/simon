@@ -57,15 +57,24 @@ EventHandler::EventHandler()
 }
 
 /**
- * \brief Tells coreEvents to click the coordinates with a simple LMB-Click and release
+ * \brief Tells coreEvents to click the coordinates
  * \author Peter Grasch
  * @param x The x coordinate
  * @param y The y coordinate
+ * @param clickMode The mode of the click (LMB, RMB, etc.)
  */
-void EventHandler::click(int x, int y)
+void EventHandler::click(int x, int y, EventSimulation::ClickMode clickMode)
 {
 	if (!coreEvents) return;
-		coreEvents->click(x,y);
+
+	coreEvents->click(x,y, clickMode);
+}
+
+void EventHandler::dragAndDrop(int xStart, int yStart, int x, int y)
+{
+	if (!coreEvents) return;
+
+	coreEvents->dragAndDrop(xStart, yStart, x, y);
 }
 
 /**

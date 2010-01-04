@@ -39,9 +39,14 @@ XEvents::XEvents(char* displayName) : CoreEvents(),
 }
 
 
-void XEvents::click(int x, int y)
+void XEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
 {
-	d->click(x, y);
+	d->click(x, y, clickMode);
+}
+
+void XEvents::dragAndDrop(int xStart, int yStart, int x, int y)
+{
+	d->dragAndDrop(xStart, yStart, x, y);
 }
 
 

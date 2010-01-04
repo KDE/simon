@@ -19,6 +19,9 @@
 
 #include "screengrid.h"
 #include "desktopgridconfiguration.h"
+#include <eventsimulation/eventhandler.h>
+#include <simonactions/actionmanager.h>
+#include <simonactions/commandlistwidget.h>
 #include <QWidget>
 #include <QGridLayout>
 #include <KPushButton>
@@ -30,28 +33,33 @@
 #include <QBrush>
 #include <QRect>
 #include <QColor>
-#include <eventsimulation/eventhandler.h>
-#include <simonactions/actionmanager.h>
 
 QStringList ScreenGrid::numberIdentifiers;
 
-ScreenGrid::ScreenGrid(DesktopGridConfiguration *_config, QWidget* parent): QWidget(parent, 
-		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint), config(_config),
+
+ScreenGrid::ScreenGrid(DesktopGridConfiguration *_config, QWidget* parent): 
+	QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint), 
+	m_x(0),
+	m_y(0),
+	m_startX(0),
+	m_startY(0),
+	m_isDragging(false),
+	config(_config),
 	buttons(new QGridLayout(this)),
+	commandListWidget(new CommandListWidget()),
 	background(0)
 {
 	this->setContentsMargins(0,0,0,0);
 	buttons->setSpacing(0);
-	QSize desksize = QDesktopWidget().screenGeometry().size();
-	this->resize(desksize);
-	short btnNr=1;
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
+	QSize desksize = QDesktopWidget().screenGeometry().size();
 	QBrush transbrush(QColor(241,241,241,100));
+	short btnNr=1;
 	for (int i=0; i < 3; i++)
 	{
 		for (int j=0; j<3; j++)
@@ -72,26 +80,73 @@ ScreenGrid::ScreenGrid(DesktopGridConfiguration *_config, QWidget* parent): QWid
 		}
 	}
 
+	buttons->setGeometry(geometry());
 	
+	buttons->setMargin(0);
+	this->setLayout(buttons);
+	
+	startGreedy();
+
+	commandListWidget->init(QStringList() << "input-mouse" << "input-mouse" << 
+			"input-mouse" << "input-mouse" << "input-mouse", 
+			QStringList() << i18n("Left click") << 
+			i18n("Double click") << 
+			i18n("Right click") << 
+			i18n("Middle click") <<
+			i18n("Drag & Drop"), 0); //Add Elements for the list
+
+	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(clickRequestReceived(int)));
+	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deleteLater()));
+
+	init();
+}
+
+
+void ScreenGrid::init()
+{
+	this->move(0,0);
+	QSize deskSize = QDesktopWidget().screenGeometry().size();
+	this->raise();
+
+	kDebug() << size() << pos();
+
+	buttons->setGeometry(geometry());
+
 	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
 	{
+		if (background) background->deleteLater();
+
 		background = new QLabel(this);
 		background->lower();
 		deskShot = makeFakeTransparency();
 		background->setPixmap(deskShot);
 		background->move(0,0);
 		background->resize(this->size());
-	} else {
+	} else
 		this->setWindowOpacity(0.55);
+	
+	for (int i=0; i < this->children().count(); i++)
+	{
+		KPushButton *btn = dynamic_cast<KPushButton*>(children().at(i));
+		if (btn) {
+			setButtonFontSize(btn);
+			btn->setMinimumHeight(deskSize.height()/3);
+			btn->setMinimumWidth(1);
+			setButtonFontSize(btn);
+		}
 	}
 
-	buttons->setGeometry(geometry());
+	setMaximumWidth(deskSize.width());
+	setMaximumHeight(deskSize.height());
+	setMinimumWidth(deskSize.width());
+	setMinimumHeight(deskSize.height());
+
+	this->resize(deskSize);
 	
+	buttons->setGeometry(QRect(0, 0, geometry().width(), geometry().height()));
 	
-	buttons->setMargin(0);
-	this->setLayout(buttons);
-	
-	startGreedy();
+
+	show();
 }
 
 
@@ -107,6 +162,77 @@ QPixmap ScreenGrid::makeFakeTransparency()
 	return QPixmap::grabWindow(QApplication::desktop()->winId()).copy(geometry());
 }
 
+
+void ScreenGrid::sendDragAndDrop()
+{
+	EventHandler::getInstance()->dragAndDrop(m_startX, m_startY, m_x,m_y);
+}
+
+void ScreenGrid::click(KPushButton* btn)
+{
+	m_x = this->x()+btn->x()+(btn->width()/2);
+	m_y = this->y()+btn->y()+(btn->height()/2);
+	hide();
+
+	if (m_isDragging) {
+//		sendClick(EventSimulation::LMBDown);
+//		sendClick(EventSimulation::LMBUp);
+		sendDragAndDrop();
+		deleteLater();
+		return;
+	}
+
+	DesktopGridConfiguration::ActionSelection modeSelection = static_cast<DesktopGridConfiguration*>(config)->actionSelection();
+	EventSimulation::ClickMode mode = static_cast<DesktopGridConfiguration*>(config)->clickMode();
+	kDebug() << modeSelection << mode;
+
+	switch (modeSelection) {
+		case DesktopGridConfiguration::AlwaysAsk:
+			commandListWidget->show();
+			break;
+		case DesktopGridConfiguration::UseDefault:
+			clickRequestReceived((int) mode);
+			break;
+		case DesktopGridConfiguration::AskButDefaultAfterTimeout:
+			commandListWidget->show();
+			kDebug() << "Timeout: " << static_cast<DesktopGridConfiguration*>(config)->askTimeout();
+			commandListWidget->selectAfterTimeout((int) mode, static_cast<DesktopGridConfiguration*>(config)->askTimeout());
+			break;
+	}
+}
+
+void ScreenGrid::clickRequestReceived(int index)
+{
+	kDebug() << "CommandListWidget was hidden...";
+	commandListWidget->hide();
+	commandListWidget->abortTimeoutSelection();
+
+	switch (index)
+	{
+		case 1: sendClick(EventSimulation::LMB);
+			break;
+		case 2: sendClick(EventSimulation::LMBDouble);
+			break;
+		case 3: sendClick(EventSimulation::RMB);
+			break;
+		case 4: sendClick(EventSimulation::MMB);
+			break;
+		case 5: 
+			m_isDragging = true;
+			m_startX = m_x;
+			m_startY = m_y;
+			init();
+			return; //don't delete me
+	}
+
+	deleteLater();
+}
+
+void ScreenGrid::sendClick(EventSimulation::ClickMode clickMode)
+{
+	EventHandler::getInstance()->click(m_x,m_y, clickMode);
+}
+
 void ScreenGrid::regionSelected()
 {
 	KPushButton *senderBtn = dynamic_cast<KPushButton*>(sender());
@@ -114,11 +240,7 @@ void ScreenGrid::regionSelected()
 
 	if ((senderBtn->width() <= 20) && (senderBtn->height() <= 20))
 	{
-		int x = this->x()+senderBtn->x()+(senderBtn->width()/2);
-		int y = this->y()+senderBtn->y()+(senderBtn->height()/2);
-		hide();
-		EventHandler::getInstance()->click(x,y); //click the region
-		deleteLater();
+		click(senderBtn);
 		return;
 	}
 	QSize btnSize = senderBtn->size();
@@ -134,12 +256,14 @@ void ScreenGrid::regionSelected()
 		if (btn) {
 			setButtonFontSize(btn);
 			btn->setMinimumHeight(btnHeight);
-			
 		}
 	}
 
+	setMinimumWidth(btnSize.width());
+	setMinimumHeight(btnSize.height());
 	this->setMaximumWidth(btnSize.width());
 	this->setMaximumHeight(btnSize.height());
+
 
 	
 	buttons->setGeometry(QRect(0, 0, geometry().width(), geometry().height()));
@@ -147,7 +271,6 @@ void ScreenGrid::regionSelected()
 	this->move(pos);
 	
 	repaint();
-
 	
 	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
 	{
@@ -165,21 +288,30 @@ void ScreenGrid::keyPressEvent(QKeyEvent *event)
 
 bool ScreenGrid::greedyTrigger(const QString& input)
 {
-	if (input.toUpper() == i18n("Cancel").toUpper())
+	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
+	if (input.toUpper() == static_cast<DesktopGridConfiguration*>(config)->cancelTrigger().toUpper())
 	{
 		deleteLater();
 		return true;
 	}
+
 	bool ok=false;
-	int index = input.toInt(&ok);
+	int index = input.toInt(&ok)-1;
 	if (!ok)
 	{
+		index = 0;
 		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != input.toUpper()))
 			index++;
 
 		if (index == numberIdentifiers.count()) return false;
 	}
 	kDebug() << index;
+
+	if (commandListWidget->isVisible()) {
+		clickRequestReceived(index+1);
+		return true;
+	}
+
 	if (index > btns.count()) return false;
 
 	KPushButton *btn = btns[index];
@@ -191,10 +323,10 @@ bool ScreenGrid::greedyTrigger(const QString& input)
 
 ScreenGrid::~ScreenGrid()
 {
+	commandListWidget->deleteLater();
 	buttons->deleteLater();
 	stopGreedy();
 
 	if (background) background->deleteLater();
 }
-
 

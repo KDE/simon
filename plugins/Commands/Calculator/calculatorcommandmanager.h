@@ -49,15 +49,15 @@ private:
 
 	Ui::CalculatorDlg ui;
 	QDialog *widget;
+	CommandListWidget *commandListWidget;
 	static QStringList numberIdentifiers;
 	QList<Token *> * parseString(QString calc);
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
 
+	double currentResult;
 	bool resultCurrentlyDisplayed;
 
-	CommandListWidget *commandListWidget;
-	double currentResult;
 	void sendOperator(const QString operatorStr);
 	void sendBracket(const QString bracketStr);
 	void sendNumber(const QString bracketStr);

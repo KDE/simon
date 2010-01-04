@@ -21,6 +21,7 @@
 #ifndef SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 #define SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 
+#include "clickmode.h"
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/keysymdef.h>
@@ -46,7 +47,8 @@ private:
 	void pressKeyCode(const KeyCode& code);
 	void sendKeySymString(const QString& keysymString);
 public:
-	void click(int x, int y);
+	void click(int x, int y, EventSimulation::ClickMode clickMode);
+	void dragAndDrop(int xStart, int yStart, int x, int y);
 	void sendKeyPrivate(unsigned int key);
 
 	void setModifierKey(int virtualKey);

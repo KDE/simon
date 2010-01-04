@@ -46,14 +46,16 @@ private:
 	};
 	enum MouseButton {
 		Left=1,
-		Right=2
+		Right=2,
+		Middle=3
 	};
 	void pressVk(BYTE vK, PressMode mode);
 	void moveMouse(int x, int y);
 	void activateMouseButton(MouseButton btn, PressMode mode);
 public:
 	WindowsEvents();
-	void click(int x, int y);
+	void click(int x, int y, EventSimulation::ClickMode clickMode);
+	void dragAndDrop(int xStart, int yStart, int x, int y);
 	void sendKeyPrivate(unsigned int key /*unicode representation*/);
 
 	inline void setModifierKey(int virtualKey, bool once);

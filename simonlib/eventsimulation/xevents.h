@@ -41,7 +41,8 @@ private:
 	XEventsPrivate *d;
 
 public:
-	void click(int x, int y);
+	void click(int x, int y, EventSimulation::ClickMode clickMode);
+	void dragAndDrop(int xStart, int yStart, int x, int y);
 	void sendKeyPrivate(unsigned int key);
 	void setModifierKey(int virtualKey, bool once);
 	void unsetModifier(int virtualKey);

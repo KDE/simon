@@ -32,6 +32,7 @@ set ( eventsimulation_LIB_WINDOWS_SRCS
 set( eventsimulation_LIB_HDRS
   eventsimulation_export.h
   eventhandler.h
+  clickmode.h
 )
 
 

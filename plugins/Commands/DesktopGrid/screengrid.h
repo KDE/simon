@@ -23,11 +23,13 @@
 #include <QWidget>
 #include <QList>
 #include <simonactions/greedyreceiver.h>
+#include <eventsimulation/clickmode.h>
 
 class KPushButton;
 class QGridLayout;
 class QLabel;
 class DesktopGridConfiguration;
+class CommandListWidget;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -37,17 +39,32 @@ Q_OBJECT
 
 private slots:
 	void regionSelected();
+	void clickRequestReceived(int index);
 
 private:
+	int m_x;
+	int m_y;
+	int m_startX;
+	int m_startY;
+	bool m_isDragging;
 	DesktopGridConfiguration *config;
 	QList<KPushButton*> btns;
 	QGridLayout *buttons;
+
+	CommandListWidget *commandListWidget;
 
 	QLabel *background;
 	QPixmap deskShot;
 
 	QPixmap makeFakeTransparency();
 	static QStringList numberIdentifiers;
+
+	void click(KPushButton* btn);
+
+	void init();
+
+	void sendClick(EventSimulation::ClickMode clickMode);
+	void sendDragAndDrop();
 
 public slots:
 	bool greedyTrigger(const QString& input);
