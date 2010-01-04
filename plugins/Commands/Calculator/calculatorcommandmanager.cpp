@@ -136,10 +136,11 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 	
 	QString output;
 
+	if (!resultCurrentlyDisplayed)
+		sendEquals();
 	switch (index) {
 		case CalculatorConfiguration::Result:
-			if (resultCurrentlyDisplayed)
-				output = toString(currentResult);
+			output = toString(currentResult);
 			break;
 		case CalculatorConfiguration::CalculationAndResult:
 			output = ui.leNumber->text();
