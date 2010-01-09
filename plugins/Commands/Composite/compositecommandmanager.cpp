@@ -80,11 +80,14 @@ bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem)
 		QDomElement childCommandElem = childCommandsElem.firstChildElement();
 		QStringList childCommandTrigger;
 		QStringList childCommandCategory;
-		while (!childCommandsElem.isNull()) {
-			QDomElement childCommandTriggerElem = childCommandsElem.firstChildElement();
+		while (!childCommandElem.isNull()) {
+			QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
 			QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
 			childCommandTrigger << childCommandTriggerElem.text();
 			childCommandCategory << childCommandCategoryElem.text();
+			kDebug() << childCommandTriggerElem.text();
+			kDebug() << childCommandCategoryElem.text();
+			childCommandElem = childCommandElem.nextSiblingElement();
 		}
 
 		commands->append(new CompositeCommand(name.text(), icon.text(), 

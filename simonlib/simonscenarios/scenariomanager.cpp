@@ -311,6 +311,11 @@ bool ScenarioManager::commitGroup()
 	return success;
 }
 
+QList<CommandLauncher*> ScenarioManager::getLauncherList()
+{
+	return currentScenario->getLauncherList();
+}
+
 
 ScenarioManager::~ScenarioManager()
 {

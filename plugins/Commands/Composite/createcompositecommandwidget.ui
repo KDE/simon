@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CreateCompositeCommandWidget</class>
- <widget class="QWidget" name="CreateCompositeCommandWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="CreateCompositeCommandWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,116 +10,116 @@
     <height>227</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Command:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="KComboBox" name="cbCommands" />
+   <item row="0" column="1">
+    <widget class="KComboBox" name="cbCommands"/>
    </item>
-   <item row="0" column="2" >
-    <widget class="QPushButton" name="pbAddCommand" >
-     <property name="text" >
+   <item row="0" column="2">
+    <widget class="QPushButton" name="pbAddCommand">
+     <property name="text">
       <string>Add Command</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
       <string>Delay:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+   <item row="2" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KIntSpinBox" name="sbDelay" >
-       <property name="minimum" >
+      <widget class="KIntSpinBox" name="sbDelay">
+       <property name="minimum">
         <number>1</number>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>60000</number>
        </property>
-       <property name="singleStep" >
+       <property name="singleStep">
         <number>500</number>
        </property>
-       <property name="value" >
+       <property name="value">
         <number>2000</number>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3" >
-       <property name="text" >
+      <widget class="QLabel" name="label_3">
+       <property name="text">
         <string>ms</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="2" >
-    <widget class="QPushButton" name="pbAddDelay" >
-     <property name="text" >
+   <item row="2" column="2">
+    <widget class="QPushButton" name="pbAddDelay">
+     <property name="text">
       <string>Add Delay</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2" >
-    <widget class="QTableView" name="tvCommands" >
-     <property name="selectionMode" >
+   <item row="6" column="0" colspan="2">
+    <widget class="QTableView" name="tvCommands">
+     <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
-     <property name="selectionBehavior" >
+     <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
     </widget>
    </item>
-   <item row="2" column="2" >
-    <layout class="QVBoxLayout" name="verticalLayout" >
+   <item row="6" column="2">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pbRemove" >
-       <property name="enabled" >
+      <widget class="QPushButton" name="pbRemove">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Remove</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pbMoveUp" >
-       <property name="enabled" >
+      <widget class="QPushButton" name="pbMoveUp">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Move Up</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pbMoveDown" >
-       <property name="enabled" >
+      <widget class="QPushButton" name="pbMoveDown">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Move Down</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer" >
-       <property name="orientation" >
+      <spacer name="verticalSpacer">
+       <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>40</height>
@@ -128,18 +129,35 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Launcher:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="KComboBox" name="cbLaunchers"/>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="pbAddLauncher">
+     <property name="text">
+      <string>Add Launcher</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

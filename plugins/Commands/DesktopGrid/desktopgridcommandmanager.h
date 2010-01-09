@@ -21,6 +21,7 @@
 #define SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/commandlauncher.h>
 
 #include <QVariantList>
 
@@ -50,6 +51,7 @@ public:
 	bool deSerializeConfig(const QDomElement& elem);
 
 	const KIcon icon() const;
+	virtual QList<CommandLauncher*> launchers() const;
 
     /**
     * @brief Constructor

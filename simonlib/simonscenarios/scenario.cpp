@@ -664,6 +664,11 @@ void Scenario::setPluginFont(const QFont& font)
 	m_actionCollection->setPluginFont(font);
 }
 
+QList<CommandLauncher*> Scenario::getLauncherList()
+{
+	return m_actionCollection->getLauncherList();
+}
+
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);

@@ -23,6 +23,7 @@
 #include "simonmodelmanagement_export.h"
 
 #include "command.h"
+#include "commandlauncher.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenariobase/scenarioobject.h>
 #include <QList>
@@ -53,6 +54,7 @@ signals:
 	void commandsFound(CommandList*);
 
 protected:
+	QString m_source;
 	QList<QAction*> guiActions;
 	CommandList *commands;
 	CommandConfiguration *config;
@@ -74,7 +76,9 @@ public:
 	virtual const KIcon icon() const { return KIcon(); }
 	virtual bool addCommand(Command *command)=0;
 
-	virtual QList<QAction*> getGuiActions();
+	virtual QList<CommandLauncher*> launchers() const;
+
+	virtual QList<QAction*> getGuiActions() const;
 
 	virtual CommandList* getCommands() const { 
 		return commands; 
@@ -103,7 +107,6 @@ public:
 	virtual QDomElement serializeCommands(QDomDocument *doc);
 
 	virtual bool trigger(const QString& triggerName);
-
 
 	/**
 	* @brief Constructor

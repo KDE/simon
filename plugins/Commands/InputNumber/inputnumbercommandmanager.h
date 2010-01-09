@@ -21,6 +21,7 @@
 #define SIMON_INPUTNUMBERCOMMANDMANAGER_H_23B4055BEBD242C7992B3FDD138177E0
 
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/commandlauncher.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
@@ -75,6 +76,7 @@ public:
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	void setFont(const QFont& font);
+	QList<CommandLauncher*> launchers() const;
 
     /**
     * @brief Constructor

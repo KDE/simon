@@ -120,7 +120,10 @@ bool ListCommand::processRequest(int index)
 		stopGreedy();
 		usleep(300000);
 		//TODO: Clean solution
-		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+		if (commandTypes[index] == i18n("Launcher"))
+			ActionManager::getInstance()->runLauncher(commands[index]);
+		else
+			ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		emit entrySelected();
 	}
 	return false;

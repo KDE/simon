@@ -82,9 +82,14 @@ QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 	return commandsElem;
 }
 
-QList<QAction*> CommandManager::getGuiActions()
+QList<QAction*> CommandManager::getGuiActions() const
 {
 	return guiActions;
+}
+
+QList<CommandLauncher*> CommandManager::launchers() const
+{
+	return QList<CommandLauncher*>();
 }
 
 bool CommandManager::processResult(const RecognitionResult& recognitionResult)

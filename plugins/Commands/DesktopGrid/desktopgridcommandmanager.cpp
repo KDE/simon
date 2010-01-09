@@ -80,6 +80,12 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 	return true;
 }
 
+QList<CommandLauncher*> DesktopGridCommandManager::launchers() const
+{
+	return QList<CommandLauncher*>() << new CommandLauncher("games-config-board", "", i18n("Show desktopgrid"));
+}
+
+
 
 DesktopGridCommandManager::~DesktopGridCommandManager()
 {

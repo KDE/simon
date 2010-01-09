@@ -451,7 +451,6 @@ void KeyboardCommandManager::super(bool down)
 
 void KeyboardCommandManager::backSpace()
 {
-	kDebug() << "BackSpace";
 	EventHandler::getInstance()->sendShortcut(QKeySequence("Backspace"));
 }
 
@@ -494,6 +493,12 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 	config->deSerialize(elem);
 	return true;
 }
+
+QList<CommandLauncher*> KeyboardCommandManager::launchers() const
+{
+	return QList<CommandLauncher*>() << new CommandLauncher("input-keyboard", "", i18n("Show Keyboard"));
+}
+
 
 KeyboardCommandManager::~KeyboardCommandManager()
 {

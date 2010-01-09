@@ -836,6 +836,12 @@ void CalculatorCommandManager::activate()
 	startGreedy();
 }
 
+QList<CommandLauncher*> CalculatorCommandManager::launchers() const
+{
+	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", "", i18n("Start calculator"));
+}
+
+
 CalculatorCommandManager::~CalculatorCommandManager()
 {
 	widget->deleteLater();

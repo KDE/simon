@@ -98,11 +98,14 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 	return ScenarioManager::getInstance()->triggerCommand(type, trigger);
 }
 
-
-
-void ActionManager::processResult(RecognitionResult recognitionResult)
+bool ActionManager::runLauncher(const QString& trigger)
 {
-	ScenarioManager::getInstance()->processResult(recognitionResult);
+	return processResult(RecognitionResult(trigger, "", "", QList<float>() << 1));
+}
+
+bool ActionManager::processResult(RecognitionResult recognitionResult)
+{
+	return ScenarioManager::getInstance()->processResult(recognitionResult);
 }
 
 void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
@@ -212,6 +215,11 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 QFont ActionManager::pluginBaseFont()
 {
 	return CommandSettings::getInstance()->pluginBaseFont();
+}
+
+QList<CommandLauncher*> ActionManager::getLauncherList()
+{
+	return ScenarioManager::getInstance()->getLauncherList();
 }
 
 

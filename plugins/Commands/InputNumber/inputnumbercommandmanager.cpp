@@ -230,6 +230,11 @@ bool InputNumberCommandManager::trigger(const QString& triggerName)
 	return true;
 }
 
+QList<CommandLauncher*> InputNumberCommandManager::launchers() const
+{
+	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", "", i18n("Input number"));
+}
+
 
 InputNumberCommandManager::~InputNumberCommandManager()
 {

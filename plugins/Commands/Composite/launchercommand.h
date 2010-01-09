@@ -17,63 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_COMPOSITECOMMAND_H_A199F7E674344957A6099B02965126F1
-#define SIMON_COMPOSITECOMMAND_H_A199F7E674344957A6099B02965126F1
+#ifndef SIMON_LAUNCHERCOMMAND_H_F5A3CC93AA8147729EE9C50D4454925E
+#define SIMON_LAUNCHERCOMMAND_H_F5A3CC93AA8147729EE9C50D4454925E
 
 #include <simonscenarios/command.h>
-#include <QList>
-#include <KUrl>
+
+class CommandLauncher;
 
 /**
- *	@class CompositeCommand
- *	@brief Describes a composite command; Consists of several other commands
- *	
- *	@version 0.1
- *	@date 19.05.2008
+ *	@class LauncherCommand
+ *	@date 8.01.2010
  *	@author Peter Grasch
  */
-class CompositeCommand : public Command{
+class LauncherCommand : public Command {
 Q_OBJECT
 private:
-	QStringList commands;
-	QStringList commandTypes;
+	CommandLauncher *launcher;
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
 
 public:
+	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 	static const QString staticCategoryText();
 	static const KIcon staticCategoryIcon();
 
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CompositeCommand(const QString& name, const QString& iconSrc, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc),
-		commands(commands_),
-		commandTypes(commandTypes_)
-	{
-	}
+	LauncherCommand(CommandLauncher *launcher);
+	LauncherCommand(const QString& iconSrc, const QString& trigger);
 
-	QStringList getCommands() const { return this->commands; }
-	QStringList getCommandTypes() const { return this->commandTypes; }
-   
 
-	void change(const QString& newName, const QString& newIconSrc, const QStringList& newCommands, const QStringList& newCommandTypes)
+	void change(const QString& newName, const QString& newIconSrc, CommandLauncher *launcher)
 	{ 
-		this->commands = newCommands;
-		this->commandTypes = newCommandTypes;
+		this->launcher = launcher;
 		Command::change(newName, newIconSrc);
 	}
 
-    ~CompositeCommand() {}
+    ~LauncherCommand() {}
 
 };
 

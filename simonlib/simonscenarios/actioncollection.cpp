@@ -278,7 +278,13 @@ void ActionCollection::setPluginFont(const QFont& font)
 		a->setPluginFont(font);
 }
 
-
+QList<CommandLauncher*> ActionCollection::getLauncherList()
+{
+	QList<CommandLauncher*> out;
+	foreach (Action *a, m_actions)
+		out.append(a->getLauncherList());
+	return out;
+}
 
 ActionCollection::~ActionCollection()
 {

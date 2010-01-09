@@ -9,6 +9,7 @@ ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simo
 set (simonlistcommandplugin_SRCS 
 	createlistcommandwidget.cpp 
 	listcommandmanager.cpp 
+	launchercommand.cpp 
     )
 
 kde4_add_ui_files(simonlistcommandplugin_SRCS 

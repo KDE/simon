@@ -32,6 +32,7 @@ class CommandManager;
 class Command;
 class VersionNumber;
 class CommandConfiguration;
+class CommandLauncher;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
@@ -68,8 +69,6 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		bool hasCommands();
 		bool setTrigger(const QString& newTrigger);
 
-//		bool initWithDefaults();
-
 		bool deSerialize(const QDomElement&);
 		QDomElement serialize(QDomDocument *doc);
 
@@ -77,6 +76,7 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		CommandConfiguration* getConfigurationPage();
 
 		void setPluginFont(const QFont& font);
+		QList<CommandLauncher*> getLauncherList();
 
 		~Action();
 

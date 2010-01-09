@@ -24,6 +24,7 @@
 #include <QList>
 #include "actionmodel.h"
 #include "command.h"
+#include "commandlauncher.h"
 #include <simonscenariobase/scenarioobject.h>
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
@@ -70,6 +71,7 @@ public:
 
 	bool setTrigger(const QString& trigger);
 	void setPluginFont(const QFont& font);
+	QList<CommandLauncher*> getLauncherList();
 
 	CommandList* getCommandList();
 

@@ -21,6 +21,7 @@
 #define SIMON_CALCULATORCOMMANDMANAGER_H_69F8482CCD434513BBC89310A2B529BE
 
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/commandlauncher.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <QList>
@@ -116,6 +117,8 @@ public:
 		kWarning() << "Calc: Getting commands...";
 		return NULL; 
 	}
+
+	QList<CommandLauncher*> launchers() const;
 
 
     /**

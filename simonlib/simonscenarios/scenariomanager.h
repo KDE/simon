@@ -33,6 +33,7 @@
 #include <simonactions/greedyreceiver.h>
 
 #include "command.h"
+#include "commandlauncher.h"
 #include "speechmodel.h"
 #include "vocabulary.h"
 #include "simonmodelmanagement_export.h"
@@ -92,6 +93,7 @@ public:
 	bool processResult(RecognitionResult recognitionResult);
 
 	CommandList* getCommandList();
+	QList<CommandLauncher*> getLauncherList();
 
 	void startGroup();
 	bool commitGroup();

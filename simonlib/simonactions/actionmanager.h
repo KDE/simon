@@ -31,6 +31,7 @@
 #include <simonscenarios/action.h>
 
 class CommandManager;
+class CommandLauncher;
 class CommandSettings;
 class Action;
 
@@ -66,13 +67,15 @@ public:
 
 	void processRawResults(RecognitionResultList* recognitionResults);
 	void presentUserWithResults(RecognitionResultList* recognitionResults);
-	void processResult(RecognitionResult recognitionResult);
+	bool processResult(RecognitionResult recognitionResult);
+	bool runLauncher(const QString& trigger);
 	bool triggerCommand(const QString& type, const QString& trigger);
 
 	void deRegisterGreedyReceiver(GreedyReceiver *);
 	void registerGreedyReceiver(GreedyReceiver *);
 
 	CommandList* getCommandList();
+	QList<CommandLauncher*> getLauncherList();
 	QFont pluginBaseFont();
 
 	~ActionManager();

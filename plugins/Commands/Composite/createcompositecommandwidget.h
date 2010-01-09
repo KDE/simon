@@ -23,6 +23,7 @@
 #include <QWidget>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonscenarios/command.h>
+#include <simonscenarios/commandlauncher.h>
 #include "ui_createcompositecommandwidget.h"
 
 class Command;
@@ -44,11 +45,14 @@ Q_OBJECT
 private:
 	bool isDelay;
 	CommandList* allCommands;
+	QList<CommandLauncher*> allLaunchers;
+	QList<Command*> commandsToDelete;
 	Ui::CreateCompositeCommandWidget ui;
 	CommandTableModel *model;
 
 private slots:
 	void addDelayToComp();
+	void addLauncherToComp();
 	void addCommandToComp();
 	void removeCommand();
 	void moveUp();

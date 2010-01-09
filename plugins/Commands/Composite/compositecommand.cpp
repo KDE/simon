@@ -18,6 +18,7 @@
  */
 
 #include "compositecommand.h"
+#include <simonactions/actionmanager.h>
 #include <unistd.h>
 #include <QObject>
 #include <QVariant>
@@ -96,8 +97,10 @@ bool CompositeCommand::triggerPrivate()
 			if (!ok) {kDebug() << "Not ok"; continue;}
 			kDebug() << "Sleeping: " << amount;
 			usleep(amount);
-		} /*else 
-			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);*/
+		} else  if (type == i18n("Launcher"))
+			ActionManager::getInstance()->runLauncher(commands[i]);
+		else
+			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
 	}
 
 	return true;

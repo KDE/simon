@@ -22,6 +22,7 @@
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KMessageBox>
+#include <KDebug>
 #include <KAction>
 #include "pronunciationtrainingconfiguration.h"
 
@@ -37,7 +38,7 @@ PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject
 	activateAction(new KAction(this))
 {
 	activateAction->setText(i18n("Activate Pronunciation Training"));
-	activateAction->setIcon(KIcon("go-right"));
+	activateAction->setIcon(icon());
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activateTraining()));
 	guiActions << activateAction;
@@ -51,7 +52,7 @@ const QString PronunciationTrainingCommandManager::name() const
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
-	fprintf(stderr, "Activating training...\n");
+	kDebug() <<  "Activating training...";
 }
 
 const QString PronunciationTrainingCommandManager::preferredTrigger() const
@@ -79,6 +80,11 @@ bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& e
 const KIcon PronunciationTrainingCommandManager::icon() const
 {
 	return KIcon("applications-education");
+}
+
+QList<CommandLauncher*> PronunciationTrainingCommandManager::launchers() const
+{
+	return QList<CommandLauncher*>() << new CommandLauncher("applications-education", "", i18n("Start pronunciation training"));
 }
 
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()

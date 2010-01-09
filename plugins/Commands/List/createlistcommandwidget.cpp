@@ -18,6 +18,7 @@
  */
 
 #include "createlistcommandwidget.h"
+#include "launchercommand.h"
 #include <simonactions/listcommand.h>
 
 #include <simonactions/commandtablemodel.h>
@@ -30,6 +31,7 @@
 
 CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 	allCommands(ActionManager::getInstance()->getCommandList()),
+	allLaunchers(ActionManager::getInstance()->getLauncherList()),
 	model(new CommandTableModel())
 {
 	ui.setupUi(this);
@@ -37,23 +39,32 @@ CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidge
 	setWindowIcon(ListCommand::staticCategoryIcon());
 	setWindowTitle(ListCommand::staticCategoryText());
 	
-	foreach (const Command* com, *allCommands)
-	{
+	foreach (const Command* com, *allCommands) {
 		QString name = com->getTrigger();
 		QString category = com->getCategoryText();
 		ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
 	}
+	foreach (const CommandLauncher* launcher, allLaunchers) {
+		QString pluginTrigger = launcher->pluginTrigger();
+		QString trigger = launcher->trigger();
+		QString description = launcher->description();
 
+		QString visualTrigger = QString(pluginTrigger+" "+trigger).trimmed();
+		
+		ui.cbLaunchers->addItem(launcher->icon(), visualTrigger+" ("+description+")");
+	}
 	ui.tvCommands->setModel(model);
 
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
 	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToList()));
+	connect(ui.pbAddLauncher, SIGNAL(clicked()), this, SLOT(addLauncherToList()));
 	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
 	enableButtons(ui.tvCommands->currentIndex());
 
 	ui.pbAddCommand->setIcon(KIcon("list-add"));
+	ui.pbAddLauncher->setIcon(KIcon("list-add"));
 	ui.pbRemove->setIcon(KIcon("list-remove"));
 	ui.pbMoveUp->setIcon(KIcon("arrow-up"));
 	ui.pbMoveDown->setIcon(KIcon("arrow-down"));
@@ -107,14 +118,22 @@ bool CreateListCommandWidget::init(Command* command)
 
 	QStringList selectedTriggers = listCommand->getCommands();
 	QStringList selectedCategories = listCommand->getCommandTypes();
+	QStringList selectedIconSrcs = listCommand->getIconSrcs();
 
-	Q_ASSERT(selectedTriggers.count() == selectedCategories .count());
+	Q_ASSERT(selectedTriggers.count() == selectedCategories.count());
+	Q_ASSERT(selectedTriggers.count() == selectedIconSrcs.count());
 
 	QStringList notFound;
 	int i=0;
 	foreach (const QString& trigger, selectedTriggers)
 	{
 		QString cat = selectedCategories[i];
+		if (cat == i18n("Launcher")) {
+			//add launcher
+			LauncherCommand *c = new LauncherCommand(selectedIconSrcs[i], trigger);
+			commandsToDelete << c;
+			model->selectCommand(c);
+		} else {
 			bool found=false;
 			foreach (Command* com, *allCommands)
 			{
@@ -129,11 +148,9 @@ bool CreateListCommandWidget::init(Command* command)
 			}
 			if (!found)
 				notFound << trigger;
-
-
+		}
 		i++;
 	}
-
 
 	if (!notFound.isEmpty())
 	{
@@ -152,6 +169,15 @@ void CreateListCommandWidget::addCommandToList()
 	emit completeChanged();
 }
 
+
+void CreateListCommandWidget::addLauncherToList()
+{
+	LauncherCommand *launcherCommand = new LauncherCommand(allLaunchers.at(ui.cbLaunchers->currentIndex()));
+	commandsToDelete << launcherCommand;
+	model->selectCommand(launcherCommand);
+	enableButtons(ui.tvCommands->currentIndex());
+	emit completeChanged();
+}
 
 void CreateListCommandWidget::removeCommand()
 {
@@ -178,5 +204,8 @@ Command* CreateListCommandWidget::createCommand(const QString& name, const QStri
 
 CreateListCommandWidget::~CreateListCommandWidget()
 {
+	qDeleteAll(allLaunchers);
+	qDeleteAll(commandsToDelete);
+	delete allCommands;
 }
 
