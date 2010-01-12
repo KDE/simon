@@ -30,11 +30,11 @@
 
 LauncherCommand::LauncherCommand(CommandLauncher *launcher_)
 : Command(QString(launcher_->pluginTrigger()+" "+launcher_->trigger()).trimmed(), 
-		launcher_->iconSrc()), launcher(launcher_)
+		launcher_->iconSrc(), launcher_->description()), launcher(launcher_)
 {
 }
 
-LauncherCommand::LauncherCommand(const QString& iconSrc, const QString& trigger) : Command(trigger, iconSrc),
+LauncherCommand::LauncherCommand(const QString& iconSrc, const QString& trigger) : Command(trigger, iconSrc, ""),
 	launcher(new CommandLauncher(iconSrc, trigger, ""))
 {
 }

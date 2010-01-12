@@ -56,7 +56,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommand(const QString& name, const QString& iconSrc, const QString& text_) : Command(name, iconSrc),
+    TextMacroCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& text_) : Command(name, iconSrc, description),
         text(text_)
     {
     }
@@ -69,9 +69,9 @@ public:
     const QString getText() const { return this->text; }
     
 
-	void change(const QString& newName, const QString& newIconSrc, const QString& newText) { 
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QString& newText) { 
 		this->text = newText;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
     
     ~TextMacroCommand() {}

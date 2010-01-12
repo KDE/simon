@@ -1091,6 +1091,17 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 	write(toWrite);
 }
 
+void ClientSocket::recompileModel()
+{
+	sendCode(Simond::ModelCompilationStarted);
+
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+									 
+	modelCompilationAdapter->startAdaption(activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+						activeDir+"prompts", synchronisationManager->getScenarioPaths(), 
+						synchronisationManager->getPromptsPath());
+}
+
 void ClientSocket::slotModelAdaptionComplete()
 {
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
@@ -1129,18 +1140,6 @@ void ClientSocket::slotModelAdaptionError(QString error)
 	write(body);
 }
 
-
-
-void ClientSocket::recompileModel()
-{
-	sendCode(Simond::ModelCompilationStarted);
-
-	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-									 
-	modelCompilationAdapter->startAdaption(activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-						activeDir+"prompts", synchronisationManager->getScenarioPaths(), 
-						synchronisationManager->getPromptsPath());
-}
 
 void ClientSocket::sendCode(Simond::Request code)
 {

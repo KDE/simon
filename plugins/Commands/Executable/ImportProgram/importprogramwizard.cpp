@@ -108,7 +108,7 @@ void ImportProgramWizard::import(int status)
 {
 	if (selector && status)
 	{
-		ExecutableCommand *com = new ExecutableCommand(selector->getName(), selector->getIcon(),
+		ExecutableCommand *com = new ExecutableCommand(selector->getName(), selector->getIcon(), selector->getDescription(),
 						selector->getExecPath(), selector->getWorkingDirectory());
 		emit commandCreated(com);
 	}

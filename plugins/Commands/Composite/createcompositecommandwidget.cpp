@@ -208,7 +208,7 @@ void CreateCompositeCommandWidget::addDelayToComp()
 }
 
 
-Command* CreateCompositeCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreateCompositeCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
 	CommandList *selectedCommands = model->selectedCommands();
 	QStringList selectedTriggers, selectedCategories;
@@ -219,7 +219,7 @@ Command* CreateCompositeCommandWidget::createCommand(const QString& name, const 
 		selectedCategories << com->getCategoryText();
 	}
 
-	return new CompositeCommand(name, iconSrc, selectedTriggers, selectedCategories);
+	return new CompositeCommand(name, iconSrc, description, selectedTriggers, selectedCategories);
 }
 
 CreateCompositeCommandWidget::~CreateCompositeCommandWidget()

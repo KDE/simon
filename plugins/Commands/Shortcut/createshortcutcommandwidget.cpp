@@ -66,9 +66,9 @@ bool CreateShortcutCommandWidget::init(Command* command)
 	return true;
 }
 
-Command* CreateShortcutCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreateShortcutCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new ShortcutCommand(name, iconSrc, ui.ksShortcut->keySequence());
+	return new ShortcutCommand(name, iconSrc, description, ui.ksShortcut->keySequence());
 }
 
 CreateShortcutCommandWidget::~CreateShortcutCommandWidget()

@@ -42,7 +42,7 @@ private:
 	Ui::CreateTextMacroCommandWidget ui;
 
 public:
-	Command* createCommand(const QString& name, const QString& iconSrc);
+	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
 	bool init(Command* command);
 	bool isComplete();

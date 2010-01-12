@@ -62,9 +62,9 @@ bool CreatePlaceCommandWidget::init(Command* command)
 	return true;
 }
 
-Command* CreatePlaceCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreatePlaceCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new PlaceCommand(name, iconSrc, ui.urUrl->url());
+	return new PlaceCommand(name, iconSrc, description, ui.urUrl->url());
 }
 
 CreatePlaceCommandWidget::~CreatePlaceCommandWidget()

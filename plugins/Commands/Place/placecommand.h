@@ -58,14 +58,14 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PlaceCommand(const QString& name, const QString& iconSrc, const KUrl& url_) : Command(name, iconSrc),
+    PlaceCommand(const QString& name, const QString& iconSrc, const QString& description, const KUrl& url_) : Command(name, iconSrc, description),
         url(url_)
     {
     }
 
-	void change(const QString& newName, const QString& newIconSrc, const KUrl& newUrl) { 
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const KUrl& newUrl) { 
 		this->url = newUrl;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     /**

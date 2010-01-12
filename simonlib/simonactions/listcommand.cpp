@@ -37,8 +37,9 @@
 
 QStringList ListCommand::numberIdentifiers;
 
-ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStringList& commands_,
-		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc),
+ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QString& description,
+		const QStringList& commands_,
+		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
 	clw(new CommandListWidget()),
 	startIndex(0),
 	iconsrcs(iconSrcs_),

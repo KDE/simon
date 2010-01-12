@@ -78,8 +78,9 @@ bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
 	{
 		QDomElement name = commandElem.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement url = icon.nextSiblingElement();
-		commands->append(new PlaceCommand(name.text(), icon.text(), 
+		QDomElement description = icon.nextSiblingElement();
+		QDomElement url = description.nextSiblingElement();
+		commands->append(new PlaceCommand(name.text(), icon.text(), description.text(),
 						url.text()));
 		commandElem = commandElem.nextSiblingElement();
 	}

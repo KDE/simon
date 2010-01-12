@@ -50,10 +50,10 @@ public:
 	LauncherCommand(const QString& iconSrc, const QString& trigger);
 
 
-	void change(const QString& newName, const QString& newIconSrc, CommandLauncher *launcher)
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, CommandLauncher *launcher)
 	{ 
 		this->launcher = launcher;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     ~LauncherCommand() {}

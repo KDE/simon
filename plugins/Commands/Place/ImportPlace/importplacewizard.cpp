@@ -48,7 +48,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 void ImportPlaceWizard::createCommand(int status)
 {
 	if (status)
-		emit commandCreated(new PlaceCommand(selectPlacePage->getName(), "", selectPlacePage->getUrl()));
+		emit commandCreated(new PlaceCommand(selectPlacePage->getName(), "", "", selectPlacePage->getUrl()));
 	
 	restart();
 }

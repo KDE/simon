@@ -34,6 +34,7 @@ bool Command::trigger()
 const QMap<QString,QVariant> Command::getValueMap() const
 {
 	QMap<QString,QVariant> out = getValueMapPrivate();
+ 	out.insert(i18n("Description"), getDescription());
 // 	out.insert(i18n("Name"), getTrigger());
 // 	out.insert(i18n("Icon"), getIcon());
 	return out;
@@ -47,9 +48,12 @@ QDomElement Command::serialize(QDomDocument *doc)
 	name.appendChild(doc->createTextNode(triggerName));
 	QDomElement icon = doc->createElement("icon");
 	icon.appendChild(doc->createTextNode(iconSrc));
+	QDomElement descriptionElem = doc->createElement("description");
+	descriptionElem.appendChild(doc->createTextNode(description));
 
 	commandElem.appendChild(name);
 	commandElem.appendChild(icon);
+	commandElem.appendChild(descriptionElem);
 
 	return serializePrivate(doc, commandElem);
 }

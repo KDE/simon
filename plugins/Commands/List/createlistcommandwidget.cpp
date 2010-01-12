@@ -187,7 +187,7 @@ void CreateListCommandWidget::removeCommand()
 }
 
 
-Command* CreateListCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreateListCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
 	CommandList *selectedCommands = model->selectedCommands();
 	QStringList selectedIconSrcs , selectedTriggers, selectedCategories;
@@ -199,7 +199,7 @@ Command* CreateListCommandWidget::createCommand(const QString& name, const QStri
 		selectedCategories << com->getCategoryText();
 	}
 
-	return new ListCommand(name, iconSrc, selectedTriggers, selectedIconSrcs, selectedCategories);
+	return new ListCommand(name, iconSrc, description, selectedTriggers, selectedIconSrcs, selectedCategories);
 }
 
 CreateListCommandWidget::~CreateListCommandWidget()

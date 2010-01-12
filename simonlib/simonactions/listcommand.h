@@ -79,7 +79,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	ListCommand(const QString& name, const QString& iconSrc, const QStringList& commands, const QStringList& iconSrcs, const QStringList& commandTypes);
+	ListCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands, const QStringList& iconSrcs, const QStringList& commandTypes);
 	
 
 	/**
@@ -98,12 +98,12 @@ public:
 	QStringList getCommandTypes() const { return this->commandTypes; }
    
 
-	void change(const QString& newName, const QString& newIconSrc, const QStringList& newCommands, const QStringList& newIconSrcs, const QStringList& newCommandTypes)
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QStringList& newCommands, const QStringList& newIconSrcs, const QStringList& newCommandTypes)
 	{ 
 		this->iconsrcs = newIconSrcs;
 		this->commands = newCommands;
 		this->commandTypes = newCommandTypes;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 	void setFont(const QFont& font);
 

@@ -78,8 +78,9 @@ bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem)
 	{
 		QDomElement name = commandElem.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement shortcut = icon.nextSiblingElement();
-		commands->append(new ShortcutCommand(name.text(), icon.text(), 
+		QDomElement description = icon.nextSiblingElement();
+		QDomElement shortcut = description.nextSiblingElement();
+		commands->append(new ShortcutCommand(name.text(), icon.text(), description.text(),
 						shortcut.text()));
 		commandElem = commandElem.nextSiblingElement();
 	}

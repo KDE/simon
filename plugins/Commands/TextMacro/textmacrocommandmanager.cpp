@@ -72,8 +72,9 @@ bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem)
 	{
 		QDomElement name = commandElem.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement textElem = icon.nextSiblingElement();
-		commands->append(new TextMacroCommand(name.text(), icon.text(), 
+		QDomElement description = icon.nextSiblingElement();
+		QDomElement textElem = description.nextSiblingElement();
+		commands->append(new TextMacroCommand(name.text(), icon.text(), description.text(),
 						textElem.text()));
 		commandElem = commandElem.nextSiblingElement();
 	}

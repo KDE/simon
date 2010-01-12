@@ -74,9 +74,9 @@ bool CreateExecutableCommandWidget::init(Command* command)
 	return true;
 }
 
-Command* CreateExecutableCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreateExecutableCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new ExecutableCommand(name, iconSrc, ui.urExecutable->url().path(), 
+	return new ExecutableCommand(name, iconSrc, description, ui.urExecutable->url().path(), 
 					ui.urWorkingDirectory->url());
 }
 

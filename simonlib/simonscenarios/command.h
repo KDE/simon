@@ -55,6 +55,7 @@ Q_OBJECT
 private:
 	QString triggerName; //!< The name of the command - this is used to call the command and is unique
 	QString iconSrc; //!< The icon of a command.
+	QString description; //!< The description of the command.
 
 signals:
 	void changed();
@@ -79,9 +80,10 @@ public:
 
 
 	virtual void remove() { emit removed(); deleteLater(); }
-	void change(const QString& newName, const QString& newIconSrc) { 
+	void change(const QString& newName, const QString& newIconSrc, const QString& newDescription) { 
 		triggerName = newName;
 		iconSrc = newIconSrc;
+		description = newDescription;
 		emit changed();
 	}
 	
@@ -92,9 +94,10 @@ public:
     *	@param trigger 
     *	@param icon
     */
-    Command(const QString& name, const QString& icon)
+    Command(const QString& name, const QString& icon, const QString& description_)
         : triggerName(name),
-        iconSrc(icon)
+        iconSrc(icon),
+	description(description_)
     {
     }
 
@@ -106,6 +109,7 @@ public:
     */
     QString getTrigger() const { return this->triggerName; }
     
+    QString getDescription() const { return this->description; }
     
     /**
     * @brief Returns the Icon of this command.

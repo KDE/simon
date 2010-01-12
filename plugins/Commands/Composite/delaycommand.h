@@ -55,16 +55,16 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer"),
+	DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer", ""),
 		delay(delay_)
 	{
 	}
 
 
-	void change(const QString& newName, const QString& newIconSrc, int delay)
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, int delay)
 	{ 
 		this->delay = delay;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     ~DelayCommand() {}

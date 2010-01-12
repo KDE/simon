@@ -60,9 +60,9 @@ public:
 	* enter all the required fields), return a Null-Pointer.
 	*
 	*/
-	virtual Command* createCommand(const QString& name, const QString& iconSrc)=0;
+	virtual Command* createCommand(const QString& name, const QString& iconSrc, const QString& description)=0;
 
-	virtual bool addCommand(const QString& name, const QString& iconSrc);
+	virtual bool addCommand(const QString& name, const QString& iconSrc, const QString& description);
 
 	virtual bool init(Command* command)=0;
 	virtual bool isComplete()=0;

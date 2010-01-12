@@ -53,7 +53,7 @@ public:
 
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
-    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& exe, const KUrl& workingDirectory) : Command(name, iconSrc)
+    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const KUrl& workingDirectory) : Command(name, iconSrc, description)
     {
         this->exe = exe;
         this->workingDirectory = workingDirectory;
@@ -70,11 +70,11 @@ public:
     
     
 
-	void change(const QString& newName, const QString& newIconSrc, const QString& newExe, const QString& newWorkingDir)
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QString& newExe, const QString& newWorkingDir)
 	{ 
 		this->exe = newExe;
 		this->workingDirectory = newWorkingDir;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     ~ExecutableCommand() {}

@@ -34,8 +34,8 @@ NewCommand::NewCommand(QWidget* parent) : KDialog(parent),
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
 
-	ui.teDescription->hide();
-	ui.lbDescription->hide();
+//	ui.teDescription->hide();
+//	ui.lbDescription->hide();
 	
 	ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
 	
@@ -87,16 +87,17 @@ void NewCommand::init(Command *command)
 	
 	ui.leTrigger->setText(command->getTrigger());
 	ui.ibIcon->setIcon(command->getIconSrc());
+	ui.teDescription->setPlainText(command->getDescription());
 
 	bool found=false;
 	int i=0;
 	foreach (CreateCommandWidget *widget, *commandCreaters)
 	{
-		if (widget->init(command))
-		{
+		if (widget->init(command)) {
 			found=true;
 			ui.cbType->setCurrentIndex(i);
 			ui.swCommandCreaters->setCurrentIndex(i);
+			break;
 		}
 		i++;
 	}
@@ -145,7 +146,7 @@ bool NewCommand::newCommand(const QString& preSelectedCategory)
 		
 		if (!creater) return false;
 		
-		return creater->addCommand(ui.leTrigger->text(), ui.ibIcon->icon());
+		return creater->addCommand(ui.leTrigger->text(), ui.ibIcon->icon(), ui.teDescription->toPlainText());
 	}
 	return false;
 }

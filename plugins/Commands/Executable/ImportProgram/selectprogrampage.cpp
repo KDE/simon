@@ -130,21 +130,10 @@ void SelectProgramPage::searchForPrograms()
 			item->setData(Qt::UserRole+1, exec);
 			item->setData(Qt::UserRole+2, service->icon());
 			item->setData(Qt::UserRole+3, service->path());
+			item->setData(Qt::UserRole+4, service->comment());
 			ui.lwPrograms->addItem(item);
 		}
 	}
-}
-
-/**
-*   \brief returns the workingdirectory, which the user set
-*
-*   @author Susanne Tschernegg
-*   @return QString
-*       returns the workingdirectory
-*/
-QString SelectProgramPage::getWorkingDirectory()
-{
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
 }
 
 
@@ -170,6 +159,25 @@ QString SelectProgramPage::getIcon()
 {
 	Q_ASSERT(ui.lwPrograms->currentItem());
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
+}
+
+/**
+*   \brief returns the workingdirectory, which the user set
+*
+*   @author Susanne Tschernegg
+*   @return QString
+*       returns the workingdirectory
+*/
+QString SelectProgramPage::getWorkingDirectory()
+{
+	return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
+}
+
+
+QString SelectProgramPage::getDescription()
+{
+	Q_ASSERT(ui.lwPrograms->currentItem());
+	return ui.lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
 }
 
 

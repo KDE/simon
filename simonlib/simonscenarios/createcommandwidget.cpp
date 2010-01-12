@@ -20,8 +20,8 @@
 #include "createcommandwidget.h"
 #include "commandmanager.h"
 
-bool CreateCommandWidget::addCommand(const QString& name, const QString& iconSrc)
+bool CreateCommandWidget::addCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return m_manager->addCommand(createCommand(name, iconSrc));
+	return m_manager->addCommand(createCommand(name, iconSrc, description));
 }
 

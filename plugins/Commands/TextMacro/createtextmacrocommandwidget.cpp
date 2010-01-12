@@ -47,9 +47,9 @@ bool CreateTextMacroCommandWidget::init(Command* command)
 	return true;
 }
 
-Command* CreateTextMacroCommandWidget::createCommand(const QString& name, const QString& iconSrc)
+Command* CreateTextMacroCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new TextMacroCommand(name, iconSrc, ui.teMacroText->toPlainText());
+	return new TextMacroCommand(name, iconSrc, description, ui.teMacroText->toPlainText());
 }
 
 CreateTextMacroCommandWidget::~CreateTextMacroCommandWidget()

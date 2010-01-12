@@ -77,9 +77,10 @@ bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem)
 	{
 		QDomElement name = commandElem.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement workingDir = icon.nextSiblingElement();
+		QDomElement description = icon.nextSiblingElement();
+		QDomElement workingDir = description.nextSiblingElement();
 		QDomElement executable = workingDir.nextSiblingElement();
-		commands->append(new ExecutableCommand(name.text(), icon.text(), 
+		commands->append(new ExecutableCommand(name.text(), icon.text(), description.text(),
 						executable.text(), workingDir.text()));
 		commandElem = commandElem.nextSiblingElement();
 	}

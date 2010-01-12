@@ -76,7 +76,8 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 	{
 		QDomElement name = commandElem.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement childCommandsElem = icon.nextSiblingElement();
+		QDomElement description = icon.nextSiblingElement();
+		QDomElement childCommandsElem = description.nextSiblingElement();
 		QDomElement childCommandElem = childCommandsElem.firstChildElement();
 		QStringList childCommandTrigger;
 		QStringList childCommandIcons;
@@ -94,7 +95,7 @@ bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
 		kDebug() << "Icons: " << childCommandIcons;
 		kDebug() << "Categories: " << childCommandCategory;
 
-		commands->append(new ListCommand(name.text(), icon.text(), 
+		commands->append(new ListCommand(name.text(), icon.text(), description.text(),
 						childCommandTrigger, childCommandIcons, childCommandCategory));
 		commandElem = commandElem.nextSiblingElement();
 	}

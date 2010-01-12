@@ -56,7 +56,7 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CompositeCommand(const QString& name, const QString& iconSrc, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc),
+	CompositeCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
 		commands(commands_),
 		commandTypes(commandTypes_)
 	{
@@ -66,11 +66,11 @@ public:
 	QStringList getCommandTypes() const { return this->commandTypes; }
    
 
-	void change(const QString& newName, const QString& newIconSrc, const QStringList& newCommands, const QStringList& newCommandTypes)
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QStringList& newCommands, const QStringList& newCommandTypes)
 	{ 
 		this->commands = newCommands;
 		this->commandTypes = newCommandTypes;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     ~CompositeCommand() {}

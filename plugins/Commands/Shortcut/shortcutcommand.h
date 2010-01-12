@@ -58,15 +58,15 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommand(const QString& name, const QString& iconSrc, const QKeySequence& shortcut_) : Command(name, iconSrc),
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
         shortcut(shortcut_)
     {
     }
 
 
-	void change(const QString& newName, const QString& newIconSrc, const QKeySequence& newShortcut) { 
+	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QKeySequence& newShortcut) { 
 		this->shortcut = newShortcut;
-		Command::change(newName, newIconSrc);
+		Command::change(newName, newIconSrc, description);
 	}
 
     /**

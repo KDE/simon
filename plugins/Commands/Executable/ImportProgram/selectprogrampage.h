@@ -49,6 +49,7 @@ public:
 	QString getExecPath();
 	QString getName();
 	QString getIcon();
+	QString getDescription();
 	QString getWorkingDirectory();
 
 
