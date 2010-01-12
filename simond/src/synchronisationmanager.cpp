@@ -248,7 +248,7 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint
 		|| (!tiedListFile.open(QIODevice::WriteOnly))
 		|| (!dictFile.open(QIODevice::WriteOnly))
 		|| (!dfaFile.open(QIODevice::WriteOnly)))
-		return 0;
+		return false;
 	
 	hmmDefsFile.write(hmmDefs);
 	tiedListFile.write(tiedList);
@@ -282,6 +282,68 @@ bool SynchronisationManager::hasActiveModel()
 	return (QFile::exists(dirPath+"hmmdefs")&&QFile::exists(dirPath+"tiedlist")
 		&&QFile::exists(dirPath+"model.dict")&&QFile::exists(dirPath+"model.dfa"));
 }
+
+QDateTime SynchronisationManager::getBaseModelDate()
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	return cGroup.readEntry("BaseModelDate", QDateTime());
+}
+
+Model* SynchronisationManager::getBaseModel()
+{
+	if (username.isEmpty()) return 0;
+
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+
+	QString configPath = dirPath+"activerc";
+	KConfig config( configPath, KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+
+	bool ok;
+	qint32 baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
+	if (!ok) return NULL;
+	
+	QFile hmmDefs(dirPath+"basehmmdefs");
+	QFile tiedlist(dirPath+"basetiedlist");
+	
+	if ((!hmmDefs.open(QIODevice::ReadOnly)) || 
+		(!tiedlist.open(QIODevice::ReadOnly)))
+	{
+		kDebug() << "Failed to gather active model";
+		return NULL;
+	}
+
+	return new Model(baseModelType, hmmDefs.readAll(), tiedlist.readAll(), QByteArray(), QByteArray());
+}
+
+bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int modelType,
+		const QByteArray& hmmDefs, const QByteArray& tiedList)
+{
+	if (username.isEmpty()) return false;
+
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	QFile hmmDefsFile(dirPath+"basehmmdefs");
+	QFile tiedListFile(dirPath+"basetiedlist");
+
+	if ((!hmmDefsFile.open(QIODevice::WriteOnly))
+		|| (!tiedListFile.open(QIODevice::WriteOnly)))
+		return false;
+	
+	hmmDefsFile.write(hmmDefs);
+	tiedListFile.write(tiedList);
+	hmmDefsFile.close();
+	tiedListFile.close();
+
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("BaseModelDate", changedDate);
+	cGroup.writeEntry("BaseModelType", modelType);
+	config.sync();
+	return true;
+}
+
 
 void SynchronisationManager::modelCompiled()
 {

@@ -36,6 +36,7 @@ class RecognitionControl;
 class SynchronisationManager;
 class ModelCompilationManager;
 class ModelCompilationAdapter;
+class Model;
 
 class ClientSocket : public QSslSocket
 {
@@ -66,7 +67,9 @@ class ClientSocket : public QSslSocket
 		void processRequest();
 		void slotSocketError();
 
+		bool sendModel(Simond::Request request, const QDateTime& changedTime, Model *m);
 		bool sendActiveModel();
+		bool sendBaseModel();
 
 		void recognitionReady();
 		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);

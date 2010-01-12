@@ -491,14 +491,19 @@ void CoreEvents::unsetUnneededModifiers()
  */
 void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 {
-	int key = shortcut[0] & ~(Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
+	int key = 0;
+	int modifiers = 0;
+	for(int i=0; i < shortcut.count(); i++) {
+		key |= shortcut[i] & ~(Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
+		modifiers |= shortcut[i] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
+	}
 
 	//make key lowercase
 	if ((key >= 65) && (key <= 90))
 		key += 32;
 
 		
-	Qt::KeyboardModifiers mods = Qt::KeyboardModifiers(shortcut[0] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT));
+	Qt::KeyboardModifiers mods = Qt::KeyboardModifiers(modifiers);
 	if (key == Qt::Key_Backtab)
 	{
 		key = Qt::Key_Tab;

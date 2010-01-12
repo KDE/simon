@@ -312,8 +312,12 @@ void SimonView::setupActions()
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
+	kDebug() << "displayScenario: " << scenario->id();
 	unplugActionList("command_actionlist");
 	plugActionList("command_actionlist", scenario->actionCollection()->getGuiActions());
+	kDebug() << "Data: " << cbCurrentScenario->findData(scenario->id());
+	for (int i=0; i < cbCurrentScenario->count(); i++)
+		kDebug() << "Available Data: " << cbCurrentScenario->itemData(i);
 	cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(scenario->id()));
 }
 
@@ -419,13 +423,15 @@ void SimonView::showSystemDialog ()
 		configDialog->addModule("simongeneralconfig", QStringList() << "");
 		configDialog->addModule("simonsoundconfig", QStringList() << "");
 		configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-		configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+		configDialog->addModule("simonmodelconfig", QStringList() << "");
 		configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
 		configDialog->addModule("simonactionsconfig", QStringList() << "");
 		configDialog->addModule("kcm_attica");
 	}
-	configDialog->show();
+	configDialog->exec();
+	configDialog->deleteLater();
+	configDialog = NULL;
 }
 
 /**
@@ -681,6 +687,5 @@ SimonView::~SimonView()
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	delete trayManager;
 	delete control;
-	delete configDialog;
 	Logger::close();
 }

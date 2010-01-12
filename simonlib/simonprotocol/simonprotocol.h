@@ -42,15 +42,22 @@ namespace Simond
 		AbortSynchronisation=2003,
 		AbortSynchronisationFailed=2004,
 		
-		GetActiveModelDate=2011,
-		ActiveModelDate=2012, /* QDateTime lastModified */
-		GetActiveModel=2013,
-		ErrorRetrievingActiveModel=2014,
-		GetActiveModelSampleRate=2015,
-		ActiveModelSampleRate=2016, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
-		ActiveModel=2017, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
-		NoActiveModelAvailable=2018,
-		ActiveModelStorageFailed=2019,
+		GetBaseModelDate=2011,
+		BaseModelDate=2012,
+		GetBaseModel=2013,
+		ErrorRetrievingBaseModel=2014,
+		BaseModel=2015,
+		BaseModelStorageFailed=2016,
+
+		GetActiveModelDate=2021,
+		ActiveModelDate=2022, /* QDateTime lastModified */
+		GetActiveModel=2023,
+		ErrorRetrievingActiveModel=2024,
+		GetActiveModelSampleRate=2025,
+		ActiveModelSampleRate=2026, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
+		ActiveModel=2027, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
+		NoActiveModelAvailable=2028,
+		ActiveModelStorageFailed=2029,
 		
 		
 		GetLanguageDescriptionDate=2051,

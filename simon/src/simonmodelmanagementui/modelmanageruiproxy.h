@@ -55,9 +55,8 @@ public:
 
 	~ModelManagerUiProxy();
 
-//	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
-//				const QByteArray& activeVocab, const QByteArray& activeLexicon);
-//	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+	bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
+					const QByteArray& hmmDefs, const QByteArray& tiedList);
 	bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 				const QByteArray& treeHed);
 	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,

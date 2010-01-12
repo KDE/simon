@@ -431,6 +431,48 @@ void RecognitionControl::sendActiveModelSampleRate()
 	socket->write(toWrite);
 }
 
+void RecognitionControl::sendBaseModelDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << (qint32) Simond::BaseModelDate
+		<< ModelManagerUiProxy::getInstance()->getBaseModelDate();
+	socket->write(toWrite);
+}
+
+bool RecognitionControl::sendBaseModel()
+{
+	//TODO: implement
+	Model *model = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
+	if (!model) {
+		emit synchronisationWarning(i18n("Couldn't create model container"));
+		sendRequest(Simond::ErrorRetrievingBaseModel);
+		return false;
+	}
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	bodyStream << ModelManagerUiProxy::getInstance()->getBaseModelDate()
+		<< model->baseModelType()
+		<< model->hmmDefs()
+		<< model->tiedList()
+		<< model->dict()
+		<< model->dfa();
+
+	out << (qint32) Simond::BaseModel
+		<< (qint64) body.count();
+		
+	socket->write(toWrite);
+	socket->write(body);
+	
+	delete model;
+	return true;
+
+}
+
 void RecognitionControl::requestMissingScenario()
 {
 	if (missingScenarios.isEmpty()) {
@@ -817,7 +859,7 @@ void RecognitionControl::messageReceived()
 					emit synchronisationError(i18n("Couldn't abort synchronization."));
 					break;
 				}
-			
+
 				case Simond::GetActiveModelDate:
 				{
 					if (!synchronisationOperation)
@@ -864,7 +906,7 @@ void RecognitionControl::messageReceived()
 									hmmDefs, tiedList, dict, dfa);
 					
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					sendScenarioList();
+					sendBaseModelDate();
 					break;
 				}
 				
@@ -884,7 +926,7 @@ void RecognitionControl::messageReceived()
 
 					kDebug() << "No active model available";
 					emit synchronisationWarning(i18n("No Speech Model available: Recognition deactivated"));
-					sendScenarioList();
+					sendBaseModelDate();
 					
 					break;
 				}
@@ -896,8 +938,54 @@ void RecognitionControl::messageReceived()
 	
 					kDebug() << "Couldn't store active model on server";
 					emit synchronisationError(i18n("The server couldn't store the the active model."));
-					sendScenarioList();
+					sendBaseModelDate();
 					
+					break;
+				}
+
+				case Simond::GetBaseModelDate:
+				{
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+					sendBaseModelDate();
+					break;
+				}
+				case Simond::GetBaseModel:
+				{
+					kDebug() << "Retreiving base model";
+					advanceStream(sizeof(qint32));
+					checkIfSynchronisationIsAborting();
+					sendBaseModel();
+					break;
+				}
+				case Simond::BaseModel:
+				{
+					kDebug() << "Server sent base model";
+
+					parseLengthHeader();
+					
+					int baseModelType;
+					QDateTime changedTime;
+					QByteArray hmmDefs, tiedList;
+					
+					msg >> changedTime;
+					msg >> baseModelType;
+					msg >> hmmDefs;
+					msg >> tiedList;
+					
+					ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType, 
+									hmmDefs, tiedList);
+					
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+
+					checkIfSynchronisationIsAborting();
+					sendScenarioList();
+					break;
+				}
+				case Simond::BaseModelStorageFailed:
+				{
+					kDebug() << "Base model storage failed";
+					sendScenarioList();
 					break;
 				}
 				

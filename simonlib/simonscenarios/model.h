@@ -30,19 +30,20 @@
 class MODELMANAGEMENT_EXPORT Model
 {
 	private:
-		qint32 m_sampleRate;
+		qint32 m_data;
 		QByteArray m_hmmDefs;
 		QByteArray m_tiedList;
 		QByteArray m_dict;
 		QByteArray m_dfa;
 
 	public:
-		Model(qint32 sampleRate, const QByteArray& hmmDefs,
+		Model(qint32 data, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 			       
 		~Model();
 		
-		qint32 sampleRate() { return m_sampleRate; }
+		qint32 sampleRate() { return m_data; }
+		qint32 baseModelType() { return m_data; }
 		QByteArray hmmDefs() { return m_hmmDefs; }
 		QByteArray tiedList() { return m_tiedList; }
 		QByteArray dict() { return m_dict; }

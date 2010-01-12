@@ -71,7 +71,11 @@ class SynchronisationManager : public QObject
 		bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 
-				
+		QDateTime getBaseModelDate();
+		Model* getBaseModel();
+		bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& hmmDefs,
+				const QByteArray& tiedList);
+
 		QDateTime getModelSrcDate();
 		QDateTime getCompileModelSrcDate();
 		bool hasModelSrc();

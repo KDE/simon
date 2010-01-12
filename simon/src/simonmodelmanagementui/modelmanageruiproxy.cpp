@@ -38,29 +38,17 @@ void ModelManagerUiProxy::slotModelChanged()
 	emit recompileModel();
 }
 
-/*bool ModelManagerUiProxy::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
-			const QByteArray& activeVocab, const QByteArray& activeLexicon)
+bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType, 
+					const QByteArray& hmmDefs, const QByteArray& tiedList)
 {
-	bool succ = ModelManager::storeWordList(changedTime, simpleVocab, activeVocab, activeLexicon);
+	bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList);
 	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the wordlist received from the server."
+		KMessageBox::sorry(0, i18n("Could not store the base model received from the server."
 					"\n\nPlease check the permissions on the model folder: %1", 
 					KStandardDirs::locateLocal("appdata", "model")));
 	}
 	return succ;
 }
-
-bool ModelManagerUiProxy::storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures)
-{
-	bool succ = ModelManager::storeGrammar(changedTime, grammarStructures);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the grammar received from the server."
-					"\n\nPlease check the permissions on the model folder: %1", 
-					KStandardDirs::locateLocal("appdata", "model")));
-	}
-	return succ;
-}
-*/
 
 bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 			const QByteArray& treeHed)

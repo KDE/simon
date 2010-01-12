@@ -156,6 +156,9 @@ private slots:
 	void sendActiveModelModifiedDate();
 	void sendActiveModelSampleRate();
 
+	void sendBaseModelDate();
+	bool sendBaseModel();
+
 	void sendScenarioList();
 
 	void sendSelectedScenarioListModifiedDate();

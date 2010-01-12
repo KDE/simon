@@ -19,6 +19,7 @@
 
 
 #include "scenariomanager.h"
+#include "speechmodelmanagementconfiguration.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/shadowvocabulary.h>
@@ -33,7 +34,12 @@
 
 ScenarioManager* ScenarioManager::instance;
 
-ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent), currentScenario(0)
+ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
+	m_inGroup(false),
+	m_baseModelDirty(false),
+	m_scenariosDirty(false),
+	m_shadowVocabularyDirty(false), 
+	currentScenario(0)
 {
 }
 
@@ -49,6 +55,13 @@ bool ScenarioManager::init()
 }
 
 
+void ScenarioManager::slotBaseModelChanged()
+{
+	if (m_inGroup)
+		m_baseModelDirty = true;
+	else
+		emit baseModelChanged();
+}
 
 QStringList ScenarioManager::getAllAvailableScenarioIds()
 {
@@ -86,7 +99,11 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 	}
 
 	updateDisplays(newScenario, true);
-	emit scenariosChanged();
+
+	if (m_inGroup)
+		m_scenariosDirty = true;
+	else
+		emit scenariosChanged();
 
 	return true;
 }
@@ -141,8 +158,12 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 		else success = false;
 	}
 
-	if (forceChange)
-		emit scenariosChanged();
+	if (forceChange) {
+		if (m_inGroup)
+			m_scenariosDirty = true;
+		else
+			emit scenariosChanged();
+	}
 
 	return success;
 }
@@ -301,13 +322,37 @@ void ScenarioManager::startGroup()
 {
 	foreach (Scenario *s, scenarios) 
 		s->startGroup();
+	m_inGroup = true;
 }
 
-bool ScenarioManager::commitGroup()
+bool ScenarioManager::commitGroup(bool silent)
 {
+	if (silent)
+		blockSignals(true); //don't tell anyone
+
+	m_inGroup = false;
+
 	bool success = true;
 	foreach (Scenario *s, scenarios) 
 		success = s->commitGroup() && success;
+
+	if (m_scenariosDirty) {
+		m_scenariosDirty = false;
+		emit scenariosChanged();
+	}
+
+	if (m_shadowVocabularyDirty) {
+		m_shadowVocabularyDirty = false;
+		emit shadowVocabularyChanged();
+	}
+
+	if (m_baseModelDirty) {
+		m_baseModelDirty = false;
+		emit baseModelChanged();
+	}
+
+	if (silent)
+		blockSignals(false);
 	return success;
 }
 
@@ -316,6 +361,49 @@ QList<CommandLauncher*> ScenarioManager::getLauncherList()
 	return currentScenario->getLauncherList();
 }
 
+void ScenarioManager::touchBaseModelAccessTime()
+{
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("BaseModelDate", QDateTime::currentDateTime());
+	config.sync();
+
+	if (m_inGroup)
+		m_baseModelDirty = true;
+	else
+		emit baseModelChanged();
+}
+
+int ScenarioManager::baseModelType()
+{
+	return SpeechModelManagementConfiguration::modelType();
+}
+
+QString ScenarioManager::baseModelHMMName()
+{
+	return SpeechModelManagementConfiguration::baseModelHMMName();
+}
+
+QString ScenarioManager::baseModelTiedlistName()
+{
+	return SpeechModelManagementConfiguration::baseModelTiedlistName();
+}
+
+void ScenarioManager::setBaseModelType(int type)
+{
+	SpeechModelManagementConfiguration::setModelType(type);
+	SpeechModelManagementConfiguration::self()->writeConfig();
+	touchBaseModelAccessTime();
+}
+
+void ScenarioManager::setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName)
+{
+	SpeechModelManagementConfiguration::setModelType(modelType);
+	SpeechModelManagementConfiguration::setBaseModelHMMName(hmmName);
+	SpeechModelManagementConfiguration::setBaseModelTiedlistName(tiedlistName);
+	SpeechModelManagementConfiguration::self()->writeConfig();
+	touchBaseModelAccessTime();
+}
 
 ScenarioManager::~ScenarioManager()
 {

@@ -19,7 +19,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/droplistview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
 
@@ -73,7 +73,7 @@ set( simonmodelmanagementui_LIB_SRCS
 )
 
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modelsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/editword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
@@ -139,5 +139,5 @@ install( FILES ${simonmodelmanagementui_LIB_HDRS}
 )
  
 install( TARGETS simonmodelmanagementui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES simonmodelinternetextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES simonmodelconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
 # install( FILES simongrammarconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

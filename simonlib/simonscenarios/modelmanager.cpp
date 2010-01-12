@@ -45,6 +45,9 @@ ModelManager::ModelManager(QObject* parent) : QObject(parent),
 
 	connect (ScenarioManager::getInstance(), SIGNAL(shadowVocabularyChanged()), 
 		  this, SLOT(modelHasChanged()));
+
+	connect (ScenarioManager::getInstance(), SIGNAL(baseModelChanged()), 
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
 		  this, SLOT(modelHasChanged()));
@@ -94,6 +97,19 @@ Model* ModelManager::createActiveContainer()
 	return new Model(modelSampleRate, hmmDefs.readAll(), tiedList.readAll(), dict.readAll(), dfa.readAll());
 }
 
+Model* ModelManager::createBaseModelContainer()
+{
+	qint32 modelType = ScenarioManager::getInstance()->baseModelType();
+	
+	QFile hmmDefs(KStandardDirs::locate("appdata", "model/basehmmdefs"));
+	QFile tiedList(KStandardDirs::locate("appdata", "model/basetiedlist"));
+	
+	if ((!hmmDefs.open(QIODevice::ReadOnly)) || (!tiedList.open(QIODevice::ReadOnly)))
+		return 0;
+	
+	return new Model(modelType, hmmDefs.readAll(), tiedList.readAll(), QByteArray(), QByteArray());
+}
+
 qint32 ModelManager::getActiveModelSampleRate()
 {
 	return SpeechModelManagementConfiguration::modelSampleRate();
@@ -108,6 +124,38 @@ QDateTime ModelManager::getActiveContainerModifiedTime()
 	return cGroup.readEntry("Date", QDateTime());
 }
 
+QDateTime ModelManager::getBaseModelDate()
+{
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	return cGroup.readEntry("BaseModelDate", QDateTime());
+}
+
+bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelType, 
+					const QByteArray& hmmDefs, const QByteArray& tiedList)
+{
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("BaseModelDate", changedTime);
+	cGroup.writeEntry("BaseModelType", baseModelType);
+	config.sync();
+	
+	ScenarioManager::getInstance()->setBaseModelType(baseModelType);
+	
+	QFile hmmDefsFile(KStandardDirs::locateLocal("appdata", "model/hmmdefs"));
+	QFile tiedlistFile(KStandardDirs::locateLocal("appdata", "model/tiedlist"));
+	
+	if (!hmmDefsFile.open(QIODevice::WriteOnly)
+		|| !tiedlistFile.open(QIODevice::WriteOnly))
+		return false;
+	
+	hmmDefsFile.write(hmmDefs);
+	tiedlistFile.write(tiedList);
+	
+	hmmDefsFile.close();
+	tiedlistFile.close();
+	return true;
+}
 
 bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
 			const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)

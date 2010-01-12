@@ -18,24 +18,41 @@
  */
 
 
-#ifndef SIMON_INTERNETEXTENSIONSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
-#define SIMON_INTERNETEXTENSIONSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
+#ifndef SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
+#define SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 
-#include "ui_internetextensiondlg.h"
+#include "ui_modelsettingsdlg.h"
 #include <KCModule>
 #include <QVariantList>
+#include <QString>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class InternetExtensionSettings : public KCModule
+class ModelSettings : public KCModule
 {
 Q_OBJECT
 private:
-	Ui::InternetExtensionDlg ui;
-public:
-    InternetExtensionSettings(QWidget* parent, const QVariantList &args=QVariantList());
+	Ui::ModelDlg ui;
+	QString m_hmmDefsToImport;
+	QString m_tiedlistToImport;
 
-    ~InternetExtensionSettings();
+	int m_storedModelType;
+	void touchModelSrcRc();
+
+private slots:
+	void slotChanged();
+	void loadBaseHMM();
+	void loadBaseTiedlist();
+
+public slots:
+	void load();
+	void save();
+	void defaults();
+
+public:
+    ModelSettings(QWidget* parent, const QVariantList &args=QVariantList());
+
+    ~ModelSettings();
 
 };
 

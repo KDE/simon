@@ -176,6 +176,30 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 		case 16777223:
 			key = XK_Delete;
 			break;
+		case Qt::Key_VolumeUp:
+			key = XF86XK_AudioRaiseVolume;
+			break;
+		case Qt::Key_VolumeDown:
+			key = XF86XK_AudioLowerVolume;
+			break;
+		case Qt::Key_VolumeMute:
+			key = XF86XK_AudioMute;
+			break;
+		case Qt::Key_MediaPlay:
+			key = XF86XK_AudioPlay;
+			break;
+		case Qt::Key_MediaStop:
+			key = XF86XK_AudioStop;
+			break;
+		case Qt::Key_MediaPrevious:
+			key = XF86XK_AudioPrev;
+			break;
+		case Qt::Key_MediaNext:
+			key = XF86XK_AudioNext;
+			break;
+		case Qt::Key_MediaRecord:
+			key = XF86XK_AudioRecord;
+			break;
 			
 		/* BEGIN DEADKEYS */
 		case 94:

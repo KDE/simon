@@ -58,6 +58,11 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 		void startGroup();
 		void commitGroup(bool silent=false);
 
+		Model* createBaseModelContainer();
+		QDateTime getBaseModelDate();
+		virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
+							const QByteArray& hmmDefs, const QByteArray& tiedList);
+
 		LanguageDescriptionContainer* getLanguageDescriptionContainer();
 		QDateTime getLanguageDescriptionModifiedTime();
 		virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 

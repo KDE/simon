@@ -9,6 +9,19 @@
     </entry>
   </group>
   <group name="Model">
+    <entry name="ModelType" type="Int">
+      <label>The type of model to use (0: static, 1: base model, 2: dynamic)</label>
+      <default>2</default>
+    </entry>
+    <entry name="BaseModelHMMName" type="String">
+      <label>The (file) name of the last loaded base hmm</label>
+      <default>None</default>
+    </entry>
+    <entry name="BaseModelTiedlistName" type="String">
+      <label>The (file) name of the last loaded base tiedlist</label>
+      <default>None</default>
+    </entry>
+
     <entry name="ModelSampleRate" type="Int">
       <label>What samplerate the trainings samples should be recorded in.</label>
       <default>16000</default>

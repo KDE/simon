@@ -52,9 +52,15 @@ Q_OBJECT
 signals:
 	void scenariosChanged();
 	void shadowVocabularyChanged();
+	void baseModelChanged();
 
 private:
+	bool m_inGroup;
+	bool m_baseModelDirty;
+	bool m_scenariosDirty;
+	bool m_shadowVocabularyDirty;
 	bool setupScenario(Scenario *s);
+	void touchBaseModelAccessTime();
 
 public:
 	static ScenarioManager *getInstance() {
@@ -96,14 +102,22 @@ public:
 	QList<CommandLauncher*> getLauncherList();
 
 	void startGroup();
-	bool commitGroup();
+	bool commitGroup(bool silent=false);
 
 	void setPluginFont(const QFont& font);
+
+	int baseModelType();
+	void setBaseModelType(int);
+	QString baseModelHMMName();
+	QString baseModelTiedlistName();
+	void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName);
 	
 public slots:
 	// If force is true, every registered display will switch to this scenario
 	// if not, only displays that already display the scenario will be updated
 	void updateDisplays(Scenario* scenario, bool force=false);
+
+	void slotBaseModelChanged();
 
 private:
 	static ScenarioManager *instance;

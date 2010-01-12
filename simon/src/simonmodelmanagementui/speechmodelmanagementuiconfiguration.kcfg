@@ -2,7 +2,6 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile />
   <include>KStandardDirs</include>
-  
   <group name="Extension">
     <entry name="BompDownloadBase" type="String">
       <label>The url to the online text-list to get new trainingstexts.</label>

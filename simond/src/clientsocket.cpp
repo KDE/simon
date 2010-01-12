@@ -233,7 +233,7 @@ void ClientSocket::processRequest()
 					if (remoteModelDate.isNull())
 						sendCode(Simond::GetActiveModelSampleRate);
 					else 
-						sendCode(Simond::GetScenarioList);
+						sendCode(Simond::GetBaseModelDate);
 				}
 				
 				break;
@@ -271,7 +271,7 @@ void ClientSocket::processRequest()
 							tiedlist, dict, dfa)) {
 					sendCode(Simond::ActiveModelStorageFailed);
 				}
-				sendCode(Simond::GetScenarioList);
+				sendCode(Simond::GetBaseModelDate);
 				break;
 			}
 
@@ -283,8 +283,7 @@ void ClientSocket::processRequest()
 				
 				kDebug() << "Requesting sample rate";
 				
-				if (!sendActiveModel())
-				{
+				if (!sendActiveModel()) {
 					sendCode(Simond::GetActiveModelSampleRate);
 					sendCode(Simond::NoActiveModelAvailable);
 				}
@@ -301,9 +300,63 @@ void ClientSocket::processRequest()
 				kDebug() << "Got sample rate: " << sampleRate;
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
+				sendCode(Simond::GetBaseModelDate);
+				break;
+			}
+
+			case Simond::BaseModelDate:
+			{
+				Q_ASSERT(synchronisationManager);
+				kDebug() << "Received base model date";
+				QDateTime remoteModelDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteModelDate;
+				
+				QDateTime localModelDate = synchronisationManager->getBaseModelDate();
+				if (remoteModelDate != localModelDate)
+				{
+					if (remoteModelDate > localModelDate)
+						sendCode(Simond::GetBaseModel);
+					else if (!sendBaseModel())
+						sendCode(Simond::GetBaseModel);
+				} else {
+					kDebug() << "Base model is up-to-date";
+					sendCode(Simond::GetScenarioList);
+				}
+				break;
+			}
+
+			case Simond::ErrorRetrievingBaseModel:
+				kDebug() << "Client failed to retrieve base model!";
+				sendScenarioList();
+				break;
+
+			case Simond::BaseModel:
+			{
+				Q_ASSERT(synchronisationManager);
+				kDebug() << "Received base model";
+				waitForMessage(sizeof(qint64), stream, msg);
+				
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				
+				qint32 baseModelType;
+				QByteArray hmmdefs, tiedlist;
+				QDateTime changedDate;
+				stream >> changedDate;
+				stream >> baseModelType;
+				stream >> hmmdefs;
+				stream >> tiedlist;
+				
+				if (!synchronisationManager->storeBaseModel(changedDate, baseModelType, hmmdefs, tiedlist)) {
+					sendCode(Simond::BaseModelStorageFailed);
+				}
 				sendCode(Simond::GetScenarioList);
 				break;
 			}
+
+
 
 				/*kDebug() << "Getting model-src-date";
 				QDateTime remoteModelDate;
@@ -1118,11 +1171,25 @@ bool ClientSocket::sendActiveModel()
 	
 	Model *model = synchronisationManager->getActiveModel();
 	
+	return sendModel(Simond::ActiveModel, synchronisationManager->getActiveModelDate(), model);
+}
+
+bool ClientSocket::sendBaseModel()
+{
+	kDebug() << "Sending base model...";
+	Q_ASSERT(synchronisationManager);
+	
+	Model *model = synchronisationManager->getBaseModel();
+	return sendModel(Simond::BaseModel, synchronisationManager->getBaseModelDate(), model);
+}
+
+bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTime, Model *model)
+{
 	if (!model) return false;
 	
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	bodyStream << synchronisationManager->getActiveModelDate()
+	bodyStream << changedTime
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
@@ -1131,13 +1198,12 @@ bool ClientSocket::sendActiveModel()
 			
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream 	<< (qint32) Simond::ActiveModel << (qint64) body.count();
+	stream 	<< (qint32) request << (qint64) body.count();
 
 	write(toWrite);
 	write(body);
-	
+
 	delete model;
-	
 	return true;
 }
 

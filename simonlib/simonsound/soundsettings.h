@@ -40,7 +40,7 @@ class QTabWidget;
 class KFontChooser;
 
 /**
- * \class SoundSettinsg
+ * \class SoundSettings
  * \author Peter Grasch
  * \date 12.8.2007
  * \brief SystemWidget to manager the soundsettings
