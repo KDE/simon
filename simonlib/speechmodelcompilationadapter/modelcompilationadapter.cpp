@@ -34,7 +34,7 @@ ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObjec
 void ModelCompilationAdapter::run()
 {
 	emit  status(i18n("Adapting model..."), 0);
-	if (!adaptModel(m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
+	if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
 			m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut)) {
 		emit error(i18n("Failed to adapt model"));
 		return;
@@ -48,7 +48,8 @@ int ModelCompilationAdapter::maxProgress()
 	return 100;
 }
 
-bool ModelCompilationAdapter::startAdaption(const QString& lexiconPathOut, const QString& grammarPathOut, const QString& simpleVocabPathOut, 
+bool ModelCompilationAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptionType,
+		const QString& lexiconPathOut, const QString& grammarPathOut, const QString& simpleVocabPathOut, 
 		const QString& promptsPathOut, const QStringList& scenarioPathsIn, const QString& promptsIn)
 {
 	if (isRunning()) {
@@ -58,6 +59,7 @@ bool ModelCompilationAdapter::startAdaption(const QString& lexiconPathOut, const
 		emit adaptionAborted();
 	}
 
+	m_adaptionType = adaptionType;
 	m_lexiconPathOut = lexiconPathOut;
 	m_grammarPathOut = grammarPathOut;
 	m_simpleVocabPathOut = simpleVocabPathOut;

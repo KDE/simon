@@ -110,7 +110,10 @@ public:
 	void setBaseModelType(int);
 	QString baseModelHMMName();
 	QString baseModelTiedlistName();
-	void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName);
+	QString baseModelMacros();
+	QString baseModelStats();
+	void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName, 
+			const QString& macrosName, const QString& statsName);
 	
 public slots:
 	// If force is true, every registered display will switch to this scenario

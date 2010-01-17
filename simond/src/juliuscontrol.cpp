@@ -50,7 +50,8 @@ JuliusControl::JuliusControl(const QString& username, QObject* parent) : Recogni
 	recog(0),
 	jconf(0),
 	isLocal(false),
-	m_initialized(false)
+	m_initialized(false),
+	logFile(NULL)
 {
 }
 
@@ -349,8 +350,26 @@ void JuliusControl::uninitialize()
 	this->jconf=NULL;
 
 	m_initialized=false;
+	closeLog();
 }
 
+
+QByteArray JuliusControl::getBuildLog()
+{
+	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
+	QFile f(logPath);
+	if (!f.open(QIODevice::ReadOnly))
+		return QByteArray();
+
+	QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
+	f.close();
+	return out;
+}
+
+void JuliusControl::emitError(const QString& error)
+{
+	emit recognitionError(error, getBuildLog());
+}
 
 bool JuliusControl::initializeRecognition(bool isLocal)
 {
@@ -365,36 +384,40 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	this->isLocal = isLocal;
 	if (isLocal) 
 		kDebug() << "Initializing local recognition";
-	else {
+	else 
 		kDebug() << "Initializing remote recognition";
-	//	emit recognitionError(i18n("Remote recognition not yet implemented"));
-	//	return false;
-	}
 
- 	FILE *fp;
 	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
 
- 	fp = fopen(logPath.data(), "w");
- 	if (fp == NULL) 
+ 	logFile = fopen(logPath.data(), "w");
+ 	if (logFile == NULL) {
+		emitError(i18n("Couldn't open log file. Please ignore detailed log output!"));
 		return false;
-	jlog_set_output(fp);
+	}
+	jlog_set_output(logFile);
 	
+	kDebug() << logFile << jlog_get_fp();
+
 	Jconf *jconf = setupJconf();
 	if (!jconf)
 	{
-		emit recognitionError(i18n("Internal Jconf error"));
+		closeLog();
+		emitError(i18n("Internal Jconf error"));
 		return false;
 	}
 
 	this->jconf = jconf;
+	kDebug() << logFile << jlog_get_fp();
 	
 	this->recog = j_create_instance_from_jconf(jconf);
 	if (!recog)
 	{
-		emit recognitionError(i18n("Could not initialize recognition"));
 		j_jconf_free(jconf);
+		closeLog();
+		kDebug() << logFile << jlog_get_fp();
 		this->jconf=0;
 		this->recog=0;
+		emitError(i18n("Could not initialize recognition"));
 		return false;
 	}
 	
@@ -425,7 +448,7 @@ void JuliusControl::run()
 	/* initialize audio input device */
 	/* ad-in thread starts at this time for microphone */
 	if (j_adin_init(recog) == false) {    /* error */
-		emit recognitionError(i18n("Couldn't start adin-thread"));
+		emitError(i18n("Couldn't start adin-thread"));
 		return;
 	}
 
@@ -440,12 +463,12 @@ void JuliusControl::run()
 				emit recognitionStarted();
 				break;
 			case -1:
-				emit recognitionError(i18n("Unknown error"));
+				emitError(i18n("Unknown error"));
 				return;
 			case -2:
 				if (isLocal)
-					emit recognitionError(i18n("Couldn't initialize microphone"));
-				else emit recognitionError(i18n("Error with the audio stream"));
+					emitError(i18n("Couldn't initialize microphone"));
+				else emitError(i18n("Error with the audio stream"));
 				return;
 		}
 	
@@ -462,7 +485,7 @@ void JuliusControl::run()
 				//shouldBeRunning=false;
 				break;
 			case -1:
-				//emit recognitionError("recognize_stream: -1");
+				//emitError("recognize_stream: -1");
 				shouldBeRunning=false;
 				break;
 		}
@@ -486,9 +509,6 @@ void JuliusControl::stop()
 		j_request_terminate(recog);
 		j_close_stream(recog);
 	}
-	//	recog->adin->ad_end();
-	//j_request_terminate(recog);
-	//quit();
 
 	if (!wait(1000)) {
 		kDebug() << "ARGH STILL RUNNING!";
@@ -546,6 +566,15 @@ void JuliusControl::waitForResumed()
 void JuliusControl::pushRequest(JuliusControl::Request request)
 {
 	nextRequests << request;
+}
+
+void JuliusControl::closeLog()
+{
+	if (!logFile) return;
+
+	jlog_flush();
+	fclose(logFile);
+	logFile = NULL;
 }
 
 JuliusControl::~JuliusControl()

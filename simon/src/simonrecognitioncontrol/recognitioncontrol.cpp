@@ -390,7 +390,7 @@ bool RecognitionControl::sendActiveModel()
 {
 	Model *model = ModelManagerUiProxy::getInstance()->createActiveContainer();
 	if (!model) {
-		emit synchronisationWarning(i18n("Couldn't create model container"));
+		emit synchronisationWarning(i18n("Couldn't create active model container"));
 		sendRequest(Simond::ErrorRetrievingActiveModel);
 		return false;
 	}
@@ -404,8 +404,8 @@ bool RecognitionControl::sendActiveModel()
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
-		<< model->dict()
-		<< model->dfa();
+		<< model->data1()
+		<< model->data2();
 
 	out << (qint32) Simond::ActiveModel
 		<< (qint64) body.count();
@@ -442,10 +442,9 @@ void RecognitionControl::sendBaseModelDate()
 
 bool RecognitionControl::sendBaseModel()
 {
-	//TODO: implement
 	Model *model = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
 	if (!model) {
-		emit synchronisationWarning(i18n("Couldn't create model container"));
+		emit synchronisationWarning(i18n("Couldn't create base model container"));
 		sendRequest(Simond::ErrorRetrievingBaseModel);
 		return false;
 	}
@@ -459,8 +458,8 @@ bool RecognitionControl::sendBaseModel()
 		<< model->baseModelType()
 		<< model->hmmDefs()
 		<< model->tiedList()
-		<< model->dict()
-		<< model->dfa();
+		<< model->data1()
+		<< model->data2();
 
 	out << (qint32) Simond::BaseModel
 		<< (qint64) body.count();
@@ -892,18 +891,18 @@ void RecognitionControl::messageReceived()
 					parseLengthHeader();
 					
 					qint32 sampleRate;
-					QByteArray hmmDefs, tiedList, dict, dfa;
+					QByteArray hmmDefs, tiedList, data1, data2;
 					
 					QDateTime changedTime;
 					msg >> changedTime;
 					msg >> sampleRate;
 					msg >> hmmDefs;
 					msg >> tiedList;
-					msg >> dict;
-					msg >> dfa;
+					msg >> data1;
+					msg >> data2;
 					
 					ModelManagerUiProxy::getInstance()->storeActiveModel(changedTime, sampleRate, 
-									hmmDefs, tiedList, dict, dfa);
+									hmmDefs, tiedList, data1, data2);
 					
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					sendBaseModelDate();
@@ -966,15 +965,17 @@ void RecognitionControl::messageReceived()
 					
 					int baseModelType;
 					QDateTime changedTime;
-					QByteArray hmmDefs, tiedList;
+					QByteArray hmmDefs, tiedList, macros, stats;
 					
 					msg >> changedTime;
 					msg >> baseModelType;
 					msg >> hmmDefs;
 					msg >> tiedList;
+					msg >> macros;
+					msg >> stats;
 					
 					ModelManagerUiProxy::getInstance()->storeBaseModel(changedTime, baseModelType, 
-									hmmDefs, tiedList);
+									hmmDefs, tiedList, macros, stats);
 					
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
@@ -1541,11 +1542,15 @@ void RecognitionControl::messageReceived()
 					parseLengthHeader();
 					
 					QByteArray errormsgByte;
+					QByteArray protocolByte;
 					msg >> errormsgByte;
+					msg >> protocolByte;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+
 					QString errormsg = QString::fromUtf8(errormsgByte);
+					QString log = QString::fromUtf8(protocolByte);
 					recognitionReady=false;
-					emit recognitionError(errormsg);
+					emit recognitionError(errormsg, log);
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
 				}

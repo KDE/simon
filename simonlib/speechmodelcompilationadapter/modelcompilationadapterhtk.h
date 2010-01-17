@@ -47,11 +47,13 @@ private:
 public:
 	ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
 
-	bool adaptModel(const QStringList& scenarioPaths, const QString& promptsPathIn, 
+	bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
+			const QStringList& scenarioPaths, const QString& promptsPathIn, 
 			const QString& lexiconPathOut, const QString& grammarPathOut, 
 			const QString& simpleVocabPathOut, const QString& promptsPathOut);
 
-	bool storeModel(const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
+	bool storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
+			const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
 			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn);
 
 	~ModelCompilationAdapterHTK();

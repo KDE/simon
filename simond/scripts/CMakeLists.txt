@@ -1,5 +1,8 @@
 set ( simon_model_scripts
 		${CMAKE_CURRENT_SOURCE_DIR}/config
+		${CMAKE_CURRENT_SOURCE_DIR}/staticAdaption
+		${CMAKE_CURRENT_SOURCE_DIR}/config.global
+		${CMAKE_CURRENT_SOURCE_DIR}/config.rc
 		${CMAKE_CURRENT_SOURCE_DIR}/global.ded
 		${CMAKE_CURRENT_SOURCE_DIR}/mkphones0.led
 		${CMAKE_CURRENT_SOURCE_DIR}/mkphones1.led

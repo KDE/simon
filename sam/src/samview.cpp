@@ -296,10 +296,19 @@ void SamView::compileModel()
 
 	ui.teBuildLog->clear();
 	
-	modelCompilationManager->startCompilation(ui.urHmmDefs->url().path(),
+	modelCompilationManager->startCompilation(
+			(ModelCompilationManager::CompilationType)
+			(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
+			ui.urHmmDefs->url().path(),
 			ui.urTiedlist->url().path(),
 			ui.urDict->url().path(),
 			ui.urDFA->url().path(),
+			
+			ui.urBaseHmmDefs->url().path(),
+			ui.urBaseTiedlist->url().path(),
+			ui.urBaseMacros->url().path(),
+			ui.urBaseStats->url().path(),
+
 			ui.urPromptsBasePath->url().path(),
 			ui.urLexicon->url().path(),
 			ui.urGrammar->url().path(),

@@ -61,7 +61,8 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 		Model* createBaseModelContainer();
 		QDateTime getBaseModelDate();
 		virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-							const QByteArray& hmmDefs, const QByteArray& tiedList);
+							const QByteArray& hmmDefs, const QByteArray& tiedList,
+							const QByteArray& macros, const QByteArray& stats);
 
 		LanguageDescriptionContainer* getLanguageDescriptionContainer();
 		QDateTime getLanguageDescriptionModifiedTime();

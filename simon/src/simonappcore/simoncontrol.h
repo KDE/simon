@@ -90,7 +90,7 @@ signals:
 
 	void simondSystemError(const QString &err);
 	void synchronisationError(const QString &err);
-	void recognitionError(const QString &err);
+	void recognitionError(const QString &err, const QString& log);
 	void compilationError(const QString &err);
 
 	
@@ -110,7 +110,7 @@ private slots:
 	void slotConnectionError(const QString& err);
 	void slotSimondSystemError(const QString &err);
 	void slotSynchronisationError(const QString &err);
-	void slotRecognitionError(const QString &err);
+	void slotRecognitionError(const QString &err, const QString& log);
 	void slotCompilationError(const QString &err, const QString& protocol);
 
 	void slotSimondSystemWarning(const QString& warning);

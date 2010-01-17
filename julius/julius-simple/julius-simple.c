@@ -266,7 +266,7 @@ main(int argc, char *argv[])
   //jlog_set_output(NULL);
 
   /* output log to a file */
-  //FILE *fp; fp = fopen("log.txt", "w"); jlog_set_output(fp);
+  FILE *fp; fp = fopen("log.txt", "w"); jlog_set_output(fp);
 
   /* if no argument, output usage and exit */
   if (argc == 1) {

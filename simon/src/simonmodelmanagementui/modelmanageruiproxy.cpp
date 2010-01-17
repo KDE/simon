@@ -39,9 +39,10 @@ void ModelManagerUiProxy::slotModelChanged()
 }
 
 bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-					const QByteArray& hmmDefs, const QByteArray& tiedList)
+				const QByteArray& hmmDefs, const QByteArray& tiedList,
+				const QByteArray& macros, const QByteArray& stats)
 {
-	bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList);
+	bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList, macros, stats);
 	if (!succ) {
 		KMessageBox::sorry(0, i18n("Could not store the base model received from the server."
 					"\n\nPlease check the permissions on the model folder: %1", 

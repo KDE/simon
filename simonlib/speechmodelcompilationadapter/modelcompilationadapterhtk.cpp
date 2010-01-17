@@ -35,13 +35,15 @@ ModelCompilationAdapterHTK::ModelCompilationAdapterHTK(const QString& userName, 
 {
 }
 
-bool ModelCompilationAdapterHTK::adaptModel(const QStringList& scenarioPaths, const QString& promptsPathIn, 
+bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
+		const QStringList& scenarioPaths, const QString& promptsPathIn, 
 			const QString& lexiconPathOut, const QString& grammarPathOut, 
 			const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
 	Vocabulary *mergedVocabulary = new Vocabulary();
 	Grammar *mergedGrammar = new Grammar();
 
+	//merging scenarios
 	foreach (const QString& src, scenarioPaths) {
 		kDebug() << "Serializing Szenario: " << src;
 		Scenario *s = new Scenario("");
@@ -65,7 +67,9 @@ bool ModelCompilationAdapterHTK::adaptModel(const QStringList& scenarioPaths, co
 		mergedVocabulary->addWords(wordsTmp);
 		delete s;
 	}
-	if (!storeModel(lexiconPathOut, simpleVocabPathOut, grammarPathOut, promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
+
+	if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut, 
+				promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
 		return false;
 
 	delete mergedVocabulary;
@@ -95,33 +99,32 @@ QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
 }
 
 
-bool ModelCompilationAdapterHTK::storeModel(const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
+bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
+		const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
 			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
 	///// Prompts ///////////
-	
-	QFile promptsFile(promptsPathIn);
-	QFile promptsFileOut(promptsPathOut);
-	if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly)) return false;
-
-	kDebug() << "Prompts out path: " << promptsPathOut;
 	QList<QByteArray> trainedVocabulary;
-	while (!promptsFile.atEnd()) {
-		QByteArray line = promptsFile.readLine();
-		int splitter = line.indexOf(" ");
-		kDebug() << "Wrote line: " << line;
-		kDebug() << "Wrote line: " << line.left(splitter) /*filename*/ + htkify(line.mid(splitter));
-		promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
+		QFile promptsFile(promptsPathIn);
+		QFile promptsFileOut(promptsPathOut);
+		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly)) return false;
 
-		QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
-		foreach (const QByteArray& word, words) {
-			if (!trainedVocabulary.contains(word))
-				trainedVocabulary.append(word);
+		while (!promptsFile.atEnd()) {
+			QByteArray line = promptsFile.readLine();
+			int splitter = line.indexOf(" ");
+			promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+
+			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
+			foreach (const QByteArray& word, words) {
+				if (!trainedVocabulary.contains(word))
+					trainedVocabulary.append(word);
+			}
 		}
-	}
 
-	promptsFile.close();
-	promptsFileOut.close();
+		promptsFile.close();
+		promptsFileOut.close();
+	}
 
 	/////  Lexicon  ////////////////
 	QFile lexiconFile(lexiconPathOut);
@@ -136,7 +139,8 @@ bool ModelCompilationAdapterHTK::storeModel(const QString& lexiconPathOut, const
 	bool sentWritten = false;
 	QList<Word*> words = vocab->getWords();
 	foreach (Word *w, words) {
-		if (!trainedVocabulary.contains(w->getLexiconWord().toUtf8())) {
+		if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+				!trainedVocabulary.contains(w->getLexiconWord().toUtf8())) {
 			kDebug() << w->getLexiconWord().toUtf8() << "not contained: " << trainedVocabulary;
 			continue;
 		}
@@ -176,7 +180,8 @@ bool ModelCompilationAdapterHTK::storeModel(const QString& lexiconPathOut, const
 
 		bool hasAssociatedWord = false;
 		foreach (Word *w, wordsForTerminal) {
-			if (trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
+			if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+					trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
 				hasAssociatedWord = true;
 			else wordsForTerminal.removeAll(w);
 		}

@@ -45,9 +45,13 @@ ModelSettings::ModelSettings(QWidget* parent, const QVariantList &args) : KCModu
 
 	ui.pbLoadBaseHMM->setIcon(KIcon("document-open"));
 	ui.pbLoadBaseTiedlist->setIcon(KIcon("document-open"));
+	ui.pbLoadBaseMacros->setIcon(KIcon("document-open"));
+	ui.pbLoadBaseStats->setIcon(KIcon("document-open"));
 
 	connect(ui.pbLoadBaseHMM, SIGNAL(clicked()), this, SLOT(loadBaseHMM()));
 	connect(ui.pbLoadBaseTiedlist, SIGNAL(clicked()), this, SLOT(loadBaseTiedlist()));
+	connect(ui.pbLoadBaseMacros, SIGNAL(clicked()), this, SLOT(loadBaseMacros()));
+	connect(ui.pbLoadBaseStats, SIGNAL(clicked()), this, SLOT(loadBaseStats()));
 }
 
 void ModelSettings::slotChanged()
@@ -73,7 +77,10 @@ void ModelSettings::load()
 
 	ui.lbLastLoadedBaseHMM->setText(ScenarioManager::getInstance()->baseModelHMMName());
 	ui.lbLastLoadedBaseTiedlist->setText(ScenarioManager::getInstance()->baseModelTiedlistName());
+	ui.lbLastLoadedBaseMacros->setText(ScenarioManager::getInstance()->baseModelMacros());
+	ui.lbLastLoadedBaseStats->setText(ScenarioManager::getInstance()->baseModelStats());
 	KCModule::load();
+	emit changed(false);
 }
 
 void ModelSettings::save()
@@ -90,7 +97,6 @@ void ModelSettings::save()
 			KMessageBox::sorry(this, i18n("Couldn't remove current base model"));
 			return;
 		}
-
 		if (!QFile::copy(m_hmmDefsToImport, targetPathHMM))
 			KMessageBox::sorry(this, i18n("Couldn't import hmm definitions."));
 
@@ -103,22 +109,47 @@ void ModelSettings::save()
 			KMessageBox::sorry(this, i18n("Couldn't remove current base model"));
 			return;
 		}
-
 		if (!QFile::copy(m_tiedlistToImport, targetPathTiedlist))
 			KMessageBox::sorry(this, i18n("Couldn't import tiedlist."));
 		m_tiedlistToImport = QString();
 	}
 
-	ScenarioManager::getInstance()->setBaseModel(modelType, ui.lbLastLoadedBaseHMM->text(), ui.lbLastLoadedBaseTiedlist->text());
+	if (!m_macrosToImport.isEmpty()) {
+		QString targetPathMacros = KStandardDirs::locateLocal("appdata", "model/basemacros");
+		if (QFile::exists(targetPathMacros) && !QFile::remove(targetPathMacros)) {
+			KMessageBox::sorry(this, i18n("Couldn't remove current base model"));
+			return;
+		}
+		if (!QFile::copy(m_macrosToImport, targetPathMacros))
+			KMessageBox::sorry(this, i18n("Couldn't import macros."));
+		m_macrosToImport = QString();
+	}
+
+	if (!m_statsToImport.isEmpty()) {
+		QString targetPathStats = KStandardDirs::locateLocal("appdata", "model/basestats");
+		if (QFile::exists(targetPathStats) && !QFile::remove(targetPathStats)) {
+			KMessageBox::sorry(this, i18n("Couldn't remove current base model"));
+			return;
+		}
+		if (!QFile::copy(m_statsToImport, targetPathStats))
+			KMessageBox::sorry(this, i18n("Couldn't import stats."));
+		m_statsToImport = QString();
+	}
+
+	ScenarioManager::getInstance()->setBaseModel(modelType, ui.lbLastLoadedBaseHMM->text(), ui.lbLastLoadedBaseTiedlist->text(),
+			ui.lbLastLoadedBaseMacros->text(), ui.lbLastLoadedBaseTiedlist->text());
 	KCModule::save();
 }
 
 void ModelSettings::defaults()
 {
-	ScenarioManager::getInstance()->setBaseModel(2, i18n("None"), i18n("None"));
+	ScenarioManager::getInstance()->setBaseModel(2, i18n("None"), 
+			i18n("None"), i18n("None"), i18n("None"));
 
 	QFile::remove(KStandardDirs::locateLocal("appdata", "model/basehmmdefs"));
 	QFile::remove(KStandardDirs::locateLocal("appdata", "model/basetiedlist"));
+	QFile::remove(KStandardDirs::locateLocal("appdata", "model/basemacros"));
+	QFile::remove(KStandardDirs::locateLocal("appdata", "model/basestats"));
 
 	KCModule::defaults();
 
@@ -156,6 +187,30 @@ void ModelSettings::loadBaseTiedlist()
 
 	QFileInfo f(path);
 	ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+}
+
+void ModelSettings::loadBaseMacros()
+{
+	QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base macros"));
+	if (path.isEmpty()) return;
+
+	m_macrosToImport = path;
+
+	emit changed(true);
+	QFileInfo f(path);
+	ui.lbLastLoadedBaseMacros->setText(f.fileName());
+}
+
+void ModelSettings::loadBaseStats()
+{
+	QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base stats"));
+	if (path.isEmpty()) return;
+
+	m_statsToImport = path;
+
+	emit changed(true);
+	QFileInfo f(path);
+	ui.lbLastLoadedBaseStats->setText(f.fileName());
 }
 
 

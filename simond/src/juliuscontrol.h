@@ -96,8 +96,12 @@ class JuliusControl : public RecognitionControl
 		QMutex pauseMutex;
 		bool m_initialized;
 		bool shouldBeRunning;
+		FILE *logFile;
 		
 		QList<JuliusControl::Request> nextRequests;
+		QByteArray getBuildLog();
+		void emitError(const QString& error);
+		void closeLog();
 		
 };
 

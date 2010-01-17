@@ -56,7 +56,8 @@ public:
 	~ModelManagerUiProxy();
 
 	bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-					const QByteArray& hmmDefs, const QByteArray& tiedList);
+				const QByteArray& hmmDefs, const QByteArray& tiedList,
+				const QByteArray& macros, const QByteArray& stats);
 	bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
 				const QByteArray& treeHed);
 	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,

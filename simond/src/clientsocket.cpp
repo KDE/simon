@@ -170,7 +170,7 @@ void ClientSocket::processRequest()
 
 					recognitionControl = new JuliusControl(username, this);
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
+					connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
 					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
 					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32, qint32)), this, SLOT(recognitionAwaitingStream(qint32, qint32)));
 					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
@@ -342,14 +342,17 @@ void ClientSocket::processRequest()
 				waitForMessage(length, stream, msg);
 				
 				qint32 baseModelType;
-				QByteArray hmmdefs, tiedlist;
+				QByteArray hmmdefs, tiedlist, macros, stats;
 				QDateTime changedDate;
 				stream >> changedDate;
 				stream >> baseModelType;
 				stream >> hmmdefs;
 				stream >> tiedlist;
+				stream >> macros;
+				stream >> stats;
 				
-				if (!synchronisationManager->storeBaseModel(changedDate, baseModelType, hmmdefs, tiedlist)) {
+				if (!synchronisationManager->storeBaseModel(changedDate, baseModelType, 
+							hmmdefs, tiedlist, macros, stats)) {
 					sendCode(Simond::BaseModelStorageFailed);
 				}
 				sendCode(Simond::GetScenarioList);
@@ -1097,21 +1100,92 @@ void ClientSocket::recompileModel()
 
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
-	modelCompilationAdapter->startAdaption(activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-						activeDir+"prompts", synchronisationManager->getScenarioPaths(), 
-						synchronisationManager->getPromptsPath());
+	int baseModelType = synchronisationManager->getBaseModelType();
+	if (baseModelType == -1) {
+		kDebug() << "Failed to retrieve base model type: " << baseModelType;
+		return;
+	}
+
+	switch (baseModelType)
+	{
+		case 0:
+			//static model
+			modelCompilationAdapter->startAdaption(
+					(ModelCompilationAdapter::AdaptionType)
+					(ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
+					activeDir+"lexicon", activeDir+"model.grammar", 
+					activeDir+"simple.voca", activeDir+"prompts", 
+					synchronisationManager->getScenarioPaths(),
+					synchronisationManager->getPromptsPath());
+			break;
+		case 1:
+			//adapted base model
+			//let it run into dynamic model - no difference at this stage
+		case 2:
+			//dynamic model
+			modelCompilationAdapter->startAdaption(
+					(ModelCompilationAdapter::AdaptionType)
+					(ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
+					activeDir+"lexicon", activeDir+"model.grammar", 
+					activeDir+"simple.voca", activeDir+"prompts", 
+					synchronisationManager->getScenarioPaths(),
+					synchronisationManager->getPromptsPath());
+			break;
+	}
 }
 
 void ClientSocket::slotModelAdaptionComplete()
 {
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
-	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
-				activeDir+"model.dict", activeDir+"model.dfa",
-				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-				activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-				activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
-				synchronisationManager->getWavConfigPath());
+	int baseModelType = synchronisationManager->getBaseModelType();
+	switch (baseModelType)
+	{
+		case 0:
+			//static model
+			modelCompilationManager->startCompilation(
+					(ModelCompilationManager::CompileLanguageModel),
+					activeDir+"hmmdefs", activeDir+"tiedlist",
+					activeDir+"model.dict", activeDir+"model.dfa",
+					activeDir+"basehmmdefs", activeDir+"basetiedlist",
+					activeDir+"basemacros", activeDir+"basestats",
+					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
+					synchronisationManager->getWavConfigPath());
+
+			break;
+		case 1:
+			//adapted base model
+			modelCompilationManager->startCompilation(
+					(ModelCompilationManager::CompilationType)
+					(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),
+					activeDir+"hmmdefs", activeDir+"tiedlist",
+					activeDir+"model.dict", activeDir+"model.dfa",
+					activeDir+"basehmmdefs", activeDir+"basetiedlist",
+					activeDir+"basemacros", activeDir+"basestats",
+					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
+					synchronisationManager->getWavConfigPath());
+		
+			break;
+
+		case 2:
+			//dynamic model
+			modelCompilationManager->startCompilation(
+					(ModelCompilationManager::CompilationType)
+					(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
+					activeDir+"hmmdefs", activeDir+"tiedlist",
+					activeDir+"model.dict", activeDir+"model.dfa",
+					activeDir+"basehmmdefs", activeDir+"basetiedlist",
+					activeDir+"basemacros", activeDir+"basestats",
+					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
+					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
+					synchronisationManager->getWavConfigPath());
+			break;
+	}
 }
 
 void ClientSocket::slotModelAdaptionAborted()
@@ -1192,8 +1266,8 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
-		<< model->dict()
-		<< model->dfa();
+		<< model->data1()
+		<< model->data2();
 			
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -1232,7 +1306,8 @@ void ClientSocket::synchronisationComplete()
 	
 		kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
 		kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
-		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getCompileModelSrcDate()) && (synchronisationManager->hasModelSrc()))
+		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getCompileModelSrcDate())
+				&& (synchronisationManager->hasModelSrc()))
 			recompileModel();
 	}
 	
@@ -1320,13 +1395,19 @@ void ClientSocket::recognitionAwaitingStream(qint32 port, qint32 samplerate)
 	write(toWrite);
 }
 
-void ClientSocket::recognitionError(const QString& error)
+void ClientSocket::recognitionError(const QString& error, const QByteArray& log)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	QByteArray errorByte = error.toUtf8();
-	stream << (qint32) Simond::RecognitionError << (qint64) errorByte.count()+sizeof(qint32) /*separator*/ << errorByte;
+
+	bodyStream << errorByte << log;
+	stream << (qint32) Simond::RecognitionError << (qint64) body.count();
+
 	write(toWrite);
+	write(body);
 }
 
 void ClientSocket::recognitionWarning(const QString& warning)

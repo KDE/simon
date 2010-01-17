@@ -32,7 +32,7 @@ class RecognitionControl : public QThread
 
 	signals:
 		void recognitionReady();
-		void recognitionError(const QString& error);
+		void recognitionError(const QString& error, const QByteArray& buildLog);
 		void recognitionWarning(const QString& warning);
 		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionStarted();

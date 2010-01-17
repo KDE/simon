@@ -307,34 +307,64 @@ Model* SynchronisationManager::getBaseModel()
 	
 	QFile hmmDefs(dirPath+"basehmmdefs");
 	QFile tiedlist(dirPath+"basetiedlist");
+	QFile macrosFile(dirPath+"basemacros");
+	QFile statsFile(dirPath+"basestats");
 	
 	if ((!hmmDefs.open(QIODevice::ReadOnly)) || 
-		(!tiedlist.open(QIODevice::ReadOnly)))
+		(!tiedlist.open(QIODevice::ReadOnly)) ||
+		(!macrosFile.open(QIODevice::ReadOnly)) ||
+		(!statsFile.open(QIODevice::ReadOnly)))
 	{
 		kDebug() << "Failed to gather active model";
 		return NULL;
 	}
 
-	return new Model(baseModelType, hmmDefs.readAll(), tiedlist.readAll(), QByteArray(), QByteArray());
+	return new Model(baseModelType, hmmDefs.readAll(), tiedlist.readAll(), 
+			macrosFile.readAll(), statsFile.readAll());
+}
+
+int SynchronisationManager::getBaseModelType()
+{
+	if (username.isEmpty()) return 0;
+
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	QString configPath = dirPath+"activerc";
+	KConfig config( configPath, KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+
+	bool ok;
+	int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
+	if (!ok) return -1;
+	return baseModelType;
 }
 
 bool SynchronisationManager::storeBaseModel(const QDateTime& changedDate, int modelType,
-		const QByteArray& hmmDefs, const QByteArray& tiedList)
+		const QByteArray& hmmDefs, const QByteArray& tiedList,
+		const QByteArray& macros, const QByteArray& stats)
 {
 	if (username.isEmpty()) return false;
 
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	QFile hmmDefsFile(dirPath+"basehmmdefs");
 	QFile tiedListFile(dirPath+"basetiedlist");
+	QFile macrosFile(dirPath+"basemacros");
+	QFile statsFile(dirPath+"basestats");
 
 	if ((!hmmDefsFile.open(QIODevice::WriteOnly))
-		|| (!tiedListFile.open(QIODevice::WriteOnly)))
+		|| (!tiedListFile.open(QIODevice::WriteOnly))
+		|| (!macrosFile.open(QIODevice::WriteOnly))
+		|| (!statsFile.open(QIODevice::WriteOnly)))
 		return false;
 	
 	hmmDefsFile.write(hmmDefs);
 	tiedListFile.write(tiedList);
+	macrosFile.write(macros);
+	statsFile.write(stats);
+
 	hmmDefsFile.close();
 	tiedListFile.close();
+	macrosFile.close();
+	statsFile.close();
 
 	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -602,11 +632,14 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 {
 	QDateTime trainingDate = getTrainingDate();
 	QDateTime scenarioRcDate = selectedScenariosDate();
+	QDateTime baseModelDate = getBaseModelDate();
 
-	if (trainingDate.isNull() || scenarioRcDate.isNull()) 
+	if (trainingDate.isNull() || scenarioRcDate.isNull() ||
+			((getBaseModelType() != 2) && (baseModelDate.isNull())))
 		return QDateTime();
 
 	QDateTime srcDate = qMax(trainingDate, scenarioRcDate);
+	srcDate = qMax(srcDate, baseModelDate);
 
 	QStringList scenarios = getLatestSelectedScenarioList();
 	foreach (const QString& scenarioId, scenarios)

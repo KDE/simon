@@ -52,7 +52,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
-	QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(slotRecognitionError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QString&)), this, SLOT(slotRecognitionError(const QString&, const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(compilationError(const QString&, const QString&)), this, SLOT(slotCompilationError(const QString&, const QString&)));
 
 	QObject::connect(recognitionControl, SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
@@ -97,9 +97,9 @@ void SimonControl::slotSynchronisationError(const QString &err)
 	KMessageBox::error(0, i18n("The model synchronization reported the following error: \n%1", err));	
 }
 
-void SimonControl::slotRecognitionError(const QString &err)
+void SimonControl::slotRecognitionError(const QString &err, const QString& log)
 {
-	KMessageBox::error(0, i18n("The Recognition reported the following error: \n%1", err));
+	KMessageBox::detailedError(0, i18n("The Recognition reported the following error: \n%1", err), log);
 }
 
 void SimonControl::slotCompilationError(const QString &err, const QString& protocol)

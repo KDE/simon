@@ -33,12 +33,12 @@ class MODELMANAGEMENT_EXPORT Model
 		qint32 m_data;
 		QByteArray m_hmmDefs;
 		QByteArray m_tiedList;
-		QByteArray m_dict;
-		QByteArray m_dfa;
+		QByteArray m_data1;
+		QByteArray m_data2;
 
 	public:
 		Model(qint32 data, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+				const QByteArray& tiedList, const QByteArray& data1, const QByteArray& data2);
 			       
 		~Model();
 		
@@ -46,8 +46,8 @@ class MODELMANAGEMENT_EXPORT Model
 		qint32 baseModelType() { return m_data; }
 		QByteArray hmmDefs() { return m_hmmDefs; }
 		QByteArray tiedList() { return m_tiedList; }
-		QByteArray dict() { return m_dict; }
-		QByteArray dfa() { return m_dfa; }
+		QByteArray data1() { return m_data1; }
+		QByteArray data2() { return m_data2; }
 		
 };
 

@@ -35,6 +35,8 @@ private:
 	Ui::ModelDlg ui;
 	QString m_hmmDefsToImport;
 	QString m_tiedlistToImport;
+	QString m_macrosToImport;
+	QString m_statsToImport;
 
 	int m_storedModelType;
 	void touchModelSrcRc();
@@ -43,6 +45,8 @@ private slots:
 	void slotChanged();
 	void loadBaseHMM();
 	void loadBaseTiedlist();
+	void loadBaseMacros();
+	void loadBaseStats();
 
 public slots:
 	void load();

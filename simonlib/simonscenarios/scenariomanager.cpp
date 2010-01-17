@@ -389,6 +389,16 @@ QString ScenarioManager::baseModelTiedlistName()
 	return SpeechModelManagementConfiguration::baseModelTiedlistName();
 }
 
+QString ScenarioManager::baseModelMacros()
+{
+	return SpeechModelManagementConfiguration::baseModelMacrosName();
+}
+
+QString ScenarioManager::baseModelStats()
+{
+	return SpeechModelManagementConfiguration::baseModelStatsName();
+}
+
 void ScenarioManager::setBaseModelType(int type)
 {
 	SpeechModelManagementConfiguration::setModelType(type);
@@ -396,11 +406,14 @@ void ScenarioManager::setBaseModelType(int type)
 	touchBaseModelAccessTime();
 }
 
-void ScenarioManager::setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName)
+void ScenarioManager::setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName, 
+			const QString& macrosName, const QString& statsName)
 {
 	SpeechModelManagementConfiguration::setModelType(modelType);
 	SpeechModelManagementConfiguration::setBaseModelHMMName(hmmName);
 	SpeechModelManagementConfiguration::setBaseModelTiedlistName(tiedlistName);
+	SpeechModelManagementConfiguration::setBaseModelMacrosName(macrosName);
+	SpeechModelManagementConfiguration::setBaseModelStatsName(statsName);
 	SpeechModelManagementConfiguration::self()->writeConfig();
 	touchBaseModelAccessTime();
 }

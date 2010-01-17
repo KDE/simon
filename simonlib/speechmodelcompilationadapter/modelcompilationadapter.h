@@ -34,7 +34,7 @@
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread{
+class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread {
 Q_OBJECT
 signals:
 	/**
@@ -45,9 +45,32 @@ signals:
 
 	void adaptionComplete();
 	void adaptionAborted();
+public:
+	enum AdaptionType {
+		AdaptLanguageModel=1,
+		AdaptAcousticModel=2
+	};
+
+	virtual int maxProgress();
+	ModelCompilationAdapter(const QString& userName, QObject *parent=0);
+
+	virtual bool startAdaption(AdaptionType adaptionType, const QString& lexiconPathOut, 
+			const QString& grammarPathOut, const QString& simpleVocabPathOut, 
+			const QString& promptsPathOut, const QStringList& scenarioPathsIn, 
+			const QString& promptsIn);
+
+	virtual bool adaptModel(AdaptionType adaptionType, const QStringList& scenarioPaths, 
+			const QString& promptsPathIn, const QString& lexiconPathOut, 
+			const QString& grammarPathOut, const QString& simpleVocabPathOut, 
+			const QString& promptsPathOut)=0;
+
+	QString getStatus() { return currentStatus; }
+
+	virtual ~ModelCompilationAdapter();
 
 protected:
 	bool keepGoing;
+	AdaptionType m_adaptionType;
 	QString currentStatus;
 	QStringList m_scenarioPathsIn;
 	QString m_promptsPathIn;
@@ -57,22 +80,6 @@ protected:
 	QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
 
 	void run();
-	
-public:
-	virtual int maxProgress();
-	ModelCompilationAdapter(const QString& userName, QObject *parent=0);
-
-	virtual bool startAdaption(const QString& lexiconPathOut, const QString& grammarPathOut, const QString& simpleVocabPathOut, 
-			const QString& promptsPathOut, const QStringList& scenarioPathsIn, const QString& promptsIn);
-
-	virtual bool adaptModel(const QStringList& scenarioPaths, const QString& promptsPathIn, 
-			const QString& lexiconPathOut, const QString& grammarPathOut, 
-			const QString& simpleVocabPathOut, const QString& promptsPathOut)=0;
-
-	QString getStatus() { return currentStatus; }
-
-	virtual ~ModelCompilationAdapter();
-
 };
 
 #endif

@@ -21,6 +21,14 @@
       <label>The (file) name of the last loaded base tiedlist</label>
       <default>None</default>
     </entry>
+    <entry name="BaseModelMacrosName" type="String">
+      <label>The (file) name of the last loaded base macros</label>
+      <default>None</default>
+    </entry>
+    <entry name="BaseModelStatsName" type="String">
+      <label>The (file) name of the last loaded base stats</label>
+      <default>None</default>
+    </entry>
 
     <entry name="ModelSampleRate" type="Int">
       <label>What samplerate the trainings samples should be recorded in.</label>

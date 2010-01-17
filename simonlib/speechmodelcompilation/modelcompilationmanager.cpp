@@ -85,7 +85,12 @@ bool ModelCompilationManager::createDirs()
 	if (!tempDirHandle.exists())
 		return false;
 
-	for (int i=0; i < 16; i++)
+	if (!tempDirHandle.exists("xforms") && !tempDirHandle.mkdir("xforms"))
+		return false;
+	if (!tempDirHandle.exists("classes") && !tempDirHandle.mkdir("classes"))
+		return false;
+
+	for (int i=0; i < 17; i++)
 	{
 		if (!tempDirHandle.exists("hmm"+QString::number(i)) && 
 			!tempDirHandle.mkdir("hmm"+QString::number(i)))
@@ -100,21 +105,25 @@ bool ModelCompilationManager::parseConfiguration()
 	KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
 	KConfigGroup programGroup(&config, "Programs");
 	
-	hDMan = programGroup.readEntry("HDMan", KUrl(KStandardDirs::findExe("HDMan"))).path();
-	hLEd = programGroup.readEntry("HLEd", KUrl(KStandardDirs::findExe("HLEd"))).path();
-	hCopy = programGroup.readEntry("HCopy", KUrl(KStandardDirs::findExe("HCopy"))).path();
-	hCompV = programGroup.readEntry("HCompV", KUrl(KStandardDirs::findExe("HCompV"))).path();
-	hERest = programGroup.readEntry("HERest", KUrl(KStandardDirs::findExe("HERest"))).path();
-	hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).path();
-	hVite = programGroup.readEntry("HVite", KUrl(KStandardDirs::findExe("HVite"))).path();
-	mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).path();
-	dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).path();
+	if ((compilationType & ModelCompilationManager::CompileSpeechModel)||
+	   (compilationType & ModelCompilationManager::AdaptSpeechModel)){
+		hDMan = programGroup.readEntry("HDMan", KUrl(KStandardDirs::findExe("HDMan"))).path();
+		hLEd = programGroup.readEntry("HLEd", KUrl(KStandardDirs::findExe("HLEd"))).path();
+		hCopy = programGroup.readEntry("HCopy", KUrl(KStandardDirs::findExe("HCopy"))).path();
+		hCompV = programGroup.readEntry("HCompV", KUrl(KStandardDirs::findExe("HCompV"))).path();
+		hERest = programGroup.readEntry("HERest", KUrl(KStandardDirs::findExe("HERest"))).path();
+		hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).path();
+		hVite = programGroup.readEntry("HVite", KUrl(KStandardDirs::findExe("HVite"))).path();
+	}
+	if (compilationType & ModelCompilationManager::CompileLanguageModel) {
+		mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).path();
+		dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).path();
+	}
 
-	if (!QFile::exists(hDMan) ||
-			!QFile::exists(hCopy) ||
-			!QFile::exists(hCompV) ||
-			!QFile::exists(hERest) ||
-			!QFile::exists(hVite))
+	if ((compilationType & ModelCompilationManager::CompileSpeechModel) && 
+		(!QFile::exists(hDMan) || !QFile::exists(hCopy) ||
+		!QFile::exists(hCompV) || !QFile::exists(hERest) ||
+		!QFile::exists(hVite)))
 	{
 		//HTK not found
 		QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n"
@@ -128,8 +137,8 @@ bool ModelCompilationManager::parseConfiguration()
 		return false;
 	}
 
-	if (!QFile::exists(mkfa) ||
-			!QFile::exists(dfaMinimize))
+	if ((compilationType & ModelCompilationManager::CompileLanguageModel) && 
+		(!QFile::exists(mkfa) || !QFile::exists(dfaMinimize)))
 	{
 		//julius grammar tools not found
 		emit error(i18n("The julius related grammar tools mkfa and dfa_minimize can not be found.\n\nA reinstallation of simon could solve this problem."));
@@ -142,7 +151,7 @@ bool ModelCompilationManager::parseConfiguration()
 bool ModelCompilationManager::execute(const QString& command)
 {
 	QProcess proc;
-	proc.setWorkingDirectory(QCoreApplication::applicationDirPath());
+	proc.setWorkingDirectory(tempDir);
 	proc.start(command);
 	
 	buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
@@ -257,8 +266,13 @@ bool ModelCompilationManager::processError()
 	return false;
 }
 
-bool ModelCompilationManager::startCompilation(const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath, const QString& samplePath,
+#include <KDebug>
+bool ModelCompilationManager::startCompilation(ModelCompilationManager::CompilationType compilationType,
+			     const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath, 
+			     const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
+			     const QString& baseMacrosPath, const QString& baseStatsPath,
+			     const QString& samplePath,
 			     const QString& lexiconPath, const QString& grammarPath, 
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath)
@@ -272,10 +286,18 @@ bool ModelCompilationManager::startCompilation(const QString& hmmDefsPath, const
 		emit activeModelCompilationAborted();
 	}
 
+
 	this->hmmDefsPath = hmmDefsPath;
 	this->tiedListPath = tiedListPath;
 	this->dictPath = dictPath;
 	this->dfaPath = dfaPath;
+
+	this->baseHmmDefsPath = baseHmmDefsPath;
+	this->baseTiedlistPath = baseTiedlistPath;
+	this->baseStatsPath = baseStatsPath;
+	this->baseMacrosPath = baseMacrosPath;
+
+	this->compilationType = compilationType;
 
 	this->samplePath = samplePath;
 
@@ -308,12 +330,23 @@ void ModelCompilationManager::run()
 	emit status(i18n("Preperation"), 0,2300);
 	
 
-	if (!generateInputFiles()) return;
-	if (!makeTranscriptions()) return;
-	if (!codeAudioData()) return;
-	if (!buildHMM()) return;
-	if (!compileGrammar()) return;
+	if ((compilationType & ModelCompilationManager::CompileSpeechModel) ||
+			(compilationType & ModelCompilationManager::AdaptSpeechModel))
+	{
+		if (!generateInputFiles()) return;
+		if (!makeTranscriptions()) return;
+		if (!codeAudioData()) return;
+	}
 
+	if (compilationType & ModelCompilationManager::AdaptSpeechModel)
+		if (!adaptBaseModel()) return;
+
+	if (compilationType & ModelCompilationManager::CompileSpeechModel)
+		if (!buildHMM()) return;
+
+	if (compilationType & ModelCompilationManager::CompileLanguageModel) {
+		if (!compileGrammar()) return;
+	}
 	//sync model
 	if (!keepGoing) return;
 	
@@ -339,7 +372,6 @@ bool ModelCompilationManager::compileGrammar()
 		analyseError(i18n("Couldn't create temporary vocabular."));
 		return false;
 	}
-	
 
 	if (!keepGoing) return false;
 	emit status(i18n("Generating DFA..."), 2250);
@@ -1256,6 +1288,101 @@ bool ModelCompilationManager::generateMlf()
 	mlf.close();
 	return true;
 }
+
+bool ModelCompilationManager::adaptBaseModel()
+{
+	if (!keepGoing) return false;
+	emit status(i18n("Re-Aligninging to base model..."), 550);
+	if (!realignToBaseModel())
+	{
+		analyseError(i18n("Couldn't re-align model to the selected base model. Please check your paths to HVite (%1) and to the config (%2).", hVite, KStandardDirs::locate("data", "simon/scripts/config")));
+		return false;
+	}
+	emit status(i18n("Generating regtree.hed..."), 900);
+	if (!makeRegTreeHed())
+	{
+		analyseError(i18n("Couldn't create regtree.hed."));
+		return false;
+	}
+	emit status(i18n("Creating regression class tree..."), 950);
+	if (!createRegressionClassTree())
+	{
+		analyseError(i18n("Couldn't create regression class tree. Please check your paths to HHEd (%1).", hHEd));
+		return false;
+	}
+	emit status(i18n("Performing static adaption..."), 1500);
+	if (!staticAdaption())
+	{
+		analyseError(i18n("Couldn't adapt the base model. Please check your paths to HERest (%1).", hERest));
+		return false;
+	}
+
+	emit status(i18n("Switching to new model..."), 1500);
+
+	if ( (((QFile::exists(hmmDefsPath)) && (!QFile::remove(hmmDefsPath))) ||
+			(!QFile::copy(tempDir+"/classes/basehmmdefs", hmmDefsPath))) || 
+		 (((QFile::exists(tiedListPath)) && (!QFile::remove(tiedListPath))) ||
+			(!QFile::copy(baseTiedlistPath, tiedListPath)))) {
+		analyseError(i18n("Couldn't switch to new model."));
+		return false;
+	}
+
+	return true;
+}
+
+bool ModelCompilationManager::realignToBaseModel()
+{
+	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b SENT-END -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -i \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(baseTiedlistPath)+"\"");
+}
+
+bool ModelCompilationManager::createRegressionClassTree()
+{
+	return execute('"'+hHEd+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -M \""+htkIfyPath(tempDir)+"/classes/\" \""+htkIfyPath(tempDir)+"/regtree.hed\" \""+htkIfyPath(baseTiedlistPath)+"\"");
+}
+
+
+bool ModelCompilationManager::makeRegTreeHed()
+{	
+	QFile::remove(tempDir+"/regtree.hed");
+
+	QFile regTreeHed(tempDir+"/regtree.hed");
+	
+	if (!regTreeHed.open(QIODevice::WriteOnly)) return false;
+	
+	//RN "models"
+	//LS "stats"
+	//RC 32 "rtree"
+	regTreeHed.write("RN \"models\"\n");
+	regTreeHed.write("LS \""+baseStatsPath.toUtf8()+"\"\n");
+	regTreeHed.write("RC 32 \"rtree\"\n");
+	regTreeHed.close();
+	
+	return true;
+}
+
+
+
+bool ModelCompilationManager::staticAdaption()
+{
+	QString staticAdaptionPath = tempDir+QDir::separator()+"classes/staticAdaption";
+	if (QFile::exists(staticAdaptionPath) &&
+		!QFile::remove(staticAdaptionPath))
+		return false;
+	if (!QFile::copy(KStandardDirs::locate("data", "simon/scripts/staticAdaption"), staticAdaptionPath)) return false;
+
+	QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/basehmmdefs";
+	QString adaptFromTiedlist = baseTiedlistPath;
+	QString adaptFromMacros = htkIfyPath(tempDir)+"classes/basemacros";
+
+	if (!execute('"'+hERest+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+		return false;
+
+	if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+		return false;
+
+	return true;
+}
+
 
 ModelCompilationManager::~ModelCompilationManager()
 {

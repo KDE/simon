@@ -103,11 +103,14 @@ Model* ModelManager::createBaseModelContainer()
 	
 	QFile hmmDefs(KStandardDirs::locate("appdata", "model/basehmmdefs"));
 	QFile tiedList(KStandardDirs::locate("appdata", "model/basetiedlist"));
+	QFile macros(KStandardDirs::locate("appdata", "model/basemacros"));
+	QFile stats(KStandardDirs::locate("appdata", "model/basestats"));
 	
-	if ((!hmmDefs.open(QIODevice::ReadOnly)) || (!tiedList.open(QIODevice::ReadOnly)))
+	if ((!hmmDefs.open(QIODevice::ReadOnly)) || (!tiedList.open(QIODevice::ReadOnly))
+		|| (!macros.open(QIODevice::ReadOnly)) || (!stats.open(QIODevice::ReadOnly)))
 		return 0;
 	
-	return new Model(modelType, hmmDefs.readAll(), tiedList.readAll(), QByteArray(), QByteArray());
+	return new Model(modelType, hmmDefs.readAll(), tiedList.readAll(), macros.readAll(), stats.readAll());
 }
 
 qint32 ModelManager::getActiveModelSampleRate()
@@ -132,7 +135,8 @@ QDateTime ModelManager::getBaseModelDate()
 }
 
 bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-					const QByteArray& hmmDefs, const QByteArray& tiedList)
+					const QByteArray& hmmDefs, const QByteArray& tiedList,
+					const QByteArray& macros, const QByteArray& stats)
 {
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -142,18 +146,26 @@ bool ModelManager::storeBaseModel(const QDateTime& changedTime, int baseModelTyp
 	
 	ScenarioManager::getInstance()->setBaseModelType(baseModelType);
 	
-	QFile hmmDefsFile(KStandardDirs::locateLocal("appdata", "model/hmmdefs"));
-	QFile tiedlistFile(KStandardDirs::locateLocal("appdata", "model/tiedlist"));
+	QFile hmmDefsFile(KStandardDirs::locateLocal("appdata", "model/basehmmdefs"));
+	QFile tiedlistFile(KStandardDirs::locateLocal("appdata", "model/basetiedlist"));
+	QFile macrosFile(KStandardDirs::locateLocal("appdata", "model/basemacros"));
+	QFile statsFile(KStandardDirs::locateLocal("appdata", "model/basestats"));
 	
 	if (!hmmDefsFile.open(QIODevice::WriteOnly)
-		|| !tiedlistFile.open(QIODevice::WriteOnly))
+		|| !tiedlistFile.open(QIODevice::WriteOnly)
+		|| !macrosFile.open(QIODevice::WriteOnly)
+		|| !statsFile.open(QIODevice::WriteOnly))
 		return false;
 	
 	hmmDefsFile.write(hmmDefs);
 	tiedlistFile.write(tiedList);
+	macrosFile.write(macros);
+	statsFile.write(stats);
 	
 	hmmDefsFile.close();
 	tiedlistFile.close();
+	macrosFile.close();
+	statsFile.close();
 	return true;
 }
 

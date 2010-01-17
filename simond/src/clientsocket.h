@@ -73,7 +73,7 @@ class ClientSocket : public QSslSocket
 
 		void recognitionReady();
 		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
-		void recognitionError(const QString& error);
+		void recognitionError(const QString& error, const QByteArray& log);
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();

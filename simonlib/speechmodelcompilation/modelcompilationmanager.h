@@ -52,28 +52,60 @@ signals:
 	void modelCompiled();
 	void activeModelCompilationAborted();
 
+public:
+	enum CompilationType {
+		CompileLanguageModel=1,
+		CompileSpeechModel=2,
+		AdaptSpeechModel=4
+	};
+
+	ModelCompilationManager(const QString& userName, QObject *parent=0);
+
+	void run();
+	bool startCompilation(ModelCompilationManager::CompilationType compilationType,
+			     const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath,
+
+			     const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
+			     const QString& baseStatsPath, const QString& baseMacrosPath,
+
+			     const QString& samplePath,
+
+			     const QString& lexiconPath, const QString& grammarPath, 
+			     const QString& vocabPath, const QString& promptsPath, 
+
+			     const QString& treeHedPath, const QString& wavConfigPath);
+	bool hasBuildLog();
+	QString getGraphicBuildLog();
+	QString getBuildLog();
+	
+	QString getStatus() { return currentStatus; }
+
+	~ModelCompilationManager();
+
 private:
 	bool keepGoing;
 	QString currentStatus;
 	
-//	QProcess proc;
 	QString buildLog;
 	QString lastOutput;
 
-	QString htkIfyPath(const QString& in);
+	CompilationType compilationType;
 
 	QString userName;
 	QString samplePath;
 	QString tempDir;
 	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
+	QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
 	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
-
-	void analyseError(QString readableError);
-	bool processError();
 
 	//config options
 	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
 	
+	QString htkIfyPath(const QString& in);
+	void analyseError(QString readableError);
+	bool processError();
+
 	bool createDirs();
 
 	bool execute(const QString& command);
@@ -123,6 +155,12 @@ private:
 			bool buildHMM14();
 			bool buildHMM15();
 
+	bool adaptBaseModel();
+		bool realignToBaseModel();
+		bool makeRegTreeHed();
+		bool createRegressionClassTree();
+		bool staticAdaption();
+
 	bool compileGrammar();
 		bool generateReverseGrammar();
 		bool makeTempVocab();
@@ -131,28 +169,6 @@ private:
 	
 private slots:
 	void addStatusToLog(const QString&);
-
-public:
-    ModelCompilationManager(const QString& userName, 
-			     QObject *parent=0);
-
-	void run();
-	bool startCompilation(const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath,
-			     const QString& samplePath,
-
-			     const QString& lexiconPath, const QString& grammarPath, 
-			     const QString& vocabPath, const QString& promptsPath, 
-
-			     const QString& treeHedPath, const QString& wavConfigPath);
-	bool hasBuildLog();
-	QString getGraphicBuildLog();
-	QString getBuildLog();
-	
-	QString getStatus() { return currentStatus; }
-
-    ~ModelCompilationManager();
-
 };
 
 #endif
