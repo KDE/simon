@@ -95,6 +95,7 @@ public:
 	bool addStructures(const QStringList& newStructures);
 
 	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+	QList<Word*> findWordsByTerminal(const QString& name);
 
 	QStringList getAllPossibleSentences();
 	QStringList getAllPossibleSentencesOfStructure(const QString& structure);

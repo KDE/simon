@@ -34,7 +34,7 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class PronunciationTrainingCommandManager : public CommandManager{
+class PronunciationTrainingCommandManager : public CommandManager {
 Q_OBJECT
 
 protected:

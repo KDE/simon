@@ -38,9 +38,9 @@ ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizard
 	registerField("lexicon", ui.rbHTK, "checked", SIGNAL(toggled(bool)));
 	registerField("pls", ui.rbPLS, "checked", SIGNAL(toggled(bool)));
 	registerField("sphinx", ui.rbSPHINX, "checked", SIGNAL(toggled(bool)));
+	registerField("julius", ui.rbJuliusVocabulary, "checked", SIGNAL(toggled(bool)));
 }
 /**
- * \brief Returns the next id for the wizard (2 if we selected hadifix, else 3)
  * \author Peter Grasch
  * @return the id
  */
@@ -52,7 +52,11 @@ int ImportDictSelectSourcePage::nextId() const
 		return ImportDictView::LexiconPage;
 	else if (field("pls").toBool())
 		return ImportDictView::PLSPage;
-	else return ImportDictView::SPHINXPage;
+	else if (field("julius").toBool()) {
+		kDebug() << "julius selected";
+		return ImportDictView::JuliusVocabulary;
+	} else
+		return ImportDictView::SPHINXPage;
 }
 
 /**

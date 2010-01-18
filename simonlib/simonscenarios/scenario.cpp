@@ -477,6 +477,11 @@ QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type
 	return m_vocabulary->findWords(name, type);
 }
 
+QList<Word*> Scenario::findWordsByTerminal(const QString& name)
+{
+	return m_vocabulary->findWordsByTerminal(name);
+}
+
 QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate, 
 			const QString& toDemonstrateTerminal)
 {

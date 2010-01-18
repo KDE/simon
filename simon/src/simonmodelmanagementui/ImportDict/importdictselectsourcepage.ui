@@ -1,59 +1,67 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ImportDictSelectSourcePage</class>
- <widget class="QWidget" name="ImportDictSelectSourcePage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportDictSelectSourcePage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>211</height>
+    <height>236</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>simon is able to import four different types of dictionaries:
 HADIFIX dictionaries, HTK compatible dictionaries, SPHINX Lexicons and PLS dictionaries.
 
 Please select the type of dictionary you want to import now.</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbHadifixBOMP" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbHadifixBOMP">
+     <property name="text">
       <string>HADIFIX</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbHTK" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbHTK">
+     <property name="text">
       <string>HTK Lexicon</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbPLS" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbPLS">
+     <property name="text">
       <string>PLS Lexicon</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="rbSPHINX" >
-     <property name="text" >
+    <widget class="QRadioButton" name="rbSPHINX">
+     <property name="text">
       <string>SPHINX Lexicon</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbJuliusVocabulary">
+     <property name="text">
+      <string>Julius Vocabulary</string>
      </property>
     </widget>
    </item>

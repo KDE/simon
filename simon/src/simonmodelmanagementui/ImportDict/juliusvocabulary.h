@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,27 +18,22 @@
  */
 
 
-#ifndef SIMON_IMPORTLEXICONPAGE_H_F49A09B6297C4796A6FD9D58F6E7E8AC
-#define SIMON_IMPORTLEXICONPAGE_H_F49A09B6297C4796A6FD9D58F6E7E8AC
+#ifndef SIMON_JULIUSVOCABULARY_H_D697D184A43A4F81A3139128ACDB541E
+#define SIMON_JULIUSVOCABULARY_H_D697D184A43A4F81A3139128ACDB541E
 
-#include <QWizardPage>
-#include "ui_importdictlexiconpage.h"
-#include "importdictview.h"
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
-class ImportLexiconPage : public QWizardPage
+#include "dict.h"
+
+class JuliusVocabulary : public Dict
 {
-Q_OBJECT
-private:
-	Ui::ImportDictLexiconPage ui;
-public:
-	ImportLexiconPage(QWidget* parent);
-	int nextId() const { return ImportDictView::WorkingPage; }
-	bool isComplete() const;
-	void initializePage();
+	Q_OBJECT
+signals:
+	void loaded();
 
-    ~ImportLexiconPage();
+public:
+    explicit JuliusVocabulary(QObject* parent=0);
+    void load(QString path, QString encodingName);
+
+    ~JuliusVocabulary();
 
 };
 

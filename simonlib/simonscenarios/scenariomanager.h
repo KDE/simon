@@ -88,6 +88,7 @@ public:
 	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
 
 	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
+	QList<Word*> findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements);
 
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
 	bool setupScenarios(bool forceChange=false);

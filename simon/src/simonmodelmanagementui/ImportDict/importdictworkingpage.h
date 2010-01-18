@@ -63,6 +63,7 @@ public slots:
 	void importLexicon(QString path);
 	void importPLS(QString path);
 	void importSPHINX(QString path);
+	void importJulius(QString path);
 
 	bool isComplete() const;
 

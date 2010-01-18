@@ -48,9 +48,11 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbompdownloadpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictsphinxpage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictjuliuspage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/lexicondict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/plsdict.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/juliusvocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/dict.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminals.cpp
@@ -88,6 +90,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbompdownloadpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictsphinxpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictjuliuspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui

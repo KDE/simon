@@ -221,20 +221,16 @@ QStringList ScenarioManager::getTerminals(SpeechModel::ModelElements elements)
 
 bool ScenarioManager::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
 {
-	kDebug() << "Start renaming terminal...";
 	bool success = true;
 
-	kDebug() << "Renaming in shadow...";
 	if (affect & SpeechModel::ShadowVocabulary) {
 		if (!(shadowVocab->renameTerminal(terminal, newName)))
 			success=false;
 	}
 
-	kDebug() << "Renaming in current...";
 	if (!getCurrentScenario()->renameTerminal(terminal, newName, affect))
 		success = false;
 
-	kDebug() << "Renaming done...";
 	return success;
 }
 
@@ -254,6 +250,29 @@ QList<Word*> ScenarioManager::findWords(const QString& name, SpeechModel::ModelE
 	} else 
 		if (elements & SpeechModel::ScenarioVocabulary) {
 			QList<Word*> newWords = getCurrentScenario()->findWords(name, type);
+			words.append(newWords);
+		}
+
+	return words;
+}
+
+QList<Word*> ScenarioManager::findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements)
+{
+	QList<Word*> words;
+	if (elements & SpeechModel::ShadowVocabulary) {
+		QList<Word*> newWords = shadowVocab->findWordsByTerminal(name);
+		words.append(newWords);
+	}
+
+	if (elements & SpeechModel::AllScenariosVocabulary) {
+		foreach (Scenario* s, scenarios) {
+			QList<Word*> newWords = s->findWordsByTerminal(name);
+			kDebug() << "Got " << newWords.count() << " words from " << s->id();
+			words.append(newWords);
+		}
+	} else 
+		if (elements & SpeechModel::ScenarioVocabulary) {
+			QList<Word*> newWords = getCurrentScenario()->findWordsByTerminal(name);
 			words.append(newWords);
 		}
 

@@ -22,11 +22,6 @@
 
 QString RecognitionResult::toString() const
 {
-	//QString m_sentence;
-	//QString m_sampa;
-	//QString m_sampaRaw;
-	//QList<float> m_confidenceScores;
-
 	QString out;
 	out += i18n("Sentence: %1\n"
 			"SAMPA: %2\n"

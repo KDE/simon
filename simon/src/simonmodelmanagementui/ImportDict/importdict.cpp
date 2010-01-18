@@ -24,6 +24,7 @@
 #include "sphinxdict.h"
 #include "lexicondict.h"
 #include "plsdict.h"
+#include "juliusvocabulary.h"
 #include <QFile>
 #include <KDebug>
 #include <KLocalizedString>
@@ -89,6 +90,9 @@ void ImportDict::run()
 		case Dict::SPHINX:
 			dict = new SPHINXDict();
 			break;
+		case Dict::JuliusVocabulary:
+			dict = new JuliusVocabulary();
+			break;
 		default:
 			emit failed();
 			return; //unknown type
@@ -120,10 +124,8 @@ void ImportDict::run()
 	pronunciations.clear();
 	terminals.clear();
 
-	if (type != Dict::HTKLexicon)
-	{
+	if (type != Dict::HTKLexicon) {
 		emit status(i18n("Sorting Dictionary..."));
-		kDebug() << "Sorting!";
 		qSort(wordList->begin(), wordList->end(), isWordLessThan);
 	}
 	emit progress(1000);
@@ -131,10 +133,8 @@ void ImportDict::run()
 
 	Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
 
-	if (deleteFileWhenDone)
-	{
+	if (deleteFileWhenDone) {
 		Logger::log(i18n("[INF]")+" "+i18n("Deleting Input-File"));
-		
 		QFile::remove(this->pathToDict);
 	}
 	emit successful();

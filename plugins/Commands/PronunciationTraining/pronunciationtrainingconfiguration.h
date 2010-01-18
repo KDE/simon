@@ -31,18 +31,20 @@ class PronunciationTrainingConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::PronunciationTrainingConfigurationDlg ui;
+		QString storedTerminal;
+		void initTerminals();
  
 	public slots:
 		virtual bool deSerialize(const QDomElement&);
 		virtual QDomElement serialize(QDomDocument *doc);
 		virtual void defaults();
+		void setVisible(bool);
 	
 	public:
 		PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~PronunciationTrainingConfiguration();
 		
 		//configuration options
-		QString trigger();
 		QString terminal();
 };
 

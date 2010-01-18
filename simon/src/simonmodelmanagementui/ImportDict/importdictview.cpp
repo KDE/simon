@@ -28,6 +28,7 @@
 #include "importlexiconpage.h"
 #include "importdictplspage.h"
 #include "importdictsphinxpage.h"
+#include "importdictjuliuspage.h"
 
 #include <QLabel>
 #include <QVBoxLayout>
@@ -50,6 +51,7 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 	addPage(createImportLexiconPage());
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
+	addPage(createImportJuliusVocabularyPage());
 
 	connect(workingPage, SIGNAL(done()), this, SLOT(next()));
 	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
@@ -58,12 +60,6 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 	setWindowTitle(i18n("Importing Dictionary"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
 }
-
-
-//void ImportDictView::dictReady(WordList * list)
-//{
-//	emit dictGenerated(list, (WordListTarget::WordListType) field("targetType").toInt());
-//}
 
 /**
  * \brief Creates the page to import a simon lexicon
@@ -97,6 +93,16 @@ QWizardPage* ImportDictView::createImportSPHINXPage()
 
 
 /**
+ * \brief Creates the page to import a julius vocabulary
+ * \author Peter Grasch
+ * @return The wizardpage
+ */
+QWizardPage* ImportDictView::createImportJuliusVocabularyPage()
+{
+	return new ImportDictJuliusPage(this);
+}
+
+/**
  * \brief Creates the intro page
  * \author Peter Grasch
  * 
@@ -108,8 +114,6 @@ QWizardPage* ImportDictView::createIntroPage()
 {
 	return new ImportDictIntroPage(this);
 }
-
-
 
 /**
  * \brief Creates a new ImportDictSelectSourcePage and returns it

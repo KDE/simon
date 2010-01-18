@@ -164,6 +164,19 @@ void ImportDictWorkingPage::importSPHINX(QString path)
 }
 
 
+void ImportDictWorkingPage::importJulius(QString path)
+{
+	if (path.isEmpty()) return;
+
+	displayStatus(i18n("Importing Julius vocabulary %1...", path));
+	
+	QString encoding = field("juliusVocabularyEncoding").toString();
+	if (encoding == i18n("Automatic"))
+		encoding = guessEncoding(path);
+	import->parseWordList(path, encoding, Dict::JuliusVocabulary, true /* remove input file when done */);
+}
+
+
 QList<Word*>* ImportDictWorkingPage::getCurrentWordList()
 {
 	return import->getCurrentWordList();
@@ -202,6 +215,8 @@ void ImportDictWorkingPage::initializePage()
 		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
 	else if (field("pls").toBool())
 		importPLS(prepareDict(field("plsFilename").value<KUrl>()));
+	else if (field("julius").toBool())
+		importJulius(prepareDict(field("juliusVocabularyFilename").value<KUrl>()));
 	else
 		importSPHINX(prepareDict(field("sphinxFilename").value<KUrl>()));
 }

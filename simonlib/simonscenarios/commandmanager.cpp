@@ -243,7 +243,7 @@ CommandManager::~CommandManager()
 		qDeleteAll(*commands);
 
 	if (config)
-		delete config;
+		config->deleteLater();
 
 	foreach (QAction* action, guiActions) {
 		action->deleteLater();

@@ -18,6 +18,7 @@
  */
 
 #include "pronunciationtrainingcommandmanager.h"
+#include "pronunciationtraining.h"
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KGenericFactory>
@@ -46,20 +47,22 @@ PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject
 
 const QString PronunciationTrainingCommandManager::name() const
 {
+
 	return i18n("Pronunciation Training");
 }
 
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
-	kDebug() <<  "Activating training...";
+	PronunciationTraining *training = new PronunciationTraining(static_cast<PronunciationTrainingConfiguration*>(config)->terminal());
+	training->init();
+	training->show();
 }
 
 const QString PronunciationTrainingCommandManager::preferredTrigger() const
 {
 	return i18n("Pronunciation Training");
 }
-
 
 bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 {

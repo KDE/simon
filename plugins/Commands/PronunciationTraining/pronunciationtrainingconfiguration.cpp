@@ -19,7 +19,9 @@
 
 #include "pronunciationtrainingconfiguration.h"
 #include "pronunciationtrainingcommandmanager.h"
+#include <simonscenarios/scenariomanager.h>
 #include <QVariantList>
+#include <KDebug>
 #include <kgenericfactory.h>
 #include <KAboutData>
 #include <KMessageBox>
@@ -41,23 +43,44 @@ PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(Scenario 
 	QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
 
+void PronunciationTrainingConfiguration::initTerminals()
+{
+	ui.cbTerminal->clear();
+	QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+			(SpeechModel::ModelElements) 
+			(SpeechModel::ShadowVocabulary|
+			 	SpeechModel::AllScenariosVocabulary|
+				SpeechModel::AllScenariosGrammar));
+	ui.cbTerminal->addItems(terminals);
+	ui.cbTerminal->setCurrentIndex(ui.cbTerminal->findText(storedTerminal));
+}
+
+void PronunciationTrainingConfiguration::setVisible(bool visible)
+{
+	initTerminals();
+	QWidget::setVisible(visible);
+}
 
 bool PronunciationTrainingConfiguration::deSerialize(const QDomElement& elem)
 {
-	ui.cbTerminal->setCurrentIndex(
-			ui.cbTerminal->findText(elem.firstChildElement("terminal").text()));
+	storedTerminal = elem.firstChildElement("terminal").text();
 	return true;
 }
 
 QDomElement PronunciationTrainingConfiguration::serialize(QDomDocument *doc)
 {
+	storedTerminal = ui.cbTerminal->currentText();
 	QDomElement configElem = doc->createElement("config");
 	QDomElement terminalElem = doc->createElement("terminal");
-	terminalElem.appendChild(doc->createTextNode(ui.cbTerminal->currentText()));
+	terminalElem.appendChild(doc->createTextNode(storedTerminal));
 	configElem.appendChild(terminalElem);
 	return configElem;
 }
 
+QString PronunciationTrainingConfiguration::terminal()
+{
+	return storedTerminal;
+}
 
 void PronunciationTrainingConfiguration::defaults()
 {
