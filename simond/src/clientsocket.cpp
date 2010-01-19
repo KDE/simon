@@ -1154,6 +1154,10 @@ void ClientSocket::slotModelAdaptionComplete()
 					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
 					synchronisationManager->getWavConfigPath());
 
+			QFile::remove(activeDir+"hmmdefs");
+			QFile::remove(activeDir+"tiedlist");
+			QFile::copy(activeDir+"basehmmdefs", activeDir+"hmmdefs");
+			QFile::copy(activeDir+"basetiedlist", activeDir+"tiedlist");
 			break;
 		case 1:
 			//adapted base model

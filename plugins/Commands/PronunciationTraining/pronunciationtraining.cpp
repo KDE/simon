@@ -58,8 +58,12 @@ void PronunciationTraining::init()
 
 	m_currentWordIndex = 0;
 
-	if (m_wordsToTest.count() == 0)
+	if (m_wordsToTest.count() == 0) {
 		KMessageBox::information(this, i18n("There are no words to train. Please check your configuration."));
+		hide();
+		deleteLater();
+		return;
+	}
 
 	displayCurrentWord();
 }
@@ -117,14 +121,20 @@ bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
 	QString searchedSentence = w->getWord();
 
 	int i=0;
+	bool found = false;
 	foreach (RecognitionResult result, *results)
 	{
 		if (result.sentence() == searchedSentence)
 		{
 			kDebug() << "Found result: at index: " << i << result.toString();
 			ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));
-		}
+			found = true;
+		} else kDebug() << result.sentence() << " != " << searchedSentence;
 		i++;
+	}
+	if (!found) {
+		kDebug() << "Haven't found it!";
+		ui.pbScore->setValue(0);
 	}
 
 	return true;

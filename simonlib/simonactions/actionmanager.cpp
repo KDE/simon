@@ -55,6 +55,7 @@ ActionManager::ActionManager(QObject* parent) : QObject(parent),
 	useDYM(true)
 {
 	KLocale::setMainCatalog("simonlib");
+	retrieveRecognitionResultFilteringParameters();
 }
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
@@ -126,11 +127,13 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 			//it will be not be included in the list of results
 			
 			QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
+			kDebug() << confidenceScores;
 
 			//calc average
 			float avg= recognitionResults->at(i).averageConfidenceScore();
+			kDebug() << avg << minimumConfidenceThreshold;
 
-			if (!confidenceScores.contains(0) && (avg > minimumConfidenceThreshold))
+			if (!confidenceScores.contains(0.0f) && (avg >= minimumConfidenceThreshold))
 				selectedRecognitionResults->append(recognitionResults->at(i));
 		}
 
