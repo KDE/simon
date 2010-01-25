@@ -93,6 +93,7 @@ public:
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
 	bool setupScenarios(bool forceChange=false);
 
+	QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
 	QStringList getAllAvailableScenarioIds();
 
 

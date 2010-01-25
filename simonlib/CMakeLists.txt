@@ -27,7 +27,8 @@ install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COM
 
 
 
-message(STATUS "Enabling simons experimental scenario support.")
+message(STATUS "Enabling simon scenario support.")
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarios)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenarioui)
 

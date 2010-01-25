@@ -24,6 +24,7 @@
 #include <simonmodeltest/modeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
 #include <simonmodeltest/testresult.h>
+#include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonsound/recwidget.h>
 #include <QHash>
 #include <KStandardAction>
@@ -38,6 +39,7 @@
 #include <KCMultiDialog>
 #include <KMessageBox>
 #include <KFileDialog>
+#include <KDebug>
 
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
@@ -131,6 +133,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
 	connect(ui.tvFiles, SIGNAL(pressed(QModelIndex)), this, SLOT(slotFileResultSelected(QModelIndex)));
 	connect(ui.pbEditSample, SIGNAL(clicked()), this, SLOT(slotEditSelectedSample()));
+
+	connect(ui.pbSerializeScenarios, SIGNAL(clicked()), this, SLOT(serializeScenarios()));
 }
 
 void SamView::showConfig()
@@ -288,6 +292,18 @@ void SamView::getBuildPathsFromSimon()
 
 	ui.sbSampleRate->setValue(sampleRate);
 	ui.urJConf->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/julius.jconf")));
+}
+
+void SamView::serializeScenarios()
+{
+	//TODO: Implement
+	kDebug() << "Serializing scenarios";
+	ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
+	if (dlg->exec()) {
+		//reparse scenarios
+		kDebug() << "Serializing scenarios";
+	}
+	dlg->deleteLater();
 }
 
 void SamView::compileModel()

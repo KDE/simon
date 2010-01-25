@@ -43,38 +43,40 @@
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>
 
+#include "ui_scenariomanagementdlg.h"
 
-ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(parent), m_dirty(false)
+ScenarioManagementDialog::ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent) : KDialog(parent), 
+	ui(new Ui::ScenarioManagementDialog()), m_dataPrefix(dataPrefix), m_dirty(false)
 {
 	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+	ui->setupUi(widget);
 
 	setMainWidget( widget );
 	setCaption( i18n("Manage scenarios") );
 
 	initDisplay();
 
-	connect(ui.asScenarios->availableListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+	connect(ui->asScenarios->availableListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
 			  this, SLOT(availableScenarioSelected()));
-	connect(ui.asScenarios->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+	connect(ui->asScenarios->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
 			  this, SLOT(selectedScenarioSelected()));
 
-	connect(ui.asScenarios->availableListWidget(), SIGNAL(clicked(const QModelIndex&)),
+	connect(ui->asScenarios->availableListWidget(), SIGNAL(clicked(const QModelIndex&)),
 			  this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
-	connect(ui.asScenarios->selectedListWidget(), SIGNAL(clicked(const QModelIndex&)),
+	connect(ui->asScenarios->selectedListWidget(), SIGNAL(clicked(const QModelIndex&)),
 			  this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
 
-	ui.asScenarios->selectedListWidget()->setIconSize(QSize(22,22));
-	ui.asScenarios->availableListWidget()->setIconSize(QSize(22,22));
+	ui->asScenarios->selectedListWidget()->setIconSize(QSize(22,22));
+	ui->asScenarios->availableListWidget()->setIconSize(QSize(22,22));
 
-	connect(ui.asScenarios, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotAdded(QListWidgetItem*)));
-	connect(ui.asScenarios, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotMovedUp(QListWidgetItem*)));
-	connect(ui.asScenarios, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotMovedDown(QListWidgetItem*)));
-	connect(ui.asScenarios, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotRemoved(QListWidgetItem*)));
+	connect(ui->asScenarios, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotAdded(QListWidgetItem*)));
+	connect(ui->asScenarios, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotMovedUp(QListWidgetItem*)));
+	connect(ui->asScenarios, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotMovedDown(QListWidgetItem*)));
+	connect(ui->asScenarios, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotRemoved(QListWidgetItem*)));
 
-	connect(ui.pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
-	connect(ui.pbEditScenario, SIGNAL(clicked()), this, SLOT(editScenario()));
-	connect(ui.pbDeleteScenario, SIGNAL(clicked()), this, SLOT(deleteScenario()));
+	connect(ui->pbCreateScenario, SIGNAL(clicked()), this, SLOT(newScenario()));
+	connect(ui->pbEditScenario, SIGNAL(clicked()), this, SLOT(editScenario()));
+	connect(ui->pbDeleteScenario, SIGNAL(clicked()), this, SLOT(deleteScenario()));
 
 	QMenu *exportMenu = new QMenu(this);
 	QAction *ghnsExport = exportMenu->addAction(KIcon("get-hot-new-stuff"), i18n("Publish"));
@@ -90,14 +92,14 @@ ScenarioManagementDialog::ScenarioManagementDialog(QWidget *parent) : KDialog(pa
 	connect(ghnsImport, SIGNAL(triggered()), this, SLOT(getNewScenarios()));
 	connect(fileImport, SIGNAL(triggered()), this, SLOT(importScenario()));
 
-	ui.pbCreateScenario->setIcon(KIcon("list-add"));
-	ui.pbImportScenario->setIcon(KIcon("document-import"));
-	ui.pbExportScenario->setIcon(KIcon("document-export"));
-	ui.pbEditScenario->setIcon(KIcon("document-edit"));
-	ui.pbDeleteScenario->setIcon(KIcon("list-remove"));
+	ui->pbCreateScenario->setIcon(KIcon("list-add"));
+	ui->pbImportScenario->setIcon(KIcon("document-import"));
+	ui->pbExportScenario->setIcon(KIcon("document-export"));
+	ui->pbEditScenario->setIcon(KIcon("document-edit"));
+	ui->pbDeleteScenario->setIcon(KIcon("list-remove"));
 
-	ui.pbExportScenario->setMenu(exportMenu);
-	ui.pbImportScenario->setMenu(importMenu);
+	ui->pbExportScenario->setMenu(exportMenu);
+	ui->pbImportScenario->setMenu(importMenu);
 }
 
 void ScenarioManagementDialog::newScenario()
@@ -106,7 +108,7 @@ void ScenarioManagementDialog::newScenario()
 	Scenario *s = newScenario->newScenario();
 	if (s) {
 		//add scenario to available
-		displayScenario(s, ui.asScenarios->availableListWidget());
+		displayScenario(s, ui->asScenarios->availableListWidget());
 		m_dirty = true;
 	}
 	delete newScenario;
@@ -123,8 +125,8 @@ void ScenarioManagementDialog::editScenario()
 
 	if (s) {
 		//update description
-		QListWidget *available = ui.asScenarios->availableListWidget();
-		QListWidget *selected = ui.asScenarios->selectedListWidget();
+		QListWidget *available = ui->asScenarios->availableListWidget();
+		QListWidget *selected = ui->asScenarios->selectedListWidget();
 
 		QListWidgetItem *itemToUpdate = NULL;
 		if (selected->currentIndex() == m_lastSelectedIndex)
@@ -156,7 +158,7 @@ void ScenarioManagementDialog::importScenario()
 		delete s;
 		return;
 	}
-	displayScenario(s, ui.asScenarios->availableListWidget());
+	displayScenario(s, ui->asScenarios->availableListWidget());
 	delete s;
 }
 
@@ -165,7 +167,7 @@ void ScenarioManagementDialog::exportScenarioGHNS()
 	Scenario *s = getCurrentlySelectedScenario();
 	if (!s) return;
 
-	QString path = KStandardDirs::locate("appdata", "scenarios/"+s->id());
+	QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
 	KNS3::UploadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
 	dialog.setUploadFile(path);
 	dialog.setUploadName(s->name());
@@ -234,9 +236,9 @@ void ScenarioManagementDialog::deleteScenario()
 
 	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2\")?", 
 					s->name(), s->id())) == KMessageBox::Yes) {
-		QString path = KStandardDirs::locate("appdata", "scenarios/"+s->id());
-		QListWidget *available = ui.asScenarios->availableListWidget();
-		QListWidget *selected = ui.asScenarios->selectedListWidget();
+		QString path = KStandardDirs::locate("data", m_dataPrefix+"scenarios/"+s->id());
+		QListWidget *available = ui->asScenarios->availableListWidget();
+		QListWidget *selected = ui->asScenarios->selectedListWidget();
 		bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
 
 		if (!QFile::remove(path)) {
@@ -260,7 +262,7 @@ void ScenarioManagementDialog::deleteScenario()
 	}
 
 	delete s;
-	ui.asScenarios->setButtonsEnabled();
+	ui->asScenarios->setButtonsEnabled();
 }
 
 void ScenarioManagementDialog::updateLastSelectedIndex(const QModelIndex& index)
@@ -271,25 +273,25 @@ void ScenarioManagementDialog::updateLastSelectedIndex(const QModelIndex& index)
 
 void ScenarioManagementDialog::slotAdded(QListWidgetItem*)
 {
-	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	updateLastSelectedIndex(ui->asScenarios->selectedListWidget()->currentIndex());
 	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotMovedDown(QListWidgetItem*)
 {
-	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	updateLastSelectedIndex(ui->asScenarios->selectedListWidget()->currentIndex());
 	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotMovedUp(QListWidgetItem*)
 {
-	updateLastSelectedIndex(ui.asScenarios->selectedListWidget()->currentIndex());
+	updateLastSelectedIndex(ui->asScenarios->selectedListWidget()->currentIndex());
 	m_dirty = true;
 }
 
 void ScenarioManagementDialog::slotRemoved(QListWidgetItem*)
 {
-	updateLastSelectedIndex(ui.asScenarios->availableListWidget()->currentIndex());
+	updateLastSelectedIndex(ui->asScenarios->availableListWidget()->currentIndex());
 	m_dirty = true;
 }
 
@@ -334,8 +336,8 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
 
 void ScenarioManagementDialog::initDisplay()
 {
-	QListWidget *available = ui.asScenarios->availableListWidget();
-	QListWidget *selected = ui.asScenarios->selectedListWidget();
+	QListWidget *available = ui->asScenarios->availableListWidget();
+	QListWidget *selected = ui->asScenarios->selectedListWidget();
 	available->clear();
 	selected->clear();
 
@@ -344,14 +346,13 @@ void ScenarioManagementDialog::initDisplay()
 	QStringList  selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
 
 
-	QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
+	QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds(m_dataPrefix);
 	kDebug() << "Found scenarios: " << scenarioIds;
 
 	QHash<QString, Scenario*> selectedList;
 
 	foreach (const QString& id, scenarioIds) {
-		Scenario *s = new Scenario(id);
-		kDebug() << "Initializing scenario" << id;
+		Scenario *s = new Scenario(id, m_dataPrefix);
 		if (!s->skim()) {
 			KMessageBox::information(this, i18n("Could not init scenario \"%1\"", id));
 		} else {
@@ -367,23 +368,23 @@ void ScenarioManagementDialog::initDisplay()
 
 		displayScenario(s, selected);
 	}
-	ui.asScenarios->setButtonsEnabled();
+	ui->asScenarios->setButtonsEnabled();
 	m_dirty = false;
 }
 
 void ScenarioManagementDialog::availableScenarioSelected()
 {
-	ui.asScenarios->setButtonsEnabled();
+	ui->asScenarios->setButtonsEnabled();
 }
 
 void ScenarioManagementDialog::selectedScenarioSelected()
 {
-	ui.asScenarios->setButtonsEnabled();
+	ui->asScenarios->setButtonsEnabled();
 }
 
 bool ScenarioManagementDialog::save()
 {
-	QListWidget *s = ui.asScenarios->selectedListWidget();
+	QListWidget *s = ui->asScenarios->selectedListWidget();
 	QStringList ids;
 
 	for (int i=0; i < s->count(); i++)
@@ -418,5 +419,6 @@ int ScenarioManagementDialog::exec()
 
 ScenarioManagementDialog::~ScenarioManagementDialog()
 {
+	delete ui;
 }
 

@@ -50,6 +50,7 @@ signals:
 	void changed(Scenario*);
 
 private:
+	QString m_prefix;
 	int m_inGroup;
 	bool m_dirty;
 	QString m_scenarioId;
@@ -73,7 +74,7 @@ private:
 	bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
 
 public:
-	Scenario(const QString& scenarioId);
+	Scenario(const QString& scenarioId, const QString& prefix=QString());
 
 	KIcon icon() { return KIcon(m_iconSrc); }
 	QString iconSrc() { return m_iconSrc; }

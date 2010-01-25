@@ -25,18 +25,25 @@
 #include <QList>
 #include <QModelIndex>
 
-#include "ui_scenariomanagementdlg.h"
+#include "simonscenarioui_export.h"
 
 class Scenario;
+class QListWidget;
+class QListWidgetItem;
 
-class ScenarioManagementDialog : public KDialog    {
+namespace Ui {
+	class ScenarioManagementDialog ;
+}
+
+class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog    {
 	Q_OBJECT
 
 private:
-	Ui::Dialog ui;
+	Ui::ScenarioManagementDialog *ui;
 
 	QModelIndex m_lastSelectedIndex;
 
+	QString m_dataPrefix;
 	bool m_dirty;
 
 	void initDisplay();
@@ -69,7 +76,7 @@ public slots:
 	int exec();
 
 public:
-	explicit ScenarioManagementDialog(QWidget *parent = 0);
+	explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
 
 	~ScenarioManagementDialog();
 

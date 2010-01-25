@@ -79,6 +79,8 @@ private slots:
     void retrieveCompleteBuildLog();
     void retrieveCompleteTestLog();
 
+    void serializeScenarios();
+
     void slotModelCompilationStatus(const QString& status, int now, int max);
     void slotModelCompilationError(const QString& error);
     void slotModelCompilationClassUndefined(const QString&);

@@ -63,9 +63,9 @@ void ScenarioManager::slotBaseModelChanged()
 		emit baseModelChanged();
 }
 
-QStringList ScenarioManager::getAllAvailableScenarioIds()
+QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)
 {
-	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
+	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("data", dataPrefix+"scenarios/");
 	QStringList scenarioIds;
 
 	foreach (const QString& src, scenarioSrcs) {
@@ -75,6 +75,11 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
 			scenarioIds << idToBe;
 	}
 	return scenarioIds;
+}
+
+QStringList ScenarioManager::getAllAvailableScenarioIds()
+{
+	return getAllAvailableScenarioIds("simon/");
 }
 
 bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)

@@ -39,7 +39,9 @@
 #include <KDebug>
 
 
-Scenario::Scenario(const QString& scenarioId) : m_inGroup(0),
+Scenario::Scenario(const QString& scenarioId, const QString& prefix) : 
+	m_prefix(prefix),
+	m_inGroup(0),
 	m_dirty(true),
 	m_scenarioId(scenarioId),
 	m_simonMinVersion(NULL),
@@ -117,8 +119,12 @@ bool Scenario::update(const QString& name, const QString& iconSrc, int version, 
 
 bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
 {
-	if (path.isNull())
-		path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+	if (path.isNull()) {
+		if (m_prefix.isNull())
+			path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+		else
+			path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
+	}
 
 	if (!doc) {
 		doc = new QDomDocument("scenario");
@@ -140,7 +146,7 @@ bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
 
 bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 {
-	setupToParse(path, doc, deleteDoc);
+	if (!setupToParse(path, doc, deleteDoc)) return false;
 
 	QDomElement docElem = doc->documentElement();
 
@@ -316,7 +322,10 @@ bool Scenario::save(QString path)
 	}
 	
 	if (path.isNull()) {
-		path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
+		if (m_prefix.isNull())
+			path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+		else
+			path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
 	}
 
 	QFile file(path);

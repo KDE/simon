@@ -20,7 +20,7 @@
 #include "simonview.h"
 
 #include "inlinewidgetview.h"
-#include "scenariomanagementdialog.h"
+#include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
@@ -323,7 +323,7 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 
 void SimonView::manageScenarios()
 {
-	ScenarioManagementDialog *dlg = new ScenarioManagementDialog(this);
+	ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
 	if (dlg->exec()) {
 		//reload scenario information
 		if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
@@ -342,7 +342,6 @@ void SimonView::manageScenarios()
 void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
-	
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
