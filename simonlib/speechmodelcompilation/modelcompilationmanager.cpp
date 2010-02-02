@@ -1323,7 +1323,7 @@ bool ModelCompilationManager::adaptBaseModel()
 	emit status(i18n("Switching to new model..."), 1500);
 
 	if ( (((QFile::exists(hmmDefsPath)) && (!QFile::remove(hmmDefsPath))) ||
-			(!QFile::copy(tempDir+"/classes/basehmmdefs", hmmDefsPath))) || 
+			(!QFile::copy(tempDir+"/xforms/basehmmdefs.mfc.mllr2", hmmDefsPath))) || 
 		 (((QFile::exists(tiedListPath)) && (!QFile::remove(tiedListPath))) ||
 			(!QFile::copy(baseTiedlistPath, tiedListPath)))) {
 		analyseError(i18n("Couldn't switch to new model."));

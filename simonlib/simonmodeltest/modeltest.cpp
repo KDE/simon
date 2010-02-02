@@ -483,6 +483,7 @@ bool ModelTest::recognize()
 	lconv * localeConv = localeconv();
 	char *decimalPoint = localeConv->decimal_point;
 
+	kDebug() << "Source: " << hmmDefsPath;
 	QFile hmm(hmmDefsPath);
 	QFile hmmLoc(tempDir+"hmmdefs");
 	if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly)) {
