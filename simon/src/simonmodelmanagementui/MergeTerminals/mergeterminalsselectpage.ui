@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MergeTerminalsSelectTerminalsPage</class>
- <widget class="QWidget" name="MergeTerminalsSelectTerminalsPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="MergeTerminalsSelectTerminalsPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,101 +10,95 @@
     <height>326</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="lbDesc" >
-     <property name="text" >
+    <widget class="QLabel" name="lbDesc">
+     <property name="text">
       <string>Please select both terminals from the lists below and assign a name for the new, combined terminal.</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="lbNewTerminal" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lbNewTerminal">
+       <property name="text">
         <string>New Name:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="KLineEdit" name="leNewTerminal" />
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="leNewTerminal"/>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QSplitter" name="splitter" >
-     <property name="orientation" >
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="layoutWidget" >
-      <layout class="QVBoxLayout" >
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QLabel" name="lbTerminalA" >
-         <property name="text" >
+        <widget class="QLabel" name="lbTerminalA">
+         <property name="text">
           <string>Terminal A:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>lwA</cstring>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="SimonListWidget" name="lwA" />
+        <widget class="KListWidget" name="lwA"/>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget2" >
-      <layout class="QVBoxLayout" >
+     <widget class="QWidget" name="layoutWidget2">
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QLabel" name="lbTerminalB" >
-         <property name="text" >
+        <widget class="QLabel" name="lbTerminalB">
+         <property name="text">
           <string>Terminal B:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>lwB</cstring>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="SimonListWidget" name="lwB" />
+        <widget class="KListWidget" name="lwB"/>
        </item>
       </layout>
      </widget>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="cbIncludeShadow" >
-     <property name="text" >
+    <widget class="QCheckBox" name="cbIncludeShadow">
+     <property name="text">
       <string>Change shadow vocabulary</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="cbIncludeGrammar" >
-     <property name="text" >
+    <widget class="QCheckBox" name="cbIncludeGrammar">
+     <property name="text">
       <string>Change grammar</string>
      </property>
-     <property name="checked" >
+     <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -115,14 +110,14 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SimonListWidget</class>
-   <extends>KListWidget</extends>
-   <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

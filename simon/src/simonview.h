@@ -36,7 +36,7 @@
 
 #define sAddWordView 		1
 #include "ui_simonview.h"
-#include "simonmainwindow.h"
+#include <KXmlGuiWindow>
 #include <simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
 
@@ -66,7 +66,7 @@ class VocabularyView;
 class QComboBox;
 
 
-class SimonView : public SimonMainWindow, public ScenarioDisplay    {
+class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
 	
 	Q_OBJECT
 

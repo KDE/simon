@@ -33,31 +33,9 @@ InlineWidget::InlineWidget(QString title_, KIcon icon_, QString desc_, QWidget* 
 	: QWidget(parent),
 	title(title_),
 	desc(desc_),
-	icon(icon_),
-	guievents(new GuiEvents)
+	icon(icon_)
 {
 }
-
-
-void InlineWidget::registerControl(QString trigger, QObject* receiver, const char* slot)
-{
-	guievents->registerControl(trigger, receiver, slot);
-}
-
-
-void InlineWidget::doAction(QString action)
-{
-	if(isShown())
-	{
-		guievents->doAction(action,(QObject*)this);
-	}
-}
-
-QObjectList InlineWidget::getChildren(QObject *current)
-{
-	return current->children();
-}
-
 
 bool InlineWidget::isShown()
 {
@@ -74,7 +52,6 @@ bool InlineWidget::isShown()
  */
 InlineWidget::~InlineWidget()
 {
-	delete guievents;
 }
 
 

@@ -36,13 +36,10 @@
      <property name="text">
       <string>Old Terminal:</string>
      </property>
-     <property name="buddy">
-      <cstring>lwTerminal</cstring>
-     </property>
     </widget>
    </item>
    <item>
-    <widget class="SimonListWidget" name="lwTerminal"/>
+    <widget class="KListWidget" name="lwTerminal"/>
    </item>
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow">
@@ -68,14 +65,14 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SimonListWidget</class>
-   <extends>KListWidget</extends>
-   <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

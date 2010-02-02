@@ -38,8 +38,6 @@ RunCommandView::RunCommandView(QWidget* parent)
 	lay->addWidget(d);
 
 	hide();
-
-	guessChildTriggers((QObject*)this);
 }
 
 void RunCommandView::displayScenarioPrivate(Scenario *scenario)

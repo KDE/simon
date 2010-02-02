@@ -31,7 +31,6 @@ GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"),
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
 	hide();
-	guessChildTriggers(this);
 }
 
 

@@ -11,51 +11,49 @@ set (QT_USE_QTMAIN true)
 
 set( speechgui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidgetview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonslider.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/guievents.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/serveraddressselector.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.cpp
+
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonslider.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/guievents.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.cpp
+
 )
 
 set( speechgui_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/speechgui_export.h
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidgetview.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonslider.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/guievents.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.h
-	${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.h
 	${CMAKE_CURRENT_SOURCE_DIR}/serveraddressselector.h
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.h
+
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonspinbox.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simongroupbox.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonslider.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonwidget.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simoncombobox.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simoncalendarwidget.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/guievents.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/returntablewidget.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.h
+	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.h
 )
-
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 
 kde4_add_library( speechgui  SHARED ${speechgui_LIB_SRCS} )
 

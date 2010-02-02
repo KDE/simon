@@ -39,8 +39,6 @@ VocabularyView::VocabularyView(QWidget *parent) : InlineWidget(i18n("Wortlist"),
 	lay->addWidget(d);
 	
 	hide();
-
-	guessChildTriggers(this);
 }
 
 void VocabularyView::displayScenarioPrivate(Scenario *scenario)

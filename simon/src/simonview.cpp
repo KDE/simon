@@ -83,7 +83,7 @@
  *
 */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
-		: SimonMainWindow(parent, flags), ScenarioDisplay(),
+		: KXmlGuiWindow(parent, flags), ScenarioDisplay(),
 	shownDialogs(0), configDialog(0)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
@@ -117,8 +117,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	
 
 	//Preloads all Dialogs
-	guessChildTriggers ( ( QObject* ) this );
-
 	ScenarioManager::getInstance()->registerScenarioDisplay(this);
 
 	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
@@ -349,7 +347,6 @@ void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
-	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
