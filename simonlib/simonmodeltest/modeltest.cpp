@@ -47,6 +47,7 @@
 
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
 	recog(0),
+	logFile(0),
 	userName(user_name)
 {
 	KLocale::setMainCatalog("simonlib");
@@ -66,6 +67,8 @@ bool ModelTest::createDirs()
 	tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/test/");
 	
 	if (tempDir.isEmpty()) return false;
+
+	QFile::remove(tempDir+"julius.log");
 
 	QDir tempDirHandle(tempDir);
 	if (!tempDirHandle.exists())
@@ -96,7 +99,7 @@ bool ModelTest::parseConfiguration()
 #else
 		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
 #endif
-		emit error(errorMsg);
+		emitError(errorMsg);
 		return false;
 	}
 
@@ -191,6 +194,10 @@ void ModelTest::abort()
 	if (isRunning()) {
 		keepGoing=false;
 
+		if (recog) {
+			j_request_terminate(recog);
+			j_close_stream(recog);
+		}
 		//terminate();
 
 		emit testAborted();
@@ -204,6 +211,7 @@ bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPat
 {
 	abort();
 	wait();
+
 
 	this->hmmDefsPath = hmmDefsPath;
 	this->tiedListPath = tiedListPath;
@@ -231,7 +239,7 @@ bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPat
 void ModelTest::run()
 {
 	if (!createDirs())
-		emit error(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+		emitError(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
 	promptsTable.clear();
 	wordRates.clear();
@@ -261,13 +269,13 @@ bool ModelTest::recodeAudio()
 
 	QFile promptsF(promptsPath);
 	if (!promptsF.open(QIODevice::ReadOnly)) {
-		emit error(i18n("Couldn't open prompts file for reading: %1", promptsPath));
+		emitError(i18n("Couldn't open prompts file for reading: %1", promptsPath));
 		return false;
 	}
 
 	QFile wavListF(tempDir+"wavlist");
 	if (!wavListF.open(QIODevice::WriteOnly)) {
-		emit error(i18n("Couldn't open wavlist file for writing: %1", tempDir+"wavlist"));
+		emitError(i18n("Couldn't open wavlist file for writing: %1", tempDir+"wavlist"));
 		return false;
 	}
 
@@ -428,6 +436,23 @@ void processRecognitionResult(Recog *recog, void *test)
 	}
 }
 
+void ModelTest::emitError(const QString& message)
+{
+	closeLog();
+
+	QFile f(tempDir+"julius.log");
+	if (!f.open(QIODevice::ReadOnly)) {
+		kDebug() << "Couldn't open file";
+		emit error(message, QByteArray());
+		return;
+	}
+
+	kDebug() << "Reading file!";
+
+	QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
+	emit error(message, out);
+	f.close();
+}
 
 bool ModelTest::recognize()
 {
@@ -439,18 +464,19 @@ bool ModelTest::recognize()
 	emit status(i18n("Recognizing..."), 35, 100);
 
 
- 	FILE *fp;
 	QByteArray logPath = tempDir.toUtf8()+"julius.log";
 
- 	fp = fopen(logPath.data(), "w");
- 	if (fp == NULL) 
+	closeLog(); //close if open
+ 	logFile = fopen(logPath.data(), "w");
+ 	if (logFile == NULL) 
 		return false;
-	jlog_set_output(fp);
+	jlog_set_output(logFile);
 	
 	if (!QFile::exists(juliusJConf)) {
-		emit error(i18n("Couldn't open julius jconf file: \"%1\".", juliusJConf));
+		emitError(i18n("Couldn't open julius jconf file: \"%1\".", juliusJConf));
+		return false;
 	}
-	
+	kDebug() << "Using hmm definitions: " << hmmDefsPath;
 	
 	//////BEGIN: Workaround
 	//convert "." in hmmdefs to its locale specific equivalent
@@ -459,8 +485,10 @@ bool ModelTest::recognize()
 
 	QFile hmm(hmmDefsPath);
 	QFile hmmLoc(tempDir+"hmmdefs");
-	if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly))
-		return NULL;
+	if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly)) {
+		emitError(i18n("Couldn't open hmm definitions"));
+		return false;
+	}
 
 	while (!hmm.atEnd())
 		hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
@@ -470,7 +498,10 @@ bool ModelTest::recognize()
 	//////END: Workaround
 
 
-	if (!keepGoing) return false;
+	if (!keepGoing) {
+		closeLog();
+		return false;
+	}
 
 	QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
 	int argc=15;
@@ -481,28 +512,32 @@ bool ModelTest::recognize()
 	QByteArray dfaPathByte = dfaPath.toLocal8Bit();
 	QByteArray dictPathByte = dictPath.toLocal8Bit();
 	QByteArray tiedListPathByte = tiedListPath.toLocal8Bit();
+	QByteArray tempDirByte = tempDir.toLocal8Bit();
+	QByteArray hmmDefsByte = tempDirByte + "hmmdefs";
+	QByteArray fileListByte = tempDirByte + "wavlist";
+	QByteArray sampleRateByte = QByteArray::number(sampleRate);
 	char* argv[] = {"sam", "-C", juliusJConfByte.data(),
 			"-dfa", dfaPathByte.data(),
 			"-v", dictPathByte.data(),
-			 "-h", QString(tempDir+"hmmdefs").toLocal8Bit().data(),
+			 "-h", hmmDefsByte.data(),
 			 "-hlist", tiedListPathByte.data(),
 			 "-input", "rawfile", 
-			 "-filelist", QString(tempDir+"wavlist").toLocal8Bit().data(),
-			 "-smpFreq", QString::number(sampleRate).toLocal8Bit().data()};
+			 "-filelist", fileListByte.data(),
+			 "-smpFreq", sampleRateByte.data()};
 
 	for (int i=0; i < argc; i++)
 		kDebug() << argv[i];
 
 	Jconf *jconf = j_config_load_args_new(argc, argv);
 	if (!jconf) {
-		emit error(i18n("Internal Jconf error"));
+		emitError(i18n("Internal Jconf error"));
 		return false;
 	}
 
 	recog = j_create_instance_from_jconf(jconf);
 	if (!recog)
 	{
-		emit error(i18n("Could not initialize recognition"));
+		emitError(i18n("Could not initialize recognition"));
 		j_jconf_free(jconf);
 		this->recog=0;
 		return false;
@@ -516,7 +551,7 @@ bool ModelTest::recognize()
 	/* initialize audio input device */
 	/* ad-in thread starts at this time for microphone */
 	if (j_adin_init(recog) == false) {    /* error */
-		emit error(i18n("Couldn't start adin-thread"));
+		emitError(i18n("Couldn't start adin-thread"));
 		j_recog_free(recog);
 		this->recog=0;
 		return false;
@@ -544,7 +579,7 @@ bool ModelTest::recognize()
 			//	fprintf(stderr, "j_open_stream returned -2\n");
 				shouldBeRunning = false;
 				//filelist input somehow returns -2 on finish
-			//	emit error(i18n("Couldn't recognize samples"));
+			//	emitError(i18n("Couldn't recognize samples"));
 			//	if (isLocal)
 			//		emit recognitionError(i18n("Couldn't initialize microphone"));
 			//	else emit recognitionError(i18n("Error with the audio stream"));
@@ -575,11 +610,22 @@ bool ModelTest::recognize()
 	}
 
 	j_recog_free(recog);
+	recog = NULL;
+	closeLog();
 
 	return keepGoing;
 }
 
 
+
+void ModelTest::closeLog()
+{
+	if (!logFile) return;
+
+	jlog_flush();
+	fclose(logFile);
+	logFile = NULL;
+}
 
 
 

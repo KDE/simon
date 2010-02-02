@@ -137,7 +137,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 	connect(modelTest, SIGNAL(testAborted()), this, SLOT(retrieveCompleteTestLog()));
 	connect(modelTest, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelTestStatus(const QString&, int, int)));
 	connect(modelTest, SIGNAL(recognitionInfo(const QString&)), this, SLOT(slotModelTestRecognitionInfo(const QString&)));
-	connect(modelTest, SIGNAL(error(const QString&)), this, SLOT(slotModelTestError(const QString&)));
+	connect(modelTest, SIGNAL(error(const QString&, const QByteArray&)), this, SLOT(slotModelTestError(const QString&, const QByteArray&)));
 	connect(modelTest, SIGNAL(testComplete()), this, SLOT(switchToTestResults()));
 
 	ui.tvFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -147,6 +147,9 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
 	connect(ui.pbSerializeScenarios, SIGNAL(clicked()), this, SLOT(serializeScenarios()));
 	connect(ui.pbSerializePrompts, SIGNAL(clicked()), this, SLOT(serializePrompts()));
+
+	connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
+	connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
 
 	getBuildPathsFromSimon();
 }
@@ -637,10 +640,10 @@ void SamView::slotModelTestRecognitionInfo(const QString& status)
 	ui.teTestLog->append(status);
 }
 
-void SamView::slotModelTestError(const QString& error)
+void SamView::slotModelTestError(const QString& error, const QByteArray& protocol)
 {
-	KMessageBox::error(this, error);
-	retrieveCompleteBuildLog();
+	retrieveCompleteTestLog();
+	KMessageBox::detailedSorry(0, error, protocol);
 }
 
 

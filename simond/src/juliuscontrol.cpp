@@ -396,8 +396,6 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	}
 	jlog_set_output(logFile);
 	
-	kDebug() << logFile << jlog_get_fp();
-
 	Jconf *jconf = setupJconf();
 	if (!jconf)
 	{
@@ -407,14 +405,12 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	}
 
 	this->jconf = jconf;
-	kDebug() << logFile << jlog_get_fp();
 	
 	this->recog = j_create_instance_from_jconf(jconf);
 	if (!recog)
 	{
 		j_jconf_free(jconf);
 		closeLog();
-		kDebug() << logFile << jlog_get_fp();
 		this->jconf=0;
 		this->recog=0;
 		emitError(i18n("Could not initialize recognition"));

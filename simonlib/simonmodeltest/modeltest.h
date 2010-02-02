@@ -50,7 +50,7 @@ class MODELTEST_EXPORT ModelTest : public QThread{
 Q_OBJECT
 signals:
 	void status(const QString&, int progressNow, int progressTotal=100);
-	void error(const QString&);
+	void error(const QString&, const QByteArray& log);
 	void recognitionInfo(const QString&);
 
 	void testComplete();
@@ -60,6 +60,7 @@ private:
 	bool keepGoing;
 	
 	Recog *recog;
+	FILE *logFile;
 
 	QString buildLog;
 	QString lastOutput;
@@ -85,6 +86,8 @@ private:
 
 	QHash<QString, QString> recodedSamples;
 	
+	void closeLog();
+
 	bool createDirs();
 
 	bool execute(const QString& command, const QString& outputFilePath=QString(),
@@ -97,6 +100,7 @@ private:
 	bool recognize();
 	bool processJuliusOutput();
 	bool analyzeResults();
+	void emitError(const QString& message);
 	
 private slots:
 	void addStatusToLog(const QString&);

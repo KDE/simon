@@ -838,8 +838,6 @@ void ClientSocket::activeModelCompiled()
 	synchronisationManager->modelCompiled();
 	sendCode(Simond::ModelCompilationCompleted);
 	startSynchronisation();
-	
- 	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 void ClientSocket::activeModelCompilationAborted()

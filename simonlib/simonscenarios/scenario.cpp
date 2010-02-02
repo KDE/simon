@@ -322,10 +322,11 @@ bool Scenario::save(QString path)
 	}
 	
 	if (path.isNull()) {
-		if (m_prefix.isNull())
-			path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
-		else
-			path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
+		if (m_prefix.isNull()) {
+			path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
+		} else {
+			path = KStandardDirs::locateLocal("data", m_prefix+"scenarios/"+m_scenarioId);
+		}
 	}
 
 	QFile file(path);

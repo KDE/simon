@@ -147,6 +147,7 @@ void ScenarioManagementDialog::importScenario()
 	QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select scenario file"));
 	if (path.isEmpty()) return;
 	Scenario *s = new Scenario("");
+	kDebug() << "Path: " << path;
 	if (!s->init(path)) {
 		KMessageBox::sorry(this, i18n("Could not load scenario."));
 		delete s;
@@ -154,6 +155,7 @@ void ScenarioManagementDialog::importScenario()
 	}
 
 	if (!s->save()) {
+		kDebug() << "Hier bin ich!";
 		KMessageBox::sorry(this, i18n("Failed to store scenario"));
 		delete s;
 		return;

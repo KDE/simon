@@ -100,7 +100,7 @@ private slots:
     void abortModelTest();
     void slotModelTestStatus(const QString& status, int now, int max);
     void slotModelTestRecognitionInfo(const QString& status);
-    void slotModelTestError(const QString& error);
+    void slotModelTestError(const QString& error, const QByteArray&);
     void switchToTestResults();
 
     void analyzeTestOutput();

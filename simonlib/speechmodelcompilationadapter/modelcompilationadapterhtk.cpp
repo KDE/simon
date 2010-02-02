@@ -104,19 +104,24 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
 	///// Prompts ///////////
-	QList<QByteArray> trainedVocabulary;
+	QList<QByteArray> trainedVocabulary; // words where prompts exist
+	QList<QString> definedVocabulary; // words that are in the dictionary
+
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		QFile promptsFile(promptsPathIn);
 		QFile promptsFileOut(promptsPathOut);
 
-		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly))
+		if (!promptsFile.open(QIODevice::ReadOnly) || 
+				(!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel) && 
+				 !promptsFileOut.open(QIODevice::WriteOnly)))
 			return false;
 
 		while (!promptsFile.atEnd())
 		{
 			QByteArray line = promptsFile.readLine();
 			int splitter = line.indexOf(" ");
-			promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+			if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+				promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
 
 			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
 			foreach (const QByteArray& word, words) {
@@ -126,7 +131,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		}
 
 		promptsFile.close();
-		promptsFileOut.close();
+		if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+			promptsFileOut.close();
 	}
 
 	if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
@@ -144,19 +150,24 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 	bool sentWritten = false;
 	QList<Word*> words = vocab->getWords();
+	QString htkIfiedWord;
 	foreach (Word *w, words) {
 		if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
 				!trainedVocabulary.contains(w->getLexiconWord().toUtf8())) {
 			continue;
 		}
+		htkIfiedWord = htkify(w->getLexiconWord());
 
-		if (!sentWritten && (w->getLexiconWord() >= "SENT-END")) {
+		if (!sentWritten && (htkIfiedWord >= "SENT-END")) {
 			lexicon << "SENT-END\t\t[]\t\tsil\n";
 			lexicon << "SENT-START\t\t[]\t\tsil\n";
 			sentWritten=true;
 		}
-		lexicon << htkify(w->getLexiconWord())  << "\t\t[" << w->getWord() << "]\t\t" <<
+		lexicon << htkIfiedWord << "\t\t[" << w->getWord() << "]\t\t" <<
 				w->getPronunciation() << "\n";
+
+		if (!definedVocabulary.contains(htkIfiedWord))
+			definedVocabulary << htkIfiedWord;
 	}
 	if (!sentWritten) {
 		lexicon << "SENT-END\t\t[]\t\tsil\n";
@@ -221,6 +232,34 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
 	}
 	grammarFile.close();
+
+	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
+		QFile promptsFile(promptsPathIn);
+		QFile promptsFileOut(promptsPathOut);
+
+		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly))
+			return false;
+
+		while (!promptsFile.atEnd())
+		{
+			QByteArray line = promptsFile.readLine();
+			int splitter = line.indexOf(" ");
+			bool allWordsInLexicon = true;
+
+			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
+			foreach (const QByteArray& word, words) {
+				if (!definedVocabulary.contains(word)) {
+					allWordsInLexicon = false;
+					break;
+				}
+			}
+			if (allWordsInLexicon)
+				promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+		}
+
+		promptsFile.close();
+		promptsFileOut.close();
+	}
 	return true;
 }
 
