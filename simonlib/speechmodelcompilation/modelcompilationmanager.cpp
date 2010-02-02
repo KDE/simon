@@ -266,7 +266,17 @@ bool ModelCompilationManager::processError()
 	return false;
 }
 
-#include <KDebug>
+void ModelCompilationManager::abort()
+{
+	if (isRunning()) {
+		keepGoing=false;
+
+		//terminate();
+
+		emit activeModelCompilationAborted();
+	}
+}
+
 bool ModelCompilationManager::startCompilation(ModelCompilationManager::CompilationType compilationType,
 			     const QString& hmmDefsPath, const QString& tiedListPath,
 			     const QString& dictPath, const QString& dfaPath, 
@@ -277,15 +287,8 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath)
 {
-	if (isRunning()) {
-		keepGoing=false;
-
-		//terminate();
-
-		wait();
-		emit activeModelCompilationAborted();
-	}
-
+	abort();
+	wait();
 
 	this->hmmDefsPath = hmmDefsPath;
 	this->tiedListPath = tiedListPath;

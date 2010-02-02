@@ -185,20 +185,24 @@ QString ModelTest::getLog()
 	return plainLog;
 }
 
-
-bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath,
-			     const QString& samplePath, const QString& promptsPath,
-			     int sampleRate, const QString& juliusJConf)
+void ModelTest::abort()
 {
 	if (isRunning()) {
 		keepGoing=false;
 
 		//terminate();
 
-		wait();
 		emit testAborted();
 	}
+}
+
+bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath,
+			     const QString& samplePath, const QString& promptsPath,
+			     int sampleRate, const QString& juliusJConf)
+{
+	abort();
+	wait();
 
 	this->hmmDefsPath = hmmDefsPath;
 	this->tiedListPath = tiedListPath;
@@ -243,8 +247,7 @@ void ModelTest::run()
 //	if (!processJuliusOutput()) return;
 	if (!analyzeResults()) return;
 
-	//sync model
-	if (!keepGoing) return;
+	//if (!keepGoing) return;
 	
 	emit status(i18n("Finished"), 100, 100);
 	emit testComplete();
@@ -267,7 +270,7 @@ bool ModelTest::recodeAudio()
 		return false;
 	}
 
-	while (!promptsF.atEnd()) {
+	while (!promptsF.atEnd() && keepGoing) {
 		QString line = QString::fromUtf8(promptsF.readLine (1024));
 		if (line.trimmed().isEmpty()) continue;
 		int splitter = line.indexOf(" ");
@@ -286,12 +289,14 @@ bool ModelTest::recodeAudio()
 
 	promptsF.close();
 	wavListF.close();
-	return true;
+	return keepGoing;
 }
 
 
 bool ModelTest::generateMLF()
 {
+	if (!keepGoing) return false;
+
 	emit status(i18n("Generating MLF..."), 10, 100);
 	//echo "Step 1 of 7: Generating MLF"
 	//perl `dirname $0`/prompts2mlf testref.mlf prompts
@@ -428,6 +433,8 @@ bool ModelTest::recognize()
 //	return execute(QString("%1 -C %2 -realtime -dfa %3 -v %4 -input rawfile -filelist %5 -smpFreq %6").arg(julius)
 //			.arg(juliusJConf).arg(dfaPath).arg(dictPath).arg(tempDir+"wavlist").arg(sampleRate), tempDir+"juliusOutput");
 
+
+	if (!keepGoing) return false;
 	emit status(i18n("Recognizing..."), 35, 100);
 
 
@@ -461,6 +468,8 @@ bool ModelTest::recognize()
 	hmmLoc.close();
 	//////END: Workaround
 
+
+	if (!keepGoing) return false;
 
 	QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
 	int argc=15;
@@ -507,7 +516,7 @@ bool ModelTest::recognize()
 	j_recog_info(recog);
 	
 	bool shouldBeRunning = true;
-	while (shouldBeRunning)
+	while (shouldBeRunning && keepGoing)
 	{
 		 switch(j_open_stream(recog, NULL)) {
 			case 0:
@@ -557,7 +566,7 @@ bool ModelTest::recognize()
 
 	j_recog_free(recog);
 
-	return true;
+	return keepGoing;
 }
 
 
@@ -669,6 +678,8 @@ bool ModelTest::processJuliusOutput()
 
 bool ModelTest::analyzeResults()
 {
+	if (!keepGoing) return false;
+
 	emit status(i18n("Analyzing recognition results..."), 90, 100);
 
 	return true;

@@ -84,17 +84,20 @@ private slots:
     void serializePromptsRun(const QString promptsPath, const QString& output);
     void serializeScenariosRun(const QStringList& scenarioIds, const QString& output);
 
+
     void slotModelAdaptionComplete();
     void slotModelAdaptionAborted();
     void slotModelAdaptionStatus(QString status, int progress);
     void slotModelAdaptionError(QString errorMessage);
 
+    void abortModelCompilation();
     void slotModelCompilationStatus(const QString& status, int now, int max);
     void slotModelCompilationError(const QString& error);
     void slotModelCompilationClassUndefined(const QString&);
     void slotModelCompilationWordUndefined(const QString&);
     void slotModelCompilationPhonemeUndefined(const QString&);
 
+    void abortModelTest();
     void slotModelTestStatus(const QString& status, int now, int max);
     void slotModelTestRecognitionInfo(const QString& status);
     void slotModelTestError(const QString& error);
@@ -111,6 +114,9 @@ private:
     ModelCompilationManager *modelCompilationManager;
     ModelCompilationAdapter *modelCompilationAdapter;
     ModelTest *modelTest;
+
+    QStringList findScenarios(const QStringList& ids);
+    int getModelType();
 };
 
 #endif // samVIEW_H

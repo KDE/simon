@@ -80,6 +80,7 @@ public:
 	QString getBuildLog();
 	
 	QString getStatus() { return currentStatus; }
+	void abort();
 
 	~ModelCompilationManager();
 

@@ -95,7 +95,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 	ui.urHmmDefs->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urTiedlist->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urDict->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-	ui.urJConf->seMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+	ui.urJConf->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urDFA->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urLexicon->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
@@ -147,6 +147,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
 	connect(ui.pbSerializeScenarios, SIGNAL(clicked()), this, SLOT(serializeScenarios()));
 	connect(ui.pbSerializePrompts, SIGNAL(clicked()), this, SLOT(serializePrompts()));
+
+	getBuildPathsFromSimon();
 }
 
 void SamView::showConfig()
@@ -162,23 +164,31 @@ void SamView::newProject()
 	m_filename = "";
 	updateWindowTitle();
 
-	ui.urHmmDefs->setUrl(KUrl());
-	ui.urTiedlist->setUrl(KUrl());
-	ui.urDict->setUrl(KUrl());
-	ui.urDFA->setUrl(KUrl());
-	ui.urPromptsBasePath->setUrl(KUrl());
-	ui.urTestPromptsBasePath->setUrl(KUrl());
-	ui.urLexicon->setUrl(KUrl());
-	ui.urGrammar->setUrl(KUrl());
-	ui.urVocabulary->setUrl(KUrl());
-	ui.urPrompts->setUrl(KUrl());
-	ui.urTestPrompts->setUrl(KUrl());
-	ui.urTreeHed->setUrl(KUrl());
-	ui.urWavConfig->setUrl(KUrl());
+	ui.urHmmDefs->clear();
+	ui.urTiedlist->clear();
+	ui.urDict->clear();
+	ui.urDFA->clear();
+	ui.urPromptsBasePath->clear();
+	ui.urTestPromptsBasePath->clear();
+	ui.urLexicon->clear();
+	ui.urGrammar->clear();
+	ui.urVocabulary->clear();
+	ui.urPrompts->clear();
+	ui.urTestPrompts->clear();
+	ui.urTreeHed->clear();
+	ui.urWavConfig->clear();
 	ui.sbSampleRate->setValue(16000 /* default*/);
-	ui.urJConf->setUrl(KUrl());
+	ui.urJConf->clear();
+	ui.rbDynamicModel->animateClick();
+	ui.urBaseHmmDefs->clear();
+	ui.urBaseTiedlist->clear();
+	ui.urBaseMacros->clear();
+	ui.urBaseStats->clear();
 
 	ui.twMain->setCurrentIndex(0);
+	ui.teBuildLog->clear();
+	ui.teTestLog->clear();
+	ui.teAdaptLog->clear();
 }
 
 void SamView::load()
@@ -244,7 +254,37 @@ void SamView::parseFile()
 	ui.sbSampleRate->setValue(QString::fromUtf8(f.readLine()).trimmed().toInt());
 	ui.urJConf->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
 
+	int modelType = f.readLine().trimmed().toInt();
+	switch (modelType)
+	{
+		case 0: ui.rbStaticModel->animateClick();
+			break;
+		case 1: ui.rbAdaptedBaseModel->animateClick();
+			break;
+		case 2: ui.rbDynamicModel->animateClick();
+			break;
+	}
+	ui.urBaseHmmDefs->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urBaseTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urBaseMacros->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urBaseStats->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+
+	ui.twMain->setCurrentIndex(0);
+	ui.teBuildLog->clear();
+	ui.teTestLog->clear();
+	ui.teAdaptLog->clear();
+
+
 	updateWindowTitle();
+}
+
+int SamView::getModelType()
+{
+	if (ui.rbStaticModel->isChecked())
+		return 0;
+	else if (ui.rbAdaptedBaseModel->isChecked())
+		return 1;
+	return 2;
 }
 
 void SamView::storeFile()
@@ -271,6 +311,12 @@ void SamView::storeFile()
 	f.write(QString::number(ui.sbSampleRate->value()).toUtf8()+"\n");
 	f.write(ui.urJConf->url().path().toUtf8()+"\n");
 
+	f.write(QString::number(getModelType()).toUtf8()+"\n");
+	f.write(ui.urBaseHmmDefs->url().path().toUtf8()+"\n");
+	f.write(ui.urBaseTiedlist->url().path().toUtf8()+"\n");
+	f.write(ui.urBaseMacros->url().path().toUtf8()+"\n");
+	f.write(ui.urBaseStats->url().path().toUtf8()+"\n");
+
 	updateWindowTitle();
 }
 
@@ -290,20 +336,62 @@ void SamView::getBuildPathsFromSimon()
 	KConfigGroup group(config, "Model");
 	int sampleRate = group.readEntry("ModelSampleRate", "16000").toInt();
 
+	int modelType = group.readEntry("ModelType", 2);
+	switch (modelType)
+	{
+		case 0:
+			//static model
+		case 1:
+			//adapted model
+			ui.urBaseHmmDefs->setUrl(KStandardDirs::locate("data", "simon/model/basehmmdefs"));
+			ui.urBaseTiedlist->setUrl(KStandardDirs::locate("data", "simon/model/basetiedlist"));
+			ui.urBaseMacros->setUrl(KStandardDirs::locate("data", "simon/model/basemacros"));
+			ui.urBaseStats->setUrl(KStandardDirs::locate("data", "simon/model/basestats"));
+			ui.rbAdaptedBaseModel->animateClick();
+			break;
+		case 2:
+			//dynamic model
+			ui.urBaseHmmDefs->clear();
+			ui.urBaseTiedlist->clear();
+			ui.urBaseMacros->clear();
+			ui.urBaseStats->clear();
+			ui.rbAdaptedBaseModel->animateClick();
+			break;
+	}
+	if (modelType == 0)
+		ui.rbStaticModel->animateClick();
+
 	ui.sbSampleRate->setValue(sampleRate);
-	ui.urJConf->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/julius.jconf")));
+	ui.urJConf->setUrl(KUrl(KStandardDirs::locate("data", "simond/default.jconf")));
 
-
-	QString promptsPath = KFileDialog::getOpenFileName(KUrl(), "", this, i18n("Open simon prompts"));
-	if (promptsPath.isEmpty()) return;
-
-	QString path = getTargetDirectory();
-	if (path.isEmpty()) return;
+	//target path is simon model folder
+	//
+	//we can't really use a user selected folder here for two reasons:
+	// 1.) We call this method when sam starts so it should require no user interaction
+	// 2.) simon will store the simond generated model there so the output files
+	//     of simon will be picked up by sam.
+	QString path = KStandardDirs::locate("data", "simon/model/");
 
 	KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup scenarioRcGroup(scenarioRc, "");
-	QStringList ids = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
-	serializeScenariosRun(ids, path);
+	QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
+
+	//can't use the methods serializeScenariosRun and serializePromptsRun, 
+	//because this would make two calls to the model adaption manager
+	//who, instead of cueuing would abort the first job in order to work on the second one
+	//this makes a lot of sense when seen in the context of simon / simond
+	//
+	//Moreover this way the model compilation adapter knows what we want to do and will
+	//take several corner cases into account as well as streamline the model with the 
+	//information he can extract from the input files
+
+	QStringList scenarioPaths = findScenarios(scenarioIds);
+	modelCompilationAdapter->startAdaption(
+			(ModelCompilationAdapter::AdaptionType) 
+			(ModelCompilationAdapter::AdaptLanguageModel | ModelCompilationAdapter::AdaptAcousticModel),
+			path+"lexicon", path+"model.grammar", 
+			path+"simple.voca", path+"samprompts", 
+			scenarioPaths, path+"prompts");
 }
 
 
@@ -335,22 +423,6 @@ void SamView::switchToAdapt()
 	ui.pbAdaptProgress->setValue(0);
 }
 
-void SamView::serializePromptsRun(const QString promptsPath, const QString& output)
-{
-	if (output.isEmpty()) return;
-
-	QString promptsOutPath = output+"prompts";
-	modelCompilationAdapter->startAdaption(
-			(ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel),
-			QString(), QString(), 
-			QString(), promptsOutPath, 
-			QStringList(), promptsPath);
-
-	QString promptsTestPath = output+"prompts_test" ;
-	if (QFile::exists(promptsTestPath))
-		promptsTestPath = promptsOutPath;
-}
-
 void SamView::serializeScenarios()
 {
 	QString prefix = "simon/"; //use simon scenarios and config
@@ -366,23 +438,41 @@ void SamView::serializeScenarios()
 }
 
 
-void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QString& path)
+void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QString& output)
 {
-	if (path.isEmpty()) return;
+	if (output.isEmpty()) return;
+	
+	QStringList scenarioPaths = findScenarios(scenarioIds);
+
+	modelCompilationAdapter->startAdaption(
+			(ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel),
+			output+"lexicon", output+"model.grammar", 
+			output+"simple.voca", output+"prompts", 
+			scenarioPaths, ui.urPrompts->url().path());
+}
+
+void SamView::serializePromptsRun(const QString promptsPath, const QString& output)
+{
+	if (output.isEmpty()) return;
+
+	modelCompilationAdapter->startAdaption(
+			(ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptAcousticModel),
+			QString(), QString(), 
+			QString(), output+"prompts", 
+			QStringList(), promptsPath);
+}
+
+QStringList SamView::findScenarios(const QStringList& ids)
+{
 	QStringList scenarioPaths;
-	foreach (const QString& id, scenarioIds)
+	foreach (const QString& id, ids)
 	{
 		QString resolvedPath = KStandardDirs::locateLocal("data", "simon/scenarios/"+id);
 		if (!QFile::exists(resolvedPath))
 			KMessageBox::information(this, i18n("Couldn't find scenario: %1", id));
 		else scenarioPaths << resolvedPath;
 	}
-
-	modelCompilationAdapter->startAdaption(
-			(ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel),
-			path+"lexicon", path+"model.grammar", 
-			path+"simple.voca", path+"prompts", 
-			scenarioPaths, ui.urPrompts->url().path());
+	return scenarioPaths;
 }
 
 void SamView::compileModel()
@@ -471,6 +561,11 @@ void SamView::compileModel()
 	*/
 }
 
+void SamView::abortModelCompilation()
+{
+	modelCompilationManager->abort();
+}
+
 void SamView::slotModelAdaptionComplete()
 {
 	ui.twMain->setCurrentIndex(0);
@@ -489,7 +584,7 @@ void SamView::slotModelAdaptionComplete()
 		QString path = fi.absolutePath();
 		ui.urPromptsBasePath->setUrl(KUrl(path));
 
-		QString promptsTestPath = path+QDir::separator()+"prompts_test";
+		QString promptsTestPath = path+QDir::separator()+"samprompts_test";
 
 		if (QFile::exists(promptsTestPath))
 			ui.urTestPrompts->setUrl(KUrl(promptsTestPath));
@@ -599,6 +694,11 @@ void SamView::testModel()
 			ui.sbSampleRate->value(),
 			ui.urJConf->url().path()
 			);
+}
+
+void SamView::abortModelTest()
+{
+	modelCompilationManager->abort();
 }
 
 void SamView::analyzeTestOutput()

@@ -106,6 +106,7 @@ public:
 	ModelTest(const QString& userName, QObject *parent=0);
 
 	void run();
+	void abort();
 
 	bool startTest(const QString& hmmDefsPath, const QString& tiedListPath,
 			     const QString& dictPath, const QString& dfaPath,
