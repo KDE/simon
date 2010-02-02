@@ -36,7 +36,7 @@ CalculatorConfiguration::CalculatorConfiguration(Scenario *parent, const QVarian
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	connect(ui.cbShowControls, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbControlMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 	connect(ui.rbOutputAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.rbOutputDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.rbAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -66,9 +66,7 @@ bool CalculatorConfiguration::deSerialize(const QDomElement& elem)
 			break;
 	}
 
-	ui.cbShowControls->setChecked((elem.firstChildElement("showControls").text().toInt(&ok) == 1));
-	if (!ok) //not stored in config
-		ui.cbShowControls->setChecked(true);
+	ui.cbControlMode->setCurrentIndex(elem.firstChildElement("controlMode").text().toInt(&ok));
 
 	int defaultOutputMode = elem.firstChildElement("defaultOutputMode").text().toInt(&ok);
 	if (!ok) defaultOutputMode = 0;
@@ -86,16 +84,17 @@ QDomElement CalculatorConfiguration::serialize(QDomDocument *doc)
 {
 	QDomElement configElem = doc->createElement("config");
 
-	QDomElement showControlsElem = doc->createElement("showControls");
+	QDomElement controlModeElement = doc->createElement("controlMode");
 	QDomElement outputModeSelectionElem = doc->createElement("outputModeSelection");
 	QDomElement defaultOutputModeElem = doc->createElement("defaultOutputMode");
 	QDomElement askTimeoutElem = doc->createElement("askTimeout");
 	
-	showControlsElem.appendChild(doc->createTextNode(QString::number(ui.cbShowControls->isChecked() ? 1 : 0)));
+	controlModeElement.appendChild(doc->createTextNode(QString::number(ui.cbControlMode->currentIndex())));
 	outputModeSelectionElem.appendChild(doc->createTextNode(QString::number((int) outputModeSelection())));
 	defaultOutputModeElem.appendChild(doc->createTextNode(QString::number((int) outputMode()-1)));
 	askTimeoutElem.appendChild(doc->createTextNode(QString::number(ui.sbOutputDefaultTimeout->value())));
 
+	configElem.appendChild(controlModeElement);
 	configElem.appendChild(outputModeSelectionElem);
 	configElem.appendChild(defaultOutputModeElem);
 	configElem.appendChild(askTimeoutElem);
@@ -105,7 +104,7 @@ QDomElement CalculatorConfiguration::serialize(QDomDocument *doc)
 
 void CalculatorConfiguration::defaults()
 {
-	ui.cbShowControls->setChecked(true);
+	ui.cbControlMode->setCurrentIndex(0);
 	ui.rbOutputAsk->animateClick();
 	ui.sbOutputDefaultTimeout->setValue(12);
 	ui.cbDefaultOutputMode->setCurrentIndex(0);
@@ -120,12 +119,9 @@ int CalculatorConfiguration::askTimeout()
 	return qRound(timeoutD*1000.0f);
 }
 
-/**
- * \return If the calculator should show all buttons
- */
-bool CalculatorConfiguration::showControls()
+CalculatorConfiguration::ControlMode CalculatorConfiguration::controlMode()
 {
-	return ui.cbShowControls->isChecked();
+	return (CalculatorConfiguration::ControlMode) (ui.cbControlMode->currentIndex()+1);
 }
 
 

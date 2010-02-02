@@ -87,7 +87,7 @@ void RunCommandViewPrivate::managePlugIns()
 	ManageActionsDialog *dlg = new ManageActionsDialog(this);
 
 	if (dlg->exec()) {
-		;
+		emit actionsChanged();
 	}
 	dlg->deleteLater();
 }

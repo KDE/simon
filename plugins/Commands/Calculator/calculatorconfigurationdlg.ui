@@ -15,11 +15,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCheckBox" name="cbShowControls">
-     <property name="text">
-      <string>Show controls</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Show controls:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbControlMode">
+       <item>
+        <property name="text">
+         <string>Full calculator</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Only number input</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Only output</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="label">
@@ -155,12 +178,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>38</y>
+     <x>80</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
-     <x>69</x>
-     <y>125</y>
+     <x>74</x>
+     <y>160</y>
     </hint>
    </hints>
   </connection>
@@ -171,12 +194,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>27</y>
+     <x>130</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
-     <x>285</x>
-     <y>113</y>
+     <x>469</x>
+     <y>160</y>
     </hint>
    </hints>
   </connection>

@@ -30,6 +30,9 @@ class Scenario;
 class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget, public ScenarioDisplay  {
 	Q_OBJECT
 
+signals:
+	void actionsChanged();
+
 private:
 	RunCommandViewPrivate *d;
 

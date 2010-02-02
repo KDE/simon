@@ -103,6 +103,7 @@ protected:
 private slots:
 	void manageScenarios();
 	void updateScenarioDisplays();
+	void updateActionList();
 
 public slots:
 	void displayConnectionStatus(const QString &status);

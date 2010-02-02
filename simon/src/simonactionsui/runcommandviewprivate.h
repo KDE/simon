@@ -42,6 +42,9 @@ class QSortFilterProxyModel;
 class RunCommandViewPrivate : public QWidget, public ScenarioDisplay {
 	Q_OBJECT
 
+signals:
+	void actionsChanged();
+
 private:
 	Ui::RunDlg ui;
 

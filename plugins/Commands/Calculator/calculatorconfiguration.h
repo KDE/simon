@@ -53,13 +53,20 @@ class CalculatorConfiguration : public CommandConfiguration
 			FormattedMoneyCalculationAndResult=6
 		};
 
+		enum ControlMode {
+			FullCalculator=1,
+			OnlyNumberInput=2,
+			OnlyOutput=3
+		};
+
+
 
 		CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
 		~CalculatorConfiguration();
 
 		
-		bool showControls();
 		int askTimeout();
+		ControlMode controlMode();
 		OutputModeSelection outputModeSelection();
 		OutputMode outputMode();
 };

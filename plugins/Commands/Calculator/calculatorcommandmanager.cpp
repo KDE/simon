@@ -829,7 +829,21 @@ void CalculatorCommandManager::activate()
 	clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
-	ui.wgControls->setVisible(static_cast<CalculatorConfiguration*>(config)->showControls());
+	switch (static_cast<CalculatorConfiguration*>(config)->controlMode())
+	{
+		case CalculatorConfiguration::FullCalculator:
+			ui.wgCalculator->show();
+			ui.wgControls->show();
+			break;
+		case CalculatorConfiguration::OnlyNumberInput:
+			ui.wgControls->show();
+			ui.wgCalculator->hide();
+			break;
+		case CalculatorConfiguration::OnlyOutput:
+			ui.wgCalculator->hide();
+			ui.wgControls->hide();
+			break;
+	}
 
 	widget->resize(widget->sizeHint());
 

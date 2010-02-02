@@ -33,6 +33,7 @@ RunCommandView::RunCommandView(QWidget* parent)
 	i18n("Direct Execution of simon Commands"), parent),
 	d(new RunCommandViewPrivate(this))
 {
+	connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
 

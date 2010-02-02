@@ -135,6 +135,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );
+	connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
 	ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
 
 
@@ -179,6 +180,11 @@ void SimonView::displayScenarios()
 	}
 }
 
+void SimonView::updateActionList()
+{
+	unplugActionList("command_actionlist");
+	plugActionList("command_actionlist", ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->getGuiActions());
+}
 
 
 void SimonView::updateScenarioDisplays()
@@ -313,12 +319,12 @@ void SimonView::setupActions()
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
 	kDebug() << "displayScenario: " << scenario->id();
-	unplugActionList("command_actionlist");
-	plugActionList("command_actionlist", scenario->actionCollection()->getGuiActions());
 	kDebug() << "Data: " << cbCurrentScenario->findData(scenario->id());
 	for (int i=0; i < cbCurrentScenario->count(); i++)
 		kDebug() << "Available Data: " << cbCurrentScenario->itemData(i);
 	cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(scenario->id()));
+
+	updateActionList();
 }
 
 void SimonView::manageScenarios()
