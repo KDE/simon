@@ -60,6 +60,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
 	connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
+	connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
 	connect(ui.leActiveVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshActiveView()));
 	connect(ui.leShadowVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshShadowView()));
 	connect(ui.leActiveVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshActiveView()));
@@ -72,6 +73,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
 	ui.pbAddToTraining->setIcon(KIcon("list-add"));
 	ui.pbEditWord->setIcon(KIcon("document-edit"));
+	ui.pbClear->setIcon(KIcon("edit-clear-list"));
 	ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
 	ui.pbTrainList->setIcon(KIcon("go-next"));
 
@@ -186,10 +188,6 @@ void VocabularyViewPrivate::editSelectedWord()
 /**
  * \brief Displays a dialog to ask the user what to do
  * \author Peter Grasch
- * 
- * Available options: 
- * 	Remove completely
- * 	Move to shadow list
  */
 void VocabularyViewPrivate::deleteSelectedWord()
 {
@@ -233,6 +231,32 @@ void VocabularyViewPrivate::deleteSelectedWord()
 		}
 	}
 	del->deleteLater();
+}
+
+/**
+ * \brief Removes EVERY word from the list
+ * \author Peter Grasch
+ */
+void VocabularyViewPrivate::clear()
+{
+	if (!scenario) return;
+
+	bool isShadowed = (ui.twVocabularies->currentIndex() == 1);
+	
+	if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear the whole vocabulary?")) == KMessageBox::Yes)
+	{
+		if (KMessageBox::warningContinueCancel(this, i18n("This will remove every word from the currently displayed vocabulary list.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
+			//yipikayay motherf- <boom>
+			ui.lwTrainingWords->clear();
+			trainingVocabulary.clear();
+
+			if (isShadowed) {
+				ScenarioManager::getInstance()->getShadowVocabulary()->empty();
+			} else {
+				ScenarioManager::getInstance()->getCurrentScenario()->vocabulary()->empty();
+			}
+		}
+	}
 }
 
 

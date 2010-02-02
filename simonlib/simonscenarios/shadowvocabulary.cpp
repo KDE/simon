@@ -98,6 +98,12 @@ bool ShadowVocabulary::reset(QIODevice* f)
 	return true;
 }
 
+bool ShadowVocabulary::empty()
+{
+	deleteAll();
+	return save();
+}
+
 int ShadowVocabulary::columnCount(const QModelIndex &parent) const
 {
 	Q_UNUSED(parent);

@@ -54,6 +54,7 @@ public:
 	bool renameTerminal(const QString& from, const QString& to);
 
 	bool reset(QIODevice* data);
+	bool empty();
 };
 
 #endif

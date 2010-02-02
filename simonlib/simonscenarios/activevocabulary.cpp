@@ -113,6 +113,14 @@ QDomElement ActiveVocabulary::serialize(QDomDocument *doc)
 	return Vocabulary::serialize(doc);
 }
 
+bool ActiveVocabulary::empty()
+{
+	deleteAll();
+	return parentScenario->save();
+}
+
+
+
 bool ActiveVocabulary::renameTerminal(const QString& from, const QString& to)
 {
 	if (Vocabulary::renameTerminal(from, to))

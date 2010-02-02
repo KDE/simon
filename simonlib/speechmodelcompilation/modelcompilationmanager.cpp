@@ -1367,11 +1367,11 @@ bool ModelCompilationManager::makeRegTreeHed()
 
 bool ModelCompilationManager::staticAdaption()
 {
-	QString staticAdaptionPath = tempDir+QDir::separator()+"classes/staticAdaption";
+	QString staticAdaptionPath = tempDir+QDir::separator()+"classes/global";
 	if (QFile::exists(staticAdaptionPath) &&
 		!QFile::remove(staticAdaptionPath))
 		return false;
-	if (!QFile::copy(KStandardDirs::locate("data", "simon/scripts/staticAdaption"), staticAdaptionPath)) return false;
+	if (!QFile::copy(KStandardDirs::locate("data", "simon/scripts/global"), staticAdaptionPath)) return false;
 
 	QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/basehmmdefs";
 	QString adaptFromTiedlist = baseTiedlistPath;

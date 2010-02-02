@@ -64,6 +64,7 @@ public slots:
 	void displayScenarioPrivate(Scenario *scenario);
 
 	void editSelectedWord();
+	void clear();
 	void deleteSelectedWord();
 
 	void copyWordToTrain();

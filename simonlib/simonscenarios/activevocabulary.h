@@ -53,6 +53,7 @@ public:
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 	bool renameTerminal(const QString& from, const QString& to);
+	bool empty();
 };
 
 #endif

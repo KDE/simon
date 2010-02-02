@@ -95,6 +95,7 @@ public:
 	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
 	QList<Word*> findWordsByTerminal(const QString& terminal);
 
+	virtual bool empty() { return false; }
 	void clear();
 	void deleteAll();
 
