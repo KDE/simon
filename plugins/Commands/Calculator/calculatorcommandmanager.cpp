@@ -829,6 +829,10 @@ void CalculatorCommandManager::activate()
 	clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
+	ui.wgControls->setVisible(static_cast<CalculatorConfiguration*>(config)->showControls());
+
+	widget->resize(widget->sizeHint());
+
 	x=(tmp->width()/2)-(widget->width()/2);
 	y=(tmp->height()/2)-(widget->height()/2);
 	widget->move(x, y);

@@ -58,6 +58,7 @@ class CalculatorConfiguration : public CommandConfiguration
 		~CalculatorConfiguration();
 
 		
+		bool showControls();
 		int askTimeout();
 		OutputModeSelection outputModeSelection();
 		OutputMode outputMode();
