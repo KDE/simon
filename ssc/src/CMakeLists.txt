@@ -1,6 +1,6 @@
 find_package(Qt4 COMPONENTS QtConcurrent  QtNetwork)
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib
-	../../simonlib/speechgui ../)
+	 ../)
 	
 set (QT_USE_QTNETWORK true)
 

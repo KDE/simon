@@ -7,7 +7,7 @@ include(FindPortaudio)
 find_package(KDE4 REQUIRED)
 
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui ../../../simonlib/ ../  ../../../julius/libjulius/include 
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ ../  ../../../julius/libjulius/include 
  ../../../julius/libsent/include)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
@@ -45,7 +45,7 @@ kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} speechgui  adinstreamer
+	${KDE4_KDEUI_LIBS} adinstreamer speechgui
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol

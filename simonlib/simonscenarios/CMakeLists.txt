@@ -5,7 +5,6 @@ find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
 			${CMAKE_CURRENT_SOURCE_DIR}/..
 			${CMAKE_CURRENT_SOURCE_DIR}/../
-			${CMAKE_CURRENT_SOURCE_DIR}/../speechgui
 )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
