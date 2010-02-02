@@ -1,5 +1,4 @@
-include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib
-	../../simonlib/speechgui)
+include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES} ../../simonlib)
 set(ksimond_SRCS
    main.cpp
    ksimondview.cpp
@@ -11,7 +10,8 @@ kde4_add_app_icon(ksimond_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-ksimond.png")
 kde4_add_executable(ksimond ${ksimond_SRCS})
 
-target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo)
+target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
+	simonuicomponents simoninfo)
 
 install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ksimond)
 

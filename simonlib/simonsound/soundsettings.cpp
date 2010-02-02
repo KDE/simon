@@ -21,8 +21,6 @@
 #include "soundsettings.h"
 #include "soundcontrol.h"
 
-#include "simoncombobox.h"
-#include "simonspinbox.h"
 #include "soundconfig.h"
 
 #ifdef USE_WITH_SIMON

@@ -22,7 +22,7 @@
 #define SIMON_GRAMMARVIEW_H_9DC3821C61394228AED5ECE6953DF69A
 
 #include "simonmodelmanagementui_export.h"
-#include <speechgui/inlinewidget.h>
+#include <simonuicomponents/inlinewidget.h>
 
 #include <simonscenarios/scenariodisplay.h>
 

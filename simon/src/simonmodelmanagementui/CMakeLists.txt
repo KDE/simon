@@ -130,7 +130,7 @@ kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SR
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging simonscenarios simoninfo simonxml
-simonsound speechgui)
+simonsound simonuicomponents)
 
 set_target_properties( simonmodelmanagementui
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

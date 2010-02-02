@@ -23,7 +23,7 @@
 
 #include <QWidget>
 #include <QProcess>
-#include <trayiconmanager.h>
+#include <simonuicomponents/trayiconmanager.h>
 
 class KProcess;
 class KAction;

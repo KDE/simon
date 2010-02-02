@@ -9,7 +9,6 @@ include(${QT_USE_FILE})
 
 include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE 
 		     ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
-		     ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib/speechgui
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonappcore
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
@@ -36,7 +35,7 @@ kde4_add_executable( simon ${simonGeneralSources} )
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} simonappcore 
 simonactions simoninfo
-simonlogging simonxml speechgui simonsound simonscenarios 
+simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
 simonrecognitioncontrol simonactionsui simonprogresstracking)
 

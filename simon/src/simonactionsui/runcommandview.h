@@ -20,7 +20,7 @@
 #ifndef SIMON_RUNCOMMANDVIEW_H_D0DB76CE9BB745EDBDBF8BB975742138
 #define SIMON_RUNCOMMANDVIEW_H_D0DB76CE9BB745EDBDBF8BB975742138
 
-#include "inlinewidget.h"
+#include <simonuicomponents/inlinewidget.h>
 #include "simonactionsui_export.h"
 #include <simonscenarios/scenariodisplay.h>
 

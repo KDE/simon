@@ -76,7 +76,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 	if(!page) return;
 
 
-	connect(this, SIGNAL(guiAction(QString)), page, SLOT(doAction(QString)));
+//	connect(this, SIGNAL(guiAction(QString)), page, SLOT(doAction(QString)));
 // 	connect(this,SIGNAL(guiAction(QString)), page,SIGNAL(guiAction(QString)));
 	
 	

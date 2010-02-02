@@ -22,12 +22,12 @@
 #define SIMON_SERVERADDRESSSELECTOR_H_248323A2BAC9490395A6BC14E290B274
 
 #include <QWidget>
-#include "speechgui_export.h"
+#include "simonuicomponents_export.h"
 
 class KLineEdit;
 class QToolButton;
 
-class SPEECHGUI_EXPORT ServerAddressSelector : public QWidget
+class SIMONUICOMPONENTS_EXPORT ServerAddressSelector : public QWidget
 {
 Q_OBJECT
 private:

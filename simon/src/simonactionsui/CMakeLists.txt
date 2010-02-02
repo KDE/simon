@@ -34,7 +34,7 @@ kde4_add_library( simonactionsui  SHARED ${simonactionsui_LIB_SRCS} )
 
 target_link_libraries( simonactionsui ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions
-simonscenarios simonscenarios speechgui)
+simonscenarios simonscenarios simonuicomponents)
 
 
 set_target_properties( simonactionsui

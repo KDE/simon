@@ -18,40 +18,36 @@
  */
 
 
-#ifndef SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
-#define SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
+#ifndef SIMON_ADDSERVERCONNECTION_H_EF32AB08882C4BCA803C7B5C1522AFE2
+#define SIMON_ADDSERVERCONNECTION_H_EF32AB08882C4BCA803C7B5C1522AFE2
 
-#include <QObject>
-#include <KAction>
-#include <KIcon>
-#include <KSystemTrayIcon>
-#include "speechgui_export.h"
+#include "simonuicomponents_export.h"
+#include <KDialog>
+
+class KLineEdit;
+class KIntNumInput;
 
 /**
- *	@class TrayIconManager
- *	@brief Manages the System Tray Icon
- *
- *	Uses the QSystemTrayIcon Class to display the system tray icon
- *
- *	@version 0.1
- *	@date 25.01.2006
- *	@author Peter Grasch
- */
-class SPEECHGUI_EXPORT TrayIconManager : public QObject
+ \class AddServerConnection
+ \author Peter Grasch
+ \version 0.1
+ \date 12.08.2007
+
+ \brief Little Dialog to enter server address and port into
+
+*/
+class SIMONUICOMPONENTS_EXPORT AddServerConnection : public KDialog
 {
+Q_OBJECT
 
-	Q_OBJECT
 private:
-	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
-
+	KLineEdit *leAddress;
+	KIntNumInput *sbPort;
 	
 public:
-	void parentWidgetTrayClose();
-	void createIcon(const KIcon& icon, const QString& tooltip);
-	void addAction(const QString& name, KAction* action);
-    TrayIconManager(QWidget *parent=0);
-
-    ~TrayIconManager();
+    explicit AddServerConnection(QWidget* parent=0);
+    QString getHost();
+    int getPort();
 
 };
 

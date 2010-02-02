@@ -9,7 +9,7 @@ include(KDE4Defaults)
 
 set (QT_USE_QTMAIN true)
 
-set( speechgui_LIB_SRCS
+set( simonuicomponents_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidgetview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.cpp
@@ -32,8 +32,8 @@ set( speechgui_LIB_SRCS
 
 )
 
-set( speechgui_LIB_HDRS
-	${CMAKE_CURRENT_SOURCE_DIR}/speechgui_export.h
+set( simonuicomponents_LIB_HDRS
+	${CMAKE_CURRENT_SOURCE_DIR}/simonuicomponents_export.h
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidgetview.h
 	${CMAKE_CURRENT_SOURCE_DIR}/inlinewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.h
@@ -55,18 +55,18 @@ set( speechgui_LIB_HDRS
 	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.h
 )
 
-kde4_add_library( speechgui  SHARED ${speechgui_LIB_SRCS} )
+kde4_add_library( simonuicomponents  SHARED ${simonuicomponents_LIB_SRCS} )
 
-target_link_libraries( speechgui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
+target_link_libraries( simonuicomponents ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
 
 
-set_target_properties( speechgui
+set_target_properties( simonuicomponents
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
-install( FILES ${speechgui_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechgui
+install( FILES ${simonuicomponents_LIB_HDRS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonuicomponents
   COMPONENT simoncoredevel
 )
  
-install( TARGETS speechgui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
+install( TARGETS simonuicomponents DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )

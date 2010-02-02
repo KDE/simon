@@ -21,7 +21,7 @@
 #ifndef VOCABULARYVIEW_H
 #define VOCABULARYVIEW_H
 
-#include "inlinewidget.h"
+#include <simonuicomponents/inlinewidget.h>
 #include "simonmodelmanagementui_export.h"
 
 #include <simonscenarios/scenariodisplay.h>

@@ -19,7 +19,7 @@
 
 
 #include "networksettings.h"
-#include "serveraddressselector.h"
+#include <simonuicomponents/serveraddressselector.h>
 #include "recognitionconfiguration.h"
 #include <kdeversion.h>
 

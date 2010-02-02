@@ -19,14 +19,14 @@
 
 #include "simonview.h"
 
-#include "inlinewidgetview.h"
+#include <simonuicomponents/inlinewidgetview.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 
 #include <simonactionsui/runcommandview.h>
-#include <trayiconmanager.h>
+#include <simonuicomponents/trayiconmanager.h>
 
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>

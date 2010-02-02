@@ -4,7 +4,7 @@ include(SimonDirs)
 include(FindPortaudio)
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
-	../speechgui ../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
+	../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)

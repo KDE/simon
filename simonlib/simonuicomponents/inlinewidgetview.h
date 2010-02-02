@@ -22,7 +22,7 @@
 #define SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 
 #include <KTabWidget>
-#include "speechgui_export.h"
+#include "simonuicomponents_export.h"
 
 class InlineWidget;
 class QKeyEvent;
@@ -34,7 +34,7 @@ class QKeyEvent;
  \version 0.1
  \date 10.8.2007
 */
-class SPEECHGUI_EXPORT InlineWidgetView : public KTabWidget
+class SIMONUICOMPONENTS_EXPORT InlineWidgetView : public KTabWidget
 {
 Q_OBJECT
 signals:
