@@ -34,6 +34,7 @@
 #include <KLocalizedString>
 #include <KComponentData>
 #include <KAboutData>
+#include <KDebug>
 #include <KLocale>
 
 #ifdef Q_OS_WIN
@@ -474,14 +475,23 @@ bool ModelTest::recognize()
 	QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
 	int argc=15;
 
-	char* argv[] = {"sam", "-C", juliusJConf.toLocal8Bit().data(),
-			"-dfa", dfaPath.toLocal8Bit().data(),
-			"-v", dictPath.toLocal8Bit().data(),
+	kDebug() << juliusJConf.toLocal8Bit().data();
+	kDebug() << dfaPath.toLocal8Bit().data();
+	QByteArray juliusJConfByte = juliusJConf.toLocal8Bit();
+	QByteArray dfaPathByte = dfaPath.toLocal8Bit();
+	QByteArray dictPathByte = dictPath.toLocal8Bit();
+	QByteArray tiedListPathByte = tiedListPath.toLocal8Bit();
+	char* argv[] = {"sam", "-C", juliusJConfByte.data(),
+			"-dfa", dfaPathByte.data(),
+			"-v", dictPathByte.data(),
 			 "-h", QString(tempDir+"hmmdefs").toLocal8Bit().data(),
-			 "-hlist", tiedListPath.toLocal8Bit().data(),
+			 "-hlist", tiedListPathByte.data(),
 			 "-input", "rawfile", 
 			 "-filelist", QString(tempDir+"wavlist").toLocal8Bit().data(),
 			 "-smpFreq", QString::number(sampleRate).toLocal8Bit().data()};
+
+	for (int i=0; i < argc; i++)
+		kDebug() << argv[i];
 
 	Jconf *jconf = j_config_load_args_new(argc, argv);
 	if (!jconf) {

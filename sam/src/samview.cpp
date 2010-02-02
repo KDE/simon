@@ -481,84 +481,54 @@ void SamView::compileModel()
 
 	ui.teBuildLog->clear();
 	
-	modelCompilationManager->startCompilation(
-			(ModelCompilationManager::CompilationType)
-			(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
-			ui.urHmmDefs->url().path(),
-			ui.urTiedlist->url().path(),
-			ui.urDict->url().path(),
-			ui.urDFA->url().path(),
-			
-			ui.urBaseHmmDefs->url().path(),
-			ui.urBaseTiedlist->url().path(),
-			ui.urBaseMacros->url().path(),
-			ui.urBaseStats->url().path(),
+	int modelType = getModelType();
 
-			ui.urPromptsBasePath->url().path(),
-			ui.urLexicon->url().path(),
-			ui.urGrammar->url().path(),
-			ui.urVocabulary->url().path(),
-			ui.urPrompts->url().path(),
-			ui.urTreeHed->url().path(),
-			ui.urWavConfig->url().path()
-			);
-
-	/*
-	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-									 
-	int baseModelType = synchronisationManager->getBaseModelType();
-	switch (baseModelType)
+	ModelCompilationManager::CompilationType type;
+	switch (modelType)
 	{
 		case 0:
 			//static model
-			modelCompilationManager->startCompilation(
-					(ModelCompilationManager::CompileLanguageModel),
-					activeDir+"hmmdefs", activeDir+"tiedlist",
-					activeDir+"model.dict", activeDir+"model.dfa",
-					activeDir+"basehmmdefs", activeDir+"basetiedlist",
-					activeDir+"basemacros", activeDir+"basestats",
-					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
-					synchronisationManager->getWavConfigPath());
-
-			QFile::remove(activeDir+"hmmdefs");
-			QFile::remove(activeDir+"tiedlist");
-			QFile::copy(activeDir+"basehmmdefs", activeDir+"hmmdefs");
-			QFile::copy(activeDir+"basetiedlist", activeDir+"tiedlist");
+			type = (ModelCompilationManager::CompileLanguageModel);
+			
+			QFile::remove(ui.urHmmDefs->url().path());
+			QFile::remove(ui.urTiedlist->url().path());
+			QFile::copy(ui.urBaseHmmDefs->url().path(), ui.urHmmDefs->url().path());
+			QFile::copy(ui.urBaseTiedlist->url().path(), ui.urTiedlist->url().path());
 			break;
 		case 1:
 			//adapted base model
-			modelCompilationManager->startCompilation(
-					(ModelCompilationManager::CompilationType)
-					(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),
-					activeDir+"hmmdefs", activeDir+"tiedlist",
-					activeDir+"model.dict", activeDir+"model.dfa",
-					activeDir+"basehmmdefs", activeDir+"basetiedlist",
-					activeDir+"basemacros", activeDir+"basestats",
-					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
-					synchronisationManager->getWavConfigPath());
-		
+			type = (ModelCompilationManager::CompilationType)
+				(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel);
 			break;
 
 		case 2:
 			//dynamic model
-			modelCompilationManager->startCompilation(
-					(ModelCompilationManager::CompilationType)
-					(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
-					activeDir+"hmmdefs", activeDir+"tiedlist",
-					activeDir+"model.dict", activeDir+"model.dfa",
-					activeDir+"basehmmdefs", activeDir+"basetiedlist",
-					activeDir+"basemacros", activeDir+"basestats",
-					KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-					activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca", 
-					activeDir+"prompts", synchronisationManager->getTreeHedPath(), 
-					synchronisationManager->getWavConfigPath());
+			type = (ModelCompilationManager::CompilationType)
+				(ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel);
 			break;
+		default:
+			KMessageBox::error(this, i18n("Unknown model type"));
+			return;
 	}
-	*/
+	modelCompilationManager->startCompilation(
+				type,
+				ui.urHmmDefs->url().path(),
+				ui.urTiedlist->url().path(),
+				ui.urDict->url().path(),
+				ui.urDFA->url().path(),
+				
+				ui.urBaseHmmDefs->url().path(),
+				ui.urBaseTiedlist->url().path(),
+				ui.urBaseMacros->url().path(),
+				ui.urBaseStats->url().path(),
+
+				ui.urPromptsBasePath->url().path(),
+				ui.urLexicon->url().path(),
+				ui.urGrammar->url().path(),
+				ui.urVocabulary->url().path(),
+				ui.urPrompts->url().path(),
+				ui.urTreeHed->url().path(),
+				ui.urWavConfig->url().path());
 }
 
 void SamView::abortModelCompilation()
@@ -582,7 +552,8 @@ void SamView::slotModelAdaptionComplete()
 		ui.urPrompts->setUrl(KUrl(prompts));
 		QFileInfo fi(prompts);
 		QString path = fi.absolutePath();
-		ui.urPromptsBasePath->setUrl(KUrl(path));
+		QString trainingDataPath = path+QDir::separator()+"training.data";
+		ui.urPromptsBasePath->setUrl(KUrl(trainingDataPath));
 
 		QString promptsTestPath = path+QDir::separator()+"samprompts_test";
 
@@ -590,7 +561,7 @@ void SamView::slotModelAdaptionComplete()
 			ui.urTestPrompts->setUrl(KUrl(promptsTestPath));
 		else
 			ui.urTestPrompts->setUrl(KUrl(prompts));
-		ui.urTestPromptsBasePath->setUrl(KUrl(path));
+		ui.urTestPromptsBasePath->setUrl(KUrl(trainingDataPath));
 	}
 }
 

@@ -112,7 +112,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly))
 			return false;
 
-		while (!promptsFile.atEnd()) {
+		while (!promptsFile.atEnd())
+		{
 			QByteArray line = promptsFile.readLine();
 			int splitter = line.indexOf(" ");
 			promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
