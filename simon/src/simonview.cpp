@@ -324,7 +324,7 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 void SimonView::manageScenarios()
 {
 	ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
-	if (dlg->exec()) {
+	if (dlg->updateScenarioConfiguration()) {
 		//reload scenario information
 		if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
 			KMessageBox::sorry(this, i18n("Couldn't re-initialize scenarios. Please restart simon!"));
@@ -647,10 +647,6 @@ void SimonView::representState(SimonControl::SystemStatus status)
 */
 void SimonView::closeSimon()
 {
-//	kWarning() << KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "
-//"you will no longer be able to dictate texts or use command.\n\nDo you want to "
-//"quit?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(), "askForQuitSimonMainWindow" );
-
 	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n\nDo you want to "
 "quit?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(), "askForQuitSimonMainWindow" ) == KMessageBox::Yes )

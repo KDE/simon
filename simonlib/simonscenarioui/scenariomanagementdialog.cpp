@@ -384,11 +384,7 @@ void ScenarioManagementDialog::selectedScenarioSelected()
 
 bool ScenarioManagementDialog::save()
 {
-	QListWidget *s = ui->asScenarios->selectedListWidget();
-	QStringList ids;
-
-	for (int i=0; i < s->count(); i++)
-		ids << s->item(i)->data(Qt::UserRole).toString();
+	QStringList ids = getSelectedScenarioIds();
 
 	if (ids.count() == 0) {
 		KMessageBox::information(this, i18n("You need at least one active scenario.\n\nPlease load a scenario.\n\nYour current (empty) configuration was not saved."));
@@ -406,16 +402,31 @@ bool ScenarioManagementDialog::save()
 int ScenarioManagementDialog::exec()
 {
 	m_dirty = false;
+	return KDialog::exec();
+}
+
+QStringList ScenarioManagementDialog::getSelectedScenarioIds()
+{
+	QStringList ids;
+
+	QListWidget *s = ui->asScenarios->selectedListWidget();
+	for (int i=0; i < s->count(); i++)
+		ids << s->item(i)->data(Qt::UserRole).toString();
+
+	return ids;
+}
+
+bool ScenarioManagementDialog::updateScenarioConfiguration()
+{
 	int ret;
 	do
 	{
-		ret = KDialog::exec();
+		ret = exec();
 		if (!ret) break;
 	} while (!save());
-
 	return ret;
-}
 
+}
 
 ScenarioManagementDialog::~ScenarioManagementDialog()
 {

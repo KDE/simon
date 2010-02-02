@@ -108,7 +108,9 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		QFile promptsFile(promptsPathIn);
 		QFile promptsFileOut(promptsPathOut);
-		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly)) return false;
+
+		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly))
+			return false;
 
 		while (!promptsFile.atEnd()) {
 			QByteArray line = promptsFile.readLine();
@@ -126,6 +128,9 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		promptsFileOut.close();
 	}
 
+	if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+		return true;
+
 	/////  Lexicon  ////////////////
 	QFile lexiconFile(lexiconPathOut);
 	QFile simpleVocabFile(simpleVocabPathOut);
@@ -141,7 +146,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	foreach (Word *w, words) {
 		if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
 				!trainedVocabulary.contains(w->getLexiconWord().toUtf8())) {
-			kDebug() << w->getLexiconWord().toUtf8() << "not contained: " << trainedVocabulary;
 			continue;
 		}
 
@@ -180,16 +184,18 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 		bool hasAssociatedWord = false;
 		foreach (Word *w, wordsForTerminal) {
-			if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+			if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
 					trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
 				hasAssociatedWord = true;
 			else wordsForTerminal.removeAll(w);
 		}
-		if (hasAssociatedWord) {
+		if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) || hasAssociatedWord) {
 			vocabStream << "% " << terminal << "\n";
 			foreach (const Word *w, wordsForTerminal)
 				vocabStream << w->getWord() << "\t" << w->getPronunciation() << "\n";
-		} else terminals.removeAll(terminal);
+		} else {
+			terminals.removeAll(terminal);
+		}
 	}
 	simpleVocabFile.close();
 
@@ -200,6 +206,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 	QStringList structures = grammar->getStructures();
 	foreach (const QString& structure, structures) {
+
 		bool hasAssociatedWords = true;
 		QStringList structureElements = structure.split(' ');
 		foreach (const QString& structureTerminal, structureElements) {
@@ -209,7 +216,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 				break;
 			}
 		}
-		if (hasAssociatedWords)
+		if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) || hasAssociatedWords)
 			grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
 	}
 	grammarFile.close();

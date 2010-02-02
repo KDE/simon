@@ -33,12 +33,9 @@ class KAction;
 class QCloseEvent;
 class KCMultiDialog;
 class ModelCompilationManager;
+class ModelCompilationAdapter ;
 class ModelTest;
 /**
- * This is the main view class for sam.  Most of the non-menu,
- * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
- * here.
- *
  * @short Main view
  * @author Peter Grasch <grasch@simon-listens.org>
  * @version 0.1
@@ -79,7 +76,18 @@ private slots:
     void retrieveCompleteBuildLog();
     void retrieveCompleteTestLog();
 
+    QString getTargetDirectory();
+    void switchToAdapt();
+    void serializePrompts();
     void serializeScenarios();
+
+    void serializePromptsRun(const QString promptsPath, const QString& output);
+    void serializeScenariosRun(const QStringList& scenarioIds, const QString& output);
+
+    void slotModelAdaptionComplete();
+    void slotModelAdaptionAborted();
+    void slotModelAdaptionStatus(QString status, int progress);
+    void slotModelAdaptionError(QString errorMessage);
 
     void slotModelCompilationStatus(const QString& status, int now, int max);
     void slotModelCompilationError(const QString& error);
@@ -101,6 +109,7 @@ private:
     QString m_filename;
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
+    ModelCompilationAdapter *modelCompilationAdapter;
     ModelTest *modelTest;
 };
 

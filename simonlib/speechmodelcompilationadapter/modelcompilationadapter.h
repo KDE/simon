@@ -68,6 +68,11 @@ public:
 
 	virtual ~ModelCompilationAdapter();
 
+	QString lexiconPath() { return m_lexiconPathOut; }
+	QString grammarPath() { return m_grammarPathOut; }
+	QString simpleVocabPath() { return m_simpleVocabPathOut; }
+	QString promptsPath() { return m_promptsPathOut; }
+
 protected:
 	bool keepGoing;
 	AdaptionType m_adaptionType;
