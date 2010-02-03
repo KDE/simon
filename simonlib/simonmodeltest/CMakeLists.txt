@@ -7,7 +7,7 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED -DKDEWIN_STRINGS_H)
 include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS

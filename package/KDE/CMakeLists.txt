@@ -13,6 +13,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/dbus-daemon.exe"
   "${KDE4_BIN_INSTALL_DIR}/dbus-launch.exe"
   "${KDE4_BIN_INSTALL_DIR}/iconv.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libattica.dll"
   "${KDE4_BIN_INSTALL_DIR}/intl.dll"
   "${KDE4_BIN_INSTALL_DIR}/jpeg62.dll"
   "${KDE4_BIN_INSTALL_DIR}/kbuildsycoca4.exe"
@@ -62,7 +63,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libxml2.dll"
   "${KDE4_BIN_INSTALL_DIR}/mfc71.dll"
   "${KDE4_BIN_INSTALL_DIR}/mingwm10.dll"
-  "${KDE4_BIN_INSTALL_DIR}/mingw-pcrecpp.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/mingw-pcrecpp.dll"
   "${KDE4_BIN_INSTALL_DIR}/msvcp71.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgcc_s_dw2-1.dll"
   #"${KDE4_BIN_INSTALL_DIR}/msvcr71.dll"
@@ -78,11 +79,11 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/update-mime-database.exe"
   "${KDE4_BIN_INSTALL_DIR}/zlib1.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxslt.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/libkfilemodule.dll"
+  #"${KDE4_LIB_INSTALL_DIR}/kde4/libkfilemodule.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_desktopnotifier.dll"
   #"${KDE4_LIB_INSTALL_DIR}/kde4/kded_favicons.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_winstartmenu.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_globalaccel.dll"
+  #"${KDE4_LIB_INSTALL_DIR}/kde4/kded_globalaccel.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kcookiejar.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kpasswdserver.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kssld.dll"
@@ -95,20 +96,10 @@ install( FILES
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_file.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_filter.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_ftp.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_ghelp.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_http.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_imap4.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_info.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_ldap.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_mbox.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_metainfo.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_nntp.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_pop3.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_remote.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kspell_aspell.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kio_settings.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_smtp.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_trash.dll"
 		DESTINATION  ${BIN_INSTALL_DIR} COMPONENT kdecore )
 		
 		
@@ -802,74 +793,74 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
 		DESTINATION  ${DATA_INSTALL_DIR}/../locale COMPONENT kdecore )
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/de/entry.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de COMPONENT kdecore )
+  #install( FILES 
+  #"${KDE4_INSTALL_DIR}/share/locale/de/entry.desktop"
+#		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de COMPONENT kdecore )
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/display.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/drkonqi.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/filetypes.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-tools.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminfo.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminit.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcmstyle.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcolorchooser.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdebugdialog.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdelibs_colors4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdelibs4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kde-menu.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdeqt.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdialog.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kfile.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kfmclient.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/khelpcenter.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_archive.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_audiocd.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_finger.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_fish.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_floppy.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_groupwise.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_help4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_imap4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_jabberdisco.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_ldap.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_man.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_mbox.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_nfs.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_nntp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_pop3.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_remote.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_sftp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_sieve.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_smb.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_smtp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_svn.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_thumbnail.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_trash.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_zeroconf.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kioclient.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kioexec.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/knotify4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kquitapp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kstyle_config.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kstyle_phase_config.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kuiserver.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kurifilter.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kuser.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/lokalize.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_MESSAGES COMPONENT kdecore )
+  #install( FILES 
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/display.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/drkonqi.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/filetypes.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-runtime.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-tools.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminfo.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminit.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcmstyle.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcolorchooser.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdebugdialog.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdelibs_colors4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdelibs4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kde-menu.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdeqt.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdialog.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kfile.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kfmclient.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/khelpcenter.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_archive.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_audiocd.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_finger.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_fish.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_floppy.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_groupwise.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_help4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_imap4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_jabberdisco.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_ldap.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_man.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_mbox.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_nfs.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_nntp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_pop3.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_remote.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_sftp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_sieve.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_smb.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_smtp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_svn.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_thumbnail.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_trash.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio_zeroconf.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kio4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kioclient.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kioexec.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/knotify4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kquitapp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kstyle_config.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kstyle_phase_config.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kuiserver.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kurifilter.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kuser.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/lokalize.mo"
+		# DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_MESSAGES COMPONENT kdecore )
 
 
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_SCRIPTS/kdelibs4/kdelibs4.js"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_SCRIPTS/kdelibs4 COMPONENT kdecore )
+  #install( FILES 
+  #"${KDE4_INSTALL_DIR}/share/locale/de/LC_SCRIPTS/kdelibs4/kdelibs4.js"
+#		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_SCRIPTS/kdelibs4 COMPONENT kdecore )
 
 
 
@@ -877,89 +868,89 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
 		
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/fr/entry.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/fr COMPONENT kdecore )
+  # install( FILES 
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/entry.desktop"
+		# DESTINATION  ${DATA_INSTALL_DIR}/../locale/fr COMPONENT kdecore )
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/display.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/drkonqi.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/filetypes.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-tools.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminfo.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminit.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcmstyle.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcolorchooser.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdebugdialog.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdelibs_colors4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdelibs4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kde-menu.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdeqt.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdialog.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kfile.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kfmclient.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/khelpcenter.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_archive.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_audiocd.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_finger.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_fish.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_floppy.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_groupwise.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_help4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_imap4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_jabberdisco.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_ldap.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_man.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_mbox.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_nfs.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_nntp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_pop3.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_remote.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_sftp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_sieve.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_smb.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_smtp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_svn.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_thumbnail.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_trash.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_zeroconf.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kioclient.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kioexec.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/knotify4.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kquitapp.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kstyle_config.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kstyle_phase_config.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kuiserver.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kurifilter.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kuser.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/lokalize.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/fr/LC_MESSAGES COMPONENT kdecore )
-
-
-
+  # install( FILES 
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/display.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/drkonqi.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/filetypes.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-runtime.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-tools.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminfo.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminit.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcmstyle.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcolorchooser.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdebugdialog.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdelibs_colors4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdelibs4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kde-menu.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdeqt.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kdialog.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kfile.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kfmclient.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/khelpcenter.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_archive.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_audiocd.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_finger.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_fish.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_floppy.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_groupwise.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_help4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_imap4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_jabberdisco.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_ldap.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_man.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_mbox.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_nfs.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_nntp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_pop3.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_remote.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_sftp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_sieve.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_smb.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_smtp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_svn.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_thumbnail.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_trash.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio_zeroconf.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kio4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kioclient.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kioexec.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/knotify4.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kquitapp.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kstyle_config.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kstyle_phase_config.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kuiserver.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kurifilter.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kuser.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/lokalize.mo"
+		# DESTINATION  ${DATA_INSTALL_DIR}/../locale/fr/LC_MESSAGES COMPONENT kdecore )
 
 
 
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
+
+
+
+  # install( FILES 
+  # "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-runtime.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-tools.mo"
+		# DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
 
 
 
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@quot/LC_MESSAGES COMPONENT kdecore )
+  # install( FILES 
+  # "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-runtime.mo"
+  # "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-tools.mo"
+		# DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@quot/LC_MESSAGES COMPONENT kdecore )
 
 
 

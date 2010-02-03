@@ -19,15 +19,18 @@
 
 #include "compositecommand.h"
 #include <simonactions/actionmanager.h>
-#include <unistd.h>
+#include <KIcon>
+#include <KProcess>
+#include <KLocalizedString>
 #include <QObject>
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>
-#include <KIcon>
-#include <KProcess>
-#include <KLocalizedString>
-
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
 
 const QString CompositeCommand::staticCategoryText()
 {
@@ -54,6 +57,7 @@ const QMap<QString,QVariant> CompositeCommand::getValueMapPrivate() const
 	QMap<QString,QVariant> out;
 	out.insert(i18n("Commands"), commands.join("\n"));
 	return out;
+	
 }
 
 
@@ -93,10 +97,14 @@ bool CompositeCommand::triggerPrivate()
 		{
 			bool ok=true;
 			kDebug() << commands[i];
-			int amount = commands[i].toInt(&ok)*1000;
+			int amount = commands[i].toInt(&ok);
 			if (!ok) {kDebug() << "Not ok"; continue;}
 			kDebug() << "Sleeping: " << amount;
-			usleep(amount);
+			#ifdef Q_OS_WIN32
+			Sleep(amount);
+			#else
+			usleep(amount*1000);
+			#endif
 		} else  if (type == i18n("Launcher"))
 			ActionManager::getInstance()->runLauncher(commands[i]);
 		else

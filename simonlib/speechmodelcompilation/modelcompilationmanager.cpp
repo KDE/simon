@@ -52,13 +52,14 @@ QString ModelCompilationManager::htkIfyPath(const QString& in)
 {
 	QString out = in;
 	#ifdef Q_OS_WIN
-	const char *in_data = out.toUtf8().constData();
+	QByteArray outByte = out.toUtf8();
+	const WCHAR *in_data = (const WCHAR*) outByte.constData();
 	
 	long length = 0;
 	length = GetShortPathName(in_data, NULL, 0);
 	if (length ==0) return QString();
 	
-	char *out_data = new TCHAR[length];
+	WCHAR *out_data = new WCHAR[length];
 	length = GetShortPathName(in_data, out_data, length);
 	if (length ==0) return QString();
 	

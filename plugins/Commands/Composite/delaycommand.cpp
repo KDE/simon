@@ -18,13 +18,18 @@
  */
 
 #include "delaycommand.h"
-#include <unistd.h>
+#include <KIcon>
+#include <KLocalizedString>
 #include <QObject>
 #include <QVariant>
 #include <QDomDocument>
 #include <QDomElement>
-#include <KIcon>
-#include <KLocalizedString>
+
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
 
 
 const QString DelayCommand::staticCategoryText()
@@ -56,7 +61,11 @@ const QMap<QString,QVariant> DelayCommand::getValueMapPrivate() const
 
 bool DelayCommand::triggerPrivate()
 {
+	#ifdef Q_OS_WIN32
+	Sleep(delay);
+	#else
 	usleep(delay*1000);
+	#endif
 	return true;
 }
 

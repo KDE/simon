@@ -23,8 +23,6 @@
 #include <simonactions/actionmanager.h>
 #include <simoninfo/simoninfo.h>
 #include <simonactions/commandlistwidget.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 #include <QDesktopWidget>
 #include <QDialog>
@@ -35,6 +33,13 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <KDebug>
+
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+#include <stdlib.h>
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -162,7 +167,11 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 	}
 
 	widget->accept();
+	#ifdef Q_OS_UNIX
 	usleep(300000);
+	#else
+	Sleep(300);
+	#endif
 	EventHandler::getInstance()->sendWord(output);
 }
 
