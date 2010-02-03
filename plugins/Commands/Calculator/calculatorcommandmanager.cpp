@@ -119,8 +119,10 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 	return true;
 }
 
+#include <KDebug>
 void CalculatorCommandManager::setFont(const QFont& font)
 {
+	kDebug() << "Setting font: " << font;
 	widget->setFont(font);
 }
 

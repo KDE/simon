@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
-    <height>247</height>
+    <width>242</width>
+    <height>215</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -194,10 +194,7 @@
         <item>
          <widget class="QWidget" name="wgCalculator" native="true">
           <layout class="QGridLayout" name="gridLayout_2">
-           <property name="margin">
-            <number>0</number>
-           </property>
-           <item row="0" column="0" colspan="2">
+           <item row="0" column="0">
             <widget class="KPushButton" name="pbPlus">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -210,7 +207,7 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="0" column="1">
             <widget class="KPushButton" name="pbMultiply">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -236,7 +233,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
+           <item row="1" column="1">
             <widget class="KPushButton" name="pbDivide">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -256,7 +253,7 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
+           <item row="2" column="1">
             <widget class="KPushButton" name="pbBracketClose">
              <property name="text">
               <string>)</string>
@@ -270,7 +267,7 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1" colspan="2">
+           <item row="3" column="1">
             <widget class="KPushButton" name="pbEquals">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">

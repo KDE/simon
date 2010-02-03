@@ -138,7 +138,7 @@ void CommandSettings::defaults()
 	cg.writeEntry("MinimumConfidence", 0.7f);
 	cg.writeEntry("UseDYM", true);
 	cg.writeEntry("PluginBaseFont", QFont());
-	storedFont = QFont();
+	ScenarioManager::getInstance()->setPluginFont(QFont());
 	cg.sync();
 	load();
 	forceChangeFlag = true;
