@@ -106,7 +106,14 @@ void AddWordResolvePage::initializePage()
 {
 	alreadyTriedToConvinceAboutCapitalization=false;
 	setUpdatesEnabled(false);
-	QString word = field("wordNameIntro").toString();
+
+	QStringList words = field("wordNameIntro").toString().split(" ");
+	kDebug() << words;
+	QString word = words.takeAt(0);
+	setField("wordNameIntro", words.join(" "));
+	kDebug() << words.join(" ");
+	kDebug() << field("wordNameIntro");
+
 
 	if(meCh7(MKW))q_Ml MKW+i18n(" deaktivieren?") dw3_ close;
 

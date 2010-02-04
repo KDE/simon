@@ -45,8 +45,8 @@ private:
     
 public:
     AddWordIntroPage(QWidget* parent);
+    bool validatePage();
     ~AddWordIntroPage() {}
-
 };
 
 #endif

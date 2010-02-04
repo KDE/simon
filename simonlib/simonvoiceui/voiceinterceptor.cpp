@@ -18,15 +18,60 @@
  */
 
 #include "voiceinterceptor.h"
+#include <QMetaObject>
 
-VoiceInterceptor::VoiceInterceptor()
+VoiceInterceptor::VoiceInterceptor(const QString& id, const QString& trigger, const QString& visibleTrigger, 
+			const QString& description) :
+	m_id(id), 
+	m_trigger(trigger), 
+	m_visibleTrigger(visibleTrigger),
+	m_description(description)
 {
 }
 
+bool VoiceInterceptor::deSerialize(const QDomElement& element)
+{
+	if (element.isNull()) return false;
+
+	QDomElement idElement = element.firstChildElement("id");
+	QDomElement triggerElement = element.firstChildElement("trigger");
+	QDomElement visibleTriggerElement = element.firstChildElement("visibleTrigger");
+	QDomElement descriptionElement = element.firstChildElement("descriptionElement");
+	m_id = idElement.text();
+	m_trigger = triggerElement.text();
+	m_visibleTrigger = visibleTriggerElement.text();
+	m_description = descriptionElement.text();
+
+	return true;
+}
+
+QDomElement VoiceInterceptor::serialize(QDomDocument *doc)
+{
+	Q_ASSERT(doc);
+
+	QDomElement elem = doc->createElement("interceptor");
+
+	QDomElement idElement = doc->createElement("id");
+	idElement.appendChild(doc->createTextNode(m_id));
+
+	QDomElement triggerElement = doc->createElement("trigger");
+	triggerElement.appendChild(doc->createTextNode(m_trigger));
+
+	QDomElement visibleTriggerElement = doc->createElement("visibleTrigger");
+	visibleTriggerElement.appendChild(doc->createTextNode(m_visibleTrigger));
+
+	QDomElement descriptionElement = doc->createElement("description");
+	descriptionElement.appendChild(doc->createTextNode(m_description));
+
+	elem.appendChild(idElement);
+	elem.appendChild(triggerElement);
+	elem.appendChild(visibleTriggerElement);
+	elem.appendChild(descriptionElement);
+
+	return elem;
+}
 
 VoiceInterceptor::~VoiceInterceptor()
 {
 }
-
-
 

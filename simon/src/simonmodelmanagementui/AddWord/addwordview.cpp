@@ -97,10 +97,11 @@ void AddWordView::accept()
 	listToAdd->append(new Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), recordingCount));
 	
-	if (wordsToAdd.count() > 0)
+	QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);
+	if (words.count() > 0)
 	{
 		//multiple words
-		createWord(wordsToAdd.takeAt(0));
+		advanceToResolvePage();
 		record1->keepSample();
 		record2->keepSample();
 		show();
@@ -119,7 +120,7 @@ void AddWordView::accept()
 
 void AddWordView::cleanUp()
 {
-	wordsToAdd.clear();
+	setField("wordNameIntro", QString());
 	if (!listToAdd->isEmpty())
 	{
 		if (KMessageBox::questionYesNoCancel(this, i18n("Do you want to add the words that have been completely described up until now?")) == KMessageBox::Yes)
@@ -248,8 +249,15 @@ void AddWordView::addWords(QStringList words)
 {
 	if (words.count() == 0) return;
 	
-	wordsToAdd << words;
-	createWord(wordsToAdd.takeAt(0));
+	createWord(words.join(" "));
+}
+
+void AddWordView::advanceToResolvePage()
+{
+	QString words = field("wordNameIntro").toString();
+	restart();
+	setField("wordNameIntro", words);
+	next();
 }
 
 /**
@@ -259,9 +267,8 @@ void AddWordView::addWords(QStringList words)
  */
 void AddWordView::createWord(QString word)
 {
-	restart();
 	setField("wordNameIntro", word);
-	next(); //continue to page 2
+	advanceToResolvePage();
 }
 
 

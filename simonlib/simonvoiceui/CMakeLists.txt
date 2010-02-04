@@ -19,7 +19,7 @@ set( simonvoiceui_LIB_HDRS
 
 kde4_add_library( simonvoiceui  SHARED ${simonvoiceui_LIB_SRCS} )
 
-target_link_libraries( simonvoiceui ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
+target_link_libraries( simonvoiceui ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} )
 
 
 set_target_properties( simonvoiceui

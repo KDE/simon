@@ -53,7 +53,6 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 	private:
 		Vocabulary *targetVocabulary;
 
-		QStringList wordsToAdd;
 		QList<Word*> *listToAdd;
 		QHash<QString,QString> promptsToAdd;
 		
@@ -63,6 +62,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		AddWordRecordPage *record1, *record2;
 
 		void commitList();
+		void advanceToResolvePage();
 	
 	signals:
 		void addedWord();

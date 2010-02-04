@@ -37,3 +37,13 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	registerField("wordNameIntro*", ui.leName);
 }
 
+#include <KDebug>
+bool AddWordIntroPage::validatePage()
+{
+	kDebug() << "Setting field from: " << field("wordNameIntro");
+	QStringList words = field("wordNameIntro").toString().replace(",", " ").replace(".", " ").split(" ", QString::SkipEmptyParts);
+	setField("wordNameIntro", words.join(" "));
+	kDebug() << "To: " << field("wordNameIntro");
+	return true;
+}
+

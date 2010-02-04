@@ -23,13 +23,28 @@
 
 #include "simonvoiceui_export.h"
 #include <QString>
+#include <QDomElement>
+
+class QObject;
+class QDomDocument;
 
 class SIMONVOICEUI_EXPORT VoiceInterceptor {
+private:
+	QString m_id;
+	QString m_trigger;
+	QString m_visibleTrigger;
+	QString m_description;
 	
 public:
-	VoiceInterceptor();
+	VoiceInterceptor(const QString& id, const QString& trigger, const QString& visibleTrigger, 
+			const QString& description);
 	
-	~VoiceInterceptor();
+	virtual ~VoiceInterceptor();
+
+	bool deSerialize(const QDomElement&);
+	QDomElement serialize(QDomDocument *doc);
+
+	virtual bool trigger(const QString& text)=0;
 
 };
 

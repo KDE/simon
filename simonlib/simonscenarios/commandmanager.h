@@ -39,6 +39,7 @@ class QAction;
 class CommandConfiguration;
 class QDomDocument;
 class Scenario;
+class VoiceInterceptor;
 
 /**
  *	@class CommandManager
@@ -56,6 +57,7 @@ signals:
 protected:
 	QString m_source;
 	QList<QAction*> guiActions;
+	QList<VoiceInterceptor*> voiceInterceptors;
 	CommandList *commands;
 	CommandConfiguration *config;
 
