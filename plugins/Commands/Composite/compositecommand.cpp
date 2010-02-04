@@ -105,3 +105,31 @@ bool CompositeCommand::triggerPrivate()
 
 	return true;
 }
+
+
+bool CompositeCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
+	if (childCommandsElem.isNull()) return false;
+
+	commands.clear();
+	commandTypes.clear();
+
+	QDomElement childCommandElem = childCommandsElem.firstChildElement();
+
+	while (!childCommandElem.isNull()) {
+		QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
+		QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
+		commands << childCommandTriggerElem.text();
+		commandTypes << childCommandCategoryElem.text();
+		childCommandElem = childCommandElem.nextSiblingElement();
+	}
+	kDebug() << "Triggers: " << commands;
+	kDebug() << "Categories: " << commandTypes;
+
+	return true;
+}
+
+STATIC_CREATE_INSTANCE_C(CompositeCommand);
+
+

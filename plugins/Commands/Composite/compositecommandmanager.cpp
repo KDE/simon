@@ -63,6 +63,7 @@ CreateCommandWidget* CompositeCommandManager::getCreateCommandWidget(QWidget *pa
 	return new CreateCompositeCommandWidget(this, parent);
 }
 
+/*
 bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem)
 {
 	if (commands)
@@ -98,7 +99,10 @@ bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem)
 
 	return true;
 }
+*/
 
+
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(CompositeCommandManager, CompositeCommand);
 
 CompositeCommandManager::~CompositeCommandManager()
 {

@@ -75,6 +75,8 @@ bool LauncherCommand::triggerPrivate()
 	return true;
 }
 
+STATIC_CREATE_INSTANCE_C(LauncherCommand);
+
 QDomElement LauncherCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
 	Q_UNUSED(doc);
@@ -84,5 +86,11 @@ QDomElement LauncherCommand::serializePrivate(QDomDocument *doc, QDomElement& co
 //	commandElem.appendChild(launcherElem);
 		
 	return commandElem;
+}
+
+bool LauncherCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	Q_UNUSED(commandElem);
+	return true;
 }
 

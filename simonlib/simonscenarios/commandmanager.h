@@ -20,6 +20,30 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
 
+#define DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H \
+	bool deSerializeCommandsPrivate(const QDomElement& elem);
+
+#define DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(x, y) \
+	bool x::deSerializeCommandsPrivate(const QDomElement& elem) \
+	{ \
+		if (elem.isNull()) return false; \
+ \
+		QDomElement commandElem = elem.firstChildElement("command"); \
+		while(!commandElem.isNull()) \
+		{ \
+			Command *c = y::createInstance(commandElem); \
+			if (c) \
+			{ \
+				if (!commands) \
+					commands = new CommandList(); \
+				commands->append(c); \
+			} \
+ \
+			commandElem = commandElem.nextSiblingElement("command"); \
+		} \
+		return true; \
+	}
+
 #include "simonmodelmanagement_export.h"
 
 #include "command.h"
@@ -39,7 +63,6 @@ class QAction;
 class CommandConfiguration;
 class QDomDocument;
 class Scenario;
-class VoiceInterceptor;
 
 /**
  *	@class CommandManager
@@ -57,7 +80,6 @@ signals:
 protected:
 	QString m_source;
 	QList<QAction*> guiActions;
-	QList<VoiceInterceptor*> voiceInterceptors;
 	CommandList *commands;
 	CommandConfiguration *config;
 
@@ -105,10 +127,15 @@ public:
 	virtual bool deSerializeConfig(const QDomElement& elem);
 	virtual QDomElement serializeConfig(QDomDocument *doc);
 
-	virtual bool deSerializeCommands(const QDomElement& elem);
+	bool deSerializeCommands(const QDomElement& elem);
+	virtual bool deSerializeCommandsPrivate(const QDomElement& elem);
+
 	virtual QDomElement serializeCommands(QDomDocument *doc);
 
 	virtual bool trigger(const QString& triggerName);
+	virtual bool installInterfaceCommand(QWidget* widget, const QString& slot, 
+			const QString& actionName, const QString& iconSrc,
+			const QString& description, QString id=QString());
 
 	/**
 	* @brief Constructor

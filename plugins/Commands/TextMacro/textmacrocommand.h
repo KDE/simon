@@ -42,6 +42,8 @@ protected:
 	bool triggerPrivate();
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+	bool deSerializePrivate(const QDomElement& commandElem);
+	TextMacroCommand() {}
 
 public:
 	static const QString staticCategoryText();
@@ -60,6 +62,9 @@ public:
         text(text_)
     {
     }
+
+    STATIC_CREATE_INSTANCE_H(TextMacroCommand);
+
 
     /**
     * @brief Returns the text

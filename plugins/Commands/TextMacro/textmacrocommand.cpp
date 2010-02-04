@@ -72,3 +72,16 @@ QDomElement TextMacroCommand::serializePrivate(QDomDocument *doc, QDomElement& c
 	return commandElem;
 }
 
+bool TextMacroCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement textElem = commandElem.firstChildElement("text");
+	
+	if (textElem.isNull()) return false;
+
+	text = textElem.text();
+	return true;
+}
+
+STATIC_CREATE_INSTANCE_C(TextMacroCommand);
+
+

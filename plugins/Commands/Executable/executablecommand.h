@@ -42,7 +42,7 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
-	ExecutableCommand();
+	ExecutableCommand() {}
 
 public:
 	static const QString staticCategoryText();
@@ -52,24 +52,25 @@ public:
 	const QString getCategoryText() const;
 
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+	bool deSerializePrivate(const QDomElement& commandElem);
 
-    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const KUrl& workingDirectory) : Command(name, iconSrc, description)
-    {
-        this->exe = exe;
-        this->workingDirectory = workingDirectory;
-    }
+	ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const KUrl& workingDirectory) : 
+		Command(name, iconSrc, description)
+	{
+		this->exe = exe;
+		this->workingDirectory = workingDirectory;
+	}
 
-    const QString getExecutable() const { return this->exe; }
-    
-    /**
-    * @brief Returns the directory, the executable should be executed in (optional)
-    *
-    * @author Peter Grasch
-    */
-    const KUrl getWorkingDirectory() const {return this->workingDirectory;}
-    
-    
+	const QString getExecutable() const { return this->exe; }
 
+
+	/**
+	* @brief Returns the directory, the executable should be executed in (optional)
+	*
+	* @author Peter Grasch
+	*/
+	const KUrl getWorkingDirectory() const {return this->workingDirectory;}
+    
 	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QString& newExe, const QString& newWorkingDir)
 	{ 
 		this->exe = newExe;
@@ -77,8 +78,9 @@ public:
 		Command::change(newName, newIconSrc, description);
 	}
 
-    ~ExecutableCommand() {}
+	~ExecutableCommand() {}
 
+	STATIC_CREATE_INSTANCE_H(ExecutableCommand);
 };
 
 #endif

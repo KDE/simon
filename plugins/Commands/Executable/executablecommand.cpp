@@ -119,3 +119,19 @@ QDomElement ExecutableCommand::serializePrivate(QDomDocument *doc, QDomElement& 
 	return commandElem;
 }
 
+bool ExecutableCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement exeElem = commandElem.firstChildElement("executable");
+	if (exeElem.isNull()) return false;
+
+	QDomElement workingDirectoryElem = commandElem.firstChildElement("workingdirectory");
+
+	exe = exeElem.text();
+	workingDirectory = workingDirectoryElem.text();
+
+	return true;
+}
+
+STATIC_CREATE_INSTANCE_C(ExecutableCommand);
+
+

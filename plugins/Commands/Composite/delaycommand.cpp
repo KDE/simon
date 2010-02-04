@@ -69,3 +69,17 @@ QDomElement DelayCommand::serializePrivate(QDomDocument *doc, QDomElement& comma
 		
 	return commandElem;
 }
+
+bool DelayCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement delayElem = commandElem.firstChildElement("delay");
+	if (delayElem.isNull()) return false;
+
+	bool ok = true;
+	delay = delayElem.text().toInt(&ok);
+	
+	return ok;
+}
+
+STATIC_CREATE_INSTANCE_C(DelayCommand);
+

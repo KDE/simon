@@ -40,6 +40,8 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	bool deSerializePrivate(const QDomElement& commandElem);
+	DelayCommand() { }
 
 public:
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
@@ -49,6 +51,7 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
+	STATIC_CREATE_INSTANCE_H(DelayCommand);
 	
 	/**
 	* @brief Constructor

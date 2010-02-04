@@ -226,11 +226,40 @@ bool ListCommand::triggerPrivate()
 	return true;
 }
 
+bool ListCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
+	if (childCommandsElem.isNull()) return false;
+
+	iconsrcs.clear();
+	commands.clear();
+	commandTypes.clear();
+
+	QDomElement childCommandElem = childCommandsElem.firstChildElement();
+
+	while (!childCommandElem.isNull()) {
+		QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
+		QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
+		QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
+		commands << childCommandTriggerElem.text();
+		iconsrcs << childCommandIconElem.text();
+		commandTypes << childCommandCategoryElem.text();
+		childCommandElem = childCommandElem.nextSiblingElement();
+	}
+	kDebug() << "Triggers: " << commands;
+	kDebug() << "Icons: " << iconsrcs;
+	kDebug() << "Categories: " << commandTypes;
+
+	return true;
+}
+
 void ListCommand::setFont(const QFont& font)
 {
 	kDebug() << "Setting font...";
 	clw->setFont(font);
 }
+
+STATIC_CREATE_INSTANCE_C(ListCommand);
 
 ListCommand::~ListCommand()
 {

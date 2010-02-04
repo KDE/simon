@@ -58,3 +58,15 @@ QDomElement Command::serialize(QDomDocument *doc)
 	return serializePrivate(doc, commandElem);
 }
 
+bool Command::deSerialize(const QDomElement& elem)
+{
+	QDomElement name = elem.firstChildElement();
+	QDomElement icon = name.nextSiblingElement();
+	QDomElement descriptionElem = icon.nextSiblingElement();
+	triggerName = name.text();
+	iconSrc = icon.text();
+	description = descriptionElem.text();
+
+	return deSerializePrivate(elem);
+}
+

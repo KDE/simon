@@ -37,11 +37,16 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	bool deSerializePrivate(const QDomElement& commandElem);
+
+	LauncherCommand() {}
 
 public:
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 	static const QString staticCategoryText();
 	static const KIcon staticCategoryIcon();
+
+	STATIC_CREATE_INSTANCE_H(LauncherCommand);
 
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;

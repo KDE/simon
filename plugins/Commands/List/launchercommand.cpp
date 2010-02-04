@@ -86,3 +86,10 @@ QDomElement LauncherCommand::serializePrivate(QDomDocument *doc, QDomElement& co
 	return commandElem;
 }
 
+bool LauncherCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	Q_UNUSED(commandElem);
+	return true;
+}
+
+

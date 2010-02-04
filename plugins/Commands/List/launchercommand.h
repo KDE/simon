@@ -37,6 +37,7 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	bool deSerializePrivate(const QDomElement& commandElem);
 
 public:
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);

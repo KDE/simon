@@ -43,6 +43,9 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	bool deSerializePrivate(const QDomElement& commandElem);
+
+	PlaceCommand() {}
 
 public:
 	static const QString staticCategoryText();
@@ -50,6 +53,8 @@ public:
 
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
+
+	STATIC_CREATE_INSTANCE_H(PlaceCommand);
 	
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 

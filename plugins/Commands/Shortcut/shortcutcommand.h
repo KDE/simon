@@ -44,7 +44,9 @@ protected:
 
 	bool triggerPrivate();
 
+	ShortcutCommand() {}
 public:
+	bool deSerializePrivate(const QDomElement& commandElem);
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
 	static const QString staticCategoryText();
@@ -53,21 +55,24 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 	
-    /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
-    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
-        shortcut(shortcut_)
-    {
-    }
+	/**
+	* @brief Constructor
+	* 
+	*	@author Peter Grasch
+	*/
+	ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
+	shortcut(shortcut_)
+	{
+	}
+
+	STATIC_CREATE_INSTANCE_H(ShortcutCommand);
 
 
 	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QKeySequence& newShortcut) { 
 		this->shortcut = newShortcut;
 		Command::change(newName, newIconSrc, description);
 	}
+
 
     /**
     * @brief Returns the shortcut

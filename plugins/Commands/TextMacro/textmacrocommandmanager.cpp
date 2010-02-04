@@ -59,6 +59,7 @@ const KIcon TextMacroCommandManager::icon() const
 	return TextMacroCommand::staticCategoryIcon();
 }
 
+/*
 bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem)
 {
 	if (commands)
@@ -81,6 +82,9 @@ bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem)
 
 	return true;
 }
+*/
+
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(TextMacroCommandManager, TextMacroCommand);
 
 CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *parent)
 {

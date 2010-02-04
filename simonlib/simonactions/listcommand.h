@@ -57,6 +57,8 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	virtual bool deSerializePrivate(const QDomElement& commandElem);
+	ListCommand() {}
 
 private slots:
 	bool processRequest(int index);
@@ -106,6 +108,8 @@ public:
 		Command::change(newName, newIconSrc, description);
 	}
 	void setFont(const QFont& font);
+
+	STATIC_CREATE_INSTANCE_H(ListCommand);
 
     ~ListCommand();
 

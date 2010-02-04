@@ -63,47 +63,6 @@ CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 	return new CreateListCommandWidget(this, parent);
 }
 
-bool ListCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	if (commands)
-		qDeleteAll(*commands);
-	commands = new CommandList();
-
-	if (elem.isNull()) return false;
-
-	QDomElement commandElem = elem.firstChildElement();
-	while(!commandElem.isNull())
-	{
-		QDomElement name = commandElem.firstChildElement();
-		QDomElement icon = name.nextSiblingElement();
-		QDomElement description = icon.nextSiblingElement();
-		QDomElement childCommandsElem = description.nextSiblingElement();
-		QDomElement childCommandElem = childCommandsElem.firstChildElement();
-		QStringList childCommandTrigger;
-		QStringList childCommandIcons;
-		QStringList childCommandCategory;
-		while (!childCommandElem.isNull()) {
-			QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
-			QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
-			QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
-			childCommandTrigger << childCommandTriggerElem.text();
-			childCommandIcons << childCommandIconElem.text();
-			childCommandCategory << childCommandCategoryElem.text();
-			childCommandElem = childCommandElem.nextSiblingElement();
-		}
-		kDebug() << "Triggers: " << childCommandTrigger;
-		kDebug() << "Icons: " << childCommandIcons;
-		kDebug() << "Categories: " << childCommandCategory;
-
-		commands->append(new ListCommand(name.text(), icon.text(), description.text(),
-						childCommandTrigger, childCommandIcons, childCommandCategory));
-		commandElem = commandElem.nextSiblingElement();
-	}
-
-
-	return true;
-}
-
 void ListCommandManager::setFont(const QFont& font)
 {
 	foreach (Command *c, *commands) {
@@ -113,6 +72,7 @@ void ListCommandManager::setFont(const QFont& font)
 	}
 }
 
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ListCommandManager, ListCommand);
 
 ListCommandManager::~ListCommandManager()
 {

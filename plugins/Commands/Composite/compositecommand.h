@@ -41,8 +41,12 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	bool deSerializePrivate(const QDomElement& commandElem);
+
+	CompositeCommand() {}
 
 public:
+	STATIC_CREATE_INSTANCE_H(CompositeCommand);
 	static const QString staticCategoryText();
 	static const KIcon staticCategoryIcon();
 

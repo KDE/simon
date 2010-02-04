@@ -65,29 +65,7 @@ const KIcon ShortcutCommandManager::icon() const
 }
 
 
-bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	if (commands)
-		qDeleteAll(*commands);
-	commands = new CommandList();
-
-	if (elem.isNull()) return false;
-
-	QDomElement commandElem = elem.firstChildElement();
-	while(!commandElem.isNull())
-	{
-		QDomElement name = commandElem.firstChildElement();
-		QDomElement icon = name.nextSiblingElement();
-		QDomElement description = icon.nextSiblingElement();
-		QDomElement shortcut = description.nextSiblingElement();
-		commands->append(new ShortcutCommand(name.text(), icon.text(), description.text(),
-						shortcut.text()));
-		commandElem = commandElem.nextSiblingElement();
-	}
-
-	return true;
-}
-
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ShortcutCommandManager, ShortcutCommand)
 
 
 ShortcutCommandManager::~ShortcutCommandManager ()

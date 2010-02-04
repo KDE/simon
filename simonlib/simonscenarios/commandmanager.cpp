@@ -18,7 +18,9 @@
  */
 
 #include "commandmanager.h"
+#include "voiceinterfacecommand.h"
 #include "commandconfiguration.h"
+#include "voiceinterfacecommand.h"
 #include <KLocalizedString>
 #include <simonscenarios/scenario.h>
 #include <QAction>
@@ -44,6 +46,40 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 
+bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slot, 
+		const QString& actionName, const QString& iconSrc,
+		const QString& description, QString id)
+{
+	Q_ASSERT(widget);
+
+	if (id.isEmpty())
+		id = widget->objectName();
+
+	if (id.isEmpty())
+		return false;
+
+	if (!commands)
+		commands = new CommandList();
+
+	foreach (Command *c, *commands)
+	{
+		VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
+		if (!iC) continue;
+		if (iC->id() == id)
+		{
+			iC->assignAction(this, widget, slot);
+			return true;
+		}
+	}
+
+	VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
+									id, actionName);
+	command->assignAction(this, widget, slot);
+
+	*commands << command;
+	return true;
+}
+
 void CommandManager::setFont(const QFont& font)
 {
 	//reimplement this when you use graphical widgets in your
@@ -65,12 +101,6 @@ QDomElement CommandManager::serializeConfig(QDomDocument *doc)
 	return doc->createElement("config");
 }
 
-bool CommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	Q_UNUSED(elem);
-	return true;
-}
-
 QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 {
 	QDomElement commandsElem = doc->createElement("commands");
@@ -80,6 +110,30 @@ QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 	}
 
 	return commandsElem;
+}
+
+bool CommandManager::deSerializeCommands(const QDomElement& elem)
+{
+	QDomElement command = elem.firstChildElement("voiceInterfaceCommand");
+
+	if (commands)
+		qDeleteAll(*commands);
+
+	commands = NULL;
+
+	if (!command.isNull()) //we need commands
+		commands = new CommandList();
+
+	while (!command.isNull())
+		*commands << VoiceInterfaceCommand::createInstance(command);
+
+	return deSerializeCommandsPrivate(elem);
+}
+
+bool CommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{
+	Q_UNUSED(elem);
+	return true;
 }
 
 QList<QAction*> CommandManager::getGuiActions() const

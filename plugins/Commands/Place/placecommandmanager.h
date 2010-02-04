@@ -39,7 +39,7 @@ public:
 	const KIcon icon() const;
 	bool addCommand(Command *command);
 
-	bool deSerializeCommands(const QDomElement& elem);
+	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

@@ -69,3 +69,14 @@ QDomElement ShortcutCommand::serializePrivate(QDomDocument *doc, QDomElement& co
 	return commandElem;
 }
 
+bool ShortcutCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement shortcutElem = commandElem.firstChildElement("shortcut");
+	if (shortcutElem.isNull()) return false;
+
+	shortcut = QKeySequence(shortcutElem.text());
+	return true;
+}
+
+STATIC_CREATE_INSTANCE_C(ShortcutCommand);
+

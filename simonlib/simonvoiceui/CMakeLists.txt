@@ -9,17 +9,18 @@ include(KDE4Defaults)
 
 
 set( simonvoiceui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterceptor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.cpp
 )
 
 set( simonvoiceui_LIB_HDRS
-	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterceptor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simonvoiceui_export.h
 )
 
 kde4_add_library( simonvoiceui  SHARED ${simonvoiceui_LIB_SRCS} )
 
-target_link_libraries( simonvoiceui ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS} )
+target_link_libraries( simonvoiceui ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
+	${KDE4_KDEUI_LIBS} simonscenarios )
 
 
 set_target_properties( simonvoiceui

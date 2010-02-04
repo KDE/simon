@@ -41,6 +41,7 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVar
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
 	guiActions << activateAction;
+
 }
 
 const KIcon DesktopGridCommandManager::icon() const
@@ -64,6 +65,11 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 
 	activate();
 	return true;
+}
+
+void DesktopGridCommandManager::heyo()
+{
+	kDebug() << "SSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
 }
 
 void DesktopGridCommandManager::activate()

@@ -40,8 +40,9 @@ public:
 	const QString name() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem);
 	void setFont(const QFont& font);
+
+	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
     /**
     * @brief Constructor

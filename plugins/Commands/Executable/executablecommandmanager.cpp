@@ -31,7 +31,8 @@ K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 
-ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
+ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) : 
+	CommandManager((Scenario*) parent, args)
 {
 }
 
@@ -63,30 +64,7 @@ CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *p
 	return new CreateExecutableCommandWidget(this, parent);
 }
 
-
-bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	if (commands)
-		qDeleteAll(*commands);
-	commands = new CommandList();
-
-	if (elem.isNull()) return false;
-
-	QDomElement commandElem = elem.firstChildElement();
-	while(!commandElem.isNull())
-	{
-		QDomElement name = commandElem.firstChildElement();
-		QDomElement icon = name.nextSiblingElement();
-		QDomElement description = icon.nextSiblingElement();
-		QDomElement workingDir = description.nextSiblingElement();
-		QDomElement executable = workingDir.nextSiblingElement();
-		commands->append(new ExecutableCommand(name.text(), icon.text(), description.text(),
-						executable.text(), workingDir.text()));
-		commandElem = commandElem.nextSiblingElement();
-	}
-
-	return true;
-}
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ExecutableCommandManager, ExecutableCommand);
 
 ExecutableCommandManager::~ExecutableCommandManager()
 {

@@ -65,7 +65,10 @@ bool PlaceCommandManager::addCommand(Command *command)
 }
 
 
-bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
+DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(PlaceCommandManager, PlaceCommand);
+
+/*
+ * bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
 {
 	if (commands)
 		qDeleteAll(*commands);
@@ -87,6 +90,7 @@ bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
 
 	return true;
 }
+*/
 
 PlaceCommandManager::~PlaceCommandManager() 
 {

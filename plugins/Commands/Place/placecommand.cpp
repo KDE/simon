@@ -26,6 +26,8 @@
 #include <KLocalizedString>
 
 
+STATIC_CREATE_INSTANCE_C(PlaceCommand);
+
 const QString PlaceCommand::staticCategoryText()
 {
 	return i18n("Place");
@@ -61,6 +63,15 @@ QDomElement PlaceCommand::serializePrivate(QDomDocument *doc, QDomElement& comma
 	commandElem.appendChild(urlElem);
 		
 	return commandElem;
+}
+
+bool PlaceCommand::deSerializePrivate(const QDomElement& commandElem)
+{
+	QDomElement urlElem = commandElem.firstChildElement("url");
+	if (urlElem.isNull()) return false;
+
+	url = KUrl(urlElem.text());
+	return true;
 }
 
 bool PlaceCommand::triggerPrivate()

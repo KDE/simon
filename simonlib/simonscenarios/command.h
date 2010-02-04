@@ -20,6 +20,22 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+#define STATIC_CREATE_INSTANCE_H(x) \
+	static x* createInstance(const QDomElement& element);
+
+#define STATIC_CREATE_INSTANCE_C(x) \
+	x* x::createInstance(const QDomElement& element) \
+	{ \
+		x *command = new x(); \
+		if (!command->deSerialize(element)) \
+		{ \
+			delete command; \
+			return NULL; \
+		} \
+		return command; \
+	} 
+		
+
 #include "simonmodelmanagement_export.h"
 
 #include <QList>
@@ -62,10 +78,12 @@ signals:
 	void removed();
 
 protected:
+    	Command() {}
 	virtual bool triggerPrivate()=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
 
 	virtual QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem)=0;
+	virtual bool deSerializePrivate(const QDomElement& commandElem)=0;
 
 public:
 	static const QString staticCategoryText() {return "";}
@@ -125,6 +143,7 @@ public:
    }
  
    QDomElement serialize(QDomDocument *doc);
+   bool deSerialize(const QDomElement& commandElem);
 
     /**
     * @brief Returns the Icon of this command.
