@@ -29,6 +29,7 @@
 class QObject;
 class QDomDocument;
 class CommandManager;
+class VoiceInterfaceCommandTemplate;
 
 class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command {
 private:
@@ -41,6 +42,7 @@ private:
 	
 	VoiceInterfaceCommand() {}
 public:
+	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
 	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
 			const QString& description, const QString& id, const QString& visibleTrigger);
 	

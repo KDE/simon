@@ -63,6 +63,7 @@ class QAction;
 class CommandConfiguration;
 class QDomDocument;
 class Scenario;
+class VoiceInterfaceCommandTemplate;
 
 /**
  *	@class CommandManager
@@ -78,7 +79,8 @@ signals:
 	void commandsFound(CommandList*);
 
 private:
-	QHash<QString, QString> voiceInterfaceActionNames;
+//	QHash<QString, QString> voiceInterfaceActionNames;
+	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
 protected:
 	QString m_source;
@@ -140,11 +142,14 @@ public:
 	virtual QDomElement serializeCommands(QDomDocument *doc);
 
 	virtual bool trigger(const QString& triggerName);
+
 	virtual bool installInterfaceCommand(QWidget* widget, const QString& slot, 
 			const QString& actionName, const QString& iconSrc,
 			const QString& description, QString id=QString());
 
-	QHash<QString, QString> getVoiceInterfaceActionNames() { return voiceInterfaceActionNames; }
+	//QHash<QString, QString> getVoiceInterfaceActionNames() { return voiceInterfaceActionNames; }
+	QList<VoiceInterfaceCommandTemplate*> getVoiceInterfaceCommandTemplates()
+	{ return voiceInterfaceCommandTemplates; }
 
 	/**
 	* @brief Constructor

@@ -133,7 +133,6 @@ void CalculatorCommandManager::setFont(const QFont& font)
 	widget->setFont(font);
 }
 
-
 const QString CalculatorCommandManager::preferredTrigger() const
 {
 	return i18n("Calculator");

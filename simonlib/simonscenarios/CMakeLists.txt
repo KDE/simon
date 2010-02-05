@@ -35,6 +35,7 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommandtemplate.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.cpp

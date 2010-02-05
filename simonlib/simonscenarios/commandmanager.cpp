@@ -19,6 +19,7 @@
 
 #include "commandmanager.h"
 #include "voiceinterfacecommand.h"
+#include "voiceinterfacecommandtemplate.h"
 #include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
 #include "voiceinterfacecommand.h"
@@ -53,8 +54,10 @@ bool CommandManager::addCommand(Command *command)
 	if (c) {
 		if (!commands)
 			commands = new CommandList();
+		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		*commands << c;
-		return true;
+		endInsertRows();
+		return parentScenario->save();
 	}
 
 	return addCommandPrivate(command);
@@ -78,9 +81,32 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 	if (id.isEmpty())
 		return false;
 	
-	while (voiceInterfaceActionNames.contains(id))
-		id += "_"; //make id unique
+//	while (voiceInterfaceActionNames.contains(id))
+//		id += "_"; //make id unique
 
+	//make id unique
+	bool unique;
+	{
+		unique = true;
+		foreach (VoiceInterfaceCommandTemplate *t, voiceInterfaceCommandTemplates) 
+		{
+			if (t->id() == id)
+			{
+				unique = false;
+				break;
+			}
+		}
+		if (!unique)
+			id += "_";
+	} while (!unique);
+
+	VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description);
+	templ->assignAction(widget, slot);
+	voiceInterfaceCommandTemplates.append(templ);
+				
+
+	/*
+	 * Create commands?
 	if (!commands)
 		commands = new CommandList();
 
@@ -103,12 +129,13 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 	beginInsertRows(QModelIndex(), commands->count(), commands->count());
 	*commands << command;
 	endInsertRows();
+	*/
 	return true;
 }
 
 CreateCommandWidget* CommandManager::getCreateVoiceInterfaceCommandWidget(QWidget *parent)
 {
-	if (voiceInterfaceActionNames.isEmpty())
+	if (voiceInterfaceCommandTemplates.isEmpty())
 		return NULL; //no voice interface actions
 
 	return new CreateVoiceInterfaceCommandWidget(this, parent);

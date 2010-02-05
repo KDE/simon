@@ -18,6 +18,7 @@
  */
 
 #include "voiceinterfacecommand.h"
+#include "voiceinterfacecommandtemplate.h"
 #include "commandmanager.h"
 #include <QMetaObject>
 
@@ -27,6 +28,15 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 	m_parentManager(parentManager),
 	m_id(id), 
 	m_visibleTrigger(visibleTrigger),
+	m_receiver(NULL)
+{
+}
+
+VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
+	Command(tem->actionName(), tem->icon(), tem->description()),
+	m_parentManager(parentManager),
+	m_id(tem->id()),
+	m_visibleTrigger(tem->actionName()),
 	m_receiver(NULL)
 {
 }

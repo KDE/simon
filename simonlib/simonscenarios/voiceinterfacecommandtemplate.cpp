@@ -17,36 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CREATEVOICEINTERFACECOMMANDWIDGETPRIVATE_H
-#define CREATEVOICEINTERFACECOMMANDWIDGETPRIVATE_H
+#include "voiceinterfacecommandtemplate.h"
 
-#include "createcommandwidget.h"
-#include "ui_createvoiceinterfacecommandwidget.h"
+VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description) :
+	m_id(id),
+	m_icon(icon),
+	m_actionName(actionName),
+	m_description(description)
+{
 
-class VoiceInterfaceCommandTemplate;
+}
 
-class CreateVoiceInterfaceCommandWidgetPrivate : public CreateCommandWidget {
-Q_OBJECT
+void VoiceInterfaceCommandTemplate::assignAction(QObject *receiver, const QString& slot)
+{
+	m_receiver = receiver;
+	m_slot = slot;
+}
 
-private:
-	Ui::CreateVoiceCommandWidget ui;
-	VoiceInterfaceCommandTemplate* getCurrentTemplate();
-
-private slots:
-	void initFromTemplate();
-
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
-
-	bool init(Command* command);
-	bool isComplete();
-
-	CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
-
-	~CreateVoiceInterfaceCommandWidgetPrivate() {}
-
-};
-
-#endif
-
+VoiceInterfaceCommandTemplate::~VoiceInterfaceCommandTemplate()
+{
+}
 
