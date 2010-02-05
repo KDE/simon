@@ -148,8 +148,6 @@ void WindowsEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
 			activateMouseButton(Middle, DownAndUp);
 			break;
 	}
-
-	XFlush(display);
 }
 
 void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
