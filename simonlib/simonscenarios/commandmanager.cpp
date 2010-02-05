@@ -109,27 +109,24 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 	 * Create commands?
 	if (!commands)
 		commands = new CommandList();
+		*/
 
 	foreach (Command *c, *commands)
 	{
 		VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
 		if (!iC) continue;
 		if (iC->id() == id)
-		{
 			iC->assignAction(this, widget, slot);
-			return true;
-		}
 	}
-	VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
-									id, actionName);
-	command->assignAction(this, widget, slot);
+	//VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
+	//								id, actionName);
+//	command->assignAction(this, widget, slot);
 
-	voiceInterfaceActionNames.insert(id, actionName);
+//	voiceInterfaceActionNames.insert(id, actionName);
 
-	beginInsertRows(QModelIndex(), commands->count(), commands->count());
-	*commands << command;
-	endInsertRows();
-	*/
+//	beginInsertRows(QModelIndex(), commands->count(), commands->count());
+//	*commands << command;
+//	endInsertRows();
 	return true;
 }
 
@@ -167,7 +164,12 @@ QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 	QDomElement commandsElem = doc->createElement("commands");
 	if (commands) {
 		foreach (Command *c, *commands)
-			commandsElem.appendChild(c->serialize(doc));
+		{
+			QDomElement commandElem = c->serialize(doc);
+			if (dynamic_cast<VoiceInterfaceCommand*>(c))
+				commandElem.setTagName("voiceInterfaceCommand");
+			commandsElem.appendChild(commandElem);
+		}
 	}
 
 	return commandsElem;
@@ -186,7 +188,10 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 		commands = new CommandList();
 
 	while (!command.isNull())
+	{
 		*commands << VoiceInterfaceCommand::createInstance(command);
+		command = command.nextSiblingElement("voiceInterfaceCommand");
+	}
 
 	return deSerializeCommandsPrivate(elem);
 }
@@ -363,4 +368,6 @@ CommandManager::~CommandManager()
 	foreach (QAction* action, guiActions) {
 		action->deleteLater();
 	}
+
+	qDeleteAll(voiceInterfaceCommandTemplates);
 }
