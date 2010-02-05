@@ -37,6 +37,8 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidgetprivate.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/action.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
@@ -71,6 +73,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.h
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/action.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
@@ -82,6 +85,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 
 kde4_add_ui_files( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.ui
 )
 
 kde4_add_kcfg_files(simonscenarios_LIB_SRCS

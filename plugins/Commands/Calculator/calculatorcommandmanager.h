@@ -112,6 +112,7 @@ public:
 	void setFont(const QFont& font);
 
 	bool deSerializeConfig(const QDomElement& elem);
+	bool deSerializeCommandsPrivate(const QDomElement& elem);
 
 	CommandList* getCommands() const { 
 		kWarning() << "Calc: Getting commands...";

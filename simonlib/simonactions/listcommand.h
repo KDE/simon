@@ -58,7 +58,8 @@ protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
 	virtual bool deSerializePrivate(const QDomElement& commandElem);
-	ListCommand() {}
+	ListCommand();
+	void init();
 
 private slots:
 	bool processRequest(int index);

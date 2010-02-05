@@ -56,6 +56,20 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 }
 
+ListCommand::ListCommand() : Command(),
+	clw(new CommandListWidget()),
+	startIndex(0)
+{
+	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
+	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
+	
+
+	if (numberIdentifiers.isEmpty())
+		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
+			<< i18n("Three") << i18n("Four") << i18n("Five") <<
+			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+}
+
 
 QDomElement ListCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {

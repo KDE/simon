@@ -57,6 +57,9 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 
 	if (id.isEmpty())
 		return false;
+	
+	while (voiceInterfaceActionNames.contains(id))
+		id += "_"; //make id unique
 
 	if (!commands)
 		commands = new CommandList();
@@ -71,12 +74,15 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 			return true;
 		}
 	}
-
 	VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
 									id, actionName);
 	command->assignAction(this, widget, slot);
 
+	voiceInterfaceActionNames.insert(id, actionName);
+
+	beginInsertRows(QModelIndex(), commands->count(), commands->count());
 	*commands << command;
+	endInsertRows();
 	return true;
 }
 
@@ -288,7 +294,6 @@ QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent
 
 	return createIndex(row, column, commands->at(row));
 }
-
 
 
 CommandManager::~CommandManager()

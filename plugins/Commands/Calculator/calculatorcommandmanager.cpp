@@ -110,12 +110,21 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 			i18n("Format result as money") << 
 			i18n("Format calculation and result as money"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
+
 }
 	
 bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	config = new CalculatorConfiguration(parentScenario);
 	config->deSerialize(elem);
+	return true;
+}
+
+bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{
+	bool succ = installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
+			i18n("Closes the calculator dialog"));
+	kDebug() << "Installed interface command: " << succ;
 	return true;
 }
 

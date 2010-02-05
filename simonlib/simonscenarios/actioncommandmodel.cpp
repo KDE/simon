@@ -34,8 +34,9 @@ QVariant ActionCommandModel::data(const QModelIndex &index, int role) const
 	if (role == Qt::DisplayRole) 
 		return m_actions.at(index.row())->manager()->name();
 
-	if (role == Qt::DecorationRole)
+	if (role == Qt::DecorationRole) {
 		return m_actions.at(index.row())->manager()->icon();
+	}
 
 	return QVariant();
 }

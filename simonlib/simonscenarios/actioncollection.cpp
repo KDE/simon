@@ -157,9 +157,10 @@ bool ActionCollection::addAction(Action *action, bool silent, bool save)
 	action->deSerialize(QDomElement());
 
 	appendAction(action, silent);
-	proxy->update();
 
-	return (save) ? parentScenario->save() : true;
+	bool succ = (save) ? parentScenario->save() : true;
+	proxy->update();
+	return succ;
 }
 
 bool ActionCollection::deleteAction(Action *action)
@@ -173,8 +174,10 @@ bool ActionCollection::deleteAction(Action *action)
 	}
 	delete action;
 
+	bool succ = parentScenario->save();
+
 	proxy->update();
-	return parentScenario->save();
+	return succ;
 }
 
 bool ActionCollection::moveActionUp(Action *action)

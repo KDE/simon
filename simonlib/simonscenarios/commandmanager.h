@@ -28,16 +28,15 @@
 	{ \
 		if (elem.isNull()) return false; \
  \
+		if (!commands) \
+			commands = new CommandList(); \
+\
 		QDomElement commandElem = elem.firstChildElement("command"); \
 		while(!commandElem.isNull()) \
 		{ \
 			Command *c = y::createInstance(commandElem); \
 			if (c) \
-			{ \
-				if (!commands) \
-					commands = new CommandList(); \
 				commands->append(c); \
-			} \
  \
 			commandElem = commandElem.nextSiblingElement("command"); \
 		} \
@@ -55,6 +54,7 @@
 #include <KIcon>
 #include <QAbstractItemModel>
 #include <QDomElement>
+#include <QHash>
 
 class CommandManager;
 class CreateCommandWidget;
@@ -77,9 +77,14 @@ Q_OBJECT
 signals:
 	void commandsFound(CommandList*);
 
+private:
+	QHash<QString, QString> voiceInterfaceActionNames;
+
 protected:
 	QString m_source;
 	QList<QAction*> guiActions;
+
+
 	CommandList *commands;
 	CommandConfiguration *config;
 
@@ -136,6 +141,8 @@ public:
 	virtual bool installInterfaceCommand(QWidget* widget, const QString& slot, 
 			const QString& actionName, const QString& iconSrc,
 			const QString& description, QString id=QString());
+
+	QHash<QString, QString> getVoiceInterfaceActionNames() { return voiceInterfaceActionNames; }
 
 	/**
 	* @brief Constructor

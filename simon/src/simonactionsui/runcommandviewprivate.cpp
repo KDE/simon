@@ -232,8 +232,6 @@ void RunCommandViewPrivate::updateCommandDetail()
 }
 
 
-
-
 void RunCommandViewPrivate::editCommand()
 {
 	Command *command = getCurrentCommand();

@@ -43,7 +43,7 @@ signals:
 	void completeChanged();
 	void commandSuggested(Command*);
 
-private:
+protected:
 	CommandManager *m_manager;
 
 public:
