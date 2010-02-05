@@ -142,6 +142,7 @@ bool NewCommand::newCommand(const QString& preSelectedCategory)
 	{
 		//creating
 		CreateCommandWidget *creater = dynamic_cast<CreateCommandWidget*>(ui.swCommandCreaters->currentWidget());
+		kDebug() << "Creating with creater: " << creater;
 		Q_ASSERT(creater);
 		
 		if (!creater) return false;

@@ -36,7 +36,7 @@ class CompositeCommandManager : public CommandManager {
 Q_OBJECT
 public:
 	const KIcon icon() const;
-	bool addCommand(Command *command);
+	bool addCommandPrivate(Command *command);
 	const QString name() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

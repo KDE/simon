@@ -97,6 +97,10 @@ QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *
 		CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
 		if (widget)
 			*out << widget;
+
+		CreateCommandWidget* voiceWidget = (CreateCommandWidget*) action->manager()->getCreateVoiceInterfaceCommandWidget(parent);
+		if (voiceWidget)
+			*out << voiceWidget;
 	}
 	return out;
 }

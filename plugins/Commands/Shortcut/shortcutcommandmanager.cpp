@@ -42,7 +42,7 @@ const QString ShortcutCommandManager::name() const
 }
 
 
-bool ShortcutCommandManager::addCommand(Command *command)
+bool ShortcutCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<const ShortcutCommand*>(command))
 	{

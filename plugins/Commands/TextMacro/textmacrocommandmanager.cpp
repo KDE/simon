@@ -42,7 +42,7 @@ const QString TextMacroCommandManager::name() const
 }
 
 
-bool TextMacroCommandManager::addCommand(Command *command)
+bool TextMacroCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<TextMacroCommand*>(command))
 	{

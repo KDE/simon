@@ -40,7 +40,7 @@ const KIcon CompositeCommandManager::icon() const
 	return CompositeCommand::staticCategoryIcon();
 }
 
-bool CompositeCommandManager::addCommand(Command *command)
+bool CompositeCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<CompositeCommand*>(command))
 	{

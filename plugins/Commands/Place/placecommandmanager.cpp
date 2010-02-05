@@ -52,7 +52,7 @@ const QString PlaceCommandManager::name() const
 	return PlaceCommand::staticCategoryText();
 }
 
-bool PlaceCommandManager::addCommand(Command *command)
+bool PlaceCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<PlaceCommand*>(command))
 	{

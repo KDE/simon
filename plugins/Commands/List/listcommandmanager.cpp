@@ -40,7 +40,7 @@ const KIcon ListCommandManager::icon() const
 	return ListCommand::staticCategoryIcon();
 }
 
-bool ListCommandManager::addCommand(Command *command)
+bool ListCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<ListCommand*>(command))
 	{

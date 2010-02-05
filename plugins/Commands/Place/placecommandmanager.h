@@ -37,7 +37,7 @@ Q_OBJECT
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool addCommand(Command *command);
+	bool addCommandPrivate(Command *command);
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 

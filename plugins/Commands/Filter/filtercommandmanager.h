@@ -49,7 +49,6 @@ public:
 
 	const QString name() const;
 	bool deSerializeConfig(const QDomElement& elem);
-	bool addCommand(Command *) { return false; }
 
 
     /**

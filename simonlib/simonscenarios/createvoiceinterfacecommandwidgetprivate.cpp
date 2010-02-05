@@ -22,6 +22,20 @@
 #include "voiceinterfacecommand.h"
 #include <QHash>
 
+CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent) : 
+		CreateCommandWidget(manager, parent)
+{
+	ui.setupUi(this);
+
+	ui.cbAction->clear();
+	QHash<QString, QString> voiceInterfaceActionNames = m_manager->getVoiceInterfaceActionNames();
+	QStringList ids = voiceInterfaceActionNames.keys();
+	foreach (const QString& id, ids)
+		ui.cbAction->addItem(voiceInterfaceActionNames.value(id), id);
+
+	connect(ui.cbAction, SIGNAL(currentIndexChanged(int)), this, SIGNAL(completeChanged()));
+}
+
 Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
 	int currentActionIndex = ui.cbAction->currentIndex();
@@ -29,6 +43,8 @@ Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& 
 
 	QString id = ui.cbAction->itemData(currentActionIndex).toString();
 //	QString actionName = ui.cbAction->currentText();
+
+	kDebug() << "Creating command";
 
 	return new VoiceInterfaceCommand(m_manager, name, iconSrc, description,
 			id, ui.leVisibleTrigger->text());
@@ -40,13 +56,6 @@ bool CreateVoiceInterfaceCommandWidgetPrivate::init(Command* command)
 	VoiceInterfaceCommand *c = dynamic_cast<VoiceInterfaceCommand*>(command);
 	if (!c) return false;
 
-	ui.cbAction->clear();
-
-	QHash<QString, QString> voiceInterfaceActionNames = m_manager->getVoiceInterfaceActionNames();
-	QStringList ids = voiceInterfaceActionNames.keys();
-	foreach (const QString& id, ids)
-		ui.cbAction->addItem(voiceInterfaceActionNames.value(id), id);
-
 	int selectedActionIndex = ui.cbAction->findData(c->id());
 	kDebug() << c->id() << selectedActionIndex;
 	ui.cbAction->setCurrentIndex(selectedActionIndex);
@@ -57,7 +66,7 @@ bool CreateVoiceInterfaceCommandWidgetPrivate::init(Command* command)
 
 bool CreateVoiceInterfaceCommandWidgetPrivate::isComplete()
 {
-	return ((ui.cbAction->currentIndex() != -1) && (!(ui.leVisibleTrigger->text().isEmpty())));
+	return (ui.cbAction->currentIndex() != -1);
 }
 
 

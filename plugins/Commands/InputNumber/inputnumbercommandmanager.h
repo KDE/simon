@@ -73,7 +73,6 @@ public:
 	const QString preferredTrigger() const;
 
 	const KIcon icon() const;
-	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	void setFont(const QFont& font);
 	QList<CommandLauncher*> launchers() const;

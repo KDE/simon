@@ -46,7 +46,6 @@ public slots:
 public:
 	const QString preferredTrigger() const;
 	const QString name() const;
-	bool addCommand(Command *) { return false; }
 
 	bool deSerializeConfig(const QDomElement& elem);
 

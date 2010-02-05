@@ -39,7 +39,7 @@ Q_OBJECT
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool addCommand(Command *command);
+	bool addCommandPrivate(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;

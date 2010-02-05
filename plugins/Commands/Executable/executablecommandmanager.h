@@ -35,7 +35,7 @@ class CreateExecutableCommandWidget;
 class ExecutableCommandManager : public CommandManager {
 Q_OBJECT
 public:
-	bool addCommand(Command *command);
+	bool addCommandPrivate(Command *command);
 	const QString name() const;
 	const KIcon icon() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);

@@ -98,7 +98,6 @@ public:
 	KeyboardSetContainer* getKeyboardSetContainer() { return setContainer;}
 	const QString preferredTrigger() const;
 	const KIcon icon() const;
-	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	bool deSerializeConfig(const QDomElement& elem);
 	void setFont(const QFont& font);

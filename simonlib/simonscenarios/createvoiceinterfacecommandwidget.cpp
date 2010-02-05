@@ -20,16 +20,25 @@
 #include "createvoiceinterfacecommandwidget.h"
 #include "createvoiceinterfacecommandwidgetprivate.h"
 #include "commandmanager.h"
+#include "voiceinterfacecommand.h"
+#include <QVBoxLayout>
 
 CreateVoiceInterfaceCommandWidget::CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent) : 
 	CreateCommandWidget(manager, parent),  d(new CreateVoiceInterfaceCommandWidgetPrivate(manager, parent))
 {
 	connect(d, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
-	connect(d, SIGNAL(commandSuggested(Command*)), this, SIGNAL(compmandSuggested(Command*)));
+	connect(d, SIGNAL(commandSuggested(Command*)), this, SIGNAL(commandSuggested(Command*)));
+
+	QVBoxLayout *lay = new QVBoxLayout(this);
+	lay->addWidget(d);
+
+	setWindowIcon(manager->icon());
+	setWindowTitle(i18n("%1: Voice commands", manager->name()));
 }
 
 Command* CreateVoiceInterfaceCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
+	kDebug() << "Calling create command";
 	return d->createCommand(name, iconSrc, description);
 }
 

@@ -36,7 +36,7 @@ ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVaria
 {
 }
 
-bool ExecutableCommandManager::addCommand(Command *command)
+bool ExecutableCommandManager::addCommandPrivate(Command *command)
 {
 	if (dynamic_cast<ExecutableCommand*>(command))
 	{

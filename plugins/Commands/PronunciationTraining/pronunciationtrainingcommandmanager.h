@@ -47,7 +47,6 @@ public:
 	const QString preferredTrigger() const;
 	const QString name() const;
 	const KIcon icon() const;
-	bool addCommand(Command *) { return false; }
 	bool deSerializeConfig(const QDomElement& elem);
 	QList<CommandLauncher*> launchers() const;
 

@@ -21,6 +21,7 @@
 #include <simonscenarios/action.h>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/scenario.h>
+#include <simonscenarios/voiceinterfacecommand.h>
 #include <simonscenarios/actioncollection.h>
 #include "newcommand.h"
 #include "manageactionsdialog.h"
@@ -125,11 +126,19 @@ void RunCommandViewPrivate::addCommand()
 	bool succ;
 
 	Action *a = getCurrentlySelectedAction();
-
 	if (a && a->manager())
-		succ = newCommand->newCommand(a->manager()->name());
+	{
+		QString managerName;
+		if (dynamic_cast<VoiceInterfaceCommand*>(getCurrentCommand()))
+			managerName = i18n("%1: Voice commands", a->manager()->name());
+		else
+			managerName = a->manager()->name();
+		succ = newCommand->newCommand(managerName);
+	}
 	else 
+	{
 		succ = newCommand->newCommand();
+	}
 
 	//if (!succ) {
 	//	KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));

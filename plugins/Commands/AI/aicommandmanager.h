@@ -50,7 +50,7 @@ public:
 	const QString name() const;
 	const KIcon icon() const;
 	bool setupParser();
-	bool addCommand(Command *) { return false; }
+	bool addCommandPrivate(Command *) { return false; }
 
 	CommandConfiguration* getConfigurationPage();
 

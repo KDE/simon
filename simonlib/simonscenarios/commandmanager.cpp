@@ -19,6 +19,7 @@
 
 #include "commandmanager.h"
 #include "voiceinterfacecommand.h"
+#include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
 #include "voiceinterfacecommand.h"
 #include <KLocalizedString>
@@ -44,6 +45,25 @@ bool CommandManager::trigger(const QString& triggerName)
 		}
 	}
 	return done;
+}
+
+bool CommandManager::addCommand(Command *command)
+{
+	VoiceInterfaceCommand *c = dynamic_cast<VoiceInterfaceCommand*>(command);
+	if (c) {
+		if (!commands)
+			commands = new CommandList();
+		*commands << c;
+		return true;
+	}
+
+	return addCommandPrivate(command);
+} 
+
+bool CommandManager::addCommandPrivate(Command *command)
+{
+	Q_UNUSED(command);
+	return false;
 }
 
 bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slot, 
@@ -84,6 +104,14 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 	*commands << command;
 	endInsertRows();
 	return true;
+}
+
+CreateCommandWidget* CommandManager::getCreateVoiceInterfaceCommandWidget(QWidget *parent)
+{
+	if (voiceInterfaceActionNames.isEmpty())
+		return NULL; //no voice interface actions
+
+	return new CreateVoiceInterfaceCommandWidget(this, parent);
 }
 
 void CommandManager::setFont(const QFont& font)
@@ -174,6 +202,7 @@ CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
 
 	return 0;
 }
+
 
 /**
  * \brief Returns the configuration page of the plugin

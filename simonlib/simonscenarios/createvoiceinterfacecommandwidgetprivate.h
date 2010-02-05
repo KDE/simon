@@ -35,11 +35,8 @@ public:
 	bool init(Command* command);
 	bool isComplete();
 
-	CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0) : 
-		CreateCommandWidget(manager, parent)
-	{
-		ui.setupUi(this);
-	}
+	CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
+
 
 
 	~CreateVoiceInterfaceCommandWidgetPrivate() {}
