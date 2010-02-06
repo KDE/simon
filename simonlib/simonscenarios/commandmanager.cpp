@@ -57,6 +57,7 @@ bool CommandManager::addCommand(Command *command)
 		beginInsertRows(QModelIndex(), commands->count(), commands->count());
 		*commands << c;
 		endInsertRows();
+		adaptUi();
 		return parentScenario->save();
 	}
 
@@ -275,6 +276,10 @@ bool CommandManager::deleteCommand(Command *command)
 			beginRemoveRows(QModelIndex(), i, i);
 			commands->removeAt(i);
 			endRemoveRows();
+
+			if (dynamic_cast<VoiceInterfaceCommand*>(command))
+				adaptUi();
+
 			delete command;
 			return parentScenario->save();
 		}
@@ -294,21 +299,17 @@ void CommandManager::adaptUi()
 		VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
 		if (!com) continue;
 
-//		QObject *widget = com->receiver();
-//		QString visibleTrigger = com->visibleTrigger();
-//		widget->setProperty("text", visibleTrigger);
-
 		QStringList currentCommands = voiceCommands.value(com->receiver());
 		currentCommands.append(com->visibleTrigger());
 		voiceCommands.insert(com->receiver(), currentCommands);
 	}
+
 	foreach (QObject *object, voiceCommands.keys())
 	{
 		QStringList visibleTriggers = voiceCommands.value(object);
 		object->setProperty("toolTip", visibleTriggers.join(", "));
 		object->setProperty("text", visibleTriggers.at(0)); // if it didn't have one entry it wouldn't be here
 	}
-
 }
 
 bool CommandManager::deSerialize(const QDomElement& elem)
