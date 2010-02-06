@@ -111,13 +111,17 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 		commands = new CommandList();
 		*/
 
-	foreach (Command *c, *commands)
+	if (commands)
 	{
-		VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
-		if (!iC) continue;
-		if (iC->id() == id)
-			iC->assignAction(this, widget, slot);
+		foreach (Command *c, *commands)
+		{
+			VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
+			if (!iC) continue;
+			if (iC->id() == id)
+				iC->assignAction(this, widget, slot);
+		}
 	}
+
 	//VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
 	//								id, actionName);
 //	command->assignAction(this, widget, slot);
@@ -189,7 +193,19 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 
 	while (!command.isNull())
 	{
-		*commands << VoiceInterfaceCommand::createInstance(command);
+		VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(command);
+		if (com)
+		{
+			foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
+			{
+				if (tem->id() == com->id())
+				{
+					com->assignAction(this, tem->receiver(), tem->slot());
+					break;
+				}
+			}
+			*commands << com;
+		}
 		command = command.nextSiblingElement("voiceInterfaceCommand");
 	}
 
@@ -267,6 +283,34 @@ bool CommandManager::deleteCommand(Command *command)
 	return false;
 }
 
+void CommandManager::adaptUi()
+{
+	if (!commands) return;
+
+	QHash<QObject* /*receiver*/, QStringList /*triggers*/> voiceCommands;
+
+	foreach (Command *c, *commands)
+	{
+		VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
+		if (!com) continue;
+
+//		QObject *widget = com->receiver();
+//		QString visibleTrigger = com->visibleTrigger();
+//		widget->setProperty("text", visibleTrigger);
+
+		QStringList currentCommands = voiceCommands.value(com->receiver());
+		currentCommands.append(com->visibleTrigger());
+		voiceCommands.insert(com->receiver(), currentCommands);
+	}
+	foreach (QObject *object, voiceCommands.keys())
+	{
+		QStringList visibleTriggers = voiceCommands.value(object);
+		object->setProperty("toolTip", visibleTriggers.join(", "));
+		object->setProperty("text", visibleTriggers.at(0)); // if it didn't have one entry it wouldn't be here
+	}
+
+}
+
 bool CommandManager::deSerialize(const QDomElement& elem)
 {
 	QDomElement configElem = elem.firstChildElement("config");
@@ -279,6 +323,8 @@ bool CommandManager::deSerialize(const QDomElement& elem)
 		kDebug() << "Couldn't load commands of plugin";
 		return false;
 	}
+
+	adaptUi();
 	return true;
 }
 

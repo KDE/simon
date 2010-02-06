@@ -101,6 +101,8 @@ protected:
 	virtual QVariant data(const QModelIndex &index, int role) const;
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
+	void adaptUi();
+
 public:
 	virtual const QString name() const=0;
 	virtual const QString preferredTrigger() const;

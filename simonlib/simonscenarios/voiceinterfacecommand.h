@@ -57,6 +57,7 @@ public:
 
 	QString id() { return m_id; }
 	QString visibleTrigger() { return m_visibleTrigger; }
+	QObject* receiver() { return m_receiver; }
 
 	virtual ~VoiceInterfaceCommand();
 

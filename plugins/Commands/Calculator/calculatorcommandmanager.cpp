@@ -76,6 +76,9 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 
 	setFont(ActionManager::getInstance()->pluginBaseFont());
 
+	installInterfaceCommand(ui.pbPlus, "animateClick", i18n("Plus"), "list-add",
+			i18n("Addition"));
+
 	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
@@ -127,9 +130,9 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 
 bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 {
-	bool succ = installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
+	Q_UNUSED(elem);
+	installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
 			i18n("Closes the calculator dialog"));
-	kDebug() << "Installed interface command: " << succ;
 	return true;
 }
 
