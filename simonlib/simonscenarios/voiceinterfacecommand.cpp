@@ -21,15 +21,18 @@
 #include "voiceinterfacecommandtemplate.h"
 #include "commandmanager.h"
 #include <QMetaObject>
+#include <KDebug>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc, 
-			const QString& description, const QString& id, const QString& visibleTrigger) :
+			const QString& description, const QString& id, const QString& visibleTrigger, bool showIcon) :
 	Command(trigger, iconSrc, description),
 	m_parentManager(parentManager),
 	m_id(id), 
 	m_visibleTrigger(visibleTrigger),
-	m_receiver(NULL)
+	m_receiver(NULL),
+	m_showIcon(showIcon)
 {
+	kDebug() << m_showIcon;
 }
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
@@ -37,7 +40,8 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, Voic
 	m_parentManager(parentManager),
 	m_id(tem->id()),
 	m_visibleTrigger(tem->actionName()),
-	m_receiver(NULL)
+	m_receiver(NULL),
+	m_showIcon(false)
 {
 }
 
@@ -67,7 +71,8 @@ const QMap<QString,QVariant> VoiceInterfaceCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
 
-	out.insert(i18n("Visible trigger:"), m_visibleTrigger);
+	out.insert(i18n("Visible trigger"), m_visibleTrigger);
+	out.insert(i18n("Show icon"), m_showIcon ? i18n("Yes") : i18n("No"));
 	return out;
 }
 
@@ -77,8 +82,11 @@ bool VoiceInterfaceCommand::deSerializePrivate(const QDomElement& element)
 
 	QDomElement idElement = element.firstChildElement("id");
 	QDomElement visibleTriggerElement = element.firstChildElement("visibleTrigger");
+	QDomElement showIconElement = element.firstChildElement("showIcon");
 	m_id = idElement.text();
 	m_visibleTrigger = visibleTriggerElement.text();
+	m_showIcon = (showIconElement.text().toInt() == 1);
+	kDebug() << m_showIcon;
 
 	return true;
 }
@@ -103,8 +111,12 @@ QDomElement VoiceInterfaceCommand::serializePrivate(QDomDocument *doc, QDomEleme
 	QDomElement visibleTriggerElement = doc->createElement("visibleTrigger");
 	visibleTriggerElement.appendChild(doc->createTextNode(m_visibleTrigger));
 
+	QDomElement showIconElement = doc->createElement("showIcon");
+	showIconElement.appendChild(doc->createTextNode(m_showIcon ? "1" : "0"));
+
 	commandElem.appendChild(idElement);
 	commandElem.appendChild(visibleTriggerElement);
+	commandElem.appendChild(showIconElement);
 
 	return commandElem;
 }

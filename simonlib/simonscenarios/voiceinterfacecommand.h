@@ -39,12 +39,14 @@ private:
 	QString m_visibleTrigger;
 	QObject *m_receiver;
 	QString m_slot;
+	bool m_showIcon;
 	
 	VoiceInterfaceCommand() {}
 public:
 	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
 	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
-			const QString& description, const QString& id, const QString& visibleTrigger);
+			const QString& description, const QString& id, const QString& visibleTrigger, 
+			bool showIcon);
 	
 	void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);
 
@@ -58,6 +60,7 @@ public:
 	QString id() { return m_id; }
 	QString visibleTrigger() { return m_visibleTrigger; }
 	QObject* receiver() { return m_receiver; }
+	bool showIcon() { return m_showIcon; }
 
 	virtual ~VoiceInterfaceCommand();
 

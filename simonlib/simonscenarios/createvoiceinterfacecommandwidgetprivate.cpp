@@ -52,7 +52,7 @@ Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& 
 
 	VoiceInterfaceCommand *voiceInterfaceCommand = new VoiceInterfaceCommand(m_manager, 
 			name, iconSrc, description,
-			tem->id(), ui.leVisibleTrigger->text());
+			tem->id(), ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked());
 	voiceInterfaceCommand->assignAction(m_manager, tem->receiver(), tem->slot());
 	return voiceInterfaceCommand;
 }
@@ -89,6 +89,7 @@ bool CreateVoiceInterfaceCommandWidgetPrivate::init(Command* command)
 	ui.cbAction->setCurrentIndex(selectedActionIndex);
 
 	ui.leVisibleTrigger->setText(c->visibleTrigger());
+	ui.cbShowIcon->setChecked(c->showIcon());
 	return true;
 }
 

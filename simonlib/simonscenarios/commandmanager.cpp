@@ -299,16 +299,41 @@ void CommandManager::adaptUi()
 		VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
 		if (!com) continue;
 
+		if (!voiceCommands.contains(com->receiver()))
+		{
+			kDebug() << "Setting icon" << com->showIcon();
+			if (com->showIcon())
+			{
+				com->receiver()->setProperty("icon",  com->getIcon());
+			} else {
+				com->receiver()->setProperty("icon", QIcon()); 
+			}
+		}
+
 		QStringList currentCommands = voiceCommands.value(com->receiver());
 		currentCommands.append(com->visibleTrigger());
 		voiceCommands.insert(com->receiver(), currentCommands);
+
 	}
 
 	foreach (QObject *object, voiceCommands.keys())
 	{
 		QStringList visibleTriggers = voiceCommands.value(object);
 		object->setProperty("toolTip", visibleTriggers.join(", "));
-		object->setProperty("text", visibleTriggers.at(0)); // if it didn't have one entry it wouldn't be here
+		// if it didn't have at least one entry it wouldn't be here
+		object->setProperty("text", visibleTriggers.at(0)); 
+	}
+
+	//hide unused widgets
+	foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
+	{
+		QObject *receiver = tem->receiver();
+		bool shouldBeShown = voiceCommands.contains(receiver);
+
+		QWidget *widget = dynamic_cast<QWidget*>(receiver);
+		if (!widget) continue;
+
+		widget->setVisible(shouldBeShown);
 	}
 }
 
