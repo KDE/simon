@@ -178,6 +178,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 	/////  Vocabulary  /////////////
 	
+
+	// find out which words are referenced by training data
+	// find out which terminals are referenced by grammar
+	// find o
 	QTextStream vocabStream(&simpleVocabFile);
 	vocabStream.setCodec("UTF-8");
 
@@ -185,29 +189,58 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	vocabStream << "% NS_B\n<s>\tsil\n";
 	vocabStream << "% NS_E\n</s>\tsil\n";
 
-	QStringList terminals = vocab->getTerminals();
 	QStringList grammarTerminals = grammar->getTerminals();
-	
-	foreach (const QString& terminal, terminals) {
-		//only store vocabulary that is referenced by the grammar
-		if (!grammarTerminals.contains(terminal)) continue;
 
+	QStringList structures = grammar->getStructures();
+	bool everythingChanged = true;
+
+	while (everythingChanged) {
+		everythingChanged = false;
+		foreach (const QString& terminal, grammarTerminals) {
+			//if there are no words for this terminal, remove it from the list
+			QList<Word*> wordsForTerminal = vocab->findWordsByTerminal(terminal);
+
+			bool hasAssociatedWord = false;
+			foreach (Word *w, wordsForTerminal) {
+				if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
+						trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
+					hasAssociatedWord = true;
+				else vocab->removeWord(w, true /* delete word*/);
+			}
+			if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) && !hasAssociatedWord) {
+				kDebug() << "Terminal has no associated words: " << terminal;
+				grammarTerminals.removeAll(terminal);
+
+				for (int i=0; i < structures.count(); i++)
+				{
+					if (structures[i].contains(terminal))
+					{
+						//delete all words of all terminals in this structure
+						QStringList structureElements = structures[i].split(' ');
+						foreach (const QString& structureTerminal, structureElements) {
+							QList<Word*> wordsToDelete = vocab->findWordsByTerminal(structureTerminal);
+							foreach (Word *w, wordsToDelete)
+								vocab->removeWord(w, true);
+						}
+
+						grammar->deleteStructure(i--);
+						structures = grammar->getStructures();
+					}
+				}
+				everythingChanged = true;
+				break;
+			}
+		}
+	}
+
+	
+	foreach (const QString& terminal, grammarTerminals) {
+		//only store vocabulary that is referenced by the grammar
 		QList<Word*> wordsForTerminal = vocab->findWordsByTerminal(terminal);
 
-		bool hasAssociatedWord = false;
-		foreach (Word *w, wordsForTerminal) {
-			if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
-					trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
-				hasAssociatedWord = true;
-			else wordsForTerminal.removeAll(w);
-		}
-		if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) || hasAssociatedWord) {
-			vocabStream << "% " << terminal << "\n";
-			foreach (const Word *w, wordsForTerminal)
-				vocabStream << w->getWord() << "\t" << w->getPronunciation() << "\n";
-		} else {
-			terminals.removeAll(terminal);
-		}
+		vocabStream << "% " << terminal << "\n";
+		foreach (const Word *w, wordsForTerminal)
+			vocabStream << w->getWord() << "\t" << w->getPronunciation() << "\n";
 	}
 	simpleVocabFile.close();
 
@@ -216,23 +249,11 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	QFile grammarFile(grammarPathOut);
 	if (!grammarFile.open(QIODevice::WriteOnly)) return false;
 
-	QStringList structures = grammar->getStructures();
-	foreach (const QString& structure, structures) {
-
-		bool hasAssociatedWords = true;
-		QStringList structureElements = structure.split(' ');
-		foreach (const QString& structureTerminal, structureElements) {
-			if (!terminals.contains(structureTerminal)) {
-				// don't include structures which use terminals that have no associated words
-				hasAssociatedWords = false; 
-				break;
-			}
-		}
-		if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) || hasAssociatedWords)
-			grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
-	}
+	foreach (const QString& structure, structures) 
+		grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
 	grammarFile.close();
 
+	///// Prompts (2) //////
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		QFile promptsFile(promptsPathIn);
 		QFile promptsFileOut(promptsPathOut);

@@ -235,7 +235,7 @@ bool Grammar::deleteStructure(int index)
 	m_structures.removeAt(index);
 	endRemoveRows();
 
-	return parentScenario->save();
+	return parentScenario ? parentScenario->save() : true;
 }
 
 
