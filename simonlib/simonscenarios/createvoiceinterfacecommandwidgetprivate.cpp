@@ -46,7 +46,6 @@ CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPriva
 
 Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	kDebug() << "Creating command";
 	VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
 	if (!tem) return NULL;
 
@@ -85,7 +84,6 @@ bool CreateVoiceInterfaceCommandWidgetPrivate::init(Command* command)
 	if (!c) return false;
 
 	int selectedActionIndex = ui.cbAction->findData(c->id());
-	kDebug() << c->id() << selectedActionIndex;
 	ui.cbAction->setCurrentIndex(selectedActionIndex);
 
 	ui.leVisibleTrigger->setText(c->visibleTrigger());

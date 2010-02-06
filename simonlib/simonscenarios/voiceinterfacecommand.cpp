@@ -32,7 +32,6 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 	m_receiver(NULL),
 	m_showIcon(showIcon)
 {
-	kDebug() << m_showIcon;
 }
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
@@ -86,7 +85,6 @@ bool VoiceInterfaceCommand::deSerializePrivate(const QDomElement& element)
 	m_id = idElement.text();
 	m_visibleTrigger = visibleTriggerElement.text();
 	m_showIcon = (showIconElement.text().toInt() == 1);
-	kDebug() << m_showIcon;
 
 	return true;
 }

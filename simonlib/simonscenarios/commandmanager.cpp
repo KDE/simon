@@ -182,6 +182,27 @@ QDomElement CommandManager::serializeCommands(QDomDocument *doc)
 
 bool CommandManager::deSerializeCommands(const QDomElement& elem)
 {
+	if (elem.isNull())
+	{
+		//load defaults
+		bool childSucc = deSerializeCommandsPrivate(elem);
+
+		if (!voiceInterfaceCommandTemplates.isEmpty())
+			if (!commands)
+				commands = new CommandList();
+
+		foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
+		{
+			VoiceInterfaceCommand *com = new VoiceInterfaceCommand(this, tem);
+			com->assignAction(this, tem->receiver(), tem->slot());
+			*commands << com;
+		}
+
+		return childSucc;
+	}
+
+	///////////// end defaults
+
 	QDomElement command = elem.firstChildElement("voiceInterfaceCommand");
 
 	if (commands)
@@ -195,19 +216,19 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 	while (!command.isNull())
 	{
 		VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(command);
-		if (com)
-		{
-			foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
-			{
-				if (tem->id() == com->id())
-				{
-					com->assignAction(this, tem->receiver(), tem->slot());
-					break;
-				}
-			}
-			*commands << com;
-		}
 		command = command.nextSiblingElement("voiceInterfaceCommand");
+
+		if (!com) continue;
+
+		foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
+		{
+			if (tem->id() == com->id())
+			{
+				com->assignAction(this, tem->receiver(), tem->slot());
+				break;
+			}
+		}
+		*commands << com;
 	}
 
 	return deSerializeCommandsPrivate(elem);
@@ -301,13 +322,10 @@ void CommandManager::adaptUi()
 
 		if (!voiceCommands.contains(com->receiver()))
 		{
-			kDebug() << "Setting icon" << com->showIcon();
 			if (com->showIcon())
-			{
 				com->receiver()->setProperty("icon",  com->getIcon());
-			} else {
+			else 
 				com->receiver()->setProperty("icon", QIcon()); 
-			}
 		}
 
 		QStringList currentCommands = voiceCommands.value(com->receiver());
@@ -434,8 +452,10 @@ CommandManager::~CommandManager()
 	if (commands)
 		qDeleteAll(*commands);
 
-	if (config)
+	if (config) {
+		kDebug() << "Deleting config";
 		config->deleteLater();
+	}
 
 	foreach (QAction* action, guiActions) {
 		action->deleteLater();
