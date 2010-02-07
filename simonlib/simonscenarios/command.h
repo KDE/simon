@@ -63,6 +63,8 @@ class Command;
  */
 typedef QList<Command*> CommandList;
 
+#include "commandmanager.h"
+
 
 class MODELMANAGEMENT_EXPORT  Command : public QObject{
 
@@ -78,6 +80,8 @@ signals:
 	void removed();
 
 protected:
+	int boundState;
+
     	Command() {}
 	virtual bool triggerPrivate()=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
@@ -93,6 +97,8 @@ public:
 	virtual const QString getCategoryText() const=0;
 
 	virtual bool trigger();
+
+	virtual bool matches(int commandManagerState, const QString& trigger);
 
 	virtual const QMap<QString,QVariant> getValueMap() const;
 
@@ -112,10 +118,11 @@ public:
     *	@param trigger 
     *	@param icon
     */
-    Command(const QString& name, const QString& icon, const QString& description_)
+    Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState)
         : triggerName(name),
         iconSrc(icon),
-	description(description_)
+	description(description_),
+	boundState(boundState_)
     {
     }
 

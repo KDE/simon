@@ -50,12 +50,27 @@ QDomElement Command::serialize(QDomDocument *doc)
 	icon.appendChild(doc->createTextNode(iconSrc));
 	QDomElement descriptionElem = doc->createElement("description");
 	descriptionElem.appendChild(doc->createTextNode(description));
+	QDomElement stateElem = doc->createElement("state");
+	stateElem.appendChild(doc->createTextNode(QString::number(boundState)));
 
 	commandElem.appendChild(name);
 	commandElem.appendChild(icon);
 	commandElem.appendChild(descriptionElem);
+	commandElem.appendChild(stateElem);
 
 	return serializePrivate(doc, commandElem);
+}
+
+bool Command::matches(int commandManagerState, const QString& trigger)
+{
+	kDebug() << "Command:";
+	kDebug() << "Trigger: " << triggerName << trigger;
+	kDebug() << "States: " << commandManagerState << boundState;
+	if (commandManagerState != boundState)
+		return false;
+
+
+	return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
 }
 
 bool Command::deSerialize(const QDomElement& elem)
@@ -63,9 +78,11 @@ bool Command::deSerialize(const QDomElement& elem)
 	QDomElement name = elem.firstChildElement();
 	QDomElement icon = name.nextSiblingElement();
 	QDomElement descriptionElem = icon.nextSiblingElement();
+	QDomElement stateElem = descriptionElem.nextSiblingElement();
 	triggerName = name.text();
 	iconSrc = icon.text();
 	description = descriptionElem.text();
+	boundState = stateElem.text().toInt();
 
 	return deSerializePrivate(elem);
 }

@@ -50,8 +50,8 @@ Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& 
 	if (!tem) return NULL;
 
 	VoiceInterfaceCommand *voiceInterfaceCommand = new VoiceInterfaceCommand(m_manager, 
-			name, iconSrc, description,
-			tem->id(), ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked());
+			name, iconSrc, description, tem->id(), tem->state(), 
+			ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked());
 	voiceInterfaceCommand->assignAction(m_manager, tem->receiver(), tem->slot());
 	return voiceInterfaceCommand;
 }

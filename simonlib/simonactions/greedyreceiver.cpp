@@ -19,6 +19,7 @@
 
 #include "greedyreceiver.h"
 #include "actionmanager.h"
+#include <simonscenarios/commandmanager.h>
 
 bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {
@@ -37,18 +38,24 @@ bool GreedyReceiver::greedyTriggerRaw(const RecognitionResult& result)
 	return greedyTrigger(result.sentence());
 }
 
-bool GreedyReceiver::greedyTrigger(const QString&)
+bool GreedyReceiver::greedyTrigger(const QString& triggerResult)
 {
-	return false;
+	if (!m_manager) return false;
+
+	return m_manager->trigger(triggerResult);
 }
 
 void GreedyReceiver::startGreedy()
 {
 	ActionManager::getInstance()->registerGreedyReceiver(this);
+	if (m_manager)
+		m_manager->setGreedyStatus(true);
 }
 
 void GreedyReceiver::stopGreedy()
 {
 	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	if (m_manager)
+		m_manager->setGreedyStatus(false);
 }
 

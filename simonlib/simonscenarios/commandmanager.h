@@ -45,7 +45,9 @@
 
 #include "simonmodelmanagement_export.h"
 
+#include "simoncommand.h"
 #include "command.h"
+
 #include "commandlauncher.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenariobase/scenarioobject.h>
@@ -55,6 +57,8 @@
 #include <QAbstractItemModel>
 #include <QDomElement>
 #include <QHash>
+
+
 
 class CommandManager;
 class CreateCommandWidget;
@@ -79,6 +83,7 @@ signals:
 	void commandsFound(CommandList*);
 
 private:
+	int m_currentState;
 //	QHash<QString, QString> voiceInterfaceActionNames;
 	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
@@ -145,9 +150,9 @@ public:
 
 	virtual bool trigger(const QString& triggerName);
 
-	virtual bool installInterfaceCommand(QWidget* widget, const QString& slot, 
+	virtual bool installInterfaceCommand(QObject* object, const QString& slot, 
 			const QString& actionName, const QString& iconSrc,
-			const QString& description, QString id=QString());
+			const QString& description, int state=SimonCommand::DefaultState, QString id=QString());
 
 	//QHash<QString, QString> getVoiceInterfaceActionNames() { return voiceInterfaceActionNames; }
 	QList<VoiceInterfaceCommandTemplate*> getVoiceInterfaceCommandTemplates()
@@ -160,11 +165,12 @@ public:
 	*/
 	CommandManager(Scenario *parentScenario, const QVariantList& args) : QAbstractItemModel((QObject*) parentScenario),
 		ScenarioObject(parentScenario),
-		commands(0), config(0)
+		m_currentState(SimonCommand::DefaultState), commands(0), config(0)
 	{
 		Q_UNUSED(args);
 	}
 
+	void setGreedyStatus(bool isGreedy);
 
 	virtual ~CommandManager();
 	

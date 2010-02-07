@@ -24,8 +24,12 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include <QString>
 
+class CommandManager;
 
 class SIMONACTIONS_EXPORT GreedyReceiver {
+
+private:
+	CommandManager *m_manager;
 
 public:
 	virtual bool greedyTriggerRawList(RecognitionResultList*);
@@ -35,7 +39,7 @@ public:
 	virtual void startGreedy();
 	virtual void stopGreedy();
 	
-	GreedyReceiver()
+	GreedyReceiver(CommandManager *manager=NULL) : m_manager(manager)
 	{ }
 
 	virtual ~GreedyReceiver() {}

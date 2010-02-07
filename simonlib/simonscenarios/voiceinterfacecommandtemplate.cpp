@@ -19,11 +19,13 @@
 
 #include "voiceinterfacecommandtemplate.h"
 
-VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description) :
+VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description,
+		int state) :
 	m_id(id),
 	m_icon(icon),
 	m_actionName(actionName),
-	m_description(description)
+	m_description(description),
+	m_state(state)
 {
 
 }

@@ -68,6 +68,8 @@ private:
 	QString formatCalculation(CalculatorCommandManager::NumberType type);
 	QString formatInput(CalculatorCommandManager::NumberType type);
 	QString formatOutput(CalculatorCommandManager::NumberType type);
+
+	bool installInterfaceCommands();
 	
 private slots:
 	void deregister();
@@ -97,11 +99,11 @@ private slots:
         void sendPercent();
 	void writeoutRequestReceived(int index);
 
-protected:
-	bool trigger(const QString& triggerName);
+//protected:
+//	bool trigger(const QString& triggerName);
 
 public slots:
-	bool greedyTrigger(const QString&);
+//	bool greedyTrigger(const QString&);
 	void activate();
 
 public:
@@ -111,7 +113,6 @@ public:
 	void setFont(const QFont& font);
 
 	bool deSerializeConfig(const QDomElement& elem);
-	bool deSerializeCommandsPrivate(const QDomElement& elem);
 
 	CommandList* getCommands() const { 
 		kWarning() << "Calc: Getting commands...";

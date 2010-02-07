@@ -21,6 +21,7 @@
 #include "calculatorconfiguration.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
+#include <simonscenarios/simoncommand.h>
 #include <simoninfo/simoninfo.h>
 #include <simonactions/commandlistwidget.h>
 
@@ -49,7 +50,8 @@ K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 QStringList CalculatorCommandManager::numberIdentifiers;
 
-CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
+CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args), 
+	GreedyReceiver(this),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	commandListWidget(new CommandListWidget()),
 	currentResult(0),
@@ -76,8 +78,6 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 
 	setFont(ActionManager::getInstance()->pluginBaseFont());
 
-	installInterfaceCommand(ui.pbPlus, "animateClick", i18n("Plus"), "list-add",
-			i18n("Addition"));
 
 	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
@@ -119,20 +119,65 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 			i18n("Format calculation and result as money"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 
+	if (!installInterfaceCommands())
+		kWarning() << "Couldn't install all interface commands";
 }
+
+
+bool CalculatorCommandManager::installInterfaceCommands()
+{
+	bool succ = true;
+
+	succ &= installInterfaceCommand(this, "activate", i18n("Calculator"), "accessories-calculator",
+			i18n("Starts the calculator"), SimonCommand::DefaultState, "startCalculator" /* id */);
+	
+	succ &= installInterfaceCommand(ui.pbPlus, "animateClick", i18n("Plus"), "list-add",
+			i18n("Addition"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbMinus, "animateClick", i18n("Minus"), "list-remove",
+			i18n("Subtraction"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbMultiply, "animateClick", i18n("Multiply"), "",
+			i18n("Multiplication"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbDivide, "animateClick", i18n("Divide"), "",
+			i18n("Division"), SimonCommand::GreedyState);
+
+	succ &= installInterfaceCommand(ui.pbPercent, "animateClick", i18n("Percent"), "",
+			i18n("Sends percent sign"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbEquals, "animateClick", i18n("Equals"), "",
+			i18n("Sends equal sign"), SimonCommand::GreedyState);
+
+	succ &= installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
+			i18n("Closes the calculator dialog"), SimonCommand::GreedyState);
+
+	succ &= installInterfaceCommand(ui.pb0, "animateClick", i18n("Zero"), "",
+			i18n("Pushes the 0 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb1, "animateClick", i18n("One"), "",
+			i18n("Pushes the 1 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb2, "animateClick", i18n("Two"), "",
+			i18n("Pushes the 2 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb3, "animateClick", i18n("Three"), "",
+			i18n("Pushes the 3 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb4, "animateClick", i18n("Four"), "",
+			i18n("Pushes the 4 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb5, "animateClick", i18n("Five"), "",
+			i18n("Pushes the 5 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb6, "animateClick", i18n("Six"), "",
+			i18n("Pushes the 6 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb7, "animateClick", i18n("Seven"), "",
+			i18n("Pushes the 7 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb8, "animateClick", i18n("Eight"), "",
+			i18n("Pushes the 8 button"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), "",
+			i18n("Pushes the 9 button"), SimonCommand::GreedyState);
+
+	return succ;
+}
+
+
 	
 bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	config = new CalculatorConfiguration(parentScenario);
 	config->deSerialize(elem);
-	return true;
-}
-
-bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
-{
-	Q_UNUSED(elem);
-	installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
-			i18n("Closes the calculator dialog"));
 	return true;
 }
 
@@ -712,6 +757,7 @@ void CalculatorCommandManager::ok()
 	}
 }
 
+/*
 bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 {
 	//setting correct index
@@ -830,9 +876,10 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 
 	return true;
 }
+*/
 
 
-bool CalculatorCommandManager::trigger(const QString& triggerName)
+/*bool CalculatorCommandManager::trigger(const QString& triggerName)
 {
 	if (!triggerName.isEmpty()){
 		kDebug() << triggerName << "Returning";
@@ -841,11 +888,12 @@ bool CalculatorCommandManager::trigger(const QString& triggerName)
 	
 	activate();
 	return true;
-}
+}*/
 
 
 void CalculatorCommandManager::activate()
 {
+	kDebug() << "Activate!";
 	clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
@@ -876,7 +924,7 @@ void CalculatorCommandManager::activate()
 
 QList<CommandLauncher*> CalculatorCommandManager::launchers() const
 {
-	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", "", i18n("Start calculator"));
+	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", i18n("Calculator"), i18n("Start calculator"));
 }
 
 

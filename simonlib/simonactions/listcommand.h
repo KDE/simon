@@ -35,7 +35,7 @@ class CommandListWidget;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class SIMONACTIONS_EXPORT ListCommand : public Command, public GreedyReceiver{
+class SIMONACTIONS_EXPORT ListCommand : public Command, public GreedyReceiver {
 Q_OBJECT
 
 signals:

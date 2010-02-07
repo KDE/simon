@@ -30,12 +30,13 @@ private:
 	QString m_icon;
 	QString m_actionName;
 	QString m_description;
+	int m_state;
 
 	QObject *m_receiver;
 	QString m_slot;
 	
 public:
-	VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description);
+	VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description, int state);
 	
 	void assignAction(QObject *receiver, const QString& slot);
 
@@ -45,6 +46,7 @@ public:
 	QString icon() { return m_icon; }
 	QObject* receiver() { return m_receiver; }
 	QString slot() { return m_slot; }
+	int state() { return m_state; }
 
 	~VoiceInterfaceCommandTemplate();
 

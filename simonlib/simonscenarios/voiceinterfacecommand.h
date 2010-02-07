@@ -45,8 +45,8 @@ private:
 public:
 	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
 	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
-			const QString& description, const QString& id, const QString& visibleTrigger, 
-			bool showIcon);
+			const QString& description, const QString& id, int state, 
+			const QString& visibleTrigger, bool showIcon);
 	
 	void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);
 

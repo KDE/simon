@@ -24,8 +24,8 @@
 #include <KDebug>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc, 
-			const QString& description, const QString& id, const QString& visibleTrigger, bool showIcon) :
-	Command(trigger, iconSrc, description),
+			const QString& description, const QString& id, int state, const QString& visibleTrigger, bool showIcon) :
+	Command(trigger, iconSrc, description, state),
 	m_parentManager(parentManager),
 	m_id(id), 
 	m_visibleTrigger(visibleTrigger),
@@ -35,7 +35,7 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 }
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
-	Command(tem->actionName(), tem->icon(), tem->description()),
+	Command(tem->actionName(), tem->icon(), tem->description(), tem->state()),
 	m_parentManager(parentManager),
 	m_id(tem->id()),
 	m_visibleTrigger(tem->actionName()),
@@ -61,6 +61,7 @@ bool VoiceInterfaceCommand::triggerPrivate()
 	//    for more info
 	// +: Works in multithreaded environments
 	QByteArray slotName = m_slot.toAscii();
+	kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
 	QMetaObject::invokeMethod(m_receiver, slotName.data(), Qt::QueuedConnection);
 
 	return true;

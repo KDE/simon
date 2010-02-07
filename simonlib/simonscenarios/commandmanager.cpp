@@ -33,19 +33,14 @@ bool CommandManager::trigger(const QString& triggerName)
 {
 	if (!commands) return false;
 
-	bool done=false;
-	for (int i=0; i < commands->count(); i++)
+	kDebug() << "Matching trigger: " << triggerName;
+	foreach (Command* c, *commands)
 	{
-		if (!commands->at(i)) continue;
-
-		if (commands->at(i)->getTrigger() == triggerName)
-		{
-			if (commands->at(i)->trigger())
-				done=true;
-			break;
-		}
+		if (c->matches(m_currentState, triggerName))
+			return c->trigger();
 	}
-	return done;
+
+	return false;
 }
 
 bool CommandManager::addCommand(Command *command)
@@ -70,21 +65,18 @@ bool CommandManager::addCommandPrivate(Command *command)
 	return false;
 }
 
-bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slot, 
+bool CommandManager::installInterfaceCommand(QObject* object, const QString& slot, 
 		const QString& actionName, const QString& iconSrc,
-		const QString& description, QString id)
+		const QString& description, int state, QString id)
 {
-	Q_ASSERT(widget);
+	Q_ASSERT(object);
 
 	if (id.isEmpty())
-		id = widget->objectName();
+		id = object->objectName();
 
 	if (id.isEmpty())
 		return false;
 	
-//	while (voiceInterfaceActionNames.contains(id))
-//		id += "_"; //make id unique
-
 	//make id unique
 	bool unique;
 	{
@@ -101,17 +93,10 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 			id += "_";
 	} while (!unique);
 
-	VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description);
-	templ->assignAction(widget, slot);
+	VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description, state);
+	templ->assignAction(object, slot);
 	voiceInterfaceCommandTemplates.append(templ);
 				
-
-	/*
-	 * Create commands?
-	if (!commands)
-		commands = new CommandList();
-		*/
-
 	if (commands)
 	{
 		foreach (Command *c, *commands)
@@ -119,19 +104,9 @@ bool CommandManager::installInterfaceCommand(QWidget* widget, const QString& slo
 			VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
 			if (!iC) continue;
 			if (iC->id() == id)
-				iC->assignAction(this, widget, slot);
+				iC->assignAction(this, object, slot);
 		}
 	}
-
-	//VoiceInterfaceCommand *command = new VoiceInterfaceCommand(this, actionName, iconSrc, description,
-	//								id, actionName);
-//	command->assignAction(this, widget, slot);
-
-//	voiceInterfaceActionNames.insert(id, actionName);
-
-//	beginInsertRows(QModelIndex(), commands->count(), commands->count());
-//	*commands << command;
-//	endInsertRows();
 	return true;
 }
 
@@ -446,16 +421,23 @@ QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent
 	return createIndex(row, column, commands->at(row));
 }
 
+void CommandManager::setGreedyStatus(bool isGreedy)
+{
+	if (isGreedy) 
+		m_currentState |= SimonCommand::GreedyState;
+	else
+		m_currentState &= ~(SimonCommand::GreedyState);
+}
+	
+
 
 CommandManager::~CommandManager()
 {
 	if (commands)
 		qDeleteAll(*commands);
 
-	if (config) {
-		kDebug() << "Deleting config";
+	if (config) 
 		config->deleteLater();
-	}
 
 	foreach (QAction* action, guiActions) {
 		action->deleteLater();
