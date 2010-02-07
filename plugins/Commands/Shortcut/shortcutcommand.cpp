@@ -53,8 +53,9 @@ const QMap<QString,QVariant> ShortcutCommand::getValueMapPrivate() const
 	return out;
 }
 
-bool ShortcutCommand::triggerPrivate()
+bool ShortcutCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	EventHandler::getInstance()->sendShortcut(getShortcut());
 	return true;
 }

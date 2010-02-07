@@ -69,8 +69,9 @@ const QMap<QString,QVariant> LauncherCommand::getValueMapPrivate() const
 	return out;
 }
 
-bool LauncherCommand::triggerPrivate()
+bool LauncherCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	kDebug() << "Triggering launcher";
 	return true;
 }

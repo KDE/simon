@@ -74,7 +74,8 @@ bool PlaceCommand::deSerializePrivate(const QDomElement& commandElem)
 	return true;
 }
 
-bool PlaceCommand::triggerPrivate()
+bool PlaceCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	return QDesktopServices::openUrl(getURL());
 }

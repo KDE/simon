@@ -19,6 +19,7 @@
 
 #include "commandpreviewwidget.h"
 #include <simonscenarios/command.h>
+#include <simonscenarios/simoncommand.h>
 #include <QModelIndex>
 #include <QMap>
 #include <QFormLayout>
@@ -43,7 +44,8 @@ CommandPreviewWidget::CommandPreviewWidget(QWidget* parent) : QWidget(parent),
 
 void CommandPreviewWidget::trigger()
 {
-	if (command) command->trigger();
+	int state = SimonCommand::DefaultState;
+	if (command) command->trigger(&state);
 }
 
 void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
@@ -92,7 +94,5 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 	//resize(sizeHint().height(), width());
 	this->command = command;
 }
-
-
 
 

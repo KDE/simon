@@ -23,6 +23,7 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/voiceinterfacecommand.h>
 #include <simonscenarios/actioncollection.h>
+#include <simonscenarios/simoncommand.h>
 #include "newcommand.h"
 #include "manageactionsdialog.h"
 #include "commandpreviewwidget.h"
@@ -112,8 +113,9 @@ void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 void RunCommandViewPrivate::triggerCommand()
 {
 	Command *com = getCurrentCommand();
+	int state = SimonCommand::DefaultState;
 	if (com)
-		com->trigger();
+		com->trigger(&state);
 }
 
 
@@ -235,6 +237,7 @@ void RunCommandViewPrivate::updateCommandDetail()
 			label->setText(strValue);
 			
 			ui.flDetails->addRow(keys[i]+":", label);
+			label->setMinimumSize(label->sizeHint());
 		}
 	}
 

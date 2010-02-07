@@ -221,8 +221,10 @@ void ListCommand::listCurrentCommandSection()
 	clw->init(nowIconSrcs, nowCommands, flags);
 }
 
-bool ListCommand::triggerPrivate()
+bool ListCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
+
 	if (commands.count() == 0) return false;
 
 	Q_ASSERT(commands.count() == commandTypes.count());

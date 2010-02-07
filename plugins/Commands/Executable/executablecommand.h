@@ -41,7 +41,7 @@ private:
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
-	bool triggerPrivate();
+	bool triggerPrivate(int *state);
 	ExecutableCommand() {}
 
 public:

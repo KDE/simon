@@ -33,11 +33,10 @@ bool CommandManager::trigger(const QString& triggerName)
 {
 	if (!commands) return false;
 
-	kDebug() << "Matching trigger: " << triggerName;
 	foreach (Command* c, *commands)
 	{
 		if (c->matches(m_currentState, triggerName))
-			return c->trigger();
+			return c->trigger(&m_currentState);
 	}
 
 	return false;
@@ -66,8 +65,10 @@ bool CommandManager::addCommandPrivate(Command *command)
 }
 
 bool CommandManager::installInterfaceCommand(QObject* object, const QString& slot, 
-		const QString& actionName, const QString& iconSrc,
-		const QString& description, int state, QString id)
+			const QString& actionName, const QString& iconSrc,
+			const QString& description, bool announce, bool showIcon,
+			int state, int newState, const QString& defaultVisibleTrigger, 
+			QString id)
 {
 	Q_ASSERT(object);
 
@@ -79,6 +80,7 @@ bool CommandManager::installInterfaceCommand(QObject* object, const QString& slo
 	
 	//make id unique
 	bool unique;
+	do
 	{
 		unique = true;
 		foreach (VoiceInterfaceCommandTemplate *t, voiceInterfaceCommandTemplates) 
@@ -93,7 +95,9 @@ bool CommandManager::installInterfaceCommand(QObject* object, const QString& slo
 			id += "_";
 	} while (!unique);
 
-	VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description, state);
+	VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description, 
+			state, newState, announce, showIcon, defaultVisibleTrigger);
+	
 	templ->assignAction(object, slot);
 	voiceInterfaceCommandTemplates.append(templ);
 				
@@ -191,8 +195,8 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 	while (!command.isNull())
 	{
 		VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(command);
-		command = command.nextSiblingElement("voiceInterfaceCommand");
 
+		command = command.nextSiblingElement("voiceInterfaceCommand");
 		if (!com) continue;
 
 		foreach (VoiceInterfaceCommandTemplate *tem, voiceInterfaceCommandTemplates)
@@ -200,12 +204,14 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 			if (tem->id() == com->id())
 			{
 				com->assignAction(this, tem->receiver(), tem->slot());
+				*commands << com;
 				break;
 			}
 		}
-		*commands << com;
 	}
 
+	if (commands)
+		kDebug() << "Loaded commands: " << commands->count();
 	return deSerializeCommandsPrivate(elem);
 }
 
@@ -294,6 +300,7 @@ void CommandManager::adaptUi()
 	{
 		VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
 		if (!com) continue;
+		if (!com->receiver()) continue;
 
 		if (!voiceCommands.contains(com->receiver()))
 		{
@@ -306,7 +313,6 @@ void CommandManager::adaptUi()
 		QStringList currentCommands = voiceCommands.value(com->receiver());
 		currentCommands.append(com->visibleTrigger());
 		voiceCommands.insert(com->receiver(), currentCommands);
-
 	}
 
 	foreach (QObject *object, voiceCommands.keys())

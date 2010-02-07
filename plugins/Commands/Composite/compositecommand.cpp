@@ -85,8 +85,9 @@ QDomElement CompositeCommand::serializePrivate(QDomDocument *doc, QDomElement& c
 }
 
 
-bool CompositeCommand::triggerPrivate()
+bool CompositeCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	Q_ASSERT(commands.count() == commandTypes.count());
 
 	for (int i=0; i<commands.count();i++)

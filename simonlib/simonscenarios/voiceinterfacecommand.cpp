@@ -24,8 +24,9 @@
 #include <KDebug>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc, 
-			const QString& description, const QString& id, int state, const QString& visibleTrigger, bool showIcon) :
-	Command(trigger, iconSrc, description, state),
+			const QString& description, const QString& id, int state, int newState,const QString& visibleTrigger, 
+			bool showIcon, bool announce) :
+	Command(trigger, iconSrc, description, state, newState, announce),
 	m_parentManager(parentManager),
 	m_id(id), 
 	m_visibleTrigger(visibleTrigger),
@@ -35,12 +36,12 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 }
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
-	Command(tem->actionName(), tem->icon(), tem->description(), tem->state()),
+	Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
 	m_parentManager(parentManager),
 	m_id(tem->id()),
-	m_visibleTrigger(tem->actionName()),
+	m_visibleTrigger(tem->defaultVisibleTrigger()),
 	m_receiver(NULL),
-	m_showIcon(false)
+	m_showIcon(tem->showIcon())
 {
 }
 
@@ -51,8 +52,10 @@ void VoiceInterfaceCommand::assignAction(CommandManager *parentManager, QObject 
 	m_slot = slot;
 }
 
-bool VoiceInterfaceCommand::triggerPrivate()
+bool VoiceInterfaceCommand::triggerPrivate(int *status)
 {
+	Q_UNUSED(status);
+
 	if (m_receiver == NULL) return false;
 
 	//Queued connection:

@@ -59,8 +59,9 @@ const QMap<QString,QVariant> DelayCommand::getValueMapPrivate() const
 	return out;
 }
 
-bool DelayCommand::triggerPrivate()
+bool DelayCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	#ifdef Q_OS_WIN32
 	Sleep(delay);
 	#else

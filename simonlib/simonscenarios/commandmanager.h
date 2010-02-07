@@ -152,9 +152,12 @@ public:
 
 	virtual bool installInterfaceCommand(QObject* object, const QString& slot, 
 			const QString& actionName, const QString& iconSrc,
-			const QString& description, int state=SimonCommand::DefaultState, QString id=QString());
+			const QString& description, bool announce, bool showIcon=false,
+			int state=SimonCommand::DefaultState, 
+			int newState=SimonCommand::DefaultState, 
+			const QString& defaultVisibleTrigger=QString(), 
+			QString id=QString());
 
-	//QHash<QString, QString> getVoiceInterfaceActionNames() { return voiceInterfaceActionNames; }
 	QList<VoiceInterfaceCommandTemplate*> getVoiceInterfaceCommandTemplates()
 	{ return voiceInterfaceCommandTemplates; }
 

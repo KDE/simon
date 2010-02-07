@@ -56,17 +56,17 @@ private:
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
-	bool triggerPrivate();
+	bool triggerPrivate(int *state);
 	virtual bool deSerializePrivate(const QDomElement& commandElem);
 	ListCommand();
 	void init();
 
 private slots:
 	bool processRequest(int index);
-	void cancel();
 
 public slots:
 	bool greedyTrigger(const QString& inputText);
+	void cancel();
 
 public:
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
@@ -83,7 +83,6 @@ public:
 	*	@author Peter Grasch
 	*/
 	ListCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands, const QStringList& iconSrcs, const QStringList& commandTypes);
-	
 
 	/**
 	* @brief Returns the command list

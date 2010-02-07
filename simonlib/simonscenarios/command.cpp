@@ -24,11 +24,15 @@
 #include <QDomDocument>
 #include <KDebug>
 
-bool Command::trigger()
+bool Command::trigger(int* state)
 {
-	KIcon commandIcon = getIcon();
-	SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
-	return triggerPrivate();
+	if (announce) {
+		KIcon commandIcon = getIcon();
+		SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
+	}
+	*state = switchToState;
+	kDebug() << "Switchting to state: " << switchToState << getTrigger();
+	return triggerPrivate(state);
 }
 
 const QMap<QString,QVariant> Command::getValueMap() const
@@ -52,23 +56,26 @@ QDomElement Command::serialize(QDomDocument *doc)
 	descriptionElem.appendChild(doc->createTextNode(description));
 	QDomElement stateElem = doc->createElement("state");
 	stateElem.appendChild(doc->createTextNode(QString::number(boundState)));
+	QDomElement newStateElem = doc->createElement("newState");
+	newStateElem.appendChild(doc->createTextNode(QString::number(switchToState)));
+	QDomElement announceElem = doc->createElement("announce");
+	announceElem.appendChild(doc->createTextNode(announce ? "1" : "0"));
 
 	commandElem.appendChild(name);
 	commandElem.appendChild(icon);
 	commandElem.appendChild(descriptionElem);
 	commandElem.appendChild(stateElem);
+	commandElem.appendChild(newStateElem);
+	commandElem.appendChild(announceElem);
 
 	return serializePrivate(doc, commandElem);
 }
 
 bool Command::matches(int commandManagerState, const QString& trigger)
 {
-	kDebug() << "Command:";
-	kDebug() << "Trigger: " << triggerName << trigger;
-	kDebug() << "States: " << commandManagerState << boundState;
+	kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
 	if (commandManagerState != boundState)
 		return false;
-
 
 	return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
 }
@@ -79,10 +86,14 @@ bool Command::deSerialize(const QDomElement& elem)
 	QDomElement icon = name.nextSiblingElement();
 	QDomElement descriptionElem = icon.nextSiblingElement();
 	QDomElement stateElem = descriptionElem.nextSiblingElement();
+	QDomElement newStateElem = stateElem.nextSiblingElement();
+	QDomElement announceElem = newStateElem.nextSiblingElement();
 	triggerName = name.text();
 	iconSrc = icon.text();
 	description = descriptionElem.text();
 	boundState = stateElem.text().toInt();
+	switchToState = newStateElem.text().toInt();
+	announce = (announceElem.text().toInt() == 1);
 
 	return deSerializePrivate(elem);
 }

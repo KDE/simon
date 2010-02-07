@@ -19,13 +19,18 @@
 
 #include "voiceinterfacecommandtemplate.h"
 
-VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description,
-		int state) :
+VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, 
+		const QString& icon, const QString& description, int state, int newState,
+		bool announce, bool showIcon,  QString defaultVisibleTrigger) :
 	m_id(id),
 	m_icon(icon),
 	m_actionName(actionName),
+	m_defaultVisibleTrigger(defaultVisibleTrigger),
 	m_description(description),
-	m_state(state)
+	m_state(state),
+	m_newState(newState),
+	m_announce(announce),
+	m_showIcon(showIcon)
 {
 
 }

@@ -55,8 +55,9 @@ const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 	return out;
 }
 
-bool ExecutableCommand::triggerPrivate()
+bool ExecutableCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	QStringList commands = exe.split(";");
 	KProcess proc;
 	for (int i=0; i < commands.count(); i++)

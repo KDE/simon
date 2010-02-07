@@ -50,8 +50,8 @@ Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& 
 	if (!tem) return NULL;
 
 	VoiceInterfaceCommand *voiceInterfaceCommand = new VoiceInterfaceCommand(m_manager, 
-			name, iconSrc, description, tem->id(), tem->state(), 
-			ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked());
+			name, iconSrc, description, tem->id(), tem->state(), tem->newState(), 
+			ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked(), tem->announce());
 	voiceInterfaceCommand->assignAction(m_manager, tem->receiver(), tem->slot());
 	return voiceInterfaceCommand;
 }
@@ -73,6 +73,9 @@ void CreateVoiceInterfaceCommandWidgetPrivate::initFromTemplate()
 {
 	VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
 	if (!tem) return;
+
+	ui.cbShowIcon->setChecked(tem->showIcon());
+	ui.leVisibleTrigger->setText(tem->defaultVisibleTrigger());
 
 	VoiceInterfaceCommand *c = new VoiceInterfaceCommand(m_manager, tem);
 	emit commandSuggested(c); //command will be deleted by receiver

@@ -78,7 +78,6 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 
 	setFont(ActionManager::getInstance()->pluginBaseFont());
 
-
 	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
@@ -128,50 +127,110 @@ bool CalculatorCommandManager::installInterfaceCommands()
 {
 	bool succ = true;
 
-	succ &= installInterfaceCommand(this, "activate", i18n("Calculator"), "accessories-calculator",
-			i18n("Starts the calculator"), SimonCommand::DefaultState, "startCalculator" /* id */);
+	//launcher
+	succ &= installInterfaceCommand(this, "activate", i18n("Calculator"), iconSrc(),
+			i18n("Starts the calculator"), true /* announce */, true /* show icon */,
+			SimonCommand::DefaultState /* consider this command when in this state */, 
+			SimonCommand::GreedyState, /* if executed switch to this state */
+			QString() /* take default visible id from action name */,
+			"startCalculator" /* id */);
 	
+	//operations
 	succ &= installInterfaceCommand(ui.pbPlus, "animateClick", i18n("Plus"), "list-add",
-			i18n("Addition"), SimonCommand::GreedyState);
+			i18n("Addition"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
 	succ &= installInterfaceCommand(ui.pbMinus, "animateClick", i18n("Minus"), "list-remove",
-			i18n("Subtraction"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pbMultiply, "animateClick", i18n("Multiply"), "",
-			i18n("Multiplication"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pbDivide, "animateClick", i18n("Divide"), "",
-			i18n("Division"), SimonCommand::GreedyState);
+			i18n("Subtraction"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbMultiply, "animateClick", i18n("Multiply"), iconSrc(),
+			i18n("Multiplication"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbDivide, "animateClick", i18n("Divide"), iconSrc(),
+			i18n("Division"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
 
-	succ &= installInterfaceCommand(ui.pbPercent, "animateClick", i18n("Percent"), "",
-			i18n("Sends percent sign"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pbEquals, "animateClick", i18n("Equals"), "",
-			i18n("Sends equal sign"), SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbPercent, "animateClick", i18n("Percent"), iconSrc(),
+			i18n("Sends percent sign"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbEquals, "animateClick", i18n("Equals"), iconSrc(),
+			i18n("Sends equal sign"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
 
+	//actions
+	succ &= installInterfaceCommand(ui.pbBack, "animateClick", i18n("Back"), "edit-undo",
+			i18n("Removes one character (backspace)"), false, true, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbClear, "animateClick", i18n("Clear"), "edit-clear",
+			i18n("Clears the whole input"), false, true, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	
+	succ &= installInterfaceCommand(ui.pbOk, "animateClick", i18n("Ok"), "dialog-ok",
+			i18n("Closes the calculator dialog and sends the input"), false, true, 
+			SimonCommand::GreedyState, SimonCommand::GreedyState+1);
 	succ &= installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
-			i18n("Closes the calculator dialog"), SimonCommand::GreedyState);
+			i18n("Closes the calculator dialog"), false, true, SimonCommand::GreedyState,
+			SimonCommand::DefaultState);
 
-	succ &= installInterfaceCommand(ui.pb0, "animateClick", i18n("Zero"), "",
-			i18n("Pushes the 0 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb1, "animateClick", i18n("One"), "",
-			i18n("Pushes the 1 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb2, "animateClick", i18n("Two"), "",
-			i18n("Pushes the 2 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb3, "animateClick", i18n("Three"), "",
-			i18n("Pushes the 3 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb4, "animateClick", i18n("Four"), "",
-			i18n("Pushes the 4 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb5, "animateClick", i18n("Five"), "",
-			i18n("Pushes the 5 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb6, "animateClick", i18n("Six"), "",
-			i18n("Pushes the 6 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb7, "animateClick", i18n("Seven"), "",
-			i18n("Pushes the 7 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb8, "animateClick", i18n("Eight"), "",
-			i18n("Pushes the 8 button"), SimonCommand::GreedyState);
-	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), "",
-			i18n("Pushes the 9 button"), SimonCommand::GreedyState);
+	//number input
+	succ &= installInterfaceCommand(ui.pb0, "animateClick", i18n("Zero"), iconSrc(),
+			i18n("Clicks 0"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "0");
+	succ &= installInterfaceCommand(ui.pb1, "animateClick", i18n("One"), iconSrc(),
+			i18n("Clicks 1"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "1");
+	succ &= installInterfaceCommand(ui.pb2, "animateClick", i18n("Two"), iconSrc(),
+			i18n("Clicks 2"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "2");
+	succ &= installInterfaceCommand(ui.pb3, "animateClick", i18n("Three"), iconSrc(),
+			i18n("Clicks 3"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "3");
+	succ &= installInterfaceCommand(ui.pb4, "animateClick", i18n("Four"), iconSrc(),
+			i18n("Clicks 4"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "4");
+	succ &= installInterfaceCommand(ui.pb5, "animateClick", i18n("Five"), iconSrc(),
+			i18n("Clicks 5"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "5");
+	succ &= installInterfaceCommand(ui.pb6, "animateClick", i18n("Six"), iconSrc(),
+			i18n("Clicks 6"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "6");
+	succ &= installInterfaceCommand(ui.pb7, "animateClick", i18n("Seven"), iconSrc(),
+			i18n("Clicks 7"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "7");
+	succ &= installInterfaceCommand(ui.pb8, "animateClick", i18n("Eight"), iconSrc(),
+			i18n("Clicks 8"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "8");
+	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), iconSrc(),
+			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "9");
+	succ &= installInterfaceCommand(ui.pbComma, "animateClick", i18n("Point"), iconSrc(),
+			i18n("Decimal separator"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+
+	//output mode
+	succ &= installInterfaceCommand(this, "printResult", i18n("One"), iconSrc(),
+			i18n("In the output selection popup, selects printing the result"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "1", "printResult");
+	succ &= installInterfaceCommand(this, "printCalculationAndResult", i18n("Two"), iconSrc(),
+			i18n("In the output selection popup, selects printing the calculation and result"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "2", "printCalculationAndResult");
+	succ &= installInterfaceCommand(this, "printFormattedResult", i18n("Three"), iconSrc(),
+			i18n("In the output selection popup, selects printing the formatted result"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "3", "printFormattedResult");
+	succ &= installInterfaceCommand(this, "printFormattedCalculationAndResult", i18n("Four"), iconSrc(),
+			i18n("In the output selection popup, selects printing the formatted calculation and result"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "4", "printFormattedCalculationAndResult");
+	succ &= installInterfaceCommand(this, "printFormattedMoneyResult", i18n("Five"), iconSrc(),
+			i18n("In the output selection popup, selects printing the result formatted as money"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "5", "printFormattedMoneyResult");
+	succ &= installInterfaceCommand(this, "printFormattedMoneyCalculationAndResult", i18n("Six"), iconSrc(),
+			i18n("In the output selection popup, selects printing the calculation and result formatted as money"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "6", "printFormattedMoneyCalculationAndResult");
+	succ &= installInterfaceCommand(this, "printCancel", i18n("Cancel"), "dialog-cancel",
+			i18n("In the output selection popup, selects printing the result"), true, 
+			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, i18n("Cancel"), "printCancel");
 
 	return succ;
 }
-
 
 	
 bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
@@ -188,7 +247,7 @@ void CalculatorCommandManager::setFont(const QFont& font)
 
 const QString CalculatorCommandManager::preferredTrigger() const
 {
-	return i18n("Calculator");
+	return "";
 }
 
 void CalculatorCommandManager::writeoutRequestReceived(int index)
@@ -314,9 +373,13 @@ void CalculatorCommandManager::deregister()
 
 const KIcon CalculatorCommandManager::icon() const
 {
-	return KIcon("accessories-calculator");
+	return KIcon(iconSrc());
 }
 
+const QString CalculatorCommandManager::iconSrc() const
+{
+	return "accessories-calculator";
+}
 
 const QString CalculatorCommandManager::name() const
 {
@@ -755,6 +818,12 @@ void CalculatorCommandManager::ok()
 			commandListWidget->selectAfterTimeout((int) mode, static_cast<CalculatorConfiguration*>(config)->askTimeout());
 			break;
 	}
+}
+
+void CalculatorCommandManager::printCancel()
+{
+	commandListWidget->hide();
+	commandListWidget->abortTimeoutSelection();
 }
 
 /*

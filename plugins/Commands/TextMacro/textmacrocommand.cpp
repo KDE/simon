@@ -55,8 +55,9 @@ const QMap<QString,QVariant> TextMacroCommand::getValueMapPrivate() const
 }
 
 
-bool TextMacroCommand::triggerPrivate()
+bool TextMacroCommand::triggerPrivate(int *state)
 {
+	Q_UNUSED(state);
 	QCoreApplication::processEvents();
 	EventHandler::getInstance()->sendWord(getText());
 	return true;

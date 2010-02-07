@@ -212,7 +212,8 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 	connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
 	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
 	connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
-	list->trigger();
+	int state = SimonCommand::DefaultState;
+	list->trigger(&state);
 }
 
 QFont ActionManager::pluginBaseFont()

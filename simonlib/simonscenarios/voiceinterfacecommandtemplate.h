@@ -29,14 +29,21 @@ private:
 	QString m_id;
 	QString m_icon;
 	QString m_actionName;
+	QString m_defaultVisibleTrigger;
 	QString m_description;
 	int m_state;
+	int m_newState;
+	bool m_showIcon;
+	bool m_announce;
 
 	QObject *m_receiver;
 	QString m_slot;
 	
 public:
-	VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, const QString& icon, const QString& description, int state);
+	VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, 
+			const QString& icon, const QString& description, int state,
+			int newState, bool announce=false, bool showIcon=true, 
+			QString defaultVisibleTrigger=QString());
 	
 	void assignAction(QObject *receiver, const QString& slot);
 
@@ -47,6 +54,15 @@ public:
 	QObject* receiver() { return m_receiver; }
 	QString slot() { return m_slot; }
 	int state() { return m_state; }
+	int newState() { return m_newState; }
+
+	QString defaultVisibleTrigger()
+	{
+		return m_defaultVisibleTrigger.isNull() ? m_actionName : m_defaultVisibleTrigger;
+	}
+
+	bool showIcon() { return m_showIcon; }
+	bool announce() { return m_announce; }
 
 	~VoiceInterfaceCommandTemplate();
 
@@ -54,5 +70,4 @@ public:
 };
 
 #endif
-
 

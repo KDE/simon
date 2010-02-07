@@ -39,7 +39,7 @@ private:
 	QString text;
 
 protected:
-	bool triggerPrivate();
+	bool triggerPrivate(int *state);
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 	bool deSerializePrivate(const QDomElement& commandElem);

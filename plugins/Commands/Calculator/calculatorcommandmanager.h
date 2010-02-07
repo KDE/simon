@@ -99,7 +99,15 @@ private slots:
         void sendPercent();
 	void writeoutRequestReceived(int index);
 
-//protected:
+	void printCancel();
+	void printResult() { writeoutRequestReceived(1); }
+	void printCalculationAndResult() { writeoutRequestReceived(2); }
+	void printFormattedResult() { writeoutRequestReceived(3); }
+	void printFormattedCalculationAndResult() { writeoutRequestReceived(4); }
+	void printFormattedMoneyResult() { writeoutRequestReceived(5); }
+	void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(6); }
+
+protected:
 //	bool trigger(const QString& triggerName);
 
 public slots:
@@ -109,15 +117,13 @@ public slots:
 public:
 	const QString preferredTrigger() const;
 	const KIcon icon() const;
+	const QString iconSrc() const;
 	const QString name() const;
 	void setFont(const QFont& font);
 
 	bool deSerializeConfig(const QDomElement& elem);
 
-	CommandList* getCommands() const { 
-		kWarning() << "Calc: Getting commands...";
-		return NULL; 
-	}
+	//CommandList* getCommands() const { return NULL; }
 
 	QList<CommandLauncher*> launchers() const;
 

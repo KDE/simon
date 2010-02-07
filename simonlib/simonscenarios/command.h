@@ -74,6 +74,7 @@ private:
 	QString triggerName; //!< The name of the command - this is used to call the command and is unique
 	QString iconSrc; //!< The icon of a command.
 	QString description; //!< The description of the command.
+	bool announce; //!< Should we announce when the command gets triggered?
 
 signals:
 	void changed();
@@ -81,9 +82,10 @@ signals:
 
 protected:
 	int boundState;
+	int switchToState;
 
     	Command() {}
-	virtual bool triggerPrivate()=0;
+	virtual bool triggerPrivate(int* state)=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
 
 	virtual QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem)=0;
@@ -96,7 +98,7 @@ public:
 	virtual const KIcon getCategoryIcon() const=0;
 	virtual const QString getCategoryText() const=0;
 
-	virtual bool trigger();
+	virtual bool trigger(int* state);
 
 	virtual bool matches(int commandManagerState, const QString& trigger);
 
@@ -118,11 +120,14 @@ public:
     *	@param trigger 
     *	@param icon
     */
-    Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState)
+    Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState,
+		    int newState_ = SimonCommand::DefaultState, bool announce_ = true)
         : triggerName(name),
         iconSrc(icon),
 	description(description_),
-	boundState(boundState_)
+	announce(announce_),
+	boundState(boundState_),
+	switchToState(newState_)
     {
     }
 

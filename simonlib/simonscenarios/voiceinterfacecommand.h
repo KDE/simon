@@ -45,8 +45,8 @@ private:
 public:
 	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
 	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
-			const QString& description, const QString& id, int state, 
-			const QString& visibleTrigger, bool showIcon);
+			const QString& description, const QString& id, int state, int newState,
+			const QString& visibleTrigger, bool showIcon, bool announce);
 	
 	void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);
 
@@ -55,7 +55,7 @@ public:
 	static VoiceInterfaceCommand* createInstance(const QDomElement& element);
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 
-	bool triggerPrivate();
+	bool triggerPrivate(int *status);
 
 	QString id() { return m_id; }
 	QString visibleTrigger() { return m_visibleTrigger; }
