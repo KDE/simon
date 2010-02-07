@@ -75,8 +75,10 @@ bool CommandManager::installInterfaceCommand(QObject* object, const QString& slo
 	if (id.isEmpty())
 		id = object->objectName();
 
-	if (id.isEmpty())
+	if (id.isEmpty()) {
+		kDebug() << "id is empty. panicking!";
 		return false;
+	}
 	
 	//make id unique
 	bool unique;

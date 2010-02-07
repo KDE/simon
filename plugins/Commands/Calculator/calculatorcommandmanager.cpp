@@ -48,8 +48,6 @@ K_PLUGIN_FACTORY( CalculatorCommandPluginFactory,
         
 K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
-QStringList CalculatorCommandManager::numberIdentifiers;
-
 CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args), 
 	GreedyReceiver(this),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
@@ -57,69 +55,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	currentResult(0),
 	resultCurrentlyDisplayed(true)
 {
-	KAction *activateAction = new KAction(this);
-	activateAction->setText(i18n("Activate Calculator"));
-	activateAction->setIcon(KIcon("accessories-calculator"));
-	connect(activateAction, SIGNAL(triggered(bool)),
-		this, SLOT(activate()));
-	guiActions << activateAction;
 
-	widget->setWindowIcon(KIcon("accessories-calculator"));
-	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
-	ui.setupUi(widget);
-	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
-	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
-	widget->hide();
-
-	if (numberIdentifiers.isEmpty())
-		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
-
-	setFont(ActionManager::getInstance()->pluginBaseFont());
-
-	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
-	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
-	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
-	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
-	connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
-	connect(ui.pbComma, SIGNAL(clicked()), this, SLOT(sendComma()));
-	connect(ui.pb0, SIGNAL(clicked()), this, SLOT(send0()));
-	connect(ui.pb1, SIGNAL(clicked()), this, SLOT(send1()));
-	connect(ui.pb2, SIGNAL(clicked()), this, SLOT(send2()));
-	connect(ui.pb3, SIGNAL(clicked()), this, SLOT(send3()));
-	connect(ui.pb4, SIGNAL(clicked()), this, SLOT(send4()));
-	connect(ui.pb5, SIGNAL(clicked()), this, SLOT(send5()));
-	connect(ui.pb6, SIGNAL(clicked()), this, SLOT(send6()));
-	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
-	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
-	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
-	connect(ui.pbPlus, SIGNAL(clicked()), this, SLOT(sendPlus()));
-	connect(ui.pbMinus, SIGNAL(clicked()), this, SLOT(sendMinus()));
-	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
-	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
-//	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
-//	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
-	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
-        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
-
-	//TODO: implement brackets
-	ui.pbBracketClose->hide();
-	ui.pbBracketOpen->hide();
-//	ui.pbPercent->hide();
-
-	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next" <<
-			"go-next" << "go-next", 
-			QStringList() << i18n("Result") << 
-			i18n("Calculation & result") << 
-			i18n("Formatted result") <<
-			i18n("Formatted calculation and result") <<
-			i18n("Format result as money") << 
-			i18n("Format calculation and result as money"), 0); //Add Elements for the list
-	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
-
-	if (!installInterfaceCommands())
-		kWarning() << "Couldn't install all interface commands";
 }
 
 
@@ -237,6 +173,66 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	config = new CalculatorConfiguration(parentScenario);
 	config->deSerialize(elem);
+
+
+	KAction *activateAction = new KAction(this);
+	activateAction->setText(i18n("Activate Calculator"));
+	activateAction->setIcon(KIcon("accessories-calculator"));
+	connect(activateAction, SIGNAL(triggered(bool)),
+		this, SLOT(activate()));
+	guiActions << activateAction;
+
+	widget->setWindowIcon(KIcon("accessories-calculator"));
+	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
+	ui.setupUi(widget);
+	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
+	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
+	widget->hide();
+
+	setFont(ActionManager::getInstance()->pluginBaseFont());
+
+	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
+	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
+	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
+	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
+	connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
+	connect(ui.pbComma, SIGNAL(clicked()), this, SLOT(sendComma()));
+	connect(ui.pb0, SIGNAL(clicked()), this, SLOT(send0()));
+	connect(ui.pb1, SIGNAL(clicked()), this, SLOT(send1()));
+	connect(ui.pb2, SIGNAL(clicked()), this, SLOT(send2()));
+	connect(ui.pb3, SIGNAL(clicked()), this, SLOT(send3()));
+	connect(ui.pb4, SIGNAL(clicked()), this, SLOT(send4()));
+	connect(ui.pb5, SIGNAL(clicked()), this, SLOT(send5()));
+	connect(ui.pb6, SIGNAL(clicked()), this, SLOT(send6()));
+	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
+	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
+	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
+	connect(ui.pbPlus, SIGNAL(clicked()), this, SLOT(sendPlus()));
+	connect(ui.pbMinus, SIGNAL(clicked()), this, SLOT(sendMinus()));
+	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
+	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
+//	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
+//	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
+	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
+        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
+
+	//TODO: implement brackets
+	ui.pbBracketClose->hide();
+	ui.pbBracketOpen->hide();
+//	ui.pbPercent->hide();
+
+	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next" <<
+			"go-next" << "go-next", 
+			QStringList() << i18n("Result") << 
+			i18n("Calculation & result") << 
+			i18n("Formatted result") <<
+			i18n("Formatted calculation and result") <<
+			i18n("Format result as money") << 
+			i18n("Format calculation and result as money"), 0); //Add Elements for the list
+	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
+
+	if (!installInterfaceCommands())
+		kWarning() << "Couldn't install all interface commands";
 	return true;
 }
 
@@ -855,11 +851,6 @@ void CalculatorCommandManager::activate()
 	widget->show();
 	startGreedy();
 }
-
-//QList<CommandLauncher*> CalculatorCommandManager::launchers() const
-//{
-//	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", i18n("Calculator"), i18n("Start calculator"));
-//}
 
 
 CalculatorCommandManager::~CalculatorCommandManager()

@@ -51,7 +51,6 @@ private:
 	Ui::CalculatorDlg ui;
 	QDialog *widget;
 	CommandListWidget *commandListWidget;
-	static QStringList numberIdentifiers;
 	QList<Token *> * parseString(QString calc);
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
@@ -120,8 +119,6 @@ public:
 	bool deSerializeConfig(const QDomElement& elem);
 
 	//CommandList* getCommands() const { return NULL; }
-
-//	QList<CommandLauncher*> launchers() const;
 
 
     /**

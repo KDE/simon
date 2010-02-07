@@ -57,47 +57,6 @@ ScreenGrid::ScreenGrid(DesktopGridConfiguration *_config, QWidget* parent):
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
-	QSize desksize = QDesktopWidget().screenGeometry().size();
-	QBrush transbrush(QColor(241,241,241,100));
-	short btnNr=1;
-	for (int i=0; i < 3; i++)
-	{
-		for (int j=0; j<3; j++)
-		{
-			KPushButton *btn = new KPushButton(QString::number(btnNr), this);
-
-			QPalette pal = btn->palette();
-			pal.setBrush(QPalette::Button, transbrush);
-			btn->setPalette(pal);
-
-			btn->setMinimumHeight(desksize.height()/3);
-			btn->setMinimumWidth(1);
-			setButtonFontSize(btn);
-			connect(btn, SIGNAL(clicked()), this, SLOT(regionSelected()));
-			buttons->addWidget(btn, i, j);
-			btnNr++;
-			btns << btn;
-		}
-	}
-
-	buttons->setGeometry(geometry());
-	
-	buttons->setMargin(0);
-	this->setLayout(buttons);
-	
-	startGreedy();
-
-	commandListWidget->init(QStringList() << "input-mouse" << "input-mouse" << 
-			"input-mouse" << "input-mouse" << "input-mouse", 
-			QStringList() << i18n("Left click") << 
-			i18n("Double click") << 
-			i18n("Right click") << 
-			i18n("Middle click") <<
-			i18n("Drag & Drop"), 0); //Add Elements for the list
-
-	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(clickRequestReceived(int)));
-	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deleteLater()));
-
 	init();
 }
 

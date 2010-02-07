@@ -21,11 +21,17 @@
 #define SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 
 #include <simonscenarios/commandmanager.h>
-#include <simonscenarios/commandlauncher.h>
-
+#include <simonactions/greedyreceiver.h>
+#include <eventsimulation/clickmode.h>
 #include <QVariantList>
 
-class KAction;
+class KPushButton;
+class QGridLayout;
+class QLabel;
+class QWidget;
+class QKeyEvent;
+class DesktopGridConfiguration;
+class CommandListWidget;
 
 /**
  *	@class DesktopGridCommandManager
@@ -35,14 +41,52 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class DesktopGridCommandManager : public CommandManager{
+class DesktopGridCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 
-protected:
-	bool trigger(const QString& triggerName);
+private:
+	QWidget *screenGrid;
+
+	int m_x;
+	int m_y;
+	int m_startX;
+	int m_startY;
+	bool m_isDragging;
+	QList<KPushButton*> btns;
+	QGridLayout *buttons;
+
+	CommandListWidget *commandListWidget;
+
+	QLabel *background;
+	QPixmap deskShot;
+
+	QPixmap makeFakeTransparency();
+	static QStringList numberIdentifiers;
+
+	void click(KPushButton* btn);
+
+	void init();
+
+	void sendClick(EventSimulation::ClickMode clickMode);
+	void sendDragAndDrop();
+
+	bool installInterfaceCommands();
+
+private slots:
+	void regionSelected();
+	void selectIndex(int index);
+	void clickRequestReceived(int index);
+
+	void select1() { clickRequestReceived(1); }
+	void select2() { clickRequestReceived(2); }
+	void select3() { clickRequestReceived(3); }
+	void select4() { clickRequestReceived(4); }
+	void select5() { clickRequestReceived(5); }
 
 public slots:
 	void activate();
+	void deactivate();
+
 public:
 	const QString preferredTrigger() const;
 	const QString name() const;
@@ -50,7 +94,10 @@ public:
 	bool deSerializeConfig(const QDomElement& elem);
 
 	const KIcon icon() const;
-	virtual QList<CommandLauncher*> launchers() const;
+	const QString iconSrc() const;
+	
+	void keyPressEvent(QKeyEvent *event);
+	void setButtonFontSize(KPushButton *btn);
 
     /**
     * @brief Constructor
@@ -62,8 +109,6 @@ public:
     
     ~DesktopGridCommandManager();
 
-private:
-    KAction *activateAction;
 
 };
 

@@ -161,6 +161,9 @@ public:
 	QList<VoiceInterfaceCommandTemplate*> getVoiceInterfaceCommandTemplates()
 	{ return voiceInterfaceCommandTemplates; }
 
+	void switchToState(int newState)
+	{ m_currentState = newState; }
+
 	/**
 	* @brief Constructor
 	* 
