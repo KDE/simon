@@ -62,7 +62,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	activateAction->setIcon(KIcon("accessories-calculator"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
-	guiActions<<activateAction;
+	guiActions << activateAction;
 
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
@@ -826,143 +826,8 @@ void CalculatorCommandManager::printCancel()
 	commandListWidget->abortTimeoutSelection();
 }
 
-/*
-bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
-{
-	//setting correct index
-	bool ok=false;
-	int index = inputText.toInt(&ok);
-	if (!ok){
-		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-			index++;
-	}
-
-	if (index < numberIdentifiers.count()) {
-		if (commandListWidget->isVisible()) {
-			writeoutRequestReceived(index);
-			return true;
-		}
-
-		switch (index)
-		{
-			case 0:
-				ui.pb0->animateClick();
-				break;
-			case 1:
-				ui.pb1->animateClick();
-				break;
-			case 2:
-				ui.pb2->animateClick();
-				break;
-			case 3:
-				ui.pb3->animateClick();
-				break;
-			case 4:
-				ui.pb4->animateClick();
-				break;
-			case 5:
-				ui.pb5->animateClick();
-				break;
-			case 6:
-				ui.pb6->animateClick();
-				break;
-			case 7:
-				ui.pb7->animateClick();
-				break;
-			case 8:
-				ui.pb8->animateClick();
-				break;
-			case 9:
-				ui.pb9->animateClick();
-				break;
-		}
-		return true;
-	}
-
-	if (inputText.toUpper() == i18n("Cancel").toUpper())
-	{
-		if (commandListWidget->isVisible()) {
-			commandListWidget->hide();
-			commandListWidget->abortTimeoutSelection();
-		} else {
-			ui.pbCancel->animateClick();
-		}
-		return true;
-	}
-	if (inputText.toUpper() == i18n("Back").toUpper())
-	{
-		ui.pbBack->animateClick();
-		return true;
-	}
-	if (inputText.toUpper() == i18n("Ok").toUpper())
-	{
-		ui.pbOk->animateClick();
-		return true;
-	}
-	if (inputText.toUpper() == i18nc("Name of the decimal seperator", "Comma").toUpper())
-	{
-		ui.pbComma->animateClick();
-		return true;
-	}
-	if(inputText.toUpper() == i18n("Plus").toUpper())
-	{
-		ui.pbPlus->animateClick();
-		return true;
-	}
-	if(inputText.toUpper() == i18n("Minus").toUpper())
-	{
-		ui.pbMinus->animateClick();
-		return true;
-	}
-	if(inputText.toUpper() == i18n("Multiply").toUpper())
-	{
-		ui.pbMultiply->animateClick();
-		return true;
-	}
-	if(inputText.toUpper() == i18n("Divide").toUpper())
-	{
-		ui.pbDivide->animateClick();
-		return true;
-	}
-	if(inputText.toUpper() == i18n("Equals").toUpper())
-	{
-		ui.pbEquals->animateClick();
-		return true;
-	}
-        if(inputText.toUpper() == i18n("Percent").toUpper())
-        {
-                ui.pbPercent->animateClick();
-                return true;
-        }
-        if(inputText.toUpper() == ui.pbBack->text().remove("&").toUpper()) {
-                ui.pbBack->animateClick();
-                return true;
-        }
-        if(inputText.toUpper() == ui.pbClear->text().remove("&").toUpper()) {
-                ui.pbClear->animateClick();
-                return true;
-        }
-
-	return true;
-}
-*/
-
-
-/*bool CalculatorCommandManager::trigger(const QString& triggerName)
-{
-	if (!triggerName.isEmpty()){
-		kDebug() << triggerName << "Returning";
-		return false;
-	}
-	
-	activate();
-	return true;
-}*/
-
-
 void CalculatorCommandManager::activate()
 {
-	kDebug() << "Activate!";
 	clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
@@ -991,10 +856,10 @@ void CalculatorCommandManager::activate()
 	startGreedy();
 }
 
-QList<CommandLauncher*> CalculatorCommandManager::launchers() const
-{
-	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", i18n("Calculator"), i18n("Start calculator"));
-}
+//QList<CommandLauncher*> CalculatorCommandManager::launchers() const
+//{
+//	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", i18n("Calculator"), i18n("Start calculator"));
+//}
 
 
 CalculatorCommandManager::~CalculatorCommandManager()

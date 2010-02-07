@@ -228,7 +228,19 @@ QList<QAction*> CommandManager::getGuiActions() const
 
 QList<CommandLauncher*> CommandManager::launchers() const
 {
-	return QList<CommandLauncher*>();
+	QList<CommandLauncher*> launchers;
+
+	foreach (Command *c, *commands)
+	{
+		VoiceInterfaceCommand *com = dynamic_cast<VoiceInterfaceCommand*>(c);
+		if (!com || !com->receiver() ||
+		    (com->getBoundState() != SimonCommand::DefaultState))
+			continue;
+
+		launchers << new CommandLauncher(com->getIconSrc(), com->getTrigger(), com->getDescription());
+	}
+
+	return launchers;
 }
 
 bool CommandManager::processResult(const RecognitionResult& recognitionResult)

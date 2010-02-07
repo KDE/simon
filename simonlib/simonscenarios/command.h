@@ -138,6 +138,8 @@ public:
     *	@return Returns the name of the command (member)
     */
     QString getTrigger() const { return this->triggerName; }
+
+    int getBoundState() const { return this->boundState; }
     
     QString getDescription() const { return this->description; }
     

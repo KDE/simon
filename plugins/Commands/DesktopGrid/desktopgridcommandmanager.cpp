@@ -67,11 +67,6 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 	return true;
 }
 
-void DesktopGridCommandManager::heyo()
-{
-	kDebug() << "SSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
-}
-
 void DesktopGridCommandManager::activate()
 {
 	Logger::log(i18n("[INF] Activating desktopgrid"));

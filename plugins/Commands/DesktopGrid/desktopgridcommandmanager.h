@@ -62,9 +62,6 @@ public:
     
     ~DesktopGridCommandManager();
 
-private slots:
-	void heyo();
-
 private:
     KAction *activateAction;
 

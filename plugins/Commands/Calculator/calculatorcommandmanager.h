@@ -107,11 +107,7 @@ private slots:
 	void printFormattedMoneyResult() { writeoutRequestReceived(5); }
 	void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(6); }
 
-protected:
-//	bool trigger(const QString& triggerName);
-
 public slots:
-//	bool greedyTrigger(const QString&);
 	void activate();
 
 public:
@@ -125,7 +121,7 @@ public:
 
 	//CommandList* getCommands() const { return NULL; }
 
-	QList<CommandLauncher*> launchers() const;
+//	QList<CommandLauncher*> launchers() const;
 
 
     /**
