@@ -1,5 +1,5 @@
-/* *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
- *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+/*   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -70,29 +70,6 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
         connect(ui.cbTabs, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshTabDetail()));
 	connect(ui.pbTabUp, SIGNAL(clicked()), this, SLOT(tabUp()));
 	connect(ui.pbTabDown, SIGNAL(clicked()), this, SLOT(tabDown()));
-	connect(ui.cbShowNumpad, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbEnableNumberBasedSelection, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbEnableNumberWriteOut, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbShift, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbCapsLock, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbControl, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbBackspace, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbReturn, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbAlt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbAltGr, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbSuper, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.leNumberBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leNumberBasedSelectionTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leNumberWriteOutTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leShiftTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leCapsLockTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leControlTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leReturnTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leAltTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leAltGrTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	connect(ui.leSuperTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-
 
 	ui.pbAddSet->setIcon(KIcon("list-add"));
 	ui.pbAddTab->setIcon(KIcon("list-add"));
@@ -120,111 +97,6 @@ bool KeyboardConfiguration::showNumpad()
 bool KeyboardConfiguration::caseSensitive()
 {
 	return ui.cbCaseSensitivity->isChecked();
-}
-
-bool KeyboardConfiguration::enableNumberBasedSelection()
-{
-	return ui.cbEnableNumberBasedSelection->isChecked();
-}
-
-QString KeyboardConfiguration::numberBasedSelectionTrigger()
-{
-	return ui.leNumberBasedSelectionTrigger->text();
-}
-
-bool KeyboardConfiguration::enableNumberWriteOut()
-{
-	return ui.cbEnableNumberWriteOut->isChecked();
-}
-
-QString KeyboardConfiguration::numberBackspaceTrigger()
-{
-	return ui.leNumberBackspaceTrigger->text();
-}
-
-QString KeyboardConfiguration::numberWriteOutTrigger()
-{
-	return ui.leNumberWriteOutTrigger->text();
-}
-
-bool KeyboardConfiguration::capsLock()
-{
-	return ui.cbCapsLock->isChecked();
-}
-
-bool KeyboardConfiguration::shift()
-{
-	return ui.cbShift->isChecked();
-}
-
-QString KeyboardConfiguration::shiftTrigger()
-{
-	return ui.leShiftTrigger->text();
-}
-
-QString KeyboardConfiguration::capsLockTrigger()
-{
-	return ui.leCapsLockTrigger->text();
-}
-
-bool KeyboardConfiguration::backspace()
-{
-	return ui.cbBackspace->isChecked();
-}
-
-bool KeyboardConfiguration::returnKey()
-{
-	return ui.cbReturn->isChecked();
-}
-
-QString KeyboardConfiguration::returnKeyTrigger()
-{
-	return ui.leReturnTrigger->text();
-}
-
-QString KeyboardConfiguration::backspaceTrigger()
-{
-	return ui.leBackspaceTrigger->text();
-}
-
-bool KeyboardConfiguration::control()
-{
-	return ui.cbControl->isChecked();
-}
-
-QString KeyboardConfiguration::controlTrigger()
-{
-	return ui.leControlTrigger->text();
-}
-
-bool KeyboardConfiguration::alt()
-{
-	return ui.cbAlt->isChecked();
-}
-
-QString KeyboardConfiguration::altTrigger()
-{
-	return ui.leAltTrigger->text();
-}
-
-bool KeyboardConfiguration::altGr()
-{
-	return ui.cbAltGr->isChecked();
-}
-
-QString KeyboardConfiguration::altGrTrigger()
-{
-	return ui.leAltGrTrigger->text();
-}
-
-bool KeyboardConfiguration::super()
-{
-	return ui.cbSuper->isChecked();
-}
-
-QString KeyboardConfiguration::superTrigger()
-{
-	return ui.leSuperTrigger->text();
 }
 
 QPoint KeyboardConfiguration::keyboardPosition()
@@ -391,7 +263,6 @@ void KeyboardConfiguration::addButton()
 
 void KeyboardConfiguration::editButton()
 {
-	//TODO
 	if(ui.cbSets->currentIndex() == -1) {
 		KMessageBox::information(this, i18n("Please select a set to which to add the new button"));
 		return;
@@ -563,8 +434,6 @@ void KeyboardConfiguration::refreshTabDetail()
 
 QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 {
-	kDebug() << "Serialize is called...";
-
 	QDomElement configElem = doc->createElement("config");
 
 	//general
@@ -605,89 +474,7 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 	showNumPadElem.appendChild(doc->createTextNode(ui.cbShowNumpad->isChecked() ? "1" : "0"));
 	numpadElem.appendChild(showNumPadElem);
 
-	QDomElement numberBackspaceElem = doc->createElement("numberBackspace");
-	numberBackspaceElem.appendChild(doc->createTextNode(ui.leNumberBackspaceTrigger->text()));
-	numpadElem.appendChild(numberBackspaceElem);
-
-	QDomElement enableNumberBasedSelectionElem = doc->createElement("enableNumberBasedSelection");
-	enableNumberBasedSelectionElem.appendChild(doc->createTextNode(ui.cbEnableNumberBasedSelection->isChecked() ? "1" : "0"));
-	numpadElem.appendChild(enableNumberBasedSelectionElem);
-
-	QDomElement numberBasedSelectionTriggerElem = doc->createElement("numberBasedSelectionTrigger");
-	numberBasedSelectionTriggerElem.appendChild(doc->createTextNode(ui.leNumberBasedSelectionTrigger->text()));
-	numpadElem.appendChild(numberBasedSelectionTriggerElem);
-
-	QDomElement enableNumberWriteOutElem = doc->createElement("enableNumberWriteOut");
-	enableNumberWriteOutElem.appendChild(doc->createTextNode(ui.cbEnableNumberWriteOut->isChecked() ? "1" : "0"));
-	numpadElem.appendChild(enableNumberWriteOutElem);
-
-	QDomElement numberWriteOutTriggerElem = doc->createElement("numberWriteOutTrigger");
-	numberWriteOutTriggerElem.appendChild(doc->createTextNode(ui.leNumberBasedSelectionTrigger->text()));
-	numpadElem.appendChild(numberWriteOutTriggerElem);
-
 	configElem.appendChild(numpadElem);
-	
-
-	//special keys
-	QDomElement specialKeysElem= doc->createElement("specialKeys");
-
-	QDomElement shiftElem = doc->createElement("shift");
-	shiftElem.appendChild(doc->createTextNode(ui.cbShift->isChecked() ? "1" : "0"));
-	QDomElement shiftTriggerElem = doc->createElement("shiftTrigger");
-	shiftTriggerElem.appendChild(doc->createTextNode(ui.leShiftTrigger->text()));
-	specialKeysElem.appendChild(shiftElem);
-	specialKeysElem.appendChild(shiftTriggerElem);
-
-	QDomElement backspaceElem = doc->createElement("backspace");
-	backspaceElem.appendChild(doc->createTextNode(ui.cbBackspace->isChecked() ? "1" : "0"));
-	QDomElement backspaceTriggerElem = doc->createElement("backspaceTrigger");
-	backspaceTriggerElem.appendChild(doc->createTextNode(ui.leBackspaceTrigger->text()));
-	specialKeysElem.appendChild(backspaceElem);
-	specialKeysElem.appendChild(backspaceTriggerElem);
-
-	QDomElement controlElem = doc->createElement("control");
-	controlElem.appendChild(doc->createTextNode(ui.cbControl->isChecked() ? "1" : "0"));
-	QDomElement controlTriggerElem = doc->createElement("controlTrigger");
-	controlTriggerElem.appendChild(doc->createTextNode(ui.leControlTrigger->text()));
-	specialKeysElem.appendChild(controlElem);
-	specialKeysElem.appendChild(controlTriggerElem);
-
-	QDomElement capsLockElem = doc->createElement("capsLock");
-	capsLockElem.appendChild(doc->createTextNode(ui.cbCapsLock->isChecked() ? "1" : "0"));
-	QDomElement capsLockTriggerElem = doc->createElement("capsLockTrigger");
-	capsLockTriggerElem.appendChild(doc->createTextNode(ui.leCapsLockTrigger->text()));
-	specialKeysElem.appendChild(capsLockElem);
-	specialKeysElem.appendChild(capsLockTriggerElem);
-
-	QDomElement returnElem = doc->createElement("return");
-	returnElem.appendChild(doc->createTextNode(ui.cbReturn->isChecked() ? "1" : "0"));
-	QDomElement returnTriggerElem = doc->createElement("returnTrigger");
-	returnTriggerElem.appendChild(doc->createTextNode(ui.leReturnTrigger->text()));
-	specialKeysElem.appendChild(returnElem);
-	specialKeysElem.appendChild(returnTriggerElem);
-
-	QDomElement altElem = doc->createElement("alt");
-	altElem.appendChild(doc->createTextNode(ui.cbAlt->isChecked() ? "1" : "0"));
-	QDomElement altTriggerElem = doc->createElement("altTrigger");
-	altTriggerElem.appendChild(doc->createTextNode(ui.leAltTrigger->text()));
-	specialKeysElem.appendChild(altElem);
-	specialKeysElem.appendChild(altTriggerElem);
-
-	QDomElement altGrElem = doc->createElement("altGr");
-	altGrElem.appendChild(doc->createTextNode(ui.cbAltGr->isChecked() ? "1" : "0"));
-	QDomElement altGrTriggerElem = doc->createElement("altGrTrigger");
-	altGrTriggerElem.appendChild(doc->createTextNode(ui.leAltGrTrigger->text()));
-	specialKeysElem.appendChild(altGrElem);
-	specialKeysElem.appendChild(altGrTriggerElem);
-	
-	QDomElement superElem = doc->createElement("super");
-	superElem.appendChild(doc->createTextNode(ui.cbSuper->isChecked() ? "1" : "0"));
-	QDomElement superTriggerElem = doc->createElement("superTrigger");
-	superTriggerElem.appendChild(doc->createTextNode(ui.leSuperTrigger->text()));
-	specialKeysElem.appendChild(superElem);
-	specialKeysElem.appendChild(superTriggerElem);
-	
-	configElem.appendChild(specialKeysElem);
 	
 	//sets
 	QDomElement setsElem = setContainer->serialize(doc);
@@ -745,33 +532,6 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 	//numpad
 	QDomElement numpadElement = elem.firstChildElement("numpad");
 	ui.cbShowNumpad->setChecked(numpadElement.firstChildElement("showNumpad").text() == "1");
-	
-	ui.leNumberBackspaceTrigger->setText(numpadElement.firstChildElement("numberBackspace").text());
-
-	ui.cbEnableNumberBasedSelection->setChecked(numpadElement.firstChildElement("enableNumberBasedSelection").text() == "1");
-	ui.leNumberBasedSelectionTrigger->setText(numpadElement.firstChildElement("numberBasedSelectionTrigger").text());
-
-	ui.cbEnableNumberWriteOut->setChecked(numpadElement.firstChildElement("enableNumberWriteOut").text() == "1");
-	ui.leNumberWriteOutTrigger->setText(numpadElement.firstChildElement("numberWriteOutTrigger").text());
-
-	//special keys
-	QDomElement specialKeysElement = elem.firstChildElement("specialKeys");
-	ui.cbShift->setChecked(specialKeysElement.firstChildElement("shift").text() == "1");
-	ui.leShiftTrigger->setText(specialKeysElement.firstChildElement("shiftTrigger").text());
-	ui.cbBackspace->setChecked(specialKeysElement.firstChildElement("backspace").text() == "1");
-	ui.leBackspaceTrigger->setText(specialKeysElement.firstChildElement("backspaceTrigger").text());
-	ui.cbCapsLock->setChecked(specialKeysElement.firstChildElement("capsLock").text() == "1");
-	ui.leCapsLockTrigger->setText(specialKeysElement.firstChildElement("capsLockTrigger").text());
-	ui.cbControl->setChecked(specialKeysElement.firstChildElement("control").text() == "1");
-	ui.leControlTrigger->setText(specialKeysElement.firstChildElement("controlTrigger").text());
-	ui.cbReturn->setChecked(specialKeysElement.firstChildElement("return").text() == "1");
-	ui.leReturnTrigger->setText(specialKeysElement.firstChildElement("returnTrigger").text());
-	ui.cbAlt->setChecked(specialKeysElement.firstChildElement("alt").text() == "1");
-	ui.leAltTrigger->setText(specialKeysElement.firstChildElement("altTrigger").text());
-	ui.cbAltGr->setChecked(specialKeysElement.firstChildElement("altGr").text() == "1");
-	ui.leAltGrTrigger->setText(specialKeysElement.firstChildElement("altGrTrigger").text());
-	ui.cbSuper->setChecked(specialKeysElement.firstChildElement("super").text() == "1");
-	ui.leSuperTrigger->setText(specialKeysElement.firstChildElement("superTrigger").text());
 
 	commandManager->rebuildGui();
 	return true;
@@ -780,30 +540,7 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 void KeyboardConfiguration::defaults()
 {
 	ui.cbCaseSensitivity->setChecked(false);
-	ui.cbShowNumpad->setChecked(false);
-
-	ui.leNumberBackspaceTrigger->setText(i18n("Number Backspace"));
-	ui.cbEnableNumberBasedSelection->setChecked(false);
-	ui.leNumberBasedSelectionTrigger->setText( i18n("Select number"));
-	ui.cbEnableNumberWriteOut->setChecked(true);
-	ui.leNumberWriteOutTrigger->setText(i18n("Write number"));
-
-	ui.cbShift->setChecked(true);
-	ui.leShiftTrigger->setText(i18n("Shift"));
-	ui.cbBackspace->setChecked(true);
-	ui.leBackspaceTrigger->setText(i18n("Backspace"));
-	ui.cbCapsLock->setChecked(false);
-	ui.leCapsLockTrigger->setText(i18n("CapsLock"));
-	ui.cbControl->setChecked(true);
-	ui.leControlTrigger->setText(i18n("Control"));
-	ui.cbReturn->setChecked(true);
-	ui.leReturnTrigger->setText(i18n("Return"));
-	ui.cbAlt->setChecked(false);
-	ui.leAltTrigger->setText(i18n("Alternate"));
-	ui.cbAltGr->setChecked(false);
-	ui.leAltGrTrigger->setText(i18n("Alternate Graphic"));
-	ui.cbSuper->setChecked(false);
-	ui.leSuperTrigger->setText(i18n("Super"));
+	ui.cbShowNumpad->setChecked(true);
 
 	QString selectedSet = "Basic";
 

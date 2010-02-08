@@ -68,8 +68,6 @@ private slots:
 	void returnPressed();
 
 	void deregister();
-	void ok();
-	void cancel();
 	void processRequest(int number);
 	void send0() { processRequest(0); }
 	void send1() { processRequest(1); }
@@ -86,9 +84,6 @@ private slots:
 
 	void untoggleShift();
 
-protected:
-	bool trigger(const QString& triggerName);
-
 public slots:
 	bool greedyTrigger(const QString& inputText);
 	void activate();
@@ -102,7 +97,6 @@ public:
 	bool deSerializeConfig(const QDomElement& elem);
 	void setFont(const QFont& font);
 
-	QList<CommandLauncher*> launchers() const;
     /**
     * @brief Constructor
     * 

@@ -95,7 +95,7 @@ void KeyboardCommandManager::activate()
 void KeyboardCommandManager::deregister()
 {
 	getKeyboardConfiguration()->saveKeyboardGeometry(keyboardWidget->pos(),
-										keyboardWidget->size());
+							  keyboardWidget->size());
 	stopGreedy();
 }
 
@@ -111,122 +111,18 @@ const QString KeyboardCommandManager::name() const
 }
 
 
-
-void KeyboardCommandManager::cancel()
-{
-	keyboardWidget->hide();
-}
-
 void KeyboardCommandManager::processRequest(int number)
 {
 	ui.leNumber->setText(ui.leNumber->text()+QString::number(number));
 }
 
-void KeyboardCommandManager::ok()
-{
-	keyboardWidget->hide();
-	//usleep(300000);
-	//EventHandler::getInstance()->sendWord(ui.leNumber->text());
-}
-
 bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 {
-	kDebug() << "Processing " << inputText;
+	if (trigger(inputText))
+		return true;
+
 
 	bool caseSensitivityBool = getKeyboardConfiguration()->caseSensitive();
-	Qt::CaseSensitivity caseSensitivity = caseSensitivityBool ? Qt::CaseSensitive : Qt::CaseInsensitive;
-        if (QString::compare(inputText, ui.pbOk->text().remove("&"), caseSensitivity)==0) {
-		ui.pbOk->animateClick();
-		return true;
-	}
-
-	kDebug() << "About to process special keys " << inputText;
-
-	//special keys
-	kDebug() << ui.pbShift->text().remove("&") << inputText << QString::compare(inputText, ui.pbShift->text().remove("&"), caseSensitivity);
-        if (ui.pbShift->isVisible() && (QString::compare(inputText, ui.pbShift->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbShift->animateClick();
-		return true;
-	}
-	kDebug()  << ui.pbCapsLock->isVisible() << inputText << ui.pbCapsLock->text().remove("&") << QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity);
-        if (ui.pbCapsLock->isVisible() && (QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbCapsLock->animateClick();
-		kDebug() << "Unchecked shift button";
-		return true;
-	}
-        if (ui.pbControl->isVisible() && (QString::compare(inputText, ui.pbControl->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbControl->animateClick();
-		return true;
-	}
-        if (ui.pbBackspace->isVisible() && (QString::compare(inputText, ui.pbBackspace->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbBackspace->animateClick();
-		return true;
-	}
-        if (ui.pbReturn->isVisible() && (QString::compare(inputText, ui.pbReturn->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbReturn->animateClick();
-		return true;
-	}
-        if (ui.pbAlt->isVisible() && (QString::compare(inputText, ui.pbAlt->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbAlt->animateClick();
-		return true;
-	}
-        if (ui.pbAltGr->isVisible() && (QString::compare(inputText, ui.pbAltGr->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbAltGr->animateClick();
-		return true;
-	}
-        if (ui.pbSuper->isVisible() && (QString::compare(inputText, ui.pbSuper->text().remove("&"), caseSensitivity)==0)) {
-		ui.pbSuper->animateClick();
-		return true;
-	}
-
-	kDebug() << "About to process numpad " << inputText;
-
-	//numpad?
-	if (getKeyboardConfiguration()->showNumpad()) {
-		if (ui.pbSelectNumber->isVisible() && (QString::compare(inputText, ui.pbSelectNumber->text().remove("&"), caseSensitivity)==0)) {
-			ui.pbSelectNumber->animateClick();
-			return true;
-		}
-		if (ui.pbWriteOutNumber->isVisible() && (QString::compare(inputText, ui.pbWriteOutNumber->text().remove("&"), caseSensitivity)==0)) {
-			ui.pbWriteOutNumber->animateClick();
-			return true;
-		}
-		if (QString::compare(inputText, ui.pbNumberBackspace->text().remove("&"), caseSensitivity)==0) {
-			ui.pbNumberBackspace->animateClick();
-			return true;
-		}
-		if (QString::compare(inputText, ui.pbDecimalSeparator->text().remove("&"), caseSensitivity)==0) {
-			ui.pbDecimalSeparator->animateClick();
-			return true;
-		}
-
-		bool ok=false;
-		int index = inputText.toInt(&ok);
-		if (!ok)
-		{
-			while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-				index++;
-
-			if (index < numberIdentifiers.count()) ok = true;
-		}
-
-		if (ok) {
-			//recognized >index<
-			switch (index) {
-				case 0: send0(); break;
-				case 1: send1(); break;
-				case 2: send2(); break;
-				case 3: send3(); break;
-				case 4: send4(); break;
-				case 5: send5(); break;
-				case 6: send6(); break;
-				case 7: send7(); break;
-				case 8: send8(); break;
-				case 9: send9(); break;
-
-			}
-		}
-	}
 
 	//no widgets?
 	if (switchToTab(inputText, caseSensitivityBool))
@@ -236,7 +132,7 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	if (currentTabName.isNull())
 		return false;
 
-	bool buttonFound = keyboardSet->triggerButton(currentTabName, inputText);
+	bool buttonFound = keyboardSet->triggerButton(currentTabName, inputText, caseSensitivityBool);
 	if (buttonFound)
 		untoggleShift();
 	return buttonFound;
@@ -310,50 +206,13 @@ void KeyboardCommandManager::rebuildGui()
 	if (!currentTab.isNull())
 		switchToTab(currentTab, getKeyboardConfiguration()->caseSensitive());
 
-	//special keys
-	ui.pbControl->setVisible(getKeyboardConfiguration()->control());
-	ui.pbControl->setText(getKeyboardConfiguration()->controlTrigger());
-	ui.pbShift->setVisible(getKeyboardConfiguration()->shift());
-	ui.pbShift->setText(getKeyboardConfiguration()->shiftTrigger());
-	ui.pbCapsLock->setVisible(getKeyboardConfiguration()->capsLock());
-	ui.pbCapsLock->setText(getKeyboardConfiguration()->capsLockTrigger());
-	ui.pbBackspace->setVisible(getKeyboardConfiguration()->backspace());
-	ui.pbBackspace->setText(getKeyboardConfiguration()->backspaceTrigger());
-	ui.pbReturn->setVisible(getKeyboardConfiguration()->returnKey());
-	ui.pbReturn->setText(getKeyboardConfiguration()->returnKeyTrigger());
-
-	ui.pbAlt->setVisible(getKeyboardConfiguration()->alt());
-	ui.pbAlt->setText(getKeyboardConfiguration()->altTrigger());
-	ui.pbAltGr->setVisible(getKeyboardConfiguration()->altGr());
-	ui.pbAltGr->setText(getKeyboardConfiguration()->altGrTrigger());
-	ui.pbSuper->setVisible(getKeyboardConfiguration()->super());
-	ui.pbSuper->setText(getKeyboardConfiguration()->superTrigger());
-
 	//characters
-	if (getKeyboardConfiguration()->showNumpad()) {
-		kDebug() << "Showing numpad...";
-		ui.gbNumPad->show();
-		ui.pbNumberBackspace->setText(getKeyboardConfiguration()->numberBackspaceTrigger());
-		ui.pbSelectNumber->setVisible(getKeyboardConfiguration()->enableNumberBasedSelection());
-		ui.pbSelectNumber->setText(getKeyboardConfiguration()->numberBasedSelectionTrigger());
-		ui.pbWriteOutNumber->setVisible(getKeyboardConfiguration()->enableNumberWriteOut());
-		ui.pbWriteOutNumber->setText(getKeyboardConfiguration()->numberWriteOutTrigger());
-	} else
-		ui.gbNumPad->hide();
+	ui.gbNumPad->setVisible(getKeyboardConfiguration()->showNumpad());
 }
 
 const QString KeyboardCommandManager::preferredTrigger() const
 {
 	return i18n("Keyboard");
-}
-
-bool KeyboardCommandManager::trigger(const QString& triggerName)
-{
-	if (!triggerName.isEmpty())
-		return false;
-
-	activate();
-	return true;
 }
 
 
@@ -371,7 +230,6 @@ void KeyboardCommandManager::selectNumber()
 			false /*case sensitivity does not matter with numbers so lets make it faster*/))
 		ui.leNumber->clear();
 }
-
 
 void KeyboardCommandManager::writeOutNumber()
 {
@@ -492,13 +350,99 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 	if (!config) config->deleteLater();
 	config = new KeyboardConfiguration(this, parentScenario);
 	config->deSerialize(elem);
+
+
+
+	bool succ = true;
+	succ &= installInterfaceCommand(this, "activate", i18n("Keyboard"), iconSrc(),
+			i18n("Starts the keyboard"), true /* announce */, true /* show icon */,
+			SimonCommand::DefaultState /* consider this command when in this state */, 
+			SimonCommand::GreedyState, /* if executed switch to this state */
+			QString() /* take default visible id from action name */,
+			"startKeyboard" /* id */);
+	
+	
+	succ &= installInterfaceCommand(ui.pbOk, "animateClick", i18n("Ok"), "dialog-ok",
+			i18n("Hides the keyboard"), false, true, SimonCommand::GreedyState,
+			SimonCommand::DefaultState);
+	succ &= installInterfaceCommand(ui.pbShift, "animateClick", i18n("Shift"), iconSrc(),
+			i18n("Shift key"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbCapsLock, "animateClick", i18n("Caps lock"), iconSrc(),
+			i18n("Caps lock key"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbControl, "animateClick", i18n("Control"), iconSrc(),
+			i18n("Control"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbBackspace, "animateClick", i18n("Backspace"), iconSrc(),
+			i18n("Backspace"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbReturn, "animateClick", i18n("Return"), iconSrc(),
+			i18n("Return"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbAlt, "animateClick", i18n("Alt"), iconSrc(),
+			i18n("Alt"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbAltGr, "animateClick", i18n("AltGr"), iconSrc(),
+			i18n("AltGr"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbSuper, "animateClick", i18n("Super"), iconSrc(),
+			i18n("Super"), false, false, SimonCommand::GreedyState,
+			SimonCommand::GreedyState);
+
+
+	//input number
+	succ &= installInterfaceCommand(ui.pb0, "animateClick", i18n("Zero"), iconSrc(),
+			i18n("Clicks 0"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "0");
+	succ &= installInterfaceCommand(ui.pb1, "animateClick", i18n("One"), iconSrc(),
+			i18n("Clicks 1"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "1");
+	succ &= installInterfaceCommand(ui.pb2, "animateClick", i18n("Two"), iconSrc(),
+			i18n("Clicks 2"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "2");
+	succ &= installInterfaceCommand(ui.pb3, "animateClick", i18n("Three"), iconSrc(),
+			i18n("Clicks 3"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "3");
+	succ &= installInterfaceCommand(ui.pb4, "animateClick", i18n("Four"), iconSrc(),
+			i18n("Clicks 4"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "4");
+	succ &= installInterfaceCommand(ui.pb5, "animateClick", i18n("Five"), iconSrc(),
+			i18n("Clicks 5"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "5");
+	succ &= installInterfaceCommand(ui.pb6, "animateClick", i18n("Six"), iconSrc(),
+			i18n("Clicks 6"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "6");
+	succ &= installInterfaceCommand(ui.pb7, "animateClick", i18n("Seven"), iconSrc(),
+			i18n("Clicks 7"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "7");
+	succ &= installInterfaceCommand(ui.pb8, "animateClick", i18n("Eight"), iconSrc(),
+			i18n("Clicks 8"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "8");
+	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), iconSrc(),
+			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "9");
+	succ &= installInterfaceCommand(ui.pbDecimalSeparator, "animateClick", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
+			i18n("Decimal separator"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+
+	succ &= installInterfaceCommand(ui.pbSelectNumber, "animateClick", i18n("Select number"), iconSrc(),
+			i18n("Select number"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbWriteOutNumber, "animateClick", i18n("Write number"), iconSrc(),
+			i18n("Write number"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbNumberBackspace, "animateClick", i18n("Number backspace"), iconSrc(),
+			i18n("Number backspace"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+
 	return true;
 }
 
-QList<CommandLauncher*> KeyboardCommandManager::launchers() const
-{
-	return QList<CommandLauncher*>() << new CommandLauncher("input-keyboard", "", i18n("Show Keyboard"));
-}
+//QList<CommandLauncher*> KeyboardCommandManager::launchers() const
+//{
+//	return QList<CommandLauncher*>() << new CommandLauncher("input-keyboard", "", i18n("Show Keyboard"));
+//}
 
 
 KeyboardCommandManager::~KeyboardCommandManager()

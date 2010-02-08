@@ -86,29 +86,7 @@ class KeyboardConfiguration : public CommandConfiguration
 		void saveKeyboardGeometry(const QPoint& position, const QSize& size);
 
 		bool showNumpad();
-		QString numberBackspaceTrigger();
-		bool enableNumberBasedSelection();
-		QString numberBasedSelectionTrigger();
-		bool enableNumberWriteOut();
-		QString numberWriteOutTrigger();
 
-		bool shift();
-		QString shiftTrigger();
-		bool capsLock();
-		QString capsLockTrigger();
-		bool backspace();
-		QString backspaceTrigger();
-		bool control();
-		QString controlTrigger();
-		bool returnKey();
-		QString returnKeyTrigger();
-
-		bool alt();
-		QString altTrigger();
-		bool altGr();
-		QString altGrTrigger();
-		bool super();
-		QString superTrigger();
 };
 
 #endif
