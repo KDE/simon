@@ -92,6 +92,7 @@ void RunCommandViewPrivate::managePlugIns()
 		emit actionsChanged();
 	}
 	dlg->deleteLater();
+	updateCommandDetail();
 }
 
 void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)

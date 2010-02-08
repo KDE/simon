@@ -176,11 +176,12 @@ bool ActionCollection::deleteAction(Action *action)
 			endRemoveRows();
 		}
 	}
-	delete action;
 
 	bool succ = parentScenario->save();
 
 	proxy->update();
+	delete action;
+
 	return succ;
 }
 

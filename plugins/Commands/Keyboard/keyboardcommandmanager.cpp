@@ -212,7 +212,7 @@ void KeyboardCommandManager::rebuildGui()
 
 const QString KeyboardCommandManager::preferredTrigger() const
 {
-	return i18n("Keyboard");
+	return "";
 }
 
 

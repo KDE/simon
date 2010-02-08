@@ -96,8 +96,7 @@ int ActionCommandModel::columnCount(const QModelIndex &parent) const
 
 void ActionCommandModel::update()
 {
-	//update list of 
-	
+	//update list
 	int currentIndex=0;
 
 	QList<Action*> allActions = ref->actions();
