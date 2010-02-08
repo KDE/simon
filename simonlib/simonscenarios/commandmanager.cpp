@@ -189,6 +189,7 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 		{
 			VoiceInterfaceCommand *com = new VoiceInterfaceCommand(this, tem);
 			com->assignAction(this, tem->receiver(), tem->slot());
+			com->setParent(this);
 			*commands << com;
 		}
 

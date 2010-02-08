@@ -45,6 +45,7 @@ protected:
 public slots:
 	void toggle();
 public:
+	const QString preferredTrigger() const;
 	const KIcon icon() const;
 
 	const QString name() const;

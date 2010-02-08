@@ -42,8 +42,7 @@ class FilterConfiguration : public CommandConfiguration
 		~FilterConfiguration();
 		
 		//configuration options
-		QString deactivateTrigger() const;
-		QString activateTrigger() const;
+		QString regExp() const;
 };
 
 #endif

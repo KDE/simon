@@ -20,6 +20,7 @@
 #include "filtercommandmanager.h"
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
+#include <QRegExp>
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
@@ -78,17 +79,16 @@ void FilterCommandManager::toggle()
 
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
-	if (isActive) {
-		if (triggerName == static_cast<FilterConfiguration*>(config)->deactivateTrigger()) {
-			//make inactive
-			toggle();
-		}
+	if (CommandManager::trigger(triggerName))
 		return true;
-	} else if (triggerName == static_cast<FilterConfiguration*>(config)->activateTrigger()) {
-		//make active
-		toggle();
-		return true;
-	}
+
+	//would pass through - should it?
+	kDebug() << "would pass through - should it?";
+	if (!isActive)
+		return false;
+		
+	if (triggerName.contains(QRegExp(dynamic_cast<FilterConfiguration*>(config)->regExp())))
+		return true; //matches so filter it out!
 
 	//not for us
 	return false;
@@ -96,11 +96,35 @@ bool FilterCommandManager::trigger(const QString& triggerName)
 
 bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
 {
+	bool succ = true;
+
 	config = new FilterConfiguration(parentScenario);
-	config->deSerialize(elem);
-	return true;
+	succ = config->deSerialize(elem);
+
+	succ &= installInterfaceCommand(this, "toggle", i18n("Activate filter"), "view-filter",
+			i18n("Starts filtering"), true /* announce */, true /* show icon */,
+			SimonCommand::DefaultState /* consider this command when in this state */, 
+			SimonCommand::DefaultState+1, /* if executed switch to this state */
+			QString() /* take default visible id from action name */,
+			"startFiltering" /* id */);
+
+	succ &= installInterfaceCommand(this, "toggle", i18n("Deactivate filter"), "view-filter",
+			i18n("Stops filtering"), true /* announce */, true /* show icon */,
+			SimonCommand::DefaultState+1 /* consider this command when in this state */, 
+			SimonCommand::DefaultState, /* if executed switch to this state */
+			QString() /* take default visible id from action name */,
+			"stopsFiltering" /* id */);
+
+	if (!succ)
+		kDebug() << "Something went wrong!";
+
+	return succ;
 }
 
+const QString FilterCommandManager::preferredTrigger() const
+{
+	return "";
+}
 
 FilterCommandManager::~FilterCommandManager()
 {

@@ -36,31 +36,23 @@ FilterConfiguration::FilterConfiguration(Scenario *parent, const QVariantList &a
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	QObject::connect(ui.leActivateTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-	QObject::connect(ui.leDeactivateTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	QObject::connect(ui.leRegExp, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 }
 
-QString FilterConfiguration::deactivateTrigger() const
+QString FilterConfiguration::regExp() const
 {
-	return ui.leDeactivateTrigger->text();
-}
-
-QString FilterConfiguration::activateTrigger() const
-{
-	return ui.leActivateTrigger->text();
+	return ui.leRegExp->text();
 }
 
 bool FilterConfiguration::deSerialize(const QDomElement& elem)
 {
-	QDomElement activateTriggerElem = elem.firstChildElement("activateTrigger");
-	QDomElement deActivateTriggerElem = elem.firstChildElement("deactivateTrigger");
+	QDomElement regExpElem = elem.firstChildElement("regExp");
 
-	if (activateTriggerElem.isNull() || deActivateTriggerElem.isNull()) {
+	if (regExpElem.isNull()) 
 		defaults();
-	} else {
-		ui.leActivateTrigger->setText(activateTriggerElem.text());
-		ui.leDeactivateTrigger->setText(deActivateTriggerElem.text());
-	}
+	else
+		ui.leRegExp->setText(regExpElem.text());
+
 	return true;
 }
 
@@ -68,22 +60,17 @@ QDomElement FilterConfiguration::serialize(QDomDocument *doc)
 {
 	QDomElement configElem = doc->createElement("config");
 
-	QDomElement activateTriggerElem = doc->createElement("activateTrigger");
-	activateTriggerElem.appendChild(doc->createTextNode(activateTrigger()));
+	QDomElement regExpElem = doc->createElement("regExp");
+	regExpElem.appendChild(doc->createTextNode(regExp()));
 
-	QDomElement deactivateTriggerElem = doc->createElement("deactivateTrigger");
-	deactivateTriggerElem.appendChild(doc->createTextNode(deactivateTrigger()));
-
-	configElem.appendChild(activateTriggerElem);
-	configElem.appendChild(deactivateTriggerElem);
+	configElem.appendChild(regExpElem);
 
 	return configElem;
 }
 
 void FilterConfiguration::defaults()
 {
-	ui.leActivateTrigger->setText(i18n("Pause recognition"));
-	ui.leDeactivateTrigger->setText(i18n("Resume recognition"));
+	ui.leRegExp->setText(i18n(".*"));
 }
 
 FilterConfiguration::~FilterConfiguration()
