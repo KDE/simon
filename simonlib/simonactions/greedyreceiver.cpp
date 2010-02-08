@@ -23,9 +23,11 @@
 
 bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {
+	kDebug() << "Greedy triggering raw list";
 	if (resultList->isEmpty()) return false;
 
 	if (resultList->count() > 1) {
+		kDebug() << "Presenting user with results...";
 		ActionManager::getInstance()->presentUserWithResults(resultList);
 		return true;
 	} else {

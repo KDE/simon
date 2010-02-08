@@ -106,6 +106,16 @@ bool ActionManager::runLauncher(const QString& trigger)
 
 bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
+	if (!greedyReceivers->isEmpty()) {
+		bool accepted = false;
+		for (int i=0; i < greedyReceivers->count(); i++) {
+			if (greedyReceivers->at(i)->greedyTriggerRaw(recognitionResult))
+				accepted = true;
+				break;
+		}
+		return accepted;
+	}
+
 	return ScenarioManager::getInstance()->processResult(recognitionResult);
 }
 

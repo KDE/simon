@@ -106,12 +106,12 @@ void XEventsPrivate::click(int x, int y, EventSimulation::ClickMode clickMode)
 			XTestFakeButtonEvent(display, 1, false, 10);
 			break;
 		case EventSimulation::RMB:
-			XTestFakeButtonEvent(display, 2, true, 10);
-			XTestFakeButtonEvent(display, 2, false, 10);
-			break;
-		case EventSimulation::MMB:
 			XTestFakeButtonEvent(display, 3, true, 10);
 			XTestFakeButtonEvent(display, 3, false, 10);
+			break;
+		case EventSimulation::MMB:
+			XTestFakeButtonEvent(display, 2, true, 10);
+			XTestFakeButtonEvent(display, 2, false, 10);
 			break;
 	}
 

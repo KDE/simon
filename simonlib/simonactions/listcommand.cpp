@@ -155,6 +155,7 @@ void ListCommand::cancel()
 
 bool ListCommand::greedyTrigger(const QString& inputText)
 {
+	kDebug() << "Triggering greedy " << inputText;
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
 		clw->close();
@@ -237,6 +238,7 @@ bool ListCommand::triggerPrivate(int *state)
 
 	listCurrentCommandSection();
 
+	kDebug() << "I am now officially greedy";
 	startGreedy();
 
 	clw->show();

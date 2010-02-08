@@ -215,7 +215,7 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "4", "click4");
 	succ &= installInterfaceCommand(this, "select5", i18n("Five"), iconSrc(),
 			i18n("In the click mode selection popup, this selects the drag and drop mode"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "5", "click5");
+			false, false, SimonCommand::GreedyState+1, SimonCommand::GreedyState, "5", "click5");
 	return succ;
 }
 
@@ -241,15 +241,12 @@ void DesktopGridCommandManager::init()
 	} else
 		screenGrid->setWindowOpacity(0.55);
 	
-	for (int i=0; i < this->children().count(); i++)
+	foreach (KPushButton *btn, btns)
 	{
-		KPushButton *btn = dynamic_cast<KPushButton*>(children().at(i));
-		if (btn) {
-			setButtonFontSize(btn);
-			btn->setMinimumHeight(deskSize.height()/3);
-			btn->setMinimumWidth(1);
-			setButtonFontSize(btn);
-		}
+		setButtonFontSize(btn);
+		btn->setMinimumHeight(deskSize.height()/3);
+		btn->setMinimumWidth(1);
+		setButtonFontSize(btn);
 	}
 
 	screenGrid->setMaximumWidth(deskSize.width());
@@ -291,7 +288,9 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 	screenGrid->hide();
 
 	if (m_isDragging) {
+		kDebug() << "Sending drag and drop";
 		sendDragAndDrop();
+		deactivate();
 		return;
 	}
 
@@ -322,21 +321,27 @@ void DesktopGridCommandManager::clickRequestReceived(int index)
 	commandListWidget->hide();
 	commandListWidget->abortTimeoutSelection();
 
+	kDebug() << "Click request received: " << index;
 	switch (index)
 	{
 		case 1: sendClick(EventSimulation::LMB);
+			kDebug() << "LMB";
 			break;
 		case 2: sendClick(EventSimulation::LMBDouble);
+			kDebug() << "LMBDouble";
 			break;
 		case 3: sendClick(EventSimulation::RMB);
+			kDebug() << "RMB";
 			break;
 		case 4: sendClick(EventSimulation::MMB);
+			kDebug() << "MMB";
 			break;
 		case 5: 
-			m_isDragging = true;
 			m_startX = m_x;
 			m_startY = m_y;
 			init();
+			m_isDragging = true;
+			switchToState(SimonCommand::GreedyState);
 			return; //don't deactivate me
 	}
 	deactivate();
