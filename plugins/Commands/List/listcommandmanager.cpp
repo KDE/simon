@@ -40,16 +40,9 @@ const KIcon ListCommandManager::icon() const
 	return ListCommand::staticCategoryIcon();
 }
 
-bool ListCommandManager::addCommandPrivate(Command *command)
+bool ListCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<ListCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<ListCommand*>(command) != NULL);
 }
 
 const QString ListCommandManager::name() const

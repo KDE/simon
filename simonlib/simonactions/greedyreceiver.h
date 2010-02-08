@@ -39,7 +39,7 @@ public:
 	virtual void startGreedy();
 	virtual void stopGreedy();
 	
-	GreedyReceiver(CommandManager *manager=NULL) : m_manager(manager)
+	GreedyReceiver(CommandManager *manager) : m_manager(manager)
 	{ }
 
 	virtual ~GreedyReceiver() {}

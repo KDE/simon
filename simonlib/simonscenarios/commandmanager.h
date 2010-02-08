@@ -88,11 +88,11 @@ private:
 	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
 protected:
+	CommandList *commands;
 	QString m_source;
 	QList<QAction*> guiActions;
 
 
-	CommandList *commands;
 	CommandConfiguration *config;
 
 	Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -107,6 +107,12 @@ protected:
 	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 	void adaptUi();
+	virtual bool appendCommand(Command *com);
+	virtual bool shouldAcceptCommand(Command *com)
+	{ 
+		Q_UNUSED(com);
+		return false; 
+	}
 
 public:
 	virtual const QString name() const=0;

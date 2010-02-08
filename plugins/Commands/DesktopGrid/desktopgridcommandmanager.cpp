@@ -39,7 +39,8 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVariantList& args) : 
 	CommandManager((Scenario*) parent, args),
-	screenGrid(new QWidget(NULL, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)),
+	GreedyReceiver(this),
+	screenGrid(new ScreenGrid(NULL)),
 	m_x(0),
 	m_y(0),
 	m_startX(0),
@@ -74,6 +75,7 @@ const QString DesktopGridCommandManager::name() const
 
 void DesktopGridCommandManager::activate()
 {
+	kDebug() << "Start being greedy";
 	Logger::log(i18n("[INF] Activating desktopgrid"));
 	startGreedy();
 	init();
@@ -90,6 +92,7 @@ void DesktopGridCommandManager::deactivate()
 		background->deleteLater();
 		background = NULL;
 	}
+	switchToState(SimonCommand::DefaultState);
 }
  
 bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
@@ -105,6 +108,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 		this, SLOT(activate()));
 	guiActions << activateAction;
 
+	connect(screenGrid, SIGNAL(cancel()), this, SLOT(deactivate()));
 	screenGrid->setContentsMargins(0,0,0,0);
 	buttons->setSpacing(0);
 	buttons->setMargin(0);
@@ -360,15 +364,14 @@ void DesktopGridCommandManager::regionSelected()
 
 	int btnHeight = senderBtn->height()/3;
 
-	for (int i=0; i < this->children().count(); i++)
+	foreach (KPushButton *btn, btns)
 	{
-		KPushButton *btn = dynamic_cast<KPushButton*>(children().at(i));
-		if (btn) {
-			setButtonFontSize(btn);
-			btn->setMinimumHeight(btnHeight);
-		}
+		setButtonFontSize(btn);
+		kDebug() << "button minimum height: " << btnHeight;
+		btn->setMinimumHeight(btnHeight);
 	}
 
+	kDebug() << "Setting minimum / maximum width to " << btnSize;
 	screenGrid->setMinimumWidth(btnSize.width());
 	screenGrid->setMinimumHeight(btnSize.height());
 	screenGrid->setMaximumWidth(btnSize.width());
@@ -376,7 +379,7 @@ void DesktopGridCommandManager::regionSelected()
 
 
 	
-	buttons->setGeometry(QRect(0, 0, screenGrid->geometry().width(), screenGrid->geometry().height()));
+//	buttons->setGeometry(QRect(0, 0, screenGrid->geometry().width(), screenGrid->geometry().height()));
 	
 	screenGrid->move(pos);
 	
@@ -388,12 +391,6 @@ void DesktopGridCommandManager::regionSelected()
 		background->move(0,0);
 		background->setPixmap(deskShot.copy(screenGrid->geometry()));
 	}
-}
-
-void DesktopGridCommandManager::keyPressEvent(QKeyEvent *event)
-{
-	if (!event) return;
-	if (event->key()== Qt::Key_Escape) deactivate();
 }
 
 /*

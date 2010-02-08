@@ -9,7 +9,7 @@ ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simo
 set (simondesktopgridplugin_SRCS 
 	desktopgridcommandmanager.cpp
 	desktopgridconfiguration.cpp 
-	#	screengrid.cpp
+	screengrid.cpp
 )
 
 kde4_add_ui_files(simondesktopgridplugin_SRCS desktopgridconfigurationdlg.ui)

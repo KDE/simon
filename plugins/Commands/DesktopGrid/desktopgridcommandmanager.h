@@ -20,6 +20,7 @@
 #ifndef SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 #define SIMON_DESKTOPGRIDCOMMANDMANAGER_H_A9E36FBF49D04CC0BCAF236731F8316B
 
+#include "screengrid.h"
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <eventsimulation/clickmode.h>
@@ -29,7 +30,6 @@ class KPushButton;
 class QGridLayout;
 class QLabel;
 class QWidget;
-class QKeyEvent;
 class DesktopGridConfiguration;
 class CommandListWidget;
 
@@ -45,7 +45,7 @@ class DesktopGridCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 
 private:
-	QWidget *screenGrid;
+	ScreenGrid *screenGrid;
 
 	int m_x;
 	int m_y;
@@ -96,7 +96,6 @@ public:
 	const KIcon icon() const;
 	const QString iconSrc() const;
 	
-	void keyPressEvent(QKeyEvent *event);
 	void setButtonFontSize(KPushButton *btn);
 
     /**

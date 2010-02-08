@@ -54,12 +54,11 @@ void CreateExecutableCommandWidget::showImportWizard()
 {
 	if (!importWizard) {
 		importWizard = new ImportProgramWizard(this);
-		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandSuggested(Command*)));
+		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(propagateCreatedCommand(Command*)));
 	}
 	
 	importWizard->restart();
 	importWizard->show();
-	
 }
 
 bool CreateExecutableCommandWidget::init(Command* command)

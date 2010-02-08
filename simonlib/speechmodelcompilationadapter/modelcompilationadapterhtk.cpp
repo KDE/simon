@@ -103,38 +103,87 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
 			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
+	bool everythingChanged = true;
+
 	///// Prompts ///////////
 	QList<QByteArray> trainedVocabulary; // words where prompts exist
+	QHash< QByteArray, QList<QByteArray> > promptsSentences; // sentences of the prompts file
 	QList<QString> definedVocabulary; // words that are in the dictionary
 
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		QFile promptsFile(promptsPathIn);
-		QFile promptsFileOut(promptsPathOut);
 
-		if (!promptsFile.open(QIODevice::ReadOnly) || 
-				(!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel) && 
-				 !promptsFileOut.open(QIODevice::WriteOnly)))
+		if (!promptsFile.open(QIODevice::ReadOnly))
 			return false;
 
 		while (!promptsFile.atEnd())
 		{
 			QByteArray line = promptsFile.readLine();
 			int splitter = line.indexOf(" ");
-			if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-				promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
-
 			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
-			foreach (const QByteArray& word, words) {
-				if (!trainedVocabulary.contains(word))
-					trainedVocabulary.append(word);
-			}
+			promptsSentences.insert(line.left(splitter), words);
 		}
 
 		promptsFile.close();
-		if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-			promptsFileOut.close();
+	}
+	kDebug() << trainedVocabulary;
+
+	QList<Word*> words = vocab->getWords();
+
+	do
+	{
+		QList<QByteArray> fileNames = promptsSentences.keys();
+		//for each file remove words that are unknown to us
+		foreach (const QByteArray& fileName, fileNames)
+		{
+			QList<QByteArray> words = promptsSentences.value(fileName);
+			bool allWordsDefined = true;
+			foreach (const QByteArray& word, words)
+			{
+				if (!vocab->containsWord(word))
+				{
+					allWordsDefined = false;
+					break;
+				}
+			}
+			if (!allWordsDefined)
+			{
+				promptsSentences.remove(fileName);
+				kDebug() << "Sentence contains unknown words!";
+			}
+		}
+
+			/*foreach (const QByteArray& word, words) {
+				if (!trainedVocabulary.contains(word))
+					trainedVocabulary.append(word);
+			}*/
+
+	} while (everythingChanged);
+
+	/*
+	foreach (QList<QByteArray>& sentence, promptsSentences)
+	{
+
+	}*/
+
+
+	//write prompts out file
+	if (adaptionType & ModelCompilationAdapter & AdaptAcousticModel)
+	{
+		QFile promptsFileOut(promptsPathOut);
+		if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel && 
+					 !promptsFileOut.open(QIODevice::WriteOnly))
+			return false;
+
+		//htkify net vergessen beim schreiben!
+		promptsFileOut.close();
 	}
 
+	//
+	//
+	//
+	//
+	//
 	if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
 		return true;
 
@@ -149,7 +198,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	lexicon.setCodec("UTF-8");
 
 	bool sentWritten = false;
-	QList<Word*> words = vocab->getWords();
 	QString htkIfiedWord;
 	foreach (Word *w, words) {
 		if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
@@ -165,6 +213,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		}
 		lexicon << htkIfiedWord << "\t\t[" << w->getWord() << "]\t\t" <<
 				w->getPronunciation() << "\n";
+		kDebug() << "Storing word: " << htkIfiedWord << w->getPronunciation();
 
 		if (!definedVocabulary.contains(htkIfiedWord))
 			definedVocabulary << htkIfiedWord;
@@ -181,7 +230,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 	// find out which words are referenced by training data
 	// find out which terminals are referenced by grammar
-	// find o
 	QTextStream vocabStream(&simpleVocabFile);
 	vocabStream.setCodec("UTF-8");
 
@@ -192,7 +240,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	QStringList grammarTerminals = grammar->getTerminals();
 
 	QStringList structures = grammar->getStructures();
-	bool everythingChanged = true;
+	everythingChanged = true;
 
 	while (everythingChanged) {
 		everythingChanged = false;

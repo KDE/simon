@@ -27,6 +27,7 @@
 
 PronunciationTraining::PronunciationTraining(const QString& terminal, QWidget* parent): 
 	QWidget(parent), 
+	GreedyReceiver(NULL /* no manager */),
 	m_terminal(terminal)
 {
 	ui.setupUi(this);

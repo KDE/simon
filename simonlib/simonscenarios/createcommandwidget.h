@@ -46,6 +46,9 @@ signals:
 protected:
 	CommandManager *m_manager;
 
+protected slots:
+	virtual void propagateCreatedCommand(Command *c);
+
 public:
 	/**
 	* @brief Creates the command
@@ -66,6 +69,8 @@ public:
 
 	virtual bool init(Command* command)=0;
 	virtual bool isComplete()=0;
+
+	virtual bool isInstanceOfSameManager(Command *c);
 
 	/**
 	* @brief Constructor

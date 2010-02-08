@@ -52,45 +52,13 @@ const QString PlaceCommandManager::name() const
 	return PlaceCommand::staticCategoryText();
 }
 
-bool PlaceCommandManager::addCommandPrivate(Command *command)
+bool PlaceCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<PlaceCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<PlaceCommand*>(command) != NULL);
 }
 
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(PlaceCommandManager, PlaceCommand);
-
-/*
- * bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	if (commands)
-		qDeleteAll(*commands);
-	commands = new CommandList();
-
-	if (elem.isNull()) return false;
-
-	QDomElement commandElem = elem.firstChildElement();
-	while(!commandElem.isNull())
-	{
-		QDomElement name = commandElem.firstChildElement();
-		QDomElement icon = name.nextSiblingElement();
-		QDomElement description = icon.nextSiblingElement();
-		QDomElement url = description.nextSiblingElement();
-		commands->append(new PlaceCommand(name.text(), icon.text(), description.text(),
-						url.text()));
-		commandElem = commandElem.nextSiblingElement();
-	}
-
-	return true;
-}
-*/
 
 PlaceCommandManager::~PlaceCommandManager() 
 {

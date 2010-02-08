@@ -41,17 +41,9 @@ const QString ShortcutCommandManager::name() const
 	return ShortcutCommand::staticCategoryText();
 }
 
-
-bool ShortcutCommandManager::addCommandPrivate(Command *command)
+bool ShortcutCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<const ShortcutCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<ShortcutCommand*>(command) != NULL);
 }
 
 CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *parent)

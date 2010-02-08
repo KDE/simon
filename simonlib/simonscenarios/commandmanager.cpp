@@ -31,6 +31,8 @@
 
 bool CommandManager::trigger(const QString& triggerName)
 {
+	kDebug() << "Here! Triggering: " << triggerName;
+
 	if (!commands) return false;
 
 	foreach (Command* c, *commands)
@@ -48,19 +50,30 @@ bool CommandManager::addCommand(Command *command)
 	if (c) {
 		if (!commands)
 			commands = new CommandList();
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		*commands << c;
-		endInsertRows();
 		adaptUi();
-		return parentScenario->save();
+		return appendCommand(command);
 	}
 
 	return addCommandPrivate(command);
 } 
 
+bool CommandManager::appendCommand(Command *c)
+{
+	if (!commands)
+		commands = new CommandList();
+
+	beginInsertRows(QModelIndex(), commands->count(), commands->count());
+	c->setParent(this); //assign parent
+	*commands << c;
+	endInsertRows();
+	return parentScenario->save();
+}
+
 bool CommandManager::addCommandPrivate(Command *command)
 {
-	Q_UNUSED(command);
+	if (shouldAcceptCommand(command))
+		return appendCommand(command);
+		
 	return false;
 }
 
@@ -214,7 +227,15 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 
 	if (commands)
 		kDebug() << "Loaded commands: " << commands->count();
-	return deSerializeCommandsPrivate(elem);
+
+	bool succ = deSerializeCommandsPrivate(elem);
+
+	if (!commands) return succ;
+
+	foreach (Command *c, *commands)
+		c->setParent(this); //assign parent
+
+	return succ;
 }
 
 bool CommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
@@ -231,6 +252,8 @@ QList<QAction*> CommandManager::getGuiActions() const
 QList<CommandLauncher*> CommandManager::launchers() const
 {
 	QList<CommandLauncher*> launchers;
+
+	if (!commands) return launchers;
 
 	foreach (Command *c, *commands)
 	{

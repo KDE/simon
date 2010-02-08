@@ -36,10 +36,11 @@ class CreateCommandWidget;
  */
 class ShortcutCommandManager : public CommandManager {
 Q_OBJECT
+protected:
+	bool shouldAcceptCommand(Command *command);
 public:
 	const QString name() const;
 	const KIcon icon() const;
-	bool addCommandPrivate(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;

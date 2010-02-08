@@ -21,61 +21,17 @@
 #define SIMON_SCREENGRID_H_8518680DB8A44F5B9A7BE97EADECD6F3
 
 #include <QWidget>
-#include <QList>
-#include <simonactions/greedyreceiver.h>
-#include <eventsimulation/clickmode.h>
 
-class KPushButton;
-class QGridLayout;
-class QLabel;
-class DesktopGridConfiguration;
-class CommandListWidget;
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
-class ScreenGrid : public QWidget, public GreedyReceiver
+
+class ScreenGrid : public QWidget
 {
 Q_OBJECT
-
-private slots:
-	void regionSelected();
-	void clickRequestReceived(int index);
-
-private:
-	int m_x;
-	int m_y;
-	int m_startX;
-	int m_startY;
-	bool m_isDragging;
-	DesktopGridConfiguration *config;
-	QList<KPushButton*> btns;
-	QGridLayout *buttons;
-
-	CommandListWidget *commandListWidget;
-
-	QLabel *background;
-	QPixmap deskShot;
-
-	QPixmap makeFakeTransparency();
-	static QStringList numberIdentifiers;
-
-	void click(KPushButton* btn);
-
-	void init();
-
-	void sendClick(EventSimulation::ClickMode clickMode);
-	void sendDragAndDrop();
-
-public slots:
-	bool greedyTrigger(const QString& input);
-
+signals:
+	void cancel();
 
 public:
-    ScreenGrid(DesktopGridConfiguration* _config, QWidget* parent=0);
+    ScreenGrid(QWidget* parent) : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint) {}
     void keyPressEvent(QKeyEvent *event);
-    void setButtonFontSize(KPushButton *btn);
-
-    ~ScreenGrid();
 
 };
 

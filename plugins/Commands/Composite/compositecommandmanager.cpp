@@ -40,16 +40,9 @@ const KIcon CompositeCommandManager::icon() const
 	return CompositeCommand::staticCategoryIcon();
 }
 
-bool CompositeCommandManager::addCommandPrivate(Command *command)
+bool CompositeCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<CompositeCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<CompositeCommand*>(command) != NULL);
 }
 
 const QString CompositeCommandManager::name() const

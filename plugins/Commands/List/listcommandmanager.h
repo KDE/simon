@@ -34,9 +34,11 @@ class CreateListCommandWidget;
  */
 class ListCommandManager : public CommandManager {
 Q_OBJECT
+protected:
+	bool shouldAcceptCommand(Command *c);
+
 public:
 	const KIcon icon() const;
-	bool addCommandPrivate(Command *command);
 	const QString name() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

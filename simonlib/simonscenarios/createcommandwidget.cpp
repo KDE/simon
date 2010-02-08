@@ -25,3 +25,17 @@ bool CreateCommandWidget::addCommand(const QString& name, const QString& iconSrc
 	return m_manager->addCommand(createCommand(name, iconSrc, description));
 }
 
+void CreateCommandWidget::propagateCreatedCommand(Command *c)
+{
+	c->setParent(m_manager);
+	emit commandSuggested(c);
+}
+
+bool CreateCommandWidget::isInstanceOfSameManager(Command *c)
+{
+	Q_ASSERT(c);
+
+	kDebug() << "Command manager: " << m_manager << " command parent: " << c->parent();
+	return (m_manager == c->parent());
+}
+

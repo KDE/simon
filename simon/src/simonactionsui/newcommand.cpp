@@ -93,7 +93,8 @@ void NewCommand::init(Command *command)
 	int i=0;
 	foreach (CreateCommandWidget *widget, *commandCreaters)
 	{
-		if (widget->init(command)) {
+		if (widget->isInstanceOfSameManager(command)) {
+			widget->init(command);
 			found=true;
 			ui.cbType->setCurrentIndex(i);
 			ui.swCommandCreaters->setCurrentIndex(i);

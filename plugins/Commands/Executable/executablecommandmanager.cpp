@@ -36,16 +36,9 @@ ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVaria
 {
 }
 
-bool ExecutableCommandManager::addCommandPrivate(Command *command)
+bool ExecutableCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<ExecutableCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<ExecutableCommand*>(command) != NULL);
 }
 
 const QString ExecutableCommandManager::name() const
@@ -57,7 +50,6 @@ const KIcon ExecutableCommandManager::icon() const
 {
 	return ExecutableCommand::staticCategoryIcon();
 }
-
 
 CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
 {

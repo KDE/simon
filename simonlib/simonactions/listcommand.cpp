@@ -40,6 +40,7 @@ QStringList ListCommand::numberIdentifiers;
 ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QString& description,
 		const QStringList& commands_,
 		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
+	GreedyReceiver(NULL /* no manager */),
 	clw(new CommandListWidget()),
 	startIndex(0),
 	iconsrcs(iconSrcs_),
@@ -57,6 +58,7 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 }
 
 ListCommand::ListCommand() : Command(),
+	GreedyReceiver(NULL /* no manager */),
 	clw(new CommandListWidget()),
 	startIndex(0)
 {
