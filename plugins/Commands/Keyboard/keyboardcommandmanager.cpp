@@ -439,11 +439,6 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 	return true;
 }
 
-//QList<CommandLauncher*> KeyboardCommandManager::launchers() const
-//{
-//	return QList<CommandLauncher*>() << new CommandLauncher("input-keyboard", "", i18n("Show Keyboard"));
-//}
-
 
 KeyboardCommandManager::~KeyboardCommandManager()
 {
