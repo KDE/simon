@@ -75,7 +75,6 @@ const QString DesktopGridCommandManager::name() const
 
 void DesktopGridCommandManager::activate()
 {
-	kDebug() << "Start being greedy";
 	Logger::log(i18n("[INF] Activating desktopgrid"));
 	startGreedy();
 	init();
@@ -99,7 +98,6 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 {
 	config = new DesktopGridConfiguration(parentScenario);
 	config->deSerialize(elem);
-	kDebug() << "Config deserialized";
 
 	KAction *activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Desktopgrid"));
@@ -200,6 +198,9 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "9", "select9");
 
+	succ &= installInterfaceCommand(this, "deactivate", i18n("Cancel"), "dialog-cancel",
+			i18n("Aborts the selection process"), true, false, SimonCommand::GreedyState, 
+			SimonCommand::DefaultState, QString(), "cancel");
 
 	succ &= installInterfaceCommand(this, "select1", i18n("One"), iconSrc(),
 			i18n("In the click mode selection popup, selects the simple click with the left mouse button"), 
@@ -216,6 +217,10 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 	succ &= installInterfaceCommand(this, "select5", i18n("Five"), iconSrc(),
 			i18n("In the click mode selection popup, this selects the drag and drop mode"), 
 			false, false, SimonCommand::GreedyState+1, SimonCommand::GreedyState, "5", "click5");
+
+	succ &= installInterfaceCommand(this, "deactivate", i18n("Cancel"), "dialog-cancel",
+			i18n("Aborts the selection process when prompted to choose the click mode"), true, false, 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState, QString(), "cancelClickModeSelection");
 	return succ;
 }
 
@@ -317,7 +322,6 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 
 void DesktopGridCommandManager::clickRequestReceived(int index)
 {
-	kDebug() << "CommandListWidget was hidden...";
 	commandListWidget->hide();
 	commandListWidget->abortTimeoutSelection();
 
@@ -372,11 +376,9 @@ void DesktopGridCommandManager::regionSelected()
 	foreach (KPushButton *btn, btns)
 	{
 		setButtonFontSize(btn);
-		kDebug() << "button minimum height: " << btnHeight;
 		btn->setMinimumHeight(btnHeight);
 	}
 
-	kDebug() << "Setting minimum / maximum width to " << btnSize;
 	screenGrid->setMinimumWidth(btnSize.width());
 	screenGrid->setMinimumHeight(btnSize.height());
 	screenGrid->setMaximumWidth(btnSize.width());

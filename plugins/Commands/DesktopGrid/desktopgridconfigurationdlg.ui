@@ -22,20 +22,6 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Cancel trigger:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KLineEdit" name="leCancelTrigger"/>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Action:</string>
@@ -144,11 +130,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

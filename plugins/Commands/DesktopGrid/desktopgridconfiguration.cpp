@@ -37,16 +37,16 @@ DesktopGridConfiguration::DesktopGridConfiguration(Scenario *parent, const QVari
 	ui.setupUi(this);
 	
 	QObject::connect(ui.cbUseRealTransparency, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.rbActionAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.rbActionDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.rbActionAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.sbActionDefaultTimeout, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
+	QObject::connect(ui.cbDefaultClickMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
 
 bool DesktopGridConfiguration::useRealTransparency()
 {
 	return ui.cbUseRealTransparency->isChecked();
-}
-
-QString DesktopGridConfiguration::cancelTrigger()
-{
-	return ui.leCancelTrigger->text();
 }
 
 DesktopGridConfiguration::ActionSelection DesktopGridConfiguration::actionSelection()
@@ -133,9 +133,6 @@ bool DesktopGridConfiguration::deSerialize(const QDomElement& elem)
 
 	ui.cbUseRealTransparency->setChecked(realTransparency);
 
-	QDomElement cancelTriggerElem = elem.firstChildElement("cancelTrigger");
-	ui.leCancelTrigger->setText(cancelTriggerElem.text());
-
 	QDomElement actionSelectElem = elem.firstChildElement("actionSelect");
 	setActionSelection((ActionSelection) actionSelectElem.text().toInt());
 
@@ -154,10 +151,6 @@ QDomElement DesktopGridConfiguration::serialize(QDomDocument *doc)
 	QDomElement realTransElem = doc->createElement("realTransparency");
 	realTransElem.appendChild(doc->createTextNode(QString::number(ui.cbUseRealTransparency->isChecked() ? 1 : 0)));
 	configElem.appendChild(realTransElem);
-
-	QDomElement cancelTriggerElem = doc->createElement("cancelTrigger");
-	cancelTriggerElem.appendChild(doc->createTextNode(ui.leCancelTrigger->text()));
-	configElem.appendChild(cancelTriggerElem);
 
 	ActionSelection actionSel = actionSelection();
 	QDomElement actionSelectElem = doc->createElement("actionSelect");
@@ -179,7 +172,6 @@ void DesktopGridConfiguration::defaults()
 {
 	kDebug() << "Defaults...";
 	ui.cbUseRealTransparency->setChecked(true);
-	ui.leCancelTrigger->setText(i18n("Cancel"));
 	ui.rbActionDefault->animateClick();
 	ui.sbActionDefaultTimeout->setValue(12);
 	ui.cbDefaultClickMode->setCurrentIndex(0);

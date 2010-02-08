@@ -46,7 +46,6 @@ class DesktopGridConfiguration : public CommandConfiguration
 		//configuration options
 		bool useRealTransparency();
 		int askTimeout();
-		QString cancelTrigger();
 		ActionSelection actionSelection();
 		EventSimulation::ClickMode clickMode();
 
