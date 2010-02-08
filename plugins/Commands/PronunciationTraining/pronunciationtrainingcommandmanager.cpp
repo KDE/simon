@@ -80,9 +80,9 @@ bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& e
 	return true;
 }
 
-const KIcon PronunciationTrainingCommandManager::icon() const
+const QString PronunciationTrainingCommandManager::iconSrc() const
 {
-	return KIcon("applications-education");
+	return ("applications-education");
 }
 
 QList<CommandLauncher*> PronunciationTrainingCommandManager::launchers() const

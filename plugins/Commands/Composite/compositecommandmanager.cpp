@@ -35,9 +35,9 @@ CompositeCommandManager::CompositeCommandManager(QObject* parent, const QVariant
 {
 }
 
-const KIcon CompositeCommandManager::icon() const
+const QString CompositeCommandManager::iconSrc() const
 {
-	return CompositeCommand::staticCategoryIcon();
+	return "view-choose";
 }
 
 bool CompositeCommandManager::shouldAcceptCommand(Command *command)

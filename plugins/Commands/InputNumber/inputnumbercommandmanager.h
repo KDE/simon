@@ -41,7 +41,6 @@ Q_OBJECT
 private:
 	Ui::InputNumberDlg ui;
 	QDialog *widget;
-	static QStringList numberIdentifiers;
 	KAction *activateAction;
 
 private slots:
@@ -62,20 +61,20 @@ private slots:
 	void send8() { processRequest(8); }
 	void send9() { processRequest(9); }
 
-protected:
-	bool trigger(const QString& triggerName);
+//protected:
+//	bool trigger(const QString& triggerName);
 
 public slots:
-	bool greedyTrigger(const QString& inputText);
+//	bool greedyTrigger(const QString& inputText);
 	void activate();
 
 public:
 	const QString preferredTrigger() const;
+	bool deSerializeConfig(const QDomElement& elem);
 
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	const QString name() const;
 	void setFont(const QFont& font);
-	QList<CommandLauncher*> launchers() const;
 
     /**
     * @brief Constructor

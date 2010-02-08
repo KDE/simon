@@ -31,13 +31,20 @@ K_PLUGIN_FACTORY( InputNumberCommandPluginFactory,
         
 K_EXPORT_PLUGIN( InputNumberCommandPluginFactory("simoninputnumbercommand") )
 
-QStringList InputNumberCommandManager::numberIdentifiers;
 
 InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 	GreedyReceiver(this),
-	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
-	activateAction(new KAction(this))
+	widget(NULL),
+	activateAction(NULL)
 {
+
+}
+
+bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
+{
+	activateAction = new KAction(this);
+	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
+	Q_UNUSED(elem);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	setFont(ActionManager::getInstance()->pluginBaseFont());
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
@@ -51,11 +58,6 @@ InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVar
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
 	guiActions << activateAction;
-
-	if (numberIdentifiers.isEmpty())
-		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
 	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
@@ -72,12 +74,67 @@ InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVar
 	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
 	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
 	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
-}
 
+
+	kDebug() << "Installed commands!";
+	bool succ = true;
+	succ &= installInterfaceCommand(this, "activate", i18n("Number"), iconSrc(),
+			i18n("Displays the number input field"), true /* announce */, true /* show icon */,
+			SimonCommand::DefaultState /* consider this command when in this state */, 
+			SimonCommand::GreedyState, /* if executed switch to this state */
+			QString() /* take default visible id from action name */,
+			"startInputNumber" /* id */);
+
+	succ &= installInterfaceCommand(ui.pb0, "animateClick", i18n("Zero"), iconSrc(),
+			i18n("Clicks 0"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "0");
+	succ &= installInterfaceCommand(ui.pb1, "animateClick", i18n("One"), iconSrc(),
+			i18n("Clicks 1"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "1");
+	succ &= installInterfaceCommand(ui.pb2, "animateClick", i18n("Two"), iconSrc(),
+			i18n("Clicks 2"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "2");
+	succ &= installInterfaceCommand(ui.pb3, "animateClick", i18n("Three"), iconSrc(),
+			i18n("Clicks 3"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "3");
+	succ &= installInterfaceCommand(ui.pb4, "animateClick", i18n("Four"), iconSrc(),
+			i18n("Clicks 4"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "4");
+	succ &= installInterfaceCommand(ui.pb5, "animateClick", i18n("Five"), iconSrc(),
+			i18n("Clicks 5"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "5");
+	succ &= installInterfaceCommand(ui.pb6, "animateClick", i18n("Six"), iconSrc(),
+			i18n("Clicks 6"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "6");
+	succ &= installInterfaceCommand(ui.pb7, "animateClick", i18n("Seven"), iconSrc(),
+			i18n("Clicks 7"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "7");
+	succ &= installInterfaceCommand(ui.pb8, "animateClick", i18n("Eight"), iconSrc(),
+			i18n("Clicks 8"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "8");
+	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), iconSrc(),
+			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, "9");
+	succ &= installInterfaceCommand(ui.pbComma, "animateClick", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
+			i18n("Decimal separator"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
+
+
+	succ &= installInterfaceCommand(ui.pbBack, "animateClick", i18n("Back"), iconSrc(),
+			i18n("Deletes the last input character"), false, false, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbOk, "animateClick", i18n("Ok"), "dialog-ok-apply",
+			i18n("Accepts the input dialog and writes the number"), false, true, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+	succ &= installInterfaceCommand(ui.pbCancel, "animateClick", i18n("Cancel"), "dialog-cancel",
+			i18n("Aborts the input dialog"), false, true, SimonCommand::GreedyState, 
+			SimonCommand::GreedyState);
+	return succ;
+}
 
 const QString InputNumberCommandManager::preferredTrigger() const
 {
-	return i18n("Number");
+	return "";
 }
 
 void InputNumberCommandManager::setFont(const QFont& font)
@@ -103,9 +160,9 @@ void InputNumberCommandManager::deregister()
 	stopGreedy();
 }
 
-const KIcon InputNumberCommandManager::icon() const
+const QString InputNumberCommandManager::iconSrc() const
 {
-	return KIcon("accessories-calculator");
+	return ("accessories-calculator");
 }
 
 
@@ -137,8 +194,6 @@ void InputNumberCommandManager::cancel()
 
 void InputNumberCommandManager::processRequest(int number)
 {
-	kDebug() << "Digit: " << number;
-
 	ui.leNumber->setText(ui.leNumber->text()+QString::number(number));
 }
 
@@ -149,6 +204,7 @@ void InputNumberCommandManager::ok()
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
+/*
 bool InputNumberCommandManager::greedyTrigger(const QString& inputText)
 {
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
@@ -219,10 +275,12 @@ bool InputNumberCommandManager::greedyTrigger(const QString& inputText)
 	}
 	return true;
 }
+*/
 
 
 
-bool InputNumberCommandManager::trigger(const QString& triggerName)
+/*
+ * bool InputNumberCommandManager::trigger(const QString& triggerName)
 {
 	if (!triggerName.isEmpty())
 		return false;
@@ -235,6 +293,7 @@ QList<CommandLauncher*> InputNumberCommandManager::launchers() const
 {
 	return QList<CommandLauncher*>() << new CommandLauncher("accessories-calculator", "", i18n("Input number"));
 }
+*/
 
 
 InputNumberCommandManager::~InputNumberCommandManager()

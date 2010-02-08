@@ -117,7 +117,8 @@ protected:
 public:
 	virtual const QString name() const=0;
 	virtual const QString preferredTrigger() const;
-	virtual const KIcon icon() const { return KIcon(); }
+	virtual const KIcon icon() const;
+	virtual const QString iconSrc() const=0;
 	bool addCommand(Command *command);
 	virtual bool addCommandPrivate(Command *command);
 

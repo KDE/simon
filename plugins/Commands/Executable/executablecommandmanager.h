@@ -39,7 +39,7 @@ protected:
 	bool shouldAcceptCommand(Command *command);
 public:
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;

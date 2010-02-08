@@ -46,9 +46,9 @@ const QString ExecutableCommandManager::name() const
 	return ExecutableCommand::staticCategoryText();
 }
 
-const KIcon ExecutableCommandManager::icon() const
+const QString ExecutableCommandManager::iconSrc() const
 {
-	return ExecutableCommand::staticCategoryIcon();
+	return "applications-system";
 }
 
 CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)

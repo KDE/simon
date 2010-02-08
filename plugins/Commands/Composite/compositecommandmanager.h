@@ -37,7 +37,7 @@ Q_OBJECT
 protected:
 	bool shouldAcceptCommand(Command *command);
 public:
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	const QString name() const;
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

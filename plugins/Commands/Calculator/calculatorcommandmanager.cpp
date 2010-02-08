@@ -138,7 +138,7 @@ bool CalculatorCommandManager::installInterfaceCommands()
 	succ &= installInterfaceCommand(ui.pb9, "animateClick", i18n("Nine"), iconSrc(),
 			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "9");
-	succ &= installInterfaceCommand(ui.pbComma, "animateClick", i18n("Point"), iconSrc(),
+	succ &= installInterfaceCommand(ui.pbComma, "animateClick", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
 			i18n("Decimal separator"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
 
@@ -365,11 +365,6 @@ QString CalculatorCommandManager::formatOutput(CalculatorCommandManager::NumberT
 void CalculatorCommandManager::deregister()
 {
 	stopGreedy();
-}
-
-const KIcon CalculatorCommandManager::icon() const
-{
-	return KIcon(iconSrc());
 }
 
 const QString CalculatorCommandManager::iconSrc() const

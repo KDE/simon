@@ -48,7 +48,7 @@ protected:
 public:
 	bool deSerializeConfig(const QDomElement& elem);
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	bool setupParser();
 	bool addCommandPrivate(Command *) { return false; }
 

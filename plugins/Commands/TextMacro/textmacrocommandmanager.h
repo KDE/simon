@@ -36,7 +36,7 @@ class TextMacroCommandManager : public CommandManager{
 Q_OBJECT
 public:
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	bool addCommandPrivate(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 

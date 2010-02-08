@@ -48,9 +48,9 @@ const QString AICommandManager::name() const
 	return i18n("Artificial Intelligence");
 }
 
-const KIcon AICommandManager::icon() const
+const QString AICommandManager::iconSrc() const
 {
-	return KIcon("view-media-artist");
+	return ("view-media-artist");
 }
 
 CommandConfiguration* AICommandManager::getConfigurationPage()

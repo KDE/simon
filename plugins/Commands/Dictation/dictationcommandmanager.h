@@ -40,7 +40,7 @@ protected:
 public:
 	const QString preferredTrigger() const { return ""; }
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 
     /**
     * @brief Constructor

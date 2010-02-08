@@ -54,9 +54,9 @@ bool TextMacroCommandManager::addCommandPrivate(Command *command)
 	return false;
 }
 
-const KIcon TextMacroCommandManager::icon() const
+const QString TextMacroCommandManager::iconSrc() const
 {
-	return TextMacroCommand::staticCategoryIcon();
+	return "format-text-bold";
 }
 
 /*

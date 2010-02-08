@@ -35,9 +35,9 @@ ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args
 {
 }
 
-const KIcon ListCommandManager::icon() const
+const QString ListCommandManager::iconSrc() const
 {
-	return ListCommand::staticCategoryIcon();
+	return "view-choose";
 }
 
 bool ListCommandManager::shouldAcceptCommand(Command *command)

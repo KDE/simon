@@ -52,11 +52,6 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject* parent, const QVar
 {
 }
 
-const KIcon DesktopGridCommandManager::icon() const
-{
-	return KIcon(iconSrc());
-}
-
 const QString DesktopGridCommandManager::iconSrc() const
 {
 	return "games-config-board";
@@ -399,43 +394,6 @@ void DesktopGridCommandManager::regionSelected()
 		background->setPixmap(deskShot.copy(screenGrid->geometry()));
 	}
 }
-
-/*
-bool DesktopGridCommandManager::greedyTrigger(const QString& input)
-{
-	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
-	if (input.toUpper() == static_cast<DesktopGridConfiguration*>(config)->cancelTrigger().toUpper())
-	{
-		deleteLater();
-		return true;
-	}
-
-	bool ok=false;
-	int index = input.toInt(&ok)-1;
-	if (!ok)
-	{
-		index = 0;
-		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != input.toUpper()))
-			index++;
-
-		if (index == numberIdentifiers.count()) return false;
-	}
-	kDebug() << index;
-
-	if (commandListWidget->isVisible()) {
-		clickRequestReceived(index+1);
-		return true;
-	}
-
-	if (index > btns.count()) return false;
-
-	KPushButton *btn = btns[index];
-	if (!btn) return false;
-
-	btn->animateClick();
-	return true;
-}*/
-
 
 void DesktopGridCommandManager::selectIndex(int index)
 {

@@ -36,9 +36,9 @@ PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& ar
 }
 
 
-const KIcon PlaceCommandManager::icon() const
+const QString PlaceCommandManager::iconSrc() const
 {
-	return PlaceCommand::staticCategoryIcon();
+	return ("folder");
 }
 
 

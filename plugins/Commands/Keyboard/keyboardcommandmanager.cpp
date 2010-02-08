@@ -99,9 +99,9 @@ void KeyboardCommandManager::deregister()
 	stopGreedy();
 }
 
-const KIcon KeyboardCommandManager::icon() const
+const QString KeyboardCommandManager::iconSrc() const
 {
-	return KIcon("input-keyboard");
+	return "input-keyboard";
 }
 
 

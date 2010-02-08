@@ -46,7 +46,7 @@ public slots:
 public:
 	const QString preferredTrigger() const;
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 	bool deSerializeConfig(const QDomElement& elem);
 	QList<CommandLauncher*> launchers() const;
 

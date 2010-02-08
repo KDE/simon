@@ -38,7 +38,7 @@ protected:
 	bool shouldAcceptCommand(Command *command);
 public:
 	const QString name() const;
-	const KIcon icon() const;
+	const QString iconSrc() const;
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 

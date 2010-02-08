@@ -51,9 +51,9 @@ CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *par
 	return new CreateShortcutCommandWidget(this, parent);
 }
 
-const KIcon ShortcutCommandManager::icon() const
+const QString ShortcutCommandManager::iconSrc() const
 {
-	return ShortcutCommand::staticCategoryIcon();
+	return "go-jump-locationbar";
 }
 
 

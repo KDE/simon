@@ -29,6 +29,16 @@
 #include <QDomElement>
 #include <QDomDocument>
 
+const KIcon CommandManager::icon() const
+{
+	QString iconS = iconSrc();
+
+	if (iconS.isNull()) 
+		return KIcon();
+
+	return KIcon(iconS);
+}
+
 bool CommandManager::trigger(const QString& triggerName)
 {
 	kDebug() << "Here! Triggering: " << triggerName;

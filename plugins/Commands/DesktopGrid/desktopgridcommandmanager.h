@@ -93,7 +93,6 @@ public:
 
 	bool deSerializeConfig(const QDomElement& elem);
 
-	const KIcon icon() const;
 	const QString iconSrc() const;
 	
 	void setButtonFontSize(KPushButton *btn);
