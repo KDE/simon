@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonplacecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:36+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 14:23+0100\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -48,21 +48,13 @@ msgstr "Cliquez sur « Terminer » pour fermer cet assistant."
 msgid "Select Place"
 msgstr "Sélectionner un emplacement"
 
-#: placecommand.cpp:29
+#: placecommand.cpp:33
 msgid "Place"
 msgstr "Emplacement"
 
-#: placecommand.cpp:50
+#: placecommand.cpp:54
 msgid "URL"
 msgstr "URL"
-
-#: placecommandmanager.cpp:69
-msgid "[INF] Loading place commands from %1"
-msgstr "[INF] Chargement des commandes pour les emplacements depuis %1"
-
-#: placecommandmanager.cpp:79
-msgid "[INF] Saving place commands to %1"
-msgstr "[INF] Enregistrement des commandes pour les emplacements dans %1"
 
 #. i18n: file: createplacecommandwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
@@ -87,8 +79,8 @@ msgstr "Importer un emplacement"
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Using this wizard, you can import local and remote places easily."
 msgstr ""
-"Cet assistant va vous aider à importer facilement un emplacement local "
-"ou distant."
+"Cet assistant va vous aider à importer facilement un emplacement local ou "
+"distant."
 
 #. i18n: file: createplacecommandwidget.ui:29
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
@@ -208,3 +200,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
 
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Chargement des commandes pour les emplacements depuis %1"
+
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Enregistrement des commandes pour les emplacements dans %1"

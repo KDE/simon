@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:35+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 13:27+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -18,25 +18,17 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: executablecommand.cpp:30
+#: executablecommand.cpp:32
 msgid "Program"
 msgstr "Application"
 
-#: executablecommand.cpp:51
+#: executablecommand.cpp:53
 msgid "Executable"
 msgstr "Exécutable"
 
-#: executablecommand.cpp:52
+#: executablecommand.cpp:54
 msgid "Working directory"
 msgstr "Dossier de travail"
-
-#: executablecommandmanager.cpp:68
-msgid "[INF] Loading executable commands from %1"
-msgstr "[INF] Chargement des commandes d'applications depuis %1"
-
-#: executablecommandmanager.cpp:78
-msgid "[INF] Saving executable commands to %1"
-msgstr "[INF] Enregistrement des commandes d'applications dans %1"
 
 #: ImportProgram/importprogramwizard.cpp:42
 msgid "Add program"
@@ -130,3 +122,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
 
+#~ msgid "[INF] Loading executable commands from %1"
+#~ msgstr "[INF] Chargement des commandes d'applications depuis %1"
+
+#~ msgid "[INF] Saving executable commands to %1"
+#~ msgstr "[INF] Enregistrement des commandes d'applications dans %1"

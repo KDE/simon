@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: simonkeyboardcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-09-20 13:17+0200\n"
-"PO-Revision-Date: 2009-09-19 18:51+0200\n"
+"POT-Creation-Date: 2010-02-09 14:19+0100\n"
+"PO-Revision-Date: 2010-02-09 14:21+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <kde-i18n-de@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,635 +17,614 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: keyboardaddbuttondialog.cpp:34
-msgid "Add key"
-msgstr "Taste hinzufügen"
-
-#: keyboardaddbuttondialog.cpp:73
-msgid "All fields are mandatory"
-msgstr "Alle Felder sind Pflichtfelder"
-
-#: keyboardcommandmanager.cpp:54
+#: keyboardcommandmanager.cpp:57
 msgid "Activate Keyboard"
 msgstr "Tastatur aktivieren"
 
 #. i18n: file: keyboardwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeyboardDlg)
-#: keyboardcommandmanager.cpp:99 keyboardcommandmanager.cpp:316
-#: keyboardconfiguration.cpp:45 po/rc.cpp:138 rc.cpp:138
+#: keyboardcommandmanager.cpp:110 keyboardcommandmanager.cpp:357
+#: keyboardconfiguration.cpp:44 po/rc.cpp:57 rc.cpp:57
 msgid "Keyboard"
 msgstr "Tastatur"
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:320 keyboardcommandmanager.cpp:395
 msgid "Zero"
 msgstr "Null"
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:320 keyboardcommandmanager.cpp:398
 msgid "One"
 msgstr "Eins"
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:320 keyboardcommandmanager.cpp:401
 msgid "Two"
 msgstr "Zwei"
 
-#: keyboardcommandmanager.cpp:433
+#: keyboardcommandmanager.cpp:321 keyboardcommandmanager.cpp:404
 msgid "Three"
 msgstr "Drei"
 
-#: keyboardcommandmanager.cpp:433
+#: keyboardcommandmanager.cpp:321 keyboardcommandmanager.cpp:407
 msgid "Four"
 msgstr "Vier"
 
-#: keyboardcommandmanager.cpp:433
+#: keyboardcommandmanager.cpp:321 keyboardcommandmanager.cpp:410
 msgid "Five"
 msgstr "Fünf"
 
-#: keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:322 keyboardcommandmanager.cpp:413
 msgid "Six"
 msgstr "Sechs"
 
-#: keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:322 keyboardcommandmanager.cpp:416
 msgid "Seven"
 msgstr "Sieben"
 
-#: keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:322 keyboardcommandmanager.cpp:419
 msgid "Eight"
 msgstr "Acht"
 
-#: keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:322 keyboardcommandmanager.cpp:422
 msgid "Nine"
 msgstr "Neun"
 
-#: keyboardconfiguration.cpp:46
-msgid "Input signes with ease"
-msgstr "Sprachgesteuerte Tastatur"
+#: keyboardcommandmanager.cpp:358
+msgid "Starts the keyboard"
+msgstr "Tastatur starten"
 
-#. i18n: file: keyboardwidget.ui:138
-#. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
-#: keyboardconfiguration.cpp:133 keyboardconfiguration.cpp:575
-#: keyboardconfiguration.cpp:630 po/rc.cpp:180 rc.cpp:180
-msgid "Select number"
-msgstr "Nummer auswählen"
+#. i18n: file: keyboardwidget.ui:228
+#. i18n: ectx: property (text), widget (KPushButton, pbOk)
+#: keyboardcommandmanager.cpp:365 po/rc.cpp:117 rc.cpp:117
+msgid "Ok"
+msgstr "Ok"
 
-#: keyboardconfiguration.cpp:146
-msgid "Number backspace"
-msgstr "Nummer löschen"
+#: keyboardcommandmanager.cpp:366
+msgid "Hides the keyboard"
+msgstr "Tastatur deaktivieren"
 
-#: keyboardconfiguration.cpp:152
-msgid "Write out number"
-msgstr "Nummer hinschreiben"
-
-#. i18n: file: keyboardconfigurationdlg.ui:365
-#. i18n: ectx: property (text), widget (QCheckBox, cbShift)
 #. i18n: file: keyboardwidget.ui:179
 #. i18n: ectx: property (text), widget (KPushButton, pbShift)
-#. i18n: file: keyboardconfigurationdlg.ui:365
-#. i18n: ectx: property (text), widget (QCheckBox, cbShift)
-#. i18n: file: keyboardwidget.ui:179
-#. i18n: ectx: property (text), widget (KPushButton, pbShift)
-#: keyboardconfiguration.cpp:170 keyboardconfiguration.cpp:581
-#: keyboardconfiguration.cpp:635 po/rc.cpp:90 po/rc.cpp:189 rc.cpp:90
-#: rc.cpp:189
+#: keyboardcommandmanager.cpp:368 po/rc.cpp:108 rc.cpp:108
 msgid "Shift"
 msgstr "Einmal Großschreiben"
 
-#. i18n: file: keyboardconfigurationdlg.ui:416
-#. i18n: ectx: property (text), widget (QCheckBox, cbCapsLock)
+#: keyboardcommandmanager.cpp:369
+msgid "Shift key"
+msgstr "Shift Taste"
+
 #. i18n: file: keyboardwidget.ui:189
 #. i18n: ectx: property (text), widget (KPushButton, pbCapsLock)
-#. i18n: file: keyboardconfigurationdlg.ui:416
-#. i18n: ectx: property (text), widget (QCheckBox, cbCapsLock)
-#. i18n: file: keyboardwidget.ui:189
-#. i18n: ectx: property (text), widget (KPushButton, pbCapsLock)
-#: keyboardconfiguration.cpp:176 po/rc.cpp:96 po/rc.cpp:192 rc.cpp:96
-#: rc.cpp:192
+#: keyboardcommandmanager.cpp:371 po/rc.cpp:111 rc.cpp:111
 msgid "Caps lock"
 msgstr "Großschreiben "
 
-#. i18n: file: keyboardconfigurationdlg.ui:569
-#. i18n: ectx: property (text), widget (QCheckBox, cbReturn)
-#. i18n: file: keyboardwidget.ui:235
-#. i18n: ectx: property (text), widget (KPushButton, pbReturn)
-#. i18n: file: keyboardconfigurationdlg.ui:569
-#. i18n: ectx: property (text), widget (QCheckBox, cbReturn)
-#. i18n: file: keyboardwidget.ui:235
-#. i18n: ectx: property (text), widget (KPushButton, pbReturn)
-#: keyboardconfiguration.cpp:194 keyboardconfiguration.cpp:589
-#: keyboardconfiguration.cpp:643 po/rc.cpp:114 po/rc.cpp:201 rc.cpp:114
-#: rc.cpp:201
-msgid "Return"
-msgstr "Enter"
+#: keyboardcommandmanager.cpp:372
+msgid "Caps lock key"
+msgstr "Caps lock Taste"
 
-#. i18n: file: keyboardconfigurationdlg.ui:467
-#. i18n: ectx: property (text), widget (QCheckBox, cbBackspace)
-#. i18n: file: keyboardwidget.ui:202
-#. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
-#. i18n: file: keyboardconfigurationdlg.ui:467
-#. i18n: ectx: property (text), widget (QCheckBox, cbBackspace)
-#. i18n: file: keyboardwidget.ui:202
-#. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
-#: keyboardconfiguration.cpp:200 keyboardconfiguration.cpp:583
-#: keyboardconfiguration.cpp:637 po/rc.cpp:102 po/rc.cpp:195 rc.cpp:102
-#: rc.cpp:195
-msgid "Backspace"
-msgstr "Löschen"
-
-#. i18n: file: keyboardconfigurationdlg.ui:518
-#. i18n: ectx: property (text), widget (QCheckBox, cbControl)
 #. i18n: file: keyboardwidget.ui:169
 #. i18n: ectx: property (text), widget (KPushButton, pbControl)
-#. i18n: file: keyboardconfigurationdlg.ui:518
-#. i18n: ectx: property (text), widget (QCheckBox, cbControl)
-#. i18n: file: keyboardwidget.ui:169
-#. i18n: ectx: property (text), widget (KPushButton, pbControl)
-#: keyboardconfiguration.cpp:212 keyboardconfiguration.cpp:587
-#: keyboardconfiguration.cpp:641 po/rc.cpp:108 po/rc.cpp:186 rc.cpp:108
-#: rc.cpp:186
+#: keyboardcommandmanager.cpp:374 keyboardcommandmanager.cpp:375 po/rc.cpp:105
+#: rc.cpp:105
 msgid "Control"
 msgstr "Steuerung"
 
-#: keyboardconfiguration.cpp:224 keyboardconfiguration.cpp:591
-#: keyboardconfiguration.cpp:645
-msgid "Alternate"
-msgstr "Alternative"
+#. i18n: file: keyboardwidget.ui:202
+#. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
+#: keyboardcommandmanager.cpp:377 keyboardcommandmanager.cpp:378 po/rc.cpp:114
+#: rc.cpp:114
+msgid "Backspace"
+msgstr "Löschen"
 
-#: keyboardconfiguration.cpp:236
-msgid "Alternate Graphics"
-msgstr "Alternative Grafik"
+#. i18n: file: keyboardwidget.ui:235
+#. i18n: ectx: property (text), widget (KPushButton, pbReturn)
+#: keyboardcommandmanager.cpp:380 keyboardcommandmanager.cpp:381 po/rc.cpp:120
+#: rc.cpp:120
+msgid "Return"
+msgstr "Enter"
 
-#. i18n: file: keyboardconfigurationdlg.ui:722
-#. i18n: ectx: property (text), widget (QCheckBox, cbSuper)
+#. i18n: file: keyboardwidget.ui:242
+#. i18n: ectx: property (text), widget (KPushButton, pbAlt)
+#: keyboardcommandmanager.cpp:383 keyboardcommandmanager.cpp:384 po/rc.cpp:123
+#: rc.cpp:123
+msgid "Alt"
+msgstr "Alt"
+
+#. i18n: file: keyboardwidget.ui:252
+#. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
+#: keyboardcommandmanager.cpp:386 keyboardcommandmanager.cpp:387 po/rc.cpp:126
+#: rc.cpp:126
+msgid "AltGr"
+msgstr "AltGr"
+
 #. i18n: file: keyboardwidget.ui:262
 #. i18n: ectx: property (text), widget (KPushButton, pbSuper)
-#. i18n: file: keyboardconfigurationdlg.ui:722
-#. i18n: ectx: property (text), widget (QCheckBox, cbSuper)
-#. i18n: file: keyboardwidget.ui:262
-#. i18n: ectx: property (text), widget (KPushButton, pbSuper)
-#: keyboardconfiguration.cpp:248 keyboardconfiguration.cpp:595
-#: keyboardconfiguration.cpp:649 po/rc.cpp:132 po/rc.cpp:210 rc.cpp:132
-#: rc.cpp:210
+#: keyboardcommandmanager.cpp:389 keyboardcommandmanager.cpp:390 po/rc.cpp:129
+#: rc.cpp:129
 msgid "Super"
 msgstr "Super"
 
-#: keyboardconfiguration.cpp:277
+#: keyboardcommandmanager.cpp:396
+msgid "Clicks 0"
+msgstr "Klickt 0"
+
+#: keyboardcommandmanager.cpp:399
+msgid "Clicks 1"
+msgstr "Klickt 1"
+
+#: keyboardcommandmanager.cpp:402
+msgid "Clicks 2"
+msgstr "Klickt 2"
+
+#: keyboardcommandmanager.cpp:405
+msgid "Clicks 3"
+msgstr "Klickt 3"
+
+#: keyboardcommandmanager.cpp:408
+msgid "Clicks 4"
+msgstr "Klickt 4"
+
+#: keyboardcommandmanager.cpp:411
+msgid "Clicks 5"
+msgstr "Klickt 5"
+
+#: keyboardcommandmanager.cpp:414
+msgid "Clicks 6"
+msgstr "Klickt 6"
+
+#: keyboardcommandmanager.cpp:417
+msgid "Clicks 7"
+msgstr "Klickt 7"
+
+#: keyboardcommandmanager.cpp:420
+msgid "Clicks 8"
+msgstr "Klickt 8"
+
+#: keyboardcommandmanager.cpp:423
+msgid "Clicks 9"
+msgstr "Klickt 9"
+
+#: keyboardcommandmanager.cpp:425
+msgctxt "Decimal separator (voice trigger)"
+msgid "Point"
+msgstr "Komma"
+
+#: keyboardcommandmanager.cpp:426
+msgid "Decimal separator"
+msgstr "Dezimal Separator"
+
+#. i18n: file: keyboardwidget.ui:138
+#. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
+#: keyboardcommandmanager.cpp:429 keyboardcommandmanager.cpp:430 po/rc.cpp:99
+#: rc.cpp:99
+msgid "Select number"
+msgstr "Nummer auswählen"
+
+#. i18n: file: keyboardwidget.ui:145
+#. i18n: ectx: property (text), widget (KPushButton, pbWriteOutNumber)
+#: keyboardcommandmanager.cpp:432 keyboardcommandmanager.cpp:433 po/rc.cpp:102
+#: rc.cpp:102
+msgid "Write number"
+msgstr "Nummer hinschreiben"
+
+#: keyboardcommandmanager.cpp:435 keyboardcommandmanager.cpp:436
+msgid "Number backspace"
+msgstr "Nummer löschen"
+
+#: keyboardconfiguration.cpp:45
+msgid "Input signes with ease"
+msgstr "Sprachgesteuerte Tastatur"
+
+#: keyboardconfiguration.cpp:126
 msgid "Failed to add set"
 msgstr "Konnte Set nicht hinzufügen"
 
-#: keyboardconfiguration.cpp:288
-msgid "Please choose a set to be deleted"
-msgstr "Bitte wählen Sie das Set, dass gelöscht werden soll aus"
+#: keyboardconfiguration.cpp:140
+msgid "Please choose a set to be edited"
+msgstr "Bitte wählen Sie das Set, dass bearbeitet werden soll, aus"
 
-#: keyboardconfiguration.cpp:291
+#: keyboardconfiguration.cpp:149
+msgid "Failed to edit set"
+msgstr "Konnte Set nicht bearbeiten"
+
+#: keyboardconfiguration.cpp:160
+msgid "Please choose a set to be deleted"
+msgstr "Bitte wählen Sie das Set, dass gelöscht werden soll, aus"
+
+#: keyboardconfiguration.cpp:163
 msgid "Do you really want to delete the selected set?"
 msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
 
-#: keyboardconfiguration.cpp:294
+#: keyboardconfiguration.cpp:166
 msgid "Couldn't delete set"
 msgstr "Konnte Set nicht löschen"
 
-#: keyboardconfiguration.cpp:303
+#: keyboardconfiguration.cpp:175 keyboardconfiguration.cpp:196
 msgid "Please insert or select a set first"
 msgstr "Bitte wählen Sie zuerst ein Set aus"
 
-#: keyboardconfiguration.cpp:311
+#: keyboardconfiguration.cpp:183
 msgid "Failed to add tab"
 msgstr "Konnte Tab nicht hinzufügen"
 
-#: keyboardconfiguration.cpp:323
+#: keyboardconfiguration.cpp:202
+msgid "Please select the tab to be edited"
+msgstr "Bitte wählen Sie den Tab aus der bearbeitet werden soll"
+
+#: keyboardconfiguration.cpp:210
+msgid "Failed to edit tab"
+msgstr "Konnte Tab nicht bearbeiten"
+
+#: keyboardconfiguration.cpp:222
 msgid "Please select a set first"
 msgstr "Bitte wählen Sie zuerst ein Set aus"
 
-#: keyboardconfiguration.cpp:328
+#: keyboardconfiguration.cpp:227
 msgid "Please select the tab to be deleted"
 msgstr "Bitte wählen Sie den Tab aus der gelöscht werden soll"
 
-#: keyboardconfiguration.cpp:332
+#: keyboardconfiguration.cpp:231
 msgid "Do you really want to delete the selected tab?"
 msgstr "Wollen Sie den ausgewählten Tab wirklich löschen?"
 
-#: keyboardconfiguration.cpp:335
+#: keyboardconfiguration.cpp:234
 msgid "Failed to delete tab"
 msgstr "Konnte den Tab nicht löschen"
 
-#: keyboardconfiguration.cpp:344 keyboardconfiguration.cpp:366
+#: keyboardconfiguration.cpp:245 keyboardconfiguration.cpp:267
+#: keyboardconfiguration.cpp:294
 msgid "Please select a set to which to add the new button"
 msgstr "Bitte wählen Sie ein Set aus, zu dem die Taste hinzugefügt werden soll"
 
-#: keyboardconfiguration.cpp:348 keyboardconfiguration.cpp:370
+#: keyboardconfiguration.cpp:249 keyboardconfiguration.cpp:271
+#: keyboardconfiguration.cpp:298
 msgid "Please select a tab to which to add the new button"
 msgstr "Bitte wählen Sie den Tab aus zu dem die Taste hinzugefügt werden soll"
 
-#: keyboardconfiguration.cpp:357
-msgid "Failed to add button"
-msgstr "Konnte Taste nicht hinzufügen"
-
-#: keyboardconfiguration.cpp:376 keyboardconfiguration.cpp:436
-#: keyboardconfiguration.cpp:453
+#: keyboardconfiguration.cpp:277 keyboardconfiguration.cpp:304
+#: keyboardconfiguration.cpp:364 keyboardconfiguration.cpp:381
 msgid "Please select a button to delete from the list"
 msgstr "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
 
-#: keyboardconfiguration.cpp:380
+#: keyboardconfiguration.cpp:284
+msgid "Failed to edit button"
+msgstr "Konnte Taste nicht bearbeiten"
+
+#: keyboardconfiguration.cpp:308
 msgid "Do you really want to delete the selected button?"
 msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
 
-#: keyboardconfiguration.cpp:384
+#: keyboardconfiguration.cpp:312
 msgid "Failed to delete button"
 msgstr "Konnte Taste nicht löschen"
 
-#: keyboardconfiguration.cpp:394 keyboardconfiguration.cpp:415
+#: keyboardconfiguration.cpp:322 keyboardconfiguration.cpp:343
 msgid "Please select the tab to be moved"
 msgstr "Bitte wählen Sie einen Tab aus der verschoben werden soll"
 
-#: keyboardconfiguration.cpp:400
+#: keyboardconfiguration.cpp:328
 msgid "Failed to move tab up. Maybe it is already at the top?"
 msgstr ""
 "Konnte den Tab nicht nach oben verschieben. Vielleicht ist er schon ganz "
 "oben?"
 
-#: keyboardconfiguration.cpp:420
+#: keyboardconfiguration.cpp:348
 msgid "Failed to move tab down. Maybe it is already at the bottom?"
 msgstr ""
 "Konnte den Tab nicht nach unten verschieben. Vielleicht ist er schon ganz "
 "unten?"
 
-#: keyboardconfiguration.cpp:442
+#: keyboardconfiguration.cpp:370
 msgid "Button could not be moved up. Is it already at the top?"
 msgstr ""
 "Konnte die Taste nicht nach oben verschieben. Vielleicht ist sie schon ganz "
 "oben?"
 
-#: keyboardconfiguration.cpp:459
+#: keyboardconfiguration.cpp:387
 msgid "Button could not be moved down. Is it already at the bottom?"
 msgstr ""
 "Konnte die Taste nicht nach unten verschieben. Vielleicht ist sie schon ganz "
 "unten?"
 
-#: keyboardconfiguration.cpp:546
-msgid "Failed to save keyboard sets"
-msgstr "Konnte Sets nicht speichern"
-
-#. i18n: file: keyboardwidget.ui:52
-#. i18n: ectx: property (text), widget (KPushButton, pbNumberBackspace)
-#: keyboardconfiguration.cpp:573 keyboardconfiguration.cpp:628 po/rc.cpp:144
-#: rc.cpp:144
-msgid "Number Backspace"
-msgstr "Nummer löschen"
-
-#. i18n: file: keyboardwidget.ui:145
-#. i18n: ectx: property (text), widget (KPushButton, pbWriteOutNumber)
-#: keyboardconfiguration.cpp:577 keyboardconfiguration.cpp:632 po/rc.cpp:183
-#: rc.cpp:183
-msgid "Write number"
-msgstr "Nummer hinschreiben"
-
-#: keyboardconfiguration.cpp:585 keyboardconfiguration.cpp:639
-msgid "CapsLock"
-msgstr "Großschreiben "
-
-#: keyboardconfiguration.cpp:593 keyboardconfiguration.cpp:647
-msgid "Alternate Graphic"
-msgstr "Alternative Grafik"
-
-#: keyboardconfiguration.cpp:602
+#: keyboardconfiguration.cpp:497
 msgid "Failed to load keyboard sets from storage"
 msgstr "Konnte sets nicht laden"
 
-#. i18n: file: addbuttondlg.ui:51
+#: keyboardmodifybuttondialog.cpp:35
+msgid "Add key"
+msgstr "Taste hinzufügen"
+
+#: keyboardmodifybuttondialog.cpp:87 keyboardmodifybuttondialog.cpp:159
+msgid "All fields are mandatory"
+msgstr "Alle Felder sind Pflichtfelder"
+
+#: keyboardmodifybuttondialog.cpp:152
+msgid "Invalid button"
+msgstr "Inkorrekter Knopf"
+
+#. i18n: file: modifybuttondlg.ui:51
 #. i18n: ectx: property (text), item, widget (QComboBox, cbValueType)
-#: keyboardtab.cpp:168 po/rc.cpp:15 rc.cpp:15
+#: keyboardtab.cpp:176 po/rc.cpp:144 rc.cpp:144
 msgid "Text"
 msgstr "Text"
 
-#. i18n: file: addbuttondlg.ui:56
+#. i18n: file: modifybuttondlg.ui:56
 #. i18n: ectx: property (text), item, widget (QComboBox, cbValueType)
-#: keyboardtab.cpp:168 po/rc.cpp:18 rc.cpp:18
+#: keyboardtab.cpp:176 po/rc.cpp:147 rc.cpp:147
 msgid "Shortcut"
 msgstr "Tastenkürzel"
 
-#: keyboardtab.cpp:187
+#: keyboardtab.cpp:195
 msgid "Name"
 msgstr "Name"
 
-#: keyboardtab.cpp:189
+#: keyboardtab.cpp:197
 msgid "Trigger"
 msgstr "Auslöser"
 
-#: keyboardtab.cpp:191
+#: keyboardtab.cpp:199
 msgid "Type"
 msgstr "Typ"
 
-#: keyboardtab.cpp:193
+#: keyboardtab.cpp:201
 msgid "Value"
 msgstr "Wert"
 
-#. i18n: file: addbuttondlg.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, AddButtonDlg)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Add button"
-msgstr "Nummer hinzufügen"
-
-#. i18n: file: addbuttondlg.ui:23
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:6 rc.cpp:6
-msgid "Name:"
-msgstr "Name:"
-
-#. i18n: file: addbuttondlg.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: file: keyboardconfigurationdlg.ui:264
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: keyboardconfigurationdlg.ui:312
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#. i18n: file: keyboardconfigurationdlg.ui:398
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: file: keyboardconfigurationdlg.ui:449
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: file: keyboardconfigurationdlg.ui:500
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#. i18n: file: keyboardconfigurationdlg.ui:551
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#. i18n: file: keyboardconfigurationdlg.ui:602
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: keyboardconfigurationdlg.ui:653
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#. i18n: file: keyboardconfigurationdlg.ui:704
-#. i18n: ectx: property (text), widget (QLabel, label_12)
-#. i18n: file: keyboardconfigurationdlg.ui:755
-#. i18n: ectx: property (text), widget (QLabel, label_13)
-#. i18n: file: addbuttondlg.ui:33
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: file: keyboardconfigurationdlg.ui:264
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: keyboardconfigurationdlg.ui:312
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#. i18n: file: keyboardconfigurationdlg.ui:398
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#. i18n: file: keyboardconfigurationdlg.ui:449
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#. i18n: file: keyboardconfigurationdlg.ui:500
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#. i18n: file: keyboardconfigurationdlg.ui:551
-#. i18n: ectx: property (text), widget (QLabel, label_7)
-#. i18n: file: keyboardconfigurationdlg.ui:602
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#. i18n: file: keyboardconfigurationdlg.ui:653
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#. i18n: file: keyboardconfigurationdlg.ui:704
-#. i18n: ectx: property (text), widget (QLabel, label_12)
-#. i18n: file: keyboardconfigurationdlg.ui:755
-#. i18n: ectx: property (text), widget (QLabel, label_13)
-#: po/rc.cpp:9 po/rc.cpp:78 po/rc.cpp:84 po/rc.cpp:93 po/rc.cpp:99
-#: po/rc.cpp:105 po/rc.cpp:111 po/rc.cpp:117 po/rc.cpp:123 po/rc.cpp:129
-#: po/rc.cpp:135 rc.cpp:9 rc.cpp:78 rc.cpp:84 rc.cpp:93 rc.cpp:99 rc.cpp:105
-#: rc.cpp:111 rc.cpp:117 rc.cpp:123 rc.cpp:129 rc.cpp:135
-msgid "Trigger:"
-msgstr "Auslöser:"
-
-#. i18n: file: addbuttondlg.ui:43
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:12 rc.cpp:12
-msgid "Type:"
-msgstr "Typ:"
-
 #. i18n: file: keyboardconfigurationdlg.ui:20
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeyboardConfigurationDlg)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Form"
 
-#. i18n: file: keyboardconfigurationdlg.ui:26
-#. i18n: ectx: property (text), widget (QCheckBox, cbCaseSensitivity)
-#: po/rc.cpp:24 rc.cpp:24
-msgid "Case sensitive trigger checking"
-msgstr "Groß- / Kleinschreibung beachten"
-
-#. i18n: file: keyboardconfigurationdlg.ui:37
-#. i18n: ectx: attribute (title), widget (QWidget, Seite)
-#: po/rc.cpp:27 rc.cpp:27
-msgid "Sets"
-msgstr "Sets"
-
-#. i18n: file: keyboardconfigurationdlg.ui:57
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:30 rc.cpp:30
-msgid "Set: "
-msgstr "Set:"
-
-#. i18n: file: keyboardconfigurationdlg.ui:74
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:33 rc.cpp:33
-msgid "Tab: "
-msgstr "Tab:"
-
-#. i18n: file: keyboardconfigurationdlg.ui:84
-#. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
-#. i18n: file: keyboardconfigurationdlg.ui:91
-#. i18n: ectx: property (text), widget (KPushButton, pbAddTab)
-#. i18n: file: keyboardconfigurationdlg.ui:148
-#. i18n: ectx: property (text), widget (KPushButton, pbAddButton)
-#. i18n: file: keyboardconfigurationdlg.ui:84
-#. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
-#. i18n: file: keyboardconfigurationdlg.ui:91
-#. i18n: ectx: property (text), widget (KPushButton, pbAddTab)
-#. i18n: file: keyboardconfigurationdlg.ui:148
-#. i18n: ectx: property (text), widget (KPushButton, pbAddButton)
-#: po/rc.cpp:36 po/rc.cpp:39 po/rc.cpp:54 rc.cpp:36 rc.cpp:39 rc.cpp:54
-msgid "Add"
-msgstr "Hinzufügen"
-
-#. i18n: file: keyboardconfigurationdlg.ui:98
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteSet)
-#. i18n: file: keyboardconfigurationdlg.ui:105
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTab)
-#. i18n: file: keyboardconfigurationdlg.ui:155
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteButton)
-#. i18n: file: keyboardconfigurationdlg.ui:98
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteSet)
-#. i18n: file: keyboardconfigurationdlg.ui:105
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTab)
-#. i18n: file: keyboardconfigurationdlg.ui:155
-#. i18n: ectx: property (text), widget (KPushButton, pbDeleteButton)
-#: po/rc.cpp:42 po/rc.cpp:45 po/rc.cpp:57 rc.cpp:42 rc.cpp:45 rc.cpp:57
-msgid "Delete"
-msgstr "Löschen"
-
-#. i18n: file: keyboardconfigurationdlg.ui:112
-#. i18n: ectx: property (text), widget (KPushButton, pbTabUp)
-#. i18n: file: keyboardconfigurationdlg.ui:162
-#. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
-#. i18n: file: keyboardconfigurationdlg.ui:112
-#. i18n: ectx: property (text), widget (KPushButton, pbTabUp)
-#. i18n: file: keyboardconfigurationdlg.ui:162
-#. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
-#: po/rc.cpp:48 po/rc.cpp:60 rc.cpp:48 rc.cpp:60
-msgid "Up"
-msgstr "Rauf"
-
-#. i18n: file: keyboardconfigurationdlg.ui:119
-#. i18n: ectx: property (text), widget (KPushButton, pbTabDown)
-#. i18n: file: keyboardconfigurationdlg.ui:169
-#. i18n: ectx: property (text), widget (KPushButton, pbDownButton)
-#. i18n: file: keyboardconfigurationdlg.ui:119
-#. i18n: ectx: property (text), widget (KPushButton, pbTabDown)
-#. i18n: file: keyboardconfigurationdlg.ui:169
-#. i18n: ectx: property (text), widget (KPushButton, pbDownButton)
-#: po/rc.cpp:51 po/rc.cpp:63 rc.cpp:51 rc.cpp:63
-msgid "Down"
-msgstr "Runter"
-
-#. i18n: file: keyboardconfigurationdlg.ui:194
-#. i18n: ectx: attribute (title), widget (QWidget, Numpad)
-#: po/rc.cpp:66 rc.cpp:66
-msgid "Numpad"
-msgstr "Zahlenblock"
-
-#. i18n: file: keyboardconfigurationdlg.ui:206
+#. i18n: file: keyboardconfigurationdlg.ui:32
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowNumpad)
-#: po/rc.cpp:69 rc.cpp:69
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Show Numpad"
 msgstr "Zahlenblock anzeigen"
 
-#. i18n: file: keyboardconfigurationdlg.ui:218
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: po/rc.cpp:72 rc.cpp:72
-msgid "Number backspace trigger:"
-msgstr "Nummer löschen Auslöser:"
+#. i18n: file: keyboardconfigurationdlg.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, cbCaseSensitivity)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Case sensitive trigger checking"
+msgstr "Groß- / Kleinschreibung beachten"
 
-#. i18n: file: keyboardconfigurationdlg.ui:234
-#. i18n: ectx: property (text), widget (QCheckBox, cbEnableNumberBasedSelection)
-#: po/rc.cpp:75 rc.cpp:75
-msgid "Enable number based key selection"
-msgstr "Nummern basierte Tastenauswahl"
+#. i18n: file: keyboardconfigurationdlg.ui:60
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Set: "
+msgstr "Set:"
 
-#. i18n: file: keyboardconfigurationdlg.ui:282
-#. i18n: ectx: property (text), widget (QCheckBox, cbEnableNumberWriteOut)
-#: po/rc.cpp:81 rc.cpp:81
-msgid "Enable number write out"
-msgstr "Nummer ausschreiben"
+#. i18n: file: keyboardconfigurationdlg.ui:77
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Tab: "
+msgstr "Tab:"
 
-#. i18n: file: keyboardconfigurationdlg.ui:344
-#. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
-#: po/rc.cpp:87 rc.cpp:87
-msgid "Special keys"
-msgstr "Spezialtasten"
+#. i18n: file: keyboardconfigurationdlg.ui:87
+#. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
+#. i18n: file: keyboardconfigurationdlg.ui:94
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTab)
+#. i18n: file: keyboardconfigurationdlg.ui:165
+#. i18n: ectx: property (text), widget (KPushButton, pbAddButton)
+#. i18n: file: keyboardconfigurationdlg.ui:87
+#. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
+#. i18n: file: keyboardconfigurationdlg.ui:94
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTab)
+#. i18n: file: keyboardconfigurationdlg.ui:165
+#. i18n: ectx: property (text), widget (KPushButton, pbAddButton)
+#: po/rc.cpp:18 po/rc.cpp:21 po/rc.cpp:42 rc.cpp:18 rc.cpp:21 rc.cpp:42
+msgid "Add"
+msgstr "Hinzufügen"
 
-#. i18n: file: keyboardconfigurationdlg.ui:620
-#. i18n: ectx: property (text), widget (QCheckBox, cbAlt)
-#. i18n: file: keyboardwidget.ui:242
-#. i18n: ectx: property (text), widget (KPushButton, pbAlt)
-#. i18n: file: keyboardconfigurationdlg.ui:620
-#. i18n: ectx: property (text), widget (QCheckBox, cbAlt)
-#. i18n: file: keyboardwidget.ui:242
-#. i18n: ectx: property (text), widget (KPushButton, pbAlt)
-#: po/rc.cpp:120 po/rc.cpp:204 rc.cpp:120 rc.cpp:204
-msgid "Alt"
-msgstr "Alt"
+#. i18n: file: keyboardconfigurationdlg.ui:101
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteSet)
+#. i18n: file: keyboardconfigurationdlg.ui:108
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTab)
+#. i18n: file: keyboardconfigurationdlg.ui:179
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteButton)
+#. i18n: file: keyboardconfigurationdlg.ui:101
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteSet)
+#. i18n: file: keyboardconfigurationdlg.ui:108
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTab)
+#. i18n: file: keyboardconfigurationdlg.ui:179
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteButton)
+#: po/rc.cpp:24 po/rc.cpp:27 po/rc.cpp:48 rc.cpp:24 rc.cpp:27 rc.cpp:48
+msgid "Delete"
+msgstr "Löschen"
 
-#. i18n: file: keyboardconfigurationdlg.ui:671
-#. i18n: ectx: property (text), widget (QCheckBox, cbAltGr)
-#. i18n: file: keyboardwidget.ui:252
-#. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
-#. i18n: file: keyboardconfigurationdlg.ui:671
-#. i18n: ectx: property (text), widget (QCheckBox, cbAltGr)
-#. i18n: file: keyboardwidget.ui:252
-#. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
-#: po/rc.cpp:126 po/rc.cpp:207 rc.cpp:126 rc.cpp:207
-msgid "AltGr"
-msgstr "AltGr"
+#. i18n: file: keyboardconfigurationdlg.ui:115
+#. i18n: ectx: property (text), widget (KPushButton, pbTabUp)
+#. i18n: file: keyboardconfigurationdlg.ui:186
+#. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
+#. i18n: file: keyboardconfigurationdlg.ui:115
+#. i18n: ectx: property (text), widget (KPushButton, pbTabUp)
+#. i18n: file: keyboardconfigurationdlg.ui:186
+#. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
+#: po/rc.cpp:30 po/rc.cpp:51 rc.cpp:30 rc.cpp:51
+msgid "Up"
+msgstr "Rauf"
+
+#. i18n: file: keyboardconfigurationdlg.ui:122
+#. i18n: ectx: property (text), widget (KPushButton, pbEditSet)
+#. i18n: file: keyboardconfigurationdlg.ui:129
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTab)
+#. i18n: file: keyboardconfigurationdlg.ui:172
+#. i18n: ectx: property (text), widget (KPushButton, pbEditButton)
+#. i18n: file: keyboardconfigurationdlg.ui:122
+#. i18n: ectx: property (text), widget (KPushButton, pbEditSet)
+#. i18n: file: keyboardconfigurationdlg.ui:129
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTab)
+#. i18n: file: keyboardconfigurationdlg.ui:172
+#. i18n: ectx: property (text), widget (KPushButton, pbEditButton)
+#: po/rc.cpp:33 po/rc.cpp:36 po/rc.cpp:45 rc.cpp:33 rc.cpp:36 rc.cpp:45
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#. i18n: file: keyboardconfigurationdlg.ui:136
+#. i18n: ectx: property (text), widget (KPushButton, pbTabDown)
+#. i18n: file: keyboardconfigurationdlg.ui:193
+#. i18n: ectx: property (text), widget (KPushButton, pbDownButton)
+#. i18n: file: keyboardconfigurationdlg.ui:136
+#. i18n: ectx: property (text), widget (KPushButton, pbTabDown)
+#. i18n: file: keyboardconfigurationdlg.ui:193
+#. i18n: ectx: property (text), widget (KPushButton, pbDownButton)
+#: po/rc.cpp:39 po/rc.cpp:54 rc.cpp:39 rc.cpp:54
+msgid "Down"
+msgstr "Runter"
 
 #. i18n: file: keyboardwidget.ui:31
 #. i18n: ectx: property (title), widget (QGroupBox, gbNumPad)
-#: po/rc.cpp:141 rc.cpp:141
+#: po/rc.cpp:60 rc.cpp:60
 msgid "Num pad"
 msgstr "Zahlenblock"
 
+#. i18n: file: keyboardwidget.ui:52
+#. i18n: ectx: property (text), widget (KPushButton, pbNumberBackspace)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "Number Backspace"
+msgstr "Nummer löschen"
+
 #. i18n: file: keyboardwidget.ui:61
 #. i18n: ectx: property (text), widget (KPushButton, pb7)
-#: po/rc.cpp:147 rc.cpp:147
+#: po/rc.cpp:66 rc.cpp:66
 msgid "7"
 msgstr "7"
 
 #. i18n: file: keyboardwidget.ui:68
 #. i18n: ectx: property (text), widget (KPushButton, pb8)
-#: po/rc.cpp:150 rc.cpp:150
+#: po/rc.cpp:69 rc.cpp:69
 msgid "8"
 msgstr "8"
 
 #. i18n: file: keyboardwidget.ui:75
 #. i18n: ectx: property (text), widget (KPushButton, pb9)
-#: po/rc.cpp:153 rc.cpp:153
+#: po/rc.cpp:72 rc.cpp:72
 msgid "9"
 msgstr "9"
 
 #. i18n: file: keyboardwidget.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, pb4)
-#: po/rc.cpp:156 rc.cpp:156
+#: po/rc.cpp:75 rc.cpp:75
 msgid "4"
 msgstr "4"
 
 #. i18n: file: keyboardwidget.ui:89
 #. i18n: ectx: property (text), widget (KPushButton, pb5)
-#: po/rc.cpp:159 rc.cpp:159
+#: po/rc.cpp:78 rc.cpp:78
 msgid "5"
 msgstr "5"
 
 #. i18n: file: keyboardwidget.ui:96
 #. i18n: ectx: property (text), widget (KPushButton, pb6)
-#: po/rc.cpp:162 rc.cpp:162
+#: po/rc.cpp:81 rc.cpp:81
 msgid "6"
 msgstr "6"
 
 #. i18n: file: keyboardwidget.ui:103
 #. i18n: ectx: property (text), widget (KPushButton, pb1)
-#: po/rc.cpp:165 rc.cpp:165
+#: po/rc.cpp:84 rc.cpp:84
 msgid "1"
 msgstr "1"
 
 #. i18n: file: keyboardwidget.ui:110
 #. i18n: ectx: property (text), widget (KPushButton, pb2)
-#: po/rc.cpp:168 rc.cpp:168
+#: po/rc.cpp:87 rc.cpp:87
 msgid "2"
 msgstr "2"
 
 #. i18n: file: keyboardwidget.ui:117
 #. i18n: ectx: property (text), widget (KPushButton, pb3)
-#: po/rc.cpp:171 rc.cpp:171
+#: po/rc.cpp:90 rc.cpp:90
 msgid "3"
 msgstr "3"
 
 #. i18n: file: keyboardwidget.ui:124
 #. i18n: ectx: property (text), widget (KPushButton, pb0)
-#: po/rc.cpp:174 rc.cpp:174
+#: po/rc.cpp:93 rc.cpp:93
 msgid "0"
 msgstr "0"
 
 #. i18n: file: keyboardwidget.ui:131
 #. i18n: ectx: property (text), widget (KPushButton, pbDecimalSeparator)
-#: po/rc.cpp:177 rc.cpp:177
+#: po/rc.cpp:96 rc.cpp:96
 msgid "."
 msgstr ","
 
-#. i18n: file: keyboardwidget.ui:228
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: po/rc.cpp:198 rc.cpp:198
-msgid "Ok"
-msgstr "Ok"
+#. i18n: file: modifybuttondlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ModifyButtonDlg)
+#: po/rc.cpp:132 rc.cpp:132
+msgid "Add button"
+msgstr "Nummer hinzufügen"
+
+#. i18n: file: modifybuttondlg.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:135 rc.cpp:135
+msgid "Name:"
+msgstr "Name:"
+
+#. i18n: file: modifybuttondlg.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:138 rc.cpp:138
+msgid "Trigger:"
+msgstr "Auslöser:"
+
+#. i18n: file: modifybuttondlg.ui:43
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:141 rc.cpp:141
+msgid "Type:"
+msgstr "Typ:"
 
 #. i18n: file: simonkeyboardpluginui.rc:6
 #. i18n: ectx: Menu (commands)
-#: po/rc.cpp:213 rc.cpp:213
+#: po/rc.cpp:150 rc.cpp:150
 msgid "Commands"
 msgstr "Kommandos"
 
-#: po/rc.cpp:214 rc.cpp:214
+#: po/rc.cpp:151 rc.cpp:151
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:215 rc.cpp:215
+#: po/rc.cpp:152 rc.cpp:152
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#~ msgid "Write out number"
+#~ msgstr "Nummer hinschreiben"
+
+#~ msgid "Alternate"
+#~ msgstr "Alternative"
+
+#~ msgid "Alternate Graphics"
+#~ msgstr "Alternative Grafik"
+
+#~ msgid "Failed to save keyboard sets"
+#~ msgstr "Konnte Sets nicht speichern"
+
+#~ msgid "CapsLock"
+#~ msgstr "Großschreiben "
+
+#~ msgid "Alternate Graphic"
+#~ msgstr "Alternative Grafik"
+
+#~ msgid "Sets"
+#~ msgstr "Sets"
+
+#~ msgid "Numpad"
+#~ msgstr "Zahlenblock"
+
+#~ msgid "Number backspace trigger:"
+#~ msgstr "Nummer löschen Auslöser:"
+
+#~ msgid "Enable number based key selection"
+#~ msgstr "Nummern basierte Tastenauswahl"
+
+#~ msgid "Enable number write out"
+#~ msgstr "Nummer ausschreiben"
+
+#~ msgid "Special keys"
+#~ msgstr "Spezialtasten"
 
 #~ msgid "Input Number"
 #~ msgstr "Nummer eingeben"

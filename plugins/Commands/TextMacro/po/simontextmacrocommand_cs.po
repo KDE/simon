@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simontextmacrocommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:57+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 14:24+0100\n"
 "PO-Revision-Date: 2009-03-03 19:56+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -38,20 +39,16 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: textmacrocommand.cpp:30
+#: textmacrocommand.cpp:32
 msgid "Text-Macro"
 msgstr "Textové makro"
 
-#: textmacrocommand.cpp:51
+#: textmacrocommand.cpp:53
 msgid "Text"
 msgstr "Text"
 
-#: textmacrocommandmanager.cpp:58
-msgid "[INF] Loading text-macro commands from %1"
-msgstr "[INF] Nahrává příkazy textových maker z %1"
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Nahrává příkazy textových maker z %1"
 
-#: textmacrocommandmanager.cpp:73
-msgid "[INF] Saving text-macro commands to %1"
-msgstr "[INF] Ukládá příkazy textových maker do %1"
-
-
+#~ msgid "[INF] Saving text-macro commands to %1"
+#~ msgstr "[INF] Ukládá příkazy textových maker do %1"

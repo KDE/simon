@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:36+0100\n"
+"POT-Creation-Date: 2010-02-09 14:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,20 +44,12 @@ msgstr ""
 msgid "Select Place"
 msgstr ""
 
-#: placecommand.cpp:29
+#: placecommand.cpp:33
 msgid "Place"
 msgstr ""
 
-#: placecommand.cpp:50
+#: placecommand.cpp:54
 msgid "URL"
-msgstr ""
-
-#: placecommandmanager.cpp:69
-msgid "[INF] Loading place commands from %1"
-msgstr ""
-
-#: placecommandmanager.cpp:79
-msgid "[INF] Saving place commands to %1"
 msgstr ""
 
 #. i18n: file: createplacecommandwidget.ui:13

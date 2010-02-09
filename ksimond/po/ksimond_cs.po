@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-26 12:02+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 12:53+0100\n"
 "PO-Revision-Date: 2009-03-02 21:06+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -35,8 +35,7 @@ msgstr "Zda chceme, aby byl simond spouštěn automaticky."
 msgid ""
 "wether we want to start simond automatically after it quit unexpectedly."
 msgstr ""
-"Zda chceme, aby byl simond spouštěn automaticky poté, co neočekávaně "
-"ukončil "
+"Zda chceme, aby byl simond spouštěn automaticky poté, co neočekávaně ukončil "
 "svou činnost."
 
 #. i18n: file: config/ksimondconfiguration.ui:14
@@ -73,39 +72,44 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: src/ksimondview.cpp:47
+#: src/ksimondview.cpp:53
 msgid "simond"
 msgstr "Simond"
 
-#: src/ksimondview.cpp:50 src/ksimondview.cpp:77
+#: src/ksimondview.cpp:56 src/ksimondview.cpp:84
 msgid "Start simond"
 msgstr "Spustit simond"
 
-#: src/ksimondview.cpp:57 src/ksimondview.cpp:78
+#: src/ksimondview.cpp:61 src/ksimondview.cpp:83
+#, fuzzy
+msgid "Start simon"
+msgstr "Spustit simond"
+
+#: src/ksimondview.cpp:66 src/ksimondview.cpp:85
 msgid "Restart simond"
 msgstr "Spustit simond znovu"
 
-#: src/ksimondview.cpp:65 src/ksimondview.cpp:79
+#: src/ksimondview.cpp:72 src/ksimondview.cpp:86
 msgid "Stop simond"
 msgstr "Zastavit simond"
 
-#: src/ksimondview.cpp:72 src/ksimondview.cpp:80
+#: src/ksimondview.cpp:78 src/ksimondview.cpp:87
 msgid "Configuration"
 msgstr "Nastavení"
 
-#: src/ksimondview.cpp:104
+#: src/ksimondview.cpp:116
 msgid "simond is already running"
 msgstr "Simond již běží"
 
-#: src/ksimondview.cpp:125
+#: src/ksimondview.cpp:137
 msgid "simond stopped"
 msgstr "Simond je zastaven"
 
-#: src/ksimondview.cpp:140
+#: src/ksimondview.cpp:152
 msgid "simond started"
 msgstr "Simond je spuštěn"
 
-#: src/ksimondview.cpp:171
+#: src/ksimondview.cpp:183
 msgid ""
 "Couldn't start simond.\n"
 "\n"
@@ -119,31 +123,31 @@ msgstr ""
 "\n"
 "Příkaz: \"%1\""
 
-#: src/ksimondview.cpp:175
+#: src/ksimondview.cpp:187
 msgid "simond crashed. (Status: %1)"
 msgstr "Simond havaroval. (Stav: %1)"
 
-#: src/ksimondview.cpp:179
+#: src/ksimondview.cpp:191
 msgid "Timeout."
 msgstr "Přerušení."
 
-#: src/ksimondview.cpp:182
+#: src/ksimondview.cpp:194
 msgid "Couldn't communicate with simond: Write failed."
 msgstr "Se simond nelze komunikovat: zápis selhal."
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:197
 msgid "Couldn't communicate with simond: Read failed."
 msgstr "Se simond nelze komunikovat: čtení selhalo."
 
-#: src/ksimondview.cpp:188
+#: src/ksimondview.cpp:200
 msgid "Unknown Error"
 msgstr "Neznámá chyba"
 
-#: src/main.cpp:8
+#: src/main.cpp:9
 msgid "A KDE 4 frontend for simond"
 msgstr ""
-"Systém určený prostředí KDE 4 kontrolující komunikaci mezi počítačem "
-"a serverem pro simond"
+"Systém určený prostředí KDE 4 kontrolující komunikaci mezi počítačem a "
+"serverem pro simond"
 
 #: src/main.cpp:14
 msgid "ksimond"
@@ -156,4 +160,3 @@ msgstr "(C) 2008 Peter Grasch"
 #: src/main.cpp:16
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
-

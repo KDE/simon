@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simond_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-26 12:02+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 12:49+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -96,6 +96,12 @@ msgstr "L'emplacement du certificat SSL."
 msgid "The path to the database."
 msgstr "L'emplacement de la base de données."
 
+#. i18n: file: config/simondconfiguration.kcfg:40
+#. i18n: ectx: label, entry (ModelBackups), group (ModelManagement)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "how many model versions we should preserve."
+msgstr ""
+
 #. i18n: file: config/simondnetworkconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
 #. i18n: file: config/simonduserconfiguration.ui:14
@@ -104,13 +110,13 @@ msgstr "L'emplacement de la base de données."
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
 #. i18n: file: config/simonduserconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
-#: po/rc.cpp:24 po/rc.cpp:52 rc.cpp:24 rc.cpp:52
+#: po/rc.cpp:27 po/rc.cpp:55 rc.cpp:27 rc.cpp:55
 msgid "Form"
 msgstr "Form"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:30 rc.cpp:30
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -127,57 +133,56 @@ msgid ""
 msgstr ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Bitstream Vera Sans'; font-weight:600;\">Note : </span><span "
-"style=\" font-family:'Bitstream Vera Sans';\"> Vous devez redémarrer simond "
-"pour que les changements prennent effet.</span></p>"
-"</body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">Note : </span><span style="
+"\" font-family:'Bitstream Vera Sans';\"> Vous devez redémarrer simond pour "
+"que les changements prennent effet.</span></p></body></html>"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:34 rc.cpp:34
+#: po/rc.cpp:37 rc.cpp:37
 msgid "Port:"
 msgstr "Port :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
-#: po/rc.cpp:37 rc.cpp:37
+#: po/rc.cpp:40 rc.cpp:40
 msgid "Only allow connections from:"
 msgstr "Autoriser les connexions uniquement depuis :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:75
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
-#: po/rc.cpp:40 rc.cpp:40
+#: po/rc.cpp:43 rc.cpp:43
 msgid "Encryption"
 msgstr "Chiffrage"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:84
 #. i18n: ectx: property (text), widget (QLabel, lbCipher)
-#: po/rc.cpp:43 rc.cpp:43
+#: po/rc.cpp:46 rc.cpp:46
 msgid "Algorithm:"
 msgstr "Algorithme :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:94
 #. i18n: ectx: property (text), widget (QLabel, lbCert)
-#: po/rc.cpp:46 rc.cpp:46
+#: po/rc.cpp:49 rc.cpp:49
 msgid "Certificate:"
 msgstr "Certificat :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:101
 #. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
-#: po/rc.cpp:49 rc.cpp:49
+#: po/rc.cpp:52 rc.cpp:52
 msgid "SSL-Certificate *.pem"
 msgstr "Certificat SSL *.pem"
 
 #. i18n: file: config/simonduserconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:55 rc.cpp:55
+#: po/rc.cpp:58 rc.cpp:58
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -193,88 +198,90 @@ msgid ""
 msgstr ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
 "size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
 "weight:600;\">ATTENTION : </span> Tous les changements effectués ici seront "
-"appliqués immédiatement.</p>"
-"</body></html>"
+"appliqués immédiatement.</p></body></html>"
 
 #. i18n: file: config/simonduserconfiguration.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:62 rc.cpp:62
+#: po/rc.cpp:65 rc.cpp:65
 msgid "Database:"
 msgstr "Base de données :"
 
 #. i18n: file: config/simonduserconfiguration.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:65 rc.cpp:65
+#: po/rc.cpp:68 rc.cpp:68
 msgid "Add"
 msgstr "Ajouter"
 
 #. i18n: file: config/simonduserconfiguration.ui:70
 #. i18n: ectx: property (text), widget (KPushButton, pbChangePassword)
-#: po/rc.cpp:68 rc.cpp:68
+#: po/rc.cpp:71 rc.cpp:71
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
 #. i18n: file: config/simonduserconfiguration.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:71 rc.cpp:71
+#: po/rc.cpp:74 rc.cpp:74
 msgid "Delete"
 msgstr "Supprimer"
 
-#: po/rc.cpp:72 rc.cpp:72
+#: po/rc.cpp:75 rc.cpp:75
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:73 rc.cpp:73
+#: po/rc.cpp:76 rc.cpp:76
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/juliuscontrol.cpp:373
+#: src/juliuscontrol.cpp:394
+msgid "Couldn't open log file. Please ignore detailed log output!"
+msgstr ""
+
+#: src/juliuscontrol.cpp:403
 msgid "Internal Jconf error"
 msgstr "Erreur interne de Jconf"
 
-#: src/juliuscontrol.cpp:382
+#: src/juliuscontrol.cpp:416
 msgid "Could not initialize recognition"
 msgstr "Impossible d'initialiser de reconnaissance"
 
-#: src/juliuscontrol.cpp:416
+#: src/juliuscontrol.cpp:447
 msgid "Couldn't start adin-thread"
 msgstr "Impossible de démarrer le fil d'exécution adin"
 
-#: src/juliuscontrol.cpp:431
+#: src/juliuscontrol.cpp:462
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/juliuscontrol.cpp:435
+#: src/juliuscontrol.cpp:466
 msgid "Couldn't initialize microphone"
 msgstr "Impossible d'initialiser le microphone"
 
-#: src/juliuscontrol.cpp:436
+#: src/juliuscontrol.cpp:467
 msgid "Error with the audio stream"
 msgstr "Erreur concernant le flux audio"
 
-#: src/main.cpp:32
+#: src/main.cpp:36
 msgid "The simon recognition daemon"
 msgstr "Le démon de reconnaissance de simon"
 
-#: src/main.cpp:38
+#: src/main.cpp:40
 msgid "simond"
 msgstr "simond"
 
-#: src/main.cpp:39
+#: src/main.cpp:41
 msgid "(C) 2008 Peter Grasch"
 msgstr "(C) 2008 Peter Grasch"
 
-#: src/main.cpp:40
+#: src/main.cpp:42
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
-

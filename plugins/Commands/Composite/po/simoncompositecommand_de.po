@@ -1,14 +1,14 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2010 Peter Grasch
+# This file is distributed under the same license as the simon package.
 #
-# Peter Grasch <grasch@simon-listens.org>, 2009.
+# Peter Grasch <grasch@simon-listens.org>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: simoncompositecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:34+0100\n"
-"PO-Revision-Date: 2009-01-13 17:02+0100\n"
+"POT-Creation-Date: 2010-02-09 13:21+0100\n"
+"PO-Revision-Date: 2010-02-09 14:23+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,29 +17,26 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: compositecommand.cpp:32
+#: compositecommand.cpp:37
 msgid "Composite"
 msgstr "Kombination"
 
-#: compositecommand.cpp:53
+#: compositecommand.cpp:58
 msgid "Commands"
 msgstr "Kommandos"
 
-#: compositecommand.cpp:64 compositecommand.cpp:65
-#: createcompositecommandwidget.cpp:121 delaycommand.cpp:30
-#: delaycommand.cpp:51
+#: compositecommand.cpp:96 compositecommand.cpp:97
+#: createcompositecommandwidget.cpp:138 delaycommand.cpp:37
+#: delaycommand.cpp:58
 msgid "Delay"
 msgstr "Verzögerung"
 
-#: compositecommandmanager.cpp:68
-msgid "[INF] Loading composite commands from %1"
-msgstr "[INF] Lade Kombinations-Kommandos von %1"
+#: compositecommand.cpp:109 createcompositecommandwidget.cpp:133
+#: launchercommand.cpp:44
+msgid "Launcher"
+msgstr "Starter"
 
-#: compositecommandmanager.cpp:78
-msgid "[INF] Saving composite commands to %1"
-msgstr "[INF] Speichere Kombinations-Kommandos nach %1"
-
-#: createcompositecommandwidget.cpp:151
+#: createcompositecommandwidget.cpp:167
 msgid ""
 "Couldn't find all of the commands that make up this composited command.\n"
 "\n"
@@ -49,66 +46,100 @@ msgstr ""
 "\n"
 "Die fehlenden Kommandos sind: %1."
 
-#. i18n: file: createcompositecommandwidget.ui:13
+#: launchercommand.cpp:65
+msgid "Plugin"
+msgstr "Plug-In"
+
+#: launchercommand.cpp:66
+msgid "Plugin trigger"
+msgstr "Plug-In Auslöser"
+
+#: launchercommand.cpp:67
+msgid "Launcher trigger"
+msgstr "Starter Auslöser"
+
+#: launchercommand.cpp:68
+msgid "Description"
+msgstr "Beschreibung"
+
+#. i18n: file: createcompositecommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateCompositeCommandWidget)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Form"
 
-#. i18n: file: createcompositecommandwidget.ui:19
+#. i18n: file: createcompositecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Command:"
 msgstr "Kommando:"
 
-#. i18n: file: createcompositecommandwidget.ui:29
+#. i18n: file: createcompositecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Add Command"
 msgstr "Kommando hinzufügen"
 
-#. i18n: file: createcompositecommandwidget.ui:36
+#. i18n: file: createcompositecommandwidget.ui:37
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Delay:"
 msgstr "Verzögerung:"
 
-#. i18n: file: createcompositecommandwidget.ui:61
+#. i18n: file: createcompositecommandwidget.ui:62
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "ms"
 msgstr "ms"
 
-#. i18n: file: createcompositecommandwidget.ui:70
+#. i18n: file: createcompositecommandwidget.ui:71
 #. i18n: ectx: property (text), widget (QPushButton, pbAddDelay)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Add Delay"
 msgstr "Verzögerung hinzufügen"
 
-#. i18n: file: createcompositecommandwidget.ui:92
+#. i18n: file: createcompositecommandwidget.ui:93
 #. i18n: ectx: property (text), widget (QPushButton, pbRemove)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Remove"
 msgstr "Entfernen"
 
-#. i18n: file: createcompositecommandwidget.ui:102
+#. i18n: file: createcompositecommandwidget.ui:103
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
 #: po/rc.cpp:24 rc.cpp:24
 msgid "Move Up"
 msgstr "Nach Oben"
 
-#. i18n: file: createcompositecommandwidget.ui:112
+#. i18n: file: createcompositecommandwidget.ui:113
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
 #: po/rc.cpp:27 rc.cpp:27
 msgid "Move Down"
 msgstr "Nach Unten"
 
-#: po/rc.cpp:28 rc.cpp:28
+#. i18n: file: createcompositecommandwidget.ui:135
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "Launcher:"
+msgstr "Starter:"
+
+#. i18n: file: createcompositecommandwidget.ui:145
+#. i18n: ectx: property (text), widget (QPushButton, pbAddLauncher)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Add Launcher"
+msgstr "Starter hinzufügen"
+
+#: po/rc.cpp:34 rc.cpp:34
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:29 rc.cpp:29
+#: po/rc.cpp:35 rc.cpp:35
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#~ msgid "[INF] Loading composite commands from %1"
+#~ msgstr "[INF] Lade Kombinations-Kommandos von %1"
+
+#~ msgid "[INF] Saving composite commands to %1"
+#~ msgstr "[INF] Speichere Kombinations-Kommandos nach %1"

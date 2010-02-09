@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-11-26 16:22+0100\n"
+"POT-Creation-Date: 2010-02-09 13:08+0100\n"
 "PO-Revision-Date: 2009-11-26 16:30+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -589,7 +589,7 @@ msgstr "Nachsprechen möglich"
 
 #. i18n: file: src/finduser.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Users)
-#: po/rc.cpp:184 src/sscview.cpp:195 rc.cpp:184
+#: po/rc.cpp:184 src/sscview.cpp:197 rc.cpp:184
 msgid "Manage users"
 msgstr "Benutzer verwalten"
 
@@ -833,7 +833,9 @@ msgstr "Interview"
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbInterview)
 #: po/rc.cpp:406 rc.cpp:406
 msgid "The user answers interview questions freely. The answers are recorded."
-msgstr "Der Benutzer beantwortet Interviewfragen frei. Die Antworten werden aufgezeichnet."
+msgstr ""
+"Der Benutzer beantwortet Interviewfragen frei. Die Antworten werden "
+"aufgezeichnet."
 
 #. i18n: file: src/main.ui:195
 #. i18n: ectx: property (title), widget (QMenu, menuFile)
@@ -849,13 +851,13 @@ msgstr "Beenden"
 
 #. i18n: file: src/main.ui:225
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:424 src/sscview.cpp:174 rc.cpp:424
+#: po/rc.cpp:424 src/sscview.cpp:176 rc.cpp:424
 msgid "Connect"
 msgstr "Verbinden"
 
 #. i18n: file: src/main.ui:230
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:427 src/sscview.cpp:181 rc.cpp:427
+#: po/rc.cpp:427 src/sscview.cpp:183 rc.cpp:427
 msgid "Disconnect"
 msgstr "Verbindung trennen"
 
@@ -985,7 +987,7 @@ msgstr "Konnte Sprachen nicht empfangen: %1"
 msgid "Please select an user"
 msgstr "Bitte wählen Sie einen Benutzer aus"
 
-#: src/manageusers.cpp:133 src/sscview.cpp:259
+#: src/manageusers.cpp:133 src/sscview.cpp:261
 msgid ""
 "Do you really want to delete the user \"%1\" (\"%2\")?\n"
 "\n"
@@ -996,7 +998,7 @@ msgstr ""
 "\n"
 "Alle gesammelten Sprachdaten des Benutzers werden unwiederbringlich gelöscht!"
 
-#: src/manageusers.cpp:140 src/sscview.cpp:263
+#: src/manageusers.cpp:140 src/sscview.cpp:265
 msgid "Could not delete user: %1"
 msgstr "Konnte Benutzer nicht löschen: %1"
 
@@ -1012,7 +1014,7 @@ msgstr "Konnte Benutzer nicht empfangen: %1"
 msgid "User management"
 msgstr "Benutzerverwaltung"
 
-#: src/modifyuser.cpp:168
+#: src/modifyuser.cpp:169
 msgid "Do you really want to remove this user - institution association?"
 msgstr "Wollen Sie die Benutzer - Institutions Assoziation wirklich löschen?"
 
@@ -1078,15 +1080,103 @@ msgstr "Server konnte die Aufnahme nicht verarbeiten: %1"
 msgid "Could not send sample"
 msgstr "Konnte Aufnahme nicht senden"
 
-#: src/sscview.cpp:85
+#: src/sscdaccess.cpp:104
+msgid ""
+"The certificate of the remote host is self-signed and thus not "
+"trustworthy. \n"
+"\n"
+"Do you still want to continue?"
+msgstr ""
+"Das Zertifikat der Gegenstelle ist selbstsigniert und damit nicht "
+"vertrauenswürdig.\n"
+"\n"
+"Wollen Sie trotzdem fortfahren?"
+
+#: src/sscdaccess.cpp:105
+msgid "Self-Signed Certificate"
+msgstr "Selbstsigniertes Zertifikat"
+
+#: src/sscdaccess.cpp:156
+msgid "Request timed out (10000 ms)"
+msgstr "Timeout (10000 ms)"
+
+#: src/sscdaccess.cpp:206 src/sscdaccess.cpp:223 src/sscdaccess.cpp:240
+msgid "Couldn't write request"
+msgstr "Konnte Anfrage nicht senden"
+
+#: src/sscdaccess.cpp:303 src/sscdaccess.cpp:415
+msgid "User ID not found"
+msgstr "BenutzerId nicht gefunden"
+
+#: src/sscdaccess.cpp:308 src/sscdaccess.cpp:363 src/sscdaccess.cpp:393
+#: src/sscdaccess.cpp:420 src/sscdaccess.cpp:462 src/sscdaccess.cpp:505
+#: src/sscdaccess.cpp:532 src/sscdaccess.cpp:559 src/sscdaccess.cpp:584
+#: src/sscdaccess.cpp:609 src/sscdaccess.cpp:638 src/sscdaccess.cpp:663
+#: src/sscdaccess.cpp:705 src/sscdaccess.cpp:755
+msgid "Unknown error"
+msgstr "Unbekannter Fehler"
+
+#: src/sscdaccess.cpp:357
+msgid "Users could not be read"
+msgstr "Benutzer konnten nicht gelesen werden"
+
+#: src/sscdaccess.cpp:389
+msgid "Couldn't add user"
+msgstr "Konnte Benutzer nicht hinzufügen"
+
+#: src/sscdaccess.cpp:456
+msgid "Languages could not be read"
+msgstr "Sprachen konnten nicht gelesen werden"
+
+#: src/sscdaccess.cpp:499
+msgid "Institutions could not be read"
+msgstr "Institutionen konnten nicht gelesen werden"
+
+#: src/sscdaccess.cpp:528
+msgid "Couldn't add institution"
+msgstr "Konnte Institution nicht hinzufügnen"
+
+#: src/sscdaccess.cpp:554
+msgid "Institution ID not found"
+msgstr "InstitutionId nicht gefunden"
+
+#: src/sscdaccess.cpp:580
+msgid "Couldn't delete institution"
+msgstr "Konnte Institution nicht löschen"
+
+#: src/sscdaccess.cpp:605
+msgid "Couldn't delete user"
+msgstr "Konnte Benutzer nicht löschen"
+
+#: src/sscdaccess.cpp:630
+msgid "Couldn't find user"
+msgstr "Konnte Benutzer nicht finden"
+
+#: src/sscdaccess.cpp:634
+msgid "Couldn't find institution"
+msgstr "Konnte Institution nicht finden"
+
+#: src/sscdaccess.cpp:659
+msgid "Couldn't find record"
+msgstr "Konnte Datensatz nicht finden"
+
+#: src/sscdaccess.cpp:699
+msgid "User - institution associations could not be read"
+msgstr "Benutzer - Institution Assoziation konnte nicht gelesen werden"
+
+#: src/sscdaccess.cpp:751
+msgid "Server failed to store sample"
+msgstr "Server konnte die Aufnahme nicht speichern"
+
+#: src/sscview.cpp:87
 msgid "Please enter a valid user id."
 msgstr "Bitte geben Sie eine Korrekte BenutzerId ein."
 
-#: src/sscview.cpp:92
+#: src/sscview.cpp:94
 msgid "Couldn't retrieve user: %1"
 msgstr "Konnte Benutzer nicht empfangen: %1"
 
-#: src/sscview.cpp:160
+#: src/sscview.cpp:162
 msgid ""
 "Couldn't resolve institution reference id of the given user.\n"
 "\n"
@@ -1099,39 +1189,39 @@ msgstr ""
 "Sie an diesem Punkt die Institutionsspezifischen Ids in der Konfiguration "
 "deaktivieren."
 
-#: src/sscview.cpp:188
+#: src/sscview.cpp:190
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
-#: src/sscview.cpp:202
+#: src/sscview.cpp:204
 msgid "Manage institutions"
 msgstr "Institutionen verwalten"
 
-#: src/sscview.cpp:216
+#: src/sscview.cpp:218
 msgid "Disconnected"
 msgstr "Nicht verbunden"
 
-#: src/sscview.cpp:293
+#: src/sscview.cpp:295
 msgid "You are already connected."
 msgstr "Sie sind bereits verbunden."
 
-#: src/sscview.cpp:297
+#: src/sscview.cpp:299
 msgid "Connecting..."
 msgstr "Verbinde..."
 
-#: src/sscview.cpp:308
+#: src/sscview.cpp:310
 msgid "Connected"
 msgstr "Verbunden"
 
-#: src/sscview.cpp:329
+#: src/sscview.cpp:333
 msgid "Not connected"
 msgstr "Nicht verbunden"
 
-#: src/sscview.cpp:369
+#: src/sscview.cpp:375
 msgid "You are not connected."
 msgstr "Sie sind nicht verbunden."
 
-#: src/sscview.cpp:373
+#: src/sscview.cpp:379
 msgid "Disconnecting..."
 msgstr "Trenne Verbindung..."
 
@@ -1260,94 +1350,3 @@ msgstr "Interview möglich"
 #: src/usermodel.cpp:154
 msgid "Repeate Possible"
 msgstr "Nachsprechen möglich"
-
-#: sscdaccess/sscdaccess.cpp:101
-msgid ""
-"The certificate of the remote host is self-signed and thus not "
-"trustworthy. \n"
-"\n"
-"Do you still want to continue?"
-msgstr ""
-"Das Zertifikat der Gegenstelle ist selbstsigniert und damit nicht "
-"vertrauenswürdig.\n"
-"\n"
-"Wollen Sie trotzdem fortfahren?"
-
-#: sscdaccess/sscdaccess.cpp:102
-msgid "Self-Signed Certificate"
-msgstr "Selbstsigniertes Zertifikat"
-
-#: sscdaccess/sscdaccess.cpp:153
-msgid "Request timed out (10000 ms)"
-msgstr "Timeout (10000 ms)"
-
-#: sscdaccess/sscdaccess.cpp:203 sscdaccess/sscdaccess.cpp:220
-#: sscdaccess/sscdaccess.cpp:237
-msgid "Couldn't write request"
-msgstr "Konnte Anfrage nicht senden"
-
-#: sscdaccess/sscdaccess.cpp:300 sscdaccess/sscdaccess.cpp:412
-msgid "User ID not found"
-msgstr "BenutzerId nicht gefunden"
-
-#: sscdaccess/sscdaccess.cpp:305 sscdaccess/sscdaccess.cpp:360
-#: sscdaccess/sscdaccess.cpp:390 sscdaccess/sscdaccess.cpp:417
-#: sscdaccess/sscdaccess.cpp:459 sscdaccess/sscdaccess.cpp:502
-#: sscdaccess/sscdaccess.cpp:529 sscdaccess/sscdaccess.cpp:556
-#: sscdaccess/sscdaccess.cpp:581 sscdaccess/sscdaccess.cpp:606
-#: sscdaccess/sscdaccess.cpp:635 sscdaccess/sscdaccess.cpp:660
-#: sscdaccess/sscdaccess.cpp:702 sscdaccess/sscdaccess.cpp:748
-msgid "Unknown error"
-msgstr "Unbekannter Fehler"
-
-#: sscdaccess/sscdaccess.cpp:354
-msgid "Users could not be read"
-msgstr "Benutzer konnten nicht gelesen werden"
-
-#: sscdaccess/sscdaccess.cpp:386
-msgid "Couldn't add user"
-msgstr "Konnte Benutzer nicht hinzufügen"
-
-#: sscdaccess/sscdaccess.cpp:453
-msgid "Languages could not be read"
-msgstr "Sprachen konnten nicht gelesen werden"
-
-#: sscdaccess/sscdaccess.cpp:496
-msgid "Institutions could not be read"
-msgstr "Institutionen konnten nicht gelesen werden"
-
-#: sscdaccess/sscdaccess.cpp:525
-msgid "Couldn't add institution"
-msgstr "Konnte Institution nicht hinzufügnen"
-
-#: sscdaccess/sscdaccess.cpp:551
-msgid "Institution ID not found"
-msgstr "InstitutionId nicht gefunden"
-
-#: sscdaccess/sscdaccess.cpp:577
-msgid "Couldn't delete institution"
-msgstr "Konnte Institution nicht löschen"
-
-#: sscdaccess/sscdaccess.cpp:602
-msgid "Couldn't delete user"
-msgstr "Konnte Benutzer nicht löschen"
-
-#: sscdaccess/sscdaccess.cpp:627
-msgid "Couldn't find user"
-msgstr "Konnte Benutzer nicht finden"
-
-#: sscdaccess/sscdaccess.cpp:631
-msgid "Couldn't find institution"
-msgstr "Konnte Institution nicht finden"
-
-#: sscdaccess/sscdaccess.cpp:656
-msgid "Couldn't find record"
-msgstr "Konnte Datensatz nicht finden"
-
-#: sscdaccess/sscdaccess.cpp:696
-msgid "User - institution associations could not be read"
-msgstr "Benutzer - Institution Assoziation konnte nicht gelesen werden"
-
-#: sscdaccess/sscdaccess.cpp:744
-msgid "Server failed to store sample"
-msgstr "Server konnte die Aufnahme nicht speichern"

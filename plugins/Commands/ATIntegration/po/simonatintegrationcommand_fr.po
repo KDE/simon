@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonatintegrationcommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-15 15:01+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 13:12+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -17,19 +18,19 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: dbusbackend.cpp:70
+#: dbusbackend.cpp:68
 msgid "Konnte Liste der verfügbaren DBus Services nicht empfangen"
 msgstr "Impossible d'obtenir la liste des services D-Bus disponibles"
 
-#: dbusbackend.cpp:140
+#: dbusbackend.cpp:138
 msgid "Konnte %1 nicht auflösen..."
 msgstr "Impossible de résoudre %1..."
 
-#: dbusbackend.cpp:331
+#: dbusbackend.cpp:329
 msgid "Jackpot!"
 msgstr "Jackpot !"
 
-#: dbusbackend.cpp:331
+#: dbusbackend.cpp:329
 msgid ""
 "You encountered an IMPOSSIBLE error!\n"
 "\n"
@@ -48,4 +49,3 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
-

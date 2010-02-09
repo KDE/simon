@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonaicommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:33+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 13:11+0100\n"
 "PO-Revision-Date: 2009-03-03 20:23+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: aicommandmanager.cpp:48 aicommandmanager.cpp:99 aiconfiguration.cpp:34
+#: aicommandmanager.cpp:48 aicommandmanager.cpp:104 aiconfiguration.cpp:32
 msgid "Artificial Intelligence"
 msgstr "Umělá inteligence"
 
-#: aicommandmanager.cpp:99
+#: aicommandmanager.cpp:104
 msgid "Loading artificial intelligence..."
 msgstr "Nahrává se umělá inteligence..."
 
-#: aiconfiguration.cpp:35
+#: aiconfiguration.cpp:33
 msgid "Voice controlled chatbot"
 msgstr ""
-"Hlasem kontrolovaná umělá inteligence s velkým rozsahem odpovědí na "
-"přesně stanovené vzory"
+"Hlasem kontrolovaná umělá inteligence s velkým rozsahem odpovědí na přesně "
+"stanovené vzory"
 
 #. i18n: file: aiconfigurationdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, AIConfigurationDlg)
@@ -52,5 +52,3 @@ msgstr "Pavel Fric"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
-
-

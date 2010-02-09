@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonaicommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:33+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 13:11+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -17,15 +18,15 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: aicommandmanager.cpp:48 aicommandmanager.cpp:99 aiconfiguration.cpp:34
+#: aicommandmanager.cpp:48 aicommandmanager.cpp:104 aiconfiguration.cpp:32
 msgid "Artificial Intelligence"
 msgstr "Intelligence Artificielle"
 
-#: aicommandmanager.cpp:99
+#: aicommandmanager.cpp:104
 msgid "Loading artificial intelligence..."
 msgstr "Chargement de l'intelligence artificielle..."
 
-#: aiconfiguration.cpp:35
+#: aiconfiguration.cpp:33
 msgid "Voice controlled chatbot"
 msgstr "Agent conversationnel contrôlé par la voix"
 
@@ -50,4 +51,3 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
-

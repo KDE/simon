@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonplacecommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:36+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 14:23+0100\n"
 "PO-Revision-Date: 2009-03-03 20:18+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -46,21 +47,13 @@ msgstr "Stiskněte \"Dokončit\" pro dokončení tohoto kouzelníka."
 msgid "Select Place"
 msgstr "Vybrat umístění"
 
-#: placecommand.cpp:29
+#: placecommand.cpp:33
 msgid "Place"
 msgstr "Umístění"
 
-#: placecommand.cpp:50
+#: placecommand.cpp:54
 msgid "URL"
 msgstr "Internetová adresa"
-
-#: placecommandmanager.cpp:69
-msgid "[INF] Loading place commands from %1"
-msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
-
-#: placecommandmanager.cpp:79
-msgid "[INF] Saving place commands to %1"
-msgstr "[INF] Ukládá příkazy spojené s umístěními do %1"
 
 #. i18n: file: createplacecommandwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
@@ -84,7 +77,9 @@ msgstr "Zavést umístění"
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportPlace)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Using this wizard, you can import local and remote places easily."
-msgstr "S pomocí tohoto kouzelníka můžete jednoduše zavést místní a vzdálená umístění."
+msgstr ""
+"S pomocí tohoto kouzelníka můžete jednoduše zavést místní a vzdálená "
+"umístění."
 
 #. i18n: file: createplacecommandwidget.ui:29
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
@@ -204,4 +199,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
 
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Ukládá příkazy spojené s umístěními do %1"

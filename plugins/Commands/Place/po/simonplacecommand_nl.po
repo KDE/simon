@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:36+0100\n"
+"POT-Creation-Date: 2010-02-09 14:23+0100\n"
 "PO-Revision-Date: 2009-01-14 12:02+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -46,21 +46,13 @@ msgstr "Druk voltooien om deze wizard te sluiten."
 msgid "Select Place"
 msgstr "Selecteer locatie"
 
-#: placecommand.cpp:29
+#: placecommand.cpp:33
 msgid "Place"
 msgstr "Locatie"
 
-#: placecommand.cpp:50
+#: placecommand.cpp:54
 msgid "URL"
 msgstr "Link"
-
-#: placecommandmanager.cpp:69
-msgid "[INF] Loading place commands from %1"
-msgstr "[INF] Locatie-commando's van %1 laden"
-
-#: placecommandmanager.cpp:79
-msgid "[INF] Saving place commands to %1"
-msgstr "[INF] Locatie-commando's naar %1 opslaan"
 
 #. i18n: file: createplacecommandwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
@@ -203,3 +195,9 @@ msgstr "Daniël Heres"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
+
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Locatie-commando's van %1 laden"
+
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Locatie-commando's naar %1 opslaan"

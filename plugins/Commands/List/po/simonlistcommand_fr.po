@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlistcommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:35+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 14:22+0100\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -17,15 +18,11 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: commandlistwidget.cpp:86
-msgid "Back"
-msgstr "Précédent"
+#: createlistcommandwidget.cpp:131 launchercommand.cpp:44
+msgid "Launcher"
+msgstr ""
 
-#: commandlistwidget.cpp:110
-msgid "Next"
-msgstr "Suivant"
-
-#: createlistcommandwidget.cpp:140
+#: createlistcommandwidget.cpp:157
 msgid ""
 "Couldn't find all of the commands that make up this list command.\n"
 "\n"
@@ -35,129 +32,133 @@ msgstr ""
 "\n"
 "Les commandes manquantes sont : %1."
 
-#: listcommand.cpp:51
-msgid "Zero"
-msgstr "Zéro"
+#: launchercommand.cpp:65
+msgid "Plugin"
+msgstr ""
 
-#: listcommand.cpp:51
-msgid "One"
-msgstr "Un"
+#: launchercommand.cpp:66
+msgid "Plugin trigger"
+msgstr ""
 
-#: listcommand.cpp:51
-msgid "Two"
-msgstr "Deux"
+#: launchercommand.cpp:67
+msgid "Launcher trigger"
+msgstr ""
 
-#: listcommand.cpp:52
-msgid "Three"
-msgstr "Trois"
+#: launchercommand.cpp:68
+msgid "Description"
+msgstr ""
 
-#: listcommand.cpp:52
-msgid "Four"
-msgstr "Quatre"
-
-#: listcommand.cpp:52
-msgid "Five"
-msgstr "Cinq"
-
-#: listcommand.cpp:53
-msgid "Six"
-msgstr "Six"
-
-#: listcommand.cpp:53
-msgid "Seven"
-msgstr "Sept"
-
-#: listcommand.cpp:53
-msgid "Eight"
-msgstr "Huit"
-
-#: listcommand.cpp:53
-msgid "Nine"
-msgstr "Neuf"
-
-#. i18n: file: listcommand.ui:45
-#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
-#: listcommand.cpp:106 po/rc.cpp:30 rc.cpp:30
-msgid "Cancel"
-msgstr "Annuler"
-
-#: listcommand.cpp:127
-msgid "List"
-msgstr "Liste"
-
-#: listcommand.cpp:148
-msgid "Commands"
-msgstr "Commandes"
-
-#: listcommandmanager.cpp:68
-msgid "[INF] Loading list commands from %1"
-msgstr "[INF] Chargement des commandes de la liste depuis %1"
-
-#: listcommandmanager.cpp:78
-msgid "[INF] Saving list commands to %1"
-msgstr "[INF] Enregistrement des commandes de la liste dans %1"
-
-#. i18n: file: createlistcommandwidget.ui:13
+#. i18n: file: createlistcommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
-#. i18n: file: listcommand.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
-#. i18n: file: createlistcommandwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
-#. i18n: file: listcommand.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
-#: po/rc.cpp:3 po/rc.cpp:21 rc.cpp:3 rc.cpp:21
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Form"
 
-#. i18n: file: createlistcommandwidget.ui:19
+#. i18n: file: createlistcommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Command:"
 msgstr "Commande :"
 
-#. i18n: file: createlistcommandwidget.ui:29
+#. i18n: file: createlistcommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Add Command"
 msgstr "Ajouter une commande"
 
-#. i18n: file: createlistcommandwidget.ui:51
+#. i18n: file: createlistcommandwidget.ui:52
 #. i18n: ectx: property (text), widget (QPushButton, pbRemove)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Remove"
 msgstr "Enlever"
 
-#. i18n: file: createlistcommandwidget.ui:61
+#. i18n: file: createlistcommandwidget.ui:62
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Move Up"
 msgstr "Déplacer vers le haut"
 
-#. i18n: file: createlistcommandwidget.ui:71
+#. i18n: file: createlistcommandwidget.ui:72
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
-#. i18n: file: listcommand.ui:32
-#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#. i18n: file: createlistcommandwidget.ui:94
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Launcher:"
+msgstr ""
+
+#. i18n: file: createlistcommandwidget.ui:104
+#. i18n: ectx: property (text), widget (QPushButton, pbAddLauncher)
 #: po/rc.cpp:24 rc.cpp:24
-msgid "Number"
-msgstr "Nombre"
+msgid "Add Launcher"
+msgstr ""
 
-#. i18n: file: listcommand.ui:37
-#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
-#: po/rc.cpp:27 rc.cpp:27
-msgid "Command"
-msgstr "Commande"
-
-#: po/rc.cpp:31 rc.cpp:31
+#: po/rc.cpp:25 rc.cpp:25
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:32 rc.cpp:32
+#: po/rc.cpp:26 rc.cpp:26
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
 
+#~ msgid "Back"
+#~ msgstr "Précédent"
+
+#~ msgid "Next"
+#~ msgstr "Suivant"
+
+#~ msgid "Zero"
+#~ msgstr "Zéro"
+
+#~ msgid "One"
+#~ msgstr "Un"
+
+#~ msgid "Two"
+#~ msgstr "Deux"
+
+#~ msgid "Three"
+#~ msgstr "Trois"
+
+#~ msgid "Four"
+#~ msgstr "Quatre"
+
+#~ msgid "Five"
+#~ msgstr "Cinq"
+
+#~ msgid "Six"
+#~ msgstr "Six"
+
+#~ msgid "Seven"
+#~ msgstr "Sept"
+
+#~ msgid "Eight"
+#~ msgstr "Huit"
+
+#~ msgid "Nine"
+#~ msgstr "Neuf"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "List"
+#~ msgstr "Liste"
+
+#~ msgid "Commands"
+#~ msgstr "Commandes"
+
+#~ msgid "[INF] Loading list commands from %1"
+#~ msgstr "[INF] Chargement des commandes de la liste depuis %1"
+
+#~ msgid "[INF] Saving list commands to %1"
+#~ msgstr "[INF] Enregistrement des commandes de la liste dans %1"
+
+#~ msgid "Number"
+#~ msgstr "Nombre"
+
+#~ msgid "Command"
+#~ msgstr "Commande"

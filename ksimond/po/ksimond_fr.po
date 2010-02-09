@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-26 12:02+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 12:53+0100\n"
 "PO-Revision-Date: 2009-06-09 01:27+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -36,8 +36,7 @@ msgstr "Si vous souhaitez démarrer simond automatiquement."
 msgid ""
 "wether we want to start simond automatically after it quit unexpectedly."
 msgstr ""
-"Si vous souhaitez redémarrer simond automatiquement après un arrêt "
-"brutal."
+"Si vous souhaitez redémarrer simond automatiquement après un arrêt brutal."
 
 #. i18n: file: config/ksimondconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KSimondSettings)
@@ -73,39 +72,44 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/ksimondview.cpp:47
+#: src/ksimondview.cpp:53
 msgid "simond"
 msgstr "simond "
 
-#: src/ksimondview.cpp:50 src/ksimondview.cpp:77
+#: src/ksimondview.cpp:56 src/ksimondview.cpp:84
 msgid "Start simond"
 msgstr "Démarrer simond"
 
-#: src/ksimondview.cpp:57 src/ksimondview.cpp:78
+#: src/ksimondview.cpp:61 src/ksimondview.cpp:83
+#, fuzzy
+msgid "Start simon"
+msgstr "Démarrer simond"
+
+#: src/ksimondview.cpp:66 src/ksimondview.cpp:85
 msgid "Restart simond"
 msgstr "Redémarrer simond"
 
-#: src/ksimondview.cpp:65 src/ksimondview.cpp:79
+#: src/ksimondview.cpp:72 src/ksimondview.cpp:86
 msgid "Stop simond"
 msgstr "Arrêter simond"
 
-#: src/ksimondview.cpp:72 src/ksimondview.cpp:80
+#: src/ksimondview.cpp:78 src/ksimondview.cpp:87
 msgid "Configuration"
 msgstr "Configuration"
 
-#: src/ksimondview.cpp:104
+#: src/ksimondview.cpp:116
 msgid "simond is already running"
 msgstr "simond est déjà lancé"
 
-#: src/ksimondview.cpp:125
+#: src/ksimondview.cpp:137
 msgid "simond stopped"
 msgstr "simond arrêté"
 
-#: src/ksimondview.cpp:140
+#: src/ksimondview.cpp:152
 msgid "simond started"
 msgstr "simond démarré"
 
-#: src/ksimondview.cpp:171
+#: src/ksimondview.cpp:183
 msgid ""
 "Couldn't start simond.\n"
 "\n"
@@ -119,27 +123,27 @@ msgstr ""
 "\n"
 "Commande : « %1 »"
 
-#: src/ksimondview.cpp:175
+#: src/ksimondview.cpp:187
 msgid "simond crashed. (Status: %1)"
 msgstr "simond a planté. ( État : %1 )"
 
-#: src/ksimondview.cpp:179
+#: src/ksimondview.cpp:191
 msgid "Timeout."
 msgstr "Délai imparti dépassé."
 
-#: src/ksimondview.cpp:182
+#: src/ksimondview.cpp:194
 msgid "Couldn't communicate with simond: Write failed."
 msgstr "Communication avec simond impossible : L'écriture a échouée."
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:197
 msgid "Couldn't communicate with simond: Read failed."
 msgstr "Communication avec simond impossible : La lecture a échouée."
 
-#: src/ksimondview.cpp:188
+#: src/ksimondview.cpp:200
 msgid "Unknown Error"
 msgstr "Erreur inconnue"
 
-#: src/main.cpp:8
+#: src/main.cpp:9
 msgid "A KDE 4 frontend for simond"
 msgstr "Interface graphique KDE 4 de simond"
 
@@ -154,4 +158,3 @@ msgstr "(C) 2008 Peter Grasch"
 #: src/main.cpp:16
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
-

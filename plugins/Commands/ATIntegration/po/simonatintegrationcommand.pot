@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-15 15:01+0100\n"
+"POT-Creation-Date: 2010-02-09 13:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: dbusbackend.cpp:70
+#: dbusbackend.cpp:68
 msgid "Konnte Liste der verfügbaren DBus Services nicht empfangen"
 msgstr ""
 
-#: dbusbackend.cpp:140
+#: dbusbackend.cpp:138
 msgid "Konnte %1 nicht auflösen..."
 msgstr ""
 
-#: dbusbackend.cpp:331
+#: dbusbackend.cpp:329
 msgid "Jackpot!"
 msgstr ""
 
-#: dbusbackend.cpp:331
+#: dbusbackend.cpp:329
 msgid ""
 "You encountered an IMPOSSIBLE error!\n"
 "\n"

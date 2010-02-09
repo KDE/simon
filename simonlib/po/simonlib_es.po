@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-09-20 12:47+0200\n"
+"POT-Creation-Date: 2010-02-09 12:49+0100\n"
 "PO-Revision-Date: 2009-08-11 14:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
@@ -27,11 +27,7 @@ msgstr ""
 "\n"
 "Por favor, compruebe su configuración."
 
-#: commandpluginbase/commandmanager.cpp:120
-msgid "Computer"
-msgstr "Ordenador"
-
-#: eventsimulation/xeventsprivate.cpp:55
+#: eventsimulation/xeventsprivate.cpp:56
 msgid ""
 "Couldn't open display. Please check your configuration and / or contact the "
 "simond developers. (Display: \"%1\")"
@@ -39,91 +35,88 @@ msgstr ""
 "No se puede abrir la pantalla. Por favor, compruebe su configuración y / o "
 "ponerse en contacto con elsimond desarrolladores. (Pantalla: \"%1\")"
 
-#: eventsimulation/xeventsprivate.cpp:62
+#: eventsimulation/xeventsprivate.cpp:63
 msgid "The X-Server does not support the XTest extension. Please install it."
 msgstr "El X-Server no soporta la extensión XTest. Por favor, instálelo."
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:13
+#. i18n: file: simonactions/commandsettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CommandSettingsDlg)
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateVoiceCommandWidget)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateVoiceCommandWidget)
+#. i18n: file: simonscenarios/trainingsettings.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ScenarioManagementDialog)
 #. i18n: file: simonsound/postprocessing.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, Prompt)
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExternalProgramsWidget)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
-#. i18n: file: simonactions/commandsettingsdlg.ui:13
+#. i18n: file: simonactions/commandsettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CommandSettingsDlg)
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateVoiceCommandWidget)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateVoiceCommandWidget)
+#. i18n: file: simonscenarios/trainingsettings.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ScenarioManagementDialog)
 #. i18n: file: simonsound/postprocessing.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, Prompt)
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExternalProgramsWidget)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
-#: po/rc.cpp:3 po/rc.cpp:90 po/rc.cpp:103 po/rc.cpp:151 po/rc.cpp:223
-#: po/rc.cpp:247 rc.cpp:3 rc.cpp:90 rc.cpp:103 rc.cpp:151 rc.cpp:223
-#: rc.cpp:247
+#: po/rc.cpp:3 po/rc.cpp:60 po/rc.cpp:72 po/rc.cpp:111 po/rc.cpp:225
+#: po/rc.cpp:267 po/rc.cpp:280 po/rc.cpp:328 rc.cpp:3 rc.cpp:60 rc.cpp:72
+#: rc.cpp:111 rc.cpp:225 rc.cpp:267 rc.cpp:280 rc.cpp:328
 msgid "Form"
 msgstr "forma"
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, lbMinimumConfidence)
+#. i18n: file: simonactions/commandsettingsdlg.ui:24
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: po/rc.cpp:6 rc.cpp:6
+#, fuzzy
+msgid "Recognition"
+msgstr "Tasa de reconocimiento"
+
+#. i18n: file: simonactions/commandsettingsdlg.ui:32
+#. i18n: ectx: property (text), widget (QLabel, lbMinimumConfidence)
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Minimum Confidence:"
 msgstr "Mínimo de confianza:"
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:46
+#. i18n: file: simonactions/commandsettingsdlg.ui:57
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseDYM)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Display selection popup for ambiguous results"
 msgstr "Pantalla de selección de resultados ambiguos popup"
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:58
-#. i18n: ectx: property (text), widget (QLabel, lbTrigger)
-#: po/rc.cpp:12 rc.cpp:12
-msgid "Trigger:"
-msgstr "Disparador:"
-
 #. i18n: file: simonactions/commandsettingsdlg.ui:78
-#. i18n: ectx: property (text), widget (QPushButton, pbApplyToAll)
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: po/rc.cpp:15 rc.cpp:15
-msgid "Apply to all Plugins"
-msgstr "Aplicar a todos los plugins"
-
-#. i18n: file: simonactions/commandsettingsdlg.ui:87
-#. i18n: ectx: property (availableLabel), widget (KActionSelector, asCommandPlugins)
-#: po/rc.cpp:18 rc.cpp:18
-msgid "&Available Plug-Ins:"
-msgstr "&Disponible Plug-Ins:"
-
-#. i18n: file: simonactions/commandsettingsdlg.ui:90
-#. i18n: ectx: property (selectedLabel), widget (KActionSelector, asCommandPlugins)
-#: po/rc.cpp:21 rc.cpp:21
-msgid "&Selected Plug-Ins:"
-msgstr "&Optar Plug-Ins:"
+msgid "Plugin base font"
+msgstr ""
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, LogManagerDlg)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:18 rc.cpp:18
 msgid "Log Manager"
 msgstr "Log Manager"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:20
 #. i18n: ectx: property (text), widget (QTreeWidget, twLogEntries)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Date"
 msgstr "Fecha"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:25
 #. i18n: ectx: property (text), widget (QTreeWidget, twLogEntries)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:24 rc.cpp:24
 msgid "Message"
 msgstr "Informativo"
 
@@ -135,496 +128,737 @@ msgstr "Informativo"
 #. i18n: ectx: property (title), widget (QGroupBox, gwSearchInLogs)
 #. i18n: file: simonlogging/logmanagerdlg.ui:90
 #. i18n: ectx: property (text), widget (KPushButton, pbLogSearch)
-#: po/rc.cpp:33 po/rc.cpp:42 rc.cpp:33 rc.cpp:42
+#: po/rc.cpp:27 po/rc.cpp:36 rc.cpp:27 rc.cpp:36
 msgid "Search"
 msgstr "Busca"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbSearchLogsFor)
-#: po/rc.cpp:36 rc.cpp:36
+#: po/rc.cpp:30 rc.cpp:30
 msgid "Search:"
 msgstr "Busca:"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbClearSearch)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:33 rc.cpp:33
 msgid "&x"
 msgstr "&x"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:105
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogError)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:39 rc.cpp:39
 msgid "Error"
 msgstr "Error"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:112
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogUpdate)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:42 rc.cpp:42
 msgid "Update"
 msgstr "Actualización"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:125
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogInfo)
-#: po/rc.cpp:51 rc.cpp:51
+#: po/rc.cpp:45 rc.cpp:45
 msgid "Infos"
 msgstr "Informaciónes"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:132
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogSettings)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:48 rc.cpp:48
 msgid "Settings"
 msgstr "Ajuste"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:156
 #. i18n: ectx: property (text), widget (KPushButton, pbAbort)
-#: po/rc.cpp:57 simonactions/commandlistwidget.cpp:48
-#: simonactions/listcommand.cpp:135 simonlogging/logview.cpp:691
-#: simonprogresstracking/progresswidget.cpp:48 rc.cpp:57
+#: po/rc.cpp:51 simonactions/commandlistwidget.cpp:49
+#: simonactions/listcommand.cpp:159 simonlogging/logview.cpp:691
+#: simonprogresstracking/progresswidget.cpp:48 rc.cpp:51
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:165
 #. i18n: ectx: property (title), widget (SimonGroupBox, gbOnlyDay)
-#: po/rc.cpp:60 rc.cpp:60
+#: po/rc.cpp:54 rc.cpp:54
 msgid "Only of day"
 msgstr "Sólo del día"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:180
 #. i18n: ectx: property (text), widget (QLabel, lbCalendar)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:57 rc.cpp:57
 msgid "Calendar"
 msgstr "Calendario"
 
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:63 po/rc.cpp:75 rc.cpp:63 rc.cpp:75
+msgid "Action:"
+msgstr ""
+
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:33
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:66 po/rc.cpp:78 rc.cpp:66 rc.cpp:78
+#, fuzzy
+msgid "Visible Trigger:"
+msgstr "Disparador:"
+
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:40
+#. i18n: ectx: property (text), widget (KPushButton, pbFromTemplate)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:40
+#. i18n: ectx: property (text), widget (KPushButton, pbFromTemplate)
+#. i18n: file: simonscenarios/createvoicecommandwidget.ui:40
+#. i18n: ectx: property (text), widget (KPushButton, pbFromTemplate)
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:40
+#. i18n: ectx: property (text), widget (KPushButton, pbFromTemplate)
+#: po/rc.cpp:69 po/rc.cpp:81 rc.cpp:69 rc.cpp:81
+msgid "Create from Action template"
+msgstr ""
+
+#. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:50
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowIcon)
+#: po/rc.cpp:84 simonscenarios/voiceinterfacecommand.cpp:78 rc.cpp:84
+msgid "Show icon"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:7
+#. i18n: ectx: label, entry (DefaultToPowerTrain), group (UI)
+#: po/rc.cpp:87 rc.cpp:87
+msgid "if we should activate the power training per default."
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:13
+#. i18n: ectx: label, entry (ModelType), group (Model)
+#: po/rc.cpp:90 rc.cpp:90
+msgid "The type of model to use (0: static, 1: base model, 2: dynamic)"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:17
+#. i18n: ectx: label, entry (BaseModelHMMName), group (Model)
+#: po/rc.cpp:93 rc.cpp:93
+msgid "The (file) name of the last loaded base hmm"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:21
+#. i18n: ectx: label, entry (BaseModelTiedlistName), group (Model)
+#: po/rc.cpp:96 rc.cpp:96
+msgid "The (file) name of the last loaded base tiedlist"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:25
+#. i18n: ectx: label, entry (BaseModelMacrosName), group (Model)
+#: po/rc.cpp:99 rc.cpp:99
+msgid "The (file) name of the last loaded base macros"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:29
+#. i18n: ectx: label, entry (BaseModelStatsName), group (Model)
+#: po/rc.cpp:102 rc.cpp:102
+msgid "The (file) name of the last loaded base stats"
+msgstr ""
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:34
+#. i18n: ectx: label, entry (ModelSampleRate), group (Model)
+#: po/rc.cpp:105 rc.cpp:105
+msgid "What samplerate the trainings samples should be recorded in."
+msgstr "¿Qué tasa de muestreo debería ser el entrenamiento de datos."
+
+#. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:38
+#. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
+#: po/rc.cpp:108 rc.cpp:108
+msgid "Where to save the trainings samples."
+msgstr "¿Dónde guardar los entrenamientos muestras?"
+
+#. i18n: file: simonscenarios/trainingsettings.ui:20
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
+#: po/rc.cpp:114 rc.cpp:114
+msgid "Activate power training by default"
+msgstr ""
+
+#. i18n: file: simonscenarios/trainingsettings.ui:29
+#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
+#: po/rc.cpp:117 rc.cpp:117
+msgid "Samplerate:"
+msgstr "Muestreo:"
+
+#. i18n: file: simonscenarios/trainingsettings.ui:54
+#. i18n: ectx: property (text), widget (QLabel, lbHz)
+#. i18n: file: simonsound/deviceconfiguration.ui:130
+#. i18n: ectx: property (text), widget (QLabel, lbHz)
+#. i18n: file: simonscenarios/trainingsettings.ui:54
+#. i18n: ectx: property (text), widget (QLabel, lbHz)
+#. i18n: file: simonsound/deviceconfiguration.ui:130
+#. i18n: ectx: property (text), widget (QLabel, lbHz)
+#: po/rc.cpp:120 po/rc.cpp:258 rc.cpp:120 rc.cpp:258
+msgid "Hz"
+msgstr "Hz"
+
+#. i18n: file: simonscenarios/trainingsettings.ui:63
+#. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
+#: po/rc.cpp:123 rc.cpp:123
+msgid "Path to the Trainingssamples:"
+msgstr "Camino al muestras de entrenamiento:"
+
+#. i18n: file: simonscenarioui/modifyauthor.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ModifyAuthor)
+#: po/rc.cpp:126 simonscenarioui/newauthor.cpp:33 rc.cpp:126
+msgid "Author"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyauthor.ui:20
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#. i18n: file: simonscenarioui/modifyscenario.ui:27
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#. i18n: file: simonscenarioui/modifyauthor.ui:20
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#. i18n: file: simonscenarioui/modifyscenario.ui:27
+#. i18n: ectx: property (text), widget (QLabel, lbName)
+#: po/rc.cpp:129 po/rc.cpp:144 rc.cpp:129 rc.cpp:144
+msgid "Name:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyauthor.ui:27
+#. i18n: ectx: property (toolTip), widget (KLineEdit, leName)
+#: po/rc.cpp:132 rc.cpp:132
+msgid ""
+"Name of the author. Might be a screen name but usage of the real name is "
+"encouraged."
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyauthor.ui:34
+#. i18n: ectx: property (text), widget (QLabel, lbContact)
+#: po/rc.cpp:135 rc.cpp:135
+msgid "Contact:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyauthor.ui:41
+#. i18n: ectx: property (toolTip), widget (KLineEdit, leContact)
+#: po/rc.cpp:138 rc.cpp:138
+msgid "e.g. e-Mail Adresses, Instant Messenger contact names / numbers, etc."
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, ModifyScenarioDlg)
+#: po/rc.cpp:141 simonscenarioui/newscenario.cpp:39
+#: simonscenarioui/newscenario.cpp:75 rc.cpp:141
+msgid "Scenario"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:37
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:147 rc.cpp:147
+msgid "Scenario version:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:44
+#. i18n: ectx: property (text), widget (QLabel, lbMinVersion)
+#: po/rc.cpp:150 rc.cpp:150
+msgid "Min simon version:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:51
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leMinVersion)
+#: po/rc.cpp:153 rc.cpp:153
+msgid "9.9xxxxxxx0; "
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:90
+#. i18n: ectx: property (text), widget (QLabel, lbMaxVersion)
+#: po/rc.cpp:156 rc.cpp:156
+msgid "Max simon version:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:100
+#. i18n: ectx: property (toolTip), widget (KLineEdit, leMaxVersion)
+#: po/rc.cpp:159 rc.cpp:159
+msgid "You can leave this field empty to set no maximum version."
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:103
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leMaxVersion)
+#: po/rc.cpp:162 rc.cpp:162
+msgid "0x0xxxxxxx0; "
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:110
+#. i18n: ectx: property (text), widget (QLabel, lbLicence)
+#: po/rc.cpp:165 rc.cpp:165
+msgid "Licence:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:124
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:168 rc.cpp:168
+msgid "Artistic 2.0"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:129
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:171 rc.cpp:171
+msgid "BSD"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:134
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:174 rc.cpp:174
+msgid "CPL 1.0"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:139
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:177 rc.cpp:177
+msgid "Creative Commons by"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:144
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:180 rc.cpp:180
+msgid "Creative Commons by-nc"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:149
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:183 rc.cpp:183
+msgid "Creative Commons by-nc-nd"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:154
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:186 rc.cpp:186
+msgid "Creative Commons by-nc-sa"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:159
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:189 rc.cpp:189
+msgid "Creative Commons by-nd"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:164
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:192 rc.cpp:192
+msgid "Creative Commons by-sa"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:169
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:195 rc.cpp:195
+msgid "GFDL"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:174
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:198 rc.cpp:198
+msgid "GPL"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:179
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:201 rc.cpp:201
+msgid "LGPL"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:184
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:204 rc.cpp:204
+msgid "MIT"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:189
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:207 rc.cpp:207
+msgid "Proprietary License"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:194
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:210 rc.cpp:210
+msgid "QPL"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:199
+#. i18n: ectx: property (text), item, widget (QComboBox, cbLicence)
+#: po/rc.cpp:213 rc.cpp:213
+msgid "X11"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:207
+#. i18n: ectx: property (text), widget (QLabel, lbAuthors)
+#: po/rc.cpp:216 rc.cpp:216
+msgid "Authors:"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:232
+#. i18n: ectx: property (text), widget (KPushButton, pbAddAuthor)
+#: po/rc.cpp:219 rc.cpp:219
+msgid "Add"
+msgstr ""
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:242
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveAuthor)
+#: po/rc.cpp:222 rc.cpp:222
+msgid "Remove"
+msgstr ""
+
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:29
+#. i18n: ectx: property (text), widget (KPushButton, pbCreateScenario)
+#: po/rc.cpp:228 rc.cpp:228
+msgid "New"
+msgstr ""
+
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:36
+#. i18n: ectx: property (text), widget (KPushButton, pbImportScenario)
+#: po/rc.cpp:231 rc.cpp:231
+msgid "Import"
+msgstr ""
+
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:43
+#. i18n: ectx: property (text), widget (KPushButton, pbExportScenario)
+#: po/rc.cpp:234 rc.cpp:234
+msgid "Export"
+msgstr ""
+
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:63
+#. i18n: ectx: property (text), widget (KPushButton, pbEditScenario)
+#: po/rc.cpp:237 rc.cpp:237
+#, fuzzy
+msgid "Edit"
+msgstr "Ocho"
+
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:70
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteScenario)
+#. i18n: file: simonsound/recwidget.ui:58
+#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:70
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteScenario)
+#. i18n: file: simonsound/recwidget.ui:58
+#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
+#: po/rc.cpp:240 po/rc.cpp:292 simonsound/recwidget.cpp:103 rc.cpp:240
+#: rc.cpp:292
+msgid "Delete"
+msgstr "Borrar"
+
 #. i18n: file: simonsound/deviceconfiguration.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DeviceConfiguration)
-#: po/rc.cpp:66 rc.cpp:66
+#: po/rc.cpp:243 rc.cpp:243
 msgid "Soundsettings"
 msgstr "Ajuste de sonido"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbInDevice)
-#: po/rc.cpp:69 rc.cpp:69
+#: po/rc.cpp:246 rc.cpp:246
 msgid "Input Device:"
 msgstr "Dispositivo de entrada:"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbOutDevice)
-#: po/rc.cpp:72 rc.cpp:72
+#: po/rc.cpp:249 rc.cpp:249
 msgid "Output Device:"
 msgstr "Dispositivo de salida:"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbChannels)
-#: po/rc.cpp:75 rc.cpp:75
+#: po/rc.cpp:252 rc.cpp:252
 msgid "Channels:"
 msgstr "Canales:"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
-#: po/rc.cpp:78 rc.cpp:78
+#: po/rc.cpp:255 rc.cpp:255
 msgid "Sample-Rate:"
 msgstr "Muestra los tipos de"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:130
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:54
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:54
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: simonsound/deviceconfiguration.ui:130
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:54
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:54
-#. i18n: ectx: property (text), widget (QLabel, lbHz)
-#: po/rc.cpp:81 po/rc.cpp:232 po/rc.cpp:256 rc.cpp:81 rc.cpp:232 rc.cpp:256
-msgid "Hz"
-msgstr "Hz"
-
 #. i18n: file: simonsound/deviceconfiguration.ui:159
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
-#: po/rc.cpp:84 simonlogging/logview.cpp:706 rc.cpp:84
+#: po/rc.cpp:261 simonlogging/logview.cpp:706 rc.cpp:261
 msgid "Reload"
 msgstr "Recargar"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:179
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
-#: po/rc.cpp:87 rc.cpp:87
+#: po/rc.cpp:264 rc.cpp:264
 msgid "Test"
 msgstr "Test"
 
 #. i18n: file: simonsound/postprocessing.ui:19
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ProcessInternal)
-#: po/rc.cpp:93 rc.cpp:93
+#: po/rc.cpp:270 rc.cpp:270
 msgid "Apply filters to recordings recorded with simon"
 msgstr "Aplicar filtros a las grabaciones grabadas con simon"
 
 #. i18n: file: simonsound/postprocessing.ui:26
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_ProcessingFilters)
-#: po/rc.cpp:96 rc.cpp:96
+#: po/rc.cpp:273 rc.cpp:273
 msgid "Post-Processing Commands"
 msgstr "Post-procesamiento de los comandos"
 
 #. i18n: file: simonsound/postprocessing.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:100 rc.cpp:100
+#: po/rc.cpp:277 rc.cpp:277
 #, no-c-format
 msgid "Legend: %1........Inputfile, %2........Outputfile"
 msgstr "Leyenda: %1........Fichero de entrada, %2........Fichero de Salida"
 
 #. i18n: file: simonsound/recwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, RecWidgetUi)
-#: po/rc.cpp:106 rc.cpp:106
+#: po/rc.cpp:283 rc.cpp:283
 msgid "Recording"
 msgstr "Grabar"
 
 #. i18n: file: simonsound/recwidget.ui:38
 #. i18n: ectx: property (text), widget (KPushButton, pbRecord)
-#: po/rc.cpp:109 simonsound/recwidget.cpp:93 rc.cpp:109
+#: po/rc.cpp:286 simonsound/recwidget.cpp:91 rc.cpp:286
 msgid "Record"
 msgstr "Grabación"
 
 #. i18n: file: simonsound/recwidget.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbPlay)
-#: po/rc.cpp:112 simonsound/recwidget.cpp:99 rc.cpp:112
+#: po/rc.cpp:289 simonsound/recwidget.cpp:97 rc.cpp:289
 msgid "Play"
 msgstr "Tocar"
 
-#. i18n: file: simonsound/recwidget.ui:58
-#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:115 simonsound/recwidget.cpp:105 rc.cpp:115
-msgid "Delete"
-msgstr "Borrar"
-
 #. i18n: file: simonsound/recwidget.ui:70
 #. i18n: ectx: property (format), widget (QProgressBar, pbProgress)
-#: po/rc.cpp:118 rc.cpp:118
+#: po/rc.cpp:295 rc.cpp:295
 msgid "00:00 / 00:00"
 msgstr "00:00 / 00:00"
 
 #. i18n: file: simonsound/soundconfig.kcfg:8
 #. i18n: ectx: label, entry (SoundInputDevice), group (Devices)
-#: po/rc.cpp:121 rc.cpp:121
+#: po/rc.cpp:298 rc.cpp:298
 msgid "The sounddevice used for recording."
 msgstr "El dispositivo de sonido utilizado para la grabación."
 
 #. i18n: file: simonsound/soundconfig.kcfg:12
 #. i18n: ectx: label, entry (SoundOutputDevice), group (Devices)
-#: po/rc.cpp:124 rc.cpp:124
+#: po/rc.cpp:301 rc.cpp:301
 msgid "The sounddevice used for playback."
 msgstr "El dispositivo de sonido utilizados para la reproducción."
 
 #. i18n: file: simonsound/soundconfig.kcfg:16
 #. i18n: ectx: label, entry (SoundChannels), group (Devices)
-#: po/rc.cpp:127 rc.cpp:127
+#: po/rc.cpp:304 rc.cpp:304
 msgid "How many channels should the samples be recorded with."
 msgstr "¿Cuántos canales de las muestras deben estar registrados con."
 
 #. i18n: file: simonsound/soundconfig.kcfg:20
 #. i18n: ectx: label, entry (SoundSampleRate), group (Devices)
-#: po/rc.cpp:130 rc.cpp:130
+#: po/rc.cpp:307 rc.cpp:307
 msgid "The samplerate used for recording."
 msgstr "El muestreo utilizado para la grabación."
 
 #. i18n: file: simonsound/soundconfig.kcfg:27
 #. i18n: ectx: label, entry (PromptFont), group (Prompt)
-#: po/rc.cpp:133 rc.cpp:133
+#: po/rc.cpp:310 rc.cpp:310
 msgid "The font to use for all the promtps in simon."
 msgstr "La fuente a utilizar para todos los prontos en simon."
 
 #. i18n: file: simonsound/soundconfig.kcfg:33
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
-#: po/rc.cpp:136 rc.cpp:136
+#: po/rc.cpp:313 rc.cpp:313
 msgid "If samples recorded with simon should be processed at all."
 msgstr "Si las muestras grabadas con Simon deben ser tratados en absoluto."
 
 #. i18n: file: simonsound/soundconfig.kcfg:37
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
-#: po/rc.cpp:139 rc.cpp:139
+#: po/rc.cpp:316 rc.cpp:316
 msgid "The filters (commands) to apply to the samples."
 msgstr "Los filtros (comandos), se apliquen a las muestras."
 
-#. i18n: file: speechgui/addserverconnectiondlg.ui:18
+#. i18n: file: simonuicomponents/addserverconnectiondlg.ui:18
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:142 speechgui/addserverconnection.cpp:42 rc.cpp:142
+#: po/rc.cpp:319 simonuicomponents/addserverconnection.cpp:42 rc.cpp:319
 msgid "Address:"
 msgstr "Dirección"
 
-#. i18n: file: speechgui/addserverconnectiondlg.ui:25
+#. i18n: file: simonuicomponents/addserverconnectiondlg.ui:25
 #. i18n: ectx: property (text), widget (KLineEdit, leAddress)
-#: po/rc.cpp:145 rc.cpp:145
+#: po/rc.cpp:322 rc.cpp:322
 msgid "localhost"
 msgstr "localhost"
 
-#. i18n: file: speechgui/addserverconnectiondlg.ui:32
+#. i18n: file: simonuicomponents/addserverconnectiondlg.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:148 speechgui/addserverconnection.cpp:43 rc.cpp:148
+#: po/rc.cpp:325 simonuicomponents/addserverconnection.cpp:43 rc.cpp:325
 msgid "Port:"
 msgstr "Puerto:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, gbHTK)
-#: po/rc.cpp:154 rc.cpp:154
+#: po/rc.cpp:331 rc.cpp:331
 msgid "HTK Programme"
 msgstr "Programa HTK"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbHDMan)
-#: po/rc.cpp:157 rc.cpp:157
+#: po/rc.cpp:334 rc.cpp:334
 msgid "HDMan:"
 msgstr "HDMan:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbHLEd)
-#: po/rc.cpp:160 rc.cpp:160
+#: po/rc.cpp:337 rc.cpp:337
 msgid "HLEd:"
 msgstr "HLEd:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:48
 #. i18n: ectx: property (text), widget (QLabel, lbHCopy)
-#: po/rc.cpp:163 rc.cpp:163
+#: po/rc.cpp:340 rc.cpp:340
 msgid "HCopy:"
 msgstr "HCopy:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbHCompV)
-#: po/rc.cpp:166 rc.cpp:166
+#: po/rc.cpp:343 rc.cpp:343
 msgid "HCompV:"
 msgstr "HCompV:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:103
 #. i18n: ectx: property (text), widget (QLabel, lbHERest)
-#: po/rc.cpp:169 rc.cpp:169
+#: po/rc.cpp:346 rc.cpp:346
 msgid "HERest:"
 msgstr "HERest:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:110
 #. i18n: ectx: property (text), widget (QLabel, lbHHEd)
-#: po/rc.cpp:172 rc.cpp:172
+#: po/rc.cpp:349 rc.cpp:349
 msgid "HHEd:"
 msgstr "HHEd:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbHVite)
-#: po/rc.cpp:175 rc.cpp:175
+#: po/rc.cpp:352 rc.cpp:352
 msgid "HVite:"
 msgstr "HVite:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:159
 #. i18n: ectx: property (title), widget (QGroupBox, gbJulius)
-#: po/rc.cpp:178 rc.cpp:178
+#: po/rc.cpp:355 rc.cpp:355
 msgid "Julius"
 msgstr "Julius"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:168
 #. i18n: ectx: property (text), widget (QLabel, lbMkfa)
-#: po/rc.cpp:181 rc.cpp:181
+#: po/rc.cpp:358 rc.cpp:358
 msgid "mkfa:"
 msgstr "mkfa:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:175
 #. i18n: ectx: property (text), widget (QLabel, lbDfaMinimize)
-#: po/rc.cpp:184 rc.cpp:184
+#: po/rc.cpp:361 rc.cpp:361
 msgid "dfa_minimize:"
 msgstr "dfa_minimize:"
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:7
 #. i18n: ectx: label, entry (HDMan), group (Programs)
-#: po/rc.cpp:187 rc.cpp:187
+#: po/rc.cpp:364 rc.cpp:364
 msgid "The path to the HDMan executable."
 msgstr "La ruta de acceso al ejecutable HDMan."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:11
 #. i18n: ectx: label, entry (HLEd), group (Programs)
-#: po/rc.cpp:190 rc.cpp:190
+#: po/rc.cpp:367 rc.cpp:367
 msgid "The path to the HLEd executable."
 msgstr "La ruta de acceso al ejecutable HLEd."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:15
 #. i18n: ectx: label, entry (HCopy), group (Programs)
-#: po/rc.cpp:193 rc.cpp:193
+#: po/rc.cpp:370 rc.cpp:370
 msgid "The path to the HCopy executable."
 msgstr "La ruta de acceso al ejecutable HCopy."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:19
 #. i18n: ectx: label, entry (HCompV), group (Programs)
-#: po/rc.cpp:196 rc.cpp:196
+#: po/rc.cpp:373 rc.cpp:373
 msgid "The path to the HCompV executable."
 msgstr "La ruta de acceso al ejecutable HCompV."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:23
 #. i18n: ectx: label, entry (HERest), group (Programs)
-#: po/rc.cpp:199 rc.cpp:199
+#: po/rc.cpp:376 rc.cpp:376
 msgid "The path to the HERest executable."
 msgstr "La ruta de acceso al ejecutable HERest."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:27
 #. i18n: ectx: label, entry (HHEd), group (Programs)
-#: po/rc.cpp:202 rc.cpp:202
+#: po/rc.cpp:379 rc.cpp:379
 msgid "The path to the HHEd executable."
 msgstr "La ruta de acceso al ejecutable HHEd."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:31
 #. i18n: ectx: label, entry (HVite), group (Programs)
-#: po/rc.cpp:205 rc.cpp:205
+#: po/rc.cpp:382 rc.cpp:382
 msgid "The path to the HVite executable."
 msgstr "La ruta de acceso al ejecutable HVite."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:35
 #. i18n: ectx: label, entry (mkfa), group (Programs)
-#: po/rc.cpp:208 rc.cpp:208
+#: po/rc.cpp:385 rc.cpp:385
 msgid "The path to the mkfa executable."
 msgstr "La ruta de acceso al ejecutable mkfa."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:39
 #. i18n: ectx: label, entry (dfa_minimize), group (Programs)
-#: po/rc.cpp:211 rc.cpp:211
+#: po/rc.cpp:388 rc.cpp:388
 msgid "The path to the dfa_minimize executable."
 msgstr "La ruta de acceso al ejecutable dfa_minimize."
 
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:7
-#. i18n: ectx: label, entry (DefaultToPowerTrain), group (UI)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:7
-#. i18n: ectx: label, entry (DefaultToPowerTrain), group (UI)
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:7
-#. i18n: ectx: label, entry (DefaultToPowerTrain), group (UI)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:7
-#. i18n: ectx: label, entry (DefaultToPowerTrain), group (UI)
-#: po/rc.cpp:214 po/rc.cpp:238 rc.cpp:214 rc.cpp:238
-msgid "if we should activate the power training per default."
-msgstr ""
-
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:13
-#. i18n: ectx: label, entry (ModelSampleRate), group (Model)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:13
-#. i18n: ectx: label, entry (ModelSampleRate), group (Model)
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:13
-#. i18n: ectx: label, entry (ModelSampleRate), group (Model)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:13
-#. i18n: ectx: label, entry (ModelSampleRate), group (Model)
-#: po/rc.cpp:217 po/rc.cpp:241 rc.cpp:217 rc.cpp:241
-msgid "What samplerate the trainings samples should be recorded in."
-msgstr "¿Qué tasa de muestreo debería ser el entrenamiento de datos."
-
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:17
-#. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:17
-#. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
-#. i18n: file: speechmodelmanagement_scenario/speechmodelmanagementconfiguration.kcfg:17
-#. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
-#. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:17
-#. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
-#: po/rc.cpp:220 po/rc.cpp:244 rc.cpp:220 rc.cpp:244
-msgid "Where to save the trainings samples."
-msgstr "¿Dónde guardar los entrenamientos muestras?"
-
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
-#: po/rc.cpp:226 po/rc.cpp:250 rc.cpp:226 rc.cpp:250
-msgid "Activate power training by default"
-msgstr ""
-
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:29
-#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:29
-#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:29
-#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:29
-#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#: po/rc.cpp:229 po/rc.cpp:253 rc.cpp:229 rc.cpp:253
-msgid "Samplerate:"
-msgstr "Muestreo:"
-
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:63
-#. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:63
-#. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#. i18n: file: speechmodelmanagement_scenario/trainingsettings.ui:63
-#. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:63
-#. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#: po/rc.cpp:235 po/rc.cpp:259 rc.cpp:235 rc.cpp:259
-msgid "Path to the Trainingssamples:"
-msgstr "Camino al muestras de entrenamiento:"
-
-#: po/rc.cpp:260 rc.cpp:260
+#: po/rc.cpp:389 rc.cpp:389
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Sus nombres:"
 
-#: po/rc.cpp:261 rc.cpp:261
+#: po/rc.cpp:390 rc.cpp:390
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Su correo electrónico "
 
-#: simonactions/actionmanager.cpp:165
-msgid ""
-"Couldn't initialize commandmanager \"%1\".\n"
-"\n"
-"Please check its configuration."
-msgstr ""
-"No se puede inicializar el administrador de comando \"%1\".\n"
-"\n"
-"Por favor, compruebe su configuración."
-
-#: simonactions/actionmanager.cpp:265
-msgid ""
-"The trigger \"%1\" is already assigned to another command.\n"
-"\n"
-"Do you want to delete the other command that uses the Trigger \"%1\"?"
-msgstr ""
-"La activación \"%1\" ya está asignado a otro comando.\n"
-"\n"
-"¿Desea eliminar el otro comando que utiliza de activación \"%1\"?"
-
-#: simonactions/actionmanager.cpp:305
-msgid "Couldn't add Command \"%1\"."
-msgstr "No se puede añadir el comando \"%1\"."
-
-#: simonactions/actionmanager.cpp:344
-msgid "Command could not be deleted."
-msgstr "Comando no puede ser eliminado."
-
-#: simonactions/actionmanager.cpp:532
+#: simonactions/actionmanager.cpp:221
 msgid "Did you mean ...?"
 msgstr "¿Quiso decir ...?"
 
-#: simonactions/commandlistwidget.cpp:63
+#: simonactions/actionmanager.cpp:221
+msgid ""
+"simon is not shure what you meant.\n"
+"\n"
+"Please select the correct result from the list below."
+msgstr ""
+
+#: simonactions/commandlistwidget.cpp:66
 msgid "Number"
 msgstr "Numérico"
 
-#: simonactions/commandlistwidget.cpp:65 simonactions/commandmodel.cpp:96
+#: simonactions/commandlistwidget.cpp:68 simonactions/commandmodel.cpp:96
 msgid "Command"
 msgstr "Instrucción"
 
-#: simonactions/commandlistwidget.cpp:78
+#: simonactions/commandlistwidget.cpp:81
 msgid "Automatic selection"
 msgstr ""
 
-#: simonactions/commandlistwidget.cpp:155
+#: simonactions/commandlistwidget.cpp:163
 msgid "Back"
 msgstr "Atrás"
 
-#: simonactions/commandlistwidget.cpp:179
+#: simonactions/commandlistwidget.cpp:187
 msgid "Next"
 msgstr "Ulterior"
 
-#: simonactions/commandsettings.cpp:69
-msgid "General"
-msgstr "General"
-
-#: simonactions/commandsettings.cpp:74
+#: simonactions/commandsettings.cpp:62
 msgid "Command Settings"
 msgstr "Ajuste de comando"
 
-#: simonactions/commandsettings.cpp:75
+#: simonactions/commandsettings.cpp:63
 msgid "Configuration about the Commands and the Selection of Plugins to use"
 msgstr "Configuración de los comandos y la selección de plug-ins para utilizar"
 
@@ -633,69 +867,71 @@ msgid "Delay"
 msgstr "Deceleración"
 
 #: simonactions/commandtablemodel.cpp:106
+#: simonscenarios/commandmanager.cpp:442
 msgid "Trigger"
 msgstr "Disparador"
 
-#: simonactions/commandtablemodel.cpp:108
-#: speechmodelmanagement_scenario/vocabulary.cpp:195
-#: speechmodelmanagement_scenario/wordlistmodel.cpp:128
-#: speechmodelmanagement/wordlistmodel.cpp:128
+#: simonactions/commandtablemodel.cpp:108 simonscenarios/vocabulary.cpp:172
 msgid "Category"
 msgstr "Categoría"
 
-#: simonactions/listcommand.cpp:51
+#: simonactions/listcommand.cpp:55 simonactions/listcommand.cpp:70
 msgid "Zero"
 msgstr "Cero"
 
-#: simonactions/listcommand.cpp:51
+#: simonactions/listcommand.cpp:55 simonactions/listcommand.cpp:70
 msgid "One"
 msgstr "Un"
 
-#: simonactions/listcommand.cpp:51
+#: simonactions/listcommand.cpp:55 simonactions/listcommand.cpp:70
 msgid "Two"
 msgstr "Dos"
 
-#: simonactions/listcommand.cpp:52
+#: simonactions/listcommand.cpp:56 simonactions/listcommand.cpp:71
 msgid "Three"
 msgstr "Tres"
 
-#: simonactions/listcommand.cpp:52
+#: simonactions/listcommand.cpp:56 simonactions/listcommand.cpp:71
 msgid "Four"
 msgstr "Cuatro"
 
-#: simonactions/listcommand.cpp:52
+#: simonactions/listcommand.cpp:56 simonactions/listcommand.cpp:71
 msgid "Five"
 msgstr "Cinco"
 
-#: simonactions/listcommand.cpp:53
+#: simonactions/listcommand.cpp:57 simonactions/listcommand.cpp:72
 msgid "Six"
 msgstr "Seis"
 
-#: simonactions/listcommand.cpp:53
+#: simonactions/listcommand.cpp:57 simonactions/listcommand.cpp:72
 msgid "Seven"
 msgstr "Siete"
 
-#: simonactions/listcommand.cpp:53
+#: simonactions/listcommand.cpp:57 simonactions/listcommand.cpp:72
 msgid "Eight"
 msgstr "Ocho"
 
-#: simonactions/listcommand.cpp:53
+#: simonactions/listcommand.cpp:57 simonactions/listcommand.cpp:72
 msgid "Nine"
 msgstr "Nueve"
 
-#: simonactions/listcommand.cpp:156
+#: simonactions/listcommand.cpp:140
+msgid "Launcher"
+msgstr ""
+
+#: simonactions/listcommand.cpp:180
 msgid "List"
 msgstr "Lista"
 
-#: simonactions/listcommand.cpp:177
+#: simonactions/listcommand.cpp:201
 msgid "Commands"
 msgstr "Comandos"
 
-#: simonddatabaseaccess/databaseaccess.cpp:182
+#: simonddatabaseaccess/databaseaccess.cpp:179
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: simonddatabaseaccess/databaseaccess.cpp:183
+#: simonddatabaseaccess/databaseaccess.cpp:180
 msgid "Encrypted Password"
 msgstr "Contraseña encriptada"
 
@@ -727,10 +963,10 @@ msgstr "Llenado en las entradas ..."
 msgid "Filtering List..."
 msgstr "Filtrado la lista..."
 
-#: simonlogging/logview.cpp:703 simonmodeltest/modeltest.cpp:249
+#: simonlogging/logview.cpp:703 simonmodeltest/modeltest.cpp:261
 #: simonprogresstracking/compositeprogresswidget.cpp:86
 #: simonprogresstracking/operation.cpp:49
-#: speechmodelcompilation/modelcompilationmanager.cpp:319
+#: speechmodelcompilation/modelcompilationmanager.cpp:357
 msgid "Finished"
 msgstr "¡Ya está!"
 
@@ -752,7 +988,7 @@ msgstr ""
 msgid "Recognition rate"
 msgstr "Tasa de reconocimiento"
 
-#: simonmodeltest/modeltest.cpp:92
+#: simonmodeltest/modeltest.cpp:96
 #, fuzzy
 msgid ""
 "SOX or Julius can not be found. Please make sure it is installed correctly.\n"
@@ -762,24 +998,22 @@ msgstr ""
 "correctamente.\n"
 "\n"
 
-#: simonmodeltest/modeltest.cpp:94
-#: speechmodelcompilation/modelcompilationmanager.cpp:122
+#: simonmodeltest/modeltest.cpp:98
 msgid ""
 "More information: http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup#Windows"
 msgstr ""
 "Más informaciónes: http://www.cyber-byte.at/wiki/index.php/Installation"
 
-#: simonmodeltest/modeltest.cpp:96
-#: speechmodelcompilation/modelcompilationmanager.cpp:124
+#: simonmodeltest/modeltest.cpp:100
 msgid ""
 "More information: http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup#HTK_Installation"
 msgstr ""
 "Más informaciónes: http://www.cyber-byte.at/wiki/index.php/Installation"
 
-#: simonmodeltest/modeltest.cpp:229
-#: speechmodelcompilation/modelcompilationmanager.cpp:302
+#: simonmodeltest/modeltest.cpp:242
+#: speechmodelcompilation/modelcompilationmanager.cpp:329
 msgid ""
 "Couldn't generate temporary folders.\n"
 "\n"
@@ -789,76 +1023,80 @@ msgstr ""
 "\n"
 "Por favor, compruebe sus permisos para \"%1\"."
 
-#: simonmodeltest/modeltest.cpp:237
+#: simonmodeltest/modeltest.cpp:250
 #, fuzzy
 msgid "[INF] Testing model..."
 msgstr "[INF] Compilación de modelo ..."
 
-#: simonmodeltest/modeltest.cpp:238
-#: speechmodelcompilation/modelcompilationmanager.cpp:307
+#: simonmodeltest/modeltest.cpp:251
+#: speechmodelcompilation/modelcompilationmanager.cpp:334
 msgid "Preperation"
 msgstr "Preparación"
 
-#: simonmodeltest/modeltest.cpp:256
+#: simonmodeltest/modeltest.cpp:268
 #, fuzzy
 msgid "Recoding audio..."
 msgstr "Codificación de ficheros de audio ..."
 
-#: simonmodeltest/modeltest.cpp:260
+#: simonmodeltest/modeltest.cpp:272
 #, fuzzy
 msgid "Couldn't open prompts file for reading: %1"
 msgstr "[ERR] No se puede abrir el fichero de salida %1"
 
-#: simonmodeltest/modeltest.cpp:266
+#: simonmodeltest/modeltest.cpp:278
 msgid "Couldn't open wavlist file for writing: %1"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:295
+#: simonmodeltest/modeltest.cpp:309
 #, fuzzy
 msgid "Generating MLF..."
 msgstr "Generación de DFA..."
 
-#: simonmodeltest/modeltest.cpp:431
+#: simonmodeltest/modeltest.cpp:464
 #, fuzzy
 msgid "Recognizing..."
 msgstr "Grabar"
 
-#: simonmodeltest/modeltest.cpp:443
+#: simonmodeltest/modeltest.cpp:476
 #, fuzzy
 msgid "Couldn't open julius jconf file: \"%1\"."
 msgstr "[ERR] No se puede abrir el fichero de salida %1"
 
-#: simonmodeltest/modeltest.cpp:479
+#: simonmodeltest/modeltest.cpp:490
+msgid "Couldn't open hmm definitions"
+msgstr ""
+
+#: simonmodeltest/modeltest.cpp:534
 msgid "Internal Jconf error"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:486
+#: simonmodeltest/modeltest.cpp:541
 msgid "Could not initialize recognition"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:500
+#: simonmodeltest/modeltest.cpp:555
 #, fuzzy
 msgid "Couldn't start adin-thread"
 msgstr "No se puede generar el tree.hed."
 
-#: simonmodeltest/modeltest.cpp:573
+#: simonmodeltest/modeltest.cpp:639
 msgid "Search failed for: %1"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:598
+#: simonmodeltest/modeltest.cpp:664
 #, fuzzy
 msgid "Prompts entry: %1"
 msgstr "Símbolo Fuente"
 
-#: simonmodeltest/modeltest.cpp:599
+#: simonmodeltest/modeltest.cpp:665
 msgid "Received recognition result for: %1: %2"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:664
+#: simonmodeltest/modeltest.cpp:730
 msgid "Processing recognition results..."
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:672
+#: simonmodeltest/modeltest.cpp:740
 msgid "Analyzing recognition results..."
 msgstr ""
 
@@ -874,7 +1112,7 @@ msgstr "Cancelado"
 msgid "Aborting..."
 msgstr "Cancelar..."
 
-#: simonrecognitionresult/recognitionresult.cpp:31
+#: simonrecognitionresult/recognitionresult.cpp:26
 msgid ""
 "Sentence: %1\n"
 "SAMPA: %2\n"
@@ -882,8 +1120,219 @@ msgid ""
 "Average Confidence: %4\n"
 msgstr ""
 
-#: simonrecognitionresult/recognitionresult.cpp:38
+#: simonrecognitionresult/recognitionresult.cpp:33
 msgid "Confidence Scores: "
+msgstr ""
+
+#: simonscenarios/actioncommandmodel.cpp:76 simonscenarios/actionmodel.cpp:112
+msgid "Action"
+msgstr ""
+
+#: simonscenarios/command.cpp:41
+msgid "Description"
+msgstr ""
+
+#: simonscenarios/commandmanager.cpp:317
+msgid "Computer"
+msgstr "Ordenador"
+
+#: simonscenarios/createvoiceinterfacecommandwidget.cpp:36
+msgid "%1: Voice commands"
+msgstr ""
+
+#: simonscenarios/createvoiceinterfacecommandwidgetprivate.cpp:65
+msgid "Please select a valid action"
+msgstr ""
+
+#: simonscenarios/grammar.cpp:198
+#, fuzzy
+msgid "Sentence"
+msgstr "Siete"
+
+#: simonscenarios/speechmodelsettings.cpp:46
+#: simonscenarios/trainingsettings.cpp:46
+msgid "Trainingsdata"
+msgstr "Datos de entrenamientos"
+
+#: simonscenarios/speechmodelsettings.cpp:60
+msgid ""
+"The sample rate has been changed. This will influence the generated speech "
+"model.\n"
+"\n"
+"However, the model needs to be recompiled. Please start a manual "
+"synchronization now."
+msgstr ""
+
+#: simonscenarios/trainingmanager.cpp:230
+msgid "[INF] Parsing prompts-file from %1"
+msgstr "[INF] Analiza ficheros de instrucćiones de %1"
+
+#: simonscenarios/trainingmanager.cpp:254
+msgid "[INF] %1 Prompts read"
+msgstr "[INF] %1 Preguntas leer"
+
+#: simonscenarios/trainingtextcollection.cpp:114
+#, fuzzy
+msgid "Name"
+msgstr "Numérico"
+
+#: simonscenarios/trainingtextcollection.cpp:116
+msgid "Pages"
+msgstr ""
+
+#: simonscenarios/trainingtextcollection.cpp:118
+msgid "Relevance"
+msgstr ""
+
+#: simonscenarios/vocabulary.cpp:168
+msgid "Word"
+msgstr "Palabra"
+
+#: simonscenarios/vocabulary.cpp:170
+msgid "Pronunciation"
+msgstr "Pronunciación"
+
+#: simonscenarios/vocabulary.cpp:174
+msgid "Recognition Rate"
+msgstr "Tasa de reconocimiento"
+
+#: simonscenarios/voiceinterfacecommand.cpp:77
+msgid "Visible trigger"
+msgstr ""
+
+#: simonscenarios/voiceinterfacecommand.cpp:78
+msgid "Yes"
+msgstr ""
+
+#: simonscenarios/voiceinterfacecommand.cpp:78
+msgid "No"
+msgstr ""
+
+#: simonscenarios/voiceinterfacecommand.cpp:129
+msgid "Voice Interface"
+msgstr ""
+
+#: simonscenarioui/newscenario.cpp:74
+msgid "Scenario: %1"
+msgstr ""
+
+#: simonscenarioui/newscenario.cpp:107
+msgctxt "Author (contact information)"
+msgid "%1 (%2)"
+msgstr ""
+
+#: simonscenarioui/newscenario.cpp:129
+#, fuzzy
+msgid "Scenario could not be created"
+msgstr "Comando no puede ser eliminado."
+
+#: simonscenarioui/newscenario.cpp:134 simonscenarioui/newscenario.cpp:180
+msgid "New scenario could not be saved"
+msgstr ""
+
+#: simonscenarioui/newscenario.cpp:177
+#, fuzzy
+msgid "Scenario could not be updated"
+msgstr "Comando no puede ser eliminado."
+
+#: simonscenarioui/scenariomanagementdialog.cpp:55
+msgid "Manage scenarios"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:82
+#, fuzzy
+msgid "Publish"
+msgstr "Julius"
+
+#: simonscenarioui/scenariomanagementdialog.cpp:83
+msgid "Export to file"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:86
+msgid "Download"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:87
+msgid "Import from file"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:147
+msgid "Select scenario file"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:152
+#: simonscenarioui/scenariomanagementdialog.cpp:186
+#, fuzzy
+msgid "Could not load scenario."
+msgstr "No se puede generar mktri.hed"
+
+#: simonscenarioui/scenariomanagementdialog.cpp:159
+#: simonscenarioui/scenariomanagementdialog.cpp:195
+msgid "Failed to store scenario"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:191
+msgid "Select scenario output file"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:202
+msgid ""
+"Downloading new scenarios requires you to save your current changes before "
+"continuing.\n"
+"\n"
+"Save your changes now?"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:219
+msgid "Please select a scenario from the list(s)"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:226
+msgid "Could not find scenario \"%1\""
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:239
+msgid ""
+"Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
+"\")?"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:247
+msgid ""
+"Could not remove scenario at the following path:\n"
+"%1\n"
+"\n"
+"If this is a system scenario, a normal user can not remove it. Please remove "
+"the file manually.\n"
+"\n"
+"In the mean time, simon has automatically deactivated the scenario if it "
+"wasn't already."
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:326
+msgctxt "Name and contact information"
+msgid "<p>%1 (%2)</p>"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:328
+msgctxt "Infos about the scenario"
+msgid ""
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
+"3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</"
+"p><h4>Authors</h4><p>%6</p>"
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:359
+msgid "Could not init scenario \"%1\""
+msgstr ""
+
+#: simonscenarioui/scenariomanagementdialog.cpp:392
+msgid ""
+"You need at least one active scenario.\n"
+"\n"
+"Please load a scenario.\n"
+"\n"
+"Your current (empty) configuration was not saved."
 msgstr ""
 
 #: simonsound/postprocessing.cpp:46 simonsound/soundsettings.cpp:83
@@ -923,7 +1372,7 @@ msgstr ""
 msgid "Couldn't remove %1"
 msgstr "No es posible eliminar %1"
 
-#: simonsound/recwidget.cpp:253
+#: simonsound/recwidget.cpp:251
 msgid ""
 "Couldn't start recording.\n"
 "\n"
@@ -937,7 +1386,7 @@ msgstr ""
 "\n"
 "Por favor, compruebe su configuración de sonido y vuelve a intentarlo."
 
-#: simonsound/recwidget.cpp:303
+#: simonsound/recwidget.cpp:301
 msgid ""
 "Could not finalize the Sample. The recording probably failed.\n"
 "\n"
@@ -948,11 +1397,11 @@ msgstr ""
 "Sugerencia: Compruebe si usted tiene los permisos necesarios para escribir "
 "en \"%1\"!"
 
-#: simonsound/recwidget.cpp:313
+#: simonsound/recwidget.cpp:316
 msgid "Post-Processing failed"
 msgstr "Post-procesamiento fallado"
 
-#: simonsound/recwidget.cpp:356
+#: simonsound/recwidget.cpp:359
 msgid ""
 "Couldn't start playback.\n"
 "\n"
@@ -966,7 +1415,7 @@ msgstr ""
 "\n"
 "Por favor, compruebe su configuración de sonido y vuelve a intentarlo."
 
-#: simonsound/recwidget.cpp:382
+#: simonsound/recwidget.cpp:385
 msgid "Couldn't remove file %1"
 msgstr "No es posible eliminar %1"
 
@@ -1006,11 +1455,11 @@ msgstr "Grabaciones"
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr "Configuración para la grabación y reproducción de sonidos"
 
-#: simonsound/soundsettings.cpp:111
+#: simonsound/soundsettings.cpp:113
 msgid "The soundconfiguration has been tested successfully."
 msgstr "La configuración de sonido ha probado con éxito."
 
-#: simonsound/soundsettings.cpp:161
+#: simonsound/soundsettings.cpp:165
 msgid ""
 "simon noticed that not all of the sound devices you selected to use "
 "previously are available.\n"
@@ -1040,11 +1489,11 @@ msgstr ""
 "\" sedesactivar temporalmente el configuración de sonido con el fin de "
 "proteger sula configuración anterior se sobrescribirá."
 
-#: simonsound/soundsettings.cpp:166
+#: simonsound/soundsettings.cpp:170
 msgid "Please adjust your soundconfiguration accordingly."
 msgstr "Por favor, ajuste su configuración de sonido en consecuencia."
 
-#: simonsound/soundsettings.cpp:232
+#: simonsound/soundsettings.cpp:239
 msgid ""
 "The selected sound configuration is not supported by your hardware.\n"
 "\n"
@@ -1056,91 +1505,50 @@ msgstr ""
 "Por favor, compruebe su configuración y, si es necesario, póngase en "
 "contacto con su distribuidor."
 
-#: speechgui/addserverconnection.cpp:46
+#: simonuicomponents/addserverconnection.cpp:46
 msgid "Add Server Address"
 msgstr "Añadir la dirección del servidor"
 
-#: speechgui/guievents.cpp:59
+#: simonuicomponents/guievents.cpp:59
 msgid "Calendar *"
 msgstr "Calendario *"
 
-#: speechgui/serveraddressselector.cpp:39
+#: simonuicomponents/serveraddressselector.cpp:39
 msgid "Add new Host"
 msgstr "Añadir nuevo Host"
 
-#: speechgui/serveraddressselector.cpp:63
+#: simonuicomponents/serveraddressselector.cpp:63
 msgid "You ahve entered an empty host-address. The input will be discarded."
 msgstr ""
 "Ha introducido una dirección de host vacío. La entrada será descartado."
 
-#: speechgui/simoncalendarwidget.cpp:47
-msgid "Day"
-msgstr "Día"
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:36
+#, fuzzy
+msgid "Adapting model..."
+msgstr "[INF] Compilación de modelo ..."
 
-#: speechgui/simoncalendarwidget.cpp:49
-msgid "Month"
-msgstr "Mes"
-
-#: speechgui/simoncalendarwidget.cpp:51
-msgid "Year"
-msgstr "Año"
-
-#: speechgui/simoncalendarwidget.cpp:94
-msgid ""
-"The selected day does not exist in that month.\n"
-"Please try again with a vaild date."
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:39
+msgid "Failed to adapt model"
 msgstr ""
-"El día seleccionado no existe en ese mes.\n"
-"Por favor, inténtelo de nuevo con una fecha vaild."
 
-#: speechgui/simoncalendarwidget.cpp:113
-msgid ""
-"The selected month does not exist.\n"
-"\n"
-"Please try again with a valid date."
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:42
+msgid "Model adaption complete"
 msgstr ""
-"El mes seleccionado no existe.\n"
-"\n"
-"Por favor, inténtelo de nuevo con una fecha vaild."
-
-#: speechgui/simoncalendarwidget.cpp:128
-msgid ""
-"You selected the year: %1.\n"
-"\n"
-"Do you really want to show that year?"
-msgstr ""
-"El año que ha seleccionado: %1.\n"
-"\n"
-"¿Realmente quieren mostrar que año?"
-
-#: speechgui/simoncalendarwidget.cpp:133
-msgid "The value you selected exceeds the boundaries of allowed values."
-msgstr "El valor que ha seleccionado excede los límites de valores permitidos."
-
-#: speechgui/simonslider.cpp:66
-msgid ""
-"The value you selected exceeds the boundaries of allowed values.\n"
-"\n"
-"Please try again."
-msgstr ""
-"El valor que ha seleccionado excede los límites de valores permitidos.\n"
-"\n"
-"Por favor, inténtelo de nuevo."
 
 #: speechmodelcompilation/config/modelcompilationsettings.cpp:49
 msgid "External Programs"
 msgstr "Programas externos"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:120
+#: speechmodelcompilation/modelcompilationmanager.cpp:130
 msgid ""
 "The HTK can not be found. Please make sure it is installed correctly.\n"
 "\n"
+"More information: http://www.cyber-byte.at/wiki/index.php/English:"
+"_Setup#WindowsMore information: http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#HTK_Installation"
 msgstr ""
-"El HTK no se puede encontrar. Por favor, asegúrese de que está instalado "
-"correctamente.\n"
-"\n"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:134
+#: speechmodelcompilation/modelcompilationmanager.cpp:145
 msgid ""
 "The julius related grammar tools mkfa and dfa_minimize can not be found.\n"
 "\n"
@@ -1151,7 +1559,7 @@ msgstr ""
 "\n"
 "Una reinstalación de simon podría resolver este problema."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:224
+#: speechmodelcompilation/modelcompilationmanager.cpp:235
 msgid ""
 "No training material available.\n"
 "\n"
@@ -1161,15 +1569,11 @@ msgstr ""
 "\n"
 "Por favor, entrenar a su modelo acústico mediante el registro de muestras."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:306
-msgid "[INF] Compiling model..."
-msgstr "[INF] Compilación de modelo ..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:327
+#: speechmodelcompilation/modelcompilationmanager.cpp:365
 msgid "Generating reverse grammar..."
 msgstr "Generación de revertir de la gramática ..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:330
+#: speechmodelcompilation/modelcompilationmanager.cpp:368
 msgid ""
 "Couldn't create reverse grammar.\n"
 "\n"
@@ -1179,19 +1583,19 @@ msgstr ""
 "\n"
 "¿Te ha definir una gramática?"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:335
+#: speechmodelcompilation/modelcompilationmanager.cpp:373
 msgid "Generating termporary vocabulary..."
 msgstr "Generación de vocabulario temporal..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:338
+#: speechmodelcompilation/modelcompilationmanager.cpp:376
 msgid "Couldn't create temporary vocabular."
 msgstr "No es posible crear el temporal vocabulario."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:344
+#: speechmodelcompilation/modelcompilationmanager.cpp:381
 msgid "Generating DFA..."
 msgstr "Generación de DFA..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:347
+#: speechmodelcompilation/modelcompilationmanager.cpp:384
 msgid ""
 "Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
 "2)."
@@ -1199,26 +1603,26 @@ msgstr ""
 "No se puede generar DFA. Por favor, compruebe los caminos a mkfa y "
 "dfa_minimize (%1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:352
+#: speechmodelcompilation/modelcompilationmanager.cpp:389
 msgid "Generating grammar dictionary..."
 msgstr "Generación de diccionario de gramática ..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:355
+#: speechmodelcompilation/modelcompilationmanager.cpp:392
 msgid ""
 "Couldn't generate grammatical lexicon. Please check the output path (%1)."
 msgstr ""
 "No se puede generar el léxico gramatical. Por favor, compruebe la "
 "trayectoria de la salida (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:492
+#: speechmodelcompilation/modelcompilationmanager.cpp:529
 msgid "Coding audio files..."
 msgstr "Codificación de ficheros de audio ..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:497
+#: speechmodelcompilation/modelcompilationmanager.cpp:534
 msgid "Couldn't create codetrain-file."
 msgstr "No es posible crear el fichero de codetrain."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:507
+#: speechmodelcompilation/modelcompilationmanager.cpp:544
 msgid ""
 "Error while coding the samples!\n"
 "\n"
@@ -1229,11 +1633,11 @@ msgstr ""
 "Por favor, compruebe la ruta de acceso a HCopy (%1) y la configuración wav (%"
 "2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:561
+#: speechmodelcompilation/modelcompilationmanager.cpp:598
 msgid "Generating wordlist..."
 msgstr "Generación de palabras ..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:565
+#: speechmodelcompilation/modelcompilationmanager.cpp:602
 msgid ""
 "Failed to create wordlist. Please check your permissions to the temporary "
 "path."
@@ -1241,11 +1645,11 @@ msgstr ""
 "Error al crear palabras. Por favor, compruebe sus permisos temporales a los "
 "ruta."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:571
+#: speechmodelcompilation/modelcompilationmanager.cpp:608
 msgid "Creating monophones..."
 msgstr "Creación de monophones ..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:576
+#: speechmodelcompilation/modelcompilationmanager.cpp:613
 msgid ""
 "Failed to generate monophones. Please check that you have installed the "
 "Program HDMan correctly and that the lexicon contains all words referenced "
@@ -1255,18 +1659,18 @@ msgstr ""
 "laPrograma HDMan correctamente y que el léxico contiene todas las palabras "
 "que hace referenciapor su formación personal."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:587
+#: speechmodelcompilation/modelcompilationmanager.cpp:624
 msgid "Generating Master Label File..."
 msgstr "Generación de etiqueta del fichero maestro..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:590
+#: speechmodelcompilation/modelcompilationmanager.cpp:627
 msgid ""
 "Couldn't generate Master Label File. Please check your prompts file (%1)."
 msgstr ""
 "No se puede generar etiqueta del fichero maestro. Por favor, compruebe su "
 "fichero de instrucciones (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:597
+#: speechmodelcompilation/modelcompilationmanager.cpp:634
 msgid ""
 "Generation of the transcription failed. Please check if you have correctly "
 "specified the paths to mkphones0.led and mkphons1.led. (%1, %2)"
@@ -1274,11 +1678,11 @@ msgstr ""
 "Generación de la transcripción fallado. Por favor, compruebe si tiene "
 "correctamentelas rutas especificadas a mkphones0.led y mkphons1.led. (%1,%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:606
+#: speechmodelcompilation/modelcompilationmanager.cpp:643
 msgid "Generating hmm0..."
 msgstr "Generación de hmm0..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:609
+#: speechmodelcompilation/modelcompilationmanager.cpp:646
 msgid ""
 "Error when generating the HMM0.\n"
 "\n"
@@ -1291,11 +1695,11 @@ msgstr ""
 "camino tosHCompV (%1), la configuración (2%) y el fonema prototipo (%3) son "
 "correctas."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:613
+#: speechmodelcompilation/modelcompilationmanager.cpp:650
 msgid "Generating hmm1..."
 msgstr "Generación de hmm1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:616
+#: speechmodelcompilation/modelcompilationmanager.cpp:653
 msgid ""
 "Could not generate the HMM1.\n"
 "\n"
@@ -1305,11 +1709,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:620
+#: speechmodelcompilation/modelcompilationmanager.cpp:657
 msgid "Generating hmm2..."
 msgstr "Generación de hmm2..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:623
+#: speechmodelcompilation/modelcompilationmanager.cpp:660
 msgid ""
 "Could not generate the HMM2.\n"
 "\n"
@@ -1319,11 +1723,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:627
+#: speechmodelcompilation/modelcompilationmanager.cpp:664
 msgid "Generating hmm3..."
 msgstr "Generación de hmm3..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:630
+#: speechmodelcompilation/modelcompilationmanager.cpp:667
 msgid ""
 "Could not generate the HMM3.\n"
 "\n"
@@ -1333,11 +1737,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:639
+#: speechmodelcompilation/modelcompilationmanager.cpp:676
 msgid "Generating Pause-Model (hmm4)..."
 msgstr "Generación de modelo de pausa (hmm4)..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:642
+#: speechmodelcompilation/modelcompilationmanager.cpp:679
 msgid ""
 "Could not generate HMM4.\n"
 "\n"
@@ -1347,11 +1751,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe HMM3."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:648
+#: speechmodelcompilation/modelcompilationmanager.cpp:685
 msgid "Generating hmm5..."
 msgstr "Generación de hmm5..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:651
+#: speechmodelcompilation/modelcompilationmanager.cpp:688
 msgid ""
 "Could not generate HMM5. Please check the paths to HHEd (%1) and to the "
 "silence-model (%2)."
@@ -1359,12 +1763,12 @@ msgstr ""
 "No se puede generar HMM5. Por favor, compruebe los caminos a HHEd (%1) y "
 "alsilencio-modelo (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:655
+#: speechmodelcompilation/modelcompilationmanager.cpp:692
 msgid "Generating hmm6..."
 msgstr "Generación de hmm6..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:658
-#: speechmodelcompilation/modelcompilationmanager.cpp:665
+#: speechmodelcompilation/modelcompilationmanager.cpp:695
+#: speechmodelcompilation/modelcompilationmanager.cpp:702
 msgid ""
 "Could not generate the HMM6.\n"
 "\n"
@@ -1374,23 +1778,23 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:662
+#: speechmodelcompilation/modelcompilationmanager.cpp:699
 msgid "Generating hmm7..."
 msgstr "Generación de hmm7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:675
+#: speechmodelcompilation/modelcompilationmanager.cpp:712
 msgid "Generating dict1..."
 msgstr "Generación de dict1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:678
+#: speechmodelcompilation/modelcompilationmanager.cpp:715
 msgid "Could not generate the dict1"
 msgstr "No se puede generar dict1"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:683
+#: speechmodelcompilation/modelcompilationmanager.cpp:720
 msgid "Re-Aligning HMM7..."
 msgstr "Re-Alineación de HMM7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:686
+#: speechmodelcompilation/modelcompilationmanager.cpp:723
 msgid ""
 "Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
 "2) and to the HMM7."
@@ -1398,11 +1802,11 @@ msgstr ""
 "No podría volver a alinear hmm7. Por favor, compruebe sus rutas a HVite (%"
 "1), la configuración (%2) y al HMM7."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:691
+#: speechmodelcompilation/modelcompilationmanager.cpp:728
 msgid "Generating hmm8..."
 msgstr "Generación de hmm8..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:694
+#: speechmodelcompilation/modelcompilationmanager.cpp:731
 msgid ""
 "Could not generate the HMM8.\n"
 "\n"
@@ -1412,11 +1816,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:699
+#: speechmodelcompilation/modelcompilationmanager.cpp:736
 msgid "Generating hmm9..."
 msgstr "Generación de hmm9..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:702
+#: speechmodelcompilation/modelcompilationmanager.cpp:739
 msgid ""
 "Could not generate the HMM9.\n"
 "\n"
@@ -1426,12 +1830,12 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HERest (%1) y la configuración (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:712
-#: speechmodelcompilation/modelcompilationmanager.cpp:881
+#: speechmodelcompilation/modelcompilationmanager.cpp:749
+#: speechmodelcompilation/modelcompilationmanager.cpp:918
 msgid "Generating triphone..."
 msgstr "Generación de triphone..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:716
+#: speechmodelcompilation/modelcompilationmanager.cpp:753
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
@@ -1443,27 +1847,27 @@ msgstr ""
 "Por favor, compruebe los caminos a HDMan (%1), global.ded (%2), y el léxico "
 "(%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:721
+#: speechmodelcompilation/modelcompilationmanager.cpp:758
 msgid "Generating list of triphones..."
 msgstr "Generación de lista de triphones..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:724
+#: speechmodelcompilation/modelcompilationmanager.cpp:761
 msgid "Couldn't generate list of triphones."
 msgstr "No se puede generar el triphones."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:728
+#: speechmodelcompilation/modelcompilationmanager.cpp:765
 msgid "Generating tree.hed..."
 msgstr "Generación de tree.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:731
+#: speechmodelcompilation/modelcompilationmanager.cpp:768
 msgid "Couldn't generate tree.hed."
 msgstr "No se puede generar el tree.hed."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:736
+#: speechmodelcompilation/modelcompilationmanager.cpp:773
 msgid "Generating hmm13..."
 msgstr "Generación de hmm13..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:739
+#: speechmodelcompilation/modelcompilationmanager.cpp:776
 msgid ""
 "Could not generate HMM13.\n"
 "\n"
@@ -1473,11 +1877,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe la ruta de acceso a HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:745
+#: speechmodelcompilation/modelcompilationmanager.cpp:782
 msgid "Generating hmm14..."
 msgstr "Generación de hmm14..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:748
+#: speechmodelcompilation/modelcompilationmanager.cpp:785
 msgid ""
 "Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
 "2) and to the stats-file (%3)."
@@ -1485,11 +1889,11 @@ msgstr ""
 "No se puede generar HMM14. Por favor, compruebe los caminos a HERest (%1), "
 "la configuración (%2) y el fichero de estadísticas (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:753
+#: speechmodelcompilation/modelcompilationmanager.cpp:790
 msgid "Generating hmm15..."
 msgstr "Generación de hmm15..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:756
+#: speechmodelcompilation/modelcompilationmanager.cpp:793
 msgid ""
 "Could not generate the HMM15.\n"
 "\n"
@@ -1501,7 +1905,7 @@ msgstr ""
 "Por favor, compruebe los caminos a HERest (%1), la configuración (%2) y el "
 "fichero de estadísticas (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:884
+#: speechmodelcompilation/modelcompilationmanager.cpp:921
 msgid ""
 "Could not generate triphones.\n"
 "\n"
@@ -1511,29 +1915,29 @@ msgstr ""
 "\n"
 "Por favor, compruebe su camino a los ficheros mktri.led y HLEd (%1, %2) "
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:889
+#: speechmodelcompilation/modelcompilationmanager.cpp:926
 msgid "Generating mktri.hed..."
 msgstr "Generación de mktri.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:892
+#: speechmodelcompilation/modelcompilationmanager.cpp:929
 msgid "Could not generate mktri.hed"
 msgstr "No se puede generar mktri.hed"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:897
+#: speechmodelcompilation/modelcompilationmanager.cpp:934
 msgid "Generating hmm10..."
 msgstr "Generación de hmm10..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:900
+#: speechmodelcompilation/modelcompilationmanager.cpp:937
 msgid "Could not generate HMM10. Please check th e path to HHEd (%1)."
 msgstr ""
 "No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd (%"
 "1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:905
+#: speechmodelcompilation/modelcompilationmanager.cpp:942
 msgid "Generating hmm11..."
 msgstr "Generación de hmm11..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:908
+#: speechmodelcompilation/modelcompilationmanager.cpp:945
 msgid ""
 "Could not generate HMM11. Please check your paths to HERest (%1) and to the "
 "config (%2)."
@@ -1541,11 +1945,11 @@ msgstr ""
 "No se puede generar HMM6. Por favor, compruebe la ruta de acceso a HERest (%"
 "1) y la configuración (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:913
+#: speechmodelcompilation/modelcompilationmanager.cpp:950
 msgid "Generating hmm12..."
 msgstr "Generación de hmm12..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:916
+#: speechmodelcompilation/modelcompilationmanager.cpp:953
 msgid ""
 "Could not generate the HMM12.\n"
 "\n"
@@ -1557,227 +1961,270 @@ msgstr ""
 "Por favor, compruebe los caminos a HERest (%1), la configuración (%2) y el "
 "fichero de estadísticas (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1100
+#: speechmodelcompilation/modelcompilationmanager.cpp:1137
 msgid "[INF] Used Monophones of the model: %1"
 msgstr "[INF] Se utiliza Monophones del modelo: %1 "
 
-#: speechmodelmanagement/grammarmanager.cpp:66
-#: speechmodelmanagement_scenario/grammarmanager.cpp:66
-msgid "[INF] Loading grammar from %1"
-msgstr "[INF] Carga de la gramática de %1"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1299
+#, fuzzy
+msgid "Re-Aligninging to base model..."
+msgstr "Re-Alineación de HMM7..."
 
-#: speechmodelmanagement/grammarmanager.cpp:260
-#: speechmodelmanagement_scenario/grammarmanager.cpp:260
-msgid "Loading grammar to %1"
-msgstr "Carga de la gramática a 1%"
-
-#: speechmodelmanagement_scenario/speechmodelsettings.cpp:47
-#: speechmodelmanagement_scenario/trainingsettings.cpp:46
-#: speechmodelmanagement/speechmodelsettings.cpp:47
-#: speechmodelmanagement/trainingsettings.cpp:46
-msgid "Trainingsdata"
-msgstr "Datos de entrenamientos"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:224
-#: speechmodelmanagement/trainingmanager.cpp:224
-msgid "[INF] Parsing prompts-file from %1"
-msgstr "[INF] Analiza ficheros de instrucćiones de %1"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:248
-#: speechmodelmanagement/trainingmanager.cpp:248
-msgid "[INF] %1 Prompts read"
-msgstr "[INF] %1 Preguntas leer"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:261
-#: speechmodelmanagement/trainingmanager.cpp:261
-msgid "[INF] Removing \"%1\" from \"%2\""
-msgstr "[INF] Eliminar \"%1\" de \"%2\""
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:274
-#: speechmodelmanagement/trainingmanager.cpp:274
-msgid "[INF] Reading the trainingstexts"
-msgstr "[INF] Leer el texto de entrenamientos"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:376
-#: speechmodelmanagement/trainingmanager.cpp:384
-msgid "[INF] Calculating relevance"
-msgstr "[INF] Cálculo de relevancia"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:460
-#: speechmodelmanagement/trainingmanager.cpp:468
-msgid "ZERO"
-msgstr "CERO"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:461
-#: speechmodelmanagement/trainingmanager.cpp:469
-msgid "ONE"
-msgstr "UN"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:462
-#: speechmodelmanagement/trainingmanager.cpp:470
-msgid "TWO"
-msgstr "DOS"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:463
-#: speechmodelmanagement/trainingmanager.cpp:471
-msgid "THREE"
-msgstr "TRES"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:464
-#: speechmodelmanagement/trainingmanager.cpp:472
-msgid "FOUR"
-msgstr "CUATRO"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:465
-#: speechmodelmanagement/trainingmanager.cpp:473
-msgid "FIVE"
-msgstr "CINCO"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:466
-#: speechmodelmanagement/trainingmanager.cpp:474
-msgid "SIX"
-msgstr "SEIS"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:467
-#: speechmodelmanagement/trainingmanager.cpp:475
-msgid "SEVEN"
-msgstr "SIETE"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:468
-#: speechmodelmanagement/trainingmanager.cpp:476
-msgid "EIGHT"
-msgstr "OCHO"
-
-#: speechmodelmanagement_scenario/trainingmanager.cpp:469
-#: speechmodelmanagement/trainingmanager.cpp:477
-msgid "NINE"
-msgstr "NUEVE"
-
-#: speechmodelmanagement_scenario/vocabulary.cpp:191
-#: speechmodelmanagement_scenario/wordlistmodel.cpp:124
-#: speechmodelmanagement/wordlistmodel.cpp:124
-msgid "Word"
-msgstr "Palabra"
-
-#: speechmodelmanagement_scenario/vocabulary.cpp:193
-#: speechmodelmanagement_scenario/wordlistmodel.cpp:126
-#: speechmodelmanagement/wordlistmodel.cpp:126
-msgid "Pronunciation"
-msgstr "Pronunciación"
-
-#: speechmodelmanagement_scenario/vocabulary.cpp:197
-#: speechmodelmanagement_scenario/wordlistmodel.cpp:130
-#: speechmodelmanagement/wordlistmodel.cpp:130
-msgid "Recognition Rate"
-msgstr "Tasa de reconocimiento"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:181
-#: speechmodelmanagement/wordlistmanager.cpp:181
+#: speechmodelcompilation/modelcompilationmanager.cpp:1302
+#, fuzzy
 msgid ""
-"You are changing a temporary wordlist.\n"
-"\n"
-"Your changes will NOT be saved!"
+"Couldn't re-align model to the selected base model. Please check your paths "
+"to HVite (%1) and to the config (%2)."
 msgstr ""
-"Está cambiando un temporal de palabras.\n"
-"\n"
-"Sus cambios NO se guardarán!"
+"No se puede generar HMM6. Por favor, compruebe la ruta de acceso a HERest (%"
+"1) y la configuración (%2)."
 
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:181
-#: speechmodelmanagement/wordlistmanager.cpp:181
-msgid "Temporary changes"
-msgstr "Cambios temporales"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1305
+#, fuzzy
+msgid "Generating regtree.hed..."
+msgstr "Generación de tree.hed..."
 
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:186
-#: speechmodelmanagement/wordlistmanager.cpp:186
-msgid ""
-"Couldn't read all the nescessairy files for the wordlist.\n"
-"\n"
-"A temporary wordlist will be created. Your changes will NOT be saved!"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1308
+#, fuzzy
+msgid "Couldn't create regtree.hed."
+msgstr "No se puede generar el tree.hed."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:1311
+msgid "Creating regression class tree..."
 msgstr ""
-"No es posible leer todos los ficheros necesarios para las palabras.\n"
-"\n"
-"Un temporal de palabras será creado. Sus cambios NO se guardarán!"
 
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:186
-#: speechmodelmanagement/wordlistmanager.cpp:186
-msgid "Read Error"
-msgstr "Error de leer"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:205
-#: speechmodelmanagement/wordlistmanager.cpp:205
-msgid "Loading Shadow List"
-msgstr "Cargando lista de fondo"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:205
-#: speechmodelmanagement/wordlistmanager.cpp:205
-msgid "Parsing..."
-msgstr "Analizado..."
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:241
-#: speechmodelmanagement/wordlistmanager.cpp:241
-msgid "[INF] Sorting a list of %1 words"
-msgstr "[INF] Ordenar una lista de palabras %1"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:279
-#: speechmodelmanagement/wordlistmanager.cpp:279
-msgid "[INF] Saving wordlist(s)"
-msgstr "[INF] Ahorro de palabras"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:332
-#: speechmodelmanagement/wordlistmanager.cpp:332
-msgid "[INF] Opening output file: %1"
-msgstr "[INF] Apertura del fichero de salida: 1%"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:341
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:354
-#: speechmodelmanagement/wordlistmanager.cpp:341
-#: speechmodelmanagement/wordlistmanager.cpp:354
-msgid "[ERR] Could not open output file %1"
-msgstr "[ERR] No se puede abrir el fichero de salida %1"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:427
-#: speechmodelmanagement/wordlistmanager.cpp:427
-msgid "[INF] Closing output file"
-msgstr "[INF] Clausura del fichero de salida"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:500
-#: speechmodelmanagement/wordlistmanager.cpp:500
-msgid "[INF] Reading wordlist consisting of"
-msgstr "[INF] Leer la lista de palabras consistente en"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:501
-#: speechmodelmanagement/wordlistmanager.cpp:501
-msgid "[INF] \t\tLexicon: %1,"
-msgstr "[INF]\t\tLéxico: %1,"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:502
-#: speechmodelmanagement/wordlistmanager.cpp:502
-msgid "[INF \t\tVocabulary: %1"
-msgstr "[INF]\t\tVocabulario: %1"
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:511
-#: speechmodelmanagement/wordlistmanager.cpp:511
-msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
-msgstr "[ERR] Error al abrir el fichero de vocabulario en \"%1\""
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:548
-#: speechmodelmanagement/wordlistmanager.cpp:548
-msgid "[INF] Wordlist created"
-msgstr "[INF] Palabras creado "
-
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:689
-#: speechmodelmanagement/wordlistmanager.cpp:689
+#: speechmodelcompilation/modelcompilationmanager.cpp:1314
+#, fuzzy
 msgid ""
-"This word already exists in the shadow lexicon. It will not be inserted "
-"again."
-msgstr "Esta palabra ya existe en el léxico de fondo. No se inserta de nuevo."
+"Couldn't create regression class tree. Please check your paths to HHEd (%1)."
+msgstr ""
+"No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd (%"
+"1)."
 
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:1138
-#: speechmodelmanagement/wordlistmanager.cpp:1138
-msgid "[INF] Adding %1 words to the wordlist"
-msgstr "[INF] Adición de 1% a las palabras de lista de palabras"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1317
+msgid "Performing static adaption..."
+msgstr ""
 
-#: speechmodelmanagement_scenario/wordlistmanager.cpp:1204
-#: speechmodelmanagement/wordlistmanager.cpp:1204
-msgid "[INF] The wordlist now contains %1 words"
-msgstr "[INF] La lista de palabras ahora contiene %1 palabras"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1320
+#, fuzzy
+msgid "Couldn't adapt the base model. Please check your paths to HERest (%1)."
+msgstr ""
+"No se puede generar etiqueta del fichero maestro. Por favor, compruebe su "
+"fichero de instrucciones (%1)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:1324
+msgid "Switching to new model..."
+msgstr ""
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:1330
+#, fuzzy
+msgid "Couldn't switch to new model."
+msgstr "No es posible crear el fichero de codetrain."
+
+#~ msgid "Apply to all Plugins"
+#~ msgstr "Aplicar a todos los plugins"
+
+#~ msgid "&Available Plug-Ins:"
+#~ msgstr "&Disponible Plug-Ins:"
+
+#~ msgid "&Selected Plug-Ins:"
+#~ msgstr "&Optar Plug-Ins:"
+
+#~ msgid ""
+#~ "Couldn't initialize commandmanager \"%1\".\n"
+#~ "\n"
+#~ "Please check its configuration."
+#~ msgstr ""
+#~ "No se puede inicializar el administrador de comando \"%1\".\n"
+#~ "\n"
+#~ "Por favor, compruebe su configuración."
+
+#~ msgid ""
+#~ "The trigger \"%1\" is already assigned to another command.\n"
+#~ "\n"
+#~ "Do you want to delete the other command that uses the Trigger \"%1\"?"
+#~ msgstr ""
+#~ "La activación \"%1\" ya está asignado a otro comando.\n"
+#~ "\n"
+#~ "¿Desea eliminar el otro comando que utiliza de activación \"%1\"?"
+
+#~ msgid "Couldn't add Command \"%1\"."
+#~ msgstr "No se puede añadir el comando \"%1\"."
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#~ msgid "Day"
+#~ msgstr "Día"
+
+#~ msgid "Month"
+#~ msgstr "Mes"
+
+#~ msgid "Year"
+#~ msgstr "Año"
+
+#~ msgid ""
+#~ "The selected day does not exist in that month.\n"
+#~ "Please try again with a vaild date."
+#~ msgstr ""
+#~ "El día seleccionado no existe en ese mes.\n"
+#~ "Por favor, inténtelo de nuevo con una fecha vaild."
+
+#~ msgid ""
+#~ "The selected month does not exist.\n"
+#~ "\n"
+#~ "Please try again with a valid date."
+#~ msgstr ""
+#~ "El mes seleccionado no existe.\n"
+#~ "\n"
+#~ "Por favor, inténtelo de nuevo con una fecha vaild."
+
+#~ msgid ""
+#~ "You selected the year: %1.\n"
+#~ "\n"
+#~ "Do you really want to show that year?"
+#~ msgstr ""
+#~ "El año que ha seleccionado: %1.\n"
+#~ "\n"
+#~ "¿Realmente quieren mostrar que año?"
+
+#~ msgid "The value you selected exceeds the boundaries of allowed values."
+#~ msgstr ""
+#~ "El valor que ha seleccionado excede los límites de valores permitidos."
+
+#~ msgid ""
+#~ "The value you selected exceeds the boundaries of allowed values.\n"
+#~ "\n"
+#~ "Please try again."
+#~ msgstr ""
+#~ "El valor que ha seleccionado excede los límites de valores permitidos.\n"
+#~ "\n"
+#~ "Por favor, inténtelo de nuevo."
+
+#~ msgid ""
+#~ "The HTK can not be found. Please make sure it is installed correctly.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "El HTK no se puede encontrar. Por favor, asegúrese de que está instalado "
+#~ "correctamente.\n"
+#~ "\n"
+
+#~ msgid "[INF] Compiling model..."
+#~ msgstr "[INF] Compilación de modelo ..."
+
+#~ msgid "[INF] Loading grammar from %1"
+#~ msgstr "[INF] Carga de la gramática de %1"
+
+#~ msgid "Loading grammar to %1"
+#~ msgstr "Carga de la gramática a 1%"
+
+#~ msgid "[INF] Removing \"%1\" from \"%2\""
+#~ msgstr "[INF] Eliminar \"%1\" de \"%2\""
+
+#~ msgid "[INF] Reading the trainingstexts"
+#~ msgstr "[INF] Leer el texto de entrenamientos"
+
+#~ msgid "[INF] Calculating relevance"
+#~ msgstr "[INF] Cálculo de relevancia"
+
+#~ msgid "ZERO"
+#~ msgstr "CERO"
+
+#~ msgid "ONE"
+#~ msgstr "UN"
+
+#~ msgid "TWO"
+#~ msgstr "DOS"
+
+#~ msgid "THREE"
+#~ msgstr "TRES"
+
+#~ msgid "FOUR"
+#~ msgstr "CUATRO"
+
+#~ msgid "FIVE"
+#~ msgstr "CINCO"
+
+#~ msgid "SIX"
+#~ msgstr "SEIS"
+
+#~ msgid "SEVEN"
+#~ msgstr "SIETE"
+
+#~ msgid "EIGHT"
+#~ msgstr "OCHO"
+
+#~ msgid "NINE"
+#~ msgstr "NUEVE"
+
+#~ msgid ""
+#~ "You are changing a temporary wordlist.\n"
+#~ "\n"
+#~ "Your changes will NOT be saved!"
+#~ msgstr ""
+#~ "Está cambiando un temporal de palabras.\n"
+#~ "\n"
+#~ "Sus cambios NO se guardarán!"
+
+#~ msgid "Temporary changes"
+#~ msgstr "Cambios temporales"
+
+#~ msgid ""
+#~ "Couldn't read all the nescessairy files for the wordlist.\n"
+#~ "\n"
+#~ "A temporary wordlist will be created. Your changes will NOT be saved!"
+#~ msgstr ""
+#~ "No es posible leer todos los ficheros necesarios para las palabras.\n"
+#~ "\n"
+#~ "Un temporal de palabras será creado. Sus cambios NO se guardarán!"
+
+#~ msgid "Read Error"
+#~ msgstr "Error de leer"
+
+#~ msgid "Loading Shadow List"
+#~ msgstr "Cargando lista de fondo"
+
+#~ msgid "Parsing..."
+#~ msgstr "Analizado..."
+
+#~ msgid "[INF] Sorting a list of %1 words"
+#~ msgstr "[INF] Ordenar una lista de palabras %1"
+
+#~ msgid "[INF] Saving wordlist(s)"
+#~ msgstr "[INF] Ahorro de palabras"
+
+#~ msgid "[INF] Opening output file: %1"
+#~ msgstr "[INF] Apertura del fichero de salida: 1%"
+
+#~ msgid "[ERR] Could not open output file %1"
+#~ msgstr "[ERR] No se puede abrir el fichero de salida %1"
+
+#~ msgid "[INF] Closing output file"
+#~ msgstr "[INF] Clausura del fichero de salida"
+
+#~ msgid "[INF] Reading wordlist consisting of"
+#~ msgstr "[INF] Leer la lista de palabras consistente en"
+
+#~ msgid "[INF] \t\tLexicon: %1,"
+#~ msgstr "[INF]\t\tLéxico: %1,"
+
+#~ msgid "[INF \t\tVocabulary: %1"
+#~ msgstr "[INF]\t\tVocabulario: %1"
+
+#~ msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
+#~ msgstr "[ERR] Error al abrir el fichero de vocabulario en \"%1\""
+
+#~ msgid "[INF] Wordlist created"
+#~ msgstr "[INF] Palabras creado "
+
+#~ msgid ""
+#~ "This word already exists in the shadow lexicon. It will not be inserted "
+#~ "again."
+#~ msgstr ""
+#~ "Esta palabra ya existe en el léxico de fondo. No se inserta de nuevo."
+
+#~ msgid "[INF] Adding %1 words to the wordlist"
+#~ msgstr "[INF] Adición de 1% a las palabras de lista de palabras"
+
+#~ msgid "[INF] The wordlist now contains %1 words"
+#~ msgstr "[INF] La lista de palabras ahora contiene %1 palabras"

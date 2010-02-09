@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlistcommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:35+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-02-09 14:22+0100\n"
 "PO-Revision-Date: 2009-03-03 20:14+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -17,150 +17,149 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: commandlistwidget.cpp:86
-msgid "Back"
-msgstr "Zpět"
+#: createlistcommandwidget.cpp:131 launchercommand.cpp:44
+msgid "Launcher"
+msgstr ""
 
-#: commandlistwidget.cpp:110
-msgid "Next"
-msgstr "Další"
-
-#: createlistcommandwidget.cpp:140
+#: createlistcommandwidget.cpp:157
 msgid ""
 "Couldn't find all of the commands that make up this list command.\n"
 "\n"
 "The missing commands are: %1."
 msgstr ""
 "Všechny příkazy, které tvoří tento příkaz zobrazující seznam podřízených "
-"akcí, z nichž "
-"se vybírá tím, že se řekne číslo odpovídajícího příkazu, nelze najít.\n"
+"akcí, z nichž se vybírá tím, že se řekne číslo odpovídajícího příkazu, nelze "
+"najít.\n"
 "\n"
 "Chybějící příkazy jsou tyto: %1."
 
-#: listcommand.cpp:51
-msgid "Zero"
-msgstr "Nula"
+#: launchercommand.cpp:65
+msgid "Plugin"
+msgstr ""
 
-#: listcommand.cpp:51
-msgid "One"
-msgstr "Jeden"
+#: launchercommand.cpp:66
+msgid "Plugin trigger"
+msgstr ""
 
-#: listcommand.cpp:51
-msgid "Two"
-msgstr "Dva"
+#: launchercommand.cpp:67
+msgid "Launcher trigger"
+msgstr ""
 
-#: listcommand.cpp:52
-msgid "Three"
-msgstr "Tři"
+#: launchercommand.cpp:68
+msgid "Description"
+msgstr ""
 
-#: listcommand.cpp:52
-msgid "Four"
-msgstr "Čtyři"
-
-#: listcommand.cpp:52
-msgid "Five"
-msgstr "Pět"
-
-#: listcommand.cpp:53
-msgid "Six"
-msgstr "Šest"
-
-#: listcommand.cpp:53
-msgid "Seven"
-msgstr "Sedm"
-
-#: listcommand.cpp:53
-msgid "Eight"
-msgstr "Osm"
-
-#: listcommand.cpp:53
-msgid "Nine"
-msgstr "Devět"
-
-#. i18n: file: listcommand.ui:45
-#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
-#: listcommand.cpp:106 po/rc.cpp:30 rc.cpp:30
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: listcommand.cpp:127
-msgid "List"
-msgstr "Seznam"
-
-#: listcommand.cpp:148
-msgid "Commands"
-msgstr "Příkazy"
-
-#: listcommandmanager.cpp:68
-msgid "[INF] Loading list commands from %1"
-msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
-
-#: listcommandmanager.cpp:78
-msgid "[INF] Saving list commands to %1"
-msgstr "[INF] Ukládá příkazy zobrazující seznamy podřízených akcí do %1"
-
-#. i18n: file: createlistcommandwidget.ui:13
+#. i18n: file: createlistcommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
-#. i18n: file: listcommand.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
-#. i18n: file: createlistcommandwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
-#. i18n: file: listcommand.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
-#: po/rc.cpp:3 po/rc.cpp:21 rc.cpp:3 rc.cpp:21
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Formulář"
 
-#. i18n: file: createlistcommandwidget.ui:19
+#. i18n: file: createlistcommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Command:"
 msgstr "Příkaz:"
 
-#. i18n: file: createlistcommandwidget.ui:29
+#. i18n: file: createlistcommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Add Command"
 msgstr "Přidat příkaz"
 
-#. i18n: file: createlistcommandwidget.ui:51
+#. i18n: file: createlistcommandwidget.ui:52
 #. i18n: ectx: property (text), widget (QPushButton, pbRemove)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Remove"
 msgstr "Odstranit"
 
-#. i18n: file: createlistcommandwidget.ui:61
+#. i18n: file: createlistcommandwidget.ui:62
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Move Up"
 msgstr "Přesunout nahoru"
 
-#. i18n: file: createlistcommandwidget.ui:71
+#. i18n: file: createlistcommandwidget.ui:72
 #. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Move Down"
 msgstr "Přesunout dolů"
 
-#. i18n: file: listcommand.ui:32
-#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#. i18n: file: createlistcommandwidget.ui:94
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Launcher:"
+msgstr ""
+
+#. i18n: file: createlistcommandwidget.ui:104
+#. i18n: ectx: property (text), widget (QPushButton, pbAddLauncher)
 #: po/rc.cpp:24 rc.cpp:24
-msgid "Number"
-msgstr "Číslo"
+msgid "Add Launcher"
+msgstr ""
 
-#. i18n: file: listcommand.ui:37
-#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
-#: po/rc.cpp:27 rc.cpp:27
-msgid "Command"
-msgstr "Příkaz"
-
-#: po/rc.cpp:31 rc.cpp:31
+#: po/rc.cpp:25 rc.cpp:25
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:32 rc.cpp:32
+#: po/rc.cpp:26 rc.cpp:26
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
+#~ msgid "Back"
+#~ msgstr "Zpět"
 
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#~ msgid "One"
+#~ msgstr "Jeden"
+
+#~ msgid "Two"
+#~ msgstr "Dva"
+
+#~ msgid "Three"
+#~ msgstr "Tři"
+
+#~ msgid "Four"
+#~ msgstr "Čtyři"
+
+#~ msgid "Five"
+#~ msgstr "Pět"
+
+#~ msgid "Six"
+#~ msgstr "Šest"
+
+#~ msgid "Seven"
+#~ msgstr "Sedm"
+
+#~ msgid "Eight"
+#~ msgstr "Osm"
+
+#~ msgid "Nine"
+#~ msgstr "Devět"
+
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#~ msgid "List"
+#~ msgstr "Seznam"
+
+#~ msgid "Commands"
+#~ msgstr "Příkazy"
+
+#~ msgid "[INF] Loading list commands from %1"
+#~ msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
+
+#~ msgid "[INF] Saving list commands to %1"
+#~ msgstr "[INF] Ukládá příkazy zobrazující seznamy podřízených akcí do %1"
+
+#~ msgid "Number"
+#~ msgstr "Číslo"
+
+#~ msgid "Command"
+#~ msgstr "Příkaz"
