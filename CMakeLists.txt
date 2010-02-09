@@ -62,7 +62,7 @@ set(CPACK_SOURCE_IGNORE_FILES
 # simoncommandinputnumberplugin 
 set(CPACK_COMPONENTS_ALL  kdecore julius juliusdevel ksimond simondoc translations simoncommandaipluginaimlsalice
 		simoncommandaipluginaimlsgerman simoncommandaiplugin simoncommandcompositeplugin simoncommandlistplugin 
-		simoncommanddesktopgridplugin simoncommanddictationplugin
+		simoncommanddesktopgridplugin simoncommanddictationplugin ssc sscd
 		simoncommandexecutableplugin simoncommandplaceplugin simoncommandshortcutplugin simoncommandtextmacroplugin
 		simon simond simoncore simoncoredevel simondevel simonddevel simonmodelmanagement sam
 		simoncommandkeyboardplugin simoncommandcalculatorplugin)
@@ -74,6 +74,8 @@ SET(CPACK_COMPONENT_JULIUSDEVEL_DISPLAY_NAME "Julius Development Files")
 SET(CPACK_COMPONENT_KSIMOND_DISPLAY_NAME "ksimond")
 
 SET(CPACK_COMPONENT_SAM_DISPLAY_NAME "sam")
+SET(CPACK_COMPONENT_SSC_DISPLAY_NAME "ssc")
+SET(CPACK_COMPONENT_SSCD_DISPLAY_NAME "sscd")
 
 SET(CPACK_COMPONENT_SIMONDOC_DISPLAY_NAME "Simon Documentation")
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGINAIMLSALICE_DISPLAY_NAME "AI: Alice AIMLS")
@@ -106,6 +108,8 @@ SET(CPACK_COMPONENT_JULIUSDEVEL_DISPLAY_DESCRIPTION "The Julius Recognition Engi
 SET(CPACK_COMPONENT_KSIMOND_DISPLAY_DESCRIPTION "A KDE4 Front-End to simond")
 
 SET(CPACK_COMPONENT_SAM_DISPLAY_DESCRIPTION "simon acoustic modeller")
+SET(CPACK_COMPONENT_SSC_DISPLAY_DESCRIPTION "simon sample collector")
+SET(CPACK_COMPONENT_SSCD_DISPLAY_DESCRIPTION "simon sample collector daemon")
 SET(CPACK_COMPONENT_SIMONCOMMANDPLUGINBASE_DISPLAY_DESCRIPTION "Core library shared by all command plugins")
 
 
@@ -153,6 +157,7 @@ set(CPACK_COMPONENT_SIMOND_DEPENDS simoncore)
 set(CPACK_COMPONENT_KSIMOND_DEPENDS simoncore)
 set(CPACK_COMPONENT_SIMONCORE_DEPENDS kdecore )#Devel
 SET(CPACK_COMPONENT_SAM_DEPENDS julius)
+SET(CPACK_COMPONENT_SSC_DEPENDS simoncore)
 
 
 #set(CPACK_COMPONENT_DEVEL_GROUP "Applications")
@@ -161,6 +166,8 @@ SET(CPACK_COMPONENT_JULIUS_GROUP "Applications")
 SET(CPACK_COMPONENT_JULIUSDEVEL_GROUP "Development")
 SET(CPACK_COMPONENT_KSIMOND_GROUP "Applications")
 SET(CPACK_COMPONENT_SAM_GROUP "Applications")
+SET(CPACK_COMPONENT_SSC_GROUP "Applications")
+SET(CPACK_COMPONENT_SSCD_GROUP "Applications")
 SET(CPACK_COMPONENT_SIMONCOMMANDCALCULATORPLUGIN_GROUP "Commands")
 SET(CPACK_COMPONENT_SIMONCOMMANDKEYBOARDPLUGIN_GROUP "Commands")
 SET(CPACK_COMPONENT_SIMONCOMMANDCOMPOSITEPLUGIN_GROUP "Commands")
@@ -206,6 +213,8 @@ SET(CPACK_COMPONENT_JULIUS_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_JULIUSDEVEL_INSTALL_TYPES Developer) 	 
 SET(CPACK_COMPONENT_KSIMOND_INSTALL_TYPES Full User Developer) 	 
 SET(CPACK_COMPONENT_SAM_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_SSC_INSTALL_TYPES Full User Developer) 	 
+SET(CPACK_COMPONENT_SSCD_INSTALL_TYPES Full User Developer) 	 
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGINAIMLSALICE_INSTALL_TYPES Full User) 	 
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGINAIMLSGERMAN_INSTALL_TYPES Full User) 	 
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGIN_INSTALL_TYPES Full User) 	 
@@ -260,6 +269,8 @@ IF(WIN32 AND NOT UNIX)
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ksimond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" 0
 	
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\sam.lnk\\\" \\\"$INSTDIR\\\\bin\\\\sam.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\sam.exe\\\" 0 	 
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ssc.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ssc.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ssc.exe\\\" 0 	 
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\sscd.lnk\\\" \\\"$INSTDIR\\\\bin\\\\sscd.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\sscd.exe\\\" 0 	 
 	") 	 
 	 
 	 
@@ -270,6 +281,8 @@ IF(WIN32 AND NOT UNIX)
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\simond.lnk\\\" 	 
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\ksimond.lnk\\\" 	 
 	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\sam.lnk\\\" 	 
+	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\ssc.lnk\\\" 	 
+	 Delete \\\"$SMPROGRAMS\\\\$MUI_TEMP\\\\sscd.lnk\\\" 	 
 	 ") 	 
 ENDIF(WIN32 AND NOT UNIX) 	 
  

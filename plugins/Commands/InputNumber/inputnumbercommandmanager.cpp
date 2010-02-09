@@ -19,7 +19,14 @@
 #include "inputnumbercommandmanager.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
+
+//sleep function
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
+
 #include <QDesktopWidget>
 #include <QDialog>
 #include <KLocalizedString>
@@ -200,7 +207,11 @@ void InputNumberCommandManager::processRequest(int number)
 void InputNumberCommandManager::ok()
 {
 	widget->accept();
+	#ifdef Q_OS_WIN32
+	Sleep(300);
+	#else
 	usleep(300000);
+	#endif
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
