@@ -32,6 +32,7 @@ class SimondUserConfiguration : public KCModule
 	Q_OBJECT
 
 	private:
+		bool alreadyLoaded;
 		Ui::UserConfiguration ui;
 		DatabaseAccess *db;
 		QString storedDb;

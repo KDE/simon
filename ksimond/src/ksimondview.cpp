@@ -46,8 +46,9 @@ KSimondView::KSimondView(QObject* parent) : QObject(parent),
 	wantReload(false)
 {
 	configDialog->addModule("ksimondconfiguration");
-	configDialog->addModule("simonduserconfiguration");
-	configDialog->addModule("simondnetworkconfiguration");
+	configDialog->addModule("simondconfiguration");
+	//configDialog->addModule("simonduserconfiguration");
+	//configDialog->addModule("simondnetworkconfiguration");
 	
 	trayIconMgr = new TrayIconManager(configDialog);
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));

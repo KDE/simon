@@ -15,6 +15,7 @@ set( simonuicomponents_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/serveraddressselector.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
@@ -39,6 +40,7 @@ set( simonuicomponents_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/addserverconnection.h
 	${CMAKE_CURRENT_SOURCE_DIR}/serveraddressselector.h
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.h
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
 	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h
