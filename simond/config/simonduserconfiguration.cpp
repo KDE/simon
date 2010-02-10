@@ -29,7 +29,7 @@
 #include <knewpassworddialog.h>
 
 SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariantList& args)
-					: KCModule(KGlobal::mainComponent(), parent)
+					: KCModule(KGlobal::mainComponent(), parent), alreadyLoaded(false)
 {
 	Q_UNUSED(args);
 	
@@ -37,6 +37,7 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
 	
 	//addConfig(SimondConfiguration::self(), this);
 
+	kDebug() << "opening database";
 	db = new DatabaseAccess(this);
 	connect (ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
 	connect (ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
@@ -173,7 +174,12 @@ void SimondUserConfiguration::changePassword()
 
 void SimondUserConfiguration::load()
 {
-	initDb();
+	if (!alreadyLoaded)
+	{
+		kDebug() << "LOAD!";
+		initDb();
+		alreadyLoaded = true;
+	}
 	KCModule::load();
 }
 
