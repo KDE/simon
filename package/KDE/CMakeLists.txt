@@ -23,6 +23,8 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/kdeinit4.exe"
   "${KDE4_BIN_INSTALL_DIR}/kiconfinder.exe"
   "${KDE4_BIN_INSTALL_DIR}/kioexec.exe"
+  "${KDE4_BIN_INSTALL_DIR}/khotnewstuff-upload.exe"
+  "${KDE4_BIN_INSTALL_DIR}/khotnewstuff4.exe"
   "${KDE4_BIN_INSTALL_DIR}/kioslave.exe"
   "${KDE4_BIN_INSTALL_DIR}/klauncher.exe"
   "${KDE4_BIN_INSTALL_DIR}/kmimetypefinder.exe"
