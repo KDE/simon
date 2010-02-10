@@ -15,7 +15,7 @@ X-KDE-System-Settings-Parent-Category=simon
 Name=Model Settings
 Name[de]=Modell Einstellungen
 
-X-KDE-PluginKeyword=ModelSettings
+#X-KDE-PluginKeyword=ModelSettings
 
 Comment=Configuration of the simon speech model
 Comment[de]=Konfiguration des Sprachmodells

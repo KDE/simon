@@ -5,7 +5,7 @@
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelManagementUiFactory, 
-			registerPlugin< ModelSettings >("ModelSettings");
+			registerPlugin< ModelSettings >();
 		)
 
 K_EXPORT_PLUGIN( SpeechModelManagementUiFactory("SpeechModelManagementUi"); )
