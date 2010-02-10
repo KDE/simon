@@ -427,7 +427,7 @@ void SimonView::showSystemDialog ()
 		configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
 		configDialog->addModule("simonmodelconfig", QStringList() << "");
 		configDialog->addModule("simonrecognitionconfig", QStringList() << "");
-		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
+//		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
 		configDialog->addModule("simonactionsconfig", QStringList() << "");
 		configDialog->addModule("kcm_attica");
 	}
