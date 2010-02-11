@@ -40,7 +40,7 @@ msgstr ""
 msgid "The X-Server does not support the XTest extension. Please install it."
 msgstr ""
 "Der X-Server unterstützt die XTest-Erweiterung nicht. Bitte installieren Sie "
-"sie."
+"diese."
 
 #. i18n: file: simonactions/commandsettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CommandSettingsDlg)
