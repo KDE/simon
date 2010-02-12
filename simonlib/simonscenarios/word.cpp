@@ -31,9 +31,7 @@ bool isWordLessThan(Word *w1, Word *w2)
 
 int Word::getPropability()
 {
-	if (probability == -1)
-		probability = TrainingManager::getInstance()->getProbability (getWord());
-	return probability;
+	return TrainingManager::getInstance()->getProbability (getWord());
 }
 
 

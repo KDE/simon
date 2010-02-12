@@ -45,7 +45,6 @@ private:
 
 
 protected:
-	bool m_resolveProbability;
 	QStringList terminals; //terminal cache
 	QList<Word*> m_words;
 

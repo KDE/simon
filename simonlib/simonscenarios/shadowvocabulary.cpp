@@ -33,7 +33,6 @@
 ShadowVocabulary::ShadowVocabulary() : Vocabulary(), loadFailed(false)
 {
 	kDebug() << "Initializing shadow dictionary: " << this;
-	m_resolveProbability=false;
 	QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");
 
 	QIODevice *shadowVocabFile = KFilterDev::deviceForFile(vocabFilename,

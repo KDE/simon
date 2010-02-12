@@ -48,7 +48,6 @@ private:
 	QString pronunciation; //!< Saves all valid pronunciations of the word in Sam-Pa
 	QString terminal; //!< Category of the word
 	QString lexiconWord;
-	int probability; //!< Probability
 	
 public:
 	
@@ -64,16 +63,13 @@ public:
 	* The sampa notation of the pronunciation
 	* @param QString terminal
 	* Terminal the word belongs to
-	* @param int probability
-	* Recognition probability
 	* 
 	*/
-	Word(QString word_, QString pronunciation_, QString terminal_, int probability_ = -1)
+	Word(QString word_, QString pronunciation_, QString terminal_)
 		: word(word_),
 		pronunciation(pronunciation_),
 		terminal(terminal_),
-		lexiconWord(word_.toUpper()),
-		probability(probability_)
+		lexiconWord(word_.toUpper())
 	{
 	}
 

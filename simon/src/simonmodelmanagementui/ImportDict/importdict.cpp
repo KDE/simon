@@ -116,7 +116,7 @@ void ImportDict::run()
 	{
 		wordList->append( new Word(words.at(i), 
 				    pronunciations.at(i), 
-					terminals.at(i), 0 ) );
+					terminals.at(i) ) );
 		if ((i%1000) == 0)
 			emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}

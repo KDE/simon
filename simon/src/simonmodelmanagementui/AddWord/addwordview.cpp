@@ -85,17 +85,8 @@ void AddWordView::accept()
 	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
 	Logger::log(i18n("[INF] New word: ")+word);
 	
-	int recordingCount=0;
-	if (record1->hasSample()) {
-		promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
-		recordingCount++;
-	}
-	if (record2->hasSample()) {
-		promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
-		recordingCount++;
-	}
 	listToAdd->append(new Word(word, field("wordPronunciation").toString(),
-		     field("wordTerminal").toString(), recordingCount));
+		     field("wordTerminal").toString()));
 	
 	QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);
 	if (words.count() > 0)

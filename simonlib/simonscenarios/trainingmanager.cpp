@@ -413,6 +413,11 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 		return false;
 
 	promptsTable->insert(fileBaseName, prompt);
+
+	QStringList words = prompt.split(" ");
+	foreach (const QString& word, words)
+		promptsTable->remove(word); //removed cashed recognition rates
+
 	dirty=true;
 	return true;
 }
