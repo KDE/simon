@@ -236,10 +236,8 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 	return true;
 }
 
-bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+void CalculatorCommandManager::showSelectionBox()
 {
-	Q_UNUSED(elem);
-
 	commandListWidget->adaptToVoiceElement(CommandListWidget::One, getVoiceInterfaceCommand("printResult"));
 	commandListWidget->adaptToVoiceElement(CommandListWidget::Two, getVoiceInterfaceCommand("printCalculationAndResult"));
 	commandListWidget->adaptToVoiceElement(CommandListWidget::Three, getVoiceInterfaceCommand("printFormattedResult"));
@@ -248,8 +246,7 @@ bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& ele
 	commandListWidget->adaptToVoiceElement(CommandListWidget::Six, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
 	commandListWidget->adaptToVoiceElement(CommandListWidget::Cancel, getVoiceInterfaceCommand("printCancel"));
 
-	commandListWidget->resizeToFit();
-	return true;
+	commandListWidget->show();
 }
 
 void CalculatorCommandManager::setFont(const QFont& font)
@@ -788,13 +785,13 @@ void CalculatorCommandManager::ok()
 
 	switch (modeSelection) {
 		case CalculatorConfiguration::AlwaysAsk:
-			commandListWidget->show();
+			showSelectionBox();
 			break;
 		case CalculatorConfiguration::UseDefault:
 			writeoutRequestReceived((int) mode);
 			break;
 		case CalculatorConfiguration::AskButDefaultAfterTimeout:
-			commandListWidget->show();
+			showSelectionBox();
 			commandListWidget->selectAfterTimeout((int) mode, static_cast<CalculatorConfiguration*>(config)->askTimeout());
 			break;
 	}

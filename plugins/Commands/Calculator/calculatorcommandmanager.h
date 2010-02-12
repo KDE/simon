@@ -69,6 +69,7 @@ private:
 	QString formatOutput(CalculatorCommandManager::NumberType type);
 
 	bool installInterfaceCommands();
+	void showSelectionBox();
 	
 private slots:
 	void deregister();
@@ -116,7 +117,6 @@ public:
 	void setFont(const QFont& font);
 
 	bool deSerializeConfig(const QDomElement& elem);
-	bool deSerializeCommandsPrivate(const QDomElement& elem);
 
 	//CommandList* getCommands() const { return NULL; }
 

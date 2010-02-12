@@ -72,6 +72,8 @@ private:
 
 	bool installInterfaceCommands();
 
+	void showSelectionBox();
+
 private slots:
 	void regionSelected();
 	void selectIndex(int index);
@@ -92,6 +94,7 @@ public:
 	const QString name() const;
 
 	bool deSerializeConfig(const QDomElement& elem);
+	bool deSerializeCommandsPrivate(const QDomElement& elem);
 
 	const QString iconSrc() const;
 	

@@ -302,17 +302,29 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 
 	switch (modeSelection) {
 		case DesktopGridConfiguration::AlwaysAsk:
-			commandListWidget->show();
+			showSelectionBox();
 			break;
 		case DesktopGridConfiguration::UseDefault:
 			clickRequestReceived((int) mode);
 			break;
 		case DesktopGridConfiguration::AskButDefaultAfterTimeout:
-			commandListWidget->show();
+			showSelectionBox();
 			kDebug() << "Timeout: " << static_cast<DesktopGridConfiguration*>(config)->askTimeout();
 			commandListWidget->selectAfterTimeout((int) mode, static_cast<DesktopGridConfiguration*>(config)->askTimeout());
 			break;
 	}
+}
+
+void DesktopGridCommandManager::showSelectionBox()
+{
+	commandListWidget->adaptToVoiceElement(CommandListWidget::One, getVoiceInterfaceCommand("click1"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Two, getVoiceInterfaceCommand("click2"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Three, getVoiceInterfaceCommand("click3"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Four, getVoiceInterfaceCommand("click4"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Five, getVoiceInterfaceCommand("click5"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Cancel, getVoiceInterfaceCommand("cancelClickModeSelection"));
+
+	commandListWidget->show();
 }
 
 void DesktopGridCommandManager::clickRequestReceived(int index)
@@ -393,6 +405,14 @@ void DesktopGridCommandManager::regionSelected()
 		background->move(0,0);
 		background->setPixmap(deskShot.copy(screenGrid->geometry()));
 	}
+}
+
+bool DesktopGridCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{
+	Q_UNUSED(elem);
+
+	
+	return true;
 }
 
 void DesktopGridCommandManager::selectIndex(int index)

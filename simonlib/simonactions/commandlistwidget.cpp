@@ -172,6 +172,8 @@ void CommandListWidget::setFont(const QFont& font)
 void CommandListWidget::showEvent(QShowEvent *)
 {
 	pbAutomaticSelection->hide();
+
+	resizeToFit();
 }
 
 void CommandListWidget::closeEvent(QCloseEvent *)
