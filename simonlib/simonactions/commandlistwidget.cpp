@@ -33,6 +33,7 @@
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
+#include <simonscenarios/voiceinterfacecommand.h>
 
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
@@ -80,6 +81,53 @@ CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOn
 	runRequestEmitted = false;
 	pbAutomaticSelection->setFormat(i18n("Automatic selection"));
 	pbAutomaticSelection->hide();
+}
+
+void CommandListWidget::adaptToVoiceElement(Element element, VoiceInterfaceCommand* command)
+{
+	Q_ASSERT(command);
+
+	int startIndex = (currentFlags & HasBack) ? 1 : 0;
+
+	int row = -1;
+
+	switch (element)
+	{
+		case CommandListWidget::Back: row = 0;
+			break;
+		case CommandListWidget::One: row = startIndex + 0;
+			break;
+		case CommandListWidget::Two: row = startIndex + 1;
+			break;
+		case CommandListWidget::Three: row = startIndex + 2;
+			break;
+		case CommandListWidget::Four: row = startIndex + 3;
+			break;
+		case CommandListWidget::Five: row = startIndex + 4;
+			break;
+		case CommandListWidget::Six: row = startIndex + 5;
+			break;
+		case CommandListWidget::Seven: row = startIndex + 6;
+			break;
+		case CommandListWidget::Eight: row = startIndex + 7;
+			break;
+		case CommandListWidget::Next: row = startIndex + 8;
+			break;
+		case CommandListWidget::Cancel:
+			pbCancel->setText(command->visibleTrigger());
+			if (command->showIcon())
+				pbCancel->setIcon(KIcon(command->getIconSrc()));
+			else pbCancel->setIcon(KIcon());
+			return;
+	}
+
+	QTableWidgetItem *item = twCommands->item(row,0);
+	Q_ASSERT(item);
+
+	item->setText(command->visibleTrigger());
+	if (command->showIcon())
+		item->setIcon(KIcon(command->getIconSrc()));
+	else item->setIcon(KIcon());
 }
 
 void CommandListWidget::runRequestSent()

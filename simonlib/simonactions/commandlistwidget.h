@@ -32,6 +32,7 @@ class KPushButton;
 class QTableWidget;
 class QProgressBar;
 class QShowEvent;
+class VoiceInterfaceCommand;
 
 /**
  *	@class CommandListWidget
@@ -73,6 +74,20 @@ public:
 		HasNext=0x2
 	};
 
+	enum Element {
+		Back=0,
+		One=1,
+		Two=2,
+		Three=3,
+		Four=4,
+		Five=5,
+		Six=6,
+		Seven=7,
+		Eight=8,
+		Next=9,
+		Cancel=10
+	};
+
 	Q_DECLARE_FLAGS(Flags, Flag)
 	
 	/**
@@ -93,6 +108,8 @@ public:
 	void resizeToFit();
 
     	virtual ~CommandListWidget();
+
+	void adaptToVoiceElement(Element element, VoiceInterfaceCommand* command);
 
 private:
 	Flags currentFlags;

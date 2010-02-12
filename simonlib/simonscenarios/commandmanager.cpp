@@ -249,6 +249,18 @@ bool CommandManager::deSerializeCommands(const QDomElement& elem)
 	return succ;
 }
 
+VoiceInterfaceCommand* CommandManager::getVoiceInterfaceCommand(const QString& id)
+{
+	foreach (Command *c, *commands)
+	{
+		VoiceInterfaceCommand *iC = dynamic_cast<VoiceInterfaceCommand*>(c);
+		if (!iC) continue;
+		if (iC->id() == id)
+			return iC;
+	}
+	return NULL;
+}
+
 bool CommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 {
 	Q_UNUSED(elem);

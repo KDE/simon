@@ -236,6 +236,22 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 	return true;
 }
 
+bool CalculatorCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{
+	Q_UNUSED(elem);
+
+	commandListWidget->adaptToVoiceElement(CommandListWidget::One, getVoiceInterfaceCommand("printResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Two, getVoiceInterfaceCommand("printCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Three, getVoiceInterfaceCommand("printFormattedResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Four, getVoiceInterfaceCommand("printFormattedCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Five, getVoiceInterfaceCommand("printFormattedMoneyResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Six, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListWidget::Cancel, getVoiceInterfaceCommand("printCancel"));
+
+	commandListWidget->resizeToFit();
+	return true;
+}
+
 void CalculatorCommandManager::setFont(const QFont& font)
 {
 	widget->setFont(font);
@@ -248,7 +264,6 @@ const QString CalculatorCommandManager::preferredTrigger() const
 
 void CalculatorCommandManager::writeoutRequestReceived(int index)
 {
-	kDebug() << "write request received";
 	commandListWidget->hide();
 	commandListWidget->abortTimeoutSelection();
 	
@@ -405,12 +420,6 @@ void CalculatorCommandManager::sendNumber(const QString bracketStr)
 
 void CalculatorCommandManager::sendComma()
 {
-/*	if (resultCurrentlyDisplayed) {
-		clear();
-		resultCurrentlyDisplayed = false;
-	}
-
-	ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());*/
 	sendOperator(KGlobal::locale()->decimalSymbol());
 }
 
@@ -464,17 +473,7 @@ void CalculatorCommandManager::sendEquals()
 	QList<Token*> *parsedInput = parseString(input);
 	if(parsedInput!=NULL)
 	{
-		kDebug() << "parsed input";
-	    foreach (Token* t, *parsedInput) {
-		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
-	    }
-	    kDebug() << "end parsed input";
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
-		kDebug() << "postfixed input";
-	    foreach (Token* t, *postfixedInput) {
-		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
-	    }
-	    kDebug() << "end postfixed input";
 
 	    currentResult = calculate(postfixedInput);
 	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
@@ -504,13 +503,11 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 
 	for(int i=0;i<calc.size();i++)
 	{
-	    kDebug() << calc.at(i) << status;
 	    if(calc.at(i)>=48 && calc.at(i)<=57) // digit
 	    {
 		switch(status)
 		{
 		    case -1: clear();
-			     kDebug() << "Error in 1";
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
 		    case 2: number=number+(calc.at(i).digitValue()/decimalMultiplier);
@@ -584,8 +581,6 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 				      isFloat=false;
 				      status=3;
 				      break;
-//                            case '%': //list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
- //                                     break;
 			}
 		    }
 		}
@@ -598,7 +593,6 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 			if (i+1 == calc.size()) {
 			    status=-1;
 			    clear();
-			     kDebug() << "Error in 2";
 			    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			}
 		}
@@ -607,7 +601,6 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		status=-1;
 		clear();
-	     kDebug() << "Error in 3";
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
@@ -713,7 +706,6 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			double op1, op2;
 			op1 = calc.pop()->getNumber();
 			op2 = calc.pop()->getNumber();
-			kDebug() << " Adding: " << op1 << op2 << " = " << (op1 + op2);
 			calc.push(new Token(op1+op2));
 			 break;
 			}
@@ -744,7 +736,6 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			double op1;
 			op1 = calc.pop()->getNumber()/100.0f;
 		        calc.push(new Token(op1));
-			kDebug() << "Pushing percenticed number: " << op1;
 			break;
 			}
 	    }
@@ -755,7 +746,6 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
     delete postList;
 
     double result = calc.pop()->getNumber();
-    kDebug() << "result";
     return result;
 }
 
@@ -795,7 +785,6 @@ void CalculatorCommandManager::ok()
 {
 	CalculatorConfiguration::OutputModeSelection modeSelection= static_cast<CalculatorConfiguration*>(config)->outputModeSelection();
 	CalculatorConfiguration::OutputMode mode = static_cast<CalculatorConfiguration*>(config)->outputMode();
-	kDebug() << modeSelection << mode;
 
 	switch (modeSelection) {
 		case CalculatorConfiguration::AlwaysAsk:

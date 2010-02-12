@@ -67,6 +67,7 @@ class QAction;
 class CommandConfiguration;
 class QDomDocument;
 class Scenario;
+class VoiceInterfaceCommand;
 class VoiceInterfaceCommandTemplate;
 
 /**
@@ -184,7 +185,7 @@ public:
 	}
 
 	void setGreedyStatus(bool isGreedy);
-
+	VoiceInterfaceCommand* getVoiceInterfaceCommand(const QString& id);
 	virtual ~CommandManager();
 	
 
