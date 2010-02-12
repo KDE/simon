@@ -136,7 +136,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 		encoding = field("bompEncoding").toString();
 		if (encoding == i18n("Automatic"))
 			encoding = guessEncoding(path);
-	} else encoding = "UTF-8"; //download is always UTF-8
+	} else encoding = "ISO-8859-15"; //download is always ISO-8859-15
 
 	import->parseWordList(path, encoding, Dict::HadifixBOMP, true /* remove input file when done */);
 }
