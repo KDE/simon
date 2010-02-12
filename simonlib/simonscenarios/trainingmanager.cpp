@@ -407,7 +407,7 @@ int TrainingManager::getProbability ( QString wordname )
 
 bool TrainingManager::addSample ( const QString& fileBaseName, const QString& prompt )
 {
-	Q_ASSERT(promptsTable);
+	if (!promptsTable) init();
 	
 	if (promptsTable->contains(fileBaseName)) 
 		return false;
@@ -419,7 +419,7 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 
 bool TrainingManager::removeSample(const QString& fileBaseName)
 {
-	Q_ASSERT(promptsTable);
+	if (!promptsTable) init();
 	
 	if (promptsTable->remove(fileBaseName) > 0)
 	{
