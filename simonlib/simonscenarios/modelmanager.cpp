@@ -100,6 +100,9 @@ Model* ModelManager::createActiveContainer()
 Model* ModelManager::createBaseModelContainer()
 {
 	qint32 modelType = ScenarioManager::getInstance()->baseModelType();
+
+	if (modelType == 2)
+		return new Model(modelType, QByteArray(), QByteArray(), QByteArray(), QByteArray());
 	
 	QFile hmmDefs(KStandardDirs::locate("appdata", "model/basehmmdefs"));
 	QFile tiedList(KStandardDirs::locate("appdata", "model/basetiedlist"));

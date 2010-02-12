@@ -358,7 +358,7 @@ void SamView::getBuildPathsFromSimon()
 			ui.urBaseTiedlist->clear();
 			ui.urBaseMacros->clear();
 			ui.urBaseStats->clear();
-			ui.rbAdaptedBaseModel->animateClick();
+			ui.rbDynamicModel->animateClick();
 			break;
 	}
 	if (modelType == 0)

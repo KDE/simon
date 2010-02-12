@@ -334,7 +334,7 @@ int SynchronisationManager::getBaseModelType()
 
 	bool ok;
 	int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
-	if (!ok) return -1;
+	if (!ok) return 2;
 	return baseModelType;
 }
 
@@ -633,17 +633,27 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 	QDateTime trainingDate = getTrainingDate();
 	QDateTime scenarioRcDate = selectedScenariosDate();
 	QDateTime baseModelDate = getBaseModelDate();
+	kDebug() << "Training date: " << trainingDate;
+	kDebug() << "Scenario date: " << scenarioRcDate;
+	kDebug() << "Basemodel date: " << baseModelDate;
 
 	if (trainingDate.isNull() || scenarioRcDate.isNull() ||
 			((getBaseModelType() != 2) && (baseModelDate.isNull())))
+	{
+		kDebug() << "Returning empty qdatetime";
+		kDebug() << "Base model type: " << getBaseModelType();
 		return QDateTime();
+	}
 
 	QDateTime srcDate = qMax(trainingDate, scenarioRcDate);
 	srcDate = qMax(srcDate, baseModelDate);
 
 	QStringList scenarios = getLatestSelectedScenarioList();
 	foreach (const QString& scenarioId, scenarios)
+	{
+		kDebug() << "Scenario date of " << scenarioId << localScenarioDate(scenarioId);
 		srcDate = qMax(srcDate, localScenarioDate(scenarioId));
+	}
 
 	return srcDate;
 }
@@ -730,6 +740,10 @@ bool SynchronisationManager::commit()
 
 	QDateTime newSrcContainerTime = qMax(cGroup.readEntry("LanguageDescriptionDate", QDateTime()), 
 			cGroup.readEntry("TrainingDate", QDateTime()));
+	kDebug() << "LanguageDescriptionDate:" << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
+	kDebug() << "TrainingDate:" << cGroup.readEntry("TrainingDate", QDateTime());
+	kDebug() << newSrcContainerTime;
+	kDebug() << "SelectedScenarioListModifiedDate:" << getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc");
 
 	//***************
 	newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc"));

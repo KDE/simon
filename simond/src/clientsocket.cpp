@@ -307,7 +307,6 @@ void ClientSocket::processRequest()
 			case Simond::BaseModelDate:
 			{
 				Q_ASSERT(synchronisationManager);
-				kDebug() << "Received base model date";
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;

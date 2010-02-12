@@ -442,6 +442,7 @@ void RecognitionControl::sendBaseModelDate()
 
 bool RecognitionControl::sendBaseModel()
 {
+	kDebug() << "Sending base model";
 	Model *model = ModelManagerUiProxy::getInstance()->createBaseModelContainer();
 	if (!model) {
 		emit synchronisationWarning(i18n("Couldn't create base model container"));
@@ -591,6 +592,7 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << (qint32) Simond::LanguageDescriptionDate
 		<< ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
+	kDebug() << "LANGUAGE DESCRIPTION MODIFIED TIME: " << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
 	socket->write(toWrite);
 }
 
