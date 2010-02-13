@@ -20,6 +20,7 @@
 #include "actioncollection.h"
 #include <KDebug>
 #include <simonscenarios/action.h>
+#include <simonscenarios/voiceinterfacecommand.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonscenarios/commandmanager.h>
@@ -50,12 +51,35 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 {
 	if (actionCollectionElem.isNull())
 		return false;
+
+	qDeleteAll(listInterfaceCommands);
+	listInterfaceCommands.clear();
+
+	QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
+	if (listsElement.isNull())
+	{
+		//TODO load defaults from commandsettings?
+	} else {
+		QDomElement commandElem = listsElement.firstChildElement();
+
+		while (!commandElem.isNull())
+		{
+			VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(commandElem);
+			commandElem = commandElem.nextSiblingElement("voiceInterfaceCommand");
+
+			if (!com) continue;
+
+			listInterfaceCommands.insert((CommandListElements::Element)
+					(commandElem.attribute("element").toInt()), 
+					com);
+		}
+	}
 	
 	//clean member
 	qDeleteAll(m_actions);
 	m_actions.clear();
 
-	QDomElement pluginElem = actionCollectionElem.firstChildElement();
+	QDomElement pluginElem = actionCollectionElem.firstChildElement("plugin");
 	while (!pluginElem.isNull()) {
 		Action *a = Action::createAction(parentScenario, pluginElem);
 		if (!a) {
@@ -65,7 +89,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 			appendAction(a, true /*silent*/);
 		}
 
-		pluginElem = pluginElem.nextSiblingElement();
+		pluginElem = pluginElem.nextSiblingElement("plugin");
 	}
 	proxy->update();
 	reset();
@@ -80,6 +104,21 @@ QDomElement ActionCollection::createEmpty(QDomDocument *doc)
 QDomElement ActionCollection::serialize(QDomDocument *doc)
 {
 	QDomElement actionsElem = createEmpty(doc);
+
+	QDomElement listInterfaceCommandsElem = doc->createElement("lists");
+	foreach (CommandListElements::Element element, listInterfaceCommands.keys())
+	{
+		QList<VoiceInterfaceCommand*> interfaceCommands = listInterfaceCommands.values(element);
+		foreach (VoiceInterfaceCommand* command, interfaceCommands)
+		{
+			QDomElement commandElem = command->serialize(doc);
+			commandElem.setTagName("voiceInterfaceCommand");
+			commandElem.setAttribute("element", QString::number((int) element));
+			listInterfaceCommandsElem.appendChild(commandElem);
+		}
+	}
+	actionsElem.appendChild(listInterfaceCommandsElem);
+
 	foreach (Action *a, m_actions) {
 		actionsElem.appendChild(a->serialize(doc));
 	}
@@ -187,8 +226,12 @@ bool ActionCollection::deleteAction(Action *action)
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionCollection::getListInterfaceCommands()
 {
-	//TODO: implement
+	return listInterfaceCommands;
+}
 
+void ActionCollection::setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
+{
+	listInterfaceCommands = commands;
 }
 
 bool ActionCollection::moveActionUp(Action *action)

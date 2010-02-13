@@ -21,6 +21,7 @@
 #include "commandlistwidget.h"
 #include "actionmanager.h"
 #include <simonscenarios/commandmanager.h>
+#include <simonscenarios/voiceinterfacecommand.h>
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
@@ -52,9 +53,9 @@ ListCommand::ListCommand(CommandManager *parentManger, const QString& name, cons
 	init();
 }
 
-ListCommand::ListCommand() : Command(),
+ListCommand::ListCommand(CommandManager *parentManager) : Command(),
 	GreedyReceiver(NULL /* no manager */),
-	m_parentManager(NULL),
+	m_parentManager(parentManager),
 	clw(new CommandListWidget()),
 	startIndex(0)
 {
@@ -65,13 +66,6 @@ void ListCommand::init()
 {
 	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
 	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
-
-//	if (numberIdentifiers.isEmpty())
-//		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-//			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-//			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
-
-
 }
 
 
@@ -148,11 +142,6 @@ bool ListCommand::processRequest(int index)
 	return false;
 }
 
-void ListCommand::adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command)
-{
-	clw->adaptToVoiceElement(element, command);
-}
-
 void ListCommand::cancel()
 {
 	clw->close();
@@ -163,7 +152,38 @@ void ListCommand::cancel()
 bool ListCommand::greedyTrigger(const QString& inputText)
 {
 	kDebug() << "Triggering greedy " << inputText;
-	//TODO: implement
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
+
+	foreach (CommandListElements::Element element, adaption.keys())
+	{
+		QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
+		foreach (VoiceInterfaceCommand* command, interfaceCommands)
+		{
+			if (command->matches(0, inputText))
+			{
+				switch (element)
+				{
+					case CommandListElements::Back: return processRequest(0);
+					case CommandListElements::One: return processRequest(1);
+					case CommandListElements::Two: return processRequest(2);
+					case CommandListElements::Three: return processRequest(3);
+					case CommandListElements::Four: return processRequest(4);
+					case CommandListElements::Five: return processRequest(5);
+					case CommandListElements::Six: return processRequest(6);
+					case CommandListElements::Seven: return processRequest(7);
+					case CommandListElements::Eight: return processRequest(8);
+					case CommandListElements::Next: return processRequest(9);
+					case CommandListElements::Cancel: 
+						clw->close(); 
+						return true;
+				}
+			}
+
+		}
+
+	}
+	
 	/*
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
@@ -184,6 +204,17 @@ bool ListCommand::greedyTrigger(const QString& inputText)
 	return processRequest(index);
 	*/
 	return false;
+}
+
+ListCommand* ListCommand::createInstance(CommandManager *manager, const QDomElement& element)
+{
+	ListCommand *command = new ListCommand(manager);
+	if (!command->deSerialize(element))
+	{
+		delete command;
+		return NULL;
+	}
+	return command;
 }
 
 const QString ListCommand::staticCategoryText()
@@ -235,6 +266,20 @@ void ListCommand::listCurrentCommandSection()
 	clw->init(nowIconSrcs, nowCommands, flags);
 }
 
+QHash<CommandListElements::Element, VoiceInterfaceCommand*> ListCommand::getAdaption()
+{
+	//adapt to either parent manager or commandsettings
+	if (m_parentManager) {
+		kDebug() << "Adapting to scenario";
+		//adapt to current scenarios list configuration
+		return ActionManager::getInstance()->getListInterfaceCommands();
+	}
+
+	kDebug() << "Adapting to global configuration";
+	//adapt to commandsettings list configuration
+	return ActionManager::getInstance()->getGlobalListInterfaceCommands();
+}
+
 bool ListCommand::triggerPrivate(int *state)
 {
 	Q_UNUSED(state);
@@ -253,16 +298,20 @@ bool ListCommand::triggerPrivate(int *state)
 
 	m_subCommands.clear();
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption;
-	//adapt to either parent manager or commandsettings
-	if (m_parentManager) {
-		//adapt to current scenarios list configuration
-		//adaption = ActionManager::getInstance()->getListInterfaceCommands();
-		adaption = ActionManager::getInstance()->getGlobalListInterfaceCommands();
-	} else {
-		//adapt to commandsettings list configuration
-		adaption = ActionManager::getInstance()->getGlobalListInterfaceCommands();
-	}
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
+
+	QList<CommandListElements::Element> allElements;
+	allElements << CommandListElements::Back
+		<< CommandListElements::One
+		<< CommandListElements::Two
+		<< CommandListElements::Three
+		<< CommandListElements::Four
+		<< CommandListElements::Five
+		<< CommandListElements::Six
+		<< CommandListElements::Seven
+		<< CommandListElements::Eight
+		<< CommandListElements::Next
+		<< CommandListElements::Cancel;
 
 	foreach (CommandListElements::Element element, adaption.keys())
 	{
@@ -270,7 +319,12 @@ bool ListCommand::triggerPrivate(int *state)
 		//list cant be empty so we dont need to check
 		clw->adaptToVoiceElement(element, interfaceCommands[0]);
 		m_subCommands << interfaceCommands;
+
+		allElements.removeAll(element);
 	}
+
+	foreach (CommandListElements::Element elem, allElements)
+		clw->adaptToVoiceElement(elem, NULL); // hide the rest
 
 	clw->show();
 
@@ -310,7 +364,6 @@ void ListCommand::setFont(const QFont& font)
 	clw->setFont(font);
 }
 
-STATIC_CREATE_INSTANCE_C(ListCommand);
 
 ListCommand::~ListCommand()
 {

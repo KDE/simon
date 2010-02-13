@@ -257,7 +257,16 @@ void ListConfiguration::registerVoiceInterfaceCommand(CommandListElements::Eleme
 
 }
 
+void ListConfiguration::registerVoiceInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
+{
+	foreach (CommandListElements::Element element, commands.keys())
+	{
+		QList<VoiceInterfaceCommand*> childCommands = commands.values(element);
 
+		foreach (VoiceInterfaceCommand *c, childCommands)
+			listInterfaceCommands.insertMulti(element, c);
+	}
+}
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ListConfiguration::getListInterfaceCommands()
 {

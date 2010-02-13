@@ -80,6 +80,7 @@ public:
 	void registerVoiceInterfaceCommand(CommandListElements::Element, 
 			const QStringList& triggers, 
 			const QString& visibleTrigger, bool showIcon, const QString& iconSrc);
+	void registerVoiceInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 	~ListConfiguration();
 
 

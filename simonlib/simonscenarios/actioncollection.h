@@ -20,6 +20,7 @@
 
 #ifndef ACTIONCOLLECTION_H
 #define ACTIONCOLLECTION_H
+
 #include <QString>
 #include <QList>
 #include "actionmodel.h"
@@ -43,6 +44,7 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
 
 private:
 	ActionCommandModel *proxy;
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
 public:
 	ActionCollection(Scenario *parent);
@@ -56,8 +58,6 @@ public:
 	QList<CommandConfiguration*>* getConfigurationPages();
 
 	ActionCommandModel* getProxy() { return proxy; }
-
-//	bool addCommand(Command *command);
 
 	QList<Action*> actions() { return m_actions; }
 
@@ -76,6 +76,7 @@ public:
 	void setPluginFont(const QFont& font);
 	QList<CommandLauncher*> getLauncherList();
 	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+	void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
 	CommandList* getCommandList();
 

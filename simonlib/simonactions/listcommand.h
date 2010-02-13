@@ -26,8 +26,10 @@
 #include "commandlistwidget.h"
 #include "actionlib_export.h"
 #include <QList>
+#include <QHash>
 #include <KUrl>
 class CommandListWidget;
+class VoiceInterfaceCommand;
 
 /**
  *	@class ListCommand
@@ -55,14 +57,14 @@ private:
 	QStringList commands;
 	QStringList commandTypes;
 
-//	static QStringList numberIdentifiers;
 	void listCurrentCommandSection();
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getAdaption();
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate(int *state);
 	virtual bool deSerializePrivate(const QDomElement& commandElem);
-	ListCommand();
+	ListCommand(CommandManager *parentManager);
 	void init();
 
 private slots:
@@ -79,8 +81,6 @@ public:
 
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
-
-	void adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command);
 	
 	/**
 	* @brief Constructor
@@ -114,7 +114,7 @@ public:
 	}
 	void setFont(const QFont& font);
 
-	STATIC_CREATE_INSTANCE_H(ListCommand);
+	static ListCommand* createInstance(CommandManager *manager, const QDomElement& element);
 
     ~ListCommand();
 

@@ -107,6 +107,8 @@ int ManageActionsDialog::exec()
 
 	//TODO: load list configuration
 	listConfiguration->prepareToLoad();
+	listConfiguration->registerVoiceInterfaceCommands(ScenarioManager::getInstance()->
+			getCurrentScenario()->actionCollection()->getListInterfaceCommands());
 	/*
 	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Back, backTriggers, backVisibleTrigger, showBackIcon, backIcon);
 	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::One, oneTriggers, oneVisibleTrigger, showOneIcon, oneIcon);
@@ -129,8 +131,8 @@ int ManageActionsDialog::exec()
 	if (ret)
 	{
 		listConfiguration->prepareToSave();
-		//TODO save listconfiguration:
-		// listConfiguration->getListInterfaceCommands()
+		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->setListInterfaceCommands(
+				listConfiguration->getListInterfaceCommands());
 		ScenarioManager::getInstance()->getCurrentScenario()->save();
 	}
 	ScenarioManager::getInstance()->commitGroup();
