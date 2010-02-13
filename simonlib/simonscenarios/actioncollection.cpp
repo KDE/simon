@@ -58,20 +58,22 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 	QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
 	if (listsElement.isNull())
 	{
-		//TODO load defaults from commandsettings?
+		//TODO load defaults from commandsettings
 	} else {
 		QDomElement commandElem = listsElement.firstChildElement();
 
 		while (!commandElem.isNull())
 		{
 			VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(commandElem);
+
+			int elementId = commandElem.attribute("element").toInt();
+
 			commandElem = commandElem.nextSiblingElement("voiceInterfaceCommand");
 
 			if (!com) continue;
 
-			listInterfaceCommands.insert((CommandListElements::Element)
-					(commandElem.attribute("element").toInt()), 
-					com);
+			kDebug() << "Element index: " << commandElem.attribute("element").toInt();
+			listInterfaceCommands.insert((CommandListElements::Element) elementId, com);
 		}
 	}
 	
@@ -113,6 +115,7 @@ QDomElement ActionCollection::serialize(QDomDocument *doc)
 		{
 			QDomElement commandElem = command->serialize(doc);
 			commandElem.setTagName("voiceInterfaceCommand");
+			kDebug() << "Element index: " << QString::number((int) element);
 			commandElem.setAttribute("element", QString::number((int) element));
 			listInterfaceCommandsElem.appendChild(commandElem);
 		}

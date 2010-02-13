@@ -133,6 +133,9 @@ void CommandListWidget::adaptToVoiceElement(CommandListElements::Element element
 
 	if (!command)
 	{
+		if ((element == CommandListElements::Back) && (!(currentFlags & HasBack)))
+			return;
+
 		twCommands->hideRow(row);
 		return;
 	}
