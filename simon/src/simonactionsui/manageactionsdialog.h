@@ -30,6 +30,7 @@ class Action;
 class CommandConfiguration;
 class KPageWidget;
 class KPageWidgetItem;
+class ListConfiguration;
 
 class ManageActionsDialog : public KDialog {
 
@@ -43,8 +44,10 @@ private:
 
 	QList<CommandConfiguration*>* configurationPages;
 
-	Action* getCurrentlySelectedAction();
+	ListConfiguration *listConfiguration;
 
+
+	Action* getCurrentlySelectedAction();
 	void registerCommandConfiguration(CommandConfiguration *m);
 
 private slots:

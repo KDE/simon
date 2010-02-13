@@ -35,6 +35,7 @@ class KPageWidget;
 class KPageWidgetItem;
 class Action;
 class VoiceInterfaceCommand;
+class ListConfiguration;
 
 /**
  * \class CommandSettings
@@ -56,29 +57,9 @@ private:
 
 	Ui::CommandSettingsDlg ui;
 	KSharedConfig::Ptr config;
-	bool isChanged;
 	QFont storedFont;
-	CommandListElements::Element getRowElementType(int row);
-	void storeCurrentlyDisplayedElement(CommandListElements::Element type);
-	void displayListElement(CommandListElements::Element type);
 
-	QString getListSelectionId(CommandListElements::Element type);
-	QString getListSelectionDescription(CommandListElements::Element type);
-	QString getListDefaultTrigger(CommandListElements::Element type);
-	QString getListDefaultVisibleTrigger(CommandListElements::Element type);
-	bool getListDefaultShowIcon(CommandListElements::Element type);
-	QString getListDefaultIcon(CommandListElements::Element type);
-
-	QStringList getListTriggers(CommandListElements::Element type);
-	bool getListShowIcon(CommandListElements::Element type);
-	QString getListIcon(CommandListElements::Element type);
-	QString getListVisibleTrigger(CommandListElements::Element type);
-
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
-
-	void registerVoiceInterfaceCommand(CommandListElements::Element, 
-			const QStringList& triggers, 
-			const QString& visibleTrigger, bool showIcon, const QString& iconSrc);
+	ListConfiguration *listConfiguration;
 
 
 public slots:
@@ -88,10 +69,8 @@ public slots:
  
 private slots:
 	void slotChanged();
-	void listActionsItemChanged(QListWidgetItem *newItem, QListWidgetItem *item);
 
 public:
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
 	{
 		if (!instance) return new CommandSettings(parent, args);
@@ -103,6 +82,8 @@ public:
 	float minimumConfidence();
 	bool useDYM();
 	QFont pluginBaseFont();
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 	
 	~CommandSettings();
 };

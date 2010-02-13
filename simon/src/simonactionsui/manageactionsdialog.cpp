@@ -20,18 +20,22 @@
 #include "manageactionsdialog.h"
 #include "addactiondialog.h"
 
+#include <simonactions/listconfiguration.h>
+
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/action.h>
 #include <simonscenarios/commandconfiguration.h>
 #include <simonscenarios/actioncollection.h>
+
 #include <KMessageBox>
 #include <KCModule>
 #include <KAboutData>
 #include <KPageWidget>
 
 ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
-	pageWidget(new KPageWidget(this))
+	pageWidget(new KPageWidget(this)),
+	listConfiguration(new ListConfiguration(this))
 {	
 	setCaption( i18n("Manage actions") );
 	setMainWidget( pageWidget );
@@ -65,6 +69,8 @@ ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 	setButtons(KDialog::Ok);
 
 	connect(ui.lvPlugins, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+
+	ui.twActionConfig->addTab(listConfiguration, i18n("Lists"));
 }
 
 void ManageActionsDialog::applyTrigger(const QString& newTrigger)
@@ -99,11 +105,34 @@ int ManageActionsDialog::exec()
 		registerCommandConfiguration(m);
 	}
 
+	//TODO: load list configuration
+	listConfiguration->prepareToLoad();
+	/*
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Back, backTriggers, backVisibleTrigger, showBackIcon, backIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::One, oneTriggers, oneVisibleTrigger, showOneIcon, oneIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Two, twoTriggers, twoVisibleTrigger, showTwoIcon, twoIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Three, threeTriggers, threeVisibleTrigger, showThreeIcon, threeIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Four, fourTriggers, fourVisibleTrigger, showFourIcon, fourIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Five, fiveTriggers, fiveVisibleTrigger, showFiveIcon, fiveIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Six, sixTriggers, sixVisibleTrigger, showSixIcon, sixIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Seven, sevenTriggers, sevenVisibleTrigger, showSevenIcon, sevenIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Eight, eightTriggers, eightVisibleTrigger, showEightIcon, eightIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Next, nextTriggers, nextVisibleTrigger, showNextIcon, nextIcon);
+	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Cancel, cancelTriggers, cancelVisibleTrigger, showCancelIcon, cancelIcon);
+	*/
+	listConfiguration->loadFinished();
+
+
 	ScenarioManager::getInstance()->startGroup();
 	int ret = KDialog::exec();
 	//write configuration changes of the plugins
 	if (ret)
+	{
+		listConfiguration->prepareToSave();
+		//TODO save listconfiguration:
+		// listConfiguration->getListInterfaceCommands()
 		ScenarioManager::getInstance()->getCurrentScenario()->save();
+	}
 	ScenarioManager::getInstance()->commitGroup();
 	return ret;
 }

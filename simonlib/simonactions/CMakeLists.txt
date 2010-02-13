@@ -11,6 +11,7 @@ set( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandtablemodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/listconfiguration.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.cpp
@@ -21,12 +22,14 @@ set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.h
+	${CMAKE_CURRENT_SOURCE_DIR}/listconfiguration.h
   	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h
 )
 
 kde4_add_ui_files( simonactions_LIB_SRCS
 		${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
+		${CMAKE_CURRENT_SOURCE_DIR}/listconfigurationdlg.ui
 	)
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
