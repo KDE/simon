@@ -27,6 +27,8 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/actioncollection.h>
+#include <simonscenarios/scenario.h>
 
 #include <QFile>
 #include <QMetaObject>
@@ -218,7 +220,8 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 
 	}
 
-	ListCommand *list = new ListCommand(i18n("Did you mean ...?"), "help-hint", i18n("simon is not shure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
+	ListCommand *list = new ListCommand(NULL /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not shure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
+//	list->adapt(CommandSettings::getInstance()->getListInterfaceCommands());
 	connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
 	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
 	connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
@@ -236,6 +239,15 @@ QList<CommandLauncher*> ActionManager::getLauncherList()
 	return ScenarioManager::getInstance()->getLauncherList();
 }
 
+QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getListInterfaceCommands()
+{
+	return ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->getListInterfaceCommands();
+}
+
+QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGlobalListInterfaceCommands()
+{
+	return CommandSettings::getInstance()->getListInterfaceCommands();
+}
 
 ActionManager::~ActionManager()
 {

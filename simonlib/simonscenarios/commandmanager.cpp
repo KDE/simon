@@ -48,7 +48,8 @@ bool CommandManager::trigger(const QString& triggerName)
 	foreach (Command* c, *commands)
 	{
 		if (c->matches(m_currentState, triggerName))
-			return c->trigger(&m_currentState);
+			if (c->trigger(&m_currentState))
+				return true;
 	}
 
 	return false;
@@ -93,9 +94,7 @@ bool CommandManager::installInterfaceCommand(QObject* object, const QString& slo
 			int state, int newState, const QString& defaultVisibleTrigger, 
 			QString id)
 {
-	Q_ASSERT(object);
-
-	if (id.isEmpty())
+	if (id.isEmpty() && object)
 		id = object->objectName();
 
 	if (id.isEmpty()) {

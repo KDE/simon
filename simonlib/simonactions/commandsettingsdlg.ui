@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>420</height>
+    <width>654</width>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="KTabWidget" name="twActionConfig">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -83,15 +83,162 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string>Lists</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QListWidget" name="lwActions">
+          <item>
+           <property name="text">
+            <string>Back</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>One</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Two</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Three</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Four</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Five</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Six</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Seven</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Eight</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Next</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cancel</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QWidget" name="">
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Triggers:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="KEditListBox" name="elbTriggers">
+             <property name="buttons">
+              <set>KEditListBox::Add|KEditListBox::Remove</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Icon:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QCheckBox" name="cbShowIcon">
+             <property name="text">
+              <string>Show icon</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="KIconButton" name="ibIcon">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>72</width>
+               <height>72</height>
+              </size>
+             </property>
+             <property name="icon">
+              <string>view-choose</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Visible trigger:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="KLineEdit" name="leVisibleTrigger"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KIconButton</class>
+   <extends>QPushButton</extends>
+   <header>kicondialog.h</header>
+  </customwidget>
+  <customwidget>
    <class>KFontChooser</class>
    <extends>QWidget</extends>
    <header>kfontdialog.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

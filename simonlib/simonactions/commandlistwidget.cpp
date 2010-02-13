@@ -83,46 +83,62 @@ CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOn
 	pbAutomaticSelection->hide();
 }
 
-void CommandListWidget::adaptToVoiceElement(Element element, VoiceInterfaceCommand* command)
+void CommandListWidget::adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command)
 {
-	Q_ASSERT(command);
-
 	int startIndex = (currentFlags & HasBack) ? 1 : 0;
 
 	int row = -1;
 
+	kDebug() << "Adapting to voice element: " << element;
+
 	switch (element)
 	{
-		case CommandListWidget::Back: row = 0;
+		case CommandListElements::Back: row = 0;
 			break;
-		case CommandListWidget::One: row = startIndex + 0;
+		case CommandListElements::One: row = startIndex + 0;
 			break;
-		case CommandListWidget::Two: row = startIndex + 1;
+		case CommandListElements::Two: row = startIndex + 1;
 			break;
-		case CommandListWidget::Three: row = startIndex + 2;
+		case CommandListElements::Three: row = startIndex + 2;
 			break;
-		case CommandListWidget::Four: row = startIndex + 3;
+		case CommandListElements::Four: row = startIndex + 3;
 			break;
-		case CommandListWidget::Five: row = startIndex + 4;
+		case CommandListElements::Five: row = startIndex + 4;
 			break;
-		case CommandListWidget::Six: row = startIndex + 5;
+		case CommandListElements::Six: row = startIndex + 5;
 			break;
-		case CommandListWidget::Seven: row = startIndex + 6;
+		case CommandListElements::Seven: row = startIndex + 6;
 			break;
-		case CommandListWidget::Eight: row = startIndex + 7;
+		case CommandListElements::Eight: row = startIndex + 7;
 			break;
-		case CommandListWidget::Next: row = startIndex + 8;
+		case CommandListElements::Next: row = startIndex + 8;
 			break;
-		case CommandListWidget::Cancel:
+		case CommandListElements::Cancel:
+			if (!command)
+			{
+				pbCancel->hide();
+				return;
+			}
+
 			pbCancel->setText(command->visibleTrigger());
 			if (command->showIcon())
 				pbCancel->setIcon(KIcon(command->getIconSrc()));
 			else pbCancel->setIcon(KIcon());
+			pbCancel->show();
 			return;
 	}
 
+	if (twCommands->rowCount() < row)
+		return;
+
+	if (!command)
+	{
+		twCommands->hideRow(row);
+		return;
+	}
+
 	QTableWidgetItem *item = twCommands->item(row,0);
-	Q_ASSERT(item);
+	if (!item) return;
 
 	item->setText(command->visibleTrigger());
 	if (command->showIcon())

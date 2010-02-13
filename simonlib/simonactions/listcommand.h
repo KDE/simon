@@ -21,7 +21,9 @@
 #define SIMON_LISTCOMMAND_H_B003A824E4CE4D008341F2E92534890A
 
 #include <simonscenarios/command.h>
+#include <simonscenarios/voiceinterfacecommand.h>
 #include "greedyreceiver.h"
+#include "commandlistwidget.h"
 #include "actionlib_export.h"
 #include <QList>
 #include <KUrl>
@@ -43,6 +45,8 @@ signals:
 	void canceled();
 
 private:
+	QList<VoiceInterfaceCommand*> m_subCommands;
+	CommandManager *m_parentManager;
 	CommandListWidget *clw;
 
 	int startIndex;
@@ -51,7 +55,7 @@ private:
 	QStringList commands;
 	QStringList commandTypes;
 
-	static QStringList numberIdentifiers;
+//	static QStringList numberIdentifiers;
 	void listCurrentCommandSection();
 
 protected:
@@ -76,13 +80,14 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
+	void adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command);
 	
 	/**
 	* @brief Constructor
 	* 
 	*	@author Peter Grasch
 	*/
-	ListCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands, const QStringList& iconSrcs, const QStringList& commandTypes);
+	ListCommand(CommandManager *parentManager, const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands, const QStringList& iconSrcs, const QStringList& commandTypes);
 
 	/**
 	* @brief Returns the command list

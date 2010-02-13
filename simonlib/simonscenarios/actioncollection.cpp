@@ -185,6 +185,12 @@ bool ActionCollection::deleteAction(Action *action)
 	return succ;
 }
 
+QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionCollection::getListInterfaceCommands()
+{
+	//TODO: implement
+
+}
+
 bool ActionCollection::moveActionUp(Action *action)
 {
 	bool moved = false;

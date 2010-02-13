@@ -238,13 +238,13 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 
 void CalculatorCommandManager::showSelectionBox()
 {
-	commandListWidget->adaptToVoiceElement(CommandListWidget::One, getVoiceInterfaceCommand("printResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Two, getVoiceInterfaceCommand("printCalculationAndResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Three, getVoiceInterfaceCommand("printFormattedResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Four, getVoiceInterfaceCommand("printFormattedCalculationAndResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Five, getVoiceInterfaceCommand("printFormattedMoneyResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Six, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Cancel, getVoiceInterfaceCommand("printCancel"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::One, getVoiceInterfaceCommand("printResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Two, getVoiceInterfaceCommand("printCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Three, getVoiceInterfaceCommand("printFormattedResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Four, getVoiceInterfaceCommand("printFormattedCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Five, getVoiceInterfaceCommand("printFormattedMoneyResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Six, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Cancel, getVoiceInterfaceCommand("printCancel"));
 
 	commandListWidget->show();
 }

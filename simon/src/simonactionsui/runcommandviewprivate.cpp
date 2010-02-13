@@ -143,11 +143,6 @@ void RunCommandViewPrivate::addCommand()
 		succ = newCommand->newCommand();
 	}
 
-	//if (!succ) {
-	//	KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", com->getTrigger()));
-		//ui.lvCommands->setCurrentIndex(commandsProxy->index(commandsProxy->rowCount()-1, 0));
-	//}
-	
 	delete newCommand;
 }
 

@@ -25,8 +25,10 @@
 #include "actionmodel.h"
 #include "command.h"
 #include "commandlauncher.h"
+#include "commandlistelements.h"
 #include <simonscenariobase/scenarioobject.h>
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simonscenarios/commandlistelements.h>
 #include "simonmodelmanagement_export.h"
 
 class Action;
@@ -35,6 +37,7 @@ class Command;
 class QAction;
 class ActionCommandModel;
 class CommandConfiguration;
+class VoiceInterfaceCommand;
 
 class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel {
 
@@ -72,6 +75,7 @@ public:
 	bool setTrigger(const QString& trigger);
 	void setPluginFont(const QFont& font);
 	QList<CommandLauncher*> getLauncherList();
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
 	CommandList* getCommandList();
 

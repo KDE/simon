@@ -317,12 +317,12 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 
 void DesktopGridCommandManager::showSelectionBox()
 {
-	commandListWidget->adaptToVoiceElement(CommandListWidget::One, getVoiceInterfaceCommand("click1"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Two, getVoiceInterfaceCommand("click2"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Three, getVoiceInterfaceCommand("click3"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Four, getVoiceInterfaceCommand("click4"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Five, getVoiceInterfaceCommand("click5"));
-	commandListWidget->adaptToVoiceElement(CommandListWidget::Cancel, getVoiceInterfaceCommand("cancelClickModeSelection"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::One, getVoiceInterfaceCommand("click1"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Two, getVoiceInterfaceCommand("click2"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Three, getVoiceInterfaceCommand("click3"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Four, getVoiceInterfaceCommand("click4"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Five, getVoiceInterfaceCommand("click5"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Cancel, getVoiceInterfaceCommand("cancelClickModeSelection"));
 
 	commandListWidget->show();
 }

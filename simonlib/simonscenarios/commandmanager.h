@@ -84,11 +84,11 @@ signals:
 	void commandsFound(CommandList*);
 
 private:
-	int m_currentState;
 //	QHash<QString, QString> voiceInterfaceActionNames;
 	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
 protected:
+	int m_currentState;
 	CommandList *commands;
 	QString m_source;
 	QList<QAction*> guiActions;

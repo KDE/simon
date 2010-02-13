@@ -199,7 +199,7 @@ Command* CreateListCommandWidget::createCommand(const QString& name, const QStri
 		selectedCategories << com->getCategoryText();
 	}
 
-	return new ListCommand(name, iconSrc, description, selectedTriggers, selectedIconSrcs, selectedCategories);
+	return new ListCommand(m_manager, name, iconSrc, description, selectedTriggers, selectedIconSrcs, selectedCategories);
 }
 
 CreateListCommandWidget::~CreateListCommandWidget()

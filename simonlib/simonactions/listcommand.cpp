@@ -20,6 +20,7 @@
 #include "listcommand.h"
 #include "commandlistwidget.h"
 #include "actionmanager.h"
+#include <simonscenarios/commandmanager.h>
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
@@ -35,41 +36,42 @@
 #include <KLocalizedString>
 
 
-QStringList ListCommand::numberIdentifiers;
+//QStringList ListCommand::numberIdentifiers;
 
-ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QString& description,
+ListCommand::ListCommand(CommandManager *parentManger, const QString& name, const QString& iconSrc, const QString& description,
 		const QStringList& commands_,
 		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
 	GreedyReceiver(NULL /* no manager */),
+	m_parentManager(parentManger),
 	clw(new CommandListWidget()),
 	startIndex(0),
 	iconsrcs(iconSrcs_),
 	commands(commands_),
 	commandTypes(commandTypes_)
 {
-	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
-	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
-	
-
-	if (numberIdentifiers.isEmpty())
-		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+	init();
 }
 
 ListCommand::ListCommand() : Command(),
 	GreedyReceiver(NULL /* no manager */),
+	m_parentManager(NULL),
 	clw(new CommandListWidget()),
 	startIndex(0)
 {
+	init();
+}
+
+void ListCommand::init()
+{
 	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
 	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
-	
 
-	if (numberIdentifiers.isEmpty())
-		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+//	if (numberIdentifiers.isEmpty())
+//		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
+//			<< i18n("Three") << i18n("Four") << i18n("Five") <<
+//			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+
+
 }
 
 
@@ -146,6 +148,11 @@ bool ListCommand::processRequest(int index)
 	return false;
 }
 
+void ListCommand::adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command)
+{
+	clw->adaptToVoiceElement(element, command);
+}
+
 void ListCommand::cancel()
 {
 	clw->close();
@@ -156,6 +163,8 @@ void ListCommand::cancel()
 bool ListCommand::greedyTrigger(const QString& inputText)
 {
 	kDebug() << "Triggering greedy " << inputText;
+	//TODO: implement
+	/*
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
 		clw->close();
@@ -173,6 +182,8 @@ bool ListCommand::greedyTrigger(const QString& inputText)
 	}
 
 	return processRequest(index);
+	*/
+	return false;
 }
 
 const QString ListCommand::staticCategoryText()
@@ -238,8 +249,28 @@ bool ListCommand::triggerPrivate(int *state)
 
 	listCurrentCommandSection();
 
-	kDebug() << "I am now officially greedy";
 	startGreedy();
+
+	m_subCommands.clear();
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption;
+	//adapt to either parent manager or commandsettings
+	if (m_parentManager) {
+		//adapt to current scenarios list configuration
+		//adaption = ActionManager::getInstance()->getListInterfaceCommands();
+		adaption = ActionManager::getInstance()->getGlobalListInterfaceCommands();
+	} else {
+		//adapt to commandsettings list configuration
+		adaption = ActionManager::getInstance()->getGlobalListInterfaceCommands();
+	}
+
+	foreach (CommandListElements::Element element, adaption.keys())
+	{
+		QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
+		//list cant be empty so we dont need to check
+		clw->adaptToVoiceElement(element, interfaceCommands[0]);
+		m_subCommands << interfaceCommands;
+	}
 
 	clw->show();
 

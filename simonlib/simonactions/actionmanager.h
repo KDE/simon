@@ -25,6 +25,7 @@
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenarios/command.h>
+#include <simonscenarios/commandlistelements.h>
 #include <simonactions/greedyreceiver.h>
 #include "actionlib_export.h"
 #include <KIcon>
@@ -77,6 +78,8 @@ public:
 	CommandList* getCommandList();
 	QList<CommandLauncher*> getLauncherList();
 	QFont pluginBaseFont();
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getGlobalListInterfaceCommands();
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
 	~ActionManager();
 

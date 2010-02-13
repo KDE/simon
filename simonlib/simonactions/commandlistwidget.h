@@ -22,6 +22,7 @@
 
 #include "actionlib_export.h"
 #include <simonscenarios/command.h>
+#include <simonscenarios/commandlistelements.h>
 #include <QList>
 #include <QTimer>
 #include <QWidget>
@@ -74,20 +75,6 @@ public:
 		HasNext=0x2
 	};
 
-	enum Element {
-		Back=0,
-		One=1,
-		Two=2,
-		Three=3,
-		Four=4,
-		Five=5,
-		Six=6,
-		Seven=7,
-		Eight=8,
-		Next=9,
-		Cancel=10
-	};
-
 	Q_DECLARE_FLAGS(Flags, Flag)
 	
 	/**
@@ -109,7 +96,7 @@ public:
 
     	virtual ~CommandListWidget();
 
-	void adaptToVoiceElement(Element element, VoiceInterfaceCommand* command);
+	void adaptToVoiceElement(CommandListElements::Element element, VoiceInterfaceCommand* command);
 
 private:
 	Flags currentFlags;

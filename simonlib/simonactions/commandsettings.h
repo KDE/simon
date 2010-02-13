@@ -21,15 +21,21 @@
 #define SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
 
 #include "ui_commandsettingsdlg.h"
-#include <KCModule>
+#include "commandlistwidget.h"
+#include <simonscenarios/commandlistelements.h>
 #include <QStringList>
 #include <QVariantList>
 #include <QFont>
+#include <QList>
+#include <QHash>
+#include <KCModule>
 
 class QListWidgetItem;
 class KPageWidget;
 class KPageWidgetItem;
 class Action;
+class VoiceInterfaceCommand;
+
 /**
  * \class CommandSettings
  * \author Peter Grasch
@@ -52,6 +58,28 @@ private:
 	KSharedConfig::Ptr config;
 	bool isChanged;
 	QFont storedFont;
+	CommandListElements::Element getRowElementType(int row);
+	void storeCurrentlyDisplayedElement(CommandListElements::Element type);
+	void displayListElement(CommandListElements::Element type);
+
+	QString getListSelectionId(CommandListElements::Element type);
+	QString getListSelectionDescription(CommandListElements::Element type);
+	QString getListDefaultTrigger(CommandListElements::Element type);
+	QString getListDefaultVisibleTrigger(CommandListElements::Element type);
+	bool getListDefaultShowIcon(CommandListElements::Element type);
+	QString getListDefaultIcon(CommandListElements::Element type);
+
+	QStringList getListTriggers(CommandListElements::Element type);
+	bool getListShowIcon(CommandListElements::Element type);
+	QString getListIcon(CommandListElements::Element type);
+	QString getListVisibleTrigger(CommandListElements::Element type);
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+
+	void registerVoiceInterfaceCommand(CommandListElements::Element, 
+			const QStringList& triggers, 
+			const QString& visibleTrigger, bool showIcon, const QString& iconSrc);
+
 
 public slots:
 	virtual void save();
@@ -60,11 +88,13 @@ public slots:
  
 private slots:
 	void slotChanged();
+	void listActionsItemChanged(QListWidgetItem *newItem, QListWidgetItem *item);
 
 public:
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
 	{
-		if (!instance) instance = new CommandSettings(parent, args);
+		if (!instance) return new CommandSettings(parent, args);
 		return instance;
 	}
 
@@ -78,3 +108,4 @@ public:
 };
 
 #endif
+
