@@ -152,6 +152,13 @@
           </widget>
          </item>
          <item>
+          <widget class="KPushButton" name="pbClear">
+           <property name="text">
+            <string>Clear</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -175,13 +182,6 @@
           <widget class="KPushButton" name="pbRemoveWord">
            <property name="text">
             <string>Remove Word</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KPushButton" name="pbClear">
-           <property name="text">
-            <string>Clear</string>
            </property>
           </widget>
          </item>

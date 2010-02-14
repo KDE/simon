@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2010-02-09 11:18+0100\n"
-"PO-Revision-Date: 2010-02-09 11:18+0100\n"
+"PO-Revision-Date: 2010-02-14 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -864,7 +864,7 @@ msgstr "Importiere Ordner"
 #. i18n: ectx: property (text), widget (QLabel, lbFolder)
 #: po/rc.cpp:371 rc.cpp:371
 msgid "Directory:"
-msgstr "Wörterbuch:"
+msgstr "Ordner:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataworkingdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbMain)
