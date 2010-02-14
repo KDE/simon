@@ -684,6 +684,17 @@ QList<CommandLauncher*> Scenario::getLauncherList()
 	return m_actionCollection->getLauncherList();
 }
 
+QHash<CommandListElements::Element, VoiceInterfaceCommand*> Scenario::getListInterfaceCommands()
+{
+	kDebug() << "Returning list interface commands" << this;
+	return m_actionCollection->getListInterfaceCommands();
+}
+
+void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
+{
+	m_actionCollection->setListInterfaceCommands(commands);
+}
+
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);

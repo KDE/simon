@@ -51,13 +51,14 @@
 #include "commandlauncher.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenariobase/scenarioobject.h>
+#include <simonscenarios/commandlistelements.h>
+#include <simonscenarios/actioncollection.h>
 #include <QList>
 #include <QObject>
 #include <KIcon>
 #include <QAbstractItemModel>
 #include <QDomElement>
 #include <QHash>
-
 
 
 class CommandManager;
@@ -69,6 +70,7 @@ class QDomDocument;
 class Scenario;
 class VoiceInterfaceCommand;
 class VoiceInterfaceCommandTemplate;
+class ActionCollection;
 
 /**
  *	@class CommandManager
@@ -84,7 +86,6 @@ signals:
 	void commandsFound(CommandList*);
 
 private:
-//	QHash<QString, QString> voiceInterfaceActionNames;
 	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
 protected:
@@ -92,6 +93,7 @@ protected:
 	CommandList *commands;
 	QString m_source;
 	QList<QAction*> guiActions;
+	ActionCollection *m_actionCollection;
 
 
 	CommandConfiguration *config;
@@ -166,11 +168,25 @@ public:
 			const QString& defaultVisibleTrigger=QString(), 
 			QString id=QString());
 
+	virtual bool installListInterfaceCommand(CommandListElements::Element element,
+			QObject* object, const QString& slot, QString id,
+			QString description=QString(), 
+			int state=SimonCommand::DefaultState, 
+			int newState=SimonCommand::DefaultState, 
+			QString actionName=QString(), QString iconSrc=QString(),
+			bool announce=false, bool showIcon=false,
+			QString defaultVisibleTrigger=QString());
+
 	QList<VoiceInterfaceCommandTemplate*> getVoiceInterfaceCommandTemplates()
 	{ return voiceInterfaceCommandTemplates; }
 
 	void switchToState(int newState)
 	{ m_currentState = newState; }
+
+	void setActionCollection(ActionCollection *aC)
+	{
+		m_actionCollection =  aC;
+	}
 
 	/**
 	* @brief Constructor

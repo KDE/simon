@@ -107,7 +107,7 @@ int ManageActionsDialog::exec()
 
 	listConfiguration->prepareToLoad();
 	listConfiguration->registerVoiceInterfaceCommands(ScenarioManager::getInstance()->
-			getCurrentScenario()->actionCollection()->getListInterfaceCommands());
+			getCurrentScenario()->getListInterfaceCommands());
 	listConfiguration->loadFinished();
 
 
@@ -117,7 +117,7 @@ int ManageActionsDialog::exec()
 	if (ret)
 	{
 		listConfiguration->prepareToSave();
-		ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->setListInterfaceCommands(
+		ScenarioManager::getInstance()->getCurrentScenario()->setListInterfaceCommands(
 				listConfiguration->getListInterfaceCommands());
 		ScenarioManager::getInstance()->getCurrentScenario()->save();
 	}

@@ -138,6 +138,51 @@ bool CommandManager::installInterfaceCommand(QObject* object, const QString& slo
 	return true;
 }
 
+bool CommandManager::installListInterfaceCommand(CommandListElements::Element element,
+			QObject* object, const QString& slot, QString id, 
+			QString description, int state, 
+			int newState, QString actionName, QString iconSrc,
+			bool announce, bool showIcon,
+			QString defaultVisibleTrigger)
+{
+	if (m_actionCollection && (actionName.isNull() || iconSrc.isNull() || description.isNull() || defaultVisibleTrigger.isNull()))
+	{
+		//get from scenario global listconfiguration
+		QHash<CommandListElements::Element, VoiceInterfaceCommand*> standardAdaption = m_actionCollection->getListInterfaceCommands();
+
+		QList<VoiceInterfaceCommand*> adaptionCommands = standardAdaption.values(element);
+
+		QStringList triggers;
+		foreach (VoiceInterfaceCommand* c, adaptionCommands)
+			triggers << c->getTrigger();
+
+		if (iconSrc.isNull())
+		{
+			iconSrc = adaptionCommands[0]->getIconSrc();
+			showIcon = adaptionCommands[0]->showIcon();
+		}
+		if (description.isNull())
+			description = adaptionCommands[0]->getDescription();
+
+		if (defaultVisibleTrigger.isNull())
+			defaultVisibleTrigger = adaptionCommands[0]->visibleTrigger();
+
+		if (actionName.isNull())
+		{
+			bool returns = true;
+			foreach (const QString& trigger, triggers)
+				returns &= installInterfaceCommand(object, slot, trigger, iconSrc, description, 
+					announce, showIcon, state, newState, defaultVisibleTrigger, id);
+			return returns;
+		}
+	}
+
+	return installInterfaceCommand(object, slot, actionName, iconSrc, description, 
+			announce, showIcon, state, newState, defaultVisibleTrigger, id);
+}
+
+
+
 CreateCommandWidget* CommandManager::getCreateVoiceInterfaceCommandWidget(QWidget *parent)
 {
 	if (voiceInterfaceCommandTemplates.isEmpty())

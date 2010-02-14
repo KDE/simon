@@ -26,21 +26,22 @@
 #include <simonscenarios/commandlauncher.h>
 #include <simonscenariobase/versionnumber.h>
 
-Action::Action(Scenario *parent, const QString& source, const QString& trigger) : ScenarioObject(parent),
+Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection) : ScenarioObject(parent),
 	m_source(source),
 	pluginMinVersion(0),
-	pluginMaxVersion(0)
+	pluginMaxVersion(0),
+	m_actionCollection(actionCollection)
 {
 	init(source, trigger);
 }
 
 
-Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
+Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem, ActionCollection *actionCollection)
 {
 	QString pluginSource = pluginElem.attribute("name");
 	QString pluginTrigger = pluginElem.attribute("trigger");
 
-	Action *a = new Action(parent, pluginSource, pluginTrigger);
+	Action *a = new Action(parent, pluginSource, pluginTrigger, actionCollection);
 
 	if (!a->deSerialize(pluginElem)) {
 		delete a;
@@ -87,6 +88,7 @@ void Action::init(const QString& source, const QString& trigger)
 		if (trigger.isNull()) {
 			m_trigger = m_manager->preferredTrigger();
 		}
+		m_manager->setActionCollection(m_actionCollection);
 
 		if (parentScenario == NULL) {
 			//automatic mode

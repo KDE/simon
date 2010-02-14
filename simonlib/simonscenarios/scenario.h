@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QDateTime>
 #include <QDomDocument>
+#include <QHash>
 #include <KIcon>
 #include "speechmodel.h"
 #include "vocabulary.h"
@@ -147,6 +148,9 @@ public:
 	void setPluginFont(const QFont& font);
 
 	static QString createId(const QString& name);
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+	void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
 };
 

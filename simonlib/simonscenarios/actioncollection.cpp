@@ -95,7 +95,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 
 	QDomElement pluginElem = actionCollectionElem.firstChildElement("plugin");
 	while (!pluginElem.isNull()) {
-		Action *a = Action::createAction(parentScenario, pluginElem);
+		Action *a = Action::createAction(parentScenario, pluginElem, this);
 		if (!a) {
 			kDebug() << "Couldn't load action";
 		} else {
@@ -241,6 +241,7 @@ bool ActionCollection::deleteAction(Action *action)
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionCollection::getListInterfaceCommands()
 {
+	kDebug() << "Returning list interface commands" << this;
 	return listInterfaceCommands;
 }
 

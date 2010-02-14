@@ -197,6 +197,29 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			i18n("Aborts the selection process"), true, false, SimonCommand::GreedyState, 
 			SimonCommand::DefaultState, QString(), "cancel");
 
+
+	succ &= installListInterfaceCommand(CommandListElements::One, this, "select1", "click1", 
+			i18n("In the click mode selection popup, selects the simple click with the left mouse button"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Two, this, "select2", "click2",
+			i18n("In the click mode selection popup, selects the double click with the left mouse button"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Three, this, "select3", "click3",
+			i18n("In the click mode selection popup, selects the simple click with the right mouse button"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Four, this, "select4", "click4",
+			i18n("In the click mode selection popup, selects the simple click with the middle mouse button"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Five, this, "select5", "click5",
+			i18n("In the click mode selection popup, this selects the drag and drop mode"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Cancel, this, "deactivate", "cancelClickModeSelection", 
+			i18n("In the output selection popup, selects printing the result"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+
+
+	/*
+
 	succ &= installInterfaceCommand(this, "select1", i18n("One"), iconSrc(),
 			i18n("In the click mode selection popup, selects the simple click with the left mouse button"), 
 			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "1", "click1");
@@ -216,6 +239,7 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 	succ &= installInterfaceCommand(this, "deactivate", i18n("Cancel"), "dialog-cancel",
 			i18n("Aborts the selection process when prompted to choose the click mode"), true, false, 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState, QString(), "cancelClickModeSelection");
+			*/
 	return succ;
 }
 

@@ -33,6 +33,7 @@ class Command;
 class VersionNumber;
 class CommandConfiguration;
 class CommandLauncher;
+class ActionCollection;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
@@ -48,15 +49,16 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		VersionNumber *pluginMinVersion;
 		VersionNumber *pluginMaxVersion;
 		QPointer<CommandManager> m_manager;
+		ActionCollection *m_actionCollection;
 		bool m_enabledByDefault;
 
 		void init(const QString& source, const QString& trigger=QString());
 	public:
 		void assignParent(Scenario *s);
-		Action(Scenario *parent, const QString& source, const QString& trigger);
+		Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection);
 		typedef QPointer<Action> Ptr;
 
-		static Action* createAction(Scenario *parent, const QDomElement& elem);
+		static Action* createAction(Scenario *parent, const QDomElement& elem, ActionCollection *actionCollection);
 
 		bool enabledByDefault() { return m_enabledByDefault; }
 		QString source() { return m_source; }

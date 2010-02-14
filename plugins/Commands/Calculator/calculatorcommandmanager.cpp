@@ -142,7 +142,41 @@ bool CalculatorCommandManager::installInterfaceCommands()
 			i18n("Decimal separator"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
 
+	/*
+	 *	bool CommandManager::installListInterfaceCommand(CommandListElements::Element element,
+			QObject* object, const QString& slot, QString id, 
+			QString description, int state, 
+			int newState, QString actionName, QString iconSrc,
+			bool announce, bool showIcon,
+			const QString& defaultVisibleTrigger)
+			*/
 	//output mode
+	succ &= installListInterfaceCommand(CommandListElements::One, this, "printResult", "printResult", 
+			i18n("In the output selection popup, selects printing the result"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Two, this, "printCalculationAndResult", 
+			"printCalculationAndResult", i18n("In the output selection popup, selects printing the calculation and result"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Three, this, "printFormattedResult", "printFormattedResult",
+			i18n("In the output selection popup, selects printing the formatted result"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+
+	succ &= installListInterfaceCommand(CommandListElements::Four, this, "printFormattedCalculationAndResult", "printFormattedCalculationAndResult",
+			i18n("In the output selection popup, selects printing the formatted calculation and result"),
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Five, this, "printFormattedMoneyResult", "printFormattedMoneyResult",
+			i18n("In the output selection popup, selects printing the result formatted as money"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Six, this, "printFormattedMoneyCalculationAndResult", 
+			"printFormattedMoneyCalculationAndResult",
+			i18n("In the output selection popup, selects printing the calculation and result formatted as money"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Cancel, this, "printCancel", "printCancel", 
+			i18n("In the output selection popup, selects printing the result"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+
+
+	/*
 	succ &= installInterfaceCommand(this, "printResult", i18n("One"), iconSrc(),
 			i18n("In the output selection popup, selects printing the result"), true, 
 			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "1", "printResult");
@@ -164,6 +198,7 @@ bool CalculatorCommandManager::installInterfaceCommands()
 	succ &= installInterfaceCommand(this, "printCancel", i18n("Cancel"), "dialog-cancel",
 			i18n("In the output selection popup, selects printing the result"), true, 
 			true, SimonCommand::GreedyState+1, SimonCommand::DefaultState, i18n("Cancel"), "printCancel");
+			*/
 
 	return succ;
 }

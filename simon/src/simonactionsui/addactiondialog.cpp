@@ -22,6 +22,8 @@
 #include <simonscenarios/actioncollection.h>
 #include <simonscenarios/action.h>
 #include <simonscenarios/actionmodel.h>
+#include <simonscenarios/scenariomanager.h>
+#include <simonscenarios/scenario.h>
 #include <QSortFilterProxyModel>
 #include <KMessageBox>
 #include <KService>
@@ -64,7 +66,8 @@ int AddActionDialog::exec()
 	
 	foreach (KService::Ptr service, services)
 	{
-		Action* action = new Action(NULL /* no parent scenario */, service->storageId(), QString());
+		Action* action = new Action(NULL /* no parent scenario */, service->storageId(), QString(), 
+				ScenarioManager::getInstance()->getCurrentScenario()->actionCollection());
 		actionModel->appendAction(action, false);
 	}
 
