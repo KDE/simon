@@ -35,6 +35,17 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 {
 }
 
+//copy constructor
+VoiceInterfaceCommand::VoiceInterfaceCommand(const VoiceInterfaceCommand& b) :
+	Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundState(), b.getTargetState(), b.getAnnounce()),
+	m_parentManager(b.getParentManager()),
+	m_id(b.id()),
+	m_visibleTrigger(b.visibleTrigger()),
+	m_receiver(b.receiver()),
+	m_showIcon(b.showIcon())
+{
+}
+
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
 	Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
 	m_parentManager(parentManager),

@@ -29,11 +29,13 @@
 #include <QObject>
 #include <QStringList>
 #include <QList>
+#include <QHash>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonactions/greedyreceiver.h>
 
 #include "command.h"
 #include "commandlauncher.h"
+#include "commandlistelements.h"
 #include "speechmodel.h"
 #include "vocabulary.h"
 #include "simonmodelmanagement_export.h"
@@ -45,6 +47,7 @@ class ShadowVocabulary;
 class Command;
 class Action;
 class CommandManager;
+class VoiceInterfaceCommand;
 
 class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject {
 Q_OBJECT
@@ -116,6 +119,16 @@ public:
 	QString baseModelStats();
 	void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName, 
 			const QString& macrosName, const QString& statsName);
+
+	void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
+	{
+		this->listInterfaceCommands = listInterfaceCommands;
+	}
+
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration()
+	{
+		return listInterfaceCommands;
+	}
 	
 public slots:
 	// If force is true, every registered display will switch to this scenario
@@ -131,6 +144,7 @@ private:
 	
 	QList<Scenario*> scenarios;
 	QList<ScenarioDisplay*> scenarioDisplays;
+	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
 };
 

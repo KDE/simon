@@ -43,8 +43,6 @@
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
-//	QObject::connect(ActionManager::getInstance(), SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
-	
 	this->recognitionControl = RecognitionControl::getInstance(parent);
 	QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
 	QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
@@ -64,6 +62,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
+
+	ActionManager::getInstance(); // initializing action manager
 
 	if (!ScenarioManager::getInstance()->init())
 		KMessageBox::error(0, i18n("Couldn't initialize scenarios and shadow dictionary."));

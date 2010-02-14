@@ -43,6 +43,7 @@ private:
 	
 	VoiceInterfaceCommand() {}
 public:
+	VoiceInterfaceCommand(const VoiceInterfaceCommand& b);
 	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
 	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
 			const QString& description, const QString& id, int state, int newState,
@@ -57,10 +58,11 @@ public:
 
 	bool triggerPrivate(int *status);
 
-	QString id() { return m_id; }
-	QString visibleTrigger() { return m_visibleTrigger; }
-	QObject* receiver() { return m_receiver; }
-	bool showIcon() { return m_showIcon; }
+	QString id() const { return m_id; }
+	QString visibleTrigger() const { return m_visibleTrigger; }
+	QObject* receiver() const { return m_receiver; }
+	bool showIcon() const { return m_showIcon; }
+	CommandManager* getParentManager() const { return m_parentManager; }
 
 	virtual ~VoiceInterfaceCommand();
 

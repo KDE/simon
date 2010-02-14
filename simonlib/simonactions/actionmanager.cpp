@@ -74,6 +74,8 @@ void ActionManager::retrieveRecognitionResultFilteringParameters()
 {
 	useDYM = CommandSettings::getInstance()->useDYM();
 	minimumConfidenceThreshold = CommandSettings::getInstance()->minimumConfidence();
+	kDebug() << "Getting global interface commands";
+	ScenarioManager::getInstance()->setListBaseConfiguration(getGlobalListInterfaceCommands());
 }
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)

@@ -140,6 +140,9 @@ public:
     QString getTrigger() const { return this->triggerName; }
 
     int getBoundState() const { return this->boundState; }
+    int getTargetState() const { return this->switchToState; }
+
+    bool getAnnounce() const { return announce; }
     
     QString getDescription() const { return this->description; }
     

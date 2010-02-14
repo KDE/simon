@@ -105,23 +105,9 @@ int ManageActionsDialog::exec()
 		registerCommandConfiguration(m);
 	}
 
-	//TODO: load list configuration
 	listConfiguration->prepareToLoad();
 	listConfiguration->registerVoiceInterfaceCommands(ScenarioManager::getInstance()->
 			getCurrentScenario()->actionCollection()->getListInterfaceCommands());
-	/*
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Back, backTriggers, backVisibleTrigger, showBackIcon, backIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::One, oneTriggers, oneVisibleTrigger, showOneIcon, oneIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Two, twoTriggers, twoVisibleTrigger, showTwoIcon, twoIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Three, threeTriggers, threeVisibleTrigger, showThreeIcon, threeIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Four, fourTriggers, fourVisibleTrigger, showFourIcon, fourIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Five, fiveTriggers, fiveVisibleTrigger, showFiveIcon, fiveIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Six, sixTriggers, sixVisibleTrigger, showSixIcon, sixIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Seven, sevenTriggers, sevenVisibleTrigger, showSevenIcon, sevenIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Eight, eightTriggers, eightVisibleTrigger, showEightIcon, eightIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Next, nextTriggers, nextVisibleTrigger, showNextIcon, nextIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Cancel, cancelTriggers, cancelVisibleTrigger, showCancelIcon, cancelIcon);
-	*/
 	listConfiguration->loadFinished();
 
 
