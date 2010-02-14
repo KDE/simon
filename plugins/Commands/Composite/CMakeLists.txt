@@ -10,7 +10,6 @@ set (simoncompositecommandplugin_SRCS
 	createcompositecommandwidget.cpp 
 	compositecommand.cpp 
 	delaycommand.cpp 
-	launchercommand.cpp 
 	compositecommandmanager.cpp 
     )
 

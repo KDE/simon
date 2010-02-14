@@ -21,7 +21,6 @@
 #define SIMON_KEYBOARDCOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
 #include <simonscenarios/commandmanager.h>
-#include <simonscenarios/commandlauncher.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include <KXMLGUIClient>

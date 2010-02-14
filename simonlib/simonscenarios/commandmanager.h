@@ -48,7 +48,6 @@
 #include "simoncommand.h"
 #include "command.h"
 
-#include "commandlauncher.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenariobase/scenarioobject.h>
 #include <simonscenarios/commandlistelements.h>
@@ -124,8 +123,6 @@ public:
 	virtual const QString iconSrc() const=0;
 	bool addCommand(Command *command);
 	virtual bool addCommandPrivate(Command *command);
-
-	virtual QList<CommandLauncher*> launchers() const;
 
 	virtual QList<QAction*> getGuiActions() const;
 

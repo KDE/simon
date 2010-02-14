@@ -21,7 +21,6 @@
 #define SIMON_PRONUNCIATIONTRAININGCOMMANDMANAGER_H_08C58336D74C4721A047F68738AB6253
 
 #include <simonscenarios/commandmanager.h>
-#include <simonscenarios/commandlauncher.h>
 
 #include <QVariantList>
 
@@ -48,7 +47,6 @@ public:
 	const QString name() const;
 	const QString iconSrc() const;
 	bool deSerializeConfig(const QDomElement& elem);
-	QList<CommandLauncher*> launchers() const;
 
     /**
     * @brief Constructor

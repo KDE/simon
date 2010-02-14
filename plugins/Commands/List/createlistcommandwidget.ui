@@ -31,7 +31,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="1" column="0" colspan="2">
     <widget class="QTableView" name="tvCommands">
      <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
@@ -41,7 +41,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="2">
+   <item row="1" column="2">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="pbRemove">
@@ -87,23 +87,6 @@
       </spacer>
      </item>
     </layout>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Launcher:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="KComboBox" name="cbLaunchers"/>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="pbAddLauncher">
-     <property name="text">
-      <string>Add Launcher</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

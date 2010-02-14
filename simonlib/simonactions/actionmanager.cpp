@@ -103,11 +103,6 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 	return ScenarioManager::getInstance()->triggerCommand(type, trigger);
 }
 
-bool ActionManager::runLauncher(const QString& trigger)
-{
-	return processResult(RecognitionResult(trigger, "", "", QList<float>() << 1));
-}
-
 bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
 	if (!greedyReceivers->isEmpty()) {
@@ -234,11 +229,6 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 QFont ActionManager::pluginBaseFont()
 {
 	return CommandSettings::getInstance()->pluginBaseFont();
-}
-
-QList<CommandLauncher*> ActionManager::getLauncherList()
-{
-	return ScenarioManager::getInstance()->getLauncherList();
 }
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getListInterfaceCommands()

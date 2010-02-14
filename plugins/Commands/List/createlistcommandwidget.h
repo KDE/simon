@@ -23,7 +23,6 @@
 #include <QWidget>
 #include <simonscenarios/createcommandwidget.h>
 #include <simonscenarios/command.h>
-#include <simonscenarios/commandlauncher.h>
 #include "ui_createlistcommandwidget.h"
 
 class Command;
@@ -43,14 +42,12 @@ Q_OBJECT
 
 private:
 	CommandList* allCommands;
-	QList<CommandLauncher*> allLaunchers;
 	QList<Command*> commandsToDelete;
 	Ui::CreateListCommandWidget ui;
 	CommandTableModel *model;
 
 private slots:
 	void addCommandToList();
-	void addLauncherToList();
 	void removeCommand();
 	void moveUp();
 	void moveDown();

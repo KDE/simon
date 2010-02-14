@@ -19,7 +19,6 @@
 
 #include "createcompositecommandwidget.h"
 #include "compositecommand.h"
-#include "launchercommand.h"
 #include "delaycommand.h"
 
 #include <simonactions/commandtablemodel.h>
@@ -32,7 +31,6 @@
 
 CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
 	allCommands(ActionManager::getInstance()->getCommandList()),
-	allLaunchers(ActionManager::getInstance()->getLauncherList()),
 	model(new CommandTableModel())
 {
 	ui.setupUi(this);
@@ -46,21 +44,11 @@ CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manag
 		QString category = com->getCategoryText();
 		ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
 	}
-	foreach (const CommandLauncher* launcher, allLaunchers) {
-		QString pluginTrigger = launcher->pluginTrigger();
-		QString trigger = launcher->trigger();
-		QString description = launcher->description();
-
-		QString visualTrigger = QString(pluginTrigger+" "+trigger).trimmed();
-		
-		ui.cbLaunchers->addItem(launcher->icon(), visualTrigger+" ("+description+")");
-	}
 	ui.tvCommands->setModel(model);
 
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
 	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToComp()));
 	connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelayToComp()));
-	connect(ui.pbAddLauncher, SIGNAL(clicked()), this, SLOT(addLauncherToComp()));
 	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
@@ -68,7 +56,6 @@ CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manag
 
 	ui.pbAddCommand->setIcon(KIcon("list-add"));
 	ui.pbAddDelay->setIcon(KIcon("list-add"));
-	ui.pbAddLauncher->setIcon(KIcon("list-add"));
 	ui.pbRemove->setIcon(KIcon("list-remove"));
 	ui.pbMoveUp->setIcon(KIcon("arrow-up"));
 	ui.pbMoveDown->setIcon(KIcon("arrow-down"));
@@ -130,12 +117,7 @@ bool CreateCompositeCommandWidget::init(Command* command)
 	foreach (const QString& trigger, selectedTriggers)
 	{
 		QString cat = selectedCategories[i];
-		if (cat == i18n("Launcher")) {
-			//add launcher
-			LauncherCommand *c = new LauncherCommand("", trigger);
-			commandsToDelete << c;
-			model->selectCommand(c);
-		} else if (cat == i18n("Delay")) {
+		if (cat == i18n("Delay")) {
 			bool ok;
 			int delay = trigger.toInt(&ok);
 			if (ok) {
@@ -179,16 +161,6 @@ void CreateCompositeCommandWidget::addCommandToComp()
 	emit completeChanged();
 }
 
-void CreateCompositeCommandWidget::addLauncherToComp()
-{
-	LauncherCommand *launcherCommand = new LauncherCommand(allLaunchers.at(ui.cbLaunchers->currentIndex()));
-	commandsToDelete << launcherCommand;
-	model->selectCommand(launcherCommand);
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
-}
-
-
 void CreateCompositeCommandWidget::removeCommand()
 {
 	model->removeCommand(ui.tvCommands->currentIndex().row());
@@ -225,7 +197,6 @@ Command* CreateCompositeCommandWidget::createCommand(const QString& name, const 
 CreateCompositeCommandWidget::~CreateCompositeCommandWidget()
 {
 	qDeleteAll(commandsToDelete);
-	qDeleteAll(allLaunchers);
 	delete allCommands;
 }
 

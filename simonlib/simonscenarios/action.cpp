@@ -23,7 +23,6 @@
 #include <KPluginInfo>
 #include <KDebug>
 #include <simonscenarios/commandmanager.h>
-#include <simonscenarios/commandlauncher.h>
 #include <simonscenariobase/versionnumber.h>
 
 Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection) : ScenarioObject(parent),
@@ -189,17 +188,6 @@ void Action::setPluginFont(const QFont& font)
 {
 	m_manager->setFont(font);
 }
-
-QList<CommandLauncher*> Action::getLauncherList()
-{
-	QList<CommandLauncher*> out = m_manager->launchers();
-	foreach (CommandLauncher *l, out) {
-		l->setPlugin(m_source);
-		l->setPluginTrigger(m_trigger);
-	}
-	return out;
-}
-
 
 
 Action::~Action()

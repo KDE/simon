@@ -32,7 +32,7 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.cpp
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/command.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/voiceinterfacecommandtemplate.cpp
@@ -72,7 +72,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/command.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simoncommand.h
-	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.h
+	#	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.h
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.h

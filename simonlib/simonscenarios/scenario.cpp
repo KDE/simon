@@ -679,11 +679,6 @@ void Scenario::setPluginFont(const QFont& font)
 	m_actionCollection->setPluginFont(font);
 }
 
-QList<CommandLauncher*> Scenario::getLauncherList()
-{
-	return m_actionCollection->getLauncherList();
-}
-
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> Scenario::getListInterfaceCommands()
 {
 	kDebug() << "Returning list interface commands" << this;

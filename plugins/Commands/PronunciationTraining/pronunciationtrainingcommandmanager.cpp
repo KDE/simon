@@ -85,11 +85,6 @@ const QString PronunciationTrainingCommandManager::iconSrc() const
 	return ("applications-education");
 }
 
-QList<CommandLauncher*> PronunciationTrainingCommandManager::launchers() const
-{
-	return QList<CommandLauncher*>() << new CommandLauncher("applications-education", "", i18n("Start pronunciation training"));
-}
-
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {
 }

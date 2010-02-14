@@ -36,7 +36,6 @@
 class ScenarioObject;
 class Author;
 class ActionCollection;
-class CommandLauncher;
 class Word;
 class VersionNumber;
 class Grammar;
@@ -138,7 +137,6 @@ public:
 	bool triggerCommand(const QString& type, const QString& trigger);
 
 	CommandList* getCommandList();
-	QList<CommandLauncher*> getLauncherList();
 
 	void startGroup();
 	bool commitGroup();

@@ -380,11 +380,6 @@ bool ScenarioManager::commitGroup(bool silent)
 	return success;
 }
 
-QList<CommandLauncher*> ScenarioManager::getLauncherList()
-{
-	return currentScenario->getLauncherList();
-}
-
 void ScenarioManager::touchBaseModelAccessTime()
 {
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );

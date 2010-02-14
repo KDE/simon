@@ -32,7 +32,6 @@ class CommandManager;
 class Command;
 class VersionNumber;
 class CommandConfiguration;
-class CommandLauncher;
 class ActionCollection;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
@@ -78,7 +77,6 @@ class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 		CommandConfiguration* getConfigurationPage();
 
 		void setPluginFont(const QFont& font);
-		QList<CommandLauncher*> getLauncherList();
 
 		~Action();
 

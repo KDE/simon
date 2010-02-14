@@ -106,8 +106,7 @@ bool CompositeCommand::triggerPrivate(int *state)
 			#else
 			usleep(amount*1000);
 			#endif
-		} else  if (type == i18n("Launcher"))
-			ActionManager::getInstance()->runLauncher(commands[i]);
+		} 
 		else
 			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
 	}
