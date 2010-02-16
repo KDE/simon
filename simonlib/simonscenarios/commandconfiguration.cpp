@@ -45,6 +45,7 @@ CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& i
 			: QWidget(), ScenarioObject(parent)
 {
 	Q_UNUSED(args);
+	Q_UNUSED(componentData);
 
 	about = new KAboutData(internalName, "", name,
 				version, desc, KAboutData::License_GPL);

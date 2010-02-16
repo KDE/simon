@@ -39,7 +39,6 @@
 #include "simonmodelmanagement_export.h"
 
 #include <QList>
-#include <QObject>
 #include <QString>
 #include <KIcon>
 #include <QMap>
@@ -48,12 +47,15 @@ class QDomDocument;
 
 
 /**
- *	@class Command
- *	@brief Ressamles one command with all the attributes
+ * @class Command
+ * @brief This class represents one command with all its attributes
  *
- *	@version 0.1
- *	@date 23.01.2006
- *	@author Peter Grasch
+ * Extend this base class if you want your command manager to have subcommands.
+ *
+ * If your commands should be user configurable, you also have to extend 
+ * CreateCommandWidget.
+ *
+ * \sa CreateCommandWidget
  */
 class Command;
 
@@ -65,26 +67,39 @@ typedef QList<Command*> CommandList;
 
 #include "commandmanager.h"
 
+class CommandManager;
 
-class MODELMANAGEMENT_EXPORT  Command : public QObject{
 
-Q_OBJECT
+class MODELMANAGEMENT_EXPORT  Command {
 
 private:
-	QString triggerName; //!< The name of the command - this is used to call the command and is unique
-	QString iconSrc; //!< The icon of a command.
-	QString description; //!< The description of the command.
-	bool announce; //!< Should we announce when the command gets triggered?
+	/// The name of the command - this is used to call the command and should be unique
+	/// in the parent CommandManager
+	QString triggerName; 
 
-signals:
-	void changed();
-	void removed();
+	/// Icon name of the command
+	QString iconSrc; 
+
+	/// Detailed, user visible description of the command
+	QString description;
+
+	/// If this is true, the base class will provide graphical feedback when the command is triggered (passive popup)
+	bool announce;
+
+	/// The parent CommandManager
+	CommandManager *m_parent;
 
 protected:
+	/// The command is bound to this state.
+	/// \sa matches()
 	int boundState;
+
+	/// Whenever the command is executed, the commandmanager should switch into this state
 	int switchToState;
 
+	/// Empty private constructor 
     	Command() {}
+
 	virtual bool triggerPrivate(int* state)=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
 
@@ -92,6 +107,9 @@ protected:
 	virtual bool deSerializePrivate(const QDomElement& commandElem)=0;
 
 public:
+	void setParent(CommandManager* man) { m_parent = man; }
+	CommandManager* parent() { return m_parent; }
+
 	static const QString staticCategoryText() {return "";}
 	static const KIcon staticCategoryIcon() {return KIcon();}
 
@@ -105,13 +123,6 @@ public:
 	virtual const QMap<QString,QVariant> getValueMap() const;
 
 
-	virtual void remove() { emit removed(); deleteLater(); }
-	void change(const QString& newName, const QString& newIconSrc, const QString& newDescription) { 
-		triggerName = newName;
-		iconSrc = newIconSrc;
-		description = newDescription;
-		emit changed();
-	}
 	
     /**
     * @brief Constructor
@@ -172,8 +183,7 @@ public:
 	return iconSrc;
    }
     
-    ~Command() {}
-
+   virtual ~Command() {}
 };
 
 #endif

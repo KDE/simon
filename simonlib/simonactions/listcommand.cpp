@@ -37,8 +37,6 @@
 #include <KLocalizedString>
 
 
-//QStringList ListCommand::numberIdentifiers;
-
 ListCommand::ListCommand(CommandManager *parentManger, const QString& name, const QString& iconSrc, const QString& description,
 		const QStringList& commands_,
 		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),

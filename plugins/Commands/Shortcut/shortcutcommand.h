@@ -34,7 +34,6 @@
  *	@author Peter Grasch
  */
 class ShortcutCommand : public Command{
-Q_OBJECT
 
 private:
 	QKeySequence shortcut;
@@ -66,12 +65,6 @@ public:
 	}
 
 	STATIC_CREATE_INSTANCE_H(ShortcutCommand);
-
-
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QKeySequence& newShortcut) { 
-		this->shortcut = newShortcut;
-		Command::change(newName, newIconSrc, description);
-	}
 
 
     /**

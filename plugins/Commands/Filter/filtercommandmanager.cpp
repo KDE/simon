@@ -24,7 +24,6 @@
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
-#include <KActionCollection>
 #include "filterconfiguration.h"
 
 K_PLUGIN_FACTORY( FilterPluginFactory, 

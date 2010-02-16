@@ -30,7 +30,6 @@
 #include <QSize>
 #include <KLocalizedString>
 #include <KAction>
-#include <KActionCollection>
 
 K_PLUGIN_FACTORY( KeyboardCommandPluginFactory, 
 			registerPlugin< KeyboardCommandManager >(); 

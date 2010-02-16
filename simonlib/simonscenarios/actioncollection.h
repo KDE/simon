@@ -73,6 +73,7 @@ public:
 
 	bool setTrigger(const QString& trigger);
 	void setPluginFont(const QFont& font);
+
 	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 	void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 

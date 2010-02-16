@@ -77,7 +77,7 @@ void NewCommand::commandSuggested(Command *command)
 {
 	if (!command) return;
 	init(command);
-	command->deleteLater();
+	delete command;
 }
 
 

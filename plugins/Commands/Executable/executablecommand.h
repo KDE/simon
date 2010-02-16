@@ -34,7 +34,6 @@ class QDomDocument;
  *	@author Peter Grasch
  */
 class ExecutableCommand : public Command{
-Q_OBJECT
 private:
 	QString exe;
 	KUrl workingDirectory;
@@ -71,13 +70,6 @@ public:
 	*/
 	const KUrl getWorkingDirectory() const {return this->workingDirectory;}
     
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QString& newExe, const QString& newWorkingDir)
-	{ 
-		this->exe = newExe;
-		this->workingDirectory = newWorkingDir;
-		Command::change(newName, newIconSrc, description);
-	}
-
 	~ExecutableCommand() {}
 
 	STATIC_CREATE_INSTANCE_H(ExecutableCommand);

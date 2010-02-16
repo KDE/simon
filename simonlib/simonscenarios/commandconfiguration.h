@@ -37,7 +37,8 @@ class KAboutData;
  * widget. The configuration widget will be displayed in the "Manage plugins" dialog.
  *
  * This configuration page should normally list options of the plugin as a whole. If you want 
- * to configure sub-elements you most likely want to use the command architecture. See \sa Command
+ * to configure sub-elements you most likely want to use the command architecture. 
+ * \sa Command
  */
 class MODELMANAGEMENT_EXPORT CommandConfiguration : public QWidget, public ScenarioObject
 {

@@ -34,7 +34,7 @@
  *	@author Peter Grasch
  */
 class TextMacroCommand : public Command {
-Q_OBJECT
+
 private:
 	QString text;
 
@@ -74,11 +74,6 @@ public:
     const QString getText() const { return this->text; }
     
 
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QString& newText) { 
-		this->text = newText;
-		Command::change(newName, newIconSrc, description);
-	}
-    
     ~TextMacroCommand() {}
 
 };

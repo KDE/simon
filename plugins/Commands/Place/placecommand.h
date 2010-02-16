@@ -36,7 +36,7 @@
  *	@author Peter Grasch
  */
 class PlaceCommand : public Command{
-Q_OBJECT
+
 private:
 	KUrl url;
 
@@ -68,10 +68,6 @@ public:
     {
     }
 
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const KUrl& newUrl) { 
-		this->url = newUrl;
-		Command::change(newName, newIconSrc, description);
-	}
 
     /**
     * @brief Returns the url

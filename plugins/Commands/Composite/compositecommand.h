@@ -22,6 +22,7 @@
 
 #include <simonscenarios/command.h>
 #include <QList>
+#include <QList>
 #include <KUrl>
 
 /**
@@ -33,7 +34,6 @@
  *	@author Peter Grasch
  */
 class CompositeCommand : public Command{
-Q_OBJECT
 private:
 	QStringList commands;
 	QStringList commandTypes;
@@ -69,14 +69,6 @@ public:
 	QStringList getCommands() const { return this->commands; }
 	QStringList getCommandTypes() const { return this->commandTypes; }
    
-
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QStringList& newCommands, const QStringList& newCommandTypes)
-	{ 
-		this->commands = newCommands;
-		this->commandTypes = newCommandTypes;
-		Command::change(newName, newIconSrc, description);
-	}
-
     ~CompositeCommand() {}
 
 };

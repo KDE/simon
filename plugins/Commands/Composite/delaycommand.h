@@ -33,7 +33,6 @@
  *	@author Peter Grasch
  */
 class DelayCommand : public Command{
-Q_OBJECT
 private:
 	int delay;
 
@@ -61,13 +60,6 @@ public:
 	DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer", ""),
 		delay(delay_)
 	{
-	}
-
-
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, int delay)
-	{ 
-		this->delay = delay;
-		Command::change(newName, newIconSrc, description);
 	}
 
     ~DelayCommand() {}

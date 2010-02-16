@@ -26,6 +26,7 @@
 #include "commandlistwidget.h"
 #include "actionlib_export.h"
 #include <QList>
+#include <QObject>
 #include <QHash>
 #include <KUrl>
 class CommandListWidget;
@@ -39,7 +40,7 @@ class VoiceInterfaceCommand;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class SIMONACTIONS_EXPORT ListCommand : public Command, public GreedyReceiver {
+class SIMONACTIONS_EXPORT ListCommand : public QObject, public Command, public GreedyReceiver {
 Q_OBJECT
 
 signals:
@@ -104,14 +105,6 @@ public:
 	*/
 	QStringList getCommandTypes() const { return this->commandTypes; }
    
-
-	void change(const QString& newName, const QString& newIconSrc, const QString& description, const QStringList& newCommands, const QStringList& newIconSrcs, const QStringList& newCommandTypes)
-	{ 
-		this->iconsrcs = newIconSrcs;
-		this->commands = newCommands;
-		this->commandTypes = newCommandTypes;
-		Command::change(newName, newIconSrc, description);
-	}
 	void setFont(const QFont& font);
 
 	static ListCommand* createInstance(CommandManager *manager, const QDomElement& element);
