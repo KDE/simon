@@ -599,7 +599,7 @@ bool ModelCompilationManager::generateInputFiles()
 	//wlist
 	if (!generateWlist())
 	{
-		analyseError(i18n("Failed to create wordlist. Please check your permissions to the temporary path."));
+		analyseError(i18n("Failed to create wordlist. Please check the path to your prompts file."));
 		return false;
 	}
 

@@ -36,7 +36,7 @@ void ModelCompilationAdapter::run()
 	emit  status(i18n("Adapting model..."), 0);
 	if (!adaptModel(m_adaptionType, m_scenarioPathsIn, m_promptsPathIn, m_lexiconPathOut,
 			m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut)) {
-		emit error(i18n("Failed to adapt model"));
+	//	emit error(i18n("Failed to adapt model"));
 		return;
 	}
 	emit  status(i18n("Model adaption complete"), 100);

@@ -151,7 +151,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 	connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
 	connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
 
-	getBuildPathsFromSimon();
+	//getBuildPathsFromSimon();
 }
 
 void SamView::showConfig()
@@ -325,12 +325,12 @@ void SamView::storeFile()
 
 void SamView::getBuildPathsFromSimon()
 {
-	ui.urHmmDefs->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/hmmdefs")));
-	ui.urTiedlist->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/tiedlist")));
-	ui.urDict->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/model.dict")));
-	ui.urDFA->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/model.dfa")));
-	ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/training.data/")));
-	ui.urTestPromptsBasePath->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/training.data/")));
+	ui.urHmmDefs->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/hmmdefs")));
+	ui.urTiedlist->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/tiedlist")));
+	ui.urDict->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dict")));
+	ui.urDFA->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dfa")));
+	ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
+	ui.urTestPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
 
 	ui.urTreeHed->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/tree1.hed")));
 	ui.urWavConfig->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/wav_config")));
@@ -378,6 +378,7 @@ void SamView::getBuildPathsFromSimon()
 	KSharedConfig::Ptr scenarioRc = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup scenarioRcGroup(scenarioRc, "");
 	QStringList scenarioIds = scenarioRcGroup.readEntry("SelectedScenarios", QStringList());
+	kDebug() << "Scenario ids: " << scenarioIds;
 
 	//can't use the methods serializeScenariosRun and serializePromptsRun, 
 	//because this would make two calls to the model adaption manager
@@ -389,6 +390,7 @@ void SamView::getBuildPathsFromSimon()
 	//information he can extract from the input files
 
 	QStringList scenarioPaths = findScenarios(scenarioIds);
+	kDebug() << "Scenario paths: " << scenarioPaths;
 	modelCompilationAdapter->startAdaption(
 			(ModelCompilationAdapter::AdaptionType) 
 			(ModelCompilationAdapter::AdaptLanguageModel | ModelCompilationAdapter::AdaptAcousticModel),
@@ -410,7 +412,8 @@ QString SamView::getTargetDirectory()
 
 void SamView::serializePrompts()
 {
-	QString promptsPath = KFileDialog::getOpenFileName(KUrl(), "", this, i18n("Open simon prompts"));
+	QString promptsPath = KFileDialog::getOpenFileName(KUrl(KStandardDirs::locate("data", "simon/model/prompts")), 
+			"", this, i18n("Open simon prompts"));
 	if (promptsPath.isEmpty()) return;
 
 	QString path = getTargetDirectory();
@@ -470,7 +473,7 @@ QStringList SamView::findScenarios(const QStringList& ids)
 	QStringList scenarioPaths;
 	foreach (const QString& id, ids)
 	{
-		QString resolvedPath = KStandardDirs::locateLocal("data", "simon/scenarios/"+id);
+		QString resolvedPath = KStandardDirs::locate("data", "simon/scenarios/"+id);
 		if (!QFile::exists(resolvedPath))
 			KMessageBox::information(this, i18n("Couldn't find scenario: %1", id));
 		else scenarioPaths << resolvedPath;

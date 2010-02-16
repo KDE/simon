@@ -108,13 +108,17 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	QList<QString> definedVocabulary; // words that are in the dictionary
 
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
+		emit status(i18n("Adapting prompts..."), 1);
 		QFile promptsFile(promptsPathIn);
 		QFile promptsFileOut(promptsPathOut);
 
 		if (!promptsFile.open(QIODevice::ReadOnly) || 
 				(!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel) && 
 				 !promptsFileOut.open(QIODevice::WriteOnly)))
+		{
+			emit error(i18n("Couldn't adapt prompts. Does the file \"%1\" exist?", promptsPathIn));
 			return false;
+		}
 
 		while (!promptsFile.atEnd())
 		{
@@ -148,11 +152,15 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 		return true;
 
 	/////  Lexicon  ////////////////
+	emit status(i18n("Adapting lexicon..."), 15);
 	QFile lexiconFile(lexiconPathOut);
 	QFile simpleVocabFile(simpleVocabPathOut);
 	if (!lexiconFile.open(QIODevice::WriteOnly) ||
 			(!simpleVocabFile.open(QIODevice::WriteOnly)))
+	{
+		emit error(i18n("Failed to adapt lexicon to \"%1\", \"%2\"", lexiconPathOut, simpleVocabPathOut));
 		return false;
+	}
 
 	QTextStream lexicon(&lexiconFile);
 	lexicon.setCodec("UTF-8");
@@ -186,11 +194,10 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	lexiconFile.close();
 
 	/////  Vocabulary  /////////////
-	
+	emit status(i18n("Adapting vocabulary..."), 35);
 
 	// find out which words are referenced by training data
 	// find out which terminals are referenced by grammar
-	// find o
 	QTextStream vocabStream(&simpleVocabFile);
 	vocabStream.setCodec("UTF-8");
 
@@ -255,20 +262,28 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 
 	///// Grammar ///////////
+	emit status(i18n("Adapting grammar..."), 75);
 	QFile grammarFile(grammarPathOut);
-	if (!grammarFile.open(QIODevice::WriteOnly)) return false;
+	if (!grammarFile.open(QIODevice::WriteOnly)) {
+		emit error(i18n("Failed to adapt grammar to \"%1\"", grammarPathOut));
+		return false;
+	}
 
 	foreach (const QString& structure, structures) 
 		grammarFile.write("S:NS_B "+structure.toUtf8()+" NS_E\n");
 	grammarFile.close();
 
 	///// Prompts (2) //////
+	emit status(i18n("Adapting prompts..."), 90);
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		QFile promptsFile(promptsPathIn);
 		QFile promptsFileOut(promptsPathOut);
 
 		if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly))
+		{
+			emit error(i18n("Failed to adapt prompts from \"%1\" to \"%2\"", promptsPathIn, promptsPathOut));
 			return false;
+		}
 
 		while (!promptsFile.atEnd())
 		{
