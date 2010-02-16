@@ -24,6 +24,43 @@
 #include <QDomDocument>
 #include <KDebug>
 
+/**
+ * \brief Should this command be executed?
+ * 
+ * This method tells the CommandManager if the command matches the current conditions (state and recognition result).
+ *
+ * The default implementation checks if the commandManagerState is the same as the #boundState and if the recognized trigger
+ * is the same as the commands trigger name.
+ *
+ * \param commandManagerState The state of the CommandManager
+ * \param trigger The recognized sentence
+ * \return True, if the Command should be executed.
+ */
+bool Command::matches(int commandManagerState, const QString& trigger)
+{
+	kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
+	if (commandManagerState != boundState)
+		return false;
+
+	return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
+}
+
+/**
+ * \brief Executes the command
+ *
+ * Depending on your #announce flag, this will display visual notification of the command that is being executed.
+ *
+ * This will switch the parent CommandManager to the state defined in #switchToState.
+ *
+ * This function should not be overwritten directly. It calls triggerPrivate() which is where you should
+ * implement the actions of your specific subclass.
+ *
+ * \param state Reference parameter: The state of the parent CommandManager
+ * \return If your work was done, return true. Otherwise return false (not correct state, etc.). Have a look at the trigger()
+ * 	method of the CommandManager class for more details.
+ *
+ * \sa triggerPrivate()
+ */
 bool Command::trigger(int* state)
 {
 	if (announce) {
@@ -35,15 +72,34 @@ bool Command::trigger(int* state)
 	return triggerPrivate(state);
 }
 
+/**
+ * \brief Exports the user relevant parts of the command
+ *
+ * This is used to export user relevant information about the command.
+ *
+ * Don't overwrite this directly but use getValueMapPrivate() instead!
+ *
+ * \return Key -> Value pairs of "field" -> "value" information; For example: "Description" -> "Bla"
+ * \sa getValueMapPrivate()
+ */
 const QMap<QString,QVariant> Command::getValueMap() const
 {
 	QMap<QString,QVariant> out = getValueMapPrivate();
  	out.insert(i18n("Description"), getDescription());
-// 	out.insert(i18n("Name"), getTrigger());
-// 	out.insert(i18n("Icon"), getIcon());
 	return out;
 }
 
+/**
+ * \brief Serializes the internal state of the command to an XML element
+ *
+ * This serializes the shared information that each plugin has. The plugin specific stuff
+ * is handled in \ref serializePrivate(). Overwrite \ref serializePrivate() instead of this
+ * function.
+ *
+ * \param doc The parent document
+ * \return The serialized XML element
+ * \sa deSerialize(), serializePrivate()
+ */
 QDomElement Command::serialize(QDomDocument *doc)
 {
 	QDomElement commandElem = doc->createElement("command");
@@ -71,15 +127,21 @@ QDomElement Command::serialize(QDomDocument *doc)
 	return serializePrivate(doc, commandElem);
 }
 
-bool Command::matches(int commandManagerState, const QString& trigger)
-{
-	kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
-	if (commandManagerState != boundState)
-		return false;
 
-	return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
-}
-
+/**
+ * \brief Deserializes the internal state of the command from the given XML element
+ *
+ * Loads the attributes of the command from the given XML element. The element passed to
+ * this function has once been created using \ref serialize().
+ *
+ * This function only handles the common options that all commands share. The plugin
+ * specific attributes are dealt with in \ref deSerializePrivate(). Overwrite
+ * deSerializePrivate() instead of this method.
+ *
+ * \param elem The element to deserialize
+ * \return Success
+ * \sa serialize(), deSerializePrivate()
+ */
 bool Command::deSerialize(const QDomElement& elem)
 {
 	QDomElement name = elem.firstChildElement();
