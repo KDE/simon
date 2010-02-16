@@ -1299,7 +1299,7 @@ bool ModelCompilationManager::adaptBaseModel()
 	emit status(i18n("Re-Aligninging to base model..."), 550);
 	if (!realignToBaseModel())
 	{
-		analyseError(i18n("Couldn't re-align model to the selected base model. Please check your paths to HVite (%1) and to the config (%2).", hVite, KStandardDirs::locate("data", "simon/scripts/config")));
+		analyseError(i18n("Couldn't re-align model to the selected base model.\n\nThis error is often caused when you are trying to adapt to a model with a different phoneme set. Ideally you should use the same dictionary as the basemodel.\n\nThis error also occurs if you have no training data to adapt to!"));
 		return false;
 	}
 	emit status(i18n("Generating regtree.hed..."), 900);

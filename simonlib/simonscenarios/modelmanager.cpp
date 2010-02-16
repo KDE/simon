@@ -208,7 +208,7 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
-	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName);
+	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator()+sampleName);
 
 	QFileInfo fInfo(f);
 

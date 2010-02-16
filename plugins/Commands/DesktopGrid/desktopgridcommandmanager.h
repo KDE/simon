@@ -61,7 +61,6 @@ private:
 	QPixmap deskShot;
 
 	QPixmap makeFakeTransparency();
-	static QStringList numberIdentifiers;
 
 	void click(KPushButton* btn);
 

@@ -150,6 +150,7 @@ private slots:
 	void connectedTo();
 	void errorOccured();
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
+	void connectToNext();
 	void timeoutReached();
 	void messageReceived();
 	bool sendActiveModel();

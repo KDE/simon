@@ -25,6 +25,19 @@
 #include <KComponentData>
 #include <QVariantList>
 
+
+/**
+ * Initializes the configuration. This will initialize the KAboutData object #about with the given values.
+ *
+ * \param parent The parent scenario
+ * \param internalName The internal (not translated) name of the plugin
+ * \param name The name to present to the user
+ * \param version The current version of the plugin
+ * \param desc Short description of the plugin
+ * \param iconName The icon of your plugin
+ * \param componentData Componentdata object
+ * \param args Optional arguments
+ */
 CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name, 
 					    const QByteArray& version, const KLocalizedString& desc,
 					    const QString& iconName, const KComponentData& componentData,
@@ -39,11 +52,17 @@ CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& i
 }
 
 
+/**
+ * Conveniance method: emits changed(true)
+ */
 void CommandConfiguration::slotChanged()
 {
 	emit changed(true);
 }
 
+/**
+ * Destructor: Deletes the about data object
+ */
 CommandConfiguration::~CommandConfiguration()
 {
 	delete about;

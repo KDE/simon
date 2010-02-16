@@ -217,29 +217,6 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			i18n("In the output selection popup, selects printing the result"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
 
-
-	/*
-
-	succ &= installInterfaceCommand(this, "select1", i18n("One"), iconSrc(),
-			i18n("In the click mode selection popup, selects the simple click with the left mouse button"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "1", "click1");
-	succ &= installInterfaceCommand(this, "select2", i18n("Two"), iconSrc(),
-			i18n("In the click mode selection popup, selects the double click with the left mouse button"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "2", "click2");
-	succ &= installInterfaceCommand(this, "select3", i18n("Three"), iconSrc(),
-			i18n("In the click mode selection popup, selects the simple click with the right mouse button"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "3", "click3");
-	succ &= installInterfaceCommand(this, "select4", i18n("Four"), iconSrc(),
-			i18n("In the click mode selection popup, selects the simple click with the middle mouse button"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::DefaultState, "4", "click4");
-	succ &= installInterfaceCommand(this, "select5", i18n("Five"), iconSrc(),
-			i18n("In the click mode selection popup, this selects the drag and drop mode"), 
-			false, false, SimonCommand::GreedyState+1, SimonCommand::GreedyState, "5", "click5");
-
-	succ &= installInterfaceCommand(this, "deactivate", i18n("Cancel"), "dialog-cancel",
-			i18n("Aborts the selection process when prompted to choose the click mode"), true, false, 
-			SimonCommand::GreedyState+1, SimonCommand::DefaultState, QString(), "cancelClickModeSelection");
-			*/
 	return succ;
 }
 
@@ -252,18 +229,6 @@ void DesktopGridCommandManager::init()
 
 	buttons->setGeometry(screenGrid->geometry());
 
-	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
-	{
-		if (background) background->deleteLater();
-
-		background = new QLabel(screenGrid);
-		background->lower();
-		deskShot = makeFakeTransparency();
-		background->setPixmap(deskShot);
-		background->move(0,0);
-		background->resize(screenGrid->size());
-	} else
-		screenGrid->setWindowOpacity(0.55);
 	
 	foreach (KPushButton *btn, btns)
 	{
@@ -280,7 +245,20 @@ void DesktopGridCommandManager::init()
 
 	screenGrid->resize(deskSize);
 	
-	buttons->setGeometry(QRect(0, 0, screenGrid->geometry().width(), screenGrid->geometry().height()));
+	if (!static_cast<DesktopGridConfiguration*>(config)->useRealTransparency())
+	{
+		if (background) background->deleteLater();
+
+		background = new QLabel(screenGrid);
+		background->lower();
+		deskShot = makeFakeTransparency();
+		background->setPixmap(deskShot);
+		background->move(0,0);
+		background->resize(screenGrid->size());
+	} else
+		screenGrid->setWindowOpacity(0.55);
+
+	//buttons->setGeometry(QRect(0, 0, screenGrid->geometry().width(), screenGrid->geometry().height()));
 	
 
 	screenGrid->show();

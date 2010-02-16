@@ -165,12 +165,20 @@ void RecognitionControl::startConnecting()
 	serverConnectionsToTry = RecognitionConfiguration::juliusdServers();
 	
 	if (serverConnectionsToTry.count() == 0) return;
-	kDebug() << serverConnectionsToTry;
 	
-	QStringList address = serverConnectionsToTry.takeAt(0).split(":");
-	connectTo(address[0], address[1].toInt());
+	connectToNext();
 }
 
+void RecognitionControl::connectToNext()
+{
+	if (serverConnectionsToTry.isEmpty())
+	{
+		emit connectionError(serverConnectionErrors.join("\n"));
+	} else {
+		QStringList address = serverConnectionsToTry.takeAt(0).split(":");
+		connectTo(address[0], address[1].toInt());
+	}
+}
 
 /**
  * @brief Connects to a juliusd server
@@ -204,7 +212,6 @@ void RecognitionControl::connectTo(QString server, quint16 port)
 		socket->connectToHost( server, port );
 	}
 	timeoutWatcher->start(RecognitionConfiguration::juliusdConnectionTimeout());
-	
 }
 
 void RecognitionControl::errorOccured()
@@ -233,13 +240,7 @@ void RecognitionControl::errorOccured()
 		for (int i=0; i < errors.count(); i++)
 			serverConnectionErrors << errors[i].errorString();
 	}
-
-	if (serverConnectionsToTry.isEmpty())
-		emit connectionError(serverConnectionErrors.join("\n"));
-	else {
-		QStringList address = serverConnectionsToTry.takeAt(0).split(":");
-		connectTo(address[0], address[1].toInt());
-	}
+	connectToNext();
 }
 
 /**
@@ -260,8 +261,9 @@ bool RecognitionControl::isConnected()
 void RecognitionControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(i18n("Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout()));
+	serverConnectionErrors << i18n("Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout());
 	socket->abort();
+	connectToNext();
 }
 
 /**

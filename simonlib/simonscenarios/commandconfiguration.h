@@ -29,30 +29,90 @@ class QString;
 class KComponentData;
 class KAboutData;
 
+/**
+ * \class CommandConfiguration
+ * \brief Provides a base class for a graphical configuration page for a CommandManager
+ * 
+ * Derive a class from CommandConfiguration if you want your command plugin to have a configuration
+ * widget. The configuration widget will be displayed in the "Manage plugins" dialog.
+ *
+ * This configuration page should normally list options of the plugin as a whole. If you want 
+ * to configure sub-elements you most likely want to use the command architecture. See \sa Command
+ */
 class MODELMANAGEMENT_EXPORT CommandConfiguration : public QWidget, public ScenarioObject
 {
 	Q_OBJECT
 	signals:
+		/// Emit this signal if the configuration has changed. If you fail to emit this
+		/// signal, serialize() will not be called and all changes made will
+		/// be discarded.
 		void changed(bool);
+
 	protected:
+		/// This provides information about the plugin (configuration). This will 
+		/// automatically be initialized with the values you pass to the constructor
+		/// but you can change it anytime
 		KAboutData *about;
 	
 	private slots:
 		void slotChanged();
 	
 	public:
+		/// Constructor
 		CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name, 
 				      const QByteArray& version, const KLocalizedString& desc,
 				      const QString& iconName, const KComponentData& componentData,
 				      const QVariantList &args = QVariantList());
+		/// Destructor
 		~CommandConfiguration();
+
+		/// Accessor: Returns the about data object
 		KAboutData* aboutData() { return about; }
 		
 	public slots:
-		virtual bool deSerialize(const QDomElement&)=0;
+		/**
+		 * \brief Load the configuration from the given XML node
+		 *
+		 * This method will be called after the configuration object was created.
+		 * You should use it to parse the given QDomElement and read the 
+		 * current configuration from it.
+		 *
+		 * The first time the plugin is loaded the given element will most likely
+		 * be NULL (altough your CommandManager subclass could potentially change
+		 * that) so it is a good idea to provide some sensible defaults if
+		 * isNull() returns true.
+		 *
+		 * The return value should only be false if the given configuration was
+		 * errenous.
+		 *
+		 * \param element The configuration to parse.
+		 * \return Success
+		 * \sa deSerialize()
+		 */
+		virtual bool deSerialize(const QDomElement& element)=0;
+
+
+		/**
+		 * \brief Save the current configuration
+		 *
+		 * This method will be called during the serialization of the
+		 * CommandManager. You should construct a sensible XML structure storing
+		 * all configuration options of this class and return the root element.
+		 *
+		 * The element you return here will eventually be passed back to 
+		 * deSerialize() the next timem the configuration is initialized.
+		 *
+		 * \param *doc The parent document
+		 * \return The created configuration structure (XML Element)
+		 */
 		virtual QDomElement serialize(QDomDocument *doc)=0;
-	/*	virtual void save()=0;
-		virtual void load()=0;*/
+
+
+		/**
+		 * \brief Return to the default values
+		 *
+		 * This should reset all your configuration values to their default values.
+		 */
 		virtual void defaults()=0;
 		
 };

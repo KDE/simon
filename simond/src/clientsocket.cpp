@@ -974,7 +974,7 @@ void ClientSocket::sendSelectedScenarioList()
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::Scenario
+	stream << (qint32) Simond::SelectedScenarioList
 		<< (qint64) (body.count()) /*separator*/;
 	write(toWrite);
 	write(body);
@@ -1109,7 +1109,7 @@ void ClientSocket::recompileModel()
 			//static model
 			modelCompilationAdapter->startAdaption(
 					(ModelCompilationAdapter::AdaptionType)
-					(ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
+					(ModelCompilationAdapter::AdaptLanguageModel),
 					activeDir+"lexicon", activeDir+"model.grammar", 
 					activeDir+"simple.voca", activeDir+"prompts", 
 					synchronisationManager->getScenarioPaths(),
