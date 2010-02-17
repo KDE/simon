@@ -20,9 +20,32 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
 
+/** \file commandmanager.h
+ * \brief The file containing the CommandManager baseclass header.
+ */
+
+/**
+ * \def DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H
+ * \brief Default deserialization of subcommands
+ *
+ * This will try to deserialize every "command" child element with the static createInstance()
+ * method of the given command class, adding every successfully deserialized command.
+ *
+ * Place this in the public section in the header file of the commandmanager subclass.
+ */
 #define DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H \
 	bool deSerializeCommandsPrivate(const QDomElement& elem);
 
+/**
+ * \def DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(x, y)
+ * \brief Default deserialization of subcommands
+ *
+ * This will try to deserialize every "command" child element with the static createInstance()
+ * method of the given command class, adding every successfully deserialized command.
+ *
+ * Place this in the source file of the commandmanager subclass replacing "x" with the classname
+ * of the CommandManager derived class and "y" with the name of the Command derived class.
+ */
 #define DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(x, y) \
 	bool x::deSerializeCommandsPrivate(const QDomElement& elem) \
 	{ \

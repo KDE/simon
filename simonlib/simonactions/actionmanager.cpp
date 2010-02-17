@@ -107,11 +107,11 @@ bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
 	if (!greedyReceivers->isEmpty()) {
 		bool accepted = false;
-		for (int i=0; i < greedyReceivers->count(); i++) {
-			if (greedyReceivers->at(i)->greedyTriggerRaw(recognitionResult))
+//		for (int i=0; i < greedyReceivers->count(); i++) {
+			if (greedyReceivers->at(0)->greedyTriggerRaw(recognitionResult))
 				accepted = true;
-				break;
-		}
+//			break;
+//		}
 		return accepted;
 	}
 
@@ -157,10 +157,10 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 	kDebug() << "Greedy Recievers: " << greedyReceivers->count();
 
 	if (!greedyReceivers->isEmpty()) {
-		for (int i=0; i < greedyReceivers->count(); i++) {
-			if (greedyReceivers->at(i)->greedyTriggerRawList(selectedRecognitionResults))
-				break;
-		}
+//		for (int i=0; i < greedyReceivers->count(); i++) {
+			/*if (*/ greedyReceivers->at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
+//				break;
+//		}
 		delete selectedRecognitionResults;
 		return;
 	}

@@ -20,9 +20,36 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+/** \file command.h
+ * \brief The file containing the Command baseclass header.
+ */
+
+/**
+ * \def STATIC_CREATE_INSTANCE_H(x)
+ * \brief Static createInstance() method.
+ *
+ * Place this in the public section of the header file of the command subclass
+ * if you want to use the DEFAULT_DESERIALIZE_COMMANDS_PRIVATE
+ * macros in the CommandManager of your plugin (see the \ref CommandManager documentation for
+ * more details).
+ *
+ * Replace x with the classname of your command subclass.
+ */
 #define STATIC_CREATE_INSTANCE_H(x) \
 	static x* createInstance(const QDomElement& element);
 
+
+/**
+ * \def STATIC_CREATE_INSTANCE_C(x)
+ * \brief Static createInstance() method.
+ *
+ * Place this in the source file of the command subclass
+ * if you want to use the DEFAULT_DESERIALIZE_COMMANDS_PRIVATE
+ * macros in the CommandManager of your plugin (see the \ref CommandManager documentation for
+ * more details).
+ *
+ * Replace x with the classname of your command subclass.
+ */
 #define STATIC_CREATE_INSTANCE_C(x) \
 	x* x::createInstance(const QDomElement& element) \
 	{ \
@@ -54,6 +81,18 @@ class QDomDocument;
  *
  * If your commands should be user configurable, you also have to extend 
  * CreateCommandWidget.
+ *
+ * If you want to use the DEFAULT_DESERIALIZE_COMMANDS_PRIVATE macros in your
+ * CommandManager, you need to add the following code to your subclass of Command:
+ *
+ * Header file (replace "x" with the classname of your command subclass):
+ * \code
+ #define STATIC_CREATE_INSTANCE_H(x)
+ \endcode
+ * Implementation (replace "x" with the classname of your command subclass):
+ * \code
+#define STATIC_CREATE_INSTANCE_C(x) 
+ \endcode
  *
  * \sa CreateCommandWidget
  */

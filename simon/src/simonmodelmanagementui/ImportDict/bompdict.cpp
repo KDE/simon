@@ -53,8 +53,13 @@ void BOMPDict::load(QString path, QString encodingName)
 
 	QIODevice *dict = KFilterDev::deviceForFile(path,
 							KMimeType::findByFileContent(path)->name());
-	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
+	if (!dict)
 		return;
+	if (!dict->open(QIODevice::ReadOnly))
+	{
+		dict->deleteLater();
+		return;
+	}
 
 	int maxProg=0;
 
@@ -141,7 +146,7 @@ void BOMPDict::load(QString path, QString encodingName)
 	}
 	delete dictStream;
 	dict->close();
-	dict->deleteLater();
+	delete dict;
 }
 
 

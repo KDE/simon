@@ -61,7 +61,7 @@ QList<Word*>* ImportDict::getCurrentWordList()
 }
 /**
  * \brief The main execution loop
- * Does the real world.
+ * Does the real work.
  * Uses the members pathToDict to get the location and writes the finished wordlist to the member wordList
  * \author Peter Grasch
  */
@@ -71,7 +71,7 @@ void ImportDict::run()
 	emit status(i18n("Opening Lexicon..."));
 	
 	emit progress(10);
-	if (dict) dict->deleteLater();
+	if (dict) delete dict;
 	if (wordList) wordList->clear();
 	else wordList = new QList<Word*>();
 
@@ -108,7 +108,8 @@ void ImportDict::run()
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
-	dict->deleteLater();
+	kDebug() << "Deleting dict!";
+	delete dict;
 	dict=NULL;
 	
 	int wordCount = words.count();

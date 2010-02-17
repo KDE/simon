@@ -384,8 +384,10 @@ QString Dict::ipaToXSampa(QString ipa)
  * \brief Destructor
  * \author Peter Grasch
  */
+#include <KDebug>
 Dict::~Dict()
 {
+	kDebug() << "Base class destructor";
 	allowedPhonemes.clear();
 
 	words.clear();
