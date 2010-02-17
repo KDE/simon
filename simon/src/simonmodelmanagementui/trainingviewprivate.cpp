@@ -58,6 +58,7 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
+	connect ( ui.pbClearTrainingdata, SIGNAL ( clicked() ), this, SLOT ( clearTrainingdata() ) );
 
 	textsProxy = new QSortFilterProxyModel();
 	textsProxy->setFilterKeyColumn(0);
@@ -69,6 +70,7 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	ui.pbDelText->setIcon(KIcon("edit-delete"));
 	ui.pbImportText->setIcon(KIcon("document-import"));
 	ui.pbImportDir->setIcon(KIcon("document-open-folder"));
+	ui.pbClearTrainingdata->setIcon(KIcon("edit-clear-list"));
 }
 
 
@@ -131,6 +133,17 @@ void TrainingViewPrivate::importDirectory()
 
 }
 
+void TrainingViewPrivate::clearTrainingdata()
+{
+	if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear all the collected samples?")) == KMessageBox::Yes)
+	{
+		if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recordings from the trainingscorpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue)
+		{
+			if (!TrainingManager::getInstance()->clear())
+				KMessageBox::information(this, i18n("Couldn't clear trainingdata"));
+		}
+	}
+}
 
 /**
  * \brief Displays the ImportTrainingTexts Wizard

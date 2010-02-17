@@ -63,6 +63,8 @@ public slots:
 	void importTexts();
 	void importDirectory();
 
+	void clearTrainingdata();
+
 public:
 	TrainingViewPrivate(QWidget *parent=0);
 	~TrainingViewPrivate();

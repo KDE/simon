@@ -57,8 +57,6 @@ Q_OBJECT
 		QMutex promptsLock;
 		PromptsTable *promptsTable;
 
-		bool deletePrompt ( QString key );
-
 	signals:
 		void addMissingWords(QStringList words);
 		void trainingFinished();
@@ -76,6 +74,8 @@ Q_OBJECT
 
 		bool init();
 
+		bool deletePrompt ( QString key );
+
 		int getProbability ( QString name );
 		PromptsTable* readPrompts ( QString pathToPrompts );
 
@@ -86,7 +86,8 @@ Q_OBJECT
 		bool refreshTraining(int sampleRate, const QByteArray& prompts);
 
 		bool addSample(const QString& fileBaseName, const QString& prompt);
-		bool removeSample(const QString& fileBaseName);
+//		bool removeSample(const QString& fileBaseName);
+		bool clear();
 
 
 		QStringList missingWords(const QStringList& prompts);

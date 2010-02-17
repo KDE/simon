@@ -127,7 +127,7 @@ bool TrainingManager::deleteWord(const QString& word)
 }
 
 /**
- * \brief Deletes the prompt corresponding to the key
+ * \brief Deletes the prompt corresponding to the key and the sample
  * \author Peter Grasch
  * @param key The key to delete
  * @return success
@@ -135,12 +135,18 @@ bool TrainingManager::deleteWord(const QString& word)
 bool TrainingManager::deletePrompt ( QString key )
 {
 	if (!promptsTable) init();
+
 	QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav";
 	
+	bool found = true;
+	found &= promptsTable->contains(key);
+	if (found) dirty = true;
+
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
-	return QFile::remove ( path.toUtf8() );
+	found &= QFile::remove ( path.toUtf8() );
+	return found;
 }
 
 QString TrainingManager::getTrainingDir()
@@ -416,12 +422,13 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 
 	QStringList words = prompt.split(" ");
 	foreach (const QString& word, words)
-		promptsTable->remove(word); //removed cashed recognition rates
+		promptsTable->remove(word); //removed cached recognition rates
 
 	dirty=true;
 	return true;
 }
 
+/*
 bool TrainingManager::removeSample(const QString& fileBaseName)
 {
 	if (!promptsTable) init();
@@ -432,6 +439,23 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 		return true;
 	} else return false;
 }
+*/
+
+bool TrainingManager::clear()
+{
+	if (!promptsTable) init();
+
+	QStringList fileNames = promptsTable->keys();
+	foreach (const QString& path, fileNames)
+	{
+		kDebug() << "Path: " << path;
+		deletePrompt (path);
+	}
+	
+	promptsTable->clear();
+	return savePrompts();
+}
+
 
 bool TrainingManager::defaultToPowerTrain()
 {
