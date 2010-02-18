@@ -207,17 +207,17 @@ void CommandSettings::load()
 
 	QString backIcon, oneIcon, twoIcon, threeIcon, fourIcon, fiveIcon, sixIcon, 
 		sevenIcon, eightIcon, nextIcon, cancelIcon;
-	backIcon = cg.readEntry("ListBackIcon", listConfiguration->getListDefaultIcon(CommandListElements::Back));
-	oneIcon = cg.readEntry("ListOneIcon", listConfiguration->getListDefaultIcon(CommandListElements::One));
-	twoIcon = cg.readEntry("ListTwoIcon", listConfiguration->getListDefaultIcon(CommandListElements::Two));
-	threeIcon = cg.readEntry("ListThreeIcon", listConfiguration->getListDefaultIcon(CommandListElements::Three));
-	fourIcon = cg.readEntry("ListFourIcon", listConfiguration->getListDefaultIcon(CommandListElements::Four));
-	fiveIcon = cg.readEntry("ListFiveIcon", listConfiguration->getListDefaultIcon(CommandListElements::Five));
-	sixIcon = cg.readEntry("ListSixIcon", listConfiguration->getListDefaultIcon(CommandListElements::Six));
-	sevenIcon = cg.readEntry("ListSevenIcon", listConfiguration->getListDefaultIcon(CommandListElements::Seven));
-	eightIcon = cg.readEntry("ListEightIcon", listConfiguration->getListDefaultIcon(CommandListElements::Eight));
-	nextIcon = cg.readEntry("ListNextIcon", listConfiguration->getListDefaultIcon(CommandListElements::Next));
-	cancelIcon = cg.readEntry("ListCancelIcon", listConfiguration->getListDefaultIcon(CommandListElements::Cancel));
+	backIcon = cg.readEntry("ListIconBack", listConfiguration->getListDefaultIcon(CommandListElements::Back));
+	oneIcon = cg.readEntry("ListIconOne", listConfiguration->getListDefaultIcon(CommandListElements::One));
+	twoIcon = cg.readEntry("ListIconTwo", listConfiguration->getListDefaultIcon(CommandListElements::Two));
+	threeIcon = cg.readEntry("ListIconThree", listConfiguration->getListDefaultIcon(CommandListElements::Three));
+	fourIcon = cg.readEntry("ListIconFour", listConfiguration->getListDefaultIcon(CommandListElements::Four));
+	fiveIcon = cg.readEntry("ListIconFive", listConfiguration->getListDefaultIcon(CommandListElements::Five));
+	sixIcon = cg.readEntry("ListIconSix", listConfiguration->getListDefaultIcon(CommandListElements::Six));
+	sevenIcon = cg.readEntry("ListIconSeven", listConfiguration->getListDefaultIcon(CommandListElements::Seven));
+	eightIcon = cg.readEntry("ListIconEight", listConfiguration->getListDefaultIcon(CommandListElements::Eight));
+	nextIcon = cg.readEntry("ListIconNext", listConfiguration->getListDefaultIcon(CommandListElements::Next));
+	cancelIcon = cg.readEntry("ListIconCancel", listConfiguration->getListDefaultIcon(CommandListElements::Cancel));
 
 	QString backVisibleTrigger, oneVisibleTrigger, twoVisibleTrigger, threeVisibleTrigger,
 		fourVisibleTrigger, fiveVisibleTrigger, sixVisibleTrigger, sevenVisibleTrigger,

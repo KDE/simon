@@ -56,18 +56,16 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 	listInterfaceCommands.clear();
 
 	QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
+
 	if (listsElement.isNull())
 	{
 		QHash<CommandListElements::Element, VoiceInterfaceCommand*> baseConfig = ScenarioManager::getInstance()->
 												getListBaseConfiguration();
-		foreach (CommandListElements::Element element, baseConfig.keys())
-		{
-			QList<VoiceInterfaceCommand*> baseCommands = baseConfig.values(element);
-			foreach (VoiceInterfaceCommand* baseCommand, baseCommands)
-			{
-				//copying basecommand and adding it to the main hash
-				listInterfaceCommands.insert(element, new VoiceInterfaceCommand(*baseCommand));
-			}
+
+		QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(baseConfig);
+		while (i.hasNext()) {
+			i.next();
+			listInterfaceCommands.insertMulti(i.key(), new VoiceInterfaceCommand(*(i.value())));
 		}
 	} else {
 		QDomElement commandElem = listsElement.firstChildElement();
@@ -117,17 +115,16 @@ QDomElement ActionCollection::serialize(QDomDocument *doc)
 	QDomElement actionsElem = createEmpty(doc);
 
 	QDomElement listInterfaceCommandsElem = doc->createElement("lists");
-	foreach (CommandListElements::Element element, listInterfaceCommands.keys())
-	{
-		QList<VoiceInterfaceCommand*> interfaceCommands = listInterfaceCommands.values(element);
-		foreach (VoiceInterfaceCommand* command, interfaceCommands)
-		{
-			QDomElement commandElem = command->serialize(doc);
-			commandElem.setTagName("voiceInterfaceCommand");
-			commandElem.setAttribute("element", QString::number((int) element));
-			listInterfaceCommandsElem.appendChild(commandElem);
-		}
+
+	QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
+	while (i.hasNext()) {
+		i.next();
+		QDomElement commandElem = i.value()->serialize(doc);
+		commandElem.setTagName("voiceInterfaceCommand");
+		commandElem.setAttribute("element", QString::number((int) i.key()));
+		listInterfaceCommandsElem.appendChild(commandElem);
 	}
+
 	actionsElem.appendChild(listInterfaceCommandsElem);
 
 	foreach (Action *a, m_actions) {

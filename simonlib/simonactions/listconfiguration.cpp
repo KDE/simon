@@ -181,7 +181,7 @@ QString ListConfiguration::getListDefaultVisibleTrigger(CommandListElements::Ele
 void ListConfiguration::storeCurrentlyDisplayedElement(CommandListElements::Element type)
 {
 	QList<VoiceInterfaceCommand*> commands = listInterfaceCommands.values(type);
-	listInterfaceCommands.remove(type);
+	kDebug() << "Removing old versions: " << listInterfaceCommands.remove(type);
 	qDeleteAll(commands);
 
 	registerVoiceInterfaceCommand(type, ui->elbTriggers->items(), ui->leVisibleTrigger->text(),
@@ -250,6 +250,7 @@ void ListConfiguration::registerVoiceInterfaceCommand(CommandListElements::Eleme
 {
 	foreach (const QString& trigger, triggers)
 	{
+		kDebug() << "Storing element: " << trigger;
 		listInterfaceCommands.insertMulti(element, new VoiceInterfaceCommand(NULL, trigger, iconSrc,
 					getListSelectionDescription(element), getListSelectionId(element), 
 					0, 0, visibleTrigger, showIcon, false));
@@ -259,12 +260,10 @@ void ListConfiguration::registerVoiceInterfaceCommand(CommandListElements::Eleme
 
 void ListConfiguration::registerVoiceInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
 {
-	foreach (CommandListElements::Element element, commands.keys())
-	{
-		QList<VoiceInterfaceCommand*> childCommands = commands.values(element);
-
-		foreach (VoiceInterfaceCommand *c, childCommands)
-			listInterfaceCommands.insertMulti(element, c);
+	QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(commands);
+	while (i.hasNext()) {
+		i.next();
+		listInterfaceCommands.insertMulti(i.key(), i.value());
 	}
 }
 
