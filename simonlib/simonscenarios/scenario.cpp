@@ -213,7 +213,6 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 			continue;
 		}
 
-		kDebug() << "Scenario written by " << a->name() << a->contact();
 		m_authors << a;
 		authorElem = authorElem.nextSiblingElement();
 	}
@@ -222,7 +221,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	//  Licence
 	//************************************************/
 	m_licence = docElem.firstChildElement("licence").text();
-	kDebug() << "Licence: " << m_licence;
+	//kDebug() << "Licence: " << m_licence;
 		
 	if (deleteDoc) delete doc;
 	return true;
@@ -237,15 +236,13 @@ bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc
 
 	//  Vocab
 	//************************************************/
-	kDebug() << "About to create the vocabulary...";
 	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
 	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
 	if (!m_vocabulary) {
-		kDebug() << "Vocabulary could not be loaded!";
 		if (deleteDoc) delete doc;
 		return false;
 	}
-	kDebug() << m_vocabulary->wordCount() << " words loaded";
+	//kDebug() << m_vocabulary->wordCount() << " words loaded";
 
 
 	//  Grammar
@@ -257,7 +254,7 @@ bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc
 		if (deleteDoc) delete doc;
 		return false;
 	}
-	kDebug() << m_grammar->structureCount() << " structurs loaded";
+	//kDebug() << m_grammar->structureCount() << " structurs loaded";
 
 	if (deleteDoc) delete doc;
 	return true;
@@ -316,10 +313,8 @@ bool Scenario::save(QString path)
 	m_lastModifiedDate = QDateTime::currentDateTime();
 	QString serialized = serialize();
 
-	if (serialized.isNull()) {
-		kDebug() << "serialized is null";
+	if (serialized.isNull())
 		return false;
-	}
 	
 	if (path.isNull()) {
 		if (m_prefix.isNull()) {
@@ -694,13 +689,11 @@ QString Scenario::createId(const QString& name)
 
 void Scenario::setPluginFont(const QFont& font)
 {
-	kDebug() << "Setting plugin font...";
 	m_actionCollection->setPluginFont(font);
 }
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> Scenario::getListInterfaceCommands()
 {
-	kDebug() << "Returning list interface commands" << this;
 	return m_actionCollection->getListInterfaceCommands();
 }
 

@@ -1131,8 +1131,58 @@ void ClientSocket::recompileModel()
 	}
 }
 
+bool ClientSocket::shouldRecompileModel()
+{
+	QDateTime activeModelDate = synchronisationManager->getActiveModelDate();
+	if (synchronisationManager->getBaseModelDate() > activeModelDate)
+		return true;
+
+	int baseModelType = synchronisationManager->getBaseModelType();
+	if (baseModelType != 0 && (synchronisationManager->getTrainingDate() > activeModelDate))
+		return true;
+
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cg(&config, "SerializedModel");
+	uint lexiconHash = cg.readEntry("LexiconHash", 0);
+	uint vocaHash = cg.readEntry("VocaHash", 0);
+	uint grammarHash = cg.readEntry("GrammarHash", 0);
+
+	//check if simple.voca, lexicon or model.grammar changed
+	QFile lexiconF(activeDir+"lexicon");
+	QFile vocaF(activeDir+"simple.voca");
+	QFile grammarF(activeDir+"model.grammar");
+	if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
+		return true; //technically this will most likely cause the compile to fail but this
+			     // will at least produce a proper error, AND it is not off the table
+			     // that some weird model compilation manager can work around this... somehow :)
+	
+	uint newLexiconHash = qHash(lexiconF.readAll());
+	uint newVocaHash = qHash(vocaF.readAll());
+	uint newGrammarHash = qHash(grammarF.readAll());
+
+	cg.writeEntry("LexiconHash", newLexiconHash);
+	cg.writeEntry("VocaHash", newVocaHash);
+	cg.writeEntry("GrammarHash", newGrammarHash);
+	cg.sync();
+
+	if (!lexiconHash || !vocaHash || !grammarHash)
+		return true;
+
+	if ((newLexiconHash != lexiconHash) || (newVocaHash != vocaHash) || (newGrammarHash != grammarHash))
+	{
+		kDebug() << "HASH IS DIFFERENT!";
+		return true;
+	} else
+		kDebug() << "Hashes are the same...";
+
+	return false;
+}
+
 void ClientSocket::slotModelAdaptionComplete()
 {
+	if (!shouldRecompileModel()) return;
+
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
 	int baseModelType = synchronisationManager->getBaseModelType();
@@ -1307,8 +1357,8 @@ void ClientSocket::synchronisationComplete()
 	
 		kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
 		kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
-		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getCompileModelSrcDate())
-				&& (synchronisationManager->hasModelSrc()))
+
+		if (synchronisationManager->shouldRecompileModel())
 			recompileModel();
 	}
 	

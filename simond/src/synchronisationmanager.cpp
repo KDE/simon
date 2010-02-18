@@ -163,7 +163,6 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
 	foreach (const QString& path, paths) {
 		QFileInfo fi(path);
 		if (fi.fileName() == id) {
-			kDebug() << "Latest scenario path of scenario: " << id << path;
 			return path;
 		}
 	}
@@ -633,15 +632,10 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 	QDateTime trainingDate = getTrainingDate();
 	QDateTime scenarioRcDate = selectedScenariosDate();
 	QDateTime baseModelDate = getBaseModelDate();
-	kDebug() << "Training date: " << trainingDate;
-	kDebug() << "Scenario date: " << scenarioRcDate;
-	kDebug() << "Basemodel date: " << baseModelDate;
 
 	if (trainingDate.isNull() || scenarioRcDate.isNull() ||
 			((getBaseModelType() != 2) && (baseModelDate.isNull())))
 	{
-		kDebug() << "Returning empty qdatetime";
-		kDebug() << "Base model type: " << getBaseModelType();
 		return QDateTime();
 	}
 
@@ -651,7 +645,6 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 	QStringList scenarios = getLatestSelectedScenarioList();
 	foreach (const QString& scenarioId, scenarios)
 	{
-		kDebug() << "Scenario date of " << scenarioId << localScenarioDate(scenarioId);
 		srcDate = qMax(srcDate, localScenarioDate(scenarioId));
 	}
 
@@ -670,6 +663,12 @@ bool SynchronisationManager::hasModelSrc()
 {
 	//language description needed for tree.hed
 	return ((getLatestSelectedScenarioList().count() > 0) && hasTraining() && hasLanguageDescription());
+}
+
+bool SynchronisationManager::shouldRecompileModel()
+{
+	return ((getActiveModelDate() < getCompileModelSrcDate())
+			&& (hasModelSrc()));
 }
 
 bool SynchronisationManager::startSynchronisation()
@@ -740,10 +739,10 @@ bool SynchronisationManager::commit()
 
 	QDateTime newSrcContainerTime = qMax(cGroup.readEntry("LanguageDescriptionDate", QDateTime()), 
 			cGroup.readEntry("TrainingDate", QDateTime()));
-	kDebug() << "LanguageDescriptionDate:" << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
-	kDebug() << "TrainingDate:" << cGroup.readEntry("TrainingDate", QDateTime());
-	kDebug() << newSrcContainerTime;
-	kDebug() << "SelectedScenarioListModifiedDate:" << getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc");
+	//kDebug() << "LanguageDescriptionDate:" << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
+	//kDebug() << "TrainingDate:" << cGroup.readEntry("TrainingDate", QDateTime());
+	//kDebug() << newSrcContainerTime;
+	//kDebug() << "SelectedScenarioListModifiedDate:" << getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc");
 
 	//***************
 	newSrcContainerTime = qMax(newSrcContainerTime, getSelectedScenarioListModifiedDateFromPath(srcContainerTempPath+QDir::separator()+"simonscenariosrc"));
@@ -1061,7 +1060,6 @@ bool SynchronisationManager::removeExcessModelBackups()
 
 bool SynchronisationManager::removeDirectory(const QString& dir)
 {
-	kDebug() << dir;
 	QDir directory(dir);
 	QStringList dirs = directory.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
 	foreach (const QString d, dirs)

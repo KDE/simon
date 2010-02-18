@@ -105,6 +105,8 @@ class SynchronisationManager : public QObject
 		void couldntRetreiveScenario();
 		void scenarioUpToDate();
 
+		bool shouldRecompileModel();
+
 		bool hasScenarioRc(const QString& modelPath=QString());
 		QDateTime selectedScenariosDate();
 		QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);

@@ -54,6 +54,7 @@ class ClientSocket : public QSslSocket
 		ModelCompilationManager *modelCompilationManager;
 		ModelCompilationAdapter *modelCompilationAdapter;
 		
+		bool shouldRecompileModel();
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
 	public slots:
