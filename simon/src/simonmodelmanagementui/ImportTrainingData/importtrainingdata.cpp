@@ -196,9 +196,10 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
 QString ImportTrainingData::extractSaid(QString source)
 {
 	QString said = source.left(source.lastIndexOf("."));
+	said.remove(QRegExp("_S[0-9]+_"));
 	said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\]|\\-)"));
 	said.replace("_", " ");
-	said.remove(QRegExp(" S$"));
+//	said.remove(QRegExp(" S$"));
 	return said.trimmed();
 }
 

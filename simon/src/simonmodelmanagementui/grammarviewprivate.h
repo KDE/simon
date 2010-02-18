@@ -26,7 +26,7 @@
 #include <simonscenarios/scenariodisplay.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	@author Peter Grasch <grasch@simon-listens.org>
 */
 class QSortFilterProxyModel;
 

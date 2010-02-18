@@ -38,8 +38,7 @@ void RenameTerminal::run()
 	SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
 	if (includeShadow)
 		elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
-	if (includeGrammar)
-		elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
+	elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
 
 	ScenarioManager::getInstance()->renameTerminal(oldName, newName, elem);
 

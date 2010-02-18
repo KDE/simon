@@ -91,17 +91,19 @@ QDomElement Grammar::serialize(QDomDocument *doc)
 
 bool Grammar::renameTerminal(QString terminal, const QString& newName)
 {
+	kDebug() << "Renaming terminal: " << terminal << newName;
 	QMutexLocker lock(&structuresLock);
 
 	//make the terminal regex-able :)
-	terminal.replace(".", "\\.");
+	/*terminal.replace(".", "\\.");
 	terminal.replace("-", "\\-");
+	terminal.replace("+", "\\+");
 	terminal.replace("!", "\\!");
 	terminal.replace("?", "\\?");
 	terminal.replace("*", "\\*");
 	terminal.replace("\\", "\\\\");
 	terminal.replace("^", "\\^");
-	terminal.replace("$", "\\$");
+	terminal.replace("$", "\\$");*/
 
 	QStringList newStructures;
 	//replace using regex patterns

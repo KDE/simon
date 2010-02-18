@@ -48,6 +48,7 @@ void MergeTerminalsWorkingPage::initializePage()
 	mergeTerminals->setTerminalB ( field ( "terminalB" ).toString() );
 	mergeTerminals->setNewName ( field ( "newName" ).toString() );
 	mergeTerminals->setIncludeShadow ( field ( "includeShadow" ).toBool() );
+	mergeTerminals->setIncludeGrammar ( field ( "includeGrammar" ).toBool() );
 	mergeTerminals->start();
 }
 

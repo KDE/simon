@@ -69,7 +69,7 @@ private:
 	Grammar *m_grammar;
 	ActionCollection* m_actionCollection;
 
-	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix);
+	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=NULL);
 
 	bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
 
@@ -99,7 +99,9 @@ public:
 	QList<Word*> findWordsByTerminal(const QString& name);
 
 	QStringList getAllPossibleSentences();
-	QStringList getAllPossibleSentencesOfStructure(const QString& structure);
+	QStringList getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples=NULL);
+
+	QStringList getExampleSentencesOfStructur(const QString& structure);
 
 	QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
 	QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(), 

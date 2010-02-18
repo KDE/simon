@@ -53,7 +53,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KListWidget" name="lwA"/>
+        <widget class="TextListWidget" name="lwA"/>
        </item>
       </layout>
      </widget>
@@ -67,7 +67,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KListWidget" name="lwB"/>
+        <widget class="TextListWidget" name="lwB"/>
        </item>
       </layout>
      </widget>
@@ -110,14 +110,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TextListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">simonuicomponents/textlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

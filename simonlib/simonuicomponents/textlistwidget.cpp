@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,26 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "textlistwidget.h"
 
-#ifndef SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
-#define SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
-
-#include <QWizardPage>
-#include "ui_renameterminalselectparameterspage.h"
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
-class RenameTerminalSelectParametersPage : public QWizardPage
+TextListWidget::TextListWidget(QWidget* parent) : KListWidget(parent)
 {
-	Q_OBJECT
-private:
-	Ui::RenameTerminalSelectParametersDlg ui;
-public:
-    RenameTerminalSelectParametersPage(QWidget *parent);
-    void initializePage();
+}
 
-    ~RenameTerminalSelectParametersPage();
+TextListWidget::~TextListWidget()
+{
+}
 
-};
-
-#endif

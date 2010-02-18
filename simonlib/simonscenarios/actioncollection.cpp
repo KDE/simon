@@ -58,17 +58,14 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 	QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
 	if (listsElement.isNull())
 	{
-		kDebug() << "loading defaults";
 		QHash<CommandListElements::Element, VoiceInterfaceCommand*> baseConfig = ScenarioManager::getInstance()->
 												getListBaseConfiguration();
-		kDebug() << "Got base config " << baseConfig.count();
 		foreach (CommandListElements::Element element, baseConfig.keys())
 		{
 			QList<VoiceInterfaceCommand*> baseCommands = baseConfig.values(element);
 			foreach (VoiceInterfaceCommand* baseCommand, baseCommands)
 			{
 				//copying basecommand and adding it to the main hash
-				kDebug() << "Loaded command";
 				listInterfaceCommands.insert(element, new VoiceInterfaceCommand(*baseCommand));
 			}
 		}
@@ -127,7 +124,6 @@ QDomElement ActionCollection::serialize(QDomDocument *doc)
 		{
 			QDomElement commandElem = command->serialize(doc);
 			commandElem.setTagName("voiceInterfaceCommand");
-			kDebug() << "Element index: " << QString::number((int) element);
 			commandElem.setAttribute("element", QString::number((int) element));
 			listInterfaceCommandsElem.appendChild(commandElem);
 		}
@@ -241,7 +237,6 @@ bool ActionCollection::deleteAction(Action *action)
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionCollection::getListInterfaceCommands()
 {
-	kDebug() << "Returning list interface commands" << this;
 	return listInterfaceCommands;
 }
 

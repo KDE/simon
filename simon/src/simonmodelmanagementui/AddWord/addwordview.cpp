@@ -84,18 +84,23 @@ void AddWordView::accept()
 	
 	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
 	Logger::log(i18n("[INF] New word: ")+word);
-	
+
 	listToAdd->append(new Word(word.trimmed(), field("wordPronunciation").toString(),
 		     field("wordTerminal").toString()));
+	
+	if (record1->hasSample())
+		promptsToAdd.insert(record1->getFileName(), record1->getPrompt());
+	if (record2->hasSample())
+		promptsToAdd.insert(record2->getFileName(), record2->getPrompt());
 	
 	QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);
 	if (words.count() > 0)
 	{
 		//multiple words
-		advanceToResolvePage();
 		record1->keepSample();
 		record2->keepSample();
 		show();
+		advanceToResolvePage();
 	} else {
 		commitList();
 		restart();
@@ -190,9 +195,7 @@ void AddWordView::commitList()
 	foreach (const QString& key, promptsToAdd.keys())
 	{
 		if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
-		{
 			KMessageBox::error(this, i18n("Couldn't add %1 to the Prompts-Table", key));
-		}
 	}
 	if (!TrainingManager::getInstance()->savePrompts())
 		KMessageBox::error(this, i18n("Couldn't save prompts"));

@@ -39,7 +39,6 @@ void RenameTerminalSelectParametersPage::initializePage()
 			(SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
 	ui.lwTerminal->clear();
 	ui.lwTerminal->addItems(availableTerminals);
-	
 }
 
 RenameTerminalSelectParametersPage::~RenameTerminalSelectParametersPage()

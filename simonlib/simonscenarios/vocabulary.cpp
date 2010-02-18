@@ -313,6 +313,9 @@ bool Vocabulary::renameTerminal(const QString& from, const QString& to)
 	foreach (Word *w, m_words)
 		if (w->getTerminal() == from)
 			w->setTerminal(to);
+	terminals.removeAll(from);
+	if (!terminals.contains(to))
+		terminals << to;
 	return true;
 }
 

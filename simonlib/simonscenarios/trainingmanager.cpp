@@ -207,7 +207,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 		promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
 	promptsFile.close();
 	
-	kDebug() << "schreibe datum..." << QDateTime::currentDateTime();
+	kDebug() << "Writing date..." << QDateTime::currentDateTime();
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
@@ -418,7 +418,7 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 	if (promptsTable->contains(fileBaseName)) 
 		return false;
 
-	promptsTable->insert(fileBaseName, prompt);
+	promptsTable->insert(fileBaseName, prompt.toUpper());
 
 	QStringList words = prompt.split(" ");
 	foreach (const QString& word, words)

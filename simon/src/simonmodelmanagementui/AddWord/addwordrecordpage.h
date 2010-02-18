@@ -57,6 +57,7 @@ private:
 	/// Setting this flag will disable the flag for the next check (where
 	/// it is then reset).
 	/// Use keepSample() set the flag;
+	/// \sa keepSample()
 	bool stickSample;
 
 public:

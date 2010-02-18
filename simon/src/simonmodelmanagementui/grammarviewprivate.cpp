@@ -75,7 +75,7 @@ void GrammarViewPrivate::currentSelectionChanged()
 
 		QString selectedStructure = ScenarioManager::getInstance()->getCurrentScenario()->grammar()->getStructure(structureIndex);
 
-		QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getAllPossibleSentencesOfStructure(selectedStructure);
+		QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getExampleSentencesOfStructur(selectedStructure);
 		ui.lwExamples->addItems(examples);
 	}
 }
@@ -117,6 +117,7 @@ void GrammarViewPrivate::showRenameWizard()
 	renameTerminalWizard->restart();
 	renameTerminalWizard->exec();
 	renameTerminalWizard->deleteLater();
+	currentSelectionChanged();
 }
 
 
@@ -125,6 +126,7 @@ void GrammarViewPrivate::showImportWizard()
 	ImportGrammarWizard *importGrammarWizard = new ImportGrammarWizard(this);
 	importGrammarWizard->exec();
 	importGrammarWizard->deleteLater();
+	currentSelectionChanged();
 }
 
 void GrammarViewPrivate::showMergeWizard()
@@ -133,6 +135,7 @@ void GrammarViewPrivate::showMergeWizard()
 	mergeTerminalsWizard->restart();
 	mergeTerminalsWizard->exec();
 	mergeTerminalsWizard->deleteLater();
+	currentSelectionChanged();
 }
 
 

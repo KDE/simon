@@ -56,7 +56,8 @@ int EditWordDialog::exec(Word *word)
 					SpeechModel::AllScenariosVocabulary|
 					SpeechModel::AllScenariosGrammar|
 					SpeechModel::ScenarioGrammar));
-	terminals << i18n("Unused");
+	if (!terminals.contains(i18n("Unused")))
+		terminals << i18n("Unused");
 	ui.cbType->addItems(terminals);
 	ui.cbType->setCurrentIndex(ui.cbType->findText(word->getTerminal()));
 	ui.leSampa->setText(word->getPronunciation());

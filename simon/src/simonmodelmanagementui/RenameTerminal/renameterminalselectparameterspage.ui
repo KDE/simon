@@ -39,7 +39,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KListWidget" name="lwTerminal"/>
+    <widget class="TextListWidget" name="lwTerminal"/>
    </item>
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow">
@@ -65,14 +65,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TextListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">simonuicomponents/textlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

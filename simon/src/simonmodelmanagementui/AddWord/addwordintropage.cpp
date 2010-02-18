@@ -35,15 +35,16 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	ui.setupUi(this);
 
 	registerField("wordNameIntro*", ui.leName);
+	setCommitPage(true);
+	setButtonText(QWizard::CommitButton, i18n("Next"));
 }
 
-#include <KDebug>
 bool AddWordIntroPage::validatePage()
 {
-	kDebug() << "Setting field from: " << field("wordNameIntro");
+	//kDebug() << "Setting field from: " << field("wordNameIntro");
 	QStringList words = field("wordNameIntro").toString().replace(",", " ").replace(".", " ").split(" ", QString::SkipEmptyParts);
 	setField("wordNameIntro", words.join(" "));
-	kDebug() << "To: " << field("wordNameIntro");
+	//kDebug() << "To: " << field("wordNameIntro");
 	return true;
 }
 

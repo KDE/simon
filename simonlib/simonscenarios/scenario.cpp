@@ -569,8 +569,17 @@ QStringList Scenario::getAllPossibleSentences()
 	return allSentences;
 }
 
-QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structure)
+QStringList Scenario::getExampleSentencesOfStructur(const QString& structure)
 {
+	int alreadyFoundExamples = 0;
+	return getAllPossibleSentencesOfStructure(structure, &alreadyFoundExamples);
+}
+
+QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples)
+{
+	if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
+		return QStringList();
+
 	//Object, Command
 	QStringList structureElements = structure.split(" ");
 	QList< QList<Word*> > sentenceMatrix;
@@ -580,18 +589,28 @@ QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structur
 
 	//sentences: ( (Window, Test), (Next, Previous) )
 	
-	return getValidSentences(sentenceMatrix);
+	return getValidSentences(sentenceMatrix, alreadyFoundExamples);
 }
 
-QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix)
+QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples)
 {
+	if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
+		return QStringList();
+
 	QStringList out;
 	QList<Word*> poss = sentenceMatrix.takeAt(0);
 	foreach (Word *w, poss) {
-		if (sentenceMatrix.count() == 0) {
+		if (sentenceMatrix.isEmpty())
+		{
 			out.append(w->getWord());
+			if (alreadyFoundExamples)
+			{
+				(*alreadyFoundExamples)++;
+				if (*alreadyFoundExamples > 35)
+					return out;
+			}
 		} else {
-			QStringList returned = getValidSentences(sentenceMatrix);
+			QStringList returned = getValidSentences(sentenceMatrix, alreadyFoundExamples);
 			foreach (const QString& ret, returned)
 				out.append(w->getWord()+" "+ret);
 		}
