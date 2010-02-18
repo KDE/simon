@@ -795,9 +795,7 @@ void CommandManager::adaptUi()
 	{
 		QStringList triggers = voiceCommandsTrigger.value(object);
 		QStringList visibleTriggers = voiceCommands.value(object);
-		kDebug() << triggers;
 		object->setProperty("toolTip", triggers.join(", "));
-		kDebug() << "set tooltip to " << triggers.join(", ");
 		// if it didn't have at least one entry it wouldn't be here
 		object->setProperty("text", visibleTriggers.at(0)); 
 	}

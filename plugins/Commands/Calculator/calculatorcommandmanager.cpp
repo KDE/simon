@@ -165,7 +165,7 @@ bool CalculatorCommandManager::installInterfaceCommands()
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
 	succ &= installListInterfaceCommand(CommandListElements::Cancel, this, "printCancel", "printCancel", 
 			i18n("In the output selection popup, selects printing the result"), 
-			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+			SimonCommand::GreedyState+1, SimonCommand::GreedyState);
 
 	return succ;
 }
@@ -232,7 +232,7 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 			i18n("Format result as money") << 
 			i18n("Format calculation and result as money"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
-	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deregister()));
+	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(printCancel()));
 
 	if (!installInterfaceCommands())
 		kWarning() << "Couldn't install all interface commands";
@@ -380,6 +380,7 @@ QString CalculatorCommandManager::formatOutput(CalculatorCommandManager::NumberT
 void CalculatorCommandManager::deregister()
 {
 	stopGreedy();
+	switchToState(SimonCommand::DefaultState);
 }
 
 const QString CalculatorCommandManager::iconSrc() const
@@ -785,6 +786,9 @@ void CalculatorCommandManager::ok()
 {
 	CalculatorConfiguration::OutputModeSelection modeSelection= static_cast<CalculatorConfiguration*>(config)->outputModeSelection();
 	CalculatorConfiguration::OutputMode mode = static_cast<CalculatorConfiguration*>(config)->outputMode();
+	
+	if (modeSelection != CalculatorConfiguration::UseDefault)
+		switchToState(SimonCommand::GreedyState+1);
 
 	switch (modeSelection) {
 		case CalculatorConfiguration::AlwaysAsk:
@@ -804,7 +808,8 @@ void CalculatorCommandManager::printCancel()
 {
 	commandListWidget->hide();
 	commandListWidget->abortTimeoutSelection();
-	deregister();
+	switchToState(SimonCommand::GreedyState);
+//	deregister();
 }
 
 void CalculatorCommandManager::activate()

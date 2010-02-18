@@ -96,7 +96,6 @@ QStringList ImportGrammar::readFile(QString path)
 	// he said: Test
 	QRegExp sentenceStoppers = QRegExp("((\\.|,|\\?|\\!|:)(\\.|\\?|\\!)*| )-*( |$|\\n|\\r\\n)");
 
-	QString leftOvers;
 	QString currentSentence;
 	while (!file->atEnd())
 	{
@@ -105,10 +104,12 @@ QStringList ImportGrammar::readFile(QString path)
 		QString sentence;//=leftOvers;
 // 		leftOvers="";
 		
-		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
-			sentence += codec->toUnicode(file->readLine(4000).trimmed())+"\n";
+//		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
+		sentence = codec->toUnicode(file->readLine(4000).trimmed())+"\n";
+		kDebug() << sentence;
 		
 		QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
+		kDebug() << sentences;
 		for (int i=0; i < sentences.count();i++)
 		{
 			currentSentence = sentences[i].trimmed();
