@@ -40,10 +40,9 @@ class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject {
 protected:
 	QString name;
 	QStringList pages;
-	float relevance;
 	TrainingText( Scenario *parent );
 public:
-	TrainingText(const QString& name, const QStringList& pages, float relevance=-1);
+	TrainingText(const QString& name, const QStringList& pages);
 
 	static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
 
@@ -96,14 +95,6 @@ public:
 	 */
 	float getRelevance();
 	
-	
-	/**
-	 * \brief Sets the relevance of the current text to the given value
-	 * \author Peter Grasch
-	 * @param relevance
-	 * The relevance
-	 */
-	void setRelevance( float relevance ) {	this->relevance = relevance; }
 	
 	~TrainingText();
 

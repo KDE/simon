@@ -85,7 +85,7 @@ void AddWordView::accept()
 	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
 	Logger::log(i18n("[INF] New word: ")+word);
 	
-	listToAdd->append(new Word(word, field("wordPronunciation").toString(),
+	listToAdd->append(new Word(word.trimmed(), field("wordPronunciation").toString(),
 		     field("wordTerminal").toString()));
 	
 	QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);

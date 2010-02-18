@@ -25,8 +25,8 @@ TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 {
 }
 
-TrainingText::TrainingText(const QString& _name, const QStringList& _pages, float _relevance) : ScenarioObject(0),
-	name(_name), pages(_pages), relevance(_relevance)
+TrainingText::TrainingText(const QString& _name, const QStringList& _pages) : ScenarioObject(0),
+	name(_name), pages(_pages)
 {
 }
 
@@ -53,8 +53,6 @@ bool TrainingText::deSerialize(const QDomElement& elem)
 		pageElem = pageElem.nextSiblingElement();
 	}
 
-	relevance = -1;
-
 	return true;
 }
 
@@ -74,10 +72,7 @@ QDomElement TrainingText::serialize(QDomDocument *doc)
 
 float TrainingText::getRelevance() 
 {
-	if (relevance == -1)
-		relevance = TrainingManager::getInstance()->calcRelevance(this);
-
-	return relevance;
+	return TrainingManager::getInstance()->calcRelevance(this);
 }
 
 /**
