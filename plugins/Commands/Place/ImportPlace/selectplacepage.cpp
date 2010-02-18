@@ -64,6 +64,8 @@ void SelectPlacePage::initializePage()
 	ui.lbUser->hide();
 	ui.lbPassword->hide();
 	ui.lePass->hide();
+	ui.rbLocalPlace->setChecked(false);
+	ui.rbRemotePlace->setChecked(false);
 }
 
 bool SelectPlacePage::isComplete() const

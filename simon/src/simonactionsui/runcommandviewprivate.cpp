@@ -230,9 +230,25 @@ void RunCommandViewPrivate::updateCommandDetail()
 			
 			QString strValue;
 			kDebug() << value << value.type();
-			if (value.type() == QVariant::Url)
-				strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
-			else strValue = value.toString();
+
+			switch (value.type())
+			{
+				case QVariant::Url:
+					strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
+					break;
+				case QVariant::UserType:
+					{
+						KUrl url = value.value<KUrl>();
+						if (url.isValid())
+						{
+							strValue = QString("<a href=\"%1\">%1</a>").arg(url.prettyUrl());
+							break;
+						} //else let it run into default
+					}
+				default:
+					strValue = value.toString();
+					break;
+			}
 
 			label->setText(strValue);
 			
