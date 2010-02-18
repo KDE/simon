@@ -80,6 +80,7 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.leCommandsFilter, SIGNAL(textChanged(const QString&)), commandsProxy, SLOT(setFilterRegExp(const QString&)));
 	connect(ui.leActionsFilter, SIGNAL(textChanged(const QString&)), actionsProxy, SLOT(setFilterRegExp(const QString&)));
 
+	connect(ui.leActionsFilter, SIGNAL(textChanged(const QString&)), this, SLOT(fetchCommandsFromCategory()));
 	connect(ui.lvActions->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(fetchCommandsFromCategory()));
 	connect(ui.lvCommands->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateCommandDetail()));
 }
@@ -158,16 +159,18 @@ Action* RunCommandViewPrivate::getCurrentlySelectedAction()
 void RunCommandViewPrivate::fetchCommandsFromCategory()
 {
 	Action *a = getCurrentlySelectedAction();
-	if (!a) return;
+	CommandManager *cm = NULL;
 
-	CommandManager *cm = a->manager();
-	if (!cm) return;
+	if (a) cm = a->manager();
 
 	ui.leCommandsFilter->clear();
 
 	commandsProxy->setSourceModel(cm);
-	if (cm->hasCommands()) {
+	if (cm && cm->hasCommands()) {
 		ui.lvCommands->setCurrentIndex(commandsProxy->index(0,0));
+	} else {
+		//no index changed means we have to update this manually
+		updateCommandDetail();
 	}
 }
 

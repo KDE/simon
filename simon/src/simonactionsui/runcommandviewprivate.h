@@ -53,7 +53,6 @@ private:
 	Action *getCurrentlySelectedAction();
 	QSortFilterProxyModel *commandsProxy;
 	QSortFilterProxyModel *actionsProxy;
-	
 
 private slots:
 	void addCommand();
