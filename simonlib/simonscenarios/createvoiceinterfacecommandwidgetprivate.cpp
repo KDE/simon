@@ -78,6 +78,7 @@ void CreateVoiceInterfaceCommandWidgetPrivate::initFromTemplate()
 	ui.leVisibleTrigger->setText(tem->defaultVisibleTrigger());
 
 	VoiceInterfaceCommand *c = new VoiceInterfaceCommand(m_manager, tem);
+	c->setParent(m_manager);
 	emit commandSuggested(c); //command will be deleted by receiver
 }
 

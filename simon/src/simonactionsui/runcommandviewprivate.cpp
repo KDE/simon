@@ -229,6 +229,7 @@ void RunCommandViewPrivate::updateCommandDetail()
 			QVariant value = details.value(keys[i]);
 			
 			QString strValue;
+			kDebug() << value << value.type();
 			if (value.type() == QVariant::Url)
 				strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
 			else strValue = value.toString();

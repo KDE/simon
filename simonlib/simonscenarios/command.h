@@ -208,7 +208,7 @@ public:
 	 * \brief Returns the parent command manager
 	 * \returns Parent command manager
 	 */
-	CommandManager* parent() { return m_parent; }
+	CommandManager* parent() const { return m_parent; }
 
 	/**
 	 * \brief Returns the category name of the command

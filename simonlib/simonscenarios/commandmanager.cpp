@@ -130,8 +130,9 @@ bool CommandManager::addCommand(Command *command)
 	if (c) {
 		if (!commands)
 			commands = new CommandList();
+		bool accept = appendCommand(command);
 		adaptUi();
-		return appendCommand(command);
+		return accept;
 	}
 
 	return addCommandPrivate(command);
@@ -764,7 +765,8 @@ void CommandManager::adaptUi()
 {
 	if (!commands) return;
 
-	QHash<QObject* /*receiver*/, QStringList /*triggers*/> voiceCommands;
+	QHash<QObject* /*receiver*/, QStringList /*visible triggers*/> voiceCommands;
+	QHash<QObject* /*receiver*/, QStringList /*triggers*/> voiceCommandsTrigger;
 
 	foreach (Command *c, *commands)
 	{
@@ -783,12 +785,19 @@ void CommandManager::adaptUi()
 		QStringList currentCommands = voiceCommands.value(com->receiver());
 		currentCommands.append(com->visibleTrigger());
 		voiceCommands.insert(com->receiver(), currentCommands);
+
+		currentCommands = voiceCommandsTrigger.value(com->receiver());
+		currentCommands.append(com->getTrigger());
+		voiceCommandsTrigger.insert(com->receiver(), currentCommands);
 	}
 
 	foreach (QObject *object, voiceCommands.keys())
 	{
+		QStringList triggers = voiceCommandsTrigger.value(object);
 		QStringList visibleTriggers = voiceCommands.value(object);
-		object->setProperty("toolTip", visibleTriggers.join(", "));
+		kDebug() << triggers;
+		object->setProperty("toolTip", triggers.join(", "));
+		kDebug() << "set tooltip to " << triggers.join(", ");
 		// if it didn't have at least one entry it wouldn't be here
 		object->setProperty("text", visibleTriggers.at(0)); 
 	}
@@ -808,8 +817,6 @@ void CommandManager::adaptUi()
 
 
 
-
-////////////////////////////
 
 QVariant CommandManager::data(const QModelIndex &index, int role) const
 {

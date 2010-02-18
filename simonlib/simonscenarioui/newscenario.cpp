@@ -182,7 +182,6 @@ Scenario* NewScenario::editScenario(Scenario *s)
 
 	bool success = true;
 	displayScenario(s);
-	bool doAgain = false;
 	if (exec())
 	{
 		VersionNumber *minVersion = getMinimumVersion();

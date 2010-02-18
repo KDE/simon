@@ -37,10 +37,10 @@
 
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
-	indexToSelectAfterTimeout(-1),
 	pbCancel(new KPushButton(this)),
 	twCommands(new QTableWidget(this)),
-	pbAutomaticSelection(new QProgressBar(this))
+	pbAutomaticSelection(new QProgressBar(this)),
+	indexToSelectAfterTimeout(-1)
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
 

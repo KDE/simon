@@ -27,38 +27,38 @@ VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, cons
 			const QString& description, const QString& id, int state, int newState,const QString& visibleTrigger, 
 			bool showIcon, bool announce) :
 	Command(trigger, iconSrc, description, state, newState, announce),
-	m_parentManager(parentManager),
 	m_id(id), 
 	m_visibleTrigger(visibleTrigger),
 	m_receiver(NULL),
 	m_showIcon(showIcon)
 {
+	setParent(parentManager);
 }
 
 //copy constructor
 VoiceInterfaceCommand::VoiceInterfaceCommand(const VoiceInterfaceCommand& b) :
 	Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundState(), b.getTargetState(), b.getAnnounce()),
-	m_parentManager(b.getParentManager()),
 	m_id(b.id()),
 	m_visibleTrigger(b.visibleTrigger()),
 	m_receiver(b.receiver()),
 	m_showIcon(b.showIcon())
 {
+	setParent(b.parent());
 }
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
 	Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
-	m_parentManager(parentManager),
 	m_id(tem->id()),
 	m_visibleTrigger(tem->defaultVisibleTrigger()),
 	m_receiver(NULL),
 	m_showIcon(tem->showIcon())
 {
+	setParent(parentManager);
 }
 
 void VoiceInterfaceCommand::assignAction(CommandManager *parentManager, QObject *receiver, const QString& slot)
 {
-	m_parentManager = parentManager;
+	setParent(parentManager);
 	m_receiver = receiver;
 	m_slot = slot;
 }
@@ -148,12 +148,12 @@ const KIcon VoiceInterfaceCommand::staticCategoryIcon()
 
 const KIcon VoiceInterfaceCommand::getCategoryIcon() const
 {
-	return m_parentManager->icon();
+	return parent()->icon();
 }
 
 const QString VoiceInterfaceCommand::getCategoryText() const
 {
-	return m_parentManager->name();
+	return parent()->name();
 }
 
 VoiceInterfaceCommand::~VoiceInterfaceCommand()

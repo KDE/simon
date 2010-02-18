@@ -60,11 +60,7 @@ private slots:
 	void send8() { processRequest(8); }
 	void send9() { processRequest(9); }
 
-//protected:
-//	bool trigger(const QString& triggerName);
-
 public slots:
-//	bool greedyTrigger(const QString& inputText);
 	void activate();
 
 public:

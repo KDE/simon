@@ -33,8 +33,6 @@ class VoiceInterfaceCommandTemplate;
 
 class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command {
 private:
-	CommandManager *m_parentManager;
-
 	QString m_id;
 	QString m_visibleTrigger;
 	QObject *m_receiver;
@@ -62,7 +60,6 @@ public:
 	QString visibleTrigger() const { return m_visibleTrigger; }
 	QObject* receiver() const { return m_receiver; }
 	bool showIcon() const { return m_showIcon; }
-	CommandManager* getParentManager() const { return m_parentManager; }
 
 	virtual ~VoiceInterfaceCommand();
 
