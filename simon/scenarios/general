@@ -1,5 +1,5 @@
 <!DOCTYPE scenario>
-<scenario version="1" icon="simon" name="General" lastModified="2009-12-31T19:41:35">
+<scenario version="1" icon="simon" name="Standard" lastModified="2009-12-31T19:41:35">
  <simonCompatibility>
   <minimumVersion>
    <version>0.2.82</version>

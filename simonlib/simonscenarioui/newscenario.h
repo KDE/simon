@@ -27,6 +27,7 @@
 
 class Scenario;
 class Author;
+class VersionNumber;
 
 class NewScenario : protected KDialog {
 
@@ -41,6 +42,7 @@ private:
 
 	int exec();
 	void displayScenario(Scenario *s);
+	VersionNumber* getMinimumVersion();
 
 private slots:
 	void setWindowTitleToScenarioName(QString name);

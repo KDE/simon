@@ -493,7 +493,7 @@ void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 {
 	int key = 0;
 	int modifiers = 0;
-	for(int i=0; i < shortcut.count(); i++) {
+	for(unsigned int i=0; i < shortcut.count(); i++) {
 		key |= shortcut[i] & ~(Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
 		modifiers |= shortcut[i] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
 	}

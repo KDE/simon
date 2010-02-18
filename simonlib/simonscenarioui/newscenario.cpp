@@ -40,7 +40,6 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 	
 	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
 	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-	connect(ui.sbScenarioVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
 	connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
 	connect(ui.cbLicence, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
 
@@ -122,7 +121,7 @@ Scenario* NewScenario::newScenario()
 	{
 		//creating
 		Scenario *s = new Scenario(createId());
-		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
+		VersionNumber *minVersion = getMinimumVersion();
 		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
 		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
 			m_authors.clear();
@@ -163,15 +162,31 @@ void NewScenario::displayScenario(Scenario *s)
 	updateAuthorDisplay();
 }
 
+VersionNumber* NewScenario::getMinimumVersion()
+{
+	VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
+	VersionNumber *currentVersion = new VersionNumber(NULL, simon_version);
+	if (*currentVersion < *minVersion)
+	{
+		delete minVersion;
+		minVersion= currentVersion;
+	} else
+		delete currentVersion;
+	
+	return minVersion;
+}
+
 Scenario* NewScenario::editScenario(Scenario *s)
 {
 	if (!s) return s;
 
 	bool success = true;
 	displayScenario(s);
+	bool doAgain = false;
 	if (exec())
 	{
-		VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
+		VersionNumber *minVersion = getMinimumVersion();
+		
 		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
 		if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
 			KMessageBox::sorry(this, i18n("Scenario could not be updated"));

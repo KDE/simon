@@ -33,14 +33,23 @@ VersionNumber::VersionNumber(Scenario *parent, const QString& version) : Scenari
 	parseString(version);
 }
 
+#include <KDebug>
 bool VersionNumber::parseString(const QString& version)
 {
 	QString v = version;
 
+	int tempPatchLevel = -1;
+	if (version.contains("rc"))
+		tempPatchLevel = 9900;
+	else if (version.contains("beta"))
+		tempPatchLevel = 9800;
+	else if (version.contains("alpha"))
+		tempPatchLevel = 9700;
+
 	//0.2-beta1
 	//0.2rc1
 	//0.2.2-alpha-1
-	v.remove(QRegExp("/([a-z]|-)([a-z]|-)*[0-9]*/i"));
+	v.replace(QRegExp("-?[A-Za-z\\-][A-Za-z\\-]*"), ".");
 
 	//0.2
 	//0.2
@@ -52,6 +61,8 @@ bool VersionNumber::parseString(const QString& version)
 
 	if (elements.count() == 3) {
 		m_patchLevel = elements[2].toInt(&valid);
+		if (valid && (tempPatchLevel != -1))
+			m_patchLevel += tempPatchLevel;
 		if (valid)
 			m_majorNumber = elements[0].toInt(&valid);
 		if (valid)
