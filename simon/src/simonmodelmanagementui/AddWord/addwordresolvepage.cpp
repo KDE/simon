@@ -126,8 +126,7 @@ void AddWordResolvePage::initializePage()
 					SpeechModel::AllScenariosVocabulary|
 					SpeechModel::AllScenariosGrammar|
 					SpeechModel::ScenarioGrammar));
-//	terminals.removeAll("NS_E"); //remove sentence structures
-//	terminals.removeAll("NS_B");
+	terminals << i18n("Unused");
 	ui.cbType->addItems(terminals);
 	ui.leWord->setText(word);
 	ui.leSampa->clear();

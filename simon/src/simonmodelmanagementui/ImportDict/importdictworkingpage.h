@@ -57,7 +57,7 @@ private slots:
 public slots:
 	void abort();
 	void displayStatus(QString status);
-	void displayProgress(int progress);
+	void displayProgress(int progress, int max);
 	
 	void importHADIFIX(QString path);
 	void importLexicon(QString path);

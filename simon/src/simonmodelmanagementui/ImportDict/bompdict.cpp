@@ -113,6 +113,12 @@ void BOMPDict::load(QString path, QString encodingName)
 		QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
 		QStringList currentTerminalsUnique;
 
+		if (currentTerminals.isEmpty())
+		{
+			line = dictStream->readLine(1000);
+			continue;
+		}
+
 		QString currentTerminalStr = currentTerminals[0];
 		currentTerminalsUnique << currentTerminalStr;
 		words << currentWord;
@@ -141,7 +147,7 @@ void BOMPDict::load(QString path, QString encodingName)
 		if (maxProg != 0)
 			emit progress((int) (((((double)currentProg) / 
 					((double)maxProg)))*1000));
-
+		else emit progress(-1);
 		line = dictStream->readLine(1000);
 	}
 	delete dictStream;

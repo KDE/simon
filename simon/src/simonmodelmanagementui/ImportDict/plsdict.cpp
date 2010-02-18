@@ -27,6 +27,7 @@
 #include <QRegExp>
 #include <QTextCodec>
 #include <KLocalizedString>
+#include <KMimeType>
 
 /**
  * \brief Constructor
@@ -131,6 +132,7 @@ bool PLSDict::startElement(const QString&,
  * \return bool
  * Success. (in the current implementation this returns always true)
  */
+#include <KDebug>
 bool PLSDict::endElement(const QString&, const QString&,
 			    const QString &qName)
 {
@@ -153,9 +155,11 @@ bool PLSDict::endElement(const QString&, const QString&,
 		currentPhonemeDefinition=QString();
 		phonemeDefinitions.clear();
 	}
-			
-		
-	emit progress(qRound(((double)pos/(double)maxpos)*1000));
+
+	if (maxpos == 0)
+		emit progress(-1);
+	else
+		emit progress(qRound(((double)pos/(double)maxpos)*1000));
 	return true;
 }
 
@@ -210,9 +214,15 @@ void PLSDict::load(QString path, QString encoding)
 
 	reader = new XMLSAXReader(path);
 	connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
-	this->maxpos = QFile(path).size();
+
+
+	if (KMimeType::findByFileContent(path)->name() == "text/xml")
+		this->maxpos = QFile(path).size();
+	else
+		//compressed
+		this->maxpos = 0;
+
 	reader->load(this, path);
-	
 }
 
 /**

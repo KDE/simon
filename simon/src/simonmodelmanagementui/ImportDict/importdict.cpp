@@ -70,7 +70,7 @@ void ImportDict::run()
 	Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+"\"");
 	emit status(i18n("Opening Lexicon..."));
 	
-	emit progress(10);
+	emit progress(10, 1000);
 	if (dict) delete dict;
 	if (wordList) wordList->clear();
 	else wordList = new QList<Word*>();
@@ -119,7 +119,7 @@ void ImportDict::run()
 				    pronunciations.at(i), 
 					terminals.at(i) ) );
 		if ((i%1000) == 0)
-			emit progress((int) ((((double) i)/((double)words.count())) *40+800));
+			emit progress((int) ((((double) i)/((double)words.count())) *40+800), 1000);
 	}
 	words.clear();
 	pronunciations.clear();
@@ -129,7 +129,7 @@ void ImportDict::run()
 		emit status(i18n("Sorting Dictionary..."));
 		qSort(wordList->begin(), wordList->end(), isWordLessThan);
 	}
-	emit progress(1000);
+	emit progress(1000, 1000);
 	emit status(i18n("Storing Dictionary..."));
 
 	Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
@@ -150,8 +150,14 @@ void ImportDict::run()
  */
 void ImportDict::loadProgress(int prog)
 {
+	if (prog == -1)
+	{
+		emit progress(1, 0);
+		return;
+	}
+
 	int globalProg =(int)  ((((double)prog)/1000)*800+10);
-	emit progress(globalProg);
+	emit progress(globalProg, 1000);
 }
 
 /**

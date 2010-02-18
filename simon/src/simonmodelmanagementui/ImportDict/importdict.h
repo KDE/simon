@@ -48,7 +48,7 @@ private:
 
 signals:
 	void status(QString);
-	void progress(int);
+	void progress(int, int);
 	//void finished(WordList*);
 	void opened();
 	void failed();

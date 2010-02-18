@@ -60,7 +60,7 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent) : QWizardPage(pare
 	setLayout(lay);
 	
 	connect(import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect(import, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
+	connect(import, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
 	connect(import, SIGNAL(successful()), this, SIGNAL(done()));
 	connect(import, SIGNAL(failed()), this, SIGNAL(failed()));
 
@@ -237,9 +237,12 @@ void ImportDictWorkingPage::displayStatus(QString status)
  * \brief Displays the given progress
  * @param progress The progress to set to
  */
-void ImportDictWorkingPage::displayProgress(int progress)
+void ImportDictWorkingPage::displayProgress(int progress, int max)
 {
-	pbMain->setValue(progress);
+	if (pbMain->value() != progress)
+		pbMain->setValue(progress);
+	if (pbMain->maximum() != max)
+		pbMain->setMaximum(max);
 }
 
 /**
