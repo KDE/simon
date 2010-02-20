@@ -69,6 +69,7 @@
 
 #undef DDEBUG
 
+
 /**
  * Maximum Data fragment Length in msec.  Input can be delayed to this time.
  * You can override this value by specifying environment valuable
@@ -83,12 +84,12 @@ static int current;		///< writing point
 static int processed;		///< reading point
 static boolean buffer_overflowed = FALSE; ///< TRUE if buffer overflowed
 static int cycle_buffer_len;	///< length of cycle buffer based on INPUT_DELAY_SEC
-static boolean adin_stream_should_be_running = FALSE;
 static boolean adin_is_stopped = TRUE;
 static int adin_stream_sfreq = -1;
 
 /*static pthread_mutex_t adin_mutex;*/
 
+boolean adin_stream_should_be_running = FALSE;
 
 /** 
  * PortAudio callback to store the incoming speech data into the cycle

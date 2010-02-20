@@ -467,6 +467,8 @@ void JuliusControl::run()
 				else emitError(i18n("Error with the audio stream"));
 				return;
 		}
+
+		touchLastSuccessfulStart();
 	
 		/**********************/
 		/* Recognization Loop */

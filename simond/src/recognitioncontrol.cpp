@@ -27,6 +27,11 @@ RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent
 {
 }
 
+void RecognitionControl::touchLastSuccessfulStart()
+{
+	m_lastSuccessfulStart = QDateTime::currentDateTime();
+}
+
 RecognitionControl::~RecognitionControl()
 {
 	

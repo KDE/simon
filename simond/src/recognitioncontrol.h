@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QThread>
 #include <QList>
+#include <QDateTime>
 #include <QMetaType>
 #include <simonrecognitionresult/recognitionresult.h>
 
@@ -30,6 +31,8 @@ class RecognitionControl : public QThread
 {
 	Q_OBJECT
 
+	private:
+		QDateTime m_lastSuccessfulStart;
 	signals:
 		void recognitionReady();
 		void recognitionError(const QString& error, const QByteArray& buildLog);
@@ -42,6 +45,8 @@ class RecognitionControl : public QThread
 		void recognitionResult(const RecognitionResultList& recognitionResults);
 
 	protected:
+		void touchLastSuccessfulStart();
+
 		QString username;
 		qint32 sampleRate;
 
@@ -50,6 +55,7 @@ class RecognitionControl : public QThread
 		static qint32 getPortNum() { return portNum; }
 
 	public:
+		QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
 		RecognitionControl(const QString& username, QObject *parent=0);
 
 		virtual bool initializeRecognition(bool isLocal)=0;

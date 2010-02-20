@@ -1359,8 +1359,8 @@ void ClientSocket::synchronisationDone()
 	//reset modelsource
 	Q_ASSERT(recognitionControl);
 	
-	if (!recognitionControl->isInitialized() && !modelCompilationAdapter->isRunning() &&
-			!modelCompilationManager->isRunning() && synchronisationManager->hasActiveModel())
+	if (((recognitionControl->isInitialized() && (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
+			|| !recognitionControl->isInitialized()) &&  !modelCompilationManager->isRunning())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 

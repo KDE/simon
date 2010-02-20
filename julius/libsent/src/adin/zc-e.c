@@ -84,6 +84,9 @@ reset_count_zc_e(ZEROCROSS *zc, int c_trigger, int c_length, int c_offset)
   zc->top = 0;
   zc->valid_len = 0;
 
+//  if (adin_stream_should_be_running == FALSE)
+//	  return;
+
   for (i=0; i<c_length; i++){
     zc->is_zc[i] = ZC_UNDEF;
   }
