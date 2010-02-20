@@ -1187,10 +1187,10 @@ void ClientSocket::slotModelAdaptionComplete()
 									 
 	int baseModelType = synchronisationManager->getBaseModelType();
 	QFileInfo fi(activeDir+"prompts");
-	bool hasPrompts = (fi.fileSize() > 0);
+	bool hasPrompts = (fi.size() > 0);
 	if (!hasPrompts)
 	{
-		switch baseModelType
+		switch (baseModelType)
 		{
 			case 1:
 				baseModelType = 0;
