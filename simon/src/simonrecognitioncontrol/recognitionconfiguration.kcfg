@@ -13,7 +13,7 @@
     </entry>
     <entry name="JuliusdUsername" type="String">
       <label>The Username for simond.</label>
-      <default>"default"</default>
+      <default>default</default>
     </entry>
     <entry name="JuliusdPassword" type="Password">
       <label>The Password for simond.</label>
