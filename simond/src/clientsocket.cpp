@@ -1186,6 +1186,21 @@ void ClientSocket::slotModelAdaptionComplete()
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 									 
 	int baseModelType = synchronisationManager->getBaseModelType();
+	QFileInfo fi(activeDir+"prompts");
+	bool hasPrompts = (fi.fileSize() > 0);
+	if (!hasPrompts)
+	{
+		switch baseModelType
+		{
+			case 1:
+				baseModelType = 0;
+				break;
+			case 2: //don't bother creating the model without prompts
+				return;
+		}
+	}
+
+
 	switch (baseModelType)
 	{
 		case 0:
