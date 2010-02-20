@@ -1184,10 +1184,16 @@ void ClientSocket::slotModelAdaptionComplete()
 	if (!shouldRecompileModel()) return;
 
 	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+
+	QFileInfo fiGrammar(activeDir+"model.grammar");
+	bool hasGrammar = (fiGrammar.size() > 0);
+
+	if (!hasGrammar)
+		return;
 									 
 	int baseModelType = synchronisationManager->getBaseModelType();
-	QFileInfo fi(activeDir+"prompts");
-	bool hasPrompts = (fi.size() > 0);
+	QFileInfo fiPrompts(activeDir+"prompts");
+	bool hasPrompts = (fiPrompts.size() > 0);
 	if (!hasPrompts)
 	{
 		switch (baseModelType)
