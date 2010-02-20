@@ -83,13 +83,13 @@ void DesktopGridConfiguration::setActionSelection(ActionSelection actionSel)
 	switch (actionSel)
 	{
 		case AlwaysAsk:
-			ui.rbActionAsk->animateClick();
+			ui.rbActionAsk->click();
 			break;
 		case UseDefault:
-			ui.rbActionDefault->animateClick();
+			ui.rbActionDefault->click();
 			break;
 		case AskButDefaultAfterTimeout:
-			ui.rbActionAskAndDefault->animateClick();
+			ui.rbActionAskAndDefault->click();
 			break;
 	}
 }
@@ -172,7 +172,7 @@ void DesktopGridConfiguration::defaults()
 {
 	kDebug() << "Defaults...";
 	ui.cbUseRealTransparency->setChecked(true);
-	ui.rbActionDefault->animateClick();
+	ui.rbActionDefault->click();
 	ui.sbActionDefaultTimeout->setValue(12);
 	ui.cbDefaultClickMode->setCurrentIndex(0);
 }

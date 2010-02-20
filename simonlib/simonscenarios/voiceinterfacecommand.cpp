@@ -76,7 +76,7 @@ bool VoiceInterfaceCommand::triggerPrivate(int *status)
 	// +: Works in multithreaded environments
 	QByteArray slotName = m_slot.toAscii();
 	kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
-	QMetaObject::invokeMethod(m_receiver, slotName.data(), Qt::QueuedConnection);
+	QMetaObject::invokeMethod(m_receiver, slotName.data()/*, Qt::QueuedConnection*/);
 
 	return true;
 }

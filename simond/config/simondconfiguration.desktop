@@ -10,6 +10,9 @@ X-KDE-FactoryName=simondsettingsfactory
 X-KDE-ParentComponents=libsimondsettings
 
 X-KDE-ParentApp=simond
+X-KDE-System-Settings-Parent-Category=simond
+
+#X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 Name=simond
 

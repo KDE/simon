@@ -101,7 +101,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 		this, SLOT(activate()));
 	guiActions << activateAction;
 
-	connect(screenGrid, SIGNAL(cancel()), this, SLOT(deactivate()));
+	connect(screenGrid, SIGNAL(cancel()), this, SLOT(deactivate()), Qt::DirectConnection);
 	screenGrid->setContentsMargins(0,0,0,0);
 	buttons->setSpacing(0);
 	buttons->setMargin(0);
@@ -122,7 +122,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 			btn->setMinimumHeight(desksize.height()/3);
 			btn->setMinimumWidth(1);
 			setButtonFontSize(btn);
-			connect(btn, SIGNAL(clicked()), this, SLOT(regionSelected()));
+			connect(btn, SIGNAL(clicked()), this, SLOT(regionSelected()), Qt::DirectConnection);
 			buttons->addWidget(btn, i, j);
 			btnNr++;
 			btns << btn;
@@ -141,8 +141,8 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 			i18n("Middle click") <<
 			i18n("Drag & Drop"), 0); //Add Elements for the list
 
-	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(clickRequestReceived(int)));
-	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deactivate()));
+	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(clickRequestReceived(int)), Qt::DirectConnection);
+	connect(commandListWidget, SIGNAL(canceled()), this, SLOT(deactivate()), Qt::DirectConnection);
 
 	if (!installInterfaceCommands()) {
 		kDebug() << "Failed to install interface commands";
@@ -165,31 +165,32 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			"startDesktopGrid" /* id */);
 
 	//number input
-	succ &= installInterfaceCommand(btns[0], "animateClick", i18n("One"), iconSrc(),
+	succ &= installInterfaceCommand(btns[0], "click", i18n("One"), iconSrc(),
+//	succ &= installInterfaceCommand(this, "clickTest", i18n("One"), iconSrc(),
 			i18n("Clicks 1"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "1", "select1");
-	succ &= installInterfaceCommand(btns[1], "animateClick", i18n("Two"), iconSrc(),
+	succ &= installInterfaceCommand(btns[1], "click", i18n("Two"), iconSrc(),
 			i18n("Clicks 2"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "2", "select2");
-	succ &= installInterfaceCommand(btns[2], "animateClick", i18n("Three"), iconSrc(),
+	succ &= installInterfaceCommand(btns[2], "click", i18n("Three"), iconSrc(),
 			i18n("Clicks 3"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "3", "select3");
-	succ &= installInterfaceCommand(btns[3], "animateClick", i18n("Four"), iconSrc(),
+	succ &= installInterfaceCommand(btns[3], "click", i18n("Four"), iconSrc(),
 			i18n("Clicks 4"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "4", "select4");
-	succ &= installInterfaceCommand(btns[4], "animateClick", i18n("Five"), iconSrc(),
+	succ &= installInterfaceCommand(btns[4], "click", i18n("Five"), iconSrc(),
 			i18n("Clicks 5"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "5", "select5");
-	succ &= installInterfaceCommand(btns[5], "animateClick", i18n("Six"), iconSrc(),
+	succ &= installInterfaceCommand(btns[5], "click", i18n("Six"), iconSrc(),
 			i18n("Clicks 6"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "6", "select6");
-	succ &= installInterfaceCommand(btns[6], "animateClick", i18n("Seven"), iconSrc(),
+	succ &= installInterfaceCommand(btns[6], "click", i18n("Seven"), iconSrc(),
 			i18n("Clicks 7"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "7", "select7");
-	succ &= installInterfaceCommand(btns[7], "animateClick", i18n("Eight"), iconSrc(),
+	succ &= installInterfaceCommand(btns[7], "click", i18n("Eight"), iconSrc(),
 			i18n("Clicks 8"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "8", "select8");
-	succ &= installInterfaceCommand(btns[8], "animateClick", i18n("Nine"), iconSrc(),
+	succ &= installInterfaceCommand(btns[8], "click", i18n("Nine"), iconSrc(),
 			i18n("Clicks 9"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState, "9", "select9");
 
@@ -311,7 +312,6 @@ void DesktopGridCommandManager::click(KPushButton* btn)
 			break;
 		case DesktopGridConfiguration::AskButDefaultAfterTimeout:
 			showSelectionBox();
-			kDebug() << "Timeout: " << static_cast<DesktopGridConfiguration*>(config)->askTimeout();
 			commandListWidget->selectAfterTimeout((int) mode, static_cast<DesktopGridConfiguration*>(config)->askTimeout());
 			break;
 	}
@@ -377,6 +377,7 @@ void DesktopGridCommandManager::regionSelected()
 	}
 	QSize btnSize = senderBtn->size();
 	QPoint pos = senderBtn->pos();
+
 	pos.setX(pos.x()+screenGrid->x());
 	pos.setY(pos.y()+screenGrid->y());
 
@@ -389,13 +390,10 @@ void DesktopGridCommandManager::regionSelected()
 	}
 
 	screenGrid->setMinimumWidth(btnSize.width());
-	screenGrid->setMinimumHeight(btnSize.height());
 	screenGrid->setMaximumWidth(btnSize.width());
+
+	screenGrid->setMinimumHeight(btnSize.height());
 	screenGrid->setMaximumHeight(btnSize.height());
-
-
-	
-//	buttons->setGeometry(QRect(0, 0, screenGrid->geometry().width(), screenGrid->geometry().height()));
 	
 	screenGrid->move(pos);
 	
@@ -415,21 +413,6 @@ bool DesktopGridCommandManager::deSerializeCommandsPrivate(const QDomElement& el
 
 	
 	return true;
-}
-
-void DesktopGridCommandManager::selectIndex(int index)
-{
-	if (commandListWidget->isVisible()) {
-		clickRequestReceived(index+1);
-		return;
-	}
-
-	if (index > btns.count()) return;
-
-	KPushButton *btn = btns[index];
-	if (!btn) return;
-
-	btn->animateClick();
 }
 
 DesktopGridCommandManager::~DesktopGridCommandManager()

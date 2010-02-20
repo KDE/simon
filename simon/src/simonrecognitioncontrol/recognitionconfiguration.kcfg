@@ -13,9 +13,11 @@
     </entry>
     <entry name="JuliusdUsername" type="String">
       <label>The Username for simond.</label>
+      <default>"default"</default>
     </entry>
     <entry name="JuliusdPassword" type="Password">
       <label>The Password for simond.</label>
+      <default>"nopassword"</default>
     </entry>
     <entry name="JuliusdEncrypted" type="Bool">
       <label>If the Connection to the simond should be encrypted.</label>

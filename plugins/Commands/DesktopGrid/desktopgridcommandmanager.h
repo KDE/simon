@@ -75,7 +75,6 @@ private:
 
 private slots:
 	void regionSelected();
-	void selectIndex(int index);
 	void clickRequestReceived(int index);
 
 	void select1() { clickRequestReceived(1); }

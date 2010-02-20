@@ -105,7 +105,7 @@ QDomElement CalculatorConfiguration::serialize(QDomDocument *doc)
 void CalculatorConfiguration::defaults()
 {
 	ui.cbControlMode->setCurrentIndex(0);
-	ui.rbOutputAsk->animateClick();
+	ui.rbOutputAsk->click();
 	ui.sbOutputDefaultTimeout->setValue(12);
 	ui.cbDefaultOutputMode->setCurrentIndex(0);
 }
