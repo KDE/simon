@@ -675,7 +675,8 @@ void SamView::testModel()
 
 void SamView::abortModelTest()
 {
-	modelCompilationManager->abort();
+	kDebug() << "Aborting model test";
+	modelTest->abort();
 }
 
 void SamView::analyzeTestOutput()

@@ -230,6 +230,8 @@ DS_BUFFER *ds48to16_new();
 void ds48to16_free(DS_BUFFER *ds);
 int ds48to16(SP16 *dst, SP16 *src, int srclen, int maxdstlen, DS_BUFFER *ds);
 
+
+
 #ifdef __cplusplus
 }
 #endif

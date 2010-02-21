@@ -301,14 +301,20 @@ adin_file_open(char *filename)	/* NULL for standard input */
 static boolean
 adin_file_close()
 {
-  FILE *fp;
+  fprintf(stderr, "adin_file_close()");
 
+  FILE *fp;
   fp = gfp;
+  if (gfp == NULL)
+	  return TRUE;
+
   if (fclose(fp) != 0) {
     jlog("Error: adin_file: failed to close file\n");
+    gfp = NULL;
     return FALSE;
   }
- return TRUE; 
+  gfp = NULL;
+  return TRUE; 
 }
 
 static boolean from_file;	///< TRUE if list file is used to read input filename

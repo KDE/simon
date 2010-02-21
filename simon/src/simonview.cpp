@@ -524,6 +524,8 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			activateAction->setIcon(KIcon("media-playback-start"));
 			activateAction->setChecked(false);
 
+			if (trayManager)
+				trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 			connectAction->setText(i18n("Connect"));
 			connectAction->setChecked(false);
 			connectAction->setIcon(KIcon("network-disconnect"));
@@ -683,6 +685,7 @@ SimonView::~SimonView()
 {
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	delete trayManager;
+	trayManager = NULL;
 	delete control;
 	Logger::close();
 }

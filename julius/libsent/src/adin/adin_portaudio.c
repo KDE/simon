@@ -89,7 +89,7 @@ static int adin_stream_sfreq = -1;
 
 /*static pthread_mutex_t adin_mutex;*/
 
-boolean adin_stream_should_be_running = FALSE;
+boolean adin_stream_should_be_running_pa = FALSE;
 
 /** 
  * PortAudio callback to store the incoming speech data into the cycle
@@ -106,7 +106,7 @@ boolean adin_stream_should_be_running = FALSE;
 static int
 Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
 {
-  if (adin_stream_should_be_running == FALSE)
+  if (adin_stream_should_be_running_pa == FALSE)
 	  return paAbort;
 
   const SP16 *now;
@@ -163,7 +163,7 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
 
   /*pthread_mutex_unlock(&adin_mutex);*/
 
-  if (adin_stream_should_be_running==TRUE)
+  if (adin_stream_should_be_running_pa==TRUE)
 	return paContinue;
   else return paAbort;
 }
@@ -255,12 +255,12 @@ adin_mic_begin(char *pathname)
     return(FALSE);
   }
 
-  adin_stream_should_be_running=TRUE;
+  adin_stream_should_be_running_pa=TRUE;
   /* start stream */
   err = Pa_StartStream(stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to begin stream: %s\n", Pa_GetErrorText(err));
-    adin_stream_should_be_running=FALSE;
+    adin_stream_should_be_running_pa=FALSE;
     return(FALSE);
   }
   
@@ -285,7 +285,7 @@ adin_mic_end()
   PaStream *real_stream = stream;
   stream=NULL;
   
-  adin_stream_should_be_running=FALSE;
+  adin_stream_should_be_running_pa=FALSE;
   PaError err;
 
   /* stop stream */
@@ -330,7 +330,7 @@ adin_mic_end()
 int
 adin_mic_read(SP16 *buf, int sampnum)
 {
-  if (adin_stream_should_be_running==FALSE)
+  if (adin_stream_should_be_running_pa==FALSE)
 	return -1;
 
   int current_local;
@@ -342,7 +342,7 @@ adin_mic_read(SP16 *buf, int sampnum)
     buffer_overflowed = FALSE;
   }
 
-  while ((current == processed) && adin_stream_should_be_running) {
+  while ((current == processed) && adin_stream_should_be_running_pa) {
 #ifdef DDEBUG
     printf("process  : current == processed: %d: wait\n", current);
 #endif
@@ -352,7 +352,7 @@ adin_mic_read(SP16 *buf, int sampnum)
   /*pthread_mutex_lock(&adin_mutex);*/ /* lock the mutex */
 
   if ((current == processed)
-	|| (adin_stream_should_be_running == FALSE)
+	|| (adin_stream_should_be_running_pa == FALSE)
         || (speech==NULL)) {
     /* any of these conditions mean that we have stopped recording */
     /*pthread_mutex_unlock(&adin_mutex);*/
@@ -370,7 +370,7 @@ adin_mic_read(SP16 *buf, int sampnum)
     if (avail > sampnum) avail = sampnum;
 
     /*
-    if (adin_stream_should_be_running == TRUE)
+    if (adin_stream_should_be_running_pa == TRUE)
 	    fprintf(stderr, "Adin should be running: TRUE\n");
     else
 	    fprintf(stderr, "Adin should be running: TRUE\n");
