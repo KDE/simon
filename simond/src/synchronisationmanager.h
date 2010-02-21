@@ -129,10 +129,11 @@ class SynchronisationManager : public QObject
 		bool removeExcessModelBackups();
 		
 		void modelCompiled();
+		bool createTrainingData(const QString& dest);
 		bool copyTrainingData(const QString& source, const QString& dest);
 		bool copyLanguageDescription(const QString& source, const QString& dest);
 		bool copyScenarioRc(const QString& source, const QString& dest);
-		bool copyScenarios(const QString& source, const QString& dest);
+		bool copyScenarios(const QString& source, const QString& dest, bool touchAccessTime=false);
 		bool switchToModel(const QDateTime& modelDate);
 
 		void scenarioSynchronized();

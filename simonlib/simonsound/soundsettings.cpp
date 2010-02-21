@@ -261,7 +261,13 @@ void SoundSettings::save()
 
 	if (!enabled) return;
 
+#ifdef USE_WITH_SIMON
+	if (AdinStreamer::getInstance()->isRunning())
+		check();
+#else
 	check();
+#endif
+
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
 	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
 

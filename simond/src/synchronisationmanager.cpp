@@ -502,7 +502,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 	QString path = getLatestTrainingPath();
 	KConfig config( path+"trainingrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	qint32 sampleRate = cGroup.readEntry("SampleRate").toInt();
+	qint32 sampleRate = cGroup.readEntry("SampleRate", 16000);
 
 
 	QFile wavConfig(path+"wav_config");
@@ -864,15 +864,18 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 			(i != scenarioRcModels.constEnd()) && (i.key()<=modelDate); i++)
 		scenarioRcPath = i.value();
 
-	if (trainingPath.isEmpty() || languageDescriptionPath.isEmpty() || scenarioRcPath.isEmpty()) {
+	if (languageDescriptionPath.isEmpty() || scenarioRcPath.isEmpty()) {
 		abort();
 		kDebug() << "One of the paths is empty";
-		kDebug() << trainingPath << languageDescriptionPath << scenarioRcPath;
+		kDebug() << languageDescriptionPath << scenarioRcPath;
 		return false;
 	}
 
 	bool allCopied=true;
-	if (!copyTrainingData(trainingPath, srcContainerTempPath)) allCopied=false;
+	if (trainingPath.isEmpty())
+		allCopied &= createTrainingData(srcContainerTempPath);
+	else
+		allCopied &= copyTrainingData(trainingPath, srcContainerTempPath);
 	if (!copyLanguageDescription(languageDescriptionPath, srcContainerTempPath)) allCopied=false;
 
 	//copy scenariosrc from closest  model date
@@ -882,14 +885,24 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 	//	Simply call copyScenarios for every earlier scenario path to accumulate all scenarios
 	QMap<QDateTime,QString> allSrcModels = getModels();
 	QMap<QDateTime,QString>::const_iterator modelI = allSrcModels.constEnd();
-	modelI--;
-	while (modelI.key() > modelDate) {
-		if (modelI.key() <= modelDate)
-			if (!copyScenarios(modelI.value(), srcContainerTempPath)) 
-				allCopied=false;
-		if (modelI == allSrcModels.constBegin()) break;
-		modelI--;
+	if (allSrcModels.isEmpty()) {
+		kDebug() << "No src models found...?";
+		return false;
 	}
+
+	kDebug() << "Switching to this model: " << modelDate;
+
+	do
+	{
+		modelI--;
+		kDebug() << "Current model: " << modelI.key();
+		if (modelI.key() <= modelDate) {
+			kDebug() << "Copying scenarios...";
+			allCopied &= copyScenarios(modelI.value(), srcContainerTempPath, true);
+		} else kDebug() << "Not relevant";
+	}
+	while (modelI != allSrcModels.constBegin());
+	kDebug() << "modelI is now at begin" << modelI.key();
 
 	if (!allCopied) {
 		abort();
@@ -919,6 +932,26 @@ void SynchronisationManager::touchTempModel()
 	scenarioRc.sync();
 }
 
+bool SynchronisationManager::createTrainingData(const QString& dest)
+{
+	bool allFine=true;
+	QFile promptsF(dest+"prompts");
+	allFine &= promptsF.open(QIODevice::WriteOnly);
+	promptsF.close();
+	QFile trainingrcF(dest+"trainingrc");
+	allFine &= trainingrcF.open(QIODevice::WriteOnly);
+	trainingrcF.close();
+	QFile wavConfigF(dest+"wav_config");
+	allFine &= wavConfigF.open(QIODevice::WriteOnly);
+	wavConfigF.close();
+
+	KConfig config( dest+"modelsrcrc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+	config.sync();
+
+	return allFine;
+}
 
 bool SynchronisationManager::copyTrainingData(const QString& sourcePath, const QString& targetPath)
 {
@@ -956,13 +989,12 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
 }
 
 
-bool SynchronisationManager::copyScenarios(const QString& source, const QString& dest)
+bool SynchronisationManager::copyScenarios(const QString& source, const QString& dest, bool touchAccessTime)
 {
+	kDebug() << "Copying scenarios from " << source << " to " << dest;
 	QDir scenarioDir(source+QDir::separator()+"scenarios");
 
 	//problems with source or dest?
-	kDebug() << "Creating path: " <<  dest+QDir::separator()+"scenarios";
-	kDebug() << "scenarioDir:" << source+QDir::separator()+"scenarios";
 	QDir d(dest+QDir::separator()+"scenarios");
 	if (!scenarioDir.exists() || (!d.exists() && !d.mkpath(dest+QDir::separator()+"scenarios")))  {
 		kDebug() << "Failed to create target folders";
@@ -981,11 +1013,35 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
 
 		kDebug() << "Copying scenario: " << scenarioPath << destPath;
 
-		if (!QFile::exists(destPath) && !QFile::copy(scenarioPath, destPath)) {
+		if (QFile::exists(destPath))
+			continue;
+
+		if (!QFile::copy(scenarioPath, destPath)) {
 			allCopied = false;
 			kDebug() << "Error: Copy failed";
-		} else
+		} else {
 			kDebug() << "Copying successful";
+			if (touchAccessTime)
+			{
+				kDebug() << "Touching scenario! " << destPath;
+				//touch it
+				QDomDocument doc("scenario");
+				QFile file(destPath);
+				if ((!file.open(QIODevice::ReadWrite))
+				    || (!doc.setContent(&file)))
+				{
+					allCopied = false;
+					continue;
+				}
+				
+				doc.documentElement().setAttribute("lastModified", QDateTime::currentDateTime().toString(Qt::ISODate));
+
+				file.seek(0);
+				file.write(doc.toString().toUtf8());
+
+				file.close();
+			}
+		}
 	}
 	kDebug() << "All scenarios copied: " << allCopied;
 

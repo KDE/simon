@@ -622,10 +622,13 @@ void ClientSocket::processRequest()
 				
 				Q_ASSERT(synchronisationManager);
 				
-				kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
-				if (remoteLanguageDescriptionDate != localLanguageDescriptionDate)
+				//FIXME: The direct comparison (without toTime_t() doesn't work)
+				//kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
+				//kDebug() << "Language description: " << remoteLanguageDescriptionDate.toTime_t() << localLanguageDescriptionDate.toTime_t();
+				if (remoteLanguageDescriptionDate.toTime_t() != localLanguageDescriptionDate.toTime_t())
 				{
-					if (localLanguageDescriptionDate > remoteLanguageDescriptionDate)
+					kDebug() << "Language description differs";
+					if (localLanguageDescriptionDate.toTime_t() > remoteLanguageDescriptionDate.toTime_t())
 					{
 						if (!sendLanguageDescription())
 							sendCode(Simond::GetLanguageDescription);

@@ -1539,6 +1539,7 @@ void RecognitionControl::messageReceived()
 
 					kDebug() << "adinnet server running on port " << port;
 					adinStreamer->init(socket->peerAddress(), port, sampleRate);
+//					if (RecognitionConfiguration::automaticallyEnableRecognition())
 					startRecognition();
 					break;
 				}

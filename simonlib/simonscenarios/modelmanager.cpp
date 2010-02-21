@@ -29,6 +29,9 @@
 #include <simonscenarios/scenariomanager.h>
 
 #include <KStandardDirs>
+#include <KMimeType>
+#include <KFilterBase>
+#include <KFilterDev>
 #include <QFile>
 #include <QFileInfo>
 #include <QBuffer>
@@ -249,9 +252,45 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteA
 				        const QByteArray& treeHed)
 {
 	ShadowVocabulary *vocab = ScenarioManager::getInstance()->getShadowVocabulary();
-	QBuffer *buffer = new QBuffer(&shadowVocab);
-	if (!vocab->reset(buffer) || !vocab->save()) return false;
-	delete buffer;
+
+	QIODevice *vocabDev = NULL;
+
+	QString vocabTempPath = KStandardDirs::locateLocal("tmp", "simon/tmpshadow");
+	QFile f(vocabTempPath);
+	if (!f.open(QIODevice::WriteOnly))
+		return false;
+	f.write(shadowVocab);
+	f.close();
+
+	vocabDev = KFilterDev::deviceForFile(vocabTempPath, KMimeType::findByFileContent(vocabTempPath)->name());
+
+	/*
+	//KMimeType can't resolve mimetype like this
+	KMimeType::Ptr mime = KMimeType::findByContent(shadowVocab);
+	QStringList parentMimeTypes;
+	if (mime)
+		parentMimeTypes = mime->parentMimeTypes();
+	kDebug() << "Shadow mime type" << parentMimeTypes;
+
+	KFilterBase *base = NULL;
+	int i=0;
+	while (!base && i < parentMimeTypes.count())
+	{
+		base = KFilterBase::findFilterByMimeType(parentMimeTypes[i]);
+		i++;
+	}
+	if (base == 0)
+	{
+		kDebug() << "Couldn't resolve mime type";
+		vocabDev = new QBuffer(&shadowVocab);
+	} else {
+		kDebug() << "Using mime type filter";
+		vocabDev = base->device();
+	}
+	*/
+
+	if (!vocab->reset(vocabDev) || !vocab->save()) return false;
+	delete vocabDev;
 
 	QFile treeHedF(KStandardDirs::locateLocal("appdata", "model/tree1.hed"));
 	if (!treeHedF.open(QIODevice::WriteOnly))
@@ -299,12 +338,15 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate
 	if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))
 		return false;
 	
-	QFile wavConfigF(KStandardDirs::locateLocal("appdata", "model/wav_config"));
-	if (!wavConfigF.open(QIODevice::WriteOnly))
-		return false;
+	if (!wavConfig.isEmpty())
+	{
+		QFile wavConfigF(KStandardDirs::locateLocal("appdata", "model/wav_config"));
+		if (!wavConfigF.open(QIODevice::WriteOnly))
+			return false;
 	
-	wavConfigF.write(wavConfig);
-	wavConfigF.close();
+		wavConfigF.write(wavConfig);
+		wavConfigF.close();
+	}
 	
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );

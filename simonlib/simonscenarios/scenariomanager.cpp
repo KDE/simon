@@ -90,12 +90,14 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 	f.close();
 
 	Scenario *newScenario = new Scenario(id);
+	kDebug() << "Setting new scenario " << id;
 	if (!setupScenario(newScenario))
 		return false;
 
 
 	for (int i=0; i < scenarios.count(); i++) {
 		if (scenarios[i]->id() == id) {
+			kDebug() << "Found scenario in the old list; replacing it with new version";
 			Scenario *s = scenarios.takeAt(i);
 			delete s;
 			scenarios.insert(i, newScenario);
@@ -103,6 +105,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 		}
 	}
 
+	kDebug() << "Updating scenario displays";
 	updateDisplays(newScenario, true);
 
 	if (m_inGroup)
@@ -183,6 +186,10 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 		else
 			emit scenariosChanged();
 	}
+
+	//we have to have at least one scenario loaded anyways; If not this
+	//crash here is the least of our worries...
+	updateDisplays(scenarios[0], true);
 
 	return success;
 }
