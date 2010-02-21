@@ -1135,6 +1135,8 @@ void RecognitionControl::messageReceived()
 
 					if (!ScenarioManager::getInstance()->setupScenarios())
 						emit synchronisationError(i18n("Couldn't re-initialize scenarios. Please restart simon!"));
+
+					sendTrainingModifiedDate();
 					break;
 				}
 				case Simond::SelectedScenarioListStorageFailed:
