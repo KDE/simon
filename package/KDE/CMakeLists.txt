@@ -46,6 +46,16 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libkdecore.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdeui.dll"
   
+  
+  
+  #"${KDE4_BIN_INSTALL_DIR}/wintab.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/wintab32.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/drkonqi.exe"
+  #"${KDE4_BIN_INSTALL_DIR}/dwmapi.dll"
+  "${KDE4_BIN_INSTALL_DIR}/kconf_update.exe"
+  "${KDE4_BIN_INSTALL_DIR}/libkntlm.dll"
+  
+  
   "${KDE4_BIN_INSTALL_DIR}/libkde3support.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkhtml.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkjs.dll"
@@ -84,6 +94,8 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/update-mime-database.exe"
   "${KDE4_BIN_INSTALL_DIR}/zlib1.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxslt.dll"
+  "${KDE4_LIB_INSTALL_DIR}/attica_kde.dll"
+  "${KDE4_LIB_INSTALL_DIR}/kde4/kcm_attica.dll"
   #"${KDE4_LIB_INSTALL_DIR}/kde4/libkfilemodule.dll"
   "${KDE4_LIB_INSTALL_DIR}/kde4/kded_desktopnotifier.dll"
   #"${KDE4_LIB_INSTALL_DIR}/kde4/kded_favicons.dll"
@@ -220,6 +232,8 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/config/kdebug.areas"
   "${KDE4_INSTALL_DIR}/share/config/kdebugrc"
   "${KDE4_INSTALL_DIR}/share/config/khotnewstuff.knsrc"
+  "${KDE4_INSTALL_DIR}/share/config/simonscenarios.knsrc"
+  "${KDE4_INSTALL_DIR}/share/config/khotnewstuff_upload.knsrc"
 		DESTINATION  ${DATA_INSTALL_DIR}/../config COMPONENT kdecore )
 
 
@@ -749,6 +763,8 @@ install (FILES ${oxygen_status_scalable}
 
    
 FILE(GLOB kde4_services "${KDE4_INSTALL_DIR}/share/kde4/services/*.protocol")
+install (FILES ${kde4_services} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services COMPONENT kdecore)
+FILE(GLOB kde4_services "${KDE4_INSTALL_DIR}/share/kde4/services/*.desktop")
 install (FILES ${kde4_services} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services COMPONENT kdecore)
    
 FILE(GLOB kde4_services_kded "${KDE4_INSTALL_DIR}/share/kde4/services/kded/*.desktop")
