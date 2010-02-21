@@ -22,7 +22,8 @@ INSTALL=@INSTALL@
 ############################################################
 
 OBJ = dfa_determinize.o
-TARGET = dfa_determinize
+
+TARGET=dfa_determinize@EXEEXT@
 
 all: $(TARGET)
 

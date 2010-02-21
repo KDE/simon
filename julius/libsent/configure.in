@@ -3,7 +3,7 @@ dnl Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technolo
 dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 dnl
-dnl  $Id: configure.in,v 1.20 2009/12/17 10:01:58 sumomo Exp $
+dnl  $Id: configure.in,v 1.22 2010/02/04 04:43:27 sumomo Exp $
 dnl
 
 dnl Process this file with autoconf to produce a configure script.
@@ -122,6 +122,14 @@ AC_PROG_INSTALL
 AC_PATH_PROG(RM, rm)
 AC_PATH_PROG(AR, ar)
 AC_PROG_RANLIB
+AC_EXEEXT
+
+dnl Check for static link for cygwin / mingw libraries
+case "$host_os" in
+  cygwin*|mingw*)
+    EXTRALIB="-static $EXTRALIB"
+    ;;
+esac
 
 dnl Checks for header files.
 AC_HEADER_STDC
@@ -152,6 +160,7 @@ AC_TRY_LINK([#include <winsock2.h>
 int sd;
 struct sockaddr_in s;
 ], [connect(sd, (struct sockaddr *)&s, sizeof(s));],
+EXTRALIB="$EXTRALIB -lws2_32"
 AC_MSG_RESULT([yes]),
 LIBS=$xxxxLIBS
 AC_MSG_RESULT([no])
@@ -161,20 +170,28 @@ AC_MSG_RESULT([no])
 AC_CHECK_FUNCS(strcasecmp)
 AC_CHECK_FUNCS(sleep)
 
-
 dnl Check for avaiable common adin files
-# ALSA
-has_alsa=yes
-AC_CHECK_HEADERS(alsa/asoundlib.h,,
-  AC_CHECK_HEADERS(sys/asoundlib.h,,
+case "$host_os" in
+  cygwin*|mingw*)
+# avoid ALSA/OSS detection for Windows environment
     has_alsa=no
-))
-# OSS
-has_oss=yes
-AC_CHECK_HEADERS(sys/soundcard.h,,
-  AC_CHECK_HEADERS(machine/soundcard.h,,
     has_oss=no
-))
+    ;;
+  *)
+# ALSA
+    has_alsa=yes
+    AC_CHECK_HEADERS(alsa/asoundlib.h,,
+      AC_CHECK_HEADERS(sys/asoundlib.h,,
+       has_alsa=no
+    ))
+# OSS
+    has_oss=yes
+    AC_CHECK_HEADERS(sys/soundcard.h,,
+      AC_CHECK_HEADERS(machine/soundcard.h,,
+        has_oss=no
+    ))
+    ;;
+esac
 # ESounD
 has_esd=yes
 AC_CHECK_HEADERS(esd.h,,has_esd=no)
@@ -496,9 +513,9 @@ It's available at http://www.mega-nerd.com/libsndfile/])
  fi
 fi
 
-dnl cygwin and max os 10 needs extra iconv library
+dnl max os 10 needs extra iconv library
 case "$host_os" in
-  cygwin*|darwin*)
+  darwin*)
     EXTRALIB="$EXTRALIB -liconv"
     ;;
 esac

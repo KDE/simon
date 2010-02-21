@@ -42,7 +42,7 @@
  * @author Akinobu LEE
  * @date   Tue Feb 22 17:00:45 2005
  *
- * $Revision: 1.12 $
+ * $Revision: 1.14 $
  * 
  */
 /*
@@ -1703,11 +1703,15 @@ init_nodescore(HTK_Param *param, RecogProcess *r)
 	      newid = create_token(d);
 	      new = &(d->tlist[d->tn][newid]);
 	      new->last_tre = &(d->bos);
+#ifdef FIX_PENALTY
 	      new->last_lscore = 0.0;
+#else
+	      new->last_lscore = d->penalty1;
+#endif
 	      if (wchmm->hmminfo->multipath) {
-		new->score = 0.0;
+		new->score = new->last_lscore;
 	      } else {
-		new->score = outprob_style(wchmm, node, d->bos.wid, 0, param);
+		new->score = outprob_style(wchmm, node, d->bos.wid, 0, param) + new->last_lscore;
 	      }
 	      node_assign_token(d, node, newid);
 	    }
@@ -2180,11 +2184,7 @@ save_trellis(BACKTRELLIS *bt, WCHMM_INFO *wchmm, TOKEN2 *tk, int t, boolean fina
   tre->begintime = tk->last_tre->endtime + 1; /* word beginning frame */
   tre->endtime   = t-1;	/* word end frame */
   tre->last_tre  = tk->last_tre; /* link to previous trellis word */
-  if (wchmm->lmtype == LM_PROB) {
-    tre->lscore    = tk->last_lscore;	/* log score (LM only) */
-  } else if (wchmm->lmtype == LM_DFA) {
-    tre->lscore = 0.0;
-  }
+  tre->lscore    = tk->last_lscore;	/* log LM score  */
   bt_store(bt, tre); /* save to backtrellis */
 #ifdef WORD_GRAPH
   if (tre->last_tre != NULL) {
@@ -2386,7 +2386,8 @@ beam_inter_word(WCHMM_INFO *wchmm, FSBeam *d, TOKEN2 **tk_ret, TRELLIS_ATOM *tre
     if (wchmm->lmtype == LM_DFA) {
       /* grammar: 単語挿入ペナルティを追加 */
       /* grammar: add insertion penalty */
-      tmpsum += d->penalty1;
+      ngram_score_cache = d->penalty1;
+      tmpsum += ngram_score_cache;
 
       /* grammar: deterministic factoring (in case category-tree not enabled) */
       if (!wchmm->category_tree) {

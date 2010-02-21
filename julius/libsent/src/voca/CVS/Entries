@@ -1,7 +1,7 @@
-/init_voca.c/1.2/Thu Dec 31 12:54:15 2009//
-/voca_load_htkdict.c/1.7/Thu Dec 31 12:54:15 2009//
-/voca_load_wordlist.c/1.5/Thu Dec 31 12:54:15 2009//
-/voca_lookup.c/1.2/Thu Dec 31 12:54:15 2009//
-/voca_malloc.c/1.2/Thu Dec 31 12:54:15 2009//
-/voca_util.c/1.2/Thu Dec 31 12:54:15 2009//
+/init_voca.c/1.2/Sat Jan 23 23:28:47 2010//
+/voca_load_htkdict.c/1.7/Sat Jan 23 23:28:47 2010//
+/voca_load_wordlist.c/1.5/Sat Jan 23 23:28:47 2010//
+/voca_lookup.c/1.2/Sat Jan 23 23:28:47 2010//
+/voca_malloc.c/1.2/Sat Jan 23 23:28:47 2010//
+/voca_util.c/1.2/Sat Jan 23 23:28:47 2010//
 D

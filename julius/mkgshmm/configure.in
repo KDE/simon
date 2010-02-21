@@ -8,5 +8,6 @@ AC_CONFIG_AUX_DIR(../support)
 AC_PROG_INSTALL
 AC_PATH_PROG(RM, rm)
 AC_PATH_PROG(PERL, perl)
+AC_EXEEXT
 AC_OUTPUT_COMMANDS([chmod +x mkgshmm])
 AC_OUTPUT(Makefile mkgshmm)

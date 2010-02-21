@@ -23,7 +23,8 @@ INSTALL=@INSTALL@
 ############################################################
 
 OBJ = accept_check.o rdterm.o
-TARGET = accept_check
+
+TARGET=accept_check@EXEEXT@
 
 all: $(TARGET)
 

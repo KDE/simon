@@ -22,7 +22,8 @@ INSTALL=@INSTALL@
 ############################################################
 
 OBJ = generate.o gen_next.o rdterm.o
-TARGET = generate
+
+TARGET = generate@EXEEXT@
 
 all: $(TARGET)
 

@@ -4,7 +4,7 @@ dnl Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technolo
 dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 dnl
-dnl $Id: configure.in,v 1.4 2009/06/20 14:06:54 sumomo Exp $
+dnl $Id: configure.in,v 1.5 2010/02/03 10:11:58 sumomo Exp $
 dnl
 
 AC_INIT(main.c)
@@ -51,6 +51,7 @@ AC_PROG_CPP
 dnl Checks for programs.
 AC_PROG_INSTALL
 AC_PATH_PROG(RM, rm)
+AC_EXEEXT
 
 dnl Checks for libraries.
 dnl add '-lLIBRARY' to LIBS and define 'HAVE_LIBLIBRARY'

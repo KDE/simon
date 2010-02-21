@@ -89,19 +89,15 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
 	SimonInfo *info = new SimonInfo();
-	kDebug() << 1;
 
 	//showing splash
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
 	info->writeToSplash ( i18n ( "Loading core..." ) );
 
-	kDebug() << 2;
 	control = (new SimonControl(this));
-	kDebug() << 3;
 	trayManager = (new TrayIconManager(this));
 
-	kDebug() << 4;
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
 	QMainWindow ( parent,flags );
@@ -193,7 +189,6 @@ void SimonView::updateScenarioDisplays()
 {
 	//a scenario has been selected from the list of loaded scenarios
 	int currentIndex = cbCurrentScenario->currentIndex();
-	kDebug() << currentIndex;
 	if (currentIndex == -1) return;
 
 	QString currentId = cbCurrentScenario->itemData(currentIndex).toString();

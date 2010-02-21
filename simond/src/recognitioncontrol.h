@@ -51,7 +51,12 @@ class RecognitionControl : public QThread
 		qint32 sampleRate;
 
 		static qint32 portNum;
-		static qint32 reservePortNum() { return portNum++; }
+		static qint32 reservePortNum() { 
+			if (portNum >= 10000)
+				portNum = 5000;
+			return portNum++;
+		}
+
 		static qint32 getPortNum() { return portNum; }
 
 	public:

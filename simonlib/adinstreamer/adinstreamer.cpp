@@ -481,6 +481,7 @@ void AdinStreamer::stop()
 			Recog *real_recog = recog;
 			recog=NULL;
 			j_request_terminate(real_recog);
+			j_close_stream(real_recog);
 			j_recog_free(real_recog);
 			emit stopped();
 		}

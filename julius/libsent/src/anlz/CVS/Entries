@@ -1,9 +1,9 @@
-/param_malloc.c/1.2/Thu Dec 31 12:54:15 2009//
-/paramselect.c/1.2/Thu Dec 31 12:54:15 2009//
-/paramtypes.c/1.2/Thu Dec 31 12:54:15 2009//
-/rdparam.c/1.3/Thu Dec 31 12:54:15 2009//
-/strip.c/1.3/Thu Dec 31 12:54:15 2009//
-/strip_mfcc.c/1.3/Thu Dec 31 12:54:15 2009//
-/wrsamp.c/1.2/Thu Dec 31 12:54:15 2009//
-/wrwav.c/1.2/Thu Dec 31 12:54:15 2009//
+/param_malloc.c/1.2/Sat Jan 23 23:28:47 2010//
+/paramselect.c/1.2/Sat Jan 23 23:28:47 2010//
+/paramtypes.c/1.2/Sat Jan 23 23:28:47 2010//
+/rdparam.c/1.3/Sat Jan 23 23:28:47 2010//
+/strip.c/1.3/Sat Jan 23 23:28:47 2010//
+/strip_mfcc.c/1.3/Sat Jan 23 23:28:47 2010//
+/wrsamp.c/1.2/Sat Jan 23 23:28:47 2010//
+/wrwav.c/1.2/Sat Jan 23 23:28:47 2010//
 D

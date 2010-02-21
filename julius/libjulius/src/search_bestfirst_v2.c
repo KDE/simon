@@ -48,7 +48,7 @@
  * @author Akinobu Lee
  * @date   Mon Sep 12 00:58:50 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -1394,11 +1394,7 @@ start_word(NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r)
     new->last_ph = NULL;
   }
   
-  if (r->lmtype == LM_PROB) {
-    new->g[peseqlen-1] = nword->lscore;
-  } else {
-    new->g[peseqlen-1] = 0;
-  }
+  new->g[peseqlen-1] = nword->lscore;
   
   for (t=peseqlen-1; t>=0; t--) {
     tre = bt_binsearch_atom(backtrellis, t, word);

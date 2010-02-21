@@ -286,6 +286,7 @@ make_connection_unix(char *address)
 int
 close_socket(int sd)
 {
+//	fprintf(stderr, "CLOSING SOCKET");
   int ret;
 #ifdef WINSOCK
   ret = closesocket(sd);

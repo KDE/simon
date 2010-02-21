@@ -369,6 +369,15 @@ adin_mic_read(SP16 *buf, int sampnum)
     avail = current_local - processed;
     if (avail > sampnum) avail = sampnum;
 
+    /*
+    if (adin_stream_should_be_running == TRUE)
+	    fprintf(stderr, "Adin should be running: TRUE\n");
+    else
+	    fprintf(stderr, "Adin should be running: TRUE\n");
+    fprintf(stderr, "Available: %d\n", avail);
+    fprintf(stderr, "Processed: %d\n", processed);
+    */
+    //if the following line crashes you forgot to call j_close_stream()
     memcpy(buf, &(speech[processed]), avail * sizeof(SP16));
 #ifdef DDEBUG
     printf("process-2: [%d..%d] %d samples read\n", processed, processed+avail, avail);

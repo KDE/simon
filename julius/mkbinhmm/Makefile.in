@@ -3,7 +3,7 @@
 # Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 # All rights reserved
 #
-# $Id: Makefile.in,v 1.5 2008/10/02 08:57:04 sumomo Exp $
+# $Id: Makefile.in,v 1.6 2010/02/03 10:11:58 sumomo Exp $
 #
 SHELL=/bin/sh
 .SUFFIXES:
@@ -21,19 +21,19 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 INSTALL=@INSTALL@
 
-all: mkbinhmm mkbinhmmlist
+all: mkbinhmm@EXEEXT@ mkbinhmmlist@EXEEXT@
 
-mkbinhmm: mkbinhmm.o $(LIBSENT)/libsent.a
+mkbinhmm@EXEEXT@: mkbinhmm.o $(LIBSENT)/libsent.a
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ mkbinhmm.o $(LDFLAGS)
 
-mkbinhmmlist: mkbinhmmlist.o $(LIBSENT)/libsent.a
+mkbinhmmlist@EXEEXT@: mkbinhmmlist.o $(LIBSENT)/libsent.a
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ mkbinhmmlist.o $(LDFLAGS)
 
 install: install.bin
 
-install.bin: mkbinhmm mkbinhmmlist
+install.bin: mkbinhmm@EXEEXT@ mkbinhmmlist@EXEEXT@
 	${INSTALL} -d @bindir@
-	@INSTALL_PROGRAM@ mkbinhmm mkbinhmmlist @bindir@
+	@INSTALL_PROGRAM@ mkbinhmm@EXEEXT@ mkbinhmmlist@EXEEXT@ @bindir@
 
 clean:
 	$(RM) mkbinhmm.o mkbinhmmlist.o

@@ -23,7 +23,8 @@ INSTALL=@INSTALL@
 ############################################################
 
 OBJ = nextword.o get_next.o wtoken.o rdterm.o readline.o
-TARGET = nextword
+
+TARGET=nextword@EXEEXT@
 
 all: $(TARGET)
 

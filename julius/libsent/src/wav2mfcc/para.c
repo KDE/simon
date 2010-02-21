@@ -16,7 +16,7 @@
  * @author Akinobu Lee
  * @date   Fri Oct 27 14:55:00 2006
  *
- * $Revision: 1.7 $
+ * $Revision: 1.8 $
  * 
  */
 /*
@@ -97,7 +97,7 @@ make_default_para(Value *para)
   para->enormal    = FALSE;
   para->escale     = DEF_ESCALE;
   para->silFloor   = DEF_SILFLOOR;
-  para->cvn	   = 0;
+  para->cvn	   = FALSE;
   para->hipass     = -1;	/* disabled */
   para->lopass     = -1;	/* disabled */
   //para->ss_alpha    = DEF_SSALPHA;
@@ -239,7 +239,7 @@ htk_config_file_parse(char *HTKconffile, Value *para)
     } else if (strmatch(d, "ZMEANSOURCE")) { /* -zmeansource */
       para->zmeanframe = (a[0] == 'T') ? TRUE : FALSE;
     } else if (strmatch(d, "USEPOWER")) { /* -usepower */
-      para->zmeanframe = (a[0] == 'T') ? TRUE : FALSE;
+      para->usepower = (a[0] == 'T') ? TRUE : FALSE;
     } else if (strmatch(d, "PREEMCOEF")) { /* -preemph */
       para->preEmph = atof(a);
     } else if (strmatch(d, "USEHAMMING")) { /* (fixed to T) */
@@ -403,8 +403,17 @@ put_para(FILE *fp, Value *para)
   if (para->usepower) fprintf(fp, "ON\n");
   else fprintf(fp, "OFF\n");
   fprintf(fp, "\t             CVN = ");
-  if (para->cvn) fprintf(fp, "ON\n");
-  else fprintf(fp, "OFF\n");
+  switch (para->cvn) {
+  case TRUE:
+    fprintf(fp, "ON\n");
+    break;
+  case FALSE:
+    fprintf(fp, "OFF\n");
+    break;
+  default:
+    fprintf(fp, "UNKNOWN\n");
+    break;
+  }
   fprintf(fp, "\t            VTLN = ");
   if(para->vtln_alpha != 1.0) {
     fprintf(fp, "ON, alpha=%.3f, f_low=%.1f, f_high=%.1f\n", para->vtln_alpha, para->vtln_lower, para->vtln_upper);

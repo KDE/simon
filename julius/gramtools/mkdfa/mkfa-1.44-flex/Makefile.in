@@ -27,7 +27,7 @@ INSTALL=@INSTALL@
 #FLEXS = gram.l
 OBJS = gram.tab.o main.o voca.o nfa.o dfa.o triplet.o
 
-TARGET = mkfa
+TARGET=mkfa@EXEEXT@
 
 all: $(TARGET)
 

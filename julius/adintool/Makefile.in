@@ -3,7 +3,7 @@
 # Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 # All rights reserved 
 #
-# $Id: Makefile.in,v 1.4 2008/10/02 08:57:01 sumomo Exp $
+# $Id: Makefile.in,v 1.5 2010/02/03 10:11:57 sumomo Exp $
 #
 SHELL=/bin/sh
 .SUFFIXES:
@@ -24,11 +24,11 @@ INSTALL=@INSTALL@
 
 ############################################################
 
-TARGET=adintool
+TARGET=adintool@EXEEXT@
 
 all: $(TARGET)
 
-adintool: adintool.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
+$(TARGET): adintool.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ adintool.c $(LDFLAGS)
 
 ############################################################

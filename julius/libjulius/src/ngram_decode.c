@@ -35,7 +35,7 @@
  * @author Akinobu Lee
  * @date   Fri Jul  8 14:57:51 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -513,10 +513,13 @@ ngram_firstwords(NEXTWORD **nw, int peseqlen, int maxnw, RecogProcess *r)
     nw[0]->id = r->lm->winfo->tail_silwid;
   }
 
-#ifdef FIX_PENALTY
-  nw[0]->lscore = 0.0;
-#else
-  nw[0]->lscore = r->config->lmp.lm_penalty2;
+  nw[0]->lscore = uni_prob(r->wchmm->ngram, r->wchmm->winfo->wton[nw[0]->id]);
+#ifdef CLASS_NGRAM
+  nw[0]->lscore += r->wchmm->winfo->cprob[nw[0]->id];
+#endif
+  nw[0]->lscore *= r->config->lmp.lm_weight2;
+#ifndef FIX_PENALTY
+  nw[0]->lscore += r->config->lmp.lm_penalty2;
 #endif
 
   return 1;			/* number of words = 1 */

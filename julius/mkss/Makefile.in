@@ -3,7 +3,7 @@
 # Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
 # All rights reserved 
 #
-# $Id: Makefile.in,v 1.4 2008/10/02 08:57:04 sumomo Exp $
+# $Id: Makefile.in,v 1.5 2010/02/03 10:11:58 sumomo Exp $
 #
 SHELL=/bin/sh
 .SUFFIXES:
@@ -24,11 +24,11 @@ INSTALL=@INSTALL@
 
 ############################################################
 
-TARGET=mkss
+TARGET=mkss@EXEEXT@
 
 all: $(TARGET)
 
-mkss: mkss.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
+$(TARGET): mkss.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ mkss.c $(LDFLAGS)
 
 ############################################################

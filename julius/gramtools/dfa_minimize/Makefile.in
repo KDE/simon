@@ -22,7 +22,7 @@ INSTALL=@INSTALL@
 ############################################################
 
 OBJ = dfa_minimize.o
-TARGET = dfa_minimize
+TARGET = dfa_minimize@EXEEXT@
 
 all: $(TARGET)
 

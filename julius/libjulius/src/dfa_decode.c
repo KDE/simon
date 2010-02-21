@@ -47,7 +47,7 @@
  * @author Akinobu LEE
  * @date   Mon Mar  7 15:31:00 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -111,7 +111,11 @@ dfa_firstwords(NEXTWORD **nw, int peseqlen, int maxnw, RecogProcess *r)
 	      nw[num]->id = dfa->term.tw[cate][iw]; /* word ID */
 	      nw[num]->next_state = ns; /* next state */
 	      nw[num]->can_insert_sp = FALSE; /* short pause should not inserted before this word */
+#ifdef FIX_PENALTY
+	      nw[num]->lscore = 0.0;
+#else
 	      nw[num]->lscore = r->config->lmp.penalty2;
+#endif
 	      num++;
 	      if (num >= maxnw) return -1; /* buffer overflow */
 	    }

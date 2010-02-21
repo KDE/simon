@@ -92,7 +92,7 @@
  * @author Akinobu Lee
  * @date   Sun Sep 11 23:54:53 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -1462,11 +1462,8 @@ next_word(NODE *now, NODE *new,	NEXTWORD *nword, HTK_Param *param, RecogProcess 
   }
 
 
-  if (r->lmtype == LM_PROB) {
-    new->lscore = nword->lscore;
-  } else if (r->lmtype == LM_DFA) {
-    new->lscore = 0.0;
-  }
+  /* 接続確率を与える */
+  new->lscore = nword->lscore;
 
   if (! hmminfo->multipath) {
     /* a_value: 接続点の遷移確率 */
@@ -1642,11 +1639,7 @@ start_word(NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r)
   }
   new->lscore = nword->lscore;
 
-  if (r->lmtype == LM_PROB) {
-    new->g[peseqlen-1] = nword->lscore;
-  } else if (r->lmtype == LM_DFA) {
-    new->g[peseqlen-1] = 0;
-  }
+  new->g[peseqlen-1] = nword->lscore;
   
   for (t=peseqlen-1; t>=0; t--) {
     tre = bt_binsearch_atom(backtrellis, t, word);

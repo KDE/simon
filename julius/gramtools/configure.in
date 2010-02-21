@@ -22,6 +22,7 @@ fi
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
+AC_EXEEXT
 
 dnl Checks for optimization flag
 AC_MSG_CHECKING([host specific optimization flag])

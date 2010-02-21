@@ -8,6 +8,7 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PATH_PROG(RM,rm)
+AC_EXEEXT
 AC_CHECK_FUNC(gethostbyname,,AC_CHECK_LIB(nsl,gethostbyname))
 AC_CHECK_FUNC(connect,,AC_CHECK_LIB(socket, connect,,
 AC_MSG_CHECKING([for connect in -lws2_32])
