@@ -1522,8 +1522,10 @@ void RecognitionControl::messageReceived()
 
 					emit recognitionStatusChanged(RecognitionControl::Ready);
 
+//					if (RecognitionConfiguration::automaticallyEnableRecognition())
+//						startRecognition();
 					if (RecognitionConfiguration::automaticallyEnableRecognition())
-						startRecognition();
+						sendRequest(Simond::StartRecognition);
 
 					break;
 				}
