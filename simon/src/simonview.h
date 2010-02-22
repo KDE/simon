@@ -43,6 +43,7 @@
 #include <QList>
 #include <QMutex>
 
+#include <KHTMLPart>
 // #include "operation.h"
 
 class QPoint;
@@ -65,6 +66,7 @@ class QThread;
 class VocabularyView;
 class QComboBox;
 class KHTMLPart;
+class WelcomeHTMLPart;
 
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
@@ -73,7 +75,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
 
 
 private:
-	KHTMLPart *welcomePart;
+	WelcomeHTMLPart *welcomePart;
 	QMutex guiUpdateMutex;
 
 	bool settingsShown;
@@ -133,6 +135,16 @@ public:
 	~SimonView();
 
 	void closeEvent ( QCloseEvent * event );
+
+};
+
+class WelcomeHTMLPart : public KHTMLPart
+{
+	public:
+		WelcomeHTMLPart(QWidget *parentWidget, QObject *parent);
+		bool urlSelected(const QString& url, int button, int state,
+				const QString& _target,	const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
+				const KParts::BrowserArguments&	browserArgs = KParts::BrowserArguments());
 
 };
 

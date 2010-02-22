@@ -53,6 +53,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QComboBox>
+#include <QDesktopServices>
 
 
 #include <KMessageBox>
@@ -65,12 +66,9 @@
 #include <KStandardAction>
 #include <KStandardDirs>
 #include <KStatusBar>
-#include <KPasswordDialog>
-#include <KConfigDialog>
 #include <KCMultiDialog>
 #include <KCModuleProxy>
 #include <KPageWidgetItem>
-#include <KHTMLPart>
 #include <KIconLoader>
 
 /**
@@ -162,7 +160,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
 	//ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
 
-	//ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
+		//ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
 	//ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 	//ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 	//ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
@@ -201,7 +199,7 @@ void SimonView::displayAboutPage()
 	QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
 
 	delete welcomePart;
-	welcomePart = new KHTMLPart(this);
+	welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
 
 	KIconLoader *iconLoader = KIconLoader::global();
 	QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
@@ -229,6 +227,15 @@ void SimonView::displayAboutPage()
 			.arg(iconSize).arg(iconSize)
 			.arg(i18n("simon Homepage")).arg(i18n("Official simon homepage"))
 			;
+
+	welcomePart->setJScriptEnabled(false);
+	welcomePart->setJavaEnabled(false);
+	welcomePart->setMetaRefreshEnabled(false);
+	welcomePart->setPluginsEnabled(false);
+	welcomePart->setOnlyLocalReferences(false);
+	welcomePart->setStatusMessagesEnabled(false);
+
+	//FIXME: reimplement bool KHTMLPart::urlSelected()
 
 	welcomePart->begin(KUrl::fromPath(location));
 	welcomePart->write(content);
@@ -743,6 +750,24 @@ void SimonView::closeEvent ( QCloseEvent * event )
 {
 	hide();
 	event->ignore();
+}
+
+
+WelcomeHTMLPart::WelcomeHTMLPart(QWidget *parentWidget, QObject *parent) :
+	KHTMLPart(parentWidget, parent)
+{
+}
+
+bool WelcomeHTMLPart::urlSelected(const QString& url, int button, int state,
+			const QString& _target,	const KParts::OpenUrlArguments& args,
+			const KParts::BrowserArguments&	browserArgs)
+{
+	Q_UNUSED(button);
+	Q_UNUSED(state);
+	Q_UNUSED(_target);
+	Q_UNUSED(args);
+	Q_UNUSED(browserArgs);
+	return QDesktopServices::openUrl(KUrl(url));
 }
 
 /**
