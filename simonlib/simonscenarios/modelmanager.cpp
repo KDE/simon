@@ -224,9 +224,9 @@ QByteArray ModelManager::getSample(const QString& sampleName)
 	if (!d.exists()) return QByteArray();
 		
 	//don't get tricked by /path/to/samples/../../../etc/passwd
-	if (!fInfo.absoluteFilePath().contains(d.absolutePath()))
+	if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
 	{
-		kDebug() << fInfo.absoluteFilePath() << " does not contain " << d.absolutePath();
+		kDebug() << fInfo.canonicalFilePath() << " does not contain " << d.canonicalPath();
 		return QByteArray(); 
 	}
 

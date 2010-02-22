@@ -600,7 +600,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 	
 	QFileInfo fInfo(f);
 	//don't get tricked by /path/to/samples/../../../etc/passwd
-	if (!fInfo.absoluteFilePath().contains(d.absolutePath()))
+	if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
 		return QByteArray(); 
 
 	kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
