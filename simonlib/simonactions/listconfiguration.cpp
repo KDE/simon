@@ -181,7 +181,7 @@ QString ListConfiguration::getListDefaultVisibleTrigger(CommandListElements::Ele
 void ListConfiguration::storeCurrentlyDisplayedElement(CommandListElements::Element type)
 {
 	QList<VoiceInterfaceCommand*> commands = listInterfaceCommands.values(type);
-	kDebug() << "Removing old versions: " << listInterfaceCommands.remove(type);
+	listInterfaceCommands.remove(type);
 	qDeleteAll(commands);
 
 	registerVoiceInterfaceCommand(type, ui->elbTriggers->items(), ui->leVisibleTrigger->text(),
