@@ -18,6 +18,7 @@
  */
 
 #include "simonview.h"
+#include "../version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
@@ -42,6 +43,7 @@
 #include <simonscenarios/actioncollection.h>
 
 #include <QTimer>
+#include <QFile>
 #include <QPixmap>
 #include <QCryptographicHash>
 #include <QCloseEvent>
@@ -68,6 +70,8 @@
 #include <KCMultiDialog>
 #include <KCModuleProxy>
 #include <KPageWidgetItem>
+#include <KHTMLPart>
+#include <KIconLoader>
 
 /**
  * @brief Constructor
@@ -84,7 +88,7 @@
 */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 		: KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-	shownDialogs(0), configDialog(0)
+	welcomePart(0), shownDialogs(0), configDialog(0)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
@@ -107,10 +111,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	ui.inlineView->setCloseButtonEnabled(true);
 #endif
 	
-	ui.tbWelcome->setWindowIcon(KIcon("simon"));
-	
-	ui.inlineView->addTab(ui.tbWelcome, KIcon("simon"), i18n("Welcome"));
-
 	statusBar()->insertItem(i18n("Not connected"),0);
 	statusBar()->insertItem("",1,10);
 	statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
@@ -138,6 +138,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 
 	info->writeToSplash ( i18n ( "Loading Interface..." ) );
+
+	displayAboutPage();
 	
 	settingsShown=false;
 
@@ -150,22 +152,89 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	setupSignalSlots();
 
+
 	control->actOnAutoConnect();
 
 	//hiding splash again after loading
 	info->hideSplash();
 	delete info;
 
-	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
-	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
+	//ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
+	//ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
 
-	ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
-	ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+	//ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
+	//ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+	//ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+	//ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 
 	if (!control->startMinimized())
 		show();
+}
+
+void SimonView::displayAboutPage()
+{
+	QString location = KStandardDirs::locate("data", "simon/about/main.html");
+
+	//    m_part->begin(KUrl::fromPath( location ));
+	QString info =
+		i18nc("%1: simon version; %2: homepage URL; "
+		"--- end of comment ---",
+		"<h2 style='margin-top: 0px;'>Welcome to simon %1</h2>"
+
+		"<p>simon is an open-source speech recognition program and replaces the mouse and keyboard. "
+		"It is designed to be as flexible as possible and allows customization for any application where speech recognition is needed.</p>"
+		,
+		simon_version, // simon version
+		"http://simon-listens.org/"); // simon homepage URL
+
+	QString fontSize = QString::number(15); //QFont().pixelSize());//QString::number( pointsToPixel( Settings::mediumFontSize() ));
+	QString appTitle = i18n("simon");
+	QString catchPhrase = i18n("simon listens."); 
+	QString quickDescription = i18n("Open Source Speech Recognition Suite"); // looks ugly i18n("Open Source Speech Recognition Suite");
+
+	QFile f(location);
+	if (!f.open(QIODevice::ReadOnly)) return;
+	QString content = f.readAll();
+
+	QString infocss = KStandardDirs::locate( "data", "kdeui/about/kde_infopage.css" );
+	QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
+	QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
+
+	delete welcomePart;
+	welcomePart = new KHTMLPart(this);
+
+	KIconLoader *iconLoader = KIconLoader::global();
+	QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
+	QString mailIconPath = iconLoader->iconPath("mail-message-new", KIconLoader::Desktop);
+	QString helpIconPath = iconLoader->iconPath("system-help", KIconLoader::Desktop);
+	QString iconSize = "48px";
+	content = content.arg( infocss, rtl, simoncss, fontSize, appTitle, catchPhrase, quickDescription, info)
+			.arg("http://sourceforge.net/projects/speech2text/forums/forum/672427")
+			.arg(internetIconPath) //icon
+			.arg(iconSize).arg(iconSize)
+			.arg(i18n("Community forums")).arg(i18n("Get in touch with the simon community"))
+
+			.arg("mailto:support@simon-listens.org")
+			.arg(mailIconPath) //icon
+			.arg(iconSize).arg(iconSize)
+			.arg(i18n("Mail support")).arg(i18n("Get direct support from the developers"))
+
+			.arg("http://simon-listens.org/wiki")
+			.arg(helpIconPath) //icon
+			.arg(iconSize).arg(iconSize)
+			.arg(i18n("simon WIKI")).arg(i18n("The simon knowledge base"))
+
+			.arg("http://simon-listens.org/")
+			.arg(internetIconPath) //icon
+			.arg(iconSize).arg(iconSize)
+			.arg(i18n("simon Homepage")).arg(i18n("Official simon homepage"))
+			;
+
+	welcomePart->begin(KUrl::fromPath(location));
+	welcomePart->write(content);
+	welcomePart->end();
+	welcomePart->show();
+	ui.inlineView->addTab(welcomePart->widget(), KIcon("simon"), i18n("Welcome"));
 }
 
 void SimonView::displayScenarios()
@@ -683,6 +752,7 @@ void SimonView::closeEvent ( QCloseEvent * event )
  */
 SimonView::~SimonView()
 {
+	delete welcomePart;
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	delete trayManager;
 	trayManager = NULL;

@@ -17,6 +17,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonappcore)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/about)
 
 set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
@@ -33,8 +34,9 @@ kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-
 kde4_add_executable( simon ${simonGeneralSources} )
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} simonappcore 
-simonactions simoninfo
+${QT_LIBRARIES} ${KDE4_KHTML_LIBS} ${KDE4_KPARTS_LIBS} 
+${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
+simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
 simonrecognitioncontrol simonactionsui simonprogresstracking)

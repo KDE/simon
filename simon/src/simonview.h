@@ -64,6 +64,7 @@ class Operation;
 class QThread;
 class VocabularyView;
 class QComboBox;
+class KHTMLPart;
 
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
@@ -72,6 +73,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
 
 
 private:
+	KHTMLPart *welcomePart;
 	QMutex guiUpdateMutex;
 
 	bool settingsShown;
@@ -98,6 +100,7 @@ private:
 	void displayScenarios();
 
 protected:
+	void displayAboutPage();
 	void displayScenarioPrivate(Scenario *scenario);
 
 private slots:
