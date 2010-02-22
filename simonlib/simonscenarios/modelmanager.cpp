@@ -209,17 +209,29 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 	return true;
 }
 
+#include <stdlib.h>
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
-	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator()+sampleName);
-
+	QString dirPath = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator();
+	#ifdef Q_OS_WIN32
+	dirPath = dirPath.toUpper();
+	#endif
+	QString path = dirPath+sampleName;
+	
+	QFile f(path);
 	QFileInfo fInfo(f);
-
+	QDir d(dirPath);
+	if (!d.exists()) return QByteArray();
+		
 	//don't get tricked by /path/to/samples/../../../etc/passwd
-	if (!fInfo.absoluteFilePath().contains(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()))
+	if (!fInfo.absoluteFilePath().contains(d.absolutePath()))
+	{
+		kDebug() << fInfo.absoluteFilePath() << " does not contain " << d.absolutePath();
 		return QByteArray(); 
+	}
 
-	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
+	if (!f.open(QIODevice::ReadOnly))
+		return QByteArray();
 	return f.readAll();
 }
 

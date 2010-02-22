@@ -584,19 +584,24 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
 	
-	
 #ifdef Q_OS_WIN
+	dirPath = dirPath.toUpper();
 	#ifdef UNICODE
-	QFile f(dirPath+"/"+sampleName.toUtf8());
+	QFile f(dirPath+QDir::separator()+sampleName.toUtf8());
 	#else
-	QFile f(dirPath+"/"+sampleName.toLatin1());
+	QFile f(dirPath+QDir::separator()+sampleName.toLatin1());
 	#endif
 #else
-	QFile f(dirPath+"/"+sampleName.toAscii());
+	QFile f(dirPath+QDir::separator()+sampleName.toAscii());
 #endif
 
+	QDir d(dirPath);
+	if (!d.exists()) return QByteArray();
+	
 	QFileInfo fInfo(f);
-	if (!fInfo.absoluteFilePath().contains(dirPath)) return QByteArray(); //don't get tricked by /path/to/samples/../../../etc/passwd
+	//don't get tricked by /path/to/samples/../../../etc/passwd
+	if (!fInfo.absoluteFilePath().contains(d.absolutePath()))
+		return QByteArray(); 
 
 	kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
 	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
