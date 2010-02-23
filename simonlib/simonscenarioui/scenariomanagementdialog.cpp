@@ -29,6 +29,7 @@
 #include <QSize>
 #include <QVariant>
 #include <QMenu>
+#include <QFileInfo>
 #include <QDateTime>
 #include <QFileInfo>
 #include <QListWidgetItem>
@@ -208,9 +209,35 @@ void ScenarioManagementDialog::getNewScenarios()
 
 	KNS3::DownloadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
 	dialog.exec();
+
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+	
+	QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << QStringList() << "general");
+
 	foreach (const KNS3::Entry& e, dialog.changedEntries()) {
-		kDebug() << "Changed Entry: " << e.name();
+		if (e.status() == KNS3::Entry::Installed)
+		{
+			QStringList installedFiles = e.installedFiles();
+			foreach (const QString& file, installedFiles)
+			{
+				QFileInfo fi(file);
+				selectedIds.append(fi.fileName());
+			}
+		}
+		if (e.status() == KNS3::Entry::Deleted)
+		{
+			QStringList uninstalledFiles = e.uninstalledFiles();
+			foreach (const QString& file, uninstalledFiles)
+			{
+				QFileInfo fi(file);
+				selectedIds.removeAll(fi.fileName());
+			}
+		}
 	}
+	cg.writeEntry("SelectedScenarios", selectedIds);
+	cg.writeEntry("LastModified", QDateTime::currentDateTime());
+	cg.sync();
 	initDisplay();
 }
 
@@ -398,6 +425,7 @@ bool ScenarioManagementDialog::save()
 	KConfigGroup cg(config, "");
 	cg.writeEntry("SelectedScenarios", ids);
 	cg.writeEntry("LastModified", QDateTime::currentDateTime());
+	cg.sync();
 	m_dirty = false;
 	return true;
 }
