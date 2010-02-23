@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ksimond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 12:53+0100\n"
+"POT-Creation-Date: 2010-02-23 13:37+0100\n"
 "PO-Revision-Date: 2009-03-02 21:06+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -72,44 +72,44 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: src/ksimondview.cpp:53
+#: src/ksimondview.cpp:54
 msgid "simond"
 msgstr "Simond"
 
-#: src/ksimondview.cpp:56 src/ksimondview.cpp:84
+#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
 msgid "Start simond"
 msgstr "Spustit simond"
 
-#: src/ksimondview.cpp:61 src/ksimondview.cpp:83
+#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
 #, fuzzy
 msgid "Start simon"
 msgstr "Spustit simond"
 
-#: src/ksimondview.cpp:66 src/ksimondview.cpp:85
+#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
 msgid "Restart simond"
 msgstr "Spustit simond znovu"
 
-#: src/ksimondview.cpp:72 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
 msgid "Stop simond"
 msgstr "Zastavit simond"
 
-#: src/ksimondview.cpp:78 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
 msgid "Configuration"
 msgstr "Nastavení"
 
-#: src/ksimondview.cpp:116
+#: src/ksimondview.cpp:117
 msgid "simond is already running"
 msgstr "Simond již běží"
 
-#: src/ksimondview.cpp:137
+#: src/ksimondview.cpp:138
 msgid "simond stopped"
 msgstr "Simond je zastaven"
 
-#: src/ksimondview.cpp:152
+#: src/ksimondview.cpp:153
 msgid "simond started"
 msgstr "Simond je spuštěn"
 
-#: src/ksimondview.cpp:183
+#: src/ksimondview.cpp:184
 msgid ""
 "Couldn't start simond.\n"
 "\n"
@@ -123,23 +123,23 @@ msgstr ""
 "\n"
 "Příkaz: \"%1\""
 
-#: src/ksimondview.cpp:187
+#: src/ksimondview.cpp:188
 msgid "simond crashed. (Status: %1)"
 msgstr "Simond havaroval. (Stav: %1)"
 
-#: src/ksimondview.cpp:191
+#: src/ksimondview.cpp:192
 msgid "Timeout."
 msgstr "Přerušení."
 
-#: src/ksimondview.cpp:194
+#: src/ksimondview.cpp:195
 msgid "Couldn't communicate with simond: Write failed."
 msgstr "Se simond nelze komunikovat: zápis selhal."
 
-#: src/ksimondview.cpp:197
+#: src/ksimondview.cpp:198
 msgid "Couldn't communicate with simond: Read failed."
 msgstr "Se simond nelze komunikovat: čtení selhalo."
 
-#: src/ksimondview.cpp:200
+#: src/ksimondview.cpp:201
 msgid "Unknown Error"
 msgstr "Neznámá chyba"
 

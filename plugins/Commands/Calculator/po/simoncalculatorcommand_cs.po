@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simoninputnumbercommand_cs\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:14+0100\n"
+"POT-Creation-Date: 2010-02-23 13:38+0100\n"
 "PO-Revision-Date: 2009-03-03 19:36+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #. i18n: file: calculatorwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorDlg)
-#: calculatorcommandmanager.cpp:67 calculatorcommandmanager.cpp:377
+#: calculatorcommandmanager.cpp:67 calculatorcommandmanager.cpp:393
 #: calculatorconfiguration.cpp:31 po/rc.cpp:54 rc.cpp:54
 msgid "Calculator"
 msgstr ""
@@ -108,8 +108,7 @@ msgstr ""
 
 #. i18n: file: calculatorwidget.ui:342
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: calculatorcommandmanager.cpp:106 calculatorcommandmanager.cpp:164
-#: calculatorcommandmanager.cpp:166 po/rc.cpp:127 rc.cpp:127
+#: calculatorcommandmanager.cpp:106 po/rc.cpp:127 rc.cpp:127
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -125,7 +124,7 @@ msgstr "Nula"
 msgid "Clicks 0"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:114 calculatorcommandmanager.cpp:146
+#: calculatorcommandmanager.cpp:114
 msgid "One"
 msgstr "Jeden"
 
@@ -133,7 +132,7 @@ msgstr "Jeden"
 msgid "Clicks 1"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:117 calculatorcommandmanager.cpp:149
+#: calculatorcommandmanager.cpp:117
 msgid "Two"
 msgstr "Dva"
 
@@ -141,7 +140,7 @@ msgstr "Dva"
 msgid "Clicks 2"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:120 calculatorcommandmanager.cpp:152
+#: calculatorcommandmanager.cpp:120
 msgid "Three"
 msgstr "Tři"
 
@@ -149,7 +148,7 @@ msgstr "Tři"
 msgid "Clicks 3"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:123 calculatorcommandmanager.cpp:155
+#: calculatorcommandmanager.cpp:123
 msgid "Four"
 msgstr "Čtyři"
 
@@ -157,7 +156,7 @@ msgstr "Čtyři"
 msgid "Clicks 4"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:126 calculatorcommandmanager.cpp:158
+#: calculatorcommandmanager.cpp:126
 msgid "Five"
 msgstr "Pět"
 
@@ -165,7 +164,7 @@ msgstr "Pět"
 msgid "Clicks 5"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:129 calculatorcommandmanager.cpp:161
+#: calculatorcommandmanager.cpp:129
 msgid "Six"
 msgstr "Šest"
 
@@ -206,7 +205,7 @@ msgstr ""
 msgid "Decimal separator"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:147 calculatorcommandmanager.cpp:165
+#: calculatorcommandmanager.cpp:147 calculatorcommandmanager.cpp:167
 msgid "In the output selection popup, selects printing the result"
 msgstr ""
 
@@ -219,67 +218,67 @@ msgstr ""
 msgid "In the output selection popup, selects printing the formatted result"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:156
+#: calculatorcommandmanager.cpp:157
 msgid ""
 "In the output selection popup, selects printing the formatted calculation "
 "and result"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:159
+#: calculatorcommandmanager.cpp:160
 msgid ""
 "In the output selection popup, selects printing the result formatted as money"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:162
+#: calculatorcommandmanager.cpp:164
 msgid ""
 "In the output selection popup, selects printing the calculation and result "
 "formatted as money"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:179
+#: calculatorcommandmanager.cpp:181
 msgid "Activate Calculator"
 msgstr ""
 
 #. i18n: file: calculatorconfigurationdlg.ui:118
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:226 po/rc.cpp:36 rc.cpp:36
+#: calculatorcommandmanager.cpp:228 po/rc.cpp:36 rc.cpp:36
 msgid "Result"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:227
+#: calculatorcommandmanager.cpp:229
 msgid "Calculation & result"
 msgstr ""
 
 #. i18n: file: calculatorconfigurationdlg.ui:128
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:228 po/rc.cpp:42 rc.cpp:42
+#: calculatorcommandmanager.cpp:230 po/rc.cpp:42 rc.cpp:42
 msgid "Formatted result"
 msgstr ""
 
 #. i18n: file: calculatorconfigurationdlg.ui:133
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:229 po/rc.cpp:45 rc.cpp:45
+#: calculatorcommandmanager.cpp:231 po/rc.cpp:45 rc.cpp:45
 msgid "Formatted calculation and result"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:230
+#: calculatorcommandmanager.cpp:232
 msgid "Format result as money"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:231
+#: calculatorcommandmanager.cpp:233
 msgid "Format calculation and result as money"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:308
+#: calculatorcommandmanager.cpp:323
 msgid "Error in output"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:514 calculatorcommandmanager.cpp:602
-#: calculatorcommandmanager.cpp:611
+#: calculatorcommandmanager.cpp:512 calculatorcommandmanager.cpp:597
+#: calculatorcommandmanager.cpp:605
 msgid "Not a legal expression!"
 msgstr ""
 
-#: calculatorcommandmanager.cpp:736
+#: calculatorcommandmanager.cpp:729
 msgid "Can't divide through 0"
 msgstr ""
 

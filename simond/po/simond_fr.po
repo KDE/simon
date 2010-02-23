@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simond_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 12:49+0100\n"
+"POT-Creation-Date: 2010-02-23 13:37+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -18,39 +18,47 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: config/simonduserconfiguration.cpp:70
+#: config/plugin_exporter.cpp:16
+msgid "User"
+msgstr ""
+
+#: config/plugin_exporter.cpp:17
+msgid "Network"
+msgstr ""
+
+#: config/simonduserconfiguration.cpp:71
 msgid "Couldn't connect to database"
 msgstr "Impossible de se connecter à la base de données"
 
-#: config/simonduserconfiguration.cpp:85
+#: config/simonduserconfiguration.cpp:86
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
-#: config/simonduserconfiguration.cpp:93
+#: config/simonduserconfiguration.cpp:94
 msgid "Couldn't add user"
 msgstr "Impossible d'ajouter l'utilisateur"
 
-#: config/simonduserconfiguration.cpp:101
+#: config/simonduserconfiguration.cpp:102
 msgid "Do you really want to remove the user from the database?"
 msgstr "Voulez-vous vraiment supprimer l'utilisateur de la base de données ?"
 
-#: config/simonduserconfiguration.cpp:108
+#: config/simonduserconfiguration.cpp:109
 msgid "Couldn't remove User"
 msgstr "Impossible de supprimer l'utilisateur"
 
-#: config/simonduserconfiguration.cpp:114
+#: config/simonduserconfiguration.cpp:115
 msgid "Do you also want to remove the speech model from the server?"
 msgstr "Voulez-vous aussi supprimer le modèle vocal du serveur ?"
 
-#: config/simonduserconfiguration.cpp:118
+#: config/simonduserconfiguration.cpp:119
 msgid "Couldn't remove the speech model"
 msgstr "Impossible de supprimer le modèle vocal"
 
-#: config/simonduserconfiguration.cpp:164
+#: config/simonduserconfiguration.cpp:165
 msgid "Change Password for User \"%1\""
 msgstr "Modifier le mot de passe de l'utilisateur « %1 »"
 
-#: config/simonduserconfiguration.cpp:168
+#: config/simonduserconfiguration.cpp:169
 msgid "Couldn't change Password"
 msgstr "Impossible de modifier le mot de passe"
 

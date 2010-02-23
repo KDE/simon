@@ -215,7 +215,7 @@ bool DesktopGridCommandManager::installInterfaceCommands()
 			i18n("In the click mode selection popup, this selects the drag and drop mode"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
 	succ &= installListInterfaceCommand(CommandListElements::Cancel, this, "deactivate", "cancelClickModeSelection", 
-			i18n("In the output selection popup, selects printing the result"), 
+			i18n("In the click mode selection popup, cancels the selection"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
 
 	return succ;

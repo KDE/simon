@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: simondesktopgridcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:22+0100\n"
-"PO-Revision-Date: 2010-02-09 13:26+0100\n"
+"POT-Creation-Date: 2010-02-23 13:40+0100\n"
+"PO-Revision-Date: 2010-02-23 13:40+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,123 +60,117 @@ msgstr "Drag & Drop"
 msgid "Starts the desktop grid"
 msgstr "Startet das Desktopgitter"
 
-#: desktopgridcommandmanager.cpp:168 desktopgridcommandmanager.cpp:200
+#: desktopgridcommandmanager.cpp:168
 msgid "One"
 msgstr "Eins"
 
-#: desktopgridcommandmanager.cpp:169
+#: desktopgridcommandmanager.cpp:170
 msgid "Clicks 1"
 msgstr "Klickt 1"
 
-#: desktopgridcommandmanager.cpp:171 desktopgridcommandmanager.cpp:203
+#: desktopgridcommandmanager.cpp:172
 msgid "Two"
 msgstr "Zwei"
 
-#: desktopgridcommandmanager.cpp:172
+#: desktopgridcommandmanager.cpp:173
 msgid "Clicks 2"
 msgstr "Klickt 2"
 
-#: desktopgridcommandmanager.cpp:174 desktopgridcommandmanager.cpp:206
+#: desktopgridcommandmanager.cpp:175
 msgid "Three"
 msgstr "Drei"
 
-#: desktopgridcommandmanager.cpp:175
+#: desktopgridcommandmanager.cpp:176
 msgid "Clicks 3"
 msgstr "Klickt 3"
 
-#: desktopgridcommandmanager.cpp:177 desktopgridcommandmanager.cpp:209
+#: desktopgridcommandmanager.cpp:178
 msgid "Four"
 msgstr "Vier "
 
-#: desktopgridcommandmanager.cpp:178
+#: desktopgridcommandmanager.cpp:179
 msgid "Clicks 4"
 msgstr "Klickt 4"
 
-#: desktopgridcommandmanager.cpp:180 desktopgridcommandmanager.cpp:212
+#: desktopgridcommandmanager.cpp:181
 msgid "Five"
 msgstr "Fünf"
 
-#: desktopgridcommandmanager.cpp:181
+#: desktopgridcommandmanager.cpp:182
 msgid "Clicks 5"
 msgstr "Klickt 5"
 
-#: desktopgridcommandmanager.cpp:183
+#: desktopgridcommandmanager.cpp:184
 msgid "Six"
 msgstr "Sechs"
 
-#: desktopgridcommandmanager.cpp:184
+#: desktopgridcommandmanager.cpp:185
 msgid "Clicks 6"
 msgstr "Klickt 6"
 
-#: desktopgridcommandmanager.cpp:186
+#: desktopgridcommandmanager.cpp:187
 msgid "Seven"
 msgstr "Sieben"
 
-#: desktopgridcommandmanager.cpp:187
+#: desktopgridcommandmanager.cpp:188
 msgid "Clicks 7"
 msgstr "Klickt 7"
 
-#: desktopgridcommandmanager.cpp:189
+#: desktopgridcommandmanager.cpp:190
 msgid "Eight"
 msgstr "Acht"
 
-#: desktopgridcommandmanager.cpp:190
+#: desktopgridcommandmanager.cpp:191
 msgid "Clicks 8"
 msgstr "Klickt 8"
 
-#: desktopgridcommandmanager.cpp:192
+#: desktopgridcommandmanager.cpp:193
 msgid "Nine"
 msgstr "Neun"
 
-#: desktopgridcommandmanager.cpp:193
+#: desktopgridcommandmanager.cpp:194
 msgid "Clicks 9"
 msgstr "Klickt 9"
 
-#: desktopgridcommandmanager.cpp:196 desktopgridcommandmanager.cpp:216
+#: desktopgridcommandmanager.cpp:197
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: desktopgridcommandmanager.cpp:197
+#: desktopgridcommandmanager.cpp:198
 msgid "Aborts the selection process"
 msgstr "Bricht die Auswahl ab"
 
-#: desktopgridcommandmanager.cpp:201
+#: desktopgridcommandmanager.cpp:203
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
-msgstr ""
-"Bei der Auswahl des Klickmodus, wähle Linksklick"
+msgstr "Bei der Auswahl des Klickmodus, wähle Linksklick"
 
-#: desktopgridcommandmanager.cpp:204
+#: desktopgridcommandmanager.cpp:206
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
-msgstr ""
-"Bei der Auswahl des Klickmodus, wähle Doppelklick"
+msgstr "Bei der Auswahl des Klickmodus, wähle Doppelklick"
 
-#: desktopgridcommandmanager.cpp:207
+#: desktopgridcommandmanager.cpp:209
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
-msgstr ""
-"Bei der Auswahl des Klickmodus, wähle Rechtsklick"
+msgstr "Bei der Auswahl des Klickmodus, wähle Rechtsklick"
 
-#: desktopgridcommandmanager.cpp:210
+#: desktopgridcommandmanager.cpp:212
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
-msgstr ""
-"Bei der Auswahl des Klickmodus, wähle Mittelklick"
+msgstr "Bei der Auswahl des Klickmodus, wähle Mittelklick"
 
-#: desktopgridcommandmanager.cpp:213
+#: desktopgridcommandmanager.cpp:215
 msgid "In the click mode selection popup, this selects the drag and drop mode"
-msgstr ""
-"Bei der Auswahl des Klickmodus, wähle Drag && Drop"
+msgstr "Bei der Auswahl des Klickmodus, wähle Drag && Drop"
 
-#: desktopgridcommandmanager.cpp:217
-msgid "Aborts the selection process when prompted to choose the click mode"
-msgstr ""
-"Bei der Auswahl des Klickmodus, breche ab"
+#: desktopgridcommandmanager.cpp:218
+msgid "In the click mode selection popup, cancels the selection"
+msgstr "Bei der Auswahl des Klickmodus, breche ab"
 
 #: desktopgridconfiguration.cpp:32
 msgid "Voice controlled mouse clicks"
@@ -245,6 +239,13 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#, fuzzy
+#~ msgid "In the output selection popup, selects printing the result"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#~ msgid "Aborts the selection process when prompted to choose the click mode"
+#~ msgstr "Bei der Auswahl des Klickmodus, breche ab"
 
 #~ msgid "Trigger:"
 #~ msgstr "Auslöser:"

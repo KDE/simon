@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simoncompositecommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:21+0100\n"
+"POT-Creation-Date: 2010-02-23 13:38+0100\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -27,17 +27,12 @@ msgid "Commands"
 msgstr "Commandes"
 
 #: compositecommand.cpp:96 compositecommand.cpp:97
-#: createcompositecommandwidget.cpp:138 delaycommand.cpp:37
+#: createcompositecommandwidget.cpp:120 delaycommand.cpp:37
 #: delaycommand.cpp:58
 msgid "Delay"
 msgstr "Délai"
 
-#: compositecommand.cpp:109 createcompositecommandwidget.cpp:133
-#: launchercommand.cpp:44
-msgid "Launcher"
-msgstr ""
-
-#: createcompositecommandwidget.cpp:167
+#: createcompositecommandwidget.cpp:149
 msgid ""
 "Couldn't find all of the commands that make up this composited command.\n"
 "\n"
@@ -46,22 +41,6 @@ msgstr ""
 "Impossible de trouver toutes les commandes de cette commande composite.\n"
 "\n"
 "Les commandes manquantes sont : %1."
-
-#: launchercommand.cpp:65
-msgid "Plugin"
-msgstr ""
-
-#: launchercommand.cpp:66
-msgid "Plugin trigger"
-msgstr ""
-
-#: launchercommand.cpp:67
-msgid "Launcher trigger"
-msgstr ""
-
-#: launchercommand.cpp:68
-msgid "Description"
-msgstr ""
 
 #. i18n: file: createcompositecommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateCompositeCommandWidget)
@@ -117,24 +96,12 @@ msgstr "Déplacer vers le haut"
 msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
-#. i18n: file: createcompositecommandwidget.ui:135
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:30 rc.cpp:30
-msgid "Launcher:"
-msgstr ""
-
-#. i18n: file: createcompositecommandwidget.ui:145
-#. i18n: ectx: property (text), widget (QPushButton, pbAddLauncher)
-#: po/rc.cpp:33 rc.cpp:33
-msgid "Add Launcher"
-msgstr ""
-
-#: po/rc.cpp:34 rc.cpp:34
+#: po/rc.cpp:28 rc.cpp:28
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:35 rc.cpp:35
+#: po/rc.cpp:29 rc.cpp:29
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"

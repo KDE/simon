@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:35+0100\n"
+"POT-Creation-Date: 2010-02-23 13:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,293 +17,490 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
-msgid "Zero"
+#. i18n: file: calculatorwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorDlg)
+#: calculatorcommandmanager.cpp:67 calculatorcommandmanager.cpp:393
+#: calculatorconfiguration.cpp:31 po/rc.cpp:54 rc.cpp:54
+msgid "Calculator"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
-msgid "One"
+#: calculatorcommandmanager.cpp:68
+msgid "Starts the calculator"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
-msgid "Two"
+#: calculatorcommandmanager.cpp:75
+msgid "Plus"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
-msgid "Three"
+#: calculatorcommandmanager.cpp:76
+msgid "Addition"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
-msgid "Four"
+#: calculatorcommandmanager.cpp:78
+msgid "Minus"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
-msgid "Five"
+#: calculatorcommandmanager.cpp:79
+msgid "Subtraction"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
-msgid "Six"
+#: calculatorcommandmanager.cpp:81
+msgid "Multiply"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
-msgid "Seven"
+#: calculatorcommandmanager.cpp:82
+msgid "Multiplication"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
-msgid "Eight"
+#: calculatorcommandmanager.cpp:84
+msgid "Divide"
 msgstr ""
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
-msgid "Nine"
+#: calculatorcommandmanager.cpp:85
+msgid "Division"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: backup/inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#: backup/inputnumbercommandmanager.cpp:56
-#: backup/inputnumberconfiguration.cpp:33 backup/inputnumberwidget.cpp:69
-#: inputnumbercommandmanager.cpp:81 inputnumberconfiguration.cpp:33
-#: po/rc.cpp:9 po/rc.cpp:60 rc.cpp:9 rc.cpp:60
-msgid "Input Number"
+#: calculatorcommandmanager.cpp:88
+msgid "Percent"
 msgstr ""
 
-#: backup/inputnumberconfiguration.cpp:34 inputnumberconfiguration.cpp:34
-msgid "Input numbers with ease"
+#: calculatorcommandmanager.cpp:89
+msgid "Sends percent sign"
 msgstr ""
 
-#: backup/inputnumberconfiguration.cpp:51
-#: backup/inputnumberconfiguration.cpp:78
-#: backup/inputnumberconfiguration.cpp:87 inputnumberconfiguration.cpp:51
-#: inputnumberconfiguration.cpp:78 inputnumberconfiguration.cpp:87
-msgid "Number"
+#: calculatorcommandmanager.cpp:91
+msgid "Equals"
 msgstr ""
 
-#: backup/inputnumberwidget.cpp:75 inputnumbercommandmanager.cpp:87
-msgctxt "Decimal point"
-msgid "."
+#: calculatorcommandmanager.cpp:92
+msgid "Sends equal sign"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: backup/inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: backup/inputnumberwidget.cpp:102 inputnumbercommandmanager.cpp:121
-#: po/rc.cpp:51 po/rc.cpp:102 rc.cpp:51 rc.cpp:102
-msgid "Cancel"
-msgstr ""
-
-#. i18n: file: backup/inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: backup/inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#: backup/inputnumberwidget.cpp:107 inputnumbercommandmanager.cpp:126
-#: po/rc.cpp:45 po/rc.cpp:96 rc.cpp:45 rc.cpp:96
+#: calculatorcommandmanager.cpp:96
 msgid "Back"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:116
+#: calculatorcommandmanager.cpp:97
+msgid "Removes one character (backspace)"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:312
+#. i18n: ectx: property (text), widget (KPushButton, pbClear)
+#: calculatorcommandmanager.cpp:99 po/rc.cpp:121 rc.cpp:121
+msgid "Clear"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:100
+msgid "Clears the whole input"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:329
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: backup/inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: backup/inputnumberwidget.cpp:112 inputnumbercommandmanager.cpp:131
-#: po/rc.cpp:48 po/rc.cpp:99 rc.cpp:48 rc.cpp:99
+#: calculatorcommandmanager.cpp:103 po/rc.cpp:124 rc.cpp:124
 msgid "Ok"
 msgstr ""
 
-#: backup/inputnumberwidget.cpp:117 inputnumbercommandmanager.cpp:136
-msgctxt "Name of the decimal seperator"
-msgid "Comma"
+#: calculatorcommandmanager.cpp:104
+msgid "Closes the calculator dialog and sends the input"
 msgstr ""
 
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#: po/rc.cpp:3 po/rc.cpp:54 rc.cpp:3 rc.cpp:54
+#. i18n: file: calculatorwidget.ui:342
+#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
+#: calculatorcommandmanager.cpp:106 po/rc.cpp:127 rc.cpp:127
+msgid "Cancel"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:107
+msgid "Closes the calculator dialog"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:111
+msgid "Zero"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:112
+msgid "Clicks 0"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:114
+msgid "One"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:115
+msgid "Clicks 1"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:117
+msgid "Two"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:118
+msgid "Clicks 2"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:120
+msgid "Three"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:121
+msgid "Clicks 3"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:123
+msgid "Four"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:124
+msgid "Clicks 4"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:126
+msgid "Five"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:127
+msgid "Clicks 5"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:129
+msgid "Six"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:130
+msgid "Clicks 6"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:132
+msgid "Seven"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:133
+msgid "Clicks 7"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:135
+msgid "Eight"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:136
+msgid "Clicks 8"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:138
+msgid "Nine"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:139
+msgid "Clicks 9"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:141
+msgctxt "Decimal separator (voice trigger)"
+msgid "Point"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:142
+msgid "Decimal separator"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:147 calculatorcommandmanager.cpp:167
+msgid "In the output selection popup, selects printing the result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:150
+msgid ""
+"In the output selection popup, selects printing the calculation and result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:153
+msgid "In the output selection popup, selects printing the formatted result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:157
+msgid ""
+"In the output selection popup, selects printing the formatted calculation "
+"and result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:160
+msgid ""
+"In the output selection popup, selects printing the result formatted as money"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:164
+msgid ""
+"In the output selection popup, selects printing the calculation and result "
+"formatted as money"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:181
+msgid "Activate Calculator"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:118
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: calculatorcommandmanager.cpp:228 po/rc.cpp:36 rc.cpp:36
+msgid "Result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:229
+msgid "Calculation & result"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:128
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: calculatorcommandmanager.cpp:230 po/rc.cpp:42 rc.cpp:42
+msgid "Formatted result"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:133
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: calculatorcommandmanager.cpp:231 po/rc.cpp:45 rc.cpp:45
+msgid "Formatted calculation and result"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:232
+msgid "Format result as money"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:233
+msgid "Format calculation and result as money"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:323
+msgid "Error in output"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:512 calculatorcommandmanager.cpp:597
+#: calculatorcommandmanager.cpp:605
+msgid "Not a legal expression!"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:729
+msgid "Can't divide through 0"
+msgstr ""
+
+#: calculatorconfiguration.cpp:32
+msgid "Calculate with your voice"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorConfigurationDlg)
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr ""
 
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:21
+#. i18n: file: calculatorconfigurationdlg.ui:22
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Show controls:"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:30
+#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Full calculator"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:35
+#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Only number input"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:40
+#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Only output"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:50
 #. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:6 po/rc.cpp:57 rc.cpp:6 rc.cpp:57
-msgid "Trigger:"
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Output mode selection:"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: backup/inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#: po/rc.cpp:12 po/rc.cpp:63 rc.cpp:12 rc.cpp:63
-msgid "7"
+#. i18n: file: calculatorconfigurationdlg.ui:57
+#. i18n: ectx: property (text), widget (QRadioButton, rbOutputAsk)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Always ask"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: backup/inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#: po/rc.cpp:15 po/rc.cpp:66 rc.cpp:15 rc.cpp:66
-msgid "8"
+#. i18n: file: calculatorconfigurationdlg.ui:67
+#. i18n: ectx: property (text), widget (QRadioButton, rbOutputDefault)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Use default without asking"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: backup/inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#: po/rc.cpp:18 po/rc.cpp:69 rc.cpp:18 rc.cpp:69
-msgid "9"
+#. i18n: file: calculatorconfigurationdlg.ui:76
+#. i18n: ectx: property (text), widget (QRadioButton, rbAskAndDefault)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Ask, but select default user idles for:"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: backup/inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#: po/rc.cpp:21 po/rc.cpp:72 rc.cpp:21 rc.cpp:72
-msgid "4"
+#. i18n: file: calculatorconfigurationdlg.ui:93
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "seconds"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: backup/inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#: po/rc.cpp:24 po/rc.cpp:75 rc.cpp:24 rc.cpp:75
-msgid "5"
+#. i18n: file: calculatorconfigurationdlg.ui:107
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Default mode:"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: backup/inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#: po/rc.cpp:27 po/rc.cpp:78 rc.cpp:27 rc.cpp:78
-msgid "6"
+#. i18n: file: calculatorconfigurationdlg.ui:123
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Calculation and result"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: backup/inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#: po/rc.cpp:30 po/rc.cpp:81 rc.cpp:30 rc.cpp:81
-msgid "1"
+#. i18n: file: calculatorconfigurationdlg.ui:138
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: po/rc.cpp:48 rc.cpp:48
+msgid "Formatted result (money)"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: backup/inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#: po/rc.cpp:33 po/rc.cpp:84 rc.cpp:33 rc.cpp:84
-msgid "2"
+#. i18n: file: calculatorconfigurationdlg.ui:143
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "Formatted calculation and result (money)"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: backup/inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#: po/rc.cpp:36 po/rc.cpp:87 rc.cpp:36 rc.cpp:87
-msgid "3"
-msgstr ""
-
-#. i18n: file: backup/inputnumberwidget.ui:95
+#. i18n: file: calculatorwidget.ui:29
+#. i18n: ectx: property (text), widget (KLineEdit, leNumber)
+#. i18n: file: calculatorwidget.ui:175
 #. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: inputnumberwidget.ui:95
+#. i18n: file: calculatorwidget.ui:29
+#. i18n: ectx: property (text), widget (KLineEdit, leNumber)
+#. i18n: file: calculatorwidget.ui:175
 #. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: backup/inputnumberwidget.ui:95
-#. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: inputnumberwidget.ui:95
-#. i18n: ectx: property (text), widget (KPushButton, pb0)
-#: po/rc.cpp:39 po/rc.cpp:90 rc.cpp:39 rc.cpp:90
+#: po/rc.cpp:57 po/rc.cpp:87 rc.cpp:57 rc.cpp:87
 msgid "0"
 msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:102
+#. i18n: file: calculatorwidget.ui:58
+#. i18n: ectx: property (text), widget (KPushButton, pb7)
+#: po/rc.cpp:60 rc.cpp:60
+msgid "7"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:71
+#. i18n: ectx: property (text), widget (KPushButton, pb8)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "8"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:84
+#. i18n: ectx: property (text), widget (KPushButton, pb9)
+#: po/rc.cpp:66 rc.cpp:66
+msgid "9"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:97
+#. i18n: ectx: property (text), widget (KPushButton, pb4)
+#: po/rc.cpp:69 rc.cpp:69
+msgid "4"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:110
+#. i18n: ectx: property (text), widget (KPushButton, pb5)
+#: po/rc.cpp:72 rc.cpp:72
+msgid "5"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:123
+#. i18n: ectx: property (text), widget (KPushButton, pb6)
+#: po/rc.cpp:75 rc.cpp:75
+msgid "6"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:136
+#. i18n: ectx: property (text), widget (KPushButton, pb1)
+#: po/rc.cpp:78 rc.cpp:78
+msgid "1"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:149
+#. i18n: ectx: property (text), widget (KPushButton, pb2)
+#: po/rc.cpp:81 rc.cpp:81
+msgid "2"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, pb3)
+#: po/rc.cpp:84 rc.cpp:84
+msgid "3"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:188
 #. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: backup/inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#: po/rc.cpp:42 po/rc.cpp:93 rc.cpp:42 rc.cpp:93
+#: po/rc.cpp:90 rc.cpp:90
 msgid "."
 msgstr ""
 
-#: po/rc.cpp:103 rc.cpp:103
+#. i18n: file: calculatorwidget.ui:206
+#. i18n: ectx: property (text), widget (KPushButton, pbPlus)
+#: po/rc.cpp:93 rc.cpp:93
+msgid "+"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:219
+#. i18n: ectx: property (text), widget (KPushButton, pbMultiply)
+#: po/rc.cpp:96 rc.cpp:96
+msgid "*"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:232
+#. i18n: ectx: property (text), widget (KPushButton, pbMinus)
+#: po/rc.cpp:99 rc.cpp:99
+msgid "-"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:245
+#. i18n: ectx: property (text), widget (KPushButton, pbDivide)
+#: po/rc.cpp:102 rc.cpp:102
+msgid "/"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:252
+#. i18n: ectx: property (text), widget (KPushButton, pbBracketOpen)
+#: po/rc.cpp:105 rc.cpp:105
+msgid "("
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:259
+#. i18n: ectx: property (text), widget (KPushButton, pbBracketClose)
+#: po/rc.cpp:108 rc.cpp:108
+msgid ")"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:266
+#. i18n: ectx: property (text), widget (KPushButton, pbPercent)
+#: po/rc.cpp:112 rc.cpp:112
+#, no-c-format
+msgid "%"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:279
+#. i18n: ectx: property (text), widget (KPushButton, pbEquals)
+#: po/rc.cpp:115 rc.cpp:115
+msgid "="
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:299
+#. i18n: ectx: property (text), widget (KPushButton, pbBack)
+#: po/rc.cpp:118 rc.cpp:118
+msgid "Delete"
+msgstr ""
+
+#: po/rc.cpp:128 rc.cpp:128
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:104 rc.cpp:104
+#: po/rc.cpp:129 rc.cpp:129
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

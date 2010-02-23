@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simonlistcommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 14:22+0100\n"
+"POT-Creation-Date: 2010-02-23 13:41+0100\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -18,11 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: createlistcommandwidget.cpp:131 launchercommand.cpp:44
-msgid "Launcher"
-msgstr ""
-
-#: createlistcommandwidget.cpp:157
+#: createlistcommandwidget.cpp:137
 msgid ""
 "Couldn't find all of the commands that make up this list command.\n"
 "\n"
@@ -31,22 +27,6 @@ msgstr ""
 "Impossible de trouver toutes les commandes de cette liste.\n"
 "\n"
 "Les commandes manquantes sont : %1."
-
-#: launchercommand.cpp:65
-msgid "Plugin"
-msgstr ""
-
-#: launchercommand.cpp:66
-msgid "Plugin trigger"
-msgstr ""
-
-#: launchercommand.cpp:67
-msgid "Launcher trigger"
-msgstr ""
-
-#: launchercommand.cpp:68
-msgid "Description"
-msgstr ""
 
 #. i18n: file: createlistcommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
@@ -84,24 +64,12 @@ msgstr "Déplacer vers le haut"
 msgid "Move Down"
 msgstr "Déplacer vers le bas"
 
-#. i18n: file: createlistcommandwidget.ui:94
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:21 rc.cpp:21
-msgid "Launcher:"
-msgstr ""
-
-#. i18n: file: createlistcommandwidget.ui:104
-#. i18n: ectx: property (text), widget (QPushButton, pbAddLauncher)
-#: po/rc.cpp:24 rc.cpp:24
-msgid "Add Launcher"
-msgstr ""
-
-#: po/rc.cpp:25 rc.cpp:25
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:26 rc.cpp:26
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"

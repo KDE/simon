@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 14:08+0100\n"
+"POT-Creation-Date: 2010-02-23 13:41+0100\n"
 "PO-Revision-Date: 2010-02-09 14:18+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
@@ -17,144 +17,144 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inputnumbercommandmanager.cpp:56
+#: inputnumbercommandmanager.cpp:63
 msgid "Activate Number Input"
 msgstr "Aktiviere Nummerneingabe"
 
-#: inputnumbercommandmanager.cpp:81
+#: inputnumbercommandmanager.cpp:88
 msgid "Number"
 msgstr "Nummer"
 
-#: inputnumbercommandmanager.cpp:82
+#: inputnumbercommandmanager.cpp:89
 msgid "Displays the number input field"
 msgstr "Zeigt die Nummerneingabe an"
 
-#: inputnumbercommandmanager.cpp:88
+#: inputnumbercommandmanager.cpp:95
 msgid "Zero"
 msgstr "Null"
 
-#: inputnumbercommandmanager.cpp:89
+#: inputnumbercommandmanager.cpp:96
 msgid "Clicks 0"
 msgstr "Klickt 0"
 
-#: inputnumbercommandmanager.cpp:91
+#: inputnumbercommandmanager.cpp:98
 msgid "One"
 msgstr "Eins"
 
-#: inputnumbercommandmanager.cpp:92
+#: inputnumbercommandmanager.cpp:99
 msgid "Clicks 1"
 msgstr "Klickt 1"
 
-#: inputnumbercommandmanager.cpp:94
+#: inputnumbercommandmanager.cpp:101
 msgid "Two"
 msgstr "Zwei"
 
-#: inputnumbercommandmanager.cpp:95
+#: inputnumbercommandmanager.cpp:102
 msgid "Clicks 2"
 msgstr "Klickt 2"
 
-#: inputnumbercommandmanager.cpp:97
+#: inputnumbercommandmanager.cpp:104
 msgid "Three"
 msgstr "Drei"
 
-#: inputnumbercommandmanager.cpp:98
+#: inputnumbercommandmanager.cpp:105
 msgid "Clicks 3"
 msgstr "Klickt 3"
 
-#: inputnumbercommandmanager.cpp:100
+#: inputnumbercommandmanager.cpp:107
 msgid "Four"
 msgstr "Vier"
 
-#: inputnumbercommandmanager.cpp:101
+#: inputnumbercommandmanager.cpp:108
 msgid "Clicks 4"
 msgstr "Klickt 4"
 
-#: inputnumbercommandmanager.cpp:103
+#: inputnumbercommandmanager.cpp:110
 msgid "Five"
 msgstr "Fünf"
 
-#: inputnumbercommandmanager.cpp:104
+#: inputnumbercommandmanager.cpp:111
 msgid "Clicks 5"
 msgstr "Klickt 5"
 
-#: inputnumbercommandmanager.cpp:106
+#: inputnumbercommandmanager.cpp:113
 msgid "Six"
 msgstr "Sechs"
 
-#: inputnumbercommandmanager.cpp:107
+#: inputnumbercommandmanager.cpp:114
 msgid "Clicks 6"
 msgstr "Klickt 6"
 
-#: inputnumbercommandmanager.cpp:109
+#: inputnumbercommandmanager.cpp:116
 msgid "Seven"
 msgstr "Sieben"
 
-#: inputnumbercommandmanager.cpp:110
+#: inputnumbercommandmanager.cpp:117
 msgid "Clicks 7"
 msgstr "Klickt 7"
 
-#: inputnumbercommandmanager.cpp:112
+#: inputnumbercommandmanager.cpp:119
 msgid "Eight"
 msgstr "Acht"
 
-#: inputnumbercommandmanager.cpp:113
+#: inputnumbercommandmanager.cpp:120
 msgid "Clicks 8"
 msgstr "Klickt 8"
 
-#: inputnumbercommandmanager.cpp:115
+#: inputnumbercommandmanager.cpp:122
 msgid "Nine"
 msgstr "Neun"
 
-#: inputnumbercommandmanager.cpp:116
+#: inputnumbercommandmanager.cpp:123
 msgid "Clicks 9"
 msgstr "Klickt 9"
 
-#: inputnumbercommandmanager.cpp:118
+#: inputnumbercommandmanager.cpp:125
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr "Komma"
 
-#: inputnumbercommandmanager.cpp:119
+#: inputnumbercommandmanager.cpp:126
 msgid "Decimal separator"
 msgstr "Dezimal Separator"
 
 #. i18n: file: inputnumberwidget.ui:109
 #. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#: inputnumbercommandmanager.cpp:123 po/rc.cpp:39 rc.cpp:39
+#: inputnumbercommandmanager.cpp:130 po/rc.cpp:39 rc.cpp:39
 msgid "Back"
 msgstr "Zurück"
 
-#: inputnumbercommandmanager.cpp:124
+#: inputnumbercommandmanager.cpp:131
 msgid "Deletes the last input character"
 msgstr "Löscht das letzte Eingabezeichen"
 
 #. i18n: file: inputnumberwidget.ui:116
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: inputnumbercommandmanager.cpp:126 po/rc.cpp:42 rc.cpp:42
+#: inputnumbercommandmanager.cpp:133 po/rc.cpp:42 rc.cpp:42
 msgid "Ok"
 msgstr "Ok"
 
-#: inputnumbercommandmanager.cpp:127
+#: inputnumbercommandmanager.cpp:134
 msgid "Accepts the input dialog and writes the number"
 msgstr "Akzeptiert den Eingabedialog und schreibt die Nummer"
 
 #. i18n: file: inputnumberwidget.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: inputnumbercommandmanager.cpp:129 po/rc.cpp:45 rc.cpp:45
+#: inputnumbercommandmanager.cpp:136 po/rc.cpp:45 rc.cpp:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: inputnumbercommandmanager.cpp:130
+#: inputnumbercommandmanager.cpp:137
 msgid "Aborts the input dialog"
 msgstr "Bricht den Dialog ab"
 
 #. i18n: file: inputnumberwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#: inputnumbercommandmanager.cpp:171 po/rc.cpp:3 rc.cpp:3
+#: inputnumbercommandmanager.cpp:178 po/rc.cpp:3 rc.cpp:3
 msgid "Input Number"
 msgstr "Zahl eingeben"
 
-#: inputnumbercommandmanager.cpp:177
+#: inputnumbercommandmanager.cpp:184
 msgctxt "Decimal point"
 msgid "."
 msgstr ","

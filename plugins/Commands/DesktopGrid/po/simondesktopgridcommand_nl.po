@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:22+0100\n"
+"POT-Creation-Date: 2010-02-23 13:40+0100\n"
 "PO-Revision-Date: 2009-01-14 12:04+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -60,117 +60,117 @@ msgstr ""
 msgid "Starts the desktop grid"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:168 desktopgridcommandmanager.cpp:200
+#: desktopgridcommandmanager.cpp:168
 msgid "One"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:169
+#: desktopgridcommandmanager.cpp:170
 msgid "Clicks 1"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:171 desktopgridcommandmanager.cpp:203
+#: desktopgridcommandmanager.cpp:172
 msgid "Two"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:172
+#: desktopgridcommandmanager.cpp:173
 msgid "Clicks 2"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:174 desktopgridcommandmanager.cpp:206
+#: desktopgridcommandmanager.cpp:175
 msgid "Three"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:175
+#: desktopgridcommandmanager.cpp:176
 msgid "Clicks 3"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:177 desktopgridcommandmanager.cpp:209
+#: desktopgridcommandmanager.cpp:178
 #, fuzzy
 msgid "Four"
 msgstr "Formulier"
 
-#: desktopgridcommandmanager.cpp:178
+#: desktopgridcommandmanager.cpp:179
 msgid "Clicks 4"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:180 desktopgridcommandmanager.cpp:212
+#: desktopgridcommandmanager.cpp:181
 msgid "Five"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:181
+#: desktopgridcommandmanager.cpp:182
 msgid "Clicks 5"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:183
+#: desktopgridcommandmanager.cpp:184
 msgid "Six"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:184
+#: desktopgridcommandmanager.cpp:185
 msgid "Clicks 6"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:186
+#: desktopgridcommandmanager.cpp:187
 msgid "Seven"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:187
+#: desktopgridcommandmanager.cpp:188
 msgid "Clicks 7"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:189
+#: desktopgridcommandmanager.cpp:190
 msgid "Eight"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:190
+#: desktopgridcommandmanager.cpp:191
 msgid "Clicks 8"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:192
+#: desktopgridcommandmanager.cpp:193
 msgid "Nine"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:193
+#: desktopgridcommandmanager.cpp:194
 msgid "Clicks 9"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:196 desktopgridcommandmanager.cpp:216
+#: desktopgridcommandmanager.cpp:197
 msgid "Cancel"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:197
+#: desktopgridcommandmanager.cpp:198
 msgid "Aborts the selection process"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:201
+#: desktopgridcommandmanager.cpp:203
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:204
+#: desktopgridcommandmanager.cpp:206
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:207
+#: desktopgridcommandmanager.cpp:209
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:210
+#: desktopgridcommandmanager.cpp:212
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:213
+#: desktopgridcommandmanager.cpp:215
 msgid "In the click mode selection popup, this selects the drag and drop mode"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:217
-msgid "Aborts the selection process when prompted to choose the click mode"
+#: desktopgridcommandmanager.cpp:218
+msgid "In the click mode selection popup, cancels the selection"
 msgstr ""
 
 #: desktopgridconfiguration.cpp:32

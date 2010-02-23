@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ksimond_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 12:53+0100\n"
+"POT-Creation-Date: 2010-02-23 13:37+0100\n"
 "PO-Revision-Date: 2009-06-09 01:27+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -72,44 +72,44 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/ksimondview.cpp:53
+#: src/ksimondview.cpp:54
 msgid "simond"
 msgstr "simond "
 
-#: src/ksimondview.cpp:56 src/ksimondview.cpp:84
+#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
 msgid "Start simond"
 msgstr "Démarrer simond"
 
-#: src/ksimondview.cpp:61 src/ksimondview.cpp:83
+#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
 #, fuzzy
 msgid "Start simon"
 msgstr "Démarrer simond"
 
-#: src/ksimondview.cpp:66 src/ksimondview.cpp:85
+#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
 msgid "Restart simond"
 msgstr "Redémarrer simond"
 
-#: src/ksimondview.cpp:72 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
 msgid "Stop simond"
 msgstr "Arrêter simond"
 
-#: src/ksimondview.cpp:78 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
 msgid "Configuration"
 msgstr "Configuration"
 
-#: src/ksimondview.cpp:116
+#: src/ksimondview.cpp:117
 msgid "simond is already running"
 msgstr "simond est déjà lancé"
 
-#: src/ksimondview.cpp:137
+#: src/ksimondview.cpp:138
 msgid "simond stopped"
 msgstr "simond arrêté"
 
-#: src/ksimondview.cpp:152
+#: src/ksimondview.cpp:153
 msgid "simond started"
 msgstr "simond démarré"
 
-#: src/ksimondview.cpp:183
+#: src/ksimondview.cpp:184
 msgid ""
 "Couldn't start simond.\n"
 "\n"
@@ -123,23 +123,23 @@ msgstr ""
 "\n"
 "Commande : « %1 »"
 
-#: src/ksimondview.cpp:187
+#: src/ksimondview.cpp:188
 msgid "simond crashed. (Status: %1)"
 msgstr "simond a planté. ( État : %1 )"
 
-#: src/ksimondview.cpp:191
+#: src/ksimondview.cpp:192
 msgid "Timeout."
 msgstr "Délai imparti dépassé."
 
-#: src/ksimondview.cpp:194
+#: src/ksimondview.cpp:195
 msgid "Couldn't communicate with simond: Write failed."
 msgstr "Communication avec simond impossible : L'écriture a échouée."
 
-#: src/ksimondview.cpp:197
+#: src/ksimondview.cpp:198
 msgid "Couldn't communicate with simond: Read failed."
 msgstr "Communication avec simond impossible : La lecture a échouée."
 
-#: src/ksimondview.cpp:200
+#: src/ksimondview.cpp:201
 msgid "Unknown Error"
 msgstr "Erreur inconnue"
 

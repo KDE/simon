@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:29+0100\n"
+"POT-Creation-Date: 2010-02-23 13:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: filtercommandmanager.cpp:42 filtercommandmanager.cpp:64
+#: filtercommandmanager.cpp:41 filtercommandmanager.cpp:63
 msgid "Activate Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:52 filterconfiguration.cpp:31
+#: filtercommandmanager.cpp:51 filterconfiguration.cpp:31
 msgid "Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:63
+#: filtercommandmanager.cpp:62
 msgid "Filter deactivated"
 msgstr ""
 
-#: filtercommandmanager.cpp:66
+#: filtercommandmanager.cpp:65
 msgid "Filter activated"
 msgstr ""
 
-#: filtercommandmanager.cpp:67
+#: filtercommandmanager.cpp:66
 msgid "Deactivate Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:73
+#: filtercommandmanager.cpp:72
 msgid "[INF] Changing filter state..."
 msgstr ""
 
-#: filtercommandmanager.cpp:104
+#: filtercommandmanager.cpp:103
 msgid "Activate filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:105
+#: filtercommandmanager.cpp:104
 msgid "Starts filtering"
 msgstr ""
 
-#: filtercommandmanager.cpp:111
+#: filtercommandmanager.cpp:110
 msgid "Deactivate filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:112
+#: filtercommandmanager.cpp:111
 msgid "Stops filtering"
 msgstr ""
 
