@@ -26,7 +26,6 @@
 
 GuiEvents::GuiEvents(QObject *parent) : QObject(parent)
 {
-	KLocale::setMainCatalog("simonlib");
 	guiItems = new GuiAction;
 }
 

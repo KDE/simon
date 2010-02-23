@@ -48,6 +48,7 @@ int main(int argc, char **argv)
 	QCoreApplication app(argc,argv);
 
 	KGlobal::locale();
+	KGlobal::locale()->insertCatalog("simonlib");
 	SimondControl *control = new SimondControl();
 	if (!control->init())
 		return 2;

@@ -27,7 +27,6 @@
 
 CommandTableModel::CommandTableModel(CommandList *commands)
 {
-	KLocale::setMainCatalog("simonlib");
 	if (commands)
 		this->commands = commands;
 	else this->commands = new CommandList();

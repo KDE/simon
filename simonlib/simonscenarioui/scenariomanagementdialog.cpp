@@ -35,6 +35,7 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KDebug>
+#include <KGlobal>
 #include <KMessageBox>
 #include <KStandardDirs>
 #include <KFileDialog>

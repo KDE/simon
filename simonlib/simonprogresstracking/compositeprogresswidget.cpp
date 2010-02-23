@@ -34,7 +34,6 @@
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {
-	KLocale::setMainCatalog("simonlib");
 	this->designatedParent = parent;
 	statusLabel = new QLabel(this);
 	bar = new QProgressBar(this);

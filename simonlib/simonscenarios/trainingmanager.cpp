@@ -54,7 +54,6 @@ TrainingManager::TrainingManager(QObject* parent) : QObject(parent),
 	promptsLock(QMutex::Recursive),
 	promptsTable(0)
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 bool TrainingManager::init()

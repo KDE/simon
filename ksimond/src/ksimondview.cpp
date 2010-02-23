@@ -45,6 +45,7 @@ KSimondView::KSimondView(QObject* parent) : QObject(parent),
 	stopIntended(false),
 	wantReload(false)
 {
+	KGlobal::locale()->insertCatalog("simonlib");
 	configDialog->addModule("ksimondconfiguration");
 	configDialog->addModule("simondconfiguration");
 	//configDialog->addModule("simonduserconfiguration");

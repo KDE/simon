@@ -30,7 +30,6 @@
 
 PostProcessing::PostProcessing(QObject *parent) : QObject(parent)
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 /**

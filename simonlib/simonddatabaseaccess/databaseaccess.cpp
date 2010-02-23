@@ -35,7 +35,6 @@ DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
 	db(0),
 	userModel(0)
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 bool DatabaseAccess::init()

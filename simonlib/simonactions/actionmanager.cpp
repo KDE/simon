@@ -56,7 +56,6 @@ ActionManager::ActionManager(QObject* parent) : QObject(parent),
 	minimumConfidenceThreshold(0.7),
 	useDYM(true)
 {
-	KLocale::setMainCatalog("simonlib");
 	retrieveRecognitionResultFilteringParameters();
 }
 

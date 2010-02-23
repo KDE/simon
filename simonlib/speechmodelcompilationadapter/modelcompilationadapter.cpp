@@ -28,7 +28,6 @@
 
 ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QThread(parent), m_userName(userName)
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 void ModelCompilationAdapter::run()

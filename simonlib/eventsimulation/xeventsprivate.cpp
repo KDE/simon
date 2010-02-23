@@ -31,7 +31,6 @@
 XEventsPrivate::XEventsPrivate(char* displayName)
 {
 	display = openDisplay(displayName);
-	KLocale::setMainCatalog("simonlib");
 }
 
 /**

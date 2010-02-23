@@ -26,7 +26,6 @@
 CommandModel::CommandModel(CommandList* CL)
 	: commands(CL)
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 void CommandModel::updateCommands(CommandList *commands)

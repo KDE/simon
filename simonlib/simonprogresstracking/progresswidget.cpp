@@ -31,8 +31,6 @@
 ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style, QWidget* parent) : QWidget(parent),
 	op(O)
 {
-	KLocale::setMainCatalog("simonlib");
-
 	if (op)
 	{
 		name = new QLabel(op->name(), this);

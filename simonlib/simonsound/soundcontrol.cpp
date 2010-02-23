@@ -36,7 +36,6 @@
  */
 SoundControl::SoundControl()
 {
-	KLocale::setMainCatalog("simonlib");
 }
 
 

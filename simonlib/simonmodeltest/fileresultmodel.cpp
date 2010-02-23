@@ -29,8 +29,6 @@
 FileResultModel::FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent) : QAbstractItemModel(parent),
 	m_testResults(testResults)
 {
-	KLocale::setMainCatalog("simonlib");
-
 //	m_results = results;
 //	m_prompts = prompts;
 

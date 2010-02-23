@@ -29,7 +29,6 @@
 
 AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 {
-	KLocale::setMainCatalog("simonlib");
 	QWidget *widget = new QWidget( this );
 
 	leAddress = new KLineEdit("localhost", widget);

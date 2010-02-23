@@ -58,7 +58,6 @@
  */
 RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent), postProc(NULL)
 {	
-	KLocale::setMainCatalog("simonlib");
 	this->filename = filename;
 	recordingProgress=0;
 

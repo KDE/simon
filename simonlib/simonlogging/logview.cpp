@@ -34,7 +34,6 @@
  */
 LogView::LogView(QWidget* parent):QWidget(parent)// SystemWidget(i18n("Protokoll"), KIcon("utilities-log-viewer"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
-	KLocale::setMainCatalog("simonlib");
 	ui.setupUi(this);
 
 // 	guessChildTriggers(this);

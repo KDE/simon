@@ -50,8 +50,6 @@ ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent
 	logFile(0),
 	userName(user_name)
 {
-	KLocale::setMainCatalog("simonlib");
-
 	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
 	connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
 

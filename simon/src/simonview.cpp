@@ -96,6 +96,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
 	info->writeToSplash ( i18n ( "Loading core..." ) );
+	KGlobal::locale()->insertCatalog("simonlib");
 
 	control = (new SimonControl(this));
 	trayManager = (new TrayIconManager(this));

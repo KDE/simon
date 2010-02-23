@@ -30,7 +30,6 @@
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
-	KLocale::setMainCatalog("simonlib");
 	QHBoxLayout *lay = new QHBoxLayout(this);
 	leServerAddress = new KLineEdit(this);
 	pbSelectServerAddress = new QToolButton(this);
