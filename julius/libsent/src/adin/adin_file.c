@@ -301,8 +301,6 @@ adin_file_open(char *filename)	/* NULL for standard input */
 static boolean
 adin_file_close()
 {
-  fprintf(stderr, "adin_file_close()");
-
   FILE *fp;
   fp = gfp;
   if (gfp == NULL)
