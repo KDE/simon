@@ -25,12 +25,13 @@
 #include <QDir>
 #include <QFile>
 #include <QProcess>
+#include <QString>
+#include <QVector>
 
 #include <KUrl>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KStandardDirs>
-#include <QString>
 #include <KComponentData>
 #include <KAboutData>
 #include <KLocale>
@@ -48,21 +49,111 @@ ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
 }
 
+
+
+QString ModelCompilationManager::htkIfyPath(const QString& in)
+{
+	QString out = in;
+	
+	#ifdef Q_OS_WIN
+	long     length = 0;
+    char*   buffer = NULL;
+	
+	// First obtain the size needed by passing NULL and 0.
+	length = GetShortPathNameA(out.toLocal8Bit().data(), NULL, 0);
+    if (length == 0) return QByteArray();
+	
+	// Dynamically allocate the correct size 
+	// (terminating null char was included in length)
+	buffer = new char[length];
+
+	// Now simply call again using same long path.
+    length = GetShortPathNameA(out.toLocal8Bit().data(), buffer, length);
+    if (length == 0) return QByteArray();
+
+	out = QString::fromLocal8Bit(buffer);
+    delete [] buffer;	
+	#endif
+	
+	return out;
+}
+
+
+
+
+
+
+/*
 QString ModelCompilationManager::htkIfyPath(const QString& in)
 {
 	QString out = in;
 	#ifdef Q_OS_WIN
+	out = out.replace("/", "\\");
+	fprintf(stderr, "htkify path: %s\n", out.toUtf8().data());
 	QByteArray outByte = out.toUtf8();
-	const WCHAR *in_data = (const WCHAR*) outByte.constData();
+	
+	//WCHAR* in_data = malloc(sizeof(WCHAR)*out.count());
+	//out.
+	
+	#ifdef UNICODE
+	const LPCTSTR in_data = out.toUcs4().constData();
+	#else
+	const LPCTSTR in_data = out.toLocal8Bit().constData();
+	#endif
+	
+	long     length = 0;
+    TCHAR*   buffer = NULL;
+// First obtain the size needed by passing NULL and 0.
+
+    length = GetShortPathName(in_data, NULL, 0);
+    if (length == 0) {
+		fprintf(stderr, "NEW getshortpathname1 returned empty: %d - %s\n", length, in_data);
+		fprintf(stderr, "NEW Error: %d\n", GetLastError());
+		return QString();
+	}
+
+// Dynamically allocate the correct size 
+// (terminating null char was included in length)
+
+    buffer = new TCHAR[length];
+
+// Now simply call again using same long path.
+
+    length = GetShortPathName(outByte.constData(), buffer, in_data);
+    if (length == 0) {
+		fprintf(stderr, "NEW getshortpathname2 returned empty: %s\n", in_data);
+		fprintf(stderr, "NEW Error: %d\n", GetLastError());
+		return QString();
+	}
+
+	#ifdef UNICODE
+	out = QString::fromUcs4((ushort*)buffer);
+	#else
+	out = QString::fromLocal8Bit(buffer);
+	#endif
+    
+    delete [] buffer;
+	
+	
+	*/
+	/*
+	
+	fprintf(stderr, "htkify path: %s\n", in_data);
 	
 	long length = 0;
 	length = GetShortPathName(in_data, NULL, 0);
-	if (length ==0) return QString();
+	if (length ==0) {
+		fprintf(stderr, "getshortpathname returned empty\n");
+		fprintf(stderr, "Error: %d\n", GetLastError());
+		return QString();
+	}
 	
 	WCHAR *out_data = new WCHAR[length];
 	length = GetShortPathName(in_data, out_data, length);
-	if (length ==0) return QString();
-	
+	if (length ==0) {
+		fprintf(stderr, "getshortpathname2 returned empty\n");
+		return QString();
+	}
 
 	#ifdef UNICODE
 	out = QString::fromUtf16((ushort*)out_data);
@@ -70,11 +161,14 @@ QString ModelCompilationManager::htkIfyPath(const QString& in)
 	out = QString::fromLocal8Bit(out_data);
 	#endif
 	
-	delete[] out_data;
+	delete[] out_data;*/
+	/*
 	#endif
 	
+	fprintf(stderr, "Returning: %s\n", out.toUtf8().data());
 	return out;
 }
+*/
 
 bool ModelCompilationManager::createDirs()
 {
@@ -328,6 +422,7 @@ void ModelCompilationManager::run()
 	if (!createDirs())
 		analyseError(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
+	fprintf(stderr, "Temp dir in run(): %s\n", tempDir.toUtf8().data());
 
 	if (!keepGoing) return;
 	Logger::log("[INF] Compiling model...");
@@ -1189,6 +1284,8 @@ bool ModelCompilationManager::makeMonophones()
 #else
 	if (!QFile::copy(lexiconPath, latinLexiconpath)) return false;
 #endif
+	
+	fprintf(stderr, "Temp dir in makemonophones(): %s\n", tempDir.toUtf8().data());
 	
 	//make monophones1
 	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";

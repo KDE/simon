@@ -276,6 +276,30 @@ install ( FILES
 		DESTINATION  ${DATA_INSTALL_DIR}/../apps/khelpcenter COMPONENT kdecore )
 		
 		
+  install( FILES 
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-bottom-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-bottom-middle.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-bottom-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-middle-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-middle-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-top-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-top-middle.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/bar-top-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/body-background.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-bottom-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-bottom-middle.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-bottom-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-center.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-middle-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-middle-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-top-left.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-top-middle.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/box-top-right.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/top-middle.png"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/kde_infopage.css"
+  "${KDE4_INSTALL_DIR}/share/apps/kdeui/about/kde_infopage_rtl.css"
+		DESTINATION  ${DATA_INSTALL_DIR}/../apps/kdeui/about COMPONENT kdecore )
+	
 		
 		
   install( FILES 
