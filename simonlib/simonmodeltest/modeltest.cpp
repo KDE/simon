@@ -277,6 +277,7 @@ bool ModelTest::recodeAudio()
 		return false;
 	}
 
+	QDir d;
 	while (!promptsF.atEnd() && keepGoing) {
 		QString line = QString::fromUtf8(promptsF.readLine (1024));
 		if (line.trimmed().isEmpty()) continue;
@@ -285,6 +286,13 @@ bool ModelTest::recodeAudio()
 		QString prompt = line.mid(splitter+1).trimmed();
 		QString fullPath = samplePath+QDir::separator()+fileName;
 		QString targetPath = tempDir+"samples"+QDir::separator()+fileName;
+		QString targetDirectory = targetPath.left(targetPath.lastIndexOf(QDir::separator()));
+
+		if (!d.mkpath(targetDirectory))
+		{
+			kDebug() << "Couldn't make path: " << targetDirectory;
+			continue;
+		}
 
 		execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
 		wavListF.write(targetPath.toUtf8()+"\n");
@@ -522,7 +530,7 @@ bool ModelTest::recognize()
 			 "-hlist", tiedListPathByte.data(),
 			 "-input", "rawfile", 
 			 "-filelist", fileListByte.data(),
-			 "-smpFreq", sampleRateByte.data()};
+			 "smpFreq", sampleRateByte.data()};
 
 	for (int i=0; i < argc; i++)
 		kDebug() << argv[i];
