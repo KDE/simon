@@ -92,11 +92,11 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
 	setupGUI();
 
-	ui.urHmmDefs->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-	ui.urTiedlist->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-	ui.urDict->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+	ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
+	ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
+	ui.urDict->setMode(KFile::File|KFile::LocalOnly);
 	ui.urJConf->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-	ui.urDFA->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
+	ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
 	ui.urPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urLexicon->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
 	ui.urGrammar->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
