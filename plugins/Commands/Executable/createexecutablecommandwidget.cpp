@@ -32,6 +32,10 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *man
 	setWindowIcon(ExecutableCommand::staticCategoryIcon());
 	setWindowTitle(ExecutableCommand::staticCategoryText());
 	
+	#ifdef Q_OS_WIN32
+	ui.cbImportProgram->hide();
+	#endif
+	
 	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
 	

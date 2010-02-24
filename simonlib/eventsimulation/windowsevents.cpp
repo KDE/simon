@@ -153,9 +153,11 @@ void WindowsEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
 void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
 {
 	moveMouse(xStart, yStart);
+	Sleep(200);
 	activateMouseButton(Left, Down);
 	Sleep(200);
 	moveMouse(x, y);
+	Sleep(200);
 	activateMouseButton(Left, Up);
 }
 

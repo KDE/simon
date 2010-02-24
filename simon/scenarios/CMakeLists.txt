@@ -6,4 +6,9 @@ set (	simon_scenarios
 
 
 install( FILES ${simon_scenarios}  DESTINATION ${DATA_INSTALL_DIR}/simon/scenarios COMPONENT simon )
-install(FILES simonscenarios.knsrc DESTINATION ${CONFIG_INSTALL_DIR})
+install(FILES simonscenarios.knsrc DESTINATION ${CONFIG_INSTALL_DIR} COMPONENT simon)
+
+
+
+
+#install( FILES simonscenarios.knsrc DESTINATION  ${DATA_INSTALL_DIR}/../config COMPONENT kdecore )

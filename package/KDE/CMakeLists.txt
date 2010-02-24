@@ -32,7 +32,6 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libaspell-15.dll"
   "${KDE4_BIN_INSTALL_DIR}/libdbus-1.dll"
   "${KDE4_BIN_INSTALL_DIR}/libeay32.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libeventsimulation.dll"
   "${KDE4_BIN_INSTALL_DIR}/libexpat.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgettextpo-0.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgettextsrc-0-17.dll"
@@ -95,35 +94,15 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/zlib1.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxslt.dll"
   "${KDE4_LIB_INSTALL_DIR}/attica_kde.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kcm_attica.dll"
-  #"${KDE4_LIB_INSTALL_DIR}/kde4/libkfilemodule.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_desktopnotifier.dll"
-  #"${KDE4_LIB_INSTALL_DIR}/kde4/kded_favicons.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_winstartmenu.dll"
-  #"${KDE4_LIB_INSTALL_DIR}/kde4/kded_globalaccel.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kcookiejar.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kpasswdserver.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_kssld.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_ktimezoned.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kded_remotedirnotify.dll"
-  
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_about.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_archive.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_cgi.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_file.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_filter.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_ftp.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_http.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_remote.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kspell_aspell.dll"
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_settings.dll"
 		DESTINATION  ${BIN_INSTALL_DIR} COMPONENT kdecore )
 		
+
+FILE(GLOB kde4_plugins_binary "${KDE4_LIB_INSTALL_DIR}/kde4/*.dll")
+install (FILES ${kde4_plugins_binary} DESTINATION  ${BIN_INSTALL_DIR}/../lib/kde4 COMPONENT kdecore)
 		
-		
-install ( FILES
-  "${KDE4_LIB_INSTALL_DIR}/kde4/kio_help.dll"
-		DESTINATION  ${BIN_INSTALL_DIR}/../lib/kde4 COMPONENT kdecore )
+# install ( FILES
+  # "${KDE4_LIB_INSTALL_DIR}/kde4/kio_help.dll"
+		# DESTINATION  ${BIN_INSTALL_DIR}/../lib/kde4 COMPONENT kdecore )
 		
 install ( FILES
   "${KDE4_LIB_INSTALL_DIR}/aspell-0.60/de.dat"
@@ -232,7 +211,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/config/kdebug.areas"
   "${KDE4_INSTALL_DIR}/share/config/kdebugrc"
   "${KDE4_INSTALL_DIR}/share/config/khotnewstuff.knsrc"
-  "${KDE4_INSTALL_DIR}/share/config/simonscenarios.knsrc"
+  #"${KDE4_INSTALL_DIR}/share/config/simonscenarios.knsrc"
   "${KDE4_INSTALL_DIR}/share/config/khotnewstuff_upload.knsrc"
 		DESTINATION  ${DATA_INSTALL_DIR}/../config COMPONENT kdecore )
 

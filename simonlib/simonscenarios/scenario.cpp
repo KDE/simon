@@ -683,8 +683,8 @@ bool Scenario::commitGroup()
 QString Scenario::createId(const QString& name)
 {
 	QString id = name;
-	id.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
-	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh:mm:ss:zzz");
+	id.replace(" ", "_").replace("/","_").replace(":", "-").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
+	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
 
 void Scenario::setPluginFont(const QFont& font)
