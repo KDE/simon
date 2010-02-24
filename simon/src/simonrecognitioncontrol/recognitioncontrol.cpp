@@ -1396,7 +1396,8 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					if (modelCompilationOperation)
 						modelCompilationOperation->canceled();
-					modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."));
+
+					modelCompilationOperation = createModelCompilationOperation();
 					break;
 				}
 				
@@ -1415,9 +1416,9 @@ void RecognitionControl::messageReceived()
 					statusMsg = QString::fromUtf8(statusByte);
 					
 					if (!modelCompilationOperation)
-						modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), statusMsg, progNow, progMax);
-					else 
-						modelCompilationOperation->update(i18n("Model: %1", statusMsg), progNow, progMax);
+						modelCompilationOperation = createModelCompilationOperation();
+
+					modelCompilationOperation->update(i18n("Model: %1", statusMsg), progNow, progMax);
 					break;
 				}
 				
@@ -1448,6 +1449,7 @@ void RecognitionControl::messageReceived()
 				case Simond::ModelCompilationAborted: {
 					advanceStream(sizeof(qint32));
 	
+					kDebug() << "model compilation aborted!";
 					if (modelCompilationOperation)
 					{
 						modelCompilationOperation->canceled();
@@ -1651,6 +1653,10 @@ void RecognitionControl::messageReceived()
 	}
 }
 
+void RecognitionControl::abortModelCompilation()
+{
+	sendRequest(Simond::AbortModelCompilation);
+}
 
 bool RecognitionControl::getAvailableModels()
 {
@@ -1773,6 +1779,13 @@ void RecognitionControl::classUndefined(const QString& undefClass)
 void RecognitionControl::phonemeUndefined(const QString& phoneme)
 {
 	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
+}
+
+Operation* RecognitionControl::createModelCompilationOperation()
+{
+	Operation* modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."), 0, 0, false /*not atomic*/);
+	connect(modelCompilationOperation, SIGNAL(aborting()), this, SLOT(abortModelCompilation()));
+	return modelCompilationOperation;
 }
 
 /**

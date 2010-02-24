@@ -55,7 +55,10 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 	recognitionControl(0),
 	synchronisationManager(0),
 	modelCompilationManager(0),
-	modelCompilationAdapter(0)
+	modelCompilationAdapter(0),
+	newLexiconHash(0),
+	newGrammarHash(0),
+	newVocaHash(0)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -748,6 +751,12 @@ void ClientSocket::processRequest()
 				break;
 			}
 
+			case Simond::AbortModelCompilation:
+			{
+				modelCompilationManager->abort();
+				break;
+			}
+
 			case Simond::GetAvailableModels:
 			{
 				Q_ASSERT(synchronisationManager);
@@ -838,7 +847,10 @@ void ClientSocket::activeModelCompiled()
 {
 	Q_ASSERT(synchronisationManager);
 	synchronisationManager->modelCompiled();
+	writeHashesToConfig();
+
 	sendCode(Simond::ModelCompilationCompleted);
+
 	startSynchronisation();
 }
 
@@ -1160,14 +1172,9 @@ bool ClientSocket::shouldRecompileModel()
 			     // will at least produce a proper error, AND it is not off the table
 			     // that some weird model compilation manager can work around this... somehow :)
 	
-	uint newLexiconHash = qHash(lexiconF.readAll());
-	uint newVocaHash = qHash(vocaF.readAll());
-	uint newGrammarHash = qHash(grammarF.readAll());
-
-	cg.writeEntry("LexiconHash", newLexiconHash);
-	cg.writeEntry("VocaHash", newVocaHash);
-	cg.writeEntry("GrammarHash", newGrammarHash);
-	cg.sync();
+	newLexiconHash = qHash(lexiconF.readAll());
+	newVocaHash = qHash(vocaF.readAll());
+	newGrammarHash = qHash(grammarF.readAll());
 
 	if (!lexiconHash || !vocaHash || !grammarHash)
 		return true;
@@ -1180,6 +1187,18 @@ bool ClientSocket::shouldRecompileModel()
 		kDebug() << "Hashes are the same...";
 
 	return false;
+}
+
+void ClientSocket::writeHashesToConfig()
+{
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cg(&config, "SerializedModel");
+
+	cg.writeEntry("LexiconHash", newLexiconHash);
+	cg.writeEntry("VocaHash", newVocaHash);
+	cg.writeEntry("GrammarHash", newGrammarHash);
+	cg.sync();
 }
 
 void ClientSocket::slotModelAdaptionComplete()

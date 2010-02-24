@@ -32,7 +32,7 @@ class QTimer;
 class ModelManagerUiProxy;
 class Operation;
 
-const qint8 protocolVersion=2;
+const qint8 protocolVersion=3;
 
 class AdinStreamer;
 class QDateTime;
@@ -84,6 +84,7 @@ private:
 
 	Operation *synchronisationOperation;
 	Operation *modelCompilationOperation;
+	Operation* createModelCompilationOperation();
 
 	QTimer *timeoutWatcher;
 //	ModelManagerUiProxy *modelManager;
@@ -183,6 +184,8 @@ private slots:
 
 	void synchronizeSamples();
 	void fetchMissingSamples();
+
+	void abortModelCompilation();
 
 	void streamStarted();
 	void streamStopped();

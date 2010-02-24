@@ -102,6 +102,8 @@ private:
 
 	//config options
 	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
+
+	QList<QProcess*> activeProcesses;
 	
 	QString htkIfyPath(const QString& in);
 	void analyseError(QString readableError);

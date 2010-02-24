@@ -35,6 +35,7 @@
 #include <KComponentData>
 #include <KAboutData>
 #include <KLocale>
+#include <KDebug>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -56,118 +57,27 @@ QString ModelCompilationManager::htkIfyPath(const QString& in)
 	
 	#ifdef Q_OS_WIN
 	long     length = 0;
-    char*   buffer = NULL;
+	char*   buffer = NULL;
 	
 	// First obtain the size needed by passing NULL and 0.
 	length = GetShortPathNameA(out.toLocal8Bit().data(), NULL, 0);
-    if (length == 0) return QByteArray();
+	if (length == 0) return QByteArray();
 	
 	// Dynamically allocate the correct size 
 	// (terminating null char was included in length)
 	buffer = new char[length];
 
 	// Now simply call again using same long path.
-    length = GetShortPathNameA(out.toLocal8Bit().data(), buffer, length);
-    if (length == 0) return QByteArray();
+	length = GetShortPathNameA(out.toLocal8Bit().data(), buffer, length);
+	if (length == 0) return QByteArray();
 
 	out = QString::fromLocal8Bit(buffer);
-    delete [] buffer;	
+	delete [] buffer;	
 	#endif
 	
 	return out;
 }
 
-
-
-
-
-
-/*
-QString ModelCompilationManager::htkIfyPath(const QString& in)
-{
-	QString out = in;
-	#ifdef Q_OS_WIN
-	out = out.replace("/", "\\");
-	fprintf(stderr, "htkify path: %s\n", out.toUtf8().data());
-	QByteArray outByte = out.toUtf8();
-	
-	//WCHAR* in_data = malloc(sizeof(WCHAR)*out.count());
-	//out.
-	
-	#ifdef UNICODE
-	const LPCTSTR in_data = out.toUcs4().constData();
-	#else
-	const LPCTSTR in_data = out.toLocal8Bit().constData();
-	#endif
-	
-	long     length = 0;
-    TCHAR*   buffer = NULL;
-// First obtain the size needed by passing NULL and 0.
-
-    length = GetShortPathName(in_data, NULL, 0);
-    if (length == 0) {
-		fprintf(stderr, "NEW getshortpathname1 returned empty: %d - %s\n", length, in_data);
-		fprintf(stderr, "NEW Error: %d\n", GetLastError());
-		return QString();
-	}
-
-// Dynamically allocate the correct size 
-// (terminating null char was included in length)
-
-    buffer = new TCHAR[length];
-
-// Now simply call again using same long path.
-
-    length = GetShortPathName(outByte.constData(), buffer, in_data);
-    if (length == 0) {
-		fprintf(stderr, "NEW getshortpathname2 returned empty: %s\n", in_data);
-		fprintf(stderr, "NEW Error: %d\n", GetLastError());
-		return QString();
-	}
-
-	#ifdef UNICODE
-	out = QString::fromUcs4((ushort*)buffer);
-	#else
-	out = QString::fromLocal8Bit(buffer);
-	#endif
-    
-    delete [] buffer;
-	
-	
-	*/
-	/*
-	
-	fprintf(stderr, "htkify path: %s\n", in_data);
-	
-	long length = 0;
-	length = GetShortPathName(in_data, NULL, 0);
-	if (length ==0) {
-		fprintf(stderr, "getshortpathname returned empty\n");
-		fprintf(stderr, "Error: %d\n", GetLastError());
-		return QString();
-	}
-	
-	WCHAR *out_data = new WCHAR[length];
-	length = GetShortPathName(in_data, out_data, length);
-	if (length ==0) {
-		fprintf(stderr, "getshortpathname2 returned empty\n");
-		return QString();
-	}
-
-	#ifdef UNICODE
-	out = QString::fromUtf16((ushort*)out_data);
-	#else
-	out = QString::fromLocal8Bit(out_data);
-	#endif
-	
-	delete[] out_data;*/
-	/*
-	#endif
-	
-	fprintf(stderr, "Returning: %s\n", out.toUtf8().data());
-	return out;
-}
-*/
 
 bool ModelCompilationManager::createDirs()
 {
@@ -247,9 +157,13 @@ bool ModelCompilationManager::execute(const QString& command)
 	QProcess proc;
 	proc.setWorkingDirectory(tempDir);
 	proc.start(command);
+
+	activeProcesses << &proc;
 	
 	buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
 	proc.waitForFinished(-1);
+
+	activeProcesses.removeAll(&proc);
 	
 	QString err = QString::fromLocal8Bit(proc.readAllStandardError());
 	QString out = QString::fromLocal8Bit(proc.readAllStandardOutput());
@@ -365,7 +279,11 @@ void ModelCompilationManager::abort()
 	if (isRunning()) {
 		keepGoing=false;
 
-		//terminate();
+		foreach (QProcess *proc, activeProcesses)
+			//tell any running process to commit suicide
+			proc->kill(); 
+
+		wait();
 
 		emit activeModelCompilationAborted();
 	}

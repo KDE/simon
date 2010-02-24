@@ -29,7 +29,7 @@
 #include <QString>
 
 
-const qint8 protocolVersion=2;
+const qint8 protocolVersion=3;
 
 class DatabaseAccess;
 class RecognitionControl;
@@ -53,9 +53,14 @@ class ClientSocket : public QSslSocket
 		SynchronisationManager *synchronisationManager;
 		ModelCompilationManager *modelCompilationManager;
 		ModelCompilationAdapter *modelCompilationAdapter;
+
+		uint newLexiconHash;
+		uint newGrammarHash;
+		uint newVocaHash;
 		
 		bool shouldRecompileModel();
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+		void writeHashesToConfig();
 
 	public slots:
 		void sendRecognitionResult(const RecognitionResultList& recognitionResults);
