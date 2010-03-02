@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef COMMANDCONFIGURATION_H
-#define COMMANDCONFIGURATION_H
+#ifndef SIMON_COMMANDCONFIGURATION_H_DADC6869FF594E9BAD62C1FDB2785840
+#define SIMON_COMMANDCONFIGURATION_H_DADC6869FF594E9BAD62C1FDB2785840
 
 #include "simonmodelmanagement_export.h"
 #include <simonscenariobase/scenarioobject.h>

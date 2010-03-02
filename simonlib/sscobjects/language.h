@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSC_Language_H
-#define SSC_Language_H
+#ifndef SIMON_SSC_LANGUAGE_H_1E25B8B7C2B84348A22343E8C9A7D679
+#define SIMON_SSC_LANGUAGE_H_1E25B8B7C2B84348A22343E8C9A7D679
 
 #include <QString>
 #include "sscobject.h"

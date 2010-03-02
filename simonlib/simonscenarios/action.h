@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ACTION_H
-#define ACTION_H
+#ifndef SIMON_ACTION_H_E2E10CBF867745BA82754A32EA168B28
+#define SIMON_ACTION_H_E2E10CBF867745BA82754A32EA168B28
 
 #include <QString>
 #include <QObject>

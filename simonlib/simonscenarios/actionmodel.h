@@ -18,8 +18,8 @@
  */
 
 
-#ifndef ACTIONMODEL_H
-#define ACTIONMODEL_H
+#ifndef SIMON_ACTIONMODEL_H_342DAB10C3C64ED7BCF107CAF08CC992
+#define SIMON_ACTIONMODEL_H_342DAB10C3C64ED7BCF107CAF08CC992
 #include <QList>
 #include <QAbstractItemModel>
 #include "simonmodelmanagement_export.h"
