@@ -608,6 +608,7 @@ bool ModelCompilationManager::generateInputFiles()
 {	
 	if (!keepGoing) return false;
 	emit status(i18n("Generating wordlist..."), 35);
+	
 	//wlist
 	if (!generateWlist())
 	{
@@ -1203,14 +1204,15 @@ bool ModelCompilationManager::makeMonophones()
 #endif
 	
 	fprintf(stderr, "Temp dir in makemonophones(): %s\n", tempDir.toUtf8().data());
-	
+
 	//make monophones1
 	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
+	kDebug() << execStr;
+	exit(0);
 	if (!execute(execStr)) return false;
 
 	//make monophones0
 	//ditch the "sp" phoneme
-
 	QFile monophones1(tempDir+"/monophones1");
 	QFile monophones0(tempDir+"/monophones0");
 	if (!monophones1.open(QIODevice::ReadOnly))

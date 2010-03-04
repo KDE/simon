@@ -505,7 +505,7 @@ QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentenc
 	int currentOccuranceCounter = 0;
 	foreach (const QString& terminalNow, segmentedTerminals) {
 		if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
-			if (currentOccuranceCounter == selectedOccurance) {
+			if (currentOccuranceCounter++ == selectedOccurance) {
 				actualSentence.append(toDemonstrate);
 				continue;
 			}
