@@ -275,7 +275,8 @@ int Vocabulary::columnCount(const QModelIndex &parent) const
 bool Vocabulary::containsWord(const QString& word)
 {
 	foreach (Word *w, m_words)
-		if (QString::compare(w->getWord(), word, Qt::CaseInsensitive)==0)
+		//to upper vs. case insensitive because of german sz
+		if (QString::compare(w->getWord().toUpper(), word.toUpper())==0)
 			return true;
 	return false;
 }

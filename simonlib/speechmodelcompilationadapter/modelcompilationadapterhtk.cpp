@@ -104,8 +104,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
 	///// Prompts ///////////
-	QList<QByteArray> trainedVocabulary; // words where prompts exist
-	QList<QString> definedVocabulary; // words that are in the dictionary
+	QStringList trainedVocabulary; // words where prompts exist
+	QStringList definedVocabulary; // words that are in the dictionary
 
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		emit status(i18n("Adapting prompts..."), 1);
@@ -122,13 +122,13 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 		while (!promptsFile.atEnd())
 		{
-			QByteArray line = promptsFile.readLine();
+			QString line = QString::fromUtf8(promptsFile.readLine());
 			int splitter = line.indexOf(" ");
 
 			bool allWordsDefined = true;
 
-			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
-			foreach (const QByteArray& word, words) {
+			QStringList words = line.mid(splitter+1).trimmed().split(' ');
+			foreach (const QString& word, words) {
 				if (!vocab->containsWord(word))
 				{
 					kDebug() << "Word not defined in vocabulary: " << word;
@@ -140,7 +140,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			}
 
 			if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-				promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+				promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
 		}
 
 		promptsFile.close();
@@ -170,7 +170,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	QString htkIfiedWord;
 	foreach (Word *w, words) {
 		if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-				!trainedVocabulary.contains(w->getLexiconWord().toUtf8())) {
+				!trainedVocabulary.contains(w->getLexiconWord())) {
 			continue;
 		}
 		htkIfiedWord = htkify(w->getLexiconWord());
@@ -219,7 +219,7 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			bool hasAssociatedWord = false;
 			foreach (Word *w, wordsForTerminal) {
 				if ((!(adaptionType & ModelCompilationAdapter::AdaptAcousticModel)) ||
-						trainedVocabulary.contains(w->getLexiconWord().toUtf8()))
+						trainedVocabulary.contains(w->getLexiconWord()))
 					hasAssociatedWord = true;
 				else vocab->removeWord(w, true /* delete word*/);
 			}
@@ -287,19 +287,19 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
 		while (!promptsFile.atEnd())
 		{
-			QByteArray line = promptsFile.readLine();
+			QString line = QString::fromUtf8(promptsFile.readLine());
 			int splitter = line.indexOf(" ");
 			bool allWordsInLexicon = true;
 
-			QList<QByteArray> words = line.mid(splitter+1).trimmed().split(' ');
-			foreach (const QByteArray& word, words) {
+			QStringList words = line.mid(splitter+1).trimmed().split(' ');
+			foreach (const QString& word, words) {
 				if (!definedVocabulary.contains(word)) {
 					allWordsInLexicon = false;
 					break;
 				}
 			}
 			if (allWordsInLexicon)
-				promptsFileOut.write(line.left(splitter) /*filename*/ + htkify(line.mid(splitter)));
+				promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
 		}
 
 		promptsFile.close();
