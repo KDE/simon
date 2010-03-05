@@ -94,7 +94,7 @@ bool ModelCompilationManager::createDirs()
 	if (!tempDirHandle.exists("classes") && !tempDirHandle.mkdir("classes"))
 		return false;
 
-	for (int i=0; i < 17; i++)
+	for (int i=0; i < 20; i++)
 	{
 		if (!tempDirHandle.exists("hmm"+QString::number(i)) && 
 			!tempDirHandle.mkdir("hmm"+QString::number(i)))
@@ -374,7 +374,7 @@ void ModelCompilationManager::run()
 bool ModelCompilationManager::compileGrammar()
 {
 	if (!keepGoing) return false;
-	emit status(i18n("Generating reverse grammar..."), 2000);
+	emit status(i18n("Generating reverse grammar..."), 2300);
 	if (!generateReverseGrammar())
 	{
 		analyseError(i18n("Couldn't create reverse grammar.\n\nDid you define a grammar?"));
@@ -382,7 +382,7 @@ bool ModelCompilationManager::compileGrammar()
 	}
 
 	if (!keepGoing) return false;
-	emit status(i18n("Generating termporary vocabulary..."), 2100);
+	emit status(i18n("Generating termporary vocabulary..."), 2400);
 	if (!makeTempVocab())
 	{
 		analyseError(i18n("Couldn't create temporary vocabular."));
@@ -390,7 +390,7 @@ bool ModelCompilationManager::compileGrammar()
 	}
 
 	if (!keepGoing) return false;
-	emit status(i18n("Generating DFA..."), 2250);
+	emit status(i18n("Generating DFA..."), 2550);
 	if (!makeDfa())
 	{
 		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %2).", mkfa, dfaMinimize));
@@ -398,7 +398,7 @@ bool ModelCompilationManager::compileGrammar()
 	}
 	
 	if (!keepGoing) return false;
-	emit status(i18n("Generating grammar dictionary..."), 2299);
+	emit status(i18n("Generating grammar dictionary..."), 2579);
 	if (!generateDict())
 	{
 		analyseError(i18n("Couldn't generate grammatical lexicon. Please check the output path (%1).", dictPath));
@@ -807,7 +807,6 @@ bool ModelCompilationManager::tieStates()
 		return false;
 	}
 
-	
 	return true;
 }
 
@@ -828,6 +827,57 @@ bool ModelCompilationManager::buildHMM15()
 {
 	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
+
+
+bool ModelCompilationManager::increaseMixtures()
+{
+	if (!keepGoing) return false;
+
+	emit status(i18n("Increasing mixtures..."),2000);
+	
+	if (!buildHMM16())
+	{
+		analyseError(i18n("Could not generate HMM16.\n\nPlease check the path to HHEd (%1).", hHEd));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm17..."),2100);
+	if (!buildHMM17())
+	{
+		analyseError(i18n("Couldn't generate HMM17. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm18..."),2290);
+	if (!buildHMM18())
+	{
+		analyseError(i18n("Could not generate the HMM18.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+
+	return true;
+}
+
+bool ModelCompilationManager::buildHMM16()
+{
+	QString execString = '"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm15/macros\" -H \""+htkIfyPath(tempDir)+"/hmm15/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm16/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/gmm1.hed"))+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
+	return execute(execString);
+}
+
+
+bool ModelCompilationManager::buildHMM17()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm16/macros\" -H \""+htkIfyPath(tempDir)+"/hmm16/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm17/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
+
+bool ModelCompilationManager::buildHMM18()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm17/macros\" -H \""+htkIfyPath(tempDir)+"/hmm17/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm18/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
 
 bool ModelCompilationManager::makeFulllist()
 {	
@@ -911,10 +961,11 @@ bool ModelCompilationManager::buildHMM()
 	if (!realign()) return false;
 	if (!makeTriphones()) return false;
 	if (!tieStates()) return false;
+	if (!increaseMixtures()) return false;
 
 	if (QFile::exists(hmmDefsPath))
 		if (!QFile::remove(hmmDefsPath)) return false;
-	if (!QFile::copy(tempDir+"/hmm15/hmmdefs", hmmDefsPath))
+	if (!QFile::copy(tempDir+"/hmm18/hmmdefs", hmmDefsPath))
 		return false;
 
 	if (QFile::exists(tiedListPath))
@@ -924,6 +975,7 @@ bool ModelCompilationManager::buildHMM()
 
 	return true;
 }
+
 
 bool ModelCompilationManager::makeTriphones()
 {
@@ -1059,7 +1111,9 @@ bool ModelCompilationManager::buildHMM5()
 
 bool ModelCompilationManager::buildHMM4()
 {
-	QFile::copy(tempDir+"/hmm3/macros", tempDir+"/hmm4/macros");
+	if ((QFile::exists(tempDir+"/hmm4/macros") && !QFile::remove(tempDir+"/hmm4/macros")) ||
+			!QFile::copy(tempDir+"/hmm3/macros", tempDir+"/hmm4/macros"))
+		return false;
 
 	QStringList  tmp2;
 
@@ -1207,8 +1261,6 @@ bool ModelCompilationManager::makeMonophones()
 
 	//make monophones1
 	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
-	kDebug() << execStr;
-	exit(0);
 	if (!execute(execStr)) return false;
 
 	//make monophones0

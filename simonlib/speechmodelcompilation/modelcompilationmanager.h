@@ -40,7 +40,7 @@
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread{
 Q_OBJECT
 signals:
-	void status(QString, int progressNow, int progressTotal=2300);
+	void status(QString, int progressNow, int progressTotal=2600);
 	void error(QString);
 
 //	void userReadableError(const QString&);
@@ -157,6 +157,11 @@ private:
 			bool buildHMM13();
 			bool buildHMM14();
 			bool buildHMM15();
+
+		bool increaseMixtures();
+			bool buildHMM16();
+			bool buildHMM17();
+			bool buildHMM18();
 
 	bool adaptBaseModel();
 		bool realignToBaseModel();
