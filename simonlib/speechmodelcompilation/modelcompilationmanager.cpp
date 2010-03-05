@@ -94,7 +94,7 @@ bool ModelCompilationManager::createDirs()
 	if (!tempDirHandle.exists("classes") && !tempDirHandle.mkdir("classes"))
 		return false;
 
-	for (int i=0; i < 20; i++)
+	for (int i=0; i < 26; i++)
 	{
 		if (!tempDirHandle.exists("hmm"+QString::number(i)) && 
 			!tempDirHandle.mkdir("hmm"+QString::number(i)))
@@ -343,7 +343,7 @@ void ModelCompilationManager::run()
 
 	if (!keepGoing) return;
 	Logger::log("[INF] Compiling model...");
-	emit status(i18n("Preperation"), 0,2300);
+	emit status(i18n("Preperation"), 0);
 	
 
 	if ((compilationType & ModelCompilationManager::CompileSpeechModel) ||
@@ -366,7 +366,7 @@ void ModelCompilationManager::run()
 	//sync model
 	if (!keepGoing) return;
 	
-	emit status(i18n("Finished"), 2300, 2300);
+	emit status(i18n("Finished"), 2600, 2600);
 	emit modelCompiled();
 }
 
@@ -374,7 +374,7 @@ void ModelCompilationManager::run()
 bool ModelCompilationManager::compileGrammar()
 {
 	if (!keepGoing) return false;
-	emit status(i18n("Generating reverse grammar..."), 2300);
+	emit status(i18n("Generating reverse grammar..."), 2510);
 	if (!generateReverseGrammar())
 	{
 		analyseError(i18n("Couldn't create reverse grammar.\n\nDid you define a grammar?"));
@@ -382,7 +382,7 @@ bool ModelCompilationManager::compileGrammar()
 	}
 
 	if (!keepGoing) return false;
-	emit status(i18n("Generating termporary vocabulary..."), 2400);
+	emit status(i18n("Generating termporary vocabulary..."), 2530);
 	if (!makeTempVocab())
 	{
 		analyseError(i18n("Couldn't create temporary vocabular."));
@@ -730,7 +730,7 @@ bool ModelCompilationManager::realign()
 	}
 
 	if (!keepGoing) return false;
-	emit status(i18n("Re-Aligning HMM7..."), 1160);
+	emit status(i18n("Re-aligning hmm7..."), 1160);
 	if (!realignHMM7())
 	{
 		analyseError(i18n("Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%2) and to the HMM7.", hVite, KStandardDirs::locate("data", "simon/scripts/config")));
@@ -850,10 +850,56 @@ bool ModelCompilationManager::increaseMixtures()
 	}
 	
 	if (!keepGoing) return false;
-	emit status(i18n("Generating hmm18..."),2290);
+	emit status(i18n("Generating hmm18..."),2180);
 	if (!buildHMM18())
 	{
 		analyseError(i18n("Could not generate the HMM18.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+
+	emit status(i18n("Generating hmm19..."),2260);
+	if (!buildHMM19())
+	{
+		analyseError(i18n("Could not generate HMM19.\n\nPlease check the path to HHEd (%1).", hHEd));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm20..."),2260);
+	if (!buildHMM20())
+	{
+		analyseError(i18n("Couldn't generate HMM20. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm21..."),2340);
+	if (!buildHMM21())
+	{
+		analyseError(i18n("Could not generate the HMM21.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+
+	emit status(i18n("Generating hmm22..."),2400);
+	if (!buildHMM22())
+	{
+		analyseError(i18n("Could not generate HMM22.\n\nPlease check the path to HHEd (%1).", hHEd));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm23..."),2450);
+	if (!buildHMM23())
+	{
+		analyseError(i18n("Couldn't generate HMM23. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
+		return false;
+	}
+	
+	if (!keepGoing) return false;
+	emit status(i18n("Generating hmm24..."),2500);
+	if (!buildHMM24())
+	{
+		analyseError(i18n("Could not generate the HMM24.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 
@@ -876,6 +922,42 @@ bool ModelCompilationManager::buildHMM17()
 bool ModelCompilationManager::buildHMM18()
 {
 	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm17/macros\" -H \""+htkIfyPath(tempDir)+"/hmm17/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm18/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
+
+bool ModelCompilationManager::buildHMM19()
+{
+	QString execString = '"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm18/macros\" -H \""+htkIfyPath(tempDir)+"/hmm18/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm19/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/gmm2.hed"))+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
+	return execute(execString);
+}
+
+bool ModelCompilationManager::buildHMM20()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm19/macros\" -H \""+htkIfyPath(tempDir)+"/hmm19/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm20/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
+
+bool ModelCompilationManager::buildHMM21()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm20/macros\" -H \""+htkIfyPath(tempDir)+"/hmm20/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm21/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
+
+bool ModelCompilationManager::buildHMM22()
+{
+	QString execString = '"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm21/macros\" -H \""+htkIfyPath(tempDir)+"/hmm21/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm22/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/gmm3.hed"))+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
+	return execute(execString);
+}
+
+bool ModelCompilationManager::buildHMM23()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm22/macros\" -H \""+htkIfyPath(tempDir)+"/hmm22/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm23/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+}
+
+
+bool ModelCompilationManager::buildHMM24()
+{
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm23/macros\" -H \""+htkIfyPath(tempDir)+"/hmm23/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm24/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
@@ -965,7 +1047,7 @@ bool ModelCompilationManager::buildHMM()
 
 	if (QFile::exists(hmmDefsPath))
 		if (!QFile::remove(hmmDefsPath)) return false;
-	if (!QFile::copy(tempDir+"/hmm18/hmmdefs", hmmDefsPath))
+	if (!QFile::copy(tempDir+"/hmm24/hmmdefs", hmmDefsPath))
 		return false;
 
 	if (QFile::exists(tiedListPath))
@@ -1364,7 +1446,7 @@ bool ModelCompilationManager::generateMlf()
 bool ModelCompilationManager::adaptBaseModel()
 {
 	if (!keepGoing) return false;
-	emit status(i18n("Re-Aligninging to base model..."), 550);
+	emit status(i18n("Re-aligninging to base model..."), 550);
 	if (!realignToBaseModel())
 	{
 		analyseError(i18n("Couldn't re-align model to the selected base model.\n\nThis error is often caused when you are trying to adapt to a model with a different phoneme set. Ideally you should use the same dictionary as the basemodel.\n\nThis error also occurs if you have no training data to adapt to!"));

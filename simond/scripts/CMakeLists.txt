@@ -4,6 +4,8 @@ set ( simon_model_scripts
 		${CMAKE_CURRENT_SOURCE_DIR}/config.rc
 		${CMAKE_CURRENT_SOURCE_DIR}/global
 		${CMAKE_CURRENT_SOURCE_DIR}/gmm1.hed
+		${CMAKE_CURRENT_SOURCE_DIR}/gmm2.hed
+		${CMAKE_CURRENT_SOURCE_DIR}/gmm3.hed
 		${CMAKE_CURRENT_SOURCE_DIR}/global.ded
 		${CMAKE_CURRENT_SOURCE_DIR}/mkphones0.led
 		${CMAKE_CURRENT_SOURCE_DIR}/mkphones1.led

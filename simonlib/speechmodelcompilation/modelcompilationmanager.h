@@ -163,6 +163,14 @@ private:
 			bool buildHMM17();
 			bool buildHMM18();
 
+			bool buildHMM19();
+			bool buildHMM20();
+			bool buildHMM21();
+
+			bool buildHMM22();
+			bool buildHMM23();
+			bool buildHMM24();
+
 	bool adaptBaseModel();
 		bool realignToBaseModel();
 		bool makeRegTreeHed();
