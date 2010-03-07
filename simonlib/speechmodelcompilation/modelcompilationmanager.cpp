@@ -581,8 +581,6 @@ bool ModelCompilationManager::generateCodetrainScp()
 	QString fileBase;
 	QString mfcFile;
 	
-
-	
 	while (!promptsFile.atEnd())
 	{
 		QString line = QString::fromUtf8(promptsFile.readLine());
@@ -994,8 +992,6 @@ bool ModelCompilationManager::makeTreeHed()
 {	
 	QFile::remove(tempDir+"/tree.hed");
 
-// 	if (!QFile::copy(treeHedPath, tempDir+"/tree.hed"))) return false;
-	
 	QFile tree1Hed(treeHedPath);
 	QFile treeHed(tempDir+"/tree.hed");
 	
@@ -1173,6 +1169,7 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
 		if (!line.startsWith("\"*/"))
 			continue;
 
+		line = line.trimmed();
 		transcribedFiles << line.mid(3, line.count()-8);
 	}
 
@@ -1185,15 +1182,16 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
 	while (!trainScp.atEnd())
 	{
 		QByteArray originalLine = trainScp.readLine();
-		QByteArray line = originalLine.mid(tempDir.count() + 1 /* separator*/ + 5 /* mfcs/ */);
+		QByteArray line = originalLine.trimmed().mid(tempDir.count() + 1 /* separator*/ + 5 /* mfcs/ */);
 		line = line.left(line.count() - 4 /* .mfc */);
 
 		if (transcribedFiles.contains(line))
-			alignedScp.write(originalLine+"\n");
+			alignedScp.write(originalLine);
 		else
-			kDebug() << "Error decoding " << originalLine << "; You might want to increase the beam width?";
+			kDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
 
 	}
+	return true;
 }
 
 bool ModelCompilationManager::realignHMM7()
