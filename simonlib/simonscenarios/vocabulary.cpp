@@ -274,17 +274,34 @@ int Vocabulary::columnCount(const QModelIndex &parent) const
 
 bool Vocabulary::containsWord(const QString& word)
 {
+	Word *w = new Word(word, "", "");
+	QList<Word*>::iterator i = qLowerBound(m_words.begin(), m_words.end(), w, isWordLessThan);
+	delete w;
+
+	while (i != m_words.end())
+	{
+		int c = QString::compare((*i)->getWord().toUpper(), word.toUpper());
+		if (c == 0)
+			return true;
+		else if (c > 0)
+			return false;
+	}
+	return false;
+
+	/*
 	foreach (Word *w, m_words)
 		//to upper vs. case insensitive because of german sz
 		if (QString::compare(w->getWord().toUpper(), word.toUpper())==0)
 			return true;
 	return false;
+	*/
 }
 
 bool Vocabulary::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
 {
+	Word searchWord = Word(word, terminal, pronunciation);
 	foreach (Word *w, m_words)
-		if ((*w) == Word(word, terminal, pronunciation))
+		if ((*w) == searchWord)
 			return true;
 	return false;
 }

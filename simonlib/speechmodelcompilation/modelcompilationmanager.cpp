@@ -819,13 +819,13 @@ bool ModelCompilationManager::buildHMM13()
 
 bool ModelCompilationManager::buildHMM14()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm13/macros\" -H \""+htkIfyPath(tempDir)+"/hmm13/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm14/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm13/macros\" -H \""+htkIfyPath(tempDir)+"/hmm13/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm14/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
 bool ModelCompilationManager::buildHMM15()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
@@ -915,13 +915,13 @@ bool ModelCompilationManager::buildHMM16()
 
 bool ModelCompilationManager::buildHMM17()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm16/macros\" -H \""+htkIfyPath(tempDir)+"/hmm16/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm17/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm16/macros\" -H \""+htkIfyPath(tempDir)+"/hmm16/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm17/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
 bool ModelCompilationManager::buildHMM18()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm17/macros\" -H \""+htkIfyPath(tempDir)+"/hmm17/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm18/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm17/macros\" -H \""+htkIfyPath(tempDir)+"/hmm17/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm18/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
@@ -933,13 +933,13 @@ bool ModelCompilationManager::buildHMM19()
 
 bool ModelCompilationManager::buildHMM20()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm19/macros\" -H \""+htkIfyPath(tempDir)+"/hmm19/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm20/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm19/macros\" -H \""+htkIfyPath(tempDir)+"/hmm19/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm20/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
 bool ModelCompilationManager::buildHMM21()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm20/macros\" -H \""+htkIfyPath(tempDir)+"/hmm20/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm21/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm20/macros\" -H \""+htkIfyPath(tempDir)+"/hmm20/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm21/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
@@ -951,13 +951,13 @@ bool ModelCompilationManager::buildHMM22()
 
 bool ModelCompilationManager::buildHMM23()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm22/macros\" -H \""+htkIfyPath(tempDir)+"/hmm22/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm23/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm22/macros\" -H \""+htkIfyPath(tempDir)+"/hmm22/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm23/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
 bool ModelCompilationManager::buildHMM24()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm23/macros\" -H \""+htkIfyPath(tempDir)+"/hmm23/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm24/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm23/macros\" -H \""+htkIfyPath(tempDir)+"/hmm23/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm24/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
@@ -1107,13 +1107,13 @@ bool ModelCompilationManager::makeTriphones()
 
 bool ModelCompilationManager::buildHMM12()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm11/macros\" -H \""+htkIfyPath(tempDir)+"/hmm11/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm12/"+"\" \""+htkIfyPath(tempDir)+"/triphones1"+"\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm11/macros\" -H \""+htkIfyPath(tempDir)+"/hmm11/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm12/"+"\" \""+htkIfyPath(tempDir)+"/triphones1"+"\"");
 }
 
 
 bool ModelCompilationManager::buildHMM11()
 {
-	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm10/macros\" -H \""+htkIfyPath(tempDir)+"/hmm10/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm11/\" \""+htkIfyPath(tempDir)+"/triphones1\"";
+	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm10/macros\" -H \""+htkIfyPath(tempDir)+"/hmm10/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm11/\" \""+htkIfyPath(tempDir)+"/triphones1\"";
 	return execute(execStr);
 }
 
@@ -1150,18 +1150,58 @@ bool ModelCompilationManager::makeMkTriHed()
 
 bool ModelCompilationManager::buildHMM9()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm8/macros\" -H \""+htkIfyPath(tempDir)+"/hmm8/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm9/"+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm8/macros\" -H \""+htkIfyPath(tempDir)+"/hmm8/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm9/"+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 
 bool ModelCompilationManager::buildHMM8()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm8/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm8/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+}
+
+bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp)
+{
+	//create aligned scp only containing files transcribed in the aligned.mlf file
+	QFile alignedMlf(inMlf);
+	if (!alignedMlf.open(QIODevice::ReadOnly))
+		return false;
+
+	QList<QByteArray> transcribedFiles;
+	while (!alignedMlf.atEnd())
+	{
+		QByteArray line = alignedMlf.readLine(); //ascii; no conversion
+		if (!line.startsWith("\"*/"))
+			continue;
+
+		transcribedFiles << line.mid(3, line.count()-8);
+	}
+
+	QFile trainScp(inScp);
+	if (!trainScp.open(QIODevice::ReadOnly))
+		return false;
+	QFile alignedScp(outScp);
+	if (!alignedScp.open(QIODevice::WriteOnly))
+		return false;
+	while (!trainScp.atEnd())
+	{
+		QByteArray originalLine = trainScp.readLine();
+		QByteArray line = originalLine.mid(tempDir.count() + 1 /* separator*/ + 5 /* mfcs/ */);
+		line = line.left(line.count() - 4 /* .mfc */);
+
+		if (transcribedFiles.contains(line))
+			alignedScp.write(originalLine+"\n");
+		else
+			kDebug() << "Error decoding " << originalLine << "; You might want to increase the beam width?";
+
+	}
 }
 
 bool ModelCompilationManager::realignHMM7()
 {
-	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\""))
+		return false;
+
+	return pruneScp(tempDir+QDir::separator()+"aligned.mlf", tempDir+QDir::separator()+"train.scp", tempDir+QDir::separator()+"aligned.scp");
 }
 
 bool ModelCompilationManager::makeDict1()
@@ -1486,7 +1526,10 @@ bool ModelCompilationManager::adaptBaseModel()
 
 bool ModelCompilationManager::realignToBaseModel()
 {
-	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b SENT-END -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -i \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(baseTiedlistPath)+"\"");
+	if (!execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b SENT-END -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(baseMacrosPath)+"\" -H \""+htkIfyPath(baseHmmDefsPath)+"\" -i \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(baseTiedlistPath)+"\""))
+		return false;
+
+	return pruneScp(tempDir+QDir::separator()+"adaptPhones.mlf", tempDir+QDir::separator()+"train.scp", tempDir+QDir::separator()+"aligned.scp");
 }
 
 bool ModelCompilationManager::createRegressionClassTree()
@@ -1528,10 +1571,10 @@ bool ModelCompilationManager::staticAdaption()
 	QString adaptFromTiedlist = baseTiedlistPath;
 	QString adaptFromMacros = htkIfyPath(tempDir)+"classes/basemacros";
 
-	if (!execute('"'+hERest+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+	if (!execute('"'+hERest+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
 		return false;
 
-	if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+	if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
 		return false;
 
 	return true;

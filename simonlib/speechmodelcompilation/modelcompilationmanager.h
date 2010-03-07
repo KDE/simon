@@ -106,6 +106,8 @@ private:
 	QList<QProcess*> activeProcesses;
 	
 	QString htkIfyPath(const QString& in);
+	bool pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp);
+
 	void analyseError(QString readableError);
 	bool processError();
 
@@ -124,6 +126,7 @@ private:
 
 	bool codeAudioData();
 		bool generateCodetrainScp();
+	
 
 	bool buildHMM();
 
