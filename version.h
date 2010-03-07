@@ -1,5 +1,5 @@
 #ifndef SIMONVERSION
 #define SIMONVERSION
-static const char simon_version[] = "0.2.91";
+static const char simon_version[] = "0.2.92";
 #endif
 
