@@ -10,7 +10,28 @@ scores have been added
 * simon can now display a "did-you-mean...?"-popup if there are more than one 
   possible recognition results
 
-Wordlist
+* Improving the recognition
+
+* Improving the creation of the model with multiple GMMs, different model
+type and more
+
+* Improving the handling of very, very large models
+
+* Implementing model compilation adapter that avoids a lot of basic errors
+during the compilation process
+
+* You can now use static models or adapted base models
+
+
+simon
+=====
+
+* Implementing package based configuration ("Scenarios")
+
+* Implementing a much nicer KDE style welcome page
+
+
+Vocabulary
 ========
 
 * Better phoneme segmentation during the import process
@@ -18,7 +39,31 @@ Wordlist
 * simon can now import lexica to both the active- and the shadowlexicon 
   (selectable during the import process)
 
-* Updating the URL to the BOMP download
+* The BOMP can now be imported directly from the internet
+
+* Huge performance improvements in the display of the list
+
+* simon can now automatically create sentences during the special training
+
+* You now don't need to train a word when adding it any more (optional)
+
+* The complete vocabulary can now be cleared with the press of a button
+
+* Words can now be edited
+
+* When words are removed, the user can now move the word to an unused
+terminal, or completely remove the word but keep the samples (for a total of 4
+deletion modes)
+
+
+Grammar
+=======
+
+* Displaying examples for each sentence
+
+* The text from which to deduce your grammar from can now be entered directly
+(instead of just loaded from files)
+
 
 Training
 ========
@@ -28,10 +73,44 @@ Training
 * A new "power training" mode speeds up the training process through 
   automatically starting and stopping the recordings
 
+* Implementing "Clear training data"
+
+* Trainingstexts can now be entered instead of just imported from files
+
+
+Commands
+=======
+
+* Multiple command plugin instances can now be loaded at once
+
+* Implementing keyboard
+
+* Implementing calculator
+
+* Implementing filter plugin
+
+* All triggers can now be configured (including e.g. Buttons in other plugins)
+
+* Adding multiple click modes (right click, middle, click, etc.) to the
+desktop grid
+
+* Making plugin fonts configurable
+
+* Displaying the complete needed sentence to activate a command in the run
+dialog
+
+
 ksimond
 =======
 
 * simon can now be started through the ksimond context menu
+
+
+simond
+=======
+
+* Adding default user
+
 
 sam
 ===
@@ -39,6 +118,7 @@ sam
 * Adding a new application to the simon suite: sam; The simon acoustic
   modeller is targeted towards power users who want to manually tweak
   their model
+
 
 ssc
 ===
