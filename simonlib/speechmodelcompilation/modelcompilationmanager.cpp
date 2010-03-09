@@ -1184,7 +1184,7 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
 	while (!trainScp.atEnd())
 	{
 		QByteArray originalLine = trainScp.readLine();
-		QByteArray line = originalLine.trimmed().mid(tempDir.count() + 1 /* separator*/ + 5 /* mfcs/ */);
+		QByteArray line = originalLine.trimmed().mid(htkIfyPath(tempDir).count() + 1 /* separator*/ + 5 /* mfcs/ */);
 		line = line.left(line.count() - 4 /* .mfc */);
 
 		if (transcribedFiles.contains(line))
