@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSC_MANAGEUSERS_H
-#define SSC_MANAGEUSERS_H
+#ifndef SIMON_SSC_MANAGEUSERS_H_B9CB5471B4234231A17437881707E5A8
+#define SIMON_SSC_MANAGEUSERS_H_B9CB5471B4234231A17437881707E5A8
 
 #include <KDialog>
 #include "ui_finduser.h"

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSC_MODIFYUSER_H
-#define SSC_MODIFYUSER_H
+#ifndef SIMON_SSC_MODIFYUSER_H_BAF52575E3B8429C94DF14318118B503
+#define SIMON_SSC_MODIFYUSER_H_BAF52575E3B8429C94DF14318118B503
 
 #include <KDialog>
 #include "ui_details.h"

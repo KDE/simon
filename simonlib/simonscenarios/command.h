@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef COMMAND_H
-#define COMMAND_H
+#ifndef SIMON_COMMAND_H_651AF6CF619F4C8EA4E38A3F99962A60
+#define SIMON_COMMAND_H_651AF6CF619F4C8EA4E38A3F99962A60
 
 /** \file command.h
  * \brief The file containing the Command baseclass header.

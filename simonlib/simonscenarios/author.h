@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef AUTHOR_H
-#define AUTHOR_H
+#ifndef SIMON_AUTHOR_H_22406693285645508C8628A3575126FD
+#define SIMON_AUTHOR_H_22406693285645508C8628A3575126FD
 
 #include "simonmodelmanagement_export.h"
 #include <simonscenariobase/scenarioobject.h>

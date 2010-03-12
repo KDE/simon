@@ -18,8 +18,8 @@
  */
 
 
-#ifndef TRAININGTEXT_H
-#define TRAININGTEXT_H
+#ifndef SIMON_TRAININGTEXT_H_781AFF7F16174193A6AC665BA5840256
+#define SIMON_TRAININGTEXT_H_781AFF7F16174193A6AC665BA5840256
 
 #include <QStringList>
 #include <simonscenariobase/scenarioobject.h>

@@ -18,8 +18,8 @@
  */
 
 
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
+#define SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
 
 
 #include "simonmodelmanagement_export.h"

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef VERSIONNUMBER_H
-#define VERSIONNUMBER_H
+#ifndef SIMON_VERSIONNUMBER_H_DB0686F0049B4BE6ACCB2950DFEF971E
+#define SIMON_VERSIONNUMBER_H_DB0686F0049B4BE6ACCB2950DFEF971E
 #include <QString>
 #include "simonscenariobase_export.h"
 #include "scenarioobject.h"
