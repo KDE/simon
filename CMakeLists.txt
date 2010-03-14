@@ -34,7 +34,7 @@ SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
 SET(CPACK_RPM_PACKAGE_LICENCE "GNU General Public License (GPL)")
 SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
-SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.3.95, libattica, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-sql-sqlite, libqt4-x11, libqt4")
+SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.3.95, libattica0, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-sql-sqlite, libqt4-x11, libqt4")
 
 SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
