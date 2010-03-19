@@ -18,8 +18,8 @@
  */
 
 
-#ifndef TRAININGVIEW_H
-#define TRAININGVIEW_H
+#ifndef SIMON_TRAININGVIEW_H_5E15EE6E6EEE4D1BA26A9AD8900F7E60
+#define SIMON_TRAININGVIEW_H_5E15EE6E6EEE4D1BA26A9AD8900F7E60
 #include <simonuicomponents/inlinewidget.h>
 #include <simonscenarios/word.h>
 #include <simonscenarios/scenariodisplay.h>

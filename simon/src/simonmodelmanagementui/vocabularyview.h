@@ -18,8 +18,8 @@
  */
 
 
-#ifndef VOCABULARYVIEW_H
-#define VOCABULARYVIEW_H
+#ifndef SIMON_VOCABULARYVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
+#define SIMON_VOCABULARYVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
 
 #include <simonuicomponents/inlinewidget.h>
 #include "simonmodelmanagementui_export.h"

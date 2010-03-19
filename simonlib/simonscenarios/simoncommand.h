@@ -1,5 +1,5 @@
-#ifndef SIMON_SIMONCOMMAND_H
-#define SIMON_SIMONCOMMAND_H
+#ifndef SIMON_SIMONCOMMAND_H_15D866BEA2544D34BF320D2D7882E7AF
+#define SIMON_SIMONCOMMAND_H_15D866BEA2544D34BF320D2D7882E7AF
 
 /** \file simoncommand.h
  * \brief The file containing the SimonCommand::State enumeration

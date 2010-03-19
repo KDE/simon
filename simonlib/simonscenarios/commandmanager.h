@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef COMMANDMANAGER_H
-#define COMMANDMANAGER_H
+#ifndef SIMON_COMMANDMANAGER_H_324664B5A1614578808A52E438610EFB
+#define SIMON_COMMANDMANAGER_H_324664B5A1614578808A52E438610EFB
 
 /** \file commandmanager.h
  * \brief The file containing the CommandManager baseclass header.

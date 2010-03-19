@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SSC_USERMODEL_H
-#define SSC_USERMODEL_H
+#ifndef SIMON_SSC_USERMODEL_H_56C23B99EA634CDD9EAC3A8957657818
+#define SIMON_SSC_USERMODEL_H_56C23B99EA634CDD9EAC3A8957657818
 
 #include <QList>
 #include <sscobjects/user.h>

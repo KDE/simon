@@ -18,8 +18,8 @@
  */
 
 
-#ifndef SSCDACESS_H
-#define SSCDACESS_H
+#ifndef SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
+#define SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 
 #include <sscobjects/user.h>
 #include <sscobjects/language.h>
