@@ -34,10 +34,11 @@ class CreateCommandWidget;
  */
 class TextMacroCommandManager : public CommandManager{
 Q_OBJECT
+protected:
+	bool shouldAcceptCommand(Command *command);
 public:
 	const QString name() const;
 	const QString iconSrc() const;
-	bool addCommandPrivate(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;

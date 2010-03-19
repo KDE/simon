@@ -41,48 +41,15 @@ const QString TextMacroCommandManager::name() const
 	return TextMacroCommand::staticCategoryText();
 }
 
-
-bool TextMacroCommandManager::addCommandPrivate(Command *command)
+bool TextMacroCommandManager::shouldAcceptCommand(Command *command)
 {
-	if (dynamic_cast<TextMacroCommand*>(command))
-	{
-		beginInsertRows(QModelIndex(), commands->count(), commands->count());
-		this->commands->append(command);
-		endInsertRows();
-		return parentScenario->save();
-	}
-	return false;
+	return (dynamic_cast<TextMacroCommand*>(command) != NULL);
 }
 
 const QString TextMacroCommandManager::iconSrc() const
 {
 	return "format-text-bold";
 }
-
-/*
-bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-	if (commands)
-		qDeleteAll(*commands);
-	commands = new CommandList();
-
-	if (elem.isNull()) return false;
-
-	QDomElement commandElem = elem.firstChildElement();
-	while(!commandElem.isNull())
-	{
-		QDomElement name = commandElem.firstChildElement();
-		QDomElement icon = name.nextSiblingElement();
-		QDomElement description = icon.nextSiblingElement();
-		QDomElement textElem = description.nextSiblingElement();
-		commands->append(new TextMacroCommand(name.text(), icon.text(), description.text(),
-						textElem.text()));
-		commandElem = commandElem.nextSiblingElement();
-	}
-
-	return true;
-}
-*/
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(TextMacroCommandManager, TextMacroCommand);
 
