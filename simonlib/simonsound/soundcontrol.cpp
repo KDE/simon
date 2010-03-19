@@ -104,7 +104,24 @@ QString SoundControl::idToALSAName(int deviceId)
 int SoundControl::getDefaultInputDevice()
 {
 	if (Pa_Initialize() != paNoError) return 0;
-	int device = Pa_GetDefaultInputDevice();
+	int device = -1;
+
+#ifdef Q_OS_UNIX
+	SoundDeviceList* in = getInputDevices();
+	for ( int i=0; i<in->count(); i++ )
+	{
+		if (in->at(i).getName() == "pulse") // we have pulseaudio
+		{
+			device = in->at(i).getDeviceID();
+			break;
+		}
+	}
+	delete in;
+#endif
+
+	if (device == -1)
+		device = Pa_GetDefaultInputDevice();
+
 	Pa_Terminate();
 	return device;
 }
@@ -112,7 +129,24 @@ int SoundControl::getDefaultInputDevice()
 int SoundControl::getDefaultOutputDevice()
 {
 	if (Pa_Initialize() != paNoError) return 0;
-	int device = Pa_GetDefaultOutputDevice();
+	int device = -1;
+	
+#ifdef Q_OS_UNIX
+	SoundDeviceList* out = getOutputDevices();
+	for ( int i=0; i<out->count(); i++ )
+	{
+		if (out->at(i).getName() == "pulse") // we have pulseaudio
+		{
+			device = out->at(i).getDeviceID();
+			break;
+		}
+	}
+	delete out;
+#endif
+
+	if (device == -1)
+		device = Pa_GetDefaultOutputDevice();
+
 	Pa_Terminate();
 	return device;
 }

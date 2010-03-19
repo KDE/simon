@@ -41,8 +41,8 @@
 class SIMONSOUND_EXPORT SoundControl{
 
 public:
-	SoundDeviceList* getInputDevices();
-	SoundDeviceList* getOutputDevices();
+	static SoundDeviceList* getInputDevices();
+	static SoundDeviceList* getOutputDevices();
 
 	bool checkDeviceSupport(int inputDeviceId, int outputDeviceId, int channels, int samplerate);
 
