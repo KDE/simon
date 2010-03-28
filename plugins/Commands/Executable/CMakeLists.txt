@@ -10,12 +10,14 @@ set (simonexecutablecommandplugin_SRCS
 	createexecutablecommandwidget.cpp 
 	executablecommand.cpp 
 	executablecommandmanager.cpp 
-	ImportProgram/importprogramwizard.cpp
-	ImportProgram/selectprogrampage.cpp
+	#ImportProgram/importprogramwizard.cpp
+	selectprogramdialog.cpp
+	#ImportProgram/selectprogrampage.cpp
     )
 
 kde4_add_ui_files(simonexecutablecommandplugin_SRCS 
-	ImportProgram/selectprogramdlg.ui
+	#ImportProgram/selectprogramdlg.ui
+	selectprogramdlg.ui
 	createexecutablecommandwidget.ui
     )
 

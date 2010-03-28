@@ -17,32 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SELECTPROGRAMPAGE_H_5C48BD3D50AE452B9063AD517C4E8E94
-#define SIMON_SELECTPROGRAMPAGE_H_5C48BD3D50AE452B9063AD517C4E8E94
+#ifndef SIMON_SELECTPROGRAMDIALOG_H_5C48BD3D50AE452B9063AD517C4E8E94
+#define SIMON_SELECTPROGRAMDIALOG_H_5C48BD3D50AE452B9063AD517C4E8E94
 
-#include <QWizardPage>
+#include <KDialog>
 #include "ui_selectprogramdlg.h"
 
+class ExecutableCommand;
 
 /**
- * \class SelectProgramPage
+ * \class SelectProgramDialog
  * \author Peter Grasch
  * \date 16.08.2007
  * \version 0.1
- * \brief This is a page of the ImportProgramWizard. The user must choose a category, to display the corresponding programs, where he also must choose one to continue.
+ * \brief The user must choose a category, to display the corresponding programs, where he also must choose one to continue.
  */
-class SelectProgramPage : public QWizardPage
+class SelectProgramDialog : public KDialog
 {
     Q_OBJECT
 
 private:
 	Ui::SelectProgramDlg ui;
 
-public:
-        SelectProgramPage(QWidget* parent);
-        ~SelectProgramPage();
-
-	void initializePage();
+	void initialize();
 
 	void findCategories(QString relPath);
 
@@ -52,10 +49,17 @@ public:
 	QString getDescription();
 	QString getWorkingDirectory();
 
-
-
-    public slots:
+private slots:
         void searchForPrograms();
+
+public:
+        SelectProgramDialog(QWidget* parent);
+        ~SelectProgramDialog();
+
+	ExecutableCommand* selectCommand();
+
+
+
 };
 
 #endif

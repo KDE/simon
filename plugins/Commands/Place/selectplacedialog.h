@@ -18,38 +18,45 @@
  */
 
 
-#ifndef SIMON_SELECTPLACEPAGE_H_F9E2066E505F4530AAC69899C0D1DD4A
-#define SIMON_SELECTPLACEPAGE_H_F9E2066E505F4530AAC69899C0D1DD4A
-#include <QWizardPage>
-#include <kurl.h>
+#ifndef SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
+#define SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
+
+#include <KDialog>
+#include <KUrl>
 
 #include "ui_selectplacedlg.h"
-#include "importplacewizard.h"
+
+class PlaceCommand;
 
 /**
- *	@class SelectPlacePage
+ *	@class SelectPlaceDialog
  *	@brief Allows the user to select a local or remote place
  *
  *	@version 0.1
  *	@date 29.05.2008
  *	@author Peter Grasch
  */
-class SelectPlacePage : public QWizardPage{
+class SelectPlaceDialog : public KDialog {
 
 Q_OBJECT
 
 private:
 	Ui::SelectPlaceDlg ui;
+
+
 private slots:
 	void buildRemoteUrl();
 	void parseRemoteUrl();
-	
-public:
-	SelectPlacePage(QWidget *parent=0);
 	QString getName() const;
 	KUrl getUrl() const;
-	void initializePage();
+	void initializeDialog();
 	bool isComplete() const;
+	void checkComplete();
+
+public:
+	SelectPlaceDialog(QWidget *parent=0);
+	PlaceCommand* selectPlace();
+	
 
 };
 

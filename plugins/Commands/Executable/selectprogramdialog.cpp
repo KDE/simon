@@ -17,7 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "selectprogrampage.h"
+#include "selectprogramdialog.h"
+#include "executablecommand.h"
 
 #include <KListWidget>
 #include <QListWidgetItem>
@@ -33,28 +34,40 @@
 *   @author Susanne Tschernegg, Peter Grasch
 *   @param QWidget *parent
 */
-SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
+SelectProgramDialog::SelectProgramDialog(QWidget* parent): KDialog(parent)
 {
-	ui.setupUi(this);
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
+	setMainWidget( widget );
+	setCaption( i18n("Select program") );
 	
-        registerField("executable*", ui.lwPrograms);
-
         connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 	
 	ui.lwCategories->setIconSize(QSize(24,24));
 	ui.lwPrograms->setIconSize(QSize(24,24));
 }
 
+ExecutableCommand* SelectProgramDialog::selectCommand()
+{
+	initialize();
+
+	if ((!exec()) || (!ui.lwPrograms->currentItem()))
+		return NULL;
+	
+	return new ExecutableCommand(getName(), getIcon(), getDescription(),
+					getExecPath(), getWorkingDirectory());
+}
+
 /**
  * \brief Initializes the page (under linux this also loads the list of programs)
  * \author Peter Grasch
  */
-void SelectProgramPage::initializePage()
+void SelectProgramDialog::initialize()
 {
 	findCategories("");
 }
 
-void SelectProgramPage::findCategories(QString relPath)
+void SelectProgramDialog::findCategories(QString relPath)
 {
 	KServiceGroup::Ptr root = KServiceGroup::group(relPath);
 	KServiceGroup::List list = root->entries();
@@ -83,7 +96,7 @@ void SelectProgramPage::findCategories(QString relPath)
 *
 *   @author Susanne Tschernegg
 */
-SelectProgramPage::~SelectProgramPage()
+SelectProgramDialog::~SelectProgramDialog()
 {
 	
 }
@@ -93,7 +106,7 @@ SelectProgramPage::~SelectProgramPage()
 *
 *   @author Susanne Tschernegg
 */
-void SelectProgramPage::searchForPrograms()
+void SelectProgramDialog::searchForPrograms()
 {
 	ui.lwPrograms->clear();
 
@@ -144,7 +157,7 @@ void SelectProgramPage::searchForPrograms()
 *   @return QString
 *       returns the name of the .exe file
 */
-QString SelectProgramPage::getExecPath()
+QString SelectProgramDialog::getExecPath()
 {
 	Q_ASSERT(ui.lwPrograms->currentItem());
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
@@ -155,7 +168,7 @@ QString SelectProgramPage::getExecPath()
 *
 *   @author Peter Grasch
 */
-QString SelectProgramPage::getIcon()
+QString SelectProgramDialog::getIcon()
 {
 	Q_ASSERT(ui.lwPrograms->currentItem());
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
@@ -168,13 +181,13 @@ QString SelectProgramPage::getIcon()
 *   @return QString
 *       returns the workingdirectory
 */
-QString SelectProgramPage::getWorkingDirectory()
+QString SelectProgramDialog::getWorkingDirectory()
 {
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
 }
 
 
-QString SelectProgramPage::getDescription()
+QString SelectProgramDialog::getDescription()
 {
 	Q_ASSERT(ui.lwPrograms->currentItem());
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
@@ -188,7 +201,7 @@ QString SelectProgramPage::getDescription()
 *   @return QString
 *       returns the name of the program
 */
-QString SelectProgramPage::getName()
+QString SelectProgramDialog::getName()
 {
 	Q_ASSERT(ui.lwPrograms->currentItem());
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
