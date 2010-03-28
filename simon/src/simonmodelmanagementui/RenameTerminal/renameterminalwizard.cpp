@@ -26,14 +26,14 @@
 #include "renameterminalselectparameterspage.h"
 #include "renameterminalworkingpage.h"
 
-RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): QWizard(parent)
+RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(i18n("Rename terminal"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/editterminal.png")));
 	addPage(createIntroPage());
 	addPage(createSelectParametersPage());
 	addPage(createWorkingPage());
 	addPage(createFinishedPage());
+	setBanner("editterminal");
 }
 
 

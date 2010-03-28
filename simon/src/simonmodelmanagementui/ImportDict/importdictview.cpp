@@ -41,7 +41,7 @@
  * \param parent
  * The parent of the window.
  */
-ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
+ImportDictView::ImportDictView(QWidget* parent) : SimonWizard(parent),
 	workingPage(createImportDictWorkingPage())
 {
 	addPage(createIntroPage());
@@ -58,7 +58,7 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 	addPage(workingPage);
 	addPage(createFinishedPage());
 	setWindowTitle(i18n("Importing Dictionary"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
+	setBanner("importdict");
 }
 
 /**

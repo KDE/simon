@@ -76,6 +76,17 @@ void SimonControl::actOnAutoConnect()
 bool SimonControl::startMinimized()
 { return CoreConfiguration::startMinimized(); }
 
+bool SimonControl::firstRunWizardCompleted()
+{
+	return CoreConfiguration::firstRunWizardCompleted();
+}
+
+void SimonControl::setFirstRunWizardCompleted(bool completed)
+{
+	CoreConfiguration::setFirstRunWizardCompleted(completed);
+	CoreConfiguration::self()->writeConfig();
+}
+
 void SimonControl::loggedIn()
 {
 	SimonInfo::showMessage(i18n("User athenticated"), 1500);

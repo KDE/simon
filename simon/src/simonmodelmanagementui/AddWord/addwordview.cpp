@@ -57,7 +57,7 @@ bool isWordLessThan(Word *w1, Word *w2)
 */
 
 AddWordView::AddWordView(Vocabulary *vocab, QWidget *parent)
-	: QWizard(parent),
+	: SimonWizard(parent),
 	targetVocabulary(vocab),
 	listToAdd(new QList<Word*>()),
 	record1(createRecordPage("wordExample1", 1, 2)),
@@ -73,7 +73,7 @@ AddWordView::AddWordView(Vocabulary *vocab, QWidget *parent)
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 
 	setWindowTitle(i18n("Add Word"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/addword.png")));
+	setBanner("addword");
 }
 
 

@@ -21,13 +21,13 @@
 #ifndef SIMON_IMPORTGRAMMARWIZARD_H_2C23D673098946D19C52441A617CB9B4
 #define SIMON_IMPORTGRAMMARWIZARD_H_2C23D673098946D19C52441A617CB9B4
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 class QWizardPage;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	@author Peter Grasch <grasch@simon-listens.org>
 */
-class ImportGrammarWizard : public QWizard
+class ImportGrammarWizard : public SimonWizard
 {
 Q_OBJECT
 public:

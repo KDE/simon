@@ -38,11 +38,11 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-ImportTrainingDirectory::ImportTrainingDirectory(QWidget* parent) : QWizard(parent),
+ImportTrainingDirectory::ImportTrainingDirectory(QWidget* parent) : SimonWizard(parent),
 	prevId(0)
 {
 	setWindowTitle(i18n("Importing Training Samples"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importfolder.png")));
+	setBanner("importfolder");
 
  	addPage(createIntroPage());
 	addPage(createWorkingPage());

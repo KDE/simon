@@ -18,6 +18,7 @@
  */
 
 #include "simonview.h"
+#include "firstrunwizard.h"
 #include "../version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
@@ -90,15 +91,28 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
-	SimonInfo *info = new SimonInfo();
-
 	//showing splash
+	SimonInfo *info = new SimonInfo();
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
 	info->writeToSplash ( i18n ( "Loading core..." ) );
 	KGlobal::locale()->insertCatalog("simonlib");
 
 	control = (new SimonControl(this));
+
+	if (!control->firstRunWizardCompleted())
+	{
+		KMessageBox::information(this, i18n("Displaying first run wizard"));
+
+		FirstRunWizard *firstRun = new FirstRunWizard(this);
+		bool firstRunWizardCompleted = firstRun->exec();
+		firstRun->deleteLater();
+
+		if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You didn't complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
+			control->setFirstRunWizardCompleted(true);
+	}
+
+
 	trayManager = (new TrayIconManager(this));
 
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
@@ -157,14 +171,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//hiding splash again after loading
 	info->hideSplash();
 	delete info;
-
-	//ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
-	//ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
-
-		//ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
-	//ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	//ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	//ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 
 	if (!control->startMinimized())
 		show();
