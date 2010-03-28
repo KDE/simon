@@ -47,11 +47,23 @@ ModelSettings::ModelSettings(QWidget* parent, const QVariantList &args) : KCModu
 	ui.pbLoadBaseTiedlist->setIcon(KIcon("document-open"));
 	ui.pbLoadBaseMacros->setIcon(KIcon("document-open"));
 	ui.pbLoadBaseStats->setIcon(KIcon("document-open"));
+	ui.pbHelp->setIcon(KIcon("help-about"));
 
 	connect(ui.pbLoadBaseHMM, SIGNAL(clicked()), this, SLOT(loadBaseHMM()));
 	connect(ui.pbLoadBaseTiedlist, SIGNAL(clicked()), this, SLOT(loadBaseTiedlist()));
 	connect(ui.pbLoadBaseMacros, SIGNAL(clicked()), this, SLOT(loadBaseMacros()));
 	connect(ui.pbLoadBaseStats, SIGNAL(clicked()), this, SLOT(loadBaseStats()));
+
+	connect(ui.pbHelp, SIGNAL(clicked()), this, SLOT(displayHelp()));
+}
+
+void ModelSettings::displayHelp()
+{
+	KMessageBox::information(this, i18n("<html><head /><body><p>With simon you can create and manage those models yourself or you can "
+			"simply download and use general models that describe the average speaker of your target language. We call these models \"basemodels\".</p>"
+			"<p>You can find basemodels and more information on "
+			"<a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">our wiki</a>.</p></body></html>"), 
+			QString(), QString(), KMessageBox::Notify|KMessageBox::AllowLink);
 }
 
 void ModelSettings::slotChanged()
