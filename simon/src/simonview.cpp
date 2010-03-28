@@ -122,7 +122,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	this->trainDialog = new TrainingView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
-	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
+	info->writeToSplash ( i18n ( "Loading \"Vocabulary\"..." ) );
 	vocabularyView = new VocabularyView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
@@ -236,8 +236,6 @@ void SimonView::displayAboutPage()
 	welcomePart->setOnlyLocalReferences(false);
 	welcomePart->setStatusMessagesEnabled(false);
 
-	//FIXME: reimplement bool KHTMLPart::urlSelected()
-
 	welcomePart->begin(KUrl::fromPath(location));
 	welcomePart->write(content);
 	welcomePart->end();
@@ -338,7 +336,7 @@ void SimonView::setupActions()
 		this, SLOT(showRunDialog()));
 	
 	KAction* wordlist = new KAction(this);
-	wordlist->setText(i18n("Wordlist"));
+	wordlist->setText(i18n("Vocabulary"));
 	wordlist->setIcon(KIcon("format-justify-fill"));
 	wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
 	actionCollection()->addAction("wordlist", wordlist);
@@ -559,7 +557,7 @@ void SimonView::toggleActivation()
 {
 	if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady)
 	{
-		KMessageBox::error(this, i18n("Couldn't start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a wordlist, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
+		KMessageBox::error(this, i18n("Couldn't start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a vocabulary, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
 		representState(control->getStatus());
 	} else
 		this->control->toggleActivition();

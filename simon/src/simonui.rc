@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="3">
+<gui name="simon" version="4">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connectActivate" />
@@ -21,6 +21,10 @@
 	</ToolBar>
 	
 	<MenuBar>
+		<Menu name="scenarios">
+			<text>Scenarios</text>
+			<Action name="manageScenarios" />
+		</Menu>
 		<Menu name="simond">
 			<text>Recognition</text>
 			<Action name="connect" />
