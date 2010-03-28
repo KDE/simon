@@ -102,8 +102,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
 	if (!control->firstRunWizardCompleted())
 	{
-		KMessageBox::information(this, i18n("Displaying first run wizard"));
-
 		FirstRunWizard *firstRun = new FirstRunWizard(this);
 		bool firstRunWizardCompleted = firstRun->exec();
 		firstRun->deleteLater();
