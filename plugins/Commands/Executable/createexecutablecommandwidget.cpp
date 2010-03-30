@@ -34,6 +34,8 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *man
 	
 	#ifdef Q_OS_WIN32
 	ui.cbImportProgram->hide();
+	ui.cbManual->animateClick();
+	ui.cbManual->hide();
 	#endif
 	
 	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
