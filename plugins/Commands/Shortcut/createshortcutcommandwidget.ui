@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CreateShortcutCommandWidget</class>
- <widget class="QWidget" name="CreateShortcutCommandWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="CreateShortcutCommandWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,51 +10,201 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QFormLayout" name="formLayout" >
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
       <string>Shortcut:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="KKeySequenceWidget" native="1" name="ksShortcut" />
+   <item row="0" column="1">
+    <widget class="KKeySequenceWidget" name="ksShortcut"/>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="lbSpecialShortcut" >
-     <property name="text" >
+   <item row="1" column="0">
+    <widget class="QLabel" name="lbSpecialShortcut">
+     <property name="text">
       <string>Special Shortcut:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KComboBox" name="cbSpecialShortcut" >
+      <widget class="KComboBox" name="cbSpecialShortcut">
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Alt+Tab</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
+         <string>Alt+Shift+Tab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Tab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Shift+Tab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Alt+F4</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Ctrl+Esc</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Ctr+Alt+Del</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+E</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+R</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Shift+Left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Shift+Right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Home</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+T</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+Space</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+G</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+P</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+X</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta++</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+-</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+0</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Meta+9</string>
         </property>
        </item>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbApplySpecialShortcut" >
-       <property name="text" >
+      <widget class="KPushButton" name="pbApplySpecialShortcut">
+       <property name="text">
         <string>Apply</string>
        </property>
       </widget>
@@ -69,14 +220,14 @@
    <header>kkeysequencewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header location="global" >kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
-   <header location="global" >kpushbutton.h</header>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
