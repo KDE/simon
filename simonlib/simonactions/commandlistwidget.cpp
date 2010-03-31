@@ -89,8 +89,6 @@ void CommandListWidget::adaptToVoiceElement(CommandListElements::Element element
 
 	int row = -1;
 
-	kDebug() << "Adapting to voice element: " << element;
-
 	switch (element)
 	{
 		case CommandListElements::Back: row = 0;

@@ -120,6 +120,11 @@
        </item>
        <item>
         <property name="text">
+         <string>Calculation</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Calculation and result</string>
         </property>
        </item>

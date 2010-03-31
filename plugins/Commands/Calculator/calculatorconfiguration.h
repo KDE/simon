@@ -46,11 +46,12 @@ class CalculatorConfiguration : public CommandConfiguration
 
 		enum OutputMode {
 			Result=1,
-			CalculationAndResult=2,
-			FormattedResult=3,
-			FormattedCalculationAndResult=4,
-			FormattedMoneyResult=5,
-			FormattedMoneyCalculationAndResult=6
+			Calculation=2,
+			CalculationAndResult=3,
+			FormattedResult=4,
+			FormattedCalculationAndResult=5,
+			FormattedMoneyResult=6,
+			FormattedMoneyCalculationAndResult=7
 		};
 
 		enum ControlMode {

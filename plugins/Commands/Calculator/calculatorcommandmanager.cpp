@@ -146,20 +146,23 @@ bool CalculatorCommandManager::installInterfaceCommands()
 	succ &= installListInterfaceCommand(CommandListElements::One, this, "printResult", "printResult", 
 			i18n("In the output selection popup, selects printing the result"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
-	succ &= installListInterfaceCommand(CommandListElements::Two, this, "printCalculationAndResult", 
+	succ &= installListInterfaceCommand(CommandListElements::Two, this, "printCalculation", "printCalculation", 
+			i18n("In the output selection popup, selects printing the calculation"), 
+			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
+	succ &= installListInterfaceCommand(CommandListElements::Three, this, "printCalculationAndResult", 
 			"printCalculationAndResult", i18n("In the output selection popup, selects printing the calculation and result"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
-	succ &= installListInterfaceCommand(CommandListElements::Three, this, "printFormattedResult", "printFormattedResult",
+	succ &= installListInterfaceCommand(CommandListElements::Four, this, "printFormattedResult", "printFormattedResult",
 			i18n("In the output selection popup, selects printing the formatted result"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
 
-	succ &= installListInterfaceCommand(CommandListElements::Four, this, "printFormattedCalculationAndResult", "printFormattedCalculationAndResult",
+	succ &= installListInterfaceCommand(CommandListElements::Five, this, "printFormattedCalculationAndResult", "printFormattedCalculationAndResult",
 			i18n("In the output selection popup, selects printing the formatted calculation and result"),
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
-	succ &= installListInterfaceCommand(CommandListElements::Five, this, "printFormattedMoneyResult", "printFormattedMoneyResult",
+	succ &= installListInterfaceCommand(CommandListElements::Six, this, "printFormattedMoneyResult", "printFormattedMoneyResult",
 			i18n("In the output selection popup, selects printing the result formatted as money"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
-	succ &= installListInterfaceCommand(CommandListElements::Six, this, "printFormattedMoneyCalculationAndResult", 
+	succ &= installListInterfaceCommand(CommandListElements::Seven, this, "printFormattedMoneyCalculationAndResult", 
 			"printFormattedMoneyCalculationAndResult",
 			i18n("In the output selection popup, selects printing the calculation and result formatted as money"), 
 			SimonCommand::GreedyState+1, SimonCommand::DefaultState);
@@ -224,8 +227,9 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 //	ui.pbPercent->hide();
 
 	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next" <<
-			"go-next" << "go-next", 
+			"go-next" << "go-next" << "go-next", 
 			QStringList() << i18n("Result") << 
+			i18n("Calculation") << 
 			i18n("Calculation & result") << 
 			i18n("Formatted result") <<
 			i18n("Formatted calculation and result") <<
@@ -242,11 +246,12 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 void CalculatorCommandManager::showSelectionBox()
 {
 	commandListWidget->adaptToVoiceElement(CommandListElements::One, getVoiceInterfaceCommand("printResult"));
-	commandListWidget->adaptToVoiceElement(CommandListElements::Two, getVoiceInterfaceCommand("printCalculationAndResult"));
-	commandListWidget->adaptToVoiceElement(CommandListElements::Three, getVoiceInterfaceCommand("printFormattedResult"));
-	commandListWidget->adaptToVoiceElement(CommandListElements::Four, getVoiceInterfaceCommand("printFormattedCalculationAndResult"));
-	commandListWidget->adaptToVoiceElement(CommandListElements::Five, getVoiceInterfaceCommand("printFormattedMoneyResult"));
-	commandListWidget->adaptToVoiceElement(CommandListElements::Six, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Two, getVoiceInterfaceCommand("printCalculation"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Three, getVoiceInterfaceCommand("printCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Four, getVoiceInterfaceCommand("printFormattedResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Five, getVoiceInterfaceCommand("printFormattedCalculationAndResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Six, getVoiceInterfaceCommand("printFormattedMoneyResult"));
+	commandListWidget->adaptToVoiceElement(CommandListElements::Seven, getVoiceInterfaceCommand("printFormattedMoneyCalculationAndResult"));
 	commandListWidget->adaptToVoiceElement(CommandListElements::Cancel, getVoiceInterfaceCommand("printCancel"));
 
 	commandListWidget->show();
@@ -274,6 +279,11 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 	switch (index) {
 		case CalculatorConfiguration::Result:
 			output = toString(currentResult);
+			break;
+		case CalculatorConfiguration::Calculation:
+			output = ui.leNumber->text();
+			if (output.contains("="))
+				output = output.left(output.indexOf("="));
 			break;
 		case CalculatorConfiguration::CalculationAndResult:
 			output = ui.leNumber->text();
