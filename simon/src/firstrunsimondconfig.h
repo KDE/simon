@@ -22,10 +22,14 @@
 #define SIMON_FIRSTRUNSIMONDCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 
 #include <QWizardPage>
+#include "ui_firstrunsimondconfig.h"
 
 class FirstRunSimondConfig : public QWizardPage
 {
 	Q_OBJECT
+
+private:
+	Ui::SimondConfigDlg ui;
 
 public:
 	explicit FirstRunSimondConfig(QWidget *parent = 0);

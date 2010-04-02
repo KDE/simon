@@ -18,6 +18,9 @@
  */
 
 #include "firstrunwizard.h"
+#include "firstrunsimondconfig.h"
+#include "firstrunscenariosconfig.h"
+#include "firstrunbasemodelconfig.h"
 #include <QWizardPage>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -27,7 +30,9 @@ FirstRunWizard::FirstRunWizard(QWidget* parent, Qt::WFlags flags)
 		: SimonWizard(parent, flags)
 {
 	addPage(createIntroPage());
-//	addPage(createSimondConfigPage());
+	addPage(createScenariosConfigPage());
+	addPage(createBaseModelConfigPage());
+	addPage(createSimondConfigPage());
 	addPage(createFinishedPage());
 	setBanner("firstrun");
 }
@@ -51,7 +56,18 @@ QWizardPage* FirstRunWizard::createIntroPage()
 
 QWizardPage* FirstRunWizard::createSimondConfigPage()
 {
+	return new FirstRunSimondConfig(this);
+}
 
+
+QWizardPage* FirstRunWizard::createBaseModelConfigPage()
+{
+	return new FirstRunBaseModelConfig(this);
+}
+
+QWizardPage* FirstRunWizard::createScenariosConfigPage()
+{
+	return new FirstRunScenariosConfig(this);
 }
 
 QWizardPage* FirstRunWizard::createFinishedPage()
@@ -68,7 +84,6 @@ QWizardPage* FirstRunWizard::createFinishedPage()
 
 	return finish;
 }
-
 
 FirstRunWizard::~FirstRunWizard()
 {

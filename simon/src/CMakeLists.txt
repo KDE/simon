@@ -23,6 +23,8 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunwizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 

@@ -17,18 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "firstrunsimondconfig.h"
-#include <KLocalizedString>
 
-FirstRunSimondConfig::FirstRunSimondConfig(QWidget* parent)
-		: QWizardPage(parent)
+#ifndef SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
+#define SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
+
+#include <QWizardPage>
+#include "ui_firstrunbasemodelconfig.h"
+
+class FirstRunBaseModelConfig : public QWizardPage
 {
-	ui.setupUi(this);
-	setTitle(i18n("Server"));
-}
+	Q_OBJECT
+
+private:
+	Ui::BaseModelConfigDlg ui;
+
+public:
+	explicit FirstRunBaseModelConfig(QWidget *parent = 0);
+
+	~FirstRunBaseModelConfig();
+
+};
+
+#endif
 
 
-FirstRunSimondConfig::~FirstRunSimondConfig()
-{
-}
 

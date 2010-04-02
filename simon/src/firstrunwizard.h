@@ -32,6 +32,8 @@ Q_OBJECT
 private:
 	QWizardPage* createIntroPage();
 	QWizardPage* createSimondConfigPage();
+	QWizardPage* createBaseModelConfigPage();
+	QWizardPage* createScenariosConfigPage();
 	QWizardPage* createFinishedPage();
 
 public:
