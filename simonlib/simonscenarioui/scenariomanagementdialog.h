@@ -63,7 +63,6 @@ private slots:
 	void importScenario();
 	void exportScenarioFile();
 	void exportScenarioGHNS();
-	void getNewScenarios();
 	void deleteScenario();
 
 	void updateLastSelectedIndex(const QModelIndex&);
@@ -77,6 +76,8 @@ public slots:
 	bool updateScenarioConfiguration();
 
 public:
+	bool getNewScenarios();
+	void init();
 	explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
 	QStringList getSelectedScenarioIds();
 

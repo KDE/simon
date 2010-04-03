@@ -48,8 +48,9 @@ QWizardPage* FirstRunWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Welcome to simon"));
+	desc->setOpenExternalLinks(true);
 	desc->setText(i18n("<html><head /><body><p>This assistant will guide you through some key settings that will help you to get simon up and running.</p>"
-"<p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too. You can find an option to display the wizard on the next start in the simon configuration window.</p></body></html>"));
+"<p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too. You can find an option to display the wizard on the next start in the simon configuration window.</p><p>You can find some beginners instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"));
 
 	return intro;
 }

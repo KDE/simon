@@ -31,6 +31,9 @@ class FirstRunBaseModelConfig : public QWizardPage
 private:
 	Ui::BaseModelConfigDlg ui;
 
+private slots:
+	void configureBaseModel();
+
 public:
 	explicit FirstRunBaseModelConfig(QWidget *parent = 0);
 

@@ -31,8 +31,14 @@ class FirstRunSimondConfig : public QWizardPage
 private:
 	Ui::SimondConfigDlg ui;
 
+
+private slots:
+	void setLocalInstallation();
+
 public:
 	explicit FirstRunSimondConfig(QWidget *parent = 0);
+	bool validatePage();
+	void initializePage();
 
 	~FirstRunSimondConfig();
 

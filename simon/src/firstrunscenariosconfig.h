@@ -31,6 +31,9 @@ class FirstRunScenariosConfig : public QWizardPage
 private:
 	Ui::ScenariosConfigDlg ui;
 
+private slots:
+	void getScenarios();
+
 public:
 	explicit FirstRunScenariosConfig(QWidget *parent = 0);
 

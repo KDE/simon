@@ -27,7 +27,17 @@ If you don't know what this means, you can leave this page on the default values
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="radioButton">
+    <widget class="QCheckBox" name="cbConnectAutomatically">
+     <property name="text">
+      <string>Connect automatically when simon starts</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbLocalInstallation">
      <property name="text">
       <string>Local installation (Default)</string>
      </property>
@@ -91,7 +101,7 @@ If you don't know what this means, you can leave this page on the default values
     </layout>
    </item>
    <item>
-    <widget class="QRadioButton" name="radioButton_2">
+    <widget class="QRadioButton" name="rbRemoteInstallation">
      <property name="text">
       <string>Use central server on the network</string>
      </property>
@@ -126,7 +136,7 @@ If you don't know what this means, you can leave this page on the default values
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="leServer">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -152,7 +162,7 @@ If you don't know what this means, you can leave this page on the default values
  <resources/>
  <connections>
   <connection>
-   <sender>radioButton_2</sender>
+   <sender>rbRemoteInstallation</sender>
    <signal>toggled(bool)</signal>
    <receiver>label_2</receiver>
    <slot>setEnabled(bool)</slot>
@@ -168,9 +178,9 @@ If you don't know what this means, you can leave this page on the default values
    </hints>
   </connection>
   <connection>
-   <sender>radioButton_2</sender>
+   <sender>rbRemoteInstallation</sender>
    <signal>toggled(bool)</signal>
-   <receiver>lineEdit</receiver>
+   <receiver>leServer</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -184,7 +194,7 @@ If you don't know what this means, you can leave this page on the default values
    </hints>
   </connection>
   <connection>
-   <sender>radioButton</sender>
+   <sender>rbLocalInstallation</sender>
    <signal>toggled(bool)</signal>
    <receiver>label</receiver>
    <slot>setEnabled(bool)</slot>
@@ -200,7 +210,23 @@ If you don't know what this means, you can leave this page on the default values
    </hints>
   </connection>
   <connection>
-   <sender>radioButton</sender>
+   <sender>rbLocalInstallation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbStopSimond</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>303</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbLocalInstallation</sender>
    <signal>toggled(bool)</signal>
    <receiver>cbStartSimond</receiver>
    <slot>setEnabled(bool)</slot>
@@ -216,18 +242,66 @@ If you don't know what this means, you can leave this page on the default values
    </hints>
   </connection>
   <connection>
-   <sender>radioButton</sender>
+   <sender>cbStartSimond</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbStopSimond</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>373</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>373</x>
+     <y>177</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbStartSimond</sender>
    <signal>toggled(bool)</signal>
    <receiver>cbStopSimond</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>90</y>
+     <x>58</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
-     <x>303</x>
-     <y>172</y>
+     <x>58</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbLocalInstallation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbStartSimond</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>39</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbLocalInstallation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbStopSimond</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>174</y>
     </hint>
    </hints>
   </connection>

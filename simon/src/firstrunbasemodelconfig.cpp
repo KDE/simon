@@ -19,14 +19,23 @@
 
 #include "firstrunbasemodelconfig.h"
 #include <KLocalizedString>
+#include <KCMultiDialog>
 
 FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
 		: QWizardPage(parent)
 {
 	ui.setupUi(this);
 	setTitle(i18n("Base model"));
+	connect(ui.pbConfigureBaseModel, SIGNAL(clicked()), this, SLOT(configureBaseModel()));
 }
 
+void FirstRunBaseModelConfig::configureBaseModel()
+{
+	KCMultiDialog *configDialog = new KCMultiDialog(this);
+	configDialog->addModule("simonmodelconfig", QStringList() << "");
+	configDialog->exec();
+	delete configDialog;
+}
 
 FirstRunBaseModelConfig::~FirstRunBaseModelConfig()
 {
