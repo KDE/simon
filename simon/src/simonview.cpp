@@ -164,7 +164,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	setupSignalSlots();
 
 
-	control->actOnAutoConnect();
+	control->startup();
 
 	//hiding splash again after loading
 	info->hideSplash();

@@ -29,6 +29,7 @@
 
 class QSslSocket;
 class QTimer;
+class QProcess;
 class ModelManagerUiProxy;
 class Operation;
 
@@ -75,6 +76,7 @@ public:
 
 private:
 	static RecognitionControl *instance;
+	QProcess *localSimond;
 	AdinStreamer *adinStreamer;
 	QMutex messageLocker;
 	QByteArray stillToProcess;
@@ -128,7 +130,7 @@ signals:
 
 	
 public slots:
-	void actOnAutoConnect();
+	void startup();
 
 	void disconnectFromServer();
 	void startConnecting();
@@ -145,6 +147,7 @@ public slots:
 	
 
 private slots:
+	void actOnAutoConnect();
 	void slotDisconnected();
 	void sendRequest (qint32 request);
 	void login();

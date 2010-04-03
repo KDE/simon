@@ -68,9 +68,9 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	if (!ScenarioManager::getInstance()->init())
 		KMessageBox::error(0, i18n("Couldn't initialize scenarios and shadow dictionary."));
 }
-void SimonControl::actOnAutoConnect()
+void SimonControl::startup()
 {
-	recognitionControl->actOnAutoConnect();
+	recognitionControl->startup();
 }
 
 bool SimonControl::startMinimized()
@@ -176,7 +176,6 @@ void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
 	if (status != SimonControl::ConnectedActivated) return;
 
 	kDebug() << "Received recognition results...";
-	//ScenarioManager::getInstance()->processRawResults(recognitionResults);
 	ActionManager::getInstance()->processRawResults(recognitionResults);
 }
 
