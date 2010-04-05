@@ -20,7 +20,6 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/soundcontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
 )
@@ -29,7 +28,6 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
-	${CMAKE_CURRENT_SOURCE_DIR}/soundcontrol.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -46,9 +44,11 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if (${USE_WITH_SIMON})
 	message(STATUS "Use with simon aktiviert")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+	${QT_QTMULTIMEDI_LIBRARY} 
 		${KDE4_KDEUI_LIBS} adinstreamer)
 elseif  (${USE_WITH_SIMON})
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+	${QT_QTMULTIMEDI_LIBRARY} 
 		${KDE4_KDEUI_LIBS} )
 endif (${USE_WITH_SIMON})
 

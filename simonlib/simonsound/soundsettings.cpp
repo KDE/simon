@@ -19,8 +19,6 @@
 
 
 #include "soundsettings.h"
-#include "soundcontrol.h"
-
 #include "soundconfig.h"
 
 #ifdef USE_WITH_SIMON
@@ -51,7 +49,6 @@ K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
  */
 SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 		KCModule(KGlobal::mainComponent(), parent),
-	sc(new SoundControl()),
 	enabled(true)
 {
 	Q_UNUSED(args);
@@ -115,7 +112,6 @@ void SoundSettings::checkWithSuccessMessage()
 
 /**
  * \author Peter Grasch
- * \brief Asks the SoundControl for the needed infos and inserts the data in the comboboxes
  * \return success
  */
 void SoundSettings::load()
@@ -125,47 +121,39 @@ void SoundSettings::load()
 	AdinStreamer::getInstance()->stopSoundStream();
 #endif
 #endif
-
 	deviceUi.cbSoundInputDevice->clear();
 	deviceUi.cbSoundOutputDevice->clear();
 
-	SoundDeviceList *in = sc->getInputDevices();
-
-	deviceUi.cbSoundInputDevice->clear();
-	for ( int i=0; i<in->count(); i++ )
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
 	{
-		int deviceid= in->at(i).getDeviceID();
-		deviceUi.cbSoundInputDevice->addItem (in->at(i).getName(),deviceid );
+		kDebug() << "Input device name: " << deviceInfo.deviceName();
+		deviceUi.cbSoundInputDevice->addItem(deviceInfo.getName());
 	}
-	int paInputDevice = SoundConfiguration::soundInputDevice();
-	int inputDevice = deviceUi.cbSoundInputDevice->findData(paInputDevice);
-
-	SoundDeviceList *out = sc->getOutputDevices();
-	deviceUi.cbSoundOutputDevice->clear();
-	for ( int i=0; i<out->count(); i++ )
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
 	{
-		int deviceid= out->at (i).getDeviceID();
-		deviceUi.cbSoundOutputDevice->addItem (out->at(i).getName(),deviceid );
+		kDebug() << "Output device name: " << deviceInfo.deviceName();
+		deviceUi.cbSoundOutputDevice->addItem(deviceInfo.getName());
 	}
-	int paOutputDevice = SoundConfiguration::soundOutputDevice();
-	int outputDevice = deviceUi.cbSoundOutputDevice->findData(paOutputDevice);
 
+	//select
+	QString configuredInputDevice = SoundConfiguration::soundInputDevice();
+	QString configuredOutputDevice = SoundConfiguration::soundOutputDevice();
 
-#ifdef Q_OS_UNIX
+	deviceUi.cbSoundInputDevice->setCurrentIndex(deviceUi.cbSoundInputDevice->findText(configuredInputDevice));
+	deviceUi.cbSoundOutputDevice->setCurrentIndex(deviceUi.cbSoundOutputDevice->findText(configuredOutputDevice));
+
 	bool hasChanged=false;
-
-	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
-	KConfigGroup group(config, "Devices");
-	QString inputALSAName = group.readEntry("SoundInputDeviceALSAName", "");
-	QString outputALSAName = group.readEntry("SoundOutputDeviceALSAName", "");
-
-	if ( ((!inputALSAName.isEmpty()) && (inputALSAName != sc->idToALSAName(paInputDevice))) ||
-		((!outputALSAName.isEmpty()) && (outputALSAName != sc->idToALSAName(paOutputDevice))) )
+	if ((deviceUi.cbSoundOutputDevice->currentText() != configuredOutputDevice) ||
+		(deviceUi.cbSoundInputDevice->currentText() != configuredInputDevice))
 	{
-		if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that not all of the sound devices you selected to use previously are available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that uses an ALSA device directly.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your soundconfiguration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.")) == KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that not all of the sound devices you selected to use previously are available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that blocks the device.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your sound configuration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.")) == KMessageBox::Yes)
 		{
-			inputDevice = deviceUi.cbSoundInputDevice->findData(SoundControl::getDefaultInputDevice());
-			outputDevice = deviceUi.cbSoundOutputDevice->findData(SoundControl::getDefaultOutputDevice());
+			deviceUi.cbSoundInputDevice->setCurrentIndex(
+					deviceUi.cbSoundInputDevice->findText(
+						QAudioDeviceInfo::defaultInputDevice().deviceName()));
+			deviceUi.cbSoundOutputDevice->setCurrentIndex(
+					deviceUi.cbSoundOutputDevice->findText(
+						QAudioDeviceInfo::defaultOutputDevice().deviceName()));
 			hasChanged=true;
 			KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
 			enable();
@@ -173,19 +161,12 @@ void SoundSettings::load()
 
 	} else enable();
 
-#endif
-
-	deviceUi.cbSoundInputDevice->setCurrentIndex(inputDevice);
-	deviceUi.cbSoundOutputDevice->setCurrentIndex(outputDevice);
-
 	KCModule::load();
 
-#ifdef Q_OS_UNIX
 	if (hasChanged) emit changed(true);
 	
 #ifdef USE_WITH_SIMON
 	AdinStreamer::getInstance()->restartSoundStream();
-#endif
 #endif
 }
 
@@ -228,12 +209,34 @@ void SoundSettings::disable()
 
 bool SoundSettings::check()
 {
-	int inputDevice = getSelectedInputDeviceId();
-	int outputDevice = getSelectedOutputDeviceId();
+	QString inputDevice = getSelectedInputDeviceId();
+	QString outputDevice = getSelectedOutputDeviceId();
 	int channels = deviceUi.kcfg_SoundChannels->value();
 	int samplerate = deviceUi.kcfg_SoundSampleRate->value();
 
-	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
+	bool ok = true;
+	QAudioFormat format;
+	format.setFrequency(samplerate);
+	format.setChannels(channels);
+	//FIXME: maybe more detailed?
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+	{
+		if (deviceInfo.deviceName() == inputDevice)
+		{
+			deviceInfo.isFormatSupported(format);
+			ok = false;
+			break;
+		}
+	}
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+	{
+		if (deviceInfo.deviceName() == outputDevice)
+		{
+			deviceInfo.isFormatSupported(format);
+			ok = false;
+			break;
+		}
+	}
 
 	if (!ok)
 		KMessageBox::error(this, i18n("The selected sound configuration is not supported by your hardware.\n\nPlease double-check your configuration and, if necessairy, please contact your vendor."));
@@ -241,14 +244,14 @@ bool SoundSettings::check()
 	return ok;
 }
 
-int SoundSettings::getSelectedInputDeviceId()
+QString SoundSettings::getSelectedInputDeviceId()
 {
-	return deviceUi.cbSoundInputDevice->itemData(deviceUi.cbSoundInputDevice->currentIndex()).toInt();
+	return deviceUi.cbSoundInputDevice->currentText();
 }
 
-int SoundSettings::getSelectedOutputDeviceId()
+QString SoundSettings::getSelectedOutputDeviceId()
 {
-	return deviceUi.cbSoundOutputDevice->itemData(deviceUi.cbSoundOutputDevice->currentIndex()).toInt();
+	return deviceUi.cbSoundOutputDevice->currentText();
 }
 
 void SoundSettings::save()
@@ -275,10 +278,6 @@ void SoundSettings::save()
 	KConfigGroup group(config, "Devices");
 	group.writeEntry("SoundInputDevice", getSelectedInputDeviceId());
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
-#ifdef Q_OS_LINUX
-	group.writeEntry("SoundInputDeviceALSAName", sc->idToALSAName(getSelectedInputDeviceId()));
-	group.writeEntry("SoundOutputDeviceALSAName", sc->idToALSAName(getSelectedOutputDeviceId()));
-#endif
 	config->sync();
 
 #ifdef USE_WITH_SIMON

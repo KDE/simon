@@ -21,7 +21,6 @@
 #ifndef SIMON_SOUNDSETTINGS_H_D0C3C07429B04F65935956A32C796D79
 #define SIMON_SOUNDSETTINGS_H_D0C3C07429B04F65935956A32C796D79
 
-#include "sounddevice.h"
 #include "ui_deviceconfiguration.h"
 #include "ui_postprocessing.h"
 #include "ui_prompt.h"
@@ -31,7 +30,6 @@
 #include <QFont>
 #include "simonsound_export.h"
 
-class SoundControl;
 class SimonSpinBox;
 class QComboBox;
 class KEditListBox;
@@ -57,9 +55,8 @@ private:
 	Ui::PostProcessing postProcUi;
 	Ui::Prompt promptUi;
 
-	SoundControl *sc;
-	int getSelectedInputDeviceId();
-	int getSelectedOutputDeviceId();
+	QString getSelectedInputDeviceId();
+	QString getSelectedOutputDeviceId();
 
 	bool enabled;
 
