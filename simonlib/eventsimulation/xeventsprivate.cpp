@@ -150,6 +150,7 @@ void XEventsPrivate::sendKeySymString(const QString& keysymString)
 void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 {
 	if (!display) return;
+
 	KeyCode keyCode;
 	
 	switch (key)
@@ -244,29 +245,32 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 		/* END DEADKEYS */
 	}
 	
-	keyCode = XKeysymToKeycode(display, key);
+	unsigned int generalizedKey = generalizeKey(key);
+	keyCode = XKeysymToKeycode(display, generalizedKey);
 	
 	if (keyCode)
 	{
 		int syms;
 		KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyCode, 1, &syms);
 		if (!keyToSendShifted) return;
-		KeySym shiftSym = keyToSendShifted[1]; //XKeycodeToKeysym(display, keyCode, 1);
+		KeySym shiftSym = generalizeKey(keyToSendShifted[1]); //XKeycodeToKeysym(display, keyCode, 1);
 		KeySym altGrSym = 0;
 		KeySym altGrShiftSym = 0;
 		if (syms >= 4)
-			altGrSym = keyToSendShifted[4];
+			altGrSym = generalizeKey(keyToSendShifted[4]);
 		if (syms >= 5)
-			altGrShiftSym = keyToSendShifted[5];
+			altGrShiftSym = generalizeKey(keyToSendShifted[5]);
+		//kDebug() << "Key: " << key << "shift: " << shiftSym  << "generalized shift: " << generalizeKey(shiftSym) 
+		//	<< "altGr:" << altGrSym << "altGrShift: " << altGrShiftSym;
 		
 		XFree(keyToSendShifted);
-		
+
 		if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
 		{
-			setModifierKey(Qt::SHIFT);
+			setModifierKey(Qt::SHIFT, false);
 		}
 		if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08)) {
-			setModifierKey(Qt::Key_AltGr);
+			setModifierKey(Qt::Key_AltGr, false);
 		}
 		
 		pressKeyCode(keyCode);
@@ -294,6 +298,65 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 		
 		XFlush ( display );
 	}
+}
+
+unsigned int XEventsPrivate::generalizeKeyCore(unsigned int key /*unicode representation*/)
+{
+	//upper case greek letters
+	switch (key)
+	{
+		case 1985:
+			return 913;
+		case 1986:
+			return 914;
+		case 2008:
+			return 936;
+		case 1988:
+			return 916;
+		case 1989:
+			return 917;
+		case 2006:
+			return 934;
+		case 1987:
+			return 915;
+		case 1991:
+			return 919;
+		case 1993:
+			return 921;
+		case 1998:
+			return 926;
+		case 1994:
+			return 922;
+		case 1995:
+			return 923;
+		case 1996:
+			return 924;
+		case 1997:
+			return 925;
+		case 1999:
+			return 927;
+		case 2000:
+			return 928;
+		case 2001:
+			return 929;
+		case 2002:
+			return 931;
+		case 2004:
+			return 932;
+		case 1992:
+			return 920;
+		case 2009:
+			return 937;
+		case 2007:
+			return 935;
+		case 1990:
+			return 918;
+		case 2005:
+			return 933;
+	
+	}
+
+	return key;
 }
 
 void XEventsPrivate::pressKey(const KeySym& key)
@@ -343,6 +406,13 @@ void XEventsPrivate::setModifierKey(int virtualKey)
 	}
 	
 	XFlush ( display );
+}
+
+void XEventsPrivate::setModifierKey(int virtualKey, bool once)
+{
+	//just to comply with the coreevents template
+	Q_UNUSED(once);
+	setModifierKey(virtualKey);
 }
 
 /**

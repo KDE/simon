@@ -46,6 +46,12 @@ public:
 	void sendKeyPrivate(unsigned int key);
 	void setModifierKey(int virtualKey, bool once);
 	void unsetModifier(int virtualKey);
+
+	unsigned int generalizeKeyCore(unsigned int key /*unicode representation*/)
+	{
+		return key;
+	}
+
 	XEvents(char* displayName=":0.0");
 	~XEvents();
 

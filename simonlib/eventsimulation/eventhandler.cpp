@@ -47,7 +47,7 @@ EventHandler* EventHandler::instance;
  */
 EventHandler::EventHandler()
 #ifdef Q_OS_UNIX
-	: coreEvents(new XEvents())
+	: coreEvents((CoreEvents*) new XEvents())
 #else
 #ifdef Q_OS_WIN
 	: coreEvents( (CoreEvents*) new WindowsEvents())
@@ -122,6 +122,7 @@ void EventHandler::sendKey(const QChar& key) const
 {
 	unsigned int c;
 	c = key.unicode();
+
 	coreEvents->sendKey(c);
 }
 
@@ -140,3 +141,4 @@ EventHandler::~EventHandler()
 {
     delete coreEvents;
 }
+

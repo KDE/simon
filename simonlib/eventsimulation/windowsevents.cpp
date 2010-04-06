@@ -215,6 +215,7 @@ void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
 {
 	int modifiers=0;
 	BYTE virtualKey=0;
+	key = generalizeKey(key);
 	switch (key)
 	{
 		case 8364 /* Euro */:
