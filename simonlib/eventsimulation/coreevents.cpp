@@ -418,9 +418,6 @@ CoreEvents::CoreEvents()
 
 
 
-
-
-
 	// ęųįǫą
 	deadKeys.insert(281, new DeadKey(808 /* ogonek */, 'e'));
 	deadKeys.insert(371, new DeadKey(808 /* ogonek */, 'u'));
@@ -437,6 +434,27 @@ CoreEvents::CoreEvents()
 	deadKeys.insert(302, new DeadKey(808 /* ogonek */, 'I'));
 	deadKeys.insert(490, new DeadKey(808 /* ogonek */, 'O'));
 	deadKeys.insert(260, new DeadKey(808 /* ogonek */, 'A'));
+
+
+	//           ά έ ή ί ό ύ ώ
+	// Base key: α ε η ι ο υ ω
+	deadKeys.insert(940, new DeadKey(180, 945));
+	deadKeys.insert(941, new DeadKey(180, 949));
+	deadKeys.insert(942, new DeadKey(180, 951));
+	deadKeys.insert(943, new DeadKey(180, 953));
+	deadKeys.insert(972, new DeadKey(180, 959));
+	deadKeys.insert(973, new DeadKey(180, 969));
+	deadKeys.insert(974, new DeadKey(180, 969));
+
+
+	// Ά Έ Ή Ί Ό Ύ Ώ 
+	deadKeys.insert(902, new DeadKey(180, 913));
+	deadKeys.insert(904, new DeadKey(180, 917));
+	deadKeys.insert(905, new DeadKey(180, 919));
+	deadKeys.insert(906, new DeadKey(180, 921));
+	deadKeys.insert(908, new DeadKey(180, 927));
+	deadKeys.insert(910, new DeadKey(180, 933));
+	deadKeys.insert(911, new DeadKey(180, 937));
 }
 
 
@@ -626,3 +644,7 @@ void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 	unsetUnneededModifiers();
 }
 
+CoreEvents::~CoreEvents()
+{
+	qDeleteAll(deadKeys.values());
+}
