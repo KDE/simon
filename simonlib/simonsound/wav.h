@@ -38,9 +38,9 @@
  *	
  *	@todo We use a single buffer that we resize every time; If it gets too large to handle we get "skippy" recordings
  */
-class WAV{
+class WAV : public QBuffer {
 private:
-	QBuffer wavData;
+//	QBuffer wavData;
 	unsigned long length; //!< this is needed as there seems to be no way to determine the length of an array
 	int samplerate; //!< the samplerate of the file
 	int channels;
@@ -52,21 +52,27 @@ private:
 	void importDataFromFile(QString filename);
 	int retrieveSampleRate();
 	int retrieveChannels();
+
+protected:
+	virtual qint64 writeData ( const char * data, qint64 maxSize );
 	
 public:
     explicit WAV(QString filename,int channels=0, int samplerate=0);
 
 	bool beginAddSequence() {
-		return wavData.open(QIODevice::WriteOnly|QIODevice::Append);
+		//return wavData.open(QIODevice::WriteOnly|QIODevice::Append);
+		return open(QIODevice::WriteOnly|QIODevice::Append);
 	}
 
 	bool endAddSequence() {
-		if (wavData.isOpen()) wavData.close();
+		if (isOpen())
+			close();
+		//if (wavData.isOpen()) wavData.close();
 		return true;
 	}
+	void addData(short* data, int length);
 
 	short* getRawData(unsigned long& length);
-    void addData(short* data, int length);
 	int getLength() { return length; }
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }

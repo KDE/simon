@@ -121,7 +121,8 @@ bool WavPlayer::play( QString filename )
 
 	int channels = wav->getChannels();
 	int sampleRate = wav->getSampleRate();
-	outputParameters.device = SoundConfiguration::soundOutputDevice();
+	//FIXME
+	outputParameters.device = 0; //SoundConfiguration::soundOutputDevice();
 
 	outputParameters.channelCount = channels;
 	outputParameters.sampleFormat = paFloat32;

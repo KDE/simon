@@ -36,18 +36,18 @@
 
 #include <QObject>
 #include <QTimer>
-#include "portaudio.h"
 
 class WAV;
+class QAudioInput;
 
 class WavRecorder : public QObject {
 	Q_OBJECT
 private:
-	PaStream* stream;
+	QAudioInput *input;
 	WAV *wavData;
 	int chans/*, samplerate*/;
-	long startTime;
 	QTimer timeWatcher;
+	int timeCounter;
 
 signals:
 	void currentProgress(int msecs, float level);

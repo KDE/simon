@@ -127,12 +127,12 @@ void SoundSettings::load()
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
 	{
 		kDebug() << "Input device name: " << deviceInfo.deviceName();
-		deviceUi.cbSoundInputDevice->addItem(deviceInfo.getName());
+		deviceUi.cbSoundInputDevice->addItem(deviceInfo.deviceName());
 	}
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
 	{
 		kDebug() << "Output device name: " << deviceInfo.deviceName();
-		deviceUi.cbSoundOutputDevice->addItem(deviceInfo.getName());
+		deviceUi.cbSoundOutputDevice->addItem(deviceInfo.deviceName());
 	}
 
 	//select
@@ -218,25 +218,27 @@ bool SoundSettings::check()
 	QAudioFormat format;
 	format.setFrequency(samplerate);
 	format.setChannels(channels);
-	//FIXME: maybe more detailed?
+	format.setSampleSize(16); // 16 bit
+	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
+	format.setByteOrder(QAudioFormat::LittleEndian);
+	format.setCodec("audio/pcm");
+
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
 	{
-		if (deviceInfo.deviceName() == inputDevice)
+		if ((deviceInfo.deviceName() == inputDevice) ||
+			(deviceInfo.deviceName() == outputDevice))
 		{
-			deviceInfo.isFormatSupported(format);
-			ok = false;
-			break;
+			if (!deviceInfo.isFormatSupported(format))
+			{
+				ok = false;
+				break;
+			}
 		}
 	}
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-	{
-		if (deviceInfo.deviceName() == outputDevice)
-		{
-			deviceInfo.isFormatSupported(format);
-			ok = false;
-			break;
-		}
-	}
+	/*
+	 *     qWarning()<<"default format not supported try to use nearest";
+	 *            format = info.nearestFormat(format
+	 * */
 
 	if (!ok)
 		KMessageBox::error(this, i18n("The selected sound configuration is not supported by your hardware.\n\nPlease double-check your configuration and, if necessairy, please contact your vendor."));
@@ -297,7 +299,6 @@ void SoundSettings::slotChanged()
  */
 SoundSettings::~SoundSettings()
 {
-	if (sc) delete sc;
 }
 
 

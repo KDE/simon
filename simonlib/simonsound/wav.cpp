@@ -71,9 +71,13 @@ short* WAV::getRawData(unsigned long& length)
 {
 	length = this->length / sizeof(short);
 
-	wavData.open(QIODevice::ReadOnly);
-	char *tempData = wavData.buffer().data();
-	wavData.close();
+	open(QIODevice::ReadOnly);
+	char *tempData = buffer().data();
+	close();
+
+	//wavData.open(QIODevice::ReadOnly);
+	//char *tempData = wavData.buffer().data();
+	//wavData.close();
 
 	return (short*) tempData;
 }
@@ -107,6 +111,30 @@ void WAV::importDataFromFile(QString filename)
 	this->beginAddSequence();
 	this->addData(out, length / sizeof(short));
 	this->endAddSequence();
+}
+
+/**
+ *	@brief Adds the array of data to the main waveData (member)
+ *
+ *	@author Peter Grasch
+ *	@param short* data
+ *	the data to add
+ *	@param int length
+ *	the length of the provided array
+ */
+void WAV::addData(short* data, int length)
+{
+	length = (length*sizeof(short)) / sizeof(char);
+	write((char*) data, length);
+}
+
+
+
+qint64 WAV::writeData ( const char * data, qint64 maxSize )
+{
+	qint64 written = QBuffer::writeData(data, maxSize);
+	length += written;
+	return written;
 }
 
 /**
@@ -199,11 +227,12 @@ bool WAV::writeFile(QString filename)
 	writeFormat(dstream);
 	writeDataChunk(dstream);
 	
-// 	char* data;
-	wavData.open(QIODevice::ReadOnly);
-// 	wavData.read(data, this->length);
-	dstream->writeRawData(wavData.buffer().data(), this->length);
-	wavData.close();
+	open(QIODevice::ReadOnly);
+	dstream->writeRawData(buffer().data(), this->length);
+	close();
+	//wavData.open(QIODevice::ReadOnly);
+	//dstream->writeRawData(wavData.buffer().data(), this->length);
+	//wavData.close();
 	
 	wavFile.close();
 	return true;
@@ -289,23 +318,7 @@ void WAV::writeFormat(QDataStream *dstream)
 	*dstream << (quint16) 16;
 }
 
-/**
- *	@brief Adds the array of data to the main waveData (member)
- *
- *	@author Peter Grasch
- *	@param short* data
- *	the data to add
- *	@param int length
- *	the length of the provided array
- */
-void WAV::addData(short* data, int length)
-{
- 	length = (length*sizeof(short)) / sizeof(char);
 
-	wavData.write((char*) data, length);
-
-	this->length += length;
-}
 
 /**
  * \brief Destructor

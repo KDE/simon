@@ -44,11 +44,11 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if (${USE_WITH_SIMON})
 	message(STATUS "Use with simon aktiviert")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-	${QT_QTMULTIMEDI_LIBRARY} 
+	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} adinstreamer)
 elseif  (${USE_WITH_SIMON})
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-	${QT_QTMULTIMEDI_LIBRARY} 
+	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} )
 endif (${USE_WITH_SIMON})
 

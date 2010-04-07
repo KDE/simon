@@ -23,6 +23,8 @@
 #include "soundconfig.h"
 
 #include <QObject>
+#include <QAudioInput>
+
 #include <KDebug>
 
 #include <stdlib.h>
@@ -36,19 +38,20 @@
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
 float recording_level=0;
-int recording_level_counter=0;
 
 /**
  * \brief Constructor
  */
 WavRecorder::WavRecorder(QObject* parent) : QObject(parent),
-	stream(0),
-	wavData(0)
+	input(NULL),
+	wavData(0),
+	timeCounter(0)
 {
 	connect(&timeWatcher, SIGNAL(timeout()), this, SLOT(publishTime()));
 }
 
 
+#if 0
 int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
 		 const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags status, void *userData )
 {
@@ -90,6 +93,7 @@ int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long
 
 	return paContinue;
 }
+#endif
 
 
 /**
@@ -102,47 +106,45 @@ bool WavRecorder::record(QString filename)
 {
 	#ifdef USE_WITH_SIMON
 	if (AdinStreamer::hasInstance())
-	{
 		AdinStreamer::getInstance()->stopSoundStream();
-	}
 	#endif
 
-
-	if (stream)
+	if (input)
 	{
-// 		delete stream;
-		stream = 0;
+		input->deleteLater();
+		input = NULL;
 	}
+
 	if (wavData)
 	{
 		delete wavData;
-		wavData = 0;
+		wavData = NULL;
 	}
 
 
-	PaStreamParameters  inputParameters;
-	PaError             err = paNoError;
-
-	err = Pa_Initialize();
-	if( err != paNoError ) {
 #ifdef USE_WITH_SIMON
-		if (AdinStreamer::hasInstance())
-			AdinStreamer::getInstance()->restartSoundStream();
+	if (AdinStreamer::hasInstance())
+		AdinStreamer::getInstance()->restartSoundStream();
 #endif
-		return false;
-	}
 
-	bzero( &inputParameters, sizeof( inputParameters ) );
-
-	int channels = SoundConfiguration::soundChannels();
 	int sampleRate = SoundConfiguration::soundSampleRate();
-	inputParameters.device = SoundConfiguration::soundInputDevice();
+	int channels = SoundConfiguration::soundChannels();
 
-	inputParameters.channelCount = channels;
-	inputParameters.sampleFormat = paInt16;
+	QAudioFormat format;
+	format.setFrequency(sampleRate);
+	format.setChannels(channels);
+	format.setSampleSize(16); // 16 bit
+	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
+	format.setByteOrder(QAudioFormat::LittleEndian);
+	format.setCodec("audio/pcm");
 
-	const PaDeviceInfo *info = Pa_GetDeviceInfo( inputParameters.device );
-	if (!info)
+	QString inputDevice = SoundConfiguration::soundInputDevice();
+	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+		if (deviceInfo.deviceName() == SoundConfiguration::soundInputDevice())
+			selectedInfo = deviceInfo;
+
+	if (!selectedInfo.isFormatSupported(format))
 	{
 #ifdef USE_WITH_SIMON
 		if (AdinStreamer::hasInstance())
@@ -150,43 +152,14 @@ bool WavRecorder::record(QString filename)
 #endif
 		return false;
 	}
-	inputParameters.suggestedLatency = info->defaultLowInputLatency;
-	inputParameters.hostApiSpecificStreamInfo = NULL;
 
-	/* Record some audio. -------------------------------------------- */
-	
-	err = Pa_OpenStream(
-		&stream,
-		&inputParameters,
-		NULL,                  /* &outputParameters, */
-		(double) sampleRate,
-		1024, //frames per buffer
-		paClipOff,      /* we won't output out of range samples so don't bother clipping them */
-		processInputData,
-		(void*) this );
+	input = new QAudioInput(selectedInfo, format, this);
 
-	if( err != paNoError ) {
-#ifdef USE_WITH_SIMON
-		if (AdinStreamer::hasInstance())
-			AdinStreamer::getInstance()->restartSoundStream();
-#endif
-		return false;
-	}
-	
-	startTime = Pa_GetStreamTime(stream);
-
-	this->wavData = new WAV(filename, channels, sampleRate);
-	
+	wavData = new WAV(filename, channels, sampleRate);
 	wavData->beginAddSequence();
-	err = Pa_StartStream( stream );
-	if( err != paNoError ) {
-#ifdef USE_WITH_SIMON
-		if (AdinStreamer::hasInstance())
-			AdinStreamer::getInstance()->restartSoundStream();
-#endif
-		return false;
-	}
-	
+	input->start(wavData);
+
+	timeCounter = 0;
 	timeWatcher.start(100);
 
 	return true;
@@ -195,12 +168,15 @@ bool WavRecorder::record(QString filename)
 
 void WavRecorder::publishTime()
 {
-	if (recording_level_counter == 0) return;
+	//FIXME: level (second argument)
+	emit currentProgress(timeCounter*100, timeCounter);
+	timeCounter++;
 
-	float recording_diff = recording_level / (float) recording_level_counter;
-	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000, recording_diff);
-	recording_level_counter=0;
-	recording_level=0;
+//	if (timeCounter == 0) return;
+	//float recording_diff = recording_level / (float) recording_level_counter;
+//	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000, recording_diff);
+//	recording_level_counter=0;
+//	recording_level=0;
 }
 
 /**
@@ -212,32 +188,22 @@ void WavRecorder::publishTime()
 bool WavRecorder::finish()
 {
 	bool succ = true;
+
+	input->stop();
+
+	delete input;
+	input = NULL;
+
 	timeWatcher.stop();
-	PaError err = Pa_StopStream( stream );
-	
+
 	wavData->endAddSequence();
-	if( err != paNoError ) succ = false;
-	else {
-		err = Pa_CloseStream( stream );
-		if( err != paNoError ) succ = false;
-	}
-	
-	stream = 0;
 	if (! wavData->writeFile()) succ = false;
-
-	Pa_Sleep( 500 );
-	err = Pa_Terminate();
-
-	if( err != paNoError ) succ=false;
-	
 	delete wavData;
 	wavData = 0;
 
 	#ifdef USE_WITH_SIMON
 	if (AdinStreamer::hasInstance())
-	{
 		AdinStreamer::getInstance()->restartSoundStream();
-	}
 	#endif
 
 	return succ;
