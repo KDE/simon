@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,32 +19,191 @@
 
 #include "soundconfig.h"
 #include "soundserver.h"
+#include "soundclient.h"
 
 #include <QObject>
 #include <QAudioInput>
 
 #include <KDebug>
 
+//FIXME: Deprecated
+#ifdef USE_WITH_SIMON
+#include <adinstreamer/adinstreamer.h>
+#endif
+
+SoundServer* SoundServer::instance=NULL;
+
 /**
  * \brief Constructor
  */
 SoundServer::SoundServer(QObject* parent) : QObject(parent),
 	channels(SoundConfiguration::soundChannels()),
-	sampleRate(SoundConfiguration::soundSampleRate())
+	sampleRate(SoundConfiguration::soundSampleRate()),
+	input(NULL)
 {
+	connect(&inputData, SIGNAL(bytesWritten(qint64)), this, SLOT(inputDataAvailable(qint64)));
 }
 
-void SoundServer::registerInputClient(SoundClient* client)
+bool SoundServer::registerInputClient(SoundClient* client)
 {
-	inputStreamTimes.insert(client, 0);
+	if (client->isExclusive())
+	{
+		//suspend all other inputs
+		QHashIterator<SoundClient*, qint64> i(activeInputClients);
+		while (i.hasNext())
+		{
+			i.next();
+			i.key()->suspend();
+			suspendedInputClients.insert(i.key(), i.value());
+			activeInputClients.remove(i.key());
+		}
+	}
+
+
+	activeInputClients.insert(client, 0);
+	bool succ = true;
 
 	if (!input) //recording not currently running
 	{
 		//then start recording
+		succ = startRecording();
+	}
 
-		//TODO
+
+	return succ;
+}
+
+bool SoundServer::deRegisterInputClient(SoundClient* client)
+{
+	activeInputClients.remove(client);
+	if (client->isExclusive())
+	{
+		QHashIterator<SoundClient*, qint64> i(activeInputClients);
+
+		/// if we have one exclusive input in the suspended list move it to the active
+		/// list and ignore the rest
+		///
+		/// @note The order in which the input clients are resumed is undefined
+		///
+		///otherwise move everything back
+		
+		bool hasExclusive = false;
+		while (i.hasNext())
+		{
+			i.next();
+			if (i.key()->isExclusive())
+			{
+				activeInputClients.insert(i.key(), i.value());
+				suspendedInputClients.remove(i.key());
+				hasExclusive = true;
+				break;
+			}
+		}
+		if (!hasExclusive)
+		{
+			i.toFront();
+			while (i.hasNext())
+			{
+				i.next();
+				i.key()->resume();
+				activeInputClients.insert(i.key(), i.value());
+				suspendedInputClients.remove(i.key());
+			}
+		}
+	}
+
+	if (activeInputClients.isEmpty()) //don't need to record any longer
+	{
+		//then stop recording
+		kDebug() << "No active clients available... Stopping recording";
+		return stopRecording();
+	}
+
+	return true;
+}
+
+void SoundServer::inputDataAvailable(qint64 size)
+{
+	Q_UNUSED(size);
+
+	bool succ = true;
+	QByteArray data = inputData.getChunk(succ);
+
+	if (!succ) return;
+
+	qint64 length = data.count() / (channels * 2 /* 16 bit */ * sampleRate);
+
+	//pass data on to all registered, active clients
+	QList<SoundClient*> active = activeInputClients.keys();
+	foreach (SoundClient *c, active)
+	{
+		kDebug() << "Passing input data on to client...";
+		qint64 streamTime = activeInputClients.value(c)+length;
+		c->process(data, length);
+		//update time stamp
+		activeInputClients.insert(c, streamTime);
 	}
 }
+
+
+
+bool SoundServer::startRecording()
+{
+	kDebug() << "Starting recording...";
+	QAudioFormat format;
+	format.setFrequency(sampleRate);
+	format.setChannels(channels);
+	format.setSampleSize(16); // 16 bit
+	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
+	format.setByteOrder(QAudioFormat::LittleEndian);
+	format.setCodec("audio/pcm");
+
+	QString inputDevice = SoundConfiguration::soundInputDevice();
+	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+		if (deviceInfo.deviceName() == SoundConfiguration::soundInputDevice())
+			selectedInfo = deviceInfo;
+
+	if (!selectedInfo.isFormatSupported(format))
+	{
+		kDebug() << "Format not supported";
+
+#ifdef USE_WITH_SIMON
+		//FIXME: Remove me (just for backwards compatibility with old adinstreamer)
+		if (AdinStreamer::hasInstance())
+			AdinStreamer::getInstance()->restartSoundStream();
+#endif
+	
+		return false;
+	}
+
+	input = new QAudioInput(selectedInfo, format, this);
+	inputData.open(QIODevice::ReadWrite);
+	input->start(&inputData);
+	kDebug() << "Started audio input";
+	return true;
+}
+
+
+bool SoundServer::stopRecording()
+{
+	Q_ASSERT(input);
+
+	input->stop();
+	delete input;
+	input = NULL;
+	inputData.close();
+
+#ifdef USE_WITH_SIMON
+	//FIXME: Remove me (just for backwards compatibility with old adinstreamer)
+	if (AdinStreamer::hasInstance())
+		AdinStreamer::getInstance()->restartSoundStream();
+#endif
+
+	return true;
+}
+
+
 
 /**
  * \brief Destructor

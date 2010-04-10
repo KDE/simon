@@ -122,11 +122,6 @@ bool WavRecorder::record(QString filename)
 	}
 
 
-#ifdef USE_WITH_SIMON
-	if (AdinStreamer::hasInstance())
-		AdinStreamer::getInstance()->restartSoundStream();
-#endif
-
 	int sampleRate = SoundConfiguration::soundSampleRate();
 	int channels = SoundConfiguration::soundChannels();
 

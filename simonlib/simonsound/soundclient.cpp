@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,7 +26,8 @@
 /**
  * \brief Constructor
  */
-SoundClient::SoundClient()
+SoundClient::SoundClient(SoundClient::SoundClientFlags options) :
+	m_options(options)
 {
 }
 

@@ -18,42 +18,32 @@
  */
 
 
-#ifndef SIMON_SOUNDSERVER_H_BAC60251BE6A419EA6256280815A2AAD
-#define SIMON_SOUNDSERVER_H_BAC60251BE6A419EA6256280815A2AAD
+#ifndef SIMON_SOUNDDATA_H_B7C60651BE6A419EA6156220815A2AAD
+#define SIMON_SOUNDDATA_H_B7C60651BE6A419EA6156220815A2AAD
 
 
-#include <QObject>
-#include <QHash>
-#include <QFlags>
+#include <QIODevice>
+#include <QBuffer>
 
 
-class SoundClient {
+class SoundData : public QIODevice {
 
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
+signals:
 
-	SoundClient(SoundClientFlags options=None);
-	virtual void process(const QByteArray& data, qint64 currentTime)=0;
-	virtual ~SoundClient();
-
-
-
-	virtual void resume() {}
-	virtual void suspend() {}
 
 private:
-	SoundClientFlags m_options;
+	QList<QByteArray> availableChunks;
 
 public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
+	SoundData(QObject *parent=0);
+
+	qint64 readData(char *toRead, qint64 maxLen);
+	qint64 writeData(const char *toWrite, qint64 len);
+	QByteArray getChunk(bool& success);
+
+	virtual ~SoundData();
+
 };
 
 #endif
-
 

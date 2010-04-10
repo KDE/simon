@@ -17,43 +17,56 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "sounddata.h"
 
-#ifndef SIMON_SOUNDSERVER_H_BAC60251BE6A419EA6256280815A2AAD
-#define SIMON_SOUNDSERVER_H_BAC60251BE6A419EA6256280815A2AAD
-
-
-#include <QObject>
-#include <QHash>
-#include <QFlags>
+#include <KDebug>
+#include <string.h>
 
 
-class SoundClient {
-
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
-
-	SoundClient(SoundClientFlags options=None);
-	virtual void process(const QByteArray& data, qint64 currentTime)=0;
-	virtual ~SoundClient();
+/**
+ * \brief Constructor
+ */
+SoundData::SoundData(QObject *parent) :
+	QIODevice(parent)
+{
+	availableChunks.clear();
+}
 
 
+qint64 SoundData::readData(char *toRead, qint64 maxLen)
+{
+	Q_UNUSED(toRead);
+	Q_UNUSED(maxLen);
 
-	virtual void resume() {}
-	virtual void suspend() {}
+	kWarning() << "Use getChunk() instead";
+	return -1;
+}
 
-private:
-	SoundClientFlags m_options;
+QByteArray SoundData::getChunk(bool& success)
+{
+	Q_ASSERT (availableChunks.count() > 0);
+	success = true;
+	return availableChunks.takeAt(0);
+}
 
-public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
-};
 
-#endif
+
+qint64 SoundData::writeData(const char *toWrite, qint64 len)
+{
+	QByteArray chunk;
+	chunk.append(toWrite, len);
+	availableChunks << chunk;
+
+	emit bytesWritten(len);
+	return len;
+}
+
+
+/**
+ * \brief Destructor
+ */
+SoundData::~SoundData()
+{
+}
 
 
