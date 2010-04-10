@@ -76,10 +76,8 @@ bool SoundServer::registerInputClient(SoundClient* client)
 bool SoundServer::deRegisterInputClient(SoundClient* client)
 {
 	activeInputClients.remove(client);
-	kDebug() << "Stopping client";
 	if (client->isExclusive())
 	{
-		kDebug() << "This was an exclusive client";
 		QHashIterator<SoundClient*, qint64> i(suspendedInputClients);
 
 		/// if we have one exclusive input in the suspended list move it to the active
@@ -89,19 +87,17 @@ bool SoundServer::deRegisterInputClient(SoundClient* client)
 		///
 		///otherwise move everything back
 		
-		kDebug() << "Looking for other exclusive inputs";
 		bool hasExclusive = false;
 		while (i.hasNext())
 		{
 			i.next();
 			if (i.key()->isExclusive())
 			{
-				kDebug() << "Other exclusive input found - adding this to the active list";
 				activeInputClients.insert(i.key(), i.value());
 				suspendedInputClients.remove(i.key());
 				hasExclusive = true;
 				break;
-			} else kDebug() << "Not exclusive: " << i.value();
+			}
 		}
 		if (!hasExclusive)
 		{
