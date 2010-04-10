@@ -38,7 +38,6 @@ private:
 	int channels, sampleRate;
 
 	QAudioInput *input;
-//	QBuffer inputData;
 	SoundData inputData;
 	QHash<SoundClient*, qint64> activeInputClients;
 	QHash<SoundClient*, qint64> suspendedInputClients;

@@ -76,9 +76,11 @@ bool SoundServer::registerInputClient(SoundClient* client)
 bool SoundServer::deRegisterInputClient(SoundClient* client)
 {
 	activeInputClients.remove(client);
+	kDebug() << "Stopping client";
 	if (client->isExclusive())
 	{
-		QHashIterator<SoundClient*, qint64> i(activeInputClients);
+		kDebug() << "This was an exclusive client";
+		QHashIterator<SoundClient*, qint64> i(suspendedInputClients);
 
 		/// if we have one exclusive input in the suspended list move it to the active
 		/// list and ignore the rest
@@ -87,17 +89,19 @@ bool SoundServer::deRegisterInputClient(SoundClient* client)
 		///
 		///otherwise move everything back
 		
+		kDebug() << "Looking for other exclusive inputs";
 		bool hasExclusive = false;
 		while (i.hasNext())
 		{
 			i.next();
 			if (i.key()->isExclusive())
 			{
+				kDebug() << "Other exclusive input found - adding this to the active list";
 				activeInputClients.insert(i.key(), i.value());
 				suspendedInputClients.remove(i.key());
 				hasExclusive = true;
 				break;
-			}
+			} else kDebug() << "Not exclusive: " << i.value();
 		}
 		if (!hasExclusive)
 		{
@@ -131,15 +135,15 @@ void SoundServer::inputDataAvailable(qint64 size)
 
 	if (!succ) return;
 
-	qint64 length = data.count() / (channels * 2 /* 16 bit */ * sampleRate);
+	//length is in ms
+	qint64 length = data.count() / (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
 
 	//pass data on to all registered, active clients
 	QList<SoundClient*> active = activeInputClients.keys();
 	foreach (SoundClient *c, active)
 	{
-		kDebug() << "Passing input data on to client...";
 		qint64 streamTime = activeInputClients.value(c)+length;
-		c->process(data, length);
+		c->process(data, streamTime);
 		//update time stamp
 		activeInputClients.insert(c, streamTime);
 	}
