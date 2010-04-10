@@ -22,12 +22,18 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.cpp
 )
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
