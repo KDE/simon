@@ -58,6 +58,7 @@ public:
 	QIODevice* getDataProvider() { return this; }
 	bool open (OpenMode mode);
 	void close();
+	void finish();
 		
 public slots:
 	void stop();

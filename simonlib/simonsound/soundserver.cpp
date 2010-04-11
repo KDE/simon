@@ -55,10 +55,17 @@ qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 //	Q_UNUSED(maxLen);
 
 	if (!currentOutputClient)
-		return 0;
+	{
+		kDebug() << "No current output client";
+		return -1;
+	}
 
-	return currentOutputClient->getDataProvider()->read(toRead, maxLen);
-//	return -1;
+	qint64 read = currentOutputClient->getDataProvider()->read(toRead, maxLen);
+
+	if (read <= 0)
+		deRegisterOutputClient(currentOutputClient);
+
+	return read;
 }
 
 
@@ -248,6 +255,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
+	client->finish();
 	if (client != currentOutputClient)
 	{
 		//wasn't active anyways
@@ -317,6 +325,8 @@ bool SoundServer::stopPlayback()
 	output->disconnect(this);
 	output->deleteLater();
 	output = NULL;
+
+	reset();
 
 	if (input)
 		input->resume();

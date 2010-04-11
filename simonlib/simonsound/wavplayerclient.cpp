@@ -38,9 +38,6 @@ qint64 WavPlayerClient::readData(char *data, qint64 maxlen)
 	qint64 read = wav->read(data, maxlen);
 	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos()));
 
-	if (read <= 0)
-		stop();
-
 	return read;
 
 }
@@ -103,12 +100,15 @@ bool WavPlayerClient::play( QString filename )
 void WavPlayerClient::stop()
 {
 	SoundServer::getInstance()->deRegisterOutputClient(this);
+}
+
+void WavPlayerClient::finish()
+{
 	close();
 	delete wav;
 	wav = 0;
 	emit finished();
 }
-
 
 
 /**
