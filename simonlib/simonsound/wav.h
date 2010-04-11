@@ -86,7 +86,6 @@ public:
 
 	void addData(short* data, int length);
 
-//	short* getRawData(unsigned long& length);
 	int getLength() { return length; }
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }

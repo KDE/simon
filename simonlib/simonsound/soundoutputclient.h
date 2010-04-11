@@ -35,6 +35,7 @@ public:
 //			/*your input does NOT need to seek to this position */)=0;
 
 	virtual QIODevice* getDataProvider()=0;
+	//virtual qint64 readData(char *data, qint64 maxlen)=0;
 };
 
 

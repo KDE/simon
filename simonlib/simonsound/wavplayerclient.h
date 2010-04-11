@@ -34,17 +34,20 @@ class WAV;
 	\author Peter Grasch
 	\version 0.1
 */
-class WavPlayerClient : public QObject, public SoundOutputClient {
+class WavPlayerClient : public QIODevice, public SoundOutputClient {
 	Q_OBJECT
 	
 private:
 	WAV *wav;
 	qint64 length;
-	
 
 signals:
 	void currentProgress(int);
 	void finished();
+
+protected:
+	qint64 readData(char *toRead, qint64 maxLen);
+	qint64 writeData(const char *toWrite, qint64 len);
 	
 public:
 	WavPlayerClient(QObject *parent=0);
@@ -52,8 +55,9 @@ public:
 
 	bool play(QString filename);
 
-	QByteArray getChunk(qint64 streamTime);
-	QIODevice* getDataProvider();
+	QIODevice* getDataProvider() { return this; }
+	bool open (OpenMode mode);
+	void close();
 		
 public slots:
 	void stop();

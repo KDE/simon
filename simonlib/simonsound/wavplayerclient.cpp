@@ -21,35 +21,47 @@
 #include "wavplayerclient.h"
 #include "soundserver.h"
 #include "wav.h"
-
-#define WAV_PLAYER_CLIENT_BUFFER_SIZE 16384
-
+#include <KDebug>
 
 /**
  * \brief Constructor
  * \author Peter Grasch
  */
-WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent),
+WavPlayerClient::WavPlayerClient(QObject* parent) : QIODevice(parent),
 	SoundOutputClient(),
 	wav(0)
 {
 }
 
-
-
-QByteArray WavPlayerClient::getChunk(qint64 streamTime)
+qint64 WavPlayerClient::readData(char *data, qint64 maxlen)
 {
-//	if (wav->atEnd())
-//		return QByteArray();
-	QByteArray data = wav->read(WAV_PLAYER_CLIENT_BUFFER_SIZE);
+	qint64 read = wav->read(data, maxlen);
+	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos()));
 
-	emit currentProgress(streamTime);
-	return data;
+	if (read <= 0)
+		stop();
+
+	return read;
+
 }
 
-QIODevice* WavPlayerClient::getDataProvider()
+qint64 WavPlayerClient::writeData(const char *data, qint64 len)
 {
-	return wav;
+	Q_UNUSED(data);
+	Q_UNUSED(len);
+	return -1;
+}
+
+bool WavPlayerClient::open (OpenMode mode)
+{
+	wav->beginReadSequence();
+	return QIODevice::open(mode);
+}
+
+void WavPlayerClient::close()
+{
+	wav->endReadSequence();
+	QIODevice::close();
 }
 
 /**
@@ -71,7 +83,7 @@ bool WavPlayerClient::play( QString filename )
 		wav = 0;
 		return false;
 	}
-	wav->beginReadSequence();
+	open(QIODevice::ReadOnly);
 
 	if (!SoundServer::getInstance()->registerOutputClient(this))
 	{
@@ -91,13 +103,10 @@ bool WavPlayerClient::play( QString filename )
 void WavPlayerClient::stop()
 {
 	SoundServer::getInstance()->deRegisterOutputClient(this);
+	close();
 	delete wav;
 	wav = 0;
 	emit finished();
-//	stopTimer = true; // to work around the issue that you can't stop the timer from a different thread
-	//which would be the case if we would stop it here (this is called from the callback thread)
-    //this also triggers the closing of the stream as we can't stop it here because it would still be open
-    //from the callback function
 }
 
 

@@ -60,30 +60,6 @@ WAV::WAV(QString file_name, int channels_, int samplerate_)
 	
 }
 
-/**
- * \brief Returns the data from the wav file
- * 
- * \author Peter Grasch
- * \return short*
- * The data of the file
- */
-#if 0
-short* WAV::getRawData(unsigned long& length)
-{
-	length = this->length / sizeof(short);
-
-	open(QIODevice::ReadOnly);
-	char *tempData = buffer().data();
-	close();
-
-	//wavData.open(QIODevice::ReadOnly);
-	//char *tempData = wavData.buffer().data();
-	//wavData.close();
-
-	return (short*) tempData;
-}
-#endif
-
 
 /**
  * \brief Reads the data from the given file and adds it to the waveData (member)

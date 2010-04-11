@@ -38,16 +38,52 @@ SoundServer* SoundServer::instance=NULL;
 /**
  * \brief Constructor
  */
-SoundServer::SoundServer(QObject* parent) : QObject(parent),
+SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
 	channels(SoundConfiguration::soundChannels()),
 	sampleRate(SoundConfiguration::soundSampleRate()),
 	input(NULL),
 	output(NULL),
-	currentOutputTimeStamp(0),
 	currentOutputClient(NULL)
 {
-	connect(&inputData, SIGNAL(bytesWritten(qint64)), this, SLOT(inputDataAvailable(qint64)));
+	open(QIODevice::ReadWrite);
 }
+
+
+qint64 SoundServer::readData(char *toRead, qint64 maxLen)
+{
+//	Q_UNUSED(toRead);
+//	Q_UNUSED(maxLen);
+
+	if (!currentOutputClient)
+		return 0;
+
+	return currentOutputClient->getDataProvider()->read(toRead, maxLen);
+//	return -1;
+}
+
+
+qint64 SoundServer::writeData(const char *toWrite, qint64 len)
+{
+	QByteArray data;
+	data.append(toWrite, len);
+
+	//length is in ms
+	qint64 length = byteSizeToLength(data.count());
+
+	//pass data on to all registered, active clients
+	QList<SoundInputClient*> active = activeInputClients.keys();
+	foreach (SoundInputClient *c, active)
+	{
+		qint64 streamTime = activeInputClients.value(c)+length;
+		c->process(data, streamTime);
+		//update time stamp
+		activeInputClients.insert(c, streamTime);
+	}
+	return len;
+}
+
+
+
 
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
@@ -132,29 +168,6 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 	return true;
 }
 
-void SoundServer::inputDataAvailable(qint64 size)
-{
-	Q_UNUSED(size);
-
-	bool succ = true;
-	QByteArray data = inputData.getChunk(succ);
-
-	if (!succ) return;
-
-	//length is in ms
-	qint64 length = data.count() / (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
-
-	//pass data on to all registered, active clients
-	QList<SoundInputClient*> active = activeInputClients.keys();
-	foreach (SoundInputClient *c, active)
-	{
-		qint64 streamTime = activeInputClients.value(c)+length;
-		c->process(data, streamTime);
-		//update time stamp
-		activeInputClients.insert(c, streamTime);
-	}
-}
-
 
 
 bool SoundServer::startRecording()
@@ -187,8 +200,9 @@ bool SoundServer::startRecording()
 #endif
 	
 	input = new QAudioInput(selectedInfo, format, this);
-	inputData.open(QIODevice::ReadWrite);
-	input->start(&inputData);
+	input->start(this);
+	if (output)
+		output->suspend();
 	kDebug() << "Started audio input";
 	return true;
 }
@@ -201,13 +215,14 @@ bool SoundServer::stopRecording()
 	input->stop();
 	delete input;
 	input = NULL;
-	inputData.close();
 
 #ifdef USE_WITH_SIMON
 	//FIXME: Remove me (just for backwards compatibility with old adinstreamer)
 	if (AdinStreamer::hasInstance())
 		AdinStreamer::getInstance()->restartSoundStream();
 #endif
+	if (output)
+		output->resume();
 
 	return true;
 }
@@ -216,9 +231,8 @@ bool SoundServer::stopRecording()
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
 	if (currentOutputClient != NULL)
-		suspendedOutputClients.insert(currentOutputClient, currentOutputTimeStamp);
+		suspendedOutputClients.append(currentOutputClient);
 
-	currentOutputTimeStamp = 0;
 	currentOutputClient = client;
 
 	bool succ = true;
@@ -229,7 +243,6 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 		succ = startPlayback();
 	}
 
-
 	return succ;
 }
 
@@ -238,30 +251,28 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 	if (client != currentOutputClient)
 	{
 		//wasn't active anyways
-		suspendedOutputClients.remove(client);
+		suspendedOutputClients.removeAll(client);
 		return true;
 	}
 
-
 	if (suspendedOutputClients.isEmpty())
 	{
-		currentOutputTimeStamp = 0;
 		currentOutputClient = NULL;
 		kDebug() << "No active clients available... Stopping playback";
 		return stopPlayback();
 	}
 
-	QHashIterator<SoundOutputClient*, qint64> i(suspendedOutputClients);
-	i.next();
-	currentOutputClient = i.key();
-	currentOutputTimeStamp = i.value();
-	suspendedOutputClients.remove(i.key());
+	currentOutputClient = suspendedOutputClients.takeAt(0);
 	return true;
 }
 
 bool SoundServer::startPlayback()
 {
 	kDebug() << "Starting playback...";
+	kDebug() << "Suspending recording during playback";
+	if (input)
+		input->suspend();
+
 	QAudioFormat format;
 	format.setFrequency(sampleRate);
 	format.setChannels(channels);
@@ -288,10 +299,14 @@ bool SoundServer::startPlayback()
 	}
 
 	output = new QAudioOutput(selectedInfo, format, this);
-	inputData.open(QIODevice::ReadWrite);
-	output->start(currentOutputClient->getDataProvider());
+	output->start(this);
 	kDebug() << "Started audio output";
 	return true;
+}
+
+qint64 SoundServer::byteSizeToLength(qint64 bytes)
+{
+	return bytes / (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
 }
 
 bool SoundServer::stopPlayback()
@@ -299,8 +314,12 @@ bool SoundServer::stopPlayback()
 	Q_ASSERT(output);
 
 	output->stop();
-	delete output;
+	output->disconnect(this);
+	output->deleteLater();
 	output = NULL;
+
+	if (input)
+		input->resume();
 
 	return true;
 }

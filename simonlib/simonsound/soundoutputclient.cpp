@@ -47,8 +47,7 @@ SoundOutputClientWrapper::SoundOutputClientWrapper(QObject *parent, SoundOutputC
 
 qint64 SoundOutputClientWrapper::readData(char *data, qint64 maxlen)
 {
-	QByteArray byteData = client->getChunk(m_currentStreamTime);
-
+	return m_client->readData(data, maxlen, 0);
 }
 
 qint64 SoundOutputClientWrapper::writeData(const char *data, qint64 len)
@@ -57,8 +56,6 @@ qint64 SoundOutputClientWrapper::writeData(const char *data, qint64 len)
 	Q_UNUSED(len);
 	return -1;
 }
-
-
 */
 
 

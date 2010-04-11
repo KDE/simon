@@ -22,16 +22,16 @@
 #define SIMON_SOUNDSERVER_H_BAC60651BE6A419EA6156220815A2AAD
 
 
-#include <QObject>
+#include <QIODevice>
 #include <QHash>
-#include "sounddata.h"
+#include <QList>
 
 class QAudioInput;
 class SoundInputClient;
 class QAudioOutput;
 class SoundOutputClient;
 
-class SoundServer : public QObject {
+class SoundServer : public QIODevice {
 	Q_OBJECT
 
 private:
@@ -40,22 +40,20 @@ private:
 	int channels, sampleRate;
 
 	QAudioInput *input;
-	SoundData inputData;
 	QHash<SoundInputClient*, qint64> activeInputClients;
 	QHash<SoundInputClient*, qint64> suspendedInputClients;
 	bool startRecording();
 	bool stopRecording();
 
 	QAudioOutput *output;
-//	SoundData outputData;
-	qint64 currentOutputTimeStamp;
 	SoundOutputClient* currentOutputClient;
-	QHash<SoundOutputClient*, qint64> suspendedOutputClients;
+	QList<SoundOutputClient*> suspendedOutputClients;
 	bool startPlayback();
 	bool stopPlayback();
 
-private slots:
-	void inputDataAvailable(qint64);
+protected:
+	qint64 readData(char *toRead, qint64 maxLen);
+	qint64 writeData(const char *toWrite, qint64 len);
 
 public:
 	static SoundServer* getInstance()
@@ -74,6 +72,8 @@ public:
 
 	bool registerOutputClient(SoundOutputClient* client);
 	bool deRegisterOutputClient(SoundOutputClient* client);
+
+	qint64 byteSizeToLength(qint64 bytes);
     
 
     virtual ~SoundServer();

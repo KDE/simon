@@ -16,15 +16,12 @@ IF(WIN32)
 ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
-	#	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorder.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sounddata.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
