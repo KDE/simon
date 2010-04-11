@@ -23,6 +23,7 @@
 #include "wavplayerclient.h"
 #include "postprocessing.h"
 #include "soundconfig.h"
+#include "soundserver.h"
 
 #include <simonlogging/logger.h>
 
@@ -185,6 +186,8 @@ void RecWidget::setupSignalsSlots()
 	connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
 	
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
+
+	connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 }
 
 

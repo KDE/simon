@@ -25,6 +25,7 @@
 #include <QIODevice>
 #include <QHash>
 #include <QList>
+#include <qaudio.h>
 
 class QAudioInput;
 class SoundInputClient;
@@ -33,6 +34,9 @@ class SoundOutputClient;
 
 class SoundServer : public QIODevice {
 	Q_OBJECT
+
+signals:
+	void error(const QString& str);
 
 private:
 	static SoundServer* instance;
@@ -50,6 +54,10 @@ private:
 	QList<SoundOutputClient*> suspendedOutputClients;
 	bool startPlayback();
 	bool stopPlayback();
+
+private slots:
+	void inputStateChanged(QAudio::State state);
+	void outputStateChanged(QAudio::State state);
 
 protected:
 	qint64 readData(char *toRead, qint64 maxLen);

@@ -27,6 +27,7 @@
 #include <QAudioOutput>
 
 #include <KDebug>
+#include <KLocalizedString>
 
 //FIXME: Deprecated
 #ifdef USE_WITH_SIMON
@@ -51,9 +52,6 @@ SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
 
 qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 {
-//	Q_UNUSED(toRead);
-//	Q_UNUSED(maxLen);
-
 	if (!currentOutputClient)
 	{
 		kDebug() << "No current output client";
@@ -207,6 +205,7 @@ bool SoundServer::startRecording()
 #endif
 	
 	input = new QAudioInput(selectedInfo, format, this);
+	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(inputStateChanged(QAudio::State)));
 	input->start(this);
 	if (output)
 		output->suspend();
@@ -219,6 +218,7 @@ bool SoundServer::stopRecording()
 {
 	Q_ASSERT(input);
 
+	input->disconnect(this);
 	input->stop();
 	delete input;
 	input = NULL;
@@ -277,9 +277,11 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 bool SoundServer::startPlayback()
 {
 	kDebug() << "Starting playback...";
-	kDebug() << "Suspending recording during playback";
 	if (input)
+	{
+		kDebug() << "Suspending recording during playback";
 		input->suspend();
+	}
 
 	QAudioFormat format;
 	format.setFrequency(sampleRate);
@@ -290,7 +292,7 @@ bool SoundServer::startPlayback()
 	format.setCodec("audio/pcm");
 
 	QString outputDevice = SoundConfiguration::soundOutputDevice();
-	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
+	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultOutputDevice();
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
 		if (deviceInfo.deviceName() == SoundConfiguration::soundOutputDevice())
 			selectedInfo = deviceInfo;
@@ -306,7 +308,9 @@ bool SoundServer::startPlayback()
 		return false;
 	}
 
+	kDebug() << "Using device: " << selectedInfo.deviceName();
 	output = new QAudioOutput(selectedInfo, format, this);
+	connect(output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(outputStateChanged(QAudio::State)));
 	output->start(this);
 	kDebug() << "Started audio output";
 	return true;
@@ -332,6 +336,67 @@ bool SoundServer::stopPlayback()
 		input->resume();
 
 	return true;
+}
+
+
+void SoundServer::inputStateChanged(QAudio::State state)
+{
+	kDebug() << "Input state changed: " << state;
+
+	if (state == QAudio::StoppedState)
+	{
+		switch (input->error())
+		{
+			case QAudio::NoError:
+				kDebug() << "Input stopped without error";
+				break;
+			case QAudio::OpenError:
+				emit error(i18n("Failed to open the input audio device.\n\nPlease check your sound configuration."));
+				break;
+
+			case QAudio::IOError:
+				emit error(i18n("An error occured while reading data from the audio device."));
+				break;
+
+			case QAudio::UnderrunError:
+				emit error(i18n("Buffer underrun when processing the sound data."));
+				break;
+
+			case QAudio::FatalError:
+				emit error(i18n("A fatal error occured during recording."));
+				break;
+		}
+	}
+}
+
+void SoundServer::outputStateChanged(QAudio::State state)
+{
+	kDebug() << "Output state changed: " << state;
+
+	if (state == QAudio::StoppedState)
+	{
+		switch (output->error())
+		{
+			case QAudio::NoError:
+				kDebug() << "Output stopped without error";
+				break;
+			case QAudio::OpenError:
+				emit error(i18n("Failed to open the audio device.\n\nPlease check your sound configuration."));
+				break;
+
+			case QAudio::IOError:
+				emit error(i18n("An error occured while writing data to the audio device."));
+				break;
+
+			case QAudio::UnderrunError:
+				kWarning() << i18n("Buffer underrun when processing the sound data.");
+				break;
+
+			case QAudio::FatalError:
+				emit error(i18n("A fatal error occured during playback."));
+				break;
+		}
+	}
 }
 
 
