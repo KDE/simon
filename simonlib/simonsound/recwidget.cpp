@@ -20,7 +20,7 @@
 #include "recwidget.h"
 
 #include "wavrecorderclient.h"
-#include "wavplayer.h"
+#include "wavplayerclient.h"
 #include "postprocessing.h"
 #include "soundconfig.h"
 
@@ -65,7 +65,7 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	isPlaying = false;
 	
 	rec = new WavRecorderClient(this);
-	play = new WavPlayer(this);
+	play = new WavPlayerClient(this);
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////

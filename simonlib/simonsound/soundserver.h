@@ -27,7 +27,9 @@
 #include "sounddata.h"
 
 class QAudioInput;
-class SoundClient;
+class SoundInputClient;
+class QAudioOutput;
+class SoundOutputClient;
 
 class SoundServer : public QObject {
 	Q_OBJECT
@@ -39,10 +41,18 @@ private:
 
 	QAudioInput *input;
 	SoundData inputData;
-	QHash<SoundClient*, qint64> activeInputClients;
-	QHash<SoundClient*, qint64> suspendedInputClients;
+	QHash<SoundInputClient*, qint64> activeInputClients;
+	QHash<SoundInputClient*, qint64> suspendedInputClients;
 	bool startRecording();
 	bool stopRecording();
+
+	QAudioOutput *output;
+//	SoundData outputData;
+	qint64 currentOutputTimeStamp;
+	SoundOutputClient* currentOutputClient;
+	QHash<SoundOutputClient*, qint64> suspendedOutputClients;
+	bool startPlayback();
+	bool stopPlayback();
 
 private slots:
 	void inputDataAvailable(qint64);
@@ -59,8 +69,11 @@ public:
 	int getChannels() { return channels; }
 	int getSampleRate() { return sampleRate; }
 
-	bool registerInputClient(SoundClient* client);
-	bool deRegisterInputClient(SoundClient* client);
+	bool registerInputClient(SoundInputClient* client);
+	bool deRegisterInputClient(SoundInputClient* client);
+
+	bool registerOutputClient(SoundOutputClient* client);
+	bool deRegisterOutputClient(SoundOutputClient* client);
     
 
     virtual ~SoundServer();

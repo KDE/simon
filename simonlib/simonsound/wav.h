@@ -60,19 +60,33 @@ public:
     explicit WAV(QString filename,int channels=0, int samplerate=0);
 
 	bool beginAddSequence() {
-		//return wavData.open(QIODevice::WriteOnly|QIODevice::Append);
+		if (isOpen())
+			close();
 		return open(QIODevice::WriteOnly|QIODevice::Append);
 	}
 
 	bool endAddSequence() {
 		if (isOpen())
 			close();
-		//if (wavData.isOpen()) wavData.close();
 		return true;
 	}
+
+	bool beginReadSequence() {
+		if (isOpen())
+			close();
+		return open(QIODevice::ReadOnly);
+	}
+	bool endReadSequence() {
+		if (isOpen())
+			close();
+		return true;
+	}
+	
+
+
 	void addData(short* data, int length);
 
-	short* getRawData(unsigned long& length);
+//	short* getRawData(unsigned long& length);
 	int getLength() { return length; }
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }

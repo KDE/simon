@@ -67,6 +67,7 @@ WAV::WAV(QString file_name, int channels_, int samplerate_)
  * \return short*
  * The data of the file
  */
+#if 0
 short* WAV::getRawData(unsigned long& length)
 {
 	length = this->length / sizeof(short);
@@ -81,6 +82,7 @@ short* WAV::getRawData(unsigned long& length)
 
 	return (short*) tempData;
 }
+#endif
 
 
 /**

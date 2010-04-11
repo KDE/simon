@@ -17,40 +17,49 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "soundoutputclient.h"
 
-#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
+/**
+ * \brief Constructor
+ */
+SoundOutputClient::SoundOutputClient() :
+	SoundClient(SoundClient::Exclusive)
+{
+}
 
-#include <QtGlobal>
-#include "simonsound_export.h"
-class QByteArray;
 
-class SIMONSOUND_EXPORT SoundClient {
-
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
-
-	SoundClient(SoundClientFlags options=None);
-	virtual ~SoundClient();
+/**
+ * \brief Destructor
+ */
+SoundOutputClient::~SoundOutputClient()
+{
+}
 
 
 
-	virtual void resume() {}
-	virtual void suspend() {}
+/*
+SoundOutputClientWrapper::SoundOutputClientWrapper(QObject *parent, SoundOutputClient *client) :
+	QIODevice(parent),
+	m_client(client),
+	m_currentStreamTime(0)
+{
+}
 
-private:
-	SoundClientFlags m_options;
+qint64 SoundOutputClientWrapper::readData(char *data, qint64 maxlen)
+{
+	QByteArray byteData = client->getChunk(m_currentStreamTime);
 
-public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
-};
+}
 
-#endif
+qint64 SoundOutputClientWrapper::writeData(const char *data, qint64 len)
+{
+	Q_UNUSED(data);
+	Q_UNUSED(len);
+	return -1;
+}
+
+
+*/
+
 
 

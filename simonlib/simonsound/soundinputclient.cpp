@@ -17,40 +17,25 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "soundinputclient.h"
 
-#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
+/**
+ * \brief Constructor
+ */
+SoundInputClient::SoundInputClient(SoundClient::SoundClientFlags options) :
+	SoundClient(options)
+{
+}
 
-#include <QtGlobal>
-#include "simonsound_export.h"
-class QByteArray;
 
-class SIMONSOUND_EXPORT SoundClient {
-
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
-
-	SoundClient(SoundClientFlags options=None);
-	virtual ~SoundClient();
+/**
+ * \brief Destructor
+ */
+SoundInputClient::~SoundInputClient()
+{
+}
 
 
 
-	virtual void resume() {}
-	virtual void suspend() {}
-
-private:
-	SoundClientFlags m_options;
-
-public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
-};
-
-#endif
 
 

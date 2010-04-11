@@ -16,24 +16,29 @@ IF(WIN32)
 ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorder.cpp
+	#	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorder.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
+	#${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sounddata.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
 )
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
-	${CMAKE_CURRENT_SOURCE_DIR}/sounddata.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -48,7 +53,7 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
 if (${USE_WITH_SIMON})
-	message(STATUS "Use with simon aktiviert")
+	message(STATUS "Use with simon activated")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} adinstreamer)

@@ -24,7 +24,7 @@
 #include "simonsound_export.h"
 #include <QWidget>
 class WavRecorderClient;
-class WavPlayer;
+class WavPlayerClient;
 class PostProcessing;
 
 class KPushButton;
@@ -38,7 +38,7 @@ class QFont;
  * \class RecWidget
  * \brief This class provides a nice Recording Widget to easily use within the application
  * 
- * It draws the GUI and uses the WavRecorderClient/WavPlayer classes
+ * It draws the GUI and uses the WavRecorderClient/WavPlayerClient classes
  * 
  * \author Peter Grasch
  * \date 26.05.2007
@@ -66,7 +66,7 @@ private:
 
 	QString filename;
 	WavRecorderClient *rec;
-	WavPlayer *play;
+	WavPlayerClient *play;
 	PostProcessing *postProc;
 
 	int recordingProgress;
