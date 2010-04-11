@@ -35,28 +35,3 @@ SoundOutputClient::~SoundOutputClient()
 {
 }
 
-
-
-/*
-SoundOutputClientWrapper::SoundOutputClientWrapper(QObject *parent, SoundOutputClient *client) :
-	QIODevice(parent),
-	m_client(client),
-	m_currentStreamTime(0)
-{
-}
-
-qint64 SoundOutputClientWrapper::readData(char *data, qint64 maxlen)
-{
-	return m_client->readData(data, maxlen, 0);
-}
-
-qint64 SoundOutputClientWrapper::writeData(const char *data, qint64 len)
-{
-	Q_UNUSED(data);
-	Q_UNUSED(len);
-	return -1;
-}
-*/
-
-
-

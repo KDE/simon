@@ -31,32 +31,9 @@ public:
 	SoundOutputClient();
 	virtual ~SoundOutputClient();
 
-//	virtual QByteArray getChunk(qint64 streamTime /* this is just for your info; */
-//			/*your input does NOT need to seek to this position */)=0;
-
 	virtual QIODevice* getDataProvider()=0;
 	virtual void finish()=0;
-	//virtual qint64 readData(char *data, qint64 maxlen)=0;
 };
-
-
-/*
-class SoundOutputClientWrapper : public QIODevice
-{
-Q_OBJECT
-public:
-	SoundOutputClientWrapper(QObject *parent, SoundOutputClient *client);
-
-protected:
-	qint64 readData(char *data, qint64 maxlen);
-	qint64 writeData(const char *data, qint64 len);
-
-private:
-	SoundOutputClient *m_client;
-	qint64 m_currentStreamTime;
-};
-*/
-
 
 
 #endif
