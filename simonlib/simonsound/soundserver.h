@@ -26,13 +26,14 @@
 #include <QHash>
 #include <QList>
 #include <qaudio.h>
+#include "simonsound_export.h"
 
 class QAudioInput;
 class SoundInputClient;
 class QAudioOutput;
 class SoundOutputClient;
 
-class SoundServer : public QIODevice {
+class SIMONSOUND_EXPORT SoundServer : public QIODevice {
 	Q_OBJECT
 
 signals:

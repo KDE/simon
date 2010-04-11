@@ -45,7 +45,7 @@ kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} adinstreamer simonuicomponents
+	${KDE4_KDEUI_LIBS} adinstreamer simondstreamer simonuicomponents
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol

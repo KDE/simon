@@ -22,6 +22,7 @@
 #include "recognitionconfiguration.h"
 
 #include <adinstreamer/adinstreamer.h>
+#include <simondstreamer/simondstreamer.h>
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
@@ -90,17 +91,21 @@ RecognitionControl* RecognitionControl::instance;
  *	@param qint16 port
  *	Port the Server should listen to
  */
-RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
+RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
 	adinStreamer(AdinStreamer::getInstance(this)),
+	simondStreamer(new SimondStreamer(this, this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
 	timeoutWatcher(new QTimer(this))
 {
-	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
-	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
-	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
+//	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
+//	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
+//	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
+
+	connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
+	connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
@@ -140,7 +145,8 @@ void RecognitionControl::streamStopped()
 
 void RecognitionControl::slotDisconnected()
 {
-	adinStreamer->stop();
+//	adinStreamer->stop();
+	simondStreamer->stop();
 	recognitionReady=false;
 	if (synchronisationOperation)
 	{
@@ -1542,7 +1548,7 @@ void RecognitionControl::messageReceived()
 					recognitionReady=true;
 
 					kDebug() << "adinnet server running on port " << port;
-					adinStreamer->init(socket->peerAddress(), port, sampleRate);
+					//adinStreamer->init(socket->peerAddress(), port, sampleRate);
 //					if (RecognitionConfiguration::automaticallyEnableRecognition())
 					startRecognition();
 					break;
@@ -1687,8 +1693,8 @@ void RecognitionControl::startRecognition()
 {
 	if (recognitionReady)
 	{
-		kDebug() << "ole bin hier";
-		adinStreamer->start();
+		//adinStreamer->start();
+		simondStreamer->start();
 	} else
 		sendRequest(Simond::StartRecognition);
 }
@@ -1696,22 +1702,9 @@ void RecognitionControl::startRecognition()
 
 void RecognitionControl::stopRecognition()
 {
-	adinStreamer->stop();
+	simondStreamer->stop();
+//	adinStreamer->stop();
 	sendRequest(Simond::StopRecognition);
-}
-
-void RecognitionControl::pauseRecognition()
-{
-//	kDebug() << "Sending pause request";
-	adinStreamer->stop();
-//	sendRequest(Simond::PauseRecognition);
-}
-
-void RecognitionControl::resumeRecognition()
-{
-	kDebug() << "Sending resume request";
-	adinStreamer->start();
-//	sendRequest(Simond::ResumeRecognition);
 }
 
 void RecognitionControl::displayCompilationProtocol(const QString& protocol)
@@ -1786,6 +1779,36 @@ Operation* RecognitionControl::createModelCompilationOperation()
 	Operation* modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."), 0, 0, false /*not atomic*/);
 	connect(modelCompilationOperation, SIGNAL(aborting()), this, SLOT(abortModelCompilation()));
 	return modelCompilationOperation;
+}
+
+void RecognitionControl::pauseRecognition()
+{
+	kDebug() << "Sending pause request";
+	simondStreamer->stop();
+//       adinStreamer->stop();
+	sendRequest(Simond::PauseRecognition);
+}
+
+void RecognitionControl::resumeRecognition()
+{
+	kDebug() << "Sending resume request";
+	simondStreamer->start();
+//      adinStreamer->start();
+	sendRequest(Simond::ResumeRecognition);
+}
+
+
+void RecognitionControl::sendSampleToRecognize(qint8 channels, qint32 sampleRate, const QByteArray& data)
+{
+	//TODO: implement
+
+//	kDebug() << "Sending sample to server...";
+}
+
+void RecognitionControl::recognizeSample()
+{
+	kDebug() << "Recognize on the last transmitted data";
+
 }
 
 /**
