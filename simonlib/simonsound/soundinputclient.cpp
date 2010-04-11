@@ -18,6 +18,8 @@
  */
 
 #include "soundinputclient.h"
+#include "soundprocessor.h"
+#include <QByteArray>
 
 /**
  * \brief Constructor
@@ -27,12 +29,29 @@ SoundInputClient::SoundInputClient(SoundClient::SoundClientFlags options) :
 {
 }
 
+void SoundInputClient::registerSoundProcessor(SoundProcessor *p)
+{
+	processors << p;
+}
+
+void SoundInputClient::process(const QByteArray& data, qint64 currentTime)
+{
+	QByteArray processedData = data;
+	foreach (SoundProcessor* p, processors)
+	{
+		p->process(processedData);
+		if (processedData.isEmpty()) return;
+	}
+
+	processPrivate(processedData, currentTime);
+}
 
 /**
  * \brief Destructor
  */
 SoundInputClient::~SoundInputClient()
 {
+	qDeleteAll(processors);
 }
 
 

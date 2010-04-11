@@ -18,38 +18,21 @@
  */
 
 
-#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
+#ifndef SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
+#define SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
-#include <QtGlobal>
 #include "simonsound_export.h"
 
-class QByteArray;
-
-class SIMONSOUND_EXPORT SoundClient {
+class SIMONSOUND_EXPORT SoundProcessor {
 
 public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
+	SoundProcessor() {}
+	virtual ~SoundProcessor() {}
 
-	SoundClient(SoundClientFlags options=None);
-	virtual ~SoundClient();
-
-	virtual void resume() {}
-	virtual void suspend() {}
-
-private:
-	SoundClientFlags m_options;
-
-public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
+	virtual void process(QByteArray& data)=0;
 };
 
 #endif
+
 
 

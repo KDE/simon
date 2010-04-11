@@ -24,15 +24,23 @@
 
 #include "soundclient.h"
 #include "simonsound_export.h"
+#include <QList>
+class SoundProcessor;
 
 
 class SIMONSOUND_EXPORT SoundInputClient : public SoundClient {
+
+private:
+	QList<SoundProcessor*> processors;
 
 public:
 	SoundInputClient(SoundClientFlags options=None);
 	virtual ~SoundInputClient();
 
-	virtual void process(const QByteArray& data, qint64 currentTime)=0;
+	void process(const QByteArray& data, qint64 currentTime);
+	virtual void processPrivate(const QByteArray& data, qint64 currentTime)=0;
+
+	void registerSoundProcessor(SoundProcessor *p);
 };
 
 #endif

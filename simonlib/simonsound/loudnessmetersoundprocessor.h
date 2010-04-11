@@ -18,38 +18,27 @@
  */
 
 
-#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
+#ifndef SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
+#define SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
-#include <QtGlobal>
 #include "simonsound_export.h"
+#include "soundprocessor.h"
 
-class QByteArray;
-
-class SIMONSOUND_EXPORT SoundClient {
-
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
-
-	SoundClient(SoundClientFlags options=None);
-	virtual ~SoundClient();
-
-	virtual void resume() {}
-	virtual void suspend() {}
+class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor {
 
 private:
-	SoundClientFlags m_options;
+	int peak;
 
 public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
+	LoudnessMeterSoundProcessor();
+
+	void process(QByteArray& data);
+
+	int getPeak() { return peak; }
 };
 
 #endif
+
+
 
 

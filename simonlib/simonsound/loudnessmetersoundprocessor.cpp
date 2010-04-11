@@ -17,39 +17,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
-
+#include "loudnessmetersoundprocessor.h"
+#include <QByteArray>
 #include <QtGlobal>
-#include "simonsound_export.h"
+#include <KDebug>
 
-class QByteArray;
+/**
+ * \brief Constructor
+ */
 
-class SIMONSOUND_EXPORT SoundClient {
+LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() : 
+	SoundProcessor(),
+	peak(1000)
+{
+}
 
-public:
-	enum SoundClientFlags
-	{
-		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
-
-	SoundClient(SoundClientFlags options=None);
-	virtual ~SoundClient();
-
-	virtual void resume() {}
-	virtual void suspend() {}
-
-private:
-	SoundClientFlags m_options;
-
-public:
-	bool isExclusive()
-	{ return m_options & Exclusive; }
-};
-
-#endif
-
+void LoudnessMeterSoundProcessor::process(QByteArray& data)
+{
+	const short* frames = (short*) data.constData();
+	peak = 0;
+	for (unsigned int i=0; i < (data.size() / sizeof(short)); i++)
+		peak = qMax(peak, (int) qAbs(frames[i]));
+}
 

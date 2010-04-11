@@ -1,9 +1,8 @@
 include(FindQt4)
 include(SimonDirs)
 
-include(FindPortaudio)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 	../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -27,6 +26,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
 )
 
 set( simonsound_LIB_HDRS
@@ -36,6 +37,9 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -51,11 +55,11 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 if (${USE_WITH_SIMON})
 	message(STATUS "Use with simon activated")
-target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+target_link_libraries( simonsound ${QT_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} adinstreamer)
 elseif  (${USE_WITH_SIMON})
-target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+target_link_libraries( simonsound ${QT_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} )
 endif (${USE_WITH_SIMON})
