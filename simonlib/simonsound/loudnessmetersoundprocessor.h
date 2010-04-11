@@ -27,14 +27,16 @@
 class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor {
 
 private:
-	int peak;
+	int m_peak;
+	bool m_clipping;
 
 public:
 	LoudnessMeterSoundProcessor();
 
 	void process(QByteArray& data);
 
-	int getPeak() { return peak; }
+	int peak() { return m_peak; }
+	bool clipping() { return m_clipping; }
 };
 
 #endif

@@ -62,6 +62,9 @@ private:
 	KPushButton *pbPlay;
 	KPushButton *pbDelete;
 	QProgressBar *pbProgress;
+
+
+	QWidget *wgWarning;
 	
 
 	QString filename;
@@ -92,6 +95,7 @@ public slots:
 	
 	bool deleteSample();
 	void displayRecordingProgress(int msecs, float level);
+	void displayClippingWarning();
 	void displayPlaybackProgress(int msecs);
 	void resizePromptLabel();
 	

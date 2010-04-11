@@ -28,15 +28,24 @@
 
 LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() : 
 	SoundProcessor(),
-	peak(1000)
+	m_peak(1000),
+	m_clipping(false)
 {
 }
 
 void LoudnessMeterSoundProcessor::process(QByteArray& data)
 {
 	const short* frames = (short*) data.constData();
-	peak = 0;
+	int maxAmp =  32768 - 1;
+	m_peak = 0;
+	m_clipping = false;
 	for (unsigned int i=0; i < (data.size() / sizeof(short)); i++)
-		peak = qMax(peak, (int) qAbs(frames[i]));
+	{
+		int frame = qAbs(frames[i]);
+		m_peak = qMax(m_peak, frame);
+	}
+
+	if (m_peak >= maxAmp)
+		m_clipping = true;
 }
 
