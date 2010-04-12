@@ -242,9 +242,13 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 			key = XK_dead_ogonek;
 			break;
 		/* END DEADKEYS */
+
+		case 913:
+			key = XK_Greek_ALPHA;
 	}
 	
 	keyCode = XKeysymToKeycode(display, key);
+	kDebug() << "Requesting key: " << key << keyCode;
 	
 	if (keyCode)
 	{
@@ -259,6 +263,7 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 		if (syms >= 5)
 			altGrShiftSym = keyToSendShifted[5];
 		
+		kDebug() << "here: " << key << shiftSym << altGrSym << altGrShiftSym;
 		XFree(keyToSendShifted);
 		
 		if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
