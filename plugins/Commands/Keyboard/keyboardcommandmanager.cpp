@@ -224,7 +224,9 @@ void KeyboardCommandManager::selectNumber()
 {
 	if (ui.leNumber->text().isEmpty()) return;
 
-	if (greedyTrigger(ui.leNumber->text()))
+	QStringList tabNames = keyboardSet->getAvailableTabs();
+	if (keyboardSet->triggerButton(tabNames[ui.twTabs->currentIndex()], ui.leNumber->text(), 
+			false /*case sensitivity does not matter with numbers so lets make it faster*/))
 		ui.leNumber->clear();
 }
 
