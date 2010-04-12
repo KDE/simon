@@ -206,7 +206,6 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 			key = XK_dead_circumflex;
 			break;
 		case 180:
-			kDebug() << "Dead key ACUTE!";
 			key = XK_dead_acute;
 			break;
 		case 96:
@@ -246,10 +245,8 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 		/* END DEADKEYS */
 	}
 	
-	kDebug() << "Key: " << key;
 	unsigned int generalizedKey = generalizeKey(key);
 	keyCode = XKeysymToKeycode(display, generalizedKey);
-	kDebug() << "Key code: " << keyCode;
 	
 	if (keyCode)
 	{
@@ -263,8 +260,8 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 			altGrSym = generalizeKey(keyToSendShifted[4]);
 		if (syms >= 5)
 			altGrShiftSym = generalizeKey(keyToSendShifted[5]);
-		kDebug() << "Key: " << key << "shift: " << shiftSym  << "generalized shift: " << generalizeKey(shiftSym) 
-			<< "altGr:" << altGrSym << "altGrShift: " << altGrShiftSym;
+		//kDebug() << "Key: " << key << "shift: " << shiftSym  << "generalized shift: " << generalizeKey(shiftSym) 
+		//	<< "altGr:" << altGrSym << "altGrShift: " << altGrShiftSym;
 		
 		XFree(keyToSendShifted);
 

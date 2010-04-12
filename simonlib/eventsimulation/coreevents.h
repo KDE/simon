@@ -77,7 +77,7 @@ public:
 
 	virtual void setModifierKey(int virtualKey, bool once=false)=0;
 	virtual void unsetModifier(int virtualKey)=0;
-	virtual ~CoreEvents();
+	virtual ~CoreEvents() {}
 };
 
 #endif
