@@ -17,19 +17,13 @@
    <item>
     <widget class="QLabel" name="lbDescription">
      <property name="text">
-      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;simon compares the microphone input to something called an &amp;quot;acoustic model&amp;quot; describing how your voice sounds like and what you are saying.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models &amp;quot;base models&amp;quot;.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (&amp;quot;Training&amp;quot;).&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If you do select a base model you don't need any training but the recognition may be less accurate. &lt;span style=&quot; font-weight:600;&quot;&gt;When using static base models, the installation of the HTK is not required.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can find more information on &lt;a href=&quot;http://www.simon-listens.org/wiki/index.php/English:_Base_models&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;base models on our wikis&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head /&gt;
+&lt;body&gt;
+&lt;p&gt;simon compares the microphone input to something called an &amp;quot;acoustic model&amp;quot; describing how your voice sounds like and what you are saying.&lt;/p&gt;
+&lt;p&gt;With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models &amp;quot;base models&amp;quot;.&lt;/p&gt;
+&lt;p&gt;If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (&amp;quot;Training&amp;quot;).&lt;/p&gt;
+&lt;p&gt;If you do select a base model you don't need any training but the recognition may be less accurate. &lt;span style=&quot; font-weight:600;&quot;&gt;When using static base models, the installation of the HTK is not required.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;You can find more information on &lt;a href=&quot;http://www.simon-listens.org/wiki/index.php/English:_Base_models&quot;&gt;base models on our wikis&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
