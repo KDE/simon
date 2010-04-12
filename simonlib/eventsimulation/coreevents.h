@@ -65,12 +65,10 @@ public:
 
 	virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
 	virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
-
-	unsigned int generalizeKey(unsigned int key /*unicode representation*/);
-	virtual unsigned int generalizeKeyCore(unsigned int key /*unicode representation*/)=0;
 	
 	void sendKey(unsigned int key /*unicode representation*/);
 	virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;
+	
 	
 	void unsetUnneededModifiers();
 	void sendShortcut(const QKeySequence& shortcut);

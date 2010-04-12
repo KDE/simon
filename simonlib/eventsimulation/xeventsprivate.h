@@ -22,7 +22,6 @@
 #define SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 
 #include "clickmode.h"
-#include "coreevents.h"
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/XF86keysym.h>
@@ -39,7 +38,7 @@
 #undef KeyPress
 #endif
 
-class XEventsPrivate : public CoreEvents {
+class XEventsPrivate {
 private:
 	Display *display; //!< The opened Display
 
@@ -53,11 +52,8 @@ public:
 	void sendKeyPrivate(unsigned int key);
 
 	void setModifierKey(int virtualKey);
-	void setModifierKey(int virtualKey, bool once);
 
 	void unsetModifier(int virtualKey);
-
-	unsigned int generalizeKeyCore(unsigned int key /*unicode representation*/);
 
 	XEventsPrivate(char* displayName);
 	~XEventsPrivate();

@@ -58,11 +58,6 @@ public:
 	void dragAndDrop(int xStart, int yStart, int x, int y);
 	void sendKeyPrivate(unsigned int key /*unicode representation*/);
 
-	unsigned int generalizeKeyCore(unsigned int key /*unicode representation*/)
-	{
-		return key;
-	}
-
 	inline void setModifierKey(int virtualKey, bool once);
 	inline void unsetModifier(int virtualKey);
 	void unsetUnneededModifiers();
