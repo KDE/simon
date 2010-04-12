@@ -49,8 +49,8 @@ QWizardPage* FirstRunWizard::createIntroPage()
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Welcome to simon"));
 	desc->setOpenExternalLinks(true);
-	desc->setText(i18n("<html><head /><body><p>This assistant will guide you through some key settings that will help you to get simon up and running.</p>"
-"<p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too. You can find an option to display the wizard on the next start in the simon configuration window.</p><p>You can find some beginners instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"));
+	desc->setText(i18n("<html><head /><body><p>simon is an open source speech recognition solution enabling you to control your computer with voice commands.</p><p>This assistant will guide you through some key settings that will help you to get simon up and running.</p>"
+"<p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too (see the manual for more infromation). You can find an option to display the wizard on the next start in the simon configuration window.</p><p>You can find some beginners instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"));
 
 	return intro;
 }
@@ -80,7 +80,7 @@ QWizardPage* FirstRunWizard::createFinishedPage()
 	finish->setLayout(lay);
 
 	desc->setWordWrap(true);
-	finish->setTitle(i18n("Configuration complete"));
+	finish->setTitle(i18n("Finished"));
 	desc->setText(i18n("<html><head /><body><p>You completed the initial setup of simon.</p><p>You can find more information on simon and helpful guides and instructions in the simon manual (press F1 in the simon main window to display).</p></body></html>"));
 
 	return finish;

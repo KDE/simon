@@ -17,9 +17,9 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>simon can be set up to use a central server on the network.
+      <string>simon can be set up to use a central server on the network. The model generation and recognition will then happen on the server, disburdening the clients.
 
-If you don't know what this means, you can leave this page on the default values. You can find more information on the topic in the simon manual.</string>
+Most users will leave this page to the default values. You can find more information on the topic in the simon manual.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

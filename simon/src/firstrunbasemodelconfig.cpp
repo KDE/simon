@@ -25,7 +25,7 @@ FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
 		: QWizardPage(parent)
 {
 	ui.setupUi(this);
-	setTitle(i18n("Base model"));
+	setTitle(i18n("Base models"));
 	connect(ui.pbConfigureBaseModel, SIGNAL(clicked()), this, SLOT(configureBaseModel()));
 }
 
