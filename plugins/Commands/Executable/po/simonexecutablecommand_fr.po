@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simonexecutablecommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-23 13:40+0100\n"
+"POT-Creation-Date: 2010-04-12 11:15+0200\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -30,83 +30,50 @@ msgstr "Exécutable"
 msgid "Working directory"
 msgstr "Dossier de travail"
 
-#: ImportProgram/importprogramwizard.cpp:42
-msgid "Add program"
-msgstr "Ajouter une application"
-
-#: ImportProgram/importprogramwizard.cpp:64
-msgid "Import a program"
-msgstr "Importer une application"
-
-#: ImportProgram/importprogramwizard.cpp:67
-msgid ""
-"This wizard will guide you through the process of adding a new program.\n"
-"\n"
-"Simon will query KDE for a list of installed programs and you will then be "
-"able to choose the program you want to assign a command to from this list."
-msgstr ""
-"Cet assistant va vous guider pour ajouter une nouvelle application.\n"
-"\n"
-"Simon va demander à KDE la liste des applications installées et vous pourrez "
-"alors choisir celle à qui vous voulez affecter une commande."
-
-#: ImportProgram/importprogramwizard.cpp:96
-msgid "Added the new Program"
-msgstr "Nouvelle application ajoutée"
-
-#: ImportProgram/importprogramwizard.cpp:98
-msgid "Press \"Finish\" to complete the wizard."
-msgstr "Cliquez sur « Terminer » pour fermer cet assistant. "
-
-#: ImportProgram/selectprogrampage.cpp:118
-msgid "%1 (%2)"
-msgstr "%1 (%2)"
-
-#. i18n: file: createexecutablecommandwidget.ui:13
+#. i18n: file: createexecutablecommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
-#. i18n: file: ImportProgram/selectprogramdlg.ui:13
+#. i18n: file: selectprogramdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
-#. i18n: file: createexecutablecommandwidget.ui:13
+#. i18n: file: createexecutablecommandwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
-#. i18n: file: ImportProgram/selectprogramdlg.ui:13
+#. i18n: file: selectprogramdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
 #: po/rc.cpp:3 po/rc.cpp:24 rc.cpp:3 rc.cpp:24
 msgid "Form"
 msgstr "Form"
 
-#. i18n: file: createexecutablecommandwidget.ui:19
+#. i18n: file: createexecutablecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:6 rc.cpp:6
-msgid "Import Program"
-msgstr "Importer une application"
+#: po/rc.cpp:6 selectprogramdialog.cpp:42 rc.cpp:6
+#, fuzzy
+msgid "Select program"
+msgstr "Ajouter une application"
 
-#. i18n: file: createexecutablecommandwidget.ui:22
+#. i18n: file: createexecutablecommandwidget.ui:23
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportProgram)
 #: po/rc.cpp:9 rc.cpp:9
-msgid "This wizard will help you to add commands for installed programs easily"
+msgid "Select an installed program from a list"
 msgstr ""
-"Cet assistant va vous aider à ajouter facilement une commande pour une "
-"application installée"
 
-#. i18n: file: createexecutablecommandwidget.ui:29
+#. i18n: file: createexecutablecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_2)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Manual"
 msgstr "Manuel"
 
-#. i18n: file: createexecutablecommandwidget.ui:35
+#. i18n: file: createexecutablecommandwidget.ui:36
 #. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_2)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Configure the needed parameters manually"
 msgstr "Configurer les paramètres nécessaires manuellement"
 
-#. i18n: file: createexecutablecommandwidget.ui:47
+#. i18n: file: createexecutablecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Executable:"
 msgstr "Exécutable :"
 
-#. i18n: file: createexecutablecommandwidget.ui:64
+#. i18n: file: createexecutablecommandwidget.ui:65
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Working Directory:"
@@ -121,6 +88,40 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
+
+#: selectprogramdialog.cpp:131
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#~ msgid "Import a program"
+#~ msgstr "Importer une application"
+
+#~ msgid ""
+#~ "This wizard will guide you through the process of adding a new program.\n"
+#~ "\n"
+#~ "Simon will query KDE for a list of installed programs and you will then "
+#~ "be able to choose the program you want to assign a command to from this "
+#~ "list."
+#~ msgstr ""
+#~ "Cet assistant va vous guider pour ajouter une nouvelle application.\n"
+#~ "\n"
+#~ "Simon va demander à KDE la liste des applications installées et vous "
+#~ "pourrez alors choisir celle à qui vous voulez affecter une commande."
+
+#~ msgid "Added the new Program"
+#~ msgstr "Nouvelle application ajoutée"
+
+#~ msgid "Press \"Finish\" to complete the wizard."
+#~ msgstr "Cliquez sur « Terminer » pour fermer cet assistant. "
+
+#~ msgid "Import Program"
+#~ msgstr "Importer une application"
+
+#~ msgid ""
+#~ "This wizard will help you to add commands for installed programs easily"
+#~ msgstr ""
+#~ "Cet assistant va vous aider à ajouter facilement une commande pour une "
+#~ "application installée"
 
 #~ msgid "[INF] Loading executable commands from %1"
 #~ msgstr "[INF] Chargement des commandes d'applications depuis %1"
