@@ -34,7 +34,7 @@
 #ifndef SIMON_ADDWORDVIEW_H_617A2BD9B170401A8F0645BFFA7554B5
 #define SIMON_ADDWORDVIEW_H_617A2BD9B170401A8F0645BFFA7554B5
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 #include <QStringList>
 #include <QHash>
 #include <simonscenarios/word.h>
@@ -46,7 +46,7 @@ class AddWordResolvePage;
 class AddWordIntroPage;
 class Vocabulary;
 
-class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
+class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
 {
 	Q_OBJECT
 

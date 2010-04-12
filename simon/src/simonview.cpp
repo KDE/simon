@@ -18,6 +18,7 @@
  */
 
 #include "simonview.h"
+#include "firstrunwizard.h"
 #include "../version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
@@ -90,15 +91,26 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
-	SimonInfo *info = new SimonInfo();
-
 	//showing splash
+	SimonInfo *info = new SimonInfo();
 	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
 	info->writeToSplash ( i18n ( "Loading core..." ) );
 	KGlobal::locale()->insertCatalog("simonlib");
 
 	control = (new SimonControl(this));
+
+	if (!control->firstRunWizardCompleted())
+	{
+		FirstRunWizard *firstRun = new FirstRunWizard(this);
+		bool firstRunWizardCompleted = firstRun->exec();
+		firstRun->deleteLater();
+
+		if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You didn't complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
+			control->setFirstRunWizardCompleted(true);
+	}
+
+
 	trayManager = (new TrayIconManager(this));
 
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
@@ -122,7 +134,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	this->trainDialog = new TrainingView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
-	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
+	info->writeToSplash ( i18n ( "Loading \"Vocabulary\"..." ) );
 	vocabularyView = new VocabularyView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
@@ -152,19 +164,11 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	setupSignalSlots();
 
 
-	control->actOnAutoConnect();
+	control->startup();
 
 	//hiding splash again after loading
 	info->hideSplash();
 	delete info;
-
-	//ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
-	//ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
-
-		//ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
-	//ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	//ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
-	//ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 
 	if (!control->startMinimized())
 		show();
@@ -235,8 +239,6 @@ void SimonView::displayAboutPage()
 	welcomePart->setPluginsEnabled(false);
 	welcomePart->setOnlyLocalReferences(false);
 	welcomePart->setStatusMessagesEnabled(false);
-
-	//FIXME: reimplement bool KHTMLPart::urlSelected()
 
 	welcomePart->begin(KUrl::fromPath(location));
 	welcomePart->write(content);
@@ -338,7 +340,7 @@ void SimonView::setupActions()
 		this, SLOT(showRunDialog()));
 	
 	KAction* wordlist = new KAction(this);
-	wordlist->setText(i18n("Wordlist"));
+	wordlist->setText(i18n("Vocabulary"));
 	wordlist->setIcon(KIcon("format-justify-fill"));
 	wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
 	actionCollection()->addAction("wordlist", wordlist);
@@ -559,7 +561,7 @@ void SimonView::toggleActivation()
 {
 	if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady)
 	{
-		KMessageBox::error(this, i18n("Couldn't start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a wordlist, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
+		KMessageBox::error(this, i18n("Couldn't start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a vocabulary, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
 		representState(control->getStatus());
 	} else
 		this->control->toggleActivition();

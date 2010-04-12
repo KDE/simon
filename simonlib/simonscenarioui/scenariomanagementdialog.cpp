@@ -199,13 +199,13 @@ void ScenarioManagementDialog::exportScenarioFile()
 	delete s;
 }
 
-void ScenarioManagementDialog::getNewScenarios()
+bool ScenarioManagementDialog::getNewScenarios()
 {
 	if (m_dirty && (KMessageBox::questionYesNoCancel(this, i18n("Downloading new scenarios requires you to save your current "
 					"changes before continuing.\n\nSave your changes now?")) != KMessageBox::Yes))
-		return;
+		return false;
 
-	save();
+	if (!save()) return false;
 
 	KNS3::DownloadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
 	dialog.exec();
@@ -239,6 +239,7 @@ void ScenarioManagementDialog::getNewScenarios()
 	cg.writeEntry("LastModified", QDateTime::currentDateTime());
 	cg.sync();
 	initDisplay();
+	return true;
 }
 
 Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
@@ -430,9 +431,14 @@ bool ScenarioManagementDialog::save()
 	return true;
 }
 
-int ScenarioManagementDialog::exec()
+void ScenarioManagementDialog::init()
 {
 	m_dirty = false;
+}
+
+int ScenarioManagementDialog::exec()
+{
+	init();
 	return KDialog::exec();
 }
 

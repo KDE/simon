@@ -43,6 +43,7 @@
 #include <QByteArray>
 #include <QSslSocket>
 #include <QTimer>
+#include <QProcess>
 #include <QFile>
 #include <QDataStream>
 #include <QDateTime>
@@ -91,6 +92,7 @@ RecognitionControl* RecognitionControl::instance;
  *	Port the Server should listen to
  */
 RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
+	localSimond(NULL),
 	adinStreamer(AdinStreamer::getInstance(this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
@@ -117,6 +119,30 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
 	connect(ModelManagerUiProxy::getInstance(), SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
+void RecognitionControl::startup()
+{
+	if (RecognitionConfiguration::startLocalSimond())
+	{
+		if (!localSimond)
+		{
+			localSimond = new QProcess(this);
+		}
+		if (localSimond->state() != QProcess::NotRunning)
+		{
+			localSimond->close();
+			localSimond->waitForFinished();
+		}
+
+		if (RecognitionConfiguration::stopLocalSimond())
+			localSimond->start(KStandardDirs::findExe("simond"));
+		else
+			localSimond->startDetached(KStandardDirs::findExe("simond"));
+
+		QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
+	}
+	else
+		actOnAutoConnect();
+}
 void RecognitionControl::actOnAutoConnect()
 {
 	if ( RecognitionConfiguration::juliusdAutoConnect() )
@@ -1795,6 +1821,7 @@ Operation* RecognitionControl::createModelCompilationOperation()
  */
 RecognitionControl::~RecognitionControl()
 {
+    delete localSimond;
     delete socket;
     delete timeoutWatcher;
 }

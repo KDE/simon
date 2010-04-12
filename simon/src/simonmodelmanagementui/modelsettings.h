@@ -47,6 +47,7 @@ private slots:
 	void loadBaseTiedlist();
 	void loadBaseMacros();
 	void loadBaseStats();
+	void displayHelp();
 
 public slots:
 	void load();

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>NetworkSettingsDlg</class>
- <widget class="QWidget" name="NetworkSettingsDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="NetworkSettingsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,70 +10,90 @@
     <height>393</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Network</string>
   </property>
-  <property name="windowIcon" >
+  <property name="windowIcon">
    <iconset>
     <normaloff/>
    </iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="KTabWidget" name="twNetwork" >
-     <property name="currentIndex" >
+    <widget class="KTabWidget" name="twNetwork">
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>General</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QCheckBox" name="kcfg_JuliusdAutoConnect" >
-         <property name="text" >
+        <widget class="QCheckBox" name="kcfg_StartLocalSimond">
+         <property name="text">
+          <string>Start the server automatically when simon starts</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_StopLocalSimond">
+         <property name="text">
+          <string>Stop the server automatically when simon stops</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_JuliusdAutoConnect">
+         <property name="text">
           <string>Connect automatically on simon start</string>
          </property>
-         <property name="tristate" >
+         <property name="tristate">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="kcfg_AutomaticallyEnableRecognition" >
-         <property name="text" >
+        <widget class="QCheckBox" name="kcfg_AutomaticallyEnableRecognition">
+         <property name="text">
           <string>Start Recognition immediately once available</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout" >
-         <item row="0" column="0" >
-          <widget class="QLabel" name="lbUsername" >
-           <property name="text" >
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="lbUsername">
+           <property name="text">
             <string>Username:</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>kcfg_JuliusdUsername</cstring>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="KLineEdit" name="kcfg_JuliusdUsername" />
+         <item row="0" column="1">
+          <widget class="KLineEdit" name="kcfg_JuliusdUsername"/>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="lbPassword" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="lbPassword">
+           <property name="text">
             <string>Password:</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>kcfg_JuliusdPassword</cstring>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="KLineEdit" name="kcfg_JuliusdPassword" >
-           <property name="echoMode" >
+         <item row="1" column="1">
+          <widget class="KLineEdit" name="kcfg_JuliusdPassword">
+           <property name="echoMode">
             <enum>QLineEdit::Password</enum>
            </property>
           </widget>
@@ -81,10 +102,10 @@
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>268</width>
            <height>59</height>
@@ -94,39 +115,39 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
        <string>Network</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="kcfg_JuliusdEncrypted" >
-         <property name="enabled" >
+        <widget class="QCheckBox" name="kcfg_JuliusdEncrypted">
+         <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Use Encryption</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout" >
-         <item row="0" column="0" >
-          <widget class="QLabel" name="lbTimeout" >
-           <property name="text" >
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="lbTimeout">
+           <property name="text">
             <string>Timeout (Milliseconds):</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QSpinBox" name="kcfg_JuliusdConnectionTimeout" >
-           <property name="minimum" >
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="kcfg_JuliusdConnectionTimeout">
+           <property name="minimum">
             <number>500</number>
            </property>
-           <property name="maximum" >
+           <property name="maximum">
             <number>60000</number>
            </property>
-           <property name="value" >
+           <property name="value">
             <number>5000</number>
            </property>
           </widget>
@@ -134,8 +155,8 @@
         </layout>
        </item>
        <item>
-        <widget class="KEditListBox" name="kcfg_JuliusdServers" >
-         <property name="title" >
+        <widget class="KEditListBox" name="kcfg_JuliusdServers">
+         <property name="title">
           <string>Hosts</string>
          </property>
         </widget>

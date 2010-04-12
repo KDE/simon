@@ -3,6 +3,14 @@
 <kcfg> <kcfgfile name="simonrecognitionrc" />
   <include>KStandardDirs</include>
   <group name="Recognition">
+    <entry name="StartLocalSimond" type="Bool">
+      <label>If we should automatically start a local simond server.</label>
+      <default>false</default>
+    </entry>
+    <entry name="StopLocalSimond" type="Bool">
+      <label>If we should automatically stop the local simond server when simon exits.</label>
+      <default>false</default>
+    </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the Juliusd.</label>
       <default>false</default>

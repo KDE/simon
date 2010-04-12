@@ -21,14 +21,14 @@
 #ifndef SIMON_MERGETERMINALSWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
 #define SIMON_MERGETERMINALSWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	@author Peter Grasch <grasch@simon-listens.org>
 */
 class QWizardPage;
 
-class MergeTerminalsWizard : public QWizard
+class MergeTerminalsWizard : public SimonWizard
 {
 Q_OBJECT
 private:

@@ -21,14 +21,14 @@
 #ifndef SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
 #define SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class QWizardPage;
 
-class RenameTerminalWizard : public QWizard
+class RenameTerminalWizard : public SimonWizard
 {
 Q_OBJECT
 private:

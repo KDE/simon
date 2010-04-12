@@ -22,7 +22,7 @@
 #define SIMON_IMPORTDICTVIEW_H_8B2839D12DBF4B519ACA4DF76D63ED5B
 
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 #include <simonscenarios/word.h>
 #include <simonscenarios/vocabulary.h>
 
@@ -39,7 +39,7 @@ class ImportDictBOMPPage;
 class ImportDictBOMPDownloadPage;
 class ImportDictWorkingPage;
 
-class ImportDictView : public QWizard {
+class ImportDictView : public SimonWizard {
 	Q_OBJECT
 private:
 	ImportDictWorkingPage *workingPage;

@@ -21,7 +21,7 @@
 #ifndef SIMON_IMPORTTRAININGTEXTS_H_91D0E0A5C1B3424098C57250FF2A80DA
 #define SIMON_IMPORTTRAININGTEXTS_H_91D0E0A5C1B3424098C57250FF2A80DA
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 
 class QWidget;
 class QFileDialog;
@@ -36,7 +36,7 @@ class QWizardPage;
  * \date 20.05.2007
  * \version 0.1
 */
-class ImportTrainingTexts : public QWizard{
+class ImportTrainingTexts : public SimonWizard{
 
 	Q_OBJECT
 private:

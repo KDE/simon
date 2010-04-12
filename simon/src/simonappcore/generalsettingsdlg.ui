@@ -15,6 +15,13 @@
   </property>
   <layout class="QVBoxLayout">
    <item>
+    <widget class="QCheckBox" name="kcfg_FirstRunWizardCompleted">
+     <property name="text">
+      <string>Don't show first run wizard on startup</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="gbGeneral">
      <property name="title">
       <string>General</string>
@@ -23,24 +30,24 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout">
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QCheckBox" name="cbAskBeforeQuit">
         <property name="text">
          <string>Ask before quitting</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="kcfg_AutoStart">
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="kcfg_StartMinimized">
         <property name="text">
-         <string>Start simon when logging in</string>
+         <string>Start simon minimized</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QCheckBox" name="kcfg_StartMinimized">
+       <widget class="QCheckBox" name="kcfg_AutoStart">
         <property name="text">
-         <string>Start simon minimized</string>
+         <string>Start simon when logging in</string>
         </property>
        </widget>
       </item>

@@ -21,13 +21,19 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/about)
 
 set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunwizard.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.ui
 )
-
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
 

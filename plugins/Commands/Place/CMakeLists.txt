@@ -10,12 +10,11 @@ set (simonplacecommandplugin_SRCS
 	createplacecommandwidget.cpp 
 	placecommand.cpp 
 	placecommandmanager.cpp 
-	ImportPlace/importplacewizard.cpp
-	ImportPlace/selectplacepage.cpp
+	selectplacedialog.cpp
     )
 
 kde4_add_ui_files(simonplacecommandplugin_SRCS 
-	ImportPlace/selectplacedlg.ui
+	selectplacedlg.ui
 	createplacecommandwidget.ui
     )
 

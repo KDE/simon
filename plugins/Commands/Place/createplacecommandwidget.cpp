@@ -19,10 +19,9 @@
 
 #include "createplacecommandwidget.h"
 #include "placecommand.h"
-#include "ImportPlace/importplacewizard.h"
+#include "selectplacedialog.h"
 
-CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
-	importWizard(0)
+CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {
 	ui.setupUi(this);
 	ui.urUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
@@ -30,18 +29,18 @@ CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWid
 	setWindowTitle(PlaceCommand::staticCategoryText());
 	
 	connect(ui.urUrl, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(showImportWizard()));
+	connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(selectPlace()));
 }
 
-void CreatePlaceCommandWidget::showImportWizard()
+void CreatePlaceCommandWidget::selectPlace()
 {
-	if (!importWizard) {
-		importWizard = new ImportPlaceWizard(this);
-		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(propagateCreatedCommand(Command*)));
-	}
-	
-	importWizard->restart();
-	importWizard->show();
+	SelectPlaceDialog *select = new SelectPlaceDialog(this);
+	Command *c = select->selectPlace();
+
+	if (c)
+		emit propagateCreatedCommand(c);
+
+	delete select;
 }
 
 
@@ -69,5 +68,4 @@ Command* CreatePlaceCommandWidget::createCommand(const QString& name, const QStr
 
 CreatePlaceCommandWidget::~CreatePlaceCommandWidget()
 {
-	if (importWizard) importWizard->deleteLater();
 }

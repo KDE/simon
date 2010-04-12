@@ -25,7 +25,6 @@
 #include "ui_createplacecommandwidget.h"
 
 class Command;
-class ImportPlaceWizard;
 class CommandManager;
 
 /**
@@ -41,10 +40,9 @@ Q_OBJECT
 
 private:
 	Ui::CreatePlaceCommandWidget ui;
-	ImportPlaceWizard *importWizard;
 
 private slots:
-	void showImportWizard();
+	void selectPlace();
 
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);

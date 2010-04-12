@@ -34,7 +34,6 @@
  *	@author Peter Grasch
 */
 
-#define sAddWordView 		1
 #include "ui_simonview.h"
 #include <KXmlGuiWindow>
 #include <simoncontrol.h>

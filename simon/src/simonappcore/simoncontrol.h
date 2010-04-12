@@ -79,14 +79,12 @@ public:
 
 	bool passwordProtected();
 	bool startMinimized();
-	QString adminPassword();
+	bool firstRunWizardCompleted();
+	void setFirstRunWizardCompleted(bool);
 
 signals:
 	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
-// 	void statusInfo(const QString&);
-// 	void statusError(const QString&);
-// 	void progressInfo(int now, int max=-1);
 
 	void simondSystemError(const QString &err);
 	void synchronisationError(const QString &err);
@@ -95,7 +93,7 @@ signals:
 
 	
 public slots:
-	void actOnAutoConnect();
+	void startup();
 
 	void connectToServer();
 	void disconnectFromServer();

@@ -34,9 +34,6 @@ void CreateCommandWidget::propagateCreatedCommand(Command *c)
 bool CreateCommandWidget::isInstanceOfSameManager(Command *c)
 {
 	Q_ASSERT(c);
-	kDebug() << c;
-	kDebug() << m_manager;
-	kDebug() << c->parent();
 	return (m_manager == c->parent());
 }
 

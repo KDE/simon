@@ -41,11 +41,11 @@
 
 #include <math.h>
 
-TrainingsWizard::TrainingsWizard(QWidget *parent) : QWizard(parent)
+TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/training.png")));
 	addPage(createIntroPage());
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	setBanner("training");
 }
 
 bool TrainingsWizard::init(const QStringList& prompts)

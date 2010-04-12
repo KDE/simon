@@ -25,7 +25,6 @@
 #include "ui_createexecutablecommandwidget.h"
 
 class Command;
-class ImportProgramWizard;
 class CommandManager;
 
 /**
@@ -41,10 +40,9 @@ Q_OBJECT
 
 private:
 	Ui::CreateExecutableCommandWidget ui;
-	ImportProgramWizard *importWizard;
 
 private slots:
-	void showImportWizard();
+	void selectProgram();
 	void urlSelected(const KUrl&);
 
 public:

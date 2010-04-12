@@ -18,16 +18,17 @@
  */
 
 
-#include "selectplacepage.h"
+#include "selectplacedialog.h"
+#include "placecommand.h"
 
 #include <KUrl>
-#include <QCoreApplication>
 
-SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
+SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 {
-	ui.setupUi(this);
-
-	setTitle(i18n("Select Place"));
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
+	setMainWidget( widget );
+	setCaption( i18n("Select Place") );
 	
 	ui.urLocalUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
 	
@@ -39,13 +40,39 @@ SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 	connect(ui.cbAuthentification, SIGNAL(toggled(bool)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leRemoteUrl, SIGNAL(textEdited(QString)), this, SLOT(parseRemoteUrl()));
 	
-	connect(ui.rbLocalPlace, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	connect(ui.leRemoteUrl, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-	connect(ui.urLocalUrl, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-	
+	connect(ui.rbLocalPlace, SIGNAL(toggled(bool)), this, SLOT(checkComplete()));
+	connect(ui.leRemoteUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
+	connect(ui.urLocalUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
 }
 
-void SelectPlacePage::initializePage()
+void SelectPlaceDialog::checkComplete()
+{
+	enableButton(KDialog::Ok, isComplete());
+}
+
+PlaceCommand* SelectPlaceDialog::selectPlace()
+{
+	initializeDialog();
+	checkComplete();
+	if ((!exec()) || (!isComplete()))
+		return NULL;
+
+
+	QString iconSrc;
+	QString description;
+	if (ui.rbLocalPlace->isChecked())
+	{
+		iconSrc = "folder";
+		description = i18n("Open local path: %1", ui.urLocalUrl->url().path());
+	} else {
+		iconSrc = "internet-web-browser";
+		description = i18n("Open remote URL: %1", ui.leRemoteUrl->text());
+
+	}
+	return new PlaceCommand(getName(), iconSrc, description, getUrl());
+}
+
+void SelectPlaceDialog::initializeDialog()
 {
 	ui.gbRemoteHelp->setChecked(false);
 	
@@ -68,7 +95,7 @@ void SelectPlacePage::initializePage()
 	ui.rbRemotePlace->setChecked(false);
 }
 
-bool SelectPlacePage::isComplete() const
+bool SelectPlaceDialog::isComplete() const
 {
 	bool complete=false;
 	if (ui.rbLocalPlace->isChecked())
@@ -81,7 +108,7 @@ bool SelectPlacePage::isComplete() const
 	return (ui.rbLocalPlace->isChecked() || ui.rbRemotePlace->isChecked()) && complete;
 }
 
-void SelectPlacePage::buildRemoteUrl()
+void SelectPlaceDialog::buildRemoteUrl()
 {
 	KUrl url;
 	url.setScheme(ui.cbProtocol->currentText());
@@ -93,18 +120,23 @@ void SelectPlacePage::buildRemoteUrl()
 	ui.leRemoteUrl->setText(urlStr);
 }
 
-QString SelectPlacePage::getName() const
+QString SelectPlaceDialog::getName() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
 		return QDir(ui.urLocalUrl->url().path()).dirName();
 	} else
 	{ //remote place
-		return KUrl(ui.leRemoteUrl->text()).host();
+		QString name = KUrl(ui.leRemoteUrl->text()).host();
+
+		if (name.isEmpty())
+			name = ui.leRemoteUrl->text();
+
+		return name;
 	}
 }
 
-void SelectPlacePage::parseRemoteUrl()
+void SelectPlaceDialog::parseRemoteUrl()
 {
 	KUrl url(ui.leRemoteUrl->text());
 	ui.cbProtocol->setEditText(url.scheme());
@@ -119,13 +151,20 @@ void SelectPlacePage::parseRemoteUrl()
 	} else ui.cbAuthentification->setChecked(false);
 }
 
-KUrl SelectPlacePage::getUrl() const
+KUrl SelectPlaceDialog::getUrl() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
 		return ui.urLocalUrl->url();
 	} else
 	{ //remote place
-		return KUrl(ui.leRemoteUrl->text());
+
+		KUrl url(ui.leRemoteUrl->text());
+		if (url.protocol().isEmpty())
+		{
+			url = "http://"+ui.leRemoteUrl->text(); //default to http
+		}
+
+		return url;
 	}
 }

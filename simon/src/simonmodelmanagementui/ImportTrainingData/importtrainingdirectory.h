@@ -21,9 +21,8 @@
 #ifndef SIMON_IMPORTTRAININGDIRECTORY_H_A35BF7EEAFE74B67B25BC8516F65942B
 #define SIMON_IMPORTTRAININGDIRECTORY_H_A35BF7EEAFE74B67B25BC8516F65942B
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 
-class QWidget;
 class QWizardPage;
 class ImportTrainingDirectoryIntroPage;
 class ImportTrainingDirectoryWorkingPage;
@@ -47,7 +46,7 @@ class ImportTrainingDirectoryWorkingPage;
   Extends QWizard;
   
 */
-class ImportTrainingDirectory : public QWizard {
+class ImportTrainingDirectory : public SimonWizard {
 	Q_OBJECT
 
 private:

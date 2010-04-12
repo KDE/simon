@@ -17,10 +17,10 @@
    <item>
     <widget class="QCommandLinkButton" name="cbImportProgram">
      <property name="text">
-      <string>Import Program</string>
+      <string>Select program</string>
      </property>
      <property name="description">
-      <string>This wizard will help you to add commands for installed programs easily</string>
+      <string>Select an installed program from a list</string>
      </property>
     </widget>
    </item>

@@ -26,14 +26,14 @@
 #include <QHBoxLayout>
 #include <KStandardDirs>
 
-MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): QWizard(parent)
+MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(i18n("Merge Terminals"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/merge.png")));
 	addPage(createIntroPage());
 	addPage(createSelectTerminalsPage());
 	addPage(createWorkingPage());
 	addPage(createFinishedPage());
+	setBanner("merge.png");
 }
 
 QWizardPage* MergeTerminalsWizard::createIntroPage()

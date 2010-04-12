@@ -19,11 +19,10 @@
 
 #include "createexecutablecommandwidget.h"
 #include "executablecommand.h"
-#include "ImportProgram/importprogramwizard.h"
+#include "selectprogramdialog.h"
 #include <KLineEdit>
 
-CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
-	importWizard(0)
+CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {
 	ui.setupUi(this);
 	
@@ -41,14 +40,13 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *man
 	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
 	
-	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(showImportWizard()));
+	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(selectProgram()));
 }
 
 void CreateExecutableCommandWidget::urlSelected(const KUrl& urlSelected)
 {
 	//wrap url in quotes
 	ui.urExecutable->lineEdit()->setText("\""+urlSelected.path()+"\"");
-
 }
 
 bool CreateExecutableCommandWidget::isComplete()
@@ -56,15 +54,15 @@ bool CreateExecutableCommandWidget::isComplete()
 	return !(ui.urExecutable->url().isEmpty());
 }
 
-void CreateExecutableCommandWidget::showImportWizard()
+void CreateExecutableCommandWidget::selectProgram()
 {
-	if (!importWizard) {
-		importWizard = new ImportProgramWizard(this);
-		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(propagateCreatedCommand(Command*)));
-	}
-	
-	importWizard->restart();
-	importWizard->show();
+	SelectProgramDialog *select = new SelectProgramDialog(this);
+	Command *c = select->selectCommand();
+
+	if (c)
+		emit propagateCreatedCommand(c);
+
+	delete select;
 }
 
 bool CreateExecutableCommandWidget::init(Command* command)
@@ -87,5 +85,4 @@ Command* CreateExecutableCommandWidget::createCommand(const QString& name, const
 
 CreateExecutableCommandWidget::~CreateExecutableCommandWidget()
 {
-	if (importWizard) importWizard->deleteLater();
 }

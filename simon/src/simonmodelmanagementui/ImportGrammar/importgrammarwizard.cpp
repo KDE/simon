@@ -26,10 +26,10 @@
 #include "importgrammarselectinputpage.h"
 #include "importgrammarworkingpage.h"
 
-ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
+ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(i18n("Import Sentence Structures"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importgrammar.png")));
+	setBanner("importgrammar.png");
 	addPage(createIntroPage());
 	addPage(createSelectInputPage());
 	addPage(createWorkingPage());
