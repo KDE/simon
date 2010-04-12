@@ -34,18 +34,32 @@
 SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	QObject(parent),
 	SoundInputClient(SoundClient::None),
+	//test("/home/bedahr/simondstreamer.raw"),
 	levelCrossCount(0),
+	lastLevel(0),
+	lastLevelCrossPos(-1),
+	lastLevelCrossNeg(-1),
+	lastTimeUnderLevel(0),
+	lastTimeOverLevel(0),
+	waitingForSampleToStart(true),
+	waitingForSampleToFinish(false),
 	sender(s),
 	loudness(new LoudnessMeterSoundProcessor())
 {
 	registerSoundProcessor(loudness);
+	//test.open(QIODevice::WriteOnly);
 }
 
 
 
 bool SimondStreamer::start()
 {
+	lastTimeOverLevel = -1;
+	lastTimeUnderLevel = -1;
 	bool succ =  SoundServer::getInstance()->registerInputClient(this);
+
+	if (succ)
+		emit started();
 
 	return succ;
 }
@@ -86,34 +100,81 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 
 void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 {
-	//kDebug() << "Got sound... Peak: " << loudness->peak() << " Clip: " << loudness->clipping();
+	int levelThreshold = 2000; 
+	int headMargin = 200; 
+	int tailMargin = 350;
+	int headPreCacheMargin = 50;
 
 	int peak = loudness->peak();
-	bool finalSample = false;
+	if (peak > levelThreshold)
+	{
+		if (lastLevel > levelThreshold)
+		{
+			//kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
 
-	if (peak >= 2000 /* level */)
-	{
-		levelCrossCount += 2;
-	}
-	if (levelCrossCount > 0)
-	{
-		currentSample += data;
-		levelCrossCount--;
-		if (levelCrossCount == 0)
-			finalSample = true;
+			currentSample += data; // cache data (waiting for sample) or send it (if already sending)
+			kDebug() << "Adding data to sample...";
+
+			//stayed above level
+			if (waitingForSampleToStart)
+			{
+				if (currentTime - lastTimeUnderLevel > headMargin)
+				{
+					kDebug() << "Sending started...";
+					waitingForSampleToStart = false;
+					waitingForSampleToFinish = true;
+				}
+			} else {
+				//test.write(currentSample);
+				sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
+						SoundServer::getInstance()->getSampleRate(),
+						currentSample);
+				currentSample.clear();
+				kDebug() << "Clearing cached data...";
+			}
+		} else {
+			//crossed upward
+			kDebug() << "Crossed level upward...";
+			currentSample += data; 
+		}
+		lastTimeOverLevel = currentTime;
 	} else {
-		currentSample.clear();
+		waitingForSampleToStart = true;
+		if (lastLevel < levelThreshold)
+		{
+			//stayed below level
+			//kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
+			if (waitingForSampleToFinish)
+			{
+				//still append data during tail margin
+				currentSample += data; 
+				//test.write(currentSample);
+				sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
+					SoundServer::getInstance()->getSampleRate(),
+					currentSample);
+				currentSample.clear();
+				if (currentTime - lastTimeOverLevel > tailMargin)
+				{
+					sender->recognizeSample();
+				//	kDebug() << "Clearing cached data...";
+					waitingForSampleToFinish = false;
+					kDebug() << "Sample finalized and sent.";
+				}
+			} else {
+				//get a bit of data before the first level cross
+
+				currentSample += data;
+				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headPreCacheMargin));
+			}
+		} else {
+			//crossed downward
+			kDebug() << "Crossed level downward...";
+			currentSample += data; 
+		}
+		lastTimeUnderLevel = currentTime;
 	}
 
-	if (levelCrossCount >=  5)
-	{
-		sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
-				SoundServer::getInstance()->getSampleRate(),
-				data);
-		currentSample.clear();
-	}
-	if (finalSample)
-		sender->recognizeSample();
+	lastLevel = peak;
 }
 
 /**
@@ -126,6 +187,8 @@ bool SimondStreamer::stop()
 {
 	bool succ = true;
 	succ = SoundServer::getInstance()->deRegisterInputClient(this);
+	if (succ)
+		emit stopped();
 	return succ;
 }
 

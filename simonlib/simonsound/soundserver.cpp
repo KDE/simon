@@ -321,6 +321,11 @@ qint64 SoundServer::byteSizeToLength(qint64 bytes)
 	return bytes / (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
 }
 
+qint64 SoundServer::lengthToByteSize(qint64 length)
+{
+	return length * (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
+}
+
 bool SoundServer::stopPlayback()
 {
 	Q_ASSERT(output);

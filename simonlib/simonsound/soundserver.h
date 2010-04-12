@@ -83,6 +83,7 @@ public:
 	bool deRegisterOutputClient(SoundOutputClient* client);
 
 	qint64 byteSizeToLength(qint64 bytes);
+	qint64 lengthToByteSize(qint64 length);
     
 
     virtual ~SoundServer();

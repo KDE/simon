@@ -26,21 +26,36 @@
 #include "simondstreamer_export.h"
 #include <simonsound/soundinputclient.h>
 #include <QObject>
+//#include <QFile>
 
-class WAV;
 class LoudnessMeterSoundProcessor;
 
 class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject, public SoundInputClient {
 	Q_OBJECT
 
 private:
+//		QFile test;
+	int levelCrossCount;
+
+	qint64 lastLevel;
+
+	qint64 lastLevelCrossPos;
+	qint64 lastLevelCrossNeg;
+
+	qint64 lastTimeUnderLevel;
+	qint64 lastTimeOverLevel;
+
+	bool waitingForSampleToStart;
+	bool waitingForSampleToFinish;
+
+
+
 	// when the system detects that the current input is over the
 	// silence threshold it will fill up this buffer to a certain
 	// extend before we can be sure that it wasen't just a "blib".
 	//
 	// When this happens we will begin to empty this buffer by sending
 	// it to the server, adding live input
-	int levelCrossCount;
 	QByteArray currentSample;
 
 	SimonSender *sender;
@@ -49,6 +64,8 @@ private:
 
 signals:
 	void clippingOccured();
+	void started();
+	void stopped();
 	
 public:
 	SimondStreamer(SimonSender *sender, QObject *parent=0);
