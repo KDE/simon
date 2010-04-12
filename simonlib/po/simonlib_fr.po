@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simonlib_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-23 13:30+0100\n"
+"POT-Creation-Date: 2010-04-12 11:11+0200\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "\n"
 "Vérifiez votre configuration."
 
-#: eventsimulation/xeventsprivate.cpp:56
+#: eventsimulation/xeventsprivate.cpp:55
 msgid ""
 "Couldn't open display. Please check your configuration and / or contact the "
 "simond developers. (Display: \"%1\")"
@@ -36,7 +36,7 @@ msgstr ""
 "Impossible de lancer l'interface graphique. Vérifiez votre configuration et/"
 "ou contactez les développeurs de simond. ( Display : « %1 » )"
 
-#: eventsimulation/xeventsprivate.cpp:63
+#: eventsimulation/xeventsprivate.cpp:62
 msgid "The X-Server does not support the XTest extension. Please install it."
 msgstr ""
 "Le serveur X ne prend pas en charge l'extension XTest. Veuillez l'installer."
@@ -180,8 +180,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (KPushButton, pbAbort)
 #: po/rc.cpp:51 po/rc.cpp:102 simonactions/commandlistwidget.cpp:50
 #: simonactions/listconfiguration.cpp:154
-#: simonactions/listconfiguration.cpp:174 simonlogging/logview.cpp:691
-#: simonprogresstracking/progresswidget.cpp:48 rc.cpp:51 rc.cpp:102
+#: simonactions/listconfiguration.cpp:174 simonlogging/logview.cpp:690
+#: simonprogresstracking/progresswidget.cpp:46 rc.cpp:51 rc.cpp:102
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -652,7 +652,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteScenario)
 #. i18n: file: simonsound/recwidget.ui:58
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:291 po/rc.cpp:343 simonsound/recwidget.cpp:103 rc.cpp:291
+#: po/rc.cpp:291 po/rc.cpp:343 simonsound/recwidget.cpp:102 rc.cpp:291
 #: rc.cpp:343
 msgid "Delete"
 msgstr "Supprimer"
@@ -689,7 +689,7 @@ msgstr "Taux d'échantillonnage :"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:159
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
-#: po/rc.cpp:312 simonlogging/logview.cpp:706 rc.cpp:312
+#: po/rc.cpp:312 simonlogging/logview.cpp:705 rc.cpp:312
 msgid "Reload"
 msgstr "Recharger"
 
@@ -726,13 +726,13 @@ msgstr "Enregistrement"
 
 #. i18n: file: simonsound/recwidget.ui:38
 #. i18n: ectx: property (text), widget (KPushButton, pbRecord)
-#: po/rc.cpp:337 simonsound/recwidget.cpp:91 rc.cpp:337
+#: po/rc.cpp:337 simonsound/recwidget.cpp:90 rc.cpp:337
 msgid "Record"
 msgstr "Enregistrer"
 
 #. i18n: file: simonsound/recwidget.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbPlay)
-#: po/rc.cpp:340 simonsound/recwidget.cpp:97 rc.cpp:340
+#: po/rc.cpp:340 simonsound/recwidget.cpp:96 rc.cpp:340
 msgid "Play"
 msgstr "Lire"
 
@@ -788,7 +788,7 @@ msgstr "Les filtres (commandes) à appliquer aux séquences enregistrées."
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:18
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:370 simonuicomponents/addserverconnection.cpp:42 rc.cpp:370
+#: po/rc.cpp:370 simonuicomponents/addserverconnection.cpp:41 rc.cpp:370
 msgid "Address:"
 msgstr "Adresse :"
 
@@ -800,7 +800,7 @@ msgstr "localhost"
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:376 simonuicomponents/addserverconnection.cpp:43 rc.cpp:376
+#: po/rc.cpp:376 simonuicomponents/addserverconnection.cpp:42 rc.cpp:376
 msgid "Port:"
 msgstr "Port :"
 
@@ -934,11 +934,11 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
 
-#: simonactions/actionmanager.cpp:220
+#: simonactions/actionmanager.cpp:219
 msgid "Did you mean ...?"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:220
+#: simonactions/actionmanager.cpp:219
 msgid ""
 "simon is not shure what you meant.\n"
 "\n"
@@ -949,7 +949,7 @@ msgstr ""
 msgid "Number"
 msgstr ""
 
-#: simonactions/commandlistwidget.cpp:69 simonactions/commandmodel.cpp:96
+#: simonactions/commandlistwidget.cpp:69 simonactions/commandmodel.cpp:95
 msgid "Command"
 msgstr "Commande"
 
@@ -970,16 +970,16 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: simonactions/commandtablemodel.cpp:71
+#: simonactions/commandtablemodel.cpp:70
 msgid "Delay"
 msgstr "Délai"
 
-#: simonactions/commandtablemodel.cpp:106
+#: simonactions/commandtablemodel.cpp:105
 #: simonscenarios/commandmanager.cpp:847
 msgid "Trigger"
 msgstr "Déclencheur"
 
-#: simonactions/commandtablemodel.cpp:108 simonscenarios/vocabulary.cpp:169
+#: simonactions/commandtablemodel.cpp:107 simonscenarios/vocabulary.cpp:169
 msgid "Category"
 msgstr "Catégorie"
 
@@ -1044,68 +1044,68 @@ msgstr ""
 msgid "Nine"
 msgstr ""
 
-#: simonddatabaseaccess/databaseaccess.cpp:179
+#: simonddatabaseaccess/databaseaccess.cpp:178
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: simonddatabaseaccess/databaseaccess.cpp:180
+#: simonddatabaseaccess/databaseaccess.cpp:179
 msgid "Encrypted Password"
 msgstr "Mot de passe chiffré"
 
-#: simonlogging/logview.cpp:94
+#: simonlogging/logview.cpp:93
 msgid "Loading Overview"
 msgstr "Chargement de la vue d'ensemble"
 
-#: simonlogging/logview.cpp:114
+#: simonlogging/logview.cpp:113
 msgid "Loading Day %1"
 msgstr "Chargement du jour %1"
 
-#: simonlogging/logview.cpp:134
+#: simonlogging/logview.cpp:133
 msgid "Loading File..."
 msgstr "Chargement du fichier..."
 
-#: simonlogging/logview.cpp:158
+#: simonlogging/logview.cpp:157
 msgid "Loading Log..."
 msgstr "Chargement de l'historique..."
 
-#: simonlogging/logview.cpp:291
+#: simonlogging/logview.cpp:290
 msgid "Parsing Days..."
 msgstr "Analyse des jours..."
 
-#: simonlogging/logview.cpp:439
+#: simonlogging/logview.cpp:438
 msgid "Filling in Entries..."
 msgstr "Remplissage des entrées..."
 
-#: simonlogging/logview.cpp:655
+#: simonlogging/logview.cpp:654
 msgid "Filtering List..."
 msgstr "Filtrage de la liste..."
 
-#: simonlogging/logview.cpp:703 simonmodeltest/modeltest.cpp:261
-#: simonprogresstracking/compositeprogresswidget.cpp:86
+#: simonlogging/logview.cpp:702 simonmodeltest/modeltest.cpp:259
+#: simonprogresstracking/compositeprogresswidget.cpp:85
 #: simonprogresstracking/operation.cpp:49
-#: speechmodelcompilation/modelcompilationmanager.cpp:452
+#: speechmodelcompilation/modelcompilationmanager.cpp:369
 msgid "Finished"
 msgstr "Terminé"
 
-#: simonmodeltest/fileresultmodel.cpp:117
+#: simonmodeltest/fileresultmodel.cpp:115
 #, fuzzy
 msgid "Filename"
 msgstr "Nom d'utilisateur"
 
-#: simonmodeltest/fileresultmodel.cpp:119
+#: simonmodeltest/fileresultmodel.cpp:117
 msgid "Expected result"
 msgstr ""
 
-#: simonmodeltest/fileresultmodel.cpp:121
+#: simonmodeltest/fileresultmodel.cpp:119
 msgid "Actual result"
 msgstr ""
 
-#: simonmodeltest/fileresultmodel.cpp:123
+#: simonmodeltest/fileresultmodel.cpp:121
 #, fuzzy
 msgid "Recognition rate"
 msgstr "Taux de reconnaissance"
 
-#: simonmodeltest/modeltest.cpp:96
+#: simonmodeltest/modeltest.cpp:94
 #, fuzzy
 msgid ""
 "SOX or Julius can not be found. Please make sure it is installed correctly.\n"
@@ -1114,24 +1114,24 @@ msgstr ""
 "Impossible de trouver HTK. Vérifiez qu'il est installé correctement.\n"
 "\n"
 
+#: simonmodeltest/modeltest.cpp:96
+msgid ""
+"More information: http://www.cyber-byte.at/wiki/index.php/English:"
+"_Setup#Windows"
+msgstr ""
+"Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
+"_Setup#Windows"
+
 #: simonmodeltest/modeltest.cpp:98
 msgid ""
 "More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
-msgstr ""
-"Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
-
-#: simonmodeltest/modeltest.cpp:100
-msgid ""
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup#HTK_Installation"
 msgstr ""
 "Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup#HTK_Installation"
 
-#: simonmodeltest/modeltest.cpp:242
-#: speechmodelcompilation/modelcompilationmanager.cpp:423
+#: simonmodeltest/modeltest.cpp:240
+#: speechmodelcompilation/modelcompilationmanager.cpp:340
 msgid ""
 "Couldn't generate temporary folders.\n"
 "\n"
@@ -1141,84 +1141,84 @@ msgstr ""
 "\n"
 "Vérifiez vos permissions sur « %1 »."
 
-#: simonmodeltest/modeltest.cpp:250
+#: simonmodeltest/modeltest.cpp:248
 #, fuzzy
 msgid "[INF] Testing model..."
 msgstr "[INF] Compilation du modèle..."
 
-#: simonmodeltest/modeltest.cpp:251
-#: speechmodelcompilation/modelcompilationmanager.cpp:429
+#: simonmodeltest/modeltest.cpp:249
+#: speechmodelcompilation/modelcompilationmanager.cpp:346
 msgid "Preperation"
 msgstr "Préparation"
 
-#: simonmodeltest/modeltest.cpp:268
+#: simonmodeltest/modeltest.cpp:266
 #, fuzzy
 msgid "Recoding audio..."
 msgstr "Encodage des fichiers sonores..."
 
-#: simonmodeltest/modeltest.cpp:272
+#: simonmodeltest/modeltest.cpp:270
 #, fuzzy
 msgid "Couldn't open prompts file for reading: %1"
 msgstr "Impossible d'ouvrir le fichier de sortie %1"
 
-#: simonmodeltest/modeltest.cpp:278
+#: simonmodeltest/modeltest.cpp:276
 msgid "Couldn't open wavlist file for writing: %1"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:309
+#: simonmodeltest/modeltest.cpp:315
 #, fuzzy
 msgid "Generating MLF..."
 msgstr "Génération DFA..."
 
-#: simonmodeltest/modeltest.cpp:464
+#: simonmodeltest/modeltest.cpp:470
 #, fuzzy
 msgid "Recognizing..."
 msgstr "Enregistrement"
 
-#: simonmodeltest/modeltest.cpp:476
+#: simonmodeltest/modeltest.cpp:482
 #, fuzzy
 msgid "Couldn't open julius jconf file: \"%1\"."
 msgstr "Impossible d'ouvrir le fichier de sortie %1"
 
-#: simonmodeltest/modeltest.cpp:490
+#: simonmodeltest/modeltest.cpp:496
 msgid "Couldn't open hmm definitions"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:534
+#: simonmodeltest/modeltest.cpp:540
 msgid "Internal Jconf error"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:541
+#: simonmodeltest/modeltest.cpp:547
 msgid "Could not initialize recognition"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:555
+#: simonmodeltest/modeltest.cpp:561
 #, fuzzy
 msgid "Couldn't start adin-thread"
 msgstr "Impossible de générer tree.hed."
 
-#: simonmodeltest/modeltest.cpp:639
+#: simonmodeltest/modeltest.cpp:645
 msgid "Search failed for: %1"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:664
+#: simonmodeltest/modeltest.cpp:670
 #, fuzzy
 msgid "Prompts entry: %1"
 msgstr "Police de caractères du prompteur"
 
-#: simonmodeltest/modeltest.cpp:665
+#: simonmodeltest/modeltest.cpp:671
 msgid "Received recognition result for: %1: %2"
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:730
+#: simonmodeltest/modeltest.cpp:736
 msgid "Processing recognition results..."
 msgstr ""
 
-#: simonmodeltest/modeltest.cpp:740
+#: simonmodeltest/modeltest.cpp:746
 msgid "Analyzing recognition results..."
 msgstr ""
 
-#: simonprogresstracking/compositeprogresswidget.cpp:48
+#: simonprogresstracking/compositeprogresswidget.cpp:47
 msgid "Details"
 msgstr "Détails"
 
@@ -1280,11 +1280,11 @@ msgid ""
 "synchronization now."
 msgstr ""
 
-#: simonscenarios/trainingmanager.cpp:236
+#: simonscenarios/trainingmanager.cpp:235
 msgid "[INF] Parsing prompts-file from %1"
 msgstr "[INF] Analyse du fichier de prompteur depuis %1"
 
-#: simonscenarios/trainingmanager.cpp:260
+#: simonscenarios/trainingmanager.cpp:259
 msgid "[INF] %1 Prompts read"
 msgstr "[INF] %1 prompteurs lus"
 
@@ -1351,47 +1351,47 @@ msgstr ""
 msgid "Scenario could not be updated"
 msgstr "Impossible de supprimer la commande."
 
-#: simonscenarioui/scenariomanagementdialog.cpp:55
+#: simonscenarioui/scenariomanagementdialog.cpp:57
 msgid "Manage scenarios"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:82
+#: simonscenarioui/scenariomanagementdialog.cpp:84
 #, fuzzy
 msgid "Publish"
 msgstr "Julius"
 
-#: simonscenarioui/scenariomanagementdialog.cpp:83
+#: simonscenarioui/scenariomanagementdialog.cpp:85
 msgid "Export to file"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:86
+#: simonscenarioui/scenariomanagementdialog.cpp:88
 msgid "Download"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:87
+#: simonscenarioui/scenariomanagementdialog.cpp:89
 msgid "Import from file"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:147
+#: simonscenarioui/scenariomanagementdialog.cpp:149
 msgid "Select scenario file"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:152
-#: simonscenarioui/scenariomanagementdialog.cpp:186
+#: simonscenarioui/scenariomanagementdialog.cpp:154
+#: simonscenarioui/scenariomanagementdialog.cpp:188
 #, fuzzy
 msgid "Could not load scenario."
 msgstr "Impossible de générer mktri.hed."
 
-#: simonscenarioui/scenariomanagementdialog.cpp:159
-#: simonscenarioui/scenariomanagementdialog.cpp:195
+#: simonscenarioui/scenariomanagementdialog.cpp:161
+#: simonscenarioui/scenariomanagementdialog.cpp:197
 msgid "Failed to store scenario"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:191
+#: simonscenarioui/scenariomanagementdialog.cpp:193
 msgid "Select scenario output file"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:202
+#: simonscenarioui/scenariomanagementdialog.cpp:204
 msgid ""
 "Downloading new scenarios requires you to save your current changes before "
 "continuing.\n"
@@ -1399,21 +1399,21 @@ msgid ""
 "Save your changes now?"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:219
+#: simonscenarioui/scenariomanagementdialog.cpp:248
 msgid "Please select a scenario from the list(s)"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:226
+#: simonscenarioui/scenariomanagementdialog.cpp:255
 msgid "Could not find scenario \"%1\""
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:239
+#: simonscenarioui/scenariomanagementdialog.cpp:268
 msgid ""
 "Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
 "\")?"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:247
+#: simonscenarioui/scenariomanagementdialog.cpp:276
 msgid ""
 "Could not remove scenario at the following path:\n"
 "%1\n"
@@ -1425,12 +1425,12 @@ msgid ""
 "wasn't already."
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:326
+#: simonscenarioui/scenariomanagementdialog.cpp:355
 msgctxt "Name and contact information"
 msgid "<p>%1 (%2)</p>"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:328
+#: simonscenarioui/scenariomanagementdialog.cpp:357
 msgctxt "Infos about the scenario"
 msgid ""
 "<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
@@ -1438,11 +1438,11 @@ msgid ""
 "p><h4>Authors</h4><p>%6</p>"
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:359
+#: simonscenarioui/scenariomanagementdialog.cpp:388
 msgid "Could not init scenario \"%1\""
 msgstr ""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:392
+#: simonscenarioui/scenariomanagementdialog.cpp:421
 msgid ""
 "You need at least one active scenario.\n"
 "\n"
@@ -1451,15 +1451,15 @@ msgid ""
 "Your current (empty) configuration was not saved."
 msgstr ""
 
-#: simonsound/postprocessing.cpp:46 simonsound/soundsettings.cpp:83
+#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:83
 msgid "Post-Processing"
 msgstr "Post-traitement"
 
-#: simonsound/postprocessing.cpp:47
+#: simonsound/postprocessing.cpp:46
 msgid "Filter a being applied..."
 msgstr "Application du filtre..."
 
-#: simonsound/postprocessing.cpp:51
+#: simonsound/postprocessing.cpp:50
 msgid ""
 "Couldn't overwrite %1.\n"
 "\n"
@@ -1469,7 +1469,7 @@ msgstr ""
 "\n"
 "Vérifiez si vous avez les permissions requises."
 
-#: simonsound/postprocessing.cpp:72
+#: simonsound/postprocessing.cpp:71
 msgid ""
 "Couldn't process \"%1\" to \"%2\". Please check if the command:\n"
 "\"%4\". (Return value: %3)"
@@ -1477,18 +1477,18 @@ msgstr ""
 "Impossible de traiter « %1 » vers « %2 ». Vérifiez la commande :\n"
 "« %4 ». (Valeur de retour : %3)"
 
-#: simonsound/postprocessing.cpp:84
+#: simonsound/postprocessing.cpp:83
 msgid ""
 "Couldn't copy %1 to %2. Please check if you have all the needed permissions."
 msgstr ""
 "Impossible de copier %1 vers %2. Vérifiez si vous avez les permissions "
 "requises."
 
-#: simonsound/postprocessing.cpp:91
+#: simonsound/postprocessing.cpp:90
 msgid "Couldn't remove %1"
 msgstr "Impossible de supprimer %1"
 
-#: simonsound/recwidget.cpp:251
+#: simonsound/recwidget.cpp:250
 msgid ""
 "Couldn't start recording.\n"
 "\n"
@@ -1502,7 +1502,7 @@ msgstr ""
 "\n"
 "Vérifiez votre configuration sonore et réessayez."
 
-#: simonsound/recwidget.cpp:301
+#: simonsound/recwidget.cpp:300
 msgid ""
 "Could not finalize the Sample. The recording probably failed.\n"
 "\n"
@@ -1514,11 +1514,11 @@ msgstr ""
 "Indice : Vérifiez si vous avez les permissions requises pour écrire dans « %"
 "1 » !"
 
-#: simonsound/recwidget.cpp:316
+#: simonsound/recwidget.cpp:315
 msgid "Post-Processing failed"
 msgstr "Post-traitement échoué"
 
-#: simonsound/recwidget.cpp:359
+#: simonsound/recwidget.cpp:358
 msgid ""
 "Couldn't start playback.\n"
 "\n"
@@ -1532,11 +1532,11 @@ msgstr ""
 "\n"
 "Vérifiez votre configuration sonore et réessayez."
 
-#: simonsound/recwidget.cpp:385
+#: simonsound/recwidget.cpp:384
 msgid "Couldn't remove file %1"
 msgstr "Impossible de supprimer le fichier %1"
 
-#: simonsound/soundcontrol.cpp:61
+#: simonsound/soundcontrol.cpp:60
 msgid ""
 "Error requesting the sound output devices:\n"
 "\n"
@@ -1546,7 +1546,7 @@ msgstr ""
 "\n"
 "Pa_CountDevices a retourné %1"
 
-#: simonsound/soundcontrol.cpp:136
+#: simonsound/soundcontrol.cpp:169
 msgid ""
 "Error requesting the sound input devices:\n"
 "\n"
@@ -1623,28 +1623,28 @@ msgstr ""
 "Vérifiez à nouveau votre configuration et, si nécessaire, contactez votre "
 "vendeur."
 
-#: simonuicomponents/addserverconnection.cpp:46
+#: simonuicomponents/addserverconnection.cpp:45
 msgid "Add Server Address"
 msgstr "Ajouter une adresse de serveur"
 
-#: simonuicomponents/guievents.cpp:59
+#: simonuicomponents/guievents.cpp:58
 msgid "Calendar *"
 msgstr "Calendrier *"
 
-#: simonuicomponents/serveraddressselector.cpp:39
+#: simonuicomponents/serveraddressselector.cpp:38
 msgid "Add new Host"
 msgstr "Ajouter un nouvel hôte"
 
-#: simonuicomponents/serveraddressselector.cpp:63
+#: simonuicomponents/serveraddressselector.cpp:62
 msgid "You ahve entered an empty host-address. The input will be discarded."
 msgstr "Vous avez saisi une adresse d'hôte vide. L'entrée sera perdue."
 
-#: speechmodelcompilationadapter/modelcompilationadapter.cpp:36
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:35
 #, fuzzy
 msgid "Adapting model..."
 msgstr "[INF] Compilation du modèle..."
 
-#: speechmodelcompilationadapter/modelcompilationadapter.cpp:42
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:41
 msgid "Model adaption complete"
 msgstr ""
 
@@ -1690,7 +1690,7 @@ msgstr ""
 msgid "External Programs"
 msgstr "Programmes externes"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:224
+#: speechmodelcompilation/modelcompilationmanager.cpp:133
 msgid ""
 "The HTK can not be found. Please make sure it is installed correctly.\n"
 "\n"
@@ -1699,7 +1699,7 @@ msgid ""
 "English:_Setup#HTK_Installation"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:239
+#: speechmodelcompilation/modelcompilationmanager.cpp:148
 msgid ""
 "The julius related grammar tools mkfa and dfa_minimize can not be found.\n"
 "\n"
@@ -1710,7 +1710,7 @@ msgstr ""
 "\n"
 "Une ré-installation de simon pourrait résoudre ce problème."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:329
+#: speechmodelcompilation/modelcompilationmanager.cpp:242
 msgid ""
 "No training material available.\n"
 "\n"
@@ -1720,11 +1720,11 @@ msgstr ""
 "\n"
 "Entraînez votre modèle acoustique en enregistrant des séquences."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:460
+#: speechmodelcompilation/modelcompilationmanager.cpp:377
 msgid "Generating reverse grammar..."
 msgstr "Génération de la grammaire inverse..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:463
+#: speechmodelcompilation/modelcompilationmanager.cpp:380
 msgid ""
 "Couldn't create reverse grammar.\n"
 "\n"
@@ -1734,19 +1734,19 @@ msgstr ""
 "\n"
 "Avez-vous défini une grammaire ?"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:468
+#: speechmodelcompilation/modelcompilationmanager.cpp:385
 msgid "Generating termporary vocabulary..."
 msgstr "Génération du vocabulaire temporaire..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:471
+#: speechmodelcompilation/modelcompilationmanager.cpp:388
 msgid "Couldn't create temporary vocabular."
 msgstr "Impossible de créer le vocabulaire inverse."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:476
+#: speechmodelcompilation/modelcompilationmanager.cpp:393
 msgid "Generating DFA..."
 msgstr "Génération DFA..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:479
+#: speechmodelcompilation/modelcompilationmanager.cpp:396
 msgid ""
 "Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
 "2)."
@@ -1754,26 +1754,26 @@ msgstr ""
 "Impossible de générer DFA. Vérifiez l'emplacement de mkfa et dfa_minimize (%"
 "1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:484
+#: speechmodelcompilation/modelcompilationmanager.cpp:401
 msgid "Generating grammar dictionary..."
 msgstr "Génération du dictionnaire grammatical..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:487
+#: speechmodelcompilation/modelcompilationmanager.cpp:404
 msgid ""
 "Couldn't generate grammatical lexicon. Please check the output path (%1)."
 msgstr ""
 "Impossible de générer le lexique grammatical. Vérifiez l'emplacement de la "
 "sortie (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:624
+#: speechmodelcompilation/modelcompilationmanager.cpp:541
 msgid "Coding audio files..."
 msgstr "Encodage des fichiers sonores..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:629
+#: speechmodelcompilation/modelcompilationmanager.cpp:546
 msgid "Couldn't create codetrain-file."
 msgstr "Impossible de créer le fichier codetrain."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:639
+#: speechmodelcompilation/modelcompilationmanager.cpp:556
 msgid ""
 "Error while coding the samples!\n"
 "\n"
@@ -1783,22 +1783,22 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HCopy (%1) et la configuration wav (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:693
+#: speechmodelcompilation/modelcompilationmanager.cpp:608
 msgid "Generating wordlist..."
 msgstr "Génération de la liste de mots..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:697
+#: speechmodelcompilation/modelcompilationmanager.cpp:613
 #, fuzzy
 msgid "Failed to create wordlist. Please check the path to your prompts file."
 msgstr ""
 "Impossible de créer la liste de mots. Vérifiez vos permissions sur le "
 "dossier temporaire."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:703
+#: speechmodelcompilation/modelcompilationmanager.cpp:619
 msgid "Creating monophones..."
 msgstr "Création des mono-phones..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:708
+#: speechmodelcompilation/modelcompilationmanager.cpp:624
 msgid ""
 "Failed to generate monophones. Please check that you have installed the "
 "Program HDMan correctly and that the lexicon contains all words referenced "
@@ -1808,18 +1808,18 @@ msgstr ""
 "installé le programme HDMan et que le lexique contient tous les mots "
 "référencés dans les séquences d'entraînement."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:719
+#: speechmodelcompilation/modelcompilationmanager.cpp:635
 msgid "Generating Master Label File..."
 msgstr "Génération du fichier maître d'étiquettes..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:722
+#: speechmodelcompilation/modelcompilationmanager.cpp:638
 msgid ""
 "Couldn't generate Master Label File. Please check your prompts file (%1)."
 msgstr ""
 "Impossible de générer le fichier maître d'étiquettes. Vérifiez votre fichier "
 "de prompteur (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:729
+#: speechmodelcompilation/modelcompilationmanager.cpp:645
 msgid ""
 "Generation of the transcription failed. Please check if you have correctly "
 "specified the paths to mkphones0.led and mkphons1.led. (%1, %2)"
@@ -1827,11 +1827,11 @@ msgstr ""
 "Impossible de générer la transcription. Vérifiez que vous avez correctement "
 "indiqué l'emplacement de mkphones0.led et mkphons1.led (%1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:738
+#: speechmodelcompilation/modelcompilationmanager.cpp:654
 msgid "Generating hmm0..."
 msgstr "Génération HMM0..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:741
+#: speechmodelcompilation/modelcompilationmanager.cpp:657
 msgid ""
 "Error when generating the HMM0.\n"
 "\n"
@@ -1844,11 +1844,11 @@ msgstr ""
 "l'emplacement de HCompV (%1), la configuration (%2) et le prototype de "
 "phonème (%3) sont corrects."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:745
+#: speechmodelcompilation/modelcompilationmanager.cpp:661
 msgid "Generating hmm1..."
 msgstr "Génération HMM1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:748
+#: speechmodelcompilation/modelcompilationmanager.cpp:664
 msgid ""
 "Could not generate the HMM1.\n"
 "\n"
@@ -1858,11 +1858,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:752
+#: speechmodelcompilation/modelcompilationmanager.cpp:668
 msgid "Generating hmm2..."
 msgstr "Génération HMM2..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:755
+#: speechmodelcompilation/modelcompilationmanager.cpp:671
 msgid ""
 "Could not generate the HMM2.\n"
 "\n"
@@ -1872,11 +1872,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:759
+#: speechmodelcompilation/modelcompilationmanager.cpp:675
 msgid "Generating hmm3..."
 msgstr "Génération HMM3..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:762
+#: speechmodelcompilation/modelcompilationmanager.cpp:678
 msgid ""
 "Could not generate the HMM3.\n"
 "\n"
@@ -1886,11 +1886,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:771
+#: speechmodelcompilation/modelcompilationmanager.cpp:687
 msgid "Generating Pause-Model (hmm4)..."
 msgstr "Génération du modèle de pause (HMM4)..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:774
+#: speechmodelcompilation/modelcompilationmanager.cpp:690
 msgid ""
 "Could not generate HMM4.\n"
 "\n"
@@ -1900,11 +1900,11 @@ msgstr ""
 "\n"
 "Vérifiez HMM3."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:780
+#: speechmodelcompilation/modelcompilationmanager.cpp:696
 msgid "Generating hmm5..."
 msgstr "Génération HMM5..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:783
+#: speechmodelcompilation/modelcompilationmanager.cpp:699
 msgid ""
 "Could not generate HMM5. Please check the paths to HHEd (%1) and to the "
 "silence-model (%2)."
@@ -1913,12 +1913,12 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HHEd (%1) et le modèle de silence (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:787
+#: speechmodelcompilation/modelcompilationmanager.cpp:703
 msgid "Generating hmm6..."
 msgstr "Génération HMM6..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:790
-#: speechmodelcompilation/modelcompilationmanager.cpp:797
+#: speechmodelcompilation/modelcompilationmanager.cpp:706
+#: speechmodelcompilation/modelcompilationmanager.cpp:713
 msgid ""
 "Could not generate the HMM6.\n"
 "\n"
@@ -1928,23 +1928,24 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:794
+#: speechmodelcompilation/modelcompilationmanager.cpp:710
 msgid "Generating hmm7..."
 msgstr "Génération HMM7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:807
+#: speechmodelcompilation/modelcompilationmanager.cpp:723
 msgid "Generating dict1..."
 msgstr "Génération dict1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:810
+#: speechmodelcompilation/modelcompilationmanager.cpp:726
 msgid "Could not generate the dict1"
 msgstr "Impossible de générer dict1."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:815
-msgid "Re-Aligning HMM7..."
+#: speechmodelcompilation/modelcompilationmanager.cpp:731
+#, fuzzy
+msgid "Re-aligning hmm7..."
 msgstr "Ré-alignement HMM7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:818
+#: speechmodelcompilation/modelcompilationmanager.cpp:734
 msgid ""
 "Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
 "2) and to the HMM7."
@@ -1953,11 +1954,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HVite (%1), la configuration (%2) et HMM7."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:823
+#: speechmodelcompilation/modelcompilationmanager.cpp:739
 msgid "Generating hmm8..."
 msgstr "Génération HMM8..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:826
+#: speechmodelcompilation/modelcompilationmanager.cpp:742
 msgid ""
 "Could not generate the HMM8.\n"
 "\n"
@@ -1967,11 +1968,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:831
+#: speechmodelcompilation/modelcompilationmanager.cpp:747
 msgid "Generating hmm9..."
 msgstr "Génération HMM9..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:834
+#: speechmodelcompilation/modelcompilationmanager.cpp:750
 msgid ""
 "Could not generate the HMM9.\n"
 "\n"
@@ -1981,12 +1982,12 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:844
-#: speechmodelcompilation/modelcompilationmanager.cpp:1013
+#: speechmodelcompilation/modelcompilationmanager.cpp:760
+#: speechmodelcompilation/modelcompilationmanager.cpp:1063
 msgid "Generating triphone..."
 msgstr "Génération des tri-phones..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:848
+#: speechmodelcompilation/modelcompilationmanager.cpp:766
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
@@ -1997,27 +1998,27 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HDMan (%1), global.ded (%2) et le lexique (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:853
+#: speechmodelcompilation/modelcompilationmanager.cpp:771
 msgid "Generating list of triphones..."
 msgstr "Génération de la liste des tri-phones..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:856
+#: speechmodelcompilation/modelcompilationmanager.cpp:774
 msgid "Couldn't generate list of triphones."
 msgstr "Impossible de générer la liste des tri-phones."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:860
+#: speechmodelcompilation/modelcompilationmanager.cpp:778
 msgid "Generating tree.hed..."
 msgstr "Génération tree.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:863
+#: speechmodelcompilation/modelcompilationmanager.cpp:781
 msgid "Couldn't generate tree.hed."
 msgstr "Impossible de générer tree.hed."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:868
+#: speechmodelcompilation/modelcompilationmanager.cpp:786
 msgid "Generating hmm13..."
 msgstr "Génération HMM13..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:871
+#: speechmodelcompilation/modelcompilationmanager.cpp:789
 msgid ""
 "Could not generate HMM13.\n"
 "\n"
@@ -2027,11 +2028,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:877
+#: speechmodelcompilation/modelcompilationmanager.cpp:795
 msgid "Generating hmm14..."
 msgstr "Génération HMM14..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:880
+#: speechmodelcompilation/modelcompilationmanager.cpp:798
 msgid ""
 "Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
 "2) and to the stats-file (%3)."
@@ -2041,11 +2042,11 @@ msgstr ""
 "Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
 "de statistiques (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:885
+#: speechmodelcompilation/modelcompilationmanager.cpp:803
 msgid "Generating hmm15..."
 msgstr "Génération HMM15..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:888
+#: speechmodelcompilation/modelcompilationmanager.cpp:806
 msgid ""
 "Could not generate the HMM15.\n"
 "\n"
@@ -2057,7 +2058,157 @@ msgstr ""
 "Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
 "de statistiques (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1016
+#: speechmodelcompilation/modelcompilationmanager.cpp:836
+#, fuzzy
+msgid "Increasing mixtures..."
+msgstr "Génération mktri.hed..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:840
+#, fuzzy
+msgid ""
+"Could not generate HMM16.\n"
+"\n"
+"Please check the path to HHEd (%1)."
+msgstr ""
+"Impossible de générer HMM13.\n"
+"\n"
+"Vérifiez l'emplacement de HHEd (%1)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:845
+#, fuzzy
+msgid "Generating hmm17..."
+msgstr "Génération HMM1..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:848
+#, fuzzy
+msgid ""
+"Couldn't generate HMM17. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
+msgstr ""
+"Impossible de générer HMM14.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:853
+#, fuzzy
+msgid "Generating hmm18..."
+msgstr "Génération HMM1..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:856
+#, fuzzy
+msgid ""
+"Could not generate the HMM18.\n"
+"\n"
+"Please check the path to HERest (%1), to the config (%2) and to the stats-"
+"file (%3)."
+msgstr ""
+"Impossible de générer HMM15.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:860
+#, fuzzy
+msgid "Generating hmm19..."
+msgstr "Génération HMM1..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:863
+#, fuzzy
+msgid ""
+"Could not generate HMM19.\n"
+"\n"
+"Please check the path to HHEd (%1)."
+msgstr ""
+"Impossible de générer HMM13.\n"
+"\n"
+"Vérifiez l'emplacement de HHEd (%1)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:868
+#, fuzzy
+msgid "Generating hmm20..."
+msgstr "Génération HMM0..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:871
+#, fuzzy
+msgid ""
+"Couldn't generate HMM20. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
+msgstr ""
+"Impossible de générer HMM14.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:876
+#, fuzzy
+msgid "Generating hmm21..."
+msgstr "Génération HMM1..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:879
+#, fuzzy
+msgid ""
+"Could not generate the HMM21.\n"
+"\n"
+"Please check the path to HERest (%1), to the config (%2) and to the stats-"
+"file (%3)."
+msgstr ""
+"Impossible de générer HMM15.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:883
+#, fuzzy
+msgid "Generating hmm22..."
+msgstr "Génération HMM2..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:886
+#, fuzzy
+msgid ""
+"Could not generate HMM22.\n"
+"\n"
+"Please check the path to HHEd (%1)."
+msgstr ""
+"Impossible de générer HMM13.\n"
+"\n"
+"Vérifiez l'emplacement de HHEd (%1)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:891
+#, fuzzy
+msgid "Generating hmm23..."
+msgstr "Génération HMM2..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:894
+#, fuzzy
+msgid ""
+"Couldn't generate HMM23. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
+msgstr ""
+"Impossible de générer HMM14.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:899
+#, fuzzy
+msgid "Generating hmm24..."
+msgstr "Génération HMM2..."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:902
+#, fuzzy
+msgid ""
+"Could not generate the HMM24.\n"
+"\n"
+"Please check the path to HERest (%1), to the config (%2) and to the stats-"
+"file (%3)."
+msgstr ""
+"Impossible de générer HMM12.\n"
+"\n"
+"Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
+"de statistiques (%3)."
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:1066
 msgid ""
 "Could not generate triphones.\n"
 "\n"
@@ -2067,30 +2218,30 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de mktri.led and HLEd (%1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1021
+#: speechmodelcompilation/modelcompilationmanager.cpp:1071
 msgid "Generating mktri.hed..."
 msgstr "Génération mktri.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1024
+#: speechmodelcompilation/modelcompilationmanager.cpp:1074
 msgid "Could not generate mktri.hed"
 msgstr "Impossible de générer mktri.hed."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1029
+#: speechmodelcompilation/modelcompilationmanager.cpp:1079
 msgid "Generating hmm10..."
 msgstr "Génération HMM10..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1032
+#: speechmodelcompilation/modelcompilationmanager.cpp:1082
 msgid "Could not generate HMM10. Please check th e path to HHEd (%1)."
 msgstr ""
 "Impossible de générer HMM10.\n"
 "\n"
 "Vérifiez l'emplacement de HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1037
+#: speechmodelcompilation/modelcompilationmanager.cpp:1087
 msgid "Generating hmm11..."
 msgstr "Génération HMM11..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1040
+#: speechmodelcompilation/modelcompilationmanager.cpp:1090
 msgid ""
 "Could not generate HMM11. Please check your paths to HERest (%1) and to the "
 "config (%2)."
@@ -2099,11 +2250,11 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HERest (%1) et la configuration (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1045
+#: speechmodelcompilation/modelcompilationmanager.cpp:1095
 msgid "Generating hmm12..."
 msgstr "Génération HMM12..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1048
+#: speechmodelcompilation/modelcompilationmanager.cpp:1098
 msgid ""
 "Could not generate the HMM12.\n"
 "\n"
@@ -2115,16 +2266,16 @@ msgstr ""
 "Vérifiez l'emplacement de HERest (%1), la configuration (%2) et le fichier "
 "de statistiques (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1232
+#: speechmodelcompilation/modelcompilationmanager.cpp:1326
 msgid "[INF] Used Monophones of the model: %1"
 msgstr "[INF] Mono-phones du modèle utilisés : %1"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1396
+#: speechmodelcompilation/modelcompilationmanager.cpp:1489
 #, fuzzy
-msgid "Re-Aligninging to base model..."
+msgid "Re-aligninging to base model..."
 msgstr "Ré-alignement HMM7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1399
+#: speechmodelcompilation/modelcompilationmanager.cpp:1492
 msgid ""
 "Couldn't re-align model to the selected base model.\n"
 "\n"
@@ -2135,21 +2286,21 @@ msgid ""
 "This error also occurs if you have no training data to adapt to!"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1402
+#: speechmodelcompilation/modelcompilationmanager.cpp:1495
 #, fuzzy
 msgid "Generating regtree.hed..."
 msgstr "Génération tree.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1405
+#: speechmodelcompilation/modelcompilationmanager.cpp:1498
 #, fuzzy
 msgid "Couldn't create regtree.hed."
 msgstr "Impossible de générer tree.hed."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1408
+#: speechmodelcompilation/modelcompilationmanager.cpp:1501
 msgid "Creating regression class tree..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1411
+#: speechmodelcompilation/modelcompilationmanager.cpp:1504
 #, fuzzy
 msgid ""
 "Couldn't create regression class tree. Please check your paths to HHEd (%1)."
@@ -2158,22 +2309,22 @@ msgstr ""
 "\n"
 "Vérifiez l'emplacement de HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1414
+#: speechmodelcompilation/modelcompilationmanager.cpp:1507
 msgid "Performing static adaption..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1417
+#: speechmodelcompilation/modelcompilationmanager.cpp:1510
 #, fuzzy
 msgid "Couldn't adapt the base model. Please check your paths to HERest (%1)."
 msgstr ""
 "Impossible de générer le fichier maître d'étiquettes. Vérifiez votre fichier "
 "de prompteur (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1421
+#: speechmodelcompilation/modelcompilationmanager.cpp:1514
 msgid "Switching to new model..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1427
+#: speechmodelcompilation/modelcompilationmanager.cpp:1520
 #, fuzzy
 msgid "Couldn't switch to new model."
 msgstr "Impossible de créer le fichier codetrain."
