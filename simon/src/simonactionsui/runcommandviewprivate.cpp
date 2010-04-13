@@ -229,7 +229,6 @@ void RunCommandViewPrivate::updateCommandDetail()
 			QVariant value = details.value(keys[i]);
 			
 			QString strValue;
-			kDebug() << value << value.type();
 
 			switch (value.type())
 			{
