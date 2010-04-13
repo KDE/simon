@@ -57,10 +57,6 @@ class SimonApplication :
 			if (event->type == MappingNotify)
 			{
 				XMappingEvent *e = (XMappingEvent*) event;
-				if (!e->request == MappingKeyboard)
-					return false;
-
-				kDebug() << "Mapping CHANGED!";
 				XRefreshKeyboardMapping(e);
 				return true;
 			}

@@ -151,6 +151,10 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 {
 	if (!display) return;
 	KeyCode keyCode;
+
+	//Needed to make sure that the XRefreshKeyboardMapping from the main event loop 
+	//takes effect before calling XKeysymToKeycode
+	XFlush(display);
 	
 	switch (key)
 	{
