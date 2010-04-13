@@ -35,6 +35,39 @@
 #include <KCmdLineArgs>
 #include "../../version.h"
 
+
+#include <KDebug>
+
+#ifdef Q_WS_X11
+#include <X11/Xlib.h>
+#include <X11/Xlib.h>
+#endif
+
+class SimonApplication : 
+#ifndef Q_OS_WIN32
+	public KUniqueApplication
+#else
+	public KApplication
+#endif
+{
+	public:
+#ifdef Q_WS_X11
+		bool x11EventFilter ( XEvent * event )
+		{
+			if (event->type == MappingNotify)
+			{
+				XMappingEvent *e = (XMappingEvent*) event;
+				XRefreshKeyboardMapping(e);
+				return true;
+			}
+			return false;
+		}
+#endif
+
+};
+
+
+
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "simon", "simon",
@@ -50,11 +83,7 @@ int main(int argc, char *argv[])
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
 
-#ifndef Q_OS_WIN32
-	KUniqueApplication app;
-#else
-	KApplication app;
-#endif
+	SimonApplication app;
 	app.setWindowIcon(KIcon("simon"));
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
