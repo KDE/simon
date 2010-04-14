@@ -177,12 +177,9 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
 					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
-					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32, qint32)), this, SLOT(recognitionAwaitingStream(qint32, qint32)));
 					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
 					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
-					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
-					connect(recognitionControl, SIGNAL(recognitionResult(const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const RecognitionResultList&)));
+					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const QString&, const RecognitionResultList&)));
 
 					if (synchronisationManager ) 
 						synchronisationManager->deleteLater();
@@ -192,7 +189,7 @@ void ClientSocket::processRequest()
 					sendCode(Simond::LoginSuccessful);
 
 					if (synchronisationManager->hasActiveModel())
-						recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+						recognitionControl->initializeRecognition();
 				} else
 					sendCode(Simond::AuthenticationFailed);
 				
@@ -795,25 +792,13 @@ void ClientSocket::processRequest()
 
 			case Simond::StartRecognition:
 			{
-				recognitionControl->start();
+				recognitionControl->startRecognition();
 				break;
 			}
 
 			case Simond::StopRecognition:
 			{
 				recognitionControl->stop();
-				break;
-			}
-
-			case Simond::PauseRecognition:
-			{
-				recognitionControl->pause();
-				break;
-			}
-
-			case Simond::ResumeRecognition:
-			{
-				recognitionControl->resume();
 				break;
 			}
 
@@ -858,6 +843,10 @@ void ClientSocket::processRequest()
 				//kDebug() << "Recognizing on sample";
 				currentSample->endAddSequence();
 				currentSample->writeFile();
+
+				recognitionControl->recognize(currentSample->getFilename());
+				kDebug() << "Returned from recognize";
+
 				delete currentSample;
 				currentSample = NULL;
 				break;
@@ -1433,7 +1422,7 @@ void ClientSocket::synchronisationDone()
 	if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
 			((recognitionControl->isInitialized() && (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
 			|| !recognitionControl->isInitialized()))
-		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+		recognitionControl->initializeRecognition();
 }
 
 
@@ -1531,14 +1520,6 @@ void ClientSocket::recognitionReady()
 }
 
 
-void ClientSocket::recognitionAwaitingStream(qint32 port, qint32 samplerate)
-{
-	QByteArray toWrite;
-	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionAwaitingStream << port << samplerate;
-	write(toWrite);
-}
-
 void ClientSocket::recognitionError(const QString& error, const QByteArray& log)
 {
 	QByteArray toWrite;
@@ -1575,19 +1556,13 @@ void ClientSocket::recognitionStopped()
 	sendCode(Simond::RecognitionStopped);
 }
 
-void ClientSocket::recognitionPaused()
-{
-	sendCode(Simond::RecognitionPaused);
-}
-
-void ClientSocket::recognitionResumed()
-{
-	sendCode(Simond::RecognitionResumed);
-}
 
 
-void ClientSocket::sendRecognitionResult(const RecognitionResultList& recognitionResults)
+void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
+	kDebug() << "We can now remove " << fileName;
+	//QFile::remove(fileName);
+
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;

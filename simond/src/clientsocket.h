@@ -66,7 +66,7 @@ class ClientSocket : public QSslSocket
 		void writeHashesToConfig();
 
 	public slots:
-		void sendRecognitionResult(const RecognitionResultList& recognitionResults);
+		void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
 
 	private slots:
@@ -81,13 +81,10 @@ class ClientSocket : public QSslSocket
 		bool sendBaseModel();
 
 		void recognitionReady();
-		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionError(const QString& error, const QByteArray& log);
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();
-		void recognitionPaused();
-		void recognitionResumed();
 
 		bool sendLanguageDescription();
 		bool sendTraining();

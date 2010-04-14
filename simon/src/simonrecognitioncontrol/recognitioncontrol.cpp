@@ -1538,22 +1538,6 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
-				case Simond::RecognitionAwaitingStream:
-				{
-					checkIfMessageFinished(sizeof(qint32));
-					qint32 port, sampleRate;
-					msg >> port;
-					msg >> sampleRate;
-					advanceStream(sizeof(qint32)*3);
-					recognitionReady=true;
-
-					kDebug() << "adinnet server running on port " << port;
-					//adinStreamer->init(socket->peerAddress(), port, sampleRate);
-//					if (RecognitionConfiguration::automaticallyEnableRecognition())
-					startRecognition();
-					break;
-				}
-
 				case Simond::RecognitionError:
 				{
 					parseLengthHeader();
@@ -1588,7 +1572,9 @@ void RecognitionControl::messageReceived()
 				{	
 					advanceStream(sizeof(qint32));
 						
-					//nothing to do?
+					recognitionReady=true;
+
+					startRecognition();
 					break;
 				}
 
@@ -1601,24 +1587,8 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
-				case Simond::RecognitionPaused:
-				{
-					advanceStream(sizeof(qint32));
-					emit recognitionStatusChanged(RecognitionControl::Paused);
-					break;
-				}
-
-				case Simond::RecognitionResumed:
-				{
-					advanceStream(sizeof(qint32));
-					emit recognitionStatusChanged(RecognitionControl::Resumed);
-					kDebug() << "Recognition has been resumed" << msgByte;
-					break;
-				}
-
 				case Simond::RecognitionResult:
 				{
-					fprintf(stderr, "Simond::RecognitionResult\n");
 					parseLengthHeader();
 
 					qint8 sentenceCount;
@@ -1783,18 +1753,12 @@ Operation* RecognitionControl::createModelCompilationOperation()
 
 void RecognitionControl::pauseRecognition()
 {
-	kDebug() << "Sending pause request";
 	simondStreamer->stop();
-//       adinStreamer->stop();
-	sendRequest(Simond::PauseRecognition);
 }
 
 void RecognitionControl::resumeRecognition()
 {
-	kDebug() << "Sending resume request";
 	simondStreamer->start();
-//      adinStreamer->start();
-	sendRequest(Simond::ResumeRecognition);
 }
 
 void RecognitionControl::startSampleToRecognize(qint8 channels, qint32 sampleRate)

@@ -37,38 +37,26 @@ class RecognitionControl : public QThread
 		void recognitionReady();
 		void recognitionError(const QString& error, const QByteArray& buildLog);
 		void recognitionWarning(const QString& warning);
-		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionStarted();
 		void recognitionStopped();
 		void recognitionPaused();
 		void recognitionResumed();
-		void recognitionResult(const RecognitionResultList& recognitionResults);
+		void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
 	protected:
 		void touchLastSuccessfulStart();
-
 		QString username;
-		qint32 sampleRate;
-
-		static qint32 portNum;
-		static qint32 reservePortNum() { 
-			if (portNum >= 10000)
-				portNum = 5000;
-			return portNum++;
-		}
-
-		static qint32 getPortNum() { return portNum; }
 
 	public:
 		QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
 		RecognitionControl(const QString& username, QObject *parent=0);
 
-		virtual bool initializeRecognition(bool isLocal)=0;
+		virtual bool initializeRecognition()=0;
 		virtual bool isInitialized()=0;
-
+		virtual bool startRecognition()=0;
 		virtual void stop()=0;
-		virtual void pause()=0;
-		virtual void resume()=0;
+
+		virtual void recognize(const QString& fileName)=0;
 			       
 		~RecognitionControl();
 		

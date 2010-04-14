@@ -19,9 +19,6 @@
 
 #include "recognitioncontrol.h"
 
-qint32 RecognitionControl::portNum=5000;
-
-
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
 	username(user_name)
 {

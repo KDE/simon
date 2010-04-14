@@ -32,7 +32,6 @@
 
 #include <QList>
 #include <QPointer>
-#include <QMutex>
 #include <KDebug>
 #include "recognitioncontrol.h"
 
@@ -58,29 +57,26 @@ class JuliusControl : public RecognitionControl
 	public:
 		enum Request {
 			None=0,
-			Stop=2,
-			Pause=3
+			Stop=2
 		};
 		
 		JuliusControl(const QString& username, QObject *parent=0);
 
-		bool initializeRecognition(bool isLocal);
+		bool initializeRecognition();
+		bool startRecognition();
 		void stop();
-		void pause();
-		void resume();
 		bool isInitialized();
 		
 		bool isStopping() { return stopping; }
 		
 		void waitForResumed();
-		void recognized(const QList<RecognitionResult>& recognitionResults);
+		void recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults);
 		JuliusControl::Request popNextRequest();
 		
-
 		Jconf* setupJconf();
+		void recognize(const QString& fileName);
       
 		~JuliusControl();
-		qint32 getPort();
 
 	protected:
 		void run();
@@ -88,15 +84,14 @@ class JuliusControl : public RecognitionControl
 		void uninitialize();
 
 	private:
-		qint32 reservedPort;
 		Recog *recog;
 		Jconf *jconf;
-		bool isLocal;
 		bool stopping;
-		QMutex pauseMutex;
 		bool m_initialized;
 		bool shouldBeRunning;
 		FILE *logFile;
+
+		QString currentFileName;
 		
 		QList<JuliusControl::Request> nextRequests;
 		QByteArray getBuildLog();

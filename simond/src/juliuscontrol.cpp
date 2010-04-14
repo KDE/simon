@@ -49,15 +49,9 @@
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
 	recog(0),
 	jconf(0),
-	isLocal(false),
 	m_initialized(false),
 	logFile(NULL)
 {
-}
-
-qint32 JuliusControl::getPort() 
-{
-	return reservedPort;
 }
 
 Jconf* JuliusControl::setupJconf()
@@ -95,26 +89,19 @@ Jconf* JuliusControl::setupJconf()
 
 	QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs_loc";
 
-	QString configPath = dirPath+"activerc";
-	KConfig config( configPath, KConfig::SimpleConfig );
-	KConfigGroup cGroup(&config, "");
-	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
-	this->sampleRate = cGroup.readEntry("SampleRate", 0);
+//	QString configPath = dirPath+"activerc";
+//	KConfig config( configPath, KConfig::SimpleConfig );
+//	KConfigGroup cGroup(&config, "");
+//	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
+//	this->sampleRate = cGroup.readEntry("SampleRate", 0);
 
-	char portChr[5];
-	qint32 port = reservePortNum();
-	this->reservedPort = port;
-	sprintf(portChr, "%d", reservedPort);
-
-	int argc=15;
+	int argc=11;
 	char* argv[] = {"simond", "-C", jConfPath.data(),
 			"-gram", gram.data(),
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-			 //"-input", "mic", //only for local input -.- 
-			 "-input", "adinnet", 
-			 "-adport", portChr, 
-			 "-smpFreq", smpFreq.data()};
+			 "-input", "file"}; 
+//			 "-smpFreq", smpFreq.data()};
 
 	return j_config_load_args_new(argc, argv);
 }
@@ -279,21 +266,17 @@ void outputResult(Recog *recog, void *control)
 							sampa.trimmed(),
 							sampaRaw.trimmed(), confidenceScores));
 		}
-		jControl->recognized(recognitionResults);
+		QString fileName = QString::fromUtf8(adin_file_get_current_filename());
+		jControl->recognized(fileName, recognitionResults);
 	}
 }
 
 
-void pauseWaiter(Recog *, void *control)
-{
-	JuliusControl *jControl = (JuliusControl*) control;
-	Q_ASSERT(jControl);
-	jControl->waitForResumed();
-}
-
 
 void juliusCallbackPoll(Recog *recog, void *control)
 {
+	Q_UNUSED(recog);
+
 	JuliusControl *juliusControl = (JuliusControl*) control;
 	Q_ASSERT(juliusControl);
 	
@@ -307,10 +290,6 @@ void juliusCallbackPoll(Recog *recog, void *control)
 			kDebug() << "Stopping...";
 			break;
 		
-		case JuliusControl::Pause:
-			kDebug() << "Pausing...";
-			j_request_pause(recog);
-			break;
 	}
 }
 
@@ -371,22 +350,10 @@ void JuliusControl::emitError(const QString& error)
 	emit recognitionError(error, getBuildLog());
 }
 
-bool JuliusControl::initializeRecognition(bool isLocal)
+bool JuliusControl::initializeRecognition()
 {
-	bool wasRunning = isRunning();
 	uninitialize();
-//	if (m_initialized)
-//	{
-//		j_request_terminate(recog);
-//		return true;
-//	}
 	
-	this->isLocal = isLocal;
-	if (isLocal) 
-		kDebug() << "Initializing local recognition";
-	else 
-		kDebug() << "Initializing remote recognition";
-
 	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
 
  	logFile = fopen(logPath.data(), "w");
@@ -421,13 +388,25 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	callback_add(recog, CALLBACK_EVENT_SPEECH_START, statusRecstart, this);
 	callback_add(recog, CALLBACK_RESULT, outputResult, this);
 //	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
-	callback_add(recog, CALLBACK_PAUSE_FUNCTION, pauseWaiter, this);
 
 	m_initialized=true;
+
 	emit recognitionReady();
-	if (wasRunning) {
-		start();
+	return true;
+}
+
+bool JuliusControl::startRecognition()
+{
+	/**************************/
+	if (j_adin_init(recog) == false) {    /* error */
+		emitError(i18n("Couldn't start adin-thread"));
+		return false;
 	}
+
+	/* output system information to log */
+	j_recog_info(recog);
+	
+	emit recognitionStarted();
 	return true;
 }
 
@@ -438,33 +417,47 @@ void JuliusControl::run()
 	Q_ASSERT(recog);
 	shouldBeRunning=true;
 	
-	/**************************/
-	/* Initialize audio input */
-	/**************************/
-	/* initialize audio input device */
-	/* ad-in thread starts at this time for microphone */
-	if (j_adin_init(recog) == false) {    /* error */
-		emitError(i18n("Couldn't start adin-thread"));
-		return;
+	 switch(j_open_stream(recog, currentFileName.toUtf8().data()))
+	 {
+		case 0:
+			kDebug() << "Recognizing...";
+			break;
+		case -1:
+			emitError(i18n("Unknown error"));
+			return;
+		case -2:
+			emitError(i18n("Error with the audio stream"));
+			return;
 	}
 
-	/* output system information to log */
-	j_recog_info(recog);
-	emit recognitionAwaitingStream(getPort(), this->sampleRate);
-	
-	 while (shouldBeRunning)
-	 {
+	touchLastSuccessfulStart();
+
+	/* Recognization */
+	int ret = j_recognize_stream(recog);
+	switch (ret)
+	{
+		case 0:
+			//client exited
+			//shouldBeRunning=false;
+			break;
+		case -1:
+			//emitError("recognize_stream: -1");
+			shouldBeRunning=false;
+			break;
+	}
+
+#if 0
+	while (shouldBeRunning)
+	{
 		 switch(j_open_stream(recog, NULL)) {
 			case 0:
-				emit recognitionStarted();
+				kDebug() << "Recognizing...";
 				break;
 			case -1:
 				emitError(i18n("Unknown error"));
 				return;
 			case -2:
-				if (isLocal)
-					emitError(i18n("Couldn't initialize microphone"));
-				else emitError(i18n("Error with the audio stream"));
+				emitError(i18n("Error with the audio stream"));
 				return;
 		}
 
@@ -488,8 +481,9 @@ void JuliusControl::run()
 				break;
 		}
 		usleep(300);
-	 }
+	}
 	emit recognitionStopped();
+#endif
 }
 
 void JuliusControl::stop()
@@ -498,8 +492,6 @@ void JuliusControl::stop()
 
 	shouldBeRunning=false;
 	
-	//FIXME: can't be unlocked from a different thread
-/*	pauseMutex.unlock();*/
 	if (!isRunning()) return;
 
 
@@ -511,19 +503,6 @@ void JuliusControl::stop()
 	if (!wait(1000)) {
 		kDebug() << "ARGH STILL RUNNING!";
 
-		//making connection because accept()
-		//is blocking
-		int tempSocket = make_connection("127.0.0.1", reservedPort);
-		//waiting till the socket is accepted
-		wait(300);
-		//and take it away
-		close(tempSocket);
-		kDebug() << "here";
-
-		//wait for the thread event loop to finish
-		wait(1000);
-		kDebug() << "Is it STILL running? Let's have a look: " << isRunning();;
-		
 		while (isRunning()) {
 			kDebug() << "Terminating";
 			terminate();
@@ -533,33 +512,12 @@ void JuliusControl::stop()
 }
 
 
-void JuliusControl::recognized(const QList<RecognitionResult>& recognitionResults)
+void JuliusControl::recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults)
 {
-	emit recognitionResult(recognitionResults);
+	emit recognitionResult(fileName, recognitionResults);
 }
 
-void JuliusControl::pause()
-{
-	kDebug() << "Locking";
-	pauseMutex.lock();
-//	pushRequest(JuliusControl::Pause);
-	j_request_pause(recog);
-}
 
-void JuliusControl::resume()
-{
-	kDebug() << "Unlocking";
-	pauseMutex.unlock();
-	emit recognitionResumed();
-}
-
-void JuliusControl::waitForResumed()
-{
-	emit recognitionPaused();
-	pauseMutex.lock();
-	j_request_resume(recog);
-	pauseMutex.unlock();
-}
 
 void JuliusControl::pushRequest(JuliusControl::Request request)
 {
@@ -573,6 +531,24 @@ void JuliusControl::closeLog()
 	jlog_flush();
 	fclose(logFile);
 	logFile = NULL;
+}
+
+void JuliusControl::recognize(const QString& fileName)
+{
+	kDebug() << "Recognizing " << fileName;
+	//adin_file_begin(fileName.toUtf8().data());
+
+	QByteArray fileByte = fileName.toUtf8();
+	if (isRunning())
+	{
+		kDebug() << "Waiting for previous request...";
+		wait(3000);
+		if (isRunning())
+			return; // if this is taken so long ignore the current input...
+	}
+
+	currentFileName = fileName;
+	start();
 }
 
 JuliusControl::~JuliusControl()
