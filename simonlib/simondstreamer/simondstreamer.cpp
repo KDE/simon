@@ -64,46 +64,12 @@ bool SimondStreamer::start()
 	return succ;
 }
 
-#if 0
-void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
-{
-	//kDebug() << "Got sound... Peak: " << loudness->peak() << " Clip: " << loudness->clipping();
-
-	int peak = loudness->peak();
-	bool finalSample = false;
-
-	if (peak >= 2000 /* level */)
-	{
-		levelCrossCount += 2;
-	}
-	if (levelCrossCount > 0)
-	{
-		currentSample += data;
-		levelCrossCount--;
-		if (levelCrossCount == 0)
-			finalSample = true;
-	} else {
-		currentSample.clear();
-	}
-
-	if (levelCrossCount >=  5)
-	{
-		sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
-				SoundServer::getInstance()->getSampleRate(),
-				data);
-		currentSample.clear();
-	}
-	if (finalSample)
-		sender->recognizeSample();
-}
-#endif
-
 void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 {
 	int levelThreshold = 2000; 
 	int headMargin = 200; 
 	int tailMargin = 350;
-	int headPreCacheMargin = 50;
+	int shortSampleCutoff = 100;
 
 	int peak = loudness->peak();
 	if (peak > levelThreshold)
@@ -118,7 +84,7 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			//stayed above level
 			if (waitingForSampleToStart)
 			{
-				if (currentTime - lastTimeUnderLevel > headMargin)
+				if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
 				{
 					kDebug() << "Sending started...";
 					waitingForSampleToStart = false;
@@ -164,7 +130,7 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 				//get a bit of data before the first level cross
 
 				currentSample += data;
-				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headPreCacheMargin));
+				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin));
 			}
 		} else {
 			//crossed downward
