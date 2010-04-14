@@ -44,6 +44,8 @@ class ClientSocket : public QSslSocket
 	Q_OBJECT
 
 	private:
+		bool m_keepSamples;
+
 		bool synchronisationRunning;
 		
 		QString username;
@@ -123,7 +125,7 @@ class ClientSocket : public QSslSocket
 		void activeModelCompilationAborted();
 
 	public:
-		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
+		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
 			       
 		virtual ~ClientSocket();
 		

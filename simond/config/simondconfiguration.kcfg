@@ -28,6 +28,12 @@
     </entry>
     
   </group>
+  <group name="User">
+    <entry name="KeepRecognitionSamples" type="Bool">
+      <label>keep temporary samples.</label>
+      <default>false</default>
+    </entry>
+  </group>
   <group name="Database">
     <entry name="DatabaseUrl" type="Url">
       <label>The path to the database.</label>

@@ -75,14 +75,14 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			//kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
 
 			currentSample += data; // cache data (waiting for sample) or send it (if already sending)
-			kDebug() << "Adding data to sample...";
+			//kDebug() << "Adding data to sample...";
 
 			//stayed above level
 			if (waitingForSampleToStart)
 			{
 				if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
 				{
-					kDebug() << "Sending started...";
+					//kDebug() << "Sending started...";
 					waitingForSampleToStart = false;
 					waitingForSampleToFinish = true;
 					if (!currentlyRecordingSample)
@@ -95,11 +95,11 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			} else {
 				sender->sendSampleToRecognize(currentSample);
 				currentSample.clear();
-				kDebug() << "Clearing cached data...";
+				//kDebug() << "Clearing cached data...";
 			}
 		} else {
 			//crossed upward
-			kDebug() << "Crossed level upward...";
+			//kDebug() << "Crossed level upward...";
 			currentSample += data; 
 		}
 		lastTimeOverLevel = currentTime;
@@ -120,7 +120,7 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 					sender->recognizeSample();
 					currentlyRecordingSample = false;
 					waitingForSampleToFinish = false;
-					kDebug() << "Sample finalized and sent.";
+					//kDebug() << "Sample finalized and sent.";
 				}
 			} else {
 				//get a bit of data before the first level cross
@@ -129,7 +129,7 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			}
 		} else {
 			//crossed downward
-			kDebug() << "Crossed level downward...";
+			//kDebug() << "Crossed level downward...";
 			currentSample += data; 
 		}
 		lastTimeUnderLevel = currentTime;

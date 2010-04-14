@@ -51,7 +51,9 @@
 
 #include <KConfig>
 
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, bool keepSamples, QObject *parent) 
+   : QSslSocket(parent),
+	m_keepSamples(keepSamples),
 	synchronisationRunning(false),
 	recognitionControl(0),
 	synchronisationManager(0),
@@ -1560,8 +1562,10 @@ void ClientSocket::recognitionStopped()
 
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
-	kDebug() << "We can now remove " << fileName;
-	//QFile::remove(fileName);
+	if (!m_keepSamples)
+	{
+		QFile::remove(fileName);
+	}
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
