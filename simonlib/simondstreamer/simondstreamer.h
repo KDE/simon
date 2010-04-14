@@ -26,7 +26,6 @@
 #include "simondstreamer_export.h"
 #include <simonsound/soundinputclient.h>
 #include <QObject>
-//#include <QFile>
 
 class LoudnessMeterSoundProcessor;
 
@@ -34,8 +33,6 @@ class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject, public SoundInputCl
 	Q_OBJECT
 
 private:
-//		QFile test;
-
 	qint64 lastLevel;
 	qint64 lastTimeUnderLevel;
 	qint64 lastTimeOverLevel;

@@ -34,7 +34,6 @@
 SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	QObject(parent),
 	SoundInputClient(SoundClient::None),
-	//test("/home/bedahr/simondstreamer.raw"),
 	lastLevel(0),
 	lastTimeUnderLevel(0),
 	lastTimeOverLevel(0),
@@ -45,7 +44,6 @@ SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	loudness(new LoudnessMeterSoundProcessor())
 {
 	registerSoundProcessor(loudness);
-	//test.open(QIODevice::WriteOnly);
 }
 
 
@@ -64,10 +62,10 @@ bool SimondStreamer::start()
 
 void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 {
-	int levelThreshold = 2000; 
-	int headMargin = 200; 
-	int tailMargin = 350;
-	int shortSampleCutoff = 100;
+	int levelThreshold = SoundServer::getLevelThreshold(); 
+	int headMargin = SoundServer::getHeadMargin(); 
+	int tailMargin = SoundServer::getTailMargin();
+	int shortSampleCutoff = SoundServer::getShortSampleCutoff();
 
 	int peak = loudness->peak();
 	if (peak > levelThreshold)
@@ -95,7 +93,6 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 					}
 				}
 			} else {
-				//test.write(currentSample);
 				sender->sendSampleToRecognize(currentSample);
 				currentSample.clear();
 				kDebug() << "Clearing cached data...";
@@ -116,7 +113,6 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			{
 				//still append data during tail margin
 				currentSample += data; 
-				//test.write(currentSample);
 				sender->sendSampleToRecognize(currentSample);
 				currentSample.clear();
 				if (currentTime - lastTimeOverLevel > tailMargin)

@@ -21,6 +21,25 @@
     </entry>
   </group>
 
+  <group name="VAD">
+    <entry name="Level" type="Int">
+      <label>voice activity detection level.</label>
+      <default>2000</default>
+    </entry>
+    <entry name="HeadMargin" type="Int">
+      <label>voice activity head margin.</label>
+      <default>300</default>
+    </entry>
+    <entry name="TailMargin" type="Int">
+      <label>voice activity tail margin.</label>
+      <default>350</default>
+    </entry>
+    <entry name="SkipSamples" type="Int">
+      <label>drop samples shorter than this value.</label>
+      <default>150</default>
+    </entry>
+  </group>
+
   <group name="Prompt">
     <entry name="PromptFont" type="Font">
       <label>The font to use for all the promtps in simon.</label>

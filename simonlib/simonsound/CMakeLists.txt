@@ -44,6 +44,7 @@ kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
 )

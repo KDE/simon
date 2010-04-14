@@ -64,6 +64,9 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	connect(deviceUi.pbReload, SIGNAL(clicked()), this, SLOT(load()));
 	connect(deviceUi.cbSoundInputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 	connect(deviceUi.cbSoundOutputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+
+	QWidget *vadConfig = new QWidget(this);
+	vadUi.setupUi(vadConfig);
 	
 	QWidget *postProcessingConfig = new QWidget(this);
 	postProcUi.setupUi(postProcessingConfig);
@@ -72,14 +75,17 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	promptUi.setupUi(promptConfig);
 
 	KPageWidgetItem *deviceConfItem = pageWidget->addPage(coreConfig, i18n("Device Configuration"));
+	KPageWidgetItem *vadConfItem = pageWidget->addPage(vadConfig, i18n("Voice Activity Detection"));
 	KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
 	KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
 
 	deviceConfItem->setIcon(KIcon("audio-card"));
+	vadConfItem->setIcon(KIcon("media-playback-start"));
 	promptConfItem->setIcon(KIcon("draw-text"));
 	postProcConfItem->setIcon(KIcon("applications-other"));
 
 	deviceConfItem->setHeader("");
+	vadConfItem->setHeader("");
 	promptConfItem->setHeader("");
 	postProcConfItem->setHeader("");
 	

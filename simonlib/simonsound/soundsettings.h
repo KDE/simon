@@ -23,6 +23,7 @@
 
 #include "ui_deviceconfiguration.h"
 #include "ui_postprocessing.h"
+#include "ui_vad.h"
 #include "ui_prompt.h"
 #include <KCModule>
 #include <QVariantList>
@@ -52,6 +53,7 @@ signals:
 
 private:
 	Ui::DeviceConfiguration deviceUi;
+	Ui::VADDlg vadUi;
 	Ui::PostProcessing postProcUi;
 	Ui::Prompt promptUi;
 

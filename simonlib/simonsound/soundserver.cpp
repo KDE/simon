@@ -172,6 +172,9 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 
 bool SoundServer::startRecording()
 {
+	channels = SoundConfiguration::soundChannels();
+	sampleRate = SoundConfiguration::soundSampleRate();
+
 	kDebug() << "Starting recording...";
 	QAudioFormat format;
 	format.setFrequency(sampleRate);
@@ -260,6 +263,9 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 
 bool SoundServer::startPlayback()
 {
+	channels = SoundConfiguration::soundChannels();
+	sampleRate = SoundConfiguration::soundSampleRate();
+
 	kDebug() << "Starting playback...";
 	if (input)
 	{
@@ -386,6 +392,27 @@ void SoundServer::outputStateChanged(QAudio::State state)
 				break;
 		}
 	}
+}
+
+
+int SoundServer::getLevelThreshold()
+{
+	return SoundConfiguration::level();
+}
+
+int SoundServer::getHeadMargin()
+{
+	return SoundConfiguration::headMargin();
+}
+
+int SoundServer::getTailMargin()
+{
+	return SoundConfiguration::tailMargin();
+}
+
+int SoundServer::getShortSampleCutoff()
+{
+	return SoundConfiguration::skipSamples();
 }
 
 
