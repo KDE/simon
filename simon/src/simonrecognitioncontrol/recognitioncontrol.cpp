@@ -1797,18 +1797,36 @@ void RecognitionControl::resumeRecognition()
 	sendRequest(Simond::ResumeRecognition);
 }
 
-
-void RecognitionControl::sendSampleToRecognize(qint8 channels, qint32 sampleRate, const QByteArray& data)
+void RecognitionControl::startSampleToRecognize(qint8 channels, qint32 sampleRate)
 {
-	//TODO: implement
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << channels << sampleRate;
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << (qint32) Simond::RecognitionStartSample << (qint64) body.count();
+	socket->write(toWrite);
+	socket->write(body);
+}
 
+void RecognitionControl::sendSampleToRecognize(const QByteArray& data)
+{
 //	kDebug() << "Sending sample to server...";
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+	out << (qint32) Simond::RecognitionSampleData
+		<< (qint64) data.count()+sizeof(qint32) /*separator*/
+		<< data;
+
+	socket->write(toWrite);
 }
 
 void RecognitionControl::recognizeSample()
 {
 	kDebug() << "Recognize on the last transmitted data";
-
+	sendRequest(Simond::RecognitionSampleFinished);
 }
 
 /**

@@ -28,7 +28,8 @@ set( simondstreamer_LIB_HDRS
 
 kde4_add_library( simondstreamer  SHARED ${simondstreamer_LIB_SRCS} )
 
-target_link_libraries( simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonsound )
+target_link_libraries( simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
+	simonsound simonwav )
 
 
 set_target_properties( simondstreamer

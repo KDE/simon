@@ -186,7 +186,8 @@ private slots:
 
 	void sendSample(QString sampleName);
 
-	void sendSampleToRecognize(qint8 channels, qint32 sampleRate, const QByteArray& data);
+	void startSampleToRecognize(qint8 channels, qint32 sampleRate);
+	void sendSampleToRecognize(const QByteArray& data);
 	void recognizeSample();
 
 	void synchronisationComplete();

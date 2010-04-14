@@ -25,8 +25,6 @@
 #include "soundconfig.h"
 #include "soundserver.h"
 
-#include <simonlogging/logger.h>
-
 #include <QGroupBox>
 #include <QLabel>
 #include <KPushButton>

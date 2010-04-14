@@ -20,7 +20,7 @@
 
 #include "wavplayerclient.h"
 #include "soundserver.h"
-#include "wav.h"
+#include <simonwav/wav.h>
 #include <KDebug>
 
 /**

@@ -29,11 +29,6 @@
 #include <KDebug>
 #include <KLocalizedString>
 
-//FIXME: Deprecated
-#ifdef USE_WITH_SIMON
-#include <adinstreamer/adinstreamer.h>
-#endif
-
 SoundServer* SoundServer::instance=NULL;
 
 /**
@@ -198,12 +193,6 @@ bool SoundServer::startRecording()
 		return false;
 	}
 
-#ifdef USE_WITH_SIMON
-	//FIXME: Remove me (just for backwards compatibility with old adinstreamer)
-	if (AdinStreamer::hasInstance())
-		AdinStreamer::getInstance()->stopSoundStream();
-#endif
-	
 	input = new QAudioInput(selectedInfo, format, this);
 	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(inputStateChanged(QAudio::State)));
 	input->start(this);
@@ -223,11 +212,6 @@ bool SoundServer::stopRecording()
 	delete input;
 	input = NULL;
 
-#ifdef USE_WITH_SIMON
-	//FIXME: Remove me (just for backwards compatibility with old adinstreamer)
-	if (AdinStreamer::hasInstance())
-		AdinStreamer::getInstance()->restartSoundStream();
-#endif
 	if (output)
 		output->resume();
 

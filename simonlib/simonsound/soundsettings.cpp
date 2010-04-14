@@ -21,10 +21,6 @@
 #include "soundsettings.h"
 #include "soundconfig.h"
 
-#ifdef USE_WITH_SIMON
-#include <adinstreamer/adinstreamer.h>
-#endif
-
 #include <KMessageBox>
 #include <QVBoxLayout>
 #include <KIcon>
@@ -96,10 +92,9 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	setAboutData( about );
 
 	addConfig(SoundConfiguration::self(), this);
-
-#ifdef USE_WITH_SIMON
-	connect(AdinStreamer::getInstance(), SIGNAL(audioDeviceError()), this, SLOT(show()));
-#endif
+//#ifdef USE_WITH_SIMON
+//	connect(AdinStreamer::getInstance(), SIGNAL(audioDeviceError()), this, SLOT(show()));
+//#endif
 }
 
 
@@ -116,11 +111,11 @@ void SoundSettings::checkWithSuccessMessage()
  */
 void SoundSettings::load()
 {
-#ifdef Q_OS_LINUX
-#ifdef USE_WITH_SIMON
-	AdinStreamer::getInstance()->stopSoundStream();
-#endif
-#endif
+//#ifdef Q_OS_LINUX
+//#ifdef USE_WITH_SIMON
+//	AdinStreamer::getInstance()->stopSoundStream();
+//#endif
+//#endif
 	deviceUi.cbSoundInputDevice->clear();
 	deviceUi.cbSoundOutputDevice->clear();
 
@@ -165,9 +160,9 @@ void SoundSettings::load()
 
 	if (hasChanged) emit changed(true);
 	
-#ifdef USE_WITH_SIMON
-	AdinStreamer::getInstance()->restartSoundStream();
-#endif
+//#ifdef USE_WITH_SIMON
+//	AdinStreamer::getInstance()->restartSoundStream();
+//#endif
 }
 
 void SoundSettings::enable()
@@ -266,12 +261,12 @@ void SoundSettings::save()
 
 	if (!enabled) return;
 
-#ifdef USE_WITH_SIMON
-	if (AdinStreamer::getInstance()->isRunning())
-		check();
-#else
+//#ifdef USE_WITH_SIMON
+//	if (AdinStreamer::getInstance()->isRunning())
+//		check();
+//#else
 	check();
-#endif
+//#endif
 
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
 	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
@@ -282,10 +277,10 @@ void SoundSettings::save()
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
 	config->sync();
 
-#ifdef USE_WITH_SIMON
-	AdinStreamer::getInstance()->stopSoundStream();
-	AdinStreamer::getInstance()->restartSoundStream();
-#endif
+//#ifdef USE_WITH_SIMON
+//	AdinStreamer::getInstance()->stopSoundStream();
+//	AdinStreamer::getInstance()->restartSoundStream();
+//#endif
 }
 
 void SoundSettings::slotChanged()

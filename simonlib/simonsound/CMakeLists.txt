@@ -2,8 +2,7 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
-	../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -18,7 +17,6 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.cpp
@@ -57,7 +55,7 @@ if (${USE_WITH_SIMON})
 	message(STATUS "Use with simon activated")
 target_link_libraries( simonsound ${QT_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 
-		${KDE4_KDEUI_LIBS} adinstreamer)
+		${KDE4_KDEUI_LIBS} simonwav)
 elseif  (${USE_WITH_SIMON})
 target_link_libraries( simonsound ${QT_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 

@@ -35,18 +35,15 @@ class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject, public SoundInputCl
 
 private:
 //		QFile test;
-	int levelCrossCount;
 
 	qint64 lastLevel;
-
-	qint64 lastLevelCrossPos;
-	qint64 lastLevelCrossNeg;
-
 	qint64 lastTimeUnderLevel;
 	qint64 lastTimeOverLevel;
 
 	bool waitingForSampleToStart;
 	bool waitingForSampleToFinish;
+
+	bool currentlyRecordingSample;
 
 
 

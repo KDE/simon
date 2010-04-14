@@ -1,5 +1,4 @@
-/*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+/* *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,12 +30,15 @@
 #include <simonscenarios/languagedescriptioncontainer.h>
 #include <simonscenarios/trainingcontainer.h>
 
+#include <simonwav/wav.h>
+
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 
 #include <QDir>
+#include <QTime>
 #include <QDateTime>
 #include <QHostAddress>
 #include <QMap>
@@ -49,7 +51,6 @@
 
 #include <KConfig>
 
-
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
 	synchronisationRunning(false),
 	recognitionControl(0),
@@ -58,7 +59,8 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 	modelCompilationAdapter(0),
 	newLexiconHash(0),
 	newGrammarHash(0),
-	newVocaHash(0)
+	newVocaHash(0),
+	currentSample(NULL)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -814,6 +816,53 @@ void ClientSocket::processRequest()
 				recognitionControl->resume();
 				break;
 			}
+
+			case Simond::RecognitionStartSample:
+			{
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				qint8 channels;
+				qint32 sampleRate;
+				stream >> channels;
+				stream >> sampleRate;
+
+				kDebug() << "Starting sample " << channels << sampleRate;
+
+				if (currentSample)
+					delete currentSample;
+
+				currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
+							QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+".wav"),
+							channels, sampleRate);
+				currentSample->beginAddSequence();
+				break;
+			}
+			case Simond::RecognitionSampleData:
+			{
+				//kDebug() << "Received sample data";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				QByteArray sampleData;
+				stream >> sampleData;
+				currentSample->write(sampleData);
+				break;
+			}
+			case Simond::RecognitionSampleFinished:
+			{
+				//kDebug() << "Recognizing on sample";
+				currentSample->endAddSequence();
+				currentSample->writeFile();
+				delete currentSample;
+				currentSample = NULL;
+				break;
+			}
+
 			
 			default:
 			{
@@ -1573,4 +1622,6 @@ ClientSocket::~ClientSocket()
 		modelCompilationManager->deleteLater();
 	if (modelCompilationAdapter) 
 		modelCompilationAdapter->deleteLater();
+
+	delete currentSample;
 }

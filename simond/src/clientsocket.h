@@ -37,6 +37,7 @@ class SynchronisationManager;
 class ModelCompilationManager;
 class ModelCompilationAdapter;
 class Model;
+class WAV;
 
 class ClientSocket : public QSslSocket
 {
@@ -57,6 +58,8 @@ class ClientSocket : public QSslSocket
 		uint newLexiconHash;
 		uint newGrammarHash;
 		uint newVocaHash;
+
+		WAV *currentSample;
 		
 		bool shouldRecompileModel();
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);

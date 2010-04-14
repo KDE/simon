@@ -139,7 +139,11 @@ namespace Simond
 		RecognitionPaused=4010,
 		ResumeRecognition=4011,
 		RecognitionResumed=4012,
-		RecognitionResult=4013
+		RecognitionResult=4013,
+
+		RecognitionStartSample=4021,
+		RecognitionSampleData=4022,
+		RecognitionSampleFinished=4023
 	};
 }
 

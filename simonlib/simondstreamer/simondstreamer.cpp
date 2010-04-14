@@ -20,8 +20,8 @@
 #include "simondstreamer.h"
 
 #include <simonsound/soundserver.h>
-#include <simonsound/wav.h>
 #include <simonsound/loudnessmetersoundprocessor.h>
+#include <simonwav/wav.h>
 
 #include <QObject>
 
@@ -35,14 +35,12 @@ SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	QObject(parent),
 	SoundInputClient(SoundClient::None),
 	//test("/home/bedahr/simondstreamer.raw"),
-	levelCrossCount(0),
 	lastLevel(0),
-	lastLevelCrossPos(-1),
-	lastLevelCrossNeg(-1),
 	lastTimeUnderLevel(0),
 	lastTimeOverLevel(0),
 	waitingForSampleToStart(true),
 	waitingForSampleToFinish(false),
+	currentlyRecordingSample(false),
 	sender(s),
 	loudness(new LoudnessMeterSoundProcessor())
 {
@@ -89,12 +87,16 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 					kDebug() << "Sending started...";
 					waitingForSampleToStart = false;
 					waitingForSampleToFinish = true;
+					if (!currentlyRecordingSample)
+					{
+						sender->startSampleToRecognize(SoundServer::getInstance()->getChannels(),
+							SoundServer::getInstance()->getSampleRate());
+						currentlyRecordingSample = true;
+					}
 				}
 			} else {
 				//test.write(currentSample);
-				sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
-						SoundServer::getInstance()->getSampleRate(),
-						currentSample);
+				sender->sendSampleToRecognize(currentSample);
 				currentSample.clear();
 				kDebug() << "Clearing cached data...";
 			}
@@ -115,20 +117,17 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 				//still append data during tail margin
 				currentSample += data; 
 				//test.write(currentSample);
-				sender->sendSampleToRecognize(SoundServer::getInstance()->getChannels(),
-					SoundServer::getInstance()->getSampleRate(),
-					currentSample);
+				sender->sendSampleToRecognize(currentSample);
 				currentSample.clear();
 				if (currentTime - lastTimeOverLevel > tailMargin)
 				{
 					sender->recognizeSample();
-				//	kDebug() << "Clearing cached data...";
+					currentlyRecordingSample = false;
 					waitingForSampleToFinish = false;
 					kDebug() << "Sample finalized and sent.";
 				}
 			} else {
 				//get a bit of data before the first level cross
-
 				currentSample += data;
 				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin));
 			}

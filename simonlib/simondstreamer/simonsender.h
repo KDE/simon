@@ -30,7 +30,8 @@ class SimonSender {
 public:
 	SimonSender() {}
 	virtual ~SimonSender() {}
-	virtual void sendSampleToRecognize(qint8 channels, qint32 sampleRate, const QByteArray& data)=0;
+	virtual void startSampleToRecognize(qint8 channels, qint32 sampleRate)=0;
+	virtual void sendSampleToRecognize(const QByteArray& data)=0;
 	virtual void recognizeSample()=0;
 
 };
