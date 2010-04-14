@@ -1562,11 +1562,6 @@ void ClientSocket::recognitionStopped()
 
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
-	if (!m_keepSamples)
-	{
-		QFile::remove(fileName);
-	}
-
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
@@ -1586,6 +1581,21 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
 	stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
 	write(toWrite);
 	write(body);
+
+	if (!m_keepSamples)
+	{
+		QFile::remove(fileName);
+	} else {
+		QFile f(fileName+"-log.txt");
+		if (f.open(QIODevice::WriteOnly))
+		{
+			foreach (const RecognitionResult& result, recognitionResults)
+				f.write(result.toString().toUtf8()+"\n");
+
+			f.close();
+		} else
+			kWarning() << "Can't open output log for sample";
+	}
 }
 
 
