@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:11+0200\n"
+"POT-Creation-Date: 2010-04-15 14:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:497
+#: adinstreamer/adinstreamer.cpp:496
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -50,6 +50,8 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, Prompt)
+#. i18n: file: simonsound/vad.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, VADDlg)
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExternalProgramsWidget)
 #. i18n: file: simonactions/commandsettingsdlg.ui:14
@@ -68,12 +70,14 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, Prompt)
+#. i18n: file: simonsound/vad.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, VADDlg)
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExternalProgramsWidget)
 #: po/rc.cpp:3 po/rc.cpp:18 po/rc.cpp:111 po/rc.cpp:123 po/rc.cpp:162
-#: po/rc.cpp:276 po/rc.cpp:318 po/rc.cpp:331 po/rc.cpp:379 rc.cpp:3 rc.cpp:18
-#: rc.cpp:111 rc.cpp:123 rc.cpp:162 rc.cpp:276 rc.cpp:318 rc.cpp:331
-#: rc.cpp:379
+#: po/rc.cpp:276 po/rc.cpp:318 po/rc.cpp:331 po/rc.cpp:388 po/rc.cpp:421
+#: rc.cpp:3 rc.cpp:18 rc.cpp:111 rc.cpp:123 rc.cpp:162 rc.cpp:276 rc.cpp:318
+#: rc.cpp:331 rc.cpp:388 rc.cpp:421
 msgid "Form"
 msgstr ""
 
@@ -103,7 +107,7 @@ msgstr ""
 
 #. i18n: file: simonactions/listconfigurationdlg.ui:25
 #. i18n: ectx: property (text), item, widget (QListWidget, lwActions)
-#: po/rc.cpp:21 simonactions/commandlistwidget.cpp:232 rc.cpp:21
+#: po/rc.cpp:21 simonactions/commandlistwidget.cpp:230 rc.cpp:21
 msgid "Back"
 msgstr ""
 
@@ -157,7 +161,7 @@ msgstr ""
 
 #. i18n: file: simonactions/listconfigurationdlg.ui:70
 #. i18n: ectx: property (text), item, widget (QListWidget, lwActions)
-#: po/rc.cpp:48 simonactions/commandlistwidget.cpp:256 rc.cpp:48
+#: po/rc.cpp:48 simonactions/commandlistwidget.cpp:254 rc.cpp:48
 msgid "Next"
 msgstr ""
 
@@ -638,7 +642,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteScenario)
 #. i18n: file: simonsound/recwidget.ui:58
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:291 po/rc.cpp:343 simonsound/recwidget.cpp:102 rc.cpp:291
+#: po/rc.cpp:291 po/rc.cpp:343 simonsound/recwidget.cpp:101 rc.cpp:291
 #: rc.cpp:343
 msgid "Delete"
 msgstr ""
@@ -712,13 +716,13 @@ msgstr ""
 
 #. i18n: file: simonsound/recwidget.ui:38
 #. i18n: ectx: property (text), widget (KPushButton, pbRecord)
-#: po/rc.cpp:337 simonsound/recwidget.cpp:90 rc.cpp:337
+#: po/rc.cpp:337 simonsound/recwidget.cpp:89 rc.cpp:337
 msgid "Record"
 msgstr ""
 
 #. i18n: file: simonsound/recwidget.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbPlay)
-#: po/rc.cpp:340 simonsound/recwidget.cpp:96 rc.cpp:340
+#: po/rc.cpp:340 simonsound/recwidget.cpp:95 rc.cpp:340
 msgid "Play"
 msgstr ""
 
@@ -728,192 +732,268 @@ msgstr ""
 msgid "00:00 / 00:00"
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:8
+#. i18n: file: simonsound/recwidget.ui:83
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:349 simonsound/recwidget.cpp:115 rc.cpp:349
+msgid "Warning! Sample should be re-recorded!"
+msgstr ""
+
+#. i18n: file: simonsound/recwidget.ui:90
+#. i18n: ectx: property (text), widget (KPushButton, pbMoreInformation)
+#: po/rc.cpp:352 simonsound/recwidget.cpp:116 rc.cpp:352
+msgid "More information"
+msgstr ""
+
+#. i18n: file: simonsound/soundconfig.kcfg:7
 #. i18n: ectx: label, entry (SoundInputDevice), group (Devices)
-#: po/rc.cpp:349 rc.cpp:349
+#: po/rc.cpp:355 rc.cpp:355
 msgid "The sounddevice used for recording."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:12
+#. i18n: file: simonsound/soundconfig.kcfg:11
 #. i18n: ectx: label, entry (SoundOutputDevice), group (Devices)
-#: po/rc.cpp:352 rc.cpp:352
+#: po/rc.cpp:358 rc.cpp:358
 msgid "The sounddevice used for playback."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:16
+#. i18n: file: simonsound/soundconfig.kcfg:15
 #. i18n: ectx: label, entry (SoundChannels), group (Devices)
-#: po/rc.cpp:355 rc.cpp:355
+#: po/rc.cpp:361 rc.cpp:361
 msgid "How many channels should the samples be recorded with."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:20
+#. i18n: file: simonsound/soundconfig.kcfg:19
 #. i18n: ectx: label, entry (SoundSampleRate), group (Devices)
-#: po/rc.cpp:358 rc.cpp:358
+#: po/rc.cpp:364 rc.cpp:364
 msgid "The samplerate used for recording."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:27
+#. i18n: file: simonsound/soundconfig.kcfg:26
+#. i18n: ectx: label, entry (Level), group (VAD)
+#: po/rc.cpp:367 rc.cpp:367
+msgid "voice activity detection level."
+msgstr ""
+
+#. i18n: file: simonsound/soundconfig.kcfg:30
+#. i18n: ectx: label, entry (HeadMargin), group (VAD)
+#: po/rc.cpp:370 rc.cpp:370
+msgid "voice activity head margin."
+msgstr ""
+
+#. i18n: file: simonsound/soundconfig.kcfg:34
+#. i18n: ectx: label, entry (TailMargin), group (VAD)
+#: po/rc.cpp:373 rc.cpp:373
+msgid "voice activity tail margin."
+msgstr ""
+
+#. i18n: file: simonsound/soundconfig.kcfg:38
+#. i18n: ectx: label, entry (SkipSamples), group (VAD)
+#: po/rc.cpp:376 rc.cpp:376
+msgid "drop samples shorter than this value."
+msgstr ""
+
+#. i18n: file: simonsound/soundconfig.kcfg:45
 #. i18n: ectx: label, entry (PromptFont), group (Prompt)
-#: po/rc.cpp:361 rc.cpp:361
+#: po/rc.cpp:379 rc.cpp:379
 msgid "The font to use for all the promtps in simon."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:33
+#. i18n: file: simonsound/soundconfig.kcfg:51
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
-#: po/rc.cpp:364 rc.cpp:364
+#: po/rc.cpp:382 rc.cpp:382
 msgid "If samples recorded with simon should be processed at all."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:37
+#. i18n: file: simonsound/soundconfig.kcfg:55
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
-#: po/rc.cpp:367 rc.cpp:367
+#: po/rc.cpp:385 rc.cpp:385
 msgid "The filters (commands) to apply to the samples."
+msgstr ""
+
+#. i18n: file: simonsound/vad.ui:20
+#. i18n: ectx: property (text), widget (QLabel, lbSamplerate_4)
+#: po/rc.cpp:391 rc.cpp:391
+msgid "Cutoff level:"
+msgstr ""
+
+#. i18n: file: simonsound/vad.ui:40
+#. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
+#: po/rc.cpp:394 rc.cpp:394
+msgid "Head margin:"
+msgstr ""
+
+#. i18n: file: simonsound/vad.ui:62
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#. i18n: file: simonsound/vad.ui:93
+#. i18n: ectx: property (text), widget (QLabel, lbMs_2)
+#. i18n: file: simonsound/vad.ui:124
+#. i18n: ectx: property (text), widget (QLabel, lbMs_3)
+#. i18n: file: simonsound/vad.ui:62
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#. i18n: file: simonsound/vad.ui:93
+#. i18n: ectx: property (text), widget (QLabel, lbMs_2)
+#. i18n: file: simonsound/vad.ui:124
+#. i18n: ectx: property (text), widget (QLabel, lbMs_3)
+#: po/rc.cpp:397 po/rc.cpp:403 po/rc.cpp:409 rc.cpp:397 rc.cpp:403 rc.cpp:409
+msgid "ms"
+msgstr ""
+
+#. i18n: file: simonsound/vad.ui:71
+#. i18n: ectx: property (text), widget (QLabel, lbSamplerate_2)
+#: po/rc.cpp:400 rc.cpp:400
+msgid "Tail margin:"
+msgstr ""
+
+#. i18n: file: simonsound/vad.ui:102
+#. i18n: ectx: property (text), widget (QLabel, lbSamplerate_3)
+#: po/rc.cpp:406 rc.cpp:406
+msgid "Skip samples shorter than:"
 msgstr ""
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:18
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:370 simonuicomponents/addserverconnection.cpp:41 rc.cpp:370
+#: po/rc.cpp:412 simonuicomponents/addserverconnection.cpp:41 rc.cpp:412
 msgid "Address:"
 msgstr ""
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:25
 #. i18n: ectx: property (text), widget (KLineEdit, leAddress)
-#: po/rc.cpp:373 rc.cpp:373
+#: po/rc.cpp:415 rc.cpp:415
 msgid "localhost"
 msgstr ""
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:376 simonuicomponents/addserverconnection.cpp:42 rc.cpp:376
+#: po/rc.cpp:418 simonuicomponents/addserverconnection.cpp:42 rc.cpp:418
 msgid "Port:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, gbHTK)
-#: po/rc.cpp:382 rc.cpp:382
+#: po/rc.cpp:424 rc.cpp:424
 msgid "HTK Programme"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbHDMan)
-#: po/rc.cpp:385 rc.cpp:385
+#: po/rc.cpp:427 rc.cpp:427
 msgid "HDMan:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbHLEd)
-#: po/rc.cpp:388 rc.cpp:388
+#: po/rc.cpp:430 rc.cpp:430
 msgid "HLEd:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:48
 #. i18n: ectx: property (text), widget (QLabel, lbHCopy)
-#: po/rc.cpp:391 rc.cpp:391
+#: po/rc.cpp:433 rc.cpp:433
 msgid "HCopy:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbHCompV)
-#: po/rc.cpp:394 rc.cpp:394
+#: po/rc.cpp:436 rc.cpp:436
 msgid "HCompV:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:103
 #. i18n: ectx: property (text), widget (QLabel, lbHERest)
-#: po/rc.cpp:397 rc.cpp:397
+#: po/rc.cpp:439 rc.cpp:439
 msgid "HERest:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:110
 #. i18n: ectx: property (text), widget (QLabel, lbHHEd)
-#: po/rc.cpp:400 rc.cpp:400
+#: po/rc.cpp:442 rc.cpp:442
 msgid "HHEd:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbHVite)
-#: po/rc.cpp:403 rc.cpp:403
+#: po/rc.cpp:445 rc.cpp:445
 msgid "HVite:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:159
 #. i18n: ectx: property (title), widget (QGroupBox, gbJulius)
-#: po/rc.cpp:406 rc.cpp:406
+#: po/rc.cpp:448 rc.cpp:448
 msgid "Julius"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:168
 #. i18n: ectx: property (text), widget (QLabel, lbMkfa)
-#: po/rc.cpp:409 rc.cpp:409
+#: po/rc.cpp:451 rc.cpp:451
 msgid "mkfa:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:175
 #. i18n: ectx: property (text), widget (QLabel, lbDfaMinimize)
-#: po/rc.cpp:412 rc.cpp:412
+#: po/rc.cpp:454 rc.cpp:454
 msgid "dfa_minimize:"
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:7
 #. i18n: ectx: label, entry (HDMan), group (Programs)
-#: po/rc.cpp:415 rc.cpp:415
+#: po/rc.cpp:457 rc.cpp:457
 msgid "The path to the HDMan executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:11
 #. i18n: ectx: label, entry (HLEd), group (Programs)
-#: po/rc.cpp:418 rc.cpp:418
+#: po/rc.cpp:460 rc.cpp:460
 msgid "The path to the HLEd executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:15
 #. i18n: ectx: label, entry (HCopy), group (Programs)
-#: po/rc.cpp:421 rc.cpp:421
+#: po/rc.cpp:463 rc.cpp:463
 msgid "The path to the HCopy executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:19
 #. i18n: ectx: label, entry (HCompV), group (Programs)
-#: po/rc.cpp:424 rc.cpp:424
+#: po/rc.cpp:466 rc.cpp:466
 msgid "The path to the HCompV executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:23
 #. i18n: ectx: label, entry (HERest), group (Programs)
-#: po/rc.cpp:427 rc.cpp:427
+#: po/rc.cpp:469 rc.cpp:469
 msgid "The path to the HERest executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:27
 #. i18n: ectx: label, entry (HHEd), group (Programs)
-#: po/rc.cpp:430 rc.cpp:430
+#: po/rc.cpp:472 rc.cpp:472
 msgid "The path to the HHEd executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:31
 #. i18n: ectx: label, entry (HVite), group (Programs)
-#: po/rc.cpp:433 rc.cpp:433
+#: po/rc.cpp:475 rc.cpp:475
 msgid "The path to the HVite executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:35
 #. i18n: ectx: label, entry (mkfa), group (Programs)
-#: po/rc.cpp:436 rc.cpp:436
+#: po/rc.cpp:478 rc.cpp:478
 msgid "The path to the mkfa executable."
 msgstr ""
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:39
 #. i18n: ectx: label, entry (dfa_minimize), group (Programs)
-#: po/rc.cpp:439 rc.cpp:439
+#: po/rc.cpp:481 rc.cpp:481
 msgid "The path to the dfa_minimize executable."
 msgstr ""
 
-#: po/rc.cpp:440 rc.cpp:440
+#: po/rc.cpp:482 rc.cpp:482
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:441 rc.cpp:441
+#: po/rc.cpp:483 rc.cpp:483
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
@@ -1409,7 +1489,7 @@ msgid ""
 "Your current (empty) configuration was not saved."
 msgstr ""
 
-#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:83
+#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:80
 msgid "Post-Processing"
 msgstr ""
 
@@ -1439,7 +1519,15 @@ msgstr ""
 msgid "Couldn't remove %1"
 msgstr ""
 
-#: simonsound/recwidget.cpp:250
+#: simonsound/recwidget.cpp:204
+msgid ""
+"simon detected that your volume is set too high. Because of this, clipping "
+"has occurred.\n"
+"\n"
+"Please lower the volume and re-record this sample."
+msgstr ""
+
+#: simonsound/recwidget.cpp:267
 msgid ""
 "Couldn't start recording.\n"
 "\n"
@@ -1448,18 +1536,18 @@ msgid ""
 "Please check your sound configuration and try again."
 msgstr ""
 
-#: simonsound/recwidget.cpp:300
+#: simonsound/recwidget.cpp:317
 msgid ""
 "Could not finalize the Sample. The recording probably failed.\n"
 "\n"
 "Tip: Check if you have the needed permissions to write to \"%1\"!"
 msgstr ""
 
-#: simonsound/recwidget.cpp:315
+#: simonsound/recwidget.cpp:332
 msgid "Post-Processing failed"
 msgstr ""
 
-#: simonsound/recwidget.cpp:358
+#: simonsound/recwidget.cpp:375
 msgid ""
 "Couldn't start playback.\n"
 "\n"
@@ -1468,66 +1556,90 @@ msgid ""
 "Please check your sound configuration and try again."
 msgstr ""
 
-#: simonsound/recwidget.cpp:384
+#: simonsound/recwidget.cpp:402
 msgid "Couldn't remove file %1"
 msgstr ""
 
-#: simonsound/soundcontrol.cpp:60
+#: simonsound/soundserver.cpp:349
 msgid ""
-"Error requesting the sound output devices:\n"
+"Failed to open the input audio device.\n"
 "\n"
-"Pa_CountDevices returned %1"
+"Please check your sound configuration."
 msgstr ""
 
-#: simonsound/soundcontrol.cpp:169
-msgid ""
-"Error requesting the sound input devices:\n"
-"\n"
-"Pa_CountDevices returned %1"
+#: simonsound/soundserver.cpp:353
+msgid "An error occured while reading data from the audio device."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:81
+#: simonsound/soundserver.cpp:357 simonsound/soundserver.cpp:387
+msgid "Buffer underrun when processing the sound data."
+msgstr ""
+
+#: simonsound/soundserver.cpp:361
+msgid "A fatal error occured during recording."
+msgstr ""
+
+#: simonsound/soundserver.cpp:379
+msgid ""
+"Failed to open the audio device.\n"
+"\n"
+"Please check your sound configuration."
+msgstr ""
+
+#: simonsound/soundserver.cpp:383
+msgid "An error occured while writing data to the audio device."
+msgstr ""
+
+#: simonsound/soundserver.cpp:391
+msgid "A fatal error occured during playback."
+msgstr ""
+
+#: simonsound/soundsettings.cpp:77
 msgid "Device Configuration"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:82
+#: simonsound/soundsettings.cpp:78
+msgid "Voice Activity Detection"
+msgstr ""
+
+#: simonsound/soundsettings.cpp:79
 msgid "Prompt Font"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:94
+#: simonsound/soundsettings.cpp:93
 msgid "Recordings"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:95
+#: simonsound/soundsettings.cpp:94
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:113
+#: simonsound/soundsettings.cpp:111
 msgid "The soundconfiguration has been tested successfully."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:165
+#: simonsound/soundsettings.cpp:150
 msgid ""
 "simon noticed that not all of the sound devices you selected to use "
 "previously are available.\n"
 "\n"
 "This is perfectly normal if you are connected to simond or are otherwise "
-"using an application that uses an ALSA device directly.\n"
+"using an application that blocks the device.\n"
 "\n"
 "Did you plug / unplug a device or otherwise change your systems audio "
 "setup?\n"
 "\n"
-"Selecting \"Yes\" will allow you to change your soundconfiguration, "
+"Selecting \"Yes\" will allow you to change your sound configuration, "
 "essentially deleting your previous configuration. Selecting \"No\" will "
 "temporarily deactivate the sound configuration in order to protect your "
 "previous configuration from being overwritten."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:170
+#: simonsound/soundsettings.cpp:159
 msgid "Please adjust your soundconfiguration accordingly."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:239
+#: simonsound/soundsettings.cpp:245
 msgid ""
 "The selected sound configuration is not supported by your hardware.\n"
 "\n"

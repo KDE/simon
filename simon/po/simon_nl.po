@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 13:32+0200\n"
+"POT-Creation-Date: 2010-04-15 14:43+0200\n"
 "PO-Revision-Date: 2010-02-09 10:29+0100\n"
 "Last-Translator: Daniël <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -1814,7 +1814,7 @@ msgstr "Voorkeuren"
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:23
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:877 po/rc.cpp:880 po/rc.cpp:937 po/rc.cpp:940 src/main.cpp:41
+#: po/rc.cpp:877 po/rc.cpp:880 po/rc.cpp:937 po/rc.cpp:940 src/main.cpp:74
 #: src/simonview.cpp:194 rc.cpp:877 rc.cpp:880 rc.cpp:937 rc.cpp:940
 msgid "simon"
 msgstr "simon"
@@ -2029,7 +2029,7 @@ msgid ""
 msgstr ""
 
 #: src/firstrunscenariosconfig.cpp:41
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1163
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1169
 #: src/simonview.cpp:412
 msgid "Couldn't re-initialize scenarios. Please restart simon!"
 msgstr ""
@@ -2072,7 +2072,7 @@ msgid ""
 "html>"
 msgstr ""
 
-#: src/main.cpp:42
+#: src/main.cpp:75
 #, fuzzy
 msgid ""
 "<html><head /><body>\t\t\t\t\t      <h2>Development and Distribution</h2>\t\t"
@@ -2091,7 +2091,7 @@ msgstr ""
 "Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger "
 "Michael<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
 
-#: src/main.cpp:49
+#: src/main.cpp:82
 msgid ""
 "Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina "
 "Sturmann, Martin Gigerl"
@@ -2155,11 +2155,11 @@ msgstr "Directe uitvoering van commando's van simon"
 msgid "%1: Voice commands"
 msgstr ""
 
-#: src/simonactionsui/runcommandviewprivate.cpp:285
+#: src/simonactionsui/runcommandviewprivate.cpp:284
 msgid "Are you sure that you want to irreversibly remove the command \"%1\"?"
 msgstr ""
 
-#: src/simonactionsui/runcommandviewprivate.cpp:285
+#: src/simonactionsui/runcommandviewprivate.cpp:284
 msgid "Remove Command"
 msgstr "Commando verwijderen"
 
@@ -3073,7 +3073,7 @@ msgstr ""
 msgid "Synchronisation"
 msgstr "Modelsynchronisatie"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:251
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:257
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -3081,29 +3081,29 @@ msgid ""
 "Do you still want to continue?"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:252
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:258
 msgid "Self-Signed Certificate"
 msgstr "Zelf-ondertekend certificaat"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:290
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:296
 msgid "Request timed out (%1 ms)"
 msgstr "Aanvraag-time-out (%1 ms)"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:372
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:378
 msgid "Please enter your Authentication Details for the simond below"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:421
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:427
 #, fuzzy
 msgid "Couldn't create active model container"
 msgstr "Kon uitvoermap %1 niet aanmaken"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:476
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:482
 #, fuzzy
 msgid "Couldn't create base model container"
 msgstr "Kon oude model niet herstellen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:754
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:760
 msgid ""
 "The Speech Model changed.\n"
 "\n"
@@ -3113,36 +3113,36 @@ msgstr ""
 "\n"
 "Nu synchroniseren?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:773
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:895
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:779
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:901
 msgid "Modell Synchronisation"
 msgstr "Modelsynchronisatie"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:773
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1812
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:779
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1775
 msgid "Initializing..."
 msgstr "Initialiseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:844
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:850
 msgid ""
 "Your speech model might have changed while you were disconnected.\n"
 "\n"
 "Do you want to start a synchronization now?"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:855
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:861
 msgid "Version not supported"
 msgstr "Niet ondersteunde versie"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:862
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:868
 msgid "Wrong username or password."
 msgstr "Verkeerde gebruikersnaam of wachtwoord"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:870
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:876
 msgid "Access Denied."
 msgstr "Toegang afgewezen."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:880
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:886
 msgid ""
 "The synchronization is already running.\n"
 "\n"
@@ -3150,104 +3150,104 @@ msgid ""
 "connect."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:888
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:894
 msgid "Couldn't abort synchronization."
 msgstr "Kon synchronisatie niet onderbreken"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:895
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:899
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:901
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:905
 msgid "Synchronizing acitve Model"
 msgstr "Actief model synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:957
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:963
 msgid "No Speech Model available: Recognition deactivated"
 msgstr "Geen spraakmodel beschikbaar: herkenning gedeactiveerd"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:969
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:975
 msgid "The server couldn't store the the active model."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1028
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1050
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1034
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1056
 #, fuzzy
 msgid "Synchronizing scenarios"
 msgstr "Woordenlijst synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1062
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1068
 #, fuzzy
 msgid "The server couldn't store the scenario."
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1174
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1180
 #, fuzzy
 msgid "The server couldn't store the list of selected scenarios."
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1183
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1189
 msgid "Synchronizing Training"
 msgstr "Training synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1192
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1198
 msgid "Sending Training-Corpus"
 msgstr "Training-corpus verzenden"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1203
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1209
 msgid "Loading Training"
 msgstr "Training laden"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1220
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1226
 msgid "Synchronizing Wordlist"
 msgstr "Woordenlijst synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1241
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1247
 #, fuzzy
 msgid "The server couldn't store the trainings corpus."
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1250
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1256
 msgid "Synchronizing Language Description"
 msgstr "Taalbeschrijving synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1292
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1298
 msgid "There seems to be no language description available."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1303
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1309
 msgid "The server couldn't store language description."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1327
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1345
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1333
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1351
 msgid "Synchronizing Trainings-Corpus"
 msgstr "Training-corpus synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1371
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1377
 #, fuzzy
 msgid "The server couldn't store trainings sample."
 msgstr "Trainingstekst kon niet worden opgeslagen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1380
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1386
 msgid "Couldn't complete Synchronization"
 msgstr "Synchronisatie incompleet"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1412
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1418
 #, fuzzy
 msgid "Couldn't restore old model"
 msgstr "Kon oude model niet herstellen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1447
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1453
 msgid "Model: %1"
 msgstr "Model: %1"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1531
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1537
 msgid "Couldn't retrieve Model-Compilation-Protocol"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1745
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1708
 msgid "Protocol:"
 msgstr "Protocol:"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1750
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1713
 msgid ""
 "The sample \"%1\" could not be found neither on the local computer nor the "
 "server.\n"
@@ -3257,11 +3257,11 @@ msgstr ""
 "Het voorbeeld \"%1\" kon niet worden gevonden op de locale computer en ook "
 "niet op de server.\\nVan de trainings-database verwijderen?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1765
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1728
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1775
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1738
 #, fuzzy
 msgid ""
 "The word \"%1\" is used in your training-samples but is not contained in "
@@ -3274,21 +3274,21 @@ msgstr ""
 "\n"
 "Woord nu toevoegen?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1777
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1740
 msgid "Remove samples containing the word"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1778
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1741
 #, fuzzy
 msgid "Add the word"
 msgstr "Woord toevoegen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1788
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1751
 #, fuzzy
 msgid "Failed to remove word \"%1\" from the trainingscorpus"
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1802
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1765
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
@@ -3300,7 +3300,7 @@ msgstr ""
 "Voeg het woord toe dat deze terminal gebruikt of verwijder de structu(u)r"
 "(en) met de terminal uit je grammatica."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1807
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1770
 msgid ""
 "The Phoneme \"%1\" is undefined.\n"
 "\n"
@@ -3310,7 +3310,7 @@ msgstr ""
 "\n"
 "Train tenminste een woord dat het gebruikt."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1812
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1775
 msgid "Compiling Model"
 msgstr "Model compileren"
 
