@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simond_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:14+0200\n"
+"POT-Creation-Date: 2010-04-15 19:34+0200\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -26,39 +26,39 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
-#: config/simonduserconfiguration.cpp:71
+#: config/simonduserconfiguration.cpp:73
 msgid "Couldn't connect to database"
 msgstr "Impossible de se connecter à la base de données"
 
-#: config/simonduserconfiguration.cpp:86
+#: config/simonduserconfiguration.cpp:88
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
-#: config/simonduserconfiguration.cpp:94
+#: config/simonduserconfiguration.cpp:96
 msgid "Couldn't add user"
 msgstr "Impossible d'ajouter l'utilisateur"
 
-#: config/simonduserconfiguration.cpp:102
+#: config/simonduserconfiguration.cpp:104
 msgid "Do you really want to remove the user from the database?"
 msgstr "Voulez-vous vraiment supprimer l'utilisateur de la base de données ?"
 
-#: config/simonduserconfiguration.cpp:109
+#: config/simonduserconfiguration.cpp:111
 msgid "Couldn't remove User"
 msgstr "Impossible de supprimer l'utilisateur"
 
-#: config/simonduserconfiguration.cpp:115
+#: config/simonduserconfiguration.cpp:117
 msgid "Do you also want to remove the speech model from the server?"
 msgstr "Voulez-vous aussi supprimer le modèle vocal du serveur ?"
 
-#: config/simonduserconfiguration.cpp:119
+#: config/simonduserconfiguration.cpp:121
 msgid "Couldn't remove the speech model"
 msgstr "Impossible de supprimer le modèle vocal"
 
-#: config/simonduserconfiguration.cpp:165
+#: config/simonduserconfiguration.cpp:167
 msgid "Change Password for User \"%1\""
 msgstr "Modifier le mot de passe de l'utilisateur « %1 »"
 
-#: config/simonduserconfiguration.cpp:169
+#: config/simonduserconfiguration.cpp:171
 msgid "Couldn't change Password"
 msgstr "Impossible de modifier le mot de passe"
 
@@ -99,14 +99,20 @@ msgid "the path to the SSL certificate."
 msgstr "L'emplacement du certificat SSL."
 
 #. i18n: file: config/simondconfiguration.kcfg:33
-#. i18n: ectx: label, entry (DatabaseUrl), group (Database)
+#. i18n: ectx: label, entry (KeepRecognitionSamples), group (User)
 #: po/rc.cpp:21 rc.cpp:21
+msgid "keep temporary samples."
+msgstr ""
+
+#. i18n: file: config/simondconfiguration.kcfg:39
+#. i18n: ectx: label, entry (DatabaseUrl), group (Database)
+#: po/rc.cpp:24 rc.cpp:24
 msgid "The path to the database."
 msgstr "L'emplacement de la base de données."
 
-#. i18n: file: config/simondconfiguration.kcfg:40
+#. i18n: file: config/simondconfiguration.kcfg:46
 #. i18n: ectx: label, entry (ModelBackups), group (ModelManagement)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:27 rc.cpp:27
 msgid "how many model versions we should preserve."
 msgstr ""
 
@@ -118,13 +124,13 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
 #. i18n: file: config/simonduserconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
-#: po/rc.cpp:27 po/rc.cpp:55 rc.cpp:27 rc.cpp:55
+#: po/rc.cpp:30 po/rc.cpp:58 rc.cpp:30 rc.cpp:58
 msgid "Form"
 msgstr "Form"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:33 rc.cpp:33
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -154,127 +160,153 @@ msgstr ""
 
 #. i18n: file: config/simondnetworkconfiguration.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:37 rc.cpp:37
+#: po/rc.cpp:40 rc.cpp:40
 msgid "Port:"
 msgstr "Port :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
-#: po/rc.cpp:40 rc.cpp:40
+#: po/rc.cpp:43 rc.cpp:43
 msgid "Only allow connections from:"
 msgstr "Autoriser les connexions uniquement depuis :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:75
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
-#: po/rc.cpp:43 rc.cpp:43
+#: po/rc.cpp:46 rc.cpp:46
 msgid "Encryption"
 msgstr "Chiffrage"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:84
 #. i18n: ectx: property (text), widget (QLabel, lbCipher)
-#: po/rc.cpp:46 rc.cpp:46
+#: po/rc.cpp:49 rc.cpp:49
 msgid "Algorithm:"
 msgstr "Algorithme :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:94
 #. i18n: ectx: property (text), widget (QLabel, lbCert)
-#: po/rc.cpp:49 rc.cpp:49
+#: po/rc.cpp:52 rc.cpp:52
 msgid "Certificate:"
 msgstr "Certificat :"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:101
 #. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
-#: po/rc.cpp:52 rc.cpp:52
+#: po/rc.cpp:55 rc.cpp:55
 msgid "SSL-Certificate *.pem"
 msgstr "Certificat SSL *.pem"
 
-#. i18n: file: config/simonduserconfiguration.ui:24
+#. i18n: file: config/simonduserconfiguration.ui:20
+#. i18n: ectx: property (text), widget (QCheckBox, cbKeepSamples)
+#: po/rc.cpp:61 rc.cpp:61
+#, fuzzy
+msgid "Keep recognition samples"
+msgstr "Le démon de reconnaissance de simon"
+
+#. i18n: file: config/simonduserconfiguration.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:58 rc.cpp:58
+#: po/rc.cpp:64 rc.cpp:64
+#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
 "\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
+"weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">WARNING:</span> All changes made here will be applied "
-"instantly.</p></body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">WARNING:</span><span style="
+"\" font-family:'Bitstream Vera Sans';\"> All changes to the user database "
+"will be applied instantly.</span></p></body></html>"
 msgstr ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
 "\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
+"weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">ATTENTION : </span> Tous les changements effectués ici seront "
-"appliqués immédiatement.</p></body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">Note : </span><span style="
+"\" font-family:'Bitstream Vera Sans';\"> Vous devez redémarrer simond pour "
+"que les changements prennent effet.</span></p></body></html>"
 
-#. i18n: file: config/simonduserconfiguration.ui:36
+#. i18n: file: config/simonduserconfiguration.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:65 rc.cpp:65
+#: po/rc.cpp:71 rc.cpp:71
 msgid "Database:"
 msgstr "Base de données :"
 
-#. i18n: file: config/simonduserconfiguration.ui:63
+#. i18n: file: config/simonduserconfiguration.ui:70
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:68 rc.cpp:68
+#: po/rc.cpp:74 rc.cpp:74
 msgid "Add"
 msgstr "Ajouter"
 
-#. i18n: file: config/simonduserconfiguration.ui:70
+#. i18n: file: config/simonduserconfiguration.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbChangePassword)
-#: po/rc.cpp:71 rc.cpp:71
+#: po/rc.cpp:77 rc.cpp:77
 msgid "Change Password"
 msgstr "Modifier le mot de passe"
 
-#. i18n: file: config/simonduserconfiguration.ui:77
+#. i18n: file: config/simonduserconfiguration.ui:84
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:74 rc.cpp:74
+#: po/rc.cpp:80 rc.cpp:80
 msgid "Delete"
 msgstr "Supprimer"
 
-#: po/rc.cpp:75 rc.cpp:75
+#: po/rc.cpp:81 rc.cpp:81
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:76 rc.cpp:76
+#: po/rc.cpp:82 rc.cpp:82
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/juliuscontrol.cpp:394
+#: src/juliuscontrol.cpp:446
+msgid ""
+"The recognition could not be started because your model contains words that "
+"consits of sounds that are not covered by your acoustic model.\n"
+"\n"
+"You need to either remove those words, transcribe them differently or train "
+"them.\n"
+"\n"
+"Warning: The latter will not work if you are using static base models!\n"
+"\n"
+"This could also be a sign of a base model that uses a different phoneme set "
+"than your scenario vocabulary.\n"
+"\n"
+"The following words are affected (list may not be complete):\n"
+"%1\n"
+"\n"
+"The following phonemes are affected (list may not be complete):\n"
+"%2"
+msgstr ""
+
+#: src/juliuscontrol.cpp:461
 msgid "Couldn't open log file. Please ignore detailed log output!"
 msgstr ""
 
-#: src/juliuscontrol.cpp:403
+#: src/juliuscontrol.cpp:470
 msgid "Internal Jconf error"
 msgstr "Erreur interne de Jconf"
 
-#: src/juliuscontrol.cpp:416
+#: src/juliuscontrol.cpp:483
 msgid "Could not initialize recognition"
 msgstr "Impossible d'initialiser de reconnaissance"
 
-#: src/juliuscontrol.cpp:447
+#: src/juliuscontrol.cpp:502
 msgid "Couldn't start adin-thread"
 msgstr "Impossible de démarrer le fil d'exécution adin"
 
-#: src/juliuscontrol.cpp:462
+#: src/juliuscontrol.cpp:526 src/juliuscontrol.cpp:557
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/juliuscontrol.cpp:466
-msgid "Couldn't initialize microphone"
-msgstr "Impossible d'initialiser le microphone"
-
-#: src/juliuscontrol.cpp:467
+#: src/juliuscontrol.cpp:529 src/juliuscontrol.cpp:560
 msgid "Error with the audio stream"
 msgstr "Erreur concernant le flux audio"
 
@@ -293,3 +325,31 @@ msgstr "(C) 2008 Peter Grasch"
 #: src/main.cpp:42
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> All changes made here will be applied "
+#~ "instantly.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">ATTENTION : </span> Tous les changements effectués ici "
+#~ "seront appliqués immédiatement.</p></body></html>"
+
+#~ msgid "Couldn't initialize microphone"
+#~ msgstr "Impossible d'initialiser le microphone"
