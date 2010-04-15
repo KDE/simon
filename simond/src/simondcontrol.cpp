@@ -39,6 +39,9 @@ bool SimondControl::init()
 
 	//FIXME encryption!
 	KConfig config(KStandardDirs::locate("config", "simondrc"));
+	KConfigGroup cGroup2(&config, "User");
+	m_keepSamples = cGroup2.readEntry("KeepRecognitionSamples", false);
+
 	KConfigGroup cGroup(&config, "Network");
 	int port = cGroup.readEntry("Port", 4444);
 	if (cGroup.readEntry("BindTo", true))
@@ -82,7 +85,7 @@ void SimondControl::stopServer()
 
 void SimondControl::incomingConnection (int descriptor)
 {
-	ClientSocket *clientSocket = new ClientSocket(descriptor, db, this);
+	ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, this);
 
 	//TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
 	//(configuration item)

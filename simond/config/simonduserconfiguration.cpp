@@ -35,13 +35,13 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
 	
 	ui.setupUi(this);
 	
-	//addConfig(SimondConfiguration::self(), this);
 
 	kDebug() << "opening database";
 	db = new DatabaseAccess(this);
 	connect (ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
 	connect (ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
 	connect (ui.pbChangePassword, SIGNAL(clicked()), this, SLOT(changePassword()));
+	connect (ui.cbKeepSamples, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
 	ui.pbAdd->setIcon(KIcon("list-add"));
 	ui.pbDelete->setIcon(KIcon("edit-delete"));
@@ -49,6 +49,8 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
 
 	//disable direct editing of the table
 	ui.tvUser->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+//	addConfig(SimondConfiguration::self(), this);
 }
 
 
@@ -176,16 +178,18 @@ void SimondUserConfiguration::load()
 {
 	if (!alreadyLoaded)
 	{
-		kDebug() << "LOAD!";
 		initDb();
 		alreadyLoaded = true;
 	}
 	KCModule::load();
+	ui.cbKeepSamples->setChecked(SimondConfiguration::keepRecognitionSamples());
 }
 
 void SimondUserConfiguration::save()
 {
+	SimondConfiguration::setKeepRecognitionSamples(ui.cbKeepSamples->isChecked());
 	KCModule::save();
+	SimondConfiguration::self()->writeConfig();
 }
 
 

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,19 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recognitioncontrol.h"
+#include "loudnessmetersoundprocessor.h"
+#include <QByteArray>
+#include <QtGlobal>
+#include <KDebug>
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
+/**
+ * \brief Constructor
+ */
+
+LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() : 
+	SoundProcessor(),
+	m_peak(1000),
+	m_clipping(false)
 {
 }
 
-void RecognitionControl::touchLastSuccessfulStart()
+void LoudnessMeterSoundProcessor::process(QByteArray& data)
 {
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
+	const short* frames = (short*) data.constData();
+	int maxAmp =  32768 - 1;
+	m_peak = 0;
+	m_clipping = false;
+	for (unsigned int i=0; i < (data.size() / sizeof(short)); i++)
+	{
+		int frame = qAbs(frames[i]);
+		m_peak = qMax(m_peak, frame);
+	}
+
+	if (m_peak >= maxAmp)
+		m_clipping = true;
 }
 
-RecognitionControl::~RecognitionControl()
-{
-	
-}

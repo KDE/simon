@@ -29,7 +29,6 @@
 
 #include "adinstreamer.h"
 
-#include <simonsound/soundcontrol.h>
 #include <signal.h>
 
 #include <QString>

@@ -22,6 +22,7 @@
 #include "recognitionconfiguration.h"
 
 #include <adinstreamer/adinstreamer.h>
+#include <simondstreamer/simondstreamer.h>
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
@@ -91,18 +92,22 @@ RecognitionControl* RecognitionControl::instance;
  *	@param qint16 port
  *	Port the Server should listen to
  */
-RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
+RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
 	localSimond(NULL),
 	adinStreamer(AdinStreamer::getInstance(this)),
+	simondStreamer(new SimondStreamer(this, this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
 	timeoutWatcher(new QTimer(this))
 {
-	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
-	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
-	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
+//	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
+//	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
+//	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
+
+	connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
+	connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
@@ -166,7 +171,8 @@ void RecognitionControl::streamStopped()
 
 void RecognitionControl::slotDisconnected()
 {
-	adinStreamer->stop();
+//	adinStreamer->stop();
+	simondStreamer->stop();
 	recognitionReady=false;
 	if (synchronisationOperation)
 	{
@@ -1558,22 +1564,6 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
-				case Simond::RecognitionAwaitingStream:
-				{
-					checkIfMessageFinished(sizeof(qint32));
-					qint32 port, sampleRate;
-					msg >> port;
-					msg >> sampleRate;
-					advanceStream(sizeof(qint32)*3);
-					recognitionReady=true;
-
-					kDebug() << "adinnet server running on port " << port;
-					adinStreamer->init(socket->peerAddress(), port, sampleRate);
-//					if (RecognitionConfiguration::automaticallyEnableRecognition())
-					startRecognition();
-					break;
-				}
-
 				case Simond::RecognitionError:
 				{
 					parseLengthHeader();
@@ -1608,7 +1598,9 @@ void RecognitionControl::messageReceived()
 				{	
 					advanceStream(sizeof(qint32));
 						
-					//nothing to do?
+					recognitionReady=true;
+
+					startRecognition();
 					break;
 				}
 
@@ -1621,24 +1613,8 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
-				case Simond::RecognitionPaused:
-				{
-					advanceStream(sizeof(qint32));
-					emit recognitionStatusChanged(RecognitionControl::Paused);
-					break;
-				}
-
-				case Simond::RecognitionResumed:
-				{
-					advanceStream(sizeof(qint32));
-					emit recognitionStatusChanged(RecognitionControl::Resumed);
-					kDebug() << "Recognition has been resumed" << msgByte;
-					break;
-				}
-
 				case Simond::RecognitionResult:
 				{
-					fprintf(stderr, "Simond::RecognitionResult\n");
 					parseLengthHeader();
 
 					qint8 sentenceCount;
@@ -1713,8 +1689,8 @@ void RecognitionControl::startRecognition()
 {
 	if (recognitionReady)
 	{
-		kDebug() << "ole bin hier";
-		adinStreamer->start();
+		//adinStreamer->start();
+		simondStreamer->start();
 	} else
 		sendRequest(Simond::StartRecognition);
 }
@@ -1722,22 +1698,9 @@ void RecognitionControl::startRecognition()
 
 void RecognitionControl::stopRecognition()
 {
-	adinStreamer->stop();
+	simondStreamer->stop();
+//	adinStreamer->stop();
 	sendRequest(Simond::StopRecognition);
-}
-
-void RecognitionControl::pauseRecognition()
-{
-//	kDebug() << "Sending pause request";
-	adinStreamer->stop();
-//	sendRequest(Simond::PauseRecognition);
-}
-
-void RecognitionControl::resumeRecognition()
-{
-	kDebug() << "Sending resume request";
-	adinStreamer->start();
-//	sendRequest(Simond::ResumeRecognition);
 }
 
 void RecognitionControl::displayCompilationProtocol(const QString& protocol)
@@ -1812,6 +1775,48 @@ Operation* RecognitionControl::createModelCompilationOperation()
 	Operation* modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."), 0, 0, false /*not atomic*/);
 	connect(modelCompilationOperation, SIGNAL(aborting()), this, SLOT(abortModelCompilation()));
 	return modelCompilationOperation;
+}
+
+void RecognitionControl::pauseRecognition()
+{
+	simondStreamer->stop();
+}
+
+void RecognitionControl::resumeRecognition()
+{
+	simondStreamer->start();
+}
+
+void RecognitionControl::startSampleToRecognize(qint8 channels, qint32 sampleRate)
+{
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << channels << sampleRate;
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << (qint32) Simond::RecognitionStartSample << (qint64) body.count();
+	socket->write(toWrite);
+	socket->write(body);
+}
+
+void RecognitionControl::sendSampleToRecognize(const QByteArray& data)
+{
+//	kDebug() << "Sending sample to server...";
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+	out << (qint32) Simond::RecognitionSampleData
+		<< (qint64) data.count()+sizeof(qint32) /*separator*/
+		<< data;
+
+	socket->write(toWrite);
+}
+
+void RecognitionControl::recognizeSample()
+{
+	kDebug() << "Recognize on the last transmitted data";
+	sendRequest(Simond::RecognitionSampleFinished);
 }
 
 /**

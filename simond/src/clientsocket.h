@@ -37,12 +37,15 @@ class SynchronisationManager;
 class ModelCompilationManager;
 class ModelCompilationAdapter;
 class Model;
+class WAV;
 
 class ClientSocket : public QSslSocket
 {
 	Q_OBJECT
 
 	private:
+		bool m_keepSamples;
+
 		bool synchronisationRunning;
 		
 		QString username;
@@ -57,13 +60,15 @@ class ClientSocket : public QSslSocket
 		uint newLexiconHash;
 		uint newGrammarHash;
 		uint newVocaHash;
+
+		WAV *currentSample;
 		
 		bool shouldRecompileModel();
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 		void writeHashesToConfig();
 
 	public slots:
-		void sendRecognitionResult(const RecognitionResultList& recognitionResults);
+		void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
 
 	private slots:
@@ -78,13 +83,10 @@ class ClientSocket : public QSslSocket
 		bool sendBaseModel();
 
 		void recognitionReady();
-		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionError(const QString& error, const QByteArray& log);
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();
-		void recognitionPaused();
-		void recognitionResumed();
 
 		bool sendLanguageDescription();
 		bool sendTraining();
@@ -123,7 +125,7 @@ class ClientSocket : public QSslSocket
 		void activeModelCompilationAborted();
 
 	public:
-		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
+		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
 			       
 		virtual ~ClientSocket();
 		

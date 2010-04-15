@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,19 +17,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recognitioncontrol.h"
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
-{
-}
+#ifndef SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
+#define SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
-void RecognitionControl::touchLastSuccessfulStart()
-{
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
-}
+#include "simonsound_export.h"
+#include "soundprocessor.h"
 
-RecognitionControl::~RecognitionControl()
-{
-	
-}
+class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor {
+
+private:
+	int m_peak;
+	bool m_clipping;
+
+public:
+	LoudnessMeterSoundProcessor();
+
+	void process(QByteArray& data);
+
+	int peak() { return m_peak; }
+	bool clipping() { return m_clipping; }
+};
+
+#endif
+
+
+
+

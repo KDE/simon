@@ -23,6 +23,7 @@
 
 #include "recognitioncontrol_export.h"
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simondstreamer/simonsender.h>
 #include <QObject>
 #include <QStringList>
 #include <QMutex>
@@ -37,6 +38,7 @@ const qint8 protocolVersion=3;
 
 class AdinStreamer;
 class QDateTime;
+class SimondStreamer;
 
 /**
  *	@class RecognitionControl
@@ -46,7 +48,7 @@ class QDateTime;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject {
+class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public SimonSender {
 	Q_OBJECT
 
 public:
@@ -74,10 +76,17 @@ public:
 	bool switchToModel(const QDateTime& model);
 	bool isConnected();
 
+	void pauseRecognition();
+	void resumeRecognition();
+
+
 private:
 	static RecognitionControl *instance;
 	QProcess *localSimond;
+
 	AdinStreamer *adinStreamer;
+	SimondStreamer *simondStreamer;
+
 	QMutex messageLocker;
 	QByteArray stillToProcess;
 	QStringList missingScenarios;
@@ -137,8 +146,6 @@ public slots:
 
 	void startRecognition();
 	void stopRecognition();
-	void pauseRecognition();
-	void resumeRecognition();
 
 	void fetchCompilationProtocol();
 	void askStartSynchronisation();
@@ -181,6 +188,10 @@ private slots:
 	void sendTraining();
 
 	void sendSample(QString sampleName);
+
+	void startSampleToRecognize(qint8 channels, qint32 sampleRate);
+	void sendSampleToRecognize(const QByteArray& data);
+	void recognizeSample();
 
 	void synchronisationComplete();
 	void synchronisationDone();

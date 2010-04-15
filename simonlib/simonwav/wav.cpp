@@ -60,24 +60,6 @@ WAV::WAV(QString file_name, int channels_, int samplerate_)
 	
 }
 
-/**
- * \brief Returns the data from the wav file
- * 
- * \author Peter Grasch
- * \return short*
- * The data of the file
- */
-short* WAV::getRawData(unsigned long& length)
-{
-	length = this->length / sizeof(short);
-
-	wavData.open(QIODevice::ReadOnly);
-	char *tempData = wavData.buffer().data();
-	wavData.close();
-
-	return (short*) tempData;
-}
-
 
 /**
  * \brief Reads the data from the given file and adds it to the waveData (member)
@@ -107,6 +89,30 @@ void WAV::importDataFromFile(QString filename)
 	this->beginAddSequence();
 	this->addData(out, length / sizeof(short));
 	this->endAddSequence();
+}
+
+/**
+ *	@brief Adds the array of data to the main waveData (member)
+ *
+ *	@author Peter Grasch
+ *	@param short* data
+ *	the data to add
+ *	@param int length
+ *	the length of the provided array
+ */
+void WAV::addData(short* data, int length)
+{
+	length = (length*sizeof(short)) / sizeof(char);
+	write((char*) data, length);
+}
+
+
+
+qint64 WAV::writeData ( const char * data, qint64 maxSize )
+{
+	qint64 written = QBuffer::writeData(data, maxSize);
+	length += written;
+	return written;
 }
 
 /**
@@ -199,11 +205,12 @@ bool WAV::writeFile(QString filename)
 	writeFormat(dstream);
 	writeDataChunk(dstream);
 	
-// 	char* data;
-	wavData.open(QIODevice::ReadOnly);
-// 	wavData.read(data, this->length);
-	dstream->writeRawData(wavData.buffer().data(), this->length);
-	wavData.close();
+	open(QIODevice::ReadOnly);
+	dstream->writeRawData(buffer().data(), this->length);
+	close();
+	//wavData.open(QIODevice::ReadOnly);
+	//dstream->writeRawData(wavData.buffer().data(), this->length);
+	//wavData.close();
 	
 	wavFile.close();
 	return true;
@@ -267,7 +274,7 @@ void WAV::writeDataChunk(QDataStream *dstream)
  *	+-------------------------------------------------------+
  *	| Bytes/sec|Block align|Bits/Sample                     |
  *	|-------------------------------------------------------|
- *	| 88200    |4          |16                              |
+ *	| 88200    |2          |16                              |
  *	+-------------------------------------------------------+
  *	
  *	* 0x01 means uncompressed PCM Data
@@ -285,27 +292,11 @@ void WAV::writeFormat(QDataStream *dstream)
 	*dstream << (quint32) samplerate;
 	*dstream << (quint32) channels*samplerate
 				*((int)sizeof(short)); // 16bit
-	*dstream << (quint16) 4;
+	*dstream << (quint16) 2;
 	*dstream << (quint16) 16;
 }
 
-/**
- *	@brief Adds the array of data to the main waveData (member)
- *
- *	@author Peter Grasch
- *	@param short* data
- *	the data to add
- *	@param int length
- *	the length of the provided array
- */
-void WAV::addData(short* data, int length)
-{
- 	length = (length*sizeof(short)) / sizeof(char);
 
-	wavData.write((char*) data, length);
-
-	this->length += length;
-}
 
 /**
  * \brief Destructor

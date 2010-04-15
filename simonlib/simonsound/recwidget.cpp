@@ -19,12 +19,11 @@
 
 #include "recwidget.h"
 
-#include "wavrecorder.h"
-#include "wavplayer.h"
+#include "wavrecorderclient.h"
+#include "wavplayerclient.h"
 #include "postprocessing.h"
 #include "soundconfig.h"
-
-#include <simonlogging/logger.h>
+#include "soundserver.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -64,8 +63,8 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	isRecording = false;
 	isPlaying = false;
 	
-	rec = new WavRecorder(this);
-	play = new WavPlayer(this);
+	rec = new WavRecorderClient(this);
+	play = new WavPlayerClient(this);
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -112,6 +111,15 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	
 	lay->addWidget(pbProgress);
 
+	wgWarning = new QWidget(this);
+	QLabel *lbWarningDesc = new QLabel(i18n("Warning! Sample should be re-recorded!"), this);
+	KPushButton *pbMoreInformation = new KPushButton(KIcon("help-hint"), i18n("More information"), this);
+	QHBoxLayout *warningLayout = new QHBoxLayout(wgWarning);
+	warningLayout->addWidget(lbWarningDesc);
+	warningLayout->addWidget(pbMoreInformation);
+	connect(pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayClippingWarning()));
+	wgWarning->hide();
+	lay->addWidget(wgWarning);
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -183,10 +191,18 @@ void RecWidget::setupSignalsSlots()
 	connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
 	connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
 	connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
+	connect(rec, SIGNAL(clippingOccured()), wgWarning, SLOT(show()));
 	
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
+
+	connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 }
 
+
+void RecWidget::displayClippingWarning()
+{
+	KMessageBox::information(this, i18n("simon detected that your volume is set too high. Because of this, clipping has occurred.\n\nPlease lower the volume and re-record this sample."));
+}
 
 /**
  * \brief Sets the widgets title to the given title
@@ -244,6 +260,7 @@ void RecWidget::record()
 	pbRecord->setEnabled(true);
 	pbPlay->setEnabled(false);
 	pbDelete->setEnabled(false);
+	wgWarning->hide();
 
 	if (!rec->record(fName))
 	{
@@ -376,6 +393,7 @@ bool RecWidget::deleteSample()
 		pbPlay->setEnabled(false);
 		pbDelete->setEnabled(false);
 		emit sampleDeleted();
+		wgWarning->hide();
 		return true;
 	} else {
 		if (QFile::exists(this->filename))

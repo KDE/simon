@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,19 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recognitioncontrol.h"
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
-{
-}
+#ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
+#define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 
-void RecognitionControl::touchLastSuccessfulStart()
-{
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
-}
+#include <QtGlobal>
+#include "simonsound_export.h"
 
-RecognitionControl::~RecognitionControl()
-{
-	
-}
+class QByteArray;
+
+class SIMONSOUND_EXPORT SoundClient {
+
+public:
+	enum SoundClientFlags
+	{
+		None=0,
+		Exclusive=1 // if set this client demands exclusive use of the in/output device
+			    // (all other clients have to be suspended)
+	};
+
+	SoundClient(SoundClientFlags options=None);
+	virtual ~SoundClient();
+
+	virtual void resume() {}
+	virtual void suspend() {}
+
+private:
+	SoundClientFlags m_options;
+
+public:
+	bool isExclusive()
+	{ return m_options & Exclusive; }
+};
+
+#endif
+
+

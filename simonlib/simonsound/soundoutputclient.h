@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,19 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recognitioncontrol.h"
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
-{
-}
+#ifndef SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419BA1236280815A2AAD
+#define SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419BA1236280815A2AAD
 
-void RecognitionControl::touchLastSuccessfulStart()
-{
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
-}
 
-RecognitionControl::~RecognitionControl()
-{
-	
-}
+#include <QIODevice>
+#include "soundclient.h"
+#include "simonsound_export.h"
+
+class SIMONSOUND_EXPORT SoundOutputClient : public SoundClient {
+public:
+	SoundOutputClient();
+	virtual ~SoundOutputClient();
+
+	virtual QIODevice* getDataProvider()=0;
+	virtual void finish()=0;
+};
+
+
+#endif
+

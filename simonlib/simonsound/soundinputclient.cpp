@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,19 +17,44 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recognitioncontrol.h"
+#include "soundinputclient.h"
+#include "soundprocessor.h"
+#include <QByteArray>
 
-RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
+/**
+ * \brief Constructor
+ */
+SoundInputClient::SoundInputClient(SoundClient::SoundClientFlags options) :
+	SoundClient(options)
 {
 }
 
-void RecognitionControl::touchLastSuccessfulStart()
+void SoundInputClient::registerSoundProcessor(SoundProcessor *p)
 {
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
+	processors << p;
 }
 
-RecognitionControl::~RecognitionControl()
+void SoundInputClient::process(const QByteArray& data, qint64 currentTime)
 {
-	
+	QByteArray processedData = data;
+	foreach (SoundProcessor* p, processors)
+	{
+		p->process(processedData);
+		if (processedData.isEmpty()) return;
+	}
+
+	processPrivate(processedData, currentTime);
 }
+
+/**
+ * \brief Destructor
+ */
+SoundInputClient::~SoundInputClient()
+{
+	qDeleteAll(processors);
+}
+
+
+
+
+

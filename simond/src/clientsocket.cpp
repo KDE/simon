@@ -1,5 +1,4 @@
-/*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+/* *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,12 +30,15 @@
 #include <simonscenarios/languagedescriptioncontainer.h>
 #include <simonscenarios/trainingcontainer.h>
 
+#include <simonwav/wav.h>
+
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 
 #include <QDir>
+#include <QTime>
 #include <QDateTime>
 #include <QHostAddress>
 #include <QMap>
@@ -49,8 +51,9 @@
 
 #include <KConfig>
 
-
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, bool keepSamples, QObject *parent) 
+   : QSslSocket(parent),
+	m_keepSamples(keepSamples),
 	synchronisationRunning(false),
 	recognitionControl(0),
 	synchronisationManager(0),
@@ -58,7 +61,8 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 	modelCompilationAdapter(0),
 	newLexiconHash(0),
 	newGrammarHash(0),
-	newVocaHash(0)
+	newVocaHash(0),
+	currentSample(NULL)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -175,12 +179,9 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
 					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
-					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32, qint32)), this, SLOT(recognitionAwaitingStream(qint32, qint32)));
 					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
 					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
-					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
-					connect(recognitionControl, SIGNAL(recognitionResult(const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const RecognitionResultList&)));
+					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const QString&, const RecognitionResultList&)));
 
 					if (synchronisationManager ) 
 						synchronisationManager->deleteLater();
@@ -190,7 +191,7 @@ void ClientSocket::processRequest()
 					sendCode(Simond::LoginSuccessful);
 
 					if (synchronisationManager->hasActiveModel())
-						recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+						recognitionControl->initializeRecognition();
 				} else
 					sendCode(Simond::AuthenticationFailed);
 				
@@ -793,7 +794,7 @@ void ClientSocket::processRequest()
 
 			case Simond::StartRecognition:
 			{
-				recognitionControl->start();
+				recognitionControl->startRecognition();
 				break;
 			}
 
@@ -803,17 +804,56 @@ void ClientSocket::processRequest()
 				break;
 			}
 
-			case Simond::PauseRecognition:
+			case Simond::RecognitionStartSample:
 			{
-				recognitionControl->pause();
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				qint8 channels;
+				qint32 sampleRate;
+				stream >> channels;
+				stream >> sampleRate;
+
+				kDebug() << "Starting sample " << channels << sampleRate;
+
+				if (currentSample)
+					delete currentSample;
+
+				currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
+							QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+".wav"),
+							channels, sampleRate);
+				currentSample->beginAddSequence();
+				break;
+			}
+			case Simond::RecognitionSampleData:
+			{
+				//kDebug() << "Received sample data";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				QByteArray sampleData;
+				stream >> sampleData;
+				currentSample->write(sampleData);
+				break;
+			}
+			case Simond::RecognitionSampleFinished:
+			{
+				//kDebug() << "Recognizing on sample";
+				currentSample->endAddSequence();
+				currentSample->writeFile();
+
+				recognitionControl->recognize(currentSample->getFilename());
+				kDebug() << "Returned from recognize";
+
+				delete currentSample;
+				currentSample = NULL;
 				break;
 			}
 
-			case Simond::ResumeRecognition:
-			{
-				recognitionControl->resume();
-				break;
-			}
 			
 			default:
 			{
@@ -1384,7 +1424,7 @@ void ClientSocket::synchronisationDone()
 	if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
 			((recognitionControl->isInitialized() && (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
 			|| !recognitionControl->isInitialized()))
-		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+		recognitionControl->initializeRecognition();
 }
 
 
@@ -1482,14 +1522,6 @@ void ClientSocket::recognitionReady()
 }
 
 
-void ClientSocket::recognitionAwaitingStream(qint32 port, qint32 samplerate)
-{
-	QByteArray toWrite;
-	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionAwaitingStream << port << samplerate;
-	write(toWrite);
-}
-
 void ClientSocket::recognitionError(const QString& error, const QByteArray& log)
 {
 	QByteArray toWrite;
@@ -1526,18 +1558,9 @@ void ClientSocket::recognitionStopped()
 	sendCode(Simond::RecognitionStopped);
 }
 
-void ClientSocket::recognitionPaused()
-{
-	sendCode(Simond::RecognitionPaused);
-}
-
-void ClientSocket::recognitionResumed()
-{
-	sendCode(Simond::RecognitionResumed);
-}
 
 
-void ClientSocket::sendRecognitionResult(const RecognitionResultList& recognitionResults)
+void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -1558,6 +1581,21 @@ void ClientSocket::sendRecognitionResult(const RecognitionResultList& recognitio
 	stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
 	write(toWrite);
 	write(body);
+
+	if (!m_keepSamples)
+	{
+		QFile::remove(fileName);
+	} else {
+		QFile f(fileName+"-log.txt");
+		if (f.open(QIODevice::WriteOnly))
+		{
+			foreach (const RecognitionResult& result, recognitionResults)
+				f.write(result.toString().toUtf8()+"\n");
+
+			f.close();
+		} else
+			kWarning() << "Can't open output log for sample";
+	}
 }
 
 
@@ -1573,4 +1611,6 @@ ClientSocket::~ClientSocket()
 		modelCompilationManager->deleteLater();
 	if (modelCompilationAdapter) 
 		modelCompilationAdapter->deleteLater();
+
+	delete currentSample;
 }

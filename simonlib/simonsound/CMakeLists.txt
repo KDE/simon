@@ -1,10 +1,8 @@
 include(FindQt4)
 include(SimonDirs)
 
-include(FindPortaudio)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
-	../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -16,26 +14,37 @@ IF(WIN32)
 ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorder.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wavplayer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/soundcontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wav.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
 )
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
-	${CMAKE_CURRENT_SOURCE_DIR}/soundcontrol.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 
 kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
 )
@@ -44,11 +53,13 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
 if (${USE_WITH_SIMON})
-	message(STATUS "Use with simon aktiviert")
-target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-		${KDE4_KDEUI_LIBS} adinstreamer)
+	message(STATUS "Use with simon activated")
+target_link_libraries( simonsound ${QT_LIBRARIES}
+	${QT_QTMULTIMEDIA_LIBRARY} 
+		${KDE4_KDEUI_LIBS} simonwav)
 elseif  (${USE_WITH_SIMON})
-target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
+target_link_libraries( simonsound ${QT_LIBRARIES}
+	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} )
 endif (${USE_WITH_SIMON})
 
