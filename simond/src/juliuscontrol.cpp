@@ -347,7 +347,107 @@ QByteArray JuliusControl::getBuildLog()
 
 void JuliusControl::emitError(const QString& error)
 {
-	emit recognitionError(error, getBuildLog());
+	QString specificError = error;
+	QByteArray buildLog = getBuildLog(); 
+
+/*
+Error: voca_load_htkdict: line 13: triphone "w-aa+k" not found
+Error: voca_load_htkdict: the line content was: 2       [Walk]  w aa k
+Error: voca_load_htkdict: line 17: triphone "*-v+aa" or biphone "v+aa" not found
+Error: voca_load_htkdict: line 17: triphone "v-aa+z" not found
+Error: voca_load_htkdict: the line content was: 2       [Vase]  v aa z
+Error: voca_load_htkdict: line 19: triphone "ax-m+b" not found
+Error: voca_load_htkdict: the line content was: 2       [umbrella]      ax m b r eh l ax
+Error: voca_load_htkdict: line 26: triphone "t-aw+ax" not found
+Error: voca_load_htkdict: line 26: triphone "aw-ax+l" not found
+Error: voca_load_htkdict: the line content was: 2       [Towel] t aw ax l
+Error: voca_load_htkdict: line 28: triphone "uh-r+ax" not found
+Error: voca_load_htkdict: the line content was: 2       [Tourist]       t uh r ax s t
+Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found
+Error: voca_load_htkdict: line 33: triphone "dh-ix+s" not found
+Error: voca_load_htkdict: the line content was: 2       [this]  dh ix s
+Error: voca_load_htkdict: line 55: triphone "r-eh+d" not found
+Error: voca_load_htkdict: the line content was: 2       [Read]  r eh d
+Error: voca_load_htkdict: begin missing phones
+Error: voca_load_htkdict: *-dh+ix or biphone dh+ix
+Error: voca_load_htkdict: *-v+aa or biphone v+aa
+Error: voca_load_htkdict: aw-ax+l
+Error: voca_load_htkdict: ax-m+b
+Error: voca_load_htkdict: dh-ix+s
+Error: voca_load_htkdict: r-eh+d
+Error: voca_load_htkdict: t-aw+ax
+Error: voca_load_htkdict: uh-r+ax
+Error: voca_load_htkdict: v-aa+z
+Error: voca_load_htkdict: w-aa+k
+Error: voca_load_htkdict: end missing phones
+Error: init_voca: error in reading model.dict: 7 words failed out of 133 words
+*/
+
+	int indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
+	if (indexStartVocaError != -1)
+	{
+		buildLog = buildLog.replace("<br />", "\n");
+		int indexEndMissingPhones = buildLog.indexOf("end missing phones");
+
+		QList<QByteArray> lines = buildLog.mid(indexStartVocaError, indexEndMissingPhones - indexStartVocaError).split('\n');
+
+		QStringList missingPhones;
+		QStringList affectedWords;
+
+		bool thisLineMoreInfoForMissingTriphone = false;
+		bool thisLineMoreMissingPhones = false;
+		foreach (QString line, lines)
+		{
+			if (line.contains(QRegExp("line [0-9]+: triphone \".*\" (or biphone \".*\" )?not found$")))
+			{
+				//Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found
+				//Error: voca_load_htkdict: line 33: triphone "dh-ix+s" not found
+				thisLineMoreInfoForMissingTriphone = true;
+			} else {
+				if (thisLineMoreInfoForMissingTriphone)
+				{
+					//Error: voca_load_htkdict: the line content was: 2       [Towel] t aw ax l
+					line = line.mid(line.lastIndexOf("       ")).trimmed();
+					QString word = line.mid(line.indexOf("[")+1);
+					word = word.left(word.indexOf("]"));
+					affectedWords << word;
+
+					thisLineMoreInfoForMissingTriphone = false;
+				} else {
+					if (thisLineMoreMissingPhones)
+					{
+						if (line.contains("end missing phones"))
+							break;
+
+						//Error: voca_load_htkdict: ax-m+b
+						missingPhones << line.mid(26).trimmed();
+					} else
+					{
+						if (line.contains("begin missing phones"))
+						{
+							thisLineMoreMissingPhones = true;
+						}
+					}
+				}
+			}
+		}
+
+
+		kDebug() << "Missing phones " << missingPhones;
+		kDebug() << "Affected words " << affectedWords;
+
+		QString missingPhonesStr = missingPhones.join(", ");
+		QString affectedWordsStr = affectedWords.join(", ");
+		if (missingPhonesStr.length() > 200)
+			missingPhonesStr = missingPhonesStr.left(200)+"...";
+		if (affectedWordsStr.length() > 200)
+			affectedWordsStr = affectedWordsStr.left(200)+"...";
+		
+		specificError = i18n("The recognition could not be started because your model contains words that consits of sounds that are not covered by your acoustic model.\n\nYou need to either remove those words, transcribe them differently or train them.\n\nWarning: The latter will not work if you are using static base models!\n\nThis could also be a sign of a base model that uses a different phoneme set than your scenario vocabulary.\n\nThe following words are affected (list may not be complete):\n%1\n\nThe following phonemes are affected (list may not be complete):\n%2", affectedWordsStr, missingPhonesStr);
+	}
+
+	
+	emit recognitionError(specificError, buildLog);
 }
 
 bool JuliusControl::initializeRecognition()
