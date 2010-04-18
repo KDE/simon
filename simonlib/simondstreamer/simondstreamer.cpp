@@ -27,6 +27,9 @@
 
 #include <KDebug>
 
+#ifdef Q_OS_WIN32
+SoundServer* SoundServer::instance=NULL;
+#endif
 
 /**
  * \brief Constructor

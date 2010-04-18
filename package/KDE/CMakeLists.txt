@@ -86,6 +86,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/QtDBus4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtGui4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtNetwork4.dll"
+  "${KDE4_BIN_INSTALL_DIR}/QtMultimedia4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtSql4.dll"
   "${KDE4_BIN_INSTALL_DIR}/Qt3Support4.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtSvg4.dll"

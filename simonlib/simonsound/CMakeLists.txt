@@ -52,16 +52,9 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
-if (${USE_WITH_SIMON})
-	message(STATUS "Use with simon activated")
 target_link_libraries( simonsound ${QT_LIBRARIES}
 	${QT_QTMULTIMEDIA_LIBRARY} 
 		${KDE4_KDEUI_LIBS} simonwav)
-elseif  (${USE_WITH_SIMON})
-target_link_libraries( simonsound ${QT_LIBRARIES}
-	${QT_QTMULTIMEDIA_LIBRARY} 
-		${KDE4_KDEUI_LIBS} )
-endif (${USE_WITH_SIMON})
 
 
 set_target_properties( simonsound
