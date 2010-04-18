@@ -74,9 +74,9 @@ private slots:
 public slots:
 	int exec();
 	bool updateScenarioConfiguration();
+	bool getNewScenarios();
 
 public:
-	bool getNewScenarios();
 	void init();
 	explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
 	QStringList getSelectedScenarioIds();

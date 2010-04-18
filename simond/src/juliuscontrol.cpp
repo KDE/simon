@@ -396,8 +396,9 @@ Error: init_voca: error in reading model.dict: 7 words failed out of 133 words
 
 		bool thisLineMoreInfoForMissingTriphone = false;
 		bool thisLineMoreMissingPhones = false;
-		foreach (QString line, lines)
+		foreach (QByteArray lineByte, lines)
 		{
+			QString line = QString::fromUtf8(lineByte);
 			if (line.contains(QRegExp("line [0-9]+: triphone \".*\" (or biphone \".*\" )?not found$")))
 			{
 				//Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found

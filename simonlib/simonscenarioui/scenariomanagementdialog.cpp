@@ -213,7 +213,7 @@ bool ScenarioManagementDialog::getNewScenarios()
 	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
 	KConfigGroup cg(config, "");
 	
-	QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << QStringList() << "general");
+	QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
 
 	foreach (const KNS3::Entry& e, dialog.changedEntries()) {
 		if (e.status() == KNS3::Entry::Installed)
