@@ -274,6 +274,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>rbLocalPlace</tabstop>
+  <tabstop>rbLocalFile</tabstop>
   <tabstop>rbRemotePlace</tabstop>
   <tabstop>leRemoteUrl</tabstop>
   <tabstop>gbRemoteHelp</tabstop>
@@ -578,6 +579,23 @@
    <sender>rbLocalPlace</sender>
    <signal>toggled(bool)</signal>
    <receiver>urLocalPlaceUrl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>17</x>
+     <y>13</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>39</x>
+     <y>39</y>
+    </hint>
+   </hints>
+  </connection>
+  
+  <connection>
+   <sender>rbLocalFile</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>urLocalFileUrl</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
