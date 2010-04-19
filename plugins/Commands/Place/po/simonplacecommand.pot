@@ -177,6 +177,10 @@ msgstr ""
 msgid "Open local path: %1"
 msgstr ""
 
+#: selectplacedialog.cpp:66
+msgid "Open local file: %1"
+msgstr ""
+
 #: selectplacedialog.cpp:69
 msgid "Open remote URL: %1"
 msgstr ""
