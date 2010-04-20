@@ -29,9 +29,10 @@ SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 	ui.setupUi(widget);
 	setMainWidget( widget );
 	setCaption( i18n("Select Place") );
-	
-	ui.urLocalUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
-	
+
+	ui.urLocalPlaceUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
+  ui.urLocalFileUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
+
 	connect(ui.cbProtocol->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leUser, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.lePass, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
@@ -39,10 +40,11 @@ SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 	connect(ui.lePath, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.cbAuthentification, SIGNAL(toggled(bool)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leRemoteUrl, SIGNAL(textEdited(QString)), this, SLOT(parseRemoteUrl()));
-	
+
 	connect(ui.rbLocalPlace, SIGNAL(toggled(bool)), this, SLOT(checkComplete()));
+	connect(ui.rbLocalFile, SIGNAL(toggled(bool)), this, SLOT(checkComplete()));
 	connect(ui.leRemoteUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
-	connect(ui.urLocalUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
+	connect(ui.urLocalPlaceUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
 }
 
 void SelectPlaceDialog::checkComplete()
@@ -63,20 +65,28 @@ PlaceCommand* SelectPlaceDialog::selectPlace()
 	if (ui.rbLocalPlace->isChecked())
 	{
 		iconSrc = "folder";
-		description = i18n("Open local path: %1", ui.urLocalUrl->url().path());
-	} else {
+		description = i18n("Open local path: %1", ui.urLocalPlaceUrl->url().path());
+	}
+	else if (ui.rbLocalFile->isChecked())
+	{
+		iconSrc = "folder";
+		description = i18n("Open local file: %1", ui.urLocalFileUrl->url().path());
+	}
+	else
+	{
 		iconSrc = "internet-web-browser";
 		description = i18n("Open remote URL: %1", ui.leRemoteUrl->text());
-
 	}
+
 	return new PlaceCommand(getName(), iconSrc, description, getUrl());
 }
 
 void SelectPlaceDialog::initializeDialog()
 {
 	ui.gbRemoteHelp->setChecked(false);
-	
-	ui.urLocalUrl->hide();
+
+	ui.urLocalPlaceUrl->hide();
+	ui.urLocalFileUrl->hide();
 	ui.leRemoteUrl->hide();
 	ui.lbRemoteUrl->hide();
 	ui.gbRemoteHelp->hide();
@@ -92,6 +102,7 @@ void SelectPlaceDialog::initializeDialog()
 	ui.lbPassword->hide();
 	ui.lePass->hide();
 	ui.rbLocalPlace->setChecked(false);
+	ui.rbLocalFile->setChecked(false);
 	ui.rbRemotePlace->setChecked(false);
 }
 
@@ -100,12 +111,18 @@ bool SelectPlaceDialog::isComplete() const
 	bool complete=false;
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		complete = ! (ui.urLocalUrl->url().isEmpty());
-	} else
+		complete = ! (ui.urLocalPlaceUrl->url().isEmpty());
+	}
+	else if (ui.rbLocalFile->isChecked())
+	{ //local file
+		complete = ! (ui.urLocalFileUrl->url().isEmpty());
+	}
+	else
 	{ //remote place
 		complete = ! (ui.leRemoteUrl->text().isEmpty());
 	}
-	return (ui.rbLocalPlace->isChecked() || ui.rbRemotePlace->isChecked()) && complete;
+	return ( ui.rbLocalPlace->isChecked() || ui.rbLocalFile->isChecked()
+           || ui.rbRemotePlace->isChecked() ) && complete;
 }
 
 void SelectPlaceDialog::buildRemoteUrl()
@@ -124,8 +141,13 @@ QString SelectPlaceDialog::getName() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		return QDir(ui.urLocalUrl->url().path()).dirName();
-	} else
+		return QDir(ui.urLocalPlaceUrl->url().path()).dirName();
+	}
+	else if (ui.rbLocalFile->isChecked())
+	{ //local file
+		return QDir(ui.urLocalFileUrl->url().path()).dirName();
+	}
+	else
 	{ //remote place
 		QString name = KUrl(ui.leRemoteUrl->text()).host();
 
@@ -142,7 +164,7 @@ void SelectPlaceDialog::parseRemoteUrl()
 	ui.cbProtocol->setEditText(url.scheme());
 	ui.leHost->setText(url.host());
 	ui.lePath->setText(url.path());
-	
+
 	if (!url.userInfo().isEmpty())
 	{
 		ui.cbAuthentification->setChecked(true);
@@ -155,8 +177,13 @@ KUrl SelectPlaceDialog::getUrl() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		return ui.urLocalUrl->url();
-	} else
+		return ui.urLocalPlaceUrl->url();
+	}
+	else if (ui.rbLocalFile->isChecked())
+	{ //local file
+		return ui.urLocalFileUrl->url();
+	}
+	else
 	{ //remote place
 
 		KUrl url(ui.leRemoteUrl->text());
