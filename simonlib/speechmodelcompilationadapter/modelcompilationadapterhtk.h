@@ -44,6 +44,8 @@ private:
 	inline QByteArray htkify(const QByteArray& in);
 	inline QString htkify(const QString& in);
 
+	bool containsPoisonedPhoneme(const QString& pronunciation);
+
 public:
 	ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
 

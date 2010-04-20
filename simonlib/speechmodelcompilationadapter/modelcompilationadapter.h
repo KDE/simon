@@ -73,6 +73,9 @@ public:
 	QString simpleVocabPath() { return m_simpleVocabPathOut; }
 	QString promptsPath() { return m_promptsPathOut; }
 
+	void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
+	void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
+
 protected:
 	bool keepGoing;
 	AdaptionType m_adaptionType;
@@ -80,6 +83,8 @@ protected:
 	QStringList m_scenarioPathsIn;
 	QString m_promptsPathIn;
 	QString m_userName;
+
+	QStringList poisonedPhonemes;
 
 	//output
 	QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;

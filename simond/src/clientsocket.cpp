@@ -1137,13 +1137,24 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 
 void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 {
-	QByteArray toWrite;
+/*	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray phonemeByte = phoneme.toUtf8();
 	stream << (qint32) Simond::ModelCompilationPhonemeUndefined
-		<< (qint64) (phonemeByte.count()+sizeof(qint32) /*seperator*/)
+		<< (qint64) (phonemeByte.count()+sizeof(qint32)) //separator
 		<< phonemeByte;
 	write(toWrite);
+	*/
+	//try to fix it automatically
+	modelCompilationAdapter->poisonPhoneme(phoneme);
+	recompileModel();
+}
+
+
+void ClientSocket::startModelCompilation()
+{
+	modelCompilationAdapter->clearPoisonedPhonemes();
+	recompileModel();
 }
 
 void ClientSocket::recompileModel()
@@ -1443,7 +1454,7 @@ void ClientSocket::synchronisationComplete()
 		kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
 
 		if (synchronisationManager->shouldRecompileModel())
-			recompileModel();
+			startModelCompilation();
 	}
 	
 	synchronisationDone();
