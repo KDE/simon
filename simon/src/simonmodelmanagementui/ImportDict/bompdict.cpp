@@ -99,7 +99,7 @@ void BOMPDict::load(QString path, QString encodingName)
 
 		xsp = line.mid(termend).trimmed();
 		
-		xsp.remove(QRegExp("^'*?*"));
+//		xsp.remove(QRegExp("^'*?*"));
 		xsp.remove("'");
 		xsp.remove("|");
 		xsp.remove(",");
