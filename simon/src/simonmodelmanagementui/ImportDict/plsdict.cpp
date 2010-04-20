@@ -132,13 +132,12 @@ bool PLSDict::startElement(const QString&,
  * \return bool
  * Success. (in the current implementation this returns always true)
  */
-#include <KDebug>
 bool PLSDict::endElement(const QString&, const QString&,
 			    const QString &qName)
 {
 	if (qName == "phoneme")
 	{
-		phonemeDefinitions << ipaToXSampa(currentPhonemeDefinition.trimmed());
+		phonemeDefinitions << adaptToSimonPhonemeSet(ipaToXSampa(currentPhonemeDefinition.trimmed()));
 		currentPhonemeDefinition=QString();
 	} else
 	if (qName == "lexeme")

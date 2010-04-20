@@ -107,6 +107,21 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	QStringList trainedVocabulary; // words where prompts exist
 	QStringList definedVocabulary; // words that are in the dictionary
 
+	if (!poisonedPhonemes.isEmpty() && (adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
+	{
+		//remove words with poisoned phonemes
+
+		QList<Word*> words = vocab->getWords();
+		QString htkIfiedWord;
+		foreach (Word *w, words) {
+			if (containsPoisonedPhoneme(w->getPronunciation()))
+			{
+				kDebug() << "Removing word containing poisoned phoneme: " << w->getWord();
+				vocab->removeWord(w);
+			}
+		}
+	}
+
 	if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
 		emit status(i18n("Adapting prompts..."), 1);
 		QFile promptsFile(promptsPathIn);
@@ -125,14 +140,14 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 			QString line = QString::fromUtf8(promptsFile.readLine());
 			int splitter = line.indexOf(" ");
 
-			bool allWordsDefined = true;
+//			bool allWordsDefined = true;
 
 			QStringList words = line.mid(splitter+1).trimmed().split(' ');
 			foreach (const QString& word, words) {
 				if (!vocab->containsWord(word))
 				{
 					kDebug() << "Word not defined in vocabulary: " << word;
-					allWordsDefined = false;
+					//allWordsDefined = false;
 					break;
 				}
 				if (!trainedVocabulary.contains(word))
@@ -308,6 +323,18 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 	return true;
 }
 
+
+bool ModelCompilationAdapterHTK::containsPoisonedPhoneme(const QString& pronunciation)
+{
+	if (poisonedPhonemes.isEmpty()) return false;
+
+	QStringList phonemes = pronunciation.split(" ");
+	foreach (const QString& phoneme, phonemes)
+		if (poisonedPhonemes.contains(phoneme))
+			return true;
+
+	return false;
+}
 
 ModelCompilationAdapterHTK::~ModelCompilationAdapterHTK()
 {

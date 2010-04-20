@@ -93,6 +93,7 @@ class ClientSocket : public QSslSocket
 
 		void sendAvailableModels();
 		
+		void startModelCompilation();
 		void recompileModel();
 		
 		void sendModelCompilationLog();

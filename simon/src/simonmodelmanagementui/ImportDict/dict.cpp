@@ -325,7 +325,8 @@ QString Dict::adaptToSimonPhonemeSet(QString sampa)
 	out = out.replace("<", "nsb");
 	out = out.remove("_");
 	out = out.remove("^");
-	out = out.remove("?");
+//	out = out.remove("?");
+	out = out.replace("?", "gls");
 	out = out.replace("9", "oe");
 	return out;
 }

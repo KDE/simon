@@ -86,7 +86,7 @@ void JuliusVocabulary::load(QString path, QString encoding)
 			xsp = line.mid(splitter).trimmed();
 			words << word;
 			terminals << terminal;
-			pronunciations << xsp;
+			pronunciations << adaptToSimonPhonemeSet(xsp);
 		}
 		
 		if (maxProg != 0) {
