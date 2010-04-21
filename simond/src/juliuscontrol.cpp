@@ -347,41 +347,9 @@ QByteArray JuliusControl::getBuildLog()
 
 void JuliusControl::emitError(const QString& error)
 {
+	kDebug() << "Recognition error occurred...";
 	QString specificError = error;
 	QByteArray buildLog = getBuildLog(); 
-
-/*
-Error: voca_load_htkdict: line 13: triphone "w-aa+k" not found
-Error: voca_load_htkdict: the line content was: 2       [Walk]  w aa k
-Error: voca_load_htkdict: line 17: triphone "*-v+aa" or biphone "v+aa" not found
-Error: voca_load_htkdict: line 17: triphone "v-aa+z" not found
-Error: voca_load_htkdict: the line content was: 2       [Vase]  v aa z
-Error: voca_load_htkdict: line 19: triphone "ax-m+b" not found
-Error: voca_load_htkdict: the line content was: 2       [umbrella]      ax m b r eh l ax
-Error: voca_load_htkdict: line 26: triphone "t-aw+ax" not found
-Error: voca_load_htkdict: line 26: triphone "aw-ax+l" not found
-Error: voca_load_htkdict: the line content was: 2       [Towel] t aw ax l
-Error: voca_load_htkdict: line 28: triphone "uh-r+ax" not found
-Error: voca_load_htkdict: the line content was: 2       [Tourist]       t uh r ax s t
-Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found
-Error: voca_load_htkdict: line 33: triphone "dh-ix+s" not found
-Error: voca_load_htkdict: the line content was: 2       [this]  dh ix s
-Error: voca_load_htkdict: line 55: triphone "r-eh+d" not found
-Error: voca_load_htkdict: the line content was: 2       [Read]  r eh d
-Error: voca_load_htkdict: begin missing phones
-Error: voca_load_htkdict: *-dh+ix or biphone dh+ix
-Error: voca_load_htkdict: *-v+aa or biphone v+aa
-Error: voca_load_htkdict: aw-ax+l
-Error: voca_load_htkdict: ax-m+b
-Error: voca_load_htkdict: dh-ix+s
-Error: voca_load_htkdict: r-eh+d
-Error: voca_load_htkdict: t-aw+ax
-Error: voca_load_htkdict: uh-r+ax
-Error: voca_load_htkdict: v-aa+z
-Error: voca_load_htkdict: w-aa+k
-Error: voca_load_htkdict: end missing phones
-Error: init_voca: error in reading model.dict: 7 words failed out of 133 words
-*/
 
 	int indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
 	if (indexStartVocaError != -1)
@@ -433,10 +401,6 @@ Error: init_voca: error in reading model.dict: 7 words failed out of 133 words
 			}
 		}
 
-
-		kDebug() << "Missing phones " << missingPhones;
-		kDebug() << "Affected words " << affectedWords;
-
 		QString missingPhonesStr = missingPhones.join(", ");
 		QString affectedWordsStr = affectedWords.join(", ");
 		if (missingPhonesStr.length() > 200)
@@ -453,6 +417,14 @@ Error: init_voca: error in reading model.dict: 7 words failed out of 133 words
 
 bool JuliusControl::initializeRecognition()
 {
+	emit recognitionReady();
+	kDebug() << "Recognition ready";
+
+	return true;
+}
+
+bool JuliusControl::startRecognition()
+{
 	uninitialize();
 	
 	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
@@ -465,6 +437,7 @@ bool JuliusControl::initializeRecognition()
 	jlog_set_output(logFile);
 	
 	Jconf *jconf = setupJconf();
+	kDebug() << "setup jconf";
 	if (!jconf)
 	{
 		closeLog();
@@ -474,7 +447,9 @@ bool JuliusControl::initializeRecognition()
 
 	this->jconf = jconf;
 	
+	kDebug() << "create instance";
 	this->recog = j_create_instance_from_jconf(jconf);
+	kDebug() << "instance created";
 	if (!recog)
 	{
 		j_jconf_free(jconf);
@@ -492,12 +467,14 @@ bool JuliusControl::initializeRecognition()
 
 	m_initialized=true;
 
-	emit recognitionReady();
-	return true;
-}
 
-bool JuliusControl::startRecognition()
-{
+
+
+	//==========================0
+
+
+
+	kDebug() << "Starting recognition";
 	/**************************/
 	if (j_adin_init(recog) == false) {    /* error */
 		emitError(i18n("Couldn't start adin-thread"));

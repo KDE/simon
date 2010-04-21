@@ -1561,6 +1561,7 @@ void ClientSocket::recognitionWarning(const QString& warning)
 
 void ClientSocket::recognitionStarted()
 {
+	kDebug() << "Recognition started...";
 	sendCode(Simond::RecognitionStarted);
 }
 

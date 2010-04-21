@@ -1559,7 +1559,10 @@ void RecognitionControl::messageReceived()
 //					if (RecognitionConfiguration::automaticallyEnableRecognition())
 //						startRecognition();
 					if (RecognitionConfiguration::automaticallyEnableRecognition())
+					{
+						kDebug() << "Requesting start recognition";
 						sendRequest(Simond::StartRecognition);
+					}
 
 					break;
 				}
@@ -1578,7 +1581,7 @@ void RecognitionControl::messageReceived()
 					QString log = QString::fromUtf8(protocolByte);
 					recognitionReady=false;
 					emit recognitionError(errormsg, log);
-					emit recognitionStatusChanged(RecognitionControl::Stopped);
+					emit recognitionStatusChanged(RecognitionControl::Ready);
 					break;
 				}
 
