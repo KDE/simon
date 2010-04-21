@@ -33,7 +33,7 @@ MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
 	addPage(createSelectTerminalsPage());
 	addPage(createWorkingPage());
 	addPage(createFinishedPage());
-	setBanner("merge.png");
+	setBanner("merge");
 }
 
 QWizardPage* MergeTerminalsWizard::createIntroPage()

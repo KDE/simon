@@ -29,7 +29,7 @@
 ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(i18n("Import Sentence Structures"));
-	setBanner("importgrammar.png");
+	setBanner("importgrammar");
 	addPage(createIntroPage());
 	addPage(createSelectInputPage());
 	addPage(createWorkingPage());
