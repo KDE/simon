@@ -4,7 +4,7 @@ add_definitions(-DUSE_WITH_SIMON)
 set (USE_WITH_SIMON "1")
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/po)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/adinstreamer)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/adinstreamer)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simondstreamer)

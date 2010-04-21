@@ -36,7 +36,6 @@ class Operation;
 
 const qint8 protocolVersion=3;
 
-class AdinStreamer;
 class QDateTime;
 class SimondStreamer;
 
@@ -84,7 +83,6 @@ private:
 	static RecognitionControl *instance;
 	QProcess *localSimond;
 
-	AdinStreamer *adinStreamer;
 	SimondStreamer *simondStreamer;
 
 	QMutex messageLocker;

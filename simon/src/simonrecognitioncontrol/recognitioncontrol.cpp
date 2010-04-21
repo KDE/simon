@@ -21,7 +21,6 @@
 #include "recognitioncontrol.h"
 #include "recognitionconfiguration.h"
 
-#include <adinstreamer/adinstreamer.h>
 #include <simondstreamer/simondstreamer.h>
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
@@ -94,7 +93,6 @@ RecognitionControl* RecognitionControl::instance;
  */
 RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
 	localSimond(NULL),
-	adinStreamer(AdinStreamer::getInstance(this)),
 	simondStreamer(new SimondStreamer(this, this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
@@ -102,10 +100,6 @@ RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), Simon
 	modelCompilationOperation(0),
 	timeoutWatcher(new QTimer(this))
 {
-//	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
-//	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
-//	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
-
 	connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
@@ -171,7 +165,6 @@ void RecognitionControl::streamStopped()
 
 void RecognitionControl::slotDisconnected()
 {
-//	adinStreamer->stop();
 	simondStreamer->stop();
 	recognitionReady=false;
 	if (synchronisationOperation)
@@ -1610,7 +1603,7 @@ void RecognitionControl::messageReceived()
 				case Simond::RecognitionStopped:
 				{
 					recognitionReady=false;
-					adinStreamer->stop();
+					simondStreamer->stop();
 					advanceStream(sizeof(qint32));
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
@@ -1692,7 +1685,6 @@ void RecognitionControl::startRecognition()
 {
 	if (recognitionReady)
 	{
-		//adinStreamer->start();
 		simondStreamer->start();
 	} else
 		sendRequest(Simond::StartRecognition);
@@ -1702,7 +1694,6 @@ void RecognitionControl::startRecognition()
 void RecognitionControl::stopRecognition()
 {
 	simondStreamer->stop();
-//	adinStreamer->stop();
 	sendRequest(Simond::StopRecognition);
 }
 
