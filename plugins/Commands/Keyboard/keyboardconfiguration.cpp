@@ -33,7 +33,8 @@
 #include <QDialog>
 #include <qinputdialog.h>
 #include <QTableView>
-#include <QDebug>
+#include <QThread>
+#include <QApplication>
 #include <simonscenarios/scenario.h>
 
 
@@ -483,8 +484,11 @@ QDomElement KeyboardConfiguration::serialize(QDomDocument* doc)
 	if (!ui.cbSets->currentText().isEmpty()) 
 		storedSet = setContainer->findSet(ui.cbSets->currentText());
 	
-	kDebug() << "Calling rebuild gui";
-	commandManager->rebuildGui();
+	if (QThread::currentThread() == qApp->thread())
+	{
+		kDebug() << "Calling rebuild gui";
+		commandManager->rebuildGui();
+	}
 
 	return configElem;
 }
@@ -532,8 +536,13 @@ bool KeyboardConfiguration::deSerialize(const QDomElement& elem)
 	//numpad
 	QDomElement numpadElement = elem.firstChildElement("numpad");
 	ui.cbShowNumpad->setChecked(numpadElement.firstChildElement("showNumpad").text() == "1");
+	
+	if (QThread::currentThread() == qApp->thread())
+	{
+		kDebug() << "Calling rebuild gui";
+		commandManager->rebuildGui();
+	}
 
-	commandManager->rebuildGui();
 	return true;
 }
 

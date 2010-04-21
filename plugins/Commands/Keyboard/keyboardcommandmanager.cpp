@@ -174,6 +174,10 @@ void KeyboardCommandManager::rebuildGui()
 	while(ui.twTabs->count() > 0) {
 		QWidget *w = ui.twTabs->widget(0);
 		ui.twTabs->removeTab(0);
+
+		if (!w)
+			continue;
+
 		QLayout *lay = w->layout();
 		//remove all the buttons so they won't be deleted when deleting the widget
 		if (lay) {
