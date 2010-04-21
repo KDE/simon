@@ -30,8 +30,9 @@ SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 	setMainWidget( widget );
 	setCaption( i18n("Select Place") );
 
-	ui.urLocalPlaceUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
-  ui.urLocalFileUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
+	ui.urLocalPlaceUrl->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+  ui.urLocalFileUrl->setMode(/*KFile::Directory |*/ KFile::File | KFile::ExistingOnly);
+
 
 	connect(ui.cbProtocol->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leUser, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
@@ -45,6 +46,7 @@ SelectPlaceDialog::SelectPlaceDialog(QWidget *parent) : KDialog(parent)
 	connect(ui.rbLocalFile, SIGNAL(toggled(bool)), this, SLOT(checkComplete()));
 	connect(ui.leRemoteUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
 	connect(ui.urLocalPlaceUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
+	connect(ui.urLocalFileUrl, SIGNAL(textChanged(QString)), this, SLOT(checkComplete()));
 }
 
 void SelectPlaceDialog::checkComplete()
