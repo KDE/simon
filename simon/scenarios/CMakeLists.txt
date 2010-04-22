@@ -1,7 +1,7 @@
 set (	simon_scenarios 
 	${CMAKE_CURRENT_SOURCE_DIR}/general
-	${CMAKE_CURRENT_SOURCE_DIR}/webbrowsing
-	${CMAKE_CURRENT_SOURCE_DIR}/windowmanagement
+	#	${CMAKE_CURRENT_SOURCE_DIR}/webbrowsing
+	#${CMAKE_CURRENT_SOURCE_DIR}/windowmanagement
 )
 
 
