@@ -1545,15 +1545,18 @@ void RecognitionControl::messageReceived()
 
 				case Simond::RecognitionReady:
 				{
+					kDebug() << "Recognition is ready...";
 					advanceStream(sizeof(qint32));
 
 					emit recognitionStatusChanged(RecognitionControl::Ready);
 
 //					if (RecognitionConfiguration::automaticallyEnableRecognition())
 //						startRecognition();
+
+					recognitionReady = false;
+
 					if (RecognitionConfiguration::automaticallyEnableRecognition())
 					{
-						kDebug() << "Requesting start recognition";
 						sendRequest(Simond::StartRecognition);
 					}
 

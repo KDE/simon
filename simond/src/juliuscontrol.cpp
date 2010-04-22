@@ -417,11 +417,16 @@ void JuliusControl::emitError(const QString& error)
 
 bool JuliusControl::initializeRecognition()
 {
-	emit recognitionReady();
-	kDebug() << "Recognition ready";
+	if (isInitialized())
+	{
+		kDebug() << "Initializing recognition that was already initialized; uninitializing...";
+		stop();
+	}
 
+	emit recognitionReady();
 	return true;
 }
+
 
 bool JuliusControl::startRecognition()
 {
@@ -437,7 +442,6 @@ bool JuliusControl::startRecognition()
 	jlog_set_output(logFile);
 	
 	Jconf *jconf = setupJconf();
-	kDebug() << "setup jconf";
 	if (!jconf)
 	{
 		closeLog();
@@ -447,9 +451,7 @@ bool JuliusControl::startRecognition()
 
 	this->jconf = jconf;
 	
-	kDebug() << "create instance";
 	this->recog = j_create_instance_from_jconf(jconf);
-	kDebug() << "instance created";
 	if (!recog)
 	{
 		j_jconf_free(jconf);
@@ -465,6 +467,8 @@ bool JuliusControl::startRecognition()
 	callback_add(recog, CALLBACK_RESULT, outputResult, this);
 //	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
 
+	touchLastSuccessfulStart();
+
 	m_initialized=true;
 
 
@@ -474,7 +478,6 @@ bool JuliusControl::startRecognition()
 
 
 
-	kDebug() << "Starting recognition";
 	/**************************/
 	if (j_adin_init(recog) == false) {    /* error */
 		emitError(i18n("Couldn't start adin-thread"));
@@ -507,8 +510,6 @@ void JuliusControl::run()
 			emitError(i18n("Error with the audio stream"));
 			return;
 	}
-
-	touchLastSuccessfulStart();
 
 	/* Recognization */
 	int ret = j_recognize_stream(recog);

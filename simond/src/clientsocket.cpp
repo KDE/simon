@@ -1431,7 +1431,13 @@ void ClientSocket::synchronisationDone()
 	synchronisationRunning=false;
 	//reset modelsource
 	Q_ASSERT(recognitionControl);
-	
+
+
+	//simond(15006) ClientSocket::synchronisationDone: Restart:  false
+	//simond(15006) ClientSocket::synchronisationDone: Restart:  QDateTime("Do. Apr 22 21:26:36 2010") QDateTime("Do. Apr 22 21:16:56 2010")
+
+	kDebug() << "Restart: " << (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate());
+	kDebug() << "Restart: " << recognitionControl->lastSuccessfulStart() <<  synchronisationManager->getActiveModelDate();
 	if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
 			((recognitionControl->isInitialized() && (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
 			|| !recognitionControl->isInitialized()))
