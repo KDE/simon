@@ -347,7 +347,6 @@ QByteArray JuliusControl::getBuildLog()
 
 void JuliusControl::emitError(const QString& error)
 {
-	kDebug() << "Recognition error occurred...";
 	QString specificError = error;
 	QByteArray buildLog = getBuildLog(); 
 
@@ -355,6 +354,7 @@ void JuliusControl::emitError(const QString& error)
 	if (indexStartVocaError != -1)
 	{
 		buildLog = buildLog.replace("<br />", "\n");
+		indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
 		int indexEndMissingPhones = buildLog.indexOf("end missing phones");
 
 		QList<QByteArray> lines = buildLog.mid(indexStartVocaError, indexEndMissingPhones - indexStartVocaError).split('\n');
