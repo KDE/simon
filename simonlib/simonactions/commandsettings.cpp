@@ -165,10 +165,10 @@ void CommandSettings::load()
 
 	KConfigGroup cg(config, "");
 
-	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.7f);
+	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.5f);
 	ui.sbMinimumConfidence->setValue(minimumConfidence);
 
-	ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", true));
+	ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", false));
 	storedFont = cg.readEntry("PluginBaseFont", QFont());
 	ui.fcFont->setFont(storedFont);
 
@@ -276,8 +276,8 @@ void CommandSettings::defaults()
 	KCModule::defaults();
 
 	KConfigGroup cg(config, "");
-	cg.writeEntry("MinimumConfidence", 0.7f);
-	cg.writeEntry("UseDYM", true);
+	cg.writeEntry("MinimumConfidence", 0.5f);
+	cg.writeEntry("UseDYM", false);
 	cg.writeEntry("PluginBaseFont", QFont());
 	ScenarioManager::getInstance()->setPluginFont(QFont());
 
