@@ -172,7 +172,6 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
 
 QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 {
-	kDebug() << "Fetching local date of scenario: " << scenarioId;
 	QString path = getLatestScenarioPath(scenarioId);
 	if (path.isNull()) return QDateTime();
 
@@ -187,7 +186,6 @@ QDateTime SynchronisationManager::scenarioDate(const QString& path)
 		return QDateTime();
 	}
 	QDateTime t = s->modifiedDate();
-	kDebug() << "Date of skimmed scenario at " << path << ": " << t;
 	delete s;
 	return t;
 }
@@ -637,9 +635,11 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 	QDateTime trainingDate = getTrainingDate();
 	QDateTime scenarioRcDate = selectedScenariosDate();
 	QDateTime baseModelDate = getBaseModelDate();
+	kDebug() << trainingDate << scenarioRcDate << baseModelDate;
 
-	if (trainingDate.isNull() || scenarioRcDate.isNull() ||
-			((getBaseModelType() != 2) && (baseModelDate.isNull())))
+	int baseModelType = getBaseModelType();
+	if (((baseModelType == 2) && trainingDate.isNull()) || scenarioRcDate.isNull() ||
+			((baseModelType != 2) && (baseModelDate.isNull())))
 	{
 		return QDateTime();
 	}
@@ -667,11 +667,16 @@ QDateTime SynchronisationManager::getModelSrcDate()
 bool SynchronisationManager::hasModelSrc()
 {
 	//language description needed for tree.hed
-	return ((getLatestSelectedScenarioList().count() > 0) && hasTraining() && hasLanguageDescription());
+	int baseModelType = getBaseModelType();
+	return ((getLatestSelectedScenarioList().count() > 0) && 
+		((baseModelType != 2) || (hasTraining() && hasLanguageDescription())));
 }
 
 bool SynchronisationManager::shouldRecompileModel()
 {
+	kDebug() << getActiveModelDate();
+	kDebug() << getCompileModelSrcDate();
+	kDebug() << hasModelSrc();
 	return ((getActiveModelDate() < getCompileModelSrcDate())
 			&& (hasModelSrc()));
 }

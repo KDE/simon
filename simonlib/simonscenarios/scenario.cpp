@@ -169,7 +169,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 		return false;
 	}
 
-	kDebug() << "Loading scenario " << m_name << " version " << m_version;
+	//kDebug() << "Loading scenario " << m_name << " version " << m_version;
 
 	//  simon compatibility 
 	//************************************************/

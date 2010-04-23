@@ -1168,6 +1168,7 @@ void ClientSocket::recompileModel()
 		kDebug() << "Failed to retrieve base model type: " << baseModelType;
 		return;
 	}
+	kDebug() << "STARTING Adaption";
 
 	switch (baseModelType)
 	{
@@ -1278,6 +1279,7 @@ void ClientSocket::slotModelAdaptionComplete()
 				return;
 		}
 	}
+	kDebug() << "Model adaption is complete: " << baseModelType;
 
 
 	switch (baseModelType)
@@ -1438,10 +1440,17 @@ void ClientSocket::synchronisationDone()
 
 	kDebug() << "Restart: " << (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate());
 	kDebug() << "Restart: " << recognitionControl->lastSuccessfulStart() <<  synchronisationManager->getActiveModelDate();
+	kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
+	kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
+	kDebug() << "Modelcompilationmanager is running: : " << modelCompilationManager->isRunning();
 	if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
-			((recognitionControl->isInitialized() && (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
+			((recognitionControl->isInitialized() && 
+			  	(recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
 			|| !recognitionControl->isInitialized()))
+	{
+		kDebug() << "Initialize recognition";
 		recognitionControl->initializeRecognition();
+	}
 }
 
 
@@ -1458,6 +1467,8 @@ void ClientSocket::synchronisationComplete()
 	
 		kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
 		kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
+
+		kDebug() << "Should recompile model: " << synchronisationManager->shouldRecompileModel();
 
 		if (synchronisationManager->shouldRecompileModel())
 			startModelCompilation();

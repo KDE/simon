@@ -40,6 +40,7 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
 			const QString& lexiconPathOut, const QString& grammarPathOut, 
 			const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
+	kDebug() << "ADAPTING model";
 	Vocabulary *mergedVocabulary = new Vocabulary();
 	Grammar *mergedGrammar = new Grammar();
 
@@ -68,9 +69,13 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
 		delete s;
 	}
 
+	kDebug() << "ADAPTING model for real";
 	if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut, 
 				promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn))
+	{
+		kWarning() << "Adaption failed";
 		return false;
+	}
 
 	delete mergedVocabulary;
 	delete mergedGrammar;
