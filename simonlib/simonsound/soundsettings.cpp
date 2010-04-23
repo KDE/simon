@@ -144,8 +144,9 @@ void SoundSettings::load()
 	deviceUi.cbSoundOutputDevice->setCurrentIndex(deviceUi.cbSoundOutputDevice->findText(configuredOutputDevice));
 
 	bool hasChanged=false;
-	if ((deviceUi.cbSoundOutputDevice->currentText() != configuredOutputDevice) ||
-		(deviceUi.cbSoundInputDevice->currentText() != configuredInputDevice))
+	if ((!configuredOutputDevice.isEmpty()) && (!configuredInputDevice.isEmpty()) &&
+		((deviceUi.cbSoundOutputDevice->currentText() != configuredOutputDevice) ||
+		 (deviceUi.cbSoundInputDevice->currentText() != configuredInputDevice)))
 	{
 		if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that not all of the sound devices you selected to use previously are available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that blocks the device.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your sound configuration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.")) == KMessageBox::Yes)
 		{

@@ -5,11 +5,11 @@
   <group name="Devices">
     <entry name="SoundInputDevice" type="String">
       <label>The sounddevice used for recording.</label>
-      <default>QAudioDeviceInfo::defaultInputDevice().deviceName()</default>
+      <default code="true">QAudioDeviceInfo::defaultInputDevice().deviceName()</default>
     </entry>
     <entry name="SoundOutputDevice" type="String">
       <label>The sounddevice used for playback.</label>
-      <default>QAudioDeviceInfo::defaultOutputDevice().deviceName()</default>
+      <default code="true">QAudioDeviceInfo::defaultOutputDevice().deviceName()</default>
     </entry>
     <entry name="SoundChannels" type="Int">
       <label>How many channels should the samples be recorded with.</label>
