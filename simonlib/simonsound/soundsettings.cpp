@@ -20,6 +20,7 @@
 
 #include "soundsettings.h"
 #include "soundconfig.h"
+#include "soundserver.h"
 
 #include <KMessageBox>
 #include <QVBoxLayout>
@@ -284,6 +285,7 @@ void SoundSettings::save()
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
 	config->sync();
 
+	SoundServer::getInstance()->reinitializeDevices();
 //#ifdef USE_WITH_SIMON
 //	AdinStreamer::getInstance()->stopSoundStream();
 //	AdinStreamer::getInstance()->restartSoundStream();

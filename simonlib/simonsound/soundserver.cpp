@@ -394,6 +394,23 @@ void SoundServer::outputStateChanged(QAudio::State state)
 	}
 }
 
+bool SoundServer::reinitializeDevices()
+{
+	bool succ = true;
+	if (output)
+	{
+		succ = stopPlayback() && succ;
+		succ = startPlayback() && succ;
+	}
+	if (input)
+	{
+		succ = stopRecording() && succ;
+		succ = startRecording() && succ;
+	}
+
+	return succ;
+}
+
 
 int SoundServer::getLevelThreshold()
 {

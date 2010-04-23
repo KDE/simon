@@ -85,6 +85,8 @@ public:
 	qint64 byteSizeToLength(qint64 bytes);
 	qint64 lengthToByteSize(qint64 length);
 
+	bool reinitializeDevices();
+
 	static int getLevelThreshold();
 	static int getHeadMargin();
 	static int getTailMargin();
