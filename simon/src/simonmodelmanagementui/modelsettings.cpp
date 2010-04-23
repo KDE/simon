@@ -149,7 +149,7 @@ void ModelSettings::save()
 	}
 
 	ScenarioManager::getInstance()->setBaseModel(modelType, ui.lbLastLoadedBaseHMM->text(), ui.lbLastLoadedBaseTiedlist->text(),
-			ui.lbLastLoadedBaseMacros->text(), ui.lbLastLoadedBaseTiedlist->text());
+			ui.lbLastLoadedBaseMacros->text(), ui.lbLastLoadedBaseStats->text());
 	KCModule::save();
 }
 
