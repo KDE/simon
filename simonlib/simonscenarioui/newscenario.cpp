@@ -91,7 +91,7 @@ void NewScenario::removeAuthor()
 	int index = ui.lwAuthors->currentRow();
 	if (index == -1) return;
 
-	Q_ASSERT(index >= m_authors.count());
+	Q_ASSERT(index <= m_authors.count());
 
 	m_authors.removeAt(index);
 
