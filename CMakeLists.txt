@@ -314,6 +314,7 @@ else(WIN32)
 	#add_definitions(-pedantic-errors -std=c++98 -Wno-variadic-macros)
 endif(WIN32)
 
+include_directories( ${KDE4_INCLUDES} )
 
 add_subdirectory(simonlib)
 add_subdirectory(simon)
