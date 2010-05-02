@@ -2,7 +2,6 @@ include(FindQt4)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_PATH})
 include(SimonDirs)
-include(FindPortaudio)
 
 find_package(KDE4 REQUIRED)
 

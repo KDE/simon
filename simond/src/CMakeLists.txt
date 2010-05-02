@@ -1,11 +1,9 @@
-include(FindPortaudio)
-
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/
-	../../simonlib ${PORTAUDIO_DEFINITIONS})
+	../../simonlib)
 
 set(simond_SRCS
    main.cpp
@@ -25,7 +23,7 @@ if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 add_definitions(-DSIMON_SCENARIOS)
 endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
-target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES}
+target_link_libraries(simond ${KDE4_KDECORE_LIBS}
 ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} simonscenarios simonmodelcompilation simonddatabaseaccess
 simonrecognitionresult julius sent simonmodelcompilationadapter simonwav)
 

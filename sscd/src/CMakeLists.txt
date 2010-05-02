@@ -1,4 +1,3 @@
-include(FindPortaudio)
 find_package(Qt4 COMPONENTS QtCore QtSql QtNetwork)
 
 IF(WIN32)
