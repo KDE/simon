@@ -1251,8 +1251,8 @@ void RecognitionControl::messageReceived()
 					msg >> wavConfig;
 					msg >> prompts;
 					
-					ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,wavConfig,prompts);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					ModelManagerUiProxy::getInstance()->storeTraining(changedTime, sampleRate,wavConfig,prompts);
 					
 					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
 					sendLanguageDescriptionModifiedDate();
@@ -1643,9 +1643,9 @@ void RecognitionControl::messageReceived()
 
 				case Simond::RecognitionStopped:
 				{
+					advanceStream(sizeof(qint32));
 					recognitionReady=false;
 					simondStreamer->stop();
-					advanceStream(sizeof(qint32));
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
 				}
