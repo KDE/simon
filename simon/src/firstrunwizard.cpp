@@ -20,6 +20,7 @@
 #include "firstrunwizard.h"
 #include "firstrunsimondconfig.h"
 #include "firstrunscenariosconfig.h"
+#include "firstrunsoundconfig.h"
 #include "firstrunbasemodelconfig.h"
 #include <QWizardPage>
 #include <QVBoxLayout>
@@ -33,6 +34,7 @@ FirstRunWizard::FirstRunWizard(QWidget* parent, Qt::WFlags flags)
 	addPage(createScenariosConfigPage());
 	addPage(createBaseModelConfigPage());
 	addPage(createSimondConfigPage());
+	addPage(createSoundConfigPage());
 	addPage(createFinishedPage());
 	setBanner("firstrun");
 }
@@ -60,6 +62,11 @@ QWizardPage* FirstRunWizard::createSimondConfigPage()
 	return new FirstRunSimondConfig(this);
 }
 
+
+QWizardPage* FirstRunWizard::createSoundConfigPage()
+{
+	return new FirstRunSoundConfig(this);
+}
 
 QWizardPage* FirstRunWizard::createBaseModelConfigPage()
 {

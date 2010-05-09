@@ -18,30 +18,32 @@
  */
 
 
-#ifndef SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
-#define SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
+#ifndef SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A0152F1E4DA098606C3E951E432D
+#define SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A0152F1E4DA098606C3E951E432D
 
-#include <simonuicomponents/simonwizard.h>
+#include <QWizardPage>
+#include "ui_firstrunsoundconfig.h"
 
-class QWizardPage;
+class DeviceSettings;
 
-class FirstRunWizard : public SimonWizard
+class FirstRunSoundConfig : public QWizardPage
 {
-Q_OBJECT
+	Q_OBJECT
 
 private:
-	QWizardPage* createIntroPage();
-	QWizardPage* createSimondConfigPage();
-	QWizardPage* createSoundConfigPage();
-	QWizardPage* createBaseModelConfigPage();
-	QWizardPage* createScenariosConfigPage();
-	QWizardPage* createFinishedPage();
+	Ui::SoundConfigDlg ui;
+//	DeviceSettings* deviceSettings;
+
 
 public:
-	explicit FirstRunWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
+	explicit FirstRunSoundConfig(QWidget *parent = 0);
 
-	~FirstRunWizard();
+	void initializePage();
+	bool validatePage();
+
+	~FirstRunSoundConfig();
 
 };
 
 #endif
+

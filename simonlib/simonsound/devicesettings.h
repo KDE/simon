@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,29 +18,47 @@
  */
 
 
-#ifndef SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
-#define SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
+#ifndef SIMON_DEVICESETTINGS_H_D0C3C07429B04F65935956A32C79AB09
+#define SIMON_DEVICESETTINGS_H_D0C3C07429B04F65935956A32C79AB09
 
-#include <simonuicomponents/simonwizard.h>
+#include <QWidget>
+#include "simonsound_export.h"
 
-class QWizardPage;
+namespace Ui
+{
+	class DeviceConfiguration;
+}
 
-class FirstRunWizard : public SimonWizard
+class SIMONSOUND_EXPORT DeviceSettings : public QWidget
 {
 Q_OBJECT
 
+signals:
+	void changed(bool);
+
 private:
-	QWizardPage* createIntroPage();
-	QWizardPage* createSimondConfigPage();
-	QWizardPage* createSoundConfigPage();
-	QWizardPage* createBaseModelConfigPage();
-	QWizardPage* createScenariosConfigPage();
-	QWizardPage* createFinishedPage();
+	Ui::DeviceConfiguration *ui;
 
+	QString getSelectedInputDeviceId();
+	QString getSelectedOutputDeviceId();
+
+	bool enabled;
+
+	void enable();
+	void disable();
+
+public slots:
+	void load();
+	void save();
+
+private slots:
+	bool check();
+	void checkWithSuccessMessage();
+	void slotChanged();
+	
 public:
-	explicit FirstRunWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
-
-	~FirstRunWizard();
+	DeviceSettings(QWidget* parent);
+	~DeviceSettings();
 
 };
 

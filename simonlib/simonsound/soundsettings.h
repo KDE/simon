@@ -37,6 +37,7 @@ class KEditListBox;
 class QCheckBox;
 class QTabWidget;
 class KFontChooser;
+class DeviceSettings;
 
 /**
  * \class SoundSettings
@@ -52,26 +53,16 @@ signals:
 	void promptFontChanged(const QFont&);
 
 private:
-	Ui::DeviceConfiguration deviceUi;
+	DeviceSettings *deviceSettings;
 	Ui::VADDlg vadUi;
 	Ui::PostProcessing postProcUi;
 	Ui::Prompt promptUi;
-
-	QString getSelectedInputDeviceId();
-	QString getSelectedOutputDeviceId();
-
-	bool enabled;
-
-	void enable();
-	void disable();
 
 public slots:
 	void load();
 	void save();
 
 private slots:
-	bool check();
-	void checkWithSuccessMessage();
 	void slotChanged();
 	
 public:

@@ -17,31 +17,36 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "firstrunsoundconfig.h"
 
-#ifndef SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
-#define SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
+#include <simonsound/devicesettings.h>
 
-#include <simonuicomponents/simonwizard.h>
+#include <QVBoxLayout>
 
-class QWizardPage;
+#include <KLocalizedString>
+#include <KCMultiDialog>
 
-class FirstRunWizard : public SimonWizard
+FirstRunSoundConfig::FirstRunSoundConfig(QWidget* parent)
+		: QWizardPage(parent)
 {
-Q_OBJECT
+	ui.setupUi(this);
+	setTitle(i18n("Sound devices"));
+}
 
-private:
-	QWizardPage* createIntroPage();
-	QWizardPage* createSimondConfigPage();
-	QWizardPage* createSoundConfigPage();
-	QWizardPage* createBaseModelConfigPage();
-	QWizardPage* createScenariosConfigPage();
-	QWizardPage* createFinishedPage();
+void FirstRunSoundConfig::initializePage()
+{
+	ui.wgDeviceSettings->load();
+}
 
-public:
-	explicit FirstRunWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
+bool FirstRunSoundConfig::validatePage()
+{
+	ui.wgDeviceSettings->save();
+	return true;
+}
 
-	~FirstRunWizard();
+FirstRunSoundConfig::~FirstRunSoundConfig()
+{
+}
 
-};
 
-#endif
+

@@ -15,6 +15,7 @@ ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 
@@ -31,6 +32,7 @@ set( simonsound_LIB_SRCS
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
+	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
