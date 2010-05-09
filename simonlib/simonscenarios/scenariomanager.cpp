@@ -105,8 +105,9 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 		}
 	}
 
-	kDebug() << "Updating scenario displays";
-	updateDisplays(newScenario, true);
+	//Forcing the display here is not needed
+	//kDebug() << "Updating scenario displays";
+	//updateDisplays(newScenario, true);
 
 	if (m_inGroup)
 		m_scenariosDirty = true;
@@ -177,7 +178,10 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 		
 		if (setupScenario(s))
 			scenarios << s;
-		else success = false;
+		else {
+			success = false;
+			kDebug() << "Couldn't initialize scenario: " << id;
+		}
 	}
 
 	if (forceChange) {
@@ -186,6 +190,8 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 		else
 			emit scenariosChanged();
 	}
+
+	emit scenarioSelectionChanged();
 
 	//we have to have at least one scenario loaded anyways; If not this
 	//crash here is the least of our worries...

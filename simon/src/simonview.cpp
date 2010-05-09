@@ -249,12 +249,17 @@ void SimonView::displayAboutPage()
 
 void SimonView::displayScenarios()
 {
+	QString currentData = cbCurrentScenario->itemData(cbCurrentScenario->currentIndex()).toString();
+	kDebug() << "Displaying scenarios";
+	setUpdatesEnabled(false);
 	cbCurrentScenario->clear();
 
 	QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
 	foreach (Scenario* s, scenarioList) {
 		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
 	}
+	cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(currentData));
+	setUpdatesEnabled(true);
 }
 
 void SimonView::updateActionList()
@@ -429,6 +434,7 @@ void SimonView::setupSignalSlots()
 
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 	connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
+	connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
 }
 
 void SimonView::displayConnectionStatus(const QString &status)
