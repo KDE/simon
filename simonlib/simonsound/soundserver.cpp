@@ -47,7 +47,6 @@ SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
 
 qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 {
-	kDebug() << "Reading data";
 	if (!currentOutputClient)
 	{
 		kDebug() << "No current output client";
@@ -65,7 +64,6 @@ qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 
 qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 {
-	kDebug() << "Writing data";
 	QByteArray data;
 	data.append(toWrite, len);
 
