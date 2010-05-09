@@ -47,9 +47,15 @@ SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	loudness(new LoudnessMeterSoundProcessor())
 {
 	registerSoundProcessor(loudness);
+	connect(SoundServer::getInstance(), SIGNAL(inputStateChanged(QAudio::State)), this, SLOT(soundServerStateChanged(QAudio::State)));
 }
 
 
+void SimondStreamer::soundServerStateChanged(QAudio::State state)
+{
+	if (state == QAudio::StoppedState)
+		stop();
+}
 
 bool SimondStreamer::start()
 {
@@ -57,8 +63,10 @@ bool SimondStreamer::start()
 	lastTimeUnderLevel = -1;
 	bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
+	kDebug() << "Registered input client: " << succ;
 	if (succ)
 		emit started();
+	else emit stopped();
 
 	return succ;
 }

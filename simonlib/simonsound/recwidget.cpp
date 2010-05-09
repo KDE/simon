@@ -23,7 +23,6 @@
 #include "wavplayerclient.h"
 #include "postprocessing.h"
 #include "soundconfig.h"
-#include "soundserver.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -194,8 +193,6 @@ void RecWidget::setupSignalsSlots()
 	connect(rec, SIGNAL(clippingOccured()), wgWarning, SLOT(show()));
 	
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
-
-	connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 }
 
 

@@ -47,6 +47,7 @@ SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
 
 qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 {
+	kDebug() << "Reading data";
 	if (!currentOutputClient)
 	{
 		kDebug() << "No current output client";
@@ -64,6 +65,7 @@ qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 
 qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 {
+	kDebug() << "Writing data";
 	QByteArray data;
 	data.append(toWrite, len);
 
@@ -87,6 +89,7 @@ qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
+	kDebug() << "Register input client";
 	if (client->isExclusive())
 	{
 		//suspend all other inputs
@@ -116,6 +119,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
+	kDebug() << "Deregistering input client";
 	if (activeInputClients.remove(client) == 0)
 	{
 		//wasn't active anyways
@@ -172,10 +176,10 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 
 bool SoundServer::startRecording()
 {
+	kDebug() << "Starting recording";
 	channels = SoundConfiguration::soundChannels();
 	sampleRate = SoundConfiguration::soundSampleRate();
 
-	kDebug() << "Starting recording...";
 	QAudioFormat format;
 	format.setFrequency(sampleRate);
 	format.setChannels(channels);
@@ -193,10 +197,13 @@ bool SoundServer::startRecording()
 	if (!selectedInfo.isFormatSupported(format))
 	{
 		kDebug() << "Format not supported";
+		emit error(i18n("Recording format not supported."));
+		emit inputStateChanged(QAudio::StoppedState);
 		return false;
 	}
 
 	input = new QAudioInput(selectedInfo, format, this);
+	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotInputStateChanged(QAudio::State)));
 	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(inputStateChanged(QAudio::State)));
 	input->start(this);
 	if (output)
@@ -208,7 +215,8 @@ bool SoundServer::startRecording()
 
 bool SoundServer::stopRecording()
 {
-	Q_ASSERT(input);
+	kDebug() << "Stopping recording";
+	if (!input) return true;
 
 	input->disconnect(this);
 	input->stop();
@@ -224,6 +232,7 @@ bool SoundServer::stopRecording()
 
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
+	kDebug() << "Register output client";
 	if (currentOutputClient != NULL)
 		suspendedOutputClients.append(currentOutputClient);
 
@@ -242,6 +251,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
+	kDebug() << "Deregister output client";
 	client->finish();
 	if (client != currentOutputClient)
 	{
@@ -263,10 +273,11 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 
 bool SoundServer::startPlayback()
 {
+	kDebug() << "Starting playback...";
+
 	channels = SoundConfiguration::soundChannels();
 	sampleRate = SoundConfiguration::soundSampleRate();
 
-	kDebug() << "Starting playback...";
 	if (input)
 	{
 		kDebug() << "Suspending recording during playback";
@@ -295,11 +306,14 @@ bool SoundServer::startPlayback()
 
 	if(format.sampleSize() != 16) {
 		kDebug() << "Sample size is not 16 bit. Aborting.";
+		emit error(i18n("Sample size not equal to 16 bit."));
+		emit outputStateChanged(QAudio::StoppedState);
 		return false;
 	}
 
 	kDebug() << "Using device: " << selectedInfo.deviceName();
 	output = new QAudioOutput(selectedInfo, format, this);
+	connect(output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
 	connect(output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(outputStateChanged(QAudio::State)));
 	output->start(this);
 	kDebug() << "Started audio output";
@@ -318,7 +332,8 @@ qint64 SoundServer::lengthToByteSize(qint64 length)
 
 bool SoundServer::stopPlayback()
 {
-	Q_ASSERT(output);
+	kDebug() << "Stop playback...";
+	if (!output) return true;
 
 	output->stop();
 	output->disconnect(this);
@@ -334,9 +349,11 @@ bool SoundServer::stopPlayback()
 }
 
 
-void SoundServer::inputStateChanged(QAudio::State state)
+void SoundServer::slotInputStateChanged(QAudio::State state)
 {
 	kDebug() << "Input state changed: " << state;
+
+	if (!input) return;
 
 	if (state == QAudio::StoppedState)
 	{
@@ -364,7 +381,7 @@ void SoundServer::inputStateChanged(QAudio::State state)
 	}
 }
 
-void SoundServer::outputStateChanged(QAudio::State state)
+void SoundServer::slotOutputStateChanged(QAudio::State state)
 {
 	kDebug() << "Output state changed: " << state;
 
@@ -396,6 +413,7 @@ void SoundServer::outputStateChanged(QAudio::State state)
 
 bool SoundServer::reinitializeDevices()
 {
+	kDebug() << "Reinitialize devices...";
 	bool succ = true;
 	if (output)
 	{

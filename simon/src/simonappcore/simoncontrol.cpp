@@ -29,6 +29,7 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
+#include <simonsound/soundserver.h>
 
 #include <QFileInfo>
 #include <KDebug>
@@ -67,6 +68,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 	if (!ScenarioManager::getInstance()->init())
 		KMessageBox::error(0, i18n("Couldn't initialize scenarios and shadow dictionary."));
+
+	connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(slotSoundError(const QString&)));
 }
 void SimonControl::startup()
 {
@@ -101,6 +104,11 @@ void SimonControl::slotConnectionError(const QString &err)
 void SimonControl::slotSimondSystemError(const QString &err)
 {
 	KMessageBox::error(0, i18n("The Recognition Server returned the following fatal error: \n%1", err));
+}
+
+void SimonControl::slotSoundError(const QString &err)
+{
+	KMessageBox::error(0, i18n("The sound system returned the following error: \n%1", err));
 }
 
 void SimonControl::slotSynchronisationError(const QString &err)

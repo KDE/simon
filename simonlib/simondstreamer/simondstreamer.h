@@ -26,6 +26,8 @@
 #include "simondstreamer_export.h"
 #include <simonsound/soundinputclient.h>
 #include <QObject>
+#include <qaudio.h>
+
 
 class LoudnessMeterSoundProcessor;
 
@@ -60,6 +62,9 @@ signals:
 	void clippingOccured();
 	void started();
 	void stopped();
+
+private slots:
+	void soundServerStateChanged(QAudio::State state);
 	
 public:
 	SimondStreamer(SimonSender *sender, QObject *parent=0);

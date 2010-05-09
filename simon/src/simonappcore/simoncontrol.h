@@ -110,6 +110,7 @@ private slots:
 	void slotSynchronisationError(const QString &err);
 	void slotRecognitionError(const QString &err, const QString& log);
 	void slotCompilationError(const QString &err, const QString& protocol);
+	void slotSoundError(const QString &err);
 
 	void slotSimondSystemWarning(const QString& warning);
 	void slotSynchronisationWarning(const QString& warning);

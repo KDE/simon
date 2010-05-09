@@ -38,6 +38,9 @@ class SIMONSOUND_EXPORT SoundServer : public QIODevice {
 
 signals:
 	void error(const QString& str);
+	void inputStateChanged(QAudio::State state);
+	void outputStateChanged(QAudio::State state);
+
 
 private:
 	static SoundServer* instance;
@@ -57,8 +60,8 @@ private:
 	bool stopPlayback();
 
 private slots:
-	void inputStateChanged(QAudio::State state);
-	void outputStateChanged(QAudio::State state);
+	void slotInputStateChanged(QAudio::State state);
+	void slotOutputStateChanged(QAudio::State state);
 
 protected:
 	qint64 readData(char *toRead, qint64 maxLen);
