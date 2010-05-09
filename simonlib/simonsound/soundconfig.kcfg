@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile name="simonsoundrc" />
-  <include>QAudioDeviceInfo</include>
+  <include>simonsound/soundserver.h</include>
   <group name="Devices">
     <entry name="SoundInputDevice" type="String">
       <label>The sounddevice used for recording.</label>
-      <default code="true">QAudioDeviceInfo::defaultInputDevice().deviceName()</default>
+      <default code="true">SoundServer::defaultInputDevice()</default>
     </entry>
     <entry name="SoundOutputDevice" type="String">
       <label>The sounddevice used for playback.</label>
-      <default code="true">QAudioDeviceInfo::defaultOutputDevice().deviceName()</default>
+      <default code="true">SoundServer::defaultOutputDevice()</default>
     </entry>
     <entry name="SoundChannels" type="Int">
       <label>How many channels should the samples be recorded with.</label>

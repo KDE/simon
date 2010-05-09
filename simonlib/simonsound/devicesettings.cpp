@@ -24,6 +24,7 @@
 
 #include <KMessageBox>
 #include <QVBoxLayout>
+#include <QAudioDeviceInfo>
 #include <KIcon>
 
 #include <KLocalizedString>

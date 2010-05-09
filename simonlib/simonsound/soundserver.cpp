@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QAudioInput>
 #include <QAudioOutput>
+#include <QAudioDeviceInfo>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -82,6 +83,37 @@ qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 	return len;
 }
 
+QString SoundServer::defaultInputDevice()
+{
+	QString systemDefault = QAudioDeviceInfo::defaultInputDevice().deviceName();
+
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+	{
+		if (deviceInfo.deviceName() == "pulse")
+		{
+			systemDefault = "pulse";
+			break;
+		}
+	}
+
+	return systemDefault;
+}
+
+QString SoundServer::defaultOutputDevice()
+{
+	QString systemDefault = QAudioDeviceInfo::defaultOutputDevice().deviceName();
+
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+	{
+		if (deviceInfo.deviceName() == "pulse")
+		{
+			systemDefault = "pulse";
+			break;
+		}
+	}
+
+	return systemDefault;
+}
 
 
 

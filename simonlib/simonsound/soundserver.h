@@ -95,6 +95,9 @@ public:
 	static int getTailMargin();
 	static int getShortSampleCutoff();
 
+	static QString defaultInputDevice();
+	static QString defaultOutputDevice();
+
     virtual ~SoundServer();
 
 };
