@@ -75,9 +75,7 @@ public:
 	~ScenarioManager();
 
 	QList<Scenario*> getScenarios() { return scenarios; }
-	void registerScenarioDisplay(ScenarioDisplay *display) {
-		scenarioDisplays.append(display);
-	}
+	void registerScenarioDisplay(ScenarioDisplay *display);
 
 	Scenario *getScenario(const QString& id);
 	Scenario *getCurrentScenario() { return currentScenario; }

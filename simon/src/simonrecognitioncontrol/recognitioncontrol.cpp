@@ -458,6 +458,34 @@ void RecognitionControl::sendActiveModelSampleRate()
 	socket->write(toWrite);
 }
 
+void RecognitionControl::sendScenariosToDelete()
+{
+	kDebug() << "Now sending scenarios to delete...";
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+	KConfigGroup cg(config, "");
+
+	QStringList deletedScenarios = cg.readEntry("DeletedScenarios", QStringList());
+	QStringList deletedScenariosTimes = cg.readEntry("DeletedScenariosTimes", QStringList());
+
+	bodyStream << deletedScenarios
+		<< deletedScenariosTimes;
+
+	out << (qint32) Simond::ScenariosToDelete
+		<< (qint64) body.count();
+		
+	socket->write(toWrite);
+	socket->write(body);
+	
+	cg.writeEntry("DeletedScenarios", QStringList());
+	cg.writeEntry("DeletedScenariosTimes", QStringList());
+	cg.sync();
+}
+
 void RecognitionControl::sendBaseModelDate()
 {
 	QByteArray toWrite;
@@ -1009,24 +1037,34 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
 					checkIfSynchronisationIsAborting();
-					sendScenarioList();
+					kDebug() << "Got base model now sending scenarios to delete";
+					sendScenariosToDelete();
 					break;
 				}
 				case Simond::BaseModelStorageFailed:
 				{
+					advanceStream(sizeof(qint32));
 					kDebug() << "Base model storage failed";
-					sendScenarioList();
+					sendScenariosToDelete();
+					break;
+				}
+
+				case Simond::GetScenariosToDelete:
+				{
+					advanceStream(sizeof(qint32));
+					kDebug() << "Got deletion request now sending scenarios to delete";
+					sendScenariosToDelete();
 					break;
 				}
 				
 				case Simond::GetScenarioList:
 				{
+					kDebug() << "Server requested scenario list";
+
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					
 					synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
-	
-					kDebug() << "Server requested scenario list";
 					sendScenarioList();
 					break;
 				}

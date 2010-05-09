@@ -107,6 +107,8 @@ class SynchronisationManager : public QObject
 
 		bool shouldRecompileModel();
 
+		void deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes);
+
 		bool hasScenarioRc(const QString& modelPath=QString());
 		QDateTime selectedScenariosDate();
 		QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);

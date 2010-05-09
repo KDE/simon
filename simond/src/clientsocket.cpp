@@ -324,7 +324,7 @@ void ClientSocket::processRequest()
 						sendCode(Simond::GetBaseModel);
 				} else {
 					kDebug() << "Base model is up-to-date";
-					sendCode(Simond::GetScenarioList);
+					sendCode(Simond::GetScenariosToDelete);
 				}
 				break;
 			}
@@ -358,34 +358,32 @@ void ClientSocket::processRequest()
 							hmmdefs, tiedlist, macros, stats)) {
 					sendCode(Simond::BaseModelStorageFailed);
 				}
-				sendCode(Simond::GetScenarioList);
+				sendCode(Simond::GetScenariosToDelete);
 				break;
 			}
 
+			case Simond::ScenariosToDelete:
+			{
+				kDebug() << "Received deleted scenario list";
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
 
+				QStringList scenarioIds;
+				stream >> scenarioIds;
+				QStringList scenarioTimesString;
+				stream >> scenarioTimesString;
 
-				/*kDebug() << "Getting model-src-date";
-				QDateTime remoteModelDate;
-				waitForMessage(sizeof(QDateTime), stream, msg);
-				stream >> remoteModelDate;
-				QDateTime serverModelDate = synchronisationManager->getModelSrcDate();
-				kDebug() << "Received modelsrc date: " << remoteModelDate << serverModelDate ;
+				QList<QDateTime> scenarioTimes;
+				foreach (const QString& str, scenarioTimesString)
+					scenarioTimes << QDateTime::fromString(str, "yyyy-MM-dd-hh-mm-ss");
 				
-				Q_ASSERT(synchronisationManager);
-				if (remoteModelDate > serverModelDate)
-				{
-					modelSource = ClientSocket::Client;
-				} else {
-					if (remoteModelDate < serverModelDate)
-						modelSource = ClientSocket::Server;
-				}
-				kDebug() << modelSource;
-
-				if (remoteModelDate != serverModelDate)
-				{
-					sendCode(Simond::GetTrainingDate);
-				} else synchronisationComplete();
-				*/
+				synchronisationManager->deletedScenarios(scenarioIds, scenarioTimes);
+				kDebug() << "Sending GetScenarioList";
+				sendCode(Simond::GetScenarioList);
+				break;
+			}
 
 			case Simond::ScenarioList:
 			{
@@ -401,12 +399,12 @@ void ClientSocket::processRequest()
 				synchronisationManager->buildMissingScenarios(scenarioIds);
 
 				sendScenarioList();
-
 				break;
 			}
 
 			case Simond::StartScenarioSynchronisation:
 			{
+				kDebug() << "Starting scenario synchronization";
 				fetchScenario();
 				break;
 			}

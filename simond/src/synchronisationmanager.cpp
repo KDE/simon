@@ -1071,6 +1071,32 @@ bool SynchronisationManager::copyScenarioRc(const QString& source, const QString
 	return true;
 }
 
+void SynchronisationManager::deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes)
+{
+	if (ids.count() != scenarioTimes.count())
+	{
+		kWarning() << "Error when retreiving the scenarios to delete";
+		return;
+	}
+
+	for (int i=0; i < ids.count(); i++)
+	{
+		kDebug() << "Deleted scenario: " << ids[i];
+		QDateTime localDate = localScenarioDate(ids[i]);
+
+		if (localDate > scenarioTimes[i])
+			//server version is newer than the deleted one from the client
+			//keep it
+			continue;
+	
+		QString path;
+		do
+		{
+			path = getLatestScenarioPath(ids[i]);
+		} while (!path.isEmpty() && QFile::remove(path));
+	}
+}
+
 bool SynchronisationManager::hasScenarioRc(const QString& modelPath)
 {
 	return QFile::exists(modelPath+QDir::separator()+"simonscenariosrc");

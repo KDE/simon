@@ -84,6 +84,8 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
 
 bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 {
+	QString currentId = currentScenario->id();
+
 	QFile f(KGlobal::dirs()->locateLocal("appdata", "scenarios/"+id));
 	if (!f.open(QIODevice::WriteOnly)) return false;
 	f.write(data);
@@ -105,9 +107,12 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 		}
 	}
 
-	//Forcing the display here is not needed
-	//kDebug() << "Updating scenario displays";
-	//updateDisplays(newScenario, true);
+	//Forcing the display update if needed
+	if (currentId == id)
+	{
+		kDebug() << "Updating scenario displays";
+		updateDisplays(newScenario, true);
+	}
 
 	if (m_inGroup)
 		m_scenariosDirty = true;
@@ -133,6 +138,15 @@ void ScenarioManager::updateDisplays(Scenario* scenario, bool force)
 			display->displayScenario(scenario);
 		}
 	}
+}
+
+
+void ScenarioManager::registerScenarioDisplay(ScenarioDisplay *display)
+{
+	scenarioDisplays.append(display);
+
+	if (currentScenario)
+		display->displayScenario(currentScenario);
 }
 
 Scenario* ScenarioManager::getScenario(const QString& id)
@@ -195,6 +209,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 
 	//we have to have at least one scenario loaded anyways; If not this
 	//crash here is the least of our worries...
+	kDebug() << "Updating displays here";
 	updateDisplays(scenarios[0], true);
 
 	return success;

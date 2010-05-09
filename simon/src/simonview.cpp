@@ -118,6 +118,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
+	cbCurrentScenario = new QComboBox(this);
+
 #if KDE_IS_VERSION(4,0,80)
 	ui.inlineView->setCloseButtonEnabled(true);
 #endif
@@ -153,8 +155,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	displayAboutPage();
 	
 	settingsShown=false;
-
-	cbCurrentScenario = new QComboBox(this);
 
 	displayScenarios();
 	updateScenarioDisplays();

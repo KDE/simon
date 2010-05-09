@@ -287,6 +287,20 @@ void ScenarioManagementDialog::deleteScenario()
 				scenarioItem = selected->takeItem(m_lastSelectedIndex.row());
 			else scenarioItem = available->takeItem(m_lastSelectedIndex.row());
 
+
+			KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+			KConfigGroup cg(config, "");
+
+			QStringList deletedScenarios = cg.readEntry("DeletedScenarios", QStringList());
+			QStringList deletedScenariosTimes = cg.readEntry("DeletedScenariosTimes", QStringList());
+
+			deletedScenarios << s->id();
+			deletedScenariosTimes << QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
+
+			cg.writeEntry("DeletedScenarios", deletedScenarios);
+			cg.writeEntry("DeletedScenariosTimes", deletedScenariosTimes);
+			cg.sync();
+
 			delete scenarioItem;
 		}
 		m_dirty = true;

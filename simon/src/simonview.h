@@ -98,7 +98,6 @@ private:
 
 	void setupSignalSlots();
 	void setupActions();
-	void displayScenarios();
 
 protected:
 	void displayAboutPage();
@@ -108,6 +107,7 @@ private slots:
 	void manageScenarios();
 	void updateScenarioDisplays();
 	void updateActionList();
+	void displayScenarios();
 
 public slots:
 	void displayConnectionStatus(const QString &status);
