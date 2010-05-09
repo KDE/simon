@@ -42,6 +42,10 @@
 #include <QList>
 #include <QMutex>
 
+#ifdef DEBUG_TEST_SYNCHRONIZATION
+#include <QTimer>
+#endif
+
 #include <KHTMLPart>
 // #include "operation.h"
 
@@ -74,6 +78,10 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
 
 
 private:
+#ifdef DEBUG_TEST_SYNCHRONIZATION
+		QTimer t;
+		int wordI;
+#endif
 	WelcomeHTMLPart *welcomePart;
 	QMutex guiUpdateMutex;
 
@@ -108,6 +116,10 @@ private slots:
 	void updateScenarioDisplays();
 	void updateActionList();
 	void displayScenarios();
+
+#ifdef DEBUG_TEST_SYNCHRONIZATION
+	void testSlot();
+#endif
 
 public slots:
 	void displayConnectionStatus(const QString &status);
