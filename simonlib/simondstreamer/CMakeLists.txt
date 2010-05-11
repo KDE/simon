@@ -24,6 +24,7 @@ set( simondstreamer_LIB_SRCS
 set( simondstreamer_LIB_HDRS
   simondstreamer_export.h
   simondstreamer.h
+  simonsender.h
 )
 
 kde4_add_library( simondstreamer  SHARED ${simondstreamer_LIB_SRCS} )

@@ -31,12 +31,15 @@ set( simonsound_LIB_SRCS
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
+
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsound_export.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h

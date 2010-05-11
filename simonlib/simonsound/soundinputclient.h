@@ -22,8 +22,8 @@
 #define SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419EA1236280815A2AAD
 
 
-#include "soundclient.h"
-#include "simonsound_export.h"
+#include <simonsound/soundclient.h>
+#include <simonsound/simonsound_export.h>
 #include <QList>
 class SoundProcessor;
 
