@@ -778,7 +778,7 @@ void RecognitionControl::askStartSynchronisation()
 				startSynchronisation();
 				break;
 			case 1: //semi-automatic
-				if (KMessageBox::questionYesNo(0, i18n("The Speech Model changed.\n\nSynchronize it now?"))==KMessageBox::Yes)
+				if (KMessageBox::questionYesNo(0, i18n("The speech model changed.\n\nSynchronize it now?"))==KMessageBox::Yes)
 					startSynchronisation();
 				break;
 			case 2: //manual
@@ -797,7 +797,7 @@ void RecognitionControl::startSynchronisation()
 		synchronisationOperation->deleteLater();
 	}
 
-	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
+	synchronisationOperation = new Operation(thread(), i18n("Model synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kDebug() << "Starting synchronisation";
 	ModelManagerUiProxy::getInstance()->startGroup();
@@ -919,12 +919,12 @@ void RecognitionControl::messageReceived()
 				case Simond::GetActiveModelDate:
 				{
 					if (!synchronisationOperation)
-						synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Synchronizing acitve Model"), 1, 100, false);
+						synchronisationOperation = new Operation(thread(), i18n("Model synchronisation"), i18n("Synchronizing acitve model"), 1, 100, false);
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 	
-					synchronisationOperation->update(i18n("Synchronizing acitve Model"), 1);
-					kDebug() << "Server requested active Model modified date";
+					synchronisationOperation->update(i18n("Synchronizing acitve model"), 1);
+					kDebug() << "Server requested active model modified date";
 					sendActiveModelModifiedDate();
 					break;
 				}
@@ -934,7 +934,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32))
 					checkIfSynchronisationIsAborting();
 	
-					kDebug() << "Server requested active Model";
+					kDebug() << "Server requested active model";
 					sendActiveModel();
 					break;
 				}
@@ -943,7 +943,7 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 	
-					kDebug() << "Server sent active Model";
+					kDebug() << "Server sent active model";
 					
 					parseLengthHeader();
 					
@@ -981,7 +981,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "No active model available";
-					emit synchronisationWarning(i18n("No Speech Model available: Recognition deactivated"));
+					emit synchronisationWarning(i18n("No speech model available: Recognition deactivated"));
 					sendBaseModelDate();
 					
 					break;
@@ -1430,7 +1430,7 @@ void RecognitionControl::messageReceived()
 
 				case Simond::AvailableModels:
 				{
-					kDebug() << "Server sent Available Models";
+					kDebug() << "Server sent Available models";
 					
 					parseLengthHeader();
 					
@@ -1565,7 +1565,7 @@ void RecognitionControl::messageReceived()
 				//TODO: is this deprecated?
 				case Simond::ErrorRetrievingModelCompilationProtocol: {
 					advanceStream(sizeof(qint32));
-					KMessageBox::sorry(0, i18n("Couldn't retrieve Model-Compilation-Protocol"));
+					KMessageBox::sorry(0, i18n("Couldn't retrieve model compilation protocol"));
 					break;
 				}
 				
@@ -1807,7 +1807,7 @@ void RecognitionControl::phonemeUndefined(const QString& phoneme)
 
 Operation* RecognitionControl::createModelCompilationOperation()
 {
-	Operation* modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."), 0, 0, false /*not atomic*/);
+	Operation* modelCompilationOperation = new Operation(thread(), i18n("Compiling model"), i18n("Initializing..."), 0, 0, false /*not atomic*/);
 	connect(modelCompilationOperation, SIGNAL(aborting()), this, SLOT(abortModelCompilation()));
 	return modelCompilationOperation;
 }
