@@ -30,12 +30,13 @@
 
 
 
-SingleDeviceSettings::SingleDeviceSettings(SoundDeviceType type, QString deviceName, int channels, 
-			int sampleRate, SoundDeviceOptions options, QWidget* parent):
+SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels, 
+			int sampleRate, SimonSound::SoundDeviceUses uses, SimonSound::SoundDeviceOptions options, QWidget* parent):
 		QWidget(parent),
 	enabled(true),
 	m_type(type),
 	m_deviceName(deviceName),
+	m_uses(uses),
 	m_options(options)
 {
 	ui = new Ui::SingleDeviceConfiguration();
@@ -46,15 +47,28 @@ SingleDeviceSettings::SingleDeviceSettings(SoundDeviceType type, QString deviceN
 	ui->sbSampleRate->setValue(sampleRate);
 
 	ui->pbTest->setIcon(KIcon("help-hint"));
+	ui->pbRemove->setIcon(KIcon("list-remove"));
 	
-	if (!(options & Removable))
+	if (!(options & SimonSound::Removable))
 		ui->pbRemove->hide();
 	
 	connect(ui->pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
+	connect(ui->pbRemove, SIGNAL(clicked()), this, SLOT(sendRemoveRequest()));
 	connect(ui->cbSoundDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+
+	connect(ui->sbChannels, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+	connect(ui->sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+	connect(ui->cbTraining, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui->cbRecognition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+	load(deviceName, channels, sampleRate);
 }
 
 
+void SingleDeviceSettings::sendRemoveRequest()
+{
+	emit requestRemove(this);
+}
 
 void SingleDeviceSettings::checkWithSuccessMessage()
 {
@@ -63,27 +77,31 @@ void SingleDeviceSettings::checkWithSuccessMessage()
 		KMessageBox::information(this, i18n("The soundconfiguration has been tested successfully."));
 }
 
-/**
- * \author Peter Grasch
- * \return success
- */
+void SingleDeviceSettings::refreshDevices()
+{
+	if (!getSelectedDeviceId().isEmpty())
+		m_deviceName = getSelectedDeviceId();
+
+	load(m_deviceName, getChannels(), getSampleRate());
+}
+
 void SingleDeviceSettings::load(QString deviceName, int channels, 
 			int sampleRate)
 {
 	ui->cbSoundDevice->clear();
 
-	foreach(const QAudioDeviceInfo &deviceInfo, (m_type == Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
+	foreach(const QAudioDeviceInfo &deviceInfo, (m_type == SimonSound::Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
 			QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-	{
-		kDebug() << "Device name: " << deviceInfo.deviceName();
 		ui->cbSoundDevice->addItem(deviceInfo.deviceName());
-	}
 
 	//select
 	ui->cbSoundDevice->setCurrentIndex(ui->cbSoundDevice->findText(deviceName));
 
 	ui->sbChannels->setValue(channels);
 	ui->sbSampleRate->setValue(sampleRate);
+
+	ui->cbRecognition->setChecked(m_uses & SimonSound::Recognition);
+	ui->cbTraining->setChecked(m_uses & SimonSound::Training);
 
 	bool hasChanged=false;
 	if ((!deviceName.isEmpty()) &&
@@ -93,7 +111,7 @@ void SingleDeviceSettings::load(QString deviceName, int channels,
 		{
 			ui->cbSoundDevice->setCurrentIndex(
 					ui->cbSoundDevice->findText(
-						(m_type == Input) ? QAudioDeviceInfo::defaultInputDevice().deviceName() :
+						(m_type == SimonSound::Input) ? QAudioDeviceInfo::defaultInputDevice().deviceName() :
 						QAudioDeviceInfo::defaultOutputDevice().deviceName()));
 			hasChanged=true;
 			KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
@@ -135,11 +153,12 @@ bool SingleDeviceSettings::check()
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setCodec("audio/pcm");
 
-	foreach(const QAudioDeviceInfo &deviceInfo, (m_type == Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
+	foreach(const QAudioDeviceInfo &deviceInfo, (m_type == SimonSound::Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
 			QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
 	{
 		if (deviceInfo.deviceName() == device)
 		{
+			kDebug() << "Checking device: " << device;
 			if (!deviceInfo.isFormatSupported(format))
 			{
 				ok = false;
@@ -154,8 +173,16 @@ bool SingleDeviceSettings::check()
 	return ok;
 }
 
+bool SingleDeviceSettings::isEnabled()
+{
+	return enabled;
+}
+	
 QString SingleDeviceSettings::getSelectedDeviceId()
 {
+	if (!isEnabled())
+		return m_deviceName;
+
 	return ui->cbSoundDevice->currentText();
 }
 
@@ -169,6 +196,21 @@ int SingleDeviceSettings::getChannels()
 	return ui->sbChannels->value();
 }
 
+SimonSound::SoundDeviceType SingleDeviceSettings::getType()
+{
+	return m_type;
+}
+
+SimonSound::SoundDeviceUses SingleDeviceSettings::getUses()
+{
+	SimonSound::SoundDeviceUses uses = SimonSound::None;
+	if (ui->cbRecognition->isChecked())
+		uses = (SimonSound::SoundDeviceUses) (uses|SimonSound::Recognition);
+	if (ui->cbTraining->isChecked())
+		uses = (SimonSound::SoundDeviceUses) (uses|SimonSound::Training);
+
+	return uses;
+}
 
 void SingleDeviceSettings::slotChanged()
 {

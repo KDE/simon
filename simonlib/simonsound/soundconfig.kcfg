@@ -2,6 +2,7 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile name="simonsoundrc" />
   <include>simonsound/soundserver.h</include>
+  <include>simonsound/simonsound.h</include>
   <group name="Devices">
     <entry name="SoundInputDevice" type="String">
       <label>The sounddevice used for recording.</label>
@@ -33,6 +34,12 @@
       <label>The samplerate used for recording.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
     </entry>
+   <entry name="SoundInputUses" type="IntList">
+      <label>What the input devices are going to be used for.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
+    </entry>
+
+
 
     <entry name="SoundOutputDevices" type="StringList">
       <label>The sounddevice used for playback.</label>
@@ -45,6 +52,10 @@
     <entry name="SoundOutputSampleRates" type="IntList">
       <label>The samplerate used for recording.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+    </entry>
+   <entry name="SoundOutputUses" type="IntList">
+      <label>What the uses devices are going to be used for.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
     </entry>
 
   </group>

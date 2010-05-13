@@ -22,6 +22,8 @@
 
 #include <QWidget>
 
+#include "simonsound.h"
+
 namespace Ui
 {
 	class SingleDeviceConfiguration;
@@ -33,54 +35,45 @@ Q_OBJECT
 
 signals:
 	void changed(bool);
+	void requestRemove(SingleDeviceSettings*);
 
-public:
-	enum SoundDeviceUsage {
-		None=0,
-		Training=1,
-		Recognition=2
-	};
-	
-	enum SoundDeviceOptions {
-		NoOptions=0,
-		Removable=1
-	};
-
-	enum SoundDeviceType {
-		Input=1,
-		Output=2
-	};
-	
 private:
 	Ui::SingleDeviceConfiguration *ui;
 	bool enabled;
 	
-	SoundDeviceType m_type;
+	SimonSound::SoundDeviceType m_type;
 	QString m_deviceName;
-	SoundDeviceUsage m_usage;
-	SoundDeviceOptions m_options;
+	SimonSound::SoundDeviceUses m_uses;
+	SimonSound::SoundDeviceOptions m_options;
 
 	void load(QString deviceName, int channels, 
 			int sampleRate);
 
 private slots:
 	void slotChanged();
+	void sendRemoveRequest();
 	
 public slots:
 	bool check();
 	void checkWithSuccessMessage();
 
 public:
-	SingleDeviceSettings(SoundDeviceType type, QString deviceName, int channels, 
-			int sampleRate, SoundDeviceOptions options=NoOptions, QWidget* parent=NULL);
+	SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels, 
+			int sampleRate, SimonSound::SoundDeviceUses uses, 
+			SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
+			QWidget* parent=NULL);
 
 	void enable();
 	void disable();
+
+	void refreshDevices();
 	
+	bool isEnabled();
 	QString getSelectedDeviceId();
 	int getSampleRate();
 	int getChannels();
-	SoundDeviceUsage getUsage();
+	SimonSound::SoundDeviceType getType();
+	SimonSound::SoundDeviceUses getUses();
 };
 
 #endif // SINGLEDEVICESETTINGS_H

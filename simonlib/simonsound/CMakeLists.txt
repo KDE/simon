@@ -38,6 +38,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsound.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound_export.h

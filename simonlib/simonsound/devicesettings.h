@@ -31,6 +31,7 @@ namespace Ui
 }
 
 class SingleDeviceSettings;
+class QScrollArea;
 
 class SIMONSOUND_EXPORT DeviceSettings : public QWidget
 {
@@ -42,7 +43,8 @@ signals:
 private:
 	Ui::DeviceConfiguration *ui;
 
-	QList<SingleDeviceSettings*> devices;
+	QList<SingleDeviceSettings*> inputDevices;
+	QList<SingleDeviceSettings*> outputDevices;
 
 	QString getSelectedInputDeviceId();
 	QString getSelectedOutputDeviceId();
@@ -52,17 +54,30 @@ private:
 	void enable();
 	void disable();
 
+	void registerDevice(SingleDeviceSettings*, QScrollArea*);
+	SingleDeviceSettings* getDevice(int index, QScrollArea*);
+
+	void registerInputDevice(SingleDeviceSettings*);
+	SingleDeviceSettings* getInputDevice(int index);
+
+	void registerOutputDevice(SingleDeviceSettings*);
+	SingleDeviceSettings* getOutputDevice(int index);
+
 public slots:
 	void load();
 	void save();
 
 private slots:
+	void refreshDevices();
+
 	bool check();
 	void checkWithSuccessMessage();
 	void slotChanged();
 
 	void addInputDevice();
 	void addOutputDevice();
+
+	void removeDevice(SingleDeviceSettings*);
 	
 public:
 	DeviceSettings(QWidget* parent);

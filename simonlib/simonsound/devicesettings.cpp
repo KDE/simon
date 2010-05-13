@@ -31,6 +31,7 @@
 #include <KLocalizedString>
 #include <KDebug>
 
+#include "simonsound.h"
 #include "ui_deviceconfiguration.h"
 
 /**
@@ -45,39 +46,120 @@ DeviceSettings::DeviceSettings(QWidget* parent):
 	ui = new Ui::DeviceConfiguration();
 
 	ui->setupUi(this);
+	ui->pbAddInput->setIcon(KIcon("list-add"));
+	ui->pbAddOutput->setIcon(KIcon("list-add"));
+
 	ui->pbReload1->setIcon(KIcon("view-refresh"));
 	ui->pbReload2->setIcon(KIcon("view-refresh"));
-	connect(ui->pbReload1, SIGNAL(clicked()), this, SLOT(load()));
-	connect(ui->pbReload2, SIGNAL(clicked()), this, SLOT(load()));
+	connect(ui->pbReload1, SIGNAL(clicked()), this, SLOT(refreshDevices()));
+	connect(ui->pbReload2, SIGNAL(clicked()), this, SLOT(refreshDevices()));
 
 	connect(ui->pbAddOutput, SIGNAL(clicked()), this, SLOT(addOutputDevice()));
 	connect(ui->pbAddInput, SIGNAL(clicked()), this, SLOT(addInputDevice()));
+
+	ui->twMain->setTabIcon(0, KIcon("arrow-down"));
+	ui->twMain->setTabIcon(1, KIcon("arrow-up"));
 }
 
 
 
 void DeviceSettings::checkWithSuccessMessage()
 {
-	foreach (SingleDeviceSettings* dev, devices)
+	foreach (SingleDeviceSettings* dev, inputDevices)
+		dev->checkWithSuccessMessage();
+	foreach (SingleDeviceSettings* dev, outputDevices)
 		dev->checkWithSuccessMessage();
 }
 
 bool DeviceSettings::check()
 {
 	bool check = true;
-	foreach (SingleDeviceSettings* dev, devices)
+	foreach (SingleDeviceSettings* dev, inputDevices)
+		check = dev->check() && check;
+	foreach (SingleDeviceSettings* dev, outputDevices)
 		check = dev->check() && check;
 	return check;
 }
 
+void DeviceSettings::refreshDevices()
+{
+	foreach (SingleDeviceSettings* dev, inputDevices)
+		dev->refreshDevices();
+	foreach (SingleDeviceSettings* dev, outputDevices)
+		dev->refreshDevices();
+}
+
 void DeviceSettings::addInputDevice()
 {
-
+	registerInputDevice(new SingleDeviceSettings(SimonSound::Input, 
+				SoundServer::defaultInputDevice(), 1, 16000,
+				SimonSound::Training,
+				SimonSound::Removable, this));
+	emit changed(true);
 }
 
 void DeviceSettings::addOutputDevice()
 {
+	registerOutputDevice(new SingleDeviceSettings(SimonSound::Output, 
+				SoundServer::defaultOutputDevice(), 1, 16000,
+				SimonSound::Training,
+				SimonSound::Removable, this));
+	emit changed(true);
+}
 
+void DeviceSettings::registerDevice(SingleDeviceSettings* dev, QScrollArea* scrollArea)
+{
+	QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(scrollArea->widget()->layout());
+
+	Q_ASSERT(lay);
+
+	lay->insertWidget(lay->count()-1 /* leave spacer the last item */, dev);
+
+	connect(dev, SIGNAL(changed(bool)), this, SLOT(slotChanged()));
+	connect(dev, SIGNAL(requestRemove(SingleDeviceSettings*)), this, SLOT(removeDevice(SingleDeviceSettings*)));
+}
+
+void DeviceSettings::registerInputDevice(SingleDeviceSettings* dev)
+{
+	registerDevice(dev, ui->saInputDevices);
+	inputDevices << dev;
+}
+
+void DeviceSettings::registerOutputDevice(SingleDeviceSettings* dev)
+{
+	registerDevice(dev, ui->saOutputDevices);
+	outputDevices << dev;
+}
+
+SingleDeviceSettings* DeviceSettings::getDevice(int index, QScrollArea* scrollArea)
+{
+	SingleDeviceSettings *dev = dynamic_cast<SingleDeviceSettings*>(scrollArea->widget()->layout()->itemAt(index)->widget());
+	Q_ASSERT(dev);
+	return dev;
+}
+
+SingleDeviceSettings* DeviceSettings::getInputDevice(int index)
+{
+	return getDevice(index, ui->saInputDevices);
+}
+
+
+SingleDeviceSettings* DeviceSettings::getOutputDevice(int index)
+{
+	return getDevice(index, ui->saOutputDevices);
+}
+
+void DeviceSettings::removeDevice(SingleDeviceSettings* device)
+{
+	if (device->getType() == SimonSound::Input)
+	{
+		inputDevices.removeAll(device);
+	} else {
+		outputDevices.removeAll(device);
+	}
+	device->deleteLater();
+
+	emit changed(true);
 }
 
 
@@ -87,52 +169,104 @@ void DeviceSettings::addOutputDevice()
  */
 void DeviceSettings::load()
 {
-	//select
-/*	QString configuredInputDevice = SoundConfiguration::soundInputDevice();
-	QString configuredOutputDevice = SoundConfiguration::soundOutputDevice();
+	qDeleteAll(inputDevices);
+	qDeleteAll(outputDevices);
+	inputDevices.clear();
+	outputDevices.clear();
 
-	ui->cbSoundInputDevice->setCurrentIndex(ui->cbSoundInputDevice->findText(configuredInputDevice));
-	ui->cbSoundOutputDevice->setCurrentIndex(ui->cbSoundOutputDevice->findText(configuredOutputDevice));
+	QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
+	QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
+	QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
+	QList<int> soundInputUses = SoundConfiguration::soundInputUses();
 
-	bool hasChanged=false;
-	if ((!configuredOutputDevice.isEmpty()) && (!configuredInputDevice.isEmpty()) &&
-		((ui->cbSoundOutputDevice->currentText() != configuredOutputDevice) ||
-		 (ui->cbSoundInputDevice->currentText() != configuredInputDevice)))
+	QStringList soundOutputDevices = SoundConfiguration::soundOutputDevices();
+	QList<int> soundOutputChannels = SoundConfiguration::soundOutputChannels();
+	QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
+	QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
+
+	//making sure the splitting in separate lists didn't screw everything up...
+	Q_ASSERT(soundInputDevices.count() == soundInputSampleRates.count());
+	Q_ASSERT(soundInputSampleRates.count() == soundInputChannels.count());
+	Q_ASSERT(soundInputSampleRates.count() == soundInputUses.count());
+	Q_ASSERT(soundOutputDevices.count() == soundOutputSampleRates.count());
+	Q_ASSERT(soundOutputSampleRates.count() == soundOutputChannels.count());
+	Q_ASSERT(soundOutputSampleRates.count() == soundOutputUses.count());
+
+
+	for (int i=0; i < soundInputDevices.count(); i++)
 	{
-		if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that not all of the sound devices you selected to use previously are available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that blocks the device.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your sound configuration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.")) == KMessageBox::Yes)
-		{
-			ui->cbSoundInputDevice->setCurrentIndex(
-					ui->cbSoundInputDevice->findText(
-						QAudioDeviceInfo::defaultInputDevice().deviceName()));
-			ui->cbSoundOutputDevice->setCurrentIndex(
-					ui->cbSoundOutputDevice->findText(
-						QAudioDeviceInfo::defaultOutputDevice().deviceName()));
-			hasChanged=true;
-			KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
-			enable();
-		} else disable();
+		registerInputDevice(new SingleDeviceSettings(SimonSound::Input, soundInputDevices[i],
+					soundInputChannels[i], soundInputSampleRates[i],
+					(SimonSound::SoundDeviceUses) soundInputUses[i],
+					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
+					this));
+	}
 
-	} else enable();
-
-	if (hasChanged) emit changed(true);
-	*/
+	for (int i=0; i < soundOutputDevices.count(); i++)
+	{
+		registerOutputDevice(new SingleDeviceSettings(SimonSound::Output, soundOutputDevices[i],
+					soundOutputChannels[i], soundOutputSampleRates[i],
+					(SimonSound::SoundDeviceUses) soundOutputUses[i],
+					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
+					this));
+	}
 }
 
 void DeviceSettings::save()
 {
 	check();
 
-	/*
-	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
-	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
+	QStringList soundInputDevices;
+	QList<int> soundInputChannels;
+	QList<int> soundInputSampleRates;
+	QList<int> soundInputUses;
 
-	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
-	KConfigGroup group(config, "Devices");
-	group.writeEntry("SoundInputDevice", getSelectedInputDeviceId());
-	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
-	config->sync();
+	QStringList soundOutputDevices;
+	QList<int> soundOutputChannels;
+	QList<int> soundOutputSampleRates;
+	QList<int> soundOutputUses;
 
-	*/
+
+	for (int i=0; i < inputDevices.count(); i++)
+	{
+		SingleDeviceSettings *dev = getInputDevice(i);
+
+		Q_ASSERT(dev);
+
+		soundInputDevices << dev->getSelectedDeviceId();
+		soundInputChannels << dev->getChannels();
+		soundInputSampleRates << dev->getSampleRate();
+		soundInputUses << (int) dev->getUses();
+	}
+
+
+	for (int i=0; i < outputDevices.count(); i++)
+	{
+		SingleDeviceSettings *dev = getOutputDevice(i);
+
+		Q_ASSERT(dev);
+
+		soundOutputDevices << dev->getSelectedDeviceId();
+		soundOutputChannels << dev->getChannels();
+		soundOutputSampleRates << dev->getSampleRate();
+		soundOutputUses << (int) dev->getUses();
+	}
+
+
+	SoundConfiguration::setSoundInputDevices(soundInputDevices);
+	SoundConfiguration::setSoundInputChannels(soundInputChannels);
+	SoundConfiguration::setSoundInputSampleRates(soundInputSampleRates);
+	SoundConfiguration::setSoundInputUses(soundInputUses);
+
+	SoundConfiguration::setSoundOutputDevices(soundOutputDevices);
+	SoundConfiguration::setSoundOutputChannels(soundOutputChannels);
+	SoundConfiguration::setSoundOutputSampleRates(soundOutputSampleRates);
+	SoundConfiguration::setSoundOutputUses(soundOutputUses);
+
+	SoundConfiguration::setSoundOutputUses(soundOutputUses);
+
+	SoundConfiguration::self()->writeConfig();
+
 	SoundServer::getInstance()->reinitializeDevices();
 }
 
