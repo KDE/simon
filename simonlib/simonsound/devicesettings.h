@@ -22,12 +22,15 @@
 #define SIMON_DEVICESETTINGS_H_D0C3C07429B04F65935956A32C79AB09
 
 #include <QWidget>
+#include <QList>
 #include "simonsound_export.h"
 
 namespace Ui
 {
 	class DeviceConfiguration;
 }
+
+class SingleDeviceSettings;
 
 class SIMONSOUND_EXPORT DeviceSettings : public QWidget
 {
@@ -38,6 +41,8 @@ signals:
 
 private:
 	Ui::DeviceConfiguration *ui;
+
+	QList<SingleDeviceSettings*> devices;
 
 	QString getSelectedInputDeviceId();
 	QString getSelectedOutputDeviceId();
@@ -55,10 +60,12 @@ private slots:
 	bool check();
 	void checkWithSuccessMessage();
 	void slotChanged();
+
+	void addInputDevice();
+	void addOutputDevice();
 	
 public:
 	DeviceSettings(QWidget* parent);
-	~DeviceSettings();
 
 };
 

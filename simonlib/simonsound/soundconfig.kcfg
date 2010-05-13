@@ -19,6 +19,34 @@
       <label>The samplerate used for recording.</label>
       <default>16000</default>
     </entry>
+
+
+   <entry name="SoundInputDevices" type="StringList">
+      <label>The sounddevice used for recording.</label>
+      <default code="true">QStringList() &lt;&lt; SoundServer::defaultInputDevice()</default>
+    </entry>
+    <entry name="SoundInputChannels" type="IntList">
+      <label>How many channels should the samples be recorded with.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; 1</default>
+    </entry>
+    <entry name="SoundInputSampleRates" type="IntList">
+      <label>The samplerate used for recording.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+    </entry>
+
+    <entry name="SoundOutputDevices" type="StringList">
+      <label>The sounddevice used for playback.</label>
+      <default code="true">QStringList() &lt;&lt; SoundServer::defaultOutputDevice()</default>
+    </entry>
+    <entry name="SoundOutputChannels" type="IntList">
+      <label>How many channels should the samples be recorded with.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; 1</default>
+    </entry>
+    <entry name="SoundOutputSampleRates" type="IntList">
+      <label>The samplerate used for recording.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+    </entry>
+
   </group>
 
   <group name="VAD">

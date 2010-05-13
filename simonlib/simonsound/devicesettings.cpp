@@ -21,6 +21,7 @@
 #include "devicesettings.h"
 #include "soundconfig.h"
 #include "soundserver.h"
+#include "singledevicesettings.h"
 
 #include <KMessageBox>
 #include <QVBoxLayout>
@@ -33,7 +34,7 @@
 #include "ui_deviceconfiguration.h"
 
 /**
- * \brief Constructor - inits the help text and the gui
+ * \brief Constructor - inits  the gui
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
@@ -44,21 +45,41 @@ DeviceSettings::DeviceSettings(QWidget* parent):
 	ui = new Ui::DeviceConfiguration();
 
 	ui->setupUi(this);
-	ui->pbTest->setIcon(KIcon("help-hint"));
-	ui->pbReload->setIcon(KIcon("view-refresh"));
-	connect(ui->pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
-	connect(ui->pbReload, SIGNAL(clicked()), this, SLOT(load()));
-	connect(ui->cbSoundInputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
-	connect(ui->cbSoundOutputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+	ui->pbReload1->setIcon(KIcon("view-refresh"));
+	ui->pbReload2->setIcon(KIcon("view-refresh"));
+	connect(ui->pbReload1, SIGNAL(clicked()), this, SLOT(load()));
+	connect(ui->pbReload2, SIGNAL(clicked()), this, SLOT(load()));
+
+	connect(ui->pbAddOutput, SIGNAL(clicked()), this, SLOT(addOutputDevice()));
+	connect(ui->pbAddInput, SIGNAL(clicked()), this, SLOT(addInputDevice()));
 }
 
 
 
 void DeviceSettings::checkWithSuccessMessage()
 {
-	if (check())
-		KMessageBox::information(this, i18n("The soundconfiguration has been tested successfully."));
+	foreach (SingleDeviceSettings* dev, devices)
+		dev->checkWithSuccessMessage();
 }
+
+bool DeviceSettings::check()
+{
+	bool check = true;
+	foreach (SingleDeviceSettings* dev, devices)
+		check = dev->check() && check;
+	return check;
+}
+
+void DeviceSettings::addInputDevice()
+{
+
+}
+
+void DeviceSettings::addOutputDevice()
+{
+
+}
+
 
 /**
  * \author Peter Grasch
@@ -66,22 +87,8 @@ void DeviceSettings::checkWithSuccessMessage()
  */
 void DeviceSettings::load()
 {
-	ui->cbSoundInputDevice->clear();
-	ui->cbSoundOutputDevice->clear();
-
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
-	{
-		kDebug() << "Input device name: " << deviceInfo.deviceName();
-		ui->cbSoundInputDevice->addItem(deviceInfo.deviceName());
-	}
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-	{
-		kDebug() << "Output device name: " << deviceInfo.deviceName();
-		ui->cbSoundOutputDevice->addItem(deviceInfo.deviceName());
-	}
-
 	//select
-	QString configuredInputDevice = SoundConfiguration::soundInputDevice();
+/*	QString configuredInputDevice = SoundConfiguration::soundInputDevice();
 	QString configuredOutputDevice = SoundConfiguration::soundOutputDevice();
 
 	ui->cbSoundInputDevice->setCurrentIndex(ui->cbSoundInputDevice->findText(configuredInputDevice));
@@ -108,99 +115,14 @@ void DeviceSettings::load()
 	} else enable();
 
 	if (hasChanged) emit changed(true);
-}
-
-void DeviceSettings::enable()
-{
-	ui->lbInDevice->setEnabled(true);
-	ui->cbSoundInputDevice->setEnabled(true);
-
-	ui->lbOutDevice->setEnabled(true);
-	ui->cbSoundOutputDevice->setEnabled(true);
-
-	ui->kcfg_SoundChannels->setEnabled(true);
-	ui->kcfg_SoundSampleRate->setEnabled(true);
-	ui->lbHz->setEnabled(true);
-	ui->lbChannels->setEnabled(true);
-	ui->lbSamplerate->setEnabled(true);
-
-	ui->pbTest->setEnabled(true);
-	enabled=true;
-}
-
-void DeviceSettings::disable()
-{
-	ui->lbInDevice->setEnabled(false);
-	ui->cbSoundInputDevice->setEnabled(false);
-
-	ui->lbOutDevice->setEnabled(false);
-	ui->cbSoundOutputDevice->setEnabled(false);
-
-	ui->kcfg_SoundChannels->setEnabled(false);
-	ui->kcfg_SoundSampleRate->setEnabled(false);
-	ui->lbHz->setEnabled(false);
-	ui->lbChannels->setEnabled(false);
-	ui->lbSamplerate->setEnabled(false);
-
-	ui->pbTest->setEnabled(false);
-	enabled=false;
-}
-
-
-bool DeviceSettings::check()
-{
-	QString inputDevice = getSelectedInputDeviceId();
-	QString outputDevice = getSelectedOutputDeviceId();
-	int channels = ui->kcfg_SoundChannels->value();
-	int samplerate = ui->kcfg_SoundSampleRate->value();
-
-	bool ok = true;
-	QAudioFormat format;
-	format.setFrequency(samplerate);
-	format.setChannels(channels);
-	format.setSampleSize(16); // 16 bit
-	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
-	format.setByteOrder(QAudioFormat::LittleEndian);
-	format.setCodec("audio/pcm");
-
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
-	{
-		if ((deviceInfo.deviceName() == inputDevice) ||
-			(deviceInfo.deviceName() == outputDevice))
-		{
-			if (!deviceInfo.isFormatSupported(format))
-			{
-				ok = false;
-				break;
-			}
-		}
-	}
-
-	if (!ok)
-		KMessageBox::error(this, i18n("The selected sound configuration is not supported by your hardware.\n\nPlease double-check your configuration and, if necessairy, please contact your vendor."));
-
-	return ok;
-}
-
-QString DeviceSettings::getSelectedInputDeviceId()
-{
-	return ui->cbSoundInputDevice->currentText();
-}
-
-QString DeviceSettings::getSelectedOutputDeviceId()
-{
-	return ui->cbSoundOutputDevice->currentText();
+	*/
 }
 
 void DeviceSettings::save()
 {
-	//even when not enabled this call will be save
-	//The sound input / output devices are not affected by this
-	//and this way we store the configuration regarding the prompt font
-	//and the postprocessing commands
-	if (!enabled) return;
 	check();
 
+	/*
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
 	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
 
@@ -210,20 +132,13 @@ void DeviceSettings::save()
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
 	config->sync();
 
+	*/
 	SoundServer::getInstance()->reinitializeDevices();
 }
 
 void DeviceSettings::slotChanged()
 {
 	emit changed(true);
-}
-
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
-DeviceSettings::~DeviceSettings()
-{
 }
 
 

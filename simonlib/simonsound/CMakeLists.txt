@@ -16,6 +16,7 @@ ENDIF(WIN32)
 set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 
@@ -52,6 +53,7 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
 )
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
