@@ -26,20 +26,30 @@ class QAudioInput;
 #include <simonsound/simonsound.h>
 #include <QHash>
 #include <QObject>
+#include <qaudio.h>
 
 class SoundInputClient;
 
-class SimonSoundInput : public QObject
+class SimonSoundInput : public QIODevice
 {
 	Q_OBJECT
+
+	signals:
+		void error(const QString& str);
+		void inputStateChanged(QAudio::State state);
+		void outputStateChanged(QAudio::State state);
 
 	private:
 		QAudioInput *m_input;
 		QHash<SoundInputClient*, qint64> m_activeInputClients;
 		QHash<SoundInputClient*, qint64> m_suspendedInputClients;
 
+	protected:
+		qint64 readData(char *toRead, qint64 maxLen);
+		qint64 writeData(const char *toWrite, qint64 len);
+
 	public:
-		SimonSoundInput(QAudioInput *input, QObject *parent=NULL);
+		SimonSoundInput(QObject *parent=NULL);
 		
 		QAudioInput* input() { return m_input; }
 		QHash<SoundInputClient*, qint64> activeInputClients() { return m_activeInputClients; }
@@ -48,6 +58,8 @@ class SimonSoundInput : public QObject
 		void addActive(SoundInputClient* client);
 
 		bool deRegisterInputClient(SoundInputClient* client);
+
+		bool startRecording(SimonSound::DeviceConfiguration& device);
 		bool stopRecording();
 
 		void suspend(SoundInputClient*);

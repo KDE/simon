@@ -25,26 +25,38 @@ class QAudioOutput;
 
 #include <simonsound/simonsound.h>
 #include <QHash>
-#include <QObject>
+#include <QIODevice>
+#include <qaudio.h>
 
 class SoundOutputClient;
 
-class SimonSoundOutput : public QObject
+class SimonSoundOutput : public QIODevice
 {
 	Q_OBJECT
+
+	signals:
+		void error(const QString& str);
+		void inputStateChanged(QAudio::State state);
+		void outputStateChanged(QAudio::State state);
 
 	private:
 		QAudioOutput *m_output;
 		QHash<SoundOutputClient*, qint64> m_activeOutputClients;
 		QHash<SoundOutputClient*, qint64> m_suspendedOutputClients;
 
+	protected:
+		qint64 readData(char *toRead, qint64 maxLen);
+		qint64 writeData(const char *toWrite, qint64 len);
+
 	public:
-		SimonSoundOutput(QAudioOutput *output, QObject *parent=NULL);
+		SimonSoundOutput(QObject *parent=NULL);
 		~SimonSoundOutput();
 		
 		QAudioOutput* output() { return m_output; }
 		QHash<SoundOutputClient*, qint64> activeOutputClients() { return m_activeOutputClients; }
 		QHash<SoundOutputClient*, qint64> suspendedOutputClients() { return m_suspendedOutputClients; }
+
+		bool startPlayback(SimonSound::DeviceConfiguration& device);
 
 		void suspendOutput();
 		void resumeOutput();

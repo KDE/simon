@@ -37,7 +37,7 @@ class SimonSoundInput;
 class SimonSoundOutput;
 
 
-class SIMONSOUND_EXPORT SoundServer : public QIODevice {
+class SIMONSOUND_EXPORT SoundServer : public QObject {
 	Q_OBJECT
 
 signals:
@@ -49,26 +49,12 @@ signals:
 private:
 	static SoundServer* instance;
 
-	//QAudioInput *input;
 	QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
-	/*
-	QHash<DeviceConfiguration, QAudioInput*> inputs;
-	QHash<SoundInputClient*, qint64> activeInputClients;
-	QHash<SoundInputClient*, qint64> suspendedInputClients;
-	*/
-	bool startRecording(SimonSound::DeviceConfiguration& device);
-	bool stopRecording(SimonSound::DeviceConfiguration device);
 
 	void suspendRecording();
 	void resumeRecording();
 
 	QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
-	//SoundOutputClient* currentOutputClient;
-	/*QAudioOutput *output;
-	QList<SoundOutputClient*> suspendedOutputClients;
-	*/
-	bool startPlayback(SimonSound::DeviceConfiguration& device);
-	bool stopPlayback(SimonSound::DeviceConfiguration device);
 
 	void suspendPlayback();
 	void resumePlayback();
@@ -76,10 +62,6 @@ private:
 private slots:
 	void slotInputStateChanged(QAudio::State state);
 	void slotOutputStateChanged(QAudio::State state);
-
-protected:
-	qint64 readData(char *toRead, qint64 maxLen);
-	qint64 writeData(const char *toWrite, qint64 len);
 
 public:
 	static SoundServer* getInstance()

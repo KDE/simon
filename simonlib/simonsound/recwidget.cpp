@@ -84,6 +84,8 @@ void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, 
 	lay->addWidget(wg);
 
 	connect(wg, SIGNAL(sampleDeleted()), this, SLOT(slotSampleDeleted()));
+	connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
+	connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
 	waves << wg;
 }
@@ -214,6 +216,15 @@ void RecWidget::slotSampleDeleted()
 	adjustButtonsToFile();
 
 	emit sampleDeleted();
+}
+
+void RecWidget::slotEnableDeleteAll()
+{
+	bool shouldEnableDelete = true;
+	foreach (WavFileWidget *wav, waves)
+		shouldEnableDelete &= ! wav->getIsPlaying();
+	kDebug() << "Updating enable button: " << shouldEnableDelete;
+	ui->pbDeleteAll->setEnabled(shouldEnableDelete);
 }
 
 /**

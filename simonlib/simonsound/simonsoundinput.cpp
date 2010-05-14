@@ -23,10 +23,96 @@
 
 #include <QAudioInput>
 #include <KDebug>
+#include <KLocalizedString>
 
-SimonSoundInput::SimonSoundInput(QAudioInput *input, QObject *parent) : QObject(parent),
-	m_input(input)
+
+SimonSoundInput::SimonSoundInput(QObject *parent) : QIODevice(parent),
+	m_input(NULL)
 {
+	open(QIODevice::ReadWrite);
+}
+
+qint64 SimonSoundInput::readData(char *toRead, qint64 maxLen)
+{
+	Q_UNUSED(toRead);
+	Q_UNUSED(maxLen);
+	//TODO
+	/*
+	if (!currentOutputClient)
+	{
+		kDebug() << "No current output client";
+		return -1;
+	}
+
+	qint64 read = currentOutputClient->getDataProvider()->read(toRead, maxLen);
+
+	if (read <= 0)
+		deRegisterOutputClient(currentOutputClient);
+
+	return read;
+	*/
+	return 0;
+}
+
+
+qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
+{
+	Q_UNUSED(toWrite);
+	Q_UNUSED(len);
+	//FIXME: split this
+	/*QByteArray data;
+	data.append(toWrite, len);
+
+	//length is in ms
+	qint64 length = byteSizeToLength(data.count());
+
+	//pass data on to all registered, active clients
+	
+	QList<SoundInputClient*> active = inputs.activeInputClients.keys();
+	foreach (SoundInputClient *c, active)
+	{
+		qint64 streamTime = activeInputClients.value(c)+length;
+		c->process(data, streamTime);
+		//update time stamp
+		activeInputClients.insert(c, streamTime);
+	}
+	return len;*/
+	return 0;
+}
+
+bool SimonSoundInput::startRecording(SimonSound::DeviceConfiguration& device)
+{
+	kDebug() << "Starting recording";
+
+	QAudioFormat format;
+	format.setFrequency(device.sampleRate());
+	format.setChannels(device.channels());
+	format.setSampleSize(16); // 16 bit
+	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
+	format.setByteOrder(QAudioFormat::LittleEndian);
+	format.setCodec("audio/pcm");
+
+	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
+	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+		if (deviceInfo.deviceName() == device.name())
+			selectedInfo = deviceInfo;
+
+	if (!selectedInfo.isFormatSupported(format))
+	{
+		kDebug() << "Format not supported";
+		emit error(i18n("Recording format not supported."));
+		emit inputStateChanged(QAudio::StoppedState);
+		return false;
+	}
+
+	m_input = new QAudioInput(selectedInfo, format, this);
+	connect(m_input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotInputStateChanged(QAudio::State)));
+	connect(m_input, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(inputStateChanged(QAudio::State)));
+
+	m_input->start(this);
+
+	kDebug() << "Started audio input";
+	return true;
 }
 
 void SimonSoundInput::suspend(SoundInputClient* client)
@@ -101,6 +187,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 
 	return success;
 }
+
 
 
 bool SimonSoundInput::stopRecording()

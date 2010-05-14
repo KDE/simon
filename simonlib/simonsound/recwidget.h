@@ -82,6 +82,7 @@ public slots:
 
 	bool deleteAll();
 	void stopPlayback();
+	void slotEnableDeleteAll();
 	
 public:
     RecWidget(QString name, QString text, QString fileTemplate, QWidget *parent=0);
