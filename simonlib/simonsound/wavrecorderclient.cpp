@@ -31,12 +31,13 @@
 /**
  * \brief Constructor
  */
-WavRecorderClient::WavRecorderClient(QObject* parent) : 
+WavRecorderClient::WavRecorderClient(const QString& device, int channels, int sampleRate, QObject* parent) : 
 	QObject(parent),
 	SoundInputClient(SoundClient::Exclusive),
 	wavData(0),
 	loudness(new LoudnessMeterSoundProcessor())
 {
+	//TODO
 	registerSoundProcessor(loudness);
 }
 

@@ -49,7 +49,7 @@ TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, cons
 	desc->setWordWrap(true);
 	recorder = new RecWidget("", prompt, 
 				  TrainingManager::getInstance()->getTrainingDir()+
-					fileName+".wav", this);
+					fileName, this);
 	lay->addWidget(desc);
 	lay->addWidget(recorder);
 

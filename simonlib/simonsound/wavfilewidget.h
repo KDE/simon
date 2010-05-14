@@ -18,11 +18,14 @@
  */
 
 
-#ifndef SIMON_RECWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
-#define SIMON_RECWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
+#ifndef SIMON_WAVFILEWIDGET_H_33F50DCA0C3D401FADDFBFD80B4E16F4
+#define SIMON_WAVFILEWIDGET_H_33F50DCA0C3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
 #include <QWidget>
+class WavRecorderClient;
+class WavPlayerClient;
+class PostProcessing;
 
 class KPushButton;
 class QGroupBox;
@@ -34,11 +37,11 @@ class QFont;
 
 namespace Ui
 {
-	class RecWidgetUi;
+	class WavFileWidgetUi;
 }
 
 /**
- * \class RecWidget
+ * \class WavFileWidget
  * \brief This class provides a nice Recording Widget to easily use within the application
  * 
  * It draws the GUI and uses the WavRecorderClient/WavPlayerClient classes
@@ -46,7 +49,7 @@ namespace Ui
  * \author Peter Grasch
  * \date 26.05.2007
  */
-class SIMONSOUND_EXPORT RecWidget : public QWidget {
+class SIMONSOUND_EXPORT WavFileWidget : public QWidget {
 	Q_OBJECT
 
 signals:
@@ -56,11 +59,15 @@ signals:
 	void progress(int);
 	void recordingFinished();
 	void playbackFinished();
+	void error(const QString& error);
 
 private:
-	Ui::RecWidgetUi *ui;
+	Ui::WavFileWidgetUi *ui;
 
-	QString fileTemplate;
+	QString filename;
+	WavRecorderClient *rec;
+	WavPlayerClient *play;
+	PostProcessing *postProc;
 
 	int recordingProgress;
 
@@ -69,27 +76,26 @@ private:
 	
 	void setupSignalsSlots();
 
-	void initialize();
-	void registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix);
-
-private slots:
-	void changePromptFont(const QFont& font);
-	void displayError(const QString& error);
 
 public slots:
 	void record();
 	void stopRecording();
 
-	void setTitle(QString newTitle);
-
-	bool deleteSample();
-	void displayClippingWarning();
+	void playback();
 	void stopPlayback();
+	void finishPlayback();
+	
+	bool deleteSample();
+	void displayRecordingProgress(int msecs, float level);
+	void displayClippingWarning();
+	void displayPlaybackProgress(int msecs);
 	
 public:
-    RecWidget(QString name, QString text, QString fileTemplate, QWidget *parent=0);
+    WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
     bool hasRecordingReady();
+    ~WavFileWidget();
 
 };
 
 #endif
+

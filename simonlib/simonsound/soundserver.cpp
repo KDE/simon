@@ -459,6 +459,16 @@ bool SoundServer::reinitializeDevices()
 	return succ;
 }
 
+int SoundServer::getInputDeviceCount()
+{
+	return SoundConfiguration::soundInputDevices().count();
+}
+
+int SoundServer::getOutputDeviceCount()
+{
+	return SoundConfiguration::soundOutputDevices().count();
+}
+
 bool SoundServer::getDefaultToPowerTraining()
 {
 	return SoundConfiguration::defaultToPowerTraining();

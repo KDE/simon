@@ -18,7 +18,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gb">
+    <widget class="QGroupBox" name="gbContainer">
      <property name="title">
       <string/>
      </property>
@@ -43,33 +43,13 @@
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbPlay">
+         <widget class="KPushButton" name="pbDeleteAll">
           <property name="text">
-           <string>Play</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="KPushButton" name="pbDelete">
-          <property name="text">
-           <string>Delete</string>
+           <string>Delete all</string>
           </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="pbProgress">
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="format">
-         <string>00:00 / 00:00</string>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QWidget" name="wgWarning" native="true">

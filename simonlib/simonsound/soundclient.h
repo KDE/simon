@@ -32,7 +32,10 @@ public:
 	enum SoundClientFlags
 	{
 		None=0,
-		Exclusive=1 // if set this client demands exclusive use of the in/output device
+		Background=1, // if set this client will be paused whenever any other job starts
+			      // even if that job is not set to be exclusive (think of the 
+			      // "Background" job to be a process with "Idle" priority)
+		Exclusive=2 // if set this client demands exclusive use of the in/output device
 			    // (all other clients have to be suspended)
 	};
 

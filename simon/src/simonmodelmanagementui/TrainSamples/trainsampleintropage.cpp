@@ -52,10 +52,7 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
 
 void TrainSampleIntroPage::initializePage()
 {
-	kDebug() << "Defaulting to power train: " << SoundServer::getDefaultToPowerTraining();
 	cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
-
-//	cbPowerTrain->setChecked(TrainingManager::getInstance()->defaultToPowerTrain());
 }
 
 TrainSampleIntroPage::~TrainSampleIntroPage()

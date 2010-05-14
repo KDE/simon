@@ -26,6 +26,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
 )
@@ -40,6 +41,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
+	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound_export.h
 
@@ -55,6 +57,8 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
 )
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )

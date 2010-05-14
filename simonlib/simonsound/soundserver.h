@@ -90,6 +90,9 @@ public:
 
 	bool reinitializeDevices();
 
+	int getInputDeviceCount();
+	int getOutputDeviceCount();
+
 	static bool getDefaultToPowerTraining();
 
 	static int getLevelThreshold();

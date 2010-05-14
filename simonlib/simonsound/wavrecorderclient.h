@@ -41,7 +41,7 @@ signals:
 	void clippingOccured();
 	
 public:
-	WavRecorderClient(QObject *parent=0);
+	WavRecorderClient(const QString& device, int channels, int sampleRate, QObject *parent=0);
 	bool finish();
     	bool record(QString filename);
 
