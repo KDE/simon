@@ -18,34 +18,47 @@
  */
 
 
-#ifndef SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419EA1236280815A2AAD
+#include "simonsoundoutput.h"
 
+#include <simonsound/soundoutputclient.h>
+#include <QAudioOutput>
+#include <KDebug>
 
-#include <simonsound/soundclient.h>
-#include <simonsound/simonsound.h>
-#include <simonsound/simonsound_export.h>
-#include <QList>
+SimonSoundOutput::SimonSoundOutput(QAudioOutput *output, QObject *parent) : QObject(parent),
+	m_output(output)
+{
+}
+		
+SimonSoundOutput::~SimonSoundOutput()
+{
+	m_output->deleteLater();
+}
 
-class SoundProcessor;
+void SimonSoundOutput::suspendOutput()
+{
+	if (!m_output) return;
+	m_output->suspend();
+}
 
+void SimonSoundOutput::resumeOutput()
+{
+	if (!m_output) return;
+	m_output->suspend();
+}
 
-class SIMONSOUND_EXPORT SoundInputClient : public SoundClient {
+bool SimonSoundOutput::stopPlayback()
+{
+	kDebug() << "Stop playback...";
+	if (!m_output) return true;
 
-private:
-	QList<SoundProcessor*> processors;
+	m_output->stop();
+	m_output->disconnect(this);
+	m_output->deleteLater();
+	m_output = NULL;
 
-public:
-	SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientFlags options=None);
-	virtual ~SoundInputClient();
+	//FIXME
+//	reset();
 
-	void process(const QByteArray& data, qint64 currentTime);
-	virtual void processPrivate(const QByteArray& data, qint64 currentTime)=0;
-
-	void registerSoundProcessor(SoundProcessor *p);
-};
-
-#endif
-
-
+	return true;
+}
 

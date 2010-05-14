@@ -25,6 +25,7 @@
 #include "simonsender.h"
 #include "simondstreamer_export.h"
 #include <simonsound/soundinputclient.h>
+#include <simonsound/simonsound.h>
 #include <QObject>
 #include <qaudio.h>
 
@@ -67,7 +68,7 @@ private slots:
 	void soundServerStateChanged(QAudio::State state);
 	
 public:
-	SimondStreamer(SimonSender *sender, QObject *parent=0);
+	SimondStreamer(SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
 	bool stop();
     	bool start();
 

@@ -52,7 +52,7 @@
  */
 WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
 		const QString& filename, QWidget *parent) : QWidget(parent),
-	ui(new Ui::WavFileWidgetUi()), postProc(NULL)
+	ui(new Ui::WavFileWidgetUi()), m_device(device), postProc(NULL)
 {	
 	this->filename = filename;
 	recordingProgress=0;
@@ -60,7 +60,7 @@ WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate
 	isRecording = false;
 	isPlaying = false;
 	
-	rec = new WavRecorderClient(device, channels, sampleRate, this);
+	rec = new WavRecorderClient(SimonSound::DeviceConfiguration(device, channels, sampleRate), this);
 	play = new WavPlayerClient(this);
 
 	ui->setupUi(this);
@@ -167,8 +167,8 @@ void WavFileWidget::record()
 	if (!rec->record(fName))
 	{
 		KMessageBox::error(this, i18n("Couldn't start recording.\n\n"
-						"The input device could not be initialized.\n\n"
-						"Please check your sound configuration and try again."));
+						"The input device \"%1\" could not be initialized.\n\n"
+						"Please check your sound configuration and try again.", m_device));
 	}else {
 		ui->pbProgress->setMaximum(100);
 		isRecording = true;

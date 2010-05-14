@@ -28,7 +28,7 @@
 
 class SIMONSOUND_EXPORT SoundOutputClient : public SoundClient {
 public:
-	SoundOutputClient();
+	SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration);
 	virtual ~SoundOutputClient();
 
 	virtual QIODevice* getDataProvider()=0;

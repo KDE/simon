@@ -17,10 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "soundconfig.h"
 #include "soundserver.h"
+#include "soundconfig.h"
 #include "soundinputclient.h"
 #include "soundoutputclient.h"
+#include "simonsoundinput.h"
+#include "simonsoundoutput.h"
 
 #include <QObject>
 #include <QAudioInput>
@@ -35,12 +37,7 @@ SoundServer* SoundServer::instance=NULL;
 /**
  * \brief Constructor
  */
-SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
-	channels(SoundConfiguration::soundChannels()),
-	sampleRate(SoundConfiguration::soundSampleRate()),
-	input(NULL),
-	output(NULL),
-	currentOutputClient(NULL)
+SoundServer::SoundServer(QObject* parent) : QIODevice(parent)
 {
 	open(QIODevice::ReadWrite);
 }
@@ -48,6 +45,10 @@ SoundServer::SoundServer(QObject* parent) : QIODevice(parent),
 
 qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 {
+	Q_UNUSED(toRead);
+	Q_UNUSED(maxLen);
+	//TODO
+	/*
 	if (!currentOutputClient)
 	{
 		kDebug() << "No current output client";
@@ -60,19 +61,25 @@ qint64 SoundServer::readData(char *toRead, qint64 maxLen)
 		deRegisterOutputClient(currentOutputClient);
 
 	return read;
+	*/
+	return 0;
 }
 
 
 qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 {
-	QByteArray data;
+	Q_UNUSED(toWrite);
+	Q_UNUSED(len);
+	//FIXME: split this
+	/*QByteArray data;
 	data.append(toWrite, len);
 
 	//length is in ms
 	qint64 length = byteSizeToLength(data.count());
 
 	//pass data on to all registered, active clients
-	QList<SoundInputClient*> active = activeInputClients.keys();
+	
+	QList<SoundInputClient*> active = inputs.activeInputClients.keys();
 	foreach (SoundInputClient *c, active)
 	{
 		qint64 streamTime = activeInputClients.value(c)+length;
@@ -80,7 +87,8 @@ qint64 SoundServer::writeData(const char *toWrite, qint64 len)
 		//update time stamp
 		activeInputClients.insert(c, streamTime);
 	}
-	return len;
+	return len;*/
+	return 0;
 }
 
 QString SoundServer::defaultInputDevice()
@@ -122,27 +130,43 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 	kDebug() << "Register input client";
 	if (client->isExclusive())
 	{
-		//suspend all other inputs
-		QHashIterator<SoundInputClient*, qint64> i(activeInputClients);
+		QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
 		while (i.hasNext())
 		{
 			i.next();
-			i.key()->suspend();
-			suspendedInputClients.insert(i.key(), i.value());
-			activeInputClients.remove(i.key());
+			SimonSoundInput *soundInput = i.value();
+
+			//suspend all other inputs
+			QHashIterator<SoundInputClient*, qint64> j(soundInput->activeInputClients());
+			while (j.hasNext())
+			{
+				j.next();
+				soundInput->suspend(j.key());
+			}
+
+
 		}
 	}
 
 
-	activeInputClients.insert(client, 0);
 	bool succ = true;
 
-	if (!input) //recording not currently running
+	SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
+	if (!inputs.contains(client->deviceConfiguration())) //recording not currently running
 	{
+		kDebug() << "No input for this particular configuration...";
+
 		//then start recording
-		succ = startRecording();
+		succ = startRecording(clientRequestedSoundConfiguration);
+		if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+			client->setDeviceConfiguration(clientRequestedSoundConfiguration); // found something supported that is very close
 	}
 
+	if (succ)
+	{
+		SimonSoundInput *input = inputs.value(clientRequestedSoundConfiguration);
+		input->addActive(client);
+	}
 
 	return succ;
 }
@@ -150,78 +174,36 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
 	kDebug() << "Deregistering input client";
-	if (activeInputClients.remove(client) == 0)
-	{
-		//wasn't active anyways
-		suspendedInputClients.remove(client);
-		return true;
-	}
-	if (client->isExclusive())
-	{
-		QHashIterator<SoundInputClient*, qint64> i(suspendedInputClients);
 
-		/// if we have one exclusive input in the suspended list move it to the active
-		/// list and ignore the rest
-		///
-		/// @note The order in which the input clients are resumed is undefined
-		///
-		///otherwise move everything back
-		
-		bool hasExclusive = false;
-		while (i.hasNext())
-		{
-			i.next();
-			if (i.key()->isExclusive())
-			{
-				activeInputClients.insert(i.key(), i.value());
-				suspendedInputClients.remove(i.key());
-				hasExclusive = true;
-				break;
-			}
-		}
-		if (!hasExclusive)
-		{
-			i.toFront();
-			while (i.hasNext())
-			{
-				i.next();
-				i.key()->resume();
-				activeInputClients.insert(i.key(), i.value());
-				suspendedInputClients.remove(i.key());
-			}
-		}
+	bool success = true;
+
+	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+	while (i.hasNext())
+	{
+		i.next();
+		success = i.value()->deRegisterInputClient(client) && success;
 	}
 
-	if (activeInputClients.isEmpty()) //don't need to record any longer
-	{
-		//then stop recording
-		kDebug() << "No active clients available... Stopping recording";
-		return stopRecording();
-	}
-
-	return true;
+	return success;
 }
 
 
 
-bool SoundServer::startRecording()
+bool SoundServer::startRecording(SimonSound::DeviceConfiguration& device)
 {
 	kDebug() << "Starting recording";
-	channels = SoundConfiguration::soundChannels();
-	sampleRate = SoundConfiguration::soundSampleRate();
 
 	QAudioFormat format;
-	format.setFrequency(sampleRate);
-	format.setChannels(channels);
+	format.setFrequency(device.sampleRate());
+	format.setChannels(device.channels());
 	format.setSampleSize(16); // 16 bit
 	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setCodec("audio/pcm");
 
-	QString inputDevice = SoundConfiguration::soundInputDevice();
 	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
-		if (deviceInfo.deviceName() == SoundConfiguration::soundInputDevice())
+		if (deviceInfo.deviceName() == device.name())
 			selectedInfo = deviceInfo;
 
 	if (!selectedInfo.isFormatSupported(format))
@@ -232,37 +214,53 @@ bool SoundServer::startRecording()
 		return false;
 	}
 
-	input = new QAudioInput(selectedInfo, format, this);
+	QAudioInput *input = new QAudioInput(selectedInfo, format, this);
 	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotInputStateChanged(QAudio::State)));
-	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(inputStateChanged(QAudio::State)));
+	connect(input, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(inputStateChanged(QAudio::State)));
+
+	inputs.insert(device, new SimonSoundInput(input));
+
 	input->start(this);
-	if (output)
-		output->suspend();
+
+	suspendPlayback();
+
 	kDebug() << "Started audio input";
 	return true;
 }
 
-
-bool SoundServer::stopRecording()
+void SoundServer::suspendRecording()
 {
-	kDebug() << "Stopping recording";
-	if (!input) return true;
-
-	input->disconnect(this);
-	input->stop();
-	delete input;
-	input = NULL;
-
-	if (output)
-		output->resume();
-
-	return true;
+	foreach (SimonSoundInput *in, inputs.values())
+		in->suspendInput();
 }
+
+void SoundServer::resumeRecording()
+{
+	foreach (SimonSoundInput *in, inputs.values())
+		in->resumeInput();
+}
+
+void SoundServer::suspendPlayback()
+{
+	foreach (SimonSoundOutput *out, outputs.values())
+		out->suspendOutput();
+}
+
+void SoundServer::resumePlayback()
+{
+	foreach (SimonSoundOutput *out, outputs.values())
+		out->resumeOutput();
+}
+
+
 
 
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
 	kDebug() << "Register output client";
+	//FIXME
+	Q_UNUSED(client);
+	/*
 	if (currentOutputClient != NULL)
 		suspendedOutputClients.append(currentOutputClient);
 
@@ -270,17 +268,26 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 	bool succ = true;
 
-	if (!output) //playback not currently running
+
+	if (!outputs.contains(client->deviceConfiguration())) //playback not currently running
 	{
 		//then start playback
-		succ = startPlayback();
+		SimonSound::DeviceConfiguration dev = client->deviceConfiguration();
+		succ = startPlayback(dev);
+		if (! (client->deviceConfiguration() == dev) )
+			client->setDeviceConfiguration(dev); // found something supported that is very close
 	}
-
 	return succ;
+	*/
+
+	return true;
 }
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
+	//FIXME
+	Q_UNUSED(client);
+	/*
 	kDebug() << "Deregister output client";
 	client->finish();
 	if (client != currentOutputClient)
@@ -289,6 +296,8 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 		suspendedOutputClients.removeAll(client);
 		return true;
 	}
+
+	
 
 	if (suspendedOutputClients.isEmpty())
 	{
@@ -299,33 +308,29 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 
 	currentOutputClient = suspendedOutputClients.takeAt(0);
 	return true;
+	*/
+
+	return true;
 }
 
-bool SoundServer::startPlayback()
+bool SoundServer::startPlayback(SimonSound::DeviceConfiguration& device)
 {
 	kDebug() << "Starting playback...";
 
-	channels = SoundConfiguration::soundChannels();
-	sampleRate = SoundConfiguration::soundSampleRate();
-
-	if (input)
-	{
-		kDebug() << "Suspending recording during playback";
-		input->suspend();
-	}
+	kDebug() << "Suspending recording during playback";
+	suspendRecording();
 
 	QAudioFormat format;
-	format.setFrequency(sampleRate);
-	format.setChannels(channels);
+	format.setFrequency(device.sampleRate());
+	format.setChannels(device.channels());
 	format.setSampleSize(16); // 16 bit
 	format.setSampleType(QAudioFormat::SignedInt); // SignedInt currently
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setCodec("audio/pcm");
 
-	QString outputDevice = SoundConfiguration::soundOutputDevice();
 	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultOutputDevice();
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-		if (deviceInfo.deviceName() == SoundConfiguration::soundOutputDevice())
+		if (deviceInfo.deviceName() == device.name())
 			selectedInfo = deviceInfo;
 
 	if (!selectedInfo.isFormatSupported(format))
@@ -340,49 +345,41 @@ bool SoundServer::startPlayback()
 		emit outputStateChanged(QAudio::StoppedState);
 		return false;
 	}
+	
+	device.setChannels(format.channels());
+	device.setSampleRate(format.frequency());
 
 	kDebug() << "Using device: " << selectedInfo.deviceName();
-	output = new QAudioOutput(selectedInfo, format, this);
+
+	QAudioOutput *output = new QAudioOutput(selectedInfo, format, this);
 	connect(output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
 	connect(output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(outputStateChanged(QAudio::State)));
 	output->start(this);
+
+	outputs.insert(device, new SimonSoundOutput(output));
+
 	kDebug() << "Started audio output";
 	return true;
 }
 
-qint64 SoundServer::byteSizeToLength(qint64 bytes)
+
+qint64 SoundServer::byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device)
 {
-	return bytes / (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
+	return bytes / (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
 }
 
-qint64 SoundServer::lengthToByteSize(qint64 length)
+qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device)
 {
-	return length * (channels * 2 /* 16 bit */ * ((float)sampleRate / 1000.0f));
-}
-
-bool SoundServer::stopPlayback()
-{
-	kDebug() << "Stop playback...";
-	if (!output) return true;
-
-	output->stop();
-	output->disconnect(this);
-	output->deleteLater();
-	output = NULL;
-
-	reset();
-
-	if (input)
-		input->resume();
-
-	return true;
+	return length * (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
 }
 
 
 void SoundServer::slotInputStateChanged(QAudio::State state)
 {
 	kDebug() << "Input state changed: " << state;
+	//FIXME
 
+	/*
 	if (!input) return;
 
 	if (state == QAudio::StoppedState)
@@ -409,12 +406,15 @@ void SoundServer::slotInputStateChanged(QAudio::State state)
 				break;
 		}
 	}
+	*/
 }
 
 void SoundServer::slotOutputStateChanged(QAudio::State state)
 {
 	kDebug() << "Output state changed: " << state;
 
+	//FIXME
+	/*
 	if (state == QAudio::StoppedState)
 	{
 		switch (output->error())
@@ -439,22 +439,21 @@ void SoundServer::slotOutputStateChanged(QAudio::State state)
 				break;
 		}
 	}
+	*/
 }
 
 bool SoundServer::reinitializeDevices()
 {
 	kDebug() << "Reinitialize devices...";
 	bool succ = true;
-	if (output)
-	{
-		succ = stopPlayback() && succ;
-		succ = startPlayback() && succ;
-	}
-	if (input)
-	{
-		succ = stopRecording() && succ;
-		succ = startRecording() && succ;
-	}
+
+	//TODO
+	
+	//succ = stopPlayback() && succ;
+	//succ = startPlayback() && succ;
+
+	//succ = stopRecording() && succ;
+	//succ = startRecording() && succ;
 
 	return succ;
 }

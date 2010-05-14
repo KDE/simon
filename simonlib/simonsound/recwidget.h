@@ -24,12 +24,7 @@
 #include "simonsound_export.h"
 #include <QWidget>
 
-class KPushButton;
-class QGroupBox;
-class QProgressBar;
-class QLabel;
-class QPlainTextEdit;
-class QFont;
+class WavFileWidget;
 
 
 namespace Ui
@@ -60,21 +55,24 @@ signals:
 private:
 	Ui::RecWidgetUi *ui;
 
+	QList<WavFileWidget*> waves;
+
 	QString fileTemplate;
 
 	int recordingProgress;
 
-	bool isRecording;
-	bool isPlaying;
-	
 	void setupSignalsSlots();
 
 	void initialize();
 	void registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix);
 
+	void adjustButtonsToFile();
+
 private slots:
 	void changePromptFont(const QFont& font);
 	void displayError(const QString& error);
+
+	void slotSampleDeleted();
 
 public slots:
 	void record();
@@ -82,8 +80,7 @@ public slots:
 
 	void setTitle(QString newTitle);
 
-	bool deleteSample();
-	void displayClippingWarning();
+	bool deleteAll();
 	void stopPlayback();
 	
 public:

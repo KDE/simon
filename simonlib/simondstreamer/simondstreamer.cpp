@@ -34,9 +34,9 @@ SoundServer* SoundServer::instance=NULL;
 /**
  * \brief Constructor
  */
-SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
+SimondStreamer::SimondStreamer(SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
 	QObject(parent),
-	SoundInputClient(SoundClient::None),
+	SoundInputClient(device, SoundClient::Background),
 	lastLevel(0),
 	lastTimeUnderLevel(0),
 	lastTimeOverLevel(0),
@@ -104,8 +104,8 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 					waitingForSampleToFinish = true;
 					if (!currentlyRecordingSample)
 					{
-						sender->startSampleToRecognize(SoundServer::getInstance()->getChannels(),
-							SoundServer::getInstance()->getSampleRate());
+						sender->startSampleToRecognize(m_deviceConfiguration.channels(),
+							m_deviceConfiguration.sampleRate());
 						currentlyRecordingSample = true;
 					}
 				}
@@ -148,7 +148,7 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 			} else {
 				//get a bit of data before the first level cross
 				currentSample += data;
-				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin));
+				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
 			}
 		} else {
 			//crossed downward

@@ -22,6 +22,7 @@
 #define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 
 #include <QtGlobal>
+#include <simonsound/simonsound.h>
 #include "simonsound_export.h"
 
 class QByteArray;
@@ -39,16 +40,24 @@ public:
 			    // (all other clients have to be suspended)
 	};
 
-	SoundClient(SoundClientFlags options=None);
+	SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientFlags options=None);
 	virtual ~SoundClient();
 
 	virtual void resume() {}
 	virtual void suspend() {}
 
-private:
+protected:
+	SimonSound::DeviceConfiguration m_deviceConfiguration;
 	SoundClientFlags m_options;
 
 public:
+	SimonSound::DeviceConfiguration deviceConfiguration()
+	{ return m_deviceConfiguration; }
+
+	void setDeviceConfiguration(SimonSound::DeviceConfiguration dev)
+	{ m_deviceConfiguration = dev; }
+	bool isBackground()
+	{ return m_options & Background; }
 	bool isExclusive()
 	{ return m_options & Exclusive; }
 };

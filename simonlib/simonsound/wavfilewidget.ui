@@ -31,6 +31,9 @@
      </item>
      <item>
       <widget class="KPushButton" name="pbPlay">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Play</string>
        </property>
@@ -41,6 +44,9 @@
      </item>
      <item>
       <widget class="KPushButton" name="pbDelete">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Delete</string>
        </property>

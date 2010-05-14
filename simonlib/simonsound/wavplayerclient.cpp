@@ -28,7 +28,8 @@
  * \author Peter Grasch
  */
 WavPlayerClient::WavPlayerClient(QObject* parent) : QIODevice(parent),
-	SoundOutputClient(),
+	//FIXME
+	SoundOutputClient(SimonSound::DeviceConfiguration("bla", 1, 16000)),
 	wav(0)
 {
 }
@@ -36,7 +37,7 @@ WavPlayerClient::WavPlayerClient(QObject* parent) : QIODevice(parent),
 qint64 WavPlayerClient::readData(char *data, qint64 maxlen)
 {
 	qint64 read = wav->read(data, maxlen);
-	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos()));
+	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
 
 	return read;
 

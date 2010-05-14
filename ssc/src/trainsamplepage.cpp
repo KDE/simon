@@ -98,7 +98,7 @@ bool TrainSamplePage::cleanUp()
 	bool succ=true;
 	if (recorder->hasRecordingReady()) 
 	{
-		succ = recorder->deleteSample();
+		succ = recorder->deleteAll();
 		if (!succ)
 			KMessageBox::error(this, i18n("Couldn't remove sample \"%1\".", getFileName()));
 	}

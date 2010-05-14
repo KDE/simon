@@ -28,6 +28,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundinput.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
 )
 
@@ -40,6 +42,8 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundinput.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.h
 

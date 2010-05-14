@@ -24,8 +24,8 @@
 /**
  * \brief Constructor
  */
-SoundInputClient::SoundInputClient(SoundClient::SoundClientFlags options) :
-	SoundClient(options)
+SoundInputClient::SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClient::SoundClientFlags options) :
+	SoundClient(deviceConfiguration, options)
 {
 }
 

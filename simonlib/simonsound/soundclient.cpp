@@ -26,7 +26,9 @@
 /**
  * \brief Constructor
  */
-SoundClient::SoundClient(SoundClient::SoundClientFlags options) :
+SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, 
+		SoundClient::SoundClientFlags options) :
+	m_deviceConfiguration(deviceConfiguration),
 	m_options(options)
 {
 }

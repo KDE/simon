@@ -93,13 +93,15 @@ RecognitionControl* RecognitionControl::instance;
  */
 RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
 	localSimond(NULL),
-	simondStreamer(new SimondStreamer(this, this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
 	timeoutWatcher(new QTimer(this))
 {
+	//FIXME
+	simondStreamer = new SimondStreamer(this, SimonSound::DeviceConfiguration("gaga", 1, 16000), this);
+
 	connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 

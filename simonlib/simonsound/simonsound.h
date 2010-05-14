@@ -20,6 +20,9 @@
 #ifndef SIMON_SIMONSOUND_H_D0C0BA2429B04F65935956A32C79BB09
 #define SIMON_SIMONSOUND_H_D0C0BA2429B04F65935956A32C79BB09
 
+#include <QString>
+
+
 namespace SimonSound
 {
 	enum SoundDeviceUses {
@@ -37,7 +40,48 @@ namespace SimonSound
 		Input=1,
 		Output=2
 	};
+
+
+	class DeviceConfiguration
+	{
+		private:
+			QString m_name;
+			int m_channels;
+			int m_sampleRate;
+		public:
+			DeviceConfiguration(const QString& name, int channels, int sampleRate) : 
+				m_name(name), m_channels(channels), m_sampleRate(sampleRate)
+			{}
+			
+			QString name() const { return m_name; }
+			int channels() const { return m_channels; }
+			int sampleRate() const { return m_sampleRate; }
+
+			void setChannels(int channels) { m_channels = channels; }
+			void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
+
+			bool operator== (const DeviceConfiguration& b) const
+			{
+				return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate());
+			}
+
+			DeviceConfiguration operator=(const DeviceConfiguration& b)
+			{
+				m_name = b.name();
+				m_channels = b.channels();
+				m_sampleRate = b.sampleRate();
+				return *this;
+			}
+	};
 }
+
+inline uint qHash(const SimonSound::DeviceConfiguration& dev);
+#include <QHash>
+inline uint qHash(const SimonSound::DeviceConfiguration& dev)
+{
+	return qHash(QString("%1||%2||%3").arg(dev.name(), dev.channels(), dev.sampleRate()));
+}
+
 
 #endif
 

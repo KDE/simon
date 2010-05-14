@@ -22,8 +22,8 @@
 /**
  * \brief Constructor
  */
-SoundOutputClient::SoundOutputClient() :
-	SoundClient(SoundClient::Exclusive)
+SoundOutputClient::SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration) :
+	SoundClient(deviceConfiguration, SoundClient::None)
 {
 }
 

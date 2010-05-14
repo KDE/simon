@@ -22,6 +22,7 @@
 #define SIMON_SOUNDSERVER_H_BAC60651BE6A419EA6156220815A2AAD
 
 
+#include <simonsound/simonsound.h>
 #include <QIODevice>
 #include <QHash>
 #include <QList>
@@ -32,6 +33,9 @@ class QAudioInput;
 class SoundInputClient;
 class QAudioOutput;
 class SoundOutputClient;
+class SimonSoundInput;
+class SimonSoundOutput;
+
 
 class SIMONSOUND_EXPORT SoundServer : public QIODevice {
 	Q_OBJECT
@@ -45,19 +49,29 @@ signals:
 private:
 	static SoundServer* instance;
 
-	int channels, sampleRate;
-
-	QAudioInput *input;
+	//QAudioInput *input;
+	QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
+	/*
+	QHash<DeviceConfiguration, QAudioInput*> inputs;
 	QHash<SoundInputClient*, qint64> activeInputClients;
 	QHash<SoundInputClient*, qint64> suspendedInputClients;
-	bool startRecording();
-	bool stopRecording();
+	*/
+	bool startRecording(SimonSound::DeviceConfiguration& device);
+	bool stopRecording(SimonSound::DeviceConfiguration device);
 
-	QAudioOutput *output;
-	SoundOutputClient* currentOutputClient;
+	void suspendRecording();
+	void resumeRecording();
+
+	QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
+	//SoundOutputClient* currentOutputClient;
+	/*QAudioOutput *output;
 	QList<SoundOutputClient*> suspendedOutputClients;
-	bool startPlayback();
-	bool stopPlayback();
+	*/
+	bool startPlayback(SimonSound::DeviceConfiguration& device);
+	bool stopPlayback(SimonSound::DeviceConfiguration device);
+
+	void suspendPlayback();
+	void resumePlayback();
 
 private slots:
 	void slotInputStateChanged(QAudio::State state);
@@ -76,17 +90,14 @@ public:
 
 	SoundServer(QObject *parent=0);
 
-	int getChannels() { return channels; }
-	int getSampleRate() { return sampleRate; }
-
 	bool registerInputClient(SoundInputClient* client);
 	bool deRegisterInputClient(SoundInputClient* client);
 
 	bool registerOutputClient(SoundOutputClient* client);
 	bool deRegisterOutputClient(SoundOutputClient* client);
 
-	qint64 byteSizeToLength(qint64 bytes);
-	qint64 lengthToByteSize(qint64 length);
+	qint64 byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device);
+	qint64 lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device);
 
 	bool reinitializeDevices();
 

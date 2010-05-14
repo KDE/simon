@@ -31,9 +31,9 @@
 /**
  * \brief Constructor
  */
-WavRecorderClient::WavRecorderClient(const QString& device, int channels, int sampleRate, QObject* parent) : 
+WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) : 
 	QObject(parent),
-	SoundInputClient(SoundClient::Exclusive),
+	SoundInputClient(deviceConfiguration),
 	wavData(0),
 	loudness(new LoudnessMeterSoundProcessor())
 {
@@ -57,8 +57,8 @@ bool WavRecorderClient::record(QString filename)
 		wavData = NULL;
 	}
 
-	wavData = new WAV(filename, SoundServer::getInstance()->getChannels(), 
-			SoundServer::getInstance()->getSampleRate());
+	wavData = new WAV(filename, m_deviceConfiguration.channels(), 
+			m_deviceConfiguration.sampleRate());
 	wavData->beginAddSequence();
 
 	bool succ =  SoundServer::getInstance()->registerInputClient(this);

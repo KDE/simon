@@ -58,12 +58,15 @@ signals:
 	void sampleDeleted();
 	void progress(int);
 	void recordingFinished();
+	void recordingError();
+
 	void playbackFinished();
 	void error(const QString& error);
 
 private:
 	Ui::WavFileWidgetUi *ui;
 
+	QString m_device;
 	QString filename;
 	WavRecorderClient *rec;
 	WavPlayerClient *play;
@@ -93,6 +96,10 @@ public slots:
 public:
     WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
     bool hasRecordingReady();
+
+    bool getIsRecording() { return isRecording; }
+    bool getIsPlaying() { return isPlaying; }
+
     ~WavFileWidget();
 
 };

@@ -61,30 +61,13 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, QWidget *
 {	
 	this->fileTemplate = fileTemplate;
 
-	isRecording = false;
-	isPlaying = false;
-	
 	ui->setupUi(this);
 	ui->pbRecord->setIcon(KIcon("media-record"));
 	ui->pbDeleteAll->setIcon(KIcon("edit-delete"));
-	connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayClippingWarning()));
-	ui->wgWarning->hide();
 
 	setTitle(name);
 	ui->tePrompt->setPlainText(text);
 
-	/*
-	if (QFile::exists(this->filename))
-	{
-		ui->pbRecord->setEnabled(false);
-		ui->pbDeleteAll->setEnabled(true);
-	} else 
-	{
-		ui->pbRecord->setEnabled(true);
-		ui->pbDeleteAll->setEnabled(false);
-	}
-	*/
-	
 	setupSignalsSlots();
 	initialize();
 }
@@ -99,6 +82,10 @@ void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, 
 	Q_ASSERT(lay);
 
 	lay->addWidget(wg);
+
+	connect(wg, SIGNAL(sampleDeleted()), this, SLOT(slotSampleDeleted()));
+
+	waves << wg;
 }
 
 void RecWidget::initialize()
@@ -116,8 +103,7 @@ void RecWidget::initialize()
 		registerDevice(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i], "."+QString::number(i));
 	}
 
-
-
+	adjustButtonsToFile();
 }
 
 void RecWidget::displayError(const QString& error)
@@ -140,9 +126,11 @@ void RecWidget::changePromptFont(const QFont& font)
  */
 bool RecWidget::hasRecordingReady()
 {
-	//FIXME
-//	return QFile::exists(this->filename);
-	return false;
+	bool recordingReady = false;
+	foreach (WavFileWidget *wav, waves)
+		recordingReady |= wav->hasRecordingReady();
+
+	return recordingReady;
 }
 
 /**
@@ -152,14 +140,9 @@ bool RecWidget::hasRecordingReady()
 void RecWidget::setupSignalsSlots()
 {
 	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-	connect(ui->pbDeleteAll, SIGNAL(clicked()), this, SLOT(deleteSample()));
+	connect(ui->pbDeleteAll, SIGNAL(clicked()), this, SLOT(deleteAll()));
 }
 
-
-void RecWidget::displayClippingWarning()
-{
-	KMessageBox::information(this, i18n("simon detected that your volume is set too high. Because of this, clipping has occurred.\n\nPlease lower the volume and re-record this sample."));
-}
 
 /**
  * \brief Sets the widgets title to the given title
@@ -179,14 +162,16 @@ void RecWidget::setTitle(QString newTitle)
  */
 void RecWidget::record()
 {
-	//TODO
-//	QString fName = this->fileTemplate;
-//	if (SoundConfiguration::processInternal())
-//		fName += "_tmp";
+	foreach (WavFileWidget *wav, waves)
+		wav->record();
+	
+	bool someoneIsRecording = false;
+	foreach (WavFileWidget *wav, waves)
+		someoneIsRecording |= wav->getIsRecording();
 
-	ui->pbRecord->setEnabled(true);
-	ui->pbDeleteAll->setEnabled(false);
-	ui->wgWarning->hide();
+	ui->pbRecord->setChecked(someoneIsRecording);
+	disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 
 	emit recording();
 }
@@ -198,55 +183,50 @@ void RecWidget::record()
  */
 void RecWidget::stopRecording()
 {
-	if (!isRecording) return;
-
-	//TODO
-//	QString fName = this->filename;
-	//bool processInternal = SoundConfiguration::processInternal();
-	
-	//if (processInternal)
-	//	fName += "_tmp";
-
+	foreach (WavFileWidget *wav, waves)
+		wav->stopRecording();
 	
 	ui->pbRecord->setChecked(false);
+	adjustButtonsToFile();
 	
 	disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	emit recordingFinished();
-
-	isRecording = false;
 }
 
 void RecWidget::stopPlayback()
 {
-	//TODO
-	
+	foreach (WavFileWidget *wav, waves)
+		wav->stopPlayback();
+}
+
+
+void RecWidget::adjustButtonsToFile()
+{
+	bool somethingHasSample = hasRecordingReady();
+
+	ui->pbRecord->setEnabled(!somethingHasSample);
+	ui->pbDeleteAll->setEnabled(somethingHasSample);
+}
+
+void RecWidget::slotSampleDeleted()
+{
+	adjustButtonsToFile();
+
+	emit sampleDeleted();
 }
 
 /**
  * \brief Deletes the file at fileTemplate (member)
  * \author Peter Grasch
  */
-bool RecWidget::deleteSample()
+bool RecWidget::deleteAll()
 {
-/*	if(QFile::remove(this->fileTemplate))
-	{
-		ui->pbRecord->setEnabled(true);
-		ui->pbDeleteAll->setEnabled(false);
-		emit sampleDeleted();
-		ui->wgWarning->hide();
-		return true;
-	} else {
-		if (QFile::exists(this->fileTemplate))
-		{
-			KMessageBox::error(this, 
-				i18n("Couldn't remove file %1", this->fileTemplate));
-			return false;
-		}
-	}
-	*/
+	bool success = true;
+	foreach (WavFileWidget *wav, waves)
+		success = wav->deleteSample() && success;
 
-	return true;
+	return success;
 }
 
 
