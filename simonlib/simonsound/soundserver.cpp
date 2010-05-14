@@ -108,6 +108,8 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 		kDebug() << "No input for this particular configuration... Creating one";
 
 		SimonSoundInput *soundInput = new SimonSoundInput(this);
+		connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+		connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
 		//then start recording
 		succ = soundInput->startRecording(clientRequestedSoundConfiguration);
 		if (!succ)
@@ -136,6 +138,28 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 
 	return succ;
 }
+
+void SoundServer::slotRecordingFinished()
+{
+	SimonSoundInput *input = dynamic_cast<SimonSoundInput*>(sender());
+	Q_ASSERT(input);
+
+	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+	
+	while (i.hasNext())
+	{
+		i.next();
+		if (i.value() == input)
+			inputs.remove(i.key());
+	}
+	input->deleteLater();
+}
+
+void SoundServer::slotPlaybackFinished()
+{
+
+}
+
 
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
@@ -252,40 +276,7 @@ qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfigurat
 }
 
 
-void SoundServer::slotInputStateChanged(QAudio::State state)
-{
-	kDebug() << "Input state changed: " << state;
-	//FIXME
 
-	/*
-	if (!input) return;
-
-	if (state == QAudio::StoppedState)
-	{
-		switch (input->error())
-		{
-			case QAudio::NoError:
-				kDebug() << "Input stopped without error";
-				break;
-			case QAudio::OpenError:
-				emit error(i18n("Failed to open the input audio device.\n\nPlease check your sound configuration."));
-				break;
-
-			case QAudio::IOError:
-				emit error(i18n("An error occured while reading data from the audio device."));
-				break;
-
-			case QAudio::UnderrunError:
-				emit error(i18n("Buffer underrun when processing the sound data."));
-				break;
-
-			case QAudio::FatalError:
-				emit error(i18n("A fatal error occured during recording."));
-				break;
-		}
-	}
-	*/
-}
 
 void SoundServer::slotOutputStateChanged(QAudio::State state)
 {

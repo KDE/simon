@@ -60,8 +60,9 @@ private:
 	void resumePlayback();
 
 private slots:
-	void slotInputStateChanged(QAudio::State state);
 	void slotOutputStateChanged(QAudio::State state);
+	void slotRecordingFinished();
+	void slotPlaybackFinished();
 
 public:
 	static SoundServer* getInstance()

@@ -35,6 +35,7 @@ class SimonSoundInput : public QIODevice
 	Q_OBJECT
 
 	signals:
+		void recordingFinished();
 		void error(const QString& str);
 		void inputStateChanged(QAudio::State state);
 		void outputStateChanged(QAudio::State state);
@@ -48,6 +49,9 @@ class SimonSoundInput : public QIODevice
 	protected:
 		qint64 readData(char *toRead, qint64 maxLen);
 		qint64 writeData(const char *toWrite, qint64 len);
+	
+	private slots:
+		void slotInputStateChanged(QAudio::State state);
 
 	public:
 		SimonSoundInput(QObject *parent=NULL);

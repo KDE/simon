@@ -163,13 +163,43 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 		kDebug() << "No active clients available... Stopping recording";
 		success = stopRecording();
 		if (success)
-			deleteLater(); // destroy this sound input
+			emit recordingFinished(); // destroy this sound input
 	}
 
 	return success;
 }
 
+void SimonSoundInput::slotInputStateChanged(QAudio::State state)
+{
+	kDebug() << "Input state changed: " << state;
 
+	if (!m_input) return;
+
+	if (state == QAudio::StoppedState)
+	{
+		switch (m_input->error())
+		{
+			case QAudio::NoError:
+				kDebug() << "Input stopped without error";
+				break;
+			case QAudio::OpenError:
+				emit error(i18n("Failed to open the input audio device.\n\nPlease check your sound configuration."));
+				break;
+
+			case QAudio::IOError:
+				emit error(i18n("An error occured while reading data from the audio device."));
+				break;
+
+			case QAudio::UnderrunError:
+				emit error(i18n("Buffer underrun when processing the sound data."));
+				break;
+
+			case QAudio::FatalError:
+				emit error(i18n("A fatal error occured during recording."));
+				break;
+		}
+	}
+}
 
 bool SimonSoundInput::stopRecording()
 {
