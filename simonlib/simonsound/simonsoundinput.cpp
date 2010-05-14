@@ -20,6 +20,7 @@
 
 #include "simonsoundinput.h"
 #include <simonsound/soundinputclient.h>
+#include <simonsound/soundserver.h>
 
 #include <QAudioInput>
 #include <KDebug>
@@ -36,48 +37,27 @@ qint64 SimonSoundInput::readData(char *toRead, qint64 maxLen)
 {
 	Q_UNUSED(toRead);
 	Q_UNUSED(maxLen);
-	//TODO
-	/*
-	if (!currentOutputClient)
-	{
-		kDebug() << "No current output client";
-		return -1;
-	}
-
-	qint64 read = currentOutputClient->getDataProvider()->read(toRead, maxLen);
-
-	if (read <= 0)
-		deRegisterOutputClient(currentOutputClient);
-
-	return read;
-	*/
 	return 0;
 }
 
 
 qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
 {
-	Q_UNUSED(toWrite);
-	Q_UNUSED(len);
-	//FIXME: split this
-	/*QByteArray data;
+	QByteArray data;
 	data.append(toWrite, len);
 
 	//length is in ms
-	qint64 length = byteSizeToLength(data.count());
+	qint64 length = SoundServer::getInstance()->byteSizeToLength(data.count(), m_device);
 
 	//pass data on to all registered, active clients
-	
-	QList<SoundInputClient*> active = inputs.activeInputClients.keys();
-	foreach (SoundInputClient *c, active)
+	foreach (SoundInputClient *c, m_activeInputClients.keys())
 	{
-		qint64 streamTime = activeInputClients.value(c)+length;
+		qint64 streamTime = m_activeInputClients.value(c)+length;
 		c->process(data, streamTime);
 		//update time stamp
-		activeInputClients.insert(c, streamTime);
+		m_activeInputClients.insert(c, streamTime);
 	}
-	return len;*/
-	return 0;
+	return len;
 }
 
 bool SimonSoundInput::startRecording(SimonSound::DeviceConfiguration& device)
@@ -112,6 +92,7 @@ bool SimonSoundInput::startRecording(SimonSound::DeviceConfiguration& device)
 	m_input->start(this);
 
 	kDebug() << "Started audio input";
+	m_device = device;
 	return true;
 }
 

@@ -40,6 +40,7 @@ class SimonSoundInput : public QIODevice
 		void outputStateChanged(QAudio::State state);
 
 	private:
+		SimonSound::DeviceConfiguration m_device;
 		QAudioInput *m_input;
 		QHash<SoundInputClient*, qint64> m_activeInputClients;
 		QHash<SoundInputClient*, qint64> m_suspendedInputClients;

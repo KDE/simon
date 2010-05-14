@@ -59,24 +59,6 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 {
 	Q_UNUSED(toWrite);
 	Q_UNUSED(len);
-	//FIXME: split this
-	/*QByteArray data;
-	data.append(toWrite, len);
-
-	//length is in ms
-	qint64 length = byteSizeToLength(data.count());
-
-	//pass data on to all registered, active clients
-	
-	QList<SoundInputClient*> active = inputs.activeInputClients.keys();
-	foreach (SoundInputClient *c, active)
-	{
-		qint64 streamTime = activeInputClients.value(c)+length;
-		c->process(data, streamTime);
-		//update time stamp
-		activeInputClients.insert(c, streamTime);
-	}
-	return len;*/
 	return 0;
 }
 

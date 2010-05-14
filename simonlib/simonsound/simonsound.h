@@ -52,6 +52,10 @@ namespace SimonSound
 			DeviceConfiguration(const QString& name, int channels, int sampleRate) : 
 				m_name(name), m_channels(channels), m_sampleRate(sampleRate)
 			{}
+
+			DeviceConfiguration() : 
+				m_name(""), m_channels(0), m_sampleRate(0)
+			{}
 			
 			QString name() const { return m_name; }
 			int channels() const { return m_channels; }
