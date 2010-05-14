@@ -2,12 +2,6 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile  name="speechmodelmanagementrc" />
   <include>KStandardDirs</include>
-  <group name="UI">
-    <entry name="DefaultToPowerTrain" type="Bool">
-      <label>if we should activate the power training per default.</label>
-      <default>false</default>
-    </entry>
-  </group>
   <group name="Model">
     <entry name="ModelType" type="Int">
       <label>The type of model to use (0: static, 1: base model, 2: dynamic)</label>

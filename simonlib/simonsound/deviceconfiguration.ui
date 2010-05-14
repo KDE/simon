@@ -15,6 +15,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
+    <widget class="QCheckBox" name="kcfg_DefaultToPowerTraining">
+     <property name="text">
+      <string>Default to power training</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="KTabWidget" name="twMain">
      <property name="currentIndex">
       <number>0</number>
@@ -35,7 +42,7 @@
             <x>0</x>
             <y>0</y>
             <width>425</width>
-            <height>409</height>
+            <height>382</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -105,7 +112,7 @@
             <x>0</x>
             <y>0</y>
             <width>425</width>
-            <height>409</height>
+            <height>382</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">

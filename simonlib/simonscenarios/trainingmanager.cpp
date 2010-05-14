@@ -455,12 +455,6 @@ bool TrainingManager::clear()
 	return savePrompts();
 }
 
-
-bool TrainingManager::defaultToPowerTrain()
-{
-	return SpeechModelManagementConfiguration::defaultToPowerTrain();
-}
-
 /**
  * @brief Destructor
  *

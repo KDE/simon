@@ -19,6 +19,7 @@
 #include "trainsampleintropage.h"
 
 #include <simonscenarios/trainingmanager.h>
+#include <simonsound/soundserver.h>
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -26,6 +27,7 @@
 #include <QCheckBox>
 
 
+#include <KDebug>
 
 TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent)
 {
@@ -42,7 +44,7 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
 
 	lay->addWidget(lbIntro);
 	lay->addWidget(cbPowerTrain);
-
+	
 	this->registerField("powerRecording", cbPowerTrain);
 
 	setLayout(lay);
@@ -50,7 +52,10 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
 
 void TrainSampleIntroPage::initializePage()
 {
-	cbPowerTrain->setChecked(TrainingManager::getInstance()->defaultToPowerTrain());
+	kDebug() << "Defaulting to power train: " << SoundServer::getDefaultToPowerTraining();
+	cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
+
+//	cbPowerTrain->setChecked(TrainingManager::getInstance()->defaultToPowerTrain());
 }
 
 TrainSampleIntroPage::~TrainSampleIntroPage()

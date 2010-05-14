@@ -459,6 +459,10 @@ bool SoundServer::reinitializeDevices()
 	return succ;
 }
 
+bool SoundServer::getDefaultToPowerTraining()
+{
+	return SoundConfiguration::defaultToPowerTraining();
+}
 
 int SoundServer::getLevelThreshold()
 {

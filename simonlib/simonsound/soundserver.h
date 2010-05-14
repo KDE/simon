@@ -90,6 +90,8 @@ public:
 
 	bool reinitializeDevices();
 
+	static bool getDefaultToPowerTraining();
+
 	static int getLevelThreshold();
 	static int getHeadMargin();
 	static int getTailMargin();

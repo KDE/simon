@@ -4,6 +4,10 @@
   <include>simonsound/soundserver.h</include>
   <include>simonsound/simonsound.h</include>
   <group name="Devices">
+    <entry name="DefaultToPowerTraining" type="Bool">
+      <label>If the default mode to train is powertraining.</label>
+      <default>false</default>
+    </entry>
     <entry name="SoundInputDevice" type="String">
       <label>The sounddevice used for recording.</label>
       <default code="true">SoundServer::defaultInputDevice()</default>
