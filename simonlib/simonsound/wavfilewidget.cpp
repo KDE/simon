@@ -186,13 +186,13 @@ void WavFileWidget::finishPlayback()
 	disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 	ui->pbPlay->setChecked(false);
 	connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-	emit playbackFinished();
 	
 	ui->pbDelete->setEnabled(true);
 
 	displayPlaybackProgress(recordingProgress);
 
 	isPlaying = false;
+	emit playbackFinished();
 }
 
 /**
@@ -260,9 +260,9 @@ void WavFileWidget::playback()
 		ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
 		disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 		connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-		emit playing();
 		ui->pbDelete->setEnabled(false);
 		isPlaying = true;
+		emit playing();
 	} else {
 		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
 						"The output device could not be initialized.\n\n"

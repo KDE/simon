@@ -222,7 +222,10 @@ void RecWidget::slotEnableDeleteAll()
 {
 	bool shouldEnableDelete = true;
 	foreach (WavFileWidget *wav, waves)
+	{
 		shouldEnableDelete &= ! wav->getIsPlaying();
+		kDebug() << wav->getIsPlaying();
+	}
 	kDebug() << "Updating enable button: " << shouldEnableDelete;
 	ui->pbDeleteAll->setEnabled(shouldEnableDelete);
 }
