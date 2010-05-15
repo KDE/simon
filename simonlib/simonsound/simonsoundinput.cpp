@@ -96,6 +96,16 @@ bool SimonSoundInput::startRecording(SimonSound::DeviceConfiguration& device)
 	return true;
 }
 
+void SimonSoundInput::suspendInputClients()
+{
+	QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
+	while (j.hasNext())
+	{
+		j.next();
+		suspend(j.key());
+	}
+}
+
 void SimonSoundInput::suspend(SoundInputClient* client)
 {
 	client->suspend();
@@ -103,7 +113,7 @@ void SimonSoundInput::suspend(SoundInputClient* client)
 	m_activeInputClients.remove(client);
 }
 
-void SimonSoundInput::addActive(SoundInputClient* client)
+void SimonSoundInput::registerInputClient(SoundInputClient* client)
 {
 	m_activeInputClients.insert(client, 0);
 }
@@ -157,6 +167,7 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 
 	bool success = true;
 
+	//FIXME SYSTEM WIDE RESUME!
 	if (m_activeInputClients.isEmpty()) //don't need to record any longer
 	{
 		//then stop recording

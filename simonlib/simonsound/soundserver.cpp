@@ -88,14 +88,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 			SimonSoundInput *soundInput = i.value();
 
 			//suspend all other inputs
-			QHashIterator<SoundInputClient*, qint64> j(soundInput->activeInputClients());
-			while (j.hasNext())
-			{
-				j.next();
-				soundInput->suspend(j.key());
-			}
-
-
+			soundInput->suspendInputClients();
 		}
 	}
 
@@ -124,7 +117,6 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 			else
 				inputs.insert(clientRequestedSoundConfiguration, soundInput);
 
-			inputs.insert(clientRequestedSoundConfiguration, soundInput);
 			if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
 				client->setDeviceConfiguration(clientRequestedSoundConfiguration); // found something supported that is very close
 		}
@@ -133,7 +125,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 	if (succ)
 	{
 		SimonSoundInput *input = inputs.value(clientRequestedSoundConfiguration);
-		input->addActive(client);
+		input->registerInputClient(client);
 	}
 
 	return succ;
@@ -157,7 +149,18 @@ void SoundServer::slotRecordingFinished()
 
 void SoundServer::slotPlaybackFinished()
 {
+	SimonSoundOutput *output = dynamic_cast<SimonSoundOutput*>(sender());
+	Q_ASSERT(output);
 
+	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
+	
+	while (i.hasNext())
+	{
+		i.next();
+		if (i.value() == output)
+			outputs.remove(i.key());
+	}
+	output->deleteLater();
 }
 
 
@@ -209,8 +212,41 @@ void SoundServer::resumePlayback()
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
 	kDebug() << "Register output client";
-	//FIXME
-	Q_UNUSED(client);
+	SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
+
+	bool succ = true;
+	if (!outputs.contains(clientRequestedSoundConfiguration))
+	{
+		//create output for this configuration
+		kDebug() << "No output for this particular configuration... Creating one";
+
+		SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
+		connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+		connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(playbackFinished()));
+		//then start playback
+		succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
+		if (!succ) {
+			//failed
+			soundOutput->deleteLater();
+		} else {
+			//we had to adjust the format slightly and _that_ is already loaded
+			if (outputs.contains(clientRequestedSoundConfiguration))
+				soundOutput->deleteLater();
+			else
+				outputs.insert(clientRequestedSoundConfiguration, soundOutput);
+
+			if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+				client->setDeviceConfiguration(clientRequestedSoundConfiguration); // found something supported that is very close
+		}
+	}
+
+	if (succ)
+	{
+		SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
+		output->registerOutputClient(client);
+	}
+
+	return succ;
 	/*
 	if (currentOutputClient != NULL)
 		suspendedOutputClients.append(currentOutputClient);
@@ -238,6 +274,21 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
 	//FIXME
 	Q_UNUSED(client);
+
+	kDebug() << "Deregistering output client";
+
+	bool success = true;
+
+	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
+	while (i.hasNext())
+	{
+		i.next();
+		success = i.value()->deRegisterOutputClient(client) && success;
+	}
+
+	return success;
+
+
 	/*
 	kDebug() << "Deregister output client";
 	client->finish();
@@ -276,40 +327,6 @@ qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfigurat
 }
 
 
-
-
-void SoundServer::slotOutputStateChanged(QAudio::State state)
-{
-	kDebug() << "Output state changed: " << state;
-
-	//FIXME
-	/*
-	if (state == QAudio::StoppedState)
-	{
-		switch (output->error())
-		{
-			case QAudio::NoError:
-				kDebug() << "Output stopped without error";
-				break;
-			case QAudio::OpenError:
-				emit error(i18n("Failed to open the audio device.\n\nPlease check your sound configuration."));
-				break;
-
-			case QAudio::IOError:
-				emit error(i18n("An error occured while writing data to the audio device."));
-				break;
-
-			case QAudio::UnderrunError:
-				kWarning() << i18n("Buffer underrun when processing the sound data.");
-				break;
-
-			case QAudio::FatalError:
-				emit error(i18n("A fatal error occured during playback."));
-				break;
-		}
-	}
-	*/
-}
 
 bool SoundServer::reinitializeDevices()
 {

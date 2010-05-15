@@ -38,7 +38,6 @@ class SimonSoundInput : public QIODevice
 		void recordingFinished();
 		void error(const QString& str);
 		void inputStateChanged(QAudio::State state);
-		void outputStateChanged(QAudio::State state);
 
 	private:
 		SimonSound::DeviceConfiguration m_device;
@@ -55,12 +54,8 @@ class SimonSoundInput : public QIODevice
 
 	public:
 		SimonSoundInput(QObject *parent=NULL);
-		
-		QAudioInput* input() { return m_input; }
-		QHash<SoundInputClient*, qint64> activeInputClients() { return m_activeInputClients; }
-		QHash<SoundInputClient*, qint64> suspendedInputClients() { return m_suspendedInputClients; }
 
-		void addActive(SoundInputClient* client);
+		void registerInputClient(SoundInputClient* client);
 
 		bool deRegisterInputClient(SoundInputClient* client);
 
@@ -68,6 +63,7 @@ class SimonSoundInput : public QIODevice
 		bool stopRecording();
 
 		void suspend(SoundInputClient*);
+		void suspendInputClients();
 		void suspendInput();
 		void resumeInput();
 		~SimonSoundInput();

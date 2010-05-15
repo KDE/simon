@@ -60,7 +60,6 @@ private:
 	void resumePlayback();
 
 private slots:
-	void slotOutputStateChanged(QAudio::State state);
 	void slotRecordingFinished();
 	void slotPlaybackFinished();
 

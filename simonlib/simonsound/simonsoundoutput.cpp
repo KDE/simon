@@ -26,7 +26,8 @@
 #include <KDebug>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
-	m_output(NULL)
+	m_output(NULL),
+	m_activeOutputClient(NULL)
 {
 	open(QIODevice::ReadWrite);
 }
@@ -36,21 +37,19 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
 	Q_UNUSED(toRead);
 	Q_UNUSED(maxLen);
-	//TODO
-	/*
-	if (!currentOutputClient)
+	
+	if (!m_activeOutputClient)
 	{
 		kDebug() << "No current output client";
 		return -1;
 	}
 
-	qint64 read = currentOutputClient->getDataProvider()->read(toRead, maxLen);
+	qint64 read = m_activeOutputClient->getDataProvider()->read(toRead, maxLen);
 
 	if (read <= 0)
-		deRegisterOutputClient(currentOutputClient);
+		deRegisterOutputClient(m_activeOutputClient);
 
 	return read;
-	*/
 	return 0;
 }
 
@@ -60,6 +59,38 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 	Q_UNUSED(toWrite);
 	Q_UNUSED(len);
 	return 0;
+}
+
+void SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
+{
+	if (m_activeOutputClient != NULL)
+		m_suspendedOutputClients.insert(0,m_activeOutputClient);
+
+	m_activeOutputClient = client;
+}
+
+bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
+{
+	kDebug() << "Deregister output client";
+	client->finish();
+	if (client != m_activeOutputClient)
+	{
+		//wasn't active anyways
+		m_suspendedOutputClients.removeAll(client);
+		return true;
+	}
+
+	
+
+	if (m_suspendedOutputClients.isEmpty())
+	{
+		m_activeOutputClient= NULL;
+		kDebug() << "No active clients available... Stopping playback";
+		return stopPlayback();
+	}
+
+	m_activeOutputClient = m_suspendedOutputClients.takeAt(0);
+	return true;
 }
 
 bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
@@ -109,7 +140,38 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 	kDebug() << "Started audio output";
 	return true;
 }
-		
+
+
+void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
+{
+	kDebug() << "Output state changed: " << state;
+
+	if (state == QAudio::StoppedState)
+	{
+		switch (m_output->error())
+		{
+			case QAudio::NoError:
+				kDebug() << "Output stopped without error";
+				break;
+			case QAudio::OpenError:
+				emit error(i18n("Failed to open the audio device.\n\nPlease check your sound configuration."));
+				break;
+
+			case QAudio::IOError:
+				emit error(i18n("An error occured while writing data to the audio device."));
+				break;
+
+			case QAudio::UnderrunError:
+				kWarning() << i18n("Buffer underrun when processing the sound data.");
+				break;
+
+			case QAudio::FatalError:
+				emit error(i18n("A fatal error occured during playback."));
+				break;
+		}
+	}
+}
+
 SimonSoundOutput::~SimonSoundOutput()
 {
 	m_output->deleteLater();
