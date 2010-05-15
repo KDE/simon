@@ -61,8 +61,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
 	modelCompilationAdapter(0),
 	newLexiconHash(0),
 	newGrammarHash(0),
-	newVocaHash(0),
-	currentSample(NULL)
+	newVocaHash(0)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -809,19 +808,26 @@ void ClientSocket::processRequest()
 				stream >> length;
 				waitForMessage(length, stream, msg);
 
+				qint8 id;
 				qint8 channels;
 				qint32 sampleRate;
+				stream >> id;
 				stream >> channels;
 				stream >> sampleRate;
 
-				kDebug() << "Starting sample " << channels << sampleRate;
+				kDebug() << "Starting sample " << id << channels << sampleRate;
 
-				if (currentSample)
-					delete currentSample;
+				if (currentSamples.contains(id))
+				{
+					WAV* w = currentSamples.value(id);
+					delete w;
+					currentSamples.remove(id);
+				}
 
-				currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
-							QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+".wav"),
+				WAV *currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
+							QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+"."+QString::number(id)+".wav"),
 							channels, sampleRate);
+				currentSamples.insert(id, currentSample);
 				currentSample->beginAddSequence();
 				break;
 			}
@@ -834,21 +840,27 @@ void ClientSocket::processRequest()
 				waitForMessage(length, stream, msg);
 
 				QByteArray sampleData;
+				qint8 id;
+				stream >> id;
 				stream >> sampleData;
-				currentSample->write(sampleData);
+				currentSamples.value(id)->write(sampleData);
 				break;
 			}
 			case Simond::RecognitionSampleFinished:
 			{
 				//kDebug() << "Recognizing on sample";
-				currentSample->endAddSequence();
-				currentSample->writeFile();
+				waitForMessage(sizeof(qint8), stream, msg);
+				qint8 id;
+				stream >> id;
+				WAV *w = currentSamples.value(id);
+				w->endAddSequence();
+				w->writeFile();
 
-				recognitionControl->recognize(currentSample->getFilename());
+				recognitionControl->recognize(w->getFilename());
 				kDebug() << "Returned from recognize";
 
-				delete currentSample;
-				currentSample = NULL;
+				delete w;
+				currentSamples.remove(id);
 				break;
 			}
 
@@ -1639,5 +1651,5 @@ ClientSocket::~ClientSocket()
 	if (modelCompilationAdapter) 
 		modelCompilationAdapter->deleteLater();
 
-	delete currentSample;
+	qDeleteAll(currentSamples);
 }

@@ -58,6 +58,7 @@ private:
 
 	void suspendPlayback();
 	void resumePlayback();
+	static QList<SimonSound::DeviceConfiguration> getDevices(SimonSound::SoundDeviceUses uses);
 
 private slots:
 	void slotRecordingFinished();
@@ -95,6 +96,9 @@ public:
 
 	static QString defaultInputDevice();
 	static QString defaultOutputDevice();
+
+	static QList<SimonSound::DeviceConfiguration> getTrainingDevices();
+	static QList<SimonSound::DeviceConfiguration> getRecognitionDevices();
 
     virtual ~SoundServer();
 

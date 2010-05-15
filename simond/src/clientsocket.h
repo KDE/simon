@@ -25,11 +25,12 @@
 #include <simonprotocol/simonprotocol.h>
 #include <QSslSocket>
 #include <QList>
+#include <QHash>
 #include <QMutex>
 #include <QString>
 
 
-const qint8 protocolVersion=3;
+const qint8 protocolVersion=4;
 
 class DatabaseAccess;
 class RecognitionControl;
@@ -61,7 +62,7 @@ class ClientSocket : public QSslSocket
 		uint newGrammarHash;
 		uint newVocaHash;
 
-		WAV *currentSample;
+		QHash<qint8, WAV *> currentSamples;
 		
 		bool shouldRecompileModel();
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);

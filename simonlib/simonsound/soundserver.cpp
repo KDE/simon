@@ -78,7 +78,7 @@ QString SoundServer::defaultOutputDevice()
 
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
-	kDebug() << "Register input client";
+	kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 	if (client->isExclusive())
 	{
 		QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
@@ -102,6 +102,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 
 		SimonSoundInput *soundInput = new SimonSoundInput(this);
 		connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+//		connect(soundInput, SIGNAL(inputStateChanged(QAudio::State)), this, SIGNAL(inputStateChanged(QAudio::State)));
 		connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
 		//then start recording
 		succ = soundInput->startRecording(clientRequestedSoundConfiguration);
@@ -222,6 +223,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 		SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
 		connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+//		connect(soundOutput, SIGNAL(outputStateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
 		connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
 		//then start playback
 		succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
@@ -331,6 +333,35 @@ int SoundServer::getShortSampleCutoff()
 	return SoundConfiguration::skipSamples();
 }
 
+QList<SimonSound::DeviceConfiguration> SoundServer::getDevices(SimonSound::SoundDeviceUses uses)
+{
+	QList<SimonSound::DeviceConfiguration> devices;
+
+	QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
+	QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
+	QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
+	QList<int> soundInputUses = SoundConfiguration::soundInputUses();
+
+	for (int i=0; i < soundInputDevices.count(); i++)
+	{
+		if (!(soundInputUses[i] & uses))
+			continue;
+
+		devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i]);
+	}
+
+	return devices;
+}
+
+QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingDevices()
+{
+	return getDevices(SimonSound::Training);
+}
+
+QList<SimonSound::DeviceConfiguration> SoundServer::getRecognitionDevices()
+{
+	return getDevices(SimonSound::Recognition);
+}
 
 /**
  * \brief Destructor

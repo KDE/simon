@@ -73,9 +73,21 @@ bool SimonSoundInput::startRecording(SimonSound::DeviceConfiguration& device)
 	format.setCodec("audio/pcm");
 
 	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
+	bool deviceFound = false;
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
+	{
 		if (deviceInfo.deviceName() == device.name())
+		{
 			selectedInfo = deviceInfo;
+			deviceFound = true;
+		}
+	}
+	if (!deviceFound)
+	{
+		emit error(i18n("The selected sound input device \"%1\" is not available.", device.name()));
+		return false;
+	}
+
 
 	if (!selectedInfo.isFormatSupported(format))
 	{

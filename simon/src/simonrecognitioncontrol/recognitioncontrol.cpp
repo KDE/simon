@@ -93,15 +93,13 @@ RecognitionControl* RecognitionControl::instance;
  */
 RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
 	localSimond(NULL),
+	simondStreamer(new SimondStreamer(this, this)),
 	recognitionReady(false),
 	socket(new QSslSocket()),
 	synchronisationOperation(0),
 	modelCompilationOperation(0),
 	timeoutWatcher(new QTimer(this))
 {
-	//FIXME
-	simondStreamer = new SimondStreamer(this, SimonSound::DeviceConfiguration("gaga", 1, 16000), this);
-
 	connect(simondStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(simondStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
@@ -159,15 +157,29 @@ void RecognitionControl::streamStarted()
 void RecognitionControl::streamStopped()
 {
 	if (isConnected())
-		emit recognitionStatusChanged(RecognitionControl::Ready);
+	{
+		if (!simondStreamer->isRunning())
+			emit recognitionStatusChanged(RecognitionControl::Ready);
+	}
 	//else don't emit anything; The stream could have been stopped
 	//by us, disconnecting; That doesn't mean that the recognition is ready, tough
+}
+
+void RecognitionControl::startSimondStreamer()
+{
+	simondStreamer->start();
+}
+
+void RecognitionControl::stopSimondStreamer()
+{
+	simondStreamer->stop();
 }
 
 
 void RecognitionControl::slotDisconnected()
 {
-	simondStreamer->stop();
+	stopSimondStreamer();
+
 	recognitionReady=false;
 	if (synchronisationOperation)
 	{
@@ -1647,7 +1659,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					recognitionReady=false;
-					simondStreamer->stop();
+					stopSimondStreamer();
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
 				}
@@ -1728,7 +1740,7 @@ void RecognitionControl::startRecognition()
 {
 	if (recognitionReady)
 	{
-		simondStreamer->start();
+		startSimondStreamer();
 	} else
 		sendRequest(Simond::StartRecognition);
 }
@@ -1736,7 +1748,7 @@ void RecognitionControl::startRecognition()
 
 void RecognitionControl::stopRecognition()
 {
-	simondStreamer->stop();
+	stopSimondStreamer();
 	sendRequest(Simond::StopRecognition);
 }
 
@@ -1816,19 +1828,19 @@ Operation* RecognitionControl::createModelCompilationOperation()
 
 void RecognitionControl::pauseRecognition()
 {
-	simondStreamer->stop();
+	stopSimondStreamer();
 }
 
 void RecognitionControl::resumeRecognition()
 {
-	simondStreamer->start();
+	startSimondStreamer();
 }
 
-void RecognitionControl::startSampleToRecognize(qint8 channels, qint32 sampleRate)
+void RecognitionControl::startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate)
 {
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	bodyStream << channels << sampleRate;
+	bodyStream << id << channels << sampleRate;
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -1837,23 +1849,29 @@ void RecognitionControl::startSampleToRecognize(qint8 channels, qint32 sampleRat
 	socket->write(body);
 }
 
-void RecognitionControl::sendSampleToRecognize(const QByteArray& data)
+void RecognitionControl::sendSampleToRecognize(qint8 id, const QByteArray& data)
 {
-//	kDebug() << "Sending sample to server...";
+	kDebug() << "Sending sample to server...";
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << id << data;
+	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-
-	out << (qint32) Simond::RecognitionSampleData
-		<< (qint64) data.count()+sizeof(qint32) /*separator*/
-		<< data;
-
+	out << (qint32) Simond::RecognitionSampleData << (qint64) body.count();
 	socket->write(toWrite);
+	socket->write(body);
+
 }
 
-void RecognitionControl::recognizeSample()
+void RecognitionControl::recognizeSample(qint8 id)
 {
 	kDebug() << "Recognize on the last transmitted data";
-	sendRequest(Simond::RecognitionSampleFinished);
+
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << (qint32) Simond::RecognitionSampleFinished << id;
+	socket->write(toWrite);
 }
 
 /**

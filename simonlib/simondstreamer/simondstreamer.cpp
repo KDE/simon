@@ -18,149 +18,49 @@
  */
 
 #include "simondstreamer.h"
-
+#include "simondstreamerclient.h"
+#include <simonsound/simonsound.h>
 #include <simonsound/soundserver.h>
-#include <simonsound/loudnessmetersoundprocessor.h>
-#include <simonwav/wav.h>
+
 
 #include <QObject>
-
 #include <KDebug>
 
-#ifdef Q_OS_WIN32
-SoundServer* SoundServer::instance=NULL;
-#endif
 
 /**
  * \brief Constructor
  */
-SimondStreamer::SimondStreamer(SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
-	QObject(parent),
-	SoundInputClient(device, SoundClient::Background),
-	lastLevel(0),
-	lastTimeUnderLevel(0),
-	lastTimeOverLevel(0),
-	waitingForSampleToStart(true),
-	waitingForSampleToFinish(false),
-	currentlyRecordingSample(false),
-	sender(s),
-	loudness(new LoudnessMeterSoundProcessor())
+SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
+	QObject(parent)
 {
-	registerSoundProcessor(loudness);
-	connect(SoundServer::getInstance(), SIGNAL(inputStateChanged(QAudio::State)), this, SLOT(soundServerStateChanged(QAudio::State)));
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionDevices();
+
+	qint8 i=0;
+	foreach (SimonSound::DeviceConfiguration dev, devices)
+	{
+		SimondStreamerClient *streamer = new SimondStreamerClient(i++, s, dev, this);
+
+		connect(streamer, SIGNAL(started()), this, SIGNAL(started()));
+		connect(streamer, SIGNAL(stopped()), this, SIGNAL(stopped()));
+		clients << streamer;
+	}
 }
 
 
-void SimondStreamer::soundServerStateChanged(QAudio::State state)
+bool SimondStreamer::isRunning()
 {
-	if (state == QAudio::StoppedState)
-		stop();
+	foreach (SimondStreamerClient *c, clients)
+		if (c->isRunning())
+			return true;
+	return false;
 }
 
 bool SimondStreamer::start()
 {
-	lastTimeOverLevel = -1;
-	lastTimeUnderLevel = -1;
-	bool succ =  SoundServer::getInstance()->registerInputClient(this);
-
-	kDebug() << "Registered input client: " << succ;
-	if (succ)
-		emit started();
-	else emit stopped();
-
+	bool succ = true;
+	foreach (SimondStreamerClient *c, clients)
+		succ = c->start() && succ;
 	return succ;
-}
-
-void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
-{
-	int levelThreshold = SoundServer::getLevelThreshold(); 
-	int headMargin = SoundServer::getHeadMargin(); 
-	int tailMargin = SoundServer::getTailMargin();
-	int shortSampleCutoff = SoundServer::getShortSampleCutoff();
-
-	int peak = loudness->peak();
-	if (peak > levelThreshold)
-	{
-		if (lastLevel > levelThreshold)
-		{
-#ifdef SIMOND_DEBUG
-			kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
-#endif
-
-			currentSample += data; // cache data (waiting for sample) or send it (if already sending)
-#ifdef SIMOND_DEBUG
-			kDebug() << "Adding data to sample...";
-#endif
-
-			//stayed above level
-			if (waitingForSampleToStart)
-			{
-				if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
-				{
-#ifdef SIMOND_DEBUG
-					kDebug() << "Sending started...";
-#endif
-					waitingForSampleToStart = false;
-					waitingForSampleToFinish = true;
-					if (!currentlyRecordingSample)
-					{
-						sender->startSampleToRecognize(m_deviceConfiguration.channels(),
-							m_deviceConfiguration.sampleRate());
-						currentlyRecordingSample = true;
-					}
-				}
-			} else {
-				sender->sendSampleToRecognize(currentSample);
-				currentSample.clear();
-#ifdef SIMOND_DEBUG
-				kDebug() << "Clearing cached data...";
-#endif
-			}
-		} else {
-			//crossed upward
-#ifdef SIMOND_DEBUG
-			kDebug() << "Crossed level upward...";
-#endif
-			currentSample += data; 
-		}
-		lastTimeOverLevel = currentTime;
-	} else {
-		waitingForSampleToStart = true;
-		if (lastLevel < levelThreshold)
-		{
-			//stayed below level
-#ifdef SIMOND_DEBUG
-			kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
-#endif
-			if (waitingForSampleToFinish)
-			{
-				//still append data during tail margin
-				currentSample += data; 
-				sender->sendSampleToRecognize(currentSample);
-				currentSample.clear();
-				if (currentTime - lastTimeOverLevel > tailMargin)
-				{
-					sender->recognizeSample();
-					currentlyRecordingSample = false;
-					waitingForSampleToFinish = false;
-					kDebug() << "Sample finalized and sent.";
-				}
-			} else {
-				//get a bit of data before the first level cross
-				currentSample += data;
-				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
-			}
-		} else {
-			//crossed downward
-#ifdef SIMOND_DEBUG
-			kDebug() << "Crossed level downward...";
-#endif
-			currentSample += data; 
-		}
-		lastTimeUnderLevel = currentTime;
-	}
-
-	lastLevel = peak;
 }
 
 /**
@@ -172,9 +72,8 @@ void SimondStreamer::processPrivate(const QByteArray& data, qint64 currentTime)
 bool SimondStreamer::stop()
 {
 	bool succ = true;
-	succ = SoundServer::getInstance()->deRegisterInputClient(this);
-	if (succ)
-		emit stopped();
+	foreach (SimondStreamerClient *c, clients)
+		succ = c->stop() && succ;
 	return succ;
 }
 

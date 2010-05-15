@@ -18,6 +18,7 @@ include(KDE4Defaults)
 
 set( simondstreamer_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simondstreamer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simondstreamerclient.cpp
 )
 
 

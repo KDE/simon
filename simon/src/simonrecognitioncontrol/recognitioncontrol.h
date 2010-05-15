@@ -34,7 +34,7 @@ class QProcess;
 class ModelManagerUiProxy;
 class Operation;
 
-const qint8 protocolVersion=3;
+const qint8 protocolVersion=4;
 
 class QDateTime;
 class SimondStreamer;
@@ -83,7 +83,7 @@ private:
 	static RecognitionControl *instance;
 	QProcess *localSimond;
 
-	SimondStreamer *simondStreamer;
+	SimondStreamer* simondStreamer;
 
 	QMutex messageLocker;
 	QByteArray stillToProcess;
@@ -107,6 +107,8 @@ private:
  	void phonemeUndefined(const QString&);
 	void displayCompilationProtocol(const QString& protocol);
 
+	void startSimondStreamer();
+	void stopSimondStreamer();
 
 signals:
 	void connected();
@@ -189,9 +191,9 @@ private slots:
 
 	void sendSample(QString sampleName);
 
-	void startSampleToRecognize(qint8 channels, qint32 sampleRate);
-	void sendSampleToRecognize(const QByteArray& data);
-	void recognizeSample();
+	void startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate);
+	void sendSampleToRecognize(qint8 id, const QByteArray& data);
+	void recognizeSample(qint8 id);
 
 	void synchronisationComplete();
 	void synchronisationDone();

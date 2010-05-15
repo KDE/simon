@@ -112,10 +112,21 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 	format.setByteOrder(QAudioFormat::LittleEndian);
 	format.setCodec("audio/pcm");
 
+	bool deviceFound = false;
 	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultOutputDevice();
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
+	{
 		if (deviceInfo.deviceName() == device.name())
+		{
 			selectedInfo = deviceInfo;
+			deviceFound = true;
+		}
+	}
+	if (!deviceFound)
+	{
+		emit error(i18n("The selected sound output device \"%1\" is not available.", device.name()));
+		return false;
+	}
 
 	if (!selectedInfo.isFormatSupported(format))
 	{

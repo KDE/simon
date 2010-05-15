@@ -110,18 +110,9 @@ QStringList RecWidget::getFileNames()
 
 void RecWidget::initialize()
 {
-	QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
-	QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
-	QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
-	QList<int> soundInputUses = SoundConfiguration::soundInputUses();
-
-	for (int i=0; i < soundInputDevices.count(); i++)
-	{
-		if (!(soundInputUses[i] & SimonSound::Training))
-			continue;
-
-		registerDevice(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i], "."+QString::number(i));
-	}
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingDevices();
+	for (int i=0; i < devices.count(); i++)
+		registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
 
 	adjustButtonsToFile();
 }
