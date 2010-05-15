@@ -90,6 +90,24 @@ void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, 
 	waves << wg;
 }
 
+bool RecWidget::isRecording()
+{
+	foreach (WavFileWidget *wav, waves)
+		if (wav->getIsRecording())
+			return true;
+	return false;
+}
+
+QStringList RecWidget::getFileNames()
+{
+	QStringList fileNames;
+	foreach (WavFileWidget *wav, waves)
+		if (wav->hasRecordingReady())
+			fileNames << wav->getFileName();
+
+	return fileNames;
+}
+
 void RecWidget::initialize()
 {
 	QStringList soundInputDevices = SoundConfiguration::soundInputDevices();

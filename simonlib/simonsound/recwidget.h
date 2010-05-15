@@ -87,6 +87,8 @@ public slots:
 public:
     RecWidget(QString name, QString text, QString fileTemplate, QWidget *parent=0);
     bool hasRecordingReady();
+    bool isRecording();
+    QStringList getFileNames();
 
 };
 

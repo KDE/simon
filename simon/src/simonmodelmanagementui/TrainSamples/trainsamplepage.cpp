@@ -49,11 +49,16 @@ TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, cons
 	desc->setWordWrap(true);
 	recorder = new RecWidget("", prompt, 
 				  TrainingManager::getInstance()->getTrainingDir()+
+
+				  //not needed because getTrainingDir() ensures that
+				  //the path already ends with a separator
+//				  +QDir::separator()+
 					fileName, this);
 	lay->addWidget(desc);
 	lay->addWidget(recorder);
 
 	
+	connect(recorder, SIGNAL(recording()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 }
@@ -65,8 +70,6 @@ void TrainSamplePage::initializePage()
 		if (!recorder->hasRecordingReady())
 			recorder->record();
 	}
-
-//	QTimer::singleShot(3000, recorder, SLOT(resizePromptLabel()));
 }
 
 bool TrainSamplePage::validatePage()
@@ -77,9 +80,26 @@ bool TrainSamplePage::validatePage()
 	return true;
 }
 
+QStringList TrainSamplePage::getFileNames()
+{
+	QStringList fileNames = recorder->getFileNames();
+	for (int i=0; i < fileNames.count(); i++)
+	{
+		QString fileName = fileNames[i];
+		fileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
+		fileName = fileName.left(fileName.lastIndexOf("."));
+		fileNames.replace(i, fileName);
+	}
+		
+	return  fileNames;
+}
+
 bool TrainSamplePage::submit()
 {
-	bool succ = TrainingManager::getInstance()->addSample(fileName, prompt.toUpper());
+	bool succ = true;
+	foreach (const QString& fileName, getFileNames())
+		succ = TrainingManager::getInstance()->addSample(fileName, prompt.toUpper()) && succ;
+
 	if (!succ)
 	{
 		KMessageBox::error(this, i18n("Couldn't add samples to the corpus.\n\nThis indicates internal data corruption."));
@@ -102,7 +122,7 @@ bool TrainSamplePage::cleanUp()
 	{
 		succ = recorder->deleteAll();
 		if (!succ)
-			KMessageBox::error(this, i18n("Couldn't remove sample \"%1\".", getFileName()));
+			KMessageBox::error(this, i18n("Couldn't remove samples \"%1\".", getFileNames().join("\", \"")));
 	}
 	
 	return succ;
@@ -113,7 +133,7 @@ bool TrainSamplePage::isComplete() const
 	Q_ASSERT(recorder);
 
 	if (field("powerRecording").toBool())
-		return true;
+		return (recorder->hasRecordingReady() || recorder->isRecording());
 	else
 		return recorder->hasRecordingReady();
 }

@@ -43,7 +43,7 @@ class TrainSamplePage : public QWizardPage
 		void cleanupPage();
 		
 		QString getPrompt() { return prompt; }
-		QString getFileName() { return fileName; }
+		QStringList getFileNames();
 		
 	public slots:
 		bool submit();

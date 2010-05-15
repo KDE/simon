@@ -71,9 +71,9 @@ bool AddWordRecordPage::validatePage()
 	return page->validatePage();
 }
 
-QString AddWordRecordPage::getFileName()
+QStringList AddWordRecordPage::getFileNames()
 {
-	return page->getFileName();
+	return page->getFileNames();
 }
 
 QString AddWordRecordPage::getPrompt()

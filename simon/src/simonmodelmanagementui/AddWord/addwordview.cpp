@@ -88,10 +88,16 @@ void AddWordView::accept()
 	listToAdd->append(new Word(word.trimmed(), field("wordPronunciation").toString(),
 		     field("wordTerminal").toString()));
 	
-	if (record1->hasSample())
-		promptsToAdd.insert(record1->getFileName(), record1->getPrompt());
-	if (record2->hasSample())
-		promptsToAdd.insert(record2->getFileName(), record2->getPrompt());
+	QList<AddWordRecordPage*> recordPages;
+	recordPages << record1;
+	recordPages << record2;
+	foreach (AddWordRecordPage *rec, recordPages)
+	{
+		//if rec doesn't have sample this list will be empty
+		foreach (const QString& fileName, rec->getFileNames())
+			promptsToAdd.insert(fileName, rec->getPrompt());
+
+	}
 	
 	QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);
 	if (words.count() > 0)

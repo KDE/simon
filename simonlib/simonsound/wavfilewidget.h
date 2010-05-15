@@ -67,7 +67,7 @@ private:
 	Ui::WavFileWidgetUi *ui;
 
 	QString m_device;
-	QString filename;
+	QString m_filename;
 	WavRecorderClient *rec;
 	WavPlayerClient *play;
 	PostProcessing *postProc;
@@ -99,6 +99,7 @@ public:
 
     bool getIsRecording() { return isRecording; }
     bool getIsPlaying() { return isPlaying; }
+    QString getFileName() { return m_filename; }
 
     ~WavFileWidget();
 

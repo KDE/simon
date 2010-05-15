@@ -44,7 +44,7 @@
  * \author Peter Grasch
  * @param QString name
  * The name that is displayed in the title of the groupbox
- * @param QString filename
+ * @param QString m_filename
  * The filename to record to; 
  * We will ressamble the file (existing or not) when we create the play/pause/delete handles
  * @param QWidget *parent
@@ -52,9 +52,9 @@
  */
 WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
 		const QString& filename, QWidget *parent) : QWidget(parent),
-	ui(new Ui::WavFileWidgetUi()), m_device(device), postProc(NULL)
+	ui(new Ui::WavFileWidgetUi()), m_device(device), m_filename(filename), postProc(NULL)
 {	
-	this->filename = filename;
+
 	recordingProgress=0;
 
 	isRecording = false;
@@ -70,7 +70,7 @@ WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate
 	connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayClippingWarning()));
 	ui->wgWarning->hide();
 
-	if (QFile::exists(this->filename))
+	if (QFile::exists(m_filename))
 	{
 		ui->pbPlay->setEnabled(true);
 		ui->pbDelete->setEnabled(true);
@@ -90,7 +90,7 @@ WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate
  */
 bool WavFileWidget::hasRecordingReady()
 {
-	return QFile::exists(this->filename);
+	return QFile::exists(m_filename);
 }
 
 /**
@@ -156,7 +156,7 @@ void WavFileWidget::displayPlaybackProgress(int msecs)
  */
 void WavFileWidget::record()
 {
-	QString fName = this->filename;
+	QString fName = m_filename;
 	if (SoundConfiguration::processInternal())
 		fName += "_tmp";
 
@@ -203,7 +203,7 @@ void WavFileWidget::stopRecording()
 {
 	if (!isRecording) return;
 
-	QString fName = this->filename;
+	QString fName = m_filename;
 	bool processInternal = SoundConfiguration::processInternal();
 	
 	if (processInternal)
@@ -223,7 +223,7 @@ void WavFileWidget::stopRecording()
 				postProc = new PostProcessing();
 				connect(postProc, SIGNAL(error(const QString&)), this, SIGNAL(error(const QString&)));
 			}
-			if (!postProc->process(fName, filename, true))
+			if (!postProc->process(fName, m_filename, true))
 				KMessageBox::error(this, i18n("Post-Processing failed"));
 		}
 	}
@@ -255,7 +255,7 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
-	if (play->play(this->filename))
+	if (play->play(m_filename))
 	{	
 		ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
 		disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
@@ -272,12 +272,12 @@ void WavFileWidget::playback()
 }
 
 /**
- * \brief Deletes the file at filename (member)
+ * \brief Deletes the file at m_filename (member)
  * \author Peter Grasch
  */
 bool WavFileWidget::deleteSample()
 {
-	if(QFile::remove(this->filename))
+	if(QFile::remove(m_filename))
 	{
 		ui->pbProgress->setValue(0);
 		ui->pbProgress->setFormat("00:00 / 00:00");
@@ -287,10 +287,10 @@ bool WavFileWidget::deleteSample()
 		ui->wgWarning->hide();
 		return true;
 	} else {
-		if (QFile::exists(this->filename))
+		if (QFile::exists(m_filename))
 		{
 			KMessageBox::error(this, 
-				i18n("Couldn't remove file %1", this->filename));
+				i18n("Couldn't remove file %1", m_filename));
 			return false;
 		}
 	}
