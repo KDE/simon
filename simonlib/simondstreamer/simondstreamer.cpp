@@ -33,7 +33,7 @@
 SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
 	QObject(parent)
 {
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionDevices();
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
 
 	qint8 i=0;
 	foreach (SimonSound::DeviceConfiguration dev, devices)

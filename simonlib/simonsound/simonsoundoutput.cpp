@@ -72,19 +72,16 @@ void SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 {
 	kDebug() << "Deregister output client";
-	client->finish();
 	if (client != m_activeOutputClient)
-	{
 		//wasn't active anyways
 		m_suspendedOutputClients.removeAll(client);
-		return true;
-	}
+	else
+		m_activeOutputClient = NULL;
 
-	
+	client->finish();
 
-	if (m_suspendedOutputClients.isEmpty())
+	if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty())
 	{
-		m_activeOutputClient= NULL;
 		kDebug() << "No active clients available... Stopping playback";
 		bool success = stopPlayback();
 		if (success)
@@ -92,17 +89,12 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 		return success;
 	}
 
-	m_activeOutputClient = m_suspendedOutputClients.takeAt(0);
 	return true;
 }
 
 bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 {
 	kDebug() << "Starting playback...";
-
-	//FIXME
-	//kDebug() << "Suspending recording during playback";
-	//suspendRecording();
 
 	QAudioFormat format;
 	format.setFrequency(device.sampleRate());
@@ -114,6 +106,7 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 
 	bool deviceFound = false;
 	QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultOutputDevice();
+	kDebug() << "Looking for device: " << device.name();
 	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
 	{
 		if (deviceInfo.deviceName() == device.name())
@@ -156,12 +149,52 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 }
 
 
+
+SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
+{
+	SoundClient::SoundClientPriority priority = SoundClient::Background;
+	if (m_activeOutputClient)
+		priority = m_activeOutputClient->priority();
+
+	foreach (SoundOutputClient* client, m_suspendedOutputClients)
+		priority = qMax(priority, client->priority());
+
+	return priority;
+}
+
+bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
+{
+	kDebug() << "Activating priority: " << priority;
+
+	if (m_activeOutputClient && 
+			(m_activeOutputClient->priority() == SoundClient::Exclusive))
+		return true;
+
+	bool activated = false;
+	foreach (SoundOutputClient* client, m_suspendedOutputClients)
+	{
+		if (priority == client->priority())
+		{
+			m_activeOutputClient = client;
+			m_suspendedOutputClients.removeAll(client);
+			return true;
+		}
+
+	}
+	return activated;
+}
+
+
 void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 {
 	kDebug() << "Output state changed: " << state;
 
+	if (m_activeOutputClient)
+		m_activeOutputClient->outputStateChanged(state);
+
 	if (state == QAudio::StoppedState)
 	{
+		kDebug() << "Error: " << m_output->error();
 		switch (m_output->error())
 		{
 			case QAudio::NoError:

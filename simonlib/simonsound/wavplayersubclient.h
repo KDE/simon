@@ -17,30 +17,49 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "soundconfig.h"
-#include "soundclient.h"
+
+#ifndef SIMON_WAVPLAYERSUBCLIENT_H_272785B973C443B89098D25E583308C1
+#define SIMON_WAVPLAYERSUBCLIENT_H_272785B973C443B89098D25E583308C1
 
 #include <QObject>
-#include <KDebug>
+#include <simonsound/simonsound.h>
+#include "soundoutputclient.h"
 
-/**
- * \brief Constructor
- */
-SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, 
-		SoundClient::SoundClientPriority priority) :
-	m_deviceConfiguration(deviceConfiguration),
-	m_priority(priority)
-{
-}
+class WAV;
+
+class WavPlayerSubClient : public QIODevice, public SoundOutputClient {
+	Q_OBJECT
+	
+private:
+	WAV *wav;
+	qint64 length;
+
+signals:
+	void currentProgress(int);
+	void finished();
+
+protected:
+	qint64 readData(char *toRead, qint64 maxLen);
+	qint64 writeData(const char *toWrite, qint64 len);
+	
+public:
+	WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
+	~WavPlayerSubClient();
+
+	bool play(QString filename);
+
+	QIODevice* getDataProvider() { return this; }
+	bool open (OpenMode mode);
+	void close();
+	void finish();
+		
+public slots:
+	void stop();
+	
 
 
-/**
- * \brief Destructor
- */
-SoundClient::~SoundClient()
-{
-}
+};
 
-
+#endif
 
 

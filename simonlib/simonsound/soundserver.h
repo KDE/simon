@@ -42,9 +42,6 @@ class SIMONSOUND_EXPORT SoundServer : public QObject {
 
 signals:
 	void error(const QString& str);
-	void inputStateChanged(QAudio::State state);
-	void outputStateChanged(QAudio::State state);
-
 
 private:
 	static SoundServer* instance;
@@ -58,7 +55,11 @@ private:
 
 	void suspendPlayback();
 	void resumePlayback();
-	static QList<SimonSound::DeviceConfiguration> getDevices(SimonSound::SoundDeviceUses uses);
+	static QList<SimonSound::DeviceConfiguration> getInputDevices(SimonSound::SoundDeviceUses uses);
+	static QList<SimonSound::DeviceConfiguration> getOutputDevices(SimonSound::SoundDeviceUses uses);
+
+	void applyInputPriorities();
+	void applyOutputPriorities();
 
 private slots:
 	void slotRecordingFinished();
@@ -97,8 +98,10 @@ public:
 	static QString defaultInputDevice();
 	static QString defaultOutputDevice();
 
-	static QList<SimonSound::DeviceConfiguration> getTrainingDevices();
-	static QList<SimonSound::DeviceConfiguration> getRecognitionDevices();
+	static QList<SimonSound::DeviceConfiguration> getTrainingInputDevices();
+	static QList<SimonSound::DeviceConfiguration> getRecognitionInputDevices();
+
+	static QList<SimonSound::DeviceConfiguration> getTrainingOutputDevices();
 
     virtual ~SoundServer();
 

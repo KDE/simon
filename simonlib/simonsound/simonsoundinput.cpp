@@ -125,6 +125,13 @@ void SimonSoundInput::suspend(SoundInputClient* client)
 	m_activeInputClients.remove(client);
 }
 
+void SimonSoundInput::resume(SoundInputClient* client)
+{
+	m_activeInputClients.insert(client, m_suspendedInputClients.value(client));
+	m_suspendedInputClients.remove(client);
+	client->resume();
+}
+
 void SimonSoundInput::registerInputClient(SoundInputClient* client)
 {
 	m_activeInputClients.insert(client, 0);
@@ -138,49 +145,13 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 	if (m_activeInputClients.remove(client) == 0)
 	{
 		//wasn't active anyways
+		/*return */
 		m_suspendedInputClients.remove(client);
-		return true;
-	}
-	if (client->isExclusive())
-	{
-		QHashIterator<SoundInputClient*, qint64> j(m_suspendedInputClients);
-
-		/// if we have one exclusive input in the suspended list move it to the active
-		/// list and ignore the rest
-		///
-		/// @note The order in which the input clients are resumed is undefined
-		///
-		///otherwise move everything back
-		
-		bool hasExclusive = false;
-		while (j.hasNext())
-		{
-			j.next();
-			if (j.key()->isExclusive())
-			{
-				m_activeInputClients.insert(j.key(), j.value());
-				m_suspendedInputClients.remove(j.key());
-				hasExclusive = true;
-				break;
-			}
-		}
-		if (!hasExclusive)
-		{
-			j.toFront();
-			while (j.hasNext())
-			{
-				j.next();
-				j.key()->resume();
-				m_activeInputClients.insert(j.key(), j.value());
-				m_suspendedInputClients.remove(j.key());
-			}
-		}
 	}
 
 	bool success = true;
 
-	//FIXME SYSTEM WIDE RESUME!
-	if (m_activeInputClients.isEmpty()) //don't need to record any longer
+	if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) //don't need to record any longer
 	{
 		//then stop recording
 		kDebug() << "No active clients available... Stopping recording";
@@ -192,9 +163,73 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 	return success;
 }
 
+SoundClient::SoundClientPriority SimonSoundInput::getHighestPriority()
+{
+	SoundClient::SoundClientPriority priority = SoundClient::Background;
+	QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
+	while (j.hasNext())
+	{
+		j.next();
+		priority = qMax(priority, j.key()->priority());
+	}
+	QHashIterator<SoundInputClient*, qint64> i(m_suspendedInputClients);
+	while (i.hasNext())
+	{
+		i.next();
+		priority = qMax(priority, i.key()->priority());
+	}
+	return priority;
+}
+
+bool SimonSoundInput::activate(SoundClient::SoundClientPriority priority)
+{
+	kDebug() << "Activating priority: " << priority;
+	bool activated = false;
+	QHashIterator<SoundInputClient*, qint64> j(m_activeInputClients);
+	while (j.hasNext())
+	{
+		j.next();
+		if (j.key()->priority() == priority)
+		{
+			if (priority == SoundClient::Exclusive)
+			{
+				if (activated)
+					suspend(j.key());
+				else activated = true;
+			}
+		}
+		if (j.key()->priority() < priority)
+		{
+			kDebug() << "Suspending key...";
+			suspend(j.key());
+		}
+	}
+
+	if (activated && priority == SoundClient::Exclusive)
+		return true; // never more than one exclusive client
+
+	QHashIterator<SoundInputClient*, qint64> i(m_suspendedInputClients);
+	while (i.hasNext())
+	{
+		i.next();
+		if (priority == i.key()->priority())
+		{
+			resume(i.key());
+			activated = true;
+			if (i.key()->priority() == SoundClient::Exclusive)
+				return true;
+		}
+
+	}
+	return activated;
+}
+
 void SimonSoundInput::slotInputStateChanged(QAudio::State state)
 {
 	kDebug() << "Input state changed: " << state;
+
+	foreach (SoundInputClient *c, m_activeInputClients.keys())
+		c->inputStateChanged(state);
 
 	if (!m_input) return;
 

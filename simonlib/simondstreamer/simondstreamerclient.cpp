@@ -49,13 +49,11 @@ SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound:
 {
 	this->id = id;
 	registerSoundProcessor(loudness);
-	connect(SoundServer::getInstance(), SIGNAL(inputStateChanged(QAudio::State)), this, SLOT(soundServerStateChanged(QAudio::State)));
 }
 
 
-void SimondStreamerClient::soundServerStateChanged(QAudio::State state)
+void SimondStreamerClient::inputStateChanged(QAudio::State state)
 {
-	//FIXME
 	if (state == QAudio::StoppedState)
 		stop();
 }

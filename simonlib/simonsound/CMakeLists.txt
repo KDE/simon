@@ -26,6 +26,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wavplayersubclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundinput.cpp

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,6 +19,7 @@
 
 
 #include "wavplayerclient.h"
+#include "wavplayersubclient.h"
 #include "soundserver.h"
 #include <simonwav/wav.h>
 #include <KDebug>
@@ -27,39 +28,42 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-WavPlayerClient::WavPlayerClient(QObject* parent) : QIODevice(parent),
-	//FIXME
-	SoundOutputClient(SimonSound::DeviceConfiguration("bla", 1, 16000)),
-	wav(0)
+WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent)
 {
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
+
+	kDebug() << "Found applicable devices: " << devices.count();
+	foreach (SimonSound::DeviceConfiguration dev, devices)
+	{
+		WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent);
+		connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
+		connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));
+		clients << c;
+	}
 }
 
-qint64 WavPlayerClient::readData(char *data, qint64 maxlen)
+void WavPlayerClient::slotCurrentProgress(int progress)
 {
-	qint64 read = wav->read(data, maxlen);
-	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
+	WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
+	if (!c) return;
 
-	return read;
+	Q_ASSERT(!clientsWaitingToFinish.isEmpty());
 
+
+	if (c == clientsWaitingToFinish.at(0))
+		emit currentProgress(progress); //always emit current progress info from first
+						// device in leftover queue
 }
 
-qint64 WavPlayerClient::writeData(const char *data, qint64 len)
+void WavPlayerClient::slotFinished()
 {
-	Q_UNUSED(data);
-	Q_UNUSED(len);
-	return -1;
-}
+	WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
+	if (!c) return;
 
-bool WavPlayerClient::open (OpenMode mode)
-{
-	wav->beginReadSequence();
-	return QIODevice::open(mode);
-}
+	clientsWaitingToFinish.removeAll(c);
 
-void WavPlayerClient::close()
-{
-	wav->endReadSequence();
-	QIODevice::close();
+	if (clientsWaitingToFinish.isEmpty())
+		emit finished();
 }
 
 /**
@@ -68,28 +72,18 @@ void WavPlayerClient::close()
  */
 bool WavPlayerClient::play( QString filename )
 {
-	if (wav)
+	bool succ = false;
+	kDebug() << "Playing: " << filename;
+	foreach (WavPlayerSubClient *client, clients)
 	{
-		delete wav;
-		wav = 0;
+		kDebug() << "Go Client!";
+		if (client->play(filename))
+		{
+			clientsWaitingToFinish << client;
+			succ = true;
+		}
 	}
-
-	wav = new WAV(filename);
-	length = wav->getLength();
-	if (length==0) {
-		delete wav;
-		wav = 0;
-		return false;
-	}
-	open(QIODevice::ReadOnly);
-
-	if (!SoundServer::getInstance()->registerOutputClient(this))
-	{
-		delete wav;
-		wav = 0;
-		return false;
-	}
-	return true;
+	return succ;
 }
 
 
@@ -100,26 +94,13 @@ bool WavPlayerClient::play( QString filename )
  */
 void WavPlayerClient::stop()
 {
-	SoundServer::getInstance()->deRegisterOutputClient(this);
+	foreach (WavPlayerSubClient *client, clients)
+		client->stop();
+	
 }
 
-void WavPlayerClient::finish()
-{
-	close();
-	delete wav;
-	wav = 0;
-	emit finished();
-}
-
-
-/**
- * \brief Destructor
- * \author Peter Grasch
- */
 WavPlayerClient::~WavPlayerClient()
 {
-	if (wav) delete wav;
+	qDeleteAll(clients);
 }
-
-
 

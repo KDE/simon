@@ -24,6 +24,7 @@
 class QAudioInput;
 
 #include <simonsound/simonsound.h>
+#include <simonsound/soundclient.h>
 #include <QHash>
 #include <QObject>
 #include <qaudio.h>
@@ -62,7 +63,13 @@ class SimonSoundInput : public QIODevice
 		bool startRecording(SimonSound::DeviceConfiguration& device);
 		bool stopRecording();
 
+		SoundClient::SoundClientPriority getHighestPriority();
+		bool activate(SoundClient::SoundClientPriority priority);
+
+		bool isActive() { return (m_activeInputClients.count() > 0); }
+
 		void suspend(SoundInputClient*);
+		void resume(SoundInputClient*);
 		void suspendInputClients();
 		void suspendInput();
 		void resumeInput();

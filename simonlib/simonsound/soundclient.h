@@ -23,6 +23,7 @@
 
 #include <QtGlobal>
 #include <simonsound/simonsound.h>
+#include <qaudio.h>
 #include "simonsound_export.h"
 
 class QByteArray;
@@ -30,17 +31,17 @@ class QByteArray;
 class SIMONSOUND_EXPORT SoundClient {
 
 public:
-	enum SoundClientFlags
+	enum SoundClientPriority
 	{
-		None=0,
-		Background=1, // if set this client will be paused whenever any other job starts
+		Background=0, // if set this client will be paused whenever any other job starts
 			      // even if that job is not set to be exclusive (think of the 
 			      // "Background" job to be a process with "Idle" priority)
+		Normal=1,
 		Exclusive=2 // if set this client demands exclusive use of the in/output device
 			    // (all other clients have to be suspended)
 	};
 
-	SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientFlags options=None);
+	SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority priority=Normal);
 	virtual ~SoundClient();
 
 	virtual void resume() {}
@@ -48,7 +49,8 @@ public:
 
 protected:
 	SimonSound::DeviceConfiguration m_deviceConfiguration;
-	SoundClientFlags m_options;
+	SoundClientPriority m_priority;
+
 
 public:
 	SimonSound::DeviceConfiguration deviceConfiguration()
@@ -56,10 +58,19 @@ public:
 
 	void setDeviceConfiguration(SimonSound::DeviceConfiguration dev)
 	{ m_deviceConfiguration = dev; }
+
+	SoundClientPriority priority()
+	{ return m_priority; }
+
 	bool isBackground()
-	{ return m_options & Background; }
+	{ return m_priority & Background; }
+	bool isNormal()
+	{ return m_priority & Normal; }
 	bool isExclusive()
-	{ return m_options & Exclusive; }
+	{ return m_priority & Exclusive; }
+
+	virtual void inputStateChanged(QAudio::State) {}
+	virtual void outputStateChanged(QAudio::State) {}
 };
 
 #endif

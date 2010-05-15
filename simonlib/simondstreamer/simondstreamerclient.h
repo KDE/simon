@@ -61,14 +61,13 @@ private:
 
 	LoudnessMeterSoundProcessor *loudness;
 
+	void inputStateChanged(QAudio::State state);
+
 signals:
 	void clippingOccured();
 	void started();
 	void stopped();
 
-private slots:
-	void soundServerStateChanged(QAudio::State state);
-	
 public:
 	SimondStreamerClient(qint8 id, SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
 	bool stop();

@@ -37,7 +37,6 @@ WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& devi
 	wavData(0),
 	loudness(new LoudnessMeterSoundProcessor())
 {
-	//TODO
 	registerSoundProcessor(loudness);
 }
 

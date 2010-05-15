@@ -24,6 +24,7 @@
 class QAudioOutput;
 
 #include <simonsound/simonsound.h>
+#include <simonsound/soundclient.h>
 #include <QList>
 #include <QIODevice>
 #include <qaudio.h>
@@ -59,6 +60,10 @@ class SimonSoundOutput : public QIODevice
 		bool deRegisterOutputClient(SoundOutputClient* client);
 
 		bool startPlayback(SimonSound::DeviceConfiguration& device);
+		bool isActive() { return m_activeOutputClient != NULL; }
+
+		SoundClient::SoundClientPriority getHighestPriority();
+		bool activate(SoundClient::SoundClientPriority priority);
 
 		void suspendOutput();
 		void resumeOutput();

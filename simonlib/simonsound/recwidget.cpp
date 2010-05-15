@@ -110,7 +110,7 @@ QStringList RecWidget::getFileNames()
 
 void RecWidget::initialize()
 {
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingDevices();
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
 	for (int i=0; i < devices.count(); i++)
 		registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
 
