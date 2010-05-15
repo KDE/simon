@@ -35,6 +35,7 @@ class SimonSoundOutput : public QIODevice
 	Q_OBJECT
 
 	signals:
+		void playbackFinished();
 		void error(const QString& str);
 		void outputStateChanged(QAudio::State state);
 

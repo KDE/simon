@@ -222,7 +222,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 
 		SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
 		connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-		connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(playbackFinished()));
+		connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
 		//then start playback
 		succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
 		if (!succ) {
@@ -247,32 +247,10 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
 	}
 
 	return succ;
-	/*
-	if (currentOutputClient != NULL)
-		suspendedOutputClients.append(currentOutputClient);
-
-	currentOutputClient = client;
-
-	bool succ = true;
-
-
-	if (!outputs.contains(client->deviceConfiguration())) //playback not currently running
-	{
-		//then start playback
-		SimonSound::DeviceConfiguration dev = client->deviceConfiguration();
-		succ = startPlayback(dev);
-		if (! (client->deviceConfiguration() == dev) )
-			client->setDeviceConfiguration(dev); // found something supported that is very close
-	}
-	return succ;
-	*/
-
-	return true;
 }
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
-	//FIXME
 	Q_UNUSED(client);
 
 	kDebug() << "Deregistering output client";
@@ -287,32 +265,6 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 	}
 
 	return success;
-
-
-	/*
-	kDebug() << "Deregister output client";
-	client->finish();
-	if (client != currentOutputClient)
-	{
-		//wasn't active anyways
-		suspendedOutputClients.removeAll(client);
-		return true;
-	}
-
-	
-
-	if (suspendedOutputClients.isEmpty())
-	{
-		currentOutputClient = NULL;
-		kDebug() << "No active clients available... Stopping playback";
-		return stopPlayback();
-	}
-
-	currentOutputClient = suspendedOutputClients.takeAt(0);
-	return true;
-	*/
-
-	return true;
 }
 
 

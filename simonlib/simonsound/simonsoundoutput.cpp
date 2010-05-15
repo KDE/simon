@@ -86,7 +86,10 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 	{
 		m_activeOutputClient= NULL;
 		kDebug() << "No active clients available... Stopping playback";
-		return stopPlayback();
+		bool success = stopPlayback();
+		if (success)
+			emit playbackFinished(); // destroy this sound output
+		return success;
 	}
 
 	m_activeOutputClient = m_suspendedOutputClients.takeAt(0);
@@ -134,7 +137,7 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 
 	m_output = new QAudioOutput(selectedInfo, format, this);
 	connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
-	connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(outputStateChanged(QAudio::State)));
+	connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
 	m_output->start(this);
 
 	kDebug() << "Started audio output";
@@ -199,8 +202,7 @@ bool SimonSoundOutput::stopPlayback()
 	m_output->deleteLater();
 	m_output = NULL;
 
-	//FIXME
-//	reset();
+	reset();
 
 	return true;
 }
