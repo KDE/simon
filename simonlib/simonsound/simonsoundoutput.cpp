@@ -63,6 +63,7 @@ qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 
 void SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 {
+	kDebug() << "Registering output client";
 	if (m_activeOutputClient != NULL)
 		m_suspendedOutputClients.insert(0,m_activeOutputClient);
 
@@ -83,10 +84,10 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 	if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty())
 	{
 		kDebug() << "No active clients available... Stopping playback";
-		bool success = stopPlayback();
-		if (success)
-			emit playbackFinished(); // destroy this sound output
-		return success;
+		//bool success = stopPlayback();
+		//if (success)
+	//		emit playbackFinished(); // destroy this sound output
+	//	return success;
 	}
 
 	return true;
@@ -95,6 +96,7 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 {
 	kDebug() << "Starting playback...";
+	kDebug() << "Using device: " << device.name();
 
 	QAudioFormat format;
 	format.setFrequency(device.sampleRate());
@@ -205,7 +207,12 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 				break;
 
 			case QAudio::IOError:
-				emit error(i18n("An error occured while writing data to the audio device."));
+				if (!m_activeOutputClient)
+				{
+					if  (m_suspendedOutputClients.isEmpty())
+						stopPlayback();
+				} else
+					emit error(i18n("An error occured while writing data to the audio device."));
 				break;
 
 			case QAudio::UnderrunError:
@@ -221,7 +228,8 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 
 SimonSoundOutput::~SimonSoundOutput()
 {
-	m_output->deleteLater();
+	kDebug() << "Deleting simon sound output";
+	delete m_output;
 }
 
 void SimonSoundOutput::suspendOutput()
@@ -241,13 +249,19 @@ bool SimonSoundOutput::stopPlayback()
 	kDebug() << "Stop playback...";
 	if (!m_output) return true;
 
+	kDebug() << "Calling stop";
 	m_output->stop();
+	kDebug() << "Calling reset";
+	m_output->reset();
+	kDebug() << "Disconnecting signals";
 	m_output->disconnect(this);
-	m_output->deleteLater();
+	kDebug() << "Deleting output";
+	delete m_output;
 	m_output = NULL;
 
 	reset();
 
+	emit playbackFinished(); 
 	return true;
 }
 
