@@ -183,16 +183,20 @@ void WavFileWidget::record()
  */
 void WavFileWidget::finishPlayback()
 {
+	adjustToFinishedPlayback();
+	displayPlaybackProgress(recordingProgress);
+
+	isPlaying = false;
+	emit playbackFinished();
+}
+
+void WavFileWidget::adjustToFinishedPlayback()
+{
 	disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 	ui->pbPlay->setChecked(false);
 	connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 	
 	ui->pbDelete->setEnabled(true);
-
-	displayPlaybackProgress(recordingProgress);
-
-	isPlaying = false;
-	emit playbackFinished();
 }
 
 /**
@@ -245,6 +249,7 @@ void WavFileWidget::stopPlayback()
 {
 	if (!isPlaying) return;
 
+	kDebug() << "Stopping playback playback";
 	play->stop();
 	isPlaying = false;
 }
@@ -255,8 +260,10 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
+	kDebug() << "Starting playback";
 	if (play->play(m_filename))
 	{	
+		kDebug() << "Started playback";
 		ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
 		disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 		connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));

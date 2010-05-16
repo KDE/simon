@@ -21,6 +21,7 @@
 #include "simonsoundoutput.h"
 
 #include <simonsound/soundoutputclient.h>
+#include <simonsound/soundserver.h>
 #include <QAudioOutput>
 #include <KLocalizedString>
 #include <KDebug>
@@ -41,13 +42,16 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 	if (!m_activeOutputClient)
 	{
 		kDebug() << "No current output client";
-		return -1;
+		if (m_suspendedOutputClients.isEmpty())
+			return -1;
+		else
+			return 0;
 	}
 
 	qint64 read = m_activeOutputClient->getDataProvider()->read(toRead, maxLen);
 
 	if (read <= 0)
-		deRegisterOutputClient(m_activeOutputClient);
+		SoundServer::getInstance()->deRegisterOutputClient(m_activeOutputClient);
 
 	return read;
 	return 0;
@@ -76,8 +80,17 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 	if (client != m_activeOutputClient)
 		//wasn't active anyways
 		m_suspendedOutputClients.removeAll(client);
-	else
-		m_activeOutputClient = NULL;
+	else {
+//		if (!m_suspendedOutputClients.isEmpty())
+			//this might not be the correct choice but it will be fixed
+			//by the priority logic immediatly afterwards
+			//
+			//but if we don't fill the output client for this time we might
+			//end up closing the device too soon
+//			m_activeOutputClient = m_suspendedOutputClients.takeAt(0);
+//		else 
+			m_activeOutputClient = NULL;
+	}
 
 	client->finish();
 
@@ -169,7 +182,7 @@ bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 	kDebug() << "Activating priority: " << priority;
 
 	if (m_activeOutputClient && 
-			(m_activeOutputClient->priority() == SoundClient::Exclusive))
+			(m_activeOutputClient->priority() == priority))
 		return true;
 
 	bool activated = false;
