@@ -38,7 +38,11 @@ signals:
 	void stopped();
 
 private:
+	SimonSender *m_sender;
 	QList<SimondStreamerClient*> clients;
+
+private slots:
+	void initializeDevices();
 
 public:
 	SimondStreamer(SimonSender *sender, QObject *parent=0);

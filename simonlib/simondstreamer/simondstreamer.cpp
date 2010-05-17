@@ -31,21 +31,37 @@
  * \brief Constructor
  */
 SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
-	QObject(parent)
+	QObject(parent),
+	m_sender(s)
 {
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
+	initializeDevices();
+	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
+}
 
+void SimondStreamer::initializeDevices()
+{
+	bool wasRunning = isRunning();
+
+	foreach (SimondStreamerClient *c, clients)
+		c->stop();
+	qDeleteAll(clients);
+	clients.clear();
+
+	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
 	qint8 i=0;
 	foreach (SimonSound::DeviceConfiguration dev, devices)
 	{
-		SimondStreamerClient *streamer = new SimondStreamerClient(i++, s, dev, this);
+		SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);
 
 		connect(streamer, SIGNAL(started()), this, SIGNAL(started()));
 		connect(streamer, SIGNAL(stopped()), this, SIGNAL(stopped()));
+
+		if (wasRunning)
+			streamer->start();
+
 		clients << streamer;
 	}
 }
-
 
 bool SimondStreamer::isRunning()
 {

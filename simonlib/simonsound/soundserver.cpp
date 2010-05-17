@@ -361,14 +361,7 @@ bool SoundServer::reinitializeDevices()
 	kDebug() << "Reinitialize devices...";
 	bool succ = true;
 
-	//TODO
-	
-	//succ = stopPlayback() && succ;
-	//succ = startPlayback() && succ;
-
-	//succ = stopRecording() && succ;
-	//succ = startRecording() && succ;
-
+	emit devicesChanged();
 	return succ;
 }
 

@@ -31,17 +31,23 @@
 
 
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels, 
-			int sampleRate, SimonSound::SoundDeviceUses uses, SimonSound::SoundDeviceOptions options, QWidget* parent):
+			int sampleRate, SimonSound::SoundDeviceUses selectedUses, SimonSound::SoundDeviceUses availableUses, 
+			SimonSound::SoundDeviceOptions options, QWidget* parent):
 		QWidget(parent),
 	enabled(true),
 	m_type(type),
 	m_deviceName(deviceName),
-	m_uses(uses),
+	m_uses(selectedUses),
 	m_options(options)
 {
 	ui = new Ui::SingleDeviceConfiguration();
 
 	ui->setupUi(this);
+
+	if (!(availableUses & SimonSound::Training))
+		ui->cbTraining->hide();
+	if (!(availableUses & SimonSound::Recognition))
+		ui->cbRecognition->hide();
 
 	ui->sbChannels->setValue(channels);
 	ui->sbSampleRate->setValue(sampleRate);

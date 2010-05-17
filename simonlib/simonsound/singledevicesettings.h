@@ -59,7 +59,8 @@ public slots:
 
 public:
 	SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels, 
-			int sampleRate, SimonSound::SoundDeviceUses uses, 
+			int sampleRate, SimonSound::SoundDeviceUses selectedUses, 
+			SimonSound::SoundDeviceUses availableUses,
 			SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
 			QWidget* parent=NULL);
 

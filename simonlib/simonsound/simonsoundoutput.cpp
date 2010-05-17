@@ -23,8 +23,13 @@
 #include <simonsound/soundoutputclient.h>
 #include <simonsound/soundserver.h>
 #include <QAudioOutput>
+#include <QTimer>
+#include <QMutexLocker>
 #include <KLocalizedString>
 #include <KDebug>
+
+QMutex SimonSoundOutput::playbackMutex(QMutex::Recursive);
+
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
 	m_output(NULL),
@@ -36,6 +41,9 @@ SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
 
 qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
+	QMutexLocker lock(&playbackMutex);
+
+	kDebug() << "readData()";
 	Q_UNUSED(toRead);
 	Q_UNUSED(maxLen);
 	
@@ -81,27 +89,10 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 		//wasn't active anyways
 		m_suspendedOutputClients.removeAll(client);
 	else {
-//		if (!m_suspendedOutputClients.isEmpty())
-			//this might not be the correct choice but it will be fixed
-			//by the priority logic immediatly afterwards
-			//
-			//but if we don't fill the output client for this time we might
-			//end up closing the device too soon
-//			m_activeOutputClient = m_suspendedOutputClients.takeAt(0);
-//		else 
 			m_activeOutputClient = NULL;
 	}
 
 	client->finish();
-
-	if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty())
-	{
-		kDebug() << "No active clients available... Stopping playback";
-		//bool success = stopPlayback();
-		//if (success)
-	//		emit playbackFinished(); // destroy this sound output
-	//	return success;
-	}
 
 	return true;
 }
@@ -223,7 +214,7 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 				if (!m_activeOutputClient)
 				{
 					if  (m_suspendedOutputClients.isEmpty())
-						stopPlayback();
+						QTimer::singleShot(5, this, SLOT(stopPlayback()));
 				} else
 					emit error(i18n("An error occured while writing data to the audio device."));
 				break;
@@ -233,7 +224,8 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 				break;
 
 			case QAudio::FatalError:
-				emit error(i18n("A fatal error occured during playback."));
+				emit error(i18n("A fatal error occured during playback.\n\nThe system will try to automatically recover."));
+				m_output->start(this);
 				break;
 		}
 	}
@@ -259,16 +251,13 @@ void SimonSoundOutput::resumeOutput()
 
 bool SimonSoundOutput::stopPlayback()
 {
+	QMutexLocker lock(&playbackMutex);
 	kDebug() << "Stop playback...";
 	if (!m_output) return true;
 
-	kDebug() << "Calling stop";
-	m_output->stop();
-	kDebug() << "Calling reset";
 	m_output->reset();
-	kDebug() << "Disconnecting signals";
+	m_output->stop();
 	m_output->disconnect(this);
-	kDebug() << "Deleting output";
 	delete m_output;
 	m_output = NULL;
 

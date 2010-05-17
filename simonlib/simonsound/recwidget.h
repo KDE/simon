@@ -63,12 +63,13 @@ private:
 
 	void setupSignalsSlots();
 
-	void initialize();
 	void registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix);
 
 	void adjustButtonsToFile();
 
 private slots:
+	void initialize();
+
 	void changePromptFont(const QFont& font);
 	void displayError(const QString& error);
 

@@ -94,6 +94,7 @@ void DeviceSettings::addInputDevice()
 	registerInputDevice(new SingleDeviceSettings(SimonSound::Input, 
 				SoundServer::defaultInputDevice(), 1, 16000,
 				SimonSound::Training,
+				(SimonSound::SoundDeviceUses) (SimonSound::Training|SimonSound::Recognition),
 				SimonSound::Removable, this));
 	emit changed(true);
 }
@@ -102,6 +103,7 @@ void DeviceSettings::addOutputDevice()
 {
 	registerOutputDevice(new SingleDeviceSettings(SimonSound::Output, 
 				SoundServer::defaultOutputDevice(), 1, 16000,
+				SimonSound::Training,
 				SimonSound::Training,
 				SimonSound::Removable, this));
 	emit changed(true);
@@ -198,6 +200,7 @@ void DeviceSettings::load()
 		registerInputDevice(new SingleDeviceSettings(SimonSound::Input, soundInputDevices[i],
 					soundInputChannels[i], soundInputSampleRates[i],
 					(SimonSound::SoundDeviceUses) soundInputUses[i],
+					(SimonSound::SoundDeviceUses) (SimonSound::Training|SimonSound::Recognition),
 					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
 					this));
 	}
@@ -207,6 +210,7 @@ void DeviceSettings::load()
 		registerOutputDevice(new SingleDeviceSettings(SimonSound::Output, soundOutputDevices[i],
 					soundOutputChannels[i], soundOutputSampleRates[i],
 					(SimonSound::SoundDeviceUses) soundOutputUses[i],
+					SimonSound::Training,
 					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
 					this));
 	}

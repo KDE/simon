@@ -193,13 +193,6 @@ bool SimondStreamerClient::stop()
 }
 
 
-/**
- * \brief Destructor
- */
-SimondStreamerClient::~SimondStreamerClient()
-{
-}
-
 
 
 

@@ -27,6 +27,7 @@ class QAudioOutput;
 #include <simonsound/soundclient.h>
 #include <QList>
 #include <QIODevice>
+#include <QMutex>
 #include <qaudio.h>
 
 class SoundOutputClient;
@@ -41,6 +42,8 @@ class SimonSoundOutput : public QIODevice
 		void outputStateChanged(QAudio::State state);
 
 	private:
+		static QMutex playbackMutex;
+
 		QAudioOutput *m_output;
 		SoundOutputClient* m_activeOutputClient;
 		QList<SoundOutputClient*> m_suspendedOutputClients;
@@ -51,6 +54,7 @@ class SimonSoundOutput : public QIODevice
 
 	private slots:
 		void slotOutputStateChanged(QAudio::State state);
+		bool stopPlayback();
 
 	public:
 		SimonSoundOutput(QObject *parent=NULL);
@@ -68,7 +72,6 @@ class SimonSoundOutput : public QIODevice
 		void suspendOutput();
 		void resumeOutput();
 
-		bool stopPlayback();
 };
 
 #endif

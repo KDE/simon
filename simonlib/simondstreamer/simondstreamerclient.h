@@ -75,9 +75,6 @@ public:
 	bool isRunning();
 
 	void processPrivate(const QByteArray& data, qint64 currentTime);
-    
-	virtual ~SimondStreamerClient();
-
 };
 
 #endif

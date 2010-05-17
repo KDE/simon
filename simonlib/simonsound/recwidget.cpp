@@ -70,6 +70,7 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, QWidget *
 
 	setupSignalsSlots();
 	initialize();
+	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 }
 
 
@@ -110,6 +111,10 @@ QStringList RecWidget::getFileNames()
 
 void RecWidget::initialize()
 {
+	foreach (WavFileWidget *wg, waves)
+		wg->deleteLater();
+	waves.clear();
+
 	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
 	for (int i=0; i < devices.count(); i++)
 		registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));

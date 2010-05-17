@@ -43,6 +43,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject {
 signals:
 	void error(const QString& str);
 
+	void devicesChanged();
+
 private:
 	static SoundServer* instance;
 
@@ -60,6 +62,8 @@ private:
 
 	void applyInputPriorities();
 	void applyOutputPriorities();
+
+	void initializeDevices();
 
 private slots:
 	void slotRecordingFinished();

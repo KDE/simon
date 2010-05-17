@@ -22,7 +22,6 @@
 
 #include <QString>
 
-
 namespace SimonSound
 {
 	enum SoundDeviceUses {
@@ -79,8 +78,11 @@ namespace SimonSound
 	};
 }
 
+//forward declaration needed for QHash include (cascading down to first use of a
+// Deviceconfiguration-based QHash)
 inline uint qHash(const SimonSound::DeviceConfiguration& dev);
 #include <QHash>
+
 inline uint qHash(const SimonSound::DeviceConfiguration& dev)
 {
 	return qHash(QString("%1||%2||%3").arg(dev.name(), dev.channels(), dev.sampleRate()));
