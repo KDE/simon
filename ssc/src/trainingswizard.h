@@ -20,12 +20,12 @@
 #ifndef SIMON_TRAININGSWIZARD_H_6F6A97AD216E4EABBBE96AC5142A709B
 #define SIMON_TRAININGSWIZARD_H_6F6A97AD216E4EABBBE96AC5142A709B
 
-#include <QWizard>
+#include <simonuicomponents/simonwizard.h>
 
 class QWizard;
 class QStringList;
 
-class TrainingsWizard : public QWizard
+class TrainingsWizard : public SimonWizard
 {
 	Q_OBJECT
 

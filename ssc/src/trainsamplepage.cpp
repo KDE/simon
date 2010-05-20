@@ -49,11 +49,11 @@ TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, cons
 	desc->setWordWrap(true);
 	recorder = new RecWidget("", prompt, 
 				  SSCConfig::sampleDirectory()+
-					fileName+".wav", this);
+					fileName, false, this);
 	lay->addWidget(desc);
 	lay->addWidget(recorder);
 
-	
+	connect(recorder, SIGNAL(recording()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 }
@@ -67,12 +67,27 @@ void TrainSamplePage::initializePage()
 	}
 }
 
+
 bool TrainSamplePage::validatePage()
 {
 	recorder->stopRecording();
 	recorder->stopPlayback();
 
 	return true;
+}
+
+QStringList TrainSamplePage::getFileNames()
+{
+	QStringList fileNames = recorder->getFileNames();
+	for (int i=0; i < fileNames.count(); i++)
+	{
+		QString fileName = fileNames[i];
+		fileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
+		fileName = fileName.left(fileName.lastIndexOf("."));
+		fileNames.replace(i, fileName);
+	}
+		
+	return  fileNames;
 }
 
 bool TrainSamplePage::submit()
@@ -100,7 +115,7 @@ bool TrainSamplePage::cleanUp()
 	{
 		succ = recorder->deleteAll();
 		if (!succ)
-			KMessageBox::error(this, i18n("Couldn't remove sample \"%1\".", getFileName()));
+			KMessageBox::error(this, i18n("Couldn't remove samples \"%1\".", getFileNames().join("\", \"")));
 	}
 	
 	return succ;

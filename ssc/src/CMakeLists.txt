@@ -36,7 +36,8 @@ kde4_add_app_icon(ssc_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-ssc.png")
 kde4_add_executable(ssc ${ssc_SRCS})
 
-target_link_libraries(ssc ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} simonprogresstracking sscobjects simonsound)
+target_link_libraries(ssc ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
+	${KDE4_KUTILS_LIBS} simonuicomponents simonprogresstracking sscobjects simonsound)
 
 install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ssc)
 

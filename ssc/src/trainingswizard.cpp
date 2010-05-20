@@ -39,17 +39,13 @@
 
 #include <math.h>
 
-TrainingsWizard::TrainingsWizard(QWidget *parent) : QWizard(parent)
+TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
-//	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/training.png")));
+	setBanner("training");
 	addPage(createIntroPage());
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-/*bool TrainingsWizard::init(const TrainingText &text)
-{
-	return init(text.getPages(), text.getName());
-}*/
 
 bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name)
 {
@@ -63,7 +59,7 @@ bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList&
 	foreach (QString prompt, prompts)
 	{
 		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, name, this);
-		files << page->getFileName();
+		files << page->getFileNames();
 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
 	}
@@ -168,10 +164,6 @@ void TrainingsWizard::submit()
 		
 		page->submit();
 	}
-/*	if (!TrainingManager::getInstance()->savePrompts())
-	{
-		KMessageBox::error(this, i18n("Couldn't save changes to the trainings corpus.\n\nPlease restart simon."));
-	}*/
 }
 
 bool TrainingsWizard::cleanUp()
