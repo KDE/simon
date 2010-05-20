@@ -53,7 +53,7 @@ TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, cons
 				  //not needed because getTrainingDir() ensures that
 				  //the path already ends with a separator
 //				  +QDir::separator()+
-					fileName, this);
+					fileName, false, this);
 	lay->addWidget(desc);
 	lay->addWidget(recorder);
 

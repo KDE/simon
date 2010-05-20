@@ -54,6 +54,7 @@ signals:
 
 private:
 	Ui::RecWidgetUi *ui;
+	bool m_simpleMode;
 
 	QList<WavFileWidget*> waves;
 
@@ -86,7 +87,7 @@ public slots:
 	void slotEnableDeleteAll();
 	
 public:
-    RecWidget(QString name, QString text, QString fileTemplate, QWidget *parent=0);
+    RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, QWidget *parent=0);
     bool hasRecordingReady();
     bool isRecording();
     QStringList getFileNames();

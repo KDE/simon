@@ -42,22 +42,27 @@
 #include <QFont>
 #include <KLocale>
 #include <QPlainTextEdit>
+#include <QInputDialog>
 
 #include "ui_recwidget.h"
 
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param QString name
+ * @param name
  * The name that is displayed in the title of the groupbox
- * @param QString fileTemplate
+ * @param fileTemplate
  * The fileTemplate to record to; 
  * We will ressamble the file (existing or not) when we create the play/pause/delete handles
- * @param QWidget *parent
+ * @param forceSimpleMode
+ * If true, the recWidget will treat the fileTemplate as fileName and only record with a single device
+ * no matter how many are configured
+ * @param *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString fileTemplate, QWidget *parent) : QWidget(parent),
-	ui(new Ui::RecWidgetUi())
+RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent) : QWidget(parent),
+	ui(new Ui::RecWidgetUi()),
+	m_simpleMode(forceSimpleMode)
 {	
 	this->fileTemplate = fileTemplate;
 
@@ -76,6 +81,7 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, QWidget *
 
 void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix)
 {
+	kDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
 	WavFileWidget *wg = new WavFileWidget(id, channels, sampleRate, fileTemplate+filenameSuffix+".wav", this);
 
 	QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(ui->gbContainer->layout());
@@ -109,6 +115,7 @@ QStringList RecWidget::getFileNames()
 	return fileNames;
 }
 
+
 void RecWidget::initialize()
 {
 	foreach (WavFileWidget *wg, waves)
@@ -116,9 +123,24 @@ void RecWidget::initialize()
 	waves.clear();
 
 	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
-	for (int i=0; i < devices.count(); i++)
-		registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
-
+	if (m_simpleMode)
+	{
+		//which device?
+		QStringList deviceNames;
+		foreach (const SimonSound::DeviceConfiguration& dev, devices)
+			deviceNames << i18nc("Sound device selection; First parameter is device name",
+					"%1 (%2 channels, %3 Hz)", dev.name(), dev.channels(), dev.sampleRate());
+		
+		QString selected = QInputDialog::getItem(this, i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
+		if (!selected.isEmpty())
+		{
+			SimonSound::DeviceConfiguration selectedDevice = devices.takeAt(deviceNames.indexOf(selected));
+			registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
+		}
+	} else {
+		for (int i=0; i < devices.count(); i++)
+			registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
+	}
 	adjustButtonsToFile();
 }
 

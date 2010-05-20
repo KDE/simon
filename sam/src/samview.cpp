@@ -797,7 +797,7 @@ void SamView::slotEditSelectedSample()
 
 	KDialog *d = new KDialog(0);
 	RecWidget *rec = new RecWidget(i18n("Modify sample"), 
-			t->getPrompt(), tempFileName, d);
+			t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf(".")), true, d);
 	d->setMainWidget(rec);
 	if (d->exec()) {
 		if (!QFile::exists(tempFileName)) {
