@@ -50,6 +50,15 @@
       <default code="true">KStandardDirs::locateLocal("appdata", "samples/")</default>
     </entry>
 
+    <entry name="DeviceNameKeys" type="StringList">
+      <label>device names as reported by QtMultimedia.</label>
+    </entry>
+    <entry name="DeviceNameValues" type="StringList">
+      <label>device names set by the user.</label>
+    </entry>
+    <entry name="DeviceNameTypes" type="StringList">
+      <label>device types set by the user.</label>
+    </entry>
   </group>
 
   

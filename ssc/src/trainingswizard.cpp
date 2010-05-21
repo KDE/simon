@@ -18,6 +18,7 @@
  */
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
+#include "deviceinformationpage.h"
 #include "sendsamplespage.h"
 #include "trainsampleintropage.h"
 #include "sscconfig.h"
@@ -43,9 +44,14 @@ TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	setBanner("training");
 	addPage(createIntroPage());
+	addPage(createDeviceDescPage());
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
+QWizardPage* TrainingsWizard::createDeviceDescPage()
+{
+	return new DeviceInformationPage(this);
+}
 
 bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name)
 {

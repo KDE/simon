@@ -47,6 +47,7 @@ class TrainingsWizard : public SimonWizard
 
 	private:
 		QWizardPage* createIntroPage();
+		QWizardPage* createDeviceDescPage();
 		QWizardPage* createFinishedPage();
 		bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
 

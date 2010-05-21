@@ -20,11 +20,14 @@ set(ssc_SRCS
    sendsamplespage.cpp
    trainsampleintropage.cpp
    sscdaccess.cpp
+   deviceinformationwidget.cpp
+   deviceinformationpage.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/details.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/finduser.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/deviceinformation.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/institution.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/modifyuserininstitution.ui
