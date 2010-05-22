@@ -254,6 +254,92 @@ QSqlQuery SSCQueries::getLanguages()
 }
 
 /*
+ * Returns all available microphones
+ *
+ * Microphone::MicrophoneId
+ * Microphone::Model
+ * Microphone::Type
+ */
+QSqlQuery SSCQueries::getMicrophones()
+{
+	QSqlQuery q("SELECT MicrophoneId, Model, Type from Microphone");
+	return q;
+}
+
+
+/*
+ * Returns all available soundcards
+ *
+ * SoundCard::SoundCardId
+ * SoundCard::Model
+ * SoundCard::Type
+ */
+QSqlQuery SSCQueries::getSoundCards()
+{
+	QSqlQuery q;
+	q.prepare("SELECT SoundCardId, Model, Type from SoundCard");
+	return q;
+}
+
+
+/*
+ * Finds a microphone in the database
+ *
+ * The query contains 2 placeholders: 
+ * 	:model (maps to SoundCard::Model)
+ * 	:type (maps to SoundCard::Type)
+ */
+QSqlQuery SSCQueries::getSoundCard()
+{
+	QSqlQuery q;
+	q.prepare("SELECT SoundCardId, Model, Type from SoundCard WHERE Model = :model and Type = :type;");
+	return q;
+}
+
+/*
+ * Finds a sound card in the database
+ *
+ * The query contains 2 placeholders: 
+ * 	:model (maps to Microphone::Model)
+ * 	:type (maps to Microphone::Type)
+ */
+QSqlQuery SSCQueries::getMicrophone()
+{
+	QSqlQuery q;
+	q.prepare("SELECT MicrophoneId, Model, Type from Microphone WHERE Model = :model and Type = :type;");
+	return q;
+}
+
+/*
+ * Creates a new microphone
+ *
+ * The query contains 2 placeholders: 
+ * 	:model (maps to Microphone::Model)
+ * 	:type (maps to Microphone::Type)
+ */
+QSqlQuery SSCQueries::createMicrophone()
+{
+	QSqlQuery q;
+	q.prepare("INSERT INTO Microphone (Model, Type) VALUES (:model, :type)");
+	return q;
+}
+
+/*
+ * Creates a new sound card in the database
+ *
+ * The query contains 2 placeholders: 
+ * 	:model (maps to SoundCard::Model)
+ * 	:type (maps to SoundCard::Type)
+ */
+QSqlQuery SSCQueries::createSoundCard()
+{
+	QSqlQuery q;
+	q.prepare("INSERT INTO SoundCard (Model, Type) VALUES (:model, :type)");
+	return q;
+}
+
+
+/*
  * Returns all available institutions
  *
  * Institution::InstitutionId
@@ -261,7 +347,8 @@ QSqlQuery SSCQueries::getLanguages()
  */
 QSqlQuery SSCQueries::getInstitutions()
 {
-	QSqlQuery q("SELECT InstitutionId, Name from Institution");
+	QSqlQuery q;
+	q.prepare("SELECT InstitutionId, Name from Institution");
 	return q;
 }
 
@@ -276,7 +363,8 @@ QSqlQuery SSCQueries::getInstitutions()
  */
 QSqlQuery SSCQueries::getInstitution()
 {
-	QSqlQuery q("SELECT InstitutionId, Name from Institution WHERE Institution = :institutionid");
+	QSqlQuery q;
+	q.prepare("SELECT InstitutionId, Name from Institution WHERE Institution = :institutionid");
 	return q;
 }
 
@@ -378,13 +466,16 @@ QSqlQuery SSCQueries::deleteUserInstitutionAssociation()
  * 	:sampleid (maps to Sample::SampleId)
  * 	:userid (maps to Sample::UserId)
  * 	:typeid (maps to Sample::TypeId)
+ * 	:microphoneid (maps to Sample::MicrophoneId)
+ * 	:soundcardid (maps to Sample::SoundCardId)
  * 	:prompt (maps to Sample::Prompt)
  * 	:path (maps to Sample::Path)
  */
 QSqlQuery SSCQueries::addSample()
 {
 	QSqlQuery q;
-	q.prepare("INSERT INTO Sample (SampleId, UserId, TypeId, Prompt, Path) VALUES (:sampleid, :userid, :typeid, "
+	q.prepare("INSERT INTO Sample (SampleId, UserId, TypeId, MicrophoneId, SoundCardId, Prompt, Path) "
+			"VALUES (:sampleid, :userid, :typeid, :microphoneid, :soundcardid, "
 		  	":prompt, :path);");
 	return q;
 }

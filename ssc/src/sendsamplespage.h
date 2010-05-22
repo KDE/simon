@@ -28,8 +28,10 @@
 #include <QTimer>
 
 class Operation;
+class SampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
+class Sample;
 
 class SendSampleWorker : public QObject
 {
@@ -40,27 +42,22 @@ class SendSampleWorker : public QObject
 		void error(QString);
 		void aborted();
 		void finished();
-		void sendSample(qint32 userId, qint32 sampleType, const QString& currentPrompt, const QByteArray& data);
+		void sendSample(Sample *s);
 
 	private:
 		bool shouldAbort;
-		qint32 m_userId;
-		QStringList m_files;
-		QStringList m_prompts;
-		TrainingsWizard::TrainingsType m_sampleType;
+		SampleDataProvider *m_dataProvider;
 
 	private slots:
 		void abort() { shouldAbort = true; }
 
 	public:
-		SendSampleWorker(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QStringList& files, const QStringList& prompts, QObject *parent) : QObject(parent),
-			shouldAbort(false),
-			m_userId(userId),
-			m_files(files),
-			m_prompts(prompts),
-			m_sampleType(sampleType)
+		SendSampleWorker(SampleDataProvider *dataProvider) : 
+			shouldAbort(false), 
+			m_dataProvider(dataProvider)
 		{}
-		
+		~SendSampleWorker();
+
 		bool sendSamples();
 };
 
@@ -86,11 +83,13 @@ class SendSamplePage : public QWizardPage
 	private slots:
 		void displayStatus(QString message, int now, int max);
 		void displayError(QString error);
-		void sendSample(qint32 userId, qint32 sampleType, const QString& currentPrompt, const QByteArray& data);
+		void sendSample(Sample *s);
 		void updateStatusDisplay();
+		void transmissionFinished();
 	
 	public:
-		SendSamplePage(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QStringList& files, const QStringList& prompts, QWidget *parent=0);
+		SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent=0);
+		//SendSamplePage(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QStringList& files, const QStringList& prompts, QWidget *parent=0);
 		~SendSamplePage();
 		bool isComplete() const;
 

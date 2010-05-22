@@ -24,6 +24,7 @@
 
 class QWizard;
 class QStringList;
+class DeviceInformationPage;
 
 class TrainingsWizard : public SimonWizard
 {
@@ -46,8 +47,10 @@ class TrainingsWizard : public SimonWizard
 		int collectSamples(TrainingsType type, qint32 userId);
 
 	private:
+		DeviceInformationPage *m_infoPage;
+
 		QWizardPage* createIntroPage();
-		QWizardPage* createDeviceDescPage();
+		DeviceInformationPage* createDeviceDescPage();
 		QWizardPage* createFinishedPage();
 		bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
 

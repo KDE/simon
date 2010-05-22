@@ -223,3 +223,8 @@ void SingleDeviceSettings::slotChanged()
 	emit changed(true);
 }
 
+SingleDeviceSettings::~SingleDeviceSettings()
+{
+	delete ui;
+}
+

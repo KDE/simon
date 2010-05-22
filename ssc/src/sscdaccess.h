@@ -33,7 +33,10 @@ class Operation;
 class SSCObject;
 
 class User;
+class Sample;
 class Institution;
+class Microphone;
+class SoundCard;
 class UserInInstitution;
 
 const qint8 protocolVersion=1;
@@ -76,12 +79,18 @@ public:
 
 	User *getUser(qint32 id);
 	QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
-	int addUser(User* u);
+	qint32 addUser(User* u);
 	bool modifyUser(User* u);
 
 	bool deleteUser(User* u);
 
 	QList<Language*> getLanguages(bool *ok);
+
+	QList<Microphone*> getMicrophones(bool *ok);
+	qint16 getOrCreateMicrophone(Microphone *microphone, bool* ok);
+
+	QList<SoundCard*> getSoundCards(bool *ok);
+	qint16 getOrCreateSoundCard(SoundCard *soundCard, bool* ok);
 
 	QList<Institution*> getInstitutions(bool *ok);
 	bool addInstitution(Institution* i);
@@ -94,7 +103,7 @@ public:
 	QList<UserInInstitution*> getUserInInstitutions(qint32 userId, bool *ok);
 
 
-	bool sendSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data);
+	bool sendSample(Sample *s);
 	bool processSampleAnswer();
 
 public slots:

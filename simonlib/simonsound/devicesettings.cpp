@@ -279,4 +279,9 @@ void DeviceSettings::slotChanged()
 	emit changed(true);
 }
 
+DeviceSettings::~DeviceSettings()
+{
+	delete ui;
+}
+
 

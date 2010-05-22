@@ -212,6 +212,7 @@ bool WAV::writeFile(QString filename)
 	//dstream->writeRawData(wavData.buffer().data(), this->length);
 	//wavData.close();
 	
+	delete dstream;
 	wavFile.close();
 	return true;
 }

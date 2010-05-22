@@ -23,13 +23,13 @@
 #include <simonprogresstracking/operation.h>
 #include <sscprotocol/sscprotocol.h>
 #include <sscobjects/institution.h>
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
 #include <sscobjects/userininstitution.h>
 #include <sscobjects/user.h>
+#include <sscobjects/sample.h>
 
 #include <unistd.h>
-
-#ifdef Q_OS_WIN32
-#endif
 
 #include <QByteArray>
 #include <QSslSocket>
@@ -369,7 +369,7 @@ QList<User*> SSCDAccess::getUsers(User *filterUser, qint32 institutionId, const 
 
 }
 
-int SSCDAccess::addUser(User* u)
+qint32 SSCDAccess::addUser(User* u)
 {
 	sendObject(SSC::AddUser, u);
 
@@ -424,6 +424,164 @@ bool SSCDAccess::modifyUser(User* u)
 	return false;
 }
 
+
+QList<Microphone*> SSCDAccess::getMicrophones(bool *ok)
+{
+	sendRequest(SSC::GetMicrophones);
+
+	QList<Microphone*> microphones;
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::Microphones: {
+			parseLengthHeader();
+
+			qint32 elementCount;
+			stream >> elementCount;
+			for (int i=0; i < elementCount; i++) {
+				QByteArray microphoneByte;
+				stream >> microphoneByte;
+				Microphone *l = new Microphone();
+				l->deserialize(microphoneByte);
+				microphones << l;
+			}
+		        *ok = true;
+			break;
+			      }
+
+		case SSC::MicrophoneRetrievalFailed: {
+			lastErrorString = i18n("Microphones could not be read");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return microphones;
+}
+
+QList<SoundCard*> SSCDAccess::getSoundCards(bool *ok)
+{
+	sendRequest(SSC::GetSoundCards);
+
+	QList<SoundCard*> soundCards;
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::SoundCards: {
+			parseLengthHeader();
+
+			qint32 elementCount;
+			stream >> elementCount;
+			for (int i=0; i < elementCount; i++) {
+				QByteArray soundCardByte;
+				stream >> soundCardByte;
+				SoundCard *l = new SoundCard();
+				l->deserialize(soundCardByte);
+				soundCards << l;
+			}
+		        *ok = true;
+			break;
+			      }
+
+		case SSC::SoundCardRetrievalFailed: {
+			lastErrorString = i18n("SoundCards could not be read");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return soundCards;
+}
+
+qint16 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
+{
+	sendObject(SSC::GetOrCreateMicrophone, microphone);
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	kDebug() << type;
+	switch (type) {
+		case SSC::GotMicrophone: {
+			waitForMessage(sizeof(qint32),stream, msg);
+			qint32 id;
+			stream >> id;
+			kDebug() << "Received id: " << id;
+
+			microphone->setId(id);
+			return id;
+			      }
+
+		case SSC::MicrophoneRetrievalFailed: {
+			lastErrorString = i18n("Microphone could not be fetched / created");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return -1;
+}
+
+qint16 SSCDAccess::getOrCreateSoundCard(SoundCard *soundCard, bool* ok)
+{
+	sendObject(SSC::GetOrCreateSoundCard, soundCard);
+
+	QByteArray msg;
+	QDataStream stream(&msg, QIODevice::ReadOnly);
+	waitForMessage(sizeof(qint32),stream, msg);
+	qint32 type;
+	stream >> type;
+	switch (type) {
+		case SSC::GotSoundCard: {
+			waitForMessage(sizeof(qint32),stream, msg);
+			qint32 id;
+			stream >> id;
+
+			soundCard->setId(id);
+			return id;
+			      }
+
+		case SSC::SoundCardRetrievalFailed: {
+			lastErrorString = i18n("Sound card could not be fetched / created");
+			*ok = false;
+			 break;
+			 }
+
+		default: {
+			lastErrorString = i18n("Unknown error");
+			*ok = false;
+			break;
+			 }
+	}
+	return -1;
+}
+
+
 QList<Language*> SSCDAccess::getLanguages(bool *ok)
 {
 	sendRequest(SSC::GetLanguages);
@@ -466,6 +624,7 @@ QList<Language*> SSCDAccess::getLanguages(bool *ok)
 	}
 	return languages;
 }
+
 
 QList<Institution*> SSCDAccess::getInstitutions(bool* ok)
 {
@@ -711,19 +870,10 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 
 }
 
-bool SSCDAccess::sendSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data)
+bool SSCDAccess::sendSample(Sample *s)
 {
-	QByteArray toWrite;
-	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
-	bodyStream << userId << sampleType << prompt << data;
-
-	stream << (qint32) SSC::Sample << (qint64) body.count();
-
-	socket->write(toWrite);
-	socket->write(body);
+	kDebug() << "Sending sample";
+	sendObject(SSC::Sample, s);
 	return true;
 }
 

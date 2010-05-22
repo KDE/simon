@@ -71,8 +71,20 @@ namespace SSC
 		RemoveUser=6037,
 		RemoveUserFailed=6038,
 
-		Sample=6041,
-		SampleStorageFailed=6042
+		GetMicrophones=6041,
+		Microphones=6042,
+		MicrophoneRetrievalFailed=6043,
+		GetOrCreateMicrophone=6044,
+		GotMicrophone=6045,
+
+		GetSoundCards=6051,
+		SoundCards=6052,
+		SoundCardRetrievalFailed=6053,
+		GetOrCreateSoundCard=6054,
+		GotSoundCard=6055,
+
+		Sample=6061,
+		SampleStorageFailed=6062
 	};
 }
 

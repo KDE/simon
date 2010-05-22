@@ -19,6 +19,7 @@
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
 #include "deviceinformationpage.h"
+#include "sampledataprovider.h"
 #include "sendsamplespage.h"
 #include "trainsampleintropage.h"
 #include "sscconfig.h"
@@ -44,11 +45,12 @@ TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	setBanner("training");
 	addPage(createIntroPage());
-	addPage(createDeviceDescPage());
+	m_infoPage = createDeviceDescPage();
+	addPage(m_infoPage);
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-QWizardPage* TrainingsWizard::createDeviceDescPage()
+DeviceInformationPage* TrainingsWizard::createDeviceDescPage()
 {
 	return new DeviceInformationPage(this);
 }
@@ -59,17 +61,21 @@ bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList&
 	
 	if (prompts.isEmpty()) return false;
 
+	SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type);
 	int nowPage=1;
 	int maxPage=prompts.count();
-	QStringList files;
+	sampleDataProvider->registerMicrophoneInfo(m_infoPage);
+
 	foreach (QString prompt, prompts)
 	{
 		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, name, this);
-		files << page->getFileNames();
 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
+
+		sampleDataProvider->registerDataProvider(page);
 	}
-	addPage(new SendSamplePage(userId, type, files, prompts, this));
+
+	addPage(new SendSamplePage(sampleDataProvider, this));
 	addPage(createFinishedPage());
 	return true;
 }

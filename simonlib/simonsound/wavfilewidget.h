@@ -101,6 +101,7 @@ public:
     bool getIsRecording() { return isRecording; }
     bool getIsPlaying() { return isPlaying; }
     QString getFileName() { return m_filename; }
+    QString getDevice() { return m_device; }
 
     ~WavFileWidget();
 

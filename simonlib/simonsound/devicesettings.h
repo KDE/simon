@@ -81,6 +81,7 @@ private slots:
 	
 public:
 	DeviceSettings(QWidget* parent);
+	~DeviceSettings();
 
 };
 

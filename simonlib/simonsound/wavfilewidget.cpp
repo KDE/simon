@@ -311,6 +311,7 @@ WavFileWidget::~WavFileWidget()
 	delete play;
  	delete rec;
 	delete postProc;
+	delete ui;
 }
 
 

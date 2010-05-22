@@ -22,6 +22,7 @@ set(ssc_SRCS
    sscdaccess.cpp
    deviceinformationwidget.cpp
    deviceinformationpage.cpp
+   sampledataprovider.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS

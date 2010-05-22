@@ -21,7 +21,10 @@
 #include "sscqueries.h"
 #include "mysqlqueries.h"
 #include <sscobjects/user.h>
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
 #include <sscobjects/language.h>
+#include <sscobjects/sample.h>
 #include <sscobjects/institution.h>
 #include <sscobjects/userininstitution.h>
 #include <QSqlQuery>
@@ -408,6 +411,98 @@ QList<Language*>* DatabaseAccess::getLanguages()
 	return ll;
 }
 
+QList<Microphone*>* DatabaseAccess::getMicrophones()
+{
+	QMutexLocker l(&transactionLock);
+	QList<Microphone*>* ml = new QList<Microphone*>();
+
+	QSqlQuery q = queryProvider->getMicrophones();
+
+	if (!executeQuery(q)) 
+		return NULL;
+
+	while (q.next()) {
+		ml->append(new Microphone(q.value(0).toInt(),
+			   q.value(1).toString(), q.value(1).toString()));
+	}
+
+	return ml;
+}
+
+
+QList<SoundCard*>* DatabaseAccess::getSoundCards()
+{
+	QMutexLocker l(&transactionLock);
+	QList<SoundCard*>* sl = new QList<SoundCard*>();
+
+	QSqlQuery q = queryProvider->getSoundCards();
+
+	if (!executeQuery(q)) 
+		return NULL;
+
+	while (q.next()) {
+		sl->append(new SoundCard(q.value(0).toInt(),
+			   q.value(1).toString(), q.value(1).toString()));
+	}
+
+	return sl;
+}
+
+bool DatabaseAccess::getOrCreateMicrophone(Microphone *m, qint16& microphoneId)
+{
+	QMutexLocker l(&transactionLock);
+
+	microphoneId = -1;
+
+	QSqlQuery q = queryProvider->getMicrophone();
+	q.bindValue(":model", m->model());
+	q.bindValue(":type", m->type());
+
+	if (!executeQuery(q) || !q.first()) 
+	{
+		// need to create
+		q = queryProvider->createMicrophone();
+		q.bindValue(":model", m->model());
+		q.bindValue(":type", m->type());
+
+		if (!executeQuery(q)) return false;
+
+		microphoneId = getLastInsertedId();
+	} else {
+		microphoneId = q.value(0).toInt();
+	}
+
+	return true;
+}
+
+bool DatabaseAccess::getOrCreateSoundCard(SoundCard *s, qint16& soundCardId)
+{
+	QMutexLocker l(&transactionLock);
+
+	soundCardId = -1;
+
+	QSqlQuery q = queryProvider->getSoundCard();
+	q.bindValue(":model", s->model());
+	q.bindValue(":type", s->type());
+
+	if (!executeQuery(q) || !q.first()) 
+	{
+		// need to create
+		q = queryProvider->createSoundCard();
+		q.bindValue(":model", s->model());
+		q.bindValue(":type", s->type());
+
+		if (!executeQuery(q)) return false;
+
+		soundCardId = getLastInsertedId();
+	} else {
+		soundCardId = q.value(0).toInt();
+	}
+
+	return true;
+}
+
+
 Institution* DatabaseAccess::getInstitution(qint32 id)
 {
 	QMutexLocker l(&transactionLock);
@@ -482,16 +577,18 @@ qint32 DatabaseAccess::nextSampleId()
 	return q.value(0).toInt()+1;
 }
 
-bool DatabaseAccess::storeSample(qint32 sampleId, qint32 userId, qint32 sampleType, const QString& prompt, const QString& samplePath)
+bool DatabaseAccess::storeSample(Sample *s)
 {
 	QMutexLocker l(&transactionLock);
 	QSqlQuery q = queryProvider->addSample();
 
-	q.bindValue(":sampleid", sampleId);
-	q.bindValue(":userid", userId);
-	q.bindValue(":sampleType", sampleType);
-	q.bindValue(":prompt", prompt);
-	q.bindValue(":path", samplePath);
+	q.bindValue(":sampleid", s->sampleId());
+	q.bindValue(":userid", s->userId());
+	q.bindValue(":microphoneid", s->microphoneId());
+	q.bindValue(":soundcardid", s->soundCardId());
+	q.bindValue(":typeid", s->typeId());
+	q.bindValue(":prompt", s->prompt());
+	q.bindValue(":path", s->path());
 
 	return executeQuery(q);
 }

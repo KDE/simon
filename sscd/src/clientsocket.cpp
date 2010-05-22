@@ -24,6 +24,9 @@
 #include "basedirectory.h"
 
 #include <sscobjects/sscobject.h>
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
+#include <sscobjects/sample.h>
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <sscobjects/userininstitution.h>
@@ -212,6 +215,40 @@ void ClientSocket::sendLanguages()
 	delete ll;
 }
 
+void ClientSocket::sendMicrophones()
+{
+	QList<Microphone*>* ml = databaseAccess->getMicrophones();
+	if (!ml) {
+		sendCode(SSC::MicrophoneRetrievalFailed);
+		return;
+	}
+	QList<SSCObject*> sendMe;
+
+	foreach (Microphone* m, *ml)
+		sendMe << m;
+
+	sendObjects(SSC::Microphones, sendMe);
+	qDeleteAll(*ml);
+	delete ml;
+}
+
+void ClientSocket::sendSoundCards()
+{
+	QList<SoundCard*>* sl = databaseAccess->getSoundCards();
+	if (!sl) {
+		sendCode(SSC::SoundCardRetrievalFailed);
+		return;
+	}
+	QList<SSCObject*> sendMe;
+
+	foreach (SoundCard* s, *sl)
+		sendMe << s;
+
+	sendObjects(SSC::SoundCards, sendMe);
+	qDeleteAll(*sl);
+	delete sl;
+}
+
 void ClientSocket::sendInstitutions()
 {
 	QList<Institution*>* ins = databaseAccess->getInstitutions();
@@ -332,6 +369,49 @@ void ClientSocket::processRequest()
 				sendLanguages();
 				break;
 
+			case SSC::GetMicrophones:
+				sendMicrophones();
+				break;
+
+			case SSC::GetSoundCards:
+				sendSoundCards();
+				break;
+
+			case SSC::GetOrCreateMicrophone:
+			{
+				parseLengthHeader();
+				QByteArray micByte;
+				stream >> micByte;
+				Microphone *m = new Microphone();
+				m->deserialize(micByte);
+
+				qint16 microphoneId;
+				if (databaseAccess->getOrCreateMicrophone(m, microphoneId))
+				{
+					qDebug() << "Mic id: " << microphoneId;
+					sendResponse(SSC::GotMicrophone, microphoneId);
+				}
+				else sendCode(SSC::MicrophoneRetrievalFailed);
+				delete m;
+				break;
+			}
+			case SSC::GetOrCreateSoundCard:
+			{
+				parseLengthHeader();
+				QByteArray soundCardByte;
+				stream >> soundCardByte;
+				SoundCard *s = new SoundCard();
+				s->deserialize(soundCardByte);
+
+				qint16 soundCardId;
+				if (databaseAccess->getOrCreateSoundCard(s, soundCardId))
+					sendResponse(SSC::GotSoundCard, soundCardId);
+				else sendCode(SSC::MicrophoneRetrievalFailed);
+				delete s;
+				break;
+			}
+
+
 			case SSC::GetInstitutions:
 				sendInstitutions();
 				break;
@@ -415,17 +495,15 @@ void ClientSocket::processRequest()
 
 			case SSC::Sample: {
 				parseLengthHeader();
-				qint32 userId, sampleType;
-				stream >> userId;
-				stream >> sampleType;
 
-				QString prompt;
-				stream >> prompt;
-				QByteArray data;
-				stream >> data;
+				QByteArray sampleByte;
+				stream >> sampleByte;
+				Sample *s = new Sample();
+				s->deserialize(sampleByte);
 
-				storeSample(userId, sampleType, prompt, data);
-				break;
+				storeSample(s);
+
+				delete s;
 					   }
 
 							
@@ -436,8 +514,9 @@ void ClientSocket::processRequest()
 	}
 }
 
-void ClientSocket::storeSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data)
+void ClientSocket::storeSample(Sample *s)
 {
+	qDebug() << "Storing sample...";
 	qint32 sampleId;
 	databaseAccess->lockTranscation();
 	sampleId = databaseAccess->nextSampleId();
@@ -447,17 +526,24 @@ void ClientSocket::storeSample(qint32 userId, qint32 sampleType, const QString& 
 		return;
 	}
 
-	QString fileName = samplePath(userId) + QDir::separator() + QString::number(sampleId)+".wav";
-	if (!databaseAccess->storeSample(sampleId, userId, sampleType, prompt, fileName))
+	s->setId(sampleId);
+	QString fileName = samplePath(s->userId()) + QDir::separator() + QString::number(sampleId)+".wav";
+	qDebug() << "File name: " << fileName;
+	s->setPath(fileName);
+	if (!databaseAccess->storeSample(s))
 		sendCode(SSC::SampleStorageFailed);
 	else {
 		//store sample...
 		QFile f(fileName);
+		qDebug() << "Storing sample: " << fileName;
 		if ((!f.open(QIODevice::WriteOnly)) ||
-				(f.write(data)==-1))
+				(f.write(s->data())==-1))
 			sendCode(SSC::SampleStorageFailed);
 		else
+		{
+			qDebug() << "Sample stored ok";
 			sendCode(SSC::Ok);
+		}
 	}
 	databaseAccess->unlockTransaction();
 }

@@ -95,17 +95,41 @@ INSERT INTO `ssc`.`SampleType` (
 
 
 -- -----------------------------------------------------
+-- Table `ssc`.`Microphone`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ssc`.`Microphone` (
+  `MicrophoneId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+  `Model` VARCHAR(100) NOT NULL ,
+  `Type` VARCHAR(100) NOT NULL )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ssc`.`SoundCard`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ssc`.`SoundCard` (
+  `SoundCardId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+  `Model` VARCHAR(100) NOT NULL ,
+  `Type` VARCHAR(100) NOT NULL )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `ssc`.`Sample`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ssc`.`Sample` (
   `SampleId` INT NOT NULL AUTO_INCREMENT ,
   `TypeId` INT NOT NULL ,
   `UserId` INT NOT NULL ,
+  `MicrophoneId` INT NOT NULL ,
+  `SoundCardId` INT NOT NULL ,
   `Path` VARCHAR(192) NOT NULL ,
   `Prompt` VARCHAR(256) NOT NULL ,
   PRIMARY KEY (`SampleId`) ,
   INDEX `fk_Type` (`TypeId` ASC) ,
   INDEX `fk_User` (`UserId` ASC) ,
+  INDEX `fk_Microphone` (`MicrophoneId` ASC) ,
+  INDEX `fk_SoundCard` (`SoundCardId` ASC) ,
   CONSTRAINT `fk_Type`
     FOREIGN KEY (`TypeId` )
     REFERENCES `ssc`.`SampleType` (`SampleTypeId` )
@@ -114,6 +138,16 @@ CREATE  TABLE IF NOT EXISTS `ssc`.`Sample` (
   CONSTRAINT `fk_User`
     FOREIGN KEY (`UserId` )
     REFERENCES `ssc`.`User` (`UserId` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Microphone`
+    FOREIGN KEY (`MicrophoneId` )
+    REFERENCES `ssc`.`Microphone` (`MicrophoneId` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_SoundCard`
+    FOREIGN KEY (`SoundCardId` )
+    REFERENCES `ssc`.`SoundCard` (`SoundCardId` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

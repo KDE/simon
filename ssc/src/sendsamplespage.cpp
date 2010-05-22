@@ -20,6 +20,8 @@
 #include "sendsamplespage.h"
 #include "sscconfig.h"
 #include "sscdaccess.h"
+#include "sampledataprovider.h"
+#include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
 
@@ -35,29 +37,33 @@
 #include <QFutureWatcher>
 
 
-SendSamplePage::SendSamplePage(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QStringList& files, const QStringList& prompts, QWidget *parent) : QWizardPage(parent), 
-	m_userId(userId),
-	worker(new SendSampleWorker(userId, sampleType, files, prompts, parent)),
+SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent) :
+	QWizardPage(parent),
+	worker(new SendSampleWorker(dataProvider)),
 	layout(new QVBoxLayout()),
 	m_transmitOperation(NULL),
 	m_progressWidget(NULL)
 {
-
 	setTitle(i18n("Transmitting samples..."));
 
 	QLabel *desc = new QLabel(i18n("The recorded samples are now sent to the server.\n\nPlease be patient..."), this);
 	desc->setWordWrap(true);
 	layout->addWidget(desc);
 	futureWatcher = new QFutureWatcher<bool>(this);
-	connect(futureWatcher, SIGNAL(finished()), this, SIGNAL(completeChanged()));
-	connect(futureWatcher, SIGNAL(finished()), this, SLOT(updateStatusDisplay()));
+	connect(futureWatcher, SIGNAL(finished()), this, SLOT(transmissionFinished()));
 	//make sure we got the last bit
 //	connect(futureWatcher, SIGNAL(finished()), this, SLOT(displayStatus()));
 	setLayout(layout);
 
 	connect(worker, SIGNAL(error(QString)), this, SLOT(displayError(QString)), Qt::QueuedConnection);
 	connect(worker, SIGNAL(status(QString, int, int)), this, SLOT(displayStatus(QString, int, int)), Qt::QueuedConnection);
-	connect(worker, SIGNAL(sendSample(qint32, qint32, const QString&, const QByteArray&)), this, SLOT(sendSample(qint32, qint32, const QString&, const QByteArray&)), Qt::QueuedConnection);
+	connect(worker, SIGNAL(sendSample(Sample*)), this, SLOT(sendSample(Sample*)), Qt::QueuedConnection);
+}
+
+void SendSamplePage::transmissionFinished()
+{
+	updateStatusDisplay();
+	emit completeChanged();
 }
 
 void SendSamplePage::displayStatus(QString message, int now, int max)
@@ -71,79 +77,8 @@ void SendSamplePage::updateStatusDisplay()
 	m_progressWidget->update();
 }
 
-void SendSamplePage::initializePage()
-{
-	if (KMessageBox::questionYesNo(this, i18n("Do you want to start sending the samples?"))) {
-		if (m_progressWidget) {
-			layout->removeWidget(m_progressWidget);
-			m_progressWidget->deleteLater();
-		}
-		m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
-		m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
-		connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
-		connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
-		connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
-
-		layout->addWidget(m_progressWidget);
-		m_progressWidget->show();
-
-		QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
-		futureWatcher->setFuture(future);
-	}
-}
-
 void SendSamplePage::cleanupPage()
 {
-}
-
-
-/**
- * Does the actual server communication. This will take LONG. This is why this 
- * function should be called from outside the GUI thread. It will communicate 
- * with the rest of the world through the shared transmitOperation object.
- */
-bool SendSampleWorker::sendSamples()
-{
-	shouldAbort = false;
-	int maxProgress = m_files.count();
-
-	int i=0;
-	while (!shouldAbort && (m_files.count() > i)) {
-		QString currentFile = SSCConfig::sampleDirectory()+m_files.at(i)+".wav";
-		QString currentPrompt = m_prompts.at(i);
-
-		//m_transmitOperation->update(i18n("Sending: %1", currentFile), i, maxProgress);
-		emit status(i18n("Sending: %1", currentFile), i, maxProgress);
-
-
-		QFile f(currentFile);
-		if (f.open(QIODevice::ReadOnly)) {
-			emit sendSample(m_userId, m_sampleType, currentPrompt, f.readAll());
-			kDebug() << "Emitt signal";
-			if (!SSCDAccess::getInstance()->processSampleAnswer())  {
-				kDebug() << "Error processing sample";
-				emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
-			}
-			kDebug() << "Done processing sample";
-
-			//if sample could not be opened we probably skipped this sample; ignore that silently
-		} else kDebug() << "File not found";
-
-		i++;
-	}
-	kDebug() << "Done";
-	if (!shouldAbort) {
-		emit finished();
-	} else 
-		emit aborted();
-
-	//m_transmitOperation->update(i18n("Done"), maxProgress, maxProgress);
-	return true;
-}
-void SendSamplePage::sendSample(qint32 userId, qint32 sampleType, const QString& currentPrompt, const QByteArray& data)
-{
-	if (!SSCDAccess::getInstance()->sendSample(userId, sampleType, currentPrompt, data)) 
-		KMessageBox::error(this, i18n("Could not send sample"));
 }
 
 void SendSamplePage::displayError(QString error)
@@ -158,6 +93,109 @@ bool SendSamplePage::isComplete() const
 
 SendSamplePage::~SendSamplePage()
 {
-	if (m_progressWidget) m_progressWidget->deleteLater();
-	worker->deleteLater();
+//	if (m_progressWidget) m_progressWidget->deleteLater();
+	delete worker;
+	delete m_progressWidget;
 }
+
+void SendSamplePage::initializePage()
+{
+	if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
+		kDebug() << "Sending...";
+		if (m_progressWidget) {
+			layout->removeWidget(m_progressWidget);
+			m_progressWidget->deleteLater();
+		}
+
+		m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
+		m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
+		connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
+		connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
+		connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
+
+		layout->addWidget(m_progressWidget);
+		m_progressWidget->show();
+
+		QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
+		futureWatcher->setFuture(future);
+		kDebug() << "Thread started";
+	} else
+		kDebug() << "Nothing";
+}
+
+
+void SendSamplePage::sendSample(Sample *s)
+{
+	if (!SSCDAccess::getInstance()->sendSample(s)) 
+		KMessageBox::error(this, i18n("Could not send sample"));
+}
+
+
+/**
+ * Does the actual server communication. This will take LONG. This is why this 
+ * function should be called from outside the GUI thread. It will communicate 
+ * with the rest of the world through the shared transmitOperation object.
+ */
+bool SendSampleWorker::sendSamples()
+{
+	kDebug() << "Yeah I am here...";
+	shouldAbort = false;
+	int maxProgress = m_dataProvider->sampleToTransmitCount();
+
+	int i=0;
+	int retryAmount = 0;
+
+	if (!m_dataProvider->startTransmission())
+	{
+		kDebug() << "Couldn't start transmission";
+
+		emit error(i18n("Failed to start the sample transmission.\n\nMost likely this is caused by problems to send the information about the used input devices."));
+		shouldAbort = true;
+	}
+	kDebug() << "Transmission started...";
+
+	while (!shouldAbort && (m_dataProvider->hasSamplesToTransmit())) {
+//		QString currentFile = SSCConfig::sampleDirectory()+m_files.at(i)+".wav";
+
+		Sample *s = m_dataProvider->getSample();
+		emit status(i18n("Sending: %1", s->path()), i, maxProgress);
+
+
+		QFile f(s->path());
+		if (f.open(QIODevice::ReadOnly)) {
+			emit sendSample(s);
+
+			kDebug() << "Emit signal";
+			if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3))  {
+				kDebug() << "Error processing sample";
+				emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
+				retryAmount++;
+			} else {
+				m_dataProvider->sampleTransmitted();
+				retryAmount = 0;
+			}
+			kDebug() << "Done processing sample";
+
+			//if sample could not be opened we probably skipped this sample; ignore that silently
+		} else {
+			kDebug() << "File not found";
+			m_dataProvider->sampleTransmitted();
+		}
+
+		i++;
+	}
+	kDebug() << "Done";
+	m_dataProvider->stopTransmission();
+	if (!shouldAbort) {
+		emit finished();
+	} else 
+		emit aborted();
+
+	return true;
+}
+
+SendSampleWorker::~SendSampleWorker()
+{
+	delete m_dataProvider;
+}
+

@@ -19,13 +19,18 @@
 #include "deviceinformationpage.h"
 #include "deviceinformationwidget.h"
 #include "sscconfig.h"
+#include "sscdaccess.h"
 
 #include <simonsound/soundserver.h>
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
 
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QScrollArea>
+
 #include <KLocalizedString>
+#include <KMessageBox>
 
 
 
@@ -54,8 +59,68 @@ DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(pare
 	setLayout(lay);
 }
 
+
+QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool &ok)
+{
+	ok = true;
+	QHash<QString, Microphone*> microphones;
+	foreach (DeviceInformationWidget *wg, informationWidgets)
+	{
+		kDebug() << "processing widget...";
+		QString device = wg->getDeviceName();
+		QString micModel = wg->getMicModel();
+		QString micType = wg->getMicType();
+
+		
+		Microphone *mic = new Microphone(0, micModel, micType);
+		bool succ = true;
+		kDebug() << "Calling server to get or create mic";
+		qint16 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
+
+		if (!succ)
+		{
+			kDebug() << "Failed...";
+			ok = false;
+		}
+
+		kDebug() << "Got id for mic: " << id;
+
+		microphones.insert(device, mic);
+	}
+
+	return microphones;
+}
+
+QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &ok)
+{
+	QHash<QString, SoundCard*> soundCards;
+	foreach (DeviceInformationWidget *wg, informationWidgets)
+	{
+		QString device = wg->getDeviceName();
+		QString model = wg->getModel();
+		QString type = wg->getType();
+
+		SoundCard *soundCard = new SoundCard(0, model, type);
+		bool succ = true;
+		qint16 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &ok);
+
+		if (!succ)
+			ok = false;
+
+		kDebug() << "Got id for sound card: " << id;
+
+		soundCards.insert(device, soundCard);
+	}
+
+	return soundCards;
+}
+
+
+
 void DeviceInformationPage::initializePage()
 {
+	qDeleteAll(informationWidgets);
+	informationWidgets.clear();
 	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
 	foreach (const SimonSound::DeviceConfiguration& device, devices)
 	{
@@ -82,11 +147,9 @@ bool DeviceInformationPage::isComplete() const
 	return complete;
 }
 
-#include <KDebug>
 
 bool DeviceInformationPage::validatePage()
 {
-	kDebug() << "Calling storeconfig";
 	foreach (DeviceInformationWidget *wg, informationWidgets)
 		wg->storeConfig();
 

@@ -115,6 +115,16 @@ QStringList RecWidget::getFileNames()
 	return fileNames;
 }
 
+QStringList RecWidget::getDevices()
+{
+	QStringList devices;
+	foreach (WavFileWidget *wav, waves)
+		if (wav->hasRecordingReady())
+			devices << wav->getDevice();
+
+	return devices;
+}
+
 
 void RecWidget::initialize()
 {
@@ -279,4 +289,8 @@ bool RecWidget::deleteAll()
 	return success;
 }
 
+RecWidget::~RecWidget()
+{
+	delete ui;
+}
 

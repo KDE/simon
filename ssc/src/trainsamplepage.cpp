@@ -90,6 +90,11 @@ QStringList TrainSamplePage::getFileNames()
 	return  fileNames;
 }
 
+QStringList TrainSamplePage::getDevices()
+{
+	return recorder->getDevices();
+}
+
 bool TrainSamplePage::submit()
 {
 	return true;

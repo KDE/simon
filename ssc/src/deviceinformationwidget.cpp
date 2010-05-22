@@ -22,6 +22,9 @@
 #include "sscdaccess.h"
 #include "sscconfig.h"
 
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
+
 DeviceInformationWidget::DeviceInformationWidget(QWidget* parent) : 
 	QWidget(parent),
 	ui(new Ui::DeviceInformationWidget())
@@ -33,17 +36,45 @@ DeviceInformationWidget::DeviceInformationWidget(QWidget* parent) :
 
 void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& device)
 {
-	//TODO: get models and types from server
-	
+	bool soundCardOk;
+	bool microphoneOk;
+	QList<SoundCard*> soundCards = SSCDAccess::getInstance()->getSoundCards(&soundCardOk);
+	QList<Microphone*> microphones = SSCDAccess::getInstance()->getMicrophones(&microphoneOk);
+
+	if (soundCardOk)
+	{
+		foreach (SoundCard* card, soundCards)
+		{
+			ui->cbMicModel->addItem(card->model(), card->id());
+			ui->cbMicType->addItem(card->type(), card->id());
+		}
+	}
+	if (microphoneOk)
+	{
+		foreach (Microphone* mic, microphones)
+		{
+			ui->cbModel->addItem(mic->model(), mic->id());
+			ui->cbType->addItem(mic->type(), mic->id());
+		}
+	}
+	qDeleteAll(soundCards);
+	qDeleteAll(microphones);
+
 	QStringList keys = SSCConfig::deviceNameKeys();
 	QStringList values = SSCConfig::deviceNameValues();
 	QStringList types = SSCConfig::deviceNameTypes();
+	QStringList microphoneValues = SSCConfig::deviceNameMicrophoneValues();
+	QStringList microphoneTypes = SSCConfig::deviceNameMicrophoneTypes();
 
 	Q_ASSERT(keys.count() == values.count());
 	Q_ASSERT(keys.count() == types.count());
+	Q_ASSERT(keys.count() == microphoneValues.count());
+	Q_ASSERT(keys.count() == microphoneTypes.count());
 
 	QString deviceName = device.name();
 	QString deviceType;
+	QString microphoneName;
+	QString microphoneType;
 
 	for (int i=0; i < keys.count(); i++)
 	{
@@ -51,6 +82,8 @@ void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& devic
 		{
 			deviceName = values[i];
 			deviceType = types[i];
+			microphoneName = microphoneValues[i];
+			microphoneType = microphoneTypes[i];
 			break;
 		}
 	}
@@ -59,6 +92,8 @@ void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& devic
 	ui->lbDevice->setText(device.name());
 	ui->cbModel->setEditText(deviceName);
 	ui->cbType->setEditText(deviceType);
+	ui->cbMicModel->setEditText(microphoneName);
+	ui->cbMicType->setEditText(microphoneType);
 }
 
 void DeviceInformationWidget::deleteLater()
@@ -71,6 +106,8 @@ void DeviceInformationWidget::storeConfig()
 	QStringList keys = SSCConfig::deviceNameKeys();
 	QStringList values = SSCConfig::deviceNameValues();
 	QStringList types = SSCConfig::deviceNameTypes();
+	QStringList microphoneValues = SSCConfig::deviceNameMicrophoneValues();
+	QStringList microphoneTypes = SSCConfig::deviceNameMicrophoneTypes();
 	
 
 	int keyIndex = keys.indexOf(m_deviceName);
@@ -80,15 +117,43 @@ void DeviceInformationWidget::storeConfig()
 		keys.insert(0, m_deviceName);
 		values.insert(0, "");
 		types.insert(0, "");
+		microphoneValues.insert(0, "");
+		microphoneTypes.insert(0, "");
 	}
 
 	values.replace(keyIndex, ui->cbModel->currentText());
 	types.replace(keyIndex, ui->cbType->currentText());
+	microphoneValues.replace(keyIndex, ui->cbMicModel->currentText());
+	microphoneTypes.replace(keyIndex, ui->cbMicType->currentText());
 
 	SSCConfig::setDeviceNameKeys(keys);
 	SSCConfig::setDeviceNameValues(values);
 	SSCConfig::setDeviceNameTypes(types);
+	SSCConfig::setDeviceNameMicrophoneValues(microphoneValues);
+	SSCConfig::setDeviceNameMicrophoneTypes(microphoneTypes);
 }
+
+QString DeviceInformationWidget::getModel()
+{
+	return ui->cbModel->currentText();
+}
+
+QString DeviceInformationWidget::getType()
+{
+	return ui->cbType->currentText();
+}
+
+QString DeviceInformationWidget::getMicModel()
+{
+	return ui->cbMicModel->currentText();
+
+}
+
+QString DeviceInformationWidget::getMicType()
+{
+	return ui->cbMicType->currentText();
+}
+
 
 bool DeviceInformationWidget::isComplete() const
 {

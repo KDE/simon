@@ -52,6 +52,14 @@ class SSCQueries
 
 		virtual QSqlQuery getLanguages();
 
+		virtual QSqlQuery getMicrophones();
+		virtual QSqlQuery getSoundCards();
+
+		virtual QSqlQuery getMicrophone();
+		virtual QSqlQuery getSoundCard();
+		virtual QSqlQuery createMicrophone();
+		virtual QSqlQuery createSoundCard();
+
 		virtual QSqlQuery getInstitution();
 		virtual QSqlQuery getInstitutions();
 		virtual QSqlQuery addInstitution();

@@ -59,6 +59,12 @@
     <entry name="DeviceNameTypes" type="StringList">
       <label>device types set by the user.</label>
     </entry>
+    <entry name="DeviceNameMicrophoneValues" type="StringList">
+      <label>microphone names set by the user.</label>
+    </entry>
+    <entry name="DeviceNameMicrophoneTypes" type="StringList">
+      <label>microphone device types set by the user.</label>
+    </entry>
   </group>
 
   

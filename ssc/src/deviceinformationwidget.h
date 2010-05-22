@@ -29,6 +29,9 @@ namespace Ui
 	class DeviceInformationWidget;
 }
 
+class Microphone;
+class SoundCard;
+
 class DeviceInformationWidget : public QWidget {
 
 Q_OBJECT
@@ -50,6 +53,10 @@ public:
 	void storeConfig();
 
 	QString getDeviceName() { return m_deviceName; }
+	QString getModel();
+	QString getType();
+	QString getMicModel();
+	QString getMicType();
 };
 
 #endif

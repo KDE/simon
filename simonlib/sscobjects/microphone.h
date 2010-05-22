@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,40 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TRAINSAMPLEPAGE_H_3CCB79FEB912407BB45C275731A2C306
-#define SIMON_TRAINSAMPLEPAGE_H_3CCB79FEB912407BB45C275731A2C306
+#ifndef SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
+#define SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
 
 #include <QString>
-#include <QWizardPage>
-class RecWidget; 
+#include "sscobject.h"
+#include "sscobjects_export.h"
 
-class TrainSamplePage : public QWizardPage
-{
-	Q_OBJECT
-	
-	private:
-		RecWidget *recorder;
-		QString prompt;
-		QString fileName;
-	
-	public:
-		TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
-		~TrainSamplePage();
-		bool isComplete() const;
+class SSCOBJECTS_EXPORT Microphone : public SSCObject {
 
-		void initializePage();
-		bool validatePage();
-		void cleanupPage();
-		
-		QString getPrompt() { return prompt; }
-		QStringList getFileNames();
+private:
+	qint16 m_id;
+	QString m_model;
+	QString m_type;
 
-		QStringList getDevices();
-		
-	public slots:
-		bool submit();
-		bool cleanUp();
+public:
+	Microphone(qint16 id, const QString& model, const QString& type);
 
+	Microphone() {}
+
+	void deserialize(QByteArray data);
+	QByteArray serialize();
+
+	qint16 id() { return m_id; }
+	QString model() { return m_model; }
+	QString type() { return m_type; }
+
+	void setId(qint16 id) { m_id = id; }
+
+	~Microphone() {}
 };
 
 #endif
+
+
+
+

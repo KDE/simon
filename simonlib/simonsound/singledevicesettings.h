@@ -63,6 +63,7 @@ public:
 			SimonSound::SoundDeviceUses availableUses,
 			SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
 			QWidget* parent=NULL);
+	~SingleDeviceSettings();
 
 	void enable();
 	void disable();

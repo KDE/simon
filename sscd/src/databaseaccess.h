@@ -27,6 +27,9 @@
 class QSqlDatabase;
 class QSqlQuery;
 class User;
+class Sample;
+class Microphone;
+class SoundCard;
 class UserInInstitution;
 class Language;
 class Institution;
@@ -68,11 +71,16 @@ class DatabaseAccess : public QObject
 		int getLastUserId();
 
 		QList<Language*>* getLanguages();
+		QList<Microphone*>* getMicrophones();
+		QList<SoundCard*>* getSoundCards();
 		Institution* getInstitution(qint32 id);
 		QList<Institution*>* getInstitutions();
 		bool addInstitution(Institution *i);
 		bool modifyInstitution(Institution *i);
 		bool removeInstitution(qint32 id);
+
+		bool getOrCreateMicrophone(Microphone *m, qint16& microphoneId);
+		bool getOrCreateSoundCard(SoundCard *s, qint16& soundCardId);
 
 
 		int addUserInstitutionAssociation(UserInInstitution *uii);
@@ -80,7 +88,7 @@ class DatabaseAccess : public QObject
 		QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
 
 		qint32 nextSampleId();
-		bool storeSample(qint32 sampleId, qint32 userId, qint32 sampleType, const QString& prompt, const QString& samplePath);
+		bool storeSample(Sample *s);
 		QStringList* getSamplePaths(qint32 userId);
 };
 

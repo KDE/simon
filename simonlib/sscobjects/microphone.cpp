@@ -17,39 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DEVICEINFORMATIONPAGE_H_417017FF7135400DAC9F8BA0263C0FA5
-#define SIMON_DEVICEINFORMATIONPAGE_H_417017FF7135400DAC9F8BA0263C0FA5
+#include "microphone.h"
+#include <QDataStream>
+#include <QByteArray>
 
-#include <QWizardPage>
-#include <QList>
-#include <QHash>
+Microphone::Microphone(qint16 id, const QString& model, const QString& type) :
+	m_id(id),
+	m_model(model),
+	m_type(type)
+{
+}
 
-class QScrollArea;
-class DeviceInformationWidget;
-class Microphone;
-class SoundCard;
+void Microphone::deserialize(QByteArray data)
+{
+	QDataStream stream(&data, QIODevice::ReadOnly);
+	stream >> m_id;
+	stream >> m_model;
+	stream >> m_type;
+}
 
-class DeviceInformationPage : public QWizardPage {
+QByteArray Microphone::serialize()
+{
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-private:
-	QList<DeviceInformationWidget*> informationWidgets;
-	QScrollArea *scrollWidget;
+	bodyStream << m_id;
+	bodyStream << m_model;
+	bodyStream << m_type;
 
-public:
-	DeviceInformationPage(QWidget *parent=NULL);
-	void initializePage();
-    	~DeviceInformationPage();
-
-	QStringList getDeviceStrings();
-
-	QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
-	QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
-
-	bool isComplete() const;
-	bool validatePage();
-
-};
-
-#endif
-
+	return body;
+}
 

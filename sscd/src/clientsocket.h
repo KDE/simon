@@ -31,6 +31,7 @@ const qint8 protocolVersion=1;
 class DatabaseAccess;
 class SSCObject;
 class User;
+class Sample;
 
 class ClientSocket : public QSslSocket
 {
@@ -53,12 +54,14 @@ class ClientSocket : public QSslSocket
 		void sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId);
 		void removeUser(qint32 id);
 		void sendLanguages();
+		void sendMicrophones();
+		void sendSoundCards();
 		void sendInstitutions();
 		void removeInstitution(qint32 id);
 		void removeUserInInstitution(qint32 userId, qint32 institutionId);
 		void sendUserInstitutionAssociations(qint32 userId);
 
-		void storeSample(qint32 userId, qint32 sampleType, const QString& prompt, const QByteArray& data);
+		void storeSample(Sample *s);
 
 	private slots:
 		void slotSocketError();
