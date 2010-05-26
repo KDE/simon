@@ -23,10 +23,10 @@
 #include "soundserver.h"
 #include "singledevicesettings.h"
 
-#include <KMessageBox>
 #include <QVBoxLayout>
 #include <QAudioDeviceInfo>
 #include <KIcon>
+#include <QTimer>
 
 #include <KLocalizedString>
 #include <KDebug>
@@ -195,25 +195,36 @@ void DeviceSettings::load()
 	Q_ASSERT(soundOutputSampleRates.count() == soundOutputUses.count());
 
 
+  bool hasChanged= false;
 	for (int i=0; i < soundInputDevices.count(); i++)
 	{
-		registerInputDevice(new SingleDeviceSettings(SimonSound::Input, soundInputDevices[i],
+    SingleDeviceSettings *s = new SingleDeviceSettings(SimonSound::Input, soundInputDevices[i],
 					soundInputChannels[i], soundInputSampleRates[i],
 					(SimonSound::SoundDeviceUses) soundInputUses[i],
 					(SimonSound::SoundDeviceUses) (SimonSound::Training|SimonSound::Recognition),
 					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
-					this));
+					this);
+		registerInputDevice(s);
+    if (s->getHasChanged())
+      hasChanged = true;
 	}
 
 	for (int i=0; i < soundOutputDevices.count(); i++)
 	{
-		registerOutputDevice(new SingleDeviceSettings(SimonSound::Output, soundOutputDevices[i],
+    SingleDeviceSettings *s = new SingleDeviceSettings(SimonSound::Output, soundOutputDevices[i],
 					soundOutputChannels[i], soundOutputSampleRates[i],
 					(SimonSound::SoundDeviceUses) soundOutputUses[i],
 					SimonSound::Training,
 					(i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
-					this));
+					this);
+		registerOutputDevice(s);
+    if (s->getHasChanged())
+      hasChanged = true;
 	}
+  if (hasChanged)
+  {
+    QTimer::singleShot(100, this, SLOT(slotChanged()));
+  }
 }
 
 void DeviceSettings::save()
@@ -241,6 +252,8 @@ void DeviceSettings::save()
 		soundInputChannels << dev->getChannels();
 		soundInputSampleRates << dev->getSampleRate();
 		soundInputUses << (int) dev->getUses();
+
+    dev->stored();
 	}
 
 
@@ -254,6 +267,8 @@ void DeviceSettings::save()
 		soundOutputChannels << dev->getChannels();
 		soundOutputSampleRates << dev->getSampleRate();
 		soundOutputUses << (int) dev->getUses();
+
+    dev->stored();
 	}
 
 

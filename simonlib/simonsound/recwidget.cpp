@@ -27,22 +27,20 @@
 
 #include <QGroupBox>
 #include <QLabel>
-#include <KPushButton>
 #include <QString>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <KLocalizedString>
-
-#include <KIcon>
-
-#include <KMessageBox>
 #include <QFile>
 #include <QChar>
-
 #include <QFont>
-#include <KLocale>
 #include <QPlainTextEdit>
 #include <QInputDialog>
+
+#include <KLocalizedString>
+#include <KIcon>
+#include <KMessageBox>
+#include <KPushButton>
+#include <KLocale>
 
 #include "ui_recwidget.h"
 
@@ -61,6 +59,7 @@
  * The parent of the object
  */
 RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent) : QWidget(parent),
+  statusTimer(new QTimer(this)),
 	ui(new Ui::RecWidgetUi()),
 	m_simpleMode(forceSimpleMode)
 {	
@@ -76,6 +75,42 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forc
 	setupSignalsSlots();
 	initialize();
 	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
+
+  hideActionPrompt();
+  connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
+}
+
+void RecWidget::hideActionPrompt()
+{
+  ui->frmPromptAction->hide();
+}
+
+void RecWidget::showStartPrompt()
+{
+  ui->frmPromptAction->show();
+  QPalette p = ui->frmPromptAction->palette();
+  p.setBrush(QPalette::Active, QPalette::Window, QColor("green"));
+  ui->frmPromptAction->setPalette(p);
+  ui->lbPromptAction->setText(i18n("Please speak..."));
+  statusTimer->stop();
+}
+
+void RecWidget::showFinishPrompt()
+{
+  ui->frmPromptAction->show();
+  QPalette p = ui->frmPromptAction->palette();
+  p.setBrush(QPalette::Active, QPalette::Window, QColor("blue"));
+  ui->frmPromptAction->setPalette(p);
+  ui->lbPromptAction->setText(i18n("Idle..."));
+}
+
+void RecWidget::showWaitPrompt()
+{
+  ui->frmPromptAction->show();
+  QPalette p = ui->frmPromptAction->palette();
+  p.setBrush(QPalette::Active, QPalette::Window, QColor("red"));
+  ui->frmPromptAction->setPalette(p);
+  ui->lbPromptAction->setText(i18n("Please wait..."));
 }
 
 
@@ -222,6 +257,12 @@ void RecWidget::record()
 	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 
 	emit recording();
+
+  if (someoneIsRecording)
+  {
+    showWaitPrompt();
+    statusTimer->start(1000);
+  }
 }
 
 
@@ -231,6 +272,7 @@ void RecWidget::record()
  */
 void RecWidget::stopRecording()
 {
+  statusTimer->stop();
 	foreach (WavFileWidget *wav, waves)
 		wav->stopRecording();
 	
@@ -240,6 +282,8 @@ void RecWidget::stopRecording()
 	disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	emit recordingFinished();
+  showWaitPrompt();
+  hideActionPrompt();
 }
 
 void RecWidget::stopPlayback()

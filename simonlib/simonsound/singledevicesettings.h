@@ -40,6 +40,7 @@ signals:
 private:
 	Ui::SingleDeviceConfiguration *ui;
 	bool enabled;
+	bool hasChanged;
 	
 	SimonSound::SoundDeviceType m_type;
 	QString m_deviceName;
@@ -76,6 +77,9 @@ public:
 	int getChannels();
 	SimonSound::SoundDeviceType getType();
 	SimonSound::SoundDeviceUses getUses();
+
+  bool getHasChanged() { return hasChanged; }
+  void stored() { hasChanged = false; }
 };
 
 #endif // SINGLEDEVICESETTINGS_H

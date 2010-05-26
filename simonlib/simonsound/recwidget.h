@@ -25,6 +25,7 @@
 #include <QWidget>
 
 class WavFileWidget;
+class QTimer;
 
 
 namespace Ui
@@ -53,6 +54,7 @@ signals:
 	void playbackFinished();
 
 private:
+  QTimer *statusTimer;
 	Ui::RecWidgetUi *ui;
 	bool m_simpleMode;
 
@@ -75,6 +77,11 @@ private slots:
 	void displayError(const QString& error);
 
 	void slotSampleDeleted();
+
+  void hideActionPrompt();
+  void showStartPrompt();
+  void showFinishPrompt();
+  void showWaitPrompt();
 
 public slots:
 	void record();

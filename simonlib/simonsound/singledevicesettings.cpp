@@ -35,6 +35,7 @@ SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QSt
 			SimonSound::SoundDeviceOptions options, QWidget* parent):
 		QWidget(parent),
 	enabled(true),
+  hasChanged(true),
 	m_type(type),
 	m_deviceName(deviceName),
 	m_uses(selectedUses),
@@ -109,7 +110,7 @@ void SingleDeviceSettings::load(QString deviceName, int channels,
 	ui->cbRecognition->setChecked(m_uses & SimonSound::Recognition);
 	ui->cbTraining->setChecked(m_uses & SimonSound::Training);
 
-	bool hasChanged=false;
+	hasChanged=false;
 	if ((!deviceName.isEmpty()) &&
 		(ui->cbSoundDevice->currentText() != deviceName))
 	{
@@ -220,6 +221,7 @@ SimonSound::SoundDeviceUses SingleDeviceSettings::getUses()
 
 void SingleDeviceSettings::slotChanged()
 {
+  hasChanged = true;
 	emit changed(true);
 }
 
