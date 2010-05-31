@@ -32,6 +32,7 @@ class SampleDataProvider;
 class QVBoxLayout;
 class ProgressWidget;
 class Sample;
+class KPushButton;
 
 class SendSampleWorker : public QObject
 {
@@ -79,6 +80,8 @@ class SendSamplePage : public QWizardPage
 
 		QFutureWatcher<bool> *futureWatcher;
 
+    KPushButton *pbReSendData;
+
 	
 	private slots:
 		void displayStatus(QString message, int now, int max);
@@ -86,6 +89,7 @@ class SendSamplePage : public QWizardPage
 		void sendSample(Sample *s);
 		void updateStatusDisplay();
 		void transmissionFinished();
+    void sendData();
 	
 	public:
 		SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent=0);

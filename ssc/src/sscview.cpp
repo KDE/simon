@@ -43,7 +43,8 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
-SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent)
+SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent),
+  wantToDisconnect(true)
 {
 	ui.setupUi ( this );
 	setupActions();
@@ -346,6 +347,17 @@ void SSCView::disconnected()
 	actionCollection()->action("institutions")->setEnabled(false);
 
 	ui.cbPatientId->setEnabled(false);
+
+  if (!wantToDisconnect)
+  {
+    //server quit
+    if (KMessageBox::questionYesNo(this, i18n("The server closed the connection.\n\nDo you want to try to re-connect?")) == 
+          KMessageBox::Yes)
+    {
+      connectToServer();
+    }
+  }
+  wantToDisconnect = false;
 }
 
 
@@ -376,9 +388,10 @@ void SSCView::disconnectFromServer()
 		return;
 	}
 
+  wantToDisconnect = true;
+
 	displayConnectionStatus(i18n("Disconnecting..."));
 	SSCDAccess::getInstance()->disconnectFromServer();
-
 }
 
 /**

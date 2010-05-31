@@ -115,6 +115,7 @@ void SSCDAccess::errorOccured()
 		}
 	}
 	if (socket->error() != QAbstractSocket::UnknownSocketError) {
+    kDebug() << "Populating unknown error: " << socket->errorString();
 		emit error(socket->errorString());
 	} else {
 		//build ssl error list
@@ -123,7 +124,7 @@ void SSCDAccess::errorOccured()
 			serverConnectionErrors << errors[i].errorString();
 		emit error(serverConnectionErrors.join("\n"));
 	}
-	emit disconnected();
+	//emit disconnected();
 }
 
 /*
@@ -154,11 +155,15 @@ bool SSCDAccess::isConnected()
 
 void SSCDAccess::timeoutReached()
 {
+	emit error(i18n("Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", SSCConfig::timeout()));
+  abort();
+}
+
+void SSCDAccess::abort()
+{
 	timeoutWatcher->stop();
-	emit error(i18n("Request timed out (%1 ms).\n\nPlease check your network connection and try again.", SSCConfig::timeout()));
 	socket->abort();
   socket->close();
-	emit disconnected();
 }
 
 /**
@@ -262,7 +267,7 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
     {
       //timeout reached
       kDebug() << "Timeout reached!";
-      timeoutReached();
+      abort();
       return false;
     }
 	}
@@ -280,8 +285,11 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 
 	stream << (qint32) code << (qint64) body.count();
 
+    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(toWrite);
+    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(body);
+    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 }
 
 /*
@@ -898,28 +906,32 @@ bool SSCDAccess::processSampleAnswer()
   qint32 previousMessageCount = 0;
 
   int breakTime = SSCConfig::timeout() / 100 /* milliseconds */;
+  kDebug() << "Break time: " << breakTime;
 
-	while ((unsigned int) streamRet.device()->bytesAvailable() < (unsigned int) sizeof(qint32)) {
-		kDebug() << "Bytes available: " << (unsigned int) streamRet.device()->bytesAvailable() <<
+	while ((unsigned int) msg.count() < (unsigned int) sizeof(qint32)) {
+		kDebug() << "Bytes available: " << msg.count() <<
 			" looking for " << (unsigned int) sizeof(qint32);
 #ifdef Q_OS_WIN32
-		Sleep(200);
+	  Sleep(100 /* 100 ms */);
 #else
-		usleep(200);
+	  usleep(100000 /* 100 ms */);
 #endif
+    msg += socket->readAll();
 
-		msg += socket->readAll();
-
+    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+    previousMessageCount = socket->bytesToWrite();
     if (previousMessageCount == msg.count())
     {
       if (messageCountTheSame++ == breakTime)
       {
-        timeoutReached();
+        abort();
         return false;
       }
     }
     else messageCountTheSame = 0;
+    previousMessageCount = msg.count();
 	}
+  msg += socket->readAll();
 	qint32 type;
 	streamRet >> type;
 	switch (type) { 

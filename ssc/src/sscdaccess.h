@@ -126,6 +126,7 @@ private slots:
 	void connectedTo();
 	void errorOccured();
 	void timeoutReached();
+	void abort();
 };
 
 #endif

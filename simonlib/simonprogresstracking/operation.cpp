@@ -85,10 +85,17 @@ void Operation::cancel()
 	pushUpdate();
 }
 
+void Operation::maxProgressBar()
+{
+	if (maxProgress() > 0)
+		update(maxProgress(), maxProgress());
+	else update(1,1);
+}
+
 void Operation::canceled()
 {
 	m_status = Aborted;
-	update(maxProgress(), maxProgress());
+  maxProgressBar();
 	pushUpdate();
 	QTimer::singleShot(3000, this, SLOT(deleteLater()));
 }
@@ -97,9 +104,7 @@ void Operation::finished()
 {
 	m_status = Finished;
 
-	if (maxProgress() > 0)
-		update(maxProgress(), maxProgress());
-	else update(1,1);
+  maxProgressBar();
 
 	pushUpdate();
 	QTimer::singleShot(3000, this, SLOT(deleteLater()));

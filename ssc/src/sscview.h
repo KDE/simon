@@ -82,6 +82,7 @@ private slots:
     void interview();
 
 private:
+    bool wantToDisconnect;
     Ui::SampleCollectorUi ui;
     //TrainingsWizard *trainingsWizard;
 

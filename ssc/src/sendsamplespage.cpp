@@ -29,13 +29,14 @@
 #include <QLabel>
 #include <QtConcurrentRun>
 
-#include <KLocalizedString>
-#include <KMessageBox>
 #include <QThread>
 #include <QVBoxLayout>
 #include <QFuture>
 #include <QFutureWatcher>
 
+#include <KMessageBox>
+#include <KLocalizedString>
+#include <KPushButton>
 
 SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent) :
 	QWizardPage(parent),
@@ -49,6 +50,10 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	QLabel *desc = new QLabel(i18n("The recorded samples are now sent to the server.\n\nPlease be patient..."), this);
 	desc->setWordWrap(true);
 	layout->addWidget(desc);
+  pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
+  connect(pbReSendData, SIGNAL(clicked()), this, SLOT(sendData()));
+	layout->addWidget(pbReSendData);
+
 	futureWatcher = new QFutureWatcher<bool>(this);
 	connect(futureWatcher, SIGNAL(finished()), this, SLOT(transmissionFinished()));
 	//make sure we got the last bit
@@ -62,8 +67,12 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 
 void SendSamplePage::transmissionFinished()
 {
+  kDebug() << "Transmission finished";
 	updateStatusDisplay();
 	emit completeChanged();
+
+  if (!futureWatcher->result())
+    pbReSendData->setEnabled(true);
 }
 
 void SendSamplePage::displayStatus(QString message, int now, int max)
@@ -101,26 +110,33 @@ SendSamplePage::~SendSamplePage()
 void SendSamplePage::initializePage()
 {
 	if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
-		kDebug() << "Sending...";
-		if (m_progressWidget) {
-			layout->removeWidget(m_progressWidget);
-			m_progressWidget->deleteLater();
-		}
-
-		m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
-		m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
-		connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
-		connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
-		connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
-
-		layout->addWidget(m_progressWidget);
-		m_progressWidget->show();
-
-		QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
-		futureWatcher->setFuture(future);
-		kDebug() << "Thread started";
+    sendData();
 	} else
 		kDebug() << "Nothing";
+}
+
+void SendSamplePage::sendData()
+{
+  kDebug() << "Sending data";
+  pbReSendData->setEnabled(false);
+
+  if (m_progressWidget) {
+    layout->removeWidget(m_progressWidget);
+    m_progressWidget->deleteLater();
+  }
+
+  m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
+  m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
+  connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
+  connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
+  connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
+
+  layout->addWidget(m_progressWidget);
+  m_progressWidget->show();
+
+  QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
+  futureWatcher->setFuture(future);
+  kDebug() << "Thread started";
 }
 
 
@@ -139,7 +155,6 @@ void SendSamplePage::sendSample(Sample *s)
 bool SendSampleWorker::sendSamples()
 {
 	shouldAbort = false;
-	int maxProgress = m_dataProvider->sampleToTransmitCount();
 
 	int i=0;
 	int retryAmount = 0;
@@ -153,9 +168,9 @@ bool SendSampleWorker::sendSamples()
 	}
 	kDebug() << "Transmission started...";
 
-	while (!shouldAbort && (m_dataProvider->hasSamplesToTransmit())) {
-//		QString currentFile = SSCConfig::sampleDirectory()+m_files.at(i)+".wav";
+	int maxProgress = m_dataProvider->sampleToTransmitCount();
 
+	while (!shouldAbort && (m_dataProvider->hasSamplesToTransmit())) {
 		Sample *s = m_dataProvider->getSample();
 		emit status(i18n("Sending: %1", s->path()), i, maxProgress);
 
@@ -167,7 +182,13 @@ bool SendSampleWorker::sendSamples()
 			kDebug() << "Emit signal";
 			if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3))  {
 				kDebug() << "Error processing sample";
-				emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
+        if (!SSCDAccess::getInstance()->isConnected())
+        {
+          emit aborted();
+          return false;
+        }
+        else
+          emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
 				retryAmount++;
 			} else {
 				m_dataProvider->sampleTransmitted();
