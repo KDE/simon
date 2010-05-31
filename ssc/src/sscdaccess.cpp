@@ -19,6 +19,7 @@
 
 
 #include "sscdaccess.h"
+#include "sscconfig.h"
 
 #include <simonprogresstracking/operation.h>
 #include <sscprotocol/sscprotocol.h>
@@ -28,6 +29,7 @@
 #include <sscobjects/userininstitution.h>
 #include <sscobjects/user.h>
 #include <sscobjects/sample.h>
+
 
 #include <unistd.h>
 
@@ -246,14 +248,27 @@ bool SSCDAccess::sendRequest (qint32 request, qint32 message, qint32 message2)
 
 
 
-void SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
+bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
 {
 	Q_ASSERT(stream.device());
 	while (stream.device()->bytesAvailable() < length)
 	{
-		if (socket->waitForReadyRead())
+		if (socket->waitForReadyRead(SSCConfig::timeout() /*timeout*/))
+    {
 			message += socket->readAll();
+    }
+    else
+    {
+      //timeout reached
+      kDebug() << "Timeout reached!";
+      socket->abort();
+      socket->close();
+      emit error(i18n("Timeout reached. Please check your connection to the sscd"));
+      emit disconnected();
+      return false;
+    }
 	}
+  return true;
 }
 
 void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)

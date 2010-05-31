@@ -116,7 +116,7 @@ private:
 
 	QTimer *timeoutWatcher;
 	QString lastErrorString;
-	void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+	bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 	
 private slots:
 	bool sendRequest (qint32 request);

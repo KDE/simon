@@ -15,6 +15,10 @@
       <label>the port to connect to.</label>
       <default>4440</default>
     </entry>
+    <entry name="Timeout" type="Int">
+      <label>after this timeout the client will stop waiting for an answer from the server.</label>
+      <default>3000</default>
+    </entry>
     <entry name="UseInstitutionSpecificIDs" type="Bool">
       <label>wether we want to resolve users based on their reference id assigned by a specific institute.</label>
       <default>false</default>
