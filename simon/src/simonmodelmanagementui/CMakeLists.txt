@@ -69,6 +69,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainingswizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsampleintropage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplevolumepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarviewprivate.cpp
