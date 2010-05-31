@@ -57,6 +57,7 @@ public:
 
 	void setId(qint32 sampleId) { m_sampleId = sampleId; }
 	void setPath(const QString& path) { m_path = path; }
+	bool deleteFile();
 
 	~Sample() {}
 };

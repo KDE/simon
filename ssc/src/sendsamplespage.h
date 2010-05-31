@@ -89,6 +89,8 @@ class SendSamplePage : public QWizardPage
 		void sendSample(Sample *s);
 		void updateStatusDisplay();
 		void transmissionFinished();
+    void prepareDataSending();
+    void disassociateFromSSCDAccess();
     void sendData();
 	
 	public:

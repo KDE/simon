@@ -51,7 +51,7 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	desc->setWordWrap(true);
 	layout->addWidget(desc);
   pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
-  connect(pbReSendData, SIGNAL(clicked()), this, SLOT(sendData()));
+  connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
 	layout->addWidget(pbReSendData);
 
 	futureWatcher = new QFutureWatcher<bool>(this);
@@ -110,13 +110,53 @@ SendSamplePage::~SendSamplePage()
 void SendSamplePage::initializePage()
 {
 	if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
-    sendData();
+    prepareDataSending();
 	} else
 		kDebug() << "Nothing";
 }
 
+/*
+ *	void connected();
+	void disconnected();
+
+	void error(const QString& errStr);
+
+	void warning(const QString&);
+  */
+
+
+void SendSamplePage::prepareDataSending()
+{
+  if (!SSCDAccess::getInstance()->isConnected())
+  {
+    if (KMessageBox::questionYesNo(this, i18n("Not connected to the server.\n\nDo you want to establish a connection now?")) == KMessageBox::Yes) {
+      //connect
+      connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
+      connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccess()));
+      connect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccess()));
+      connect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccess()));
+
+      SSCDAccess::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
+    }
+  }
+  else
+    sendData();
+}
+
+void SendSamplePage::disassociateFromSSCDAccess()
+{
+  disconnect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(prepareDataSending()));
+  disconnect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(disassociateFromSSCDAccess()));
+  disconnect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disassociateFromSSCDAccess()));
+  disconnect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(disassociateFromSSCDAccess()));
+}
+
+
 void SendSamplePage::sendData()
 {
+  if (!SSCDAccess::getInstance()->isConnected())
+    KMessageBox::information(this, i18n("Not connected to server."));
+
   kDebug() << "Sending data";
   pbReSendData->setEnabled(false);
 
@@ -155,6 +195,7 @@ void SendSamplePage::sendSample(Sample *s)
 bool SendSampleWorker::sendSamples()
 {
 	shouldAbort = false;
+	bool successful = true;
 
 	int i=0;
 	int retryAmount = 0;
@@ -165,6 +206,7 @@ bool SendSampleWorker::sendSamples()
 
 		emit error(i18n("Failed to start the sample transmission.\n\nMost likely this is caused by problems to send the information about the used input devices."));
 		shouldAbort = true;
+    successful = false;
 	}
 	kDebug() << "Transmission started...";
 
@@ -184,8 +226,8 @@ bool SendSampleWorker::sendSamples()
 				kDebug() << "Error processing sample";
         if (!SSCDAccess::getInstance()->isConnected())
         {
-          emit aborted();
-          return false;
+          shouldAbort = true;
+          successful = false;
         }
         else
           emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
@@ -211,7 +253,7 @@ bool SendSampleWorker::sendSamples()
 	} else 
 		emit aborted();
 
-	return true;
+	return successful;
 }
 
 SendSampleWorker::~SendSampleWorker()

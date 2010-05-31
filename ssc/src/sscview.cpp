@@ -348,6 +348,8 @@ void SSCView::disconnected()
 
 	ui.cbPatientId->setEnabled(false);
 
+	ui.cbPatientId->clearEditText();
+
   if (!wantToDisconnect)
   {
     //server quit

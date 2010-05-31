@@ -502,9 +502,15 @@ void ClientSocket::processRequest()
 				s->deserialize(sampleByte);
 
 				storeSample(s);
-        //DEBUG
-//        delete this;
 
+        /////////////////////
+        //DEBUG: Simulate bug
+        //static bool fail = false;
+        //if (fail)
+        //  delete this;
+        //fail = true;
+        ///////////////////////
+        
 				delete s;
 					   }
 

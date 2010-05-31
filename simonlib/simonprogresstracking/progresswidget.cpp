@@ -70,7 +70,6 @@ ProgressWidget::ProgressWidget(QPointer<Operation> O, ProgressWidgetStyle style,
 }
 
 
-#include <KDebug>
 void ProgressWidget::update()
 {
 	currentAction->setText(op->currentAction());
@@ -79,7 +78,6 @@ void ProgressWidget::update()
   if (bar->maximum() != op->maxProgress())
     bar->setMaximum(op->maxProgress());
 
-  kDebug() << op->currentProgress() << op->maxProgress();
 	if (!op->isRunning())
 		cancelButton->setDisabled(true);
 }

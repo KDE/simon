@@ -19,6 +19,7 @@
 
 #include "sample.h"
 #include <QDataStream>
+#include <QFile>
 #include <QByteArray>
 
 Sample::Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId, 
@@ -66,4 +67,8 @@ QByteArray Sample::serialize()
 	return body;
 }
 
+bool Sample::deleteFile()
+{
+  return QFile::remove(m_path);
+}
 
