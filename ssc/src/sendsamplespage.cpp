@@ -138,7 +138,6 @@ void SendSamplePage::sendSample(Sample *s)
  */
 bool SendSampleWorker::sendSamples()
 {
-	kDebug() << "Yeah I am here...";
 	shouldAbort = false;
 	int maxProgress = m_dataProvider->sampleToTransmitCount();
 

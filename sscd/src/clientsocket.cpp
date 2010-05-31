@@ -502,6 +502,8 @@ void ClientSocket::processRequest()
 				s->deserialize(sampleByte);
 
 				storeSample(s);
+        //DEBUG
+//        delete this;
 
 				delete s;
 					   }
