@@ -12,4 +12,8 @@ include_directories( ${QT_INCLUDES} ../simonlib )
 add_subdirectory( src )
 add_subdirectory( icons )
 
+if(WIN32)
 install( FILES sscd.conf  DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd )
+else(WIN32)
+install( FILES sscd.conf  DESTINATION share/sscd COMPONENT sscd )
+endif(WIN32)

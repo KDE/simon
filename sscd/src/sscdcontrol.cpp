@@ -31,6 +31,7 @@ SSCDControl::SSCDControl(QObject* parent) : QTcpServer(parent)
 
 bool SSCDControl::init()
 {
+	qDebug() << "Reading: " << SSCD_BASE_DIRECTORY+QDir::separator()+"sscd.conf";
 	QSettings settings(SSCD_BASE_DIRECTORY+QDir::separator()+"sscd.conf", QSettings::IniFormat);
 	
 	QString dbType = settings.value("DatabaseType", "QMYSQL").toString();
