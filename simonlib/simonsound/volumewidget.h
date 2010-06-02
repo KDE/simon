@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -16,34 +16,34 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include "trainsamplevolumepage.h"
-#include "ui_trainsamplevolumepage.h"
-
-#include <simonsound/soundserver.h>
-
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QTimer>
-#include <QCheckBox>
-
-#include <KDebug>
-#include <KLocalizedString>
 
 
-TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
-	ui(new Ui::TrainSampleVolumePage())
+#ifndef SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
+#define SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
+
+#include "simonsound_export.h"
+#include <QWidget>
+
+namespace Ui
 {
-	setTitle(i18n("Volume"));
-
-	ui->setupUi(this);
+	class VolumeWidgetUi;
 }
 
-void TrainSampleVolumePage::initializePage()
-{
-}
+/**
+ * \class VolumeWidget
+ * \author Peter Grasch
+ * \date 2.06.2010
+ */
+class SIMONSOUND_EXPORT VolumeWidget : public QWidget {
+	Q_OBJECT
 
-TrainSampleVolumePage::~TrainSampleVolumePage()
-{
-	delete ui;
-}
+private:
+	Ui::VolumeWidgetUi *ui;
+    void setPrompt(const QString& text);
+public:
+    VolumeWidget(QWidget *parent=0);
+    ~VolumeWidget();
+};
+
+#endif
 

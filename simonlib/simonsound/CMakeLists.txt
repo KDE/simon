@@ -18,6 +18,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
@@ -36,6 +37,7 @@ set( simonsound_LIB_SRCS
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
@@ -59,10 +61,12 @@ kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
 )
 

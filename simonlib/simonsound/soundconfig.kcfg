@@ -83,6 +83,11 @@
     </entry>
   </group>
 
+  <group name="Calibrate">
+    <entry name="VolumePrompt" type="String">
+      <label>the prompt for the user to speak to set up an appropriate volume.</label>
+    </entry>
+  </group>
   <group name="Prompt">
     <entry name="PromptFont" type="Font">
       <label>The font to use for all the promtps in simon.</label>

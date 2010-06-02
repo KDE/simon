@@ -66,22 +66,29 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	QWidget *postProcessingConfig = new QWidget(this);
 	postProcUi.setupUi(postProcessingConfig);
 
-	QWidget *promptConfig = new QWidget(this);
-	promptUi.setupUi(promptConfig);
+	QWidget *trainingConfig = new QWidget(this);
+	trainingSettignsUi.setupUi(trainingConfig);
+
+
+//	QWidget *promptConfig = new QWidget(this);
+//	promptUi.setupUi(promptConfig);
 
 	KPageWidgetItem *deviceConfItem = pageWidget->addPage(deviceSettings, i18n("Device Configuration"));
 	KPageWidgetItem *vadConfItem = pageWidget->addPage(vadConfig, i18n("Voice Activity Detection"));
-	KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
+	KPageWidgetItem *trainingConfigItem = pageWidget->addPage(trainingConfig, i18n("Training"));
+	//KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
 	KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
 
 	deviceConfItem->setIcon(KIcon("audio-card"));
 	vadConfItem->setIcon(KIcon("media-playback-start"));
-	promptConfItem->setIcon(KIcon("draw-text"));
+	trainingConfigItem->setIcon(KIcon("view-pim-news"));
+	//promptConfItem->setIcon(KIcon("draw-text"));
 	postProcConfItem->setIcon(KIcon("applications-other"));
 
 	deviceConfItem->setHeader("");
 	vadConfItem->setHeader("");
-	promptConfItem->setHeader("");
+	trainingConfigItem->setHeader("");
+	//promptConfItem->setHeader("");
 	postProcConfItem->setHeader("");
 	
 	KAboutData *about = new KAboutData(

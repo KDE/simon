@@ -80,6 +80,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/editword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplevolumepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextaddpage.ui

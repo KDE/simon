@@ -23,10 +23,15 @@
 #include <QWizardPage>
 
 class QCheckBox;
+namespace Ui
+{
+	class TrainSampleVolumePage;
+}
 
 class TrainSampleVolumePage : public QWizardPage {
 
 private:
+	Ui::TrainSampleVolumePage *ui;
 
 public:
 	TrainSampleVolumePage(QWidget *parent=NULL);

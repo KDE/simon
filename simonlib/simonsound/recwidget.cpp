@@ -20,6 +20,7 @@
 #include "recwidget.h"
 
 #include "wavrecorderclient.h"
+#include "soundconfig.h"
 #include "wavplayerclient.h"
 #include "soundconfig.h"
 #include "simonsound.h"
@@ -70,14 +71,16 @@ RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forc
 	ui->pbDeleteAll->setIcon(KIcon("edit-delete"));
 
 	setTitle(name);
+	
+	ui->tePrompt->setFont(SoundConfiguration::promptFont());
 	ui->tePrompt->setPlainText(text);
 
 	setupSignalsSlots();
 	initialize();
 	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 
-  hideActionPrompt();
-  connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
+	hideActionPrompt();
+	connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
 }
 
 void RecWidget::hideActionPrompt()

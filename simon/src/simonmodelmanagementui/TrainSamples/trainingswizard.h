@@ -36,6 +36,7 @@ class TrainingsWizard : public SimonWizard
 
 	private:
 		QWizardPage* createIntroPage();
+		QWizardPage* createVolumePage();
 		QWizardPage* createFinishedPage();
 
 		bool init(const QStringList& prompts, const QString& name);

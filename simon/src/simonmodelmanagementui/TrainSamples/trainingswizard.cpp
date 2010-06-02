@@ -19,6 +19,7 @@
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
 #include "trainsampleintropage.h"
+#include "trainsamplevolumepage.h"
 
 #include "../AddWord/addwordview.h"
 
@@ -44,6 +45,7 @@
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	addPage(createIntroPage());
+	addPage(createVolumePage());
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	setBanner("training");
 }
@@ -174,6 +176,12 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 QWizardPage* TrainingsWizard::createIntroPage()
 {
 	return new TrainSampleIntroPage(this);
+}
+
+
+QWizardPage* TrainingsWizard::createVolumePage()
+{
+	return new TrainSampleVolumePage(this);
 }
 
 
