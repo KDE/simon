@@ -19,6 +19,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
@@ -26,6 +27,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/nullrecorderclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayersubclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.cpp
@@ -38,6 +40,7 @@ set( simonsound_LIB_SRCS
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
@@ -67,6 +70,7 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
 )
 

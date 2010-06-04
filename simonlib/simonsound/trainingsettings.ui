@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="kcfg_VolumePrompt"/>
+    <widget class="KTextEdit" name="kcfg_VolumePrompt"/>
    </item>
   </layout>
  </widget>
@@ -52,6 +52,11 @@
    <class>KFontRequester</class>
    <extends>QWidget</extends>
    <header>kfontrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

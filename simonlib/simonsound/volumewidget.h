@@ -22,12 +22,18 @@
 #define SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include <QList>
 #include <QWidget>
 
 namespace Ui
 {
 	class VolumeWidgetUi;
 }
+namespace SimonSound {
+	class DeviceConfiguration;
+}
+
+class DeviceVolumeWidget;
 
 /**
  * \class VolumeWidget
@@ -39,10 +45,17 @@ class SIMONSOUND_EXPORT VolumeWidget : public QWidget {
 
 private:
 	Ui::VolumeWidgetUi *ui;
-    void setPrompt(const QString& text);
+	QList<DeviceVolumeWidget*> devices;
+
+	void setPrompt(const QString& text);
+
+	void registerClient(const SimonSound::DeviceConfiguration& device);
 public:
-    VolumeWidget(QWidget *parent=0);
-    ~VolumeWidget();
+	VolumeWidget(QWidget *parent=0);
+	~VolumeWidget();
+
+	void start();
+	void stop();
 };
 
 #endif

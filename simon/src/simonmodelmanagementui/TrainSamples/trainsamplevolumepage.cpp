@@ -40,7 +40,15 @@ TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(pare
 
 void TrainSampleVolumePage::initializePage()
 {
+	ui->wgVolume->start();
 }
+
+bool TrainSampleVolumePage::validatePage()
+{
+	ui->wgVolume->stop();
+	return true;
+}
+
 
 TrainSampleVolumePage::~TrainSampleVolumePage()
 {

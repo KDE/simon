@@ -36,6 +36,7 @@ private:
 public:
 	TrainSampleVolumePage(QWidget *parent=NULL);
 	void initializePage();
+	bool validatePage();
     	~TrainSampleVolumePage();
 
 };
