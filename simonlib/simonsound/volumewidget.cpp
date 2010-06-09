@@ -72,5 +72,6 @@ void VolumeWidget::stop()
 
 VolumeWidget::~VolumeWidget()
 {
+	stop();
 }
 
