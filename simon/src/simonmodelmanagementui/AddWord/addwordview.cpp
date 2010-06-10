@@ -22,9 +22,11 @@
 #include <simonlogging/logger.h>
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
+#include "../TrainSamples/trainsamplevolumepage.h"
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 
+#include <simonsound/soundserver.h>
 #include <simonscenarios/vocabulary.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/trainingmanager.h>
@@ -65,6 +67,8 @@ AddWordView::AddWordView(Vocabulary *vocab, QWidget *parent)
 {
 	this->addPage(createWelcomePage());
 	this->addPage(createResolvePage());
+	if (SoundServer::getCalibrateVolume())
+		addPage(new TrainSampleVolumePage(this));
 	this->addPage(record1);
 	this->addPage(record2);
 	this->addPage(createFinishedPage());
