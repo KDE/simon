@@ -21,6 +21,7 @@
 #define SIMON_TRAINSAMPLEVOLUMEPAGE_H_4F90334EEE9C4EB697B9A2431C488A0F
 
 #include <QWizardPage>
+#include "simonsound_export.h"
 
 class QCheckBox;
 namespace Ui
@@ -28,7 +29,7 @@ namespace Ui
 	class TrainSampleVolumePage;
 }
 
-class TrainSampleVolumePage : public QWizardPage {
+class SIMONSOUND_EXPORT TrainSampleVolumePage : public QWizardPage {
 
 private:
 	Ui::TrainSampleVolumePage *ui;

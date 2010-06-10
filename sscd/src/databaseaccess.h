@@ -79,8 +79,8 @@ class DatabaseAccess : public QObject
 		bool modifyInstitution(Institution *i);
 		bool removeInstitution(qint32 id);
 
-		bool getOrCreateMicrophone(Microphone *m, qint16& microphoneId);
-		bool getOrCreateSoundCard(SoundCard *s, qint16& soundCardId);
+		bool getOrCreateMicrophone(Microphone *m, qint32& microphoneId);
+		bool getOrCreateSoundCard(SoundCard *s, qint32& soundCardId);
 
 
 		int addUserInstitutionAssociation(UserInInstitution *uii);

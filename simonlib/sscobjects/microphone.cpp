@@ -21,7 +21,7 @@
 #include <QDataStream>
 #include <QByteArray>
 
-Microphone::Microphone(qint16 id, const QString& model, const QString& type) :
+Microphone::Microphone(qint32 id, const QString& model, const QString& type) :
 	m_id(id),
 	m_model(model),
 	m_type(type)

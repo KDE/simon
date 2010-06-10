@@ -19,10 +19,10 @@
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
 #include "trainsampleintropage.h"
-#include "trainsamplevolumepage.h"
 
 #include "../AddWord/addwordview.h"
 
+#include <simonsound/trainsamplevolumepage.h>
 #include <simonscenarios/trainingmanager.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>

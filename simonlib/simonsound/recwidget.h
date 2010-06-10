@@ -54,7 +54,7 @@ signals:
 	void playbackFinished();
 
 private:
-  QTimer *statusTimer;
+	QTimer *statusTimer;
 	Ui::RecWidgetUi *ui;
 	bool m_simpleMode;
 
@@ -78,10 +78,10 @@ private slots:
 
 	void slotSampleDeleted();
 
-  void hideActionPrompt();
-  void showStartPrompt();
-  void showFinishPrompt();
-  void showWaitPrompt();
+	void hideActionPrompt();
+	void showStartPrompt();
+	void showFinishPrompt();
+	void showWaitPrompt();
 
 public slots:
 	void record();
@@ -94,12 +94,12 @@ public slots:
 	void slotEnableDeleteAll();
 	
 public:
-    RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, QWidget *parent=0);
-    ~RecWidget();
-    bool hasRecordingReady();
-    bool isRecording();
-    QStringList getFileNames();
-    QStringList getDevices();
+	RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, QWidget *parent=0);
+	~RecWidget();
+	bool hasRecordingReady();
+	bool isRecording();
+	QStringList getFileNames();
+	QStringList getDevices();
 
 };
 

@@ -29,7 +29,15 @@ VolumeWidget::VolumeWidget(QWidget *parent) : QWidget(parent),
 	ui(new Ui::VolumeWidgetUi())
 {
 	ui->setupUi(this);
+}
+
+void VolumeWidget::init()
+{
 	setPrompt(SoundConfiguration::volumePrompt());
+	stop();
+
+	qDeleteAll(devices);
+	devices.clear();
 
 	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
 	foreach (const SimonSound::DeviceConfiguration& device, devices)

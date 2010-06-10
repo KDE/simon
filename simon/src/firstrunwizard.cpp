@@ -22,6 +22,7 @@
 #include "firstrunscenariosconfig.h"
 #include "firstrunsoundconfig.h"
 #include "firstrunbasemodelconfig.h"
+#include <simonsound/trainsamplevolumepage.h>
 #include <QWizardPage>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -35,6 +36,7 @@ FirstRunWizard::FirstRunWizard(QWidget* parent, Qt::WFlags flags)
 	addPage(createBaseModelConfigPage());
 	addPage(createSimondConfigPage());
 	addPage(createSoundConfigPage());
+	addPage(createSoundVolumePage());
 	addPage(createFinishedPage());
 	setBanner("firstrun");
 }
@@ -66,6 +68,11 @@ QWizardPage* FirstRunWizard::createSimondConfigPage()
 QWizardPage* FirstRunWizard::createSoundConfigPage()
 {
 	return new FirstRunSoundConfig(this);
+}
+
+QWizardPage* FirstRunWizard::createSoundVolumePage()
+{
+	return new TrainSampleVolumePage(this);
 }
 
 QWizardPage* FirstRunWizard::createBaseModelConfigPage()

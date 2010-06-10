@@ -20,6 +20,7 @@
 
 #include "sscconfig.h"
 
+#include <simonsound/soundserver.h>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QCheckBox>
@@ -49,7 +50,7 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
 
 void TrainSampleIntroPage::initializePage()
 {
-	cbPowerTrain->setChecked(SSCConfig::defaultToPowerTrain());
+	cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
 }
 
 TrainSampleIntroPage::~TrainSampleIntroPage()

@@ -511,7 +511,7 @@ QList<SoundCard*> SSCDAccess::getSoundCards(bool *ok)
 	return soundCards;
 }
 
-qint16 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
+qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 {
 	sendObject(SSC::GetOrCreateMicrophone, microphone);
 
@@ -547,7 +547,7 @@ qint16 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 	return -1;
 }
 
-qint16 SSCDAccess::getOrCreateSoundCard(SoundCard *soundCard, bool* ok)
+qint32 SSCDAccess::getOrCreateSoundCard(SoundCard *soundCard, bool* ok)
 {
 	sendObject(SSC::GetOrCreateSoundCard, soundCard);
 

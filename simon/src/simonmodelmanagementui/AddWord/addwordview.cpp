@@ -22,7 +22,7 @@
 #include <simonlogging/logger.h>
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
-#include "../TrainSamples/trainsamplevolumepage.h"
+#include <simonsound/trainsamplevolumepage.h>
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 

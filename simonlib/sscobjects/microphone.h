@@ -27,19 +27,19 @@
 class SSCOBJECTS_EXPORT Microphone : public SSCObject {
 
 private:
-	qint16 m_id;
+	qint32 m_id;
 	QString m_model;
 	QString m_type;
 
 public:
-	Microphone(qint16 id, const QString& model, const QString& type);
+	Microphone(qint32 id, const QString& model, const QString& type);
 
 	Microphone() {}
 
 	void deserialize(QByteArray data);
 	QByteArray serialize();
 
-	qint16 id() { return m_id; }
+	qint32 id() { return m_id; }
 	QString model() { return m_model; }
 	QString type() { return m_type; }
 

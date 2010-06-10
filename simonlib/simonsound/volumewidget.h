@@ -54,6 +54,8 @@ public:
 	VolumeWidget(QWidget *parent=0);
 	~VolumeWidget();
 
+	void init();
+
 	void start();
 	void stop();
 };

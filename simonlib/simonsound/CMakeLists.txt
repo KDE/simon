@@ -36,6 +36,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
 )
 
 set( simonsound_LIB_HDRS
@@ -59,6 +61,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -74,6 +77,7 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.ui
 )
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )

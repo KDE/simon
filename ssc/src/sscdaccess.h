@@ -87,10 +87,10 @@ public:
 	QList<Language*> getLanguages(bool *ok);
 
 	QList<Microphone*> getMicrophones(bool *ok);
-	qint16 getOrCreateMicrophone(Microphone *microphone, bool* ok);
+	qint32 getOrCreateMicrophone(Microphone *microphone, bool* ok);
 
 	QList<SoundCard*> getSoundCards(bool *ok);
-	qint16 getOrCreateSoundCard(SoundCard *soundCard, bool* ok);
+	qint32 getOrCreateSoundCard(SoundCard *soundCard, bool* ok);
 
 	QList<Institution*> getInstitutions(bool *ok);
 	bool addInstitution(Institution* i);

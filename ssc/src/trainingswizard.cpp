@@ -24,6 +24,9 @@
 #include "trainsampleintropage.h"
 #include "sscconfig.h"
 
+#include <simonsound/soundserver.h>
+#include <simonsound/trainsamplevolumepage.h>
+
 #include <QWizardPage>
 #include <QStringList>
 
@@ -45,8 +48,13 @@ TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	setBanner("training");
 	addPage(createIntroPage());
+
 	m_infoPage = createDeviceDescPage();
 	addPage(m_infoPage);
+
+	if (SoundServer::getCalibrateVolume())
+		addPage(new TrainSampleVolumePage());
+
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 

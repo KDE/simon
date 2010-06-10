@@ -33,6 +33,7 @@ private:
 	QWizardPage* createIntroPage();
 	QWizardPage* createSimondConfigPage();
 	QWizardPage* createSoundConfigPage();
+	QWizardPage* createSoundVolumePage();
 	QWizardPage* createBaseModelConfigPage();
 	QWizardPage* createScenariosConfigPage();
 	QWizardPage* createFinishedPage();
