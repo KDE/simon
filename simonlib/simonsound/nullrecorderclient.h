@@ -27,13 +27,13 @@
 #include "soundinputclient.h"
 
 class WAV;
-class LoudnessMeterSoundProcessor;
+class VADSoundProcessor;
 
 class NullRecorderClient :public QObject, public SoundInputClient {
 	Q_OBJECT
 
 private:
-	LoudnessMeterSoundProcessor *loudness;
+	VADSoundProcessor *vad;
 
 signals:
 	void level(qint64 time, float now);

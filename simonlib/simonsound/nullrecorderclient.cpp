@@ -32,10 +32,9 @@
 NullRecorderClient::NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) : 
 	QObject(parent),
 	SoundInputClient(deviceConfiguration),
-	loudness(new LoudnessMeterSoundProcessor())
+	vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
 {
-	registerSoundProcessor(loudness);
-	registerSoundProcessor(new VADSoundProcessor(deviceConfiguration));
+	registerSoundProcessor(vad);
 }
 
 
@@ -49,9 +48,9 @@ void NullRecorderClient::processPrivate(const QByteArray& data, qint64 currentTi
 {
 	Q_UNUSED(data);
 
-	float peak = loudness->peak() / 32768.0f;
+	float peak = vad->peak() / 32768.0f;
 	emit level(currentTime, peak);
-	if (loudness->clipping())
+	if (vad->clipping())
 		emit clippingOccured();
 }
 

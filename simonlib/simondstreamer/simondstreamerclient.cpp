@@ -80,6 +80,8 @@ bool SimondStreamerClient::start()
 
 void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
+	Q_UNUSED(currentTime);
+
 	if (vad->startListening())
 	{
 		kDebug() << "Starting listening!";

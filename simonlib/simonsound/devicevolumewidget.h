@@ -47,13 +47,17 @@ private:
 	Ui::DeviceVolumeWidgetUi *ui;
 	NullRecorderClient *rec;
 	QString m_deviceName;
+	bool m_isTooLoud;
 
 private slots:
 	void deviceReportedLevel(qint64 time, float level);
 
+	void clipping();
 	void tooLoud();
 	void volumeOk();
 	void tooLow();
+	void reset();
+
 public:
     DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
     ~DeviceVolumeWidget();

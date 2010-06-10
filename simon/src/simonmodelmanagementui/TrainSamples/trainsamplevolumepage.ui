@@ -17,7 +17,9 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Before you start the recording, this page will help to ensure that your microphone(s) is / are configured correctly.</string>
+      <string>Please read the text below while adjusting the microphone(s) volume level(s) using your systems mixer until simon displays that the volume is configured correctly.
+
+When you change the volume please press the &quot;Volume changed&quot; button.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

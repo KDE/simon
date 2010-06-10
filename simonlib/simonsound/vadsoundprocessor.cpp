@@ -27,10 +27,11 @@
 /**
  * \brief Constructor
  */
-VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration) : 
+VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll) : 
 	QObject(),
 	LoudnessMeterSoundProcessor(),
 	m_deviceConfiguration(deviceConfiguration),
+	m_passAll(passAll),
 	lastLevel(0),
 	lastTimeUnderLevel(0),
 	lastTimeOverLevel(0),
@@ -79,19 +80,15 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 					waitingForSampleToFinish = true;
 					if (!currentlyRecordingSample)
 					{
-						kDebug() << "Setting startListening to true";
+						sampleStartTime = currentTime;
 						m_startListening = true;
 						emit listening();
 						passDataThrough = true;
-//						sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-//							m_deviceConfiguration.sampleRate());
 						currentlyRecordingSample = true;
 					}
 				}
 			} else {
 				passDataThrough = true;
-				//sender->sendSampleToRecognize(id, currentSample);
-				//currentSample.clear();
 #ifdef SIMOND_DEBUG
 				kDebug() << "Clearing cached data...";
 #endif
@@ -144,8 +141,14 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 
 	lastLevel = peak();
 
-	if (passDataThrough)
+	if (passDataThrough || m_passAll)
 	{
+		if (currentSample.count() > data.count())
+		{
+			//contained cached data as such must be the first sending
+			kDebug() << "STARTED!";
+			currentTime = sampleStartTime;
+		}
 		data = currentSample;
 		currentSample.clear();
 	} else {

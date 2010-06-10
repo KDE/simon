@@ -37,10 +37,13 @@ signals:
 
 private:
 	SimonSound::DeviceConfiguration m_deviceConfiguration;
+	bool m_passAll;
 
 	qint64 lastLevel;
 	qint64 lastTimeUnderLevel;
 	qint64 lastTimeOverLevel;
+
+	qint64 sampleStartTime;
 
 	bool waitingForSampleToStart;
 	bool waitingForSampleToFinish;
@@ -62,7 +65,7 @@ private:
 
 
 public:
-	VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration);
+	VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll=false);
 
 	void process(QByteArray& data, qint64& currentTime);
 

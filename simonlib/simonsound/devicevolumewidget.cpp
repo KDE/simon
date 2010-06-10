@@ -19,21 +19,35 @@
 
 #include "devicevolumewidget.h"
 #include "simonsound.h"
+#include "soundconfig.h"
 #include "nullrecorderclient.h"
 #include "ui_devicevolumewidget.h"
+#include <KIcon>
 #include <KLocalizedString>
 #include <KMessageBox>
 
 DeviceVolumeWidget::DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent) : QWidget(parent),
 	ui(new Ui::DeviceVolumeWidgetUi()),
 	rec(new NullRecorderClient(device, this)),
-	m_deviceName(device.name())
+	m_deviceName(device.name()),
+	m_isTooLoud(false)
 {
 	ui->setupUi(this);
-	ui->lbDeviceName->setText(m_deviceName+":");
+	m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
+	ui->lbDeviceName->setText(i18n("Device \"%1\":", m_deviceName));
 	connect(rec, SIGNAL(level(qint64, float)), this, SLOT(deviceReportedLevel(qint64, float)));
-	connect(rec, SIGNAL(clippingOccured()), this, SLOT(tooLoud()));
+	connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
 
+	connect(ui->pbVolumeChanged, SIGNAL(clicked()), this, SLOT(reset()));
+
+	tooLow();
+
+	ui->pbVolumeChanged->setIcon(KIcon("view-refresh"));
+}
+
+void DeviceVolumeWidget::reset()
+{
+	m_isTooLoud = false;
 	tooLow();
 }
 
@@ -41,21 +55,42 @@ void DeviceVolumeWidget::deviceReportedLevel(qint64 time, float level)
 {
 	Q_UNUSED(time);
 	ui->pbVolume->setValue(qRound(100*level));
+
+	if ((level > (SoundConfiguration::calibrateMinVolume() / 100.0f)) && 
+			!m_isTooLoud)
+	{
+		if (level < (SoundConfiguration::calibrateMaxVolume() / 100.0f))
+		{
+			volumeOk();
+		} else {
+			tooLoud();
+			m_isTooLoud = true;
+		}
+	}
+}
+
+void DeviceVolumeWidget::clipping()
+{
+	m_isTooLoud = true;
+	tooLoud();
 }
 
 void DeviceVolumeWidget::tooLoud()
 {
-	ui->lbStatus->setText(i18n("Please lower the microphone volume"));
+	ui->lbStatus->setText(i18n("Lower the volume."));
+	ui->lbIcon->setPixmap(KIcon("go-down").pixmap(24,24));
 }
 
 void DeviceVolumeWidget::volumeOk()
 {
-	ui->lbStatus->setText(i18n("Microphone volume ok"));
+	ui->lbStatus->setText(i18n("Volume correct!"));
+	ui->lbIcon->setPixmap(KIcon("dialog-ok-apply").pixmap(24,24));
 }
 
 void DeviceVolumeWidget::tooLow()
 {
-	ui->lbStatus->setText(i18n("Please raise the microphone volume"));
+	ui->lbStatus->setText(i18n("Raise the volume."));
+	ui->lbIcon->setPixmap(KIcon("go-up").pixmap(24,24));
 }
 
 void DeviceVolumeWidget::start()

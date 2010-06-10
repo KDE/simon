@@ -84,6 +84,15 @@
   </group>
 
   <group name="Calibrate">
+    <entry name="CalibrateMinVolume" type="Int">
+      <label>volume calibration minimum value.</label>
+      <default>20</default>
+    </entry>
+    <entry name="CalibrateMaxVolume" type="Int">
+      <label>volume calibration maximum value.</label>
+      <default>100</default>
+    </entry>
+
     <entry name="VolumePrompt" type="String">
       <label>the prompt for the user to speak to set up an appropriate volume.</label>
     </entry>
