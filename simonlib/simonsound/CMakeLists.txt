@@ -35,6 +35,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundinput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.cpp
 )
 
 set( simonsound_LIB_HDRS
@@ -57,6 +58,7 @@ set( simonsound_LIB_HDRS
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)

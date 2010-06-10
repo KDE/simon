@@ -18,25 +18,26 @@
  */
 
 
-#ifndef SIMON_SIMONDSTREAMERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
-#define SIMON_SIMONDSTREAMERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
+#ifndef SIMON_VADSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
+#define SIMON_VADSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
+#include "simonsound_export.h"
+#include "simonsound.h"
+#include "loudnessmetersoundprocessor.h"
 
-#include "simonsender.h"
-#include "simondstreamer_export.h"
-#include <simonsound/soundinputclient.h>
-#include <simonsound/simonsound.h>
 #include <QObject>
-#include <qaudio.h>
+#include <QByteArray>
 
-
-class LoudnessMeterSoundProcessor;
-
-class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundInputClient {
+class SIMONSOUND_EXPORT VADSoundProcessor : public QObject, public LoudnessMeterSoundProcessor {
 	Q_OBJECT
 
+signals:
+	void listening();
+	void complete();
+
 private:
-	qint8 id;
+	SimonSound::DeviceConfiguration m_deviceConfiguration;
+
 	qint64 lastLevel;
 	qint64 lastTimeUnderLevel;
 	qint64 lastTimeOverLevel;
@@ -56,27 +57,21 @@ private:
 	// it to the server, adding live input
 	QByteArray currentSample;
 
-	bool m_isRunning;
-	SimonSender *sender;
 
-	LoudnessMeterSoundProcessor *loudness;
-
-	void inputStateChanged(QAudio::State state);
-
-signals:
-	void clippingOccured();
-	void started();
-	void stopped();
 
 public:
-	SimondStreamerClient(qint8 id, SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
-	bool stop();
-    	bool start();
-	bool isRunning();
+	VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration);
 
-	void processPrivate(const QByteArray& data, qint64 currentTime);
+	void process(QByteArray& data, qint64& currentTime);
+
+	bool voiceActivity() { return currentlyRecordingSample; }
+
+	void reset();
 };
 
 #endif
+
+
+
 
 

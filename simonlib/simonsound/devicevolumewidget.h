@@ -18,21 +18,50 @@
  */
 
 
-#ifndef SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
-#define SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
+#ifndef SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
+#define SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include <QWidget>
 
-class SIMONSOUND_EXPORT SoundProcessor {
+namespace Ui
+{
+	class DeviceVolumeWidgetUi;
+}
+namespace SimonSound
+{
+	class DeviceConfiguration;
+}
 
+class NullRecorderClient;
+
+/**
+ * \class DeviceVolumeWidget
+ * \author Peter Grasch
+ * \date 2.06.2010
+ */
+class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget {
+	Q_OBJECT
+
+private:
+	Ui::DeviceVolumeWidgetUi *ui;
+	NullRecorderClient *rec;
+	QString m_deviceName;
+
+private slots:
+	void deviceReportedLevel(qint64 time, float level);
+
+	void tooLoud();
+	void volumeOk();
+	void tooLow();
 public:
-	SoundProcessor() {}
-	virtual ~SoundProcessor() {}
+    DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
+    ~DeviceVolumeWidget();
 
-	virtual void process(QByteArray& data, qint64& currentTime)=0;
+    void start();
+    void stop();
 };
 
 #endif
-
 
 

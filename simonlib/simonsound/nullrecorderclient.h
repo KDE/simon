@@ -17,37 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "loudnessmetersoundprocessor.h"
-#include <QByteArray>
-#include <QtGlobal>
-#include <KDebug>
 
-/**
- * \brief Constructor
- */
+#ifndef SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
+#define SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 
-LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() : 
-	SoundProcessor(),
-	m_peak(1000),
-	m_clipping(false)
-{
-}
 
-void LoudnessMeterSoundProcessor::process(QByteArray& data, qint64& currentTime)
-{
-	Q_UNUSED(currentTime);
+#include <QObject>
+#include <QTimer>
+#include "soundinputclient.h"
 
-	const short* frames = (short*) data.constData();
-	int maxAmp =  32768 - 1;
-	m_peak = 0;
-	m_clipping = false;
-	for (unsigned int i=0; i < (data.size() / sizeof(short)); i++)
-	{
-		int frame = qAbs(frames[i]);
-		m_peak = qMax(m_peak, frame);
-	}
+class WAV;
+class LoudnessMeterSoundProcessor;
 
-	if (m_peak >= maxAmp)
-		m_clipping = true;
-}
+class NullRecorderClient :public QObject, public SoundInputClient {
+	Q_OBJECT
+
+private:
+	LoudnessMeterSoundProcessor *loudness;
+
+signals:
+	void level(qint64 time, float now);
+	void clippingOccured();
+	
+public:
+	NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    	bool start();
+	bool finish();
+
+	void processPrivate(const QByteArray& data, qint64 currentTime);
+    
+	virtual ~NullRecorderClient();
+
+};
+
+#endif
+
 
