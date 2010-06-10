@@ -47,6 +47,8 @@ private:
 
 	bool currentlyRecordingSample;
 
+	bool m_startListening;
+	bool m_doneListening;
 
 
 	// when the system detects that the current input is over the
@@ -65,6 +67,8 @@ public:
 	void process(QByteArray& data, qint64& currentTime);
 
 	bool voiceActivity() { return currentlyRecordingSample; }
+	bool startListening() { return m_startListening; }
+	bool doneListening() { return m_doneListening; }
 
 	void reset();
 };

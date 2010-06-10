@@ -20,7 +20,7 @@
 #include "simondstreamerclient.h"
 
 #include <simonsound/soundserver.h>
-#include <simonsound/loudnessmetersoundprocessor.h>
+#include <simonsound/vadsoundprocessor.h>
 #include <simonwav/wav.h>
 
 #include <QObject>
@@ -37,18 +37,12 @@ SoundServer* SoundServer::instance=NULL;
 SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
 	QObject(parent),
 	SoundInputClient(device, SoundClient::Background),
-	lastLevel(0),
-	lastTimeUnderLevel(0),
-	lastTimeOverLevel(0),
-	waitingForSampleToStart(true),
-	waitingForSampleToFinish(false),
-	currentlyRecordingSample(false),
 	m_isRunning(false),
 	sender(s),
-	loudness(new LoudnessMeterSoundProcessor())
+	vad(new VADSoundProcessor(device))
 {
 	this->id = id;
-	registerSoundProcessor(loudness);
+	registerSoundProcessor(vad);
 }
 
 
@@ -65,8 +59,9 @@ bool SimondStreamerClient::isRunning()
 
 bool SimondStreamerClient::start()
 {
-	lastTimeOverLevel = -1;
-	lastTimeUnderLevel = -1;
+	vad->reset();
+	//lastTimeOverLevel = -1;
+	//lastTimeUnderLevel = -1;
 	bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
 	kDebug() << "Registered input client: " << succ;
@@ -82,8 +77,27 @@ bool SimondStreamerClient::start()
 	return succ;
 }
 
+
 void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
+	if (vad->startListening())
+	{
+		kDebug() << "Starting listening!";
+		sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
+			m_deviceConfiguration.sampleRate());
+	}
+
+	kDebug() << "Sending data listening!";
+	sender->sendSampleToRecognize(id, data);
+
+	if (vad->doneListening())
+	{
+		kDebug() << "Stopping listening!";
+		sender->recognizeSample(id);
+	}
+
+
+	/*
 	int levelThreshold = SoundServer::getLevelThreshold(); 
 	int headMargin = SoundServer::getHeadMargin(); 
 	int tailMargin = SoundServer::getTailMargin();
@@ -172,6 +186,7 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
 	}
 
 	lastLevel = peak;
+	*/
 }
 
 /**

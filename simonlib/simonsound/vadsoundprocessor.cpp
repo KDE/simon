@@ -23,12 +23,10 @@
 #include <QtGlobal>
 #include <KDebug>
 
-#define SIMOND_DEBUG
 
 /**
  * \brief Constructor
  */
-
 VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration) : 
 	QObject(),
 	LoudnessMeterSoundProcessor(),
@@ -51,9 +49,10 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 	int tailMargin = SoundServer::getTailMargin();
 	int shortSampleCutoff = SoundServer::getShortSampleCutoff();
 
-
 	bool passDataThrough = false;
-	bool sampleNowFinished = false;
+
+	m_startListening = false;
+	m_doneListening = false;
 
 	if (peak() > levelThreshold)
 	{
@@ -80,7 +79,10 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 					waitingForSampleToFinish = true;
 					if (!currentlyRecordingSample)
 					{
+						kDebug() << "Setting startListening to true";
+						m_startListening = true;
 						emit listening();
+						passDataThrough = true;
 //						sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
 //							m_deviceConfiguration.sampleRate());
 						currentlyRecordingSample = true;
@@ -119,7 +121,7 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 				//currentSample.clear();
 				if (currentTime - lastTimeOverLevel > tailMargin)
 				{
-					sampleNowFinished = true;
+					m_doneListening = true;
 					//sender->recognizeSample(id);
 					currentlyRecordingSample = false;
 					waitingForSampleToFinish = false;
@@ -150,7 +152,7 @@ void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 		data.clear();
 	}
 
-	if (sampleNowFinished)
+	if (m_doneListening)
 		emit complete();
 }
 

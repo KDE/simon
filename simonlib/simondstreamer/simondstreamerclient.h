@@ -30,36 +30,18 @@
 #include <qaudio.h>
 
 
-class LoudnessMeterSoundProcessor;
+class VADSoundProcessor;
 
 class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundInputClient {
 	Q_OBJECT
 
 private:
 	qint8 id;
-	qint64 lastLevel;
-	qint64 lastTimeUnderLevel;
-	qint64 lastTimeOverLevel;
-
-	bool waitingForSampleToStart;
-	bool waitingForSampleToFinish;
-
-	bool currentlyRecordingSample;
-
-
-
-	// when the system detects that the current input is over the
-	// silence threshold it will fill up this buffer to a certain
-	// extend before we can be sure that it wasn't just a "blib".
-	//
-	// When this happens we will begin to empty this buffer by sending
-	// it to the server, adding live input
 	QByteArray currentSample;
 
 	bool m_isRunning;
 	SimonSender *sender;
-
-	LoudnessMeterSoundProcessor *loudness;
+	VADSoundProcessor *vad;
 
 	void inputStateChanged(QAudio::State state);
 
