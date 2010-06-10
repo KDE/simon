@@ -17,39 +17,48 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
-#define SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
 
-#include <QString>
-#include "sscobject.h"
-#include "sscobjects_export.h"
+#ifndef SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
+#define SIMON_VOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
-class SSCOBJECTS_EXPORT Microphone : public SSCObject {
+#include "simonsound_export.h"
+#include <QList>
+#include <QWidget>
+
+namespace Ui
+{
+	class VolumeWidgetUi;
+}
+namespace SimonSound {
+	class DeviceConfiguration;
+}
+
+class DeviceVolumeWidget;
+
+/**
+ * \class VolumeWidget
+ * \author Peter Grasch
+ * \date 2.06.2010
+ */
+class SIMONSOUND_EXPORT VolumeWidget : public QWidget {
+	Q_OBJECT
 
 private:
-	qint32 m_id;
-	QString m_model;
-	QString m_type;
+	Ui::VolumeWidgetUi *ui;
+	QList<DeviceVolumeWidget*> devices;
 
+	void setPrompt(const QString& text);
+
+	void registerClient(const SimonSound::DeviceConfiguration& device);
 public:
-	Microphone(qint32 id, const QString& model, const QString& type);
+	VolumeWidget(QWidget *parent=0);
+	~VolumeWidget();
 
-	Microphone() {}
+	void init();
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
-
-	qint32 id() { return m_id; }
-	QString model() { return m_model; }
-	QString type() { return m_type; }
-
-	void setId(qint16 id) { m_id = id; }
-
-	~Microphone() {}
+	void start();
+	void stop();
 };
 
 #endif
-
-
-
 

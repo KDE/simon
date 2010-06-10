@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,23 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TRAINSAMPLEVOLUMEPAGE_H_4F90334EEE9C4EB697B9A2431C488A0F
-#define SIMON_TRAINSAMPLEVOLUMEPAGE_H_4F90334EEE9C4EB697B9A2431C488A0F
 
-#include <QWizardPage>
+#ifndef SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
+#define SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 
-class QCheckBox;
 
-class TrainSampleVolumePage : public QWizardPage {
+#include <QObject>
+#include <QTimer>
+#include "soundinputclient.h"
+
+class WAV;
+class VADSoundProcessor;
+
+class NullRecorderClient :public QObject, public SoundInputClient {
+	Q_OBJECT
 
 private:
+	VADSoundProcessor *vad;
 
+signals:
+	void level(qint64 time, float now);
+	void clippingOccured();
+	
 public:
-	TrainSampleVolumePage(QWidget *parent=NULL);
-	void initializePage();
-    	~TrainSampleVolumePage();
+	NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    	bool start();
+	bool finish();
+
+	void processPrivate(const QByteArray& data, qint64 currentTime);
+    
+	virtual ~NullRecorderClient();
 
 };
 
 #endif
+
 

@@ -75,7 +75,7 @@ QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool 
 		Microphone *mic = new Microphone(0, micModel, micType);
 		bool succ = true;
 		kDebug() << "Calling server to get or create mic";
-		qint16 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
+		qint32 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
 
 		if (!succ)
 		{
@@ -102,7 +102,7 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
 
 		SoundCard *soundCard = new SoundCard(0, model, type);
 		bool succ = true;
-		qint16 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &ok);
+		qint32 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &ok);
 
 		if (!succ)
 			ok = false;

@@ -33,8 +33,10 @@ LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() :
 {
 }
 
-void LoudnessMeterSoundProcessor::process(QByteArray& data)
+void LoudnessMeterSoundProcessor::process(QByteArray& data, qint64& currentTime)
 {
+	Q_UNUSED(currentTime);
+
 	const short* frames = (short*) data.constData();
 	int maxAmp =  32768 - 1;
 	m_peak = 0;

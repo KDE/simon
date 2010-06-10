@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -16,40 +16,43 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#include "trainsamplevolumepage.h"
+#include "ui_trainsamplevolumepage.h"
 
-#ifndef SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
-#define SIMON_SSC_MICROPHONE_H_1E25B8B7C2B84348A22343E8C9A7D679
+#include <simonsound/soundserver.h>
 
-#include <QString>
-#include "sscobject.h"
-#include "sscobjects_export.h"
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QTimer>
+#include <QCheckBox>
 
-class SSCOBJECTS_EXPORT Microphone : public SSCObject {
-
-private:
-	qint32 m_id;
-	QString m_model;
-	QString m_type;
-
-public:
-	Microphone(qint32 id, const QString& model, const QString& type);
-
-	Microphone() {}
-
-	void deserialize(QByteArray data);
-	QByteArray serialize();
-
-	qint32 id() { return m_id; }
-	QString model() { return m_model; }
-	QString type() { return m_type; }
-
-	void setId(qint16 id) { m_id = id; }
-
-	~Microphone() {}
-};
-
-#endif
+#include <KDebug>
+#include <KLocalizedString>
 
 
+TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
+	ui(new Ui::TrainSampleVolumePage())
+{
+	setTitle(i18n("Volume"));
 
+	ui->setupUi(this);
+}
+
+void TrainSampleVolumePage::initializePage()
+{
+	ui->wgVolume->init();
+	ui->wgVolume->start();
+}
+
+bool TrainSampleVolumePage::validatePage()
+{
+	ui->wgVolume->stop();
+	return true;
+}
+
+
+TrainSampleVolumePage::~TrainSampleVolumePage()
+{
+	delete ui;
+}
 

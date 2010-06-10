@@ -39,7 +39,7 @@ void SoundInputClient::process(const QByteArray& data, qint64 currentTime)
 	QByteArray processedData = data;
 	foreach (SoundProcessor* p, processors)
 	{
-		p->process(processedData);
+		p->process(processedData, currentTime);
 		if (processedData.isEmpty()) return;
 	}
 

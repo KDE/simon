@@ -843,7 +843,11 @@ void ClientSocket::processRequest()
 				qint8 id;
 				stream >> id;
 				stream >> sampleData;
-				currentSamples.value(id)->write(sampleData);
+				WAV *w = currentSamples.value(id);
+				if (w)
+					w->write(sampleData);
+				else
+					kDebug() << "Received invalid id: " << id;
 				break;
 			}
 			case Simond::RecognitionSampleFinished:
@@ -853,13 +857,17 @@ void ClientSocket::processRequest()
 				qint8 id;
 				stream >> id;
 				WAV *w = currentSamples.value(id);
-				w->endAddSequence();
-				w->writeFile();
+				if (w)
+				{
+					w->endAddSequence();
+					w->writeFile();
 
-				recognitionControl->recognize(w->getFilename());
-				kDebug() << "Returned from recognize";
+					recognitionControl->recognize(w->getFilename());
+					kDebug() << "Returned from recognize";
 
-				delete w;
+					delete w;
+				} else 
+					kDebug() << "Received invalid id: " << id;
 				currentSamples.remove(id);
 				break;
 			}

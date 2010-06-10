@@ -101,7 +101,8 @@ bool WavRecorderClient::finish()
  */
 WavRecorderClient::~WavRecorderClient()
 {
-    if (wavData) delete wavData;
+	SoundServer::getInstance()->deRegisterInputClient(this);
+	if (wavData) delete wavData;
 }
 
 

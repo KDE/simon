@@ -22,10 +22,12 @@
 
 #include "../AddWord/addwordview.h"
 
+#include <simonsound/trainsamplevolumepage.h>
 #include <simonscenarios/trainingmanager.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/trainingtext.h>
+#include <simonsound/soundserver.h>
 
 #include <QWizardPage>
 #include <QStringList>
@@ -44,6 +46,10 @@
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	addPage(createIntroPage());
+
+	if (SoundServer::getCalibrateVolume())
+		addPage(createVolumePage());
+
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	setBanner("training");
 }
@@ -174,6 +180,12 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 QWizardPage* TrainingsWizard::createIntroPage()
 {
 	return new TrainSampleIntroPage(this);
+}
+
+
+QWizardPage* TrainingsWizard::createVolumePage()
+{
+	return new TrainSampleVolumePage(this);
 }
 
 

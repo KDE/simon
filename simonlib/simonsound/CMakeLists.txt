@@ -18,6 +18,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.cpp
@@ -25,6 +27,7 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorderclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/nullrecorderclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayersubclient.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.cpp
@@ -32,10 +35,15 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundinput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
 )
 
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
@@ -52,6 +60,8 @@ set( simonsound_LIB_HDRS
 
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -59,11 +69,15 @@ kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.ui
 )
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )

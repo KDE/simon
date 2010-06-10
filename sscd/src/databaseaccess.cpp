@@ -448,7 +448,7 @@ QList<SoundCard*>* DatabaseAccess::getSoundCards()
 	return sl;
 }
 
-bool DatabaseAccess::getOrCreateMicrophone(Microphone *m, qint16& microphoneId)
+bool DatabaseAccess::getOrCreateMicrophone(Microphone *m, qint32& microphoneId)
 {
 	QMutexLocker l(&transactionLock);
 
@@ -475,7 +475,7 @@ bool DatabaseAccess::getOrCreateMicrophone(Microphone *m, qint16& microphoneId)
 	return true;
 }
 
-bool DatabaseAccess::getOrCreateSoundCard(SoundCard *s, qint16& soundCardId)
+bool DatabaseAccess::getOrCreateSoundCard(SoundCard *s, qint32& soundCardId)
 {
 	QMutexLocker l(&transactionLock);
 

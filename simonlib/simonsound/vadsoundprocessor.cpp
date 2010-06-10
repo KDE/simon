@@ -17,96 +17,45 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "simondstreamerclient.h"
-
-#include <simonsound/soundserver.h>
-#include <simonsound/vadsoundprocessor.h>
-#include <simonwav/wav.h>
-
-#include <QObject>
-
+#include "vadsoundprocessor.h"
+#include "soundserver.h"
+#include <QByteArray>
+#include <QtGlobal>
 #include <KDebug>
 
-#ifdef Q_OS_WIN32
-SoundServer* SoundServer::instance=NULL;
-#endif
 
 /**
  * \brief Constructor
  */
-SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
-	QObject(parent),
-	SoundInputClient(device, SoundClient::Background),
-	m_isRunning(false),
-	sender(s),
-	vad(new VADSoundProcessor(device))
+VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll) : 
+	QObject(),
+	LoudnessMeterSoundProcessor(),
+	m_deviceConfiguration(deviceConfiguration),
+	m_passAll(passAll),
+	lastLevel(0),
+	lastTimeUnderLevel(0),
+	lastTimeOverLevel(0),
+	waitingForSampleToStart(true),
+	waitingForSampleToFinish(false),
+	currentlyRecordingSample(false)
 {
-	this->id = id;
-	registerSoundProcessor(vad);
 }
 
-
-void SimondStreamerClient::inputStateChanged(QAudio::State state)
+void VADSoundProcessor::process(QByteArray& data, qint64& currentTime)
 {
-	if (state == QAudio::StoppedState)
-		stop();
-}
+	LoudnessMeterSoundProcessor::process(data, currentTime);
 
-bool SimondStreamerClient::isRunning()
-{
-	return m_isRunning;
-}
-
-bool SimondStreamerClient::start()
-{
-	vad->reset();
-	//lastTimeOverLevel = -1;
-	//lastTimeUnderLevel = -1;
-	bool succ =  SoundServer::getInstance()->registerInputClient(this);
-
-	kDebug() << "Registered input client: " << succ;
-	if (succ)
-	{
-		m_isRunning = true;
-		emit started();
-	} else {
-		m_isRunning = false;
-		emit stopped();
-	}
-
-	return succ;
-}
-
-
-void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
-{
-	Q_UNUSED(currentTime);
-
-	if (vad->startListening())
-	{
-		kDebug() << "Starting listening!";
-		sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-			m_deviceConfiguration.sampleRate());
-	}
-
-	kDebug() << "Sending data listening!";
-	sender->sendSampleToRecognize(id, data);
-
-	if (vad->doneListening())
-	{
-		kDebug() << "Stopping listening!";
-		sender->recognizeSample(id);
-	}
-
-
-	/*
 	int levelThreshold = SoundServer::getLevelThreshold(); 
 	int headMargin = SoundServer::getHeadMargin(); 
 	int tailMargin = SoundServer::getTailMargin();
 	int shortSampleCutoff = SoundServer::getShortSampleCutoff();
 
-	int peak = loudness->peak();
-	if (peak > levelThreshold)
+	bool passDataThrough = false;
+
+	m_startListening = false;
+	m_doneListening = false;
+
+	if (peak() > levelThreshold)
 	{
 		if (lastLevel > levelThreshold)
 		{
@@ -131,14 +80,15 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
 					waitingForSampleToFinish = true;
 					if (!currentlyRecordingSample)
 					{
-						sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-							m_deviceConfiguration.sampleRate());
+						sampleStartTime = currentTime;
+						m_startListening = true;
+						emit listening();
+						passDataThrough = true;
 						currentlyRecordingSample = true;
 					}
 				}
 			} else {
-				sender->sendSampleToRecognize(id, currentSample);
-				currentSample.clear();
+				passDataThrough = true;
 #ifdef SIMOND_DEBUG
 				kDebug() << "Clearing cached data...";
 #endif
@@ -163,11 +113,13 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
 			{
 				//still append data during tail margin
 				currentSample += data; 
-				sender->sendSampleToRecognize(id, currentSample);
-				currentSample.clear();
+				passDataThrough = true;
+				//sender->sendSampleToRecognize(id, currentSample);
+				//currentSample.clear();
 				if (currentTime - lastTimeOverLevel > tailMargin)
 				{
-					sender->recognizeSample(id);
+					m_doneListening = true;
+					//sender->recognizeSample(id);
 					currentlyRecordingSample = false;
 					waitingForSampleToFinish = false;
 					kDebug() << "Sample finalized and sent.";
@@ -187,30 +139,33 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
 		lastTimeUnderLevel = currentTime;
 	}
 
-	lastLevel = peak;
-	*/
-}
+	lastLevel = peak();
 
-/**
- * \brief This will stop the current recording
- * 
- * Tells the wavrecorder to simply stop the recording and save the result.
- * \author Peter Grasch
- */
-bool SimondStreamerClient::stop()
-{
-	bool succ = true;
-	succ = SoundServer::getInstance()->deRegisterInputClient(this);
-	if (succ)
+	if (passDataThrough || m_passAll)
 	{
-		m_isRunning = false;
-		emit stopped();
+		if (currentSample.count() > data.count())
+		{
+			//contained cached data as such must be the first sending
+			kDebug() << "STARTED!";
+			currentTime = sampleStartTime;
+		}
+		data = currentSample;
+		currentSample.clear();
+	} else {
+		data.clear();
 	}
-	return succ;
+
+	if (m_doneListening)
+		emit complete();
 }
 
-
-
-
+void VADSoundProcessor::reset()
+{
+	lastTimeOverLevel = -1;
+	lastTimeUnderLevel = -1;
+	waitingForSampleToStart = true;
+	waitingForSampleToFinish = false;
+	currentlyRecordingSample = false;
+}
 
 

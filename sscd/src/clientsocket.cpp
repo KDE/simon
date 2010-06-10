@@ -385,7 +385,7 @@ void ClientSocket::processRequest()
 				Microphone *m = new Microphone();
 				m->deserialize(micByte);
 
-				qint16 microphoneId;
+				qint32 microphoneId;
 				if (databaseAccess->getOrCreateMicrophone(m, microphoneId))
 				{
 					qDebug() << "Mic id: " << microphoneId;
@@ -403,7 +403,7 @@ void ClientSocket::processRequest()
 				SoundCard *s = new SoundCard();
 				s->deserialize(soundCardByte);
 
-				qint16 soundCardId;
+				qint32 soundCardId;
 				if (databaseAccess->getOrCreateSoundCard(s, soundCardId))
 					sendResponse(SSC::GotSoundCard, soundCardId);
 				else sendCode(SSC::MicrophoneRetrievalFailed);

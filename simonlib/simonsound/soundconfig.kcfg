@@ -83,6 +83,24 @@
     </entry>
   </group>
 
+  <group name="Calibrate">
+     <entry name="CalibrateVolume" type="Bool">
+      <label>if the volume calibration should be shown.</label>
+      <default>true</default>
+    </entry>
+    <entry name="CalibrateMinVolume" type="Int">
+      <label>volume calibration minimum value.</label>
+      <default>20</default>
+    </entry>
+    <entry name="CalibrateMaxVolume" type="Int">
+      <label>volume calibration maximum value.</label>
+      <default>100</default>
+    </entry>
+
+    <entry name="VolumePrompt" type="String">
+      <label>the prompt for the user to speak to set up an appropriate volume.</label>
+    </entry>
+  </group>
   <group name="Prompt">
     <entry name="PromptFont" type="Font">
       <label>The font to use for all the promtps in simon.</label>

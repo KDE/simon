@@ -273,7 +273,7 @@ IF(WIN32 AND NOT UNIX)
 	 
 	SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} simon") 	 
 	SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki") 	 
-	SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.com") 	 
+	SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.org") 	 
 	SET(CPACK_NSIS_CONTACT "support@simon-listens.org") 	 
 	SET(CPACK_NSIS_MODIFY_PATH ON) 	 
 	 
