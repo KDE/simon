@@ -375,6 +375,11 @@ int SoundServer::getOutputDeviceCount()
 	return SoundConfiguration::soundOutputDevices().count();
 }
 
+bool SoundServer::getCalibrateVolume()
+{
+	return SoundConfiguration::calibrateVolume();
+}
+
 bool SoundServer::getDefaultToPowerTraining()
 {
 	return SoundConfiguration::defaultToPowerTraining();

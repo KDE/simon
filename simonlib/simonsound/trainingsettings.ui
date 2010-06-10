@@ -36,9 +36,12 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbVolume">
+    <widget class="QGroupBox" name="kcfg_CalibrateVolume">
      <property name="title">
       <string>Volume calibration</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>

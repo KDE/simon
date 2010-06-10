@@ -93,6 +93,7 @@ public:
 	int getOutputDeviceCount();
 
 	static bool getDefaultToPowerTraining();
+	static bool getCalibrateVolume();
 
 	static int getLevelThreshold();
 	static int getHeadMargin();

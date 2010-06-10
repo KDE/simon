@@ -84,6 +84,10 @@
   </group>
 
   <group name="Calibrate">
+     <entry name="CalibrateVolume" type="Bool">
+      <label>if the volume calibration should be shown.</label>
+      <default>true</default>
+    </entry>
     <entry name="CalibrateMinVolume" type="Int">
       <label>volume calibration minimum value.</label>
       <default>20</default>

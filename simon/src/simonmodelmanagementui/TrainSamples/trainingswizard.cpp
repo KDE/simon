@@ -27,6 +27,7 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/trainingtext.h>
+#include <simonsound/soundserver.h>
 
 #include <QWizardPage>
 #include <QStringList>
@@ -45,7 +46,10 @@
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
 	addPage(createIntroPage());
-	addPage(createVolumePage());
+
+	if (SoundServer::getCalibrateVolume())
+		addPage(createVolumePage());
+
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	setBanner("training");
 }
