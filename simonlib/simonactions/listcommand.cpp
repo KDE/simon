@@ -36,6 +36,10 @@
 #include <KIcon>
 #include <KLocalizedString>
 
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#endif
+
 
 ListCommand::ListCommand(CommandManager *parentManger, const QString& name, const QString& iconSrc, const QString& description,
 		const QStringList& commands_,
@@ -129,7 +133,11 @@ bool ListCommand::processRequest(int index)
 		clw->runRequestSent();
 		clw->close();
 		stopGreedy();
+		#ifndef Q_OS_WIN32
 		usleep(300000);
+		#else
+		Sleep(300);
+		#endif
 		//TODO: Clean solution
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		emit entrySelected();

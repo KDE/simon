@@ -67,7 +67,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libkdewin32.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkfile.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkio.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libkmime.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libkmime.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkparts.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkresources.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkutils.dll"
@@ -358,7 +358,7 @@ install ( FILES
   #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.Konqueror.Main.xml"
   #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.Konqueror.MainWindow.xml"
   #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.konqueror.Preloader.xml"
-  "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KResourcesManager.xml"
+  #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KResourcesManager.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KSpeech.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KTimeZoned.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KWallet.xml"
@@ -777,13 +777,13 @@ install (FILES ${kde4_services_kded} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/se
 
 
   install( FILES 
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc_manager.desktop"
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc_manager.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal_manager.desktop"
 		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources COMPONENT kdecore )
 
 
   install( FILES 
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/dir.desktop"
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/dir.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/file.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/ldapkio.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/net.desktop"
@@ -792,7 +792,7 @@ install (FILES ${kde4_services_kded} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/se
 
 
   install( FILES 
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/local.desktop"
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/local.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/localdir.desktop"
 		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kcal COMPONENT kdecore )
 
