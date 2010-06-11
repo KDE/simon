@@ -705,10 +705,14 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 Scenario::~Scenario()
 {
 	qDeleteAll(m_authors);
-	delete m_actionCollection;
-	delete m_grammar;
-	delete m_texts;
-	delete m_vocabulary;
+	if (m_actionCollection)
+		m_actionCollection->deleteLater();
+	if (m_grammar)
+		m_grammar->deleteLater();
+	if (m_texts)
+		m_texts->deleteLater();
+	if (m_vocabulary)
+		m_vocabulary->deleteLater();
 	delete m_simonMinVersion;
 	delete m_simonMaxVersion;
 }

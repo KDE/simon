@@ -52,7 +52,7 @@ bool WavRecorderClient::record(QString filename)
 {
 	if (wavData)
 	{
-		delete wavData;
+		wavData->deleteLater();
 		wavData = NULL;
 	}
 
@@ -89,7 +89,7 @@ bool WavRecorderClient::finish()
 
 	wavData->endAddSequence();
 	if (! wavData->writeFile()) succ = false;
-	delete wavData;
+	wavData->deleteLater();
 	wavData = 0;
 
 	return succ;
@@ -102,7 +102,7 @@ bool WavRecorderClient::finish()
 WavRecorderClient::~WavRecorderClient()
 {
 	SoundServer::getInstance()->deRegisterInputClient(this);
-	if (wavData) delete wavData;
+	if (wavData) wavData->deleteLater();
 }
 
 

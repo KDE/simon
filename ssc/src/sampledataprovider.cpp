@@ -117,10 +117,10 @@ Sample* SampleDataProvider::getSample()
 void SampleDataProvider::sampleTransmitted()
 {
 	Sample *s = m_samplesToTransmit.takeAt(0);
-  kDebug() << "Deleting file: " << s->path();
-  bool succ = s->deleteFile();
-  kDebug() << "Deleted file: " << succ;
-  delete s;
+	kDebug() << "Deleting file: " << s->path();
+	bool succ = s->deleteFile();
+	kDebug() << "Deleted file: " << succ;
+	delete s;
 }
 
 

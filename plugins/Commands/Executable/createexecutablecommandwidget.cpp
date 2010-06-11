@@ -62,7 +62,7 @@ void CreateExecutableCommandWidget::selectProgram()
 	if (c)
 		emit propagateCreatedCommand(c);
 
-	delete select;
+	select->deleteLater();
 }
 
 bool CreateExecutableCommandWidget::init(Command* command)

@@ -230,7 +230,7 @@ void SSCView::showConfigurationDialog()
 	configDialog->addModule("sscconfiguration", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
 	configDialog->exec();
-	delete configDialog;
+	configDialog->deleteLater();
 }
 
 void SSCView::listUsers()

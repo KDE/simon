@@ -255,7 +255,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 		promptsTable->insert ( label, prompt );
 	}
 	prompts->close();
-	delete prompts;
+	prompts->deleteLater();
 	Logger::log ( i18n ( "[INF] %1 Prompts read" ).arg ( promptsTable->count() ) );
 	return promptsTable;
 }

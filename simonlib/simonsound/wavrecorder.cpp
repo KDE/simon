@@ -117,7 +117,7 @@ bool WavRecorder::record(QString filename)
 
 	if (wavData)
 	{
-		delete wavData;
+		wavData->deleteLater();
 		wavData = NULL;
 	}
 
@@ -186,14 +186,14 @@ bool WavRecorder::finish()
 
 	input->stop();
 
-	delete input;
+	input->deleteLater();
 	input = NULL;
 
 	timeWatcher.stop();
 
 	wavData->endAddSequence();
 	if (! wavData->writeFile()) succ = false;
-	delete wavData;
+	wavData->deleteLater();
 	wavData = 0;
 
 	#ifdef USE_WITH_SIMON
@@ -210,7 +210,7 @@ bool WavRecorder::finish()
  */
 WavRecorder::~WavRecorder()
 {
-    if (wavData) delete wavData;
+    if (wavData) wavData->deleteLater();
 }
 
 

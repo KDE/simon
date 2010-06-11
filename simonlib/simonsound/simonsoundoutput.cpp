@@ -234,7 +234,8 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 SimonSoundOutput::~SimonSoundOutput()
 {
 	kDebug() << "Deleting simon sound output";
-	delete m_output;
+	if (m_output)
+		m_output->deleteLater();
 }
 
 void SimonSoundOutput::suspendOutput()
@@ -258,7 +259,7 @@ bool SimonSoundOutput::stopPlayback()
 	m_output->reset();
 	m_output->stop();
 	m_output->disconnect(this);
-	delete m_output;
+	m_output->deleteLater();
 	m_output = NULL;
 
 	reset();

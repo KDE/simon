@@ -41,7 +41,7 @@ ActionCollection* ActionCollection::createActionCollection(Scenario *parent, con
 {
 	ActionCollection *ac = new ActionCollection(parent);
 	if (!ac->deSerialize(actionCollectionElem)) {
-		delete ac;
+		ac->deleteLater();
 		ac=NULL;
 	} 
 	return ac;
@@ -227,7 +227,9 @@ bool ActionCollection::deleteAction(Action *action)
 	bool succ = parentScenario->save();
 
 	proxy->update();
-	delete action;
+
+	if (action)
+		action->deleteLater();
 
 	return succ;
 }

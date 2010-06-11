@@ -54,5 +54,6 @@ void Logger::close()
 {
 	(Logger::logFile)->flush();
 	delete (Logger::logFile);
-	delete (Logger::logF);
+	if (Logger::logF)
+		Logger::logF->deleteLater();
 }

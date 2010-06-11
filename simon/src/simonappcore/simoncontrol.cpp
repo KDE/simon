@@ -342,5 +342,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-	delete recognitionControl;
+	recognitionControl->deleteLater();
 }

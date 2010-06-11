@@ -588,7 +588,7 @@ void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 			<< s->modifiedDate();
 	}
 
-	delete s;
+	s->deleteLater();
 	socket->write(toWrite);
 }
 
@@ -1881,9 +1881,9 @@ void RecognitionControl::recognizeSample(qint8 id)
  */
 RecognitionControl::~RecognitionControl()
 {
-    delete localSimond;
-    delete socket;
-    delete timeoutWatcher;
+    if (localSimond) localSimond->deleteLater();
+    socket->deleteLater();
+    timeoutWatcher->deleteLater();
 }
 
 
