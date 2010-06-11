@@ -35,6 +35,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libexpat.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgettextpo-0.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgettextsrc-0-17.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libiconv.dll"
   "${KDE4_BIN_INSTALL_DIR}/libiconv2.dll"
   "${KDE4_BIN_INSTALL_DIR}/libiconv-2.dll"
   "${KDE4_BIN_INSTALL_DIR}/libintl-2.dll"
