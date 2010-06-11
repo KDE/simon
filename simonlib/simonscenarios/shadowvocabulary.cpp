@@ -39,7 +39,7 @@ ShadowVocabulary::ShadowVocabulary() : Vocabulary(), loadFailed(false)
 						KMimeType::findByFileContent(vocabFilename)->name());
 
 	reset(shadowVocabFile);
-	delete shadowVocabFile;
+	shadowVocabFile->deleteLater();
 }
 
 bool ShadowVocabulary::reset(QIODevice* f)

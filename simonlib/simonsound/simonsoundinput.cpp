@@ -266,7 +266,7 @@ bool SimonSoundInput::stopRecording()
 
 	m_input->disconnect(this);
 	m_input->stop();
-	delete m_input;
+	m_input->deleteLater();
 	m_input = NULL;
 
 	return true;

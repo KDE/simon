@@ -35,7 +35,7 @@ KeyboardTab::KeyboardTab(const QDomElement& elem) : m_isNull(false)
 			KeyboardButton *btn = new KeyboardButton(buttonElement);
 			if (!btn->isNull())
 				buttonList << btn;
-			else delete btn;
+			else btn->deleteLater();
 			buttonElement = buttonElement.nextSiblingElement();
 		}
 	}

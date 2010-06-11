@@ -102,9 +102,8 @@ bool SendSamplePage::isComplete() const
 
 SendSamplePage::~SendSamplePage()
 {
-//	if (m_progressWidget) m_progressWidget->deleteLater();
-	delete worker;
-	delete m_progressWidget;
+	if (worker) worker->deleteLater();
+	if (m_progressWidget) m_progressWidget->deleteLater();
 }
 
 void SendSamplePage::initializePage()

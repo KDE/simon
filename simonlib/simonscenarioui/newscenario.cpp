@@ -126,12 +126,12 @@ Scenario* NewScenario::newScenario()
 		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
 			m_authors.clear();
 			KMessageBox::sorry(this, i18n("Scenario could not be created"));
-			delete s;
+			s->deleteLater();
 			return NULL;
 		} else if (!s->save()) {
 			m_authors.clear();
 			KMessageBox::sorry(this, i18n("New scenario could not be saved"));
-			delete s;
+			s->deleteLater();
 			return NULL;
 		} else  {
 			m_authors.clear();

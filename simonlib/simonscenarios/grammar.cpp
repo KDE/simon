@@ -44,7 +44,7 @@ Grammar* Grammar::createGrammar(Scenario *parent, const QDomElement& elem)
 {
 	Grammar *g = new Grammar(parent);
 	if (!g->deSerialize(elem)) {
-		delete g;
+		g->deleteLater();
 		g=NULL;
 	} 
 	return g;

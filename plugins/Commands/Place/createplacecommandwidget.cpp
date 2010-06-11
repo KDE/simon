@@ -40,7 +40,7 @@ void CreatePlaceCommandWidget::selectPlace()
 	if (c)
 		emit propagateCreatedCommand(c);
 
-	delete select;
+	select->deleteLater();
 }
 
 

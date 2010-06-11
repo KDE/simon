@@ -38,7 +38,7 @@ ActiveVocabulary* ActiveVocabulary::createVocabulary(Scenario *parent, const QDo
 {
 	ActiveVocabulary *v = new ActiveVocabulary(parent);
 	if (!v->deSerialize(elem)) {
-		delete v;
+		v->deleteLater();
 		v=NULL;
 	} 
 	return v;

@@ -70,14 +70,14 @@ bool WavPlayerSubClient::play( QString filename )
 {
 	if (wav)
 	{
-		delete wav;
+		wav->deleteLater();
 		wav = 0;
 	}
 
 	wav = new WAV(filename);
 	length = wav->getLength();
 	if (length==0) {
-		delete wav;
+		wav->deleteLater();
 		wav = 0;
 		return false;
 	}
@@ -85,7 +85,7 @@ bool WavPlayerSubClient::play( QString filename )
 
 	if (!SoundServer::getInstance()->registerOutputClient(this))
 	{
-		delete wav;
+		wav->deleteLater();
 		wav = 0;
 		return false;
 	}
@@ -106,7 +106,8 @@ void WavPlayerSubClient::stop()
 void WavPlayerSubClient::finish()
 {
 	close();
-	delete wav;
+	if (wav)
+		wav->deleteLater();
 	wav = 0;
 	emit finished();
 }
@@ -118,7 +119,7 @@ void WavPlayerSubClient::finish()
  */
 WavPlayerSubClient::~WavPlayerSubClient()
 {
-	if (wav) delete wav;
+	if (wav) wav->deleteLater();
 }
 
 

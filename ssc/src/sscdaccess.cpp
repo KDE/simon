@@ -958,8 +958,8 @@ bool SSCDAccess::processSampleAnswer()
  */
 SSCDAccess::~SSCDAccess()
 {
-    delete socket;
-    delete timeoutWatcher;
+    socket->deleteLater();
+    timeoutWatcher->deleteLater();
 }
 
 

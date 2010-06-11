@@ -187,7 +187,7 @@ void KeyboardCommandManager::rebuildGui()
 				if (itemWidget)  itemWidget->setParent(0);
 				delete item; //leaves the widget intact)
 			}
-			delete lay;
+			lay->deleteLater();
 		}
 		w->deleteLater();
 	}

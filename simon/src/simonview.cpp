@@ -222,7 +222,8 @@ void SimonView::displayAboutPage()
 	QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
 	QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
 
-	delete welcomePart;
+	if (welcomePart)
+		welcomePart->deleteLater();
 	welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
 
 	KIconLoader *iconLoader = KIconLoader::global();
@@ -806,10 +807,11 @@ bool WelcomeHTMLPart::urlSelected(const QString& url, int button, int state,
  */
 SimonView::~SimonView()
 {
-	delete welcomePart;
+	if (welcomePart)
+		welcomePart->deleteLater();
+
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
-	delete trayManager;
-	trayManager = NULL;
-	delete control;
+	trayManager->deleteLater();
+	control->deleteLater();
 	Logger::close();
 }

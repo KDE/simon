@@ -101,7 +101,7 @@ bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 		if (scenarios[i]->id() == id) {
 			kDebug() << "Found scenario in the old list; replacing it with new version";
 			Scenario *s = scenarios.takeAt(i);
-			delete s;
+			s->deleteLater();
 			scenarios.insert(i, newScenario);
 			break;
 		}

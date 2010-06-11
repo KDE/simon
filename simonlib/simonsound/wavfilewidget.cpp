@@ -308,9 +308,10 @@ bool WavFileWidget::deleteSample()
  */
 WavFileWidget::~WavFileWidget()
 {
-	delete play;
- 	delete rec;
-	delete postProc;
+	play->deleteLater();
+ 	rec->deleteLater();
+	if (postProc)
+		postProc->deleteLater();
 	delete ui;
 }
 

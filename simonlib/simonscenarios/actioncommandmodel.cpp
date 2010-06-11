@@ -31,6 +31,9 @@ QVariant ActionCommandModel::data(const QModelIndex &index, int role) const
 {
 	if (!index.isValid()) return QVariant();
 
+	if (!m_actions.at(index.row()) || !m_actions.at(index.row())->manager())
+		return QVariant();
+
 	if (role == Qt::DisplayRole) 
 		return m_actions.at(index.row())->manager()->name();
 

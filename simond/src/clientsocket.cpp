@@ -820,7 +820,7 @@ void ClientSocket::processRequest()
 				if (currentSamples.contains(id))
 				{
 					WAV* w = currentSamples.value(id);
-					delete w;
+					w->deleteLater();
 					currentSamples.remove(id);
 				}
 
@@ -865,7 +865,7 @@ void ClientSocket::processRequest()
 					recognitionControl->recognize(w->getFilename());
 					kDebug() << "Returned from recognize";
 
-					delete w;
+					w->deleteLater();
 				} else 
 					kDebug() << "Received invalid id: " << id;
 				currentSamples.remove(id);

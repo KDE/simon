@@ -114,7 +114,7 @@ void ScenarioManagementDialog::newScenario()
 		m_dirty = true;
 	}
 	delete newScenario;
-	delete s;
+	s->deleteLater();
 }
 
 void ScenarioManagementDialog::editScenario()
@@ -141,7 +141,7 @@ void ScenarioManagementDialog::editScenario()
 	}
 
 	delete newScenario;
-	delete s;
+	s->deleteLater();
 }
 
 void ScenarioManagementDialog::importScenario()
@@ -152,18 +152,18 @@ void ScenarioManagementDialog::importScenario()
 	kDebug() << "Path: " << path;
 	if (!s->init(path)) {
 		KMessageBox::sorry(this, i18n("Could not load scenario."));
-		delete s;
+		s->deleteLater();
 		return;
 	}
 
 	if (!s->save()) {
 		kDebug() << "Hier bin ich!";
 		KMessageBox::sorry(this, i18n("Failed to store scenario"));
-		delete s;
+		s->deleteLater();
 		return;
 	}
 	displayScenario(s, ui->asScenarios->availableListWidget());
-	delete s;
+	s->deleteLater();
 }
 
 void ScenarioManagementDialog::exportScenarioGHNS()
@@ -186,7 +186,7 @@ void ScenarioManagementDialog::exportScenarioFile()
 
 	if (!s->init()) {
 		KMessageBox::sorry(this, i18n("Could not load scenario."));
-		delete s;
+		s->deleteLater();
 		return;
 	}
 
@@ -196,7 +196,7 @@ void ScenarioManagementDialog::exportScenarioFile()
 	if (!s->save(path)) {
 		KMessageBox::sorry(this, i18n("Failed to store scenario"));
 	}
-	delete s;
+	s->deleteLater();
 }
 
 bool ScenarioManagementDialog::getNewScenarios()
@@ -253,7 +253,7 @@ Scenario* ScenarioManagementDialog::getCurrentlySelectedScenario()
 	Scenario *s = new Scenario(scenarioSource);
 	if (!s || !s->skim()) {
 		KMessageBox::sorry(this, i18n("Could not find scenario \"%1\"", scenarioSource));
-		delete s;
+		s->deleteLater();
 		return NULL;
 	}
 
@@ -306,7 +306,7 @@ void ScenarioManagementDialog::deleteScenario()
 		m_dirty = true;
 	}
 
-	delete s;
+	s->deleteLater();
 	ui->asScenarios->setButtonsEnabled();
 }
 
