@@ -8,10 +8,11 @@ msgstr ""
 "Project-Id-Version: simon\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-05-12 08:33+0200\n"
+"POT-Creation-Date: 2010-06-11 01:21+0200\n"
 "PO-Revision-Date: 2009-03-02 21:28+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1478,8 +1479,8 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
 #: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:101
 #: src/simonmodelmanagementui/trainingview.cpp:25
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:53
-#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:32
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:59
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:34
 #: src/simonview.cpp:351 rc.cpp:683
 msgid "Training"
 msgstr "Procvičování"
@@ -2105,7 +2106,7 @@ msgid ""
 msgstr ""
 
 #: src/firstrunscenariosconfig.cpp:41
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1200
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1214
 #: src/simonview.cpp:436
 #, fuzzy
 msgid "Couldn't re-initialize scenarios. Please restart simon!"
@@ -2123,12 +2124,12 @@ msgstr ""
 msgid "Sound devices"
 msgstr ""
 
-#: src/firstrunwizard.cpp:52
+#: src/firstrunwizard.cpp:54
 #, fuzzy
 msgid "Welcome to simon"
 msgstr "Vítejte"
 
-#: src/firstrunwizard.cpp:54
+#: src/firstrunwizard.cpp:56
 msgid ""
 "<html><head /><body><p>simon is an open source speech recognition solution "
 "enabling you to control your computer with voice commands.</p><p>This "
@@ -2141,14 +2142,14 @@ msgid ""
 "href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"
 msgstr ""
 
-#: src/firstrunwizard.cpp:90
+#: src/firstrunwizard.cpp:97
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:201
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:100
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:53
 msgid "Finished"
 msgstr "Hotovo"
 
-#: src/firstrunwizard.cpp:91
+#: src/firstrunwizard.cpp:98
 msgid ""
 "<html><head /><body><p>You completed the initial setup of simon.</p><p>You "
 "can find more information on simon and helpful guides and instructions in "
@@ -2409,33 +2410,33 @@ msgstr ""
 "\n"
 "Bude ukázáno jen prvních tisíc."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:75 src/simonview.cpp:343
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79 src/simonview.cpp:343
 msgid "Add Word"
 msgstr "Přidat slovo"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:85
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:89
 msgid "[INF] Adding the new Word to the Model..."
 msgstr "[INF] Přidává nové slovo do modelu..."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:86
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:90
 msgid "[INF] New word: "
 msgstr "[INF] Nové slovo:"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:112
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:122
 msgid "[INF] Added Word: "
 msgstr "[INF] Přidané slovo:"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:122
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:132
 msgid ""
 "Do you want to add the words that have been completely described up until "
 "now?"
 msgstr "Chcete, aby byla přidána slova, která byla úplně popsána až do teď?"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:176
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:186
 msgid "Word Added"
 msgstr "Slovo přidáno"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:179
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:189
 msgid ""
 "The needed data has been collected.\n"
 "\n"
@@ -2445,17 +2446,17 @@ msgstr ""
 "\n"
 "Simon se nyní může nové slovo \"naučit\"."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:198
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:208
 msgid "Couldn't add %1 to the Prompts-Table"
 msgstr ""
 "Nelze přidat %1 do tabulky výzev (tabulka obsahující název souborů wav a "
 "jejich přepis)"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:201
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:211
 msgid "Couldn't save prompts"
 msgstr "Výzvy nelze uložit"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:231
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:241
 msgid ""
 "The word \"%1\" appears to be missing in your language model.\n"
 "\n"
@@ -3107,11 +3108,11 @@ msgstr ""
 msgid "Couldn't clear trainingdata"
 msgstr "Procvičování nelze začít"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:131
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:137
 msgid "Special Training"
 msgstr "Zvláštní procvičování"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:144
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:150
 msgid ""
 "Your vocabulary does not define all words used in this text. These words are "
 "missing:\n"
@@ -3125,17 +3126,17 @@ msgstr ""
 "\n"
 "Chcete je přidat nyní?"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:183
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:195
 msgid "Training completed"
 msgstr "Procvičování je dokončeno"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:185
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:197
 msgid ""
 "The training has now been completed. The changes are being applied in the "
 "background."
 msgstr "Procvičování bylo  dokončeno. Změny se používají na pozadí"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:210
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:222
 msgid ""
 "Couldn't save changes to the trainings corpus.\n"
 "\n"
@@ -3145,7 +3146,7 @@ msgstr ""
 "\n"
 "Spusťte, prosím, program Simon znovu."
 
-#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:38
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:40
 msgid ""
 "This wizard will help you to improve the recognition rate based on "
 "recordings of your voice."
@@ -3153,7 +3154,7 @@ msgstr ""
 "Tento kouzelník vám pomůže s vylepšením míry rozpoznání založeného na "
 "nahrávkách vašeho hlasu."
 
-#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:41
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:43
 #, fuzzy
 msgid "Power Training"
 msgstr "Procvičování"
@@ -3174,7 +3175,7 @@ msgstr ""
 "Tip: Před a po přečtení textu ponechejte něco mezi jednou a dvěma sekundami "
 "ticha. Takto dosáhnete těch nejlepších výsledků!\n"
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:85
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:105
 msgid ""
 "Couldn't add samples to the corpus.\n"
 "\n"
@@ -3184,8 +3185,9 @@ msgstr ""
 "\n"
 "Je to známkou toho, že data jsou poškozena."
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:105
-msgid "Couldn't remove sample \"%1\"."
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:125
+#, fuzzy
+msgid "Couldn't remove samples \"%1\"."
 msgstr "Ukázku nelze odstranit \"%1\"."
 
 #: src/simonmodelmanagementui/vocabularyview.cpp:33
@@ -3246,7 +3248,7 @@ msgstr ""
 msgid "Synchronisation"
 msgstr "Seřízení modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:250
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:264
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -3258,29 +3260,29 @@ msgstr ""
 "\n"
 "Stále ještě chcete pokračovat?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:251
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:265
 msgid "Self-Signed Certificate"
 msgstr "Potvrzení podepsané jím samotným"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:289
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:303
 msgid "Request timed out (%1 ms)"
 msgstr "Čas poskytnutý serveru pro reakci na žádost vypršel (%1 ms)"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:371
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:385
 msgid "Please enter your Authentication Details for the simond below"
 msgstr "Zadejte, prosím, níže pro simond podrobnosti kvůli ověření pravosti"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:420
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:434
 #, fuzzy
 msgid "Couldn't create active model container"
 msgstr "Nelze vytvořit schránku modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:503
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:517
 #, fuzzy
 msgid "Couldn't create base model container"
 msgstr "Nelze vytvořit schránku modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:781
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:795
 #, fuzzy
 msgid ""
 "The speech model changed.\n"
@@ -3291,18 +3293,18 @@ msgstr ""
 "\n"
 "Seřídit jej nyní?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:800
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:922
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:814
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:936
 #, fuzzy
 msgid "Model synchronisation"
 msgstr "Seřízení modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:800
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1810
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:814
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1824
 msgid "Initializing..."
 msgstr "Inicializuje..."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:885
 msgid ""
 "Your speech model might have changed while you were disconnected.\n"
 "\n"
@@ -3312,19 +3314,19 @@ msgstr ""
 "\n"
 "Chcete nyní začít seřizování?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:882
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:896
 msgid "Version not supported"
 msgstr "Verze není podporována"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:889
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:903
 msgid "Wrong username or password."
 msgstr "Chybně zadané uživatelovo jméno nebo heslo."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:897
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:911
 msgid "Access Denied."
 msgstr "Přístup odmítnut."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:907
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:921
 msgid ""
 "The synchronization is already running.\n"
 "\n"
@@ -3332,104 +3334,104 @@ msgid ""
 "connect."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:915
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:929
 msgid "Couldn't abort synchronization."
 msgstr "Seřizování nelze přerušit."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:922
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:926
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:936
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
 #, fuzzy
 msgid "Synchronizing acitve model"
 msgstr "Aktivní model je právě seřizován"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:984
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:998
 #, fuzzy
 msgid "No speech model available: Recognition deactivated"
 msgstr "Není dostupný žádný model řeči: Rozpoznávání bylo zastaveno"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:996
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1010
 msgid "The server couldn't store the the active model."
 msgstr "Server nemohl uložit aktivní model."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1067
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1087
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1081
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1101
 #, fuzzy
 msgid "Synchronizing scenarios"
 msgstr "Seřizuje se seznam slov"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1099
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1113
 #, fuzzy
 msgid "The server couldn't store the scenario."
 msgstr "Server nemohl uložit mluvnici."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1211
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1225
 #, fuzzy
 msgid "The server couldn't store the list of selected scenarios."
 msgstr "Server nemohl uložit aktivní model."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1220
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1234
 msgid "Synchronizing Training"
 msgstr "Seřizuje se procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1229
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1243
 msgid "Sending Training-Corpus"
 msgstr "Posílá se soubor textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1240
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 msgid "Loading Training"
 msgstr "Nahrává se procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1257
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1271
 msgid "Synchronizing Wordlist"
 msgstr "Seřizuje se seznam slov"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1278
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1292
 msgid "The server couldn't store the trainings corpus."
 msgstr "Server nemohl uložit soubor textů na procvičování."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1287
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1301
 msgid "Synchronizing Language Description"
 msgstr "Seřizuje se popis jazyka"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1329
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1343
 msgid "There seems to be no language description available."
 msgstr "Zdá se, že není dostupný žádný popis jazyka."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1340
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1354
 msgid "The server couldn't store language description."
 msgstr "Server nemohl uložit popis jazyka."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1364
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1382
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1378
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1396
 msgid "Synchronizing Trainings-Corpus"
 msgstr "Seřizuje se soubor textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1408
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1422
 msgid "The server couldn't store trainings sample."
 msgstr "Server nemohl uložit ukázku na procvičování."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1417
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1431
 msgid "Couldn't complete Synchronization"
 msgstr "Seřizování nelze dokončit"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1449
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1463
 msgid "Couldn't restore old model"
 msgstr "Starý model nelze obnovit"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1484
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1498
 msgid "Model: %1"
 msgstr "Model: %1"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1568
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1582
 #, fuzzy
 msgid "Couldn't retrieve model compilation protocol"
 msgstr "Zápis o sestavení modelu nelze získat"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1743
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1757
 msgid "Protocol:"
 msgstr "Zpráva:"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1748
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1762
 msgid ""
 "The sample \"%1\" could not be found neither on the local computer nor the "
 "server.\n"
@@ -3440,11 +3442,11 @@ msgstr ""
 "\n"
 "Chcete ji odstranit z procvičovací databáze?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1763
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1777
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "Ukázku nelze odstranit ze souboru textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1773
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1787
 #, fuzzy
 msgid ""
 "The word \"%1\" is used in your training-samples but is not contained in "
@@ -3457,21 +3459,21 @@ msgstr ""
 "\n"
 "Chcete toto slovo přidat nyní?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1775
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1789
 msgid "Remove samples containing the word"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1776
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1790
 #, fuzzy
 msgid "Add the word"
 msgstr "Přidat slovo"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1786
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1800
 #, fuzzy
 msgid "Failed to remove word \"%1\" from the trainingscorpus"
 msgstr "Ukázku nelze odstranit ze souboru textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1800
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1814
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
@@ -3483,7 +3485,7 @@ msgstr ""
 "Přidejte, prosím, slovo, které používá toto zakončení, nebo odstraňte "
 "skladbu obsahující zakončení z vaší mluvnice."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1805
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1819
 msgid ""
 "The Phoneme \"%1\" is undefined.\n"
 "\n"
@@ -3493,7 +3495,7 @@ msgstr ""
 "\n"
 "Procvičte, prosím, alespoň jedno slovo, které jej používá."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1810
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1824
 #, fuzzy
 msgid "Compiling model"
 msgstr "Sestavuje se model"

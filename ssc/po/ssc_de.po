@@ -8,10 +8,11 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 13:08+0100\n"
-"PO-Revision-Date: 2009-11-26 16:30+0100\n"
+"POT-Creation-Date: 2010-06-11 01:35+0200\n"
+"PO-Revision-Date: 2010-06-11 01:40+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,8 +36,18 @@ msgid "the port to connect to."
 msgstr "der Port zu dem wir verbinden"
 
 #. i18n: file: config/sscconfig.kcfg:19
-#. i18n: ectx: label, entry (UseInstitutionSpecificIDs), group (ssc)
+#. i18n: ectx: label, entry (Timeout), group (ssc)
 #: po/rc.cpp:12 rc.cpp:12
+msgid ""
+"after this timeout the client will stop waiting for an answer from the "
+"server."
+msgstr ""
+"nach dieser Zeitschwelle wird der Client aufhören auf eine Antwort vom "
+"Server zu warten."
+
+#. i18n: file: config/sscconfig.kcfg:23
+#. i18n: ectx: label, entry (UseInstitutionSpecificIDs), group (ssc)
+#: po/rc.cpp:15 rc.cpp:15
 msgid ""
 "wether we want to resolve users based on their reference id assigned by a "
 "specific institute."
@@ -44,87 +55,129 @@ msgstr ""
 "ob wir die Benutzer anhand ihrer institutionsspezifischen ID identifizieren "
 "wollen."
 
-#. i18n: file: config/sscconfig.kcfg:24
+#. i18n: file: config/sscconfig.kcfg:28
 #. i18n: ectx: label, entry (ReferenceInstitute), group (ssc)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:18 rc.cpp:18
 msgid "the institution who is used to resolve the reference ids."
 msgstr "das Institution, das die Referenz ID vergeben hat."
 
-#. i18n: file: config/sscconfig.kcfg:29
+#. i18n: file: config/sscconfig.kcfg:33
 #. i18n: ectx: label, entry (DefaultLanguage), group (ssc)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:21 rc.cpp:21
 msgid "the default langauge for new users."
 msgstr "die Standardsprache für neue Benutzer."
 
-#. i18n: file: config/sscconfig.kcfg:34
+#. i18n: file: config/sscconfig.kcfg:38
 #. i18n: ectx: label, entry (UseEncryption), group (ssc)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:24 rc.cpp:24
 msgid "wether we want to encrypt the communication between simon and simond."
 msgstr "ob wir die Verbindung zum Server verschlüsseln wollen."
 
-#. i18n: file: config/sscconfig.kcfg:38
+#. i18n: file: config/sscconfig.kcfg:42
 #. i18n: ectx: label, entry (EncryptionMethod), group (ssc)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:27 rc.cpp:27
 msgid "The encryption method to use."
 msgstr "der verwendete Verschlüsselungsalgorithmus"
 
-#. i18n: file: config/sscconfig.kcfg:41
+#. i18n: file: config/sscconfig.kcfg:45
 #. i18n: ectx: label, entry (Certificate), group (ssc)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:30 rc.cpp:30
 msgid "the path to the SSL certificate."
 msgstr "der Pfad zum SSL Zertifikat."
 
-#. i18n: file: config/sscconfig.kcfg:45
+#. i18n: file: config/sscconfig.kcfg:49
 #. i18n: ectx: label, entry (DefaultToPowerTrain), group (ssc)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:33 rc.cpp:33
 msgid "wether power training is activated by default."
 msgstr "Ob das Power Training per Default aktiviert ist."
 
-#. i18n: file: config/sscconfig.kcfg:49
+#. i18n: file: config/sscconfig.kcfg:53
 #. i18n: ectx: label, entry (SampleDirectory), group (ssc)
-#: po/rc.cpp:33 rc.cpp:33
+#: po/rc.cpp:36 rc.cpp:36
 msgid "the temporary directory where the samples are stored."
 msgstr "der Temporäre Ordner in dem die Aufnahmen gespeichert werden."
 
+#. i18n: file: config/sscconfig.kcfg:58
+#. i18n: ectx: label, entry (DeviceNameKeys), group (ssc)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "device names as reported by QtMultimedia."
+msgstr "Gerätename wie von QtMultimedia zurückgegeben."
+
+#. i18n: file: config/sscconfig.kcfg:61
+#. i18n: ectx: label, entry (DeviceNameValues), group (ssc)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "device names set by the user."
+msgstr "Gerätename laut Benutzer."
+
+#. i18n: file: config/sscconfig.kcfg:64
+#. i18n: ectx: label, entry (DeviceNameTypes), group (ssc)
+#: po/rc.cpp:45 rc.cpp:45
+msgid "device types set by the user."
+msgstr "Gerätetyp laut Benutzer."
+
+#. i18n: file: config/sscconfig.kcfg:67
+#. i18n: ectx: label, entry (DeviceNameMicrophoneValues), group (ssc)
+#: po/rc.cpp:48 rc.cpp:48
+msgid "microphone names set by the user."
+msgstr "Mikrofonname laut Benutzer."
+
+#. i18n: file: config/sscconfig.kcfg:70
+#. i18n: ectx: label, entry (DeviceNameMicrophoneTypes), group (ssc)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "microphone device types set by the user."
+msgstr "Mikrofontyp laut Benutzer."
+
 #. i18n: file: config/sscconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, SSCConfiguration)
-#: po/rc.cpp:36 rc.cpp:36
+#. i18n: file: src/deviceinformation.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, DeviceInformationWidget)
+#. i18n: file: config/sscconfiguration.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, SSCConfiguration)
+#. i18n: file: src/deviceinformation.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, DeviceInformationWidget)
+#: po/rc.cpp:54 po/rc.cpp:205 rc.cpp:54 rc.cpp:205
 msgid "Form"
 msgstr "Form"
 
 #. i18n: file: config/sscconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:57 rc.cpp:57
 msgid "Connect automatically on startup"
 msgstr "Beim Start automatisch verbinden"
 
 #. i18n: file: config/sscconfiguration.ui:29
 #. i18n: ectx: property (text), widget (QLabel, lbHost)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:60 rc.cpp:60
 msgid "Host:"
 msgstr "Host:"
 
 #. i18n: file: config/sscconfiguration.ui:42
 #. i18n: ectx: property (text), widget (QLabel, lbPort)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:63 rc.cpp:63
 msgid "Port:"
 msgstr "Port:"
 
-#. i18n: file: config/sscconfiguration.ui:64
+#. i18n: file: config/sscconfiguration.ui:65
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:66 rc.cpp:66
+msgid "Timeout:"
+msgstr "Timeout:"
+
+#. i18n: file: config/sscconfiguration.ui:74
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:69 rc.cpp:69
 msgid "Use institution specific ids instead of ssc ids"
 msgstr "Instiutionsspezifische IDs statt SSC IDs verwenden"
 
-#. i18n: file: config/sscconfiguration.ui:76
+#. i18n: file: config/sscconfiguration.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute)
-#: po/rc.cpp:51 rc.cpp:51
+#: po/rc.cpp:72 rc.cpp:72
 msgid "Institute:"
 msgstr "Institut:"
 
-#. i18n: file: config/sscconfiguration.ui:107
+#. i18n: file: config/sscconfiguration.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute_2)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:75 rc.cpp:75
 msgid ""
 "Default language (ISO Code):\n"
 "(requires restart)"
@@ -140,7 +193,7 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
 #. i18n: file: src/main.ui:99
 #. i18n: ectx: property (text), widget (KPushButton, pbDetails)
-#: po/rc.cpp:58 po/rc.cpp:385 rc.cpp:58 rc.cpp:385
+#: po/rc.cpp:79 po/rc.cpp:424 rc.cpp:79 rc.cpp:424
 msgid "Details"
 msgstr "Details"
 
@@ -152,7 +205,7 @@ msgstr "Details"
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
 #. i18n: file: src/finduser.ui:76
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
-#: po/rc.cpp:61 po/rc.cpp:199 rc.cpp:61 rc.cpp:199
+#: po/rc.cpp:82 po/rc.cpp:238 rc.cpp:82 rc.cpp:238
 msgid "Surname:"
 msgstr "Nachname:"
 
@@ -164,13 +217,13 @@ msgstr "Nachname:"
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
 #. i18n: file: src/finduser.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
-#: po/rc.cpp:64 po/rc.cpp:202 rc.cpp:64 rc.cpp:202
+#: po/rc.cpp:85 po/rc.cpp:241 rc.cpp:85 rc.cpp:241
 msgid "Given name:"
 msgstr "Vorname"
 
 #. i18n: file: src/details.ui:45
 #. i18n: ectx: property (text), widget (QLabel, lbInstition)
-#: po/rc.cpp:67 rc.cpp:67
+#: po/rc.cpp:88 rc.cpp:88
 msgid "Institution(s):"
 msgstr "Institution(en):"
 
@@ -186,7 +239,7 @@ msgstr "Institution(en):"
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
 #. i18n: file: src/institution.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:70 po/rc.cpp:343 po/rc.cpp:361 rc.cpp:70 rc.cpp:343 rc.cpp:361
+#: po/rc.cpp:91 po/rc.cpp:382 po/rc.cpp:400 rc.cpp:91 rc.cpp:382 rc.cpp:400
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -206,8 +259,8 @@ msgstr "Hinzufügen"
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
 #. i18n: file: src/main.ui:109
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:73 po/rc.cpp:349 po/rc.cpp:367 po/rc.cpp:388 rc.cpp:73 rc.cpp:349
-#: rc.cpp:367 rc.cpp:388
+#: po/rc.cpp:94 po/rc.cpp:388 po/rc.cpp:406 po/rc.cpp:427 rc.cpp:94 rc.cpp:388
+#: rc.cpp:406 rc.cpp:427
 msgid "Remove"
 msgstr "Löschen"
 
@@ -219,7 +272,7 @@ msgstr "Löschen"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/finduser.ui:174
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:76 po/rc.cpp:229 rc.cpp:76 rc.cpp:229
+#: po/rc.cpp:97 po/rc.cpp:268 rc.cpp:97 rc.cpp:268
 msgid "Sex:"
 msgstr "Geschlecht:"
 
@@ -231,7 +284,7 @@ msgstr "Geschlecht:"
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
 #. i18n: file: src/finduser.ui:158
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#: po/rc.cpp:79 po/rc.cpp:223 rc.cpp:79 rc.cpp:223
+#: po/rc.cpp:100 po/rc.cpp:262 rc.cpp:100 rc.cpp:262
 msgid "Male"
 msgstr "Männlich"
 
@@ -243,7 +296,7 @@ msgstr "Männlich"
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
 #. i18n: file: src/finduser.ui:165
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#: po/rc.cpp:82 po/rc.cpp:226 rc.cpp:82 rc.cpp:226
+#: po/rc.cpp:103 po/rc.cpp:265 rc.cpp:103 rc.cpp:265
 msgid "Female"
 msgstr "Weiblich"
 
@@ -255,13 +308,13 @@ msgstr "Weiblich"
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
 #. i18n: file: src/finduser.ui:115
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
-#: po/rc.cpp:85 po/rc.cpp:208 rc.cpp:85 rc.cpp:208
+#: po/rc.cpp:106 po/rc.cpp:247 rc.cpp:106 rc.cpp:247
 msgid "Birth year:"
 msgstr "Geburtsjahr:"
 
 #. i18n: file: src/details.ui:115
 #. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
-#: po/rc.cpp:88 rc.cpp:88
+#: po/rc.cpp:109 rc.cpp:109
 msgid "9999; "
 msgstr "9999; "
 
@@ -273,7 +326,7 @@ msgstr "9999; "
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/finduser.ui:132
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:91 po/rc.cpp:214 rc.cpp:91 rc.cpp:214
+#: po/rc.cpp:112 po/rc.cpp:253 rc.cpp:112 rc.cpp:253
 msgid "ZIP Code:"
 msgstr "Postleitzahl:"
 
@@ -289,7 +342,7 @@ msgstr "Postleitzahl:"
 #. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
 #. i18n: file: src/finduser.ui:139
 #. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
-#: po/rc.cpp:94 po/rc.cpp:211 po/rc.cpp:217 rc.cpp:94 rc.cpp:211 rc.cpp:217
+#: po/rc.cpp:115 po/rc.cpp:250 po/rc.cpp:256 rc.cpp:115 rc.cpp:250 rc.cpp:256
 msgid "99990; "
 msgstr "99990; "
 
@@ -301,7 +354,7 @@ msgstr "99990; "
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: file: src/finduser.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:97 po/rc.cpp:235 rc.cpp:97 rc.cpp:235
+#: po/rc.cpp:118 po/rc.cpp:274 rc.cpp:118 rc.cpp:274
 msgid "Education:"
 msgstr "Ausbildung:"
 
@@ -313,7 +366,7 @@ msgstr "Ausbildung:"
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: file: src/finduser.ui:214
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:100 po/rc.cpp:238 rc.cpp:100 rc.cpp:238
+#: po/rc.cpp:121 po/rc.cpp:277 rc.cpp:121 rc.cpp:277
 msgid "Current occupation:"
 msgstr "Tätigkeit:"
 
@@ -325,19 +378,19 @@ msgstr "Tätigkeit:"
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #. i18n: file: src/finduser.ui:228
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: po/rc.cpp:103 po/rc.cpp:241 rc.cpp:103 rc.cpp:241
+#: po/rc.cpp:124 po/rc.cpp:280 rc.cpp:124 rc.cpp:280
 msgid "Mothers Tongue:"
 msgstr "Muttersprache:"
 
 #. i18n: file: src/details.ui:179
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:106 rc.cpp:106
+#: po/rc.cpp:127 rc.cpp:127
 msgid "Institution"
 msgstr "Institution"
 
 #. i18n: file: src/details.ui:184
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:109 rc.cpp:109
+#: po/rc.cpp:130 rc.cpp:130
 msgid "ReferenceId"
 msgstr "ReferenzId"
 
@@ -349,7 +402,7 @@ msgstr "ReferenzId"
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: file: src/finduser.ui:238
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: po/rc.cpp:112 po/rc.cpp:244 rc.cpp:112 rc.cpp:244
+#: po/rc.cpp:133 po/rc.cpp:283 rc.cpp:133 rc.cpp:283
 msgid "Diagnosis:"
 msgstr "Diagnose:"
 
@@ -361,7 +414,7 @@ msgstr "Diagnose:"
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: file: src/finduser.ui:292
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:115 po/rc.cpp:253 rc.cpp:115 rc.cpp:253
+#: po/rc.cpp:136 po/rc.cpp:292 rc.cpp:136 rc.cpp:292
 msgid "Orientation:"
 msgstr "Orientierung:"
 
@@ -389,9 +442,9 @@ msgstr "Orientierung:"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:394
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:118 po/rc.cpp:136 po/rc.cpp:154 po/rc.cpp:259 po/rc.cpp:280
-#: po/rc.cpp:301 rc.cpp:118 rc.cpp:136 rc.cpp:154 rc.cpp:259 rc.cpp:280
-#: rc.cpp:301
+#: po/rc.cpp:139 po/rc.cpp:157 po/rc.cpp:175 po/rc.cpp:298 po/rc.cpp:319
+#: po/rc.cpp:340 rc.cpp:139 rc.cpp:157 rc.cpp:175 rc.cpp:298 rc.cpp:319
+#: rc.cpp:340
 msgid "1: Very Good"
 msgstr "Sehr gut"
 
@@ -419,9 +472,9 @@ msgstr "Sehr gut"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:399
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:121 po/rc.cpp:139 po/rc.cpp:157 po/rc.cpp:262 po/rc.cpp:283
-#: po/rc.cpp:304 rc.cpp:121 rc.cpp:139 rc.cpp:157 rc.cpp:262 rc.cpp:283
-#: rc.cpp:304
+#: po/rc.cpp:142 po/rc.cpp:160 po/rc.cpp:178 po/rc.cpp:301 po/rc.cpp:322
+#: po/rc.cpp:343 rc.cpp:142 rc.cpp:160 rc.cpp:178 rc.cpp:301 rc.cpp:322
+#: rc.cpp:343
 msgid "2: Good"
 msgstr "Gut"
 
@@ -449,9 +502,9 @@ msgstr "Gut"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:404
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:124 po/rc.cpp:142 po/rc.cpp:160 po/rc.cpp:265 po/rc.cpp:286
-#: po/rc.cpp:307 rc.cpp:124 rc.cpp:142 rc.cpp:160 rc.cpp:265 rc.cpp:286
-#: rc.cpp:307
+#: po/rc.cpp:145 po/rc.cpp:163 po/rc.cpp:181 po/rc.cpp:304 po/rc.cpp:325
+#: po/rc.cpp:346 rc.cpp:145 rc.cpp:163 rc.cpp:181 rc.cpp:304 rc.cpp:325
+#: rc.cpp:346
 msgid "3: Satisfactory"
 msgstr "Befriedigend"
 
@@ -479,9 +532,9 @@ msgstr "Befriedigend"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:409
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:127 po/rc.cpp:145 po/rc.cpp:163 po/rc.cpp:268 po/rc.cpp:289
-#: po/rc.cpp:310 rc.cpp:127 rc.cpp:145 rc.cpp:163 rc.cpp:268 rc.cpp:289
-#: rc.cpp:310
+#: po/rc.cpp:148 po/rc.cpp:166 po/rc.cpp:184 po/rc.cpp:307 po/rc.cpp:328
+#: po/rc.cpp:349 rc.cpp:148 rc.cpp:166 rc.cpp:184 rc.cpp:307 rc.cpp:328
+#: rc.cpp:349
 msgid "4: Acceptable"
 msgstr "Genügend"
 
@@ -509,9 +562,9 @@ msgstr "Genügend"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:414
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:130 po/rc.cpp:148 po/rc.cpp:166 po/rc.cpp:271 po/rc.cpp:292
-#: po/rc.cpp:313 rc.cpp:130 rc.cpp:148 rc.cpp:166 rc.cpp:271 rc.cpp:292
-#: rc.cpp:313
+#: po/rc.cpp:151 po/rc.cpp:169 po/rc.cpp:187 po/rc.cpp:310 po/rc.cpp:331
+#: po/rc.cpp:352 rc.cpp:151 rc.cpp:169 rc.cpp:187 rc.cpp:310 rc.cpp:331
+#: rc.cpp:352
 msgid "5: Not acceptable"
 msgstr "Nicht genügend"
 
@@ -523,7 +576,7 @@ msgstr "Nicht genügend"
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #. i18n: file: src/finduser.ui:340
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: po/rc.cpp:133 po/rc.cpp:274 rc.cpp:133 rc.cpp:274
+#: po/rc.cpp:154 po/rc.cpp:313 rc.cpp:154 rc.cpp:313
 msgid "Communication:"
 msgstr "Kommunikation:"
 
@@ -535,7 +588,7 @@ msgstr "Kommunikation:"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: file: src/finduser.ui:381
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: po/rc.cpp:151 po/rc.cpp:295 rc.cpp:151 rc.cpp:295
+#: po/rc.cpp:172 po/rc.cpp:334 rc.cpp:172 rc.cpp:334
 msgid "Motor function:"
 msgstr "Motorische Fähigkeiten:"
 
@@ -547,7 +600,7 @@ msgstr "Motorische Fähigkeiten:"
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #. i18n: file: src/finduser.ui:272
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: po/rc.cpp:169 po/rc.cpp:250 rc.cpp:169 rc.cpp:250
+#: po/rc.cpp:190 po/rc.cpp:289 rc.cpp:190 rc.cpp:289
 msgid "Mouth motoric / teeth:"
 msgstr "Motorfunktion / Zähne:"
 
@@ -559,13 +612,13 @@ msgstr "Motorfunktion / Zähne:"
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #. i18n: file: src/finduser.ui:422
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: po/rc.cpp:172 po/rc.cpp:316 rc.cpp:172 rc.cpp:316
+#: po/rc.cpp:193 po/rc.cpp:355 rc.cpp:193 rc.cpp:355
 msgid "Interview:"
 msgstr "Interview:"
 
 #. i18n: file: src/details.ui:331
 #. i18n: ectx: property (text), widget (QCheckBox, cbInterviewPossible)
-#: po/rc.cpp:175 rc.cpp:175
+#: po/rc.cpp:196 rc.cpp:196
 msgid "Interview possible"
 msgstr "Interview möglich"
 
@@ -577,25 +630,55 @@ msgstr "Interview möglich"
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #. i18n: file: src/finduser.ui:429
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: po/rc.cpp:178 po/rc.cpp:319 rc.cpp:178 rc.cpp:319
+#: po/rc.cpp:199 po/rc.cpp:358 rc.cpp:199 rc.cpp:358
 msgid "Repeating:"
 msgstr "Nachsprechen:"
 
 #. i18n: file: src/details.ui:348
 #. i18n: ectx: property (text), widget (QCheckBox, cbRepeatingPossible)
-#: po/rc.cpp:181 rc.cpp:181
+#: po/rc.cpp:202 rc.cpp:202
 msgid "Repeating possible"
 msgstr "Nachsprechen möglich"
 
+#. i18n: file: src/deviceinformation.ui:29
+#. i18n: ectx: property (text), widget (QLabel, lbDeviceDesc)
+#: po/rc.cpp:208 rc.cpp:208
+msgid "Device:"
+msgstr "Gerät:"
+
+#. i18n: file: src/deviceinformation.ui:43
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:211 rc.cpp:211
+msgid "Model:"
+msgstr "Modell:"
+
+#. i18n: file: src/deviceinformation.ui:63
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:214 rc.cpp:214
+msgid "Type:"
+msgstr "Typ:"
+
+#. i18n: file: src/deviceinformation.ui:83
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:217 rc.cpp:217
+msgid "Microphone model:"
+msgstr "Mikrofon Modell:"
+
+#. i18n: file: src/deviceinformation.ui:103
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:220 rc.cpp:220
+msgid "Microphone type:"
+msgstr "Mikrofon Typ:"
+
 #. i18n: file: src/finduser.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Users)
-#: po/rc.cpp:184 src/sscview.cpp:197 rc.cpp:184
+#: po/rc.cpp:223 src/sscview.cpp:198 rc.cpp:223
 msgid "Manage users"
 msgstr "Benutzer verwalten"
 
 #. i18n: file: src/finduser.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:187 rc.cpp:187
+#: po/rc.cpp:226 rc.cpp:226
 msgid "Basic"
 msgstr "Einfach"
 
@@ -607,7 +690,7 @@ msgstr "Einfach"
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
 #. i18n: file: src/modifyuserininstitution.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
-#: po/rc.cpp:190 po/rc.cpp:436 rc.cpp:190 rc.cpp:436
+#: po/rc.cpp:229 po/rc.cpp:475 rc.cpp:229 rc.cpp:475
 msgid "Institution:"
 msgstr "Institution:"
 
@@ -623,7 +706,7 @@ msgstr "Institution:"
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
 #. i18n: file: src/modifyuserininstitution.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
-#: po/rc.cpp:193 po/rc.cpp:382 po/rc.cpp:439 rc.cpp:193 rc.cpp:382 rc.cpp:439
+#: po/rc.cpp:232 po/rc.cpp:421 po/rc.cpp:478 rc.cpp:232 rc.cpp:421 rc.cpp:478
 msgid "Search"
 msgstr "Suchen"
 
@@ -635,13 +718,13 @@ msgstr "Suchen"
 #. i18n: ectx: property (text), widget (QLabel, lbId)
 #. i18n: file: src/main.ui:38
 #. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
-#: po/rc.cpp:196 po/rc.cpp:373 rc.cpp:196 rc.cpp:373
+#: po/rc.cpp:235 po/rc.cpp:412 rc.cpp:235 rc.cpp:412
 msgid "User ID:"
 msgstr "Benutzer Id:"
 
 #. i18n: file: src/finduser.ui:105
 #. i18n: ectx: property (text), widget (QLabel, lbReferenceId)
-#: po/rc.cpp:205 rc.cpp:205
+#: po/rc.cpp:244 rc.cpp:244
 msgid "Reference Id:"
 msgstr "ReferenzId"
 
@@ -657,20 +740,20 @@ msgstr "ReferenzId"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewIgnored)
 #. i18n: file: src/finduser.ui:481
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingIgnored)
-#: po/rc.cpp:220 po/rc.cpp:322 po/rc.cpp:331 src/manageusers.cpp:70 rc.cpp:220
-#: rc.cpp:322 rc.cpp:331
+#: po/rc.cpp:259 po/rc.cpp:361 po/rc.cpp:370 src/manageusers.cpp:70 rc.cpp:259
+#: rc.cpp:361 rc.cpp:370
 msgid "Ignored"
 msgstr "Ignoriert"
 
 #. i18n: file: src/finduser.ui:186
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:232 rc.cpp:232
+#: po/rc.cpp:271 rc.cpp:271
 msgid "Advanced 1"
 msgstr "Erweitert 1"
 
 #. i18n: file: src/finduser.ui:258
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: po/rc.cpp:247 rc.cpp:247
+#: po/rc.cpp:286 rc.cpp:286
 msgid "Advanced 2"
 msgstr "Erweitert 2"
 
@@ -686,7 +769,7 @@ msgstr "Erweitert 2"
 #. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:389
 #. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:256 po/rc.cpp:277 po/rc.cpp:298 rc.cpp:256 rc.cpp:277 rc.cpp:298
+#: po/rc.cpp:295 po/rc.cpp:316 po/rc.cpp:337 rc.cpp:295 rc.cpp:316 rc.cpp:337
 msgid "0: All"
 msgstr "0: Alle"
 
@@ -698,7 +781,7 @@ msgstr "0: Alle"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
 #. i18n: file: src/finduser.ui:491
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
-#: po/rc.cpp:325 po/rc.cpp:334 src/usermodel.cpp:64 rc.cpp:325 rc.cpp:334
+#: po/rc.cpp:364 po/rc.cpp:373 src/usermodel.cpp:64 rc.cpp:364 rc.cpp:373
 msgid "Yes"
 msgstr "Ja"
 
@@ -710,13 +793,13 @@ msgstr "Ja"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewNo)
 #. i18n: file: src/finduser.ui:498
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
-#: po/rc.cpp:328 po/rc.cpp:337 src/usermodel.cpp:65 rc.cpp:328 rc.cpp:337
+#: po/rc.cpp:367 po/rc.cpp:376 src/usermodel.cpp:65 rc.cpp:367 rc.cpp:376
 msgid "No"
 msgstr "Nein"
 
 #. i18n: file: src/finduser.ui:514
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:340 rc.cpp:340
+#: po/rc.cpp:379 rc.cpp:379
 msgid "Apply Filters"
 msgstr "Filter anwenden"
 
@@ -728,7 +811,7 @@ msgstr "Filter anwenden"
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
 #. i18n: file: src/institution.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
-#: po/rc.cpp:346 po/rc.cpp:364 rc.cpp:346 rc.cpp:364
+#: po/rc.cpp:385 po/rc.cpp:403 rc.cpp:385 rc.cpp:403
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -740,8 +823,8 @@ msgstr "Bearbeiten"
 #. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
 #. i18n: file: src/main.ui:235
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:352 po/rc.cpp:430 src/manageinstitutions.cpp:51 rc.cpp:352
-#: rc.cpp:430
+#: po/rc.cpp:391 po/rc.cpp:469 src/manageinstitutions.cpp:51 rc.cpp:391
+#: rc.cpp:469
 msgid "Institutions"
 msgstr "Institutionen"
 
@@ -753,25 +836,25 @@ msgstr "Institutionen"
 #. i18n: ectx: property (text), widget (QLabel, lbName)
 #. i18n: file: src/main.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
-#: po/rc.cpp:355 po/rc.cpp:376 rc.cpp:355 rc.cpp:376
+#: po/rc.cpp:394 po/rc.cpp:415 rc.cpp:394 rc.cpp:415
 msgid "Name:"
 msgstr "Name:"
 
 #. i18n: file: src/institution.ui:32
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:358 rc.cpp:358
+#: po/rc.cpp:397 rc.cpp:397
 msgid "Filter"
 msgstr "Filter"
 
 #. i18n: file: src/main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, SampleCollectorUi)
-#: po/rc.cpp:370 rc.cpp:370
+#: po/rc.cpp:409 rc.cpp:409
 msgid "SSC"
 msgstr "SSC"
 
 #. i18n: file: src/main.ui:79
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectPatient)
-#: po/rc.cpp:379 rc.cpp:379
+#: po/rc.cpp:418 rc.cpp:418
 msgid "Select"
 msgstr "Auswählen"
 
@@ -783,13 +866,13 @@ msgstr "Auswählen"
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
 #. i18n: file: src/main.ui:210
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:391 po/rc.cpp:415 rc.cpp:391 rc.cpp:415
+#: po/rc.cpp:430 po/rc.cpp:454 rc.cpp:430 rc.cpp:454
 msgid "Repeat"
 msgstr "Nachsprechen"
 
 #. i18n: file: src/main.ui:142
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbRepeat)
-#: po/rc.cpp:394 rc.cpp:394
+#: po/rc.cpp:433 rc.cpp:433
 msgid ""
 "The interviewer reads out words on the screen which are then repeated and "
 "recorded by the patient"
@@ -805,14 +888,14 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbTraining)
 #. i18n: file: src/main.ui:215
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:397 po/rc.cpp:418 src/trainingswizard.cpp:118
-#: src/trainsampleintropage.cpp:32 rc.cpp:397 rc.cpp:418
+#: po/rc.cpp:436 po/rc.cpp:457 src/trainingswizard.cpp:134
+#: src/trainsampleintropage.cpp:33 rc.cpp:436 rc.cpp:457
 msgid "Training"
 msgstr "Training"
 
 #. i18n: file: src/main.ui:152
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbTraining)
-#: po/rc.cpp:400 rc.cpp:400
+#: po/rc.cpp:439 rc.cpp:439
 msgid "The user reads training texts from the screen."
 msgstr "Der Benutzer liest die Trainingstexte vom Bildschirm."
 
@@ -824,14 +907,14 @@ msgstr "Der Benutzer liest die Trainingstexte vom Bildschirm."
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbInterview)
 #. i18n: file: src/main.ui:220
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:403 po/rc.cpp:421 src/trainingswizard.cpp:123 rc.cpp:403
-#: rc.cpp:421
+#: po/rc.cpp:442 po/rc.cpp:460 src/trainingswizard.cpp:139 rc.cpp:442
+#: rc.cpp:460
 msgid "Interview"
 msgstr "Interview"
 
 #. i18n: file: src/main.ui:162
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbInterview)
-#: po/rc.cpp:406 rc.cpp:406
+#: po/rc.cpp:445 rc.cpp:445
 msgid "The user answers interview questions freely. The answers are recorded."
 msgstr ""
 "Der Benutzer beantwortet Interviewfragen frei. Die Antworten werden "
@@ -839,73 +922,81 @@ msgstr ""
 
 #. i18n: file: src/main.ui:195
 #. i18n: ectx: property (title), widget (QMenu, menuFile)
-#: po/rc.cpp:409 rc.cpp:409
+#: po/rc.cpp:448 rc.cpp:448
 msgid "File"
 msgstr "Datei"
 
 #. i18n: file: src/main.ui:205
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:412 rc.cpp:412
+#: po/rc.cpp:451 rc.cpp:451
 msgid "Quit"
 msgstr "Beenden"
 
 #. i18n: file: src/main.ui:225
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:424 src/sscview.cpp:176 rc.cpp:424
+#: po/rc.cpp:463 src/sscview.cpp:177 rc.cpp:463
 msgid "Connect"
 msgstr "Verbinden"
 
 #. i18n: file: src/main.ui:230
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:427 src/sscview.cpp:183 rc.cpp:427
+#: po/rc.cpp:466 src/sscview.cpp:184 rc.cpp:466
 msgid "Disconnect"
 msgstr "Verbindung trennen"
 
 #. i18n: file: src/modifyuserininstitution.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyUserInInstitution)
-#: po/rc.cpp:433 src/modifyuserininstitution.cpp:44 rc.cpp:433
+#: po/rc.cpp:472 src/modifyuserininstitution.cpp:44 rc.cpp:472
 msgid "User - Institution"
 msgstr "Benutzer - Institution"
 
 #. i18n: file: src/modifyuserininstitution.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:442 rc.cpp:442
+#: po/rc.cpp:481 rc.cpp:481
 msgid "Institution assigned ID:"
 msgstr "Von Institution zugewiesene Kennung:"
 
 #. i18n: file: src/sscui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:445 rc.cpp:445
+#: po/rc.cpp:484 rc.cpp:484
 msgid "Main actions"
 msgstr "Hauptaktionen"
 
 #. i18n: file: src/sscui.rc:14
 #. i18n: ectx: Menu (sscd)
-#: po/rc.cpp:448 rc.cpp:448
+#: po/rc.cpp:487 rc.cpp:487
 msgid "Server"
 msgstr "Server"
 
 #. i18n: file: src/sscui.rc:19
 #. i18n: ectx: Menu (manage)
-#: po/rc.cpp:451 rc.cpp:451
+#: po/rc.cpp:490 rc.cpp:490
 msgid "Manage"
 msgstr "Verwalten"
 
 #. i18n: file: src/sscui.rc:26
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:454 rc.cpp:454
+#: po/rc.cpp:493 rc.cpp:493
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: po/rc.cpp:455 rc.cpp:455
+#: po/rc.cpp:494 rc.cpp:494
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:456 rc.cpp:456
+#: po/rc.cpp:495 rc.cpp:495
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#: src/deviceinformationpage.cpp:40
+msgid "Device information"
+msgstr "Geräteinformation"
+
+#: src/deviceinformationpage.cpp:46
+msgid "Please provide some info about your recording devices."
+msgstr "Bitte geben Sie Informationen über die Aufnahmegeräte."
 
 #: src/institutionmodel.cpp:77 src/usermodel.cpp:130
 msgid "Id"
@@ -987,7 +1078,7 @@ msgstr "Konnte Sprachen nicht empfangen: %1"
 msgid "Please select an user"
 msgstr "Bitte wählen Sie einen Benutzer aus"
 
-#: src/manageusers.cpp:133 src/sscview.cpp:261
+#: src/manageusers.cpp:133 src/sscview.cpp:262
 msgid ""
 "Do you really want to delete the user \"%1\" (\"%2\")?\n"
 "\n"
@@ -998,7 +1089,7 @@ msgstr ""
 "\n"
 "Alle gesammelten Sprachdaten des Benutzers werden unwiederbringlich gelöscht!"
 
-#: src/manageusers.cpp:140 src/sscview.cpp:265
+#: src/manageusers.cpp:140 src/sscview.cpp:266
 msgid "Could not delete user: %1"
 msgstr "Konnte Benutzer nicht löschen: %1"
 
@@ -1042,11 +1133,11 @@ msgstr "Konnte Benutzer - Institution Assoziation nicht hinzufügen: %1"
 msgid "Please enter a valid institution id"
 msgstr "Bitte geben Sie eine korrekte InstitutionId an"
 
-#: src/sendsamplespage.cpp:46
+#: src/sendsamplespage.cpp:48
 msgid "Transmitting samples..."
 msgstr "Übertrage Sprachaten..."
 
-#: src/sendsamplespage.cpp:48
+#: src/sendsamplespage.cpp:50
 msgid ""
 "The recorded samples are now sent to the server.\n"
 "\n"
@@ -1056,31 +1147,61 @@ msgstr ""
 "\n"
 "Bitte haben Sie einen Moment Geduld..."
 
-#: src/sendsamplespage.cpp:76
-msgid "Do you want to start sending the samples?"
+#: src/sendsamplespage.cpp:53
+msgid "Send samples"
+msgstr "Sende Aufnahmen"
+
+#: src/sendsamplespage.cpp:112
+msgid "Do you want to send the samples to the server?"
 msgstr "Wollen Sie die Sprachdaten jetzt senden?"
 
-#: src/sendsamplespage.cpp:81
+#: src/sendsamplespage.cpp:132
+msgid ""
+"Not connected to the server.\n"
+"\n"
+"Do you want to establish a connection now?"
+msgstr ""
+"Nicht verbunden zum Server.\n"
+"\n"
+"Wollen Sie automatisch eine Verbindung aufbauen?"
+
+#: src/sendsamplespage.cpp:158
+msgid "Not connected to server."
+msgstr "Nicht verbunden zum Server."
+
+#: src/sendsamplespage.cpp:168
 msgid "Transmitting samples"
 msgstr "Übertrage Sprachaten"
 
-#: src/sendsamplespage.cpp:81
+#: src/sendsamplespage.cpp:168
 msgid "Initializing"
 msgstr "Initalisierung"
 
-#: src/sendsamplespage.cpp:116
-msgid "Sending: %1"
-msgstr "Sende: %1"
-
-#: src/sendsamplespage.cpp:125
-msgid "Server couldn't process sample: %1"
-msgstr "Server konnte die Aufnahme nicht verarbeiten: %1"
-
-#: src/sendsamplespage.cpp:146
+#: src/sendsamplespage.cpp:186
 msgid "Could not send sample"
 msgstr "Konnte Aufnahme nicht senden"
 
-#: src/sscdaccess.cpp:104
+#: src/sendsamplespage.cpp:207
+msgid ""
+"Failed to start the sample transmission.\n"
+"\n"
+"Most likely this is caused by problems to send the information about the "
+"used input devices."
+msgstr ""
+"Die Sprachdatenübertragung konnte nicht gestartet werden.\n"
+"\n"
+"Höchstwahrscheinlich konnten die Informationen über die Eingabegeräte nicht "
+"übertragen werden."
+
+#: src/sendsamplespage.cpp:217
+msgid "Sending: %1"
+msgstr "Sende: %1"
+
+#: src/sendsamplespage.cpp:233
+msgid "Server couldn't process sample: %1"
+msgstr "Server konnte die Aufnahme nicht verarbeiten: %1"
+
+#: src/sscdaccess.cpp:106
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -1092,91 +1213,116 @@ msgstr ""
 "\n"
 "Wollen Sie trotzdem fortfahren?"
 
-#: src/sscdaccess.cpp:105
+#: src/sscdaccess.cpp:107
 msgid "Self-Signed Certificate"
 msgstr "Selbstsigniertes Zertifikat"
 
-#: src/sscdaccess.cpp:156
-msgid "Request timed out (10000 ms)"
-msgstr "Timeout (10000 ms)"
+#: src/sscdaccess.cpp:158
+msgid ""
+"Request timed out (%1 ms) or connection was reset.\n"
+"\n"
+"Please check your network connection and try again."
+msgstr ""
+"Timeout für anfrage erreicht (%1 ms) oder die Verbindung wurde "
+"zurückgesetzt.\n"
+"\n"
+"Bitte überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es "
+"erneut."
 
-#: src/sscdaccess.cpp:206 src/sscdaccess.cpp:223 src/sscdaccess.cpp:240
+#: src/sscdaccess.cpp:214 src/sscdaccess.cpp:231 src/sscdaccess.cpp:248
 msgid "Couldn't write request"
 msgstr "Konnte Anfrage nicht senden"
 
-#: src/sscdaccess.cpp:303 src/sscdaccess.cpp:415
+#: src/sscdaccess.cpp:324 src/sscdaccess.cpp:436
 msgid "User ID not found"
 msgstr "BenutzerId nicht gefunden"
 
-#: src/sscdaccess.cpp:308 src/sscdaccess.cpp:363 src/sscdaccess.cpp:393
-#: src/sscdaccess.cpp:420 src/sscdaccess.cpp:462 src/sscdaccess.cpp:505
-#: src/sscdaccess.cpp:532 src/sscdaccess.cpp:559 src/sscdaccess.cpp:584
-#: src/sscdaccess.cpp:609 src/sscdaccess.cpp:638 src/sscdaccess.cpp:663
-#: src/sscdaccess.cpp:705 src/sscdaccess.cpp:755
+#: src/sscdaccess.cpp:329 src/sscdaccess.cpp:384 src/sscdaccess.cpp:414
+#: src/sscdaccess.cpp:441 src/sscdaccess.cpp:484 src/sscdaccess.cpp:527
+#: src/sscdaccess.cpp:563 src/sscdaccess.cpp:597 src/sscdaccess.cpp:641
+#: src/sscdaccess.cpp:685 src/sscdaccess.cpp:712 src/sscdaccess.cpp:739
+#: src/sscdaccess.cpp:764 src/sscdaccess.cpp:789 src/sscdaccess.cpp:818
+#: src/sscdaccess.cpp:843 src/sscdaccess.cpp:885 src/sscdaccess.cpp:946
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/sscdaccess.cpp:357
+#: src/sscdaccess.cpp:378
 msgid "Users could not be read"
 msgstr "Benutzer konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:389
+#: src/sscdaccess.cpp:410
 msgid "Couldn't add user"
 msgstr "Konnte Benutzer nicht hinzufügen"
 
-#: src/sscdaccess.cpp:456
+#: src/sscdaccess.cpp:478
+msgid "Microphones could not be read"
+msgstr "Mikrofone konnten nicht gelesen werden"
+
+#: src/sscdaccess.cpp:521
+msgid "SoundCards could not be read"
+msgstr "Soundkarten konnten nicht gelesen werden"
+
+#: src/sscdaccess.cpp:557
+msgid "Microphone could not be fetched / created"
+msgstr "Mikrofone konnten nicht geholt oder erzeugt werden"
+
+#: src/sscdaccess.cpp:591
+msgid "Sound card could not be fetched / created"
+msgstr "Soundkarten konnte nicht geholt oder erzeugt werden"
+
+#: src/sscdaccess.cpp:635
 msgid "Languages could not be read"
 msgstr "Sprachen konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:499
+#: src/sscdaccess.cpp:679
 msgid "Institutions could not be read"
 msgstr "Institutionen konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:528
+#: src/sscdaccess.cpp:708
 msgid "Couldn't add institution"
 msgstr "Konnte Institution nicht hinzufügnen"
 
-#: src/sscdaccess.cpp:554
+#: src/sscdaccess.cpp:734
 msgid "Institution ID not found"
 msgstr "InstitutionId nicht gefunden"
 
-#: src/sscdaccess.cpp:580
+#: src/sscdaccess.cpp:760
 msgid "Couldn't delete institution"
 msgstr "Konnte Institution nicht löschen"
 
-#: src/sscdaccess.cpp:605
+#: src/sscdaccess.cpp:785
 msgid "Couldn't delete user"
 msgstr "Konnte Benutzer nicht löschen"
 
-#: src/sscdaccess.cpp:630
+#: src/sscdaccess.cpp:810
 msgid "Couldn't find user"
 msgstr "Konnte Benutzer nicht finden"
 
-#: src/sscdaccess.cpp:634
+#: src/sscdaccess.cpp:814
 msgid "Couldn't find institution"
 msgstr "Konnte Institution nicht finden"
 
-#: src/sscdaccess.cpp:659
+#: src/sscdaccess.cpp:839
 msgid "Couldn't find record"
 msgstr "Konnte Datensatz nicht finden"
 
-#: src/sscdaccess.cpp:699
+#: src/sscdaccess.cpp:879
 msgid "User - institution associations could not be read"
 msgstr "Benutzer - Institution Assoziation konnte nicht gelesen werden"
 
-#: src/sscdaccess.cpp:751
+#: src/sscdaccess.cpp:942
 msgid "Server failed to store sample"
 msgstr "Server konnte die Aufnahme nicht speichern"
 
-#: src/sscview.cpp:87
+#: src/sscview.cpp:88
 msgid "Please enter a valid user id."
 msgstr "Bitte geben Sie eine Korrekte BenutzerId ein."
 
-#: src/sscview.cpp:94
+#: src/sscview.cpp:95
 msgid "Couldn't retrieve user: %1"
 msgstr "Konnte Benutzer nicht empfangen: %1"
 
-#: src/sscview.cpp:162
+#: src/sscview.cpp:163
 msgid ""
 "Couldn't resolve institution reference id of the given user.\n"
 "\n"
@@ -1189,62 +1335,72 @@ msgstr ""
 "Sie an diesem Punkt die Institutionsspezifischen Ids in der Konfiguration "
 "deaktivieren."
 
-#: src/sscview.cpp:190
+#: src/sscview.cpp:191
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
 
-#: src/sscview.cpp:204
+#: src/sscview.cpp:205
 msgid "Manage institutions"
 msgstr "Institutionen verwalten"
 
-#: src/sscview.cpp:218
+#: src/sscview.cpp:219
 msgid "Disconnected"
 msgstr "Nicht verbunden"
 
-#: src/sscview.cpp:295
+#: src/sscview.cpp:296
 msgid "You are already connected."
 msgstr "Sie sind bereits verbunden."
 
-#: src/sscview.cpp:299
+#: src/sscview.cpp:300
 msgid "Connecting..."
 msgstr "Verbinde..."
 
-#: src/sscview.cpp:310
+#: src/sscview.cpp:311
 msgid "Connected"
 msgstr "Verbunden"
 
-#: src/sscview.cpp:333
+#: src/sscview.cpp:334
 msgid "Not connected"
 msgstr "Nicht verbunden"
 
-#: src/sscview.cpp:375
+#: src/sscview.cpp:356
+msgid ""
+"The server closed the connection.\n"
+"\n"
+"Do you want to try to re-connect?"
+msgstr ""
+"Der Server hat die Verbindung geschlossen.\n"
+"\n"
+"Wollen Sie versuchen neu zu verbinden?"
+
+#: src/sscview.cpp:389
 msgid "You are not connected."
 msgstr "Sie sind nicht verbunden."
 
-#: src/sscview.cpp:379
+#: src/sscview.cpp:395
 msgid "Disconnecting..."
 msgstr "Trenne Verbindung..."
 
-#: src/trainingswizard.cpp:113
+#: src/trainingswizard.cpp:129
 msgid "Repeating"
 msgstr "Nachsprechen"
 
-#: src/trainingswizard.cpp:129
+#: src/trainingswizard.cpp:145
 msgid "Invalid set of prompts"
 msgstr "Inkorrekte Prompts"
 
-#: src/trainingswizard.cpp:147
+#: src/trainingswizard.cpp:163
 msgid "Training completed"
 msgstr "Training abgeschlossen"
 
-#: src/trainingswizard.cpp:149
+#: src/trainingswizard.cpp:165
 msgid ""
 "The samples have been collected. They will now be transferred to the server."
 msgstr ""
 "Die nötigen Sprachdaten wurden aufgenommen. Sie werden nun vom Server "
 "verarbeitet."
 
-#: src/trainingswizard.cpp:192
+#: src/trainingswizard.cpp:204
 msgid ""
 "Could not clean sample directory %1.\n"
 "\n"
@@ -1255,11 +1411,11 @@ msgstr ""
 "\n"
 "Bitte entfernen Sie alle Dateien aus dem Ordner manuell."
 
-#: src/trainsampleintropage.cpp:38
+#: src/trainsampleintropage.cpp:39
 msgid "This wizard will guide you through the collecting of speech samples."
 msgstr "Dieser Assistent führt Sie durch das Aufnehmen von Sprachdaten."
 
-#: src/trainsampleintropage.cpp:40
+#: src/trainsampleintropage.cpp:41
 msgid "Power Recording"
 msgstr "Power Aufnahme"
 
@@ -1279,9 +1435,9 @@ msgstr ""
 "Tipp: Lassen Sie etwa ein bis zwei Sekunden \"Stille\" vor und nach dem Text "
 "für beste Ergebnisse!\n"
 
-#: src/trainsamplepage.cpp:103
-msgid "Couldn't remove sample \"%1\"."
-msgstr "Konnte Sample nicht entfernen \"%1\"."
+#: src/trainsamplepage.cpp:123
+msgid "Couldn't remove samples \"%1\"."
+msgstr "Konnte Samples nicht entfernen \"%1\"."
 
 #: src/usermodel.cpp:48
 msgid "Very good"
@@ -1350,3 +1506,6 @@ msgstr "Interview möglich"
 #: src/usermodel.cpp:154
 msgid "Repeate Possible"
 msgstr "Nachsprechen möglich"
+
+#~ msgid "Request timed out (10000 ms)"
+#~ msgstr "Timeout (10000 ms)"
