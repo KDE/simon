@@ -31,7 +31,11 @@
 #include <sscobjects/sample.h>
 
 
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 
 #include <QByteArray>
 #include <QSslSocket>
