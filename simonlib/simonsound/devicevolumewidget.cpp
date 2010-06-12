@@ -33,7 +33,8 @@ DeviceVolumeWidget::DeviceVolumeWidget(const SimonSound::DeviceConfiguration& de
 	m_isTooLoud(false)
 {
 	ui->setupUi(this);
-	m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
+	if (m_deviceName.contains("CARD="))
+		m_deviceName = m_deviceName.mid(m_deviceName.indexOf("CARD=")+5);
 	ui->lbDeviceName->setText(i18n("Device \"%1\":", m_deviceName));
 	connect(rec, SIGNAL(level(qint64, float)), this, SLOT(deviceReportedLevel(qint64, float)));
 	connect(rec, SIGNAL(clippingOccured()), this, SLOT(clipping()));
