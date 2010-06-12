@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2010-06-11 01:21+0200\n"
-"PO-Revision-Date: 2010-06-11 01:35+0200\n"
+"PO-Revision-Date: 2010-06-12 15:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -1816,7 +1816,7 @@ msgstr "Laustärke optimal!"
 
 #: simonsound/devicevolumewidget.cpp:92
 msgid "Raise the volume."
-msgstr "Lautstärke senken."
+msgstr "Lautstärke erhöhen."
 
 #: simonsound/devicevolumewidget.cpp:99
 msgid "Recording could not be started for device: %1."

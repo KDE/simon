@@ -57,7 +57,11 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSpinBox" name="kcfg_Timeout"/>
+      <widget class="QSpinBox" name="kcfg_Timeout">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label">

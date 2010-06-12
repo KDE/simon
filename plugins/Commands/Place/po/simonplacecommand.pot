@@ -9,10 +9,11 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:17+0200\n"
+"POT-Creation-Date: 2010-06-12 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -65,13 +66,13 @@ msgstr ""
 
 #. i18n: file: createplacecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_14)
-#. i18n: file: selectplacedlg.ui:78
+#. i18n: file: selectplacedlg.ui:110
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
 #. i18n: file: createplacecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_14)
-#. i18n: file: selectplacedlg.ui:78
+#. i18n: file: selectplacedlg.ui:110
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
-#: po/rc.cpp:18 po/rc.cpp:30 rc.cpp:18 rc.cpp:30
+#: po/rc.cpp:18 po/rc.cpp:33 rc.cpp:18 rc.cpp:33
 msgid "URL:"
 msgstr ""
 
@@ -81,90 +82,96 @@ msgstr ""
 msgid "Local Place"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:49
-#. i18n: ectx: property (text), widget (QRadioButton, rbRemotePlace)
+#. i18n: file: selectplacedlg.ui:50
+#. i18n: ectx: property (text), widget (QRadioButton, rbLocalFile)
 #: po/rc.cpp:27 rc.cpp:27
+msgid "Local File"
+msgstr ""
+
+#. i18n: file: selectplacedlg.ui:81
+#. i18n: ectx: property (text), widget (QRadioButton, rbRemotePlace)
+#: po/rc.cpp:30 rc.cpp:30
 msgid "Remote URL"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:94
+#. i18n: file: selectplacedlg.ui:126
 #. i18n: ectx: property (title), widget (QGroupBox, gbRemoteHelp)
-#: po/rc.cpp:33 rc.cpp:33
+#: po/rc.cpp:36 rc.cpp:36
 msgid "Help"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:109
+#. i18n: file: selectplacedlg.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lbProtocol)
-#: po/rc.cpp:36 rc.cpp:36
+#: po/rc.cpp:39 rc.cpp:39
 msgid "Protocol:"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:120
+#. i18n: file: selectplacedlg.ui:152
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:42 rc.cpp:42
 msgid "http"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:125
+#. i18n: file: selectplacedlg.ui:157
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:45 rc.cpp:45
 msgid "https"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:130
+#. i18n: file: selectplacedlg.ui:162
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:48 rc.cpp:48
 msgid "ftp"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:135
+#. i18n: file: selectplacedlg.ui:167
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:51 rc.cpp:51
 msgid "sftp"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:140
+#. i18n: file: selectplacedlg.ui:172
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:51 rc.cpp:51
+#: po/rc.cpp:54 rc.cpp:54
 msgid "smb"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:148
+#. i18n: file: selectplacedlg.ui:180
 #. i18n: ectx: property (text), widget (QCheckBox, cbAuthentification)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:57 rc.cpp:57
 msgid "Use Authentication"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:158
+#. i18n: file: selectplacedlg.ui:190
 #. i18n: ectx: property (text), widget (QLabel, lbUser)
-#: po/rc.cpp:57 rc.cpp:57
+#: po/rc.cpp:60 rc.cpp:60
 msgid "User:"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:175
+#. i18n: file: selectplacedlg.ui:207
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
-#: po/rc.cpp:60 rc.cpp:60
+#: po/rc.cpp:63 rc.cpp:63
 msgid "Pass:"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:192
+#. i18n: file: selectplacedlg.ui:224
 #. i18n: ectx: property (text), widget (QLabel, lbHost)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:66 rc.cpp:66
 msgid "Host:"
 msgstr ""
 
-#. i18n: file: selectplacedlg.ui:202
+#. i18n: file: selectplacedlg.ui:234
 #. i18n: ectx: property (text), widget (QLabel, lbPath)
-#: po/rc.cpp:66 rc.cpp:66
+#: po/rc.cpp:69 rc.cpp:69
 msgid "Path:"
 msgstr ""
 
-#: po/rc.cpp:67 rc.cpp:67
+#: po/rc.cpp:70 rc.cpp:70
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:68 rc.cpp:68
+#: po/rc.cpp:71 rc.cpp:71
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
@@ -173,14 +180,14 @@ msgstr ""
 msgid "Select Place"
 msgstr ""
 
-#: selectplacedialog.cpp:66
+#: selectplacedialog.cpp:70
 msgid "Open local path: %1"
 msgstr ""
 
-#: selectplacedialog.cpp:66
+#: selectplacedialog.cpp:75
 msgid "Open local file: %1"
 msgstr ""
 
-#: selectplacedialog.cpp:69
+#: selectplacedialog.cpp:80
 msgid "Open remote URL: %1"
 msgstr ""
