@@ -50,14 +50,16 @@ private:
 	void setPrompt(const QString& text);
 
 	void registerClient(const SimonSound::DeviceConfiguration& device);
+
+public slots:
+	void start();
+	void stop();
 public:
 	VolumeWidget(QWidget *parent=0);
 	~VolumeWidget();
 
 	void init();
 
-	void start();
-	void stop();
 };
 
 #endif

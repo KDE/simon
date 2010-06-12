@@ -82,7 +82,9 @@ QStringList TrainSamplePage::getFileNames()
 	for (int i=0; i < fileNames.count(); i++)
 	{
 		QString fileName = fileNames[i];
-		fileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
+		int last_sep = qMax(fileName.lastIndexOf("/"), fileName.lastIndexOf("\\"));
+
+		fileName = fileName.mid(last_sep+1);
 		fileName = fileName.left(fileName.lastIndexOf("."));
 		fileNames.replace(i, fileName);
 	}

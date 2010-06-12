@@ -29,6 +29,8 @@ VolumeWidget::VolumeWidget(QWidget *parent) : QWidget(parent),
 	ui(new Ui::VolumeWidgetUi())
 {
 	ui->setupUi(this);
+	ui->wgStart->show();
+	connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
 }
 
 void VolumeWidget::init()
@@ -69,13 +71,21 @@ void VolumeWidget::setPrompt(const QString& prompt)
 void VolumeWidget::start()
 {
 	foreach (DeviceVolumeWidget *dw, devices)
+	{
 		dw->start();
+		dw->show();
+	}
+	ui->wgStart->hide();
 }
 
 void VolumeWidget::stop()
 {
 	foreach (DeviceVolumeWidget *dw, devices)
+	{
 		dw->stop();
+		dw->hide();
+	}
+	ui->wgStart->show();
 }
 
 VolumeWidget::~VolumeWidget()
