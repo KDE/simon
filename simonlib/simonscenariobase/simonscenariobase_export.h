@@ -10,7 +10,7 @@
 #  define SCENARIOBASE_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define SCENARIOBASE_EXPORT
+#  define SCENARIOBASE_EXPORT KDE_IMPORT
 # endif
 #endif
  

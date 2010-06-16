@@ -50,7 +50,7 @@ bool DatabaseAccess::init()
 	
 	KConfig config(KStandardDirs::locate("config", "simondrc"));
 	KConfigGroup cGroup(&config, "Database");
-	QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).path();
+	QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).toLocalFile();
 
 	if (databaseUrl.isEmpty())
 	{

@@ -27,6 +27,7 @@
 #include <QMutexLocker>
 #include <KLocalizedString>
 #include <KDebug>
+#include <KMessageBox>
 
 QMutex SimonSoundOutput::playbackMutex(QMutex::Recursive);
 
@@ -38,7 +39,6 @@ SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
 	open(QIODevice::ReadWrite);
 }
 
-
 qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
 	QMutexLocker lock(&playbackMutex);
@@ -49,9 +49,14 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 	
 	if (!m_activeOutputClient)
 	{
-		kDebug() << "No current output client";
+		kDebug() << "No current output client\n";
 		if (m_suspendedOutputClients.isEmpty())
+		{
+#ifdef Q_OS_WIN32
+			stopPlayback();
+#endif
 			return -1;
+		}
 		else
 			return 0;
 	}
@@ -59,7 +64,9 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 	qint64 read = m_activeOutputClient->getDataProvider()->read(toRead, maxLen);
 
 	if (read <= 0)
+	{
 		SoundServer::getInstance()->deRegisterOutputClient(m_activeOutputClient);
+	}
 
 	return read;
 	return 0;
@@ -142,9 +149,10 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 	
 	device.setChannels(format.channels());
 	device.setSampleRate(format.frequency());
+	
+	reset();
 
 	kDebug() << "Using device: " << selectedInfo.deviceName();
-
 	m_output = new QAudioOutput(selectedInfo, format, this);
 	connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
 	connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
@@ -211,12 +219,11 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 				break;
 
 			case QAudio::IOError:
-				if (!m_activeOutputClient)
-				{
-					if  (m_suspendedOutputClients.isEmpty())
-						QTimer::singleShot(5, this, SLOT(stopPlayback()));
-				} else
+				if (m_activeOutputClient)
 					emit error(i18n("An error occured while writing data to the audio device."));
+				
+				if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty())
+						QTimer::singleShot(5, this, SLOT(stopPlayback()));
 				break;
 
 			case QAudio::UnderrunError:

@@ -1766,6 +1766,7 @@ void RecognitionControl::sampleNotAvailable(const QString& sample)
 		ModelManagerUiProxy::getInstance()->startGroup();
 		QString sampleBaseName = sample.left(sample.length()-4);
 		kDebug() << "Deleting: " << sampleBaseName;
+			KMessageBox::information(0, QString("Deleting: %1").arg(sampleBaseName));
 		//Was: removeSample
 		bool succ = TrainingManager::getInstance()->deletePrompt(sampleBaseName);
 		if (succ)

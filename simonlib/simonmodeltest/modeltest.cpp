@@ -83,9 +83,9 @@ bool ModelTest::parseConfiguration()
 	KConfig config( KStandardDirs::locateLocal("config", "simonmodeltestrc"), KConfig::FullConfig );
 	KConfigGroup programGroup(&config, "Programs");
 	
-	sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).path();
-	julius = programGroup.readEntry("Julius", KUrl(KStandardDirs::findExe("juliusexe"))).path();
-	hResults = programGroup.readEntry("HResults", KUrl(KStandardDirs::findExe("HResults"))).path();
+	sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
+	julius = programGroup.readEntry("Julius", KUrl(KStandardDirs::findExe("juliusexe"))).toLocalFile();
+	hResults = programGroup.readEntry("HResults", KUrl(KStandardDirs::findExe("HResults"))).toLocalFile();
 
 	if (!QFile::exists(sox) ||
 			!QFile::exists(julius) ||

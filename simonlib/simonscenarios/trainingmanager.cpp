@@ -135,7 +135,7 @@ bool TrainingManager::deletePrompt ( QString key )
 {
 	if (!promptsTable) init();
 
-	QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav";
+	QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile()+"/"+key+".wav";
 	
 	bool found = true;
 	found &= promptsTable->contains(key);
@@ -150,7 +150,7 @@ bool TrainingManager::deletePrompt ( QString key )
 
 QString TrainingManager::getTrainingDir()
 {
-	QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().path();
+	QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile();
 	if (!dir.endsWith("/") 
 	#ifdef Q_OS_WINDOWS
 			&& !dir.endsWith("\\")

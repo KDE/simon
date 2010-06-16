@@ -111,17 +111,17 @@ bool ModelCompilationManager::parseConfiguration()
 	
 	if ((compilationType & ModelCompilationManager::CompileSpeechModel)||
 	   (compilationType & ModelCompilationManager::AdaptSpeechModel)){
-		hDMan = programGroup.readEntry("HDMan", KUrl(KStandardDirs::findExe("HDMan"))).path();
-		hLEd = programGroup.readEntry("HLEd", KUrl(KStandardDirs::findExe("HLEd"))).path();
-		hCopy = programGroup.readEntry("HCopy", KUrl(KStandardDirs::findExe("HCopy"))).path();
-		hCompV = programGroup.readEntry("HCompV", KUrl(KStandardDirs::findExe("HCompV"))).path();
-		hERest = programGroup.readEntry("HERest", KUrl(KStandardDirs::findExe("HERest"))).path();
-		hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).path();
-		hVite = programGroup.readEntry("HVite", KUrl(KStandardDirs::findExe("HVite"))).path();
+		hDMan = programGroup.readEntry("HDMan", KUrl(KStandardDirs::findExe("HDMan"))).toLocalFile();
+		hLEd = programGroup.readEntry("HLEd", KUrl(KStandardDirs::findExe("HLEd"))).toLocalFile();
+		hCopy = programGroup.readEntry("HCopy", KUrl(KStandardDirs::findExe("HCopy"))).toLocalFile();
+		hCompV = programGroup.readEntry("HCompV", KUrl(KStandardDirs::findExe("HCompV"))).toLocalFile();
+		hERest = programGroup.readEntry("HERest", KUrl(KStandardDirs::findExe("HERest"))).toLocalFile();
+		hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).toLocalFile();
+		hVite = programGroup.readEntry("HVite", KUrl(KStandardDirs::findExe("HVite"))).toLocalFile();
 	}
 	if (compilationType & ModelCompilationManager::CompileLanguageModel) {
-		mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).path();
-		dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).path();
+		mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).toLocalFile();
+		dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).toLocalFile();
 	}
 
 	if ((compilationType & ModelCompilationManager::CompileSpeechModel) && 

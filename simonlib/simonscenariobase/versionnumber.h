@@ -38,6 +38,7 @@ protected:
 
 public:
 	VersionNumber(Scenario *parent, const QString& version);
+	virtual ~VersionNumber() {}
 
 	bool isValid();
 	QString toString();

@@ -63,7 +63,9 @@ void WavPlayerClient::slotFinished()
 	clientsWaitingToFinish.removeAll(c);
 
 	if (clientsWaitingToFinish.isEmpty())
+	{
 		emit finished();
+	}
 }
 
 /**
