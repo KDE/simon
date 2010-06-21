@@ -22,6 +22,7 @@
 #include <simonuicomponents/serveraddressselector.h>
 #include "recognitionconfiguration.h"
 #include <kdeversion.h>
+#include <KCMultiDialog>
 
 
 /**
@@ -41,9 +42,17 @@ NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCM
 #endif
 
 	addConfig(RecognitionConfiguration::self(), this);
+  connect(ui.pbConfigureSimond, SIGNAL(clicked()), this, SLOT(configureSimond()));
 }
 
 
+void NetworkSettings::configureSimond()
+{
+	KCMultiDialog *configDialog = new KCMultiDialog(this);
+	configDialog->addModule("simondconfiguration", QStringList() << "");
+	configDialog->exec();
+	delete configDialog;
+}
 
 NetworkSettings::~NetworkSettings()
 {}
