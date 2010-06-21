@@ -1,6 +1,10 @@
 #project(libsent)
-find_package(Portaudio REQUIRED)
+
 find_package(ZLIB REQUIRED)
+
+if(UNIX)
+find_package(Pthreads REQUIRED)
+endif(UNIX)
 
 include(SimonDirs)
 
@@ -9,12 +13,17 @@ add_definitions(-DHAVE_ZLIB)
 
 if(UNIX)
 add_definitions(-DHAVE_SLEEP -Dlinux)
+include_directories(${PTHREADS_INCLUDE_DIR})
 endif(UNIX)
 if(WIN32)
 add_definitions(-D__WIN32 -D__NO_ISOCEXT)
 endif(WIN32)
 
-include_directories(include ${PORTAUDIO_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIR})
+if (PORTAUDIO_FOUND)
+include_directories(${PORTAUDIO_INCLUDE_DIRS})
+endif (PORTAUDIO_FOUND)
+
+include_directories(include ${ZLIB_INCLUDE_DIR})
 set (libsent_SRCS
 ./src/voca/voca_load_wordlist.c
 ./src/voca/init_voca.c
@@ -82,7 +91,6 @@ set (libsent_SRCS
 ./src/adin/adin_file.c
 #./src/adin/adin_mic_linux_alsa.c
 #./src/adin/adin_mic_linux.c
-./src/adin/adin_portaudio.c
 #./src/adin/pa/pablio.c
 #./src/adin/pa/pa_convert.c
 #./src/adin/pa/pa_lib.c
@@ -124,16 +132,34 @@ set (libsent_SRCS
 ./src/util/endian.c
 )
 
+set (libsent_SRCS_PA
+./src/adin/adin_portaudio.c
+)
 
 FILE(GLOB libsent_LIB_HDRS ./include/sent/*.h) 
 
+if (PORTAUDIO_FOUND)
+add_library(sent SHARED ${libsent_SRCS} ${libsent_SRCS_PA})
+else (PORTAUDIO_FOUND)
 add_library(sent SHARED ${libsent_SRCS})
+endif (PORTAUDIO_FOUND)
+
 if(UNIX)
-target_link_libraries(sent ${PORTAUDIO_LIBRARY} ${ZLIB_LIBRARY} m)
+if (PORTAUDIO_FOUND)
+target_link_libraries(sent ${PORTAUDIO_LIBRARY} ${ZLIB_LIBRARY}
+	${PTHREADS_LIBRARY} m)
+else (PORTAUDIO_FOUND)
+target_link_libraries(sent ${ZLIB_LIBRARY} ${PTHREADS_LIBRARY} m)
+endif (PORTAUDIO_FOUND)
 endif(UNIX)
 
 if(WIN32)
-target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY} wsock32 winmm ws2_32)
+if (PORTAUDIO_FOUND)
+target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY}
+	wsock32 winmm ws2_32)
+else (PORTAUDIO_FOUND)
+target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32)
+endif (PORTAUDIO_FOUND)
 endif(WIN32)
 
 set_target_properties( sent

@@ -63,7 +63,11 @@
 /* #undef WORDS_BIGENDIAN */
 
 /* Define if use microphone input  */
+#ifdef USE_PORTAUDIO
 #define USE_MIC 1
+#else
+#undef USE_MIC
+#endif
 
 /* Define if use Datlink/Netaudio input  */
 /* #undef USE_NETAUDIO */
