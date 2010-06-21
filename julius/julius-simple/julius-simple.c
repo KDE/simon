@@ -336,7 +336,7 @@ main(int argc, char *argv[])
 	/* go on to the next input */
 	continue;
       case -2:			/* end of recognition */
-	return;
+	return 0;
       }
       /* recognition loop */
       ret = j_recognize_stream(recog);

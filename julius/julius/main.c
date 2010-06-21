@@ -194,7 +194,7 @@ main(int argc, char *argv[])
 
   /* initialize and standby the specified audio input source */
   /* for microphone or other threaded input, ad-in thread starts here */
-  if (j_adin_init(recog) == FALSE) return;
+  if (j_adin_init(recog) == FALSE) return -1;
 
   /* output system information to log */
   j_recog_info(recog);
