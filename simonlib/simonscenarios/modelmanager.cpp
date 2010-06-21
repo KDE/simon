@@ -28,6 +28,8 @@
 
 #include <simonscenarios/scenariomanager.h>
 
+//#include <stdlib.h>
+
 #include <KStandardDirs>
 #include <KMimeType>
 #include <KFilterBase>
@@ -209,42 +211,24 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 	return true;
 }
 
-#include <stdlib.h>
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
-	QString dirPath = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile()+QDir::separator();
-/*
-#ifdef Q_OS_WIN
+	QString dirPath = QDir::toNativeSeparators(
+		SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator());
+	#ifdef Q_OS_WIN32
 	dirPath = dirPath.toUpper();
-	#ifdef UNICODE
-	QFile f(dirPath+QDir::separator()+sampleName.toUtf8());
-	fprintf(stderr, "Name: %s", QString(dirPath+QDir::separator()+sampleName.toUtf8()).toAscii().constData());
-	#else
-	QFile f(dirPath+QDir::separator()+sampleName.toLatin1());
 	#endif
-#else
-	QFile f(dirPath+QDir::separator()+sampleName.toAscii());
-#endif*/
-
-	QFile f(sampleName);
-
-	fprintf(stderr, "SampleName: %s\n", sampleName.toAscii().constData());
+	QString path = QDir::toNativeSeparators(dirPath+sampleName);
 	
+	QFile f(path);
 	QFileInfo fInfo(f);
 	QDir d(dirPath);
 	if (!d.exists()) return QByteArray();
 		
 	//don't get tricked by /path/to/samples/../../../etc/passwd
-#ifdef Q_OS_WIN32
-	if (!fInfo.canonicalFilePath().toUpper().contains(d.canonicalPath().toUpper()))
-#else
 	if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
-#endif
 	{
 		kDebug() << fInfo.canonicalFilePath() << " does not contain " << d.canonicalPath();
-		fprintf(stderr, "Does not contain canonical path!, %s %s\n", 
-			fInfo.canonicalFilePath().toAscii().constData(), 
-			d.canonicalPath().toAscii().constData());
 		return QByteArray(); 
 	}
 

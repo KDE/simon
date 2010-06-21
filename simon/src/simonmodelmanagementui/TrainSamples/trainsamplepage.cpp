@@ -85,7 +85,7 @@ QStringList TrainSamplePage::getFileNames()
 	QStringList fileNames = recorder->getFileNames();
 	for (int i=0; i < fileNames.count(); i++)
 	{
-		QString fileName = fileNames[i];
+		QString fileName = QDir::toNativeSeparators(fileNames[i]);
 		fileName = fileName.mid(fileName.lastIndexOf(QDir::separator())+1);
 		fileName = fileName.left(fileName.lastIndexOf("."));
 		fileNames.replace(i, fileName);
