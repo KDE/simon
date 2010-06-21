@@ -37,6 +37,9 @@ class NetworkSettings : public KCModule
 Q_OBJECT
 private:
 	Ui::NetworkSettingsDlg ui;
+
+private slots:
+	void configureSimond();
 	
 public:
         NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
