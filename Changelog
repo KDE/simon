@@ -1,3 +1,63 @@
+===========================================================================
+simon: 0.3-alpha-2
+===========================================================================
+
+Sound stack
+===========
+* New sound stack based on QtMultimedia
+* Allowing the use of multiple devices
+* Playback with multiple devices simultaniously
+* Volume calibration
+
+Recognition
+===========
+* Implemented our own level based voice activity detection (configurable)
+
+Protocol
+========
+* Julius audio streaming has been replaced with our own implementation 
+  using RAW PCM data; Recognition interface now only handels standard 
+  WAVE files (easier to replace)
+
+
+SSC / SSCD
+==========
+* Adding support for multiple audio devices
+* Audio device information is added to the database and can be re-
+  constructed for any sample at any time
+* Making the connection a bit more stable (handling of connection errors)
+* New wizard banners
+
+simon
+=====
+* Welcome wizard
+* Handling Greek characters
+* Automatic stopping / starting a local simond if configured to do so
+* Configure simond from within simon
+* New wizard banners
+
+sam
+===
+* Respecting multiple sound in-/output devices
+
+simond
+======
+* Option to keep all recognition samples
+
+Calculator
+==========
+* Adding the option to only output the calculation
+
+Build system
+============
+* Portaudio is now an optional dependency (if activated the command line 
+  Julius works with microphone input)
+
+
+===========================================================================
+simon: 0.3-alpha-1
+===========================================================================
+
 Recognition
 ===========
 

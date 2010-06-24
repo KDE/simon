@@ -352,10 +352,10 @@ main(int argc, char *argv[])
       break;
     case -1:      		/* error */
       fprintf(stderr, "error in input stream\n");
-      return;
+      return 0;
     case -2:			/* end of recognition process */
       fprintf(stderr, "failed to begin input stream\n");
-      return;
+      return 0;
     }
     
     /**********************/
