@@ -23,7 +23,7 @@ ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
 	SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
 ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.3.98-0ubuntu3), kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex, libattica0")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.3.98-0ubuntu3), kdebase-runtime, libqtcore4, libqtgui4, libqt4-multimedia, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex, libattica0")
 SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
@@ -34,7 +34,7 @@ SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
 SET(CPACK_RPM_PACKAGE_LICENCE "GNU General Public License (GPL)")
 SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
-SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.3.95, libattica0, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-sql-sqlite, libqt4-x11, libqt4")
+SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.3.95, libattica0, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-multimedia, libqt4-sql-sqlite, libqt4-x11, libqt4")
 
 SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
