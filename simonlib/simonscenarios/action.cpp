@@ -93,6 +93,7 @@ void Action::init(const QString& source, const QString& trigger)
 			//automatic mode
 			pluginMinVersion = new VersionNumber(NULL, m_version);
 		}
+		factory->deleteLater();
 	} else {
 		kWarning() << "Factory not found!";
 		m_manager = NULL;

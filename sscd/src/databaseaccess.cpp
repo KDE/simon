@@ -154,14 +154,6 @@ bool DatabaseAccess::executeQuery(QSqlQuery& query)
 	}
 #endif
 
-	if (!db->isOpen())
-	{
-		qDebug() << "Re-opening db...";
-		//if (!db->open()) {	//re-open database if necessary
-			//emit error(db->lastError().text());
-			//return false;
-		//}
-	}
 
 	bool succ = query.exec();
 	if (!succ)
