@@ -266,9 +266,6 @@ bool SimonSoundInput::stopRecording()
 
 	m_input->disconnect(this);
 	m_input->stop();
-	m_input->deleteLater();
-	m_input = NULL;
-
 	return true;
 }
 
@@ -287,6 +284,9 @@ void SimonSoundInput::resumeInput()
 SimonSoundInput::~SimonSoundInput()
 {
 	if (m_input)
+	{
+		kDebug() << "Deleting during deletion";
 		m_input->deleteLater();
+	}
 }
 

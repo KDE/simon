@@ -264,18 +264,18 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
 	while (stream.device()->bytesAvailable() < length)
 	{
 		if (socket->waitForReadyRead(SSCConfig::timeout() /*timeout*/))
-    {
+		{
 			message += socket->readAll();
-    }
-    else
-    {
-      //timeout reached
-      kDebug() << "Timeout reached!";
-      abort();
-      return false;
-    }
+		}
+		else
+		{
+			//timeout reached
+			kDebug() << "Timeout reached!";
+			abort();
+			return false;
+		}
 	}
-  return true;
+	return true;
 }
 
 void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)

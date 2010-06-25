@@ -29,6 +29,7 @@
 #include <sscobjects/userininstitution.h>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlDriver>
 #include <QFile>
 #include <QDebug>
 #include <QVariant>
@@ -36,6 +37,9 @@
 #include <QStringList>
 #include <QMutexLocker>
 
+#ifdef MYSQL_PING_WORKAROUND
+#include <mysql/mysql.h>
+#endif
 
 /*
  * Constructor
@@ -51,8 +55,9 @@ DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
  * \param dbName name of the database to use
  * \param user database user
  * \param password database user password
+ * \param options connection options
  */
-bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password)
+bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password, const QString& options)
 {
 	if(db) {
 		db->close();
@@ -68,6 +73,7 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
 	db->setUserName(user);
 	db->setPassword(password);
 	db->setDatabaseName(dbName);
+	db->setConnectOptions(options);
 	
 	emit error("Host: "+host.toUtf8()+"\n"+
 	"Port: "+QString::number(port).toUtf8()+"\n"+
@@ -134,6 +140,29 @@ bool DatabaseAccess::isConnected()
  */
 bool DatabaseAccess::executeQuery(QSqlQuery& query)
 {
+	QVariant v = db->driver()->handle();
+
+#ifdef MYSQL_PING_WORKAROUND
+	if (v.typeName() == QLatin1String("MYSQL*")) {
+		MYSQL *handle = *static_cast<MYSQL **>(v.data());
+		if (handle != 0)
+		{
+			qDebug() << "Old thread id: " << mysql_thread_id(handle);
+			qDebug() << "mysql_ping() result: " << mysql_ping(handle);
+			qDebug() << "New thread id: " << mysql_thread_id(handle);
+		}
+	}
+#endif
+
+	if (!db->isOpen())
+	{
+		qDebug() << "Re-opening db...";
+		//if (!db->open()) {	//re-open database if necessary
+			//emit error(db->lastError().text());
+			//return false;
+		//}
+	}
+
 	bool succ = query.exec();
 	if (!succ)
 		emit error(query.lastError().text());
@@ -162,11 +191,7 @@ User* DatabaseAccess::getUser(qint32 id)
 
 	q.bindValue(":userid", id);
 
-	if (!q.exec() || !q.first()) {
-		emit error(q.lastError().text());
-		return NULL;
-	}
-
+	if (!executeQuery(q) || !q.first()) return NULL;
 	
 	return new User(q.value(0).toInt(),
 			   q.value(1).toString(),

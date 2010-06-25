@@ -58,7 +58,7 @@ class DatabaseAccess : public QObject
 		void lockTranscation();
 		void unlockTransaction();
 
-		bool init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password);
+		bool init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password, const QString& options);
 		void closeConnection();
 
 		bool isConnected();

@@ -1,4 +1,9 @@
 find_package(Qt4 COMPONENTS QtCore QtSql QtNetwork)
+find_package(MySql)
+
+if (MYSQL_FOUND)
+add_definitions(-DMYSQL_PING_WORKAROUND)
+endif (MYSQL_FOUND)
 
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SSCD -DKDEWIN_STRINGS_H)
@@ -23,8 +28,15 @@ kde4_add_app_icon(sscd_SRCS
 
 kde4_add_executable(sscd ${sscd_SRCS})
 
+if (MYSQL_FOUND)
+	message(INFO "mysql was found!")
+target_link_libraries(sscd ${QT_QTCORE_LIBRARY} ${QT_QTSQL_LIBRARY}
+	${QT_QTNETWORK_LIBRARY} ${MYSQL_LIBRARIES} sscobjects)
+else (MYSQL_FOUND)
+	message(INFO "mysql was NOT found!")
 target_link_libraries(sscd ${QT_QTCORE_LIBRARY} ${QT_QTSQL_LIBRARY}
 	${QT_QTNETWORK_LIBRARY} sscobjects)
+endif (MYSQL_FOUND)
 
 install(TARGETS sscd DESTINATION ${BIN_INSTALL_DIR} COMPONENT sscd )
 

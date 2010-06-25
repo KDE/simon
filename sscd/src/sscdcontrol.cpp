@@ -40,6 +40,7 @@ bool SSCDControl::init()
 	QString dbName = settings.value("DatabaseName", "ssc").toString();
 	QString dbUser = settings.value("DatabaseUser", "sscuser").toString();
 	QString dbPassword = settings.value("DatabasePassword", "").toString();	
+	QString dbOptions = settings.value("DatabaseOptions", "").toString();	
 
 	int serverPort = settings.value("Port", 4440).toInt();
 
@@ -47,7 +48,7 @@ bool SSCDControl::init()
 	QString bindHost = settings.value("BindHost", "127.0.0.1").toString();
 
 	
-	if (!db->init(dbType, dbHost, dbPort, dbName, dbUser, dbPassword)) {
+	if (!db->init(dbType, dbHost, dbPort, dbName, dbUser, dbPassword, dbOptions)) {
 		qWarning() << "Database could not be opened. Aborting.";
 		return false;
 	}
