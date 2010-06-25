@@ -902,46 +902,48 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 bool SSCDAccess::sendSample(Sample *s)
 {
 	kDebug() << "Sending sample";
+	fprtinf(stderr, "Sending sample: %d\n", socket->bytesAvailable());
 	sendObject(SSC::Sample, s);
 	return true;
 }
 
 bool SSCDAccess::processSampleAnswer()
 {
-	QByteArray msg;
+	QByteArray msg = socket->readAll();
 	QDataStream streamRet(&msg, QIODevice::ReadOnly);
-  int messageCountTheSame = 0;
-  qint32 previousMessageCount = 0;
+	int messageCountTheSame = 0;
+	qint32 previousMessageCount = 0;
 
-  int breakTime = SSCConfig::timeout() / 100 /* milliseconds */;
-  kDebug() << "Break time: " << breakTime;
+	int breakTime = SSCConfig::timeout() / 100 /* milliseconds */;
+	kDebug() << "Break time: " << breakTime;
 
 	while ((unsigned int) msg.count() < (unsigned int) sizeof(qint32)) {
 		kDebug() << "Bytes available: " << msg.count() <<
 			" looking for " << (unsigned int) sizeof(qint32);
 #ifdef Q_OS_WIN32
-	  Sleep(100 /* 100 ms */);
+		Sleep(100 /* 100 ms */);
 #else
-	  usleep(100000 /* 100 ms */);
+		usleep(100000 /* 100 ms */);
 #endif
-    msg += socket->readAll();
+		msg += socket->readAll();
 
-    kDebug() << "Bytes still to write: " << socket->bytesToWrite();
-    previousMessageCount = socket->bytesToWrite();
-    if (previousMessageCount == msg.count())
-    {
-      if (messageCountTheSame++ == breakTime)
-      {
-        abort();
-        return false;
-      }
-    }
-    else messageCountTheSame = 0;
-    previousMessageCount = msg.count();
+		kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+		previousMessageCount = socket->bytesToWrite();
+		if (previousMessageCount == msg.count())
+		{
+			if (messageCountTheSame++ == breakTime)
+			{
+				abort();
+				return false;
+			}
+		}
+		else messageCountTheSame = 0;
+		previousMessageCount = msg.count();
 	}
-  msg += socket->readAll();
+	msg += socket->readAll();
 	qint32 type;
 	streamRet >> type;
+	fprintf(stderr, "Server returned on sample storage request: %d\n", type);
 	switch (type) { 
 		case SSC::Ok: {
 			return true;

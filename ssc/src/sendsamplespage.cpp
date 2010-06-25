@@ -223,13 +223,13 @@ bool SendSampleWorker::sendSamples()
 			kDebug() << "Emit signal";
 			if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3))  {
 				kDebug() << "Error processing sample";
-        if (!SSCDAccess::getInstance()->isConnected())
-        {
-          shouldAbort = true;
-          successful = false;
-        }
-        else
-          emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
+				if (!SSCDAccess::getInstance()->isConnected())
+				{
+					shouldAbort = true;
+					successful = false;
+				}
+				else
+					emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
 				retryAmount++;
 			} else {
 				m_dataProvider->sampleTransmitted();
