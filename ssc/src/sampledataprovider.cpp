@@ -60,13 +60,22 @@ bool SampleDataProvider::startTransmission()
 	bool ok;
 	
 	kDebug() << "Building mappings...";
+	fprintf(stderr, "Building mappings\n");
 	QHash<QString, Microphone*> microphones = buildMicrophoneMappings(ok);
-	if (!ok) return false;
+	if (!ok) {
+		fprintf(stderr, "Mapping building failed.\n");
+		return false;
+	}
 
 	kDebug() << "Microphone done...";
+	fprintf(stderr, "Building soundcards mappings\n");
 	QHash<QString, SoundCard*> soundCards = buildSoundCardMappings(ok);
-	if (!ok) return false;
+	if (!ok) {
+		fprintf(stderr, "Building mappings for soundcards failed\n");
+		return false;
+	}
 
+	fprintf(stderr, "Starting transmission\n");
 	kDebug() << "Starting transmission";
 	foreach (TrainSamplePage *page, m_trainSamplePages)
 	{

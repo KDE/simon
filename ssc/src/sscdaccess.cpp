@@ -546,6 +546,7 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 	qint32 type;
 	stream >> type;
 	kDebug() << type;
+	fprintf(stderr, "Get or create microphone returned: %d\n", type);
 	switch (type) {
 		case SSC::GotMicrophone: {
 			waitForMessage(sizeof(qint32),stream, msg);
@@ -554,6 +555,7 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 			kDebug() << "Received id: " << id;
 
 			microphone->setId(id);
+			*ok = true;
 			return id;
 			      }
 
@@ -581,6 +583,7 @@ qint32 SSCDAccess::getOrCreateSoundCard(SoundCard *soundCard, bool* ok)
 	waitForMessage(sizeof(qint32),stream, msg);
 	qint32 type;
 	stream >> type;
+	fprintf(stderr, "Get or create soundcard returned: %d\n", type);
 	switch (type) {
 		case SSC::GotSoundCard: {
 			waitForMessage(sizeof(qint32),stream, msg);
@@ -588,6 +591,7 @@ qint32 SSCDAccess::getOrCreateSoundCard(SoundCard *soundCard, bool* ok)
 			stream >> id;
 
 			soundCard->setId(id);
+			*ok = true;
 			return id;
 			      }
 

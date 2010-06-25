@@ -45,16 +45,16 @@ void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& devic
 	{
 		foreach (SoundCard* card, soundCards)
 		{
-			ui->cbMicModel->addItem(card->model(), card->id());
-			ui->cbMicType->addItem(card->type(), card->id());
+			ui->cbModel->addItem(card->model(), card->id());
+			ui->cbType->addItem(card->type(), card->id());
 		}
 	}
 	if (microphoneOk)
 	{
 		foreach (Microphone* mic, microphones)
 		{
-			ui->cbModel->addItem(mic->model(), mic->id());
-			ui->cbType->addItem(mic->type(), mic->id());
+			ui->cbMicModel->addItem(mic->model(), mic->id());
+			ui->cbMicType->addItem(mic->type(), mic->id());
 		}
 	}
 	qDeleteAll(soundCards);

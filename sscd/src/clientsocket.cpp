@@ -406,7 +406,7 @@ void ClientSocket::processRequest()
 				qint32 soundCardId;
 				if (databaseAccess->getOrCreateSoundCard(s, soundCardId))
 					sendResponse(SSC::GotSoundCard, soundCardId);
-				else sendCode(SSC::MicrophoneRetrievalFailed);
+				else sendCode(SSC::SoundCardRetrievalFailed);
 				delete s;
 				break;
 			}
