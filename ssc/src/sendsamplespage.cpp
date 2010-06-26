@@ -193,6 +193,8 @@ void SendSamplePage::sendSample(Sample *s)
  */
 bool SendSampleWorker::sendSamples()
 {
+	//QThread *prevThread = SSCDAccess::getInstance()->thread();
+	//SSCDAccess::getInstance()->moveToThread(thread());
 	shouldAbort = false;
 	bool successful = true;
 
@@ -252,6 +254,7 @@ bool SendSampleWorker::sendSamples()
 	} else 
 		emit aborted();
 
+	//SSCDAccess::getInstance()->moveToThread(prevThread);
 	return successful;
 }
 

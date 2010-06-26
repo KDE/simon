@@ -111,6 +111,7 @@ public slots:
 	void connectTo( QString server, quint16 port, bool encrypted );
 
 private:
+	bool readyToRead;
 	static SSCDAccess *instance;
 	QSslSocket *socket; //!< QSslSocket for communicating with the sscd-socket
 
@@ -127,6 +128,8 @@ private slots:
 	void errorOccured();
 	void timeoutReached();
 	void abort();
+
+	void readyRead();
 };
 
 #endif

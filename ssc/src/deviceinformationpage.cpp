@@ -66,6 +66,7 @@ QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool 
 	QHash<QString, Microphone*> microphones;
 	foreach (DeviceInformationWidget *wg, informationWidgets)
 	{
+		fprintf (stderr, "Processing widget during processing mics...\n");
 		kDebug() << "processing widget...";
 		QString device = wg->getDeviceName();
 		QString micModel = wg->getMicModel();
@@ -97,6 +98,7 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
 	QHash<QString, SoundCard*> soundCards;
 	foreach (DeviceInformationWidget *wg, informationWidgets)
 	{
+		fprintf (stderr, "Processing widget during processing soundcards...\n");
 		QString device = wg->getDeviceName();
 		QString model = wg->getModel();
 		QString type = wg->getType();
@@ -115,6 +117,7 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
 
 		soundCards.insert(device, soundCard);
 	}
+	fprintf(stderr, "Done processing sound cards\n");
 
 	return soundCards;
 }

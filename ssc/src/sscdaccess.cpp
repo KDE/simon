@@ -40,6 +40,7 @@
 #include <QByteArray>
 #include <QSslSocket>
 #include <QTimer>
+#include <QThread>
 #include <QFile>
 #include <QDataStream>
 #include <QDateTime>
@@ -68,7 +69,8 @@ SSCDAccess* SSCDAccess::instance;
  */
 SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 	socket(new QSslSocket()),
-	timeoutWatcher(new QTimer(this))
+	timeoutWatcher(new QTimer(this)),
+	readyToRead(false)
 {
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
@@ -76,6 +78,13 @@ SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()), Qt::DirectConnection);
 
 	connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::DirectConnection);
+	connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+}
+
+void SSCDAccess::readyRead()
+{
+	fprintf(stderr, "Reading...\n");
+	readyToRead = true;
 }
 
 
@@ -228,6 +237,7 @@ bool SSCDAccess::sendRequest(qint32 request)
  */
 bool SSCDAccess::sendRequest (qint32 request, qint32 message)
 {
+	fprintf(stderr, "Sending request (2 inputs)");
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	out << request << message;
@@ -263,16 +273,44 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
 	Q_ASSERT(stream.device());
 	while (stream.device()->bytesAvailable() < length)
 	{
-		if (socket->waitForReadyRead(SSCConfig::timeout() /*timeout*/))
+		if (QThread::currentThread() == socket->thread())
 		{
-			message += socket->readAll();
+			if (socket->waitForReadyRead(SSCConfig::timeout() /*timeout*/))
+			{
+				message += socket->readAll();
+			}
+			else
+			{
+				//timeout reached
+				kDebug() << "Timeout reached!";
+				abort();
+				return false;
+			}
 		}
 		else
 		{
-			//timeout reached
-			kDebug() << "Timeout reached!";
-			abort();
-			return false;
+			fprintf(stderr, "Calling from a different thread!\n");
+			int passedTime = 0;
+			while (!readyToRead && (passedTime < SSCConfig::timeout()))
+			//while ((socket->bytesAvailable() == 0) && (passedTime < SSCConfig::timeout()))
+			{	
+#ifdef Q_OS_WIN32
+				Sleep(100 /* 100 ms */);
+#else
+				usleep(100000 /* 100 ms */);
+#endif
+				passedTime += 100;
+				fprintf(stderr, "Time passed: %d, bytes available: %d\n", passedTime, socket->bytesAvailable());
+			}
+			if (passedTime >= SSCConfig::timeout())
+			{
+				//timeout
+				abort();
+				return false;
+			} else {
+				readyToRead = false;
+				message += socket->readAll();
+			}
 		}
 	}
 	return true;
@@ -289,11 +327,14 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 
 	stream << (qint32) code << (qint64) body.count();
 
+	fprintf(stderr, "Writing: %d\n", socket->bytesToWrite());
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(toWrite);
+	fprintf(stderr, "Writing: %d\n", socket->bytesToWrite());
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(body);
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
+	fprintf(stderr, "Just send an object... Bytes still to write: %d\n", socket->bytesToWrite());
 }
 
 /*
@@ -302,6 +343,7 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
  */
 User* SSCDAccess::getUser(qint32 id)
 {
+	fprintf(stderr, "Sending user request");
 	if (!sendRequest(SSC::GetUser,id))
 		return NULL;
 
@@ -542,20 +584,33 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 
 	QByteArray msg;
 	QDataStream stream(&msg, QIODevice::ReadOnly);
+	fprintf(stderr, "Sending get or create mic request: %d\n", socket->bytesAvailable());
 	waitForMessage(sizeof(qint32),stream, msg);
 	qint32 type;
 	stream >> type;
 	kDebug() << type;
 	fprintf(stderr, "Get or create microphone returned: %d\n", type);
+	
 	switch (type) {
 		case SSC::GotMicrophone: {
 			waitForMessage(sizeof(qint32),stream, msg);
 			qint32 id;
 			stream >> id;
 			kDebug() << "Received id: " << id;
+			fprintf(stderr, "Received id: %d\n", id);
 
 			microphone->setId(id);
 			*ok = true;
+			/*
+			fprintf(stderr, "Still available: %d\n", socket->bytesAvailable());
+			Sleep(10000);
+			if (socket->bytesAvailable())
+			{
+				fprintf(stderr, "WTF is in there?\n");
+				QByteArray s = socket->readAll();
+				fprintf(stderr, "Hier: %s\n", s.constData());
+			}
+			fprintf(stderr, "Still available: %d\n", socket->bytesAvailable());*/
 			return id;
 			      }
 
@@ -566,6 +621,17 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 			 }
 
 		default: {
+			/*
+			fprintf(stderr, "Still available: %d\n", socket->bytesAvailable());
+			Sleep(10000);
+			if (socket->bytesAvailable())
+			{
+				fprintf(stderr, "WTF is in there?\n");
+				QByteArray s = socket->readAll();
+				fprintf(stderr, "Hier: %s\n", s.constData());
+			}
+			fprintf(stderr, "Still available: %d\n", socket->bytesAvailable());*/
+
 			lastErrorString = i18n("Unknown error");
 			*ok = false;
 			break;
@@ -902,13 +968,14 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 bool SSCDAccess::sendSample(Sample *s)
 {
 	kDebug() << "Sending sample";
-	fprtinf(stderr, "Sending sample: %d\n", socket->bytesAvailable());
+	fprintf(stderr, "Sending sample: %d\n", socket->bytesAvailable());
 	sendObject(SSC::Sample, s);
 	return true;
 }
 
 bool SSCDAccess::processSampleAnswer()
 {
+	fprintf(stderr, "Processing sample answer: %d\n", socket->bytesAvailable());
 	QByteArray msg = socket->readAll();
 	QDataStream streamRet(&msg, QIODevice::ReadOnly);
 	int messageCountTheSame = 0;
