@@ -161,19 +161,18 @@ bool KeyboardModifyButtonDialog::editButton(KeyboardButton* button)
 		}
 
 		Keyboard::ButtonType type = getCurrentlySelectedButtonType();;
-		if (type == Keyboard::NullButton) return NULL;
+		if (type == Keyboard::NullButton) return false;
 
 		QString value = getCurrentValue();
-		if (value.isNull()) return NULL;
+		if (value.isNull()) return false;
 	
 		button->setTriggerShown(ui.leName->text());
 		button->setTriggerReal(ui.leTrigger->text());
 		button->setButtonType(type);
 		button->setValue(value);
-		return true;
 	}
 
-	return false;
+	return true;
 }
 
 int KeyboardModifyButtonDialog::exec()
