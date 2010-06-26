@@ -1,4 +1,21 @@
 ===========================================================================
+simon: 0.3-alpha-3
+===========================================================================
+
+Sound stack
+===========
+* Fixed crash bug: Closing input device on Linux
+* SimonSoundInputs are now re-used if a new requester shows up before the
+  last one was deleted even if, at that point, the old input doesn't have
+  any clients anymore
+
+ssc
+===
+* Model and Type were switched for both microphones and soundcards: Fixed
+* Calling waitForReadyRead() from different threads on QTcpSocket: Fixed
+
+
+===========================================================================
 simon: 0.3-alpha-2
 ===========================================================================
 
