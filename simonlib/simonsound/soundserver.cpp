@@ -80,12 +80,15 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 {
 	kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 
+	fprintf(stderr, "Registering input device\n");
+
 	bool succ = true;
 
 	SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 	if (!inputs.contains(client->deviceConfiguration())) //recording not currently running
 	{
 		kDebug() << "No input for this particular configuration... Creating one";
+		fprintf(stderr, "Creating input for new configuration\n");
 
 		SimonSoundInput *soundInput = new SimonSoundInput(this);
 		connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
@@ -121,6 +124,13 @@ void SoundServer::slotRecordingFinished()
 {
 	SimonSoundInput *input = dynamic_cast<SimonSoundInput*>(sender());
 	Q_ASSERT(input);
+
+	if (input->isActive())
+	{
+		//apparently we resumed operations :)
+		fprintf(stderr, "INPUT IS ACTIVE AGAIN!\n");
+		return;
+	}
 
 	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
 	

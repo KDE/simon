@@ -155,8 +155,8 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
 	{
 		//then stop recording
 		kDebug() << "No active clients available... Stopping recording";
-		success = stopRecording();
-		if (success)
+		//success = stopRecording();
+		//if (success)
 			emit recordingFinished(); // destroy this sound input
 	}
 
@@ -262,7 +262,8 @@ void SimonSoundInput::slotInputStateChanged(QAudio::State state)
 bool SimonSoundInput::stopRecording()
 {
 	kDebug() << "Stopping recording";
-	if (!m_input) return true;
+	if (!m_input || (m_input->state() == QAudio::StoppedState))
+		return true;
 
 	m_input->disconnect(this);
 	m_input->stop();
@@ -285,6 +286,9 @@ SimonSoundInput::~SimonSoundInput()
 {
 	if (m_input)
 	{
+		if (m_input->state() != QAudio::StoppedState)
+			stopRecording();
+
 		kDebug() << "Deleting during deletion";
 		m_input->deleteLater();
 	}
