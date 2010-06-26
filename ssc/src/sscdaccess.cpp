@@ -68,9 +68,9 @@ SSCDAccess* SSCDAccess::instance;
  *	Port the Server should listen to
  */
 SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
+	readyToRead(false),
 	socket(new QSslSocket()),
-	timeoutWatcher(new QTimer(this)),
-	readyToRead(false)
+	timeoutWatcher(new QTimer(this))
 {
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
@@ -300,7 +300,8 @@ bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& 
 				usleep(100000 /* 100 ms */);
 #endif
 				passedTime += 100;
-				fprintf(stderr, "Time passed: %d, bytes available: %d\n", passedTime, socket->bytesAvailable());
+				fprintf(stderr, "Time passed: %d, bytes available: %d\n", (int) passedTime, 
+						(int) socket->bytesAvailable());
 			}
 			if (passedTime >= SSCConfig::timeout())
 			{
@@ -327,14 +328,14 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 
 	stream << (qint32) code << (qint64) body.count();
 
-	fprintf(stderr, "Writing: %d\n", socket->bytesToWrite());
+	fprintf(stderr, "Writing: %d\n", (int) socket->bytesToWrite());
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(toWrite);
-	fprintf(stderr, "Writing: %d\n", socket->bytesToWrite());
+	fprintf(stderr, "Writing: %d\n", (int) socket->bytesToWrite());
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
 	socket->write(body);
     kDebug() << "Bytes still to write: " << socket->bytesToWrite();
-	fprintf(stderr, "Just send an object... Bytes still to write: %d\n", socket->bytesToWrite());
+	fprintf(stderr, "Just send an object... Bytes still to write: %d\n", (int) socket->bytesToWrite());
 }
 
 /*
@@ -584,7 +585,7 @@ qint32 SSCDAccess::getOrCreateMicrophone(Microphone *microphone, bool* ok)
 
 	QByteArray msg;
 	QDataStream stream(&msg, QIODevice::ReadOnly);
-	fprintf(stderr, "Sending get or create mic request: %d\n", socket->bytesAvailable());
+	fprintf(stderr, "Sending get or create mic request: %d\n", (int) socket->bytesAvailable());
 	waitForMessage(sizeof(qint32),stream, msg);
 	qint32 type;
 	stream >> type;
@@ -968,14 +969,14 @@ QList<UserInInstitution*> SSCDAccess::getUserInInstitutions(qint32 userId, bool 
 bool SSCDAccess::sendSample(Sample *s)
 {
 	kDebug() << "Sending sample";
-	fprintf(stderr, "Sending sample: %d\n", socket->bytesAvailable());
+	fprintf(stderr, "Sending sample: %d\n", (int) socket->bytesAvailable());
 	sendObject(SSC::Sample, s);
 	return true;
 }
 
 bool SSCDAccess::processSampleAnswer()
 {
-	fprintf(stderr, "Processing sample answer: %d\n", socket->bytesAvailable());
+	fprintf(stderr, "Processing sample answer: %d\n", (int) socket->bytesAvailable());
 	QByteArray msg = socket->readAll();
 	QDataStream streamRet(&msg, QIODevice::ReadOnly);
 	int messageCountTheSame = 0;
