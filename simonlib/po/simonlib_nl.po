@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-27 17:01+0200\n"
+"POT-Creation-Date: 2010-06-27 19:25+0200\n"
 "PO-Revision-Date: 2009-01-13 19:19+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 
 #: adinstreamer/adinstreamer.cpp:496
 msgid ""
@@ -1729,8 +1729,8 @@ msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:268
 msgid ""
-"Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
-"\")?"
+"Do you really want to irrecoverably delete the selected scenario "
+"\"%1\" (\"%2\")?"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:276
@@ -1753,9 +1753,9 @@ msgstr ""
 #: simonscenarioui/scenariomanagementdialog.cpp:371
 msgctxt "Infos about the scenario"
 msgid ""
-"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
-"3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</"
-"p><h4>Authors</h4><p>%6</p>"
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>"
+"%3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: "
+"%5</p><h4>Authors</h4><p>%6</p>"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:402
@@ -1881,7 +1881,7 @@ msgstr ""
 msgid "An error occured while reading data from the audio device."
 msgstr ""
 
-#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:230
+#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:231
 msgid "Buffer underrun when processing the sound data."
 msgstr ""
 
@@ -1890,15 +1890,15 @@ msgstr ""
 msgid "A fatal error occured during recording."
 msgstr "De samplerate gebruikt voor opname."
 
-#: simonsound/simonsoundoutput.cpp:133
+#: simonsound/simonsoundoutput.cpp:134
 msgid "The selected sound output device \"%1\" is not available."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:145
+#: simonsound/simonsoundoutput.cpp:146
 msgid "Sample size not equal to 16 bit."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:218
+#: simonsound/simonsoundoutput.cpp:219
 #, fuzzy
 msgid ""
 "Failed to open the audio device.\n"
@@ -1909,11 +1909,11 @@ msgstr ""
 "\n"
 "Controleer de configuratie."
 
-#: simonsound/simonsoundoutput.cpp:223
+#: simonsound/simonsoundoutput.cpp:224
 msgid "An error occured while writing data to the audio device."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:234
+#: simonsound/simonsoundoutput.cpp:235
 msgid ""
 "A fatal error occured during playback.\n"
 "\n"
@@ -1979,7 +1979,7 @@ msgid ""
 "speak in a normal volume."
 msgstr ""
 
-#: simonsound/wavfilewidget.cpp:117
+#: simonsound/wavfilewidget.cpp:118
 msgid ""
 "simon detected that your volume is set too high. Because of this, clipping "
 "has occurred.\n"
@@ -1987,7 +1987,7 @@ msgid ""
 "Please lower the volume and re-record this sample."
 msgstr ""
 
-#: simonsound/wavfilewidget.cpp:169
+#: simonsound/wavfilewidget.cpp:170
 #, fuzzy
 msgid ""
 "Couldn't start recording.\n"
@@ -2002,7 +2002,7 @@ msgstr ""
 "\n"
 "Controleer de geluidsconfiguratie en probeer opnieuw."
 
-#: simonsound/wavfilewidget.cpp:217
+#: simonsound/wavfilewidget.cpp:218
 msgid ""
 "Could not finalize the Sample. The recording probably failed.\n"
 "\n"
@@ -2013,15 +2013,17 @@ msgstr ""
 "Tip: Controleer of u de benodigde toestemming hebt om naar \"%1\" te "
 "schrijven!"
 
-#: simonsound/wavfilewidget.cpp:231
+#: simonsound/wavfilewidget.cpp:232
 msgid "Post-Processing failed"
 msgstr ""
 
-#: simonsound/wavfilewidget.cpp:271
+#: simonsound/wavfilewidget.cpp:272
+#, fuzzy
 msgid ""
 "Couldn't start playback.\n"
 "\n"
-"The output device could not be initialized.\n"
+"The output device could not be initialized or there is no sound device "
+"configured for this amount of input channels.\n"
 "\n"
 "Please check your sound configuration and try again."
 msgstr ""
@@ -2031,7 +2033,7 @@ msgstr ""
 "\n"
 "Controleer de geluidsconfiguratie en probeer opnieuw."
 
-#: simonsound/wavfilewidget.cpp:297
+#: simonsound/wavfilewidget.cpp:300
 msgid "Couldn't remove file %1"
 msgstr "Kon bestand %1 niet verwijderen"
 
@@ -2151,11 +2153,11 @@ msgstr "DFA genereren"
 #: speechmodelcompilation/modelcompilationmanager.cpp:396
 #, fuzzy
 msgid ""
-"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
-"2)."
+"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, "
+"%2)."
 msgstr ""
-"Kon dfa niet genereren. Controleer de wegen naar mkfa en daf_minimize(%1, %"
-"2)."
+"Kon dfa niet genereren. Controleer de wegen naar mkfa en daf_minimize(%1, "
+"%2)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:401
 msgid "Generating grammar dictionary..."
@@ -2330,8 +2332,8 @@ msgstr "HMM7 herschikken..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:734
 msgid ""
-"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
-"2) and to the HMM7."
+"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config "
+"(%2) and to the HMM7."
 msgstr ""
 "Kon hmm7 niet herschikken. Controleer de wegen naar HVite (%1), de "
 "configuratie (%2) en naar HMM7."
@@ -2373,8 +2375,8 @@ msgstr "Trifoon genereren..."
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
-"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%"
-"3)."
+"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon "
+"(%3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:771
@@ -2413,8 +2415,8 @@ msgstr "hmm14 genereren..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:798
 msgid ""
-"Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
-"2) and to the stats-file (%3)."
+"Couldn't generate HMM14. Please check the paths to HERest (%1), the config "
+"(%2) and to the stats-file (%3)."
 msgstr ""
 "KOn HMM14 niet genereren. Controleer de wegen naar HERest (%1), de "
 "configuratie (%2) en het statistieken-bestand (%3)."
@@ -2459,8 +2461,8 @@ msgstr "hmm1 genereren..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:848
 #, fuzzy
 msgid ""
-"Couldn't generate HMM17. Please check the paths to HERest (%1), the config (%"
-"2) and to the stats-file (%3)."
+"Couldn't generate HMM17. Please check the paths to HERest (%1), the config "
+"(%2) and to the stats-file (%3)."
 msgstr ""
 "KOn HMM14 niet genereren. Controleer de wegen naar HERest (%1), de "
 "configuratie (%2) en het statistieken-bestand (%3)."
@@ -2507,8 +2509,8 @@ msgstr "hmm0 genereren..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:871
 #, fuzzy
 msgid ""
-"Couldn't generate HMM20. Please check the paths to HERest (%1), the config (%"
-"2) and to the stats-file (%3)."
+"Couldn't generate HMM20. Please check the paths to HERest (%1), the config "
+"(%2) and to the stats-file (%3)."
 msgstr ""
 "KOn HMM14 niet genereren. Controleer de wegen naar HERest (%1), de "
 "configuratie (%2) en het statistieken-bestand (%3)."
@@ -2555,8 +2557,8 @@ msgstr "hmm2 genereren..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:894
 #, fuzzy
 msgid ""
-"Couldn't generate HMM23. Please check the paths to HERest (%1), the config (%"
-"2) and to the stats-file (%3)."
+"Couldn't generate HMM23. Please check the paths to HERest (%1), the config "
+"(%2) and to the stats-file (%3)."
 msgstr ""
 "KOn HMM14 niet genereren. Controleer de wegen naar HERest (%1), de "
 "configuratie (%2) en het statistieken-bestand (%3)."
