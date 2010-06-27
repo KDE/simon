@@ -72,14 +72,15 @@ void WavPlayerClient::slotFinished()
  * \brief Plays back the given file
  * \author Peter Grasch
  */
-bool WavPlayerClient::play( QString filename )
+bool WavPlayerClient::play( QString filename, int channels )
 {
 	bool succ = false;
 	kDebug() << "Playing: " << filename;
 	foreach (WavPlayerSubClient *client, clients)
 	{
 		kDebug() << "Go Client!";
-		if (client->play(filename))
+		if ((client->getChannelCount() == channels) && 
+				client->play(filename))
 		{
 			clientsWaitingToFinish << client;
 			succ = true;

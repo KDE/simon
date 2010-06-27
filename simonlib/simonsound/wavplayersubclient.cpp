@@ -49,6 +49,11 @@ qint64 WavPlayerSubClient::writeData(const char *data, qint64 len)
 	return -1;
 }
 
+int WavPlayerSubClient::getChannelCount()
+{
+	return m_deviceConfiguration.channels();
+}
+
 bool WavPlayerSubClient::open (OpenMode mode)
 {
 	wav->beginReadSequence();

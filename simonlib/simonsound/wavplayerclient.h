@@ -54,7 +54,7 @@ public:
 	WavPlayerClient(QObject *parent=0);
 	~WavPlayerClient();
 
-	bool play(QString filename);
+	bool play(QString filename, int channels);
 	void stop();
 	
 

@@ -52,6 +52,7 @@ public:
 	bool open (OpenMode mode);
 	void close();
 	void finish();
+	int getChannelCount();
 		
 public slots:
 	void stop();

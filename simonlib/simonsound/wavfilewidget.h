@@ -68,9 +68,11 @@ private:
 
 	QString m_device;
 	QString m_filename;
+	int m_channels;
 	WavRecorderClient *rec;
 	WavPlayerClient *play;
 	PostProcessing *postProc;
+
 
 	int recordingProgress;
 

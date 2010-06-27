@@ -52,7 +52,8 @@
  */
 WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
 		const QString& filename, QWidget *parent) : QWidget(parent),
-	ui(new Ui::WavFileWidgetUi()), m_device(device), m_filename(filename), postProc(NULL)
+	ui(new Ui::WavFileWidgetUi()), m_device(device), m_filename(filename), 
+	m_channels(channels), postProc(NULL)
 {	
 
 	recordingProgress=0;
@@ -259,7 +260,7 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
-	if (play->play(m_filename))
+	if (play->play(m_filename, m_channels))
 	{	
 		ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
 		disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
@@ -269,7 +270,9 @@ void WavFileWidget::playback()
 		emit playing();
 	} else {
 		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
-						"The output device could not be initialized.\n\n"
+						"The output device could not be initialized or there "
+						"is no sound device configured for this amount of input "
+						"channels.\n\n"
 						"Please check your sound configuration and try again."));
 		ui->pbPlay->setChecked(false);
 	}
