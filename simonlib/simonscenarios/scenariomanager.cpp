@@ -335,10 +335,12 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
 			outSentences.append(s->getExampleSentences(name, terminal, count));
 		}
 	} 
+	kDebug() << "Out sentences: " << outSentences;
 
 	if (elements == SpeechModel::ScenarioGrammar) {
 		outSentences.append(getCurrentScenario()->getExampleSentences(name, terminal, count));
 	}
+	kDebug() << "Out sentences: " << outSentences;
 
 
 	return outSentences;

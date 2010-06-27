@@ -1,20 +1,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2010-04-12 11:15+0200\n"
-"PO-Revision-Date: 2009-03-02 21:39+0100\n"
-"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
-"Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"PO-Revision-Date: 2010-06-25 11:13+0200\n"
+"Last-Translator: Pavel\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: executablecommand.cpp:32
@@ -44,15 +44,14 @@ msgstr "Formulář"
 #. i18n: file: createexecutablecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
 #: po/rc.cpp:6 selectprogramdialog.cpp:42 rc.cpp:6
-#, fuzzy
 msgid "Select program"
-msgstr "Přidat program"
+msgstr "Vybrat program"
 
 #. i18n: file: createexecutablecommandwidget.ui:23
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportProgram)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Select an installed program from a list"
-msgstr ""
+msgstr "Vyberte nainstalovaný program ze seznamu"
 
 #. i18n: file: createexecutablecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_2)

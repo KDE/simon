@@ -50,8 +50,8 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	QLabel *desc = new QLabel(i18n("The recorded samples are now sent to the server.\n\nPlease be patient..."), this);
 	desc->setWordWrap(true);
 	layout->addWidget(desc);
-  pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
-  connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
+	pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
+	connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
 	layout->addWidget(pbReSendData);
 
 	futureWatcher = new QFutureWatcher<bool>(this);
@@ -167,6 +167,7 @@ void SendSamplePage::sendData()
   m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
   m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
   connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
+  connect(worker, SIGNAL(aborted()), pbReSendData, SLOT(setEnabled()), Qt::QueuedConnection);
   connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
   connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
 

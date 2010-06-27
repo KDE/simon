@@ -197,6 +197,8 @@ void AddWordResolvePage::createExamples()
 	examples = ScenarioManager::getInstance()->getExampleSentences(ui.leWord->text(), terminal, 2, 
 			(SpeechModel::ModelElements) (SpeechModel::AllScenariosGrammar));
 
+	kDebug() << "Got examples: " << examples;
+
 	if (examples.count() == 2) 
 	{
 		ui.leExample1->setText(examples[0]);

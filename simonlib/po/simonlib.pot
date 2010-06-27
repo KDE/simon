@@ -9,11 +9,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-12 19:29+0200\n"
+"POT-Creation-Date: 2010-06-27 17:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1700,8 +1699,8 @@ msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:268
 msgid ""
-"Do you really want to irrecoverably delete the selected scenario "
-"\"%1\" (\"%2\")?"
+"Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
+"\")?"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:276
@@ -1724,9 +1723,9 @@ msgstr ""
 #: simonscenarioui/scenariomanagementdialog.cpp:371
 msgctxt "Infos about the scenario"
 msgid ""
-"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>"
-"%3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: "
-"%5</p><h4>Authors</h4><p>%6</p>"
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
+"3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</"
+"p><h4>Authors</h4><p>%6</p>"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:402
@@ -1841,7 +1840,7 @@ msgstr ""
 msgid "An error occured while reading data from the audio device."
 msgstr ""
 
-#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:223
+#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:230
 msgid "Buffer underrun when processing the sound data."
 msgstr ""
 
@@ -1849,26 +1848,26 @@ msgstr ""
 msgid "A fatal error occured during recording."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:126
+#: simonsound/simonsoundoutput.cpp:133
 msgid "The selected sound output device \"%1\" is not available."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:138
+#: simonsound/simonsoundoutput.cpp:145
 msgid "Sample size not equal to 16 bit."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:210
+#: simonsound/simonsoundoutput.cpp:218
 msgid ""
 "Failed to open the audio device.\n"
 "\n"
 "Please check your sound configuration."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:219
+#: simonsound/simonsoundoutput.cpp:223
 msgid "An error occured while writing data to the audio device."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:227
+#: simonsound/simonsoundoutput.cpp:234
 msgid ""
 "A fatal error occured during playback.\n"
 "\n"
@@ -2084,8 +2083,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:396
 msgid ""
-"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, "
-"%2)."
+"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
+"2)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:401
@@ -2242,8 +2241,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:734
 msgid ""
-"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config "
-"(%2) and to the HMM7."
+"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
+"2) and to the HMM7."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:739
@@ -2277,8 +2276,8 @@ msgstr ""
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
-"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon "
-"(%3)."
+"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%"
+"3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:771
@@ -2314,8 +2313,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:798
 msgid ""
-"Couldn't generate HMM14. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:803
@@ -2347,8 +2346,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:848
 msgid ""
-"Couldn't generate HMM17. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM17. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:853
@@ -2380,8 +2379,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:871
 msgid ""
-"Couldn't generate HMM20. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM20. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:876
@@ -2413,8 +2412,8 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:894
 msgid ""
-"Couldn't generate HMM23. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM23. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:899

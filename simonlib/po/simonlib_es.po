@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-12 19:29+0200\n"
+"POT-Creation-Date: 2010-06-27 17:01+0200\n"
 "PO-Revision-Date: 2009-08-11 14:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -1741,8 +1741,8 @@ msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:268
 msgid ""
-"Do you really want to irrecoverably delete the selected scenario "
-"\"%1\" (\"%2\")?"
+"Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
+"\")?"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:276
@@ -1765,9 +1765,9 @@ msgstr ""
 #: simonscenarioui/scenariomanagementdialog.cpp:371
 msgctxt "Infos about the scenario"
 msgid ""
-"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>"
-"%3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: "
-"%5</p><h4>Authors</h4><p>%6</p>"
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
+"3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</"
+"p><h4>Authors</h4><p>%6</p>"
 msgstr ""
 
 #: simonscenarioui/scenariomanagementdialog.cpp:402
@@ -1894,7 +1894,7 @@ msgstr ""
 msgid "An error occured while reading data from the audio device."
 msgstr ""
 
-#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:223
+#: simonsound/simonsoundinput.cpp:252 simonsound/simonsoundoutput.cpp:230
 msgid "Buffer underrun when processing the sound data."
 msgstr ""
 
@@ -1903,15 +1903,15 @@ msgstr ""
 msgid "A fatal error occured during recording."
 msgstr "El muestreo utilizado para la grabación."
 
-#: simonsound/simonsoundoutput.cpp:126
+#: simonsound/simonsoundoutput.cpp:133
 msgid "The selected sound output device \"%1\" is not available."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:138
+#: simonsound/simonsoundoutput.cpp:145
 msgid "Sample size not equal to 16 bit."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:210
+#: simonsound/simonsoundoutput.cpp:218
 #, fuzzy
 msgid ""
 "Failed to open the audio device.\n"
@@ -1922,11 +1922,11 @@ msgstr ""
 "\n"
 "Por favor, compruebe su configuración."
 
-#: simonsound/simonsoundoutput.cpp:219
+#: simonsound/simonsoundoutput.cpp:223
 msgid "An error occured while writing data to the audio device."
 msgstr ""
 
-#: simonsound/simonsoundoutput.cpp:227
+#: simonsound/simonsoundoutput.cpp:234
 msgid ""
 "A fatal error occured during playback.\n"
 "\n"
@@ -2193,8 +2193,8 @@ msgstr "Generación de DFA..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:396
 msgid ""
-"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, "
-"%2)."
+"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
+"2)."
 msgstr ""
 "No se puede generar DFA. Por favor, compruebe los caminos a mkfa y "
 "dfa_minimize (%1, %2)."
@@ -2226,8 +2226,8 @@ msgid ""
 msgstr ""
 "Error de codificación, mientras que las muestras!\n"
 "\n"
-"Por favor, compruebe la ruta de acceso a HCopy (%1) y la configuración wav "
-"(%2)"
+"Por favor, compruebe la ruta de acceso a HCopy (%1) y la configuración wav (%"
+"2)"
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:608
 msgid "Generating wordlist..."
@@ -2392,11 +2392,11 @@ msgstr "Re-Alineación de HMM7..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:734
 msgid ""
-"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config "
-"(%2) and to the HMM7."
+"Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
+"2) and to the HMM7."
 msgstr ""
-"No podría volver a alinear hmm7. Por favor, compruebe sus rutas a HVite "
-"(%1), la configuración (%2) y al HMM7."
+"No podría volver a alinear hmm7. Por favor, compruebe sus rutas a HVite (%"
+"1), la configuración (%2) y al HMM7."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:739
 msgid "Generating hmm8..."
@@ -2435,8 +2435,8 @@ msgstr "Generación de triphone..."
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
-"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon "
-"(%3)."
+"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%"
+"3)."
 msgstr ""
 "No se puede obligar triphones.\n"
 "\n"
@@ -2479,8 +2479,8 @@ msgstr "Generación de hmm14..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:798
 msgid ""
-"Couldn't generate HMM14. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 "No se puede generar HMM14. Por favor, compruebe los caminos a HERest (%1), "
 "la configuración (%2) y el fichero de estadísticas (%3)."
@@ -2525,8 +2525,8 @@ msgstr "Generación de hmm1..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:848
 #, fuzzy
 msgid ""
-"Couldn't generate HMM17. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM17. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 "No se puede generar HMM14. Por favor, compruebe los caminos a HERest (%1), "
 "la configuración (%2) y el fichero de estadísticas (%3)."
@@ -2573,8 +2573,8 @@ msgstr "Generación de hmm0..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:871
 #, fuzzy
 msgid ""
-"Couldn't generate HMM20. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM20. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 "No se puede generar HMM14. Por favor, compruebe los caminos a HERest (%1), "
 "la configuración (%2) y el fichero de estadísticas (%3)."
@@ -2621,8 +2621,8 @@ msgstr "Generación de hmm2..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:894
 #, fuzzy
 msgid ""
-"Couldn't generate HMM23. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Couldn't generate HMM23. Please check the paths to HERest (%1), the config (%"
+"2) and to the stats-file (%3)."
 msgstr ""
 "No se puede generar HMM14. Por favor, compruebe los caminos a HERest (%1), "
 "la configuración (%2) y el fichero de estadísticas (%3)."
@@ -2670,8 +2670,8 @@ msgstr "Generación de hmm10..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:1082
 msgid "Could not generate HMM10. Please check th e path to HHEd (%1)."
 msgstr ""
-"No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd "
-"(%1)."
+"No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd (%"
+"1)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1087
 msgid "Generating hmm11..."
@@ -2682,8 +2682,8 @@ msgid ""
 "Could not generate HMM11. Please check your paths to HERest (%1) and to the "
 "config (%2)."
 msgstr ""
-"No se puede generar HMM6. Por favor, compruebe la ruta de acceso a HERest "
-"(%1) y la configuración (%2)."
+"No se puede generar HMM6. Por favor, compruebe la ruta de acceso a HERest (%"
+"1) y la configuración (%2)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1095
 msgid "Generating hmm12..."
@@ -2740,8 +2740,8 @@ msgstr ""
 msgid ""
 "Couldn't create regression class tree. Please check your paths to HHEd (%1)."
 msgstr ""
-"No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd "
-"(%1)."
+"No se puede generar HMM10. Por favor, compruebe la ruta de acceso a HHEd (%"
+"1)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1507
 msgid "Performing static adaption..."
