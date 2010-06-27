@@ -108,5 +108,7 @@ void DeviceVolumeWidget::stop()
 
 DeviceVolumeWidget::~DeviceVolumeWidget()
 {
+	delete ui;
+	rec->deleteLater();
 }
 

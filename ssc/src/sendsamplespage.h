@@ -26,6 +26,7 @@
 #include <QWizardPage>
 #include <QFutureWatcher>
 #include <QTimer>
+#include <QPointer>
 
 class Operation;
 class SampleDataProvider;
@@ -47,6 +48,7 @@ class SendSampleWorker : public QObject
 
 	private:
 		bool shouldAbort;
+		bool shouldDelete;
 		SampleDataProvider *m_dataProvider;
 
 	private slots:
@@ -60,6 +62,8 @@ class SendSampleWorker : public QObject
 		~SendSampleWorker();
 
 		bool sendSamples();
+		bool getShouldAbort() { return shouldAbort; }
+		void deleteThatSometimes() { shouldDelete = true; }
 };
 
 class SendSamplePage : public QWizardPage
@@ -75,7 +79,7 @@ class SendSamplePage : public QWizardPage
 		SendSampleWorker *worker;
 
 		QVBoxLayout *layout;
-		Operation *m_transmitOperation;
+		QPointer<Operation> m_transmitOperation;
 		ProgressWidget *m_progressWidget;
 
 		QFutureWatcher<bool> *futureWatcher;

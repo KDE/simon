@@ -91,5 +91,6 @@ void VolumeWidget::stop()
 VolumeWidget::~VolumeWidget()
 {
 	stop();
+	delete ui;
 }
 

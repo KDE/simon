@@ -67,12 +67,16 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 
 void SendSamplePage::transmissionFinished()
 {
-  kDebug() << "Transmission finished";
+	kDebug() << "Transmission finished";
+
 	updateStatusDisplay();
 	emit completeChanged();
 
-  if (!futureWatcher->result())
-    pbReSendData->setEnabled(true);
+	wizard()->button(QWizard::CancelButton)->setEnabled(true);
+	wizard()->button(QWizard::BackButton)->setEnabled(true);
+
+	if (!futureWatcher->result() || worker->getShouldAbort())
+		pbReSendData->setEnabled(true);
 }
 
 void SendSamplePage::displayStatus(QString message, int now, int max)
@@ -102,7 +106,20 @@ bool SendSamplePage::isComplete() const
 
 SendSamplePage::~SendSamplePage()
 {
-	if (worker) worker->deleteLater();
+	if (worker) {
+		//make sure the thread is done before we delete it
+		if (futureWatcher->isRunning())
+		{
+			m_transmitOperation->cancel();
+			worker->deleteThatSometimes();
+		} else {
+			worker->deleteLater();
+		}
+	}
+
+	if (futureWatcher)
+		futureWatcher->deleteLater();
+
 	if (m_progressWidget) m_progressWidget->deleteLater();
 }
 
@@ -113,15 +130,6 @@ void SendSamplePage::initializePage()
 	} else
 		kDebug() << "Nothing";
 }
-
-/*
- *	void connected();
-	void disconnected();
-
-	void error(const QString& errStr);
-
-	void warning(const QString&);
-  */
 
 
 void SendSamplePage::prepareDataSending()
@@ -153,30 +161,33 @@ void SendSamplePage::disassociateFromSSCDAccess()
 
 void SendSamplePage::sendData()
 {
-  if (!SSCDAccess::getInstance()->isConnected())
-    KMessageBox::information(this, i18n("Not connected to server."));
+	if (!SSCDAccess::getInstance()->isConnected())
+		KMessageBox::information(this, i18n("Not connected to server."));
 
-  kDebug() << "Sending data";
-  pbReSendData->setEnabled(false);
+	kDebug() << "Sending data";
+	pbReSendData->setEnabled(false);
 
-  if (m_progressWidget) {
-    layout->removeWidget(m_progressWidget);
-    m_progressWidget->deleteLater();
-  }
+	if (m_progressWidget) {
+		layout->removeWidget(m_progressWidget);
+		m_progressWidget->deleteLater();
+	}
 
-  m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
-  m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
-  connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
-  connect(worker, SIGNAL(aborted()), pbReSendData, SLOT(setEnabled()), Qt::QueuedConnection);
-  connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
-  connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
+	m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
+	m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
+	connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
+	connect(this, SIGNAL(aborted()), pbReSendData, SLOT(setEnabled()), Qt::QueuedConnection);
+	connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
+	connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
 
-  layout->addWidget(m_progressWidget);
-  m_progressWidget->show();
+	layout->addWidget(m_progressWidget);
+	m_progressWidget->show();
 
-  QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
-  futureWatcher->setFuture(future);
-  kDebug() << "Thread started";
+	wizard()->button(QWizard::CancelButton)->setEnabled(false);
+	wizard()->button(QWizard::BackButton)->setEnabled(false);
+
+	QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
+	futureWatcher->setFuture(future);
+	kDebug() << "Thread started";
 }
 
 
@@ -197,6 +208,7 @@ bool SendSampleWorker::sendSamples()
 	//QThread *prevThread = SSCDAccess::getInstance()->thread();
 	//SSCDAccess::getInstance()->moveToThread(thread());
 	shouldAbort = false;
+	shouldDelete = false;
 	bool successful = true;
 
 	int i=0;
@@ -208,7 +220,7 @@ bool SendSampleWorker::sendSamples()
 
 		emit error(i18n("Failed to start the sample transmission.\n\nMost likely this is caused by problems to send the information about the used input devices."));
 		shouldAbort = true;
-    successful = false;
+		successful = false;
 	}
 	kDebug() << "Transmission started...";
 
@@ -254,6 +266,9 @@ bool SendSampleWorker::sendSamples()
 		emit finished();
 	} else 
 		emit aborted();
+
+	if (shouldDelete)
+		deleteLater();
 
 	//SSCDAccess::getInstance()->moveToThread(prevThread);
 	return successful;
