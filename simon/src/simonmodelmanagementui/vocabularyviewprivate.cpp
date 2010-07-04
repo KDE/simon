@@ -61,6 +61,8 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
 	connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
 	connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
+	//connect(ui.leActiveVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshActiveView()));
+	//connect(ui.leShadowVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshShadowView()));
 	connect(ui.leActiveVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshActiveView()));
 	connect(ui.leShadowVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshShadowView()));
 	connect(ui.leActiveVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshActiveView()));
@@ -84,6 +86,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 
 	activeProxy = new QSortFilterProxyModel(this);
 	activeProxy->setFilterKeyColumn(0);
+	activeProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
 	ui.tvActiveVocab->setModel(activeProxy);
 	
 	
@@ -98,7 +101,6 @@ void VocabularyViewPrivate::refreshActiveView()
 	kDebug() << "Refreshing view with filter: " << ui.leActiveVocabSearch->text();
 
 	activeProxy->setFilterRegExp(ui.leActiveVocabSearch->text());
-	activeProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
 }
 
 void VocabularyViewPrivate::refreshShadowView()
@@ -106,7 +108,6 @@ void VocabularyViewPrivate::refreshShadowView()
 	kDebug() << "Refreshing view with filter: " << ui.leShadowVocabSearch->text();
 
 	shadowProxy->setFilterRegExp(ui.leShadowVocabSearch->text());
-	shadowProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
 }
 
 void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
