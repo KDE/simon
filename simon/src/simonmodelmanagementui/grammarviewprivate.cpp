@@ -44,7 +44,7 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 	ui.pbAdd->setIcon(KIcon("list-add"));
 	ui.pbDelete->setIcon(KIcon("list-remove"));
 
-	connect(ui.lvStructures, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
+	connect(ui.lvStructures, SIGNAL(selectionChanged()), this, SLOT(currentSelectionChanged()));
 	
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
