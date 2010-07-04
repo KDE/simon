@@ -16,7 +16,7 @@
    <item>
     <widget class="QLabel" name="lbDescription" >
      <property name="text" >
-      <string>Texts are being analyzed...
+      <string>Analyzing texts...
 
 This can take a few minutes...</string>
      </property>

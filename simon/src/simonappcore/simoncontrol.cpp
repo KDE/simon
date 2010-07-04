@@ -95,18 +95,18 @@ void SimonControl::setFirstRunWizardCompleted(bool completed)
 
 void SimonControl::loggedIn()
 {
-	SimonInfo::showMessage(i18n("User athenticated"), 1500);
+	SimonInfo::showMessage(i18n("User authenticated"), 1500);
 }
 
 void SimonControl::slotConnectionError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Connection Error: \n%1", err));
+	KMessageBox::error(0, i18n("Connection error: \n%1", err));
 	setStatus(SimonControl::Disconnected);
 }
 
 void SimonControl::slotSimondSystemError(const QString &err)
 {
-	KMessageBox::error(0, i18n("The Recognition Server returned the following fatal error: \n%1", err));
+	KMessageBox::error(0, i18n("The recognition server returned the following fatal error: \n%1", err));
 }
 
 void SimonControl::slotSoundError(const QString &err)
@@ -121,7 +121,7 @@ void SimonControl::slotSynchronisationError(const QString &err)
 
 void SimonControl::slotRecognitionError(const QString &err, const QString& log)
 {
-	KMessageBox::detailedError(0, i18n("The Recognition reported the following error: \n%1", err), log);
+	KMessageBox::detailedError(0, i18n("The recognition reported the following error: \n%1", err), log);
 }
 
 void SimonControl::slotCompilationError(const QString &err, const QString& protocol)
@@ -137,7 +137,7 @@ void SimonControl::slotSimondSystemWarning(const QString& warning)
 
 void SimonControl::slotSynchronisationWarning(const QString& warning)
 {
-	SimonInfo::showMessage(i18n("Model Synchronisation %1", warning), 5000);
+	SimonInfo::showMessage(i18n("Model synchronisation %1", warning), 5000);
 }
 
 void SimonControl::slotRecognitionWarning(const QString& warning)
@@ -147,7 +147,7 @@ void SimonControl::slotRecognitionWarning(const QString& warning)
 
 void SimonControl::slotCompilationWarning(const QString& warning)
 {
-	SimonInfo::showMessage(i18n("Modelmanagement: %1", warning), 5000);
+	SimonInfo::showMessage(i18n("Model management: %1", warning), 5000);
 }
 
 

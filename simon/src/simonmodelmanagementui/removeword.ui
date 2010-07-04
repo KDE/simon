@@ -190,7 +190,7 @@
    <item>
     <widget class="QRadioButton" name="rbShadow">
      <property name="text">
-      <string>Move the word to the shadow dictioanary</string>
+      <string>Move the word to the shadow dictionary</string>
      </property>
      <property name="checked">
       <bool>false</bool>

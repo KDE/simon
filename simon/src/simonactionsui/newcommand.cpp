@@ -126,7 +126,7 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 {
 	if (!name.isEmpty())
 		setCaption(i18n("Command: %1", name));
-	else setCaption(i18n("Kommando"));
+	else setCaption(i18n("Command"));
 }
 
 bool NewCommand::newCommand(const QString& preSelectedCategory)
@@ -135,7 +135,7 @@ bool NewCommand::newCommand(const QString& preSelectedCategory)
 		ui.cbType->setCurrentIndex(ui.cbType->findText(preSelectedCategory));
 
 	if (ui.swCommandCreaters->count() == 0) {
-		KMessageBox::information(this, i18n("No command plugins loaded that provide command engines.\n\nYou can load some in the \"Manage Plug-Ins\" dialog."));
+		KMessageBox::information(this, i18n("No command plugins loaded that provide command engines.\n\nYou can load some in the \"Manage plugins\" dialog."));
 		return false;
 	}
 

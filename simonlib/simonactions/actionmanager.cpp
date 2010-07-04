@@ -53,8 +53,8 @@ ActionManager* ActionManager::instance;
 ActionManager::ActionManager(QObject* parent) : QObject(parent),
 	currentlyPromptedListOfResults(0),
 	greedyReceivers(new QList<GreedyReceiver*>()),
-	minimumConfidenceThreshold(0.7),
-	useDYM(true)
+	minimumConfidenceThreshold(0.45),
+	useDYM(false)
 {
 	retrieveRecognitionResultFilteringParameters();
 }

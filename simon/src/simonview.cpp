@@ -132,25 +132,25 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	//Preloads all Dialogs
 	ScenarioManager::getInstance()->registerScenarioDisplay(this);
 
-	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
+	info->writeToSplash ( i18n ( "Loading training..." ) );
 	this->trainDialog = new TrainingView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
-	info->writeToSplash ( i18n ( "Loading \"Vocabulary\"..." ) );
+	info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
 	vocabularyView = new VocabularyView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
-	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
+	info->writeToSplash ( i18n ( "Loading grammar..." ) );
 	this->grammarView = new GrammarView(this);
 	ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
-	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
+	info->writeToSplash ( i18n ( "Loading run..." ) );
 	this->runDialog = new RunCommandView ( this );
 	connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
 	ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
 
 
-	info->writeToSplash ( i18n ( "Loading Interface..." ) );
+	info->writeToSplash ( i18n ( "Loading interface..." ) );
 
 	displayAboutPage();
 	

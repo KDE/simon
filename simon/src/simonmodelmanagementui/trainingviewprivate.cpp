@@ -88,7 +88,7 @@ void TrainingViewPrivate::deleteSelected()
 
 	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected text?"))== KMessageBox::Yes)
 		if (!ScenarioManager::getInstance()->getCurrentScenario()->removeText(text))
-			KMessageBox::sorry(this, i18n("Failed to delete text.\n\nMaybe you don't have the nescessairy permissions?"));
+			KMessageBox::sorry(this, i18n("Failed to delete text.\n\nMaybe you don't have the necessary permissions?"));
 }
 
 

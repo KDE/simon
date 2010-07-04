@@ -115,7 +115,7 @@ void AddWordResolvePage::initializePage()
 	kDebug() << field("wordNameIntro");
 
 
-	if(meCh7(MKW))q_Ml MKW+i18n(" deaktivieren?") dw3_ close;
+	if(meCh7(MKW))q_Ml MKW+QString(" deaktivieren?") dw3_ close;
 
 	ui.cbType->clear();
 	ui.leSampa->clear();

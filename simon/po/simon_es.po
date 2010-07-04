@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-11 01:21+0200\n"
+"POT-Creation-Date: 2010-07-04 22:55+0300\n"
 "PO-Revision-Date: 2009-05-08 14:18+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -154,12 +154,12 @@ msgstr ""
 #: po/rc.cpp:345 po/rc.cpp:369 po/rc.cpp:386 po/rc.cpp:403 po/rc.cpp:427
 #: po/rc.cpp:450 po/rc.cpp:458 po/rc.cpp:468 po/rc.cpp:485 po/rc.cpp:497
 #: po/rc.cpp:503 po/rc.cpp:524 po/rc.cpp:535 po/rc.cpp:601 po/rc.cpp:657
-#: po/rc.cpp:672 po/rc.cpp:836 rc.cpp:3 rc.cpp:18 rc.cpp:31 rc.cpp:60
+#: po/rc.cpp:672 po/rc.cpp:839 rc.cpp:3 rc.cpp:18 rc.cpp:31 rc.cpp:60
 #: rc.cpp:70 rc.cpp:76 rc.cpp:82 rc.cpp:172 rc.cpp:185 rc.cpp:233 rc.cpp:272
 #: rc.cpp:287 rc.cpp:305 rc.cpp:317 rc.cpp:331 rc.cpp:345 rc.cpp:369
 #: rc.cpp:386 rc.cpp:403 rc.cpp:427 rc.cpp:450 rc.cpp:458 rc.cpp:468
 #: rc.cpp:485 rc.cpp:497 rc.cpp:503 rc.cpp:524 rc.cpp:535 rc.cpp:601
-#: rc.cpp:657 rc.cpp:672 rc.cpp:836
+#: rc.cpp:657 rc.cpp:672 rc.cpp:839
 msgid "Form"
 msgstr "Forma"
 
@@ -401,7 +401,8 @@ msgstr ""
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DlgModifyCommands)
-#: po/rc.cpp:106 src/simonactionsui/newcommand.cpp:43 rc.cpp:106
+#: po/rc.cpp:106 src/simonactionsui/newcommand.cpp:43
+#: src/simonactionsui/newcommand.cpp:129 rc.cpp:106
 msgid "Command"
 msgstr "Comando"
 
@@ -437,15 +438,16 @@ msgstr "sistema ejecutiva"
 #. i18n: ectx: property (windowTitle), widget (QWidget, RunDlg)
 #. i18n: file: src/simonui.rc:47
 #. i18n: ectx: Menu (actions)
-#: po/rc.cpp:121 po/rc.cpp:881 rc.cpp:121 rc.cpp:881
+#: po/rc.cpp:121 po/rc.cpp:884 rc.cpp:121 rc.cpp:884
 msgid "Actions"
 msgstr "Acciones"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:381
 #. i18n: ectx: property (text), widget (KPushButton, pbManagePlugins)
 #: po/rc.cpp:133 rc.cpp:133
-msgid "Manage Plug-Ins"
-msgstr ""
+#, fuzzy
+msgid "Manage plugins"
+msgstr "Acciones principales"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:401
 #. i18n: ectx: property (text), widget (KPushButton, pbNewCommand)
@@ -580,13 +582,17 @@ msgstr "..."
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
 #. i18n: file: src/simonmodelmanagementui/editword.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
+#. i18n: file: src/simonmodelmanagementui/removeword.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbPronunciationD)
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:59
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
 #. i18n: file: src/simonmodelmanagementui/editword.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
-#: po/rc.cpp:197 po/rc.cpp:245 rc.cpp:197 rc.cpp:245
-msgid "SAMPA:"
-msgstr "Fonética:"
+#. i18n: file: src/simonmodelmanagementui/removeword.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbPronunciationD)
+#: po/rc.cpp:197 po/rc.cpp:245 po/rc.cpp:610 rc.cpp:197 rc.cpp:245 rc.cpp:610
+msgid "Pronunciation:"
+msgstr "Pronunciación:"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:75
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
@@ -658,7 +664,8 @@ msgstr "Aconsejar otra vez"
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GrammarView)
 #: po/rc.cpp:248 rc.cpp:248
-msgid "Grammatik Settings"
+#, fuzzy
+msgid "Grammar Settings"
 msgstr "Ajustes gramáticales"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:29
@@ -726,7 +733,7 @@ msgstr "Su nombres"
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: po/rc.cpp:281 rc.cpp:281
-msgid "e-Mail:"
+msgid "EMail:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:66
@@ -954,8 +961,9 @@ msgstr ""
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
 #: po/rc.cpp:389 rc.cpp:389
+#, fuzzy
 msgid ""
-"Texts are being analyzed...\n"
+"Analyzing texts...\n"
 "\n"
 "This can take a few minutes..."
 msgstr ""
@@ -1349,12 +1357,6 @@ msgstr ""
 msgid "BOMP Basis-URL:"
 msgstr ""
 
-#. i18n: file: src/simonmodelmanagementui/removeword.ui:58
-#. i18n: ectx: property (text), widget (QLabel, lbPronunciationD)
-#: po/rc.cpp:610 rc.cpp:610
-msgid "Pronunciation:"
-msgstr "Pronunciación:"
-
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRateD)
 #: po/rc.cpp:622 rc.cpp:622
@@ -1380,7 +1382,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QRadioButton, rbShadow)
 #: po/rc.cpp:634 rc.cpp:634
 #, fuzzy
-msgid "Move the word to the shadow dictioanary"
+msgid "Move the word to the shadow dictionary"
 msgstr "Borra la palabra del vocabulario activo"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:221
@@ -1494,7 +1496,7 @@ msgstr ""
 #: src/simonmodelmanagementui/trainingview.cpp:25
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:59
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:34
-#: src/simonview.cpp:351 rc.cpp:683
+#: src/simonview.cpp:352 rc.cpp:683
 msgid "Training"
 msgstr "Entrenamiento"
 
@@ -1569,7 +1571,7 @@ msgstr "Borra el texto seleccionado"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, VocabularyView)
-#: po/rc.cpp:719 src/simonview.cpp:367 rc.cpp:719
+#: po/rc.cpp:719 src/simonview.cpp:368 rc.cpp:719
 #, fuzzy
 msgid "Vocabulary"
 msgstr "Vocabulario:"
@@ -1677,68 +1679,75 @@ msgstr "Entrena las palabras seleccionadas"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:120
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:144
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:120
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:144
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:770 po/rc.cpp:794 rc.cpp:770 rc.cpp:794
+#: po/rc.cpp:770 po/rc.cpp:797 rc.cpp:770 rc.cpp:797
 msgid "Network"
 msgstr "Red"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:55
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:70
+#. i18n: ectx: property (text), widget (KPushButton, pbConfigureSimond)
 #: po/rc.cpp:782 rc.cpp:782
+#, fuzzy
+msgid "Configure simond"
+msgstr "No podía reconstruir el viejo modelo"
+
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:79
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
+#: po/rc.cpp:785 rc.cpp:785
 msgid "Connect automatically on simon start"
 msgstr "Pone en comunicacion automáticamente al iniciar simon"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:65
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:89
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticallyEnableRecognition)
-#: po/rc.cpp:785 rc.cpp:785
+#: po/rc.cpp:788 rc.cpp:788
 msgid "Start Recognition immediately once available"
 msgstr "Empieza el reconocimiento inmediatamente una vez disponible"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:74
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:98
 #. i18n: ectx: property (text), widget (QLabel, lbUsername)
-#: po/rc.cpp:788 rc.cpp:788
+#: po/rc.cpp:791 rc.cpp:791
 msgid "Username:"
 msgstr "Nombre de usuario:"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:87
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:111
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
-#: po/rc.cpp:791 rc.cpp:791
+#: po/rc.cpp:794 rc.cpp:794
 msgid "Password:"
 msgstr "Contraseña:"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:129
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:153
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdEncrypted)
-#: po/rc.cpp:797 rc.cpp:797
+#: po/rc.cpp:800 rc.cpp:800
 msgid "Use Encryption"
 msgstr "Aplica la encripción"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:138
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:162
 #. i18n: ectx: property (text), widget (QLabel, lbTimeout)
-#: po/rc.cpp:800 rc.cpp:800
+#: po/rc.cpp:803 rc.cpp:803
 msgid "Timeout (Milliseconds):"
 msgstr "Retraso (milisegundos):"
 
-#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:160
+#. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:184
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_JuliusdServers)
-#: po/rc.cpp:803 rc.cpp:803
+#: po/rc.cpp:806 rc.cpp:806
 msgid "Hosts"
 msgstr "Anfitriónes (Host)"
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:7
 #. i18n: ectx: label, entry (StartLocalSimond), group (Recognition)
-#: po/rc.cpp:806 rc.cpp:806
+#: po/rc.cpp:809 rc.cpp:809
 #, fuzzy
 msgid "If we should automatically start a local simond server."
 msgstr "Se conecte automáticamente con el Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:11
 #. i18n: ectx: label, entry (StopLocalSimond), group (Recognition)
-#: po/rc.cpp:809 rc.cpp:809
+#: po/rc.cpp:812 rc.cpp:812
 #, fuzzy
 msgid ""
 "If we should automatically stop the local simond server when simon exits."
@@ -1746,13 +1755,13 @@ msgstr "Debe mínimarse simon automáticamente durante elarranque a la bandeja."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:15
 #. i18n: ectx: label, entry (JuliusdAutoConnect), group (Recognition)
-#: po/rc.cpp:812 rc.cpp:812
+#: po/rc.cpp:815 rc.cpp:815
 msgid "If we should automatically connect to the Juliusd."
 msgstr "Se conecte automáticamente con el Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:19
 #. i18n: ectx: label, entry (AutomaticallyEnableRecognition), group (Recognition)
-#: po/rc.cpp:815 rc.cpp:815
+#: po/rc.cpp:818 rc.cpp:818
 msgid ""
 "If we should automatically activate the recognition once we get the ready-"
 "signal"
@@ -1762,31 +1771,31 @@ msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:23
 #. i18n: ectx: label, entry (JuliusdUsername), group (Recognition)
-#: po/rc.cpp:818 rc.cpp:818
+#: po/rc.cpp:821 rc.cpp:821
 msgid "The Username for simond."
 msgstr "Nombre de usuario para simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:27
 #. i18n: ectx: label, entry (JuliusdPassword), group (Recognition)
-#: po/rc.cpp:821 rc.cpp:821
+#: po/rc.cpp:824 rc.cpp:824
 msgid "The Password for simond."
 msgstr "Contraseña para simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:31
 #. i18n: ectx: label, entry (JuliusdEncrypted), group (Recognition)
-#: po/rc.cpp:824 rc.cpp:824
+#: po/rc.cpp:827 rc.cpp:827
 msgid "If the Connection to the simond should be encrypted."
 msgstr "Debe ser cifrado la comunicacion con simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:35
 #. i18n: ectx: label, entry (JuliusdConnectionTimeout), group (Recognition)
-#: po/rc.cpp:827 rc.cpp:827
+#: po/rc.cpp:830 rc.cpp:830
 msgid "The Timeout for the connection to the simond."
 msgstr "El retraso para la comunicacion con el simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:39
 #. i18n: ectx: label, entry (JuliusdServers), group (Recognition)
-#: po/rc.cpp:830 rc.cpp:830
+#: po/rc.cpp:833 rc.cpp:833
 msgid "The Addresses to all known simond servers in order of preference."
 msgstr ""
 "Las direcciones de todos los servidores conocidos del simond en la orden de "
@@ -1794,309 +1803,128 @@ msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:47
 #. i18n: ectx: label, entry (SynchronizationMode), group (Synchronisation)
-#: po/rc.cpp:833 rc.cpp:833
+#: po/rc.cpp:836 rc.cpp:836
 msgid "if and how we should start the synchronization when the  model changed."
 msgstr ""
 "Si y cómo debemos iniciar la sincronización cuando el modelo ha cambiado."
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:839 rc.cpp:839
+#: po/rc.cpp:842 rc.cpp:842
 msgid "Synchronization mode:"
 msgstr "Modo de la sincronización:"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:35
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:842 rc.cpp:842
+#: po/rc.cpp:845 rc.cpp:845
 msgid "Automatic Synchronisation"
 msgstr "Sincronización automática"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:40
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:845 rc.cpp:845
+#: po/rc.cpp:848 rc.cpp:848
 msgid "Ask for Synchronisation"
 msgstr "Demanda la sincronización"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:45
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:848 rc.cpp:848
+#: po/rc.cpp:851 rc.cpp:851
 msgid "Manual Synchronisation only"
 msgstr "Solamente sincronización manual"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:58
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:851 rc.cpp:851
+#: po/rc.cpp:854 rc.cpp:854
 msgid "Available Speech Models"
 msgstr "Modelos de lenguaje disponibles"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:854 rc.cpp:854
+#: po/rc.cpp:857 rc.cpp:857
 msgid "Here you can revert back to old model versions."
 msgstr "Aquí usted puede volver a modelos de lengaje viejos."
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadList)
-#: po/rc.cpp:857 rc.cpp:857
+#: po/rc.cpp:860 rc.cpp:860
 msgid "List available Models"
 msgstr "Lista de los modelos disponibles"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:106
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectModel)
-#: po/rc.cpp:860 rc.cpp:860
+#: po/rc.cpp:863 rc.cpp:863
 msgid "Choose Model"
 msgstr "Elija el modelo"
 
 #. i18n: file: src/simonui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:863 rc.cpp:863
+#: po/rc.cpp:866 rc.cpp:866
 #, fuzzy
 msgid "Main actions"
 msgstr "Acciones principales"
 
 #. i18n: file: src/simonui.rc:17
 #. i18n: ectx: ToolBar (scenario)
-#: po/rc.cpp:866 rc.cpp:866
+#: po/rc.cpp:869 rc.cpp:869
 msgid "Scenario selection"
 msgstr ""
 
 #. i18n: file: src/simonui.rc:25
 #. i18n: ectx: Menu (scenarios)
-#: po/rc.cpp:869 src/firstrunscenariosconfig.cpp:30 rc.cpp:869
+#: po/rc.cpp:872 src/firstrunscenariosconfig.cpp:30 rc.cpp:872
 msgid "Scenarios"
 msgstr ""
 
 #. i18n: file: src/simonui.rc:29
 #. i18n: ectx: Menu (simond)
-#: po/rc.cpp:872 rc.cpp:872
+#: po/rc.cpp:875 rc.cpp:875
 msgid "Recognition"
 msgstr "Reconocimiento"
 
 #. i18n: file: src/simonui.rc:34
 #. i18n: ectx: Menu (modules)
-#: po/rc.cpp:875 rc.cpp:875
+#: po/rc.cpp:878 rc.cpp:878
 msgid "Module"
 msgstr "Módulos"
 
 #. i18n: file: src/simonui.rc:42
 #. i18n: ectx: Menu (commands)
-#: po/rc.cpp:878 src/simonactionsui/runcommandview.cpp:31
-#: src/simonview.cpp:359 rc.cpp:878
+#: po/rc.cpp:881 src/simonactionsui/runcommandview.cpp:31
+#: src/simonview.cpp:360 rc.cpp:881
 msgid "Commands"
 msgstr "Comandos"
 
 #. i18n: file: src/simonui.rc:51
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:884 rc.cpp:884
+#: po/rc.cpp:887 rc.cpp:887
 msgid "Preferences"
 msgstr "Preferencias"
 
-#. i18n: file: src/simonview_old.ui:14
+#. i18n: file: src/simonview.ui:20
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview_old.ui:17
+#. i18n: file: src/simonview.ui:23
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:20
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:23
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview_old.ui:14
-#. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview_old.ui:17
-#. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview.ui:20
-#. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview.ui:23
-#. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:887 po/rc.cpp:890 po/rc.cpp:947 po/rc.cpp:950 src/main.cpp:74
-#: src/simonview.cpp:213 rc.cpp:887 rc.cpp:890 rc.cpp:947 rc.cpp:950
+#: po/rc.cpp:890 po/rc.cpp:893 src/main.cpp:74 src/simonview.cpp:213
+#: rc.cpp:890 rc.cpp:893
 msgid "simon"
 msgstr "simon"
 
-#. i18n: file: src/simonview_old.ui:20
-#. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:26
 #. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview_old.ui:20
-#. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
-#. i18n: file: src/simonview.ui:26
-#. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:893 po/rc.cpp:953 rc.cpp:893 rc.cpp:953
+#: po/rc.cpp:896 rc.cpp:896
 msgid "simon Main Window"
 msgstr "Ventana principal de simon"
 
-#. i18n: file: src/simonview_old.ui:46
-#. i18n: ectx: attribute (title), widget (QWidget, tbWelcome)
-#. i18n: file: src/simonview_old.ui:419
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#. i18n: file: src/simonview_old.ui:46
-#. i18n: ectx: attribute (title), widget (QWidget, tbWelcome)
-#. i18n: file: src/simonview_old.ui:419
-#. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:896 po/rc.cpp:941 rc.cpp:896 rc.cpp:941
-msgid "Start"
-msgstr "Arranque"
-
-#. i18n: file: src/simonview_old.ui:152
-#. i18n: ectx: property (text), widget (QLabel, lbWarning)
-#: po/rc.cpp:899 rc.cpp:899
-#, fuzzy
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-"
-"size:11pt;\"><span style=\" font-size:9pt;\">This early development version "
-"is not yet suited for productive use. Should you encounter bugs, please "
-"contact the developers to help us improve simon.</span></p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Si usted tiene un HADIFIX "
-"diccionario, por favor hace disponible el archivo a continuación:<br /></p> "
-"</body></html>"
-
-#. i18n: file: src/simonview_old.ui:226
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:906 rc.cpp:906
-msgid "Contact"
-msgstr "Contacto"
-
-#. i18n: file: src/simonview_old.ui:265
-#. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:909 rc.cpp:909
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
-"support@simon-listens.org\"><span style=\" text-decoration: underline; color:"
-"#0000ff;\">Direct Mail-Support</span></a> </p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
-"support@simon-listens.org\"><span style=\" text-decoration: underline; color:"
-"#0000ff;\">Correo de apoyo directo</span></a> </p></body></html>"
-
-#. i18n: file: src/simonview_old.ui:279
-#. i18n: ectx: property (text), widget (QLabel, label_8)
-#: po/rc.cpp:916 rc.cpp:916
-#, fuzzy
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
-"sourceforge.net/projects/speech2text/forums\"><span style=\" text-"
-"decoration: underline; color:#0000ff;\">Community Forums</span></a></p></"
-"body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
-"sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
-"underline; color:#0000ff;\">Foros de la comunidad</span></a></p></body></"
-"html>"
-
-#. i18n: file: src/simonview_old.ui:323
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: po/rc.cpp:923 rc.cpp:923
-msgid "Documentation"
-msgstr "Documentación"
-
-#. i18n: file: src/simonview_old.ui:362
-#. i18n: ectx: property (text), widget (QLabel, label_14)
-#: po/rc.cpp:926 rc.cpp:926
-msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www.simon-"
-"listens.org\"><span style=\" text-decoration: underline; color:#0000ff;"
-"\">Official Homepage</span></a> </p></body></html>"
-msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www.simon-"
-"listens.org\"><span style=\" text-decoration: underline; color:#0000ff;"
-"\">Presencia oficial en el Internet</span></a> </p></body></html>"
-
-#. i18n: file: src/simonview_old.ui:377
-#. i18n: ectx: property (text), widget (QLabel, label_10)
-#: po/rc.cpp:933 rc.cpp:933
-msgid ""
-"<html>\n"
-"<head />\n"
-"<body>\n"
-"<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online Wiki</"
-"a>\n"
-"</body>\n"
-"</html>"
-msgstr ""
-"<html>\n"
-"<head />\n"
-"<body>\n"
-"<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online Wiki</"
-"a>\n"
-"</body>\n"
-"</html>"
-
-#. i18n: file: src/simonview_old.ui:426
-#. i18n: ectx: property (url), widget (QWebView, webView)
-#: po/rc.cpp:944 rc.cpp:944
-msgid "about:blank"
-msgstr ""
-
-#: po/rc.cpp:954 rc.cpp:954
+#: po/rc.cpp:897 rc.cpp:897
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Su nombres"
 
-#: po/rc.cpp:955 rc.cpp:955
+#: po/rc.cpp:898 rc.cpp:898
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Sus emails"
@@ -2124,7 +1952,7 @@ msgstr ""
 
 #: src/firstrunscenariosconfig.cpp:41
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1214
-#: src/simonview.cpp:436
+#: src/simonview.cpp:437
 #, fuzzy
 msgid "Couldn't re-initialize scenarios. Please restart simon!"
 msgstr ""
@@ -2238,15 +2066,11 @@ msgstr "No podía determinar el tipo del comando"
 msgid "Command: %1"
 msgstr "Comando: %1"
 
-#: src/simonactionsui/newcommand.cpp:129
-msgid "Kommando"
-msgstr "Comando"
-
 #: src/simonactionsui/newcommand.cpp:138
 msgid ""
 "No command plugins loaded that provide command engines.\n"
 "\n"
-"You can load some in the \"Manage Plug-Ins\" dialog."
+"You can load some in the \"Manage plugins\" dialog."
 msgstr ""
 
 #: src/simonactionsui/runcommandview.cpp:33
@@ -2266,31 +2090,34 @@ msgstr "¿Está usted seguro que quiere quitar este comando irreversiblemente?"
 msgid "Remove Command"
 msgstr "Borra comando"
 
-#: src/simonappcore/simoncontrol.cpp:70
+#: src/simonappcore/simoncontrol.cpp:73
 msgid "Couldn't initialize scenarios and shadow dictionary."
 msgstr ""
 
-#: src/simonappcore/simoncontrol.cpp:95
-msgid "User athenticated"
+#: src/simonappcore/simoncontrol.cpp:98
+#, fuzzy
+msgid "User authenticated"
 msgstr "Usuario autentificado"
 
-#: src/simonappcore/simoncontrol.cpp:100
+#: src/simonappcore/simoncontrol.cpp:103
+#, fuzzy
 msgid ""
-"Connection Error: \n"
+"Connection error: \n"
 "%1"
 msgstr ""
 "Error de la comunicacion: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:106
+#: src/simonappcore/simoncontrol.cpp:109
+#, fuzzy
 msgid ""
-"The Recognition Server returned the following fatal error: \n"
+"The recognition server returned the following fatal error: \n"
 "%1"
 msgstr ""
 "El servidor del reconocimiento anuncio el siguiente error no recuperable: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:111
+#: src/simonappcore/simoncontrol.cpp:114
 #, fuzzy
 msgid ""
 "The sound system returned the following error: \n"
@@ -2299,7 +2126,7 @@ msgstr ""
 "El reconocimiento anuncio el siguiente error: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:116
+#: src/simonappcore/simoncontrol.cpp:119
 msgid ""
 "The model synchronization reported the following error: \n"
 "%1"
@@ -2307,15 +2134,16 @@ msgstr ""
 "La sincronización del modelo anuncio el siguiente error: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:121
+#: src/simonappcore/simoncontrol.cpp:124
+#, fuzzy
 msgid ""
-"The Recognition reported the following error: \n"
+"The recognition reported the following error: \n"
 "%1"
 msgstr ""
 "El reconocimiento anuncio el siguiente error: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:126
+#: src/simonappcore/simoncontrol.cpp:129
 msgid ""
 "As the server compiled the model the following error occured:\n"
 "%1"
@@ -2323,48 +2151,50 @@ msgstr ""
 "Cuando el servidor compiló el modelo el siguiente error ocurrió:\n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:132
+#: src/simonappcore/simoncontrol.cpp:135
 msgid "simond: %1"
 msgstr "simond: %1"
 
-#: src/simonappcore/simoncontrol.cpp:137
-msgid "Model Synchronisation %1"
+#: src/simonappcore/simoncontrol.cpp:140
+#, fuzzy
+msgid "Model synchronisation %1"
 msgstr "Sincronización del modelo %1"
 
-#: src/simonappcore/simoncontrol.cpp:142
+#: src/simonappcore/simoncontrol.cpp:145
 msgid "Recognition: %1"
 msgstr "Reconocimiento: %1"
 
-#: src/simonappcore/simoncontrol.cpp:147
-msgid "Modelmanagement: %1"
+#: src/simonappcore/simoncontrol.cpp:150
+#, fuzzy
+msgid "Model management: %1"
 msgstr "Gestiones del modelo: %1"
 
-#: src/simonappcore/simoncontrol.cpp:245
+#: src/simonappcore/simoncontrol.cpp:248
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:138
 msgid "[INF]"
 msgstr "[INF]"
 
-#: src/simonappcore/simoncontrol.cpp:245
+#: src/simonappcore/simoncontrol.cpp:248
 msgid "Connected to the Server"
 msgstr "Conectado con el servidor"
 
-#: src/simonappcore/simoncontrol.cpp:259
+#: src/simonappcore/simoncontrol.cpp:262
 msgid "[INF] Connection lost"
 msgstr "[INF] Se perdió la comunicacion"
 
-#: src/simonappcore/simoncontrol.cpp:269
+#: src/simonappcore/simoncontrol.cpp:272
 msgid "[INF] Connecting aborted"
 msgstr "[INF] Comunicacion cancelada"
 
-#: src/simonappcore/simoncontrol.cpp:300
+#: src/simonappcore/simoncontrol.cpp:303
 msgid "[INF] simon activated"
 msgstr "[INF] simon activado"
 
-#: src/simonappcore/simoncontrol.cpp:306
+#: src/simonappcore/simoncontrol.cpp:309
 msgid "[INF] Continuing recognition"
 msgstr "[INF] Reconocimiento continua"
 
-#: src/simonappcore/simoncontrol.cpp:324
+#: src/simonappcore/simoncontrol.cpp:327
 msgid "[INF] simon deactivated"
 msgstr "[INF] simon desactivado"
 
@@ -2405,10 +2235,6 @@ msgstr ""
 "\n"
 "Apunte por favor el nombre de esta terminal nueva:"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:118
-msgid " deaktivieren?"
-msgstr "¿Desactivar?"
-
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:129
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:130
 #: src/simonmodelmanagementui/editworddialog.cpp:59
@@ -2417,7 +2243,7 @@ msgstr "¿Desactivar?"
 msgid "Unused"
 msgstr ""
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:258
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:260
 msgid ""
 "The search for similar words yielded more than 1000 results.\n"
 "\n"
@@ -2427,7 +2253,7 @@ msgstr ""
 "\n"
 "Solamente los primeros 1000 se demuestran."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79 src/simonview.cpp:343
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79 src/simonview.cpp:344
 msgid "Add Word"
 msgstr "Agrega la palabra"
 
@@ -2487,7 +2313,7 @@ msgstr ""
 msgid "Drag the Word to the List on the right to train it"
 msgstr "Agrega la palabra a la lista en la derecha de entrenarle"
 
-#: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:375
+#: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:376
 msgid "Grammar"
 msgstr "Gramática"
 
@@ -3102,7 +2928,7 @@ msgstr ""
 msgid ""
 "Failed to delete text.\n"
 "\n"
-"Maybe you don't have the nescessairy permissions?"
+"Maybe you don't have the necessary permissions?"
 msgstr ""
 "No podía borrar el texto del entrenamiento. ¿Tiene usted bastantes permisos?"
 
@@ -3324,7 +3150,7 @@ msgid "Model synchronisation"
 msgstr "Sincronización del modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:814
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1824
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1825
 msgid "Initializing..."
 msgstr "Inicialización…"
 
@@ -3468,11 +3294,11 @@ msgstr ""
 "\n"
 "¿Desea eliminarlo de la base de datos del entrenamiento?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1777
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1778
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "No es posible eliminar la muestra de entrenamiento"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1787
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1788
 #, fuzzy
 msgid ""
 "The word \"%1\" is used in your training-samples but is not contained in "
@@ -3485,21 +3311,21 @@ msgstr ""
 "\n"
 "¿Quieres añadir la palabra ahora?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1789
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1790
 msgid "Remove samples containing the word"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1790
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1791
 #, fuzzy
 msgid "Add the word"
 msgstr "Agrega la palabra"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1800
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1801
 #, fuzzy
 msgid "Failed to remove word \"%1\" from the trainingscorpus"
 msgstr "No es posible eliminar la muestra de entrenamiento"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1814
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1815
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
@@ -3511,7 +3337,7 @@ msgstr ""
 "Agregue por favor una palabra que utilice este terminal o quite las "
 "estructura(s) que contienen el terminal de su gramática."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1819
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1820
 msgid ""
 "The Phoneme \"%1\" is undefined.\n"
 "\n"
@@ -3521,7 +3347,7 @@ msgstr ""
 "\n"
 "Entrene por favor por lo menos a una palabra que usa el mismo."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1824
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1825
 #, fuzzy
 msgid "Compiling model"
 msgstr "Modelo de compilación"
@@ -3593,7 +3419,7 @@ msgid ""
 "Do you want simon to display the wizard again on the next start?"
 msgstr ""
 
-#: src/simonview.cpp:116 src/simonview.cpp:632 src/simonview.cpp:702
+#: src/simonview.cpp:116 src/simonview.cpp:633 src/simonview.cpp:703
 msgid "simon - Deactivated"
 msgstr "simon - Desactivado"
 
@@ -3602,24 +3428,28 @@ msgid "Not connected"
 msgstr "No esta conectado"
 
 #: src/simonview.cpp:135
-msgid "Loading \"Training\"..."
+#, fuzzy
+msgid "Loading training..."
 msgstr "Cargando \"Entrenamiento\"…"
 
 #: src/simonview.cpp:139
 #, fuzzy
-msgid "Loading \"Vocabulary\"..."
+msgid "Loading vocabulary..."
 msgstr "Cargando \"Gramática\"…"
 
 #: src/simonview.cpp:143
-msgid "Loading \"Grammar\"..."
+#, fuzzy
+msgid "Loading grammar..."
 msgstr "Cargando \"Gramática\"…"
 
 #: src/simonview.cpp:147
-msgid "Loading \"Run\"..."
+#, fuzzy
+msgid "Loading run..."
 msgstr "Cargando \"Funcionamiento\"…"
 
 #: src/simonview.cpp:153
-msgid "Loading Interface..."
+#, fuzzy
+msgid "Loading interface..."
 msgstr "Cargando el interfaz…"
 
 #: src/simonview.cpp:204
@@ -3639,71 +3469,71 @@ msgstr ""
 msgid "Open Source Speech Recognition Suite"
 msgstr ""
 
-#: src/simonview.cpp:237
+#: src/simonview.cpp:238
 msgid "Community forums"
 msgstr ""
 
-#: src/simonview.cpp:237
+#: src/simonview.cpp:238
 msgid "Get in touch with the simon community"
 msgstr ""
 
-#: src/simonview.cpp:242
+#: src/simonview.cpp:243
 msgid "Mail support"
 msgstr ""
 
-#: src/simonview.cpp:242
+#: src/simonview.cpp:243
 msgid "Get direct support from the developers"
 msgstr ""
 
-#: src/simonview.cpp:247
+#: src/simonview.cpp:248
 #, fuzzy
 msgid "simon WIKI"
 msgstr "simon"
 
-#: src/simonview.cpp:247
+#: src/simonview.cpp:248
 msgid "The simon knowledge base"
 msgstr ""
 
-#: src/simonview.cpp:252
+#: src/simonview.cpp:253
 msgid "simon Homepage"
 msgstr ""
 
-#: src/simonview.cpp:252
+#: src/simonview.cpp:253
 msgid "Official simon homepage"
 msgstr ""
 
-#: src/simonview.cpp:266
+#: src/simonview.cpp:267
 msgid "Welcome"
 msgstr "Bienvenido"
 
-#: src/simonview.cpp:301
+#: src/simonview.cpp:302
 #, fuzzy
 msgid "Couldn't retrieve Scenario \"%1\""
 msgstr "No podía borrar el \"%1\" de la muestra."
 
-#: src/simonview.cpp:310 src/simonview.cpp:334 src/simonview.cpp:613
-#: src/simonview.cpp:633
+#: src/simonview.cpp:311 src/simonview.cpp:335 src/simonview.cpp:614
+#: src/simonview.cpp:634
 msgid "Connect"
 msgstr "Conectado"
 
-#: src/simonview.cpp:319 src/simonview.cpp:627 src/simonview.cpp:678
-#: src/simonview.cpp:692
+#: src/simonview.cpp:320 src/simonview.cpp:628 src/simonview.cpp:679
+#: src/simonview.cpp:693
 msgid "Activate"
 msgstr "Activar"
 
-#: src/simonview.cpp:329
+#: src/simonview.cpp:330
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/simonview.cpp:384 src/simonview.cpp:397
+#: src/simonview.cpp:385 src/simonview.cpp:398
 msgid "Synchronize"
 msgstr "Sincronicar"
 
-#: src/simonview.cpp:403
+#: src/simonview.cpp:404
 msgid "Manage scenarios"
 msgstr ""
 
-#: src/simonview.cpp:589
+#: src/simonview.cpp:590
 #, fuzzy
 msgid ""
 "Couldn't start recognition because the system reports that the recognition "
@@ -3724,55 +3554,55 @@ msgstr ""
 "El sistema entonces, sobre la sincronización, genera el modelo que será "
 "utilizado para el reconocimiento."
 
-#: src/simonview.cpp:610
+#: src/simonview.cpp:611
 msgid "Disconnected"
 msgstr "Desconectado"
 
-#: src/simonview.cpp:624
+#: src/simonview.cpp:625
 msgid "Connection to server lost"
 msgstr "Se perdió la conexión al servidor"
 
-#: src/simonview.cpp:639
+#: src/simonview.cpp:640
 msgid "Connecting..."
 msgstr "Conexión…"
 
-#: src/simonview.cpp:661
+#: src/simonview.cpp:662
 msgid "Connected: Deactivating..."
 msgstr "Conectando: Desactivando…"
 
-#: src/simonview.cpp:663
+#: src/simonview.cpp:664
 msgid "Deactivating..."
 msgstr "Desactivando…"
 
-#: src/simonview.cpp:675
+#: src/simonview.cpp:676
 msgid "Connected but Deactivated"
 msgstr "Conectado pero desactivado"
 
-#: src/simonview.cpp:700
+#: src/simonview.cpp:701
 msgid "simon has been deactivated"
 msgstr "Se ha desactivado a simon"
 
-#: src/simonview.cpp:708
+#: src/simonview.cpp:709
 msgid "Connected; Activating..."
 msgstr "Conectado; Activado…"
 
-#: src/simonview.cpp:710 src/simonview.cpp:713
+#: src/simonview.cpp:711 src/simonview.cpp:714
 msgid "Activating..."
 msgstr "Activando…"
 
-#: src/simonview.cpp:718
+#: src/simonview.cpp:719
 msgid "Connected and Activated"
 msgstr "Conectado y activado"
 
-#: src/simonview.cpp:722 src/simonview.cpp:734
+#: src/simonview.cpp:723 src/simonview.cpp:735
 msgid "Activated"
 msgstr "Activado"
 
-#: src/simonview.cpp:740
+#: src/simonview.cpp:741
 msgid "simon has been activated"
 msgstr "Se ha activado a simon"
 
-#: src/simonview.cpp:759
+#: src/simonview.cpp:760
 msgid ""
 "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n"
@@ -3784,9 +3614,150 @@ msgstr ""
 "\n"
 "¿Usted quiere cerrar?"
 
-#: src/simonview.cpp:810
+#: src/simonview.cpp:813
 msgid "[INF] Quitting..."
 msgstr "[INF] Cerrando..."
+
+#~ msgid "SAMPA:"
+#~ msgstr "Fonética:"
+
+#~ msgid "Start"
+#~ msgstr "Arranque"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:10pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
+#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">This early development "
+#~ "version is not yet suited for productive use. Should you encounter bugs, "
+#~ "please contact the developers to help us improve simon.</span></p></"
+#~ "body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Si usted tiene un "
+#~ "HADIFIX diccionario, por favor hace disponible el archivo a continuación:"
+#~ "<br /></p> </body></html>"
+
+#~ msgid "Contact"
+#~ msgstr "Contacto"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
+#~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
+#~ "color:#0000ff;\">Direct Mail-Support</span></a> </p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
+#~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
+#~ "color:#0000ff;\">Correo de apoyo directo</span></a> </p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
+#~ "sourceforge.net/projects/speech2text/forums\"><span style=\" text-"
+#~ "decoration: underline; color:#0000ff;\">Community Forums</span></a></p></"
+#~ "body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
+#~ "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
+#~ "underline; color:#0000ff;\">Foros de la comunidad</span></a></p></body></"
+#~ "html>"
+
+#~ msgid "Documentation"
+#~ msgstr "Documentación"
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
+#~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
+#~ "#0000ff;\">Official Homepage</span></a> </p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
+#~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
+#~ "#0000ff;\">Presencia oficial en el Internet</span></a> </p></body></html>"
+
+#~ msgid ""
+#~ "<html>\n"
+#~ "<head />\n"
+#~ "<body>\n"
+#~ "<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online "
+#~ "Wiki</a>\n"
+#~ "</body>\n"
+#~ "</html>"
+#~ msgstr ""
+#~ "<html>\n"
+#~ "<head />\n"
+#~ "<body>\n"
+#~ "<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online "
+#~ "Wiki</a>\n"
+#~ "</body>\n"
+#~ "</html>"
+
+#~ msgid "Kommando"
+#~ msgstr "Comando"
+
+#~ msgid " deaktivieren?"
+#~ msgstr "¿Desactivar?"
 
 #~ msgid "Loading \"Wordlist\"..."
 #~ msgstr "Cargando \"Lista de palabras\"…"

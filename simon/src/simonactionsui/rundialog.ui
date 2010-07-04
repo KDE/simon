@@ -378,7 +378,7 @@
      <item>
       <widget class="KPushButton" name="pbManagePlugins">
        <property name="text">
-        <string>Manage Plug-Ins</string>
+        <string>Manage plugins</string>
        </property>
       </widget>
      </item>
