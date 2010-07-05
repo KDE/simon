@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: simon\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-04 22:55+0300\n"
-"PO-Revision-Date: 2010-07-04 22:56+0300\n"
-"Last-Translator: Pavel Fric\n"
+"POT-Creation-Date: 2010-07-05 13:16+0300\n"
+"PO-Revision-Date: 2010-07-05 13:16+0300\n"
+"Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1053,13 +1053,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QRadioButton, rbPrompts)
 #: po/rc.cpp:435 rc.cpp:435
 msgid "Import Prompts"
-msgstr "Zavést nápovědy"
+msgstr "Zavést výzvy"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:56
 #. i18n: ectx: property (text), widget (QLabel, lbPrompts)
 #: po/rc.cpp:438 rc.cpp:438
 msgid "Prompts:"
-msgstr "Nápovědy:"
+msgstr "Výzvy:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, lbBaseDirectory)
@@ -1495,7 +1495,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
-#: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:101
+#: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:95
 #: src/simonmodelmanagementui/trainingview.cpp:25
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:59
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:34
@@ -1998,9 +1998,9 @@ msgstr ""
 "<a href=\"http://simon-listens.org/wiki\">wiki</a>.</p></body></html>"
 
 #: src/firstrunwizard.cpp:97
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:201
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:202
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:100
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:53
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:54
 msgid "Finished"
 msgstr "Hotovo"
 
@@ -2094,15 +2094,15 @@ msgstr ""
 msgid "Direct Execution of simon Commands"
 msgstr "Přímé vykonání příkazů programu Simon"
 
-#: src/simonactionsui/runcommandviewprivate.cpp:137
+#: src/simonactionsui/runcommandviewprivate.cpp:135
 msgid "%1: Voice commands"
 msgstr "%1: Hlasové příkazy"
 
-#: src/simonactionsui/runcommandviewprivate.cpp:284
+#: src/simonactionsui/runcommandviewprivate.cpp:279
 msgid "Are you sure that you want to irreversibly remove the command \"%1\"?"
 msgstr "Jste si jistý, že chcete, aby byl nevratně odstraněn příkaz \"%1\"?"
 
-#: src/simonactionsui/runcommandviewprivate.cpp:284
+#: src/simonactionsui/runcommandviewprivate.cpp:279
 msgid "Remove Command"
 msgstr "Odstranit příkaz"
 
@@ -2179,7 +2179,7 @@ msgid "Model management: %1"
 msgstr "Správa modelu: %1"
 
 #: src/simonappcore/simoncontrol.cpp:248
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:138
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:139
 msgid "[INF]"
 msgstr "[INF]"
 
@@ -2247,7 +2247,7 @@ msgstr ""
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:130
 #: src/simonmodelmanagementui/editworddialog.cpp:59
 #: src/simonmodelmanagementui/editworddialog.cpp:60
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:209
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:210
 msgid "Unused"
 msgstr "Nepoužívaný"
 
@@ -2375,50 +2375,50 @@ msgstr "Zavést slovník HADIFIX"
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:161
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:174
 #: src/simonmodelmanagementui/ImportDict/importlexiconpage.cpp:39
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:68
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:69
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarselectinputpage.cpp:52
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:151
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:149
 msgid "Automatic"
 msgstr "Automatický"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:70
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:71
 msgid "[INF] Opening Lexicon"
 msgstr "[INF] Otevírá slovníček"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:71
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:72
 msgid "Opening Lexicon..."
 msgstr "Otevírá slovníček..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:104
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:105
 msgid "Processing Lexicon..."
 msgstr "Zpracovává slovníček..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:107
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:108
 msgid "Creating List..."
 msgstr "Vytváří seznam..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:129
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:130
 msgid "Sorting Dictionary..."
 msgstr "Uspořádává slovník..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:133
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:134
 msgid "Storing Dictionary..."
 msgstr "Ukládá slovník..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid "[UPD]"
 msgstr "[UPD]"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid "Words from the Lexicon"
 msgstr "Slova ze slovníčku"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid " imported"
 msgstr "Zavedeno"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:138
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:139
 msgid "Deleting Input-File"
 msgstr "Maže vstupní soubor"
 
@@ -2534,20 +2534,20 @@ msgstr "Zavést slovníček"
 #: src/simonmodelmanagementui/ImportDict/lexicondict.cpp:44
 #: src/simonmodelmanagementui/ImportDict/plsdict.cpp:89
 #: src/simonmodelmanagementui/ImportDict/sphinxdict.cpp:90
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:186
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:214
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:187
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:215
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:60
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:61
 msgid "Opening File..."
 msgstr "Otevírá soubor..."
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:86
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:87
 msgid "Reading File..."
 msgstr "Čte soubor"
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:140
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:141
 msgid "Processing..."
 msgstr "Zpracovává..."
 
@@ -2617,11 +2617,11 @@ msgstr "Nepodařilo se otevřít dočasný soubor."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:45
 msgid "Reading prompts file..."
-msgstr "Čte se soubor s nápovědami..."
+msgstr "Čte se soubor s výzvami..."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:48
 msgid "Couldn't parse input prompts: %1"
-msgstr "Nepodařilo se zpracovat vstupní nápovědy: %1"
+msgstr "Nepodařilo se zpracovat vstupní výzvy: %1"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:53
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:88
@@ -2716,11 +2716,11 @@ msgstr "Vyberte zdroj"
 msgid "Text is being added"
 msgstr "Text je přidáván"
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:69
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:68
 msgid "[INF] Starting remove import from \"%1\""
 msgstr "[INF] Začíná s odstraněním zavedení z \"%1\""
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:223
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:221
 msgid "Couldn't store Trainingstext"
 msgstr "Nelze uložit text na procvičování"
 
@@ -2728,8 +2728,8 @@ msgstr "Nelze uložit text na procvičování"
 msgid "[INF] Loading List of Trainingstexts from %1"
 msgstr "[INF] Nahrává  seznam textů na procvičování z %1"
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:34
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:46
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:35
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:47
 msgid "Processing Words of Terminal %1"
 msgstr "Zpracovává slova ze zakončení %1"
 
@@ -2970,7 +2970,7 @@ msgid ""
 "background."
 msgstr "Procvičování bylo  dokončeno. Změny se používají na pozadí"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:222
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:221
 msgid ""
 "Couldn't save changes to the trainings corpus.\n"
 "\n"
@@ -3030,23 +3030,23 @@ msgstr "Seznam slov"
 msgid "View and modify the vocabulary."
 msgstr "Prohlédněte si a upravujte slovní zásobu."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:136
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:137
 msgid "Couldn't add words to the list"
 msgstr "Nepodařilo se přidat slova do seznamu"
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:155
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:156
 msgid "Please select a word first"
 msgstr "Nejprve, prosím, vyberte nějaké slovo."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:185
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:186
 msgid "Failed to re-order the changed word."
 msgstr "Nepodařilo se znovu určit změněné slovo."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:246
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:247
 msgid "Do you really want to clear the whole vocabulary?"
 msgstr "Opravdu chcete smazat celou slovní zásobu?"
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:248
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:249
 msgid ""
 "This will remove every word from the currently displayed vocabulary list.\n"
 "\n"
@@ -3057,11 +3057,11 @@ msgstr ""
 "\n"
 "Jste si zcela jistý, že chcete pokračovat?"
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:296
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:297
 msgid "Please select a word scheduled for training first."
 msgstr "Nejprve, prosím, vyberte slovo, které je plánováno pro procvičování."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:315
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:316
 msgid ""
 "Please select a few words for the special training by dragging them from the "
 "list on your left to the list above.\n"
