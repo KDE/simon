@@ -6,16 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2010-07-04 22:55+0300\n"
-"PO-Revision-Date: 2010-02-09 10:29+0100\n"
-"Last-Translator: Daniël <danielheres@gmail.com>\n"
+"PO-Revision-Date: 2010-07-05 22:28+0100\n"
+"Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 
 #. i18n: file: src/firstrunbasemodelconfig.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, BaseModelConfigDlg)
@@ -145,100 +144,142 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, RenameTerminalWorkingPage)
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SynchronisationSettingsDlg)
-#: po/rc.cpp:3 po/rc.cpp:18 po/rc.cpp:31 po/rc.cpp:60 po/rc.cpp:70
-#: po/rc.cpp:76 po/rc.cpp:82 po/rc.cpp:172 po/rc.cpp:185 po/rc.cpp:233
-#: po/rc.cpp:272 po/rc.cpp:287 po/rc.cpp:305 po/rc.cpp:317 po/rc.cpp:331
-#: po/rc.cpp:345 po/rc.cpp:369 po/rc.cpp:386 po/rc.cpp:403 po/rc.cpp:427
-#: po/rc.cpp:450 po/rc.cpp:458 po/rc.cpp:468 po/rc.cpp:485 po/rc.cpp:497
-#: po/rc.cpp:503 po/rc.cpp:524 po/rc.cpp:535 po/rc.cpp:601 po/rc.cpp:657
-#: po/rc.cpp:672 po/rc.cpp:839 rc.cpp:3 rc.cpp:18 rc.cpp:31 rc.cpp:60
-#: rc.cpp:70 rc.cpp:76 rc.cpp:82 rc.cpp:172 rc.cpp:185 rc.cpp:233 rc.cpp:272
-#: rc.cpp:287 rc.cpp:305 rc.cpp:317 rc.cpp:331 rc.cpp:345 rc.cpp:369
-#: rc.cpp:386 rc.cpp:403 rc.cpp:427 rc.cpp:450 rc.cpp:458 rc.cpp:468
-#: rc.cpp:485 rc.cpp:497 rc.cpp:503 rc.cpp:524 rc.cpp:535 rc.cpp:601
-#: rc.cpp:657 rc.cpp:672 rc.cpp:839
+#: po/rc.cpp:3
+#: po/rc.cpp:18
+#: po/rc.cpp:31
+#: po/rc.cpp:60
+#: po/rc.cpp:70
+#: po/rc.cpp:76
+#: po/rc.cpp:82
+#: po/rc.cpp:172
+#: po/rc.cpp:185
+#: po/rc.cpp:233
+#: po/rc.cpp:272
+#: po/rc.cpp:287
+#: po/rc.cpp:305
+#: po/rc.cpp:317
+#: po/rc.cpp:331
+#: po/rc.cpp:345
+#: po/rc.cpp:369
+#: po/rc.cpp:386
+#: po/rc.cpp:403
+#: po/rc.cpp:427
+#: po/rc.cpp:450
+#: po/rc.cpp:458
+#: po/rc.cpp:468
+#: po/rc.cpp:485
+#: po/rc.cpp:497
+#: po/rc.cpp:503
+#: po/rc.cpp:524
+#: po/rc.cpp:535
+#: po/rc.cpp:601
+#: po/rc.cpp:657
+#: po/rc.cpp:672
+#: po/rc.cpp:839
+#: rc.cpp:3
+#: rc.cpp:18
+#: rc.cpp:31
+#: rc.cpp:60
+#: rc.cpp:70
+#: rc.cpp:76
+#: rc.cpp:82
+#: rc.cpp:172
+#: rc.cpp:185
+#: rc.cpp:233
+#: rc.cpp:272
+#: rc.cpp:287
+#: rc.cpp:305
+#: rc.cpp:317
+#: rc.cpp:331
+#: rc.cpp:345
+#: rc.cpp:369
+#: rc.cpp:386
+#: rc.cpp:403
+#: rc.cpp:427
+#: rc.cpp:450
+#: rc.cpp:458
+#: rc.cpp:468
+#: rc.cpp:485
+#: rc.cpp:497
+#: rc.cpp:503
+#: rc.cpp:524
+#: rc.cpp:535
+#: rc.cpp:601
+#: rc.cpp:657
+#: rc.cpp:672
+#: rc.cpp:839
 msgid "Form"
 msgstr "Formulier"
 
 #. i18n: file: src/firstrunbasemodelconfig.ui:26
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:6
+#: rc.cpp:6
 msgid ""
 "<html><head />\n"
 "<body>\n"
-"<p>simon compares the microphone input to something called an \"acoustic "
-"model\" describing how your voice sounds like and what you are saying.</p>\n"
-"<p>With simon you can create and manage those models yourself or you can "
-"simply download and use general models that describe the average speaker of "
-"your target language. We call these models \"base models\".</p>\n"
-"<p>If you don't select a base model, you need to train one yourself by "
-"reading trainingstexts aloud (\"Training\").</p>\n"
-"<p>If you do select a base model you don't need any training but the "
-"recognition may be less accurate. <span style=\" font-weight:600;\">When "
-"using static base models, the installation of the HTK is not required.</"
-"span></p>\n"
-"<p>You can find more information on <a href=\"http://www.simon-listens.org/"
-"wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></"
-"body></html>"
+"<p>simon compares the microphone input to something called an \"acoustic model\" describing how your voice sounds like and what you are saying.</p>\n"
+"<p>With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models \"base models\".</p>\n"
+"<p>If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (\"Training\").</p>\n"
+"<p>If you do select a base model you don't need any training but the recognition may be less accurate. <span style=\" font-weight:600;\">When using static base models, the installation of the HTK is not required.</span></p>\n"
+"<p>You can find more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></body></html>"
 msgstr ""
 
 #. i18n: file: src/firstrunbasemodelconfig.ui:54
 #. i18n: ectx: property (text), widget (KPushButton, pbConfigureBaseModel)
-#: po/rc.cpp:15 rc.cpp:15
-#, fuzzy
+#: po/rc.cpp:15
+#: rc.cpp:15
 msgid "Configure base models"
-msgstr "Kon oude model niet herstellen"
+msgstr "Basismodellen configureren"
 
 #. i18n: file: src/firstrunscenariosconfig.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:21
+#: rc.cpp:21
 msgid ""
 "Scenarios reflect specific use cases of voice recognition.\n"
 "\n"
-"You can for example simply set up simon to control firefox by using the "
-"appropriate firefox scenario.\n"
+"You can for example simply set up simon to control firefox by using the appropriate firefox scenario.\n"
 "\n"
-"Select \"Get scenarios\" to browse and download scenarios from an online "
-"repository."
+"Select \"Get scenarios\" to browse and download scenarios from an online repository."
 msgstr ""
 
 #. i18n: file: src/firstrunscenariosconfig.ui:49
 #. i18n: ectx: property (text), widget (KPushButton, pbGetScenarios)
-#: po/rc.cpp:28 rc.cpp:28
+#: po/rc.cpp:28
+#: rc.cpp:28
 msgid "Get scenarios"
-msgstr ""
+msgstr "Scenarios verkrijgen"
 
 #. i18n: file: src/firstrunsimondconfig.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:34 rc.cpp:34
+#: po/rc.cpp:34
+#: rc.cpp:34
 msgid ""
-"simon can be set up to use a central server on the network. The model "
-"generation and recognition will then happen on the server, disburdening the "
-"clients.\n"
+"simon can be set up to use a central server on the network. The model generation and recognition will then happen on the server, disburdening the clients.\n"
 "\n"
-"Most users will leave this page to the default values. You can find more "
-"information on the topic in the simon manual."
+"Most users will leave this page to the default values. You can find more information on the topic in the simon manual."
 msgstr ""
 
 #. i18n: file: src/firstrunsimondconfig.ui:32
 #. i18n: ectx: property (text), widget (QCheckBox, cbConnectAutomatically)
-#: po/rc.cpp:39 rc.cpp:39
-#, fuzzy
+#: po/rc.cpp:39
+#: rc.cpp:39
 msgid "Connect automatically when simon starts"
 msgstr "Automatisch verbinden wanneer simon start"
 
 #. i18n: file: src/firstrunsimondconfig.ui:42
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocalInstallation)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:42
+#: rc.cpp:42
 msgid "Local installation (Default)"
-msgstr ""
+msgstr "Lokale installatie (standaard)"
 
 #. i18n: file: src/firstrunsimondconfig.ui:72
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:45 rc.cpp:45
-msgid ""
-"Use a local (private) recognition server (simond) installed and running on "
-"this computer."
+#: po/rc.cpp:45
+#: rc.cpp:45
+msgid "Use a local (private) recognition server (simond) installed and running on this computer."
 msgstr ""
 
 #. i18n: file: src/firstrunsimondconfig.ui:82
@@ -249,10 +290,12 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, cbStartSimond)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StartLocalSimond)
-#: po/rc.cpp:48 po/rc.cpp:776 rc.cpp:48 rc.cpp:776
-#, fuzzy
+#: po/rc.cpp:48
+#: po/rc.cpp:776
+#: rc.cpp:48
+#: rc.cpp:776
 msgid "Start the server automatically when simon starts"
-msgstr "Automatisch verbinden wanneer simon start"
+msgstr "Server automatisch starten wanneer simon start"
 
 #. i18n: file: src/firstrunsimondconfig.ui:92
 #. i18n: ectx: property (text), widget (QCheckBox, cbStopSimond)
@@ -262,50 +305,44 @@ msgstr "Automatisch verbinden wanneer simon start"
 #. i18n: ectx: property (text), widget (QCheckBox, cbStopSimond)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:45
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StopLocalSimond)
-#: po/rc.cpp:51 po/rc.cpp:779 rc.cpp:51 rc.cpp:779
-#, fuzzy
+#: po/rc.cpp:51
+#: po/rc.cpp:779
+#: rc.cpp:51
+#: rc.cpp:779
 msgid "Stop the server automatically when simon stops"
-msgstr "Automatisch verbinden wanneer simon start"
+msgstr "Server automatisch stoppen wanneer simon stopt"
 
 #. i18n: file: src/firstrunsimondconfig.ui:106
 #. i18n: ectx: property (text), widget (QRadioButton, rbRemoteInstallation)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:54
+#: rc.cpp:54
 msgid "Use central server on the network"
-msgstr ""
+msgstr "Gebruik centrale server op netwerk"
 
 #. i18n: file: src/firstrunsimondconfig.ui:134
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:57 rc.cpp:57
+#: po/rc.cpp:57
+#: rc.cpp:57
 msgid "Server:"
-msgstr ""
+msgstr "Server"
 
 #. i18n: file: src/firstrunsoundconfig.ui:24
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:63
+#: rc.cpp:63
 #, fuzzy
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Please select the sound "
-"devices that simon will use for recording and playback.</p></body></html>"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Please select the sound devices that simon will use for recording and playback.</p></body></html>"
 msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www.simon-"
-"listens.org\"><span style=\" text-decoration: underline; color:#0000ff;"
-"\">Officiële startpagina</span></a> </p></body></html>"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www.simon-listens.org\"><span style=\" text-decoration: underline; color:#0000ff;\">Officiële startpagina</span></a> </p></body></html>"
 
 #. i18n: file: src/simonactionsui/addactiondlg.ui:20
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leFilter)
@@ -319,10 +356,14 @@ msgstr ""
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leActionsFilter)
 #. i18n: file: src/simonactionsui/rundialog.ui:58
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leCommandsFilter)
-#: po/rc.cpp:73 po/rc.cpp:124 po/rc.cpp:127 rc.cpp:73 rc.cpp:124 rc.cpp:127
-#, fuzzy
+#: po/rc.cpp:73
+#: po/rc.cpp:124
+#: po/rc.cpp:127
+#: rc.cpp:73
+#: rc.cpp:124
+#: rc.cpp:127
 msgid "Filter..."
-msgstr "Filteren"
+msgstr "Filteren..."
 
 #. i18n: file: src/simonactionsui/commandpreviewwidget.ui:145
 #. i18n: ectx: property (text), widget (KPushButton, pbTrigger)
@@ -332,9 +373,12 @@ msgstr "Filteren"
 #. i18n: ectx: property (text), widget (KPushButton, pbTrigger)
 #. i18n: file: src/simonactionsui/rundialog.ui:332
 #. i18n: ectx: property (text), widget (KPushButton, pbTrigger)
-#: po/rc.cpp:79 po/rc.cpp:130 rc.cpp:79 rc.cpp:130
+#: po/rc.cpp:79
+#: po/rc.cpp:130
+#: rc.cpp:79
+#: rc.cpp:130
 msgid "Trigger"
-msgstr ""
+msgstr "Trigger"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:21
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
@@ -352,77 +396,94 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:29
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:85 po/rc.cpp:160 po/rc.cpp:538 po/rc.cpp:773
-#: src/simonactionsui/manageactionsdialog.cpp:47 rc.cpp:85 rc.cpp:160
-#: rc.cpp:538 rc.cpp:773
+#: po/rc.cpp:85
+#: po/rc.cpp:160
+#: po/rc.cpp:538
+#: po/rc.cpp:773
+#: src/simonactionsui/manageactionsdialog.cpp:47
+#: rc.cpp:85
+#: rc.cpp:160
+#: rc.cpp:538
+#: rc.cpp:773
 msgid "General"
 msgstr "Algemeen"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:88 rc.cpp:88
+#: po/rc.cpp:88
+#: rc.cpp:88
 msgid "Trigger:"
-msgstr ""
+msgstr "Trigger:"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:54
 #. i18n: ectx: property (text), widget (KPushButton, pbApplyForAll)
-#: po/rc.cpp:91 rc.cpp:91
+#: po/rc.cpp:91
+#: rc.cpp:91
 msgid "Apply for all plugins"
-msgstr ""
+msgstr "Toepassen voor alle plug-ins"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:61
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:94 rc.cpp:94
+#: po/rc.cpp:94
+#: rc.cpp:94
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:68
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
-#: po/rc.cpp:97 rc.cpp:97
-#, fuzzy
+#: po/rc.cpp:97
+#: rc.cpp:97
 msgid "Remove"
-msgstr "Woord verwijderen"
+msgstr "Verwijderen"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:75
 #. i18n: ectx: property (text), widget (KPushButton, pbUp)
-#: po/rc.cpp:100 rc.cpp:100
+#: po/rc.cpp:100
+#: rc.cpp:100
 msgid "Up"
-msgstr ""
+msgstr "Omhoog"
 
 #. i18n: file: src/simonactionsui/manageactionsdlg.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, pbDown)
-#: po/rc.cpp:103 rc.cpp:103
+#: po/rc.cpp:103
+#: rc.cpp:103
 msgid "Down"
-msgstr ""
+msgstr "Omlaag"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DlgModifyCommands)
-#: po/rc.cpp:106 src/simonactionsui/newcommand.cpp:43
-#: src/simonactionsui/newcommand.cpp:129 rc.cpp:106
+#: po/rc.cpp:106
+#: src/simonactionsui/newcommand.cpp:43
+#: src/simonactionsui/newcommand.cpp:129
+#: rc.cpp:106
 msgid "Command"
 msgstr "Commando"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:29
 #. i18n: ectx: property (text), widget (QLabel, label_15)
-#: po/rc.cpp:109 rc.cpp:109
+#: po/rc.cpp:109
+#: rc.cpp:109
 msgid "Name (Trigger):"
-msgstr ""
+msgstr "Naam (Trigger):"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:112 rc.cpp:112
+#: po/rc.cpp:112
+#: rc.cpp:112
 msgid "Type:"
 msgstr "Type:"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:69
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
-#: po/rc.cpp:115 rc.cpp:115
+#: po/rc.cpp:115
+#: rc.cpp:115
 msgid "Description:"
 msgstr "Beschrijving:"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:105
 #. i18n: ectx: property (icon), widget (KIconButton, ibIcon)
-#: po/rc.cpp:118 rc.cpp:118
+#: po/rc.cpp:118
+#: rc.cpp:118
 msgid "system-run"
 msgstr "systeem-uitvoeren"
 
@@ -434,102 +495,113 @@ msgstr "systeem-uitvoeren"
 #. i18n: ectx: property (windowTitle), widget (QWidget, RunDlg)
 #. i18n: file: src/simonui.rc:47
 #. i18n: ectx: Menu (actions)
-#: po/rc.cpp:121 po/rc.cpp:884 rc.cpp:121 rc.cpp:884
+#: po/rc.cpp:121
+#: po/rc.cpp:884
+#: rc.cpp:121
+#: rc.cpp:884
 msgid "Actions"
 msgstr "Acties"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:381
 #. i18n: ectx: property (text), widget (KPushButton, pbManagePlugins)
-#: po/rc.cpp:133 rc.cpp:133
-#, fuzzy
+#: po/rc.cpp:133
+#: rc.cpp:133
 msgid "Manage plugins"
-msgstr "Hoofdacties"
+msgstr "Plug-ins beheren"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:401
 #. i18n: ectx: property (text), widget (KPushButton, pbNewCommand)
-#: po/rc.cpp:136 rc.cpp:136
+#: po/rc.cpp:136
+#: rc.cpp:136
 msgid "New Command"
 msgstr "Nieuw commando"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:411
 #. i18n: ectx: property (text), widget (KPushButton, pbEditCommand)
-#: po/rc.cpp:139 rc.cpp:139
+#: po/rc.cpp:139
+#: rc.cpp:139
 msgid "Edit"
 msgstr "Bewerken"
 
 #. i18n: file: src/simonactionsui/rundialog.ui:421
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteCommand)
-#: po/rc.cpp:142 rc.cpp:142
+#: po/rc.cpp:142
+#: rc.cpp:142
 msgid "Delete"
 msgstr "Verwijderen"
 
 #. i18n: file: src/simonappcore/coreconfiguration.kcfg:8
 #. i18n: ectx: label, entry (FirstRunWizardCompleted), group (General)
-#: po/rc.cpp:145 rc.cpp:145
+#: po/rc.cpp:145
+#: rc.cpp:145
+#, fuzzy
 msgid "If the first run wizard has been completed successfully."
-msgstr ""
+msgstr "Als de "
 
 #. i18n: file: src/simonappcore/coreconfiguration.kcfg:13
 #. i18n: ectx: label, entry (AutoStart), group (General)
-#: po/rc.cpp:148 rc.cpp:148
+#: po/rc.cpp:148
+#: rc.cpp:148
 msgid "If we should start simon when KDE is started."
 msgstr "simon starten wanneer KDE is opgestart."
 
 #. i18n: file: src/simonappcore/coreconfiguration.kcfg:17
 #. i18n: ectx: label, entry (StartMinimized), group (General)
-#: po/rc.cpp:151 rc.cpp:151
+#: po/rc.cpp:151
+#: rc.cpp:151
 msgid "If we should automatically minimize simon to the tray on startup."
 msgstr "simon automatisch minimaliseren naar systeemvak bij opstarten."
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralSettingsDlg)
-#: po/rc.cpp:154 rc.cpp:154
+#: po/rc.cpp:154
+#: rc.cpp:154
 msgid "General Settings"
 msgstr "Algemene instellingen"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_FirstRunWizardCompleted)
-#: po/rc.cpp:157 rc.cpp:157
+#: po/rc.cpp:157
+#: rc.cpp:157
 msgid "Don't show first run wizard on startup"
 msgstr ""
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, cbAskBeforeQuit)
-#: po/rc.cpp:163 rc.cpp:163
+#: po/rc.cpp:163
+#: rc.cpp:163
 msgid "Ask before quitting"
 msgstr "Vraag alvorens af te sluiten"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:43
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StartMinimized)
-#: po/rc.cpp:166 rc.cpp:166
+#: po/rc.cpp:166
+#: rc.cpp:166
 msgid "Start simon minimized"
 msgstr "Simon geminimaliseerd starten"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:50
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
-#: po/rc.cpp:169 rc.cpp:169
-#, fuzzy
+#: po/rc.cpp:169
+#: rc.cpp:169
 msgid "Start simon when logging in"
-msgstr "Simon geminimaliseerd starten"
+msgstr "Start simon bij inloggen"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/addwordintropage.ui:24
 #. i18n: ectx: property (text), widget (QLabel, lbIntro)
-#: po/rc.cpp:175 rc.cpp:175
+#: po/rc.cpp:175
+#: rc.cpp:175
 #, fuzzy
 msgid ""
 "Using this assistant you can add new words to your language model.\n"
 "\n"
-"To do this, enter the name of the word in the field below and continue by "
-"clicking \"Next\".\n"
+"To do this, enter the name of the word in the field below and continue by clicking \"Next\".\n"
 "\n"
-"You can easily add mutliple words by separating them with spaces and/or "
-"commas."
+"You can easily add mutliple words by separating them with spaces and/or commas."
 msgstr ""
-"Met deze assistent kunnen er nieuwe woorden aan het taalmodel worden "
-"toegevoegd.\n"
+"Met deze assistent kunnen er nieuwe woorden aan het taalmodel worden toegevoegd.\n"
 "\n"
-"Om dit te doen, voer de naam van het woord in het veld hieronder in en ga "
-"verder door op \"Volgende\" te klikken."
+"Om dit te doen, voer de naam van het woord in het veld hieronder in en ga verder door op \"Volgende\" te klikken."
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/addwordintropage.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -543,7 +615,12 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbWordDesc)
 #. i18n: file: src/simonmodelmanagementui/editword.ui:23
 #. i18n: ectx: property (text), widget (QLabel, lbWordDesc)
-#: po/rc.cpp:182 po/rc.cpp:188 po/rc.cpp:236 rc.cpp:182 rc.cpp:188 rc.cpp:236
+#: po/rc.cpp:182
+#: po/rc.cpp:188
+#: po/rc.cpp:236
+#: rc.cpp:182
+#: rc.cpp:188
+#: rc.cpp:236
 msgid "Word:"
 msgstr "Woord:"
 
@@ -559,7 +636,12 @@ msgstr "Woord:"
 #. i18n: ectx: property (text), widget (QLabel, lbTypeDesc)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:72
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalD)
-#: po/rc.cpp:191 po/rc.cpp:239 po/rc.cpp:616 rc.cpp:191 rc.cpp:239 rc.cpp:616
+#: po/rc.cpp:191
+#: po/rc.cpp:239
+#: po/rc.cpp:616
+#: rc.cpp:191
+#: rc.cpp:239
+#: rc.cpp:616
 msgid "Terminal:"
 msgstr "Terminal:"
 
@@ -571,9 +653,12 @@ msgstr "Terminal:"
 #. i18n: ectx: property (text), widget (QToolButton, tbAddTerminal)
 #. i18n: file: src/simonmodelmanagementui/editword.ui:52
 #. i18n: ectx: property (text), widget (QToolButton, tbAddTerminal)
-#: po/rc.cpp:194 po/rc.cpp:242 rc.cpp:194 rc.cpp:242
+#: po/rc.cpp:194
+#: po/rc.cpp:242
+#: rc.cpp:194
+#: rc.cpp:242
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:59
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
@@ -587,120 +672,138 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbSampa)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbPronunciationD)
-#: po/rc.cpp:197 po/rc.cpp:245 po/rc.cpp:610 rc.cpp:197 rc.cpp:245 rc.cpp:610
+#: po/rc.cpp:197
+#: po/rc.cpp:245
+#: po/rc.cpp:610
+#: rc.cpp:197
+#: rc.cpp:245
+#: rc.cpp:610
 msgid "Pronunciation:"
 msgstr "Uitspraak:"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:75
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:200 rc.cpp:200
+#: po/rc.cpp:200
+#: rc.cpp:200
 msgid "Similar Words"
 msgstr "Vergelijkbare woorden"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:94
 #. i18n: ectx: property (text), widget (QTableWidget, twSuggestions)
-#: po/rc.cpp:203 rc.cpp:203
+#: po/rc.cpp:203
+#: rc.cpp:203
 msgid "Word"
 msgstr "Woord"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:99
 #. i18n: ectx: property (text), widget (QTableWidget, twSuggestions)
-#: po/rc.cpp:206 rc.cpp:206
+#: po/rc.cpp:206
+#: rc.cpp:206
 msgid "Pronunciation"
 msgstr "Uitspraak"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:104
 #. i18n: ectx: property (text), widget (QTableWidget, twSuggestions)
-#: po/rc.cpp:209 rc.cpp:209
+#: po/rc.cpp:209
+#: rc.cpp:209
 msgid "Type"
 msgstr "Type"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:109
 #. i18n: ectx: property (text), widget (QTableWidget, twSuggestions)
-#: po/rc.cpp:212 rc.cpp:212
+#: po/rc.cpp:212
+#: rc.cpp:212
 msgid "Recognition Rate"
 msgstr "Herkenningsfactor"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:117
 #. i18n: ectx: property (text), widget (QCheckBox, cbSimilarSearch)
-#: po/rc.cpp:215 rc.cpp:215
-#, fuzzy
+#: po/rc.cpp:215
+#: rc.cpp:215
 msgid "Include similar words"
-msgstr "Vergelijkbare woorden"
+msgstr "Vergelijkbare woorden includeren"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:124
 #. i18n: ectx: property (text), widget (QCheckBox, cbContainsSearch)
-#: po/rc.cpp:218 rc.cpp:218
+#: po/rc.cpp:218
+#: rc.cpp:218
 msgid "Include all words containing the search string"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:133
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:221 rc.cpp:221
+#: po/rc.cpp:221
+#: rc.cpp:221
 msgid "Examples"
 msgstr "Voorbeelden"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:151
 #. i18n: ectx: property (text), widget (QLabel, lbSample1Desc)
-#: po/rc.cpp:224 rc.cpp:224
+#: po/rc.cpp:224
+#: rc.cpp:224
 msgid "1:"
 msgstr "1:"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:173
 #. i18n: ectx: property (text), widget (QLabel, lbSample2Desc)
-#: po/rc.cpp:227 rc.cpp:227
+#: po/rc.cpp:227
+#: rc.cpp:227
 msgid "2:"
 msgstr "2:"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:198
 #. i18n: ectx: property (text), widget (KPushButton, pbReGuess)
-#: po/rc.cpp:230 rc.cpp:230
+#: po/rc.cpp:230
+#: rc.cpp:230
 msgid "Re-Guess"
 msgstr "Opnieuw raden"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, GrammarView)
-#: po/rc.cpp:248 rc.cpp:248
-#, fuzzy
+#: po/rc.cpp:248
+#: rc.cpp:248
 msgid "Grammar Settings"
 msgstr "Grammaticale instellingen"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:29
 #. i18n: ectx: property (text), widget (QLabel, lbStructures)
-#: po/rc.cpp:251 rc.cpp:251
-#, fuzzy
+#: po/rc.cpp:251
+#: rc.cpp:251
 msgid "Sentences:"
-msgstr "Zinstricturen"
+msgstr "Zinnen:"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:43
 #. i18n: ectx: property (text), widget (QLabel, lbExamples)
-#: po/rc.cpp:254 rc.cpp:254
+#: po/rc.cpp:254
+#: rc.cpp:254
 msgid "Examples with your vocabulary:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:61
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:257 rc.cpp:257
+#: po/rc.cpp:257
+#: rc.cpp:257
 msgid "Add sentence"
-msgstr ""
+msgstr "Zin toevoegen"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:68
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:260 rc.cpp:260
-#, fuzzy
+#: po/rc.cpp:260
+#: rc.cpp:260
 msgid "Delete sentence"
-msgstr "Geselecteerde teskt verwijderen"
+msgstr "Zin verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:75
 #. i18n: ectx: property (text), widget (KPushButton, pbImportTexts)
-#: po/rc.cpp:263 rc.cpp:263
-#, fuzzy
+#: po/rc.cpp:263
+#: rc.cpp:263
 msgid "Import"
-msgstr "Tekst importeren"
+msgstr "Importeren"
 
 #. i18n: file: src/simonmodelmanagementui/grammarview.ui:98
 #. i18n: ectx: property (text), widget (KPushButton, pbRename)
-#: po/rc.cpp:266 rc.cpp:266
+#: po/rc.cpp:266
+#: rc.cpp:266
 msgid "Rename Terminal"
 msgstr "Terminal hernoemen"
 
@@ -714,36 +817,38 @@ msgstr "Terminals samenvoegen"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:275 rc.cpp:275
-msgid ""
-"The university of BONN uses this data strictly for statistic purposes. "
-"Please refer to their privacy agreement."
+#: po/rc.cpp:275
+#: rc.cpp:275
+msgid "The university of BONN uses this data strictly for statistic purposes. Please refer to their privacy agreement."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_14)
-#: po/rc.cpp:278 rc.cpp:278
-#, fuzzy
+#: po/rc.cpp:278
+#: rc.cpp:278
 msgid "Your name:"
-msgstr "Namen"
+msgstr "Naam:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label_15)
-#: po/rc.cpp:281 rc.cpp:281
-msgid "EMail:"
-msgstr ""
+#: po/rc.cpp:281
+#: rc.cpp:281
+msgid "Email:"
+msgstr "E-mail:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:66
 #. i18n: ectx: property (text), widget (QCheckBox, cbUnderstoodLicence)
-#: po/rc.cpp:284 rc.cpp:284
+#: po/rc.cpp:284
+#: rc.cpp:284
 msgid "I read, understood and accept this licence agreement"
-msgstr ""
+msgstr "Ik heb deze licentie-overeenkomst gelezen en ga ermee akkoord"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:19
 #. i18n: ectx: property (text), widget (QRadioButton, rbManual)
-#: po/rc.cpp:290 rc.cpp:290
+#: po/rc.cpp:290
+#: rc.cpp:290
 msgid "Select file manually"
-msgstr ""
+msgstr "Bestand handmatig selecteren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:35
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -773,17 +878,28 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:293 po/rc.cpp:311 po/rc.cpp:325 po/rc.cpp:339 po/rc.cpp:380
-#: po/rc.cpp:397 po/rc.cpp:479 rc.cpp:293 rc.cpp:311 rc.cpp:325 rc.cpp:339
-#: rc.cpp:380 rc.cpp:397 rc.cpp:479
+#: po/rc.cpp:293
+#: po/rc.cpp:311
+#: po/rc.cpp:325
+#: po/rc.cpp:339
+#: po/rc.cpp:380
+#: po/rc.cpp:397
+#: po/rc.cpp:479
+#: rc.cpp:293
+#: rc.cpp:311
+#: rc.cpp:325
+#: rc.cpp:339
+#: rc.cpp:380
+#: rc.cpp:397
+#: rc.cpp:479
 msgid "File:"
 msgstr "Bestand:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:42
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFile)
-#: po/rc.cpp:296 rc.cpp:296
-msgid ""
-"*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
+#: po/rc.cpp:296
+#: rc.cpp:296
+msgid "*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:49
@@ -810,124 +926,126 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbEncoding)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:67
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:299 po/rc.cpp:314 po/rc.cpp:328 po/rc.cpp:383 po/rc.cpp:418
-#: po/rc.cpp:482 rc.cpp:299 rc.cpp:314 rc.cpp:328 rc.cpp:383 rc.cpp:418
+#: po/rc.cpp:299
+#: po/rc.cpp:314
+#: po/rc.cpp:328
+#: po/rc.cpp:383
+#: po/rc.cpp:418
+#: po/rc.cpp:482
+#: rc.cpp:299
+#: rc.cpp:314
+#: rc.cpp:328
+#: rc.cpp:383
+#: rc.cpp:418
 #: rc.cpp:482
 msgid "Encoding:"
-msgstr ""
+msgstr "Codering:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:64
 #. i18n: ectx: property (text), widget (QRadioButton, rbAutomatic)
-#: po/rc.cpp:302 rc.cpp:302
+#: po/rc.cpp:302
+#: rc.cpp:302
 msgid "Automatically download and install the HADIFIX BOMP"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictjuliuspage.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:308 rc.cpp:308
-msgid ""
-"To import a Julius compatible vocabulary (like the vocabulary of simon 0.2) "
-"please provide the file below."
+#: po/rc.cpp:308
+#: rc.cpp:308
+msgid "To import a Julius compatible vocabulary (like the vocabulary of simon 0.2) please provide the file below."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:320 rc.cpp:320
+#: po/rc.cpp:320
+#: rc.cpp:320
 msgid ""
-"To import a HTK compatible lexicon (like the voxforge dictionary) please "
-"provide the file below.\n"
+"To import a HTK compatible lexicon (like the voxforge dictionary) please provide the file below.\n"
 "\n"
-"Please keep in mind that those dictionaries don't provide information about "
-"terminals of the words."
+"Please keep in mind that those dictionaries don't provide information about terminals of the words."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictplspage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:334 rc.cpp:334
+#: po/rc.cpp:334
+#: rc.cpp:334
 msgid ""
-"To import a PLS lexicon (like the german gpl dictionary) please provide the "
-"downloaded XML-file below.\n"
+"To import a PLS lexicon (like the german gpl dictionary) please provide the downloaded XML-file below.\n"
 "\n"
-"Please keep in mind that those dictionaries don't provide information about "
-"terminals of the words."
+"Please keep in mind that those dictionaries don't provide information about terminals of the words."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictplspage.ui:60
 #. i18n: ectx: property (filter), widget (KUrlRequester, urPath)
-#: po/rc.cpp:342 rc.cpp:342
+#: po/rc.cpp:342
+#: rc.cpp:342
 #, fuzzy
-msgid ""
-"*.xml *.xml.bz2 *.xml.gz | PLS-Dictionaries (*.xml, *.xml.bz2, *.xml.gz)"
-msgstr ""
-"*.dict *.dict.bz2 *.dict.gz | SPHINX-woordenboeken (*.dict *.dict.gz *.dict."
-"bz2)"
+msgid "*.xml *.xml.bz2 *.xml.gz | PLS-Dictionaries (*.xml, *.xml.bz2, *.xml.gz)"
+msgstr "*.dict *.dict.bz2 *.dict.gz | SPHINX-woordenboeken (*.dict *.dict.gz *.dict.bz2)"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:348 rc.cpp:348
+#: po/rc.cpp:348
+#: rc.cpp:348
 msgid ""
 "simon is able to import four different types of dictionaries:\n"
-"HADIFIX dictionaries, HTK compatible dictionaries, SPHINX Lexicons and PLS "
-"dictionaries.\n"
+"HADIFIX dictionaries, HTK compatible dictionaries, SPHINX Lexicons and PLS dictionaries.\n"
 "\n"
 "Please select the type of dictionary you want to import now."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:33
 #. i18n: ectx: property (text), widget (QRadioButton, rbHadifixBOMP)
-#: po/rc.cpp:354 rc.cpp:354
+#: po/rc.cpp:354
+#: rc.cpp:354
 msgid "HADIFIX"
 msgstr "HADIFIX"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:43
 #. i18n: ectx: property (text), widget (QRadioButton, rbHTK)
-#: po/rc.cpp:357 rc.cpp:357
+#: po/rc.cpp:357
+#: rc.cpp:357
 msgid "HTK Lexicon"
 msgstr "HTk-woordenboek"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:50
 #. i18n: ectx: property (text), widget (QRadioButton, rbPLS)
-#: po/rc.cpp:360 rc.cpp:360
+#: po/rc.cpp:360
+#: rc.cpp:360
 msgid "PLS Lexicon"
 msgstr "PLS-woordenboek"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:57
 #. i18n: ectx: property (text), widget (QRadioButton, rbSPHINX)
-#: po/rc.cpp:363 rc.cpp:363
+#: po/rc.cpp:363
+#: rc.cpp:363
 msgid "SPHINX Lexicon"
 msgstr "SPHINX-woordenboek"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:64
 #. i18n: ectx: property (text), widget (QRadioButton, rbJuliusVocabulary)
-#: po/rc.cpp:366 rc.cpp:366
-#, fuzzy
+#: po/rc.cpp:366
+#: rc.cpp:366
 msgid "Julius Vocabulary"
-msgstr "Woordenboek:"
+msgstr "Julius woordenlijst"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.ui:25
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:372 rc.cpp:372
+#: po/rc.cpp:372
+#: rc.cpp:372
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Bitstream Vera "
-"Sans';\">Please select the SPHINX dictionary that you want to import below."
-"<br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Please keep in mind that "
-"those dictionaries don't provide information about terminals of the words.</"
-"p></body></html>"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Bitstream Vera Sans';\">Please select the SPHINX dictionary that you want to import below.<br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Please keep in mind that those dictionaries don't provide information about terminals of the words.</p></body></html>"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
-#: po/rc.cpp:389 rc.cpp:389
+#: po/rc.cpp:389
+#: rc.cpp:389
 #, fuzzy
 msgid ""
 "Analyzing texts...\n"
@@ -940,108 +1058,115 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:44
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:394 rc.cpp:394
+#: po/rc.cpp:394
+#: rc.cpp:394
 msgid "Overall:"
-msgstr ""
+msgstr "Algeheel:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:77
 #. i18n: ectx: property (text), widget (QLabel, lbCurrentAction)
-#: po/rc.cpp:400 rc.cpp:400
+#: po/rc.cpp:400
+#: rc.cpp:400
 msgid "Waiting..."
 msgstr "Even geduld..."
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbUnknownDesc)
-#: po/rc.cpp:406 rc.cpp:406
-msgid ""
-"If you check the following field, sentences containing words with unknown "
-"terminals will also be imported (words with more than one terminal will "
-"still cause the word to be marked \"Unknown\" and will only be included if "
-"this field is set)."
+#: po/rc.cpp:406
+#: rc.cpp:406
+msgid "If you check the following field, sentences containing words with unknown terminals will also be imported (words with more than one terminal will still cause the word to be marked \"Unknown\" and will only be included if this field is set)."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:30
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeUnknown)
-#: po/rc.cpp:409 rc.cpp:409
+#: po/rc.cpp:409
+#: rc.cpp:409
 msgid "Also import unknown sentences"
 msgstr "Ook onbekende zinnen importeren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:37
 #. i18n: ectx: property (text), widget (QRadioButton, rbText)
-#: po/rc.cpp:412 rc.cpp:412
+#: po/rc.cpp:412
+#: rc.cpp:412
 msgid "Import Text"
 msgstr "Tekst importeren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:47
 #. i18n: ectx: property (text), widget (QRadioButton, rbFiles)
-#: po/rc.cpp:415 rc.cpp:415
-#, fuzzy
+#: po/rc.cpp:415
+#: rc.cpp:415
 msgid "Import Files"
-msgstr "Importeren voltooid"
+msgstr "Bestanden importeren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:71
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFileToAdd)
-#: po/rc.cpp:421 rc.cpp:421
+#: po/rc.cpp:421
+#: rc.cpp:421
 msgid "Textfiles *.txt"
 msgstr "Teksttbestanden *.txt"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:78
 #. i18n: ectx: property (title), widget (KEditListBox, elbFiles)
-#: po/rc.cpp:424 rc.cpp:424
+#: po/rc.cpp:424
+#: rc.cpp:424
 msgid "Files to import"
 msgstr "Bestanden importeren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:430 rc.cpp:430
+#: po/rc.cpp:430
+#: rc.cpp:430
 #, fuzzy
 msgid ""
 "Welcome to the import of existing training data.\n"
 "\n"
-"Using this wizard you can import training data collected e.g. by previous "
-"simon installations."
+"Using this wizard you can import training data collected e.g. by previous simon installations."
 msgstr ""
 "Welkom bij het importeren van bestaande gegevens.\n"
 "\n"
-"Met deze wizard kunnen training-gegevens geïmporteerd worden die verzameld "
-"zijn door voorgaande simon-installaties.\\nKies de map die de gegevens bevat "
-"(het za grondig onderzocht worden):"
+"Met deze wizard kunnen training-gegevens geïmporteerd worden die verzameld zijn door voorgaande simon-installaties.\\n"
+"Kies de map die de gegevens bevat (het za grondig onderzocht worden):"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:44
 #. i18n: ectx: property (text), widget (QRadioButton, rbPrompts)
-#: po/rc.cpp:435 rc.cpp:435
+#: po/rc.cpp:435
+#: rc.cpp:435
 #, fuzzy
 msgid "Import Prompts"
 msgstr "Importeren voltooid"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:56
 #. i18n: ectx: property (text), widget (QLabel, lbPrompts)
-#: po/rc.cpp:438 rc.cpp:438
+#: po/rc.cpp:438
+#: rc.cpp:438
 msgid "Prompts:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, lbBaseDirectory)
-#: po/rc.cpp:441 rc.cpp:441
+#: po/rc.cpp:441
+#: rc.cpp:441
 msgid "Base directory:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:97
 #. i18n: ectx: property (text), widget (QRadioButton, rbFolder)
-#: po/rc.cpp:444 rc.cpp:444
-#, fuzzy
+#: po/rc.cpp:444
+#: rc.cpp:444
 msgid "Import Folder"
-msgstr "Importeren voltooid"
+msgstr "Map importeren"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:109
 #. i18n: ectx: property (text), widget (QLabel, lbFolder)
-#: po/rc.cpp:447 rc.cpp:447
+#: po/rc.cpp:447
+#: rc.cpp:447
 msgid "Directory:"
-msgstr ""
+msgstr "Map:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataworkingdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbMain)
-#: po/rc.cpp:453 rc.cpp:453
+#: po/rc.cpp:453
+#: rc.cpp:453
 msgid ""
 "The selected folder is being processed.\n"
 "\n"
@@ -1063,13 +1188,19 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:44
 #. i18n: ectx: property (text), widget (QLabel, lbNameD)
-#: po/rc.cpp:461 po/rc.cpp:476 po/rc.cpp:604 rc.cpp:461 rc.cpp:476 rc.cpp:604
+#: po/rc.cpp:461
+#: po/rc.cpp:476
+#: po/rc.cpp:604
+#: rc.cpp:461
+#: rc.cpp:476
+#: rc.cpp:604
 msgid "Name:"
 msgstr "Naam:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextaddpage.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:464 rc.cpp:464
+#: po/rc.cpp:464
+#: rc.cpp:464
 msgid ""
 "Content:\n"
 "(Each new line will be a new page in the text.)"
@@ -1077,7 +1208,8 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:471 rc.cpp:471
+#: po/rc.cpp:471
+#: rc.cpp:471
 msgid ""
 "Here you can import text files to use them as trainingtexts.\n"
 "\n"
@@ -1086,36 +1218,37 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:488 rc.cpp:488
+#: po/rc.cpp:488
+#: rc.cpp:488
 msgid "You can add trainingstexts freely or import it from local text files."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:46
 #. i18n: ectx: property (text), widget (QRadioButton, rbAdd)
-#: po/rc.cpp:491 rc.cpp:491
-#, fuzzy
+#: po/rc.cpp:491
+#: rc.cpp:491
 msgid "Add trainingstext"
-msgstr "Aan training toevoegen"
+msgstr "Trainingstekst toevoegen"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:56
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocal)
-#: po/rc.cpp:494 rc.cpp:494
-#, fuzzy
+#: po/rc.cpp:494
+#: rc.cpp:494
 msgid "Import from local text file"
-msgstr "Locaal tekstbestand"
+msgstr "Van lokaal tekstbestand importeren "
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.ui:42
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:500 rc.cpp:500
+#: po/rc.cpp:500
+#: rc.cpp:500
 msgid "The text is being processed...."
 msgstr "De tekst wordt verwerkt..."
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:506 rc.cpp:506
-msgid ""
-"Please select both terminals from the lists below and assign a name for the "
-"new, combined terminal."
+#: po/rc.cpp:506
+#: rc.cpp:506
+msgid "Please select both terminals from the lists below and assign a name for the new, combined terminal."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:32
@@ -1126,37 +1259,45 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbNewTerminal)
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbNewName)
-#: po/rc.cpp:509 po/rc.cpp:660 rc.cpp:509 rc.cpp:660
+#: po/rc.cpp:509
+#: po/rc.cpp:660
+#: rc.cpp:509
+#: rc.cpp:660
 msgid "New Name:"
 msgstr "Nieuwe naam:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:51
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalA)
-#: po/rc.cpp:512 rc.cpp:512
+#: po/rc.cpp:512
+#: rc.cpp:512
 msgid "Terminal A:"
 msgstr "Terminal A:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:65
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalB)
-#: po/rc.cpp:515 rc.cpp:515
+#: po/rc.cpp:515
+#: rc.cpp:515
 msgid "Terminal B:"
 msgstr "Terminal B:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:79
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeShadow)
-#: po/rc.cpp:518 rc.cpp:518
+#: po/rc.cpp:518
+#: rc.cpp:518
 msgid "Change shadow vocabulary"
-msgstr "Schaduw-woordenboek veranderen"
+msgstr "Inactief woordenboek veranderen"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:89
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeGrammar)
-#: po/rc.cpp:521 rc.cpp:521
+#: po/rc.cpp:521
+#: rc.cpp:521
 msgid "Change grammar"
 msgstr "Grammatica veranderen"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:527 rc.cpp:527
+#: po/rc.cpp:527
+#: rc.cpp:527
 msgid ""
 "The selected terminals will be now merged to a new one.\n"
 "\n"
@@ -1183,48 +1324,60 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbTerminal)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:93
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRate)
-#: po/rc.cpp:532 po/rc.cpp:607 po/rc.cpp:613 po/rc.cpp:619 po/rc.cpp:625
-#: rc.cpp:532 rc.cpp:607 rc.cpp:613 rc.cpp:619 rc.cpp:625
+#: po/rc.cpp:532
+#: po/rc.cpp:607
+#: po/rc.cpp:613
+#: po/rc.cpp:619
+#: po/rc.cpp:625
+#: rc.cpp:532
+#: rc.cpp:607
+#: rc.cpp:613
+#: rc.cpp:619
+#: rc.cpp:625
 msgid "TextLabel"
 msgstr "Tekstlabel"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:30
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:541 rc.cpp:541
-#, fuzzy
+#: po/rc.cpp:541
+#: rc.cpp:541
 msgid "Model type:"
-msgstr "Model: %1"
+msgstr "Modeltype:"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:37
 #. i18n: ectx: property (text), widget (QRadioButton, rbStatic)
-#: po/rc.cpp:544 rc.cpp:544
+#: po/rc.cpp:544
+#: rc.cpp:544
 msgid "Static model"
-msgstr ""
+msgstr "Statisch model"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:44
 #. i18n: ectx: property (text), widget (QRadioButton, rbBaseModel)
-#: po/rc.cpp:547 rc.cpp:547
+#: po/rc.cpp:547
+#: rc.cpp:547
 msgid "Adapted base model"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:51
 #. i18n: ectx: property (text), widget (QRadioButton, rbDynamic)
-#: po/rc.cpp:550 rc.cpp:550
+#: po/rc.cpp:550
+#: rc.cpp:550
 msgid "User generated model"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:64
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:553 rc.cpp:553
-#, fuzzy
+#: po/rc.cpp:553
+#: rc.cpp:553
 msgid "Base model"
-msgstr "Model kiezen"
+msgstr "Basismodel"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, lbBaseHMM)
-#: po/rc.cpp:556 rc.cpp:556
+#: po/rc.cpp:556
+#: rc.cpp:556
 msgid "HMM definition:"
-msgstr ""
+msgstr "HMM-definitie"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, lbLastLoadedBaseHMM)
@@ -1242,12 +1395,18 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbLastLoadedBaseMacros)
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:133
 #. i18n: ectx: property (text), widget (QLabel, lbLastLoadedBaseStats)
-#: po/rc.cpp:559 po/rc.cpp:568 po/rc.cpp:580 po/rc.cpp:583
+#: po/rc.cpp:559
+#: po/rc.cpp:568
+#: po/rc.cpp:580
+#: po/rc.cpp:583
 #: src/simonmodelmanagementui/modelsettings.cpp:158
-#: src/simonmodelmanagementui/modelsettings.cpp:159 rc.cpp:559 rc.cpp:568
-#: rc.cpp:580 rc.cpp:583
+#: src/simonmodelmanagementui/modelsettings.cpp:159
+#: rc.cpp:559
+#: rc.cpp:568
+#: rc.cpp:580
+#: rc.cpp:583
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:84
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadBaseHMM)
@@ -1265,161 +1424,160 @@ msgstr ""
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadBaseMacros)
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:147
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadBaseStats)
-#: po/rc.cpp:562 po/rc.cpp:571 po/rc.cpp:586 po/rc.cpp:589 rc.cpp:562
-#: rc.cpp:571 rc.cpp:586 rc.cpp:589
+#: po/rc.cpp:562
+#: po/rc.cpp:571
+#: po/rc.cpp:586
+#: po/rc.cpp:589
+#: rc.cpp:562
+#: rc.cpp:571
+#: rc.cpp:586
+#: rc.cpp:589
 msgid "Load"
-msgstr ""
+msgstr "Laden"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:91
 #. i18n: ectx: property (text), widget (QLabel, lbBaseTiedlist)
-#: po/rc.cpp:565 rc.cpp:565
+#: po/rc.cpp:565
+#: rc.cpp:565
 msgid "Tiedlist:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:112
 #. i18n: ectx: property (text), widget (QLabel, lbBaseMacros)
-#: po/rc.cpp:574 rc.cpp:574
+#: po/rc.cpp:574
+#: rc.cpp:574
 msgid "Macros:"
-msgstr ""
+msgstr "Macro's:"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:119
 #. i18n: ectx: property (text), widget (QLabel, lbBaseStats)
-#: po/rc.cpp:577 rc.cpp:577
-#, fuzzy
+#: po/rc.cpp:577
+#: rc.cpp:577
 msgid "Stats:"
-msgstr "Starten"
+msgstr "Statistieken:"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:154
 #. i18n: ectx: property (text), widget (QPushButton, pbHelp)
-#: po/rc.cpp:592 rc.cpp:592
+#: po/rc.cpp:592
+#: rc.cpp:592
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:178
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:595 rc.cpp:595
+#: po/rc.cpp:595
+#: rc.cpp:595
 msgid "Extensions"
-msgstr ""
+msgstr "Extensies"
 
 #. i18n: file: src/simonmodelmanagementui/modelsettingsdlg.ui:189
 #. i18n: ectx: property (text), widget (QLabel, lbBompDownloadBase)
-#: po/rc.cpp:598 rc.cpp:598
+#: po/rc.cpp:598
+#: rc.cpp:598
 msgid "BOMP Basis-URL:"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRateD)
-#: po/rc.cpp:622 rc.cpp:622
+#: po/rc.cpp:622
+#: rc.cpp:622
 msgid "Recognition Rate:"
 msgstr "Herkenningsfactor:"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:153
 #. i18n: ectx: property (text), widget (QRadioButton, rbTerminal)
-#: po/rc.cpp:628 rc.cpp:628
+#: po/rc.cpp:628
+#: rc.cpp:628
 msgid "Move the word to the \"Unused\" terminal"
-msgstr ""
+msgstr "Verplaats het woord naar \"Ongebruikt\""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:181
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalDesc)
-#: po/rc.cpp:631 rc.cpp:631
-msgid ""
-"The word will stay in your active dictionary and all samples will be kept. "
-"The samples will still be used to improve the acoustic model but simon the "
-"word will no longer be considered during the recognition."
+#: po/rc.cpp:631
+#: rc.cpp:631
+msgid "The word will stay in your active dictionary and all samples will be kept. The samples will still be used to improve the acoustic model but simon the word will no longer be considered during the recognition."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:193
 #. i18n: ectx: property (text), widget (QRadioButton, rbShadow)
-#: po/rc.cpp:634 rc.cpp:634
+#: po/rc.cpp:634
+#: rc.cpp:634
 #, fuzzy
 msgid "Move the word to the shadow dictionary"
-msgstr "Woord uit actieve woordenboek verwijderen"
+msgstr "Woord naar inactieve woordenboek verplaatsen"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:221
 #. i18n: ectx: property (text), widget (QLabel, lbShadowDesc)
-#: po/rc.cpp:637 rc.cpp:637
-msgid ""
-"The word will be removed from the active dictionary, but will be preserved "
-"in the shadow dictionary. The samples associated will be preserved and will "
-"be used again when you add the word again."
+#: po/rc.cpp:637
+#: rc.cpp:637
+msgid "The word will be removed from the active dictionary, but will be preserved in the shadow dictionary. The samples associated will be preserved and will be used again when you add the word again."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:233
 #. i18n: ectx: property (text), widget (QRadioButton, rbSoftDelete)
-#: po/rc.cpp:640 rc.cpp:640
+#: po/rc.cpp:640
+#: rc.cpp:640
 msgid "Delete the word but keep samples"
-msgstr ""
+msgstr "Verwijder woord maar behoud spraak"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:258
 #. i18n: ectx: property (text), widget (QLabel, lbSoftDeleteDesc)
-#: po/rc.cpp:643 rc.cpp:643
-msgid ""
-"This will remove the word from both active and shadow vocabulary. All "
-"associated samples will be kept and re-used when you add the word again."
+#: po/rc.cpp:643
+#: rc.cpp:643
+msgid "This will remove the word from both active and shadow vocabulary. All associated samples will be kept and re-used when you add the word again."
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:270
 #. i18n: ectx: property (text), widget (QRadioButton, rbDelete)
-#: po/rc.cpp:646 rc.cpp:646
+#: po/rc.cpp:646
+#: rc.cpp:646
 msgid "Delete the word and remove samples"
-msgstr ""
+msgstr "Verwijder woord en verwijder spraak"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:300
 #. i18n: ectx: property (text), widget (QLabel, lbDeleteDesc)
-#: po/rc.cpp:649 rc.cpp:649
+#: po/rc.cpp:649
+#: rc.cpp:649
 #, fuzzy
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
-"weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">This will remove the word "
-"from both active and shadow vocabulary. All associated samples will be "
-"deleted.</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"weight:600;\">Warning: simon will also remove all samples of other words "
-"with the same name - even across scenarios!</span></p></body></html>"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This will remove the word from both active and shadow vocabulary. All associated samples will be deleted.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Warning: simon will also remove all samples of other words with the same name - even across scenarios!</span></p></body></html>"
 msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-"
-"size:11pt;\"><span style=\" font-size:9pt;\">Deze vroege alpha-versie is "
-"niet bedoeld voor productie. Als je fouten opmerkt, aarzel dan niet om met "
-"de ontwikkelaars contact op te nemen om simon te verbeteren.</span></p></"
-"body></html>"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:11pt;\"><span style=\" font-size:9pt;\">Deze vroege alpha-versie is niet bedoeld voor productie. Als je fouten opmerkt, aarzel dan niet om met de ontwikkelaars contact op te nemen om simon te verbeteren.</span></p></body></html>"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:37
 #. i18n: ectx: property (text), widget (QLabel, lbTerminal)
-#: po/rc.cpp:663 rc.cpp:663
+#: po/rc.cpp:663
+#: rc.cpp:663
 msgid "Old Terminal:"
 msgstr "Oude terminal:"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:47
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeShadow)
-#: po/rc.cpp:666 rc.cpp:666
+#: po/rc.cpp:666
+#: rc.cpp:666
 msgid "Change shadow lexicon"
-msgstr "Schaduw-woordenboek veranderen"
+msgstr "Inactief woordenboek veranderen"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:57
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeGrammar)
-#: po/rc.cpp:669 rc.cpp:669
+#: po/rc.cpp:669
+#: rc.cpp:669
 msgid "Adapt grammar"
 msgstr "Grammatica opnemen"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:675 rc.cpp:675
+#: po/rc.cpp:675
+#: rc.cpp:675
 msgid ""
 "The terminal is now being renamed.\n"
 "\n"
@@ -1431,36 +1589,41 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/speechmodelmanagementuiconfiguration.kcfg:7
 #. i18n: ectx: label, entry (BompDownloadBase), group (Extension)
-#: po/rc.cpp:680 rc.cpp:680
+#: po/rc.cpp:680
+#: rc.cpp:680
 msgid "The url to the online text-list to get new trainingstexts."
-msgstr ""
-"De link naar de online tekstlijst om nieuwe trainingsteksten te verkrijgen."
+msgstr "De link naar de online tekstlijst om nieuwe trainingsteksten te verkrijgen."
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
-#: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:101
+#: po/rc.cpp:683
+#: src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:101
 #: src/simonmodelmanagementui/trainingview.cpp:25
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:59
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:34
-#: src/simonview.cpp:352 rc.cpp:683
+#: src/simonview.cpp:352
+#: rc.cpp:683
 msgid "Training"
 msgstr "Trainen"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:25
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:686 rc.cpp:686
+#: po/rc.cpp:686
+#: rc.cpp:686
 msgid "Available Trainings-Texts:"
 msgstr "Beschikbare trainings-teksten"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:48
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainText)
-#: po/rc.cpp:689 rc.cpp:689
+#: po/rc.cpp:689
+#: rc.cpp:689
 msgid "Starts the training of the selected text"
 msgstr "Start het trainen van de geselecteerde tekst"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:54
 #. i18n: ectx: property (text), widget (KPushButton, pbTrainText)
-#: po/rc.cpp:692 rc.cpp:692
+#: po/rc.cpp:692
+#: rc.cpp:692
 msgid "Start Training"
 msgstr "Training starten"
 
@@ -1472,61 +1635,69 @@ msgstr "Training starten"
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportText)
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:102
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbClearTrainingdata)
-#: po/rc.cpp:695 po/rc.cpp:707 rc.cpp:695 rc.cpp:707
+#: po/rc.cpp:695
+#: po/rc.cpp:707
+#: rc.cpp:695
+#: rc.cpp:707
 msgid "Import new texts from local files or form an oline repository"
 msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:72
 #. i18n: ectx: property (text), widget (KPushButton, pbImportText)
-#: po/rc.cpp:698 rc.cpp:698
-#, fuzzy
+#: po/rc.cpp:698
+#: rc.cpp:698
 msgid "Add Text"
-msgstr "Teksten"
+msgstr "Tekst toevoegen"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:79
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
-#: po/rc.cpp:701 rc.cpp:701
+#: po/rc.cpp:701
+#: rc.cpp:701
 msgid "Import Trainings-Corpuses from other simon versions"
 msgstr "Training-corpussen uit andere simon-versies importeren"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, pbImportDir)
-#: po/rc.cpp:704 rc.cpp:704
+#: po/rc.cpp:704
+#: rc.cpp:704
 msgid "Import Trainingsdata"
 msgstr "Trainingsgegevens importeren"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:105
 #. i18n: ectx: property (text), widget (KPushButton, pbClearTrainingdata)
-#: po/rc.cpp:710 rc.cpp:710
-#, fuzzy
+#: po/rc.cpp:710
+#: rc.cpp:710
 msgid "Clear Trainingdata"
-msgstr "Trainingsgegevens importeren"
+msgstr "Trainingsgegevens verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:112
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbDelText)
-#: po/rc.cpp:713 rc.cpp:713
+#: po/rc.cpp:713
+#: rc.cpp:713
 msgid "Removes the selected text from the system"
 msgstr "Verwijdert het geselecteerde bestand van het systeem"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:115
 #. i18n: ectx: property (text), widget (KPushButton, pbDelText)
-#: po/rc.cpp:716 rc.cpp:716
+#: po/rc.cpp:716
+#: rc.cpp:716
 msgid "Delete selected Text"
 msgstr "Geselecteerde teskt verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, VocabularyView)
-#: po/rc.cpp:719 src/simonview.cpp:368 rc.cpp:719
-#, fuzzy
+#: po/rc.cpp:719
+#: src/simonview.cpp:368
+#: rc.cpp:719
 msgid "Vocabulary"
-msgstr "Woordenboek:"
+msgstr "Woordenlijst"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:31
 #. i18n: ectx: attribute (title), widget (QWidget, tpActive)
-#: po/rc.cpp:722 rc.cpp:722
-#, fuzzy
+#: po/rc.cpp:722
+#: rc.cpp:722
 msgid "Active Vocabulary"
-msgstr "Woordenboek:"
+msgstr "Actieve woordenlijst"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:39
 #. i18n: ectx: property (text), widget (QLabel, lbActiveVocab)
@@ -1536,7 +1707,10 @@ msgstr "Woordenboek:"
 #. i18n: ectx: property (text), widget (QLabel, lbActiveVocab)
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:96
 #. i18n: ectx: property (text), widget (QLabel, lbShadowVocab)
-#: po/rc.cpp:725 po/rc.cpp:734 rc.cpp:725 rc.cpp:734
+#: po/rc.cpp:725
+#: po/rc.cpp:734
+#: rc.cpp:725
+#: rc.cpp:734
 msgid "Vocabulary:"
 msgstr "Woordenboek:"
 
@@ -1548,77 +1722,90 @@ msgstr "Woordenboek:"
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leActiveVocabSearch)
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:116
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leShadowVocabSearch)
-#: po/rc.cpp:728 po/rc.cpp:737 rc.cpp:728 rc.cpp:737
+#: po/rc.cpp:728
+#: po/rc.cpp:737
+#: rc.cpp:728
+#: rc.cpp:737
 msgid "Filter"
 msgstr "Filteren"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:88
 #. i18n: ectx: attribute (title), widget (QWidget, pgShadow)
-#: po/rc.cpp:731 rc.cpp:731
-#, fuzzy
+#: po/rc.cpp:731
+#: rc.cpp:731
 msgid "Shadow Vocabulary"
-msgstr "Woordenboek:"
+msgstr "Inactieve woordenlijst"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:150
 #. i18n: ectx: property (text), widget (KPushButton, pbImport)
 #: po/rc.cpp:740
-#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:35 rc.cpp:740
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:35
+#: rc.cpp:740
 msgid "Import Dictionary"
 msgstr "Woordenboek importeren"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:157
 #. i18n: ectx: property (text), widget (KPushButton, pbClear)
-#: po/rc.cpp:743 rc.cpp:743
+#: po/rc.cpp:743
+#: rc.cpp:743
 msgid "Clear"
-msgstr ""
+msgstr "Verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:177
 #. i18n: ectx: property (text), widget (KPushButton, pbEditWord)
-#: po/rc.cpp:746 rc.cpp:746
-#, fuzzy
+#: po/rc.cpp:746
+#: rc.cpp:746
 msgid "Edit Word"
-msgstr "Woord toevoegen"
+msgstr "Woord bewerken"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:184
 #. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
-#: po/rc.cpp:749 src/simonmodelmanagementui/deleteworddialog.cpp:36
-#: src/simonmodelmanagementui/editworddialog.cpp:38 rc.cpp:749
+#: po/rc.cpp:749
+#: src/simonmodelmanagementui/deleteworddialog.cpp:36
+#: src/simonmodelmanagementui/editworddialog.cpp:38
+#: rc.cpp:749
 msgid "Remove Word"
 msgstr "Woord verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:218
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:752 rc.cpp:752
+#: po/rc.cpp:752
+#: rc.cpp:752
 msgid "Train Words:"
 msgstr "Woorden trainen:"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:247
 #. i18n: ectx: property (text), widget (QCheckBox, cbBuildSentences)
-#: po/rc.cpp:755 rc.cpp:755
+#: po/rc.cpp:755
+#: rc.cpp:755
 msgid "Build sentences"
-msgstr ""
+msgstr "Zinnen genereren"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:254
 #. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
-#: po/rc.cpp:758 rc.cpp:758
+#: po/rc.cpp:758
+#: rc.cpp:758
 msgid "Add to Training"
 msgstr "Aan training toevoegen"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:261
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
-#: po/rc.cpp:761 rc.cpp:761
+#: po/rc.cpp:761
+#: rc.cpp:761
 msgid "Remove Word from Training"
 msgstr "Woord van training verwijderen"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:268
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
-#: po/rc.cpp:764 rc.cpp:764
+#: po/rc.cpp:764
+#: rc.cpp:764
 msgid "Starts the Training of the selected Words"
 msgstr "Start het trainen van de geselecteerde woorden"
 
 #. i18n: file: src/simonmodelmanagementui/vocabulary.ui:271
 #. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
-#: po/rc.cpp:767 rc.cpp:767
+#: po/rc.cpp:767
+#: rc.cpp:767
 msgid "Train selected Words"
 msgstr "Geselecteerde woorden trainen"
 
@@ -1630,213 +1817,247 @@ msgstr "Geselecteerde woorden trainen"
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:144
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:770 po/rc.cpp:797 rc.cpp:770 rc.cpp:797
+#: po/rc.cpp:770
+#: po/rc.cpp:797
+#: rc.cpp:770
+#: rc.cpp:797
 msgid "Network"
 msgstr "Netwerk"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:70
 #. i18n: ectx: property (text), widget (KPushButton, pbConfigureSimond)
-#: po/rc.cpp:782 rc.cpp:782
+#: po/rc.cpp:782
+#: rc.cpp:782
 #, fuzzy
 msgid "Configure simond"
-msgstr "Kon oude model niet herstellen"
+msgstr "Basismodellen configureren"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:79
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
-#: po/rc.cpp:785 rc.cpp:785
+#: po/rc.cpp:785
+#: rc.cpp:785
 msgid "Connect automatically on simon start"
 msgstr "Automatisch verbinden wanneer simon start"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:89
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticallyEnableRecognition)
-#: po/rc.cpp:788 rc.cpp:788
+#: po/rc.cpp:788
+#: rc.cpp:788
 msgid "Start Recognition immediately once available"
 msgstr "Herkenning meteen starten wanneer beschikbaar"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:98
 #. i18n: ectx: property (text), widget (QLabel, lbUsername)
-#: po/rc.cpp:791 rc.cpp:791
+#: po/rc.cpp:791
+#: rc.cpp:791
 msgid "Username:"
 msgstr "Gebruikersnaam"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:111
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
-#: po/rc.cpp:794 rc.cpp:794
+#: po/rc.cpp:794
+#: rc.cpp:794
 msgid "Password:"
 msgstr "Wachtwoord"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:153
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdEncrypted)
-#: po/rc.cpp:800 rc.cpp:800
+#: po/rc.cpp:800
+#: rc.cpp:800
 msgid "Use Encryption"
 msgstr "Encryptie gebruiken"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:162
 #. i18n: ectx: property (text), widget (QLabel, lbTimeout)
-#: po/rc.cpp:803 rc.cpp:803
+#: po/rc.cpp:803
+#: rc.cpp:803
 msgid "Timeout (Milliseconds):"
 msgstr "Time-out (in milliseconden):"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:184
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_JuliusdServers)
-#: po/rc.cpp:806 rc.cpp:806
+#: po/rc.cpp:806
+#: rc.cpp:806
 msgid "Hosts"
-msgstr ""
+msgstr "Hosts"
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:7
 #. i18n: ectx: label, entry (StartLocalSimond), group (Recognition)
-#: po/rc.cpp:809 rc.cpp:809
+#: po/rc.cpp:809
+#: rc.cpp:809
 #, fuzzy
 msgid "If we should automatically start a local simond server."
 msgstr "Of we automatisch zouden moeten verbinden met Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:11
 #. i18n: ectx: label, entry (StopLocalSimond), group (Recognition)
-#: po/rc.cpp:812 rc.cpp:812
+#: po/rc.cpp:812
+#: rc.cpp:812
 #, fuzzy
-msgid ""
-"If we should automatically stop the local simond server when simon exits."
+msgid "If we should automatically stop the local simond server when simon exits."
 msgstr "simon automatisch minimaliseren naar systeemvak bij opstarten."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:15
 #. i18n: ectx: label, entry (JuliusdAutoConnect), group (Recognition)
-#: po/rc.cpp:815 rc.cpp:815
+#: po/rc.cpp:815
+#: rc.cpp:815
 msgid "If we should automatically connect to the Juliusd."
 msgstr "Of we automatisch zouden moeten verbinden met Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:19
 #. i18n: ectx: label, entry (AutomaticallyEnableRecognition), group (Recognition)
-#: po/rc.cpp:818 rc.cpp:818
-msgid ""
-"If we should automatically activate the recognition once we get the ready-"
-"signal"
+#: po/rc.cpp:818
+#: rc.cpp:818
+msgid "If we should automatically activate the recognition once we get the ready-signal"
 msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:23
 #. i18n: ectx: label, entry (JuliusdUsername), group (Recognition)
-#: po/rc.cpp:821 rc.cpp:821
+#: po/rc.cpp:821
+#: rc.cpp:821
 msgid "The Username for simond."
 msgstr "De gebruikersnaam voor simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:27
 #. i18n: ectx: label, entry (JuliusdPassword), group (Recognition)
-#: po/rc.cpp:824 rc.cpp:824
+#: po/rc.cpp:824
+#: rc.cpp:824
 msgid "The Password for simond."
 msgstr "Het wachtwoord voor simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:31
 #. i18n: ectx: label, entry (JuliusdEncrypted), group (Recognition)
-#: po/rc.cpp:827 rc.cpp:827
+#: po/rc.cpp:827
+#: rc.cpp:827
 msgid "If the Connection to the simond should be encrypted."
 msgstr "Of de connectie met simond beveiligd zou moeten zijn."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:35
 #. i18n: ectx: label, entry (JuliusdConnectionTimeout), group (Recognition)
-#: po/rc.cpp:830 rc.cpp:830
+#: po/rc.cpp:830
+#: rc.cpp:830
 msgid "The Timeout for the connection to the simond."
 msgstr "De time-out voor de "
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:39
 #. i18n: ectx: label, entry (JuliusdServers), group (Recognition)
-#: po/rc.cpp:833 rc.cpp:833
+#: po/rc.cpp:833
+#: rc.cpp:833
 msgid "The Addresses to all known simond servers in order of preference."
 msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:47
 #. i18n: ectx: label, entry (SynchronizationMode), group (Synchronisation)
-#: po/rc.cpp:836 rc.cpp:836
+#: po/rc.cpp:836
+#: rc.cpp:836
 msgid "if and how we should start the synchronization when the  model changed."
 msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:842 rc.cpp:842
+#: po/rc.cpp:842
+#: rc.cpp:842
 msgid "Synchronization mode:"
 msgstr "Synchronisatie-modus:"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:35
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:845 rc.cpp:845
+#: po/rc.cpp:845
+#: rc.cpp:845
 msgid "Automatic Synchronisation"
 msgstr "Automatische synchronisatie"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:40
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:848 rc.cpp:848
+#: po/rc.cpp:848
+#: rc.cpp:848
 msgid "Ask for Synchronisation"
 msgstr "Synchronisatie aanvragen"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:45
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:851 rc.cpp:851
+#: po/rc.cpp:851
+#: rc.cpp:851
 msgid "Manual Synchronisation only"
 msgstr "Enkel handmatige synchronisatie"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:58
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:854 rc.cpp:854
+#: po/rc.cpp:854
+#: rc.cpp:854
 msgid "Available Speech Models"
 msgstr "Beschikbare spraakmodellen"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:857 rc.cpp:857
+#: po/rc.cpp:857
+#: rc.cpp:857
 msgid "Here you can revert back to old model versions."
 msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadList)
-#: po/rc.cpp:860 rc.cpp:860
+#: po/rc.cpp:860
+#: rc.cpp:860
 msgid "List available Models"
 msgstr "Beschikbare modellen weergeven"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:106
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectModel)
-#: po/rc.cpp:863 rc.cpp:863
+#: po/rc.cpp:863
+#: rc.cpp:863
 msgid "Choose Model"
 msgstr "Model kiezen"
 
 #. i18n: file: src/simonui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:866 rc.cpp:866
-#, fuzzy
+#: po/rc.cpp:866
+#: rc.cpp:866
 msgid "Main actions"
 msgstr "Hoofdacties"
 
 #. i18n: file: src/simonui.rc:17
 #. i18n: ectx: ToolBar (scenario)
-#: po/rc.cpp:869 rc.cpp:869
+#: po/rc.cpp:869
+#: rc.cpp:869
 msgid "Scenario selection"
-msgstr ""
+msgstr "Scenarioselectie"
 
 #. i18n: file: src/simonui.rc:25
 #. i18n: ectx: Menu (scenarios)
-#: po/rc.cpp:872 src/firstrunscenariosconfig.cpp:30 rc.cpp:872
+#: po/rc.cpp:872
+#: src/firstrunscenariosconfig.cpp:30
+#: rc.cpp:872
 msgid "Scenarios"
-msgstr ""
+msgstr "Scenario's"
 
 #. i18n: file: src/simonui.rc:29
 #. i18n: ectx: Menu (simond)
-#: po/rc.cpp:875 rc.cpp:875
+#: po/rc.cpp:875
+#: rc.cpp:875
 msgid "Recognition"
 msgstr "Herkenning"
 
 #. i18n: file: src/simonui.rc:34
 #. i18n: ectx: Menu (modules)
-#: po/rc.cpp:878 rc.cpp:878
+#: po/rc.cpp:878
+#: rc.cpp:878
 msgid "Module"
 msgstr "Module"
 
 #. i18n: file: src/simonui.rc:42
 #. i18n: ectx: Menu (commands)
-#: po/rc.cpp:881 src/simonactionsui/runcommandview.cpp:31
-#: src/simonview.cpp:360 rc.cpp:881
+#: po/rc.cpp:881
+#: src/simonactionsui/runcommandview.cpp:31
+#: src/simonview.cpp:360
+#: rc.cpp:881
 msgid "Commands"
 msgstr "Commando's "
 
 #. i18n: file: src/simonui.rc:51
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:887 rc.cpp:887
+#: po/rc.cpp:887
+#: rc.cpp:887
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1848,46 +2069,40 @@ msgstr "Voorkeuren"
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:23
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:890 po/rc.cpp:893 src/main.cpp:74 src/simonview.cpp:213
-#: rc.cpp:890 rc.cpp:893
+#: po/rc.cpp:890
+#: po/rc.cpp:893
+#: src/main.cpp:74
+#: src/simonview.cpp:213
+#: rc.cpp:890
+#: rc.cpp:893
 msgid "simon"
 msgstr "simon"
 
 #. i18n: file: src/simonview.ui:26
 #. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:896 rc.cpp:896
+#: po/rc.cpp:896
+#: rc.cpp:896
 msgid "simon Main Window"
 msgstr "simon hoofdvenster"
 
-#: po/rc.cpp:897 rc.cpp:897
+#: po/rc.cpp:897
+#: rc.cpp:897
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Namen"
 
-#: po/rc.cpp:898 rc.cpp:898
+#: po/rc.cpp:898
+#: rc.cpp:898
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "E-mails"
 
 #: src/firstrunbasemodelconfig.cpp:28
-#, fuzzy
 msgid "Base models"
-msgstr "Model kiezen"
+msgstr "Basismodellen"
 
 #: src/firstrunbasemodelconfig.cpp:30
-msgid ""
-"<html><head /><body><p>simon compares the microphone input to something "
-"called an \"acoustic model\" describing how your voice sounds like and what "
-"you are saying.</p><p>With simon you can create and manage those models "
-"yourself or you can simply download and use general models that describe the "
-"average speaker of your target language. We call these models \"base models"
-"\".</p><p>If you don't select a base model, you need to train one yourself "
-"by reading trainingstexts aloud (\"Training\").</p><p>If you do select a "
-"base model you don't need any training but the recognition may be less "
-"accurate. <span style=\" font-weight:600;\">When using static base models, "
-"the installation of the HTK is not required.</span></p><p>You can find more "
-"information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:"
-"_Base_models\">base models on our wikis</a>.</p></body></html>"
+msgid "<html><head /><body><p>simon compares the microphone input to something called an \"acoustic model\" describing how your voice sounds like and what you are saying.</p><p>With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models \"base models\".</p><p>If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (\"Training\").</p><p>If you do select a base model you don't need any training but the recognition may be less accurate. <span style=\" font-weight:600;\">When using static base models, the installation of the HTK is not required.</span></p><p>You can find more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></body></html>"
 msgstr ""
 
 #: src/firstrunscenariosconfig.cpp:41
@@ -1899,28 +2114,18 @@ msgstr ""
 #: src/firstrunsimondconfig.cpp:28
 #: src/simonrecognitioncontrol/plugin_exporter.cpp:15
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/firstrunsoundconfig.cpp:33
 msgid "Sound devices"
-msgstr ""
+msgstr "Geluidsapparaten"
 
 #: src/firstrunwizard.cpp:54
-#, fuzzy
 msgid "Welcome to simon"
-msgstr "Welkom"
+msgstr "simon heet u welkom"
 
 #: src/firstrunwizard.cpp:56
-msgid ""
-"<html><head /><body><p>simon is an open source speech recognition solution "
-"enabling you to control your computer with voice commands.</p><p>This "
-"assistant will guide you through some key settings that will help you to get "
-"simon up and running.</p><p><em>Please</em> follow the following steps very "
-"carefully and read the accompanying instructions.</p><p>You can change all "
-"these options later on manually too (see the manual for more infromation). "
-"You can find an option to display the wizard on the next start in the simon "
-"configuration window.</p><p>You can find some beginners instructions on <a "
-"href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"
+msgid "<html><head /><body><p>simon is an open source speech recognition solution enabling you to control your computer with voice commands.</p><p>This assistant will guide you through some key settings that will help you to get simon up and running.</p><p><em>Please</em> follow the following steps very carefully and read the accompanying instructions.</p><p>You can change all these options later on manually too (see the manual for more infromation). You can find an option to display the wizard on the next start in the simon configuration window.</p><p>You can find some beginners instructions on <a href=\"http://simon-listens.org/wiki\">our wiki</a>.</p></body></html>"
 msgstr ""
 
 #: src/firstrunwizard.cpp:97
@@ -1931,67 +2136,41 @@ msgid "Finished"
 msgstr "Klaar"
 
 #: src/firstrunwizard.cpp:98
-msgid ""
-"<html><head /><body><p>You completed the initial setup of simon.</p><p>You "
-"can find more information on simon and helpful guides and instructions in "
-"the simon manual (press F1 in the simon main window to display).</p></body></"
-"html>"
+msgid "<html><head /><body><p>You completed the initial setup of simon.</p><p>You can find more information on simon and helpful guides and instructions in the simon manual (press F1 in the simon main window to display).</p></body></html>"
 msgstr ""
 
 #: src/main.cpp:75
 #, fuzzy
-msgid ""
-"<html><head /><body>\t\t\t\t\t      <h2>Development and Distribution</h2>\t\t"
-"\t\t\t      <p>Developed and distributed by the friendly society <a href="
-"\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a "
-"href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t"
-"\t      <h3>Special Thanks To</h3> \t\t\t\t\t      <ul><li>Franz "
-"Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael "
-"Stieger<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
-msgstr ""
-"<html><head /><body>\t\t\t\t\t      <h2>Ontwikkeling en verspreiding</h2>\t\t"
-"\t\t\t      <p>Ontwikkeld en verspreid door de vriendelijke menigte <a href="
-"\"http://simon-listens.org\">simon listens e.V.</a> in samenwerking met <a "
-"href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t"
-"\t      <h3>Een dankwoord aan</h3> \t\t\t\t\t      <ul><li>Franz "
-"Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger "
-"Michael<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
+msgid "<html><head /><body>\t\t\t\t\t      <h2>Development and Distribution</h2>\t\t\t\t\t      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t\t      <h3>Special Thanks To</h3> \t\t\t\t\t      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael Stieger<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
+msgstr "<html><head /><body>\t\t\t\t\t      <h2>Ontwikkeling en verspreiding</h2>\t\t\t\t\t      <p>Ontwikkeld en verspreid door de vriendelijke menigte <a href=\"http://simon-listens.org\">simon listens e.V.</a> in samenwerking met <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t\t      <h3>Een dankwoord aan</h3> \t\t\t\t\t      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
 
 #: src/main.cpp:82
-msgid ""
-"Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina "
-"Sturmann, Martin Gigerl"
-msgstr ""
-"Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina "
-"Sturmann, Martin Gigerl"
+msgid "Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
+msgstr "Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
 
 #: src/simonactionsui/addactiondialog.cpp:35
-#, fuzzy
 msgid "Add action"
-msgstr "Acties"
+msgstr "Actie toevoegen"
 
 #: src/simonactionsui/manageactionsdialog.cpp:40
-#, fuzzy
 msgid "Manage actions"
-msgstr "Hoofdacties"
+msgstr "Acties beheren"
 
 #: src/simonactionsui/manageactionsdialog.cpp:73
 msgid "Lists"
-msgstr ""
+msgstr "Lijsten"
 
 #: src/simonactionsui/manageactionsdialog.cpp:168
 #: src/simonactionsui/manageactionsdialog.cpp:185
 #: src/simonactionsui/manageactionsdialog.cpp:196
-#, fuzzy
 msgid "Please select an action"
-msgstr "Selecteer eerst een woord"
+msgstr "Selecteer een actie"
 
 #: src/simonactionsui/manageactionsdialog.cpp:172
 msgid ""
 "Do you really want to remove this action from this scenario?\n"
 "\n"
-"WARNING: All associated commands and configuration will be irreversibly "
-"deleted!"
+"WARNING: All associated commands and configuration will be irreversibly deleted!"
 msgstr ""
 
 #: src/simonactionsui/newcommand.cpp:106
@@ -2015,7 +2194,7 @@ msgstr "Directe uitvoering van commando's van simon"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:137
 msgid "%1: Voice commands"
-msgstr ""
+msgstr "%1: Spraakcommando's"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:284
 msgid "Are you sure that you want to irreversibly remove the command \"%1\"?"
@@ -2034,7 +2213,6 @@ msgid "User authenticated"
 msgstr ""
 
 #: src/simonappcore/simoncontrol.cpp:103
-#, fuzzy
 msgid ""
 "Connection error: \n"
 "%1"
@@ -2069,7 +2247,6 @@ msgstr ""
 "%1"
 
 #: src/simonappcore/simoncontrol.cpp:124
-#, fuzzy
 msgid ""
 "The recognition reported the following error: \n"
 "%1"
@@ -2090,16 +2267,14 @@ msgid "simond: %1"
 msgstr "simond: %1"
 
 #: src/simonappcore/simoncontrol.cpp:140
-#, fuzzy
 msgid "Model synchronisation %1"
-msgstr "Model-synchronisatie %1"
+msgstr "Modelsynchronisatie %1"
 
 #: src/simonappcore/simoncontrol.cpp:145
 msgid "Recognition: %1"
 msgstr "Herkenning: %1"
 
 #: src/simonappcore/simoncontrol.cpp:150
-#, fuzzy
 msgid "Model management: %1"
 msgstr "Modelbeheer: %1"
 
@@ -2138,7 +2313,7 @@ msgstr "Een nieuw woord toevoegen"
 
 #: src/simonmodelmanagementui/AddWord/addwordintropage.cpp:39
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:44
 msgid "Define Word"
@@ -2149,9 +2324,8 @@ msgid "Words are not allowed to contain spaces"
 msgstr ""
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:80
-#, fuzzy
 msgid "The vocabulary already contains this word."
-msgstr "De woordenlijst bevat dit woord al"
+msgstr "De woordenlijst bevat dit woord al."
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:92
 #: src/simonmodelmanagementui/editworddialog.cpp:83
@@ -2172,7 +2346,7 @@ msgstr ""
 #: src/simonmodelmanagementui/editworddialog.cpp:60
 #: src/simonmodelmanagementui/vocabularyviewprivate.cpp:209
 msgid "Unused"
-msgstr ""
+msgstr "Ongebruikt"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:260
 msgid ""
@@ -2181,7 +2355,8 @@ msgid ""
 "Only the first 1000 are shown."
 msgstr ""
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79 src/simonview.cpp:344
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79
+#: src/simonview.cpp:344
 msgid "Add Word"
 msgstr "Woord toevoegen"
 
@@ -2198,9 +2373,7 @@ msgid "[INF] Added Word: "
 msgstr "[INF] Toegevoegd woord: "
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:132
-msgid ""
-"Do you want to add the words that have been completely described up until "
-"now?"
+msgid "Do you want to add the words that have been completely described up until now?"
 msgstr ""
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:186
@@ -2236,7 +2409,8 @@ msgstr ""
 msgid "Drag the Word to the List on the right to train it"
 msgstr "Sleep het woord naar de lijst aan de rechterkant om te trainen"
 
-#: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:376
+#: src/simonmodelmanagementui/grammarview.cpp:26
+#: src/simonview.cpp:376
 msgid "Grammar"
 msgstr "Grammatica"
 
@@ -2246,7 +2420,7 @@ msgstr "Bekijk en verander de grammatica"
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:85
 msgid "Add structure"
-msgstr ""
+msgstr "Structuur toevoegen"
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:85
 msgid ""
@@ -2256,20 +2430,16 @@ msgid ""
 msgstr ""
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:89
-#, fuzzy
 msgid "Couldn't add structure to the grammar."
-msgstr "Kon %1 niet aan aanvraag-tabel toevoegen"
+msgstr "Kon structuur niet aan grammatica toevoegen."
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:97
-#, fuzzy
 msgid "Do you really want to delete the selected grammar structure?"
-msgstr ""
-"Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
+msgstr "Weet u zeker dat u de geselecteerde grammatica wilt verwijderen?"
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:99
-#, fuzzy
 msgid "Couldn't delete structure."
-msgstr "Kon server-model niet bijwerken"
+msgstr "Kan structuur niet verwijderen"
 
 #: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.cpp:51
 msgid "Download HADIFIX BOMP"
@@ -2296,7 +2466,7 @@ msgstr "HADIFIX-woordenboek importeren"
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:151
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:70
 msgid "[INF] Opening Lexicon"
@@ -2342,34 +2512,28 @@ msgstr "Invoer-bestand verwijderen"
 msgid ""
 "This assistant will help you to import a new dictionary.\n"
 "\n"
-"A dictionary contains information about the known words like how they are "
-"written and how they are pronounced.\n"
+"A dictionary contains information about the known words like how they are written and how they are pronounced.\n"
 "\n"
-"The dictionary is an essential core-component of your language model. Please "
-"ensure that every dictionary that you import is of high quality as it will "
-"massivly impact your recognition performance.\n"
+"The dictionary is an essential core-component of your language model. Please ensure that every dictionary that you import is of high quality as it will massivly impact your recognition performance.\n"
 "\n"
-"We suggest that you use the Voxforge English Dictionary which is a HTK "
-"compatible lexicon and of very high quality."
+"We suggest that you use the Voxforge English Dictionary which is a HTK compatible lexicon and of very high quality."
 msgstr ""
 
 #: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:48
 msgid "Target:"
-msgstr ""
+msgstr "Doel:"
 
 #: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:51
-#, fuzzy
 msgid "Shadow Dictionary"
-msgstr "Woordenboek importeren"
+msgstr "Inactief woordenboek"
 
 #: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:52
-#, fuzzy
 msgid "Active Dictionary"
-msgstr "Woordenboek importeren"
+msgstr "Actief woordenboek"
 
 #: src/simonmodelmanagementui/ImportDict/importdictjuliuspage.cpp:30
 msgid "Import Julius Vocabulary"
-msgstr ""
+msgstr "Julius woordenboek importeren"
 
 #: src/simonmodelmanagementui/ImportDict/importdictplspage.cpp:36
 msgid "Import PLS Dictionary"
@@ -2397,16 +2561,17 @@ msgid ""
 "\n"
 "Thank you for improving simon."
 msgstr ""
+"The dictionary has been imported successfully.\n"
+"\n"
+"Thank you for improving simon."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:48
 msgid "Importing dictionary..."
 msgstr "Woordenboek importeren..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:51
-msgid ""
-"Importing the dictionary... Depending on its type and size this can take a "
-"while. Please be patient...\n"
-msgstr ""
+msgid "Importing the dictionary... Depending on its type and size this can take a while. Please be patient...\n"
+msgstr "Woordenboek importeren... Afhankelijk van type en grootte kan dit enige tijd in beslag nemen. Even geduld a.u.b...\n"
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:116
 msgid "Importing HTK-Dictionary %1..."
@@ -2425,9 +2590,8 @@ msgid "Importing SPHINX-dictionary %1..."
 msgstr "SPHINX-woordenboek %1 importeren..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:171
-#, fuzzy
 msgid "Importing Julius vocabulary %1..."
-msgstr "HTK-woordenboek %1 importeren..."
+msgstr "Julius-woordenlijst importeren %1..."
 
 #: src/simonmodelmanagementui/ImportDict/importlexiconpage.cpp:30
 msgid "Import Lexicon"
@@ -2455,9 +2619,8 @@ msgid "Processing..."
 msgstr "Verwerken..."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarselectinputpage.cpp:29
-#, fuzzy
 msgid "Input"
-msgstr "Invoer-bestanden"
+msgstr "Invoer"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:31
 msgid "Import Sentence Structures"
@@ -2469,16 +2632,11 @@ msgstr "Welkom bij het importeren van grammatica"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:49
 msgid ""
-"This wizard will allow you to select textfiles or input text from which "
-"simon will then create your personal grammar profile.\n"
+"This wizard will allow you to select textfiles or input text from which simon will then create your personal grammar profile.\n"
 "\n"
-"To do this each of the files / the input text will be read by a grammar "
-"parser which will look up every single word in your dictionary-corpus. If "
-"the word is found its terminal will be added to the sentence. This way the "
-"parsers will find valid grammatical sentences on terminal level.\n"
+"To do this each of the files / the input text will be read by a grammar parser which will look up every single word in your dictionary-corpus. If the word is found its terminal will be added to the sentence. This way the parsers will find valid grammatical sentences on terminal level.\n"
 "\n"
-"This process requires a large shadow-lexicon containing terminal information "
-"or targeted input material."
+"This process requires a large shadow-lexicon containing terminal information or targeted input material."
 msgstr ""
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:84
@@ -2501,7 +2659,7 @@ msgstr "Analyseren..."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.cpp:87
 msgid "Could not open temporary file."
-msgstr ""
+msgstr "Kan tijdelijk bestand niet openen."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:45
 #, fuzzy
@@ -2523,18 +2681,16 @@ msgid "Collecting files..."
 msgstr "Bestanden verzamelen..."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:95
-#, fuzzy
 msgid "Creating transcriptions..."
-msgstr "Automatische transcripties aanmaken..."
+msgstr "Transcripties aanmaken..."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:233
 msgid "Couldn't process soundfiles"
 msgstr "Geluidsbestanden konden niet verwerkt worden"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:44
-#, fuzzy
 msgid "Importing Training Samples"
-msgstr "Trainingsvoorbeelden importeren uit map"
+msgstr "Trainingsvoorbeelden importeren"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:84
 msgid "Importing of the Folder completed"
@@ -2552,27 +2708,24 @@ msgstr ""
 "Bedankt voor het verbeteren van simon."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryintropage.cpp:37
-#, fuzzy
 msgid "Import Training Samples"
-msgstr "Trainingsvoorbeelden uit map importeren"
+msgstr "Trainingsvoorbeelden importeren"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryworkingpage.cpp:41
 msgid "Processing folder..."
 msgstr "Map verwerken"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextaddpage.cpp:35
-#, fuzzy
 msgid "Create Text"
-msgstr "Tekst importeren"
+msgstr "Tekst aanmaken"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:35
 msgid "Import Textfile"
 msgstr "Tekstbestand importeren"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:60
-#, fuzzy
 msgid "Add Trainingstext"
-msgstr "Aan training toevoegen"
+msgstr "Trainingstekst toevoegen"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:93
 msgid "Import a new Trainingstext"
@@ -2580,11 +2733,13 @@ msgstr "Een nieuwe trainingstekst importeren"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:96
 msgid ""
-"Using this assistant you can import new Trainingstexts from the Internet or "
-"local files.\n"
+"Using this assistant you can import new Trainingstexts from the Internet or local files.\n"
 "\n"
 "That way the training of simon will never get boring!"
 msgstr ""
+"Met deze assistent kunt u nieuwe trainingsteksent van het internet of lokaal importeren.\n"
+"\n"
+"Zo wordt simon trainen nooit saai!"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:159
 msgid "Text added"
@@ -2637,8 +2792,7 @@ msgstr "Welkom bij het samenvoegen van terminals"
 msgid ""
 "This assistant will guide you through the process of merging two Terminals.\n"
 "\n"
-"Using this procedure you can keep your grammar structures to a needed minmum "
-"and improve the readability of both your grammar and your wordlist."
+"Using this procedure you can keep your grammar structures to a needed minmum and improve the readability of both your grammar and your wordlist."
 msgstr ""
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:78
@@ -2688,13 +2842,7 @@ msgid ""
 msgstr ""
 
 #: src/simonmodelmanagementui/modelsettings.cpp:62
-msgid ""
-"<html><head /><body><p>With simon you can create and manage those models "
-"yourself or you can simply download and use general models that describe the "
-"average speaker of your target language. We call these models \"basemodels\"."
-"</p><p>You can find basemodels and more information on <a href=\"http://www."
-"simon-listens.org/wiki/index.php/English:_Base_models\">our wiki</a>.</p></"
-"body></html>"
+msgid "<html><head /><body><p>With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models \"basemodels\".</p><p>You can find basemodels and more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">our wiki</a>.</p></body></html>"
 msgstr ""
 
 #: src/simonmodelmanagementui/modelsettings.cpp:109
@@ -2721,9 +2869,8 @@ msgid "Couldn't import macros."
 msgstr "Kon synchronisatie niet onderbreken"
 
 #: src/simonmodelmanagementui/modelsettings.cpp:147
-#, fuzzy
 msgid "Couldn't import stats."
-msgstr "Kon synchronisatie niet onderbreken"
+msgstr "Kan statistieken niet importeren"
 
 #: src/simonmodelmanagementui/modelsettings.cpp:181
 #, fuzzy
@@ -2779,8 +2926,7 @@ msgstr "Acoustisch model trainen"
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:89
 #, fuzzy
 msgid "Do you really want to delete the selected text?"
-msgstr ""
-"Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
+msgstr "Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:91
 #, fuzzy
@@ -2791,15 +2937,13 @@ msgid ""
 msgstr "Kon trainingsteks niet verwijderen. Heb je toestemming?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:118
-#, fuzzy
 msgid "Please select a text first"
-msgstr "Selecteer eerst een woord"
+msgstr "Selecteer eerst een tekst"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:138
 #, fuzzy
 msgid "Do you really want to clear all the collected samples?"
-msgstr ""
-"Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
+msgstr "Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:140
 msgid ""
@@ -2809,9 +2953,8 @@ msgid ""
 msgstr ""
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:143
-#, fuzzy
 msgid "Couldn't clear trainingdata"
-msgstr "Kon training niet starten"
+msgstr "Kon trainingsdata niet verwijderen"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:137
 msgid "Special Training"
@@ -2819,14 +2962,12 @@ msgstr "Speciale training"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:150
 msgid ""
-"Your vocabulary does not define all words used in this text. These words are "
-"missing:\n"
+"Your vocabulary does not define all words used in this text. These words are missing:\n"
 "%1\n"
 "\n"
 "Do you want to add them now?"
 msgstr ""
-"Je woordenboek definieerd niet al de woorden die in gebruik zijn in deze "
-"tekst. Deze woorden missen:\n"
+"Je woordenboek definieerd niet al de woorden die in gebruik zijn in deze tekst. Deze woorden missen:\n"
 "%1\n"
 "\n"
 "Nu toevoegen?"
@@ -2836,12 +2977,8 @@ msgid "Training completed"
 msgstr "Training voltooid"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:197
-msgid ""
-"The training has now been completed. The changes are being applied in the "
-"background."
-msgstr ""
-"De training is nu voltooid. De veranderingen worden in de achtergrond "
-"toegepast."
+msgid "The training has now been completed. The changes are being applied in the background."
+msgstr "De training is nu voltooid. De veranderingen worden in de achtergrond toegepast."
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:222
 msgid ""
@@ -2851,15 +2988,12 @@ msgid ""
 msgstr ""
 
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:40
-msgid ""
-"This wizard will help you to improve the recognition rate based on "
-"recordings of your voice."
+msgid "This wizard will help you to improve the recognition rate based on recordings of your voice."
 msgstr ""
 
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:43
-#, fuzzy
 msgid "Power Training"
-msgstr "Trainen"
+msgstr "Krachttrainen"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:42
 msgid "Page %1 of %2"
@@ -2869,8 +3003,7 @@ msgstr "Pagina %1 van %2"
 msgid ""
 "Please record the Text below.\n"
 "\n"
-"Tip: Leave about one to two seconds \"silence\" before and after you read "
-"the text for best results!\n"
+"Tip: Leave about one to two seconds \"silence\" before and after you read the text for best results!\n"
 msgstr ""
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:105
@@ -2884,23 +3017,20 @@ msgstr ""
 "Dit geeft interne datacorruptie aan."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:125
-#, fuzzy
 msgid "Couldn't remove samples \"%1\"."
-msgstr "Kon voorbeeld niet verwijderen"
+msgstr "Kan voorbeelden niet verwijderen \"%1\"."
 
 #: src/simonmodelmanagementui/vocabularyview.cpp:33
 msgid "Wordlist"
 msgstr "Woordenlijst"
 
 #: src/simonmodelmanagementui/vocabularyview.cpp:35
-#, fuzzy
 msgid "View and modify the vocabulary."
-msgstr "Bekijk en verander de grammatica"
+msgstr "Bekijk en verander de woordenlijst."
 
 #: src/simonmodelmanagementui/vocabularyviewprivate.cpp:136
-#, fuzzy
 msgid "Couldn't add words to the list"
-msgstr "Kon %1 niet aan aanvraag-tabel toevoegen"
+msgstr "Kon %1 niet aan aanvraagtabel toevoegen-"
 
 #: src/simonmodelmanagementui/vocabularyviewprivate.cpp:155
 msgid "Please select a word first"
@@ -2928,27 +3058,21 @@ msgstr "Selecteer eerst een woord"
 
 #: src/simonmodelmanagementui/vocabularyviewprivate.cpp:315
 msgid ""
-"Please select a few words for the special training by dragging them from the "
-"list on your left to the list above.\n"
+"Please select a few words for the special training by dragging them from the list on your left to the list above.\n"
 "\n"
-"If you just want to train your model using generic texts use the \"Training"
-"\" option in the Toolbar."
+"If you just want to train your model using generic texts use the \"Training\" option in the Toolbar."
 msgstr ""
-"Selecteer een paar woorden voor het speciaal trainen door hen te slepen van "
-"de lijst aan de linker kant naar de lijst boven.\n"
+"Selecteer een paar woorden voor het speciaal trainen door hen te slepen van de lijst aan de linker kant naar de lijst boven.\n"
 "\n"
-"Indien trainen van model door algemene teksten gewenst is, gebruik dan de "
-"\"Training\"-optie in the werkbalk."
+"Indien trainen van model door algemene teksten gewenst is, gebruik dan de \"Training\"-optie in the werkbalk."
 
 #: src/simonrecognitioncontrol/plugin_exporter.cpp:16
-#, fuzzy
 msgid "Synchronisation"
-msgstr "Modelsynchronisatie"
+msgstr "Synchronisatie"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:264
 msgid ""
-"The certificate of the remote host is self-signed and thus not "
-"trustworthy. \n"
+"The certificate of the remote host is self-signed and thus not trustworthy. \n"
 "\n"
 "Do you still want to continue?"
 msgstr ""
@@ -2988,7 +3112,6 @@ msgstr ""
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:814
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:936
-#, fuzzy
 msgid "Model synchronisation"
 msgstr "Modelsynchronisatie"
 
@@ -3020,8 +3143,7 @@ msgstr "Toegang afgewezen."
 msgid ""
 "The synchronization is already running.\n"
 "\n"
-"If you are sure that this is a mistake, please disconnect from simond and re-"
-"connect."
+"If you are sure that this is a mistake, please disconnect from simond and re-connect."
 msgstr ""
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:929
@@ -3030,24 +3152,21 @@ msgstr "Kon synchronisatie niet onderbreken"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:936
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
-#, fuzzy
 msgid "Synchronizing acitve model"
 msgstr "Actief model synchroniseren"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:998
-#, fuzzy
 msgid "No speech model available: Recognition deactivated"
 msgstr "Geen spraakmodel beschikbaar: herkenning gedeactiveerd"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1010
 msgid "The server couldn't store the the active model."
-msgstr ""
+msgstr "De server kan actieve model niet opslaan."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1081
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1101
-#, fuzzy
 msgid "Synchronizing scenarios"
-msgstr "Woordenlijst synchroniseren"
+msgstr "Scenario's synchroniseren"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1113
 #, fuzzy
@@ -3107,9 +3226,8 @@ msgid "Couldn't complete Synchronization"
 msgstr "Synchronisatie incompleet"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1463
-#, fuzzy
 msgid "Couldn't restore old model"
-msgstr "Kon oude model niet herstellen"
+msgstr "Kan oud model niet herstellen"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1498
 msgid "Model: %1"
@@ -3126,56 +3244,48 @@ msgstr "Protocol:"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1762
 msgid ""
-"The sample \"%1\" could not be found neither on the local computer nor the "
-"server.\n"
+"The sample \"%1\" could not be found neither on the local computer nor the server.\n"
 "\n"
 "Do you want to remove it from the Trainings-Database?"
 msgstr ""
-"Het voorbeeld \"%1\" kon niet worden gevonden op de locale computer en ook "
-"niet op de server.\\nVan de trainings-database verwijderen?"
+"Het voorbeeld \"%1\" kon niet worden gevonden op de locale computer en ook niet op de server.\\n"
+"Van de trainings-database verwijderen?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1778
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1788
-#, fuzzy
 msgid ""
-"The word \"%1\" is used in your training-samples but is not contained in "
-"your wordlist.\n"
+"The word \"%1\" is used in your training-samples but is not contained in your wordlist.\n"
 "\n"
 "What do you want to do?"
 msgstr ""
-"Het woord \"%1\" is in gebruik bij je trainings-voorbeelding maar niet in de "
-"woordenlijst. \n"
+"Het woord \"%1\" is in gebruik bij trainings-stukjes maar niet in de woordenlijst. \n"
 "\n"
-"Woord nu toevoegen?"
+" Wat wilt u nu doen?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1790
 msgid "Remove samples containing the word"
-msgstr ""
+msgstr "Verwijder de stukjes met het woord"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1791
-#, fuzzy
 msgid "Add the word"
 msgstr "Woord toevoegen"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1801
-#, fuzzy
 msgid "Failed to remove word \"%1\" from the trainingscorpus"
-msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
+msgstr "Kan het woord \"%1\" niet uit de trainingscorpus verwijderen"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1815
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
-"Please add a word that uses this terminal or remove the structure(s) "
-"containing the terminal from your grammar."
+"Please add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar."
 msgstr ""
 "Je grammatica gebruikt de ongedefineerde terminal \"%1\".\n"
 "\n"
-"Voeg het woord toe dat deze terminal gebruikt of verwijder de structu(u)r"
-"(en) met de terminal uit je grammatica."
+"Voeg het woord toe dat deze terminal gebruikt of verwijder de structu(u)r(en) met de terminal uit je grammatica."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1820
 msgid ""
@@ -3188,7 +3298,6 @@ msgstr ""
 "Train tenminste een woord dat het gebruikt."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1825
-#, fuzzy
 msgid "Compiling model"
 msgstr "Model compileren"
 
@@ -3219,8 +3328,7 @@ msgstr "Selecteer een model uit de lijst"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:151
 msgid "Do you really want to revert all changes made since this Model?"
-msgstr ""
-"Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
+msgstr "Wilt u alle veranderingen die gemaakt zijn aan dit model ongedaan maken?"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:156
 msgid "This model has no valid date."
@@ -3245,19 +3353,19 @@ msgid "[INF] Displaying Splashscreen..."
 msgstr "[INF] Splashscreen weergeven..."
 
 #: src/simonview.cpp:98
-#, fuzzy
 msgid "Loading core..."
-msgstr "Programma laden..."
+msgstr "Basis laden..."
 
 #: src/simonview.cpp:109
 msgid ""
-"You didn't complete the initial configuration. simon will continue with "
-"default values.\n"
+"You didn't complete the initial configuration. simon will continue with default values.\n"
 "\n"
 "Do you want simon to display the wizard again on the next start?"
 msgstr ""
 
-#: src/simonview.cpp:116 src/simonview.cpp:633 src/simonview.cpp:703
+#: src/simonview.cpp:116
+#: src/simonview.cpp:633
+#: src/simonview.cpp:703
 msgid "simon - Deactivated"
 msgstr "simon - Gedeactiveerd"
 
@@ -3266,95 +3374,88 @@ msgid "Not connected"
 msgstr "Niet verbonden"
 
 #: src/simonview.cpp:135
-#, fuzzy
 msgid "Loading training..."
-msgstr "\"Training\" laden..."
+msgstr "Training laden..."
 
 #: src/simonview.cpp:139
-#, fuzzy
 msgid "Loading vocabulary..."
-msgstr "\"Grammatica\" laden..."
+msgstr "Woordenlijst laden..."
 
 #: src/simonview.cpp:143
-#, fuzzy
 msgid "Loading grammar..."
-msgstr "\"Grammatica\" laden..."
+msgstr "Grammatica aden..."
 
 #: src/simonview.cpp:147
-#, fuzzy
 msgid "Loading run..."
-msgstr "\"Uitvoeren\" laden"
+msgstr "Uitvoeren laden"
 
 #: src/simonview.cpp:153
-#, fuzzy
 msgid "Loading interface..."
 msgstr "Interface laden..."
 
 #: src/simonview.cpp:204
 msgctxt "%1: simon version; %2: homepage URL; --- end of comment ---"
-msgid ""
-"<h2 style='margin-top: 0px;'>Welcome to simon %1</h2><p>simon is an open-"
-"source speech recognition program and replaces the mouse and keyboard. It is "
-"designed to be as flexible as possible and allows customization for any "
-"application where speech recognition is needed.</p>"
+msgid "<h2 style='margin-top: 0px;'>Welcome to simon %1</h2><p>simon is an open-source speech recognition program and replaces the mouse and keyboard. It is designed to be as flexible as possible and allows customization for any application where speech recognition is needed.</p>"
 msgstr ""
 
 #: src/simonview.cpp:214
 msgid "simon listens."
-msgstr ""
+msgstr "simon luistert."
 
 #: src/simonview.cpp:215
 msgid "Open Source Speech Recognition Suite"
-msgstr ""
+msgstr "Open-source spraakherkenningsuite"
 
 #: src/simonview.cpp:238
 msgid "Community forums"
-msgstr ""
+msgstr "Forum"
 
 #: src/simonview.cpp:238
 msgid "Get in touch with the simon community"
-msgstr ""
+msgstr "Maak kennis met gemeenschap van simon"
 
 #: src/simonview.cpp:243
 msgid "Mail support"
-msgstr ""
+msgstr "E-mailondersteuning"
 
 #: src/simonview.cpp:243
 msgid "Get direct support from the developers"
-msgstr ""
+msgstr "Krijg directe hulp van ontwikkelaars"
 
 #: src/simonview.cpp:248
-#, fuzzy
 msgid "simon WIKI"
-msgstr "simon"
+msgstr "Wiki simon"
 
 #: src/simonview.cpp:248
 msgid "The simon knowledge base"
-msgstr ""
+msgstr "simon "
 
 #: src/simonview.cpp:253
 msgid "simon Homepage"
-msgstr ""
+msgstr "Startpagina simon"
 
 #: src/simonview.cpp:253
 msgid "Official simon homepage"
-msgstr ""
+msgstr "Officiële startpagina simon"
 
 #: src/simonview.cpp:267
 msgid "Welcome"
 msgstr "Welkom"
 
 #: src/simonview.cpp:302
-#, fuzzy
 msgid "Couldn't retrieve Scenario \"%1\""
-msgstr "Kon voorbeeld niet verwijderen"
+msgstr "Kan scenario niet ontvangen"
 
-#: src/simonview.cpp:311 src/simonview.cpp:335 src/simonview.cpp:614
+#: src/simonview.cpp:311
+#: src/simonview.cpp:335
+#: src/simonview.cpp:614
 #: src/simonview.cpp:634
 msgid "Connect"
 msgstr "Verbinden"
 
-#: src/simonview.cpp:320 src/simonview.cpp:628 src/simonview.cpp:679
+#: src/simonview.cpp:320
+#: src/simonview.cpp:628
+#: src/simonview.cpp:679
 #: src/simonview.cpp:693
 msgid "Activate"
 msgstr "Activeren"
@@ -3363,24 +3464,22 @@ msgstr "Activeren"
 msgid "Disconnect"
 msgstr "Verbinding verbreken"
 
-#: src/simonview.cpp:385 src/simonview.cpp:398
+#: src/simonview.cpp:385
+#: src/simonview.cpp:398
 msgid "Synchronize"
 msgstr "Synchroniseren"
 
 #: src/simonview.cpp:404
 msgid "Manage scenarios"
-msgstr ""
+msgstr "Scenario's beheren"
 
 #: src/simonview.cpp:590
 msgid ""
-"Couldn't start recognition because the system reports that the recognition "
-"is not ready.\n"
+"Couldn't start recognition because the system reports that the recognition is not ready.\n"
 "\n"
-"Please check if you have defined a vocabulary, an appropriate grammar and "
-"recorded a few trainings samples.\n"
+"Please check if you have defined a vocabulary, an appropriate grammar and recorded a few trainings samples.\n"
 "\n"
-"The system will then, upon synchronization, generate the model which will be "
-"used for the recognition."
+"The system will then, upon synchronization, generate the model which will be used for the recognition."
 msgstr ""
 
 #: src/simonview.cpp:611
@@ -3397,7 +3496,7 @@ msgstr "Verbinden..."
 
 #: src/simonview.cpp:662
 msgid "Connected: Deactivating..."
-msgstr "Verbonden; deactiveren..."
+msgstr "Verbonden; Deactiveren..."
 
 #: src/simonview.cpp:664
 msgid "Deactivating..."
@@ -3413,9 +3512,10 @@ msgstr "simon is gedeactiveerd"
 
 #: src/simonview.cpp:709
 msgid "Connected; Activating..."
-msgstr "Verbonden; Activeren"
+msgstr "Verbonden; Activeren..."
 
-#: src/simonview.cpp:711 src/simonview.cpp:714
+#: src/simonview.cpp:711
+#: src/simonview.cpp:714
 msgid "Activating..."
 msgstr "Activeren"
 
@@ -3423,7 +3523,8 @@ msgstr "Activeren"
 msgid "Connected and Activated"
 msgstr "Verbonden en geactiveerd"
 
-#: src/simonview.cpp:723 src/simonview.cpp:735
+#: src/simonview.cpp:723
+#: src/simonview.cpp:735
 msgid "Activated"
 msgstr "Geactiveerd"
 
@@ -3433,14 +3534,11 @@ msgstr "simon is geactiveerd"
 
 #: src/simonview.cpp:760
 msgid ""
-"If you quit the application the connection to the server will be closed and "
-"you will no longer be able to dictate texts or use command.\n"
+"If you quit the application the connection to the server will be closed and you will no longer be able to dictate texts or use command.\n"
 "\n"
 "Do you want to quit?"
 msgstr ""
-"Als het programma wordt afgesloten en de verbinding met de server wordt "
-"afgesloten is het niet meer mogelijk om teksten te dicteren of commando's te "
-"gebruiken.\n"
+"Als het programma wordt afgesloten en de verbinding met de server wordt afgesloten is het niet meer mogelijk om teksten te dicteren of commando's te gebruiken.\n"
 "\n"
 "Afsluiten?"
 
@@ -3450,7 +3548,6 @@ msgstr "[INF] Afsluiten..."
 
 #~ msgid "SAMPA:"
 #~ msgstr "SAMPA:"
-
 #~ msgid "Start"
 #~ msgstr "Starten"
 
@@ -3482,10 +3579,8 @@ msgstr "[INF] Afsluiten..."
 #~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
 #~ "color:#0000ff;\">Directe e-mail-ondersteuning</span></a> </p></body></"
 #~ "html>"
-
 #~ msgid "Contact"
 #~ msgstr "Contact"
-
 #~ msgid ""
 #~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 #~ "REC-html40/strict.dtd\">\n"
@@ -3538,10 +3633,8 @@ msgstr "[INF] Afsluiten..."
 #~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
 #~ "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
 #~ "underline; color:#0000ff;\">Forums</span></a></p></body></html>"
-
 #~ msgid "Documentation"
 #~ msgstr "Documentatie"
-
 #~ msgid ""
 #~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 #~ "REC-html40/strict.dtd\">\n"
@@ -3566,7 +3659,6 @@ msgstr "[INF] Afsluiten..."
 #~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
 #~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
 #~ "#0000ff;\">Officiële startpagina</span></a> </p></body></html>"
-
 #~ msgid ""
 #~ "<html>\n"
 #~ "<head />\n"
@@ -3583,34 +3675,24 @@ msgstr "[INF] Afsluiten..."
 #~ "wiki</a>\n"
 #~ "</body>\n"
 #~ "</html>"
-
 #~ msgid "Kommando"
 #~ msgstr "Commando"
-
 #~ msgid "Loading \"Wordlist\"..."
 #~ msgstr "\"Woordenlijst\" laden..."
-
 #~ msgid "Wortlist"
 #~ msgstr "Woordenlijst"
-
 #~ msgid "Run"
 #~ msgstr "Uitvoeren"
-
 #~ msgid "Import Activities"
 #~ msgstr "Activiteiten importeren"
-
 #~ msgid "Also show non-perfect matches"
 #~ msgstr "Ook niet perfecte overeenkomsten weergeven"
-
 #~ msgid "Import Texts"
 #~ msgstr "Teksten importeren"
-
 #~ msgid "Download text from online repository"
 #~ msgstr "Tekst downloaden van online bron"
-
 #~ msgid "Textdownload-URL:"
 #~ msgstr "Tekstdownload-link"
-
 #~ msgid ""
 #~ "The word will stay saved, but it will be moved to the shadow lexicon and "
 #~ "thus no longer considered for recognition."
@@ -3618,28 +3700,20 @@ msgstr "[INF] Afsluiten..."
 #~ "Het woord zal opgeslagen blijven, maar het zal naar het schaduw-"
 #~ "woordenboek worden verplaats en dus niet meer worden gebruikt voor "
 #~ "herkenning."
-
 #~ msgid "Completely remove the word"
 #~ msgstr "Woord volledig verwijderen"
-
 #~ msgid "Name"
 #~ msgstr "Naam"
-
 #~ msgid "Pages"
 #~ msgstr "Pagina's"
-
 #~ msgid "Include unused Words from the Shadow Lexicon"
 #~ msgstr "Ongebruikte woorden uit schaduw-woordenboek toevoegen"
-
 #~ msgid "Remove Selected Word"
 #~ msgstr "Geselecteerd woord verwijderen"
-
 #~ msgid "Import from the Internet"
 #~ msgstr "Van internet importeren"
-
 #~ msgid "[INF] Retrieving List of available Texts"
 #~ msgstr "[INF] Ontvangen van lijst van beschikbare teksten"
-
 #~ msgid ""
 #~ "Couldn't open List of available Texts.\n"
 #~ "\n"
@@ -3648,16 +3722,12 @@ msgstr "[INF] Afsluiten..."
 #~ "Kon lijst niet openen van beschikbare teksen.\n"
 #~ "\n"
 #~ "Controleer of de URL is goed ingesteld."
-
 #~ msgid "Importing Trainingstext"
 #~ msgstr "Trainingstekst importeren"
-
 #~ msgid "Adapting Grammar"
 #~ msgstr "Grammatica opnemen"
-
 #~ msgid "Please select a text from the list."
 #~ msgstr "Selecteer eerst een tekst uit de lijst"
-
 #~ msgid ""
 #~ "If you confirm this dialog, the selected Text will be completely removed "
 #~ "from your hard drive.\n"
@@ -3668,59 +3738,44 @@ msgstr "[INF] Afsluiten..."
 #~ "verwijderd van de harde schijf.\n"
 #~ "\n"
 #~ "Verdergaan?"
-
 #~ msgid "Preview: %1..."
 #~ msgstr "Voorbeeld: %1..."
-
 #~ msgid "Empty"
 #~ msgstr "Leeg"
 
 #, fuzzy
 #~ msgid "Not yet supported"
 #~ msgstr "Niet ondersteunde versie"
-
 #~ msgid "View and modify the wordlist."
 #~ msgstr "Bekijk en verander de woordenlijst"
-
 #~ msgid "The word could not be completely removed."
 #~ msgstr "Het woord kon niet compleet verwijderd worden"
-
 #~ msgid "Synchronization already running"
 #~ msgstr "Synchronisatie al bezig"
-
 #~ msgid "Checking Source"
 #~ msgstr "Bron controleren"
-
 #~ msgid "Synchronizing Grammar"
 #~ msgstr "Grammatica synchroniseren"
-
 #~ msgid "No Wordlist available"
 #~ msgstr "Geen woordenlijst beschikbaar"
-
 #~ msgid "[INF] Loading configuration modules..."
 #~ msgstr "[INF] Configuratie-modules laden..."
 
 #, fuzzy
 #~ msgid "This is not yet implemented, sorry!"
 #~ msgstr "Excuses - dit is nog niet geïmplementeerd"
-
 #~ msgid "If we should ask the user before quitting simon."
 #~ msgstr "Gebruiker vragen alvorens simon af te sluiten"
-
 #~ msgid "Start simon on KDE-start"
 #~ msgstr "Simon starten als KDE start"
-
 #~ msgid "Relevance"
 #~ msgstr "Relevantie"
-
 #~ msgid "Save Grammar"
 #~ msgstr "Grammatica opslaan"
-
 #~ msgid "Couldn't store Wordlist on Server"
 #~ msgstr "Kan woordenlijst niet op server opslaan"
-
 #~ msgid "Please select a command from the List"
 #~ msgstr "Selecteer een commando van de lijst"
-
 #~ msgid "Couldn't start Recognition"
 #~ msgstr "Kan herkenning niet starten"
+
