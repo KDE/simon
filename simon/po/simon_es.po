@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-04 22:55+0300\n"
+"POT-Creation-Date: 2010-07-05 13:16+0300\n"
 "PO-Revision-Date: 2009-05-08 14:18+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1492,7 +1492,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
-#: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:101
+#: po/rc.cpp:683 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:95
 #: src/simonmodelmanagementui/trainingview.cpp:25
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:59
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:34
@@ -1988,9 +1988,9 @@ msgid ""
 msgstr ""
 
 #: src/firstrunwizard.cpp:97
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:201
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:202
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:100
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:53
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:54
 msgid "Finished"
 msgstr "Terminando"
 
@@ -2077,16 +2077,16 @@ msgstr ""
 msgid "Direct Execution of simon Commands"
 msgstr "Ejecución directa de los comandos de simon"
 
-#: src/simonactionsui/runcommandviewprivate.cpp:137
+#: src/simonactionsui/runcommandviewprivate.cpp:135
 msgid "%1: Voice commands"
 msgstr ""
 
-#: src/simonactionsui/runcommandviewprivate.cpp:284
+#: src/simonactionsui/runcommandviewprivate.cpp:279
 #, fuzzy
 msgid "Are you sure that you want to irreversibly remove the command \"%1\"?"
 msgstr "¿Está usted seguro que quiere quitar este comando irreversiblemente?"
 
-#: src/simonactionsui/runcommandviewprivate.cpp:284
+#: src/simonactionsui/runcommandviewprivate.cpp:279
 msgid "Remove Command"
 msgstr "Borra comando"
 
@@ -2170,7 +2170,7 @@ msgid "Model management: %1"
 msgstr "Gestiones del modelo: %1"
 
 #: src/simonappcore/simoncontrol.cpp:248
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:138
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:139
 msgid "[INF]"
 msgstr "[INF]"
 
@@ -2239,7 +2239,7 @@ msgstr ""
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:130
 #: src/simonmodelmanagementui/editworddialog.cpp:59
 #: src/simonmodelmanagementui/editworddialog.cpp:60
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:209
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:210
 msgid "Unused"
 msgstr ""
 
@@ -2368,50 +2368,50 @@ msgstr "Importa el diccionario de HADIFIX"
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:161
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:174
 #: src/simonmodelmanagementui/ImportDict/importlexiconpage.cpp:39
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:68
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:69
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarselectinputpage.cpp:52
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:151
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:149
 msgid "Automatic"
 msgstr "Automática"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:70
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:71
 msgid "[INF] Opening Lexicon"
 msgstr "[INF] Abre el léxico"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:71
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:72
 msgid "Opening Lexicon..."
 msgstr "Abre el léxico..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:104
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:105
 msgid "Processing Lexicon..."
 msgstr "Procesar el léxico..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:107
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:108
 msgid "Creating List..."
 msgstr "Crear la lista..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:129
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:130
 msgid "Sorting Dictionary..."
 msgstr "Ordenar diccionario..."
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:133
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:134
 msgid "Storing Dictionary..."
 msgstr "Salvar el diccionario…"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid "[UPD]"
 msgstr "[UPD]"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid "Words from the Lexicon"
 msgstr "Palabras del léxicon"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:135
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:136
 msgid " imported"
 msgstr "Importado"
 
-#: src/simonmodelmanagementui/ImportDict/importdict.cpp:138
+#: src/simonmodelmanagementui/ImportDict/importdict.cpp:139
 msgid "Deleting Input-File"
 msgstr "Borrando el Archivo de Entrada"
 
@@ -2530,20 +2530,20 @@ msgstr "Importacion del léxicon"
 #: src/simonmodelmanagementui/ImportDict/lexicondict.cpp:44
 #: src/simonmodelmanagementui/ImportDict/plsdict.cpp:89
 #: src/simonmodelmanagementui/ImportDict/sphinxdict.cpp:90
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:186
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:214
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:187
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:215
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:60
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:61
 msgid "Opening File..."
 msgstr "Abriendo el archivo..."
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:86
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:87
 msgid "Reading File..."
 msgstr "Leyendo el archivo..."
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:140
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:141
 msgid "Processing..."
 msgstr "Procesando..."
 
@@ -2723,11 +2723,11 @@ msgstr "Elija su fuente"
 msgid "Text is being added"
 msgstr "Se está agregando un texto"
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:69
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:68
 msgid "[INF] Starting remove import from \"%1\""
 msgstr "[INF] Comenzando quita la importación de \"%1\""
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:223
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:221
 msgid "Couldn't store Trainingstext"
 msgstr "No podía guardar el texto de los entrenamientos"
 
@@ -2735,8 +2735,8 @@ msgstr "No podía guardar el texto de los entrenamientos"
 msgid "[INF] Loading List of Trainingstexts from %1"
 msgstr "[INF] Cargando lista de texto de los entrenamientos desde %1"
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:34
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:46
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:35
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:47
 msgid "Processing Words of Terminal %1"
 msgstr "Procesando las palabras de la terminal %1"
 
@@ -2986,7 +2986,7 @@ msgstr ""
 "El entrenamiento ahora esta finalizado. Los cambios se están aplicando en el "
 "fondo."
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:222
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:221
 msgid ""
 "Couldn't save changes to the trainings corpus.\n"
 "\n"
@@ -3049,36 +3049,36 @@ msgstr "Lista de palabras"
 msgid "View and modify the vocabulary."
 msgstr "Vea y modifique la gramática."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:136
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:137
 #, fuzzy
 msgid "Couldn't add words to the list"
 msgstr "No podía agregar %1 a la tabla de solicitudes"
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:155
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:156
 msgid "Please select a word first"
 msgstr "Seleccione una palabra primero, por favor"
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:185
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:186
 msgid "Failed to re-order the changed word."
 msgstr ""
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:246
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:247
 msgid "Do you really want to clear the whole vocabulary?"
 msgstr ""
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:248
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:249
 msgid ""
 "This will remove every word from the currently displayed vocabulary list.\n"
 "\n"
 "Are you absolutely sure you want to continue?"
 msgstr ""
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:296
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:297
 msgid "Please select a word scheduled for training first."
 msgstr ""
 "Por favor seleccione primero una palabra programada para el entrenamiento."
 
-#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:315
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:316
 msgid ""
 "Please select a few words for the special training by dragging them from the "
 "list on your left to the list above.\n"

@@ -127,8 +127,6 @@ void RunCommandViewPrivate::addCommand()
 
 	newCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(NULL/*newCommand*/));
 	
-	bool succ;
-
 	Action *a = getCurrentlySelectedAction();
 	if (a && a->manager())
 	{
@@ -137,12 +135,10 @@ void RunCommandViewPrivate::addCommand()
 			managerName = i18n("%1: Voice commands", a->manager()->name());
 		else
 			managerName = a->manager()->name();
-		succ = newCommand->newCommand(managerName);
+		newCommand->newCommand(managerName);
 	}
 	else 
-	{
-		succ = newCommand->newCommand();
-	}
+		newCommand->newCommand();
 
 	delete newCommand;
 }
@@ -214,8 +210,7 @@ void RunCommandViewPrivate::updateCommandDetail()
 
 			QWidget *widget = child->widget();
 			if (widget) widget->deleteLater();
-			if (child)
-				delete child;
+			delete child;
 		}
 
 		QMap<QString,QVariant> details = com->getValueMap();

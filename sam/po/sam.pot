@@ -9,10 +9,11 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-09 12:53+0100\n"
+"POT-Creation-Date: 2010-07-05 13:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -73,78 +74,78 @@ msgstr ""
 msgid "Cannot open file: %1"
 msgstr ""
 
-#: samview.cpp:403
+#: samview.cpp:405
 msgid ""
 "You now have to provide a (preferrably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
 
-#: samview.cpp:403
+#: samview.cpp:405
 msgid "Don't ask again"
 msgstr ""
 
-#: samview.cpp:404
+#: samview.cpp:406
 msgid "Serialized scenario output"
 msgstr ""
 
-#: samview.cpp:413
+#: samview.cpp:416
 msgid "Open simon prompts"
 msgstr ""
 
-#: samview.cpp:475
+#: samview.cpp:478
 msgid "Couldn't find scenario: %1"
 msgstr ""
 
-#: samview.cpp:513
+#: samview.cpp:516
 msgid "Unknown model type"
 msgstr ""
 
-#: samview.cpp:573
+#: samview.cpp:576
 msgid "Adaption aborted"
 msgstr ""
 
-#: samview.cpp:584
+#: samview.cpp:587
 msgid ""
 "Failed to adapt model:\n"
 "\n"
 "%1"
 msgstr ""
 
-#: samview.cpp:603
+#: samview.cpp:606
 msgid "Grammar class undefined: %1"
 msgstr ""
 
-#: samview.cpp:608
+#: samview.cpp:611
 msgid "Word undefined: %1"
 msgstr ""
 
-#: samview.cpp:614
+#: samview.cpp:617
 msgid "Phoneme undefined: %1"
 msgstr ""
 
-#: samview.cpp:763
+#: samview.cpp:767
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
 msgstr ""
 
-#: samview.cpp:795
+#: samview.cpp:799
 msgid "Modify sample"
 msgstr ""
 
-#: samview.cpp:807 samview.cpp:831
+#: samview.cpp:811 samview.cpp:835
 msgid "Couldn't modify prompts file"
 msgstr ""
 
-#: samview.cpp:818
+#: samview.cpp:822
 msgid "Couldn't overwrite prompts file"
 msgstr ""
 
-#: samview.cpp:823 samview.cpp:836
+#: samview.cpp:827 samview.cpp:840
 msgid "Couldn't remove original sample:  %1."
 msgstr ""
 
-#: samview.cpp:841
+#: samview.cpp:845
 msgid "Couldn't copy sample from temporary path %1 to %2."
 msgstr ""
 

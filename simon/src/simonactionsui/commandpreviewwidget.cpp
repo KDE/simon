@@ -67,8 +67,7 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 
 		QWidget *widget = child->widget();
 		if (widget) widget->deleteLater();
-		if (child)
-			delete child;
+		delete child;
 	}
 
 	QMap<QString,QVariant> details = command->getValueMap();

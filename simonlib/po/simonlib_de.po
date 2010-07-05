@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonlib_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-27 19:25+0200\n"
+"POT-Creation-Date: 2010-07-05 13:17+0300\n"
 "PO-Revision-Date: 2010-06-12 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
@@ -17,16 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: adinstreamer/adinstreamer.cpp:496
-msgid ""
-"Couldn't open sound device.\n"
-"\n"
-"Please check your configuration."
-msgstr ""
-"Konnte Audiogerät nicht öffnen.\n"
-"\n"
-"Bitte überprüfen Sie seine Konfiguration."
 
 #: eventsimulation/xeventsprivate.cpp:55
 msgid ""
@@ -1610,11 +1600,11 @@ msgstr ""
 "Dazu muss das Sprachmodell neu generiert werden. Bitte starten Sie die "
 "manuelle Synchronisation."
 
-#: simonscenarios/trainingmanager.cpp:235
+#: simonscenarios/trainingmanager.cpp:234
 msgid "[INF] Parsing prompts-file from %1"
 msgstr "[INF] Parse Promptsdatei von %1"
 
-#: simonscenarios/trainingmanager.cpp:259
+#: simonscenarios/trainingmanager.cpp:258
 msgid "[INF] %1 Prompts read"
 msgstr "[INF] %1 Prompts gelesen"
 
@@ -2780,6 +2770,15 @@ msgstr "Wechsle zu neuem Modell..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:1520
 msgid "Couldn't switch to new model."
 msgstr "Konnte nicht zum neuen Modell wechseln."
+
+#~ msgid ""
+#~ "Couldn't open sound device.\n"
+#~ "\n"
+#~ "Please check your configuration."
+#~ msgstr ""
+#~ "Konnte Audiogerät nicht öffnen.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie seine Konfiguration."
 
 #~ msgid "if we should activate the power training per default."
 #~ msgstr "ob das Powertraining per Default aktiviert werden soll."

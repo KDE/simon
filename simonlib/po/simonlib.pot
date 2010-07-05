@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-27 19:25+0200\n"
+"POT-Creation-Date: 2010-07-05 13:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: adinstreamer/adinstreamer.cpp:496
-msgid ""
-"Couldn't open sound device.\n"
-"\n"
-"Please check your configuration."
-msgstr ""
 
 #: eventsimulation/xeventsprivate.cpp:55
 msgid ""
@@ -1567,11 +1560,11 @@ msgid ""
 "synchronization now."
 msgstr ""
 
-#: simonscenarios/trainingmanager.cpp:235
+#: simonscenarios/trainingmanager.cpp:234
 msgid "[INF] Parsing prompts-file from %1"
 msgstr ""
 
-#: simonscenarios/trainingmanager.cpp:259
+#: simonscenarios/trainingmanager.cpp:258
 msgid "[INF] %1 Prompts read"
 msgstr ""
 

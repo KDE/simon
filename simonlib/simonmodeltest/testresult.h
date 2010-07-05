@@ -29,8 +29,8 @@ class MODELTEST_EXPORT TestResult {
 		RecognitionResultList results;
 	public:
 		TestResult(const QString& prompt, const RecognitionResultList& results);
-		QString getPrompt() { return prompt; }
-		RecognitionResultList getResults() { return results; }
+		QString getPrompt() const { return prompt; }
+		RecognitionResultList getResults() const { return results; }
 
 };
 

@@ -45,7 +45,7 @@ class KeyboardSet
 		void delTab(int index);
 		
 	public:
-		bool isNull() { return m_isNull; }
+		bool isNull() const { return m_isNull; }
 		KeyboardSet(const QDomElement& elem);
 		KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
 

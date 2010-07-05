@@ -21,25 +21,25 @@
 
 Token::Token(char arOp, short priority)
     : arOperator(arOp),
-    type(priority),
-    number(0)
+    number(0),
+    type(priority)
 {
 }
 
-Token::Token(double num) : number(num), type(0), arOperator(' ')
+Token::Token(double num) : arOperator(' '), number(num), type(0)
 {
 }
-short Token::getType()
+short Token::getType() const
 {
     return type;
 }
 
-char Token::getArOperator()
+char Token::getArOperator() const
 {
     return arOperator;
 }
 
-double Token::getNumber()
+double Token::getNumber() const
 {
     return number;
 }

@@ -82,10 +82,6 @@ void BOMPDict::load(QString path, QString encodingName)
 	int wordend, termend;
 	line = dictStream->readLine(1000);
 	
-	int maxPhonemeSize;
-	if (allowedPhonemes.size() > 0)
-		maxPhonemeSize = allowedPhonemes[0].count();
-	
 	QString filteredXsp;
 	QString xspFertig;
 	QString currentPhoneme;
@@ -135,12 +131,6 @@ void BOMPDict::load(QString path, QString encodingName)
 				pronunciations << currentFinalXsp;
 			}
 		}
-/*		for (int k=0; k < currentTerminals.count(); k++)
-		{
-			words << currentWord;
-			terminals << currentTerminals[k];
-			pronunciations << currentFinalXsp;
-		}*/
 
 		currentProg += line.length();
 

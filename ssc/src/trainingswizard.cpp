@@ -76,7 +76,8 @@ bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList&
 
 	foreach (QString prompt, prompts)
 	{
-		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, name, this);
+		TrainSamplePage *page = new TrainSamplePage(name, prompt, nowPage++, maxPage, this);
+		page->setupUi();
 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
 

@@ -54,6 +54,10 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
 	layout->addWidget(pbReSendData);
 
+	pbStoreData  = new KPushButton(KIcon("document-save"), i18n("Store samples (send later)"), this);
+	connect(pbStoreData, SIGNAL(clicked()), this, SLOT(storeData()));
+	layout->addWidget(pbStoreData);
+
 	futureWatcher = new QFutureWatcher<bool>(this);
 	connect(futureWatcher, SIGNAL(finished()), this, SLOT(transmissionFinished()));
 	//make sure we got the last bit
@@ -64,6 +68,41 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	connect(worker, SIGNAL(status(QString, int, int)), this, SLOT(displayStatus(QString, int, int)), Qt::QueuedConnection);
 	connect(worker, SIGNAL(sendSample(Sample*)), this, SLOT(sendSample(Sample*)), Qt::QueuedConnection);
 }
+
+void SendSamplePage::setupOperation(const QString& name)
+{
+	if (m_progressWidget) {
+		layout->removeWidget(m_progressWidget);
+		m_progressWidget->deleteLater();
+	}
+
+	m_transmitOperation = new Operation(QThread::currentThread(), name, i18n("Initializing"), 0, 0, false);
+	m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
+	connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
+	//connect(worker, SIGNAL(aborted()), pbReSendData, SLOT(setEnabled()), Qt::QueuedConnection);
+	//connect(worker, SIGNAL(aborted()), pbStoreData, SLOT(setEnabled()), Qt::QueuedConnection);
+	connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
+	connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
+
+	layout->addWidget(m_progressWidget);
+	m_progressWidget->show();
+}
+
+void SendSamplePage::storeData()
+{
+	setupOperation(i18n("Storing data..."));
+
+	pbReSendData->setEnabled(false);
+	pbStoreData->setEnabled(false);
+
+	//storing data
+	QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::storeData);
+	futureWatcher->setFuture(future);
+	//worker->storeData();
+
+	transmissionFinished();
+}
+
 
 void SendSamplePage::transmissionFinished()
 {
@@ -76,7 +115,10 @@ void SendSamplePage::transmissionFinished()
 	wizard()->button(QWizard::BackButton)->setEnabled(true);
 
 	if (!futureWatcher->result() || worker->getShouldAbort())
+	{
 		pbReSendData->setEnabled(true);
+		pbStoreData->setEnabled(true);
+	}
 }
 
 void SendSamplePage::displayStatus(QString message, int now, int max)
@@ -166,21 +208,10 @@ void SendSamplePage::sendData()
 
 	kDebug() << "Sending data";
 	pbReSendData->setEnabled(false);
+	pbStoreData->setEnabled(false);
 
-	if (m_progressWidget) {
-		layout->removeWidget(m_progressWidget);
-		m_progressWidget->deleteLater();
-	}
-
-	m_transmitOperation = new Operation(QThread::currentThread(), i18n("Transmitting samples"), i18n("Initializing"), 0, 0, false);
-	m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
-	connect(worker, SIGNAL(aborted()), m_transmitOperation, SLOT(canceled()), Qt::QueuedConnection);
-	connect(this, SIGNAL(aborted()), pbReSendData, SLOT(setEnabled()), Qt::QueuedConnection);
-	connect(worker, SIGNAL(finished()), m_transmitOperation, SLOT(finished()), Qt::QueuedConnection);
-	connect(m_transmitOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
-
-	layout->addWidget(m_progressWidget);
-	m_progressWidget->show();
+	
+	setupOperation(i18n("Sending data..."));
 
 	wizard()->button(QWizard::CancelButton)->setEnabled(false);
 	wizard()->button(QWizard::BackButton)->setEnabled(false);
@@ -205,8 +236,6 @@ void SendSamplePage::sendSample(Sample *s)
  */
 bool SendSampleWorker::sendSamples()
 {
-	//QThread *prevThread = SSCDAccess::getInstance()->thread();
-	//SSCDAccess::getInstance()->moveToThread(thread());
 	shouldAbort = false;
 	shouldDelete = false;
 	bool successful = true;
@@ -272,6 +301,23 @@ bool SendSampleWorker::sendSamples()
 
 	//SSCDAccess::getInstance()->moveToThread(prevThread);
 	return successful;
+}
+
+bool SendSampleWorker::storeData()
+{
+	//storing data
+	bool succ = true;
+	if (!m_dataProvider->store())
+	{
+		kDebug() << "bleh";
+		emit error("Couldn't store samples correctly.");
+		emit aborted();
+		succ = false;
+	} else {
+		emit finished();
+		kDebug() << "Finished";
+	}
+	return succ;
 }
 
 SendSampleWorker::~SendSampleWorker()

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-27 19:25+0200\n"
+"POT-Creation-Date: 2010-07-05 13:17+0300\n"
 "PO-Revision-Date: 2009-08-11 14:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
@@ -17,16 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: adinstreamer/adinstreamer.cpp:496
-msgid ""
-"Couldn't open sound device.\n"
-"\n"
-"Please check your configuration."
-msgstr ""
-"No se puede abrir el dispositivo de sonido.\n"
-"\n"
-"Por favor, compruebe su configuración."
 
 #: eventsimulation/xeventsprivate.cpp:55
 msgid ""
@@ -1603,11 +1593,11 @@ msgid ""
 "synchronization now."
 msgstr ""
 
-#: simonscenarios/trainingmanager.cpp:235
+#: simonscenarios/trainingmanager.cpp:234
 msgid "[INF] Parsing prompts-file from %1"
 msgstr "[INF] Analiza ficheros de instrucćiones de %1"
 
-#: simonscenarios/trainingmanager.cpp:259
+#: simonscenarios/trainingmanager.cpp:258
 msgid "[INF] %1 Prompts read"
 msgstr "[INF] %1 Preguntas leer"
 
@@ -2764,6 +2754,15 @@ msgstr ""
 #, fuzzy
 msgid "Couldn't switch to new model."
 msgstr "No es posible crear el fichero de codetrain."
+
+#~ msgid ""
+#~ "Couldn't open sound device.\n"
+#~ "\n"
+#~ "Please check your configuration."
+#~ msgstr ""
+#~ "No se puede abrir el dispositivo de sonido.\n"
+#~ "\n"
+#~ "Por favor, compruebe su configuración."
 
 #~ msgid "Prompt Font"
 #~ msgstr "Símbolo Fuente"

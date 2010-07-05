@@ -25,6 +25,8 @@
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
 
+#include <QSettings>
+
 DeviceInformationWidget::DeviceInformationWidget(QWidget* parent) : 
 	QWidget(parent),
 	ui(new Ui::DeviceInformationWidget())
@@ -133,23 +135,23 @@ void DeviceInformationWidget::storeConfig()
 	SSCConfig::setDeviceNameMicrophoneTypes(microphoneTypes);
 }
 
-QString DeviceInformationWidget::getModel()
+QString DeviceInformationWidget::getModel() const
 {
 	return ui->cbModel->currentText();
 }
 
-QString DeviceInformationWidget::getType()
+QString DeviceInformationWidget::getType() const
 {
 	return ui->cbType->currentText();
 }
 
-QString DeviceInformationWidget::getMicModel()
+QString DeviceInformationWidget::getMicModel() const
 {
 	return ui->cbMicModel->currentText();
 
 }
 
-QString DeviceInformationWidget::getMicType()
+QString DeviceInformationWidget::getMicType() const
 {
 	return ui->cbMicType->currentText();
 }
@@ -158,6 +160,23 @@ QString DeviceInformationWidget::getMicType()
 bool DeviceInformationWidget::isComplete() const
 {
 	return (!ui->cbModel->currentText().isEmpty()) && (!ui->cbType->currentText().isEmpty());
+}
+
+
+void DeviceInformationWidget::serialize(QSettings& ini) const
+{
+	ini.setValue("DeviceName", getModel());
+	ini.setValue("DeviceType", getType());
+	ini.setValue("MicName", getMicModel());
+	ini.setValue("MicType", getMicType());
+}
+
+void DeviceInformationWidget::deserialize(QSettings& ini)
+{
+	ui->cbModel->setEditText(ini.value("DeviceName").toString());
+	ui->cbType->setEditText(ini.value("DeviceType").toString());
+	ui->cbMicModel->setEditText(ini.value("MicName").toString());
+	ui->cbMicType->setEditText(ini.value("MicType").toString());
 }
 
 DeviceInformationWidget::~DeviceInformationWidget()

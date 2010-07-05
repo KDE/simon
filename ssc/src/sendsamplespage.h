@@ -57,11 +57,13 @@ class SendSampleWorker : public QObject
 	public:
 		SendSampleWorker(SampleDataProvider *dataProvider) : 
 			shouldAbort(false), 
+			shouldDelete(false),
 			m_dataProvider(dataProvider)
 		{}
 		~SendSampleWorker();
 
 		bool sendSamples();
+		bool storeData();
 		bool getShouldAbort() { return shouldAbort; }
 		void deleteThatSometimes() { shouldDelete = true; }
 };
@@ -84,8 +86,10 @@ class SendSamplePage : public QWizardPage
 
 		QFutureWatcher<bool> *futureWatcher;
 
-    KPushButton *pbReSendData;
+		KPushButton *pbReSendData;
+		KPushButton *pbStoreData;
 
+		void setupOperation(const QString& name);
 	
 	private slots:
 		void displayStatus(QString message, int now, int max);
@@ -93,9 +97,11 @@ class SendSamplePage : public QWizardPage
 		void sendSample(Sample *s);
 		void updateStatusDisplay();
 		void transmissionFinished();
-    void prepareDataSending();
-    void disassociateFromSSCDAccess();
-    void sendData();
+		void prepareDataSending();
+		void disassociateFromSSCDAccess();
+		void sendData();
+
+		void storeData();
 	
 	public:
 		SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent=0);

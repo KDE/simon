@@ -49,7 +49,9 @@
 JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
 	recog(0),
 	jconf(0),
+	stopping(false),
 	m_initialized(false),
+	shouldBeRunning(false),
 	logFile(NULL)
 {
 }
@@ -123,15 +125,14 @@ void statusRecready(Recog *recog, void *)
 QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 {
 	QString result;
-	int i,j;
 	WORD_ID w;
 	static char buf[MAX_HMMNAME_LEN];
 
 	if (seq != NULL) {
-		for (i=0;i<n;i++) {
+		for (int i=0;i<n;i++) {
 			if (i > 0) result += " |";
 				w = seq[i];
-			for (j=0;j<winfo->wlen[w];j++) {
+			for (int j=0;j<winfo->wlen[w];j++) {
 				center_name(winfo->wseq[w][j]->name, buf);
 				result += " ";
 				result += QString::fromUtf8(buf);
@@ -144,15 +145,14 @@ QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 void
 put_hypo_phoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 {
-  int i,j;
   WORD_ID w;
   static char buf[MAX_HMMNAME_LEN];
 
   if (seq != NULL) {
-    for (i=0;i<n;i++) {
+    for (int i=0;i<n;i++) {
       if (i > 0) printf(" |");
       w = seq[i];
-      for (j=0;j<winfo->wlen[w];j++) {
+      for (int j=0;j<winfo->wlen[w];j++) {
 	center_name(winfo->wseq[w][j]->name, buf);
 	printf(" %s", buf);
       }
@@ -273,6 +273,7 @@ void outputResult(Recog *recog, void *control)
 
 
 
+/**
 void juliusCallbackPoll(Recog *recog, void *control)
 {
 	Q_UNUSED(recog);
@@ -292,6 +293,7 @@ void juliusCallbackPoll(Recog *recog, void *control)
 		
 	}
 }
+*/
 
 JuliusControl::Request JuliusControl::popNextRequest()
 {

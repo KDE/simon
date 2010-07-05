@@ -37,7 +37,9 @@ VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfi
 	lastTimeOverLevel(0),
 	waitingForSampleToStart(true),
 	waitingForSampleToFinish(false),
-	currentlyRecordingSample(false)
+	currentlyRecordingSample(false),
+	m_startListening(false),
+	m_doneListening(false)
 {
 }
 

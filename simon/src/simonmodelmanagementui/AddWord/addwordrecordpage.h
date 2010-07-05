@@ -67,7 +67,6 @@ public:
 	void keepSample() { stickSample = true; }
 	void cleanUp();
 	void cleanupPage();
-	bool hasSample() const;
 
 	bool validatePage();
 

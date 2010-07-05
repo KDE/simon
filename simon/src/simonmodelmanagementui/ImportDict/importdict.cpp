@@ -34,6 +34,7 @@
  * \author Peter Grasch
  */
 ImportDict::ImportDict(QObject* parent) : QThread(parent),
+	type(0),
 	dict(0),
 	wordList(0),
 	deleteFileWhenDone(false)
@@ -71,7 +72,7 @@ void ImportDict::run()
 	emit status(i18n("Opening Lexicon..."));
 	
 	emit progress(10, 1000);
-	if (dict) delete dict;
+	delete dict;
 	if (wordList) wordList->clear();
 	else wordList = new QList<Word*>();
 

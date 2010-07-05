@@ -23,6 +23,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QLabel>
+#include <QSettings>
 #include <QVBoxLayout>
 #include <QVariant>
 
@@ -30,34 +31,45 @@
 #include <KMessageBox>
 
 
-TrainSamplePage::TrainSamplePage(QString prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
+TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, QWidget* parent) : QWizardPage(parent),
+	m_name(name),
+	recorder(NULL),
 	prompt(prompt_),
-	fileName( prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"")
+	fileName( prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"").left(100)
 		+ "_S"
 		+ QString::number(nowPage)
 		+ "_"
-		+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") )
+		+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") ),
+	m_thisPage(nowPage),
+	m_maxPage(maxPage),
+	m_directory(SSCConfig::sampleDirectory())
+{
+}
+
+void TrainSamplePage::setupUi()
 {
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	QString title = i18n("Page %1 of %2", nowPage, maxPage);
-	setTitle(name+": "+title);
+	QString title = i18n("Page %1 of %2", m_thisPage, m_maxPage);
+	setTitle(m_name+": "+title);
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(i18n("Please record the Text below."
-"\n\nTip: Leave about one to two seconds \"silence\" before and after you read "
-"the text for best results!\n"), this);
+		"\n\nTip: Leave about one to two seconds \"silence\" before and after you read "
+		"the text for best results!\n"), this);
 	desc->setWordWrap(true);
-	recorder = new RecWidget("", prompt, 
-				  SSCConfig::sampleDirectory()+
-					fileName, false, this);
 	lay->addWidget(desc);
+
+	if (recorder) recorder->deleteLater();
+
+	recorder = new RecWidget("", prompt, 
+				  m_directory+fileName, false, this);
+
 	lay->addWidget(recorder);
 
 	connect(recorder, SIGNAL(recording()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 }
-
 
 void TrainSamplePage::initializePage()
 {
@@ -76,8 +88,10 @@ bool TrainSamplePage::validatePage()
 	return true;
 }
 
-QStringList TrainSamplePage::getFileNames()
+QStringList TrainSamplePage::getFileNames() const
 {
+	return recorder->getFileNames();
+	/*
 	QStringList fileNames = recorder->getFileNames();
 	for (int i=0; i < fileNames.count(); i++)
 	{
@@ -90,6 +104,7 @@ QStringList TrainSamplePage::getFileNames()
 	}
 		
 	return  fileNames;
+	*/
 }
 
 QStringList TrainSamplePage::getDevices()
@@ -100,13 +115,6 @@ QStringList TrainSamplePage::getDevices()
 bool TrainSamplePage::submit()
 {
 	return true;
-//	bool succ = TrainingManager::getInstance()->addSample(fileName, prompt.toUpper());
-//	if (!succ) {
-//		KMessageBox::error(this, i18n("Couldn't send samples.\n\nThis indicates internal data corruption."));
-//		cleanUp();
-//	}
-//	
-//	return succ;
 }
 
 void TrainSamplePage::cleanupPage()
@@ -132,11 +140,46 @@ bool TrainSamplePage::isComplete() const
 {
 	Q_ASSERT(recorder);
 
-	//if (field("powerRecording").toBool())
-		return true;
-	//else
-	//	return recorder->hasRecordingReady();
+	return true;
 }
+
+bool TrainSamplePage::serializeToStorage(QSettings& ini, const QString& directory) const
+{
+	bool succ = true;
+	
+	//copy files to target directory
+	QStringList fileNames = getFileNames();
+	foreach (const QString& fileName, fileNames)
+	{
+		QString onlyName = fileName.mid(qMax(fileName.lastIndexOf("/"), fileName.lastIndexOf(QDir::separator())));
+		if (!QFile::copy(fileName, directory+QDir::separator()+onlyName))
+		{
+			kDebug() << "couldn't copy " << fileName << " to " << directory+QDir::separator()+onlyName;
+			fileNames.removeAll(fileName);
+
+			succ = false;
+		} else {
+			if (!QFile::remove(fileName))
+				kWarning() << "Couldn't remove original input file!";
+		}
+	}
+	
+	//store prompts
+	ini.setValue("Prompt", prompt);
+	ini.setValue("FilenameTemplate", fileName);
+	return succ;
+}
+
+bool TrainSamplePage::deserializeFromStorage(QSettings& ini, const QString& directory)
+{
+	prompt = ini.value("Prompt").toString();
+	fileName = ini.value("FilenameTemplate").toString();
+	
+	m_directory = directory;
+	setupUi();
+	return true;
+}
+
 
 TrainSamplePage::~TrainSamplePage()
 {

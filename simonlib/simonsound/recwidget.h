@@ -101,6 +101,9 @@ public:
 	QStringList getFileNames();
 	QStringList getDevices();
 
+	bool forceSimpleMode() const { return m_simpleMode; }
+	QString getFileTemplate() const { return fileTemplate; }
+
 };
 
 #endif

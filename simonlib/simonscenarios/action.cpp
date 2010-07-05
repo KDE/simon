@@ -193,7 +193,6 @@ void Action::setPluginFont(const QFont& font)
 
 Action::~Action()
 {
-	if (m_manager)
-		delete m_manager;
+	delete m_manager;
 }
 

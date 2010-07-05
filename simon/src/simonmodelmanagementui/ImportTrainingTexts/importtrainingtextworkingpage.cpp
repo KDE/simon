@@ -63,7 +63,6 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
  */
 void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
-	bool removeInput=false;
 	if (!path.isLocalFile())
 	{
 		Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
@@ -80,7 +79,6 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 		}
 
 		path = tmpPath;
-		removeInput=true;
 	}
 	parseFile(path.path());
 	

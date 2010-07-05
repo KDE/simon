@@ -62,8 +62,7 @@ bool TrainingManager::init()
 	QMutexLocker lock(&promptsLock);
 	PromptsTable *promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
 	if (promptsTable) {
-		if (this->promptsTable)
-			delete this->promptsTable;
+		delete this->promptsTable;
 
 		this->promptsTable = promptsTable;
 		dirty=false;

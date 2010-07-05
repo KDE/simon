@@ -284,7 +284,7 @@ void WavFileWidget::playback()
  */
 bool WavFileWidget::deleteSample()
 {
-	if(QFile::remove(m_filename))
+	if(QFile::remove(m_filename) || !QFile::exists(m_filename))
 	{
 		ui->pbProgress->setValue(0);
 		ui->pbProgress->setFormat("00:00 / 00:00");

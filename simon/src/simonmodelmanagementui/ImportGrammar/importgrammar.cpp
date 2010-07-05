@@ -30,7 +30,8 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/scenariomanager.h>
 
-ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
+ImportGrammar::ImportGrammar(QObject* parent): QThread(parent),
+	includeUnknown(false)
 {
 }
 

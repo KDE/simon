@@ -40,7 +40,7 @@ protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate(int *state);
 	bool deSerializePrivate(const QDomElement& commandElem);
-	DelayCommand() { }
+	DelayCommand() : delay(0) { }
 
 public:
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);

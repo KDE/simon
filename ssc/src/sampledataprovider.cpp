@@ -27,6 +27,7 @@
 #include <sscobjects/soundcard.h>
 
 #include <QFile>
+#include <QSettings>
 
 SampleDataProvider::SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType) :
 	m_userId(userId), m_sampleType(sampleType), m_infoPage(NULL)
@@ -53,6 +54,20 @@ QHash<QString, SoundCard*> SampleDataProvider::buildSoundCardMappings(bool &ok)
 	return m_infoPage->buildSoundCardMappings(ok);
 }
 
+bool SampleDataProvider::store()
+{
+	QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh:mm:ss:zzz")));
+	QSettings ini(KStandardDirs::locateLocal("appdata", directory+"/profile.ini"));
+
+	bool succ = true;
+	succ = m_infoPage->serializeToStorage(ini) && succ;
+
+	foreach (TrainSamplePage *page, m_trainSamplePages)
+		succ = page->serializeToStorage(ini, directory) && succ;
+
+	ini.sync();
+	return succ;
+}
 
 bool SampleDataProvider::startTransmission()
 {
@@ -87,7 +102,7 @@ bool SampleDataProvider::startTransmission()
 
 		for (int i=0; i < fileNames.count(); i++)
 		{
-			QString fullPath = SSCConfig::sampleDirectory()+fileNames[i]+".wav";
+			QString fullPath = /*SSCConfig::sampleDirectory()+*/fileNames[i]/*+".wav"*/;
 			QFile d(fullPath);
 			if (!d.open(QIODevice::ReadOnly))
 			{

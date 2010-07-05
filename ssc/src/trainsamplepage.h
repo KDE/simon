@@ -23,29 +23,40 @@
 #include <QString>
 #include <QWizardPage>
 class RecWidget; 
+class QSettings;
 
 class TrainSamplePage : public QWizardPage
 {
 	Q_OBJECT
 	
 	private:
+		QString m_name;
 		RecWidget *recorder;
 		QString prompt;
 		QString fileName;
+		int m_thisPage;
+		int m_maxPage;
+		QString m_directory;
+
 	
 	public:
-		TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
+		TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage, QWidget *parent=0);
 		~TrainSamplePage();
 		bool isComplete() const;
 
 		void initializePage();
 		bool validatePage();
 		void cleanupPage();
+
+		void setupUi();
 		
-		QString getPrompt() { return prompt; }
-		QStringList getFileNames();
+		QString getPrompt() const { return prompt; }
+		QStringList getFileNames() const;
 
 		QStringList getDevices();
+
+		bool serializeToStorage(QSettings& ini, const QString& directory) const;
+		bool deserializeFromStorage(QSettings& ini, const QString& directory);
 		
 	public slots:
 		bool submit();

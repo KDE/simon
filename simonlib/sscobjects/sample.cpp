@@ -67,8 +67,10 @@ QByteArray Sample::serialize()
 	return body;
 }
 
+#include <stdio.h>
 bool Sample::deleteFile()
 {
-  return QFile::remove(m_path);
+	fprintf(stderr, "Removing from path: %s\n", m_path.toAscii().constData());
+	return QFile::remove(m_path);
 }
 

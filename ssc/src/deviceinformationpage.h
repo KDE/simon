@@ -28,6 +28,7 @@ class QScrollArea;
 class DeviceInformationWidget;
 class Microphone;
 class SoundCard;
+class QSettings;
 
 class DeviceInformationPage : public QWizardPage {
 
@@ -35,12 +36,17 @@ private:
 	QList<DeviceInformationWidget*> informationWidgets;
 	QScrollArea *scrollWidget;
 
+	void registerInformationWidget(DeviceInformationWidget*);
+
 public:
 	DeviceInformationPage(QWidget *parent=NULL);
 	void initializePage();
     	~DeviceInformationPage();
 
 	QStringList getDeviceStrings();
+
+	bool serializeToStorage(QSettings& ini) const;
+	bool deserializeFromStorage(QSettings& ini);
 
 	QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
 	QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);

@@ -83,7 +83,7 @@ bool XMLDomReader::load(QString path)
 	if (path.isEmpty())
         path = this->path;
 	
-	if (doc) delete doc;
+	delete doc;
 	doc= new QDomDocument();
 
 

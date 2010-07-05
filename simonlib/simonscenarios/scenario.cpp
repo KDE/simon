@@ -95,9 +95,9 @@ bool Scenario::create(const QString& name, const QString& iconSrc, int version, 
 	m_name = name;
 	m_version = version;
 	m_iconSrc = iconSrc;
-	if (m_simonMinVersion) delete m_simonMinVersion;
+	delete m_simonMinVersion;
 	m_simonMinVersion = simonMinVersion;
-	if (m_simonMaxVersion) delete m_simonMaxVersion;
+	delete m_simonMaxVersion;
 	m_simonMaxVersion = simonMaxVersion;
 	m_licence = licence;
 
@@ -177,8 +177,8 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 	QDomElement compatibilityElem = docElem.firstChildElement("simonCompatibility");
 	QDomElement simonMinVersionElem = compatibilityElem.firstChildElement();
 
-	if (m_simonMinVersion) delete m_simonMinVersion;
-	if (m_simonMaxVersion) delete m_simonMaxVersion;
+	delete m_simonMinVersion;
+	delete m_simonMaxVersion;
 
 	m_simonMinVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem);
 	m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());

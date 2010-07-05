@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-06-11 01:35+0200\n"
+"POT-Creation-Date: 2010-07-05 13:17+0300\n"
 "PO-Revision-Date: 2010-06-11 01:40+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -157,25 +157,25 @@ msgstr "Host:"
 msgid "Port:"
 msgstr "Port:"
 
-#. i18n: file: config/sscconfiguration.ui:65
+#. i18n: file: config/sscconfiguration.ui:69
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:66 rc.cpp:66
 msgid "Timeout:"
 msgstr "Timeout:"
 
-#. i18n: file: config/sscconfiguration.ui:74
+#. i18n: file: config/sscconfiguration.ui:78
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
 #: po/rc.cpp:69 rc.cpp:69
 msgid "Use institution specific ids instead of ssc ids"
 msgstr "Instiutionsspezifische IDs statt SSC IDs verwenden"
 
-#. i18n: file: config/sscconfiguration.ui:86
+#. i18n: file: config/sscconfiguration.ui:90
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute)
 #: po/rc.cpp:72 rc.cpp:72
 msgid "Institute:"
 msgstr "Institut:"
 
-#. i18n: file: config/sscconfiguration.ui:117
+#. i18n: file: config/sscconfiguration.ui:121
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute_2)
 #: po/rc.cpp:75 rc.cpp:75
 msgid ""
@@ -1151,11 +1151,11 @@ msgstr ""
 msgid "Send samples"
 msgstr "Sende Aufnahmen"
 
-#: src/sendsamplespage.cpp:112
+#: src/sendsamplespage.cpp:128
 msgid "Do you want to send the samples to the server?"
 msgstr "Wollen Sie die Sprachdaten jetzt senden?"
 
-#: src/sendsamplespage.cpp:132
+#: src/sendsamplespage.cpp:139
 msgid ""
 "Not connected to the server.\n"
 "\n"
@@ -1165,23 +1165,23 @@ msgstr ""
 "\n"
 "Wollen Sie automatisch eine Verbindung aufbauen?"
 
-#: src/sendsamplespage.cpp:158
+#: src/sendsamplespage.cpp:165
 msgid "Not connected to server."
 msgstr "Nicht verbunden zum Server."
 
-#: src/sendsamplespage.cpp:168
+#: src/sendsamplespage.cpp:175
 msgid "Transmitting samples"
 msgstr "Übertrage Sprachaten"
 
-#: src/sendsamplespage.cpp:168
+#: src/sendsamplespage.cpp:175
 msgid "Initializing"
 msgstr "Initalisierung"
 
-#: src/sendsamplespage.cpp:186
+#: src/sendsamplespage.cpp:197
 msgid "Could not send sample"
 msgstr "Konnte Aufnahme nicht senden"
 
-#: src/sendsamplespage.cpp:207
+#: src/sendsamplespage.cpp:221
 msgid ""
 "Failed to start the sample transmission.\n"
 "\n"
@@ -1193,15 +1193,15 @@ msgstr ""
 "Höchstwahrscheinlich konnten die Informationen über die Eingabegeräte nicht "
 "übertragen werden."
 
-#: src/sendsamplespage.cpp:217
+#: src/sendsamplespage.cpp:231
 msgid "Sending: %1"
 msgstr "Sende: %1"
 
-#: src/sendsamplespage.cpp:233
+#: src/sendsamplespage.cpp:247
 msgid "Server couldn't process sample: %1"
 msgstr "Server konnte die Aufnahme nicht verarbeiten: %1"
 
-#: src/sscdaccess.cpp:106
+#: src/sscdaccess.cpp:118
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -1213,11 +1213,11 @@ msgstr ""
 "\n"
 "Wollen Sie trotzdem fortfahren?"
 
-#: src/sscdaccess.cpp:107
+#: src/sscdaccess.cpp:119
 msgid "Self-Signed Certificate"
 msgstr "Selbstsigniertes Zertifikat"
 
-#: src/sscdaccess.cpp:158
+#: src/sscdaccess.cpp:170
 msgid ""
 "Request timed out (%1 ms) or connection was reset.\n"
 "\n"
@@ -1226,91 +1226,90 @@ msgstr ""
 "Timeout für anfrage erreicht (%1 ms) oder die Verbindung wurde "
 "zurückgesetzt.\n"
 "\n"
-"Bitte überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es "
-"erneut."
+"Bitte überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut."
 
-#: src/sscdaccess.cpp:214 src/sscdaccess.cpp:231 src/sscdaccess.cpp:248
+#: src/sscdaccess.cpp:226 src/sscdaccess.cpp:244 src/sscdaccess.cpp:261
 msgid "Couldn't write request"
 msgstr "Konnte Anfrage nicht senden"
 
-#: src/sscdaccess.cpp:324 src/sscdaccess.cpp:436
+#: src/sscdaccess.cpp:370 src/sscdaccess.cpp:482
 msgid "User ID not found"
 msgstr "BenutzerId nicht gefunden"
 
-#: src/sscdaccess.cpp:329 src/sscdaccess.cpp:384 src/sscdaccess.cpp:414
-#: src/sscdaccess.cpp:441 src/sscdaccess.cpp:484 src/sscdaccess.cpp:527
-#: src/sscdaccess.cpp:563 src/sscdaccess.cpp:597 src/sscdaccess.cpp:641
-#: src/sscdaccess.cpp:685 src/sscdaccess.cpp:712 src/sscdaccess.cpp:739
-#: src/sscdaccess.cpp:764 src/sscdaccess.cpp:789 src/sscdaccess.cpp:818
-#: src/sscdaccess.cpp:843 src/sscdaccess.cpp:885 src/sscdaccess.cpp:946
+#: src/sscdaccess.cpp:375 src/sscdaccess.cpp:430 src/sscdaccess.cpp:460
+#: src/sscdaccess.cpp:487 src/sscdaccess.cpp:530 src/sscdaccess.cpp:573
+#: src/sscdaccess.cpp:635 src/sscdaccess.cpp:671 src/sscdaccess.cpp:715
+#: src/sscdaccess.cpp:759 src/sscdaccess.cpp:786 src/sscdaccess.cpp:813
+#: src/sscdaccess.cpp:838 src/sscdaccess.cpp:863 src/sscdaccess.cpp:892
+#: src/sscdaccess.cpp:917 src/sscdaccess.cpp:959 src/sscdaccess.cpp:1023
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/sscdaccess.cpp:378
+#: src/sscdaccess.cpp:424
 msgid "Users could not be read"
 msgstr "Benutzer konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:410
+#: src/sscdaccess.cpp:456
 msgid "Couldn't add user"
 msgstr "Konnte Benutzer nicht hinzufügen"
 
-#: src/sscdaccess.cpp:478
+#: src/sscdaccess.cpp:524
 msgid "Microphones could not be read"
 msgstr "Mikrofone konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:521
+#: src/sscdaccess.cpp:567
 msgid "SoundCards could not be read"
 msgstr "Soundkarten konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:557
+#: src/sscdaccess.cpp:618
 msgid "Microphone could not be fetched / created"
 msgstr "Mikrofone konnten nicht geholt oder erzeugt werden"
 
-#: src/sscdaccess.cpp:591
+#: src/sscdaccess.cpp:665
 msgid "Sound card could not be fetched / created"
 msgstr "Soundkarten konnte nicht geholt oder erzeugt werden"
 
-#: src/sscdaccess.cpp:635
+#: src/sscdaccess.cpp:709
 msgid "Languages could not be read"
 msgstr "Sprachen konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:679
+#: src/sscdaccess.cpp:753
 msgid "Institutions could not be read"
 msgstr "Institutionen konnten nicht gelesen werden"
 
-#: src/sscdaccess.cpp:708
+#: src/sscdaccess.cpp:782
 msgid "Couldn't add institution"
 msgstr "Konnte Institution nicht hinzufügnen"
 
-#: src/sscdaccess.cpp:734
+#: src/sscdaccess.cpp:808
 msgid "Institution ID not found"
 msgstr "InstitutionId nicht gefunden"
 
-#: src/sscdaccess.cpp:760
+#: src/sscdaccess.cpp:834
 msgid "Couldn't delete institution"
 msgstr "Konnte Institution nicht löschen"
 
-#: src/sscdaccess.cpp:785
+#: src/sscdaccess.cpp:859
 msgid "Couldn't delete user"
 msgstr "Konnte Benutzer nicht löschen"
 
-#: src/sscdaccess.cpp:810
+#: src/sscdaccess.cpp:884
 msgid "Couldn't find user"
 msgstr "Konnte Benutzer nicht finden"
 
-#: src/sscdaccess.cpp:814
+#: src/sscdaccess.cpp:888
 msgid "Couldn't find institution"
 msgstr "Konnte Institution nicht finden"
 
-#: src/sscdaccess.cpp:839
+#: src/sscdaccess.cpp:913
 msgid "Couldn't find record"
 msgstr "Konnte Datensatz nicht finden"
 
-#: src/sscdaccess.cpp:879
+#: src/sscdaccess.cpp:953
 msgid "User - institution associations could not be read"
 msgstr "Benutzer - Institution Assoziation konnte nicht gelesen werden"
 
-#: src/sscdaccess.cpp:942
+#: src/sscdaccess.cpp:1019
 msgid "Server failed to store sample"
 msgstr "Server konnte die Aufnahme nicht speichern"
 
@@ -1363,7 +1362,7 @@ msgstr "Verbunden"
 msgid "Not connected"
 msgstr "Nicht verbunden"
 
-#: src/sscview.cpp:356
+#: src/sscview.cpp:357
 msgid ""
 "The server closed the connection.\n"
 "\n"
@@ -1373,11 +1372,11 @@ msgstr ""
 "\n"
 "Wollen Sie versuchen neu zu verbinden?"
 
-#: src/sscview.cpp:389
+#: src/sscview.cpp:390
 msgid "You are not connected."
 msgstr "Sie sind nicht verbunden."
 
-#: src/sscview.cpp:395
+#: src/sscview.cpp:396
 msgid "Disconnecting..."
 msgstr "Trenne Verbindung..."
 
@@ -1435,7 +1434,7 @@ msgstr ""
 "Tipp: Lassen Sie etwa ein bis zwei Sekunden \"Stille\" vor und nach dem Text "
 "für beste Ergebnisse!\n"
 
-#: src/trainsamplepage.cpp:123
+#: src/trainsamplepage.cpp:125
 msgid "Couldn't remove samples \"%1\"."
 msgstr "Konnte Samples nicht entfernen \"%1\"."
 

@@ -33,8 +33,8 @@ private:
 	QString m_description;
 	int m_state;
 	int m_newState;
-	bool m_showIcon;
 	bool m_announce;
+	bool m_showIcon;
 
 	QObject *m_receiver;
 	QString m_slot;

@@ -25,9 +25,9 @@ class Token
     public:
 	Token(char arOp, short type);
         Token(double num);
-	char getArOperator();
-	double getNumber();	
-	short getType();
+	char getArOperator() const;
+	double getNumber() const;	
+	short getType() const;
 
     private:
 	char arOperator;

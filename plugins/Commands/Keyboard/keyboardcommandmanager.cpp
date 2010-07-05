@@ -437,7 +437,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 			i18n("Number backspace"), false, false, SimonCommand::GreedyState, 
 			SimonCommand::GreedyState);
 
-	return true;
+	return succ;
 }
 
 

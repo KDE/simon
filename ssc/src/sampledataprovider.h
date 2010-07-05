@@ -57,6 +57,7 @@ public:
 	void registerDataProvider(TrainSamplePage* trainSamplePage);
 
 	bool startTransmission();
+	bool store();
 
 	bool hasSamplesToTransmit()
 	{ return !m_samplesToTransmit.isEmpty(); }

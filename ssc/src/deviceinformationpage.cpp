@@ -28,6 +28,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QScrollArea>
+#include <QSettings>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -59,6 +60,56 @@ DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(pare
 	setLayout(lay);
 }
 
+bool DeviceInformationPage::serializeToStorage(QSettings& ini) const
+{
+	ini.beginGroup("Recording");
+	ini.beginWriteArray("Microphones");
+
+	int i=0;
+	foreach (DeviceInformationWidget *wg, informationWidgets)
+	{
+		ini.setArrayIndex(i);
+
+		wg->serialize(ini);
+
+		i++;
+	}
+
+	ini.endArray();
+	ini.endGroup();
+	return true;
+}
+
+void DeviceInformationPage::registerInformationWidget(DeviceInformationWidget* wg)
+{
+	connect(wg, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
+	informationWidgets << wg;
+	QVBoxLayout *layout = dynamic_cast<QVBoxLayout*>(scrollWidget->widget()->layout());
+	if (!layout) return;
+	layout->addWidget(wg);
+	wg->show();
+}
+
+bool DeviceInformationPage::deserializeFromStorage(QSettings& ini)
+{
+	ini.beginGroup("Recording");
+
+	int size = ini.beginReadArray("Microphones");
+	qDeleteAll(informationWidgets);
+	informationWidgets.clear();
+	for (int i=0; i < size; i++)
+	{
+		ini.setArrayIndex(i);
+
+		DeviceInformationWidget *wg = new DeviceInformationWidget(this);
+		wg->deserialize(ini);
+		
+		registerInformationWidget(wg);
+	}
+		
+	ini.endGroup();
+	return true;
+}
 
 QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool &ok)
 {
@@ -134,15 +185,7 @@ void DeviceInformationPage::initializePage()
 		DeviceInformationWidget *wg = new DeviceInformationWidget(this);
 		wg->setup(device);
 
-		connect(wg, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
-
-		informationWidgets << wg;
-
-		QVBoxLayout *layout = dynamic_cast<QVBoxLayout*>(scrollWidget->widget()->layout());
-		if (!layout)
-			continue;
-		layout->addWidget(wg);
-		wg->show();
+		registerInformationWidget(wg);
 	}
 }
 

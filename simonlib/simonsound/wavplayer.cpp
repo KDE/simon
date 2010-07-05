@@ -78,16 +78,11 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
  */
 bool WavPlayer::play( QString filename )
 {
-	if (stream)
-	{
-// 		delete stream;
-		stream = 0;
-	}
-	if (wav)
-	{
-		delete wav;
-		wav = 0;
-	}
+//	delete stream;
+	stream = 0;
+}
+	delete wav;
+	wav = 0;
 
 	wavPosition = 0;
 	length = 0;
@@ -216,7 +211,7 @@ void WavPlayer::stop()
  */
 WavPlayer::~WavPlayer()
 {
-	if (wav) delete wav;
+	delete wav;
 }
 
 

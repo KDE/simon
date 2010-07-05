@@ -50,12 +50,6 @@ AddWordRecordPage::AddWordRecordPage(const QString& fieldName_, int pageNr_, int
 	setLayout(lay);
 }
 
-bool AddWordRecordPage::hasSample() const
-{
-	Q_ASSERT(page);
-	return page->isComplete();
-}
-
 bool AddWordRecordPage::isComplete() const
 {
 	return true;

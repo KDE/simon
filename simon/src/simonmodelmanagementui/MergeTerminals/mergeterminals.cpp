@@ -23,7 +23,8 @@
 #include "modelmanageruiproxy.h"
 #include <KLocalizedString>
 
-MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
+MergeTerminals::MergeTerminals(QObject* parent): QThread(parent),
+	newName(""), terminalA(""), terminalB(""), includeShadow(true), includeGrammar(true)
 {
 }
 

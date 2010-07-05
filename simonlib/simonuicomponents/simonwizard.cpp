@@ -18,11 +18,12 @@
  */
 
 #include "simonwizard.h"
+#include <QDir>
 #include <KStandardDirs>
 #include <KLocale>
 #include <QFile>
 #include <KGlobal>
-#include <QDir>
+#include <KDebug>
 
 SimonWizard::SimonWizard(QWidget* parent, Qt::WFlags flags)
 		: QWizard(parent, flags)
@@ -31,11 +32,18 @@ SimonWizard::SimonWizard(QWidget* parent, Qt::WFlags flags)
 
 bool SimonWizard::setBanner(const QString& name)
 {
+	kDebug() << "Searching banner: " << name;
 	QString fileName = KStandardDirs::locate("appdata", "themes/default/"+name.toAscii()+".png");
 
-	if (KGlobal::locale()->language().startsWith("en"))
-		fileName = KStandardDirs::locate("appdata", "themes/default/l10n/en/"+name.toAscii()+".png");
 
+	if (KGlobal::locale()->language().startsWith("en"))
+	{
+		QString enFileName = KStandardDirs::locate("appdata", "themes/default/l10n/en/"+name.toAscii()+".png");
+		if (QFile::exists(enFileName))
+			fileName = enFileName;
+	}
+
+	kDebug() << "Setting banner: " << fileName;
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(fileName));
 	return true;
 }

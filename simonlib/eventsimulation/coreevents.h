@@ -36,8 +36,8 @@ class DeadKey {
 			m_baseKey = baseKey;
 		}
 		
-		unsigned int deadKey() { return m_deadKey; }
-		unsigned int baseKey() { return m_baseKey; }
+		unsigned int deadKey() const { return m_deadKey; }
+		unsigned int baseKey() const { return m_baseKey; }
 };
 
 

@@ -53,20 +53,20 @@ protected:
 
 
 public:
-	SimonSound::DeviceConfiguration deviceConfiguration()
+	SimonSound::DeviceConfiguration deviceConfiguration() const
 	{ return m_deviceConfiguration; }
 
 	void setDeviceConfiguration(SimonSound::DeviceConfiguration dev)
 	{ m_deviceConfiguration = dev; }
 
-	SoundClientPriority priority()
+	SoundClientPriority priority() const
 	{ return m_priority; }
 
-	bool isBackground()
+	bool isBackground() const
 	{ return m_priority & Background; }
-	bool isNormal()
+	bool isNormal() const
 	{ return m_priority & Normal; }
-	bool isExclusive()
+	bool isExclusive() const
 	{ return m_priority & Exclusive; }
 
 	virtual void inputStateChanged(QAudio::State) {}
