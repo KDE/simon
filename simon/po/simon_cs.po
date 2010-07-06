@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simon\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:16+0300\n"
+"POT-Creation-Date: 2010-07-06 09:16+0300\n"
 "PO-Revision-Date: 2010-07-05 13:16+0300\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -748,7 +748,8 @@ msgstr "Vaše jméno:"
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: po/rc.cpp:281 rc.cpp:281
-msgid "EMail:"
+#, fuzzy
+msgid "Email:"
 msgstr "E-mail:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:66

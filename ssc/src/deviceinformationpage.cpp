@@ -63,7 +63,7 @@ DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(pare
 bool DeviceInformationPage::serializeToStorage(QSettings& ini) const
 {
 	ini.beginGroup("Recording");
-	ini.beginWriteArray("Microphones");
+	ini.beginWriteArray("Devices");
 
 	int i=0;
 	foreach (DeviceInformationWidget *wg, informationWidgets)
@@ -94,7 +94,7 @@ bool DeviceInformationPage::deserializeFromStorage(QSettings& ini)
 {
 	ini.beginGroup("Recording");
 
-	int size = ini.beginReadArray("Microphones");
+	int size = ini.beginReadArray("Devices");
 	qDeleteAll(informationWidgets);
 	informationWidgets.clear();
 	for (int i=0; i < size; i++)

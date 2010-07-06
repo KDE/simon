@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="ssc" version="1">
+<gui name="ssc" version="2">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connect" />
@@ -8,6 +8,7 @@
 		<Action name="adduser" />
 		<Action name="users" />
 		<Action name="institutions" />
+		<Action name="store" />
 	</ToolBar>
 	<MenuBar>
 		<Menu name="sscd">
@@ -20,6 +21,7 @@
 			<Action name="adduser" />
 			<Action name="users" />
 			<Action name="institutions" />
+			<Action name="store" />
 		</Menu>
 
 		<Menu name="settings">

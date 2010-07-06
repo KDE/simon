@@ -25,6 +25,7 @@
 #include "manageusers.h"
 #include "trainingswizard.h"
 #include "sscdaccess.h"
+#include "uploadsamples.h"
 
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>
@@ -208,8 +209,13 @@ void SSCView::setupActions()
 	connect(institutionsAction, SIGNAL(triggered(bool)),
 				this, SLOT(listInstitutions()));
 
-
-		   
+	KAction* storeAction = new KAction(this);
+	storeAction->setText(i18n("Upload stored data"));
+	storeAction->setIcon(KIcon("folder-sync"));
+	actionCollection()->addAction("store", storeAction);
+	connect(storeAction, SIGNAL(triggered(bool)),
+				this, SLOT(uploadStored()));
+	
 	KStandardAction::quit(this, SLOT(close()), actionCollection());
 
 	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
@@ -444,6 +450,11 @@ void SSCView::interview()
 	delete u;
 }
 
+void SSCView::uploadStored()
+{
+	UploadSamples *samples = new UploadSamples(this);
+	samples->exec();
+}
 
 SSCView::~SSCView()
 {

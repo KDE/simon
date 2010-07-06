@@ -12,6 +12,7 @@ set(ssc_SRCS
    modifyuser.cpp
    modifyuserininstitution.cpp
    manageinstitutions.cpp
+   uploadsamples.cpp
    manageusers.cpp
    institutionmodel.cpp
    usermodel.cpp
@@ -28,6 +29,7 @@ set(ssc_SRCS
 kde4_add_ui_files( ssc_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/details.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/finduser.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/uploadsamples.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceinformation.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/institution.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui

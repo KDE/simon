@@ -57,15 +57,24 @@ QHash<QString, SoundCard*> SampleDataProvider::buildSoundCardMappings(bool &ok)
 bool SampleDataProvider::store()
 {
 	QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh:mm:ss:zzz")));
-	QSettings ini(KStandardDirs::locateLocal("appdata", directory+"/profile.ini"));
+	QSettings ini(directory+"/profile.ini", QSettings::IniFormat);
+	kDebug() << "Profiles: " << directory+"/profile.ini";
 
 	bool succ = true;
 	succ = m_infoPage->serializeToStorage(ini) && succ;
 
+	ini.beginGroup("Samples");
+	ini.beginWriteArray("Sample");
+	int i=0;
 	foreach (TrainSamplePage *page, m_trainSamplePages)
+	{
+		ini.setArrayIndex(i);
 		succ = page->serializeToStorage(ini, directory) && succ;
+		i++;
+	}
+	ini.endArray();
+	ini.endGroup();
 
-	ini.sync();
 	return succ;
 }
 

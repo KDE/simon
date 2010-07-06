@@ -81,6 +81,8 @@ private slots:
     void training();
     void interview();
 
+    void uploadStored();
+
 private:
     bool wantToDisconnect;
     Ui::SampleCollectorUi ui;
