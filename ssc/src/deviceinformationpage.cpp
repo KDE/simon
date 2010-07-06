@@ -106,7 +106,7 @@ bool DeviceInformationPage::deserializeFromStorage(QSettings& ini)
 		
 		registerInformationWidget(wg);
 	}
-		
+	ini.endArray();
 	ini.endGroup();
 	return true;
 }
@@ -177,8 +177,8 @@ QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &o
 
 void DeviceInformationPage::initializePage()
 {
-	qDeleteAll(informationWidgets);
-	informationWidgets.clear();
+	if (informationWidgets.count()) return;
+	
 	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
 	foreach (const SimonSound::DeviceConfiguration& device, devices)
 	{

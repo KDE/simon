@@ -29,8 +29,9 @@
 #include <QFile>
 #include <QSettings>
 
-SampleDataProvider::SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType) :
-	m_userId(userId), m_sampleType(sampleType), m_infoPage(NULL)
+SampleDataProvider::SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType,
+		const QString& name) :
+	m_userId(userId), m_sampleType(sampleType), m_name(name), m_infoPage(NULL)
 {
 }
 
@@ -59,6 +60,9 @@ bool SampleDataProvider::store()
 	QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh:mm:ss:zzz")));
 	QSettings ini(directory+"/profile.ini", QSettings::IniFormat);
 	kDebug() << "Profiles: " << directory+"/profile.ini";
+
+	ini.setValue("Type", m_sampleType);
+	ini.setValue("Name", m_name);
 
 	bool succ = true;
 	succ = m_infoPage->serializeToStorage(ini) && succ;

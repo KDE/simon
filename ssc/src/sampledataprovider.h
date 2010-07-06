@@ -42,6 +42,7 @@ class SampleDataProvider {
 private:
 	qint32 m_userId;
 	TrainingsWizard::TrainingsType m_sampleType;
+	QString m_name;
 	DeviceInformationPage* m_infoPage;
 	QList<TrainSamplePage*> m_trainSamplePages;
 
@@ -51,7 +52,7 @@ private:
 	QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
 
 public:
-	SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType);
+	SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QString& name);
 
 	void registerMicrophoneInfo(DeviceInformationPage* infoPage);
 	void registerDataProvider(TrainSamplePage* trainSamplePage);

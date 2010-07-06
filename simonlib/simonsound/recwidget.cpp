@@ -336,6 +336,7 @@ bool RecWidget::deleteAll()
 	return success;
 }
 
+
 RecWidget::~RecWidget()
 {
 	delete ui;

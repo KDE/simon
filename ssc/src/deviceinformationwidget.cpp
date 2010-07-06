@@ -165,6 +165,7 @@ bool DeviceInformationWidget::isComplete() const
 
 void DeviceInformationWidget::serialize(QSettings& ini) const
 {
+	ini.setValue("InternalDeviceName", m_deviceName);
 	ini.setValue("DeviceName", getModel());
 	ini.setValue("DeviceType", getType());
 	ini.setValue("MicName", getMicModel());
@@ -173,6 +174,8 @@ void DeviceInformationWidget::serialize(QSettings& ini) const
 
 void DeviceInformationWidget::deserialize(QSettings& ini)
 {
+	m_deviceName = ini.value("InternalDeviceName").toString();
+	ui->lbDevice->setText(m_deviceName);
 	ui->cbModel->setEditText(ini.value("DeviceName").toString());
 	ui->cbType->setEditText(ini.value("DeviceType").toString());
 	ui->cbMicModel->setEditText(ini.value("MicName").toString());

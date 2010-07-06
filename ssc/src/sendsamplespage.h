@@ -50,15 +50,19 @@ class SendSampleWorker : public QObject
 		bool shouldAbort;
 		bool shouldDelete;
 		SampleDataProvider *m_dataProvider;
+		bool m_isStored;
+		QString m_storageDirectory;
 
 	private slots:
 		void abort() { shouldAbort = true; }
 
 	public:
-		SendSampleWorker(SampleDataProvider *dataProvider) : 
+		SendSampleWorker(SampleDataProvider *dataProvider, bool isStored, const QString& storageDirectory=QString()) : 
 			shouldAbort(false), 
 			shouldDelete(false),
-			m_dataProvider(dataProvider)
+			m_dataProvider(dataProvider),
+			m_isStored(isStored),
+			m_storageDirectory(storageDirectory)
 		{}
 		~SendSampleWorker();
 
@@ -77,6 +81,7 @@ class SendSamplePage : public QWizardPage
 
 	private:
 		qint32 m_userId;
+		bool m_isStored;
 
 		SendSampleWorker *worker;
 
@@ -104,8 +109,8 @@ class SendSamplePage : public QWizardPage
 		void storeData();
 	
 	public:
-		SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent=0);
-		//SendSamplePage(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QStringList& files, const QStringList& prompts, QWidget *parent=0);
+		SendSamplePage(SampleDataProvider *dataProvider, bool isStored, const QString& ini, QWidget *parent=0);
+		
 		~SendSamplePage();
 		bool isComplete() const;
 

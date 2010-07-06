@@ -38,9 +38,10 @@
 #include <KLocalizedString>
 #include <KPushButton>
 
-SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent) :
+SendSamplePage::SendSamplePage(SampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
 	QWizardPage(parent),
-	worker(new SendSampleWorker(dataProvider)),
+	m_isStored(isStored),
+	worker(new SendSampleWorker(dataProvider, isStored, ini)),
 	layout(new QVBoxLayout()),
 	m_transmitOperation(NULL),
 	m_progressWidget(NULL)
@@ -54,9 +55,15 @@ SendSamplePage::SendSamplePage(SampleDataProvider *dataProvider, QWidget *parent
 	connect(pbReSendData, SIGNAL(clicked()), this, SLOT(prepareDataSending()));
 	layout->addWidget(pbReSendData);
 
+
 	pbStoreData  = new KPushButton(KIcon("document-save"), i18n("Store samples (send later)"), this);
 	connect(pbStoreData, SIGNAL(clicked()), this, SLOT(storeData()));
 	layout->addWidget(pbStoreData);
+
+	if (isStored)
+	{
+		pbStoreData->hide();
+	}
 
 	futureWatcher = new QFutureWatcher<bool>(this);
 	connect(futureWatcher, SIGNAL(finished()), this, SLOT(transmissionFinished()));
@@ -112,12 +119,19 @@ void SendSamplePage::transmissionFinished()
 	emit completeChanged();
 
 	wizard()->button(QWizard::CancelButton)->setEnabled(true);
-	wizard()->button(QWizard::BackButton)->setEnabled(true);
 
 	if (!futureWatcher->result() || worker->getShouldAbort())
 	{
 		pbReSendData->setEnabled(true);
 		pbStoreData->setEnabled(true);
+		wizard()->button(QWizard::BackButton)->setEnabled(true);
+	} else {
+		if (m_isStored)
+		{
+			//if the data is stored anyways we can simple restart
+			wizard()->button(QWizard::BackButton)->setEnabled(false);
+		} else 
+			wizard()->button(QWizard::BackButton)->setEnabled(true);
 	}
 }
 
@@ -292,6 +306,16 @@ bool SendSampleWorker::sendSamples()
 	kDebug() << "Done";
 	m_dataProvider->stopTransmission();
 	if (!shouldAbort) {
+		if (m_isStored)
+		{
+			//remove storage
+			if (QFile::exists(m_storageDirectory+"/profile.ini") &&
+				!QFile::remove(m_storageDirectory+"/profile.ini"))
+				emit error(i18n("Profile information could not be removed.", m_storageDirectory+"/profile.ini"));
+			QDir d(m_storageDirectory);
+			if (d.exists(m_storageDirectory) && !d.rmdir(m_storageDirectory))
+				emit error(i18n("Storage directory could not be removed: %1.", m_storageDirectory));
+		}
 		emit finished();
 	} else 
 		emit aborted();

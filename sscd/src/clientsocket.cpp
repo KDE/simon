@@ -512,6 +512,7 @@ void ClientSocket::processRequest()
         ///////////////////////
         
 				delete s;
+				break;
 					   }
 			default: {
 					 qDebug() << "Received invalid request..." << request;

@@ -45,6 +45,7 @@ class TrainingsWizard : public SimonWizard
 		};
 
 		int collectSamples(TrainingsType type, qint32 userId);
+		bool init(qint32 userId, const QString& path);
 
 	private:
 		DeviceInformationPage *m_infoPage;

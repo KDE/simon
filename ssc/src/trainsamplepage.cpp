@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "trainsamplepage.h"
-#include "sscconfig.h"
 #include <simonsound/recwidget.h>
 
 #include <QDateTime>
@@ -29,21 +28,30 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KDebug>
 
 
-TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, QWidget* parent) : QWizardPage(parent),
+TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, const QString& directory,
+				 QWidget* parent, const QString& forcedFileNameTemplate) : 
+	QWizardPage(parent),
 	m_name(name),
 	recorder(NULL),
 	prompt(prompt_),
-	fileName( prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"").left(100)
-		+ "_S"
-		+ QString::number(nowPage)
-		+ "_"
-		+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") ),
 	m_thisPage(nowPage),
 	m_maxPage(maxPage),
-	m_directory(SSCConfig::sampleDirectory())
+	m_directory(directory)
 {
+	if (forcedFileNameTemplate.isEmpty())
+	{
+		fileName = prompt_.replace(" ", "_").replace("/","_").remove("?").replace("\\","_")
+				.remove("<").remove(">").remove("|").remove("\"").left(100)
+				+ "_S"
+				+ QString::number(nowPage)
+				+ "_"
+				+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
+	} else {
+		fileName = forcedFileNameTemplate;
+	}
 }
 
 void TrainSamplePage::setupUi()
@@ -169,6 +177,7 @@ bool TrainSamplePage::serializeToStorage(QSettings& ini, const QString& director
 	ini.setValue("FilenameTemplate", fileName);
 	return succ;
 }
+
 
 bool TrainSamplePage::deserializeFromStorage(QSettings& ini, const QString& directory)
 {

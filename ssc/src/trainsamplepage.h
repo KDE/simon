@@ -40,7 +40,9 @@ class TrainSamplePage : public QWizardPage
 
 	
 	public:
-		TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage, QWidget *parent=0);
+		TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage, 
+				const QString& directory, QWidget *parent=0,
+				const QString& forcedFileNameTemplate=QString());
 		~TrainSamplePage();
 		bool isComplete() const;
 

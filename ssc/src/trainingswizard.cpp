@@ -35,6 +35,7 @@
 #include <QTimer>
 #include <QCheckBox>
 #include <QFile>
+#include <QSettings>
 #include <QDir>
 
 #include <KLocalizedString>
@@ -43,6 +44,7 @@
 #include <KDebug>
 
 #include <math.h>
+#include <sscprotocol/sscprotocol.h>
 
 TrainingsWizard::TrainingsWizard(QWidget *parent) : SimonWizard(parent)
 {
@@ -63,20 +65,58 @@ DeviceInformationPage* TrainingsWizard::createDeviceDescPage()
 	return new DeviceInformationPage(this);
 }
 
+bool TrainingsWizard::init(qint32 userId, const QString& path)
+{
+	QSettings ini(path+"/profile.ini", QSettings::IniFormat);
+	TrainingsWizard::TrainingsType type = (TrainingsWizard::TrainingsType) 
+			ini.value("Type").toInt();
+	QString name = ini.value("Name").toString();
+	
+	SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type, name);
+	m_infoPage->deserializeFromStorage(ini);
+	sampleDataProvider->registerMicrophoneInfo(m_infoPage);
+	
+
+	ini.beginGroup("Samples");
+	int size = ini.beginReadArray("Sample");
+	kDebug() << "Size of read array: " << size;
+	for (int i=0; i < size; i++)
+	{
+		ini.setArrayIndex(i);
+		TrainSamplePage *page = new TrainSamplePage(name, ini.value("Prompt").toString(), i+1, size,
+							    path, this,
+							    ini.value("FileNameTemplate").toString()
+   							);
+		page->setupUi();
+// 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
+		addPage(page);
+
+		sampleDataProvider->registerDataProvider(page);
+	}
+	ini.endArray();
+	ini.endGroup();
+	
+	addPage(new SendSamplePage(sampleDataProvider, true /* is stored */, path, this));
+	addPage(createFinishedPage());
+	
+	return true;
+}
+
 bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name)
 {
 	setWindowTitle(name);
 	
 	if (prompts.isEmpty()) return false;
 
-	SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type);
+	SampleDataProvider *sampleDataProvider = new SampleDataProvider(userId, type, name);
 	int nowPage=1;
 	int maxPage=prompts.count();
 	sampleDataProvider->registerMicrophoneInfo(m_infoPage);
 
 	foreach (QString prompt, prompts)
 	{
-		TrainSamplePage *page = new TrainSamplePage(name, prompt, nowPage++, maxPage, this);
+		TrainSamplePage *page = new TrainSamplePage(name, prompt, nowPage++, maxPage, 
+							    SSCConfig::sampleDirectory(), this);
 		page->setupUi();
 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
@@ -84,7 +124,7 @@ bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList&
 		sampleDataProvider->registerDataProvider(page);
 	}
 
-	addPage(new SendSamplePage(sampleDataProvider, this));
+	addPage(new SendSamplePage(sampleDataProvider, false /* is stored */, SSCConfig::sampleDirectory(), this));
 	addPage(createFinishedPage());
 	return true;
 }
@@ -121,8 +161,8 @@ QStringList TrainingsWizard::parsePromptsFromFile(const QString& path)
 
 int TrainingsWizard::collectSamples(TrainingsType type, qint32 userId)
 {
-	if (!cleanUp())
-		return -1;
+// 	if (!cleanUp())
+// 		return -1;
 	QString name;
 	QStringList prompts;
 	switch (type) {
