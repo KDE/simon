@@ -50,6 +50,13 @@
       </widget>
      </item>
      <item>
+      <widget class="KPushButton" name="pbEdit">
+       <property name="text">
+        <string>Edit user</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="KPushButton" name="pbDeleteSamples">
        <property name="text">
         <string>Delete selected</string>

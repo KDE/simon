@@ -34,6 +34,7 @@ private:
 private slots:
 	void upload();
 	void remove();
+	void edit();
 
 public:
 	UploadSamples(QWidget *parent=0);
