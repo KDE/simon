@@ -345,7 +345,10 @@ User* SSCDAccess::getUser(qint32 id)
 {
 	fprintf(stderr, "Sending user request");
 	if (!sendRequest(SSC::GetUser,id))
+	{
+// 		kDebug() << "couldn't send request";
 		return NULL;
+	}
 
 
 	QByteArray msg;
@@ -356,6 +359,7 @@ User* SSCDAccess::getUser(qint32 id)
 	qint32 type;
 	stream >> type;
 
+// 	kDebug() << "Received reply: " << type;
 	switch (type) {
 		case SSC::User: {
 			parseLengthHeader();

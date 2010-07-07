@@ -82,6 +82,9 @@ void SendSamplePage::setupOperation(const QString& name)
 		layout->removeWidget(m_progressWidget);
 		m_progressWidget->deleteLater();
 	}
+	
+	if (m_transmitOperation && m_transmitOperation->isRunning())
+		m_transmitOperation->cancel();
 
 	m_transmitOperation = new Operation(QThread::currentThread(), name, i18n("Initializing"), 0, 0, false);
 	m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
@@ -122,6 +125,7 @@ void SendSamplePage::transmissionFinished()
 
 	if (!futureWatcher->result() || worker->getShouldAbort())
 	{
+		kDebug() << "Result: " << futureWatcher->result() << " should abort: " << worker->getShouldAbort();
 		pbReSendData->setEnabled(true);
 		pbStoreData->setEnabled(true);
 		wizard()->button(QWizard::BackButton)->setEnabled(true);
@@ -329,6 +333,8 @@ bool SendSampleWorker::sendSamples()
 
 bool SendSampleWorker::storeData()
 {
+	shouldAbort = false;
+	
 	//storing data
 	bool succ = true;
 	if (!m_dataProvider->store())
