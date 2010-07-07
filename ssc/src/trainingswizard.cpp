@@ -88,7 +88,6 @@ bool TrainingsWizard::init(qint32 userId, const QString& path)
 							    ini.value("FileNameTemplate").toString()
    							);
 		page->setupUi();
-// 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
 
 		sampleDataProvider->registerDataProvider(page);

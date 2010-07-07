@@ -77,19 +77,28 @@ SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent),
 User* SSCView::retrieveUser()
 {
 	User *u = NULL;
-	SSCConfig::self()->readConfig();
-	kDebug() << SSCConfig::useInstitutionSpecificIDs();
-	kDebug() << SSCConfig::referenceInstitute();
-	if (SSCConfig::useInstitutionSpecificIDs())  {
-		u = getInstituteSpecificUser();
+	
+	if (offlineMode()) 
+	{
+		bool ok = true;
+		qint32 userId = ui.cbPatientId->currentText().toInt(&ok);
+		if (!ok) return NULL;
+		
+		u = new User(userId, "(Not available in offline mode)", "", '?', 0, 0, "", "", "", "", "", 0, 0, 0, 0, 1, 1);
 	} else {
-		bool ok;
-		qint32 id = ui.cbPatientId->currentText().toInt(&ok);
-		if (!ok) {
-			KMessageBox::information(this, i18n("Please enter a valid user id."));
-			return NULL;
+		SSCConfig::self()->readConfig();
+		
+		if (SSCConfig::useInstitutionSpecificIDs())  {
+			u = getInstituteSpecificUser();
+		} else {
+			bool ok;
+			qint32 id = ui.cbPatientId->currentText().toInt(&ok);
+			if (!ok) {
+				KMessageBox::information(this, i18n("Please enter a valid user id."));
+				return NULL;
+			}
+			u = SSCDAccess::getInstance()->getUser(id);
 		}
-		u = SSCDAccess::getInstance()->getUser(id);
 	}
 
 	if (!u) {
@@ -187,6 +196,16 @@ void SSCView::setupActions()
 	actionCollection()->addAction("disconnect", disconnectAction);
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 				this, SLOT(disconnectFromServer()));
+	
+	
+	KAction* offlineAction = new KAction(this);
+	offlineAction->setText(i18n("Offline mode"));
+	offlineAction->setIcon(KIcon("document-open-remote"));
+	actionCollection()->addAction("offline", offlineAction);
+	offlineAction->setCheckable(true);
+	offlineAction->setChecked(false);
+	connect(offlineAction, SIGNAL(triggered(bool)),
+				this, SLOT(toggleOfflineMode(bool)));
 
 	KAction* addUserAction = new KAction(this);
 	addUserAction->setText(i18n("Add user"));
@@ -226,6 +245,41 @@ void SSCView::setupActions()
 	statusBar()->insertItem("",1,10);
 	statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 }
+
+void SSCView::toggleOfflineMode(bool offline)
+{
+	if (offline)
+	{
+		if (SSCDAccess::getInstance()->isConnected())
+		{
+			if (KMessageBox::questionYesNoCancel(this, i18n("You are currently connected. If you switch to offline mode you will first be disconnected form the server.\n\nDo you want to continue?")) != KMessageBox::Yes)
+				return;
+			
+			disconnectFromServer();
+		}
+		
+		KMessageBox::information(this, i18n("If you continue you will get access to the sample training despite not being connected to the server.\n\nBecause of this, ssc can not make sure that the specified user exists. If it doesn't you will run into trouble later.\n\nOnly use this function if you really know what you are doing! It is also not possible to use institution specific ids in offline mode."), QString(), "dontAskOfflineMode");
+		
+		ui.cbPatientId->setEnabled(true);
+		ui.pbSelectPatient->setEnabled(true);
+		displayConnectionStatus(i18n("Not connected (Offline mode)"));
+		kDebug() << "set to offline mode";
+	} else {
+		ui.cbPatientId->setEnabled(false);
+		ui.pbInterview->setEnabled(false);
+		ui.pbRepeat->setEnabled(false);
+		ui.pbTraining->setEnabled(false);
+		displayConnectionStatus(i18n("Not connected"));
+	}
+	clearUserSelection();
+}
+
+bool SSCView::offlineMode()
+{
+	return actionCollection()->action("offline")->isChecked();
+}
+
+
 
 /**
  * Creates and displays the configuration dialog;
@@ -298,6 +352,8 @@ void SSCView::userDetails()
  */
 void SSCView::connectToServer()
 {
+	actionCollection()->action("offline")->setChecked(false);
+	
 	if (SSCDAccess::getInstance()->isConnected()) {
 		KMessageBox::information(this, i18n("You are already connected."));
 		return;
@@ -314,6 +370,7 @@ void SSCView::connectToServer()
  */
 void SSCView::connected()
 {
+	actionCollection()->action("offline")->setChecked(false);
 	displayConnectionStatus(i18n("Connected"));
 
 	ui.pbSelectPatient->setEnabled(true);
@@ -329,7 +386,14 @@ void SSCView::connected()
 	actionCollection()->action("users")->setEnabled(true);
 	actionCollection()->action("institutions")->setEnabled(true);
 
+	clearUserSelection();
 	ui.cbPatientId->setEnabled(true);
+}
+
+void SSCView::clearUserSelection()
+{
+	ui.lbPatientName->setText("");
+	ui.cbPatientId->clearEditText();
 }
 
 /**
@@ -338,6 +402,7 @@ void SSCView::connected()
 void SSCView::disconnected()
 {
 	displayConnectionStatus(i18n("Not connected"));
+	kDebug() << "set to disconnected mode";
 
 	ui.pbSelectPatient->setEnabled(false);
 	ui.pbSearchPatient->setEnabled(false);
@@ -354,19 +419,19 @@ void SSCView::disconnected()
 
 	ui.cbPatientId->setEnabled(false);
 
-	ui.cbPatientId->clearEditText();
-	ui.lbPatientName->setText("");
+	clearUserSelection();
 
-  if (!wantToDisconnect)
-  {
-    //server quit
-    if (KMessageBox::questionYesNo(this, i18n("The server closed the connection.\n\nDo you want to try to re-connect?")) == 
-          KMessageBox::Yes)
-    {
-      connectToServer();
-    }
-  }
-  wantToDisconnect = false;
+	if (!wantToDisconnect)
+	{
+		//server quit
+		if (KMessageBox::questionYesNo(this, 
+			i18n("The server closed the connection.\n\nDo you want to try to re-connect?")) == 
+			KMessageBox::Yes)
+		{
+			connectToServer();
+		}
+	}
+	wantToDisconnect = false;
 }
 
 
@@ -397,7 +462,7 @@ void SSCView::disconnectFromServer()
 		return;
 	}
 
-  wantToDisconnect = true;
+	wantToDisconnect = true;
 
 	displayConnectionStatus(i18n("Disconnecting..."));
 	SSCDAccess::getInstance()->disconnectFromServer();
@@ -416,6 +481,8 @@ void SSCView::repeat()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	u->interviewPossible();
+
 	if (u->repeatingPossible()) {
 		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
 		trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
@@ -428,6 +495,7 @@ void SSCView::training()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	u->interviewPossible();
 
 	if (u->repeatingPossible()) {
 		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);
@@ -441,6 +509,7 @@ void SSCView::interview()
 {
 	User *u = retrieveUser();
 	if (!u) return;
+	u->interviewPossible();
 
 	if (u->interviewPossible()) {
 		TrainingsWizard *trainingsWizard = new TrainingsWizard(this);

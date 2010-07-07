@@ -160,6 +160,11 @@ void SampleDataProvider::sampleTransmitted()
 	delete s;
 }
 
+void SampleDataProvider::skipSample()
+{
+	delete m_samplesToTransmit.takeAt(0);
+}
+
 
 SampleDataProvider::~SampleDataProvider()
 {

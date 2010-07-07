@@ -82,6 +82,9 @@ private slots:
     void interview();
 
     void uploadStored();
+    
+    void toggleOfflineMode(bool offline);
+    bool offlineMode();
 
 private:
     bool wantToDisconnect;
@@ -89,6 +92,7 @@ private:
     //TrainingsWizard *trainingsWizard;
 
     User* getInstituteSpecificUser();
+    void clearUserSelection();
 };
 
 #endif // ksimondVIEW_H

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="ssc" version="2">
+<gui name="ssc" version="3">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connect" />
 		<Action name="disconnect" />
-		<Action name="adduser" />
+		<Action name="offline" />
+<!-- 		<Action name="adduser" /> -->
 		<Action name="users" />
 		<Action name="institutions" />
 		<Action name="store" />
@@ -15,6 +16,7 @@
 			<text>Server</text>
 			<Action name="connect" />
 			<Action name="disconnect" />
+			<Action name="offline" />
 		</Menu>
 		<Menu name="manage">
 			<text>Manage</text>

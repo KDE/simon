@@ -48,7 +48,7 @@ SendSamplePage::SendSamplePage(SampleDataProvider* dataProvider, bool isStored, 
 {
 	setTitle(i18n("Transmitting samples..."));
 
-	QLabel *desc = new QLabel(i18n("The recorded samples are now sent to the server.\n\nPlease be patient..."), this);
+	QLabel *desc = new QLabel(i18n("The recorded samples are now ready to be sent to the server or stored locally to be sent later."), this);
 	desc->setWordWrap(true);
 	layout->addWidget(desc);
 	pbReSendData = new KPushButton(KIcon("view-refresh"), i18n("Send samples"), this);
@@ -185,10 +185,14 @@ SendSamplePage::~SendSamplePage()
 
 void SendSamplePage::initializePage()
 {
-	if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
+	/*
+	 * This really is nothing but annoying
+	 * 
+	 * if (KMessageBox::questionYesNo(this, i18n("Do you want to send the samples to the server?")) == KMessageBox::Yes) {
     prepareDataSending();
 	} else
 		kDebug() << "Nothing";
+	*/
 }
 
 
@@ -290,11 +294,16 @@ bool SendSampleWorker::sendSamples()
 					shouldAbort = true;
 					successful = false;
 				}
-				else
-					emit error(i18n("Server couldn't process sample: %1", SSCDAccess::getInstance()->lastError()));
 				retryAmount++;
+				i--;
 			} else {
-				m_dataProvider->sampleTransmitted();
+				if (retryAmount < 3)
+					m_dataProvider->sampleTransmitted();
+				else {
+					emit error(i18n("Server couldn't process sample: %1", 
+							SSCDAccess::getInstance()->lastError()));
+					shouldAbort = true; //m_dataProvider->skipSample();
+				}
 				retryAmount = 0;
 			}
 			kDebug() << "Done processing sample";
