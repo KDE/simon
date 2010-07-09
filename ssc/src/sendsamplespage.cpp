@@ -282,37 +282,36 @@ bool SendSampleWorker::sendSamples()
 		emit status(i18n("Sending: %1", s->path()), i, maxProgress);
 
 
-		QFile f(s->path());
-		if (f.open(QIODevice::ReadOnly)) {
-			emit sendSample(s);
+// 		QFile f(s->path());
+		emit sendSample(s);
 
-			kDebug() << "Emit signal";
-			if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3))  {
-				kDebug() << "Error processing sample";
-				if (!SSCDAccess::getInstance()->isConnected())
-				{
-					shouldAbort = true;
-					successful = false;
-				}
-				retryAmount++;
-				i--;
-			} else {
-				if (retryAmount < 3)
-					m_dataProvider->sampleTransmitted();
-				else {
-					emit error(i18n("Server couldn't process sample: %1", 
-							SSCDAccess::getInstance()->lastError()));
-					shouldAbort = true; //m_dataProvider->skipSample();
-				}
-				retryAmount = 0;
+		kDebug() << "Emit signal";
+		if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3))  {
+			kDebug() << "Error processing sample";
+			if (!SSCDAccess::getInstance()->isConnected())
+			{
+				shouldAbort = true;
+				successful = false;
 			}
-			kDebug() << "Done processing sample";
-
-			//if sample could not be opened we probably skipped this sample; ignore that silently
+			retryAmount++;
+			i--;
 		} else {
-			kDebug() << "File not found";
-			m_dataProvider->sampleTransmitted();
+			if (retryAmount < 3)
+				m_dataProvider->sampleTransmitted();
+			else {
+				emit error(i18n("Server couldn't process sample: %1", 
+						SSCDAccess::getInstance()->lastError()));
+				shouldAbort = true; //m_dataProvider->skipSample();
+			}
+			retryAmount = 0;
 		}
+		kDebug() << "Done processing sample";
+
+		//if sample could not be opened we probably skipped this sample; ignore that silently
+// 		} else {
+// 			kDebug() << "File not found";
+// 			m_dataProvider->sampleTransmitted();
+// 		}
 
 		i++;
 	}
