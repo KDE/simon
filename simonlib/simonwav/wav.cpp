@@ -89,6 +89,8 @@ void WAV::importDataFromFile(QString filename)
 	this->beginAddSequence();
 	this->addData(out, length / sizeof(short));
 	this->endAddSequence();
+	
+	delete dstream;
 }
 
 /**
@@ -146,6 +148,8 @@ int WAV::retrieveSampleRate()
 		dstream->readRawData( (char*) &samplerate, 4); //4 byte samplerate, 32bit
 		
 		dstream->unsetDevice();
+		delete dstream;
+		
 		wavFile.close();
 		
 		return (int) samplerate;
@@ -173,6 +177,7 @@ int WAV::retrieveChannels()
 		
 		dstream->unsetDevice();
 		wavFile.close();
+		delete dstream;
 		
 		return (int) channels;
 		
