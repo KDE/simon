@@ -21,6 +21,7 @@
 #include <QDataStream>
 #include <QFile>
 #include <QByteArray>
+#include <QDebug>
 
 Sample::Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId, 
 			qint16 soundCardId, const QString& path, const QString& prompt,
@@ -71,7 +72,7 @@ bool Sample::deleteFile()
 {
 	if (!QFile::remove(m_path))
 	{
-		kWarning() << "Couldn't remove file: " << m_path;
+		qDebug() << "Couldn't remove file: " << m_path;
 		return false;
 	}
 	return true;
