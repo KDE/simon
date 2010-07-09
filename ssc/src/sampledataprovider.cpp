@@ -57,7 +57,8 @@ QHash<QString, SoundCard*> SampleDataProvider::buildSoundCardMappings(bool &ok)
 
 bool SampleDataProvider::store()
 {
-	QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh:mm:ss:zzz")));
+	QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh-mm-ss-zzz")));
+	fprintf(stderr, "Created directory: %s\n", directory.toAscii().constData());
 	QSettings ini(directory+"/profile.ini", QSettings::IniFormat);
 	kDebug() << "Profiles: " << directory+"/profile.ini";
 
