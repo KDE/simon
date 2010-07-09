@@ -28,6 +28,9 @@ class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor {
 
 protected:
 	int m_peak;
+	int m_average;
+	int m_absolutePeak;
+	int m_absoluteMinAverage;
 	bool m_clipping;
 
 public:
@@ -35,7 +38,11 @@ public:
 
 	void process(QByteArray& data, qint64& currentTime);
 
+	int maxAmp() { return 32768; }
+	int average() { return m_average; }
 	int peak() { return m_peak; }
+	int absoluteMinAverage() { return m_absoluteMinAverage; }
+	int absolutePeak() { return m_absolutePeak; }
 	bool clipping() { return m_clipping; }
 };
 

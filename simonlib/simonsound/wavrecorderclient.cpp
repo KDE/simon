@@ -19,6 +19,7 @@
 
 #include "wavrecorderclient.h"
 #include <simonwav/wav.h>
+#include <soundconfig.h>
 
 #include "soundserver.h"
 #include "loudnessmetersoundprocessor.h"
@@ -86,7 +87,22 @@ bool WavRecorderClient::finish()
 	bool succ = true;
 
 	succ = SoundServer::getInstance()->deRegisterInputClient(this);
-
+	
+	kDebug() << "Min: " << loudness->absoluteMinAverage();
+	kDebug() << "Max: " << loudness->absolutePeak();
+	kDebug() << "Theoretical max: " << loudness->maxAmp();
+	int absoluteMinAverage = loudness->absoluteMinAverage();
+	
+	if (absoluteMinAverage == 0)
+		absoluteMinAverage = 1;
+	
+	//ratio is in percent
+	float ratio = (loudness->absolutePeak() / absoluteMinAverage) * 100;
+	kDebug() << "Ratio: " << ratio;
+	
+	if (ratio < SoundConfiguration::minimumSNR())
+		emit signalToNoiseRatioLow();
+	
 	wavData->endAddSequence();
 	if (! wavData->writeFile()) succ = false;
 	wavData->deleteLater();

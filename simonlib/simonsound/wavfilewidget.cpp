@@ -52,10 +52,9 @@
  */
 WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
 		const QString& filename, QWidget *parent) : QWidget(parent),
-	ui(new Ui::WavFileWidgetUi()), m_device(device), m_filename(filename), 
-	m_channels(channels), postProc(NULL)
-{	
-
+	m_problems(None), ui(new Ui::WavFileWidgetUi()), m_device(device), 
+	m_filename(filename), m_channels(channels), postProc(NULL)
+{
 	recordingProgress=0;
 
 	isRecording = false;
@@ -68,7 +67,7 @@ WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate
 	ui->pbPlay->setIcon(KIcon("media-playback-start"));
 	ui->pbDelete->setIcon(KIcon("edit-delete"));
 
-	connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayClippingWarning()));
+	connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayWarning()));
 	ui->wgWarning->hide();
 
 	if (QFile::exists(m_filename))
@@ -94,6 +93,12 @@ bool WavFileWidget::hasRecordingReady()
 	return QFile::exists(m_filename);
 }
 
+WavFileWidget::SampleProblems WavFileWidget::sampleProblems()
+{
+	return m_problems;
+}
+
+
 /**
  * \brief Sets up the signal/slot connections
  * \author Peter Grasch
@@ -107,15 +112,51 @@ void WavFileWidget::setupSignalsSlots()
 	connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
 	connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
 	connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
-	connect(rec, SIGNAL(clippingOccured()), ui->wgWarning, SLOT(show()));
+	
+	connect(rec, SIGNAL(clippingOccured()), this, SLOT(clippingOccured()));
+	connect(rec, SIGNAL(signalToNoiseRatioLow()), this, SLOT(signalToNoiseRatioLow()));
 	
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
 }
 
 
-void WavFileWidget::displayClippingWarning()
+void WavFileWidget::clippingOccured()
 {
-	KMessageBox::information(this, i18n("simon detected that your volume is set too high. Because of this, clipping has occurred.\n\nPlease lower the volume and re-record this sample."));
+	m_problems = m_problems | Clipping;
+	ui->wgWarning->show();
+}
+
+void WavFileWidget::signalToNoiseRatioLow()
+{
+	m_problems = m_problems | SNRTooLow;
+	
+	kDebug() << "Signal to noise ratio low!";
+	ui->wgWarning->show();
+}
+
+
+
+void WavFileWidget::displayWarning()
+{
+	QString warningMsg;
+	
+	if (m_problems & Clipping)
+		warningMsg += ("simon detected that your volume is set too high. "
+			       "Because of this, clipping has occurred.\n\n"
+			       "Please lower the volume and re-record this sample.");
+	
+	if (m_problems & SNRTooLow)
+	{
+		if (!warningMsg.isEmpty()) warningMsg += "\n\n";
+		
+		warningMsg += i18n("simon detected that the difference between recorded "
+				   "speech and background noise is too low.\n\nPlease "
+				   "check that you are not using the \"mic boost\" "
+				   "option in your systems sound configuration and "
+				   "rather raise the recording volume directly.");
+	}
+	
+	KMessageBox::information(this, warningMsg);
 }
 
 
@@ -150,6 +191,12 @@ void WavFileWidget::displayPlaybackProgress(int msecs)
 	ui->pbProgress->setValue(msecs);
 }
 
+void WavFileWidget::resetProblems()
+{
+	ui->wgWarning->hide();
+	m_problems = WavFileWidget::None;
+}
+
 
 /**
  * \brief Starts the recording
@@ -163,7 +210,7 @@ void WavFileWidget::record()
 
 	ui->pbPlay->setEnabled(false);
 	ui->pbDelete->setEnabled(false);
-	ui->wgWarning->hide();
+	resetProblems();
 
 	if (!rec->record(fName))
 	{
@@ -291,7 +338,7 @@ bool WavFileWidget::deleteSample()
 		ui->pbPlay->setEnabled(false);
 		ui->pbDelete->setEnabled(false);
 		emit sampleDeleted();
-		ui->wgWarning->hide();
+		resetProblems();
 		return true;
 	} else {
 		if (QFile::exists(m_filename))

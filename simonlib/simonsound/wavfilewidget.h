@@ -52,6 +52,28 @@ namespace Ui
 class SIMONSOUND_EXPORT WavFileWidget : public QWidget {
 	Q_OBJECT
 
+	
+public:
+	enum SampleProblem
+	{
+		None=0,
+		Clipping=1,
+		SNRTooLow=2
+	};
+	Q_DECLARE_FLAGS(SampleProblems, SampleProblem);
+	
+	WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
+	bool hasRecordingReady();
+
+	bool getIsRecording() { return isRecording; }
+	bool getIsPlaying() { return isPlaying; }
+	QString getFileName() { return m_filename; }
+	QString getDevice() { return m_device; }
+	
+	SampleProblems sampleProblems();
+
+	~WavFileWidget();
+	
 signals:
 	void playing();
 	void recording();
@@ -64,6 +86,9 @@ signals:
 	void error(const QString& error);
 
 private:
+	
+	SampleProblems m_problems;
+	
 	Ui::WavFileWidgetUi *ui;
 
 	QString m_device;
@@ -80,7 +105,11 @@ private:
 	bool isPlaying;
 	
 	void setupSignalsSlots();
+	void resetProblems();
 
+private slots:
+	void clippingOccured();
+	void signalToNoiseRatioLow();
 
 public slots:
 	void record();
@@ -93,21 +122,15 @@ public slots:
 	
 	bool deleteSample();
 	void displayRecordingProgress(int msecs, float level);
-	void displayClippingWarning();
-	void displayPlaybackProgress(int msecs);
 	
-public:
-    WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
-    bool hasRecordingReady();
-
-    bool getIsRecording() { return isRecording; }
-    bool getIsPlaying() { return isPlaying; }
-    QString getFileName() { return m_filename; }
-    QString getDevice() { return m_device; }
-
-    ~WavFileWidget();
+	void displayWarning();
+	
+// 	void displayClippingWarning();
+// 	void displayNoiseWarning();
+	void displayPlaybackProgress(int msecs);
 
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(WavFileWidget::SampleProblems);
 #endif
 

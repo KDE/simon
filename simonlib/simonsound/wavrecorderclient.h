@@ -39,6 +39,7 @@ private:
 signals:
 	void currentProgress(int msecs, float level);
 	void clippingOccured();
+	void signalToNoiseRatioLow();
 	
 public:
 	WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);

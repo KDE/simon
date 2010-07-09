@@ -28,7 +28,10 @@
 
 LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() : 
 	SoundProcessor(),
-	m_peak(1000),
+	m_peak(0),
+	m_average(0),
+	m_absolutePeak(0),
+	m_absoluteMinAverage(maxAmp()),
 	m_clipping(false)
 {
 }
@@ -38,16 +41,26 @@ void LoudnessMeterSoundProcessor::process(QByteArray& data, qint64& currentTime)
 	Q_UNUSED(currentTime);
 
 	const short* frames = (short*) data.constData();
-	int maxAmp =  32768 - 1;
 	m_peak = 0;
+	m_average = 0;
+	
 	m_clipping = false;
-	for (unsigned int i=0; i < (data.size() / sizeof(short)); i++)
+	unsigned int i;
+	for (i=0; i < (data.size() / sizeof(short)); i++)
 	{
 		int frame = qAbs(frames[i]);
 		m_peak = qMax(m_peak, frame);
+		//m_min = qMin(m_min, frame);
+		m_average += frame;
 	}
+	kDebug() << "Peak: " << m_peak;
 
-	if (m_peak >= maxAmp)
+	m_average = m_average / i;
+
+	m_absolutePeak = qMax(m_peak, m_absolutePeak);
+	m_absoluteMinAverage = qMin(m_average, m_absoluteMinAverage);
+	
+	if (m_peak >= (maxAmp()-1))
 		m_clipping = true;
 }
 
