@@ -18,9 +18,9 @@
  */
 
 
-#include <Qt>
 #include "xevents.h"
 #include "xeventsprivate.h"
+#include <Qt>
 
 
 /**

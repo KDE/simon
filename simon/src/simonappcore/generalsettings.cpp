@@ -49,6 +49,7 @@ GeneralSettings::GeneralSettings(QWidget* parent, const QVariantList& args):
 	addConfig(CoreConfiguration::self(), this);
 
 	connect(ui.cbAskBeforeQuit, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbShowSampleWarning, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 void GeneralSettings::slotChanged()
@@ -63,7 +64,8 @@ void GeneralSettings::load()
 
 	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrc");
 	KConfigGroup group(config, "Notification Messages");
-	ui.cbAskBeforeQuit->setChecked(!group.readEntry("askForQuitSimonMainWindow", false));
+	ui.cbAskBeforeQuit->setChecked(!group.readEntry("AskForQuitSimonMainWindow", false));
+	ui.cbShowSampleWarning->setChecked(!group.readEntry("ShowSampleWarning", false));
 }
 
 
@@ -75,9 +77,14 @@ void GeneralSettings::save()
 	KConfigGroup group(config, "Notification Messages");
 
 	if (ui.cbAskBeforeQuit->isChecked())
-		group.deleteEntry("askForQuitSimonMainWindow");
+		group.deleteEntry("AskForQuitSimonMainWindow");
 	else
-		group.writeEntry("askForQuitSimonMainWindow", true);
+		group.writeEntry("AskForQuitSimonMainWindow", true);
+	
+	if (ui.cbShowSampleWarning->isChecked())
+		group.deleteEntry("ShowSampleWarning");
+	else
+		group.writeEntry("ShowSampleWarning", true);
 
 	config->sync();
 

@@ -52,7 +52,7 @@
  */
 WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
 		const QString& filename, QWidget *parent) : QWidget(parent),
-	m_problems(None), ui(new Ui::WavFileWidgetUi()), m_device(device), 
+	m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(device), 
 	m_filename(filename), m_channels(channels), postProc(NULL)
 {
 	recordingProgress=0;
@@ -93,7 +93,7 @@ bool WavFileWidget::hasRecordingReady()
 	return QFile::exists(m_filename);
 }
 
-WavFileWidget::SampleProblems WavFileWidget::sampleProblems()
+SimonSamples::SampleProblems WavFileWidget::sampleProblems()
 {
 	return m_problems;
 }
@@ -122,13 +122,13 @@ void WavFileWidget::setupSignalsSlots()
 
 void WavFileWidget::clippingOccured()
 {
-	m_problems = m_problems | Clipping;
+	m_problems = m_problems | SimonSamples::Clipping;
 	ui->wgWarning->show();
 }
 
 void WavFileWidget::signalToNoiseRatioLow()
 {
-	m_problems = m_problems | SNRTooLow;
+	m_problems = m_problems | SimonSamples::SNRTooLow;
 	
 	kDebug() << "Signal to noise ratio low!";
 	ui->wgWarning->show();
@@ -140,12 +140,12 @@ void WavFileWidget::displayWarning()
 {
 	QString warningMsg;
 	
-	if (m_problems & Clipping)
+	if (m_problems & SimonSamples::Clipping)
 		warningMsg += ("simon detected that your volume is set too high. "
 			       "Because of this, clipping has occurred.\n\n"
 			       "Please lower the volume and re-record this sample.");
 	
-	if (m_problems & SNRTooLow)
+	if (m_problems & SimonSamples::SNRTooLow)
 	{
 		if (!warningMsg.isEmpty()) warningMsg += "\n\n";
 		
@@ -194,7 +194,7 @@ void WavFileWidget::displayPlaybackProgress(int msecs)
 void WavFileWidget::resetProblems()
 {
 	ui->wgWarning->hide();
-	m_problems = WavFileWidget::None;
+	m_problems = SimonSamples::None;
 }
 
 

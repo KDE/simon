@@ -84,9 +84,13 @@
   </group>
 
   <group name="Calibrate">
+     <entry name="DontShowSampleWarning" type="Bool">
+      <label>don't show the warning on buggy samples.</label>
+      <default>false</default>
+    </entry>
      <entry name="MinimumSNR" type="Int">
       <label>the minimum signal to noise ratio.</label>
-      <default>800</default>
+      <default>5000</default>
     </entry>
      <entry name="CalibrateVolume" type="Bool">
       <label>if the volume calibration should be shown.</label>

@@ -431,18 +431,18 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 	} else {
 		QKeySequence k(key); //do some magic
 		QString shortcut = k.toString(); //somthing like "Ctrl+L"
-		QStringList keys = shortcut.split("+"); 
+		QStringList keys = shortcut.split('+'); 
 		QList<KeyCode> shortcutCodes;
 		
-		foreach (const QString keyStr, keys)
+		foreach (const QString& keyStr, keys)
 		{
-			shortcutCodes << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().data()));
+			shortcutCodes << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().constData()));
 		}
 		
-		foreach (KeyCode shortcutCode, shortcutCodes)
+		foreach (const KeyCode& shortcutCode, shortcutCodes)
 			XTestFakeKeyEvent(display, shortcutCode, True, 15);
 		
-		foreach (KeyCode shortcutCode, shortcutCodes)
+		foreach (const KeyCode& shortcutCode, shortcutCodes)
 			XTestFakeKeyEvent(display, shortcutCode, False, 15);
 		
 		XFlush ( display );

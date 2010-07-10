@@ -22,6 +22,7 @@
 #define SIMON_WAVFILEWIDGET_H_33F50DCA0C3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include "simonsamples.h"
 #include <QWidget>
 class WavRecorderClient;
 class WavPlayerClient;
@@ -54,14 +55,6 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget {
 
 	
 public:
-	enum SampleProblem
-	{
-		None=0,
-		Clipping=1,
-		SNRTooLow=2
-	};
-	Q_DECLARE_FLAGS(SampleProblems, SampleProblem);
-	
 	WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
 	bool hasRecordingReady();
 
@@ -70,7 +63,7 @@ public:
 	QString getFileName() { return m_filename; }
 	QString getDevice() { return m_device; }
 	
-	SampleProblems sampleProblems();
+	SimonSamples::SampleProblems sampleProblems();
 
 	~WavFileWidget();
 	
@@ -87,7 +80,7 @@ signals:
 
 private:
 	
-	SampleProblems m_problems;
+	SimonSamples::SampleProblems m_problems;
 	
 	Ui::WavFileWidgetUi *ui;
 
@@ -131,6 +124,5 @@ public slots:
 
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(WavFileWidget::SampleProblems);
 #endif
 

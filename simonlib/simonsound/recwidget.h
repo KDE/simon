@@ -22,6 +22,7 @@
 #define SIMON_RECWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
 #include "simonsound_export.h"
+#include "simonsamples.h"
 #include <QWidget>
 
 class WavFileWidget;
@@ -100,6 +101,8 @@ public:
 	bool isRecording();
 	QStringList getFileNames();
 	QStringList getDevices();
+	
+	SimonSamples::SampleProblems sampleProblems();
 
 	bool forceSimpleMode() const { return m_simpleMode; }
 	QString getFileTemplate() const { return fileTemplate; }

@@ -86,6 +86,16 @@ void RecWidget::hideActionPrompt()
   ui->frmPromptAction->hide();
 }
 
+SimonSamples::SampleProblems RecWidget::sampleProblems()
+{
+	SimonSamples::SampleProblems problems = SimonSamples::None;
+	foreach (WavFileWidget *wav, waves)
+		problems |= wav->sampleProblems();
+	
+	return problems;
+}
+
+
 void RecWidget::showStartPrompt()
 {
   ui->frmPromptAction->show();

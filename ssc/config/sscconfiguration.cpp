@@ -20,6 +20,8 @@
 
 #include "sscconfiguration.h"
 #include "sscconfig.h"
+#include <KConfigSkeleton>
+#include <KMessageBox>
 #include <QSslSocket>
 #include <QSslCipher>
 
@@ -32,6 +34,8 @@ SSCConfiguration::SSCConfiguration(QWidget* parent, const QVariantList& args)
 	
 	addConfig(SSCConfig::self(), this);
 // 	connect(ui.cbCipher, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+	connect(ui.cbAskForOfflineMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbShowSampleWarning, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 
@@ -43,6 +47,7 @@ void SSCConfiguration::slotChanged()
 
 void SSCConfiguration::load()
 {
+	SSCConfig::self()->config()->sync();
 // 	ui.cbCipher->clear();
 // 	QString selectedCipher = SSCConfiguration::encryptionMethod();
 // 
@@ -60,24 +65,52 @@ void SSCConfiguration::load()
 // 
 // 	ui.cbCipher->addItems(cipherStrs);
 // 	ui.cbCipher->setCurrentIndex(selectedIndex);
-								
+	
 	if (SSCConfig::useInstitutionSpecificIDs()) {
 		ui.lbInstitute->setEnabled(true);
 		ui.kcfg_ReferenceInstitute->setEnabled(true);
 	}
 	KCModule::load();
+	
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("sscrc");
+	KConfigGroup group(config, "Notification Messages");
+	kDebug() << "Setting show samples warning: " << group.readEntry("ShowSampleWarning", false);
+	ui.cbShowSampleWarning->setChecked(!group.readEntry("ShowSampleWarning", false));
+	ui.cbAskForOfflineMode->setChecked(!group.readEntry("AskOfflineMode", false));
 }
 
 void SSCConfiguration::save()
 {
 // 	SSCConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
+
 	KCModule::save();
+
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("sscrc");
+	KConfigGroup group(config, "Notification Messages");
+	if (ui.cbShowSampleWarning->isChecked())
+		group.deleteEntry("ShowSampleWarning");
+	else
+		group.writeEntry("ShowSampleWarning", true);
+	
+	if (ui.cbAskForOfflineMode->isChecked())
+	{
+		kDebug() << "Asking for offline mode is deleted";
+		group.deleteEntry("AskOfflineMode");
+	}else
+		group.writeEntry("AskOfflineMode", true);
+	config->sync();
+
 	SSCConfig::setUseInstitutionSpecificIDs(ui.kcfg_UseInstitutionSpecificIDs->isChecked());
 	SSCConfig::setReferenceInstitute(ui.kcfg_ReferenceInstitute->value());
 	SSCConfig::self()->config()->sync();
+// 	if (ui.cbAskForOfflineMode->isChecked())
+// 	{
+// 		kDebug() << "Asking for offline mode is deleted before";
+// 		KMessageBox::information(this, "offline mode!");
+// 	} else 
+// 		KMessageBox::information(this, "Not checked!");
 }
 
 SSCConfiguration::~SSCConfiguration()
 {
-	
 }

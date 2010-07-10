@@ -20,7 +20,6 @@
 #include "loudnessmetersoundprocessor.h"
 #include <QByteArray>
 #include <QtGlobal>
-#include <KDebug>
 
 /**
  * \brief Constructor
@@ -53,12 +52,12 @@ void LoudnessMeterSoundProcessor::process(QByteArray& data, qint64& currentTime)
 		//m_min = qMin(m_min, frame);
 		m_average += frame;
 	}
-	kDebug() << "Peak: " << m_peak;
 
 	m_average = m_average / i;
 
 	m_absolutePeak = qMax(m_peak, m_absolutePeak);
-	m_absoluteMinAverage = qMin(m_average, m_absoluteMinAverage);
+// 	m_absoluteMinAverage = qMin(m_average, m_absoluteMinAverage);
+	m_absoluteMinAverage = qMin(m_peak, m_absoluteMinAverage);
 	
 	if (m_peak >= (maxAmp()-1))
 		m_clipping = true;

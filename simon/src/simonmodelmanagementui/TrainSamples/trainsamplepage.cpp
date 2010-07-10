@@ -76,8 +76,15 @@ bool TrainSamplePage::validatePage()
 {
 	recorder->stopRecording();
 	recorder->stopPlayback();
+	
+	bool cont = true;
+	if (recorder->sampleProblems() != SimonSamples::None)
+	{
+		if (KMessageBox::warningContinueCancel(this, i18n("simon detected that at least one of the just recorded sample might have some issues.\n\nSelect \"More information\" to find out how to fix this issue.\n\nDo you want to continue with your training without fixing this problem?"), QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), "ShowSampleWarning") != KMessageBox::Continue)
+			cont = false;
+	}
 
-	return true;
+	return cont;
 }
 
 QStringList TrainSamplePage::getFileNames()

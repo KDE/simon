@@ -253,12 +253,15 @@ void SSCView::toggleOfflineMode(bool offline)
 		if (SSCDAccess::getInstance()->isConnected())
 		{
 			if (KMessageBox::questionYesNoCancel(this, i18n("You are currently connected. If you switch to offline mode you will first be disconnected form the server.\n\nDo you want to continue?")) != KMessageBox::Yes)
+			{
+				actionCollection()->action("offline")->setChecked(false);
 				return;
+			}
 			
 			disconnectFromServer();
 		}
 		
-		KMessageBox::information(this, i18n("If you continue you will get access to the sample training despite not being connected to the server.\n\nBecause of this, ssc can not make sure that the specified user exists. If it doesn't you will run into trouble later.\n\nOnly use this function if you really know what you are doing! It is also not possible to use institution specific ids in offline mode."), QString(), "dontAskOfflineMode");
+		KMessageBox::information(this, i18n("If you continue you will get access to the sample training despite not being connected to the server.\n\nBecause of this, ssc can not make sure that the specified user exists. If it doesn't you will run into trouble later.\n\nOnly use this function if you really know what you are doing! It is also not possible to use institution specific ids in offline mode."), QString(), "AskOfflineMode");
 		
 		ui.cbPatientId->setEnabled(true);
 		ui.pbSelectPatient->setEnabled(true);
