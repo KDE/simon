@@ -27,7 +27,6 @@
 #include <KGlobal>
 #include <KComponentData>
 #include <KDebug>
-#include <KLocale>
 #include <KApplication>
 #include <QApplication>
 #include "../../version.h"

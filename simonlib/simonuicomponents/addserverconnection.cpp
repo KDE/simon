@@ -31,6 +31,7 @@ AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
   QWidget *widget = new QWidget( this );
 
   leAddress = new KLineEdit("localhost", widget);
+  leAddress->setToolTip(i18n("IP address or hostname"));
   sbPort = new KIntNumInput(widget);
   sbPort->setMinimum(0);
   sbPort->setMaximum(65000);

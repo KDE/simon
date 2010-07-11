@@ -37,7 +37,6 @@
 
 #ifdef Q_WS_X11
 #include <X11/Xlib.h>
-#include <X11/Xlib.h>
 #endif
 
 class SimonApplication :

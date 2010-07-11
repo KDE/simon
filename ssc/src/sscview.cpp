@@ -193,6 +193,7 @@ void SSCView::setupActions()
   KAction* connectAction = new KAction(this);
   connectAction->setText(i18n("Connect"));
   connectAction->setIcon(KIcon("network-connect"));
+  connectAction->setStatusTip(i18n("Connect to the sscd server"));
   actionCollection()->addAction("connect", connectAction);
   connect(connectAction, SIGNAL(triggered(bool)),
     this, SLOT(connectToServer()));
@@ -200,6 +201,7 @@ void SSCView::setupActions()
   KAction* disconnectAction = new KAction(this);
   disconnectAction->setText(i18n("Disconnect"));
   disconnectAction->setIcon(KIcon("network-disconnect"));
+  disconnectAction->setStatusTip(i18n("Disconnect from the sscd server"));
   actionCollection()->addAction("disconnect", disconnectAction);
   connect(disconnectAction, SIGNAL(triggered(bool)),
     this, SLOT(disconnectFromServer()));
@@ -207,6 +209,7 @@ void SSCView::setupActions()
   KAction* offlineAction = new KAction(this);
   offlineAction->setText(i18n("Offline mode"));
   offlineAction->setIcon(KIcon("document-open-remote"));
+  offlineAction->setStatusTip(i18n("Switch to offline mode"));
   actionCollection()->addAction("offline", offlineAction);
   offlineAction->setCheckable(true);
   offlineAction->setChecked(false);
@@ -216,12 +219,14 @@ void SSCView::setupActions()
   KAction* addUserAction = new KAction(this);
   addUserAction->setText(i18n("Add user"));
   addUserAction->setIcon(KIcon("list-add-user"));
+  addUserAction->setStatusTip(i18n("Add a new user"));
   actionCollection()->addAction("adduser", addUserAction);
   connect(addUserAction, SIGNAL(triggered(bool)),
     this, SLOT(addUser()));
 
   KAction* usersAction = new KAction(this);
   usersAction->setText(i18n("Manage users"));
+  usersAction->setStatusTip(i18n("Show, edit and add users"));
   usersAction->setIcon(KIcon("user-properties"));
   actionCollection()->addAction("users", usersAction);
   connect(usersAction, SIGNAL(triggered(bool)),
@@ -230,6 +235,7 @@ void SSCView::setupActions()
   KAction* institutionsAction = new KAction(this);
   institutionsAction->setText(i18n("Manage institutions"));
   institutionsAction->setIcon(KIcon("user-group-properties"));
+  institutionsAction->setStatusTip(i18n("Show, edit and add institutions"));
   actionCollection()->addAction("institutions", institutionsAction);
   connect(institutionsAction, SIGNAL(triggered(bool)),
     this, SLOT(listInstitutions()));
@@ -237,6 +243,7 @@ void SSCView::setupActions()
   KAction* storeAction = new KAction(this);
   storeAction->setText(i18n("Upload stored data"));
   storeAction->setIcon(KIcon("folder-sync"));
+  storeAction->setStatusTip(i18n("Browse, edit, delete and upload stored sample collections"));
   actionCollection()->addAction("store", storeAction);
   connect(storeAction, SIGNAL(triggered(bool)),
     this, SLOT(uploadStored()));

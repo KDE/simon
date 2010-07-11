@@ -16,6 +16,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 #include "trainsampleintropage.h"
 
 #include "sscconfig.h"
@@ -37,6 +38,7 @@ TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent
   lbIntro->setText(i18n("This wizard will guide you through the collecting of speech samples."));
 
   cbPowerTrain = new QCheckBox(i18n("Power Recording"), this);
+  cbPowerTrain->setToolTip(i18n("If activated the recording of the samples will automatically be started and stopped when you enter / leave the individual pages of the trainings text."));
 
   lay->addWidget(lbIntro);
   lay->addWidget(cbPowerTrain);

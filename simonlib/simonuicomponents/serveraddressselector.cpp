@@ -32,10 +32,12 @@ ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
   QHBoxLayout *lay = new QHBoxLayout(this);
   leServerAddress = new KLineEdit(this);
+  leServerAddress->setToolTip(i18n("IP address or hostname and port using <host>:<port>"));
   pbSelectServerAddress = new QToolButton(this);
 
   pbSelectServerAddress->setIcon(KIcon("go-previous"));
   pbSelectServerAddress->setText(i18n("Add new Host"));
+  pbSelectServerAddress->setToolTip(i18n("Select a new host / port."));
 
   // 	leServerAddress->setReadOnly(true);
 

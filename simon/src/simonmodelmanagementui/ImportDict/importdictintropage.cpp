@@ -47,6 +47,7 @@ ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
   lbTarget->setText(i18n("Target:"));
 
   QComboBox *cbTarget = new QComboBox(this);
+  cbTarget->setToolTip(i18n("Defines where the new words will be added to."));
   cbTarget->addItem(i18n("Shadow Dictionary"));
   cbTarget->addItem(i18n("Active Dictionary"));
   registerField("targetType", cbTarget, "currentIndex", SIGNAL(currentIndexChanged(int)));
