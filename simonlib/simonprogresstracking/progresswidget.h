@@ -54,7 +54,7 @@ class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
       Large=2
     };
 
-    ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
+    explicit ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
 
     QPointer<Operation> operation() { return op; }
 

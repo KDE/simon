@@ -41,7 +41,7 @@ class WavRecorderClient :public QObject, public SoundInputClient
     void signalToNoiseRatioLow();
 
   public:
-    WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    explicit WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
     bool finish();
     bool record(QString filename);
 

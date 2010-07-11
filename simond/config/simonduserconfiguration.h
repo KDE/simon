@@ -50,7 +50,7 @@ class SimondUserConfiguration : public KCModule
     void slotChanged();
 
   public:
-    SimondUserConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SimondUserConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
     ~SimondUserConfiguration();
 
     void load();

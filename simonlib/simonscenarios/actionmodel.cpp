@@ -89,7 +89,7 @@ QVariant ActionModel::data(const QModelIndex &index, int role) const
     QString name = a->manager()->name();
     QString trigger = a->trigger();
     if (trigger.isEmpty()) return name;
-    else return name+" ("+trigger+")";
+    else return name+" ("+trigger+')';
   }
 
   if (role == Qt::DecorationRole)

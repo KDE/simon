@@ -63,7 +63,7 @@ void ServerAddressSelector::displayAddDialog()
 
     if (host.isEmpty())
       KMessageBox::information(this, i18n("You ahve entered an empty host-address. The input will be discarded."));
-    else leServerAddress->setText(host+":"+QString::number(port));
+    else leServerAddress->setText(host+':'+QString::number(port));
   }
   delete addDlg;
 }

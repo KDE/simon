@@ -100,7 +100,7 @@ void AddWordView::accept()
 
   }
 
-  QStringList words = field("wordNameIntro").toString().split(" ", QString::SkipEmptyParts);
+  QStringList words = field("wordNameIntro").toString().split(' ', QString::SkipEmptyParts);
   if (words.count() > 0) {
     //multiple words
     record1->keepSample();
@@ -197,7 +197,8 @@ QWizardPage* AddWordView::createFinishedPage()
 void AddWordView::commitList()
 {
   ModelManagerUiProxy::getInstance()->startGroup();
-  foreach (const QString& key, promptsToAdd.keys()) {
+  QStringList promptsKeys = promptsToAdd.keys();
+  foreach (const QString& key, promptsKeys) {
     if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
       KMessageBox::error(this, i18n("Could not add %1 to the Prompts-Table", key));
   }

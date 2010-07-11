@@ -41,7 +41,7 @@ class PronunciationTrainingConfiguration : public CommandConfiguration
     void setVisible(bool);
 
   public:
-    PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~PronunciationTrainingConfiguration();
 
     //configuration options

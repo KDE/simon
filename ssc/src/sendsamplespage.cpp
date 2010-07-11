@@ -20,6 +20,7 @@
 #include "sendsamplespage.h"
 #include "sscconfig.h"
 #include "sscdaccess.h"
+#include "sendsampleworker.h"
 #include "sampledataprovider.h"
 #include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
@@ -40,12 +41,12 @@
 #include <KDebug>
 
 SendSamplePage::SendSamplePage(SampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
-QWizardPage(parent),
-m_isStored(isStored),
-worker(new SendSampleWorker(dataProvider, isStored, ini)),
-layout(new QVBoxLayout()),
-m_transmitOperation(0),
-m_progressWidget(0)
+    QWizardPage(parent),
+    m_isStored(isStored),
+    worker(new SendSampleWorker(dataProvider, isStored, ini)),
+    layout(new QVBoxLayout()),
+    m_transmitOperation(0),
+    m_progressWidget(0)
 {
   setTitle(i18n("Transmitting samples..."));
 
@@ -254,116 +255,4 @@ void SendSamplePage::sendSample(Sample *s)
 {
   if (!SSCDAccess::getInstance()->sendSample(s))
     KMessageBox::error(this, i18n("Could not send sample"));
-}
-
-
-/**
- * Does the actual server communication. This will take LONG. This is why this
- * function should be called from outside the GUI thread. It will communicate
- * with the rest of the world through the shared transmitOperation object.
- */
-bool SendSampleWorker::sendSamples()
-{
-  shouldAbort = false;
-  shouldDelete = false;
-  bool successful = true;
-
-  int i=0;
-  int retryAmount = 0;
-
-  if (!m_dataProvider->startTransmission()) {
-    kDebug() << "Could not start transmission";
-
-    emit error(i18n("Failed to start the sample transmission.\n\nMost likely this is caused by problems to send the information about the used input devices."));
-    shouldAbort = true;
-    successful = false;
-  }
-  kDebug() << "Transmission started...";
-
-  int maxProgress = m_dataProvider->sampleToTransmitCount();
-
-  while (!shouldAbort && (m_dataProvider->hasSamplesToTransmit())) {
-    Sample *s = m_dataProvider->getSample();
-    emit status(i18n("Sending: %1", s->path()), i, maxProgress);
-
-    // 		QFile f(s->path());
-    emit sendSample(s);
-
-    kDebug() << "Emit signal";
-    if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3)) {
-      kDebug() << "Error processing sample";
-      if (!SSCDAccess::getInstance()->isConnected()) {
-        shouldAbort = true;
-        successful = false;
-      }
-      retryAmount++;
-      i--;
-    }
-    else {
-      if (retryAmount < 3)
-        m_dataProvider->sampleTransmitted();
-      else {
-        emit error(i18n("Server could not process sample: %1",
-          SSCDAccess::getInstance()->lastError()));
-        shouldAbort = true;                       //m_dataProvider->skipSample();
-      }
-      retryAmount = 0;
-    }
-    kDebug() << "Done processing sample";
-
-    //if sample could not be opened we probably skipped this sample; ignore that silently
-    // 		} else {
-    // 			kDebug() << "File not found";
-    // 			m_dataProvider->sampleTransmitted();
-    // 		}
-
-    i++;
-  }
-  kDebug() << "Done";
-  m_dataProvider->stopTransmission();
-  if (!shouldAbort) {
-    if (m_isStored) {
-      //remove storage
-      if (QFile::exists(m_storageDirectory+"/profile.ini") &&
-        !QFile::remove(m_storageDirectory+"/profile.ini"))
-        emit error(i18n("Profile information could not be removed.", m_storageDirectory+"/profile.ini"));
-      QDir d(m_storageDirectory);
-      if (d.exists(m_storageDirectory) && !d.rmdir(m_storageDirectory))
-        emit error(i18n("Storage directory could not be removed: %1.", m_storageDirectory));
-    }
-    emit finished();
-  } else
-  emit aborted();
-
-  if (shouldDelete)
-    deleteLater();
-
-  //SSCDAccess::getInstance()->moveToThread(prevThread);
-  return successful;
-}
-
-
-bool SendSampleWorker::storeData()
-{
-  shouldAbort = false;
-
-  //storing data
-  bool succ = true;
-  if (!m_dataProvider->store()) {
-    kDebug() << "bleh";
-    emit error("Could not store samples correctly.");
-    emit aborted();
-    succ = false;
-  }
-  else {
-    emit finished();
-    kDebug() << "Finished";
-  }
-  return succ;
-}
-
-
-SendSampleWorker::~SendSampleWorker()
-{
-  delete m_dataProvider;
 }

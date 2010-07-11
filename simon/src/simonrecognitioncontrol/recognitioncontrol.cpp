@@ -215,7 +215,7 @@ void RecognitionControl::connectToNext()
     emit connectionError(serverConnectionErrors.join("\n"));
   }
   else {
-    QStringList address = serverConnectionsToTry.takeAt(0).split(":");
+    QStringList address = serverConnectionsToTry.takeAt(0).split(':');
     connectTo(address[0], address[1].toInt());
   }
 }

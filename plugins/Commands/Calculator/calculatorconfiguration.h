@@ -63,7 +63,7 @@ class CalculatorConfiguration : public CommandConfiguration
       OnlyOutput=3
     };
 
-    CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~CalculatorConfiguration();
 
     int askTimeout();

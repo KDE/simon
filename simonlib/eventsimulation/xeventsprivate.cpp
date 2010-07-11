@@ -24,7 +24,10 @@
 #include <unistd.h>
 #include <KDebug>
 #include <KLocale>
+
+//include order defined by X11 includes in header...
 #include "xeventsprivate.h"
+
 // #include "../Logging/logger.h"
 #include <KLocalizedString>
 

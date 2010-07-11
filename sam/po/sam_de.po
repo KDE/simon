@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:16+0300\n"
-"PO-Revision-Date: 2010-02-09 13:08+0100\n"
+"POT-Creation-Date: 2010-07-11 19:44+0300\n"
+"PO-Revision-Date: 2010-07-11 19:45+0300\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -21,25 +21,25 @@ msgstr ""
 msgid "An acoustic model modeller"
 msgstr "Ein Akustikmodell modellierer"
 
-#: main.cpp:14
+#: main.cpp:13
 msgid "sam"
 msgstr "sam"
 
-#: main.cpp:15
+#: main.cpp:14
 msgid "(C) 2009 Peter Grasch"
 msgstr "(C) 2009 Peter Grasch"
 
-#: main.cpp:16
+#: main.cpp:15
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#: samview.cpp:53
+#: samview.cpp:51
 msgid "Modify simons model"
 msgstr "Verändere simons Modell"
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:60 rc.cpp:105
+#: samview.cpp:58 rc.cpp:105
 msgid "Build model"
 msgstr "Modell erstellen"
 
@@ -47,17 +47,17 @@ msgstr "Modell erstellen"
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:68 rc.cpp:114 rc.cpp:117
+#: samview.cpp:66 rc.cpp:114 rc.cpp:117
 msgid "Test model"
 msgstr "Modell testen"
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:75 rc.cpp:126
+#: samview.cpp:73 rc.cpp:126
 msgid "Test results"
 msgstr "Testergebnisse"
 
-#: samview.cpp:199 samview.cpp:218
+#: samview.cpp:197 samview.cpp:218
 msgid "sam projects *.sam"
 msgstr "sam Projekte *.sam"
 
@@ -69,11 +69,11 @@ msgstr "Unbenannt"
 msgid "sam - %1"
 msgstr "sam - %1"
 
-#: samview.cpp:241 samview.cpp:298
+#: samview.cpp:242 samview.cpp:299
 msgid "Cannot open file: %1"
 msgstr "Konnte Datei nicht öffnen: %1"
 
-#: samview.cpp:405
+#: samview.cpp:406
 msgid ""
 "You now have to provide a (preferrably empty) directory where you want to "
 "serialize the scenarios to"
@@ -81,31 +81,31 @@ msgstr ""
 "Hier können Sie einen (bevorzugt leeren) Ordner angeben in den die Szenarios "
 "serialisiert werden."
 
-#: samview.cpp:405
-msgid "Don't ask again"
+#: samview.cpp:406
+msgid "Do not ask again"
 msgstr "Nicht mehr fragen"
 
-#: samview.cpp:406
+#: samview.cpp:407
 msgid "Serialized scenario output"
 msgstr "Ausgabe serialisierter Szenarios"
 
-#: samview.cpp:416
+#: samview.cpp:417
 msgid "Open simon prompts"
 msgstr "simon Prompts öffnen"
 
-#: samview.cpp:478
-msgid "Couldn't find scenario: %1"
+#: samview.cpp:482
+msgid "Could not find scenario: %1"
 msgstr "Konnte Szenario nicht finden: %1"
 
-#: samview.cpp:516
+#: samview.cpp:520
 msgid "Unknown model type"
 msgstr "Unbekannter modelltyp"
 
-#: samview.cpp:576
+#: samview.cpp:583
 msgid "Adaption aborted"
 msgstr "Adaption abgebrochen"
 
-#: samview.cpp:587
+#: samview.cpp:596
 msgid ""
 "Failed to adapt model:\n"
 "\n"
@@ -115,19 +115,19 @@ msgstr ""
 "\n"
 "%1"
 
-#: samview.cpp:606
+#: samview.cpp:618
 msgid "Grammar class undefined: %1"
 msgstr "Grammatikklasse undefiniert: %1"
 
-#: samview.cpp:611
+#: samview.cpp:624
 msgid "Word undefined: %1"
 msgstr "Wort undefiniert: %1"
 
-#: samview.cpp:617
+#: samview.cpp:631
 msgid "Phoneme undefined: %1"
 msgstr "Phonem undefiniert: %1"
 
-#: samview.cpp:767
+#: samview.cpp:788
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
@@ -135,26 +135,26 @@ msgstr ""
 "Ergebnis %1 von %2\n"
 "=====================\n"
 
-#: samview.cpp:799
+#: samview.cpp:821
 msgid "Modify sample"
 msgstr "Aufnahme bearbeiten"
 
-#: samview.cpp:811 samview.cpp:835
-msgid "Couldn't modify prompts file"
+#: samview.cpp:833 samview.cpp:858
+msgid "Could not modify prompts file"
 msgstr "Konnte prompts-Datei nicht bearbeiten"
 
-#: samview.cpp:822
-msgid "Couldn't overwrite prompts file"
-msgstr "Konnte prompts-Datei nicht überschreiben"
+#: samview.cpp:845
+msgid "Could not overwrite prompts file"
+msgstr "Konnte prompts-Datei nicht überschreiben\r"
 
-#: samview.cpp:827 samview.cpp:840
-msgid "Couldn't remove original sample:  %1."
+#: samview.cpp:849 samview.cpp:865
+msgid "Could not remove original sample:  %1."
 msgstr "Konnte die originale Aufnahme nicht löschen: %1"
 
-#: samview.cpp:845
-msgid "Couldn't copy sample from temporary path %1 to %2."
+#: samview.cpp:870
+msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""
-"Konnte die Aufnahme nicht vom temporären Pfad zum Zielort kopieren: %1 zu %2"
+"Konnte die Aufnahme nicht vom temporären Pfad zum Zielort kopieren: %1 zu %2."
 
 #. i18n: file: main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)

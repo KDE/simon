@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SSCNETWORKCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
-#define SIMON_SSCNETWORKCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
+#ifndef SIMON_SSCCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
+#define SIMON_SSCCONFIGURATION_H_CE1378CB6EFC48349C931195FD6112CA
 
 #include <KCModule>
 #include <QVariantList>
@@ -34,7 +34,7 @@ class SSCConfiguration : public KCModule
   private slots:
     void slotChanged();
   public:
-    SSCConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SSCConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
     void save();
     void load();
     virtual ~SSCConfiguration();

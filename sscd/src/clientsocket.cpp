@@ -582,8 +582,8 @@ QString ClientSocket::samplePath(qint32 userId)
 {
   QString baseDir = SSCD_BASE_DIRECTORY;
   QString samplesDir = baseDir+QDir::separator()+"samples"+QDir::separator()+QString::number(userId);
-  QDir d(samplesDir);
-  if (!d.exists() && !d.mkpath(samplesDir)) {
+  QDir dir(samplesDir);
+  if (!dir.exists() && !dir.mkpath(samplesDir)) {
     qWarning() << "Could not create sample storage directory: " << samplesDir;
     exit(1);
   }

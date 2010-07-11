@@ -93,16 +93,16 @@ void BOMPDict::load(QString path, QString encodingName)
     xsp = line.mid(termend).trimmed();
 
     //		xsp.remove(QRegExp("^'*?*"));
-    xsp.remove("'");
-    xsp.remove("|");
-    xsp.remove(",");
+    xsp.remove('\'');
+    xsp.remove('|');
+    xsp.remove(',');
     currentFinalXsp = segmentSampa(adaptToSimonPhonemeSet(xsp));
 
     currentWord = line.left(wordend);
     currentTerminal = line.mid(wordend,
       termend-wordend).trimmed();
 
-    QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
+    QStringList currentTerminals = currentTerminal.split(':', QString::SkipEmptyParts);
     QStringList currentTerminalsUnique;
 
     if (currentTerminals.isEmpty()) {

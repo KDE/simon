@@ -37,7 +37,7 @@ class TrainingSettings : public KCModule
     virtual void save();
 
   public:
-    TrainingSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit TrainingSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
     ~TrainingSettings();
 

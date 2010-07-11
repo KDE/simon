@@ -19,7 +19,7 @@
 
 #include "dbusbackend.h"
 
-#include <QtDBus>                                 //FIXME: where the hell resides qDBusRegisterMetaType?
+#include <QtDBus>   //FIXME: where the hell resides qDBusRegisterMetaType?
 #include <QDBusConnection>
 #include <QDomDocument>
 #include <QDomNode>
@@ -375,7 +375,7 @@ ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *
   while (!elem.isNull()) {
     name = elem.attribute("name");
     if (!elem.isNull()) {
-      ATObjectList* children = parseObject(service, path+"/"+name, thisObject);
+      ATObjectList* children = parseObject(service, path+'/'+name, thisObject);
       for (int i=0; i<children->count(); i++)
         objects->append(children->at(i));
     }
@@ -426,7 +426,7 @@ QStringList DBusBackend::getAccessibleWindowNames(QString service)
 QStringList DBusBackend::getWindows(QString service)
 {
   QString applicationName = getName(service);
-  QDBusInterface introspect(service, "/"+applicationName,
+  QDBusInterface introspect(service, '/'+applicationName,
     "org.freedesktop.DBus.Introspectable");
   QDBusReply<QString> exportedWindows = introspect.call("Introspect");
 
@@ -459,7 +459,7 @@ QStringList DBusBackend::fetchActions(QString serviceName, QString windowName)
 {
   QString applicationName = getName(serviceName);
 
-  QDBusInterface svc(serviceName, "/"+applicationName+"/"+windowName,
+  QDBusInterface svc(serviceName, '/'+applicationName+'/'+windowName,
     "org.kde.KMainWindow");
   QDBusReply<QStringList> actions = svc.call("actions");
 
@@ -471,7 +471,7 @@ QString DBusBackend::getWindowName(QString service, QString window)
 {
   QString applicationName = getName(service);
 
-  QDBusInterface svc(service, "/"+applicationName+"/"+window,
+  QDBusInterface svc(service, '/'+applicationName+'/'+window,
     "org.freedesktop.DBus.Properties");
 
   QDBusReply<QVariant> title = svc.call("Get", "com.trolltech.Qt.QWidget", "windowTitle");
@@ -482,7 +482,7 @@ QString DBusBackend::getWindowName(QString service, QString window)
 void DBusBackend::execute(QString service, QString window, QString action)
 {
   QString name = getName(service);
-  QDBusInterface svc(service, "/"+name+"/"+window,
+  QDBusInterface svc(service, '/'+name+'/'+window,
     "org.kde.KMainWindow");
   svc.call("activateAction", action);
 }

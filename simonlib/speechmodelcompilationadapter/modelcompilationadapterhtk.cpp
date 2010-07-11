@@ -90,16 +90,16 @@ QString ModelCompilationAdapterHTK::htkify(const QString& in)
 QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
 {
   QByteArray out = in;
-  out.replace("0", "0ZERO");
-  out.replace("1", "1ONE");
-  out.replace("2", "2TWO");
-  out.replace("3", "3THREE");
-  out.replace("4", "4FOUR");
-  out.replace("5", "5FIVE");
-  out.replace("6", "6SIX");
-  out.replace("7", "7SEVEN");
-  out.replace("8", "8EIGHT");
-  out.replace("9", "9NINE");
+  out.replace('0', "0ZERO");
+  out.replace('1', "1ONE");
+  out.replace('2', "2TWO");
+  out.replace('3', "3THREE");
+  out.replace('4', "4FOUR");
+  out.replace('5', "5FIVE");
+  out.replace('6', "6SIX");
+  out.replace('7', "7SEVEN");
+  out.replace('8', "8EIGHT");
+  out.replace('9', "9NINE");
   return out;
 }
 
@@ -321,7 +321,7 @@ bool ModelCompilationAdapterHTK::containsPoisonedPhoneme(const QString& pronunci
 {
   if (poisonedPhonemes.isEmpty()) return false;
 
-  QStringList phonemes = pronunciation.split(" ");
+  QStringList phonemes = pronunciation.split(' ');
   foreach (const QString& phoneme, phonemes)
     if (poisonedPhonemes.contains(phoneme))
     return true;

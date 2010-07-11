@@ -191,21 +191,21 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString
     } else sentend = currentProcessQueue.length();
 
     QString sentence = QString(currentProcessQueue).left(sentend).trimmed();
-    sentence.remove("\"");
-    sentence.remove(",");
-    sentence.remove(".");
-    sentence.remove("#");
-    sentence.remove("`");
-    sentence.remove("!");
-    sentence.remove("?");
+    sentence.remove('"');
+    sentence.remove(',');
+    sentence.remove('.');
+    sentence.remove('#');
+    sentence.remove('`');
+    sentence.remove('!');
+    sentence.remove('?');
     sentence.replace(QRegExp("( |^)'"), " ");
-    sentence.remove(".");
-    sentence.replace("-", " ");
-    sentence.replace("\n", " ");
+    sentence.remove('.');
+    sentence.replace('-', ' ');
+    sentence.replace('\n', ' ');
     sentence.replace(QRegExp("  *"), " ");
     if (!sentence.isEmpty()) sents << sentence;
 
-    tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
+    tmp = currentProcessQueue.mid(sentend).trimmed()+' ';
   }
   input->close();
   return sents;

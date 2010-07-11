@@ -53,7 +53,7 @@ class CreateTextMacroCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateTextMacroCommandWidget();
 

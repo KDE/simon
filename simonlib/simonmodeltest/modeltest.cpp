@@ -61,7 +61,7 @@ userName(user_name)
 
 bool ModelTest::createDirs()
 {
-  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/test/");
+  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/test/");
 
   if (tempDir.isEmpty()) return false;
 
@@ -287,7 +287,7 @@ bool ModelTest::recodeAudio()
   while (!promptsF.atEnd() && keepGoing) {
     QString line = QString::fromUtf8(promptsF.readLine (1024));
     if (line.trimmed().isEmpty()) continue;
-    int splitter = line.indexOf(" ");
+    int splitter = line.indexOf(' ');
     QString fileName = line.left(splitter)+".wav";
     QString prompt = line.mid(splitter+1).trimmed();
     QString fullPath = samplePath+QDir::separator()+fileName;
@@ -420,7 +420,7 @@ void processRecognitionResult(Recog *recog, void *test)
       /* output word sequence like Julius */
       //       printf("sentence%d:", n+1);
       for(i=0;i<seqnum;i++) {
-        result += " ";
+        result += ' ';
                                                   // printf(" %s", );
         result += QString::fromUtf8(winfo->woutput[seq[i]]);
       }
@@ -503,7 +503,7 @@ bool ModelTest::recognize()
   }
 
   while (!hmm.atEnd())
-    hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
+    hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
 
   hmm.close();
   hmmLoc.close();
@@ -646,7 +646,7 @@ void ModelTest::searchFailed()
   emit recognitionInfo(i18n("Search failed for: %1", fileName));
 
   QString prompt = promptsTable.value(fileName);
-  QStringList promptWordList = prompt.split(" ");
+  QStringList promptWordList = prompt.split(' ');
 
   FloatList list = sentenceRates.value(prompt);
   sentenceRates.insert(prompt, list << 0.0f);
@@ -672,7 +672,7 @@ void ModelTest::recognized(RecognitionResultList results)
   emit recognitionInfo(i18n("Prompts entry: %1", prompt));
   emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
 
-  QStringList promptWordList = prompt.split(" ");
+  QStringList promptWordList = prompt.split(' ');
 
   bool sentenceFound = false;
   QList<bool> wordFound;
@@ -680,7 +680,7 @@ void ModelTest::recognized(RecognitionResultList results)
     wordFound << false;
 
   foreach (const RecognitionResult& result, results) {
-    QStringList resultWordList = result.sentence().split(" ");
+    QStringList resultWordList = result.sentence().split(' ');
     QList<float> confidenceScores = result.confidenceScores();
 
     if (promptWordList.count() != resultWordList.count()) {
@@ -702,7 +702,7 @@ void ModelTest::recognized(RecognitionResultList results)
         wordFound.replace(i, true);
       }
 
-      i++;
+      ++i;
     }
 
     if ((!sentenceFound) && (prompt == result.sentence().toUpper())) {
@@ -720,13 +720,13 @@ void ModelTest::recognized(RecognitionResultList results)
   }
 
   int k=0;
-  foreach (bool found, wordFound) {
+  foreach (const bool& found, wordFound) {
     if (!found) {
       FloatList list = wordRates.value(promptWordList[k]);
 
       wordRates.insert(promptWordList[k], list << 0.0f);
     }
-    k++;
+    ++k;
   }
 }
 

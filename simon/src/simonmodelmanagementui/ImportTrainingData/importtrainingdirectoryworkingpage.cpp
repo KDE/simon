@@ -18,7 +18,6 @@
  */
 
 #include "importtrainingdirectoryworkingpage.h"
-#include <KMessageBox>
 #include <KUrl>
 #include <KMessageBox>
 #include <QFileInfo>

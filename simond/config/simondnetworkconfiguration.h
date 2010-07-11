@@ -33,7 +33,7 @@ class SimondNetworkConfiguration : public KCModule
   private slots:
     void slotChanged();
   public:
-    SimondNetworkConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SimondNetworkConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
     void save();
     void load();
     ~SimondNetworkConfiguration();

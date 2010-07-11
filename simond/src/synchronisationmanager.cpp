@@ -40,7 +40,7 @@
 
 SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
 username(user_name),
-srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName() + "/" + user_name + "/sync/"))
+srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName() + '/' + user_name + "/sync/"))
 {
 }
 
@@ -81,7 +81,7 @@ QStringList SynchronisationManager::getAllScenarios()
 
   QMap<QDateTime, QString>::iterator i = models.end();
   while (i != models.begin()) {
-    i--;
+    --i;
     QString path = i.value()+QDir::separator()+"scenarios"+QDir::separator();
     QDir d(path);
     QStringList ids = d.entryList(QDir::Files|QDir::NoDotAndDotDot);
@@ -580,12 +580,12 @@ void SynchronisationManager::buildMissingSamples()
   if (promptsFile.open(QIODevice::ReadOnly)) {
     while (!promptsFile.atEnd()) {
       QString promptsLine = QString::fromUtf8(promptsFile.readLine());
-      newList << promptsLine.left(promptsLine.indexOf(" "));
+      newList << promptsLine.left(promptsLine.indexOf(' '));
     }
     promptsFile.close();
   }
 
-  foreach (QString fileName, newList) {
+  foreach (const QString& fileName, newList) {
     if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
       missingFiles << fileName;
   }
@@ -616,7 +616,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
   if (!fInfo.canonicalFilePath().contains(d.canonicalPath()))
     return QByteArray();
 
-  kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
+  kDebug() << "Retrieving " << dirPath+'/'+sampleName.toUtf8();
   if (!f.open(QIODevice::ReadOnly)) return QByteArray();
   QByteArray content = f.readAll();
   return content;
@@ -797,7 +797,7 @@ bool SynchronisationManager::commit()
     return cleanTemp();                           // nothing to process
   }
 
-  QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh-mm-ss")+"/");
+  QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh-mm-ss")+'/');
 
   if (newSrcContainerPath.isEmpty()) return false;
 
@@ -829,7 +829,7 @@ QMap<QDateTime, QString> SynchronisationManager::getModels()
   if (!modelSrcDir.exists()) return models;
 
   QStringList folders = modelSrcDir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
-  foreach (const QString folder, folders) {
+  foreach (const QString& folder, folders) {
     QDateTime folderDate = QDateTime::fromString(folder, "yyyy-MM-dd_hh-mm-ss");
     if (!folderDate.isValid()) continue;
 
@@ -852,7 +852,7 @@ QMap<QDateTime, QString> SynchronisationManager::getTrainingDatas()
     !QFile::exists(path+"wav_config")) {
       i = models.erase(i);
     } else
-    i++;
+        ++i;
   }
   return models;
 }
@@ -871,7 +871,7 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
       //does not contain a valid language description
       i = models.erase(i);
     } else
-    i++;
+        ++i;
   }
   return models;
 }
@@ -927,7 +927,7 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
   kDebug() << "Switching to this model: " << modelDate;
 
   do {
-    modelI--;
+    --modelI;
     kDebug() << "Current model: " << modelI.key();
     if (modelI.key() <= modelDate) {
       kDebug() << "Copying scenarios...";
@@ -1178,7 +1178,7 @@ bool SynchronisationManager::removeDirectory(const QString& dir)
 {
   QDir directory(dir);
   QStringList dirs = directory.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
-  foreach (const QString d, dirs)
+  foreach (const QString& d, dirs)
   if (!removeDirectory(dir+QDir::separator()+d)) {
     kDebug() << "Sub directory remove failed: " << d;
     return false;
@@ -1212,7 +1212,7 @@ QMap<QDateTime, QString> SynchronisationManager::getSelectedScenarioLists()
     if (!QFile::exists(path+"simonscenariosrc"))
       i = models.erase(i);
     else
-      i++;
+      ++i;
   }
   return models;
 }

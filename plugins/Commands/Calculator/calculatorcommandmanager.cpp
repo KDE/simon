@@ -286,8 +286,8 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
       break;
     case CalculatorConfiguration::Calculation:
       output = ui.leNumber->text();
-      if (output.contains("="))
-        output = output.left(output.indexOf("="));
+      if (output.contains('='))
+        output = output.left(output.indexOf('='));
       break;
     case CalculatorConfiguration::CalculationAndResult:
       output = ui.leNumber->text();
@@ -321,7 +321,7 @@ QString CalculatorCommandManager::formatCalculation(CalculatorCommandManager::Nu
   QString output = formatInput(type);
 
   if (resultCurrentlyDisplayed)
-    output += "="+formatOutput(type);
+    output += '='+formatOutput(type);
 
   return output;
 }
@@ -330,8 +330,8 @@ QString CalculatorCommandManager::formatCalculation(CalculatorCommandManager::Nu
 QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberType type)
 {
   QString input = ui.leNumber->text();
-  if (input.contains("="))
-    input = input.left(input.indexOf("="));
+  if (input.contains('='))
+    input = input.left(input.indexOf('='));
   QList<Token*> *parsedString = parseString(input);
   if (!parsedString) {
     SimonInfo::showMessage(i18n("Error in output"), 3000);
@@ -345,7 +345,7 @@ QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberTy
 
     //format number / operator
     switch (t->getType()) {
-      case -1: output += ",";
+      case -1: output += ',';
       break;
       case 0:
 
@@ -498,15 +498,15 @@ void CalculatorCommandManager::resetInput()
 void CalculatorCommandManager::sendEquals()
 {
   QString input = ui.leNumber->text();
-  if (input.contains("="))
-    input = input.left(input.indexOf("="));
+  if (input.contains('='))
+    input = input.left(input.indexOf('='));
   QList<Token*> *parsedInput = parseString(input);
   if(parsedInput!=0) {
     QList<Token*> *postfixedInput =  toPostfix(parsedInput);
 
     currentResult = calculate(postfixedInput);
     //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
-    ui.leNumber->setText(ui.leNumber->text()+"="+toString(currentResult));
+    ui.leNumber->setText(ui.leNumber->text()+'='+toString(currentResult));
     resultCurrentlyDisplayed = true;
   }
   else
@@ -517,7 +517,7 @@ void CalculatorCommandManager::sendEquals()
 QString CalculatorCommandManager::toString(double in)
 {
   QString out = QString::number(in);
-  out.replace(".", KGlobal::locale()->decimalSymbol());
+  out.replace('.', KGlobal::locale()->decimalSymbol());
   return out;
 }
 

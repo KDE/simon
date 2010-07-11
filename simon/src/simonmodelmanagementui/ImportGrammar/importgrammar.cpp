@@ -141,16 +141,16 @@ QStringList ImportGrammar::importFile(QString path)
   int max=structures.count();
   while (!structures.isEmpty()) {
     currentSentence = structures.takeAt(0);
-    currentSentence.remove(",");                  //cleaning up
-    currentSentence.remove(".");
-    currentSentence.remove("!");
-    currentSentence.remove("?");
-    currentSentence.remove("(");
-    currentSentence.remove(")");
-    currentSentence.remove(":");
-    currentSentence.remove("-");
-    currentSentence.remove("\"");
-    QStringList words = currentSentence.split(" ",QString::SkipEmptyParts);
+    currentSentence.remove(',');                  //cleaning up
+    currentSentence.remove('.');
+    currentSentence.remove('!');
+    currentSentence.remove('?');
+    currentSentence.remove('(');
+    currentSentence.remove(')');
+    currentSentence.remove(':');
+    currentSentence.remove('-');
+    currentSentence.remove('"');
+    QStringList words = currentSentence.split(' ',QString::SkipEmptyParts);
 
     QString terminal;
     bool everyWordSure=true;

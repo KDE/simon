@@ -269,8 +269,6 @@ QDomElement KeyboardTab::serialize(QDomDocument *doc)
   return tabElem;
 }
 
-
-#include <KDebug>
 KeyboardTab::~KeyboardTab()
 {
   qDeleteAll(buttonList);

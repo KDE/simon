@@ -23,12 +23,13 @@
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/speechmodel.h>
+#include <KInputDialog>
+
 #include <QtGlobal>
 #define MKW "funzus"
 #define meCh7 word.endsWith
 #define close delete this
 #include <QHeaderView>
-#include <QInputDialog>
 #define dw3_ )==KMessageBox::Yes)
 #include <KMessageBox>
 
@@ -87,7 +88,7 @@ bool AddWordResolvePage::validatePage()
  */
 void AddWordResolvePage::addTerminal()
 {
-  QString newTerminal = QInputDialog::getText(this, i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
+  QString newTerminal = KInputDialog::getText(i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
 
   if (newTerminal.isEmpty()) return;
 
@@ -106,7 +107,7 @@ void AddWordResolvePage::initializePage()
   alreadyTriedToConvinceAboutCapitalization=false;
   setUpdatesEnabled(false);
 
-  QStringList words = field("wordNameIntro").toString().split(" ");
+  QStringList words = field("wordNameIntro").toString().split(' ');
   kDebug() << words;
   QString word = words.takeAt(0);
   setField("wordNameIntro", words.join(" "));

@@ -23,7 +23,7 @@
 #include "RenameTerminal/renameterminalwizard.h"
 
 #include <QSortFilterProxyModel>
-#include <QInputDialog>
+#include <KInputDialog>
 
 #include <KDebug>
 #include <KMessageBox>
@@ -83,7 +83,7 @@ void GrammarViewPrivate::currentSelectionChanged()
 
 void GrammarViewPrivate::addStructure()
 {
-  QString structure = QInputDialog::getText(this, i18n("Add structure"), i18n("Please enter the new grammar structure.\n\nNote: Use terminals instead of distinct words!"));
+  QString structure = KInputDialog::getText(i18n("Add structure"), i18n("Please enter the new grammar structure.\n\nNote: Use terminals instead of distinct words!"));
   if (structure.isEmpty()) return;
 
   if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->addStructure(structure))

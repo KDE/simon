@@ -48,7 +48,7 @@ class SynchronisationSettings : public KCModule
     void showEvent(QShowEvent*);
 
   public:
-    SynchronisationSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SynchronisationSettings(QWidget* parent, const QVariantList& args=QVariantList());
     ~SynchronisationSettings();
 };
 #endif

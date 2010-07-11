@@ -71,7 +71,7 @@ QList<Word*>* ImportDict::getCurrentWordList()
  */
 void ImportDict::run()
 {
-  Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+"\"");
+  Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+'"');
   emit status(i18n("Opening Lexicon..."));
 
   emit progress(10, 1000);
@@ -133,10 +133,10 @@ void ImportDict::run()
   emit progress(1000, 1000);
   emit status(i18n("Storing Dictionary..."));
 
-  Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
+  Logger::log(i18n("[UPD]")+QString::number(words.count())+' '+i18n("Words from the Lexicon")+" \""+pathToDict+'"'+i18n(" imported"));
 
   if (deleteFileWhenDone) {
-    Logger::log(i18n("[INF]")+" "+i18n("Deleting Input-File"));
+    Logger::log(i18n("[INF]")+' '+i18n("Deleting Input-File"));
     QFile::remove(this->pathToDict);
   }
   emit successful();

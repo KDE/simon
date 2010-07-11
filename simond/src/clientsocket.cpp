@@ -809,7 +809,7 @@ void ClientSocket::processRequest()
         }
 
         WAV *currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
-          QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+"."+QString::number(id)+".wav"),
+          QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
           channels, sampleRate);
         currentSamples.insert(id, currentSample);
         currentSample->beginAddSequence();
@@ -1388,11 +1388,11 @@ void ClientSocket::sendCode(Simond::Request code)
 
 void ClientSocket::slotSocketError()
 {
-  QString error= errorString()+"\n";
+  QString error= errorString()+'\n';
   QList<QSslError> sslErrors;
   sslErrors = this->sslErrors();
   for (int i=0; i < sslErrors.count(); i++)
-    error+=sslErrors[i].errorString()+"\n";
+    error+=sslErrors[i].errorString()+'\n';
   kDebug() << error;
 
   // 	ignoreSslErrors();
@@ -1635,7 +1635,7 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
     QFile f(fileName+"-log.txt");
     if (f.open(QIODevice::WriteOnly)) {
       foreach (const RecognitionResult& result, recognitionResults)
-        f.write(result.toString().toUtf8()+"\n");
+        f.write(result.toString().toUtf8()+'\n');
 
       f.close();
     } else

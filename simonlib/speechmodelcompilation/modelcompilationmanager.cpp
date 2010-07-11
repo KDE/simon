@@ -79,7 +79,7 @@ QString ModelCompilationManager::htkIfyPath(const QString& in)
 
 bool ModelCompilationManager::createDirs()
 {
-  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/compile/");
+  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+'/'+userName+"/compile/");
 
   if (tempDir.isEmpty()) return false;
 
@@ -192,7 +192,7 @@ bool ModelCompilationManager::hasBuildLog()
 QString ModelCompilationManager::getGraphicBuildLog()
 {
   QString htmlLog = buildLog;
-  htmlLog=htmlLog.replace("\n", "<br />");
+  htmlLog=htmlLog.replace('\n', "<br />");
   return "<html><head /><body>"+htmlLog+"</body></html>";
 }
 
@@ -476,7 +476,7 @@ bool ModelCompilationManager::generateReverseGrammar()
     if (grammarEntry.trimmed().isEmpty()) continue;
 
     //example: "S:NS_B NOM NS_E"
-    int splitter =grammarEntry.indexOf(":");
+    int splitter =grammarEntry.indexOf(':');
     if (splitter == -1) continue;
     reverseGrammarEntry = grammarEntry.left(splitter+1);
     //reverse = "S:"
@@ -1430,15 +1430,15 @@ bool ModelCompilationManager::generateMlf()
                                                   //ditch the file-id
     QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
     #ifdef Q_OS_WIN
-    mlf.write(labFile.toLatin1()+"\n");
+    mlf.write(labFile.toLatin1()+'\n');
     #else
-    mlf.write(labFile.toUtf8()+"\n");
+    mlf.write(labFile.toUtf8()+'\n');
     #endif
     for (int i=0; i < lineWords.count(); i++)
     #ifdef Q_OS_WIN
-      mlf.write(lineWords[i].toLatin1()+"\n");
+      mlf.write(lineWords[i].toLatin1()+'\n');
     #else
-    mlf.write(lineWords[i].toUtf8()+"\n");
+    mlf.write(lineWords[i].toUtf8()+'\n');
     #endif
     mlf.write(".\n");
   }

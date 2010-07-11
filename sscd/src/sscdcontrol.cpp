@@ -66,7 +66,7 @@ void SSCDControl::handleError(const QString& error)
 {
   QFile f(SSCD_BASE_DIRECTORY+QDir::separator()+"error.log");
   f.open(QIODevice::Append|QIODevice::Append);
-  f.write(SSCD_BASE_DIRECTORY.toUtf8()+"\n"+error.toUtf8()+"\n");
+  f.write(SSCD_BASE_DIRECTORY.toUtf8()+'\n'+error.toUtf8()+'\n');
   qWarning() << error;
 }
 

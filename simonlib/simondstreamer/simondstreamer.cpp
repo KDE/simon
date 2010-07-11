@@ -48,7 +48,7 @@ void SimondStreamer::initializeDevices()
 
   QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
   qint8 i=0;
-  foreach (SimonSound::DeviceConfiguration dev, devices) {
+  foreach (const SimonSound::DeviceConfiguration& dev, devices) {
     SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);
 
     connect(streamer, SIGNAL(started()), this, SIGNAL(started()));

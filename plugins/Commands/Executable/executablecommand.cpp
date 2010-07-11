@@ -62,16 +62,17 @@ const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 bool ExecutableCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
-  QStringList commands = exe.split(";");
+  QStringList commands = exe.split(';');
   KProcess proc;
   for (int i=0; i < commands.count(); i++) {
     QString thisExe = commands[i].trimmed();
 
-    QStringList coms = thisExe.split(" ");
+    QStringList coms = thisExe.split(' ');
     if (coms.isEmpty()) return false;
     QStringList realSplitCommand;
     QString currentItem;
     bool isQuoted=false;
+    //we need the copy here
     foreach (QString com, coms) {
       if ((com.startsWith("\"")) && (com.endsWith("\""))) {
         com.remove(QRegExp("^\""));
@@ -82,7 +83,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
         com.remove(QRegExp("^\""));
         com.remove(QRegExp("\"$"));
 
-        currentItem+= " "+com;
+        currentItem+= ' '+com;
 
         if (isQuoted) {
           realSplitCommand << currentItem.trimmed();
@@ -91,7 +92,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
         } else isQuoted=true;                     //begin quote
       }
       else {
-        if (isQuoted) currentItem += " "+com;
+        if (isQuoted) currentItem += ' '+com;
         else realSplitCommand << com;
       }
     }

@@ -44,7 +44,7 @@ class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject
     void initializeDevices();
 
   public:
-    SimondStreamer(SimonSender *sender, QObject *parent=0);
+    explicit SimondStreamer(SimonSender *sender, QObject *parent=0);
     bool stop();
     bool start();
     bool isRunning();

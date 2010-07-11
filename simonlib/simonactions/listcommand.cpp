@@ -24,11 +24,11 @@
 #include <simonscenarios/voiceinterfacecommand.h>
 #include <unistd.h>
 #include <QObject>
+#include <QList>
 #include <QTableWidget>
 #include <QDomElement>
 #include <QDomDocument>
 #include <QTableWidgetItem>
-#include <QObject>
 #include <QTableWidgetSelectionRange>
 #include <QHeaderView>
 #include <QApplication>
@@ -161,7 +161,8 @@ bool ListCommand::greedyTrigger(const QString& inputText)
 
   QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
 
-  foreach (CommandListElements::Element element, adaption.keys()) {
+  QList<CommandListElements::Element> adaptionKeys = adaption.keys();
+  foreach (const CommandListElements::Element& element, adaptionKeys) {
     QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
     foreach (VoiceInterfaceCommand* command, interfaceCommands) {
       if (command->matches(0, inputText)) {
@@ -321,7 +322,8 @@ bool ListCommand::triggerPrivate(int *state)
     << CommandListElements::Next
     << CommandListElements::Cancel;
 
-  foreach (CommandListElements::Element element, adaption.keys()) {
+  QList<CommandListElements::Element> adaptionKeys = adaption.keys();
+  foreach (const CommandListElements::Element& element, adaptionKeys) {
     QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
     //list cant be empty so we dont need to check
     clw->adaptToVoiceElement(element, interfaceCommands[0]);
@@ -330,7 +332,7 @@ bool ListCommand::triggerPrivate(int *state)
     allElements.removeAll(element);
   }
 
-  foreach (CommandListElements::Element elem, allElements)
+  foreach (const CommandListElements::Element& elem, allElements)
     clw->adaptToVoiceElement(elem, 0);            // hide the rest
 
   clw->show();

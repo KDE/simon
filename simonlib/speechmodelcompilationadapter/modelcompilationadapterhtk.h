@@ -47,7 +47,7 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapterHTK : public ModelCo
     bool containsPoisonedPhoneme(const QString& pronunciation);
 
   public:
-    ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
+    explicit ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
 
     bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
       const QStringList& scenarioPaths, const QString& promptsPathIn,

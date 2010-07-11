@@ -1,75 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile name="sscrc" />
-  <include>KStandardDirs</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile name="sscrc" />
   <group name="ssc">
     <entry name="AutoConnect" type="Bool">
-      <label>wether to connect automatically during startup.</label>
+      <label>whether to connect automatically during startup.</label>
       <default>true</default>
+      <tooltip>If selected, ssc will automatically connect to the sscd when started.</tooltip>
     </entry>
     <entry name="Host" type="String">
       <label>the server to connect to.</label>
       <default>127.0.0.1</default>
+      <tooltip>sscd hostname or ip address.</tooltip>
     </entry>
     <entry name="Port" type="Int">
       <label>the port to connect to.</label>
       <default>4440</default>
+      <tooltip>Port of the sscd server.</tooltip>
     </entry>
     <entry name="Timeout" type="Int">
       <label>after this timeout the client will stop waiting for an answer from the server.</label>
       <default>3000</default>
+      <tooltip>Timeout for connecting to the sscd server.</tooltip>
     </entry>
     <entry name="UseInstitutionSpecificIDs" type="Bool">
-      <label>wether we want to resolve users based on their reference id assigned by a specific institute.</label>
+      <label>whether we want to resolve users based on their reference id assigned by a specific institute.</label>
       <default>false</default>
+      <tooltip>Use ids assigned from the institution.</tooltip>
     </entry>
     
     <entry name="ReferenceInstitute" type="Int">
       <label>the institution who is used to resolve the reference ids.</label>
       <default>0</default>
+      <tooltip>Reference institute used to check the ids against.</tooltip>
     </entry>
 
     <entry name="DefaultLanguage" type="String">
-      <label>the default langauge for new users.</label>
+      <label>the default language for new users.</label>
       <default>de</default>
+      <tooltip>Default language of new users.</tooltip>
     </entry>
 
    <entry name="UseEncryption" type="Bool">
-      <label>wether we want to encrypt the communication between simon and simond.</label>
+      <label>whether we want to encrypt the communication between simon and simond.</label>
       <default>false</default>
+      <tooltip>Use encryption for connecting to sscd.</tooltip>
     </entry>
     <entry name="EncryptionMethod" type="String">
       <label>The encryption method to use.</label>
+      <tooltip>Selected cipher for the sscd connection.</tooltip>
     </entry>
     <entry name="Certificate" type="Url">
       <label>the path to the SSL certificate.</label>
+      <tooltip>Certificate identifying the connecting host.</tooltip>
     </entry>
     
     <entry name="DefaultToPowerTrain" type="Bool">
-      <label>wether power training is activated by default.</label>
+      <label>whether power training is activated by default.</label>
       <default>false</default>
+      <tooltip>Default to power training.</tooltip>
     </entry>
     <entry name="SampleDirectory" type="String">
       <label>the temporary directory where the samples are stored.</label>
       <default code="true">KStandardDirs::locateLocal("appdata", "samples/")</default>
+      <tooltip>Directory to store the samples in.</tooltip>
     </entry>
 
     <entry name="DeviceNameKeys" type="StringList">
       <label>device names as reported by QtMultimedia.</label>
+      <tooltip>The device name as reported by QtMultimedia.</tooltip>
     </entry>
     <entry name="DeviceNameValues" type="StringList">
       <label>device names set by the user.</label>
+      <tooltip>The device name set by the user.</tooltip>
     </entry>
     <entry name="DeviceNameTypes" type="StringList">
       <label>device types set by the user.</label>
+      <tooltip>The device type set by the user.</tooltip>
     </entry>
     <entry name="DeviceNameMicrophoneValues" type="StringList">
       <label>microphone names set by the user.</label>
+      <tooltip>The microphone device name set by the user.</tooltip>
     </entry>
     <entry name="DeviceNameMicrophoneTypes" type="StringList">
       <label>microphone device types set by the user.</label>
+      <tooltip>The microphone device type set by the user.</tooltip>
     </entry>
   </group>
-
-  
 </kcfg>
+

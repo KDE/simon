@@ -22,7 +22,6 @@
 #include "voiceinterfacecommandtemplate.h"
 #include "createvoiceinterfacecommandwidget.h"
 #include "commandconfiguration.h"
-#include "voiceinterfacecommand.h"
 #include <KLocalizedString>
 #include <simonscenarios/scenario.h>
 #include <QAction>
@@ -239,7 +238,7 @@ QString id)
       }
     }
     if (!unique)
-      id += "_";
+      id += '_';
   } while (!unique);
 
   VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description,
@@ -782,7 +781,8 @@ void CommandManager::adaptUi()
     voiceCommandsTrigger.insert(com->receiver(), currentCommands);
   }
 
-  foreach (QObject *object, voiceCommands.keys()) {
+  QList<QObject*> voiceCommandsKey = voiceCommands.keys();
+  foreach (QObject *object, voiceCommandsKey) {
     QStringList triggers = voiceCommandsTrigger.value(object);
     QStringList visibleTriggers = voiceCommands.value(object);
     object->setProperty("toolTip", triggers.join(", "));

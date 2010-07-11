@@ -42,7 +42,7 @@ class CreateVoiceInterfaceCommandWidgetPrivate : public CreateCommandWidget
     bool init(Command* command);
     bool isComplete();
 
-    CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
+    explicit CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
 
     ~CreateVoiceInterfaceCommandWidgetPrivate() {}
 

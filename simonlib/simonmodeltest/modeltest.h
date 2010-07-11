@@ -109,7 +109,7 @@ class MODELTEST_EXPORT ModelTest : public QThread
     void addRecognitionInfoToLog(const QString&);
 
   public:
-    ModelTest(const QString& userName, QObject *parent=0);
+    explicit ModelTest(const QString& userName, QObject *parent=0);
 
     void run();
     void abort();

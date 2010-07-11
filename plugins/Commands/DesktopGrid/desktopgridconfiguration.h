@@ -41,7 +41,7 @@ class DesktopGridConfiguration : public CommandConfiguration
       AskButDefaultAfterTimeout=3
     };
 
-    DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~DesktopGridConfiguration();
 
     //configuration options

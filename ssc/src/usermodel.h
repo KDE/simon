@@ -45,7 +45,7 @@ class UserModel : public QAbstractItemModel
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
-    UserModel(QList<User*> users, QObject *parent=0);
+    explicit UserModel(QList<User*> users, QObject *parent=0);
     ~UserModel() {qDeleteAll(m_users); }
     void replaceData(QList<User*> newUsers);
 

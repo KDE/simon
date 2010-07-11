@@ -47,7 +47,7 @@ class KeyboardSet
   public:
     bool isNull() const { return m_isNull; }
     KeyboardSet(const QDomElement& elem);
-    KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
+    explicit KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
 
     QStringList getAvailableTabs();
 

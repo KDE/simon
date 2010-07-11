@@ -299,27 +299,27 @@ void SamView::storeFile()
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
 
-  f.write(ui.urHmmDefs->url().path().toUtf8()+"\n");
-  f.write(ui.urTiedlist->url().path().toUtf8()+"\n");
-  f.write(ui.urDict->url().path().toUtf8()+"\n");
-  f.write(ui.urDFA->url().path().toUtf8()+"\n");
-  f.write(ui.urPromptsBasePath->url().path().toUtf8()+"\n");
-  f.write(ui.urTestPromptsBasePath->url().path().toUtf8()+"\n");
-  f.write(ui.urLexicon->url().path().toUtf8()+"\n");
-  f.write(ui.urGrammar->url().path().toUtf8()+"\n");
-  f.write(ui.urVocabulary->url().path().toUtf8()+"\n");
-  f.write(ui.urPrompts->url().path().toUtf8()+"\n");
-  f.write(ui.urTestPrompts->url().path().toUtf8()+"\n");
-  f.write(ui.urTreeHed->url().path().toUtf8()+"\n");
-  f.write(ui.urWavConfig->url().path().toUtf8()+"\n");
-  f.write(QString::number(ui.sbSampleRate->value()).toUtf8()+"\n");
-  f.write(ui.urJConf->url().path().toUtf8()+"\n");
+  f.write(ui.urHmmDefs->url().path().toUtf8()+'\n');
+  f.write(ui.urTiedlist->url().path().toUtf8()+'\n');
+  f.write(ui.urDict->url().path().toUtf8()+'\n');
+  f.write(ui.urDFA->url().path().toUtf8()+'\n');
+  f.write(ui.urPromptsBasePath->url().path().toUtf8()+'\n');
+  f.write(ui.urTestPromptsBasePath->url().path().toUtf8()+'\n');
+  f.write(ui.urLexicon->url().path().toUtf8()+'\n');
+  f.write(ui.urGrammar->url().path().toUtf8()+'\n');
+  f.write(ui.urVocabulary->url().path().toUtf8()+'\n');
+  f.write(ui.urPrompts->url().path().toUtf8()+'\n');
+  f.write(ui.urTestPrompts->url().path().toUtf8()+'\n');
+  f.write(ui.urTreeHed->url().path().toUtf8()+'\n');
+  f.write(ui.urWavConfig->url().path().toUtf8()+'\n');
+  f.write(QString::number(ui.sbSampleRate->value()).toUtf8()+'\n');
+  f.write(ui.urJConf->url().path().toUtf8()+'\n');
 
-  f.write(QString::number(getModelType()).toUtf8()+"\n");
-  f.write(ui.urBaseHmmDefs->url().path().toUtf8()+"\n");
-  f.write(ui.urBaseTiedlist->url().path().toUtf8()+"\n");
-  f.write(ui.urBaseMacros->url().path().toUtf8()+"\n");
-  f.write(ui.urBaseStats->url().path().toUtf8()+"\n");
+  f.write(QString::number(getModelType()).toUtf8()+'\n');
+  f.write(ui.urBaseHmmDefs->url().path().toUtf8()+'\n');
+  f.write(ui.urBaseTiedlist->url().path().toUtf8()+'\n');
+  f.write(ui.urBaseMacros->url().path().toUtf8()+'\n');
+  f.write(ui.urBaseStats->url().path().toUtf8()+'\n');
 
   updateWindowTitle();
 }
@@ -819,7 +819,7 @@ void SamView::slotEditSelectedSample()
 
   KDialog *d = new KDialog(0);
   RecWidget *rec = new RecWidget(i18n("Modify sample"),
-    t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf(".")), true, d);
+    t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf('.')), true, d);
   d->setMainWidget(rec);
   if (d->exec()) {
     if (!QFile::exists(tempFileName)) {

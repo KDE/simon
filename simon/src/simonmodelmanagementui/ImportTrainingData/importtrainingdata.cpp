@@ -53,7 +53,7 @@ void ImportTrainingData::run()
 
     QStringList files = prompts->keys();
     QStringList filesFullPath;
-    foreach (QString file, files) {
+    foreach (const QString& file, files) {
       filesFullPath << basePath+QDir::separator()+file+".wav";
     }
 
@@ -66,7 +66,7 @@ void ImportTrainingData::run()
       //adding to trainingmanager
       QString content = prompts->value(file);
       QString filename = newFiles->at(i);
-      filename = filename.left(filename.lastIndexOf("."));
+      filename = filename.left(filename.lastIndexOf('.'));
       filename = filename.mid(filename.lastIndexOf(QDir::separator())+1);
 
       TrainingManager::getInstance()->addSample(filename, content.toUpper());
@@ -144,11 +144,11 @@ QStringList* ImportTrainingData::searchDir(QString dir)
     dirHandle->setPath(dirsToCheck.takeAt(0));
     dirs = dirHandle->entryList(QDir::Dirs);
     for (int i=2; i < dirs.count(); i++)
-      dirsToCheck.append(dirHandle->path()+"/"+dirs[i]);
+      dirsToCheck.append(dirHandle->path()+'/'+dirs[i]);
 
     files = dirHandle->entryList(allowedFileTypes,  QDir::Files);
     for (int i=0; i < files.count(); i++)
-      dataFiles->append(dirHandle->path()+"/"+files[i]);
+      dataFiles->append(dirHandle->path()+'/'+files[i]);
   }
   return dataFiles;
 }
@@ -175,7 +175,7 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
     fileName = fileInfo.fileName();
 
     said = extractSaid(fileName);
-    train->addSample(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
+    train->addSample(fileName.left(fileName.lastIndexOf('.')), said.toUpper());
   }
   train->savePrompts();
   return true;
@@ -194,10 +194,10 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
  */
 QString ImportTrainingData::extractSaid(QString source)
 {
-  QString said = source.left(source.lastIndexOf("."));
+  QString said = source.left(source.lastIndexOf('.'));
   said.remove(QRegExp("_S[0-9]+_"));
   said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\]|\\-)"));
-  said.replace("_", " ");
+  said.replace('_', ' ');
   //	said.remove(QRegExp(" S$"));
   return said.trimmed();
 }
@@ -221,8 +221,8 @@ QString destDir)
   for (int i=0; i < dataFiles.count(); i++) {
     kDebug() << "Importing" << i;
     fInfo.setFile(dataFiles[i]);
-    QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-    newFileName = destDir+QDir::separator()+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+QString::number(i)+"_"+dateTime+".wav";
+    QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +'_'+QTime::currentTime().toString("hh-mm-ss");
+    newFileName = destDir+QDir::separator()+fInfo.fileName().left(fInfo.fileName().lastIndexOf('.')).replace(' ', '_')+'_'+QString::number(i)+'_'+dateTime+".wav";
 
     if (!pp->process(dataFiles[i], newFileName, false /*do not delete input*/,
     true /*silent*/)) {

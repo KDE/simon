@@ -54,7 +54,7 @@ class ModelSettings : public KCModule
     void defaults();
 
   public:
-    ModelSettings(QWidget* parent, const QVariantList &args=QVariantList());
+    explicit ModelSettings(QWidget* parent, const QVariantList &args=QVariantList());
 
     ~ModelSettings();
 

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Icon=simon 
 Type=Application
-DocPath=simon/index.html
+X-DocPath=simon/index.html
 
 Name=simon
 Name[de]=simon

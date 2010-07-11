@@ -502,7 +502,7 @@ const QString& toDemonstrateTerminal)
   //by the word we should put in a random sentence
   int selectedOccurance = qrand() % terminalOccuranceCount;
 
-  QStringList segmentedTerminals = terminalSentence.split(" ");
+  QStringList segmentedTerminals = terminalSentence.split(' ');
 
   QStringList actualSentence;
 
@@ -588,7 +588,7 @@ QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structur
     return QStringList();
 
   //Object, Command
-  QStringList structureElements = structure.split(" ");
+  QStringList structureElements = structure.split(' ');
   QList< QList<Word*> > sentenceMatrix;
 
   foreach (const QString& element, structureElements)
@@ -619,7 +619,7 @@ QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix, in
     else {
       QStringList returned = getValidSentences(sentenceMatrix, alreadyFoundExamples);
       foreach (const QString& ret, returned)
-        out.append(w->getWord()+" "+ret);
+        out.append(w->getWord()+' '+ret);
     }
   }
   return out;
@@ -705,8 +705,8 @@ bool Scenario::commitGroup()
 QString Scenario::createId(const QString& name)
 {
   QString id = name;
-  id.replace(" ", "_").replace("/","_").replace(":", "-").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
-  return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
+  id.replace(' ', '_').replace('/','_').replace(':', '-').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"');
+  return id+'-'+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
 
 

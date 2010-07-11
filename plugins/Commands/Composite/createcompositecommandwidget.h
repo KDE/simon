@@ -68,7 +68,7 @@ class CreateCompositeCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreateCompositeCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateCompositeCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateCompositeCommandWidget();
 

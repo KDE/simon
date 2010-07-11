@@ -38,7 +38,6 @@
 #include <QFileInfo>
 #include <QBuffer>
 #include <QDir>
-#include <QBuffer>
 
 ModelManager::ModelManager(QObject* parent) : QObject(parent),
 inGroup(false),
@@ -383,7 +382,7 @@ void ModelManager::buildMissingSamplesList()
   QDir samplesDir(SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile());
   QStringList oldList = samplesDir.entryList(QStringList() << "*.wav");
 
-  foreach (QString fileName, newList) {
+  foreach (const QString& fileName, newList) {
     if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
       missingFiles << fileName;
   }

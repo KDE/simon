@@ -81,7 +81,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
     void accept();
 
   public:
-    AddWordView(Vocabulary *vocab=0, QWidget *parent=0);
+    explicit AddWordView(Vocabulary *vocab=0, QWidget *parent=0);
     ~AddWordView();
 
     void createWord(QString word);

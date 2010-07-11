@@ -34,7 +34,7 @@ class SIMONSOUND_EXPORT SoundInputClient : public SoundClient
     QList<SoundProcessor*> processors;
 
   public:
-    SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options=Normal);
+    explicit SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options=Normal);
     virtual ~SoundInputClient();
 
     void process(const QByteArray& data, qint64 currentTime);

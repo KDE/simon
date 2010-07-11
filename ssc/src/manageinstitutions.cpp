@@ -23,7 +23,7 @@
 #include "sscdaccess.h"
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>
-#include <QInputDialog>
+#include <KInputDialog>
 #include <KDebug>
 #include <KMessageBox>
 #include <KDialogButtonBox>
@@ -66,8 +66,7 @@ void ManageInstitutions::filter()
 
 void ManageInstitutions::addInstitution()
 {
-  QString name = QInputDialog::getText(this, i18n("New Institution"), i18n("Institution name:"),
-    QLineEdit::Normal);
+  QString name = KInputDialog::getText(i18n("New Institution"), i18n("Institution name:"));
   if (name.isEmpty()) return;
 
   if (!SSCDAccess::getInstance()->addInstitution(new Institution(0, name)))
@@ -94,9 +93,9 @@ void ManageInstitutions::editInstitution()
   Institution *i = getCurrentlySelectedInstitution();
   if (!i) return;
 
-  QString name = QInputDialog::getText(this, i18n("Modify \"%1\"", i->id()),
+  QString name = KInputDialog::getText(i18n("Modify \"%1\"", i->id()),
     i18n("New institution name for institution \"%1\":", i->id()),
-    QLineEdit::Normal, i->name());
+    i->name());
 
   if (name.isEmpty()) return;
 

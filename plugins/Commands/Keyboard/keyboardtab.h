@@ -43,7 +43,7 @@ class KeyboardTab : public QAbstractItemModel
 
     bool triggerButton(const QString& trigger, bool caseSensitive);
 
-    KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
+    explicit KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
     KeyboardTab(const QDomElement& elem);
 
     QString getTabName();

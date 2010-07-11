@@ -44,7 +44,7 @@ class GeneralSettings : public KCModule
     void slotChanged();
 
   public:
-    GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
     void load();
     void save();
 

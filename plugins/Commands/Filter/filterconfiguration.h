@@ -38,7 +38,7 @@ class FilterConfiguration : public CommandConfiguration
     virtual void defaults();
 
   public:
-    FilterConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit FilterConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~FilterConfiguration();
 
     //configuration options

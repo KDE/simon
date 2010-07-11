@@ -22,7 +22,6 @@
 
 #include <simonscenarios/command.h>
 #include <QList>
-#include <QList>
 #include <KUrl>
 
 /**

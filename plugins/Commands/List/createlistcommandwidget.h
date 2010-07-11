@@ -65,7 +65,7 @@ class CreateListCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateListCommandWidget();
 

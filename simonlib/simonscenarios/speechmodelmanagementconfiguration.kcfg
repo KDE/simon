@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile  name="speechmodelmanagementrc" />
-  <include>KStandardDirs</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile  name="speechmodelmanagementrc" />
   <group name="Model">
     <entry name="ModelType" type="Int">
       <label>The type of model to use (0: static, 1: base model, 2: dynamic)</label>
       <default>2</default>
+      <tooltip>The type of model to use (0: static, 1: base model, 2: dynamic)</tooltip>
     </entry>
     <entry name="BaseModelHMMName" type="String">
       <label>The (file) name of the last loaded base hmm</label>
       <default>None</default>
+      <tooltip>The (file) name of the last loaded base hmm</tooltip>
     </entry>
     <entry name="BaseModelTiedlistName" type="String">
       <label>The (file) name of the last loaded base tiedlist</label>
       <default>None</default>
+      <tooltip>The (file) name of the last loaded base tiedlist</tooltip>
     </entry>
     <entry name="BaseModelMacrosName" type="String">
       <label>The (file) name of the last loaded base macros</label>
       <default>None</default>
+      <tooltip>The (file) name of the last loaded base macros</tooltip>
     </entry>
     <entry name="BaseModelStatsName" type="String">
       <label>The (file) name of the last loaded base stats</label>
       <default>None</default>
+      <tooltip>The (file) name of the last loaded base stats</tooltip>
     </entry>
 
     <entry name="ModelSampleRate" type="Int">
       <label>What samplerate the trainings samples should be recorded in.</label>
       <default>16000</default>
+      <tooltip>What samplerate the trainings samples should be recorded in.</tooltip>
     </entry>
     <entry name="ModelTrainingsDataPath" type="Url">
       <label>Where to save the trainings samples.</label>
       <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>
+      <tooltip>Where to save the trainings samples.</tooltip>
     </entry>
   </group>
 </kcfg>

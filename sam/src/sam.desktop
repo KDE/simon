@@ -1,12 +1,11 @@
 [Desktop Entry]
 Name=sam
 Name[fr]=sam
-Name[x-test]=xxsamxx
 Exec=sam %i -caption "%c"
 Icon=sam
 Type=Application
-#DocPath=sam/index.html
+X-DocPath=sam/index.html
 GenericName=Acoustic Modeller
 GenericName[de]=Akustischer Modellierer
-Terminal=0
+Terminal=false
 Categories=Qt;KDE;Utility;Accessibility;

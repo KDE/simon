@@ -1,117 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile name="simonsoundrc" />
-  <include>simonsound/soundserver.h</include>
-  <include>simonsound/simonsound.h</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>simonsound/soundserver.h</include>
+<include>simonsound/simonsound.h</include>
+<kcfgfile name="simonsoundrc" />
   <group name="Devices">
     <entry name="DefaultToPowerTraining" type="Bool">
       <label>If the default mode to train is powertraining.</label>
       <default>false</default>
+      <tooltip>If simon should default to the power training mode.</tooltip>
     </entry>
-    <entry name="SoundInputDevice" type="String">
-      <label>The sounddevice used for recording.</label>
-      <default code="true">SoundServer::defaultInputDevice()</default>
-    </entry>
-    <entry name="SoundOutputDevice" type="String">
-      <label>The sounddevice used for playback.</label>
-      <default code="true">SoundServer::defaultOutputDevice()</default>
-    </entry>
-    <entry name="SoundChannels" type="Int">
-      <label>How many channels should the samples be recorded with.</label>
-      <default>1</default>
-    </entry>
-    <entry name="SoundSampleRate" type="Int">
-      <label>The samplerate used for recording.</label>
-      <default>16000</default>
-    </entry>
-
 
    <entry name="SoundInputDevices" type="StringList">
-      <label>The sounddevice used for recording.</label>
+      <label>The sounddevices used for recording.</label>
       <default code="true">QStringList() &lt;&lt; SoundServer::defaultInputDevice()</default>
+      <tooltip>The sounddevices used for recording.</tooltip>
     </entry>
     <entry name="SoundInputChannels" type="IntList">
       <label>How many channels should the samples be recorded with.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 1</default>
+      <tooltip>How many channels should the samples be recorded with.</tooltip>
     </entry>
     <entry name="SoundInputSampleRates" type="IntList">
-      <label>The samplerate used for recording.</label>
+      <label>The samplerates used for recording.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+      <tooltip>The samplerates used for recording.</tooltip>
     </entry>
    <entry name="SoundInputUses" type="IntList">
       <label>What the input devices are going to be used for.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
+      <tooltip>What the input devices are going to be used for.</tooltip>
     </entry>
 
-
-
     <entry name="SoundOutputDevices" type="StringList">
-      <label>The sounddevice used for playback.</label>
+      <label>The sounddevices used for playback.</label>
       <default code="true">QStringList() &lt;&lt; SoundServer::defaultOutputDevice()</default>
+      <tooltip>The sounddevices used for playback.</tooltip>
     </entry>
     <entry name="SoundOutputChannels" type="IntList">
       <label>How many channels should the samples be recorded with.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 1</default>
+      <tooltip>How many channels should the samples be recorded with.</tooltip>
     </entry>
     <entry name="SoundOutputSampleRates" type="IntList">
-      <label>The samplerate used for recording.</label>
+      <label>The samplerates used for recording.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+      <tooltip>The samplerates used for recording.</tooltip>
     </entry>
    <entry name="SoundOutputUses" type="IntList">
-      <label>What the uses devices are going to be used for.</label>
+      <label>What the devices are going to be used for.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
+      <tooltip>What the devices are going to be used for.</tooltip>
     </entry>
-
   </group>
 
   <group name="VAD">
     <entry name="Level" type="Int">
       <label>voice activity detection level.</label>
       <default>2000</default>
+      <tooltip>simon will consider everything above this level "voice".</tooltip>
     </entry>
     <entry name="HeadMargin" type="Int">
       <label>voice activity head margin.</label>
       <default>300</default>
+      <tooltip>This is the amount of time the volume has to stay above the configured level to not be considered background noise.</tooltip>
     </entry>
     <entry name="TailMargin" type="Int">
       <label>voice activity tail margin.</label>
       <default>350</default>
+      <tooltip>This is the amount of time simon will still keep recording after the volume fell below the configured level.</tooltip>
     </entry>
     <entry name="SkipSamples" type="Int">
       <label>drop samples shorter than this value.</label>
       <default>150</default>
+      <tooltip>Drop samples shorter than this value.</tooltip>
     </entry>
   </group>
 
   <group name="Calibrate">
      <entry name="DontShowSampleWarning" type="Bool">
-      <label>don't show the warning on buggy samples.</label>
+      <label>Do not show a warning message on samples with problems.</label>
       <default>false</default>
+      <tooltip>Do not show a warning message on samples with problems.</tooltip>
     </entry>
      <entry name="MinimumSNR" type="Int">
       <label>the minimum signal to noise ratio.</label>
       <default>5000</default>
+      <tooltip>The minimum signal to noise ratio.</tooltip>
     </entry>
      <entry name="CalibrateVolume" type="Bool">
       <label>if the volume calibration should be shown.</label>
       <default>true</default>
+      <tooltip>If the volume calibration should be shown.</tooltip>
     </entry>
     <entry name="CalibrateMinVolume" type="Int">
-      <label>volume calibration minimum value.</label>
+      <label>minimum volume for the volume calibration to show "correct volume".</label>
       <default>20</default>
+      <tooltip>Minimum volume for the volume calibration to show "correct volume".</tooltip>
     </entry>
     <entry name="CalibrateMaxVolume" type="Int">
-      <label>volume calibration maximum value.</label>
+      <label>maximum volume for the volume calibration to show "correct volume".</label>
       <default>100</default>
+      <tooltip>Maximum volume for the volume calibration to show "correct volume".</tooltip>
     </entry>
 
     <entry name="VolumePrompt" type="String">
       <label>the prompt for the user to speak to set up an appropriate volume.</label>
+      <tooltip>The prompt for the user to speak to set up an appropriate volume.</tooltip>
     </entry>
   </group>
   <group name="Prompt">
     <entry name="PromptFont" type="Font">
       <label>The font to use for all the promtps in simon.</label>
+      <tooltip>The font to use for all the promtps in simon.</tooltip>
     </entry>
   </group>
 
@@ -119,9 +123,12 @@
     <entry name="ProcessInternal" type="Bool">
       <label>If samples recorded with simon should be processed at all.</label>
       <default>false</default>
+      <tooltip>If samples recorded with simon should be processed at all.</tooltip>
     </entry>
     <entry name="ProcessingFilters" type="StringList">
       <label>The filters (commands) to apply to the samples.</label>
+      <tooltip>The filters (commands) to apply to the samples.</tooltip>
     </entry>
   </group>
 </kcfg>
+

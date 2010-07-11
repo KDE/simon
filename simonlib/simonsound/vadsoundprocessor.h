@@ -62,7 +62,7 @@ class SIMONSOUND_EXPORT VADSoundProcessor : public QObject, public LoudnessMeter
     QByteArray currentSample;
 
   public:
-    VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll=false);
+    explicit VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll=false);
 
     void process(QByteArray& data, qint64& currentTime);
 

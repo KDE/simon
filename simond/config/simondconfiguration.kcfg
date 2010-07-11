@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile name="simondrc" />
-  <include>KStandardDirs</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile name="simondrc" />
   <group name="Network">
     <entry name="Port" type="Int">
       <label>The port to use for the server.</label>
       <default>4444</default>
+      <tooltip>The port to use for the server.</tooltip>
     </entry>
     <entry name="BindTo" type="Bool">
-      <label>wether we want to restrict access to a certain IP.</label>
+      <label>whether we want to restrict access to a certain ip.</label>
       <default>true</default>
+      <tooltip>Whether we want to restrict access to a certain ip.</tooltip>
     </entry>
     <entry name="Host" type="String">
       <label>The only host to allow to connect to the server.</label>
       <default>127.0.0.1</default>
+      <tooltip>The only host to allow to connect to the server.</tooltip>
     </entry>
 
     <entry name="UseEncryption" type="Bool">
-      <label>wether we want to encrypt the communication between simon and simond.</label>
+      <label>whether we want to encrypt the communication between simon and simond.</label>
       <default>false</default>
+      <tooltip>Whether we want to encrypt the communication between simon and simond.</tooltip>
     </entry>
     <entry name="EncryptionMethod" type="String">
       <label>The encryption method to use.</label>
+      <tooltip>The encryption method to use.</tooltip>
     </entry>
     <entry name="Certificate" type="Url">
       <label>the path to the SSL certificate.</label>
+      <tooltip>The path to the SSL certificate.</tooltip>
     </entry>
     
   </group>
@@ -32,12 +42,14 @@
     <entry name="KeepRecognitionSamples" type="Bool">
       <label>keep temporary samples.</label>
       <default>false</default>
+      <tooltip>Keep the samples used for the recognition.</tooltip>
     </entry>
   </group>
   <group name="Database">
     <entry name="DatabaseUrl" type="Url">
       <label>The path to the database.</label>
       <default>KUrl(KStandardDirs::locateLocal("data", "simond/simond.db"))</default>
+      <tooltip>The path to the database.</tooltip>
     </entry>
   </group>
 
@@ -45,6 +57,7 @@
     <entry name="ModelBackups" type="Int">
       <label>how many model versions we should preserve.</label>
       <default>8</default>
+      <tooltip>How many model versions we should preserv for the model backup / restore.</tooltip>
     </entry>
   </group>
 </kcfg>

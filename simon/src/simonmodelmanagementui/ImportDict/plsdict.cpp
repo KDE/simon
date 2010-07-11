@@ -78,7 +78,7 @@ const QXmlAttributes &attributes)
   else
   if (qName == "lexeme") {
     currentTagType = PLSDict::Lexeme;
-    currentWord=QString();
+    currentWord.clear();
     phonemeDefinitions.clear();
 
     int typeIndex = attributes.index("role");
@@ -135,7 +135,7 @@ const QString &qName)
 {
   if (qName == "phoneme") {
     phonemeDefinitions << adaptToSimonPhonemeSet(ipaToXSampa(currentPhonemeDefinition.trimmed()));
-    currentPhonemeDefinition=QString();
+    currentPhonemeDefinition.clear();
   } else
   if (qName == "lexeme") {
     // add the found words to the word
@@ -145,8 +145,8 @@ const QString &qName)
       terminals << currentTerminal;
     }
     //cleanup
-    currentWord=QString();
-    currentPhonemeDefinition=QString();
+    currentWord.clear();
+    currentPhonemeDefinition.clear();
     phonemeDefinitions.clear();
   }
 

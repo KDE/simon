@@ -24,7 +24,6 @@
 #include <QVBoxLayout>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QObject>
 #include <QTableWidgetSelectionRange>
 #include <QHeaderView>
 #include <QApplication>

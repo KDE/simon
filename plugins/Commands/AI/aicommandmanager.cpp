@@ -99,7 +99,7 @@ bool AICommandManager::setupParser()
   parser->loadVars(KStandardDirs::locate("data", "ai/util/bot.xml"), true);
   parser->loadSubstitutions(KStandardDirs::locate("data", "ai/util/substitutions.xml"));
 
-  QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+"/");
+  QString aimlDirString = KStandardDirs::locate("data", "ai/aimls/"+static_cast<AIConfiguration*>(config)->aimlSet()+'/');
 
   QDir aimlDir(aimlDirString);
   QStringList aimls = aimlDir.entryList(QStringList() << "*.aiml", QDir::Files);
@@ -108,7 +108,7 @@ bool AICommandManager::setupParser()
   dlg->progressBar()->setMaximum(aimls.count());
   dlg->show();
   int i=0;
-  foreach (QString aiml, aimls) {
+  foreach (const QString& aiml, aimls) {
     parser->loadAiml(aimlDirString+aiml);
     dlg->progressBar()->setValue(++i);
   }

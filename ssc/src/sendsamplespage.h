@@ -33,43 +33,7 @@ class QVBoxLayout;
 class ProgressWidget;
 class Sample;
 class KPushButton;
-
-class SendSampleWorker : public QObject
-{
-  Q_OBJECT
-
-    signals:
-  void status(QString, int now, int max);
-  void error(QString);
-  void aborted();
-  void finished();
-  void sendSample(Sample *s);
-
-  private:
-    bool shouldAbort;
-    bool shouldDelete;
-    SampleDataProvider *m_dataProvider;
-    bool m_isStored;
-    QString m_storageDirectory;
-
-  private slots:
-    void abort() { shouldAbort = true; }
-
-  public:
-    SendSampleWorker(SampleDataProvider *dataProvider, bool isStored, const QString& storageDirectory=QString()) :
-    shouldAbort(false),
-      shouldDelete(false),
-      m_dataProvider(dataProvider),
-      m_isStored(isStored),
-      m_storageDirectory(storageDirectory)
-      {}
-    ~SendSampleWorker();
-
-    bool sendSamples();
-    bool storeData();
-    bool getShouldAbort() { return shouldAbort; }
-    void deleteThatSometimes() { shouldDelete = true; }
-};
+class SendSampleWorker;
 
 class SendSamplePage : public QWizardPage
 {

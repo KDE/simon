@@ -43,7 +43,7 @@ class WavPlayerSubClient : public QIODevice, public SoundOutputClient
     qint64 writeData(const char *toWrite, qint64 len);
 
   public:
-    WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
+    explicit WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
     ~WavPlayerSubClient();
 
     bool play(QString filename);

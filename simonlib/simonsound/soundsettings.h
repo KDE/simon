@@ -67,7 +67,7 @@ class SIMONSOUND_EXPORT SoundSettings : public KCModule
     void slotChanged();
 
   public:
-    SoundSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SoundSettings(QWidget* parent, const QVariantList& args=QVariantList());
     ~SoundSettings();
 
 };

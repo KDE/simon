@@ -130,7 +130,7 @@ bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
 
   int i=0;
   bool found = false;
-  foreach (RecognitionResult result, *results) {
+  foreach (const RecognitionResult& result, *results) {
     if (result.sentence() == searchedSentence) {
       kDebug() << "Found result: at index: " << i << result.toString();
       ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));

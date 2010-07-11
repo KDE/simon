@@ -1,14 +1,12 @@
 [Desktop Entry]
-Name=ksimond
-Name[fr]=ksimond
-Name[x-test]=xxksimondxx
-Exec=ksimond %i -caption "%c"
-Icon=ksimond
+Name=ssc
+Name[fr]=ssc
+Exec=ssc %i -caption "%c"
+Icon=ssc
 Type=Application
-DocPath=ksimond/index.html
-GenericName=KDE Front-End to simond
-GenericName[de]=Ein KDE Front-End für simond
-GenericName[fr]=Interface graphique KDE de simond
-Terminal=0
+DocPath=ssc/index.html
+GenericName=simon sample collector
+GenericName[de]=simon Aufnahmetool
+Terminal=false
 Categories=Qt;KDE;Utility;Accessibility;
 X-KDE-StartupNotify=false

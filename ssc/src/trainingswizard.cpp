@@ -114,7 +114,7 @@ bool TrainingsWizard::init(qint32 userId, TrainingsType type, const QStringList&
   int maxPage=prompts.count();
   sampleDataProvider->registerMicrophoneInfo(m_infoPage);
 
-  foreach (QString prompt, prompts) {
+  foreach (const QString& prompt, prompts) {
     TrainSamplePage *page = new TrainSamplePage(name, prompt, nowPage++, maxPage,
       SSCConfig::sampleDirectory(), this);
     page->setupUi();
@@ -242,7 +242,7 @@ bool TrainingsWizard::cleanUp()
   QStringList files = d.entryList(QDir::NoDotAndDotDot);
   bool all = true;
   QString sampleDirectory = SSCConfig::sampleDirectory();
-  foreach (const QString file, files) {
+  foreach (const QString& file, files) {
     if (!QFile::remove(sampleDirectory+QDir::separator()+file)) {
       all = false;
       kDebug() << sampleDirectory+QDir::separator()+file;

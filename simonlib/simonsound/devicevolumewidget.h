@@ -62,7 +62,7 @@ class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
     void reset();
 
   public:
-    DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
+    explicit DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
     ~DeviceVolumeWidget();
 
     void start();

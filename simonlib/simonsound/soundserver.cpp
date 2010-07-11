@@ -259,28 +259,32 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 
 void SoundServer::suspendRecording()
 {
-  foreach (SimonSoundInput *in, inputs.values())
+  QList<SimonSoundInput*> inputValues = inputs.values();
+  foreach (SimonSoundInput *in, inputValues)
     in->suspendInput();
 }
 
 
 void SoundServer::resumeRecording()
 {
-  foreach (SimonSoundInput *in, inputs.values())
+  QList<SimonSoundInput*> inputValues = inputs.values();
+  foreach (SimonSoundInput *in, inputValues)
     in->resumeInput();
 }
 
 
 void SoundServer::suspendPlayback()
 {
-  foreach (SimonSoundOutput *out, outputs.values())
+  QList<SimonSoundOutput*> outputValues = outputs.values();
+  foreach (SimonSoundOutput *out, outputValues)
     out->suspendOutput();
 }
 
 
 void SoundServer::resumePlayback()
 {
-  foreach (SimonSoundOutput *out, outputs.values())
+  QList<SimonSoundOutput*> outputValues = outputs.values();
+  foreach (SimonSoundOutput *out, outputValues)
     out->resumeOutput();
 }
 

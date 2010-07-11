@@ -146,7 +146,7 @@ class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
      * \param manager The parent command manager
      * \param parent The parent widget
      */
-    CreateCommandWidget(CommandManager *manager, QWidget *parent=0) : QWidget(parent),
+    explicit CreateCommandWidget(CommandManager *manager, QWidget *parent=0) : QWidget(parent),
       m_manager(manager)
       {}
 

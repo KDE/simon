@@ -49,7 +49,8 @@ qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
   qint64 length = SoundServer::getInstance()->byteSizeToLength(data.count(), m_device);
 
   //pass data on to all registered, active clients
-  foreach (SoundInputClient *c, m_activeInputClients.keys()) {
+  QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
+  foreach (SoundInputClient *c, activeInputClientsKeys) {
     qint64 streamTime = m_activeInputClients.value(c)+length;
     c->process(data, streamTime);
     //update time stamp
@@ -219,7 +220,8 @@ void SimonSoundInput::slotInputStateChanged(QAudio::State state)
 {
   kDebug() << "Input state changed: " << state;
 
-  foreach (SoundInputClient *c, m_activeInputClients.keys())
+  QList<SoundInputClient*> activeInputClientsKeys = m_activeInputClients.keys();
+  foreach (SoundInputClient *c, activeInputClientsKeys)
     c->inputStateChanged(state);
 
   if (!m_input) return;

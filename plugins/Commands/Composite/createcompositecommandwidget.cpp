@@ -41,7 +41,7 @@ model(new CommandTableModel())
   foreach (const Command* com, *allCommands) {
     QString name = com->getTrigger();
     QString category = com->getCategoryText();
-    ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
+    ui.cbCommands->addItem(com->getIcon(), name+" ("+category+')');
   }
   ui.tvCommands->setModel(model);
 

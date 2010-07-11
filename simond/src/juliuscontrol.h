@@ -63,7 +63,7 @@ class JuliusControl : public RecognitionControl
       Stop=2
     };
 
-    JuliusControl(const QString& username, QObject *parent=0);
+    explicit JuliusControl(const QString& username, QObject *parent=0);
 
     bool initializeRecognition();
 

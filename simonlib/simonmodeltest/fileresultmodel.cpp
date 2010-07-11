@@ -61,7 +61,7 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
 
         RecognitionResultList recogList = t->getResults();
         float confidenceScore = 0;
-        foreach (RecognitionResult recog, recogList) {
+        foreach (const RecognitionResult& recog, recogList) {
           if (recog.sentence().toUpper() == t->getPrompt()) {
             confidenceScore = recog.averageConfidenceScore();
             break;

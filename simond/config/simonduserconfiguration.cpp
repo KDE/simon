@@ -116,7 +116,7 @@ void SimondUserConfiguration::deleteUser()
     return;
   }
 
-  QString modelDir = KStandardDirs::locateLocal("data", "simond/models/")+username+"/";
+  QString modelDir = KStandardDirs::locateLocal("data", "simond/models/")+username+'/';
   if ((!QDir().exists(modelDir)) ||
     (KMessageBox::questionYesNoCancel(this, i18n("Do you also want to remove the speech model from the server?")) != KMessageBox::Yes))
     return;

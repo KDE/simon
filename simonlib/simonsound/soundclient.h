@@ -41,7 +41,7 @@ class SIMONSOUND_EXPORT SoundClient
       // (all other clients have to be suspended)
     };
 
-    SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority priority=Normal);
+    explicit SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority priority=Normal);
     virtual ~SoundClient();
 
     virtual void resume() {}

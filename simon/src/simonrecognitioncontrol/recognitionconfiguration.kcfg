@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile name="simonrecognitionrc" />
-  <include>KStandardDirs</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile name="simonrecognitionrc" />
   <group name="Recognition">
     <entry name="StartLocalSimond" type="Bool">
       <label>If we should automatically start a local simond server.</label>
       <default>false</default>
+      <tooltip>If a local simond server should be started when simon starts.</tooltip>
     </entry>
     <entry name="StopLocalSimond" type="Bool">
       <label>If we should automatically stop the local simond server when simon exits.</label>
       <default>false</default>
+      <tooltip>If the locally started simond server should be started when simon stops.</tooltip>
     </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
-      <label>If we should automatically connect to the Juliusd.</label>
+      <label>If we should automatically connect to the simond.</label>
       <default>false</default>
+      <tooltip>Automatically connect to the simond server.</tooltip>
     </entry>
     <entry name="AutomaticallyEnableRecognition" type="Bool">
       <label>If we should automatically activate the recognition once we get the ready-signal</label>
       <default>true</default>
+      <tooltip>Automatically enable the recognition once it's available.</tooltip>
     </entry>
     <entry name="JuliusdUsername" type="String">
-      <label>The Username for simond.</label>
+      <label>The username for simond.</label>
       <default>default</default>
+      <tooltip>The username for simond.</tooltip>
     </entry>
     <entry name="JuliusdPassword" type="Password">
-      <label>The Password for simond.</label>
+      <label>The password for simond.</label>
       <default>"nopassword"</default>
+      <tooltip>The password for simond.</tooltip>
     </entry>
     <entry name="JuliusdEncrypted" type="Bool">
       <label>If the Connection to the simond should be encrypted.</label>
       <default>false</default>
+      <tooltip>If the Connection to the simond should be encrypted.</tooltip>
     </entry>
     <entry name="JuliusdConnectionTimeout" type="Int">
       <label>The Timeout for the connection to the simond.</label>
       <default>3000</default>
+      <tooltip>The Timeout for the connection to the simond.</tooltip>
     </entry>
     <entry name="JuliusdServers" type="StringList">
       <label>The Addresses to all known simond servers in order of preference.</label>
       <default>localhost:4444</default>
+      <tooltip>The Addresses to all known simond servers in order of preference.</tooltip>
     </entry>
   </group>
-
 
   <group name="Synchronisation">
     <entry name="SynchronizationMode" type="Int">
       <label>if and how we should start the synchronization when the  model changed.</label>
       <default>0</default>
+      <tooltip>If and how we should start the synchronization when the model changes.</tooltip>
     </entry>
   </group>
-
-  
 </kcfg>
+

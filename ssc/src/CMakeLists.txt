@@ -19,6 +19,7 @@ set(ssc_SRCS
    trainingswizard.cpp
    trainsamplepage.cpp
    sendsamplespage.cpp
+   sendsampleworker.cpp
    trainsampleintropage.cpp
    sscdaccess.cpp
    deviceinformationwidget.cpp

@@ -23,7 +23,7 @@
 #include <simonuicomponents/simonwizard.h>
 
 class QWidget;
-class QFileDialog;
+class KFileDialog;
 class QWizardPage;
 
 /**
@@ -39,8 +39,7 @@ class ImportTrainingTexts : public SimonWizard
 {
 
   Q_OBJECT
-    private:
-    QFileDialog *fd;
+  private:
     int prevId;
   public:
     ImportTrainingTexts(QWidget *parent=0);

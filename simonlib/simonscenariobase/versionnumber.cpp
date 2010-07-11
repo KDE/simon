@@ -59,7 +59,7 @@ bool VersionNumber::parseString(const QString& version)
 
   bool valid=true;
 
-  QStringList elements = v.split(".", QString::SkipEmptyParts);
+  QStringList elements = v.split('.', QString::SkipEmptyParts);
 
   if (elements.count() == 3) {
     m_patchLevel = elements[2].toInt(&valid);

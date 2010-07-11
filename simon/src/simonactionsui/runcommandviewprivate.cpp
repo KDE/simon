@@ -194,7 +194,7 @@ void RunCommandViewPrivate::updateCommandDetail()
   else {
     Action* a = getCurrentlySelectedAction();
     if (!a) return;
-    ui.lbCompleteTrigger->setText("\""+QString(a->trigger()+" "+com->getTrigger()).trimmed()+"\"");
+    ui.lbCompleteTrigger->setText('"'+QString(a->trigger()+' '+com->getTrigger()).trimmed()+'"');
 
     ui.frmCommandInfo->show();
     ui.pbEditCommand->setEnabled(true);
@@ -243,7 +243,7 @@ void RunCommandViewPrivate::updateCommandDetail()
 
       label->setText(strValue);
 
-      ui.flDetails->addRow(keys[i]+":", label);
+      ui.flDetails->addRow(keys[i]+':', label);
       label->setMinimumSize(label->sizeHint());
     }
   }

@@ -46,7 +46,7 @@ class SIMONUICOMPONENTS_EXPORT MultiKCMView : public KCModule
     void registerModule(KCModule*, const KIcon& icon, const QString& label);
 
   public:
-    MultiKCMView(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit MultiKCMView(QWidget* parent, const QVariantList& args=QVariantList());
     ~MultiKCMView();
 
     void load();

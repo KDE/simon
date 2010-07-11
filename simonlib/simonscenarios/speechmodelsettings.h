@@ -38,7 +38,7 @@ class SpeechModelSettings : public KCModule
     void changed();
 
   public:
-    SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
     void save();
 
     ~SpeechModelSettings();

@@ -16,11 +16,11 @@ X-KDE-System-Settings-Parent-Category=simon
 
 X-KDE-PluginKeyword=SynchronisationSettings
 
-Name=Synchronisation
+Name=Synchronization
 Name[de]=Synchronisation
 Name[fr]=Synchronisation
 
-Comment=Configuration of the Model-Synchronisation
+Comment=Configuration of the model synchronization
 Comment[de]=Konfiguration der Modellsynchronisation
 Comment[fr]=Configuration de la synchronisation du modèle
 

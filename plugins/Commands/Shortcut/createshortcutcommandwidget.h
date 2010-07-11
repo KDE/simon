@@ -58,7 +58,7 @@ class CreateShortcutCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateShortcutCommandWidget();
 

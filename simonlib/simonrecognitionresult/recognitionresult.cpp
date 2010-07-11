@@ -32,10 +32,10 @@ QString RecognitionResult::toString() const
 
   out += i18n("Confidence Scores: ");
   foreach (float score, m_confidenceScores) {
-    out += QString::number(score*100.0f)+" ";
+    out += QString::number(score*100.0f)+' ';
   }
 
-  out += "\n";
+  out += '\n';
   return out;
 }
 
@@ -53,12 +53,12 @@ float RecognitionResult::averageConfidenceScore() const
 bool RecognitionResult::matchesTrigger(const QString& trigger)
 {
   if (trigger.isEmpty()) return true;
-  return m_sentence.contains(QRegExp("^"+trigger+"( |$)"));
+  return m_sentence.contains(QRegExp('^'+trigger+"( |$)"));
 }
 
 
 void RecognitionResult::removeTrigger(const QString& trigger)
 {
   if (!trigger.isEmpty())
-    m_sentence.remove(QRegExp("^"+trigger+"( |$)"));
+    m_sentence.remove(QRegExp('^'+trigger+"( |$)"));
 }

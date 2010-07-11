@@ -25,7 +25,6 @@
 #include <simonactions/actionmanager.h>
 #include <unistd.h>
 #include <QDesktopWidget>
-#include <QDialog>
 #include <QPoint>
 #include <QSize>
 #include <KLocalizedString>

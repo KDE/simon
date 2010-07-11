@@ -53,7 +53,7 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     };
 
     virtual int maxProgress();
-    ModelCompilationAdapter(const QString& userName, QObject *parent=0);
+    explicit ModelCompilationAdapter(const QString& userName, QObject *parent=0);
 
     virtual bool startAdaption(AdaptionType adaptionType, const QString& lexiconPathOut,
       const QString& grammarPathOut, const QString& simpleVocabPathOut,

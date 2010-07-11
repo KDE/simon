@@ -71,7 +71,7 @@ Jconf* JuliusControl::setupJconf()
   QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
 
   //////BEGIN: Workaround
-  //convert "." in hmmdefs to its locale specific equivalent
+  //convert '.' in hmmdefs to its locale specific equivalent
   lconv * localeConv = localeconv();
   char *decimalPoint = localeConv->decimal_point;
 
@@ -81,7 +81,7 @@ Jconf* JuliusControl::setupJconf()
     return 0;
 
   while (!hmm.atEnd())
-    hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
+    hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
 
   hmm.close();
   hmmLoc.close();
@@ -137,7 +137,7 @@ QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
       w = seq[i];
       for (int j=0;j<winfo->wlen[w];j++) {
         center_name(winfo->wseq[w][j]->name, buf);
-        result += " ";
+        result += ' ';
         result += QString::fromUtf8(buf);
       }
     }
@@ -227,7 +227,7 @@ void outputResult(Recog *recog, void *control)
       /* output word sequence like Julius */
       //       printf("sentence%d:", n+1);
       for(i=0;i<seqnum;i++) {
-        result += " ";
+        result += ' ';
                                                   // printf(" %s", );
         result += QString::fromUtf8(winfo->woutput[seq[i]]);
       }
@@ -371,7 +371,7 @@ void JuliusControl::emitError(const QString& error)
 
     bool thisLineMoreInfoForMissingTriphone = false;
     bool thisLineMoreMissingPhones = false;
-    foreach (QByteArray lineByte, lines) {
+    foreach (const QByteArray& lineByte, lines) {
       QString line = QString::fromUtf8(lineByte);
       if (line.contains(QRegExp("line [0-9]+: triphone \".*\" (or biphone \".*\" )?not found$"))) {
         //Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found
@@ -382,8 +382,8 @@ void JuliusControl::emitError(const QString& error)
         if (thisLineMoreInfoForMissingTriphone) {
           //Error: voca_load_htkdict: the line content was: 2       [Towel] t aw ax l
           line = line.mid(line.lastIndexOf("       ")).trimmed();
-          QString word = line.mid(line.indexOf("[")+1);
-          word = word.left(word.indexOf("]"));
+          QString word = line.mid(line.indexOf('[')+1);
+          word = word.left(word.indexOf(']'));
           affectedWords << word;
 
           thisLineMoreInfoForMissingTriphone = false;

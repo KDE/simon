@@ -22,7 +22,6 @@
 #include "wavrecorderclient.h"
 #include "soundconfig.h"
 #include "wavplayerclient.h"
-#include "soundconfig.h"
 #include "simonsound.h"
 #include "wavfilewidget.h"
 
@@ -201,7 +200,7 @@ void RecWidget::initialize()
   }
   else {
     for (int i=0; i < devices.count(); i++)
-      registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
+      registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), '.'+QString::number(i));
   }
   adjustButtonsToFile();
 }

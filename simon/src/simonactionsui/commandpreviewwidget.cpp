@@ -86,7 +86,7 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 
     label->setText(strValue);
 
-    ui.flDetails->addRow(keys[i]+":", label);
+    ui.flDetails->addRow(keys[i]+':', label);
   }
 
   //resize(sizeHint().height(), width());

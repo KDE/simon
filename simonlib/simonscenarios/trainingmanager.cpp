@@ -108,7 +108,7 @@ bool TrainingManager::deleteWord ( Word *w )
   bool succ = true;
   for ( int i=0; i < sampleFileNames.count(); i++ ) {
     QString filename = sampleFileNames[i];
-    QStringList promptWords = promptsTable->value ( filename ).split ( " " );
+    QStringList promptWords = promptsTable->value ( filename ).split ( ' ' );
     if (promptWords.contains(wordToDelete)) {
       if (!deletePrompt(filename)) succ = false;
     }
@@ -136,7 +136,7 @@ bool TrainingManager::deletePrompt ( QString key )
 {
   if (!promptsTable) init();
 
-  QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile()+"/"+key+".wav";
+  QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile()+'/'+key+".wav";
 
   bool found = true;
   found &= promptsTable->contains(key);
@@ -153,7 +153,7 @@ bool TrainingManager::deletePrompt ( QString key )
 QString TrainingManager::getTrainingDir()
 {
   QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile();
-  if (!dir.endsWith("/")
+  if (!dir.endsWith('/')
     #ifdef Q_OS_WINDOWS
     && !dir.endsWith("\\")
     #endif
@@ -205,7 +205,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
   QStringList samples = this->promptsTable->keys();
 
   for ( int i=0; i <samples.count(); i++ )
-    promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
+    promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +"\n" );
   promptsFile.close();
 
   kDebug() << "Writing date..." << QDateTime::currentDateTime();
@@ -235,7 +235,7 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-  Logger::log ( i18n ( "[INF] Parsing prompts-file from %1" ).arg ( promptspath ) );
+  Logger::log ( i18n ( "[INF] Parsing prompts-file from %1", promptspath ) );
   PromptsTable *promptsTable = new PromptsTable();
 
   QFile *prompts = new QFile ( promptspath );
@@ -250,7 +250,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
     QByteArray rawLine = prompts->readLine ( 1024 );
     line = QString::fromUtf8(rawLine);
     if (line.trimmed().isEmpty()) continue;
-    labelend = line.indexOf ( " " );
+    labelend = line.indexOf ( ' ' );
     label = line.left ( labelend );
     prompt = line.mid ( labelend ).trimmed();
 
@@ -258,7 +258,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
   }
   prompts->close();
   prompts->deleteLater();
-  Logger::log ( i18n ( "[INF] %1 Prompts read" ).arg ( promptsTable->count() ) );
+  Logger::log ( i18n ( "[INF] %1 Prompts read", promptsTable->count() ) );
   return promptsTable;
 }
 
@@ -292,22 +292,22 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
 {
   QStringList strListAllWords;
   for ( int x=0; x<prompts.count(); x++ ) {
-    QStringList strList = prompts[x].split ( " " );
+    QStringList strList = prompts[x].split ( ' ' );
     int strListSize = strList.size();
     for ( int y=0; y < strListSize; y++ ) {
       QString word = strList.at ( y );
 
-      word.remove ( "." );
-      word.remove ( "," );
-      word.remove ( "(" );
-      word.remove ( ")" );
-      word.remove ( "?" );
-      word.remove ( "!" );
-      word.remove ( "\"" );
-      word.remove ( "/" );
-      word.remove ( "\\" );
-      word.remove ( "[" );
-      word.remove ( "]" );
+      word.remove ( '.' );
+      word.remove ( ',' );
+      word.remove ( '(' );
+      word.remove ( ')' );
+      word.remove ( '?' );
+      word.remove ( '!' );
+      word.remove ( '"' );
+      word.remove ( '/' );
+      word.remove ( '\\' );
+      word.remove ( '[' );
+      word.remove ( ']' );
       word = word.trimmed();
 
       //if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
@@ -340,16 +340,16 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
   int textWordCount=text->getPageCount();
   for ( int i=0; i<textWordCount; i++ ) {
     currPage = text->getPage ( i );
-    currPage.remove ( "." );
-    currPage.remove ( "," );
-    currPage.remove ( "?" );
-    currPage.remove ( "!" );
-    currPage.remove ( "\"" );
-    currPage.remove ( "/" );
-    currPage.remove ( "[" );
-    currPage.remove ( "]" );
+    currPage.remove ( '.' );
+    currPage.remove ( ',' );
+    currPage.remove ( '?' );
+    currPage.remove ( '!' );
+    currPage.remove ( '"' );
+    currPage.remove ( '/' );
+    currPage.remove ( '[' );
+    currPage.remove ( ']' );
 
-    words = currPage.split ( " " );
+    words = currPage.split ( ' ' );
 
     curWordCount = words.count();
 
@@ -395,10 +395,10 @@ int TrainingManager::getProbability ( QString wordname )
 
     //work around some strange problem in my qt version...
     QString prompt = prompts.at(i);
-    prob += prompt.count(" "+wordname+" ");
+    prob += prompt.count(' '+wordname+' ');
     if (prompt == wordname) prob++;
-    else if (prompt.startsWith(wordname+" ")) prob++;
-    else if (prompt.endsWith(" "+wordname)) prob++;
+    else if (prompt.startsWith(wordname+' ')) prob++;
+    else if (prompt.endsWith(' '+wordname)) prob++;
 
     i++;
   }
@@ -417,7 +417,7 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 
   promptsTable->insert(fileBaseName, prompt.toUpper());
 
-  QStringList words = prompt.split(" ");
+  QStringList words = prompt.split(' ');
   foreach (const QString& word, words)
     promptsTable->remove(word);                   //removed cached recognition rates
 

@@ -51,7 +51,7 @@ class PronunciationTraining : public QWidget, public GreedyReceiver
   public:
     bool greedyTriggerRawList(RecognitionResultList* results);
     void init();
-    PronunciationTraining(const QString& terminal, QWidget* parent=0);
+    explicit PronunciationTraining(const QString& terminal, QWidget* parent=0);
 
     ~PronunciationTraining();
 

@@ -53,7 +53,7 @@ ImportDictBOMPDownloadPage::ImportDictBOMPDownloadPage(QWidget* parent): QWizard
 
 void ImportDictBOMPDownloadPage::initializePage()
 {
-  QString bompBaseUrl = SpeechModelManagementUiConfiguration::bompDownloadBase()+"/";
+  QString bompBaseUrl = SpeechModelManagementUiConfiguration::bompDownloadBase()+'/';
 
   QString localLicencePath = KStandardDirs::locateLocal("tmp", "bomp_licence");
   KIO::FileCopyJob *job = KIO::file_copy(KUrl(bompBaseUrl+"bomp_licence.php"),

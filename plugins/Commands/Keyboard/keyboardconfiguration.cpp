@@ -31,7 +31,7 @@
 #include <KStandardDirs>
 #include <QString>
 #include <QDialog>
-#include <qinputdialog.h>
+#include <KInputDialog>
 #include <QTableView>
 #include <QThread>
 #include <QApplication>
@@ -125,7 +125,7 @@ void KeyboardConfiguration::saveKeyboardGeometry(const QPoint& position, const Q
 void KeyboardConfiguration::addSet()
 {
   bool ok;
-  QString inputText = QInputDialog::getText(this, "Add keyboard set", "Please enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
+  QString inputText = KInputDialog::getText(i18n("Add keyboard set"), i18n("Please enter the name of the new set:"), QString(), &ok);
   if (ok && !inputText.isEmpty()) {
     if (!setContainer->createSet(inputText))
       KMessageBox::sorry(this, i18n("Failed to add set"));
@@ -148,7 +148,7 @@ void KeyboardConfiguration::editSet()
 
   QString oldSetName = ui.cbSets->currentText();
   bool ok;
-  QString inputText = QInputDialog::getText(this, "Edit keyboard set", "Please enter the new name of the set:", QLineEdit::Normal, oldSetName, &ok);
+  QString inputText = KInputDialog::getText(i18n("Edit keyboard set"), i18n("Please enter the new name of the set:"), oldSetName, &ok);
   if (ok && !inputText.isEmpty() && (oldSetName != inputText)) {
     if (!setContainer->editSet(oldSetName, inputText))
       KMessageBox::sorry(this, i18n("Failed to edit set"));
@@ -182,7 +182,7 @@ void KeyboardConfiguration::addTab()
     return;
   }
 
-  QString inputText = QInputDialog::getText(this, "Add keyboard tab","Please enter the name of the new tab:");
+  QString inputText = KInputDialog::getText(i18n("Add keyboard tab"),i18n("Please enter the name of the new tab:"));
 
   if(!inputText.isEmpty()) {
     if (!setContainer->createTab(ui.cbSets->currentText(), inputText))
@@ -210,7 +210,7 @@ void KeyboardConfiguration::editTab()
     return;
   }
 
-  QString inputText = QInputDialog::getText(this, "Edit keyboard tab", "Please enter the new name of the tab:", QLineEdit::Normal, oldName);
+  QString inputText = KInputDialog::getText(i18n("Edit keyboard tab"), i18n("Please enter the new name of the tab:"), oldName);
 
   if(!inputText.isEmpty()) {
     if (!setContainer->editTab(ui.cbSets->currentText(), oldName, inputText))

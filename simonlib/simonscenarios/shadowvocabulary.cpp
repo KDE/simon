@@ -146,15 +146,15 @@ bool ShadowVocabulary::save()
     //</word>
     shadowVocabFile->write("<word>\n");
     shadowVocabFile->write("\t<name>\n");
-    shadowVocabFile->write("\t\t"+w->getWord().toUtf8()+"\n");
+    shadowVocabFile->write("\t\t"+w->getWord().toUtf8()+'\n');
     shadowVocabFile->write("\t</name>\n");
 
     shadowVocabFile->write("\t<pronunciation>\n");
-    shadowVocabFile->write("\t\t"+w->getPronunciation().toUtf8()+"\n");
+    shadowVocabFile->write("\t\t"+w->getPronunciation().toUtf8()+'\n');
     shadowVocabFile->write("\t</pronunciation>\n");
 
     shadowVocabFile->write("\t<terminal>\n");
-    shadowVocabFile->write("\t\t"+w->getTerminal().toUtf8()+"\n");
+    shadowVocabFile->write("\t\t"+w->getTerminal().toUtf8()+'\n');
     shadowVocabFile->write("\t</terminal>\n");
     shadowVocabFile->write("</word>\n");
   }

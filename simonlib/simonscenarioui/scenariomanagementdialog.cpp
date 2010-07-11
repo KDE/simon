@@ -30,7 +30,6 @@
 #include <QMenu>
 #include <QFileInfo>
 #include <QDateTime>
-#include <QFileInfo>
 #include <QListWidgetItem>
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -368,7 +367,7 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
   if (s->simonMaxVersion())
     maxVersion = s->simonMaxVersion()->toString();
   else
-    maxVersion = "-";
+    maxVersion = '-';
 
   QString strAuthors;
   QList<Author*>  authors = s->authors();

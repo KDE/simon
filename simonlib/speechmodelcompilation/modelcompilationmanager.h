@@ -60,7 +60,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
       AdaptSpeechModel=4
     };
 
-    ModelCompilationManager(const QString& userName, QObject *parent=0);
+    explicit ModelCompilationManager(const QString& userName, QObject *parent=0);
 
     void run();
     bool startCompilation(ModelCompilationManager::CompilationType compilationType,

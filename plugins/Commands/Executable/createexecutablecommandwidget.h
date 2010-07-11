@@ -57,7 +57,7 @@ class CreateExecutableCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateExecutableCommandWidget();
 

@@ -114,7 +114,7 @@ void ModelSettings::save()
     if (!QFile::copy(m_hmmDefsToImport, targetPathHMM))
       KMessageBox::sorry(this, i18n("Could not import hmm definitions."));
 
-    m_hmmDefsToImport = QString();
+    m_hmmDefsToImport.clear();
   }
 
   if (!m_tiedlistToImport.isEmpty()) {
@@ -125,7 +125,7 @@ void ModelSettings::save()
     }
     if (!QFile::copy(m_tiedlistToImport, targetPathTiedlist))
       KMessageBox::sorry(this, i18n("Could not import tiedlist."));
-    m_tiedlistToImport = QString();
+    m_tiedlistToImport.clear();
   }
 
   if (!m_macrosToImport.isEmpty()) {
@@ -136,7 +136,7 @@ void ModelSettings::save()
     }
     if (!QFile::copy(m_macrosToImport, targetPathMacros))
       KMessageBox::sorry(this, i18n("Could not import macros."));
-    m_macrosToImport = QString();
+    m_macrosToImport.clear();
   }
 
   if (!m_statsToImport.isEmpty()) {
@@ -147,7 +147,7 @@ void ModelSettings::save()
     }
     if (!QFile::copy(m_statsToImport, targetPathStats))
       KMessageBox::sorry(this, i18n("Could not import stats."));
-    m_statsToImport = QString();
+    m_statsToImport.clear();
   }
 
   ScenarioManager::getInstance()->setBaseModel(modelType, ui.lbLastLoadedBaseHMM->text(), ui.lbLastLoadedBaseTiedlist->text(),

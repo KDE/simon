@@ -53,7 +53,7 @@ void KSimondSettings::save()
   if (ui.kcfg_AutoStart->isChecked()) {
     // Want to start on boot up
     QString appPath = qApp->applicationFilePath();
-    appPath.replace("/", "\\");
+    appPath.replace('/', '\\');
     settings.setValue("/CurrentVersion/Run/ksimond", appPath);
   }
   else {

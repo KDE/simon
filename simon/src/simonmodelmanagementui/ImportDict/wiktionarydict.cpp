@@ -117,7 +117,7 @@ const QString &qName)
     //found the terminal
 
     indexOfStartTerm+=10;
-    int indexOfEndTerm=text.indexOf("|",indexOfStartTerm);
+    int indexOfEndTerm=text.indexOf('|',indexOfStartTerm);
     QString terminal = text.mid(indexOfStartTerm,
       indexOfEndTerm-indexOfStartTerm);
 
@@ -146,7 +146,7 @@ const QString &qName)
       int ptitlestart;
       //the first space after (Mehrzahl)= is the start of the word
       //e.g.: (Mehrzahl)=die Melonen
-      ptitlestart = text.indexOf(" ", text.indexOf(QString("(Mehrzahl)=")));
+      ptitlestart = text.indexOf(' ', text.indexOf(QString("(Mehrzahl)=")));
       QString pluraltitle = text.mid(ptitlestart,
         text.indexOf(QRegExp("(\n|\\|)"),
         ptitlestart)-ptitlestart);
@@ -174,25 +174,25 @@ const QString &qName)
 QString WiktionaryDict::cleanTitle ( QString title )
 {
   //strip <...>
-  while (title.indexOf("<") != -1) {
-    title.remove(title.indexOf("<"), title.indexOf(">", title.indexOf("<")));
+  while (title.indexOf('<') != -1) {
+    title.remove(title.indexOf('<'), title.indexOf('>', title.indexOf('<')));
   }
   //strip (...)
-  while (title.indexOf("(") != -1) {
-    title.remove(title.indexOf("("), title.indexOf(")", title.indexOf("(")));
+  while (title.indexOf('(') != -1) {
+    title.remove(title.indexOf('('), title.indexOf(')', title.indexOf('(')));
   }
   title.remove("&nbsp;");
   title= title.trimmed();
   title.remove(QRegExp(".*>"));
-  title.remove("*");
+  title.remove('*');
   //if some parenthesis isn't closed it isn't caught by the stripping algorithm above
-  title.remove("(");
-  title.remove(")");
+  title.remove('(');
+  title.remove(')');
   title.remove(QRegExp("^(-|=).*"));
-  if (title.contains(QRegExp("[^"+allowedChars+"]"))) return "";
+  if (title.contains(QRegExp("[^"+allowedChars+']'))) return "";
 
   title = title.trimmed();
-  if (title.indexOf(" ")) {                       //more words than one
+  if (title.indexOf(' ')) {                       //more words than one
     //kill generic stuff
     title.remove(QRegExp("^(der|den|dem|das|des|ein|eine|eines|einer|einem|die|the)"));
   }
@@ -272,13 +272,13 @@ int WiktionaryDict::processFoundIPA(QString ipa)
     //removing bogus
     ipa.remove("...");
 
-    //if we start with a "-" it cannot be a syllable break IPA-char so we guess that
+    //if we start with a '-' it cannot be a syllable break IPA-char so we guess that
     //it is used like "test/-s" or "test, -s" and replace acordingly
     //we use the local variable "ipas" instead of the pronunciations because if the
     //preceding ipa was empty it wouldn't have been added to the list and prepending
     //the last recorded pronunciation would cause a faulty pronunciation in that
     //case
-    if (ipa.startsWith("-")) {
+    if (ipa.startsWith('-')) {
       if (i>0) {
         ipa.insert(0, ipas.at(i-1));
       } else
@@ -286,22 +286,22 @@ int WiktionaryDict::processFoundIPA(QString ipa)
     }
 
     //with the substitution taken care of, we can safely remove all syllable brakes
-    ipa.remove("-");
+    ipa.remove('-');
 
-    // 		ipa.left(ipa.indexOf("/")); //this is needed because we could get stuff like:
-    // 			//"test/-e" and we can _not_ in any way distinguish the "-"
-    // 			//from the IPA key-char "-" (its the same, obviously) so we
+    // 		ipa.left(ipa.indexOf('/')); //this is needed because we could get stuff like:
+    // 			//"test/-e" and we can _not_ in any way distinguish the '-'
+    // 			//from the IPA key-char '-' (its the same, obviously) so we
     // 			//strip the hole second part and sacrifice stuff like test/tist
 
     ipa.remove(0x2026);                           //UTF-8 for the horizontal ellipsis
     //(the character looking like "...")
-    ipa.remove("-");
+    ipa.remove('-');
     ipa.remove("{{fehlend}}", Qt::CaseInsensitive);
     ipa.remove("betont", Qt::CaseInsensitive);
     ipa.remove(QRegExp("\\(.*\\)"));
 
     ipa = ipa.trimmed();
-    ipas.replace(i, ipa);                         //for easy access for the "-" substitution
+    ipas.replace(i, ipa);                         //for easy access for the '-' substitution
 
     if (!ipa.isEmpty()) {
       this->pronunciations << ipaToXSampa(ipa);

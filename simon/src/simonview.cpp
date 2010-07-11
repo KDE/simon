@@ -53,7 +53,7 @@
 #include <KToolBar>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <QComboBox>
+#include <KComboBox>
 #include <QDesktopServices>
 
 #include <KMessageBox>
@@ -115,7 +115,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   QMainWindow ( parent,flags );
   qApp->setQuitOnLastWindowClosed(false);
   ui.setupUi ( this );
-  cbCurrentScenario = new QComboBox(this);
+  cbCurrentScenario = new KComboBox(this);
   cbCurrentScenario->setToolTip(i18n("The currently displayed scenario. Select \"Manage scenarios\" to edit the available options."));
 
   #if KDE_IS_VERSION(4,0,80)

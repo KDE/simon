@@ -134,10 +134,10 @@ void SelectProgramDialog::searchForPrograms()
       QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
 
       QString exec;
-      QStringList execParts = service->exec().split(" ", QString::SkipEmptyParts);
+      QStringList execParts = service->exec().split(' ', QString::SkipEmptyParts);
       foreach ( const QString& execPart, execParts)
-        if (!execPart.startsWith("-") && !(execPart.startsWith("\"%"))
-        && !(execPart.startsWith("%")))
+        if (!execPart.startsWith('-') && !(execPart.startsWith("\"%"))
+        && !(execPart.startsWith('%')))
         exec += execPart;
 
       item->setData(Qt::UserRole, service->name());

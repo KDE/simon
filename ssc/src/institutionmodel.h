@@ -42,7 +42,7 @@ class InstitutionModel : public QAbstractItemModel
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
-    InstitutionModel(QList<Institution*> institutions, QObject *parent=0);
+    explicit InstitutionModel(QList<Institution*> institutions, QObject *parent=0);
     void replaceData(QList<Institution*> newInstitutions);
     ~InstitutionModel() {qDeleteAll(m_institutions); }
 

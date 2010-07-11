@@ -75,7 +75,7 @@ class CommandSettings : public KCModule
       return instance;
     }
 
-    CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
+    explicit CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 
     float minimumConfidence();
     bool useDYM();

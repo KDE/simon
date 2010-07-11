@@ -309,17 +309,17 @@ void Dict::buildAllowedPhonemes()
 
 QString Dict::adaptToSimonPhonemeSet(QString sampa)
 {
-  QString out = sampa.replace("6", "ah");
-  out = out.replace("2", "oeh");
-  //out = out.remove("~");
-  //out = out.remove("<");
-  out = out.replace("~", "nas");
-  out = out.replace("<", "nsb");
-  out = out.remove("_");
-  out = out.remove("^");
-  //	out = out.remove("?");
-  out = out.replace("?", "gls");
-  out = out.replace("9", "oe");
+  QString out = sampa.replace('6', "ah");
+  out = out.replace('2', "oeh");
+  //out = out.remove('~');
+  //out = out.remove('<');
+  out = out.replace('~', "nas");
+  out = out.replace('<', "nsb");
+  out = out.remove('_');
+  out = out.remove('^');
+  //	out = out.remove('?');
+  out = out.replace('?', "gls");
+  out = out.replace('9', "oe");
   return out;
 }
 
@@ -335,7 +335,7 @@ QString Dict::segmentSampa(const QString& sampa)
   while ((!filteredXsp.isEmpty()) && (allowedPhonemes.count() > phonemeIndex)) {
     currentPhoneme = allowedPhonemes[phonemeIndex++];
     if (filteredXsp.indexOf(currentPhoneme)==0) {
-      xspFertig += " "+currentPhoneme;
+      xspFertig += ' '+currentPhoneme;
                                                   //remove phoneme at start
       filteredXsp.remove(0, currentPhoneme.count());
       phonemeIndex=0;
@@ -377,10 +377,8 @@ QString Dict::ipaToXSampa(QString ipa)
  * \brief Destructor
  * \author Peter Grasch
  */
-#include <KDebug>
 Dict::~Dict()
 {
-  kDebug() << "Base class destructor";
   allowedPhonemes.clear();
 
   words.clear();

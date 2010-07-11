@@ -34,7 +34,7 @@ class ModelCompilationSettings : public KCModule
     Ui::ExternalProgramsWidget externalProgramsUi;
 
   public:
-    ModelCompilationSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit ModelCompilationSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
     ~ModelCompilationSettings();
 

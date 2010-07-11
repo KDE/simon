@@ -48,7 +48,7 @@ void MultiKCMView::slotChanged(bool changed)
 
 void MultiKCMView::emitChanged()
 {
-  foreach (bool changedFlag, moduleChangedState) {
+  foreach (const bool& changedFlag, moduleChangedState) {
     if (changedFlag) {
       emit changed(true);
       return;

@@ -32,7 +32,7 @@ WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent)
   QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
 
   kDebug() << "Found applicable devices: " << devices.count();
-  foreach (SimonSound::DeviceConfiguration dev, devices) {
+  foreach (const SimonSound::DeviceConfiguration& dev, devices) {
     WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent);
     connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
     connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));

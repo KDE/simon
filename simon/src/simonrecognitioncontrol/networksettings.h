@@ -41,7 +41,7 @@ class NetworkSettings : public KCModule
     void configureSimond();
 
   public:
-    NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    explicit NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
     ~NetworkSettings();
 
 };

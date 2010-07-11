@@ -258,7 +258,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
 void SimonControl::connectedToServer()
 {
   setStatus(SimonControl::ConnectedDeactivatedNotReady);
-  Logger::log(i18n("[INF]")+" "+i18n("Connected to the Server"));
+  Logger::log(i18n("[INF]")+' '+i18n("Connected to the Server"));
 }
 
 

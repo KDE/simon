@@ -49,7 +49,7 @@ class RecognitionControl : public QThread
 
   public:
     QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
-    RecognitionControl(const QString& username, QObject *parent=0);
+    explicit RecognitionControl(const QString& username, QObject *parent=0);
 
     virtual bool initializeRecognition()=0;
     virtual bool isInitialized()=0;

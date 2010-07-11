@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "soundconfig.h"
 #include "soundclient.h"
+#include "soundconfig.h"
 
 #include <QObject>
 #include <KDebug>

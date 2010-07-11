@@ -20,7 +20,7 @@
 #include "editworddialog.h"
 #include <simonscenarios/word.h>
 #include <simonscenarios/scenariomanager.h>
-#include <QInputDialog>
+#include <KInputDialog>
 #include <KIcon>
 
 /**
@@ -81,7 +81,7 @@ int EditWordDialog::exec(Word *word)
  */
 void EditWordDialog::addTerminal()
 {
-  QString newTerminal = QInputDialog::getText(this, i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
+  QString newTerminal = KInputDialog::getText(i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
 
   if (newTerminal.isEmpty()) return;
 

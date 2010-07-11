@@ -38,7 +38,7 @@ class AIConfiguration : public CommandConfiguration
     QString storedAimlSet;
 
   public:
-    AIConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    explicit AIConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~AIConfiguration();
 
     void setManager(AICommandManager *manager);

@@ -1,43 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile name="simonmodelcompilationrc" />
-  <include>KStandardDirs</include>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+<include>KStandardDirs</include>
+<kcfgfile name="simonmodelcompilationrc" />
   <group name="Programs">
     <entry name="HDMan" type="Url">
       <label>The path to the HDMan executable.</label>
       <default code="true">KStandardDirs::findExe("HDMan")</default>
+      <tooltip>The path to the HDMan executable.</tooltip>
     </entry>
     <entry name="HLEd" type="Url">
       <label>The path to the HLEd executable.</label>
       <default code="true">KStandardDirs::findExe("HLEd")</default>
+      <tooltip>The path to the HLEd executable.</tooltip>
     </entry>
     <entry name="HCopy" type="Url">
       <label>The path to the HCopy executable.</label>
       <default code="true">KStandardDirs::findExe("HCopy")</default>
+      <tooltip>The path to the HCopy executable.</tooltip>
     </entry>
     <entry name="HCompV" type="Url">
       <label>The path to the HCompV executable.</label>
       <default code="true">KStandardDirs::findExe("HCompV")</default>
+      <tooltip>The path to the HCompV executable.</tooltip>
     </entry>
     <entry name="HERest" type="Url">
       <label>The path to the HERest executable.</label>
       <default code="true">KStandardDirs::findExe("HERest")</default>
+      <tooltip>The path to the HERest executable.</tooltip>
     </entry>
     <entry name="HHEd" type="Url">
       <label>The path to the HHEd executable.</label>
       <default code="true">KStandardDirs::findExe("HHEd")</default>
+      <tooltip>The path to the HHEd executable.</tooltip>
     </entry>
     <entry name="HVite" type="Url">
       <label>The path to the HVite executable.</label>
       <default code="true">KStandardDirs::findExe("HVite")</default>
+      <tooltip>The path to the HVite executable.</tooltip>
     </entry>
     <entry name="mkfa" type="Url">
       <label>The path to the mkfa executable.</label>
       <default code="true">KStandardDirs::findExe("mkfa")</default>
+      <tooltip>The path to the mkfa executable.</tooltip>
     </entry>
     <entry name="dfa_minimize" type="Url">
       <label>The path to the dfa_minimize executable.</label>
       <default code="true">KStandardDirs::findExe("dfa_minimize")</default>
+      <tooltip>The path to the dfa_minimize executable.</tooltip>
     </entry>
   </group>
 </kcfg>
+

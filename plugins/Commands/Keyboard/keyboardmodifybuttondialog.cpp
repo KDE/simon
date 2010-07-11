@@ -74,7 +74,7 @@ QString KeyboardModifyButtonDialog::getCurrentValue()
     case Keyboard::ShortcutButton:
       value = ui.ksShortcut->keySequence().toString();
       break;
-    default: value = QString();                   //error
+    default: value.clear();                   //error
     break;
   }
   return value;

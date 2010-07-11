@@ -74,7 +74,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
 
   public:
-    Scenario(const QString& scenarioId, const QString& prefix=QString());
+    explicit Scenario(const QString& scenarioId, const QString& prefix=QString());
 
     KIcon icon() { return KIcon(m_iconSrc); }
     QString iconSrc() { return m_iconSrc; }

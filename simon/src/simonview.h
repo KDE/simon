@@ -65,7 +65,7 @@ class KAction;
 class Operation;
 class QThread;
 class VocabularyView;
-class QComboBox;
+class KComboBox;
 class KHTMLPart;
 class WelcomeHTMLPart;
 
@@ -99,7 +99,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
     KCMultiDialog *configDialog;
 
-    QComboBox *cbCurrentScenario;
+    KComboBox *cbCurrentScenario;
 
     void setupSignalSlots();
     void setupActions();

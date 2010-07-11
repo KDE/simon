@@ -28,7 +28,6 @@
 #include <QProgressBar>
 #include <QRadioButton>
 #include <KPushButton>
-#include <QFileDialog>
 #include "importtrainingtextlocalpage.h"
 #include "importtrainingtextaddpage.h"
 #include "importtrainingtextworkingpage.h"
@@ -77,7 +76,6 @@ void ImportTrainingTexts::start()
  */
 ImportTrainingTexts::~ImportTrainingTexts()
 {
-  delete fd;
 }
 
 

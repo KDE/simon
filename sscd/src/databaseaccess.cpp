@@ -76,10 +76,10 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
   db->setDatabaseName(dbName);
   db->setConnectOptions(options);
 
-  emit error("Host: "+host.toUtf8()+"\n"+
-    "Port: "+QString::number(port).toUtf8()+"\n"+
-    "User: "+user.toUtf8()+"\n"+
-    "Password: "+password.toUtf8()+"\n"+
+  emit error("Host: "+host.toUtf8()+'\n'+
+    "Port: "+QString::number(port).toUtf8()+'\n'+
+    "User: "+user.toUtf8()+'\n'+
+    "Password: "+password.toUtf8()+'\n'+
     "Database Name: "+dbName.toUtf8());
 
   if (type == "QMYSQL") queryProvider = new MYSQLQueries();
@@ -243,19 +243,19 @@ QList<User*>* DatabaseAccess::getUsers(User* u, qint32 institutionId, const QStr
     includeReferenceId);
 
   if (includeUserId) q.bindValue(":userid", u->userId());
-  if (includeSurname) q.bindValue(":surname", "%"+u->surname()+"%");
-  if (includeGivenName) q.bindValue(":forename", "%"+u->givenName()+"%");
+  if (includeSurname) q.bindValue(":surname", '%'+u->surname()+'%');
+  if (includeGivenName) q.bindValue(":forename", '%'+u->givenName()+'%');
   if (includeSex) q.bindValue(":sex", u->sex());
   if (includeBirthYear) q.bindValue(":birthyear", u->birthYear());
-  if (includeZipcode) q.bindValue(":zipcode", "%"+u->zipCode()+"%");
-  if (includeEducation) q.bindValue(":education", "%"+u->education()+"%");
-  if (includeCurrentOccupation) q.bindValue(":currentoccupation", "%"+u->currentOccupation()+"%");
+  if (includeZipcode) q.bindValue(":zipcode", '%'+u->zipCode()+'%');
+  if (includeEducation) q.bindValue(":education", '%'+u->education()+'%');
+  if (includeCurrentOccupation) q.bindValue(":currentoccupation", '%'+u->currentOccupation()+'%');
   if (includeMotherTongue) q.bindValue(":mothertongue", u->motherTongueId());
-  if (includeDiagnosis) q.bindValue(":diagnosis", "%"+u->diagnosis()+"%");
+  if (includeDiagnosis) q.bindValue(":diagnosis", '%'+u->diagnosis()+'%');
   if (includeOrientation) q.bindValue(":orientation", u->orientation());
   if (includeMotorfunction) q.bindValue(":motorfunction", u->motorFunction());
   if (includeCommunication) q.bindValue(":communication", u->communication());
-  if (includeMouthMotoric) q.bindValue(":mouthmotoric", "%"+u->mouthMotoric()+"%");
+  if (includeMouthMotoric) q.bindValue(":mouthmotoric", '%'+u->mouthMotoric()+'%');
   if (includeInterviewPossible) q.bindValue(":interviewpossible", u->interviewPossible());
   if (includeRepeatingPossible) q.bindValue(":repeatpossible", u->repeatingPossible());
   if (includeInstitutionId) q.bindValue(":institutionId", institutionId);

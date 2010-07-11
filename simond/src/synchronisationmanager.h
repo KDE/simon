@@ -60,7 +60,7 @@ class SynchronisationManager : public QObject
     void touchTempModel();
 
   public:
-    SynchronisationManager(const QString& username, QObject *parent=0);
+    explicit SynchronisationManager(const QString& username, QObject *parent=0);
 
     QMap<QDateTime, QString> getModels();
 

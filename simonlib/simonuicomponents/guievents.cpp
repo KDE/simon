@@ -71,7 +71,7 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
     }
     //this else contains the code to available the controlling of SimonCalendarWidget
     else if ((expression.exactMatch(action)) && (expression.exactMatch((keyList.at(i)->trigger)))) {
-      QStringList list = action.split(" ");
+      QStringList list = action.split(' ');
 
       int count = list.at(list.count()-1).count();
 

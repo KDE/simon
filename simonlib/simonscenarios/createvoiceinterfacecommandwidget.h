@@ -54,7 +54,7 @@ class MODELMANAGEMENT_EXPORT CreateVoiceInterfaceCommandWidget : public CreateCo
     bool init(Command* command);
     bool isComplete();
 
-    CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateVoiceInterfaceCommandWidget() {}
 

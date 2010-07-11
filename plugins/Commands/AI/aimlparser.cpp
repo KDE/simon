@@ -87,7 +87,7 @@ QList<QDomNode> elementsByTagName(QDomNode *node, const QString& tagName)
 {
   QList<QDomNode> list;
   QDomNodeList childNodes = node->toElement().elementsByTagName(tagName);
-  for (uint i = 0; i < childNodes.count(); i++) {
+  for (int i = 0; i < childNodes.count(); i++) {
     QDomNode n = childNodes.item(i);
     if (n.parentNode() == *node)
       list.append(n);
@@ -418,7 +418,7 @@ void AIMLParser::parseCategory(QDomNode* categoryNode)
     int childLeafWeight = !(*leafIterator)->that.isEmpty() + !(*leafIterator)->topic.isEmpty() * 2;
     if (leafWeight >= childLeafWeight)
       break;
-    index++;
+    ++index;
   }
   whereToInsert->leafs.insert(index, leaf);
 }
@@ -458,7 +458,7 @@ const QStringList &capturedThatTexts, const QStringList &capturedTopicTexts)
     }
     if (condType) {
       QList<QDomNode> childNodes = elementsByTagName(node, "li");
-      for (uint i = 0; i < childNodes.count(); i++) {
+      for (int i = 0; i < childNodes.count(); i++) {
         QDomNode n = childNodes[i];
         if (n.toElement().hasAttribute("value")) {
           if (condType == 2)
@@ -505,23 +505,23 @@ const QStringList &capturedThatTexts, const QStringList &capturedTopicTexts)
     }
     else if (!node->hasChildNodes()) {
       if (nodeName == "star") {
-        uint index = element.attribute("index", "1").toUInt() - 1;
+        int index = element.attribute("index", "1").toUInt() - 1;
         result = index < capturedTexts.count() ? capturedTexts[index] : QString("");
       }
       else if (nodeName == "thatstar") {
-        uint index = element.attribute("index", "1").toUInt() - 1;
+        int index = element.attribute("index", "1").toUInt() - 1;
         result = index < capturedThatTexts.count() ? capturedThatTexts[index] : QString("");
       }
       else if (nodeName == "topicstar") {
-        uint index = element.attribute("index", "1").toUInt() - 1;
+        int index = element.attribute("index", "1").toUInt() - 1;
         result = index < capturedTopicTexts.count() ? capturedTopicTexts[index] : QString("");
       }
       else if (nodeName == "that") {
         QString indexStr = element.attribute("index", "1,1");
-        if (!indexStr.contains(","))
+        if (!indexStr.contains(','))
           indexStr = "1," + indexStr;
-        uint index1 = indexStr.section(',', 0, 0).toInt()-1;
-        uint index2 = indexStr.section(',', 1, 1).toInt()-1;
+        int index1 = indexStr.section(',', 0, 0).toInt()-1;
+        int index2 = indexStr.section(',', 1, 1).toInt()-1;
         result = (index1 < thatList.count()) && (index2 < thatList[index1].count()) ?
           thatList[index1][index2] : QString("");
       }
@@ -536,7 +536,7 @@ const QStringList &capturedThatTexts, const QStringList &capturedTopicTexts)
       else if ( (nodeName == "person") || (nodeName == "person2") || (nodeName == "gender") )
         result = capturedTexts.count() ? capturedTexts[0] : QString("");
       else if (nodeName == "input") {
-        uint index = element.attribute("index", "1").toUInt() - 1;
+        int index = element.attribute("index", "1").toUInt() - 1;
         result = index < inputList.count() ? inputList[index] : QString("");
       }
       //the following just to avoid warnings !
@@ -561,7 +561,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
 {
   //debug
   if (srai)
-    indent ++;
+    ++indent;
   QString indentSpace = QString().fill(' ', 2*indent);
   *logStream << (!srai ? "\n" : "") + indentSpace + (srai ? "::SRAI: " : "::User Input: ") +
     input + "\n";
@@ -595,13 +595,13 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     QString matchedPattern = parentNode->word;
     while (parentNode->parent->parent) {
       parentNode = parentNode->parent;
-      matchedPattern = parentNode->word + " " + matchedPattern;
+      matchedPattern = parentNode->word + ' ' + matchedPattern;
     }
-    *logStream << indentSpace + "::Matched pattern: [" + matchedPattern + "]";
+    *logStream << indentSpace + "::Matched pattern: [" + matchedPattern + ']';
     if (!leaf->that.isEmpty())
-      *logStream << " - Matched that: [" + leaf->that + "]";
+      *logStream << " - Matched that: [" + leaf->that + ']';
     if (!leaf->topic.isEmpty())
-      *logStream << " - Matched topic: [" + leaf->topic + "]";
+      *logStream << " - Matched topic: [" + leaf->topic + ']';
     *logStream << "\n";
     capturedTexts.clear();
     exactMatch(matchedPattern, *sentence, capturedTexts);
@@ -614,7 +614,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     }
     sentence++;
     if (sentence != sentences.end())
-      result += " ";
+      result += ' ';
     else
       break;
   }

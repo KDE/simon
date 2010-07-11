@@ -56,7 +56,7 @@ class CreatePlaceCommandWidget : public CreateCommandWidget
      *
      *	@author Peter Grasch
      */
-    CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
+    explicit CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreatePlaceCommandWidget();
 
