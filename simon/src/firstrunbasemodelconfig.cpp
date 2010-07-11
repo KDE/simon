@@ -18,36 +18,36 @@
  */
 
 #include "firstrunbasemodelconfig.h"
+#include <QPointer>
 #include <KLocalizedString>
 #include <KCMultiDialog>
 
 FirstRunBaseModelConfig::FirstRunBaseModelConfig(QWidget* parent)
-		: QWizardPage(parent)
+: QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Base models"));
-	connect(ui.pbConfigureBaseModel, SIGNAL(clicked()), this, SLOT(configureBaseModel()));
-	ui.lbDescription->setText(i18n("<html><head />"
-			"<body>"
-			"<p>simon compares the microphone input to something called an \"acoustic model\" describing how your voice sounds like and what you are saying.</p>"
-			"<p>With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models \"base models\".</p>"
-			"<p>If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (\"Training\").</p>"
-			"<p>If you do select a base model you don't need any training but the recognition may be less accurate. <span style=\" font-weight:600;\">When using static base models, the installation of the HTK is not required.</span></p>"
-			"<p>You can find more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></body></html>"));
+  ui.setupUi(this);
+  setTitle(i18n("Base models"));
+  connect(ui.pbConfigureBaseModel, SIGNAL(clicked()), this, SLOT(configureBaseModel()));
+  ui.lbDescription->setText(i18n("<html><head />"
+    "<body>"
+    "<p>simon compares the microphone input to something called an \"acoustic model\" describing how your voice sounds like and what you are saying.</p>"
+    "<p>With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models \"base models\".</p>"
+    "<p>If you do not select a base model, you need to train one yourself by reading trainingstexts aloud (\"Training\").</p>"
+    "<p>If you do select a base model you do not need any training but the recognition may be less accurate. <span style=\" font-weight:600;\">When using static base models, the installation of the HTK is not required.</span></p>"
+    "<p>You can find more information on <a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">base models on our wikis</a>.</p></body></html>"));
 
 }
+
 
 void FirstRunBaseModelConfig::configureBaseModel()
 {
-	KCMultiDialog *configDialog = new KCMultiDialog(this);
-	configDialog->addModule("simonmodelconfig", QStringList() << "");
-	configDialog->exec();
-	delete configDialog;
+  QPointer<KCMultiDialog> configDialog = new KCMultiDialog(this);
+  configDialog->addModule("simonmodelconfig", QStringList() << "");
+  configDialog->exec();
+  delete configDialog;
 }
+
 
 FirstRunBaseModelConfig::~FirstRunBaseModelConfig()
 {
 }
-
-
-

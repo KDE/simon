@@ -35,35 +35,34 @@
 class AIMLParser;
 class KProcess;
 
-class AICommandManager : public CommandManager{
-Q_OBJECT
+class AICommandManager : public CommandManager
+{
+  Q_OBJECT
 
-private:
-	AIMLParser *parser;
-	KProcess *festivalProc;
+    private:
+    AIMLParser *parser;
+    KProcess *festivalProc;
 
-protected:
-	bool trigger(const QString& triggerName);
+  protected:
+    bool trigger(const QString& triggerName);
 
-public:
-	bool deSerializeConfig(const QDomElement& elem);
-	const QString name() const;
-	const QString iconSrc() const;
-	bool setupParser();
-	bool addCommandPrivate(Command *) { return false; }
+  public:
+    bool deSerializeConfig(const QDomElement& elem);
+    const QString name() const;
+    const QString iconSrc() const;
+    bool setupParser();
+    bool addCommandPrivate(Command *) { return false; }
 
-	CommandConfiguration* getConfigurationPage();
+    CommandConfiguration* getConfigurationPage();
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     AICommandManager(QObject* parentScenario, const QVariantList& args);
 
-    
     ~AICommandManager();
 
 };
-
 #endif

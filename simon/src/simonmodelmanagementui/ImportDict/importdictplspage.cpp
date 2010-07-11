@@ -27,19 +27,19 @@
  */
 ImportDictPLSPage::ImportDictPLSPage(QWidget* parent): QWizardPage(parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
+  ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
-	connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	registerField("plsFilename*", ui.urPath, "url", SIGNAL(textChanged (const QString &)));
-	setTitle(i18n("Import PLS Dictionary"));
+  connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  registerField("plsFilename*", ui.urPath, "url", SIGNAL(textChanged (const QString &)));
+  setTitle(i18n("Import PLS Dictionary"));
 }
 
 
 bool ImportDictPLSPage::isComplete() const
 {
-	return QFile::exists(ui.urPath->url().path());
+  return QFile::exists(ui.urPath->url().path());
 }
 
 
@@ -50,5 +50,3 @@ bool ImportDictPLSPage::isComplete() const
 ImportDictPLSPage::~ImportDictPLSPage()
 {
 }
-
-

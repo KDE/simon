@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "editworddialog.h"
 #include <simonscenarios/word.h>
 #include <simonscenarios/scenariomanager.h>
@@ -32,13 +31,14 @@
  */
 EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
-	setMainWidget( widget );
-	setCaption( i18n("Remove Word") );
-	ui.tbAddTerminal->setIcon(KIcon("list-add"));
-	connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
+  setMainWidget( widget );
+  setCaption( i18n("Remove Word") );
+  ui.tbAddTerminal->setIcon(KIcon("list-add"));
+  connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
 }
+
 
 /**
  * \brief Executes the dialog
@@ -47,32 +47,33 @@ EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(pare
  */
 int EditWordDialog::exec(Word *word)
 {
-	ui.leWord->setText(word->getWord());
-	ui.cbType->clear();
-	QStringList terminals = ScenarioManager::getInstance()->getTerminals(
-					(SpeechModel::ModelElements)
-					(SpeechModel::ShadowVocabulary|
-					SpeechModel::ScenarioVocabulary|
-					SpeechModel::AllScenariosVocabulary|
-					SpeechModel::AllScenariosGrammar|
-					SpeechModel::ScenarioGrammar));
-	if (!terminals.contains(i18n("Unused")))
-		terminals << i18n("Unused");
-	ui.cbType->addItems(terminals);
-	ui.cbType->setCurrentIndex(ui.cbType->findText(word->getTerminal()));
-	ui.leSampa->setText(word->getPronunciation());
+  ui.leWord->setText(word->getWord());
+  ui.cbType->clear();
+  QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+    (SpeechModel::ModelElements)
+    (SpeechModel::ShadowVocabulary|
+    SpeechModel::ScenarioVocabulary|
+    SpeechModel::AllScenariosVocabulary|
+    SpeechModel::AllScenariosGrammar|
+    SpeechModel::ScenarioGrammar));
+  if (!terminals.contains(i18n("Unused")))
+    terminals << i18n("Unused");
+  ui.cbType->addItems(terminals);
+  ui.cbType->setCurrentIndex(ui.cbType->findText(word->getTerminal()));
+  ui.leSampa->setText(word->getPronunciation());
 
-	int ret = KDialog::exec();
+  int ret = KDialog::exec();
 
-	if (ret) {
-		//update word
-		word->setWord(ui.leWord->text());
-		word->setTerminal(ui.cbType->currentText());
-		word->setPronunciation(ui.leSampa->text());
-	}
+  if (ret) {
+    //update word
+    word->setWord(ui.leWord->text());
+    word->setTerminal(ui.cbType->currentText());
+    word->setPronunciation(ui.leSampa->text());
+  }
 
-	return ret;
+  return ret;
 }
+
 
 /**
  * \brief Queries the User for the new name and adds the terminal to the list
@@ -80,11 +81,10 @@ int EditWordDialog::exec(Word *word)
  */
 void EditWordDialog::addTerminal()
 {
-	QString newTerminal = QInputDialog::getText(this, i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
+  QString newTerminal = QInputDialog::getText(this, i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
 
-	if (newTerminal.isEmpty()) return;
+  if (newTerminal.isEmpty()) return;
 
-	ui.cbType->addItem(newTerminal);
-	ui.cbType->setCurrentIndex(ui.cbType->count()-1);
+  ui.cbType->addItem(newTerminal);
+  ui.cbType->setCurrentIndex(ui.cbType->count()-1);
 }
-

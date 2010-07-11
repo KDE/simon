@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DROPLISTWIDGET_H_6141C4CF79E6474E97A308426C551198
 #define SIMON_DROPLISTWIDGET_H_6141C4CF79E6474E97A308426C551198
 
@@ -41,18 +40,17 @@
  */
 class DropListWidget : public KListWidget
 {
-	Q_OBJECT
-signals:
-	void droppedText(QString text);
-protected:
-	void dragEnterEvent(QDragEnterEvent *event);
-	void dropEvent(QDropEvent *event);
-	void dragMoveEvent(QDragMoveEvent *event);
-public:
+  Q_OBJECT
+    signals:
+  void droppedText(QString text);
+  protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+  public:
     DropListWidget(QWidget *parent);
 
     ~DropListWidget();
 
 };
-
 #endif

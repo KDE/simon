@@ -24,32 +24,28 @@
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT Microphone : public SSCObject {
+class SSCOBJECTS_EXPORT Microphone : public SSCObject
+{
 
-private:
-	qint32 m_id;
-	QString m_model;
-	QString m_type;
+  private:
+    qint32 m_id;
+    QString m_model;
+    QString m_type;
 
-public:
-	Microphone(qint32 id, const QString& model, const QString& type);
+  public:
+    Microphone(qint32 id, const QString& model, const QString& type);
 
-	Microphone() {}
+    Microphone() {}
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
+    void deserialize(QByteArray data);
+    QByteArray serialize();
 
-	qint32 id() { return m_id; }
-	QString model() { return m_model; }
-	QString type() { return m_type; }
+    qint32 id() { return m_id; }
+    QString model() { return m_model; }
+    QString type() { return m_type; }
 
-	void setId(qint16 id) { m_id = id; }
+    void setId(qint16 id) { m_id = id; }
 
-	~Microphone() {}
+    ~Microphone() {}
 };
-
 #endif
-
-
-
-

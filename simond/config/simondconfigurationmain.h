@@ -3,7 +3,7 @@
 
 #include "simondconfiguration_export.h"
 
-class SIMONDCONFIGURATION_EXPORT SimondConfigurationMain 
+class SIMONDCONFIGURATION_EXPORT SimondConfigurationMain
 {
 
 };

@@ -46,47 +46,43 @@ class ListConfiguration;
  */
 class CommandSettings : public KCModule
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void recognitionResultsFilterParametersChanged();
+    signals:
+  void recognitionResultsFilterParametersChanged();
 
-private:
-	bool forceChangeFlag;
-	static CommandSettings* instance;
+  private:
+    bool forceChangeFlag;
+    static CommandSettings* instance;
 
-	Ui::CommandSettingsDlg ui;
-	KSharedConfig::Ptr config;
-	QFont storedFont;
+    Ui::CommandSettingsDlg ui;
+    KSharedConfig::Ptr config;
+    QFont storedFont;
 
-	ListConfiguration *listConfiguration;
+    ListConfiguration *listConfiguration;
 
+  public slots:
+    virtual void save();
+    virtual void load();
+    virtual void defaults();
 
-public slots:
-	virtual void save();
-	virtual void load();
-	virtual void defaults();
- 
-private slots:
-	void slotChanged();
+  private slots:
+    void slotChanged();
 
-public:
-	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
-	{
-		if (!instance) return new CommandSettings(parent, args);
-		return instance;
-	}
+  public:
+    static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList()) {
+      if (!instance) return new CommandSettings(parent, args);
+      return instance;
+    }
 
-	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
+    CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 
-	float minimumConfidence();
-	bool useDYM();
-	QFont pluginBaseFont();
+    float minimumConfidence();
+    bool useDYM();
+    QFont pluginBaseFont();
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
-	
-	~CommandSettings();
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+
+    ~CommandSettings();
 };
-
 #endif
-

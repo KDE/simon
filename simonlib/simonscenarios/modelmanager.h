@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODELMANAGER_H_7D8BF260D23E4A83BD8404866C3FFDA1
 #define SIMON_MODELMANAGER_H_7D8BF260D23E4A83BD8404866C3FFDA1
 
@@ -34,59 +33,58 @@ class TrainingContainer;
 
 class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 {
-	Q_OBJECT
-	
-	signals:
-		void modelChanged();
-		
-	private:
-		bool inGroup;
-		bool modelChangedFlag;
+  Q_OBJECT
 
-		QStringList missingFiles;
-		bool hasWordList();
-		bool hasTraining();
-		bool hasGrammar();
-		bool hasLanguageDescription();
-		bool hasActiveContainer();
-	
-	public slots:
-		void modelHasChanged();
+    signals:
+  void modelChanged();
 
-	public:
-		ModelManager(QObject *parent=0);
-		void startGroup();
-		void commitGroup(bool silent=false);
+  private:
+    bool inGroup;
+    bool modelChangedFlag;
 
-		Model* createBaseModelContainer();
-		QDateTime getBaseModelDate();
-		virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-							const QByteArray& hmmDefs, const QByteArray& tiedList,
-							const QByteArray& macros, const QByteArray& stats);
+    QStringList missingFiles;
+    bool hasWordList();
+    bool hasTraining();
+    bool hasGrammar();
+    bool hasLanguageDescription();
+    bool hasActiveContainer();
 
-		LanguageDescriptionContainer* getLanguageDescriptionContainer();
-		QDateTime getLanguageDescriptionModifiedTime();
-		virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
-				        const QByteArray& treeHed);
-		
-		TrainingContainer* getTrainingContainer();
-		QDateTime getTrainingModifiedTime();
-		virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-					const QByteArray& prompts);
+  public slots:
+    void modelHasChanged();
 
-		Model* createActiveContainer();
-		qint32 getActiveModelSampleRate();
-		QDateTime getActiveContainerModifiedTime();
-		virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
-				
-		void buildMissingSamplesList();
-		QByteArray getSample(const QString& sampleName);
-		QString missingSample();
-		virtual bool storeSample(const QByteArray& sample);
+  public:
+    ModelManager(QObject *parent=0);
+    void startGroup();
+    void commitGroup(bool silent=false);
 
-		virtual ~ModelManager() {}
-		
+    Model* createBaseModelContainer();
+    QDateTime getBaseModelDate();
+    virtual bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
+      const QByteArray& hmmDefs, const QByteArray& tiedList,
+      const QByteArray& macros, const QByteArray& stats);
+
+    LanguageDescriptionContainer* getLanguageDescriptionContainer();
+    QDateTime getLanguageDescriptionModifiedTime();
+    virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
+      const QByteArray& treeHed);
+
+    TrainingContainer* getTrainingContainer();
+    QDateTime getTrainingModifiedTime();
+    virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+      const QByteArray& prompts);
+
+    Model* createActiveContainer();
+    qint32 getActiveModelSampleRate();
+    QDateTime getActiveContainerModifiedTime();
+    virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
+      const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+
+    void buildMissingSamplesList();
+    QByteArray getSample(const QString& sampleName);
+    QString missingSample();
+    virtual bool storeSample(const QByteArray& sample);
+
+    virtual ~ModelManager() {}
+
 };
-
 #endif

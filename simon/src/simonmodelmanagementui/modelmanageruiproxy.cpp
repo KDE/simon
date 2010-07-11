@@ -29,81 +29,82 @@ ModelManagerUiProxy* ModelManagerUiProxy::instance;
 
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 {
-	connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
+  connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
 }
 
 
 void ModelManagerUiProxy::slotModelChanged()
 {
-	emit recompileModel();
+  emit recompileModel();
 }
 
-bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-				const QByteArray& hmmDefs, const QByteArray& tiedList,
-				const QByteArray& macros, const QByteArray& stats)
+
+bool ModelManagerUiProxy::storeBaseModel(const QDateTime& changedTime, int baseModelType,
+const QByteArray& hmmDefs, const QByteArray& tiedList,
+const QByteArray& macros, const QByteArray& stats)
 {
-	bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList, macros, stats);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the base model received from the server."
-					"\n\nPlease check the permissions on the model folder: %1", 
-					KStandardDirs::locateLocal("appdata", "model")));
-	}
-	return succ;
+  bool succ = ModelManager::storeBaseModel(changedTime, baseModelType, hmmDefs, tiedList, macros, stats);
+  if (!succ) {
+    KMessageBox::sorry(0, i18n("Could not store the base model received from the server."
+      "\n\nPlease check the permissions on the model folder: %1",
+      KStandardDirs::locateLocal("appdata", "model")));
+  }
+  return succ;
 }
 
-bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
-			const QByteArray& treeHed)
+
+bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
+const QByteArray& treeHed)
 {
-	bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the language description received from the server."
-					"\n\nPlease check the permissions on the model folder: %1", 
-					KStandardDirs::locateLocal("appdata", "model")));
-	}
-	return succ;
+  bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed);
+  if (!succ) {
+    KMessageBox::sorry(0, i18n("Could not store the language description received from the server."
+      "\n\nPlease check the permissions on the model folder: %1",
+      KStandardDirs::locateLocal("appdata", "model")));
+  }
+  return succ;
 }
+
 
 bool ModelManagerUiProxy::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-			const QByteArray& prompts)
+const QByteArray& prompts)
 {
-	bool succ = ModelManager::storeTraining(changedTime, sampleRate, wavConfig, prompts);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the trainings corpus received from the server."
-					"\n\nPlease check the permissions on the model folder: %1", 
-					KStandardDirs::locateLocal("appdata", "model")));
-	}
-	return succ;
+  bool succ = ModelManager::storeTraining(changedTime, sampleRate, wavConfig, prompts);
+  if (!succ) {
+    KMessageBox::sorry(0, i18n("Could not store the trainings corpus received from the server."
+      "\n\nPlease check the permissions on the model folder: %1",
+      KStandardDirs::locateLocal("appdata", "model")));
+  }
+  return succ;
 }
 
+
 bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-		const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
 {
-	bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, hmmDefs, tiedList, dict, dfa);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the active model received from the server."
-					"\n\nPlease check the permissions on the model folder: %1", 
-					KStandardDirs::locateLocal("appdata", "model")));
-	}
-	return succ;
+  bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, hmmDefs, tiedList, dict, dfa);
+  if (!succ) {
+    KMessageBox::sorry(0, i18n("Could not store the active model received from the server."
+      "\n\nPlease check the permissions on the model folder: %1",
+      KStandardDirs::locateLocal("appdata", "model")));
+  }
+  return succ;
 }
+
 
 bool ModelManagerUiProxy::storeSample(const QByteArray& sample)
 {
-	bool succ = ModelManager::storeSample(sample);
-	if (!succ) {
-		KMessageBox::sorry(0, i18n("Could not store the sample %1 received from the server."
-					"\n\nPlease check the permissions on the sample folder: %2", 
-					missingSample(), TrainingManager::getInstance()->getTrainingDir()));
-	}
-	return succ;
+  bool succ = ModelManager::storeSample(sample);
+  if (!succ) {
+    KMessageBox::sorry(0, i18n("Could not store the sample %1 received from the server."
+      "\n\nPlease check the permissions on the sample folder: %2",
+      missingSample(), TrainingManager::getInstance()->getTrainingDir()));
+  }
+  return succ;
 }
-
-
-
 
 
 ModelManagerUiProxy::~ModelManagerUiProxy()
 {
 
 }
-

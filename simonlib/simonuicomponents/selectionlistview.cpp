@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "selectionlistview.h"
 
 SelectionListView::SelectionListView(QWidget *parent) : QListView(parent)
@@ -27,6 +26,5 @@ SelectionListView::SelectionListView(QWidget *parent) : QListView(parent)
 
 void SelectionListView::selectionChanged (const QItemSelection& , const QItemSelection& )
 {
-	emit selectionChanged();
+  emit selectionChanged();
 }
-

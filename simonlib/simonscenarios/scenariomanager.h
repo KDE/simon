@@ -17,14 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SCENARIOMANAGER_H_5056473DC97C4A0BABECF3F11ACF3296
 #define SIMON_SCENARIOMANAGER_H_5056473DC97C4A0BABECF3F11ACF3296
 
 /**
  *	@class ScenarioManager
  *	@author Peter Grasch
-*/
+ */
 
 #include <QObject>
 #include <QStringList>
@@ -48,102 +47,98 @@ class Action;
 class CommandManager;
 class VoiceInterfaceCommand;
 
-class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject {
-Q_OBJECT
+class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
+{
+  Q_OBJECT
 
-signals:
-	void scenarioSelectionChanged();
-	void scenariosChanged();
-	void shadowVocabularyChanged();
-	void baseModelChanged();
+    signals:
+  void scenarioSelectionChanged();
+  void scenariosChanged();
+  void shadowVocabularyChanged();
+  void baseModelChanged();
 
-private:
-	bool m_inGroup;
-	bool m_baseModelDirty;
-	bool m_scenariosDirty;
-	bool m_shadowVocabularyDirty;
-	bool setupScenario(Scenario *s);
-	void touchBaseModelAccessTime();
+  private:
+    bool m_inGroup;
+    bool m_baseModelDirty;
+    bool m_scenariosDirty;
+    bool m_shadowVocabularyDirty;
+    bool setupScenario(Scenario *s);
+    void touchBaseModelAccessTime();
 
-public:
-	static ScenarioManager *getInstance() {
-		if (!instance) instance = new ScenarioManager();
-		return instance;
-	}
-	
-	ScenarioManager(QObject *parent=0);
-	~ScenarioManager();
+  public:
+    static ScenarioManager *getInstance() {
+      if (!instance) instance = new ScenarioManager();
+      return instance;
+    }
 
-	QList<Scenario*> getScenarios() { return scenarios; }
-	void registerScenarioDisplay(ScenarioDisplay *display);
+    ScenarioManager(QObject *parent=0);
+    ~ScenarioManager();
 
-	Scenario *getScenario(const QString& id);
-	Scenario *getCurrentScenario() { return currentScenario; }
+    QList<Scenario*> getScenarios() { return scenarios; }
+    void registerScenarioDisplay(ScenarioDisplay *display);
 
-	bool init();
-	ShadowVocabulary* getShadowVocabulary();
+    Scenario *getScenario(const QString& id);
+    Scenario *getCurrentScenario() { return currentScenario; }
 
-	bool storeScenario(const QString& id, const QByteArray& data);
+    bool init();
+    ShadowVocabulary* getShadowVocabulary();
 
-	QStringList getTerminals(SpeechModel::ModelElements elements);
-	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+    bool storeScenario(const QString& id, const QByteArray& data);
 
-	QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
-	QList<Word*> findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements);
+    QStringList getTerminals(SpeechModel::ModelElements elements);
+    bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
 
-	QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
-	bool setupScenarios(bool forceChange=false);
+    QList<Word*> findWords(const QString& name, SpeechModel::ModelElements elements, Vocabulary::MatchType);
+    QList<Word*> findWordsByTerminal(const QString& name, SpeechModel::ModelElements elements);
 
-	QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
-	QStringList getAllAvailableScenarioIds();
+    QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
+    bool setupScenarios(bool forceChange=false);
 
+    QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
+    QStringList getAllAvailableScenarioIds();
 
-	bool triggerCommand(const QString& type, const QString& trigger);
-	bool processResult(RecognitionResult recognitionResult);
+    bool triggerCommand(const QString& type, const QString& trigger);
+    bool processResult(RecognitionResult recognitionResult);
 
-	CommandList* getCommandList();
+    CommandList* getCommandList();
 
-	void startGroup();
-	bool commitGroup(bool silent=false);
+    void startGroup();
+    bool commitGroup(bool silent=false);
 
-	void setPluginFont(const QFont& font);
+    void setPluginFont(const QFont& font);
 
-	int baseModelType();
-	void setBaseModelType(int);
-	QString baseModelHMMName();
-	QString baseModelTiedlistName();
-	QString baseModelMacros();
-	QString baseModelStats();
-	void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName, 
-			const QString& macrosName, const QString& statsName);
+    int baseModelType();
+    void setBaseModelType(int);
+    QString baseModelHMMName();
+    QString baseModelTiedlistName();
+    QString baseModelMacros();
+    QString baseModelStats();
+    void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName,
+      const QString& macrosName, const QString& statsName);
 
-	void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
-	{
-		this->listInterfaceCommands = listInterfaceCommands;
-	}
+    void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands) {
+      this->listInterfaceCommands = listInterfaceCommands;
+    }
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration()
-	{
-		return listInterfaceCommands;
-	}
-	
-public slots:
-	// If force is true, every registered display will switch to this scenario
-	// if not, only displays that already display the scenario will be updated
-	void updateDisplays(Scenario* scenario, bool force=false);
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration() {
+      return listInterfaceCommands;
+    }
 
-	void slotBaseModelChanged();
+  public slots:
+    // If force is true, every registered display will switch to this scenario
+    // if not, only displays that already display the scenario will be updated
+    void updateDisplays(Scenario* scenario, bool force=false);
 
-private:
-	static ScenarioManager *instance;
-	ShadowVocabulary *shadowVocab;
-	Scenario *currentScenario;
-	
-	QList<Scenario*> scenarios;
-	QList<ScenarioDisplay*> scenarioDisplays;
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+    void slotBaseModelChanged();
+
+  private:
+    static ScenarioManager *instance;
+    ShadowVocabulary *shadowVocab;
+    Scenario *currentScenario;
+
+    QList<Scenario*> scenarios;
+    QList<ScenarioDisplay*> scenarioDisplays;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
 };
-
 #endif
-

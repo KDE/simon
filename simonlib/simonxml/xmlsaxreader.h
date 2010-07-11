@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_XMLSAXREADER_H_61BBBF20E5A048609AA7213E6A1AAFB7
 #define SIMON_XMLSAXREADER_H_61BBBF20E5A048609AA7213E6A1AAFB7
 
@@ -28,20 +27,20 @@
 class QXmlDefaultHandler;
 
 /**
-	\class XMLSAXReader
-	
-	\author Peter Grasch
-	\brief Implements qts SAX API to parse xml documents and implements the XMLReader interface
-	\date 12.05.2007
-	\version 0.1
+  \class XMLSAXReader
+
+  \author Peter Grasch
+  \brief Implements qts SAX API to parse xml documents and implements the XMLReader interface
+  \date 12.05.2007
+  \version 0.1
 */
-class SIMONXML_EXPORT XMLSAXReader : public XMLReader{
-public:
-	explicit XMLSAXReader(QString path, QObject* parent=0);
-	
-	void load(QXmlDefaultHandler* handler, QString path="");
+class SIMONXML_EXPORT XMLSAXReader : public XMLReader
+{
+  public:
+    explicit XMLSAXReader(QString path, QObject* parent=0);
+
+    void load(QXmlDefaultHandler* handler, QString path="");
     ~XMLSAXReader();
 
 };
-
 #endif

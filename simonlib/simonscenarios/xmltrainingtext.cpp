@@ -22,12 +22,11 @@
 #include <QDomElement>
 #include <QFile>
 
-
-
 XMLTrainingText::XMLTrainingText( QString name, QString path, QStringList pages ):XMLDomReader(path), TrainingText(name, path, pages)
 {
-	
+
 }
+
 
 XMLTrainingText::XMLTrainingText( QString path ) : XMLDomReader(path), TrainingText("", path, QStringList())
 {
@@ -36,95 +35,97 @@ XMLTrainingText::XMLTrainingText( QString path ) : XMLDomReader(path), TrainingT
 
 void XMLTrainingText::save(QString path)
 {
-	if (!doc) doc = new QDomDocument();
-	doc->clear();
-	
-	QDomElement root = doc->createElement("text");
-	QDomElement page = QDomElement();
-	QDomNode text = QDomElement();
-	QDomText textc;
-	
-	root.setAttribute("title", name);
-	
-	for (int i=0; i < this->pages.count(); i++)
-	{
-		page = doc->createElement("page");
-		text = doc->createElement("text");
-		textc = doc->createTextNode("text");
-		
-		textc.setNodeValue(pages.at(i));
-		
-		text.appendChild(textc);
-		page.appendChild(text.toElement());
-		root.appendChild(page);
-	}
-	
-	doc->appendChild(root);
-	XMLDomReader::save(path);
+  if (!doc) doc = new QDomDocument();
+  doc->clear();
+
+  QDomElement root = doc->createElement("text");
+  QDomElement page = QDomElement();
+  QDomNode text = QDomElement();
+  QDomText textc;
+
+  root.setAttribute("title", name);
+
+  for (int i=0; i < this->pages.count(); i++) {
+    page = doc->createElement("page");
+    text = doc->createElement("text");
+    textc = doc->createTextNode("text");
+
+    textc.setNodeValue(pages.at(i));
+
+    text.appendChild(textc);
+    page.appendChild(text.toElement());
+    root.appendChild(page);
+  }
+
+  doc->appendChild(root);
+  XMLDomReader::save(path);
 }
+
 
 bool XMLTrainingText::save()
 {
-	save(TrainingText::path);
-	return true;
+  save(TrainingText::path);
+  return true;
 }
+
 
 #include <KDebug>
 XMLTrainingText* XMLTrainingText::createTrainingText(const QString& path)
 {
-	QStringList pages;
-	QFile f(path);
-	if (!f.open(QIODevice::ReadOnly)) {
-		kDebug() << "Couldn't open file for reading: " << path;
-		return NULL;
-	}
+  QStringList pages;
+  QFile f(path);
+  if (!f.open(QIODevice::ReadOnly)) {
+    kDebug() << "Could not open file for reading: " << path;
+    return 0;
+  }
 
-	QDomDocument doc;
-	doc.setContent(f.readAll());
+  QDomDocument doc;
+  doc.setContent(f.readAll());
 
-	QDomElement root = doc.documentElement();
-	QString name = root.attribute("title");
-	
-	QDomElement newnode = root.firstChildElement();
-	
-	QDomElement page = root.firstChild().toElement();
-	while(!page.isNull()) 
-	{
-		QDomElement text = page.firstChildElement();
-		
-		QString textcontent =text.text();
-		pages.append(textcontent.trimmed());
-		page = page.nextSiblingElement();
-	}
+  QDomElement root = doc.documentElement();
+  QString name = root.attribute("title");
 
-	return new XMLTrainingText(name, path, pages);
+  QDomElement newnode = root.firstChildElement();
+
+  QDomElement page = root.firstChild().toElement();
+  while(!page.isNull()) {
+    QDomElement text = page.firstChildElement();
+
+    QString textcontent =text.text();
+    pages.append(textcontent.trimmed());
+    page = page.nextSiblingElement();
+  }
+
+  return new XMLTrainingText(name, path, pages);
 }
+
 
 void XMLTrainingText::load(QString path)
 {
-	pages.clear();
-	XMLDomReader::load(path);
-	QDomElement root = doc->documentElement();
-	this->name = root.attribute("title");
-	
-	QDomElement newnode = root.firstChildElement();
-	
-	QDomElement page = root.firstChild().toElement();
-	while(!page.isNull()) 
-	{
-		QDomElement text = page.firstChildElement();
-		
-		QString textcontent =text.text();
-		pages.append(textcontent.trimmed());
-		page = page.nextSiblingElement();
-	}
-	TrainingText::path=path;
+  pages.clear();
+  XMLDomReader::load(path);
+  QDomElement root = doc->documentElement();
+  this->name = root.attribute("title");
+
+  QDomElement newnode = root.firstChildElement();
+
+  QDomElement page = root.firstChild().toElement();
+  while(!page.isNull()) {
+    QDomElement text = page.firstChildElement();
+
+    QString textcontent =text.text();
+    pages.append(textcontent.trimmed());
+    page = page.nextSiblingElement();
+  }
+  TrainingText::path=path;
 }
+
 
 void XMLTrainingText::addPages(QStringList pages)
 {
-	for (int i=0; i < pages.count(); i++) this->pages << pages.at(i);
+  for (int i=0; i < pages.count(); i++) this->pages << pages.at(i);
 }
+
 
 XMLTrainingText::~XMLTrainingText()
 {

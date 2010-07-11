@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "ksimondsettings.h"
 #include "ksimondconfiguration.h"
 #include <QSslSocket>
@@ -28,46 +27,45 @@
 #include <QSettings>
 #endif
 
-K_PLUGIN_FACTORY( KSimondSettingsFactory, 
-			registerPlugin< KSimondSettings >(); 
-		)
+K_PLUGIN_FACTORY( KSimondSettingsFactory,
+registerPlugin< KSimondSettings >();
+)
 
 K_EXPORT_PLUGIN( KSimondSettingsFactory("KSimondSettings"); )
 
-
 KSimondSettings::KSimondSettings(QWidget* parent, const QVariantList& args)
-					: KCModule(KGlobal::mainComponent(), parent)
+: KCModule(KGlobal::mainComponent(), parent)
 {
-	Q_UNUSED(args);
-	
-	ui.setupUi(this);
-	
-	addConfig(KSimondConfiguration::self(), this);
+  Q_UNUSED(args);
+
+  ui.setupUi(this);
+
+  addConfig(KSimondConfiguration::self(), this);
 }
 
 
 void KSimondSettings::save()
 {
-	KCModule::save();
+  KCModule::save();
 
-#ifdef Q_OS_WIN32
-	QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
-	if (ui.kcfg_AutoStart->isChecked()) {
-		// Want to start on boot up
-		QString appPath = qApp->applicationFilePath();
-		appPath.replace("/", "\\");
-		settings.setValue("/CurrentVersion/Run/ksimond", appPath);
-	} else {
-		// Do not want to start on boot up
-		settings.remove("/CurrentVersion/Run/ksimond");
-	}
-	settings.sync();
-#endif
+  #ifdef Q_OS_WIN32
+  QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
+  if (ui.kcfg_AutoStart->isChecked()) {
+    // Want to start on boot up
+    QString appPath = qApp->applicationFilePath();
+    appPath.replace("/", "\\");
+    settings.setValue("/CurrentVersion/Run/ksimond", appPath);
+  }
+  else {
+    // Do not want to start on boot up
+    settings.remove("/CurrentVersion/Run/ksimond");
+  }
+  settings.sync();
+  #endif
 }
 
 
 KSimondSettings::~KSimondSettings()
 {
-	
-}
 
+}

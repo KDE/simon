@@ -28,49 +28,48 @@
 /**
  *	@class CompositeCommand
  *	@brief Describes a composite command; Consists of several other commands
- *	
+ *
  *	@version 0.1
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class CompositeCommand : public Command{
-private:
-	QStringList commands;
-	QStringList commandTypes;
+class CompositeCommand : public Command
+{
+  private:
+    QStringList commands;
+    QStringList commandTypes;
 
-protected:
-	const QMap<QString,QVariant> getValueMapPrivate() const;
-	bool triggerPrivate(int *state);
-	bool deSerializePrivate(const QDomElement& commandElem);
+  protected:
+    const QMap<QString,QVariant> getValueMapPrivate() const;
+    bool triggerPrivate(int *state);
+    bool deSerializePrivate(const QDomElement& commandElem);
 
-	CompositeCommand() {}
+    CompositeCommand() {}
 
-public:
-	STATIC_CREATE_INSTANCE_H(CompositeCommand);
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+  public:
+    STATIC_CREATE_INSTANCE_H(CompositeCommand);
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CompositeCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
-		commands(commands_),
-		commandTypes(commandTypes_)
-	{
-	}
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
-	QStringList getCommands() const { return this->commands; }
-	QStringList getCommandTypes() const { return this->commandTypes; }
-   
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CompositeCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
+      commands(commands_),
+    commandTypes(commandTypes_) {
+    }
+
+    QStringList getCommands() const { return this->commands; }
+    QStringList getCommandTypes() const { return this->commandTypes; }
+
     ~CompositeCommand() {}
 
 };
-
 #endif

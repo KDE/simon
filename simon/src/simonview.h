@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONVIEW_H_FAA1A01DFF1E4DA098606C3E951E43AD
 #define SIMON_SIMONVIEW_H_FAA1A01DFF1E4DA098606C3E951E43AD
-
 
 /**
  *	@class SimonView
@@ -32,7 +30,7 @@
  *	@version 0.1
  *	@date 07.01.2006
  *	@author Peter Grasch
-*/
+ */
 
 #include "ui_simonview.h"
 #include <KXmlGuiWindow>
@@ -71,92 +69,89 @@ class QComboBox;
 class KHTMLPart;
 class WelcomeHTMLPart;
 
+class SimonView : public KXmlGuiWindow, public ScenarioDisplay
+{
 
-class SimonView : public KXmlGuiWindow, public ScenarioDisplay    {
-	
-	Q_OBJECT
+  Q_OBJECT
 
+    private:
+  #ifdef DEBUG_TEST_SYNCHRONIZATION
+    QTimer t;
+    int wordI;
+  #endif
+    WelcomeHTMLPart *welcomePart;
+    QMutex guiUpdateMutex;
 
-private:
-#ifdef DEBUG_TEST_SYNCHRONIZATION
-		QTimer t;
-		int wordI;
-#endif
-	WelcomeHTMLPart *welcomePart;
-	QMutex guiUpdateMutex;
+    bool settingsShown;
+    int shownDialogs;
+    QPoint currentPos;
+    QPoint addWordDlgPos;
 
-	bool settingsShown;
-	int shownDialogs;
-	QPoint currentPos;
-	QPoint addWordDlgPos;
+    KAction *disconnectAction;
+    KAction *activateAction, *connectAction;
 
-	KAction *disconnectAction;
-	KAction *activateAction, *connectAction;
+    Ui::MainWindow ui;                            //!< Mainwindow UI definition - made by uic from the QTDesigner .ui
+    SimonControl *control;                        //!< Pointer to the main concept class
+    TrayIconManager *trayManager;                 //!< Handles the TrayIcon
+    VocabularyView *vocabularyView;
+    GrammarView *grammarView;                     //!< Pointer on the Dialog "WordList"
+    RunCommandView *runDialog;                    //!< Pointer on the Dialog "RunCommand"
+    TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
+    KCMultiDialog *configDialog;
 
-	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
-	SimonControl *control; //!< Pointer to the main concept class
-	TrayIconManager *trayManager; //!< Handles the TrayIcon
-	VocabularyView *vocabularyView;
-	GrammarView *grammarView; //!< Pointer on the Dialog "WordList"
-	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
-	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
-	KCMultiDialog *configDialog;
+    QComboBox *cbCurrentScenario;
 
-	QComboBox *cbCurrentScenario;
+    void setupSignalSlots();
+    void setupActions();
 
-	void setupSignalSlots();
-	void setupActions();
+  protected:
+    void displayAboutPage();
+    void displayScenarioPrivate(Scenario *scenario);
 
-protected:
-	void displayAboutPage();
-	void displayScenarioPrivate(Scenario *scenario);
+  private slots:
+    void manageScenarios();
+    void updateScenarioDisplays();
+    void updateActionList();
+    void displayScenarios();
 
-private slots:
-	void manageScenarios();
-	void updateScenarioDisplays();
-	void updateActionList();
-	void displayScenarios();
+  #ifdef DEBUG_TEST_SYNCHRONIZATION
+    void testSlot();
+  #endif
 
-#ifdef DEBUG_TEST_SYNCHRONIZATION
-	void testSlot();
-#endif
+  public slots:
+    void displayConnectionStatus(const QString &status);
 
-public slots:
-	void displayConnectionStatus(const QString &status);
+    void closeSimon();
 
-	void closeSimon();
-	
-	void toggleConnection();
-	void displayError(const QString& error);
-	
-	void toggleActivation();
-	void representState(SimonControl::SystemStatus status);
-	
+    void toggleConnection();
+    void displayError(const QString& error);
 
-	void showAddWordDialog();
-	void showRunDialog();
-	void showTrainDialog();
-	void showWordListDialog();
-	void showGrammarDialog();
-	void showSystemDialog();
+    void toggleActivation();
+    void representState(SimonControl::SystemStatus status);
 
-public:
-	explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
+    void showAddWordDialog();
+    void showRunDialog();
+    void showTrainDialog();
+    void showWordListDialog();
+    void showGrammarDialog();
+    void showSystemDialog();
 
-	~SimonView();
+  public:
+    explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
 
-	void closeEvent ( QCloseEvent * event );
+    ~SimonView();
+
+    void closeEvent ( QCloseEvent * event );
 
 };
 
 class WelcomeHTMLPart : public KHTMLPart
 {
-	public:
-		WelcomeHTMLPart(QWidget *parentWidget, QObject *parent);
-		bool urlSelected(const QString& url, int button, int state,
-				const QString& _target,	const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
-				const KParts::BrowserArguments&	browserArgs = KParts::BrowserArguments());
+  public:
+    WelcomeHTMLPart(QWidget *parentWidget, QObject *parent);
+    bool urlSelected(const QString& url, int button, int state,
+      const QString& _target, const KParts::OpenUrlArguments& args = KParts::OpenUrlArguments(),
+      const KParts::BrowserArguments& browserArgs = KParts::BrowserArguments());
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 #define SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 
@@ -26,22 +25,18 @@
 
 class FirstRunBaseModelConfig : public QWizardPage
 {
-	Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::BaseModelConfigDlg ui;
+    private:
+    Ui::BaseModelConfigDlg ui;
 
-private slots:
-	void configureBaseModel();
+  private slots:
+    void configureBaseModel();
 
-public:
-	explicit FirstRunBaseModelConfig(QWidget *parent = 0);
+  public:
+    explicit FirstRunBaseModelConfig(QWidget *parent = 0);
 
-	~FirstRunBaseModelConfig();
+    ~FirstRunBaseModelConfig();
 
 };
-
 #endif
-
-
-

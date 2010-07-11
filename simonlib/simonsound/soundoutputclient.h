@@ -17,24 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419BA1236280815A2AAD
 #define SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419BA1236280815A2AAD
-
 
 #include <QIODevice>
 #include "soundclient.h"
 #include "simonsound_export.h"
 
-class SIMONSOUND_EXPORT SoundOutputClient : public SoundClient {
-public:
-	SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration);
-	virtual ~SoundOutputClient();
+class SIMONSOUND_EXPORT SoundOutputClient : public SoundClient
+{
+  public:
+    SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration);
+    virtual ~SoundOutputClient();
 
-	virtual QIODevice* getDataProvider()=0;
-	virtual void finish()=0;
+    virtual QIODevice* getDataProvider()=0;
+    virtual void finish()=0;
 };
-
-
 #endif
-

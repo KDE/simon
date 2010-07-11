@@ -27,63 +27,67 @@
 #include <KAction>
 #include "pronunciationtrainingconfiguration.h"
 
-K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory, 
-			registerPlugin< PronunciationTrainingCommandManager >(); 
-		)
-        
+K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory,
+registerPlugin< PronunciationTrainingCommandManager >();
+)
+
 K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingcommand") )
 
-
-
 PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-	activateAction(new KAction(this))
+activateAction(new KAction(this))
 {
-	activateAction->setText(i18n("Activate Pronunciation Training"));
-	activateAction->setIcon(icon());
-	connect(activateAction, SIGNAL(triggered(bool)),
-		this, SLOT(activateTraining()));
-	guiActions << activateAction;
+  activateAction->setText(i18n("Activate Pronunciation Training"));
+  activateAction->setIcon(icon());
+  connect(activateAction, SIGNAL(triggered(bool)),
+    this, SLOT(activateTraining()));
+  guiActions << activateAction;
 }
+
 
 const QString PronunciationTrainingCommandManager::name() const
 {
 
-	return i18n("Pronunciation Training");
+  return i18n("Pronunciation Training");
 }
 
 
 void PronunciationTrainingCommandManager::activateTraining()
 {
-	PronunciationTraining *training = new PronunciationTraining(static_cast<PronunciationTrainingConfiguration*>(config)->terminal());
-	training->init();
-	training->show();
+  PronunciationTraining *training = new PronunciationTraining(static_cast<PronunciationTrainingConfiguration*>(config)->terminal());
+  training->init();
+  training->show();
 }
+
 
 const QString PronunciationTrainingCommandManager::preferredTrigger() const
 {
-	return i18n("Pronunciation Training");
+  return i18n("Pronunciation Training");
 }
+
 
 bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 {
-	if (!triggerName.isEmpty()) return false;
+  if (!triggerName.isEmpty()) return false;
 
-	Logger::log(i18n("[INF] Activating pronunciationtraining"));
-	activateTraining();
-	return true;
+  Logger::log(i18n("[INF] Activating pronunciationtraining"));
+  activateTraining();
+  return true;
 }
- 
+
+
 bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	config = new PronunciationTrainingConfiguration(parentScenario);
-	config->deSerialize(elem);
-	return true;
+  config = new PronunciationTrainingConfiguration(parentScenario);
+  config->deSerialize(elem);
+  return true;
 }
+
 
 const QString PronunciationTrainingCommandManager::iconSrc() const
 {
-	return ("applications-education");
+  return ("applications-education");
 }
+
 
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {

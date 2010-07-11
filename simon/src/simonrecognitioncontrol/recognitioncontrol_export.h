@@ -1,25 +1,24 @@
 #ifndef SIMON_RECOGNITIONCONTROL_EXPORT_H_C1550CB9C9C9437BB1201CF606DFB76C
 #define SIMON_RECOGNITIONCONTROL_EXPORT_H_C1550CB9C9C9437BB1201CF606DFB76C
- 
+
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
- 
+
 #ifndef RECOGNITIONCONTROL_EXPORT
 # if defined(MAKE_RECOGNITIONCONTROL_LIB)
-   // We are building this library
+// We are building this library
 #  define RECOGNITIONCONTROL_EXPORT KDE_EXPORT
 # else
-   // We are using this library
-	//#ifdef Q_OS_WIN
-	//#  define RECOGNITIONCONTROL_EXPORT
-	//#else
-	#  define RECOGNITIONCONTROL_EXPORT KDE_IMPORT
-	//#endif
+// We are using this library
+//#ifdef Q_OS_WIN
+//#  define RECOGNITIONCONTROL_EXPORT
+//#else
+#  define RECOGNITIONCONTROL_EXPORT KDE_IMPORT
+//#endif
 # endif
 #endif
- 
+
 # ifndef RECOGNITIONCONTROL_EXPORT_DEPRECATED
 #  define RECOGNITIONCONTROL_EXPORT_DEPRECATED KDE_DEPRECATED RECOGNITIONCONTROL_EXPORT
 # endif
- 
 #endif

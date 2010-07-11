@@ -31,23 +31,21 @@
  *  @date 17.03.2007
  *  @author Martin Gigerl, Peter Grasch
  */
- 
 
- 
-class SIMONXML_EXPORT XMLReader : public QObject {
- 	Q_OBJECT
-signals:
-	void loaded();
-	void closed();
-	void written();
+class SIMONXML_EXPORT XMLReader : public QObject
+{
+  Q_OBJECT
+    signals:
+  void loaded();
+  void closed();
+  void written();
 
-protected:
- 	QString path;
- 
-public:
-	explicit XMLReader(QString path, QObject *parent=0);
-	
-	~XMLReader();
+  protected:
+    QString path;
+
+  public:
+    explicit XMLReader(QString path, QObject *parent=0);
+
+    ~XMLReader();
 };
-
 #endif

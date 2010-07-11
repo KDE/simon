@@ -17,36 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_RENAMETERMINAL_H_953886639A0B4A90BE6F5E94B338072A
 #define SIMON_RENAMETERMINAL_H_953886639A0B4A90BE6F5E94B338072A
 
 #include <QThread>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class RenameTerminal : public QThread
 {
-Q_OBJECT
-signals:
-	void progress(int);
-	void done();
-private:
-	QString oldName, newName;
-	bool includeShadow, includeGrammar;
-public:
+  Q_OBJECT
+    signals:
+  void progress(int);
+  void done();
+  private:
+    QString oldName, newName;
+    bool includeShadow, includeGrammar;
+  public:
     RenameTerminal(QObject* parent);
-	void setOldName(QString old) { oldName = old; }
-	void setNewName(QString newName) { this->newName = newName; }
-	void setIncludeShadow (bool includeShadow) 
-	{ this->includeShadow = includeShadow; }
-	void setIncludeGrammar (bool includeGrammar) 
-	{ this->includeGrammar = includeGrammar; }
+    void setOldName(QString old) { oldName = old; }
+    void setNewName(QString newName) { this->newName = newName; }
+    void setIncludeShadow (bool includeShadow)
+      { this->includeShadow = includeShadow; }
+    void setIncludeGrammar (bool includeGrammar)
+      { this->includeGrammar = includeGrammar; }
     ~RenameTerminal();
 
     void run();
 
 };
-
 #endif

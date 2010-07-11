@@ -37,314 +37,318 @@
 #include <KPageWidget>
 #include <kgenericfactory.h>
 
+K_PLUGIN_FACTORY( CommandSettingsFactory,
+registerPlugin< CommandSettings >();
+)
 
-K_PLUGIN_FACTORY( CommandSettingsFactory, 
-			registerPlugin< CommandSettings >(); 
-		)
-        
 K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
 
-CommandSettings* CommandSettings::instance = NULL;
+CommandSettings* CommandSettings::instance = 0;
 /**
  * \brief Constructor
  *
  * Initializes the Systemwidget by giving name, icon and description
- * 
+ *
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
-	forceChangeFlag(false),
-	listConfiguration(new ListConfiguration(this))
+forceChangeFlag(false),
+listConfiguration(new ListConfiguration(this))
 {
-	if (instance) instance->deleteLater();
+  if (instance) instance->deleteLater();
 
-	instance = this;
+  instance = this;
 
-	Q_UNUSED(args)
+  Q_UNUSED(args)
 
-	ui.setupUi(this);
+    ui.setupUi(this);
 
-	KAboutData *about = new KAboutData(
-				"commandsettings", "", ki18n("Command Settings"),
-				"0.1", ki18n("Configuration about the Commands and the Selection of Plugins to use"), KAboutData::License_GPL);
-#if KDE_IS_VERSION(4,0,80)
-	about->setProgramIconName("fork");
-#endif
-	setAboutData( about );
+  KAboutData *about = new KAboutData(
+    "commandsettings", "", ki18n("Command Settings"),
+    "0.1", ki18n("Configuration about the Commands and the Selection of Plugins to use"), KAboutData::License_GPL);
+  #if KDE_IS_VERSION(4,0,80)
+  about->setProgramIconName("fork");
+  #endif
+  setAboutData( about );
 
+  config = KSharedConfig::openConfig(KGlobal::mainComponent(),
+    "simoncommandrc");
 
-	config = KSharedConfig::openConfig(KGlobal::mainComponent(),
-					"simoncommandrc");
+  QObject::connect(ui.cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
+  QObject::connect(ui.fcFont, SIGNAL(fontSelected(const QFont&)), this, SLOT(slotChanged()));
 
-	QObject::connect(ui.cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
-	QObject::connect(ui.fcFont, SIGNAL(fontSelected(const QFont&)), this, SLOT(slotChanged()));
+  connect(listConfiguration, SIGNAL(changed()), this, SLOT(slotChanged()));
 
-	connect(listConfiguration, SIGNAL(changed()), this, SLOT(slotChanged()));
+  ui.twActionConfig->addTab(listConfiguration, i18n("Lists"));
 
-	ui.twActionConfig->addTab(listConfiguration, i18n("Lists"));
-
-	load();
+  load();
 }
 
 
 void CommandSettings::save()
 {
-	KConfigGroup cg(config, "");
-	cg.writeEntry("MinimumConfidence", ui.sbMinimumConfidence->value());
-	cg.writeEntry("UseDYM", ui.cbUseDYM->isChecked());
-	if (storedFont != ui.fcFont->font()) {
-		storedFont = ui.fcFont->font();
-		cg.writeEntry("PluginBaseFont", storedFont);
-		ScenarioManager::getInstance()->setPluginFont(storedFont);
-	}
+  KConfigGroup cg(config, "");
+  cg.writeEntry("MinimumConfidence", ui.sbMinimumConfidence->value());
+  cg.writeEntry("UseDYM", ui.cbUseDYM->isChecked());
+  if (storedFont != ui.fcFont->font()) {
+    storedFont = ui.fcFont->font();
+    cg.writeEntry("PluginBaseFont", storedFont);
+    ScenarioManager::getInstance()->setPluginFont(storedFont);
+  }
 
-	listConfiguration->prepareToSave();
+  listConfiguration->prepareToSave();
 
-	cg.writeEntry("ListBackTriggers", listConfiguration->getListTriggers(CommandListElements::Back));
-	cg.writeEntry("ListOneTriggers", listConfiguration->getListTriggers(CommandListElements::One));
-	cg.writeEntry("ListTwoTriggers", listConfiguration->getListTriggers(CommandListElements::Two));
-	cg.writeEntry("ListThreeTriggers", listConfiguration->getListTriggers(CommandListElements::Three));
-	cg.writeEntry("ListFourTriggers", listConfiguration->getListTriggers(CommandListElements::Four));
-	cg.writeEntry("ListFiveTriggers", listConfiguration->getListTriggers(CommandListElements::Five));
-	cg.writeEntry("ListSixTriggers", listConfiguration->getListTriggers(CommandListElements::Six));
-	cg.writeEntry("ListSevenTriggers", listConfiguration->getListTriggers(CommandListElements::Seven));
-	cg.writeEntry("ListEightTriggers", listConfiguration->getListTriggers(CommandListElements::Eight));
-	cg.writeEntry("ListNextTriggers", listConfiguration->getListTriggers(CommandListElements::Next));
-	cg.writeEntry("ListCancelTriggers", listConfiguration->getListTriggers(CommandListElements::Cancel));
+  cg.writeEntry("ListBackTriggers", listConfiguration->getListTriggers(CommandListElements::Back));
+  cg.writeEntry("ListOneTriggers", listConfiguration->getListTriggers(CommandListElements::One));
+  cg.writeEntry("ListTwoTriggers", listConfiguration->getListTriggers(CommandListElements::Two));
+  cg.writeEntry("ListThreeTriggers", listConfiguration->getListTriggers(CommandListElements::Three));
+  cg.writeEntry("ListFourTriggers", listConfiguration->getListTriggers(CommandListElements::Four));
+  cg.writeEntry("ListFiveTriggers", listConfiguration->getListTriggers(CommandListElements::Five));
+  cg.writeEntry("ListSixTriggers", listConfiguration->getListTriggers(CommandListElements::Six));
+  cg.writeEntry("ListSevenTriggers", listConfiguration->getListTriggers(CommandListElements::Seven));
+  cg.writeEntry("ListEightTriggers", listConfiguration->getListTriggers(CommandListElements::Eight));
+  cg.writeEntry("ListNextTriggers", listConfiguration->getListTriggers(CommandListElements::Next));
+  cg.writeEntry("ListCancelTriggers", listConfiguration->getListTriggers(CommandListElements::Cancel));
 
-	cg.writeEntry("ListShowBackIcon", listConfiguration->getListShowIcon(CommandListElements::Back));
-	cg.writeEntry("ListShowOneIcon", listConfiguration->getListShowIcon(CommandListElements::One));
-	cg.writeEntry("ListShowTwoIcon", listConfiguration->getListShowIcon(CommandListElements::Two));
-	cg.writeEntry("ListShowThreeIcon", listConfiguration->getListShowIcon(CommandListElements::Three));
-	cg.writeEntry("ListShowFourIcon", listConfiguration->getListShowIcon(CommandListElements::Four));
-	cg.writeEntry("ListShowFiveIcon", listConfiguration->getListShowIcon(CommandListElements::Five));
-	cg.writeEntry("ListShowSixIcon", listConfiguration->getListShowIcon(CommandListElements::Six));
-	cg.writeEntry("ListShowSevenIcon", listConfiguration->getListShowIcon(CommandListElements::Seven));
-	cg.writeEntry("ListShowEightIcon", listConfiguration->getListShowIcon(CommandListElements::Eight));
-	cg.writeEntry("ListShowNextIcon", listConfiguration->getListShowIcon(CommandListElements::Next));
-	cg.writeEntry("ListShowCancelIcon", listConfiguration->getListShowIcon(CommandListElements::Cancel));
+  cg.writeEntry("ListShowBackIcon", listConfiguration->getListShowIcon(CommandListElements::Back));
+  cg.writeEntry("ListShowOneIcon", listConfiguration->getListShowIcon(CommandListElements::One));
+  cg.writeEntry("ListShowTwoIcon", listConfiguration->getListShowIcon(CommandListElements::Two));
+  cg.writeEntry("ListShowThreeIcon", listConfiguration->getListShowIcon(CommandListElements::Three));
+  cg.writeEntry("ListShowFourIcon", listConfiguration->getListShowIcon(CommandListElements::Four));
+  cg.writeEntry("ListShowFiveIcon", listConfiguration->getListShowIcon(CommandListElements::Five));
+  cg.writeEntry("ListShowSixIcon", listConfiguration->getListShowIcon(CommandListElements::Six));
+  cg.writeEntry("ListShowSevenIcon", listConfiguration->getListShowIcon(CommandListElements::Seven));
+  cg.writeEntry("ListShowEightIcon", listConfiguration->getListShowIcon(CommandListElements::Eight));
+  cg.writeEntry("ListShowNextIcon", listConfiguration->getListShowIcon(CommandListElements::Next));
+  cg.writeEntry("ListShowCancelIcon", listConfiguration->getListShowIcon(CommandListElements::Cancel));
 
-	cg.writeEntry("ListBackIcon", listConfiguration->getListIcon(CommandListElements::Back));
-	cg.writeEntry("ListIconOne", listConfiguration->getListIcon(CommandListElements::One));
-	cg.writeEntry("ListIconTwo", listConfiguration->getListIcon(CommandListElements::Two));
-	cg.writeEntry("ListIconThree", listConfiguration->getListIcon(CommandListElements::Three));
-	cg.writeEntry("ListIconFour", listConfiguration->getListIcon(CommandListElements::Four));
-	cg.writeEntry("ListIconFive", listConfiguration->getListIcon(CommandListElements::Five));
-	cg.writeEntry("ListIconSix", listConfiguration->getListIcon(CommandListElements::Six));
-	cg.writeEntry("ListIconSeven", listConfiguration->getListIcon(CommandListElements::Seven));
-	cg.writeEntry("ListIconEight", listConfiguration->getListIcon(CommandListElements::Eight));
-	cg.writeEntry("ListIconNext", listConfiguration->getListIcon(CommandListElements::Next));
-	cg.writeEntry("ListCancelIcon", listConfiguration->getListIcon(CommandListElements::Cancel));
+  cg.writeEntry("ListBackIcon", listConfiguration->getListIcon(CommandListElements::Back));
+  cg.writeEntry("ListIconOne", listConfiguration->getListIcon(CommandListElements::One));
+  cg.writeEntry("ListIconTwo", listConfiguration->getListIcon(CommandListElements::Two));
+  cg.writeEntry("ListIconThree", listConfiguration->getListIcon(CommandListElements::Three));
+  cg.writeEntry("ListIconFour", listConfiguration->getListIcon(CommandListElements::Four));
+  cg.writeEntry("ListIconFive", listConfiguration->getListIcon(CommandListElements::Five));
+  cg.writeEntry("ListIconSix", listConfiguration->getListIcon(CommandListElements::Six));
+  cg.writeEntry("ListIconSeven", listConfiguration->getListIcon(CommandListElements::Seven));
+  cg.writeEntry("ListIconEight", listConfiguration->getListIcon(CommandListElements::Eight));
+  cg.writeEntry("ListIconNext", listConfiguration->getListIcon(CommandListElements::Next));
+  cg.writeEntry("ListCancelIcon", listConfiguration->getListIcon(CommandListElements::Cancel));
 
-	cg.writeEntry("ListBackVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Back));
-	cg.writeEntry("ListOneVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::One));
-	cg.writeEntry("ListTwoVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Two));
-	cg.writeEntry("ListThreeVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Three));
-	cg.writeEntry("ListFourVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Four));
-	cg.writeEntry("ListFiveVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Five));
-	cg.writeEntry("ListSixVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Six));
-	cg.writeEntry("ListSevenVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Seven));
-	cg.writeEntry("ListEightVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Eight));
-	cg.writeEntry("ListNextVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Next));
-	cg.writeEntry("ListCancelVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Cancel));
+  cg.writeEntry("ListBackVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Back));
+  cg.writeEntry("ListOneVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::One));
+  cg.writeEntry("ListTwoVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Two));
+  cg.writeEntry("ListThreeVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Three));
+  cg.writeEntry("ListFourVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Four));
+  cg.writeEntry("ListFiveVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Five));
+  cg.writeEntry("ListSixVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Six));
+  cg.writeEntry("ListSevenVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Seven));
+  cg.writeEntry("ListEightVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Eight));
+  cg.writeEntry("ListNextVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Next));
+  cg.writeEntry("ListCancelVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Cancel));
 
-	cg.sync();
-	KCModule::save();
-	emit changed(false);
-//	emit recognitionResultsFilterParametersChanged();
-//
-	ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
-//	ActionManager::getInstance()->setListInterfaceCommands(listInterfaceCommands);
+  cg.sync();
+  KCModule::save();
+  emit changed(false);
+  //	emit recognitionResultsFilterParametersChanged();
+  //
+  ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
+  //	ActionManager::getInstance()->setListInterfaceCommands(listInterfaceCommands);
 }
+
 
 void CommandSettings::load()
 {
-	Q_ASSERT(config);
+  Q_ASSERT(config);
 
-	KConfigGroup cg(config, "");
+  KConfigGroup cg(config, "");
 
-	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.45f);
-	ui.sbMinimumConfidence->setValue(minimumConfidence);
+  float minimumConfidence = cg.readEntry("MinimumConfidence", 0.45f);
+  ui.sbMinimumConfidence->setValue(minimumConfidence);
 
-	ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", false));
-	storedFont = cg.readEntry("PluginBaseFont", QFont());
-	ui.fcFont->setFont(storedFont);
+  ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", false));
+  storedFont = cg.readEntry("PluginBaseFont", QFont());
+  ui.fcFont->setFont(storedFont);
 
-	QStringList backTriggers, oneTriggers, twoTriggers, threeTriggers, fourTriggers,
-		    fiveTriggers, sixTriggers, sevenTriggers, eightTriggers, nextTriggers,
-		    cancelTriggers;
-	
-	backTriggers = cg.readEntry("ListBackTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Back));
-	oneTriggers = cg.readEntry("ListOneTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::One));
-	twoTriggers = cg.readEntry("ListTwoTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Two));
-	threeTriggers = cg.readEntry("ListThreeTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Three));
-	fourTriggers = cg.readEntry("ListFourTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Four));
-	fiveTriggers = cg.readEntry("ListFiveTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Five));
-	sixTriggers = cg.readEntry("ListSixTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Six));
-	sevenTriggers = cg.readEntry("ListSevenTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Seven));
-	eightTriggers = cg.readEntry("ListEightTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Eight));
-	nextTriggers = cg.readEntry("ListNextTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Next));
-	cancelTriggers = cg.readEntry("ListCancelTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Cancel));
+  QStringList backTriggers, oneTriggers, twoTriggers, threeTriggers, fourTriggers,
+    fiveTriggers, sixTriggers, sevenTriggers, eightTriggers, nextTriggers,
+    cancelTriggers;
 
-	bool showBackIcon, showOneIcon, showTwoIcon, showThreeIcon, showFourIcon,
-	     showFiveIcon, showSixIcon, showSevenIcon, showEightIcon, 
-	     showNextIcon, showCancelIcon;
+  backTriggers = cg.readEntry("ListBackTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Back));
+  oneTriggers = cg.readEntry("ListOneTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::One));
+  twoTriggers = cg.readEntry("ListTwoTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Two));
+  threeTriggers = cg.readEntry("ListThreeTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Three));
+  fourTriggers = cg.readEntry("ListFourTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Four));
+  fiveTriggers = cg.readEntry("ListFiveTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Five));
+  sixTriggers = cg.readEntry("ListSixTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Six));
+  sevenTriggers = cg.readEntry("ListSevenTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Seven));
+  eightTriggers = cg.readEntry("ListEightTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Eight));
+  nextTriggers = cg.readEntry("ListNextTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Next));
+  cancelTriggers = cg.readEntry("ListCancelTriggers", QStringList() << listConfiguration->getListDefaultTrigger(CommandListElements::Cancel));
 
-	showBackIcon = cg.readEntry("ListShowBackIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Back));
-	showOneIcon = cg.readEntry("ListShowOneIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::One));
-	showTwoIcon = cg.readEntry("ListShowTwoIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Two));
-	showThreeIcon = cg.readEntry("ListShowThreeIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Three));
-	showFourIcon = cg.readEntry("ListShowFourIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Four));
-	showFiveIcon = cg.readEntry("ListShowFiveIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Five));
-	showSixIcon = cg.readEntry("ListShowSixIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Six));
-	showSevenIcon = cg.readEntry("ListShowSevenIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Seven));
-	showEightIcon = cg.readEntry("ListShowEightIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Eight));
-	showNextIcon = cg.readEntry("ListShowNextIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Next));
-	showCancelIcon = cg.readEntry("ListShowCancelIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Cancel));
+  bool showBackIcon, showOneIcon, showTwoIcon, showThreeIcon, showFourIcon,
+    showFiveIcon, showSixIcon, showSevenIcon, showEightIcon,
+    showNextIcon, showCancelIcon;
 
+  showBackIcon = cg.readEntry("ListShowBackIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Back));
+  showOneIcon = cg.readEntry("ListShowOneIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::One));
+  showTwoIcon = cg.readEntry("ListShowTwoIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Two));
+  showThreeIcon = cg.readEntry("ListShowThreeIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Three));
+  showFourIcon = cg.readEntry("ListShowFourIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Four));
+  showFiveIcon = cg.readEntry("ListShowFiveIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Five));
+  showSixIcon = cg.readEntry("ListShowSixIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Six));
+  showSevenIcon = cg.readEntry("ListShowSevenIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Seven));
+  showEightIcon = cg.readEntry("ListShowEightIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Eight));
+  showNextIcon = cg.readEntry("ListShowNextIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Next));
+  showCancelIcon = cg.readEntry("ListShowCancelIcon", listConfiguration->getListDefaultShowIcon(CommandListElements::Cancel));
 
-	QString backIcon, oneIcon, twoIcon, threeIcon, fourIcon, fiveIcon, sixIcon, 
-		sevenIcon, eightIcon, nextIcon, cancelIcon;
-	backIcon = cg.readEntry("ListIconBack", listConfiguration->getListDefaultIcon(CommandListElements::Back));
-	oneIcon = cg.readEntry("ListIconOne", listConfiguration->getListDefaultIcon(CommandListElements::One));
-	twoIcon = cg.readEntry("ListIconTwo", listConfiguration->getListDefaultIcon(CommandListElements::Two));
-	threeIcon = cg.readEntry("ListIconThree", listConfiguration->getListDefaultIcon(CommandListElements::Three));
-	fourIcon = cg.readEntry("ListIconFour", listConfiguration->getListDefaultIcon(CommandListElements::Four));
-	fiveIcon = cg.readEntry("ListIconFive", listConfiguration->getListDefaultIcon(CommandListElements::Five));
-	sixIcon = cg.readEntry("ListIconSix", listConfiguration->getListDefaultIcon(CommandListElements::Six));
-	sevenIcon = cg.readEntry("ListIconSeven", listConfiguration->getListDefaultIcon(CommandListElements::Seven));
-	eightIcon = cg.readEntry("ListIconEight", listConfiguration->getListDefaultIcon(CommandListElements::Eight));
-	nextIcon = cg.readEntry("ListIconNext", listConfiguration->getListDefaultIcon(CommandListElements::Next));
-	cancelIcon = cg.readEntry("ListIconCancel", listConfiguration->getListDefaultIcon(CommandListElements::Cancel));
+  QString backIcon, oneIcon, twoIcon, threeIcon, fourIcon, fiveIcon, sixIcon,
+    sevenIcon, eightIcon, nextIcon, cancelIcon;
+  backIcon = cg.readEntry("ListIconBack", listConfiguration->getListDefaultIcon(CommandListElements::Back));
+  oneIcon = cg.readEntry("ListIconOne", listConfiguration->getListDefaultIcon(CommandListElements::One));
+  twoIcon = cg.readEntry("ListIconTwo", listConfiguration->getListDefaultIcon(CommandListElements::Two));
+  threeIcon = cg.readEntry("ListIconThree", listConfiguration->getListDefaultIcon(CommandListElements::Three));
+  fourIcon = cg.readEntry("ListIconFour", listConfiguration->getListDefaultIcon(CommandListElements::Four));
+  fiveIcon = cg.readEntry("ListIconFive", listConfiguration->getListDefaultIcon(CommandListElements::Five));
+  sixIcon = cg.readEntry("ListIconSix", listConfiguration->getListDefaultIcon(CommandListElements::Six));
+  sevenIcon = cg.readEntry("ListIconSeven", listConfiguration->getListDefaultIcon(CommandListElements::Seven));
+  eightIcon = cg.readEntry("ListIconEight", listConfiguration->getListDefaultIcon(CommandListElements::Eight));
+  nextIcon = cg.readEntry("ListIconNext", listConfiguration->getListDefaultIcon(CommandListElements::Next));
+  cancelIcon = cg.readEntry("ListIconCancel", listConfiguration->getListDefaultIcon(CommandListElements::Cancel));
 
-	QString backVisibleTrigger, oneVisibleTrigger, twoVisibleTrigger, threeVisibleTrigger,
-		fourVisibleTrigger, fiveVisibleTrigger, sixVisibleTrigger, sevenVisibleTrigger,
-		eightVisibleTrigger, nextVisibleTrigger, cancelVisibleTrigger;
-	backVisibleTrigger = cg.readEntry("ListBackVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Back));
-	oneVisibleTrigger = cg.readEntry("ListOneVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::One));
-	twoVisibleTrigger = cg.readEntry("ListTwoVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Two));
-	threeVisibleTrigger = cg.readEntry("ListThreeVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Three));
-	fourVisibleTrigger = cg.readEntry("ListFourVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Four));
-	fiveVisibleTrigger = cg.readEntry("ListFiveVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Five));
-	sixVisibleTrigger = cg.readEntry("ListSixVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Six));
-	sevenVisibleTrigger = cg.readEntry("ListSevenVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Seven));
-	eightVisibleTrigger = cg.readEntry("ListEightVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Eight));
-	nextVisibleTrigger = cg.readEntry("ListNextVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Next));
-	cancelVisibleTrigger = cg.readEntry("ListCancelVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Cancel));
+  QString backVisibleTrigger, oneVisibleTrigger, twoVisibleTrigger, threeVisibleTrigger,
+    fourVisibleTrigger, fiveVisibleTrigger, sixVisibleTrigger, sevenVisibleTrigger,
+    eightVisibleTrigger, nextVisibleTrigger, cancelVisibleTrigger;
+  backVisibleTrigger = cg.readEntry("ListBackVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Back));
+  oneVisibleTrigger = cg.readEntry("ListOneVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::One));
+  twoVisibleTrigger = cg.readEntry("ListTwoVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Two));
+  threeVisibleTrigger = cg.readEntry("ListThreeVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Three));
+  fourVisibleTrigger = cg.readEntry("ListFourVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Four));
+  fiveVisibleTrigger = cg.readEntry("ListFiveVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Five));
+  sixVisibleTrigger = cg.readEntry("ListSixVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Six));
+  sevenVisibleTrigger = cg.readEntry("ListSevenVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Seven));
+  eightVisibleTrigger = cg.readEntry("ListEightVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Eight));
+  nextVisibleTrigger = cg.readEntry("ListNextVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Next));
+  cancelVisibleTrigger = cg.readEntry("ListCancelVisibleTrigger", listConfiguration->getListDefaultVisibleTrigger(CommandListElements::Cancel));
 
-	cg.sync();
+  cg.sync();
 
-	listConfiguration->prepareToLoad();
+  listConfiguration->prepareToLoad();
 
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Back, backTriggers, backVisibleTrigger, showBackIcon, backIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::One, oneTriggers, oneVisibleTrigger, showOneIcon, oneIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Two, twoTriggers, twoVisibleTrigger, showTwoIcon, twoIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Three, threeTriggers, threeVisibleTrigger, showThreeIcon, threeIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Four, fourTriggers, fourVisibleTrigger, showFourIcon, fourIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Five, fiveTriggers, fiveVisibleTrigger, showFiveIcon, fiveIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Six, sixTriggers, sixVisibleTrigger, showSixIcon, sixIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Seven, sevenTriggers, sevenVisibleTrigger, showSevenIcon, sevenIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Eight, eightTriggers, eightVisibleTrigger, showEightIcon, eightIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Next, nextTriggers, nextVisibleTrigger, showNextIcon, nextIcon);
-	listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Cancel, cancelTriggers, cancelVisibleTrigger, showCancelIcon, cancelIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Back, backTriggers, backVisibleTrigger, showBackIcon, backIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::One, oneTriggers, oneVisibleTrigger, showOneIcon, oneIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Two, twoTriggers, twoVisibleTrigger, showTwoIcon, twoIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Three, threeTriggers, threeVisibleTrigger, showThreeIcon, threeIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Four, fourTriggers, fourVisibleTrigger, showFourIcon, fourIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Five, fiveTriggers, fiveVisibleTrigger, showFiveIcon, fiveIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Six, sixTriggers, sixVisibleTrigger, showSixIcon, sixIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Seven, sevenTriggers, sevenVisibleTrigger, showSevenIcon, sevenIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Eight, eightTriggers, eightVisibleTrigger, showEightIcon, eightIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Next, nextTriggers, nextVisibleTrigger, showNextIcon, nextIcon);
+  listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Cancel, cancelTriggers, cancelVisibleTrigger, showCancelIcon, cancelIcon);
 
-	listConfiguration->loadFinished();
+  listConfiguration->loadFinished();
 
-	emit changed(false);
-	KCModule::load();
+  emit changed(false);
+  KCModule::load();
 }
+
 
 float CommandSettings::minimumConfidence()
 {
-	return ui.sbMinimumConfidence->value();
+  return ui.sbMinimumConfidence->value();
 }
+
 
 bool CommandSettings::useDYM()
 {
-	return ui.cbUseDYM->isChecked();
+  return ui.cbUseDYM->isChecked();
 }
+
 
 QFont CommandSettings::pluginBaseFont()
 {
-	return storedFont;
+  return storedFont;
 }
+
 
 void CommandSettings::defaults()
 {
-	KCModule::defaults();
+  KCModule::defaults();
 
-	KConfigGroup cg(config, "");
-	cg.writeEntry("MinimumConfidence", 0.45f);
-	cg.writeEntry("UseDYM", false);
-	cg.writeEntry("PluginBaseFont", QFont());
-	ScenarioManager::getInstance()->setPluginFont(QFont());
+  KConfigGroup cg(config, "");
+  cg.writeEntry("MinimumConfidence", 0.45f);
+  cg.writeEntry("UseDYM", false);
+  cg.writeEntry("PluginBaseFont", QFont());
+  ScenarioManager::getInstance()->setPluginFont(QFont());
 
-	cg.deleteEntry("ListBackTriggers");
-	cg.deleteEntry("ListOneTriggers");
-	cg.deleteEntry("ListTwoTriggers");
-	cg.deleteEntry("ListThreeTriggers");
-	cg.deleteEntry("ListFourTriggers");
-	cg.deleteEntry("ListFiveTriggers");
-	cg.deleteEntry("ListSixTriggers");
-	cg.deleteEntry("ListSevenTriggers");
-	cg.deleteEntry("ListEightTriggers");
-	cg.deleteEntry("ListNextTriggers");
-	cg.deleteEntry("ListCancelTriggers");
+  cg.deleteEntry("ListBackTriggers");
+  cg.deleteEntry("ListOneTriggers");
+  cg.deleteEntry("ListTwoTriggers");
+  cg.deleteEntry("ListThreeTriggers");
+  cg.deleteEntry("ListFourTriggers");
+  cg.deleteEntry("ListFiveTriggers");
+  cg.deleteEntry("ListSixTriggers");
+  cg.deleteEntry("ListSevenTriggers");
+  cg.deleteEntry("ListEightTriggers");
+  cg.deleteEntry("ListNextTriggers");
+  cg.deleteEntry("ListCancelTriggers");
 
-	cg.deleteEntry("ListShowBackIcon");
-	cg.deleteEntry("ListShowOneIcon");
-	cg.deleteEntry("ListShowTwoIcon");
-	cg.deleteEntry("ListShowThreeIcon");
-	cg.deleteEntry("ListShowFourIcon");
-	cg.deleteEntry("ListShowFiveIcon");
-	cg.deleteEntry("ListShowSixIcon");
-	cg.deleteEntry("ListShowSevenIcon");
-	cg.deleteEntry("ListShowEightIcon");
-	cg.deleteEntry("ListShowNextIcon");
-	cg.deleteEntry("ListShowCancelIcon");
+  cg.deleteEntry("ListShowBackIcon");
+  cg.deleteEntry("ListShowOneIcon");
+  cg.deleteEntry("ListShowTwoIcon");
+  cg.deleteEntry("ListShowThreeIcon");
+  cg.deleteEntry("ListShowFourIcon");
+  cg.deleteEntry("ListShowFiveIcon");
+  cg.deleteEntry("ListShowSixIcon");
+  cg.deleteEntry("ListShowSevenIcon");
+  cg.deleteEntry("ListShowEightIcon");
+  cg.deleteEntry("ListShowNextIcon");
+  cg.deleteEntry("ListShowCancelIcon");
 
-	cg.deleteEntry("ListBackIcon");
-	cg.deleteEntry("ListIconOne");
-	cg.deleteEntry("ListIconTwo");
-	cg.deleteEntry("ListIconThree");
-	cg.deleteEntry("ListIconFour");
-	cg.deleteEntry("ListIconFive");
-	cg.deleteEntry("ListIconSix");
-	cg.deleteEntry("ListIconSeven");
-	cg.deleteEntry("ListIconEight");
-	cg.deleteEntry("ListIconNext");
-	cg.deleteEntry("ListCancelIcon");
+  cg.deleteEntry("ListBackIcon");
+  cg.deleteEntry("ListIconOne");
+  cg.deleteEntry("ListIconTwo");
+  cg.deleteEntry("ListIconThree");
+  cg.deleteEntry("ListIconFour");
+  cg.deleteEntry("ListIconFive");
+  cg.deleteEntry("ListIconSix");
+  cg.deleteEntry("ListIconSeven");
+  cg.deleteEntry("ListIconEight");
+  cg.deleteEntry("ListIconNext");
+  cg.deleteEntry("ListCancelIcon");
 
-	cg.deleteEntry("ListBackVisibleTrigger");
-	cg.deleteEntry("ListOneVisibleTrigger");
-	cg.deleteEntry("ListTwoVisibleTrigger");
-	cg.deleteEntry("ListThreeVisibleTrigger");
-	cg.deleteEntry("ListFourVisibleTrigger");
-	cg.deleteEntry("ListFiveVisibleTrigger");
-	cg.deleteEntry("ListSixVisibleTrigger");
-	cg.deleteEntry("ListSevenVisibleTrigger");
-	cg.deleteEntry("ListEightVisibleTrigger");
-	cg.deleteEntry("ListNextVisibleTrigger");
-	cg.deleteEntry("ListCancelVisibleTrigger");
+  cg.deleteEntry("ListBackVisibleTrigger");
+  cg.deleteEntry("ListOneVisibleTrigger");
+  cg.deleteEntry("ListTwoVisibleTrigger");
+  cg.deleteEntry("ListThreeVisibleTrigger");
+  cg.deleteEntry("ListFourVisibleTrigger");
+  cg.deleteEntry("ListFiveVisibleTrigger");
+  cg.deleteEntry("ListSixVisibleTrigger");
+  cg.deleteEntry("ListSevenVisibleTrigger");
+  cg.deleteEntry("ListEightVisibleTrigger");
+  cg.deleteEntry("ListNextVisibleTrigger");
+  cg.deleteEntry("ListCancelVisibleTrigger");
 
-	cg.sync();
-	load();
-	forceChangeFlag = true;
-	save();
+  cg.sync();
+  load();
+  forceChangeFlag = true;
+  save();
 }
 
 
 void CommandSettings::slotChanged()
 {
-	emit changed(true);
+  emit changed(true);
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> CommandSettings::getListInterfaceCommands()
 {
-	return listConfiguration->getListInterfaceCommands();
+  return listConfiguration->getListInterfaceCommands();
 }
+
 
 /**
  * \brief Destructor
@@ -352,7 +356,5 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> CommandSettings::get
  */
 CommandSettings::~CommandSettings()
 {
-	instance = NULL;
+  instance = 0;
 }
-
-

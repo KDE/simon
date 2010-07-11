@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAININGVIEW_H_5E15EE6E6EEE4D1BA26A9AD8900F7E60
 #define SIMON_TRAININGVIEW_H_5E15EE6E6EEE4D1BA26A9AD8900F7E60
 #include <simonuicomponents/inlinewidget.h>
@@ -28,19 +27,18 @@
 class TrainingViewPrivate;
 class Scenario;
 
-class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget, public ScenarioDisplay  {
-	Q_OBJECT
+class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget, public ScenarioDisplay
+{
+  Q_OBJECT
 
-	private:
-		TrainingViewPrivate *d;
+    private:
+    TrainingViewPrivate *d;
 
-	protected:
-		void displayScenarioPrivate(Scenario *scenario);
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
-	public:
-		TrainingView(QWidget *parent);
-		~TrainingView();
+  public:
+    TrainingView(QWidget *parent);
+    ~TrainingView();
 };
-
-
 #endif

@@ -20,7 +20,6 @@
 #ifndef SIMON_ADDACTIONDIALOG_H_C44C2BD2497A4FE982149C3550DF0662
 #define SIMON_ADDACTIONDIALOG_H_C44C2BD2497A4FE982149C3550DF0662
 
-
 #include <KDialog>
 #include "ui_addactiondlg.h"
 
@@ -28,27 +27,23 @@ class Action;
 class ActionModel;
 class QSortFilterProxyModel;
 
-class AddActionDialog : public KDialog {
+class AddActionDialog : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::DlgAddAction ui;
-	QSortFilterProxyModel *proxyModel;
-	ActionModel *actionModel;
- 
-private slots:
-	void watchButtonOk();
+    private:
+    Ui::DlgAddAction ui;
+    QSortFilterProxyModel *proxyModel;
+    ActionModel *actionModel;
 
-public:
-	Action* getAction();
-	int exec();
-	AddActionDialog(QWidget *parent=0);
-	~AddActionDialog();
+  private slots:
+    void watchButtonOk();
+
+  public:
+    Action* getAction();
+    int exec();
+    AddActionDialog(QWidget *parent=0);
+    ~AddActionDialog();
 };
-
-
-
 #endif
-
-

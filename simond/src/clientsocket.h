@@ -29,7 +29,6 @@
 #include <QMutex>
 #include <QString>
 
-
 const qint8 protocolVersion=4;
 
 class DatabaseAccess;
@@ -42,95 +41,93 @@ class WAV;
 
 class ClientSocket : public QSslSocket
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		bool m_keepSamples;
+    private:
+    bool m_keepSamples;
 
-		bool synchronisationRunning;
-		
-		QString username;
-		QMutex messageLocker;
-		
-		DatabaseAccess *databaseAccess;
-		RecognitionControl *recognitionControl;
-		SynchronisationManager *synchronisationManager;
-		ModelCompilationManager *modelCompilationManager;
-		ModelCompilationAdapter *modelCompilationAdapter;
+    bool synchronisationRunning;
 
-		uint newLexiconHash;
-		uint newGrammarHash;
-		uint newVocaHash;
+    QString username;
+    QMutex messageLocker;
 
-		QHash<qint8, WAV *> currentSamples;
-		
-		bool shouldRecompileModel();
-		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-		void writeHashesToConfig();
+    DatabaseAccess *databaseAccess;
+    RecognitionControl *recognitionControl;
+    SynchronisationManager *synchronisationManager;
+    ModelCompilationManager *modelCompilationManager;
+    ModelCompilationAdapter *modelCompilationAdapter;
 
-	public slots:
-		void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
+    uint newLexiconHash;
+    uint newGrammarHash;
+    uint newVocaHash;
 
+    QHash<qint8, WAV *> currentSamples;
 
-	private slots:
-		void startSynchronisation();
+    bool shouldRecompileModel();
+    void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    void writeHashesToConfig();
 
-		void sendCode(Simond::Request code);
-		void processRequest();
-		void slotSocketError();
+  public slots:
+    void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
-		bool sendModel(Simond::Request request, const QDateTime& changedTime, Model *m);
-		bool sendActiveModel();
-		bool sendBaseModel();
+  private slots:
+    void startSynchronisation();
 
-		void recognitionReady();
-		void recognitionError(const QString& error, const QByteArray& log);
-		void recognitionWarning(const QString& warning);
-		void recognitionStarted();
-		void recognitionStopped();
+    void sendCode(Simond::Request code);
+    void processRequest();
+    void slotSocketError();
 
-		bool sendLanguageDescription();
-		bool sendTraining();
+    bool sendModel(Simond::Request request, const QDateTime& changedTime, Model *m);
+    bool sendActiveModel();
+    bool sendBaseModel();
 
-		void sendAvailableModels();
-		
-		void startModelCompilation();
-		void recompileModel();
-		
-		void sendModelCompilationLog();
-		void slotModelCompilationStatus(QString status, int progressNow, int progressMax);
-		void slotModelCompilationError(QString error);
-		void slotModelCompilationWordUndefined(const QString& word);
-		void slotModelCompilationPhonemeUndefined(const QString& phoneme);
-		void slotModelCompilationClassUndefined(const QString& undefClass);
+    void recognitionReady();
+    void recognitionError(const QString& error, const QByteArray& log);
+    void recognitionWarning(const QString& warning);
+    void recognitionStarted();
+    void recognitionStopped();
 
-		void slotModelAdaptionComplete();
-		void slotModelAdaptionAborted();
-		void slotModelAdaptionStatus(QString status, int progressNow);
-		void slotModelAdaptionError(QString error);
+    bool sendLanguageDescription();
+    bool sendTraining();
 
-		void synchronisationComplete();
-		void synchronisationDone();
+    void sendAvailableModels();
 
-		void sendScenarioList();
-		void fetchScenario();
-		void requestScenario(const QString& scenarioId);
-		void sendScenario(const QString& scenarioId);
-		void sendSelectedScenarioList();
-		void synchronizeAlreadyAvailableScenarios();
-		
-		void synchronizeSamples();
-		void fetchTrainingSample();
-		void sendSample(QString sampleName);
-		
-		void activeModelCompiled();
-		void activeModelCompilationAborted();
+    void startModelCompilation();
+    void recompileModel();
 
-	public:
-		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
-			       
-		virtual ~ClientSocket();
-		
+    void sendModelCompilationLog();
+    void slotModelCompilationStatus(QString status, int progressNow, int progressMax);
+    void slotModelCompilationError(QString error);
+    void slotModelCompilationWordUndefined(const QString& word);
+    void slotModelCompilationPhonemeUndefined(const QString& phoneme);
+    void slotModelCompilationClassUndefined(const QString& undefClass);
+
+    void slotModelAdaptionComplete();
+    void slotModelAdaptionAborted();
+    void slotModelAdaptionStatus(QString status, int progressNow);
+    void slotModelAdaptionError(QString error);
+
+    void synchronisationComplete();
+    void synchronisationDone();
+
+    void sendScenarioList();
+    void fetchScenario();
+    void requestScenario(const QString& scenarioId);
+    void sendScenario(const QString& scenarioId);
+    void sendSelectedScenarioList();
+    void synchronizeAlreadyAvailableScenarios();
+
+    void synchronizeSamples();
+    void fetchTrainingSample();
+    void sendSample(QString sampleName);
+
+    void activeModelCompiled();
+    void activeModelCompilationAborted();
+
+  public:
+    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
+
+    virtual ~ClientSocket();
+
 };
-
 #endif

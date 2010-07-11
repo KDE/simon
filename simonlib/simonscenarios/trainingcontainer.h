@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAININGCONTAINER_H_A1DE97D32A7149D4810017795E704C7C
 #define SIMON_TRAININGCONTAINER_H_A1DE97D32A7149D4810017795E704C7C
 
@@ -28,21 +27,20 @@
 
 class MODELMANAGEMENT_EXPORT TrainingContainer
 {
-	private:
-		qint32 m_sampleRate;
-		QByteArray m_wavConfig;
-		QByteArray m_prompts;
+  private:
+    qint32 m_sampleRate;
+    QByteArray m_wavConfig;
+    QByteArray m_prompts;
 
-	public:
-		TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
-				const QByteArray& prompts);
-			       
-		~TrainingContainer();
-		
-		int sampleRate() { return m_sampleRate; }
-		QByteArray wavConfig() { return m_wavConfig; }
-		QByteArray prompts() { return m_prompts; }
-		
+  public:
+    TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
+      const QByteArray& prompts);
+
+    ~TrainingContainer();
+
+    int sampleRate() { return m_sampleRate; }
+    QByteArray wavConfig() { return m_wavConfig; }
+    QByteArray prompts() { return m_prompts; }
+
 };
-
 #endif

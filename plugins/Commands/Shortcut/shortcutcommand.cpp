@@ -27,57 +27,64 @@
 
 const QString ShortcutCommand::staticCategoryText()
 {
-	return i18n("Shortcut");
+  return i18n("Shortcut");
 }
+
 
 const QString ShortcutCommand::getCategoryText() const
 {
-	return ShortcutCommand::staticCategoryText();
+  return ShortcutCommand::staticCategoryText();
 }
+
 
 const KIcon ShortcutCommand::staticCategoryIcon()
 {
-	return KIcon("go-jump-locationbar");
+  return KIcon("go-jump-locationbar");
 }
+
 
 const KIcon ShortcutCommand::getCategoryIcon() const
 {
-	return ShortcutCommand::staticCategoryIcon();
+  return ShortcutCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> ShortcutCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
+  QMap<QString,QVariant> out;
 
-	out.insert(i18n("Shortcut"), shortcut.toString());
-	return out;
+  out.insert(i18n("Shortcut"), shortcut.toString());
+  return out;
 }
+
 
 bool ShortcutCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	EventHandler::getInstance()->sendShortcut(getShortcut());
-	return true;
+  Q_UNUSED(state);
+  EventHandler::getInstance()->sendShortcut(getShortcut());
+  return true;
 }
+
 
 QDomElement ShortcutCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement shortcutElem = doc->createElement("shortcut");
-	shortcutElem.appendChild(doc->createTextNode(shortcut.toString()));
+  QDomElement shortcutElem = doc->createElement("shortcut");
+  shortcutElem.appendChild(doc->createTextNode(shortcut.toString()));
 
-	commandElem.appendChild(shortcutElem);
-		
-	return commandElem;
+  commandElem.appendChild(shortcutElem);
+
+  return commandElem;
 }
+
 
 bool ShortcutCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement shortcutElem = commandElem.firstChildElement("shortcut");
-	if (shortcutElem.isNull()) return false;
+  QDomElement shortcutElem = commandElem.firstChildElement("shortcut");
+  if (shortcutElem.isNull()) return false;
 
-	shortcut = QKeySequence(shortcutElem.text());
-	return true;
+  shortcut = QKeySequence(shortcutElem.text());
+  return true;
 }
 
-STATIC_CREATE_INSTANCE_C(ShortcutCommand);
 
+STATIC_CREATE_INSTANCE_C(ShortcutCommand);

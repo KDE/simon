@@ -34,32 +34,29 @@ class ExecutableCommand;
  */
 class SelectProgramDialog : public KDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::SelectProgramDlg ui;
+    private:
+    Ui::SelectProgramDlg ui;
 
-	void initialize();
+    void initialize();
 
-	void findCategories(QString relPath);
+    void findCategories(QString relPath);
 
-	QString getExecPath();
-	QString getName();
-	QString getIcon();
-	QString getDescription();
-	QString getWorkingDirectory();
+    QString getExecPath();
+    QString getName();
+    QString getIcon();
+    QString getDescription();
+    QString getWorkingDirectory();
 
-private slots:
-        void searchForPrograms();
+  private slots:
+    void searchForPrograms();
 
-public:
-        SelectProgramDialog(QWidget* parent);
-        ~SelectProgramDialog();
+  public:
+    SelectProgramDialog(QWidget* parent);
+    ~SelectProgramDialog();
 
-	ExecutableCommand* selectCommand();
-
-
+    ExecutableCommand* selectCommand();
 
 };
-
 #endif

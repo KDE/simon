@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "bompdict.h"
 #include <QString>
 #include <QFile>
@@ -39,110 +38,106 @@ BOMPDict::BOMPDict(QObject* parent): Dict(parent)
 {
 }
 
+
 /**
  * \brief Loads the file from the given path
  * \author Peter Grasch
- * 
+ *
  * @fixme This function assumes the system-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
- * 
+ *
  * @param path If the path is empty the path set by the constructor is used
  */
 void BOMPDict::load(QString path, QString encodingName)
 {
-	emit progress(0);
+  emit progress(0);
 
-	QIODevice *dict = KFilterDev::deviceForFile(path,
-							KMimeType::findByFileContent(path)->name());
-	if (!dict)
-		return;
-	if (!dict->open(QIODevice::ReadOnly))
-	{
-		dict->deleteLater();
-		return;
-	}
+  QIODevice *dict = KFilterDev::deviceForFile(path,
+    KMimeType::findByFileContent(path)->name());
+  if (!dict)
+    return;
+  if (!dict->open(QIODevice::ReadOnly)) {
+    dict->deleteLater();
+    return;
+  }
 
-	int maxProg=0;
+  int maxProg=0;
 
-	KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
-	if (mimeType->is("text/plain")) //not compressed
-	{
-		QFileInfo info;
-		QFile f(path);
-		info.setFile(f);
-		maxProg = info.size();
-	}
+  KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
+  if (mimeType->is("text/plain")) {               //not compressed
+    QFileInfo info;
+    QFile f(path);
+    info.setFile(f);
+    maxProg = info.size();
+  }
 
-	int currentProg = 0;
+  int currentProg = 0;
 
-	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec(QTextCodec::codecForName(encodingName.toAscii()));
-	emit loaded();
-	
-	QString line, xsp, terminal;
-	int wordend, termend;
-	line = dictStream->readLine(1000);
-	
-	QString filteredXsp;
-	QString xspFertig;
-	QString currentPhoneme;
-	QString currentTerminal;
-	QString currentFinalXsp;
-	QString currentWord;
-	while (!line.isNull())
-	{
-		wordend = line.indexOf("\t");
-		termend = line.indexOf("\t", wordend+1);
+  QTextStream *dictStream = new QTextStream(dict);
+  dictStream->setCodec(QTextCodec::codecForName(encodingName.toAscii()));
+  emit loaded();
 
-		xsp = line.mid(termend).trimmed();
-		
-//		xsp.remove(QRegExp("^'*?*"));
-		xsp.remove("'");
-		xsp.remove("|");
-		xsp.remove(",");
-		currentFinalXsp = segmentSampa(adaptToSimonPhonemeSet(xsp));
+  QString line, xsp, terminal;
+  int wordend, termend;
+  line = dictStream->readLine(1000);
 
-		
-		currentWord = line.left(wordend);
-		currentTerminal = line.mid(wordend, 
-				termend-wordend).trimmed();
+  QString filteredXsp;
+  QString xspFertig;
+  QString currentPhoneme;
+  QString currentTerminal;
+  QString currentFinalXsp;
+  QString currentWord;
+  while (!line.isNull()) {
+    wordend = line.indexOf("\t");
+    termend = line.indexOf("\t", wordend+1);
 
-		QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
-		QStringList currentTerminalsUnique;
+    xsp = line.mid(termend).trimmed();
 
-		if (currentTerminals.isEmpty())
-		{
-			line = dictStream->readLine(1000);
-			continue;
-		}
+    //		xsp.remove(QRegExp("^'*?*"));
+    xsp.remove("'");
+    xsp.remove("|");
+    xsp.remove(",");
+    currentFinalXsp = segmentSampa(adaptToSimonPhonemeSet(xsp));
 
-		QString currentTerminalStr = currentTerminals[0];
-		currentTerminalsUnique << currentTerminalStr;
-		words << currentWord;
-		terminals << currentTerminalStr;
-		pronunciations << currentFinalXsp;
+    currentWord = line.left(wordend);
+    currentTerminal = line.mid(wordend,
+      termend-wordend).trimmed();
 
-		for (int k=1; k < currentTerminals.count(); k++) {
-			currentTerminalStr = currentTerminals[k];
-			if (!currentTerminalsUnique.contains(currentTerminalStr)) {
-				currentTerminalsUnique << currentTerminalStr;
+    QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
+    QStringList currentTerminalsUnique;
 
-				words << currentWord;
-				terminals << currentTerminalStr;
-				pronunciations << currentFinalXsp;
-			}
-		}
+    if (currentTerminals.isEmpty()) {
+      line = dictStream->readLine(1000);
+      continue;
+    }
 
-		currentProg += line.length();
+    QString currentTerminalStr = currentTerminals[0];
+    currentTerminalsUnique << currentTerminalStr;
+    words << currentWord;
+    terminals << currentTerminalStr;
+    pronunciations << currentFinalXsp;
 
-		if (maxProg != 0)
-			emit progress((int) (((((double)currentProg) / 
-					((double)maxProg)))*1000));
-		else emit progress(-1);
-		line = dictStream->readLine(1000);
-	}
-	delete dictStream;
-	dict->close();
-	delete dict;
+    for (int k=1; k < currentTerminals.count(); k++) {
+      currentTerminalStr = currentTerminals[k];
+      if (!currentTerminalsUnique.contains(currentTerminalStr)) {
+        currentTerminalsUnique << currentTerminalStr;
+
+        words << currentWord;
+        terminals << currentTerminalStr;
+        pronunciations << currentFinalXsp;
+      }
+    }
+
+    currentProg += line.length();
+
+    if (maxProg != 0)
+      emit progress((int) (((((double)currentProg) /
+        ((double)maxProg)))*1000));
+    else emit progress(-1);
+    line = dictStream->readLine(1000);
+  }
+  delete dictStream;
+  dict->close();
+  delete dict;
 }
 
 

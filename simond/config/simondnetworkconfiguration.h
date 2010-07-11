@@ -27,16 +27,15 @@
 
 class SimondNetworkConfiguration : public KCModule
 {
-	Q_OBJECT
-	private:
-		Ui::NetworkConfiguration ui;
-	private slots:
-		void slotChanged();
-	public:
-		SimondNetworkConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
-		void save();
-		void load();
-		~SimondNetworkConfiguration();
+  Q_OBJECT
+    private:
+    Ui::NetworkConfiguration ui;
+  private slots:
+    void slotChanged();
+  public:
+    SimondNetworkConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    void save();
+    void load();
+    ~SimondNetworkConfiguration();
 };
-
 #endif

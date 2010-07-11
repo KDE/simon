@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
 #define SIMON_MODEL_H_F94CE72E01134943B3FEA3B1D304768A
-
 
 #include "simonmodelmanagement_export.h"
 #include <QString>
@@ -29,26 +27,25 @@
 
 class MODELMANAGEMENT_EXPORT Model
 {
-	private:
-		qint32 m_data;
-		QByteArray m_hmmDefs;
-		QByteArray m_tiedList;
-		QByteArray m_data1;
-		QByteArray m_data2;
+  private:
+    qint32 m_data;
+    QByteArray m_hmmDefs;
+    QByteArray m_tiedList;
+    QByteArray m_data1;
+    QByteArray m_data2;
 
-	public:
-		Model(qint32 data, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& data1, const QByteArray& data2);
-			       
-		~Model();
-		
-		qint32 sampleRate() { return m_data; }
-		qint32 baseModelType() { return m_data; }
-		QByteArray hmmDefs() { return m_hmmDefs; }
-		QByteArray tiedList() { return m_tiedList; }
-		QByteArray data1() { return m_data1; }
-		QByteArray data2() { return m_data2; }
-		
+  public:
+    Model(qint32 data, const QByteArray& hmmDefs,
+      const QByteArray& tiedList, const QByteArray& data1, const QByteArray& data2);
+
+    ~Model();
+
+    qint32 sampleRate() { return m_data; }
+    qint32 baseModelType() { return m_data; }
+    QByteArray hmmDefs() { return m_hmmDefs; }
+    QByteArray tiedList() { return m_tiedList; }
+    QByteArray data1() { return m_data1; }
+    QByteArray data2() { return m_data2; }
+
 };
-
 #endif

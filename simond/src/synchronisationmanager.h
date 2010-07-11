@@ -31,119 +31,118 @@ class TrainingContainer;
 
 class SynchronisationManager : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		QString username;
-		QStringList missingFiles;
-		QStringList missingScenarios;
-		QStringList commonScenarios;
-		QString srcContainerTempPath;
-		bool removeAllFiles(const QString& dir);
-		bool removeDirectory(const QString& dir);
-		bool cleanTemp();
+    private:
+    QString username;
+    QStringList missingFiles;
+    QStringList missingScenarios;
+    QStringList commonScenarios;
+    QString srcContainerTempPath;
+    bool removeAllFiles(const QString& dir);
+    bool removeDirectory(const QString& dir);
+    bool cleanTemp();
 
-		QString getLatestPath(const QMap<QDateTime, QString>& models);
+    QString getLatestPath(const QMap<QDateTime, QString>& models);
 
-		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
-		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
-		QMap<QDateTime, QString> getSelectedScenarioLists();
+    QMap<QDateTime, QString> getTrainingDatas();  //prompts, wavconfig
+                                                  //treehed
+    QMap<QDateTime, QString> getLanguageDescriptions();
+    QMap<QDateTime, QString> getSelectedScenarioLists();
 
-		QString getLatestLanguageDescriptionPath();
-		QString getLatestTrainingPath();
-		QString getLatestSelectedScenarioListPath();
+    QString getLatestLanguageDescriptionPath();
+    QString getLatestTrainingPath();
+    QString getLatestSelectedScenarioListPath();
 
-		QStringList getAllScenarios();
-		QString getLatestScenarioPath(const QString& id);
+    QStringList getAllScenarios();
+    QString getLatestScenarioPath(const QString& id);
 
-		void touchTempModel();
+    void touchTempModel();
 
-	
-	public:
-		SynchronisationManager(const QString& username, QObject *parent=0);
+  public:
+    SynchronisationManager(const QString& username, QObject *parent=0);
 
-		QMap<QDateTime, QString> getModels();
+    QMap<QDateTime, QString> getModels();
 
-		Model* getActiveModel();
-		bool hasActiveModel();
-		QDateTime getActiveModelDate();
-		void setActiveModelSampleRate(int activeModelSampleRate);
-		bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+    Model* getActiveModel();
+    bool hasActiveModel();
+    QDateTime getActiveModelDate();
+    void setActiveModelSampleRate(int activeModelSampleRate);
+    bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
+      const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 
-		QDateTime getBaseModelDate();
-		Model* getBaseModel();
-		int getBaseModelType();
-		bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& macros, const QByteArray& stats);
+    QDateTime getBaseModelDate();
+    Model* getBaseModel();
+    int getBaseModelType();
+    bool storeBaseModel(const QDateTime& changedDate, int baseModelType, const QByteArray& hmmDefs,
+      const QByteArray& tiedList, const QByteArray& macros, const QByteArray& stats);
 
-		QDateTime getModelSrcDate();
-		QDateTime getCompileModelSrcDate();
-		bool hasModelSrc();
+    QDateTime getModelSrcDate();
+    QDateTime getCompileModelSrcDate();
+    bool hasModelSrc();
 
-		void setCurrentSrcContainerTime(const QDateTime& time);
-		
-		QDateTime getLanguageDescriptionDate(QString path=QString());
-		bool hasLanguageDescription(const QString& modelPath=QString());
-		LanguageDescriptionContainer* getLanguageDescription();
-		bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, 
-				        const QByteArray& treeHed);
-		
-		QDateTime getTrainingDate(QString path=QString());
-		bool hasTraining(const QString& modelPath=QString());
-		TrainingContainer* getTraining();
-		bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
-					const QByteArray& prompts);
-		
-		void buildMissingScenarios(const QStringList& remoteScenarioList);
-		QByteArray getScenario(const QString& scenarioId);
-		bool storeScenario(const QByteArray& scenario);
-		QDateTime localScenarioDate(const QString& scenarioId);
-		QDateTime scenarioDate(const QString& path);
-		QString missingScenario();
-		QString commonScenario();
-		void couldntRetreiveScenario();
-		void scenarioUpToDate();
+    void setCurrentSrcContainerTime(const QDateTime& time);
 
-		bool shouldRecompileModel();
+    QDateTime getLanguageDescriptionDate(QString path=QString());
+    bool hasLanguageDescription(const QString& modelPath=QString());
+    LanguageDescriptionContainer* getLanguageDescription();
+    bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
+      const QByteArray& treeHed);
 
-		void deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes);
+    QDateTime getTrainingDate(QString path=QString());
+    bool hasTraining(const QString& modelPath=QString());
+    TrainingContainer* getTraining();
+    bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
+      const QByteArray& prompts);
 
-		bool hasScenarioRc(const QString& modelPath=QString());
-		QDateTime selectedScenariosDate();
-		QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
-		QStringList getSelectedScenarioList();
-		bool storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds);
+    void buildMissingScenarios(const QStringList& remoteScenarioList);
+    QByteArray getScenario(const QString& scenarioId);
+    bool storeScenario(const QByteArray& scenario);
+    QDateTime localScenarioDate(const QString& scenarioId);
+    QDateTime scenarioDate(const QString& path);
+    QString missingScenario();
+    QString commonScenario();
+    void couldntRetreiveScenario();
+    void scenarioUpToDate();
 
-		void buildMissingSamples();
-		QByteArray getSample(const QString& sampleName);
-		QString missingSample();
-		bool storeSample(const QByteArray& sample);
+    bool shouldRecompileModel();
 
-		QStringList getScenarioPaths();
-		QString getPromptsPath();
-		QString getTreeHedPath();
-		QString getWavConfigPath();
+    void deletedScenarios(const QStringList& ids, const QList<QDateTime>& scenarioTimes);
 
-		bool startSynchronisation();
-		bool abort();
-		bool commit();
-		bool removeExcessModelBackups();
-		
-		void modelCompiled();
-		bool createTrainingData(const QString& dest);
-		bool copyTrainingData(const QString& source, const QString& dest);
-		bool copyLanguageDescription(const QString& source, const QString& dest);
-		bool copyScenarioRc(const QString& source, const QString& dest);
-		bool copyScenarios(const QString& source, const QString& dest, bool touchAccessTime=false);
-		bool switchToModel(const QDateTime& modelDate);
+    bool hasScenarioRc(const QString& modelPath=QString());
+    QDateTime selectedScenariosDate();
+    QDateTime getSelectedScenarioListModifiedDateFromPath(const QString& path);
+    QStringList getSelectedScenarioList();
+    bool storeSelectedScenarioList(const QDateTime& modifiedDate, const QStringList& scenarioIds);
 
-		void scenarioSynchronized();
-		QStringList getAllScenarioIds();
+    void buildMissingSamples();
+    QByteArray getSample(const QString& sampleName);
+    QString missingSample();
+    bool storeSample(const QByteArray& sample);
 
-		QStringList getLatestSelectedScenarioList();
-		~SynchronisationManager();
-		
+    QStringList getScenarioPaths();
+    QString getPromptsPath();
+    QString getTreeHedPath();
+    QString getWavConfigPath();
+
+    bool startSynchronisation();
+    bool abort();
+    bool commit();
+    bool removeExcessModelBackups();
+
+    void modelCompiled();
+    bool createTrainingData(const QString& dest);
+    bool copyTrainingData(const QString& source, const QString& dest);
+    bool copyLanguageDescription(const QString& source, const QString& dest);
+    bool copyScenarioRc(const QString& source, const QString& dest);
+    bool copyScenarios(const QString& source, const QString& dest, bool touchAccessTime=false);
+    bool switchToModel(const QDateTime& modelDate);
+
+    void scenarioSynchronized();
+    QStringList getAllScenarioIds();
+
+    QStringList getLatestSelectedScenarioList();
+    ~SynchronisationManager();
+
 };
-
 #endif

@@ -31,29 +31,27 @@ class QTcpServer;
 
 class SSCDControl : public QTcpServer
 {
-	Q_OBJECT
-	private:
-		QList<ClientSocket*> clients;
-		DatabaseAccess *db;
+  Q_OBJECT
+    private:
+    QList<ClientSocket*> clients;
+    DatabaseAccess *db;
 
-	private slots:
-		void handleError(const QString& error);
-		
-		void startServer(const QHostAddress& allowedClient=QHostAddress::Any, quint16 port=4444);
-		void stopServer();
-		
-		void incomingConnection (int descriptor);
-		
-		void connectionClosing(QAbstractSocket::SocketState state);
-		
+  private slots:
+    void handleError(const QString& error);
 
-	public:
-		SSCDControl(QObject *parent=0);
+    void startServer(const QHostAddress& allowedClient=QHostAddress::Any, quint16 port=4444);
+    void stopServer();
 
-		bool init();
-			       
-		~SSCDControl();
-		
+    void incomingConnection (int descriptor);
+
+    void connectionClosing(QAbstractSocket::SocketState state);
+
+  public:
+    SSCDControl(QObject *parent=0);
+
+    bool init();
+
+    ~SSCDControl();
+
 };
-
 #endif

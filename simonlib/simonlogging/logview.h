@@ -17,15 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LOGVIEW_H_F5D6909574D848B8A8A4D41704B11FB9
 #define SIMON_LOGVIEW_H_F5D6909574D848B8A8A4D41704B11FB9
-
 
 #include "ui_logmanagerdlg.h"
 #include "logmanager.h"
 #include <QWidget>
-
 
 /**
  * \class LogView
@@ -33,72 +30,67 @@
  * \version 0.1
  * \date 23.8.2007
  * \author Peter Grasch
-*/
+ */
 class LogView : public QWidget
 {
-	Q_OBJECT
-	
-private: 
-	Ui::LogManagerDlg ui;
-	Dates daysInLog;
-	QDate clickedDate;
+  Q_OBJECT
 
-	LogManager *manager;
-	bool abortInsertingEntries;
+    private:
+    Ui::LogManagerDlg ui;
+    Dates daysInLog;
+    QDate clickedDate;
 
-public slots:
-	//to comply with the systemwidget
-	bool init();
+    LogManager *manager;
+    bool abortInsertingEntries;
 
-	void logReadFinished(int exitCode);
+  public slots:
+    //to comply with the systemwidget
+    bool init();
 
-	void readLog();
-	void startLogLoad();
-	void viewAll();
-	void viewDay(QDate day);
+    void logReadFinished(int exitCode);
 
-	void abort();
-	void reload();
+    void readLog();
+    void startLogLoad();
+    void viewAll();
+    void viewDay(QDate day);
 
-	//GUI stuff
-	void displayCancel();
-	void displayReload();
-	void enableWidgets(bool enabled=true);
-	void setStatus(QString status);
-	void setProgress(int progress);
-	void selectDay(QDate day);
+    void abort();
+    void reload();
 
+    //GUI stuff
+    void displayCancel();
+    void displayReload();
+    void enableWidgets(bool enabled=true);
+    void setStatus(QString status);
+    void setProgress(int progress);
+    void selectDay(QDate day);
 
-	//inserting entries
-	void displayDay(QDate day);
-	void displayDay(QTreeWidgetItem *item);
+    //inserting entries
+    void displayDay(QDate day);
+    void displayDay(QTreeWidgetItem *item);
 
-	void displayDates(Dates daysAvailable);
-	void completeDates();
-	void processEntries(LogEntryList *entries, bool copy=false);
-	void processDates(Dates daysAvailable);
-	void insertEntries(LogEntryList *entries);
+    void displayDates(Dates daysAvailable);
+    void completeDates();
+    void processEntries(LogEntryList *entries, bool copy=false);
+    void processDates(Dates daysAvailable);
+    void insertEntries(LogEntryList *entries);
 
+    //cleaning the list
+    void clean();
+    void cleanAllChildren();
+    void deleteItem(int index);
+    void deleteItem(QTreeWidgetItem *item);
+    void deleteChildren(QTreeWidgetItem *item);
+    void deleteChildren(int parentIndex);
+    LogEntryList* filterFor(LogEntryList* log, bool copy,
+      const QString filter, const short type);
 
-	//cleaning the list
-	void clean();
-	void cleanAllChildren();
-	void deleteItem(int index);
-	void deleteItem(QTreeWidgetItem *item);
-	void deleteChildren(QTreeWidgetItem *item);
-	void deleteChildren(int parentIndex);
-	LogEntryList* filterFor(LogEntryList* log, bool copy,
-				const QString filter, const short type);
+    signals:
+    void stopLogRead();
 
-	
-
-signals:
-	void stopLogRead();
-	
-public:
+  public:
     LogView(QWidget* parent);
     ~LogView();
 
 };
-
 #endif

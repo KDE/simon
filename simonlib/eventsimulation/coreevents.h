@@ -25,21 +25,20 @@
 
 class QKeySequence;
 
-class DeadKey {
-	private:
-		unsigned int m_deadKey;
-		unsigned int m_baseKey;
-	public:
-		DeadKey(unsigned int deadKey, unsigned int baseKey)
-		{
-			m_deadKey = deadKey;
-			m_baseKey = baseKey;
-		}
-		
-		unsigned int deadKey() const { return m_deadKey; }
-		unsigned int baseKey() const { return m_baseKey; }
-};
+class DeadKey
+{
+  private:
+    unsigned int m_deadKey;
+    unsigned int m_baseKey;
+  public:
+    DeadKey(unsigned int deadKey, unsigned int baseKey) {
+      m_deadKey = deadKey;
+      m_baseKey = baseKey;
+    }
 
+    unsigned int deadKey() const { return m_deadKey; }
+    unsigned int baseKey() const { return m_baseKey; }
+};
 
 /**
  *	@class CoreEvents
@@ -49,33 +48,34 @@ class DeadKey {
  *	@date 4.03.2007
  *	@author Peter Grasch
  */
-class CoreEvents {
+class CoreEvents
+{
 
-enum KeyEvent {
-	KeyDown=1,
-	KeyUp=2 };
-	
-protected:
-	QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
-	
-	bool shiftSet, altgrSet, altSet, superSet, strgSet;
-	bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
-public:
-	CoreEvents();
+  enum KeyEvent
+  {
+    KeyDown=1,
+    KeyUp=2
+  };
 
-	virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
-	virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
-	
-	void sendKey(unsigned int key /*unicode representation*/);
-	virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;
-	
-	
-	void unsetUnneededModifiers();
-	void sendShortcut(const QKeySequence& shortcut);
+  protected:
+    QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
 
-	virtual void setModifierKey(int virtualKey, bool once=false)=0;
-	virtual void unsetModifier(int virtualKey)=0;
-	virtual ~CoreEvents() {}
+    bool shiftSet, altgrSet, altSet, superSet, strgSet;
+    bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
+  public:
+    CoreEvents();
+
+    virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
+    virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
+
+    void sendKey(unsigned int key /*unicode representation*/);
+    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;
+
+    void unsetUnneededModifiers();
+    void sendShortcut(const QKeySequence& shortcut);
+
+    virtual void setModifierKey(int virtualKey, bool once=false)=0;
+    virtual void unsetModifier(int virtualKey)=0;
+    virtual ~CoreEvents() {}
 };
-
 #endif

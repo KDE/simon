@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTLEXICONPAGE_H_F49A09B6297C4796A6FD9D58F6E7E8AC
 #define SIMON_IMPORTLEXICONPAGE_H_F49A09B6297C4796A6FD9D58F6E7E8AC
 
@@ -25,21 +24,20 @@
 #include "ui_importdictlexiconpage.h"
 #include "importdictview.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ImportLexiconPage : public QWizardPage
 {
-Q_OBJECT
-private:
-	Ui::ImportDictLexiconPage ui;
-public:
-	ImportLexiconPage(QWidget* parent);
-	int nextId() const { return ImportDictView::WorkingPage; }
-	bool isComplete() const;
-	void initializePage();
+  Q_OBJECT
+    private:
+    Ui::ImportDictLexiconPage ui;
+  public:
+    ImportLexiconPage(QWidget* parent);
+    int nextId() const { return ImportDictView::WorkingPage; }
+    bool isComplete() const;
+    void initializePage();
 
     ~ImportLexiconPage();
 
 };
-
 #endif

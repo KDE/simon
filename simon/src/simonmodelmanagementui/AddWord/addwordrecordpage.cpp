@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "addwordrecordpage.h"
 #include "../TrainSamples/trainsamplepage.h"
 #include <simonsound/recwidget.h>
@@ -39,41 +38,47 @@
  * The parent of the widget
  */
 AddWordRecordPage::AddWordRecordPage(const QString& fieldName_, int pageNr_, int pageMax_, QWidget* parent)
- : QWizardPage(parent),
-	page(0),
-	pageNr(pageNr_),
-	pageMax(pageMax_),
-	fieldName(fieldName_),
-	stickSample(false)
+: QWizardPage(parent),
+page(0),
+pageNr(pageNr_),
+pageMax(pageMax_),
+fieldName(fieldName_),
+stickSample(false)
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	setLayout(lay);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  setLayout(lay);
 }
+
 
 bool AddWordRecordPage::isComplete() const
 {
-	return true;
+  return true;
 }
+
 
 void AddWordRecordPage::cleanupPage()
 {
-	page->cleanupPage();
+  page->cleanupPage();
 }
+
 
 bool AddWordRecordPage::validatePage()
 {
-	return page->validatePage();
+  return page->validatePage();
 }
+
 
 QStringList AddWordRecordPage::getFileNames()
 {
-	return page->getFileNames();
+  return page->getFileNames();
 }
+
 
 QString AddWordRecordPage::getPrompt()
 {
-	return page->getPrompt();
+  return page->getPrompt();
 }
+
 
 /**
  * \brief Sets the recwidgets-titles to the examples of the previous page (pulled out of the fields wordExamples1,2)
@@ -81,42 +86,41 @@ QString AddWordRecordPage::getPrompt()
  */
 void AddWordRecordPage::initializePage()
 {
-	QString prompt = field(fieldName).toString();
-	if (page && (page->getPrompt() != prompt)) {
-		layout()->removeWidget(page);
+  QString prompt = field(fieldName).toString();
+  if (page && (page->getPrompt() != prompt)) {
+    layout()->removeWidget(page);
 
-		if (!stickSample)
-			page->cleanUp();
+    if (!stickSample)
+      page->cleanUp();
 
-		page->deleteLater();
-		page = 0;
-	}
-	if (!page) 
-		page = new TrainSamplePage(prompt, pageNr, pageMax, i18n("Training"), this);
+    page->deleteLater();
+    page = 0;
+  }
+  if (!page)
+    page = new TrainSamplePage(prompt, pageNr, pageMax, i18n("Training"), this);
 
-	setTitle(page->title());
-	connect(page, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
-	layout()->addWidget(page);
+  setTitle(page->title());
+  connect(page, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
+  layout()->addWidget(page);
 
-	stickSample = false;
+  stickSample = false;
 }
+
 
 void AddWordRecordPage::cleanUp()
 {
-	if (!page) return;
+  if (!page) return;
 
-	if (!stickSample)
-		page->cleanUp();
-	stickSample=false;
+  if (!stickSample)
+    page->cleanUp();
+  stickSample=false;
 }
 
 
 /**
- * \brief Destructor; 
+ * \brief Destructor;
  * \author Peter Grasch
  */
 AddWordRecordPage::~AddWordRecordPage()
 {
 }
-
-

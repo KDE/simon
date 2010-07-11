@@ -37,38 +37,37 @@ class ImportProgramWizard;
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreateListCommandWidget : public CreateCommandWidget{
-Q_OBJECT
+class CreateListCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	CommandList* allCommands;
-	QList<Command*> commandsToDelete;
-	Ui::CreateListCommandWidget ui;
-	CommandTableModel *model;
+    private:
+    CommandList* allCommands;
+    QList<Command*> commandsToDelete;
+    Ui::CreateListCommandWidget ui;
+    CommandTableModel *model;
 
-private slots:
-	void addCommandToList();
-	void removeCommand();
-	void moveUp();
-	void moveDown();
-	void enableButtons(const QModelIndex& index);
+  private slots:
+    void addCommandToList();
+    void removeCommand();
+    void moveUp();
+    void moveDown();
+    void enableButtons(const QModelIndex& index);
 
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CreateListCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-
-	virtual ~CreateListCommandWidget();
+    virtual ~CreateListCommandWidget();
 
 };
-
 #endif

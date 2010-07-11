@@ -35,31 +35,30 @@ class CommandManager;
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreatePlaceCommandWidget : public CreateCommandWidget{
-Q_OBJECT
+class CreatePlaceCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::CreatePlaceCommandWidget ui;
+    private:
+    Ui::CreatePlaceCommandWidget ui;
 
-private slots:
-	void selectPlace();
+  private slots:
+    void selectPlace();
 
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CreatePlaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-
-	virtual ~CreatePlaceCommandWidget();
+    virtual ~CreatePlaceCommandWidget();
 
 };
-
 #endif

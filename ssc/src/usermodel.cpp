@@ -22,9 +22,9 @@
 #include <QtGlobal>
 #include <KLocalizedString>
 
-UserModel::UserModel(QList<User*> users, QObject *parent) : 
-	QAbstractItemModel(parent),
-	m_users(users)
+UserModel::UserModel(QList<User*> users, QObject *parent) :
+QAbstractItemModel(parent),
+m_users(users)
 {
 }
 
@@ -35,34 +35,36 @@ UserModel::UserModel(QList<User*> users, QObject *parent) :
  */
 void UserModel::replaceData(QList<User*> newUsers)
 {
-	qDeleteAll(m_users);
+  qDeleteAll(m_users);
 
-	this->m_users = newUsers;
-	reset();
+  this->m_users = newUsers;
+  reset();
 }
+
 
 QString UserModel::displayStringForGrade(const int grade) const
 {
-	switch (grade) {
-		case 1:
-			return i18n("Very good");
-		case 2:
-			return i18n("Good");
-		case 3:
-			return i18n("Satisfactory");
-		case 4:
-			return i18n("Acceptable");
-		case 5:
-			return i18n("Not acceptable");
-	}
+  switch (grade) {
+    case 1:
+      return i18n("Very good");
+    case 2:
+      return i18n("Good");
+    case 3:
+      return i18n("Satisfactory");
+    case 4:
+      return i18n("Acceptable");
+    case 5:
+      return i18n("Not acceptable");
+  }
 
-	return QString();
+  return QString();
 }
+
 
 QString UserModel::displayStringBool(const bool b) const
 {
-	if (b) return i18n("Yes");
-	else return i18n("No");
+  if (b) return i18n("Yes");
+  else return i18n("No");
 }
 
 
@@ -71,119 +73,121 @@ QString UserModel::displayStringBool(const bool b) const
  */
 QVariant UserModel::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid()) return QVariant();
+  if (!index.isValid()) return QVariant();
 
-	if (role == Qt::DisplayRole) 
-	{
-		User *u = m_users.at(index.row());
-		switch (index.column())
-		{
-			case 0:
-				return u->userId();
-			case 1:
-				return u->surname();
-			case 2:
-				return u->givenName();
-			case 3:
-				return QString(QChar(u->sex()));
-			case 4:
-				return u->birthYear();
-			case 5:
-				return u->zipCode();
-			case 6:
-				return u->currentOccupation();
-			case 7:
-				return u->motherTongue();
-			case 8:
-				return displayStringForGrade(u->orientation());
-			case 9:
-				return displayStringForGrade(u->communication());
-			case 10:
-				return displayStringForGrade(u->motorFunction());
-			case 11:
-				return displayStringBool(u->interviewPossible());
-			case 12:
-				return displayStringBool(u->repeatingPossible());
-		}
-	}
+  if (role == Qt::DisplayRole) {
+    User *u = m_users.at(index.row());
+    switch (index.column()) {
+      case 0:
+        return u->userId();
+      case 1:
+        return u->surname();
+      case 2:
+        return u->givenName();
+      case 3:
+        return QString(QChar(u->sex()));
+      case 4:
+        return u->birthYear();
+      case 5:
+        return u->zipCode();
+      case 6:
+        return u->currentOccupation();
+      case 7:
+        return u->motherTongue();
+      case 8:
+        return displayStringForGrade(u->orientation());
+      case 9:
+        return displayStringForGrade(u->communication());
+      case 10:
+        return displayStringForGrade(u->motorFunction());
+      case 11:
+        return displayStringBool(u->interviewPossible());
+      case 12:
+        return displayStringBool(u->repeatingPossible());
+    }
+  }
 
-	return QVariant();
+  return QVariant();
 }
+
 
 Qt::ItemFlags UserModel::flags(const QModelIndex &index) const
 {
-	if (!index.isValid())
-		return 0;
+  if (!index.isValid())
+    return 0;
 
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
+
 
 /*
  * Display: Id, Surname, Forename, Sex, Birthyear, ZIP Code, Orientation, Communication, MotorFucntion, InterviewPossible, RepeatPossible
  */
 QVariant UserModel::headerData(int column, Qt::Orientation orientation,
-			int role) const
+int role) const
 {
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-		switch (column) {
-			case 0:
-				return i18n("Id");
-			case 1:
-				return i18n("Surname");
-			case 2:
-				return i18n("Forename");
-			case 3:
-				return i18n("Sex");
-			case 4:
-				return i18n("Birthyear");
-			case 5:
-				return i18n("ZIP Code");
-			case 6:
-				return i18n("Occupation");
-			case 7:
-				return i18n("Mothertongue");
-			case 8:
-				return i18n("Orientation");
-			case 9:
-				return i18n("Communication");
-			case 10:
-				return i18n("Motor function");
-			case 11:
-				return i18n("Interview Possible");
-			case 12:
-				return i18n("Repeate Possible");
-		}
-	}
-	
-	//default
-	return QVariant();
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    switch (column) {
+      case 0:
+        return i18n("Id");
+      case 1:
+        return i18n("Surname");
+      case 2:
+        return i18n("Forename");
+      case 3:
+        return i18n("Sex");
+      case 4:
+        return i18n("Birthyear");
+      case 5:
+        return i18n("ZIP Code");
+      case 6:
+        return i18n("Occupation");
+      case 7:
+        return i18n("Mothertongue");
+      case 8:
+        return i18n("Orientation");
+      case 9:
+        return i18n("Communication");
+      case 10:
+        return i18n("Motor function");
+      case 11:
+        return i18n("Interview Possible");
+      case 12:
+        return i18n("Repeate Possible");
+    }
+  }
+
+  //default
+  return QVariant();
 }
+
 
 QModelIndex UserModel::parent(const QModelIndex &index) const
 {
-	Q_UNUSED(index);
-	return QModelIndex();
+  Q_UNUSED(index);
+  return QModelIndex();
 }
+
 
 int UserModel::rowCount(const QModelIndex &parent) const
 {
-	if (!parent.isValid())
-		return m_users.count();
-	else return 0;
+  if (!parent.isValid())
+    return m_users.count();
+  else return 0;
 }
+
 
 int UserModel::columnCount(const QModelIndex &parent) const
 {
-	Q_UNUSED(parent);
-	return 13;
+  Q_UNUSED(parent);
+  return 13;
 }
+
 
 QModelIndex UserModel::index(int row, int column, const QModelIndex &parent) const
 {
-	if (!hasIndex(row, column, parent) || parent.isValid())
-		return QModelIndex();
+  if (!hasIndex(row, column, parent) || parent.isValid())
+    return QModelIndex();
 
-	return createIndex(row, column, m_users.at(row));
+  return createIndex(row, column, m_users.at(row));
 }
-
-

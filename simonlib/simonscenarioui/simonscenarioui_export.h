@@ -1,21 +1,20 @@
 #ifndef SIMON_SIMONSCENARIOUI_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6D1
 #define SIMON_SIMONSCENARIOUI_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6D1
- 
+
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
- 
+
 #ifndef SIMONSCENARIOUI_EXPORT
 # if defined(MAKE_SIMONSCENARIOUI_LIB)
-   // We are building this library
+// We are building this library
 #  define SIMONSCENARIOUI_EXPORT KDE_EXPORT
 # else
-   // We are using this library
+// We are using this library
 #  define SIMONSCENARIOUI_EXPORT
 # endif
 #endif
- 
+
 # ifndef SIMONSCENARIOUI_EXPORT_DEPRECATED
 #  define SIMONSCENARIOUI_EXPORT_DEPRECATED KDE_DEPRECATED SIMONSCENARIOUI_EXPORT
 # endif
- 
 #endif

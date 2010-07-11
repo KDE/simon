@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_GENERALSETTINGS_H_DBC2F6C6A45D47759852693EE9A3A8CD
 #define SIMON_GENERALSETTINGS_H_DBC2F6C6A45D47759852693EE9A3A8CD
 
@@ -36,15 +35,15 @@
 */
 class GeneralSettings : public KCModule
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
-	
-private slots:
-	void slotChanged();
+    private:
+    Ui::GeneralSettingsDlg ui;                    //!< UI definition - made by uic from the QTDesigner .ui
 
-public:
+  private slots:
+    void slotChanged();
+
+  public:
     GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
     void load();
     void save();
@@ -52,5 +51,4 @@ public:
     ~GeneralSettings();
 
 };
-
 #endif

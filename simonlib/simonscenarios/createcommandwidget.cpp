@@ -22,18 +22,19 @@
 
 bool CreateCommandWidget::addCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return m_manager->addCommand(createCommand(name, iconSrc, description));
+  return m_manager->addCommand(createCommand(name, iconSrc, description));
 }
+
 
 void CreateCommandWidget::propagateCreatedCommand(Command *c)
 {
-	c->setParent(m_manager);
-	emit commandSuggested(c);
+  c->setParent(m_manager);
+  emit commandSuggested(c);
 }
+
 
 bool CreateCommandWidget::isInstanceOfSameManager(Command *c)
 {
-	Q_ASSERT(c);
-	return (m_manager == c->parent());
+  Q_ASSERT(c);
+  return (m_manager == c->parent());
 }
-

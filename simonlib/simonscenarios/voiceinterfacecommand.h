@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_VOICEINTERFACECOMMAND_H_7942FB19340C44C1BE53CEFCAEE2E74A
 #define SIMON_VOICEINTERFACECOMMAND_H_7942FB19340C44C1BE53CEFCAEE2E74A
 
@@ -31,47 +30,44 @@ class QDomDocument;
 class CommandManager;
 class VoiceInterfaceCommandTemplate;
 
-class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command {
-private:
-	QString m_id;
-	QString m_visibleTrigger;
-	QObject *m_receiver;
-	QString m_slot;
-	bool m_showIcon;
-	
-	VoiceInterfaceCommand() {}
-public:
-	VoiceInterfaceCommand(const VoiceInterfaceCommand& b);
-	VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
-	VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
-			const QString& description, const QString& id, int state, int newState,
-			const QString& visibleTrigger, bool showIcon, bool announce);
-	
-	void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);
+class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command
+{
+  private:
+    QString m_id;
+    QString m_visibleTrigger;
+    QObject *m_receiver;
+    QString m_slot;
+    bool m_showIcon;
 
-	bool deSerializePrivate(const QDomElement&);
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	static VoiceInterfaceCommand* createInstance(const QDomElement& element);
-	const QMap<QString,QVariant> getValueMapPrivate() const;
+    VoiceInterfaceCommand() {}
+  public:
+    VoiceInterfaceCommand(const VoiceInterfaceCommand& b);
+    VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
+    VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
+      const QString& description, const QString& id, int state, int newState,
+      const QString& visibleTrigger, bool showIcon, bool announce);
 
-	bool triggerPrivate(int *status);
+    void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);
 
-	QString id() const { return m_id; }
-	QString visibleTrigger() const { return m_visibleTrigger; }
-	QObject* receiver() const { return m_receiver; }
-	bool showIcon() const { return m_showIcon; }
+    bool deSerializePrivate(const QDomElement&);
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+    static VoiceInterfaceCommand* createInstance(const QDomElement& element);
+    const QMap<QString,QVariant> getValueMapPrivate() const;
 
-	virtual ~VoiceInterfaceCommand();
+    bool triggerPrivate(int *status);
 
+    QString id() const { return m_id; }
+    QString visibleTrigger() const { return m_visibleTrigger; }
+    QObject* receiver() const { return m_receiver; }
+    bool showIcon() const { return m_showIcon; }
 
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+    virtual ~VoiceInterfaceCommand();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
 };
-
 #endif
-

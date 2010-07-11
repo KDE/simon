@@ -17,14 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "renameterminal.h"
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/speechmodel.h>
 
 RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
 {}
-
 
 RenameTerminal::~RenameTerminal()
 {
@@ -33,16 +31,15 @@ RenameTerminal::~RenameTerminal()
 
 void RenameTerminal::run()
 {
-	emit progress(0);
+  emit progress(0);
 
-	SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
-	if (includeShadow)
-		elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
-	elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
+  SpeechModel::ModelElements elem = SpeechModel::ScenarioVocabulary;
+  if (includeShadow)
+    elem = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elem);
+  elem = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elem);
 
-	ScenarioManager::getInstance()->renameTerminal(oldName, newName, elem);
+  ScenarioManager::getInstance()->renameTerminal(oldName, newName, elem);
 
-	emit progress(100);
-	emit done();
+  emit progress(100);
+  emit done();
 }
-

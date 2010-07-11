@@ -29,33 +29,31 @@ class Word;
 
 class PronunciationTraining : public QWidget, public GreedyReceiver
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::Form ui;
-	QString m_terminal;
-	int m_currentWordIndex;
-	QList<Word*> m_wordsToTest;
-	QList<float> m_scores;
+    private:
+    Ui::Form ui;
+    QString m_terminal;
+    int m_currentWordIndex;
+    QList<Word*> m_wordsToTest;
+    QList<float> m_scores;
 
-	void displayCurrentWord();
+    void displayCurrentWord();
 
-private slots:
-	void next();
-	void prev();
-	void quit();
+  private slots:
+    void next();
+    void prev();
+    void quit();
 
-protected:
-	void closeEvent(QCloseEvent *);
+  protected:
+    void closeEvent(QCloseEvent *);
 
-public:
-	bool greedyTriggerRawList(RecognitionResultList* results);
-	void init();
+  public:
+    bool greedyTriggerRawList(RecognitionResultList* results);
+    void init();
     PronunciationTraining(const QString& terminal, QWidget* parent=0);
 
     ~PronunciationTraining();
 
 };
-
 #endif
-

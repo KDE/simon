@@ -38,27 +38,25 @@ class CreateVoiceInterfaceCommandWidgetPrivate;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class MODELMANAGEMENT_EXPORT CreateVoiceInterfaceCommandWidget : public CreateCommandWidget {
-Q_OBJECT
+class MODELMANAGEMENT_EXPORT CreateVoiceInterfaceCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-signals:
-	void completeChanged();
-	void commandSuggested(Command*);
+    signals:
+  void completeChanged();
+  void commandSuggested(Command*);
 
-private:
-	CreateVoiceInterfaceCommandWidgetPrivate *d;
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  private:
+    CreateVoiceInterfaceCommandWidgetPrivate *d;
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent=0);
+    CreateVoiceInterfaceCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-
-	virtual ~CreateVoiceInterfaceCommandWidget() {}
+    virtual ~CreateVoiceInterfaceCommandWidget() {}
 
 };
-
 #endif
-

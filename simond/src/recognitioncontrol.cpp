@@ -20,16 +20,18 @@
 #include "recognitioncontrol.h"
 
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-	username(user_name)
+username(user_name)
 {
 }
+
 
 void RecognitionControl::touchLastSuccessfulStart()
 {
-	m_lastSuccessfulStart = QDateTime::currentDateTime();
+  m_lastSuccessfulStart = QDateTime::currentDateTime();
 }
+
 
 RecognitionControl::~RecognitionControl()
 {
-	
+
 }

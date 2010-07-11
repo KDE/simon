@@ -27,24 +27,23 @@
 class RunCommandViewPrivate;
 class Scenario;
 
-class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget, public ScenarioDisplay  {
-	Q_OBJECT
+class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget, public ScenarioDisplay
+{
+  Q_OBJECT
 
-signals:
-	void actionsChanged();
+    signals:
+  void actionsChanged();
 
-private:
-	RunCommandViewPrivate *d;
+  private:
+    RunCommandViewPrivate *d;
 
-protected:
-	void displayScenarioPrivate(Scenario *scenario);
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
-
-public:
+  public:
     RunCommandView(QWidget *parent);
 
     ~RunCommandView();
 
 };
-
 #endif

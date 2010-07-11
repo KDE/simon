@@ -32,161 +32,157 @@
 #include <KLocale>
 
 DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
-	db(0),
-	userModel(0)
+db(0),
+userModel(0)
 {
 }
+
 
 bool DatabaseAccess::init()
 {
-	if(db)
-	{
-		db->close();
-		delete db;
-		QSqlDatabase::removeDatabase("simond");
-	}
+  if(db) {
+    db->close();
+    delete db;
+    QSqlDatabase::removeDatabase("simond");
+  }
 
-	db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "simond"));
-	
-	KConfig config(KStandardDirs::locate("config", "simondrc"));
-	KConfigGroup cGroup(&config, "Database");
-	QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).toLocalFile();
+  db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "simond"));
 
-	if (databaseUrl.isEmpty())
-	{
-		QString localKdeFile = KStandardDirs::locateLocal("data", "simond/simond.db");
+  KConfig config(KStandardDirs::locate("config", "simondrc"));
+  KConfigGroup cGroup(&config, "Database");
+  QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).toLocalFile();
 
-		if (!QFile::exists(localKdeFile))
-			QFile::copy(KStandardDirs::locate("data", "simond/simond.db"), 
-					localKdeFile);
+  if (databaseUrl.isEmpty()) {
+    QString localKdeFile = KStandardDirs::locateLocal("data", "simond/simond.db");
 
-		databaseUrl = localKdeFile;
-	}
-	
-	db->setDatabaseName(databaseUrl);
-	m_database = databaseUrl;
+    if (!QFile::exists(localKdeFile))
+      QFile::copy(KStandardDirs::locate("data", "simond/simond.db"),
+        localKdeFile);
 
-	
-	if (!db->open())	//open database
-	{
-		emit error(db->lastError().text());
-		
-		kDebug() << "Could not open db";
-		
-		return false;
-	}
-	
-	if (db->tables().isEmpty()) //create tables
-	{
-		QSqlQuery q("CREATE TABLE `User` ( "
-				    "UserID integer PRIMARY KEY AUTOINCREMENT, "
-				    "Name varchar(150) NOT NULL, "
-				    "Password varchar(250) not null"
-				    ");", *db);
-		if (!q.exec()) {
-			emit error(db->lastError().text());
-			return false;
-		}
-		return true;
-	}
-	return true;
+    databaseUrl = localKdeFile;
+  }
+
+  db->setDatabaseName(databaseUrl);
+  m_database = databaseUrl;
+
+  if (!db->open()) {                              //open database
+    emit error(db->lastError().text());
+
+    kDebug() << "Could not open db";
+
+    return false;
+  }
+
+  if (db->tables().isEmpty()) {                   //create tables
+    QSqlQuery q("CREATE TABLE `User` ( "
+      "UserID integer PRIMARY KEY AUTOINCREMENT, "
+      "Name varchar(150) NOT NULL, "
+      "Password varchar(250) not null"
+      ");", *db);
+    if (!q.exec()) {
+      emit error(db->lastError().text());
+      return false;
+    }
+    return true;
+  }
+  return true;
 }
-
 
 
 void DatabaseAccess::closeConnection()
 {
-	db->close();
+  db->close();
 }
 
 
 //USER
 bool DatabaseAccess::addUser(const QString& user, const QString& password)
 {
-	QSqlQuery q(*db);
-	q.prepare("INSERT INTO User (Name, Password) VALUES (:user, :password)");
-	q.bindValue(":user", user);
-	q.bindValue(":password", password);
-	
-	if (!q.exec()) {
-		emit error(q.lastError().text());
-		return false;
-	}
+  QSqlQuery q(*db);
+  q.prepare("INSERT INTO User (Name, Password) VALUES (:user, :password)");
+  q.bindValue(":user", user);
+  q.bindValue(":password", password);
 
+  if (!q.exec()) {
+    emit error(q.lastError().text());
+    return false;
+  }
 
-	if (userModel) userModel->select();
-	return true;
+  if (userModel) userModel->select();
+  return true;
 }
+
 
 bool DatabaseAccess::authenticateUser(const QString& user, const QString& password)
 {
-	QSqlQuery q(*db);
-	q.prepare("SELECT Name FROM User WHERE Name=:user AND Password=:pass");
-	q.bindValue(":user", user);
-	q.bindValue(":password", password);
+  QSqlQuery q(*db);
+  q.prepare("SELECT Name FROM User WHERE Name=:user AND Password=:pass");
+  q.bindValue(":user", user);
+  q.bindValue(":password", password);
 
-	if (q.exec()) 
-		return q.first();
+  if (q.exec())
+    return q.first();
 
-	emit error(db->lastError().text());
-	return false;
+  emit error(db->lastError().text());
+  return false;
 }
+
 
 bool DatabaseAccess::setPassword(const QString& username, const QString& password)
 {
-	QSqlQuery q(*db);
-	q.prepare("UPDATE User SET Password=:password WHERE Name=:user");
-	q.bindValue(":user", username);
-	q.bindValue(":password", password);
+  QSqlQuery q(*db);
+  q.prepare("UPDATE User SET Password=:password WHERE Name=:user");
+  q.bindValue(":user", username);
+  q.bindValue(":password", password);
 
-	if (!q.exec())  {
-		emit error(db->lastError().text());
-		return false;
-	}
+  if (!q.exec()) {
+    emit error(db->lastError().text());
+    return false;
+  }
 
-
-	if (userModel) userModel->select();
-	return true;
+  if (userModel) userModel->select();
+  return true;
 }
 
 
 bool DatabaseAccess::deleteUser(const QString& username)
 {
-	QSqlQuery q(*db);
-	q.prepare("DELETE FROM User WHERE Name=:user");
-	q.bindValue(":user", username);
+  QSqlQuery q(*db);
+  q.prepare("DELETE FROM User WHERE Name=:user");
+  q.bindValue(":user", username);
 
-	if (!q.exec())  {
-		emit error(db->lastError().text());
-		return false;
-	}
+  if (!q.exec()) {
+    emit error(db->lastError().text());
+    return false;
+  }
 
-	if (userModel) userModel->select();
-	return true;
+  if (userModel) userModel->select();
+  return true;
 }
+
 
 QSqlTableModel* DatabaseAccess::getUsers()
 {
-	if (userModel) {
-		userModel->select();
-		return userModel;
-	}
+  if (userModel) {
+    userModel->select();
+    return userModel;
+  }
 
-	userModel = new QSqlTableModel(this, *db);
-	userModel->setTable("User");
-	userModel->removeColumn(0); //skip id
-	userModel->setHeaderData(0, Qt::Horizontal, i18n("Username"));
-	userModel->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
-	userModel->select();
+  userModel = new QSqlTableModel(this, *db);
+  userModel->setTable("User");
+  userModel->removeColumn(0);                     //skip id
+  userModel->setHeaderData(0, Qt::Horizontal, i18n("Username"));
+  userModel->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
+  userModel->select();
 
-	return userModel;
+  return userModel;
 }
+
 
 DatabaseAccess::~DatabaseAccess()
 {
-	if (db)
-	{
-		db->close();
-		delete db;
-	}
+  if (db) {
+    db->close();
+    delete db;
+  }
 }

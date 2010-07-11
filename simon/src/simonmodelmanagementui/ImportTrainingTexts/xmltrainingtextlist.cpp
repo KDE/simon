@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "xmltrainingtextlist.h"
 #include <simonlogging/logger.h>
 #include <QDomDocument>
@@ -26,40 +25,39 @@
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param path 
- * Path to the textlist - default NULL
+ * @param path
+ * Path to the textlist - default 0
  */
 XMLTrainingTextList::XMLTrainingTextList(QString path) : XMLDomReader(path)
 {
 }
 
 
-
 /**
  * \brief Loads the document
  * Calls the XMLDomReader::load with the given path
  * \author Peter Grasch
- * @param path 
- * Path to the list - default NULL
+ * @param path
+ * Path to the list - default 0
  */
 bool XMLTrainingTextList::load(QString path)
 {
-	if (path.isEmpty()) path = this->path;
-	Logger::log(i18n("[INF] Loading List of Trainingstexts from %1", path));
-	if (!XMLDomReader::load(path)) return false;
-	
-	trainingtexts.clear();
-	
-	QDomElement root = doc->documentElement();
-	
-	QDomElement text = root.firstChildElement();
-	while(!text.isNull()) 
-	{
-		trainingtexts.insert(text.attribute("name"), text.attribute("url"));
-		text = text.nextSiblingElement();
-	}
-	return true;
+  if (path.isEmpty()) path = this->path;
+  Logger::log(i18n("[INF] Loading List of Trainingstexts from %1", path));
+  if (!XMLDomReader::load(path)) return false;
+
+  trainingtexts.clear();
+
+  QDomElement root = doc->documentElement();
+
+  QDomElement text = root.firstChildElement();
+  while(!text.isNull()) {
+    trainingtexts.insert(text.attribute("name"), text.attribute("url"));
+    text = text.nextSiblingElement();
+  }
+  return true;
 }
+
 
 /**
  * \brief Destructor
@@ -68,5 +66,3 @@ bool XMLTrainingTextList::load(QString path)
 XMLTrainingTextList::~XMLTrainingTextList()
 {
 }
-
-

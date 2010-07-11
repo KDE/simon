@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingdirectoryworkingpage.h"
 #include <KMessageBox>
 #include <KUrl>
@@ -29,48 +28,50 @@
 /**
  * \brief Constructor - creates the GUI
  * \author Peter Grasch
- * @param parent 
+ * @param parent
  * Parent of the widget
  */
 ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget* parent) : QWizardPage(parent),
-	importer(new ImportTrainingData(this)),
-	completed(false)
+importer(new ImportTrainingData(this)),
+completed(false)
 {
-	ui.setupUi(this);
-	
-	setTitle(i18n("Processing folder..."));
-	
-	connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
-	connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
-	connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect(importer, SIGNAL(error(QString)), this, SLOT(displayError(QString)));
-}
+  ui.setupUi(this);
 
+  setTitle(i18n("Processing folder..."));
+
+  connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
+  connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
+  connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
+  connect(importer, SIGNAL(error(QString)), this, SLOT(displayError(QString)));
+}
 
 
 void ImportTrainingDirectoryWorkingPage::displayProgress(int now, int max)
 {
-	if (max != -1)
-		ui.pbMain->setMaximum(max);
-	ui.pbMain->setValue(now);
+  if (max != -1)
+    ui.pbMain->setMaximum(max);
+  ui.pbMain->setValue(now);
 }
+
 
 void ImportTrainingDirectoryWorkingPage::displayStatus(QString status)
 {
-	ui.lbStatus->setText(status);
+  ui.lbStatus->setText(status);
 }
+
 
 void ImportTrainingDirectoryWorkingPage::displayError(QString error)
 {
-	KMessageBox::error(this, error);
+  KMessageBox::error(this, error);
 }
+
 
 void ImportTrainingDirectoryWorkingPage::setComplete()
 {
-	completed = true;
-	emit completeChanged();
+  completed = true;
+  emit completeChanged();
 
-	emit done();
+  emit done();
 }
 
 
@@ -80,18 +81,18 @@ void ImportTrainingDirectoryWorkingPage::setComplete()
  */
 void ImportTrainingDirectoryWorkingPage::initializePage()
 {
-	completed = false;
-	emit completeChanged();
-	
-	//reading
-	bool importPrompts = field("importPrompts").toBool();
-	QString path, basePath; 
-	if (importPrompts) {
-		path = field("prompts").value<KUrl>().path();
-		basePath = field("promptsBaseDirectory").value<KUrl>().path();
-	} else {
-		path = field("directory").value<KUrl>().path();
-	}
-	importer->import(importPrompts, path, basePath);
-}
+  completed = false;
+  emit completeChanged();
 
+  //reading
+  bool importPrompts = field("importPrompts").toBool();
+  QString path, basePath;
+  if (importPrompts) {
+    path = field("prompts").value<KUrl>().path();
+    basePath = field("promptsBaseDirectory").value<KUrl>().path();
+  }
+  else {
+    path = field("directory").value<KUrl>().path();
+  }
+  importer->import(importPrompts, path, basePath);
+}

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SCENARIOOBJECT_H_10BF7730AC634828820C72F90E65AA5E
 #define SIMON_SCENARIOOBJECT_H_10BF7730AC634828820C72F90E65AA5E
 #include <QString>
@@ -26,25 +25,24 @@
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT ScenarioObject{
+class SCENARIOBASE_EXPORT ScenarioObject
+{
 
-protected:
-	Scenario *parentScenario;
-public:
-	
-	ScenarioObject(Scenario *parentScenario)
-		: parentScenario(parentScenario)
-	{
-	}
+  protected:
+    Scenario *parentScenario;
+  public:
 
-	virtual void assignParent(Scenario *parent) { parentScenario = parent; }
+    ScenarioObject(Scenario *parentScenario)
+    : parentScenario(parentScenario) {
+    }
 
-	virtual bool deSerialize(const QDomElement&)=0;
+    virtual void assignParent(Scenario *parent) { parentScenario = parent; }
 
-	virtual QDomElement serialize(QDomDocument *doc)=0;
+    virtual bool deSerialize(const QDomElement&)=0;
 
-	virtual ~ScenarioObject() {}
+    virtual QDomElement serialize(QDomDocument *doc)=0;
+
+    virtual ~ScenarioObject() {}
 
 };
-
 #endif

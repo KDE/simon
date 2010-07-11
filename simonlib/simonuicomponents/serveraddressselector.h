@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SERVERADDRESSSELECTOR_H_248323A2BAC9490395A6BC14E290B274
 #define SIMON_SERVERADDRESSSELECTOR_H_248323A2BAC9490395A6BC14E290B274
 
@@ -29,19 +28,19 @@ class QToolButton;
 
 class SIMONUICOMPONENTS_EXPORT ServerAddressSelector : public QWidget
 {
-Q_OBJECT
-private:
-	KLineEdit *leServerAddress;
-	QToolButton *pbSelectServerAddress;
+  Q_OBJECT
+    private:
+    KLineEdit *leServerAddress;
+    QToolButton *pbSelectServerAddress;
 
-private slots:
-	void displayAddDialog();
-public:
-	ServerAddressSelector(QWidget *parent);
+  private slots:
+    void displayAddDialog();
+  public:
+    ServerAddressSelector(QWidget *parent);
 
-	KLineEdit* lineEdit();
+    KLineEdit* lineEdit();
 
-	~ServerAddressSelector();
+    ~ServerAddressSelector();
 
 };
 #endif

@@ -27,50 +27,52 @@
 
 class QDomDocument;
 
-namespace Keyboard {
-	enum ButtonType{
-		NullButton=0,
-		TextButton=1,
-		ShortcutButton=2
-	};
+namespace Keyboard
+{
+  enum ButtonType
+  {
+    NullButton=0,
+    TextButton=1,
+    ShortcutButton=2
+  };
 }
+
 
 class KeyboardButton : public KPushButton
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void triggered();
+    signals:
+  void triggered();
 
-	private:
-		bool m_isNull;
-		QString triggerShown;
-		QString triggerReal;
-		Keyboard::ButtonType valueType;
-		QString value;
-		void setupGUI();
-	
-	public slots:
-		bool trigger();
+  private:
+    bool m_isNull;
+    QString triggerShown;
+    QString triggerReal;
+    Keyboard::ButtonType valueType;
+    QString value;
+    void setupGUI();
 
-	public:
-		bool isNull() { return m_isNull; }
+  public slots:
+    bool trigger();
 
-		KeyboardButton(QString triggerShown, QString triggerReal, Keyboard::ButtonType valueType, QString value);
-		KeyboardButton(const QDomElement& elem);
-		~KeyboardButton();
+  public:
+    bool isNull() { return m_isNull; }
 
-		QString getTriggerReal();
-		Keyboard::ButtonType getValueType();
-		QString getValue();
-		QString getTriggerShown();
-		
-		void setTriggerShown(const QString& triggerShown);
-		void setTriggerReal(const QString& triggerReal);
-		void setValue(const QString& value);
-		void setButtonType(Keyboard::ButtonType valueType);
+    KeyboardButton(QString triggerShown, QString triggerReal, Keyboard::ButtonType valueType, QString value);
+    KeyboardButton(const QDomElement& elem);
+    ~KeyboardButton();
 
-		QDomElement serialize(QDomDocument *doc);
+    QString getTriggerReal();
+    Keyboard::ButtonType getValueType();
+    QString getValue();
+    QString getTriggerShown();
+
+    void setTriggerShown(const QString& triggerShown);
+    void setTriggerReal(const QString& triggerReal);
+    void setValue(const QString& value);
+    void setButtonType(Keyboard::ButtonType valueType);
+
+    QDomElement serialize(QDomDocument *doc);
 };
-
 #endif

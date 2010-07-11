@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 #define SIMON_NULLRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
-
 
 #include <QObject>
 #include <QTimer>
@@ -29,27 +27,25 @@
 class WAV;
 class VADSoundProcessor;
 
-class NullRecorderClient :public QObject, public SoundInputClient {
-	Q_OBJECT
+class NullRecorderClient :public QObject, public SoundInputClient
+{
+  Q_OBJECT
 
-private:
-	VADSoundProcessor *vad;
+    private:
+    VADSoundProcessor *vad;
 
-signals:
-	void level(qint64 time, float now);
-	void clippingOccured();
-	
-public:
-	NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
-    	bool start();
-	bool finish();
+    signals:
+    void level(qint64 time, float now);
+    void clippingOccured();
 
-	void processPrivate(const QByteArray& data, qint64 currentTime);
-    
-	virtual ~NullRecorderClient();
+  public:
+    NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    bool start();
+    bool finish();
+
+    void processPrivate(const QByteArray& data, qint64 currentTime);
+
+    virtual ~NullRecorderClient();
 
 };
-
 #endif
-
-

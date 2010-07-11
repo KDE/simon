@@ -22,75 +22,76 @@
 #include <simonsound/simonsound.h>
 #include <simonsound/soundserver.h>
 
-
 #include <QObject>
 #include <KDebug>
-
 
 /**
  * \brief Constructor
  */
 SimondStreamer::SimondStreamer(SimonSender *s, QObject *parent) :
-	QObject(parent),
-	m_sender(s)
+QObject(parent),
+m_sender(s)
 {
-	initializeDevices();
-	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
+  initializeDevices();
+  connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
 }
+
 
 void SimondStreamer::initializeDevices()
 {
-	bool wasRunning = isRunning();
+  bool wasRunning = isRunning();
 
-	foreach (SimondStreamerClient *c, clients)
-		c->stop();
-	qDeleteAll(clients);
-	clients.clear();
+  foreach (SimondStreamerClient *c, clients)
+    c->stop();
+  qDeleteAll(clients);
+  clients.clear();
 
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
-	qint8 i=0;
-	foreach (SimonSound::DeviceConfiguration dev, devices)
-	{
-		SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getRecognitionInputDevices();
+  qint8 i=0;
+  foreach (SimonSound::DeviceConfiguration dev, devices) {
+    SimondStreamerClient *streamer = new SimondStreamerClient(i++, m_sender, dev, this);
 
-		connect(streamer, SIGNAL(started()), this, SIGNAL(started()));
-		connect(streamer, SIGNAL(stopped()), this, SIGNAL(stopped()));
+    connect(streamer, SIGNAL(started()), this, SIGNAL(started()));
+    connect(streamer, SIGNAL(stopped()), this, SIGNAL(stopped()));
 
-		if (wasRunning)
-			streamer->start();
+    if (wasRunning)
+      streamer->start();
 
-		clients << streamer;
-	}
+    clients << streamer;
+  }
 }
+
 
 bool SimondStreamer::isRunning()
 {
-	foreach (SimondStreamerClient *c, clients)
-		if (c->isRunning())
-			return true;
-	return false;
+  foreach (SimondStreamerClient *c, clients)
+    if (c->isRunning())
+    return true;
+  return false;
 }
+
 
 bool SimondStreamer::start()
 {
-	bool succ = true;
-	foreach (SimondStreamerClient *c, clients)
-		succ = c->start() && succ;
-	return succ;
+  bool succ = true;
+  foreach (SimondStreamerClient *c, clients)
+    succ = c->start() && succ;
+  return succ;
 }
+
 
 /**
  * \brief This will stop the current recording
- * 
+ *
  * Tells the wavrecorder to simply stop the recording and save the result.
  * \author Peter Grasch
  */
 bool SimondStreamer::stop()
 {
-	bool succ = true;
-	foreach (SimondStreamerClient *c, clients)
-		succ = c->stop() && succ;
-	return succ;
+  bool succ = true;
+  foreach (SimondStreamerClient *c, clients)
+    succ = c->stop() && succ;
+  return succ;
 }
 
 
@@ -100,7 +101,3 @@ bool SimondStreamer::stop()
 SimondStreamer::~SimondStreamer()
 {
 }
-
-
-
-

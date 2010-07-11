@@ -25,20 +25,18 @@
 #include <QVariantList>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ModelCompilationSettings : public KCModule
 {
-Q_OBJECT
-private:
-        Ui::ExternalProgramsWidget externalProgramsUi;
+  Q_OBJECT
+    private:
+    Ui::ExternalProgramsWidget externalProgramsUi;
 
-public:
-        ModelCompilationSettings(QWidget* parent, const QVariantList& args=QVariantList());
+  public:
+    ModelCompilationSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
-        ~ModelCompilationSettings();
-
+    ~ModelCompilationSettings();
 
 };
-
 #endif

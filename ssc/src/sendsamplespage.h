@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SENDSAMPLEPAGE_H_7C93ADEB2453450C88A2A4C90F5D82F1
 #define SIMON_SENDSAMPLEPAGE_H_7C93ADEB2453450C88A2A4C90F5D82F1
 
@@ -37,86 +36,85 @@ class KPushButton;
 
 class SendSampleWorker : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void status(QString, int now, int max);
-		void error(QString);
-		void aborted();
-		void finished();
-		void sendSample(Sample *s);
+    signals:
+  void status(QString, int now, int max);
+  void error(QString);
+  void aborted();
+  void finished();
+  void sendSample(Sample *s);
 
-	private:
-		bool shouldAbort;
-		bool shouldDelete;
-		SampleDataProvider *m_dataProvider;
-		bool m_isStored;
-		QString m_storageDirectory;
+  private:
+    bool shouldAbort;
+    bool shouldDelete;
+    SampleDataProvider *m_dataProvider;
+    bool m_isStored;
+    QString m_storageDirectory;
 
-	private slots:
-		void abort() { shouldAbort = true; }
+  private slots:
+    void abort() { shouldAbort = true; }
 
-	public:
-		SendSampleWorker(SampleDataProvider *dataProvider, bool isStored, const QString& storageDirectory=QString()) : 
-			shouldAbort(false), 
-			shouldDelete(false),
-			m_dataProvider(dataProvider),
-			m_isStored(isStored),
-			m_storageDirectory(storageDirectory)
-		{}
-		~SendSampleWorker();
+  public:
+    SendSampleWorker(SampleDataProvider *dataProvider, bool isStored, const QString& storageDirectory=QString()) :
+    shouldAbort(false),
+      shouldDelete(false),
+      m_dataProvider(dataProvider),
+      m_isStored(isStored),
+      m_storageDirectory(storageDirectory)
+      {}
+    ~SendSampleWorker();
 
-		bool sendSamples();
-		bool storeData();
-		bool getShouldAbort() { return shouldAbort; }
-		void deleteThatSometimes() { shouldDelete = true; }
+    bool sendSamples();
+    bool storeData();
+    bool getShouldAbort() { return shouldAbort; }
+    void deleteThatSometimes() { shouldDelete = true; }
 };
 
 class SendSamplePage : public QWizardPage
 {
-	Q_OBJECT
-	
-	signals:
-		void error(QString);
+  Q_OBJECT
 
-	private:
-		qint32 m_userId;
-		bool m_isStored;
+    signals:
+  void error(QString);
 
-		SendSampleWorker *worker;
+  private:
+    qint32 m_userId;
+    bool m_isStored;
 
-		QVBoxLayout *layout;
-		QPointer<Operation> m_transmitOperation;
-		ProgressWidget *m_progressWidget;
+    SendSampleWorker *worker;
 
-		QFutureWatcher<bool> *futureWatcher;
+    QVBoxLayout *layout;
+    QPointer<Operation> m_transmitOperation;
+    ProgressWidget *m_progressWidget;
 
-		KPushButton *pbReSendData;
-		KPushButton *pbStoreData;
+    QFutureWatcher<bool> *futureWatcher;
 
-		void setupOperation(const QString& name);
-	
-	private slots:
-		void displayStatus(QString message, int now, int max);
-		void displayError(QString error);
-		void sendSample(Sample *s);
-		void updateStatusDisplay();
-		void transmissionFinished();
-		void prepareDataSending();
-		void disassociateFromSSCDAccess();
-		void sendData();
+    KPushButton *pbReSendData;
+    KPushButton *pbStoreData;
 
-		void storeData();
-	
-	public:
-		SendSamplePage(SampleDataProvider *dataProvider, bool isStored, const QString& ini, QWidget *parent=0);
-		
-		~SendSamplePage();
-		bool isComplete() const;
+    void setupOperation(const QString& name);
 
-		void initializePage();
-		void cleanupPage();
+  private slots:
+    void displayStatus(QString message, int now, int max);
+    void displayError(QString error);
+    void sendSample(Sample *s);
+    void updateStatusDisplay();
+    void transmissionFinished();
+    void prepareDataSending();
+    void disassociateFromSSCDAccess();
+    void sendData();
+
+    void storeData();
+
+  public:
+    SendSamplePage(SampleDataProvider *dataProvider, bool isStored, const QString& ini, QWidget *parent=0);
+
+    ~SendSamplePage();
+    bool isComplete() const;
+
+    void initializePage();
+    void cleanupPage();
 
 };
-
 #endif

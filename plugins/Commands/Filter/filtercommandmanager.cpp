@@ -26,104 +26,110 @@
 #include <KAction>
 #include "filterconfiguration.h"
 
-K_PLUGIN_FACTORY( FilterPluginFactory, 
-			registerPlugin< FilterCommandManager >(); 
-		)
-        
+K_PLUGIN_FACTORY( FilterPluginFactory,
+registerPlugin< FilterCommandManager >();
+)
+
 K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
-
-
 FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-	isActive(false),
-	activateAction(new KAction(this))
+isActive(false),
+activateAction(new KAction(this))
 {
-	activateAction->setText(i18n("Activate Filter"));
-	activateAction->setIcon(KIcon("view-filter"));
-	connect(activateAction, SIGNAL(triggered(bool)),
-		this, SLOT(toggle()));
+  activateAction->setText(i18n("Activate Filter"));
+  activateAction->setIcon(KIcon("view-filter"));
+  connect(activateAction, SIGNAL(triggered(bool)),
+    this, SLOT(toggle()));
 
-	guiActions << activateAction;
+  guiActions << activateAction;
 }
+
 
 const QString FilterCommandManager::name() const
 {
-	return i18n("Filter");
+  return i18n("Filter");
 }
+
 
 const QString FilterCommandManager::iconSrc() const
 {
-	return ("view-filter");
+  return ("view-filter");
 }
+
 
 void FilterCommandManager::updateAction()
 {
-	if (!isActive) {
-		SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
-		activateAction->setText(i18n("Activate Filter"));
-	} else {
-		SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
-		activateAction->setText(i18n("Deactivate Filter"));
-	}
+  if (!isActive) {
+    SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
+    activateAction->setText(i18n("Activate Filter"));
+  }
+  else {
+    SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
+    activateAction->setText(i18n("Deactivate Filter"));
+  }
 }
+
 
 void FilterCommandManager::toggle()
 {
-	Logger::log(i18n("[INF] Changing filter state..."));
+  Logger::log(i18n("[INF] Changing filter state..."));
 
-	isActive = !isActive;
-	updateAction();
+  isActive = !isActive;
+  updateAction();
 }
 
 
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
-	if (CommandManager::trigger(triggerName))
-		return true;
+  if (CommandManager::trigger(triggerName))
+    return true;
 
-	//would pass through - should it?
-	kDebug() << "would pass through - should it?";
-	if (!isActive)
-		return false;
-		
-	if (triggerName.contains(QRegExp(dynamic_cast<FilterConfiguration*>(config)->regExp())))
-		return true; //matches so filter it out!
+  //would pass through - should it?
+  kDebug() << "would pass through - should it?";
+  if (!isActive)
+    return false;
 
-	//not for us
-	return false;
+  if (triggerName.contains(QRegExp(dynamic_cast<FilterConfiguration*>(config)->regExp())))
+    return true;                                  //matches so filter it out!
+
+  //not for us
+  return false;
 }
+
 
 bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-	bool succ = true;
+  bool succ = true;
 
-	config = new FilterConfiguration(parentScenario);
-	succ = config->deSerialize(elem);
+  config = new FilterConfiguration(parentScenario);
+  succ = config->deSerialize(elem);
 
-	succ &= installInterfaceCommand(this, "toggle", i18n("Activate filter"), "view-filter",
-			i18n("Starts filtering"), true /* announce */, true /* show icon */,
-			SimonCommand::DefaultState /* consider this command when in this state */, 
-			SimonCommand::DefaultState+1, /* if executed switch to this state */
-			QString() /* take default visible id from action name */,
-			"startFiltering" /* id */);
+  succ &= installInterfaceCommand(this, "toggle", i18n("Activate filter"), "view-filter",
+    i18n("Starts filtering"), true /* announce */, true /* show icon */,
+    SimonCommand::DefaultState /* consider this command when in this state */,
+    SimonCommand::DefaultState+1,                 /* if executed switch to this state */
+    QString() /* take default visible id from action name */,
+    "startFiltering" /* id */);
 
-	succ &= installInterfaceCommand(this, "toggle", i18n("Deactivate filter"), "view-filter",
-			i18n("Stops filtering"), true /* announce */, true /* show icon */,
-			SimonCommand::DefaultState+1 /* consider this command when in this state */, 
-			SimonCommand::DefaultState, /* if executed switch to this state */
-			QString() /* take default visible id from action name */,
-			"stopsFiltering" /* id */);
+  succ &= installInterfaceCommand(this, "toggle", i18n("Deactivate filter"), "view-filter",
+    i18n("Stops filtering"), true /* announce */, true /* show icon */,
+    SimonCommand::DefaultState+1 /* consider this command when in this state */,
+    SimonCommand::DefaultState,                   /* if executed switch to this state */
+    QString() /* take default visible id from action name */,
+    "stopsFiltering" /* id */);
 
-	if (!succ)
-		kDebug() << "Something went wrong!";
+  if (!succ)
+    kDebug() << "Something went wrong!";
 
-	return succ;
+  return succ;
 }
+
 
 const QString FilterCommandManager::preferredTrigger() const
 {
-	return "";
+  return "";
 }
+
 
 FilterCommandManager::~FilterCommandManager()
 {

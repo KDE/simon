@@ -24,28 +24,25 @@
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT Institution : public SSCObject {
+class SSCOBJECTS_EXPORT Institution : public SSCObject
+{
 
-private:
-	qint32 m_id;
-	QString m_name;
+  private:
+    qint32 m_id;
+    QString m_name;
 
-public:
-	Institution(qint32 id, const QString& name);
+  public:
+    Institution(qint32 id, const QString& name);
 
-	Institution() {}
+    Institution() {}
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
+    void deserialize(QByteArray data);
+    QByteArray serialize();
 
-	qint32 id() { return m_id; }
-	QString name() { return m_name; }
-	void setName(const QString& name) { m_name = name; }
+    qint32 id() { return m_id; }
+    QString name() { return m_name; }
+    void setName(const QString& name) { m_name = name; }
 
-	~Institution() {}
+    ~Institution() {}
 };
-
 #endif
-
-
-

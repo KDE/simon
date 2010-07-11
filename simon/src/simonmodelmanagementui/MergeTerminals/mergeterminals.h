@@ -17,39 +17,37 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MERGETERMINALS_H_8AFCF149C4C744B1A75467E07DD4E402
 #define SIMON_MERGETERMINALS_H_8AFCF149C4C744B1A75467E07DD4E402
 
 #include <QThread>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 
 class MergeTerminals : public QThread
 {
-		Q_OBJECT
-	signals:
-		void status ( QString );
-		void progress ( int cur, int max );
-		void done();
-	private:
-		QString newName, terminalA, terminalB;
-		bool includeShadow, includeGrammar;
-	public:
-		void run();
+  Q_OBJECT
+    signals:
+  void status ( QString );
+  void progress ( int cur, int max );
+  void done();
+  private:
+    QString newName, terminalA, terminalB;
+    bool includeShadow, includeGrammar;
+  public:
+    void run();
 
-		void setNewName ( QString newName ) { this->newName = newName.trimmed(); }
-		void setTerminalA ( QString terminalA ) { this->terminalA = terminalA.trimmed(); }
-		void setTerminalB ( QString terminalB ) { this->terminalB = terminalB.trimmed(); }
-		void setIncludeShadow ( bool includeShadow ) { this->includeShadow= includeShadow; }
-		void setIncludeGrammar ( bool includeGrammar) { this->includeGrammar= includeGrammar; }
+    void setNewName ( QString newName ) { this->newName = newName.trimmed(); }
+    void setTerminalA ( QString terminalA ) { this->terminalA = terminalA.trimmed(); }
+    void setTerminalB ( QString terminalB ) { this->terminalB = terminalB.trimmed(); }
+    void setIncludeShadow ( bool includeShadow ) { this->includeShadow= includeShadow; }
+    void setIncludeGrammar ( bool includeGrammar) { this->includeGrammar= includeGrammar; }
 
-		MergeTerminals ( QObject* parent );
+    MergeTerminals ( QObject* parent );
 
-		~MergeTerminals();
+    ~MergeTerminals();
 
 };
-
 #endif

@@ -27,57 +27,53 @@
 #include <QAbstractItemModel>
 #include <QDomElement>
 
-
 class QDomDocument;
 
 class KeyboardTab : public QAbstractItemModel
 {
-	private:
-		QList<KeyboardButton *> buttonList;
-		QString tabName;
-		bool m_isNull;
+  private:
+    QList<KeyboardButton *> buttonList;
+    QString tabName;
+    bool m_isNull;
 
-		KeyboardButton* findButton(const QString& name, bool caseSensitive=true);
-		
-		
-	public:
-		bool isNull() { return m_isNull; }
+    KeyboardButton* findButton(const QString& name, bool caseSensitive=true);
 
-		bool triggerButton(const QString& trigger, bool caseSensitive);
+  public:
+    bool isNull() { return m_isNull; }
 
-		KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
-		KeyboardTab(const QDomElement& elem);
+    bool triggerButton(const QString& trigger, bool caseSensitive);
 
-		QString getTabName();
-		void setTabName(const QString& newName);
+    KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
+    KeyboardTab(const QDomElement& elem);
 
-		bool addButton(KeyboardButton *button);
-		bool deleteButton(KeyboardButton *button);
+    QString getTabName();
+    void setTabName(const QString& newName);
 
-		bool moveButtonUp(KeyboardButton *button);
-		bool moveButtonDown(KeyboardButton *button);
+    bool addButton(KeyboardButton *button);
+    bool deleteButton(KeyboardButton *button);
 
-		QList<KeyboardButton*> getTabButtons() { return buttonList; }
+    bool moveButtonUp(KeyboardButton *button);
+    bool moveButtonDown(KeyboardButton *button);
 
-		//Model stuff
-		QVariant data(const QModelIndex &index, int role) const;
-		Qt::ItemFlags flags(const QModelIndex &index) const;
-		QVariant headerData(int, Qt::Orientation orientation,
-					int role = Qt::DisplayRole) const;
+    QList<KeyboardButton*> getTabButtons() { return buttonList; }
 
-		QModelIndex index(int row, int column,
-				const QModelIndex &parent = QModelIndex()) const;
+    //Model stuff
+    QVariant data(const QModelIndex &index, int role) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
 
-		QModelIndex parent(const QModelIndex &index) const;
+    QModelIndex index(int row, int column,
+      const QModelIndex &parent = QModelIndex()) const;
 
-		int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &index) const;
 
-		int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-		QDomElement serialize(QDomDocument *doc);
-		~KeyboardTab();
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
+    QDomElement serialize(QDomDocument *doc);
+    ~KeyboardTab();
 
 };
-
 #endif

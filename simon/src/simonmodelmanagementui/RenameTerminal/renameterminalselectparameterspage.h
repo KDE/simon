@@ -17,26 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
 #define SIMON_RENAMETERMINALSELECTPARAMETERSPAGE_H_634D7DC412D24E0696239562AA94C143
 
 #include <QWizardPage>
 #include "ui_renameterminalselectparameterspage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class RenameTerminalSelectParametersPage : public QWizardPage
 {
-	Q_OBJECT
-private:
-	Ui::RenameTerminalSelectParametersDlg ui;
-public:
+  Q_OBJECT
+    private:
+    Ui::RenameTerminalSelectParametersDlg ui;
+  public:
     RenameTerminalSelectParametersPage(QWidget *parent);
     void initializePage();
 
     ~RenameTerminalSelectParametersPage();
 
 };
-
 #endif

@@ -33,25 +33,25 @@
 
 ATWatcher* ATWatcher::instance;
 
-
 ATWatcher::ATWatcher(QObject* parent) : QObject(parent),
-	focusedWindow(0)
+focusedWindow(0)
 #ifdef Q_OS_UNIX
-	, backend(new DBusBackend(this))
+, backend(new DBusBackend(this))
 #else
 #ifdef Q_OS_WIN
-	, backend(new MSAABackend(this))
+, backend(new MSAABackend(this))
 #endif
 #endif
 {
-// 	currentObjectTree=0;
-	
-	connect(backend, SIGNAL(objectFound(ATObject*)), this, SLOT(addObject(ATObject*)));
-	connect(backend, SIGNAL(objectFocused(ATObject*)), this, SLOT(translateFocusToWindow(ATObject*)));
-	connect(backend, SIGNAL(objectDeleted(ATObject*)), this, SLOT(deleteObject(ATObject*)));
+  // 	currentObjectTree=0;
 
-	applySettings();
+  connect(backend, SIGNAL(objectFound(ATObject*)), this, SLOT(addObject(ATObject*)));
+  connect(backend, SIGNAL(objectFocused(ATObject*)), this, SLOT(translateFocusToWindow(ATObject*)));
+  connect(backend, SIGNAL(objectDeleted(ATObject*)), this, SLOT(deleteObject(ATObject*)));
+
+  applySettings();
 }
+
 
 /**
  * \brief Starts / stops the monitoring according to the defined settings
@@ -59,52 +59,54 @@ ATWatcher::ATWatcher(QObject* parent) : QObject(parent),
  */
 void ATWatcher::applySettings()
 {
-// 	if (Settings::getB("GuiRecognition/SupportAT"))
-// 		backend->startMonitoring();
-// 	else backend->stopMonitoring();
+  // 	if (Settings::getB("GuiRecognition/SupportAT"))
+  // 		backend->startMonitoring();
+  // 	else backend->stopMonitoring();
 }
+
 
 /**
  * \brief Translates the given object to its application window
  * \author Peter Grasch
  * Instead of traversing the object tree we just iterate as long as there is a parent, which has a parent, which has a parent,...
- * @param selectedObject 
+ * @param selectedObject
  */
 void ATWatcher::translateFocusToWindow(ATObject* selectedObject)
 {
-	if (!selectedObject || !selectedObject->parent())
-	{
-		//!< Because we can't focus a "application" - only their windows
-		//!< and the window would have the application as parent
-		return;
-	}
-	ATObject *application= (ATObject*) selectedObject->parent();
-	ATObject *window=(ATObject*) selectedObject;
-	
-	while (application->parent())
-	{
-		window = application;
-		application = (ATObject*) application->parent();
-	}
-// 	if (applications.contains(selectedObject))
-// 		qDebug() << "Window not in window list";
-	
-	focusedWindow = window;
-	focusedApplication = application;
+  if (!selectedObject || !selectedObject->parent()) {
+    //!< Because we can not focus a "application" - only their windows
+    //!< and the window would have the application as parent
+    return;
+  }
+  ATObject *application= (ATObject*) selectedObject->parent();
+  ATObject *window=(ATObject*) selectedObject;
+
+  while (application->parent()) {
+    window = application;
+    application = (ATObject*) application->parent();
+  }
+  // 	if (applications.contains(selectedObject))
+  // 		qDebug() << "Window not in window list";
+
+  focusedWindow = window;
+  focusedApplication = application;
 }
+
 
 void ATWatcher::addObject(ATObject *newObject)
 {
-// 	qDebug() << "Adding new object: " << newObject;
+  // 	qDebug() << "Adding new object: " << newObject;
 
-// 	applications.append(newObject);
+  // 	applications.append(newObject);
 }
+
 
 void ATWatcher::deleteObject(ATObject *oldObject)
 {
-	applications.removeAll(oldObject);
-	oldObject->deleteLater();
+  applications.removeAll(oldObject);
+  oldObject->deleteLater();
 }
+
 
 /**
  * \brief Triggers the widget with the given triggerstring
@@ -113,58 +115,53 @@ void ATWatcher::deleteObject(ATObject *oldObject)
  */
 bool ATWatcher::trigger(const QString &triggerString)
 {
-// 	qDebug() << "execute: " << triggerString;
-	QStack<ATObject*> objectsToSearch;
-	
-	//TODO: once the "currentWindow" is working, only push the current appwindow
-	for (int i=0; i < applications.count(); i++)
-		objectsToSearch.push(applications[i]);
+  // 	qDebug() << "execute: " << triggerString;
+  QStack<ATObject*> objectsToSearch;
 
-	ATObject *current;
-	while (!objectsToSearch.isEmpty())
-	{
-		//traverse the object tree and find the item
-		current = objectsToSearch.pop();
-		if (current->getName() == triggerString)
-		{
-// 			qDebug() << "FOUND IT! It is a " << current->getClassName();
-			current->trigger();
-			return true;
-		}
-		
-		QList<ATOMenu*> menuList = current->getMenuList();
-		while (menuList.count()>0)
-		{
-			ATOMenu *menu = menuList.takeAt(0);
-			if (!menu) continue;
-// 			qDebug() << "vor abfrage";
-			if (menu->title == triggerString)
-			{
-// 				qDebug() << "in abfrage";
-// 				qDebug() << "FOUND IT! It is a menu!";
-				return true;
-			} //else 
-// 				qDebug() << "war nix"<<menu->title;
-			ATOMenu *submenu;
-// 			qDebug() << "subi";
-			QList<ATOMenu*> submenus = menu->actions;
-// 			qDebug() << "go";
-			foreach (submenu, submenus)
-				menuList.append(submenu);
-// 			qDebug() << "nach subi";
-		}
-		
-		QObjectList children = current->children();
-		for (int i=0; i < children.count(); i++)
-			objectsToSearch.push((ATObject*) children.at(i));
-	}
-		
-	return false;
+  //TODO: once the "currentWindow" is working, only push the current appwindow
+  for (int i=0; i < applications.count(); i++)
+    objectsToSearch.push(applications[i]);
+
+  ATObject *current;
+  while (!objectsToSearch.isEmpty()) {
+    //traverse the object tree and find the item
+    current = objectsToSearch.pop();
+    if (current->getName() == triggerString) {
+      // 			qDebug() << "FOUND IT! It is a " << current->getClassName();
+      current->trigger();
+      return true;
+    }
+
+    QList<ATOMenu*> menuList = current->getMenuList();
+    while (menuList.count()>0) {
+      ATOMenu *menu = menuList.takeAt(0);
+      if (!menu) continue;
+      // 			qDebug() << "vor abfrage";
+      if (menu->title == triggerString) {
+        // 				qDebug() << "in abfrage";
+        // 				qDebug() << "FOUND IT! It is a menu!";
+        return true;
+      }                                           //else
+      // 				qDebug() << "war nix"<<menu->title;
+      ATOMenu *submenu;
+      // 			qDebug() << "subi";
+      QList<ATOMenu*> submenus = menu->actions;
+      // 			qDebug() << "go";
+      foreach (submenu, submenus)
+        menuList.append(submenu);
+      // 			qDebug() << "nach subi";
+    }
+
+    QObjectList children = current->children();
+    for (int i=0; i < children.count(); i++)
+      objectsToSearch.push((ATObject*) children.at(i));
+  }
+
+  return false;
 }
+
 
 ATWatcher::~ATWatcher()
 {
-	backend->deleteLater();
+  backend->deleteLater();
 }
-
-

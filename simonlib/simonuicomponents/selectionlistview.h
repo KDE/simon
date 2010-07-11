@@ -17,13 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SELECTIONLISTVIEW_H_EF32AB08882C4BCA803C7B5C1522AFE2
 #define SIMON_SELECTIONLISTVIEW_H_EF32AB08882C4BCA803C7B5C1522AFE2
 
 #include "simonuicomponents_export.h"
 #include <QListView>
-
 
 /**
  \class SelectionListView
@@ -36,17 +34,15 @@ class QItemSelection;
 
 class SIMONUICOMPONENTS_EXPORT SelectionListView : public QListView
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void selectionChanged();
+    signals:
+  void selectionChanged();
 
-public:
-	explicit SelectionListView(QWidget* parent=0);
+  public:
+    explicit SelectionListView(QWidget* parent=0);
 
-protected slots:
-	virtual void selectionChanged (const QItemSelection& , const QItemSelection& );
+  protected slots:
+    virtual void selectionChanged (const QItemSelection& , const QItemSelection& );
 };
-
 #endif
-

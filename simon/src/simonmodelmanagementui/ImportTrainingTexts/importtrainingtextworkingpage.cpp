@@ -17,8 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextlocalpage.h"
 #include "xmltrainingtextlist.h"
@@ -44,7 +42,6 @@
 #include <kencodingdetector.h>
 #include <kio/jobuidelegate.h>
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -52,9 +49,10 @@
  */
 ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Text is being added"));
-	ui.setupUi(this);
+  setTitle(i18n("Text is being added"));
+  ui.setupUi(this);
 }
+
 
 /**
  * \brief Sets the path to the given Path
@@ -63,52 +61,54 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
  */
 void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
-	if (!path.isLocalFile())
-	{
-		Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
+  if (!path.isLocalFile()) {
+    Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
 
-		KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
+    KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
 
-		KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, 
-						-1 /* no special permissions */, KIO::Overwrite);
-		
-		if (!job->exec())
-		{
-			job->ui()->showErrorMessage();
-			return;
-		}
+    KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath,
+      -1 /* no special permissions */, KIO::Overwrite);
 
-		path = tmpPath;
-	}
-	parseFile(path.path());
-	
+    if (!job->exec()) {
+      job->ui()->showErrorMessage();
+      return;
+    }
+
+    path = tmpPath;
+  }
+  parseFile(path.path());
+
 }
+
 
 void ImportTrainingTextWorkingPage::start()
 {
-	ui.pbProgress->setMaximum(0);
-	if (field("importTrainingTextLocal").toBool())
-	{
-		startImport(field("importTrainingTextLFilename").value<KUrl>());
-	} else {
-		//add
-		parseAdd();
-	}
-	wizard()->next();
+  ui.pbProgress->setMaximum(0);
+  if (field("importTrainingTextLocal").toBool()) {
+    startImport(field("importTrainingTextLFilename").value<KUrl>());
+  }
+  else {
+    //add
+    parseAdd();
+  }
+  wizard()->next();
 }
+
 
 void ImportTrainingTextWorkingPage::initializePage()
 {
-	QTimer::singleShot(200, this, SLOT(start()));
+  QTimer::singleShot(200, this, SLOT(start()));
 }
+
 
 void ImportTrainingTextWorkingPage::parseAdd()
 {
-	QByteArray byte = field("importTrainingAddText").toString().toUtf8();
-	QBuffer inputBuffer(&byte, this);
-	QStringList sents = parse(&inputBuffer, "UTF-8");
-	createTrainingsText(field("importTrainingTextATextname").toString(), sents);
+  QByteArray byte = field("importTrainingAddText").toString().toUtf8();
+  QBuffer inputBuffer(&byte, this);
+  QStringList sents = parse(&inputBuffer, "UTF-8");
+  createTrainingsText(field("importTrainingTextATextname").toString(), sents);
 }
+
 
 /**
  * \brief Parses the textfile at the given path
@@ -117,108 +117,105 @@ void ImportTrainingTextWorkingPage::parseAdd()
  */
 void ImportTrainingTextWorkingPage::parseFile(QString path)
 {
-	ui.pbProgress->setMaximum(3);
-	ui.pbProgress->setValue(0);
+  ui.pbProgress->setMaximum(3);
+  ui.pbProgress->setValue(0);
 
-	QString tmpPath = KStandardDirs::locateLocal("tmp", "simontrainingstextimport");
-	KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, -1, KIO::Overwrite);
-	if (!job->exec()) {
-		job->ui()->showErrorMessage();
-		return;
-	}
+  QString tmpPath = KStandardDirs::locateLocal("tmp", "simontrainingstextimport");
+  KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, -1, KIO::Overwrite);
+  if (!job->exec()) {
+    job->ui()->showErrorMessage();
+    return;
+  }
 
-	ui.pbProgress->setValue(1);
+  ui.pbProgress->setValue(1);
 
-	QIODevice *file = KFilterDev::deviceForFile(tmpPath, KMimeType::findByFileContent(tmpPath)->name());
-	QString encoding = field("importTrainingTextLEncoding").toString();
-	QStringList sents = parse(file, encoding);
-	delete file;
+  QIODevice *file = KFilterDev::deviceForFile(tmpPath, KMimeType::findByFileContent(tmpPath)->name());
+  QString encoding = field("importTrainingTextLEncoding").toString();
+  QStringList sents = parse(file, encoding);
+  delete file;
 
-	QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
-	ui.pbProgress->setValue(3);
+  QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
+  ui.pbProgress->setValue(3);
 
-	createTrainingsText(field("importTrainingTextLTextname").toString(), sents);
+  createTrainingsText(field("importTrainingTextLTextname").toString(), sents);
 }
+
 
 QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString& encoding)
 {
-	if ((!input) || (!input->open(QIODevice::ReadOnly)))
-		return QStringList();
+  if ((!input) || (!input->open(QIODevice::ReadOnly)))
+    return QStringList();
 
-	QTextStream ts(input);
-	if (encoding == i18n("Automatic"))
-	{
-		//read first 5000 bytes and run encoding detection
-		//seek back to the beginning and parse input using the guessed encoding
-		QByteArray preview = input->peek(5000);
-		KEncodingDetector detector;
+  QTextStream ts(input);
+  if (encoding == i18n("Automatic")) {
+    //read first 5000 bytes and run encoding detection
+    //seek back to the beginning and parse input using the guessed encoding
+    QByteArray preview = input->peek(5000);
+    KEncodingDetector detector;
 
-#ifdef Q_OS_WIN32
-		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
-#else
-		detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
-#endif
+    #ifdef Q_OS_WIN32
+    detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+    #else
+    detector.setAutoDetectLanguage(KEncodingDetector::Unicode);
+    #endif
 
-		QString out=detector.decode(preview);
-		ts.setCodec(QTextCodec::codecForName(detector.encoding()));
-	} else 
-		ts.setCodec(QTextCodec::codecForName(encoding.toAscii()));
+    QString out=detector.decode(preview);
+    ts.setCodec(QTextCodec::codecForName(detector.encoding()));
+  } else
+  ts.setCodec(QTextCodec::codecForName(encoding.toAscii()));
 
-	ui.pbProgress->setValue(2);
+  ui.pbProgress->setValue(2);
 
-	QStringList sents;
-	QString tmp;
-	
-	int sentend;
-	QRegExp reg("(\\.|\\!|\\?)"); //TODO: maybe add an option to treat "\n" as sentence-stopper
-	QRegExp spec("(\\.\\.\\.|\\!\\!\\!|\\?\\?\\?)");
-	QString currentLine;
-	while ((!ts.atEnd()) || (!tmp.trimmed().isEmpty()))
-	{
-		if (!ts.atEnd())
-			currentLine = ts.readLine();
-		else currentLine = "";
-		
-		QString currentProcessQueue = tmp+currentLine;
-		
-		int regIndex = currentProcessQueue.indexOf(reg);
-		int specIndex = currentProcessQueue.indexOf(spec);
-		
-		if (regIndex != -1)
-		{
-			if ((specIndex <=regIndex) && (specIndex != -1))
-				sentend = specIndex+3;
-			else
-				sentend = regIndex+1;
-		} else sentend = currentProcessQueue.length();
-		
-	
-		QString sentence = QString(currentProcessQueue).left(sentend).trimmed();
-		sentence.remove("\"");
-		sentence.remove(",");
-		sentence.remove(".");
-		sentence.remove("#");
-		sentence.remove("`");
-		sentence.remove("!");
-		sentence.remove("?");
-		sentence.replace(QRegExp("( |^)'"), " ");
-		sentence.remove(".");
-		sentence.replace("-", " ");
-		sentence.replace("\n", " ");
-		sentence.replace(QRegExp("  *"), " ");
-		if (!sentence.isEmpty()) sents << sentence;
-		
-		tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
-	}
-	input->close();
-	return sents;
+  QStringList sents;
+  QString tmp;
+
+  int sentend;
+  QRegExp reg("(\\.|\\!|\\?)");                   //TODO: maybe add an option to treat "\n" as sentence-stopper
+  QRegExp spec("(\\.\\.\\.|\\!\\!\\!|\\?\\?\\?)");
+  QString currentLine;
+  while ((!ts.atEnd()) || (!tmp.trimmed().isEmpty())) {
+    if (!ts.atEnd())
+      currentLine = ts.readLine();
+    else currentLine = "";
+
+    QString currentProcessQueue = tmp+currentLine;
+
+    int regIndex = currentProcessQueue.indexOf(reg);
+    int specIndex = currentProcessQueue.indexOf(spec);
+
+    if (regIndex != -1) {
+      if ((specIndex <=regIndex) && (specIndex != -1))
+        sentend = specIndex+3;
+      else
+        sentend = regIndex+1;
+    } else sentend = currentProcessQueue.length();
+
+    QString sentence = QString(currentProcessQueue).left(sentend).trimmed();
+    sentence.remove("\"");
+    sentence.remove(",");
+    sentence.remove(".");
+    sentence.remove("#");
+    sentence.remove("`");
+    sentence.remove("!");
+    sentence.remove("?");
+    sentence.replace(QRegExp("( |^)'"), " ");
+    sentence.remove(".");
+    sentence.replace("-", " ");
+    sentence.replace("\n", " ");
+    sentence.replace(QRegExp("  *"), " ");
+    if (!sentence.isEmpty()) sents << sentence;
+
+    tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
+  }
+  input->close();
+  return sents;
 }
+
 
 void ImportTrainingTextWorkingPage::createTrainingsText(const QString& name, const QStringList& sentences)
 {
-	TrainingText *t = new TrainingText(name, sentences);
-	if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
-		KMessageBox::error(this, i18n("Couldn't store Trainingstext"));
+  TrainingText *t = new TrainingText(name, sentences);
+  if (!ScenarioManager::getInstance()->getCurrentScenario()->addTrainingText(t))
+    KMessageBox::error(this, i18n("Could not store Trainingstext"));
 
 }
-

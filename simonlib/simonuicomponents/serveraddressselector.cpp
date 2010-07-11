@@ -17,55 +17,58 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "serveraddressselector.h"
 #include "addserverconnection.h"
 #include <QHBoxLayout>
-#include <KLineEdit>
 #include <QToolButton>
+#include <QPointer>
 #include <KIcon>
+#include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KLocale>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
-	QHBoxLayout *lay = new QHBoxLayout(this);
-	leServerAddress = new KLineEdit(this);
-	pbSelectServerAddress = new QToolButton(this);
+  QHBoxLayout *lay = new QHBoxLayout(this);
+  leServerAddress = new KLineEdit(this);
+  pbSelectServerAddress = new QToolButton(this);
 
-	pbSelectServerAddress->setIcon(KIcon("go-previous"));
-	pbSelectServerAddress->setText(i18n("Add new Host"));
+  pbSelectServerAddress->setIcon(KIcon("go-previous"));
+  pbSelectServerAddress->setText(i18n("Add new Host"));
 
-// 	leServerAddress->setReadOnly(true);
+  // 	leServerAddress->setReadOnly(true);
 
-	lay->addWidget(leServerAddress);
-	lay->addWidget(pbSelectServerAddress);
+  lay->addWidget(leServerAddress);
+  lay->addWidget(pbSelectServerAddress);
 
-	connect(pbSelectServerAddress , SIGNAL(clicked()), this, SLOT(displayAddDialog()));
+  connect(pbSelectServerAddress , SIGNAL(clicked()), this, SLOT(displayAddDialog()));
 }
+
 
 KLineEdit* ServerAddressSelector::lineEdit()
 {
-	return leServerAddress;
+  return leServerAddress;
 }
+
 
 void ServerAddressSelector::displayAddDialog()
 {
-	AddServerConnection *addDlg = new AddServerConnection(this);
-	if (addDlg->exec())
-	{
-		QString host=addDlg->getHost();
-		int port = addDlg->getPort();
-		
-		if (host.isEmpty())
-			KMessageBox::information(this, i18n("You ahve entered an empty host-address. The input will be discarded."));
-		else leServerAddress->setText(host+":"+QString::number(port));
-	}
+  QPointer<AddServerConnection> addDlg = new AddServerConnection(this);
+  if (addDlg->exec()) {
+    QString host=addDlg->getHost();
+    int port = addDlg->getPort();
+
+    if (host.isEmpty())
+      KMessageBox::information(this, i18n("You ahve entered an empty host-address. The input will be discarded."));
+    else leServerAddress->setText(host+":"+QString::number(port));
+  }
+  delete addDlg;
 }
+
 
 ServerAddressSelector::~ServerAddressSelector()
 {
-	leServerAddress->deleteLater();
-	pbSelectServerAddress->deleteLater();
+  leServerAddress->deleteLater();
+  pbSelectServerAddress->deleteLater();
 }

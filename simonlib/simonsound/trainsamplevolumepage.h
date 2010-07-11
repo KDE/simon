@@ -26,21 +26,21 @@
 class QCheckBox;
 namespace Ui
 {
-	class TrainSampleVolumePage;
+  class TrainSampleVolumePage;
 }
 
-class SIMONSOUND_EXPORT TrainSampleVolumePage : public QWizardPage {
 
-private:
-	Ui::TrainSampleVolumePage *ui;
+class SIMONSOUND_EXPORT TrainSampleVolumePage : public QWizardPage
+{
 
-public:
-	TrainSampleVolumePage(QWidget *parent=NULL);
-	bool validatePage();
-	void initializePage();
-    	~TrainSampleVolumePage();
+  private:
+    Ui::TrainSampleVolumePage *ui;
+
+  public:
+    TrainSampleVolumePage(QWidget *parent=0);
+    bool validatePage();
+    void initializePage();
+    ~TrainSampleVolumePage();
 
 };
-
 #endif
-

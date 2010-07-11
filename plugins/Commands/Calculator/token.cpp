@@ -20,26 +20,31 @@
 #include "token.h"
 
 Token::Token(char arOp, short priority)
-    : arOperator(arOp),
-    number(0),
-    type(priority)
+: arOperator(arOp),
+number(0),
+type(priority)
 {
 }
+
 
 Token::Token(double num) : arOperator(' '), number(num), type(0)
 {
 }
+
+
 short Token::getType() const
 {
-    return type;
+  return type;
 }
+
 
 char Token::getArOperator() const
 {
-    return arOperator;
+  return arOperator;
 }
+
 
 double Token::getNumber() const
 {
-    return number;
+  return number;
 }

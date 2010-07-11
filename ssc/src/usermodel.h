@@ -24,35 +24,30 @@
 #include <sscobjects/user.h>
 #include <QAbstractItemModel>
 
-
-
 class UserModel : public QAbstractItemModel
 {
 
-private:
-	QList<User*> m_users;
+  private:
+    QList<User*> m_users;
 
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
 
-	QString displayStringForGrade(const int grade) const;
-	QString displayStringBool(const bool b) const;
+    QString displayStringForGrade(const int grade) const;
+    QString displayStringBool(const bool b) const;
 
+  protected:
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-protected:
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
-public:
-	UserModel(QList<User*> users, QObject *parent=NULL);
-	~UserModel() {qDeleteAll(m_users); }
-	void replaceData(QList<User*> newUsers);
+  public:
+    UserModel(QList<User*> users, QObject *parent=0);
+    ~UserModel() {qDeleteAll(m_users); }
+    void replaceData(QList<User*> newUsers);
 
 };
-
 #endif
-

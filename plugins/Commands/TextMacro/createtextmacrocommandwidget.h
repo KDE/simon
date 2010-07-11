@@ -35,28 +35,27 @@ class CommandManager;
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreateTextMacroCommandWidget : public CreateCommandWidget{
-Q_OBJECT
+class CreateTextMacroCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::CreateTextMacroCommandWidget ui;
+    private:
+    Ui::CreateTextMacroCommandWidget ui;
 
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-
-	virtual ~CreateTextMacroCommandWidget();
+    virtual ~CreateTextMacroCommandWidget();
 
 };
-
 #endif

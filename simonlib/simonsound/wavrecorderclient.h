@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 #define SIMON_WAVRECORDERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
-
 
 #include <QObject>
 #include <QTimer>
@@ -29,28 +27,27 @@
 class WAV;
 class LoudnessMeterSoundProcessor;
 
-class WavRecorderClient :public QObject, public SoundInputClient {
-	Q_OBJECT
+class WavRecorderClient :public QObject, public SoundInputClient
+{
+  Q_OBJECT
 
-private:
-	WAV *wavData;
-	LoudnessMeterSoundProcessor *loudness;
+    private:
+    WAV *wavData;
+    LoudnessMeterSoundProcessor *loudness;
 
-signals:
-	void currentProgress(int msecs, float level);
-	void clippingOccured();
-	void signalToNoiseRatioLow();
-	
-public:
-	WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
-	bool finish();
-    	bool record(QString filename);
+    signals:
+    void currentProgress(int msecs, float level);
+    void clippingOccured();
+    void signalToNoiseRatioLow();
 
-	void processPrivate(const QByteArray& data, qint64 currentTime);
-    
-	virtual ~WavRecorderClient();
+  public:
+    WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject *parent=0);
+    bool finish();
+    bool record(QString filename);
+
+    void processPrivate(const QByteArray& data, qint64 currentTime);
+
+    virtual ~WavRecorderClient();
 
 };
-
 #endif
-

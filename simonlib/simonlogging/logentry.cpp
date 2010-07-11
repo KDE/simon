@@ -17,16 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "logentry.h"
 
-
-
 LogEntry::LogEntry(QDate d, QTime t, QByteArray message_, short type_)
-	: time(t),
-	date(d),
-	message(message_),
-	type(type_)
+: time(t),
+date(d),
+message(message_),
+type(type_)
 {
 }
 
@@ -34,5 +31,3 @@ LogEntry::LogEntry(QDate d, QTime t, QByteArray message_, short type_)
 LogEntry::~LogEntry()
 {
 }
-
-

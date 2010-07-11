@@ -40,337 +40,342 @@
 #include <windows.h>
 #endif
 
-
 ListCommand::ListCommand(CommandManager *parentManger, const QString& name, const QString& iconSrc, const QString& description,
-		const QStringList& commands_,
-		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
-	GreedyReceiver(NULL /* no manager */),
-	m_parentManager(parentManger),
-	clw(new CommandListWidget()),
-	startIndex(0),
-	iconsrcs(iconSrcs_),
-	commands(commands_),
-	commandTypes(commandTypes_)
+const QStringList& commands_,
+const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
+GreedyReceiver(0 /* no manager */),
+m_parentManager(parentManger),
+clw(new CommandListWidget()),
+startIndex(0),
+iconsrcs(iconSrcs_),
+commands(commands_),
+commandTypes(commandTypes_)
 {
-	init();
+  init();
 }
+
 
 ListCommand::ListCommand(CommandManager *parentManager) : Command(),
-	GreedyReceiver(NULL /* no manager */),
-	m_parentManager(parentManager),
-	clw(new CommandListWidget()),
-	startIndex(0)
+GreedyReceiver(0 /* no manager */),
+m_parentManager(parentManager),
+clw(new CommandListWidget()),
+startIndex(0)
 {
-	init();
+  init();
 }
+
 
 void ListCommand::init()
 {
-	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
-	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
+  connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
+  connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
 }
 
 
 QDomElement ListCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	Q_ASSERT(commands.count() == commandTypes.count());
-	Q_ASSERT(commandTypes.count() == iconsrcs.count());
+  Q_ASSERT(commands.count() == commandTypes.count());
+  Q_ASSERT(commandTypes.count() == iconsrcs.count());
 
-	QDomElement childCommandsElement = doc->createElement("childCommands");
+  QDomElement childCommandsElement = doc->createElement("childCommands");
 
-	for (int i=0; i < commands.count(); i++) {
-		QDomElement childComElement = doc->createElement("childCommand");
-		QDomElement childTriggerElem = doc->createElement("trigger");
-		QDomElement childIconElem = doc->createElement("icon");
-		QDomElement childCategoryElem = doc->createElement("category");
+  for (int i=0; i < commands.count(); i++) {
+    QDomElement childComElement = doc->createElement("childCommand");
+    QDomElement childTriggerElem = doc->createElement("trigger");
+    QDomElement childIconElem = doc->createElement("icon");
+    QDomElement childCategoryElem = doc->createElement("category");
 
-		childTriggerElem.appendChild(doc->createTextNode(commands[i]));
-		childIconElem.appendChild(doc->createTextNode(iconsrcs[i]));
-		childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
+    childTriggerElem.appendChild(doc->createTextNode(commands[i]));
+    childIconElem.appendChild(doc->createTextNode(iconsrcs[i]));
+    childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
 
-		childComElement.appendChild(childTriggerElem);
-		childComElement.appendChild(childIconElem);
-		childComElement.appendChild(childCategoryElem);
-		childCommandsElement.appendChild(childComElement);
-	}
-	commandElem.appendChild(childCommandsElement);
+    childComElement.appendChild(childTriggerElem);
+    childComElement.appendChild(childIconElem);
+    childComElement.appendChild(childCategoryElem);
+    childCommandsElement.appendChild(childComElement);
+  }
+  commandElem.appendChild(childCommandsElement);
 
-	return commandElem;
+  return commandElem;
 }
 
 
 bool ListCommand::processRequest(int index)
 {
-	Q_ASSERT(commands.count() == commandTypes.count());
+  Q_ASSERT(commands.count() == commandTypes.count());
 
-	if (index > commands.count())
-		return false;
+  if (index > commands.count())
+    return false;
 
-	if (index == 0)
-	{
-		//go back
-		if (startIndex > 0)
-			startIndex -= 8;
-		listCurrentCommandSection();
-		return true;
-	} else if (index == 9)
-	{
-		//go forward
-		if (startIndex+8 < commands.count())
-			startIndex += 8;
-		listCurrentCommandSection();
-		return true;
-	} else {
-		//execute list entry
-		// if index==1, we want it to represent the _first_ entry in the list (index==0)
-		index--;
-		index += startIndex;
+  if (index == 0) {
+    //go back
+    if (startIndex > 0)
+      startIndex -= 8;
+    listCurrentCommandSection();
+    return true;
+  } else if (index == 9)
+  {
+    //go forward
+    if (startIndex+8 < commands.count())
+      startIndex += 8;
+    listCurrentCommandSection();
+    return true;
+  }
+  else {
+    //execute list entry
+    // if index==1, we want it to represent the _first_ entry in the list (index==0)
+    index--;
+    index += startIndex;
 
-		Q_ASSERT(commands.count() == commandTypes.count());
-		if (index >= commands.count())
-			return false;
+    Q_ASSERT(commands.count() == commandTypes.count());
+    if (index >= commands.count())
+      return false;
 
-		clw->runRequestSent();
-		clw->close();
-		stopGreedy();
-		#ifndef Q_OS_WIN32
-		usleep(300000);
-		#else
-		Sleep(300);
-		#endif
-		//TODO: Clean solution
-		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
-		emit entrySelected();
-	}
-	return false;
+    clw->runRequestSent();
+    clw->close();
+    stopGreedy();
+    #ifndef Q_OS_WIN32
+    usleep(300000);
+    #else
+    Sleep(300);
+    #endif
+    //TODO: Clean solution
+    ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+    emit entrySelected();
+  }
+  return false;
 }
+
 
 void ListCommand::cancel()
 {
-	clw->close();
-	stopGreedy();
-	emit canceled();
+  clw->close();
+  stopGreedy();
+  emit canceled();
 }
+
 
 bool ListCommand::greedyTrigger(const QString& inputText)
 {
-	kDebug() << "Triggering greedy " << inputText;
+  kDebug() << "Triggering greedy " << inputText;
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
+  QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
 
-	foreach (CommandListElements::Element element, adaption.keys())
-	{
-		QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
-		foreach (VoiceInterfaceCommand* command, interfaceCommands)
-		{
-			if (command->matches(0, inputText))
-			{
-				switch (element)
-				{
-					case CommandListElements::Back: return processRequest(0);
-					case CommandListElements::One: return processRequest(1);
-					case CommandListElements::Two: return processRequest(2);
-					case CommandListElements::Three: return processRequest(3);
-					case CommandListElements::Four: return processRequest(4);
-					case CommandListElements::Five: return processRequest(5);
-					case CommandListElements::Six: return processRequest(6);
-					case CommandListElements::Seven: return processRequest(7);
-					case CommandListElements::Eight: return processRequest(8);
-					case CommandListElements::Next: return processRequest(9);
-					case CommandListElements::Cancel: 
-						clw->close(); 
-						return true;
-				}
-			}
+  foreach (CommandListElements::Element element, adaption.keys()) {
+    QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
+    foreach (VoiceInterfaceCommand* command, interfaceCommands) {
+      if (command->matches(0, inputText)) {
+        switch (element) {
+          case CommandListElements::Back: return processRequest(0);
+          case CommandListElements::One: return processRequest(1);
+          case CommandListElements::Two: return processRequest(2);
+          case CommandListElements::Three: return processRequest(3);
+          case CommandListElements::Four: return processRequest(4);
+          case CommandListElements::Five: return processRequest(5);
+          case CommandListElements::Six: return processRequest(6);
+          case CommandListElements::Seven: return processRequest(7);
+          case CommandListElements::Eight: return processRequest(8);
+          case CommandListElements::Next: return processRequest(9);
+          case CommandListElements::Cancel:
+            clw->close();
+            return true;
+        }
+      }
 
-		}
+    }
 
-	}
-	
-	/*
-	if (inputText.toUpper() == i18n("Cancel").toUpper())
-	{
-		clw->close();
-		return true;
-	}
+  }
 
-	bool ok=false;
-	int index = inputText.toInt(&ok);
-	if (!ok)
-	{
-		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-			index++;
+  /*
+  if (inputText.toUpper() == i18n("Cancel").toUpper())
+  {
+    clw->close();
+    return true;
+  }
 
-		if (index == numberIdentifiers.count()) return false;
-	}
+  bool ok=false;
+  int index = inputText.toInt(&ok);
+  if (!ok)
+  {
+  while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
+  index++;
 
-	return processRequest(index);
-	*/
-	return false;
+  if (index == numberIdentifiers.count()) return false;
+  }
+
+  return processRequest(index);
+  */
+  return false;
 }
+
 
 ListCommand* ListCommand::createInstance(CommandManager *manager, const QDomElement& element)
 {
-	ListCommand *command = new ListCommand(manager);
-	if (!command->deSerialize(element))
-	{
-		delete command;
-		return NULL;
-	}
-	return command;
+  ListCommand *command = new ListCommand(manager);
+  if (!command->deSerialize(element)) {
+    delete command;
+    return 0;
+  }
+  return command;
 }
+
 
 const QString ListCommand::staticCategoryText()
 {
-	return i18n("List");
+  return i18n("List");
 }
+
 
 const QString ListCommand::getCategoryText() const
 {
-	return ListCommand::staticCategoryText();
+  return ListCommand::staticCategoryText();
 }
+
 
 const KIcon ListCommand::staticCategoryIcon()
 {
-	return KIcon("view-choose");
+  return KIcon("view-choose");
 }
+
 
 const KIcon ListCommand::getCategoryIcon() const
 {
-	return ListCommand::staticCategoryIcon();
+  return ListCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> ListCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("Commands"), commands.join("\n"));
-	return out;
+  QMap<QString,QVariant> out;
+  out.insert(i18n("Commands"), commands.join("\n"));
+  return out;
 }
+
 
 void ListCommand::listCurrentCommandSection()
 {
-	QStringList nowIconSrcs, nowCommands;
-	for (int i=startIndex; (i < commands.count()) && (i-startIndex < 8); i++)
-	{
-		nowIconSrcs << iconsrcs[i];
-		nowCommands << commands[i];
-	}
-	CommandListWidget::Flags flags;
-	if (startIndex > 0)
-	{
-		if (startIndex+8 < commands.count())
-			flags = CommandListWidget::HasNext|CommandListWidget::HasBack;
-		else 
-			flags = CommandListWidget::HasBack;
-	} else 
-		if (startIndex+8 < commands.count())
-			flags = CommandListWidget::HasNext;
+  QStringList nowIconSrcs, nowCommands;
+  for (int i=startIndex; (i < commands.count()) && (i-startIndex < 8); i++) {
+    nowIconSrcs << iconsrcs[i];
+    nowCommands << commands[i];
+  }
+  CommandListWidget::Flags flags;
+  if (startIndex > 0) {
+    if (startIndex+8 < commands.count())
+      flags = CommandListWidget::HasNext|CommandListWidget::HasBack;
+    else
+      flags = CommandListWidget::HasBack;
+  } else
+  if (startIndex+8 < commands.count())
+    flags = CommandListWidget::HasNext;
 
-	clw->init(nowIconSrcs, nowCommands, flags);
+  clw->init(nowIconSrcs, nowCommands, flags);
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ListCommand::getAdaption()
 {
-	//adapt to either parent manager or commandsettings
-	if (m_parentManager) {
-		kDebug() << "Adapting to scenario";
-		//adapt to current scenarios list configuration
-		return ActionManager::getInstance()->getListInterfaceCommands();
-	}
+  //adapt to either parent manager or commandsettings
+  if (m_parentManager) {
+    kDebug() << "Adapting to scenario";
+    //adapt to current scenarios list configuration
+    return ActionManager::getInstance()->getListInterfaceCommands();
+  }
 
-	kDebug() << "Adapting to global configuration";
-	//adapt to commandsettings list configuration
-	return ActionManager::getInstance()->getGlobalListInterfaceCommands();
+  kDebug() << "Adapting to global configuration";
+  //adapt to commandsettings list configuration
+  return ActionManager::getInstance()->getGlobalListInterfaceCommands();
 }
+
 
 bool ListCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
+  Q_UNUSED(state);
 
-	if (commands.count() == 0) return false;
+  if (commands.count() == 0) return false;
 
-	Q_ASSERT(commands.count() == commandTypes.count());
-	//showing list
+  Q_ASSERT(commands.count() == commandTypes.count());
+  //showing list
 
-	clw->setWindowIcon(KIcon(getIconSrc()));
-	clw->setWindowTitle(getTrigger());
+  clw->setWindowIcon(KIcon(getIconSrc()));
+  clw->setWindowTitle(getTrigger());
 
-	listCurrentCommandSection();
+  listCurrentCommandSection();
 
-	startGreedy();
+  startGreedy();
 
-	m_subCommands.clear();
+  m_subCommands.clear();
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
+  QHash<CommandListElements::Element, VoiceInterfaceCommand*> adaption = getAdaption();
 
-	QList<CommandListElements::Element> allElements;
-	allElements << CommandListElements::Back
-		<< CommandListElements::One
-		<< CommandListElements::Two
-		<< CommandListElements::Three
-		<< CommandListElements::Four
-		<< CommandListElements::Five
-		<< CommandListElements::Six
-		<< CommandListElements::Seven
-		<< CommandListElements::Eight
-		<< CommandListElements::Next
-		<< CommandListElements::Cancel;
+  QList<CommandListElements::Element> allElements;
+  allElements << CommandListElements::Back
+    << CommandListElements::One
+    << CommandListElements::Two
+    << CommandListElements::Three
+    << CommandListElements::Four
+    << CommandListElements::Five
+    << CommandListElements::Six
+    << CommandListElements::Seven
+    << CommandListElements::Eight
+    << CommandListElements::Next
+    << CommandListElements::Cancel;
 
-	foreach (CommandListElements::Element element, adaption.keys())
-	{
-		QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
-		//list cant be empty so we dont need to check
-		clw->adaptToVoiceElement(element, interfaceCommands[0]);
-		m_subCommands << interfaceCommands;
+  foreach (CommandListElements::Element element, adaption.keys()) {
+    QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
+    //list cant be empty so we dont need to check
+    clw->adaptToVoiceElement(element, interfaceCommands[0]);
+    m_subCommands << interfaceCommands;
 
-		allElements.removeAll(element);
-	}
+    allElements.removeAll(element);
+  }
 
-	foreach (CommandListElements::Element elem, allElements)
-		clw->adaptToVoiceElement(elem, NULL); // hide the rest
+  foreach (CommandListElements::Element elem, allElements)
+    clw->adaptToVoiceElement(elem, 0);            // hide the rest
 
-	clw->show();
+  clw->show();
 
-	return true;
+  return true;
 }
+
 
 bool ListCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
-	if (childCommandsElem.isNull()) return false;
+  QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
+  if (childCommandsElem.isNull()) return false;
 
-	iconsrcs.clear();
-	commands.clear();
-	commandTypes.clear();
+  iconsrcs.clear();
+  commands.clear();
+  commandTypes.clear();
 
-	QDomElement childCommandElem = childCommandsElem.firstChildElement();
+  QDomElement childCommandElem = childCommandsElem.firstChildElement();
 
-	while (!childCommandElem.isNull()) {
-		QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
-		QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
-		QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
-		commands << childCommandTriggerElem.text();
-		iconsrcs << childCommandIconElem.text();
-		commandTypes << childCommandCategoryElem.text();
-		childCommandElem = childCommandElem.nextSiblingElement();
-	}
-	kDebug() << "Triggers: " << commands;
-	kDebug() << "Icons: " << iconsrcs;
-	kDebug() << "Categories: " << commandTypes;
+  while (!childCommandElem.isNull()) {
+    QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
+    QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
+    QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
+    commands << childCommandTriggerElem.text();
+    iconsrcs << childCommandIconElem.text();
+    commandTypes << childCommandCategoryElem.text();
+    childCommandElem = childCommandElem.nextSiblingElement();
+  }
+  kDebug() << "Triggers: " << commands;
+  kDebug() << "Icons: " << iconsrcs;
+  kDebug() << "Categories: " << commandTypes;
 
-	return true;
+  return true;
 }
+
 
 void ListCommand::setFont(const QFont& font)
 {
-	kDebug() << "Setting font...";
-	clw->setFont(font);
+  kDebug() << "Setting font...";
+  clw->setFont(font);
 }
 
 
 ListCommand::~ListCommand()
 {
-	stopGreedy();
-	clw->deleteLater();
+  stopGreedy();
+  clw->deleteLater();
 }
-

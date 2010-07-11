@@ -26,35 +26,35 @@
 
 class DesktopGridConfiguration : public CommandConfiguration
 {
-	Q_OBJECT
-	
-	public slots:
-		virtual bool deSerialize(const QDomElement&);
-		virtual QDomElement serialize(QDomDocument *doc);
-		virtual void defaults();
-	
-	public:
-		enum ActionSelection {
-			AlwaysAsk=1,
-			UseDefault=2,
-			AskButDefaultAfterTimeout=3
-		};
+  Q_OBJECT
 
-		DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
-		~DesktopGridConfiguration();
-		
-		//configuration options
-		bool useRealTransparency();
-		int askTimeout();
-		ActionSelection actionSelection();
-		EventSimulation::ClickMode clickMode();
+    public slots:
+    virtual bool deSerialize(const QDomElement&);
+    virtual QDomElement serialize(QDomDocument *doc);
+    virtual void defaults();
 
-	private:
-		Ui::DesktopGridConfigurationDlg ui;
+  public:
+    enum ActionSelection
+    {
+      AlwaysAsk=1,
+      UseDefault=2,
+      AskButDefaultAfterTimeout=3
+    };
 
-		void setActionSelection(ActionSelection actionSel);
-		void setClickMode(EventSimulation::ClickMode actionM);
+    DesktopGridConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    ~DesktopGridConfiguration();
+
+    //configuration options
+    bool useRealTransparency();
+    int askTimeout();
+    ActionSelection actionSelection();
+    EventSimulation::ClickMode clickMode();
+
+  private:
+    Ui::DesktopGridConfigurationDlg ui;
+
+    void setActionSelection(ActionSelection actionSel);
+    void setClickMode(EventSimulation::ClickMode actionM);
 
 };
-
 #endif

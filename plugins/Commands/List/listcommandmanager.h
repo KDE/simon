@@ -32,30 +32,29 @@ class CreateListCommandWidget;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class ListCommandManager : public CommandManager {
-Q_OBJECT
-protected:
-	bool shouldAcceptCommand(Command *c);
+class ListCommandManager : public CommandManager
+{
+  Q_OBJECT
+    protected:
+    bool shouldAcceptCommand(Command *c);
 
-public:
-	const QString iconSrc() const;
-	const QString name() const;
-	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+  public:
+    const QString iconSrc() const;
+    const QString name() const;
+    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	void setFont(const QFont& font);
+    void setFont(const QFont& font);
 
-	bool deSerializeCommandsPrivate(const QDomElement& elem);
+    bool deSerializeCommandsPrivate(const QDomElement& elem);
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     ListCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~ListCommandManager();
 
 };
-
 #endif

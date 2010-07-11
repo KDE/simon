@@ -34,37 +34,35 @@ class KAction;
  *	@date 22.08.2009
  *	@author Peter Grasch
  */
-class FilterCommandManager : public CommandManager {
-Q_OBJECT
+class FilterCommandManager : public CommandManager
+{
+  Q_OBJECT
 
-protected:
-	bool isActive;
-	bool trigger(const QString& triggerName);
-	void updateAction();
+    protected:
+    bool isActive;
+    bool trigger(const QString& triggerName);
+    void updateAction();
 
-public slots:
-	void toggle();
-public:
-	const QString preferredTrigger() const;
-	const QString iconSrc() const;
+  public slots:
+    void toggle();
+  public:
+    const QString preferredTrigger() const;
+    const QString iconSrc() const;
 
-	const QString name() const;
-	bool deSerializeConfig(const QDomElement& elem);
-
+    const QString name() const;
+    bool deSerializeConfig(const QDomElement& elem);
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     FilterCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~FilterCommandManager();
 
-private:
+  private:
     KAction *activateAction;
 
 };
-
 #endif

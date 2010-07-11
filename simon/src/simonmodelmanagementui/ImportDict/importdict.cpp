@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importdict.h"
 #include <simonlogging/logger.h>
 #include "bompdict.h"
@@ -34,12 +33,13 @@
  * \author Peter Grasch
  */
 ImportDict::ImportDict(QObject* parent) : QThread(parent),
-	type(0),
-	dict(0),
-	wordList(0),
-	deleteFileWhenDone(false)
+type(0),
+dict(0),
+wordList(0),
+deleteFileWhenDone(false)
 {
 }
+
 
 /**
  * \brief Parses the wordlist of an existing dictionary
@@ -47,19 +47,22 @@ ImportDict::ImportDict(QObject* parent) : QThread(parent),
  */
 void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone)
 {
-	this->pathToDict = pathToDict;
-	this->type = type;
-	this->encoding = encoding;
-	this->deleteFileWhenDone = deleteFileWhenDone;
-	start(/*QThread::IdlePriority*/);
+  this->pathToDict = pathToDict;
+  this->type = type;
+  this->encoding = encoding;
+  this->deleteFileWhenDone = deleteFileWhenDone;
+  start(/*QThread::IdlePriority*/);
 }
+
 
 QList<Word*>* ImportDict::getCurrentWordList()
 {
-	QList<Word*>* realList = wordList;
-	wordList = NULL;
-	return realList;
+  QList<Word*>* realList = wordList;
+  wordList = 0;
+  return realList;
 }
+
+
 /**
  * \brief The main execution loop
  * Does the real work.
@@ -68,79 +71,77 @@ QList<Word*>* ImportDict::getCurrentWordList()
  */
 void ImportDict::run()
 {
-	Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+"\"");
-	emit status(i18n("Opening Lexicon..."));
-	
-	emit progress(10, 1000);
-	delete dict;
-	if (wordList) wordList->clear();
-	else wordList = new QList<Word*>();
+  Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+"\"");
+  emit status(i18n("Opening Lexicon..."));
 
+  emit progress(10, 1000);
+  delete dict;
+  if (wordList) wordList->clear();
+  else wordList = new QList<Word*>();
 
-	switch (type)
-	{
-		case Dict::HadifixBOMP:
-			dict = new BOMPDict();
-			break;
-		case Dict::HTKLexicon:
-			dict = new LexiconDict();
-			break;
-		case Dict::PLS:
-			dict = new PLSDict();
-			break;
-		case Dict::SPHINX:
-			dict = new SPHINXDict();
-			break;
-		case Dict::JuliusVocabulary:
-			dict = new JuliusVocabulary();
-			break;
-		default:
-			emit failed();
-			return; //unknown type
-	}
-	
-	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
-	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
-	
-	emit status(i18n("Processing Lexicon..."));
-	
-	dict->load(pathToDict, encoding);
-	emit status(i18n("Creating List..."));
-	QStringList words = dict->getWords();
-	QStringList terminals = dict->getTerminals();
-	QStringList pronunciations = dict->getPronuncations();
-	kDebug() << "Deleting dict!";
-	delete dict;
-	dict=NULL;
-	
-	int wordCount = words.count();
-	for (int i=0; i<wordCount; i++)
-	{
-		wordList->append( new Word(words.at(i), 
-				    pronunciations.at(i), 
-					terminals.at(i) ) );
-		if ((i%1000) == 0)
-			emit progress((int) ((((double) i)/((double)words.count())) *40+800), 1000);
-	}
-	words.clear();
-	pronunciations.clear();
-	terminals.clear();
+  switch (type) {
+    case Dict::HadifixBOMP:
+      dict = new BOMPDict();
+      break;
+    case Dict::HTKLexicon:
+      dict = new LexiconDict();
+      break;
+    case Dict::PLS:
+      dict = new PLSDict();
+      break;
+    case Dict::SPHINX:
+      dict = new SPHINXDict();
+      break;
+    case Dict::JuliusVocabulary:
+      dict = new JuliusVocabulary();
+      break;
+    default:
+      emit failed();
+      return;                                     //unknown type
+  }
 
-	if (type != Dict::HTKLexicon) {
-		emit status(i18n("Sorting Dictionary..."));
-		qSort(wordList->begin(), wordList->end(), isWordLessThan);
-	}
-	emit progress(1000, 1000);
-	emit status(i18n("Storing Dictionary..."));
+  connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
+  connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
 
-	Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
+  emit status(i18n("Processing Lexicon..."));
 
-	if (deleteFileWhenDone) {
-		Logger::log(i18n("[INF]")+" "+i18n("Deleting Input-File"));
-		QFile::remove(this->pathToDict);
-	}
-	emit successful();
+  dict->load(pathToDict, encoding);
+  emit status(i18n("Creating List..."));
+  QStringList words = dict->getWords();
+  QStringList terminals = dict->getTerminals();
+  QStringList pronunciations = dict->getPronuncations();
+  kDebug() << "Deleting dict!";
+  delete dict;
+  dict=0;
+
+  int wordCount = words.count();
+  for (int i=0; i<wordCount; i++) {
+    wordList->append( new Word(words.at(i),
+      pronunciations.at(i),
+      terminals.at(i) ) );
+    if ((i%1000) == 0)
+      emit progress((int) ((((double) i)/((double)words.count())) *40+800), 1000);
+  }
+  words.clear();
+  pronunciations.clear();
+  terminals.clear();
+
+  if (type != Dict::HTKLexicon) {
+    emit status(i18n("Sorting Dictionary..."));
+    qSort(wordList->begin(), wordList->end(), isWordLessThan);
+  }
+  emit progress(1000, 1000);
+  emit status(i18n("Storing Dictionary..."));
+
+  Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
+
+  if (deleteFileWhenDone) {
+    Logger::log(i18n("[INF]")+" "+i18n("Deleting Input-File"));
+    QFile::remove(this->pathToDict);
+  }
+  emit successful();
 }
+
 
 /**
  * \brief Translates the progress of the loading of the file to the global importing progress
@@ -151,15 +152,15 @@ void ImportDict::run()
  */
 void ImportDict::loadProgress(int prog)
 {
-	if (prog == -1)
-	{
-		emit progress(1, 0);
-		return;
-	}
+  if (prog == -1) {
+    emit progress(1, 0);
+    return;
+  }
 
-	int globalProg =(int)  ((((double)prog)/1000)*800+10);
-	emit progress(globalProg, 1000);
+  int globalProg =(int)  ((((double)prog)/1000)*800+10);
+  emit progress(globalProg, 1000);
 }
+
 
 /**
  * \brief Deletes the dict
@@ -167,13 +168,14 @@ void ImportDict::loadProgress(int prog)
  */
 void ImportDict::deleteDict()
 {
-	if (isRunning()) terminate();
-	if (wait(2000))
-		if (dict) {
-			dict->deleteLater();
-			dict=NULL;
-		}
+  if (isRunning()) terminate();
+  if (wait(2000))
+  if (dict) {
+    dict->deleteLater();
+    dict=0;
+  }
 }
+
 
 /**
  * \brief Finished opening the file
@@ -182,8 +184,9 @@ void ImportDict::deleteDict()
  */
 void ImportDict::openingFinished()
 {
-	emit opened();
+  emit opened();
 }
+
 
 /**
  * \brief Destructor
@@ -191,7 +194,5 @@ void ImportDict::openingFinished()
  */
 ImportDict::~ImportDict()
 {
-	if (dict) dict->deleteLater();
+  if (dict) dict->deleteLater();
 }
-
-

@@ -25,41 +25,41 @@
 #include <kgenericfactory.h>
 #include <QDebug>
 
-K_PLUGIN_FACTORY( TrainingSettingsFactory, 
-			registerPlugin< TrainingSettings >(); 
-		)
-        
+K_PLUGIN_FACTORY( TrainingSettingsFactory,
+registerPlugin< TrainingSettings >();
+)
+
 K_EXPORT_PLUGIN( TrainingSettingsFactory("simonlib") )
 
 TrainingSettings::TrainingSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	KPageWidget *pageWidget = new KPageWidget(this);
-	lay->addWidget(pageWidget);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  KPageWidget *pageWidget = new KPageWidget(this);
+  lay->addWidget(pageWidget);
 
-	if (args.count() == 1)
-		pageWidget->setFaceType(KPageView::Tabbed);
+  if (args.count() == 1)
+    pageWidget->setFaceType(KPageView::Tabbed);
 
-	QWidget *trainingsDataWidget = new QWidget(pageWidget);
-	trainingUi.setupUi(trainingsDataWidget);
+  QWidget *trainingsDataWidget = new QWidget(pageWidget);
+  trainingUi.setupUi(trainingsDataWidget);
 
-	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
+  KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
 
-	trainingsData->setIcon(KIcon("view-pim-news"));
+  trainingsData->setIcon(KIcon("view-pim-news"));
 
-	trainingsData->setHeader("");
+  trainingsData->setHeader("");
 
-	addConfig(AcousticModelManagementConfiguration::self(), this);
+  addConfig(AcousticModelManagementConfiguration::self(), this);
 }
 
 
 void TrainingSettings::save()
 {
-	TrainingManager::getInstance()->trainingSettingsSaved();
+  TrainingManager::getInstance()->trainingSettingsSaved();
 
-	KCModule::save();
+  KCModule::save();
 }
+
 
 TrainingSettings::~TrainingSettings()
 {}
-

@@ -17,37 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 #define SIMON_LOUDNESSMETERSOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
 #include "simonsound_export.h"
 #include "soundprocessor.h"
 
-class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor {
+class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor
+{
 
-protected:
-	int m_peak;
-	int m_average;
-	int m_absolutePeak;
-	int m_absoluteMinAverage;
-	bool m_clipping;
+  protected:
+    int m_peak;
+    int m_average;
+    int m_absolutePeak;
+    int m_absoluteMinAverage;
+    bool m_clipping;
 
-public:
-	LoudnessMeterSoundProcessor();
+  public:
+    LoudnessMeterSoundProcessor();
 
-	void process(QByteArray& data, qint64& currentTime);
+    void process(QByteArray& data, qint64& currentTime);
 
-	int maxAmp() { return 32768; }
-	int average() { return m_average; }
-	int peak() { return m_peak; }
-	int absoluteMinAverage() { return m_absoluteMinAverage; }
-	int absolutePeak() { return m_absolutePeak; }
-	bool clipping() { return m_clipping; }
+    int maxAmp() { return 32768; }
+    int average() { return m_average; }
+    int peak() { return m_peak; }
+    int absoluteMinAverage() { return m_absoluteMinAverage; }
+    int absolutePeak() { return m_absolutePeak; }
+    bool clipping() { return m_clipping; }
 };
-
 #endif
-
-
-
-

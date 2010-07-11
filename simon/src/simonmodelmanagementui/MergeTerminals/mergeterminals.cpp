@@ -17,48 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "mergeterminals.h"
 #include <simonscenarios/scenariomanager.h>
 #include "modelmanageruiproxy.h"
 #include <KLocalizedString>
 
 MergeTerminals::MergeTerminals(QObject* parent): QThread(parent),
-	newName(""), terminalA(""), terminalB(""), includeShadow(true), includeGrammar(true)
+newName(""), terminalA(""), terminalB(""), includeShadow(true), includeGrammar(true)
 {
 }
 
+
 void MergeTerminals::run()
 {
-	ModelManagerUiProxy::getInstance()->startGroup();
+  ModelManagerUiProxy::getInstance()->startGroup();
 
-	emit status(i18n("Processing Words of Terminal %1", this->terminalA));
-	emit progress(0,100);
+  emit status(i18n("Processing Words of Terminal %1", this->terminalA));
+  emit progress(0,100);
 
-	SpeechModel::ModelElements elements = SpeechModel::ScenarioVocabulary;
-	if (includeGrammar)
-		elements = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elements);
+  SpeechModel::ModelElements elements = SpeechModel::ScenarioVocabulary;
+  if (includeGrammar)
+    elements = (SpeechModel::ModelElements) (SpeechModel::ScenarioGrammar|elements);
 
-	if (includeShadow)
-		elements = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elements);
+  if (includeShadow)
+    elements = (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|elements);
 
-	ScenarioManager::getInstance()->renameTerminal(terminalA, newName, elements);
+  ScenarioManager::getInstance()->renameTerminal(terminalA, newName, elements);
 
-	emit status(i18n("Processing Words of Terminal %1", this->terminalB));
-	emit progress(50,100);
+  emit status(i18n("Processing Words of Terminal %1", this->terminalB));
+  emit progress(50,100);
 
-	ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);
+  ScenarioManager::getInstance()->renameTerminal(terminalB, newName, elements);
 
-	ModelManagerUiProxy::getInstance()->commitGroup();
+  ModelManagerUiProxy::getInstance()->commitGroup();
 
-	emit status(i18n("Finished"));
-	emit progress(100,100);
-	emit done();
+  emit status(i18n("Finished"));
+  emit progress(100,100);
+  emit done();
 }
 
 
 MergeTerminals::~MergeTerminals()
 {
 }
-
-

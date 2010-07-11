@@ -38,50 +38,49 @@
 
 #include <QPlainTextEdit>
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
  * @param QString name
  * The name that is displayed in the title of the groupbox
  * @param QString m_filename
- * The filename to record to; 
+ * The filename to record to;
  * We will ressamble the file (existing or not) when we create the play/pause/delete handles
  * @param QWidget *parent
  * The parent of the object
  */
-WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate, 
-		const QString& filename, QWidget *parent) : QWidget(parent),
-	m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(device), 
-	m_filename(filename), m_channels(channels), postProc(NULL)
+WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate,
+const QString& filename, QWidget *parent) : QWidget(parent),
+m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(device),
+m_filename(filename), m_channels(channels), postProc(0)
 {
-	recordingProgress=0;
+  recordingProgress=0;
 
-	isRecording = false;
-	isPlaying = false;
-	
-	rec = new WavRecorderClient(SimonSound::DeviceConfiguration(device, channels, sampleRate), this);
-	play = new WavPlayerClient(this);
+  isRecording = false;
+  isPlaying = false;
 
-	ui->setupUi(this);
-	ui->pbPlay->setIcon(KIcon("media-playback-start"));
-	ui->pbDelete->setIcon(KIcon("edit-delete"));
+  rec = new WavRecorderClient(SimonSound::DeviceConfiguration(device, channels, sampleRate), this);
+  play = new WavPlayerClient(this);
 
-	connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayWarning()));
-	ui->wgWarning->hide();
+  ui->setupUi(this);
+  ui->pbPlay->setIcon(KIcon("media-playback-start"));
+  ui->pbDelete->setIcon(KIcon("edit-delete"));
 
-	if (QFile::exists(m_filename))
-	{
-		ui->pbPlay->setEnabled(true);
-		ui->pbDelete->setEnabled(true);
-	} else 
-	{
-		ui->pbPlay->setEnabled(false);
-		ui->pbDelete->setEnabled(false);
-	}
-	
-	setupSignalsSlots();
+  connect(ui->pbMoreInformation, SIGNAL(clicked()), this, SLOT(displayWarning()));
+  ui->wgWarning->hide();
+
+  if (QFile::exists(m_filename)) {
+    ui->pbPlay->setEnabled(true);
+    ui->pbDelete->setEnabled(true);
+  } else
+  {
+    ui->pbPlay->setEnabled(false);
+    ui->pbDelete->setEnabled(false);
+  }
+
+  setupSignalsSlots();
 }
+
 
 /**
  * \brief Returns true if there is a file at the assigned filename
@@ -90,12 +89,13 @@ WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate
  */
 bool WavFileWidget::hasRecordingReady()
 {
-	return QFile::exists(m_filename);
+  return QFile::exists(m_filename);
 }
+
 
 SimonSamples::SampleProblems WavFileWidget::sampleProblems()
 {
-	return m_problems;
+  return m_problems;
 }
 
 
@@ -105,58 +105,57 @@ SimonSamples::SampleProblems WavFileWidget::sampleProblems()
  */
 void WavFileWidget::setupSignalsSlots()
 {
-	connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-	connect(ui->pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
-	
-	connect(rec, SIGNAL(currentProgress(int, float)), this, SIGNAL(progress(int)));
-	connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
-	connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
-	connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
-	
-	connect(rec, SIGNAL(clippingOccured()), this, SLOT(clippingOccured()));
-	connect(rec, SIGNAL(signalToNoiseRatioLow()), this, SLOT(signalToNoiseRatioLow()));
-	
-	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
+  connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+  connect(ui->pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
+
+  connect(rec, SIGNAL(currentProgress(int, float)), this, SIGNAL(progress(int)));
+  connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
+  connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
+  connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
+
+  connect(rec, SIGNAL(clippingOccured()), this, SLOT(clippingOccured()));
+  connect(rec, SIGNAL(signalToNoiseRatioLow()), this, SLOT(signalToNoiseRatioLow()));
+
+  connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
 }
 
 
 void WavFileWidget::clippingOccured()
 {
-	m_problems = m_problems | SimonSamples::Clipping;
-	ui->wgWarning->show();
+  m_problems = m_problems | SimonSamples::Clipping;
+  ui->wgWarning->show();
 }
+
 
 void WavFileWidget::signalToNoiseRatioLow()
 {
-	m_problems = m_problems | SimonSamples::SNRTooLow;
-	
-	kDebug() << "Signal to noise ratio low!";
-	ui->wgWarning->show();
-}
+  m_problems = m_problems | SimonSamples::SNRTooLow;
 
+  kDebug() << "Signal to noise ratio low!";
+  ui->wgWarning->show();
+}
 
 
 void WavFileWidget::displayWarning()
 {
-	QString warningMsg;
-	
-	if (m_problems & SimonSamples::Clipping)
-		warningMsg += ("simon detected that your volume is set too high. "
-			       "Because of this, clipping has occurred.\n\n"
-			       "Please lower the volume and re-record this sample.");
-	
-	if (m_problems & SimonSamples::SNRTooLow)
-	{
-		if (!warningMsg.isEmpty()) warningMsg += "\n\n";
-		
-		warningMsg += i18n("simon detected that the difference between recorded "
-				   "speech and background noise is too low.\n\nPlease "
-				   "check that you are not using the \"mic boost\" "
-				   "option in your systems sound configuration and "
-				   "rather raise the recording volume directly.");
-	}
-	
-	KMessageBox::information(this, warningMsg);
+  QString warningMsg;
+
+  if (m_problems & SimonSamples::Clipping)
+    warningMsg += ("simon detected that your volume is set too high. "
+      "Because of this, clipping has occurred.\n\n"
+      "Please lower the volume and re-record this sample.");
+
+  if (m_problems & SimonSamples::SNRTooLow) {
+    if (!warningMsg.isEmpty()) warningMsg += "\n\n";
+
+    warningMsg += i18n("simon detected that the difference between recorded "
+      "speech and background noise is too low.\n\nPlease "
+      "check that you are not using the \"mic boost\" "
+      "option in your systems sound configuration and "
+      "rather raise the recording volume directly.");
+  }
+
+  KMessageBox::information(this, warningMsg);
 }
 
 
@@ -169,12 +168,13 @@ void WavFileWidget::displayWarning()
  */
 void WavFileWidget::displayRecordingProgress(int msecs, float level)
 {
- 	QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
-	textprog.insert(textprog.length()-2, ':');
-	ui->pbProgress->setFormat("00:00 / "+textprog);
-	this->recordingProgress = msecs;
-	ui->pbProgress->setValue(100*level);
+  QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
+  textprog.insert(textprog.length()-2, ':');
+  ui->pbProgress->setFormat("00:00 / "+textprog);
+  this->recordingProgress = msecs;
+  ui->pbProgress->setValue(100*level);
 }
+
 
 /**
  * \brief Displays the given progress in playing
@@ -184,17 +184,18 @@ void WavFileWidget::displayRecordingProgress(int msecs, float level)
  */
 void WavFileWidget::displayPlaybackProgress(int msecs)
 {
- 	QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
-	textprog.insert(2, ':');
-	
-	ui->pbProgress->setFormat(ui->pbProgress->format().replace(0,5, textprog));
-	ui->pbProgress->setValue(msecs);
+  QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
+  textprog.insert(2, ':');
+
+  ui->pbProgress->setFormat(ui->pbProgress->format().replace(0,5, textprog));
+  ui->pbProgress->setValue(msecs);
 }
+
 
 void WavFileWidget::resetProblems()
 {
-	ui->wgWarning->hide();
-	m_problems = SimonSamples::None;
+  ui->wgWarning->hide();
+  m_problems = SimonSamples::None;
 }
 
 
@@ -204,24 +205,24 @@ void WavFileWidget::resetProblems()
  */
 void WavFileWidget::record()
 {
-	QString fName = m_filename;
-	if (SoundConfiguration::processInternal())
-		fName += "_tmp";
+  QString fName = m_filename;
+  if (SoundConfiguration::processInternal())
+    fName += "_tmp";
 
-	ui->pbPlay->setEnabled(false);
-	ui->pbDelete->setEnabled(false);
-	resetProblems();
+  ui->pbPlay->setEnabled(false);
+  ui->pbDelete->setEnabled(false);
+  resetProblems();
 
-	if (!rec->record(fName))
-	{
-		KMessageBox::error(this, i18n("Couldn't start recording.\n\n"
-						"The input device \"%1\" could not be initialized.\n\n"
-						"Please check your sound configuration and try again.", m_device));
-	}else {
-		ui->pbProgress->setMaximum(100);
-		isRecording = true;
-	}
-	emit recording();
+  if (!rec->record(fName)) {
+    KMessageBox::error(this, i18n("Could not start recording.\n\n"
+      "The input device \"%1\" could not be initialized.\n\n"
+      "Please check your sound configuration and try again.", m_device));
+  }
+  else {
+    ui->pbProgress->setMaximum(100);
+    isRecording = true;
+  }
+  emit recording();
 }
 
 
@@ -231,21 +232,23 @@ void WavFileWidget::record()
  */
 void WavFileWidget::finishPlayback()
 {
-	adjustToFinishedPlayback();
-	displayPlaybackProgress(recordingProgress);
+  adjustToFinishedPlayback();
+  displayPlaybackProgress(recordingProgress);
 
-	isPlaying = false;
-	emit playbackFinished();
+  isPlaying = false;
+  emit playbackFinished();
 }
+
 
 void WavFileWidget::adjustToFinishedPlayback()
 {
-	disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	ui->pbPlay->setChecked(false);
-	connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-	
-	ui->pbDelete->setEnabled(true);
+  disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+  ui->pbPlay->setChecked(false);
+  connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+
+  ui->pbDelete->setEnabled(true);
 }
+
 
 /**
  * \brief Stops the recording
@@ -253,41 +256,42 @@ void WavFileWidget::adjustToFinishedPlayback()
  */
 void WavFileWidget::stopRecording()
 {
-	if (!isRecording) return;
+  if (!isRecording) return;
 
-	QString fName = m_filename;
-	bool processInternal = SoundConfiguration::processInternal();
-	
-	if (processInternal)
-		fName += "_tmp";
+  QString fName = m_filename;
+  bool processInternal = SoundConfiguration::processInternal();
 
-	if (!rec->finish()) {
-		KMessageBox::error(this, i18n("Could not finalize the Sample. "
-					"The recording probably failed.\n\n"
-					"Tip: Check if you have the needed permissions to write to \"%1\"!", fName));
-	} else {
-		ui->pbPlay->setEnabled(true);
-		ui->pbDelete->setEnabled(true);
+  if (processInternal)
+    fName += "_tmp";
 
-		if (processInternal) {
+  if (!rec->finish()) {
+    KMessageBox::error(this, i18n("Could not finalize the Sample. "
+      "The recording probably failed.\n\n"
+      "Tip: Check if you have the needed permissions to write to \"%1\"!", fName));
+  }
+  else {
+    ui->pbPlay->setEnabled(true);
+    ui->pbDelete->setEnabled(true);
 
-			if (!postProc) {
-				postProc = new PostProcessing();
-				connect(postProc, SIGNAL(error(const QString&)), this, SIGNAL(error(const QString&)));
-			}
-			if (!postProc->process(fName, m_filename, true))
-				KMessageBox::error(this, i18n("Post-Processing failed"));
-		}
-	}
-	
-	
-	ui->pbProgress->setValue(0);
-	ui->pbProgress->setMaximum(1);
-	
-	emit recordingFinished();
+    if (processInternal) {
 
-	isRecording = false;
+      if (!postProc) {
+        postProc = new PostProcessing();
+        connect(postProc, SIGNAL(error(const QString&)), this, SIGNAL(error(const QString&)));
+      }
+      if (!postProc->process(fName, m_filename, true))
+        KMessageBox::error(this, i18n("Post-Processing failed"));
+    }
+  }
+
+  ui->pbProgress->setValue(0);
+  ui->pbProgress->setMaximum(1);
+
+  emit recordingFinished();
+
+  isRecording = false;
 }
+
 
 /**
  * \brief Stops the playback
@@ -295,11 +299,12 @@ void WavFileWidget::stopRecording()
  */
 void WavFileWidget::stopPlayback()
 {
-	if (!isPlaying) return;
+  if (!isPlaying) return;
 
-	play->stop();
-	isPlaying = false;
+  play->stop();
+  isPlaying = false;
 }
+
 
 /**
  * \brief Starts the playback
@@ -307,23 +312,24 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
-	if (play->play(m_filename, m_channels))
-	{	
-		ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
-		disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-		connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-		ui->pbDelete->setEnabled(false);
-		isPlaying = true;
-		emit playing();
-	} else {
-		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
-						"The output device could not be initialized or there "
-						"is no sound device configured for this amount of input "
-						"channels.\n\n"
-						"Please check your sound configuration and try again."));
-		ui->pbPlay->setChecked(false);
-	}
+  if (play->play(m_filename, m_channels)) {
+    ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
+    disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+    connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+    ui->pbDelete->setEnabled(false);
+    isPlaying = true;
+    emit playing();
+  }
+  else {
+    KMessageBox::error(this, i18n("Could not start playback.\n\n"
+      "The output device could not be initialized or there "
+      "is no sound device configured for this amount of input "
+      "channels.\n\n"
+      "Please check your sound configuration and try again."));
+    ui->pbPlay->setChecked(false);
+  }
 }
+
 
 /**
  * \brief Deletes the file at m_filename (member)
@@ -331,26 +337,26 @@ void WavFileWidget::playback()
  */
 bool WavFileWidget::deleteSample()
 {
-	if(QFile::remove(m_filename) || !QFile::exists(m_filename))
-	{
-		ui->pbProgress->setValue(0);
-		ui->pbProgress->setFormat("00:00 / 00:00");
-		ui->pbPlay->setEnabled(false);
-		ui->pbDelete->setEnabled(false);
-		emit sampleDeleted();
-		resetProblems();
-		return true;
-	} else {
-		if (QFile::exists(m_filename))
-		{
-			KMessageBox::error(this, 
-				i18n("Couldn't remove file %1", m_filename));
-			return false;
-		}
-	}
+  if(QFile::remove(m_filename) || !QFile::exists(m_filename)) {
+    ui->pbProgress->setValue(0);
+    ui->pbProgress->setFormat("00:00 / 00:00");
+    ui->pbPlay->setEnabled(false);
+    ui->pbDelete->setEnabled(false);
+    emit sampleDeleted();
+    resetProblems();
+    return true;
+  }
+  else {
+    if (QFile::exists(m_filename)) {
+      KMessageBox::error(this,
+        i18n("Could not remove file %1", m_filename));
+      return false;
+    }
+  }
 
-	return true;
+  return true;
 }
+
 
 /**
  * \brief Destructor
@@ -358,12 +364,9 @@ bool WavFileWidget::deleteSample()
  */
 WavFileWidget::~WavFileWidget()
 {
-	play->deleteLater();
- 	rec->deleteLater();
-	if (postProc)
-		postProc->deleteLater();
-	delete ui;
+  play->deleteLater();
+  rec->deleteLater();
+  if (postProc)
+    postProc->deleteLater();
+  delete ui;
 }
-
-
-

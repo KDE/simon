@@ -25,40 +25,38 @@
 class ATBackend;
 class ATObject;
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
-
 
 /// \warning Was wenn von einer untest�tzten Applikation zu einer nicht unterst�tzten umgewechselt wird? was wird emmitted?
 class ATWatcher : public QObject
 {
-		Q_OBJECT
-	private:
-		ATBackend* backend;
-		ATObject *focusedApplication; //!< holds a pointer to the currently selected app.
-		ATObject *focusedWindow; //!< holds a pointer to the currently opened window
-		QList<ATObject*> applications;
-		static ATWatcher *instance;
-		
-	private slots:
-		void addObject(ATObject *newObject);
-		void deleteObject(ATObject *oldObject);
-		void translateFocusToWindow(ATObject* selectedObject);
-	public slots:
-		bool trigger(const QString &word);
+  Q_OBJECT
+    private:
+    ATBackend* backend;
+    ATObject *focusedApplication;                 //!< holds a pointer to the currently selected app.
+    ATObject *focusedWindow;                      //!< holds a pointer to the currently opened window
+    QList<ATObject*> applications;
+    static ATWatcher *instance;
 
-	protected:
-		ATWatcher ( QObject* parent=0 );
+  private slots:
+    void addObject(ATObject *newObject);
+    void deleteObject(ATObject *oldObject);
+    void translateFocusToWindow(ATObject* selectedObject);
+  public slots:
+    bool trigger(const QString &word);
 
-	public:
-		void applySettings();
-		static ATWatcher* getInstance() {
-			if (!instance) instance = new ATWatcher();
-			return instance;
-		}
+  protected:
+    ATWatcher ( QObject* parent=0 );
 
-		~ATWatcher();
+  public:
+    void applySettings();
+    static ATWatcher* getInstance() {
+      if (!instance) instance = new ATWatcher();
+      return instance;
+    }
+
+    ~ATWatcher();
 
 };
-
 #endif

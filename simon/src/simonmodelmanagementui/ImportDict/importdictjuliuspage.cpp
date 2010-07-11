@@ -17,39 +17,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importdictjuliuspage.h"
 #include <QTextCodec>
 
 ImportDictJuliusPage::ImportDictJuliusPage(QWidget* parent): QWizardPage(parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
+  ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
-	setTitle(i18n("Import Julius Vocabulary"));
-	connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	registerField("juliusVocabularyEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
-	registerField("juliusVocabularyFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
+  setTitle(i18n("Import Julius Vocabulary"));
+  connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  registerField("juliusVocabularyEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  registerField("juliusVocabularyFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
 }
+
 
 void ImportDictJuliusPage::initializePage()
 {
-	ui.cbEncoding->clear();
-	ui.cbEncoding->addItem(i18n("Automatic"));
-	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
-	QStringList encodings;
-	foreach (const QByteArray& codec, availableCodecs)
-		encodings << codec;
-	encodings.sort();
-	ui.cbEncoding->addItems(encodings);
+  ui.cbEncoding->clear();
+  ui.cbEncoding->addItem(i18n("Automatic"));
+  QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+  QStringList encodings;
+  foreach (const QByteArray& codec, availableCodecs)
+    encodings << codec;
+  encodings.sort();
+  ui.cbEncoding->addItems(encodings);
 }
 
 
 bool ImportDictJuliusPage::isComplete() const
 {
-	return QFile::exists(ui.urPath->url().path());
+  return QFile::exists(ui.urPath->url().path());
 }
+
 
 /**
  * \brief Destructor
@@ -58,4 +59,3 @@ bool ImportDictJuliusPage::isComplete() const
 ImportDictJuliusPage::~ImportDictJuliusPage()
 {
 }
-

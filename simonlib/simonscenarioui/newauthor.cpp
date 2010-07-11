@@ -26,31 +26,33 @@
 
 NewAuthor::NewAuthor(QWidget* parent) : KDialog(parent)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
 
-	setMainWidget( widget );
-	setCaption( i18n("Author") );
-	
-	connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
-	connect(ui.leContact, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
-	
-	checkIfComplete();
+  setMainWidget( widget );
+  setCaption( i18n("Author") );
+
+  connect(ui.leName, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+  connect(ui.leContact, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+
+  checkIfComplete();
 }
+
 
 Author* NewAuthor::newAuthor()
 {
-	if (!exec()) return NULL;
+  if (!exec()) return 0;
 
-	return new Author(NULL, ui.leName->text(), ui.leContact->text());
+  return new Author(0, ui.leName->text(), ui.leContact->text());
 }
 
 
 void NewAuthor::checkIfComplete()
 {
-	bool complete = !ui.leName->text().isEmpty() && !ui.leContact->text().isEmpty();
-	enableButtonOk(complete);
+  bool complete = !ui.leName->text().isEmpty() && !ui.leContact->text().isEmpty();
+  enableButtonOk(complete);
 }
+
 
 NewAuthor::~NewAuthor()
 {

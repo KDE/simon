@@ -30,63 +30,65 @@
 
 ModifyUserInInstitution::ModifyUserInInstitution(QWidget* parent) : KDialog(parent)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
 
-	setMainWidget( widget );
-	
-	connect(ui.cbInstitution, SIGNAL(editTextChanged(QString)), this, SLOT(checkIfComplete()));
-	connect(ui.leReferenceId, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+  setMainWidget( widget );
 
-	connect(ui.pbSelectInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
-	
-	checkIfComplete();
-	setCaption( i18n("User - Institution") );
+  connect(ui.cbInstitution, SIGNAL(editTextChanged(QString)), this, SLOT(checkIfComplete()));
+  connect(ui.leReferenceId, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+
+  connect(ui.pbSelectInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
+
+  checkIfComplete();
+  setCaption( i18n("User - Institution") );
 }
+
 
 void ModifyUserInInstitution::checkIfComplete()
 {
-	bool complete = true;
-	complete = complete && !ui.leReferenceId->text().isEmpty();
-	complete = complete && !ui.cbInstitution->currentText().isEmpty();
+  bool complete = true;
+  complete = complete && !ui.leReferenceId->text().isEmpty();
+  complete = complete && !ui.cbInstitution->currentText().isEmpty();
 
-	enableButtonOk(complete);
+  enableButtonOk(complete);
 }
+
 
 void ModifyUserInInstitution::deleteLater()
 {
-	QObject::deleteLater();
+  QObject::deleteLater();
 }
+
 
 void ModifyUserInInstitution::findInstitution()
 {
-	ManageInstitutions *manageInstitutions = new ManageInstitutions(this);
-	Institution *i = manageInstitutions->getInstitution();
-	if (i)
-		ui.cbInstitution->setEditText(QString::number(i->id()));
+  ManageInstitutions *manageInstitutions = new ManageInstitutions(this);
+  Institution *i = manageInstitutions->getInstitution();
+  if (i)
+    ui.cbInstitution->setEditText(QString::number(i->id()));
 
-	manageInstitutions->deleteLater();
+  manageInstitutions->deleteLater();
 }
+
 
 UserInInstitution* ModifyUserInInstitution::add()
 {
-	int ret = KDialog::exec();
-	if (ret) {
-		bool ok;
-		int institutionId = ui.cbInstitution->currentText().toInt(&ok);
-		if (!ok) {
-			KMessageBox::sorry(this, i18n("Please enter a valid institution id"));
-			return NULL;
-		}
+  int ret = KDialog::exec();
+  if (ret) {
+    bool ok;
+    int institutionId = ui.cbInstitution->currentText().toInt(&ok);
+    if (!ok) {
+      KMessageBox::sorry(this, i18n("Please enter a valid institution id"));
+      return 0;
+    }
 
-		return new UserInInstitution(0, institutionId, ui.leReferenceId->text());
-	}
-	return NULL;
+    return new UserInInstitution(0, institutionId, ui.leReferenceId->text());
+  }
+  return 0;
 }
 
 
 ModifyUserInInstitution::~ModifyUserInInstitution()
 {
 }
-
-

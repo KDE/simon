@@ -30,32 +30,30 @@ class Microphone;
 class SoundCard;
 class QSettings;
 
-class DeviceInformationPage : public QWizardPage {
+class DeviceInformationPage : public QWizardPage
+{
 
-private:
-	QList<DeviceInformationWidget*> informationWidgets;
-	QScrollArea *scrollWidget;
+  private:
+    QList<DeviceInformationWidget*> informationWidgets;
+    QScrollArea *scrollWidget;
 
-	void registerInformationWidget(DeviceInformationWidget*);
+    void registerInformationWidget(DeviceInformationWidget*);
 
-public:
-	DeviceInformationPage(QWidget *parent=NULL);
-	void initializePage();
-    	~DeviceInformationPage();
+  public:
+    DeviceInformationPage(QWidget *parent=0);
+    void initializePage();
+    ~DeviceInformationPage();
 
-	QStringList getDeviceStrings();
+    QStringList getDeviceStrings();
 
-	bool serializeToStorage(QSettings& ini) const;
-	bool deserializeFromStorage(QSettings& ini);
+    bool serializeToStorage(QSettings& ini) const;
+    bool deserializeFromStorage(QSettings& ini);
 
-	QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
-	QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+    QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
+    QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
 
-	bool isComplete() const;
-	bool validatePage();
+    bool isComplete() const;
+    bool validatePage();
 
 };
-
 #endif
-
-

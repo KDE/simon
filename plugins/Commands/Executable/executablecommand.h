@@ -33,46 +33,44 @@ class QDomDocument;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class ExecutableCommand : public Command{
-private:
-	QString exe;
-	KUrl workingDirectory;
+class ExecutableCommand : public Command
+{
+  private:
+    QString exe;
+    KUrl workingDirectory;
 
-protected:
-	const QMap<QString,QVariant> getValueMapPrivate() const;
-	bool triggerPrivate(int *state);
-	ExecutableCommand() {}
+  protected:
+    const QMap<QString,QVariant> getValueMapPrivate() const;
+    bool triggerPrivate(int *state);
+    ExecutableCommand() {}
 
-public:
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+  public:
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	bool deSerializePrivate(const QDomElement& commandElem);
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+    bool deSerializePrivate(const QDomElement& commandElem);
 
-	ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const KUrl& workingDirectory) : 
-		Command(name, iconSrc, description)
-	{
-		this->exe = exe;
-		this->workingDirectory = workingDirectory;
-	}
+    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& exe, const KUrl& workingDirectory) :
+    Command(name, iconSrc, description) {
+      this->exe = exe;
+      this->workingDirectory = workingDirectory;
+    }
 
-	const QString getExecutable() const { return this->exe; }
+    const QString getExecutable() const { return this->exe; }
 
+    /**
+     * @brief Returns the directory, the executable should be executed in (optional)
+     *
+     * @author Peter Grasch
+     */
+    const KUrl getWorkingDirectory() const {return this->workingDirectory;}
 
-	/**
-	* @brief Returns the directory, the executable should be executed in (optional)
-	*
-	* @author Peter Grasch
-	*/
-	const KUrl getWorkingDirectory() const {return this->workingDirectory;}
-    
-	~ExecutableCommand() {}
+    ~ExecutableCommand() {}
 
-	STATIC_CREATE_INSTANCE_H(ExecutableCommand);
+    STATIC_CREATE_INSTANCE_H(ExecutableCommand);
 };
-
 #endif

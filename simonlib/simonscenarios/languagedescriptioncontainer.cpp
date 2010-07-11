@@ -19,11 +19,11 @@
 
 #include "languagedescriptioncontainer.h"
 
-LanguageDescriptionContainer::LanguageDescriptionContainer(const QByteArray& shadowVocab, 
-				const QByteArray& treeHed) : 
-	m_shadowVocab(shadowVocab), m_treeHed(treeHed)
+LanguageDescriptionContainer::LanguageDescriptionContainer(const QByteArray& shadowVocab,
+const QByteArray& treeHed) :
+m_shadowVocab(shadowVocab), m_treeHed(treeHed)
 {
-	
+
 }
 
 

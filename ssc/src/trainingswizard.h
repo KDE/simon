@@ -28,44 +28,40 @@ class DeviceInformationPage;
 
 class TrainingsWizard : public SimonWizard
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private slots:
-		void submit();
+    private slots:
+    void submit();
 
-	public:
-		TrainingsWizard(QWidget *parent=0);
-		//bool init(const TrainingText &text);
-		~TrainingsWizard();
+  public:
+    TrainingsWizard(QWidget *parent=0);
+    //bool init(const TrainingText &text);
+    ~TrainingsWizard();
 
-		enum TrainingsType {
-			Repeating=1,
-			Training=2,
-			Interview=3
-		};
+    enum TrainingsType
+    {
+      Repeating=1,
+      Training=2,
+      Interview=3
+    };
 
-		int collectSamples(TrainingsType type, qint32 userId);
-		bool init(qint32 userId, const QString& path);
+    int collectSamples(TrainingsType type, qint32 userId);
+    bool init(qint32 userId, const QString& path);
 
-	private:
-		DeviceInformationPage *m_infoPage;
+  private:
+    DeviceInformationPage *m_infoPage;
 
-		QWizardPage* createIntroPage();
-		DeviceInformationPage* createDeviceDescPage();
-		QWizardPage* createFinishedPage();
-		bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
+    QWizardPage* createIntroPage();
+    DeviceInformationPage* createDeviceDescPage();
+    QWizardPage* createFinishedPage();
+    bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
 
-		QStringList repeatPrompts();
-		QStringList trainingPrompts();
-		QStringList interviewQuestions();
+    QStringList repeatPrompts();
+    QStringList trainingPrompts();
+    QStringList interviewQuestions();
 
-		QStringList parsePromptsFromFile(const QString& path);
-		bool cleanUp();
-
-
+    QStringList parsePromptsFromFile(const QString& path);
+    bool cleanUp();
 
 };
-
-
-
 #endif

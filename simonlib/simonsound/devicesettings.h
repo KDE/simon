@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DEVICESETTINGS_H_D0C3C07429B04F65935956A32C79AB09
 #define SIMON_DEVICESETTINGS_H_D0C3C07429B04F65935956A32C79AB09
 
@@ -27,62 +26,62 @@
 
 namespace Ui
 {
-	class DeviceConfiguration;
+  class DeviceConfiguration;
 }
+
 
 class SingleDeviceSettings;
 class QScrollArea;
 
 class SIMONSOUND_EXPORT DeviceSettings : public QWidget
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void changed(bool);
+    signals:
+  void changed(bool);
 
-private:
-	Ui::DeviceConfiguration *ui;
+  private:
+    Ui::DeviceConfiguration *ui;
 
-	QList<SingleDeviceSettings*> inputDevices;
-	QList<SingleDeviceSettings*> outputDevices;
+    QList<SingleDeviceSettings*> inputDevices;
+    QList<SingleDeviceSettings*> outputDevices;
 
-	QString getSelectedInputDeviceId();
-	QString getSelectedOutputDeviceId();
+    QString getSelectedInputDeviceId();
+    QString getSelectedOutputDeviceId();
 
-	bool enabled;
+    bool enabled;
 
-	void enable();
-	void disable();
+    void enable();
+    void disable();
 
-	void registerDevice(SingleDeviceSettings*, QScrollArea*);
-	SingleDeviceSettings* getDevice(int index, QScrollArea*);
+    void registerDevice(SingleDeviceSettings*, QScrollArea*);
+    SingleDeviceSettings* getDevice(int index, QScrollArea*);
 
-	void registerInputDevice(SingleDeviceSettings*);
-	SingleDeviceSettings* getInputDevice(int index);
+    void registerInputDevice(SingleDeviceSettings*);
+    SingleDeviceSettings* getInputDevice(int index);
 
-	void registerOutputDevice(SingleDeviceSettings*);
-	SingleDeviceSettings* getOutputDevice(int index);
+    void registerOutputDevice(SingleDeviceSettings*);
+    SingleDeviceSettings* getOutputDevice(int index);
 
-public slots:
-	void load();
-	void save();
+  public slots:
+    void load();
+    void save();
 
-private slots:
-	void refreshDevices();
+  private slots:
+    void refreshDevices();
 
-	bool check();
-	void checkWithSuccessMessage();
-	void slotChanged();
+    bool check();
+    void checkWithSuccessMessage();
+    void slotChanged();
 
-	void addInputDevice();
-	void addOutputDevice();
+    void addInputDevice();
+    void addOutputDevice();
 
-	void removeDevice(SingleDeviceSettings*);
-	
-public:
-	DeviceSettings(QWidget* parent);
-	~DeviceSettings();
+    void removeDevice(SingleDeviceSettings*);
+
+  public:
+    DeviceSettings(QWidget* parent);
+    ~DeviceSettings();
 
 };
-
 #endif

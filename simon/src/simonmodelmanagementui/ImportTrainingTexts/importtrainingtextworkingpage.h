@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGTEXTWORKINGPAGE_H_7BF1491864534D0290E547D5AAFB0747
 #define SIMON_IMPORTTRAININGTEXTWORKINGPAGE_H_7BF1491864534D0290E547D5AAFB0747
 
@@ -30,24 +29,24 @@
  * \author Peter Grasch
  * \version 0.1
  */
-class ImportTrainingTextWorkingPage : public QWizardPage {
-	Q_OBJECT 
-	private:
-		Ui::ImportTextWorkingPage ui;
-	
-	private slots:
-		void start();
+class ImportTrainingTextWorkingPage : public QWizardPage
+{
+  Q_OBJECT
+    private:
+    Ui::ImportTextWorkingPage ui;
 
-	public slots:
-		void startImport(KUrl path);
-		void parseFile(QString path);
-		void parseAdd();
-		QStringList parse(QIODevice *input, const QString& encoding);
-		void createTrainingsText(const QString& name, const QStringList& sentences);
+  private slots:
+    void start();
 
-		void initializePage();
-	public:
-		ImportTrainingTextWorkingPage(QWidget* parent);
+  public slots:
+    void startImport(KUrl path);
+    void parseFile(QString path);
+    void parseAdd();
+    QStringList parse(QIODevice *input, const QString& encoding);
+    void createTrainingsText(const QString& name, const QStringList& sentences);
+
+    void initializePage();
+  public:
+    ImportTrainingTextWorkingPage(QWidget* parent);
 };
-
 #endif

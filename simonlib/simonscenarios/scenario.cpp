@@ -30,7 +30,6 @@
 
 #include "version.h"
 
-
 #include <KStandardDirs>
 #include <QDomDocument>
 #include <QDateTime>
@@ -38,20 +37,20 @@
 #include <QFile>
 #include <KDebug>
 
-
-Scenario::Scenario(const QString& scenarioId, const QString& prefix) : 
-	m_prefix(prefix),
-	m_inGroup(0),
-	m_dirty(true),
-	m_scenarioId(scenarioId),
-	m_simonMinVersion(NULL),
-	m_simonMaxVersion(NULL),
-	m_vocabulary(NULL),
-	m_texts(NULL),
-	m_grammar(NULL),
-	m_actionCollection(NULL)
+Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
+m_prefix(prefix),
+m_inGroup(0),
+m_dirty(true),
+m_scenarioId(scenarioId),
+m_simonMinVersion(0),
+m_simonMaxVersion(0),
+m_vocabulary(0),
+m_texts(0),
+m_grammar(0),
+m_actionCollection(0)
 {
 }
+
 
 /**
  * Initializes and loads the scenario
@@ -65,236 +64,239 @@ Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
  */
 bool Scenario::init(QString path)
 {
-	QDomDocument *doc=NULL;
-	bool deleteDoc;
-	if (!setupToParse(path, doc, deleteDoc)) return false;
+  QDomDocument *doc=0;
+  bool deleteDoc;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	if (!skim(path, doc)) return false;
+  if (!skim(path, doc)) return false;
 
-	//  Language model
-	//************************************************/
-	if (!readLanguageModel(path, doc)) return false;
+  //  Language model
+  //************************************************/
+  if (!readLanguageModel(path, doc)) return false;
 
+  //  Actions
+  //************************************************/
+  if (!readActions(path, doc)) return false;
 
-	//  Actions
-	//************************************************/
-	if (!readActions(path, doc)) return false;
+  //  Trainingstexts
+  //************************************************/
+  if (!readTrainingsTexts(path, doc)) return false;
 
-
-	//  Trainingstexts
-	//************************************************/
-	if (!readTrainingsTexts(path, doc)) return false;
-
-	delete doc;
-	return true;
+  delete doc;
+  return true;
 }
 
-bool Scenario::create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
-		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+
+bool Scenario::create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
+VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
 {
-	m_name = name;
-	m_version = version;
-	m_iconSrc = iconSrc;
-	delete m_simonMinVersion;
-	m_simonMinVersion = simonMinVersion;
-	delete m_simonMaxVersion;
-	m_simonMaxVersion = simonMaxVersion;
-	m_licence = licence;
+  m_name = name;
+  m_version = version;
+  m_iconSrc = iconSrc;
+  delete m_simonMinVersion;
+  m_simonMinVersion = simonMinVersion;
+  delete m_simonMaxVersion;
+  m_simonMaxVersion = simonMaxVersion;
+  m_licence = licence;
 
-	foreach (Author *a, m_authors)
-		if (!authors.contains(a))
-			delete a;
-	m_authors.clear();
-	foreach (Author *a, authors)
-		m_authors << a;
+  foreach (Author *a, m_authors)
+    if (!authors.contains(a))
+    delete a;
+  m_authors.clear();
+  foreach (Author *a, authors)
+    m_authors << a;
 
-	return true;
+  return true;
 }
 
-bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
-		VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+
+bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
+VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
 {
-	return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, licence, authors);
+  return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, licence, authors);
 }
+
 
 bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
 {
-	if (path.isNull()) {
-		if (m_prefix.isNull())
-			path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
-		else
-			path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
-	}
+  if (path.isNull()) {
+    if (m_prefix.isNull())
+      path = KStandardDirs::locate("appdata", "scenarios/"+m_scenarioId);
+    else
+      path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
+  }
 
-	if (!doc) {
-		doc = new QDomDocument("scenario");
-		QFile file(path);
-		if (!file.open(QIODevice::ReadOnly)) {
-			delete doc;
-			return false;
-		}
-		if (!doc->setContent(&file)) {
-			file.close();
-			delete doc;
-			return false;
-		}
-		file.close();
-		deleteDoc = true;
-	}
-	return true;
+  if (!doc) {
+    doc = new QDomDocument("scenario");
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+      delete doc;
+      return false;
+    }
+    if (!doc->setContent(&file)) {
+      file.close();
+      delete doc;
+      return false;
+    }
+    file.close();
+    deleteDoc = true;
+  }
+  return true;
 }
+
 
 bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 {
-	if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-	bool ok=true;
+  bool ok=true;
 
-	//  Scenario Infos 
-	//************************************************/
-	
-	//name of the scenario
-	m_name = docElem.attribute("name");
+  //  Scenario Infos
+  //************************************************/
 
-	if (m_scenarioId.isEmpty()) m_scenarioId = createId(m_name);
+  //name of the scenario
+  m_name = docElem.attribute("name");
 
-	//version of the scenario
-	m_version = docElem.attribute("version").toInt(&ok);
-	m_iconSrc = docElem.attribute("icon");
-	m_lastModifiedDate = QDateTime::fromString(docElem.attribute("lastModified"), Qt::ISODate);
-	if (!ok) {
-		if (deleteDoc) delete doc;
-		return false;
-	}
+  if (m_scenarioId.isEmpty()) m_scenarioId = createId(m_name);
 
-	//kDebug() << "Loading scenario " << m_name << " version " << m_version;
+  //version of the scenario
+  m_version = docElem.attribute("version").toInt(&ok);
+  m_iconSrc = docElem.attribute("icon");
+  m_lastModifiedDate = QDateTime::fromString(docElem.attribute("lastModified"), Qt::ISODate);
+  if (!ok) {
+    if (deleteDoc) delete doc;
+    return false;
+  }
 
-	//  simon compatibility 
-	//************************************************/
-	
-	QDomElement compatibilityElem = docElem.firstChildElement("simonCompatibility");
-	QDomElement simonMinVersionElem = compatibilityElem.firstChildElement();
+  //kDebug() << "Loading scenario " << m_name << " version " << m_version;
 
-	delete m_simonMinVersion;
-	delete m_simonMaxVersion;
+  //  simon compatibility
+  //************************************************/
 
-	m_simonMinVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem);
-	m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
+  QDomElement compatibilityElem = docElem.firstChildElement("simonCompatibility");
+  QDomElement simonMinVersionElem = compatibilityElem.firstChildElement();
 
-	if (!m_simonMinVersion) {
-		kDebug() << "Couldn't parse simon requirements!";
-		if (deleteDoc) delete doc;
-		return false;
-	}
+  delete m_simonMinVersion;
+  delete m_simonMaxVersion;
 
-	VersionNumber simonCurVersion(this, simon_version);
-	if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) || 
-		(m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
-		kDebug() << "Scenario not compatible with this simon version";
-		if (deleteDoc) delete doc;
-		return false;
-	}
+  m_simonMinVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem);
+  m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
 
-	//  Authors
-	//************************************************/
-	
-	//clear authors
-	qDeleteAll(m_authors);
-	m_authors.clear();
+  if (!m_simonMinVersion) {
+    kDebug() << "Could not parse simon requirements!";
+    if (deleteDoc) delete doc;
+    return false;
+  }
 
-	QDomElement authorsElem = docElem.firstChildElement("authors");
-	QDomElement authorElem = authorsElem.firstChildElement();
-	while (!authorElem.isNull()) {
-		Author *a = Author::createAuthor(this, authorElem);
-		if (!a) {
-			kDebug() << "Author information could not be parsed!";
-			continue;
-		}
+  VersionNumber simonCurVersion(this, simon_version);
+  if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) ||
+  (m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
+    kDebug() << "Scenario not compatible with this simon version";
+    if (deleteDoc) delete doc;
+    return false;
+  }
 
-		m_authors << a;
-		authorElem = authorElem.nextSiblingElement();
-	}
-	
+  //  Authors
+  //************************************************/
 
-	//  Licence
-	//************************************************/
-	m_licence = docElem.firstChildElement("licence").text();
-	//kDebug() << "Licence: " << m_licence;
-		
-	if (deleteDoc) delete doc;
-	return true;
+  //clear authors
+  qDeleteAll(m_authors);
+  m_authors.clear();
+
+  QDomElement authorsElem = docElem.firstChildElement("authors");
+  QDomElement authorElem = authorsElem.firstChildElement();
+  while (!authorElem.isNull()) {
+    Author *a = Author::createAuthor(this, authorElem);
+    if (!a) {
+      kDebug() << "Author information could not be parsed!";
+      continue;
+    }
+
+    m_authors << a;
+    authorElem = authorElem.nextSiblingElement();
+  }
+
+  //  Licence
+  //************************************************/
+  m_licence = docElem.firstChildElement("licence").text();
+  //kDebug() << "Licence: " << m_licence;
+
+  if (deleteDoc) delete doc;
+  return true;
 }
 
 
 bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc)
 {
-	if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-	//  Vocab
-	//************************************************/
-	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
-	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
-	if (!m_vocabulary) {
-		if (deleteDoc) delete doc;
-		return false;
-	}
-	//kDebug() << m_vocabulary->wordCount() << " words loaded";
+  //  Vocab
+  //************************************************/
+  QDomElement vocabElem = docElem.firstChildElement("vocabulary");
+  m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
+  if (!m_vocabulary) {
+    if (deleteDoc) delete doc;
+    return false;
+  }
+  //kDebug() << m_vocabulary->wordCount() << " words loaded";
 
+  //  Grammar
+  //************************************************/
+  QDomElement grammarElem = docElem.firstChildElement("grammar");
+  m_grammar = Grammar::createGrammar(this, grammarElem);
+  if (!m_grammar) {
+    kDebug() << "Grammar could not be loaded!";
+    if (deleteDoc) delete doc;
+    return false;
+  }
+  //kDebug() << m_grammar->structureCount() << " structurs loaded";
 
-	//  Grammar
-	//************************************************/
-	QDomElement grammarElem = docElem.firstChildElement("grammar");
-	m_grammar = Grammar::createGrammar(this, grammarElem);
-	if (!m_grammar) {
-		kDebug() << "Grammar could not be loaded!";
-		if (deleteDoc) delete doc;
-		return false;
-	}
-	//kDebug() << m_grammar->structureCount() << " structurs loaded";
-
-	if (deleteDoc) delete doc;
-	return true;
+  if (deleteDoc) delete doc;
+  return true;
 }
+
 
 bool Scenario::readActions(QString path, QDomDocument* doc, bool deleteDoc)
 {
-	if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-	QDomElement actionsElement = docElem.firstChildElement("actions");
-	m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
+  QDomElement actionsElement = docElem.firstChildElement("actions");
+  m_actionCollection = ActionCollection::createActionCollection(this, actionsElement);
 
-	if (deleteDoc) delete doc;
+  if (deleteDoc) delete doc;
 
-	if (!m_actionCollection) {
-		kDebug() << "ActionCollection could not be loaded!";
-		return false;
-	}
-	return true;
+  if (!m_actionCollection) {
+    kDebug() << "ActionCollection could not be loaded!";
+    return false;
+  }
+  return true;
 }
+
 
 bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDoc)
 {
-	if (!setupToParse(path, doc, deleteDoc)) return false;
+  if (!setupToParse(path, doc, deleteDoc)) return false;
 
-	QDomElement docElem = doc->documentElement();
+  QDomElement docElem = doc->documentElement();
 
-	QDomElement textsElem = docElem.firstChildElement("trainingtexts");
-	m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
+  QDomElement textsElem = docElem.firstChildElement("trainingtexts");
+  m_texts = TrainingTextCollection::createTrainingTextCollection(this, textsElem);
 
-	if (deleteDoc) delete doc;
+  if (deleteDoc) delete doc;
 
-	if (!m_texts) {
-		kDebug() << "Trainingtextcollection could not be loaded!";
-		return false;
-	}
-	return true;
+  if (!m_texts) {
+    kDebug() << "Trainingtextcollection could not be loaded!";
+    return false;
+  }
+  return true;
 }
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -305,415 +307,438 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
  */
 bool Scenario::save(QString path)
 {
-	if (m_inGroup > 0) {
-		m_dirty = true;
-		return true;
-	}
+  if (m_inGroup > 0) {
+    m_dirty = true;
+    return true;
+  }
 
-	m_lastModifiedDate = QDateTime::currentDateTime();
-	QString serialized = serialize();
+  m_lastModifiedDate = QDateTime::currentDateTime();
+  QString serialized = serialize();
 
-	if (serialized.isNull())
-		return false;
-	
-	if (path.isNull()) {
-		if (m_prefix.isNull()) {
-			path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
-		} else {
-			path = KStandardDirs::locateLocal("data", m_prefix+"scenarios/"+m_scenarioId);
-		}
-	}
+  if (serialized.isNull())
+    return false;
 
-	QFile file(path);
-	if (!file.open(QIODevice::WriteOnly)) {
-		kDebug() << "couldn't open file at " << path;
-		return false;
-	}
+  if (path.isNull()) {
+    if (m_prefix.isNull()) {
+      path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
+    }
+    else {
+      path = KStandardDirs::locateLocal("data", m_prefix+"scenarios/"+m_scenarioId);
+    }
+  }
 
-	file.write(serialized.toUtf8());
+  QFile file(path);
+  if (!file.open(QIODevice::WriteOnly)) {
+    kDebug() << "could not open file at " << path;
+    return false;
+  }
 
-	m_dirty = false;
-	emit changed(this);
+  file.write(serialized.toUtf8());
 
-	return true;
+  m_dirty = false;
+  emit changed(this);
+
+  return true;
 }
 
 
 QString Scenario::serialize()
 {
-	QDomDocument doc("scenario");
-	QDomElement rootElem = doc.createElement("scenario");
-	rootElem.setAttribute("name", m_name);
-	rootElem.setAttribute("version", m_version);
-	rootElem.setAttribute("icon", m_iconSrc);
-	rootElem.setAttribute("lastModified", m_lastModifiedDate.toString(Qt::ISODate));
+  QDomDocument doc("scenario");
+  QDomElement rootElem = doc.createElement("scenario");
+  rootElem.setAttribute("name", m_name);
+  rootElem.setAttribute("version", m_version);
+  rootElem.setAttribute("icon", m_iconSrc);
+  rootElem.setAttribute("lastModified", m_lastModifiedDate.toString(Qt::ISODate));
 
-	//  simon compatibility 
-	//************************************************/
+  //  simon compatibility
+  //************************************************/
 
-	QDomElement compatibilityElem = doc.createElement("simonCompatibility");
-	QDomElement simonMinVersionElem = doc.createElement("minimumVersion");
-	simonMinVersionElem.appendChild(m_simonMinVersion->serialize(&doc));
-	compatibilityElem.appendChild(simonMinVersionElem);
-	QDomElement simonMaxVersionElem = doc.createElement("maximumVersion");
-	if (m_simonMaxVersion && m_simonMaxVersion->isValid()) {
-		simonMaxVersionElem.appendChild(m_simonMaxVersion->serialize(&doc));
-	}
-	compatibilityElem.appendChild(simonMaxVersionElem);
+  QDomElement compatibilityElem = doc.createElement("simonCompatibility");
+  QDomElement simonMinVersionElem = doc.createElement("minimumVersion");
+  simonMinVersionElem.appendChild(m_simonMinVersion->serialize(&doc));
+  compatibilityElem.appendChild(simonMinVersionElem);
+  QDomElement simonMaxVersionElem = doc.createElement("maximumVersion");
+  if (m_simonMaxVersion && m_simonMaxVersion->isValid()) {
+    simonMaxVersionElem.appendChild(m_simonMaxVersion->serialize(&doc));
+  }
+  compatibilityElem.appendChild(simonMaxVersionElem);
 
-	rootElem.appendChild(compatibilityElem);
+  rootElem.appendChild(compatibilityElem);
 
-	//  Authors
-	//************************************************/
-	QDomElement authorsElem = doc.createElement("authors");
-	foreach (Author *a, m_authors) {
-		authorsElem.appendChild(a->serialize(&doc));
-	}
-	rootElem.appendChild(authorsElem);
+  //  Authors
+  //************************************************/
+  QDomElement authorsElem = doc.createElement("authors");
+  foreach (Author *a, m_authors) {
+    authorsElem.appendChild(a->serialize(&doc));
+  }
+  rootElem.appendChild(authorsElem);
 
+  //  Licence
+  //************************************************/
+  QDomElement licenceElem = doc.createElement("licence");
+  QDomText licenceElemText = doc.createTextNode(m_licence);
+  licenceElem.appendChild(licenceElemText);
+  rootElem.appendChild(licenceElem);
 
-	//  Licence
-	//************************************************/
-	QDomElement licenceElem = doc.createElement("licence");
-	QDomText licenceElemText = doc.createTextNode(m_licence);
-	licenceElem.appendChild(licenceElemText);
-	rootElem.appendChild(licenceElem);
-		
+  //  Vocab
+  //************************************************/
+  if (!m_vocabulary)
+    rootElem.appendChild(Vocabulary::createEmpty(&doc));
+  else
+    rootElem.appendChild(m_vocabulary->serialize(&doc));
 
-	//  Vocab
-	//************************************************/
-	if (!m_vocabulary)
-		rootElem.appendChild(Vocabulary::createEmpty(&doc));
-	else 
-		rootElem.appendChild(m_vocabulary->serialize(&doc));
+  //  Grammar
+  //************************************************/
+  if (!m_grammar)
+    rootElem.appendChild(Grammar::createEmpty(&doc));
+  else
+    rootElem.appendChild(m_grammar->serialize(&doc));
 
+  //  Actions
+  //************************************************/
+  if (!m_actionCollection)
+    rootElem.appendChild(ActionCollection::createEmpty(&doc));
+  else
+    rootElem.appendChild(m_actionCollection->serialize(&doc));
 
-	//  Grammar
-	//************************************************/
-	if (!m_grammar)
-		rootElem.appendChild(Grammar::createEmpty(&doc));
-	else 
-		rootElem.appendChild(m_grammar->serialize(&doc));
+  //  Trainingstexts
+  //************************************************/
+  if (!m_texts)
+    rootElem.appendChild(TrainingTextCollection::createEmpty(&doc));
+  else
+    rootElem.appendChild(m_texts->serialize(&doc));
 
-
-	//  Actions
-	//************************************************/
-	if (!m_actionCollection)
-		rootElem.appendChild(ActionCollection::createEmpty(&doc));
-	else 
-		rootElem.appendChild(m_actionCollection->serialize(&doc));
-
-
-	//  Trainingstexts
-	//************************************************/
-	if (!m_texts)
-		rootElem.appendChild(TrainingTextCollection::createEmpty(&doc));
-	else 
-		rootElem.appendChild(m_texts->serialize(&doc));
-
-	doc.appendChild(rootElem);
-	return doc.toString();
+  doc.appendChild(rootElem);
+  return doc.toString();
 }
+
 
 bool Scenario::addWords(QList<Word*>* w)
 {
-	return (m_vocabulary->addWords(w));
+  return (m_vocabulary->addWords(w));
 }
+
 
 bool Scenario::addWord(Word* w)
 {
-	return (m_vocabulary->addWord(w));
+  return (m_vocabulary->addWord(w));
 }
+
 
 bool Scenario::removeWord(Word* w)
 {
-	return (m_vocabulary->removeWord(w));
+  return (m_vocabulary->removeWord(w));
 }
+
 
 bool Scenario::addStructures(const QStringList& newStructures)
 {
-	return m_grammar->addStructures(newStructures);
+  return m_grammar->addStructures(newStructures);
 }
-	
+
 
 QStringList Scenario::getTerminals(SpeechModel::ModelElements elements)
 {
-	QStringList terminals;
+  QStringList terminals;
 
-	if (elements & SpeechModel::ScenarioVocabulary)
-		terminals = m_vocabulary->getTerminals();
+  if (elements & SpeechModel::ScenarioVocabulary)
+    terminals = m_vocabulary->getTerminals();
 
-	if (elements & SpeechModel::ScenarioGrammar) {
-		QStringList grammarTerminals = m_grammar->getTerminals();
-		foreach (const QString& terminal, grammarTerminals)
-			if (!terminals.contains(terminal))
-				terminals << terminal;
-	}
+  if (elements & SpeechModel::ScenarioGrammar) {
+    QStringList grammarTerminals = m_grammar->getTerminals();
+    foreach (const QString& terminal, grammarTerminals)
+      if (!terminals.contains(terminal))
+      terminals << terminal;
+  }
 
-	return terminals;
+  return terminals;
 }
+
 
 bool Scenario::renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect)
 {
-	bool success = true;
-	bool scenarioChanged = false;
+  bool success = true;
+  bool scenarioChanged = false;
 
-	if (affect & SpeechModel::ScenarioVocabulary) {
-		if (m_vocabulary->renameTerminal(terminal, newName))
-			scenarioChanged=true;
-		else
-			success=false;
-	}
+  if (affect & SpeechModel::ScenarioVocabulary) {
+    if (m_vocabulary->renameTerminal(terminal, newName))
+      scenarioChanged=true;
+    else
+      success=false;
+  }
 
-	if (affect & SpeechModel::ScenarioGrammar) {
-		if (m_grammar->renameTerminal(terminal, newName))
-			scenarioChanged=true;
-		else
-			success=false;
-	}
+  if (affect & SpeechModel::ScenarioGrammar) {
+    if (m_grammar->renameTerminal(terminal, newName))
+      scenarioChanged=true;
+    else
+      success=false;
+  }
 
-	if (scenarioChanged) emit changed(this);
+  if (scenarioChanged) emit changed(this);
 
-	return success;
+  return success;
 }
+
 
 QList<Word*> Scenario::findWords(const QString& name, Vocabulary::MatchType type)
 {
-	return m_vocabulary->findWords(name, type);
+  return m_vocabulary->findWords(name, type);
 }
+
 
 QList<Word*> Scenario::findWordsByTerminal(const QString& name)
 {
-	return m_vocabulary->findWordsByTerminal(name);
+  return m_vocabulary->findWordsByTerminal(name);
 }
 
-QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate, 
-			const QString& toDemonstrateTerminal)
+
+QString Scenario::fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate,
+const QString& toDemonstrateTerminal)
 {
 
-	int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
-	//this occurance of the terminal in the sentence is going to be replaced
-	//by the word we should put in a random sentence
-	int selectedOccurance = qrand() % terminalOccuranceCount;
+  int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
+  //this occurance of the terminal in the sentence is going to be replaced
+  //by the word we should put in a random sentence
+  int selectedOccurance = qrand() % terminalOccuranceCount;
 
-	QStringList segmentedTerminals = terminalSentence.split(" ");
+  QStringList segmentedTerminals = terminalSentence.split(" ");
 
-	QStringList actualSentence;
+  QStringList actualSentence;
 
-	ok = true;
+  ok = true;
 
-	int currentOccuranceCounter = 0;
-	foreach (const QString& terminalNow, segmentedTerminals) {
-		if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
-			if (currentOccuranceCounter++ == selectedOccurance) {
-				actualSentence.append(toDemonstrate);
-				continue;
-			}
-		}
+  int currentOccuranceCounter = 0;
+  foreach (const QString& terminalNow, segmentedTerminals) {
+    if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+      if (currentOccuranceCounter++ == selectedOccurance) {
+        actualSentence.append(toDemonstrate);
+        continue;
+      }
+    }
 
-		QString randomWord = m_vocabulary->getRandomWord(terminalNow);
-		if (randomWord.isNull()) {
-			if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
-				actualSentence.append(toDemonstrate);
-			} else ok = false;
-		}  else {
-			actualSentence.append(randomWord);
-		}
-	}
+    QString randomWord = m_vocabulary->getRandomWord(terminalNow);
+    if (randomWord.isNull()) {
+      if (!toDemonstrate.isNull() && (terminalNow == toDemonstrateTerminal)) {
+        actualSentence.append(toDemonstrate);
+      } else ok = false;
+    }
+    else {
+      actualSentence.append(randomWord);
+    }
+  }
 
-	return actualSentence.join(" ");
+  return actualSentence.join(" ");
 }
+
 
 QStringList Scenario::getExampleSentences(const QString& name, const QString& terminal, int count)
 {
-	QStringList out;
+  QStringList out;
 
-	int failedCounter = 0;
+  int failedCounter = 0;
 
-	for (int i=0; i < count; i++) {
-		QString terminalSentence = m_grammar->getExampleSentence(terminal);
-		if (terminalSentence.isNull()) {
-			//no sentence found
-			return out;
-		}
+  for (int i=0; i < count; i++) {
+    QString terminalSentence = m_grammar->getExampleSentence(terminal);
+    if (terminalSentence.isNull()) {
+      //no sentence found
+      return out;
+    }
 
-		bool ok = true;
-		QString resolvedSentence = fillGrammarSentenceWithExamples(terminalSentence, ok, name, terminal);
+    bool ok = true;
+    QString resolvedSentence = fillGrammarSentenceWithExamples(terminalSentence, ok, name, terminal);
 
-		if (ok) {
-			out << resolvedSentence;
-		} else {
-			i--;
-			if (failedCounter++ == 10)
-				break;
-		}
-	}
+    if (ok) {
+      out << resolvedSentence;
+    }
+    else {
+      i--;
+      if (failedCounter++ == 10)
+        break;
+    }
+  }
 
-	return out;
+  return out;
 }
+
 
 QStringList Scenario::getAllPossibleSentences()
 {
-	QStringList terminalSentences = m_grammar->getStructures();
+  QStringList terminalSentences = m_grammar->getStructures();
 
-	QStringList allSentences;
+  QStringList allSentences;
 
-	foreach (const QString& structure, terminalSentences) {
-		allSentences.append(getAllPossibleSentencesOfStructure(structure));
-	}
-	return allSentences;
+  foreach (const QString& structure, terminalSentences) {
+    allSentences.append(getAllPossibleSentencesOfStructure(structure));
+  }
+  return allSentences;
 }
+
 
 QStringList Scenario::getExampleSentencesOfStructur(const QString& structure)
 {
-	int alreadyFoundExamples = 0;
-	return getAllPossibleSentencesOfStructure(structure, &alreadyFoundExamples);
+  int alreadyFoundExamples = 0;
+  return getAllPossibleSentencesOfStructure(structure, &alreadyFoundExamples);
 }
+
 
 QStringList Scenario::getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples)
 {
-	if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
-		return QStringList();
+  if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
+    return QStringList();
 
-	//Object, Command
-	QStringList structureElements = structure.split(" ");
-	QList< QList<Word*> > sentenceMatrix;
+  //Object, Command
+  QStringList structureElements = structure.split(" ");
+  QList< QList<Word*> > sentenceMatrix;
 
-	foreach (const QString& element, structureElements)
-		sentenceMatrix.append(m_vocabulary->findWordsByTerminal(element));
+  foreach (const QString& element, structureElements)
+    sentenceMatrix.append(m_vocabulary->findWordsByTerminal(element));
 
-	//sentences: ( (Window, Test), (Next, Previous) )
-	
-	return getValidSentences(sentenceMatrix, alreadyFoundExamples);
+  //sentences: ( (Window, Test), (Next, Previous) )
+
+  return getValidSentences(sentenceMatrix, alreadyFoundExamples);
 }
+
 
 QStringList Scenario::getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples)
 {
-	if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
-		return QStringList();
+  if (alreadyFoundExamples && (*alreadyFoundExamples > 35))
+    return QStringList();
 
-	QStringList out;
-	QList<Word*> poss = sentenceMatrix.takeAt(0);
-	foreach (Word *w, poss) {
-		if (sentenceMatrix.isEmpty())
-		{
-			out.append(w->getWord());
-			if (alreadyFoundExamples)
-			{
-				(*alreadyFoundExamples)++;
-				if (*alreadyFoundExamples > 35)
-					return out;
-			}
-		} else {
-			QStringList returned = getValidSentences(sentenceMatrix, alreadyFoundExamples);
-			foreach (const QString& ret, returned)
-				out.append(w->getWord()+" "+ret);
-		}
-	}
-	return out;
+  QStringList out;
+  QList<Word*> poss = sentenceMatrix.takeAt(0);
+  foreach (Word *w, poss) {
+    if (sentenceMatrix.isEmpty()) {
+      out.append(w->getWord());
+      if (alreadyFoundExamples) {
+        (*alreadyFoundExamples)++;
+        if (*alreadyFoundExamples > 35)
+          return out;
+      }
+    }
+    else {
+      QStringList returned = getValidSentences(sentenceMatrix, alreadyFoundExamples);
+      foreach (const QString& ret, returned)
+        out.append(w->getWord()+" "+ret);
+    }
+  }
+  return out;
 }
 
 
 QString Scenario::getRandomWord(const QString& terminal)
 {
-	return m_vocabulary->getRandomWord(terminal);
+  return m_vocabulary->getRandomWord(terminal);
 }
+
 
 bool Scenario::containsWord(const QString& word)
 {
-	return (m_vocabulary->containsWord(word));
+  return (m_vocabulary->containsWord(word));
 }
+
 
 bool Scenario::containsWord(const QString& word, const QString& terminal, const QString& pronunciation)
 {
-	return (m_vocabulary->containsWord(word, terminal, pronunciation));
+  return (m_vocabulary->containsWord(word, terminal, pronunciation));
 }
+
 
 bool Scenario::removeText(TrainingText* text)
 {
-	return m_texts->removeText(text);
+  return m_texts->removeText(text);
 }
+
 
 bool Scenario::addTrainingText(TrainingText* text)
 {
-	return m_texts->addTrainingText(text);
+  return m_texts->addTrainingText(text);
 }
+
 
 /*bool Scenario::addCommand(Command *command)
 {
-	return m_actionCollection->addCommand(command);
+  return m_actionCollection->addCommand(command);
 }*/
 
 bool Scenario::removeCommand(Command *command)
 {
-	return m_actionCollection->removeCommand(command);
+  return m_actionCollection->removeCommand(command);
 }
+
 
 bool Scenario::processResult(RecognitionResult recognitionResult)
 {
-	return m_actionCollection->processResult(recognitionResult);
+  return m_actionCollection->processResult(recognitionResult);
 }
+
 
 bool Scenario::triggerCommand(const QString& type, const QString& trigger)
 {
-	return m_actionCollection->triggerCommand(type, trigger);
+  return m_actionCollection->triggerCommand(type, trigger);
 }
+
 
 CommandList* Scenario::getCommandList()
 {
-	return m_actionCollection->getCommandList();
+  return m_actionCollection->getCommandList();
 }
 
 
 void Scenario::startGroup()
 {
-	m_inGroup++;
+  m_inGroup++;
 }
+
 
 bool Scenario::commitGroup()
 {
-	m_inGroup--;
-	bool success = true;
-	if ((m_inGroup == 0) && (m_dirty))
-		success = save();
+  m_inGroup--;
+  bool success = true;
+  if ((m_inGroup == 0) && (m_dirty))
+    success = save();
 
-	return success;
+  return success;
 }
+
 
 QString Scenario::createId(const QString& name)
 {
-	QString id = name;
-	id.replace(" ", "_").replace("/","_").replace(":", "-").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
-	return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
+  QString id = name;
+  id.replace(" ", "_").replace("/","_").replace(":", "-").remove("?").replace("\\", "_").remove("<").remove(">").remove("|").remove("\"");
+  return id+"-"+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
+
 
 void Scenario::setPluginFont(const QFont& font)
 {
-	m_actionCollection->setPluginFont(font);
+  m_actionCollection->setPluginFont(font);
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> Scenario::getListInterfaceCommands()
 {
-	return m_actionCollection->getListInterfaceCommands();
+  return m_actionCollection->getListInterfaceCommands();
 }
+
 
 void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
 {
-	m_actionCollection->setListInterfaceCommands(commands);
+  m_actionCollection->setListInterfaceCommands(commands);
 }
+
 
 Scenario::~Scenario()
 {
-	qDeleteAll(m_authors);
-	if (m_actionCollection)
-		m_actionCollection->deleteLater();
-	if (m_grammar)
-		m_grammar->deleteLater();
-	if (m_texts)
-		m_texts->deleteLater();
-	if (m_vocabulary)
-		m_vocabulary->deleteLater();
-	delete m_simonMinVersion;
-	delete m_simonMaxVersion;
+  qDeleteAll(m_authors);
+  if (m_actionCollection)
+    m_actionCollection->deleteLater();
+  if (m_grammar)
+    m_grammar->deleteLater();
+  if (m_texts)
+    m_texts->deleteLater();
+  if (m_vocabulary)
+    m_vocabulary->deleteLater();
+  delete m_simonMinVersion;
+  delete m_simonMaxVersion;
 }
-

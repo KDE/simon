@@ -21,29 +21,30 @@
 #include "runcommandviewprivate.h"
 #include <KLocalizedString>
 
-
 /**
  *	@brief Constructor
  *
  *	@author Peter Grasch
  */
 RunCommandView::RunCommandView(QWidget* parent)
-	: InlineWidget(i18n("Commands"),
-	KIcon("system-run"),
-	i18n("Direct Execution of simon Commands"), parent),
-	d(new RunCommandViewPrivate(this))
+: InlineWidget(i18n("Commands"),
+KIcon("system-run"),
+i18n("Direct Execution of simon Commands"), parent),
+d(new RunCommandViewPrivate(this))
 {
-	connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(d);
+  connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(d);
 
-	hide();
+  hide();
 }
+
 
 void RunCommandView::displayScenarioPrivate(Scenario *scenario)
 {
-	d->displayScenario(scenario);
+  d->displayScenario(scenario);
 }
+
 
 /**
  *	@brief Destructor
@@ -52,5 +53,5 @@ void RunCommandView::displayScenarioPrivate(Scenario *scenario)
  */
 RunCommandView::~RunCommandView()
 {
-	d->deleteLater();
+  d->deleteLater();
 }

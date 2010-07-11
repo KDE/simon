@@ -31,27 +31,26 @@
  *	@date 16.10.2008
  *	@author Peter Grasch
  */
-class DictationCommandManager : public CommandManager {
-Q_OBJECT
+class DictationCommandManager : public CommandManager
+{
+  Q_OBJECT
 
-protected:
-	bool trigger(const QString& triggerName);
+    protected:
+    bool trigger(const QString& triggerName);
 
-public:
-	const QString preferredTrigger() const { return ""; }
-	const QString name() const;
-	const QString iconSrc() const;
+  public:
+    const QString preferredTrigger() const { return ""; }
+    const QString name() const;
+    const QString iconSrc() const;
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     DictationCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~DictationCommandManager();
 
 };
-
 #endif

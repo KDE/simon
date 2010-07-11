@@ -32,61 +32,59 @@
 class KeyboardSetContainer;
 class KeyboardCommandManager;
 
-
 class KeyboardConfiguration : public CommandConfiguration
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		QPoint m_keyboardPosition;
-		QSize m_keyboardSize;
+    private:
+    QPoint m_keyboardPosition;
+    QSize m_keyboardSize;
 
-		KeyboardSet *storedSet;
-		Ui::KeyboardConfigurationDlg ui;
-		KeyboardCommandManager *commandManager;
-		KeyboardSetContainer *setContainer;
+    KeyboardSet *storedSet;
+    Ui::KeyboardConfigurationDlg ui;
+    KeyboardCommandManager *commandManager;
+    KeyboardSetContainer *setContainer;
 
-        private slots:
-                void addSet();
-                void editSet();
-		void deleteSet();
-		void addTab();
-                void editTab();
-		void deleteTab();
-		void addButton();
-                void editButton();
-		void deleteButton();
-		void tabUp();
-		void tabDown();
-		void buttonUp();
-		void buttonDown();
-                void cbSetsIndexChanged();
-                void refreshCbSets();
-                void refreshCbTabs();
-                void refreshTabDetail();
- 
-	public slots:
-		virtual bool deSerialize(const QDomElement&);
-		virtual QDomElement serialize(QDomDocument *doc);
-		virtual void defaults();
-	
-	public:
-		KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args = QVariantList());
-		~KeyboardConfiguration();
+  private slots:
+    void addSet();
+    void editSet();
+    void deleteSet();
+    void addTab();
+    void editTab();
+    void deleteTab();
+    void addButton();
+    void editButton();
+    void deleteButton();
+    void tabUp();
+    void tabDown();
+    void buttonUp();
+    void buttonDown();
+    void cbSetsIndexChanged();
+    void refreshCbSets();
+    void refreshCbTabs();
+    void refreshTabDetail();
 
-		KeyboardSet *getStoredKeyboardSet() { return storedSet; }
-		
-		void destroy();
-		
-		//configuration options
-		bool caseSensitive();
+  public slots:
+    virtual bool deSerialize(const QDomElement&);
+    virtual QDomElement serialize(QDomDocument *doc);
+    virtual void defaults();
 
-		QPoint keyboardPosition();
-		QSize keyboardSize();
-		void saveKeyboardGeometry(const QPoint& position, const QSize& size);
+  public:
+    KeyboardConfiguration(KeyboardCommandManager* _commandManager, Scenario *parent, const QVariantList &args = QVariantList());
+    ~KeyboardConfiguration();
 
-		bool showNumpad();
+    KeyboardSet *getStoredKeyboardSet() { return storedSet; }
+
+    void destroy();
+
+    //configuration options
+    bool caseSensitive();
+
+    QPoint keyboardPosition();
+    QSize keyboardSize();
+    void saveKeyboardGeometry(const QPoint& position, const QSize& size);
+
+    bool showNumpad();
 
 };
-
 #endif

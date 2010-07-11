@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ADDWORDINTROPAGE_H_6B00540FA9AA4CAEA57D7485E150ABA9
 #define SIMON_ADDWORDINTROPAGE_H_6B00540FA9AA4CAEA57D7485E150ABA9
 
@@ -31,22 +30,21 @@ class KLineEdit;
  \author Peter Grasch
  \date 01.08.2007
  \brief Asks for the name of the word
- 
+
  The WizardPage of the AddWordView-Wizard that manages the wordname;
  Uses a mandatory-field mechanism to ensure that there is a name.
- Also it tells the user what this wizard is about (kind of an 
+ Also it tells the user what this wizard is about (kind of an
  instruction-page)
 */
 class AddWordIntroPage : public QWizardPage
 {
-    Q_OBJECT
-private:
-	Ui::AddWordIntroPage ui;
-    
-public:
+  Q_OBJECT
+    private:
+    Ui::AddWordIntroPage ui;
+
+  public:
     AddWordIntroPage(QWidget* parent);
     bool validatePage();
     ~AddWordIntroPage() {}
 };
-
 #endif

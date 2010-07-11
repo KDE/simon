@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "inlinewidget.h"
 #include <QFont>
 
@@ -30,20 +29,20 @@
  * @param parent the parent of the widget
  */
 InlineWidget::InlineWidget(QString title_, KIcon icon_, QString desc_, QWidget* parent)
-	: QWidget(parent),
-	title(title_),
-	desc(desc_),
-	icon(icon_)
+: QWidget(parent),
+title(title_),
+desc(desc_),
+icon(icon_)
 {
 }
+
 
 bool InlineWidget::isShown()
 {
-	if (this->isVisible())
-		return true;
-	return false;
+  if (this->isVisible())
+    return true;
+  return false;
 }
-
 
 
 /**
@@ -61,8 +60,9 @@ InlineWidget::~InlineWidget()
  */
 void InlineWidget::accept()
 {
-	emit accepted();
+  emit accepted();
 }
+
 
 /**
  * \brief Rejects the "dialog
@@ -70,8 +70,9 @@ void InlineWidget::accept()
  */
 void InlineWidget::reject()
 {
-	emit reject();
+  emit reject();
 }
+
 
 /**
  * \brief Wrapper for the close method - emits closed()
@@ -79,21 +80,22 @@ void InlineWidget::reject()
  */
 bool InlineWidget::close()
 {
-	emit closed();
-	return QWidget::close();
+  emit closed();
+  return QWidget::close();
 }
+
 
 /**
  * \brief Sets the visibility to the given bool emits shown() / hidden()
  * \author Peter Grasch
- * @param visible sets the widget tot his state 
+ * @param visible sets the widget tot his state
  */
 void InlineWidget::setVisible(bool visible)
 {
-	QWidget::setVisible(visible);
-	if (visible)
-		emit shown();
-	else emit hidden();
+  QWidget::setVisible(visible);
+  if (visible)
+    emit shown();
+  else emit hidden();
 }
 
 
@@ -104,7 +106,7 @@ void InlineWidget::setVisible(bool visible)
  */
 bool InlineWidget::exec()
 {
-	emit execd();
-	QWidget::show();
-	return true;
+  emit execd();
+  QWidget::show();
+  return true;
 }

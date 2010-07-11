@@ -25,38 +25,38 @@
 #include <QObject>
 #include <KDebug>
 
-
 /**
  * \brief Constructor
  */
-NullRecorderClient::NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) : 
-	QObject(parent),
-	SoundInputClient(deviceConfiguration),
-	vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
+NullRecorderClient::NullRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) :
+QObject(parent),
+SoundInputClient(deviceConfiguration),
+vad(new VADSoundProcessor(deviceConfiguration, true /*pass all through*/))
 {
-	registerSoundProcessor(vad);
+  registerSoundProcessor(vad);
 }
-
 
 
 bool NullRecorderClient::start()
 {
-	return SoundServer::getInstance()->registerInputClient(this);
+  return SoundServer::getInstance()->registerInputClient(this);
 }
+
 
 void NullRecorderClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
-	Q_UNUSED(data);
+  Q_UNUSED(data);
 
-	float peak = vad->peak() / 32768.0f;
-	emit level(currentTime, peak);
-	if (vad->clipping())
-		emit clippingOccured();
+  float peak = vad->peak() / 32768.0f;
+  emit level(currentTime, peak);
+  if (vad->clipping())
+    emit clippingOccured();
 }
+
 
 bool NullRecorderClient::finish()
 {
-	return SoundServer::getInstance()->deRegisterInputClient(this);
+  return SoundServer::getInstance()->deRegisterInputClient(this);
 }
 
 
@@ -65,8 +65,5 @@ bool NullRecorderClient::finish()
  */
 NullRecorderClient::~NullRecorderClient()
 {
-	SoundServer::getInstance()->deRegisterInputClient(this);
+  SoundServer::getInstance()->deRegisterInputClient(this);
 }
-
-
-

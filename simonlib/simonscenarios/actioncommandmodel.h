@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ACTIONCOMMANDMODEL_H_3EBF59D79A3C46A1B84DE19FA1269213
 #define SIMON_ACTIONCOMMANDMODEL_H_3EBF59D79A3C46A1B84DE19FA1269213
 #include <QString>
@@ -25,32 +24,29 @@
 #include "actioncollection.h"
 #include "simonmodelmanagement_export.h"
 
-class MODELMANAGEMENT_EXPORT ActionCommandModel : public QAbstractItemModel {
+class MODELMANAGEMENT_EXPORT ActionCommandModel : public QAbstractItemModel
+{
 
-protected:
-	QList<Action*> m_actions;
-	ActionCollection *ref;
+  protected:
+    QList<Action*> m_actions;
+    ActionCollection *ref;
 
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
 
+  protected:
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-protected:
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+  public:
+    ActionCommandModel(ActionCollection *base);
+    ~ActionCommandModel();
 
-public:
-	ActionCommandModel(ActionCollection *base);
-	~ActionCommandModel();
-
-	void update();
+    void update();
 
 };
-
 #endif
-
-

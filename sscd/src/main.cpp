@@ -27,15 +27,15 @@
 
 int main(int argc, char **argv)
 {
-	QCoreApplication::addLibraryPath(SSCD_BASE_DIRECTORY);
-	
-	QCoreApplication app(argc,argv);
+  QCoreApplication::addLibraryPath(SSCD_BASE_DIRECTORY);
 
-	SSCDControl *control = new SSCDControl();
-	if (!control->init())
-		return 2;
+  QCoreApplication app(argc,argv);
 
-	app.exec();
-	delete control;
-	return 0;
+  SSCDControl *control = new SSCDControl();
+  if (!control->init())
+    return 2;
+
+  app.exec();
+  delete control;
+  return 0;
 }

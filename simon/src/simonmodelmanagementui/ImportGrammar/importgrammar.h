@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTGRAMMAR_H_97C39A33A3334CE9B2FE78BDE3A87B4D
 #define SIMON_IMPORTGRAMMAR_H_97C39A33A3334CE9B2FE78BDE3A87B4D
 
@@ -26,37 +25,36 @@
 #include <simonscenarios/word.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ImportGrammar : public QThread
 {
-Q_OBJECT
-signals:
-	void status(QString);
-	void fileProgress(int /*this file progress*/,
-			int /*this file max*/);
-	void allProgress(int /*all progress*/,
-			int /*all max*/);
+  Q_OBJECT
+    signals:
+  void status(QString);
+  void fileProgress(int /*this file progress*/,
+    int /*this file max*/);
+  void allProgress(int /*all progress*/,
+    int /*all max*/);
 
-	void grammarCreated();
-private:
-	QStringList files;
-	QString encoding;
-	bool includeUnknown;
-	QStringList importFile(QString path);
-	QStringList terminals(QList<Word*> in);
-	QStringList readFile(QString path);
+  void grammarCreated();
+  private:
+    QStringList files;
+    QString encoding;
+    bool includeUnknown;
+    QStringList importFile(QString path);
+    QStringList terminals(QList<Word*> in);
+    QStringList readFile(QString path);
 
-public:
+  public:
     ImportGrammar(QObject* parent);
 
-	void run();
-	void setFiles(QStringList files) { this->files = files; }
-	void setEncoding(const QString& encoding) { this->encoding = encoding; }
-	void setIncludeUnknown(bool include) { this->includeUnknown = include; }
+    void run();
+    void setFiles(QStringList files) { this->files = files; }
+    void setEncoding(const QString& encoding) { this->encoding = encoding; }
+    void setIncludeUnknown(bool include) { this->includeUnknown = include; }
 
     ~ImportGrammar();
 
 };
-
 #endif

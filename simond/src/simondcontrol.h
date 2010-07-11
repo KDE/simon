@@ -31,30 +31,28 @@ class QTcpServer;
 
 class SimondControl : public QTcpServer
 {
-	Q_OBJECT
-	private:
-		QList<ClientSocket*> clients;
-		DatabaseAccess *db;
-		bool m_keepSamples;
+  Q_OBJECT
+    private:
+    QList<ClientSocket*> clients;
+    DatabaseAccess *db;
+    bool m_keepSamples;
 
-	private slots:
-		void handleError(const QString& error);
-		
-		void startServer(const QHostAddress& allowedClient=QHostAddress::Any, quint16 port=4444);
-		void stopServer();
-		
-		void incomingConnection (int descriptor);
-		
-		void connectionClosing(QAbstractSocket::SocketState state);
-		
+  private slots:
+    void handleError(const QString& error);
 
-	public:
-		SimondControl(QObject *parent=0);
+    void startServer(const QHostAddress& allowedClient=QHostAddress::Any, quint16 port=4444);
+    void stopServer();
 
-		bool init();
-			       
-		~SimondControl();
-		
+    void incomingConnection (int descriptor);
+
+    void connectionClosing(QAbstractSocket::SocketState state);
+
+  public:
+    SimondControl(QObject *parent=0);
+
+    bool init();
+
+    ~SimondControl();
+
 };
-
 #endif

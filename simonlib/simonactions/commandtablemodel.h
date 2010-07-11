@@ -20,45 +20,41 @@
 #ifndef SIMON_COMMANDTABLEMODEL_H_789940BA0D864F7B91BA0F8B71044D82
 #define SIMON_COMMANDTABLEMODEL_H_789940BA0D864F7B91BA0F8B71044D82
 
-
 #include <QAbstractTableModel>
 #include <QStringList>
 #include <QMutex>
 #include <simonscenarios/command.h>
 #include "actionlib_export.h"
 
+class SIMONACTIONS_EXPORT CommandTableModel : public QAbstractTableModel
+{
 
-class SIMONACTIONS_EXPORT CommandTableModel : public QAbstractTableModel {
+  Q_OBJECT
 
-Q_OBJECT
+    private:
+    CommandList *commands;
 
-private:
-	CommandList *commands;
+    QVariant data(const QModelIndex &index, int role) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int section, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
 
-	QVariant data(const QModelIndex &index, int role) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int section, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column,
+      const QModelIndex &parent = QModelIndex()) const;
 
-	QModelIndex index(int row, int column,
-			const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &index) const;
 
-	QModelIndex parent(const QModelIndex &index) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
-public:
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	void selectCommand(Command* com);
-	void removeCommand(int index);
-	void moveUp(const QModelIndex&);
-	void moveDown(const QModelIndex&);
-	CommandList* selectedCommands() { return commands; }
-	CommandTableModel(CommandList *commands=0);
-	~CommandTableModel();
+  public:
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    void selectCommand(Command* com);
+    void removeCommand(int index);
+    void moveUp(const QModelIndex&);
+    void moveDown(const QModelIndex&);
+    CommandList* selectedCommands() { return commands; }
+    CommandTableModel(CommandList *commands=0);
+    ~CommandTableModel();
 
 };
-
-
-
 #endif

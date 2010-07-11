@@ -23,16 +23,15 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
-class MODELTEST_EXPORT TestResult {
-	private:
-		QString prompt;
-		RecognitionResultList results;
-	public:
-		TestResult(const QString& prompt, const RecognitionResultList& results);
-		QString getPrompt() const { return prompt; }
-		RecognitionResultList getResults() const { return results; }
+class MODELTEST_EXPORT TestResult
+{
+  private:
+    QString prompt;
+    RecognitionResultList results;
+  public:
+    TestResult(const QString& prompt, const RecognitionResultList& results);
+    QString getPrompt() const { return prompt; }
+    RecognitionResultList getResults() const { return results; }
 
 };
-
 #endif
-

@@ -17,37 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_RENAMETERMINALWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
 #define SIMON_RENAMETERMINALWORKINGPAGE_H_3D51221A254347329D67EF19AE2477BB
 
 #include <QWizardPage>
 #include "ui_renameterminalworkingpage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class RenameTerminal;
 class RenameTerminalWorkingPage : public QWizardPage
 {
-Q_OBJECT
-signals:
-	void done();
-private slots:
-	void finish();
-	void displayProgress(int);
-private:
-	Ui::RenameTerminalWorkingPage ui;
-	bool complete;
-	RenameTerminal *renameTerminal;
+  Q_OBJECT
+    signals:
+  void done();
+  private slots:
+    void finish();
+    void displayProgress(int);
+  private:
+    Ui::RenameTerminalWorkingPage ui;
+    bool complete;
+    RenameTerminal *renameTerminal;
 
-public:
+  public:
     RenameTerminalWorkingPage(QWidget *parent);
 
-	void initializePage();
-	bool isComplete() const { return this->complete; }
+    void initializePage();
+    bool isComplete() const { return this->complete; }
 
     ~RenameTerminalWorkingPage();
 
 };
-
 #endif

@@ -31,26 +31,24 @@ class QShowEvent;
 
 class SynchronisationSettings : public KCModule
 {
-Q_OBJECT
-private:
-	Ui::SynchronisationSettingsDlg ui;
-	KProgressDialog *dlg;
+  Q_OBJECT
+    private:
+    Ui::SynchronisationSettingsDlg ui;
+    KProgressDialog *dlg;
 
-private slots:
-	void loadList();
-	void displayList(const QList<QDateTime>& models);
-	void modelSelectionChanged();
-	void selectModel();
-	void connected();
-	void disconnected();
-	
-protected:
-	void showEvent(QShowEvent*);
-	
-public:
-        SynchronisationSettings(QWidget* parent, const QVariantList& args=QVariantList());
-        ~SynchronisationSettings();
+  private slots:
+    void loadList();
+    void displayList(const QList<QDateTime>& models);
+    void modelSelectionChanged();
+    void selectModel();
+    void connected();
+    void disconnected();
+
+  protected:
+    void showEvent(QShowEvent*);
+
+  public:
+    SynchronisationSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    ~SynchronisationSettings();
 };
-
-
 #endif

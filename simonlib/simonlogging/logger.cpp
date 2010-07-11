@@ -29,31 +29,30 @@
 QTextStream * Logger::logFile = 0;
 QFile * Logger::logF = 0;
 
-
 QTextStream* Logger::init()
 {
-	QString path = KStandardDirs::locateLocal("appdata", "protocol.log");
+  QString path = KStandardDirs::locateLocal("appdata", "protocol.log");
 
-	Logger::logF = new QFile(path);
-	if (!Logger::logF->open(QIODevice::WriteOnly|QIODevice::Append)) return 0;
-	Logger::logFile = new QTextStream(Logger::logF);
-	
+  Logger::logF = new QFile(path);
+  if (!Logger::logF->open(QIODevice::WriteOnly|QIODevice::Append)) return 0;
+  Logger::logFile = new QTextStream(Logger::logF);
 
-	return logFile;
+  return logFile;
 }
 
 
 void Logger::log(QString message)
 {
-	if (!logFile) logFile = Logger::init();
+  if (!logFile) logFile = Logger::init();
 
-	*(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << message << endl;
+  *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << message << endl;
 }
+
 
 void Logger::close()
 {
-	(Logger::logFile)->flush();
-	delete (Logger::logFile);
-	if (Logger::logF)
-		Logger::logF->deleteLater();
+  (Logger::logFile)->flush();
+  delete (Logger::logFile);
+  if (Logger::logF)
+    Logger::logF->deleteLater();
 }

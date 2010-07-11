@@ -20,32 +20,35 @@
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
 
-K_PLUGIN_FACTORY( DictationCommandPluginFactory, 
-			registerPlugin< DictationCommandManager >(); 
-		)
-        
+K_PLUGIN_FACTORY( DictationCommandPluginFactory,
+registerPlugin< DictationCommandManager >();
+)
+
 K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
 
-
-DictationCommandManager::DictationCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)  
+DictationCommandManager::DictationCommandManager(QObject* parent, const QVariantList& args) :CommandManager((Scenario*) parent, args)
 {
 }
+
 
 bool DictationCommandManager::trigger(const QString& triggerName)
 {
-	EventHandler::getInstance()->sendWord(triggerName);
-	return true;
+  EventHandler::getInstance()->sendWord(triggerName);
+  return true;
 }
+
 
 const QString DictationCommandManager::name() const
 {
-	return i18n("Dictation");
+  return i18n("Dictation");
 }
+
 
 const QString DictationCommandManager::iconSrc() const
 {
-	return ("text-field");
+  return ("text-field");
 }
+
 
 DictationCommandManager::~DictationCommandManager()
 {

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_VOCABULARY_H_99CD4459A9A24B97A96FA38373D5FEA2
 #define SIMON_VOCABULARY_H_99CD4459A9A24B97A96FA38373D5FEA2
 #include <QString>
@@ -34,76 +33,73 @@ class QDomDocument;
 class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
 {
 
-private:
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex index(int row, int column,
-			const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+  private:
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column,
+      const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
+  protected:
+    QStringList terminals;                        //terminal cache
+    QList<Word*> m_words;
 
-protected:
-	QStringList terminals; //terminal cache
-	QList<Word*> m_words;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    void sortWords();
+    bool appendWordRaw(Word* w);
+    bool insertWordRaw(int pos, Word* w);
 
-	void sortWords();
-	bool appendWordRaw(Word* w);
-	bool insertWordRaw(int pos, Word* w);
-
-
-public:
-	enum MatchType {
-	    ExactMatch=1,
-	    SimilarMatch=2,
-	    ContainsMatch=4
+  public:
+    enum MatchType
+    {
+      ExactMatch=1,
+      SimilarMatch=2,
+      ContainsMatch=4
     };
 
-	Vocabulary();
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
-	static QDomElement createEmpty(QDomDocument *doc);
+    Vocabulary();
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    static QDomElement createEmpty(QDomDocument *doc);
 
+    /**
+     * Adds the specified words to the vocabulary
+     */
+    virtual bool addWords(QList<Word*> *w);
+    virtual bool addWord(Word* w);
 
-	/**
-	 * Adds the specified words to the vocabulary
-	 */
-	virtual bool addWords(QList<Word*> *w);
-	virtual bool addWord(Word* w);
+    virtual bool reOrder(Word* w);
 
-	virtual bool reOrder(Word* w);
+    bool removeWord(Word* w, bool deleteWord=true);
 
-	bool removeWord(Word* w, bool deleteWord=true);
+    QString getRandomWord(const QString& terminal);
+    bool containsWord(const QString& word);
+    bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
-	QString getRandomWord(const QString& terminal);
-	bool containsWord(const QString& word);
-	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
+    int wordCount() { return m_words.count(); }
+    QList<Word*> getWords() { return m_words; }
+    virtual ~Vocabulary();
 
-	int wordCount() { return m_words.count(); }
-	QList<Word*> getWords() { return m_words; }
-	virtual ~Vocabulary();
+    bool renameTerminal(const QString& from, const QString& to);
 
-	bool renameTerminal(const QString& from, const QString& to);
+    QStringList getTerminals();
 
-	QStringList getTerminals();
+    QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+    QList<Word*> findWordsByTerminal(const QString& terminal);
 
-	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
-	QList<Word*> findWordsByTerminal(const QString& terminal);
+    virtual bool empty() { return false; }
+    void clear();
+    void deleteAll();
 
-	virtual bool empty() { return false; }
-	void clear();
-	void deleteAll();
+    enum VocabularyType
+    {
+      ShadowVocabulary = 0,
+      ActiveVocabulary = 1
+    };
 
-enum VocabularyType {
-	ShadowVocabulary = 0,
-	ActiveVocabulary = 1
 };
-
-
-};
-
 #endif

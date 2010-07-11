@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_FIRSTRUNSIMONDCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 #define SIMON_FIRSTRUNSIMONDCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 
@@ -26,23 +25,20 @@
 
 class FirstRunSimondConfig : public QWizardPage
 {
-	Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::SimondConfigDlg ui;
+    private:
+    Ui::SimondConfigDlg ui;
 
+  private slots:
+    void setLocalInstallation();
 
-private slots:
-	void setLocalInstallation();
+  public:
+    explicit FirstRunSimondConfig(QWidget *parent = 0);
+    bool validatePage();
+    void initializePage();
 
-public:
-	explicit FirstRunSimondConfig(QWidget *parent = 0);
-	bool validatePage();
-	void initializePage();
-
-	~FirstRunSimondConfig();
+    ~FirstRunSimondConfig();
 
 };
-
 #endif
-

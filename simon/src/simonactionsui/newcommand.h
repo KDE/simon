@@ -20,7 +20,6 @@
 #ifndef SIMON_NEWCOMMAND_H_CD6234308AA54117A89845ADFE98BCA1
 #define SIMON_NEWCOMMAND_H_CD6234308AA54117A89845ADFE98BCA1
 
-
 #include <KDialog>
 #include <QList>
 #include "ui_modifycommands.h"
@@ -31,32 +30,30 @@ class CreateCommandWidget;
 
 // typedef EditCommand NewCommand;
 
-class NewCommand : protected KDialog {
+class NewCommand : protected KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::DlgModifyCommands ui;
-	QList<CreateCommandWidget*> *commandCreaters;
+    private:
+    Ui::DlgModifyCommands ui;
+    QList<CreateCommandWidget*> *commandCreaters;
 
-private slots:
-	void setWindowTitleToCommandName(QString name);
-	void checkIfComplete();
+  private slots:
+    void setWindowTitleToCommandName(QString name);
+    void checkIfComplete();
 
-public:
-	NewCommand(QWidget *parent=0);
-	~NewCommand();
+  public:
+    NewCommand(QWidget *parent=0);
+    ~NewCommand();
 
-	bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
+    bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
 
-	bool newCommand(const QString& preSelectedCategory=QString());
+    bool newCommand(const QString& preSelectedCategory=QString());
 
-public slots:
+  public slots:
     void deleteLater();
-	void init(Command *command);
-	void commandSuggested(Command *command);
+    void init(Command *command);
+    void commandSuggested(Command *command);
 };
-
-
-
 #endif

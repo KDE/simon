@@ -22,41 +22,43 @@
 
 QString RecognitionResult::toString() const
 {
-	QString out;
-	out += i18n("Sentence: %1\n"
-			"SAMPA: %2\n"
-			"Raw SAMPA: %3\n"
-			"Average Confidence: %4\n",
-			m_sentence, m_sampa, m_sampaRaw, 
-			averageConfidenceScore()*100.0f);
+  QString out;
+  out += i18n("Sentence: %1\n"
+    "SAMPA: %2\n"
+    "Raw SAMPA: %3\n"
+    "Average Confidence: %4\n",
+    m_sentence, m_sampa, m_sampaRaw,
+    averageConfidenceScore()*100.0f);
 
-	out += i18n("Confidence Scores: ");
-	foreach (float score, m_confidenceScores) {
-		out += QString::number(score*100.0f)+" ";
-	}
+  out += i18n("Confidence Scores: ");
+  foreach (float score, m_confidenceScores) {
+    out += QString::number(score*100.0f)+" ";
+  }
 
-	out += "\n";
-	return out;
+  out += "\n";
+  return out;
 }
+
 
 float RecognitionResult::averageConfidenceScore() const
 {
-	float avg=0;
-	foreach (float score, m_confidenceScores)
-		avg += score;
-	avg /= ((float) m_confidenceScores.count());
-	return avg;
+  float avg=0;
+  foreach (float score, m_confidenceScores)
+    avg += score;
+  avg /= ((float) m_confidenceScores.count());
+  return avg;
 }
+
 
 bool RecognitionResult::matchesTrigger(const QString& trigger)
 {
-	if (trigger.isEmpty()) return true;
-	return m_sentence.contains(QRegExp("^"+trigger+"( |$)"));
+  if (trigger.isEmpty()) return true;
+  return m_sentence.contains(QRegExp("^"+trigger+"( |$)"));
 }
+
 
 void RecognitionResult::removeTrigger(const QString& trigger)
-{ 
-	if (!trigger.isEmpty())
-		m_sentence.remove(QRegExp("^"+trigger+"( |$)"));
+{
+  if (!trigger.isEmpty())
+    m_sentence.remove(QRegExp("^"+trigger+"( |$)"));
 }
-

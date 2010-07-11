@@ -17,60 +17,60 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "simondnetworkconfiguration.h"
 #include "simondconfiguration.h"
 #include <QSslSocket>
 #include <QSslCipher>
 
 SimondNetworkConfiguration::SimondNetworkConfiguration(QWidget* parent, const QVariantList& args)
-					: KCModule(KGlobal::mainComponent(), parent)
+: KCModule(KGlobal::mainComponent(), parent)
 {
-	Q_UNUSED(args);
-	
-	ui.setupUi(this);
-	
-	addConfig(SimondConfiguration::self(), this);
-	connect(ui.cbCipher, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+  Q_UNUSED(args);
+
+  ui.setupUi(this);
+
+  addConfig(SimondConfiguration::self(), this);
+  connect(ui.cbCipher, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
 
 
 void SimondNetworkConfiguration::slotChanged()
 {
-	emit changed(true);
+  emit changed(true);
 }
 
 
 void SimondNetworkConfiguration::load()
 {
-	ui.cbCipher->clear();
-	QString selectedCipher = SimondConfiguration::encryptionMethod();
+  ui.cbCipher->clear();
+  QString selectedCipher = SimondConfiguration::encryptionMethod();
 
-        QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
-        QStringList cipherStrs;
-        QString cipherName;
-	int selectedIndex=0;
-        for (int i=0; i < ciphers.count(); i++)
-	{
-		cipherName = ciphers[i].name();
-		if (cipherName == selectedCipher)
-			selectedIndex =i;
-		cipherStrs << cipherName;
-	}
+  QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
+  QStringList cipherStrs;
+  QString cipherName;
+  int selectedIndex=0;
+  for (int i=0; i < ciphers.count(); i++) {
+    cipherName = ciphers[i].name();
+    if (cipherName == selectedCipher)
+      selectedIndex =i;
+    cipherStrs << cipherName;
+  }
 
-	ui.cbCipher->addItems(cipherStrs);
-	ui.cbCipher->setCurrentIndex(selectedIndex);
-								
-	KCModule::load();
+  ui.cbCipher->addItems(cipherStrs);
+  ui.cbCipher->setCurrentIndex(selectedIndex);
+
+  KCModule::load();
 }
+
 
 void SimondNetworkConfiguration::save()
 {
-	SimondConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
-	KCModule::save();
+  SimondConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
+  KCModule::save();
 }
+
 
 SimondNetworkConfiguration::~SimondNetworkConfiguration()
 {
-	
+
 }

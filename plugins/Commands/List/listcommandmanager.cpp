@@ -24,62 +24,66 @@
 #include <KLocalizedString>
 #include <KStandardDirs>
 
-K_PLUGIN_FACTORY( ListCommandPluginFactory, 
-			registerPlugin< ListCommandManager >(); 
-		)
-        
-K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
+K_PLUGIN_FACTORY( ListCommandPluginFactory,
+registerPlugin< ListCommandManager >();
+)
 
+K_EXPORT_PLUGIN( ListCommandPluginFactory("simonlistcommand") )
 
 ListCommandManager::ListCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
+
 const QString ListCommandManager::iconSrc() const
 {
-	return "view-choose";
+  return "view-choose";
 }
+
 
 bool ListCommandManager::shouldAcceptCommand(Command *command)
 {
-	return (dynamic_cast<ListCommand*>(command) != NULL);
+  return (dynamic_cast<ListCommand*>(command) != 0);
 }
+
 
 const QString ListCommandManager::name() const
 {
-	return ListCommand::staticCategoryText();
+  return ListCommand::staticCategoryText();
 }
+
 
 CreateCommandWidget* ListCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateListCommandWidget(this, parent);
+  return new CreateListCommandWidget(this, parent);
 }
+
 
 void ListCommandManager::setFont(const QFont& font)
 {
-	foreach (Command *c, *commands) {
-		ListCommand *lc = dynamic_cast<ListCommand*>(c);
-		if (!lc) continue;
-		lc->setFont(font);
-	}
+  foreach (Command *c, *commands) {
+    ListCommand *lc = dynamic_cast<ListCommand*>(c);
+    if (!lc) continue;
+    lc->setFont(font);
+  }
 }
+
 
 bool ListCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 {
-	if (elem.isNull()) return false;
+  if (elem.isNull()) return false;
 
-	if (!commands)
-		commands = new CommandList();
-	QDomElement commandElem = elem.firstChildElement("command");
-	while(!commandElem.isNull())
-	{
-		Command *c = ListCommand::createInstance(this, commandElem);
-		if (c)
-			commands->append(c);
+  if (!commands)
+    commands = new CommandList();
+  QDomElement commandElem = elem.firstChildElement("command");
+  while(!commandElem.isNull()) {
+    Command *c = ListCommand::createInstance(this, commandElem);
+    if (c)
+      commands->append(c);
 
-		commandElem = commandElem.nextSiblingElement("command");
-	}
-	return true;
+    commandElem = commandElem.nextSiblingElement("command");
+  }
+  return true;
 }
 
 

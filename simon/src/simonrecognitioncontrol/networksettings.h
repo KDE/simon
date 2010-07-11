@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_NETWORKSETTINGS_H_697FC1EF2FF14D8DAED685C07ADE9CC2
 #define SIMON_NETWORKSETTINGS_H_697FC1EF2FF14D8DAED685C07ADE9CC2
 
@@ -34,17 +33,16 @@
  */
 class NetworkSettings : public KCModule
 {
-Q_OBJECT
-private:
-	Ui::NetworkSettingsDlg ui;
+  Q_OBJECT
+    private:
+    Ui::NetworkSettingsDlg ui;
 
-private slots:
-	void configureSimond();
-	
-public:
-        NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
-        ~NetworkSettings();
+  private slots:
+    void configureSimond();
+
+  public:
+    NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    ~NetworkSettings();
 
 };
-
 #endif

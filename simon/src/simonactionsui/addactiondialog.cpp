@@ -30,70 +30,71 @@
 #include <KServiceTypeTrader>
 
 AddActionDialog::AddActionDialog(QWidget* parent) : KDialog(parent), proxyModel(new QSortFilterProxyModel(this)),
-	actionModel(new ActionModel(this))
-{	
-	setCaption( i18n("Add action") );
+actionModel(new ActionModel(this))
+{
+  setCaption( i18n("Add action") );
 
-	QWidget *baseWidget = new QWidget( this );
-	ui.setupUi(baseWidget);
-	setMainWidget( baseWidget );
+  QWidget *baseWidget = new QWidget( this );
+  ui.setupUi(baseWidget);
+  setMainWidget( baseWidget );
 
-	proxyModel->setSourceModel(actionModel);
-	ui.lvActions->setModel(proxyModel);
-	ui.lvActions->setIconSize(QSize(24,24));
-	ui.lvActions->setSpacing(2);
+  proxyModel->setSourceModel(actionModel);
+  ui.lvActions->setModel(proxyModel);
+  ui.lvActions->setIconSize(QSize(24,24));
+  ui.lvActions->setSpacing(2);
 
-	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-	connect(ui.leFilter, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
-	enableButtonOk(false);
+  proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+  connect(ui.leFilter, SIGNAL(textChanged(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
+  enableButtonOk(false);
 
-	connect(ui.lvActions, SIGNAL(clicked(const QModelIndex&)), this, SLOT(watchButtonOk()));
-	connect(ui.leFilter, SIGNAL(textChanged(const QString&)),  this, SLOT(watchButtonOk()));
+  connect(ui.lvActions, SIGNAL(clicked(const QModelIndex&)), this, SLOT(watchButtonOk()));
+  connect(ui.leFilter, SIGNAL(textChanged(const QString&)),  this, SLOT(watchButtonOk()));
 }
+
 
 void AddActionDialog::watchButtonOk()
 {
-	QModelIndex index = ui.lvActions->currentIndex();
-	enableButtonOk(index.isValid());
+  QModelIndex index = ui.lvActions->currentIndex();
+  enableButtonOk(index.isValid());
 }
+
 
 int AddActionDialog::exec()
 {
-	KService::List services;
-	KServiceTypeTrader* trader = KServiceTypeTrader::self();
+  KService::List services;
+  KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
-	services = trader->query("simon/CommandPlugin");
-	
-	foreach (KService::Ptr service, services)
-	{
-		Action* action = new Action(NULL /* no parent scenario */, service->storageId(), QString(), 
-				ScenarioManager::getInstance()->getCurrentScenario()->actionCollection());
-		actionModel->appendAction(action, false);
-	}
+  services = trader->query("simon/CommandPlugin");
 
-	return KDialog::exec();
+  foreach (KService::Ptr service, services) {
+    Action* action = new Action(0 /* no parent scenario */, service->storageId(), QString(),
+      ScenarioManager::getInstance()->getCurrentScenario()->actionCollection());
+    actionModel->appendAction(action, false);
+  }
+
+  return KDialog::exec();
 }
+
 
 Action* AddActionDialog::getAction()
 {
-	QModelIndex index = proxyModel->mapToSource(ui.lvActions->currentIndex());
+  QModelIndex index = proxyModel->mapToSource(ui.lvActions->currentIndex());
 
-	if (!index.isValid()) return NULL;
-	
-	Action *a = static_cast<Action*>(index.internalPointer());
+  if (!index.isValid()) return 0;
 
-	//if we can't remove the action from the model, it will get deleted
-	//soon afterwards so better throw and error here
-	if (!a || !actionModel->takeAction(a)) 
-		return NULL;
+  Action *a = static_cast<Action*>(index.internalPointer());
 
-	actionModel->clearActions();
-	return a;
+  //if we can not remove the action from the model, it will get deleted
+  //soon afterwards so better throw and error here
+  if (!a || !actionModel->takeAction(a))
+    return 0;
+
+  actionModel->clearActions();
+  return a;
 }
+
 
 AddActionDialog::~AddActionDialog()
 {
-	actionModel->deleteLater();
+  actionModel->deleteLater();
 }
-
-

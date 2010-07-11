@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ADDWORDRECORDPAGE_H_E54814732D4746A581807C9D3C61441E
 #define SIMON_ADDWORDRECORDPAGE_H_E54814732D4746A581807C9D3C61441E
 
@@ -31,52 +30,51 @@ class TrainSamplePage;
  \author Peter Grasch
  \date 01.08.2007
  \brief Records two samples of the new word
- 
+
  The WizardPage of the AddWordView-Wizard that manages the recordings;
- Uses two Recwidgets and the QT-Mechanism to ensure that you can't 
+ Uses two Recwidgets and the QT-Mechanism to ensure that you can not
  continiue without both recordings done.
 */
 class AddWordRecordPage : public QWizardPage
 {
-    Q_OBJECT
-    
-signals:
-	void recordingNamesGenerated(QString,QString);
-private:
-	TrainSamplePage *page;
-	int pageNr, pageMax;
-	QString fieldName;
+  Q_OBJECT
 
-	/// Normally a sample containing speech data of a different prompt than
-	/// The current prompt stored in the given fieldName will be deleted
-	/// when the page is shown (to prevent stale recordings when we go back
-	/// from the recording page to change the prompt after we already recorded
-	/// it).
-	/// However, when adding multiple words we have to keep the previously
-	/// recorded sample.
-	/// This is a flag to keep _any_ previously recorded sample - ONCE.
-	/// Setting this flag will disable the flag for the next check (where
-	/// it is then reset).
-	/// Use keepSample() set the flag;
-	/// \sa keepSample()
-	bool stickSample;
+    signals:
+  void recordingNamesGenerated(QString,QString);
+  private:
+    TrainSamplePage *page;
+    int pageNr, pageMax;
+    QString fieldName;
 
-public:
-	QStringList getFileNames();
-	QString getPrompt();
-	void keepSample() { stickSample = true; }
-	void cleanUp();
-	void cleanupPage();
+    /// Normally a sample containing speech data of a different prompt than
+    /// The current prompt stored in the given fieldName will be deleted
+    /// when the page is shown (to prevent stale recordings when we go back
+    /// from the recording page to change the prompt after we already recorded
+    /// it).
+    /// However, when adding multiple words we have to keep the previously
+    /// recorded sample.
+    /// This is a flag to keep _any_ previously recorded sample - ONCE.
+    /// Setting this flag will disable the flag for the next check (where
+    /// it is then reset).
+    /// Use keepSample() set the flag;
+    /// \sa keepSample()
+    bool stickSample;
 
-	bool validatePage();
+  public:
+    QStringList getFileNames();
+    QString getPrompt();
+    void keepSample() { stickSample = true; }
+    void cleanUp();
+    void cleanupPage();
+
+    bool validatePage();
 
     void initializePage();
     AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent=0);
-    
+
     bool isComplete() const;
 
     ~AddWordRecordPage();
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importdictselectsourcepage.h"
 #include "importdictview.h"
 #include <QRadioButton>
@@ -31,33 +30,36 @@
  */
 ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Select the Type of Dictionary"));
-	ui.setupUi(this);
-	
-	registerField("hadifix", ui.rbHadifixBOMP, "checked", SIGNAL(toggled(bool)));
-	registerField("lexicon", ui.rbHTK, "checked", SIGNAL(toggled(bool)));
-	registerField("pls", ui.rbPLS, "checked", SIGNAL(toggled(bool)));
-	registerField("sphinx", ui.rbSPHINX, "checked", SIGNAL(toggled(bool)));
-	registerField("julius", ui.rbJuliusVocabulary, "checked", SIGNAL(toggled(bool)));
+  setTitle(i18n("Select the Type of Dictionary"));
+  ui.setupUi(this);
+
+  registerField("hadifix", ui.rbHadifixBOMP, "checked", SIGNAL(toggled(bool)));
+  registerField("lexicon", ui.rbHTK, "checked", SIGNAL(toggled(bool)));
+  registerField("pls", ui.rbPLS, "checked", SIGNAL(toggled(bool)));
+  registerField("sphinx", ui.rbSPHINX, "checked", SIGNAL(toggled(bool)));
+  registerField("julius", ui.rbJuliusVocabulary, "checked", SIGNAL(toggled(bool)));
 }
+
+
 /**
  * \author Peter Grasch
  * @return the id
  */
 int ImportDictSelectSourcePage::nextId() const
 {
-	if (field("hadifix").toBool())
-		return ImportDictView::BompPage;
-	else if (field("lexicon").toBool())
-		return ImportDictView::LexiconPage;
-	else if (field("pls").toBool())
-		return ImportDictView::PLSPage;
-	else if (field("julius").toBool()) {
-		kDebug() << "julius selected";
-		return ImportDictView::JuliusVocabulary;
-	} else
-		return ImportDictView::SPHINXPage;
+  if (field("hadifix").toBool())
+    return ImportDictView::BompPage;
+  else if (field("lexicon").toBool())
+    return ImportDictView::LexiconPage;
+  else if (field("pls").toBool())
+    return ImportDictView::PLSPage;
+  else if (field("julius").toBool()) {
+    kDebug() << "julius selected";
+    return ImportDictView::JuliusVocabulary;
+  } else
+  return ImportDictView::SPHINXPage;
 }
+
 
 /**
  * \brief destructor
@@ -66,5 +68,3 @@ int ImportDictSelectSourcePage::nextId() const
 ImportDictSelectSourcePage::~ImportDictSelectSourcePage()
 {
 }
-
-

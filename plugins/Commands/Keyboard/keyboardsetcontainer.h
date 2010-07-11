@@ -28,41 +28,40 @@
 
 class KeyboardSetContainer
 {
-	private:
-		QList<KeyboardSet *> setList;
+  private:
+    QList<KeyboardSet *> setList;
 
-	public:
-		KeyboardSetContainer();
+  public:
+    KeyboardSetContainer();
 
-		QStringList getAvailableSets();
-		QStringList getAvailableTabs(const QString& set);
-		KeyboardTab* getTab(const QString& set, const QString& tab);
+    QStringList getAvailableSets();
+    QStringList getAvailableTabs(const QString& set);
+    KeyboardTab* getTab(const QString& set, const QString& tab);
 
-		void clear();
+    void clear();
 
-		bool createSet(const QString& name);
-		bool editSet(const QString& curName, const QString& newName);
-		bool deleteSet(const QString& name);
+    bool createSet(const QString& name);
+    bool editSet(const QString& curName, const QString& newName);
+    bool deleteSet(const QString& name);
 
-		bool createTab(const QString& set, const QString& name);
-		bool editTab(const QString& set, const QString& curName, const QString& newName);
-		bool deleteTab(const QString& set, const QString& name);
-		bool moveTabUp(const QString& set, const QString& tabName);
-		bool moveTabDown(const QString& set, const QString& tabName);
+    bool createTab(const QString& set, const QString& name);
+    bool editTab(const QString& set, const QString& curName, const QString& newName);
+    bool deleteTab(const QString& set, const QString& name);
+    bool moveTabUp(const QString& set, const QString& tabName);
+    bool moveTabDown(const QString& set, const QString& tabName);
 
-		bool addButton(const QString& set, const QString& tab, KeyboardButton *button);
-		bool deleteButton(const QString& set, const QString& tab, KeyboardButton *button);
-		bool moveButtonUp(const QString& set, const QString& tab, KeyboardButton *button);
-		bool moveButtonDown(const QString& set, const QString& tab, KeyboardButton *button);
+    bool addButton(const QString& set, const QString& tab, KeyboardButton *button);
+    bool deleteButton(const QString& set, const QString& tab, KeyboardButton *button);
+    bool moveButtonUp(const QString& set, const QString& tab, KeyboardButton *button);
+    bool moveButtonDown(const QString& set, const QString& tab, KeyboardButton *button);
 
-		KeyboardSet* findSet(const QString& setName);
+    KeyboardSet* findSet(const QString& setName);
 
-		bool loadFromFile(const QString& path);
-		bool deSerialize(const QDomElement&);
-		bool parseElement(const QDomElement&);
-		QDomElement serialize(QDomDocument *doc);
-		~KeyboardSetContainer();
+    bool loadFromFile(const QString& path);
+    bool deSerialize(const QDomElement&);
+    bool parseElement(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    ~KeyboardSetContainer();
 
 };
-
 #endif

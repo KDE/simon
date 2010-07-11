@@ -27,22 +27,21 @@
 
 class FilterConfiguration : public CommandConfiguration
 {
-	Q_OBJECT
-	
-	private:
-		Ui::FilterConfigurationDlg ui;
- 
-	public slots:
-		virtual bool deSerialize(const QDomElement&);
-		virtual QDomElement serialize(QDomDocument *doc);
-		virtual void defaults();
-	
-	public:
-		FilterConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
-		~FilterConfiguration();
-		
-		//configuration options
-		QString regExp() const;
-};
+  Q_OBJECT
 
+    private:
+    Ui::FilterConfigurationDlg ui;
+
+  public slots:
+    virtual bool deSerialize(const QDomElement&);
+    virtual QDomElement serialize(QDomDocument *doc);
+    virtual void defaults();
+
+  public:
+    FilterConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    ~FilterConfiguration();
+
+    //configuration options
+    QString regExp() const;
+};
 #endif

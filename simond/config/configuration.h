@@ -3,10 +3,8 @@
 
 #include "simondconfiguration_export.h"
 
-class SIMONDCONFIGURATION_EXPORT SimondConfiguration {
+class SIMONDCONFIGURATION_EXPORT SimondConfiguration
+{
 
-	
 };
-
-
 #endif

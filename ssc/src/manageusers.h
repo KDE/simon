@@ -27,42 +27,40 @@ class User;
 class UserModel;
 class QSortFilterProxyModel;
 
-class ManageUsers : protected KDialog {
+class ManageUsers : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::Users ui;
-	UserModel *model;
-	QSortFilterProxyModel *proxyModel;
+    private:
+    Ui::Users ui;
+    UserModel *model;
+    QSortFilterProxyModel *proxyModel;
 
-	void updateList();
-	User* getCurrentlySelectedUser();
-	int getInterviewingPossible();
-	int getRepeatingPossible();
-	char getSex();
-	void displayLanguages();
+    void updateList();
+    User* getCurrentlySelectedUser();
+    int getInterviewingPossible();
+    int getRepeatingPossible();
+    char getSex();
+    void displayLanguages();
 
-private slots:
-	void filter();
+  private slots:
+    void filter();
 
-	void addUser();
-	void editUser();
-	void deleteUser();
+    void addUser();
+    void editUser();
+    void deleteUser();
 
-	void findInstitution();
+    void findInstitution();
 
-public:
-	ManageUsers(QWidget *parent=0);
-	~ManageUsers();
-	int exec();
+  public:
+    ManageUsers(QWidget *parent=0);
+    ~ManageUsers();
+    int exec();
 
-	User* getUser();
+    User* getUser();
 
-public slots:
-	void deleteLater();
+  public slots:
+    void deleteLater();
 };
-
 #endif
-
-

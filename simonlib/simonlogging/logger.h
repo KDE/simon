@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LOGGER_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
 #define SIMON_LOGGER_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
 
@@ -32,37 +31,36 @@
 class QTextStream;
 class QFile;
 
-class SIMONLOGGING_EXPORT Logger{
-private:
-	static QTextStream *logFile;
-	static QFile *logF;
-	
-public:
-	/**
-	 * \brief Initialises the file handle and the stream
-	 * \author Peter Grasch
-	 * @param path 
-	 * The path to the file - will be created if it doesn't exist
-	 * @return 
-	 * success
-	 */
-	static QTextStream* init();
-	
-	/**
-	 * \brief Logs the given string to the file (adds a timecode)
-	 * \author Peter Grasch
-	 * @param message 
-	 * The message to log
-	 */
-	static void log(QString message);
-	
-	/**
-	 *        \brief Closes and flushes the buffer
-	 *        \author Peter Grasch
-	 */
-	static void close();
-	
+class SIMONLOGGING_EXPORT Logger
+{
+  private:
+    static QTextStream *logFile;
+    static QFile *logF;
+
+  public:
+    /**
+     * \brief Initialises the file handle and the stream
+     * \author Peter Grasch
+     * @param path
+     * The path to the file - will be created if it doesn't exist
+     * @return
+     * success
+     */
+    static QTextStream* init();
+
+    /**
+     * \brief Logs the given string to the file (adds a timecode)
+     * \author Peter Grasch
+     * @param message
+     * The message to log
+     */
+    static void log(QString message);
+
+    /**
+     *        \brief Closes and flushes the buffer
+     *        \author Peter Grasch
+     */
+    static void close();
 
 };
-
 #endif

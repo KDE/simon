@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_FIRSTRUNSCENARIOSCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 #define SIMON_FIRSTRUNSCENARIOSCONFIG_H_FA01A01DFF1E4DA098606C3E951E432D
 
@@ -26,21 +25,18 @@
 
 class FirstRunScenariosConfig : public QWizardPage
 {
-	Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::ScenariosConfigDlg ui;
+    private:
+    Ui::ScenariosConfigDlg ui;
 
-private slots:
-	void getScenarios();
+  private slots:
+    void getScenarios();
 
-public:
-	explicit FirstRunScenariosConfig(QWidget *parent = 0);
+  public:
+    explicit FirstRunScenariosConfig(QWidget *parent = 0);
 
-	~FirstRunScenariosConfig();
+    ~FirstRunScenariosConfig();
 
 };
-
 #endif
-
-

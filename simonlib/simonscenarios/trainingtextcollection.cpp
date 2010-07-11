@@ -28,149 +28,156 @@ TrainingTextCollection::TrainingTextCollection(Scenario *parent) : ScenarioObjec
 {
 }
 
+
 /**
  * Factory function
  * \author Peter Grasch
  */
 TrainingTextCollection* TrainingTextCollection::createTrainingTextCollection(Scenario *parent, const QDomElement& elem)
 {
-	TrainingTextCollection *g = new TrainingTextCollection(parent);
-	if (!g->deSerialize(elem)) {
-		delete g;
-		g=NULL;
-	} 
-	return g;
+  TrainingTextCollection *g = new TrainingTextCollection(parent);
+  if (!g->deSerialize(elem)) {
+    delete g;
+    g=0;
+  }
+  return g;
 }
+
 
 bool TrainingTextCollection::deSerialize(const QDomElement& textsElem)
 {
-	QDomElement textElem = textsElem.firstChildElement();
-	while (!textElem.isNull()) {
-		TrainingText *t = TrainingText::createTrainingText(parentScenario, textElem);
-		if (!t) {
-			kDebug() << "Couldn't load trainingtext";
-		} else {
-			m_texts << t;
-			kDebug() << "Trainingtext loaded: " << t->getName();
-		}
-		textElem = textElem.nextSiblingElement();
-	}
+  QDomElement textElem = textsElem.firstChildElement();
+  while (!textElem.isNull()) {
+    TrainingText *t = TrainingText::createTrainingText(parentScenario, textElem);
+    if (!t) {
+      kDebug() << "Could not load trainingtext";
+    }
+    else {
+      m_texts << t;
+      kDebug() << "Trainingtext loaded: " << t->getName();
+    }
+    textElem = textElem.nextSiblingElement();
+  }
 
-	return true;
+  return true;
 }
+
 
 QDomElement TrainingTextCollection::createEmpty(QDomDocument *doc)
 {
-	return doc->createElement("trainingtexts");
+  return doc->createElement("trainingtexts");
 }
+
 
 QDomElement TrainingTextCollection::serialize(QDomDocument *doc)
 {
-	QDomElement textsElem = createEmpty(doc);
-	foreach (TrainingText *t, m_texts) {
-		textsElem.appendChild(t->serialize(doc));
-	}
-	return textsElem;
+  QDomElement textsElem = createEmpty(doc);
+  foreach (TrainingText *t, m_texts) {
+    textsElem.appendChild(t->serialize(doc));
+  }
+  return textsElem;
 }
 
 
 QVariant TrainingTextCollection::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid()) return QVariant();
+  if (!index.isValid()) return QVariant();
 
-	if (role == Qt::DisplayRole) 
-	{
-		switch (index.column())
-		{
-			case 0:
-				return m_texts.at(index.row())->getName();
-			case 1:
-				return m_texts.at(index.row())->getPageCount();
-			case 2:
-				TrainingText* t = m_texts.at(index.row());
-				return t->getRelevance();
-		}
-	}
+  if (role == Qt::DisplayRole) {
+    switch (index.column()) {
+      case 0:
+        return m_texts.at(index.row())->getName();
+      case 1:
+        return m_texts.at(index.row())->getPageCount();
+      case 2:
+        TrainingText* t = m_texts.at(index.row());
+        return t->getRelevance();
+    }
+  }
 
-	return QVariant();
+  return QVariant();
 }
+
 
 Qt::ItemFlags TrainingTextCollection::flags(const QModelIndex &index) const
 {
-	if (!index.isValid())
-		return 0;
+  if (!index.isValid())
+    return 0;
 
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
+
 QVariant TrainingTextCollection::headerData(int column, Qt::Orientation orientation,
-			int role) const
+int role) const
 {
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-	{
-		switch (column)
-		{
-			case 0:
-				return i18n("Name");
-			case 1:
-				return i18n("Pages");
-			case 2:
-				return i18n("Relevance");
-		}
-	}
-	
-	//default
-	return QVariant();
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    switch (column) {
+      case 0:
+        return i18n("Name");
+      case 1:
+        return i18n("Pages");
+      case 2:
+        return i18n("Relevance");
+    }
+  }
+
+  //default
+  return QVariant();
 }
 
 
 QModelIndex TrainingTextCollection::parent(const QModelIndex &index) const
 {
-	Q_UNUSED(index);
-	return QModelIndex();
+  Q_UNUSED(index);
+  return QModelIndex();
 }
+
 
 int TrainingTextCollection::rowCount(const QModelIndex &parent) const
 {
-	if (!parent.isValid())
-		return m_texts.count();
-	else return 0;
+  if (!parent.isValid())
+    return m_texts.count();
+  else return 0;
 }
+
 
 int TrainingTextCollection::columnCount(const QModelIndex &parent) const
 {
-	Q_UNUSED(parent);
-	return 3;
+  Q_UNUSED(parent);
+  return 3;
 }
+
 
 QModelIndex TrainingTextCollection::index(int row, int column, const QModelIndex &parent) const
 {
-	if (!hasIndex(row, column, parent) || parent.isValid())
-		return QModelIndex();
+  if (!hasIndex(row, column, parent) || parent.isValid())
+    return QModelIndex();
 
-	return createIndex(row, column, m_texts.at(row));
+  return createIndex(row, column, m_texts.at(row));
 }
+
 
 bool TrainingTextCollection::removeText(TrainingText* text)
 {
-	for (int i=0; i < m_texts.count(); i++) {
-		if (m_texts.at(i) == text) {
-			beginRemoveRows(QModelIndex(), i, i);
-			m_texts.removeAt(i);
-			endRemoveRows();
-			i--;
-		}
-	}
+  for (int i=0; i < m_texts.count(); i++) {
+    if (m_texts.at(i) == text) {
+      beginRemoveRows(QModelIndex(), i, i);
+      m_texts.removeAt(i);
+      endRemoveRows();
+      i--;
+    }
+  }
 
-	return parentScenario->save();
+  return parentScenario->save();
 }
+
 
 bool TrainingTextCollection::addTrainingText(TrainingText* text)
 {
-	int count = m_texts.count();
-	beginInsertRows(QModelIndex(), count, count);
-	m_texts << text;
-	endInsertRows();
-	return parentScenario->save();
+  int count = m_texts.count();
+  beginInsertRows(QModelIndex(), count, count);
+  m_texts << text;
+  endInsertRows();
+  return parentScenario->save();
 }
-

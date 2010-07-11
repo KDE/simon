@@ -24,41 +24,44 @@
 #include <KLocalizedString>
 #include <KStandardDirs>
 
-K_PLUGIN_FACTORY( ExecutableCommandPluginFactory, 
-			registerPlugin< ExecutableCommandManager >(); 
-		)
-        
+K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
+registerPlugin< ExecutableCommandManager >();
+)
+
 K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
-
-ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) : 
-	CommandManager((Scenario*) parent, args)
+ExecutableCommandManager::ExecutableCommandManager(QObject* parent, const QVariantList& args) :
+CommandManager((Scenario*) parent, args)
 {
 }
+
 
 bool ExecutableCommandManager::shouldAcceptCommand(Command *command)
 {
-	return (dynamic_cast<ExecutableCommand*>(command) != NULL);
+  return (dynamic_cast<ExecutableCommand*>(command) != 0);
 }
+
 
 const QString ExecutableCommandManager::name() const
 {
-	return ExecutableCommand::staticCategoryText();
+  return ExecutableCommand::staticCategoryText();
 }
+
 
 const QString ExecutableCommandManager::iconSrc() const
 {
-	return "applications-system";
+  return "applications-system";
 }
+
 
 CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateExecutableCommandWidget(this, parent);
+  return new CreateExecutableCommandWidget(this, parent);
 }
+
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ExecutableCommandManager, ExecutableCommand);
 
 ExecutableCommandManager::~ExecutableCommandManager()
 {
 }
-

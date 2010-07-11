@@ -21,7 +21,6 @@
 
 void ScenarioDisplay::displayScenario(Scenario *scenario)
 {
-	this->scenario = scenario;
-	displayScenarioPrivate(scenario);
+  this->scenario = scenario;
+  displayScenarioPrivate(scenario);
 }
-

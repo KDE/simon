@@ -20,19 +20,17 @@
 #ifndef SIMON_SPEECHMODEL_H_85D1B1451A8C4485957368A4AEF19F9B
 #define SIMON_SPEECHMODEL_H_85D1B1451A8C4485957368A4AEF19F9B
 
-namespace SpeechModel {
-enum ModelElements {
-	ShadowVocabulary=1,
-	ScenarioVocabulary=2,
-	ScenarioGrammar=4,
-	ScenarioActions=8,
-	AllScenariosVocabulary=16,
-	AllScenariosGrammar=32,
-	AllScenariosActions=64
-};
+namespace SpeechModel
+{
+  enum ModelElements
+  {
+    ShadowVocabulary=1,
+    ScenarioVocabulary=2,
+    ScenarioGrammar=4,
+    ScenarioActions=8,
+    AllScenariosVocabulary=16,
+    AllScenariosGrammar=32,
+    AllScenariosActions=64
+  };
 }
-
-
-
 #endif
-

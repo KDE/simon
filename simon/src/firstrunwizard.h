@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
 #define SIMON_FIRSTRUNWIZARD_H_FA01A01DFF1E4DA098606C3E951E43AD
 
@@ -27,22 +26,21 @@ class QWizardPage;
 
 class FirstRunWizard : public SimonWizard
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	QWizardPage* createIntroPage();
-	QWizardPage* createSimondConfigPage();
-	QWizardPage* createSoundConfigPage();
-	QWizardPage* createSoundVolumePage();
-	QWizardPage* createBaseModelConfigPage();
-	QWizardPage* createScenariosConfigPage();
-	QWizardPage* createFinishedPage();
+    private:
+    QWizardPage* createIntroPage();
+    QWizardPage* createSimondConfigPage();
+    QWizardPage* createSoundConfigPage();
+    QWizardPage* createSoundVolumePage();
+    QWizardPage* createBaseModelConfigPage();
+    QWizardPage* createScenariosConfigPage();
+    QWizardPage* createFinishedPage();
 
-public:
-	explicit FirstRunWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
+  public:
+    explicit FirstRunWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
 
-	~FirstRunWizard();
+    ~FirstRunWizard();
 
 };
-
 #endif

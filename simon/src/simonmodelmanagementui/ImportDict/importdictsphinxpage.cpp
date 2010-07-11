@@ -27,34 +27,35 @@
  */
 ImportDictSPHINXPage::ImportDictSPHINXPage(QWidget* parent): QWizardPage(parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
+  ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
-	connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	registerField("sphinxFilename*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	registerField("sphinxEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
-	setTitle(i18n("Import SPHINX Dictionary"));
+  connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  registerField("sphinxFilename*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
+  registerField("sphinxEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  setTitle(i18n("Import SPHINX Dictionary"));
 }
+
 
 void ImportDictSPHINXPage::initializePage()
 {
-	ui.cbEncoding->clear();
-	ui.cbEncoding->addItem(i18n("Automatic"));
-	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
-	QStringList encodings;
-	foreach (const QByteArray& codec, availableCodecs)
-		encodings << codec;
-	encodings.sort();
-	ui.cbEncoding->addItems(encodings);
+  ui.cbEncoding->clear();
+  ui.cbEncoding->addItem(i18n("Automatic"));
+  QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+  QStringList encodings;
+  foreach (const QByteArray& codec, availableCodecs)
+    encodings << codec;
+  encodings.sort();
+  ui.cbEncoding->addItems(encodings);
 }
-
 
 
 bool ImportDictSPHINXPage::isComplete() const
 {
-	return QFile::exists(ui.urFile->url().path());
+  return QFile::exists(ui.urFile->url().path());
 }
+
 
 /**
  * \brief Destructor
@@ -63,5 +64,3 @@ bool ImportDictSPHINXPage::isComplete() const
 ImportDictSPHINXPage::~ImportDictSPHINXPage()
 {
 }
-
-

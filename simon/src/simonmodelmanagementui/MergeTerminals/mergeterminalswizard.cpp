@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "mergeterminalswizard.h"
 #include "mergeterminalsselectterminalspage.h"
 #include "mergeterminalsworkingpage.h"
@@ -28,61 +27,63 @@
 
 MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
 {
-	setWindowTitle(i18n("Merge Terminals"));
-	addPage(createIntroPage());
-	addPage(createSelectTerminalsPage());
-	addPage(createWorkingPage());
-	addPage(createFinishedPage());
-	setBanner("merge");
+  setWindowTitle(i18n("Merge Terminals"));
+  addPage(createIntroPage());
+  addPage(createSelectTerminalsPage());
+  addPage(createWorkingPage());
+  addPage(createFinishedPage());
+  setBanner("merge");
 }
+
 
 QWizardPage* MergeTerminalsWizard::createIntroPage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	QHBoxLayout *lay = new QHBoxLayout(intro);
-	QLabel *desc = new QLabel(intro);
-	lay->addWidget(desc);
-	intro->setLayout(lay);
+  QWizardPage *intro = new QWizardPage(this);
+  QHBoxLayout *lay = new QHBoxLayout(intro);
+  QLabel *desc = new QLabel(intro);
+  lay->addWidget(desc);
+  intro->setLayout(lay);
 
-	desc->setWordWrap(true);
-	intro->setTitle(i18n("Welcome to the Merging of Terminals"));
-	desc->setText(i18n("This assistant will guide you through the process of merging two Terminals.\n\n"
-"Using this procedure you can keep your grammar structures to a needed minmum "
-"and improve the readability of both your grammar and your wordlist."));
+  desc->setWordWrap(true);
+  intro->setTitle(i18n("Welcome to the Merging of Terminals"));
+  desc->setText(i18n("This assistant will guide you through the process of merging two Terminals.\n\n"
+    "Using this procedure you can keep your grammar structures to a needed minmum "
+    "and improve the readability of both your grammar and your wordlist."));
 
-	return intro;
+  return intro;
 }
+
 
 QWizardPage* MergeTerminalsWizard::createSelectTerminalsPage()
 {
-	return new MergeTerminalsSelectTerminalsPage(this);
+  return new MergeTerminalsSelectTerminalsPage(this);
 }
+
 
 QWizardPage* MergeTerminalsWizard::createWorkingPage()
 {
-	MergeTerminalsWorkingPage *working = new MergeTerminalsWorkingPage(this);
-	connect(working, SIGNAL(done()), this, SLOT(next()));
-	return working;
+  MergeTerminalsWorkingPage *working = new MergeTerminalsWorkingPage(this);
+  connect(working, SIGNAL(done()), this, SLOT(next()));
+  return working;
 }
+
 
 QWizardPage* MergeTerminalsWizard::createFinishedPage()
 {
-	QWizardPage *finished = new QWizardPage(this);
-	QHBoxLayout *lay = new QHBoxLayout(finished);
-	QLabel *desc = new QLabel(finished);
-	lay->addWidget(desc);
-	finished->setLayout(lay);
+  QWizardPage *finished = new QWizardPage(this);
+  QHBoxLayout *lay = new QHBoxLayout(finished);
+  QLabel *desc = new QLabel(finished);
+  lay->addWidget(desc);
+  finished->setLayout(lay);
 
-	desc->setWordWrap(true);
-	finished->setTitle(i18n("Import completed"));
-	desc->setText(i18n("The terminals have been merged.\n\nThank you for improving simon."));
+  desc->setWordWrap(true);
+  finished->setTitle(i18n("Import completed"));
+  desc->setText(i18n("The terminals have been merged.\n\nThank you for improving simon."));
 
-	return finished;
+  return finished;
 }
 
 
 MergeTerminalsWizard::~MergeTerminalsWizard()
 {
 }
-
-

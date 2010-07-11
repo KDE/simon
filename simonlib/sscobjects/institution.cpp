@@ -22,27 +22,27 @@
 #include <QByteArray>
 
 Institution::Institution(qint32 id, const QString& name) :
-	m_id(id),
-	m_name(name)
+m_id(id),
+m_name(name)
 {
 }
+
 
 void Institution::deserialize(QByteArray data)
 {
-	QDataStream stream(&data, QIODevice::ReadOnly);
-	stream >> m_id;
-	stream >> m_name;
+  QDataStream stream(&data, QIODevice::ReadOnly);
+  stream >> m_id;
+  stream >> m_name;
 }
+
 
 QByteArray Institution::serialize()
 {
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << m_id;
-	bodyStream << m_name;
+  bodyStream << m_id;
+  bodyStream << m_name;
 
-	return body;
+  return body;
 }
-
-

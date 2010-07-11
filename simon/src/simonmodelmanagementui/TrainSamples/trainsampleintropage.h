@@ -24,17 +24,16 @@
 
 class QCheckBox;
 
-class TrainSampleIntroPage : public QWizardPage {
+class TrainSampleIntroPage : public QWizardPage
+{
 
-private:
-	QCheckBox *cbPowerTrain;
+  private:
+    QCheckBox *cbPowerTrain;
 
-public:
-	TrainSampleIntroPage(QWidget *parent=NULL);
-	void initializePage();
-    	~TrainSampleIntroPage();
+  public:
+    TrainSampleIntroPage(QWidget *parent=0);
+    void initializePage();
+    ~TrainSampleIntroPage();
 
 };
-
 #endif
-

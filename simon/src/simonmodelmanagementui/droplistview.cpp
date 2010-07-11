@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "droplistview.h"
 
 /**
@@ -30,10 +29,11 @@
  * Sets the parent of the KListView
  */
 DropListView::DropListView(QWidget *parent)
- : QListView(parent)
+: QListView(parent)
 {
-	setAcceptDrops(true);
+  setAcceptDrops(true);
 }
+
 
 /**
  * @brief Drag-Enter-Events
@@ -48,7 +48,7 @@ DropListView::DropListView(QWidget *parent)
  */
 void DropListView::dragEnterEvent(QDragEnterEvent *event)
 {
-	event->accept();
+  event->accept();
 }
 
 
@@ -63,9 +63,10 @@ void DropListView::dragEnterEvent(QDragEnterEvent *event)
  */
 void DropListView::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->mimeData()->hasFormat("text/plain"))
-		event->accept();
+  if (event->mimeData()->hasFormat("text/plain"))
+    event->accept();
 }
+
 
 /**
  * @brief Drop Event
@@ -79,7 +80,7 @@ void DropListView::dragMoveEvent(QDragMoveEvent *event)
  */
 void DropListView::dropEvent(QDropEvent *event)
 {
-	emit droppedText( event->mimeData()->text() );
+  emit droppedText( event->mimeData()->text() );
 }
 
 
@@ -91,5 +92,3 @@ void DropListView::dropEvent(QDropEvent *event)
 DropListView::~DropListView()
 {
 }
-
-

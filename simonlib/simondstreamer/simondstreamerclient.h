@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONDSTREAMERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
 #define SIMON_SIMONDSTREAMERCLIENT_H_0AC60651BE6A419EA6256220815A2AAD
-
 
 #include "simonsender.h"
 #include "simondstreamer_export.h"
@@ -29,36 +27,33 @@
 #include <QObject>
 #include <qaudio.h>
 
-
 class VADSoundProcessor;
 
-class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundInputClient {
-	Q_OBJECT
+class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundInputClient
+{
+  Q_OBJECT
 
-private:
-	qint8 id;
-	QByteArray currentSample;
+    private:
+    qint8 id;
+    QByteArray currentSample;
 
-	bool m_isRunning;
-	SimonSender *sender;
-	VADSoundProcessor *vad;
+    bool m_isRunning;
+    SimonSender *sender;
+    VADSoundProcessor *vad;
 
-	void inputStateChanged(QAudio::State state);
+    void inputStateChanged(QAudio::State state);
 
-signals:
-	void clippingOccured();
-	void started();
-	void stopped();
+    signals:
+    void clippingOccured();
+    void started();
+    void stopped();
 
-public:
-	SimondStreamerClient(qint8 id, SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
-	bool stop();
-    	bool start();
-	bool isRunning();
+  public:
+    SimondStreamerClient(qint8 id, SimonSender *sender, SimonSound::DeviceConfiguration device, QObject *parent=0);
+    bool stop();
+    bool start();
+    bool isRunning();
 
-	void processPrivate(const QByteArray& data, qint64 currentTime);
+    void processPrivate(const QByteArray& data, qint64 currentTime);
 };
-
 #endif
-
-

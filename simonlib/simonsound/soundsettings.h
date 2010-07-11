@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDSETTINGS_H_D0C3C07429B04F65935956A32C796D79
 #define SIMON_SOUNDSETTINGS_H_D0C3C07429B04F65935956A32C796D79
 
@@ -48,29 +47,28 @@ class DeviceSettings;
  */
 class SIMONSOUND_EXPORT SoundSettings : public KCModule
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void promptFontChanged(const QFont&);
+    signals:
+  void promptFontChanged(const QFont&);
 
-private:
-	DeviceSettings *deviceSettings;
-	Ui::VADDlg vadUi;
-	Ui::PostProcessing postProcUi;
-	Ui::TrainingSettings trainingSettignsUi;
-//	Ui::Prompt promptUi;
+  private:
+    DeviceSettings *deviceSettings;
+    Ui::VADDlg vadUi;
+    Ui::PostProcessing postProcUi;
+    Ui::TrainingSettings trainingSettignsUi;
+    //	Ui::Prompt promptUi;
 
-public slots:
-	void load();
-	void save();
+  public slots:
+    void load();
+    void save();
 
-private slots:
-	void slotChanged();
-	
-public:
-	SoundSettings(QWidget* parent, const QVariantList& args=QVariantList());
-	~SoundSettings();
+  private slots:
+    void slotChanged();
+
+  public:
+    SoundSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    ~SoundSettings();
 
 };
-
 #endif

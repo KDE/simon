@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_GRAMMARVIEWPRIVATE_H_7E78C76BA03E4285A2E326B6AC6A1DE8
 #define SIMON_GRAMMARVIEWPRIVATE_H_7E78C76BA03E4285A2E326B6AC6A1DE8
 
@@ -26,37 +25,36 @@
 #include <simonscenarios/scenariodisplay.h>
 
 /**
-	@author Peter Grasch <grasch@simon-listens.org>
+  @author Peter Grasch <grasch@simon-listens.org>
 */
 class QSortFilterProxyModel;
 
-class GrammarViewPrivate : public QWidget, public ScenarioDisplay 
+class GrammarViewPrivate : public QWidget, public ScenarioDisplay
 {
-Q_OBJECT
-private:
-	Ui::GrammarView ui;
-	QTimer autoSaveTimer;
-	QSortFilterProxyModel *grammarProxy;
+  Q_OBJECT
+    private:
+    Ui::GrammarView ui;
+    QTimer autoSaveTimer;
+    QSortFilterProxyModel *grammarProxy;
 
-private slots:
-	void showRenameWizard();
-	void showImportWizard();
-	void showMergeWizard();
-	
-	void currentSelectionChanged();
+  private slots:
+    void showRenameWizard();
+    void showImportWizard();
+    void showMergeWizard();
 
-	void addStructure();
-	void deleteStructure();
-//	void slotChanged();
+    void currentSelectionChanged();
 
-public slots:
-	void displayScenarioPrivate(Scenario *scenario);
+    void addStructure();
+    void deleteStructure();
+    //	void slotChanged();
 
-public:
+  public slots:
+    void displayScenarioPrivate(Scenario *scenario);
+
+  public:
     GrammarViewPrivate(QWidget* parent);
 
     ~GrammarViewPrivate();
 
 };
-
 #endif

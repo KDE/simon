@@ -27,26 +27,26 @@
 #include <KCMultiDialog>
 
 FirstRunSoundConfig::FirstRunSoundConfig(QWidget* parent)
-		: QWizardPage(parent)
+: QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Sound devices"));
+  ui.setupUi(this);
+  setTitle(i18n("Sound devices"));
 }
+
 
 void FirstRunSoundConfig::initializePage()
 {
-	ui.wgDeviceSettings->load();
+  ui.wgDeviceSettings->load();
 }
+
 
 bool FirstRunSoundConfig::validatePage()
 {
-	ui.wgDeviceSettings->save();
-	return true;
+  ui.wgDeviceSettings->save();
+  return true;
 }
+
 
 FirstRunSoundConfig::~FirstRunSoundConfig()
 {
 }
-
-
-

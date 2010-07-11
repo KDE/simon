@@ -17,31 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
 #define SIMON_LANGUAGEDESCRIPTIONCONTAINER_H_E52B05FBE8084EF58429BDC3E05DAD63
-
 
 #include "simonmodelmanagement_export.h"
 #include <QByteArray>
 
 class MODELMANAGEMENT_EXPORT LanguageDescriptionContainer
 {
-	private:
-		QByteArray m_shadowVocab;
-		
-		QByteArray m_treeHed;
+  private:
+    QByteArray m_shadowVocab;
 
-	public:
-		LanguageDescriptionContainer(const QByteArray& shadowVocab, 
-				const QByteArray&  treeHed);
-			       
-		~LanguageDescriptionContainer();
-		
+    QByteArray m_treeHed;
 
-		QByteArray shadowVocab() { return m_shadowVocab; }
-		QByteArray treeHed() { return m_treeHed; }
+  public:
+    LanguageDescriptionContainer(const QByteArray& shadowVocab,
+      const QByteArray&  treeHed);
+
+    ~LanguageDescriptionContainer();
+
+    QByteArray shadowVocab() { return m_shadowVocab; }
+    QByteArray treeHed() { return m_treeHed; }
 
 };
-
 #endif

@@ -40,31 +40,30 @@ class QMoveEvent;
 */
 class CompositeProgressWidget : public QWidget
 {
-	Q_OBJECT
-	
-	private:
-		QWidget *designatedParent;
+  Q_OBJECT
 
-		QLabel *statusLabel;
-		QProgressBar *bar;
-		QFrame *popupWidget;
-		KPushButton *togglePopup;
-		QList<ProgressWidget*> progressWidgets;
-		
-	protected:
-		void moveEvent(QMoveEvent *event);
-		
-	public:
-		CompositeProgressWidget(QWidget* parent=0);
-		
-		~CompositeProgressWidget();
-		
-	private slots:
-		void showDetails(bool show);
-		
-	public slots:
-		void display(OperationList operations);
+    private:
+    QWidget *designatedParent;
+
+    QLabel *statusLabel;
+    QProgressBar *bar;
+    QFrame *popupWidget;
+    KPushButton *togglePopup;
+    QList<ProgressWidget*> progressWidgets;
+
+  protected:
+    void moveEvent(QMoveEvent *event);
+
+  public:
+    CompositeProgressWidget(QWidget* parent=0);
+
+    ~CompositeProgressWidget();
+
+  private slots:
+    void showDetails(bool show);
+
+  public slots:
+    void display(OperationList operations);
 
 };
-
 #endif

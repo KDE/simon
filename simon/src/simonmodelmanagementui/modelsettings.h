@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 #define SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 
@@ -26,39 +25,38 @@
 #include <QVariantList>
 #include <QString>
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ModelSettings : public KCModule
 {
-Q_OBJECT
-private:
-	Ui::ModelDlg ui;
-	QString m_hmmDefsToImport;
-	QString m_tiedlistToImport;
-	QString m_macrosToImport;
-	QString m_statsToImport;
+  Q_OBJECT
+    private:
+    Ui::ModelDlg ui;
+    QString m_hmmDefsToImport;
+    QString m_tiedlistToImport;
+    QString m_macrosToImport;
+    QString m_statsToImport;
 
-	int m_storedModelType;
-	void touchModelSrcRc();
+    int m_storedModelType;
+    void touchModelSrcRc();
 
-private slots:
-	void slotChanged();
-	void loadBaseHMM();
-	void loadBaseTiedlist();
-	void loadBaseMacros();
-	void loadBaseStats();
-	void displayHelp();
+  private slots:
+    void slotChanged();
+    void loadBaseHMM();
+    void loadBaseTiedlist();
+    void loadBaseMacros();
+    void loadBaseStats();
+    void displayHelp();
 
-public slots:
-	void load();
-	void save();
-	void defaults();
+  public slots:
+    void load();
+    void save();
+    void defaults();
 
-public:
+  public:
     ModelSettings(QWidget* parent, const QVariantList &args=QVariantList());
 
     ~ModelSettings();
 
 };
-
 #endif

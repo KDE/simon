@@ -21,19 +21,18 @@
 
 class Token
 {
-   
-    public:
-	Token(char arOp, short type);
-        Token(double num);
-	char getArOperator() const;
-	double getNumber() const;	
-	short getType() const;
 
-    private:
-	char arOperator;
-	double number;
-	//@ type: -1=(,); 0=number; 1=+,-; 2=*,/; 3=%;
-	short type;
+  public:
+    Token(char arOp, short type);
+    Token(double num);
+    char getArOperator() const;
+    double getNumber() const;
+    short getType() const;
+
+  private:
+    char arOperator;
+    double number;
+    //@ type: -1=(,); 0=number; 1=+,-; 2=*,/; 3=%;
+    short type;
 };
-
 #endif

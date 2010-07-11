@@ -27,27 +27,26 @@
 #include <QStringList>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class MSAABackend : public ATBackend
 {
-		Q_OBJECT
-    
-    private:
-        QStringList windowNameList;
-    
-	public:
-		MSAABackend ( QObject* parent );
-		void startMonitoring();
-		void stopMonitoring();
-    
-        QStringList getWindowNames();
-		QString getWindowClassName(QString windowName);
-        QString getForegroundWindowName();  //HWND GetForegroundWindow(VOID);
-    	ATOLocation getLocation(QString windowName);
+  Q_OBJECT
 
-		~MSAABackend();
+    private:
+    QStringList windowNameList;
+
+  public:
+    MSAABackend ( QObject* parent );
+    void startMonitoring();
+    void stopMonitoring();
+
+    QStringList getWindowNames();
+    QString getWindowClassName(QString windowName);
+    QString getForegroundWindowName();            //HWND GetForegroundWindow(VOID);
+    ATOLocation getLocation(QString windowName);
+
+    ~MSAABackend();
 
 };
-
 #endif

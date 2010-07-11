@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 #define SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 
@@ -38,26 +37,25 @@
 #undef KeyPress
 #endif
 
-class XEventsPrivate {
-private:
-	Display *display; //!< The opened Display
+class XEventsPrivate
+{
+  private:
+    Display *display;                             //!< The opened Display
 
+    void pressKey (const KeySym& key);
+    void pressKeyCode (const KeyCode& code);
+    void sendKeySymString (const QString& keysymString);
+  public:
+    void click (int x, int y, EventSimulation::ClickMode clickMode);
+    void dragAndDrop (int xStart, int yStart, int x, int y);
+    void sendKeyPrivate (unsigned int key);
 
-	void pressKey(const KeySym& key);
-	void pressKeyCode(const KeyCode& code);
-	void sendKeySymString(const QString& keysymString);
-public:
-	void click(int x, int y, EventSimulation::ClickMode clickMode);
-	void dragAndDrop(int xStart, int yStart, int x, int y);
-	void sendKeyPrivate(unsigned int key);
+    void setModifierKey (int virtualKey);
 
-	void setModifierKey(int virtualKey);
+    void unsetModifier (int virtualKey);
 
-	void unsetModifier(int virtualKey);
-
-	XEventsPrivate(char* displayName);
-	~XEventsPrivate();
-	Display* openDisplay(char* displayName);
+    XEventsPrivate (char* displayName);
+    ~XEventsPrivate();
+    Display* openDisplay (char* displayName);
 };
-
-#endif //XEVENTSPRIVATE_H
+#endif                                            //XEVENTSPRIVATE_H

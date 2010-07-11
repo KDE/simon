@@ -22,29 +22,30 @@
 #include <QByteArray>
 
 UserInInstitution::UserInInstitution(qint32 userId, qint32 institutionId, const QString& referenceId) :
-	m_userId(userId),
-	m_institutionId(institutionId),
-	m_referenceId(referenceId)
+m_userId(userId),
+m_institutionId(institutionId),
+m_referenceId(referenceId)
 {
 }
+
 
 void UserInInstitution::deserialize(QByteArray data)
 {
-	QDataStream stream(&data, QIODevice::ReadOnly);
-	stream >> m_userId;
-	stream >> m_institutionId;
-	stream >> m_referenceId;
+  QDataStream stream(&data, QIODevice::ReadOnly);
+  stream >> m_userId;
+  stream >> m_institutionId;
+  stream >> m_referenceId;
 }
+
 
 QByteArray UserInInstitution::serialize()
 {
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << m_userId;
-	bodyStream << m_institutionId;
-	bodyStream << m_referenceId;
+  bodyStream << m_userId;
+  bodyStream << m_institutionId;
+  bodyStream << m_referenceId;
 
-	return body;
+  return body;
 }
-

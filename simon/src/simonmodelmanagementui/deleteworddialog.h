@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
 #define SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CE4E8
 
@@ -36,23 +35,23 @@ class Word;
 class DeleteWordDialog : public KDialog
 {
 
-private:
-	Ui::DlgRemoveWord ui;
-public:
+  private:
+    Ui::DlgRemoveWord ui;
+  public:
 
-	enum DeletionType {
-		MoveToUnused	= 0x00,
-		MoveToShadow	= 0x01,
-		SoftDelete	= 0x02,
-		HardDelete	= 0x03
-	};
+    enum DeletionType
+    {
+      MoveToUnused  = 0x00,
+      MoveToShadow  = 0x01,
+      SoftDelete  = 0x02,
+      HardDelete  = 0x03
+    };
 
-	explicit DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
+    explicit DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-	int exec(Word *word, bool isShadowed);
+    int exec(Word *word, bool isShadowed);
 
-	DeletionType getDeletionType();
+    DeletionType getDeletionType();
 
 };
-
 #endif

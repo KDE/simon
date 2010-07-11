@@ -1,21 +1,20 @@
 #ifndef SIMON_SIMONXML_EXPORT_H_757C898C8EA444AB97ED9F258FAC303C
 #define SIMON_SIMONXML_EXPORT_H_757C898C8EA444AB97ED9F258FAC303C
- 
+
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
- 
+
 #ifndef SIMONXML_EXPORT
 # if defined(MAKE_SIMONXML_LIB)
-   // We are building this library
+// We are building this library
 #  define SIMONXML_EXPORT KDE_EXPORT
 # else
-   // We are using this library
+// We are using this library
 #  define SIMONXML_EXPORT KDE_IMPORT
 # endif
 #endif
- 
+
 # ifndef SIMONXML_EXPORT_DEPRECATED
 #  define SIMONXML_EXPORT_DEPRECATED KDE_DEPRECATED SIMONXML_EXPORT
 # endif
- 
 #endif

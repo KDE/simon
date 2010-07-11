@@ -28,34 +28,38 @@ StatusManager* StatusManager::globalInstance;
 
 StatusManager::StatusManager(QObject *parent) : QObject(parent)
 {
-	qRegisterMetaType<OperationList>("OperationList");
-	qRegisterMetaType<OperationPtr>("OperationPtr");
+  qRegisterMetaType<OperationList>("OperationList");
+  qRegisterMetaType<OperationPtr>("OperationPtr");
 }
+
 
 CompositeProgressWidget* StatusManager::createWidget(QWidget *parent)
 {
-	CompositeProgressWidget* widget = new CompositeProgressWidget(parent);
-	widget->display(runningOperations);
-	connect(this, SIGNAL(operationsChanged(const OperationList&)),
-		widget, SLOT(display(OperationList)));
-	return widget;
+  CompositeProgressWidget* widget = new CompositeProgressWidget(parent);
+  widget->display(runningOperations);
+  connect(this, SIGNAL(operationsChanged(const OperationList&)),
+    widget, SLOT(display(OperationList)));
+  return widget;
 }
+
 
 void StatusManager::update()
 {
-	emit operationsChanged(runningOperations);
+  emit operationsChanged(runningOperations);
 }
+
 
 void StatusManager::registerOperation(Operation* operation)
 {
-	runningOperations.append(operation);
-	emit operationsChanged(runningOperations);
+  runningOperations.append(operation);
+  emit operationsChanged(runningOperations);
 }
+
 
 void StatusManager::removeOperation(Operation* operation)
 {
-	runningOperations.removeAll(operation);
-	emit operationsChanged(runningOperations);
+  runningOperations.removeAll(operation);
+  emit operationsChanged(runningOperations);
 }
 
 

@@ -26,29 +26,28 @@
 #include <KDebug>
 
 SimonWizard::SimonWizard(QWidget* parent, Qt::WFlags flags)
-		: QWizard(parent, flags)
+: QWizard(parent, flags)
 {
 }
+
 
 bool SimonWizard::setBanner(const QString& name)
 {
-	kDebug() << "Searching banner: " << name;
-	QString fileName = KStandardDirs::locate("appdata", "themes/default/"+name.toAscii()+".png");
+  kDebug() << "Searching banner: " << name;
+  QString fileName = KStandardDirs::locate("appdata", "themes/default/"+name.toAscii()+".png");
 
+  if (KGlobal::locale()->language().startsWith("en")) {
+    QString enFileName = KStandardDirs::locate("appdata", "themes/default/l10n/en/"+name.toAscii()+".png");
+    if (QFile::exists(enFileName))
+      fileName = enFileName;
+  }
 
-	if (KGlobal::locale()->language().startsWith("en"))
-	{
-		QString enFileName = KStandardDirs::locate("appdata", "themes/default/l10n/en/"+name.toAscii()+".png");
-		if (QFile::exists(enFileName))
-			fileName = enFileName;
-	}
-
-	kDebug() << "Setting banner: " << fileName;
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(fileName));
-	return true;
+  kDebug() << "Setting banner: " << fileName;
+  setPixmap(QWizard::WatermarkPixmap, QPixmap(fileName));
+  return true;
 }
+
 
 SimonWizard::~SimonWizard()
 {
 }
-

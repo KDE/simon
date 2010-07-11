@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ACTIONCOLLECTION_H_5874BB16920A437B82CADE63873D25F9
 #define SIMON_ACTIONCOLLECTION_H_5874BB16920A437B82CADE63873D25F9
 
@@ -39,50 +38,49 @@ class ActionCommandModel;
 class CommandConfiguration;
 class VoiceInterfaceCommand;
 
-class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel {
+class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel
+{
 
-private:
-	ActionCommandModel *proxy;
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+  private:
+    ActionCommandModel *proxy;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
-public:
-	ActionCollection(Scenario *parent);
+  public:
+    ActionCollection(Scenario *parent);
 
-	static ActionCollection* createActionCollection(Scenario *parent, const QDomElement&);
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
-	static QDomElement createEmpty(QDomDocument *doc);
+    static ActionCollection* createActionCollection(Scenario *parent, const QDomElement&);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    static QDomElement createEmpty(QDomDocument *doc);
 
-	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
-	QList<CommandConfiguration*>* getConfigurationPages();
+    QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
+    QList<CommandConfiguration*>* getConfigurationPages();
 
-	ActionCommandModel* getProxy() { return proxy; }
+    ActionCommandModel* getProxy() { return proxy; }
 
-	QList<Action*> actions() { return m_actions; }
+    QList<Action*> actions() { return m_actions; }
 
-	bool removeCommand(Command *command);
+    bool removeCommand(Command *command);
 
-	bool addAction(Action *action, bool silent, bool save);
-	bool deleteAction(Action *action);
+    bool addAction(Action *action, bool silent, bool save);
+    bool deleteAction(Action *action);
 
-	bool moveActionUp(Action *action);
-	bool moveActionDown(Action *action);
+    bool moveActionUp(Action *action);
+    bool moveActionDown(Action *action);
 
-	bool processResult(RecognitionResult recognitionResult);
-	bool triggerCommand(const QString& type, const QString& trigger);
+    bool processResult(RecognitionResult recognitionResult);
+    bool triggerCommand(const QString& type, const QString& trigger);
 
-	bool setTrigger(const QString& trigger);
-	void setPluginFont(const QFont& font);
+    bool setTrigger(const QString& trigger);
+    void setPluginFont(const QFont& font);
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
-	void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+    void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
-	CommandList* getCommandList();
+    CommandList* getCommandList();
 
-	QList<QAction*> getGuiActions();
-	~ActionCollection();
+    QList<QAction*> getGuiActions();
+    ~ActionCollection();
 
 };
-
 #endif
-

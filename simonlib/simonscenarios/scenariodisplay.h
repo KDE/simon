@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
 #define SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
 #include <QString>
@@ -26,22 +25,21 @@
 
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT ScenarioDisplay{
+class MODELMANAGEMENT_EXPORT ScenarioDisplay
+{
 
-protected:
-	Scenario *scenario;
-	virtual void displayScenarioPrivate(Scenario *scenario)=0;
-public:
-	ScenarioDisplay() : scenario(NULL)
-	{}
+  protected:
+    Scenario *scenario;
+    virtual void displayScenarioPrivate(Scenario *scenario)=0;
+  public:
+    ScenarioDisplay() : scenario(0)
+      {}
 
-	void displayScenario(Scenario *scenario);
+    void displayScenario(Scenario *scenario);
 
-	Scenario* currentScenario() { return scenario; }
+    Scenario* currentScenario() { return scenario; }
 
-	virtual ~ScenarioDisplay() {}
+    virtual ~ScenarioDisplay() {}
 
 };
-
 #endif
-

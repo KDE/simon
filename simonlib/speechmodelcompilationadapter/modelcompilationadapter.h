@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 #define SIMON_MODELCOMPILATIONADAPTER_H_166F0999AD87463EA4DE9A335364D7A6
 
@@ -34,62 +33,63 @@
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread {
-Q_OBJECT
-signals:
-	/**
-	 * Max progress: 100
-	 */
-	void status(QString, int progressNow);
-	void error(QString);
+class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
+{
+  Q_OBJECT
+    signals:
+  /**
+   * Max progress: 100
+   */
+  void status(QString, int progressNow);
+  void error(QString);
 
-	void adaptionComplete();
-	void adaptionAborted();
-public:
-	enum AdaptionType {
-		AdaptLanguageModel=1,
-		AdaptAcousticModel=2
-	};
+  void adaptionComplete();
+  void adaptionAborted();
+  public:
+    enum AdaptionType
+    {
+      AdaptLanguageModel=1,
+      AdaptAcousticModel=2
+    };
 
-	virtual int maxProgress();
-	ModelCompilationAdapter(const QString& userName, QObject *parent=0);
+    virtual int maxProgress();
+    ModelCompilationAdapter(const QString& userName, QObject *parent=0);
 
-	virtual bool startAdaption(AdaptionType adaptionType, const QString& lexiconPathOut, 
-			const QString& grammarPathOut, const QString& simpleVocabPathOut, 
-			const QString& promptsPathOut, const QStringList& scenarioPathsIn, 
-			const QString& promptsIn);
+    virtual bool startAdaption(AdaptionType adaptionType, const QString& lexiconPathOut,
+      const QString& grammarPathOut, const QString& simpleVocabPathOut,
+      const QString& promptsPathOut, const QStringList& scenarioPathsIn,
+      const QString& promptsIn);
 
-	virtual bool adaptModel(AdaptionType adaptionType, const QStringList& scenarioPaths, 
-			const QString& promptsPathIn, const QString& lexiconPathOut, 
-			const QString& grammarPathOut, const QString& simpleVocabPathOut, 
-			const QString& promptsPathOut)=0;
+    virtual bool adaptModel(AdaptionType adaptionType, const QStringList& scenarioPaths,
+      const QString& promptsPathIn, const QString& lexiconPathOut,
+      const QString& grammarPathOut, const QString& simpleVocabPathOut,
+      const QString& promptsPathOut)=0;
 
-	QString getStatus() { return currentStatus; }
+    QString getStatus() { return currentStatus; }
 
-	virtual ~ModelCompilationAdapter();
+    virtual ~ModelCompilationAdapter();
 
-	QString lexiconPath() { return m_lexiconPathOut; }
-	QString grammarPath() { return m_grammarPathOut; }
-	QString simpleVocabPath() { return m_simpleVocabPathOut; }
-	QString promptsPath() { return m_promptsPathOut; }
+    QString lexiconPath() { return m_lexiconPathOut; }
+    QString grammarPath() { return m_grammarPathOut; }
+    QString simpleVocabPath() { return m_simpleVocabPathOut; }
+    QString promptsPath() { return m_promptsPathOut; }
 
-	void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
-	void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
+    void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
+    void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
 
-protected:
-	bool keepGoing;
-	AdaptionType m_adaptionType;
-	QString currentStatus;
-	QStringList m_scenarioPathsIn;
-	QString m_promptsPathIn;
-	QString m_userName;
+  protected:
+    bool keepGoing;
+    AdaptionType m_adaptionType;
+    QString currentStatus;
+    QStringList m_scenarioPathsIn;
+    QString m_promptsPathIn;
+    QString m_userName;
 
-	QStringList poisonedPhonemes;
+    QStringList poisonedPhonemes;
 
-	//output
-	QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
+    //output
+    QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
 
-	void run();
+    void run();
 };
-
 #endif

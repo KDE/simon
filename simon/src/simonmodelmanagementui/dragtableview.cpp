@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "dragtableview.h"
 #include <QApplication>
 #include <KLocalizedString>
@@ -33,15 +32,14 @@
  * @author Peter Grasch
  */
 DragTableView::DragTableView(QWidget *parent)
-	: QTableView(parent)
-{	}
-
+: QTableView(parent)
+{ }
 
 /**
  * @brief MousePress-Event
  *
  * Overrides the default behavior of the mousePressEvent().
- * 
+ *
  * Stores the Position where the mouse was pressed in the member
  * mousePos
  *
@@ -51,11 +49,12 @@ DragTableView::DragTableView(QWidget *parent)
  */
 void DragTableView::mousePressEvent(QMouseEvent *event)
 {
-	if (event->button() == Qt::LeftButton)
-		this->mousePos= event->pos();
-	QTableView::mousePressEvent(event);
-	
+  if (event->button() == Qt::LeftButton)
+    this->mousePos= event->pos();
+  QTableView::mousePressEvent(event);
+
 }
+
 
 /**
  * @brief MouseMove-Event
@@ -63,7 +62,7 @@ void DragTableView::mousePressEvent(QMouseEvent *event)
  * Overrides the default behavior of the mouseMoveEvent().
  * Calculates the length Difference between the member mousePos
  * and the actual position (the Position of the event parameter)
- * 
+ *
  * If the difference is larger than QApplication::startDragDistance()
  * if calls startDrag()
  *
@@ -73,23 +72,22 @@ void DragTableView::mousePressEvent(QMouseEvent *event)
  */
 void DragTableView::mouseMoveEvent(QMouseEvent *event)
 {
-	if (!(event->buttons() & Qt::LeftButton))
-	{
-		return;
-	}
-	if ((this->mousePos - event->pos()).manhattanLength() < QApplication::startDragDistance())
-	{	
-		return;
-	}
-	startDrag(Qt::CopyAction);
+  if (!(event->buttons() & Qt::LeftButton)) {
+    return;
+  }
+  if ((this->mousePos - event->pos()).manhattanLength() < QApplication::startDragDistance()) {
+    return;
+  }
+  startDrag(Qt::CopyAction);
 }
+
 
 /**
  * @brief startDrag
  *
  * Utilizes the QDrag Object to store the data of the first
  * cell in the current row.
- * 
+ *
  * Displays a OSD-Message:
  * 	"Drag the Word to the List on the right to train it"
  *
@@ -99,21 +97,20 @@ void DragTableView::mouseMoveEvent(QMouseEvent *event)
  */
 void DragTableView::startDrag(Qt::DropActions)
 {
-	QDrag *drag = new QDrag ( this );
-	QMimeData *mimeData = new QMimeData();
-	
-	Word *w = (Word*) currentIndex().internalPointer();
+  QDrag *drag = new QDrag ( this );
+  QMimeData *mimeData = new QMimeData();
 
-	if (!w) return;
+  Word *w = (Word*) currentIndex().internalPointer();
 
-	mimeData->setText( w->getWord() );
-	drag->setMimeData(mimeData);
+  if (!w) return;
 
-	SimonInfo::showMessage( i18n("Drag the Word to the List on the right to train it") , 2000 );
+  mimeData->setText( w->getWord() );
+  drag->setMimeData(mimeData);
 
-	drag->start(Qt::MoveAction);
+  SimonInfo::showMessage( i18n("Drag the Word to the List on the right to train it") , 2000 );
+
+  drag->start(Qt::MoveAction);
 }
-
 
 
 /**

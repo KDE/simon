@@ -34,110 +34,111 @@
 
 const QString CompositeCommand::staticCategoryText()
 {
-	return i18n("Composite");
+  return i18n("Composite");
 }
+
 
 const QString CompositeCommand::getCategoryText() const
 {
-	return CompositeCommand::staticCategoryText();
+  return CompositeCommand::staticCategoryText();
 }
+
 
 const KIcon CompositeCommand::staticCategoryIcon()
 {
-	return KIcon("view-choose");
+  return KIcon("view-choose");
 }
+
 
 const KIcon CompositeCommand::getCategoryIcon() const
 {
-	return CompositeCommand::staticCategoryIcon();
+  return CompositeCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> CompositeCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("Commands"), commands.join("\n"));
-	return out;
-	
+  QMap<QString,QVariant> out;
+  out.insert(i18n("Commands"), commands.join("\n"));
+  return out;
+
 }
 
 
 QDomElement CompositeCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	Q_ASSERT(commands.count() == commandTypes.count());
+  Q_ASSERT(commands.count() == commandTypes.count());
 
-	QDomElement childCommandsElement = doc->createElement("childCommands");
+  QDomElement childCommandsElement = doc->createElement("childCommands");
 
-	for (int i=0; i < commands.count(); i++) {
-		QDomElement childComElement = doc->createElement("childCommand");
-		QDomElement childTriggerElem = doc->createElement("trigger");
-		QDomElement childCategoryElem = doc->createElement("category");
+  for (int i=0; i < commands.count(); i++) {
+    QDomElement childComElement = doc->createElement("childCommand");
+    QDomElement childTriggerElem = doc->createElement("trigger");
+    QDomElement childCategoryElem = doc->createElement("category");
 
-		childTriggerElem.appendChild(doc->createTextNode(commands[i]));
-		childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
+    childTriggerElem.appendChild(doc->createTextNode(commands[i]));
+    childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
 
-		childComElement.appendChild(childTriggerElem);
-		childComElement.appendChild(childCategoryElem);
-		childCommandsElement.appendChild(childComElement);
-	}
-	commandElem.appendChild(childCommandsElement);
-		
-	return commandElem;
+    childComElement.appendChild(childTriggerElem);
+    childComElement.appendChild(childCategoryElem);
+    childCommandsElement.appendChild(childComElement);
+  }
+  commandElem.appendChild(childCommandsElement);
+
+  return commandElem;
 }
 
 
 bool CompositeCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	Q_ASSERT(commands.count() == commandTypes.count());
+  Q_UNUSED(state);
+  Q_ASSERT(commands.count() == commandTypes.count());
 
-	for (int i=0; i<commands.count();i++)
-	{
-		QString type = commandTypes[i];
-		kDebug() << type << i18n("Delay");
-		if (type==i18n("Delay"))
-		{
-			bool ok=true;
-			kDebug() << commands[i];
-			int amount = commands[i].toInt(&ok);
-			if (!ok) {kDebug() << "Not ok"; continue;}
-			kDebug() << "Sleeping: " << amount;
-			#ifdef Q_OS_WIN32
-			Sleep(amount);
-			#else
-			usleep(amount*1000);
-			#endif
-		} 
-		else
-			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
-	}
+  for (int i=0; i<commands.count();i++) {
+    QString type = commandTypes[i];
+    kDebug() << type << i18n("Delay");
+    if (type==i18n("Delay")) {
+      bool ok=true;
+      kDebug() << commands[i];
+      int amount = commands[i].toInt(&ok);
+      if (!ok) {kDebug() << "Not ok"; continue;}
+      kDebug() << "Sleeping: " << amount;
+      #ifdef Q_OS_WIN32
+      Sleep(amount);
+      #else
+      usleep(amount*1000);
+      #endif
+    }
+    else
+      ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
+  }
 
-	return true;
+  return true;
 }
 
 
 bool CompositeCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
-	if (childCommandsElem.isNull()) return false;
+  QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
+  if (childCommandsElem.isNull()) return false;
 
-	commands.clear();
-	commandTypes.clear();
+  commands.clear();
+  commandTypes.clear();
 
-	QDomElement childCommandElem = childCommandsElem.firstChildElement();
+  QDomElement childCommandElem = childCommandsElem.firstChildElement();
 
-	while (!childCommandElem.isNull()) {
-		QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
-		QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
-		commands << childCommandTriggerElem.text();
-		commandTypes << childCommandCategoryElem.text();
-		childCommandElem = childCommandElem.nextSiblingElement();
-	}
-	kDebug() << "Triggers: " << commands;
-	kDebug() << "Categories: " << commandTypes;
+  while (!childCommandElem.isNull()) {
+    QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
+    QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
+    commands << childCommandTriggerElem.text();
+    commandTypes << childCommandCategoryElem.text();
+    childCommandElem = childCommandElem.nextSiblingElement();
+  }
+  kDebug() << "Triggers: " << commands;
+  kDebug() << "Categories: " << commandTypes;
 
-	return true;
+  return true;
 }
 
+
 STATIC_CREATE_INSTANCE_C(CompositeCommand);
-
-

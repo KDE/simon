@@ -20,14 +20,14 @@
 #ifndef SIMON_WORDLISTTYPE_H_FA6CCE3C760F424EA6891F37F7FF5925
 #define SIMON_WORDLISTTYPE_H_FA6CCE3C760F424EA6891F37F7FF5925
 
-namespace WordListTarget {
+namespace WordListTarget
+{
 
-enum WordListType {
-	ShadowList = 0,
-	ActiveList = 1
-};
+  enum WordListType
+  {
+    ShadowList = 0,
+    ActiveList = 1
+  };
 
 }
-
 #endif
-

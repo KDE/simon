@@ -31,47 +31,45 @@ class QDomDocument;
 
 class KeyboardSet
 {
-	private:
+  private:
 
-		QList<KeyboardTab *> tabList;
-		QString setName;
-		bool m_isNull;
+    QList<KeyboardTab *> tabList;
+    QString setName;
+    bool m_isNull;
 
-		KeyboardTab* findTab(const QString& tabName);
+    KeyboardTab* findTab(const QString& tabName);
 
-		void tabLeft(int index);
-		void tabRight(int index);
-		void addTab(KeyboardTab* t);
-		void delTab(int index);
-		
-	public:
-		bool isNull() const { return m_isNull; }
-		KeyboardSet(const QDomElement& elem);
-		KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
+    void tabLeft(int index);
+    void tabRight(int index);
+    void addTab(KeyboardTab* t);
+    void delTab(int index);
 
-		QStringList getAvailableTabs();
+  public:
+    bool isNull() const { return m_isNull; }
+    KeyboardSet(const QDomElement& elem);
+    KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
 
-		KeyboardTab* getTab(const QString tabName);
-		bool createTab(const QString& name);
-		bool editTab(const QString& curName, const QString& newName);
-		bool deleteTab(const QString& name);
-		bool moveTabUp(const QString& tabName);
-		bool moveTabDown(const QString& tabName);
+    QStringList getAvailableTabs();
 
-		bool addButton(const QString& tabName, KeyboardButton *button);
-		bool deleteButton(const QString& tabName, KeyboardButton *button);
-		bool moveButtonUp(const QString& tab, KeyboardButton *button);
-		bool moveButtonDown(const QString& tab, KeyboardButton *button);
-		bool triggerButton(const QString& tabName, const QString& trigger, bool caseSensitive=true);
+    KeyboardTab* getTab(const QString tabName);
+    bool createTab(const QString& name);
+    bool editTab(const QString& curName, const QString& newName);
+    bool deleteTab(const QString& name);
+    bool moveTabUp(const QString& tabName);
+    bool moveTabDown(const QString& tabName);
 
+    bool addButton(const QString& tabName, KeyboardButton *button);
+    bool deleteButton(const QString& tabName, KeyboardButton *button);
+    bool moveButtonUp(const QString& tab, KeyboardButton *button);
+    bool moveButtonDown(const QString& tab, KeyboardButton *button);
+    bool triggerButton(const QString& tabName, const QString& trigger, bool caseSensitive=true);
 
-		QList<KeyboardButton*> getTabButtons(const QString& tabName);
+    QList<KeyboardButton*> getTabButtons(const QString& tabName);
 
-		QString getSetName();
-		void setSetName(const QString& newName);
+    QString getSetName();
+    void setSetName(const QString& newName);
 
-		QDomElement serialize(QDomDocument* doc);
-		~KeyboardSet();
+    QDomElement serialize(QDomDocument* doc);
+    ~KeyboardSet();
 };
-
 #endif

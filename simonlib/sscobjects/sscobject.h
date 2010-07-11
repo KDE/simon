@@ -22,17 +22,15 @@
 #include <QByteArray>
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT  SSCObject {
+class SSCOBJECTS_EXPORT  SSCObject
+{
 
-public:
-	SSCObject() {}
+  public:
+    SSCObject() {}
 
-	virtual void deserialize(QByteArray data)=0;
-	virtual QByteArray serialize()=0;
+    virtual void deserialize(QByteArray data)=0;
+    virtual QByteArray serialize()=0;
 
-	virtual ~SSCObject() {}
+    virtual ~SSCObject() {}
 };
-
 #endif
-
-

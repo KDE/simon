@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "renameterminalwizard.h"
 #include <QWizardPage>
 #include <QLabel>
@@ -28,61 +27,61 @@
 
 RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)
 {
-	setWindowTitle(i18n("Rename terminal"));
-	addPage(createIntroPage());
-	addPage(createSelectParametersPage());
-	addPage(createWorkingPage());
-	addPage(createFinishedPage());
-	setBanner("editterminal");
+  setWindowTitle(i18n("Rename terminal"));
+  addPage(createIntroPage());
+  addPage(createSelectParametersPage());
+  addPage(createWorkingPage());
+  addPage(createFinishedPage());
+  setBanner("editterminal");
 }
 
 
 QWizardPage* RenameTerminalWizard::createSelectParametersPage()
 {
-	return  new RenameTerminalSelectParametersPage(this);
+  return  new RenameTerminalSelectParametersPage(this);
 }
+
 
 QWizardPage* RenameTerminalWizard::createWorkingPage()
 {
-	RenameTerminalWorkingPage *work =  new RenameTerminalWorkingPage(this);
-	connect(work, SIGNAL(done()), this, SLOT(next()));
-	return work;
+  RenameTerminalWorkingPage *work =  new RenameTerminalWorkingPage(this);
+  connect(work, SIGNAL(done()), this, SLOT(next()));
+  return work;
 }
 
 
 QWizardPage* RenameTerminalWizard::createIntroPage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	QHBoxLayout *lay = new QHBoxLayout(intro);
-	QLabel *desc = new QLabel(intro);
-	lay->addWidget(desc);
-	intro->setLayout(lay);
+  QWizardPage *intro = new QWizardPage(this);
+  QHBoxLayout *lay = new QHBoxLayout(intro);
+  QLabel *desc = new QLabel(intro);
+  lay->addWidget(desc);
+  intro->setLayout(lay);
 
-	desc->setWordWrap(true);
-	intro->setTitle(i18n("Welcome to the renaming of a terminal"));
-	desc->setText(i18n("This assistant will allow you to rename an existing terminal. "));
+  desc->setWordWrap(true);
+  intro->setTitle(i18n("Welcome to the renaming of a terminal"));
+  desc->setText(i18n("This assistant will allow you to rename an existing terminal. "));
 
-	return intro;
+  return intro;
 }
+
 
 QWizardPage* RenameTerminalWizard::createFinishedPage()
 {
-	QWizardPage *finished = new QWizardPage(this);
-	QHBoxLayout *lay = new QHBoxLayout(finished);
-	QLabel *desc = new QLabel(finished);
-	lay->addWidget(desc);
-	finished->setLayout(lay);
+  QWizardPage *finished = new QWizardPage(this);
+  QHBoxLayout *lay = new QHBoxLayout(finished);
+  QLabel *desc = new QLabel(finished);
+  lay->addWidget(desc);
+  finished->setLayout(lay);
 
-	desc->setWordWrap(true);
-	finished->setTitle(i18n("Renaming complete"));
-	desc->setText(i18n("The terminal has been renamed.\n\nThank you for improving simon."));
+  desc->setWordWrap(true);
+  finished->setTitle(i18n("Renaming complete"));
+  desc->setText(i18n("The terminal has been renamed.\n\nThank you for improving simon."));
 
-	return finished;
+  return finished;
 }
 
 
 RenameTerminalWizard::~RenameTerminalWizard()
 {
 }
-
-

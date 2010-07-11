@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTDICTSPHINXPAGE_H_11651B25061743D4ADD305AECC248AB6
 #define SIMON_IMPORTDICTSPHINXPAGE_H_11651B25061743D4ADD305AECC248AB6
 
@@ -35,17 +34,16 @@ class QString;
  */
 class ImportDictSPHINXPage : public QWizardPage
 {
-Q_OBJECT
-private:
-	Ui::ImportSPHINXDlg ui;
-public:
+  Q_OBJECT
+    private:
+    Ui::ImportSPHINXDlg ui;
+  public:
     ImportDictSPHINXPage(QWidget* parent);
-	int nextId() const { return ImportDictView::WorkingPage; }
-	bool isComplete() const;
-	void initializePage();
+    int nextId() const { return ImportDictView::WorkingPage; }
+    bool isComplete() const;
+    void initializePage();
 
     ~ImportDictSPHINXPage();
 
 };
-
 #endif

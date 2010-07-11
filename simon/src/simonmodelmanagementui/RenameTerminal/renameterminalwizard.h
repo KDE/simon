@@ -17,30 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
 #define SIMON_RENAMETERMINALWIZARD_H_81323ACF45B7425ABFB0297D096887DA
 
 #include <simonuicomponents/simonwizard.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class QWizardPage;
 
 class RenameTerminalWizard : public SimonWizard
 {
-Q_OBJECT
-private:
-	QWizardPage *createIntroPage();
-	QWizardPage *createSelectParametersPage();
-	QWizardPage *createWorkingPage();
-	QWizardPage *createFinishedPage();
-public:
+  Q_OBJECT
+    private:
+    QWizardPage *createIntroPage();
+    QWizardPage *createSelectParametersPage();
+    QWizardPage *createWorkingPage();
+    QWizardPage *createFinishedPage();
+  public:
     RenameTerminalWizard(QWidget* parent);
 
     ~RenameTerminalWizard();
 
 };
-
 #endif

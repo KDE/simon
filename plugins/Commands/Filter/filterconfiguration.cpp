@@ -26,54 +26,58 @@
 
 K_PLUGIN_FACTORY_DECLARATION(FilterPluginFactory)
 
-
 FilterConfiguration::FilterConfiguration(Scenario *parent, const QVariantList &args)
-		: CommandConfiguration(parent, "filter", ki18n( "Filter" ),
-				      "0.1", ki18n("Filter recognition results"),
-				      "view-filter",
-				      FilterPluginFactory::componentData())
+: CommandConfiguration(parent, "filter", ki18n( "Filter" ),
+"0.1", ki18n("Filter recognition results"),
+"view-filter",
+FilterPluginFactory::componentData())
 {
-	Q_UNUSED(args);
-	ui.setupUi(this);
-	
-	QObject::connect(ui.leRegExp, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+  Q_UNUSED(args);
+  ui.setupUi(this);
+
+  QObject::connect(ui.leRegExp, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 }
+
 
 QString FilterConfiguration::regExp() const
 {
-	return ui.leRegExp->text();
+  return ui.leRegExp->text();
 }
+
 
 bool FilterConfiguration::deSerialize(const QDomElement& elem)
 {
-	QDomElement regExpElem = elem.firstChildElement("regExp");
+  QDomElement regExpElem = elem.firstChildElement("regExp");
 
-	if (regExpElem.isNull()) 
-		defaults();
-	else
-		ui.leRegExp->setText(regExpElem.text());
+  if (regExpElem.isNull())
+    defaults();
+  else
+    ui.leRegExp->setText(regExpElem.text());
 
-	return true;
+  return true;
 }
+
 
 QDomElement FilterConfiguration::serialize(QDomDocument *doc)
 {
-	QDomElement configElem = doc->createElement("config");
+  QDomElement configElem = doc->createElement("config");
 
-	QDomElement regExpElem = doc->createElement("regExp");
-	regExpElem.appendChild(doc->createTextNode(regExp()));
+  QDomElement regExpElem = doc->createElement("regExp");
+  regExpElem.appendChild(doc->createTextNode(regExp()));
 
-	configElem.appendChild(regExpElem);
+  configElem.appendChild(regExpElem);
 
-	return configElem;
+  return configElem;
 }
+
 
 void FilterConfiguration::defaults()
 {
-	ui.leRegExp->setText(i18n(".*"));
+  ui.leRegExp->setText(i18n(".*"));
 }
+
 
 FilterConfiguration::~FilterConfiguration()
 {
-	
+
 }

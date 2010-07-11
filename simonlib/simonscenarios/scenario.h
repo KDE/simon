@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SCENARIO_H_24758EAA6EE243FEB25B1E32515C761A
 #define SIMON_SCENARIO_H_24758EAA6EE243FEB25B1E32515C761A
 #include <QString>
@@ -43,115 +42,115 @@ class ActiveVocabulary;
 class TrainingTextCollection;
 class TrainingText;
 
-class MODELMANAGEMENT_EXPORT Scenario : public QObject {
-	Q_OBJECT
+class MODELMANAGEMENT_EXPORT Scenario : public QObject
+{
+  Q_OBJECT
 
-signals:
-	void changed(Scenario*);
+    signals:
+  void changed(Scenario*);
 
-private:
-	QString m_prefix;
-	int m_inGroup;
-	bool m_dirty;
-	QString m_scenarioId;
+  private:
+    QString m_prefix;
+    int m_inGroup;
+    bool m_dirty;
+    QString m_scenarioId;
 
-	QDateTime m_lastModifiedDate;
+    QDateTime m_lastModifiedDate;
 
-	int m_version;
+    int m_version;
 
-	QString m_name;
-	QString m_iconSrc;
-	QString m_licence;
-	QList<Author*> m_authors;
-	VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
-	ActiveVocabulary *m_vocabulary;
-	TrainingTextCollection *m_texts;
-	Grammar *m_grammar;
-	ActionCollection* m_actionCollection;
+    QString m_name;
+    QString m_iconSrc;
+    QString m_licence;
+    QList<Author*> m_authors;
+    VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
+    ActiveVocabulary *m_vocabulary;
+    TrainingTextCollection *m_texts;
+    Grammar *m_grammar;
+    ActionCollection* m_actionCollection;
 
-	QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=NULL);
+    QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
-	bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
+    bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
 
-public:
-	Scenario(const QString& scenarioId, const QString& prefix=QString());
+  public:
+    Scenario(const QString& scenarioId, const QString& prefix=QString());
 
-	KIcon icon() { return KIcon(m_iconSrc); }
-	QString iconSrc() { return m_iconSrc; }
-	QString name() { return m_name; }
-	int version() { return m_version; }
-	QString id() { return m_scenarioId; }
-	QString licence() { return m_licence; }
-	VersionNumber* simonMinVersion() { return m_simonMinVersion; }
-	VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
-	QList<Author*> authors() { return m_authors; }
-	QDateTime modifiedDate() { return m_lastModifiedDate; }
+    KIcon icon() { return KIcon(m_iconSrc); }
+    QString iconSrc() { return m_iconSrc; }
+    QString name() { return m_name; }
+    int version() { return m_version; }
+    QString id() { return m_scenarioId; }
+    QString licence() { return m_licence; }
+    VersionNumber* simonMinVersion() { return m_simonMinVersion; }
+    VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
+    QList<Author*> authors() { return m_authors; }
+    QDateTime modifiedDate() { return m_lastModifiedDate; }
 
-	QString serialize();
+    QString serialize();
 
-	bool addWords(QList<Word*>* w);
-	bool addWord(Word* w);
-	bool removeWord(Word* w);
+    bool addWords(QList<Word*>* w);
+    bool addWord(Word* w);
+    bool removeWord(Word* w);
 
-	bool addStructures(const QStringList& newStructures);
+    bool addStructures(const QStringList& newStructures);
 
-	QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
-	QList<Word*> findWordsByTerminal(const QString& name);
+    QList<Word*> findWords(const QString& name, Vocabulary::MatchType type);
+    QList<Word*> findWordsByTerminal(const QString& name);
 
-	QStringList getAllPossibleSentences();
-	QStringList getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples=NULL);
+    QStringList getAllPossibleSentences();
+    QStringList getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples=0);
 
-	QStringList getExampleSentencesOfStructur(const QString& structure);
+    QStringList getExampleSentencesOfStructur(const QString& structure);
 
-	QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
-	QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(), 
-			const QString& toDemonstrateTerminal=QString());
+    QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
+    QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(),
+      const QString& toDemonstrateTerminal=QString());
 
-	QStringList getTerminals(SpeechModel::ModelElements elements);
-	bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
+    QStringList getTerminals(SpeechModel::ModelElements elements);
+    bool renameTerminal(const QString& terminal, const QString& newName, SpeechModel::ModelElements affect);
 
-	QString getRandomWord(const QString& terminal);
-	bool containsWord(const QString& word);
-	bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
+    QString getRandomWord(const QString& terminal);
+    bool containsWord(const QString& word);
+    bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
-	bool skim(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
-	bool readLanguageModel(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
-	bool readActions(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
-	bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=NULL, bool deleteDoc=false);
-	bool init(QString path=QString());
-	bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
-			VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
-	bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion, 
-			VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
-	bool save(QString path=QString());
+    bool skim(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readLanguageModel(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readActions(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool init(QString path=QString());
+    bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
+      VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
+    bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
+      VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
+    bool save(QString path=QString());
 
-	ActiveVocabulary* vocabulary() { return m_vocabulary; }
-	Grammar* grammar() { return m_grammar; }
-	TrainingTextCollection* texts() { return m_texts; }
-	ActionCollection* actionCollection() { return m_actionCollection; }
+    ActiveVocabulary* vocabulary() { return m_vocabulary; }
+    Grammar* grammar() { return m_grammar; }
+    TrainingTextCollection* texts() { return m_texts; }
+    ActionCollection* actionCollection() { return m_actionCollection; }
 
-	bool removeText(TrainingText* text);
-	bool addTrainingText(TrainingText* text);
+    bool removeText(TrainingText* text);
+    bool addTrainingText(TrainingText* text);
 
-	bool removeCommand(Command *command);
+    bool removeCommand(Command *command);
 
-	bool processResult(RecognitionResult recognitionResult);
-	bool triggerCommand(const QString& type, const QString& trigger);
+    bool processResult(RecognitionResult recognitionResult);
+    bool triggerCommand(const QString& type, const QString& trigger);
 
-	CommandList* getCommandList();
+    CommandList* getCommandList();
 
-	void startGroup();
-	bool commitGroup();
+    void startGroup();
+    bool commitGroup();
 
-	~Scenario();
+    ~Scenario();
 
-	void setPluginFont(const QFont& font);
+    void setPluginFont(const QFont& font);
 
-	static QString createId(const QString& name);
+    static QString createId(const QString& name);
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
-	void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+    void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
 
 };
-
 #endif

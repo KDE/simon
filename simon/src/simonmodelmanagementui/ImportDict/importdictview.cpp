@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importdictview.h"
 
 #include "importdictintropage.h"
@@ -42,24 +41,25 @@
  * The parent of the window.
  */
 ImportDictView::ImportDictView(QWidget* parent) : SimonWizard(parent),
-	workingPage(createImportDictWorkingPage())
+workingPage(createImportDictWorkingPage())
 {
-	addPage(createIntroPage());
-	addPage(createSelectSourcePage());
-	addPage(createImportBOMPPage());
-	addPage(createImportBOMPDownloadPage());
-	addPage(createImportLexiconPage());
-	addPage(createImportPLSPage());
-	addPage(createImportSPHINXPage());
-	addPage(createImportJuliusVocabularyPage());
+  addPage(createIntroPage());
+  addPage(createSelectSourcePage());
+  addPage(createImportBOMPPage());
+  addPage(createImportBOMPDownloadPage());
+  addPage(createImportLexiconPage());
+  addPage(createImportPLSPage());
+  addPage(createImportSPHINXPage());
+  addPage(createImportJuliusVocabularyPage());
 
-	connect(workingPage, SIGNAL(done()), this, SLOT(next()));
-	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
-	addPage(workingPage);
-	addPage(createFinishedPage());
-	setWindowTitle(i18n("Importing Dictionary"));
-	setBanner("importdict");
+  connect(workingPage, SIGNAL(done()), this, SLOT(next()));
+  connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
+  addPage(workingPage);
+  addPage(createFinishedPage());
+  setWindowTitle(i18n("Importing Dictionary"));
+  setBanner("importdict");
 }
+
 
 /**
  * \brief Creates the page to import a simon lexicon
@@ -68,8 +68,9 @@ ImportDictView::ImportDictView(QWidget* parent) : SimonWizard(parent),
  */
 QWizardPage* ImportDictView::createImportLexiconPage()
 {
-	return new ImportLexiconPage(this);
+  return new ImportLexiconPage(this);
 }
+
 
 /**
  * \brief Creates the page to import a pls lexicon
@@ -78,8 +79,9 @@ QWizardPage* ImportDictView::createImportLexiconPage()
  */
 QWizardPage* ImportDictView::createImportPLSPage()
 {
-	return new ImportDictPLSPage(this);
+  return new ImportDictPLSPage(this);
 }
+
 
 /**
  * \brief Creates the page to import a sphinx lexicon
@@ -88,7 +90,7 @@ QWizardPage* ImportDictView::createImportPLSPage()
  */
 QWizardPage* ImportDictView::createImportSPHINXPage()
 {
-	return new ImportDictSPHINXPage(this);
+  return new ImportDictSPHINXPage(this);
 }
 
 
@@ -99,21 +101,23 @@ QWizardPage* ImportDictView::createImportSPHINXPage()
  */
 QWizardPage* ImportDictView::createImportJuliusVocabularyPage()
 {
-	return new ImportDictJuliusPage(this);
+  return new ImportDictJuliusPage(this);
 }
+
 
 /**
  * \brief Creates the intro page
  * \author Peter Grasch
- * 
+ *
  * This page contains a short written introduction on what is coming up
- * 
+ *
  * @return the created qwizardpage
  */
 QWizardPage* ImportDictView::createIntroPage()
 {
-	return new ImportDictIntroPage(this);
+  return new ImportDictIntroPage(this);
 }
+
 
 /**
  * \brief Creates a new ImportDictSelectSourcePage and returns it
@@ -122,27 +126,29 @@ QWizardPage* ImportDictView::createIntroPage()
  */
 ImportDictSelectSourcePage* ImportDictView::createSelectSourcePage()
 {
-	return new ImportDictSelectSourcePage(this);
+  return new ImportDictSelectSourcePage(this);
 }
+
 
 /**
  * \brief Creates a new ImportBOMPPage and returns it
  * \author Peter Grasch
  * @return the created page
  */
-ImportDictBOMPPage* ImportDictView::createImportBOMPPage() 
+ImportDictBOMPPage* ImportDictView::createImportBOMPPage()
 {
-	return new ImportDictBOMPPage(this);
+  return new ImportDictBOMPPage(this);
 }
+
 
 /**
  * \brief Creates a new ImportBOMDownloadPPage and returns it
  * \author Peter Grasch
  * @return the created page
  */
-ImportDictBOMPDownloadPage* ImportDictView::createImportBOMPDownloadPage() 
+ImportDictBOMPDownloadPage* ImportDictView::createImportBOMPDownloadPage()
 {
-	return new ImportDictBOMPDownloadPage(this);
+  return new ImportDictBOMPDownloadPage(this);
 }
 
 
@@ -153,10 +159,11 @@ ImportDictBOMPDownloadPage* ImportDictView::createImportBOMPDownloadPage()
  */
 ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 {
-	ImportDictWorkingPage *page = new ImportDictWorkingPage(this);
-	connect(this, SIGNAL(rejected()), page, SLOT(abort()));
-	return page;
+  ImportDictWorkingPage *page = new ImportDictWorkingPage(this);
+  connect(this, SIGNAL(rejected()), page, SLOT(abort()));
+  return page;
 }
+
 
 /**
  * \brief Creates a new QWizardPage, builds the gui, and returns it
@@ -165,26 +172,27 @@ ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
  */
 QWizardPage* ImportDictView::createFinishedPage()
 {
-	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Dictionary imported"));
-	QLabel *lbFinished = new QLabel(finished);
-	lbFinished->setText(i18n("The dictionary has been imported successfully.\n\nThank you for improving simon."));
-	lbFinished->setWordWrap(true);
-	QVBoxLayout *lay = new QVBoxLayout(finished);
-	lay->addWidget(lbFinished);
-	finished->setLayout(lay);
-	return finished;
+  QWizardPage *finished = new QWizardPage(this);
+  finished->setTitle(i18n("Dictionary imported"));
+  QLabel *lbFinished = new QLabel(finished);
+  lbFinished->setText(i18n("The dictionary has been imported successfully.\n\nThank you for improving simon."));
+  lbFinished->setWordWrap(true);
+  QVBoxLayout *lay = new QVBoxLayout(finished);
+  lay->addWidget(lbFinished);
+  finished->setLayout(lay);
+  return finished;
 }
 
 
 QList<Word*>* ImportDictView::importDict(Vocabulary::VocabularyType& type)
 {
-	if (exec()) {
-		type = (Vocabulary::VocabularyType) field("targetType").toInt();
-		return workingPage->getCurrentWordList();
-	}
-	return NULL;
+  if (exec()) {
+    type = (Vocabulary::VocabularyType) field("targetType").toInt();
+    return workingPage->getCurrentWordList();
+  }
+  return 0;
 }
+
 
 /**
  * \brief Destructor

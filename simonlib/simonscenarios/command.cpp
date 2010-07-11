@@ -26,7 +26,7 @@
 
 /**
  * \brief Should this command be executed?
- * 
+ *
  * This method tells the CommandManager if the command matches the current conditions (state and recognition result).
  *
  * The default implementation checks if the commandManagerState is the same as the #boundState and if the recognized trigger
@@ -38,12 +38,13 @@
  */
 bool Command::matches(int commandManagerState, const QString& trigger)
 {
-	kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
-	if (commandManagerState != boundState)
-		return false;
+  kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
+  if (commandManagerState != boundState)
+    return false;
 
-	return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
+  return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
 }
+
 
 /**
  * \brief Executes the command
@@ -63,31 +64,33 @@ bool Command::matches(int commandManagerState, const QString& trigger)
  */
 bool Command::trigger(int* state)
 {
-	if (announce) {
-		KIcon commandIcon = getIcon();
-		SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
-	}
-	*state = switchToState;
-	kDebug() << "Switchting to state: " << switchToState << getTrigger();
-	return triggerPrivate(state);
+  if (announce) {
+    KIcon commandIcon = getIcon();
+    SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
+  }
+  *state = switchToState;
+  kDebug() << "Switchting to state: " << switchToState << getTrigger();
+  return triggerPrivate(state);
 }
+
 
 /**
  * \brief Exports the user relevant parts of the command
  *
  * This is used to export user relevant information about the command.
  *
- * Don't overwrite this directly but use getValueMapPrivate() instead!
+ * Do not overwrite this directly but use getValueMapPrivate() instead!
  *
  * \return Key -> Value pairs of "field" -> "value" information; For example: "Description" -> "Bla"
  * \sa getValueMapPrivate()
  */
 const QMap<QString,QVariant> Command::getValueMap() const
 {
-	QMap<QString,QVariant> out = getValueMapPrivate();
- 	out.insert(i18n("Description"), getDescription());
-	return out;
+  QMap<QString,QVariant> out = getValueMapPrivate();
+  out.insert(i18n("Description"), getDescription());
+  return out;
 }
+
 
 /**
  * \brief Serializes the internal state of the command to an XML element
@@ -102,29 +105,29 @@ const QMap<QString,QVariant> Command::getValueMap() const
  */
 QDomElement Command::serialize(QDomDocument *doc)
 {
-	QDomElement commandElem = doc->createElement("command");
+  QDomElement commandElem = doc->createElement("command");
 
-	QDomElement name = doc->createElement("name");
-	name.appendChild(doc->createTextNode(triggerName));
-	QDomElement icon = doc->createElement("icon");
-	icon.appendChild(doc->createTextNode(iconSrc));
-	QDomElement descriptionElem = doc->createElement("description");
-	descriptionElem.appendChild(doc->createTextNode(description));
-	QDomElement stateElem = doc->createElement("state");
-	stateElem.appendChild(doc->createTextNode(QString::number(boundState)));
-	QDomElement newStateElem = doc->createElement("newState");
-	newStateElem.appendChild(doc->createTextNode(QString::number(switchToState)));
-	QDomElement announceElem = doc->createElement("announce");
-	announceElem.appendChild(doc->createTextNode(announce ? "1" : "0"));
+  QDomElement name = doc->createElement("name");
+  name.appendChild(doc->createTextNode(triggerName));
+  QDomElement icon = doc->createElement("icon");
+  icon.appendChild(doc->createTextNode(iconSrc));
+  QDomElement descriptionElem = doc->createElement("description");
+  descriptionElem.appendChild(doc->createTextNode(description));
+  QDomElement stateElem = doc->createElement("state");
+  stateElem.appendChild(doc->createTextNode(QString::number(boundState)));
+  QDomElement newStateElem = doc->createElement("newState");
+  newStateElem.appendChild(doc->createTextNode(QString::number(switchToState)));
+  QDomElement announceElem = doc->createElement("announce");
+  announceElem.appendChild(doc->createTextNode(announce ? "1" : "0"));
 
-	commandElem.appendChild(name);
-	commandElem.appendChild(icon);
-	commandElem.appendChild(descriptionElem);
-	commandElem.appendChild(stateElem);
-	commandElem.appendChild(newStateElem);
-	commandElem.appendChild(announceElem);
+  commandElem.appendChild(name);
+  commandElem.appendChild(icon);
+  commandElem.appendChild(descriptionElem);
+  commandElem.appendChild(stateElem);
+  commandElem.appendChild(newStateElem);
+  commandElem.appendChild(announceElem);
 
-	return serializePrivate(doc, commandElem);
+  return serializePrivate(doc, commandElem);
 }
 
 
@@ -144,19 +147,18 @@ QDomElement Command::serialize(QDomDocument *doc)
  */
 bool Command::deSerialize(const QDomElement& elem)
 {
-	QDomElement name = elem.firstChildElement();
-	QDomElement icon = name.nextSiblingElement();
-	QDomElement descriptionElem = icon.nextSiblingElement();
-	QDomElement stateElem = descriptionElem.nextSiblingElement();
-	QDomElement newStateElem = stateElem.nextSiblingElement();
-	QDomElement announceElem = newStateElem.nextSiblingElement();
-	triggerName = name.text();
-	iconSrc = icon.text();
-	description = descriptionElem.text();
-	boundState = stateElem.text().toInt();
-	switchToState = newStateElem.text().toInt();
-	announce = (announceElem.text().toInt() == 1);
+  QDomElement name = elem.firstChildElement();
+  QDomElement icon = name.nextSiblingElement();
+  QDomElement descriptionElem = icon.nextSiblingElement();
+  QDomElement stateElem = descriptionElem.nextSiblingElement();
+  QDomElement newStateElem = stateElem.nextSiblingElement();
+  QDomElement announceElem = newStateElem.nextSiblingElement();
+  triggerName = name.text();
+  iconSrc = icon.text();
+  description = descriptionElem.text();
+  boundState = stateElem.text().toInt();
+  switchToState = newStateElem.text().toInt();
+  announce = (announceElem.text().toInt() == 1);
 
-	return deSerializePrivate(elem);
+  return deSerializePrivate(elem);
 }
-

@@ -24,45 +24,42 @@
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT Sample : public SSCObject {
+class SSCOBJECTS_EXPORT Sample : public SSCObject
+{
 
-private:
-	qint32 m_sampleId;
-	qint32 m_typeId;
-	qint32 m_userId;
-	qint16 m_microphoneId;
-	qint16 m_soundCardId;
-	QString m_path;
-	QString m_prompt;
-	QByteArray m_data;
+  private:
+    qint32 m_sampleId;
+    qint32 m_typeId;
+    qint32 m_userId;
+    qint16 m_microphoneId;
+    qint16 m_soundCardId;
+    QString m_path;
+    QString m_prompt;
+    QByteArray m_data;
 
-public:
-	Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId, 
-			qint16 soundCardId, const QString& path, const QString& prompt,
-			const QByteArray& data);
+  public:
+    Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId,
+      qint16 soundCardId, const QString& path, const QString& prompt,
+      const QByteArray& data);
 
-	Sample() {}
+    Sample() {}
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
+    void deserialize(QByteArray data);
+    QByteArray serialize();
 
-	qint32 sampleId() { return m_sampleId; }
-	qint32 typeId() { return m_typeId; }
-	qint32 userId() { return m_userId; }
-	qint16 microphoneId() { return m_microphoneId; }
-	qint16 soundCardId() { return m_soundCardId; }
-	QString path() { return m_path; }
-	QString prompt() { return m_prompt; }
-	QByteArray data() { return m_data; }
+    qint32 sampleId() { return m_sampleId; }
+    qint32 typeId() { return m_typeId; }
+    qint32 userId() { return m_userId; }
+    qint16 microphoneId() { return m_microphoneId; }
+    qint16 soundCardId() { return m_soundCardId; }
+    QString path() { return m_path; }
+    QString prompt() { return m_prompt; }
+    QByteArray data() { return m_data; }
 
-	void setId(qint32 sampleId) { m_sampleId = sampleId; }
-	void setPath(const QString& path) { m_path = path; }
-	bool deleteFile();
+    void setId(qint32 sampleId) { m_sampleId = sampleId; }
+    void setPath(const QString& path) { m_path = path; }
+    bool deleteFile();
 
-	~Sample() {}
+    ~Sample() {}
 };
-
 #endif
-
-
-

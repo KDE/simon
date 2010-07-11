@@ -1,21 +1,20 @@
 #ifndef SIMON_SSCOBJECTS_EXPORT_H_F2BFDFD71B6C40858DF148F3A8E5795A
 #define SIMON_SSCOBJECTS_EXPORT_H_F2BFDFD71B6C40858DF148F3A8E5795A
- 
+
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
- 
+
 #ifndef SSCOBJECTS_EXPORT
 # if defined(MAKE_SSCOBJECTS_LIB)
-   // We are building this library
+// We are building this library
 #  define SSCOBJECTS_EXPORT KDE_EXPORT
 # else
-   // We are using this library
+// We are using this library
 #  define SSCOBJECTS_EXPORT
 # endif
 #endif
- 
+
 # ifndef SSCOBJECTS_EXPORT_DEPRECATED
 #  define SSCOBJECTS_EXPORT_DEPRECATED KDE_DEPRECATED SSCOBJECTS_EXPORT
 # endif
- 
-#endif 
+#endif

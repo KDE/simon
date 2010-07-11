@@ -24,59 +24,61 @@
 
 namespace SimonSound
 {
-	enum SoundDeviceUses {
-		None=0,
-		Training=1,
-		Recognition=2
-	};
-	
-	enum SoundDeviceOptions {
-		NoOptions=0,
-		Removable=1
-	};
+  enum SoundDeviceUses
+  {
+    None=0,
+    Training=1,
+    Recognition=2
+  };
 
-	enum SoundDeviceType {
-		Input=1,
-		Output=2
-	};
+  enum SoundDeviceOptions
+  {
+    NoOptions=0,
+    Removable=1
+  };
 
+  enum SoundDeviceType
+  {
+    Input=1,
+    Output=2
+  };
 
-	class DeviceConfiguration
-	{
-		private:
-			QString m_name;
-			int m_channels;
-			int m_sampleRate;
-		public:
-			DeviceConfiguration(const QString& name, int channels, int sampleRate) : 
-				m_name(name), m_channels(channels), m_sampleRate(sampleRate)
-			{}
+  class DeviceConfiguration
+  {
+    private:
+      QString m_name;
+      int m_channels;
+      int m_sampleRate;
+    public:
+      DeviceConfiguration(const QString& name, int channels, int sampleRate) :
+      m_name(name), m_channels(channels), m_sampleRate(sampleRate)
+        {}
 
-			DeviceConfiguration() : 
-				m_name(""), m_channels(0), m_sampleRate(0)
-			{}
-			
-			QString name() const { return m_name; }
-			int channels() const { return m_channels; }
-			int sampleRate() const { return m_sampleRate; }
+      DeviceConfiguration() :
+      m_name(""), m_channels(0), m_sampleRate(0)
+        {}
 
-			void setChannels(int channels) { m_channels = channels; }
-			void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
+      QString name() const { return m_name; }
+      int channels() const { return m_channels; }
+      int sampleRate() const { return m_sampleRate; }
 
-			bool operator== (const DeviceConfiguration& b) const
-			{
-				return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate());
-			}
+      void setChannels(int channels) { m_channels = channels; }
+      void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
 
-			DeviceConfiguration operator=(const DeviceConfiguration& b)
-			{
-				m_name = b.name();
-				m_channels = b.channels();
-				m_sampleRate = b.sampleRate();
-				return *this;
-			}
-	};
+      bool operator== (const DeviceConfiguration& b) const
+      {
+        return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate());
+      }
+
+      DeviceConfiguration operator=(const DeviceConfiguration& b) {
+        m_name = b.name();
+        m_channels = b.channels();
+        m_sampleRate = b.sampleRate();
+        return *this;
+      }
+  };
 }
+
 
 //forward declaration needed for QHash include (cascading down to first use of a
 // Deviceconfiguration-based QHash)
@@ -85,10 +87,6 @@ inline uint qHash(const SimonSound::DeviceConfiguration& dev);
 
 inline uint qHash(const SimonSound::DeviceConfiguration& dev)
 {
-	return qHash(QString("%1||%2||%3").arg(dev.name(), dev.channels(), dev.sampleRate()));
+  return qHash(QString("%1||%2||%3").arg(dev.name(), dev.channels(), dev.sampleRate()));
 }
-
-
 #endif
-
-

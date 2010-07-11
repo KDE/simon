@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 #define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 
@@ -28,51 +27,48 @@
 
 class QByteArray;
 
-class SIMONSOUND_EXPORT SoundClient {
+class SIMONSOUND_EXPORT SoundClient
+{
 
-public:
-	enum SoundClientPriority
-	{
-		Background=0, // if set this client will be paused whenever any other job starts
-			      // even if that job is not set to be exclusive (think of the 
-			      // "Background" job to be a process with "Idle" priority)
-		Normal=1,
-		Exclusive=2 // if set this client demands exclusive use of the in/output device
-			    // (all other clients have to be suspended)
-	};
+  public:
+    enum SoundClientPriority
+    {
+      Background=0,                               // if set this client will be paused whenever any other job starts
+      // even if that job is not set to be exclusive (think of the
+      // "Background" job to be a process with "Idle" priority)
+      Normal=1,
+      Exclusive=2                                 // if set this client demands exclusive use of the in/output device
+      // (all other clients have to be suspended)
+    };
 
-	SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority priority=Normal);
-	virtual ~SoundClient();
+    SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority priority=Normal);
+    virtual ~SoundClient();
 
-	virtual void resume() {}
-	virtual void suspend() {}
+    virtual void resume() {}
+    virtual void suspend() {}
 
-protected:
-	SimonSound::DeviceConfiguration m_deviceConfiguration;
-	SoundClientPriority m_priority;
+  protected:
+    SimonSound::DeviceConfiguration m_deviceConfiguration;
+    SoundClientPriority m_priority;
 
+  public:
+    SimonSound::DeviceConfiguration deviceConfiguration() const
+      { return m_deviceConfiguration; }
 
-public:
-	SimonSound::DeviceConfiguration deviceConfiguration() const
-	{ return m_deviceConfiguration; }
+    void setDeviceConfiguration(SimonSound::DeviceConfiguration dev)
+      { m_deviceConfiguration = dev; }
 
-	void setDeviceConfiguration(SimonSound::DeviceConfiguration dev)
-	{ m_deviceConfiguration = dev; }
+    SoundClientPriority priority() const
+      { return m_priority; }
 
-	SoundClientPriority priority() const
-	{ return m_priority; }
+    bool isBackground() const
+      { return m_priority & Background; }
+    bool isNormal() const
+      { return m_priority & Normal; }
+    bool isExclusive() const
+      { return m_priority & Exclusive; }
 
-	bool isBackground() const
-	{ return m_priority & Background; }
-	bool isNormal() const
-	{ return m_priority & Normal; }
-	bool isExclusive() const
-	{ return m_priority & Exclusive; }
-
-	virtual void inputStateChanged(QAudio::State) {}
-	virtual void outputStateChanged(QAudio::State) {}
+    virtual void inputStateChanged(QAudio::State) {}
+    virtual void outputStateChanged(QAudio::State) {}
 };
-
 #endif
-
-

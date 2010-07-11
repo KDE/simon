@@ -17,28 +17,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LEXICONDICT_H_D697D2C4A43A4F81A3139128ACDB541E
 #define SIMON_LEXICONDICT_H_D697D2C4A43A4F81A3139128ACDB541E
 
 #include "dict.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class LexiconDict : public Dict
 {
-	Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void loaded();
+    signals:
+  void loaded();
 
-public:
+  public:
     explicit LexiconDict(QObject* parent=0);
     void load(QString path, QString encodingName);
 
     ~LexiconDict();
 
 };
-
 #endif

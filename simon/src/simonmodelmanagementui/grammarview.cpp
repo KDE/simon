@@ -17,27 +17,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "grammarview.h"
 #include <QVBoxLayout>
 #include "grammarviewprivate.h"
 
-
-GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"), 
-	KIcon("applications-education-language"), 
-	i18n("View and modify the grammar."), parent),
-	d(new GrammarViewPrivate(this))
+GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"),
+KIcon("applications-education-language"),
+i18n("View and modify the grammar."), parent),
+d(new GrammarViewPrivate(this))
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(d);
-	hide();
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(d);
+  hide();
 }
 
 
 void GrammarView::displayScenarioPrivate(Scenario *scenario)
 {
-	d->displayScenario(scenario);
+  d->displayScenario(scenario);
 }
+
 
 GrammarView::~GrammarView()
 {

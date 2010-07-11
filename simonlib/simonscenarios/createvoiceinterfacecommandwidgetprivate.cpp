@@ -25,78 +25,81 @@
 #include <KIcon>
 #include <KMessageBox>
 
-CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent) : 
-		CreateCommandWidget(manager, parent)
+CreateVoiceInterfaceCommandWidgetPrivate::CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent) :
+CreateCommandWidget(manager, parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	ui.cbAction->clear();
-	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates = manager->getVoiceInterfaceCommandTemplates();
-	foreach (VoiceInterfaceCommandTemplate* tem, voiceInterfaceCommandTemplates)
-		ui.cbAction->addItem(KIcon(tem->icon()), tem->actionName(), tem->id());
+  ui.cbAction->clear();
+  QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates = manager->getVoiceInterfaceCommandTemplates();
+  foreach (VoiceInterfaceCommandTemplate* tem, voiceInterfaceCommandTemplates)
+    ui.cbAction->addItem(KIcon(tem->icon()), tem->actionName(), tem->id());
 
-//	QHash<QString, QString> voiceInterfaceActionNames = m_manager->getVoiceInterfaceActionNames();
-//	QStringList ids = voiceInterfaceActionNames.keys();
-//	foreach (const QString& id, ids)
-		//ui.cbAction->addItem(voiceInterfaceActionNames.value(id), id);
+  //	QHash<QString, QString> voiceInterfaceActionNames = m_manager->getVoiceInterfaceActionNames();
+  //	QStringList ids = voiceInterfaceActionNames.keys();
+  //	foreach (const QString& id, ids)
+  //ui.cbAction->addItem(voiceInterfaceActionNames.value(id), id);
 
-	connect(ui.cbAction, SIGNAL(currentIndexChanged(int)), this, SIGNAL(completeChanged()));
-	connect(ui.pbFromTemplate, SIGNAL(clicked()), this, SLOT(initFromTemplate()));
+  connect(ui.cbAction, SIGNAL(currentIndexChanged(int)), this, SIGNAL(completeChanged()));
+  connect(ui.pbFromTemplate, SIGNAL(clicked()), this, SLOT(initFromTemplate()));
 }
+
 
 Command* CreateVoiceInterfaceCommandWidgetPrivate::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
-	if (!tem) return NULL;
+  VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
+  if (!tem) return 0;
 
-	VoiceInterfaceCommand *voiceInterfaceCommand = new VoiceInterfaceCommand(m_manager, 
-			name, iconSrc, description, tem->id(), tem->state(), tem->newState(), 
-			ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked(), tem->announce());
-	voiceInterfaceCommand->assignAction(m_manager, tem->receiver(), tem->slot());
-	return voiceInterfaceCommand;
+  VoiceInterfaceCommand *voiceInterfaceCommand = new VoiceInterfaceCommand(m_manager,
+    name, iconSrc, description, tem->id(), tem->state(), tem->newState(),
+    ui.leVisibleTrigger->text(), ui.cbShowIcon->isChecked(), tem->announce());
+  voiceInterfaceCommand->assignAction(m_manager, tem->receiver(), tem->slot());
+  return voiceInterfaceCommand;
 }
 
 
 VoiceInterfaceCommandTemplate* CreateVoiceInterfaceCommandWidgetPrivate::getCurrentTemplate()
 {
-	QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates = m_manager->getVoiceInterfaceCommandTemplates();
-	int currentIndex = ui.cbAction->currentIndex();
-	if ((currentIndex == -1) || (currentIndex > voiceInterfaceCommandTemplates.count())) {
-		KMessageBox::information(this, i18n("Please select a valid action"));
-		return false;
-	}
+  QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates = m_manager->getVoiceInterfaceCommandTemplates();
+  int currentIndex = ui.cbAction->currentIndex();
+  if ((currentIndex == -1) || (currentIndex > voiceInterfaceCommandTemplates.count())) {
+    KMessageBox::information(this, i18n("Please select a valid action"));
+    return false;
+  }
 
-	return voiceInterfaceCommandTemplates[currentIndex];
+  return voiceInterfaceCommandTemplates[currentIndex];
 }
+
 
 void CreateVoiceInterfaceCommandWidgetPrivate::initFromTemplate()
 {
-	VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
-	if (!tem) return;
+  VoiceInterfaceCommandTemplate* tem = getCurrentTemplate();
+  if (!tem) return;
 
-	ui.cbShowIcon->setChecked(tem->showIcon());
-	ui.leVisibleTrigger->setText(tem->defaultVisibleTrigger());
+  ui.cbShowIcon->setChecked(tem->showIcon());
+  ui.leVisibleTrigger->setText(tem->defaultVisibleTrigger());
 
-	VoiceInterfaceCommand *c = new VoiceInterfaceCommand(m_manager, tem);
-	c->setParent(m_manager);
-	emit commandSuggested(c); //command will be deleted by receiver
+  VoiceInterfaceCommand *c = new VoiceInterfaceCommand(m_manager, tem);
+  c->setParent(m_manager);
+  emit commandSuggested(c);                       //command will be deleted by receiver
 }
+
 
 bool CreateVoiceInterfaceCommandWidgetPrivate::init(Command* command)
 {
-	VoiceInterfaceCommand *c = dynamic_cast<VoiceInterfaceCommand*>(command);
-	if (!c) return false;
+  VoiceInterfaceCommand *c = dynamic_cast<VoiceInterfaceCommand*>(command);
+  if (!c) return false;
 
-	int selectedActionIndex = ui.cbAction->findData(c->id());
-	ui.cbAction->setCurrentIndex(selectedActionIndex);
+  int selectedActionIndex = ui.cbAction->findData(c->id());
+  ui.cbAction->setCurrentIndex(selectedActionIndex);
 
-	ui.leVisibleTrigger->setText(c->visibleTrigger());
-	ui.cbShowIcon->setChecked(c->showIcon());
-	return true;
+  ui.leVisibleTrigger->setText(c->visibleTrigger());
+  ui.cbShowIcon->setChecked(c->showIcon());
+  return true;
 }
+
 
 bool CreateVoiceInterfaceCommandWidgetPrivate::isComplete()
 {
-	return (ui.cbAction->currentIndex() != -1);
+  return (ui.cbAction->currentIndex() != -1);
 }
-

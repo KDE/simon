@@ -33,34 +33,33 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class PronunciationTrainingCommandManager : public CommandManager {
-Q_OBJECT
+class PronunciationTrainingCommandManager : public CommandManager
+{
+  Q_OBJECT
 
-protected:
-	bool trigger(const QString& triggerName);
+    protected:
+    bool trigger(const QString& triggerName);
 
-public slots:
-	void activateTraining();
+  public slots:
+    void activateTraining();
 
-public:
-	const QString preferredTrigger() const;
-	const QString name() const;
-	const QString iconSrc() const;
-	bool deSerializeConfig(const QDomElement& elem);
+  public:
+    const QString preferredTrigger() const;
+    const QString name() const;
+    const QString iconSrc() const;
+    bool deSerializeConfig(const QDomElement& elem);
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     PronunciationTrainingCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~PronunciationTrainingCommandManager();
 
-private:
+  private:
     KAction *activateAction;
 
 };
-
 #endif

@@ -49,7 +49,7 @@
  * @param name
  * The name that is displayed in the title of the groupbox
  * @param fileTemplate
- * The fileTemplate to record to; 
+ * The fileTemplate to record to;
  * We will ressamble the file (existing or not) when we create the play/pause/delete handles
  * @param forceSimpleMode
  * If true, the recWidget will treat the fileTemplate as fileName and only record with a single device
@@ -58,41 +58,43 @@
  * The parent of the object
  */
 RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent) : QWidget(parent),
-  statusTimer(new QTimer(this)),
-	ui(new Ui::RecWidgetUi()),
-	m_simpleMode(forceSimpleMode)
-{	
-	this->fileTemplate = fileTemplate;
+statusTimer(new QTimer(this)),
+ui(new Ui::RecWidgetUi()),
+m_simpleMode(forceSimpleMode)
+{
+  this->fileTemplate = fileTemplate;
 
-	ui->setupUi(this);
-	ui->pbRecord->setIcon(KIcon("media-record"));
-	ui->pbDeleteAll->setIcon(KIcon("edit-delete"));
+  ui->setupUi(this);
+  ui->pbRecord->setIcon(KIcon("media-record"));
+  ui->pbDeleteAll->setIcon(KIcon("edit-delete"));
 
-	setTitle(name);
-	
-	ui->tePrompt->setFont(SoundConfiguration::promptFont());
-	ui->tePrompt->setPlainText(text);
+  setTitle(name);
 
-	setupSignalsSlots();
-	initialize();
-	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
+  ui->tePrompt->setFont(SoundConfiguration::promptFont());
+  ui->tePrompt->setPlainText(text);
 
-	hideActionPrompt();
-	connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
+  setupSignalsSlots();
+  initialize();
+  connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
+
+  hideActionPrompt();
+  connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
 }
+
 
 void RecWidget::hideActionPrompt()
 {
   ui->frmPromptAction->hide();
 }
 
+
 SimonSamples::SampleProblems RecWidget::sampleProblems()
 {
-	SimonSamples::SampleProblems problems = SimonSamples::None;
-	foreach (WavFileWidget *wav, waves)
-		problems |= wav->sampleProblems();
-	
-	return problems;
+  SimonSamples::SampleProblems problems = SimonSamples::None;
+  foreach (WavFileWidget *wav, waves)
+    problems |= wav->sampleProblems();
+
+  return problems;
 }
 
 
@@ -106,6 +108,7 @@ void RecWidget::showStartPrompt()
   statusTimer->stop();
 }
 
+
 void RecWidget::showFinishPrompt()
 {
   ui->frmPromptAction->show();
@@ -114,6 +117,7 @@ void RecWidget::showFinishPrompt()
   ui->frmPromptAction->setPalette(p);
   ui->lbPromptAction->setText(i18n("Idle..."));
 }
+
 
 void RecWidget::showWaitPrompt()
 {
@@ -127,89 +131,93 @@ void RecWidget::showWaitPrompt()
 
 void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix)
 {
-	kDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
-	WavFileWidget *wg = new WavFileWidget(id, channels, sampleRate, fileTemplate+filenameSuffix+".wav", this);
+  kDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
+  WavFileWidget *wg = new WavFileWidget(id, channels, sampleRate, fileTemplate+filenameSuffix+".wav", this);
 
-	QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(ui->gbContainer->layout());
+  QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(ui->gbContainer->layout());
 
-	Q_ASSERT(lay);
+  Q_ASSERT(lay);
 
-	lay->addWidget(wg);
+  lay->addWidget(wg);
 
-	connect(wg, SIGNAL(sampleDeleted()), this, SLOT(slotSampleDeleted()));
-	connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
-	connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
+  connect(wg, SIGNAL(sampleDeleted()), this, SLOT(slotSampleDeleted()));
+  connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
+  connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
-	waves << wg;
+  waves << wg;
 }
+
 
 bool RecWidget::isRecording()
 {
-	foreach (WavFileWidget *wav, waves)
-		if (wav->getIsRecording())
-			return true;
-	return false;
+  foreach (WavFileWidget *wav, waves)
+    if (wav->getIsRecording())
+    return true;
+  return false;
 }
+
 
 QStringList RecWidget::getFileNames()
 {
-	QStringList fileNames;
-	foreach (WavFileWidget *wav, waves)
-		if (wav->hasRecordingReady())
-			fileNames << wav->getFileName();
+  QStringList fileNames;
+  foreach (WavFileWidget *wav, waves)
+    if (wav->hasRecordingReady())
+    fileNames << wav->getFileName();
 
-	return fileNames;
+  return fileNames;
 }
+
 
 QStringList RecWidget::getDevices()
 {
-	QStringList devices;
-	foreach (WavFileWidget *wav, waves)
-		if (wav->hasRecordingReady())
-			devices << wav->getDevice();
+  QStringList devices;
+  foreach (WavFileWidget *wav, waves)
+    if (wav->hasRecordingReady())
+    devices << wav->getDevice();
 
-	return devices;
+  return devices;
 }
 
 
 void RecWidget::initialize()
 {
-	foreach (WavFileWidget *wg, waves)
-		wg->deleteLater();
-	waves.clear();
+  foreach (WavFileWidget *wg, waves)
+    wg->deleteLater();
+  waves.clear();
 
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
-	if (m_simpleMode)
-	{
-		//which device?
-		QStringList deviceNames;
-		foreach (const SimonSound::DeviceConfiguration& dev, devices)
-			deviceNames << i18nc("Sound device selection; First parameter is device name",
-					"%1 (%2 channels, %3 Hz)", dev.name(), dev.channels(), dev.sampleRate());
-		
-		QString selected = QInputDialog::getItem(this, i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
-		if (!selected.isEmpty())
-		{
-			SimonSound::DeviceConfiguration selectedDevice = devices.takeAt(deviceNames.indexOf(selected));
-			registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
-		}
-	} else {
-		for (int i=0; i < devices.count(); i++)
-			registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
-	}
-	adjustButtonsToFile();
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
+  if (m_simpleMode) {
+    //which device?
+    QStringList deviceNames;
+    foreach (const SimonSound::DeviceConfiguration& dev, devices)
+      deviceNames << i18nc("Sound device selection; First parameter is device name",
+      "%1 (%2 channels, %3 Hz)", dev.name(), dev.channels(), dev.sampleRate());
+
+    QString selected = QInputDialog::getItem(this, i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
+    if (!selected.isEmpty()) {
+      SimonSound::DeviceConfiguration selectedDevice = devices.takeAt(deviceNames.indexOf(selected));
+      registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
+    }
+  }
+  else {
+    for (int i=0; i < devices.count(); i++)
+      registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), "."+QString::number(i));
+  }
+  adjustButtonsToFile();
 }
+
 
 void RecWidget::displayError(const QString& error)
 {
-	KMessageBox::error(this, error);
+  KMessageBox::error(this, error);
 }
+
 
 void RecWidget::changePromptFont(const QFont& font)
 {
-	QString text = ui->tePrompt->toPlainText();
-	ui->tePrompt->setFont(font);
-	ui->tePrompt->setPlainText(text);
+  QString text = ui->tePrompt->toPlainText();
+  ui->tePrompt->setFont(font);
+  ui->tePrompt->setPlainText(text);
 }
 
 
@@ -220,12 +228,13 @@ void RecWidget::changePromptFont(const QFont& font)
  */
 bool RecWidget::hasRecordingReady()
 {
-	bool recordingReady = false;
-	foreach (WavFileWidget *wav, waves)
-		recordingReady |= wav->hasRecordingReady();
+  bool recordingReady = false;
+  foreach (WavFileWidget *wav, waves)
+    recordingReady |= wav->hasRecordingReady();
 
-	return recordingReady;
+  return recordingReady;
 }
+
 
 /**
  * \brief Sets up the signal/slot connections
@@ -233,8 +242,8 @@ bool RecWidget::hasRecordingReady()
  */
 void RecWidget::setupSignalsSlots()
 {
-	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-	connect(ui->pbDeleteAll, SIGNAL(clicked()), this, SLOT(deleteAll()));
+  connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+  connect(ui->pbDeleteAll, SIGNAL(clicked()), this, SLOT(deleteAll()));
 }
 
 
@@ -245,9 +254,8 @@ void RecWidget::setupSignalsSlots()
  */
 void RecWidget::setTitle(QString newTitle)
 {
-	ui->gbContainer->setTitle(newTitle);
+  ui->gbContainer->setTitle(newTitle);
 }
-
 
 
 /**
@@ -256,21 +264,20 @@ void RecWidget::setTitle(QString newTitle)
  */
 void RecWidget::record()
 {
-	foreach (WavFileWidget *wav, waves)
-		wav->record();
-	
-	bool someoneIsRecording = false;
-	foreach (WavFileWidget *wav, waves)
-		someoneIsRecording |= wav->getIsRecording();
+  foreach (WavFileWidget *wav, waves)
+    wav->record();
 
-	ui->pbRecord->setChecked(someoneIsRecording);
-	disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+  bool someoneIsRecording = false;
+  foreach (WavFileWidget *wav, waves)
+    someoneIsRecording |= wav->getIsRecording();
 
-	emit recording();
+  ui->pbRecord->setChecked(someoneIsRecording);
+  disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+  connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 
-  if (someoneIsRecording)
-  {
+  emit recording();
+
+  if (someoneIsRecording) {
     showWaitPrompt();
     statusTimer->start(1000);
   }
@@ -284,52 +291,55 @@ void RecWidget::record()
 void RecWidget::stopRecording()
 {
   statusTimer->stop();
-	foreach (WavFileWidget *wav, waves)
-		wav->stopRecording();
-	
-	ui->pbRecord->setChecked(false);
-	adjustButtonsToFile();
-	
-	disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
-	connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-	emit recordingFinished();
+  foreach (WavFileWidget *wav, waves)
+    wav->stopRecording();
+
+  ui->pbRecord->setChecked(false);
+  adjustButtonsToFile();
+
+  disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+  connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+  emit recordingFinished();
   showWaitPrompt();
   hideActionPrompt();
 }
 
+
 void RecWidget::stopPlayback()
 {
-	foreach (WavFileWidget *wav, waves)
-		wav->stopPlayback();
+  foreach (WavFileWidget *wav, waves)
+    wav->stopPlayback();
 }
 
 
 void RecWidget::adjustButtonsToFile()
 {
-	bool somethingHasSample = hasRecordingReady();
+  bool somethingHasSample = hasRecordingReady();
 
-	ui->pbRecord->setEnabled(!somethingHasSample);
-	ui->pbDeleteAll->setEnabled(somethingHasSample);
+  ui->pbRecord->setEnabled(!somethingHasSample);
+  ui->pbDeleteAll->setEnabled(somethingHasSample);
 }
+
 
 void RecWidget::slotSampleDeleted()
 {
-	adjustButtonsToFile();
+  adjustButtonsToFile();
 
-	emit sampleDeleted();
+  emit sampleDeleted();
 }
+
 
 void RecWidget::slotEnableDeleteAll()
 {
-	bool shouldEnableDelete = true;
-	foreach (WavFileWidget *wav, waves)
-	{
-		shouldEnableDelete &= ! wav->getIsPlaying();
-		kDebug() << wav->getIsPlaying();
-	}
-	kDebug() << "Updating enable button: " << shouldEnableDelete;
-	ui->pbDeleteAll->setEnabled(shouldEnableDelete);
+  bool shouldEnableDelete = true;
+  foreach (WavFileWidget *wav, waves) {
+    shouldEnableDelete &= ! wav->getIsPlaying();
+    kDebug() << wav->getIsPlaying();
+  }
+  kDebug() << "Updating enable button: " << shouldEnableDelete;
+  ui->pbDeleteAll->setEnabled(shouldEnableDelete);
 }
+
 
 /**
  * \brief Deletes the file at fileTemplate (member)
@@ -337,16 +347,15 @@ void RecWidget::slotEnableDeleteAll()
  */
 bool RecWidget::deleteAll()
 {
-	bool success = true;
-	foreach (WavFileWidget *wav, waves)
-		success = wav->deleteSample() && success;
+  bool success = true;
+  foreach (WavFileWidget *wav, waves)
+    success = wav->deleteSample() && success;
 
-	return success;
+  return success;
 }
 
 
 RecWidget::~RecWidget()
 {
-	delete ui;
+  delete ui;
 }
-

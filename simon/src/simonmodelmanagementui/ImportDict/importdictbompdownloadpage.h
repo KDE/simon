@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTDICTBOMPDOWNLOADPAGE_H_2CEF8F0A71564DA294A6B36ED9B82CB1
 #define SIMON_IMPORTDICTBOMPDOWNLOADPAGE_H_2CEF8F0A71564DA294A6B36ED9B82CB1
 
@@ -35,20 +34,18 @@ class QString;
  */
 class ImportDictBOMPDownloadPage : public QWizardPage
 {
-Q_OBJECT
-private:
-	Ui::ImportBOMPDownloadDlg ui;
-	QString bompUrl;
-	QString acceptTag;
-public:
+  Q_OBJECT
+    private:
+    Ui::ImportBOMPDownloadDlg ui;
+    QString bompUrl;
+    QString acceptTag;
+  public:
     ImportDictBOMPDownloadPage(QWidget* parent);
-	int nextId() const { return ImportDictView::WorkingPage; }
-	void initializePage();
-	bool validatePage();
+    int nextId() const { return ImportDictView::WorkingPage; }
+    void initializePage();
+    bool validatePage();
 
     ~ImportDictBOMPDownloadPage();
 
 };
-
 #endif
-

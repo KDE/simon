@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
 #define SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
 
@@ -37,45 +36,43 @@ class SoundCard;
  *	@date 22.05.2010
  *	@author Peter Grasch
  */
-class SampleDataProvider {
+class SampleDataProvider
+{
 
-private:
-	qint32 m_userId;
-	TrainingsWizard::TrainingsType m_sampleType;
-	QString m_name;
-	DeviceInformationPage* m_infoPage;
-	QList<TrainSamplePage*> m_trainSamplePages;
+  private:
+    qint32 m_userId;
+    TrainingsWizard::TrainingsType m_sampleType;
+    QString m_name;
+    DeviceInformationPage* m_infoPage;
+    QList<TrainSamplePage*> m_trainSamplePages;
 
-	QList<Sample*> m_samplesToTransmit;
+    QList<Sample*> m_samplesToTransmit;
 
-	QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
-	QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+    QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
+    QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
 
-public:
-	SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QString& name);
+  public:
+    SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QString& name);
 
-	void registerMicrophoneInfo(DeviceInformationPage* infoPage);
-	void registerDataProvider(TrainSamplePage* trainSamplePage);
+    void registerMicrophoneInfo(DeviceInformationPage* infoPage);
+    void registerDataProvider(TrainSamplePage* trainSamplePage);
 
-	bool startTransmission();
-	bool store();
+    bool startTransmission();
+    bool store();
 
-	bool hasSamplesToTransmit()
-	{ return !m_samplesToTransmit.isEmpty(); }
+    bool hasSamplesToTransmit()
+      { return !m_samplesToTransmit.isEmpty(); }
 
-	int sampleToTransmitCount()
-	{ return m_samplesToTransmit.count(); }
+    int sampleToTransmitCount()
+      { return m_samplesToTransmit.count(); }
 
-	Sample* getSample();
-	void sampleTransmitted();
+    Sample* getSample();
+    void sampleTransmitted();
 
-	void stopTransmission();
+    void stopTransmission();
 
-
-	~SampleDataProvider();
+    ~SampleDataProvider();
     void skipSample();
-	
+
 };
-
 #endif
-

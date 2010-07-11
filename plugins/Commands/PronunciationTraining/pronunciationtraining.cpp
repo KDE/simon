@@ -25,125 +25,129 @@
 #include <KMessageBox>
 #include <KIcon>
 
-PronunciationTraining::PronunciationTraining(const QString& terminal, QWidget* parent): 
-	QWidget(parent), 
-	GreedyReceiver(NULL /* no manager */),
-	m_terminal(terminal)
+PronunciationTraining::PronunciationTraining(const QString& terminal, QWidget* parent):
+QWidget(parent),
+GreedyReceiver(0 /* no manager */),
+m_terminal(terminal)
 {
-	ui.setupUi(this);
-	setFont(ActionManager::getInstance()->pluginBaseFont());
-	startGreedy();
+  ui.setupUi(this);
+  setFont(ActionManager::getInstance()->pluginBaseFont());
+  startGreedy();
 
-	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(next()));
-	connect(ui.pbPrev, SIGNAL(clicked()), this, SLOT(prev()));
-	connect(ui.pbQuit, SIGNAL(clicked()), this, SLOT(quit()));
+  connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(next()));
+  connect(ui.pbPrev, SIGNAL(clicked()), this, SLOT(prev()));
+  connect(ui.pbQuit, SIGNAL(clicked()), this, SLOT(quit()));
 
-	ui.pbNext->setIcon(KIcon("go-next"));
-	ui.pbPrev->setIcon(KIcon("go-previous"));
-	ui.pbQuit->setIcon(KIcon("dialog-close"));
+  ui.pbNext->setIcon(KIcon("go-next"));
+  ui.pbPrev->setIcon(KIcon("go-previous"));
+  ui.pbQuit->setIcon(KIcon("dialog-close"));
 }
+
 
 void PronunciationTraining::init()
 {
-	m_wordsToTest.clear();
-	m_scores.clear();
-	m_wordsToTest.append(ScenarioManager::getInstance()->findWordsByTerminal(m_terminal,
-			(SpeechModel::ModelElements) 
-			(SpeechModel::ShadowVocabulary|
-			 	SpeechModel::AllScenariosVocabulary|
-				SpeechModel::AllScenariosGrammar)));
+  m_wordsToTest.clear();
+  m_scores.clear();
+  m_wordsToTest.append(ScenarioManager::getInstance()->findWordsByTerminal(m_terminal,
+    (SpeechModel::ModelElements)
+    (SpeechModel::ShadowVocabulary|
+    SpeechModel::AllScenariosVocabulary|
+    SpeechModel::AllScenariosGrammar)));
 
-	//init scores
-	for (int i=0; i < m_wordsToTest.count(); i++)
-		m_scores.append(0);
+  //init scores
+  for (int i=0; i < m_wordsToTest.count(); i++)
+    m_scores.append(0);
 
-	m_currentWordIndex = 0;
+  m_currentWordIndex = 0;
 
-	if (m_wordsToTest.count() == 0) {
-		KMessageBox::information(this, i18n("There are no words to train. Please check your configuration."));
-		hide();
-		deleteLater();
-		return;
-	}
+  if (m_wordsToTest.count() == 0) {
+    KMessageBox::information(this, i18n("There are no words to train. Please check your configuration."));
+    hide();
+    deleteLater();
+    return;
+  }
 
-	displayCurrentWord();
+  displayCurrentWord();
 }
+
 
 void PronunciationTraining::displayCurrentWord()
 {
-	kDebug() << "Displaying current word...";
+  kDebug() << "Displaying current word...";
 
-	ui.pbNext->setEnabled((m_currentWordIndex+1 < m_wordsToTest.count()));
-	ui.pbPrev->setEnabled((m_currentWordIndex > 0));
-	ui.lbSampleTitle->setText("");
+  ui.pbNext->setEnabled((m_currentWordIndex+1 < m_wordsToTest.count()));
+  ui.pbPrev->setEnabled((m_currentWordIndex > 0));
+  ui.lbSampleTitle->setText("");
 
-	if (m_currentWordIndex >= m_wordsToTest.count())
-		return;
+  if (m_currentWordIndex >= m_wordsToTest.count())
+    return;
 
-	Word *w = m_wordsToTest.at(m_currentWordIndex);
+  Word *w = m_wordsToTest.at(m_currentWordIndex);
 
-	ui.teWord->setPlainText(w->getWord());
-	ui.pbScore->setValue(m_scores.at(m_currentWordIndex));
+  ui.teWord->setPlainText(w->getWord());
+  ui.pbScore->setValue(m_scores.at(m_currentWordIndex));
 
-	ui.lbSampleTitle->setText(i18n("Sample %1 of %2:", m_currentWordIndex+1, m_wordsToTest.count()));
+  ui.lbSampleTitle->setText(i18n("Sample %1 of %2:", m_currentWordIndex+1, m_wordsToTest.count()));
 }
+
 
 void PronunciationTraining::closeEvent(QCloseEvent *)
 {
-	quit();
+  quit();
 }
+
 
 void PronunciationTraining::next()
 {
-	m_currentWordIndex++;
-	displayCurrentWord();
+  m_currentWordIndex++;
+  displayCurrentWord();
 }
+
 
 void PronunciationTraining::prev()
 {
-	m_currentWordIndex--;
-	displayCurrentWord();
+  m_currentWordIndex--;
+  displayCurrentWord();
 }
+
 
 void PronunciationTraining::quit()
 {
-	stopGreedy();
-	hide();
-	deleteLater();
+  stopGreedy();
+  hide();
+  deleteLater();
 }
+
 
 bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
 {
-	if (results->isEmpty()) return false;
+  if (results->isEmpty()) return false;
 
-	if (m_currentWordIndex >= m_wordsToTest.count())
-		return false;
-	Word *w = m_wordsToTest.at(m_currentWordIndex);
-	QString searchedSentence = w->getWord();
+  if (m_currentWordIndex >= m_wordsToTest.count())
+    return false;
+  Word *w = m_wordsToTest.at(m_currentWordIndex);
+  QString searchedSentence = w->getWord();
 
-	int i=0;
-	bool found = false;
-	foreach (RecognitionResult result, *results)
-	{
-		if (result.sentence() == searchedSentence)
-		{
-			kDebug() << "Found result: at index: " << i << result.toString();
-			ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));
-			found = true;
-		} else kDebug() << result.sentence() << " != " << searchedSentence;
-		i++;
-	}
-	if (!found) {
-		kDebug() << "Haven't found it!";
-		ui.pbScore->setValue(0);
-	}
+  int i=0;
+  bool found = false;
+  foreach (RecognitionResult result, *results) {
+    if (result.sentence() == searchedSentence) {
+      kDebug() << "Found result: at index: " << i << result.toString();
+      ui.pbScore->setValue(qRound(100.0f * result.averageConfidenceScore()));
+      found = true;
+    } else kDebug() << result.sentence() << " != " << searchedSentence;
+    i++;
+  }
+  if (!found) {
+    kDebug() << "Haven't found it!";
+    ui.pbScore->setValue(0);
+  }
 
-	return true;
+  return true;
 }
+
 
 PronunciationTraining::~PronunciationTraining()
 {
-	stopGreedy();
+  stopGreedy();
 }
-
-

@@ -27,17 +27,16 @@
 
 class SSCConfiguration : public KCModule
 {
-	Q_OBJECT
-	private:
-		Ui::SSCConfiguration ui;
-		
-	private slots:
-		void slotChanged();
-	public:
-		SSCConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
-		void save();
-		void load();
-		virtual ~SSCConfiguration();
-};
+  Q_OBJECT
+    private:
+    Ui::SSCConfiguration ui;
 
+  private slots:
+    void slotChanged();
+  public:
+    SSCConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    void save();
+    void load();
+    virtual ~SSCConfiguration();
+};
 #endif

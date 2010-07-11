@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "wav.h"
 #include <KLocalizedString>
 #include <stdlib.h>
@@ -27,10 +26,9 @@
 #include <QFile>
 #include <KDebug>
 
-
 /**
  *	@brief Constructor
- *	
+ *
  *	Initializes the member variables
  *
  *	@author Peter Grasch
@@ -38,60 +36,60 @@
  *	The filename of the .wav file
  *	@param int samplerate
  *	The samplerate of the file - this has to be specified when we create a new file; When we want to open an existing file, we can omit the pramater and it will be read from the file at <filename>
- *	
+ *
  */
 WAV::WAV(QString file_name, int channels_, int samplerate_)
-	: length(0),
-	samplerate(samplerate_), //the samplerate /has/ to be initialized - even if it is initialized with 0
-	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
-	// file at <filename> may not be current/even existing
-	channels(channels_),
-	filename(file_name)
+: length(0),
+samplerate(samplerate_),                          //the samplerate /has/ to be initialized - even if it is initialized with 0
+// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
+// file at <filename> may not be current/even existing
+channels(channels_),
+filename(file_name)
 {
-	
-// 	waveData = new short();
-    
-	if (samplerate == 0)
-	{
-		this->importDataFromFile(file_name);
-		this->samplerate = this->retrieveSampleRate();
-		this->channels = this->retrieveChannels();
-	}
-	
+
+  // 	waveData = new short();
+
+  if (samplerate == 0) {
+    this->importDataFromFile(file_name);
+    this->samplerate = this->retrieveSampleRate();
+    this->channels = this->retrieveChannels();
+  }
+
 }
 
 
 /**
  * \brief Reads the data from the given file and adds it to the waveData (member)
- * 
+ *
  * \author Peter Grasch
  * \param QString filename
  * The file to read
  */
 void WAV::importDataFromFile(QString filename)
 {
-	QFile wavFile(filename);
-	if (!wavFile.open(QIODevice::ReadOnly))
-		return;
+  QFile wavFile(filename);
+  if (!wavFile.open(QIODevice::ReadOnly))
+    return;
 
-	QDataStream *dstream = new QDataStream(&wavFile);
-	
-	dstream->setByteOrder( QDataStream::LittleEndian );
-	
-	dstream->skipRawData( 40 ); //we have to skip 40 bytes of header
-	
-	quint32 bytesToFollow;
-	dstream->readRawData((char*) &bytesToFollow, 4);
-	
-	short *out = (short*) malloc(bytesToFollow);
-	int length = dstream->readRawData((char*) out, bytesToFollow);
-	
-	this->beginAddSequence();
-	this->addData(out, length / sizeof(short));
-	this->endAddSequence();
-	
-	delete dstream;
+  QDataStream *dstream = new QDataStream(&wavFile);
+
+  dstream->setByteOrder( QDataStream::LittleEndian );
+
+  dstream->skipRawData( 40 );                     //we have to skip 40 bytes of header
+
+  quint32 bytesToFollow;
+  dstream->readRawData((char*) &bytesToFollow, 4);
+
+  short *out = (short*) malloc(bytesToFollow);
+  int length = dstream->readRawData((char*) out, bytesToFollow);
+
+  this->beginAddSequence();
+  this->addData(out, length / sizeof(short));
+  this->endAddSequence();
+
+  delete dstream;
 }
+
 
 /**
  *	@brief Adds the array of data to the main waveData (member)
@@ -104,27 +102,27 @@ void WAV::importDataFromFile(QString filename)
  */
 void WAV::addData(short* data, int length)
 {
-	length = (length*sizeof(short)) / sizeof(char);
-	write((char*) data, length);
+  length = (length*sizeof(short)) / sizeof(char);
+  write((char*) data, length);
 }
-
 
 
 qint64 WAV::writeData ( const char * data, qint64 maxSize )
 {
-	qint64 written = QBuffer::writeData(data, maxSize);
-	length += written;
-	return written;
+  qint64 written = QBuffer::writeData(data, maxSize);
+  length += written;
+  return written;
 }
+
 
 /**
  *	@brief Retrieves the samplerate from the wav file
- *	
+ *
  *	Reads the samplerate from the fileheader
- *	
- *	The samplerate will be either read directly from the file at <filename> 
- *	(when we work with an existing file (hence this->samplerate is != 0)) 
- *	or the samplerate (member) will be returned (it has to be specified 
+ *
+ *	The samplerate will be either read directly from the file at <filename>
+ *	(when we work with an existing file (hence this->samplerate is != 0))
+ *	or the samplerate (member) will be returned (it has to be specified
  *	while constructing)
  *
  *	@author Peter Grasch
@@ -133,62 +131,60 @@ qint64 WAV::writeData ( const char * data, qint64 maxSize )
  */
 int WAV::retrieveSampleRate()
 {
-	if (this->samplerate == 0)
-	{
-		//this is no new file
-		QFile wavFile(filename);
-		wavFile.open(QIODevice::ReadOnly);
-		QDataStream *dstream = new QDataStream(&wavFile);
-		
-		dstream->setByteOrder( QDataStream::LittleEndian );
-		
-		dstream->skipRawData( 24 ); //we have to skip 24 bytes of other information before we reach the samplerate
-		
-		quint32 samplerate;
-		dstream->readRawData( (char*) &samplerate, 4); //4 byte samplerate, 32bit
-		
-		dstream->unsetDevice();
-		delete dstream;
-		
-		wavFile.close();
-		
-		return (int) samplerate;
-		
-	} else return this->samplerate;
-	
+  if (this->samplerate == 0) {
+    //this is no new file
+    QFile wavFile(filename);
+    wavFile.open(QIODevice::ReadOnly);
+    QDataStream *dstream = new QDataStream(&wavFile);
+
+    dstream->setByteOrder( QDataStream::LittleEndian );
+
+    dstream->skipRawData( 24 );                   //we have to skip 24 bytes of other information before we reach the samplerate
+
+    quint32 samplerate;
+    dstream->readRawData( (char*) &samplerate, 4);//4 byte samplerate, 32bit
+
+    dstream->unsetDevice();
+    delete dstream;
+
+    wavFile.close();
+
+    return (int) samplerate;
+
+  } else return this->samplerate;
+
 }
 
 
 int WAV::retrieveChannels()
 {
-	if (this->channels == 0)
-	{
-		//this is no new file
-		QFile wavFile(filename);
-		wavFile.open(QIODevice::ReadOnly);
-		QDataStream *dstream = new QDataStream(&wavFile);
-		
-		dstream->setByteOrder( QDataStream::LittleEndian );
-		
-		dstream->skipRawData( 22 ); //we have to skip 22 bytes of other information before we reach the channels
-		
-		quint16 channels;
-		dstream->readRawData( (char*) &channels, 2); //2 byte samplerate, 16bit	
-		
-		dstream->unsetDevice();
-		wavFile.close();
-		delete dstream;
-		
-		return (int) channels;
-		
-	} else return this->channels;
-	
+  if (this->channels == 0) {
+    //this is no new file
+    QFile wavFile(filename);
+    wavFile.open(QIODevice::ReadOnly);
+    QDataStream *dstream = new QDataStream(&wavFile);
+
+    dstream->setByteOrder( QDataStream::LittleEndian );
+
+    dstream->skipRawData( 22 );                   //we have to skip 22 bytes of other information before we reach the channels
+
+    quint16 channels;
+    dstream->readRawData( (char*) &channels, 2);  //2 byte samplerate, 16bit
+
+    dstream->unsetDevice();
+    wavFile.close();
+    delete dstream;
+
+    return (int) channels;
+
+  } else return this->channels;
+
 }
 
 
 /**
  *	@brief Writes the file
- *	
+ *
  *	Calls all the submethods to write the header, writes the data stored in
  *	waveData (member) and closes the file.
  *
@@ -198,36 +194,36 @@ int WAV::retrieveChannels()
  */
 bool WAV::writeFile(QString filename)
 {
-	if (filename.isEmpty()) filename = this->filename;
-	
-	QFile wavFile(filename);
-	if (!(wavFile.open(QIODevice::WriteOnly))) return false;
-	QDataStream *dstream = new QDataStream(&wavFile);
-	
-	dstream->setByteOrder( QDataStream::LittleEndian );
-	
-	writeHeader(dstream);
-	writeFormat(dstream);
-	writeDataChunk(dstream);
-	
-	open(QIODevice::ReadOnly);
-	dstream->writeRawData(buffer().data(), this->length);
-	close();
-	//wavData.open(QIODevice::ReadOnly);
-	//dstream->writeRawData(wavData.buffer().data(), this->length);
-	//wavData.close();
-	
-	delete dstream;
-	wavFile.close();
-	return true;
+  if (filename.isEmpty()) filename = this->filename;
+
+  QFile wavFile(filename);
+  if (!(wavFile.open(QIODevice::WriteOnly))) return false;
+  QDataStream *dstream = new QDataStream(&wavFile);
+
+  dstream->setByteOrder( QDataStream::LittleEndian );
+
+  writeHeader(dstream);
+  writeFormat(dstream);
+  writeDataChunk(dstream);
+
+  open(QIODevice::ReadOnly);
+  dstream->writeRawData(buffer().data(), this->length);
+  close();
+  //wavData.open(QIODevice::ReadOnly);
+  //dstream->writeRawData(wavData.buffer().data(), this->length);
+  //wavData.close();
+
+  delete dstream;
+  wavFile.close();
+  return true;
 }
 
 
 /**
  *	@brief Writes the basic WAV-header
- *	
+ *
  *	This identifies the WAV file as WAV file.
- *	
+ *
  *	+------------------------------------------------------+
  *	| CHAR|Length of Byte to follow (32bit)|CHAR           |
  *	|------------------------------------------------------|
@@ -240,16 +236,17 @@ bool WAV::writeFile(QString filename)
  */
 void WAV::writeHeader(QDataStream *dstream)
 {
-	dstream->writeRawData("RIFF",4);
-	*dstream << (quint32) (this->length)+36;
-	dstream->writeRawData("WAVE",4);
+  dstream->writeRawData("RIFF",4);
+  *dstream << (quint32) (this->length)+36;
+  dstream->writeRawData("WAVE",4);
 }
+
 
 /**
  *	@brief Writes the header of one data chunk to the provided QDataStream
- *	
+ *
  *	This identifies the WAV file as WAV file.
- *	
+ *
  *	+------------------------------------------------------+
  *	| CHAR|Length of Byte to follow (32bit)                |
  *	|------------------------------------------------------|
@@ -262,15 +259,16 @@ void WAV::writeHeader(QDataStream *dstream)
  */
 void WAV::writeDataChunk(QDataStream *dstream)
 {
-	dstream->writeRawData("data",4);
-	*dstream << (quint32) this->length;
+  dstream->writeRawData("data",4);
+  *dstream << (quint32) this->length;
 }
+
 
 /**
  *	@brief Writes the format chunk to the QDataStream
- *	
+ *
  *	The format chunk defines how to interpret the data chunk.
- *	
+ *
  *	+-------------------------------------------------------+
  *	| CHAR|Chunk Size|Compression Code*|#channels|samplerate|
  *	|-------------------------------------------------------|
@@ -282,7 +280,7 @@ void WAV::writeDataChunk(QDataStream *dstream)
  *	|-------------------------------------------------------|
  *	| 88200    |2          |16                              |
  *	+-------------------------------------------------------+
- *	
+ *
  *	* 0x01 means uncompressed PCM Data
  *
  *	@author Peter Grasch
@@ -291,17 +289,16 @@ void WAV::writeDataChunk(QDataStream *dstream)
  */
 void WAV::writeFormat(QDataStream *dstream)
 {
-	dstream->writeRawData("fmt ",4);
-	*dstream << (quint32) 0x10;
-	*dstream << (quint16) 0x01;
-	*dstream << (quint16) channels;
-	*dstream << (quint32) samplerate;
-	*dstream << (quint32) channels*samplerate
-				*((int)sizeof(short)); // 16bit
-	*dstream << (quint16) 2;
-	*dstream << (quint16) 16;
+  dstream->writeRawData("fmt ",4);
+  *dstream << (quint32) 0x10;
+  *dstream << (quint16) 0x01;
+  *dstream << (quint16) channels;
+  *dstream << (quint32) samplerate;
+  *dstream << (quint32) channels*samplerate
+    *((int)sizeof(short));                        // 16bit
+  *dstream << (quint16) 2;
+  *dstream << (quint16) 16;
 }
-
 
 
 /**
@@ -310,5 +307,5 @@ void WAV::writeFormat(QDataStream *dstream)
  */
 WAV::~WAV()
 {
-// 	delete waveData;
+  // 	delete waveData;
 }

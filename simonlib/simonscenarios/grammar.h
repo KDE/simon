@@ -31,46 +31,42 @@ class Scenario;
 class MODELMANAGEMENT_EXPORT Grammar : public ScenarioObject, public QAbstractItemModel
 {
 
-private:
-	QMutex structuresLock;
-	QStringList m_structures;
+  private:
+    QMutex structuresLock;
+    QStringList m_structures;
 
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
 
+  protected:
+    Grammar(Scenario *parent);
 
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-protected:
-	Grammar(Scenario *parent);
+  public:
+    Grammar();
+    static Grammar* createGrammar(Scenario *parent, const QDomElement&);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    static QDomElement createEmpty(QDomDocument *doc);
+    bool renameTerminal(QString terminal, const QString& newName);
 
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    QString getExampleSentence(const QString& terminal);
 
-public:
-	Grammar();
-	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
-	static QDomElement createEmpty(QDomDocument *doc);
-	bool renameTerminal(QString terminal, const QString& newName);
+    QString getStructure(int index);
 
-	QString getExampleSentence(const QString& terminal);
+    bool addStructures(const QStringList& newStructures, bool save=true);
+    bool addStructure(const QString& newStructure, bool save=true);
+    bool deleteStructure(int index);
 
-	QString getStructure(int index);
+    QStringList getTerminals();
+    QStringList getStructures() { return m_structures; }
 
-
-	bool addStructures(const QStringList& newStructures, bool save=true);
-	bool addStructure(const QString& newStructure, bool save=true);
-	bool deleteStructure(int index);
-
-	QStringList getTerminals();
-	QStringList getStructures() { return m_structures; }
-
-	int structureCount() { return m_structures.count(); }
+    int structureCount() { return m_structures.count(); }
 };
-
 #endif

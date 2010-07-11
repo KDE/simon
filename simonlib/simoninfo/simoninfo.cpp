@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "simoninfo.h"
 #include <QCoreApplication>
 #include <QPixmap>
@@ -31,12 +30,12 @@
  * Constructor of the Info-Class
  *
  * @author Peter Grasch
- * 
-*/
+ *
+ */
 
 SimonInfo::SimonInfo(QWidget* parent_)
-	: splash(0),
-	parent(parent_)
+: splash(0),
+parent(parent_)
 {
 }
 
@@ -49,16 +48,17 @@ SimonInfo::SimonInfo(QWidget* parent_)
  *	@author Peter Grasch
  *
  * @see hideSplash(); writeToSplash();
- * 
-*/
+ *
+ */
 void SimonInfo::showSplash()
 {
-	if (this->splash) this->splash->deleteLater();
-	
-	this->splash = new KSplashScreen( QPixmap(KStandardDirs::locate("appdata", "themes/default/splash.png")) );
-	this->splash->show();
+  if (this->splash) this->splash->deleteLater();
+
+  this->splash = new KSplashScreen( QPixmap(KStandardDirs::locate("appdata", "themes/default/splash.png")) );
+  this->splash->show();
 
 }
+
 
 /**
  * @brief Updates the Splash message
@@ -72,17 +72,16 @@ void SimonInfo::showSplash()
  * The status that is written to the Splash Screen
  * @see hideSplash(); showsplash();
  *
-*/
+ */
 
 void SimonInfo::writeToSplash(QString status)
 {
-	if (!this->splash) return;
-	
-	this->splash->showMessage(status, Qt::AlignLeft|Qt::AlignBottom, 
-					QColor(175, 190, 200, 255));
-	QCoreApplication::processEvents();
-}
+  if (!this->splash) return;
 
+  this->splash->showMessage(status, Qt::AlignLeft|Qt::AlignBottom,
+    QColor(175, 190, 200, 255));
+  QCoreApplication::processEvents();
+}
 
 
 /**
@@ -93,12 +92,12 @@ void SimonInfo::writeToSplash(QString status)
  * Message disappears after n-Seconds
  *
  *	@author Peter Grasch
- * 
+ *
  */
 void SimonInfo::showMessage(QString message, short time, KIcon *icon)
 {
-	//show an "OSD"-like Message
-	new OSD(message, time, icon);
+  //show an "OSD"-like Message
+  new OSD(message, time, icon);
 }
 
 
@@ -110,15 +109,15 @@ void SimonInfo::showMessage(QString message, short time, KIcon *icon)
  *
  *	@author Peter Grasch
  * @see showSplash(); writeToSplash();
- * 
-*/
+ *
+ */
 void SimonInfo::hideSplash()
 {
-	if (!splash) return;
-	
-	this->splash->finish(this->parent);
-	splash->deleteLater();
-	splash=0;
+  if (!splash) return;
+
+  this->splash->finish(this->parent);
+  splash->deleteLater();
+  splash=0;
 }
 
 
@@ -126,10 +125,8 @@ void SimonInfo::hideSplash()
  * @brief Destructor
  *
  *	@author Peter Grasch
-*/
+ */
 SimonInfo::~SimonInfo()
 {
-	if (this->splash) this->splash->deleteLater();
+  if (this->splash) this->splash->deleteLater();
 }
-
-

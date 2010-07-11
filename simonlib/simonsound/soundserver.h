@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDSERVER_H_BAC60651BE6A419EA6156220815A2AAD
 #define SIMON_SOUNDSERVER_H_BAC60651BE6A419EA6156220815A2AAD
-
 
 #include <simonsound/simonsound.h>
 #include <QIODevice>
@@ -36,81 +34,78 @@ class SoundOutputClient;
 class SimonSoundInput;
 class SimonSoundOutput;
 
+class SIMONSOUND_EXPORT SoundServer : public QObject
+{
+  Q_OBJECT
 
-class SIMONSOUND_EXPORT SoundServer : public QObject {
-	Q_OBJECT
+    signals:
+  void error(const QString& str);
 
-signals:
-	void error(const QString& str);
+  void devicesChanged();
 
-	void devicesChanged();
+  private:
+    static SoundServer* instance;
 
-private:
-	static SoundServer* instance;
+    QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
 
-	QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
+    void suspendRecording();
+    void resumeRecording();
 
-	void suspendRecording();
-	void resumeRecording();
+    QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
 
-	QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
+    void suspendPlayback();
+    void resumePlayback();
+    static QList<SimonSound::DeviceConfiguration> getInputDevices(SimonSound::SoundDeviceUses uses);
+    static QList<SimonSound::DeviceConfiguration> getOutputDevices(SimonSound::SoundDeviceUses uses);
 
-	void suspendPlayback();
-	void resumePlayback();
-	static QList<SimonSound::DeviceConfiguration> getInputDevices(SimonSound::SoundDeviceUses uses);
-	static QList<SimonSound::DeviceConfiguration> getOutputDevices(SimonSound::SoundDeviceUses uses);
+    void applyInputPriorities();
+    void applyOutputPriorities();
 
-	void applyInputPriorities();
-	void applyOutputPriorities();
+    void initializeDevices();
 
-	void initializeDevices();
+  private slots:
+    void slotRecordingFinished();
+    void slotPlaybackFinished();
 
-private slots:
-	void slotRecordingFinished();
-	void slotPlaybackFinished();
+  public:
+    static SoundServer* getInstance() {
+      if (!instance) instance = new SoundServer(0);
+      return instance;
+    }
 
-public:
-	static SoundServer* getInstance()
-	{
-		if (!instance) instance = new SoundServer(NULL);
-		return instance;
-	}
+    SoundServer(QObject *parent=0);
 
-	SoundServer(QObject *parent=0);
+    bool registerInputClient(SoundInputClient* client);
+    bool deRegisterInputClient(SoundInputClient* client);
 
-	bool registerInputClient(SoundInputClient* client);
-	bool deRegisterInputClient(SoundInputClient* client);
+    bool registerOutputClient(SoundOutputClient* client);
+    bool deRegisterOutputClient(SoundOutputClient* client);
 
-	bool registerOutputClient(SoundOutputClient* client);
-	bool deRegisterOutputClient(SoundOutputClient* client);
+    qint64 byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device);
+    qint64 lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device);
 
-	qint64 byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device);
-	qint64 lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device);
+    bool reinitializeDevices();
 
-	bool reinitializeDevices();
+    int getInputDeviceCount();
+    int getOutputDeviceCount();
 
-	int getInputDeviceCount();
-	int getOutputDeviceCount();
+    static bool getDefaultToPowerTraining();
+    static bool getCalibrateVolume();
 
-	static bool getDefaultToPowerTraining();
-	static bool getCalibrateVolume();
+    static int getLevelThreshold();
+    static int getHeadMargin();
+    static int getTailMargin();
+    static int getShortSampleCutoff();
 
-	static int getLevelThreshold();
-	static int getHeadMargin();
-	static int getTailMargin();
-	static int getShortSampleCutoff();
+    static QString defaultInputDevice();
+    static QString defaultOutputDevice();
 
-	static QString defaultInputDevice();
-	static QString defaultOutputDevice();
+    static QList<SimonSound::DeviceConfiguration> getTrainingInputDevices();
+    static QList<SimonSound::DeviceConfiguration> getRecognitionInputDevices();
 
-	static QList<SimonSound::DeviceConfiguration> getTrainingInputDevices();
-	static QList<SimonSound::DeviceConfiguration> getRecognitionInputDevices();
-
-	static QList<SimonSound::DeviceConfiguration> getTrainingOutputDevices();
+    static QList<SimonSound::DeviceConfiguration> getTrainingOutputDevices();
 
     virtual ~SoundServer();
 
 };
-
 #endif
-

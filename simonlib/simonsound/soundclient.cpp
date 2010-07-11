@@ -26,10 +26,10 @@
 /**
  * \brief Constructor
  */
-SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration, 
-		SoundClient::SoundClientPriority priority) :
-	m_deviceConfiguration(deviceConfiguration),
-	m_priority(priority)
+SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration,
+SoundClient::SoundClientPriority priority) :
+m_deviceConfiguration(deviceConfiguration),
+m_priority(priority)
 {
 }
 
@@ -40,7 +40,3 @@ SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfigurat
 SoundClient::~SoundClient()
 {
 }
-
-
-
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "grammarviewprivate.h"
 #include "ImportGrammar/importgrammarwizard.h"
 #include "MergeTerminals/mergeterminalswizard.h"
@@ -33,109 +32,114 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
 
-
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 {
-	ui.setupUi(this);
-	ui.pbImportTexts->setIcon(KIcon("document-import"));
-	ui.pbRename->setIcon(KIcon("document-properties"));
-	ui.pbMerge->setIcon(KIcon("arrow-down-double"));
+  ui.setupUi(this);
+  ui.pbImportTexts->setIcon(KIcon("document-import"));
+  ui.pbRename->setIcon(KIcon("document-properties"));
+  ui.pbMerge->setIcon(KIcon("arrow-down-double"));
 
-	ui.pbAdd->setIcon(KIcon("list-add"));
-	ui.pbDelete->setIcon(KIcon("list-remove"));
+  ui.pbAdd->setIcon(KIcon("list-add"));
+  ui.pbDelete->setIcon(KIcon("list-remove"));
 
-	connect(ui.lvStructures, SIGNAL(selectionChanged()), this, SLOT(currentSelectionChanged()));
-	
-	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
-	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
+  connect(ui.lvStructures, SIGNAL(selectionChanged()), this, SLOT(currentSelectionChanged()));
 
-	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addStructure()));
-	connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteStructure()));
+  connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
+  connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
 
-	connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
-	
-	grammarProxy = new QSortFilterProxyModel();
-	grammarProxy->setFilterKeyColumn(0);
-	ui.lvStructures->setModel(grammarProxy);
-	ui.lwExamples->clear();
+  connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addStructure()));
+  connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteStructure()));
 
-	currentSelectionChanged();
+  connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
+
+  grammarProxy = new QSortFilterProxyModel();
+  grammarProxy->setFilterKeyColumn(0);
+  ui.lvStructures->setModel(grammarProxy);
+  ui.lwExamples->clear();
+
+  currentSelectionChanged();
 }
+
 
 void GrammarViewPrivate::currentSelectionChanged()
 {
-	ui.lwExamples->clear();
+  ui.lwExamples->clear();
 
-	int structureIndex = ui.lvStructures->currentIndex().row();
+  int structureIndex = ui.lvStructures->currentIndex().row();
 
-	if (structureIndex == -1) {
-		ui.pbDelete->setEnabled(false);
-	} else {
-		ui.pbDelete->setEnabled(true);
+  if (structureIndex == -1) {
+    ui.pbDelete->setEnabled(false);
+  }
+  else {
+    ui.pbDelete->setEnabled(true);
 
-		QString selectedStructure = ScenarioManager::getInstance()->getCurrentScenario()->grammar()->getStructure(structureIndex);
+    QString selectedStructure = ScenarioManager::getInstance()->getCurrentScenario()->grammar()->getStructure(structureIndex);
 
-		QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getExampleSentencesOfStructur(selectedStructure);
-		ui.lwExamples->addItems(examples);
-	}
+    QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getExampleSentencesOfStructur(selectedStructure);
+    ui.lwExamples->addItems(examples);
+  }
 }
+
 
 void GrammarViewPrivate::addStructure()
 {
-	QString structure = QInputDialog::getText(this, i18n("Add structure"), i18n("Please enter the new grammar structure.\n\nNote: Use terminals instead of distinct words!"));
-	if (structure.isEmpty()) return;
+  QString structure = QInputDialog::getText(this, i18n("Add structure"), i18n("Please enter the new grammar structure.\n\nNote: Use terminals instead of distinct words!"));
+  if (structure.isEmpty()) return;
 
-	if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->addStructure(structure))
-		KMessageBox::error(this, i18n("Couldn't add structure to the grammar."));
+  if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->addStructure(structure))
+    KMessageBox::error(this, i18n("Could not add structure to the grammar."));
 }
+
 
 void GrammarViewPrivate::deleteStructure()
 {
-	int structureIndex = ui.lvStructures->currentIndex().row();
-	if (structureIndex == -1) return;
+  int structureIndex = ui.lvStructures->currentIndex().row();
+  if (structureIndex == -1) return;
 
-	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected grammar structure?"))==KMessageBox::Yes) {
-		if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->deleteStructure(structureIndex))
-			KMessageBox::error(this, i18n("Couldn't delete structure."));
-		else currentSelectionChanged();
-	}
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected grammar structure?"))==KMessageBox::Yes) {
+    if (!ScenarioManager::getInstance()->getCurrentScenario()->grammar()->deleteStructure(structureIndex))
+      KMessageBox::error(this, i18n("Could not delete structure."));
+    else currentSelectionChanged();
+  }
 }
 
 
 void GrammarViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-	kDebug() << "Displaying scenario " << scenario->name();
+  kDebug() << "Displaying scenario " << scenario->name();
 
-	Grammar *g = scenario->grammar();
-	grammarProxy->setSourceModel(g);
-	currentSelectionChanged();
+  Grammar *g = scenario->grammar();
+  grammarProxy->setSourceModel(g);
+  currentSelectionChanged();
 }
+
 
 void GrammarViewPrivate::showRenameWizard()
 {
-	RenameTerminalWizard *renameTerminalWizard = new RenameTerminalWizard(this);
-	renameTerminalWizard->restart();
-	renameTerminalWizard->exec();
-	renameTerminalWizard->deleteLater();
-	currentSelectionChanged();
+  QPointer<RenameTerminalWizard> renameTerminalWizard = new RenameTerminalWizard(this);
+  renameTerminalWizard->restart();
+  renameTerminalWizard->exec();
+  delete renameTerminalWizard;
+  currentSelectionChanged();
 }
 
 
 void GrammarViewPrivate::showImportWizard()
 {
-	ImportGrammarWizard *importGrammarWizard = new ImportGrammarWizard(this);
-	importGrammarWizard->exec();
-	importGrammarWizard->deleteLater();
-	currentSelectionChanged();
+  QPointer<ImportGrammarWizard> importGrammarWizard = new ImportGrammarWizard(this);
+  importGrammarWizard->exec();
+  delete importGrammarWizard;
+  currentSelectionChanged();
 }
+
 
 void GrammarViewPrivate::showMergeWizard()
 {
-	MergeTerminalsWizard *mergeTerminalsWizard = new MergeTerminalsWizard(this);
-	mergeTerminalsWizard->restart();
-	mergeTerminalsWizard->exec();
-	mergeTerminalsWizard->deleteLater();
-	currentSelectionChanged();
+  QPointer<MergeTerminalsWizard> mergeTerminalsWizard = new MergeTerminalsWizard(this);
+  mergeTerminalsWizard->restart();
+  mergeTerminalsWizard->exec();
+  delete mergeTerminalsWizard;
+  currentSelectionChanged();
 }
 
 

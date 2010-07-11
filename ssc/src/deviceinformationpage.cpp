@@ -33,182 +33,175 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-
-
 DeviceInformationPage::DeviceInformationPage(QWidget *parent) : QWizardPage(parent),
-	scrollWidget(new QScrollArea(this))
+scrollWidget(new QScrollArea(this))
 {
-	setTitle(i18n("Device information"));
+  setTitle(i18n("Device information"));
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
 
-	QLabel *lbIntro = new QLabel(this);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("Please provide some info about your recording devices."));
+  QLabel *lbIntro = new QLabel(this);
+  lbIntro->setWordWrap(true);
+  lbIntro->setText(i18n("Please provide some info about your recording devices."));
 
+  QWidget *scrollChildWidget = new QWidget(scrollWidget);
+  QVBoxLayout *childLay = new QVBoxLayout(scrollChildWidget);
+  scrollChildWidget->setLayout(childLay);
 
-	QWidget *scrollChildWidget = new QWidget(scrollWidget);
-	QVBoxLayout *childLay = new QVBoxLayout(scrollChildWidget);
-	scrollChildWidget->setLayout(childLay);
+  scrollWidget->setWidget(scrollChildWidget);
+  scrollWidget->setWidgetResizable(true);
 
-	scrollWidget->setWidget(scrollChildWidget);
-	scrollWidget->setWidgetResizable(true);
+  lay->addWidget(lbIntro);
+  lay->addWidget(scrollWidget);
 
-	lay->addWidget(lbIntro);
-	lay->addWidget(scrollWidget);
-
-	setLayout(lay);
+  setLayout(lay);
 }
+
 
 bool DeviceInformationPage::serializeToStorage(QSettings& ini) const
 {
-	ini.beginGroup("Recording");
-	ini.beginWriteArray("Devices");
+  ini.beginGroup("Recording");
+  ini.beginWriteArray("Devices");
 
-	int i=0;
-	foreach (DeviceInformationWidget *wg, informationWidgets)
-	{
-		ini.setArrayIndex(i);
+  int i=0;
+  foreach (DeviceInformationWidget *wg, informationWidgets) {
+    ini.setArrayIndex(i);
 
-		wg->serialize(ini);
+    wg->serialize(ini);
 
-		i++;
-	}
+    i++;
+  }
 
-	ini.endArray();
-	ini.endGroup();
-	return true;
+  ini.endArray();
+  ini.endGroup();
+  return true;
 }
+
 
 void DeviceInformationPage::registerInformationWidget(DeviceInformationWidget* wg)
 {
-	connect(wg, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
-	informationWidgets << wg;
-	QVBoxLayout *layout = dynamic_cast<QVBoxLayout*>(scrollWidget->widget()->layout());
-	if (!layout) return;
-	layout->addWidget(wg);
-	wg->show();
+  connect(wg, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
+  informationWidgets << wg;
+  QVBoxLayout *layout = dynamic_cast<QVBoxLayout*>(scrollWidget->widget()->layout());
+  if (!layout) return;
+  layout->addWidget(wg);
+  wg->show();
 }
+
 
 bool DeviceInformationPage::deserializeFromStorage(QSettings& ini)
 {
-	ini.beginGroup("Recording");
+  ini.beginGroup("Recording");
 
-	int size = ini.beginReadArray("Devices");
-	qDeleteAll(informationWidgets);
-	informationWidgets.clear();
-	for (int i=0; i < size; i++)
-	{
-		ini.setArrayIndex(i);
+  int size = ini.beginReadArray("Devices");
+  qDeleteAll(informationWidgets);
+  informationWidgets.clear();
+  for (int i=0; i < size; i++) {
+    ini.setArrayIndex(i);
 
-		DeviceInformationWidget *wg = new DeviceInformationWidget(this);
-		wg->deserialize(ini);
-		
-		registerInformationWidget(wg);
-	}
-	ini.endArray();
-	ini.endGroup();
-	return true;
+    DeviceInformationWidget *wg = new DeviceInformationWidget(this);
+    wg->deserialize(ini);
+
+    registerInformationWidget(wg);
+  }
+  ini.endArray();
+  ini.endGroup();
+  return true;
 }
+
 
 QHash<QString, Microphone*> DeviceInformationPage::buildMicrophoneMappings(bool &ok)
 {
-	ok = true;
-	QHash<QString, Microphone*> microphones;
-	foreach (DeviceInformationWidget *wg, informationWidgets)
-	{
-		fprintf (stderr, "Processing widget during processing mics...\n");
-		kDebug() << "processing widget...";
-		QString device = wg->getDeviceName();
-		QString micModel = wg->getMicModel();
-		QString micType = wg->getMicType();
+  ok = true;
+  QHash<QString, Microphone*> microphones;
+  foreach (DeviceInformationWidget *wg, informationWidgets) {
+    fprintf (stderr, "Processing widget during processing mics...\n");
+    kDebug() << "processing widget...";
+    QString device = wg->getDeviceName();
+    QString micModel = wg->getMicModel();
+    QString micType = wg->getMicType();
 
-		
-		Microphone *mic = new Microphone(0, micModel, micType);
-		bool succ = true;
-		kDebug() << "Calling server to get or create mic";
-		qint32 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
+    Microphone *mic = new Microphone(0, micModel, micType);
+    bool succ = true;
+    kDebug() << "Calling server to get or create mic";
+    qint32 id = SSCDAccess::getInstance()->getOrCreateMicrophone(mic, &succ);
 
-		if (!succ)
-		{
-			fprintf(stderr, "failed to get / create microphone\n");
-			kDebug() << "Failed...";
-			ok = false;
-		}
+    if (!succ) {
+      fprintf(stderr, "failed to get / create microphone\n");
+      kDebug() << "Failed...";
+      ok = false;
+    }
 
-		kDebug() << "Got id for mic: " << id;
+    kDebug() << "Got id for mic: " << id;
 
-		microphones.insert(device, mic);
-	}
+    microphones.insert(device, mic);
+  }
 
-	return microphones;
+  return microphones;
 }
+
 
 QHash<QString, SoundCard*> DeviceInformationPage::buildSoundCardMappings(bool &ok)
 {
-	QHash<QString, SoundCard*> soundCards;
-	foreach (DeviceInformationWidget *wg, informationWidgets)
-	{
-		fprintf (stderr, "Processing widget during processing soundcards...\n");
-		QString device = wg->getDeviceName();
-		QString model = wg->getModel();
-		QString type = wg->getType();
+  QHash<QString, SoundCard*> soundCards;
+  foreach (DeviceInformationWidget *wg, informationWidgets) {
+    fprintf (stderr, "Processing widget during processing soundcards...\n");
+    QString device = wg->getDeviceName();
+    QString model = wg->getModel();
+    QString type = wg->getType();
 
-		SoundCard *soundCard = new SoundCard(0, model, type);
-		bool succ = true;
-		qint32 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &succ);
+    SoundCard *soundCard = new SoundCard(0, model, type);
+    bool succ = true;
+    qint32 id = SSCDAccess::getInstance()->getOrCreateSoundCard(soundCard, &succ);
 
-		if (!succ)
-		{
-			fprintf(stderr, "failed to get / create soundcard\n");
-			ok = false;
-		}
+    if (!succ) {
+      fprintf(stderr, "failed to get / create soundcard\n");
+      ok = false;
+    }
 
-		kDebug() << "Got id for sound card: " << id;
+    kDebug() << "Got id for sound card: " << id;
 
-		soundCards.insert(device, soundCard);
-	}
-	fprintf(stderr, "Done processing sound cards\n");
+    soundCards.insert(device, soundCard);
+  }
+  fprintf(stderr, "Done processing sound cards\n");
 
-	return soundCards;
+  return soundCards;
 }
-
 
 
 void DeviceInformationPage::initializePage()
 {
-	if (informationWidgets.count()) return;
-	
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
-	foreach (const SimonSound::DeviceConfiguration& device, devices)
-	{
-		DeviceInformationWidget *wg = new DeviceInformationWidget(this);
-		wg->setup(device);
+  if (informationWidgets.count()) return;
 
-		registerInformationWidget(wg);
-	}
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
+  foreach (const SimonSound::DeviceConfiguration& device, devices) {
+    DeviceInformationWidget *wg = new DeviceInformationWidget(this);
+    wg->setup(device);
+
+    registerInformationWidget(wg);
+  }
 }
+
 
 bool DeviceInformationPage::isComplete() const
 {
-	bool complete = true;
-	foreach (DeviceInformationWidget *wg, informationWidgets)
-		complete &= wg->isComplete();
-	return complete;
+  bool complete = true;
+  foreach (DeviceInformationWidget *wg, informationWidgets)
+    complete &= wg->isComplete();
+  return complete;
 }
 
 
 bool DeviceInformationPage::validatePage()
 {
-	foreach (DeviceInformationWidget *wg, informationWidgets)
-		wg->storeConfig();
+  foreach (DeviceInformationWidget *wg, informationWidgets)
+    wg->storeConfig();
 
-	SSCConfig::self()->writeConfig();
-	return true;
+  SSCConfig::self()->writeConfig();
+  return true;
 }
+
 
 DeviceInformationPage::~DeviceInformationPage()
 {
 }
-
-

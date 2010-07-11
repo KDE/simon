@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "deleteworddialog.h"
 #include <simonscenarios/word.h>
 #include <KIconLoader>
@@ -30,13 +29,14 @@
  */
 DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
-	setMainWidget( widget );
-	setCaption( i18n("Remove Word") );
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
+  setMainWidget( widget );
+  setCaption( i18n("Remove Word") );
 
-	ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeHuge));
+  ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeHuge));
 }
+
 
 /**
  * \brief Executes the dialog
@@ -46,37 +46,38 @@ DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(
  */
 int DeleteWordDialog::exec(Word *word, bool isShadowed)
 {
-	ui.lbName->setText(word->getWord());
-	ui.lbPronunciation->setText(word->getPronunciation());
-	ui.lbTerminal->setText(word->getTerminal());
-	ui.lbRecognitionRate->setText(QString::number(word->getPropability()));
+  ui.lbName->setText(word->getWord());
+  ui.lbPronunciation->setText(word->getPronunciation());
+  ui.lbTerminal->setText(word->getTerminal());
+  ui.lbRecognitionRate->setText(QString::number(word->getPropability()));
 
-	ui.rbTerminal->setEnabled(!isShadowed);
-	ui.lbTerminalDesc->setEnabled(!isShadowed);
-	ui.rbShadow->setEnabled(!isShadowed);
-	ui.lbShadowDesc->setEnabled(!isShadowed);
+  ui.rbTerminal->setEnabled(!isShadowed);
+  ui.lbTerminalDesc->setEnabled(!isShadowed);
+  ui.rbShadow->setEnabled(!isShadowed);
+  ui.lbShadowDesc->setEnabled(!isShadowed);
 
-	if (isShadowed) {
-		ui.rbSoftDelete->setChecked(true);
-	} else {
-		ui.rbTerminal->setChecked(true);
-	}
-	return KDialog::exec();
+  if (isShadowed) {
+    ui.rbSoftDelete->setChecked(true);
+  }
+  else {
+    ui.rbTerminal->setChecked(true);
+  }
+  return KDialog::exec();
 }
+
 
 DeleteWordDialog::DeletionType DeleteWordDialog::getDeletionType()
 {
-	if (ui.rbTerminal->isChecked())
-		return DeleteWordDialog::MoveToUnused;
-	if (ui.rbShadow->isChecked())
-		return DeleteWordDialog::MoveToShadow;
-	if (ui.rbSoftDelete->isChecked())
-		return DeleteWordDialog::SoftDelete;
+  if (ui.rbTerminal->isChecked())
+    return DeleteWordDialog::MoveToUnused;
+  if (ui.rbShadow->isChecked())
+    return DeleteWordDialog::MoveToShadow;
+  if (ui.rbSoftDelete->isChecked())
+    return DeleteWordDialog::SoftDelete;
 
-	//to make gcc happy this is commented out
-	//but it has the same effect (at least one radio button is
-	//checked at all time)
-	//if (ui.rbDelete->isChecked())
-	return DeleteWordDialog::HardDelete;
+  //to make gcc happy this is commented out
+  //but it has the same effect (at least one radio button is
+  //checked at all time)
+  //if (ui.rbDelete->isChecked())
+  return DeleteWordDialog::HardDelete;
 }
-

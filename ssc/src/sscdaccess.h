@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 #define SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 
@@ -49,87 +48,83 @@ const qint8 protocolVersion=1;
  *	@date 24.10.2009
  *	@author Peter Grasch
  */
-class SSCDAccess : public QObject {
-	Q_OBJECT
+class SSCDAccess : public QObject
+{
+  Q_OBJECT
 
-signals:
-	void connected();
-	void disconnected();
+    signals:
+  void connected();
+  void disconnected();
 
-	void error(const QString& errStr);
+  void error(const QString& errStr);
 
-	void warning(const QString&);
+  void warning(const QString&);
 
-	void status(const QString&, int progNow=-1, int progMax=0);
-	void progress(int now, int max=-1);
+  void status(const QString&, int progNow=-1, int progMax=0);
+  void progress(int now, int max=-1);
 
+  public:
+    SSCDAccess(QWidget *parent=0);
+    ~SSCDAccess();
 
-public:
-	SSCDAccess(QWidget *parent=0);
-	~SSCDAccess();
-	
-	static SSCDAccess* getInstance(QWidget *parent=0)
-	{
-		if (!instance) instance = new SSCDAccess(parent);
-		return instance;
-	}
+    static SSCDAccess* getInstance(QWidget *parent=0) {
+      if (!instance) instance = new SSCDAccess(parent);
+      return instance;
+    }
 
-	bool isConnected();
-	QString lastError();
+    bool isConnected();
+    QString lastError();
 
-	User *getUser(qint32 id);
-	QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
-	qint32 addUser(User* u);
-	bool modifyUser(User* u);
+    User *getUser(qint32 id);
+    QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
+    qint32 addUser(User* u);
+    bool modifyUser(User* u);
 
-	bool deleteUser(User* u);
+    bool deleteUser(User* u);
 
-	QList<Language*> getLanguages(bool *ok);
+    QList<Language*> getLanguages(bool *ok);
 
-	QList<Microphone*> getMicrophones(bool *ok);
-	qint32 getOrCreateMicrophone(Microphone *microphone, bool* ok);
+    QList<Microphone*> getMicrophones(bool *ok);
+    qint32 getOrCreateMicrophone(Microphone *microphone, bool* ok);
 
-	QList<SoundCard*> getSoundCards(bool *ok);
-	qint32 getOrCreateSoundCard(SoundCard *soundCard, bool* ok);
+    QList<SoundCard*> getSoundCards(bool *ok);
+    qint32 getOrCreateSoundCard(SoundCard *soundCard, bool* ok);
 
-	QList<Institution*> getInstitutions(bool *ok);
-	bool addInstitution(Institution* i);
-	bool modifyInstitution(Institution* i);
-	bool deleteInstitution(Institution* i);
+    QList<Institution*> getInstitutions(bool *ok);
+    bool addInstitution(Institution* i);
+    bool modifyInstitution(Institution* i);
+    bool deleteInstitution(Institution* i);
 
+    bool addUserInInstitution(UserInInstitution* uii);
+    bool deleteUserInInstitution(UserInInstitution* uii);
+    QList<UserInInstitution*> getUserInInstitutions(qint32 userId, bool *ok);
 
-	bool addUserInInstitution(UserInInstitution* uii);
-	bool deleteUserInInstitution(UserInInstitution* uii);
-	QList<UserInInstitution*> getUserInInstitutions(qint32 userId, bool *ok);
+    bool sendSample(Sample *s);
+    bool processSampleAnswer();
 
+  public slots:
+    void disconnectFromServer();
+    void connectTo( QString server, quint16 port, bool encrypted );
 
-	bool sendSample(Sample *s);
-	bool processSampleAnswer();
+  private:
+    bool readyToRead;
+    static SSCDAccess *instance;
+    QSslSocket *socket;                           //!< QSslSocket for communicating with the sscd-socket
 
-public slots:
-	void disconnectFromServer();
-	void connectTo( QString server, quint16 port, bool encrypted );
+    QTimer *timeoutWatcher;
+    QString lastErrorString;
+    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
-private:
-	bool readyToRead;
-	static SSCDAccess *instance;
-	QSslSocket *socket; //!< QSslSocket for communicating with the sscd-socket
+  private slots:
+    bool sendRequest (qint32 request);
+    bool sendRequest (qint32 request, qint32 message);
+    bool sendRequest (qint32 request, qint32 message, qint32 message2);
+    void sendObject(SSC::Request code, SSCObject* object);
+    void connectedTo();
+    void errorOccured();
+    void timeoutReached();
+    void abort();
 
-	QTimer *timeoutWatcher;
-	QString lastErrorString;
-	bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-	
-private slots:
-	bool sendRequest (qint32 request);
-	bool sendRequest (qint32 request, qint32 message);
-	bool sendRequest (qint32 request, qint32 message, qint32 message2);
-	void sendObject(SSC::Request code, SSCObject* object);
-	void connectedTo();
-	void errorOccured();
-	void timeoutReached();
-	void abort();
-
-	void readyRead();
+    void readyRead();
 };
-
 #endif

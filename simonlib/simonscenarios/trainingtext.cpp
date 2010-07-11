@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "trainingtext.h"
 #include "trainingmanager.h"
 
@@ -25,55 +24,60 @@ TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 {
 }
 
+
 TrainingText::TrainingText(const QString& _name, const QStringList& _pages) : ScenarioObject(0),
-	name(_name), pages(_pages)
+name(_name), pages(_pages)
 {
 }
+
 
 TrainingText* TrainingText::createTrainingText(Scenario *parent, const QDomElement& elem)
 {
-	TrainingText *t = new TrainingText(parent);
-	if (!t->deSerialize(elem)) {
-		delete t;
-		t=NULL;
-	}
-	return t;
+  TrainingText *t = new TrainingText(parent);
+  if (!t->deSerialize(elem)) {
+    delete t;
+    t=0;
+  }
+  return t;
 }
+
 
 bool TrainingText::deSerialize(const QDomElement& elem)
 {
-	if (elem.isNull()) return false;
+  if (elem.isNull()) return false;
 
-	this->name = elem.attribute("name");
+  this->name = elem.attribute("name");
 
-	QDomElement pageElem = elem.firstChildElement();
-	pages.clear();
-	while (!pageElem.isNull()) {
-		pages << pageElem.text().trimmed();
-		pageElem = pageElem.nextSiblingElement();
-	}
+  QDomElement pageElem = elem.firstChildElement();
+  pages.clear();
+  while (!pageElem.isNull()) {
+    pages << pageElem.text().trimmed();
+    pageElem = pageElem.nextSiblingElement();
+  }
 
-	return true;
+  return true;
 }
+
 
 QDomElement TrainingText::serialize(QDomDocument *doc)
 {
-	QDomElement textElem = doc->createElement("trainingtext");
-	textElem.setAttribute("name", name);
-	foreach (const QString& page, pages) {
-		QDomElement pageElem = doc->createElement("page");
-		pageElem.appendChild(doc->createTextNode(page));
-		textElem.appendChild(pageElem);
-	}
+  QDomElement textElem = doc->createElement("trainingtext");
+  textElem.setAttribute("name", name);
+  foreach (const QString& page, pages) {
+    QDomElement pageElem = doc->createElement("page");
+    pageElem.appendChild(doc->createTextNode(page));
+    textElem.appendChild(pageElem);
+  }
 
-	return textElem;
+  return textElem;
 }
 
 
-float TrainingText::getRelevance() 
+float TrainingText::getRelevance()
 {
-	return TrainingManager::getInstance()->calcRelevance(this);
+  return TrainingManager::getInstance()->calcRelevance(this);
 }
+
 
 /**
  * @brief Destructor
@@ -83,5 +87,3 @@ float TrainingText::getRelevance()
 TrainingText::~TrainingText()
 {
 }
-
-

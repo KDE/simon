@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_POSTPROCESSING_H_8C5AEA136B514546BA2DFAE2AEB25B54
 #define SIMON_POSTPROCESSING_H_8C5AEA136B514546BA2DFAE2AEB25B54
 
@@ -33,18 +32,18 @@ class QString;
  \date 19.2.2008
  \brief Applies the specified postprocessing stack to the given filenames
 */
-class SIMONSOUND_EXPORT PostProcessing : public QObject{
-	Q_OBJECT
-signals:
-	void error(const QString& error);
+class SIMONSOUND_EXPORT PostProcessing : public QObject
+{
+  Q_OBJECT
+    signals:
+  void error(const QString& error);
 
-public:
+  public:
     PostProcessing(QObject *parent=0);
 
-	bool process(const QString& in, const QString& out, bool deleteIn=false, bool silent=false);
+    bool process(const QString& in, const QString& out, bool deleteIn=false, bool silent=false);
 
     ~PostProcessing();
 
 };
-
 #endif

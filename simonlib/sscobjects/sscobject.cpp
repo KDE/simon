@@ -18,5 +18,3 @@
  */
 
 #include "sscobject.h"
-
-

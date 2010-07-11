@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MERGETERMINALSSELECTTERMINALSPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
 #define SIMON_MERGETERMINALSSELECTTERMINALSPAGE_H_9DDC9A5462034D2989F1B6EE6A811D47
 
@@ -25,20 +24,19 @@
 
 #include "ui_mergeterminalsselectpage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class MergeTerminalsSelectTerminalsPage : public QWizardPage
 {
-Q_OBJECT
-private:
-	Ui::MergeTerminalsSelectTerminalsPage ui;
-public:
+  Q_OBJECT
+    private:
+    Ui::MergeTerminalsSelectTerminalsPage ui;
+  public:
     MergeTerminalsSelectTerminalsPage(QWidget* parent);
 
-	void initializePage();
+    void initializePage();
 
     ~MergeTerminalsSelectTerminalsPage();
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ADDWORDRESOLVEPAGE_H_2F4730422CA64A21BFF36EB1E5F1D295
 #define SIMON_ADDWORDRESOLVEPAGE_H_2F4730422CA64A21BFF36EB1E5F1D295
 
@@ -25,37 +24,36 @@
 #include "ui_resolvewordpage.h"
 #include <simonscenarios/word.h>
 /**
-	\class AddWordResolvePage
-	\version 0.1
-	\brief Displays a few suggestions and let the user select the terminal and the pronunciation of the new word
-	\date 20.12.2007
-	@author Peter Grasch
+  \class AddWordResolvePage
+  \version 0.1
+  \brief Displays a few suggestions and let the user select the terminal and the pronunciation of the new word
+  \date 20.12.2007
+  @author Peter Grasch
 */
 class AddWordResolvePage : public QWizardPage
 {
-Q_OBJECT
-private:
-	QString suggestedSampa, wordLastUsedToGenerateExamples, terminalLastUsedToGenerateExamples;
-	bool terminalDirty;
-	Ui::ResolveWordPage ui;
-	bool alreadyTriedToConvinceAboutCapitalization;
-private slots:
-	void suggest();
-	void createExamples();
-	void addTerminal();
-	void fetchSimilar();
-	void setTerminalDirty() { terminalDirty=true; }
-public:
+  Q_OBJECT
+    private:
+    QString suggestedSampa, wordLastUsedToGenerateExamples, terminalLastUsedToGenerateExamples;
+    bool terminalDirty;
+    Ui::ResolveWordPage ui;
+    bool alreadyTriedToConvinceAboutCapitalization;
+  private slots:
+    void suggest();
+    void createExamples();
+    void addTerminal();
+    void fetchSimilar();
+    void setTerminalDirty() { terminalDirty=true; }
+  public:
     AddWordResolvePage(QWidget* parent=0);
 
-	const QString getPronunciation() { return ui.leSampa->text(); }
-	const QString getName() { return ui.leWord->text(); }
-	const QString getTerminal() { return ui.cbType->currentText(); }
+    const QString getPronunciation() { return ui.leSampa->text(); }
+    const QString getName() { return ui.leWord->text(); }
+    const QString getTerminal() { return ui.cbType->currentText(); }
 
-	void initializePage();
-	void displayWords(QList<Word*> words);
-	bool validatePage();
+    void initializePage();
+    void displayWords(QList<Word*> words);
+    bool validatePage();
 
 };
-
 #endif

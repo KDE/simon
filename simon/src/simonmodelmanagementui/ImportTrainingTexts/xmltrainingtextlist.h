@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_XMLTRAININGTEXTLIST_H_017BA847C4564227879DCB0DF884BA64
 #define SIMON_XMLTRAININGTEXTLIST_H_017BA847C4564227879DCB0DF884BA64
 
@@ -31,20 +30,20 @@
  * \author Peter Grasch
  * \version 0.1
  * \date 3.06.07
-*/
-class XMLTrainingTextList : public XMLDomReader {
-    Q_OBJECT
-    
-private:
-	QHash<QString,QString> trainingtexts;
-public:
+ */
+class XMLTrainingTextList : public XMLDomReader
+{
+  Q_OBJECT
+
+    private:
+    QHash<QString,QString> trainingtexts;
+  public:
     XMLTrainingTextList(QString path);
     bool load(QString path="");
-    
+
     QHash<QString,QString> getTrainingTextList() { return trainingtexts; }
 
     ~XMLTrainingTextList();
 
 };
-
 #endif

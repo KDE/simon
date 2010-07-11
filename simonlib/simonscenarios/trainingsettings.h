@@ -25,23 +25,21 @@
 #include <QVariantList>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class TrainingSettings : public KCModule
 {
-Q_OBJECT
-private:
-        Ui::TrainingSettingsWidget trainingUi;
+  Q_OBJECT
+    private:
+    Ui::TrainingSettingsWidget trainingUi;
 
-public:
-	virtual void save();
+  public:
+    virtual void save();
 
-public:
-        TrainingSettings(QWidget* parent, const QVariantList& args=QVariantList());
+  public:
+    TrainingSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
-        ~TrainingSettings();
-
+    ~TrainingSettings();
 
 };
-
 #endif

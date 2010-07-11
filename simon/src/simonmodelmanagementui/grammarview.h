@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_GRAMMARVIEW_H_9DC3821C61394228AED5ECE6953DF69A
 #define SIMON_GRAMMARVIEW_H_9DC3821C61394228AED5ECE6953DF69A
 
@@ -27,24 +26,22 @@
 #include <simonscenarios/scenariodisplay.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class GrammarViewPrivate;
 
-class SIMONMODELMANAGEMENTUI_EXPORT GrammarView : public InlineWidget, public ScenarioDisplay 
+class SIMONMODELMANAGEMENTUI_EXPORT GrammarView : public InlineWidget, public ScenarioDisplay
 {
-Q_OBJECT
-private:
-	GrammarViewPrivate *d;
+  Q_OBJECT
+    private:
+    GrammarViewPrivate *d;
 
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
-protected:
-	void displayScenarioPrivate(Scenario *scenario);
-
-public:
+  public:
     GrammarView(QWidget* parent=0);
     ~GrammarView();
 
 };
-
 #endif

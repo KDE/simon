@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_STATUSMANAGER_H_12966FF9A57D48DC97C91B2E61643660
 #define SIMON_STATUSMANAGER_H_12966FF9A57D48DC97C91B2E61643660
 
@@ -30,37 +29,35 @@
 
 class CompositeProgressWidget;
 
-class SIMONPROGRESSTRACKING_EXPORT StatusManager : public QObject {
-	Q_OBJECT
-	
-	signals:
-		void operationsChanged(const OperationList&);
-		
-	private:
-		QList<CompositeProgressWidget*> ui;
-		OperationList runningOperations;
-		static StatusManager *globalInstance;
-		
-	protected:
-		StatusManager(QObject *parent=0);
-	
-	public:
-		static StatusManager* global(QObject *parent=0)
-		{
-			if (!globalInstance) globalInstance = new StatusManager(parent);
-			return globalInstance;
-		}
-		
-		CompositeProgressWidget* createWidget(QWidget *parent=0);
-		
-		void registerOperation(Operation* operation);
-		void removeOperation(Operation* operation);
-		
-		~StatusManager();
-	
-		void update();
-		
+class SIMONPROGRESSTRACKING_EXPORT StatusManager : public QObject
+{
+  Q_OBJECT
+
+    signals:
+  void operationsChanged(const OperationList&);
+
+  private:
+    QList<CompositeProgressWidget*> ui;
+    OperationList runningOperations;
+    static StatusManager *globalInstance;
+
+  protected:
+    StatusManager(QObject *parent=0);
+
+  public:
+    static StatusManager* global(QObject *parent=0) {
+      if (!globalInstance) globalInstance = new StatusManager(parent);
+      return globalInstance;
+    }
+
+    CompositeProgressWidget* createWidget(QWidget *parent=0);
+
+    void registerOperation(Operation* operation);
+    void removeOperation(Operation* operation);
+
+    ~StatusManager();
+
+    void update();
 
 };
-
 #endif

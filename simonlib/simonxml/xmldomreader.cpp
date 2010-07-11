@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "xmldomreader.h"
 #include <QObject>
 #include <QDomDocument>
@@ -37,9 +36,10 @@
  * The parent of the object
  */
 XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, parent),
-	doc(0)
+doc(0)
 {
 }
+
 
 /**
  * \brief Saves the opened file to the given path
@@ -49,27 +49,25 @@ XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, pare
  */
 bool XMLDomReader::save(QString path)
 {
-	if (path.isEmpty()) path = this->path;
+  if (path.isEmpty()) path = this->path;
 
+  QIODevice *file = KFilterDev::deviceForFile(path,
+    KMimeType::findByFileContent(path)->name());
+  if((!file) || (!file->open(QIODevice::WriteOnly))) {
+    qDebug() << "Hier is falsch";
+    return false;
+  }
 
-	QIODevice *file = KFilterDev::deviceForFile(path,
-							KMimeType::findByFileContent(path)->name());
-	if((!file) || (!file->open(QIODevice::WriteOnly)))
-        {qDebug() << "Hier is falsch";
-		return false;
-	}
-
-	QTextStream ts(file);
-	ts.setCodec("UTF-8");
-	ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	ts << doc->toString();
-	emit(written());
-	file->close();
-	file->deleteLater();
-	emit(closed());
-	return true;
+  QTextStream ts(file);
+  ts.setCodec("UTF-8");
+  ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  ts << doc->toString();
+  emit(written());
+  file->close();
+  file->deleteLater();
+  emit(closed());
+  return true;
 }
-
 
 
 /**
@@ -80,28 +78,28 @@ bool XMLDomReader::save(QString path)
  */
 bool XMLDomReader::load(QString path)
 {
-	if (path.isEmpty())
-        path = this->path;
-	
-	delete doc;
-	doc= new QDomDocument();
+  if (path.isEmpty())
+    path = this->path;
 
+  delete doc;
+  doc= new QDomDocument();
 
-	QIODevice *file = KFilterDev::deviceForFile(path,
-							KMimeType::findByFileContent(path)->name());
-	
-	if((!file) || (!file->open(QIODevice::ReadOnly)))
-		return false;
+  QIODevice *file = KFilterDev::deviceForFile(path,
+    KMimeType::findByFileContent(path)->name());
 
-	if (!doc->setContent(file))
-		return false;
+  if((!file) || (!file->open(QIODevice::ReadOnly)))
+    return false;
 
-	file->close();
-	file->deleteLater();
+  if (!doc->setContent(file))
+    return false;
 
-	emit (loaded());
-	return true;
+  file->close();
+  file->deleteLater();
+
+  emit (loaded());
+  return true;
 }
+
 
 /**
  * \brief Destructor
@@ -109,5 +107,5 @@ bool XMLDomReader::load(QString path)
  */
 XMLDomReader::~XMLDomReader()
 {
-	delete doc;
+  delete doc;
 }

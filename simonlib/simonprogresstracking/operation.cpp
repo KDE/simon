@@ -23,101 +23,107 @@
 #include <KLocalizedString>
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0),
-	m_thread(thread),
-	m_name(name),
-	m_currentAction(currentAction),
-	m_now(now),
-	m_max(max),
-	m_isAtomic(isAtomic),
-	m_status(Operation::Running)
+m_thread(thread),
+m_name(name),
+m_currentAction(currentAction),
+m_now(now),
+m_max(max),
+m_isAtomic(isAtomic),
+m_status(Operation::Running)
 {
-	registerWith(StatusManager::global());
+  registerWith(StatusManager::global());
 }
 
 
 void Operation::registerWith(StatusManager *man)
 {
-	manager << man;
-	man->registerOperation(this);
+  manager << man;
+  man->registerOperation(this);
 }
+
 
 QString Operation::currentAction()
 {
-	switch (m_status)
-	{
-		case Finished:
-			return i18n("Finished");
-		case Aborted:
-			return i18n("Aborted");
-		case Aborting:
-			return i18n("Aborting...");
-		default:
-			return m_currentAction;
-	}
+  switch (m_status) {
+    case Finished:
+      return i18n("Finished");
+    case Aborted:
+      return i18n("Aborted");
+    case Aborting:
+      return i18n("Aborting...");
+    default:
+      return m_currentAction;
+  }
 }
+
 
 void Operation::update(const QString& currentAction, int newProgress, int newMaximum)
 {
-	m_currentAction = currentAction;
-	m_now = newProgress;
+  m_currentAction = currentAction;
+  m_now = newProgress;
 
-	if (newMaximum != -1)
-		m_max = newMaximum;
-	
-	pushUpdate();
+  if (newMaximum != -1)
+    m_max = newMaximum;
+
+  pushUpdate();
 }
-
 
 
 void Operation::update(int newProgress, int newMaximum)
 {
-	m_now = newProgress;
-	if (newMaximum != -1)
-		m_max = newMaximum;
-	pushUpdate();
+  m_now = newProgress;
+  if (newMaximum != -1)
+    m_max = newMaximum;
+  pushUpdate();
 }
+
 
 void Operation::cancel()
 {
-	m_cancel=true;
-	m_status = Aborting;
-	emit aborting();
-	pushUpdate();
+  m_cancel=true;
+  m_status = Aborting;
+  emit aborting();
+  pushUpdate();
 }
+
 
 void Operation::maxProgressBar()
 {
-	if (maxProgress() > 0)
-		update(maxProgress(), maxProgress());
-	else update(1,1);
+  if (maxProgress() > 0)
+    update(maxProgress(), maxProgress());
+  else update(1,1);
 }
+
 
 void Operation::canceled()
 {
-	m_status = Aborted;
+  m_status = Aborted;
   maxProgressBar();
-	pushUpdate();
-	QTimer::singleShot(3000, this, SLOT(deleteLater()));
+  pushUpdate();
+  QTimer::singleShot(3000, this, SLOT(deleteLater()));
 }
+
 
 void Operation::finished()
 {
-	m_status = Finished;
+  m_status = Finished;
 
   maxProgressBar();
 
-	pushUpdate();
-	QTimer::singleShot(3000, this, SLOT(deleteLater()));
+  pushUpdate();
+  QTimer::singleShot(3000, this, SLOT(deleteLater()));
 }
+
 
 void Operation::pushUpdate()
 {
-	foreach (StatusManager *man, manager)
-		man->update();
+  foreach (StatusManager *man, manager)
+    man->update();
 }
+
 
 Operation::~Operation()
 {
-	foreach (StatusManager *man, manager)
-		man->removeOperation(this);
+  foreach (StatusManager *man, manager)
+    man->removeOperation(this);
 }

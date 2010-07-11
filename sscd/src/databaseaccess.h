@@ -38,58 +38,56 @@ class SSCQueries;
 
 class DatabaseAccess : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void error(const QString& error);
+    signals:
+  void error(const QString& error);
 
-	private:
-		QSqlDatabase *db;
-		SSCQueries *queryProvider;
-		QMutex transactionLock;
+  private:
+    QSqlDatabase *db;
+    SSCQueries *queryProvider;
+    QMutex transactionLock;
 
-		bool executeQuery(QSqlQuery& query);
-		int getLastInsertedId();
+    bool executeQuery(QSqlQuery& query);
+    int getLastInsertedId();
 
-	public:
-		DatabaseAccess(QObject *parent=0);   
-		~DatabaseAccess();
+  public:
+    DatabaseAccess(QObject *parent=0);
+    ~DatabaseAccess();
 
-		void lockTranscation();
-		void unlockTransaction();
+    void lockTranscation();
+    void unlockTransaction();
 
-		bool init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password, const QString& options);
-		void closeConnection();
+    bool init(const QString& type, const QString& host, qint16 port, const QString& dbName, const QString& user, const QString& password, const QString& options);
+    void closeConnection();
 
-		bool isConnected();
+    bool isConnected();
 
-		User* getUser(qint32 id);
-		QList<User*>* getUsers(User* filterUser, qint32 institutionId, const QString& referenceId);
-		bool addUser(User *u, int& userId);
-		bool modifyUser(User *u);
-		bool removeUser(qint32 id);
-		int getLastUserId();
+    User* getUser(qint32 id);
+    QList<User*>* getUsers(User* filterUser, qint32 institutionId, const QString& referenceId);
+    bool addUser(User *u, int& userId);
+    bool modifyUser(User *u);
+    bool removeUser(qint32 id);
+    int getLastUserId();
 
-		QList<Language*>* getLanguages();
-		QList<Microphone*>* getMicrophones();
-		QList<SoundCard*>* getSoundCards();
-		Institution* getInstitution(qint32 id);
-		QList<Institution*>* getInstitutions();
-		bool addInstitution(Institution *i);
-		bool modifyInstitution(Institution *i);
-		bool removeInstitution(qint32 id);
+    QList<Language*>* getLanguages();
+    QList<Microphone*>* getMicrophones();
+    QList<SoundCard*>* getSoundCards();
+    Institution* getInstitution(qint32 id);
+    QList<Institution*>* getInstitutions();
+    bool addInstitution(Institution *i);
+    bool modifyInstitution(Institution *i);
+    bool removeInstitution(qint32 id);
 
-		bool getOrCreateMicrophone(Microphone *m, qint32& microphoneId);
-		bool getOrCreateSoundCard(SoundCard *s, qint32& soundCardId);
+    bool getOrCreateMicrophone(Microphone *m, qint32& microphoneId);
+    bool getOrCreateSoundCard(SoundCard *s, qint32& soundCardId);
 
+    int addUserInstitutionAssociation(UserInInstitution *uii);
+    bool deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId);
+    QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
 
-		int addUserInstitutionAssociation(UserInInstitution *uii);
-		bool deleteUserInstitutionAssociation(qint32 userId, qint32 institutionId);
-		QList<UserInInstitution*>* getUserInstitutionAssociation(qint32 userId);
-
-		qint32 nextSampleId();
-		bool storeSample(Sample *s);
-		QStringList* getSamplePaths(qint32 userId);
+    qint32 nextSampleId();
+    bool storeSample(Sample *s);
+    QStringList* getSamplePaths(qint32 userId);
 };
-
 #endif

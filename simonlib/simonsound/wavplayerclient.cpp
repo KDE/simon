@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "wavplayerclient.h"
 #include "wavplayersubclient.h"
 #include "soundserver.h"
@@ -30,43 +29,43 @@
  */
 WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent)
 {
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
 
-	kDebug() << "Found applicable devices: " << devices.count();
-	foreach (SimonSound::DeviceConfiguration dev, devices)
-	{
-		WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent);
-		connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
-		connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));
-		clients << c;
-	}
+  kDebug() << "Found applicable devices: " << devices.count();
+  foreach (SimonSound::DeviceConfiguration dev, devices) {
+    WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent);
+    connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
+    connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));
+    clients << c;
+  }
 }
+
 
 void WavPlayerClient::slotCurrentProgress(int progress)
 {
-	WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
-	if (!c) return;
+  WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
+  if (!c) return;
 
-	Q_ASSERT(!clientsWaitingToFinish.isEmpty());
+  Q_ASSERT(!clientsWaitingToFinish.isEmpty());
 
-
-	if (c == clientsWaitingToFinish.at(0))
-		emit currentProgress(progress); //always emit current progress info from first
-						// device in leftover queue
+  if (c == clientsWaitingToFinish.at(0))
+    emit currentProgress(progress);               //always emit current progress info from first
+  // device in leftover queue
 }
+
 
 void WavPlayerClient::slotFinished()
 {
-	WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
-	if (!c) return;
+  WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
+  if (!c) return;
 
-	clientsWaitingToFinish.removeAll(c);
+  clientsWaitingToFinish.removeAll(c);
 
-	if (clientsWaitingToFinish.isEmpty())
-	{
-		emit finished();
-	}
+  if (clientsWaitingToFinish.isEmpty()) {
+    emit finished();
+  }
 }
+
 
 /**
  * \brief Plays back the given file
@@ -74,36 +73,34 @@ void WavPlayerClient::slotFinished()
  */
 bool WavPlayerClient::play( QString filename, int channels )
 {
-	bool succ = false;
-	kDebug() << "Playing: " << filename;
-	foreach (WavPlayerSubClient *client, clients)
-	{
-		kDebug() << "Go Client!";
-		if ((client->getChannelCount() == channels) && 
-				client->play(filename))
-		{
-			clientsWaitingToFinish << client;
-			succ = true;
-		}
-	}
-	return succ;
+  bool succ = false;
+  kDebug() << "Playing: " << filename;
+  foreach (WavPlayerSubClient *client, clients) {
+    kDebug() << "Go Client!";
+    if ((client->getChannelCount() == channels) &&
+    client->play(filename)) {
+      clientsWaitingToFinish << client;
+      succ = true;
+    }
+  }
+  return succ;
 }
 
 
 /**
  * \brief Stops the current playback
- * 
+ *
  * \author Peter Grasch
  */
 void WavPlayerClient::stop()
 {
-	foreach (WavPlayerSubClient *client, clients)
-		client->stop();
-	
+  foreach (WavPlayerSubClient *client, clients)
+    client->stop();
+
 }
+
 
 WavPlayerClient::~WavPlayerClient()
 {
-	qDeleteAll(clients);
+  qDeleteAll(clients);
 }
-

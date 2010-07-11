@@ -25,7 +25,6 @@
 #include <QMutex>
 #include <sscprotocol/sscprotocol.h>
 
-
 const qint8 protocolVersion=1;
 
 class DatabaseAccess;
@@ -35,42 +34,41 @@ class Sample;
 
 class ClientSocket : public QSslSocket
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		QMutex messageLocker;
+    private:
+    QMutex messageLocker;
 
-		DatabaseAccess *databaseAccess;
+    DatabaseAccess *databaseAccess;
 
-		QString samplePath(qint32 userId);
-		
-		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
-		void sendCode(qint32 code);
-		bool sendResponse(qint32 code, qint32 response);
-		void sendObject(qint32 code, SSCObject* object);
-		void sendObjects(qint32 code, QList<SSCObject*> objects);
+    QString samplePath(qint32 userId);
 
-		void sendUser(qint32 id);
-		void sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId);
-		void removeUser(qint32 id);
-		void sendLanguages();
-		void sendMicrophones();
-		void sendSoundCards();
-		void sendInstitutions();
-		void removeInstitution(qint32 id);
-		void removeUserInInstitution(qint32 userId, qint32 institutionId);
-		void sendUserInstitutionAssociations(qint32 userId);
+    void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    void sendCode(qint32 code);
+    bool sendResponse(qint32 code, qint32 response);
+    void sendObject(qint32 code, SSCObject* object);
+    void sendObjects(qint32 code, QList<SSCObject*> objects);
 
-		void storeSample(Sample *s);
+    void sendUser(qint32 id);
+    void sendUsers(User *filterUser, qint32 institutionId, const QString& referenceId);
+    void removeUser(qint32 id);
+    void sendLanguages();
+    void sendMicrophones();
+    void sendSoundCards();
+    void sendInstitutions();
+    void removeInstitution(qint32 id);
+    void removeUserInInstitution(qint32 userId, qint32 institutionId);
+    void sendUserInstitutionAssociations(qint32 userId);
 
-	private slots:
-		void slotSocketError();
-		void processRequest();
-	public:
-		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
-			       
-		virtual ~ClientSocket();
-		
+    void storeSample(Sample *s);
+
+  private slots:
+    void slotSocketError();
+    void processRequest();
+  public:
+    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
+
+    virtual ~ClientSocket();
+
 };
-
 #endif

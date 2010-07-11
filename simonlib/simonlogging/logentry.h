@@ -17,14 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LOGENTRY_H_E0FB1742B6F544438CEE7690A60FB94C
 #define SIMON_LOGENTRY_H_E0FB1742B6F544438CEE7690A60FB94C
 
-
 #include <QDate>
 #include <QList>
-
 
 #define ERR 1
 #define INF 2
@@ -35,34 +32,33 @@ class QTime;
 class QByteArray;
 typedef QList <LogEntry> LogEntryList;
 
-
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
-class LogEntry{
-	
-private:
-	QTime time;
-	QDate date;
-	QByteArray message;
-	short type;
+class LogEntry
+{
 
-public:
+  private:
+    QTime time;
+    QDate date;
+    QByteArray message;
+    short type;
+
+  public:
     LogEntry(QDate date, QTime time, QByteArray message, short type);
 
     ~LogEntry();
-//Set-Methoden
-void setTime(QTime time) {this->time = time;}
-void setDate(QDate date) {this->date = date;}
-void setType(int type) {this->type = type;}
-void setMessage(QByteArray message) {this->message = message;}
+    //Set-Methoden
+    void setTime(QTime time) {this->time = time;}
+    void setDate(QDate date) {this->date = date;}
+    void setType(int type) {this->type = type;}
+    void setMessage(QByteArray message) {this->message = message;}
 
-//Get-Methoden
-QDate getDate() const {return this->date;}
-QTime getTime() const {return this->time;}
-short getType() const {return this->type;}
-QByteArray getMessage() const {return this->message;}
+    //Get-Methoden
+    QDate getDate() const {return this->date;}
+    QTime getTime() const {return this->time;}
+    short getType() const {return this->type;}
+    QByteArray getMessage() const {return this->message;}
 
 };
-
 #endif

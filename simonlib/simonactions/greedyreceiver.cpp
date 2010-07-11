@@ -23,42 +23,46 @@
 
 bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {
-	kDebug() << "Greedy triggering raw list";
-	if (resultList->isEmpty()) return false;
+  kDebug() << "Greedy triggering raw list";
+  if (resultList->isEmpty()) return false;
 
-	if (resultList->count() > 1) {
-		kDebug() << "Presenting user with results...";
-		ActionManager::getInstance()->presentUserWithResults(resultList);
-		return true;
-	} else {
-		return greedyTriggerRaw(resultList->at(0));
-	}
+  if (resultList->count() > 1) {
+    kDebug() << "Presenting user with results...";
+    ActionManager::getInstance()->presentUserWithResults(resultList);
+    return true;
+  }
+  else {
+    return greedyTriggerRaw(resultList->at(0));
+  }
 }
+
 
 bool GreedyReceiver::greedyTriggerRaw(const RecognitionResult& result)
 {
-	return greedyTrigger(result.sentence());
+  return greedyTrigger(result.sentence());
 }
+
 
 bool GreedyReceiver::greedyTrigger(const QString& triggerResult)
 {
-	kDebug() << "Greedy triggering!";
-	if (!m_manager) return false;
+  kDebug() << "Greedy triggering!";
+  if (!m_manager) return false;
 
-	return m_manager->trigger(triggerResult);
+  return m_manager->trigger(triggerResult);
 }
+
 
 void GreedyReceiver::startGreedy()
 {
-	ActionManager::getInstance()->registerGreedyReceiver(this);
-	if (m_manager)
-		m_manager->setGreedyStatus(true);
+  ActionManager::getInstance()->registerGreedyReceiver(this);
+  if (m_manager)
+    m_manager->setGreedyStatus(true);
 }
+
 
 void GreedyReceiver::stopGreedy()
 {
-	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
-	if (m_manager)
-		m_manager->setGreedyStatus(false);
+  ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+  if (m_manager)
+    m_manager->setGreedyStatus(false);
 }
-

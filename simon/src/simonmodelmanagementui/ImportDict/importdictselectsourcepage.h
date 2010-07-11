@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTDICTSELECTSOURCEPAGE_H_2E59D0149B434858A2BAF8D65A597942
 #define SIMON_IMPORTDICTSELECTSOURCEPAGE_H_2E59D0149B434858A2BAF8D65A597942
 
@@ -31,20 +30,19 @@ class QRadioButton;
  * \author Peter Grasch
  * \version 0.1
  * \date 10.8.2007
-*/
+ */
 class ImportDictSelectSourcePage : public QWizardPage
 {
-    Q_OBJECT
+  Q_OBJECT
 
-protected:
-	Ui::ImportDictSelectSourcePage ui;
-    
-public:
-	int nextId() const;
+    protected:
+    Ui::ImportDictSelectSourcePage ui;
+
+  public:
+    int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);
 
     ~ImportDictSelectSourcePage();
 
 };
-
 #endif

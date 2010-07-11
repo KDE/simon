@@ -22,26 +22,27 @@
 #include <QByteArray>
 
 Language::Language(const QString& id, const QString& name) :
-	m_id(id),
-	m_name(name)
+m_id(id),
+m_name(name)
 {
 }
+
 
 void Language::deserialize(QByteArray data)
 {
-	QDataStream stream(&data, QIODevice::ReadOnly);
-	stream >> m_id;
-	stream >> m_name;
+  QDataStream stream(&data, QIODevice::ReadOnly);
+  stream >> m_id;
+  stream >> m_name;
 }
+
 
 QByteArray Language::serialize()
 {
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << m_id;
-	bodyStream << m_name;
+  bodyStream << m_id;
+  bodyStream << m_name;
 
-	return body;
+  return body;
 }
-

@@ -36,50 +36,49 @@ class ActionCollection;
 
 class MODELMANAGEMENT_EXPORT Action : public QObject, public ScenarioObject
 {
-	Q_OBJECT
-	
-	signals:
-		void changed();
+  Q_OBJECT
 
-	private:
-		QString m_source;
-		QString m_trigger;
-		QString m_version;
-		VersionNumber *pluginMinVersion;
-		VersionNumber *pluginMaxVersion;
-		QPointer<CommandManager> m_manager;
-		ActionCollection *m_actionCollection;
-		bool m_enabledByDefault;
+    signals:
+  void changed();
 
-		void init(const QString& source, const QString& trigger=QString());
-	public:
-		void assignParent(Scenario *s);
-		Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection);
-		typedef QPointer<Action> Ptr;
+  private:
+    QString m_source;
+    QString m_trigger;
+    QString m_version;
+    VersionNumber *pluginMinVersion;
+    VersionNumber *pluginMaxVersion;
+    QPointer<CommandManager> m_manager;
+    ActionCollection *m_actionCollection;
+    bool m_enabledByDefault;
 
-		static Action* createAction(Scenario *parent, const QDomElement& elem, ActionCollection *actionCollection);
+    void init(const QString& source, const QString& trigger=QString());
+  public:
+    void assignParent(Scenario *s);
+    Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection);
+    typedef QPointer<Action> Ptr;
 
-		bool enabledByDefault() { return m_enabledByDefault; }
-		QString source() { return m_source; }
-		QString trigger() { return m_trigger; }
+    static Action* createAction(Scenario *parent, const QDomElement& elem, ActionCollection *actionCollection);
 
-		QString getPluginVersion() { return m_version; }
+    bool enabledByDefault() { return m_enabledByDefault; }
+    QString source() { return m_source; }
+    QString trigger() { return m_trigger; }
 
-		QIcon icon();
-		QPointer<CommandManager> manager() { return m_manager; }
-		bool hasCommands();
-		bool setTrigger(const QString& newTrigger);
+    QString getPluginVersion() { return m_version; }
 
-		bool deSerialize(const QDomElement&);
-		QDomElement serialize(QDomDocument *doc);
+    QIcon icon();
+    QPointer<CommandManager> manager() { return m_manager; }
+    bool hasCommands();
+    bool setTrigger(const QString& newTrigger);
 
-		bool removeCommand(Command *command);
-		CommandConfiguration* getConfigurationPage();
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
 
-		void setPluginFont(const QFont& font);
+    bool removeCommand(Command *command);
+    CommandConfiguration* getConfigurationPage();
 
-		~Action();
+    void setPluginFont(const QFont& font);
+
+    ~Action();
 
 };
-
 #endif

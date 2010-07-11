@@ -7,6 +7,4 @@
 #else
 #define SSCD_BASE_DIRECTORY QString("/usr/share/sscd")
 #endif
-
 #endif
-

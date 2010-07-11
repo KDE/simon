@@ -35,52 +35,51 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class InputNumberCommandManager : public CommandManager, public GreedyReceiver {
-Q_OBJECT
-private:
-	Ui::InputNumberDlg ui;
-	QDialog *widget;
-	KAction *activateAction;
+class InputNumberCommandManager : public CommandManager, public GreedyReceiver
+{
+  Q_OBJECT
+    private:
+    Ui::InputNumberDlg ui;
+    QDialog *widget;
+    KAction *activateAction;
 
-private slots:
-	void deregister();
-	void ok();
-	void back();
-	void cancel();
-	void processRequest(int number);
-	void sendComma();
-	void send0() { processRequest(0); }
-	void send1() { processRequest(1); }
-	void send2() { processRequest(2); }
-	void send3() { processRequest(3); }
-	void send4() { processRequest(4); }
-	void send5() { processRequest(5); }
-	void send6() { processRequest(6); }
-	void send7() { processRequest(7); }
-	void send8() { processRequest(8); }
-	void send9() { processRequest(9); }
+  private slots:
+    void deregister();
+    void ok();
+    void back();
+    void cancel();
+    void processRequest(int number);
+    void sendComma();
+    void send0() { processRequest(0); }
+    void send1() { processRequest(1); }
+    void send2() { processRequest(2); }
+    void send3() { processRequest(3); }
+    void send4() { processRequest(4); }
+    void send5() { processRequest(5); }
+    void send6() { processRequest(6); }
+    void send7() { processRequest(7); }
+    void send8() { processRequest(8); }
+    void send9() { processRequest(9); }
 
-public slots:
-	void activate();
+  public slots:
+    void activate();
 
-public:
-	const QString preferredTrigger() const;
-	bool deSerializeConfig(const QDomElement& elem);
+  public:
+    const QString preferredTrigger() const;
+    bool deSerializeConfig(const QDomElement& elem);
 
-	const QString iconSrc() const;
-	const QString name() const;
-	void setFont(const QFont& font);
+    const QString iconSrc() const;
+    const QString name() const;
+    void setFont(const QFont& font);
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     InputNumberCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~InputNumberCommandManager();
 
 };
-
 #endif

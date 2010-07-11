@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "vocabularyview.h"
 #include "vocabularyviewprivate.h"
 #include <KLocalizedString>
@@ -30,20 +29,21 @@
  *
  * @author Peter Grasch
  */
-VocabularyView::VocabularyView(QWidget *parent) : InlineWidget(i18n("Wordlist"), 
-	KIcon("format-justify-fill"), 
-	i18n("View and modify the vocabulary."), parent)
+VocabularyView::VocabularyView(QWidget *parent) : InlineWidget(i18n("Wordlist"),
+KIcon("format-justify-fill"),
+i18n("View and modify the vocabulary."), parent)
 {
-	d = new VocabularyViewPrivate(this);
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(d);
-	
-	hide();
+  d = new VocabularyViewPrivate(this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(d);
+
+  hide();
 }
+
 
 void VocabularyView::displayScenarioPrivate(Scenario *scenario)
 {
-	d->displayScenario(scenario);
+  d->displayScenario(scenario);
 }
 
 
@@ -56,5 +56,5 @@ void VocabularyView::displayScenarioPrivate(Scenario *scenario)
  */
 VocabularyView::~VocabularyView()
 {
-    d->deleteLater();
+  d->deleteLater();
 }

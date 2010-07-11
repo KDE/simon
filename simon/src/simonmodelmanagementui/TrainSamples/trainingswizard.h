@@ -28,28 +28,25 @@ class TrainingText;
 
 class TrainingsWizard : public SimonWizard
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private slots:
-		void cleanUp();
-		void submit();
+    private slots:
+    void cleanUp();
+    void submit();
 
-	private:
-		QWizardPage* createIntroPage();
-		QWizardPage* createVolumePage();
-		QWizardPage* createFinishedPage();
+  private:
+    QWizardPage* createIntroPage();
+    QWizardPage* createVolumePage();
+    QWizardPage* createFinishedPage();
 
-		bool init(const QStringList& prompts, const QString& name);
+    bool init(const QStringList& prompts, const QString& name);
 
-	public:
-		TrainingsWizard(QWidget *parent=0);
-		bool init(const QStringList &prompts);
-		bool init(const QList<Word*>& wList, bool smartSentences=false);
-		bool init(const TrainingText &text);
-		~TrainingsWizard();
+  public:
+    TrainingsWizard(QWidget *parent=0);
+    bool init(const QStringList &prompts);
+    bool init(const QList<Word*>& wList, bool smartSentences=false);
+    bool init(const TrainingText &text);
+    ~TrainingsWizard();
 
 };
-
-
-
 #endif

@@ -22,7 +22,6 @@
 
 void ScreenGrid::keyPressEvent(QKeyEvent *event)
 {
-	if (!event) return;
-	if (event->key()== Qt::Key_Escape) emit cancel();
+  if (!event) return;
+  if (event->key()== Qt::Key_Escape) emit cancel();
 }
-

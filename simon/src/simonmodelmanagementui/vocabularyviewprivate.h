@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_VOCABULARYVIEWPRIVATE_H_4A93354D9FCB466B95864B97C35249B2
 #define SIMON_VOCABULARYVIEWPRIVATE_H_4A93354D9FCB466B95864B97C35249B2
-
 
 #include "ui_vocabulary.h"
 
@@ -29,7 +27,6 @@
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/wordlisttype.h>
 #include <simonscenarios/scenariodisplay.h>
-
 
 class QSortFilterProxyModel;
 class AddWordView;
@@ -43,39 +40,37 @@ class AddWordView;
  *	@author Peter Grasch
  */
 
+class VocabularyViewPrivate : public QWidget, public ScenarioDisplay
+{
+  Q_OBJECT
+    private:
+    QSortFilterProxyModel *activeProxy;
+    QSortFilterProxyModel *shadowProxy;
 
-class VocabularyViewPrivate : public QWidget, public ScenarioDisplay {
-	Q_OBJECT
-private:
-	QSortFilterProxyModel *activeProxy;
-	QSortFilterProxyModel *shadowProxy;
+    Ui::VocabularyView ui;
 
-	Ui::VocabularyView ui;
+    QList<Word*> trainingVocabulary;
 
-	QList<Word*> trainingVocabulary;
+    Word *getCurrentlySelectedWord(bool &isShadowed);
 
-	Word *getCurrentlySelectedWord(bool &isShadowed);
+  public slots:
+    void refreshActiveView();
+    void refreshShadowView();
+    void showImportDictDialog();
+    void displayScenarioPrivate(Scenario *scenario);
 
+    void editSelectedWord();
+    void clear();
+    void deleteSelectedWord();
 
-public slots:
-	void refreshActiveView();
-	void refreshShadowView();
-	void showImportDictDialog();
-	void displayScenarioPrivate(Scenario *scenario);
+    void copyWordToTrain();
+    void deleteTrainingWord();
+    void trainList();
 
-	void editSelectedWord();
-	void clear();
-	void deleteSelectedWord();
+  public:
+    VocabularyViewPrivate(QWidget *parent);
 
-	void copyWordToTrain();
-	void deleteTrainingWord();
-	void trainList();
-
-public:
-	VocabularyViewPrivate(QWidget *parent);
-
-	~VocabularyViewPrivate();
+    ~VocabularyViewPrivate();
 
 };
-
 #endif

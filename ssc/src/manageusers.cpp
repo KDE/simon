@@ -31,115 +31,121 @@
 #include <KMessageBox>
 #include <KDialogButtonBox>
 
-ManageUsers::ManageUsers(QWidget* parent) : 
-	KDialog(parent), model(NULL), proxyModel(new QSortFilterProxyModel(this))
+ManageUsers::ManageUsers(QWidget* parent) :
+KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
 
-	ui.tvUsers->setModel(proxyModel);
+  ui.tvUsers->setModel(proxyModel);
 
-	setMainWidget( widget );
-	
-	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
-	connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editUser()));
-	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteUser()));
+  setMainWidget( widget );
 
-	connect(ui.pbSearchInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
+  connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
+  connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editUser()));
+  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteUser()));
 
-	connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
-	setCaption( i18n("Users") );
+  connect(ui.pbSearchInstitution, SIGNAL(clicked()), this, SLOT(findInstitution()));
 
-	ui.tvUsers->setSelectionBehavior(QAbstractItemView::SelectRows);
-	ui.tvUsers->setSortingEnabled(true);
+  connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
+  setCaption( i18n("Users") );
 
-	//set return button to filter instead of closing the dialog
-	ui.pbFilter->setDefault(true);
-	displayLanguages();
+  ui.tvUsers->setSelectionBehavior(QAbstractItemView::SelectRows);
+  ui.tvUsers->setSortingEnabled(true);
+
+  //set return button to filter instead of closing the dialog
+  ui.pbFilter->setDefault(true);
+  displayLanguages();
 }
 
 
 void ManageUsers::filter()
 {
-	updateList();
+  updateList();
 }
+
 
 void ManageUsers::displayLanguages()
 {
-	ui.cbMothersTongue->clear();
-	ui.cbMothersTongue->addItem(i18n("Ignored"), "");
+  ui.cbMothersTongue->clear();
+  ui.cbMothersTongue->addItem(i18n("Ignored"), "");
 
-	bool ok;
-	QList<Language*> langs = SSCDAccess::getInstance()->getLanguages(&ok);
-	if (!ok) {
-		KMessageBox::sorry(this, i18n("Couldn't retrieve languages: %1", SSCDAccess::getInstance()->lastError()));
-		return;
-	}
+  bool ok;
+  QList<Language*> langs = SSCDAccess::getInstance()->getLanguages(&ok);
+  if (!ok) {
+    KMessageBox::sorry(this, i18n("Could not retrieve languages: %1", SSCDAccess::getInstance()->lastError()));
+    return;
+  }
 
-	foreach (Language *l, langs) {
-		ui.cbMothersTongue->addItem(l->name(), l->id());
-	}
+  foreach (Language *l, langs) {
+    ui.cbMothersTongue->addItem(l->name(), l->id());
+  }
+  qDeleteAll(langs);
 }
+
 
 void ManageUsers::findInstitution()
 {
-	ManageInstitutions *manageInstitutions = new ManageInstitutions(this);
-	Institution *i = manageInstitutions->getInstitution();
-	if (i) {
-		ui.cbInstitutionId->setEditText(QString::number(i->id()));
-		updateList();
-	}
+  ManageInstitutions *manageInstitutions = new ManageInstitutions(this);
+  Institution *i = manageInstitutions->getInstitution();
+  if (i) {
+    ui.cbInstitutionId->setEditText(QString::number(i->id()));
+    updateList();
+  }
 
-	manageInstitutions->deleteLater();
+  manageInstitutions->deleteLater();
 }
+
 
 User* ManageUsers::getCurrentlySelectedUser()
 {
-	QModelIndex selectedIndex = proxyModel->mapToSource(ui.tvUsers->currentIndex());
-	if (!selectedIndex.isValid()) {
-		KMessageBox::information(this, i18n("Please select an user"));
-		return NULL;
-	}
+  QModelIndex selectedIndex = proxyModel->mapToSource(ui.tvUsers->currentIndex());
+  if (!selectedIndex.isValid()) {
+    KMessageBox::information(this, i18n("Please select an user"));
+    return 0;
+  }
 
-	return static_cast<User*>(selectedIndex.internalPointer());
+  return static_cast<User*>(selectedIndex.internalPointer());
 }
 
 
 void ManageUsers::addUser()
 {
-	ModifyUser *m = new ModifyUser(this);
-	m->newUser();
-	m->deleteLater();
+  ModifyUser *m = new ModifyUser(this);
+  m->newUser();
+  m->deleteLater();
 
-	updateList();
+  updateList();
 }
+
 
 void ManageUsers::editUser()
 {
-	User *u = getCurrentlySelectedUser();
-	if (!u) return;
+  User *u = getCurrentlySelectedUser();
+  if (!u) return;
 
-	ModifyUser *m = new ModifyUser(this);
-	if (m->modifyUser(u))
-		updateList();
-	m->deleteLater();
+  ModifyUser *m = new ModifyUser(this);
+  if (m->modifyUser(u))
+    updateList();
+  m->deleteLater();
 }
+
 
 void ManageUsers::deleteUser()
 {
-	User *u = getCurrentlySelectedUser();
-	if (!u) return;
+  User *u = getCurrentlySelectedUser();
+  if (!u) return;
 
-	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\n"
-					"All collected samples associated with this user will be irreversibly destroyed!", 
-					u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) !=
-					KMessageBox::Yes)
-		return;
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\n"
+    "All collected samples associated with this user will be irreversibly destroyed!",
+    u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) !=
+    KMessageBox::Yes)
+    return;
 
-	if (!SSCDAccess::getInstance()->deleteUser(u))
-		KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccess::getInstance()->deleteUser(u))
+    KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccess::getInstance()->lastError()));
 
-	updateList();
+  updateList();
 }
 
 
@@ -148,100 +154,103 @@ void ManageUsers::deleteUser()
  */
 void ManageUsers::updateList()
 {
-	bool ok;
+  bool ok;
 
-	qint32 institutionId = ui.cbInstitutionId->currentText().toInt(&ok);
-	if (!ok && !ui.cbInstitutionId->currentText().isEmpty()) {
-		KMessageBox::information(this, i18n("InstitutionID is invalid"));
-		return;
-	}
-	QString referenceId = ui.leReferenceId->text();
+  qint32 institutionId = ui.cbInstitutionId->currentText().toInt(&ok);
+  if (!ok && !ui.cbInstitutionId->currentText().isEmpty()) {
+    KMessageBox::information(this, i18n("InstitutionID is invalid"));
+    return;
+  }
+  QString referenceId = ui.leReferenceId->text();
 
+  User *filterUser = new User(ui.leUserId->text().toInt(),
+    ui.leSurname->text(),
+    ui.leGivenName->text(),
+    getSex(),
+    ui.leBirthYear->text().toInt(),
+    ui.leZIPCode->text(),
+    ui.teEducation->toPlainText(),
+    ui.leCurrentOccupation->text(),
+    ui.cbMothersTongue->itemData(ui.cbMothersTongue->currentIndex(), Qt::UserRole).toString(),
+    ui.cbMothersTongue->currentText(),
+    ui.teDiagnosis->toPlainText(),
+    ui.cbOrientation->currentIndex(),
+    ui.cbMotorFunction->currentIndex(),
+    ui.cbCommunication->currentIndex(),
+    ui.teMouthMotoric->toPlainText(),
+    getInterviewingPossible(),
+    getRepeatingPossible());
 
-	User *filterUser = new User(ui.leUserId->text().toInt(),
-			ui.leSurname->text(),
-			ui.leGivenName->text(),
-			getSex(),
-			ui.leBirthYear->text().toInt(),
-			ui.leZIPCode->text(),
-			ui.teEducation->toPlainText(),
-			ui.leCurrentOccupation->text(),
-			ui.cbMothersTongue->itemData(ui.cbMothersTongue->currentIndex(), Qt::UserRole).toString(),
-			ui.cbMothersTongue->currentText(),
-			ui.teDiagnosis->toPlainText(),
-			ui.cbOrientation->currentIndex(),
-			ui.cbMotorFunction->currentIndex(),
-			ui.cbCommunication->currentIndex(),
-			ui.teMouthMotoric->toPlainText(),
-			getInterviewingPossible(),
-			getRepeatingPossible());
+  QList<User*> users = SSCDAccess::getInstance()->getUsers(filterUser, institutionId, referenceId, &ok);
 
+  delete filterUser;
 
-	QList<User*> users = SSCDAccess::getInstance()->getUsers(filterUser, institutionId, referenceId, &ok);
+  if (!ok) {
+    KMessageBox::sorry(this, i18n("Could not retrieve users: %1", SSCDAccess::getInstance()->lastError()));
+    return;
+  }
 
-	delete filterUser;
+  if (!model) {
+    model = new UserModel(users, this);
+    proxyModel->setSourceModel(model);
+  } else
+  model->replaceData(users);
 
-	if (!ok) {
-		KMessageBox::sorry(this, i18n("Could not retrieve users: %1", SSCDAccess::getInstance()->lastError()));
-		return;
-	}
-
-
-	if (!model)  {
-		model = new UserModel(users, this);
-		proxyModel->setSourceModel(model);
-	} else 
-		model->replaceData(users);
-
-	ui.tvUsers->resizeColumnsToContents();
+  ui.tvUsers->resizeColumnsToContents();
 }
+
 
 int ManageUsers::getInterviewingPossible()
 {
-	if (ui.rbInterviewIgnored->isChecked()) return 2;
-	else if (ui.rbInterviewYes->isChecked()) return 1;
-	else return 0;
+  if (ui.rbInterviewIgnored->isChecked()) return 2;
+  else if (ui.rbInterviewYes->isChecked()) return 1;
+  else return 0;
 
 }
+
 
 int ManageUsers::getRepeatingPossible()
 {
-	if (ui.rbRepeatingIgnored->isChecked()) return 2;
-	else if (ui.rbRepeatingYes->isChecked()) return 1;
-	else return 0;
+  if (ui.rbRepeatingIgnored->isChecked()) return 2;
+  else if (ui.rbRepeatingYes->isChecked()) return 1;
+  else return 0;
 }
+
 
 char ManageUsers::getSex()
 {
-	if (ui.rbIgnored->isChecked()) return ' ';
-	else if (ui.rbMale->isChecked()) return 'M';
-	else return 'F';
+  if (ui.rbIgnored->isChecked()) return ' ';
+  else if (ui.rbMale->isChecked()) return 'M';
+  else return 'F';
 }
+
 
 int ManageUsers::exec()
 {
-	updateList();
-	ui.wgModify->show();
-	return KDialog::exec();
+  updateList();
+  ui.wgModify->show();
+  return KDialog::exec();
 }
+
 
 User* ManageUsers::getUser()
 {
-	updateList();
-	ui.wgModify->hide();
-	int ret = KDialog::exec();
-	if (ret) {
-		return getCurrentlySelectedUser();
-	}
-	return NULL;
+  updateList();
+  ui.wgModify->hide();
+  int ret = KDialog::exec();
+  if (ret) {
+    return getCurrentlySelectedUser();
+  }
+  return 0;
 }
+
 
 void ManageUsers::deleteLater()
 {
-	QObject::deleteLater();
+  QObject::deleteLater();
 }
+
 
 ManageUsers::~ManageUsers()
 {
 }
-

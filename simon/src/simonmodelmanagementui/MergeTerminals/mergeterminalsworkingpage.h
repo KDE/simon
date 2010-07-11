@@ -17,36 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MERGETERMINALSWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
 #define SIMON_MERGETERMINALSWORKINGPAGE_H_8EDA9465BFB2449C8CD156F41B54419F
 
 #include <QWizardPage>
 #include "ui_mergeterminalsworkingpage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class MergeTerminals;
 class MergeTerminalsWorkingPage : public QWizardPage
 {
-Q_OBJECT
-signals:
-	void done();
-private:
-	Ui::MergeTerminalsWorkingPage ui;
-	MergeTerminals *mergeTerminals;
-	bool complete;
-private slots:
-	void displayProgress(int progress, int max);
-	void displayStatus(QString status);
-	void finished();
+  Q_OBJECT
+    signals:
+  void done();
+  private:
+    Ui::MergeTerminalsWorkingPage ui;
+    MergeTerminals *mergeTerminals;
+    bool complete;
+  private slots:
+    void displayProgress(int progress, int max);
+    void displayStatus(QString status);
+    void finished();
 
-public:
+  public:
     MergeTerminalsWorkingPage(QWidget* parent);
-	bool isComplete() const { return this->complete; }
-	void initializePage();
+    bool isComplete() const { return this->complete; }
+    void initializePage();
     ~MergeTerminalsWorkingPage();
 
 };
-
 #endif

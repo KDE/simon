@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "trayiconmanager.h"
 #include <KActionCollection>
 #include <QMenu>
@@ -31,13 +30,14 @@
  * Sets up the connection from the triggered signal to the triggered slot
  *
  * @author Peter Grasch
- * 
+ *
  */
 TrayIconManager::TrayIconManager(QWidget *parent)
- : QObject(),
-	icon(new KSystemTrayIcon(parent))
+: QObject(),
+icon(new KSystemTrayIcon(parent))
 {
 }
+
 
 /**
  * @brief Creates the Icon and displays it in the systray
@@ -49,26 +49,28 @@ TrayIconManager::TrayIconManager(QWidget *parent)
  * The icon that will be displayed
  * @param tooltip
  * The tooltip of the icon
- * 
+ *
  */
 void TrayIconManager::createIcon(const KIcon& icon, const QString& tooltip)
 {
-	this->icon->setIcon( icon );
-	this->icon->setToolTip( tooltip );
-	this->icon->show();
+  this->icon->setIcon( icon );
+  this->icon->setToolTip( tooltip );
+  this->icon->show();
 }
+
 
 void TrayIconManager::parentWidgetTrayClose()
 {
-	this->icon->parentWidgetTrayClose();
+  this->icon->parentWidgetTrayClose();
 }
 
 
 void TrayIconManager::addAction(const QString& name, KAction* action)
 {
-	this->icon->contextMenu()->addAction(action);
-	this->icon->actionCollection()->addAction(name, action);
+  this->icon->contextMenu()->addAction(action);
+  this->icon->actionCollection()->addAction(name, action);
 }
+
 
 /**
  * @brief Destructor
@@ -79,9 +81,7 @@ void TrayIconManager::addAction(const QString& name, KAction* action)
  */
 TrayIconManager::~TrayIconManager()
 {
-	icon->hide();
-	if (icon)
-		delete this->icon;
+  icon->hide();
+  if (icon)
+    delete this->icon;
 }
-
-

@@ -46,59 +46,61 @@
 #undef TRUE
 #endif
 
-extern "C" {
-	#include <julius/julius.h>
+extern "C"
+{
+  #include <julius/julius.h>
 }
+
 
 class JuliusControl : public RecognitionControl
 {
-	Q_OBJECT
-		
-	public:
-		enum Request {
-			None=0,
-			Stop=2
-		};
-		
-		JuliusControl(const QString& username, QObject *parent=0);
+  Q_OBJECT
 
-		bool initializeRecognition();
+    public:
+    enum Request
+    {
+      None=0,
+      Stop=2
+    };
 
-		bool startRecognition();
-		void stop();
-		bool isInitialized();
-		
-		bool isStopping() { return stopping; }
-		
-		void waitForResumed();
-		void recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults);
-		JuliusControl::Request popNextRequest();
-		
-		Jconf* setupJconf();
-		void recognize(const QString& fileName);
-      
-		~JuliusControl();
+    JuliusControl(const QString& username, QObject *parent=0);
 
-	protected:
-		void run();
-		void pushRequest(JuliusControl::Request);
-		void uninitialize();
+    bool initializeRecognition();
 
-	private:
-		Recog *recog;
-		Jconf *jconf;
-		bool stopping;
-		bool m_initialized;
-		bool shouldBeRunning;
-		FILE *logFile;
+    bool startRecognition();
+    void stop();
+    bool isInitialized();
 
-		QString currentFileName;
-		
-		QList<JuliusControl::Request> nextRequests;
-		QByteArray getBuildLog();
-		void emitError(const QString& error);
-		void closeLog();
-		
+    bool isStopping() { return stopping; }
+
+    void waitForResumed();
+    void recognized(const QString& fileName, const QList<RecognitionResult>& recognitionResults);
+    JuliusControl::Request popNextRequest();
+
+    Jconf* setupJconf();
+    void recognize(const QString& fileName);
+
+    ~JuliusControl();
+
+  protected:
+    void run();
+    void pushRequest(JuliusControl::Request);
+    void uninitialize();
+
+  private:
+    Recog *recog;
+    Jconf *jconf;
+    bool stopping;
+    bool m_initialized;
+    bool shouldBeRunning;
+    FILE *logFile;
+
+    QString currentFileName;
+
+    QList<JuliusControl::Request> nextRequests;
+    QByteArray getBuildLog();
+    void emitError(const QString& error);
+    void closeLog();
+
 };
-
 #endif

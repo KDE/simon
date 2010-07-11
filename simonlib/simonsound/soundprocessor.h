@@ -17,22 +17,18 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 #define SIMON_SOUNDPROCESSOR_H_BAC60251BE6A419EA1236280815A2AAD
 
 #include "simonsound_export.h"
 
-class SIMONSOUND_EXPORT SoundProcessor {
+class SIMONSOUND_EXPORT SoundProcessor
+{
 
-public:
-	SoundProcessor() {}
-	virtual ~SoundProcessor() {}
+  public:
+    SoundProcessor() {}
+    virtual ~SoundProcessor() {}
 
-	virtual void process(QByteArray& data, qint64& currentTime)=0;
+    virtual void process(QByteArray& data, qint64& currentTime)=0;
 };
-
 #endif
-
-
-

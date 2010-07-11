@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_INLINEWIDGET_H_A545F3AE90134F99905B9FCCE971C8C0
 #define SIMON_INLINEWIDGET_H_A545F3AE90134F99905B9FCCE971C8C0
 
@@ -37,41 +36,40 @@ class QSettings;
  * \author Peter Grasch
  * \version 0.1
  * \date 10.8.2007
-*/
+ */
 class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	QString title, desc;
-	KIcon icon;
+    private:
+    QString title, desc;
+    KIcon icon;
 
-signals:
-	void closed();
-	void rejected();
-	void hidden();
-	void execd();
-	void shown();
-	void accepted();
+    signals:
+    void closed();
+    void rejected();
+    void hidden();
+    void execd();
+    void shown();
+    void accepted();
 
-public:
-	InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent=0);
-		
-	~InlineWidget();
+  public:
+    InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent=0);
 
-	void setVisible(bool visible);
+    ~InlineWidget();
 
-	QString getTitle() const {return title; }
-	KIcon getIcon() const { return icon; }
-	QString getDesc() const { return desc; }
-	bool isShown();
+    void setVisible(bool visible);
 
-public slots:
-	void accept();
-	void reject();
-	bool close();
-	bool exec();
+    QString getTitle() const {return title; }
+    KIcon getIcon() const { return icon; }
+    QString getDesc() const { return desc; }
+    bool isShown();
+
+  public slots:
+    void accept();
+    void reject();
+    bool close();
+    bool exec();
 
 };
-
 #endif

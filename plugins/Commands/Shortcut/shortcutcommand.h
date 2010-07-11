@@ -17,13 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SHORTCUTCOMMAND_H_51F6847BEF9D4333AA3B7713F789AB98
 #define SIMON_SHORTCUTCOMMAND_H_51F6847BEF9D4333AA3B7713F789AB98
 
 #include <QKeySequence>
 #include <simonscenarios/command.h>
-
 
 /**
  *	@class ShortcutCommand
@@ -33,51 +31,48 @@
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class ShortcutCommand : public Command{
+class ShortcutCommand : public Command
+{
 
-private:
-	QKeySequence shortcut;
+  private:
+    QKeySequence shortcut;
 
-protected:
-	const QMap<QString,QVariant> getValueMapPrivate() const;
+  protected:
+    const QMap<QString,QVariant> getValueMapPrivate() const;
 
-	bool triggerPrivate(int *state);
+    bool triggerPrivate(int *state);
 
-	ShortcutCommand() {}
-public:
-	bool deSerializePrivate(const QDomElement& commandElem);
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+    ShortcutCommand() {}
+  public:
+    bool deSerializePrivate(const QDomElement& commandElem);
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
-	
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
-	shortcut(shortcut_)
-	{
-	}
-
-	STATIC_CREATE_INSTANCE_H(ShortcutCommand);
-
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
     /**
-    * @brief Returns the shortcut
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
+    shortcut(shortcut_) {
+    }
+
+    STATIC_CREATE_INSTANCE_H(ShortcutCommand);
+
+    /**
+     * @brief Returns the shortcut
+     *
+     *	@author Peter Grasch
+     */
     const QKeySequence getShortcut() const { return this->shortcut; }
-    
-    
+
     ~ShortcutCommand() {
     }
 
 };
-
 #endif

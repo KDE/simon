@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A0152F1E4DA098606C3E951E432D
 #define SIMON_FIRSTRUNBASEMODELCONFIG_H_FA01A0152F1E4DA098606C3E951E432D
 
@@ -28,22 +27,19 @@ class DeviceSettings;
 
 class FirstRunSoundConfig : public QWizardPage
 {
-	Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::SoundConfigDlg ui;
-//	DeviceSettings* deviceSettings;
+    private:
+    Ui::SoundConfigDlg ui;
+    //	DeviceSettings* deviceSettings;
 
+  public:
+    explicit FirstRunSoundConfig(QWidget *parent = 0);
 
-public:
-	explicit FirstRunSoundConfig(QWidget *parent = 0);
+    void initializePage();
+    bool validatePage();
 
-	void initializePage();
-	bool validatePage();
-
-	~FirstRunSoundConfig();
+    ~FirstRunSoundConfig();
 
 };
-
 #endif
-

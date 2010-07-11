@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 #define SIMON_DEVICEVOLUMEWIDGET_H_33F50DCCCC3D401FADDFBFD80B4E16F4
 
@@ -26,12 +25,15 @@
 
 namespace Ui
 {
-	class DeviceVolumeWidgetUi;
+  class DeviceVolumeWidgetUi;
 }
+
+
 namespace SimonSound
 {
-	class DeviceConfiguration;
+  class DeviceConfiguration;
 }
+
 
 class NullRecorderClient;
 
@@ -40,32 +42,30 @@ class NullRecorderClient;
  * \author Peter Grasch
  * \date 2.06.2010
  */
-class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget {
-	Q_OBJECT
+class SIMONSOUND_EXPORT DeviceVolumeWidget : public QWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::DeviceVolumeWidgetUi *ui;
-	NullRecorderClient *rec;
-	QString m_deviceName;
-	bool m_isTooLoud;
+    private:
+    Ui::DeviceVolumeWidgetUi *ui;
+    NullRecorderClient *rec;
+    QString m_deviceName;
+    bool m_isTooLoud;
 
-private slots:
-	void deviceReportedLevel(qint64 time, float level);
+  private slots:
+    void deviceReportedLevel(qint64 time, float level);
 
-	void clipping();
-	void tooLoud();
-	void volumeOk();
-	void tooLow();
-	void reset();
+    void clipping();
+    void tooLoud();
+    void volumeOk();
+    void tooLow();
+    void reset();
 
-public:
+  public:
     DeviceVolumeWidget(const SimonSound::DeviceConfiguration& device, QWidget *parent=0);
     ~DeviceVolumeWidget();
 
     void start();
     void stop();
 };
-
 #endif
-
-

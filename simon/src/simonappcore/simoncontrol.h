@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONCONTROL_H_8C368CB752BB429D878FFF032E3BC0C4
 #define SIMON_SIMONCONTROL_H_8C368CB752BB429D878FFF032E3BC0C4
 
@@ -32,7 +31,7 @@
  *	@version 0.1
  *	@date 07.01.2006
  *	@author Peter Grasch
-*/
+ */
 
 #include <QObject>
 #include <QStringList>
@@ -48,82 +47,82 @@ class ActionManager;
 
 class ShadowVocabulary;
 
-class SIMONAPPCORE_EXPORT SimonControl : public QObject {
-	Q_OBJECT
+class SIMONAPPCORE_EXPORT SimonControl : public QObject
+{
+  Q_OBJECT
 
-public:
-	enum SystemStatus {
-		Disconnected=0,
-		Connecting=1,
-		ConnectedDeactivating=3,
-		ConnectedDeactivatedNotReady=4,
-		ConnectedDeactivatedReady=5,
-		ConnectedPaused=6,
-		ConnectedActivating=7,
-		ConnectedResuming=8,
-		ConnectedActivated=9
-	};
-	
-	void connectTo(QString host);
-	SimonControl::SystemStatus deactivateSimon();
-	SimonControl::SystemStatus activateSimon();
+    public:
+    enum SystemStatus
+    {
+      Disconnected=0,
+      Connecting=1,
+      ConnectedDeactivating=3,
+      ConnectedDeactivatedNotReady=4,
+      ConnectedDeactivatedReady=5,
+      ConnectedPaused=6,
+      ConnectedActivating=7,
+      ConnectedResuming=8,
+      ConnectedActivated=9
+    };
 
-	SimonControl::SystemStatus toggleActivition();
-	
-	SimonControl::SystemStatus getStatus() const {return status;}
-	void setStatus(SimonControl::SystemStatus status);
+    void connectTo(QString host);
+    SimonControl::SystemStatus deactivateSimon();
+    SimonControl::SystemStatus activateSimon();
 
-	SimonControl(QWidget *parent=0);
+    SimonControl::SystemStatus toggleActivition();
 
-	~SimonControl();
+    SimonControl::SystemStatus getStatus() const {return status;}
+    void setStatus(SimonControl::SystemStatus status);
 
-	bool passwordProtected();
-	bool startMinimized();
-	bool firstRunWizardCompleted();
-	void setFirstRunWizardCompleted(bool);
+    SimonControl(QWidget *parent=0);
 
-signals:
-	void guiAction(const QString& action);
-	void systemStatusChanged(SimonControl::SystemStatus);
+    ~SimonControl();
 
-	void simondSystemError(const QString &err);
-	void synchronisationError(const QString &err);
-	void recognitionError(const QString &err, const QString& log);
-	void compilationError(const QString &err);
+    bool passwordProtected();
+    bool startMinimized();
+    bool firstRunWizardCompleted();
+    void setFirstRunWizardCompleted(bool);
 
-	
-public slots:
-	void startup();
+    signals:
+    void guiAction(const QString& action);
+    void systemStatusChanged(SimonControl::SystemStatus);
 
-	void connectToServer();
-	void disconnectFromServer();
-	void connectedToServer();
-	void disconnectedFromServer();
-	void wordRecognised(RecognitionResultList* recognitionResults);
-	void abortConnecting();
+    void simondSystemError(const QString &err);
+    void synchronisationError(const QString &err);
+    void recognitionError(const QString &err, const QString& log);
+    void compilationError(const QString &err);
 
-	void compileModel();
+  public slots:
+    void startup();
 
-private slots:
-	void slotConnectionError(const QString& err);
-	void slotSimondSystemError(const QString &err);
-	void slotSynchronisationError(const QString &err);
-	void slotRecognitionError(const QString &err, const QString& log);
-	void slotCompilationError(const QString &err, const QString& protocol);
-	void slotSoundError(const QString &err);
+    void connectToServer();
+    void disconnectFromServer();
+    void connectedToServer();
+    void disconnectedFromServer();
+    void wordRecognised(RecognitionResultList* recognitionResults);
+    void abortConnecting();
 
-	void slotSimondSystemWarning(const QString& warning);
-	void slotSynchronisationWarning(const QString& warning);
-	void slotRecognitionWarning(const QString& warning);
-	void slotCompilationWarning(const QString& warning);
+    void compileModel();
 
-	void loggedIn();
-	void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
+  private slots:
+    void slotConnectionError(const QString& err);
+    void slotSimondSystemError(const QString &err);
+    void slotSynchronisationError(const QString &err);
+    void slotRecognitionError(const QString &err, const QString& log);
+    void slotCompilationError(const QString &err, const QString& protocol);
+    void slotSoundError(const QString &err);
 
-private:
-	SimonControl::SystemStatus status;
-	
-	RecognitionControl *recognitionControl; //!< Julius Backend
+    void slotSimondSystemWarning(const QString& warning);
+    void slotSynchronisationWarning(const QString& warning);
+    void slotRecognitionWarning(const QString& warning);
+    void slotCompilationWarning(const QString& warning);
+
+    void loggedIn();
+    void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
+
+  private:
+    SimonControl::SystemStatus status;
+
+    RecognitionControl *recognitionControl;       //!< Julius Backend
 };
-
 #endif

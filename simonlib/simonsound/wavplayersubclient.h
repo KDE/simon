@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVPLAYERSUBCLIENT_H_272785B973C443B89098D25E583308C1
 #define SIMON_WAVPLAYERSUBCLIENT_H_272785B973C443B89098D25E583308C1
 
@@ -27,40 +26,36 @@
 
 class WAV;
 
-class WavPlayerSubClient : public QIODevice, public SoundOutputClient {
-	Q_OBJECT
-	
-private:
-	WAV *wav;
-	qint64 length;
+class WavPlayerSubClient : public QIODevice, public SoundOutputClient
+{
+  Q_OBJECT
 
-signals:
-	void currentProgress(int);
-	void finished();
+    private:
+    WAV *wav;
+    qint64 length;
 
-protected:
-	qint64 readData(char *toRead, qint64 maxLen);
-	qint64 writeData(const char *toWrite, qint64 len);
-	
-public:
-	WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
-	~WavPlayerSubClient();
+    signals:
+    void currentProgress(int);
+    void finished();
 
-	bool play(QString filename);
+  protected:
+    qint64 readData(char *toRead, qint64 maxLen);
+    qint64 writeData(const char *toWrite, qint64 len);
 
-	QIODevice* getDataProvider() { return this; }
-	bool open (OpenMode mode);
-	void close();
-	void finish();
-	int getChannelCount();
-		
-public slots:
-	void stop();
-	
+  public:
+    WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
+    ~WavPlayerSubClient();
 
+    bool play(QString filename);
+
+    QIODevice* getDataProvider() { return this; }
+    bool open (OpenMode mode);
+    void close();
+    void finish();
+    int getChannelCount();
+
+  public slots:
+    void stop();
 
 };
-
 #endif
-
-

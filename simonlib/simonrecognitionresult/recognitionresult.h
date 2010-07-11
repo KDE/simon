@@ -25,39 +25,36 @@
 #include <QMetaType>
 #include "simonrecognitionresult_export.h"
 
-
 class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 {
-	private:
-		QString m_sentence;
-		QString m_sampa;
-		QString m_sampaRaw;
-		QList<float> m_confidenceScores;
-	public:
-		RecognitionResult(QString sentence, QString sampa, QString sampaRaw, QList<float> confidenceScores)
-			: m_sentence(sentence),
-			m_sampa(sampa),
-			m_sampaRaw(sampaRaw),
-			m_confidenceScores(confidenceScores)
-		{
-		}
+  private:
+    QString m_sentence;
+    QString m_sampa;
+    QString m_sampaRaw;
+    QList<float> m_confidenceScores;
+  public:
+    RecognitionResult(QString sentence, QString sampa, QString sampaRaw, QList<float> confidenceScores)
+      : m_sentence(sentence),
+      m_sampa(sampa),
+      m_sampaRaw(sampaRaw),
+    m_confidenceScores(confidenceScores) {
+    }
 
-		QString sentence() const { return m_sentence; }
-		QString sampa() const { return m_sampa; }
-		QString sampaRaw() const { return m_sampaRaw; }
-		QList<float> confidenceScores() const { return m_confidenceScores; }
+    QString sentence() const { return m_sentence; }
+    QString sampa() const { return m_sampa; }
+    QString sampaRaw() const { return m_sampaRaw; }
+    QList<float> confidenceScores() const { return m_confidenceScores; }
 
-		float averageConfidenceScore() const;
+    float averageConfidenceScore() const;
 
-		QString toString() const;
+    QString toString() const;
 
-		bool matchesTrigger(const QString& trigger);
+    bool matchesTrigger(const QString& trigger);
 
-		void removeTrigger(const QString& trigger);
+    void removeTrigger(const QString& trigger);
 };
 
 typedef QList<RecognitionResult> RecognitionResultList;
 
 Q_DECLARE_METATYPE(RecognitionResultList)
-
 #endif

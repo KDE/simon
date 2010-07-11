@@ -17,21 +17,19 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVRECORDER_H_BAC60651BE6A419EA6256220815A2AAD
 #define SIMON_WAVRECORDER_H_BAC60651BE6A419EA6256220815A2AAD
 
-
 /**
-	\class WavRecorder
-	
-	\brief This class is used to capture wave input from the mic.
-	
-	It uses a SoundControl to control the microphone, captures data (until its interrupted)
-	Then it writes the data into a specified wav-file.
-	It utilizes callback functions for optimal performance
+  \class WavRecorder
 
-	\date 27.05.2007
+  \brief This class is used to capture wave input from the mic.
+
+  It uses a SoundControl to control the microphone, captures data (until its interrupted)
+  Then it writes the data into a specified wav-file.
+  It utilizes callback functions for optimal performance
+
+  \date 27.05.2007
 */
 
 #include <QObject>
@@ -40,33 +38,31 @@
 class WAV;
 class QAudioInput;
 
-class WavRecorder : public QObject {
-	Q_OBJECT
-private:
-	QAudioInput *input;
-	WAV *wavData;
-	int chans/*, samplerate*/;
-	QTimer timeWatcher;
-	int timeCounter;
+class WavRecorder : public QObject
+{
+  Q_OBJECT
+    private:
+    QAudioInput *input;
+    WAV *wavData;
+    int chans/*, samplerate*/;
+    QTimer timeWatcher;
+    int timeCounter;
 
-signals:
-	void currentProgress(int msecs, float level);
-	
-private slots:
-	void publishTime();
-	
-	
-public:
-	WAV* getWav() { return wavData; }
-	int getChannels() { return chans; }
+    signals:
+    void currentProgress(int msecs, float level);
 
-	WavRecorder(QObject *parent=0);
-	bool finish();
-    	bool record(QString filename);
-    
+  private slots:
+    void publishTime();
+
+  public:
+    WAV* getWav() { return wavData; }
+    int getChannels() { return chans; }
+
+    WavRecorder(QObject *parent=0);
+    bool finish();
+    bool record(QString filename);
 
     virtual ~WavRecorder();
 
 };
-
 #endif

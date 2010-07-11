@@ -25,40 +25,42 @@
 #include <KLocalizedString>
 #include <KStandardDirs>
 
-K_PLUGIN_FACTORY( ShortcutCommandPluginFactory, 
-			registerPlugin< ShortcutCommandManager >(); 
-		)
-        
-K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
+K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
+registerPlugin< ShortcutCommandManager >();
+)
 
+K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 ShortcutCommandManager::ShortcutCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
+
 const QString ShortcutCommandManager::name() const
 {
-	return ShortcutCommand::staticCategoryText();
+  return ShortcutCommand::staticCategoryText();
 }
+
 
 bool ShortcutCommandManager::shouldAcceptCommand(Command *command)
 {
-	return (dynamic_cast<ShortcutCommand*>(command) != NULL);
+  return (dynamic_cast<ShortcutCommand*>(command) != 0);
 }
+
 
 CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateShortcutCommandWidget(this, parent);
+  return new CreateShortcutCommandWidget(this, parent);
 }
+
 
 const QString ShortcutCommandManager::iconSrc() const
 {
-	return "go-jump-locationbar";
+  return "go-jump-locationbar";
 }
 
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(ShortcutCommandManager, ShortcutCommand)
-
 
 ShortcutCommandManager::~ShortcutCommandManager ()
 {

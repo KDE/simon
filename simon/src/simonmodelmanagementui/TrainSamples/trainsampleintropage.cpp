@@ -26,36 +26,36 @@
 #include <QTimer>
 #include <QCheckBox>
 
-
 #include <KDebug>
 
 TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Training"));
+  setTitle(i18n("Training"));
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
 
-	QLabel *lbIntro = new QLabel(this);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("This wizard will help you to improve the recognition rate based on "
-"recordings of your voice."));
+  QLabel *lbIntro = new QLabel(this);
+  lbIntro->setWordWrap(true);
+  lbIntro->setText(i18n("This wizard will help you to improve the recognition rate based on "
+    "recordings of your voice."));
 
-	cbPowerTrain = new QCheckBox(i18n("Power Training"), this);
+  cbPowerTrain = new QCheckBox(i18n("Power Training"), this);
 
-	lay->addWidget(lbIntro);
-	lay->addWidget(cbPowerTrain);
-	
-	this->registerField("powerRecording", cbPowerTrain);
+  lay->addWidget(lbIntro);
+  lay->addWidget(cbPowerTrain);
 
-	setLayout(lay);
+  this->registerField("powerRecording", cbPowerTrain);
+
+  setLayout(lay);
 }
+
 
 void TrainSampleIntroPage::initializePage()
 {
-	cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
+  cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
 }
+
 
 TrainSampleIntroPage::~TrainSampleIntroPage()
 {
 }
-

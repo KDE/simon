@@ -17,47 +17,47 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "renameterminalworkingpage.h"
 #include "renameterminal.h"
 
 RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget* parent)
- : QWizardPage(parent),
-	complete(false),
-	renameTerminal(new RenameTerminal(this))
+: QWizardPage(parent),
+complete(false),
+renameTerminal(new RenameTerminal(this))
 {
-	connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
-	connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
-	ui.setupUi(this);
-	setTitle(i18n("Renaming terminal..."));
+  connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
+  connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
+  ui.setupUi(this);
+  setTitle(i18n("Renaming terminal..."));
 }
+
 
 void RenameTerminalWorkingPage::displayProgress(int progress)
 {
-	ui.pgProgress->setValue(progress);
+  ui.pgProgress->setValue(progress);
 }
+
 
 void RenameTerminalWorkingPage::finish()
 {
-	complete = true;
-	emit completeChanged();
-	emit done();
+  complete = true;
+  emit completeChanged();
+  emit done();
 }
+
 
 void RenameTerminalWorkingPage::initializePage()
 {
-	//do the work
-	renameTerminal->setOldName(field("renameTerminal").toString());
+  //do the work
+  renameTerminal->setOldName(field("renameTerminal").toString());
 
-	renameTerminal->setNewName(field("renameNewName").toString());
-	renameTerminal->setIncludeShadow((field("renameIncludeShadow").toBool()));
-	renameTerminal->setIncludeGrammar(field("renameIncludeGrammar").toBool());
-	renameTerminal->start();
+  renameTerminal->setNewName(field("renameNewName").toString());
+  renameTerminal->setIncludeShadow((field("renameIncludeShadow").toBool()));
+  renameTerminal->setIncludeGrammar(field("renameIncludeGrammar").toBool());
+  renameTerminal->start();
 }
 
 
 RenameTerminalWorkingPage::~RenameTerminalWorkingPage()
 {
 }
-
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODELCOMPILATIONADAPTERHTK_H_676A176EAB4B40B39F6F8E0F65064C75
 #define SIMON_MODELCOMPILATIONADAPTERHTK_H_676A176EAB4B40B39F6F8E0F65064C75
 
@@ -37,29 +36,29 @@ class Grammar;
  *	@date 20.12.2009
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter{
-Q_OBJECT
+class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapterHTK : public ModelCompilationAdapter
+{
+  Q_OBJECT
 
-private:
-	inline QByteArray htkify(const QByteArray& in);
-	inline QString htkify(const QString& in);
+    private:
+    inline QByteArray htkify(const QByteArray& in);
+    inline QString htkify(const QString& in);
 
-	bool containsPoisonedPhoneme(const QString& pronunciation);
+    bool containsPoisonedPhoneme(const QString& pronunciation);
 
-public:
-	ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
+  public:
+    ModelCompilationAdapterHTK(const QString& userName, QObject *parent=0);
 
-	bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
-			const QStringList& scenarioPaths, const QString& promptsPathIn, 
-			const QString& lexiconPathOut, const QString& grammarPathOut, 
-			const QString& simpleVocabPathOut, const QString& promptsPathOut);
+    bool adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
+      const QStringList& scenarioPaths, const QString& promptsPathIn,
+      const QString& lexiconPathOut, const QString& grammarPathOut,
+      const QString& simpleVocabPathOut, const QString& promptsPathOut);
 
-	bool storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
-			const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut, 
-			const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn);
+    bool storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
+      const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
+      const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn);
 
-	~ModelCompilationAdapterHTK();
+    ~ModelCompilationAdapterHTK();
 
 };
-
 #endif

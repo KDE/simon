@@ -27,38 +27,36 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodeltest_export.h"
 
+class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel
+{
 
-class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel {
+  Q_OBJECT
 
-Q_OBJECT
+    private:
+    QBrush recogWrong;
 
-private:
-	QBrush recogWrong;
+    //QHash<QString, RecognitionResultList> m_results;
+    //QHash<QString, QString> m_prompts;
 
-	//QHash<QString, RecognitionResultList> m_results;
-	//QHash<QString, QString> m_prompts;
+    QHash<QString /*filename*/, TestResult*> m_testResults;
 
-	QHash<QString /*filename*/, TestResult*> m_testResults;
+    QVariant data(const QModelIndex &index, int role) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
 
-	QVariant data(const QModelIndex &index, int role) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column,
+      const QModelIndex &parent = QModelIndex()) const;
 
-	QModelIndex index(int row, int column,
-			const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex parent(const QModelIndex &index) const;
 
-	QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
-public:
-	FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent=0);
-	~FileResultModel();
+  public:
+    FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent=0);
+    ~FileResultModel();
 
 };
-
 #endif
-

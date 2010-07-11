@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DICT_H_3242C8BA5338485898083584C232BC90
 #define SIMON_DICT_H_3242C8BA5338485898083584C232BC90
 
@@ -27,60 +26,58 @@
 #include <QHash>
 
 /**
-	\class Dict
-	
-	\brief Provides some basic functions and members that make up a Dictionary
-	
-	Provides functions to convert between IPA and XSP and holds some members like
-	the words, pronunciations and terminals.
-	This are simple QStringLists because this is still _very_ low-level
-	
-	The matrix from ipa to x-sampa was built with the matrix from theiling for reference.
-	Thanks!
-	
-	\author Peter Grasch
-	\date 6.5.2007
+  \class Dict
+
+  \brief Provides some basic functions and members that make up a Dictionary
+
+  Provides functions to convert between IPA and XSP and holds some members like
+  the words, pronunciations and terminals.
+  This are simple QStringLists because this is still _very_ low-level
+
+  The matrix from ipa to x-sampa was built with the matrix from theiling for reference.
+  Thanks!
+
+\author Peter Grasch
+\date 6.5.2007
 */
-class Dict : public QObject{
-Q_OBJECT
+class Dict : public QObject
+{
+  Q_OBJECT
 
+    signals:
+  void loaded();
+  void progress(int prog);
+  protected:
+    QHash<int, QString> translationLookup, modifiers;
+    QStringList allowedPhonemes;
 
+    QStringList words;
+    QStringList pronunciations;
+    QStringList terminals;
 
-signals:
-	void loaded();
-	void progress(int prog);
-protected:
-	QHash<int, QString> translationLookup, modifiers;
-	QStringList allowedPhonemes;
+    void buildAllowedPhonemes();
+    void buildTranslationTables();
 
-	QStringList words;
-	QStringList pronunciations;
-	QStringList terminals;
+    QString segmentSampa(const QString& sampa);
+    QString adaptToSimonPhonemeSet(QString sampa);
+  public:
 
-	void buildAllowedPhonemes();
-	void buildTranslationTables();
-
-	QString segmentSampa(const QString& sampa);
-	QString adaptToSimonPhonemeSet(QString sampa);
-public:
-
-
-enum DictType {
-	HadifixBOMP=1,
-	HTKLexicon=2,
-	PLS=4,
-	SPHINX=8,
-	JuliusVocabulary=16
-};
+    enum DictType
+    {
+      HadifixBOMP=1,
+      HTKLexicon=2,
+      PLS=4,
+      SPHINX=8,
+      JuliusVocabulary=16
+    };
 
     Dict(QObject *parent=0);
-	QString ipaToXSampa(QString ipa);
-	virtual void load(QString path, QString encodingName) = 0;
-	QStringList getWords() const { return words; }
-	QStringList getPronuncations() const { return pronunciations; }
-	QStringList getTerminals() const { return terminals; }
+    QString ipaToXSampa(QString ipa);
+    virtual void load(QString path, QString encodingName) = 0;
+    QStringList getWords() const { return words; }
+    QStringList getPronuncations() const { return pronunciations; }
+    QStringList getTerminals() const { return terminals; }
     virtual ~Dict();
 
 };
-
 #endif

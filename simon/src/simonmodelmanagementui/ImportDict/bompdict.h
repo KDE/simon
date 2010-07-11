@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_BOMPDICT_H_DDFA15D112434142AA752480ABA48B59
 #define SIMON_BOMPDICT_H_DDFA15D112434142AA752480ABA48B59
 
@@ -34,16 +33,15 @@ class QString;
 */
 class BOMPDict : public Dict
 {
-	Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void loaded();
-public:
+    signals:
+  void loaded();
+  public:
     explicit BOMPDict(QObject* parent=0);
     void load(QString path, QString encodingName);
 
     ~BOMPDict();
 
 };
-
 #endif

@@ -28,65 +28,71 @@
 
 K_PLUGIN_FACTORY_DECLARATION(PronunciationTrainingPluginFactory)
 
-
 PronunciationTrainingConfiguration::PronunciationTrainingConfiguration(Scenario *parent, const QVariantList &args)
-		: CommandConfiguration(parent, "pronunciationtraining", ki18n( "Pronunciation Training" ),
-				      "0.1", ki18n("Pronunciation Training"),
-				      "applications-education",
-				      PronunciationTrainingPluginFactory::componentData())
+: CommandConfiguration(parent, "pronunciationtraining", ki18n( "Pronunciation Training" ),
+"0.1", ki18n("Pronunciation Training"),
+"applications-education",
+PronunciationTrainingPluginFactory::componentData())
 {
-	Q_UNUSED(args);
-	ui.setupUi(this);
-	
-	ui.cbTerminal->clear();
+  Q_UNUSED(args);
+  ui.setupUi(this);
 
-	QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+  ui.cbTerminal->clear();
+
+  QObject::connect(ui.cbTerminal, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 }
+
 
 void PronunciationTrainingConfiguration::initTerminals()
 {
-	ui.cbTerminal->clear();
-	QStringList terminals = ScenarioManager::getInstance()->getTerminals(
-			(SpeechModel::ModelElements) 
-			(SpeechModel::ShadowVocabulary|
-			 	SpeechModel::AllScenariosVocabulary|
-				SpeechModel::AllScenariosGrammar));
-	ui.cbTerminal->addItems(terminals);
-	ui.cbTerminal->setCurrentIndex(ui.cbTerminal->findText(storedTerminal));
+  ui.cbTerminal->clear();
+  QStringList terminals = ScenarioManager::getInstance()->getTerminals(
+    (SpeechModel::ModelElements)
+    (SpeechModel::ShadowVocabulary|
+    SpeechModel::AllScenariosVocabulary|
+    SpeechModel::AllScenariosGrammar));
+  ui.cbTerminal->addItems(terminals);
+  ui.cbTerminal->setCurrentIndex(ui.cbTerminal->findText(storedTerminal));
 }
+
 
 void PronunciationTrainingConfiguration::setVisible(bool visible)
 {
-	initTerminals();
-	QWidget::setVisible(visible);
+  initTerminals();
+  QWidget::setVisible(visible);
 }
+
 
 bool PronunciationTrainingConfiguration::deSerialize(const QDomElement& elem)
 {
-	storedTerminal = elem.firstChildElement("terminal").text();
-	return true;
+  storedTerminal = elem.firstChildElement("terminal").text();
+  return true;
 }
+
 
 QDomElement PronunciationTrainingConfiguration::serialize(QDomDocument *doc)
 {
-	storedTerminal = ui.cbTerminal->currentText();
-	QDomElement configElem = doc->createElement("config");
-	QDomElement terminalElem = doc->createElement("terminal");
-	terminalElem.appendChild(doc->createTextNode(storedTerminal));
-	configElem.appendChild(terminalElem);
-	return configElem;
+  storedTerminal = ui.cbTerminal->currentText();
+  QDomElement configElem = doc->createElement("config");
+  QDomElement terminalElem = doc->createElement("terminal");
+  terminalElem.appendChild(doc->createTextNode(storedTerminal));
+  configElem.appendChild(terminalElem);
+  return configElem;
 }
+
 
 QString PronunciationTrainingConfiguration::terminal()
 {
-	return storedTerminal;
+  return storedTerminal;
 }
+
 
 void PronunciationTrainingConfiguration::defaults()
 {
 }
 
+
 PronunciationTrainingConfiguration::~PronunciationTrainingConfiguration()
 {
-	
+
 }

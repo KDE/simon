@@ -17,13 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "testresult.h"
 
-
 TestResult::TestResult(const QString& prompt_, const RecognitionResultList& RRL)
-	: prompt(prompt_),
-	results(RRL)
+: prompt(prompt_),
+results(RRL)
 {
 }
-

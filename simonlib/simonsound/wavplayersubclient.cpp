@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "wavplayersubclient.h"
 #include "soundserver.h"
 #include <simonwav/wav.h>
@@ -28,44 +27,50 @@
  * \author Peter Grasch
  */
 WavPlayerSubClient::WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject* parent) : QIODevice(parent),
-	SoundOutputClient(device),
-	wav(0)
+SoundOutputClient(device),
+wav(0)
 {
 }
+
 
 qint64 WavPlayerSubClient::readData(char *data, qint64 maxlen)
 {
-	qint64 read = wav->read(data, maxlen);
-	emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
+  qint64 read = wav->read(data, maxlen);
+  emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
 
-	return read;
+  return read;
 
 }
+
 
 qint64 WavPlayerSubClient::writeData(const char *data, qint64 len)
 {
-	Q_UNUSED(data);
-	Q_UNUSED(len);
-	return -1;
+  Q_UNUSED(data);
+  Q_UNUSED(len);
+  return -1;
 }
+
 
 int WavPlayerSubClient::getChannelCount()
 {
-	return m_deviceConfiguration.channels();
+  return m_deviceConfiguration.channels();
 }
+
 
 bool WavPlayerSubClient::open (OpenMode mode)
 {
-	wav->beginReadSequence();
-	return QIODevice::open(mode);
+  wav->beginReadSequence();
+  return QIODevice::open(mode);
 }
+
 
 void WavPlayerSubClient::close()
 {
-	if (wav)
-		wav->endReadSequence();
-	QIODevice::close();
+  if (wav)
+    wav->endReadSequence();
+  QIODevice::close();
 }
+
 
 /**
  * \brief Plays back the given file
@@ -73,48 +78,47 @@ void WavPlayerSubClient::close()
  */
 bool WavPlayerSubClient::play( QString filename )
 {
-	if (wav)
-	{
-		wav->deleteLater();
-		wav = 0;
-	}
+  if (wav) {
+    wav->deleteLater();
+    wav = 0;
+  }
 
-	wav = new WAV(filename);
-	length = wav->getLength();
-	if (length==0) {
-		wav->deleteLater();
-		wav = 0;
-		return false;
-	}
-	open(QIODevice::ReadOnly);
+  wav = new WAV(filename);
+  length = wav->getLength();
+  if (length==0) {
+    wav->deleteLater();
+    wav = 0;
+    return false;
+  }
+  open(QIODevice::ReadOnly);
 
-	if (!SoundServer::getInstance()->registerOutputClient(this))
-	{
-		wav->deleteLater();
-		wav = 0;
-		return false;
-	}
-	return true;
+  if (!SoundServer::getInstance()->registerOutputClient(this)) {
+    wav->deleteLater();
+    wav = 0;
+    return false;
+  }
+  return true;
 }
 
 
 /**
  * \brief Stops the current playback
- * 
+ *
  * \author Peter Grasch
  */
 void WavPlayerSubClient::stop()
 {
-	SoundServer::getInstance()->deRegisterOutputClient(this);
+  SoundServer::getInstance()->deRegisterOutputClient(this);
 }
+
 
 void WavPlayerSubClient::finish()
 {
-	close();
-	if (wav)
-		wav->deleteLater();
-	wav = 0;
-	emit finished();
+  close();
+  if (wav)
+    wav->deleteLater();
+  wav = 0;
+  emit finished();
 }
 
 
@@ -124,9 +128,5 @@ void WavPlayerSubClient::finish()
  */
 WavPlayerSubClient::~WavPlayerSubClient()
 {
-	if (wav) wav->deleteLater();
+  if (wav) wav->deleteLater();
 }
-
-
-
-

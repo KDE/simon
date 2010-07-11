@@ -17,49 +17,44 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVPLAYERCLIENT_H_272785B973C443B89098D25E583308C1
 #define SIMON_WAVPLAYERCLIENT_H_272785B973C443B89098D25E583308C1
 
 #include <QObject>
 #include <QList>
 
-
 class WavPlayerSubClient;
 
 /**
-	\class WavPlayerClient
-	
-	\brief This class is used to get the needed data out of existing wav files to play them
-	
-	\author Peter Grasch
-	\version 0.1
+  \class WavPlayerClient
+
+  \brief This class is used to get the needed data out of existing wav files to play them
+
+  \author Peter Grasch
+  \version 0.1
 */
-class WavPlayerClient : public QObject {
-	Q_OBJECT
-	
-signals:
-	void currentProgress(int);
-	void finished();
+class WavPlayerClient : public QObject
+{
+  Q_OBJECT
 
-private:
-	QList<WavPlayerSubClient*> clients;
-	QList<WavPlayerSubClient*> clientsWaitingToFinish;
+    signals:
+  void currentProgress(int);
+  void finished();
 
-private slots:
-	void slotCurrentProgress(int currentProgress);
-	void slotFinished();
+  private:
+    QList<WavPlayerSubClient*> clients;
+    QList<WavPlayerSubClient*> clientsWaitingToFinish;
 
-public:
-	WavPlayerClient(QObject *parent=0);
-	~WavPlayerClient();
+  private slots:
+    void slotCurrentProgress(int currentProgress);
+    void slotFinished();
 
-	bool play(QString filename, int channels);
-	void stop();
-	
+  public:
+    WavPlayerClient(QObject *parent=0);
+    ~WavPlayerClient();
 
+    bool play(QString filename, int channels);
+    void stop();
 
 };
-
 #endif
-

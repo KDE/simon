@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONSOUNDINPUT_H_BAC62651BE6A419EA6156220815A2AAD
 #define SIMON_SIMONSOUNDINPUT_H_BAC62651BE6A419EA6156220815A2AAD
 
@@ -33,48 +32,46 @@ class SoundInputClient;
 
 class SimonSoundInput : public QIODevice
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void recordingFinished();
-		void error(const QString& str);
-		void inputStateChanged(QAudio::State state);
+    signals:
+  void recordingFinished();
+  void error(const QString& str);
+  void inputStateChanged(QAudio::State state);
 
-	private:
-		SimonSound::DeviceConfiguration m_device;
-		QAudioInput *m_input;
-		QHash<SoundInputClient*, qint64> m_activeInputClients;
-		QHash<SoundInputClient*, qint64> m_suspendedInputClients;
+  private:
+    SimonSound::DeviceConfiguration m_device;
+    QAudioInput *m_input;
+    QHash<SoundInputClient*, qint64> m_activeInputClients;
+    QHash<SoundInputClient*, qint64> m_suspendedInputClients;
 
-	protected:
-		qint64 readData(char *toRead, qint64 maxLen);
-		qint64 writeData(const char *toWrite, qint64 len);
-	
-	private slots:
-		void slotInputStateChanged(QAudio::State state);
+  protected:
+    qint64 readData(char *toRead, qint64 maxLen);
+    qint64 writeData(const char *toWrite, qint64 len);
 
-	public:
-		SimonSoundInput(QObject *parent=NULL);
+  private slots:
+    void slotInputStateChanged(QAudio::State state);
 
-		void registerInputClient(SoundInputClient* client);
+  public:
+    SimonSoundInput(QObject *parent=0);
 
-		bool deRegisterInputClient(SoundInputClient* client);
+    void registerInputClient(SoundInputClient* client);
 
-		bool startRecording(SimonSound::DeviceConfiguration& device);
-		bool stopRecording();
+    bool deRegisterInputClient(SoundInputClient* client);
 
-		SoundClient::SoundClientPriority getHighestPriority();
-		bool activate(SoundClient::SoundClientPriority priority);
+    bool startRecording(SimonSound::DeviceConfiguration& device);
+    bool stopRecording();
 
-		bool isActive() { return (m_activeInputClients.count() > 0); }
+    SoundClient::SoundClientPriority getHighestPriority();
+    bool activate(SoundClient::SoundClientPriority priority);
 
-		void suspend(SoundInputClient*);
-		void resume(SoundInputClient*);
-		void suspendInputClients();
-		void suspendInput();
-		void resumeInput();
-		~SimonSoundInput();
+    bool isActive() { return (m_activeInputClients.count() > 0); }
+
+    void suspend(SoundInputClient*);
+    void resume(SoundInputClient*);
+    void suspendInputClients();
+    void suspendInput();
+    void resumeInput();
+    ~SimonSoundInput();
 };
-
 #endif
-

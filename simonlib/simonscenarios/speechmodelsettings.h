@@ -17,35 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SPEECHMODELSETTINGS_H_AA56F9F6811E4A39949D79E491A2C84C
 #define SIMON_SPEECHMODELSETTINGS_H_AA56F9F6811E4A39949D79E491A2C84C
-
 
 #include "ui_trainingsettings.h"
 #include <KCModule>
 #include <QVariantList>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 
 class SpeechModelSettings : public KCModule
 {
-Q_OBJECT
-private:
-	Ui::TrainingSettingsWidget uiTrainingsData;
+  Q_OBJECT
+    private:
+    Ui::TrainingSettingsWidget uiTrainingsData;
 
-signals:
-	void changed();
+    signals:
+    void changed();
 
-public:
+  public:
     SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
     void save();
 
     ~SpeechModelSettings();
 
 };
-
-
 #endif

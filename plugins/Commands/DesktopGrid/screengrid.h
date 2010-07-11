@@ -22,17 +22,15 @@
 
 #include <QWidget>
 
-
 class ScreenGrid : public QWidget
 {
-Q_OBJECT
-signals:
-	void cancel();
+  Q_OBJECT
+    signals:
+  void cancel();
 
-public:
+  public:
     ScreenGrid(QWidget* parent) : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint) {}
     void keyPressEvent(QKeyEvent *event);
 
 };
-
 #endif

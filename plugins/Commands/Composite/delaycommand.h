@@ -27,43 +27,42 @@
 /**
  *	@class DelayCommand
  *	@brief Describes a composite command; Consists of several other commands
- *	
+ *
  *	@version 0.1
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class DelayCommand : public Command{
-private:
-	int delay;
+class DelayCommand : public Command
+{
+  private:
+    int delay;
 
-protected:
-	const QMap<QString,QVariant> getValueMapPrivate() const;
-	bool triggerPrivate(int *state);
-	bool deSerializePrivate(const QDomElement& commandElem);
-	DelayCommand() : delay(0) { }
+  protected:
+    const QMap<QString,QVariant> getValueMapPrivate() const;
+    bool triggerPrivate(int *state);
+    bool deSerializePrivate(const QDomElement& commandElem);
+    DelayCommand() : delay(0) { }
 
-public:
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+  public:
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
-	STATIC_CREATE_INSTANCE_H(DelayCommand);
-	
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer", ""),
-		delay(delay_)
-	{
-	}
+    STATIC_CREATE_INSTANCE_H(DelayCommand);
+
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer", ""),
+    delay(delay_) {
+    }
 
     ~DelayCommand() {}
 
 };
-
 #endif

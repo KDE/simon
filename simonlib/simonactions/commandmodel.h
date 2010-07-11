@@ -20,46 +20,42 @@
 #ifndef SIMON_COMMANDMODEL_H_C93CDE41C05C42E79993E3EF80AD5212
 #define SIMON_COMMANDMODEL_H_C93CDE41C05C42E79993E3EF80AD5212
 
-
 #include <QAbstractItemModel>
 #include <QStringList>
 #include <QMutex>
 #include <simonscenarios/command.h>
 #include "actionlib_export.h"
 
+class SIMONACTIONS_EXPORT CommandModel : public QAbstractItemModel
+{
 
-class SIMONACTIONS_EXPORT CommandModel : public QAbstractItemModel {
+  Q_OBJECT
 
-Q_OBJECT
+    public slots:
+    void updateCommands(CommandList *commands);
 
-public slots:
-	void updateCommands(CommandList *commands);
+  private:
+    CommandList *commands;
 
-private:
-	CommandList *commands;
+    const QStringList getCategories(const CommandList *commands) const;
 
-	const QStringList getCategories(const CommandList *commands) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
 
-	QVariant data(const QModelIndex &index, int role) const;
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
 
-	QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+  public:
+    QModelIndex index(int row, int column,
+      const QModelIndex &parent = QModelIndex()) const;
 
-public:
-	QModelIndex index(int row, int column,
-			const QModelIndex &parent = QModelIndex()) const;
-
-	CommandModel(CommandList *commands);
-	~CommandModel();
+    CommandModel(CommandList *commands);
+    ~CommandModel();
 
 };
-
-
-
 #endif

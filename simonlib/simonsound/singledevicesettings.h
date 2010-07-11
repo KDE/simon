@@ -26,60 +26,60 @@
 
 namespace Ui
 {
-	class SingleDeviceConfiguration;
+  class SingleDeviceConfiguration;
 }
+
 
 class SingleDeviceSettings : public QWidget
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void changed(bool);
-	void requestRemove(SingleDeviceSettings*);
+    signals:
+  void changed(bool);
+  void requestRemove(SingleDeviceSettings*);
 
-private:
-	Ui::SingleDeviceConfiguration *ui;
-	bool enabled;
-	bool hasChanged;
-	
-	SimonSound::SoundDeviceType m_type;
-	QString m_deviceName;
-	SimonSound::SoundDeviceUses m_uses;
-	SimonSound::SoundDeviceOptions m_options;
+  private:
+    Ui::SingleDeviceConfiguration *ui;
+    bool enabled;
+    bool hasChanged;
 
-	void load(QString deviceName, int channels, 
-			int sampleRate);
+    SimonSound::SoundDeviceType m_type;
+    QString m_deviceName;
+    SimonSound::SoundDeviceUses m_uses;
+    SimonSound::SoundDeviceOptions m_options;
 
-private slots:
-	void slotChanged();
-	void sendRemoveRequest();
-	
-public slots:
-	bool check();
-	void checkWithSuccessMessage();
+    void load(QString deviceName, int channels,
+      int sampleRate);
 
-public:
-	SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels, 
-			int sampleRate, SimonSound::SoundDeviceUses selectedUses, 
-			SimonSound::SoundDeviceUses availableUses,
-			SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
-			QWidget* parent=NULL);
-	~SingleDeviceSettings();
+  private slots:
+    void slotChanged();
+    void sendRemoveRequest();
 
-	void enable();
-	void disable();
+  public slots:
+    bool check();
+    void checkWithSuccessMessage();
 
-	void refreshDevices();
-	
-	bool isEnabled();
-	QString getSelectedDeviceId();
-	int getSampleRate();
-	int getChannels();
-	SimonSound::SoundDeviceType getType();
-	SimonSound::SoundDeviceUses getUses();
+  public:
+    SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
+      int sampleRate, SimonSound::SoundDeviceUses selectedUses,
+      SimonSound::SoundDeviceUses availableUses,
+      SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
+      QWidget* parent=0);
+    ~SingleDeviceSettings();
 
-  bool getHasChanged() { return hasChanged; }
-  void stored() { hasChanged = false; }
+    void enable();
+    void disable();
+
+    void refreshDevices();
+
+    bool isEnabled();
+    QString getSelectedDeviceId();
+    int getSampleRate();
+    int getChannels();
+    SimonSound::SoundDeviceType getType();
+    SimonSound::SoundDeviceUses getUses();
+
+    bool getHasChanged() { return hasChanged; }
+    void stored() { hasChanged = false; }
 };
-
-#endif // SINGLEDEVICESETTINGS_H
+#endif                                            // SINGLEDEVICESETTINGS_H

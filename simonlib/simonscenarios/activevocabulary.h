@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ACTIVEVOCABULARY_H_F80688D5A2B74774BF83C3A4C9EF13C2
 #define SIMON_ACTIVEVOCABULARY_H_F80688D5A2B74774BF83C3A4C9EF13C2
 
@@ -26,34 +25,30 @@
 #include <QBrush>
 #include <simonscenariobase/scenarioobject.h>
 
-
 class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public ScenarioObject
 {
 
-private:
-	QBrush recogWeak, recogNone;
+  private:
+    QBrush recogWeak, recogNone;
 
+    void buildBrushes();
 
-	void buildBrushes();
+    //Model methods
+    QVariant data(const QModelIndex &index, int role) const;
 
-	//Model methods
-	QVariant data(const QModelIndex &index, int role) const;
+  protected:
+    ActiveVocabulary(Scenario *parent);
 
-
-protected:
-	ActiveVocabulary(Scenario *parent);
-
-public:
-	static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
-	bool addWords(QList<Word*>* w);
-	bool addWord(Word* w);
-	bool reOrder(Word* w);
-	bool removeWord(Word* w, bool deleteWord=true);
-	bool takeWord(Word*);
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
-	bool renameTerminal(const QString& from, const QString& to);
-	bool empty();
+  public:
+    static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
+    bool addWords(QList<Word*>* w);
+    bool addWord(Word* w);
+    bool reOrder(Word* w);
+    bool removeWord(Word* w, bool deleteWord=true);
+    bool takeWord(Word*);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    bool renameTerminal(const QString& from, const QString& to);
+    bool empty();
 };
-
 #endif

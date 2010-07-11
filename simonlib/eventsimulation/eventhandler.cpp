@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "eventhandler.h"
 #include "coreevents.h"
-
 
 #include <QChar>
 
@@ -34,27 +32,26 @@
 #include <QString>
 #include <KDebug>
 
-
 EventHandler* EventHandler::instance;
-
 
 /**
  * @brief Constructor
- * 
+ *
  * Creates a new Event Handler
- * 
- * @author Peter Grasch 
+ *
+ * @author Peter Grasch
  */
 EventHandler::EventHandler()
 #ifdef Q_OS_UNIX
-	: coreEvents(new XEvents())
+: coreEvents(new XEvents())
 #else
 #ifdef Q_OS_WIN
-	: coreEvents( (CoreEvents*) new WindowsEvents())
+: coreEvents( (CoreEvents*) new WindowsEvents())
 #endif
 #endif
 {
 }
+
 
 /**
  * \brief Tells coreEvents to click the coordinates
@@ -65,36 +62,38 @@ EventHandler::EventHandler()
  */
 void EventHandler::click(int x, int y, EventSimulation::ClickMode clickMode)
 {
-	if (!coreEvents) return;
+  if (!coreEvents) return;
 
-	coreEvents->click(x,y, clickMode);
+  coreEvents->click(x,y, clickMode);
 }
+
 
 void EventHandler::dragAndDrop(int xStart, int yStart, int x, int y)
 {
-	if (!coreEvents) return;
+  if (!coreEvents) return;
 
-	coreEvents->dragAndDrop(xStart, yStart, x, y);
+  coreEvents->dragAndDrop(xStart, yStart, x, y);
 }
+
 
 /**
  * @brief Sends a word to the underlying Core Eventhandlers
  *
- * Splits up the word in characters and sends every single one 
+ * Splits up the word in characters and sends every single one
  * separate by using sendKey()
  *
  * @param QString word
  * The word to send
- * 
+ *
  * @author Peter Grasch
  */
 void EventHandler::sendWord(const QString& word) const
 {
-	for (int i=0; i < word.size();i++)
-	{
-		sendKey(word.at(i));
-	}
+  for (int i=0; i < word.size();i++) {
+    sendKey(word.at(i));
+  }
 }
+
 
 /**
  * \brief Sends the shortcut to the Backends
@@ -103,40 +102,43 @@ void EventHandler::sendWord(const QString& word) const
  */
 void EventHandler::sendShortcut(const QKeySequence& shortcut) const
 {
-	coreEvents->sendShortcut(shortcut);
+  coreEvents->sendShortcut(shortcut);
 }
+
 
 /**
  * @brief Sends a key to the XServer / WinAPI
- * 
+ *
  * Sends every key trough the underlying CoreEvent classes.
  * Distincts between Linux and Windows
- * 
+ *
  * @param QChar key
  * The key to send
- * 
+ *
  * @author Peter Grasch
  * \todo Shift gets unset a LOT
  */
 void EventHandler::sendKey(const QChar& key) const
 {
-	unsigned int c;
-	c = key.unicode();
-	coreEvents->sendKey(c);
+  unsigned int c;
+  c = key.unicode();
+  coreEvents->sendKey(c);
 }
+
 
 void EventHandler::setModifier(int virtualKey, bool once) const
 {
-	coreEvents->setModifierKey(virtualKey, once);
+  coreEvents->setModifierKey(virtualKey, once);
 }
+
 
 void EventHandler::unsetModifier(int virtualKey) const
 {
-	coreEvents->unsetModifier(virtualKey);
+  coreEvents->unsetModifier(virtualKey);
 }
 
 
 EventHandler::~EventHandler()
 {
-    delete coreEvents;
+  delete coreEvents;
 }

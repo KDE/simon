@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "plsdict.h"
 
 #include <simonxml/xmlsaxreader.h>
@@ -36,22 +35,22 @@
  * The path to the dict
  */
 PLSDict::PLSDict(QObject* parent) : QXmlDefaultHandler(),
-	Dict(parent),
-	reader(0),
-	pos(0)
+Dict(parent),
+reader(0),
+pos(0)
 {
-	buildTranslationTables();
+  buildTranslationTables();
 }
 
 
 /**
  * \brief Overwritten method of the QXmlDefaultHandler - used to react on the start of a tag
  * \author Peter Grasch
- * 
+ *
  * This function is called internally every time the parser finds the start of a new tag
  * We then decide if the tag is relevant for us (the name for instance can be determined by looking
  * at the qName attribute, and react on it
- * 
+ *
  * \param QString namespaceURI
  *  namespaceURI is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done
  * \param QString &localName
@@ -64,65 +63,64 @@ PLSDict::PLSDict(QObject* parent) : QXmlDefaultHandler(),
  * Success. (in the current implementation this returns always true)
  */
 bool PLSDict::startElement(const QString&,
-			      const QString&,
-				const QString &qName,
-				const QXmlAttributes &attributes)
+const QString&,
+const QString &qName,
+const QXmlAttributes &attributes)
 {
-	if (qName == "lexicon")
-		currentTagType = PLSDict::Lexicon;
-	else
-	if (qName == "meta")
-		currentTagType = PLSDict::Meta;
-	else
-	if (qName == "metadata")
-		currentTagType = PLSDict::Metadata;
-	else
-	if (qName == "lexeme")
-	{
-		currentTagType = PLSDict::Lexeme;
-		currentWord=QString();
-		phonemeDefinitions.clear();
+  if (qName == "lexicon")
+    currentTagType = PLSDict::Lexicon;
+  else
+  if (qName == "meta")
+    currentTagType = PLSDict::Meta;
+  else
+  if (qName == "metadata")
+    currentTagType = PLSDict::Metadata;
+  else
+  if (qName == "lexeme") {
+    currentTagType = PLSDict::Lexeme;
+    currentWord=QString();
+    phonemeDefinitions.clear();
 
-		int typeIndex = attributes.index("role");
-		if (typeIndex != -1) 
-			currentTerminal = attributes.value(typeIndex);
-		else currentTerminal = i18n("Unknown");
-	}
-	else
-	if (qName == "grapheme")
-		currentTagType = PLSDict::Grapheme;
-	else
-	if (qName == "phoneme")
-		currentTagType = PLSDict::Phoneme;
-	else
-	if (qName == "alias")
-		currentTagType = PLSDict::Alias;
-	else
-	if (qName == "example")
-		currentTagType = PLSDict::Example;
+    int typeIndex = attributes.index("role");
+    if (typeIndex != -1)
+      currentTerminal = attributes.value(typeIndex);
+    else currentTerminal = i18n("Unknown");
+  }
+  else
+  if (qName == "grapheme")
+    currentTagType = PLSDict::Grapheme;
+  else
+  if (qName == "phoneme")
+    currentTagType = PLSDict::Phoneme;
+  else
+  if (qName == "alias")
+    currentTagType = PLSDict::Alias;
+  else
+  if (qName == "example")
+    currentTagType = PLSDict::Example;
 
-	//adding the length of the xml data to the position
-	//this is actually quite useless and slows down the process
-	//but it's still there to get a better estimation of the current progress
-	//even with this workaround we still loose a bit of accuracy (which is why
-	//the progressbar is quite "jumpy" at the end
-	pos += qName.count()+4;
-	for(int i=0; i<attributes.count(); i++)
-		pos += attributes.qName(i).count() + attributes.value(i).count()+4;
-	
-	return true;
+  //adding the length of the xml data to the position
+  //this is actually quite useless and slows down the process
+  //but it is still there to get a better estimation of the current progress
+  //even with this workaround we still loose a bit of accuracy (which is why
+  //the progressbar is quite "jumpy" at the end
+  pos += qName.count()+4;
+  for(int i=0; i<attributes.count(); i++)
+    pos += attributes.qName(i).count() + attributes.value(i).count()+4;
+
+  return true;
 }
 
 
 /**
  * \brief React on the closing of a tag
  * \author Peter Grasch
- * 
- * This function is called internally every time the parser sees the closing of a tag. 
+ *
+ * This function is called internally every time the parser sees the closing of a tag.
  * We then react on that by parsing the data we gathered while "in" the tag.
  * We extract the terminal, the pronunciation(s) and insert this data into the 3 stringlists
  * (words, terminals, pronunciations)
- * 
+ *
  * \param QString namespaceURI
  *  namespaceURI is the namespace URI, or an empty string if the element has no namespace URI or if no namespace processing is done
  * \param QString &localName
@@ -133,41 +131,37 @@ bool PLSDict::startElement(const QString&,
  * Success. (in the current implementation this returns always true)
  */
 bool PLSDict::endElement(const QString&, const QString&,
-			    const QString &qName)
+const QString &qName)
 {
-	if (qName == "phoneme")
-	{
-		phonemeDefinitions << adaptToSimonPhonemeSet(ipaToXSampa(currentPhonemeDefinition.trimmed()));
-		currentPhonemeDefinition=QString();
-	} else
-	if (qName == "lexeme")
-	{
-		// add the found words to the word
-		foreach (const QString& phonemeDefinition, phonemeDefinitions)
-		{
-			words << currentWord.trimmed();
-			pronunciations << phonemeDefinition;
-			terminals << currentTerminal;
-		}
-		//cleanup
-		currentWord=QString();
-		currentPhonemeDefinition=QString();
-		phonemeDefinitions.clear();
-	}
+  if (qName == "phoneme") {
+    phonemeDefinitions << adaptToSimonPhonemeSet(ipaToXSampa(currentPhonemeDefinition.trimmed()));
+    currentPhonemeDefinition=QString();
+  } else
+  if (qName == "lexeme") {
+    // add the found words to the word
+    foreach (const QString& phonemeDefinition, phonemeDefinitions) {
+      words << currentWord.trimmed();
+      pronunciations << phonemeDefinition;
+      terminals << currentTerminal;
+    }
+    //cleanup
+    currentWord=QString();
+    currentPhonemeDefinition=QString();
+    phonemeDefinitions.clear();
+  }
 
-	if (maxpos == 0)
-		emit progress(-1);
-	else
-		emit progress(qRound(((double)pos/(double)maxpos)*1000));
-	return true;
+  if (maxpos == 0)
+    emit progress(-1);
+  else
+    emit progress(qRound(((double)pos/(double)maxpos)*1000));
+  return true;
 }
-
 
 
 /**
  * \brief This function gatheres the "value" of the xml tags
  * \author Peter Grasch
- * 
+ *
  * This is an overloaded function of the defaulthandler;
  * We use it to gather the data between the starting and the closing of a tag;
  * First we determine if we are in a WORD, TEXT, or none of both tags.
@@ -180,22 +174,21 @@ bool PLSDict::endElement(const QString&, const QString&,
  */
 bool PLSDict::characters(const QString &str)
 {
-	switch (currentTagType)
-	{
-		case PLSDict::Grapheme:
-			currentWord += str;
-			break;
-	
-		case PLSDict::Phoneme:
-			currentPhonemeDefinition += str;
-			break;
-		default:
-			//yeah there is nothing to see here, mr. compiler
-			break;
-	}
+  switch (currentTagType) {
+    case PLSDict::Grapheme:
+      currentWord += str;
+      break;
 
-	pos += str.count();
-	return true;
+    case PLSDict::Phoneme:
+      currentPhonemeDefinition += str;
+      break;
+    default:
+      //yeah there is nothing to see here, mr. compiler
+      break;
+  }
+
+  pos += str.count();
+  return true;
 }
 
 
@@ -207,22 +200,22 @@ bool PLSDict::characters(const QString &str)
  */
 void PLSDict::load(QString path, QString encoding)
 {
-	Q_UNUSED(encoding);
+  Q_UNUSED(encoding);
 
-	if (reader) reader->deleteLater();
+  if (reader) reader->deleteLater();
 
-	reader = new XMLSAXReader(path);
-	connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
+  reader = new XMLSAXReader(path);
+  connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
 
+  if (KMimeType::findByFileContent(path)->name() == "text/xml")
+    this->maxpos = QFile(path).size();
+  else
+    //compressed
+    this->maxpos = 0;
 
-	if (KMimeType::findByFileContent(path)->name() == "text/xml")
-		this->maxpos = QFile(path).size();
-	else
-		//compressed
-		this->maxpos = 0;
-
-	reader->load(this, path);
+  reader->load(this, path);
 }
+
 
 /**
  * \brief Destructor
@@ -230,7 +223,5 @@ void PLSDict::load(QString path, QString encoding)
  */
 PLSDict::~PLSDict()
 {
-	if (reader) reader->deleteLater();
+  if (reader) reader->deleteLater();
 }
-
-

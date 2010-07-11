@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "xmlsaxreader.h"
 #include <QIODevice>
 #include <QXmlInputSource>
@@ -40,7 +39,6 @@ XMLSAXReader::XMLSAXReader(QString path, QObject* parent) : XMLReader(path, pare
 }
 
 
-
 /**
  * \brief Opens the file at the given path
  * \author Peter Grasch
@@ -51,23 +49,23 @@ XMLSAXReader::XMLSAXReader(QString path, QObject* parent) : XMLReader(path, pare
  */
 void XMLSAXReader::load(QXmlDefaultHandler* handler, QString path)
 {
-	if (!handler) return;
-	if (path.isEmpty()) path = this->path;
+  if (!handler) return;
+  if (path.isEmpty()) path = this->path;
 
-	QIODevice *sourcefile = KFilterDev::deviceForFile(path,
-							KMimeType::findByFileContent(path)->name());
-	if ((!sourcefile) || (!sourcefile->open(QIODevice::ReadOnly)))
-		return;
-	
-	QXmlInputSource source(sourcefile);
-	QXmlSimpleReader *reader = new QXmlSimpleReader();
-	
-	reader->setContentHandler(handler);
-	reader->setErrorHandler(handler);
-	
-	emit (loaded());
-	
-	reader->parse(source);
+  QIODevice *sourcefile = KFilterDev::deviceForFile(path,
+    KMimeType::findByFileContent(path)->name());
+  if ((!sourcefile) || (!sourcefile->open(QIODevice::ReadOnly)))
+    return;
+
+  QXmlInputSource source(sourcefile);
+  QXmlSimpleReader *reader = new QXmlSimpleReader();
+
+  reader->setContentHandler(handler);
+  reader->setErrorHandler(handler);
+
+  emit (loaded());
+
+  reader->parse(source);
 }
 
 
@@ -77,5 +75,5 @@ void XMLSAXReader::load(QXmlDefaultHandler* handler, QString path)
  */
 XMLSAXReader::~XMLSAXReader()
 {
-	
+
 }

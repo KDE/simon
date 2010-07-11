@@ -32,7 +32,7 @@
 #include <KDebug>
 #include <KLocalizedString>
 
-SoundServer* SoundServer::instance=NULL;
+SoundServer* SoundServer::instance=0;
 
 /**
  * \brief Constructor
@@ -44,438 +44,439 @@ SoundServer::SoundServer(QObject* parent) : QObject(parent)
 
 QString SoundServer::defaultInputDevice()
 {
-	QString systemDefault = QAudioDeviceInfo::defaultInputDevice().deviceName();
+  QString systemDefault = QAudioDeviceInfo::defaultInputDevice().deviceName();
 
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
-	{
-		if (deviceInfo.deviceName() == "pulse")
-		{
-			systemDefault = "pulse";
-			break;
-		}
-	}
+  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput)) {
+    if (deviceInfo.deviceName() == "pulse") {
+      systemDefault = "pulse";
+      break;
+    }
+  }
 
-	return systemDefault;
+  return systemDefault;
 }
+
 
 QString SoundServer::defaultOutputDevice()
 {
-	QString systemDefault = QAudioDeviceInfo::defaultOutputDevice().deviceName();
+  QString systemDefault = QAudioDeviceInfo::defaultOutputDevice().deviceName();
 
-	foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-	{
-		if (deviceInfo.deviceName() == "pulse")
-		{
-			systemDefault = "pulse";
-			break;
-		}
-	}
+  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput)) {
+    if (deviceInfo.deviceName() == "pulse") {
+      systemDefault = "pulse";
+      break;
+    }
+  }
 
-	return systemDefault;
+  return systemDefault;
 }
-
 
 
 bool SoundServer::registerInputClient(SoundInputClient* client)
 {
-	kDebug() << "Register input client for device " << client->deviceConfiguration().name();
+  kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 
-	fprintf(stderr, "Registering input device\n");
+  fprintf(stderr, "Registering input device\n");
 
-	bool succ = true;
+  bool succ = true;
 
-	SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
-	if (!inputs.contains(client->deviceConfiguration())) //recording not currently running
-	{
-		kDebug() << "No input for this particular configuration... Creating one";
-		fprintf(stderr, "Creating input for new configuration\n");
+  SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
+                                                  //recording not currently running
+  if (!inputs.contains(client->deviceConfiguration())) {
+    kDebug() << "No input for this particular configuration... Creating one";
+    fprintf(stderr, "Creating input for new configuration\n");
 
-		SimonSoundInput *soundInput = new SimonSoundInput(this);
-		connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-		connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
-		//then start recording
-		succ = soundInput->startRecording(clientRequestedSoundConfiguration);
-		if (!succ)
-			//we had to adjust the format slightly and _that_ is already loaded
-			soundInput->deleteLater();
-		else
-		{
-			if (inputs.contains(clientRequestedSoundConfiguration))
-				soundInput->deleteLater();
-			else
-				inputs.insert(clientRequestedSoundConfiguration, soundInput);
+    SimonSoundInput *soundInput = new SimonSoundInput(this);
+    connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+    connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
+    //then start recording
+    succ = soundInput->startRecording(clientRequestedSoundConfiguration);
+    if (!succ)
+      //we had to adjust the format slightly and _that_ is already loaded
+      soundInput->deleteLater();
+    else {
+      if (inputs.contains(clientRequestedSoundConfiguration))
+        soundInput->deleteLater();
+      else
+        inputs.insert(clientRequestedSoundConfiguration, soundInput);
 
-			if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
-				client->setDeviceConfiguration(clientRequestedSoundConfiguration); // found something supported that is very close
-		}
-	}
+      if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+                                                  // found something supported that is very close
+        client->setDeviceConfiguration(clientRequestedSoundConfiguration);
+    }
+  }
 
-	if (succ)
-	{
-		SimonSoundInput *input = inputs.value(clientRequestedSoundConfiguration);
-		input->registerInputClient(client);
-	}
-	applyInputPriorities();
+  if (succ) {
+    SimonSoundInput *input = inputs.value(clientRequestedSoundConfiguration);
+    input->registerInputClient(client);
+  }
+  applyInputPriorities();
 
-	return succ;
+  return succ;
 }
+
 
 void SoundServer::slotRecordingFinished()
 {
-	SimonSoundInput *input = dynamic_cast<SimonSoundInput*>(sender());
-	Q_ASSERT(input);
+  SimonSoundInput *input = dynamic_cast<SimonSoundInput*>(sender());
+  Q_ASSERT(input);
 
-	if (input->isActive())
-	{
-		//apparently we resumed operations :)
-		fprintf(stderr, "INPUT IS ACTIVE AGAIN!\n");
-		return;
-	}
+  if (input->isActive()) {
+    //apparently we resumed operations :)
+    fprintf(stderr, "INPUT IS ACTIVE AGAIN!\n");
+    return;
+  }
 
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
-	
-	while (i.hasNext())
-	{
-		i.next();
-		if (i.value() == input)
-			inputs.remove(i.key());
-	}
-	input->deleteLater();
-	applyInputPriorities();
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+
+  while (i.hasNext()) {
+    i.next();
+    if (i.value() == input)
+      inputs.remove(i.key());
+  }
+  input->deleteLater();
+  applyInputPriorities();
 }
+
 
 void SoundServer::slotPlaybackFinished()
 {
-	SimonSoundOutput *output = dynamic_cast<SimonSoundOutput*>(sender());
-	Q_ASSERT(output);
+  SimonSoundOutput *output = dynamic_cast<SimonSoundOutput*>(sender());
+  Q_ASSERT(output);
 
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
-	
-	while (i.hasNext())
-	{
-		i.next();
-		if (i.value() == output)
-			outputs.remove(i.key());
-	}
-	output->deleteLater();
-	applyOutputPriorities();
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
+
+  while (i.hasNext()) {
+    i.next();
+    if (i.value() == output)
+      outputs.remove(i.key());
+  }
+  output->deleteLater();
+  applyOutputPriorities();
 }
+
 
 /*
 bool SoundServer::restartNextInput();
 {
-	//restore other outputs starting with exclusive ones
+  //restore other outputs starting with exclusive ones
 
-	bool haveExclusive = false;
+  bool haveExclusive = false;
 
-	foreach (SimonSoundInput *in, inputs.values())
-		if (in->restoreFirstExclusive())
-		{
-			haveExclusive = true;
-			break;
-		}
+  foreach (SimonSoundInput *in, inputs.values())
+    if (in->restoreFirstExclusive())
+    {
+      haveExclusive = true;
+break;
+}
 
-	bool haveNormal = false;
-	if (!haveExclusive)
-	{
-		foreach (SimonSoundInput *in, inputs.values())
-			//if no one has an exclusive lets restart normal priority
-			haveNormal |= in->restoreFirst(); 
-	}
-	if (!haveNormal)
-	{
-		foreach (SimonSoundInput *in, inputs.values())
-			in->restoreBackground(); 
-	}
+bool haveNormal = false;
+if (!haveExclusive)
+{
+foreach (SimonSoundInput *in, inputs.values())
+//if no one has an exclusive lets restart normal priority
+haveNormal |= in->restoreFirst();
+}
+if (!haveNormal)
+{
+foreach (SimonSoundInput *in, inputs.values())
+in->restoreBackground();
+}
 }
 
 */
 
 void SoundServer::applyInputPriorities()
 {
-	SoundClient::SoundClientPriority priority = SoundClient::Background;
+  SoundClient::SoundClientPriority priority = SoundClient::Background;
 
-	//1. find highest priority
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
-	while (i.hasNext())
-	{
-		i.next();
-		priority = qMax(priority, i.value()->getHighestPriority());
-	}
+  //1. find highest priority
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+  while (i.hasNext()) {
+    i.next();
+    priority = qMax(priority, i.value()->getHighestPriority());
+  }
 
-	kDebug() << "Highest priority: " << priority;
+  kDebug() << "Highest priority: " << priority;
 
-	i.toFront();
+  i.toFront();
 
-	bool activated;
-	while (i.hasNext())
-	{
-		i.next();
-		activated = i.value()->activate(priority);
+  bool activated;
+  while (i.hasNext()) {
+    i.next();
+    activated = i.value()->activate(priority);
 
-		if (activated && priority == SoundClient::Exclusive)
-			//find first exclusive client, activate it and return
-			return;
-	}
+    if (activated && priority == SoundClient::Exclusive)
+      //find first exclusive client, activate it and return
+      return;
+  }
 }
+
 
 void SoundServer::applyOutputPriorities()
 {
-	SoundClient::SoundClientPriority priority = SoundClient::Background;
+  SoundClient::SoundClientPriority priority = SoundClient::Background;
 
-	//1. find highest priority
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
-	while (i.hasNext())
-	{
-		i.next();
-		priority = qMax(priority, i.value()->getHighestPriority());
-	}
+  //1. find highest priority
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
+  while (i.hasNext()) {
+    i.next();
+    priority = qMax(priority, i.value()->getHighestPriority());
+  }
 
-	kDebug() << "Highest priority: " << priority;
+  kDebug() << "Highest priority: " << priority;
 
-	i.toFront();
+  i.toFront();
 
-	bool activated;
-	while (i.hasNext())
-	{
-		i.next();
-		activated = i.value()->activate(priority);
+  bool activated;
+  while (i.hasNext()) {
+    i.next();
+    activated = i.value()->activate(priority);
 
-		if (activated && priority == SoundClient::Exclusive)
-			return;
-	}
+    if (activated && priority == SoundClient::Exclusive)
+      return;
+  }
 }
+
 
 bool SoundServer::deRegisterInputClient(SoundInputClient* client)
 {
-	kDebug() << "Deregistering input client";
+  kDebug() << "Deregistering input client";
 
-	bool success = true;
+  bool success = true;
 
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
-	while (i.hasNext())
-	{
-		i.next();
-		if (i.value()->deRegisterInputClient(client))
-			success = true;
-	}
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+  while (i.hasNext()) {
+    i.next();
+    if (i.value()->deRegisterInputClient(client))
+      success = true;
+  }
 
-	applyInputPriorities();
-	return success;
+  applyInputPriorities();
+  return success;
 }
-
 
 
 void SoundServer::suspendRecording()
 {
-	foreach (SimonSoundInput *in, inputs.values())
-		in->suspendInput();
+  foreach (SimonSoundInput *in, inputs.values())
+    in->suspendInput();
 }
+
 
 void SoundServer::resumeRecording()
 {
-	foreach (SimonSoundInput *in, inputs.values())
-		in->resumeInput();
+  foreach (SimonSoundInput *in, inputs.values())
+    in->resumeInput();
 }
+
 
 void SoundServer::suspendPlayback()
 {
-	foreach (SimonSoundOutput *out, outputs.values())
-		out->suspendOutput();
+  foreach (SimonSoundOutput *out, outputs.values())
+    out->suspendOutput();
 }
+
 
 void SoundServer::resumePlayback()
 {
-	foreach (SimonSoundOutput *out, outputs.values())
-		out->resumeOutput();
+  foreach (SimonSoundOutput *out, outputs.values())
+    out->resumeOutput();
 }
-
-
 
 
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
-	kDebug() << "Register output client";
-	SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
+  kDebug() << "Register output client";
+  SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
-	bool succ = true;
-	if (!outputs.contains(clientRequestedSoundConfiguration))
-	{
-		//create output for this configuration
-		kDebug() << "No output for this particular configuration... Creating one";
+  bool succ = true;
+  if (!outputs.contains(clientRequestedSoundConfiguration)) {
+    //create output for this configuration
+    kDebug() << "No output for this particular configuration... Creating one";
 
-		SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
-		connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-		connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
-		//then start playback
-		succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
-		if (!succ) {
-			//failed
-			soundOutput->deleteLater();
-		} else {
-			//we had to adjust the format slightly and _that_ is already loaded
-			if (outputs.contains(clientRequestedSoundConfiguration))
-				soundOutput->deleteLater();
-			else
-				outputs.insert(clientRequestedSoundConfiguration, soundOutput);
+    SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
+    connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+    connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
+    //then start playback
+    succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
+    if (!succ) {
+      //failed
+      soundOutput->deleteLater();
+    }
+    else {
+      //we had to adjust the format slightly and _that_ is already loaded
+      if (outputs.contains(clientRequestedSoundConfiguration))
+        soundOutput->deleteLater();
+      else
+        outputs.insert(clientRequestedSoundConfiguration, soundOutput);
 
-			if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
-				client->setDeviceConfiguration(clientRequestedSoundConfiguration); // found something supported that is very close
-		}
-	}
+      if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
+                                                  // found something supported that is very close
+        client->setDeviceConfiguration(clientRequestedSoundConfiguration);
+    }
+  }
 
-	if (succ)
-	{
-		SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
-		output->registerOutputClient(client);
-	}
+  if (succ) {
+    SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
+    output->registerOutputClient(client);
+  }
 
-	applyOutputPriorities();
-	return succ;
+  applyOutputPriorities();
+  return succ;
 }
+
 
 bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
 {
-	Q_UNUSED(client);
+  Q_UNUSED(client);
 
-	kDebug() << "Deregistering output client";
+  kDebug() << "Deregistering output client";
 
-	bool success = true;
+  bool success = true;
 
-	QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
-	while (i.hasNext())
-	{
-		i.next();
-		success = (i.value()->deRegisterOutputClient(client) && success);
-	}
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
+  while (i.hasNext()) {
+    i.next();
+    success = (i.value()->deRegisterOutputClient(client) && success);
+  }
 
-	applyOutputPriorities();
-	return success;
+  applyOutputPriorities();
+  return success;
 }
 
 
 qint64 SoundServer::byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device)
 {
-	return bytes / (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
+  return bytes / (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
 }
+
 
 qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device)
 {
-	return length * (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
+  return length * (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
 }
-
 
 
 bool SoundServer::reinitializeDevices()
 {
-	kDebug() << "Reinitialize devices...";
-	bool succ = true;
+  kDebug() << "Reinitialize devices...";
+  bool succ = true;
 
-	emit devicesChanged();
-	return succ;
+  emit devicesChanged();
+  return succ;
 }
+
 
 int SoundServer::getInputDeviceCount()
 {
-	return SoundConfiguration::soundInputDevices().count();
+  return SoundConfiguration::soundInputDevices().count();
 }
+
 
 int SoundServer::getOutputDeviceCount()
 {
-	return SoundConfiguration::soundOutputDevices().count();
+  return SoundConfiguration::soundOutputDevices().count();
 }
+
 
 bool SoundServer::getCalibrateVolume()
 {
-	return SoundConfiguration::calibrateVolume();
+  return SoundConfiguration::calibrateVolume();
 }
+
 
 bool SoundServer::getDefaultToPowerTraining()
 {
-	return SoundConfiguration::defaultToPowerTraining();
+  return SoundConfiguration::defaultToPowerTraining();
 }
+
 
 int SoundServer::getLevelThreshold()
 {
-	return SoundConfiguration::level();
+  return SoundConfiguration::level();
 }
+
 
 int SoundServer::getHeadMargin()
 {
-	return SoundConfiguration::headMargin();
+  return SoundConfiguration::headMargin();
 }
+
 
 int SoundServer::getTailMargin()
 {
-	return SoundConfiguration::tailMargin();
+  return SoundConfiguration::tailMargin();
 }
+
 
 int SoundServer::getShortSampleCutoff()
 {
-	return SoundConfiguration::skipSamples();
+  return SoundConfiguration::skipSamples();
 }
+
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::SoundDeviceUses uses)
 {
-	QList<SimonSound::DeviceConfiguration> devices;
+  QList<SimonSound::DeviceConfiguration> devices;
 
-	QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
-	QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
-	QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
-	QList<int> soundInputUses = SoundConfiguration::soundInputUses();
+  QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
+  QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
+  QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
+  QList<int> soundInputUses = SoundConfiguration::soundInputUses();
 
-	for (int i=0; i < soundInputDevices.count(); i++)
-	{
-		if (!(soundInputUses[i] & uses))
-			continue;
+  for (int i=0; i < soundInputDevices.count(); i++) {
+    if (!(soundInputUses[i] & uses))
+      continue;
 
-		devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i]);
-	}
+    devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i]);
+  }
 
-	return devices;
+  return devices;
 }
+
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getOutputDevices(SimonSound::SoundDeviceUses uses)
 {
-	QList<SimonSound::DeviceConfiguration> devices;
+  QList<SimonSound::DeviceConfiguration> devices;
 
-	QStringList soundOutputDevices = SoundConfiguration::soundOutputDevices();
-	QList<int> soundOutputChannels = SoundConfiguration::soundOutputChannels();
-	QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
-	QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
+  QStringList soundOutputDevices = SoundConfiguration::soundOutputDevices();
+  QList<int> soundOutputChannels = SoundConfiguration::soundOutputChannels();
+  QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
+  QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
 
-	for (int i=0; i < soundOutputDevices.count(); i++)
-	{
-		if (!(soundOutputUses[i] & uses))
-			continue;
+  for (int i=0; i < soundOutputDevices.count(); i++) {
+    if (!(soundOutputUses[i] & uses))
+      continue;
 
-		devices << SimonSound::DeviceConfiguration(soundOutputDevices[i], soundOutputChannels[i], soundOutputSampleRates[i]);
-	}
+    devices << SimonSound::DeviceConfiguration(soundOutputDevices[i], soundOutputChannels[i], soundOutputSampleRates[i]);
+  }
 
-	return devices;
+  return devices;
 }
+
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingInputDevices()
 {
-	return getInputDevices(SimonSound::Training);
+  return getInputDevices(SimonSound::Training);
 }
+
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getRecognitionInputDevices()
 {
-	return getInputDevices(SimonSound::Recognition);
+  return getInputDevices(SimonSound::Recognition);
 }
+
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
 {
-	return getOutputDevices(SimonSound::Training);
+  return getOutputDevices(SimonSound::Training);
 }
-	
+
+
 /**
  * \brief Destructor
  */
 SoundServer::~SoundServer()
 {
 }
-
-
-

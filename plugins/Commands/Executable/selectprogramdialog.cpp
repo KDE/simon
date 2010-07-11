@@ -27,7 +27,7 @@
 #include <KServiceGroup>
 
 /**
-*   \brief Constructor
+ *   \brief Constructor
             Creates the wizardpage, where you can select a special categorie (audio, office, etc.).
             To this categorie you get a list of programs, which provides standardformats of this categorie.
 *
@@ -36,27 +36,29 @@
 */
 SelectProgramDialog::SelectProgramDialog(QWidget* parent): KDialog(parent)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
-	setMainWidget( widget );
-	setCaption( i18n("Select program") );
-	
-        connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
-	
-	ui.lwCategories->setIconSize(QSize(24,24));
-	ui.lwPrograms->setIconSize(QSize(24,24));
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
+  setMainWidget( widget );
+  setCaption( i18n("Select program") );
+
+  connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+
+  ui.lwCategories->setIconSize(QSize(24,24));
+  ui.lwPrograms->setIconSize(QSize(24,24));
 }
+
 
 ExecutableCommand* SelectProgramDialog::selectCommand()
 {
-	initialize();
+  initialize();
 
-	if ((!exec()) || (!ui.lwPrograms->currentItem()))
-		return NULL;
-	
-	return new ExecutableCommand(getName(), getIcon(), getDescription(),
-					getExecPath(), getWorkingDirectory());
+  if ((!exec()) || (!ui.lwPrograms->currentItem()))
+    return 0;
+
+  return new ExecutableCommand(getName(), getIcon(), getDescription(),
+    getExecPath(), getWorkingDirectory());
 }
+
 
 /**
  * \brief Initializes the page (under linux this also loads the list of programs)
@@ -64,145 +66,146 @@ ExecutableCommand* SelectProgramDialog::selectCommand()
  */
 void SelectProgramDialog::initialize()
 {
-	findCategories("");
+  findCategories("");
 }
+
 
 void SelectProgramDialog::findCategories(QString relPath)
 {
-	KServiceGroup::Ptr root = KServiceGroup::group(relPath);
-	KServiceGroup::List list = root->entries();
+  KServiceGroup::Ptr root = KServiceGroup::group(relPath);
+  KServiceGroup::List list = root->entries();
 
-	for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it)
-	{
-		const KSycocaEntry::Ptr p = (*it);
+  for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it) {
+    const KSycocaEntry::Ptr p = (*it);
 
-		if (p->isType(KST_KServiceGroup))
-		{
-			const KServiceGroup::Ptr serviceGroup = KServiceGroup::Ptr::staticCast(p);
+    if (p->isType(KST_KServiceGroup)) {
+      const KServiceGroup::Ptr serviceGroup = KServiceGroup::Ptr::staticCast(p);
 
-			if (serviceGroup->noDisplay() || serviceGroup->childCount() == 0)
-				continue;
+      if (serviceGroup->noDisplay() || serviceGroup->childCount() == 0)
+        continue;
 
-			QListWidgetItem *item = new QListWidgetItem(KIcon(serviceGroup->icon()), serviceGroup->caption());
-			item->setData(Qt::UserRole, serviceGroup->relPath());
-			ui.lwCategories->addItem(item);
-			findCategories(serviceGroup->relPath());
-		}
-	}
+      QListWidgetItem *item = new QListWidgetItem(KIcon(serviceGroup->icon()), serviceGroup->caption());
+      item->setData(Qt::UserRole, serviceGroup->relPath());
+      ui.lwCategories->addItem(item);
+      findCategories(serviceGroup->relPath());
+    }
+  }
 }
 
+
 /**
-*   \brief destructor
-*
-*   @author Susanne Tschernegg
-*/
+ *   \brief destructor
+ *
+ *   @author Susanne Tschernegg
+ */
 SelectProgramDialog::~SelectProgramDialog()
 {
-	
+
 }
 
+
 /**
-*   \brief searches for all programs, which contains the associated formats of a category
-*
-*   @author Susanne Tschernegg
-*/
+ *   \brief searches for all programs, which contains the associated formats of a category
+ *
+ *   @author Susanne Tschernegg
+ */
 void SelectProgramDialog::searchForPrograms()
 {
-	ui.lwPrograms->clear();
+  ui.lwPrograms->clear();
 
-	QListWidgetItem *curCategory = ui.lwCategories->currentItem();
-	if (!curCategory) return;
+  QListWidgetItem *curCategory = ui.lwCategories->currentItem();
+  if (!curCategory) return;
 
-	KServiceGroup::Ptr root = KServiceGroup::group(curCategory->data(Qt::UserRole).toString());
-	KServiceGroup::List list = root->entries();
+  KServiceGroup::Ptr root = KServiceGroup::group(curCategory->data(Qt::UserRole).toString());
+  KServiceGroup::List list = root->entries();
 
-	for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it)
-	{
-		const KSycocaEntry::Ptr p = (*it);
-		if (p->isType(KST_KService))
-		{
-			const KService::Ptr service = KService::Ptr::staticCast(p);
+  for (KServiceGroup::List::ConstIterator it = list.begin(); it != list.end(); ++it) {
+    const KSycocaEntry::Ptr p = (*it);
+    if (p->isType(KST_KService)) {
+      const KService::Ptr service = KService::Ptr::staticCast(p);
 
-			if (service->noDisplay())
-				continue;
-			
-			QString displayName;
-			if (!service->genericName().isEmpty())
-				displayName = i18n("%1 (%2)", service->name(), service->genericName());
-			else displayName = service->name();
-			QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
-			
-			QString exec;
-			QStringList execParts = service->exec().split(" ", QString::SkipEmptyParts);
-			foreach ( const QString& execPart, execParts)
-				if (!execPart.startsWith("-") && !(execPart.startsWith("\"%"))
-					 && !(execPart.startsWith("%")))
-					exec += execPart;
-			
-			item->setData(Qt::UserRole, service->name());
-			item->setData(Qt::UserRole+1, exec);
-			item->setData(Qt::UserRole+2, service->icon());
-			item->setData(Qt::UserRole+3, service->path());
-			item->setData(Qt::UserRole+4, service->comment());
-			ui.lwPrograms->addItem(item);
-		}
-	}
+      if (service->noDisplay())
+        continue;
+
+      QString displayName;
+      if (!service->genericName().isEmpty())
+        displayName = i18n("%1 (%2)", service->name(), service->genericName());
+      else displayName = service->name();
+      QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
+
+      QString exec;
+      QStringList execParts = service->exec().split(" ", QString::SkipEmptyParts);
+      foreach ( const QString& execPart, execParts)
+        if (!execPart.startsWith("-") && !(execPart.startsWith("\"%"))
+        && !(execPart.startsWith("%")))
+        exec += execPart;
+
+      item->setData(Qt::UserRole, service->name());
+      item->setData(Qt::UserRole+1, exec);
+      item->setData(Qt::UserRole+2, service->icon());
+      item->setData(Qt::UserRole+3, service->path());
+      item->setData(Qt::UserRole+4, service->comment());
+      ui.lwPrograms->addItem(item);
+    }
+  }
 }
 
 
 /**
-*   \brief gets the whole exe-name of the program (e.g. program.exe)
-*
-*   @author Peter Grasch
-*   @return QString
-*       returns the name of the .exe file
-*/
+ *   \brief gets the whole exe-name of the program (e.g. program.exe)
+ *
+ *   @author Peter Grasch
+ *   @return QString
+ *       returns the name of the .exe file
+ */
 QString SelectProgramDialog::getExecPath()
 {
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
+  Q_ASSERT(ui.lwPrograms->currentItem());
+  return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
 }
 
+
 /**
-*   \brief gets the iconsrc of the program
-*
-*   @author Peter Grasch
-*/
+ *   \brief gets the iconsrc of the program
+ *
+ *   @author Peter Grasch
+ */
 QString SelectProgramDialog::getIcon()
 {
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
+  Q_ASSERT(ui.lwPrograms->currentItem());
+  return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
 }
 
+
 /**
-*   \brief returns the workingdirectory, which the user set
-*
-*   @author Susanne Tschernegg
-*   @return QString
-*       returns the workingdirectory
-*/
+ *   \brief returns the workingdirectory, which the user set
+ *
+ *   @author Susanne Tschernegg
+ *   @return QString
+ *       returns the workingdirectory
+ */
 QString SelectProgramDialog::getWorkingDirectory()
 {
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
+  return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
 }
 
 
 QString SelectProgramDialog::getDescription()
 {
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
+  Q_ASSERT(ui.lwPrograms->currentItem());
+  return ui.lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
 }
 
 
 /**
-*   \brief gets the name of the program
-*
-*   @author Peter Grasch
-*   @return QString
-*       returns the name of the program
-*/
+ *   \brief gets the name of the program
+ *
+ *   @author Peter Grasch
+ *   @return QString
+ *       returns the name of the program
+ */
 QString SelectProgramDialog::getName()
 {
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
+  Q_ASSERT(ui.lwPrograms->currentItem());
+  return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
 }

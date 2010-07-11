@@ -24,64 +24,70 @@
 
 CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {
-	ui.setupUi(this);
-	
-	ui.urWorkingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
-	
-	setWindowIcon(ExecutableCommand::staticCategoryIcon());
-	setWindowTitle(ExecutableCommand::staticCategoryText());
-	
-	#ifdef Q_OS_WIN32
-	ui.cbImportProgram->hide();
-	ui.cbManual->animateClick();
-	ui.cbManual->hide();
-	#endif
-	
-	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
-	
-	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(selectProgram()));
+  ui.setupUi(this);
+
+  ui.urWorkingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+
+  setWindowIcon(ExecutableCommand::staticCategoryIcon());
+  setWindowTitle(ExecutableCommand::staticCategoryText());
+
+  #ifdef Q_OS_WIN32
+  ui.cbImportProgram->hide();
+  ui.cbManual->animateClick();
+  ui.cbManual->hide();
+  #endif
+
+  connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
+
+  connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(selectProgram()));
 }
+
 
 void CreateExecutableCommandWidget::urlSelected(const KUrl& urlSelected)
 {
-	//wrap url in quotes
-	ui.urExecutable->lineEdit()->setText("\""+urlSelected.path()+"\"");
+  //wrap url in quotes
+  ui.urExecutable->lineEdit()->setText("\""+urlSelected.path()+"\"");
 }
+
 
 bool CreateExecutableCommandWidget::isComplete()
 {
-	return !(ui.urExecutable->url().isEmpty());
+  return !(ui.urExecutable->url().isEmpty());
 }
+
 
 void CreateExecutableCommandWidget::selectProgram()
 {
-	SelectProgramDialog *select = new SelectProgramDialog(this);
-	Command *c = select->selectCommand();
+  SelectProgramDialog *select = new SelectProgramDialog(this);
+  Command *c = select->selectCommand();
 
-	if (c)
-		emit propagateCreatedCommand(c);
+  if (c)
+    emit propagateCreatedCommand(c);
 
-	select->deleteLater();
+  select->deleteLater();
 }
+
 
 bool CreateExecutableCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	ExecutableCommand *execCommand = dynamic_cast<ExecutableCommand*>(command);
-	if (!execCommand) return false;
-	
-	ui.urExecutable->setUrl(KUrl(execCommand->getExecutable()));
-	ui.urWorkingDirectory->setUrl(execCommand->getWorkingDirectory());
-	return true;
+  Q_ASSERT(command);
+
+  ExecutableCommand *execCommand = dynamic_cast<ExecutableCommand*>(command);
+  if (!execCommand) return false;
+
+  ui.urExecutable->setUrl(KUrl(execCommand->getExecutable()));
+  ui.urWorkingDirectory->setUrl(execCommand->getWorkingDirectory());
+  return true;
 }
+
 
 Command* CreateExecutableCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new ExecutableCommand(name, iconSrc, description, ui.urExecutable->url().path(), 
-					ui.urWorkingDirectory->url());
+  return new ExecutableCommand(name, iconSrc, description, ui.urExecutable->url().path(),
+    ui.urWorkingDirectory->url());
 }
+
 
 CreateExecutableCommandWidget::~CreateExecutableCommandWidget()
 {

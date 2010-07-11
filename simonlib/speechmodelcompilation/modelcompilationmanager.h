@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 #define SIMON_MODELCOMPILATIONMANAGER_H_18BCB183592A48D3962815FFDEA7C214
 
@@ -37,157 +36,157 @@
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread{
-Q_OBJECT
-signals:
-	void status(QString, int progressNow, int progressTotal=2600);
-	void error(QString);
+class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
+{
+  Q_OBJECT
+    signals:
+  void status(QString, int progressNow, int progressTotal=2600);
+  void error(QString);
 
-//	void userReadableError(const QString&);
+  //	void userReadableError(const QString&);
 
-	void wordUndefined(const QString&);
-	void classUndefined(const QString&);
- 	void phonemeUndefined(const QString&);
+  void wordUndefined(const QString&);
+  void classUndefined(const QString&);
+  void phonemeUndefined(const QString&);
 
-	void modelCompiled();
-	void activeModelCompilationAborted();
+  void modelCompiled();
+  void activeModelCompilationAborted();
 
-public:
-	enum CompilationType {
-		CompileLanguageModel=1,
-		CompileSpeechModel=2,
-		AdaptSpeechModel=4
-	};
+  public:
+    enum CompilationType
+    {
+      CompileLanguageModel=1,
+      CompileSpeechModel=2,
+      AdaptSpeechModel=4
+    };
 
-	ModelCompilationManager(const QString& userName, QObject *parent=0);
+    ModelCompilationManager(const QString& userName, QObject *parent=0);
 
-	void run();
-	bool startCompilation(ModelCompilationManager::CompilationType compilationType,
-			     const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath,
+    void run();
+    bool startCompilation(ModelCompilationManager::CompilationType compilationType,
+      const QString& hmmDefsPath, const QString& tiedListPath,
+      const QString& dictPath, const QString& dfaPath,
 
-			     const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
-			     const QString& baseStatsPath, const QString& baseMacrosPath,
+      const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
+      const QString& baseStatsPath, const QString& baseMacrosPath,
 
-			     const QString& samplePath,
+      const QString& samplePath,
 
-			     const QString& lexiconPath, const QString& grammarPath, 
-			     const QString& vocabPath, const QString& promptsPath, 
+      const QString& lexiconPath, const QString& grammarPath,
+      const QString& vocabPath, const QString& promptsPath,
 
-			     const QString& treeHedPath, const QString& wavConfigPath);
-	bool hasBuildLog();
-	QString getGraphicBuildLog();
-	QString getBuildLog();
-	
-	QString getStatus() { return currentStatus; }
-	void abort();
+      const QString& treeHedPath, const QString& wavConfigPath);
+    bool hasBuildLog();
+    QString getGraphicBuildLog();
+    QString getBuildLog();
 
-	~ModelCompilationManager();
+    QString getStatus() { return currentStatus; }
+    void abort();
 
-private:
-	bool keepGoing;
-	QString currentStatus;
-	
-	QString buildLog;
-	QString lastOutput;
+    ~ModelCompilationManager();
 
-	CompilationType compilationType;
+  private:
+    bool keepGoing;
+    QString currentStatus;
 
-	QString userName;
-	QString samplePath;
-	QString tempDir;
-	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
-	QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
-	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
+    QString buildLog;
+    QString lastOutput;
 
-	//config options
-	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
+    CompilationType compilationType;
 
-	QList<QProcess*> activeProcesses;
-	
-	QString htkIfyPath(const QString& in);
-	bool pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp);
+    QString userName;
+    QString samplePath;
+    QString tempDir;
+    QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
+    QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
+    QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
-	void analyseError(QString readableError);
-	bool processError();
+    //config options
+    QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
 
-	bool createDirs();
+    QList<QProcess*> activeProcesses;
 
-	bool execute(const QString& command);
+    QString htkIfyPath(const QString& in);
+    bool pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp);
 
-	bool parseConfiguration();
-	
-	bool generateInputFiles();
-		bool generateWlist();
-		bool makeMonophones();
+    void analyseError(QString readableError);
+    bool processError();
 
-	bool makeTranscriptions();
-		bool generateMlf();
+    bool createDirs();
 
-	bool codeAudioData();
-		bool generateCodetrainScp();
-	
+    bool execute(const QString& command);
 
-	bool buildHMM();
+    bool parseConfiguration();
 
-		bool createMonophones();
-			bool buildHMM0();
-			bool buildHMM1();
-			bool buildHMM2();
-			bool buildHMM3();
+    bool generateInputFiles();
+    bool generateWlist();
+    bool makeMonophones();
 
-		bool fixSilenceModel();
-			bool buildHMM4();
-			bool buildHMM5();
-			bool buildHMM6();
-			bool buildHMM7();
+    bool makeTranscriptions();
+    bool generateMlf();
 
-		bool realign();
-			bool makeDict1();
-			bool realignHMM7();
-			bool buildHMM8();
-			bool buildHMM9();
+    bool codeAudioData();
+    bool generateCodetrainScp();
 
-		bool makeTriphones();
-			bool makeMkTriHed();
-			bool buildHMM10();
-			bool buildHMM11();
-			bool buildHMM12();
+    bool buildHMM();
 
-		bool tieStates();
-			bool makeFulllist();
-			bool makeTreeHed();
-			bool buildHMM13();
-			bool buildHMM14();
-			bool buildHMM15();
+    bool createMonophones();
+    bool buildHMM0();
+    bool buildHMM1();
+    bool buildHMM2();
+    bool buildHMM3();
 
-		bool increaseMixtures();
-			bool buildHMM16();
-			bool buildHMM17();
-			bool buildHMM18();
+    bool fixSilenceModel();
+    bool buildHMM4();
+    bool buildHMM5();
+    bool buildHMM6();
+    bool buildHMM7();
 
-			bool buildHMM19();
-			bool buildHMM20();
-			bool buildHMM21();
+    bool realign();
+    bool makeDict1();
+    bool realignHMM7();
+    bool buildHMM8();
+    bool buildHMM9();
 
-			bool buildHMM22();
-			bool buildHMM23();
-			bool buildHMM24();
+    bool makeTriphones();
+    bool makeMkTriHed();
+    bool buildHMM10();
+    bool buildHMM11();
+    bool buildHMM12();
 
-	bool adaptBaseModel();
-		bool realignToBaseModel();
-		bool makeRegTreeHed();
-		bool createRegressionClassTree();
-		bool staticAdaption();
+    bool tieStates();
+    bool makeFulllist();
+    bool makeTreeHed();
+    bool buildHMM13();
+    bool buildHMM14();
+    bool buildHMM15();
 
-	bool compileGrammar();
-		bool generateReverseGrammar();
-		bool makeTempVocab();
-		bool makeDfa();
-		bool generateDict();
-	
-private slots:
-	void addStatusToLog(const QString&);
+    bool increaseMixtures();
+    bool buildHMM16();
+    bool buildHMM17();
+    bool buildHMM18();
+
+    bool buildHMM19();
+    bool buildHMM20();
+    bool buildHMM21();
+
+    bool buildHMM22();
+    bool buildHMM23();
+    bool buildHMM24();
+
+    bool adaptBaseModel();
+    bool realignToBaseModel();
+    bool makeRegTreeHed();
+    bool createRegressionClassTree();
+    bool staticAdaption();
+
+    bool compileGrammar();
+    bool generateReverseGrammar();
+    bool makeTempVocab();
+    bool makeDfa();
+    bool generateDict();
+
+  private slots:
+    void addStatusToLog(const QString&);
 };
-
 #endif

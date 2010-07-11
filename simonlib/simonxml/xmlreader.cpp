@@ -26,10 +26,9 @@
  *  \author Martin Gigerl
  */
 XMLReader::XMLReader(QString path_, QObject* parent) : QObject(parent),
-	path(path_)
+path(path_)
 {
 }
-
 
 
 /**

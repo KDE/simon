@@ -32,28 +32,27 @@ class CreateExecutableCommandWidget;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class ExecutableCommandManager : public CommandManager {
-Q_OBJECT
+class ExecutableCommandManager : public CommandManager
+{
+  Q_OBJECT
 
-protected:
-	bool shouldAcceptCommand(Command *command);
-public:
-	const QString name() const;
-	const QString iconSrc() const;
-	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+    protected:
+    bool shouldAcceptCommand(Command *command);
+  public:
+    const QString name() const;
+    const QString iconSrc() const;
+    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
+    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     ExecutableCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~ExecutableCommandManager();
 
 };
-
 #endif

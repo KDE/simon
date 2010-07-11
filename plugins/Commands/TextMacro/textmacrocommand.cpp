@@ -26,63 +26,67 @@
 #include <KLocalizedString>
 #include <eventsimulation/eventhandler.h>
 
-
 const QString TextMacroCommand::staticCategoryText()
 {
-	return i18n("Text-Macro");
+  return i18n("Text-Macro");
 }
+
 
 const QString TextMacroCommand::getCategoryText() const
 {
-	return TextMacroCommand::staticCategoryText();
+  return TextMacroCommand::staticCategoryText();
 }
+
 
 const KIcon TextMacroCommand::staticCategoryIcon()
 {
-	return KIcon("format-text-bold");
+  return KIcon("format-text-bold");
 }
+
 
 const KIcon TextMacroCommand::getCategoryIcon() const
 {
-	return TextMacroCommand::staticCategoryIcon();
+  return TextMacroCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> TextMacroCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("Text"), getText());
-	return out;
+  QMap<QString,QVariant> out;
+  out.insert(i18n("Text"), getText());
+  return out;
 }
 
 
 bool TextMacroCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	QCoreApplication::processEvents();
-	EventHandler::getInstance()->sendWord(getText());
-	return true;
+  Q_UNUSED(state);
+  QCoreApplication::processEvents();
+  EventHandler::getInstance()->sendWord(getText());
+  return true;
 }
+
 
 QDomElement TextMacroCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement textElem = doc->createElement("text");
-	textElem.appendChild(doc->createTextNode(getText()));
+  QDomElement textElem = doc->createElement("text");
+  textElem.appendChild(doc->createTextNode(getText()));
 
-	commandElem.appendChild(textElem);
-		
-	return commandElem;
+  commandElem.appendChild(textElem);
+
+  return commandElem;
 }
+
 
 bool TextMacroCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement textElem = commandElem.firstChildElement("text");
-	
-	if (textElem.isNull()) return false;
+  QDomElement textElem = commandElem.firstChildElement("text");
 
-	text = textElem.text();
-	return true;
+  if (textElem.isNull()) return false;
+
+  text = textElem.text();
+  return true;
 }
 
+
 STATIC_CREATE_INSTANCE_C(TextMacroCommand);
-
-

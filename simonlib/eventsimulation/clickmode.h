@@ -20,16 +20,16 @@
 #ifndef SIMON_CLICKMODE_H_A54B4D68778B4988A4AB1950123164C2
 #define SIMON_CLICKMODE_H_A54B4D68778B4988A4AB1950123164C2
 
-namespace EventSimulation {
-	enum ClickMode  {
-		LMB=1,
-		LMBDouble=2,
-		LMBDown=3,
-		LMBUp=4,
-		RMB=5,
-		MMB=6
-	};
+namespace EventSimulation
+{
+  enum ClickMode
+  {
+    LMB=1,
+    LMBDouble=2,
+    LMBDown=3,
+    LMBUp=4,
+    RMB=5,
+    MMB=6
+  };
 }
-
 #endif
-

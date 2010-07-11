@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_LOGMANAGER_H_3CC0A73916E54CBFBCDF602ABFF87075
 #define SIMON_LOGMANAGER_H_3CC0A73916E54CBFBCDF602ABFF87075
 
@@ -26,7 +25,6 @@
 #include <QVector>
 
 class QDate;
-
 
 typedef QVector<QDate> Dates;
 
@@ -39,42 +37,39 @@ typedef QVector<QDate> Dates;
  */
 class LogManager : public QThread
 {
-	Q_OBJECT
-	
-private:
-	LogEntryList *entries;
-	bool killMe;
-	qint64 logFilesize;
-	bool finishedLoading;
-	QDate dayToGet;
-	
-private slots:
-	void resetKillFlag()  { killMe = false; }
+  Q_OBJECT
 
-public:
+    private:
+    LogEntryList *entries;
+    bool killMe;
+    qint64 logFilesize;
+    bool finishedLoading;
+    QDate dayToGet;
+
+  private slots:
+    void resetKillFlag()  { killMe = false; }
+
+  public:
     LogManager();
 
     ~LogManager();
 
-	bool isBusy() { return isRunning(); }
+    bool isBusy() { return isRunning(); }
 
+    bool hasFinishedReading();
+    void run ();
 
-	bool hasFinishedReading();
-	void run ();
+  public slots:
+    void getDateList();
+    void stop();
+    void getDay(QDate day=QDate());
+    void getAll();
 
-public slots:
-	void getDateList();
-	void stop();
-	void getDay(QDate day=QDate());
-	void getAll();
-
-signals:
-	void done();
-	void logReadFinished(int value);
-	void foundEntries(LogEntryList* entries,bool copy);
-	void daysAvailable(Dates days);
-
+    signals:
+    void done();
+    void logReadFinished(int value);
+    void foundEntries(LogEntryList* entries,bool copy);
+    void daysAvailable(Dates days);
 
 };
-
 #endif

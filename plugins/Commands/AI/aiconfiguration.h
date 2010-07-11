@@ -29,24 +29,23 @@ class AICommandManager;
 
 class AIConfiguration : public CommandConfiguration
 {
-	Q_OBJECT
-	
-	private:
-		Ui::AIConfigurationDlg ui;
-		AICommandManager *manager;
-		
-		QString storedAimlSet;
- 
-	public:
-		AIConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
-		~AIConfiguration();
+  Q_OBJECT
 
-		void setManager(AICommandManager *manager);
-		virtual bool deSerialize(const QDomElement&);
-		virtual QDomElement serialize(QDomDocument *doc);
-		virtual void defaults();
+    private:
+    Ui::AIConfigurationDlg ui;
+    AICommandManager *manager;
 
-		QString aimlSet() { return storedAimlSet; }
+    QString storedAimlSet;
+
+  public:
+    AIConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    ~AIConfiguration();
+
+    void setManager(AICommandManager *manager);
+    virtual bool deSerialize(const QDomElement&);
+    virtual QDomElement serialize(QDomDocument *doc);
+    virtual void defaults();
+
+    QString aimlSet() { return storedAimlSet; }
 };
-
 #endif

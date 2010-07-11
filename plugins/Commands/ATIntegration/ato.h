@@ -21,34 +21,34 @@
 #define SIMON_ATO_H_41A2DE477ABC4B438699B1F9F856549D
 #include <QMetaType>
 
- struct ATOLocation
- {
-     qint32 x;
-     qint32 y;
-     qint32 width;
-     qint32 height;
- };
+struct ATOLocation
+{
+  qint32 x;
+  qint32 y;
+  qint32 width;
+  qint32 height;
+};
 Q_DECLARE_METATYPE(ATOLocation)
- 
- struct ATOPosition
- {
-     qint32 x;
-     qint32 y;
- };
+
+struct ATOPosition
+{
+  qint32 x;
+  qint32 y;
+};
 Q_DECLARE_METATYPE(ATOPosition)
 
-enum ATOMenuType {
-	None=0,
-	MenuBar=1,
-	ToolBar=2,
- 	Entry=3
+enum ATOMenuType
+{
+  None=0,
+  MenuBar=1,
+  ToolBar=2,
+  Entry=3
 };
-struct ATOMenu {
-	QString title;
-	ATOMenuType type;
-	ATOLocation geometry;
-	QList<ATOMenu*> actions;
+struct ATOMenu
+{
+  QString title;
+  ATOMenuType type;
+  ATOLocation geometry;
+  QList<ATOMenu*> actions;
 };
-
 #endif
-

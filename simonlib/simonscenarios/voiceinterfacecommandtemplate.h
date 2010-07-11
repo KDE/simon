@@ -17,57 +17,53 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_VOICEINTERFACECOMMANDTEMPLATE_H_71E1009585854F21AA6058993C51FCEE
 #define SIMON_VOICEINTERFACECOMMANDTEMPLATE_H_71E1009585854F21AA6058993C51FCEE
 
 #include "simonmodelmanagement_export.h"
 #include <QString>
 
-class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate {
-private:
-	QString m_id;
-	QString m_icon;
-	QString m_actionName;
-	QString m_defaultVisibleTrigger;
-	QString m_description;
-	int m_state;
-	int m_newState;
-	bool m_announce;
-	bool m_showIcon;
+class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
+{
+  private:
+    QString m_id;
+    QString m_icon;
+    QString m_actionName;
+    QString m_defaultVisibleTrigger;
+    QString m_description;
+    int m_state;
+    int m_newState;
+    bool m_announce;
+    bool m_showIcon;
 
-	QObject *m_receiver;
-	QString m_slot;
-	
-public:
-	VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName, 
-			const QString& icon, const QString& description, int state,
-			int newState, bool announce=false, bool showIcon=true, 
-			QString defaultVisibleTrigger=QString());
-	
-	void assignAction(QObject *receiver, const QString& slot);
+    QObject *m_receiver;
+    QString m_slot;
 
-	QString id() { return m_id; }
-	QString actionName() { return m_actionName; }
-	QString description() { return m_description; }
-	QString icon() { return m_icon; }
-	QObject* receiver() { return m_receiver; }
-	QString slot() { return m_slot; }
-	int state() { return m_state; }
-	int newState() { return m_newState; }
+  public:
+    VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName,
+      const QString& icon, const QString& description, int state,
+      int newState, bool announce=false, bool showIcon=true,
+      QString defaultVisibleTrigger=QString());
 
-	QString defaultVisibleTrigger()
-	{
-		return m_defaultVisibleTrigger.isNull() ? m_actionName : m_defaultVisibleTrigger;
-	}
+    void assignAction(QObject *receiver, const QString& slot);
 
-	bool showIcon() { return m_showIcon; }
-	bool announce() { return m_announce; }
+    QString id() { return m_id; }
+    QString actionName() { return m_actionName; }
+    QString description() { return m_description; }
+    QString icon() { return m_icon; }
+    QObject* receiver() { return m_receiver; }
+    QString slot() { return m_slot; }
+    int state() { return m_state; }
+    int newState() { return m_newState; }
 
-	~VoiceInterfaceCommandTemplate();
+    QString defaultVisibleTrigger() {
+      return m_defaultVisibleTrigger.isNull() ? m_actionName : m_defaultVisibleTrigger;
+    }
 
+    bool showIcon() { return m_showIcon; }
+    bool announce() { return m_announce; }
+
+    ~VoiceInterfaceCommandTemplate();
 
 };
-
 #endif
-

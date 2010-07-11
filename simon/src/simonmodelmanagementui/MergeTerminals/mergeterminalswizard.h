@@ -17,30 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MERGETERMINALSWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
 #define SIMON_MERGETERMINALSWIZARD_H_14ABC8E4DBD54DDE86D831B9195E9C3D
 
 #include <simonuicomponents/simonwizard.h>
 
 /**
-	@author Peter Grasch <grasch@simon-listens.org>
+  @author Peter Grasch <grasch@simon-listens.org>
 */
 class QWizardPage;
 
 class MergeTerminalsWizard : public SimonWizard
 {
-Q_OBJECT
-private:
-	QWizardPage* createIntroPage();
-	QWizardPage* createSelectTerminalsPage();
-	QWizardPage* createWorkingPage();
-	QWizardPage* createFinishedPage();
-public:
+  Q_OBJECT
+    private:
+    QWizardPage* createIntroPage();
+    QWizardPage* createSelectTerminalsPage();
+    QWizardPage* createWorkingPage();
+    QWizardPage* createFinishedPage();
+  public:
     MergeTerminalsWizard(QWidget* parent);
 
     ~MergeTerminalsWizard();
 
 };
-
 #endif

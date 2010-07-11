@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingtextselectsourcepage.h"
 
 #include <QRadioButton>
@@ -29,26 +28,28 @@
  */
 ImportTrainingTextSelectSourcePage::ImportTrainingTextSelectSourcePage(QWidget *parent) : QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Choose your Source"));
-	registerField("importTrainingTextLocal", ui.rbLocal);
+  ui.setupUi(this);
+  setTitle(i18n("Choose your Source"));
+  registerField("importTrainingTextLocal", ui.rbLocal);
 }
+
 
 /**
  * \brief The next id of the wizard
  * \author Peter Grasch
  * If local: 2, else 3
- * @return 
+ * @return
  */
 int ImportTrainingTextSelectSourcePage::nextId() const
 {
-	if (ui.rbLocal->isChecked())
-	{
-		return 3;
-	} else {
-		return 2;
-	}
+  if (ui.rbLocal->isChecked()) {
+    return 3;
+  }
+  else {
+    return 2;
+  }
 }
+
 
 ImportTrainingTextSelectSourcePage::~ImportTrainingTextSelectSourcePage()
 {

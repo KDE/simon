@@ -26,14 +26,16 @@ Author::Author(Scenario *parent) : ScenarioObject(parent)
 {
 }
 
+
 /**
  * Full, public constructor
  */
 Author::Author(Scenario *parent, const QString& name, const QString& contact) : ScenarioObject(parent),
-	m_name(name),
-	m_contact(contact)
+m_name(name),
+m_contact(contact)
 {
 }
+
 
 /**
  * Factory function
@@ -41,43 +43,44 @@ Author::Author(Scenario *parent, const QString& name, const QString& contact) : 
  */
 Author* Author::createAuthor(Scenario *parent, const QDomElement& elem)
 {
-	Author *a = new Author(parent);
-	if (!a->deSerialize(elem)) {
-		delete a;
-		a=NULL;
-	} 
-	return a;
+  Author *a = new Author(parent);
+  if (!a->deSerialize(elem)) {
+    delete a;
+    a=0;
+  }
+  return a;
 }
+
 
 bool Author::deSerialize(const QDomElement& authorElem)
 {
-	if (authorElem.isNull())
-		return false;
+  if (authorElem.isNull())
+    return false;
 
-	QDomElement nameElem = authorElem.firstChildElement();
-	QDomElement contactElem = nameElem.nextSiblingElement();
-	
-	if (nameElem.isNull() || contactElem.isNull())
-		return false;
+  QDomElement nameElem = authorElem.firstChildElement();
+  QDomElement contactElem = nameElem.nextSiblingElement();
 
-	m_name = nameElem.text();
-	m_contact = contactElem.text();
+  if (nameElem.isNull() || contactElem.isNull())
+    return false;
 
-	return true;
+  m_name = nameElem.text();
+  m_contact = contactElem.text();
+
+  return true;
 }
+
 
 QDomElement Author::serialize(QDomDocument *doc)
 {
-	QDomElement elem = doc->createElement("author");
+  QDomElement elem = doc->createElement("author");
 
-	QDomElement nameElem = doc->createElement("name");
-	nameElem.appendChild(doc->createTextNode(m_name));
-	QDomElement contactElem = doc->createElement("contact");
-	contactElem.appendChild(doc->createTextNode(m_contact));
+  QDomElement nameElem = doc->createElement("name");
+  nameElem.appendChild(doc->createTextNode(m_name));
+  QDomElement contactElem = doc->createElement("contact");
+  contactElem.appendChild(doc->createTextNode(m_contact));
 
-	elem.appendChild(nameElem);
-	elem.appendChild(contactElem);
+  elem.appendChild(nameElem);
+  elem.appendChild(contactElem);
 
-	return elem;
+  return elem;
 }
-

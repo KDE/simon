@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONWIZARD_H_FA01A01DFF1E4DA098606C3E951E43A1
 #define SIMON_SIMONWIZARD_H_FA01A01DFF1E4DA098606C3E951E43A1
 
@@ -27,14 +26,12 @@
 
 class SIMONUICOMPONENTS_EXPORT SimonWizard : public QWizard
 {
-public:
-	explicit SimonWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
+  public:
+    explicit SimonWizard(QWidget *parent = 0, Qt::WFlags flags = 0);
 
-	bool setBanner(const QString& name);
+    bool setBanner(const QString& name);
 
-	~SimonWizard();
+    ~SimonWizard();
 
 };
-
 #endif
-

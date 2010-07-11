@@ -30,68 +30,65 @@
 #include <KIconLoader>
 #include <KMessageBox>
 
-
 CommandPreviewWidget::CommandPreviewWidget(QWidget* parent) : QWidget(parent),
-	command(0)
+command(0)
 {
-	ui.setupUi(this);
-	
-	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));
-	hide();
-	
-	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+  ui.setupUi(this);
+
+  connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));
+  hide();
+
+  setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
+
 
 void CommandPreviewWidget::trigger()
 {
-	int state = SimonCommand::DefaultState;
-	if (command) command->trigger(&state);
+  int state = SimonCommand::DefaultState;
+  if (command) command->trigger(&state);
 }
+
 
 void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 {
-	Command *command = static_cast<Command*>(commandIdx.internalPointer());
-	if (!command) {
-		hide();
-		return;
-	} else show();
+  Command *command = static_cast<Command*>(commandIdx.internalPointer());
+  if (!command) {
+    hide();
+    return;
+  } else show();
 
-	ui.lbIcon->setPixmap(KIcon(command->getIcon()).pixmap(64,64));
-	ui.lbName->setText(command->getTrigger());
+  ui.lbIcon->setPixmap(KIcon(command->getIcon()).pixmap(64,64));
+  ui.lbName->setText(command->getTrigger());
 
-	QLayoutItem *child;
-	while (ui.flDetails->count() > 0)
-	{
-		child = ui.flDetails->takeAt(0);
-		ui.flDetails->removeItem(child);
+  QLayoutItem *child;
+  while (ui.flDetails->count() > 0) {
+    child = ui.flDetails->takeAt(0);
+    ui.flDetails->removeItem(child);
 
-		QWidget *widget = child->widget();
-		if (widget) widget->deleteLater();
-		delete child;
-	}
+    QWidget *widget = child->widget();
+    if (widget) widget->deleteLater();
+    delete child;
+  }
 
-	QMap<QString,QVariant> details = command->getValueMap();
-	QStringList keys = details.keys();
+  QMap<QString,QVariant> details = command->getValueMap();
+  QStringList keys = details.keys();
 
-	for (int i=0; i < keys.count(); i++)
-	{
-		QLabel *label = new QLabel(this);
-		label->setOpenExternalLinks(true);
-		label->setWordWrap(true);
-		QVariant value = details.value(keys[i]);
-		
-		QString strValue;
-		if (value.type() == QVariant::Url)
-			strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
-		else strValue = value.toString();
+  for (int i=0; i < keys.count(); i++) {
+    QLabel *label = new QLabel(this);
+    label->setOpenExternalLinks(true);
+    label->setWordWrap(true);
+    QVariant value = details.value(keys[i]);
 
-		label->setText(strValue);
-		
-		ui.flDetails->addRow(keys[i]+":", label);
-	}
+    QString strValue;
+    if (value.type() == QVariant::Url)
+      strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
+    else strValue = value.toString();
 
-	//resize(sizeHint().height(), width());
-	this->command = command;
+    label->setText(strValue);
+
+    ui.flDetails->addRow(keys[i]+":", label);
+  }
+
+  //resize(sizeHint().height(), width());
+  this->command = command;
 }
-
-

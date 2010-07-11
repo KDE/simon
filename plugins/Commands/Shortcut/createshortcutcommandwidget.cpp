@@ -20,56 +20,59 @@
 #include "createshortcutcommandwidget.h"
 #include "shortcutcommand.h"
 
-
 CreateShortcutCommandWidget::CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent) : CreateCommandWidget(manager, parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-#if KDE_IS_VERSION(4,1,60)
-	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
-#endif
-	ui.ksShortcut->setModifierlessAllowed(true);
-	setWindowIcon(ShortcutCommand::staticCategoryIcon());
-	setWindowTitle(ShortcutCommand::staticCategoryText());
-	
-	connect(ui.ksShortcut, SIGNAL(keySequenceChanged (const QKeySequence &)), this, SIGNAL(completeChanged()));
-	#ifndef Q_OS_WIN
-	ui.cbSpecialShortcut->hide();
-	ui.lbSpecialShortcut->hide();
-	ui.pbApplySpecialShortcut->hide();
-	#else
-	ui.pbApplySpecialShortcut->setIcon(KIcon("arrow-up"));
-	connect(ui.pbApplySpecialShortcut, SIGNAL(clicked()), this, SLOT(applySpecialShortcut()));
-	#endif
+  #if KDE_IS_VERSION(4,1,60)
+  ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+  #endif
+  ui.ksShortcut->setModifierlessAllowed(true);
+  setWindowIcon(ShortcutCommand::staticCategoryIcon());
+  setWindowTitle(ShortcutCommand::staticCategoryText());
+
+  connect(ui.ksShortcut, SIGNAL(keySequenceChanged (const QKeySequence &)), this, SIGNAL(completeChanged()));
+  #ifndef Q_OS_WIN
+  ui.cbSpecialShortcut->hide();
+  ui.lbSpecialShortcut->hide();
+  ui.pbApplySpecialShortcut->hide();
+  #else
+  ui.pbApplySpecialShortcut->setIcon(KIcon("arrow-up"));
+  connect(ui.pbApplySpecialShortcut, SIGNAL(clicked()), this, SLOT(applySpecialShortcut()));
+  #endif
 }
+
 
 #ifdef Q_OS_WIN
 void CreateShortcutCommandWidget::applySpecialShortcut()
 {
-	ui.ksShortcut->setKeySequence(QKeySequence(ui.cbSpecialShortcut->currentText()));
+  ui.ksShortcut->setKeySequence(QKeySequence(ui.cbSpecialShortcut->currentText()));
 }
 #endif
 
 bool CreateShortcutCommandWidget::isComplete()
 {
-	return !(ui.ksShortcut->keySequence().isEmpty());
+  return !(ui.ksShortcut->keySequence().isEmpty());
 }
+
 
 bool CreateShortcutCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	ShortcutCommand *shortcutCommand = dynamic_cast<ShortcutCommand*>(command);
-	if (!shortcutCommand) return false;
-	
-	ui.ksShortcut->setKeySequence(shortcutCommand->getShortcut());
-	return true;
+  Q_ASSERT(command);
+
+  ShortcutCommand *shortcutCommand = dynamic_cast<ShortcutCommand*>(command);
+  if (!shortcutCommand) return false;
+
+  ui.ksShortcut->setKeySequence(shortcutCommand->getShortcut());
+  return true;
 }
+
 
 Command* CreateShortcutCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new ShortcutCommand(name, iconSrc, description, ui.ksShortcut->keySequence());
+  return new ShortcutCommand(name, iconSrc, description, ui.ksShortcut->keySequence());
 }
+
 
 CreateShortcutCommandWidget::~CreateShortcutCommandWidget()
 {

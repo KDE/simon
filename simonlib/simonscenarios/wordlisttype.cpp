@@ -18,4 +18,3 @@
  */
 
 #include "wordlisttype.h"
-

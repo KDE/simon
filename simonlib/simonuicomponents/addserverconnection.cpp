@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "addserverconnection.h"
 
 #include <QLabel>
@@ -29,28 +28,30 @@
 
 AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 {
-	QWidget *widget = new QWidget( this );
+  QWidget *widget = new QWidget( this );
 
-	leAddress = new KLineEdit("localhost", widget);
-	sbPort = new KIntNumInput(widget);
-	sbPort->setMinimum(0);
-	sbPort->setMaximum(65000);
-	sbPort->setValue(4444);
-	
-	QFormLayout *lay = new QFormLayout(widget);
-	lay->addRow(i18n("Address:"), leAddress);
-	lay->addRow(i18n("Port:"), sbPort);
-	
-	setMainWidget( widget );
-	setCaption( i18n("Add Server Address") );
+  leAddress = new KLineEdit("localhost", widget);
+  sbPort = new KIntNumInput(widget);
+  sbPort->setMinimum(0);
+  sbPort->setMaximum(65000);
+  sbPort->setValue(4444);
+
+  QFormLayout *lay = new QFormLayout(widget);
+  lay->addRow(i18n("Address:"), leAddress);
+  lay->addRow(i18n("Port:"), sbPort);
+
+  setMainWidget( widget );
+  setCaption( i18n("Add Server Address") );
 }
+
 
 QString AddServerConnection::getHost()
 {
-	return leAddress->text();
+  return leAddress->text();
 }
+
 
 int AddServerConnection::getPort()
 {
-	return sbPort->value();
+  return sbPort->value();
 }

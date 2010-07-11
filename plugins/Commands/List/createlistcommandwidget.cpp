@@ -29,153 +29,151 @@
 #include <QStringList>
 
 CreateListCommandWidget::CreateListCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
-	allCommands(ActionManager::getInstance()->getCommandList()),
-	model(new CommandTableModel())
+allCommands(ActionManager::getInstance()->getCommandList()),
+model(new CommandTableModel())
 {
-	ui.setupUi(this);
-	
-	setWindowIcon(ListCommand::staticCategoryIcon());
-	setWindowTitle(ListCommand::staticCategoryText());
-	
-	foreach (const Command* com, *allCommands) {
-		QString name = com->getTrigger();
-		QString category = com->getCategoryText();
-		ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
-	}
-	ui.tvCommands->setModel(model);
+  ui.setupUi(this);
 
-	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
-	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToList()));
-	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
-	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
-	enableButtons(ui.tvCommands->currentIndex());
+  setWindowIcon(ListCommand::staticCategoryIcon());
+  setWindowTitle(ListCommand::staticCategoryText());
 
-	ui.pbAddCommand->setIcon(KIcon("list-add"));
-	ui.pbRemove->setIcon(KIcon("list-remove"));
-	ui.pbMoveUp->setIcon(KIcon("arrow-up"));
-	ui.pbMoveDown->setIcon(KIcon("arrow-down"));
+  foreach (const Command* com, *allCommands) {
+    QString name = com->getTrigger();
+    QString category = com->getCategoryText();
+    ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
+  }
+  ui.tvCommands->setModel(model);
+
+  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
+  connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToList()));
+  connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
+  connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+  connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
+  enableButtons(ui.tvCommands->currentIndex());
+
+  ui.pbAddCommand->setIcon(KIcon("list-add"));
+  ui.pbRemove->setIcon(KIcon("list-remove"));
+  ui.pbMoveUp->setIcon(KIcon("arrow-up"));
+  ui.pbMoveDown->setIcon(KIcon("arrow-down"));
 }
+
 
 void CreateListCommandWidget::enableButtons(const QModelIndex& index)
 {
-	if (!index.isValid())
-	{
-		ui.pbRemove->setEnabled(false);
-		ui.pbMoveUp->setEnabled(false);
-		ui.pbMoveDown->setEnabled(false);
-		return;
-	} else
-		ui.pbRemove->setEnabled(true);
+  if (!index.isValid()) {
+    ui.pbRemove->setEnabled(false);
+    ui.pbMoveUp->setEnabled(false);
+    ui.pbMoveDown->setEnabled(false);
+    return;
+  } else
+  ui.pbRemove->setEnabled(true);
 
-	Q_ASSERT(allCommands);
-	ui.pbMoveUp->setEnabled(index.row() > 0);
-	ui.pbMoveDown->setEnabled(index.row() < model->rowCount()-1);
-	
+  Q_ASSERT(allCommands);
+  ui.pbMoveUp->setEnabled(index.row() > 0);
+  ui.pbMoveDown->setEnabled(index.row() < model->rowCount()-1);
+
 }
+
 
 void CreateListCommandWidget::moveUp()
 {
-	model->moveUp(ui.tvCommands->currentIndex());
-	int row = ui.tvCommands->currentIndex().row();
-	ui.tvCommands->selectRow(row-1);
-	enableButtons(ui.tvCommands->currentIndex());
+  model->moveUp(ui.tvCommands->currentIndex());
+  int row = ui.tvCommands->currentIndex().row();
+  ui.tvCommands->selectRow(row-1);
+  enableButtons(ui.tvCommands->currentIndex());
 }
+
 
 void CreateListCommandWidget::moveDown()
 {
-	model->moveDown(ui.tvCommands->currentIndex());
-	int row = ui.tvCommands->currentIndex().row();
-	ui.tvCommands->selectRow(row+1);
-	enableButtons(ui.tvCommands->currentIndex());
+  model->moveDown(ui.tvCommands->currentIndex());
+  int row = ui.tvCommands->currentIndex().row();
+  ui.tvCommands->selectRow(row+1);
+  enableButtons(ui.tvCommands->currentIndex());
 }
 
 
 bool CreateListCommandWidget::isComplete()
 {
-	return (model->rowCount() > 0);
+  return (model->rowCount() > 0);
 }
+
 
 bool CreateListCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	ListCommand *listCommand = dynamic_cast<ListCommand*>(command);
-	if (!listCommand) return false;
+  Q_ASSERT(command);
 
-	QStringList selectedTriggers = listCommand->getCommands();
-	QStringList selectedCategories = listCommand->getCommandTypes();
-	QStringList selectedIconSrcs = listCommand->getIconSrcs();
+  ListCommand *listCommand = dynamic_cast<ListCommand*>(command);
+  if (!listCommand) return false;
 
-	Q_ASSERT(selectedTriggers.count() == selectedCategories.count());
-	Q_ASSERT(selectedTriggers.count() == selectedIconSrcs.count());
+  QStringList selectedTriggers = listCommand->getCommands();
+  QStringList selectedCategories = listCommand->getCommandTypes();
+  QStringList selectedIconSrcs = listCommand->getIconSrcs();
 
-	QStringList notFound;
-	int i=0;
-	foreach (const QString& trigger, selectedTriggers)
-	{
-		QString cat = selectedCategories[i];
-		bool found=false;
-		foreach (Command* com, *allCommands)
-		{
-			if ((com->getTrigger() == trigger) &&
-				(com->getCategoryText() == cat))
-			{
-				//found the command
-				model->selectCommand(com);
-				found=true;
-				break;
-			}
-		}
-		if (!found)
-			notFound << trigger;
-		i++;
-	}
+  Q_ASSERT(selectedTriggers.count() == selectedCategories.count());
+  Q_ASSERT(selectedTriggers.count() == selectedIconSrcs.count());
 
-	if (!notFound.isEmpty())
-	{
-		KMessageBox::sorry(this, i18n("Couldn't find all of the commands that make up this list command.\n\n"
-						"The missing commands are: %1.", notFound.join(", ")));
-	}
+  QStringList notFound;
+  int i=0;
+  foreach (const QString& trigger, selectedTriggers) {
+    QString cat = selectedCategories[i];
+    bool found=false;
+    foreach (Command* com, *allCommands) {
+      if ((com->getTrigger() == trigger) &&
+      (com->getCategoryText() == cat)) {
+        //found the command
+        model->selectCommand(com);
+        found=true;
+        break;
+      }
+    }
+    if (!found)
+      notFound << trigger;
+    i++;
+  }
 
-	return true;
+  if (!notFound.isEmpty()) {
+    KMessageBox::sorry(this, i18n("Could not find all of the commands that make up this list command.\n\n"
+      "The missing commands are: %1.", notFound.join(", ")));
+  }
+
+  return true;
 }
 
 
 void CreateListCommandWidget::addCommandToList()
 {
-	model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
+  model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
+  enableButtons(ui.tvCommands->currentIndex());
+  emit completeChanged();
 }
 
 
 void CreateListCommandWidget::removeCommand()
 {
-	model->removeCommand(ui.tvCommands->currentIndex().row());
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
+  model->removeCommand(ui.tvCommands->currentIndex().row());
+  enableButtons(ui.tvCommands->currentIndex());
+  emit completeChanged();
 }
 
 
 Command* CreateListCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	CommandList *selectedCommands = model->selectedCommands();
-	QStringList selectedIconSrcs , selectedTriggers, selectedCategories;
+  CommandList *selectedCommands = model->selectedCommands();
+  QStringList selectedIconSrcs , selectedTriggers, selectedCategories;
 
-	foreach (Command* com, *selectedCommands)
-	{
-		selectedIconSrcs << com->getIconSrc();
-		selectedTriggers << com->getTrigger();
-		selectedCategories << com->getCategoryText();
-	}
+  foreach (Command* com, *selectedCommands) {
+    selectedIconSrcs << com->getIconSrc();
+    selectedTriggers << com->getTrigger();
+    selectedCategories << com->getCategoryText();
+  }
 
-	return new ListCommand(m_manager, name, iconSrc, description, selectedTriggers, selectedIconSrcs, selectedCategories);
+  return new ListCommand(m_manager, name, iconSrc, description, selectedTriggers, selectedIconSrcs, selectedCategories);
 }
+
 
 CreateListCommandWidget::~CreateListCommandWidget()
 {
-	qDeleteAll(commandsToDelete);
-	delete allCommands;
+  qDeleteAll(commandsToDelete);
+  delete allCommands;
 }
-

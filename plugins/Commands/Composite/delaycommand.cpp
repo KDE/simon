@@ -31,65 +31,71 @@
 #include <unistd.h>
 #endif
 
-
 const QString DelayCommand::staticCategoryText()
 {
-	return i18n("Delay");
+  return i18n("Delay");
 }
+
 
 const QString DelayCommand::getCategoryText() const
 {
-	return DelayCommand::staticCategoryText();
+  return DelayCommand::staticCategoryText();
 }
+
 
 const KIcon DelayCommand::staticCategoryIcon()
 {
-	return KIcon("chronometer");
+  return KIcon("chronometer");
 }
+
 
 const KIcon DelayCommand::getCategoryIcon() const
 {
-	return DelayCommand::staticCategoryIcon();
+  return DelayCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> DelayCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("Delay"), delay);
-	return out;
+  QMap<QString,QVariant> out;
+  out.insert(i18n("Delay"), delay);
+  return out;
 }
+
 
 bool DelayCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	#ifdef Q_OS_WIN32
-	Sleep(delay);
-	#else
-	usleep(delay*1000);
-	#endif
-	return true;
+  Q_UNUSED(state);
+  #ifdef Q_OS_WIN32
+  Sleep(delay);
+  #else
+  usleep(delay*1000);
+  #endif
+  return true;
 }
+
 
 QDomElement DelayCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement delayElem = doc->createElement("delay");
-	delayElem.appendChild(doc->createTextNode(QString::number(delay)));
-	
-	commandElem.appendChild(delayElem);
-		
-	return commandElem;
+  QDomElement delayElem = doc->createElement("delay");
+  delayElem.appendChild(doc->createTextNode(QString::number(delay)));
+
+  commandElem.appendChild(delayElem);
+
+  return commandElem;
 }
+
 
 bool DelayCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement delayElem = commandElem.firstChildElement("delay");
-	if (delayElem.isNull()) return false;
+  QDomElement delayElem = commandElem.firstChildElement("delay");
+  if (delayElem.isNull()) return false;
 
-	bool ok = true;
-	delay = delayElem.text().toInt(&ok);
-	
-	return ok;
+  bool ok = true;
+  delay = delayElem.text().toInt(&ok);
+
+  return ok;
 }
 
-STATIC_CREATE_INSTANCE_C(DelayCommand);
 
+STATIC_CREATE_INSTANCE_C(DelayCommand);

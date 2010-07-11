@@ -24,7 +24,6 @@
 #include <QComboBox>
 #include <KLocalizedString>
 
-
 /**
  * \brief Constructor - inits the GUI
  * \author Peter Grasch
@@ -32,34 +31,34 @@
  */
 ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Import Dictionary"));
+  setTitle(i18n("Import Dictionary"));
 
-	QLabel *lbIntro = new QLabel(this);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("This assistant will help you to import a new dictionary.\n\nA dictionary "
-"contains information about the known words like how they are written and how "
-"they are pronounced.\n\nThe dictionary is an essential core-component of your "
-"language model. Please ensure that every dictionary that you import is of "
-"high quality as it will massivly impact your recognition performance.\n\nWe "
-"suggest that you use the Voxforge English Dictionary which is a HTK "
-"compatible lexicon and of very high quality."));
+  QLabel *lbIntro = new QLabel(this);
+  lbIntro->setWordWrap(true);
+  lbIntro->setText(i18n("This assistant will help you to import a new dictionary.\n\nA dictionary "
+    "contains information about the known words like how they are written and how "
+    "they are pronounced.\n\nThe dictionary is an essential core-component of your "
+    "language model. Please ensure that every dictionary that you import is of "
+    "high quality as it will massivly impact your recognition performance.\n\nWe "
+    "suggest that you use the Voxforge English Dictionary which is a HTK "
+    "compatible lexicon and of very high quality."));
 
-	QLabel *lbTarget = new QLabel(this);
-	lbTarget->setText(i18n("Target:"));
+  QLabel *lbTarget = new QLabel(this);
+  lbTarget->setText(i18n("Target:"));
 
-	QComboBox *cbTarget = new QComboBox(this);
-	cbTarget->addItem(i18n("Shadow Dictionary"));
-	cbTarget->addItem(i18n("Active Dictionary"));
-	registerField("targetType", cbTarget, "currentIndex", SIGNAL(currentIndexChanged(int)));
+  QComboBox *cbTarget = new QComboBox(this);
+  cbTarget->addItem(i18n("Shadow Dictionary"));
+  cbTarget->addItem(i18n("Active Dictionary"));
+  registerField("targetType", cbTarget, "currentIndex", SIGNAL(currentIndexChanged(int)));
 
-	QHBoxLayout *targetLay = new QHBoxLayout();
-	targetLay->addWidget(lbTarget);
-	targetLay->addWidget(cbTarget);
+  QHBoxLayout *targetLay = new QHBoxLayout();
+  targetLay->addWidget(lbTarget);
+  targetLay->addWidget(cbTarget);
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(lbIntro);
-	lay->addLayout(targetLay);
-	setLayout(lay);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(lbIntro);
+  lay->addLayout(targetLay);
+  setLayout(lay);
 }
 
 
@@ -70,4 +69,3 @@ ImportDictIntroPage::ImportDictIntroPage(QWidget* parent): QWizardPage(parent)
 ImportDictIntroPage::~ImportDictIntroPage()
 {
 }
-

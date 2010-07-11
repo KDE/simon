@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 #define SIMON_INLINEWIDGETVIEW_H_279F7C1C95C94FFEA3A7CC7B1B1A2B9F
 
@@ -36,33 +35,32 @@ class QKeyEvent;
 */
 class SIMONUICOMPONENTS_EXPORT InlineWidgetView : public KTabWidget
 {
-Q_OBJECT
-signals:
-	void hidden();
+  Q_OBJECT
+    signals:
+  void hidden();
 
-	void guiAction(QString);
-	
-	void registeredPage(InlineWidget *page);
-	void unRegisteredPage(InlineWidget *page);
-	
-private slots:
-	void processCloseRequest(QWidget* page);
+  void guiAction(QString);
 
-private:
-	void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
+  void registeredPage(InlineWidget *page);
+  void unRegisteredPage(InlineWidget *page);
 
-public:
+  private slots:
+    void processCloseRequest(QWidget* page);
+
+  private:
+    void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
+
+  public:
     InlineWidgetView(QWidget* parent=0);
-	void registerPage(InlineWidget *page);
-	void focusPage(InlineWidget *page);
-	void keyPressEvent(QKeyEvent * event);
-	void unRegisterPage(InlineWidget *page);
-	void unRegisterCurrentPage();
-	
-	void toggleDisplay(InlineWidget *page);
+    void registerPage(InlineWidget *page);
+    void focusPage(InlineWidget *page);
+    void keyPressEvent(QKeyEvent * event);
+    void unRegisterPage(InlineWidget *page);
+    void unRegisterCurrentPage();
+
+    void toggleDisplay(InlineWidget *page);
 
     ~InlineWidgetView();
 
 };
-
 #endif

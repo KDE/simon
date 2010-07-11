@@ -28,19 +28,17 @@
 
 #include <KDebug>
 
-
 /**
  * \brief Constructor
  */
-WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) : 
-	QObject(parent),
-	SoundInputClient(deviceConfiguration),
-	wavData(0),
-	loudness(new LoudnessMeterSoundProcessor())
+WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& deviceConfiguration, QObject* parent) :
+QObject(parent),
+SoundInputClient(deviceConfiguration),
+wavData(0),
+loudness(new LoudnessMeterSoundProcessor())
 {
-	registerSoundProcessor(loudness);
+  registerSoundProcessor(loudness);
 }
-
 
 
 /**
@@ -51,64 +49,65 @@ WavRecorderClient::WavRecorderClient(const SimonSound::DeviceConfiguration& devi
  */
 bool WavRecorderClient::record(QString filename)
 {
-	if (wavData)
-	{
-		wavData->deleteLater();
-		wavData = NULL;
-	}
+  if (wavData) {
+    wavData->deleteLater();
+    wavData = 0;
+  }
 
-	wavData = new WAV(filename, m_deviceConfiguration.channels(), 
-			m_deviceConfiguration.sampleRate());
-	wavData->beginAddSequence();
+  wavData = new WAV(filename, m_deviceConfiguration.channels(),
+    m_deviceConfiguration.sampleRate());
+  wavData->beginAddSequence();
 
-	bool succ =  SoundServer::getInstance()->registerInputClient(this);
+  bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
-	return succ;
+  return succ;
 }
+
 
 void WavRecorderClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
-	wavData->write(data);
+  wavData->write(data);
 
-	float peak = loudness->peak() / 32768.0f;
-	emit currentProgress(currentTime, peak);
-	if (loudness->clipping())
-		emit clippingOccured();
+  float peak = loudness->peak() / 32768.0f;
+  emit currentProgress(currentTime, peak);
+  if (loudness->clipping())
+    emit clippingOccured();
 }
+
 
 /**
  * \brief This will stop the current recording
- * 
+ *
  * Tells the wavrecorder to simply stop the recording and save the result.
  * \author Peter Grasch
  */
 bool WavRecorderClient::finish()
 {
-	bool succ = true;
+  bool succ = true;
 
-	succ = SoundServer::getInstance()->deRegisterInputClient(this);
-	
-	kDebug() << "Min: " << loudness->absoluteMinAverage();
-	kDebug() << "Max: " << loudness->absolutePeak();
-	kDebug() << "Theoretical max: " << loudness->maxAmp();
-	int absoluteMinAverage = loudness->absoluteMinAverage();
-	
-	if (absoluteMinAverage == 0)
-		absoluteMinAverage = 1;
-	
-	//ratio is in percent
-	float ratio = (loudness->absolutePeak() / absoluteMinAverage) * 100;
-	kDebug() << "Ratio: " << ratio;
-	
-	if (ratio < SoundConfiguration::minimumSNR())
-		emit signalToNoiseRatioLow();
-	
-	wavData->endAddSequence();
-	if (! wavData->writeFile()) succ = false;
-	wavData->deleteLater();
-	wavData = 0;
+  succ = SoundServer::getInstance()->deRegisterInputClient(this);
 
-	return succ;
+  kDebug() << "Min: " << loudness->absoluteMinAverage();
+  kDebug() << "Max: " << loudness->absolutePeak();
+  kDebug() << "Theoretical max: " << loudness->maxAmp();
+  int absoluteMinAverage = loudness->absoluteMinAverage();
+
+  if (absoluteMinAverage == 0)
+    absoluteMinAverage = 1;
+
+  //ratio is in percent
+  float ratio = (loudness->absolutePeak() / absoluteMinAverage) * 100;
+  kDebug() << "Ratio: " << ratio;
+
+  if (ratio < SoundConfiguration::minimumSNR())
+    emit signalToNoiseRatioLow();
+
+  wavData->endAddSequence();
+  if (! wavData->writeFile()) succ = false;
+  wavData->deleteLater();
+  wavData = 0;
+
+  return succ;
 }
 
 
@@ -117,10 +116,6 @@ bool WavRecorderClient::finish()
  */
 WavRecorderClient::~WavRecorderClient()
 {
-	SoundServer::getInstance()->deRegisterInputClient(this);
-	if (wavData) wavData->deleteLater();
+  SoundServer::getInstance()->deRegisterInputClient(this);
+  if (wavData) wavData->deleteLater();
 }
-
-
-
-

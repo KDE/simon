@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importgrammarselectinputpage.h"
 #include <QTextCodec>
 #include <QStringList>
@@ -26,50 +25,54 @@
 
 ImportGrammarSelectInputPage::ImportGrammarSelectInputPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Input"));
-	ui.setupUi(this);
+  setTitle(i18n("Input"));
+  ui.setupUi(this);
 
-#if KDE_IS_VERSION(4,0,80)
-	ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
-#endif
-	
-	registerField("inputIsText", ui.rbText);
+  #if KDE_IS_VERSION(4,0,80)
+  ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
+  #endif
 
-	registerField("files", ui.elbFiles, "items", SIGNAL(changed()));
-	registerField("encoding", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
-	registerField("includeUnknown", ui.cbIncludeUnknown);
-	registerField("grammarInputText", ui.teText, "plainText", SIGNAL(textChanged()));
+  registerField("inputIsText", ui.rbText);
 
-	connect(ui.teText, SIGNAL(textChanged()), this, SIGNAL(completeChanged()));
-	connect(ui.elbFiles, SIGNAL(changed()), this, SIGNAL(completeChanged()));
-	connect(ui.rbText, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	ui.wgFileImport->hide();
-	ui.rbText->toggle();
+  registerField("files", ui.elbFiles, "items", SIGNAL(changed()));
+  registerField("encoding", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  registerField("includeUnknown", ui.cbIncludeUnknown);
+  registerField("grammarInputText", ui.teText, "plainText", SIGNAL(textChanged()));
+
+  connect(ui.teText, SIGNAL(textChanged()), this, SIGNAL(completeChanged()));
+  connect(ui.elbFiles, SIGNAL(changed()), this, SIGNAL(completeChanged()));
+  connect(ui.rbText, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+  ui.wgFileImport->hide();
+  ui.rbText->toggle();
 }
+
 
 void ImportGrammarSelectInputPage::initializePage()
 {
-	ui.cbEncoding->addItem(i18n("Automatic"));
-	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
-	QStringList encodings;
-	foreach (const QByteArray& codec, availableCodecs)
-		encodings << codec;
-	encodings.sort();
-	ui.cbEncoding->addItems(encodings);
+  ui.cbEncoding->addItem(i18n("Automatic"));
+  QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+  QStringList encodings;
+  foreach (const QByteArray& codec, availableCodecs)
+    encodings << codec;
+  encodings.sort();
+  ui.cbEncoding->addItems(encodings);
 }
+
 
 bool ImportGrammarSelectInputPage::isComplete() const
 {
-	if (ui.rbFiles->isChecked())
-		return ui.elbFiles->count() > 0;
-	else
-		return !ui.teText->toPlainText().isEmpty();
+  if (ui.rbFiles->isChecked())
+    return ui.elbFiles->count() > 0;
+  else
+    return !ui.teText->toPlainText().isEmpty();
 }
+
 
 void ImportGrammarSelectInputPage::cleanupPage()
 {
-	ui.elbFiles->clear();
+  ui.elbFiles->clear();
 }
+
 
 ImportGrammarSelectInputPage::~ImportGrammarSelectInputPage()
 {

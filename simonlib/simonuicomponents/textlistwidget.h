@@ -17,8 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-
 #ifndef SIMON_TEXTLISTWIDGET_H_B252B690AAEE4A4D883FF6DB45979D2F
 #define SIMON_TEXTLISTWIDGET_H_B252B690AAEE4A4D883FF6DB45979D2F
 
@@ -27,34 +25,31 @@
 #include "simonuicomponents_export.h"
 
 class SIMONUICOMPONENTS_EXPORT  TextListWidget : public KListWidget
-{	
-Q_OBJECT
-	/**
-	 * \brief Define the current text as a property for use in wizards
-	*/
-	Q_PROPERTY(QString currentText READ currentText)
-	Q_PROPERTY(QVariant currentUserData READ currentUserData)
+{
+  Q_OBJECT
+  /**
+   * \brief Define the current text as a property for use in wizards
+   */
+    Q_PROPERTY(QString currentText READ currentText)
+    Q_PROPERTY(QVariant currentUserData READ currentUserData)
 
-public:
-	TextListWidget(QWidget *parent = 0);
-	~TextListWidget();
-	
-	/**
-	 * \brief Quick access function to retrieve the currently selected text
-	 * @return The currently selected text (or a new QString object) if there is none selected
-	 */
-	QString currentText() { 
-		QListWidgetItem *selected = currentItem();
-		if (!selected) return QString();
-		return selected->text();
-	}
+    public:
+    TextListWidget(QWidget *parent = 0);
+    ~TextListWidget();
 
-	QVariant currentUserData()
-	{
-		if (!currentItem()) return QVariant();
-		return currentItem()->data(Qt::UserRole);
-	}
+    /**
+     * \brief Quick access function to retrieve the currently selected text
+     * @return The currently selected text (or a new QString object) if there is none selected
+     */
+    QString currentText() {
+      QListWidgetItem *selected = currentItem();
+      if (!selected) return QString();
+      return selected->text();
+    }
+
+    QVariant currentUserData() {
+      if (!currentItem()) return QVariant();
+      return currentItem()->data(Qt::UserRole);
+    }
 };
-
-
 #endif

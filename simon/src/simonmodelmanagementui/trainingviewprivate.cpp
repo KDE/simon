@@ -19,7 +19,6 @@
 
 #include "trainingviewprivate.h"
 
-
 #include "ImportTrainingData/importtrainingdirectory.h"
 #include <simonscenarios/trainingmanager.h>
 #include <simonscenarios/trainingtextcollection.h>
@@ -34,12 +33,12 @@
 #include <QHash>
 #include <QHashIterator>
 #include <QWidget>
+#include <QPointer>
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QSortFilterProxyModel>
 #include <KMessageBox>
-
 
 /**
  * \brief Constructor - inits the Gui
@@ -47,30 +46,29 @@
  * @param parent The parent of the widget
  */
 TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
-	: QWidget(parent),
-	import(new ImportTrainingTexts())
+: QWidget(parent),
+import(new ImportTrainingTexts())
 {
-	ui.setupUi ( this );
+  ui.setupUi ( this );
 
-	connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
-	connect ( ui.tvTrainingTexts, SIGNAL ( doubleClicked ( const QModelIndex& ) ), this, SLOT ( trainSelected() ) );
+  connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
+  connect ( ui.tvTrainingTexts, SIGNAL ( doubleClicked ( const QModelIndex& ) ), this, SLOT ( trainSelected() ) );
 
-	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
-	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
-	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
-	connect ( ui.pbClearTrainingdata, SIGNAL ( clicked() ), this, SLOT ( clearTrainingdata() ) );
+  connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
+  connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
+  connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
+  connect ( ui.pbClearTrainingdata, SIGNAL ( clicked() ), this, SLOT ( clearTrainingdata() ) );
 
-	textsProxy = new QSortFilterProxyModel();
-	textsProxy->setFilterKeyColumn(0);
-	ui.tvTrainingTexts->setModel(textsProxy);
+  textsProxy = new QSortFilterProxyModel();
+  textsProxy->setFilterKeyColumn(0);
+  ui.tvTrainingTexts->setModel(textsProxy);
 
-
-	//set up icons
-	ui.pbTrainText->setIcon(KIcon("go-next"));
-	ui.pbDelText->setIcon(KIcon("edit-delete"));
-	ui.pbImportText->setIcon(KIcon("document-import"));
-	ui.pbImportDir->setIcon(KIcon("document-open-folder"));
-	ui.pbClearTrainingdata->setIcon(KIcon("edit-clear-list"));
+  //set up icons
+  ui.pbTrainText->setIcon(KIcon("go-next"));
+  ui.pbDelText->setIcon(KIcon("edit-delete"));
+  ui.pbImportText->setIcon(KIcon("document-import"));
+  ui.pbImportDir->setIcon(KIcon("document-open-folder"));
+  ui.pbClearTrainingdata->setIcon(KIcon("edit-clear-list"));
 }
 
 
@@ -82,13 +80,13 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
  */
 void TrainingViewPrivate::deleteSelected()
 {
-	TrainingText* text = getCurrentlySelectedText();
-	if (!text)
-		return;
+  TrainingText* text = getCurrentlySelectedText();
+  if (!text)
+    return;
 
-	if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected text?"))== KMessageBox::Yes)
-		if (!ScenarioManager::getInstance()->getCurrentScenario()->removeText(text))
-			KMessageBox::sorry(this, i18n("Failed to delete text.\n\nMaybe you don't have the necessary permissions?"));
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the selected text?"))== KMessageBox::Yes)
+    if (!ScenarioManager::getInstance()->getCurrentScenario()->removeText(text))
+      KMessageBox::sorry(this, i18n("Failed to delete text.\n\nMaybe you do not have the necessary permissions?"));
 }
 
 
@@ -98,29 +96,30 @@ void TrainingViewPrivate::deleteSelected()
  */
 void TrainingViewPrivate::trainSelected()
 {
-	TrainingText* text = getCurrentlySelectedText();
-	if (!text)
-		return;
+  TrainingText* text = getCurrentlySelectedText();
+  if (!text)
+    return;
 
-	TrainingsWizard *wizard = new TrainingsWizard(this);
+  QPointer<TrainingsWizard> wizard = new TrainingsWizard(this);
 
-	if (wizard->init(*text))
-		wizard->exec();
+  if (wizard->init(*text))
+    wizard->exec();
 
-	wizard->deleteLater();
+  delete wizard;
 }
 
 
 TrainingText* TrainingViewPrivate::getCurrentlySelectedText()
 {
-	QModelIndex selectedIndex = textsProxy->mapToSource(ui.tvTrainingTexts->currentIndex());
-	if (!selectedIndex.isValid()) {
-		KMessageBox::information(this, i18n("Please select a text first"));
-		return NULL;
-	}
+  QModelIndex selectedIndex = textsProxy->mapToSource(ui.tvTrainingTexts->currentIndex());
+  if (!selectedIndex.isValid()) {
+    KMessageBox::information(this, i18n("Please select a text first"));
+    return 0;
+  }
 
-	return static_cast<TrainingText*>(selectedIndex.internalPointer());
+  return static_cast<TrainingText*>(selectedIndex.internalPointer());
 }
+
 
 /**
  * \brief Shows the ImportTrainingDirectory-Wizard
@@ -128,22 +127,22 @@ TrainingText* TrainingViewPrivate::getCurrentlySelectedText()
  */
 void TrainingViewPrivate::importDirectory()
 {
-	ImportTrainingDirectory *importDir = new ImportTrainingDirectory ( this );
-	importDir->show();
+  ImportTrainingDirectory *importDir = new ImportTrainingDirectory ( this );
+  importDir->show();
 
 }
+
 
 void TrainingViewPrivate::clearTrainingdata()
 {
-	if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear all the collected samples?")) == KMessageBox::Yes)
-	{
-		if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recordings from the trainingscorpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue)
-		{
-			if (!TrainingManager::getInstance()->clear())
-				KMessageBox::information(this, i18n("Couldn't clear trainingdata"));
-		}
-	}
+  if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear all the collected samples?")) == KMessageBox::Yes) {
+    if (KMessageBox::warningContinueCancel(this, i18n("This will remove every single recordings from the trainingscorpus.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
+      if (!TrainingManager::getInstance()->clear())
+        KMessageBox::information(this, i18n("Could not clear trainingdata"));
+    }
+  }
 }
+
 
 /**
  * \brief Displays the ImportTrainingTexts Wizard
@@ -151,20 +150,19 @@ void TrainingViewPrivate::clearTrainingdata()
  */
 void TrainingViewPrivate::importTexts()
 {
-	if (import->isVisible()) return;
-	import->restart();
-	import->start();
+  if (import->isVisible()) return;
+  import->restart();
+  import->start();
 }
 
 
 void TrainingViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-	kDebug() << "Displaying scenario " << scenario->name();
+  kDebug() << "Displaying scenario " << scenario->name();
 
-	TrainingTextCollection *t = scenario->texts();
-	textsProxy->setSourceModel(t);
+  TrainingTextCollection *t = scenario->texts();
+  textsProxy->setSourceModel(t);
 }
-
 
 
 /**
@@ -174,6 +172,5 @@ void TrainingViewPrivate::displayScenarioPrivate(Scenario *scenario)
  */
 TrainingViewPrivate::~TrainingViewPrivate()
 {
-    import->deleteLater();
+  import->deleteLater();
 }
-

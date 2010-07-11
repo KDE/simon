@@ -25,38 +25,42 @@
 #include <KStandardDirs>
 #include "createtextmacrocommandwidget.h"
 
-K_PLUGIN_FACTORY( TextMacroCommandPluginFactory, 
-			registerPlugin< TextMacroCommandManager >(); 
-		)
-        
-K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
+K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,
+registerPlugin< TextMacroCommandManager >();
+)
 
+K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
 
 TextMacroCommandManager::TextMacroCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
+
 const QString TextMacroCommandManager::name() const
 {
-	return TextMacroCommand::staticCategoryText();
+  return TextMacroCommand::staticCategoryText();
 }
+
 
 bool TextMacroCommandManager::shouldAcceptCommand(Command *command)
 {
-	return (dynamic_cast<TextMacroCommand*>(command) != NULL);
+  return (dynamic_cast<TextMacroCommand*>(command) != 0);
 }
+
 
 const QString TextMacroCommandManager::iconSrc() const
 {
-	return "format-text-bold";
+  return "format-text-bold";
 }
+
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(TextMacroCommandManager, TextMacroCommand);
 
 CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreateTextMacroCommandWidget(this, parent);
+  return new CreateTextMacroCommandWidget(this, parent);
 }
+
 
 TextMacroCommandManager::~TextMacroCommandManager()
 {

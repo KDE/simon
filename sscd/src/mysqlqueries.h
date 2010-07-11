@@ -24,13 +24,10 @@
 
 class MYSQLQueries : public SSCQueries
 {
-	public:
-		MYSQLQueries() {}
-		~MYSQLQueries() {}
+  public:
+    MYSQLQueries() {}
+    ~MYSQLQueries() {}
 
-		QSqlQuery lastInsertedId();
+    QSqlQuery lastInsertedId();
 };
-
 #endif
-
-

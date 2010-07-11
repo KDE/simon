@@ -26,26 +26,24 @@
 class Command;
 class QModelIndex;
 
-class CommandPreviewWidget : public QWidget {
+class CommandPreviewWidget : public QWidget
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::CommandPreviewDlg ui;
-	Command *command;
+    private:
+    Ui::CommandPreviewDlg ui;
+    Command *command;
 
-private slots:
-	void trigger();
+  private slots:
+    void trigger();
 
-public slots:
-	void updateCommand(const QModelIndex &commandIdx);
+  public slots:
+    void updateCommand(const QModelIndex &commandIdx);
 
-public:
-	CommandPreviewWidget(QWidget *parent=0);
-	~CommandPreviewWidget() {}
+  public:
+    CommandPreviewWidget(QWidget *parent=0);
+    ~CommandPreviewWidget() {}
 
 };
-
-
-
 #endif

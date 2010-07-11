@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "osd.h"
 #include <QString>
 #include <KIcon>
@@ -34,7 +33,7 @@
 /**
  * @brief Constructor
  *
- * Creates a new OSD object. It 
+ * Creates a new OSD object. It
  * 	initializes the timer (member)
  *		sets its Timeout to the argument
  *		links the Timeout-event to close() function of QWidget
@@ -49,48 +48,47 @@
  * @author Peter Grasch
  */
 OSD::OSD(QString message_, int timeout, KIcon* icon_)
-	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint),
-	timer(new QTimer()),
-	message(new QLabel(this)),
-	icon(new QLabel(this))
+: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint),
+timer(new QTimer()),
+message(new QLabel(this)),
+icon(new QLabel(this))
 {
-	setPixmap(QPixmap(KStandardDirs::locate("data", "simoninfo/themes/default/osd.png")));
-	
-	QDesktopWidget* tmp = QApplication::desktop();
+  setPixmap(QPixmap(KStandardDirs::locate("data", "simoninfo/themes/default/osd.png")));
 
-	int x,y;
-	
-	x=(tmp->width()/2) - 175;
-	y=(tmp->height())-120;
-	
-	this->setGeometry(x, y,350,80);
-	connect(this->timer, SIGNAL(timeout()), this, SLOT(deleteLater()));
-	
-	QPalette pal = palette();
-	pal.setColor(QPalette::WindowText, QColor(255, 255, 255, 255));
-	setPalette(pal);
-	
-	this->message->setGeometry(86, 10, 255, 60);
-	this->message->setAlignment(Qt::AlignCenter | Qt::AlignLeft);
-	this->message->setText(message_);
-	this->message->setWordWrap(true);
-	this->message->show();
-	
-	this->timer->start(timeout);
+  QDesktopWidget* tmp = QApplication::desktop();
 
-	this->icon->setGeometry(16, 16, 48, 48);
+  int x,y;
 
-	if (icon_)
-	{
-		this->icon->setPixmap(icon_->pixmap(48));
-	}
-	else
-	{
-		this->icon->setPixmap(KIcon("simon").pixmap(QSize(48,48)));
-	}
-	
-	show();
+  x=(tmp->width()/2) - 175;
+  y=(tmp->height())-120;
+
+  this->setGeometry(x, y,350,80);
+  connect(this->timer, SIGNAL(timeout()), this, SLOT(deleteLater()));
+
+  QPalette pal = palette();
+  pal.setColor(QPalette::WindowText, QColor(255, 255, 255, 255));
+  setPalette(pal);
+
+  this->message->setGeometry(86, 10, 255, 60);
+  this->message->setAlignment(Qt::AlignCenter | Qt::AlignLeft);
+  this->message->setText(message_);
+  this->message->setWordWrap(true);
+  this->message->show();
+
+  this->timer->start(timeout);
+
+  this->icon->setGeometry(16, 16, 48, 48);
+
+  if (icon_) {
+    this->icon->setPixmap(icon_->pixmap(48));
+  }
+  else {
+    this->icon->setPixmap(KIcon("simon").pixmap(QSize(48,48)));
+  }
+
+  show();
 }
+
 
 /**
  * \brief Closes the info on mouse-press
@@ -98,9 +96,10 @@ OSD::OSD(QString message_, int timeout, KIcon* icon_)
  */
 void OSD::mouseReleaseEvent(QMouseEvent *event)
 {
-	QWidget::mouseReleaseEvent(event);
-	deleteLater();
+  QWidget::mouseReleaseEvent(event);
+  deleteLater();
 }
+
 
 /**
  * \brief Destructor
@@ -108,9 +107,7 @@ void OSD::mouseReleaseEvent(QMouseEvent *event)
  */
 OSD::~OSD()
 {
-    timer->deleteLater();
-    message->deleteLater();
-    icon->deleteLater();
+  timer->deleteLater();
+  message->deleteLater();
+  icon->deleteLater();
 }
-
-

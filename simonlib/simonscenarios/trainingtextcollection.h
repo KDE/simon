@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAININGTEXTCOLLECTION_H_70A0B11583184D42BAA848BF004B9001
 #define SIMON_TRAININGTEXTCOLLECTION_H_70A0B11583184D42BAA848BF004B9001
 
@@ -33,36 +32,30 @@ class Scenario;
 class MODELMANAGEMENT_EXPORT TrainingTextCollection : public ScenarioObject, public QAbstractItemModel
 {
 
-private:
-	QList<TrainingText*> m_texts;
+  private:
+    QList<TrainingText*> m_texts;
 
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
 
+  protected:
+    TrainingTextCollection(Scenario *parent);
 
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-protected:
-	TrainingTextCollection(Scenario *parent);
+  public:
+    static TrainingTextCollection* createTrainingTextCollection(Scenario *parent, const QDomElement&);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
+    static QDomElement createEmpty(QDomDocument *doc);
 
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
-public:
-	static TrainingTextCollection* createTrainingTextCollection(Scenario *parent, const QDomElement&);
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
-	static QDomElement createEmpty(QDomDocument *doc);
-
-	bool removeText(TrainingText* text);
-	bool addTrainingText(TrainingText* text);
+    bool removeText(TrainingText* text);
+    bool addTrainingText(TrainingText* text);
 
 };
-
-
-
 #endif
-

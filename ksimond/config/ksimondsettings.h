@@ -27,13 +27,12 @@
 
 class KSimondSettings : public KCModule
 {
-	Q_OBJECT
-	private:
-		Ui::KSimondSettings ui;
-	public:
-		KSimondSettings(QWidget* parent, const QVariantList& args=QVariantList());
-		void save();
-		~KSimondSettings();
+  Q_OBJECT
+    private:
+    Ui::KSimondSettings ui;
+  public:
+    KSimondSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    void save();
+    ~KSimondSettings();
 };
-
 #endif

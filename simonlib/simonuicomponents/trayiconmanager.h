@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
 #define SIMON_TRAYICONMANAGER_H_6FF7C67B484A402598AAED62DF36E4B4
 
@@ -40,19 +39,17 @@
 class SIMONUICOMPONENTS_EXPORT TrayIconManager : public QObject
 {
 
-	Q_OBJECT
-private:
-	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
+  Q_OBJECT
+    private:
+    KSystemTrayIcon *icon;                        //!< The QSystemTrayIcon to display the icon itself
 
-	
-public:
-	void parentWidgetTrayClose();
-	void createIcon(const KIcon& icon, const QString& tooltip);
-	void addAction(const QString& name, KAction* action);
+  public:
+    void parentWidgetTrayClose();
+    void createIcon(const KIcon& icon, const QString& tooltip);
+    void addAction(const QString& name, KAction* action);
     TrayIconManager(QWidget *parent=0);
 
     ~TrayIconManager();
 
 };
-
 #endif

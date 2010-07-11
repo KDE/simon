@@ -31,41 +31,40 @@
  *	@version 0.1
  *	@date 18.11.2008
  *	@author Peter Grasch
-*/
+ */
 
 class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
 {
-	Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void recompileModel();
+    signals:
+  void recompileModel();
 
-private slots:
-	void slotModelChanged();
+  private slots:
+    void slotModelChanged();
 
-private:
-	static ModelManagerUiProxy *instance;
-	ModelManagerUiProxy(QObject *parent=0);
+  private:
+    static ModelManagerUiProxy *instance;
+    ModelManagerUiProxy(QObject *parent=0);
 
-public:
-	static ModelManagerUiProxy* getInstance() {
-		if (!instance) instance = new ModelManagerUiProxy();
-		return instance;
-	}
+  public:
+    static ModelManagerUiProxy* getInstance() {
+      if (!instance) instance = new ModelManagerUiProxy();
+      return instance;
+    }
 
-	~ModelManagerUiProxy();
+    ~ModelManagerUiProxy();
 
-	bool storeBaseModel(const QDateTime& changedTime, int baseModelType, 
-				const QByteArray& hmmDefs, const QByteArray& tiedList,
-				const QByteArray& macros, const QByteArray& stats);
-	bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab, 
-				const QByteArray& treeHed);
-	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
-				const QByteArray& prompts);
-	bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
-			const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
-	bool storeSample(const QByteArray& sample);
-	
+    bool storeBaseModel(const QDateTime& changedTime, int baseModelType,
+      const QByteArray& hmmDefs, const QByteArray& tiedList,
+      const QByteArray& macros, const QByteArray& stats);
+    bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
+      const QByteArray& treeHed);
+    bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+      const QByteArray& prompts);
+    bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
+      const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+    bool storeSample(const QByteArray& sample);
+
 };
-
 #endif

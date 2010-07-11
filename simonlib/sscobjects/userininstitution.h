@@ -25,30 +25,29 @@
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT UserInInstitution : public SSCObject {
+class SSCOBJECTS_EXPORT UserInInstitution : public SSCObject
+{
 
-private:
-	qint32 m_userId;
-	qint32 m_institutionId;
-	QString m_referenceId;
+  private:
+    qint32 m_userId;
+    qint32 m_institutionId;
+    QString m_referenceId;
 
-public:
-	UserInInstitution(qint32 userId, qint32 institutionId, const QString& referenceId);
-	UserInInstitution() {}
+  public:
+    UserInInstitution(qint32 userId, qint32 institutionId, const QString& referenceId);
+    UserInInstitution() {}
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
+    void deserialize(QByteArray data);
+    QByteArray serialize();
 
-	qint32 userId() { return m_userId; }
-	qint32 institutionId() { return m_institutionId; }
-	QString referenceId() { return m_referenceId; }
+    qint32 userId() { return m_userId; }
+    qint32 institutionId() { return m_institutionId; }
+    QString referenceId() { return m_referenceId; }
 
-	void setUserId(qint32 userId) { m_userId = userId; }
+    void setUserId(qint32 userId) { m_userId = userId; }
 
-	~UserInInstitution() {}
+    ~UserInInstitution() {}
 };
 
 Q_DECLARE_METATYPE(UserInInstitution*);
-
 #endif
-

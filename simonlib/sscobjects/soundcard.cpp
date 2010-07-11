@@ -22,30 +22,30 @@
 #include <QByteArray>
 
 SoundCard::SoundCard(qint32 id, const QString& model, const QString& type) :
-	m_id(id),
-	m_model(model),
-	m_type(type)
+m_id(id),
+m_model(model),
+m_type(type)
 {
 }
+
 
 void SoundCard::deserialize(QByteArray data)
 {
-	QDataStream stream(&data, QIODevice::ReadOnly);
-	stream >> m_id;
-	stream >> m_model;
-	stream >> m_type;
+  QDataStream stream(&data, QIODevice::ReadOnly);
+  stream >> m_id;
+  stream >> m_model;
+  stream >> m_type;
 }
+
 
 QByteArray SoundCard::serialize()
 {
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << m_id;
-	bodyStream << m_model;
-	bodyStream << m_type;
+  bodyStream << m_id;
+  bodyStream << m_model;
+  bodyStream << m_type;
 
-	return body;
+  return body;
 }
-
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAV_H_E9CC980F82B347F2B4677268B81B9D1F
 #define SIMON_WAV_H_E9CC980F82B347F2B4677268B81B9D1F
 
@@ -36,64 +35,62 @@
  *	@version 0.1
  *	@date 17.03.2007
  *	@author Peter Grasch
- *	
+ *
  *	@todo We use a single buffer that we resize every time; If it gets too large to handle we get "skippy" recordings
  */
-class SIMONWAV_EXPORT WAV : public QBuffer {
-private:
-//	QBuffer wavData;
-	unsigned long length; //!< this is needed as there seems to be no way to determine the length of an array
-	int samplerate; //!< the samplerate of the file
-	int channels;
-	QString filename; //!< Filename
-	
-	void writeHeader(QDataStream *dstream);
-	void writeFormat(QDataStream *dstream);
-	void writeDataChunk(QDataStream *dstream);
-	void importDataFromFile(QString filename);
-	int retrieveSampleRate();
-	int retrieveChannels();
+class SIMONWAV_EXPORT WAV : public QBuffer
+{
+  private:
+    //	QBuffer wavData;
+    unsigned long length;                         //!< this is needed as there seems to be no way to determine the length of an array
+    int samplerate;                               //!< the samplerate of the file
+    int channels;
+    QString filename;                             //!< Filename
 
-protected:
-	virtual qint64 writeData ( const char * data, qint64 maxSize );
-	
-public:
+    void writeHeader(QDataStream *dstream);
+    void writeFormat(QDataStream *dstream);
+    void writeDataChunk(QDataStream *dstream);
+    void importDataFromFile(QString filename);
+    int retrieveSampleRate();
+    int retrieveChannels();
+
+  protected:
+    virtual qint64 writeData ( const char * data, qint64 maxSize );
+
+  public:
     explicit WAV(QString filename,int channels=0, int samplerate=0);
 
-	bool beginAddSequence() {
-		if (isOpen())
-			close();
-		return open(QIODevice::WriteOnly|QIODevice::Append);
-	}
+    bool beginAddSequence() {
+      if (isOpen())
+        close();
+      return open(QIODevice::WriteOnly|QIODevice::Append);
+    }
 
-	bool endAddSequence() {
-		if (isOpen())
-			close();
-		return true;
-	}
+    bool endAddSequence() {
+      if (isOpen())
+        close();
+      return true;
+    }
 
-	bool beginReadSequence() {
-		if (isOpen())
-			close();
-		return open(QIODevice::ReadOnly);
-	}
-	bool endReadSequence() {
-		if (isOpen())
-			close();
-		return true;
-	}
-	
+    bool beginReadSequence() {
+      if (isOpen())
+        close();
+      return open(QIODevice::ReadOnly);
+    }
+    bool endReadSequence() {
+      if (isOpen())
+        close();
+      return true;
+    }
 
+    void addData(short* data, int length);
 
-	void addData(short* data, int length);
-
-	QString getFilename() { return filename; }
-	int getLength() { return length; }
+    QString getFilename() { return filename; }
+    int getLength() { return length; }
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }
     int getChannels() { return channels; }
     ~WAV();
 
 };
-
 #endif

@@ -22,33 +22,32 @@
 
 #include <QString>
 #include <QWizardPage>
-class RecWidget; 
+class RecWidget;
 
 class TrainSamplePage : public QWizardPage
 {
-	Q_OBJECT
-	
-	private:
-		RecWidget *recorder;
-		QString prompt;
-		QString fileName;
-	
-	public:
-		TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
-		~TrainSamplePage();
-		bool isComplete() const;
+  Q_OBJECT
 
-		void initializePage();
-		bool validatePage();
-		void cleanupPage();
-		
-		QString getPrompt() { return prompt; }
-		QStringList getFileNames();
-		
-	public slots:
-		bool submit();
-		bool cleanUp();
+    private:
+    RecWidget *recorder;
+    QString prompt;
+    QString fileName;
+
+  public:
+    TrainSamplePage(QString prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
+    ~TrainSamplePage();
+    bool isComplete() const;
+
+    void initializePage();
+    bool validatePage();
+    void cleanupPage();
+
+    QString getPrompt() { return prompt; }
+    QStringList getFileNames();
+
+  public slots:
+    bool submit();
+    bool cleanUp();
 
 };
-
 #endif

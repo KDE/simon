@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAININGTEXT_H_781AFF7F16174193A6AC665BA5840256
 #define SIMON_TRAININGTEXT_H_781AFF7F16174193A6AC665BA5840256
 
@@ -36,68 +35,67 @@
  */
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject {
-protected:
-	QString name;
-	QStringList pages;
-	TrainingText( Scenario *parent );
-public:
-	TrainingText(const QString& name, const QStringList& pages);
+class MODELMANAGEMENT_EXPORT TrainingText : public ScenarioObject
+{
+  protected:
+    QString name;
+    QStringList pages;
+    TrainingText( Scenario *parent );
+  public:
+    TrainingText(const QString& name, const QStringList& pages);
 
-	static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
+    static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
 
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
 
-	/**
-	 * \brief Returns the name of the text
-	 * \author Peter Grasch
-	 * \return
-	 * Name
-	 */
-	QString getName() const { return this->name; }
-	
-	
-	/**
-	 * \brief Returns the page count of the text
-	 * \author Peter Grasch
-	 * \return
-	 * count of pages
-	 */
-	int getPageCount() const { return pages.count(); }
-	
-	/**
-	 * \brief Returns the pages of the text
-	 * \author Peter Grasch
-	 * \return
-	 * pages
-	 */
-	QStringList getPages() const { return pages; }
-	
-	/**
-	 * \brief Returns the page <page> of the text
-	 * \author Peter Grasch
-	 * \return 
-	 * page
-	 */
-	QString getPage( int page ) const { return pages.at(page); 
-	}
-	
-	
-	/**
-	 * \brief Returns the relevance of the text
-	 * 
-	 * The higher the value, the more the text would improve the recognition rate
-	 * 
-	 * \author Peter Grasch
-	 * \return 
-	 * relevance
-	 */
-	float getRelevance();
-	
-	
-	~TrainingText();
+    /**
+     * \brief Returns the name of the text
+     * \author Peter Grasch
+     * \return
+     * Name
+     */
+    QString getName() const { return this->name; }
+
+    /**
+     * \brief Returns the page count of the text
+     * \author Peter Grasch
+     * \return
+     * count of pages
+     */
+    int getPageCount() const { return pages.count(); }
+
+    /**
+     * \brief Returns the pages of the text
+     * \author Peter Grasch
+     * \return
+     * pages
+     */
+    QStringList getPages() const { return pages; }
+
+    /**
+     * \brief Returns the page <page> of the text
+     * \author Peter Grasch
+     * \return
+     * page
+     */
+    QString getPage( int page ) const
+    {
+      return pages.at(page);
+    }
+
+    /**
+     * \brief Returns the relevance of the text
+     *
+     * The higher the value, the more the text would improve the recognition rate
+     *
+     * \author Peter Grasch
+     * \return
+     * relevance
+     */
+    float getRelevance();
+
+    ~TrainingText();
 
 };
-
 #endif

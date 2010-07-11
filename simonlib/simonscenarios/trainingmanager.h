@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TRAININGMANAGER_H_0648DFA07DE1482CBF6ECD50E4B89EDD
 #define SIMON_TRAININGMANAGER_H_0648DFA07DE1482CBF6ECD50E4B89EDD
 
@@ -27,7 +26,6 @@
 #include <QMutex>
 #include <QList>
 #include "simonmodelmanagement_export.h"
-
 
 /**
  *	@class TrainingManager
@@ -45,63 +43,61 @@ class TrainingManager;
 
 class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {
-Q_OBJECT
-	private:
-		bool dirty;
+  Q_OBJECT
+    private:
+    bool dirty;
 
-		static TrainingManager *instance;
-		TrainingList *trainingTexts;
+    static TrainingManager *instance;
+    TrainingList *trainingTexts;
 
-		QHash<QString,int> wordRelevance; /// Stores the relevance of words (caching for getProbability)
+    QHash<QString,int> wordRelevance;             /// Stores the relevance of words (caching for getProbability)
 
-		QMutex promptsLock;
-		PromptsTable *promptsTable;
+    QMutex promptsLock;
+    PromptsTable *promptsTable;
 
-	signals:
-		void addMissingWords(QStringList words);
-		void trainingFinished();
-		void trainingDataChanged();
-		void trainingSettingsChanged();
+    signals:
+    void addMissingWords(QStringList words);
+    void trainingFinished();
+    void trainingDataChanged();
+    void trainingSettingsChanged();
 
-	protected:
-		TrainingManager(QObject *parent=0);
+  protected:
+    TrainingManager(QObject *parent=0);
 
-	public:
-		PromptsTable* getPrompts();
-		bool writePromptsFile(PromptsTable* prompts, QString path);
+  public:
+    PromptsTable* getPrompts();
+    bool writePromptsFile(PromptsTable* prompts, QString path);
 
-		static TrainingManager* getInstance();
+    static TrainingManager* getInstance();
 
-		bool init();
+    bool init();
 
-		bool deletePrompt ( QString key );
+    bool deletePrompt ( QString key );
 
-		int getProbability ( QString name );
-		PromptsTable* readPrompts ( QString pathToPrompts );
+    int getProbability ( QString name );
+    PromptsTable* readPrompts ( QString pathToPrompts );
 
-		bool deleteWord(const QString& word);
-		bool deleteWord ( Word *w );
-		bool savePrompts();
+    bool deleteWord(const QString& word);
+    bool deleteWord ( Word *w );
+    bool savePrompts();
 
-		bool refreshTraining(int sampleRate, const QByteArray& prompts);
+    bool refreshTraining(int sampleRate, const QByteArray& prompts);
 
-		bool addSample(const QString& fileBaseName, const QString& prompt);
-//		bool removeSample(const QString& fileBaseName);
-		bool clear();
+    bool addSample(const QString& fileBaseName, const QString& prompt);
+    //		bool removeSample(const QString& fileBaseName);
+    bool clear();
 
+    QStringList missingWords(const QStringList& prompts);
 
-		QStringList missingWords(const QStringList& prompts);
+    QString getPage ( int i );
 
-		QString getPage ( int i );
+    float calcRelevance ( const TrainingText *text );
 
-		float calcRelevance ( const TrainingText *text );
+    QString getTrainingDir();
 
-		QString getTrainingDir();
+    void trainingSettingsSaved();
 
-		void trainingSettingsSaved();
-
-		~TrainingManager();
+    ~TrainingManager();
 
 };
-
 #endif

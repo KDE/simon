@@ -24,7 +24,6 @@
 #include <simonscenarios/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
 
-
 class Command;
 class CommandManager;
 
@@ -36,34 +35,32 @@ class CommandManager;
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreateShortcutCommandWidget : public CreateCommandWidget{
-Q_OBJECT
+class CreateShortcutCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::CreateShortcutCommandWidget ui;
-	
-private slots:
-	#ifdef Q_OS_WIN
-	void applySpecialShortcut();
-	#endif
-	
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+    private:
+    Ui::CreateShortcutCommandWidget ui;
 
-	bool init(Command* command);
-	bool isComplete();
-	
+  private slots:
+  #ifdef Q_OS_WIN
+    void applySpecialShortcut();
+  #endif
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
+    bool init(Command* command);
+    bool isComplete();
 
-	virtual ~CreateShortcutCommandWidget();
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CreateShortcutCommandWidget(CommandManager *manager, QWidget *parent=0);
+
+    virtual ~CreateShortcutCommandWidget();
 
 };
-
 #endif

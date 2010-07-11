@@ -22,48 +22,46 @@
 
 #include <QString>
 #include <QWizardPage>
-class RecWidget; 
+class RecWidget;
 class QSettings;
 
 class TrainSamplePage : public QWizardPage
 {
-	Q_OBJECT
-	
-	private:
-		QString m_name;
-		RecWidget *recorder;
-		QString prompt;
-		QString fileName;
-		int m_thisPage;
-		int m_maxPage;
-		QString m_directory;
+  Q_OBJECT
 
-	
-	public:
-		TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage, 
-				const QString& directory, QWidget *parent=0,
-				const QString& forcedFileNameTemplate=QString());
-		~TrainSamplePage();
-		bool isComplete() const;
+    private:
+    QString m_name;
+    RecWidget *recorder;
+    QString prompt;
+    QString fileName;
+    int m_thisPage;
+    int m_maxPage;
+    QString m_directory;
 
-		void initializePage();
-		bool validatePage();
-		void cleanupPage();
+  public:
+    TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage,
+      const QString& directory, QWidget *parent=0,
+      const QString& forcedFileNameTemplate=QString());
+    ~TrainSamplePage();
+    bool isComplete() const;
 
-		void setupUi();
-		
-		QString getPrompt() const { return prompt; }
-		QStringList getFileNames() const;
+    void initializePage();
+    bool validatePage();
+    void cleanupPage();
 
-		QStringList getDevices();
+    void setupUi();
 
-		bool serializeToStorage(QSettings& ini, const QString& directory) const;
-		bool deserializeFromStorage(QSettings& ini, const QString& directory);
-		
-	public slots:
-		bool submit();
-		bool cleanUp();
+    QString getPrompt() const { return prompt; }
+    QStringList getFileNames() const;
+
+    QStringList getDevices();
+
+    bool serializeToStorage(QSettings& ini, const QString& directory) const;
+    bool deserializeFromStorage(QSettings& ini, const QString& directory);
+
+  public slots:
+    bool submit();
+    bool cleanUp();
 
 };
-
 #endif

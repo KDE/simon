@@ -24,250 +24,269 @@
 #include <KDebug>
 
 KeyboardSet::KeyboardSet(const QDomElement& elem)
-	: m_isNull(false)
+: m_isNull(false)
 {
-	if (elem.isNull()) m_isNull = true;
-	else {
-		setName = elem.attribute("name");
-		QDomElement tabElement = elem.firstChildElement();
-		while (!tabElement.isNull()) {
-			KeyboardTab *tab = new KeyboardTab(tabElement);
-			if (!tab->isNull())
-				tabList << tab;
-			else delete tab;
-			tabElement = tabElement.nextSiblingElement();
-		}
-	}
+  if (elem.isNull()) m_isNull = true;
+  else {
+    setName = elem.attribute("name");
+    QDomElement tabElement = elem.firstChildElement();
+    while (!tabElement.isNull()) {
+      KeyboardTab *tab = new KeyboardTab(tabElement);
+      if (!tab->isNull())
+        tabList << tab;
+      else delete tab;
+      tabElement = tabElement.nextSiblingElement();
+    }
+  }
 
 }
+
 
 KeyboardSet::KeyboardSet(QString name, QList<KeyboardTab *> tList)
-	: tabList(tList),
-	setName(name),
-	m_isNull(false)
+: tabList(tList),
+setName(name),
+m_isNull(false)
 {
 }
+
 
 QStringList KeyboardSet::getAvailableTabs()
 {
-	if (m_isNull) return QStringList();
+  if (m_isNull) return QStringList();
 
-	QStringList headers;
-	foreach (KeyboardTab *t, tabList) {
-		headers << t->getTabName();
-	}
-	return headers;
+  QStringList headers;
+  foreach (KeyboardTab *t, tabList) {
+    headers << t->getTabName();
+  }
+  return headers;
 }
+
 
 KeyboardTab* KeyboardSet::getTab(const QString tabName)
 {
-	if (m_isNull) return NULL;
+  if (m_isNull) return 0;
 
-	foreach (KeyboardTab *t, tabList) {
-		if (t->getTabName() == tabName)
-			return t;
-	}
-	return NULL;;
+  foreach (KeyboardTab *t, tabList) {
+    if (t->getTabName() == tabName)
+      return t;
+  }
+  return 0;
 }
 
 
 void KeyboardSet::addTab(KeyboardTab* t)
 {
-	if (m_isNull) return;
+  if (m_isNull) return;
 
-	tabList.append(t);
+  tabList.append(t);
 }
+
 
 void KeyboardSet::delTab(int index)
 {
-	if (m_isNull) return;
+  if (m_isNull) return;
 
-	tabList.removeAt(index);
+  tabList.removeAt(index);
 }
+
 
 void KeyboardSet::tabLeft(int index)
-{	
-	if (m_isNull) return;
+{
+  if (m_isNull) return;
 
-	tabList.insert((index-1),tabList.takeAt(index));
+  tabList.insert((index-1),tabList.takeAt(index));
 }
+
 
 void KeyboardSet::tabRight(int index)
 {
-	if (m_isNull) return;
+  if (m_isNull) return;
 
-	tabList.insert((index+1),tabList.takeAt(index));
+  tabList.insert((index+1),tabList.takeAt(index));
 }
+
 
 QString KeyboardSet::getSetName()
 {
-	if (m_isNull) return QString();
+  if (m_isNull) return QString();
 
-	return setName;
+  return setName;
 }
+
 
 void KeyboardSet::setSetName(const QString& newName)
 {
-	if (m_isNull) return;
+  if (m_isNull) return;
 
-	setName = newName;
+  setName = newName;
 }
+
 
 QDomElement KeyboardSet::serialize(QDomDocument* doc)
 {
-	if (m_isNull) return QDomElement();
+  if (m_isNull) return QDomElement();
 
-	QDomElement setElem = doc->createElement("set");
-	setElem.setAttribute("name", setName);
+  QDomElement setElem = doc->createElement("set");
+  setElem.setAttribute("name", setName);
 
-	foreach (KeyboardTab *tab, tabList) {
-		setElem.appendChild(tab->serialize(doc));
-	}
-	
-	return setElem;
+  foreach (KeyboardTab *tab, tabList) {
+    setElem.appendChild(tab->serialize(doc));
+  }
+
+  return setElem;
 }
+
 
 KeyboardTab* KeyboardSet::findTab(const QString& tabName)
 {
-	foreach (KeyboardTab *tab, tabList) {
-		if (tab->getTabName() == tabName)
-			return tab;
-	}
-	return NULL;
+  foreach (KeyboardTab *tab, tabList) {
+    if (tab->getTabName() == tabName)
+      return tab;
+  }
+  return 0;
 }
+
 
 bool KeyboardSet::createTab(const QString& name)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	if (findTab(name)) return false; //make sure the name is unique
+  if (findTab(name)) return false;                //make sure the name is unique
 
-	tabList.append(new KeyboardTab(name));
-	return true;
+  tabList.append(new KeyboardTab(name));
+  return true;
 }
+
 
 bool KeyboardSet::editTab(const QString& curName, const QString& newName)
 {
-	if (m_isNull) return false;
-	if (findTab(newName)) return false; //make sure the name is unique
+  if (m_isNull) return false;
+  if (findTab(newName)) return false;             //make sure the name is unique
 
-	KeyboardTab *tab = findTab(curName);
-	if (!tab) return false;
-	tab->setTabName(newName);
-	return true;
+  KeyboardTab *tab = findTab(curName);
+  if (!tab) return false;
+  tab->setTabName(newName);
+  return true;
 }
+
 
 bool KeyboardSet::deleteTab(const QString& name)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(name);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(name);
+  if (!tab) return false;
 
-	tabList.removeAll(tab);
-	delete tab;
-	return true;
+  tabList.removeAll(tab);
+  delete tab;
+  return true;
 }
+
 
 bool KeyboardSet::moveTabUp(const QString& tabName)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	int tabIndex = tabList.indexOf(tab);
-	if (tabIndex == 0) 
-		//already first
-		return false;
+  int tabIndex = tabList.indexOf(tab);
+  if (tabIndex == 0)
+    //already first
+    return false;
 
-	tabList.takeAt(tabIndex);
-	tabList.insert(tabIndex-1, tab);
-	return true;
+  tabList.takeAt(tabIndex);
+  tabList.insert(tabIndex-1, tab);
+  return true;
 }
+
 
 bool KeyboardSet::moveTabDown(const QString& tabName)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	int tabIndex = tabList.indexOf(tab);
-	if (tabIndex == tabList.count()-1) 
-		//already last
-		return false;
+  int tabIndex = tabList.indexOf(tab);
+  if (tabIndex == tabList.count()-1)
+    //already last
+    return false;
 
-	tabList.takeAt(tabIndex);
-	tabList.insert(tabIndex+1, tab);
-	return true;
+  tabList.takeAt(tabIndex);
+  tabList.insert(tabIndex+1, tab);
+  return true;
 }
+
 
 bool KeyboardSet::addButton(const QString& tabName, KeyboardButton *button)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	return tab->addButton(button);
+  return tab->addButton(button);
 }
 
 
 bool KeyboardSet::deleteButton(const QString& tabName, KeyboardButton *button)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	return tab->deleteButton(button);
+  return tab->deleteButton(button);
 }
+
 
 bool KeyboardSet::moveButtonUp(const QString& tabName, KeyboardButton *button)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	return tab->moveButtonUp(button);
+  return tab->moveButtonUp(button);
 }
+
 
 bool KeyboardSet::moveButtonDown(const QString& tabName, KeyboardButton *button)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	return tab->moveButtonDown(button);
+  return tab->moveButtonDown(button);
 }
+
 
 bool KeyboardSet::triggerButton(const QString& tabName, const QString& trigger, bool caseSensitive)
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return false;
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return false;
 
-	return tab->triggerButton(trigger, caseSensitive);
+  return tab->triggerButton(trigger, caseSensitive);
 }
 
 
 QList<KeyboardButton*> KeyboardSet::getTabButtons(const QString& tabName)
 {
-	if (m_isNull) return QList<KeyboardButton*>();
+  if (m_isNull) return QList<KeyboardButton*>();
 
-	KeyboardTab *tab = findTab(tabName);
-	if (!tab) return QList<KeyboardButton*>();
+  KeyboardTab *tab = findTab(tabName);
+  if (!tab) return QList<KeyboardButton*>();
 
-	return tab->getTabButtons();
+  return tab->getTabButtons();
 }
+
 
 KeyboardSet::~KeyboardSet()
 {
-	kDebug() << "Deleting keyboardset";
-	qDeleteAll(tabList);
+  kDebug() << "Deleting keyboardset";
+  qDeleteAll(tabList);
 }
-

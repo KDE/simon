@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_VOCABULARYVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
 #define SIMON_VOCABULARYVIEW_H_47AEB5F97F5246E8BAC891DD0B65687A
 
@@ -25,7 +24,6 @@
 #include "simonmodelmanagementui_export.h"
 
 #include <simonscenarios/scenariodisplay.h>
-
 
 class VocabularyViewPrivate;
 
@@ -37,19 +35,19 @@ class VocabularyViewPrivate;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class SIMONMODELMANAGEMENTUI_EXPORT VocabularyView : public InlineWidget, public ScenarioDisplay {
-	Q_OBJECT
-private:
-	VocabularyViewPrivate *d;
+class SIMONMODELMANAGEMENTUI_EXPORT VocabularyView : public InlineWidget, public ScenarioDisplay
+{
+  Q_OBJECT
+    private:
+    VocabularyViewPrivate *d;
 
-protected:
-	void displayScenarioPrivate(Scenario *scenario);
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
-public:
-	VocabularyView(QWidget *parent);
+  public:
+    VocabularyView(QWidget *parent);
 
-	~VocabularyView();
+    ~VocabularyView();
 
 };
-
 #endif

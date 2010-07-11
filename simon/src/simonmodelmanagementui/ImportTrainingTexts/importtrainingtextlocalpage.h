@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGTEXTLOCALPAGE_H_AF24F65507784B159E6935DCF9D975EC
 #define SIMON_IMPORTTRAININGTEXTLOCALPAGE_H_AF24F65507784B159E6935DCF9D975EC
 
@@ -29,21 +28,21 @@
  * \author Peter Grasch
  * \version 0.1
  * \brief Asks the user for the file to import
- * 
+ *
  * Extends QWizardpage; Uses the QT-Mandatory-field mechanism
  */
-class ImportTrainingTextLocalPage : public QWizardPage {
-Q_OBJECT
-	private:
-		Ui::ImportTrainingTextLocalPage ui;
-	public:
-		ImportTrainingTextLocalPage(QWidget* parent);
-		bool isComplete() const;
-		void initializePage();
-		int nextId() const {
-			return 4; //working page
-		}
+class ImportTrainingTextLocalPage : public QWizardPage
+{
+  Q_OBJECT
+    private:
+    Ui::ImportTrainingTextLocalPage ui;
+  public:
+    ImportTrainingTextLocalPage(QWidget* parent);
+    bool isComplete() const;
+    void initializePage();
+    int nextId() const
+    {
+      return 4;                                   //working page
+    }
 };
-
-
 #endif

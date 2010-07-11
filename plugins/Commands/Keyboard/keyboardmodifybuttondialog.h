@@ -27,26 +27,24 @@
 
 class KeyboardModifyButtonDialog : public KDialog
 {
-	Q_OBJECT
-			
-	private:
-		Ui::ModifyButtonDlg ui;
-                int exec();
-		bool allFieldsEntered();
-		Keyboard::ButtonType getCurrentlySelectedButtonType();
-		QString getCurrentValue();
+  Q_OBJECT
 
-		bool displayButton(KeyboardButton *button);
-		bool setCurrentlySelectedButtonType(Keyboard::ButtonType type);
-		bool setCurrentValue(const QString& value);
+    private:
+    Ui::ModifyButtonDlg ui;
+    int exec();
+    bool allFieldsEntered();
+    Keyboard::ButtonType getCurrentlySelectedButtonType();
+    QString getCurrentValue();
 
-		
-	public:
-                KeyboardModifyButtonDialog(QWidget *parent=0);
-                KeyboardButton *addButton();
-                bool editButton(KeyboardButton* button);
-		~KeyboardModifyButtonDialog();
-		
+    bool displayButton(KeyboardButton *button);
+    bool setCurrentlySelectedButtonType(Keyboard::ButtonType type);
+    bool setCurrentValue(const QString& value);
+
+  public:
+    KeyboardModifyButtonDialog(QWidget *parent=0);
+    KeyboardButton *addButton();
+    bool editButton(KeyboardButton* button);
+    ~KeyboardModifyButtonDialog();
+
 };
-
 #endif

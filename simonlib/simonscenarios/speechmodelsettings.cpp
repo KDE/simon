@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "speechmodelsettings.h"
 #include "speechmodelmanagementconfiguration.h"
 #include <KMessageBox>
@@ -25,41 +24,42 @@
 #include <KPageWidget>
 #include <kgenericfactory.h>
 
-K_PLUGIN_FACTORY( SpeechModelSettingsFactory, 
-			registerPlugin< SpeechModelSettings >(); 
-		)
-        
+K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
+registerPlugin< SpeechModelSettings >();
+)
+
 K_EXPORT_PLUGIN( SpeechModelSettingsFactory("simonlib") )
 
 SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	KPageWidget *pageWidget = new KPageWidget(this);
-	lay->addWidget(pageWidget);
-	
-	if (args.count() == 1)
-		pageWidget->setFaceType(KPageView::Tabbed);
-	
-	QWidget *trainingsDataWidget = new QWidget(this);
-	uiTrainingsData.setupUi(trainingsDataWidget);
-	
-	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
-	trainingsData->setIcon(KIcon("view-pim-news"));
-	trainingsData->setHeader("");
-	
-	addConfig(SpeechModelManagementConfiguration::self(), this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  KPageWidget *pageWidget = new KPageWidget(this);
+  lay->addWidget(pageWidget);
+
+  if (args.count() == 1)
+    pageWidget->setFaceType(KPageView::Tabbed);
+
+  QWidget *trainingsDataWidget = new QWidget(this);
+  uiTrainingsData.setupUi(trainingsDataWidget);
+
+  KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
+  trainingsData->setIcon(KIcon("view-pim-news"));
+  trainingsData->setHeader("");
+
+  addConfig(SpeechModelManagementConfiguration::self(), this);
 }
 
 
 void SpeechModelSettings::save()
 {
-	int smpFreq = SpeechModelManagementConfiguration::modelSampleRate();
-	KCModule::save();
-	if (smpFreq != SpeechModelManagementConfiguration::modelSampleRate()) {
-		//it changed
-		KMessageBox::information(this, i18n("The sample rate has been changed. This will influence the generated speech model.\n\nHowever, the model needs to be recompiled. Please start a manual synchronization now."));
-	}
+  int smpFreq = SpeechModelManagementConfiguration::modelSampleRate();
+  KCModule::save();
+  if (smpFreq != SpeechModelManagementConfiguration::modelSampleRate()) {
+    //it changed
+    KMessageBox::information(this, i18n("The sample rate has been changed. This will influence the generated speech model.\n\nHowever, the model needs to be recompiled. Please start a manual synchronization now."));
+  }
 }
+
 
 SpeechModelSettings::~SpeechModelSettings()
 {

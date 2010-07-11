@@ -17,38 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingtextaddpage.h"
 #include <QFile>
 #include <QTextCodec>
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param parent 
+ * @param parent
  * Parent of the wizardpage
  */
 ImportTrainingTextAddPage::ImportTrainingTextAddPage(QWidget *parent) : QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Create Text"));
-	
-	registerField("importTrainingTextATextname*", ui.leName);
-	registerField("importTrainingAddText*", ui.teText, "plainText", SIGNAL(textChanged()));
+  ui.setupUi(this);
+  setTitle(i18n("Create Text"));
+
+  registerField("importTrainingTextATextname*", ui.leName);
+  registerField("importTrainingAddText*", ui.teText, "plainText", SIGNAL(textChanged()));
 }
+
 
 void ImportTrainingTextAddPage::initializePage()
 {
 }
 
 
-
 bool ImportTrainingTextAddPage::isComplete() const
 {
-	return QWizardPage::isComplete();
+  return QWizardPage::isComplete();
 }
-
-
-
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TEXTMACROCOMMANDMANAGER_H_EDFE3225C4B0465491338847D911E13A
 #define SIMON_TEXTMACROCOMMANDMANAGER_H_EDFE3225C4B0465491338847D911E13A
 
@@ -32,27 +31,26 @@ class CreateCommandWidget;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class TextMacroCommandManager : public CommandManager{
-Q_OBJECT
-protected:
-	bool shouldAcceptCommand(Command *command);
-public:
-	const QString name() const;
-	const QString iconSrc() const;
-	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+class TextMacroCommandManager : public CommandManager
+{
+  Q_OBJECT
+    protected:
+    bool shouldAcceptCommand(Command *command);
+  public:
+    const QString name() const;
+    const QString iconSrc() const;
+    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
+    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     TextMacroCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~TextMacroCommandManager();
 
 };
-
 #endif

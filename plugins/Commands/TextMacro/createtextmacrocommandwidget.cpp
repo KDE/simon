@@ -22,35 +22,38 @@
 
 CreateTextMacroCommandWidget::CreateTextMacroCommandWidget(CommandManager *manager, QWidget *parent) : CreateCommandWidget(manager, parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	setWindowIcon(TextMacroCommand::staticCategoryIcon());
-	setWindowTitle(TextMacroCommand::staticCategoryText());
-	
-	connect(ui.teMacroText, SIGNAL(textChanged()), this, SIGNAL(completeChanged()));
+  setWindowIcon(TextMacroCommand::staticCategoryIcon());
+  setWindowTitle(TextMacroCommand::staticCategoryText());
+
+  connect(ui.teMacroText, SIGNAL(textChanged()), this, SIGNAL(completeChanged()));
 }
 
 
 bool CreateTextMacroCommandWidget::isComplete()
 {
-	return !(ui.teMacroText->toPlainText().isEmpty());
+  return !(ui.teMacroText->toPlainText().isEmpty());
 }
+
 
 bool CreateTextMacroCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	TextMacroCommand *textmacroCommand = dynamic_cast<TextMacroCommand*>(command);
-	if (!textmacroCommand) return false;
-	
-	ui.teMacroText->setPlainText(textmacroCommand->getText());
-	return true;
+  Q_ASSERT(command);
+
+  TextMacroCommand *textmacroCommand = dynamic_cast<TextMacroCommand*>(command);
+  if (!textmacroCommand) return false;
+
+  ui.teMacroText->setPlainText(textmacroCommand->getText());
+  return true;
 }
+
 
 Command* CreateTextMacroCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new TextMacroCommand(name, iconSrc, description, ui.teMacroText->toPlainText());
+  return new TextMacroCommand(name, iconSrc, description, ui.teMacroText->toPlainText());
 }
+
 
 CreateTextMacroCommandWidget::~CreateTextMacroCommandWidget()
 {

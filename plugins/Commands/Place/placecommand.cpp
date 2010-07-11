@@ -25,57 +25,63 @@
 #include <QDomElement>
 #include <KLocalizedString>
 
-
 STATIC_CREATE_INSTANCE_C(PlaceCommand);
 
 const QString PlaceCommand::staticCategoryText()
 {
-	return i18n("Place");
+  return i18n("Place");
 }
+
 
 const QString PlaceCommand::getCategoryText() const
 {
-	return PlaceCommand::staticCategoryText();
+  return PlaceCommand::staticCategoryText();
 }
+
 
 const KIcon PlaceCommand::staticCategoryIcon()
 {
-	return KIcon("folder");
+  return KIcon("folder");
 }
+
 
 const KIcon PlaceCommand::getCategoryIcon() const
 {
-	return PlaceCommand::staticCategoryIcon();
+  return PlaceCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("URL"), getURL());
-	return out;
+  QMap<QString,QVariant> out;
+  out.insert(i18n("URL"), getURL());
+  return out;
 }
+
 
 QDomElement PlaceCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement urlElem = doc->createElement("url");
-	urlElem.appendChild(doc->createTextNode(url.pathOrUrl()));
+  QDomElement urlElem = doc->createElement("url");
+  urlElem.appendChild(doc->createTextNode(url.pathOrUrl()));
 
-	commandElem.appendChild(urlElem);
-		
-	return commandElem;
+  commandElem.appendChild(urlElem);
+
+  return commandElem;
 }
+
 
 bool PlaceCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement urlElem = commandElem.firstChildElement("url");
-	if (urlElem.isNull()) return false;
+  QDomElement urlElem = commandElem.firstChildElement("url");
+  if (urlElem.isNull()) return false;
 
-	url = KUrl(urlElem.text());
-	return true;
+  url = KUrl(urlElem.text());
+  return true;
 }
+
 
 bool PlaceCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	return QDesktopServices::openUrl(getURL());
+  Q_UNUSED(state);
+  return QDesktopServices::openUrl(getURL());
 }

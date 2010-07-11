@@ -39,97 +39,96 @@ class CommandListWidget;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class CalculatorCommandManager : public CommandManager, public GreedyReceiver {
-Q_OBJECT
-private:
-	enum NumberType {
-		Default=1,
-		Money=2
-	};
+class CalculatorCommandManager : public CommandManager, public GreedyReceiver
+{
+  Q_OBJECT
+    private:
+    enum NumberType
+    {
+      Default=1,
+      Money=2
+    };
 
-	Ui::CalculatorDlg ui;
-	QDialog *widget;
-	CommandListWidget *commandListWidget;
-	QList<Token *> * parseString(QString calc);
-	QList<Token *> * toPostfix(QList<Token *> *calcList);
-	double calculate(QList<Token *>* postList);
+    Ui::CalculatorDlg ui;
+    QDialog *widget;
+    CommandListWidget *commandListWidget;
+    QList<Token *> * parseString(QString calc);
+    QList<Token *> * toPostfix(QList<Token *> *calcList);
+    double calculate(QList<Token *>* postList);
 
-	double currentResult;
-	bool resultCurrentlyDisplayed;
+    double currentResult;
+    bool resultCurrentlyDisplayed;
 
-	void sendOperator(const QString operatorStr);
-	void sendBracket(const QString bracketStr);
-	void sendNumber(const QString bracketStr);
-	void resetInput();
-	QString toString(double in);
+    void sendOperator(const QString operatorStr);
+    void sendBracket(const QString bracketStr);
+    void sendNumber(const QString bracketStr);
+    void resetInput();
+    QString toString(double in);
 
-	QString formatCalculation(CalculatorCommandManager::NumberType type);
-	QString formatInput(CalculatorCommandManager::NumberType type);
-	QString formatOutput(CalculatorCommandManager::NumberType type);
+    QString formatCalculation(CalculatorCommandManager::NumberType type);
+    QString formatInput(CalculatorCommandManager::NumberType type);
+    QString formatOutput(CalculatorCommandManager::NumberType type);
 
-	bool installInterfaceCommands();
-	void showSelectionBox();
-	
-private slots:
-	void deregister();
-	void ok();
-	void back();
-	void cancel();
-	void clear();
-	void processRequest(int number);
-	void sendComma();
-	void send0() { processRequest(0); }
-	void send1() { processRequest(1); }
-	void send2() { processRequest(2); }
-	void send3() { processRequest(3); }
-	void send4() { processRequest(4); }
-	void send5() { processRequest(5); }
-	void send6() { processRequest(6); }
-	void send7() { processRequest(7); }
-	void send8() { processRequest(8); }
-	void send9() { processRequest(9); }
-	void sendPlus();
-	void sendMinus();
-	void sendMultiply();
-	void sendDivide();
-	void sendBracketOpen();
-	void sendBracketClose();
-	void sendEquals();
-        void sendPercent();
-	void writeoutRequestReceived(int index);
+    bool installInterfaceCommands();
+    void showSelectionBox();
 
-	void printCancel();
-	void printResult() { writeoutRequestReceived(1); }
-	void printCalculationAndResult() { writeoutRequestReceived(2); }
-	void printFormattedResult() { writeoutRequestReceived(3); }
-	void printFormattedCalculationAndResult() { writeoutRequestReceived(4); }
-	void printFormattedMoneyResult() { writeoutRequestReceived(5); }
-	void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(6); }
+  private slots:
+    void deregister();
+    void ok();
+    void back();
+    void cancel();
+    void clear();
+    void processRequest(int number);
+    void sendComma();
+    void send0() { processRequest(0); }
+    void send1() { processRequest(1); }
+    void send2() { processRequest(2); }
+    void send3() { processRequest(3); }
+    void send4() { processRequest(4); }
+    void send5() { processRequest(5); }
+    void send6() { processRequest(6); }
+    void send7() { processRequest(7); }
+    void send8() { processRequest(8); }
+    void send9() { processRequest(9); }
+    void sendPlus();
+    void sendMinus();
+    void sendMultiply();
+    void sendDivide();
+    void sendBracketOpen();
+    void sendBracketClose();
+    void sendEquals();
+    void sendPercent();
+    void writeoutRequestReceived(int index);
 
-public slots:
-	void activate();
+    void printCancel();
+    void printResult() { writeoutRequestReceived(1); }
+    void printCalculationAndResult() { writeoutRequestReceived(2); }
+    void printFormattedResult() { writeoutRequestReceived(3); }
+    void printFormattedCalculationAndResult() { writeoutRequestReceived(4); }
+    void printFormattedMoneyResult() { writeoutRequestReceived(5); }
+    void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(6); }
 
-public:
-	const QString preferredTrigger() const;
-	const QString iconSrc() const;
-	const QString name() const;
-	void setFont(const QFont& font);
+  public slots:
+    void activate();
 
-	bool deSerializeConfig(const QDomElement& elem);
+  public:
+    const QString preferredTrigger() const;
+    const QString iconSrc() const;
+    const QString name() const;
+    void setFont(const QFont& font);
 
-	//CommandList* getCommands() const { return NULL; }
+    bool deSerializeConfig(const QDomElement& elem);
 
+    //CommandList* getCommands() const { return 0; }
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     CalculatorCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~CalculatorCommandManager();
 
 };
-
 #endif

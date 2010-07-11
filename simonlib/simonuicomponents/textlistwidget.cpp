@@ -23,7 +23,7 @@ TextListWidget::TextListWidget(QWidget* parent) : KListWidget(parent)
 {
 }
 
+
 TextListWidget::~TextListWidget()
 {
 }
-

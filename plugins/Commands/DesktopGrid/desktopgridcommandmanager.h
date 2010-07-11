@@ -41,74 +41,72 @@ class CommandListWidget;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class DesktopGridCommandManager : public CommandManager, public GreedyReceiver {
-Q_OBJECT
+class DesktopGridCommandManager : public CommandManager, public GreedyReceiver
+{
+  Q_OBJECT
 
-private:
-	ScreenGrid *screenGrid;
+    private:
+    ScreenGrid *screenGrid;
 
-	int m_x;
-	int m_y;
-	int m_startX;
-	int m_startY;
-	bool m_isDragging;
-	QList<KPushButton*> btns;
-	QGridLayout *buttons;
+    int m_x;
+    int m_y;
+    int m_startX;
+    int m_startY;
+    bool m_isDragging;
+    QList<KPushButton*> btns;
+    QGridLayout *buttons;
 
-	CommandListWidget *commandListWidget;
+    CommandListWidget *commandListWidget;
 
-	QLabel *background;
-	QPixmap deskShot;
+    QLabel *background;
+    QPixmap deskShot;
 
-	QPixmap makeFakeTransparency();
+    QPixmap makeFakeTransparency();
 
-	void click(KPushButton* btn);
+    void click(KPushButton* btn);
 
-	void init();
+    void init();
 
-	void sendClick(EventSimulation::ClickMode clickMode);
-	void sendDragAndDrop();
+    void sendClick(EventSimulation::ClickMode clickMode);
+    void sendDragAndDrop();
 
-	bool installInterfaceCommands();
+    bool installInterfaceCommands();
 
-	void showSelectionBox();
+    void showSelectionBox();
 
-private slots:
-	void regionSelected();
-	void clickRequestReceived(int index);
+  private slots:
+    void regionSelected();
+    void clickRequestReceived(int index);
 
-	void select1() { clickRequestReceived(1); }
-	void select2() { clickRequestReceived(2); }
-	void select3() { clickRequestReceived(3); }
-	void select4() { clickRequestReceived(4); }
-	void select5() { clickRequestReceived(5); }
+    void select1() { clickRequestReceived(1); }
+    void select2() { clickRequestReceived(2); }
+    void select3() { clickRequestReceived(3); }
+    void select4() { clickRequestReceived(4); }
+    void select5() { clickRequestReceived(5); }
 
-public slots:
-	void activate();
-	void deactivate();
+  public slots:
+    void activate();
+    void deactivate();
 
-public:
-	const QString preferredTrigger() const;
-	const QString name() const;
+  public:
+    const QString preferredTrigger() const;
+    const QString name() const;
 
-	bool deSerializeConfig(const QDomElement& elem);
-	bool deSerializeCommandsPrivate(const QDomElement& elem);
+    bool deSerializeConfig(const QDomElement& elem);
+    bool deSerializeCommandsPrivate(const QDomElement& elem);
 
-	const QString iconSrc() const;
-	
-	void setButtonFontSize(KPushButton *btn);
+    const QString iconSrc() const;
+
+    void setButtonFontSize(KPushButton *btn);
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     DesktopGridCommandManager(QObject* parent, const QVariantList& args);
 
-    
     ~DesktopGridCommandManager();
 
-
 };
-
 #endif

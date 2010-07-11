@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_EVENTHANDLER_H_E54B4D68778B4988A4AB1950123164C2
 #define SIMON_EVENTHANDLER_H_E54B4D68778B4988A4AB1950123164C2
 
@@ -36,29 +35,29 @@ class QKeySequence;
  *	@date 4.03.2007
  *	@author Peter Grasch
  */
-class EVENTSIMULATION_EXPORT EventHandler {
-private:
-	static EventHandler* instance;
-	CoreEvents* coreEvents; //!< The event backend
-protected:
-	EventHandler();
-	void sendKey(const QChar& key) const;
+class EVENTSIMULATION_EXPORT EventHandler
+{
+  private:
+    static EventHandler* instance;
+    CoreEvents* coreEvents;                       //!< The event backend
+  protected:
+    EventHandler();
+    void sendKey(const QChar& key) const;
 
-public:
-	static EventHandler* getInstance() {
-		if (!instance) instance = new EventHandler();
-		return instance;
-	}
+  public:
+    static EventHandler* getInstance() {
+      if (!instance) instance = new EventHandler();
+      return instance;
+    }
 
-       ~EventHandler();
+    ~EventHandler();
 
-	void click(int x, int y, EventSimulation::ClickMode);
-	void dragAndDrop(int xStart, int yStart, int x, int y);
-	void sendWord(const QString& word) const;
-	void sendShortcut(const QKeySequence& shortcut) const;
+    void click(int x, int y, EventSimulation::ClickMode);
+    void dragAndDrop(int xStart, int yStart, int x, int y);
+    void sendWord(const QString& word) const;
+    void sendShortcut(const QKeySequence& shortcut) const;
 
-	void setModifier(int virtualKey, bool once=false) const;
-	void unsetModifier(int virtualKey) const;
+    void setModifier(int virtualKey, bool once=false) const;
+    void unsetModifier(int virtualKey) const;
 };
-
 #endif

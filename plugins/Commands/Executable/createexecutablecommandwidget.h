@@ -35,32 +35,31 @@ class CommandManager;
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreateExecutableCommandWidget : public CreateCommandWidget{
-Q_OBJECT
+class CreateExecutableCommandWidget : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::CreateExecutableCommandWidget ui;
+    private:
+    Ui::CreateExecutableCommandWidget ui;
 
-private slots:
-	void selectProgram();
-	void urlSelected(const KUrl&);
+  private slots:
+    void selectProgram();
+    void urlSelected(const KUrl&);
 
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CreateExecutableCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-
-	virtual ~CreateExecutableCommandWidget();
+    virtual ~CreateExecutableCommandWidget();
 
 };
-
 #endif

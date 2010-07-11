@@ -25,28 +25,26 @@
 
 class VoiceInterfaceCommandTemplate;
 
-class CreateVoiceInterfaceCommandWidgetPrivate : public CreateCommandWidget {
-Q_OBJECT
+class CreateVoiceInterfaceCommandWidgetPrivate : public CreateCommandWidget
+{
+  Q_OBJECT
 
-private:
-	Ui::CreateVoiceCommandWidget ui;
-	VoiceInterfaceCommandTemplate* getCurrentTemplate();
+    private:
+    Ui::CreateVoiceCommandWidget ui;
+    VoiceInterfaceCommandTemplate* getCurrentTemplate();
 
-private slots:
-	void initFromTemplate();
+  private slots:
+    void initFromTemplate();
 
-public:
-	Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
 
-	bool init(Command* command);
-	bool isComplete();
+    bool init(Command* command);
+    bool isComplete();
 
-	CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
+    CreateVoiceInterfaceCommandWidgetPrivate(CommandManager *manager, QWidget *parent=0);
 
-	~CreateVoiceInterfaceCommandWidgetPrivate() {}
+    ~CreateVoiceInterfaceCommandWidgetPrivate() {}
 
 };
-
 #endif
-
-

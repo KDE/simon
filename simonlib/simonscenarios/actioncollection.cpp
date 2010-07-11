@@ -29,9 +29,10 @@
 
 ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
 {
-	proxy = new ActionCommandModel(this);
+  proxy = new ActionCommandModel(this);
 
 }
+
 
 /**
  * Factory function
@@ -39,315 +40,328 @@ ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
  */
 ActionCollection* ActionCollection::createActionCollection(Scenario *parent, const QDomElement& actionCollectionElem)
 {
-	ActionCollection *ac = new ActionCollection(parent);
-	if (!ac->deSerialize(actionCollectionElem)) {
-		ac->deleteLater();
-		ac=NULL;
-	} 
-	return ac;
+  ActionCollection *ac = new ActionCollection(parent);
+  if (!ac->deSerialize(actionCollectionElem)) {
+    ac->deleteLater();
+    ac=0;
+  }
+  return ac;
 }
+
 
 bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 {
-	if (actionCollectionElem.isNull())
-		return false;
+  if (actionCollectionElem.isNull())
+    return false;
 
-	qDeleteAll(listInterfaceCommands);
-	listInterfaceCommands.clear();
+  qDeleteAll(listInterfaceCommands);
+  listInterfaceCommands.clear();
 
-	QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
+  QDomElement listsElement = actionCollectionElem.firstChildElement("lists");
 
-	if (listsElement.isNull())
-	{
-		QHash<CommandListElements::Element, VoiceInterfaceCommand*> baseConfig = ScenarioManager::getInstance()->
-												getListBaseConfiguration();
+  if (listsElement.isNull()) {
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> baseConfig = ScenarioManager::getInstance()->
+      getListBaseConfiguration();
 
-		QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(baseConfig);
-		while (i.hasNext()) {
-			i.next();
-			listInterfaceCommands.insertMulti(i.key(), new VoiceInterfaceCommand(*(i.value())));
-		}
-	} else {
-		QDomElement commandElem = listsElement.firstChildElement();
+    QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(baseConfig);
+    while (i.hasNext()) {
+      i.next();
+      listInterfaceCommands.insertMulti(i.key(), new VoiceInterfaceCommand(*(i.value())));
+    }
+  }
+  else {
+    QDomElement commandElem = listsElement.firstChildElement();
 
-		while (!commandElem.isNull())
-		{
-			VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(commandElem);
+    while (!commandElem.isNull()) {
+      VoiceInterfaceCommand *com = VoiceInterfaceCommand::createInstance(commandElem);
 
-			int elementId = commandElem.attribute("element").toInt();
+      int elementId = commandElem.attribute("element").toInt();
 
-			commandElem = commandElem.nextSiblingElement("voiceInterfaceCommand");
+      commandElem = commandElem.nextSiblingElement("voiceInterfaceCommand");
 
-			if (!com) continue;
+      if (!com) continue;
 
-			listInterfaceCommands.insert((CommandListElements::Element) elementId, com);
-		}
-	}
-	
-	//clean member
-	qDeleteAll(m_actions);
-	m_actions.clear();
+      listInterfaceCommands.insert((CommandListElements::Element) elementId, com);
+    }
+  }
 
-	QDomElement pluginElem = actionCollectionElem.firstChildElement("plugin");
-	while (!pluginElem.isNull()) {
-		Action *a = Action::createAction(parentScenario, pluginElem, this);
-		if (!a) {
-			kDebug() << "Couldn't load action";
-		} else {
-			//m_actions << a;
-			appendAction(a, true /*silent*/);
-		}
+  //clean member
+  qDeleteAll(m_actions);
+  m_actions.clear();
 
-		pluginElem = pluginElem.nextSiblingElement("plugin");
-	}
-	proxy->update();
-	reset();
-	return true;
+  QDomElement pluginElem = actionCollectionElem.firstChildElement("plugin");
+  while (!pluginElem.isNull()) {
+    Action *a = Action::createAction(parentScenario, pluginElem, this);
+    if (!a) {
+      kDebug() << "Could not load action";
+    }
+    else {
+      //m_actions << a;
+      appendAction(a, true /*silent*/);
+    }
+
+    pluginElem = pluginElem.nextSiblingElement("plugin");
+  }
+  proxy->update();
+  reset();
+  return true;
 }
+
 
 QDomElement ActionCollection::createEmpty(QDomDocument *doc)
 {
-	return doc->createElement("actions");
+  return doc->createElement("actions");
 }
+
 
 QDomElement ActionCollection::serialize(QDomDocument *doc)
 {
-	QDomElement actionsElem = createEmpty(doc);
+  QDomElement actionsElem = createEmpty(doc);
 
-	QDomElement listInterfaceCommandsElem = doc->createElement("lists");
+  QDomElement listInterfaceCommandsElem = doc->createElement("lists");
 
-	QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-	while (i.hasNext()) {
-		i.next();
-		QDomElement commandElem = i.value()->serialize(doc);
-		commandElem.setTagName("voiceInterfaceCommand");
-		commandElem.setAttribute("element", QString::number((int) i.key()));
-		listInterfaceCommandsElem.appendChild(commandElem);
-	}
+  QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
+  while (i.hasNext()) {
+    i.next();
+    QDomElement commandElem = i.value()->serialize(doc);
+    commandElem.setTagName("voiceInterfaceCommand");
+    commandElem.setAttribute("element", QString::number((int) i.key()));
+    listInterfaceCommandsElem.appendChild(commandElem);
+  }
 
-	actionsElem.appendChild(listInterfaceCommandsElem);
+  actionsElem.appendChild(listInterfaceCommandsElem);
 
-	foreach (Action *a, m_actions) {
-		actionsElem.appendChild(a->serialize(doc));
-	}
-	proxy->update();
-	return actionsElem;
+  foreach (Action *a, m_actions) {
+    actionsElem.appendChild(a->serialize(doc));
+  }
+  proxy->update();
+  return actionsElem;
 }
 
 
 QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *parent)
 {
-	QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
-	
-	foreach (Action* action, m_actions)
-	{
-		CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
-		if (widget)
-			*out << widget;
+  QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
 
-		CreateCommandWidget* voiceWidget = (CreateCommandWidget*) action->manager()->getCreateVoiceInterfaceCommandWidget(parent);
-		if (voiceWidget)
-			*out << voiceWidget;
-	}
-	return out;
+  foreach (Action* action, m_actions) {
+    CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
+    if (widget)
+      *out << widget;
+
+    CreateCommandWidget* voiceWidget = (CreateCommandWidget*) action->manager()->getCreateVoiceInterfaceCommandWidget(parent);
+    if (voiceWidget)
+      *out << voiceWidget;
+  }
+  return out;
 }
+
 
 QList<CommandConfiguration*>* ActionCollection::getConfigurationPages()
 {
-	QList<CommandConfiguration*>* configs = new QList<CommandConfiguration*>();
-	foreach (Action* a, m_actions) {
-		CommandConfiguration *cm = a->getConfigurationPage();
-		if (cm)
-			configs->append(cm);
-	}
-	return configs;
+  QList<CommandConfiguration*>* configs = new QList<CommandConfiguration*>();
+  foreach (Action* a, m_actions) {
+    CommandConfiguration *cm = a->getConfigurationPage();
+    if (cm)
+      configs->append(cm);
+  }
+  return configs;
 }
+
 
 QList<QAction*> ActionCollection::getGuiActions()
 {
-	QList<QAction*> guiActions;
-	foreach (Action* a, m_actions) {
-		guiActions << a->manager()->getGuiActions();
-	}
-	return guiActions;
+  QList<QAction*> guiActions;
+  foreach (Action* a, m_actions) {
+    guiActions << a->manager()->getGuiActions();
+  }
+  return guiActions;
 }
 
 
 /*bool ActionCollection::addCommand(Command *command)
 {
-	if (!command) return false;
-	
-	int i=0;
-	bool added=false;
-	while (!added && (i< m_actions.count())) {
-		CommandManager *man = m_actions.at(i)->manager();
-		added = man->addCommand(command);
-		i++;
-	}
+  if (!command) return false;
 
-	proxy->update();
-	return added;
+  int i=0;
+  bool added=false;
+  while (!added && (i< m_actions.count())) {
+    CommandManager *man = m_actions.at(i)->manager();
+    added = man->addCommand(command);
+    i++;
+  }
+
+proxy->update();
+return added;
 }*/
 
 bool ActionCollection::removeCommand(Command *command)
 {
-	bool removed=false;
-	foreach (Action *a, m_actions) {
-		if (a->removeCommand(command)) {
-			removed = true;
-			break;
-		}
-	}
-	proxy->update();
-	return removed;
+  bool removed=false;
+  foreach (Action *a, m_actions) {
+    if (a->removeCommand(command)) {
+      removed = true;
+      break;
+    }
+  }
+  proxy->update();
+  return removed;
 }
+
 
 bool ActionCollection::addAction(Action *action, bool silent, bool save)
 {
-	action->assignParent(parentScenario);
-	action->deSerialize(QDomElement());
+  action->assignParent(parentScenario);
+  action->deSerialize(QDomElement());
 
-	appendAction(action, silent);
+  appendAction(action, silent);
 
-	bool succ = (save) ? parentScenario->save() : true;
-	proxy->update();
-	return succ;
+  bool succ = (save) ? parentScenario->save() : true;
+  proxy->update();
+  return succ;
 }
+
 
 bool ActionCollection::deleteAction(Action *action)
 {
-	for (int i=0; i <m_actions.count(); i++) {
-		if (m_actions[i] == action) {
-			beginRemoveRows(QModelIndex(), i, i);
-			m_actions.takeAt(i);
-			endRemoveRows();
-		}
-	}
+  for (int i=0; i <m_actions.count(); i++) {
+    if (m_actions[i] == action) {
+      beginRemoveRows(QModelIndex(), i, i);
+      m_actions.takeAt(i);
+      endRemoveRows();
+    }
+  }
 
-	bool succ = parentScenario->save();
+  bool succ = parentScenario->save();
 
-	proxy->update();
+  proxy->update();
 
-	if (action)
-		action->deleteLater();
+  if (action)
+    action->deleteLater();
 
-	return succ;
+  return succ;
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionCollection::getListInterfaceCommands()
 {
-	return listInterfaceCommands;
+  return listInterfaceCommands;
 }
+
 
 void ActionCollection::setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands)
 {
-	listInterfaceCommands = commands;
+  listInterfaceCommands = commands;
 }
+
 
 bool ActionCollection::moveActionUp(Action *action)
 {
-	bool moved = false;
+  bool moved = false;
 
-	for (int i=1; i <m_actions.count(); i++) {
-		if (m_actions[i] == action) {
-			m_actions.takeAt(i);
-			m_actions.insert(i-1, action);
-			emit dataChanged(index(i-1, 0), 
-					  index(i, columnCount()));
-			moved = true;
-			break;
-		}
-	}
-	proxy->update();
+  for (int i=1; i <m_actions.count(); i++) {
+    if (m_actions[i] == action) {
+      m_actions.takeAt(i);
+      m_actions.insert(i-1, action);
+      emit dataChanged(index(i-1, 0),
+        index(i, columnCount()));
+      moved = true;
+      break;
+    }
+  }
+  proxy->update();
 
-	return moved;
+  return moved;
 }
+
 
 bool ActionCollection::moveActionDown(Action *action)
 {
-	bool moved = false;
+  bool moved = false;
 
-	for (int i=0; i <m_actions.count()-1; i++) {
-		if (m_actions[i] == action) {
-			m_actions.takeAt(i);
-			m_actions.insert(i+1, action);
-			emit dataChanged(index(i, 0), 
-					  index(i+1, columnCount()));
-			moved = true;
-			break;
-		}
-	}
-	proxy->update();
+  for (int i=0; i <m_actions.count()-1; i++) {
+    if (m_actions[i] == action) {
+      m_actions.takeAt(i);
+      m_actions.insert(i+1, action);
+      emit dataChanged(index(i, 0),
+        index(i+1, columnCount()));
+      moved = true;
+      break;
+    }
+  }
+  proxy->update();
 
-	return moved;
+  return moved;
 }
+
 
 bool ActionCollection::processResult(RecognitionResult recognitionResult)
 {
-	int i=0;
-	bool commandFound=false;
-	QString currentTrigger;
-	QString realCommand;
+  int i=0;
+  bool commandFound=false;
+  QString currentTrigger;
+  QString realCommand;
 
+  while ((i<m_actions.count()) && (!commandFound)) {
+    currentTrigger = m_actions[i]->trigger();
+    RecognitionResult tempResult = recognitionResult;
+    if (tempResult.matchesTrigger(currentTrigger)) {
+      tempResult.removeTrigger(currentTrigger);
 
-	while ((i<m_actions.count()) && (!commandFound))
-	{
-		currentTrigger = m_actions[i]->trigger();
-		RecognitionResult tempResult = recognitionResult;
-		if (tempResult.matchesTrigger(currentTrigger)) {
-			tempResult.removeTrigger(currentTrigger);
+      if(m_actions.at(i)->manager()->processResult(tempResult))
+        commandFound=true;
+    }
+    i++;
+  }
 
-			if(m_actions.at(i)->manager()->processResult(tempResult))
-				commandFound=true;
-		}
-		i++;
-	}
-
-	return commandFound;
+  return commandFound;
 }
+
 
 bool ActionCollection::triggerCommand(const QString& type, const QString& trigger)
 {
-	foreach (Action *a, m_actions)
-		if (a->manager()->name() == type)
-			return a->manager()->trigger(trigger);
-	
-	return false;
+  foreach (Action *a, m_actions)
+    if (a->manager()->name() == type)
+    return a->manager()->trigger(trigger);
+
+  return false;
 }
+
 
 bool ActionCollection::setTrigger(const QString& trigger)
 {
-	bool success = true;
-	parentScenario->startGroup();
-	foreach (Action *a, m_actions)
-		success = a->setTrigger(trigger) && success;
-	parentScenario->commitGroup();
-	
-	return success;
+  bool success = true;
+  parentScenario->startGroup();
+  foreach (Action *a, m_actions)
+    success = a->setTrigger(trigger) && success;
+  parentScenario->commitGroup();
+
+  return success;
 }
+
 
 CommandList* ActionCollection::getCommandList()
 {
-	CommandList *commandList = new CommandList();
-	foreach (Action *a, m_actions) {
-		CommandList *list = a->manager()->getCommands();
+  CommandList *commandList = new CommandList();
+  foreach (Action *a, m_actions) {
+    CommandList *list = a->manager()->getCommands();
 
-		if (list)
-			commandList->append(*list);
-	}
-	
-	return commandList;
+    if (list)
+      commandList->append(*list);
+  }
+
+  return commandList;
 }
+
 
 void ActionCollection::setPluginFont(const QFont& font)
 {
-	foreach (Action *a, m_actions)
-		a->setPluginFont(font);
+  foreach (Action *a, m_actions)
+    a->setPluginFont(font);
 }
+
 
 ActionCollection::~ActionCollection()
 {
-	qDeleteAll(m_actions);
-	qDeleteAll(listInterfaceCommands);
+  qDeleteAll(m_actions);
+  qDeleteAll(listInterfaceCommands);
 }
-

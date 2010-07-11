@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTDICTWORKINGPAGE_H_3ED14C8D1F724EB09F099357310BB448
 #define SIMON_IMPORTDICTWORKINGPAGE_H_3ED14C8D1F724EB09F099357310BB448
 
@@ -38,42 +37,41 @@ class KUrl;
 */
 class ImportDictWorkingPage : public QWizardPage
 {
-	Q_OBJECT
-signals:
-	void done();
-	void failed();
-	
-private:
-	QProgressBar *pbMain;
-	ImportDict *import; //!< Underlying concept class
-	QLabel *lbStatus;
-	bool ready;
-	QString prepareDict(KUrl url);
+  Q_OBJECT
+    signals:
+  void done();
+  void failed();
 
-private slots:
-	void setCompleted() { ready=true; emit completeChanged(); }
-	QString guessEncoding(const QString& path);
+  private:
+    QProgressBar *pbMain;
+    ImportDict *import;                           //!< Underlying concept class
+    QLabel *lbStatus;
+    bool ready;
+    QString prepareDict(KUrl url);
 
-public slots:
-	void abort();
-	void displayStatus(QString status);
-	void displayProgress(int progress, int max);
-	
-	void importHADIFIX(QString path);
-	void importLexicon(QString path);
-	void importPLS(QString path);
-	void importSPHINX(QString path);
-	void importJulius(QString path);
+  private slots:
+    void setCompleted() { ready=true; emit completeChanged(); }
+    QString guessEncoding(const QString& path);
 
-	bool isComplete() const;
+  public slots:
+    void abort();
+    void displayStatus(QString status);
+    void displayProgress(int progress, int max);
 
-public:
-	void initializePage();
-	QList<Word*>* getCurrentWordList();
+    void importHADIFIX(QString path);
+    void importLexicon(QString path);
+    void importPLS(QString path);
+    void importSPHINX(QString path);
+    void importJulius(QString path);
+
+    bool isComplete() const;
+
+  public:
+    void initializePage();
+    QList<Word*>* getCurrentWordList();
     ImportDictWorkingPage(QWidget* parent);
 
     ~ImportDictWorkingPage();
 
 };
-
 #endif

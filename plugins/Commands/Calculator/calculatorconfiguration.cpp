@@ -26,123 +26,126 @@
 
 K_PLUGIN_FACTORY_DECLARATION(CalculatorCommandPluginFactory)
 
-
 CalculatorConfiguration::CalculatorConfiguration(Scenario *parent, const QVariantList &args)
-		: CommandConfiguration(parent, "calculator", ki18n( "Calculator" ),
-				      "0.1", ki18n("Calculate with your voice"),
-				      "accessories-calculator",
-				      CalculatorCommandPluginFactory::componentData())
+: CommandConfiguration(parent, "calculator", ki18n( "Calculator" ),
+"0.1", ki18n("Calculate with your voice"),
+"accessories-calculator",
+CalculatorCommandPluginFactory::componentData())
 {
-	Q_UNUSED(args);
-	ui.setupUi(this);
-	
-	connect(ui.cbControlMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
-	connect(ui.rbOutputAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.rbOutputDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.rbAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect(ui.cbDefaultOutputMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
-	connect(ui.sbOutputDefaultTimeout, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
+  Q_UNUSED(args);
+  ui.setupUi(this);
+
+  connect(ui.cbControlMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+  connect(ui.rbOutputAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui.rbOutputDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui.rbAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui.cbDefaultOutputMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+  connect(ui.sbOutputDefaultTimeout, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
 }
 
 
 bool CalculatorConfiguration::deSerialize(const QDomElement& elem)
 {
-	bool ok;
-	int outputModeSelection = elem.firstChildElement("outputModeSelection").text().toInt(&ok);
-	if (!ok) outputModeSelection = 0; //default;
+  bool ok;
+  int outputModeSelection = elem.firstChildElement("outputModeSelection").text().toInt(&ok);
+  if (!ok) outputModeSelection = 0;               //default;
 
-	CalculatorConfiguration::OutputModeSelection modeSelection = 
-			(CalculatorConfiguration::OutputModeSelection) outputModeSelection;
-	
-	switch (modeSelection) {
-		case CalculatorConfiguration::AlwaysAsk:
-			ui.rbOutputAsk->setChecked(true);
-			break;
-		case CalculatorConfiguration::UseDefault:
-			ui.rbOutputDefault->setChecked(true);
-			break;
-		case CalculatorConfiguration::AskButDefaultAfterTimeout:
-			ui.rbAskAndDefault->setChecked(true);
-			break;
-	}
+  CalculatorConfiguration::OutputModeSelection modeSelection =
+    (CalculatorConfiguration::OutputModeSelection) outputModeSelection;
 
-	ui.cbControlMode->setCurrentIndex(elem.firstChildElement("controlMode").text().toInt(&ok));
+  switch (modeSelection) {
+    case CalculatorConfiguration::AlwaysAsk:
+      ui.rbOutputAsk->setChecked(true);
+      break;
+    case CalculatorConfiguration::UseDefault:
+      ui.rbOutputDefault->setChecked(true);
+      break;
+    case CalculatorConfiguration::AskButDefaultAfterTimeout:
+      ui.rbAskAndDefault->setChecked(true);
+      break;
+  }
 
-	int defaultOutputMode = elem.firstChildElement("defaultOutputMode").text().toInt(&ok);
-	if (!ok) defaultOutputMode = 0;
-	ui.cbDefaultOutputMode->setCurrentIndex(defaultOutputMode);
+  ui.cbControlMode->setCurrentIndex(elem.firstChildElement("controlMode").text().toInt(&ok));
 
-	int askTimeout = elem.firstChildElement("askTimeout").text().toFloat(&ok);
-	if (!ok) askTimeout = 12;
-	ui.sbOutputDefaultTimeout->setValue(askTimeout);
+  int defaultOutputMode = elem.firstChildElement("defaultOutputMode").text().toInt(&ok);
+  if (!ok) defaultOutputMode = 0;
+  ui.cbDefaultOutputMode->setCurrentIndex(defaultOutputMode);
 
-	emit changed(false);
-	return true;
+  int askTimeout = elem.firstChildElement("askTimeout").text().toFloat(&ok);
+  if (!ok) askTimeout = 12;
+  ui.sbOutputDefaultTimeout->setValue(askTimeout);
+
+  emit changed(false);
+  return true;
 }
+
 
 QDomElement CalculatorConfiguration::serialize(QDomDocument *doc)
 {
-	QDomElement configElem = doc->createElement("config");
+  QDomElement configElem = doc->createElement("config");
 
-	QDomElement controlModeElement = doc->createElement("controlMode");
-	QDomElement outputModeSelectionElem = doc->createElement("outputModeSelection");
-	QDomElement defaultOutputModeElem = doc->createElement("defaultOutputMode");
-	QDomElement askTimeoutElem = doc->createElement("askTimeout");
-	
-	controlModeElement.appendChild(doc->createTextNode(QString::number(ui.cbControlMode->currentIndex())));
-	outputModeSelectionElem.appendChild(doc->createTextNode(QString::number((int) outputModeSelection())));
-	defaultOutputModeElem.appendChild(doc->createTextNode(QString::number((int) outputMode()-1)));
-	askTimeoutElem.appendChild(doc->createTextNode(QString::number(ui.sbOutputDefaultTimeout->value())));
+  QDomElement controlModeElement = doc->createElement("controlMode");
+  QDomElement outputModeSelectionElem = doc->createElement("outputModeSelection");
+  QDomElement defaultOutputModeElem = doc->createElement("defaultOutputMode");
+  QDomElement askTimeoutElem = doc->createElement("askTimeout");
 
-	configElem.appendChild(controlModeElement);
-	configElem.appendChild(outputModeSelectionElem);
-	configElem.appendChild(defaultOutputModeElem);
-	configElem.appendChild(askTimeoutElem);
+  controlModeElement.appendChild(doc->createTextNode(QString::number(ui.cbControlMode->currentIndex())));
+  outputModeSelectionElem.appendChild(doc->createTextNode(QString::number((int) outputModeSelection())));
+  defaultOutputModeElem.appendChild(doc->createTextNode(QString::number((int) outputMode()-1)));
+  askTimeoutElem.appendChild(doc->createTextNode(QString::number(ui.sbOutputDefaultTimeout->value())));
 
-	return configElem;
+  configElem.appendChild(controlModeElement);
+  configElem.appendChild(outputModeSelectionElem);
+  configElem.appendChild(defaultOutputModeElem);
+  configElem.appendChild(askTimeoutElem);
+
+  return configElem;
 }
+
 
 void CalculatorConfiguration::defaults()
 {
-	ui.cbControlMode->setCurrentIndex(0);
-	ui.rbOutputAsk->click();
-	ui.sbOutputDefaultTimeout->setValue(12);
-	ui.cbDefaultOutputMode->setCurrentIndex(0);
+  ui.cbControlMode->setCurrentIndex(0);
+  ui.rbOutputAsk->click();
+  ui.sbOutputDefaultTimeout->setValue(12);
+  ui.cbDefaultOutputMode->setCurrentIndex(0);
 }
+
 
 /**
  * \return timeout in milliseconds
  */
 int CalculatorConfiguration::askTimeout()
 {
-	double timeoutD = ui.sbOutputDefaultTimeout->value();
-	return qRound(timeoutD*1000.0f);
+  double timeoutD = ui.sbOutputDefaultTimeout->value();
+  return qRound(timeoutD*1000.0f);
 }
+
 
 CalculatorConfiguration::ControlMode CalculatorConfiguration::controlMode()
 {
-	return (CalculatorConfiguration::ControlMode) (ui.cbControlMode->currentIndex()+1);
+  return (CalculatorConfiguration::ControlMode) (ui.cbControlMode->currentIndex()+1);
 }
 
 
 CalculatorConfiguration::OutputModeSelection CalculatorConfiguration::outputModeSelection()
 {
-	if (ui.rbOutputAsk->isChecked())
-		return CalculatorConfiguration::AlwaysAsk;
-	else if (ui.rbOutputDefault->isChecked())
-		return CalculatorConfiguration::UseDefault;
-	else 
-		return CalculatorConfiguration::AskButDefaultAfterTimeout;
+  if (ui.rbOutputAsk->isChecked())
+    return CalculatorConfiguration::AlwaysAsk;
+  else if (ui.rbOutputDefault->isChecked())
+    return CalculatorConfiguration::UseDefault;
+  else
+    return CalculatorConfiguration::AskButDefaultAfterTimeout;
 }
 
 
 CalculatorConfiguration::OutputMode CalculatorConfiguration::outputMode()
 {
-	return (CalculatorConfiguration::OutputMode) (ui.cbDefaultOutputMode->currentIndex()+1);
+  return (CalculatorConfiguration::OutputMode) (ui.cbDefaultOutputMode->currentIndex()+1);
 }
 
 
 CalculatorConfiguration::~CalculatorConfiguration()
 {
-	
+
 }

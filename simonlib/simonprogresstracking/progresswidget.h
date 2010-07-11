@@ -16,7 +16,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
- 
+
 #ifndef SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 #define SIMON_PROGRESSWIDGET_H_A90BC5523CFA444DB2AEA79A1C65920F
 
@@ -31,34 +31,34 @@ class QProgressBar;
 class KPushButton;
 
 /**
-	@author 
+  @author
 */
 class SIMONPROGRESSTRACKING_EXPORT ProgressWidget : public QWidget
 {
-Q_OBJECT
-	private:
-		Operation *op;
-		QLabel *name;
-		QLabel *currentAction;
-		QProgressBar *bar;
-		KPushButton *cancelButton;
-	
-	public slots:
-		void update();
+  Q_OBJECT
+    private:
+    Operation *op;
+    QLabel *name;
+    QLabel *currentAction;
+    QProgressBar *bar;
+    KPushButton *cancelButton;
 
-	public:
+  public slots:
+    void update();
 
-		enum ProgressWidgetStyle {
-			Compact=1,
-			Large=2
-		};
+  public:
 
-		ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
-		
-		QPointer<Operation> operation() { return op; }
+    enum ProgressWidgetStyle
+    {
+      Compact=1,
+      Large=2
+    };
 
-		~ProgressWidget();
+    ProgressWidget(QPointer<Operation> op, ProgressWidgetStyle style = Compact, QWidget* parent=0);
+
+    QPointer<Operation> operation() { return op; }
+
+    ~ProgressWidget();
 
 };
-
 #endif

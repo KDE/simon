@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONDSTREAMER_H_0AC60651BE6A419EA6256220815A2AAD
 #define SIMON_SIMONDSTREAMER_H_0AC60651BE6A419EA6256220815A2AAD
-
 
 #include "simondstreamer_export.h"
 #include <QObject>
@@ -29,29 +27,28 @@
 class SimonSender;
 class SimondStreamerClient;
 
-class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject {
-	Q_OBJECT
+class SIMONDSTREAMER_EXPORT SimondStreamer : public QObject
+{
+  Q_OBJECT
 
-signals:
-	void clippingOccured();
-	void started();
-	void stopped();
+    signals:
+  void clippingOccured();
+  void started();
+  void stopped();
 
-private:
-	SimonSender *m_sender;
-	QList<SimondStreamerClient*> clients;
+  private:
+    SimonSender *m_sender;
+    QList<SimondStreamerClient*> clients;
 
-private slots:
-	void initializeDevices();
+  private slots:
+    void initializeDevices();
 
-public:
-	SimondStreamer(SimonSender *sender, QObject *parent=0);
-	bool stop();
-    	bool start();
-	bool isRunning();
-	virtual ~SimondStreamer();
+  public:
+    SimondStreamer(SimonSender *sender, QObject *parent=0);
+    bool stop();
+    bool start();
+    bool isRunning();
+    virtual ~SimondStreamer();
 
 };
-
 #endif
-

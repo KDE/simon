@@ -25,36 +25,36 @@
 
 class Scenario;
 
-class SCENARIOBASE_EXPORT VersionNumber: public ScenarioObject{
+class SCENARIOBASE_EXPORT VersionNumber: public ScenarioObject
+{
 
-private:
-	int m_majorNumber;
-	int m_minorNumber;
-	int m_patchLevel;
+  private:
+    int m_majorNumber;
+    int m_minorNumber;
+    int m_patchLevel;
 
-protected:
-	VersionNumber(Scenario *parent);
-	bool parseString(const QString& version);
+  protected:
+    VersionNumber(Scenario *parent);
+    bool parseString(const QString& version);
 
-public:
-	VersionNumber(Scenario *parent, const QString& version);
-	virtual ~VersionNumber() {}
+  public:
+    VersionNumber(Scenario *parent, const QString& version);
+    virtual ~VersionNumber() {}
 
-	bool isValid();
-	QString toString();
+    bool isValid();
+    QString toString();
 
-	int majorNumber() const { return m_majorNumber; }
-	int minorNumber() const { return m_minorNumber; }
-	int patchLevel() const { return m_patchLevel; }
+    int majorNumber() const { return m_majorNumber; }
+    int minorNumber() const { return m_minorNumber; }
+    int patchLevel() const { return m_patchLevel; }
 
-	bool operator<=(const VersionNumber& v2) const;
-	bool operator<(const VersionNumber& v2) const;
-	bool operator==(const VersionNumber& v2) const;
-	bool operator>=(const VersionNumber& v2) const;
+    bool operator<=(const VersionNumber& v2) const;
+    bool operator<(const VersionNumber& v2) const;
+    bool operator==(const VersionNumber& v2) const;
+    bool operator>=(const VersionNumber& v2) const;
 
-	static VersionNumber* createVersionNumber(Scenario* parent, const QDomElement&);
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
+    static VersionNumber* createVersionNumber(Scenario* parent, const QDomElement&);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
 };
-
 #endif

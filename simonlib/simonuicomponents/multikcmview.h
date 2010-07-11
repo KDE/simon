@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_MULTIKCMVIEW_H_A545F3AE90134F99905B9FCCE971C8C0
 #define SIMON_MULTIKCMVIEW_H_A545F3AE90134F99905B9FCCE971C8C0
 
@@ -32,27 +31,25 @@ class KTabWidget;
 
 class SIMONUICOMPONENTS_EXPORT MultiKCMView : public KCModule
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	KTabWidget *wgModules;
-	QList<KCModule*> modules;
-	QList<bool> moduleChangedState;
-	void emitChanged();
+    private:
+    KTabWidget *wgModules;
+    QList<KCModule*> modules;
+    QList<bool> moduleChangedState;
+    void emitChanged();
 
-private slots:
-	void slotChanged(bool changed);
+  private slots:
+    void slotChanged(bool changed);
 
-protected:
-	void registerModule(KCModule*, const KIcon& icon, const QString& label);
+  protected:
+    void registerModule(KCModule*, const KIcon& icon, const QString& label);
 
-public:
-	MultiKCMView(QWidget* parent, const QVariantList& args=QVariantList());
-	~MultiKCMView();
+  public:
+    MultiKCMView(QWidget* parent, const QVariantList& args=QVariantList());
+    ~MultiKCMView();
 
-	void load();
-	void save();
+    void load();
+    void save();
 };
-
 #endif
-

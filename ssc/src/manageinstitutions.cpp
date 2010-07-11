@@ -28,95 +28,98 @@
 #include <KMessageBox>
 #include <KDialogButtonBox>
 
-ManageInstitutions::ManageInstitutions(QWidget* parent) : 
-	KDialog(parent), model(NULL), proxyModel(new QSortFilterProxyModel(this))
+ManageInstitutions::ManageInstitutions(QWidget* parent) :
+KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
 
-	ui.tvInstitutions->setModel(proxyModel);
-	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-	proxyModel->setFilterKeyColumn(1);
+  ui.tvInstitutions->setModel(proxyModel);
+  proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+  proxyModel->setFilterKeyColumn(1);
 
-	setMainWidget( widget );
-	
-//	connect(ui.leSurname, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
+  setMainWidget( widget );
 
-	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addInstitution()));
-	connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editInstitution()));
-	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteInstitution()));
+  //	connect(ui.leSurname, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 
-	connect(ui.leInstitutionName, SIGNAL(returnPressed(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
-	connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
-	setCaption( i18n("Institutions") );
+  connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addInstitution()));
+  connect(ui.pbEdit, SIGNAL(clicked()), this, SLOT(editInstitution()));
+  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteInstitution()));
 
-	ui.tvInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);
-	ui.tvInstitutions->setSortingEnabled(true);
+  connect(ui.leInstitutionName, SIGNAL(returnPressed(const QString&)), proxyModel, SLOT(setFilterRegExp(const QString&)));
+  connect(ui.pbFilter, SIGNAL(clicked()), this, SLOT(filter()));
+  setCaption( i18n("Institutions") );
 
-	//set return button to filter instead of closing the dialog
-	ui.pbFilter->setDefault(true);
+  ui.tvInstitutions->setSelectionBehavior(QAbstractItemView::SelectRows);
+  ui.tvInstitutions->setSortingEnabled(true);
+
+  //set return button to filter instead of closing the dialog
+  ui.pbFilter->setDefault(true);
 }
 
 
 void ManageInstitutions::filter()
 {
-	proxyModel->setFilterRegExp(ui.leInstitutionName->text());
+  proxyModel->setFilterRegExp(ui.leInstitutionName->text());
 }
 
 
 void ManageInstitutions::addInstitution()
 {
-	QString name = QInputDialog::getText(this, i18n("New Institution"), i18n("Institution name:"), 
-					QLineEdit::Normal);
-	if (name.isEmpty()) return;
+  QString name = QInputDialog::getText(this, i18n("New Institution"), i18n("Institution name:"),
+    QLineEdit::Normal);
+  if (name.isEmpty()) return;
 
-	if (!SSCDAccess::getInstance()->addInstitution(new Institution(0, name)))
-		KMessageBox::sorry(this, i18n("Could not add institution: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccess::getInstance()->addInstitution(new Institution(0, name)))
+    KMessageBox::sorry(this, i18n("Could not add institution: %1", SSCDAccess::getInstance()->lastError()));
 
-	updateList();
+  updateList();
 }
+
 
 Institution* ManageInstitutions::getCurrentlySelectedInstitution()
 {
-	QModelIndex selectedIndex = proxyModel->mapToSource(ui.tvInstitutions->currentIndex());
-	if (!selectedIndex.isValid()) {
-		KMessageBox::information(this, i18n("Please select an institution"));
-		return NULL;
-	}
+  QModelIndex selectedIndex = proxyModel->mapToSource(ui.tvInstitutions->currentIndex());
+  if (!selectedIndex.isValid()) {
+    KMessageBox::information(this, i18n("Please select an institution"));
+    return 0;
+  }
 
-	return static_cast<Institution*>(selectedIndex.internalPointer());
+  return static_cast<Institution*>(selectedIndex.internalPointer());
 }
+
 
 void ManageInstitutions::editInstitution()
 {
-	Institution *i = getCurrentlySelectedInstitution();
-	if (!i) return;
+  Institution *i = getCurrentlySelectedInstitution();
+  if (!i) return;
 
-	QString name = QInputDialog::getText(this, i18n("Modify \"%1\"", i->id()), 
-			i18n("New institution name for institution \"%1\":", i->id()), 
-					QLineEdit::Normal, i->name());
+  QString name = QInputDialog::getText(this, i18n("Modify \"%1\"", i->id()),
+    i18n("New institution name for institution \"%1\":", i->id()),
+    QLineEdit::Normal, i->name());
 
-	if (name.isEmpty()) return;
+  if (name.isEmpty()) return;
 
-	i->setName(name);
-	if (!SSCDAccess::getInstance()->modifyInstitution(i)) {
-		KMessageBox::sorry(this, i18n("Could not modify institution: %1", SSCDAccess::getInstance()->lastError()));
-		updateList();
-	}
+  i->setName(name);
+  if (!SSCDAccess::getInstance()->modifyInstitution(i)) {
+    KMessageBox::sorry(this, i18n("Could not modify institution: %1", SSCDAccess::getInstance()->lastError()));
+    updateList();
+  }
 }
+
 
 void ManageInstitutions::deleteInstitution()
 {
-	if ((KMessageBox::questionYesNo(this, i18n("Do you really want to delete the institution? All user associations to this institution will also be deleted.")) != KMessageBox::Yes))
-		return;
+  if ((KMessageBox::questionYesNo(this, i18n("Do you really want to delete the institution? All user associations to this institution will also be deleted.")) != KMessageBox::Yes))
+    return;
 
-	Institution *i = getCurrentlySelectedInstitution();
-	if (!i) return;
+  Institution *i = getCurrentlySelectedInstitution();
+  if (!i) return;
 
-	if (!SSCDAccess::getInstance()->deleteInstitution(i))
-		KMessageBox::sorry(this, i18n("Could not delete institution: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccess::getInstance()->deleteInstitution(i))
+    KMessageBox::sorry(this, i18n("Could not delete institution: %1", SSCDAccess::getInstance()->lastError()));
 
-	updateList();
+  updateList();
 }
 
 
@@ -125,50 +128,52 @@ void ManageInstitutions::deleteInstitution()
  */
 void ManageInstitutions::updateList()
 {
-	bool ok;
-	QList<Institution*> institutions = SSCDAccess::getInstance()->getInstitutions(&ok);
+  bool ok;
+  QList<Institution*> institutions = SSCDAccess::getInstance()->getInstitutions(&ok);
 
-	if (!ok) {
-		KMessageBox::sorry(this, i18n("Could not retrieve institutions: %1", SSCDAccess::getInstance()->lastError()));
-		return;
-	}
+  if (!ok) {
+    KMessageBox::sorry(this, i18n("Could not retrieve institutions: %1", SSCDAccess::getInstance()->lastError()));
+    return;
+  }
 
+  if (!model) {
+    model = new InstitutionModel(institutions, this);
+    proxyModel->setSourceModel(model);
+  } else
+  model->replaceData(institutions);
 
-	if (!model)  {
-		model = new InstitutionModel(institutions, this);
-		proxyModel->setSourceModel(model);
-	} else 
-		model->replaceData(institutions);
-
-	ui.tvInstitutions->resizeColumnsToContents();
+  ui.tvInstitutions->resizeColumnsToContents();
 }
+
 
 int ManageInstitutions::exec()
 {
-	updateList();
-	ui.wgModify->show();
-	return KDialog::exec();
+  updateList();
+  ui.wgModify->show();
+  return KDialog::exec();
 }
+
 
 Institution* ManageInstitutions::getInstitution()
 {
-	updateList();
-	ui.wgModify->hide();
-	int ret = KDialog::exec();
-	if (ret) {
-		return getCurrentlySelectedInstitution();
-	}
-	return NULL;
+  updateList();
+  ui.wgModify->hide();
+  int ret = KDialog::exec();
+  if (ret) {
+    return getCurrentlySelectedInstitution();
+  }
+  return 0;
 }
+
 
 void ManageInstitutions::deleteLater()
 {
-	QObject::deleteLater();
+  QObject::deleteLater();
 }
+
 
 ManageInstitutions::~ManageInstitutions()
 {
-	model->deleteLater();
-	proxyModel->deleteLater();
+  model->deleteLater();
+  proxyModel->deleteLater();
 }
-

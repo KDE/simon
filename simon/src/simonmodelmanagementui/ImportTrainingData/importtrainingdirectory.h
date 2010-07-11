@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGDIRECTORY_H_A35BF7EEAFE74B67B25BC8516F65942B
 #define SIMON_IMPORTTRAININGDIRECTORY_H_A35BF7EEAFE74B67B25BC8516F65942B
 
@@ -26,7 +25,6 @@
 class QWizardPage;
 class ImportTrainingDirectoryIntroPage;
 class ImportTrainingDirectoryWorkingPage;
-
 
 /**
   \class ImportTrainingDirectory
@@ -40,27 +38,25 @@ class ImportTrainingDirectoryWorkingPage;
   would be the line: *\/this_is_a_test.wav THIS IS A TEST
   in the prompts file and so on.
 
-  The wizard walks the directory recursive;
+The wizard walks the directory recursive;
 
+Extends QWizard;
 
-  Extends QWizard;
-  
 */
-class ImportTrainingDirectory : public SimonWizard {
-	Q_OBJECT
+class ImportTrainingDirectory : public SimonWizard
+{
+  Q_OBJECT
 
-private:
-	int prevId;
-	ImportTrainingDirectoryIntroPage* createIntroPage();
-	ImportTrainingDirectoryWorkingPage* createWorkingPage();
-	QWizardPage* createFinishedPage();
-public:
+    private:
+    int prevId;
+    ImportTrainingDirectoryIntroPage* createIntroPage();
+    ImportTrainingDirectoryWorkingPage* createWorkingPage();
+    QWizardPage* createFinishedPage();
+  public:
     ImportTrainingDirectory(QWidget *parent=0);
 
-    ~ImportTrainingDirectory()
-	{
-	}
+    ~ImportTrainingDirectory() {
+    }
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGTEXTS_H_91D0E0A5C1B3424098C57250FF2A80DA
 #define SIMON_IMPORTTRAININGTEXTS_H_91D0E0A5C1B3424098C57250FF2A80DA
 
@@ -29,24 +28,24 @@ class QWizardPage;
 
 /**
  * \brief Guides the user through the process of adding a new trainingtext
- * 
+ *
  * This class shows a Wizard that walks the user through that process
- * 
+ *
  * \author Peter Grasch
  * \date 20.05.2007
  * \version 0.1
-*/
-class ImportTrainingTexts : public SimonWizard{
+ */
+class ImportTrainingTexts : public SimonWizard
+{
 
-	Q_OBJECT
-private:
-	QFileDialog *fd;
-	int prevId;
-public:
+  Q_OBJECT
+    private:
+    QFileDialog *fd;
+    int prevId;
+  public:
     ImportTrainingTexts(QWidget *parent=0);
 
     void start();
-
 
     //creating the pages for the wizard
     QWizardPage* createIntroPage();
@@ -59,5 +58,4 @@ public:
     ~ImportTrainingTexts();
 
 };
-
 #endif

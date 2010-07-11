@@ -27,36 +27,34 @@ class Institution;
 class InstitutionModel;
 class QSortFilterProxyModel;
 
-class ManageInstitutions : protected KDialog {
+class ManageInstitutions : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::Institutions ui;
-	InstitutionModel *model;
-	QSortFilterProxyModel *proxyModel;
+    private:
+    Ui::Institutions ui;
+    InstitutionModel *model;
+    QSortFilterProxyModel *proxyModel;
 
-	void updateList();
-	Institution* getCurrentlySelectedInstitution();
+    void updateList();
+    Institution* getCurrentlySelectedInstitution();
 
-private slots:
-	void filter();
+  private slots:
+    void filter();
 
-	void addInstitution();
-	void editInstitution();
-	void deleteInstitution();
+    void addInstitution();
+    void editInstitution();
+    void deleteInstitution();
 
-public:
-	ManageInstitutions(QWidget *parent=0);
-	~ManageInstitutions();
-	int exec();
+  public:
+    ManageInstitutions(QWidget *parent=0);
+    ~ManageInstitutions();
+    int exec();
 
-	Institution* getInstitution();
+    Institution* getInstitution();
 
-public slots:
-	void deleteLater();
+  public slots:
+    void deleteLater();
 };
-
 #endif
-
-

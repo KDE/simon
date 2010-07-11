@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DRAGTABLEVIEW_H_AB453F4C9942440EA755D7A55A42ECB3
 #define SIMON_DRAGTABLEVIEW_H_AB453F4C9942440EA755D7A55A42ECB3
 
@@ -25,7 +24,6 @@
 #include <QMouseEvent>
 #include <QDrag>
 #include <QMimeData>
-
 
 /**
  *	@class DragTableView
@@ -44,18 +42,17 @@
  */
 class DragTableView : public QTableView
 {
-	Q_OBJECT
-private:
-	QPoint mousePos; //!< Holds the mouse position where the mouse was pressed
-protected:
-	void mousePressEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
-	void startDrag(Qt::DropActions);
-public:
+  Q_OBJECT
+    private:
+    QPoint mousePos;                              //!< Holds the mouse position where the mouse was pressed
+  protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void startDrag(Qt::DropActions);
+  public:
     DragTableView(QWidget *parent);
 
     ~DragTableView();
 
 };
-
 #endif

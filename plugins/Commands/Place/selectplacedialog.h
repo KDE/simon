@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
 #define SIMON_SELECTPLACEDIALOG_H_F9E2066E505F4530AAC69899C0D1DD4A
 
@@ -36,28 +35,26 @@ class PlaceCommand;
  *	@date 29.05.2008
  *	@author Peter Grasch
  */
-class SelectPlaceDialog : public KDialog {
+class SelectPlaceDialog : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::SelectPlaceDlg ui;
+    private:
+    Ui::SelectPlaceDlg ui;
 
+  private slots:
+    void buildRemoteUrl();
+    void parseRemoteUrl();
+    QString getName() const;
+    KUrl getUrl() const;
+    void initializeDialog();
+    bool isComplete() const;
+    void checkComplete();
 
-private slots:
-	void buildRemoteUrl();
-	void parseRemoteUrl();
-	QString getName() const;
-	KUrl getUrl() const;
-	void initializeDialog();
-	bool isComplete() const;
-	void checkComplete();
-
-public:
-	SelectPlaceDialog(QWidget *parent=0);
-	PlaceCommand* selectPlace();
-	
+  public:
+    SelectPlaceDialog(QWidget *parent=0);
+    PlaceCommand* selectPlace();
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "multikcmview.h"
 #include <QVBoxLayout>
 #include <QIcon>
@@ -27,65 +26,64 @@
 
 MultiKCMView::MultiKCMView(QWidget* parent, const QVariantList& args) : KCModule(KGlobal::mainComponent(), parent)
 {
-	Q_UNUSED(args);
+  Q_UNUSED(args);
 
-	wgModules = new KTabWidget(this);
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(wgModules);
-	setLayout(lay);
+  wgModules = new KTabWidget(this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(wgModules);
+  setLayout(lay);
 }
 
 
 void MultiKCMView::slotChanged(bool changed)
 {
-	KCModule *module = dynamic_cast<KCModule*>(sender());
-	if (!module) return;
+  KCModule *module = dynamic_cast<KCModule*>(sender());
+  if (!module) return;
 
-	moduleChangedState.replace(modules.indexOf(module), changed);
+  moduleChangedState.replace(modules.indexOf(module), changed);
 
-	emitChanged();
+  emitChanged();
 }
+
 
 void MultiKCMView::emitChanged()
 {
-	foreach (bool changedFlag, moduleChangedState)
-	{
-		if (changedFlag)
-		{
-			emit changed(true);
-			return;
-		}
-	}
-	return changed(false);
+  foreach (bool changedFlag, moduleChangedState) {
+    if (changedFlag) {
+      emit changed(true);
+      return;
+    }
+  }
+  return changed(false);
 }
+
 
 void MultiKCMView::registerModule(KCModule* mod, const KIcon& icon, const QString& label)
 {
-	modules  << mod;
+  modules  << mod;
 
-	connect(mod, SIGNAL(changed(bool)), this, SLOT(slotChanged(bool)));
+  connect(mod, SIGNAL(changed(bool)), this, SLOT(slotChanged(bool)));
 
-	wgModules->addTab(mod, icon, label);
-	moduleChangedState << false;
+  wgModules->addTab(mod, icon, label);
+  moduleChangedState << false;
 }
+
 
 MultiKCMView::~MultiKCMView()
 {
-	qDeleteAll(modules);
+  qDeleteAll(modules);
 }
 
 
 void MultiKCMView::load()
 {
-	foreach (KCModule *m, modules)
-		m->load();
+  foreach (KCModule *m, modules)
+    m->load();
 }
+
 
 void MultiKCMView::save()
 {
-	foreach (KCModule *m, modules)
-		m->save();
+  foreach (KCModule *m, modules)
+    m->save();
 }
-
-
-

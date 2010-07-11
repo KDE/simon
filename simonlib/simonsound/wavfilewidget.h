@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVFILEWIDGET_H_33F50DCA0C3D401FADDFBFD80B4E16F4
 #define SIMON_WAVFILEWIDGET_H_33F50DCA0C3D401FADDFBFD80B4E16F4
 
@@ -35,94 +34,91 @@ class QLabel;
 class QPlainTextEdit;
 class QFont;
 
-
 namespace Ui
 {
-	class WavFileWidgetUi;
+  class WavFileWidgetUi;
 }
+
 
 /**
  * \class WavFileWidget
  * \brief This class provides a nice Recording Widget to easily use within the application
- * 
+ *
  * It draws the GUI and uses the WavRecorderClient/WavPlayerClient classes
- * 
+ *
  * \author Peter Grasch
  * \date 26.05.2007
  */
-class SIMONSOUND_EXPORT WavFileWidget : public QWidget {
-	Q_OBJECT
+class SIMONSOUND_EXPORT WavFileWidget : public QWidget
+{
+  Q_OBJECT
 
-	
-public:
-	WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
-	bool hasRecordingReady();
+    public:
+    WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
+    bool hasRecordingReady();
 
-	bool getIsRecording() { return isRecording; }
-	bool getIsPlaying() { return isPlaying; }
-	QString getFileName() { return m_filename; }
-	QString getDevice() { return m_device; }
-	
-	SimonSamples::SampleProblems sampleProblems();
+    bool getIsRecording() { return isRecording; }
+    bool getIsPlaying() { return isPlaying; }
+    QString getFileName() { return m_filename; }
+    QString getDevice() { return m_device; }
 
-	~WavFileWidget();
-	
-signals:
-	void playing();
-	void recording();
-	void sampleDeleted();
-	void progress(int);
-	void recordingFinished();
-	void recordingError();
+    SimonSamples::SampleProblems sampleProblems();
 
-	void playbackFinished();
-	void error(const QString& error);
+    ~WavFileWidget();
 
-private:
-	
-	SimonSamples::SampleProblems m_problems;
-	
-	Ui::WavFileWidgetUi *ui;
+    signals:
+    void playing();
+    void recording();
+    void sampleDeleted();
+    void progress(int);
+    void recordingFinished();
+    void recordingError();
 
-	QString m_device;
-	QString m_filename;
-	int m_channels;
-	WavRecorderClient *rec;
-	WavPlayerClient *play;
-	PostProcessing *postProc;
+    void playbackFinished();
+    void error(const QString& error);
 
+  private:
 
-	int recordingProgress;
+    SimonSamples::SampleProblems m_problems;
 
-	bool isRecording;
-	bool isPlaying;
-	
-	void setupSignalsSlots();
-	void resetProblems();
+    Ui::WavFileWidgetUi *ui;
 
-private slots:
-	void clippingOccured();
-	void signalToNoiseRatioLow();
+    QString m_device;
+    QString m_filename;
+    int m_channels;
+    WavRecorderClient *rec;
+    WavPlayerClient *play;
+    PostProcessing *postProc;
 
-public slots:
-	void record();
-	void stopRecording();
+    int recordingProgress;
 
-	void playback();
-	void stopPlayback();
-	void finishPlayback();
-	void adjustToFinishedPlayback();
-	
-	bool deleteSample();
-	void displayRecordingProgress(int msecs, float level);
-	
-	void displayWarning();
-	
-// 	void displayClippingWarning();
-// 	void displayNoiseWarning();
-	void displayPlaybackProgress(int msecs);
+    bool isRecording;
+    bool isPlaying;
+
+    void setupSignalsSlots();
+    void resetProblems();
+
+  private slots:
+    void clippingOccured();
+    void signalToNoiseRatioLow();
+
+  public slots:
+    void record();
+    void stopRecording();
+
+    void playback();
+    void stopPlayback();
+    void finishPlayback();
+    void adjustToFinishedPlayback();
+
+    bool deleteSample();
+    void displayRecordingProgress(int msecs, float level);
+
+    void displayWarning();
+
+    // 	void displayClippingWarning();
+    // 	void displayNoiseWarning();
+    void displayPlaybackProgress(int msecs);
 
 };
-
 #endif
-

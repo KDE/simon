@@ -24,109 +24,112 @@
 
 ActionCommandModel::ActionCommandModel(ActionCollection *base) : ref(base)
 {
-	update();
+  update();
 }
+
 
 QVariant ActionCommandModel::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid()) return QVariant();
+  if (!index.isValid()) return QVariant();
 
-	if (!m_actions.at(index.row()) || !m_actions.at(index.row())->manager())
-		return QVariant();
+  if (!m_actions.at(index.row()) || !m_actions.at(index.row())->manager())
+    return QVariant();
 
-	if (role == Qt::DisplayRole) 
-		return m_actions.at(index.row())->manager()->name();
+  if (role == Qt::DisplayRole)
+    return m_actions.at(index.row())->manager()->name();
 
-	if (role == Qt::DecorationRole) {
-		return m_actions.at(index.row())->manager()->icon();
-	}
+  if (role == Qt::DecorationRole) {
+    return m_actions.at(index.row())->manager()->icon();
+  }
 
-	return QVariant();
+  return QVariant();
 }
+
 
 int ActionCommandModel::rowCount(const QModelIndex &parent) const
 {
-	if (!parent.isValid())
-		return m_actions.count();
-	else return 0;
+  if (!parent.isValid())
+    return m_actions.count();
+  else return 0;
 }
 
 
 QModelIndex ActionCommandModel::index(int row, int column, const QModelIndex &parent) const
 {
-	if (!hasIndex(row, column, parent) || parent.isValid())
-		return QModelIndex();
+  if (!hasIndex(row, column, parent) || parent.isValid())
+    return QModelIndex();
 
-	return createIndex(row, column, m_actions.at(row));
+  return createIndex(row, column, m_actions.at(row));
 }
 
 
 Qt::ItemFlags ActionCommandModel::flags(const QModelIndex &index) const
 {
-	if (!index.isValid())
-		return 0;
+  if (!index.isValid())
+    return 0;
 
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
+
 QVariant ActionCommandModel::headerData(int column, Qt::Orientation orientation,
-			int role) const
+int role) const
 {
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-		switch (column)
-		{
-			case 0:
-				return i18n("Action");
-		}
-	}
-	
-	//default
-	return QVariant();
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    switch (column) {
+      case 0:
+        return i18n("Action");
+    }
+  }
+
+  //default
+  return QVariant();
 }
 
 
 QModelIndex ActionCommandModel::parent(const QModelIndex &index) const
 {
-	Q_UNUSED(index);
-	return QModelIndex();
+  Q_UNUSED(index);
+  return QModelIndex();
 }
+
 
 int ActionCommandModel::columnCount(const QModelIndex &parent) const
 {
-	Q_UNUSED(parent);
-	return 1;
+  Q_UNUSED(parent);
+  return 1;
 }
+
 
 void ActionCommandModel::update()
 {
-	//update list
-	int currentIndex=0;
+  //update list
+  int currentIndex=0;
 
-	QList<Action*> allActions = ref->actions();
-	for (int i=0; i < allActions.count(); i++) {
-		Action *a = allActions.at(i);
-		if (a->hasCommands()) {
-			if ((currentIndex >= m_actions.count()) || (m_actions.at(currentIndex) != a)) {
-				beginInsertRows(QModelIndex(), currentIndex, currentIndex);
-				m_actions.insert(currentIndex, a);
-				endInsertRows();
-			}
-			currentIndex++;
-		}
-	}
+  QList<Action*> allActions = ref->actions();
+  for (int i=0; i < allActions.count(); i++) {
+    Action *a = allActions.at(i);
+    if (a->hasCommands()) {
+      if ((currentIndex >= m_actions.count()) || (m_actions.at(currentIndex) != a)) {
+        beginInsertRows(QModelIndex(), currentIndex, currentIndex);
+        m_actions.insert(currentIndex, a);
+        endInsertRows();
+      }
+      currentIndex++;
+    }
+  }
 
-	if (currentIndex == m_actions.count())
-		return;
+  if (currentIndex == m_actions.count())
+    return;
 
-	beginRemoveRows(QModelIndex(), currentIndex, m_actions.count());
-	for ( ; currentIndex < m_actions.count(); currentIndex++) 
-		m_actions.removeAt(currentIndex);
-	endRemoveRows();
+  beginRemoveRows(QModelIndex(), currentIndex, m_actions.count());
+  for ( ; currentIndex < m_actions.count(); currentIndex++)
+    m_actions.removeAt(currentIndex);
+  endRemoveRows();
 
 }
+
 
 ActionCommandModel::~ActionCommandModel()
 {
 }
-
-

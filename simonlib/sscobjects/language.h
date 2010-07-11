@@ -24,26 +24,24 @@
 #include "sscobject.h"
 #include "sscobjects_export.h"
 
-class SSCOBJECTS_EXPORT Language : public SSCObject {
+class SSCOBJECTS_EXPORT Language : public SSCObject
+{
 
-private:
-	QString m_id;
-	QString m_name;
+  private:
+    QString m_id;
+    QString m_name;
 
-public:
-	Language(const QString& id, const QString& name);
+  public:
+    Language(const QString& id, const QString& name);
 
-	Language() {}
+    Language() {}
 
-	void deserialize(QByteArray data);
-	QByteArray serialize();
+    void deserialize(QByteArray data);
+    QByteArray serialize();
 
-	QString id() { return m_id; }
-	QString name() { return m_name; }
+    QString id() { return m_id; }
+    QString name() { return m_name; }
 
-	~Language() {}
+    ~Language() {}
 };
-
 #endif
-
-

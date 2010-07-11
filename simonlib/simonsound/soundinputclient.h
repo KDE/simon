@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419EA1236280815A2AAD
 #define SIMON_SOUNDINPUTCLIENT_H_4AC60251BE6A419EA1236280815A2AAD
-
 
 #include <simonsound/soundclient.h>
 #include <simonsound/simonsound.h>
@@ -29,23 +27,19 @@
 
 class SoundProcessor;
 
+class SIMONSOUND_EXPORT SoundInputClient : public SoundClient
+{
 
-class SIMONSOUND_EXPORT SoundInputClient : public SoundClient {
+  private:
+    QList<SoundProcessor*> processors;
 
-private:
-	QList<SoundProcessor*> processors;
+  public:
+    SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options=Normal);
+    virtual ~SoundInputClient();
 
-public:
-	SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options=Normal);
-	virtual ~SoundInputClient();
+    void process(const QByteArray& data, qint64 currentTime);
+    virtual void processPrivate(const QByteArray& data, qint64 currentTime)=0;
 
-	void process(const QByteArray& data, qint64 currentTime);
-	virtual void processPrivate(const QByteArray& data, qint64 currentTime)=0;
-
-	void registerSoundProcessor(SoundProcessor *p);
+    void registerSoundProcessor(SoundProcessor *p);
 };
-
 #endif
-
-
-

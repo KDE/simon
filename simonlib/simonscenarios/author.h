@@ -26,25 +26,25 @@
 
 class Scenario;
 
-class MODELMANAGEMENT_EXPORT Author: public ScenarioObject{
+class MODELMANAGEMENT_EXPORT Author: public ScenarioObject
+{
 
-private:
-	QString m_name;
-	QString m_contact;
+  private:
+    QString m_name;
+    QString m_contact;
 
-protected:
-	Author(Scenario *parent);
+  protected:
+    Author(Scenario *parent);
 
-public:
-	Author(Scenario *parent, const QString& name, const QString& contact);
+  public:
+    Author(Scenario *parent, const QString& name, const QString& contact);
 
-	QString name() const { return m_name; }
-	QString contact() const { return m_contact; }
+    QString name() const { return m_name; }
+    QString contact() const { return m_contact; }
 
-	static Author* createAuthor(Scenario *parent, const QDomElement&);
+    static Author* createAuthor(Scenario *parent, const QDomElement&);
 
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
+    bool deSerialize(const QDomElement&);
+    QDomElement serialize(QDomDocument *doc);
 };
-
 #endif

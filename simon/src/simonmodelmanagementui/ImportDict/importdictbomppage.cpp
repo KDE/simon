@@ -20,7 +20,6 @@
 #include "importdictbomppage.h"
 #include <QTextCodec>
 
-
 /**
  * \brief Constructor - inits the GUI
  * \author Peter Grasch
@@ -28,49 +27,53 @@
  */
 ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 {
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
+  ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
-	connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.rbAutomatic, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	connect(ui.rbManual, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	registerField("bompSource", ui.rbManual);
-	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	registerField("bompEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
-	setTitle(i18n("Import HADIFIX Dictionary"));
+  connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.rbAutomatic, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+  connect(ui.rbManual, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+  registerField("bompSource", ui.rbManual);
+  registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
+  registerField("bompEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  setTitle(i18n("Import HADIFIX Dictionary"));
 }
 
-int ImportDictBOMPPage::nextId() const 
+
+int ImportDictBOMPPage::nextId() const
 {
-	if (ui.rbAutomatic->isChecked())
-		return ImportDictView::BompDownloadPage;
-	else
-		return ImportDictView::WorkingPage;
+  if (ui.rbAutomatic->isChecked())
+    return ImportDictView::BompDownloadPage;
+  else
+    return ImportDictView::WorkingPage;
 }
+
 
 void ImportDictBOMPPage::initializePage()
 {
-	ui.cbEncoding->clear();
-	
-	ui.cbEncoding->addItem(i18n("Automatic"));
-	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
-	QStringList encodings;
-	foreach (const QByteArray& codec, availableCodecs)
-		encodings << codec;
-	encodings.sort();
-	ui.cbEncoding->addItems(encodings);
+  ui.cbEncoding->clear();
 
-//	ui.cbEncoding->setCurrentIndex(encodings.indexOf("ISO-8859-15")+1);
+  ui.cbEncoding->addItem(i18n("Automatic"));
+  QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+  QStringList encodings;
+  foreach (const QByteArray& codec, availableCodecs)
+    encodings << codec;
+  encodings.sort();
+  ui.cbEncoding->addItems(encodings);
+
+  //	ui.cbEncoding->setCurrentIndex(encodings.indexOf("ISO-8859-15")+1);
 }
+
 
 bool ImportDictBOMPPage::isComplete() const
 {
-	if (ui.rbAutomatic->isChecked())
-		return true;
-	else
-		return QFile::exists(ui.urFile->url().path());
+  if (ui.rbAutomatic->isChecked())
+    return true;
+  else
+    return QFile::exists(ui.urFile->url().path());
 }
+
 
 /**
  * \brief Destructor
@@ -79,4 +82,3 @@ bool ImportDictBOMPPage::isComplete() const
 ImportDictBOMPPage::~ImportDictBOMPPage()
 {
 }
-

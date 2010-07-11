@@ -20,7 +20,6 @@
 #ifndef SIMON_MANAGEACTIONSDIALOG_H_FFF7A6377C9C4E42B2B5636676AD423F
 #define SIMON_MANAGEACTIONSDIALOG_H_FFF7A6377C9C4E42B2B5636676AD423F
 
-
 #include <KDialog>
 #include <QHash>
 #include <QWidget>
@@ -32,57 +31,53 @@ class KPageWidget;
 class KPageWidgetItem;
 class ListConfiguration;
 
-class ManageActionsDialog : public KDialog {
+class ManageActionsDialog : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::DlgManageActions ui;
-	KPageWidget *pageWidget;
+    private:
+    Ui::DlgManageActions ui;
+    KPageWidget *pageWidget;
 
-	QHash<CommandConfiguration*, KPageWidgetItem*> pages;
+    QHash<CommandConfiguration*, KPageWidgetItem*> pages;
 
-	QList<CommandConfiguration*>* configurationPages;
+    QList<CommandConfiguration*>* configurationPages;
 
-	ListConfiguration *listConfiguration;
+    ListConfiguration *listConfiguration;
 
+    Action* getCurrentlySelectedAction();
+    void registerCommandConfiguration(CommandConfiguration *m);
 
-	Action* getCurrentlySelectedAction();
-	void registerCommandConfiguration(CommandConfiguration *m);
+  private slots:
+    void applyTrigger(const QString&);
+    void applyTriggerToAll();
+    void add();
+    void remove();
+    void moveUp();
+    void moveDown();
+    void currentSelectionChanged();
 
-private slots:
-	void applyTrigger(const QString&);
-	void applyTriggerToAll();
-	void add();
-	void remove();
-	void moveUp();
-	void moveDown();
-	void currentSelectionChanged();
-
-public:
-	int exec();
-	ManageActionsDialog(QWidget *parent=0);
-	~ManageActionsDialog();
+  public:
+    int exec();
+    ManageActionsDialog(QWidget *parent=0);
+    ~ManageActionsDialog();
 };
 
-class ProtectorWidget : public QWidget {
-	private:
-		QWidget* m_widget;
+class ProtectorWidget : public QWidget
+{
+  private:
+    QWidget* m_widget;
 
-	public:
-		ProtectorWidget(QWidget *w, QWidget *parent) : QWidget(parent), m_widget(w)
-		{
-			QVBoxLayout *lay = new QVBoxLayout(this);
-			lay->addWidget(m_widget);
-		}
+  public:
+    ProtectorWidget(QWidget *w, QWidget *parent) : QWidget(parent), m_widget(w) {
+      QVBoxLayout *lay = new QVBoxLayout(this);
+      lay->addWidget(m_widget);
+    }
 
-		~ProtectorWidget() 
-		{
-			//don't delete m_widget
-			m_widget->setParent(NULL);
-		}
+    ~ProtectorWidget() {
+      //do not delete m_widget
+      m_widget->setParent(0);
+    }
 };
-
-
 #endif
-

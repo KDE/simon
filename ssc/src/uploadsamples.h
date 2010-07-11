@@ -23,26 +23,25 @@
 #include <KDialog>
 #include "ui_uploadsamples.h"
 
-class UploadSamples : protected KDialog {
+class UploadSamples : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::UploadSamples ui;
-	void initDisplay();
+    private:
+    Ui::UploadSamples ui;
+    void initDisplay();
 
-private slots:
-	void upload();
-	void remove();
-	void edit();
+  private slots:
+    void upload();
+    void remove();
+    void edit();
 
-public:
-	UploadSamples(QWidget *parent=0);
-	~UploadSamples();
+  public:
+    UploadSamples(QWidget *parent=0);
+    ~UploadSamples();
 
-	int exec();
-	
+    int exec();
+
 };
-
 #endif
-

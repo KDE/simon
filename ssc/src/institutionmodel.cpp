@@ -22,9 +22,9 @@
 #include <QtGlobal>
 #include <KLocalizedString>
 
-InstitutionModel::InstitutionModel(QList<Institution*> institutions, QObject *parent) : 
-	QAbstractItemModel(parent),
-	m_institutions(institutions)
+InstitutionModel::InstitutionModel(QList<Institution*> institutions, QObject *parent) :
+QAbstractItemModel(parent),
+m_institutions(institutions)
 {
 }
 
@@ -35,80 +35,82 @@ InstitutionModel::InstitutionModel(QList<Institution*> institutions, QObject *pa
  */
 void InstitutionModel::replaceData(QList<Institution*> newInstitutions)
 {
-	qDeleteAll(m_institutions);
+  qDeleteAll(m_institutions);
 
-	this->m_institutions = newInstitutions;
-	reset();
+  this->m_institutions = newInstitutions;
+  reset();
 }
 
 
 QVariant InstitutionModel::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid()) return QVariant();
+  if (!index.isValid()) return QVariant();
 
-	if (role == Qt::DisplayRole) 
-	{
-		switch (index.column())
-		{
-			case 0:
-				return m_institutions.at(index.row())->id();
-			case 1:
-				return m_institutions.at(index.row())->name();
-		}
-	}
+  if (role == Qt::DisplayRole) {
+    switch (index.column()) {
+      case 0:
+        return m_institutions.at(index.row())->id();
+      case 1:
+        return m_institutions.at(index.row())->name();
+    }
+  }
 
-	return QVariant();
+  return QVariant();
 }
+
 
 Qt::ItemFlags InstitutionModel::flags(const QModelIndex &index) const
 {
-	if (!index.isValid())
-		return 0;
+  if (!index.isValid())
+    return 0;
 
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
+
 
 QVariant InstitutionModel::headerData(int column, Qt::Orientation orientation,
-			int role) const
+int role) const
 {
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-		switch (column) {
-			case 0:
-				return i18n("Id");
-			case 1:
-				return i18n("Name");
-		}
-	}
-	
-	//default
-	return QVariant();
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    switch (column) {
+      case 0:
+        return i18n("Id");
+      case 1:
+        return i18n("Name");
+    }
+  }
+
+  //default
+  return QVariant();
 }
+
 
 QModelIndex InstitutionModel::parent(const QModelIndex &index) const
 {
-	Q_UNUSED(index);
-	return QModelIndex();
+  Q_UNUSED(index);
+  return QModelIndex();
 }
+
 
 int InstitutionModel::rowCount(const QModelIndex &parent) const
 {
-	if (!parent.isValid())
-		return m_institutions.count();
-	else return 0;
+  if (!parent.isValid())
+    return m_institutions.count();
+  else return 0;
 }
+
 
 int InstitutionModel::columnCount(const QModelIndex &parent) const
 {
-	Q_UNUSED(parent);
-	return 2;
+  Q_UNUSED(parent);
+  return 2;
 }
+
 
 QModelIndex InstitutionModel::index(int row, int column, const QModelIndex &parent) const
 {
-	if (!hasIndex(row, column, parent) || parent.isValid())
-		return QModelIndex();
+  if (!hasIndex(row, column, parent) || parent.isValid())
+    return QModelIndex();
 
-	return createIndex(row, column, m_institutions.at(row));
+  return createIndex(row, column, m_institutions.at(row));
 }
-
-

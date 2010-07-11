@@ -20,11 +20,11 @@
 #include "trainingcontainer.h"
 
 TrainingContainer::TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
-				const QByteArray& prompts) : 
-	m_sampleRate(sampleRate), m_wavConfig(wavConfig), 
-	m_prompts(prompts)
+const QByteArray& prompts) :
+m_sampleRate(sampleRate), m_wavConfig(wavConfig),
+m_prompts(prompts)
 {
-	
+
 }
 
 

@@ -26,139 +26,150 @@
 
 KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_isNull(false)
 {
-	if (element.isNull()) m_isNull = true;
-	else {
-		QDomElement triggerShownElem = element.firstChildElement();
-		QDomElement triggerElem = triggerShownElem.nextSiblingElement();
-		QDomElement typeElem = triggerElem.nextSiblingElement();
-		//QDomElement valueElem = typeElem.nextSiblingElement();
-		if (triggerShownElem.isNull() || triggerElem.isNull() || 
-			    typeElem.isNull()) {
-			m_isNull = true;
-		} else {
-			triggerShown = triggerShownElem.text();
-			triggerReal = triggerElem.text();
-			bool ok;
-			valueType = (Keyboard::ButtonType) typeElem.text().toInt(&ok);
-			value = typeElem.attribute("value");
-			//value= valueElem.text();
-			if (!ok) m_isNull = true;
-		}
-	}
-	setupGUI();
+  if (element.isNull()) m_isNull = true;
+  else {
+    QDomElement triggerShownElem = element.firstChildElement();
+    QDomElement triggerElem = triggerShownElem.nextSiblingElement();
+    QDomElement typeElem = triggerElem.nextSiblingElement();
+    //QDomElement valueElem = typeElem.nextSiblingElement();
+    if (triggerShownElem.isNull() || triggerElem.isNull() ||
+    typeElem.isNull()) {
+      m_isNull = true;
+    }
+    else {
+      triggerShown = triggerShownElem.text();
+      triggerReal = triggerElem.text();
+      bool ok;
+      valueType = (Keyboard::ButtonType) typeElem.text().toInt(&ok);
+      value = typeElem.attribute("value");
+      //value= valueElem.text();
+      if (!ok) m_isNull = true;
+    }
+  }
+  setupGUI();
 }
+
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::ButtonType vType, QString v)
-	: KPushButton(0), 
-	m_isNull(false),
-	triggerShown(triggerS),
-	triggerReal(triggerR),
-	valueType(vType),
-	value(v)
+: KPushButton(0),
+m_isNull(false),
+triggerShown(triggerS),
+triggerReal(triggerR),
+valueType(vType),
+value(v)
 {
-	setupGUI();
+  setupGUI();
 }
+
 
 void KeyboardButton::setupGUI()
 {
-	setText(triggerShown);
-	setToolTip(triggerReal);
-//	connect(this, SIGNAL(clicked()), this, SLOT(trigger()));
+  setText(triggerShown);
+  setToolTip(triggerReal);
+  //	connect(this, SIGNAL(clicked()), this, SLOT(trigger()));
 }
+
 
 QString KeyboardButton::getTriggerReal()
 {
-	if (m_isNull) return QString();
-	return triggerReal;
+  if (m_isNull) return QString();
+  return triggerReal;
 }
+
 
 QString KeyboardButton::getValue()
 {
-	if (m_isNull) return QString();
-	return value;
+  if (m_isNull) return QString();
+  return value;
 }
+
 
 Keyboard::ButtonType KeyboardButton::getValueType()
 {
-	if (m_isNull) return Keyboard::NullButton;
+  if (m_isNull) return Keyboard::NullButton;
 
-	return valueType;
+  return valueType;
 }
+
 
 QString KeyboardButton::getTriggerShown()
 {
-	if (m_isNull) return QString();
-	return triggerShown;
+  if (m_isNull) return QString();
+  return triggerShown;
 }
 
 
 void KeyboardButton::setTriggerShown(const QString& triggerShown)
 {
-	this->triggerShown = triggerShown;
-	setText(triggerShown);
+  this->triggerShown = triggerShown;
+  setText(triggerShown);
 }
+
 
 void KeyboardButton::setTriggerReal(const QString& triggerReal)
 {
-	this->triggerReal = triggerReal;
-	setToolTip(triggerReal);
+  this->triggerReal = triggerReal;
+  setToolTip(triggerReal);
 }
+
 
 void KeyboardButton::setValue(const QString& value)
 {
-	this->value = value;
+  this->value = value;
 }
+
 
 void KeyboardButton::setButtonType(Keyboard::ButtonType valueType)
 {
-	this->valueType = valueType;
+  this->valueType = valueType;
 }
 
 
 #include <KDebug>
 bool KeyboardButton::trigger()
 {
-	if (m_isNull) return false;
+  if (m_isNull) return false;
 
-	animateClick();
+  animateClick();
 
-	switch (valueType) {
-		case Keyboard::TextButton:
-			EventHandler::getInstance()->sendWord(value);
-			break;
-		case Keyboard::ShortcutButton:
-			EventHandler::getInstance()->sendShortcut(QKeySequence(value));
-			break;
-		default:
-			//nothing to do
-			return false;
-			break;
-	}
-	kDebug() << "I was triggered!";
-	emit triggered();
-	return true;
+  switch (valueType) {
+    case Keyboard::TextButton:
+      EventHandler::getInstance()->sendWord(value);
+      break;
+    case Keyboard::ShortcutButton:
+      EventHandler::getInstance()->sendShortcut(QKeySequence(value));
+      break;
+    default:
+      //nothing to do
+      return false;
+      break;
+  }
+  kDebug() << "I was triggered!";
+  emit triggered();
+  return true;
 }
+
 
 QDomElement KeyboardButton::serialize(QDomDocument *doc)
 {
-	QDomElement buttonElement = doc->createElement("button");
-	QDomElement triggerShownElem = doc->createElement("triggerShown");
-	triggerShownElem.appendChild(doc->createTextNode(triggerShown));
+  QDomElement buttonElement = doc->createElement("button");
+  QDomElement triggerShownElem = doc->createElement("triggerShown");
+  triggerShownElem.appendChild(doc->createTextNode(triggerShown));
 
-	QDomElement triggerElem = doc->createElement("trigger");
-	triggerElem.appendChild(doc->createTextNode(triggerReal));
+  QDomElement triggerElem = doc->createElement("trigger");
+  triggerElem.appendChild(doc->createTextNode(triggerReal));
 
-	QDomElement typeElem = doc->createElement("type");
-	typeElem.appendChild(doc->createTextNode(QString::number((int) valueType)));
+  QDomElement typeElem = doc->createElement("type");
+  typeElem.appendChild(doc->createTextNode(QString::number((int) valueType)));
 
-	typeElem.setAttribute("value", value); // to retain whitespaces
+  typeElem.setAttribute("value", value);          // to retain whitespaces
 
-	buttonElement.appendChild(triggerShownElem);
-	buttonElement.appendChild(triggerElem);
-	buttonElement.appendChild(typeElem);
+  buttonElement.appendChild(triggerShownElem);
+  buttonElement.appendChild(triggerElem);
+  buttonElement.appendChild(typeElem);
 
-	return buttonElement;
+  return buttonElement;
 }
 
 
@@ -166,4 +177,3 @@ QDomElement KeyboardButton::serialize(QDomDocument *doc)
 KeyboardButton::~KeyboardButton()
 {
 }
-

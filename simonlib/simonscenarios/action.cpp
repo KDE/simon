@@ -26,173 +26,183 @@
 #include <simonscenariobase/versionnumber.h>
 
 Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection) : ScenarioObject(parent),
-	m_source(source),
-	pluginMinVersion(0),
-	pluginMaxVersion(0),
-	m_actionCollection(actionCollection)
+m_source(source),
+pluginMinVersion(0),
+pluginMaxVersion(0),
+m_actionCollection(actionCollection)
 {
-	init(source, trigger);
+  init(source, trigger);
 }
 
 
 Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem, ActionCollection *actionCollection)
 {
-	QString pluginSource = pluginElem.attribute("name");
-	QString pluginTrigger = pluginElem.attribute("trigger");
+  QString pluginSource = pluginElem.attribute("name");
+  QString pluginTrigger = pluginElem.attribute("trigger");
 
-	Action *a = new Action(parent, pluginSource, pluginTrigger, actionCollection);
+  Action *a = new Action(parent, pluginSource, pluginTrigger, actionCollection);
 
-	if (!a->deSerialize(pluginElem)) {
-		delete a;
-		a = NULL;
-	}
+  if (!a->deSerialize(pluginElem)) {
+    delete a;
+    a = 0;
+  }
 
-	return a;
+  return a;
 }
 
 
 void Action::assignParent(Scenario *s)
 {
-	ScenarioObject::assignParent(s);
-	pluginMinVersion->assignParent(s);
-	if (m_manager)
-		m_manager->assignParent(s);
-	if (pluginMaxVersion)
-		pluginMaxVersion->assignParent(s);
+  ScenarioObject::assignParent(s);
+  pluginMinVersion->assignParent(s);
+  if (m_manager)
+    m_manager->assignParent(s);
+  if (pluginMaxVersion)
+    pluginMaxVersion->assignParent(s);
 }
+
 
 void Action::init(const QString& source, const QString& trigger)
 {
-	KService::Ptr service = KService::serviceByStorageId(source);
-	if (!service) {
-		kWarning() << "Service not found!";
-		m_manager=NULL;
-		return;
-	}
+  KService::Ptr service = KService::serviceByStorageId(source);
+  if (!service) {
+    kWarning() << "Service not found!";
+    m_manager=0;
+    return;
+  }
 
-	KPluginInfo pluginInfo(service);
-	m_enabledByDefault = pluginInfo.isPluginEnabledByDefault();
-	KPluginFactory *factory = KPluginLoader(service->library()).factory();
- 
-	m_trigger = trigger;
+  KPluginInfo pluginInfo(service);
+  m_enabledByDefault = pluginInfo.isPluginEnabledByDefault();
+  KPluginFactory *factory = KPluginLoader(service->library()).factory();
 
-	m_version = pluginInfo.version();
+  m_trigger = trigger;
 
-	if (factory) {
-		m_manager = factory->create<CommandManager>((QObject*)parentScenario);
-		if (m_manager == NULL) {
-			kWarning() << "Failed to create instance of " << source;
-			return;
-		}
-		if (trigger.isNull()) {
-			m_trigger = m_manager->preferredTrigger();
-		}
-		m_manager->setActionCollection(m_actionCollection);
+  m_version = pluginInfo.version();
 
-		if (parentScenario == NULL) {
-			//automatic mode
-			pluginMinVersion = new VersionNumber(NULL, m_version);
-		}
-		factory->deleteLater();
-	} else {
-		kWarning() << "Factory not found!";
-		m_manager = NULL;
-	}
+  if (factory) {
+    m_manager = factory->create<CommandManager>((QObject*)parentScenario);
+    if (m_manager == 0) {
+      kWarning() << "Failed to create instance of " << source;
+      return;
+    }
+    if (trigger.isNull()) {
+      m_trigger = m_manager->preferredTrigger();
+    }
+    m_manager->setActionCollection(m_actionCollection);
+
+    if (parentScenario == 0) {
+      //automatic mode
+      pluginMinVersion = new VersionNumber(0, m_version);
+    }
+    factory->deleteLater();
+  }
+  else {
+    kWarning() << "Factory not found!";
+    m_manager = 0;
+  }
 }
+
 
 bool Action::deSerialize(const QDomElement& pluginElem)
 {
-	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
-	if (!pluginCompatibilityElem.isNull()) {
-		QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
+  QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
+  if (!pluginCompatibilityElem.isNull()) {
+    QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
 
-		pluginMinVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem);
-		pluginMaxVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem.nextSiblingElement());
+    pluginMinVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem);
+    pluginMaxVersion = VersionNumber::createVersionNumber(parentScenario, pluginMinVersionElem.nextSiblingElement());
 
-		if (!pluginMinVersion) {
-			kDebug() << "Couldn't parse version requirements of plugin";
-			return false;
-		} else {
-			VersionNumber pluginCurVersion(parentScenario, getPluginVersion());
-			if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) || 
-				(pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
-				kDebug() << "Scenario not compatible with this version of the plugin ";
-				return false;
-			}
-		}
-	}
-	
-	if (!m_manager->deSerialize(pluginElem))
-		return false;
+    if (!pluginMinVersion) {
+      kDebug() << "Could not parse version requirements of plugin";
+      return false;
+    }
+    else {
+      VersionNumber pluginCurVersion(parentScenario, getPluginVersion());
+      if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) ||
+      (pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
+        kDebug() << "Scenario not compatible with this version of the plugin ";
+        return false;
+      }
+    }
+  }
 
-	return true;
+  if (!m_manager->deSerialize(pluginElem))
+    return false;
+
+  return true;
 }
+
 
 QDomElement Action::serialize(QDomDocument *doc)
 {
-	QDomElement pluginElem = m_manager->serialize(doc);
+  QDomElement pluginElem = m_manager->serialize(doc);
 
-	pluginElem.setAttribute("name", m_source);
-	pluginElem.setAttribute("trigger", m_trigger);
-	QDomElement pluginCompatibilityElem = doc->createElement("pluginCompatibility");
+  pluginElem.setAttribute("name", m_source);
+  pluginElem.setAttribute("trigger", m_trigger);
+  QDomElement pluginCompatibilityElem = doc->createElement("pluginCompatibility");
 
-	QDomElement minimumVersionElem = doc->createElement("minimumVersion");
-	minimumVersionElem.appendChild(pluginMinVersion->serialize(doc));
-	pluginCompatibilityElem.appendChild(minimumVersionElem);
+  QDomElement minimumVersionElem = doc->createElement("minimumVersion");
+  minimumVersionElem.appendChild(pluginMinVersion->serialize(doc));
+  pluginCompatibilityElem.appendChild(minimumVersionElem);
 
-	QDomElement maximumVersionElem = doc->createElement("maximumVersion");
-	if (pluginMaxVersion)
-		maximumVersionElem.appendChild(pluginMaxVersion->serialize(doc));
-	pluginCompatibilityElem.appendChild(maximumVersionElem);
+  QDomElement maximumVersionElem = doc->createElement("maximumVersion");
+  if (pluginMaxVersion)
+    maximumVersionElem.appendChild(pluginMaxVersion->serialize(doc));
+  pluginCompatibilityElem.appendChild(maximumVersionElem);
 
-	pluginElem.appendChild(pluginCompatibilityElem);
+  pluginElem.appendChild(pluginCompatibilityElem);
 
-	return pluginElem;
+  return pluginElem;
 }
+
 
 CommandConfiguration* Action::getConfigurationPage()
 {
-	Q_ASSERT(m_manager);
-	return m_manager->getConfigurationPage();
+  Q_ASSERT(m_manager);
+  return m_manager->getConfigurationPage();
 
 }
+
 
 QIcon Action::icon()
 {
-	if (m_manager) 
-		return m_manager->icon();
+  if (m_manager)
+    return m_manager->icon();
 
-	return QIcon(); 
+  return QIcon();
 }
+
 
 bool Action::hasCommands()
 {
-	if (!m_manager)
-		return false;
+  if (!m_manager)
+    return false;
 
-	return m_manager->hasCommands();
+  return m_manager->hasCommands();
 }
+
 
 bool Action::removeCommand(Command *command)
 {
-	return m_manager->deleteCommand(command);
+  return m_manager->deleteCommand(command);
 }
+
 
 bool Action::setTrigger(const QString& newTrigger)
 {
-	m_trigger=newTrigger;
-	emit changed();
-	return parentScenario->save();
+  m_trigger=newTrigger;
+  emit changed();
+  return parentScenario->save();
 }
+
 
 void Action::setPluginFont(const QFont& font)
 {
-	m_manager->setFont(font);
+  m_manager->setFont(font);
 }
 
 
 Action::~Action()
 {
-	delete m_manager;
+  delete m_manager;
 }
-

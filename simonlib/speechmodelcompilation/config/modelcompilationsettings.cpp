@@ -24,40 +24,39 @@
 #include <QDebug>
 #include <kgenericfactory.h>
 
-K_PLUGIN_FACTORY( ModelCompilationSettingsFactory, 
-			registerPlugin< ModelCompilationSettings >(); 
-		)
-        
+K_PLUGIN_FACTORY( ModelCompilationSettingsFactory,
+registerPlugin< ModelCompilationSettings >();
+)
+
 K_EXPORT_PLUGIN( ModelCompilationSettingsFactory("ModelCompilationSettings") )
 
 ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	KPageWidget *pageWidget = new KPageWidget(this);
-	lay->addWidget(pageWidget);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  KPageWidget *pageWidget = new KPageWidget(this);
+  lay->addWidget(pageWidget);
 
-	if (args.count() == 1)
-		pageWidget->setFaceType(KPageView::Tabbed);
+  if (args.count() == 1)
+    pageWidget->setFaceType(KPageView::Tabbed);
 
-// 	QWidget *trainingsDataWidget = new QWidget(pageWidget);
-// 	modelSettingsUi.setupUi(trainingsDataWidget);
+  // 	QWidget *trainingsDataWidget = new QWidget(pageWidget);
+  // 	modelSettingsUi.setupUi(trainingsDataWidget);
 
-	QWidget *externalProgramsWidget = new QWidget(pageWidget);
-	externalProgramsUi.setupUi(externalProgramsWidget);
+  QWidget *externalProgramsWidget = new QWidget(pageWidget);
+  externalProgramsUi.setupUi(externalProgramsWidget);
 
-// 	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
-	KPageWidgetItem *externalPrograms = pageWidget->addPage(externalProgramsWidget, i18n("External Programs"));
+  // 	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
+  KPageWidgetItem *externalPrograms = pageWidget->addPage(externalProgramsWidget, i18n("External Programs"));
 
-// 	trainingsData->setIcon(KIcon("view-pim-news"));
-	externalPrograms->setIcon(KIcon("applications-other"));
+  // 	trainingsData->setIcon(KIcon("view-pim-news"));
+  externalPrograms->setIcon(KIcon("applications-other"));
 
-// 	trainingsData->setHeader("");
-	externalPrograms->setHeader("");
+  // 	trainingsData->setHeader("");
+  externalPrograms->setHeader("");
 
-
-	addConfig(ModelCompilationConfiguration::self(), this);
+  addConfig(ModelCompilationConfiguration::self(), this);
 }
+
 
 ModelCompilationSettings::~ModelCompilationSettings()
 {}
-

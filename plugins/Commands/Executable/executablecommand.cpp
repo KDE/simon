@@ -26,113 +26,113 @@
 #include <KProcess>
 #include <KLocalizedString>
 
-
 const QString ExecutableCommand::staticCategoryText()
 {
-	return i18n("Program");
+  return i18n("Program");
 }
+
 
 const QString ExecutableCommand::getCategoryText() const
 {
-	return ExecutableCommand::staticCategoryText();
+  return ExecutableCommand::staticCategoryText();
 }
+
 
 const KIcon ExecutableCommand::staticCategoryIcon()
 {
-	return KIcon("applications-system");
+  return KIcon("applications-system");
 }
+
 
 const KIcon ExecutableCommand::getCategoryIcon() const
 {
-	return ExecutableCommand::staticCategoryIcon();
+  return ExecutableCommand::staticCategoryIcon();
 }
+
 
 const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
-	out.insert(i18n("Executable"), getExecutable());
-	out.insert(i18n("Working directory"), QVariant(getWorkingDirectory()));
-	return out;
+  QMap<QString,QVariant> out;
+  out.insert(i18n("Executable"), getExecutable());
+  out.insert(i18n("Working directory"), QVariant(getWorkingDirectory()));
+  return out;
 }
+
 
 bool ExecutableCommand::triggerPrivate(int *state)
 {
-	Q_UNUSED(state);
-	QStringList commands = exe.split(";");
-	KProcess proc;
-	for (int i=0; i < commands.count(); i++)
-	{
-		QString thisExe = commands[i].trimmed();
+  Q_UNUSED(state);
+  QStringList commands = exe.split(";");
+  KProcess proc;
+  for (int i=0; i < commands.count(); i++) {
+    QString thisExe = commands[i].trimmed();
 
-		QStringList coms = thisExe.split(" ");
-		if (coms.isEmpty()) return false;
-		QStringList realSplitCommand;
-		QString currentItem;
-		bool isQuoted=false;
-		foreach (QString com, coms)
-		{
-			if ((com.startsWith("\"")) && (com.endsWith("\"")))
-			{
-				com.remove(QRegExp("^\""));
-				com.remove(QRegExp("\"$"));
-				realSplitCommand << com;
-			} else
-			if ((com.startsWith("\"")) || (com.endsWith("\"")))
-			{
-				com.remove(QRegExp("^\""));
-				com.remove(QRegExp("\"$"));
+    QStringList coms = thisExe.split(" ");
+    if (coms.isEmpty()) return false;
+    QStringList realSplitCommand;
+    QString currentItem;
+    bool isQuoted=false;
+    foreach (QString com, coms) {
+      if ((com.startsWith("\"")) && (com.endsWith("\""))) {
+        com.remove(QRegExp("^\""));
+        com.remove(QRegExp("\"$"));
+        realSplitCommand << com;
+      } else
+      if ((com.startsWith("\"")) || (com.endsWith("\""))) {
+        com.remove(QRegExp("^\""));
+        com.remove(QRegExp("\"$"));
 
-				currentItem+= " "+com;
+        currentItem+= " "+com;
 
-				if (isQuoted)
-				{
-					realSplitCommand << currentItem.trimmed();
-					currentItem="";
-					isQuoted=false;
-				} else isQuoted=true; //begin quote
-			} else {
-				if (isQuoted) currentItem += " "+com;
-				else realSplitCommand << com;
-			}
-		}
-		
-		if (realSplitCommand.isEmpty()) continue;
-		QString realExecutable = realSplitCommand.takeAt(0);
-		proc.setWorkingDirectory(workingDirectory.path());
-		proc.setProgram(realExecutable, realSplitCommand);
-		proc.startDetached();
-	}
-	return true;
+        if (isQuoted) {
+          realSplitCommand << currentItem.trimmed();
+          currentItem="";
+          isQuoted=false;
+        } else isQuoted=true;                     //begin quote
+      }
+      else {
+        if (isQuoted) currentItem += " "+com;
+        else realSplitCommand << com;
+      }
+    }
+
+    if (realSplitCommand.isEmpty()) continue;
+    QString realExecutable = realSplitCommand.takeAt(0);
+    proc.setWorkingDirectory(workingDirectory.path());
+    proc.setProgram(realExecutable, realSplitCommand);
+    proc.startDetached();
+  }
+  return true;
 }
 
 
 QDomElement ExecutableCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement workingDir = doc->createElement("workingdirectory");
-	workingDir.appendChild(doc->createTextNode(getWorkingDirectory().url()));
+  QDomElement workingDir = doc->createElement("workingdirectory");
+  workingDir.appendChild(doc->createTextNode(getWorkingDirectory().url()));
 
-	QDomElement executable = doc->createElement("executable");
-	executable.appendChild(doc->createTextNode(getExecutable()));
-	
-	commandElem.appendChild(workingDir);
-	commandElem.appendChild(executable);
-		
-	return commandElem;
+  QDomElement executable = doc->createElement("executable");
+  executable.appendChild(doc->createTextNode(getExecutable()));
+
+  commandElem.appendChild(workingDir);
+  commandElem.appendChild(executable);
+
+  return commandElem;
 }
+
 
 bool ExecutableCommand::deSerializePrivate(const QDomElement& commandElem)
 {
-	QDomElement exeElem = commandElem.firstChildElement("executable");
-	if (exeElem.isNull()) return false;
+  QDomElement exeElem = commandElem.firstChildElement("executable");
+  if (exeElem.isNull()) return false;
 
-	QDomElement workingDirectoryElem = commandElem.firstChildElement("workingdirectory");
+  QDomElement workingDirectoryElem = commandElem.firstChildElement("workingdirectory");
 
-	exe = exeElem.text();
-	workingDirectory = workingDirectoryElem.text();
+  exe = exeElem.text();
+  workingDirectory = workingDirectoryElem.text();
 
-	return true;
+  return true;
 }
 
+
 STATIC_CREATE_INSTANCE_C(ExecutableCommand);
-
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONINFO_H_D2600C6D435E4D26A75AC74A42A31C60
 #define SIMON_SIMONINFO_H_D2600C6D435E4D26A75AC74A42A31C60
 
@@ -35,27 +34,27 @@
  *	@version 0.1
  *	@date 10.01.2006
  *	@author Peter Grasch
-*/
+ */
 class QWidget;
 class KIcon;
 
 class KSplashScreen;
 
-class SIMONINFO_EXPORT SimonInfo {
-	
-private:
-	KSplashScreen *splash;  //!< Splashscreen-Pointer
-	QWidget *parent;
+class SIMONINFO_EXPORT SimonInfo
+{
 
-public:
-	SimonInfo(QWidget *parent = 0);
-	
-	void showSplash();
-	void writeToSplash(QString status);
-	void hideSplash();
-	static void showMessage(QString message, short time, KIcon *icon=0);
-	~SimonInfo();
+  private:
+    KSplashScreen *splash;                        //!< Splashscreen-Pointer
+    QWidget *parent;
+
+  public:
+    SimonInfo(QWidget *parent = 0);
+
+    void showSplash();
+    void writeToSplash(QString status);
+    void hideSplash();
+    static void showMessage(QString message, short time, KIcon *icon=0);
+    ~SimonInfo();
 
 };
-
 #endif

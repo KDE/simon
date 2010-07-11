@@ -26,71 +26,73 @@
 #include <QVBoxLayout>
 
 VolumeWidget::VolumeWidget(QWidget *parent) : QWidget(parent),
-	ui(new Ui::VolumeWidgetUi())
+ui(new Ui::VolumeWidgetUi())
 {
-	ui->setupUi(this);
-	ui->wgStart->show();
-	connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
+  ui->setupUi(this);
+  ui->wgStart->show();
+  connect(ui->pbStartCalibration, SIGNAL(clicked()), this, SLOT(start()));
 }
+
 
 void VolumeWidget::init()
 {
-	setPrompt(SoundConfiguration::volumePrompt());
-	stop();
+  setPrompt(SoundConfiguration::volumePrompt());
+  stop();
 
-	qDeleteAll(devices);
-	devices.clear();
+  qDeleteAll(devices);
+  devices.clear();
 
-	QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
-	foreach (const SimonSound::DeviceConfiguration& device, devices)
-	{
-		registerClient(device);
-	}
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
+  foreach (const SimonSound::DeviceConfiguration& device, devices) {
+    registerClient(device);
+  }
 }
+
 
 void VolumeWidget::registerClient(const SimonSound::DeviceConfiguration& device)
 {
-	DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, this);
+  DeviceVolumeWidget *dw = new DeviceVolumeWidget(device, this);
 
-	QVBoxLayout *lay = dynamic_cast<QVBoxLayout*>(layout());
-	Q_ASSERT(lay);
+  QVBoxLayout *lay = dynamic_cast<QVBoxLayout*>(layout());
+  Q_ASSERT(lay);
 
-	lay->addWidget(dw);
-	devices << dw;
+  lay->addWidget(dw);
+  devices << dw;
 }
+
 
 void VolumeWidget::setPrompt(const QString& prompt)
 {
-	ui->tePrompt->setFont(SoundConfiguration::promptFont());
-	ui->tePrompt->setText(prompt);
+  ui->tePrompt->setFont(SoundConfiguration::promptFont());
+  ui->tePrompt->setText(prompt);
 
-	if (ui->tePrompt->toPlainText().isEmpty())
-		ui->tePrompt->setPlainText(i18n("Please say a few sentences. Try to pronounce them clearly but naturally and speak in a normal volume."));
+  if (ui->tePrompt->toPlainText().isEmpty())
+    ui->tePrompt->setPlainText(i18n("Please say a few sentences. Try to pronounce them clearly but naturally and speak in a normal volume."));
 }
+
 
 void VolumeWidget::start()
 {
-	foreach (DeviceVolumeWidget *dw, devices)
-	{
-		dw->start();
-		dw->show();
-	}
-	ui->wgStart->hide();
+  foreach (DeviceVolumeWidget *dw, devices) {
+    dw->start();
+    dw->show();
+  }
+  ui->wgStart->hide();
 }
+
 
 void VolumeWidget::stop()
 {
-	foreach (DeviceVolumeWidget *dw, devices)
-	{
-		dw->stop();
-		dw->hide();
-	}
-	ui->wgStart->show();
+  foreach (DeviceVolumeWidget *dw, devices) {
+    dw->stop();
+    dw->hide();
+  }
+  ui->wgStart->show();
 }
+
 
 VolumeWidget::~VolumeWidget()
 {
-	stop();
-	delete ui;
+  stop();
+  delete ui;
 }
-

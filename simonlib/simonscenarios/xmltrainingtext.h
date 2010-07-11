@@ -34,20 +34,18 @@
  */
 class XMLTrainingText : virtual public XMLDomReader, virtual public TrainingText
 {
-public: 
-	XMLTrainingText( QString name, QString path, QStringList pages );
-	XMLTrainingText( QString path );
-	
-	void save(QString path);
-	virtual bool save();
+  public:
+    XMLTrainingText( QString name, QString path, QStringList pages );
+    XMLTrainingText( QString path );
 
-	void load(QString path="");
-	static XMLTrainingText* createTrainingText(const QString& path);
+    void save(QString path);
+    virtual bool save();
 
-	void addPages(QStringList pages);
-	
-	
-	~XMLTrainingText();
+    void load(QString path="");
+    static XMLTrainingText* createTrainingText(const QString& path);
+
+    void addPages(QStringList pages);
+
+    ~XMLTrainingText();
 };
-
 #endif

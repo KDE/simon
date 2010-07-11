@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingtexts.h"
 #include <QWizardPage>
 #include <QLabel>
@@ -36,31 +35,31 @@
 #include "importtrainingtextselectsourcepage.h"
 #include <KStandardDirs>
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
  */
 ImportTrainingTexts::ImportTrainingTexts(QWidget* parent) : SimonWizard(parent),
-	prevId(0)
+prevId(0)
 {
-	this->addPage(createIntroPage());
-	
-	QWizardPage *source = createSourcePage();
-	QWizardPage *add = createAddPage();
-	QWizardPage *local = createLocalImportPage();
-	QWizardPage *working = createWorkingPage();
-	
-	this->addPage(source);
-	this->addPage(add);
-	this->addPage(local);
-	this->addPage(working);
-	
-	this->addPage(createFinishedPage());
-	setWindowTitle(i18n("Add Trainingstext"));
-	setBanner("importtexts");
-	
+  this->addPage(createIntroPage());
+
+  QWizardPage *source = createSourcePage();
+  QWizardPage *add = createAddPage();
+  QWizardPage *local = createLocalImportPage();
+  QWizardPage *working = createWorkingPage();
+
+  this->addPage(source);
+  this->addPage(add);
+  this->addPage(local);
+  this->addPage(working);
+
+  this->addPage(createFinishedPage());
+  setWindowTitle(i18n("Add Trainingstext"));
+  setBanner("importtexts");
+
 }
+
 
 /**
  * \brief Shows the wizard
@@ -68,7 +67,7 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget* parent) : SimonWizard(parent),
  */
 void ImportTrainingTexts::start()
 {
-	show();
+  show();
 }
 
 
@@ -78,7 +77,7 @@ void ImportTrainingTexts::start()
  */
 ImportTrainingTexts::~ImportTrainingTexts()
 {
-    delete fd;
+  delete fd;
 }
 
 
@@ -89,18 +88,18 @@ ImportTrainingTexts::~ImportTrainingTexts()
  */
 QWizardPage* ImportTrainingTexts::createIntroPage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Import a new Trainingstext"));
-	QLabel *label = new QLabel(intro);
-	label->setWordWrap(true);
-	label->setText(i18n("Using this assistant you can import new Trainingstexts from the Internet or "
-"local files.\n\nThat way the training of simon will never get boring!"
-));
-	QVBoxLayout *layout = new QVBoxLayout(intro);
-	layout->addWidget(label);
-	intro->setLayout(layout);
-	
-	return intro;
+  QWizardPage *intro = new QWizardPage(this);
+  intro->setTitle(i18n("Import a new Trainingstext"));
+  QLabel *label = new QLabel(intro);
+  label->setWordWrap(true);
+  label->setText(i18n("Using this assistant you can import new Trainingstexts from the Internet or "
+    "local files.\n\nThat way the training of simon will never get boring!"
+    ));
+  QVBoxLayout *layout = new QVBoxLayout(intro);
+  layout->addWidget(label);
+  intro->setLayout(layout);
+
+  return intro;
 }
 
 
@@ -111,32 +110,34 @@ QWizardPage* ImportTrainingTexts::createIntroPage()
  */
 QWizardPage* ImportTrainingTexts::createLocalImportPage()
 {
-	ImportTrainingTextLocalPage *localImport = new ImportTrainingTextLocalPage(this);
-	
-	return localImport;
+  ImportTrainingTextLocalPage *localImport = new ImportTrainingTextLocalPage(this);
+
+  return localImport;
 }
+
 
 QWizardPage* ImportTrainingTexts::createAddPage()
 {
-	ImportTrainingTextAddPage *localAdd = new ImportTrainingTextAddPage(this);
-	
-	return localAdd;
+  ImportTrainingTextAddPage *localAdd = new ImportTrainingTextAddPage(this);
+
+  return localAdd;
 }
 
 
 /**
  * \brief Creates the sourcepage
- * 
+ *
  * Here you can select where you want to import from (internet/file)
- * 
+ *
  * \author Peter Grasch
  * @return the wizardpage
  */
 QWizardPage* ImportTrainingTexts::createSourcePage()
 {
-	ImportTrainingTextSelectSourcePage *source = new ImportTrainingTextSelectSourcePage(this);
-	return source;
+  ImportTrainingTextSelectSourcePage *source = new ImportTrainingTextSelectSourcePage(this);
+  return source;
 }
+
 
 /**
  * \brief Creates the working page
@@ -145,9 +146,10 @@ QWizardPage* ImportTrainingTexts::createSourcePage()
  */
 QWizardPage* ImportTrainingTexts::createWorkingPage()
 {
-	ImportTrainingTextWorkingPage *working= new ImportTrainingTextWorkingPage(this);
-	return working;
+  ImportTrainingTextWorkingPage *working= new ImportTrainingTextWorkingPage(this);
+  return working;
 }
+
 
 /**
  * \brief Creates the finished-page
@@ -155,15 +157,14 @@ QWizardPage* ImportTrainingTexts::createWorkingPage()
  */
 QWizardPage* ImportTrainingTexts::createFinishedPage()
 {
-	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Text added"));
-	QLabel *label = new QLabel(finished);
-	label->setWordWrap(true);
-	label->setText(i18n("You have now added a new text.\n\nThank you for improving simon!"));
-	QVBoxLayout *layout = new QVBoxLayout(finished);
-	layout->addWidget(label);
-	finished->setLayout(layout);
-	
-	return finished;
-}
+  QWizardPage *finished = new QWizardPage(this);
+  finished->setTitle(i18n("Text added"));
+  QLabel *label = new QLabel(finished);
+  label->setWordWrap(true);
+  label->setText(i18n("You have now added a new text.\n\nThank you for improving simon!"));
+  QVBoxLayout *layout = new QVBoxLayout(finished);
+  layout->addWidget(label);
+  finished->setLayout(layout);
 
+  return finished;
+}

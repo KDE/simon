@@ -33,27 +33,27 @@
 #include "../../version.h"
 
 static const char description[] =
-    I18N_NOOP("The simon recognition daemon");
+I18N_NOOP("The simon recognition daemon");
 
 int main(int argc, char **argv)
 {
-	KAboutData about("simond", 0, ki18n("simond"), simon_version, ki18n(description),
-			KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
-	about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+  KAboutData about("simond", 0, ki18n("simond"), simon_version, ki18n(description),
+    KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
+  about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 
-	KCmdLineArgs::init(argc, argv, &about);
+  KCmdLineArgs::init(argc, argv, &about);
 
-	KGlobal::setActiveComponent(KComponentData(about));
+  KGlobal::setActiveComponent(KComponentData(about));
 
-	QCoreApplication app(argc,argv);
+  QCoreApplication app(argc,argv);
 
-	KGlobal::locale();
-	KGlobal::locale()->insertCatalog("simonlib");
-	SimondControl *control = new SimondControl();
-	if (!control->init())
-		return 2;
+  KGlobal::locale();
+  KGlobal::locale()->insertCatalog("simonlib");
+  SimondControl *control = new SimondControl();
+  if (!control->init())
+    return 2;
 
-	app.exec();
-	delete control;
-	return 0;
+  app.exec();
+  delete control;
+  return 0;
 }

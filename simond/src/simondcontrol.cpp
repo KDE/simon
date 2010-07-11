@@ -26,102 +26,99 @@
 #include <KDebug>
 
 SimondControl::SimondControl(QObject* parent) : QTcpServer(parent),
-	db(new DatabaseAccess(this))
+db(new DatabaseAccess(this))
 {
-	connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
+  connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
 }
 
 
 bool SimondControl::init()
 {
-	if (!db->init())
-		return false;
+  if (!db->init())
+    return false;
 
-	//FIXME encryption!
-	KConfig config(KStandardDirs::locate("config", "simondrc"));
-	KConfigGroup cGroup2(&config, "User");
-	m_keepSamples = cGroup2.readEntry("KeepRecognitionSamples", false);
+  //FIXME encryption!
+  KConfig config(KStandardDirs::locate("config", "simondrc"));
+  KConfigGroup cGroup2(&config, "User");
+  m_keepSamples = cGroup2.readEntry("KeepRecognitionSamples", false);
 
-	KConfigGroup cGroup(&config, "Network");
-	int port = cGroup.readEntry("Port", 4444);
-	if (cGroup.readEntry("BindTo", true))
-	{
-		QString hostName = cGroup.readEntry("Host", "127.0.0.1");
-		startServer(QHostAddress(hostName), port);
-	} else {
-		startServer(QHostAddress::Any, port);
-	}
+  KConfigGroup cGroup(&config, "Network");
+  int port = cGroup.readEntry("Port", 4444);
+  if (cGroup.readEntry("BindTo", true)) {
+    QString hostName = cGroup.readEntry("Host", "127.0.0.1");
+    startServer(QHostAddress(hostName), port);
+  }
+  else {
+    startServer(QHostAddress::Any, port);
+  }
 
-	return true;
+  return true;
 }
 
 
 void SimondControl::handleError(const QString& error)
 {
-	kDebug() << error;
+  kDebug() << error;
 }
+
 
 void SimondControl::startServer(const QHostAddress& allowedClient, quint16 port)
 {
-	kWarning() << "Starting server listening on port " << port;
-	listen(allowedClient, port);
-	kWarning() << "Server listening on port  " << port;
+  kWarning() << "Starting server listening on port " << port;
+  listen(allowedClient, port);
+  kWarning() << "Server listening on port  " << port;
 }
+
 
 void SimondControl::stopServer()
 {
-	kDebug() << "Stopping server";
+  kDebug() << "Stopping server";
 
-	close();
-	
-	foreach (ClientSocket *client, clients)
-	{
-		client->close();
-	}
+  close();
 
-	db->deleteLater();
-	db = 0;
+  foreach (ClientSocket *client, clients) {
+    client->close();
+  }
+
+  db->deleteLater();
+  db = 0;
 }
+
 
 void SimondControl::incomingConnection (int descriptor)
 {
-	ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, this);
+  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, this);
 
-	//TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
-	//(configuration item)
-// 	socket->setProtocol(QSsl::SslV2);
-// 	socket->setCiphers(Settings::getS("Cipher"));
-// 	socket->startServerEncryption();
-// 	socket->ignoreSslErrors();
-	
-	connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), 
-		this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
-	
-	clients << clientSocket;
+  //TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
+  //(configuration item)
+  // 	socket->setProtocol(QSsl::SslV2);
+  // 	socket->setCiphers(Settings::getS("Cipher"));
+  // 	socket->startServerEncryption();
+  // 	socket->ignoreSslErrors();
+
+  connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
+    this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
+
+  clients << clientSocket;
 }
-
 
 
 void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
 {
-	if (state != QAbstractSocket::ClosingState) return;
+  if (state != QAbstractSocket::ClosingState) return;
 
-	for (int i=0; i<clients.count(); i++)
-	{
-		if (clients[i]->state() == state)
-		{
-			kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
-			clients.takeAt(i)->deleteLater();
-			i--;
-		}
-	}
+  for (int i=0; i<clients.count(); i++) {
+    if (clients[i]->state() == state) {
+      kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
+      clients.takeAt(i)->deleteLater();
+      i--;
+    }
+  }
 }
-
-
 
 
 SimondControl::~SimondControl()
 {
-	stopServer();
-	db->deleteLater();
+  stopServer();
+  db->deleteLater();
 }

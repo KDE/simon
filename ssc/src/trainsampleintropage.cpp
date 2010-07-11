@@ -26,34 +26,33 @@
 #include <QCheckBox>
 #include <KLocalizedString>
 
-
-
 TrainSampleIntroPage::TrainSampleIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Training"));
+  setTitle(i18n("Training"));
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
+  QVBoxLayout *lay = new QVBoxLayout(this);
 
-	QLabel *lbIntro = new QLabel(this);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("This wizard will guide you through the collecting of speech samples."));
+  QLabel *lbIntro = new QLabel(this);
+  lbIntro->setWordWrap(true);
+  lbIntro->setText(i18n("This wizard will guide you through the collecting of speech samples."));
 
-	cbPowerTrain = new QCheckBox(i18n("Power Recording"), this);
+  cbPowerTrain = new QCheckBox(i18n("Power Recording"), this);
 
-	lay->addWidget(lbIntro);
-	lay->addWidget(cbPowerTrain);
+  lay->addWidget(lbIntro);
+  lay->addWidget(cbPowerTrain);
 
-	this->registerField("powerRecording", cbPowerTrain);
+  this->registerField("powerRecording", cbPowerTrain);
 
-	setLayout(lay);
+  setLayout(lay);
 }
+
 
 void TrainSampleIntroPage::initializePage()
 {
-	cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
+  cbPowerTrain->setChecked(SoundServer::getDefaultToPowerTraining());
 }
+
 
 TrainSampleIntroPage::~TrainSampleIntroPage()
 {
 }
-

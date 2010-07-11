@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_WAVPLAYER_H_272785B973C443B89098D25E61B308C1
 #define SIMON_WAVPLAYER_H_272785B973C443B89098D25E61B308C1
 
@@ -29,53 +28,51 @@ class QTimer;
 class WAV;
 
 /**
-	\class WavPlayer
-	
-	\brief This class is used to get the needed data out of existing wav files to play them
-	
-	\author Peter Grasch
-	\version 0.1
+  \class WavPlayer
+
+  \brief This class is used to get the needed data out of existing wav files to play them
+
+  \author Peter Grasch
+  \version 0.1
 */
-class WavPlayer : public QObject {
-	Q_OBJECT
-	
-private:
-	PaStream* stream;
-	long startTime;
-	QTimer timeWatcher;
-	
-	WAV *wav;
-	float *data;
-	short channels;
-	unsigned long length;
-	
-	bool stopTimer;
-	unsigned long wavPosition;
+class WavPlayer : public QObject
+{
+  Q_OBJECT
 
-signals:
-	void currentProgress(int);
-	void finished();
-	
-private:
-	void closeStream();
+    private:
+    PaStream* stream;
+    long startTime;
+    QTimer timeWatcher;
 
-public:
+    WAV *wav;
+    float *data;
+    short channels;
+    unsigned long length;
+
+    bool stopTimer;
+    unsigned long wavPosition;
+
+    signals:
+    void currentProgress(int);
+    void finished();
+
+  private:
+    void closeStream();
+
+  public:
     WavPlayer(QObject *parent=0);
     bool play(QString filename);
     ~WavPlayer();
-	
-	float* getData() { return data; }
-	unsigned long getLength() { return length; }
-	unsigned long getPosition() { return wavPosition; }
-	short getChannels() { return channels; }
-	void advance(int amount) { wavPosition += amount; }
-	
-public slots:
-    	void publishTime();
-		void stop();
-	
 
+    float* getData() { return data; }
+    unsigned long getLength() { return length; }
+    unsigned long getPosition() { return wavPosition; }
+    short getChannels() { return channels; }
+    void advance(int amount) { wavPosition += amount; }
+
+  public slots:
+    void publishTime();
+    void stop();
 
 };
-
 #endif

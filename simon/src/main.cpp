@@ -17,8 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-
 #include "simonview.h"
 
 #ifdef HAVE_CONFIG_H
@@ -35,7 +33,6 @@
 #include <KCmdLineArgs>
 #include "../../version.h"
 
-
 #include <KDebug>
 
 #ifdef Q_WS_X11
@@ -43,52 +40,48 @@
 #include <X11/Xlib.h>
 #endif
 
-class SimonApplication : 
+class SimonApplication :
 #ifndef Q_OS_WIN32
-	public KUniqueApplication
+public KUniqueApplication
 #else
-	public KApplication
+public KApplication
 #endif
 {
-	public:
-#ifdef Q_WS_X11
-		bool x11EventFilter ( XEvent * event )
-		{
-			if (event->type == MappingNotify)
-			{
-				XMappingEvent *e = (XMappingEvent*) event;
-				XRefreshKeyboardMapping(e);
-				return true;
-			}
-			return false;
-		}
-#endif
+  public:
+  #ifdef Q_WS_X11
+    bool x11EventFilter ( XEvent * event ) {
+      if (event->type == MappingNotify) {
+        XMappingEvent *e = (XMappingEvent*) event;
+        XRefreshKeyboardMapping(e);
+        return true;
+      }
+      return false;
+    }
+  #endif
 
 };
 
-
-
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData( "simon", "simon",
-			ki18n("simon"), simon_version,
-			      ki18n("<html><head /><body>\
+  KAboutData aboutData( "simon", "simon",
+    ki18n("simon"), simon_version,
+    ki18n("<html><head /><body>\
 					      <h2>Development and Distribution</h2>\
 					      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
 					      <h3>Special Thanks To</h3> \
 					      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael Stieger<li>Ralf Herzog</ul> \
 					      </body></html>"),
-			KAboutData::License_GPL,
-			ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
-	
-	KCmdLineArgs::init(argc, argv, &aboutData);
+    KAboutData::License_GPL,
+    ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 
-	SimonApplication app;
-	app.setWindowIcon(KIcon("simon"));
-	app.addLibraryPath(app.applicationDirPath()+"/plugins");
+  KCmdLineArgs::init(argc, argv, &aboutData);
 
-	SimonView *pv = new SimonView();
-	int ret= app.exec();
-	delete pv;
-	return ret;
+  SimonApplication app;
+  app.setWindowIcon(KIcon("simon"));
+  app.addLibraryPath(app.applicationDirPath()+"/plugins");
+
+  SimonView *pv = new SimonView();
+  int ret= app.exec();
+  delete pv;
+  return ret;
 }

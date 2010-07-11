@@ -30,8 +30,8 @@
 #define MAX_LIST_LENGTH 50
 
 /**
-  *@author houssem bdioui
-  */
+ *@author houssem bdioui
+ */
 
 struct Node;
 
@@ -53,42 +53,37 @@ struct Node
   QList<Leaf*> leafs;
   void debug(QTextStream* logStream, uint indent = 0);
   bool match(QStringList::const_iterator, const QStringList&,
-             const QString&, const QString&, QStringList &, QStringList &, Leaf *&);
+    const QString&, const QString&, QStringList &, QStringList &, Leaf *&);
 };
 
 class AIMLParser
 {
-public:
-  AIMLParser(QTextStream*);
-  virtual ~AIMLParser();
-  bool loadAiml(const QString&);
-  bool loadSubstitutions(const QString&);
-  bool loadVars(const QString&, const bool&);
-  bool saveVars(const QString &);
-  QString getResponse(QString, const bool &srai = false);
-  void displayTree();
-  void runRegression();
-private:
-  QString resolveNode(QDomNode*, const QStringList & = QStringList(),
-     const QStringList & = QStringList(), const QStringList & = QStringList());
-  void parseCategory(QDomNode*);
-  void normalizeString(QString &);
-  QString executeCommand(const QString&);
-private:
-  QMap<QString, QString> parameterValue;
-  QMap<QString, QString> botVarValue;
-  QList<QRegExp> subOld;
-  QStringList subNew;
-  QStringList inputList;
-  QList<QStringList> thatList;
-  Node root;
-  int indent;
-  QTextStream *logStream;
-  QList<QDomNode*> visitedNodeList;
+  public:
+    AIMLParser(QTextStream*);
+    virtual ~AIMLParser();
+    bool loadAiml(const QString&);
+    bool loadSubstitutions(const QString&);
+    bool loadVars(const QString&, const bool&);
+    bool saveVars(const QString &);
+    QString getResponse(QString, const bool &srai = false);
+    void displayTree();
+    void runRegression();
+  private:
+    QString resolveNode(QDomNode*, const QStringList & = QStringList(),
+      const QStringList & = QStringList(), const QStringList & = QStringList());
+    void parseCategory(QDomNode*);
+    void normalizeString(QString &);
+    QString executeCommand(const QString&);
+  private:
+    QMap<QString, QString> parameterValue;
+    QMap<QString, QString> botVarValue;
+    QList<QRegExp> subOld;
+    QStringList subNew;
+    QStringList inputList;
+    QList<QStringList> thatList;
+    Node root;
+    int indent;
+    QTextStream *logStream;
+    QList<QDomNode*> visitedNodeList;
 };
-
 #endif
-
-
-
-

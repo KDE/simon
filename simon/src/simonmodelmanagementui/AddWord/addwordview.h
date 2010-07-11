@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
  *	@class AddWordView
  *	@brief The wizard to add a new word to the Model
@@ -28,8 +27,7 @@
  *	@version 0.1
  *	@date 08.01.2006
  *	@author Peter Grasch
-*/
-
+ */
 
 #ifndef SIMON_ADDWORDVIEW_H_617A2BD9B170401A8F0645BFFA7554B5
 #define SIMON_ADDWORDVIEW_H_617A2BD9B170401A8F0645BFFA7554B5
@@ -48,44 +46,44 @@ class Vocabulary;
 
 class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public SimonWizard
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		Vocabulary *targetVocabulary;
+    private:
+    Vocabulary *targetVocabulary;
 
-		QList<Word*> *listToAdd;
-		QHash<QString,QString> promptsToAdd;
-		
-		void hideEvent(QHideEvent *event) { 
-			emit hidden(); return QWidget::hideEvent(event); }
+    QList<Word*> *listToAdd;
+    QHash<QString,QString> promptsToAdd;
 
-		AddWordRecordPage *record1, *record2;
+    void hideEvent(QHideEvent *event) {
+      emit hidden(); return QWidget::hideEvent(event);
+    }
 
-		void commitList();
-		void advanceToResolvePage();
-	
-	signals:
-		void addedWord();
-		void hidden();
-		
-	private slots:
-		void askToAddWord(QString word);
-		void cleanUp();
+    AddWordRecordPage *record1, *record2;
 
-	public slots:
-		AddWordIntroPage* createWelcomePage();
-		AddWordRecordPage* createRecordPage(const QString& fieldName, int pageNr, int pageMax);
-		AddWordResolvePage* createResolvePage();
-		QWizardPage* createFinishedPage();
-		void addWords(QStringList words);
+    void commitList();
+    void advanceToResolvePage();
 
-		void accept();
-		
-	public:
-		AddWordView(Vocabulary *vocab=0, QWidget *parent=0);
-		~AddWordView();
-    
-		void createWord(QString word);
+    signals:
+    void addedWord();
+    void hidden();
+
+  private slots:
+    void askToAddWord(QString word);
+    void cleanUp();
+
+  public slots:
+    AddWordIntroPage* createWelcomePage();
+    AddWordRecordPage* createRecordPage(const QString& fieldName, int pageNr, int pageMax);
+    AddWordResolvePage* createResolvePage();
+    QWizardPage* createFinishedPage();
+    void addWords(QStringList words);
+
+    void accept();
+
+  public:
+    AddWordView(Vocabulary *vocab=0, QWidget *parent=0);
+    ~AddWordView();
+
+    void createWord(QString word);
 };
-
 #endif

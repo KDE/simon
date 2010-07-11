@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SHADOWVOCABULARY_H_44E21ED777FA42D69E673E47531E8898
 #define SIMON_SHADOWVOCABULARY_H_44E21ED777FA42D69E673E47531E8898
 
@@ -26,36 +25,33 @@
 #include <QObject>
 #include <QDateTime>
 
-
 class MODELMANAGEMENT_EXPORT ShadowVocabulary : public Vocabulary
 {
-	Q_OBJECT
-signals:
-	void changed();
+  Q_OBJECT
+    signals:
+  void changed();
 
-private:
-	QDateTime lastModifiedDate;
-	void touch();
+  private:
+    QDateTime lastModifiedDate;
+    void touch();
 
-protected:
-	bool loadFailed;
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+  protected:
+    bool loadFailed;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-public:
-	bool isNull() { return loadFailed; }
-	QDateTime lastModified() { return  lastModifiedDate; }
+  public:
+    bool isNull() { return loadFailed; }
+    QDateTime lastModified() { return  lastModifiedDate; }
 
-	ShadowVocabulary();
-	bool save();
-	bool addWord(Word* w);
-	bool addWords(QList<Word*>* w);
-	bool reOrder(Word* w);
-	bool removeWord(Word* w, bool deleteWord=true);
-	bool renameTerminal(const QString& from, const QString& to);
+    ShadowVocabulary();
+    bool save();
+    bool addWord(Word* w);
+    bool addWords(QList<Word*>* w);
+    bool reOrder(Word* w);
+    bool removeWord(Word* w, bool deleteWord=true);
+    bool renameTerminal(const QString& from, const QString& to);
 
-	bool reset(QIODevice* data);
-	bool empty();
+    bool reset(QIODevice* data);
+    bool empty();
 };
-
 #endif
-

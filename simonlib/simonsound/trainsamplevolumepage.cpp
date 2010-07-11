@@ -29,30 +29,30 @@
 #include <KDebug>
 #include <KLocalizedString>
 
-
 TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
-	ui(new Ui::TrainSampleVolumePage())
+ui(new Ui::TrainSampleVolumePage())
 {
-	setTitle(i18n("Volume"));
+  setTitle(i18n("Volume"));
 
-	ui->setupUi(this);
+  ui->setupUi(this);
 }
+
 
 void TrainSampleVolumePage::initializePage()
 {
-	ui->wgVolume->init();
-	ui->wgVolume->start();
+  ui->wgVolume->init();
+  ui->wgVolume->start();
 }
+
 
 bool TrainSampleVolumePage::validatePage()
 {
-	ui->wgVolume->stop();
-	return true;
+  ui->wgVolume->stop();
+  return true;
 }
 
 
 TrainSampleVolumePage::~TrainSampleVolumePage()
 {
-	delete ui;
+  delete ui;
 }
-

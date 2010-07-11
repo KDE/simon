@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SPHINXDICT_H_9A7CF3AD25134358BB7C3F31DAB5BF69
 #define SIMON_SPHINXDICT_H_9A7CF3AD25134358BB7C3F31DAB5BF69
 
@@ -34,18 +33,17 @@ class QString;
  */
 class SPHINXDict : public Dict
 {
-	Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void loaded();
-private:
-	QString path;
-public:
+    signals:
+  void loaded();
+  private:
+    QString path;
+  public:
     explicit SPHINXDict(QObject* parent=0);
     void load(QString path, QString encodingName);
 
     ~SPHINXDict();
 
 };
-
 #endif

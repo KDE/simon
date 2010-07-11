@@ -30,173 +30,174 @@
 #include <QStringList>
 
 CreateCompositeCommandWidget::CreateCompositeCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent),
-	allCommands(ActionManager::getInstance()->getCommandList()),
-	model(new CommandTableModel())
+allCommands(ActionManager::getInstance()->getCommandList()),
+model(new CommandTableModel())
 {
-	ui.setupUi(this);
-	
-	setWindowIcon(CompositeCommand::staticCategoryIcon());
-	setWindowTitle(CompositeCommand::staticCategoryText());
-	
-	foreach (const Command* com, *allCommands)
-	{
-		QString name = com->getTrigger();
-		QString category = com->getCategoryText();
-		ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
-	}
-	ui.tvCommands->setModel(model);
+  ui.setupUi(this);
 
-	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
-	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToComp()));
-	connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelayToComp()));
-	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
-	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
-	enableButtons(ui.tvCommands->currentIndex());
+  setWindowIcon(CompositeCommand::staticCategoryIcon());
+  setWindowTitle(CompositeCommand::staticCategoryText());
 
-	ui.pbAddCommand->setIcon(KIcon("list-add"));
-	ui.pbAddDelay->setIcon(KIcon("list-add"));
-	ui.pbRemove->setIcon(KIcon("list-remove"));
-	ui.pbMoveUp->setIcon(KIcon("arrow-up"));
-	ui.pbMoveDown->setIcon(KIcon("arrow-down"));
+  foreach (const Command* com, *allCommands) {
+    QString name = com->getTrigger();
+    QString category = com->getCategoryText();
+    ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
+  }
+  ui.tvCommands->setModel(model);
+
+  connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));
+  connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommandToComp()));
+  connect(ui.pbAddDelay, SIGNAL(clicked()), this, SLOT(addDelayToComp()));
+  connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
+  connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+  connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
+  enableButtons(ui.tvCommands->currentIndex());
+
+  ui.pbAddCommand->setIcon(KIcon("list-add"));
+  ui.pbAddDelay->setIcon(KIcon("list-add"));
+  ui.pbRemove->setIcon(KIcon("list-remove"));
+  ui.pbMoveUp->setIcon(KIcon("arrow-up"));
+  ui.pbMoveDown->setIcon(KIcon("arrow-down"));
 }
+
 
 void CreateCompositeCommandWidget::enableButtons(const QModelIndex& index)
 {
-	if (!index.isValid())
-	{
-		ui.pbRemove->setEnabled(false);
-		ui.pbMoveUp->setEnabled(false);
-		ui.pbMoveDown->setEnabled(false);
-		return;
-	} else
-		ui.pbRemove->setEnabled(true);
+  if (!index.isValid()) {
+    ui.pbRemove->setEnabled(false);
+    ui.pbMoveUp->setEnabled(false);
+    ui.pbMoveDown->setEnabled(false);
+    return;
+  } else
+  ui.pbRemove->setEnabled(true);
 
-	Q_ASSERT(allCommands);
-	ui.pbMoveUp->setEnabled(index.row() > 0);
-	ui.pbMoveDown->setEnabled(index.row() < model->rowCount()-1);
-	
+  Q_ASSERT(allCommands);
+  ui.pbMoveUp->setEnabled(index.row() > 0);
+  ui.pbMoveDown->setEnabled(index.row() < model->rowCount()-1);
+
 }
+
 
 void CreateCompositeCommandWidget::moveUp()
 {
-	model->moveUp(ui.tvCommands->currentIndex());
-	int row = ui.tvCommands->currentIndex().row();
-	ui.tvCommands->selectRow(row-1);
-	enableButtons(ui.tvCommands->currentIndex());
+  model->moveUp(ui.tvCommands->currentIndex());
+  int row = ui.tvCommands->currentIndex().row();
+  ui.tvCommands->selectRow(row-1);
+  enableButtons(ui.tvCommands->currentIndex());
 }
+
 
 void CreateCompositeCommandWidget::moveDown()
 {
-	model->moveDown(ui.tvCommands->currentIndex());
-	int row = ui.tvCommands->currentIndex().row();
-	ui.tvCommands->selectRow(row+1);
-	enableButtons(ui.tvCommands->currentIndex());
+  model->moveDown(ui.tvCommands->currentIndex());
+  int row = ui.tvCommands->currentIndex().row();
+  ui.tvCommands->selectRow(row+1);
+  enableButtons(ui.tvCommands->currentIndex());
 }
 
 
 bool CreateCompositeCommandWidget::isComplete()
 {
-	return (model->rowCount() > 0);
+  return (model->rowCount() > 0);
 }
+
 
 bool CreateCompositeCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	CompositeCommand *compositeCommand = dynamic_cast<CompositeCommand*>(command);
-	if (!compositeCommand) return false;
+  Q_ASSERT(command);
 
-	QStringList selectedTriggers = compositeCommand->getCommands();
-	QStringList selectedCategories = compositeCommand->getCommandTypes();
+  CompositeCommand *compositeCommand = dynamic_cast<CompositeCommand*>(command);
+  if (!compositeCommand) return false;
 
-	Q_ASSERT(selectedTriggers.count() == selectedCategories.count());
+  QStringList selectedTriggers = compositeCommand->getCommands();
+  QStringList selectedCategories = compositeCommand->getCommandTypes();
 
-	QStringList notFound;
-	int i=0;
-	foreach (const QString& trigger, selectedTriggers)
-	{
-		QString cat = selectedCategories[i];
-		if (cat == i18n("Delay")) {
-			bool ok;
-			int delay = trigger.toInt(&ok);
-			if (ok) {
-				DelayCommand *c = new DelayCommand(delay);
-				commandsToDelete << c;
-				model->selectCommand(c);
-			}
-		} else {
-			bool found=false;
-			foreach (Command* com, *allCommands) {
-				if ((com->getTrigger() == trigger) &&
-					(com->getCategoryText() == cat))
-				{
-					//found the command
-					model->selectCommand(com);
-					found=true;
-					break;
-				}
-			}
-			if (!found)
-				notFound << trigger;
-		}
+  Q_ASSERT(selectedTriggers.count() == selectedCategories.count());
 
-		i++;
-	}
+  QStringList notFound;
+  int i=0;
+  foreach (const QString& trigger, selectedTriggers) {
+    QString cat = selectedCategories[i];
+    if (cat == i18n("Delay")) {
+      bool ok;
+      int delay = trigger.toInt(&ok);
+      if (ok) {
+        DelayCommand *c = new DelayCommand(delay);
+        commandsToDelete << c;
+        model->selectCommand(c);
+      }
+    }
+    else {
+      bool found=false;
+      foreach (Command* com, *allCommands) {
+        if ((com->getTrigger() == trigger) &&
+        (com->getCategoryText() == cat)) {
+          //found the command
+          model->selectCommand(com);
+          found=true;
+          break;
+        }
+      }
+      if (!found)
+        notFound << trigger;
+    }
 
-	if (!notFound.isEmpty())
-	{
-		KMessageBox::sorry(this, i18n("Couldn't find all of the commands that make up this composited command.\n\n"
-						"The missing commands are: %1.", notFound.join(", ")));
-	}
+    i++;
+  }
 
-	return true;
+  if (!notFound.isEmpty()) {
+    KMessageBox::sorry(this, i18n("Could not find all of the commands that make up this composited command.\n\n"
+      "The missing commands are: %1.", notFound.join(", ")));
+  }
+
+  return true;
 }
 
 
 void CreateCompositeCommandWidget::addCommandToComp()
 {
-	model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
+  model->selectCommand(allCommands->at(ui.cbCommands->currentIndex()));
+  enableButtons(ui.tvCommands->currentIndex());
+  emit completeChanged();
 }
+
 
 void CreateCompositeCommandWidget::removeCommand()
 {
-	model->removeCommand(ui.tvCommands->currentIndex().row());
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
+  model->removeCommand(ui.tvCommands->currentIndex().row());
+  enableButtons(ui.tvCommands->currentIndex());
+  emit completeChanged();
 }
+
 
 void CreateCompositeCommandWidget::addDelayToComp()
 {
-	int delay = ui.sbDelay->value();
+  int delay = ui.sbDelay->value();
 
-	DelayCommand *c = new DelayCommand(delay);
-	commandsToDelete << c;
-	model->selectCommand(c);
-	enableButtons(ui.tvCommands->currentIndex());
-	emit completeChanged();
+  DelayCommand *c = new DelayCommand(delay);
+  commandsToDelete << c;
+  model->selectCommand(c);
+  enableButtons(ui.tvCommands->currentIndex());
+  emit completeChanged();
 }
 
 
 Command* CreateCompositeCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	CommandList *selectedCommands = model->selectedCommands();
-	QStringList selectedTriggers, selectedCategories;
+  CommandList *selectedCommands = model->selectedCommands();
+  QStringList selectedTriggers, selectedCategories;
 
-	foreach (Command* com, *selectedCommands)
-	{
-		selectedTriggers << com->getTrigger();
-		selectedCategories << com->getCategoryText();
-	}
+  foreach (Command* com, *selectedCommands) {
+    selectedTriggers << com->getTrigger();
+    selectedCategories << com->getCategoryText();
+  }
 
-	return new CompositeCommand(name, iconSrc, description, selectedTriggers, selectedCategories);
+  return new CompositeCommand(name, iconSrc, description, selectedTriggers, selectedCategories);
 }
+
 
 CreateCompositeCommandWidget::~CreateCompositeCommandWidget()
 {
-	qDeleteAll(commandsToDelete);
-	delete allCommands;
+  qDeleteAll(commandsToDelete);
+  delete allCommands;
 }
-

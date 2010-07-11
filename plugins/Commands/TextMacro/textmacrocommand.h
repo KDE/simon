@@ -17,13 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_TEXTMACRO_H_4490833F6B8D4F8AB97995EC2C0745D1
 #define SIMON_TEXTMACRO_H_4490833F6B8D4F8AB97995EC2C0745D1
 
-
 #include <simonscenarios/command.h>
-
 
 /**
  *	@class TextMacroCommand
@@ -33,49 +30,45 @@
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class TextMacroCommand : public Command {
+class TextMacroCommand : public Command
+{
 
-private:
-	QString text;
+  private:
+    QString text;
 
-protected:
-	bool triggerPrivate(int *state);
-	const QMap<QString,QVariant> getValueMapPrivate() const;
-	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
-	bool deSerializePrivate(const QDomElement& commandElem);
-	TextMacroCommand() {}
+  protected:
+    bool triggerPrivate(int *state);
+    const QMap<QString,QVariant> getValueMapPrivate() const;
+    QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+    bool deSerializePrivate(const QDomElement& commandElem);
+    TextMacroCommand() {}
 
-public:
-	static const QString staticCategoryText();
-	static const KIcon staticCategoryIcon();
+  public:
+    static const QString staticCategoryText();
+    static const KIcon staticCategoryIcon();
 
-	const KIcon getCategoryIcon() const;
-	const QString getCategoryText() const;
+    const KIcon getCategoryIcon() const;
+    const QString getCategoryText() const;
 
-	
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     TextMacroCommand(const QString& name, const QString& iconSrc, const QString& description, const QString& text_) : Command(name, iconSrc, description),
-        text(text_)
-    {
+    text(text_) {
     }
 
     STATIC_CREATE_INSTANCE_H(TextMacroCommand);
 
-
     /**
-    * @brief Returns the text
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Returns the text
+     *
+     *	@author Peter Grasch
+     */
     const QString getText() const { return this->text; }
-    
 
     ~TextMacroCommand() {}
 
 };
-
 #endif

@@ -28,189 +28,182 @@
 #include <KDebug>
 
 #ifdef Q_OS_WIN32
-SoundServer* SoundServer::instance=NULL;
+SoundServer* SoundServer::instance=0;
 #endif
 
 /**
  * \brief Constructor
  */
 SimondStreamerClient::SimondStreamerClient(qint8 id, SimonSender *s, SimonSound::DeviceConfiguration device, QObject *parent) :
-	QObject(parent),
-	SoundInputClient(device, SoundClient::Background),
-	m_isRunning(false),
-	sender(s),
-	vad(new VADSoundProcessor(device))
+QObject(parent),
+SoundInputClient(device, SoundClient::Background),
+m_isRunning(false),
+sender(s),
+vad(new VADSoundProcessor(device))
 {
-	this->id = id;
-	registerSoundProcessor(vad);
+  this->id = id;
+  registerSoundProcessor(vad);
 }
 
 
 void SimondStreamerClient::inputStateChanged(QAudio::State state)
 {
-	if (state == QAudio::StoppedState)
-		stop();
+  if (state == QAudio::StoppedState)
+    stop();
 }
+
 
 bool SimondStreamerClient::isRunning()
 {
-	return m_isRunning;
+  return m_isRunning;
 }
+
 
 bool SimondStreamerClient::start()
 {
-	vad->reset();
-	//lastTimeOverLevel = -1;
-	//lastTimeUnderLevel = -1;
-	bool succ =  SoundServer::getInstance()->registerInputClient(this);
+  vad->reset();
+  //lastTimeOverLevel = -1;
+  //lastTimeUnderLevel = -1;
+  bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
-	kDebug() << "Registered input client: " << succ;
-	if (succ)
-	{
-		m_isRunning = true;
-		emit started();
-	} else {
-		m_isRunning = false;
-		emit stopped();
-	}
+  kDebug() << "Registered input client: " << succ;
+  if (succ) {
+    m_isRunning = true;
+    emit started();
+  }
+  else {
+    m_isRunning = false;
+    emit stopped();
+  }
 
-	return succ;
+  return succ;
 }
 
 
 void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 currentTime)
 {
-	Q_UNUSED(currentTime);
+  Q_UNUSED(currentTime);
 
-	if (vad->startListening())
-	{
-		kDebug() << "Starting listening!";
-		sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-			m_deviceConfiguration.sampleRate());
-	}
+  if (vad->startListening()) {
+    kDebug() << "Starting listening!";
+    sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
+      m_deviceConfiguration.sampleRate());
+  }
 
-	kDebug() << "Sending data listening!";
-	sender->sendSampleToRecognize(id, data);
+  kDebug() << "Sending data listening!";
+  sender->sendSampleToRecognize(id, data);
 
-	if (vad->doneListening())
-	{
-		kDebug() << "Stopping listening!";
-		sender->recognizeSample(id);
-	}
+  if (vad->doneListening()) {
+    kDebug() << "Stopping listening!";
+    sender->recognizeSample(id);
+  }
 
+  /*
+  int levelThreshold = SoundServer::getLevelThreshold();
+  int headMargin = SoundServer::getHeadMargin();
+  int tailMargin = SoundServer::getTailMargin();
+  int shortSampleCutoff = SoundServer::getShortSampleCutoff();
 
-	/*
-	int levelThreshold = SoundServer::getLevelThreshold(); 
-	int headMargin = SoundServer::getHeadMargin(); 
-	int tailMargin = SoundServer::getTailMargin();
-	int shortSampleCutoff = SoundServer::getShortSampleCutoff();
+  int peak = loudness->peak();
+  if (peak > levelThreshold)
+  {
+    if (lastLevel > levelThreshold)
+    {
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
+  #endif
 
-	int peak = loudness->peak();
-	if (peak > levelThreshold)
-	{
-		if (lastLevel > levelThreshold)
-		{
-#ifdef SIMOND_DEBUG
-			kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
-#endif
+  currentSample += data; // cache data (waiting for sample) or send it (if already sending)
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Adding data to sample...";
+  #endif
 
-			currentSample += data; // cache data (waiting for sample) or send it (if already sending)
-#ifdef SIMOND_DEBUG
-			kDebug() << "Adding data to sample...";
-#endif
+  //stayed above level
+  if (waitingForSampleToStart)
+  {
+  if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
+  {
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Sending started...";
+  #endif
+  waitingForSampleToStart = false;
+  waitingForSampleToFinish = true;
+  if (!currentlyRecordingSample)
+  {
+  sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
+  m_deviceConfiguration.sampleRate());
+  currentlyRecordingSample = true;
+  }
+  }
+  } else {
+  sender->sendSampleToRecognize(id, currentSample);
+  currentSample.clear();
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Clearing cached data...";
+  #endif
+  }
+  } else {
+  //crossed upward
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Crossed level upward...";
+  #endif
+  currentSample += data;
+  }
+  lastTimeOverLevel = currentTime;
+  } else {
+  waitingForSampleToStart = true;
+  if (lastLevel < levelThreshold)
+  {
+  //stayed below level
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
+  #endif
+  if (waitingForSampleToFinish)
+  {
+  //still append data during tail margin
+  currentSample += data;
+  sender->sendSampleToRecognize(id, currentSample);
+  currentSample.clear();
+  if (currentTime - lastTimeOverLevel > tailMargin)
+  {
+  sender->recognizeSample(id);
+  currentlyRecordingSample = false;
+  waitingForSampleToFinish = false;
+  kDebug() << "Sample finalized and sent.";
+  }
+  } else {
+  //get a bit of data before the first level cross
+  currentSample += data;
+  currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
+  }
+  } else {
+  //crossed downward
+  #ifdef SIMOND_DEBUG
+  kDebug() << "Crossed level downward...";
+  #endif
+  currentSample += data;
+  }
+  lastTimeUnderLevel = currentTime;
+  }
 
-			//stayed above level
-			if (waitingForSampleToStart)
-			{
-				if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
-				{
-#ifdef SIMOND_DEBUG
-					kDebug() << "Sending started...";
-#endif
-					waitingForSampleToStart = false;
-					waitingForSampleToFinish = true;
-					if (!currentlyRecordingSample)
-					{
-						sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-							m_deviceConfiguration.sampleRate());
-						currentlyRecordingSample = true;
-					}
-				}
-			} else {
-				sender->sendSampleToRecognize(id, currentSample);
-				currentSample.clear();
-#ifdef SIMOND_DEBUG
-				kDebug() << "Clearing cached data...";
-#endif
-			}
-		} else {
-			//crossed upward
-#ifdef SIMOND_DEBUG
-			kDebug() << "Crossed level upward...";
-#endif
-			currentSample += data; 
-		}
-		lastTimeOverLevel = currentTime;
-	} else {
-		waitingForSampleToStart = true;
-		if (lastLevel < levelThreshold)
-		{
-			//stayed below level
-#ifdef SIMOND_DEBUG
-			kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
-#endif
-			if (waitingForSampleToFinish)
-			{
-				//still append data during tail margin
-				currentSample += data; 
-				sender->sendSampleToRecognize(id, currentSample);
-				currentSample.clear();
-				if (currentTime - lastTimeOverLevel > tailMargin)
-				{
-					sender->recognizeSample(id);
-					currentlyRecordingSample = false;
-					waitingForSampleToFinish = false;
-					kDebug() << "Sample finalized and sent.";
-				}
-			} else {
-				//get a bit of data before the first level cross
-				currentSample += data;
-				currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
-			}
-		} else {
-			//crossed downward
-#ifdef SIMOND_DEBUG
-			kDebug() << "Crossed level downward...";
-#endif
-			currentSample += data; 
-		}
-		lastTimeUnderLevel = currentTime;
-	}
-
-	lastLevel = peak;
-	*/
+  lastLevel = peak;
+  */
 }
+
 
 /**
  * \brief This will stop the current recording
- * 
+ *
  * Tells the wavrecorder to simply stop the recording and save the result.
  * \author Peter Grasch
  */
 bool SimondStreamerClient::stop()
 {
-	bool succ = true;
-	succ = SoundServer::getInstance()->deRegisterInputClient(this);
-	if (succ)
-	{
-		m_isRunning = false;
-		emit stopped();
-	}
-	return succ;
+  bool succ = true;
+  succ = SoundServer::getInstance()->deRegisterInputClient(this);
+  if (succ) {
+    m_isRunning = false;
+    emit stopped();
+  }
+  return succ;
 }
-
-
-
-
-
-

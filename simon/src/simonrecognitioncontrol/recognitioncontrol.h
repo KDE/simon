@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
 #define SIMON_RECOGNITIONCONTROL_H_405E2F7D85464072A6740F08D0459935
 
@@ -47,166 +46,157 @@ class SimondStreamer;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public SimonSender {
-	Q_OBJECT
+class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public SimonSender
+{
+  Q_OBJECT
 
-public:
-	RecognitionControl(QWidget *parent=0);
+    public:
+    RecognitionControl(QWidget *parent=0);
 
-	~RecognitionControl();
-	
-	static RecognitionControl* getInstance(QWidget *parent=0)
-	{
-		if (!instance) instance = new RecognitionControl(parent);
-		return instance;
-	}
+    ~RecognitionControl();
 
+    static RecognitionControl* getInstance(QWidget *parent=0) {
+      if (!instance) instance = new RecognitionControl(parent);
+      return instance;
+    }
 
-	enum RecognitionStatus {
-		Ready=0,
-		Started=1,
-		Paused=2,
-		Resumed=3,
-		Stopped=4
-	};
+    enum RecognitionStatus
+    {
+      Ready=0,
+      Started=1,
+      Paused=2,
+      Resumed=3,
+      Stopped=4
+    };
 
+    bool getAvailableModels();
+    bool switchToModel(const QDateTime& model);
+    bool isConnected();
 
-	bool getAvailableModels();
-	bool switchToModel(const QDateTime& model);
-	bool isConnected();
+    void pauseRecognition();
+    void resumeRecognition();
 
-	void pauseRecognition();
-	void resumeRecognition();
+  private:
+    static RecognitionControl *instance;
+    QProcess *localSimond;
 
+    SimondStreamer* simondStreamer;
 
-private:
-	static RecognitionControl *instance;
-	QProcess *localSimond;
+    QMutex messageLocker;
+    QByteArray stillToProcess;
+    QStringList missingScenarios;
+    bool recognitionReady;
+    QSslSocket *socket;                           //!< QSslSocket for communicating with the simond-socket
 
-	SimondStreamer* simondStreamer;
+    Operation *synchronisationOperation;
+    Operation *modelCompilationOperation;
+    Operation* createModelCompilationOperation();
 
-	QMutex messageLocker;
-	QByteArray stillToProcess;
-	QStringList missingScenarios;
-	bool recognitionReady;
-	QSslSocket *socket; //!< QSslSocket for communicating with the simond-socket
+    QTimer *timeoutWatcher;
+    //	ModelManagerUiProxy *modelManager;
 
-	Operation *synchronisationOperation;
-	Operation *modelCompilationOperation;
-	Operation* createModelCompilationOperation();
+    QStringList serverConnectionsToTry;
+    QStringList serverConnectionErrors;
 
-	QTimer *timeoutWatcher;
-//	ModelManagerUiProxy *modelManager;
+    void sampleNotAvailable(const QString&);
+    void wordUndefined(const QString&);
+    void classUndefined(const QString&);
+    void phonemeUndefined(const QString&);
+    void displayCompilationProtocol(const QString& protocol);
 
-	QStringList serverConnectionsToTry;
-	QStringList serverConnectionErrors;
+    void startSimondStreamer();
+    void stopSimondStreamer();
 
-	void sampleNotAvailable(const QString&);
-	void wordUndefined(const QString&);
-	void classUndefined(const QString&);
- 	void phonemeUndefined(const QString&);
-	void displayCompilationProtocol(const QString& protocol);
+    signals:
+    void connected();
+    void disconnected();
 
-	void startSimondStreamer();
-	void stopSimondStreamer();
+    void connectionError(const QString& errStr);
+    void simondSystemError(const QString& errStr);
+    void synchronisationError(const QString &err);
+    void recognitionError(const QString &err, const QString& protocol);
+    void compilationError(const QString &err, const QString& protocol);
 
-signals:
-	void connected();
-	void disconnected();
+    void simondSystemWarning(const QString&);
+    void synchronisationWarning(const QString&);
+    void recognitionWarning(const QString&);
+    void compilationWarning(const QString&);
 
-	void connectionError(const QString& errStr);
-	void simondSystemError(const QString& errStr);
-	void synchronisationError(const QString &err);
-	void recognitionError(const QString &err, const QString& protocol);
-	void compilationError(const QString &err, const QString& protocol);
+    void status(const QString&, int progNow=-1, int progMax=0);
+    void progress(int now, int max=-1);
 
-	void simondSystemWarning(const QString&);
-	void synchronisationWarning(const QString&);
-	void recognitionWarning(const QString&);
-	void compilationWarning(const QString&);
+    void loggedIn();
 
-	void status(const QString&, int progNow=-1, int progMax=0);
-	void progress(int now, int max=-1);
+    void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
+    void recognised(RecognitionResultList* recognitionResults);
 
-	void loggedIn();
+    void modelsAvailable(const QList<QDateTime>& models);
 
-	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
-	void recognised(RecognitionResultList* recognitionResults);
+  public slots:
+    void startup();
 
-	void modelsAvailable(const QList<QDateTime>& models);
-	
+    void disconnectFromServer();
+    void startConnecting();
 
+    void startRecognition();
+    void stopRecognition();
 
-	
-public slots:
-	void startup();
+    void fetchCompilationProtocol();
+    void askStartSynchronisation();
+    void startSynchronisation();
 
-	void disconnectFromServer();
-	void startConnecting();
+  private slots:
+    void actOnAutoConnect();
+    void slotDisconnected();
+    void sendRequest (qint32 request);
+    void login();
+    void connectedTo();
+    void errorOccured();
+    void connectTo( QString server="127.0.0.1", quint16 port=4444 );
+    void connectToNext();
+    void timeoutReached();
+    void messageReceived();
+    bool sendActiveModel();
+    void sendActiveModelModifiedDate();
+    void sendActiveModelSampleRate();
 
-	void startRecognition();
-	void stopRecognition();
+    void sendScenariosToDelete();
 
-	void fetchCompilationProtocol();
-	void askStartSynchronisation();
-	void startSynchronisation();
-	
-	
+    void sendBaseModelDate();
+    bool sendBaseModel();
 
-private slots:
-	void actOnAutoConnect();
-	void slotDisconnected();
-	void sendRequest (qint32 request);
-	void login();
-	void connectedTo();
-	void errorOccured();
-	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
-	void connectToNext();
-	void timeoutReached();
-	void messageReceived();
-	bool sendActiveModel();
-	void sendActiveModelModifiedDate();
-	void sendActiveModelSampleRate();
+    void sendScenarioList();
 
-	void sendScenariosToDelete();
+    void sendSelectedScenarioListModifiedDate();
+    void sendSelectedScenarioList();
 
-	void sendBaseModelDate();
-	bool sendBaseModel();
+    void requestMissingScenario();
 
-	void sendScenarioList();
+    void sendScenarioModifiedDate(QString scenarioId);
+    void sendScenario(QString scenarioId);
 
-	void sendSelectedScenarioListModifiedDate();
-	void sendSelectedScenarioList();
+    void sendLanguageDescriptionModifiedDate();
+    void sendLanguageDescription();
 
-	void requestMissingScenario();
+    void sendTrainingModifiedDate();
+    void sendTraining();
 
-	void sendScenarioModifiedDate(QString scenarioId);
-	void sendScenario(QString scenarioId);
+    void sendSample(QString sampleName);
 
-	void sendLanguageDescriptionModifiedDate();
-	void sendLanguageDescription();
+    void startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate);
+    void sendSampleToRecognize(qint8 id, const QByteArray& data);
+    void recognizeSample(qint8 id);
 
-	void sendTrainingModifiedDate();
-	void sendTraining();
+    void synchronisationComplete();
+    void synchronisationDone();
 
-	void sendSample(QString sampleName);
+    void synchronizeSamples();
+    void fetchMissingSamples();
 
-	void startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate);
-	void sendSampleToRecognize(qint8 id, const QByteArray& data);
-	void recognizeSample(qint8 id);
+    void abortModelCompilation();
 
-	void synchronisationComplete();
-	void synchronisationDone();
-
-	void synchronizeSamples();
-	void fetchMissingSamples();
-
-	void abortModelCompilation();
-
-	void streamStarted();
-	void streamStopped();
-
+    void streamStarted();
+    void streamStopped();
 
 };
-
 #endif

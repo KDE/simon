@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "addwordintropage.h"
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -30,21 +29,21 @@
  */
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Add a new Word"));
+  setTitle(i18n("Add a new Word"));
 
-	ui.setupUi(this);
+  ui.setupUi(this);
 
-	registerField("wordNameIntro*", ui.leName);
-	setCommitPage(true);
-	setButtonText(QWizard::CommitButton, i18n("Next"));
+  registerField("wordNameIntro*", ui.leName);
+  setCommitPage(true);
+  setButtonText(QWizard::CommitButton, i18n("Next"));
 }
+
 
 bool AddWordIntroPage::validatePage()
 {
-	//kDebug() << "Setting field from: " << field("wordNameIntro");
-	QStringList words = field("wordNameIntro").toString().replace(",", " ").replace(".", " ").split(" ", QString::SkipEmptyParts);
-	setField("wordNameIntro", words.join(" "));
-	//kDebug() << "To: " << field("wordNameIntro");
-	return true;
+  //kDebug() << "Setting field from: " << field("wordNameIntro");
+  QStringList words = field("wordNameIntro").toString().replace(",", " ").replace(".", " ").split(" ", QString::SkipEmptyParts);
+  setField("wordNameIntro", words.join(" "));
+  //kDebug() << "To: " << field("wordNameIntro");
+  return true;
 }
-

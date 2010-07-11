@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_XMLDOMREADER_H_17AB53AF6FDF4C55A6EF4595D7C030A0
 #define SIMON_XMLDOMREADER_H_17AB53AF6FDF4C55A6EF4595D7C030A0
 
@@ -26,25 +25,25 @@
 
 class QDomDocument;
 /**
-	\class XMLDomReader
-	
-	\author Peter Grasch
-	\brief Implements qts DOM API to parse xml documents and implements the XMLReader interface
-	\date 12.05.2007
-	\version 0.1
- */
-class SIMONXML_EXPORT XMLDomReader : public XMLReader {
-protected:
-	QDomDocument *doc;
-public:
-	explicit XMLDomReader(QString path, QObject* parent=0);
+  \class XMLDomReader
 
-	bool save(QString path="");
-	
-	bool load(QString path="");
-	
+  \author Peter Grasch
+  \brief Implements qts DOM API to parse xml documents and implements the XMLReader interface
+  \date 12.05.2007
+  \version 0.1
+ */
+class SIMONXML_EXPORT XMLDomReader : public XMLReader
+{
+  protected:
+    QDomDocument *doc;
+  public:
+    explicit XMLDomReader(QString path, QObject* parent=0);
+
+    bool save(QString path="");
+
+    bool load(QString path="");
+
     ~XMLDomReader();
 
 };
-
 #endif

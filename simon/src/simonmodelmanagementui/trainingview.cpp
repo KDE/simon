@@ -17,29 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "trainingview.h"
 #include "trainingviewprivate.h"
 #include <KLocalizedString>
 
 TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), KIcon ( "view-pim-news" ),
-	i18n ( "Train the Acoustic Model" ), parent),
-	d(new TrainingViewPrivate(this))
+i18n ( "Train the Acoustic Model" ), parent),
+d(new TrainingViewPrivate(this))
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	lay->addWidget(d);
-	
-	hide();
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(d);
+
+  hide();
 }
+
 
 void TrainingView::displayScenarioPrivate(Scenario *scenario)
 {
-	d->displayScenario(scenario);
+  d->displayScenario(scenario);
 }
 
 
 TrainingView::~TrainingView()
 {
-	d->deleteLater();
+  d->deleteLater();
 }
-

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SIMONSOUNDOUTPUT_H_BAC62651BE6A419EA6156220815A2AAD
 #define SIMON_SIMONSOUNDOUTPUT_H_BAC62651BE6A419EA6156220815A2AAD
 
@@ -34,47 +33,43 @@ class SoundOutputClient;
 
 class SimonSoundOutput : public QIODevice
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void playbackFinished();
-		void error(const QString& str);
-		void outputStateChanged(QAudio::State state);
+    signals:
+  void playbackFinished();
+  void error(const QString& str);
+  void outputStateChanged(QAudio::State state);
 
-	private:
-		static QMutex playbackMutex;
+  private:
+    static QMutex playbackMutex;
 
-		QAudioOutput *m_output;
-		SoundOutputClient* m_activeOutputClient;
-		QList<SoundOutputClient*> m_suspendedOutputClients;
+    QAudioOutput *m_output;
+    SoundOutputClient* m_activeOutputClient;
+    QList<SoundOutputClient*> m_suspendedOutputClients;
 
-	protected:
-		qint64 readData(char *toRead, qint64 maxLen);
-		qint64 writeData(const char *toWrite, qint64 len);
+  protected:
+    qint64 readData(char *toRead, qint64 maxLen);
+    qint64 writeData(const char *toWrite, qint64 len);
 
-	private slots:
-		void slotOutputStateChanged(QAudio::State state);
-		bool stopPlayback();
+  private slots:
+    void slotOutputStateChanged(QAudio::State state);
+    bool stopPlayback();
 
-	public:
-		SimonSoundOutput(QObject *parent=NULL);
-		~SimonSoundOutput();
-		
-		void registerOutputClient(SoundOutputClient* client);
-		bool deRegisterOutputClient(SoundOutputClient* client);
+  public:
+    SimonSoundOutput(QObject *parent=0);
+    ~SimonSoundOutput();
 
-		bool startPlayback(SimonSound::DeviceConfiguration& device);
-		bool isActive() { return m_activeOutputClient != NULL; }
+    void registerOutputClient(SoundOutputClient* client);
+    bool deRegisterOutputClient(SoundOutputClient* client);
 
-		SoundClient::SoundClientPriority getHighestPriority();
-		bool activate(SoundClient::SoundClientPriority priority);
+    bool startPlayback(SimonSound::DeviceConfiguration& device);
+    bool isActive() { return m_activeOutputClient != 0; }
 
-		void suspendOutput();
-		void resumeOutput();
+    SoundClient::SoundClientPriority getHighestPriority();
+    bool activate(SoundClient::SoundClientPriority priority);
+
+    void suspendOutput();
+    void resumeOutput();
 
 };
-
 #endif
-
-
-

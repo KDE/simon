@@ -25,36 +25,33 @@
  * \brief Constructor
  */
 SoundInputClient::SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClient::SoundClientPriority priority) :
-	SoundClient(deviceConfiguration, priority)
+SoundClient(deviceConfiguration, priority)
 {
 }
+
 
 void SoundInputClient::registerSoundProcessor(SoundProcessor *p)
 {
-	processors << p;
+  processors << p;
 }
+
 
 void SoundInputClient::process(const QByteArray& data, qint64 currentTime)
 {
-	QByteArray processedData = data;
-	foreach (SoundProcessor* p, processors)
-	{
-		p->process(processedData, currentTime);
-		if (processedData.isEmpty()) return;
-	}
+  QByteArray processedData = data;
+  foreach (SoundProcessor* p, processors) {
+    p->process(processedData, currentTime);
+    if (processedData.isEmpty()) return;
+  }
 
-	processPrivate(processedData, currentTime);
+  processPrivate(processedData, currentTime);
 }
+
 
 /**
  * \brief Destructor
  */
 SoundInputClient::~SoundInputClient()
 {
-	qDeleteAll(processors);
+  qDeleteAll(processors);
 }
-
-
-
-
-

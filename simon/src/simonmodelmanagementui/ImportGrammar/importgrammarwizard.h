@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTGRAMMARWIZARD_H_2C23D673098946D19C52441A617CB9B4
 #define SIMON_IMPORTGRAMMARWIZARD_H_2C23D673098946D19C52441A617CB9B4
 
@@ -25,21 +24,20 @@
 class QWizardPage;
 
 /**
-	@author Peter Grasch <grasch@simon-listens.org>
+  @author Peter Grasch <grasch@simon-listens.org>
 */
 class ImportGrammarWizard : public SimonWizard
 {
-Q_OBJECT
-public:
+  Q_OBJECT
+    public:
     ImportGrammarWizard(QWidget* parent);
 
-	QWizardPage* createIntroPage();
-	QWizardPage* createSelectInputPage();
-	QWizardPage* createWorkingPage();
-	QWizardPage* createFinishedPage();
+    QWizardPage* createIntroPage();
+    QWizardPage* createSelectInputPage();
+    QWizardPage* createWorkingPage();
+    QWizardPage* createFinishedPage();
 
     ~ImportGrammarWizard();
 
 };
-
 #endif

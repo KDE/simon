@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingdirectory.h"
 #include "importtrainingdirectoryintropage.h"
 #include "importtrainingdirectoryworkingpage.h"
@@ -39,16 +38,15 @@
  * @param parent The parent of the widget
  */
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget* parent) : SimonWizard(parent),
-	prevId(0)
+prevId(0)
 {
-	setWindowTitle(i18n("Importing Training Samples"));
-	setBanner("importfolder");
+  setWindowTitle(i18n("Importing Training Samples"));
+  setBanner("importfolder");
 
- 	addPage(createIntroPage());
-	addPage(createWorkingPage());
-	addPage(createFinishedPage());
+  addPage(createIntroPage());
+  addPage(createWorkingPage());
+  addPage(createFinishedPage());
 }
-
 
 
 /**
@@ -57,10 +55,11 @@ ImportTrainingDirectory::ImportTrainingDirectory(QWidget* parent) : SimonWizard(
  */
 ImportTrainingDirectoryIntroPage* ImportTrainingDirectory::createIntroPage()
 {
-	ImportTrainingDirectoryIntroPage *introPage =  new 
-		ImportTrainingDirectoryIntroPage(this);
-	return introPage;
+  ImportTrainingDirectoryIntroPage *introPage =  new
+    ImportTrainingDirectoryIntroPage(this);
+  return introPage;
 }
+
 
 /**
  * \brief creates the working-page
@@ -68,11 +67,12 @@ ImportTrainingDirectoryIntroPage* ImportTrainingDirectory::createIntroPage()
  */
 ImportTrainingDirectoryWorkingPage* ImportTrainingDirectory::createWorkingPage()
 {
-	
-	ImportTrainingDirectoryWorkingPage *page = new ImportTrainingDirectoryWorkingPage(this);
-	connect(page, SIGNAL(done()), this, SLOT(next()));
-	return  page;
+
+  ImportTrainingDirectoryWorkingPage *page = new ImportTrainingDirectoryWorkingPage(this);
+  connect(page, SIGNAL(done()), this, SLOT(next()));
+  return  page;
 }
+
 
 /**
  * \brief Creates the Finished page
@@ -80,14 +80,14 @@ ImportTrainingDirectoryWorkingPage* ImportTrainingDirectory::createWorkingPage()
  */
 QWizardPage* ImportTrainingDirectory::createFinishedPage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Importing of the Folder completed"));
-	QLabel *label = new QLabel(intro);
-	label->setText(i18n("The files have been imported.\n\nThank you for "
-		"improving simon!"));
-	QVBoxLayout *layout = new QVBoxLayout(intro);
-	layout->addWidget(label);
-	intro->setLayout(layout);
-	
-	return intro;
+  QWizardPage *intro = new QWizardPage(this);
+  intro->setTitle(i18n("Importing of the Folder completed"));
+  QLabel *label = new QLabel(intro);
+  label->setText(i18n("The files have been imported.\n\nThank you for "
+    "improving simon!"));
+  QVBoxLayout *layout = new QVBoxLayout(intro);
+  layout->addWidget(label);
+  intro->setLayout(layout);
+
+  return intro;
 }

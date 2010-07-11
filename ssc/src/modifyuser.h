@@ -24,43 +24,43 @@
 #include "ui_details.h"
 
 class User;
+class ModifyUser;
 class UserInInstitution;
 
-class ModifyUser : protected KDialog {
+class ModifyUser : public KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::UserDetails ui;
+    private:
+    Ui::UserDetails ui;
 
-	QList<UserInInstitution*> uiisCurrent;
-	QList<UserInInstitution*> uiisAdd;
-	QList<UserInInstitution*> uiisDelete;
+    QList<UserInInstitution*> uiisCurrent;
+    QList<UserInInstitution*> uiisAdd;
+    QList<UserInInstitution*> uiisDelete;
 
-	void init(User *u);
-	User* createUser(qint32 userId=0);
-	void displayUser(User *u);
-	void displayLanguages();
+    void init(User *u);
+    User* createUser(qint32 userId=0);
+    void displayUser(User *u);
+    void displayLanguages();
 
-	void commitUserInInstitutions(qint32 userId);
-	void displayCurrentInstitutionAssociation(qint32 userId);
+    void commitUserInInstitutions(qint32 userId);
+    void displayCurrentInstitutionAssociation(qint32 userId);
 
-private slots:
-	void checkIfComplete();
-	void addInstitutionAssociation();
-	void removeInstitutionAssociation();
+  private slots:
+    void checkIfComplete();
+    void addInstitutionAssociation();
+    void removeInstitutionAssociation();
 
-public:
-	ModifyUser(QWidget *parent=0);
-	~ModifyUser();
+  public:
+    ModifyUser(QWidget *parent=0);
+    ~ModifyUser();
 
-	int modifyUser(User *u);
-	int newUser();
+    int modifyUser(User *u);
+    int newUser();
 
-public slots:
-	void deleteLater();
+  public slots:
+    void deleteLater();
 
 };
-
 #endif
-

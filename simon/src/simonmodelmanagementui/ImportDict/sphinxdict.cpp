@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "sphinxdict.h"
 #include <QString>
 #include <QFile>
@@ -39,72 +38,68 @@ SPHINXDict::SPHINXDict(QObject* parent): Dict(parent)
 {
 }
 
+
 /**
  * \brief Loads the file from the given path
  * \author Peter Grasch
- * 
+ *
  * \todo Document
  * WARNING: This function assumes the dictionary-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
- * 
+ *
  * @param path If the path is empty the path set by the constructor is used
  */
 void SPHINXDict::load(QString path, QString encodingName)
 {
-	if (path.isEmpty()) path = this->path;
-	emit progress(0);
+  if (path.isEmpty()) path = this->path;
+  emit progress(0);
 
-	QIODevice *dict = KFilterDev::deviceForFile(path,
-							KMimeType::findByFileContent(path)->name());
-	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
-		return;
+  QIODevice *dict = KFilterDev::deviceForFile(path,
+    KMimeType::findByFileContent(path)->name());
+  if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
+    return;
 
-	int maxProg=0;
+  int maxProg=0;
 
-	KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
-	if (mimeType->is("text/plain")) //not compressed
-	{
-		QFileInfo info;
-		QFile f(path);
-		info.setFile(f);
-		maxProg = info.size();
-	}
+  KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
+  if (mimeType->is("text/plain")) {               //not compressed
+    QFileInfo info;
+    QFile f(path);
+    info.setFile(f);
+    maxProg = info.size();
+  }
 
-	int currentProg = 0;
-	
-	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec(encodingName.toAscii());
-	emit loaded();
-	
-	QString line, word;
-	int wordend;
-	line = dictStream->readLine(1000);
-	
-	while (!line.isNull())
-	{
-		wordend = line.indexOf(" ");
-		QString word = line.left(wordend).remove(QRegExp("\\(([0-9])*\\)$"));
-		
-		if (!word.isEmpty())
-		{
-			words << word;
-			terminals << i18n("Unknown");
-			pronunciations << line.mid(wordend+1).trimmed();
-		}
+  int currentProg = 0;
 
-		if (maxProg != 0)
-		{
-			currentProg += line.length();
-			emit progress((int) (((((double)currentProg) / 
-					((double)maxProg)))*1000));
-		}
+  QTextStream *dictStream = new QTextStream(dict);
+  dictStream->setCodec(encodingName.toAscii());
+  emit loaded();
 
-		line = dictStream->readLine(1000);
-	}
-	delete dictStream;
-	dict->close();
-	dict->deleteLater();
+  QString line, word;
+  int wordend;
+  line = dictStream->readLine(1000);
+
+  while (!line.isNull()) {
+    wordend = line.indexOf(" ");
+    QString word = line.left(wordend).remove(QRegExp("\\(([0-9])*\\)$"));
+
+    if (!word.isEmpty()) {
+      words << word;
+      terminals << i18n("Unknown");
+      pronunciations << line.mid(wordend+1).trimmed();
+    }
+
+    if (maxProg != 0) {
+      currentProg += line.length();
+      emit progress((int) (((((double)currentProg) /
+        ((double)maxProg)))*1000));
+    }
+
+    line = dictStream->readLine(1000);
+  }
+  delete dictStream;
+  dict->close();
+  dict->deleteLater();
 }
-
 
 
 SPHINXDict::~SPHINXDict()

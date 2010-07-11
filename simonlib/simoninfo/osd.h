@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_OSD_H_D25D6E7E21C94C78AD6FA6148EA8F8C8
 #define SIMON_OSD_H_D25D6E7E21C94C78AD6FA6148EA8F8C8
 
@@ -27,7 +26,7 @@
  *	@class OSD
  *	@brief On Screen Dispay - displays quick messages on the screen
  *
- *	Uses a passive (and non-modal) dialog to display quick messages 
+ *	Uses a passive (and non-modal) dialog to display quick messages
  *	on the screen
  *
  *	@version 0.1
@@ -42,21 +41,19 @@ class KIcon;
 
 class OSD : public QLabel
 {
-	Q_OBJECT
-private:
-	QTimer *timer;
-	QLabel *message;
-	QLabel *icon;
+  Q_OBJECT
+    private:
+    QTimer *timer;
+    QLabel *message;
+    QLabel *icon;
 
-protected:
-	void mouseReleaseEvent ( QMouseEvent * );
-public:
-	OSD(QString message, int timeout, KIcon *icon=NULL);
-// 	void paintEvent(QPaintEvent *e);
-	
+  protected:
+    void mouseReleaseEvent ( QMouseEvent * );
+  public:
+    OSD(QString message, int timeout, KIcon *icon=0);
+    // 	void paintEvent(QPaintEvent *e);
 
     ~OSD();
 
 };
-
 #endif

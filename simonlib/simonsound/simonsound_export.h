@@ -1,21 +1,20 @@
 #ifndef SIMON_SIMONSOUND_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6DC
 #define SIMON_SIMONSOUND_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6DC
- 
+
 // needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
- 
+
 #ifndef SIMONSOUND_EXPORT
 # if defined(MAKE_SIMONSOUND_LIB)
-   // We are building this library
+// We are building this library
 #  define SIMONSOUND_EXPORT KDE_EXPORT
 # else
-   // We are using this library
+// We are using this library
 #  define SIMONSOUND_EXPORT
 # endif
 #endif
- 
+
 # ifndef SIMONSOUND_EXPORT_DEPRECATED
 #  define SIMONSOUND_EXPORT_DEPRECATED KDE_DEPRECATED SIMONSOUND_EXPORT
 # endif
- 
 #endif

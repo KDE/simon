@@ -22,53 +22,55 @@
 #include <KSharedConfig>
 
 FirstRunSimondConfig::FirstRunSimondConfig(QWidget* parent)
-		: QWizardPage(parent)
+: QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Server"));
-	connect(ui.rbLocalInstallation, SIGNAL(clicked()), this, SLOT(setLocalInstallation()));
+  ui.setupUi(this);
+  setTitle(i18n("Server"));
+  connect(ui.rbLocalInstallation, SIGNAL(clicked()), this, SLOT(setLocalInstallation()));
 }
+
 
 bool FirstRunSimondConfig::validatePage()
 {
-	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrecognitionrc");
+  KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrecognitionrc");
 
-	KConfigGroup group(config, "Recognition");
+  KConfigGroup group(config, "Recognition");
 
-	group.writeEntry("StartLocalSimond", ui.cbStartSimond->isChecked());
-	group.writeEntry("StopLocalSimond", ui.cbStopSimond->isChecked());
-	group.writeEntry("JuliusdServers", QStringList() << ui.leServer->text().split(", "));
-	group.writeEntry("JuliusdAutoConnect", ui.cbConnectAutomatically->isChecked());
-	group.sync();
-	return true;
+  group.writeEntry("StartLocalSimond", ui.cbStartSimond->isChecked());
+  group.writeEntry("StopLocalSimond", ui.cbStopSimond->isChecked());
+  group.writeEntry("JuliusdServers", QStringList() << ui.leServer->text().split(", "));
+  group.writeEntry("JuliusdAutoConnect", ui.cbConnectAutomatically->isChecked());
+  group.sync();
+  return true;
 }
+
 
 void FirstRunSimondConfig::setLocalInstallation()
 {
-	ui.leServer->setText("127.0.0.1:4444");
+  ui.leServer->setText("127.0.0.1:4444");
 }
+
 
 void FirstRunSimondConfig::initializePage()
 {
-	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrecognitionrc");
+  KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrecognitionrc");
 
-	KConfigGroup group(config, "Recognition");
+  KConfigGroup group(config, "Recognition");
 
-	ui.cbStopSimond->setChecked(group.readEntry("StartLocalSimond", true));
-	ui.cbStartSimond->setChecked(group.readEntry("StopLocalSimond", true));
-	ui.cbConnectAutomatically->setChecked(group.readEntry("JuliusdAutoConnect", true));
+  ui.cbStopSimond->setChecked(group.readEntry("StartLocalSimond", true));
+  ui.cbStartSimond->setChecked(group.readEntry("StopLocalSimond", true));
+  ui.cbConnectAutomatically->setChecked(group.readEntry("JuliusdAutoConnect", true));
 
-	QStringList servers = group.readEntry("JuliusdServers", QStringList() << "127.0.0.1:4444");
-	if ((servers.count() == 1) && servers.at(0).startsWith("127.0.0.1"))
-		ui.rbLocalInstallation->animateClick();
-	else
-		ui.rbRemoteInstallation->animateClick();
+  QStringList servers = group.readEntry("JuliusdServers", QStringList() << "127.0.0.1:4444");
+  if ((servers.count() == 1) && servers.at(0).startsWith("127.0.0.1"))
+    ui.rbLocalInstallation->animateClick();
+  else
+    ui.rbRemoteInstallation->animateClick();
 
-	ui.leServer->setText(servers.join(","));
+  ui.leServer->setText(servers.join(","));
 }
 
 
 FirstRunSimondConfig::~FirstRunSimondConfig()
 {
 }
-

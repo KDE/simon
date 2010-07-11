@@ -27,27 +27,25 @@ class User;
 class Institution;
 class UserInInstitution;
 
-class ModifyUserInInstitution : protected KDialog {
+class ModifyUserInInstitution : protected KDialog
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	Ui::ModifyUserInInstitution ui;
+    private:
+    Ui::ModifyUserInInstitution ui;
 
-private slots:
-	void checkIfComplete();
-	void findInstitution();
+  private slots:
+    void checkIfComplete();
+    void findInstitution();
 
-public:
-	ModifyUserInInstitution(QWidget *parent=0);
-	~ModifyUserInInstitution();
-	UserInInstitution* add();
+  public:
+    ModifyUserInInstitution(QWidget *parent=0);
+    ~ModifyUserInInstitution();
+    UserInInstitution* add();
 
-public slots:
-	void deleteLater();
+  public slots:
+    void deleteLater();
 
 };
-
 #endif
-
-

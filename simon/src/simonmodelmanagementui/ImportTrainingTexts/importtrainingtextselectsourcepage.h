@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGTEXTSELECTSOURCEPAGE_H_F1FB4FAFF8B54EA8B5088D7D53DBFB32
 #define SIMON_IMPORTTRAININGTEXTSELECTSOURCEPAGE_H_F1FB4FAFF8B54EA8B5088D7D53DBFB32
 
@@ -30,16 +29,16 @@ class QRadioButton;
  * \version 0.1
  * \brief Selects the type of text to import: local or remote
  */
-class ImportTrainingTextSelectSourcePage :  public QWizardPage {
-	Q_OBJECT
+class ImportTrainingTextSelectSourcePage :  public QWizardPage
+{
+  Q_OBJECT
 
-	private:
-		Ui::ImportTrainingTextSelectSourcePage ui;
-	
-	public:
-		ImportTrainingTextSelectSourcePage(QWidget* parent);
-        	~ImportTrainingTextSelectSourcePage();
-		int nextId() const;
+    private:
+    Ui::ImportTrainingTextSelectSourcePage ui;
+
+  public:
+    ImportTrainingTextSelectSourcePage(QWidget* parent);
+    ~ImportTrainingTextSelectSourcePage();
+    int nextId() const;
 };
-
 #endif

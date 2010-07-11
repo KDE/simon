@@ -23,140 +23,150 @@
 #include <QMetaObject>
 #include <KDebug>
 
-VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc, 
-			const QString& description, const QString& id, int state, int newState,const QString& visibleTrigger, 
-			bool showIcon, bool announce) :
-	Command(trigger, iconSrc, description, state, newState, announce),
-	m_id(id), 
-	m_visibleTrigger(visibleTrigger),
-	m_receiver(NULL),
-	m_showIcon(showIcon)
+VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc,
+const QString& description, const QString& id, int state, int newState,const QString& visibleTrigger,
+bool showIcon, bool announce) :
+Command(trigger, iconSrc, description, state, newState, announce),
+m_id(id),
+m_visibleTrigger(visibleTrigger),
+m_receiver(0),
+m_showIcon(showIcon)
 {
-	setParent(parentManager);
+  setParent(parentManager);
 }
+
 
 //copy constructor
 VoiceInterfaceCommand::VoiceInterfaceCommand(const VoiceInterfaceCommand& b) :
-	Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundState(), b.getTargetState(), b.getAnnounce()),
-	m_id(b.id()),
-	m_visibleTrigger(b.visibleTrigger()),
-	m_receiver(b.receiver()),
-	m_showIcon(b.showIcon())
+Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundState(), b.getTargetState(), b.getAnnounce()),
+m_id(b.id()),
+m_visibleTrigger(b.visibleTrigger()),
+m_receiver(b.receiver()),
+m_showIcon(b.showIcon())
 {
-	setParent(b.parent());
+  setParent(b.parent());
 }
 
+
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
-	Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
-	m_id(tem->id()),
-	m_visibleTrigger(tem->defaultVisibleTrigger()),
-	m_receiver(NULL),
-	m_showIcon(tem->showIcon())
+Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
+m_id(tem->id()),
+m_visibleTrigger(tem->defaultVisibleTrigger()),
+m_receiver(0),
+m_showIcon(tem->showIcon())
 {
-	setParent(parentManager);
+  setParent(parentManager);
 }
+
 
 void VoiceInterfaceCommand::assignAction(CommandManager *parentManager, QObject *receiver, const QString& slot)
 {
-	setParent(parentManager);
-	m_receiver = receiver;
-	m_slot = slot;
+  setParent(parentManager);
+  m_receiver = receiver;
+  m_slot = slot;
 }
+
 
 bool VoiceInterfaceCommand::triggerPrivate(int *status)
 {
-	Q_UNUSED(status);
+  Q_UNUSED(status);
 
-	if (m_receiver == NULL) return false;
+  if (m_receiver == 0) return false;
 
-	//Queued connection:
-	// -: Cannot be used with types that qt doesn't know about. You need to call qRegisterMetaType
-	//    If you want to invoke slots that use custom types. Refer to the qt documentation
-	//    for more info
-	// +: Works in multithreaded environments
-	QByteArray slotName = m_slot.toAscii();
-	kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
-	QMetaObject::invokeMethod(m_receiver, slotName.data()/*, Qt::QueuedConnection*/);
+  //Queued connection:
+  // -: Cannot be used with types that qt doesn't know about. You need to call qRegisterMetaType
+  //    If you want to invoke slots that use custom types. Refer to the qt documentation
+  //    for more info
+  // +: Works in multithreaded environments
+  QByteArray slotName = m_slot.toAscii();
+  kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
+  QMetaObject::invokeMethod(m_receiver, slotName.data()/*, Qt::QueuedConnection*/);
 
-	return true;
+  return true;
 }
+
 
 const QMap<QString,QVariant> VoiceInterfaceCommand::getValueMapPrivate() const
 {
-	QMap<QString,QVariant> out;
+  QMap<QString,QVariant> out;
 
-	out.insert(i18n("Visible trigger"), m_visibleTrigger);
-	out.insert(i18n("Show icon"), m_showIcon ? i18n("Yes") : i18n("No"));
-	return out;
+  out.insert(i18n("Visible trigger"), m_visibleTrigger);
+  out.insert(i18n("Show icon"), m_showIcon ? i18n("Yes") : i18n("No"));
+  return out;
 }
+
 
 bool VoiceInterfaceCommand::deSerializePrivate(const QDomElement& element)
 {
-	if (element.isNull()) return false;
+  if (element.isNull()) return false;
 
-	QDomElement idElement = element.firstChildElement("id");
-	QDomElement visibleTriggerElement = element.firstChildElement("visibleTrigger");
-	QDomElement showIconElement = element.firstChildElement("showIcon");
-	m_id = idElement.text();
-	m_visibleTrigger = visibleTriggerElement.text();
-	m_showIcon = (showIconElement.text().toInt() == 1);
+  QDomElement idElement = element.firstChildElement("id");
+  QDomElement visibleTriggerElement = element.firstChildElement("visibleTrigger");
+  QDomElement showIconElement = element.firstChildElement("showIcon");
+  m_id = idElement.text();
+  m_visibleTrigger = visibleTriggerElement.text();
+  m_showIcon = (showIconElement.text().toInt() == 1);
 
-	return true;
+  return true;
 }
+
 
 VoiceInterfaceCommand* VoiceInterfaceCommand::createInstance(const QDomElement& element)
 {
-	VoiceInterfaceCommand *guiInterfaceCommand = new VoiceInterfaceCommand(); //private constructor
-	if (!guiInterfaceCommand->deSerialize(element))
-	{
-		delete guiInterfaceCommand;
-		return NULL;
-	}
+                                                  //private constructor
+  VoiceInterfaceCommand *guiInterfaceCommand = new VoiceInterfaceCommand();
+  if (!guiInterfaceCommand->deSerialize(element)) {
+    delete guiInterfaceCommand;
+    return 0;
+  }
 
-	return guiInterfaceCommand;
+  return guiInterfaceCommand;
 }
+
 
 QDomElement VoiceInterfaceCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
 {
-	QDomElement idElement = doc->createElement("id");
-	idElement.appendChild(doc->createTextNode(m_id));
+  QDomElement idElement = doc->createElement("id");
+  idElement.appendChild(doc->createTextNode(m_id));
 
-	QDomElement visibleTriggerElement = doc->createElement("visibleTrigger");
-	visibleTriggerElement.appendChild(doc->createTextNode(m_visibleTrigger));
+  QDomElement visibleTriggerElement = doc->createElement("visibleTrigger");
+  visibleTriggerElement.appendChild(doc->createTextNode(m_visibleTrigger));
 
-	QDomElement showIconElement = doc->createElement("showIcon");
-	showIconElement.appendChild(doc->createTextNode(m_showIcon ? "1" : "0"));
+  QDomElement showIconElement = doc->createElement("showIcon");
+  showIconElement.appendChild(doc->createTextNode(m_showIcon ? "1" : "0"));
 
-	commandElem.appendChild(idElement);
-	commandElem.appendChild(visibleTriggerElement);
-	commandElem.appendChild(showIconElement);
+  commandElem.appendChild(idElement);
+  commandElem.appendChild(visibleTriggerElement);
+  commandElem.appendChild(showIconElement);
 
-	return commandElem;
+  return commandElem;
 }
 
 
 const QString VoiceInterfaceCommand::staticCategoryText()
 {
-	return i18n("Voice Interface");
+  return i18n("Voice Interface");
 }
+
 
 const KIcon VoiceInterfaceCommand::staticCategoryIcon()
 {
-	return KIcon("text-speak");
+  return KIcon("text-speak");
 }
 
 
 const KIcon VoiceInterfaceCommand::getCategoryIcon() const
 {
-	return parent()->icon();
+  return parent()->icon();
 }
+
 
 const QString VoiceInterfaceCommand::getCategoryText() const
 {
-	return parent()->name();
+  return parent()->name();
 }
+
 
 VoiceInterfaceCommand::~VoiceInterfaceCommand()
 {
 }
-

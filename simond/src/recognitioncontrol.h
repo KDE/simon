@@ -29,37 +29,36 @@
 
 class RecognitionControl : public QThread
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		QDateTime m_lastSuccessfulStart;
-	signals:
-		void recognitionReady();
-		void recognitionError(const QString& error, const QByteArray& buildLog);
-		void recognitionWarning(const QString& warning);
-		void recognitionStarted();
-		void recognitionStopped();
-		void recognitionPaused();
-		void recognitionResumed();
-		void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
+    private:
+    QDateTime m_lastSuccessfulStart;
+    signals:
+    void recognitionReady();
+    void recognitionError(const QString& error, const QByteArray& buildLog);
+    void recognitionWarning(const QString& warning);
+    void recognitionStarted();
+    void recognitionStopped();
+    void recognitionPaused();
+    void recognitionResumed();
+    void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
-	protected:
-		void touchLastSuccessfulStart();
-		QString username;
+  protected:
+    void touchLastSuccessfulStart();
+    QString username;
 
-	public:
-		QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
-		RecognitionControl(const QString& username, QObject *parent=0);
+  public:
+    QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
+    RecognitionControl(const QString& username, QObject *parent=0);
 
-		virtual bool initializeRecognition()=0;
-		virtual bool isInitialized()=0;
-		virtual bool startRecognition()=0;
-		virtual void stop()=0;
+    virtual bool initializeRecognition()=0;
+    virtual bool isInitialized()=0;
+    virtual bool startRecognition()=0;
+    virtual void stop()=0;
 
-		virtual void recognize(const QString& fileName)=0;
-			       
-		~RecognitionControl();
-		
+    virtual void recognize(const QString& fileName)=0;
+
+    ~RecognitionControl();
+
 };
-
 #endif

@@ -27,33 +27,32 @@
 
 class SIMONDDATABASEACCESS_EXPORT DatabaseAccess : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	signals:
-		void error(const QString& error);
+    signals:
+  void error(const QString& error);
 
-	private:
-		QSqlDatabase *db;
-		QSqlTableModel *userModel;
-		QString m_database;
+  private:
+    QSqlDatabase *db;
+    QSqlTableModel *userModel;
+    QString m_database;
 
-	public:
-		DatabaseAccess(QObject *parent=0);   
-		~DatabaseAccess();
+  public:
+    DatabaseAccess(QObject *parent=0);
+    ~DatabaseAccess();
 
-		bool init();
-		QString getDatabase() { return m_database; }
-		void closeConnection();
+    bool init();
+    QString getDatabase() { return m_database; }
+    void closeConnection();
 
-		bool addUser(const QString& username, const QString& password);
-		bool deleteUser(const QString& username);
-		bool setPassword(const QString& username, const QString& password);
+    bool addUser(const QString& username, const QString& password);
+    bool deleteUser(const QString& username);
+    bool setPassword(const QString& username, const QString& password);
 
-		QSqlTableModel* getUsers();
+    QSqlTableModel* getUsers();
 
-		bool authenticateUser(const QString& user, const QString& password);
+    bool authenticateUser(const QString& user, const QString& password);
 
-		bool isConnected() { return db->isOpen(); }
+    bool isConnected() { return db->isOpen(); }
 };
-
 #endif

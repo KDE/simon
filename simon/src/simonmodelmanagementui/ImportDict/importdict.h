@@ -17,10 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTDICT_H_B2B98CB86CB441528041BA0247C1EC2B
 #define SIMON_IMPORTDICT_H_B2B98CB86CB441528041BA0247C1EC2B
-
 
 #include "dict.h"
 #include <simonscenarios/word.h>
@@ -35,31 +33,32 @@ class Dict;
  *	\author Peter Grasch
  *	\version 0.1
  */
-class ImportDict : public QThread{
-Q_OBJECT
+class ImportDict : public QThread
+{
+  Q_OBJECT
 
-private:
-	QString pathToDict; //!< the path to the dictionary
-	QString encoding; //!< the encoding of the dictionary
-	int type;
-	Dict *dict;
-	QList<Word*> *wordList;
-	bool deleteFileWhenDone;
+    private:
+    QString pathToDict;                           //!< the path to the dictionary
+    QString encoding;                             //!< the encoding of the dictionary
+    int type;
+    Dict *dict;
+    QList<Word*> *wordList;
+    bool deleteFileWhenDone;
 
-signals:
-	void status(QString);
-	void progress(int, int);
-	//void finished(WordList*);
-	void opened();
-	void failed();
-	void successful();
+    signals:
+    void status(QString);
+    void progress(int, int);
+    //void finished(WordList*);
+    void opened();
+    void failed();
+    void successful();
 
-private slots:
-	void loadProgress(int prog);
-	void openingFinished();
-public slots:
-	void deleteDict();
-public:
+  private slots:
+    void loadProgress(int prog);
+    void openingFinished();
+  public slots:
+    void deleteDict();
+  public:
     QList<Word*>* getCurrentWordList();
     ImportDict(QObject *parent=0);
     void run();
@@ -67,5 +66,4 @@ public:
     ~ImportDict();
 
 };
-
 #endif

@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SSC_DEVICEINFORMATIONWIDGET_H_5B939A5C2BE44EB3A400FED68B80E791
 #define SIMON_SSC_DEVICEINFORMATIONWIDGET_H_5B939A5C2BE44EB3A400FED68B80E791
 
@@ -26,43 +25,42 @@
 
 namespace Ui
 {
-	class DeviceInformationWidget;
+  class DeviceInformationWidget;
 }
+
 
 class Microphone;
 class SoundCard;
 class QSettings;
 
-class DeviceInformationWidget : public QWidget {
+class DeviceInformationWidget : public QWidget
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void completeChanged();
+    signals:
+  void completeChanged();
 
-private:
-	Ui::DeviceInformationWidget *ui;
-	QString m_deviceName;
+  private:
+    Ui::DeviceInformationWidget *ui;
+    QString m_deviceName;
 
-public:
-	void deleteLater();
-	DeviceInformationWidget(QWidget *parent=NULL);
-	~DeviceInformationWidget();
+  public:
+    void deleteLater();
+    DeviceInformationWidget(QWidget *parent=0);
+    ~DeviceInformationWidget();
 
-	void setup(const SimonSound::DeviceConfiguration& device);
-	bool isComplete() const;
-	void storeConfig();
+    void setup(const SimonSound::DeviceConfiguration& device);
+    bool isComplete() const;
+    void storeConfig();
 
-	QString getDeviceName() { return m_deviceName; }
-	QString getModel() const;
-	QString getType() const;
-	QString getMicModel() const;
-	QString getMicType() const;
+    QString getDeviceName() { return m_deviceName; }
+    QString getModel() const;
+    QString getType() const;
+    QString getMicModel() const;
+    QString getMicType() const;
 
-	void serialize(QSettings& ini) const;
-	void deserialize(QSettings& ini);
+    void serialize(QSettings& ini) const;
+    void deserialize(QSettings& ini);
 };
-
 #endif
-
-

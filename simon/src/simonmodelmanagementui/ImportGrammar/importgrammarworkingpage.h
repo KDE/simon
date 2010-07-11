@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTGRAMMARWORKINGPAGE_H_038AD3EAE27749BAA1F38A6BAEE5243E
 #define SIMON_IMPORTGRAMMARWORKINGPAGE_H_038AD3EAE27749BAA1F38A6BAEE5243E
 
@@ -25,35 +24,34 @@
 #include "ui_importgrammarworkingpage.h"
 #include <simonscenarios/word.h>
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ImportGrammar;
 class ImportGrammarWorkingPage : public QWizardPage
 {
-Q_OBJECT
-signals:
-	void grammarCreated();
-private:
-	bool completed;
-	Ui::ImportGrammarWorkingPage ui;
-	ImportGrammar *grammarImporter;
+  Q_OBJECT
+    signals:
+  void grammarCreated();
+  private:
+    bool completed;
+    Ui::ImportGrammarWorkingPage ui;
+    ImportGrammar *grammarImporter;
 
-public slots:
-	void cancel();
+  public slots:
+    void cancel();
 
-private slots:
-	void initializePage();
-	void printStatus(QString);
-	void displayFileProgress(int progress, int max);
-	void displayWholeProgress(int progress, int max);
-	void processCompletion();
+  private slots:
+    void initializePage();
+    void printStatus(QString);
+    void displayFileProgress(int progress, int max);
+    void displayWholeProgress(int progress, int max);
+    void processCompletion();
 
-public:
+  public:
     ImportGrammarWorkingPage(QWidget* parent);
 
-	bool isComplete() const { return completed; }
+    bool isComplete() const { return completed; }
     ~ImportGrammarWorkingPage();
 
 };
-
 #endif

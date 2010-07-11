@@ -45,201 +45,210 @@
 #include <KXMLGUIClient>
 #include <KXMLGUIFactory>
 
-
-
 ActionManager* ActionManager::instance;
 
-
 ActionManager::ActionManager(QObject* parent) : QObject(parent),
-	currentlyPromptedListOfResults(0),
-	greedyReceivers(new QList<GreedyReceiver*>()),
-	minimumConfidenceThreshold(0.45),
-	useDYM(false)
+currentlyPromptedListOfResults(0),
+greedyReceivers(new QList<GreedyReceiver*>()),
+minimumConfidenceThreshold(0.45),
+useDYM(false)
 {
-	retrieveRecognitionResultFilteringParameters();
+  retrieveRecognitionResultFilteringParameters();
 }
+
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {
-	greedyReceivers->insert(0, receiver);
+  greedyReceivers->insert(0, receiver);
 }
+
 
 void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 {
-	greedyReceivers->removeAll(receiver);
+  greedyReceivers->removeAll(receiver);
 }
+
 
 void ActionManager::retrieveRecognitionResultFilteringParameters()
 {
-	useDYM = CommandSettings::getInstance()->useDYM();
-	minimumConfidenceThreshold = CommandSettings::getInstance()->minimumConfidence();
-	kDebug() << "Getting global interface commands";
-	ScenarioManager::getInstance()->setListBaseConfiguration(getGlobalListInterfaceCommands());
+  useDYM = CommandSettings::getInstance()->useDYM();
+  minimumConfidenceThreshold = CommandSettings::getInstance()->minimumConfidence();
+  kDebug() << "Getting global interface commands";
+  ScenarioManager::getInstance()->setListBaseConfiguration(getGlobalListInterfaceCommands());
 }
+
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
-	if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
-		//result from a did-you-mean popup
-		QString selectedSentence = trigger;
-		selectedSentence.remove(QRegExp("^[0-9][0-9]?[0-9]?%: "));
-		for (int i=0; i< currentlyPromptedListOfResults->count(); i++)
-		{
-			QString sentence = currentlyPromptedListOfResults->at(i).sentence();
-			if (sentence == selectedSentence) {
-				kDebug() << "Found the result!";
-				RecognitionResultList *list = new RecognitionResultList();
-				list->append(RecognitionResult(currentlyPromptedListOfResults->at(i)));
-				delete currentlyPromptedListOfResults;
-				currentlyPromptedListOfResults = 0;
-				processRawResults(list);
-				return true;
-			}
-		}
-		return true;
-	}
+  if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
+    //result from a did-you-mean popup
+    QString selectedSentence = trigger;
+    selectedSentence.remove(QRegExp("^[0-9][0-9]?[0-9]?%: "));
+    for (int i=0; i< currentlyPromptedListOfResults->count(); i++) {
+      QString sentence = currentlyPromptedListOfResults->at(i).sentence();
+      if (sentence == selectedSentence) {
+        kDebug() << "Found the result!";
+        RecognitionResultList *list = new RecognitionResultList();
+        list->append(RecognitionResult(currentlyPromptedListOfResults->at(i)));
+        delete currentlyPromptedListOfResults;
+        currentlyPromptedListOfResults = 0;
+        processRawResults(list);
+        return true;
+      }
+    }
+    return true;
+  }
 
-	return ScenarioManager::getInstance()->triggerCommand(type, trigger);
+  return ScenarioManager::getInstance()->triggerCommand(type, trigger);
 }
+
 
 bool ActionManager::processResult(RecognitionResult recognitionResult)
 {
-	if (!greedyReceivers->isEmpty()) {
-		bool accepted = false;
-//		for (int i=0; i < greedyReceivers->count(); i++) {
-			if (greedyReceivers->at(0)->greedyTriggerRaw(recognitionResult))
-				accepted = true;
-//			break;
-//		}
-		return accepted;
-	}
+  if (!greedyReceivers->isEmpty()) {
+    bool accepted = false;
+    //		for (int i=0; i < greedyReceivers->count(); i++) {
+    if (greedyReceivers->at(0)->greedyTriggerRaw(recognitionResult))
+      accepted = true;
+    //			break;
+    //		}
+    return accepted;
+  }
 
-	return ScenarioManager::getInstance()->processResult(recognitionResult);
+  return ScenarioManager::getInstance()->processResult(recognitionResult);
 }
+
 
 void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 {
-	if (recognitionResults->isEmpty())
-		return;
+  if (recognitionResults->isEmpty())
+    return;
 
-	kDebug() << "Processing " << recognitionResults->count() << " raw results";
+  kDebug() << "Processing " << recognitionResults->count() << " raw results";
 
-	RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
+  RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
 
-	if (!currentlyPromptedListOfResults || currentlyPromptedListOfResults->isEmpty()) {
-		for (int i=0; i < recognitionResults->count(); i++) {
-		//foreach (const RecognitionResult& result, recognitionResults) {
-			//if the recognition result has:
-			//	* One word that has a score of 0
-			//	* An average score of below the minimum confidence
-			//it will be not be included in the list of results
-			
-			QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
-			kDebug() << confidenceScores;
+  if (!currentlyPromptedListOfResults || currentlyPromptedListOfResults->isEmpty()) {
+    for (int i=0; i < recognitionResults->count(); i++) {
+      //foreach (const RecognitionResult& result, recognitionResults) {
+      //if the recognition result has:
+      //	* One word that has a score of 0
+      //	* An average score of below the minimum confidence
+      //it will be not be included in the list of results
 
-			//calc average
-			float avg= recognitionResults->at(i).averageConfidenceScore();
-			kDebug() << avg << minimumConfidenceThreshold;
+      QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
+      kDebug() << confidenceScores;
 
-			if (!confidenceScores.contains(0.0f) && (avg >= minimumConfidenceThreshold))
-				selectedRecognitionResults->append(recognitionResults->at(i));
-		}
+      //calc average
+      float avg= recognitionResults->at(i).averageConfidenceScore();
+      kDebug() << avg << minimumConfidenceThreshold;
 
-		kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
+      if (!confidenceScores.contains(0.0f) && (avg >= minimumConfidenceThreshold))
+        selectedRecognitionResults->append(recognitionResults->at(i));
+    }
 
-		if (selectedRecognitionResults->count() == 0) return;
-	} else {
-		//we are already asking...
-		selectedRecognitionResults->append(recognitionResults->at(0));
-	}
+    kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
 
-	kDebug() << "Greedy Recievers: " << greedyReceivers->count();
+    if (selectedRecognitionResults->count() == 0) return;
+  }
+  else {
+    //we are already asking...
+    selectedRecognitionResults->append(recognitionResults->at(0));
+  }
 
-	if (!greedyReceivers->isEmpty()) {
-//		for (int i=0; i < greedyReceivers->count(); i++) {
-			/*if (*/ greedyReceivers->at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
-//				break;
-//		}
-		delete selectedRecognitionResults;
-		return;
-	}
+  kDebug() << "Greedy Recievers: " << greedyReceivers->count();
 
-	if (selectedRecognitionResults->count() == 1) {
-		processResult(selectedRecognitionResults->at(0));
-	} else {
-		presentUserWithResults(selectedRecognitionResults);
-	}
-	delete selectedRecognitionResults;
+  if (!greedyReceivers->isEmpty()) {
+    //		for (int i=0; i < greedyReceivers->count(); i++) {
+    /*if (*/ greedyReceivers->at(0)->greedyTriggerRawList(selectedRecognitionResults); //)
+    //				break;
+    //		}
+    delete selectedRecognitionResults;
+    return;
+  }
+
+  if (selectedRecognitionResults->count() == 1) {
+    processResult(selectedRecognitionResults->at(0));
+  }
+  else {
+    presentUserWithResults(selectedRecognitionResults);
+  }
+  delete selectedRecognitionResults;
 }
+
 
 CommandList* ActionManager::getCommandList()
 {
-	return ScenarioManager::getInstance()->getCommandList();
+  return ScenarioManager::getInstance()->getCommandList();
 }
+
 
 void ActionManager::resultSelectionDone()
 {
-	kDebug() << "resultSelectionDone()";
-	delete currentlyPromptedListOfResults;
-	currentlyPromptedListOfResults = 0;
+  kDebug() << "resultSelectionDone()";
+  delete currentlyPromptedListOfResults;
+  currentlyPromptedListOfResults = 0;
 }
+
 
 void ActionManager::presentUserWithResults(RecognitionResultList* recognitionResults)
 {
-	kDebug() << "More than one possible recognition result ... should display list!";
-	if (!useDYM || (currentlyPromptedListOfResults && 
-				!currentlyPromptedListOfResults->isEmpty()))
-	{
-		//no double did-you-means...
-		processResult(recognitionResults->at(0));
-		return;
-	}
+  kDebug() << "More than one possible recognition result ... should display list!";
+  if (!useDYM || (currentlyPromptedListOfResults &&
+  !currentlyPromptedListOfResults->isEmpty())) {
+    //no double did-you-means...
+    processResult(recognitionResults->at(0));
+    return;
+  }
 
-	delete currentlyPromptedListOfResults;
-	currentlyPromptedListOfResults = new RecognitionResultList();
+  delete currentlyPromptedListOfResults;
+  currentlyPromptedListOfResults = new RecognitionResultList();
 
-	QStringList sentences;
-	QStringList trigger;
-	QStringList iconSrcs;
-	for (int i=0; i<recognitionResults->count(); i++) {
+  QStringList sentences;
+  QStringList trigger;
+  QStringList iconSrcs;
+  for (int i=0; i<recognitionResults->count(); i++) {
 
-		QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
+    QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
 
-		float avg = recognitionResults->at(i).averageConfidenceScore();
-		avg *= 100;
+    float avg = recognitionResults->at(i).averageConfidenceScore();
+    avg *= 100;
 
+    sentences << QString("%1%: %2").arg(qRound(avg)/*, 0, 'f', 0*/).arg(recognitionResults->at(i).sentence());
+    iconSrcs << "";
+    trigger << "simonrecognitionresult";
+    currentlyPromptedListOfResults->append(recognitionResults->at(i));
 
-		sentences << QString("%1%: %2").arg(qRound(avg)/*, 0, 'f', 0*/).arg(recognitionResults->at(i).sentence());
-		iconSrcs << "";
-		trigger << "simonrecognitionresult";
-		currentlyPromptedListOfResults->append(recognitionResults->at(i));
+  }
 
-	}
-
-	ListCommand *list = new ListCommand(NULL /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not shure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
-	connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
-	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
-	connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
-	int state = SimonCommand::DefaultState;
-	list->trigger(&state);
+  ListCommand *list = new ListCommand(0 /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not shure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
+  connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
+  connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
+  connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
+  int state = SimonCommand::DefaultState;
+  list->trigger(&state);
 }
+
 
 QFont ActionManager::pluginBaseFont()
 {
-	return CommandSettings::getInstance()->pluginBaseFont();
+  return CommandSettings::getInstance()->pluginBaseFont();
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getListInterfaceCommands()
 {
-	return ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->getListInterfaceCommands();
+  return ScenarioManager::getInstance()->getCurrentScenario()->actionCollection()->getListInterfaceCommands();
 }
+
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGlobalListInterfaceCommands()
 {
-	return CommandSettings::getInstance()->getListInterfaceCommands();
+  return CommandSettings::getInstance()->getListInterfaceCommands();
 }
+
 
 ActionManager::~ActionManager()
 {
-	//...
+  //...
 }

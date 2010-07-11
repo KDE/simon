@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
 #define SIMON_DELETEWORDDIALOG_H_D9E8F7F149E24D5FB0E88132943CA4E8
 
@@ -35,18 +34,17 @@ class Word;
 class EditWordDialog : public KDialog
 {
 
-	Q_OBJECT
-private:
-	Ui::EditWordView ui;
+  Q_OBJECT
+    private:
+    Ui::EditWordView ui;
 
-private slots:
-	void addTerminal();
-public:
+  private slots:
+    void addTerminal();
+  public:
 
-	explicit EditWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
+    explicit EditWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-	int exec(Word *word);
+    int exec(Word *word);
 
 };
-
 #endif

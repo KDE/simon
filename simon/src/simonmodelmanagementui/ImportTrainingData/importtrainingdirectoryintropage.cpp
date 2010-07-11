@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingdirectoryintropage.h"
 #include <QDir>
 
@@ -28,51 +27,52 @@
  */
 ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	ui.setupUi(this);
-	
-	ui.urPrompts->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-	ui.urBaseDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
-	ui.urTrainingDataDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
-	
-	setTitle(i18n("Import Training Samples"));
-	
-	connect(ui.urTrainingDataDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.rbPrompts, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	connect(ui.urBaseDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(promptsPathChanged()));
+  ui.setupUi(this);
 
-	registerField("importPrompts", ui.rbPrompts);
-	registerField("directory", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));
-	registerField("prompts", ui.urPrompts, "url", SIGNAL(textChanged(QString)));
-	registerField("promptsBaseDirectory", ui.urBaseDirectory, "url", SIGNAL(textChanged(QString)));
-	
-	connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.lbPrompts, SLOT(setVisible(bool)));
-	connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.urPrompts, SLOT(setVisible(bool)));
-	connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.lbBaseDirectory, SLOT(setVisible(bool)));
-	connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.urBaseDirectory, SLOT(setVisible(bool)));
-	connect(ui.rbFolder, SIGNAL(toggled(bool)), ui.lbFolder, SLOT(setVisible(bool)));
-	connect(ui.rbFolder, SIGNAL(toggled(bool)), ui.urTrainingDataDirectory, SLOT(setVisible(bool)));
+  ui.urPrompts->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+  ui.urBaseDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+  ui.urTrainingDataDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
-	ui.lbFolder->hide();
-	ui.urTrainingDataDirectory->hide();
+  setTitle(i18n("Import Training Samples"));
+
+  connect(ui.urTrainingDataDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.rbPrompts, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+  connect(ui.urBaseDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(promptsPathChanged()));
+
+  registerField("importPrompts", ui.rbPrompts);
+  registerField("directory", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));
+  registerField("prompts", ui.urPrompts, "url", SIGNAL(textChanged(QString)));
+  registerField("promptsBaseDirectory", ui.urBaseDirectory, "url", SIGNAL(textChanged(QString)));
+
+  connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.lbPrompts, SLOT(setVisible(bool)));
+  connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.urPrompts, SLOT(setVisible(bool)));
+  connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.lbBaseDirectory, SLOT(setVisible(bool)));
+  connect(ui.rbPrompts, SIGNAL(toggled(bool)), ui.urBaseDirectory, SLOT(setVisible(bool)));
+  connect(ui.rbFolder, SIGNAL(toggled(bool)), ui.lbFolder, SLOT(setVisible(bool)));
+  connect(ui.rbFolder, SIGNAL(toggled(bool)), ui.urTrainingDataDirectory, SLOT(setVisible(bool)));
+
+  ui.lbFolder->hide();
+  ui.urTrainingDataDirectory->hide();
 }
+
 
 void ImportTrainingDirectoryIntroPage::promptsPathChanged()
 {
-	KUrl url = ui.urPrompts->url();
+  KUrl url = ui.urPrompts->url();
 }
+
 
 bool ImportTrainingDirectoryIntroPage::isComplete() const
 {
-	if (ui.rbPrompts->isChecked()) {
-		QString dir = ui.urBaseDirectory->url().path();
-		return QFile::exists(ui.urPrompts->url().path()) &&
-			((!dir.isEmpty()) && QDir(dir).exists());
-	} else {
-		QString dir = ui.urTrainingDataDirectory->url().path();
-		return ((!dir.isEmpty()) && QDir(dir).exists());
-	}
+  if (ui.rbPrompts->isChecked()) {
+    QString dir = ui.urBaseDirectory->url().path();
+    return QFile::exists(ui.urPrompts->url().path()) &&
+      ((!dir.isEmpty()) && QDir(dir).exists());
+  }
+  else {
+    QString dir = ui.urTrainingDataDirectory->url().path();
+    return ((!dir.isEmpty()) && QDir(dir).exists());
+  }
 }
-
-

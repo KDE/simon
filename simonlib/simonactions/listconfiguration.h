@@ -30,8 +30,9 @@
 
 namespace Ui
 {
-	class ListConfigurationDlg;
+  class ListConfigurationDlg;
 }
+
 
 class QListWidgetItem;
 class Action;
@@ -39,54 +40,49 @@ class VoiceInterfaceCommand;
 
 class SIMONACTIONS_EXPORT ListConfiguration : public QWidget
 {
-Q_OBJECT
+  Q_OBJECT
 
-signals:
-	void changed();
+    signals:
+  void changed();
 
-private:
-	Ui::ListConfigurationDlg* ui;
+  private:
+    Ui::ListConfigurationDlg* ui;
 
-	CommandListElements::Element getRowElementType(int row);
-	void storeCurrentlyDisplayedElement(CommandListElements::Element type);
-	void displayListElement(CommandListElements::Element type);
+    CommandListElements::Element getRowElementType(int row);
+    void storeCurrentlyDisplayedElement(CommandListElements::Element type);
+    void displayListElement(CommandListElements::Element type);
 
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
-public slots:
-	void prepareToSave();
-	void prepareToLoad();
-	void loadFinished();
- 
-private slots:
-	void listActionsItemChanged(QListWidgetItem *newItem, QListWidgetItem *item);
+  public slots:
+    void prepareToSave();
+    void prepareToLoad();
+    void loadFinished();
 
-public:
-	ListConfiguration(QWidget* parent=0);
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+  private slots:
+    void listActionsItemChanged(QListWidgetItem *newItem, QListWidgetItem *item);
 
-	QString getListSelectionId(CommandListElements::Element type);
-	QString getListSelectionDescription(CommandListElements::Element type);
-	QString getListDefaultTrigger(CommandListElements::Element type);
-	QString getListDefaultVisibleTrigger(CommandListElements::Element type);
-	bool getListDefaultShowIcon(CommandListElements::Element type);
-	QString getListDefaultIcon(CommandListElements::Element type);
+  public:
+    ListConfiguration(QWidget* parent=0);
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
-	QStringList getListTriggers(CommandListElements::Element type);
-	bool getListShowIcon(CommandListElements::Element type);
-	QString getListIcon(CommandListElements::Element type);
-	QString getListVisibleTrigger(CommandListElements::Element type);
+    QString getListSelectionId(CommandListElements::Element type);
+    QString getListSelectionDescription(CommandListElements::Element type);
+    QString getListDefaultTrigger(CommandListElements::Element type);
+    QString getListDefaultVisibleTrigger(CommandListElements::Element type);
+    bool getListDefaultShowIcon(CommandListElements::Element type);
+    QString getListDefaultIcon(CommandListElements::Element type);
 
-	void registerVoiceInterfaceCommand(CommandListElements::Element, 
-			const QStringList& triggers, 
-			const QString& visibleTrigger, bool showIcon, const QString& iconSrc);
-	void registerVoiceInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
-	~ListConfiguration();
+    QStringList getListTriggers(CommandListElements::Element type);
+    bool getListShowIcon(CommandListElements::Element type);
+    QString getListIcon(CommandListElements::Element type);
+    QString getListVisibleTrigger(CommandListElements::Element type);
 
-
+    void registerVoiceInterfaceCommand(CommandListElements::Element,
+      const QStringList& triggers,
+      const QString& visibleTrigger, bool showIcon, const QString& iconSrc);
+    void registerVoiceInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
+    ~ListConfiguration();
 
 };
-
 #endif
-
-

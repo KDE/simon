@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "soundsettings.h"
 #include "soundconfig.h"
 #include "soundserver.h"
@@ -34,10 +33,10 @@
 #include <KDebug>
 #include <kgenericfactory.h>
 
-K_PLUGIN_FACTORY( SoundSettingsFactory, 
-			registerPlugin< SoundSettings >(); 
-		)
-        
+K_PLUGIN_FACTORY( SoundSettingsFactory,
+registerPlugin< SoundSettings >();
+)
+
 K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
 
 /**
@@ -46,62 +45,60 @@ K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
  * @param parent the parent of the widget
  */
 SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
-		KCModule(KGlobal::mainComponent(), parent)
+KCModule(KGlobal::mainComponent(), parent)
 {
-	Q_UNUSED(args);
+  Q_UNUSED(args);
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	KPageWidget *pageWidget = new KPageWidget(this);
-	lay->addWidget(pageWidget);
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  KPageWidget *pageWidget = new KPageWidget(this);
+  lay->addWidget(pageWidget);
 
-	if (args.count() == 1)
-		pageWidget->setFaceType(KPageView::Tabbed);
-	
-	deviceSettings = new DeviceSettings(this);
-	connect(deviceSettings, SIGNAL(changed(bool)), this, SIGNAL(changed(bool)));
+  if (args.count() == 1)
+    pageWidget->setFaceType(KPageView::Tabbed);
 
-	QWidget *vadConfig = new QWidget(this);
-	vadUi.setupUi(vadConfig);
-	
-	QWidget *postProcessingConfig = new QWidget(this);
-	postProcUi.setupUi(postProcessingConfig);
+  deviceSettings = new DeviceSettings(this);
+  connect(deviceSettings, SIGNAL(changed(bool)), this, SIGNAL(changed(bool)));
 
-	QWidget *trainingConfig = new QWidget(this);
-	trainingSettignsUi.setupUi(trainingConfig);
+  QWidget *vadConfig = new QWidget(this);
+  vadUi.setupUi(vadConfig);
 
+  QWidget *postProcessingConfig = new QWidget(this);
+  postProcUi.setupUi(postProcessingConfig);
 
-//	QWidget *promptConfig = new QWidget(this);
-//	promptUi.setupUi(promptConfig);
+  QWidget *trainingConfig = new QWidget(this);
+  trainingSettignsUi.setupUi(trainingConfig);
 
-	KPageWidgetItem *deviceConfItem = pageWidget->addPage(deviceSettings, i18n("Device Configuration"));
-	KPageWidgetItem *vadConfItem = pageWidget->addPage(vadConfig, i18n("Voice Activity Detection"));
-	KPageWidgetItem *trainingConfigItem = pageWidget->addPage(trainingConfig, i18n("Training"));
-	//KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
-	KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
+  //	QWidget *promptConfig = new QWidget(this);
+  //	promptUi.setupUi(promptConfig);
 
-	deviceConfItem->setIcon(KIcon("audio-card"));
-	vadConfItem->setIcon(KIcon("media-playback-start"));
-	trainingConfigItem->setIcon(KIcon("view-pim-news"));
-	//promptConfItem->setIcon(KIcon("draw-text"));
-	postProcConfItem->setIcon(KIcon("applications-other"));
+  KPageWidgetItem *deviceConfItem = pageWidget->addPage(deviceSettings, i18n("Device Configuration"));
+  KPageWidgetItem *vadConfItem = pageWidget->addPage(vadConfig, i18n("Voice Activity Detection"));
+  KPageWidgetItem *trainingConfigItem = pageWidget->addPage(trainingConfig, i18n("Training"));
+  //KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
+  KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
 
-	deviceConfItem->setHeader("");
-	vadConfItem->setHeader("");
-	trainingConfigItem->setHeader("");
-	//promptConfItem->setHeader("");
-	postProcConfItem->setHeader("");
-	
-	KAboutData *about = new KAboutData(
-				"soundsettings", "", ki18n("Recordings"),
-				"0.1", ki18n("Configuration for the Recording and Playback of sounds"), KAboutData::License_GPL);
-#if KDE_IS_VERSION(4,0,80)
-	about->setProgramIconName("preferences-desktop-sound");
-#endif
-	setAboutData( about );
+  deviceConfItem->setIcon(KIcon("audio-card"));
+  vadConfItem->setIcon(KIcon("media-playback-start"));
+  trainingConfigItem->setIcon(KIcon("view-pim-news"));
+  //promptConfItem->setIcon(KIcon("draw-text"));
+  postProcConfItem->setIcon(KIcon("applications-other"));
 
-	addConfig(SoundConfiguration::self(), this);
+  deviceConfItem->setHeader("");
+  vadConfItem->setHeader("");
+  trainingConfigItem->setHeader("");
+  //promptConfItem->setHeader("");
+  postProcConfItem->setHeader("");
+
+  KAboutData *about = new KAboutData(
+    "soundsettings", "", ki18n("Recordings"),
+    "0.1", ki18n("Configuration for the Recording and Playback of sounds"), KAboutData::License_GPL);
+  #if KDE_IS_VERSION(4,0,80)
+  about->setProgramIconName("preferences-desktop-sound");
+  #endif
+  setAboutData( about );
+
+  addConfig(SoundConfiguration::self(), this);
 }
-
 
 
 /**
@@ -110,26 +107,29 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
  */
 void SoundSettings::load()
 {
-	deviceSettings->load();
+  deviceSettings->load();
 
-	KCModule::load();
+  KCModule::load();
 }
+
 
 void SoundSettings::save()
 {
-	//even when not enabled this call will be save
-	//The sound input / output devices are not affected by this
-	//and this way we store the configuration regarding the prompt font
-	//and the postprocessing commands
-	KCModule::save();
+  //even when not enabled this call will be save
+  //The sound input / output devices are not affected by this
+  //and this way we store the configuration regarding the prompt font
+  //and the postprocessing commands
+  KCModule::save();
 
-	deviceSettings->save();
+  deviceSettings->save();
 }
+
 
 void SoundSettings::slotChanged()
 {
-	emit changed(true);
+  emit changed(true);
 }
+
 
 /**
  * \brief Destructor
@@ -138,5 +138,3 @@ void SoundSettings::slotChanged()
 SoundSettings::~SoundSettings()
 {
 }
-
-

@@ -17,44 +17,41 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SHORTCUTCOMMANDMANAGER_H_8145931DA2E84AF5B282B047E2BD9FE9
 #define SIMON_SHORTCUTCOMMANDMANAGER_H_8145931DA2E84AF5B282B047E2BD9FE9
 
 #include <simonscenarios/commandmanager.h>
 
-
 class CreateCommandWidget;
 
 /**
- *	@class ShortcutCommandManager 
+ *	@class ShortcutCommandManager
  *	@brief Manager for the executable commands
  *
  *	@version 0.1
  *	@date 22.05.2008
  *	@author Peter Grasch
  */
-class ShortcutCommandManager : public CommandManager {
-Q_OBJECT
-protected:
-	bool shouldAcceptCommand(Command *command);
-public:
-	const QString name() const;
-	const QString iconSrc() const;
-	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+class ShortcutCommandManager : public CommandManager
+{
+  Q_OBJECT
+    protected:
+    bool shouldAcceptCommand(Command *command);
+  public:
+    const QString name() const;
+    const QString iconSrc() const;
+    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
+    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
 
     /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
     ShortcutCommandManager (QObject *parent, const QVariantList& args);
 
-    
     ~ShortcutCommandManager ();
 
 };
-
 #endif

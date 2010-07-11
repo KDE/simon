@@ -17,36 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "mergeterminalsselectterminalspage.h"
 
 #include <simonscenarios/scenariomanager.h>
 
 MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Choose Terminals"));
-	registerField("newName*", ui.leNewTerminal);
-	registerField("terminalA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
-	registerField("terminalB*", ui.lwB, "currentText", SIGNAL(currentTextChanged(QString)));
-	registerField("includeShadow", ui.cbIncludeShadow);
-	registerField("includeGrammar", ui.cbIncludeGrammar);
+  ui.setupUi(this);
+  setTitle(i18n("Choose Terminals"));
+  registerField("newName*", ui.leNewTerminal);
+  registerField("terminalA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
+  registerField("terminalB*", ui.lwB, "currentText", SIGNAL(currentTextChanged(QString)));
+  registerField("includeShadow", ui.cbIncludeShadow);
+  registerField("includeGrammar", ui.cbIncludeGrammar);
 }
+
 
 void MergeTerminalsSelectTerminalsPage::initializePage()
 {
-	QStringList availableTerminals;
-	availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
-			(SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
-	ui.lwA->clear();
-	ui.lwB->clear();
-	ui.lwA->addItems(availableTerminals);
-	ui.lwB->addItems(availableTerminals);
+  QStringList availableTerminals;
+  availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+    (SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
+  ui.lwA->clear();
+  ui.lwB->clear();
+  ui.lwA->addItems(availableTerminals);
+  ui.lwB->addItems(availableTerminals);
 }
 
 
 MergeTerminalsSelectTerminalsPage::~MergeTerminalsSelectTerminalsPage()
 {
 }
-
-

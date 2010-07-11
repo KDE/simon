@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_SCENARIOMANAGEMENTDIALOG_H_FA6CC60BFE674C5DA2F42DE2132BC4C0
 #define SIMON_SCENARIOMANAGEMENTDIALOG_H_FA6CC60BFE674C5DA2F42DE2132BC4C0
 
@@ -31,59 +30,60 @@ class Scenario;
 class QListWidget;
 class QListWidgetItem;
 
-namespace Ui {
-	class ScenarioManagementDialog ;
+namespace Ui
+{
+  class ScenarioManagementDialog ;
 }
 
-class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog    {
-	Q_OBJECT
 
-private:
-	Ui::ScenarioManagementDialog *ui;
+class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
+{
+  Q_OBJECT
 
-	QModelIndex m_lastSelectedIndex;
+    private:
+    Ui::ScenarioManagementDialog *ui;
 
-	QString m_dataPrefix;
-	bool m_dirty;
+    QModelIndex m_lastSelectedIndex;
 
-	void initDisplay();
-	void displayScenario(Scenario *scenario, QListWidget* widget);
-	void setupItemToScenario(QListWidgetItem *item, Scenario *scenario);
+    QString m_dataPrefix;
+    bool m_dirty;
 
-	Scenario* getCurrentlySelectedScenario();
+    void initDisplay();
+    void displayScenario(Scenario *scenario, QListWidget* widget);
+    void setupItemToScenario(QListWidgetItem *item, Scenario *scenario);
 
-	bool save();
+    Scenario* getCurrentlySelectedScenario();
 
-private slots:
-	void availableScenarioSelected();
-	void selectedScenarioSelected();
+    bool save();
 
-	void newScenario();
-	void editScenario();
-	void importScenario();
-	void exportScenarioFile();
-	void exportScenarioGHNS();
-	void deleteScenario();
+  private slots:
+    void availableScenarioSelected();
+    void selectedScenarioSelected();
 
-	void updateLastSelectedIndex(const QModelIndex&);
-	void slotAdded(QListWidgetItem*);
-	void slotMovedDown(QListWidgetItem*);
-	void slotMovedUp(QListWidgetItem*);
-	void slotRemoved(QListWidgetItem*);
-	
-public slots:
-	int exec();
-	bool updateScenarioConfiguration();
-	bool getNewScenarios();
+    void newScenario();
+    void editScenario();
+    void importScenario();
+    void exportScenarioFile();
+    void exportScenarioGHNS();
+    void deleteScenario();
 
-public:
-	void init();
-	explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
-	QStringList getSelectedScenarioIds();
+    void updateLastSelectedIndex(const QModelIndex&);
+    void slotAdded(QListWidgetItem*);
+    void slotMovedDown(QListWidgetItem*);
+    void slotMovedUp(QListWidgetItem*);
+    void slotRemoved(QListWidgetItem*);
 
-	~ScenarioManagementDialog();
+  public slots:
+    int exec();
+    bool updateScenarioConfiguration();
+    bool getNewScenarios();
+
+  public:
+    void init();
+    explicit ScenarioManagementDialog(const QString& dataPrefix, QWidget *parent = 0);
+    QStringList getSelectedScenarioIds();
+
+    ~ScenarioManagementDialog();
 
 };
-
 #endif
-

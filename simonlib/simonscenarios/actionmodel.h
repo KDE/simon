@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ACTIONMODEL_H_342DAB10C3C64ED7BCF107CAF08CC992
 #define SIMON_ACTIONMODEL_H_342DAB10C3C64ED7BCF107CAF08CC992
 #include <QList>
@@ -26,35 +25,34 @@
 
 class Action;
 
-class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel {
+class MODELMANAGEMENT_EXPORT ActionModel : public QAbstractItemModel
+{
 
-	Q_OBJECT
+  Q_OBJECT
 
-protected:
-	QList<Action*> m_actions;
+    protected:
+    QList<Action*> m_actions;
 
-	Qt::ItemFlags flags(const QModelIndex &index) const;
-	QVariant headerData(int, Qt::Orientation orientation,
-				int role = Qt::DisplayRole) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
-	virtual QVariant data(const QModelIndex &index, int role) const;
-	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-private slots:
-	void updateAction();
+  private slots:
+    void updateAction();
 
-public:
-	ActionModel(QObject *parent=0);
+  public:
+    ActionModel(QObject *parent=0);
 
-	virtual bool appendAction(Action*, bool silent);
-	bool clearActions();
-	bool takeAction(Action*);
+    virtual bool appendAction(Action*, bool silent);
+    bool clearActions();
+    bool takeAction(Action*);
 
-	virtual ~ActionModel();
+    virtual ~ActionModel();
 
 };
-
 #endif
-

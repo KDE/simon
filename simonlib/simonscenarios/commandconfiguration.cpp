@@ -25,7 +25,6 @@
 #include <KComponentData>
 #include <QVariantList>
 
-
 /**
  * Initializes the configuration. This will initialize the KAboutData object #about with the given values.
  *
@@ -38,18 +37,18 @@
  * \param componentData Componentdata object
  * \param args Optional arguments
  */
-CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name, 
-					    const QByteArray& version, const KLocalizedString& desc,
-					    const QString& iconName, const KComponentData& componentData,
-					    const QVariantList &args)
-			: QWidget(), ScenarioObject(parent)
+CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& internalName, const KLocalizedString& name,
+const QByteArray& version, const KLocalizedString& desc,
+const QString& iconName, const KComponentData& componentData,
+const QVariantList &args)
+: QWidget(), ScenarioObject(parent)
 {
-	Q_UNUSED(args);
-	Q_UNUSED(componentData);
+  Q_UNUSED(args);
+  Q_UNUSED(componentData);
 
-	about = new KAboutData(internalName, "", name,
-				version, desc, KAboutData::License_GPL);
-	about->setProgramIconName(iconName);
+  about = new KAboutData(internalName, "", name,
+    version, desc, KAboutData::License_GPL);
+  about->setProgramIconName(iconName);
 }
 
 
@@ -58,13 +57,14 @@ CommandConfiguration::CommandConfiguration(Scenario *parent, const QByteArray& i
  */
 void CommandConfiguration::slotChanged()
 {
-	emit changed(true);
+  emit changed(true);
 }
+
 
 /**
  * Destructor: Deletes the about data object
  */
 CommandConfiguration::~CommandConfiguration()
 {
-	delete about;
+  delete about;
 }

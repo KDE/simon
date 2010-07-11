@@ -20,7 +20,6 @@
 #ifndef SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 #define SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 
-
 #include <QObject>
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
@@ -35,52 +34,49 @@ class CommandManager;
 class CommandSettings;
 class Action;
 
-class SIMONACTIONS_EXPORT ActionManager : public QObject {
+class SIMONACTIONS_EXPORT ActionManager : public QObject
+{
 
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	static ActionManager* instance;
+    private:
+    static ActionManager* instance;
 
-	QList<Action::Ptr> actions;
+    QList<Action::Ptr> actions;
 
-	RecognitionResultList *currentlyPromptedListOfResults;
-	QList<GreedyReceiver*> *greedyReceivers;
+    RecognitionResultList *currentlyPromptedListOfResults;
+    QList<GreedyReceiver*> *greedyReceivers;
 
-	float minimumConfidenceThreshold;
-	bool useDYM;
+    float minimumConfidenceThreshold;
+    bool useDYM;
 
+  protected:
+    ActionManager(QObject *parent=0);
 
-protected:
-	ActionManager(QObject *parent=0);
+  private slots:
+    void resultSelectionDone();
 
-private slots:
-	void resultSelectionDone();
+  public:
+    void retrieveRecognitionResultFilteringParameters();
+    static ActionManager* getInstance() {
+      if (!instance) instance = new ActionManager();
+      return instance;
+    }
 
+    void processRawResults(RecognitionResultList* recognitionResults);
+    void presentUserWithResults(RecognitionResultList* recognitionResults);
+    bool processResult(RecognitionResult recognitionResult);
+    bool triggerCommand(const QString& type, const QString& trigger);
 
-public:
-	void retrieveRecognitionResultFilteringParameters();
-	static ActionManager* getInstance() {
-		if (!instance) instance = new ActionManager();
-		return instance;
-	}
+    void deRegisterGreedyReceiver(GreedyReceiver *);
+    void registerGreedyReceiver(GreedyReceiver *);
 
-	void processRawResults(RecognitionResultList* recognitionResults);
-	void presentUserWithResults(RecognitionResultList* recognitionResults);
-	bool processResult(RecognitionResult recognitionResult);
-	bool triggerCommand(const QString& type, const QString& trigger);
+    CommandList* getCommandList();
+    QFont pluginBaseFont();
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getGlobalListInterfaceCommands();
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
-	void deRegisterGreedyReceiver(GreedyReceiver *);
-	void registerGreedyReceiver(GreedyReceiver *);
-
-	CommandList* getCommandList();
-	QFont pluginBaseFont();
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getGlobalListInterfaceCommands();
-	QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
-
-	~ActionManager();
+    ~ActionManager();
 
 };
-
 #endif
-

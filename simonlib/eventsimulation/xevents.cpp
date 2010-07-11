@@ -17,111 +17,107 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "xevents.h"
 #include "xeventsprivate.h"
 #include <Qt>
 
-
 /**
  * @brief Constructor
- * 
+ *
  * Opens the display (member)
  *
  * @param char* displayName
  * The name of the display to open
- * 
+ *
  * @author Peter Grasch
  */
-XEvents::XEvents(char* displayName) : CoreEvents(),
-	d(new XEventsPrivate(displayName))
+XEvents::XEvents (char* displayName) : CoreEvents(),
+d (new XEventsPrivate (displayName))
 {
 }
 
 
-void XEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
+void XEvents::click (int x, int y, EventSimulation::ClickMode clickMode)
 {
-	d->click(x, y, clickMode);
-}
-
-void XEvents::dragAndDrop(int xStart, int yStart, int x, int y)
-{
-	d->dragAndDrop(xStart, yStart, x, y);
+  d->click (x, y, clickMode);
 }
 
 
-void XEvents::sendKeyPrivate(unsigned int key)
+void XEvents::dragAndDrop (int xStart, int yStart, int x, int y)
 {
-	d->sendKeyPrivate(key);
-	unsetUnneededModifiers();
+  d->dragAndDrop (xStart, yStart, x, y);
 }
 
 
-void XEvents::setModifierKey(int virtualKey, bool once)
+void XEvents::sendKeyPrivate (unsigned int key)
 {
-	if ((!shiftSet) && (virtualKey & Qt::SHIFT))
-	{
-		d->setModifierKey(Qt::SHIFT);
-		shiftSet=true;
-		shiftOnce=once;
-	}
-	if ((!altgrSet) && (virtualKey & Qt::Key_AltGr))
-	{
-		d->setModifierKey(Qt::Key_AltGr);
-		altgrSet=true;
-		altgrOnce=once;
-	}
-	if ((!strgSet) && (virtualKey & Qt::CTRL))
-	{
-		d->setModifierKey(Qt::CTRL);
-		strgSet=true;
-		strgOnce=once;
-	}
-	if ((!altSet) && (virtualKey & Qt::ALT))
-	{
-		d->setModifierKey(Qt::ALT);
-		altSet=true;
-		altOnce=once;
-	}
-	if ((!superSet) && (virtualKey & Qt::META))
-	{
-		d->setModifierKey(Qt::META);
-		superSet=true;
-		superOnce=once;
-	}
+  d->sendKeyPrivate (key);
+  unsetUnneededModifiers();
 }
 
 
-void XEvents::unsetModifier(int virtualKey)
+void XEvents::setModifierKey (int virtualKey, bool once)
 {
-	
-	if (virtualKey & Qt::SHIFT)
-	{
-		d->unsetModifier(Qt::SHIFT);
-		shiftSet=false;
-	}
-	if (virtualKey & Qt::Key_AltGr)
-	{
-		d->unsetModifier(Qt::Key_AltGr);
-		altgrSet=false;
-	}
-	if (virtualKey & Qt::CTRL)
-	{
-		d->unsetModifier(Qt::CTRL);
-		strgSet=false;
-	}
-	if (virtualKey & Qt::ALT)
-	{
-		d->unsetModifier(Qt::ALT);
-		altSet=false;
-	}
-	if (virtualKey & Qt::META)
-	{
-		d->unsetModifier(Qt::META);
-		superSet=false;
-	}
+  if ((!shiftSet) && (virtualKey & Qt::SHIFT)) {
+    d->setModifierKey (Qt::SHIFT);
+    shiftSet=true;
+    shiftOnce=once;
+  }
+
+  if ((!altgrSet) && (virtualKey & Qt::Key_AltGr)) {
+    d->setModifierKey (Qt::Key_AltGr);
+    altgrSet=true;
+    altgrOnce=once;
+  }
+
+  if ((!strgSet) && (virtualKey & Qt::CTRL)) {
+    d->setModifierKey (Qt::CTRL);
+    strgSet=true;
+    strgOnce=once;
+  }
+
+  if ((!altSet) && (virtualKey & Qt::ALT)) {
+    d->setModifierKey (Qt::ALT);
+    altSet=true;
+    altOnce=once;
+  }
+
+  if ((!superSet) && (virtualKey & Qt::META)) {
+    d->setModifierKey (Qt::META);
+    superSet=true;
+    superOnce=once;
+  }
 }
 
+
+void XEvents::unsetModifier (int virtualKey)
+{
+
+  if (virtualKey & Qt::SHIFT) {
+    d->unsetModifier (Qt::SHIFT);
+    shiftSet=false;
+  }
+
+  if (virtualKey & Qt::Key_AltGr) {
+    d->unsetModifier (Qt::Key_AltGr);
+    altgrSet=false;
+  }
+
+  if (virtualKey & Qt::CTRL) {
+    d->unsetModifier (Qt::CTRL);
+    strgSet=false;
+  }
+
+  if (virtualKey & Qt::ALT) {
+    d->unsetModifier (Qt::ALT);
+    altSet=false;
+  }
+
+  if (virtualKey & Qt::META) {
+    d->unsetModifier (Qt::META);
+    superSet=false;
+  }
+}
 
 
 /**
@@ -131,7 +127,5 @@ void XEvents::unsetModifier(int virtualKey)
  */
 XEvents::~XEvents()
 {
-	delete d;
+  delete d;
 }
-
-

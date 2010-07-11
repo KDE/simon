@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGDATA_H_8910EF5AC0954D49A08BD1AA80C41BEA
 #define SIMON_IMPORTTRAININGDATA_H_8910EF5AC0954D49A08BD1AA80C41BEA
 
@@ -25,37 +24,36 @@
 
 class PostProcessing;
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ImportTrainingData : public QThread
 {
-Q_OBJECT
-signals:
-	void progress(int now, int max=-1);
-	void done();
-	void error(QString);
-	void status(QString);
-private:
-	PostProcessing *pp;
-	QString directory, promptsPath, basePath;
-	bool isPrompts;
-	int prog;
-	
-	QString extractSaid(QString source);
-	QStringList* processSounds(QStringList files, QString destDir);
-	bool createPrompts(QStringList dataFiles);
-	QStringList* searchDir(QString dir);
+  Q_OBJECT
+    signals:
+  void progress(int now, int max=-1);
+  void done();
+  void error(QString);
+  void status(QString);
+  private:
+    PostProcessing *pp;
+    QString directory, promptsPath, basePath;
+    bool isPrompts;
+    int prog;
 
-public slots:
-	void run();
-	
-public:
-	ImportTrainingData(QObject* parent);
+    QString extractSaid(QString source);
+    QStringList* processSounds(QStringList files, QString destDir);
+    bool createPrompts(QStringList dataFiles);
+    QStringList* searchDir(QString dir);
 
-	bool import(bool isPrompts, QString path, QString basePath);
+  public slots:
+    void run();
+
+  public:
+    ImportTrainingData(QObject* parent);
+
+    bool import(bool isPrompts, QString path, QString basePath);
 
     ~ImportTrainingData();
 
 };
-
 #endif

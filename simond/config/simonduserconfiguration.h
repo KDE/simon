@@ -29,32 +29,31 @@ class DatabaseAccess;
 
 class SimondUserConfiguration : public KCModule
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	private:
-		bool alreadyLoaded;
-		Ui::UserConfiguration ui;
-		DatabaseAccess *db;
-		QString storedDb;
+    private:
+    bool alreadyLoaded;
+    Ui::UserConfiguration ui;
+    DatabaseAccess *db;
+    QString storedDb;
 
-		void activateUserConfiguration(bool active);
-		void initDb();
-		QByteArray encryptPassword(const QString& pass);
+    void activateUserConfiguration(bool active);
+    void initDb();
+    QByteArray encryptPassword(const QString& pass);
 
-		bool recursiveDelete(const QString& dirPath);
+    bool recursiveDelete(const QString& dirPath);
 
-	private slots:
-		void addUser();
-		void deleteUser();
-		void changePassword();
-		void slotChanged();
+  private slots:
+    void addUser();
+    void deleteUser();
+    void changePassword();
+    void slotChanged();
 
-	public:
-		SimondUserConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
-		~SimondUserConfiguration();
+  public:
+    SimondUserConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
+    ~SimondUserConfiguration();
 
-		void load();
-		void save();
+    void load();
+    void save();
 };
-
 #endif

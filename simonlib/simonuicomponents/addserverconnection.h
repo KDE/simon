@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_ADDSERVERCONNECTION_H_EF32AB08882C4BCA803C7B5C1522AFE2
 #define SIMON_ADDSERVERCONNECTION_H_EF32AB08882C4BCA803C7B5C1522AFE2
 
@@ -38,17 +37,16 @@ class KIntNumInput;
 */
 class SIMONUICOMPONENTS_EXPORT AddServerConnection : public KDialog
 {
-Q_OBJECT
+  Q_OBJECT
 
-private:
-	KLineEdit *leAddress;
-	KIntNumInput *sbPort;
-	
-public:
+    private:
+    KLineEdit *leAddress;
+    KIntNumInput *sbPort;
+
+  public:
     explicit AddServerConnection(QWidget* parent=0);
     QString getHost();
     int getPort();
 
 };
-
 #endif

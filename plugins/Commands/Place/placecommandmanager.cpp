@@ -25,10 +25,10 @@
 #include <KLocalizedString>
 #include <KStandardDirs>
 
-K_PLUGIN_FACTORY( PlaceCommandPluginFactory, 
-			registerPlugin< PlaceCommandManager >(); 
-		)
-        
+K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
+registerPlugin< PlaceCommandManager >();
+)
+
 K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
 PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
@@ -38,28 +38,30 @@ PlaceCommandManager::PlaceCommandManager(QObject* parent, const QVariantList& ar
 
 const QString PlaceCommandManager::iconSrc() const
 {
-	return ("folder");
+  return ("folder");
 }
 
 
 CreateCommandWidget* PlaceCommandManager::getCreateCommandWidget(QWidget *parent)
 {
-	return new CreatePlaceCommandWidget(this, parent);
+  return new CreatePlaceCommandWidget(this, parent);
 }
+
 
 const QString PlaceCommandManager::name() const
 {
-	return PlaceCommand::staticCategoryText();
+  return PlaceCommand::staticCategoryText();
 }
+
 
 bool PlaceCommandManager::shouldAcceptCommand(Command *command)
 {
-	return (dynamic_cast<PlaceCommand*>(command) != NULL);
+  return (dynamic_cast<PlaceCommand*>(command) != 0);
 }
 
 
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(PlaceCommandManager, PlaceCommand);
 
-PlaceCommandManager::~PlaceCommandManager() 
+PlaceCommandManager::~PlaceCommandManager()
 {
 }

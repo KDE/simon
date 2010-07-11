@@ -23,48 +23,51 @@
 
 CreatePlaceCommandWidget::CreatePlaceCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
 {
-	ui.setupUi(this);
-	ui.urUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
-	setWindowIcon(PlaceCommand::staticCategoryIcon());
-	setWindowTitle(PlaceCommand::staticCategoryText());
-	
-	connect(ui.urUrl, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
-	connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(selectPlace()));
+  ui.setupUi(this);
+  ui.urUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
+  setWindowIcon(PlaceCommand::staticCategoryIcon());
+  setWindowTitle(PlaceCommand::staticCategoryText());
+
+  connect(ui.urUrl, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+  connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(selectPlace()));
 }
+
 
 void CreatePlaceCommandWidget::selectPlace()
 {
-	SelectPlaceDialog *select = new SelectPlaceDialog(this);
-	Command *c = select->selectPlace();
+  SelectPlaceDialog *select = new SelectPlaceDialog(this);
+  Command *c = select->selectPlace();
 
-	if (c)
-		emit propagateCreatedCommand(c);
+  if (c)
+    emit propagateCreatedCommand(c);
 
-	select->deleteLater();
+  select->deleteLater();
 }
-
 
 
 bool CreatePlaceCommandWidget::isComplete()
 {
-	return !(ui.urUrl->url().isEmpty());
+  return !(ui.urUrl->url().isEmpty());
 }
+
 
 bool CreatePlaceCommandWidget::init(Command* command)
 {
-	Q_ASSERT(command);
-	
-	PlaceCommand *placeCommand = dynamic_cast<PlaceCommand*>(command);
-	if (!placeCommand) return false;
-	
-	ui.urUrl->setUrl(placeCommand->getURL());
-	return true;
+  Q_ASSERT(command);
+
+  PlaceCommand *placeCommand = dynamic_cast<PlaceCommand*>(command);
+  if (!placeCommand) return false;
+
+  ui.urUrl->setUrl(placeCommand->getURL());
+  return true;
 }
+
 
 Command* CreatePlaceCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-	return new PlaceCommand(name, iconSrc, description, ui.urUrl->url());
+  return new PlaceCommand(name, iconSrc, description, ui.urUrl->url());
 }
+
 
 CreatePlaceCommandWidget::~CreatePlaceCommandWidget()
 {

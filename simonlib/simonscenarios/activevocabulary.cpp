@@ -27,8 +27,9 @@
  */
 ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(), ScenarioObject(parent)
 {
-	buildBrushes();
+  buildBrushes();
 }
+
 
 /**
  * Factory function
@@ -36,95 +37,98 @@ ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(), ScenarioObj
  */
 ActiveVocabulary* ActiveVocabulary::createVocabulary(Scenario *parent, const QDomElement& elem)
 {
-	ActiveVocabulary *v = new ActiveVocabulary(parent);
-	if (!v->deSerialize(elem)) {
-		v->deleteLater();
-		v=NULL;
-	} 
-	return v;
+  ActiveVocabulary *v = new ActiveVocabulary(parent);
+  if (!v->deSerialize(elem)) {
+    v->deleteLater();
+    v=0;
+  }
+  return v;
 }
+
 
 void ActiveVocabulary::buildBrushes()
 {
-	KColorScheme colorScheme(QPalette::Active);
-	QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
+  KColorScheme colorScheme(QPalette::Active);
+  QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
 
-	recogNone = KColorScheme::shade(negative, KColorScheme::DarkShade);
-	recogWeak = KColorScheme::shade(negative, KColorScheme::MidShade);
+  recogNone = KColorScheme::shade(negative, KColorScheme::DarkShade);
+  recogWeak = KColorScheme::shade(negative, KColorScheme::MidShade);
 
 }
+
 
 QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
 {
-	if (!index.isValid()) return QVariant();
+  if (!index.isValid()) return QVariant();
 
-	Word *word = m_words.at(index.row());
+  Word *word = m_words.at(index.row());
 
-	if (role == Qt::BackgroundRole)
-	{
-		int propab = word->getPropability();
-		switch (propab)
-		{
-			case 0:
-				return recogNone;
-			case 1:
-				return recogWeak;
-		}
-	}
-	
-	return Vocabulary::data(index, role);
+  if (role == Qt::BackgroundRole) {
+    int propab = word->getPropability();
+    switch (propab) {
+      case 0:
+        return recogNone;
+      case 1:
+        return recogWeak;
+    }
+  }
+
+  return Vocabulary::data(index, role);
 }
+
 
 bool ActiveVocabulary::addWords(QList<Word*>* w)
 {
-	if (!Vocabulary::addWords(w)) return false;
-	return parentScenario->save();
+  if (!Vocabulary::addWords(w)) return false;
+  return parentScenario->save();
 }
+
 
 bool ActiveVocabulary::addWord(Word *w)
 {
-	if (!Vocabulary::addWord(w)) return false;
-	return parentScenario->save();
+  if (!Vocabulary::addWord(w)) return false;
+  return parentScenario->save();
 }
+
 
 bool ActiveVocabulary::reOrder(Word* w)
 {
-	if (!Vocabulary::reOrder(w)) return false;
-	return parentScenario->save();
+  if (!Vocabulary::reOrder(w)) return false;
+  return parentScenario->save();
 }
+
 
 bool ActiveVocabulary::removeWord(Word* w, bool deleteWord)
 {
-	if (Vocabulary::removeWord(w, deleteWord)) {
-		return parentScenario->save();
-	}
-	return false;
+  if (Vocabulary::removeWord(w, deleteWord)) {
+    return parentScenario->save();
+  }
+  return false;
 }
 
 
 bool ActiveVocabulary::deSerialize(const QDomElement& elem)
 {
-	return Vocabulary::deSerialize(elem);
+  return Vocabulary::deSerialize(elem);
 }
+
 
 QDomElement ActiveVocabulary::serialize(QDomDocument *doc)
 {
-	return Vocabulary::serialize(doc);
+  return Vocabulary::serialize(doc);
 }
+
 
 bool ActiveVocabulary::empty()
 {
-	deleteAll();
-	return parentScenario->save();
+  deleteAll();
+  return parentScenario->save();
 }
-
 
 
 bool ActiveVocabulary::renameTerminal(const QString& from, const QString& to)
 {
-	if (Vocabulary::renameTerminal(from, to))
-		return parentScenario->save();
-	return false;
+  if (Vocabulary::renameTerminal(from, to))
+    return parentScenario->save();
+  return false;
 }
-
-

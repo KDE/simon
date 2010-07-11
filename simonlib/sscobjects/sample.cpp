@@ -23,57 +23,58 @@
 #include <QByteArray>
 #include <QDebug>
 
-Sample::Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId, 
-			qint16 soundCardId, const QString& path, const QString& prompt,
-			const QByteArray& data) :
-	m_sampleId(sampleId),
-	m_typeId(typeId),
-	m_userId(userId),
-	m_microphoneId(microphoneId),
-	m_soundCardId(soundCardId),
-	m_path(path),
-	m_prompt(prompt),
-	m_data(data)
+Sample::Sample(qint32 sampleId, qint32 typeId, qint32 userId, qint16 microphoneId,
+qint16 soundCardId, const QString& path, const QString& prompt,
+const QByteArray& data) :
+m_sampleId(sampleId),
+m_typeId(typeId),
+m_userId(userId),
+m_microphoneId(microphoneId),
+m_soundCardId(soundCardId),
+m_path(path),
+m_prompt(prompt),
+m_data(data)
 {
 }
 
 
 void Sample::deserialize(QByteArray data)
 {
-	QDataStream stream(&data, QIODevice::ReadOnly);
-	stream >> m_sampleId;
-	stream >> m_typeId;
-	stream >> m_userId;
-	stream >> m_microphoneId;
-	stream >> m_soundCardId;
-	stream >> m_path;
-	stream >> m_prompt;
-	stream >> m_data;
+  QDataStream stream(&data, QIODevice::ReadOnly);
+  stream >> m_sampleId;
+  stream >> m_typeId;
+  stream >> m_userId;
+  stream >> m_microphoneId;
+  stream >> m_soundCardId;
+  stream >> m_path;
+  stream >> m_prompt;
+  stream >> m_data;
 }
+
 
 QByteArray Sample::serialize()
 {
-	QByteArray body;
-	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream << m_sampleId;
-	bodyStream << m_typeId;
-	bodyStream << m_userId;
-	bodyStream << m_microphoneId;
-	bodyStream << m_soundCardId;
-	bodyStream << m_path;
-	bodyStream << m_prompt;
-	bodyStream << m_data;
+  bodyStream << m_sampleId;
+  bodyStream << m_typeId;
+  bodyStream << m_userId;
+  bodyStream << m_microphoneId;
+  bodyStream << m_soundCardId;
+  bodyStream << m_path;
+  bodyStream << m_prompt;
+  bodyStream << m_data;
 
-	return body;
+  return body;
 }
+
 
 bool Sample::deleteFile()
 {
-	if (!QFile::remove(m_path))
-	{
-		qDebug() << "Couldn't remove file: " << m_path;
-		return false;
-	}
-	return true;
+  if (!QFile::remove(m_path)) {
+    qDebug() << "Could not remove file: " << m_path;
+    return false;
+  }
+  return true;
 }

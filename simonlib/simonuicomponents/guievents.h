@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_GUIEVENTS_H_F978645DA5FF4B408298446096DD7624
 #define SIMON_GUIEVENTS_H_F978645DA5FF4B408298446096DD7624
 
@@ -25,43 +24,39 @@
 #include <QObject>
 #include <QHash>
 
-
 struct actionValues
-	{
-		QObject* receiver;
-		const char* slot;
-	};
+{
+  QObject* receiver;
+  const char* slot;
+};
 struct uniqueKey
-	{
-		QObject* parent;
-		QString trigger;
-	};
+{
+  QObject* parent;
+  QString trigger;
+};
 typedef QHash<uniqueKey*,  actionValues*> GuiAction;
 
+class SPEECHGUI_EXPORT GuiEvents :  public  QObject
+{
+  Q_OBJECT
 
-class SPEECHGUI_EXPORT GuiEvents :  public  QObject {
-	Q_OBJECT
-	
-private:
-	
-	GuiAction *guiItems;
-	
+    private:
 
-public:
-	
-	GuiEvents(QObject *parent=0);
-	~GuiEvents();
+    GuiAction *guiItems;
 
-public slots:
-	
-	void registerControl(QString trigger, QObject* receiver, const char* slot);
+  public:
 
+    GuiEvents(QObject *parent=0);
+    ~GuiEvents();
 
-	void doAction(QString action, QObject * parentItem);
+  public slots:
 
-signals:
-	void dummy(QString);
-	
+    void registerControl(QString trigger, QObject* receiver, const char* slot);
+
+    void doAction(QString action, QObject * parentItem);
+
+    signals:
+    void dummy(QString);
+
 };
-
 #endif

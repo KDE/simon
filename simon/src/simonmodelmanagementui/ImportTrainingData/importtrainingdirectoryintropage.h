@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTTRAININGDIRECTORYINTROPAGE_H_C39B92EAEBA04294AF5324392922B89C
 #define SIMON_IMPORTTRAININGDIRECTORYINTROPAGE_H_C39B92EAEBA04294AF5324392922B89C
 
@@ -25,28 +24,27 @@
 #include <QVariant>
 #include "ui_importtrainingdataintrodlg.h"
 
-
 /**
   \class ImportTrainingDirectoryIntroPage
   \author Peter Grasch
   \brief Shows the user an introduction and asks for the folder
-  
+
   Extends QWizardPage and uses the QT-Mandatory-field mechanism
 */
-class ImportTrainingDirectoryIntroPage : public QWizardPage{
-	Q_OBJECT
+class ImportTrainingDirectoryIntroPage : public QWizardPage
+{
+  Q_OBJECT
 
-private:
-	Ui::ImportTrainingDataIntroDlg ui;
+    private:
+    Ui::ImportTrainingDataIntroDlg ui;
 
-private slots:
-	void promptsPathChanged();
+  private slots:
+    void promptsPathChanged();
 
-public:
-	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
-	~ImportTrainingDirectoryIntroPage() {}
-	bool isComplete() const;
+  public:
+    ImportTrainingDirectoryIntroPage(QWidget *parent=0);
+    ~ImportTrainingDirectoryIntroPage() {}
+    bool isComplete() const;
 
 };
-
 #endif

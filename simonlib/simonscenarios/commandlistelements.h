@@ -20,23 +20,21 @@
 #ifndef SIMON_COMMANDLISTELEMENTS_H_5A81C1D19FD946B0AD73DFDC625DE3F1
 #define SIMON_COMMANDLISTELEMENTS_H_5A81C1D19FD946B0AD73DFDC625DE3F1
 
-
 namespace CommandListElements
 {
-	enum Element {
-		Back=0,
-		One=1,
-		Two=2,
-		Three=3,
-		Four=4,
-		Five=5,
-		Six=6,
-		Seven=7,
-		Eight=8,
-		Next=9,
-		Cancel=10
-	};
+  enum Element
+  {
+    Back=0,
+    One=1,
+    Two=2,
+    Three=3,
+    Four=4,
+    Five=5,
+    Six=6,
+    Seven=7,
+    Eight=8,
+    Next=9,
+    Cancel=10
+  };
 }
-
-
 #endif

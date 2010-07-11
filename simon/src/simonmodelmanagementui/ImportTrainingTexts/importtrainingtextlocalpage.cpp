@@ -17,45 +17,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importtrainingtextlocalpage.h"
 #include <QFile>
 #include <QTextCodec>
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param parent 
+ * @param parent
  * Parent of the wizardpage
  */
 ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWizardPage(parent)
 {
-	ui.setupUi(this);
-	setTitle(i18n("Import Textfile"));
-	
-	registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
-	registerField("importTrainingTextLTextname*", ui.leName);
-	registerField("importTrainingTextLEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
+  ui.setupUi(this);
+  setTitle(i18n("Import Textfile"));
+
+  registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
+  registerField("importTrainingTextLTextname*", ui.leName);
+  registerField("importTrainingTextLEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 }
+
 
 void ImportTrainingTextLocalPage::initializePage()
 {
-	ui.cbEncoding->addItem(i18n("Automatic"));
-	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
-	QStringList encodings;
-	foreach (const QByteArray& codec, availableCodecs)
-		encodings << codec;
-	encodings.sort();
-	ui.cbEncoding->addItems(encodings);
+  ui.cbEncoding->addItem(i18n("Automatic"));
+  QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+  QStringList encodings;
+  foreach (const QByteArray& codec, availableCodecs)
+    encodings << codec;
+  encodings.sort();
+  ui.cbEncoding->addItems(encodings);
 }
-
 
 
 bool ImportTrainingTextLocalPage::isComplete() const
 {
-	return QFile::exists(ui.urPath->url().path());
+  return QFile::exists(ui.urPath->url().path());
 }
-
-
-

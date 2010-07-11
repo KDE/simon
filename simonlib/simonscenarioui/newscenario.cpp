@@ -32,184 +32,196 @@
 
 NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 {
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
 
-	setMainWidget( widget );
-	setCaption( i18n("Scenario") );
-	
-	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
-	connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-	connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-	connect(ui.cbLicence, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
+  setMainWidget( widget );
+  setCaption( i18n("Scenario") );
 
-	connect(ui.pbAddAuthor, SIGNAL(clicked()), this, SLOT(addAuthor()));
-	connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));
-	
-	checkIfComplete();
-	ui.pbAddAuthor->setIcon(KIcon("list-add"));
-	ui.pbRemoveAuthor->setIcon(KIcon("list-remove"));
+  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
+  connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
+  connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
+  connect(ui.cbLicence, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
+
+  connect(ui.pbAddAuthor, SIGNAL(clicked()), this, SLOT(addAuthor()));
+  connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));
+
+  checkIfComplete();
+  ui.pbAddAuthor->setIcon(KIcon("list-add"));
+  ui.pbRemoveAuthor->setIcon(KIcon("list-remove"));
 }
+
 
 void NewScenario::checkIfComplete()
 {
-	bool complete  = ! ui.leName->text().isEmpty() &&
-			 ! ui.cbLicence->currentText().isEmpty() &&
-			 ! ui.leMinVersion->text().isEmpty() &&
-			 ! m_authors.isEmpty();
+  bool complete  = ! ui.leName->text().isEmpty() &&
+    ! ui.cbLicence->currentText().isEmpty() &&
+    ! ui.leMinVersion->text().isEmpty() &&
+    ! m_authors.isEmpty();
 
-	enableButtonOk(complete);
+  enableButtonOk(complete);
 }
+
 
 QString NewScenario::createId()
 {
-	QString name = ui.leName->text();
-	return Scenario::createId(name);
+  QString name = ui.leName->text();
+  return Scenario::createId(name);
 }
+
 
 void NewScenario::setWindowTitleToScenarioName(QString name)
 {
-	if (!name.isEmpty())
-		setCaption(i18n("Scenario: %1", name));
-	else setCaption(i18n("Scenario"));
+  if (!name.isEmpty())
+    setCaption(i18n("Scenario: %1", name));
+  else setCaption(i18n("Scenario"));
 }
+
 
 void NewScenario::addAuthor()
 {
-	NewAuthor *newAuthor = new NewAuthor(this);
-	Author *a = newAuthor->newAuthor();
-	delete newAuthor;
+  NewAuthor *newAuthor = new NewAuthor(this);
+  Author *a = newAuthor->newAuthor();
+  delete newAuthor;
 
-	if (!a) return;
+  if (!a) return;
 
-	m_authors << a;
-	updateAuthorDisplay();
+  m_authors << a;
+  updateAuthorDisplay();
 }
+
 
 void NewScenario::removeAuthor()
 {
-	int index = ui.lwAuthors->currentRow();
-	if (index == -1) return;
+  int index = ui.lwAuthors->currentRow();
+  if (index == -1) return;
 
-	Q_ASSERT(index <= m_authors.count());
+  Q_ASSERT(index <= m_authors.count());
 
-	m_authors.removeAt(index);
+  m_authors.removeAt(index);
 
-	updateAuthorDisplay();
+  updateAuthorDisplay();
 }
+
 
 void NewScenario::updateAuthorDisplay()
 {
-	ui.lwAuthors->clear();
+  ui.lwAuthors->clear();
 
-	foreach (Author *a, m_authors) {
-		ui.lwAuthors->addItem(i18nc("Author (contact information)", "%1 (%2)", a->name(), a->contact()));
-	}
-	checkIfComplete();
+  foreach (Author *a, m_authors) {
+    ui.lwAuthors->addItem(i18nc("Author (contact information)", "%1 (%2)", a->name(), a->contact()));
+  }
+  checkIfComplete();
 }
+
 
 int NewScenario::exec()
 {
-	return KDialog::exec();
+  return KDialog::exec();
 }
+
 
 Scenario* NewScenario::newScenario()
 {
-	m_authors.clear();
-	ui.leMinVersion->setText(simon_version);
-	if (exec())
-	{
-		//creating
-		Scenario *s = new Scenario(createId());
-		VersionNumber *minVersion = getMinimumVersion();
-		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
-		if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
-			m_authors.clear();
-			KMessageBox::sorry(this, i18n("Scenario could not be created"));
-			s->deleteLater();
-			return NULL;
-		} else if (!s->save()) {
-			m_authors.clear();
-			KMessageBox::sorry(this, i18n("New scenario could not be saved"));
-			s->deleteLater();
-			return NULL;
-		} else  {
-			m_authors.clear();
-			return s;
-		}
-	} else {
-		qDeleteAll(m_authors);
-		m_authors.clear();
-		return NULL;
-	}
+  m_authors.clear();
+  ui.leMinVersion->setText(simon_version);
+  if (exec()) {
+    //creating
+    Scenario *s = new Scenario(createId());
+    VersionNumber *minVersion = getMinimumVersion();
+    VersionNumber *maxVersion = new VersionNumber(0, ui.leMaxVersion->text());
+    if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+      m_authors.clear();
+      KMessageBox::sorry(this, i18n("Scenario could not be created"));
+      s->deleteLater();
+      return 0;
+    }
+    else if (!s->save()) {
+      m_authors.clear();
+      KMessageBox::sorry(this, i18n("New scenario could not be saved"));
+      s->deleteLater();
+      return 0;
+    }
+    else {
+      m_authors.clear();
+      return s;
+    }
+  }
+  else {
+    qDeleteAll(m_authors);
+    m_authors.clear();
+    return 0;
+  }
 }
+
 
 void NewScenario::displayScenario(Scenario *s)
 {
-	ui.leName->setText(s->name());
-	ui.leMinVersion->setText(s->simonMinVersion()->toString());
-	ui.sbScenarioVersion->setValue(s->version());
-	VersionNumber *max = s->simonMaxVersion();
-	QString maxStrVersion = "";
-	if (max)
-		maxStrVersion = max->toString();
-	ui.leMaxVersion->setText(maxStrVersion);
-	ui.cbLicence->setEditText(s->licence());
+  ui.leName->setText(s->name());
+  ui.leMinVersion->setText(s->simonMinVersion()->toString());
+  ui.sbScenarioVersion->setValue(s->version());
+  VersionNumber *max = s->simonMaxVersion();
+  QString maxStrVersion = "";
+  if (max)
+    maxStrVersion = max->toString();
+  ui.leMaxVersion->setText(maxStrVersion);
+  ui.cbLicence->setEditText(s->licence());
 
-	ui.pbIcon->setIcon(s->iconSrc());
+  ui.pbIcon->setIcon(s->iconSrc());
 
-	m_authors = s->authors();
-	updateAuthorDisplay();
+  m_authors = s->authors();
+  updateAuthorDisplay();
 }
+
 
 VersionNumber* NewScenario::getMinimumVersion()
 {
-	VersionNumber *minVersion = new VersionNumber(NULL, ui.leMinVersion->text());
-	VersionNumber *currentVersion = new VersionNumber(NULL, simon_version);
-	if (*currentVersion < *minVersion)
-	{
-		delete minVersion;
-		minVersion= currentVersion;
-	} else
-		delete currentVersion;
-	
-	return minVersion;
+  VersionNumber *minVersion = new VersionNumber(0, ui.leMinVersion->text());
+  VersionNumber *currentVersion = new VersionNumber(0, simon_version);
+  if (*currentVersion < *minVersion) {
+    delete minVersion;
+    minVersion= currentVersion;
+  } else
+  delete currentVersion;
+
+  return minVersion;
 }
+
 
 Scenario* NewScenario::editScenario(Scenario *s)
 {
-	if (!s) return s;
+  if (!s) return s;
 
-	bool success = s->init();
+  bool success = s->init();
 
-	kDebug() << "Scenario initialized: " << success;
-	if (!success)
-		KMessageBox::sorry(this, i18n("Original scenario could not be read.\n\n"
-				"If you continue, all data (vocabulary, grammar, commands, trainings "
-				"text) of the scenario will be lost!"));
+  kDebug() << "Scenario initialized: " << success;
+  if (!success)
+    KMessageBox::sorry(this, i18n("Original scenario could not be read.\n\n"
+      "If you continue, all data (vocabulary, grammar, commands, trainings "
+      "text) of the scenario will be lost!"));
 
-	displayScenario(s);
-	if (exec())
-	{
-		VersionNumber *minVersion = getMinimumVersion();
-		
-		VersionNumber *maxVersion = new VersionNumber(NULL, ui.leMaxVersion->text());
-		if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
-			KMessageBox::sorry(this, i18n("Scenario could not be updated"));
-			success = false;
-		} else if (!s->save()) {
-			KMessageBox::sorry(this, i18n("New scenario could not be saved"));
-			success = false;
-		}
-	}
-	m_authors.clear();
+  displayScenario(s);
+  if (exec()) {
+    VersionNumber *minVersion = getMinimumVersion();
 
-	if (success == false) return NULL;
+    VersionNumber *maxVersion = new VersionNumber(0, ui.leMaxVersion->text());
+    if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+      KMessageBox::sorry(this, i18n("Scenario could not be updated"));
+      success = false;
+    }
+    else if (!s->save()) {
+      KMessageBox::sorry(this, i18n("New scenario could not be saved"));
+      success = false;
+    }
+  }
+  m_authors.clear();
 
-	return s;
+  if (success == false) return 0;
+
+  return s;
 }
+
 
 NewScenario::~NewScenario()
 {
 }
-

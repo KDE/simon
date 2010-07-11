@@ -41,33 +41,33 @@ class QSortFilterProxyModel;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingViewPrivate : public QWidget, public ScenarioDisplay  {
-	Q_OBJECT
+class TrainingViewPrivate : public QWidget, public ScenarioDisplay
+{
+  Q_OBJECT
 
-private:
-	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
-	ImportTrainingTexts *import;
-	QSortFilterProxyModel *textsProxy;
+    private:
+    Ui::TrainMain ui;                             //!< UI definition - made by uic from the QTDesigner .ui
+    ImportTrainingTexts *import;
+    QSortFilterProxyModel *textsProxy;
 
-	TrainingText* getCurrentlySelectedText();
+    TrainingText* getCurrentlySelectedText();
 
-protected:
-	void displayScenarioPrivate(Scenario *scenario);
+  protected:
+    void displayScenarioPrivate(Scenario *scenario);
 
+  public slots:
+    void deleteSelected();
 
-public slots:
-	void deleteSelected();
+    void trainSelected();
 
-	void trainSelected();
+    void importTexts();
+    void importDirectory();
 
-	void importTexts();
-	void importDirectory();
+    void clearTrainingdata();
 
-	void clearTrainingdata();
-
-public:
-	TrainingViewPrivate(QWidget *parent=0);
-	~TrainingViewPrivate();
+  public:
+    TrainingViewPrivate(QWidget *parent=0);
+    ~TrainingViewPrivate();
 
 };
 #endif

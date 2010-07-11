@@ -32,47 +32,46 @@ class CommandPreviewWidget;
 class QSortFilterProxyModel;
 /**
  *	@class RunCommandViewPrivate
- *	@brief Provides a graphical frontend to run commands and perform 
+ *	@brief Provides a graphical frontend to run commands and perform
  * 	system actions
  *
  *	@version 0.2
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RunCommandViewPrivate : public QWidget, public ScenarioDisplay {
-	Q_OBJECT
+class RunCommandViewPrivate : public QWidget, public ScenarioDisplay
+{
+  Q_OBJECT
 
-signals:
-	void actionsChanged();
+    signals:
+  void actionsChanged();
 
-private:
-	Ui::RunDlg ui;
+  private:
+    Ui::RunDlg ui;
 
-	CommandPreviewWidget *commandPreviewWidget;
-	Command* getCurrentCommand();
-	Action *getCurrentlySelectedAction();
-	QSortFilterProxyModel *commandsProxy;
-	QSortFilterProxyModel *actionsProxy;
+    CommandPreviewWidget *commandPreviewWidget;
+    Command* getCurrentCommand();
+    Action *getCurrentlySelectedAction();
+    QSortFilterProxyModel *commandsProxy;
+    QSortFilterProxyModel *actionsProxy;
 
-private slots:
-	void addCommand();
-	void deleteCommand();
-	void editCommand();
+  private slots:
+    void addCommand();
+    void deleteCommand();
+    void editCommand();
 
-	void triggerCommand();
+    void triggerCommand();
 
-	void fetchCommandsFromCategory();
-	void updateCommandDetail();
+    void fetchCommandsFromCategory();
+    void updateCommandDetail();
 
-	void managePlugIns();
+    void managePlugIns();
 
+  public:
+    void displayScenarioPrivate(Scenario *scenario);
 
-public:
-	void displayScenarioPrivate(Scenario *scenario);
-
-	RunCommandViewPrivate(QWidget *parent);
-	~RunCommandViewPrivate();
+    RunCommandViewPrivate(QWidget *parent);
+    ~RunCommandViewPrivate();
 
 };
-
 #endif

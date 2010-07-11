@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "droplistwidget.h"
 
 /**
@@ -30,10 +29,11 @@
  * Sets the parent of the KListWidget
  */
 DropListWidget::DropListWidget(QWidget *parent)
- : KListWidget(parent)
+: KListWidget(parent)
 {
-	setAcceptDrops(true);
+  setAcceptDrops(true);
 }
+
 
 /**
  * @brief Drag-Enter-Events
@@ -48,7 +48,7 @@ DropListWidget::DropListWidget(QWidget *parent)
  */
 void DropListWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-	event->accept();
+  event->accept();
 }
 
 
@@ -63,9 +63,10 @@ void DropListWidget::dragEnterEvent(QDragEnterEvent *event)
  */
 void DropListWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->mimeData()->hasFormat("text/plain"))
-		event->accept();
+  if (event->mimeData()->hasFormat("text/plain"))
+    event->accept();
 }
+
 
 /**
  * @brief Drop Event
@@ -79,7 +80,7 @@ void DropListWidget::dragMoveEvent(QDragMoveEvent *event)
  */
 void DropListWidget::dropEvent(QDropEvent *event)
 {
-	emit droppedText( event->mimeData()->text() );
+  emit droppedText( event->mimeData()->text() );
 }
 
 
@@ -91,5 +92,3 @@ void DropListWidget::dropEvent(QDropEvent *event)
 DropListWidget::~DropListWidget()
 {
 }
-
-

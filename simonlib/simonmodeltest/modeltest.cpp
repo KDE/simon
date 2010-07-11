@@ -43,712 +43,712 @@
 
 #include <locale.h>
 
-
-
 ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
-	recog(0),
-	logFile(0),
-	userName(user_name)
+recog(0),
+logFile(0),
+userName(user_name)
 {
-	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
-	connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
+  connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
+  connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
 
-	promptsTable.clear();
-	wordRates.clear();
-	sentenceRates.clear();
-	testResults.clear();
-	//fileResults.clear();
+  promptsTable.clear();
+  wordRates.clear();
+  sentenceRates.clear();
+  testResults.clear();
+  //fileResults.clear();
 }
+
 
 bool ModelTest::createDirs()
 {
-	tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/test/");
-	
-	if (tempDir.isEmpty()) return false;
+  tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/test/");
 
-	QFile::remove(tempDir+"julius.log");
+  if (tempDir.isEmpty()) return false;
 
-	QDir tempDirHandle(tempDir);
-	if (!tempDirHandle.exists())
-		return false;
+  QFile::remove(tempDir+"julius.log");
 
-	tempDirHandle.mkdir("samples");
+  QDir tempDirHandle(tempDir);
+  if (!tempDirHandle.exists())
+    return false;
 
-	return true;
+  tempDirHandle.mkdir("samples");
+
+  return true;
 }
 
 
 bool ModelTest::parseConfiguration()
 {
-	KConfig config( KStandardDirs::locateLocal("config", "simonmodeltestrc"), KConfig::FullConfig );
-	KConfigGroup programGroup(&config, "Programs");
-	
-	sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
-	julius = programGroup.readEntry("Julius", KUrl(KStandardDirs::findExe("juliusexe"))).toLocalFile();
-	hResults = programGroup.readEntry("HResults", KUrl(KStandardDirs::findExe("HResults"))).toLocalFile();
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodeltestrc"), KConfig::FullConfig );
+  KConfigGroup programGroup(&config, "Programs");
 
-	if (!QFile::exists(sox) ||
-			!QFile::exists(julius) ||
-			!QFile::exists(hResults))
-	{
-		QString errorMsg = i18n("SOX or Julius can not be found. Please make sure it is installed correctly.\n\n");
-#ifdef Q_OS_WIN32
-		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
-#else
-		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
-#endif
-		emitError(errorMsg);
-		return false;
-	}
+  sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
+  julius = programGroup.readEntry("Julius", KUrl(KStandardDirs::findExe("juliusexe"))).toLocalFile();
+  hResults = programGroup.readEntry("HResults", KUrl(KStandardDirs::findExe("HResults"))).toLocalFile();
 
-	return true;
+  if (!QFile::exists(sox) ||
+    !QFile::exists(julius) ||
+  !QFile::exists(hResults)) {
+    QString errorMsg = i18n("SOX or Julius can not be found. Please make sure it is installed correctly.\n\n");
+    #ifdef Q_OS_WIN32
+    errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+    #else
+    errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+    #endif
+    emitError(errorMsg);
+    return false;
+  }
+
+  return true;
 }
+
 
 bool ModelTest::execute(const QString& command, const QString& outputFilePath, const QString& errorFilePath)
 {
-	QProcess proc;
-	proc.setWorkingDirectory(QCoreApplication::applicationDirPath());
-	proc.start(command);
-	
-	buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
-	proc.waitForFinished(-1);
-	
-	QByteArray errByte = proc.readAllStandardError();
-	QByteArray outByte = proc.readAllStandardOutput();
-	QString err = QString::fromLocal8Bit(errByte);
-	QString out = QString::fromLocal8Bit(outByte);
-	
-	if (!out.isEmpty()) {
-		QString htmlOut = out;
-		htmlOut.remove("<s>");
-		htmlOut.remove("</s>");
-		buildLog += "<p>"+htmlOut+"</p>";
-	}
+  QProcess proc;
+  proc.setWorkingDirectory(QCoreApplication::applicationDirPath());
+  proc.start(command);
 
-	if (!err.isEmpty()) {
-		QString htmlErr = err;
-		htmlErr.remove("<s>");
-		htmlErr.remove("</s>");
-		buildLog += "<p><span style=\"color:#aa0000;\">"+htmlErr+"</span></p>";
-	}
+  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
+  proc.waitForFinished(-1);
 
-	if (!outputFilePath.isEmpty()) {
-		QFile outFile(outputFilePath);
-		if (!outFile.open(QIODevice::WriteOnly))
-			return false;
+  QByteArray errByte = proc.readAllStandardError();
+  QByteArray outByte = proc.readAllStandardOutput();
+  QString err = QString::fromLocal8Bit(errByte);
+  QString out = QString::fromLocal8Bit(outByte);
 
-		outFile.write(outByte);
-	}
+  if (!out.isEmpty()) {
+    QString htmlOut = out;
+    htmlOut.remove("<s>");
+    htmlOut.remove("</s>");
+    buildLog += "<p>"+htmlOut+"</p>";
+  }
 
-	if (!errorFilePath.isEmpty()) {
-		QFile outFile(errorFilePath);
-		if (!outFile.open(QIODevice::WriteOnly))
-			return false;
+  if (!err.isEmpty()) {
+    QString htmlErr = err;
+    htmlErr.remove("<s>");
+    htmlErr.remove("</s>");
+    buildLog += "<p><span style=\"color:#aa0000;\">"+htmlErr+"</span></p>";
+  }
 
-		outFile.write(errByte);
-	}
-	
-	if (proc.exitCode() != 0) 
-		return false;
-	else return true;
+  if (!outputFilePath.isEmpty()) {
+    QFile outFile(outputFilePath);
+    if (!outFile.open(QIODevice::WriteOnly))
+      return false;
+
+    outFile.write(outByte);
+  }
+
+  if (!errorFilePath.isEmpty()) {
+    QFile outFile(errorFilePath);
+    if (!outFile.open(QIODevice::WriteOnly))
+      return false;
+
+    outFile.write(errByte);
+  }
+
+  if (proc.exitCode() != 0)
+    return false;
+  else return true;
 }
+
 
 void ModelTest::addStatusToLog(const QString& status)
 {
-	buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status+"</span></p>";
+  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status+"</span></p>";
 }
+
 
 void ModelTest::addRecognitionInfoToLog(const QString& status)
 {
-	buildLog += "<p>"+status+"</p>";
+  buildLog += "<p>"+status+"</p>";
 }
+
 
 bool ModelTest::hasLog()
 {
-	return (buildLog.count() > 0);
+  return (buildLog.count() > 0);
 }
+
 
 QString ModelTest::getGraphicLog()
 {
-	QString htmlLog = buildLog;
-	htmlLog=htmlLog.replace("\n", "<br />");
-	return "<html><head /><body>"+htmlLog+"</body></html>";
+  QString htmlLog = buildLog;
+  htmlLog=htmlLog.replace("\n", "<br />");
+  return "<html><head /><body>"+htmlLog+"</body></html>";
 }
+
 
 QString ModelTest::getLog()
 {
-	QString plainLog = buildLog;
-	plainLog.remove("<p>");
-	plainLog.remove("</p>");
-	plainLog.remove("<span style=\"color:#aa0000;\">");
-	plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
-	plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
-	plainLog.remove("</span>");
-	return plainLog;
+  QString plainLog = buildLog;
+  plainLog.remove("<p>");
+  plainLog.remove("</p>");
+  plainLog.remove("<span style=\"color:#aa0000;\">");
+  plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
+  plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
+  plainLog.remove("</span>");
+  return plainLog;
 }
+
 
 void ModelTest::abort()
 {
-	if (isRunning()) {
-		keepGoing=false;
+  if (isRunning()) {
+    keepGoing=false;
 
-		if (recog) {
-			j_request_terminate(recog);
-			j_close_stream(recog);
-		}
-		//terminate();
+    if (recog) {
+      j_request_terminate(recog);
+      j_close_stream(recog);
+    }
+    //terminate();
 
-		emit testAborted();
-	}
+    emit testAborted();
+  }
 }
+
 
 bool ModelTest::startTest(const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath,
-			     const QString& samplePath, const QString& promptsPath,
-			     int sampleRate, const QString& juliusJConf)
+const QString& dictPath, const QString& dfaPath,
+const QString& samplePath, const QString& promptsPath,
+int sampleRate, const QString& juliusJConf)
 {
-	abort();
-	wait();
+  abort();
+  wait();
 
+  this->hmmDefsPath = hmmDefsPath;
+  this->tiedListPath = tiedListPath;
+  this->dictPath = dictPath;
+  this->dfaPath = dfaPath;
 
-	this->hmmDefsPath = hmmDefsPath;
-	this->tiedListPath = tiedListPath;
-	this->dictPath = dictPath;
-	this->dfaPath = dfaPath;
+  this->samplePath = samplePath;
 
-	this->samplePath = samplePath;
+  this->promptsPath = promptsPath;
 
-	this->promptsPath = promptsPath;
+  this->sampleRate = sampleRate;
+  this->juliusJConf = juliusJConf;
 
-	this->sampleRate = sampleRate;
-	this->juliusJConf = juliusJConf;
+  keepGoing=true;
 
-	keepGoing=true;
+  buildLog="";
 
-	buildLog="";
+  if (!parseConfiguration())
+    return false;
 
-	if (!parseConfiguration())
-		return false;
-
-	start();
-	return true;
+  start();
+  return true;
 }
+
 
 void ModelTest::run()
 {
-	if (!createDirs())
-		emitError(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+  if (!createDirs())
+    emitError(i18n("Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
-	promptsTable.clear();
-	wordRates.clear();
-	sentenceRates.clear();
-	testResults.clear();
+  promptsTable.clear();
+  wordRates.clear();
+  sentenceRates.clear();
+  testResults.clear();
 
-	if (!keepGoing) return;
-	Logger::log(i18n("[INF] Testing model..."));
-	emit status(i18n("Preperation"), 0,100);
-	
-	if (!recodeAudio()) return;
-	if (!generateMLF()) return;
-	if (!recognize()) return;
-//	if (!processJuliusOutput()) return;
-	if (!analyzeResults()) return;
+  if (!keepGoing) return;
+  Logger::log(i18n("[INF] Testing model..."));
+  emit status(i18n("Preperation"), 0,100);
 
-	//if (!keepGoing) return;
-	
-	emit status(i18n("Finished"), 100, 100);
-	emit testComplete();
+  if (!recodeAudio()) return;
+  if (!generateMLF()) return;
+  if (!recognize()) return;
+  //	if (!processJuliusOutput()) return;
+  if (!analyzeResults()) return;
+
+  //if (!keepGoing) return;
+
+  emit status(i18n("Finished"), 100, 100);
+  emit testComplete();
 }
 
 
 bool ModelTest::recodeAudio()
 {
-	emit status(i18n("Recoding audio..."), 5, 100);
+  emit status(i18n("Recoding audio..."), 5, 100);
 
-	QFile promptsF(promptsPath);
-	if (!promptsF.open(QIODevice::ReadOnly)) {
-		emitError(i18n("Couldn't open prompts file for reading: %1", promptsPath));
-		return false;
-	}
+  QFile promptsF(promptsPath);
+  if (!promptsF.open(QIODevice::ReadOnly)) {
+    emitError(i18n("Could not open prompts file for reading: %1", promptsPath));
+    return false;
+  }
 
-	QFile wavListF(tempDir+"wavlist");
-	if (!wavListF.open(QIODevice::WriteOnly)) {
-		emitError(i18n("Couldn't open wavlist file for writing: %1", tempDir+"wavlist"));
-		return false;
-	}
+  QFile wavListF(tempDir+"wavlist");
+  if (!wavListF.open(QIODevice::WriteOnly)) {
+    emitError(i18n("Could not open wavlist file for writing: %1", tempDir+"wavlist"));
+    return false;
+  }
 
-	QDir d;
-	while (!promptsF.atEnd() && keepGoing) {
-		QString line = QString::fromUtf8(promptsF.readLine (1024));
-		if (line.trimmed().isEmpty()) continue;
-		int splitter = line.indexOf(" ");
-		QString fileName = line.left(splitter)+".wav";
-		QString prompt = line.mid(splitter+1).trimmed();
-		QString fullPath = samplePath+QDir::separator()+fileName;
-		QString targetPath = tempDir+"samples"+QDir::separator()+fileName;
-		QString targetDirectory = targetPath.left(targetPath.lastIndexOf(QDir::separator()));
+  QDir d;
+  while (!promptsF.atEnd() && keepGoing) {
+    QString line = QString::fromUtf8(promptsF.readLine (1024));
+    if (line.trimmed().isEmpty()) continue;
+    int splitter = line.indexOf(" ");
+    QString fileName = line.left(splitter)+".wav";
+    QString prompt = line.mid(splitter+1).trimmed();
+    QString fullPath = samplePath+QDir::separator()+fileName;
+    QString targetPath = tempDir+"samples"+QDir::separator()+fileName;
+    QString targetDirectory = targetPath.left(targetPath.lastIndexOf(QDir::separator()));
 
-		if (!d.mkpath(targetDirectory))
-		{
-			kDebug() << "Couldn't make path: " << targetDirectory;
-			continue;
-		}
+    if (!d.mkpath(targetDirectory)) {
+      kDebug() << "Could not make path: " << targetDirectory;
+      continue;
+    }
 
-		execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
-		wavListF.write(targetPath.toUtf8()+"\n");
+    execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
+    wavListF.write(targetPath.toUtf8()+"\n");
 
-		promptsTable.insert(targetPath, prompt);
+    promptsTable.insert(targetPath, prompt);
 
-		recodedSamples.insert(targetPath, fullPath);
-	}
+    recodedSamples.insert(targetPath, fullPath);
+  }
 
-	promptsF.close();
-	wavListF.close();
-	return keepGoing;
+  promptsF.close();
+  wavListF.close();
+  return keepGoing;
 }
 
 
 bool ModelTest::generateMLF()
 {
-	if (!keepGoing) return false;
+  if (!keepGoing) return false;
 
-	emit status(i18n("Generating MLF..."), 10, 100);
-	//echo "Step 1 of 7: Generating MLF"
-	//perl `dirname $0`/prompts2mlf testref.mlf prompts
-	
-	QFile promptsFile(promptsPath);
-	QFile mlf(tempDir+"/testref.mlf");
+  emit status(i18n("Generating MLF..."), 10, 100);
+  //echo "Step 1 of 7: Generating MLF"
+  //perl `dirname $0`/prompts2mlf testref.mlf prompts
 
-	if (!promptsFile.open(QIODevice::ReadOnly))
-		return false;
-	if (!mlf.open(QIODevice::WriteOnly))
-		return false;
-	
-	mlf.write("#!MLF!#\n");
-	QStringList lineWords;
-	QString line;
-	while (!promptsFile.atEnd())
-	{
-		line = QString::fromUtf8(promptsFile.readLine(3000));
-		if (line.trimmed().isEmpty()) continue;
-		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id 
-#ifdef Q_OS_WIN
-		mlf.write(labFile.toLatin1()+"\n");
-#else
-		mlf.write(labFile.toUtf8()+"\n");
-#endif
-		for (int i=0; i < lineWords.count(); i++)
-#ifdef Q_OS_WIN
-			mlf.write(lineWords[i].toLatin1()+"\n");
-#else
-			mlf.write(lineWords[i].toUtf8()+"\n");
-#endif
-		mlf.write(".\n");
-	}
-	promptsFile.close();
-	mlf.close();
-	return true;
+  QFile promptsFile(promptsPath);
+  QFile mlf(tempDir+"/testref.mlf");
+
+  if (!promptsFile.open(QIODevice::ReadOnly))
+    return false;
+  if (!mlf.open(QIODevice::WriteOnly))
+    return false;
+
+  mlf.write("#!MLF!#\n");
+  QStringList lineWords;
+  QString line;
+  while (!promptsFile.atEnd()) {
+    line = QString::fromUtf8(promptsFile.readLine(3000));
+    if (line.trimmed().isEmpty()) continue;
+    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+                                                  //ditch the file-id
+    QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
+    #ifdef Q_OS_WIN
+    mlf.write(labFile.toLatin1()+"\n");
+    #else
+    mlf.write(labFile.toUtf8()+"\n");
+    #endif
+    for (int i=0; i < lineWords.count(); i++)
+    #ifdef Q_OS_WIN
+      mlf.write(lineWords[i].toLatin1()+"\n");
+    #else
+    mlf.write(lineWords[i].toUtf8()+"\n");
+    #endif
+    mlf.write(".\n");
+  }
+  promptsFile.close();
+  mlf.close();
+  return true;
 }
 
 
 void processRecognitionResult(Recog *recog, void *test)
 {
-	int i;
-	WORD_INFO *winfo;
-	WORD_ID *seq;
-	int seqnum;
-	int n;
-	Sentence *s;
-	RecogProcess *r;
-	ModelTest *modelTest = (ModelTest*) test;
-	Q_ASSERT(modelTest);
+  int i;
+  WORD_INFO *winfo;
+  WORD_ID *seq;
+  int seqnum;
+  int n;
+  Sentence *s;
+  RecogProcess *r;
+  ModelTest *modelTest = (ModelTest*) test;
+  Q_ASSERT(modelTest);
 
+  /* all recognition results are stored at each recognition process
+  instance */
+  for(r=recog->process_list;r;r=r->next) {
+    bool searchFailed=false;
+    /* skip the process if the process is not alive */
+    if (! r->live) continue;
 
-	/* all recognition results are stored at each recognition process
-	instance */
-	for(r=recog->process_list;r;r=r->next) {
-		bool searchFailed=false;
-		/* skip the process if the process is not alive */
-		if (! r->live) continue;
+    /* result are in r->result.  See recog.h for details */
 
-		/* result are in r->result.  See recog.h for details */
+    /* check result status */
+    if (r->result.status < 0) {                   /* no results obtained */
+      /* outout message according to the status code */
+      switch(r->result.status) {
+        case J_RESULT_STATUS_REJECT_POWER:
+          printf("<input rejected by power>\n");
+          break;
+        case J_RESULT_STATUS_TERMINATE:
+          printf("<input teminated by request>\n");
+          break;
+        case J_RESULT_STATUS_ONLY_SILENCE:
+          printf("<input rejected by decoder (silence input result)>\n");
+          break;
+        case J_RESULT_STATUS_REJECT_GMM:
+          printf("<input rejected by GMM>\n");
+          break;
+        case J_RESULT_STATUS_REJECT_SHORT:
+          printf("<input rejected by short input>\n");
+          break;
+        case J_RESULT_STATUS_FAIL:
+          printf("<search failed>\n");
+          searchFailed=true;
+          break;
+      }
+      /* continue to next process instance */
+      continue;
+    }
 
-		/* check result status */
-		if (r->result.status < 0) {      /* no results obtained */
-			/* outout message according to the status code */
-			switch(r->result.status) {
-				case J_RESULT_STATUS_REJECT_POWER:
-					printf("<input rejected by power>\n");
-					break;
-				case J_RESULT_STATUS_TERMINATE:
-					printf("<input teminated by request>\n");
-					break;
-				case J_RESULT_STATUS_ONLY_SILENCE:
-					printf("<input rejected by decoder (silence input result)>\n");
-					break;
-				case J_RESULT_STATUS_REJECT_GMM:
-					printf("<input rejected by GMM>\n");
-					break;
-				case J_RESULT_STATUS_REJECT_SHORT:
-					printf("<input rejected by short input>\n");
-					break;
-				case J_RESULT_STATUS_FAIL:
-					printf("<search failed>\n");
-					searchFailed=true;
-					break;
-			}
-			/* continue to next process instance */
-			continue;
-		}
+    /* output results for all the obtained sentences */
+    winfo = r->lm->winfo;
 
-		/* output results for all the obtained sentences */
-		winfo = r->lm->winfo;
+    QList<RecognitionResult> recognitionResults;
 
-		QList<RecognitionResult> recognitionResults;
+    for(n = 0; n < r->result.sentnum; n++) {      /* for all sentences */
+      QString result, sampa, sampaRaw;
+      s = &(r->result.sent[n]);
+      seq = s->word;
+      seqnum = s->word_num;
 
-		for(n = 0; n < r->result.sentnum; n++) { /* for all sentences */
-			QString result, sampa, sampaRaw;
-			s = &(r->result.sent[n]);
-			seq = s->word;
-			seqnum = s->word_num;
+      /* output word sequence like Julius */
+      //       printf("sentence%d:", n+1);
+      for(i=0;i<seqnum;i++) {
+        result += " ";
+                                                  // printf(" %s", );
+        result += QString::fromUtf8(winfo->woutput[seq[i]]);
+      }
+      result.remove("<s> ");
+      result.remove(" </s>");
+      //       printf("\n");
 
-			/* output word sequence like Julius */
-			//       printf("sentence%d:", n+1);
-			for(i=0;i<seqnum;i++) {
-				result += " ";
-				result += QString::fromUtf8(winfo->woutput[seq[i]]);// printf(" %s", );
-			}
-			result.remove("<s> ");
-			result.remove(" </s>");
-			//       printf("\n");
+      /* confidence scores */
+      //       printf("cmscore%d:", n+1);
+      QList<float> confidenceScores;
 
-			/* confidence scores */
-			//       printf("cmscore%d:", n+1);
-			QList<float> confidenceScores;
+      for (i=1;i<seqnum-1; i++) {
+        confidenceScores << s->confidence[i];
+      }
 
-			for (i=1;i<seqnum-1; i++) {
-				confidenceScores << s->confidence[i];
-			}
-
-			recognitionResults.append(RecognitionResult(result.trimmed(),
-							sampa.trimmed(),
-							sampaRaw.trimmed(), confidenceScores));
-		}
-		if (recognitionResults.isEmpty() && searchFailed)
-			modelTest->searchFailed();
-		else 
-			modelTest->recognized(recognitionResults);
-	}
+      recognitionResults.append(RecognitionResult(result.trimmed(),
+        sampa.trimmed(),
+        sampaRaw.trimmed(), confidenceScores));
+    }
+    if (recognitionResults.isEmpty() && searchFailed)
+      modelTest->searchFailed();
+    else
+      modelTest->recognized(recognitionResults);
+  }
 }
+
 
 void ModelTest::emitError(const QString& message)
 {
-	closeLog();
+  closeLog();
 
-	QFile f(tempDir+"julius.log");
-	if (!f.open(QIODevice::ReadOnly)) {
-		kDebug() << "Couldn't open file";
-		emit error(message, QByteArray());
-		return;
-	}
+  QFile f(tempDir+"julius.log");
+  if (!f.open(QIODevice::ReadOnly)) {
+    kDebug() << "Could not open file";
+    emit error(message, QByteArray());
+    return;
+  }
 
-	kDebug() << "Reading file!";
+  kDebug() << "Reading file!";
 
-	QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
-	emit error(message, out);
-	f.close();
+  QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
+  emit error(message, out);
+  f.close();
 }
+
 
 bool ModelTest::recognize()
 {
-//	return execute(QString("%1 -C %2 -realtime -dfa %3 -v %4 -input rawfile -filelist %5 -smpFreq %6").arg(julius)
-//			.arg(juliusJConf).arg(dfaPath).arg(dictPath).arg(tempDir+"wavlist").arg(sampleRate), tempDir+"juliusOutput");
+  //	return execute(QString("%1 -C %2 -realtime -dfa %3 -v %4 -input rawfile -filelist %5 -smpFreq %6").arg(julius)
+  //			.arg(juliusJConf).arg(dfaPath).arg(dictPath).arg(tempDir+"wavlist").arg(sampleRate), tempDir+"juliusOutput");
 
+  if (!keepGoing) return false;
+  emit status(i18n("Recognizing..."), 35, 100);
 
-	if (!keepGoing) return false;
-	emit status(i18n("Recognizing..."), 35, 100);
+  QByteArray logPath = tempDir.toUtf8()+"julius.log";
 
+  closeLog();                                     //close if open
+  logFile = fopen(logPath.data(), "w");
+  if (logFile == 0)
+    return false;
+  jlog_set_output(logFile);
 
-	QByteArray logPath = tempDir.toUtf8()+"julius.log";
+  if (!QFile::exists(juliusJConf)) {
+    emitError(i18n("Could not open julius jconf file: \"%1\".", juliusJConf));
+    return false;
+  }
+  kDebug() << "Using hmm definitions: " << hmmDefsPath;
 
-	closeLog(); //close if open
- 	logFile = fopen(logPath.data(), "w");
- 	if (logFile == NULL) 
-		return false;
-	jlog_set_output(logFile);
-	
-	if (!QFile::exists(juliusJConf)) {
-		emitError(i18n("Couldn't open julius jconf file: \"%1\".", juliusJConf));
-		return false;
-	}
-	kDebug() << "Using hmm definitions: " << hmmDefsPath;
-	
-	//////BEGIN: Workaround
-	//convert "." in hmmdefs to its locale specific equivalent
-	lconv * localeConv = localeconv();
-	char *decimalPoint = localeConv->decimal_point;
+  //////BEGIN: Workaround
+  //convert "." in hmmdefs to its locale specific equivalent
+  lconv * localeConv = localeconv();
+  char *decimalPoint = localeConv->decimal_point;
 
-	kDebug() << "Source: " << hmmDefsPath;
-	QFile hmm(hmmDefsPath);
-	QFile hmmLoc(tempDir+"hmmdefs");
-	if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly)) {
-		emitError(i18n("Couldn't open hmm definitions"));
-		return false;
-	}
+  kDebug() << "Source: " << hmmDefsPath;
+  QFile hmm(hmmDefsPath);
+  QFile hmmLoc(tempDir+"hmmdefs");
+  if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly)) {
+    emitError(i18n("Could not open hmm definitions"));
+    return false;
+  }
 
-	while (!hmm.atEnd())
-		hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
-	
-	hmm.close();
-	hmmLoc.close();
-	//////END: Workaround
+  while (!hmm.atEnd())
+    hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
 
+  hmm.close();
+  hmmLoc.close();
+  //////END: Workaround
 
-	if (!keepGoing) {
-		closeLog();
-		return false;
-	}
+  if (!keepGoing) {
+    closeLog();
+    return false;
+  }
 
-	QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
-	int argc=15;
+  QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
+  int argc=15;
 
-	kDebug() << juliusJConf.toLocal8Bit().data();
-	kDebug() << dfaPath.toLocal8Bit().data();
-	QByteArray juliusJConfByte = juliusJConf.toLocal8Bit();
-	QByteArray dfaPathByte = dfaPath.toLocal8Bit();
-	QByteArray dictPathByte = dictPath.toLocal8Bit();
-	QByteArray tiedListPathByte = tiedListPath.toLocal8Bit();
-	QByteArray tempDirByte = tempDir.toLocal8Bit();
-	QByteArray hmmDefsByte = tempDirByte + "hmmdefs";
-	QByteArray fileListByte = tempDirByte + "wavlist";
-	QByteArray sampleRateByte = QByteArray::number(sampleRate);
-	char* argv[] = {"sam", "-C", juliusJConfByte.data(),
-			"-dfa", dfaPathByte.data(),
-			"-v", dictPathByte.data(),
-			 "-h", hmmDefsByte.data(),
-			 "-hlist", tiedListPathByte.data(),
-			 "-input", "rawfile", 
-			 "-filelist", fileListByte.data(),
-			 "smpFreq", sampleRateByte.data()};
+  kDebug() << juliusJConf.toLocal8Bit().data();
+  kDebug() << dfaPath.toLocal8Bit().data();
+  QByteArray juliusJConfByte = juliusJConf.toLocal8Bit();
+  QByteArray dfaPathByte = dfaPath.toLocal8Bit();
+  QByteArray dictPathByte = dictPath.toLocal8Bit();
+  QByteArray tiedListPathByte = tiedListPath.toLocal8Bit();
+  QByteArray tempDirByte = tempDir.toLocal8Bit();
+  QByteArray hmmDefsByte = tempDirByte + "hmmdefs";
+  QByteArray fileListByte = tempDirByte + "wavlist";
+  QByteArray sampleRateByte = QByteArray::number(sampleRate);
+  char* argv[] = {
+    "sam", "-C", juliusJConfByte.data(),
+    "-dfa", dfaPathByte.data(),
+    "-v", dictPathByte.data(),
+    "-h", hmmDefsByte.data(),
+    "-hlist", tiedListPathByte.data(),
+    "-input", "rawfile",
+    "-filelist", fileListByte.data(),
+    "smpFreq", sampleRateByte.data()
+  };
 
-	for (int i=0; i < argc; i++)
-		kDebug() << argv[i];
+  for (int i=0; i < argc; i++)
+    kDebug() << argv[i];
 
-	Jconf *jconf = j_config_load_args_new(argc, argv);
-	if (!jconf) {
-		emitError(i18n("Internal Jconf error"));
-		return false;
-	}
+  Jconf *jconf = j_config_load_args_new(argc, argv);
+  if (!jconf) {
+    emitError(i18n("Internal Jconf error"));
+    return false;
+  }
 
-	recog = j_create_instance_from_jconf(jconf);
-	if (!recog)
-	{
-		emitError(i18n("Could not initialize recognition"));
-		j_jconf_free(jconf);
-		this->recog=0;
-		return false;
-	}
-	
-	callback_add(recog, CALLBACK_RESULT, processRecognitionResult, this);
-	
-	/**************************/
-	/* Initialize audio input */
-	/**************************/
-	/* initialize audio input device */
-	/* ad-in thread starts at this time for microphone */
-	if (j_adin_init(recog) == false) {    /* error */
-		emitError(i18n("Couldn't start adin-thread"));
-		j_recog_free(recog);
-		this->recog=0;
-		return false;
-	}
+  recog = j_create_instance_from_jconf(jconf);
+  if (!recog) {
+    emitError(i18n("Could not initialize recognition"));
+    j_jconf_free(jconf);
+    this->recog=0;
+    return false;
+  }
 
-	/* output system information to log */
-	j_recog_info(recog);
-	
-	bool shouldBeRunning = true;
-	while (shouldBeRunning && keepGoing)
-	{
-		 switch(j_open_stream(recog, NULL)) {
-			case 0:
-			//	fprintf(stderr, "j_open_stream returned 0\n");
-			//	emit recognitionStarted();
-				break;
-			case -1:
-			//	fprintf(stderr, "j_open_stream returned -1\n");
-				break;
-			//	emit recognitionError(i18n("Unknown error"));
-				//return false;
-				//
-				//skipping to -2 for freeing...
-			case -2:
-			//	fprintf(stderr, "j_open_stream returned -2\n");
-				shouldBeRunning = false;
-				//filelist input somehow returns -2 on finish
-			//	emitError(i18n("Couldn't recognize samples"));
-			//	if (isLocal)
-			//		emit recognitionError(i18n("Couldn't initialize microphone"));
-			//	else emit recognitionError(i18n("Error with the audio stream"));
-				break;
-		}
+  callback_add(recog, CALLBACK_RESULT, processRecognitionResult, this);
 
-		 if (!shouldBeRunning)
-			 break;
-	
-		/**********************/
-		/* Recognization Loop */
-		/**********************/
-		/* enter main loop to recognize the input stream */
-		/* finish after whole input has been processed and input reaches end */
-		int ret = j_recognize_stream(recog);
- 		switch (ret)
-		{
-			case 0:
-				//client exited
-				//shouldBeRunning=false;
-				break;
-			case -1:
-				//emit recognitionError("recognize_stream: -1");
-				shouldBeRunning=false;
-				break;
-		}
-		//usleep(300);
-	}
+  /**************************/
+  /* Initialize audio input */
+  /**************************/
+  /* initialize audio input device */
+  /* ad-in thread starts at this time for microphone */
+  if (j_adin_init(recog) == false) {              /* error */
+    emitError(i18n("Could not start adin-thread"));
+    j_recog_free(recog);
+    this->recog=0;
+    return false;
+  }
 
-	j_recog_free(recog);
-	recog = NULL;
-	closeLog();
+  /* output system information to log */
+  j_recog_info(recog);
 
-	return keepGoing;
+  bool shouldBeRunning = true;
+  while (shouldBeRunning && keepGoing) {
+    switch(j_open_stream(recog, 0)) {
+      case 0:
+        //	fprintf(stderr, "j_open_stream returned 0\n");
+        //	emit recognitionStarted();
+        break;
+      case -1:
+        //	fprintf(stderr, "j_open_stream returned -1\n");
+        break;
+        //	emit recognitionError(i18n("Unknown error"));
+        //return false;
+        //
+        //skipping to -2 for freeing...
+      case -2:
+        //	fprintf(stderr, "j_open_stream returned -2\n");
+        shouldBeRunning = false;
+        //filelist input somehow returns -2 on finish
+        //	emitError(i18n("Could not recognize samples"));
+        //	if (isLocal)
+        //		emit recognitionError(i18n("Could not initialize microphone"));
+        //	else emit recognitionError(i18n("Error with the audio stream"));
+        break;
+    }
+
+    if (!shouldBeRunning)
+      break;
+
+    /**********************/
+    /* Recognization Loop */
+    /**********************/
+    /* enter main loop to recognize the input stream */
+    /* finish after whole input has been processed and input reaches end */
+    int ret = j_recognize_stream(recog);
+    switch (ret) {
+      case 0:
+        //client exited
+        //shouldBeRunning=false;
+        break;
+      case -1:
+        //emit recognitionError("recognize_stream: -1");
+        shouldBeRunning=false;
+        break;
+    }
+    //usleep(300);
+  }
+
+  j_recog_free(recog);
+  recog = 0;
+  closeLog();
+
+  return keepGoing;
 }
-
 
 
 void ModelTest::closeLog()
 {
-	if (!logFile) return;
+  if (!logFile) return;
 
-	jlog_flush();
-	fclose(logFile);
-	logFile = NULL;
+  jlog_flush();
+  fclose(logFile);
+  logFile = 0;
 }
-
 
 
 void ModelTest::searchFailed()
 {
-	QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
+  QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-	//fileResults.insert(fileName, RecognitionResultList());
+  //fileResults.insert(fileName, RecognitionResultList());
 
-	emit recognitionInfo(i18n("Search failed for: %1", fileName));
+  emit recognitionInfo(i18n("Search failed for: %1", fileName));
 
-	QString prompt = promptsTable.value(fileName);
-	QStringList promptWordList = prompt.split(" ");
+  QString prompt = promptsTable.value(fileName);
+  QStringList promptWordList = prompt.split(" ");
 
-	FloatList list = sentenceRates.value(prompt);
-	sentenceRates.insert(prompt, list << 0.0f);
+  FloatList list = sentenceRates.value(prompt);
+  sentenceRates.insert(prompt, list << 0.0f);
 
-	foreach (const QString& word, promptWordList) {
-		FloatList list2 = wordRates.value(word);
-		wordRates.insert(word, list2 << 0.0f);
-	}
+  foreach (const QString& word, promptWordList) {
+    FloatList list2 = wordRates.value(word);
+    wordRates.insert(word, list2 << 0.0f);
+  }
 
-	testResults.insert(fileName, new TestResult(prompt, RecognitionResultList()));
+  testResults.insert(fileName, new TestResult(prompt, RecognitionResultList()));
 }
+
 
 void ModelTest::recognized(RecognitionResultList results)
 {
-	QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
+  QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-	//fileResults.insert(fileName, results);
+  //fileResults.insert(fileName, results);
 
-	QString prompt = promptsTable.value(fileName);
-	testResults.insert(fileName, new TestResult(prompt, results));
+  QString prompt = promptsTable.value(fileName);
+  testResults.insert(fileName, new TestResult(prompt, results));
 
-	emit recognitionInfo(i18n("Prompts entry: %1", prompt));
-	emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
+  emit recognitionInfo(i18n("Prompts entry: %1", prompt));
+  emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
 
-	QStringList promptWordList = prompt.split(" ");
+  QStringList promptWordList = prompt.split(" ");
 
-	bool sentenceFound = false;
-	QList<bool> wordFound;
-	for (int i=0; i< promptWordList.count(); i++)
-		wordFound << false;
+  bool sentenceFound = false;
+  QList<bool> wordFound;
+  for (int i=0; i< promptWordList.count(); i++)
+    wordFound << false;
 
-	foreach (const RecognitionResult& result, results) {
-		QStringList resultWordList = result.sentence().split(" ");
-		QList<float> confidenceScores = result.confidenceScores();
+  foreach (const RecognitionResult& result, results) {
+    QStringList resultWordList = result.sentence().split(" ");
+    QList<float> confidenceScores = result.confidenceScores();
 
-		if (promptWordList.count() != resultWordList.count()) {
-			//if different word count skip this result
-			//wrong segmentation is "punished" with a 0% rate
-			continue;
-		}
+    if (promptWordList.count() != resultWordList.count()) {
+      //if different word count skip this result
+      //wrong segmentation is "punished" with a 0% rate
+      continue;
+    }
 
-		int i=0;
-		foreach (const QString& resultWord, resultWordList) {
-			//word recognition rates
-			if (wordFound[i]) continue;
+    int i=0;
+    foreach (const QString& resultWord, resultWordList) {
+      //word recognition rates
+      if (wordFound[i]) continue;
 
-			if (resultWord.toUpper() == promptWordList[i]) {
-				float wordConfidence = confidenceScores[i];
-				FloatList previousWordConfidenceList = wordRates.value(resultWord.toUpper());
+      if (resultWord.toUpper() == promptWordList[i]) {
+        float wordConfidence = confidenceScores[i];
+        FloatList previousWordConfidenceList = wordRates.value(resultWord.toUpper());
 
-				wordRates.insert(resultWord.toUpper(), previousWordConfidenceList << wordConfidence);
-				wordFound.replace(i, true);
-			} 
+        wordRates.insert(resultWord.toUpper(), previousWordConfidenceList << wordConfidence);
+        wordFound.replace(i, true);
+      }
 
-			i++;
-		}
+      i++;
+    }
 
-		if ((!sentenceFound) && (prompt == result.sentence().toUpper())) {
-			//correct sentence
-			FloatList list = sentenceRates.value(result.sentence().toUpper());
-			
-			sentenceRates.insert(result.sentence().toUpper(), list << result.averageConfidenceScore());
-			sentenceFound = true;
-		}
-	}
+    if ((!sentenceFound) && (prompt == result.sentence().toUpper())) {
+      //correct sentence
+      FloatList list = sentenceRates.value(result.sentence().toUpper());
 
-	if (!sentenceFound) {
-		FloatList list = sentenceRates.value(prompt);
-		sentenceRates.insert(prompt, list << 0.0f);
-	}
+      sentenceRates.insert(result.sentence().toUpper(), list << result.averageConfidenceScore());
+      sentenceFound = true;
+    }
+  }
 
-	int k=0;
-	foreach (bool found, wordFound) {
-		if (!found) {
-			FloatList list = wordRates.value(promptWordList[k]);
+  if (!sentenceFound) {
+    FloatList list = sentenceRates.value(prompt);
+    sentenceRates.insert(prompt, list << 0.0f);
+  }
 
-			wordRates.insert(promptWordList[k], list << 0.0f);
-		}
-		k++;
-	}
+  int k=0;
+  foreach (bool found, wordFound) {
+    if (!found) {
+      FloatList list = wordRates.value(promptWordList[k]);
+
+      wordRates.insert(promptWordList[k], list << 0.0f);
+    }
+    k++;
+  }
 }
-
-
 
 
 bool ModelTest::processJuliusOutput()
 {
-	emit status(i18n("Processing recognition results..."), 85, 100);
+  emit status(i18n("Processing recognition results..."), 85, 100);
 
-
-	return true;
+  return true;
 }
+
 
 bool ModelTest::analyzeResults()
 {
-	if (!keepGoing) return false;
+  if (!keepGoing) return false;
 
-	emit status(i18n("Analyzing recognition results..."), 90, 100);
+  emit status(i18n("Analyzing recognition results..."), 90, 100);
 
-	return true;
+  return true;
 }
+
 
 ModelTest::~ModelTest()
 {
 }
-

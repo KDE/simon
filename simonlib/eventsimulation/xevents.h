@@ -17,38 +17,39 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_XEVENTS_H_2BF2636B0148404495C2D0D8A926A43A
 #define SIMON_XEVENTS_H_2BF2636B0148404495C2D0D8A926A43A
 
 #include "coreevents.h"
 
 class QString;
+
 class XEventsPrivate;
 /**
- *	@class XEvents
- *	@brief The X11 Event Backend
- *	
- *	Implements CoreEvents
+ * @class XEvents
+ * @brief The X11 Event Backend
  *
- *	@version 0.1
- *	@date 4.03.2007
- *	@author Peter Grasch
+ * Implements CoreEvents
+ *
+ * @version 0.1
+ * @date 4.03.2007
+ * @author Peter Grasch
  */
 
-class XEvents : public CoreEvents {
-private:
-	XEventsPrivate *d;
+class XEvents : public CoreEvents
+{
 
-public:
-	void click(int x, int y, EventSimulation::ClickMode clickMode);
-	void dragAndDrop(int xStart, int yStart, int x, int y);
-	void sendKeyPrivate(unsigned int key);
-	void setModifierKey(int virtualKey, bool once);
-	void unsetModifier(int virtualKey);
-	XEvents(char* displayName=":0.0");
-	~XEvents();
+  private:
+    XEventsPrivate *d;
+
+  public:
+    void click (int x, int y, EventSimulation::ClickMode clickMode);
+    void dragAndDrop (int xStart, int yStart, int x, int y);
+    void sendKeyPrivate (unsigned int key);
+    void setModifierKey (int virtualKey, bool once);
+    void unsetModifier (int virtualKey);
+    XEvents (char* displayName=":0.0");
+    ~XEvents();
 
 };
-
 #endif

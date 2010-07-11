@@ -17,28 +17,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #ifndef SIMON_IMPORTGRAMMARSELECTFILESPAGE_H_8E006FF97EF149AAB82E4AE50E1773ED
 #define SIMON_IMPORTGRAMMARSELECTFILESPAGE_H_8E006FF97EF149AAB82E4AE50E1773ED
 
 #include <QWizardPage>
 #include "ui_selectinputpage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  @author Peter Grasch <bedahr@gmx.net>
 */
 class ImportGrammarSelectInputPage : public QWizardPage
 {
-Q_OBJECT
-private:
-	Ui::SelectInputPage ui;
-public:
-	void initializePage();
-	void cleanupPage();
-	bool isComplete() const;
+  Q_OBJECT
+    private:
+    Ui::SelectInputPage ui;
+  public:
+    void initializePage();
+    void cleanupPage();
+    bool isComplete() const;
 
-	ImportGrammarSelectInputPage(QWidget* parent);
-	~ImportGrammarSelectInputPage();
+    ImportGrammarSelectInputPage(QWidget* parent);
+    ~ImportGrammarSelectInputPage();
 
 };
-
 #endif

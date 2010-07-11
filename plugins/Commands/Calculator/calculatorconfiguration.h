@@ -27,49 +27,48 @@
 
 class CalculatorConfiguration : public CommandConfiguration
 {
-	Q_OBJECT
-	
-	private:
-		Ui::CalculatorConfigurationDlg ui;
- 
-	public slots:
-		virtual bool deSerialize(const QDomElement&);
-		virtual QDomElement serialize(QDomDocument *doc);
-		virtual void defaults();
+  Q_OBJECT
 
-	public:
-		enum OutputModeSelection {
-			AlwaysAsk=1,
-			UseDefault=2,
-			AskButDefaultAfterTimeout=3
-		};
+    private:
+    Ui::CalculatorConfigurationDlg ui;
 
-		enum OutputMode {
-			Result=1,
-			Calculation=2,
-			CalculationAndResult=3,
-			FormattedResult=4,
-			FormattedCalculationAndResult=5,
-			FormattedMoneyResult=6,
-			FormattedMoneyCalculationAndResult=7
-		};
+  public slots:
+    virtual bool deSerialize(const QDomElement&);
+    virtual QDomElement serialize(QDomDocument *doc);
+    virtual void defaults();
 
-		enum ControlMode {
-			FullCalculator=1,
-			OnlyNumberInput=2,
-			OnlyOutput=3
-		};
+  public:
+    enum OutputModeSelection
+    {
+      AlwaysAsk=1,
+      UseDefault=2,
+      AskButDefaultAfterTimeout=3
+    };
 
+    enum OutputMode
+    {
+      Result=1,
+      Calculation=2,
+      CalculationAndResult=3,
+      FormattedResult=4,
+      FormattedCalculationAndResult=5,
+      FormattedMoneyResult=6,
+      FormattedMoneyCalculationAndResult=7
+    };
 
+    enum ControlMode
+    {
+      FullCalculator=1,
+      OnlyNumberInput=2,
+      OnlyOutput=3
+    };
 
-		CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
-		~CalculatorConfiguration();
+    CalculatorConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
+    ~CalculatorConfiguration();
 
-		
-		int askTimeout();
-		ControlMode controlMode();
-		OutputModeSelection outputModeSelection();
-		OutputMode outputMode();
+    int askTimeout();
+    ControlMode controlMode();
+    OutputModeSelection outputModeSelection();
+    OutputMode outputMode();
 };
-
 #endif

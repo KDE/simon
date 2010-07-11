@@ -17,32 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "renameterminalselectparameterspage.h"
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/speechmodel.h>
 
 RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
- : QWizardPage(parent)
+: QWizardPage(parent)
 {
-	ui.setupUi(this);
-	registerField("renameNewName*",ui.leNewName);
-	registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
-	registerField("renameIncludeShadow", ui.cbIncludeShadow);
-	registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
+  ui.setupUi(this);
+  registerField("renameNewName*",ui.leNewName);
+  registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
+  registerField("renameIncludeShadow", ui.cbIncludeShadow);
+  registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
 }
+
 
 void RenameTerminalSelectParametersPage::initializePage()
 {
-	QStringList availableTerminals;
-	availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
-			(SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
-	ui.lwTerminal->clear();
-	ui.lwTerminal->addItems(availableTerminals);
+  QStringList availableTerminals;
+  availableTerminals = ScenarioManager::getInstance()->getTerminals((SpeechModel::ModelElements)
+    (SpeechModel::ShadowVocabulary|SpeechModel::ScenarioVocabulary|SpeechModel::ScenarioGrammar));
+  ui.lwTerminal->clear();
+  ui.lwTerminal->addItems(availableTerminals);
 }
+
 
 RenameTerminalSelectParametersPage::~RenameTerminalSelectParametersPage()
 {
 }
-
-

@@ -17,13 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "networksettings.h"
 #include <simonuicomponents/serveraddressselector.h>
 #include "recognitionconfiguration.h"
+#include <QPointer>
 #include <kdeversion.h>
 #include <KCMultiDialog>
-
 
 /**
  * \brief Constructor - inits the help text and the gui
@@ -32,29 +31,28 @@
  */
 NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
-	Q_UNUSED(args);
+  Q_UNUSED(args);
 
-	ui.setupUi(this);
-	
-#if KDE_IS_VERSION(4,0,80)
-	ServerAddressSelector *saSelector = new ServerAddressSelector(this);
-	ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
-#endif
+  ui.setupUi(this);
 
-	addConfig(RecognitionConfiguration::self(), this);
+  #if KDE_IS_VERSION(4,0,80)
+  ServerAddressSelector *saSelector = new ServerAddressSelector(this);
+  ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
+  #endif
+
+  addConfig(RecognitionConfiguration::self(), this);
   connect(ui.pbConfigureSimond, SIGNAL(clicked()), this, SLOT(configureSimond()));
 }
 
 
 void NetworkSettings::configureSimond()
 {
-	KCMultiDialog *configDialog = new KCMultiDialog(this);
-	configDialog->addModule("simondconfiguration", QStringList() << "");
-	configDialog->exec();
-	delete configDialog;
+  QPointer<KCMultiDialog> configDialog = new KCMultiDialog(this);
+  configDialog->addModule("simondconfiguration", QStringList() << "");
+  configDialog->exec();
+  delete configDialog;
 }
+
 
 NetworkSettings::~NetworkSettings()
 {}
-
-
