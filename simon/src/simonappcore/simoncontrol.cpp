@@ -136,7 +136,7 @@ void SimonControl::slotRecognitionError(const QString &err, const QString& log)
 
 void SimonControl::slotCompilationError(const QString &err, const QString& protocol)
 {
-  KMessageBox::detailedError(0, i18n("As the server compiled the model the following error occured:\n%1", err), protocol);
+  KMessageBox::detailedError(0, i18n("As the server compiled the model the following error occurred:\n%1", err), protocol);
 }
 
 
@@ -148,7 +148,7 @@ void SimonControl::slotSimondSystemWarning(const QString& warning)
 
 void SimonControl::slotSynchronisationWarning(const QString& warning)
 {
-  SimonInfo::showMessage(i18n("Model synchronisation %1", warning), 5000);
+  SimonInfo::showMessage(i18n("Model synchronization %1", warning), 5000);
 }
 
 

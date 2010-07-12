@@ -18,16 +18,22 @@
  */
 
 #include "aicommandmanager.h"
+#include "aiconfiguration.h"
+#include "aimlparser.h"
+
 #include <simonlogging/logger.h>
+#include <simonscenarios/scenario.h>
+
+#include <QDebug>
+#include <QXmlInputSource>
+#include <QFile>
+#include <QDir>
+
+#include <KProcess>
+#include <KProgressDialog>
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KStandardDirs>
-#include <QDebug>
-#include <KProcess>
-#include <KProgressDialog>
-#include <simonscenarios/scenario.h>
-#include "aiconfiguration.h"
-#include "aimlparser.h"
 
 K_PLUGIN_FACTORY( AIPluginFactory,
 registerPlugin< AICommandManager >();

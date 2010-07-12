@@ -105,7 +105,7 @@ bool CommandManager::trigger(const QString& triggerName)
  *
  * The default implementation just calls \ref trigger() with the recognized sentence.
  *
- * \param recognitionResult The recognition result recieved from the recognizer
+ * \param recognitionResult The recognition result received from the recognizer
  * \return True if the CommandManager accepts the result
  *
  * \sa trigger() for details on what happens when the recognizer recognizes something

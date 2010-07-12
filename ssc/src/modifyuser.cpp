@@ -135,7 +135,7 @@ void ModifyUser::addInstitutionAssociation()
     //if already in here delete the new one
     if ((uii->institutionId() == uiiN->institutionId()) && (uii->referenceId() == uiiN->referenceId())) {
       delete uiiN;
-      return;                                     // can not also be in uiisDelete; we checked when we addded it to uiisToAdd...
+      return;                                     // can not also be in uiisDelete; we checked when we added it to uiisToAdd...
     }
   }
 

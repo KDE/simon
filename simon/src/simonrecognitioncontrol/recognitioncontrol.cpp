@@ -47,6 +47,7 @@
 #include <QDataStream>
 #include <QDateTime>
 #include <QStringList>
+#include <QPointer>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -383,11 +384,12 @@ void RecognitionControl::login()
   QString pass = RecognitionConfiguration::juliusdPassword();
 
   if (user.isEmpty()) {
-    KPasswordDialog *dlg  = new KPasswordDialog(dynamic_cast<QWidget*>(parent()),
+    QPointer<KPasswordDialog> dlg  = new KPasswordDialog(dynamic_cast<QWidget*>(parent()),
                 KPasswordDialog::ShowUsernameLine|KPasswordDialog::ShowKeepPassword );
     dlg->setPrompt( i18n( "Please enter your Authentication Details for the simond below" ));
     if( !dlg->exec() || !dlg || dlg->username().isEmpty() ) {
       disconnectFromServer();                     //the user canceled
+      delete dlg;
       return;
     }
     
@@ -612,7 +614,7 @@ void RecognitionControl::sendScenario(QString scenarioId)
   kDebug() << "Sending scenario " << scenarioId;
   QFile f(KStandardDirs::locate("appdata", "scenarios/"+scenarioId));
   if (!f.open(QIODevice::ReadOnly)) {
-    kDebug() << "Could not retreive scenario";
+    kDebug() << "Could not retrieve scenario";
     out << (qint32) Simond::ErrorRetrievingScenario;
     socket->write(toWrite);
   }
@@ -675,7 +677,7 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
   QDataStream out(&toWrite, QIODevice::WriteOnly);
   out << (qint32) Simond::LanguageDescriptionDate
     << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
-  kDebug() << "LANGUAGE DESCRIPTION MODIFIED TIME: " << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
+  kDebug() << "Language description modified time " << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime();
   socket->write(toWrite);
 }
 
@@ -762,7 +764,7 @@ void RecognitionControl::fetchMissingSamples()
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
   stream << (qint32) Simond::GetTrainingsSample
-    << (qint64) sampleByte.count()+sizeof(qint32) /*seperator*/
+    << (qint64) sampleByte.count()+sizeof(qint32) /*separator*/
     << sampleByte;
   socket->write(toWrite);
 }
@@ -821,9 +823,9 @@ void RecognitionControl::startSynchronisation()
     synchronisationOperation->deleteLater();
   }
 
-  synchronisationOperation = new Operation(thread(), i18n("Model synchronisation"), i18n("Initializing..."), 0, 100, false);
+  synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Initializing..."), 0, 100, false);
 
-  kDebug() << "Starting synchronisation";
+  kDebug() << "Starting synchronization";
   ModelManagerUiProxy::getInstance()->startGroup();
   sendRequest(Simond::StartSynchronisation);
   kDebug() << stillToProcess.count();
@@ -832,7 +834,7 @@ void RecognitionControl::startSynchronisation()
 
 void RecognitionControl::synchronisationComplete()
 {                                                 //successful
-  kDebug() << "Synchronisation completed";
+  kDebug() << "Synchronization completed";
   if (synchronisationOperation)
     synchronisationOperation->finished();
   synchronisationDone();
@@ -841,7 +843,7 @@ void RecognitionControl::synchronisationComplete()
 
 void RecognitionControl::synchronisationDone()
 {
-  kDebug() << "Finishing up synchronisation";
+  kDebug() << "Finishing up synchronization";
 
   if (synchronisationOperation) {
     if (!synchronisationOperation->isFinished()) {
@@ -939,7 +941,7 @@ void RecognitionControl::messageReceived()
         case Simond::GetActiveModelDate:
         {
           if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronisation"), i18n("Synchronizing acitve model"), 1, 100, false);
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing acitve model"), 1, 100, false);
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 

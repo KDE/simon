@@ -236,7 +236,7 @@ void SimonSoundInput::slotInputStateChanged(QAudio::State state)
         break;
 
       case QAudio::IOError:
-        emit error(i18n("An error occured while reading data from the audio device."));
+        emit error(i18n("An error occurred while reading data from the audio device."));
         break;
 
       case QAudio::UnderrunError:
@@ -244,7 +244,7 @@ void SimonSoundInput::slotInputStateChanged(QAudio::State state)
         break;
 
       case QAudio::FatalError:
-        emit error(i18n("A fatal error occured during recording."));
+        emit error(i18n("A fatal error occurred during recording."));
         break;
     }
   }

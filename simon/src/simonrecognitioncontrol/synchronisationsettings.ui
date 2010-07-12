@@ -32,17 +32,17 @@
        </property>
        <item>
         <property name="text" >
-         <string>Automatic Synchronisation</string>
+         <string>Automatic Synchronization</string>
         </property>
        </item>
        <item>
         <property name="text" >
-         <string>Ask for Synchronisation</string>
+         <string>Ask for Synchronization</string>
         </property>
        </item>
        <item>
         <property name="text" >
-         <string>Manual Synchronisation only</string>
+         <string>Manual Synchronization only</string>
         </property>
        </item>
       </widget>

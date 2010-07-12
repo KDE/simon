@@ -1,17 +1,17 @@
 /* *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public Licence version 2,
+ *   it under the terms of the GNU General Public License version 2,
  *   or (at your option) any later version, as published by the Free
  *   Software Foundation
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public Licence for more details
+ *   GNU General Public License for more details
  *
  *   You should have received a copy of the GNU General Public
- *   Licence along with this program; if not, write to the
+ *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
@@ -41,7 +41,7 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
   connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(setWindowTitleToScenarioName(QString)));
   connect(ui.leName, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
   connect(ui.leMinVersion, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
-  connect(ui.cbLicence, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
+  connect(ui.cbLicense, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkIfComplete()));
 
   connect(ui.pbAddAuthor, SIGNAL(clicked()), this, SLOT(addAuthor()));
   connect(ui.pbRemoveAuthor, SIGNAL(clicked()), this, SLOT(removeAuthor()));
@@ -55,7 +55,7 @@ NewScenario::NewScenario(QWidget* parent) : KDialog(parent)
 void NewScenario::checkIfComplete()
 {
   bool complete  = ! ui.leName->text().isEmpty() &&
-    ! ui.cbLicence->currentText().isEmpty() &&
+    ! ui.cbLicense->currentText().isEmpty() &&
     ! ui.leMinVersion->text().isEmpty() &&
     ! m_authors.isEmpty();
 
@@ -130,7 +130,7 @@ Scenario* NewScenario::newScenario()
     Scenario *s = new Scenario(createId());
     VersionNumber *minVersion = getMinimumVersion();
     VersionNumber *maxVersion = new VersionNumber(0, ui.leMaxVersion->text());
-    if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+    if (!s->create(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicense->currentText(), m_authors)) {
       m_authors.clear();
       KMessageBox::sorry(this, i18n("Scenario could not be created"));
       s->deleteLater();
@@ -165,7 +165,7 @@ void NewScenario::displayScenario(Scenario *s)
   if (max)
     maxStrVersion = max->toString();
   ui.leMaxVersion->setText(maxStrVersion);
-  ui.cbLicence->setEditText(s->licence());
+  ui.cbLicense->setEditText(s->license());
 
   ui.pbIcon->setIcon(s->iconSrc());
 
@@ -205,7 +205,7 @@ Scenario* NewScenario::editScenario(Scenario *s)
     VersionNumber *minVersion = getMinimumVersion();
 
     VersionNumber *maxVersion = new VersionNumber(0, ui.leMaxVersion->text());
-    if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicence->currentText(), m_authors)) {
+    if (!s->update(ui.leName->text(), ui.pbIcon->icon(), ui.sbScenarioVersion->value(), minVersion, maxVersion, ui.cbLicense->currentText(), m_authors)) {
       KMessageBox::sorry(this, i18n("Scenario could not be updated"));
       success = false;
     }

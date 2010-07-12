@@ -1066,7 +1066,7 @@ void ClientSocket::sendSample(QString sampleName)
   QDataStream out(&toWrite, QIODevice::WriteOnly);
 
   out << (qint32) Simond::TrainingsSample
-    << (qint64) sample.count()+sizeof(qint32)     /*seperator*/
+    << (qint64) sample.count()+sizeof(qint32)     /*separator*/
     << sample;
   write(toWrite);
 }
@@ -1079,7 +1079,7 @@ void ClientSocket::sendModelCompilationLog()
   QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
 
   stream << (qint32) Simond::ModelCompilationProtocol
-    << (qint64) (log.count()+sizeof(qint32) /*seperator*/)
+    << (qint64) (log.count()+sizeof(qint32) /*separator*/)
     << log;
   write(toWrite);
 }
@@ -1131,7 +1131,7 @@ void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
   QByteArray errorByte = word.toUtf8();
   stream << (qint32) Simond::ModelCompilationWordUndefined
-    << (qint64) (errorByte.count()+sizeof(qint32) /*seperator*/)
+    << (qint64) (errorByte.count()+sizeof(qint32) /*separator*/)
     << errorByte;
   write(toWrite);
 }
@@ -1143,7 +1143,7 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
   QByteArray classByte = undefClass.toUtf8();
   stream << (qint32) Simond::ModelCompilationClassUndefined
-    << (qint64) (classByte.count()+sizeof(qint32) /*seperator*/)
+    << (qint64) (classByte.count()+sizeof(qint32) /*separator*/)
     << classByte;
   write(toWrite);
 }
@@ -1447,7 +1447,7 @@ bool ClientSocket::sendModel(Simond::Request request, const QDateTime& changedTi
 
 void ClientSocket::synchronisationDone()
 {
-  kDebug() << "Synchronisation done";
+  kDebug() << "Synchronization done";
   synchronisationRunning=false;
   //reset modelsource
   Q_ASSERT(recognitionControl);
@@ -1472,13 +1472,13 @@ void ClientSocket::synchronisationDone()
 
 void ClientSocket::synchronisationComplete()
 {
-  kDebug() << "Synchronisation complete";
+  kDebug() << "Synchronization complete";
   if (!synchronisationManager->commit()) {
-    kDebug() << "Synchronisation commit failed";
+    kDebug() << "Synchronization commit failed";
     sendCode(Simond::SynchronisationCommitFailed);
   }
   else {
-    kDebug() << "Synchronisation succeded";
+    kDebug() << "Synchronization succeeded";
     sendCode(Simond::SynchronisationComplete);
 
     kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();

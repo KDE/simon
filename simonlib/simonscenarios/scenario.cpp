@@ -88,7 +88,7 @@ bool Scenario::init(QString path)
 
 
 bool Scenario::create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
-VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 {
   m_name = name;
   m_version = version;
@@ -97,7 +97,7 @@ VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
   m_simonMinVersion = simonMinVersion;
   delete m_simonMaxVersion;
   m_simonMaxVersion = simonMaxVersion;
-  m_licence = licence;
+  m_license = license;
 
   foreach (Author *a, m_authors)
     if (!authors.contains(a))
@@ -111,9 +111,9 @@ VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
 
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
-VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors)
+VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 {
-  return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, licence, authors);
+  return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, license, authors);
 }
 
 
@@ -153,7 +153,7 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 
   bool ok=true;
 
-  //  Scenario Infos
+  //  Scenario Information
   //************************************************/
 
   //name of the scenario
@@ -218,10 +218,12 @@ bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
     authorElem = authorElem.nextSiblingElement();
   }
 
-  //  Licence
+  //  License
   //************************************************/
-  m_licence = docElem.firstChildElement("licence").text();
-  //kDebug() << "Licence: " << m_licence;
+  m_license = docElem.firstChildElement("license").text();
+  if (m_license.isNull())
+	  //load previous version
+	 m_license = docElem.firstChildElement("licence").text();
 
   if (deleteDoc) delete doc;
   return true;
@@ -374,12 +376,12 @@ QString Scenario::serialize()
   }
   rootElem.appendChild(authorsElem);
 
-  //  Licence
+  //  License
   //************************************************/
-  QDomElement licenceElem = doc.createElement("licence");
-  QDomText licenceElemText = doc.createTextNode(m_licence);
-  licenceElem.appendChild(licenceElemText);
-  rootElem.appendChild(licenceElem);
+  QDomElement licenseElem = doc.createElement("license");
+  QDomText licenseElemText = doc.createTextNode(m_license);
+  licenseElem.appendChild(licenseElemText);
+  rootElem.appendChild(licenseElem);
 
   //  Vocab
   //************************************************/
@@ -498,7 +500,7 @@ const QString& toDemonstrateTerminal)
 {
 
   int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
-  //this occurance of the terminal in the sentence is going to be replaced
+  //this occurence of the terminal in the sentence is going to be replaced
   //by the word we should put in a random sentence
   int selectedOccurance = qrand() % terminalOccuranceCount;
 

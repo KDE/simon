@@ -50,6 +50,7 @@ activateAction(0)
 bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   activateAction = new KAction(this);
+  activateAction->setStatusTip(i18n("Display the number input"));
   widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
   Q_UNUSED(elem);
   widget->setWindowIcon(KIcon("accessories-calculator"));

@@ -1130,7 +1130,7 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
   QList<QByteArray> transcribedFiles;
   while (!alignedMlf.atEnd()) {
     QByteArray line = alignedMlf.readLine();      //ascii; no conversion
-    if (!line.startsWith("\"*/"))
+    if (!line.startsWith(QLatin1String("\"*/")))
       continue;
 
     line = line.trimmed();
@@ -1275,7 +1275,7 @@ bool ModelCompilationManager::buildHMM0()
   QString protoPreamble="";
   while (!protoFile.atEnd()) {
     line = protoFile.readLine(3000);
-    if (line.startsWith("~h")) { protoHead = line; break; }
+    if (line.startsWith(QLatin1String("~h"))) { protoHead = line; break; }
     else protoPreamble += line;
   }
   while (!protoFile.atEnd())

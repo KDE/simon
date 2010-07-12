@@ -21,8 +21,8 @@
 &lt;body&gt;
 &lt;p&gt;simon compares the microphone input to something called an &amp;quot;acoustic model&amp;quot; describing how your voice sounds like and what you are saying.&lt;/p&gt;
 &lt;p&gt;With simon you can create and manage those models yourself or you can simply download and use general models that describe the average speaker of your target language. We call these models &amp;quot;base models&amp;quot;.&lt;/p&gt;
-&lt;p&gt;If you don't select a base model, you need to train one yourself by reading trainingstexts aloud (&amp;quot;Training&amp;quot;).&lt;/p&gt;
-&lt;p&gt;If you do select a base model you don't need any training but the recognition may be less accurate. &lt;span style=&quot; font-weight:600;&quot;&gt;When using static base models, the installation of the HTK is not required.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If you do not select a base model, you need to train one yourself by reading trainingstexts aloud (&amp;quot;Training&amp;quot;).&lt;/p&gt;
+&lt;p&gt;If you do select a base model you do not need any training but the recognition may be less accurate. &lt;span style=&quot; font-weight:600;&quot;&gt;When using static base models, the installation of the HTK is not required.&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;You can find more information on &lt;a href=&quot;http://www.simon-listens.org/wiki/index.php/English:_Base_models&quot;&gt;base models on our wikis&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">

@@ -19,7 +19,10 @@
 #include <QFile>
 #include <QDateTime>
 #include <QTextStream>
+#include <QDomNode>
+#include <QDomElement>
 #include <QDebug>
+#include <QXmlInputSource>
 
 //For windows system execution
 #ifdef _WIN32
@@ -116,7 +119,7 @@ QStringList &capturedTopicTexts, Leaf *&leaf)
   if ((word == "*") || (word == "_")) {
     ++input;
     for (;input != inputWords.end(); input++) {
-      foreach (Node *child, childs) {
+      foreach (Node *child, children) {
         if (child->match(input, inputWords, currentThat, currentTopic, capturedThatTexts,
           capturedTopicTexts, leaf))
           return true;
@@ -129,7 +132,7 @@ QStringList &capturedTopicTexts, Leaf *&leaf)
         return false;
       ++input;
     }
-    foreach (Node *child, childs) {
+    foreach (Node *child, children) {
       if (child->match(input, inputWords, currentThat, currentTopic, capturedThatTexts,
         capturedTopicTexts, leaf))
         return true;
@@ -154,7 +157,7 @@ void Node::debug(QTextStream* logStream, uint indent)
 {
   QString indentStr = QString().fill('\t', indent);
   *logStream << indentStr << word << " :\n";
-  foreach (Node *child, childs)
+  foreach (Node *child, children)
     child->debug(logStream, indent + 1);
   indentStr = QString().fill('\t', indent + 1);
   foreach (Leaf *leaf, leafs)
@@ -194,8 +197,8 @@ void AIMLParser::runRegression()
       child = child.nextSibling();
     }
     *logStream << "===========================================================================\n";
-    *logStream << "::Description: " + description + "\n";
-    *logStream << "::Expected answer: " + expectedAnswer + "\n";
+    *logStream << "::Description: " + description + '\n';
+    *logStream << "::Expected answer: " + expectedAnswer + '\n';
     QString answer = getResponse(input);
     if (answer.simplified().toLower() == expectedAnswer.simplified().toLower())
       *logStream << "=> Pass\n";
@@ -367,9 +370,9 @@ void AIMLParser::parseCategory(QDomNode* categoryNode)
   Node *whereToInsert = &root;
   for ( QStringList::ConstIterator it = words.begin(); it != words.end(); ++it ) {
     bool found = false;
-    //         for (Node* child = whereToInsert->childs.first(); child; child = whereToInsert->childs.next())
-    for (QList<Node*>::iterator childIterator = whereToInsert->childs.begin();
-    childIterator != whereToInsert->childs.end(); childIterator++) {
+    //         for (Node* child = whereToInsert->children.first(); child; child = whereToInsert->children.next())
+    for (QList<Node*>::iterator childIterator = whereToInsert->children.begin();
+    childIterator != whereToInsert->children.end(); childIterator++) {
       if ((*childIterator)->word == *it) {
         whereToInsert = (*childIterator);
         found = true;
@@ -383,11 +386,11 @@ void AIMLParser::parseCategory(QDomNode* categoryNode)
         n->parent = whereToInsert;
         int index = 0;
         if (*it == "*")
-          index = whereToInsert->childs.count();
-        else if ((*it != "_") && whereToInsert->childs.count() &&
-          (whereToInsert->childs.at(0)->word == "_"))
+          index = whereToInsert->children.count();
+        else if ((*it != "_") && whereToInsert->children.count() &&
+          (whereToInsert->children.at(0)->word == "_"))
           index = 1;
-        whereToInsert->childs.insert(index, n);
+        whereToInsert->children.insert(index, n);
         whereToInsert = n;
       }
       break;
@@ -564,7 +567,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     ++indent;
   QString indentSpace = QString().fill(' ', 2*indent);
   *logStream << (!srai ? "\n" : "") + indentSpace + (srai ? "::SRAI: " : "::User Input: ") +
-    input + "\n";
+    input + '\n';
   //perform substitutions for input string
   QList<QRegExp>::Iterator itOld = subOld.begin();
   QStringList::Iterator itNew = subNew.begin();
@@ -605,7 +608,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     *logStream << "\n";
     capturedTexts.clear();
     exactMatch(matchedPattern, *sentence, capturedTexts);
-    //strip whitespaces from the beggining and the end of result
+    //strip whitespaces from the beginning and the end of result
     if (visitedNodeList.contains(&leaf->tmplate))
       *logStream << "Infinite loop detected!";    //check why... result += "ProgramQ: Infinite loop detected!";
     else {
@@ -620,7 +623,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
   }
   if (!srai) {
     QString tempResult = result.simplified();
-    //get the sentences of the result splitted by: . ? ! ; and "arabic ?"
+    //get the sentences of the result split by: . ? ! ; and "arabic ?"
     QStringList thatSentencesList = tempResult.split(QRegExp("[\\.\\?!;\\x061f]"));
     QStringList inversedList;
     for (QStringList::Iterator it = thatSentencesList.begin(); it != thatSentencesList.end(); ++it) {
@@ -638,7 +641,7 @@ QString AIMLParser::getResponse(QString input, const bool &srai)
     visitedNodeList.clear();
   }
   //debug
-  *logStream << indentSpace + "::Result: " + result + "\n";
+  *logStream << indentSpace + "::Result: " + result + '\n';
   if (srai)
     indent --;
 

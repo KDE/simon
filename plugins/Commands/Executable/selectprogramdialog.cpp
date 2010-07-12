@@ -136,9 +136,9 @@ void SelectProgramDialog::searchForPrograms()
       QString exec;
       QStringList execParts = service->exec().split(' ', QString::SkipEmptyParts);
       foreach ( const QString& execPart, execParts)
-        if (!execPart.startsWith('-') && !(execPart.startsWith("\"%"))
-        && !(execPart.startsWith('%')))
-        exec += execPart;
+        if (!execPart.startsWith('-') && !(execPart.startsWith(QLatin1String("\"%")))
+	    && !(execPart.startsWith('%')))
+          exec += execPart;
 
       item->setData(Qt::UserRole, service->name());
       item->setData(Qt::UserRole+1, exec);

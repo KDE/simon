@@ -182,6 +182,7 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
   KAction *activateAction = new KAction(this);
   activateAction->setText(i18n("Activate Calculator"));
   activateAction->setIcon(KIcon("accessories-calculator"));
+  activateAction->setStatusTip(i18n("Display the calculator"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions << activateAction;

@@ -17,7 +17,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_FirstRunWizardCompleted">
      <property name="text">
-      <string>Don't show first run wizard on startup</string>
+      <string>Do not show first run wizard on startup</string>
      </property>
     </widget>
    </item>
@@ -48,7 +48,7 @@
    <item>
     <widget class="QCheckBox" name="cbShowSampleWarning">
      <property name="text">
-      <string>Don't display warning dialog when simon detects a problem with a sample</string>
+      <string>Do not display warning dialog when simon detects a problem with a sample</string>
      </property>
     </widget>
    </item>

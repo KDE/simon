@@ -443,7 +443,7 @@ QStringList DBusBackend::getWindows(QString service)
   while (!elem.isNull()) {
     name = elem.attribute("name");
     while (!elem.isNull() && !((elem.tagName() == "node") &&
-    (name.startsWith("MainWindow") /*|| (name =="Dolphin")*/ || name.endsWith("_Shell")))) {
+    (name.startsWith(QLatin1String("MainWindow")) /*|| (name =="Dolphin")*/ || name.endsWith("_Shell")))) {
       elem = elem.nextSiblingElement("node");
       name = elem.attribute("name");
     }

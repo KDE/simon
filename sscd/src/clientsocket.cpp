@@ -602,11 +602,11 @@ void ClientSocket::sendCode(qint32 code)
 
 void ClientSocket::slotSocketError()
 {
-  QString error= errorString()+"\n";
+  QString error= errorString()+'\n';
   QList<QSslError> sslErrors;
   sslErrors = this->sslErrors();
   for (int i=0; i < sslErrors.count(); i++)
-    error+=sslErrors[i].errorString()+"\n";
+    error+=sslErrors[i].errorString()+'\n';
   qDebug() << error;
 
   // 	ignoreSslErrors();

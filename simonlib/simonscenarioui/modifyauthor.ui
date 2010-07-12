@@ -38,7 +38,7 @@
    <item row="1" column="1">
     <widget class="KLineEdit" name="leContact">
      <property name="toolTip">
-      <string>e.g. e-Mail Adresses, Instant Messenger contact names / numbers, etc.</string>
+      <string>e.g. e-Mail Addresses, Instant Messenger contact names / numbers, etc.</string>
      </property>
     </widget>
    </item>

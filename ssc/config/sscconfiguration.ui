@@ -151,14 +151,14 @@
       <item>
        <widget class="QCheckBox" name="cbAskForOfflineMode">
         <property name="text">
-         <string>Don't ask before entering offline mode</string>
+         <string>Do not ask before entering offline mode</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="cbShowSampleWarning">
         <property name="text">
-         <string>Don't display warning dialog when simon detects a problem with a sample</string>
+         <string>Do not display warning dialog when simon detects a problem with a sample</string>
         </property>
        </widget>
       </item>

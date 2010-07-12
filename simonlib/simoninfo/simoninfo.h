@@ -25,9 +25,9 @@
 
 /**
  *	@class SimonInfo
- *	@brief Helper class providing convenient methods on how to display short infos on the screen
+ *	@brief Helper class providing convenient methods on how to display short information on the screen
  *
- *	Provides methods to display infos on the screen. Some of these methods are public and static to be used
+ *	Provides methods to display information on the screen. Some of these methods are public and static to be used
  *	from every context.
  *	This Info-Viewer includes OSD like messages but also splashscreens,etc.
  *

@@ -83,7 +83,7 @@ void ModelSettings::load()
     case 2: ui.rbDynamic->animateClick();
     break;
     default:
-      kDebug() << "Unknown model type: " << ScenarioManager::getInstance()->baseModelType();
+      kDebug() << "Unknown model type" << ScenarioManager::getInstance()->baseModelType();
   }
 
   m_storedModelType = ScenarioManager::getInstance()->baseModelType();

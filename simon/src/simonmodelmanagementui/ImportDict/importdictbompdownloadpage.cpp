@@ -55,8 +55,8 @@ void ImportDictBOMPDownloadPage::initializePage()
 {
   QString bompBaseUrl = SpeechModelManagementUiConfiguration::bompDownloadBase()+'/';
 
-  QString localLicencePath = KStandardDirs::locateLocal("tmp", "bomp_licence");
-  KIO::FileCopyJob *job = KIO::file_copy(KUrl(bompBaseUrl+"bomp_licence.php"),
+  QString localLicencePath = KStandardDirs::locateLocal("tmp", "bomp_license");
+  KIO::FileCopyJob *job = KIO::file_copy(KUrl(bompBaseUrl+"bomp_license.php"),
     localLicencePath, -1, KIO::Overwrite);
   job->ui()->setWindow(this);
 
@@ -65,18 +65,18 @@ void ImportDictBOMPDownloadPage::initializePage()
     return;
   }
 
-  //read licence and set fields
+  //read license and set fields
   QFile f(localLicencePath);
   if (!f.open(QIODevice::ReadOnly)) {
-    KMessageBox::sorry(this, i18n("Could not retrieve BOMP licence terms."));
+    KMessageBox::sorry(this, i18n("Could not retrieve BOMP license terms."));
     return;
   }
 
   bompUrl = bompBaseUrl+QString::fromUtf8(f.readLine()).trimmed();
   acceptTag = QString::fromUtf8(f.readLine()).trimmed();
-  QString licence = QString::fromUtf8(f.readAll());
+  QString license = QString::fromUtf8(f.readAll());
 
-  ui.teLicence->setText(licence);
+  ui.teLicence->setText(license);
   QFile::remove(localLicencePath);
 }
 

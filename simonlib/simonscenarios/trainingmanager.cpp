@@ -155,7 +155,7 @@ QString TrainingManager::getTrainingDir()
   QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile();
   if (!dir.endsWith('/')
     #ifdef Q_OS_WINDOWS
-    && !dir.endsWith("\\")
+    && !dir.endsWith('\\')
     #endif
     )
     dir += QDir::separator();
@@ -205,7 +205,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
   QStringList samples = this->promptsTable->keys();
 
   for ( int i=0; i <samples.count(); i++ )
-    promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +"\n" );
+    promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +'\n' );
   promptsFile.close();
 
   kDebug() << "Writing date..." << QDateTime::currentDateTime();

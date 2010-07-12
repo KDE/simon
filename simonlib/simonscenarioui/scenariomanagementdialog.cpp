@@ -210,15 +210,17 @@ bool ScenarioManagementDialog::getNewScenarios()
 
   if (!save()) return false;
 
-  KNS3::DownloadDialog dialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
-  dialog.exec();
+  QPointer<KNS3::DownloadDialog> dialog = new KNS3::DownloadDialog(KStandardDirs::locate("config", "simonscenarios.knsrc"));
+  dialog->exec();
+
+  if (!dialog) return false;
 
   KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup cg(config, "");
 
   QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
 
-  foreach (const KNS3::Entry& e, dialog.changedEntries()) {
+  foreach (const KNS3::Entry& e, dialog->changedEntries()) {
     if (e.status() == KNS3::Entry::Installed) {
       QStringList installedFiles = e.installedFiles();
       foreach (const QString& file, installedFiles) {
@@ -238,6 +240,8 @@ bool ScenarioManagementDialog::getNewScenarios()
   cg.writeEntry("LastModified", QDateTime::currentDateTime());
   cg.sync();
   initDisplay();
+  delete dialog;
+
   return true;
 }
 
@@ -274,7 +278,7 @@ void ScenarioManagementDialog::deleteScenario()
     bool wasSelected = selected->currentIndex() == m_lastSelectedIndex;
 
     if (!QFile::remove(path)) {
-      KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user can not remove it. Please remove the file manually.\n\nIn the mean time, simon has automatically deactivated the scenario if it wasn't already.", path));
+      KMessageBox::information(this, i18n("Could not remove scenario at the following path:\n%1\n\nIf this is a system scenario, a normal user can not remove it. Please remove the file manually.\n\nIn the mean time, simon has automatically deactivated the scenario if it was not already.", path));
       //remove it from selected if needed
       if (wasSelected) {
         //scenario was selected
@@ -360,7 +364,7 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
   item->setIcon(s->icon());
   item->setText(s->name());
   QString tooltip;
-  QString licence = s->licence();
+  QString license = s->license();
   QString minVersion = s->simonMinVersion()->toString();
 
   QString maxVersion;
@@ -374,12 +378,12 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
   foreach (Author* a, authors)
     strAuthors += i18nc("Name and contact information", "<p>%1 (%2)</p>", a->name(), a->contact());
 
-  tooltip = i18nc("Infos about the scenario", "<html><head /><body>"
+  tooltip = i18nc("Information about the scenario", "<html><head /><body>"
     "<h3>%1</h3>"
     "<h4>Version</h4><p>%2</p>"
-    "<h4>Licence</h4><p>%3</p>"
+    "<h4>License</h4><p>%3</p>"
     "<h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</p>"
-    "<h4>Authors</h4><p>%6</p>", s->name(), s->version(), licence, minVersion, maxVersion, strAuthors);
+    "<h4>Authors</h4><p>%6</p>", s->name(), s->version(), license, minVersion, maxVersion, strAuthors);
 
   item->setToolTip(tooltip);
   item->setData(Qt::UserRole, s->id());

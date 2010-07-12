@@ -54,7 +54,7 @@
 
 
    <item>
-    <widget class="QTextEdit" name="teLicence" >
+    <widget class="KTextEdit" name="teLicence" >
      <property name="readOnly" >
       <bool>true</bool>
      </property>
@@ -63,7 +63,7 @@
    <item>
     <widget class="QCheckBox" name="cbUnderstoodLicence" >
      <property name="text" >
-      <string>I read, understood and accept this licence agreement</string>
+      <string>I read, understood and accept this license agreement</string>
      </property>
     </widget>
    </item>
@@ -75,6 +75,11 @@
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

@@ -62,7 +62,7 @@ void FirstRunSimondConfig::initializePage()
   ui.cbConnectAutomatically->setChecked(group.readEntry("JuliusdAutoConnect", true));
 
   QStringList servers = group.readEntry("JuliusdServers", QStringList() << "127.0.0.1:4444");
-  if ((servers.count() == 1) && servers.at(0).startsWith("127.0.0.1"))
+  if ((servers.count() == 1) && servers.at(0).startsWith(QLatin1String("127.0.0.1")))
     ui.rbLocalInstallation->animateClick();
   else
     ui.rbRemoteInstallation->animateClick();

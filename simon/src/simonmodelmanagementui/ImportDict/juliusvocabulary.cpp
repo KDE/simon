@@ -71,7 +71,7 @@ void JuliusVocabulary::load(QString path, QString encoding)
     line = dictStream->readLine(1000);
     currentProg += line.length();
     line = line.trimmed();
-    if (line.startsWith("% ")) {
+    if (line.startsWith(QLatin1String("% "))) {
       terminal = line.mid(2).trimmed();
       continue;
     }

@@ -343,7 +343,7 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
 
 /*
  * Asks the server for the user identified by the given id;
- * Return value is 0 if an error occured
+ * Return value is 0 if an error occurred
  */
 User* SSCDAccess::getUser(qint32 id)
 {

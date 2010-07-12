@@ -347,7 +347,7 @@ QByteArray JuliusControl::getBuildLog()
   if (!f.open(QIODevice::ReadOnly))
     return QByteArray();
 
-  QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
+  QByteArray out = "<html><head /><body><p>"+f.readAll().replace('\n', "<br />")+"</p></body></html>";
   f.close();
   return out;
 }

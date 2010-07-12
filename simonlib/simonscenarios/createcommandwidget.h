@@ -86,7 +86,7 @@ class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
      *
      * This function gets the common parameters for all commands (name, iconSrc and description).
      *
-     * A plugin implementing this should add the aditional parameters of its Command-derived
+     * A plugin implementing this should add the additional parameters of its Command-derived
      * class (like the path to the executable in an ExecutableCommand) and create an instance
      * of the derived class.
      *

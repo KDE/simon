@@ -122,7 +122,7 @@ const QString &qName)
       indexOfEndTerm-indexOfStartTerm);
 
     //return if not a german word
-    if (!text.mid(indexOfEndTerm+1).startsWith("Deutsch")) return true;
+    if (!text.mid(indexOfEndTerm+1).startsWith(QLatin1String("Deutsch"))) return true;
 
     int indexOfStartIPA = text.indexOf("IPA]]: {{Lautschrift|");
 

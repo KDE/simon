@@ -96,7 +96,7 @@ bool DatabaseAccess::init(const QString& type, const QString& host, qint16 port,
 
 
 /**
- * Locks the transaction mutex; Use this to execute multiple queries (even accross multiple function calls)
+ * Locks the transaction mutex; Use this to execute multiple queries (even across multiple function calls)
  * that absolutely need to be sequential (prime example: LAST_INSERT_ID())
  */
 void DatabaseAccess::lockTranscation()
@@ -106,7 +106,7 @@ void DatabaseAccess::lockTranscation()
 
 
 /**
- * Unlocks the transaction mutex; Use this to execute multiple queries (even accross multiple function calls)
+ * Unlocks the transaction mutex; Use this to execute multiple queries (even across multiple function calls)
  * that absolutely need to be sequential (prime example: LAST_INSERT_ID())
  *
  * You MUST NOT FORGET to call this after you called lockTransaction or ALL client threads will HANG on their

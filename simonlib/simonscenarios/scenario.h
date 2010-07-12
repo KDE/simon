@@ -61,7 +61,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     QString m_name;
     QString m_iconSrc;
-    QString m_licence;
+    QString m_license;
     QList<Author*> m_authors;
     VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
     ActiveVocabulary *m_vocabulary;
@@ -81,7 +81,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QString name() { return m_name; }
     int version() { return m_version; }
     QString id() { return m_scenarioId; }
-    QString licence() { return m_licence; }
+    QString license() { return m_license; }
     VersionNumber* simonMinVersion() { return m_simonMinVersion; }
     VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
     QList<Author*> authors() { return m_authors; }
@@ -120,9 +120,9 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool init(QString path=QString());
     bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
-      VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
+      VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
     bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
-      VersionNumber* simonMaxVersion, const QString& licence, QList<Author*> authors);
+      VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
     bool save(QString path=QString());
 
     ActiveVocabulary* vocabulary() { return m_vocabulary; }

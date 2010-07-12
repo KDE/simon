@@ -24,7 +24,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="cbControlMode">
+      <widget class="KComboBox" name="cbControlMode">
        <item>
         <property name="text">
          <string>Full calculator</string>

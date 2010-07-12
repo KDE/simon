@@ -110,7 +110,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QLineEdit" name="leBirthYear">
+      <widget class="KLineEdit" name="leBirthYear">
        <property name="inputMask">
         <string>9999; </string>
        </property>
@@ -127,7 +127,7 @@
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QLineEdit" name="leZIPCode">
+      <widget class="KLineEdit" name="leZIPCode">
        <property name="inputMask">
         <string>99990; </string>
        </property>
@@ -161,7 +161,7 @@
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QComboBox" name="cbMothersTongue"/>
+      <widget class="KComboBox" name="cbMothersTongue"/>
      </item>
      <item row="2" column="1">
       <widget class="QTableWidget" name="twInstitutions">
@@ -208,7 +208,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbOrientation">
+      <widget class="KComboBox" name="cbOrientation">
        <item>
         <property name="text">
          <string>1: Very Good</string>
@@ -244,7 +244,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="cbCommunication">
+      <widget class="KComboBox" name="cbCommunication">
        <item>
         <property name="text">
          <string>1: Very Good</string>
@@ -280,7 +280,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="cbMotorFunction">
+      <widget class="KComboBox" name="cbMotorFunction">
        <item>
         <property name="text">
          <string>1: Very Good</string>
@@ -366,6 +366,11 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

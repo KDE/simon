@@ -99,7 +99,7 @@ QStringList ImportGrammar::readFile(QString path)
     // 		leftOvers="";
 
     //		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
-    sentence = codec->toUnicode(file->readLine(4000).trimmed())+"\n";
+    sentence = codec->toUnicode(file->readLine(4000).trimmed())+'\n';
     kDebug() << sentence;
 
     QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
@@ -162,7 +162,7 @@ QStringList ImportGrammar::importFile(QString path)
 
       QStringList wordTerminals=terminals(lookupResult);
       if (wordTerminals.count()==0) {
-        //dont delete the contents of the list
+        //don't delete the contents of the list
         lookupResult = ScenarioManager::getInstance()->findWords(words[j],
           SpeechModel::ShadowVocabulary, Vocabulary::ExactMatch);
 

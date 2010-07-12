@@ -496,7 +496,7 @@ QSqlQuery SSCQueries::addSample()
 
 
 /*
- * Retreives the highest sample id currently available
+ * Retrieves the highest sample id currently available
  *
  * Sample::SampleId
  */
@@ -509,7 +509,7 @@ QSqlQuery SSCQueries::lastSampleId()
 
 
 /*
- * Retreives the path of all files associated to a given user
+ * Retrieves the path of all files associated to a given user
  *
  * The query contains 4 placeholders:
  * 	:userid (maps to Sample::UserId)

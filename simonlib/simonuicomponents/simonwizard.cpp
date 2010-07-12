@@ -36,7 +36,7 @@ bool SimonWizard::setBanner(const QString& name)
   kDebug() << "Searching banner: " << name;
   QString fileName = KStandardDirs::locate("appdata", "themes/default/"+name.toAscii()+".png");
 
-  if (KGlobal::locale()->language().startsWith("en")) {
+  if (KGlobal::locale()->language().startsWith(QLatin1String("en"))) {
     QString enFileName = KStandardDirs::locate("appdata", "themes/default/l10n/en/"+name.toAscii()+".png");
     if (QFile::exists(enFileName))
       fileName = enFileName;

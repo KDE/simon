@@ -325,7 +325,7 @@ bool ListCommand::triggerPrivate(int *state)
   QList<CommandListElements::Element> adaptionKeys = adaption.keys();
   foreach (const CommandListElements::Element& element, adaptionKeys) {
     QList<VoiceInterfaceCommand*> interfaceCommands = adaption.values(element);
-    //list cant be empty so we dont need to check
+    //list cant be empty so we do not need to check
     clw->adaptToVoiceElement(element, interfaceCommands[0]);
     m_subCommands << interfaceCommands;
 

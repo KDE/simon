@@ -221,7 +221,7 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 
   }
 
-  ListCommand *list = new ListCommand(0 /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not shure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
+  ListCommand *list = new ListCommand(0 /* no manager */, i18n("Did you mean ...?"), "help-hint", i18n("simon is not sure what you meant.\n\nPlease select the correct result from the list below."), sentences, iconSrcs, trigger);
   connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
   connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
   connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));

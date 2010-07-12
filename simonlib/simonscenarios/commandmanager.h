@@ -121,7 +121,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      * and installListInterfaceCommand() to modify its contents.
      *
      * You should set up these templates before deSerializeCommands() is called so install them
-     * during deSerializeConfig() preferrably.
+     * during deSerializeConfig() preferably.
      */
     QList<VoiceInterfaceCommandTemplate*> voiceInterfaceCommandTemplates;
 
@@ -153,7 +153,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
     /**
      * \brief Plugin source id
      *
-     * This contains the source id of the plugin. This identifies the plugin uniqely (in practise this is
+     * This contains the source id of the plugin. This identifies the plugin uniqely (in practice this is
      * the name of the .desktop file of the plugin)
      */
     QString m_source;

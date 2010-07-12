@@ -104,7 +104,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
     bool firstRunWizardCompleted = firstRun->exec();
     delete firstRun;
 
-    if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You didn't complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
+    if (firstRunWizardCompleted || KMessageBox::questionYesNo(this, i18n("You did not complete the initial configuration. simon will continue with default values.\n\nDo you want simon to display the wizard again on the next start?"))==KMessageBox::No)
       control->setFirstRunWizardCompleted(true);
   }
 
@@ -477,7 +477,7 @@ void SimonView::toggleConnection()
 
 
 /**
- * \brief An error occured
+ * \brief An error occurred
  *
  * @author Peter Grasch
  *

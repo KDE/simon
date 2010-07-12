@@ -174,7 +174,7 @@ bool ModelTest::hasLog()
 QString ModelTest::getGraphicLog()
 {
   QString htmlLog = buildLog;
-  htmlLog=htmlLog.replace("\n", "<br />");
+  htmlLog=htmlLog.replace('\n', "<br />");
   return "<html><head /><body>"+htmlLog+"</body></html>";
 }
 
@@ -300,7 +300,7 @@ bool ModelTest::recodeAudio()
     }
 
     execute(QString("%1 -2 -s -L %2 %3").arg(sox).arg(fullPath).arg(targetPath));
-    wavListF.write(targetPath.toUtf8()+"\n");
+    wavListF.write(targetPath.toUtf8()+'\n');
 
     promptsTable.insert(targetPath, prompt);
 
@@ -339,15 +339,15 @@ bool ModelTest::generateMLF()
                                                   //ditch the file-id
     QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
     #ifdef Q_OS_WIN
-    mlf.write(labFile.toLatin1()+"\n");
+    mlf.write(labFile.toLatin1()+'\n');
     #else
     mlf.write(labFile.toUtf8()+"\n");
     #endif
     for (int i=0; i < lineWords.count(); i++)
     #ifdef Q_OS_WIN
-      mlf.write(lineWords[i].toLatin1()+"\n");
+      mlf.write(lineWords[i].toLatin1()+'\n');
     #else
-    mlf.write(lineWords[i].toUtf8()+"\n");
+    mlf.write(lineWords[i].toUtf8()+'\n');
     #endif
     mlf.write(".\n");
   }
@@ -461,7 +461,7 @@ void ModelTest::emitError(const QString& message)
 
   kDebug() << "Reading file!";
 
-  QByteArray out = "<html><head /><body><p>"+f.readAll().replace("\n", "<br />")+"</p></body></html>";
+  QByteArray out = "<html><head /><body><p>"+f.readAll().replace('\n', "<br />")+"</p></body></html>";
   emit error(message, out);
   f.close();
 }

@@ -18,7 +18,6 @@
 #ifndef SIMON_AIMLPARSER_H_AED584817A104F9496E177E8ABC2573D
 #define SIMON_AIMLPARSER_H_AED584817A104F9496E177E8ABC2573D
 
-#include <QtXml>
 #include <QMap>
 
 #include <QList>
@@ -26,6 +25,7 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QRegExp>
+#include <QDomNode>
 
 #define MAX_LIST_LENGTH 50
 
@@ -49,7 +49,7 @@ struct Node
   Node *parent;
   QString word;
   Node();
-  QList<Node*> childs;
+  QList<Node*> children;
   QList<Leaf*> leafs;
   void debug(QTextStream* logStream, uint indent = 0);
   bool match(QStringList::const_iterator, const QStringList&,

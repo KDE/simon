@@ -105,14 +105,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="lbLicence">
+      <widget class="QLabel" name="lbLicense">
        <property name="text">
-        <string>Licence:</string>
+        <string>License:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="cbLicence">
+      <widget class="KComboBox" name="cbLicense">
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -254,6 +254,11 @@
    <class>KIconButton</class>
    <extends>QPushButton</extends>
    <header>kicondialog.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KIntSpinBox</class>

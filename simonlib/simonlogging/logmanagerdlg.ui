@@ -122,7 +122,7 @@
            </size>
           </property>
           <property name="text" >
-           <string>Infos</string>
+           <string>Information</string>
           </property>
          </widget>
         </item>

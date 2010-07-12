@@ -74,14 +74,14 @@ bool ExecutableCommand::triggerPrivate(int *state)
     bool isQuoted=false;
     //we need the copy here
     foreach (QString com, coms) {
-      if ((com.startsWith("\"")) && (com.endsWith("\""))) {
-        com.remove(QRegExp("^\""));
-        com.remove(QRegExp("\"$"));
+      if ((com.startsWith('"')) && (com.endsWith('"'))) {
+        com.remove(QRegExp(QLatin1String("^\"")));
+        com.remove(QRegExp(QLatin1String("\"$")));
         realSplitCommand << com;
       } else
       if ((com.startsWith("\"")) || (com.endsWith("\""))) {
-        com.remove(QRegExp("^\""));
-        com.remove(QRegExp("\"$"));
+        com.remove(QRegExp(QLatin1String("^\"")));
+        com.remove(QRegExp(QLatin1String("\"$")));
 
         currentItem+= ' '+com;
 

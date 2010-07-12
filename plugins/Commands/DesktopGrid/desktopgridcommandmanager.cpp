@@ -101,6 +101,7 @@ bool DesktopGridCommandManager::deSerializeConfig(const QDomElement& elem)
 
   KAction *activateAction = new KAction(this);
   activateAction->setText(i18n("Activate Desktopgrid"));
+  activateAction->setStatusTip(i18n("Display the desktop grid"));
   activateAction->setIcon(KIcon("games-config-board"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));

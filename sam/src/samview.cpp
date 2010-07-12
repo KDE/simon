@@ -27,6 +27,7 @@
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonsound/recwidget.h>
 #include <QHash>
+#include <QPointer>
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KAction>
@@ -49,6 +50,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify simons model"));
+  getPathsFromSimon->setStatusTip(i18n("Manage simons current model with ssc"));
   getPathsFromSimon->setIcon(KIcon("simon"));
   actionCollection()->addAction("getPathsFromSimon", getPathsFromSimon);
   connect(getPathsFromSimon, SIGNAL(triggered(bool)),
@@ -56,6 +58,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   KAction* recompile = new KAction(this);
   recompile->setText(i18n("Build model"));
+  recompile->setStatusTip(i18n("Build the currently open model."));
   recompile->setIcon(KIcon("view-refresh"));
   recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
   actionCollection()->addAction("compileModel", recompile);
@@ -64,6 +67,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   KAction* test= new KAction(this);
   test->setText(i18n("Test model"));
+  test->setStatusTip(i18n("Test the model."));
   test->setIcon(KIcon("chronometer"));
   actionCollection()->addAction("testModel", test);
   connect(test, SIGNAL(triggered(bool)),
@@ -71,6 +75,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   KAction* testResults= new KAction(this);
   testResults->setText(i18n("Test results"));
+  testResults->setStatusTip(i18n("Display the test results."));
   testResults->setIcon(KIcon("view-pim-tasks"));
   actionCollection()->addAction("testResults", testResults);
   connect(testResults, SIGNAL(triggered(bool)),
@@ -403,7 +408,7 @@ void SamView::getBuildPathsFromSimon()
 
 QString SamView::getTargetDirectory()
 {
-  KMessageBox::information(this, i18n("You now have to provide a (preferrably empty) directory where you want to serialize the scenarios to"), QString(), i18n("Do not ask again"));
+  KMessageBox::information(this, i18n("You now have to provide a (preferably empty) directory where you want to serialize the scenarios to"), QString(), i18n("Do not ask again"));
   QString path = KFileDialog::getExistingDirectory(KUrl(), this, i18n("Serialized scenario output"));
   if (!path.isEmpty())
     path += QDir::separator();
@@ -817,7 +822,7 @@ void SamView::slotEditSelectedSample()
   //because we could have already deleted the file
   QFile::copy(originalFileName, tempFileName);
 
-  KDialog *d = new KDialog(0);
+  QPointer<KDialog> d = new KDialog(0);
   RecWidget *rec = new RecWidget(i18n("Modify sample"),
     t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf('.')), true, d);
   d->setMainWidget(rec);
@@ -835,7 +840,7 @@ void SamView::slotEditSelectedSample()
       else {
         while (!prompts.atEnd()) {
           QString line = QString::fromUtf8(prompts.readLine());
-          if (!line.startsWith(justFileName.left(justFileName.lastIndexOf("."))+" ")) {
+          if (!line.startsWith(justFileName.left(justFileName.lastIndexOf('.'))+' ')) {
             temp.write(line.toUtf8());
           }
         }

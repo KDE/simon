@@ -212,7 +212,7 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 
       case QAudio::IOError:
         if (m_activeOutputClient)
-          emit error(i18n("An error occured while writing data to the audio device."));
+          emit error(i18n("An error occurred while writing data to the audio device."));
 
         if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty())
           QTimer::singleShot(5, this, SLOT(stopPlayback()));
@@ -223,7 +223,7 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
         break;
 
       case QAudio::FatalError:
-        emit error(i18n("A fatal error occured during playback.\n\nThe system will try to automatically recover."));
+        emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
         m_output->start(this);
         break;
     }

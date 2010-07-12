@@ -19,7 +19,7 @@
      <property name="text">
       <string>To import a PLS lexicon (like the german gpl dictionary) please provide the downloaded XML-file below.
 
-Please keep in mind that those dictionaries don't provide information about terminals of the words.</string>
+Please keep in mind that those dictionaries do not provide information about terminals of the words.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
