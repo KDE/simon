@@ -1130,7 +1130,7 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
   QList<QByteArray> transcribedFiles;
   while (!alignedMlf.atEnd()) {
     QByteArray line = alignedMlf.readLine();      //ascii; no conversion
-    if (!line.startsWith(QLatin1String("\"*/")))
+    if (!line.startsWith("\"*/"))
       continue;
 
     line = line.trimmed();
