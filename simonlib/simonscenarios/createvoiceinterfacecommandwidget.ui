@@ -42,7 +42,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="leVisibleTrigger"/>
+    <widget class="KLineEdit" name="leVisibleTrigger"/>
    </item>
    <item row="3" column="1">
     <widget class="QCheckBox" name="cbShowIcon">
@@ -58,6 +58,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>

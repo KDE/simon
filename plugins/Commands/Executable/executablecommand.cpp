@@ -79,7 +79,7 @@ bool ExecutableCommand::triggerPrivate(int *state)
         com.remove(QRegExp(QLatin1String("\"$")));
         realSplitCommand << com;
       } else
-      if ((com.startsWith("\"")) || (com.endsWith("\""))) {
+      if ((com.startsWith('"')) || (com.endsWith('"'))) {
         com.remove(QRegExp(QLatin1String("^\"")));
         com.remove(QRegExp(QLatin1String("\"$")));
 

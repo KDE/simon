@@ -28,7 +28,7 @@
 #endif
 
 #include <QDesktopWidget>
-#include <QDialog>
+#include <KDialog>
 #include <KLocalizedString>
 #include <KAction>
 
@@ -51,12 +51,17 @@ bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   activateAction = new KAction(this);
   activateAction->setStatusTip(i18n("Display the number input"));
-  widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
+  widget = new KDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
   Q_UNUSED(elem);
   widget->setWindowIcon(KIcon("accessories-calculator"));
   setFont(ActionManager::getInstance()->pluginBaseFont());
   connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
-  ui.setupUi(widget);
+
+  QWidget *internalWidget = new QWidget(widget);
+  ui.setupUi(internalWidget);
+  widget->setMainWidget(internalWidget);
+  widget->setButtons(0); //don't show any kdialog buttons
+
   ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
   ui.pbCancel->setIcon(KIcon("dialog-cancel"));
   widget->hide();

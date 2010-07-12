@@ -26,7 +26,7 @@
 #include <simonactions/commandlistwidget.h>
 
 #include <QDesktopWidget>
-#include <QDialog>
+#include <KDialog>
 #include <QList>
 
 #include <KLocalizedString>
@@ -50,7 +50,7 @@ K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 GreedyReceiver(this),
-widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+widget(new KDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 commandListWidget(new CommandListWidget()),
 currentResult(0),
 resultCurrentlyDisplayed(true)
@@ -189,7 +189,12 @@ bool CalculatorCommandManager::deSerializeConfig(const QDomElement& elem)
 
   widget->setWindowIcon(KIcon("accessories-calculator"));
   connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
-  ui.setupUi(widget);
+
+  QWidget *internalWidget = new QWidget(widget);
+  ui.setupUi(internalWidget);
+  widget->setMainWidget(internalWidget);
+  widget->setButtons(0); //don't show any kdialog buttons
+
   ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
   ui.pbCancel->setIcon(KIcon("dialog-cancel"));
   widget->hide();

@@ -299,7 +299,7 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
   if (status==SimonControl::ConnectedActivated) {
     deactivateSimon();
   } else if ((status==SimonControl::ConnectedDeactivatedReady) || (status==SimonControl::ConnectedPaused))
-  activateSimon();
+    activateSimon();
 
   return status;
 }
@@ -315,12 +315,14 @@ SimonControl::SystemStatus SimonControl::activateSimon()
   if (status == SimonControl::ConnectedDeactivatedReady) {
     Logger::log(i18n("[INF] simon activated"));
     setStatus(SimonControl::ConnectedActivating);
-    recognitionControl->startRecognition();
+    if (!recognitionControl->startRecognition())
+            setStatus(SimonControl::ConnectedDeactivatedReady);
   }
   if (status == SimonControl::ConnectedPaused) {
     Logger::log(i18n("[INF] Continuing recognition"));
     setStatus(SimonControl::ConnectedResuming);
-    recognitionControl->resumeRecognition();
+    if (!recognitionControl->resumeRecognition())
+            setStatus(SimonControl::ConnectedPaused);
   }
   return status;
 }

@@ -24,7 +24,7 @@
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
-class QDialog;
+class KDialog;
 class KAction;
 
 /**
@@ -40,7 +40,7 @@ class InputNumberCommandManager : public CommandManager, public GreedyReceiver
   Q_OBJECT
     private:
     Ui::InputNumberDlg ui;
-    QDialog *widget;
+    KDialog *widget;
     KAction *activateAction;
 
   private slots:

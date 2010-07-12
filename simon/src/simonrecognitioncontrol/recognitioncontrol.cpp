@@ -166,15 +166,15 @@ void RecognitionControl::streamStopped()
 }
 
 
-void RecognitionControl::startSimondStreamer()
+bool RecognitionControl::startSimondStreamer()
 {
-  simondStreamer->start();
+  return simondStreamer->start();
 }
 
 
-void RecognitionControl::stopSimondStreamer()
+bool RecognitionControl::stopSimondStreamer()
 {
-  simondStreamer->stop();
+  return simondStreamer->stop();
 }
 
 
@@ -921,7 +921,7 @@ void RecognitionControl::messageReceived()
           break;
         }
 
-        ////////////////////    SYNCHRONISATION    ////////////////////////////
+        ////////////////////    SYNCHRONIZATION    ////////////////////////////
 
         case Simond::SynchronisationAlreadyRunning:
         {
@@ -1747,19 +1747,30 @@ void RecognitionControl::fetchCompilationProtocol()
 }
 
 
-void RecognitionControl::startRecognition()
+bool RecognitionControl::startRecognition()
 {
-  if (recognitionReady) {
-    startSimondStreamer();
-  } else
+  if (recognitionReady)
+  {
+    bool succ = startSimondStreamer();
+    if (!succ)
+      emit recognitionError(i18n("Failed to activate the recognition.\n\n"
+                               "Please check if you configured at least "
+                               "one recording to be used for "
+                               "recognition in the sound configuration."), 
+                               i18n("No details available."));
+    return succ;
+  }
+  
   sendRequest(Simond::StartRecognition);
+  return true;
 }
 
 
-void RecognitionControl::stopRecognition()
+bool RecognitionControl::stopRecognition()
 {
-  stopSimondStreamer();
+  bool succ = stopSimondStreamer();
   sendRequest(Simond::StopRecognition);
+  return succ;
 }
 
 
@@ -1839,15 +1850,15 @@ Operation* RecognitionControl::createModelCompilationOperation()
 }
 
 
-void RecognitionControl::pauseRecognition()
+bool RecognitionControl::pauseRecognition()
 {
-  stopSimondStreamer();
+  return stopSimondStreamer();
 }
 
 
-void RecognitionControl::resumeRecognition()
+bool RecognitionControl::resumeRecognition()
 {
-  startSimondStreamer();
+  return startSimondStreamer();
 }
 
 

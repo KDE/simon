@@ -66,13 +66,19 @@ bool SimondStreamer::isRunning()
 {
   foreach (SimondStreamerClient *c, clients)
     if (c->isRunning())
-    return true;
+      return true;
   return false;
 }
 
 
 bool SimondStreamer::start()
 {
+  kDebug() << "Staring simondstreamer";
+  if (clients.isEmpty())
+  {
+    kDebug() << "clients are empty";
+    return false;
+  }
   bool succ = true;
   foreach (SimondStreamerClient *c, clients)
     succ = c->start() && succ;

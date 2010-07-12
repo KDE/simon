@@ -73,8 +73,8 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
     bool switchToModel(const QDateTime& model);
     bool isConnected();
 
-    void pauseRecognition();
-    void resumeRecognition();
+    bool pauseRecognition();
+    bool resumeRecognition();
 
   private:
     static RecognitionControl *instance;
@@ -104,10 +104,10 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
     void phonemeUndefined(const QString&);
     void displayCompilationProtocol(const QString& protocol);
 
-    void startSimondStreamer();
-    void stopSimondStreamer();
+    bool startSimondStreamer();
+    bool stopSimondStreamer();
 
-    signals:
+  signals:
     void connected();
     void disconnected();
 
@@ -138,8 +138,8 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
     void disconnectFromServer();
     void startConnecting();
 
-    void startRecognition();
-    void stopRecognition();
+    bool startRecognition();
+    bool stopRecognition();
 
     void fetchCompilationProtocol();
     void askStartSynchronisation();

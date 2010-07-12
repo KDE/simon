@@ -19,8 +19,7 @@
 		</Menu>
 			
 		<Menu name="test" >
-			<text>Test</text>
-			<context>Test the model</context>
+			<text context="Test the model">Test</text>
 			<Action name="testModel" />
 			<Action name="testResults" />
 		</Menu>

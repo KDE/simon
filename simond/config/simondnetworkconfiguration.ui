@@ -86,7 +86,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="cbCipher"/>
+       <widget class="KComboBox" name="cbCipher"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="lbCert">
@@ -125,6 +125,11 @@ p, li { white-space: pre-wrap; }
    <class>KUrlComboRequester</class>
    <extends>KUrlRequester</extends>
    <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>

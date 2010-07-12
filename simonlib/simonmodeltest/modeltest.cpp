@@ -341,7 +341,7 @@ bool ModelTest::generateMLF()
     #ifdef Q_OS_WIN
     mlf.write(labFile.toLatin1()+'\n');
     #else
-    mlf.write(labFile.toUtf8()+"\n");
+    mlf.write(labFile.toUtf8()+'\n');
     #endif
     for (int i=0; i < lineWords.count(); i++)
     #ifdef Q_OS_WIN
