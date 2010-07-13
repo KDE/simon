@@ -91,7 +91,9 @@ const QMap<QString,QVariant> VoiceInterfaceCommand::getValueMapPrivate() const
   QMap<QString,QVariant> out;
 
   out.insert(i18n("Visible trigger"), m_visibleTrigger);
-  out.insert(i18n("Show icon"), m_showIcon ? i18n("Yes") : i18n("No"));
+  out.insert(i18n("Show icon"), 
+             m_showIcon ? i18n("Possible answer to the question: Should we show an icon?", "Yes") : 
+	                  i18n("Possible answer to the question: Should we show an icon?", "No"));
   return out;
 }
 

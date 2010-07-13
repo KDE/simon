@@ -74,9 +74,9 @@ int role) const
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
-        return i18n("Id");
+        return i18nc("Identification number of the institution", "Id");
       case 1:
-        return i18n("Name");
+        return i18nc("Name of the institution", "Name");
     }
   }
 

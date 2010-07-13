@@ -84,7 +84,8 @@ const QXmlAttributes &attributes)
     int typeIndex = attributes.index("role");
     if (typeIndex != -1)
       currentTerminal = attributes.value(typeIndex);
-    else currentTerminal = i18n("Unknown");
+    else currentTerminal = i18nc("Terminal name for words that are imported from a dictionary "
+				  "which does not provide terminal information", "Unknown");
   }
   else
   if (qName == "grapheme")

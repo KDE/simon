@@ -35,7 +35,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 
   registerField("wordNameIntro*", ui.leName);
   setCommitPage(true);
-  setButtonText(QWizard::CommitButton, i18n("Next"));
+  setButtonText(QWizard::CommitButton, i18nc("Advance to the next step in the wizard", "Next >"));
 }
 
 

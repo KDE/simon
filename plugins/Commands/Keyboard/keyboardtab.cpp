@@ -198,13 +198,13 @@ int role) const
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
-        return i18n("Name");
+        return i18nc("Name of the key", "Name");
       case 1:
-        return i18n("Trigger");
+        return i18nc("Trigger of the key", "Trigger");
       case 2:
-        return i18n("Type");
+        return i18nc("Type of the key", "Type");
       case 3:
-        return i18n("Value");
+        return i18nc("Value of the key", "Value");
     }
   }
 

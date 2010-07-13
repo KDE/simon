@@ -1497,7 +1497,7 @@ void RecognitionControl::messageReceived()
           if (!modelCompilationOperation)
             modelCompilationOperation = createModelCompilationOperation();
 
-          modelCompilationOperation->update(i18n("Model: %1", statusMsg), progNow, progMax);
+          modelCompilationOperation->update(i18nc("Model compilation status message", "Model: %1", statusMsg), progNow, progMax);
           break;
         }
 
@@ -1817,7 +1817,7 @@ void RecognitionControl::wordUndefined(const QString& word)
       //removing the samples
       if (!TrainingManager::getInstance()->deleteWord(word))
         KMessageBox::information(0,
-          i18n("Failed to remove word \"%1\" from the trainingscorpus"));
+          i18n("Failed to remove word \"%1\" from the trainingscorpus", word));
       break;
     case KMessageBox::No:
       //adding the word

@@ -51,7 +51,7 @@ void MergeTerminals::run()
 
   ModelManagerUiProxy::getInstance()->commitGroup();
 
-  emit status(i18n("Finished"));
+  emit status(i18nc("The wizard has completed", "Finished"));
   emit progress(100,100);
   emit done();
 }

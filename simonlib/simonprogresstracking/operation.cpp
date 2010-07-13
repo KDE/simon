@@ -46,11 +46,11 @@ QString Operation::currentAction()
 {
   switch (m_status) {
     case Finished:
-      return i18n("Finished");
+      return i18nc("The operation has completed", "Finished");
     case Aborted:
-      return i18n("Aborted");
+      return i18nc("The operation has been canceled", "Aborted");
     case Aborting:
-      return i18n("Aborting...");
+      return i18nc("Aborting the operation", "Aborting...");
     default:
       return m_currentAction;
   }

@@ -158,8 +158,9 @@ void ModelSettings::save()
 
 void ModelSettings::defaults()
 {
-  ScenarioManager::getInstance()->setBaseModel(2, i18n("None"),
-    i18n("None"), i18n("None"), i18n("None"));
+  ScenarioManager::getInstance()->setBaseModel(2, i18nc("Filename of a not yet selected file", "None"),
+    i18nc("Filename of a not yet selected file", "None"), i18nc("Filename of a not yet selected file", "None"), 
+    i18nc("Filename of a not yet selected file", "None"));
 
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/basehmmdefs"));
   QFile::remove(KStandardDirs::locateLocal("appdata", "model/basetiedlist"));

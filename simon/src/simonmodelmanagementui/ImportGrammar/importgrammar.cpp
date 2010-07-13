@@ -63,7 +63,7 @@ QStringList ImportGrammar::readFile(QString path)
     return structures;
 
   QTextCodec *codec;
-  if (encoding == i18n("Automatic")) {
+  if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic")) {
     //read first 5000 bytes and run encoding detection
     //seek back to the beginning and parse file using the guessed encoding
     QByteArray preview = file->peek(5000);
@@ -174,7 +174,8 @@ QStringList ImportGrammar::importFile(QString path)
 
       if (wordTerminals.count() != 1 /*change this to include ambigous terminals */) {
         if (includeUnknown)
-          words.replace(j, i18n("Unknown"));
+          words.replace(j, i18nc("Terminal name for words that are imported from a dictionary "
+				  "which does not provide terminal information", "Unknown"));
         else
           everyWordSure = false;
       } else
@@ -188,7 +189,7 @@ QStringList ImportGrammar::importFile(QString path)
     emit fileProgress(++progress, max);
   }
 
-  emit status(i18n("Finished"));
+  emit status(i18n("The import has finished", "Finished"));
   return out;
 }
 
@@ -201,7 +202,8 @@ QStringList ImportGrammar::terminals(QList<Word*> in)
     terminal = w->getTerminal();
     if (!terminals.contains(terminal)) terminals << terminal;
   }
-  if (!includeUnknown) terminals.removeAll(i18n("Unknown"));
+  if (!includeUnknown) terminals.removeAll(i18nc("Terminal name for words that are imported from a dictionary "
+				  "which does not provide terminal information", "Unknown"));
   return terminals;
 }
 

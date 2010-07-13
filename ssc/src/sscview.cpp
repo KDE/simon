@@ -254,7 +254,7 @@ void SSCView::setupActions()
     this, SLOT(showConfigurationDialog()));
 
   setupGUI();
-  statusBar()->insertItem(i18n("Disconnected"),0);
+  statusBar()->insertItem(i18nc("Disconnected from server", "Disconnected"),0);
   statusBar()->insertItem("",1,10);
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 }
@@ -379,7 +379,7 @@ void SSCView::connectToServer()
     return;
   }
 
-  displayConnectionStatus(i18n("Connecting..."));
+  displayConnectionStatus(i18nc("Connecting to server", "Connecting..."));
 
   SSCConfig::self()->readConfig();
   SSCDAccess::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
@@ -392,7 +392,7 @@ void SSCView::connectToServer()
 void SSCView::connected()
 {
   actionCollection()->action("offline")->setChecked(false);
-  displayConnectionStatus(i18n("Connected"));
+	  displayConnectionStatus(i18nc("Connected to server", "Connected"));
 
   ui.pbSelectPatient->setEnabled(true);
   ui.pbSearchPatient->setEnabled(true);

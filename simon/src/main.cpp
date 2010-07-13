@@ -68,10 +68,10 @@ int main(int argc, char *argv[])
 					      <h2>Development and Distribution</h2>\
 					      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
 					      <h3>Special Thanks To</h3> \
-					      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael Stieger<li>Ralf Herzog</ul> \
+					      <ul><li>Franz Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr Prado</li><li>Michael Stieger</li><li>Ralf Herzog</li></ul> \
 					      </body></html>"),
-    KAboutData::License_GPL,
-    ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
+	    KAboutData::License_GPL,
+	    ki18n("Copyright (c) 2008-2010 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 
   KCmdLineArgs::init(argc, argv, &aboutData);
 

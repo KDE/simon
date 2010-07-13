@@ -53,7 +53,7 @@ const KIcon ExecutableCommand::getCategoryIcon() const
 const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
   QMap<QString,QVariant> out;
-  out.insert(i18n("Executable"), getExecutable());
+  out.insert(i18nc("The executable file to launch", "Executable"), getExecutable());
   out.insert(i18n("Working directory"), QVariant(getWorkingDirectory()));
   return out;
 }

@@ -43,7 +43,7 @@ listConfiguration(new ListConfiguration(this))
   QWidget *baseWidget = new QWidget( this );
   ui.setupUi(baseWidget);
 
-  KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18n("General"));
+  KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18nc("General settings page", "General"));
   generalItem->setIcon(KIcon("fork"));
   generalItem->setHeader("");
 

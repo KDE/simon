@@ -143,17 +143,17 @@ QString ListConfiguration::getListSelectionDescription(CommandListElements::Elem
 QString ListConfiguration::getListDefaultTrigger(CommandListElements::Element type)
 {
   switch (type) {
-    case CommandListElements::Back: return i18n("Zero");
-    case CommandListElements::One: return i18n("One");
-    case CommandListElements::Two: return i18n("Two");
-    case CommandListElements::Three: return i18n("Three");
-    case CommandListElements::Four: return i18n("Four");
-    case CommandListElements::Five: return i18n("Five");
-    case CommandListElements::Six: return i18n("Six");
-    case CommandListElements::Seven: return i18n("Seven");
-    case CommandListElements::Eight: return i18n("Eight");
-    case CommandListElements::Next: return i18n("Nine");
-    case CommandListElements::Cancel: return i18n("Cancel");
+    case CommandListElements::Back: return i18nc("Number", "Zero");
+    case CommandListElements::One: return i18nc("Number", "One");
+    case CommandListElements::Two: return i18nc("Number", "Two");
+    case CommandListElements::Three: return i18nc("Number", "Three");
+    case CommandListElements::Four: return i18nc("Number", "Four");
+    case CommandListElements::Five: return i18nc("Number", "Five");
+    case CommandListElements::Six: return i18nc("Number", "Six");
+    case CommandListElements::Seven: return i18nc("Number", "Seven");
+    case CommandListElements::Eight: return i18nc("Number", "Eight");
+    case CommandListElements::Next: return i18nc("Number", "Nine");
+    case CommandListElements::Cancel: return i18nc("Cancel");
   }
 
   return "";

@@ -66,7 +66,8 @@ void JuliusVocabulary::load(QString path, QString encoding)
 
   QString line, word, terminal, xsp;
   int splitter;
-  terminal = i18n("Unknown");
+  terminal = i18nc("Terminal name for words that are imported from a dictionary "
+				  "which does not provide terminal information", "Unknown");
   while (!dictStream->atEnd()) {
     line = dictStream->readLine(1000);
     currentProg += line.length();

@@ -40,7 +40,8 @@ LexiconDict::LexiconDict(QObject* parent): Dict(parent)
  */
 void LexiconDict::load(QString path, QString encoding)
 {
-  QString unknownStr = i18n("Unknown");
+  QString unknownStr = i18nc("Terminal name for words that are imported from a dictionary "
+				  "which does not provide terminal information", "Unknown");
 
   emit progress(0);
 

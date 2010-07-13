@@ -54,7 +54,7 @@ void ImportDictBOMPPage::initializePage()
 {
   ui.cbEncoding->clear();
 
-  ui.cbEncoding->addItem(i18n("Automatic"));
+  ui.cbEncoding->addItem(i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"));
   QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
   QStringList encodings;
   foreach (const QByteArray& codec, availableCodecs)

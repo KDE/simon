@@ -262,7 +262,7 @@ void ModelTest::run()
 
   //if (!keepGoing) return;
 
-  emit status(i18n("Finished"), 100, 100);
+  emit status(i18nc("The model test has completed", "Finished"), 100, 100);
   emit testComplete();
 }
 

@@ -227,7 +227,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
   if (flags & HasBack) {
     QTableWidgetItem *num = new QTableWidgetItem(QString::number(0));
     num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-previous"), i18n("Back"));
+    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-previous"), i18nc("Go to the previous list of commands", "Back"));
     com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     twCommands->setItem(0, 0, num);
     twCommands->setItem(0, 1, com);
@@ -249,7 +249,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
   if (flags & HasNext) {
     QTableWidgetItem *num = new QTableWidgetItem(QString::number(i-rowInsertionModifier+1));
     num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-next"), i18n("Next"));
+    QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-next"), i18nc("Go to the next list of commands", "Next"));
     com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
     twCommands->setItem(i, 0, num);
     twCommands->setItem(i, 1, com);

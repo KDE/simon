@@ -170,36 +170,36 @@ bool DesktopGridCommandManager::installInterfaceCommands()
     "startDesktopGrid" /* id */);
 
   //number input
-  succ &= installInterfaceCommand(btns[0], "click", i18n("One"), iconSrc(),
+  succ &= installInterfaceCommand(btns[0], "click", i18nc("Number", "One"), iconSrc(),
   //	succ &= installInterfaceCommand(this, "clickTest", i18n("One"), iconSrc(),
     i18n("Clicks 1"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "1", "select1");
-  succ &= installInterfaceCommand(btns[1], "click", i18n("Two"), iconSrc(),
+  succ &= installInterfaceCommand(btns[1], "click", i18nc("Number", "Two"), iconSrc(),
     i18n("Clicks 2"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "2", "select2");
-  succ &= installInterfaceCommand(btns[2], "click", i18n("Three"), iconSrc(),
+  succ &= installInterfaceCommand(btns[2], "click", i18nc("Number", "Three"), iconSrc(),
     i18n("Clicks 3"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "3", "select3");
-  succ &= installInterfaceCommand(btns[3], "click", i18n("Four"), iconSrc(),
+  succ &= installInterfaceCommand(btns[3], "click", i18nc("Number", "Four"), iconSrc(),
     i18n("Clicks 4"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "4", "select4");
-  succ &= installInterfaceCommand(btns[4], "click", i18n("Five"), iconSrc(),
+  succ &= installInterfaceCommand(btns[4], "click", i18nc("Number", "Five"), iconSrc(),
     i18n("Clicks 5"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "5", "select5");
-  succ &= installInterfaceCommand(btns[5], "click", i18n("Six"), iconSrc(),
+  succ &= installInterfaceCommand(btns[5], "click", i18nc("Number", "Six"), iconSrc(),
     i18n("Clicks 6"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "6", "select6");
-  succ &= installInterfaceCommand(btns[6], "click", i18n("Seven"), iconSrc(),
+  succ &= installInterfaceCommand(btns[6], "click", i18nc("Number", "Seven"), iconSrc(),
     i18n("Clicks 7"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "7", "select7");
-  succ &= installInterfaceCommand(btns[7], "click", i18n("Eight"), iconSrc(),
+  succ &= installInterfaceCommand(btns[7], "click", i18nc("Number", "Eight"), iconSrc(),
     i18n("Clicks 8"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "8", "select8");
-  succ &= installInterfaceCommand(btns[8], "click", i18n("Nine"), iconSrc(),
+  succ &= installInterfaceCommand(btns[8], "click", i18nc("Number", "Nine"), iconSrc(),
     i18n("Clicks 9"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "9", "select9");
 
-  succ &= installInterfaceCommand(this, "deactivate", i18n("Cancel"), "dialog-cancel",
+  succ &= installInterfaceCommand(this, "deactivate", i18nc("Cancel the destkop grid", "Cancel"), "dialog-cancel",
     i18n("Aborts the selection process"), true, false, SimonCommand::GreedyState,
     SimonCommand::DefaultState, QString(), "cancel");
 

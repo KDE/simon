@@ -81,7 +81,7 @@ void CompositeProgressWidget::display(OperationList operations)
   switch (operations.count()) {
     case 0:
     {
-      status = i18n("Finished");
+      status = i18nc("The operation has completed", "Finished");
       now=max=1;
     }
     break;

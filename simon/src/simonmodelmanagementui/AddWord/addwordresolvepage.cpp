@@ -125,8 +125,8 @@ void AddWordResolvePage::initializePage()
     SpeechModel::AllScenariosVocabulary|
     SpeechModel::AllScenariosGrammar|
     SpeechModel::ScenarioGrammar));
-  if (!terminals.contains(i18n("Unused")))
-    terminals << i18n("Unused");
+  if (!terminals.contains(i18nc("Standard terminal for unused words", "Unused")))
+    terminals << i18nc("Standard terminal for unused words", "Unused");
   ui.cbType->addItems(terminals);
   ui.leWord->setText(word);
   ui.leSampa->clear();

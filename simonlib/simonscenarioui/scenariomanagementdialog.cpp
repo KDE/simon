@@ -378,12 +378,13 @@ void ScenarioManagementDialog::setupItemToScenario(QListWidgetItem *item, Scenar
   foreach (Author* a, authors)
     strAuthors += i18nc("Name and contact information", "<p>%1 (%2)</p>", a->name(), a->contact());
 
-  tooltip = i18nc("Information about the scenario", "<html><head /><body>"
+  tooltip = i18nc("Information about the scenario; 1: name, 2: version, 3: license, "
+		  "4: minimum version, 5: maximum version, 6: authors", "<html><head /><body>"
     "<h3>%1</h3>"
     "<h4>Version</h4><p>%2</p>"
     "<h4>License</h4><p>%3</p>"
     "<h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</p>"
-    "<h4>Authors</h4><p>%6</p>", s->name(), s->version(), license, minVersion, maxVersion, strAuthors);
+    "<h4>Authors</h4><p>%6</p></body></html>", s->name(), s->version(), license, minVersion, maxVersion, strAuthors);
 
   item->setToolTip(tooltip);
   item->setData(Qt::UserRole, s->id());

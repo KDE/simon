@@ -193,15 +193,14 @@ void SimonView::displayAboutPage()
 
   //    m_part->begin(KUrl::fromPath( location ));
   QString info =
-    i18nc("%1: simon version; %2: homepage URL; "
+    i18nc("%1: simon version"
     "--- end of comment ---",
     "<h2 style='margin-top: 0px;'>Welcome to simon %1</h2>"
 
     "<p>simon is an open-source speech recognition program and replaces the mouse and keyboard. "
     "It is designed to be as flexible as possible and allows customization for any application where speech recognition is needed.</p>"
     ,
-    simon_version,                                // simon version
-    "http://simon-listens.org/");                 // simon homepage URL
+    simon_version);                                // simon version
 
   QString fontSize = QString::number(15);         //QFont().pixelSize());//QString::number( pointsToPixel( Settings::mediumFontSize() ));
   QString appTitle = i18n("simon");
@@ -609,7 +608,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
   switch (status) {
     case SimonControl::Disconnected:
     {
-      displayConnectionStatus(i18n("Disconnected"));
+      displayConnectionStatus(i18nc("Disconnected from the server", "Disconnected"));
 
       if (connectActivate) {
         connectActivate->setText(i18n ( "Connect" ));
@@ -640,7 +639,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 
     case SimonControl::Connecting:
     {
-      QString connectionStr = i18n("Connecting...");
+      QString connectionStr = i18nc("Connecting to the server", "Connecting...");
 
       if (connectActivate) {
         connectActivate->setText(connectionStr);

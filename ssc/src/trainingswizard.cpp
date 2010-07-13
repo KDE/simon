@@ -171,19 +171,19 @@ int TrainingsWizard::collectSamples(TrainingsType type, qint32 userId)
   switch (type) {
     case Repeating:
     {
-      name = i18n("Repeating");
+      name = i18nc("Trainings type where the user is required to repeat what the recording facilitator tells him", "Repeating");
       prompts = repeatPrompts();
       break;
     }
     case Training:
     {
-      name = i18n("Training");
+      name = i18nc("Trainings type where the user reads prompts off the screen", "Training");
       prompts = trainingPrompts();
       break;
     }
     case Interview:
     {
-      name = i18n("Interview");
+      name = i18nc("Trainings type where the facilitator asks general questions and the interviee answers them", "Interview");
       prompts = interviewQuestions();
       break;
     }

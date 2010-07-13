@@ -97,41 +97,41 @@ bool InputNumberCommandManager::deSerializeConfig(const QDomElement& elem)
     QString() /* take default visible id from action name */,
     "startInputNumber" /* id */);
 
-  succ &= installInterfaceCommand(ui.pb0, "click", i18n("Zero"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb0, "click", i18nc("Number", "Zero"), iconSrc(),
     i18n("Clicks 0"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "0");
-  succ &= installInterfaceCommand(ui.pb1, "click", i18n("One"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb1, "click", i18nc("Number", "One"), iconSrc(),
     i18n("Clicks 1"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "1");
-  succ &= installInterfaceCommand(ui.pb2, "click", i18n("Two"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb2, "click", i18nc("Number", "Two"), iconSrc(),
     i18n("Clicks 2"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "2");
-  succ &= installInterfaceCommand(ui.pb3, "click", i18n("Three"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb3, "click", i18nc("Number", "Three"), iconSrc(),
     i18n("Clicks 3"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "3");
-  succ &= installInterfaceCommand(ui.pb4, "click", i18n("Four"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb4, "click", i18nc("Number", "Four"), iconSrc(),
     i18n("Clicks 4"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "4");
-  succ &= installInterfaceCommand(ui.pb5, "click", i18n("Five"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb5, "click", i18nc("Number", "Five"), iconSrc(),
     i18n("Clicks 5"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "5");
-  succ &= installInterfaceCommand(ui.pb6, "click", i18n("Six"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb6, "click", i18nc("Number", "Six"), iconSrc(),
     i18n("Clicks 6"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "6");
-  succ &= installInterfaceCommand(ui.pb7, "click", i18n("Seven"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb7, "click", i18nc("Number", "Seven"), iconSrc(),
     i18n("Clicks 7"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "7");
-  succ &= installInterfaceCommand(ui.pb8, "click", i18n("Eight"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb8, "click", i18nc("Number", "Eight"), iconSrc(),
     i18n("Clicks 8"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "8");
-  succ &= installInterfaceCommand(ui.pb9, "click", i18n("Nine"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pb9, "click", i18nc("Number", "Nine"), iconSrc(),
     i18n("Clicks 9"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, "9");
   succ &= installInterfaceCommand(ui.pbComma, "click", i18nc("Decimal separator (voice trigger)", "Point"), iconSrc(),
     i18n("Decimal separator"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState, KGlobal::locale()->decimalSymbol());
 
-  succ &= installInterfaceCommand(ui.pbBack, "click", i18n("Back"), iconSrc(),
+  succ &= installInterfaceCommand(ui.pbBack, "click", i18nc("Word to say to remove the last recognized digit", "Back"), iconSrc(),
     i18n("Deletes the last input character"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
   succ &= installInterfaceCommand(ui.pbOk, "click", i18n("Ok"), "dialog-ok-apply",

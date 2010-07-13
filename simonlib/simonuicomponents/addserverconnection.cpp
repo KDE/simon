@@ -38,8 +38,8 @@ AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
   sbPort->setValue(4444);
 
   QFormLayout *lay = new QFormLayout(widget);
-  lay->addRow(i18n("Address:"), leAddress);
-  lay->addRow(i18n("Port:"), sbPort);
+  lay->addRow(i18nc("IP address or hostname", "Address:"), leAddress);
+  lay->addRow(i18nc("Network port", "Port:"), sbPort);
 
   setMainWidget( widget );
   setCaption( i18n("Add Server Address") );

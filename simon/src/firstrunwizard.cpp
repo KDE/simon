@@ -99,7 +99,7 @@ QWizardPage* FirstRunWizard::createFinishedPage()
   finish->setLayout(lay);
 
   desc->setWordWrap(true);
-  finish->setTitle(i18n("Finished"));
+  finish->setTitle(i18nc("The user has completed the wizard", "Finished"));
   desc->setText(i18n("<html><head /><body><p>You completed the initial setup of simon.</p><p>You can find more information on simon and helpful guides and instructions in the simon manual (press F1 in the simon main window to display).</p></body></html>"));
 
   return finish;

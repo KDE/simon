@@ -692,10 +692,10 @@ void LogView::displayCancel()
  */
 void LogView::displayReload()
 {
-  setStatus(i18n("Finished"));
+  setStatus(i18nc("The operation has completed", "Finished"));
   enableWidgets(true);
   abortInsertingEntries=false;
-  this->ui.pbAbort->setText(i18n("Reload"));
+  this->ui.pbAbort->setText(i18nc("Reload the display of the log", "Reload"));
   this->ui.pbLogLoad->setMaximum(100);
   this->ui.pbLogLoad->setValue(100);
   ui.pbAbort->setIcon(KIcon("view-refresh"));

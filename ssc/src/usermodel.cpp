@@ -46,15 +46,15 @@ QString UserModel::displayStringForGrade(const int grade) const
 {
   switch (grade) {
     case 1:
-      return i18n("Very good");
+      return i18nc("Strings denoting a range from 1-5 (one being very good, the last one very bad; This is option 1", "Very good");
     case 2:
-      return i18n("Good");
+      return i18nc("Strings denoting a range from 1-5 (one being very good, the last one very bad; This is option 2", "Good");
     case 3:
-      return i18n("Satisfactory");
+      return i18nc("Strings denoting a range from 1-5 (one being very good, the last one very bad; This is option 3", "Satisfactory");
     case 4:
-      return i18n("Acceptable");
+      return i18nc("Strings denoting a range from 1-5 (one being very good, the last one very bad; This is option 4", "Acceptable");
     case 5:
-      return i18n("Not acceptable");
+      return i18nc("Strings denoting a range from 1-5 (one being very good, the last one very bad; This is option 5", "Not acceptable");
   }
 
   return QString();
@@ -63,8 +63,8 @@ QString UserModel::displayStringForGrade(const int grade) const
 
 QString UserModel::displayStringBool(const bool b) const
 {
-  if (b) return i18n("Yes");
-  else return i18n("No");
+  if (b) return i18nc("Possible answer to: Is x available?", "Yes");
+  else return i18nc("Possible answer to: Is x available?", "No");
 }
 
 

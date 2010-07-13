@@ -114,7 +114,7 @@ void RecWidget::showFinishPrompt()
   QPalette p = ui->frmPromptAction->palette();
   p.setBrush(QPalette::Active, QPalette::Window, QColor("blue"));
   ui->frmPromptAction->setPalette(p);
-  ui->lbPromptAction->setText(i18n("Idle..."));
+  ui->lbPromptAction->setText(i18nc("Waiting for the recording to finish...", "Idle..."));
 }
 
 

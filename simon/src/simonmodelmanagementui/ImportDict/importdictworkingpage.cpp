@@ -118,7 +118,7 @@ void ImportDictWorkingPage::importLexicon(QString path)
   displayStatus(i18n("Importing HTK-Dictionary %1...", path));
 
   QString encoding = field("lexiconEncoding").toString();
-  if (encoding == i18n("Automatic"))
+  if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
     encoding = guessEncoding(path);
   import->parseWordList(path, encoding, Dict::HTKLexicon, true /* remove input file when done */);
 }
@@ -137,7 +137,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
   QString encoding;
   if (field("bompSource").toBool()) {             //true means a manual import
     encoding = field("bompEncoding").toString();
-    if (encoding == i18n("Automatic"))
+    if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
       encoding = guessEncoding(path);
   } else encoding = "ISO-8859-15";                //download is always ISO-8859-15
 
@@ -162,7 +162,7 @@ void ImportDictWorkingPage::importSPHINX(QString path)
   displayStatus(i18n("Importing SPHINX-dictionary %1...", path));
 
   QString encoding = field("sphinxEncoding").toString();
-  if (encoding == i18n("Automatic"))
+  if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
     encoding = guessEncoding(path);
   import->parseWordList(path, encoding, Dict::SPHINX, true /* remove input file when done */);
 }
@@ -175,7 +175,7 @@ void ImportDictWorkingPage::importJulius(QString path)
   displayStatus(i18n("Importing Julius vocabulary %1...", path));
 
   QString encoding = field("juliusVocabularyEncoding").toString();
-  if (encoding == i18n("Automatic"))
+  if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic"))
     encoding = guessEncoding(path);
   import->parseWordList(path, encoding, Dict::JuliusVocabulary, true /* remove input file when done */);
 }

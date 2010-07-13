@@ -109,7 +109,7 @@ bool SendSampleWorker::sendSamples()
       //remove storage
       if (QFile::exists(m_storageDirectory+"/profile.ini") &&
         !QFile::remove(m_storageDirectory+"/profile.ini"))
-        emit error(i18n("Profile information could not be removed.", m_storageDirectory+"/profile.ini"));
+        emit error(i18n("Profile information could not be removed: %1.", m_storageDirectory+"/profile.ini"));
       QDir d(m_storageDirectory);
       if (d.exists(m_storageDirectory) && !d.rmdir(m_storageDirectory))
         emit error(i18n("Storage directory could not be removed: %1.", m_storageDirectory));

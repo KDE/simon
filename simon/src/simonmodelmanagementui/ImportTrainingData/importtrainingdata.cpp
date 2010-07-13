@@ -97,7 +97,7 @@ void ImportTrainingData::run()
 
     delete newFiles;
   }
-  emit status(i18n("Finished"));
+  emit status(i18nc("The import process has finished", "Finished"));
   emit done();
 }
 

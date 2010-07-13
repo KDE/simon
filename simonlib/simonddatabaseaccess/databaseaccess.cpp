@@ -171,7 +171,7 @@ QSqlTableModel* DatabaseAccess::getUsers()
   userModel = new QSqlTableModel(this, *db);
   userModel->setTable("User");
   userModel->removeColumn(0);                     //skip id
-  userModel->setHeaderData(0, Qt::Horizontal, i18n("Username"));
+  userModel->setHeaderData(0, Qt::Horizontal, i18nc("Name of the simond user", "Username"));
   userModel->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
   userModel->select();
 

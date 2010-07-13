@@ -367,7 +367,7 @@ void ModelCompilationManager::run()
   //sync model
   if (!keepGoing) return;
 
-  emit status(i18n("Finished"), 2600, 2600);
+  emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
   emit modelCompiled();
 }
 

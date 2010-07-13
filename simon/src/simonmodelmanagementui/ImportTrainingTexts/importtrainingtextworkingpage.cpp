@@ -147,7 +147,7 @@ QStringList ImportTrainingTextWorkingPage::parse(QIODevice *input, const QString
     return QStringList();
 
   QTextStream ts(input);
-  if (encoding == i18n("Automatic")) {
+  if (encoding == i18nc("Selection box for the encoding: Determine the encoding automatically", "Automatic")) {
     //read first 5000 bytes and run encoding detection
     //seek back to the beginning and parse input using the guessed encoding
     QByteArray preview = input->peek(5000);

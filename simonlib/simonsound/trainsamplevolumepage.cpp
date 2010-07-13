@@ -32,7 +32,7 @@
 TrainSampleVolumePage::TrainSampleVolumePage(QWidget *parent) : QWizardPage(parent),
 ui(new Ui::TrainSampleVolumePage())
 {
-  setTitle(i18n("Volume"));
+  setTitle(i18nc("Audio volume", "Volume"));
 
   ui->setupUi(this);
 }
