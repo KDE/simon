@@ -121,7 +121,7 @@
        </property>
        <item>
         <property name="text">
-         <string comment="Artistic licence">Artistic 2.0</string>
+         <string comment="Artistic license">Artistic 2.0</string>
         </property>
        </item>
        <item>
@@ -196,7 +196,7 @@
        </item>
        <item>
         <property name="text">
-         <string comment="X11 licence">X11</string>
+         <string comment="X11 license">X11</string>
         </property>
        </item>
       </widget>

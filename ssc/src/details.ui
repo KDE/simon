@@ -283,27 +283,27 @@
       <widget class="KComboBox" name="cbMotorFunction">
        <item>
         <property name="text">
-         <string>1: Very Good</string>
+         <string comment="Rating; Scale from 1 - 5">1: Very Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>2: Good</string>
+         <string comment="Rating; Scale from 1 - 5">2: Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>3: Satisfactory</string>
+         <string comment="Rating; Scale from 1 - 5">3: Satisfactory</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>4: Acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">4: Acceptable</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>5: Not acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">5: Not acceptable</string>
         </property>
        </item>
       </widget>

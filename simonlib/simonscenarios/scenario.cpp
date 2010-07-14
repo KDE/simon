@@ -500,7 +500,7 @@ const QString& toDemonstrateTerminal)
 {
 
   int terminalOccuranceCount = terminalSentence.count(toDemonstrateTerminal);
-  //this occurrance of the terminal in the sentence is going to be replaced
+  //this occurrence of the terminal in the sentence is going to be replaced
   //by the word we should put in a random sentence
   int selectedOccurance = qrand() % terminalOccuranceCount;
 
