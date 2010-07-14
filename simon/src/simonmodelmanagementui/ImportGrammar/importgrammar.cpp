@@ -189,7 +189,7 @@ QStringList ImportGrammar::importFile(QString path)
     emit fileProgress(++progress, max);
   }
 
-  emit status(i18n("The import has finished", "Finished"));
+  emit status(i18nc("The import has finished", "Finished"));
   return out;
 }
 

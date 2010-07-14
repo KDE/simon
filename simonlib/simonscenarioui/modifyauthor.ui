@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="lbName">
      <property name="text">
-      <string>Name:</string>
+      <string comment="The name of the author">Name:</string>
      </property>
     </widget>
    </item>

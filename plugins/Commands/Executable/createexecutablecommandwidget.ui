@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -27,7 +27,7 @@
    <item>
     <widget class="QCommandLinkButton" name="cbManual">
      <property name="text">
-      <string>Manual</string>
+      <string comment="Enter information by hand">Manual</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -45,7 +45,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Executable:</string>
+        <string comment="Executable file (program)">Executable:</string>
        </property>
       </widget>
      </item>

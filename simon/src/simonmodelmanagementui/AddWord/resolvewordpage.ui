@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
@@ -28,7 +28,7 @@
      <item row="1" column="0" >
       <widget class="QLabel" name="lbTypeDesc" >
        <property name="text" >
-        <string>Terminal:</string>
+        <string comment="Grammar category">Terminal:</string>
        </property>
       </widget>
      </item>

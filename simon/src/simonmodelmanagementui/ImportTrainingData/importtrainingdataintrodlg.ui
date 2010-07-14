@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
@@ -106,7 +106,7 @@ Using this wizard you can import training data collected e.g. by previous simon 
 		   <item>
 		    <widget class="QLabel" name="lbFolder" >
 		     <property name="text" >
-			     <string>Directory:</string>
+			     <string comment="Folder (path)">Directory:</string>
 		     </property>
 		    </widget>
 	           </item>

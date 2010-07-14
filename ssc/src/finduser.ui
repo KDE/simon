@@ -27,7 +27,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Basic</string>
+       <string comment="Basic filtering options">Basic</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
@@ -54,7 +54,7 @@
            <item>
             <widget class="KPushButton" name="pbSearchInstitution">
              <property name="text">
-              <string>Search</string>
+              <string comment="Pick institution from a list">Search</string>
              </property>
             </widget>
            </item>
@@ -155,14 +155,14 @@
              <item>
               <widget class="QRadioButton" name="rbMale">
                <property name="text">
-                <string>Male</string>
+                <string comment="Only show users of this sex">Male</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QRadioButton" name="rbFemale">
                <property name="text">
-                <string>Female</string>
+                <string comment="Only show users of this sex">Female</string>
                </property>
               </widget>
              </item>
@@ -183,7 +183,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Advanced 1</string>
+       <string comment="First page of advanced filtering options">Advanced 1</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
@@ -255,7 +255,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Advanced 2</string>
+       <string comment="Second page of advanced filtering options">Advanced 2</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
@@ -297,32 +297,32 @@
           <widget class="KComboBox" name="cbOrientation">
            <item>
             <property name="text">
-             <string>0: All</string>
+             <string comment="Ignore this field when filtering">0: All</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>1: Very Good</string>
+             <string comment="Scale from 1-5 with explanation">1: Very Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>2: Good</string>
+             <string comment="Scale from 1-5 with explanation">2: Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>3: Satisfactory</string>
+             <string comment="Scale from 1-5 with explanation">3: Satisfactory</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>4: Acceptable</string>
+             <string comment="Scale from 1-5 with explanation">4: Acceptable</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>5: Not acceptable</string>
+             <string comment="Scale from 1-5 with explanation">5: Not acceptable</string>
             </property>
            </item>
           </widget>
@@ -345,32 +345,32 @@
           <widget class="KComboBox" name="cbCommunication">
            <item>
             <property name="text">
-             <string>0: All</string>
+             <string comment="Ignore this field when filtering">0: All</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>1: Very Good</string>
+             <string comment="Scale from 1-5 with explanation">1: Very Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>2: Good</string>
+             <string comment="Scale from 1-5 with explanation">2: Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>3: Satisfactory</string>
+             <string comment="Scale from 1-5 with explanation">3: Satisfactory</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>4: Acceptable</string>
+             <string comment="Scale from 1-5 with explanation">4: Acceptable</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>5: Not acceptable</string>
+             <string comment="Scale from 1-5 with explanation">5: Not acceptable</string>
             </property>
            </item>
           </widget>
@@ -386,32 +386,32 @@
           <widget class="KComboBox" name="cbMotorFunction">
            <item>
             <property name="text">
-             <string>0: All</string>
+             <string comment="Ignore this field when filtering">0: All</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>1: Very Good</string>
+             <string comment="Scale from 1-5 with explanation">1: Very Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>2: Good</string>
+             <string comment="Scale from 1-5 with explanation">2: Good</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>3: Satisfactory</string>
+             <string comment="Scale from 1-5 with explanation">3: Satisfactory</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>4: Acceptable</string>
+             <string comment="Scale from 1-5 with explanation">4: Acceptable</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>5: Not acceptable</string>
+             <string comment="Scale from 1-5 with explanation">5: Not acceptable</string>
             </property>
            </item>
           </widget>
@@ -426,7 +426,7 @@
          <item row="3" column="0">
           <widget class="QLabel" name="label_11">
            <property name="text">
-            <string>Repeating:</string>
+            <string comment="Trainings mode where the user tries to repeat everything the facilitator says">Repeating:</string>
            </property>
           </widget>
          </item>
@@ -449,14 +449,14 @@
             <item>
              <widget class="QRadioButton" name="rbInterviewYes">
               <property name="text">
-               <string>Yes</string>
+               <string comment="Answer to: Only show users where x is true?">Yes</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="rbInterviewNo">
               <property name="text">
-               <string>No</string>
+               <string comment="Answer to: Only show users where x is false?">No</string>
               </property>
              </widget>
             </item>
@@ -488,14 +488,14 @@
             <item>
              <widget class="QRadioButton" name="rbRepeatingYes">
               <property name="text">
-               <string>Yes</string>
+               <string comment="Answer to: Only show users where x is true?">Yes</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="rbRepeatingNo">
               <property name="text">
-               <string>No</string>
+               <string comment="Answer to: Only show users where x is false?">No</string>
               </property>
              </widget>
             </item>

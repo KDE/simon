@@ -259,7 +259,7 @@
    <item row="1" column="7">
     <widget class="KPushButton" name="pbSuper">
      <property name="text">
-      <string>Super</string>
+      <string comment="Super key">Super</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

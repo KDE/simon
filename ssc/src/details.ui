@@ -89,14 +89,14 @@
        <item>
         <widget class="QRadioButton" name="rbMale">
          <property name="text">
-          <string>Male</string>
+          <string comment="Sex of the user">Male</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QRadioButton" name="rbFemale">
          <property name="text">
-          <string>Female</string>
+          <string comment="Sex of the user">Female</string>
          </property>
         </widget>
        </item>
@@ -211,27 +211,27 @@
       <widget class="KComboBox" name="cbOrientation">
        <item>
         <property name="text">
-         <string>1: Very Good</string>
+         <string comment="Rating; Scale from 1 - 5">1: Very Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>2: Good</string>
+         <string comment="Rating; Scale from 1 - 5">2: Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>3: Satisfactory</string>
+         <string comment="Rating; Scale from 1 - 5">3: Satisfactory</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>4: Acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">4: Acceptable</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>5: Not acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">5: Not acceptable</string>
         </property>
        </item>
       </widget>
@@ -247,27 +247,27 @@
       <widget class="KComboBox" name="cbCommunication">
        <item>
         <property name="text">
-         <string>1: Very Good</string>
+         <string comment="Rating; Scale from 1 - 5">1: Very Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>2: Good</string>
+         <string comment="Rating; Scale from 1 - 5">2: Good</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>3: Satisfactory</string>
+         <string comment="Rating; Scale from 1 - 5">3: Satisfactory</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>4: Acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">4: Acceptable</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>5: Not acceptable</string>
+         <string comment="Rating; Scale from 1 - 5">5: Not acceptable</string>
         </property>
        </item>
       </widget>
@@ -338,7 +338,7 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>Repeating:</string>
+        <string comment="Trainings method where the user has to repeat everything the facilitator says">Repeating:</string>
        </property>
       </widget>
      </item>

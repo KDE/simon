@@ -26,7 +26,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>General</string>
+       <string comment="General settings">General</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -95,7 +95,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="lbUsername">
            <property name="text">
-            <string>Username:</string>
+            <string comment="User name for the connection">Username:</string>
            </property>
            <property name="buddy">
             <cstring>kcfg_JuliusdUsername</cstring>

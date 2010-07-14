@@ -304,7 +304,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox_5">
             <property name="title">
-             <string>Test</string>
+             <string comment="Test the model">Test</string>
             </property>
             <layout class="QFormLayout" name="formLayout_4">
              <property name="fieldGrowthPolicy">

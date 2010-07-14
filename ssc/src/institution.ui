@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="lbName">
        <property name="text">
-        <string>Name:</string>
+        <string comment="Name of the institution">Name:</string>
        </property>
       </widget>
      </item>

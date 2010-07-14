@@ -24,7 +24,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="lbName">
          <property name="text">
-          <string>Name:</string>
+          <string comment="Name of the scenario">Name:</string>
          </property>
         </widget>
        </item>
@@ -121,7 +121,7 @@
        </property>
        <item>
         <property name="text">
-         <string>Artistic 2.0</string>
+         <string comment="Artistic licence">Artistic 2.0</string>
         </property>
        </item>
        <item>
@@ -196,7 +196,7 @@
        </item>
        <item>
         <property name="text">
-         <string>X11</string>
+         <string comment="X11 licence">X11</string>
         </property>
        </item>
       </widget>

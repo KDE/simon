@@ -36,7 +36,7 @@
       </size>
      </property>
      <property name="title" >
-      <string>Search</string>
+      <string comment="Search for a specific log message">Search</string>
      </property>
      <property name="flat" >
       <bool>false</bool>
@@ -55,7 +55,7 @@
              </size>
             </property>
             <property name="text" >
-             <string>Search:</string>
+             <string comment="Search pattern">Search:</string>
             </property>
             <property name="buddy" >
              <cstring>leSearchLogs</cstring>
@@ -87,7 +87,7 @@
           <item>
            <widget class="KPushButton" name="pbLogSearch" >
             <property name="text" >
-             <string>Search</string>
+             <string comment="Start the log search">Search</string>
             </property>
            </widget>
           </item>
@@ -109,7 +109,7 @@
         <item row="1" column="1" >
          <widget class="QCheckBox" name="cbLogUpdate" >
           <property name="text" >
-           <string>Update</string>
+           <string comment="Display messages of the category \"Update\"">Update</string>
           </property>
          </widget>
         </item>

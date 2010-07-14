@@ -90,7 +90,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Previous</string>
+          <string comment="Previous word to train">Previous</string>
          </property>
         </widget>
        </item>
@@ -113,7 +113,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Next</string>
+          <string comment="Next word to train">Next</string>
          </property>
         </widget>
        </item>
@@ -139,7 +139,7 @@
      <item>
       <widget class="KPushButton" name="pbQuit">
        <property name="text">
-        <string>Quit</string>
+        <string comment="Quit the pronunciation training">Quit</string>
        </property>
       </widget>
      </item>

@@ -406,7 +406,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
     i18n("AltGr"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
   succ &= installInterfaceCommand(ui.pbSuper, "click", i18nc("Keyboard key", "Super"), iconSrc(),
-    i18n("Super"), false, false, SimonCommand::GreedyState,
+    i18nc("Super key", "Super"), false, false, SimonCommand::GreedyState,
     SimonCommand::GreedyState);
 
   //input number

@@ -45,7 +45,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>Search</string>
+        <string comment="Search for institutions">Search</string>
        </property>
       </widget>
      </item>

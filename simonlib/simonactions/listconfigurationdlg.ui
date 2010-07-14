@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -22,57 +22,57 @@
      <widget class="QListWidget" name="lwActions">
       <item>
        <property name="text">
-        <string>Back</string>
+        <string comment="Display the previously listed commands (go back)">Back</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>One</string>
+        <string comment="Number">One</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Two</string>
+        <string comment="Number">Two</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Three</string>
+        <string comment="Number">Three</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Four</string>
+        <string comment="Number">Four</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Five</string>
+        <string comment="Number">Five</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Six</string>
+        <string comment="Number">Six</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Seven</string>
+        <string comment="Number">Seven</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Eight</string>
+        <string comment="Number">Eight</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Next</string>
+        <string comment="Advance to the next part of the list">Next</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Cancel</string>
+        <string comment="Abort the list selection">Cancel</string>
        </property>
       </item>
      </widget>

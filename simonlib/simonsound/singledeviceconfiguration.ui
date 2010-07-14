@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="margin">
@@ -137,7 +137,7 @@
         <item>
          <widget class="KPushButton" name="pbTest">
           <property name="text">
-           <string>Test</string>
+           <string comment="Test the current configuration for errors">Test</string>
           </property>
          </widget>
         </item>

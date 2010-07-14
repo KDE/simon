@@ -154,7 +154,7 @@
          <item>
           <widget class="KPushButton" name="pbClear">
            <property name="text">
-            <string>Clear</string>
+            <string comment="Remove every entry">Clear</string>
            </property>
           </widget>
          </item>

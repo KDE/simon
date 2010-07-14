@@ -55,7 +55,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="lbPatientNameDesc">
           <property name="text">
-           <string>Name:</string>
+           <string comment="Name of the user">Name:</string>
           </property>
          </widget>
         </item>
@@ -76,7 +76,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>Select</string>
+           <string comment="Select user associated with the entered id (fetch)">Select</string>
           </property>
          </widget>
         </item>
@@ -86,7 +86,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>Search</string>
+           <string comment="Search for user">Search</string>
           </property>
          </widget>
         </item>
@@ -202,7 +202,7 @@
   </widget>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string comment="Quit the application">Quit</string>
    </property>
   </action>
   <action name="actionRepeat">

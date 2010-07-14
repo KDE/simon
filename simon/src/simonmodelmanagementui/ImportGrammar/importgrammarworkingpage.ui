@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -41,7 +41,7 @@ This can take a few minutes...</string>
    <item>
     <widget class="QLabel" name="label_2" >
      <property name="text" >
-      <string>Overall:</string>
+      <string comment="Label for the overall progress">Overall:</string>
      </property>
     </widget>
    </item>
@@ -74,7 +74,7 @@ This can take a few minutes...</string>
       </font>
      </property>
      <property name="text" >
-      <string>Waiting...</string>
+      <string comment="Waiting for the operation to be started">Waiting...</string>
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

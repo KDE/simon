@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -26,7 +26,7 @@
      <item>
       <widget class="KPushButton" name="pbCreateScenario">
        <property name="text">
-        <string>New</string>
+        <string comment="Create a new scenario">New</string>
        </property>
       </widget>
      </item>

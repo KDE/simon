@@ -153,7 +153,7 @@ QString ListConfiguration::getListDefaultTrigger(CommandListElements::Element ty
     case CommandListElements::Seven: return i18nc("Number", "Seven");
     case CommandListElements::Eight: return i18nc("Number", "Eight");
     case CommandListElements::Next: return i18nc("Number", "Nine");
-    case CommandListElements::Cancel: return i18nc("Cancel");
+    case CommandListElements::Cancel: return i18n("Cancel");
   }
 
   return "";

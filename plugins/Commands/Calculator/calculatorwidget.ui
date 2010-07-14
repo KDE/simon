@@ -309,7 +309,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Clear</string>
+           <string comment="Clear the input text">Clear</string>
           </property>
          </widget>
         </item>
