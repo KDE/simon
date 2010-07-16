@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:17+0300\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-28 16:36+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -21,27 +21,47 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#. i18n: file: config/sscconfig.kcfg:7
+#. i18n: file: config/sscconfig.kcfg:11
 #. i18n: ectx: label, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:3 rc.cpp:3
-msgid "wether to connect automatically during startup."
+#, fuzzy
+msgid "whether to connect automatically during startup."
 msgstr "Zda se chceme připojit automaticky při spuštění.."
 
-#. i18n: file: config/sscconfig.kcfg:11
-#. i18n: ectx: label, entry (Host), group (ssc)
+#. i18n: file: config/sscconfig.kcfg:13
+#. i18n: ectx: tooltip, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:6 rc.cpp:6
+msgid "If selected, ssc will automatically connect to the sscd when started."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:16
+#. i18n: ectx: label, entry (Host), group (ssc)
+#: po/rc.cpp:9 rc.cpp:9
 msgid "the server to connect to."
 msgstr "Server, ke kterému se připojujeme."
 
-#. i18n: file: config/sscconfig.kcfg:15
+#. i18n: file: config/sscconfig.kcfg:18
+#. i18n: ectx: tooltip, entry (Host), group (ssc)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "sscd hostname or ip address."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:21
 #. i18n: ectx: label, entry (Port), group (ssc)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:15 rc.cpp:15
 msgid "the port to connect to."
 msgstr "Přípojka, ke které se připojujeme."
 
-#. i18n: file: config/sscconfig.kcfg:19
+#. i18n: file: config/sscconfig.kcfg:23
+#. i18n: ectx: tooltip, entry (Port), group (ssc)
+#: po/rc.cpp:18 rc.cpp:18
+#, fuzzy
+msgid "Port of the sscd server."
+msgstr "Není připojeno k serveru."
+
+#. i18n: file: config/sscconfig.kcfg:26
 #. i18n: ectx: label, entry (Timeout), group (ssc)
-#: po/rc.cpp:12 rc.cpp:12
+#: po/rc.cpp:21 rc.cpp:21
 msgid ""
 "after this timeout the client will stop waiting for an answer from the "
 "server."
@@ -49,139 +69,236 @@ msgstr ""
 "Po překročení tohoto času se klient zastaví, aby počkal na odpověď od "
 "serveru."
 
-#. i18n: file: config/sscconfig.kcfg:23
+#. i18n: file: config/sscconfig.kcfg:28
+#. i18n: ectx: tooltip, entry (Timeout), group (ssc)
+#: po/rc.cpp:24 rc.cpp:24
+#, fuzzy
+msgid "Timeout for connecting to the sscd server."
+msgstr "Není připojeno k serveru."
+
+#. i18n: file: config/sscconfig.kcfg:31
 #. i18n: ectx: label, entry (UseInstitutionSpecificIDs), group (ssc)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:27 rc.cpp:27
+#, fuzzy
 msgid ""
-"wether we want to resolve users based on their reference id assigned by a "
+"whether we want to resolve users based on their reference id assigned by a "
 "specific institute."
 msgstr ""
 "Zda chceme uživatele určit na základě jejich odkazovacího ID přiřazeného "
 "určitým úřadem."
 
-#. i18n: file: config/sscconfig.kcfg:28
+#. i18n: file: config/sscconfig.kcfg:33
+#. i18n: ectx: tooltip, entry (UseInstitutionSpecificIDs), group (ssc)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "Use ids assigned from the institution."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:37
 #. i18n: ectx: label, entry (ReferenceInstitute), group (ssc)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:33 rc.cpp:33
 msgid "the institution who is used to resolve the reference ids."
 msgstr "Úřad, který zadal odkazovací ID."
 
-#. i18n: file: config/sscconfig.kcfg:33
+#. i18n: file: config/sscconfig.kcfg:39
+#. i18n: ectx: tooltip, entry (ReferenceInstitute), group (ssc)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Reference institute used to check the ids against."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:43
 #. i18n: ectx: label, entry (DefaultLanguage), group (ssc)
-#: po/rc.cpp:21 rc.cpp:21
-msgid "the default langauge for new users."
+#: po/rc.cpp:39 rc.cpp:39
+#, fuzzy
+msgid "the default language for new users."
 msgstr "Výchozí jazyk pro nové uživatele."
 
-#. i18n: file: config/sscconfig.kcfg:38
+#. i18n: file: config/sscconfig.kcfg:45
+#. i18n: ectx: tooltip, entry (DefaultLanguage), group (ssc)
+#: po/rc.cpp:42 rc.cpp:42
+#, fuzzy
+msgid "Default language of new users."
+msgstr "Výchozí jazyk pro nové uživatele."
+
+#. i18n: file: config/sscconfig.kcfg:49
 #. i18n: ectx: label, entry (UseEncryption), group (ssc)
-#: po/rc.cpp:24 rc.cpp:24
-msgid "wether we want to encrypt the communication between simon and simond."
+#: po/rc.cpp:45 rc.cpp:45
+#, fuzzy
+msgid "whether we want to encrypt the communication between simon and simond."
 msgstr "Zda chceme zašifrovat spojení se serverem (mezi simon a simond)."
 
-#. i18n: file: config/sscconfig.kcfg:42
+#. i18n: file: config/sscconfig.kcfg:51
+#. i18n: ectx: tooltip, entry (UseEncryption), group (ssc)
+#: po/rc.cpp:48 rc.cpp:48
+#, fuzzy
+msgid "Use encryption for connecting to sscd."
+msgstr "Používaný šifrovací algoritmus."
+
+#. i18n: file: config/sscconfig.kcfg:54
 #. i18n: ectx: label, entry (EncryptionMethod), group (ssc)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:51 rc.cpp:51
 msgid "The encryption method to use."
 msgstr "Používaný šifrovací algoritmus."
 
-#. i18n: file: config/sscconfig.kcfg:45
+#. i18n: file: config/sscconfig.kcfg:55
+#. i18n: ectx: tooltip, entry (EncryptionMethod), group (ssc)
+#: po/rc.cpp:54 rc.cpp:54
+msgid "Selected cipher for the sscd connection."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:58
 #. i18n: ectx: label, entry (Certificate), group (ssc)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:57 rc.cpp:57
 msgid "the path to the SSL certificate."
 msgstr "Cesta k osvědčení SSL."
 
-#. i18n: file: config/sscconfig.kcfg:49
+#. i18n: file: config/sscconfig.kcfg:59
+#. i18n: ectx: tooltip, entry (Certificate), group (ssc)
+#: po/rc.cpp:60 rc.cpp:60
+msgid "Certificate identifying the connecting host."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:63
 #. i18n: ectx: label, entry (DefaultToPowerTrain), group (ssc)
-#: po/rc.cpp:33 rc.cpp:33
-msgid "wether power training is activated by default."
+#: po/rc.cpp:63 rc.cpp:63
+#, fuzzy
+msgid "whether power training is activated by default."
 msgstr "Zda je procvičování schopnosti zapnuto ve výchozím nastavení."
 
-#. i18n: file: config/sscconfig.kcfg:53
+#. i18n: file: config/sscconfig.kcfg:65
+#. i18n: ectx: tooltip, entry (DefaultToPowerTrain), group (ssc)
+#: po/rc.cpp:66 rc.cpp:66
+msgid "Default to power training."
+msgstr ""
+
+#. i18n: file: config/sscconfig.kcfg:68
 #. i18n: ectx: label, entry (SampleDirectory), group (ssc)
-#: po/rc.cpp:36 rc.cpp:36
+#: po/rc.cpp:69 rc.cpp:69
 msgid "the temporary directory where the samples are stored."
 msgstr "Dočasný adresář, do něhož jsou ukládány nahrávky."
 
-#. i18n: file: config/sscconfig.kcfg:58
+#. i18n: file: config/sscconfig.kcfg:70
+#. i18n: ectx: tooltip, entry (SampleDirectory), group (ssc)
+#: po/rc.cpp:72 rc.cpp:72
+#, fuzzy
+msgid "Directory to store the samples in."
+msgstr "Serveru se nepodařilo uložit nahrávku"
+
+#. i18n: file: config/sscconfig.kcfg:74
 #. i18n: ectx: label, entry (DeviceNameKeys), group (ssc)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:75 rc.cpp:75
 msgid "device names as reported by QtMultimedia."
 msgstr "Názvy zařízení, jak udávány QtMultimedia."
 
-#. i18n: file: config/sscconfig.kcfg:61
+#. i18n: file: config/sscconfig.kcfg:75
+#. i18n: ectx: tooltip, entry (DeviceNameKeys), group (ssc)
+#: po/rc.cpp:78 rc.cpp:78
+#, fuzzy
+msgid "The device name as reported by QtMultimedia."
+msgstr "Názvy zařízení, jak udávány QtMultimedia."
+
+#. i18n: file: config/sscconfig.kcfg:78
 #. i18n: ectx: label, entry (DeviceNameValues), group (ssc)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:81 rc.cpp:81
 msgid "device names set by the user."
 msgstr "Názvy zařízení nastaveny podle uživatele."
 
-#. i18n: file: config/sscconfig.kcfg:64
+#. i18n: file: config/sscconfig.kcfg:79
+#. i18n: ectx: tooltip, entry (DeviceNameValues), group (ssc)
+#: po/rc.cpp:84 rc.cpp:84
+#, fuzzy
+msgid "The device name set by the user."
+msgstr "Názvy zařízení nastaveny podle uživatele."
+
+#. i18n: file: config/sscconfig.kcfg:82
 #. i18n: ectx: label, entry (DeviceNameTypes), group (ssc)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:87 rc.cpp:87
 msgid "device types set by the user."
 msgstr "Typy zařízení nastaveny podle uživatele."
 
-#. i18n: file: config/sscconfig.kcfg:67
+#. i18n: file: config/sscconfig.kcfg:83
+#. i18n: ectx: tooltip, entry (DeviceNameTypes), group (ssc)
+#: po/rc.cpp:90 rc.cpp:90
+#, fuzzy
+msgid "The device type set by the user."
+msgstr "Typy zařízení nastaveny podle uživatele."
+
+#. i18n: file: config/sscconfig.kcfg:86
 #. i18n: ectx: label, entry (DeviceNameMicrophoneValues), group (ssc)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:93 rc.cpp:93
 msgid "microphone names set by the user."
 msgstr "Názvy mikrofonů nastaveny podle uživatele."
 
-#. i18n: file: config/sscconfig.kcfg:70
+#. i18n: file: config/sscconfig.kcfg:87
+#. i18n: ectx: tooltip, entry (DeviceNameMicrophoneValues), group (ssc)
+#: po/rc.cpp:96 rc.cpp:96
+#, fuzzy
+msgid "The microphone device name set by the user."
+msgstr "Typy zařízení mikrofonů nastaveny podle uživatele."
+
+#. i18n: file: config/sscconfig.kcfg:90
 #. i18n: ectx: label, entry (DeviceNameMicrophoneTypes), group (ssc)
-#: po/rc.cpp:51 rc.cpp:51
+#: po/rc.cpp:99 rc.cpp:99
 msgid "microphone device types set by the user."
 msgstr "Typy zařízení mikrofonů nastaveny podle uživatele."
 
-#. i18n: file: config/sscconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, SSCConfiguration)
-#. i18n: file: src/deviceinformation.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, DeviceInformationWidget)
-#. i18n: file: config/sscconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, SSCConfiguration)
-#. i18n: file: src/deviceinformation.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, DeviceInformationWidget)
-#: po/rc.cpp:54 po/rc.cpp:205 rc.cpp:54 rc.cpp:205
-msgid "Form"
-msgstr "Formulář"
+#. i18n: file: config/sscconfig.kcfg:91
+#. i18n: ectx: tooltip, entry (DeviceNameMicrophoneTypes), group (ssc)
+#: po/rc.cpp:102 rc.cpp:102
+#, fuzzy
+msgid "The microphone device type set by the user."
+msgstr "Typy zařízení mikrofonů nastaveny podle uživatele."
 
 #. i18n: file: config/sscconfiguration.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
-#: po/rc.cpp:57 rc.cpp:57
-msgid "Connect automatically on startup"
-msgstr "Připojit se automaticky při spuštění"
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#. i18n: file: src/sscui.rc:16
+#. i18n: ectx: Menu (sscd)
+#. i18n: file: config/sscconfiguration.ui:20
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#. i18n: file: src/sscui.rc:16
+#. i18n: ectx: Menu (sscd)
+#: po/rc.cpp:105 po/rc.cpp:547 rc.cpp:105 rc.cpp:547
+msgid "Server"
+msgstr "Server"
 
-#. i18n: file: config/sscconfiguration.ui:29
+#. i18n: file: config/sscconfiguration.ui:26
 #. i18n: ectx: property (text), widget (QLabel, lbHost)
-#: po/rc.cpp:60 rc.cpp:60
+#: po/rc.cpp:108 rc.cpp:108
 msgid "Host:"
 msgstr "Hostitelský počítač:"
 
-#. i18n: file: config/sscconfiguration.ui:42
+#. i18n: file: config/sscconfiguration.ui:39
 #. i18n: ectx: property (text), widget (QLabel, lbPort)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:111 rc.cpp:111
 msgid "Port:"
 msgstr "Přípojka"
 
-#. i18n: file: config/sscconfiguration.ui:69
+#. i18n: file: config/sscconfiguration.ui:59
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:66 rc.cpp:66
+#: po/rc.cpp:114 rc.cpp:114
 msgid "Timeout:"
 msgstr "Překročení času:"
 
-#. i18n: file: config/sscconfiguration.ui:78
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
-#: po/rc.cpp:69 rc.cpp:69
-msgid "Use institution specific ids instead of ssc ids"
-msgstr "Použít ID zvláštní pro instituci namísto SSC ID"
+#. i18n: file: config/sscconfiguration.ui:73
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
+#: po/rc.cpp:117 rc.cpp:117
+msgid "Connect automatically on startup"
+msgstr "Připojit se automaticky při spuštění"
 
-#. i18n: file: config/sscconfiguration.ui:90
+#. i18n: file: config/sscconfiguration.ui:83
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: po/rc.cpp:120 rc.cpp:120
+msgid "Data"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute)
-#: po/rc.cpp:72 rc.cpp:72
+#: po/rc.cpp:123 rc.cpp:123
 msgid "Institute:"
 msgstr "Zřídit:"
 
-#. i18n: file: config/sscconfiguration.ui:121
+#. i18n: file: config/sscconfiguration.ui:122
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute_2)
-#: po/rc.cpp:75 rc.cpp:75
+#: po/rc.cpp:126 rc.cpp:126
 msgid ""
 "Default language (ISO Code):\n"
 "(requires restart)"
@@ -189,6 +306,31 @@ msgstr ""
 "Výchozí jazyk (kód ISO):\n"
 "(vyžaduje nové spuštění SSC)"
 
+#. i18n: file: config/sscconfiguration.ui:138
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
+#: po/rc.cpp:130 rc.cpp:130
+msgid "Use institution specific ids instead of ssc ids"
+msgstr "Použít ID zvláštní pro instituci namísto SSC ID"
+
+#. i18n: file: config/sscconfiguration.ui:148
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: po/rc.cpp:133 rc.cpp:133
+msgid "User interface"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:154
+#. i18n: ectx: property (text), widget (QCheckBox, cbAskForOfflineMode)
+#: po/rc.cpp:136 rc.cpp:136
+msgid "Do not ask before entering offline mode"
+msgstr ""
+
+#. i18n: file: config/sscconfiguration.ui:161
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowSampleWarning)
+#: po/rc.cpp:139 rc.cpp:139
+msgid ""
+"Do not display warning dialog when simon detects a problem with a sample"
+msgstr ""
+
 #. i18n: file: src/details.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
 #. i18n: file: src/main.ui:99
@@ -197,7 +339,7 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
 #. i18n: file: src/main.ui:99
 #. i18n: ectx: property (text), widget (KPushButton, pbDetails)
-#: po/rc.cpp:79 po/rc.cpp:424 rc.cpp:79 rc.cpp:424
+#: po/rc.cpp:142 po/rc.cpp:484 rc.cpp:142 rc.cpp:484
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -209,7 +351,7 @@ msgstr "Podrobnosti"
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
 #. i18n: file: src/finduser.ui:76
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
-#: po/rc.cpp:82 po/rc.cpp:238 rc.cpp:82 rc.cpp:238
+#: po/rc.cpp:145 po/rc.cpp:298 rc.cpp:145 rc.cpp:298
 msgid "Surname:"
 msgstr "Příjmení:"
 
@@ -221,29 +363,25 @@ msgstr "Příjmení:"
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
 #. i18n: file: src/finduser.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
-#: po/rc.cpp:85 po/rc.cpp:241 rc.cpp:85 rc.cpp:241
+#: po/rc.cpp:148 po/rc.cpp:301 rc.cpp:148 rc.cpp:301
 msgid "Given name:"
 msgstr "Křestní jméno:"
 
 #. i18n: file: src/details.ui:45
 #. i18n: ectx: property (text), widget (QLabel, lbInstition)
-#: po/rc.cpp:88 rc.cpp:88
+#: po/rc.cpp:151 rc.cpp:151
 msgid "Institution(s):"
 msgstr "Úřad(y):"
 
 #. i18n: file: src/details.ui:67
 #. i18n: ectx: property (text), widget (QPushButton, pbAddInstitution)
-#. i18n: file: src/finduser.ui:537
-#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
 #. i18n: file: src/institution.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
 #. i18n: file: src/details.ui:67
 #. i18n: ectx: property (text), widget (QPushButton, pbAddInstitution)
-#. i18n: file: src/finduser.ui:537
-#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
 #. i18n: file: src/institution.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:91 po/rc.cpp:382 po/rc.cpp:400 rc.cpp:91 rc.cpp:382 rc.cpp:400
+#: po/rc.cpp:154 po/rc.cpp:460 rc.cpp:154 rc.cpp:460
 msgid "Add"
 msgstr "Přidat"
 
@@ -263,8 +401,8 @@ msgstr "Přidat"
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
 #. i18n: file: src/main.ui:109
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:94 po/rc.cpp:388 po/rc.cpp:406 po/rc.cpp:427 rc.cpp:94 rc.cpp:388
-#: rc.cpp:406 rc.cpp:427
+#: po/rc.cpp:157 po/rc.cpp:448 po/rc.cpp:466 po/rc.cpp:487 rc.cpp:157
+#: rc.cpp:448 rc.cpp:466 rc.cpp:487
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -276,31 +414,23 @@ msgstr "Odstranit"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/finduser.ui:174
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:97 po/rc.cpp:268 rc.cpp:97 rc.cpp:268
+#: po/rc.cpp:160 po/rc.cpp:328 rc.cpp:160 rc.cpp:328
 msgid "Sex:"
 msgstr "Pohlaví:"
 
 #. i18n: file: src/details.ui:92
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#. i18n: file: src/finduser.ui:158
-#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#. i18n: file: src/details.ui:92
-#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#. i18n: file: src/finduser.ui:158
-#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#: po/rc.cpp:100 po/rc.cpp:262 rc.cpp:100 rc.cpp:262
+#: po/rc.cpp:163 rc.cpp:163
+#, fuzzy
+msgctxt "Sex of the user"
 msgid "Male"
 msgstr "Mužské"
 
 #. i18n: file: src/details.ui:99
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#. i18n: file: src/finduser.ui:165
-#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#. i18n: file: src/details.ui:99
-#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#. i18n: file: src/finduser.ui:165
-#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#: po/rc.cpp:103 po/rc.cpp:265 rc.cpp:103 rc.cpp:265
+#: po/rc.cpp:166 rc.cpp:166
+#, fuzzy
+msgctxt "Sex of the user"
 msgid "Female"
 msgstr "Ženské"
 
@@ -312,13 +442,13 @@ msgstr "Ženské"
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
 #. i18n: file: src/finduser.ui:115
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
-#: po/rc.cpp:106 po/rc.cpp:247 rc.cpp:106 rc.cpp:247
+#: po/rc.cpp:169 po/rc.cpp:307 rc.cpp:169 rc.cpp:307
 msgid "Birth year:"
 msgstr "Rok narození:"
 
 #. i18n: file: src/details.ui:115
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
-#: po/rc.cpp:109 rc.cpp:109
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leBirthYear)
+#: po/rc.cpp:172 rc.cpp:172
 msgid "9999; "
 msgstr "9999; "
 
@@ -330,23 +460,23 @@ msgstr "9999; "
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/finduser.ui:132
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:112 po/rc.cpp:253 rc.cpp:112 rc.cpp:253
+#: po/rc.cpp:175 po/rc.cpp:313 rc.cpp:175 rc.cpp:313
 msgid "ZIP Code:"
 msgstr "Poštovní směrovací číslo:"
 
 #. i18n: file: src/details.ui:132
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leZIPCode)
 #. i18n: file: src/finduser.ui:122
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leBirthYear)
 #. i18n: file: src/finduser.ui:139
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leZIPCode)
 #. i18n: file: src/details.ui:132
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leZIPCode)
 #. i18n: file: src/finduser.ui:122
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leBirthYear)
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leBirthYear)
 #. i18n: file: src/finduser.ui:139
-#. i18n: ectx: property (inputMask), widget (QLineEdit, leZIPCode)
-#: po/rc.cpp:115 po/rc.cpp:250 po/rc.cpp:256 rc.cpp:115 rc.cpp:250 rc.cpp:256
+#. i18n: ectx: property (inputMask), widget (KLineEdit, leZIPCode)
+#: po/rc.cpp:178 po/rc.cpp:310 po/rc.cpp:316 rc.cpp:178 rc.cpp:310 rc.cpp:316
 msgid "99990; "
 msgstr "99990; "
 
@@ -358,7 +488,7 @@ msgstr "99990; "
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: file: src/finduser.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:118 po/rc.cpp:274 rc.cpp:118 rc.cpp:274
+#: po/rc.cpp:181 po/rc.cpp:334 rc.cpp:181 rc.cpp:334
 msgid "Education:"
 msgstr "Vzdělání:"
 
@@ -370,7 +500,7 @@ msgstr "Vzdělání:"
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: file: src/finduser.ui:214
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:121 po/rc.cpp:277 rc.cpp:121 rc.cpp:277
+#: po/rc.cpp:184 po/rc.cpp:337 rc.cpp:184 rc.cpp:337
 msgid "Current occupation:"
 msgstr "Zaměstnání:"
 
@@ -382,19 +512,19 @@ msgstr "Zaměstnání:"
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #. i18n: file: src/finduser.ui:228
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: po/rc.cpp:124 po/rc.cpp:280 rc.cpp:124 rc.cpp:280
+#: po/rc.cpp:187 po/rc.cpp:340 rc.cpp:187 rc.cpp:340
 msgid "Mothers Tongue:"
 msgstr "Mateřský jazyk:"
 
 #. i18n: file: src/details.ui:179
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:127 rc.cpp:127
+#: po/rc.cpp:190 rc.cpp:190
 msgid "Institution"
 msgstr "Úřad"
 
 #. i18n: file: src/details.ui:184
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:130 rc.cpp:130
+#: po/rc.cpp:193 rc.cpp:193
 msgid "ReferenceId"
 msgstr "Odkazovací ID"
 
@@ -406,7 +536,7 @@ msgstr "Odkazovací ID"
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: file: src/finduser.ui:238
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: po/rc.cpp:133 po/rc.cpp:283 rc.cpp:133 rc.cpp:283
+#: po/rc.cpp:196 po/rc.cpp:343 rc.cpp:196 rc.cpp:343
 msgid "Diagnosis:"
 msgstr "Rozpoznaná příčina (diagnóza):"
 
@@ -418,157 +548,97 @@ msgstr "Rozpoznaná příčina (diagnóza):"
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: file: src/finduser.ui:292
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:136 po/rc.cpp:292 rc.cpp:136 rc.cpp:292
+#: po/rc.cpp:199 po/rc.cpp:352 rc.cpp:199 rc.cpp:352
 msgid "Orientation:"
 msgstr "Přehled:"
 
 #. i18n: file: src/details.ui:214
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:250
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:286
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:305
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:353
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:394
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/details.ui:214
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:250
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:286
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:305
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:353
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:394
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:139 po/rc.cpp:157 po/rc.cpp:175 po/rc.cpp:298 po/rc.cpp:319
-#: po/rc.cpp:340 rc.cpp:139 rc.cpp:157 rc.cpp:175 rc.cpp:298 rc.cpp:319
-#: rc.cpp:340
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:202 po/rc.cpp:220 po/rc.cpp:238 rc.cpp:202 rc.cpp:220 rc.cpp:238
+#, fuzzy
+msgctxt "Rating; Scale from 1 - 5"
 msgid "1: Very Good"
 msgstr "Velmi dobrý"
 
 #. i18n: file: src/details.ui:219
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:255
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:291
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:310
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:358
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:399
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/details.ui:219
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:255
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:291
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:310
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:358
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:399
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:142 po/rc.cpp:160 po/rc.cpp:178 po/rc.cpp:301 po/rc.cpp:322
-#: po/rc.cpp:343 rc.cpp:142 rc.cpp:160 rc.cpp:178 rc.cpp:301 rc.cpp:322
-#: rc.cpp:343
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:205 po/rc.cpp:223 po/rc.cpp:241 rc.cpp:205 rc.cpp:223 rc.cpp:241
+#, fuzzy
+msgctxt "Rating; Scale from 1 - 5"
 msgid "2: Good"
 msgstr "Dobrý"
 
 #. i18n: file: src/details.ui:224
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:260
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:296
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:315
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:363
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:404
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/details.ui:224
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:260
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:296
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:315
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:363
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:404
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:145 po/rc.cpp:163 po/rc.cpp:181 po/rc.cpp:304 po/rc.cpp:325
-#: po/rc.cpp:346 rc.cpp:145 rc.cpp:163 rc.cpp:181 rc.cpp:304 rc.cpp:325
-#: rc.cpp:346
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:208 po/rc.cpp:226 po/rc.cpp:244 rc.cpp:208 rc.cpp:226 rc.cpp:244
+#, fuzzy
+msgctxt "Rating; Scale from 1 - 5"
 msgid "3: Satisfactory"
 msgstr "Uspokojivý"
 
 #. i18n: file: src/details.ui:229
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:265
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:301
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:320
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:368
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:409
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/details.ui:229
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:265
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:301
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:320
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:368
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:409
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:148 po/rc.cpp:166 po/rc.cpp:184 po/rc.cpp:307 po/rc.cpp:328
-#: po/rc.cpp:349 rc.cpp:148 rc.cpp:166 rc.cpp:184 rc.cpp:307 rc.cpp:328
-#: rc.cpp:349
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:211 po/rc.cpp:229 po/rc.cpp:247 rc.cpp:211 rc.cpp:229 rc.cpp:247
+#, fuzzy
+msgctxt "Rating; Scale from 1 - 5"
 msgid "4: Acceptable"
 msgstr "Postačující"
 
 #. i18n: file: src/details.ui:234
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:270
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:306
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:325
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:373
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:414
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/details.ui:234
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/details.ui:270
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:306
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#. i18n: file: src/finduser.ui:325
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
-#. i18n: file: src/finduser.ui:373
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
-#. i18n: file: src/finduser.ui:414
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:151 po/rc.cpp:169 po/rc.cpp:187 po/rc.cpp:310 po/rc.cpp:331
-#: po/rc.cpp:352 rc.cpp:151 rc.cpp:169 rc.cpp:187 rc.cpp:310 rc.cpp:331
-#: rc.cpp:352
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:214 po/rc.cpp:232 po/rc.cpp:250 rc.cpp:214 rc.cpp:232 rc.cpp:250
+#, fuzzy
+msgctxt "Rating; Scale from 1 - 5"
 msgid "5: Not acceptable"
 msgstr "Nepostačující"
 
@@ -580,7 +650,7 @@ msgstr "Nepostačující"
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #. i18n: file: src/finduser.ui:340
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: po/rc.cpp:154 po/rc.cpp:313 rc.cpp:154 rc.cpp:313
+#: po/rc.cpp:217 po/rc.cpp:373 rc.cpp:217 rc.cpp:373
 msgid "Communication:"
 msgstr "Dorozumívání se:"
 
@@ -592,7 +662,7 @@ msgstr "Dorozumívání se:"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: file: src/finduser.ui:381
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: po/rc.cpp:172 po/rc.cpp:334 rc.cpp:172 rc.cpp:334
+#: po/rc.cpp:235 po/rc.cpp:394 rc.cpp:235 rc.cpp:394
 msgid "Motor function:"
 msgstr "Schopnost pohybu:"
 
@@ -604,7 +674,7 @@ msgstr "Schopnost pohybu:"
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #. i18n: file: src/finduser.ui:272
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: po/rc.cpp:190 po/rc.cpp:289 rc.cpp:190 rc.cpp:289
+#: po/rc.cpp:253 po/rc.cpp:349 rc.cpp:253 rc.cpp:349
 msgid "Mouth motoric / teeth:"
 msgstr "Pohyb úst/Zuby:"
 
@@ -616,73 +686,74 @@ msgstr "Pohyb úst/Zuby:"
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #. i18n: file: src/finduser.ui:422
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: po/rc.cpp:193 po/rc.cpp:355 rc.cpp:193 rc.cpp:355
+#: po/rc.cpp:256 po/rc.cpp:415 rc.cpp:256 rc.cpp:415
 msgid "Interview:"
 msgstr "Rozhovor:"
 
 #. i18n: file: src/details.ui:331
 #. i18n: ectx: property (text), widget (QCheckBox, cbInterviewPossible)
-#: po/rc.cpp:196 rc.cpp:196
+#: po/rc.cpp:259 rc.cpp:259
 msgid "Interview possible"
 msgstr "Rozhovor možný"
 
 #. i18n: file: src/details.ui:341
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#. i18n: file: src/finduser.ui:429
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#. i18n: file: src/details.ui:341
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#. i18n: file: src/finduser.ui:429
-#. i18n: ectx: property (text), widget (QLabel, label_11)
-#: po/rc.cpp:199 po/rc.cpp:358 rc.cpp:199 rc.cpp:358
+#: po/rc.cpp:262 rc.cpp:262
+#, fuzzy
+msgctxt ""
+"Trainings method where the user has to repeat everything the facilitator says"
 msgid "Repeating:"
 msgstr "Opakování:"
 
 #. i18n: file: src/details.ui:348
 #. i18n: ectx: property (text), widget (QCheckBox, cbRepeatingPossible)
-#: po/rc.cpp:202 rc.cpp:202
+#: po/rc.cpp:265 rc.cpp:265
 msgid "Repeating possible"
 msgstr "Opakování možné"
 
 #. i18n: file: src/deviceinformation.ui:29
 #. i18n: ectx: property (text), widget (QLabel, lbDeviceDesc)
-#: po/rc.cpp:208 rc.cpp:208
+#: po/rc.cpp:268 rc.cpp:268
 msgid "Device:"
 msgstr "Zařízení:"
 
 #. i18n: file: src/deviceinformation.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:211 rc.cpp:211
+#: po/rc.cpp:271 rc.cpp:271
+#, fuzzy
+msgctxt "Make of the sound card"
 msgid "Model:"
 msgstr "Model:"
 
 #. i18n: file: src/deviceinformation.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:214 rc.cpp:214
+#: po/rc.cpp:274 rc.cpp:274
 msgid "Type:"
 msgstr "Typ:"
 
 #. i18n: file: src/deviceinformation.ui:83
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:217 rc.cpp:217
+#: po/rc.cpp:277 rc.cpp:277
 msgid "Microphone model:"
 msgstr "Model mikrofonu:"
 
 #. i18n: file: src/deviceinformation.ui:103
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:220 rc.cpp:220
+#: po/rc.cpp:280 rc.cpp:280
 msgid "Microphone type:"
 msgstr "Typ mikrofonu:"
 
 #. i18n: file: src/finduser.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Users)
-#: po/rc.cpp:223 src/sscview.cpp:198 rc.cpp:223
+#: po/rc.cpp:283 src/sscview.cpp:228 rc.cpp:283
 msgid "Manage users"
 msgstr "Spravovat uživatele"
 
 #. i18n: file: src/finduser.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:226 rc.cpp:226
+#: po/rc.cpp:286 rc.cpp:286
+#, fuzzy
+msgctxt "Basic filtering options"
 msgid "Basic"
 msgstr "Jednoduše"
 
@@ -694,23 +765,15 @@ msgstr "Jednoduše"
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
 #. i18n: file: src/modifyuserininstitution.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
-#: po/rc.cpp:229 po/rc.cpp:475 rc.cpp:229 rc.cpp:475
+#: po/rc.cpp:289 po/rc.cpp:535 rc.cpp:289 rc.cpp:535
 msgid "Institution:"
 msgstr "Úřad:"
 
 #. i18n: file: src/finduser.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
-#. i18n: file: src/main.ui:89
-#. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
-#. i18n: file: src/modifyuserininstitution.ui:48
-#. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
-#. i18n: file: src/finduser.ui:57
-#. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
-#. i18n: file: src/main.ui:89
-#. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
-#. i18n: file: src/modifyuserininstitution.ui:48
-#. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
-#: po/rc.cpp:232 po/rc.cpp:421 po/rc.cpp:478 rc.cpp:232 rc.cpp:421 rc.cpp:478
+#: po/rc.cpp:292 rc.cpp:292
+#, fuzzy
+msgctxt "Pick institution from a list"
 msgid "Search"
 msgstr "Hledat"
 
@@ -722,13 +785,13 @@ msgstr "Hledat"
 #. i18n: ectx: property (text), widget (QLabel, lbId)
 #. i18n: file: src/main.ui:38
 #. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
-#: po/rc.cpp:235 po/rc.cpp:412 rc.cpp:235 rc.cpp:412
+#: po/rc.cpp:295 po/rc.cpp:472 rc.cpp:295 rc.cpp:472
 msgid "User ID:"
 msgstr "Uživatelovo ID:"
 
 #. i18n: file: src/finduser.ui:105
 #. i18n: ectx: property (text), widget (QLabel, lbReferenceId)
-#: po/rc.cpp:244 rc.cpp:244
+#: po/rc.cpp:304 rc.cpp:304
 msgid "Reference Id:"
 msgstr "ID odkazu:"
 
@@ -744,38 +807,159 @@ msgstr "ID odkazu:"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewIgnored)
 #. i18n: file: src/finduser.ui:481
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingIgnored)
-#: po/rc.cpp:259 po/rc.cpp:361 po/rc.cpp:370 src/manageusers.cpp:70 rc.cpp:259
-#: rc.cpp:361 rc.cpp:370
+#: po/rc.cpp:319 po/rc.cpp:421 po/rc.cpp:430 src/manageusers.cpp:71 rc.cpp:319
+#: rc.cpp:421 rc.cpp:430
 msgid "Ignored"
 msgstr "Opomíjeno"
 
+#. i18n: file: src/finduser.ui:158
+#. i18n: ectx: property (text), widget (QRadioButton, rbMale)
+#: po/rc.cpp:322 rc.cpp:322
+#, fuzzy
+msgctxt "Only show users of this sex"
+msgid "Male"
+msgstr "Mužské"
+
+#. i18n: file: src/finduser.ui:165
+#. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
+#: po/rc.cpp:325 rc.cpp:325
+#, fuzzy
+msgctxt "Only show users of this sex"
+msgid "Female"
+msgstr "Ženské"
+
 #. i18n: file: src/finduser.ui:186
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:271 rc.cpp:271
+#: po/rc.cpp:331 rc.cpp:331
+#, fuzzy
+msgctxt "First page of advanced filtering options"
 msgid "Advanced 1"
 msgstr "Pokročilé 1"
 
 #. i18n: file: src/finduser.ui:258
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: po/rc.cpp:286 rc.cpp:286
+#: po/rc.cpp:346 rc.cpp:346
+#, fuzzy
+msgctxt "Second page of advanced filtering options"
 msgid "Advanced 2"
 msgstr "Pokročilé 2"
 
 #. i18n: file: src/finduser.ui:300
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/finduser.ui:348
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:389
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #. i18n: file: src/finduser.ui:300
-#. i18n: ectx: property (text), item, widget (QComboBox, cbOrientation)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
 #. i18n: file: src/finduser.ui:348
-#. i18n: ectx: property (text), item, widget (QComboBox, cbCommunication)
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:389
-#. i18n: ectx: property (text), item, widget (QComboBox, cbMotorFunction)
-#: po/rc.cpp:295 po/rc.cpp:316 po/rc.cpp:337 rc.cpp:295 rc.cpp:316 rc.cpp:337
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:355 po/rc.cpp:376 po/rc.cpp:397 rc.cpp:355 rc.cpp:376 rc.cpp:397
+#, fuzzy
+msgctxt "Ignore this field when filtering"
 msgid "0: All"
 msgstr "0: Vše"
+
+#. i18n: file: src/finduser.ui:305
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:353
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:394
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:305
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:353
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:394
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:358 po/rc.cpp:379 po/rc.cpp:400 rc.cpp:358 rc.cpp:379 rc.cpp:400
+#, fuzzy
+msgctxt "Scale from 1-5 with explanation"
+msgid "1: Very Good"
+msgstr "Velmi dobrý"
+
+#. i18n: file: src/finduser.ui:310
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:358
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:399
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:310
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:358
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:399
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:361 po/rc.cpp:382 po/rc.cpp:403 rc.cpp:361 rc.cpp:382 rc.cpp:403
+#, fuzzy
+msgctxt "Scale from 1-5 with explanation"
+msgid "2: Good"
+msgstr "Dobrý"
+
+#. i18n: file: src/finduser.ui:315
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:363
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:404
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:315
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:363
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:404
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:364 po/rc.cpp:385 po/rc.cpp:406 rc.cpp:364 rc.cpp:385 rc.cpp:406
+#, fuzzy
+msgctxt "Scale from 1-5 with explanation"
+msgid "3: Satisfactory"
+msgstr "Uspokojivý"
+
+#. i18n: file: src/finduser.ui:320
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:368
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:409
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:320
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:368
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:409
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:367 po/rc.cpp:388 po/rc.cpp:409 rc.cpp:367 rc.cpp:388 rc.cpp:409
+#, fuzzy
+msgctxt "Scale from 1-5 with explanation"
+msgid "4: Acceptable"
+msgstr "Postačující"
+
+#. i18n: file: src/finduser.ui:325
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:373
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:414
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#. i18n: file: src/finduser.ui:325
+#. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
+#. i18n: file: src/finduser.ui:373
+#. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
+#. i18n: file: src/finduser.ui:414
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
+#: po/rc.cpp:370 po/rc.cpp:391 po/rc.cpp:412 rc.cpp:370 rc.cpp:391 rc.cpp:412
+#, fuzzy
+msgctxt "Scale from 1-5 with explanation"
+msgid "5: Not acceptable"
+msgstr "Nepostačující"
+
+#. i18n: file: src/finduser.ui:429
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: po/rc.cpp:418 rc.cpp:418
+#, fuzzy
+msgctxt ""
+"Trainings mode where the user tries to repeat everything the facilitator says"
+msgid "Repeating:"
+msgstr "Opakování:"
 
 #. i18n: file: src/finduser.ui:452
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
@@ -785,7 +969,9 @@ msgstr "0: Vše"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
 #. i18n: file: src/finduser.ui:491
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
-#: po/rc.cpp:364 po/rc.cpp:373 src/usermodel.cpp:64 rc.cpp:364 rc.cpp:373
+#: po/rc.cpp:424 po/rc.cpp:433 rc.cpp:424 rc.cpp:433
+#, fuzzy
+msgctxt "Answer to: Only show users where x is true?"
 msgid "Yes"
 msgstr "Ano"
 
@@ -797,15 +983,25 @@ msgstr "Ano"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewNo)
 #. i18n: file: src/finduser.ui:498
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
-#: po/rc.cpp:367 po/rc.cpp:376 src/usermodel.cpp:65 rc.cpp:367 rc.cpp:376
+#: po/rc.cpp:427 po/rc.cpp:436 rc.cpp:427 rc.cpp:436
+#, fuzzy
+msgctxt "Answer to: Only show users where x is false?"
 msgid "No"
 msgstr "Ne"
 
 #. i18n: file: src/finduser.ui:514
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:379 rc.cpp:379
+#: po/rc.cpp:439 rc.cpp:439
 msgid "Apply Filters"
 msgstr "Použít filtry"
+
+#. i18n: file: src/finduser.ui:537
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#: po/rc.cpp:442 rc.cpp:442
+#, fuzzy
+msgctxt "Add user"
+msgid "Add"
+msgstr "Přidat"
 
 #. i18n: file: src/finduser.ui:557
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
@@ -815,7 +1011,7 @@ msgstr "Použít filtry"
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
 #. i18n: file: src/institution.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
-#: po/rc.cpp:385 po/rc.cpp:403 rc.cpp:385 rc.cpp:403
+#: po/rc.cpp:445 po/rc.cpp:463 rc.cpp:445 rc.cpp:463
 msgid "Edit"
 msgstr "Upravit"
 
@@ -827,40 +1023,54 @@ msgstr "Upravit"
 #. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
 #. i18n: file: src/main.ui:235
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:391 po/rc.cpp:469 src/manageinstitutions.cpp:51 rc.cpp:391
-#: rc.cpp:469
+#: po/rc.cpp:451 po/rc.cpp:529 src/manageinstitutions.cpp:51 rc.cpp:451
+#: rc.cpp:529
 msgid "Institutions"
 msgstr "Úřady"
 
 #. i18n: file: src/institution.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbName)
-#. i18n: file: src/main.ui:58
-#. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
-#. i18n: file: src/institution.ui:22
-#. i18n: ectx: property (text), widget (QLabel, lbName)
-#. i18n: file: src/main.ui:58
-#. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
-#: po/rc.cpp:394 po/rc.cpp:415 rc.cpp:394 rc.cpp:415
+#: po/rc.cpp:454 rc.cpp:454
+#, fuzzy
+msgctxt "Name of the institution"
 msgid "Name:"
 msgstr "Název:"
 
 #. i18n: file: src/institution.ui:32
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:397 rc.cpp:397
+#: po/rc.cpp:457 rc.cpp:457
 msgid "Filter"
 msgstr "Filtr"
 
 #. i18n: file: src/main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, SampleCollectorUi)
-#: po/rc.cpp:409 rc.cpp:409
+#: po/rc.cpp:469 rc.cpp:469
 msgid "SSC"
 msgstr "SSC"
 
+#. i18n: file: src/main.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
+#: po/rc.cpp:475 rc.cpp:475
+#, fuzzy
+msgctxt "Name of the user"
+msgid "Name:"
+msgstr "Název:"
+
 #. i18n: file: src/main.ui:79
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectPatient)
-#: po/rc.cpp:418 rc.cpp:418
+#: po/rc.cpp:478 rc.cpp:478
+#, fuzzy
+msgctxt "Select user associated with the entered id (fetch)"
 msgid "Select"
 msgstr "Vybrat"
+
+#. i18n: file: src/main.ui:89
+#. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
+#: po/rc.cpp:481 rc.cpp:481
+#, fuzzy
+msgctxt "Search for user"
+msgid "Search"
+msgstr "Hledat"
 
 #. i18n: file: src/main.ui:139
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
@@ -870,13 +1080,13 @@ msgstr "Vybrat"
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
 #. i18n: file: src/main.ui:210
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:430 po/rc.cpp:454 rc.cpp:430 rc.cpp:454
+#: po/rc.cpp:490 po/rc.cpp:514 rc.cpp:490 rc.cpp:514
 msgid "Repeat"
 msgstr "Opakovat"
 
 #. i18n: file: src/main.ui:142
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbRepeat)
-#: po/rc.cpp:433 rc.cpp:433
+#: po/rc.cpp:493 rc.cpp:493
 msgid ""
 "The interviewer reads out words on the screen which are then repeated and "
 "recorded by the patient"
@@ -892,14 +1102,14 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbTraining)
 #. i18n: file: src/main.ui:215
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:436 po/rc.cpp:457 src/trainingswizard.cpp:134
-#: src/trainsampleintropage.cpp:33 rc.cpp:436 rc.cpp:457
+#: po/rc.cpp:496 po/rc.cpp:517 src/trainsampleintropage.cpp:32 rc.cpp:496
+#: rc.cpp:517
 msgid "Training"
 msgstr "Procvičování"
 
 #. i18n: file: src/main.ui:152
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbTraining)
-#: po/rc.cpp:439 rc.cpp:439
+#: po/rc.cpp:499 rc.cpp:499
 msgid "The user reads training texts from the screen."
 msgstr "Uživatel čte procvičovací texty z obrazovky."
 
@@ -911,117 +1121,151 @@ msgstr "Uživatel čte procvičovací texty z obrazovky."
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbInterview)
 #. i18n: file: src/main.ui:220
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:442 po/rc.cpp:460 src/trainingswizard.cpp:139 rc.cpp:442
-#: rc.cpp:460
+#: po/rc.cpp:502 po/rc.cpp:520 rc.cpp:502 rc.cpp:520
 msgid "Interview"
 msgstr "Rozhovor"
 
 #. i18n: file: src/main.ui:162
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbInterview)
-#: po/rc.cpp:445 rc.cpp:445
+#: po/rc.cpp:505 rc.cpp:505
 msgid "The user answers interview questions freely. The answers are recorded."
 msgstr ""
 "Uživatel volně odpovídá na otázky při rozhovoru. Odpovědi jsou nahrávány."
 
 #. i18n: file: src/main.ui:195
 #. i18n: ectx: property (title), widget (QMenu, menuFile)
-#: po/rc.cpp:448 rc.cpp:448
+#: po/rc.cpp:508 rc.cpp:508
 msgid "File"
 msgstr "Soubor"
 
 #. i18n: file: src/main.ui:205
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:451 rc.cpp:451
+#: po/rc.cpp:511 rc.cpp:511
+#, fuzzy
+msgctxt "Quit the application"
 msgid "Quit"
 msgstr "Ukončit"
 
 #. i18n: file: src/main.ui:225
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:463 src/sscview.cpp:177 rc.cpp:463
+#: po/rc.cpp:523 src/sscview.cpp:194 rc.cpp:523
 msgid "Connect"
 msgstr "Připojit"
 
 #. i18n: file: src/main.ui:230
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:466 src/sscview.cpp:184 rc.cpp:466
+#: po/rc.cpp:526 src/sscview.cpp:202 rc.cpp:526
 msgid "Disconnect"
 msgstr "Odpojit"
 
 #. i18n: file: src/modifyuserininstitution.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyUserInInstitution)
-#: po/rc.cpp:472 src/modifyuserininstitution.cpp:44 rc.cpp:472
+#: po/rc.cpp:532 src/modifyuserininstitution.cpp:44 rc.cpp:532
 msgid "User - Institution"
 msgstr "Uživatel - Úřad"
 
+#. i18n: file: src/modifyuserininstitution.ui:48
+#. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
+#: po/rc.cpp:538 rc.cpp:538
+#, fuzzy
+msgctxt "Search for institutions"
+msgid "Search"
+msgstr "Hledat"
+
 #. i18n: file: src/modifyuserininstitution.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:481 rc.cpp:481
+#: po/rc.cpp:541 rc.cpp:541
 msgid "Institution assigned ID:"
 msgstr "Úřadem přidělené ID (poznávací znamení):"
 
 #. i18n: file: src/sscui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:484 rc.cpp:484
+#: po/rc.cpp:544 rc.cpp:544
 msgid "Main actions"
 msgstr "Hlavní činnosti"
 
-#. i18n: file: src/sscui.rc:14
-#. i18n: ectx: Menu (sscd)
-#: po/rc.cpp:487 rc.cpp:487
-msgid "Server"
-msgstr "Server"
-
-#. i18n: file: src/sscui.rc:19
+#. i18n: file: src/sscui.rc:22
 #. i18n: ectx: Menu (manage)
-#: po/rc.cpp:490 rc.cpp:490
+#: po/rc.cpp:550 rc.cpp:550
 msgid "Manage"
 msgstr "Spravovat"
 
-#. i18n: file: src/sscui.rc:26
+#. i18n: file: src/sscui.rc:30
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:493 rc.cpp:493
+#: po/rc.cpp:553 rc.cpp:553
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: po/rc.cpp:494 rc.cpp:494
+#. i18n: file: src/uploadsamples.ui:20
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:556 rc.cpp:556
+msgid "Please select the data set to edit / send from the list below."
+msgstr ""
+
+#. i18n: file: src/uploadsamples.ui:48
+#. i18n: ectx: property (text), widget (KPushButton, pbUploadSamples)
+#: po/rc.cpp:559 rc.cpp:559
+msgid "Upload"
+msgstr ""
+
+#. i18n: file: src/uploadsamples.ui:55
+#. i18n: ectx: property (text), widget (KPushButton, pbEdit)
+#: po/rc.cpp:562 rc.cpp:562
+#, fuzzy
+msgid "Edit user"
+msgstr "Přidat uživatele"
+
+#. i18n: file: src/uploadsamples.ui:62
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteSamples)
+#: po/rc.cpp:565 rc.cpp:565
+#, fuzzy
+msgctxt "Delete the selected sample package"
+msgid "Delete selected"
+msgstr "Vyberte, prosím, nějakého uživatele"
+
+#: po/rc.cpp:566 rc.cpp:566
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:495 rc.cpp:495
+#: po/rc.cpp:567 rc.cpp:567
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#: src/deviceinformationpage.cpp:40
+#: src/deviceinformationpage.cpp:39
 msgid "Device information"
 msgstr "Informace o zařízení"
 
-#: src/deviceinformationpage.cpp:46
+#: src/deviceinformationpage.cpp:45
 msgid "Please provide some info about your recording devices."
 msgstr "Poskytněte, prosím, nějaké informace o vašem nahrávacím zařízení."
 
-#: src/institutionmodel.cpp:77 src/usermodel.cpp:130
+#: src/institutionmodel.cpp:77
+#, fuzzy
+msgctxt "Identification number of the institution"
 msgid "Id"
 msgstr "ID"
 
 #: src/institutionmodel.cpp:79
+#, fuzzy
+msgctxt "Name of the institution"
 msgid "Name"
 msgstr "Název"
 
-#: src/main.cpp:9
+#: src/main.cpp:28
 msgid "simon sample collector"
 msgstr "Simonův sběratel nahrávek (simon sample collector)"
 
-#: src/main.cpp:14
+#: src/main.cpp:32
 msgid "ssc"
 msgstr "ssc"
 
-#: src/main.cpp:15
+#: src/main.cpp:33
 msgid "(C) 2009 Peter Grasch"
 msgstr "(C) 2009 Peter Grasch"
 
-#: src/main.cpp:16
+#: src/main.cpp:34
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
@@ -1033,7 +1277,7 @@ msgstr "Nový úřad"
 msgid "Institution name:"
 msgstr "Název úřadu:"
 
-#: src/manageinstitutions.cpp:74
+#: src/manageinstitutions.cpp:73
 msgid "Could not add institution: %1"
 msgstr "Nepodařilo se přidat úřad: %1"
 
@@ -1041,19 +1285,19 @@ msgstr "Nepodařilo se přidat úřad: %1"
 msgid "Please select an institution"
 msgstr "Vyberte, prosím, nějaký úřad"
 
-#: src/manageinstitutions.cpp:95
+#: src/manageinstitutions.cpp:96
 msgid "Modify \"%1\""
 msgstr "Změnit \"%1\""
 
-#: src/manageinstitutions.cpp:96
+#: src/manageinstitutions.cpp:97
 msgid "New institution name for institution \"%1\":"
 msgstr "Nový název úřadu pro úřad \"%1\":"
 
-#: src/manageinstitutions.cpp:103
+#: src/manageinstitutions.cpp:104
 msgid "Could not modify institution: %1"
 msgstr "Nepodařilo se upravit úřad: %1"
 
-#: src/manageinstitutions.cpp:110
+#: src/manageinstitutions.cpp:112
 msgid ""
 "Do you really want to delete the institution? All user associations to this "
 "institution will also be deleted."
@@ -1061,11 +1305,11 @@ msgstr ""
 "Opravdu chcete smazat tento úřad? Všechna uživatelská spojení k tomuto úřadu "
 "budou taktéž smazána."
 
-#: src/manageinstitutions.cpp:117
+#: src/manageinstitutions.cpp:119
 msgid "Could not delete institution: %1"
 msgstr "Nepodařilo se smazat úřad: %1"
 
-#: src/manageinstitutions.cpp:132
+#: src/manageinstitutions.cpp:134
 msgid "Could not retrieve institutions: %1"
 msgstr "Nepodařilo se získat úřady: %1"
 
@@ -1073,15 +1317,16 @@ msgstr "Nepodařilo se získat úřady: %1"
 msgid "Users"
 msgstr "Uživatelé"
 
-#: src/manageusers.cpp:75 src/modifyuser.cpp:197
-msgid "Couldn't retrieve languages: %1"
+#: src/manageusers.cpp:76 src/modifyuser.cpp:203
+#, fuzzy
+msgid "Could not retrieve languages: %1"
 msgstr "Nepodařilo se získat jazyky: %1"
 
-#: src/manageusers.cpp:100
+#: src/manageusers.cpp:104
 msgid "Please select an user"
 msgstr "Vyberte, prosím, nějakého uživatele"
 
-#: src/manageusers.cpp:133 src/sscview.cpp:262
+#: src/manageusers.cpp:139 src/sscview.cpp:341
 msgid ""
 "Do you really want to delete the user \"%1\" (\"%2\")?\n"
 "\n"
@@ -1092,15 +1337,15 @@ msgstr ""
 "\n"
 "Všechny sebrané nahrávky spojené s tímto uživatelem budou nevratně smazány!"
 
-#: src/manageusers.cpp:140 src/sscview.cpp:266
+#: src/manageusers.cpp:146 src/sscview.cpp:345
 msgid "Could not delete user: %1"
 msgstr "Nepodařilo se smazat uživatele: %1"
 
-#: src/manageusers.cpp:155
+#: src/manageusers.cpp:161
 msgid "InstitutionID is invalid"
 msgstr "ID úřadu je neplatné"
 
-#: src/manageusers.cpp:185
+#: src/manageusers.cpp:189
 msgid "Could not retrieve users: %1"
 msgstr "Nepodařilo se získat uživatele: %1"
 
@@ -1108,57 +1353,70 @@ msgstr "Nepodařilo se získat uživatele: %1"
 msgid "User management"
 msgstr "Správa uživatelů"
 
-#: src/modifyuser.cpp:169
+#: src/modifyuser.cpp:174
 msgid "Do you really want to remove this user - institution association?"
 msgstr "Opravdu chcete odstranit toto spojení uživatel - úřad?"
 
-#: src/modifyuser.cpp:213
-msgid "Couldn't retrieve user - institution associations: %1"
+#: src/modifyuser.cpp:220
+#, fuzzy
+msgid "Could not retrieve user - institution associations: %1"
 msgstr "Nepodařilo se získat spojení uživatel - úřad: %1"
 
-#: src/modifyuser.cpp:238
-msgid "Couldn't add user: %1"
+#: src/modifyuser.cpp:246
+#, fuzzy
+msgid "Could not add user: %1"
 msgstr "Nepodařilo se přidat uživatele: %1"
 
-#: src/modifyuser.cpp:264
-msgid "Couldn't modify user \"%1\": %2"
+#: src/modifyuser.cpp:273
+#, fuzzy
+msgid "Could not modify user \"%1\": %2"
 msgstr "Nepodařilo se upravit uživatele \"%1\": %2"
 
-#: src/modifyuser.cpp:283
-msgid "Couldn't delete user - institution association: %1"
+#: src/modifyuser.cpp:293
+#, fuzzy
+msgid "Could not delete user - institution association: %1"
 msgstr "Nepodařilo se smazat spojení uživatel - úřad: %1"
 
-#: src/modifyuser.cpp:289
-msgid "Couldn't add user - institution association: %1"
+#: src/modifyuser.cpp:299
+#, fuzzy
+msgid "Could not add user - institution association: %1"
 msgstr "Nepodařilo se přidat spojení uživatel - úřad: %1"
 
-#: src/modifyuserininstitution.cpp:78
+#: src/modifyuserininstitution.cpp:82
 msgid "Please enter a valid institution id"
 msgstr "Zadejte, prosím, platné ID úřadu"
 
-#: src/sendsamplespage.cpp:48
+#: src/sendsamplespage.cpp:51
 msgid "Transmitting samples..."
 msgstr "Přenáší se vzorky s nahrávkami řeči..."
 
-#: src/sendsamplespage.cpp:50
+#: src/sendsamplespage.cpp:53
+#, fuzzy
 msgid ""
-"The recorded samples are now sent to the server.\n"
-"\n"
-"Please be patient..."
+"The recorded samples are now ready to be sent to the server or stored "
+"locally to be sent later."
 msgstr ""
 "Nahrané vzorky se nyní posílají na server.\n"
 "\n"
 "Mějte, prosím, chvíli trpělivost..."
 
-#: src/sendsamplespage.cpp:53
+#: src/sendsamplespage.cpp:56
 msgid "Send samples"
 msgstr "Poslat nahrávky"
 
-#: src/sendsamplespage.cpp:128
-msgid "Do you want to send the samples to the server?"
-msgstr "Chcete poslat vzorky s nahrávkami řeči na server?"
+#: src/sendsamplespage.cpp:60
+msgid "Store samples (send later)"
+msgstr ""
 
-#: src/sendsamplespage.cpp:139
+#: src/sendsamplespage.cpp:90
+msgid "Initializing"
+msgstr "Začíná se"
+
+#: src/sendsamplespage.cpp:105
+msgid "Storing data..."
+msgstr ""
+
+#: src/sendsamplespage.cpp:210
 msgid ""
 "Not connected to the server.\n"
 "\n"
@@ -1168,23 +1426,20 @@ msgstr ""
 "\n"
 "Chcete zřídit spojení nyní?"
 
-#: src/sendsamplespage.cpp:165
+#: src/sendsamplespage.cpp:237
 msgid "Not connected to server."
 msgstr "Není připojeno k serveru."
 
-#: src/sendsamplespage.cpp:175
-msgid "Transmitting samples"
-msgstr "Přenáší se vzorky s nahrávkami řeči"
+#: src/sendsamplespage.cpp:243
+#, fuzzy
+msgid "Sending data..."
+msgstr "Posílá se: %1"
 
-#: src/sendsamplespage.cpp:175
-msgid "Initializing"
-msgstr "Začíná se"
-
-#: src/sendsamplespage.cpp:197
+#: src/sendsamplespage.cpp:257
 msgid "Could not send sample"
 msgstr "Nepodařilo se poslat nahrávku"
 
-#: src/sendsamplespage.cpp:221
+#: src/sendsampleworker.cpp:60
 msgid ""
 "Failed to start the sample transmission.\n"
 "\n"
@@ -1196,15 +1451,24 @@ msgstr ""
 "Nejpravděpodobněji je to způsobeno tím, že se nepodařilo přenést informace "
 "přes použitá vstupní zařízení."
 
-#: src/sendsamplespage.cpp:231
+#: src/sendsampleworker.cpp:70
 msgid "Sending: %1"
 msgstr "Posílá se: %1"
 
-#: src/sendsamplespage.cpp:247
-msgid "Server couldn't process sample: %1"
+#: src/sendsampleworker.cpp:89
+#, fuzzy
+msgid "Server could not process sample: %1"
 msgstr "Serveru se nepodařilo zpracovat nahrávku: %1"
 
-#: src/sscdaccess.cpp:118
+#: src/sendsampleworker.cpp:112
+msgid "Profile information could not be removed: %1."
+msgstr ""
+
+#: src/sendsampleworker.cpp:115
+msgid "Storage directory could not be removed: %1."
+msgstr ""
+
+#: src/sscdaccess.cpp:119
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -1216,11 +1480,11 @@ msgstr ""
 "\n"
 "Stále ještě chcete pokračovat?"
 
-#: src/sscdaccess.cpp:119
+#: src/sscdaccess.cpp:120
 msgid "Self-Signed Certificate"
 msgstr "Potvrzení podepsané jím samotným"
 
-#: src/sscdaccess.cpp:170
+#: src/sscdaccess.cpp:174
 msgid ""
 "Request timed out (%1 ms) or connection was reset.\n"
 "\n"
@@ -1231,102 +1495,112 @@ msgstr ""
 "\n"
 "Prověřte, prosím, své síťové spojení a zkuste to znovu."
 
-#: src/sscdaccess.cpp:226 src/sscdaccess.cpp:244 src/sscdaccess.cpp:261
-msgid "Couldn't write request"
+#: src/sscdaccess.cpp:233 src/sscdaccess.cpp:252 src/sscdaccess.cpp:270
+#, fuzzy
+msgid "Could not write request"
 msgstr "Nepodařilo se odeslat žádost"
 
-#: src/sscdaccess.cpp:370 src/sscdaccess.cpp:482
+#: src/sscdaccess.cpp:377 src/sscdaccess.cpp:500
 msgid "User ID not found"
 msgstr "Uživatelovo ID nenalezeno"
 
-#: src/sscdaccess.cpp:375 src/sscdaccess.cpp:430 src/sscdaccess.cpp:460
-#: src/sscdaccess.cpp:487 src/sscdaccess.cpp:530 src/sscdaccess.cpp:573
-#: src/sscdaccess.cpp:635 src/sscdaccess.cpp:671 src/sscdaccess.cpp:715
-#: src/sscdaccess.cpp:759 src/sscdaccess.cpp:786 src/sscdaccess.cpp:813
-#: src/sscdaccess.cpp:838 src/sscdaccess.cpp:863 src/sscdaccess.cpp:892
-#: src/sscdaccess.cpp:917 src/sscdaccess.cpp:959 src/sscdaccess.cpp:1023
+#: src/sscdaccess.cpp:383 src/sscdaccess.cpp:441 src/sscdaccess.cpp:475
+#: src/sscdaccess.cpp:506 src/sscdaccess.cpp:552 src/sscdaccess.cpp:599
+#: src/sscdaccess.cpp:665 src/sscdaccess.cpp:705 src/sscdaccess.cpp:752
+#: src/sscdaccess.cpp:799 src/sscdaccess.cpp:830 src/sscdaccess.cpp:861
+#: src/sscdaccess.cpp:890 src/sscdaccess.cpp:919 src/sscdaccess.cpp:953
+#: src/sscdaccess.cpp:982 src/sscdaccess.cpp:1028 src/sscdaccess.cpp:1095
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: src/sscdaccess.cpp:424
+#: src/sscdaccess.cpp:434
 msgid "Users could not be read"
 msgstr "Nepodařilo se přečíst uživatele"
 
-#: src/sscdaccess.cpp:456
-msgid "Couldn't add user"
+#: src/sscdaccess.cpp:470
+#, fuzzy
+msgid "Could not add user"
 msgstr "Nepodařilo se přidat uživatele"
 
-#: src/sscdaccess.cpp:524
+#: src/sscdaccess.cpp:545
 msgid "Microphones could not be read"
 msgstr "Nepodařilo se přečíst mikrofony"
 
-#: src/sscdaccess.cpp:567
+#: src/sscdaccess.cpp:592
 msgid "SoundCards could not be read"
 msgstr "Nepodařilo se přečíst zvukové karty"
 
-#: src/sscdaccess.cpp:618
+#: src/sscdaccess.cpp:647
 msgid "Microphone could not be fetched / created"
 msgstr "Nepodařilo se natáhnout/vytvořit mikrofon"
 
-#: src/sscdaccess.cpp:665
+#: src/sscdaccess.cpp:698
 msgid "Sound card could not be fetched / created"
 msgstr "Nepodařilo se natáhnout/vytvořit zvukovou kartu"
 
-#: src/sscdaccess.cpp:709
+#: src/sscdaccess.cpp:745
 msgid "Languages could not be read"
 msgstr "Nepodařilo se přečíst jazyky"
 
-#: src/sscdaccess.cpp:753
+#: src/sscdaccess.cpp:792
 msgid "Institutions could not be read"
 msgstr "Nepodařilo se přečíst úřady"
 
-#: src/sscdaccess.cpp:782
-msgid "Couldn't add institution"
+#: src/sscdaccess.cpp:825
+#, fuzzy
+msgid "Could not add institution"
 msgstr "Nepodařilo se přidat úřad"
 
-#: src/sscdaccess.cpp:808
+#: src/sscdaccess.cpp:855
 msgid "Institution ID not found"
 msgstr "ID úřadu nebylo nalezeno"
 
-#: src/sscdaccess.cpp:834
-msgid "Couldn't delete institution"
+#: src/sscdaccess.cpp:885
+#, fuzzy
+msgid "Could not delete institution"
 msgstr "Nepodařilo se smazat úřad"
 
-#: src/sscdaccess.cpp:859
-msgid "Couldn't delete user"
+#: src/sscdaccess.cpp:914
+#, fuzzy
+msgid "Could not delete user"
 msgstr "Nepodařilo se smazat uživatele"
 
-#: src/sscdaccess.cpp:884
-msgid "Couldn't find user"
+#: src/sscdaccess.cpp:943
+#, fuzzy
+msgid "Could not find user"
 msgstr "Nepodařilo se najít uživatele"
 
-#: src/sscdaccess.cpp:888
-msgid "Couldn't find institution"
+#: src/sscdaccess.cpp:948
+#, fuzzy
+msgid "Could not find institution"
 msgstr "Nepodařilo se najít úřad"
 
-#: src/sscdaccess.cpp:913
-msgid "Couldn't find record"
+#: src/sscdaccess.cpp:977
+#, fuzzy
+msgid "Could not find record"
 msgstr "Nepodařilo se najít datový záznam nahrávky"
 
-#: src/sscdaccess.cpp:953
+#: src/sscdaccess.cpp:1021
 msgid "User - institution associations could not be read"
 msgstr "Uživatel - Přiřazení úřadů se nepodařilo přečíst"
 
-#: src/sscdaccess.cpp:1019
+#: src/sscdaccess.cpp:1090
 msgid "Server failed to store sample"
 msgstr "Serveru se nepodařilo uložit nahrávku"
 
-#: src/sscview.cpp:88
+#: src/sscview.cpp:99
 msgid "Please enter a valid user id."
 msgstr "Zadejte, prosím, platné uživatelské ID"
 
-#: src/sscview.cpp:95
-msgid "Couldn't retrieve user: %1"
+#: src/sscview.cpp:107
+#, fuzzy
+msgid "Could not retrieve user: %1"
 msgstr "Nepodařilo se získat uživatele: %1"
 
-#: src/sscview.cpp:163
+#: src/sscview.cpp:179
+#, fuzzy
 msgid ""
-"Couldn't resolve institution reference id of the given user.\n"
+"Could not resolve institution reference id of the given user.\n"
 "\n"
 "Maybe he is not on your institution? You might want to disable institution "
 "specific ids in the configuration."
@@ -1336,35 +1610,105 @@ msgstr ""
 "Snad není zapsán ve vašem úřadu? Možná budete chtít v tomto bodě vypnout v "
 "nastavení ID příznačné pro tento úřad."
 
-#: src/sscview.cpp:191
+#: src/sscview.cpp:196
+#, fuzzy
+msgid "Connect to the sscd server"
+msgstr "Není připojeno k serveru."
+
+#: src/sscview.cpp:204
+msgid "Disconnect from the sscd server"
+msgstr ""
+
+#: src/sscview.cpp:210
+msgid "Offline mode"
+msgstr ""
+
+#: src/sscview.cpp:212
+msgid "Switch to offline mode"
+msgstr ""
+
+#: src/sscview.cpp:220
 msgid "Add user"
 msgstr "Přidat uživatele"
 
-#: src/sscview.cpp:205
+#: src/sscview.cpp:222
+#, fuzzy
+msgid "Add a new user"
+msgstr "Přidat uživatele"
+
+#: src/sscview.cpp:229
+msgid "Show, edit and add users"
+msgstr ""
+
+#: src/sscview.cpp:236
 msgid "Manage institutions"
 msgstr "Spravovat úřady"
 
-#: src/sscview.cpp:219
+#: src/sscview.cpp:238
+#, fuzzy
+msgid "Show, edit and add institutions"
+msgstr "Nepodařilo se přidat úřad"
+
+#: src/sscview.cpp:244
+msgid "Upload stored data"
+msgstr ""
+
+#: src/sscview.cpp:246
+msgid "Browse, edit, delete and upload stored sample collections"
+msgstr ""
+
+#: src/sscview.cpp:257
+#, fuzzy
+msgctxt "Disconnected from server"
 msgid "Disconnected"
 msgstr "Odpojen"
 
-#: src/sscview.cpp:296
-msgid "You are already connected."
-msgstr "Jste již připojen."
+#: src/sscview.cpp:267
+msgid ""
+"You are currently connected. If you switch to offline mode you will first be "
+"disconnected form the server.\n"
+"\n"
+"Do you want to continue?"
+msgstr ""
 
-#: src/sscview.cpp:300
-msgid "Connecting..."
-msgstr "Připojuje se..."
+#: src/sscview.cpp:275
+msgid ""
+"If you continue you will get access to the sample training despite not being "
+"connected to the server.\n"
+"\n"
+"Because of this, ssc can not make sure that the specified user exists. If it "
+"does not you will run into trouble later.\n"
+"\n"
+"Only use this function if you really know what you are doing! It is also not "
+"possible to use institution specific ids in offline mode."
+msgstr ""
 
-#: src/sscview.cpp:311
-msgid "Connected"
-msgstr "Připojen"
+#: src/sscview.cpp:279
+#, fuzzy
+msgid "Not connected (Offline mode)"
+msgstr "Není připojeno"
 
-#: src/sscview.cpp:334
+#: src/sscview.cpp:287 src/sscview.cpp:427
 msgid "Not connected"
 msgstr "Není připojeno"
 
-#: src/sscview.cpp:357
+#: src/sscview.cpp:378
+msgid "You are already connected."
+msgstr "Jste již připojen."
+
+#: src/sscview.cpp:382
+#, fuzzy
+msgctxt "Connecting to server"
+msgid "Connecting..."
+msgstr "Připojuje se..."
+
+#: src/sscview.cpp:395
+#, fuzzy
+msgctxt "Connected to server"
+msgid "Connected"
+msgstr "Připojen"
+
+#: src/sscview.cpp:450
 msgid ""
 "The server closed the connection.\n"
 "\n"
@@ -1374,34 +1718,52 @@ msgstr ""
 "\n"
 "Chcete zkusit znovu se spojit?"
 
-#: src/sscview.cpp:390
+#: src/sscview.cpp:484
 msgid "You are not connected."
 msgstr "Nejste připojen."
 
-#: src/sscview.cpp:396
+#: src/sscview.cpp:490
 msgid "Disconnecting..."
 msgstr "Odpojuje se..."
 
-#: src/trainingswizard.cpp:129
+#: src/trainingswizard.cpp:174
+#, fuzzy
+msgctxt ""
+"Trainings type where the user is required to repeat what the recording "
+"facilitator tells him"
 msgid "Repeating"
 msgstr "Opakování"
 
-#: src/trainingswizard.cpp:145
+#: src/trainingswizard.cpp:180
+#, fuzzy
+msgctxt "Trainings type where the user reads prompts off the screen"
+msgid "Training"
+msgstr "Procvičování"
+
+#: src/trainingswizard.cpp:186
+#, fuzzy
+msgctxt ""
+"Trainings type where the facilitator asks general questions and the "
+"interviee answers them"
+msgid "Interview"
+msgstr "Rozhovor"
+
+#: src/trainingswizard.cpp:192
 msgid "Invalid set of prompts"
 msgstr "Neplatný soubor výzev"
 
-#: src/trainingswizard.cpp:163
+#: src/trainingswizard.cpp:209
 msgid "Training completed"
 msgstr "Procvičování je dokončeno"
 
-#: src/trainingswizard.cpp:165
+#: src/trainingswizard.cpp:211
 msgid ""
 "The samples have been collected. They will now be transferred to the server."
 msgstr ""
 "Potřebné nahrávky se vzorky řeči byly nahrány. Nyní budou přesunuty na "
 "server."
 
-#: src/trainingswizard.cpp:204
+#: src/trainingswizard.cpp:252
 msgid ""
 "Could not clean sample directory %1.\n"
 "\n"
@@ -1412,19 +1774,25 @@ msgstr ""
 "\n"
 "Odstraňte, prosím, všechna data z adresáře ručně."
 
-#: src/trainsampleintropage.cpp:39
+#: src/trainsampleintropage.cpp:38
 msgid "This wizard will guide you through the collecting of speech samples."
 msgstr "Tento průvodce vás provede sbíráním vzorků řeči."
 
-#: src/trainsampleintropage.cpp:41
+#: src/trainsampleintropage.cpp:40
 msgid "Power Recording"
 msgstr "Mocné nahrávání"
 
-#: src/trainsamplepage.cpp:42
+#: src/trainsampleintropage.cpp:41
+msgid ""
+"If activated the recording of the samples will automatically be started and "
+"stopped when you enter / leave the individual pages of the trainings text."
+msgstr ""
+
+#: src/trainsamplepage.cpp:60
 msgid "Page %1 of %2"
 msgstr "Strana  %1 z %2"
 
-#: src/trainsamplepage.cpp:46
+#: src/trainsamplepage.cpp:64
 msgid ""
 "Please record the Text below.\n"
 "\n"
@@ -1436,77 +1804,172 @@ msgstr ""
 "Tip: Před a po přečtení textu ponechejte něco mezi jednou a dvěma sekundami "
 "ticha. Takto dosáhnete těch nejlepších výsledků!\n"
 
-#: src/trainsamplepage.cpp:125
-msgid "Couldn't remove samples \"%1\"."
+#: src/trainsamplepage.cpp:99
+msgid ""
+"simon detected that at least one of the just recorded sample might have some "
+"issues.\n"
+"\n"
+"Select \"More information\" to find out how to fix this issue.\n"
+"\n"
+"Do you want to continue with your training without fixing this problem?"
+msgstr ""
+
+#: src/trainsamplepage.cpp:152
+#, fuzzy
+msgid "Could not remove samples \"%1\"."
 msgstr "Nepodařilo se odstranit ukázky \"%1\"."
 
-#: src/usermodel.cpp:48
+#: src/uploadsamples.cpp:44
+msgid "Local Samples"
+msgstr ""
+
+#: src/uploadsamples.cpp:86
+#, fuzzy
+msgid "Do you really want to delete the stored samples at \"%1\"?"
+msgstr "Opravdu chcete odstranit toto spojení uživatel - úřad?"
+
+#: src/uploadsamples.cpp:101
+#, fuzzy
+msgid ""
+"The directory could not be removed:\n"
+"%1"
+msgstr "Nepodařilo se přečíst uživatele"
+
+#: src/uploadsamples.cpp:118
+#, fuzzy
+msgid "Edit samples pack"
+msgstr "Poslat nahrávky"
+
+#: src/uploadsamples.cpp:118
+msgid ""
+"If you want to change the user id of this samples pack, please provide the "
+"new id below."
+msgstr ""
+
+#: src/uploadsamples.cpp:129
+msgid "Failed to create target directory at \"%1\""
+msgstr ""
+
+#: src/uploadsamples.cpp:136
+#, fuzzy
+msgid "Could not move \"%1\" to \"%2\"."
+msgstr "Nepodařilo se upravit uživatele \"%1\": %2"
+
+#: src/usermodel.cpp:49
+#, fuzzy
+msgctxt ""
+"Strings denoting a range from 1-5 (one being very good, the last one very "
+"bad; This is option 1"
 msgid "Very good"
 msgstr "Velmi dobrý"
 
-#: src/usermodel.cpp:50
+#: src/usermodel.cpp:51
+#, fuzzy
+msgctxt ""
+"Strings denoting a range from 1-5 (one being very good, the last one very "
+"bad; This is option 2"
 msgid "Good"
 msgstr "Dobrý"
 
-#: src/usermodel.cpp:52
+#: src/usermodel.cpp:53
+#, fuzzy
+msgctxt ""
+"Strings denoting a range from 1-5 (one being very good, the last one very "
+"bad; This is option 3"
 msgid "Satisfactory"
 msgstr "Uspokojivý"
 
-#: src/usermodel.cpp:54
+#: src/usermodel.cpp:55
+#, fuzzy
+msgctxt ""
+"Strings denoting a range from 1-5 (one being very good, the last one very "
+"bad; This is option 4"
 msgid "Acceptable"
 msgstr "Postačující"
 
-#: src/usermodel.cpp:56
+#: src/usermodel.cpp:57
+#, fuzzy
+msgctxt ""
+"Strings denoting a range from 1-5 (one being very good, the last one very "
+"bad; This is option 5"
 msgid "Not acceptable"
 msgstr "Nepostačující"
 
+#: src/usermodel.cpp:66
+#, fuzzy
+msgctxt "Possible answer to: Is x available?"
+msgid "Yes"
+msgstr "Ano"
+
+#: src/usermodel.cpp:67
+#, fuzzy
+msgctxt "Possible answer to: Is x available?"
+msgid "No"
+msgstr "Ne"
+
 #: src/usermodel.cpp:132
+msgid "Id"
+msgstr "ID"
+
+#: src/usermodel.cpp:134
 msgid "Surname"
 msgstr "Příjmení"
 
-#: src/usermodel.cpp:134
+#: src/usermodel.cpp:136
 msgid "Forename"
 msgstr "Křestní jméno"
 
-#: src/usermodel.cpp:136
+#: src/usermodel.cpp:138
 msgid "Sex"
 msgstr "Pohlaví"
 
-#: src/usermodel.cpp:138
+#: src/usermodel.cpp:140
 msgid "Birthyear"
 msgstr "Rok narození"
 
-#: src/usermodel.cpp:140
+#: src/usermodel.cpp:142
 msgid "ZIP Code"
 msgstr "Poštovní směrovací číslo"
 
-#: src/usermodel.cpp:142
+#: src/usermodel.cpp:144
 msgid "Occupation"
 msgstr "Zaměstnání"
 
-#: src/usermodel.cpp:144
+#: src/usermodel.cpp:146
 msgid "Mothertongue"
 msgstr "Mateřský jazyk"
 
-#: src/usermodel.cpp:146
+#: src/usermodel.cpp:148
 msgid "Orientation"
 msgstr "Přehled"
 
-#: src/usermodel.cpp:148
+#: src/usermodel.cpp:150
 msgid "Communication"
 msgstr "Dorozumívání se"
 
-#: src/usermodel.cpp:150
+#: src/usermodel.cpp:152
 msgid "Motor function"
 msgstr "Schopnost pohybu"
 
-#: src/usermodel.cpp:152
+#: src/usermodel.cpp:154
 msgid "Interview Possible"
 msgstr "Rozhovor možný"
 
-#: src/usermodel.cpp:154
+#: src/usermodel.cpp:156
 msgid "Repeate Possible"
 msgstr "Opakování možné"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
+
+#~ msgid "Do you want to send the samples to the server?"
+#~ msgstr "Chcete poslat vzorky s nahrávkami řeči na server?"
+
+#~ msgid "Transmitting samples"
+#~ msgstr "Přenáší se vzorky s nahrávkami řeči"
+
+#~ msgid "Couldn't retrieve user: %1"
+#~ msgstr "Nepodařilo se získat uživatele: %1"
 
 #~ msgid "Request timed out (10000 ms)"
 #~ msgstr "Timeout (10000 ms)"

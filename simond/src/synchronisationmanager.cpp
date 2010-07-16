@@ -337,7 +337,7 @@ Model* SynchronisationManager::getBaseModel()
 
 int SynchronisationManager::getBaseModelType()
 {
-  if (username.isEmpty()) return 0;
+  if (username.isEmpty()) return -1;
 
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
   QString configPath = dirPath+"activerc";
@@ -347,6 +347,12 @@ int SynchronisationManager::getBaseModelType()
   bool ok;
   int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
   if (!ok) return 2;
+
+
+  if ((baseModelType == 1) /*adapted*/ &&
+      (getPromptsPath().isEmpty()))
+    baseModelType = 0;
+
   return baseModelType;
 }
 

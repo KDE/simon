@@ -3,159 +3,186 @@
 #
 # yann, 2009.
 # Yann Cantin <yann.cantin@laposte.net>, 2009.
+# Yann Cantin <yann.cantinlaposte.net>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:16+0200\n"
-"PO-Revision-Date: 2009-06-09 01:31+0200\n"
-"Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"PO-Revision-Date: 2010-07-12 20:32+0200\n"
+"Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: inputnumbercommandmanager.cpp:63
-msgid "Activate Number Input"
-msgstr ""
+#: inputnumbercommandmanager.cpp:53
+#, fuzzy
+msgid "Display the number input"
+msgstr "Activer la saisie d'un nombre"
 
-#: inputnumbercommandmanager.cpp:88
+#: inputnumbercommandmanager.cpp:69
+msgid "Activate Number Input"
+msgstr "Activer la saisie d'un nombre"
+
+#: inputnumbercommandmanager.cpp:93
 msgid "Number"
 msgstr "Nombre"
 
-#: inputnumbercommandmanager.cpp:89
+#: inputnumbercommandmanager.cpp:94
 msgid "Displays the number input field"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:95
+#: inputnumbercommandmanager.cpp:100
+#, fuzzy
+msgctxt "Number"
 msgid "Zero"
 msgstr "Zéro"
 
-#: inputnumbercommandmanager.cpp:96
+#: inputnumbercommandmanager.cpp:101
 msgid "Clicks 0"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:98
+#: inputnumbercommandmanager.cpp:103
+#, fuzzy
+msgctxt "Number"
 msgid "One"
 msgstr "Un"
 
-#: inputnumbercommandmanager.cpp:99
+#: inputnumbercommandmanager.cpp:104
 msgid "Clicks 1"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:101
+#: inputnumbercommandmanager.cpp:106
+#, fuzzy
+msgctxt "Number"
 msgid "Two"
 msgstr "Deux"
 
-#: inputnumbercommandmanager.cpp:102
+#: inputnumbercommandmanager.cpp:107
 msgid "Clicks 2"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:104
+#: inputnumbercommandmanager.cpp:109
+#, fuzzy
+msgctxt "Number"
 msgid "Three"
 msgstr "Trois"
 
-#: inputnumbercommandmanager.cpp:105
+#: inputnumbercommandmanager.cpp:110
 msgid "Clicks 3"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:107
+#: inputnumbercommandmanager.cpp:112
+#, fuzzy
+msgctxt "Number"
 msgid "Four"
 msgstr "Quatre"
 
-#: inputnumbercommandmanager.cpp:108
+#: inputnumbercommandmanager.cpp:113
 msgid "Clicks 4"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:110
+#: inputnumbercommandmanager.cpp:115
+#, fuzzy
+msgctxt "Number"
 msgid "Five"
 msgstr "Cinq"
 
-#: inputnumbercommandmanager.cpp:111
+#: inputnumbercommandmanager.cpp:116
 msgid "Clicks 5"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:113
+#: inputnumbercommandmanager.cpp:118
+#, fuzzy
+msgctxt "Number"
 msgid "Six"
 msgstr "Six"
 
-#: inputnumbercommandmanager.cpp:114
+#: inputnumbercommandmanager.cpp:119
 msgid "Clicks 6"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:116
+#: inputnumbercommandmanager.cpp:121
+#, fuzzy
+msgctxt "Number"
 msgid "Seven"
 msgstr "Sept"
 
-#: inputnumbercommandmanager.cpp:117
+#: inputnumbercommandmanager.cpp:122
 msgid "Clicks 7"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:119
+#: inputnumbercommandmanager.cpp:124
+#, fuzzy
+msgctxt "Number"
 msgid "Eight"
 msgstr "Huit"
 
-#: inputnumbercommandmanager.cpp:120
+#: inputnumbercommandmanager.cpp:125
 msgid "Clicks 8"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:122
+#: inputnumbercommandmanager.cpp:127
+#, fuzzy
+msgctxt "Number"
 msgid "Nine"
 msgstr "Neuf"
 
-#: inputnumbercommandmanager.cpp:123
+#: inputnumbercommandmanager.cpp:128
 msgid "Clicks 9"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:125
+#: inputnumbercommandmanager.cpp:130
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr ""
 
-#: inputnumbercommandmanager.cpp:126
+#: inputnumbercommandmanager.cpp:131
 msgid "Decimal separator"
 msgstr ""
 
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#: inputnumbercommandmanager.cpp:130 po/rc.cpp:39 rc.cpp:39
+#: inputnumbercommandmanager.cpp:134
+#, fuzzy
+msgctxt "Word to say to remove the last recognized digit"
 msgid "Back"
 msgstr "Précédent"
 
-#: inputnumbercommandmanager.cpp:131
+#: inputnumbercommandmanager.cpp:135
 msgid "Deletes the last input character"
 msgstr ""
 
 #. i18n: file: inputnumberwidget.ui:116
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: inputnumbercommandmanager.cpp:133 po/rc.cpp:42 rc.cpp:42
+#: inputnumbercommandmanager.cpp:137 po/rc.cpp:42 rc.cpp:42
 msgid "Ok"
 msgstr "Ok"
 
-#: inputnumbercommandmanager.cpp:134
+#: inputnumbercommandmanager.cpp:138
 msgid "Accepts the input dialog and writes the number"
 msgstr ""
 
 #. i18n: file: inputnumberwidget.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: inputnumbercommandmanager.cpp:136 po/rc.cpp:45 rc.cpp:45
+#: inputnumbercommandmanager.cpp:140 po/rc.cpp:45 rc.cpp:45
 msgid "Cancel"
 msgstr "Annuler"
 
-#: inputnumbercommandmanager.cpp:137
+#: inputnumbercommandmanager.cpp:141
 msgid "Aborts the input dialog"
 msgstr ""
 
 #. i18n: file: inputnumberwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#: inputnumbercommandmanager.cpp:178 po/rc.cpp:3 rc.cpp:3
+#: inputnumbercommandmanager.cpp:186 po/rc.cpp:3 rc.cpp:3
 msgid "Input Number"
-msgstr "Saisissez un nombre"
+msgstr "Saisir un nombre"
 
-#: inputnumbercommandmanager.cpp:184
+#: inputnumbercommandmanager.cpp:192
 msgctxt "Decimal point"
 msgid "."
 msgstr "."
@@ -226,6 +253,14 @@ msgstr "0"
 msgid "."
 msgstr "."
 
+#. i18n: file: inputnumberwidget.ui:109
+#. i18n: ectx: property (text), widget (KPushButton, pbBack)
+#: po/rc.cpp:39 rc.cpp:39
+#, fuzzy
+msgctxt "Remove last entered digit (backspace)"
+msgid "Back"
+msgstr "Précédent"
+
 #: po/rc.cpp:46 rc.cpp:46
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
@@ -236,15 +271,18 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.fr"
 
-#~ msgid "Input numbers with ease"
-#~ msgstr "Saisissez un nombre facilement"
-
 #~ msgctxt "Name of the decimal seperator"
 #~ msgid "Comma"
 #~ msgstr "Virgule"
 
+#~ msgid "Input number"
+#~ msgstr "Saisir un nombre"
+
+#~ msgid "Input numbers with ease"
+#~ msgstr "Saisir un nombre facilement"
+
 #~ msgid "Form"
-#~ msgstr "Form"
+#~ msgstr "Forme"
 
 #~ msgid "Trigger:"
 #~ msgstr "Déclencheur :"

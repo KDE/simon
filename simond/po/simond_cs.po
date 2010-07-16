@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:17+0300\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-26 21:19+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -18,119 +18,173 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: config/plugin_exporter.cpp:16
+#: config/plugin_exporter.cpp:34
 msgid "User"
 msgstr "Uživatel"
 
-#: config/plugin_exporter.cpp:17
+#: config/plugin_exporter.cpp:35
 msgid "Network"
 msgstr "Síť"
 
 #: config/simonduserconfiguration.cpp:73
-msgid "Couldn't connect to database"
+#, fuzzy
+msgid "Could not connect to database"
 msgstr "K databázi se nelze připojit"
 
-#: config/simonduserconfiguration.cpp:88
+#: config/simonduserconfiguration.cpp:90
 msgid "Add a new user"
 msgstr "Přidat nového uživatele"
 
-#: config/simonduserconfiguration.cpp:96
-msgid "Couldn't add user"
+#: config/simonduserconfiguration.cpp:100
+#, fuzzy
+msgid "Could not add user"
 msgstr "Nelze přidat nového uživatele"
 
-#: config/simonduserconfiguration.cpp:104
+#: config/simonduserconfiguration.cpp:109
 msgid "Do you really want to remove the user from the database?"
 msgstr "Opravdu chcete, aby byl uživatel odstraněn z databáze?"
 
-#: config/simonduserconfiguration.cpp:111
-msgid "Couldn't remove User"
+#: config/simonduserconfiguration.cpp:115
+#, fuzzy
+msgid "Could not remove User"
 msgstr "Uživatele nelze odstranit"
 
-#: config/simonduserconfiguration.cpp:117
+#: config/simonduserconfiguration.cpp:121
 msgid "Do you also want to remove the speech model from the server?"
 msgstr "Chcete, aby byl model řeči odstraněn ze serveru?"
 
-#: config/simonduserconfiguration.cpp:121
-msgid "Couldn't remove the speech model"
+#: config/simonduserconfiguration.cpp:125
+#, fuzzy
+msgid "Could not remove the speech model"
 msgstr "Model řeči nelze odstranit"
 
-#: config/simonduserconfiguration.cpp:167
+#: config/simonduserconfiguration.cpp:171
 msgid "Change Password for User \"%1\""
 msgstr "Změnit heslo uživatele \"%1\""
 
-#: config/simonduserconfiguration.cpp:171
-msgid "Couldn't change Password"
+#: config/simonduserconfiguration.cpp:174
+#, fuzzy
+msgid "Could not change Password"
 msgstr "Heslo nelze změnit"
 
-#. i18n: file: config/simondconfiguration.kcfg:7
+#. i18n: file: config/simondconfiguration.kcfg:11
 #. i18n: ectx: label, entry (Port), group (Network)
-#: po/rc.cpp:3 rc.cpp:3
+#. i18n: file: config/simondconfiguration.kcfg:13
+#. i18n: ectx: tooltip, entry (Port), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:11
+#. i18n: ectx: label, entry (Port), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:13
+#. i18n: ectx: tooltip, entry (Port), group (Network)
+#: po/rc.cpp:3 po/rc.cpp:6 rc.cpp:3 rc.cpp:6
 msgid "The port to use for the server."
 msgstr "Brána, která se použije pro server."
 
-#. i18n: file: config/simondconfiguration.kcfg:11
+#. i18n: file: config/simondconfiguration.kcfg:16
 #. i18n: ectx: label, entry (BindTo), group (Network)
-#: po/rc.cpp:6 rc.cpp:6
-msgid "wether we want to restrict access to a certain IP."
+#: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
+msgid "whether we want to restrict access to a certain ip."
 msgstr "Zda chceme omezit přístup k určité IP."
 
-#. i18n: file: config/simondconfiguration.kcfg:15
+#. i18n: file: config/simondconfiguration.kcfg:18
+#. i18n: ectx: tooltip, entry (BindTo), group (Network)
+#: po/rc.cpp:12 rc.cpp:12
+#, fuzzy
+msgid "Whether we want to restrict access to a certain ip."
+msgstr "Zda chceme omezit přístup k určité IP."
+
+#. i18n: file: config/simondconfiguration.kcfg:21
 #. i18n: ectx: label, entry (Host), group (Network)
-#: po/rc.cpp:9 rc.cpp:9
+#. i18n: file: config/simondconfiguration.kcfg:23
+#. i18n: ectx: tooltip, entry (Host), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:21
+#. i18n: ectx: label, entry (Host), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:23
+#. i18n: ectx: tooltip, entry (Host), group (Network)
+#: po/rc.cpp:15 po/rc.cpp:18 rc.cpp:15 rc.cpp:18
 msgid "The only host to allow to connect to the server."
 msgstr "Jediný hostitelský počítač, kterému je povoleno připojit se k serveru."
 
-#. i18n: file: config/simondconfiguration.kcfg:20
+#. i18n: file: config/simondconfiguration.kcfg:27
 #. i18n: ectx: label, entry (UseEncryption), group (Network)
-#: po/rc.cpp:12 rc.cpp:12
-msgid "wether we want to encrypt the communication between simon and simond."
+#: po/rc.cpp:21 rc.cpp:21
+#, fuzzy
+msgid "whether we want to encrypt the communication between simon and simond."
 msgstr "Zda chceme, aby komunikace mezi simonem a simonemd byla zašifrována."
 
-#. i18n: file: config/simondconfiguration.kcfg:24
+#. i18n: file: config/simondconfiguration.kcfg:29
+#. i18n: ectx: tooltip, entry (UseEncryption), group (Network)
+#: po/rc.cpp:24 rc.cpp:24
+#, fuzzy
+msgid "Whether we want to encrypt the communication between simon and simond."
+msgstr "Zda chceme, aby komunikace mezi simonem a simonemd byla zašifrována."
+
+#. i18n: file: config/simondconfiguration.kcfg:32
 #. i18n: ectx: label, entry (EncryptionMethod), group (Network)
-#: po/rc.cpp:15 rc.cpp:15
+#. i18n: file: config/simondconfiguration.kcfg:33
+#. i18n: ectx: tooltip, entry (EncryptionMethod), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:32
+#. i18n: ectx: label, entry (EncryptionMethod), group (Network)
+#. i18n: file: config/simondconfiguration.kcfg:33
+#. i18n: ectx: tooltip, entry (EncryptionMethod), group (Network)
+#: po/rc.cpp:27 po/rc.cpp:30 rc.cpp:27 rc.cpp:30
 msgid "The encryption method to use."
 msgstr "Použít způsob zašifrování."
 
-#. i18n: file: config/simondconfiguration.kcfg:27
+#. i18n: file: config/simondconfiguration.kcfg:36
 #. i18n: ectx: label, entry (Certificate), group (Network)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:33 rc.cpp:33
 msgid "the path to the SSL certificate."
 msgstr "Cesta k potvrzení SSL."
 
-#. i18n: file: config/simondconfiguration.kcfg:33
+#. i18n: file: config/simondconfiguration.kcfg:37
+#. i18n: ectx: tooltip, entry (Certificate), group (Network)
+#: po/rc.cpp:36 rc.cpp:36
+#, fuzzy
+msgid "The path to the SSL certificate."
+msgstr "Cesta k potvrzení SSL."
+
+#. i18n: file: config/simondconfiguration.kcfg:43
 #. i18n: ectx: label, entry (KeepRecognitionSamples), group (User)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:39 rc.cpp:39
 msgid "keep temporary samples."
 msgstr "Zachovat dočasné nahrávky"
 
-#. i18n: file: config/simondconfiguration.kcfg:39
+#. i18n: file: config/simondconfiguration.kcfg:45
+#. i18n: ectx: tooltip, entry (KeepRecognitionSamples), group (User)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "Keep the samples used for the recognition."
+msgstr ""
+
+#. i18n: file: config/simondconfiguration.kcfg:50
 #. i18n: ectx: label, entry (DatabaseUrl), group (Database)
-#: po/rc.cpp:24 rc.cpp:24
+#. i18n: file: config/simondconfiguration.kcfg:52
+#. i18n: ectx: tooltip, entry (DatabaseUrl), group (Database)
+#. i18n: file: config/simondconfiguration.kcfg:50
+#. i18n: ectx: label, entry (DatabaseUrl), group (Database)
+#. i18n: file: config/simondconfiguration.kcfg:52
+#. i18n: ectx: tooltip, entry (DatabaseUrl), group (Database)
+#: po/rc.cpp:45 po/rc.cpp:48 rc.cpp:45 rc.cpp:48
 msgid "The path to the database."
 msgstr "Cesta k databázi."
 
-#. i18n: file: config/simondconfiguration.kcfg:46
+#. i18n: file: config/simondconfiguration.kcfg:58
 #. i18n: ectx: label, entry (ModelBackups), group (ModelManagement)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:51 rc.cpp:51
 msgid "how many model versions we should preserve."
 msgstr "Kolik verzí modelu se má zachovat."
 
-#. i18n: file: config/simondnetworkconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
-#. i18n: file: config/simonduserconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
-#. i18n: file: config/simondnetworkconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
-#. i18n: file: config/simonduserconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
-#: po/rc.cpp:30 po/rc.cpp:58 rc.cpp:30 rc.cpp:58
-msgid "Form"
-msgstr "Formulář"
+#. i18n: file: config/simondconfiguration.kcfg:60
+#. i18n: ectx: tooltip, entry (ModelBackups), group (ModelManagement)
+#: po/rc.cpp:54 rc.cpp:54
+#, fuzzy
+msgid ""
+"How many model versions we should preserv for the model backup / restore."
+msgstr "Kolik verzí modelu se má zachovat."
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:33 rc.cpp:33
+#: po/rc.cpp:57 rc.cpp:57
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -160,49 +214,49 @@ msgstr ""
 
 #. i18n: file: config/simondnetworkconfiguration.ui:36
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:40 rc.cpp:40
+#: po/rc.cpp:64 rc.cpp:64
 msgid "Port:"
 msgstr "Brána:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:56
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
-#: po/rc.cpp:43 rc.cpp:43
+#: po/rc.cpp:67 rc.cpp:67
 msgid "Only allow connections from:"
 msgstr "Pouze povolit spojení z:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:75
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
-#: po/rc.cpp:46 rc.cpp:46
+#: po/rc.cpp:70 rc.cpp:70
 msgid "Encryption"
 msgstr "Zašifrování"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:84
 #. i18n: ectx: property (text), widget (QLabel, lbCipher)
-#: po/rc.cpp:49 rc.cpp:49
+#: po/rc.cpp:73 rc.cpp:73
 msgid "Algorithm:"
 msgstr "Algoritmus"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:94
 #. i18n: ectx: property (text), widget (QLabel, lbCert)
-#: po/rc.cpp:52 rc.cpp:52
+#: po/rc.cpp:76 rc.cpp:76
 msgid "Certificate:"
 msgstr "Potvrzení:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:101
 #. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
-#: po/rc.cpp:55 rc.cpp:55
+#: po/rc.cpp:79 rc.cpp:79
 msgid "SSL-Certificate *.pem"
 msgstr "SSL-potvrzení *.pem"
 
 #. i18n: file: config/simonduserconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, cbKeepSamples)
-#: po/rc.cpp:61 rc.cpp:61
+#: po/rc.cpp:82 rc.cpp:82
 msgid "Keep recognition samples"
 msgstr "Zachovat nahrávky s rozpoznáváním"
 
 #. i18n: file: config/simonduserconfiguration.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:64 rc.cpp:64
+#: po/rc.cpp:85 rc.cpp:85
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -232,39 +286,39 @@ msgstr ""
 
 #. i18n: file: config/simonduserconfiguration.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:71 rc.cpp:71
+#: po/rc.cpp:92 rc.cpp:92
 msgid "Database:"
 msgstr "Databáze:"
 
 #. i18n: file: config/simonduserconfiguration.ui:70
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:74 rc.cpp:74
+#: po/rc.cpp:95 rc.cpp:95
 msgid "Add"
 msgstr "Přidat"
 
 #. i18n: file: config/simonduserconfiguration.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbChangePassword)
-#: po/rc.cpp:77 rc.cpp:77
+#: po/rc.cpp:98 rc.cpp:98
 msgid "Change Password"
 msgstr "Změnit heslo"
 
 #. i18n: file: config/simonduserconfiguration.ui:84
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:80 rc.cpp:80
+#: po/rc.cpp:101 rc.cpp:101
 msgid "Delete"
 msgstr "Smazat"
 
-#: po/rc.cpp:81 rc.cpp:81
+#: po/rc.cpp:102 rc.cpp:102
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:82 rc.cpp:82
+#: po/rc.cpp:103 rc.cpp:103
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: src/juliuscontrol.cpp:413
+#: src/juliuscontrol.cpp:415
 msgid ""
 "The recognition could not be started because your model contains words that "
 "consits of sounds that are not covered by your acoustic model.\n"
@@ -300,8 +354,9 @@ msgstr ""
 "Jsou postiženy následující fonémy (seznam nemusí být úplný)::\n"
 "%2"
 
-#: src/juliuscontrol.cpp:441
-msgid "Couldn't open log file. Please ignore detailed log output!"
+#: src/juliuscontrol.cpp:442
+#, fuzzy
+msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
 "Nepodařilo se otevřít soubor se zápisem. Nevšímejte si, prosím, podrobného "
 "výstupu zápisu!"
@@ -310,39 +365,59 @@ msgstr ""
 msgid "Internal Jconf error"
 msgstr "Vnitřní chyba Jconf"
 
-#: src/juliuscontrol.cpp:463
+#: src/juliuscontrol.cpp:462
 msgid "Could not initialize recognition"
 msgstr "Rozpoznávání nelze inicializovat"
 
-#: src/juliuscontrol.cpp:485
-msgid "Couldn't start adin-thread"
+#: src/juliuscontrol.cpp:479
+#, fuzzy
+msgid "Could not start adin-thread"
 msgstr ""
 "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, který "
 "je zodpovědný za rozpoznávání"
 
-#: src/juliuscontrol.cpp:509 src/juliuscontrol.cpp:538
+#: src/juliuscontrol.cpp:501 src/juliuscontrol.cpp:528
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: src/juliuscontrol.cpp:512 src/juliuscontrol.cpp:541
+#: src/juliuscontrol.cpp:504 src/juliuscontrol.cpp:531
 msgid "Error with the audio stream"
 msgstr "U zvukového proudu došlo k chybě"
 
-#: src/main.cpp:36
-msgid "The simon recognition daemon"
-msgstr "Démon rozpoznávání programu Simon"
+#: src/main.cpp:35
+msgid ""
+"The simon recognition daemon (powered by the Large Vocabulary Continuous "
+"Speech Recognition Engine Julius)"
+msgstr ""
 
-#: src/main.cpp:40
+#: src/main.cpp:39
 msgid "simond"
 msgstr "Simond"
 
-#: src/main.cpp:41
-msgid "(C) 2008 Peter Grasch"
-msgstr "(C) 2008 Peter Grasch"
+#: src/main.cpp:40
+msgid ""
+"(C) 2008-2010 Peter Grasch\n"
+"\n"
+"Julius:\n"
+"Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan\n"
+"Copyright (c) 1991-2009 Kawahara Lab., Kyoto University\n"
+"Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and "
+"Technology\n"
+"Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology\n"
+msgstr ""
 
-#: src/main.cpp:42
+#: src/main.cpp:46
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
+
+#~ msgid "The simon recognition daemon"
+#~ msgstr "Démon rozpoznávání programu Simon"
+
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
 
 #~ msgid ""
 #~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"

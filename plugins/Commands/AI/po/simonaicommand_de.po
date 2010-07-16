@@ -7,21 +7,22 @@ msgstr ""
 "Project-Id-Version: simonaicommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:14+0200\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-02-09 13:12+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: aicommandmanager.cpp:48 aicommandmanager.cpp:104 aiconfiguration.cpp:32
+#: aicommandmanager.cpp:53 aicommandmanager.cpp:113 aiconfiguration.cpp:32
 msgid "Artificial Intelligence"
 msgstr "Künstliche Intelligenz"
 
-#: aicommandmanager.cpp:104
+#: aicommandmanager.cpp:113
 msgid "Loading artificial intelligence..."
 msgstr "Lade künstliche Intelligenz..."
 
@@ -29,27 +30,24 @@ msgstr "Lade künstliche Intelligenz..."
 msgid "Voice controlled chatbot"
 msgstr "Sprachgesteuerter Chatbot"
 
-#. i18n: file: aiconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, AIConfigurationDlg)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Form"
-msgstr "Form"
-
 #. i18n: file: aiconfigurationdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:3 rc.cpp:3
 msgid "AI Personality:"
 msgstr "Künstliche Persönlichkeit:"
 
-#: po/rc.cpp:7 rc.cpp:7
+#: po/rc.cpp:4 rc.cpp:4
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:5 rc.cpp:5
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#~ msgid "Form"
+#~ msgstr "Form"
 
 #, fuzzy
 #~ msgid "Voice controlled mouse clicks"

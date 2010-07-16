@@ -3,159 +3,186 @@
 #
 # yann, 2009.
 # Yann Cantin <yann.cantin@laposte.net>, 2009.
+# Yann Cantin <yann.cantinlaposte.net>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:15+0300\n"
-"PO-Revision-Date: 2009-06-09 01:27+0200\n"
-"Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"PO-Revision-Date: 2010-07-12 19:50+0200\n"
+"Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. i18n: file: config/ksimondconfiguration.kcfg:7
+#. i18n: file: config/ksimondconfiguration.kcfg:11
 #. i18n: ectx: label, entry (AutoStart), group (KSimond)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "should ksimond start on KDE start?"
 msgstr "Lancer ksimond au démarrage de KDE ?"
 
-#. i18n: file: config/ksimondconfiguration.kcfg:11
-#. i18n: ectx: label, entry (AutoStartSimond), group (KSimond)
+#. i18n: file: config/ksimondconfiguration.kcfg:13
+#. i18n: ectx: tooltip, entry (AutoStart), group (KSimond)
 #: po/rc.cpp:6 rc.cpp:6
-msgid "wether we want to start simond automatically."
+#, fuzzy
+msgid "Should ksimond start on KDE start?"
+msgstr "Lancer ksimond au démarrage de KDE ?"
+
+#. i18n: file: config/ksimondconfiguration.kcfg:16
+#. i18n: ectx: label, entry (AutoStartSimond), group (KSimond)
+#: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
+msgid "whether we want to start simond automatically."
 msgstr "Si vous souhaitez démarrer simond automatiquement."
 
-#. i18n: file: config/ksimondconfiguration.kcfg:15
-#. i18n: ectx: label, entry (AutoReStartSimond), group (KSimond)
-#: po/rc.cpp:9 rc.cpp:9
-msgid ""
-"wether we want to start simond automatically after it quit unexpectedly."
-msgstr ""
-"Si vous souhaitez redémarrer simond automatiquement après un arrêt brutal."
-
-#. i18n: file: config/ksimondconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, KSimondSettings)
+#. i18n: file: config/ksimondconfiguration.kcfg:18
+#. i18n: ectx: tooltip, entry (AutoStartSimond), group (KSimond)
 #: po/rc.cpp:12 rc.cpp:12
-msgid "Form"
-msgstr "Form"
+#, fuzzy
+msgid "Whether we want to start simond automatically."
+msgstr "Si vous souhaitez démarrer simond automatiquement."
+
+#. i18n: file: config/ksimondconfiguration.kcfg:21
+#. i18n: ectx: label, entry (AutoReStartSimond), group (KSimond)
+#: po/rc.cpp:15 rc.cpp:15
+#, fuzzy
+msgid ""
+"whether we want to start simond automatically after it quit unexpectedly."
+msgstr ""
+"Si vous souhaitez redémarrer simond automatiquement après un arrêt "
+"intempestif."
+
+#. i18n: file: config/ksimondconfiguration.kcfg:23
+#. i18n: ectx: tooltip, entry (AutoReStartSimond), group (KSimond)
+#: po/rc.cpp:18 rc.cpp:18
+#, fuzzy
+msgid ""
+"Whether we want to start simond automatically after it quit unexpectedly."
+msgstr ""
+"Si vous souhaitez redémarrer simond automatiquement après un arrêt "
+"intempestif."
 
 #. i18n: file: config/ksimondconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Start ksimond when logging in"
 msgstr "Démarrer ksimond lors de la connexion"
 
 #. i18n: file: config/ksimondconfiguration.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStartSimond)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:24 rc.cpp:24
 msgid "Start simond when ksimond starts"
-msgstr "Démarrer simond au lancement de ksimond "
+msgstr "Démarrer simond au lancement de ksimond"
 
 #. i18n: file: config/ksimondconfiguration.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoReStartSimond)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Restart simond if it quits unexpectedly"
-msgstr "Redémarrer simond automatiquement après un arrêt brutal"
+msgstr "Redémarrer simond automatiquement après un arrêt intempestif"
 
-#: po/rc.cpp:22 rc.cpp:22
+#: po/rc.cpp:28 rc.cpp:28
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:23 rc.cpp:23
+#: po/rc.cpp:29 rc.cpp:29
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/ksimondview.cpp:55
+#: src/ksimondview.cpp:54
 msgid "simond"
-msgstr "simond "
+msgstr "simond"
 
-#: src/ksimondview.cpp:58 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
 msgid "Start simond"
 msgstr "Démarrer simond"
 
-#: src/ksimondview.cpp:63 src/ksimondview.cpp:85
-#, fuzzy
+#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
 msgid "Start simon"
-msgstr "Démarrer simond"
+msgstr "Démarrer simon"
 
-#: src/ksimondview.cpp:68 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
 msgid "Restart simond"
-msgstr "Redémarrer simond"
+msgstr "Relancer simond"
 
-#: src/ksimondview.cpp:74 src/ksimondview.cpp:88
+#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
 msgid "Stop simond"
 msgstr "Arrêter simond"
 
-#: src/ksimondview.cpp:80 src/ksimondview.cpp:89
+#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
 msgid "Configuration"
 msgstr "Configuration"
 
-#: src/ksimondview.cpp:118
+#: src/ksimondview.cpp:117
 msgid "simond is already running"
-msgstr "simond est déjà lancé"
+msgstr "Simond est déjà lancé"
 
-#: src/ksimondview.cpp:139
+#: src/ksimondview.cpp:138
 msgid "simond stopped"
-msgstr "simond arrêté"
+msgstr "Simond arrêté"
 
-#: src/ksimondview.cpp:154
+#: src/ksimondview.cpp:153
 msgid "simond started"
-msgstr "simond démarré"
+msgstr "Simond démarré"
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:181
+#, fuzzy
 msgid ""
-"Couldn't start simond.\n"
+"Could not start simond.\n"
 "\n"
 "Please check your configuration.\n"
 "\n"
 "Command: \"%1\""
 msgstr ""
-"simond ne démarre pas.\n"
+"Simond ne démarre pas.\n"
 "\n"
 "Vérifiez votre configuration.\n"
 "\n"
 "Commande : « %1 »"
 
-#: src/ksimondview.cpp:189
+#: src/ksimondview.cpp:185
 msgid "simond crashed. (Status: %1)"
-msgstr "simond a planté. ( État : %1 )"
+msgstr "Simond a planté. (État : %1)"
 
-#: src/ksimondview.cpp:193
+#: src/ksimondview.cpp:189
 msgid "Timeout."
 msgstr "Délai imparti dépassé."
 
-#: src/ksimondview.cpp:196
-msgid "Couldn't communicate with simond: Write failed."
-msgstr "Communication avec simond impossible : L'écriture a échouée."
+#: src/ksimondview.cpp:192
+#, fuzzy
+msgid "Could not communicate with simond: Write failed."
+msgstr "Impossible de communiquer avec simond : L'écriture a échouée."
 
-#: src/ksimondview.cpp:199
-msgid "Couldn't communicate with simond: Read failed."
-msgstr "Communication avec simond impossible : La lecture a échouée."
+#: src/ksimondview.cpp:195
+#, fuzzy
+msgid "Could not communicate with simond: Read failed."
+msgstr "Impossible de communiquer avec simond : La lecture a échouée."
 
-#: src/ksimondview.cpp:202
+#: src/ksimondview.cpp:198
 msgid "Unknown Error"
 msgstr "Erreur inconnue"
 
-#: src/main.cpp:9
+#: src/main.cpp:28
 msgid "A KDE 4 frontend for simond"
 msgstr "Interface graphique KDE 4 de simond"
 
-#: src/main.cpp:14
+#: src/main.cpp:32
 msgid "ksimond"
 msgstr "ksimond"
 
-#: src/main.cpp:15
+#: src/main.cpp:33
 msgid "(C) 2008 Peter Grasch"
 msgstr "(C) 2008 Peter Grasch"
 
-#: src/main.cpp:16
+#: src/main.cpp:34
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
+
+#~ msgid "Form"
+#~ msgstr "Forme"

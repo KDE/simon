@@ -7,45 +7,43 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:18+0200\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2009-03-03 19:56+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#. i18n: file: createtextmacrocommandwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, CreateTextMacroCommandWidget)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Form"
-msgstr "Formulář"
-
 #. i18n: file: createtextmacrocommandwidget.ui:19
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Associated text:"
 msgstr "Sdružený text:"
 
-#: po/rc.cpp:7 rc.cpp:7
+#: po/rc.cpp:4 rc.cpp:4
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:5 rc.cpp:5
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: textmacrocommand.cpp:32
+#: textmacrocommand.cpp:31
 msgid "Text-Macro"
 msgstr "Textové makro"
 
-#: textmacrocommand.cpp:53
+#: textmacrocommand.cpp:56
 msgid "Text"
 msgstr "Text"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
 
 #~ msgid "[INF] Loading text-macro commands from %1"
 #~ msgstr "[INF] Nahrává příkazy textových maker z %1"

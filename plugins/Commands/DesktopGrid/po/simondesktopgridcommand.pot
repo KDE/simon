@@ -9,233 +9,242 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:15+0200\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: desktopgridcommandmanager.cpp:67 desktopgridcommandmanager.cpp:160
-#: desktopgridconfiguration.cpp:31
+#: desktopgridcommandmanager.cpp:70 desktopgridcommandmanager.cpp:165
+#: desktopgridconfiguration.cpp:30
 msgid "Desktopgrid"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:73
+#: desktopgridcommandmanager.cpp:76
 msgid "[INF] Activating desktopgrid"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:98
+#: desktopgridcommandmanager.cpp:103
 msgid "Activate Desktopgrid"
+msgstr ""
+
+#: desktopgridcommandmanager.cpp:104
+msgid "Display the desktop grid"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:95
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:138 po/rc.cpp:27 rc.cpp:27
+#: desktopgridcommandmanager.cpp:142 po/rc.cpp:24 rc.cpp:24
 msgid "Left click"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:139
+#: desktopgridcommandmanager.cpp:143
 msgid "Double click"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:110
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:140 po/rc.cpp:36 rc.cpp:36
+#: desktopgridcommandmanager.cpp:144 po/rc.cpp:33 rc.cpp:33
 msgid "Right click"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:105
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:141 po/rc.cpp:33 rc.cpp:33
+#: desktopgridcommandmanager.cpp:145 po/rc.cpp:30 rc.cpp:30
 msgid "Middle click"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:142
+#: desktopgridcommandmanager.cpp:146
 msgid "Drag & Drop"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:161
+#: desktopgridcommandmanager.cpp:166
 msgid "Starts the desktop grid"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:168
+#: desktopgridcommandmanager.cpp:173
+msgctxt "Number"
 msgid "One"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:170
+#: desktopgridcommandmanager.cpp:175
 msgid "Clicks 1"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:172
+#: desktopgridcommandmanager.cpp:177
+msgctxt "Number"
 msgid "Two"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:173
+#: desktopgridcommandmanager.cpp:178
 msgid "Clicks 2"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:175
+#: desktopgridcommandmanager.cpp:180
+msgctxt "Number"
 msgid "Three"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:176
+#: desktopgridcommandmanager.cpp:181
 msgid "Clicks 3"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:178
+#: desktopgridcommandmanager.cpp:183
+msgctxt "Number"
 msgid "Four"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:179
+#: desktopgridcommandmanager.cpp:184
 msgid "Clicks 4"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:181
+#: desktopgridcommandmanager.cpp:186
+msgctxt "Number"
 msgid "Five"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:182
+#: desktopgridcommandmanager.cpp:187
 msgid "Clicks 5"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:184
+#: desktopgridcommandmanager.cpp:189
+msgctxt "Number"
 msgid "Six"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:185
+#: desktopgridcommandmanager.cpp:190
 msgid "Clicks 6"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:187
+#: desktopgridcommandmanager.cpp:192
+msgctxt "Number"
 msgid "Seven"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:188
+#: desktopgridcommandmanager.cpp:193
 msgid "Clicks 7"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:190
+#: desktopgridcommandmanager.cpp:195
+msgctxt "Number"
 msgid "Eight"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:191
+#: desktopgridcommandmanager.cpp:196
 msgid "Clicks 8"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:193
+#: desktopgridcommandmanager.cpp:198
+msgctxt "Number"
 msgid "Nine"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:194
+#: desktopgridcommandmanager.cpp:199
 msgid "Clicks 9"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:197
+#: desktopgridcommandmanager.cpp:202
+msgctxt "Cancel the destkop grid"
 msgid "Cancel"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:198
+#: desktopgridcommandmanager.cpp:203
 msgid "Aborts the selection process"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:203
+#: desktopgridcommandmanager.cpp:207
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:206
+#: desktopgridcommandmanager.cpp:210
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:209
+#: desktopgridcommandmanager.cpp:213
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:212
+#: desktopgridcommandmanager.cpp:216
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:215
+#: desktopgridcommandmanager.cpp:219
 msgid "In the click mode selection popup, this selects the drag and drop mode"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:218
+#: desktopgridcommandmanager.cpp:222
 msgid "In the click mode selection popup, cancels the selection"
 msgstr ""
 
-#: desktopgridconfiguration.cpp:32
+#: desktopgridconfiguration.cpp:31
 msgid "Voice controlled mouse clicks"
-msgstr ""
-
-#. i18n: file: desktopgridconfigurationdlg.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, DesktopGridConfigurationDlg)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Form"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseRealTransparency)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Use real transparency"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:27
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Action:"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:34
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAsk)
-#: po/rc.cpp:12 rc.cpp:12
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Always ask"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:44
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionDefault)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Use default without asking"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:53
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAskAndDefault)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Ask, but select default user idles for:"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:18 rc.cpp:18
 msgid "seconds"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Default mode:"
 msgstr ""
 
 #. i18n: file: desktopgridconfigurationdlg.ui:100
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Left double click"
 msgstr ""
 
-#: po/rc.cpp:37 rc.cpp:37
+#: po/rc.cpp:34 rc.cpp:34
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:38 rc.cpp:38
+#: po/rc.cpp:35 rc.cpp:35
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

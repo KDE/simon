@@ -35,9 +35,9 @@ ModelCompilationAdapterHTK::ModelCompilationAdapterHTK(const QString& userName, 
 
 
 bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionType adaptionType,
-const QStringList& scenarioPaths, const QString& promptsPathIn,
-const QString& lexiconPathOut, const QString& grammarPathOut,
-const QString& simpleVocabPathOut, const QString& promptsPathOut)
+    const QStringList& scenarioPaths, const QString& promptsPathIn,
+    const QString& lexiconPathOut, const QString& grammarPathOut,
+    const QString& simpleVocabPathOut, const QString& promptsPathOut)
 {
   kDebug() << "ADAPTING model";
   Vocabulary *mergedVocabulary = new Vocabulary();
@@ -70,7 +70,7 @@ const QString& simpleVocabPathOut, const QString& promptsPathOut)
 
   kDebug() << "ADAPTING model for real";
   if (!storeModel(adaptionType, lexiconPathOut, simpleVocabPathOut, grammarPathOut,
-  promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn)) {
+      promptsPathOut, mergedVocabulary, mergedGrammar, promptsPathIn)) {
     kWarning() << "Adaption failed";
     return false;
   }

@@ -5,142 +5,168 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simondesktopgridcommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:15+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-25 13:07+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: desktopgridcommandmanager.cpp:67 desktopgridcommandmanager.cpp:160
-#: desktopgridconfiguration.cpp:31
+#: desktopgridcommandmanager.cpp:70 desktopgridcommandmanager.cpp:165
+#: desktopgridconfiguration.cpp:30
 msgid "Desktopgrid"
 msgstr "Mřížka plochy"
 
-#: desktopgridcommandmanager.cpp:73
+#: desktopgridcommandmanager.cpp:76
 msgid "[INF] Activating desktopgrid"
 msgstr "[INF] Spouští se mřížka plochy"
 
-#: desktopgridcommandmanager.cpp:98
+#: desktopgridcommandmanager.cpp:103
 msgid "Activate Desktopgrid"
 msgstr "Zapnout mřížku plochy"
 
+#: desktopgridcommandmanager.cpp:104
+#, fuzzy
+msgid "Display the desktop grid"
+msgstr "Spustí mřížku plochy"
+
 #. i18n: file: desktopgridconfigurationdlg.ui:95
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:138 po/rc.cpp:27 rc.cpp:27
+#: desktopgridcommandmanager.cpp:142 po/rc.cpp:24 rc.cpp:24
 msgid "Left click"
 msgstr "Klepnutí levým tlačítkem myši"
 
-#: desktopgridcommandmanager.cpp:139
+#: desktopgridcommandmanager.cpp:143
 msgid "Double click"
 msgstr "Dvojité klepnutí"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:110
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:140 po/rc.cpp:36 rc.cpp:36
+#: desktopgridcommandmanager.cpp:144 po/rc.cpp:33 rc.cpp:33
 msgid "Right click"
 msgstr "Klepnutí pravým tlačítkem myši"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:105
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: desktopgridcommandmanager.cpp:141 po/rc.cpp:33 rc.cpp:33
+#: desktopgridcommandmanager.cpp:145 po/rc.cpp:30 rc.cpp:30
 msgid "Middle click"
 msgstr "Klepnutí prostředním tlačítkem myši"
 
-#: desktopgridcommandmanager.cpp:142
+#: desktopgridcommandmanager.cpp:146
 msgid "Drag & Drop"
 msgstr "Táhnout a pustit"
 
-#: desktopgridcommandmanager.cpp:161
+#: desktopgridcommandmanager.cpp:166
 msgid "Starts the desktop grid"
 msgstr "Spustí mřížku plochy"
 
-#: desktopgridcommandmanager.cpp:168
+#: desktopgridcommandmanager.cpp:173
+#, fuzzy
+msgctxt "Number"
 msgid "One"
 msgstr "Jeden"
 
-#: desktopgridcommandmanager.cpp:170
+#: desktopgridcommandmanager.cpp:175
 msgid "Clicks 1"
 msgstr "Klepne 1"
 
-#: desktopgridcommandmanager.cpp:172
+#: desktopgridcommandmanager.cpp:177
+#, fuzzy
+msgctxt "Number"
 msgid "Two"
 msgstr "Dva"
 
-#: desktopgridcommandmanager.cpp:173
+#: desktopgridcommandmanager.cpp:178
 msgid "Clicks 2"
 msgstr "Klepne 2"
 
-#: desktopgridcommandmanager.cpp:175
+#: desktopgridcommandmanager.cpp:180
+#, fuzzy
+msgctxt "Number"
 msgid "Three"
 msgstr "Tři"
 
-#: desktopgridcommandmanager.cpp:176
+#: desktopgridcommandmanager.cpp:181
 msgid "Clicks 3"
 msgstr "Klepne 3"
 
-#: desktopgridcommandmanager.cpp:178
+#: desktopgridcommandmanager.cpp:183
+#, fuzzy
+msgctxt "Number"
 msgid "Four"
 msgstr "Čtyři"
 
-#: desktopgridcommandmanager.cpp:179
+#: desktopgridcommandmanager.cpp:184
 msgid "Clicks 4"
 msgstr "Klepne 4"
 
-#: desktopgridcommandmanager.cpp:181
+#: desktopgridcommandmanager.cpp:186
+#, fuzzy
+msgctxt "Number"
 msgid "Five"
 msgstr "Pět"
 
-#: desktopgridcommandmanager.cpp:182
+#: desktopgridcommandmanager.cpp:187
 msgid "Clicks 5"
 msgstr "Klepne 5"
 
-#: desktopgridcommandmanager.cpp:184
+#: desktopgridcommandmanager.cpp:189
+#, fuzzy
+msgctxt "Number"
 msgid "Six"
 msgstr "Šest"
 
-#: desktopgridcommandmanager.cpp:185
+#: desktopgridcommandmanager.cpp:190
 msgid "Clicks 6"
 msgstr "Klepne 6"
 
-#: desktopgridcommandmanager.cpp:187
+#: desktopgridcommandmanager.cpp:192
+#, fuzzy
+msgctxt "Number"
 msgid "Seven"
 msgstr "Sedm"
 
-#: desktopgridcommandmanager.cpp:188
+#: desktopgridcommandmanager.cpp:193
 msgid "Clicks 7"
 msgstr "Klepne 7"
 
-#: desktopgridcommandmanager.cpp:190
+#: desktopgridcommandmanager.cpp:195
+#, fuzzy
+msgctxt "Number"
 msgid "Eight"
 msgstr "Osm"
 
-#: desktopgridcommandmanager.cpp:191
+#: desktopgridcommandmanager.cpp:196
 msgid "Clicks 8"
 msgstr "Klepne 8"
 
-#: desktopgridcommandmanager.cpp:193
+#: desktopgridcommandmanager.cpp:198
+#, fuzzy
+msgctxt "Number"
 msgid "Nine"
 msgstr "Devět"
 
-#: desktopgridcommandmanager.cpp:194
+#: desktopgridcommandmanager.cpp:199
 msgid "Clicks 9"
 msgstr "Klepne 9"
 
-#: desktopgridcommandmanager.cpp:197
+#: desktopgridcommandmanager.cpp:202
+#, fuzzy
+msgctxt "Cancel the destkop grid"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: desktopgridcommandmanager.cpp:198
+#: desktopgridcommandmanager.cpp:203
 msgid "Aborts the selection process"
 msgstr "Zruší postup výběru"
 
-#: desktopgridcommandmanager.cpp:203
+#: desktopgridcommandmanager.cpp:207
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
@@ -148,7 +174,7 @@ msgstr ""
 "Při výběru v režimu klepnutí, toto vybere jednoduché klepnutí levým "
 "tlačítkem myši"
 
-#: desktopgridcommandmanager.cpp:206
+#: desktopgridcommandmanager.cpp:210
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
@@ -156,7 +182,7 @@ msgstr ""
 "Při výběru v režimu klepnutí, toto vybere dvojité klepnutí levým tlačítkem "
 "myši"
 
-#: desktopgridcommandmanager.cpp:209
+#: desktopgridcommandmanager.cpp:213
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
@@ -164,7 +190,7 @@ msgstr ""
 "Při výběru v režimu klepnutí, toto vybere jednoduché klepnutí pravým "
 "tlačítkem myši"
 
-#: desktopgridcommandmanager.cpp:212
+#: desktopgridcommandmanager.cpp:216
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
@@ -172,81 +198,78 @@ msgstr ""
 "Při výběru v režimu klepnutí, toto vybere jednoduché klepnutí prostředním "
 "tlačítkem myši"
 
-#: desktopgridcommandmanager.cpp:215
+#: desktopgridcommandmanager.cpp:219
 msgid "In the click mode selection popup, this selects the drag and drop mode"
 msgstr "Při výběru v režimu klepnutí, toto vybere režim táhnutí a upuštění"
 
-#: desktopgridcommandmanager.cpp:218
+#: desktopgridcommandmanager.cpp:222
 msgid "In the click mode selection popup, cancels the selection"
 msgstr "Při výběru v režimu klepnutí, toto zruší výběr"
 
-#: desktopgridconfiguration.cpp:32
+#: desktopgridconfiguration.cpp:31
 msgid "Voice controlled mouse clicks"
 msgstr "Klepnutí myší ovládané hlasem"
 
-#. i18n: file: desktopgridconfigurationdlg.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, DesktopGridConfigurationDlg)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Form"
-msgstr "Formulář"
-
 #. i18n: file: desktopgridconfigurationdlg.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseRealTransparency)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Use real transparency"
 msgstr "Použít skutečnou průhlednost"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:27
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Action:"
 msgstr "Činnost:"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:34
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAsk)
-#: po/rc.cpp:12 rc.cpp:12
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Always ask"
 msgstr "Vždy se zeptat"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:44
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionDefault)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Use default without asking"
 msgstr "Použít výchozí bez ptaní"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:53
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAskAndDefault)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Ask, but select default user idles for:"
 msgstr "Zeptat se, ale vybrat, že výchozí uživatel je nečinný pro:"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:18 rc.cpp:18
 msgid "seconds"
 msgstr "sekund"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:84
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Default mode:"
 msgstr "Výchozí režim:"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:100
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Left double click"
 msgstr "Dvojité klepnutí levým tlačítkem myši"
 
-#: po/rc.cpp:37 rc.cpp:37
+#: po/rc.cpp:34 rc.cpp:34
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:38 rc.cpp:38
+#: po/rc.cpp:35 rc.cpp:35
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
 
 #~ msgid "Trigger:"
 #~ msgstr "Spoušť:"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-11 19:44+0300\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,134 +18,150 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main.cpp:9
+#: main.cpp:28
 msgid "An acoustic model modeller"
 msgstr ""
 
-#: main.cpp:13
+#: main.cpp:32
 msgid "sam"
 msgstr ""
 
-#: main.cpp:14
+#: main.cpp:33
 msgid "(C) 2009 Peter Grasch"
 msgstr ""
 
-#: main.cpp:15
+#: main.cpp:34
 msgid "Peter Grasch"
 msgstr ""
 
-#: samview.cpp:51
+#: samview.cpp:52
 msgid "Modify simons model"
+msgstr ""
+
+#: samview.cpp:53
+msgid "Manage simons current model with ssc"
 msgstr ""
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:58 rc.cpp:105
+#: samview.cpp:60 rc.cpp:105
 msgid "Build model"
+msgstr ""
+
+#: samview.cpp:61
+msgid "Build the currently open model."
 msgstr ""
 
 #. i18n: file: main.ui:457
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:66 rc.cpp:114 rc.cpp:117
+#: samview.cpp:69 rc.cpp:114 rc.cpp:117
 msgid "Test model"
+msgstr ""
+
+#: samview.cpp:70
+msgid "Test the model."
 msgstr ""
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:73 rc.cpp:126
+#: samview.cpp:77 rc.cpp:126
 msgid "Test results"
 msgstr ""
 
-#: samview.cpp:197 samview.cpp:218
+#: samview.cpp:78
+msgid "Display the test results."
+msgstr ""
+
+#: samview.cpp:202 samview.cpp:223
 msgid "sam projects *.sam"
 msgstr ""
 
-#: samview.cpp:231
+#: samview.cpp:236
 msgid "Untitled"
 msgstr ""
 
-#: samview.cpp:233
+#: samview.cpp:238
 msgid "sam - %1"
 msgstr ""
 
-#: samview.cpp:242 samview.cpp:299
+#: samview.cpp:247 samview.cpp:304
 msgid "Cannot open file: %1"
 msgstr ""
 
-#: samview.cpp:406
+#: samview.cpp:411
 msgid ""
-"You now have to provide a (preferrably empty) directory where you want to "
+"You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
 
-#: samview.cpp:406
+#: samview.cpp:411
 msgid "Do not ask again"
 msgstr ""
 
-#: samview.cpp:407
+#: samview.cpp:412
 msgid "Serialized scenario output"
 msgstr ""
 
-#: samview.cpp:417
+#: samview.cpp:422
 msgid "Open simon prompts"
 msgstr ""
 
-#: samview.cpp:482
+#: samview.cpp:487
 msgid "Could not find scenario: %1"
 msgstr ""
 
-#: samview.cpp:520
+#: samview.cpp:525
 msgid "Unknown model type"
 msgstr ""
 
-#: samview.cpp:583
+#: samview.cpp:588
 msgid "Adaption aborted"
 msgstr ""
 
-#: samview.cpp:596
+#: samview.cpp:601
 msgid ""
 "Failed to adapt model:\n"
 "\n"
 "%1"
 msgstr ""
 
-#: samview.cpp:618
+#: samview.cpp:623
 msgid "Grammar class undefined: %1"
 msgstr ""
 
-#: samview.cpp:624
+#: samview.cpp:629
 msgid "Word undefined: %1"
 msgstr ""
 
-#: samview.cpp:631
+#: samview.cpp:636
 msgid "Phoneme undefined: %1"
 msgstr ""
 
-#: samview.cpp:788
+#: samview.cpp:793
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
 msgstr ""
 
-#: samview.cpp:821
+#: samview.cpp:826
 msgid "Modify sample"
 msgstr ""
 
-#: samview.cpp:833 samview.cpp:858
+#: samview.cpp:838 samview.cpp:863
 msgid "Could not modify prompts file"
 msgstr ""
 
-#: samview.cpp:845
+#: samview.cpp:850
 msgid "Could not overwrite prompts file"
 msgstr ""
 
-#: samview.cpp:849 samview.cpp:865
+#: samview.cpp:854 samview.cpp:870
 msgid "Could not remove original sample:  %1."
 msgstr ""
 
-#: samview.cpp:870
+#: samview.cpp:875
 msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""
 
@@ -316,6 +332,7 @@ msgstr ""
 #. i18n: file: samui.rc:22
 #. i18n: ectx: Menu (test)
 #: rc.cpp:84 rc.cpp:150
+msgctxt "Test the model"
 msgid "Test"
 msgstr ""
 

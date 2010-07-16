@@ -6,12 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_cs\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:14+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-25 15:50+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,8 +21,8 @@ msgstr ""
 
 #. i18n: file: calculatorwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorDlg)
-#: calculatorcommandmanager.cpp:67 calculatorcommandmanager.cpp:393
-#: calculatorconfiguration.cpp:31 po/rc.cpp:54 rc.cpp:54
+#: calculatorcommandmanager.cpp:67 calculatorcommandmanager.cpp:416
+#: calculatorconfiguration.cpp:30 po/rc.cpp:54 rc.cpp:54
 msgid "Calculator"
 msgstr "Kalkulačka"
 
@@ -78,6 +79,8 @@ msgid "Sends equal sign"
 msgstr "Odešle rovnítko"
 
 #: calculatorcommandmanager.cpp:96
+#, fuzzy
+msgctxt "Word to say to remove the last recognized digit"
 msgid "Back"
 msgstr "Zpět"
 
@@ -85,9 +88,9 @@ msgstr "Zpět"
 msgid "Removes one character (backspace)"
 msgstr "Odstraní jeden znak (klávesa backspace)"
 
-#. i18n: file: calculatorwidget.ui:312
-#. i18n: ectx: property (text), widget (KPushButton, pbClear)
-#: calculatorcommandmanager.cpp:99 po/rc.cpp:121 rc.cpp:121
+#: calculatorcommandmanager.cpp:99
+#, fuzzy
+msgctxt "Clear the input field"
 msgid "Clear"
 msgstr "Smazat"
 
@@ -116,6 +119,8 @@ msgid "Closes the calculator dialog"
 msgstr "Zavře dialog s kalkulačkou"
 
 #: calculatorcommandmanager.cpp:111
+#, fuzzy
+msgctxt "Number"
 msgid "Zero"
 msgstr "Nula"
 
@@ -124,6 +129,8 @@ msgid "Clicks 0"
 msgstr "Klepne 0"
 
 #: calculatorcommandmanager.cpp:114
+#, fuzzy
+msgctxt "Number"
 msgid "One"
 msgstr "Jeden"
 
@@ -132,6 +139,8 @@ msgid "Clicks 1"
 msgstr "Klepne 1"
 
 #: calculatorcommandmanager.cpp:117
+#, fuzzy
+msgctxt "Number"
 msgid "Two"
 msgstr "Dva"
 
@@ -140,6 +149,8 @@ msgid "Clicks 2"
 msgstr "Klepne 2"
 
 #: calculatorcommandmanager.cpp:120
+#, fuzzy
+msgctxt "Number"
 msgid "Three"
 msgstr "Tři"
 
@@ -148,6 +159,8 @@ msgid "Clicks 3"
 msgstr "Klepne 3"
 
 #: calculatorcommandmanager.cpp:123
+#, fuzzy
+msgctxt "Number"
 msgid "Four"
 msgstr "Čtyři"
 
@@ -156,6 +169,8 @@ msgid "Clicks 4"
 msgstr "Klepne 4"
 
 #: calculatorcommandmanager.cpp:126
+#, fuzzy
+msgctxt "Number"
 msgid "Five"
 msgstr "Pět"
 
@@ -164,6 +179,8 @@ msgid "Clicks 5"
 msgstr "Klepne 5"
 
 #: calculatorcommandmanager.cpp:129
+#, fuzzy
+msgctxt "Number"
 msgid "Six"
 msgstr "Šest"
 
@@ -172,6 +189,8 @@ msgid "Clicks 6"
 msgstr "Klepne 6"
 
 #: calculatorcommandmanager.cpp:132
+#, fuzzy
+msgctxt "Number"
 msgid "Seven"
 msgstr "Sedm"
 
@@ -180,6 +199,8 @@ msgid "Clicks 7"
 msgstr "Klepne 7"
 
 #: calculatorcommandmanager.cpp:135
+#, fuzzy
+msgctxt "Number"
 msgid "Eight"
 msgstr "Osm"
 
@@ -188,6 +209,8 @@ msgid "Clicks 8"
 msgstr "Klepne 8"
 
 #: calculatorcommandmanager.cpp:138
+#, fuzzy
+msgctxt "Number"
 msgid "Nine"
 msgstr "Devět"
 
@@ -204,32 +227,37 @@ msgstr "Bod "
 msgid "Decimal separator"
 msgstr "Desetinný oddělovač"
 
-#: calculatorcommandmanager.cpp:147 calculatorcommandmanager.cpp:167
+#: calculatorcommandmanager.cpp:147 calculatorcommandmanager.cpp:170
 msgid "In the output selection popup, selects printing the result"
 msgstr "Při výběru výstupu, toto vybere tisk výsledku"
 
 #: calculatorcommandmanager.cpp:150
+#, fuzzy
+msgid "In the output selection popup, selects printing the calculation"
+msgstr "Při výběru výstupu, toto vybere tisk výpočtu a výsledku"
+
+#: calculatorcommandmanager.cpp:153
 msgid ""
 "In the output selection popup, selects printing the calculation and result"
 msgstr "Při výběru výstupu, toto vybere tisk výpočtu a výsledku"
 
-#: calculatorcommandmanager.cpp:153
+#: calculatorcommandmanager.cpp:156
 msgid "In the output selection popup, selects printing the formatted result"
 msgstr "Při výběru výstupu, toto vybere tisk formátovaného výsledku"
 
-#: calculatorcommandmanager.cpp:157
+#: calculatorcommandmanager.cpp:160
 msgid ""
 "In the output selection popup, selects printing the formatted calculation "
 "and result"
 msgstr "Při výběru výstupu, toto vybere tisk formátovaného výpočtu a výsledku"
 
-#: calculatorcommandmanager.cpp:160
+#: calculatorcommandmanager.cpp:163
 msgid ""
 "In the output selection popup, selects printing the result formatted as money"
 msgstr ""
 "Při výběru výstupu, toto vybere tisk výsledku formátovaného jako peníze"
 
-#: calculatorcommandmanager.cpp:164
+#: calculatorcommandmanager.cpp:167
 msgid ""
 "In the output selection popup, selects printing the calculation and result "
 "formatted as money"
@@ -237,136 +265,143 @@ msgstr ""
 "Při výběru výstupu, toto vybere tisk výpočtu a výsledku formátovaného jako "
 "peníze"
 
-#: calculatorcommandmanager.cpp:181
+#: calculatorcommandmanager.cpp:183
 msgid "Activate Calculator"
 msgstr "Zapnout kalkulačku"
 
+#: calculatorcommandmanager.cpp:185
+#, fuzzy
+msgid "Display the calculator"
+msgstr "Spustí kalkulačku"
+
 #. i18n: file: calculatorconfigurationdlg.ui:118
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:228 po/rc.cpp:36 rc.cpp:36
+#: calculatorcommandmanager.cpp:236 po/rc.cpp:33 rc.cpp:33
 msgid "Result"
 msgstr "Výsledek"
 
-#: calculatorcommandmanager.cpp:229
+#. i18n: file: calculatorconfigurationdlg.ui:123
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
+#: calculatorcommandmanager.cpp:237 po/rc.cpp:36 rc.cpp:36
+#, fuzzy
+msgid "Calculation"
+msgstr "Kalkulačka"
+
+#: calculatorcommandmanager.cpp:238
 msgid "Calculation & result"
 msgstr "Výpočet a výsledek"
 
-#. i18n: file: calculatorconfigurationdlg.ui:128
+#. i18n: file: calculatorconfigurationdlg.ui:133
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:230 po/rc.cpp:42 rc.cpp:42
+#: calculatorcommandmanager.cpp:239 po/rc.cpp:42 rc.cpp:42
 msgid "Formatted result"
 msgstr "Formátovaný výsledek"
 
-#. i18n: file: calculatorconfigurationdlg.ui:133
+#. i18n: file: calculatorconfigurationdlg.ui:138
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
-#: calculatorcommandmanager.cpp:231 po/rc.cpp:45 rc.cpp:45
+#: calculatorcommandmanager.cpp:240 po/rc.cpp:45 rc.cpp:45
 msgid "Formatted calculation and result"
 msgstr "Formátovaný výpočet a výsledek"
 
-#: calculatorcommandmanager.cpp:232
+#: calculatorcommandmanager.cpp:241
 msgid "Format result as money"
 msgstr "Formátovat výsledek jako peníze"
 
-#: calculatorcommandmanager.cpp:233
+#: calculatorcommandmanager.cpp:243
 msgid "Format calculation and result as money"
 msgstr "Formátovat výpočet a výsledek jako peníze"
 
-#: calculatorcommandmanager.cpp:323
+#: calculatorcommandmanager.cpp:343
 msgid "Error in output"
 msgstr "Chyba ve výstupu"
 
-#: calculatorcommandmanager.cpp:512 calculatorcommandmanager.cpp:597
-#: calculatorcommandmanager.cpp:605
+#: calculatorcommandmanager.cpp:545 calculatorcommandmanager.cpp:622
+#: calculatorcommandmanager.cpp:629
 msgid "Not a legal expression!"
 msgstr "Neodpovídající výraz!"
 
-#: calculatorcommandmanager.cpp:729
-msgid "Can't divide through 0"
+#: calculatorcommandmanager.cpp:741
+#, fuzzy
+msgid "Can not divide through 0"
 msgstr "Nelze dělit nulou"
 
-#: calculatorconfiguration.cpp:32
+#: calculatorconfiguration.cpp:31
 msgid "Calculate with your voice"
 msgstr "Počítat vaším hlasem"
 
-#. i18n: file: calculatorconfigurationdlg.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorConfigurationDlg)
-#: po/rc.cpp:3 rc.cpp:3
-msgid "Form"
-msgstr "Formulář"
-
 #. i18n: file: calculatorconfigurationdlg.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:6 rc.cpp:6
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Show controls:"
 msgstr "Ukázat ovládání:"
 
 #. i18n: file: calculatorconfigurationdlg.ui:30
-#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
-#: po/rc.cpp:9 rc.cpp:9
+#. i18n: ectx: property (text), item, widget (KComboBox, cbControlMode)
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Full calculator"
 msgstr "Zaplněná kalkulačka"
 
 #. i18n: file: calculatorconfigurationdlg.ui:35
-#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
-#: po/rc.cpp:12 rc.cpp:12
+#. i18n: ectx: property (text), item, widget (KComboBox, cbControlMode)
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Only number input"
 msgstr "Pouze číselný vstup"
 
 #. i18n: file: calculatorconfigurationdlg.ui:40
-#. i18n: ectx: property (text), item, widget (QComboBox, cbControlMode)
-#: po/rc.cpp:15 rc.cpp:15
+#. i18n: ectx: property (text), item, widget (KComboBox, cbControlMode)
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Only output"
 msgstr "Pouze výstup"
 
 #. i18n: file: calculatorconfigurationdlg.ui:50
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Output mode selection:"
 msgstr "Výběr výstupního režimu:"
 
 #. i18n: file: calculatorconfigurationdlg.ui:57
 #. i18n: ectx: property (text), widget (QRadioButton, rbOutputAsk)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:18 rc.cpp:18
 msgid "Always ask"
 msgstr "Vždy se zeptat"
 
 #. i18n: file: calculatorconfigurationdlg.ui:67
 #. i18n: ectx: property (text), widget (QRadioButton, rbOutputDefault)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Use default without asking"
 msgstr "Použít výchozí bez ptaní"
 
 #. i18n: file: calculatorconfigurationdlg.ui:76
 #. i18n: ectx: property (text), widget (QRadioButton, rbAskAndDefault)
-#: po/rc.cpp:27 rc.cpp:27
+#: po/rc.cpp:24 rc.cpp:24
 msgid "Ask, but select default user idles for:"
 msgstr "Zeptat se, ale vybrat, že výchozí uživatel je nečinný pro:"
 
 #. i18n: file: calculatorconfigurationdlg.ui:93
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:27 rc.cpp:27
 msgid "seconds"
 msgstr "sekund"
 
 #. i18n: file: calculatorconfigurationdlg.ui:107
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:33 rc.cpp:33
+#: po/rc.cpp:30 rc.cpp:30
 msgid "Default mode:"
 msgstr "Výchozí režim:"
 
-#. i18n: file: calculatorconfigurationdlg.ui:123
+#. i18n: file: calculatorconfigurationdlg.ui:128
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
 #: po/rc.cpp:39 rc.cpp:39
 msgid "Calculation and result"
 msgstr "Výpočet a výsledek"
 
-#. i18n: file: calculatorconfigurationdlg.ui:138
+#. i18n: file: calculatorconfigurationdlg.ui:143
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
 #: po/rc.cpp:48 rc.cpp:48
 msgid "Formatted result (money)"
 msgstr "Formátovaný výsledek (peníze)"
 
-#. i18n: file: calculatorconfigurationdlg.ui:143
+#. i18n: file: calculatorconfigurationdlg.ui:148
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Formatted calculation and result (money)"
@@ -499,6 +534,14 @@ msgstr "="
 msgid "Delete"
 msgstr "Smazat"
 
+#. i18n: file: calculatorwidget.ui:312
+#. i18n: ectx: property (text), widget (KPushButton, pbClear)
+#: po/rc.cpp:121 rc.cpp:121
+#, fuzzy
+msgctxt "Clear the input text"
+msgid "Clear"
+msgstr "Smazat"
+
 #: po/rc.cpp:128 rc.cpp:128
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
@@ -508,6 +551,9 @@ msgstr "Pavel Fric"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
 
 #~ msgctxt "Name of the decimal seperator"
 #~ msgid "Comma"

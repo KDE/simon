@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ksimond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-05 13:15+0300\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-24 23:32+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -18,100 +18,121 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#. i18n: file: config/ksimondconfiguration.kcfg:7
+#. i18n: file: config/ksimondconfiguration.kcfg:11
 #. i18n: ectx: label, entry (AutoStart), group (KSimond)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "should ksimond start on KDE start?"
 msgstr "Má být ksimond spuštěn při spuštění prostředí KDE?"
 
-#. i18n: file: config/ksimondconfiguration.kcfg:11
-#. i18n: ectx: label, entry (AutoStartSimond), group (KSimond)
+#. i18n: file: config/ksimondconfiguration.kcfg:13
+#. i18n: ectx: tooltip, entry (AutoStart), group (KSimond)
 #: po/rc.cpp:6 rc.cpp:6
-msgid "wether we want to start simond automatically."
+#, fuzzy
+msgid "Should ksimond start on KDE start?"
+msgstr "Má být ksimond spuštěn při spuštění prostředí KDE?"
+
+#. i18n: file: config/ksimondconfiguration.kcfg:16
+#. i18n: ectx: label, entry (AutoStartSimond), group (KSimond)
+#: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
+msgid "whether we want to start simond automatically."
 msgstr "Zda chceme, aby byl simond spouštěn automaticky."
 
-#. i18n: file: config/ksimondconfiguration.kcfg:15
+#. i18n: file: config/ksimondconfiguration.kcfg:18
+#. i18n: ectx: tooltip, entry (AutoStartSimond), group (KSimond)
+#: po/rc.cpp:12 rc.cpp:12
+#, fuzzy
+msgid "Whether we want to start simond automatically."
+msgstr "Zda chceme, aby byl simond spouštěn automaticky."
+
+#. i18n: file: config/ksimondconfiguration.kcfg:21
 #. i18n: ectx: label, entry (AutoReStartSimond), group (KSimond)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:15 rc.cpp:15
+#, fuzzy
 msgid ""
-"wether we want to start simond automatically after it quit unexpectedly."
+"whether we want to start simond automatically after it quit unexpectedly."
 msgstr ""
 "Zda chceme, aby byl simond spouštěn automaticky poté, co neočekávaně ukončil "
 "svou činnost."
 
-#. i18n: file: config/ksimondconfiguration.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, KSimondSettings)
-#: po/rc.cpp:12 rc.cpp:12
-msgid "Form"
-msgstr "Formulář"
+#. i18n: file: config/ksimondconfiguration.kcfg:23
+#. i18n: ectx: tooltip, entry (AutoReStartSimond), group (KSimond)
+#: po/rc.cpp:18 rc.cpp:18
+#, fuzzy
+msgid ""
+"Whether we want to start simond automatically after it quit unexpectedly."
+msgstr ""
+"Zda chceme, aby byl simond spouštěn automaticky poté, co neočekávaně ukončil "
+"svou činnost."
 
 #. i18n: file: config/ksimondconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Start ksimond when logging in"
 msgstr "Spustit ksimond při přihlášení"
 
 #. i18n: file: config/ksimondconfiguration.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStartSimond)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:24 rc.cpp:24
 msgid "Start simond when ksimond starts"
 msgstr "Spustit simond při spuštění ksimond"
 
 #. i18n: file: config/ksimondconfiguration.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoReStartSimond)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Restart simond if it quits unexpectedly"
 msgstr "Spustit simond znovu, když neočekávaně ukončil svou činnost"
 
-#: po/rc.cpp:22 rc.cpp:22
+#: po/rc.cpp:28 rc.cpp:28
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:23 rc.cpp:23
+#: po/rc.cpp:29 rc.cpp:29
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: src/ksimondview.cpp:55
+#: src/ksimondview.cpp:54
 msgid "simond"
 msgstr "Simond"
 
-#: src/ksimondview.cpp:58 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
 msgid "Start simond"
 msgstr "Spustit simond"
 
-#: src/ksimondview.cpp:63 src/ksimondview.cpp:85
+#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
 msgid "Start simon"
 msgstr "Spustit simon"
 
-#: src/ksimondview.cpp:68 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
 msgid "Restart simond"
 msgstr "Spustit simond znovu"
 
-#: src/ksimondview.cpp:74 src/ksimondview.cpp:88
+#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
 msgid "Stop simond"
 msgstr "Zastavit simond"
 
-#: src/ksimondview.cpp:80 src/ksimondview.cpp:89
+#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
 msgid "Configuration"
 msgstr "Nastavení"
 
-#: src/ksimondview.cpp:118
+#: src/ksimondview.cpp:117
 msgid "simond is already running"
 msgstr "Simond již běží"
 
-#: src/ksimondview.cpp:139
+#: src/ksimondview.cpp:138
 msgid "simond stopped"
 msgstr "Simond je zastaven"
 
-#: src/ksimondview.cpp:154
+#: src/ksimondview.cpp:153
 msgid "simond started"
 msgstr "Simond je spuštěn"
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:181
+#, fuzzy
 msgid ""
-"Couldn't start simond.\n"
+"Could not start simond.\n"
 "\n"
 "Please check your configuration.\n"
 "\n"
@@ -123,40 +144,45 @@ msgstr ""
 "\n"
 "Příkaz: \"%1\""
 
-#: src/ksimondview.cpp:189
+#: src/ksimondview.cpp:185
 msgid "simond crashed. (Status: %1)"
 msgstr "Simond havaroval. (Stav: %1)"
 
-#: src/ksimondview.cpp:193
+#: src/ksimondview.cpp:189
 msgid "Timeout."
 msgstr "Přerušení."
 
-#: src/ksimondview.cpp:196
-msgid "Couldn't communicate with simond: Write failed."
+#: src/ksimondview.cpp:192
+#, fuzzy
+msgid "Could not communicate with simond: Write failed."
 msgstr "Se simond nelze komunikovat: zápis selhal."
 
-#: src/ksimondview.cpp:199
-msgid "Couldn't communicate with simond: Read failed."
+#: src/ksimondview.cpp:195
+#, fuzzy
+msgid "Could not communicate with simond: Read failed."
 msgstr "Se simond nelze komunikovat: čtení selhalo."
 
-#: src/ksimondview.cpp:202
+#: src/ksimondview.cpp:198
 msgid "Unknown Error"
 msgstr "Neznámá chyba"
 
-#: src/main.cpp:9
+#: src/main.cpp:28
 msgid "A KDE 4 frontend for simond"
 msgstr ""
 "Systém určený prostředí KDE 4 kontrolující komunikaci mezi počítačem a "
 "serverem pro simond"
 
-#: src/main.cpp:14
+#: src/main.cpp:32
 msgid "ksimond"
 msgstr "Ksimond"
 
-#: src/main.cpp:15
+#: src/main.cpp:33
 msgid "(C) 2008 Peter Grasch"
 msgstr "(C) 2008 Peter Grasch"
 
-#: src/main.cpp:16
+#: src/main.cpp:34
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"

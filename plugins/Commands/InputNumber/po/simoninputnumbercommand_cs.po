@@ -6,156 +6,182 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_cs\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:16+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-25 12:18+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: inputnumbercommandmanager.cpp:63
+#: inputnumbercommandmanager.cpp:53
+#, fuzzy
+msgid "Display the number input"
+msgstr "Zobrazí pole pro zadávání čísel"
+
+#: inputnumbercommandmanager.cpp:69
 msgid "Activate Number Input"
 msgstr "Zapnout číselný vstup"
 
-#: inputnumbercommandmanager.cpp:88
+#: inputnumbercommandmanager.cpp:93
 msgid "Number"
 msgstr "Číslo"
 
-#: inputnumbercommandmanager.cpp:89
+#: inputnumbercommandmanager.cpp:94
 msgid "Displays the number input field"
 msgstr "Zobrazí pole pro zadávání čísel"
 
-#: inputnumbercommandmanager.cpp:95
+#: inputnumbercommandmanager.cpp:100
+#, fuzzy
+msgctxt "Number"
 msgid "Zero"
 msgstr "Nula"
 
-#: inputnumbercommandmanager.cpp:96
+#: inputnumbercommandmanager.cpp:101
 msgid "Clicks 0"
 msgstr "Klepne 0"
 
-#: inputnumbercommandmanager.cpp:98
+#: inputnumbercommandmanager.cpp:103
+#, fuzzy
+msgctxt "Number"
 msgid "One"
 msgstr "Jeden"
 
-#: inputnumbercommandmanager.cpp:99
+#: inputnumbercommandmanager.cpp:104
 msgid "Clicks 1"
 msgstr "Klepne 1"
 
-#: inputnumbercommandmanager.cpp:101
+#: inputnumbercommandmanager.cpp:106
+#, fuzzy
+msgctxt "Number"
 msgid "Two"
 msgstr "Dva"
 
-#: inputnumbercommandmanager.cpp:102
+#: inputnumbercommandmanager.cpp:107
 msgid "Clicks 2"
 msgstr "Klepne 2"
 
-#: inputnumbercommandmanager.cpp:104
+#: inputnumbercommandmanager.cpp:109
+#, fuzzy
+msgctxt "Number"
 msgid "Three"
 msgstr "Tři"
 
-#: inputnumbercommandmanager.cpp:105
+#: inputnumbercommandmanager.cpp:110
 msgid "Clicks 3"
 msgstr "Klepne 3"
 
-#: inputnumbercommandmanager.cpp:107
+#: inputnumbercommandmanager.cpp:112
+#, fuzzy
+msgctxt "Number"
 msgid "Four"
 msgstr "Čtyři"
 
-#: inputnumbercommandmanager.cpp:108
+#: inputnumbercommandmanager.cpp:113
 msgid "Clicks 4"
 msgstr "Klepne 4"
 
-#: inputnumbercommandmanager.cpp:110
+#: inputnumbercommandmanager.cpp:115
+#, fuzzy
+msgctxt "Number"
 msgid "Five"
 msgstr "Pět"
 
-#: inputnumbercommandmanager.cpp:111
+#: inputnumbercommandmanager.cpp:116
 msgid "Clicks 5"
 msgstr "Klepne 5"
 
-#: inputnumbercommandmanager.cpp:113
+#: inputnumbercommandmanager.cpp:118
+#, fuzzy
+msgctxt "Number"
 msgid "Six"
 msgstr "Šest"
 
-#: inputnumbercommandmanager.cpp:114
+#: inputnumbercommandmanager.cpp:119
 msgid "Clicks 6"
 msgstr "Klepne 6"
 
-#: inputnumbercommandmanager.cpp:116
+#: inputnumbercommandmanager.cpp:121
+#, fuzzy
+msgctxt "Number"
 msgid "Seven"
 msgstr "Sedm"
 
-#: inputnumbercommandmanager.cpp:117
+#: inputnumbercommandmanager.cpp:122
 msgid "Clicks 7"
 msgstr "Klepne 7"
 
-#: inputnumbercommandmanager.cpp:119
+#: inputnumbercommandmanager.cpp:124
+#, fuzzy
+msgctxt "Number"
 msgid "Eight"
 msgstr "Osm"
 
-#: inputnumbercommandmanager.cpp:120
+#: inputnumbercommandmanager.cpp:125
 msgid "Clicks 8"
 msgstr "Klepne 8"
 
-#: inputnumbercommandmanager.cpp:122
+#: inputnumbercommandmanager.cpp:127
+#, fuzzy
+msgctxt "Number"
 msgid "Nine"
 msgstr "Devět"
 
-#: inputnumbercommandmanager.cpp:123
+#: inputnumbercommandmanager.cpp:128
 msgid "Clicks 9"
 msgstr "Klepne 9"
 
-#: inputnumbercommandmanager.cpp:125
+#: inputnumbercommandmanager.cpp:130
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr "Bod "
 
-#: inputnumbercommandmanager.cpp:126
+#: inputnumbercommandmanager.cpp:131
 msgid "Decimal separator"
 msgstr "Desetinný oddělovač"
 
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#: inputnumbercommandmanager.cpp:130 po/rc.cpp:39 rc.cpp:39
+#: inputnumbercommandmanager.cpp:134
+#, fuzzy
+msgctxt "Word to say to remove the last recognized digit"
 msgid "Back"
 msgstr "Zpět"
 
-#: inputnumbercommandmanager.cpp:131
+#: inputnumbercommandmanager.cpp:135
 msgid "Deletes the last input character"
 msgstr "Smaže poslední zadaný znak"
 
 #. i18n: file: inputnumberwidget.ui:116
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: inputnumbercommandmanager.cpp:133 po/rc.cpp:42 rc.cpp:42
+#: inputnumbercommandmanager.cpp:137 po/rc.cpp:42 rc.cpp:42
 msgid "Ok"
 msgstr "OK"
 
-#: inputnumbercommandmanager.cpp:134
+#: inputnumbercommandmanager.cpp:138
 msgid "Accepts the input dialog and writes the number"
 msgstr "Přijme zadávací dialog a napíše číslo"
 
 #. i18n: file: inputnumberwidget.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: inputnumbercommandmanager.cpp:136 po/rc.cpp:45 rc.cpp:45
+#: inputnumbercommandmanager.cpp:140 po/rc.cpp:45 rc.cpp:45
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: inputnumbercommandmanager.cpp:137
+#: inputnumbercommandmanager.cpp:141
 msgid "Aborts the input dialog"
 msgstr "Zruší zadávací dialog"
 
 #. i18n: file: inputnumberwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#: inputnumbercommandmanager.cpp:178 po/rc.cpp:3 rc.cpp:3
+#: inputnumbercommandmanager.cpp:186 po/rc.cpp:3 rc.cpp:3
 msgid "Input Number"
 msgstr "Zadávané číslo"
 
-#: inputnumbercommandmanager.cpp:184
+#: inputnumbercommandmanager.cpp:192
 msgctxt "Decimal point"
 msgid "."
 msgstr ","
@@ -225,6 +251,14 @@ msgstr "0"
 #: po/rc.cpp:36 rc.cpp:36
 msgid "."
 msgstr ","
+
+#. i18n: file: inputnumberwidget.ui:109
+#. i18n: ectx: property (text), widget (KPushButton, pbBack)
+#: po/rc.cpp:39 rc.cpp:39
+#, fuzzy
+msgctxt "Remove last entered digit (backspace)"
+msgid "Back"
+msgstr "Zpět"
 
 #: po/rc.cpp:46 rc.cpp:46
 msgctxt "NAME OF TRANSLATORS"

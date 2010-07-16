@@ -8,29 +8,30 @@ msgstr ""
 "Project-Id-Version: simonatintegrationcommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-02-23 13:38+0100\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2009-06-09 01:30+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: dbusbackend.cpp:68
+#: dbusbackend.cpp:65
 msgid "Konnte Liste der verfügbaren DBus Services nicht empfangen"
 msgstr "Impossible d'obtenir la liste des services D-Bus disponibles"
 
-#: dbusbackend.cpp:138
+#: dbusbackend.cpp:129
 msgid "Konnte %1 nicht auflösen..."
 msgstr "Impossible de résoudre %1..."
 
-#: dbusbackend.cpp:329
+#: dbusbackend.cpp:323
 msgid "Jackpot!"
 msgstr "Jackpot !"
 
-#: dbusbackend.cpp:329
+#: dbusbackend.cpp:323
 msgid ""
 "You encountered an IMPOSSIBLE error!\n"
 "\n"

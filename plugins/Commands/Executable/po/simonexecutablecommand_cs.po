@@ -5,91 +5,89 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-04-12 11:15+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
 "PO-Revision-Date: 2010-06-25 11:13+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: executablecommand.cpp:32
+#: executablecommand.cpp:31
 msgid "Program"
 msgstr "Program"
 
-#: executablecommand.cpp:53
+#: executablecommand.cpp:56
+#, fuzzy
+msgctxt "The executable file to launch"
 msgid "Executable"
 msgstr "Vykonatelný"
 
-#: executablecommand.cpp:54
+#: executablecommand.cpp:57
 msgid "Working directory"
 msgstr "Pracovní adresář"
 
-#. i18n: file: createexecutablecommandwidget.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
-#. i18n: file: selectprogramdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
-#. i18n: file: createexecutablecommandwidget.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
-#. i18n: file: selectprogramdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
-#: po/rc.cpp:3 po/rc.cpp:24 rc.cpp:3 rc.cpp:24
-msgid "Form"
-msgstr "Formulář"
-
 #. i18n: file: createexecutablecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:6 selectprogramdialog.cpp:42 rc.cpp:6
+#: po/rc.cpp:3 selectprogramdialog.cpp:42 rc.cpp:3
 msgid "Select program"
 msgstr "Vybrat program"
 
 #. i18n: file: createexecutablecommandwidget.ui:23
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Select an installed program from a list"
 msgstr "Vyberte nainstalovaný program ze seznamu"
 
 #. i18n: file: createexecutablecommandwidget.ui:30
-#. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_2)
-#: po/rc.cpp:12 rc.cpp:12
+#. i18n: ectx: property (text), widget (QCommandLinkButton, cbManual)
+#: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
+msgctxt "Enter information by hand"
 msgid "Manual"
 msgstr "Ruční"
 
 #. i18n: file: createexecutablecommandwidget.ui:36
-#. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_2)
-#: po/rc.cpp:15 rc.cpp:15
+#. i18n: ectx: property (description), widget (QCommandLinkButton, cbManual)
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Configure the needed parameters manually"
 msgstr "Nezbytné proměnné nastavit ručně"
 
 #. i18n: file: createexecutablecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:15 rc.cpp:15
+#, fuzzy
+msgctxt "Executable file (program)"
 msgid "Executable:"
 msgstr "Vykonatelný:"
 
 #. i18n: file: createexecutablecommandwidget.ui:65
 #. i18n: ectx: property (text), widget (QLabel, label_13)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:18 rc.cpp:18
 msgid "Working Directory:"
 msgstr "Pracovní adresář:"
 
-#: po/rc.cpp:25 rc.cpp:25
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:26 rc.cpp:26
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: selectprogramdialog.cpp:131
+#: selectprogramdialog.cpp:132
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
+
+#~ msgid "Form"
+#~ msgstr "Formulář"
 
 #~ msgid "Import a program"
 #~ msgstr "Zavést program"

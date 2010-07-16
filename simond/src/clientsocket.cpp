@@ -1283,6 +1283,7 @@ void ClientSocket::slotModelAdaptionComplete()
     return;
 
   int baseModelType = synchronisationManager->getBaseModelType();
+
   QFileInfo fiPrompts(activeDir+"prompts");
   bool hasPrompts = (fiPrompts.size() > 0);
   if (!hasPrompts) {
@@ -1294,7 +1295,6 @@ void ClientSocket::slotModelAdaptionComplete()
         return;
     }
   }
-  kDebug() << "Model adaption is complete: " << baseModelType;
 
   switch (baseModelType) {
     case 0:
