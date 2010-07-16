@@ -1197,6 +1197,7 @@ void ClientSocket::recompileModel()
         synchronisationManager->getPromptsPath());
       break;
     case 1:
+      kDebug() << "adapting base model...";
       //adapted base model
       //let it run into dynamic model - no difference at this stage
     case 2:
@@ -1316,6 +1317,7 @@ void ClientSocket::slotModelAdaptionComplete()
       break;
     case 1:
       //adapted base model
+      kDebug() << "Starting modelcompilationmanager adapter";
       modelCompilationManager->startCompilation(
         (ModelCompilationManager::CompilationType)
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),

@@ -347,7 +347,6 @@ void SSCDAccess::sendObject(SSC::Request code, SSCObject* object)
  */
 User* SSCDAccess::getUser(qint32 id)
 {
-  fprintf(stderr, "Sending user request");
   if (!sendRequest(SSC::GetUser,id)) {
     // 		kDebug() << "could not send request";
     return 0;

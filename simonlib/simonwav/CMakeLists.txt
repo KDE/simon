@@ -18,7 +18,7 @@ set( simonwav_LIB_HDRS
 kde4_add_library( simonwav  SHARED ${simonwav_LIB_SRCS} )
 
 
-target_link_libraries( simonwav ${QT_LIBRARIES}	${KDE4_KDECORE_LIBS} )
+target_link_libraries( simonwav ${QT_QTCORE_LIBRARY} )
 
 
 set_target_properties( simonwav
