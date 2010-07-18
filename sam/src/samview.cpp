@@ -28,6 +28,7 @@
 #include <simonsound/recwidget.h>
 #include <QHash>
 #include <QPointer>
+#include <QSortFilterProxyModel>
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KAction>
@@ -42,11 +43,15 @@
 #include <KFileDialog>
 #include <KDebug>
 
-SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
+SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
+	fileResultModelProxy(new QSortFilterProxyModel(this))
 {
   ui.setupUi(this);
   ui.saWordResultDetails->setWidget(ui.wgWordResultDetails);
   ui.saSentenceResultDetails->setWidget(ui.wgSentenceResultDetails);
+
+  ui.tvFiles->setModel(fileResultModelProxy);
+  ui.tvFiles->setSortingEnabled(true);
 
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify simons model"));
@@ -772,9 +777,9 @@ void SamView::analyzeTestOutput()
   ui.pbRecognitionRate->setValue(round(overallRecognitionRate*100.0f));
   ui.pbRecognitionRate->setFormat(QString::number(overallRecognitionRate*100.0f)+" %");
 
-  QAbstractItemModel *m = ui.tvFiles->model();
+  QAbstractItemModel *m = fileResultModelProxy->sourceModel();
   if (m) m->deleteLater();
-  ui.tvFiles->setModel(new FileResultModel(modelTest->getTestResults(), this));
+  fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getTestResults(), this));
 }
 
 

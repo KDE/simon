@@ -34,6 +34,8 @@ class KCMultiDialog;
 class ModelCompilationManager;
 class ModelCompilationAdapter ;
 class ModelTest;
+class QSortFilterProxyModel;
+
 /**
  * @short Main view
  * @author Peter Grasch <grasch@simon-listens.org>
@@ -112,6 +114,7 @@ class SamView :  public KXmlGuiWindow
     ModelCompilationManager *modelCompilationManager;
     ModelCompilationAdapter *modelCompilationAdapter;
     ModelTest *modelTest;
+    QSortFilterProxyModel *fileResultModelProxy;
 
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
