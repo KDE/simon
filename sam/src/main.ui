@@ -552,7 +552,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>731</width>
-                 <height>440</height>
+                 <height>450</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="vbWordResultDetails"/>
@@ -590,7 +590,25 @@
            <attribute name="title">
             <string>Files</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_18">
+           <layout class="QVBoxLayout" name="verticalLayout_12">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Find file:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="KLineEdit" name="leResultFilesFilter">
+                <property name="placeholderText">
+                 <string>Filter</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QTableView" name="tvFiles"/>
             </item>
@@ -637,7 +655,7 @@
      <x>0</x>
      <y>0</y>
      <width>777</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -654,6 +672,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2010-07-18 17:34+0200\n"
 "PO-Revision-Date: 2010-07-16 21:44+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -27,7 +27,9 @@ msgstr "ob wir beim Start automatisch verbinden wollen."
 #. i18n: ectx: tooltip, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "If selected, ssc will automatically connect to the sscd when started."
-msgstr "Wenn ausgewhält, wird ssc automatisch zum sscd verbinden sobald er gestartet wird."
+msgstr ""
+"Wenn ausgewhält, wird ssc automatisch zum sscd verbinden sobald er gestartet "
+"wird."
 
 #. i18n: file: config/sscconfig.kcfg:16
 #. i18n: ectx: label, entry (Host), group (ssc)
@@ -311,7 +313,8 @@ msgstr "Nicht nachfragen bevor zum Offlinemodus gewechselt wird"
 msgid ""
 "Do not display warning dialog when simon detects a problem with a sample"
 msgstr ""
-"Keinen Warningsdialog anzeigen wenn simon ein Problem mit einer Aufnahme erkennt"
+"Keinen Warningsdialog anzeigen wenn simon ein Problem mit einer Aufnahme "
+"erkennt"
 
 #. i18n: file: src/details.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
@@ -1617,8 +1620,9 @@ msgstr ""
 "Deshalb kann ssc nicht überpüfen ob der eingegebene Benutzer existiert. Wenn "
 "dies nicht der Fall ist, könnten im weiteren Verlauf Probleme auftreten.\n"
 "\n"
-"Verwenden Sie diese Funktion nur wenn Sie wirklich wissen was Sie tun! "
-"Es ist auch nicht möglich Institutionsspezifische IDs im Offlinemodus zu verwenden."
+"Verwenden Sie diese Funktion nur wenn Sie wirklich wissen was Sie tun! Es "
+"ist auch nicht möglich Institutionsspezifische IDs im Offlinemodus zu "
+"verwenden."
 
 #: src/sscview.cpp:279
 msgid "Not connected (Offline mode)"
@@ -1746,9 +1750,11 @@ msgid ""
 "\n"
 "Do you want to continue with your training without fixing this problem?"
 msgstr ""
-"simon hat erkannt, das mindestens eine der Aufnahmen möglicherweise ein Problem hat.\n"
+"simon hat erkannt, das mindestens eine der Aufnahmen möglicherweise ein "
+"Problem hat.\n"
 "\n"
-"Wählen Sie \"Mehr Informationen\" um herauszufinden wie Sie das Problem lösen könnten.\n"
+"Wählen Sie \"Mehr Informationen\" um herauszufinden wie Sie das Problem "
+"lösen könnten.\n"
 "\n"
 "Wollen Sie fortfahren ohne das Problem zu beheben?"
 
@@ -1768,7 +1774,8 @@ msgstr "Wollen Sie die gespeicherten Aufnahmen \"%1\" wirklich löschen?"
 msgid ""
 "The directory could not be removed:\n"
 "%1"
-msgstr "Der Ordner konnte nicht entfernt werden:\n"
+msgstr ""
+"Der Ordner konnte nicht entfernt werden:\n"
 "%1"
 
 #: src/uploadsamples.cpp:118
@@ -1780,8 +1787,8 @@ msgid ""
 "If you want to change the user id of this samples pack, please provide the "
 "new id below."
 msgstr ""
-"Wenn Sie die Benutzerid der Aufnahmensammlung änderen wollen, geben Sie die neue "
-"ID hier ein."
+"Wenn Sie die Benutzerid der Aufnahmensammlung änderen wollen, geben Sie die "
+"neue ID hier ein."
 
 #: src/uploadsamples.cpp:129
 msgid "Failed to create target directory at \"%1\""

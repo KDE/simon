@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2010-07-18 17:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,21 +34,21 @@ msgstr ""
 msgid "Peter Grasch"
 msgstr ""
 
-#: samview.cpp:52
+#: samview.cpp:61
 msgid "Modify simons model"
 msgstr ""
 
-#: samview.cpp:53
+#: samview.cpp:62
 msgid "Manage simons current model with ssc"
 msgstr ""
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:60 rc.cpp:105
+#: samview.cpp:69 rc.cpp:105
 msgid "Build model"
 msgstr ""
 
-#: samview.cpp:61
+#: samview.cpp:70
 msgid "Build the currently open model."
 msgstr ""
 
@@ -56,112 +56,112 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:69 rc.cpp:114 rc.cpp:117
+#: samview.cpp:78 rc.cpp:114 rc.cpp:117
 msgid "Test model"
 msgstr ""
 
-#: samview.cpp:70
+#: samview.cpp:79
 msgid "Test the model."
 msgstr ""
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:77 rc.cpp:126
+#: samview.cpp:86 rc.cpp:126
 msgid "Test results"
 msgstr ""
 
-#: samview.cpp:78
+#: samview.cpp:87
 msgid "Display the test results."
 msgstr ""
 
-#: samview.cpp:202 samview.cpp:223
+#: samview.cpp:211 samview.cpp:232
 msgid "sam projects *.sam"
 msgstr ""
 
-#: samview.cpp:236
+#: samview.cpp:245
 msgid "Untitled"
 msgstr ""
 
-#: samview.cpp:238
+#: samview.cpp:247
 msgid "sam - %1"
 msgstr ""
 
-#: samview.cpp:247 samview.cpp:304
+#: samview.cpp:256 samview.cpp:313
 msgid "Cannot open file: %1"
 msgstr ""
 
-#: samview.cpp:411
+#: samview.cpp:420
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
 
-#: samview.cpp:411
+#: samview.cpp:420
 msgid "Do not ask again"
 msgstr ""
 
-#: samview.cpp:412
+#: samview.cpp:421
 msgid "Serialized scenario output"
 msgstr ""
 
-#: samview.cpp:422
+#: samview.cpp:431
 msgid "Open simon prompts"
 msgstr ""
 
-#: samview.cpp:487
+#: samview.cpp:496
 msgid "Could not find scenario: %1"
 msgstr ""
 
-#: samview.cpp:525
+#: samview.cpp:534
 msgid "Unknown model type"
 msgstr ""
 
-#: samview.cpp:588
+#: samview.cpp:597
 msgid "Adaption aborted"
 msgstr ""
 
-#: samview.cpp:601
+#: samview.cpp:610
 msgid ""
 "Failed to adapt model:\n"
 "\n"
 "%1"
 msgstr ""
 
-#: samview.cpp:623
+#: samview.cpp:632
 msgid "Grammar class undefined: %1"
 msgstr ""
 
-#: samview.cpp:629
+#: samview.cpp:638
 msgid "Word undefined: %1"
 msgstr ""
 
-#: samview.cpp:636
+#: samview.cpp:645
 msgid "Phoneme undefined: %1"
 msgstr ""
 
-#: samview.cpp:793
+#: samview.cpp:802
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
 msgstr ""
 
-#: samview.cpp:826
+#: samview.cpp:835
 msgid "Modify sample"
 msgstr ""
 
-#: samview.cpp:838 samview.cpp:863
+#: samview.cpp:847 samview.cpp:872
 msgid "Could not modify prompts file"
 msgstr ""
 
-#: samview.cpp:850
+#: samview.cpp:859
 msgid "Could not overwrite prompts file"
 msgstr ""
 
-#: samview.cpp:854 samview.cpp:870
+#: samview.cpp:863 samview.cpp:879
 msgid "Could not remove original sample:  %1."
 msgstr ""
 
-#: samview.cpp:875
+#: samview.cpp:884
 msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""
 
@@ -331,7 +331,7 @@ msgstr ""
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_5)
 #. i18n: file: samui.rc:22
 #. i18n: ectx: Menu (test)
-#: rc.cpp:84 rc.cpp:150
+#: rc.cpp:84 rc.cpp:156
 msgctxt "Test the model"
 msgid "Test"
 msgstr ""
@@ -416,30 +416,42 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#. i18n: file: main.ui:618
-#. i18n: ectx: property (text), widget (KPushButton, pbEditSample)
+#. i18n: file: main.ui:599
+#. i18n: ectx: property (text), widget (QLabel, label_5)
 #: rc.cpp:141
+msgid "Find file:"
+msgstr ""
+
+#. i18n: file: main.ui:606
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, leResultFilesFilter)
+#: rc.cpp:144
+msgid "Filter"
+msgstr ""
+
+#. i18n: file: main.ui:636
+#. i18n: ectx: property (text), widget (KPushButton, pbEditSample)
+#: rc.cpp:147
 msgid "Edit sample"
 msgstr ""
 
 #. i18n: file: samui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:144
+#: rc.cpp:150
 msgid "Main Actions"
 msgstr ""
 
 #. i18n: file: samui.rc:16
 #. i18n: ectx: Menu (build)
-#: rc.cpp:147
+#: rc.cpp:153
 msgid "Build"
 msgstr ""
 
-#: rc.cpp:151
+#: rc.cpp:157
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: rc.cpp:152
+#: rc.cpp:158
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

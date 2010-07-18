@@ -52,6 +52,10 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   ui.tvFiles->setModel(fileResultModelProxy);
   ui.tvFiles->setSortingEnabled(true);
+  
+  fileResultModelProxy->setFilterKeyColumn(0);
+  fileResultModelProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+  connect(ui.leResultFilesFilter, SIGNAL(textChanged(const QString&)), fileResultModelProxy, SLOT(setFilterFixedString(const QString&)));
 
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify simons model"));
