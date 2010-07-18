@@ -78,8 +78,7 @@ bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
 bool PronunciationTrainingCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   config = new PronunciationTrainingConfiguration(parentScenario);
-  config->deSerialize(elem);
-  return true;
+  return config->deSerialize(elem);
 }
 
 

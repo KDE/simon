@@ -42,6 +42,7 @@ class DictationCommandManager : public CommandManager
     const QString preferredTrigger() const { return ""; }
     const QString name() const;
     const QString iconSrc() const;
+    bool deSerializeConfig(const QDomElement& elem);
 
     /**
      * @brief Constructor

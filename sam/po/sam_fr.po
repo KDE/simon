@@ -1,0 +1,474 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yann Cantin <yann.cantinlaposte.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-18 17:33+0200\n"
+"PO-Revision-Date: 2010-07-12 21:00+0200\n"
+"Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: main.cpp:28
+msgid "An acoustic model modeller"
+msgstr "Un éditeur de modèle acoustique"
+
+#: main.cpp:32
+msgid "sam"
+msgstr "sam"
+
+#: main.cpp:33
+msgid "(C) 2009 Peter Grasch"
+msgstr "(C) 2009 Peter Grasch"
+
+#: main.cpp:34
+msgid "Peter Grasch"
+msgstr "Peter Grasch"
+
+#: samview.cpp:61
+msgid "Modify simons model"
+msgstr "Modifier les modèles acoustiques de simon"
+
+#: samview.cpp:62
+msgid "Manage simons current model with ssc"
+msgstr ""
+
+#. i18n: file: main.ui:412
+#. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
+#: samview.cpp:69 rc.cpp:105
+msgid "Build model"
+msgstr "Construire le modèle"
+
+#: samview.cpp:70
+msgid "Build the currently open model."
+msgstr ""
+
+#. i18n: file: main.ui:457
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
+#. i18n: file: main.ui:465
+#. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
+#: samview.cpp:78 rc.cpp:114 rc.cpp:117
+msgid "Test model"
+msgstr "Tester le modèle"
+
+#: samview.cpp:79
+#, fuzzy
+msgid "Test the model."
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:510
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
+#: samview.cpp:86 rc.cpp:126
+msgid "Test results"
+msgstr "Tester les résultats"
+
+#: samview.cpp:87
+msgid "Display the test results."
+msgstr ""
+
+#: samview.cpp:211 samview.cpp:232
+msgid "sam projects *.sam"
+msgstr "Projets sam  *.sam"
+
+#: samview.cpp:245
+msgid "Untitled"
+msgstr "Sans titre"
+
+#: samview.cpp:247
+msgid "sam - %1"
+msgstr "sam - %1"
+
+#: samview.cpp:256 samview.cpp:313
+msgid "Cannot open file: %1"
+msgstr "Impossible d'ouvrir le fichier : %1"
+
+#: samview.cpp:420
+msgid ""
+"You now have to provide a (preferably empty) directory where you want to "
+"serialize the scenarios to"
+msgstr ""
+
+#: samview.cpp:420
+msgid "Do not ask again"
+msgstr ""
+
+#: samview.cpp:421
+msgid "Serialized scenario output"
+msgstr ""
+
+#: samview.cpp:431
+msgid "Open simon prompts"
+msgstr ""
+
+#: samview.cpp:496
+msgid "Could not find scenario: %1"
+msgstr ""
+
+#: samview.cpp:534
+msgid "Unknown model type"
+msgstr ""
+
+#: samview.cpp:597
+msgid "Adaption aborted"
+msgstr ""
+
+#: samview.cpp:610
+msgid ""
+"Failed to adapt model:\n"
+"\n"
+"%1"
+msgstr ""
+
+#: samview.cpp:632
+msgid "Grammar class undefined: %1"
+msgstr "Grammaire indéfinie : %1"
+
+#: samview.cpp:638
+msgid "Word undefined: %1"
+msgstr "Mot indéfini : %1"
+
+#: samview.cpp:645
+msgid "Phoneme undefined: %1"
+msgstr "Phonème indéfini : %1"
+
+#: samview.cpp:802
+msgid ""
+"Result %1 of %2\n"
+"=====================\n"
+msgstr ""
+"Résultat %1 de %2\n"
+"=====================\n"
+
+#: samview.cpp:835
+msgid "Modify sample"
+msgstr "Modifier l'échantillon"
+
+#: samview.cpp:847 samview.cpp:872
+#, fuzzy
+msgid "Could not modify prompts file"
+msgstr "Impossible de modifier le fichier de prompteurs"
+
+#: samview.cpp:859
+#, fuzzy
+msgid "Could not overwrite prompts file"
+msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#: samview.cpp:863 samview.cpp:879
+#, fuzzy
+msgid "Could not remove original sample:  %1."
+msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#: samview.cpp:884
+#, fuzzy
+msgid "Could not copy sample from temporary path %1 to %2."
+msgstr "Impossible de copier l'échantillon du répertoire %1 vers %2."
+
+#. i18n: file: main.ui:14
+#. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
+#: rc.cpp:3
+#, fuzzy
+msgid "sam - Untitled"
+msgstr "Sans titre"
+
+#. i18n: file: main.ui:25
+#. i18n: ectx: attribute (title), widget (QWidget, Seite_3)
+#: rc.cpp:6
+msgid "Input && output files"
+msgstr ""
+
+#. i18n: file: main.ui:33
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
+#: rc.cpp:9
+msgid "Model type"
+msgstr ""
+
+#. i18n: file: main.ui:39
+#. i18n: ectx: property (text), widget (QRadioButton, rbStaticModel)
+#: rc.cpp:12
+#, fuzzy
+msgid "Static model"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:46
+#. i18n: ectx: property (text), widget (QRadioButton, rbAdaptedBaseModel)
+#: rc.cpp:15
+msgid "Adapted base model"
+msgstr ""
+
+#. i18n: file: main.ui:53
+#. i18n: ectx: property (text), widget (QRadioButton, rbDynamicModel)
+#: rc.cpp:18
+msgid "Entirely user generated model"
+msgstr ""
+
+#. i18n: file: main.ui:66
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:21
+msgid "Input files"
+msgstr ""
+
+#. i18n: file: main.ui:72
+#. i18n: ectx: property (text), widget (KPushButton, pbSerializeScenarios)
+#: rc.cpp:24
+msgid "Serialize scenarios"
+msgstr ""
+
+#. i18n: file: main.ui:79
+#. i18n: ectx: property (text), widget (KPushButton, pbSerializePrompts)
+#: rc.cpp:27
+msgid "Serialize prompts"
+msgstr ""
+
+#. i18n: file: main.ui:91
+#. i18n: ectx: property (text), widget (QLabel, lbLexicon)
+#: rc.cpp:30
+msgid "Lexicon:"
+msgstr ""
+
+#. i18n: file: main.ui:101
+#. i18n: ectx: property (text), widget (QLabel, lbGrammar)
+#: rc.cpp:33
+msgid "Grammar:"
+msgstr ""
+
+#. i18n: file: main.ui:111
+#. i18n: ectx: property (text), widget (QLabel, lbVocabulary)
+#: rc.cpp:36
+msgid "Vocabulary:"
+msgstr ""
+
+#. i18n: file: main.ui:121
+#. i18n: ectx: property (text), widget (QLabel, lbPrompts)
+#: rc.cpp:39
+msgid "Prompts:"
+msgstr ""
+
+#. i18n: file: main.ui:131
+#. i18n: ectx: property (text), widget (QLabel, lbPromptsBasePath)
+#: rc.cpp:42
+msgid "Prompts base path:"
+msgstr ""
+
+#. i18n: file: main.ui:141
+#. i18n: ectx: property (text), widget (QLabel, lbTreeHed)
+#: rc.cpp:45
+msgid "Tree.hed:"
+msgstr ""
+
+#. i18n: file: main.ui:151
+#. i18n: ectx: property (text), widget (QLabel, lbWavConfig)
+#: rc.cpp:48
+msgid "Wav-Config:"
+msgstr ""
+
+#. i18n: file: main.ui:161
+#. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
+#: rc.cpp:51
+msgid "Samplerate:"
+msgstr ""
+
+#. i18n: file: main.ui:206
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: rc.cpp:54
+#, fuzzy
+msgid "Base model"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:215
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:57
+msgid "Base HMM-definitions:"
+msgstr ""
+
+#. i18n: file: main.ui:225
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:60
+msgid "Base tiedlist:"
+msgstr ""
+
+#. i18n: file: main.ui:235
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: rc.cpp:63
+msgid "Base macros:"
+msgstr ""
+
+#. i18n: file: main.ui:245
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: rc.cpp:66
+msgid "Base stats:"
+msgstr ""
+
+#. i18n: file: main.ui:258
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: rc.cpp:69
+msgid "Output files"
+msgstr ""
+
+#. i18n: file: main.ui:264
+#. i18n: ectx: property (text), widget (QLabel, lbHmmdefs)
+#: rc.cpp:72
+msgid "HMM-definitions:"
+msgstr ""
+
+#. i18n: file: main.ui:274
+#. i18n: ectx: property (text), widget (QLabel, lbTiedlist)
+#: rc.cpp:75
+msgid "Tiedlist:"
+msgstr ""
+
+#. i18n: file: main.ui:284
+#. i18n: ectx: property (text), widget (QLabel, lbDict)
+#: rc.cpp:78
+msgid "Dict:"
+msgstr ""
+
+#. i18n: file: main.ui:291
+#. i18n: ectx: property (text), widget (QLabel, lbDFA)
+#: rc.cpp:81
+msgid "DFA:"
+msgstr ""
+
+#. i18n: file: main.ui:307
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_5)
+#. i18n: file: samui.rc:22
+#. i18n: ectx: Menu (test)
+#: rc.cpp:84 rc.cpp:156
+#, fuzzy
+msgctxt "Test the model"
+msgid "Test"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:316
+#. i18n: ectx: property (text), widget (QLabel, lbTestPrompts)
+#: rc.cpp:87
+msgid "Test-prompts:"
+msgstr ""
+
+#. i18n: file: main.ui:326
+#. i18n: ectx: property (text), widget (QLabel, lbTestPromptsBasePath)
+#: rc.cpp:90
+msgid "Test-prompts base path:"
+msgstr ""
+
+#. i18n: file: main.ui:336
+#. i18n: ectx: property (text), widget (QLabel, lbJConf)
+#: rc.cpp:93
+msgid "JConf:"
+msgstr ""
+
+#. i18n: file: main.ui:365
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: rc.cpp:96
+msgid "Adapt scenarios"
+msgstr ""
+
+#. i18n: file: main.ui:387
+#. i18n: ectx: property (text), widget (QLabel, lbAdaptLog)
+#: rc.cpp:99
+#, fuzzy
+msgid "Adapt log:"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:404
+#. i18n: ectx: attribute (title), widget (QWidget, Seite)
+#: rc.cpp:102
+#, fuzzy
+msgid "Create model"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:429
+#. i18n: ectx: property (text), widget (KPushButton, pbCancelBuildModel)
+#. i18n: file: main.ui:482
+#. i18n: ectx: property (text), widget (KPushButton, pbCancelTestModel)
+#: rc.cpp:108 rc.cpp:120
+msgid "Cancel"
+msgstr ""
+
+#. i18n: file: main.ui:440
+#. i18n: ectx: property (text), widget (QLabel, lbBuildLog)
+#: rc.cpp:111
+#, fuzzy
+msgid "Build log:"
+msgstr "Construire le modèle"
+
+#. i18n: file: main.ui:493
+#. i18n: ectx: property (text), widget (QLabel, lbTestLog)
+#: rc.cpp:123
+#, fuzzy
+msgid "Test log:"
+msgstr "Tester le modèle"
+
+#. i18n: file: main.ui:518
+#. i18n: ectx: property (text), widget (QLabel, lbRecognitionRate)
+#: rc.cpp:129
+msgid "Overall recognition rate:"
+msgstr ""
+
+#. i18n: file: main.ui:541
+#. i18n: ectx: attribute (title), widget (QWidget, pgWordResults)
+#: rc.cpp:132
+msgid "Individual words"
+msgstr ""
+
+#. i18n: file: main.ui:566
+#. i18n: ectx: attribute (title), widget (QWidget, pgSentenceResults)
+#: rc.cpp:135
+msgid "Sentences"
+msgstr ""
+
+#. i18n: file: main.ui:591
+#. i18n: ectx: attribute (title), widget (QWidget, pgFileResults)
+#: rc.cpp:138
+msgid "Files"
+msgstr ""
+
+#. i18n: file: main.ui:599
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: rc.cpp:141
+msgid "Find file:"
+msgstr ""
+
+#. i18n: file: main.ui:606
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, leResultFilesFilter)
+#: rc.cpp:144
+msgid "Filter"
+msgstr ""
+
+#. i18n: file: main.ui:636
+#. i18n: ectx: property (text), widget (KPushButton, pbEditSample)
+#: rc.cpp:147
+#, fuzzy
+msgid "Edit sample"
+msgstr "Modifier l'échantillon"
+
+#. i18n: file: samui.rc:5
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:150
+msgid "Main Actions"
+msgstr ""
+
+#. i18n: file: samui.rc:16
+#. i18n: ectx: Menu (build)
+#: rc.cpp:153
+#, fuzzy
+msgid "Build"
+msgstr "Construire le modèle"
+
+#: rc.cpp:157
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Yann Cantin"
+
+#: rc.cpp:158
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "yann.cantin@laposte.fr"

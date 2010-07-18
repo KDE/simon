@@ -1,0 +1,102 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yann Cantin <yann.cantinlaposte.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"PO-Revision-Date: 2010-07-14 01:49+0200\n"
+"Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: filtercommandmanager.cpp:39 filtercommandmanager.cpp:64
+msgid "Activate Filter"
+msgstr "Activer le filtre"
+
+#: filtercommandmanager.cpp:50 filterconfiguration.cpp:30
+msgid "Filter"
+msgstr "Filtrer"
+
+#: filtercommandmanager.cpp:63
+msgid "Filter deactivated"
+msgstr "Filtre désactivé"
+
+#: filtercommandmanager.cpp:67
+msgid "Filter activated"
+msgstr "Filtre activé"
+
+#: filtercommandmanager.cpp:68
+msgid "Deactivate Filter"
+msgstr "Désactiver le filtre"
+
+#: filtercommandmanager.cpp:75
+msgid "[INF] Changing filter state..."
+msgstr "[INF] Changement d'état du filtre"
+
+#: filtercommandmanager.cpp:107
+#, fuzzy
+msgid "Activate filter"
+msgstr "Activer le filtre"
+
+#: filtercommandmanager.cpp:108
+msgid "Starts filtering"
+msgstr ""
+
+#: filtercommandmanager.cpp:114
+#, fuzzy
+msgid "Deactivate filter"
+msgstr "Désactiver le filtre"
+
+#: filtercommandmanager.cpp:115
+msgid "Stops filtering"
+msgstr ""
+
+#: filterconfiguration.cpp:31
+msgid "Filter recognition results"
+msgstr "Filtrer les résultats de la reconnaissance"
+
+#. i18n: file: filterconfigurationdlg.ui:32
+#. i18n: ectx: property (text), widget (KLineEdit, leRegExp)
+#: filterconfiguration.cpp:76 po/rc.cpp:6 rc.cpp:6
+msgid ".*"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:25
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Filter (RegExp):"
+msgstr ""
+
+#: po/rc.cpp:7 rc.cpp:7
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Yann Cantin"
+
+#: po/rc.cpp:8 rc.cpp:8
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "yann.cantin@laposte.fr"
+
+#~ msgid "Pause recognition"
+#~ msgstr "Suspendre la reconnaissance"
+
+#~ msgid "Resume recognition"
+#~ msgstr "Reprendre la reconnaissance"
+
+#~ msgid "Form"
+#~ msgstr "Forme"
+
+#~ msgid "Activate:"
+#~ msgstr "Activer :"
+
+#~ msgid "Deactivate:"
+#~ msgstr "Désactiver :"

@@ -18,14 +18,9 @@ kde4_add_ui_files(simonpronunciationtrainingplugin_SRCS
 
 kde4_add_plugin(simonpronunciationtrainingplugin ${simonpronunciationtrainingplugin_SRCS})
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 target_link_libraries(simonpronunciationtrainingplugin ${KDE4_KDEUI_LIBS}
 	${QT_QTXML_LIBRARY}
-	simonlogging simonscenarios simonactions simonscenarios
-	simonrecognitionresult)
+	simonlogging simonscenarios simonactions simonrecognitionresult)
 
 install(TARGETS simonpronunciationtrainingplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
 install( FILES simonpronunciationtrainingplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
