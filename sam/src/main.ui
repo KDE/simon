@@ -18,7 +18,7 @@
     <item>
      <widget class="KTabWidget" name="twMain">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="Seite_3">
        <attribute name="title">
@@ -534,7 +534,7 @@
         <item>
          <widget class="KTabWidget" name="twDetailedResults">
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="pgWordResults">
            <attribute name="title">
@@ -602,7 +602,7 @@
               </item>
               <item>
                <widget class="KLineEdit" name="leResultFilesFilter">
-                <property name="placeholderText">
+                <property name="clickMessage">
                  <string>Filter</string>
                 </property>
                </widget>
