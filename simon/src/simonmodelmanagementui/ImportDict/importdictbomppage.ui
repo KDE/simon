@@ -54,8 +54,6 @@
        <widget class="KComboBox" name="cbEncoding" />
       </item>
      </layout>
-     <zorder></zorder>
-     <zorder>lbDesc</zorder>
     </widget>
    </item>
    <item>
