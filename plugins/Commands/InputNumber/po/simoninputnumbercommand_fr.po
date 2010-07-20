@@ -9,25 +9,24 @@ msgstr ""
 "Project-Id-Version: simoninputnumbercommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
-"PO-Revision-Date: 2010-07-12 20:32+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-18 19:19+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: inputnumbercommandmanager.cpp:53
-#, fuzzy
 msgid "Display the number input"
-msgstr "Activer la saisie d'un nombre"
+msgstr "Affiche la saisie de nombres"
 
 #: inputnumbercommandmanager.cpp:69
 msgid "Activate Number Input"
-msgstr "Activer la saisie d'un nombre"
+msgstr "Activer la saisie de nombres"
 
 #: inputnumbercommandmanager.cpp:93
 msgid "Number"
@@ -35,126 +34,115 @@ msgstr "Nombre"
 
 #: inputnumbercommandmanager.cpp:94
 msgid "Displays the number input field"
-msgstr ""
+msgstr "Affiche le champ de saisie de nombres"
 
 #: inputnumbercommandmanager.cpp:100
-#, fuzzy
 msgctxt "Number"
 msgid "Zero"
 msgstr "Zéro"
 
 #: inputnumbercommandmanager.cpp:101
 msgid "Clicks 0"
-msgstr ""
+msgstr "Touche 0"
 
 #: inputnumbercommandmanager.cpp:103
-#, fuzzy
 msgctxt "Number"
 msgid "One"
 msgstr "Un"
 
 #: inputnumbercommandmanager.cpp:104
 msgid "Clicks 1"
-msgstr ""
+msgstr "Touche 1"
 
 #: inputnumbercommandmanager.cpp:106
-#, fuzzy
 msgctxt "Number"
 msgid "Two"
 msgstr "Deux"
 
 #: inputnumbercommandmanager.cpp:107
 msgid "Clicks 2"
-msgstr ""
+msgstr "Touche 2"
 
 #: inputnumbercommandmanager.cpp:109
-#, fuzzy
 msgctxt "Number"
 msgid "Three"
 msgstr "Trois"
 
 #: inputnumbercommandmanager.cpp:110
 msgid "Clicks 3"
-msgstr ""
+msgstr "Touche 3"
 
 #: inputnumbercommandmanager.cpp:112
-#, fuzzy
 msgctxt "Number"
 msgid "Four"
 msgstr "Quatre"
 
 #: inputnumbercommandmanager.cpp:113
 msgid "Clicks 4"
-msgstr ""
+msgstr "Touche 4"
 
 #: inputnumbercommandmanager.cpp:115
-#, fuzzy
 msgctxt "Number"
 msgid "Five"
 msgstr "Cinq"
 
 #: inputnumbercommandmanager.cpp:116
 msgid "Clicks 5"
-msgstr ""
+msgstr "Touche 5"
 
 #: inputnumbercommandmanager.cpp:118
-#, fuzzy
 msgctxt "Number"
 msgid "Six"
 msgstr "Six"
 
 #: inputnumbercommandmanager.cpp:119
 msgid "Clicks 6"
-msgstr ""
+msgstr "Touche 6"
 
 #: inputnumbercommandmanager.cpp:121
-#, fuzzy
 msgctxt "Number"
 msgid "Seven"
 msgstr "Sept"
 
 #: inputnumbercommandmanager.cpp:122
 msgid "Clicks 7"
-msgstr ""
+msgstr "Touche 7"
 
 #: inputnumbercommandmanager.cpp:124
-#, fuzzy
 msgctxt "Number"
 msgid "Eight"
 msgstr "Huit"
 
 #: inputnumbercommandmanager.cpp:125
 msgid "Clicks 8"
-msgstr ""
+msgstr "Touche 8"
 
 #: inputnumbercommandmanager.cpp:127
-#, fuzzy
 msgctxt "Number"
 msgid "Nine"
 msgstr "Neuf"
 
 #: inputnumbercommandmanager.cpp:128
 msgid "Clicks 9"
-msgstr ""
+msgstr "Touche 9"
 
 #: inputnumbercommandmanager.cpp:130
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
-msgstr ""
+msgstr "Point"
 
 #: inputnumbercommandmanager.cpp:131
 msgid "Decimal separator"
-msgstr ""
+msgstr "Séparateur décimal"
 
 #: inputnumbercommandmanager.cpp:134
-#, fuzzy
 msgctxt "Word to say to remove the last recognized digit"
 msgid "Back"
 msgstr "Précédent"
 
 #: inputnumbercommandmanager.cpp:135
 msgid "Deletes the last input character"
-msgstr ""
+msgstr "Enlever le dernier caractère saisi"
 
 #. i18n: file: inputnumberwidget.ui:116
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
@@ -164,7 +152,7 @@ msgstr "Ok"
 
 #: inputnumbercommandmanager.cpp:138
 msgid "Accepts the input dialog and writes the number"
-msgstr ""
+msgstr "Valider l'entrée et écrire le nombre"
 
 #. i18n: file: inputnumberwidget.ui:123
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
@@ -174,7 +162,7 @@ msgstr "Annuler"
 
 #: inputnumbercommandmanager.cpp:141
 msgid "Aborts the input dialog"
-msgstr ""
+msgstr "Abandonne la saisie"
 
 #. i18n: file: inputnumberwidget.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
@@ -256,7 +244,6 @@ msgstr "."
 #. i18n: file: inputnumberwidget.ui:109
 #. i18n: ectx: property (text), widget (KPushButton, pbBack)
 #: po/rc.cpp:39 rc.cpp:39
-#, fuzzy
 msgctxt "Remove last entered digit (backspace)"
 msgid "Back"
 msgstr "Précédent"

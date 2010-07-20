@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: simonplacecommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
-"PO-Revision-Date: 2010-07-11 01:41+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-18 19:37+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -31,7 +31,6 @@ msgstr "URL"
 #. i18n: file: createplacecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportPlace)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgid "Select place"
 msgstr "Sélectionner un emplacement"
 
@@ -42,11 +41,12 @@ msgid ""
 "This dialog will help you to specify the needed options to select both local "
 "or remote places"
 msgstr ""
+"Cette fenêtre va vous permettre de spécifier les emplacement locaux ou "
+"distants."
 
 #. i18n: file: createplacecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
 #: po/rc.cpp:9 rc.cpp:9
-#, fuzzy
 msgctxt "Input the information manually (instead of automatically)"
 msgid "Manual"
 msgstr "Manuel"
@@ -78,9 +78,8 @@ msgstr "Emplacement local"
 #. i18n: file: selectplacedlg.ui:50
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocalFile)
 #: po/rc.cpp:21 rc.cpp:21
-#, fuzzy
 msgid "Local File"
-msgstr "Emplacement local"
+msgstr "Fichier local"
 
 #. i18n: file: selectplacedlg.ui:81
 #. i18n: ectx: property (text), widget (QRadioButton, rbRemotePlace)
@@ -176,16 +175,15 @@ msgstr "Sélectionner un emplacement"
 
 #: selectplacedialog.cpp:68
 msgid "Open local path: %1"
-msgstr ""
+msgstr "Ouvrir un chemin local : %1"
 
 #: selectplacedialog.cpp:72
 msgid "Open local file: %1"
-msgstr ""
+msgstr "Ouvrir un fichier local : %1"
 
 #: selectplacedialog.cpp:76
-#, fuzzy
 msgid "Open remote URL: %1"
-msgstr "URL distante"
+msgstr "Ouvrir une URL distante : %1"
 
 #~ msgid "Add Place"
 #~ msgstr "Ajouter un emplacement"

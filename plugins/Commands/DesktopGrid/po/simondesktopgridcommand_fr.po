@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: simondesktopgridcommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
-"PO-Revision-Date: 2010-07-13 22:43+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-18 19:08+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -34,9 +34,8 @@ msgid "Activate Desktopgrid"
 msgstr "Activer le quadrillage du bureau"
 
 #: desktopgridcommandmanager.cpp:104
-#, fuzzy
 msgid "Display the desktop grid"
-msgstr "Activer le quadrillage du bureau"
+msgstr "Affiche le quadrillage du bureau"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:95
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
@@ -65,141 +64,130 @@ msgid "Drag & Drop"
 msgstr "Glisser-déposer"
 
 #: desktopgridcommandmanager.cpp:166
-#, fuzzy
 msgid "Starts the desktop grid"
-msgstr "Montrer le quadrillage du bureau"
+msgstr "Lance le quadrillage du bureau"
 
 #: desktopgridcommandmanager.cpp:173
-#, fuzzy
 msgctxt "Number"
 msgid "One"
 msgstr "Un"
 
 #: desktopgridcommandmanager.cpp:175
 msgid "Clicks 1"
-msgstr ""
+msgstr "Clique sur 1"
 
 #: desktopgridcommandmanager.cpp:177
-#, fuzzy
 msgctxt "Number"
 msgid "Two"
 msgstr "Deux"
 
 #: desktopgridcommandmanager.cpp:178
 msgid "Clicks 2"
-msgstr ""
+msgstr "Clique sur 2"
 
 #: desktopgridcommandmanager.cpp:180
-#, fuzzy
 msgctxt "Number"
 msgid "Three"
 msgstr "Trois"
 
 #: desktopgridcommandmanager.cpp:181
 msgid "Clicks 3"
-msgstr ""
+msgstr "Clique sur 3"
 
 #: desktopgridcommandmanager.cpp:183
-#, fuzzy
 msgctxt "Number"
 msgid "Four"
 msgstr "Quatre"
 
 #: desktopgridcommandmanager.cpp:184
 msgid "Clicks 4"
-msgstr ""
+msgstr "Clique sur 4"
 
 #: desktopgridcommandmanager.cpp:186
-#, fuzzy
 msgctxt "Number"
 msgid "Five"
 msgstr "Cinq"
 
 #: desktopgridcommandmanager.cpp:187
 msgid "Clicks 5"
-msgstr ""
+msgstr "Clique sur 5"
 
 #: desktopgridcommandmanager.cpp:189
-#, fuzzy
 msgctxt "Number"
 msgid "Six"
 msgstr "Six"
 
 #: desktopgridcommandmanager.cpp:190
 msgid "Clicks 6"
-msgstr ""
+msgstr "Clique sur 6"
 
 #: desktopgridcommandmanager.cpp:192
-#, fuzzy
 msgctxt "Number"
 msgid "Seven"
 msgstr "Sept"
 
 #: desktopgridcommandmanager.cpp:193
 msgid "Clicks 7"
-msgstr ""
+msgstr "Clique sur 7"
 
 #: desktopgridcommandmanager.cpp:195
-#, fuzzy
 msgctxt "Number"
 msgid "Eight"
 msgstr "Huit"
 
 #: desktopgridcommandmanager.cpp:196
 msgid "Clicks 8"
-msgstr ""
+msgstr "Clique sur 8"
 
 #: desktopgridcommandmanager.cpp:198
-#, fuzzy
 msgctxt "Number"
 msgid "Nine"
 msgstr "Neuf"
 
 #: desktopgridcommandmanager.cpp:199
 msgid "Clicks 9"
-msgstr ""
+msgstr "Clique sur 9"
 
 #: desktopgridcommandmanager.cpp:202
-#, fuzzy
 msgctxt "Cancel the destkop grid"
 msgid "Cancel"
 msgstr "Annuler"
 
 #: desktopgridcommandmanager.cpp:203
 msgid "Aborts the selection process"
-msgstr ""
+msgstr "Abandonne la procédure de sélection"
 
 #: desktopgridcommandmanager.cpp:207
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
-msgstr ""
+msgstr "Sélectionne le mode simple click gauche"
 
 #: desktopgridcommandmanager.cpp:210
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
-msgstr ""
+msgstr "Sélectionne le mode double click gauche"
 
 #: desktopgridcommandmanager.cpp:213
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
-msgstr ""
+msgstr "Sélectionne le mode simple click droit"
 
 #: desktopgridcommandmanager.cpp:216
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
-msgstr ""
+msgstr "Sélectionne le mode simple click milieu"
 
 #: desktopgridcommandmanager.cpp:219
 msgid "In the click mode selection popup, this selects the drag and drop mode"
-msgstr ""
+msgstr "Sélectionne le mode glisser-déposer"
 
 #: desktopgridcommandmanager.cpp:222
 msgid "In the click mode selection popup, cancels the selection"
-msgstr ""
+msgstr "Annule la sélection du mode"
 
 #: desktopgridconfiguration.cpp:31
 msgid "Voice controlled mouse clicks"

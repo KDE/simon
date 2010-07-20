@@ -7,21 +7,20 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-18 17:34+0200\n"
-"PO-Revision-Date: 2010-07-12 19:14+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-19 15:16+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. i18n: file: config/sscconfig.kcfg:11
 #. i18n: ectx: label, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:3 rc.cpp:3
-#, fuzzy
 msgid "whether to connect automatically during startup."
 msgstr "Connexion automatique au lancement."
 
@@ -29,7 +28,7 @@ msgstr "Connexion automatique au lancement."
 #. i18n: ectx: tooltip, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "If selected, ssc will automatically connect to the sscd when started."
-msgstr ""
+msgstr "Si activé, ssc se connectera automatiquement à sscd au lancement."
 
 #. i18n: file: config/sscconfig.kcfg:16
 #. i18n: ectx: label, entry (Host), group (ssc)
@@ -41,7 +40,7 @@ msgstr "Le serveur auquel se connecter."
 #. i18n: ectx: tooltip, entry (Host), group (ssc)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "sscd hostname or ip address."
-msgstr ""
+msgstr "Nom d'hôte ou adresse IP de sscd."
 
 #. i18n: file: config/sscconfig.kcfg:21
 #. i18n: ectx: label, entry (Port), group (ssc)
@@ -53,7 +52,7 @@ msgstr "Le port auquel se connecter."
 #. i18n: ectx: tooltip, entry (Port), group (ssc)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Port of the sscd server."
-msgstr ""
+msgstr "Le port utilisé par le serveur sscd."
 
 #. i18n: file: config/sscconfig.kcfg:26
 #. i18n: ectx: label, entry (Timeout), group (ssc)
@@ -61,18 +60,17 @@ msgstr ""
 msgid ""
 "after this timeout the client will stop waiting for an answer from the "
 "server."
-msgstr ""
+msgstr "Après ce délai, le client arrêtera d'attendre une réponse du serveur."
 
 #. i18n: file: config/sscconfig.kcfg:28
 #. i18n: ectx: tooltip, entry (Timeout), group (ssc)
 #: po/rc.cpp:24 rc.cpp:24
 msgid "Timeout for connecting to the sscd server."
-msgstr ""
+msgstr "Délai imparti pour la connexion au serveur sscd."
 
 #. i18n: file: config/sscconfig.kcfg:31
 #. i18n: ectx: label, entry (UseInstitutionSpecificIDs), group (ssc)
 #: po/rc.cpp:27 rc.cpp:27
-#, fuzzy
 msgid ""
 "whether we want to resolve users based on their reference id assigned by a "
 "specific institute."
@@ -84,7 +82,7 @@ msgstr ""
 #. i18n: ectx: tooltip, entry (UseInstitutionSpecificIDs), group (ssc)
 #: po/rc.cpp:30 rc.cpp:30
 msgid "Use ids assigned from the institution."
-msgstr ""
+msgstr "Utiliser les IDs affectés par l'institut."
 
 #. i18n: file: config/sscconfig.kcfg:37
 #. i18n: ectx: label, entry (ReferenceInstitute), group (ssc)
@@ -96,35 +94,31 @@ msgstr "L'institution utilisée pour vérifier les IDs."
 #. i18n: ectx: tooltip, entry (ReferenceInstitute), group (ssc)
 #: po/rc.cpp:36 rc.cpp:36
 msgid "Reference institute used to check the ids against."
-msgstr ""
+msgstr "Institut utilisé pour vérifier les Ids."
 
 #. i18n: file: config/sscconfig.kcfg:43
 #. i18n: ectx: label, entry (DefaultLanguage), group (ssc)
 #: po/rc.cpp:39 rc.cpp:39
-#, fuzzy
 msgid "the default language for new users."
 msgstr "Le langage par défaut pour les nouveaux utilisateurs."
 
 #. i18n: file: config/sscconfig.kcfg:45
 #. i18n: ectx: tooltip, entry (DefaultLanguage), group (ssc)
 #: po/rc.cpp:42 rc.cpp:42
-#, fuzzy
 msgid "Default language of new users."
-msgstr "Le langage par défaut pour les nouveaux utilisateurs."
+msgstr "Langage par défaut des nouveaux utilisateurs."
 
 #. i18n: file: config/sscconfig.kcfg:49
 #. i18n: ectx: label, entry (UseEncryption), group (ssc)
 #: po/rc.cpp:45 rc.cpp:45
-#, fuzzy
 msgid "whether we want to encrypt the communication between simon and simond."
 msgstr "Si vous souhaitez chiffrer les communications entre simon et simond."
 
 #. i18n: file: config/sscconfig.kcfg:51
 #. i18n: ectx: tooltip, entry (UseEncryption), group (ssc)
 #: po/rc.cpp:48 rc.cpp:48
-#, fuzzy
 msgid "Use encryption for connecting to sscd."
-msgstr "Méthode de chiffrage à utiliser."
+msgstr "Utiliser le chiffrage pour la connexion à sscd."
 
 #. i18n: file: config/sscconfig.kcfg:54
 #. i18n: ectx: label, entry (EncryptionMethod), group (ssc)
@@ -136,7 +130,7 @@ msgstr "Méthode de chiffrage à utiliser."
 #. i18n: ectx: tooltip, entry (EncryptionMethod), group (ssc)
 #: po/rc.cpp:54 rc.cpp:54
 msgid "Selected cipher for the sscd connection."
-msgstr ""
+msgstr "Choisissez le chiffrage pour la connexion à sscd."
 
 #. i18n: file: config/sscconfig.kcfg:58
 #. i18n: ectx: label, entry (Certificate), group (ssc)
@@ -148,12 +142,11 @@ msgstr "L'emplacement du certificat SSL."
 #. i18n: ectx: tooltip, entry (Certificate), group (ssc)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Certificate identifying the connecting host."
-msgstr ""
+msgstr "Certificat identifiant l'ordinateur."
 
 #. i18n: file: config/sscconfig.kcfg:63
 #. i18n: ectx: label, entry (DefaultToPowerTrain), group (ssc)
 #: po/rc.cpp:63 rc.cpp:63
-#, fuzzy
 msgid "whether power training is activated by default."
 msgstr "Entraînement avancé activé par défaut."
 
@@ -161,7 +154,7 @@ msgstr "Entraînement avancé activé par défaut."
 #. i18n: ectx: tooltip, entry (DefaultToPowerTrain), group (ssc)
 #: po/rc.cpp:66 rc.cpp:66
 msgid "Default to power training."
-msgstr ""
+msgstr "Entraînement avancé par défaut."
 
 #. i18n: file: config/sscconfig.kcfg:68
 #. i18n: ectx: label, entry (SampleDirectory), group (ssc)
@@ -172,69 +165,68 @@ msgstr "Le répertoire temporaire où sont enregistrés les séquences."
 #. i18n: file: config/sscconfig.kcfg:70
 #. i18n: ectx: tooltip, entry (SampleDirectory), group (ssc)
 #: po/rc.cpp:72 rc.cpp:72
-#, fuzzy
 msgid "Directory to store the samples in."
-msgstr "Voulez-vous envoyer les échantillons ?"
+msgstr "Le répertoire où sont enregistrés les séquences."
 
 #. i18n: file: config/sscconfig.kcfg:74
 #. i18n: ectx: label, entry (DeviceNameKeys), group (ssc)
 #: po/rc.cpp:75 rc.cpp:75
 msgid "device names as reported by QtMultimedia."
-msgstr ""
+msgstr "Noms des périphériques donnés par QtMultimedia."
 
 #. i18n: file: config/sscconfig.kcfg:75
 #. i18n: ectx: tooltip, entry (DeviceNameKeys), group (ssc)
 #: po/rc.cpp:78 rc.cpp:78
 msgid "The device name as reported by QtMultimedia."
-msgstr ""
+msgstr "Les noms des périphériques donnés par QtMultimedia."
 
 #. i18n: file: config/sscconfig.kcfg:78
 #. i18n: ectx: label, entry (DeviceNameValues), group (ssc)
 #: po/rc.cpp:81 rc.cpp:81
 msgid "device names set by the user."
-msgstr ""
+msgstr "Nom du périphérique donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:79
 #. i18n: ectx: tooltip, entry (DeviceNameValues), group (ssc)
 #: po/rc.cpp:84 rc.cpp:84
 msgid "The device name set by the user."
-msgstr ""
+msgstr "Le nom du périphérique donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:82
 #. i18n: ectx: label, entry (DeviceNameTypes), group (ssc)
 #: po/rc.cpp:87 rc.cpp:87
 msgid "device types set by the user."
-msgstr ""
+msgstr "Type de périphérique donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:83
 #. i18n: ectx: tooltip, entry (DeviceNameTypes), group (ssc)
 #: po/rc.cpp:90 rc.cpp:90
 msgid "The device type set by the user."
-msgstr ""
+msgstr "Le type de périphérique donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:86
 #. i18n: ectx: label, entry (DeviceNameMicrophoneValues), group (ssc)
 #: po/rc.cpp:93 rc.cpp:93
 msgid "microphone names set by the user."
-msgstr ""
+msgstr "Nom du microphone donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:87
 #. i18n: ectx: tooltip, entry (DeviceNameMicrophoneValues), group (ssc)
 #: po/rc.cpp:96 rc.cpp:96
 msgid "The microphone device name set by the user."
-msgstr ""
+msgstr "Le nom du microphone donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:90
 #. i18n: ectx: label, entry (DeviceNameMicrophoneTypes), group (ssc)
 #: po/rc.cpp:99 rc.cpp:99
 msgid "microphone device types set by the user."
-msgstr ""
+msgstr "Type de microphone donné par l'utilisateur."
 
 #. i18n: file: config/sscconfig.kcfg:91
 #. i18n: ectx: tooltip, entry (DeviceNameMicrophoneTypes), group (ssc)
 #: po/rc.cpp:102 rc.cpp:102
 msgid "The microphone device type set by the user."
-msgstr ""
+msgstr "Le type de microphone donné par l'utilisateur."
 
 #. i18n: file: config/sscconfiguration.ui:20
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -264,7 +256,7 @@ msgstr "Port :"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:114 rc.cpp:114
 msgid "Timeout:"
-msgstr ""
+msgstr "Délai imparti :"
 
 #. i18n: file: config/sscconfiguration.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
@@ -276,7 +268,7 @@ msgstr "Connexion automatique au lancement"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: po/rc.cpp:120 rc.cpp:120
 msgid "Data"
-msgstr ""
+msgstr "Données"
 
 #. i18n: file: config/sscconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute)
@@ -304,13 +296,13 @@ msgstr "Utiliser les IDs spécifiques à une institution au lieu des IDs ssc"
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: po/rc.cpp:133 rc.cpp:133
 msgid "User interface"
-msgstr ""
+msgstr "Interface utilisateur"
 
 #. i18n: file: config/sscconfiguration.ui:154
 #. i18n: ectx: property (text), widget (QCheckBox, cbAskForOfflineMode)
 #: po/rc.cpp:136 rc.cpp:136
 msgid "Do not ask before entering offline mode"
-msgstr ""
+msgstr "Ne pas demander avant de passer en mode offline"
 
 #. i18n: file: config/sscconfiguration.ui:161
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowSampleWarning)
@@ -318,6 +310,8 @@ msgstr ""
 msgid ""
 "Do not display warning dialog when simon detects a problem with a sample"
 msgstr ""
+"Ne pas afficher de fenêtre d'alerte lorsque simon détecte un problème sur un "
+"échantillon"
 
 #. i18n: file: src/details.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
@@ -341,7 +335,7 @@ msgstr "Détails"
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
 #: po/rc.cpp:145 po/rc.cpp:298 rc.cpp:145 rc.cpp:298
 msgid "Surname:"
-msgstr "Surnom :"
+msgstr "Nom :"
 
 #. i18n: file: src/details.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
@@ -392,7 +386,7 @@ msgstr "Ajouter"
 #: po/rc.cpp:157 po/rc.cpp:448 po/rc.cpp:466 po/rc.cpp:487 rc.cpp:157
 #: rc.cpp:448 rc.cpp:466 rc.cpp:487
 msgid "Remove"
-msgstr "Enlever"
+msgstr "Supprimer"
 
 #. i18n: file: src/details.ui:83
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -409,7 +403,6 @@ msgstr "Genre :"
 #. i18n: file: src/details.ui:92
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
 #: po/rc.cpp:163 rc.cpp:163
-#, fuzzy
 msgctxt "Sex of the user"
 msgid "Male"
 msgstr "Homme"
@@ -417,7 +410,6 @@ msgstr "Homme"
 #. i18n: file: src/details.ui:99
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
 #: po/rc.cpp:166 rc.cpp:166
-#, fuzzy
 msgctxt "Sex of the user"
 msgid "Female"
 msgstr "Femme"
@@ -508,7 +500,7 @@ msgstr "Langue maternelle :"
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
 #: po/rc.cpp:190 rc.cpp:190
 msgid "Institution"
-msgstr "Institution"
+msgstr "Institut"
 
 #. i18n: file: src/details.ui:184
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
@@ -553,7 +545,6 @@ msgstr "Orientation :"
 #. i18n: file: src/details.ui:286
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:202 po/rc.cpp:220 po/rc.cpp:238 rc.cpp:202 rc.cpp:220 rc.cpp:238
-#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "1: Very Good"
 msgstr "1 : Très bien"
@@ -571,7 +562,6 @@ msgstr "1 : Très bien"
 #. i18n: file: src/details.ui:291
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:205 po/rc.cpp:223 po/rc.cpp:241 rc.cpp:205 rc.cpp:223 rc.cpp:241
-#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "2: Good"
 msgstr "2 : Bien"
@@ -589,7 +579,6 @@ msgstr "2 : Bien"
 #. i18n: file: src/details.ui:296
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:208 po/rc.cpp:226 po/rc.cpp:244 rc.cpp:208 rc.cpp:226 rc.cpp:244
-#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "3: Satisfactory"
 msgstr "3 : Satisfaisant"
@@ -607,7 +596,6 @@ msgstr "3 : Satisfaisant"
 #. i18n: file: src/details.ui:301
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:211 po/rc.cpp:229 po/rc.cpp:247 rc.cpp:211 rc.cpp:229 rc.cpp:247
-#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "4: Acceptable"
 msgstr "4 : Acceptable"
@@ -625,7 +613,6 @@ msgstr "4 : Acceptable"
 #. i18n: file: src/details.ui:306
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:214 po/rc.cpp:232 po/rc.cpp:250 rc.cpp:214 rc.cpp:232 rc.cpp:250
-#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "5: Not acceptable"
 msgstr "5 : Insuffisant"
@@ -687,7 +674,6 @@ msgstr "Interview possible"
 #. i18n: file: src/details.ui:341
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: po/rc.cpp:262 rc.cpp:262
-#, fuzzy
 msgctxt ""
 "Trainings method where the user has to repeat everything the facilitator says"
 msgid "Repeating:"
@@ -703,32 +689,32 @@ msgstr "Répétition possible"
 #. i18n: ectx: property (text), widget (QLabel, lbDeviceDesc)
 #: po/rc.cpp:268 rc.cpp:268
 msgid "Device:"
-msgstr ""
+msgstr "Périphérique :"
 
 #. i18n: file: src/deviceinformation.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:271 rc.cpp:271
 msgctxt "Make of the sound card"
 msgid "Model:"
-msgstr ""
+msgstr "Modèle :"
 
 #. i18n: file: src/deviceinformation.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:274 rc.cpp:274
 msgid "Type:"
-msgstr ""
+msgstr "Type :"
 
 #. i18n: file: src/deviceinformation.ui:83
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:277 rc.cpp:277
 msgid "Microphone model:"
-msgstr ""
+msgstr "Modèle du microphone :"
 
 #. i18n: file: src/deviceinformation.ui:103
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: po/rc.cpp:280 rc.cpp:280
 msgid "Microphone type:"
-msgstr ""
+msgstr "Type de microphone :"
 
 #. i18n: file: src/finduser.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Users)
@@ -739,7 +725,6 @@ msgstr "Gérer les utilisateurs"
 #. i18n: file: src/finduser.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: po/rc.cpp:286 rc.cpp:286
-#, fuzzy
 msgctxt "Basic filtering options"
 msgid "Basic"
 msgstr "Simple"
@@ -754,12 +739,11 @@ msgstr "Simple"
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
 #: po/rc.cpp:289 po/rc.cpp:535 rc.cpp:289 rc.cpp:535
 msgid "Institution:"
-msgstr "Institution :"
+msgstr "Institut :"
 
 #. i18n: file: src/finduser.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
 #: po/rc.cpp:292 rc.cpp:292
-#, fuzzy
 msgctxt "Pick institution from a list"
 msgid "Search"
 msgstr "Rechercher"
@@ -774,7 +758,7 @@ msgstr "Rechercher"
 #. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
 #: po/rc.cpp:295 po/rc.cpp:472 rc.cpp:295 rc.cpp:472
 msgid "User ID:"
-msgstr "ID utilisateur :"
+msgstr "ID utilisateur :"
 
 #. i18n: file: src/finduser.ui:105
 #. i18n: ectx: property (text), widget (QLabel, lbReferenceId)
@@ -802,7 +786,6 @@ msgstr "Ignoré"
 #. i18n: file: src/finduser.ui:158
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
 #: po/rc.cpp:322 rc.cpp:322
-#, fuzzy
 msgctxt "Only show users of this sex"
 msgid "Male"
 msgstr "Homme"
@@ -810,7 +793,6 @@ msgstr "Homme"
 #. i18n: file: src/finduser.ui:165
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
 #: po/rc.cpp:325 rc.cpp:325
-#, fuzzy
 msgctxt "Only show users of this sex"
 msgid "Female"
 msgstr "Femme"
@@ -818,7 +800,6 @@ msgstr "Femme"
 #. i18n: file: src/finduser.ui:186
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: po/rc.cpp:331 rc.cpp:331
-#, fuzzy
 msgctxt "First page of advanced filtering options"
 msgid "Advanced 1"
 msgstr "Avancé 1"
@@ -826,7 +807,6 @@ msgstr "Avancé 1"
 #. i18n: file: src/finduser.ui:258
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: po/rc.cpp:346 rc.cpp:346
-#, fuzzy
 msgctxt "Second page of advanced filtering options"
 msgid "Advanced 2"
 msgstr "Avancé 2"
@@ -844,10 +824,9 @@ msgstr "Avancé 2"
 #. i18n: file: src/finduser.ui:389
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:355 po/rc.cpp:376 po/rc.cpp:397 rc.cpp:355 rc.cpp:376 rc.cpp:397
-#, fuzzy
 msgctxt "Ignore this field when filtering"
 msgid "0: All"
-msgstr "0 : Tout"
+msgstr "0: Tout"
 
 #. i18n: file: src/finduser.ui:305
 #. i18n: ectx: property (text), item, widget (KComboBox, cbOrientation)
@@ -862,7 +841,6 @@ msgstr "0 : Tout"
 #. i18n: file: src/finduser.ui:394
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:358 po/rc.cpp:379 po/rc.cpp:400 rc.cpp:358 rc.cpp:379 rc.cpp:400
-#, fuzzy
 msgctxt "Scale from 1-5 with explanation"
 msgid "1: Very Good"
 msgstr "1 : Très bien"
@@ -880,7 +858,6 @@ msgstr "1 : Très bien"
 #. i18n: file: src/finduser.ui:399
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:361 po/rc.cpp:382 po/rc.cpp:403 rc.cpp:361 rc.cpp:382 rc.cpp:403
-#, fuzzy
 msgctxt "Scale from 1-5 with explanation"
 msgid "2: Good"
 msgstr "2 : Bien"
@@ -898,7 +875,6 @@ msgstr "2 : Bien"
 #. i18n: file: src/finduser.ui:404
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:364 po/rc.cpp:385 po/rc.cpp:406 rc.cpp:364 rc.cpp:385 rc.cpp:406
-#, fuzzy
 msgctxt "Scale from 1-5 with explanation"
 msgid "3: Satisfactory"
 msgstr "3 : Satisfaisant"
@@ -916,7 +892,6 @@ msgstr "3 : Satisfaisant"
 #. i18n: file: src/finduser.ui:409
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:367 po/rc.cpp:388 po/rc.cpp:409 rc.cpp:367 rc.cpp:388 rc.cpp:409
-#, fuzzy
 msgctxt "Scale from 1-5 with explanation"
 msgid "4: Acceptable"
 msgstr "4 : Acceptable"
@@ -934,7 +909,6 @@ msgstr "4 : Acceptable"
 #. i18n: file: src/finduser.ui:414
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
 #: po/rc.cpp:370 po/rc.cpp:391 po/rc.cpp:412 rc.cpp:370 rc.cpp:391 rc.cpp:412
-#, fuzzy
 msgctxt "Scale from 1-5 with explanation"
 msgid "5: Not acceptable"
 msgstr "5 : Insuffisant"
@@ -942,7 +916,6 @@ msgstr "5 : Insuffisant"
 #. i18n: file: src/finduser.ui:429
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: po/rc.cpp:418 rc.cpp:418
-#, fuzzy
 msgctxt ""
 "Trainings mode where the user tries to repeat everything the facilitator says"
 msgid "Repeating:"
@@ -957,7 +930,6 @@ msgstr "Répétition :"
 #. i18n: file: src/finduser.ui:491
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
 #: po/rc.cpp:424 po/rc.cpp:433 rc.cpp:424 rc.cpp:433
-#, fuzzy
 msgctxt "Answer to: Only show users where x is true?"
 msgid "Yes"
 msgstr "Oui"
@@ -971,7 +943,6 @@ msgstr "Oui"
 #. i18n: file: src/finduser.ui:498
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
 #: po/rc.cpp:427 po/rc.cpp:436 rc.cpp:427 rc.cpp:436
-#, fuzzy
 msgctxt "Answer to: Only show users where x is false?"
 msgid "No"
 msgstr "Non"
@@ -985,7 +956,6 @@ msgstr "Appliquer les filtres"
 #. i18n: file: src/finduser.ui:537
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
 #: po/rc.cpp:442 rc.cpp:442
-#, fuzzy
 msgctxt "Add user"
 msgid "Add"
 msgstr "Ajouter"
@@ -1000,7 +970,7 @@ msgstr "Ajouter"
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
 #: po/rc.cpp:445 po/rc.cpp:463 rc.cpp:445 rc.cpp:463
 msgid "Edit"
-msgstr "Édition"
+msgstr "Éditer"
 
 #. i18n: file: src/institution.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
@@ -1018,7 +988,6 @@ msgstr "Institutions"
 #. i18n: file: src/institution.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbName)
 #: po/rc.cpp:454 rc.cpp:454
-#, fuzzy
 msgctxt "Name of the institution"
 msgid "Name:"
 msgstr "Nom :"
@@ -1038,7 +1007,6 @@ msgstr "SSC"
 #. i18n: file: src/main.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
 #: po/rc.cpp:475 rc.cpp:475
-#, fuzzy
 msgctxt "Name of the user"
 msgid "Name:"
 msgstr "Nom :"
@@ -1046,7 +1014,6 @@ msgstr "Nom :"
 #. i18n: file: src/main.ui:79
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectPatient)
 #: po/rc.cpp:478 rc.cpp:478
-#, fuzzy
 msgctxt "Select user associated with the entered id (fetch)"
 msgid "Select"
 msgstr "Sélectionner"
@@ -1054,7 +1021,6 @@ msgstr "Sélectionner"
 #. i18n: file: src/main.ui:89
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
 #: po/rc.cpp:481 rc.cpp:481
-#, fuzzy
 msgctxt "Search for user"
 msgid "Search"
 msgstr "Rechercher"
@@ -1092,7 +1058,7 @@ msgstr ""
 #: po/rc.cpp:496 po/rc.cpp:517 src/trainsampleintropage.cpp:32 rc.cpp:496
 #: rc.cpp:517
 msgid "Training"
-msgstr "Training"
+msgstr "Entraînement"
 
 #. i18n: file: src/main.ui:152
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbTraining)
@@ -1129,7 +1095,6 @@ msgstr "Fichier"
 #. i18n: file: src/main.ui:205
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
 #: po/rc.cpp:511 rc.cpp:511
-#, fuzzy
 msgctxt "Quit the application"
 msgid "Quit"
 msgstr "Quitter"
@@ -1155,7 +1120,6 @@ msgstr "Utilisateur - Institution"
 #. i18n: file: src/modifyuserininstitution.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
 #: po/rc.cpp:538 rc.cpp:538
-#, fuzzy
 msgctxt "Search for institutions"
 msgid "Search"
 msgstr "Rechercher"
@@ -1189,27 +1153,27 @@ msgstr "Préférences"
 #: po/rc.cpp:556 rc.cpp:556
 msgid "Please select the data set to edit / send from the list below."
 msgstr ""
+"Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+"dessus."
 
 #. i18n: file: src/uploadsamples.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbUploadSamples)
 #: po/rc.cpp:559 rc.cpp:559
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #. i18n: file: src/uploadsamples.ui:55
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
 #: po/rc.cpp:562 rc.cpp:562
-#, fuzzy
 msgid "Edit user"
-msgstr "Ajouter un nouvel utilisateur"
+msgstr "Éditer l'utilisateur"
 
 #. i18n: file: src/uploadsamples.ui:62
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteSamples)
 #: po/rc.cpp:565 rc.cpp:565
-#, fuzzy
 msgctxt "Delete the selected sample package"
 msgid "Delete selected"
-msgstr "Veuillez sélectionner un utilisateur"
+msgstr "Supprimer la sélection"
 
 #: po/rc.cpp:566 rc.cpp:566
 msgctxt "NAME OF TRANSLATORS"
@@ -1219,24 +1183,24 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:567 rc.cpp:567
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
 #: src/deviceinformationpage.cpp:39
 msgid "Device information"
-msgstr ""
+msgstr "Informations sur le périphérique"
 
 #: src/deviceinformationpage.cpp:45
 msgid "Please provide some info about your recording devices."
 msgstr ""
+"Veuillez fournir quelques informations sur vos périphériques "
+"d'enregistrement."
 
 #: src/institutionmodel.cpp:77
-#, fuzzy
 msgctxt "Identification number of the institution"
 msgid "Id"
 msgstr "ID"
 
 #: src/institutionmodel.cpp:79
-#, fuzzy
 msgctxt "Name of the institution"
 msgid "Name"
 msgstr "Nom"
@@ -1306,7 +1270,6 @@ msgid "Users"
 msgstr "Utilisateurs"
 
 #: src/manageusers.cpp:76 src/modifyuser.cpp:203
-#, fuzzy
 msgid "Could not retrieve languages: %1"
 msgstr "Impossible de récupérer les langues : %1"
 
@@ -1348,28 +1311,23 @@ msgstr ""
 "Voulez-vous vraiment supprimer cette association utilisateur - institution ?"
 
 #: src/modifyuser.cpp:220
-#, fuzzy
 msgid "Could not retrieve user - institution associations: %1"
 msgstr ""
 "Impossible de récupérer les associations utilisateur - institution : %1"
 
 #: src/modifyuser.cpp:246
-#, fuzzy
 msgid "Could not add user: %1"
-msgstr "Impossible d'ajouter l'utilisateur : %1"
+msgstr "Impossible d'ajouter l'utilisateur: %1"
 
 #: src/modifyuser.cpp:273
-#, fuzzy
 msgid "Could not modify user \"%1\": %2"
-msgstr "Impossible de modifier l'utilisateur %1 : %2"
+msgstr "Impossible de modifier l'utilisateur \"%1\" : %2"
 
 #: src/modifyuser.cpp:293
-#, fuzzy
 msgid "Could not delete user - institution association: %1"
 msgstr "Impossible de supprimer l'association utilisateur - institution : %1"
 
 #: src/modifyuser.cpp:299
-#, fuzzy
 msgid "Could not add user - institution association: %1"
 msgstr "Impossible d'ajouter l'association utilisateur - institution : %1"
 
@@ -1382,23 +1340,20 @@ msgid "Transmitting samples..."
 msgstr "Transmission des échantillons..."
 
 #: src/sendsamplespage.cpp:53
-#, fuzzy
 msgid ""
 "The recorded samples are now ready to be sent to the server or stored "
 "locally to be sent later."
 msgstr ""
-"Les échantillons enregistrés sont en cours d'envoi au serveur.\n"
-"\n"
-"Veuillez patienter..."
+"Les échantillons enregistrés sont prêts à être envoyés au serveur ou "
+"sauvegardés localement pour un envoi ultérieur."
 
 #: src/sendsamplespage.cpp:56
-#, fuzzy
 msgid "Send samples"
-msgstr "Impossible d'envoyer l'échantillon"
+msgstr "Envoi des échantillons"
 
 #: src/sendsamplespage.cpp:60
 msgid "Store samples (send later)"
-msgstr ""
+msgstr "Sauvegarde des échantillons (pour envoi ultérieur)"
 
 #: src/sendsamplespage.cpp:90
 msgid "Initializing"
@@ -1406,7 +1361,7 @@ msgstr "Initialisation"
 
 #: src/sendsamplespage.cpp:105
 msgid "Storing data..."
-msgstr ""
+msgstr "Enregistrement des données..."
 
 #: src/sendsamplespage.cpp:210
 msgid ""
@@ -1414,16 +1369,17 @@ msgid ""
 "\n"
 "Do you want to establish a connection now?"
 msgstr ""
+"Déconnecté du serveur.\n"
+"\n"
+"Voulez-vous vous connecter maintenant ?"
 
 #: src/sendsamplespage.cpp:237
-#, fuzzy
 msgid "Not connected to server."
-msgstr "Déconnecté"
+msgstr "Déconnecté du serveur."
 
 #: src/sendsamplespage.cpp:243
-#, fuzzy
 msgid "Sending data..."
-msgstr "Envoi : %1"
+msgstr "Envoi des données..."
 
 #: src/sendsamplespage.cpp:257
 msgid "Could not send sample"
@@ -1436,23 +1392,26 @@ msgid ""
 "Most likely this is caused by problems to send the information about the "
 "used input devices."
 msgstr ""
+"Impossible de lancer la transmission des échantillons.\n"
+"\n"
+"Cela est probablement dû à un problème de transmission des informations "
+"concernant les périphériques d'entrée utilisés."
 
 #: src/sendsampleworker.cpp:70
 msgid "Sending: %1"
 msgstr "Envoi : %1"
 
 #: src/sendsampleworker.cpp:89
-#, fuzzy
 msgid "Server could not process sample: %1"
 msgstr "Le serveur ne peut pas traiter l'échantillon : %1"
 
 #: src/sendsampleworker.cpp:112
 msgid "Profile information could not be removed: %1."
-msgstr ""
+msgstr "Impossible de supprimer l'information du profile : %1."
 
 #: src/sendsampleworker.cpp:115
 msgid "Storage directory could not be removed: %1."
-msgstr ""
+msgstr "Impossible de supprimer le répertoire de stockage : %1."
 
 #: src/sscdaccess.cpp:119
 msgid ""
@@ -1475,9 +1434,11 @@ msgid ""
 "\n"
 "Please check your network connection and try again."
 msgstr ""
+"Délai de requête expiré (%1 ms) ou connexion remise à zéro.\n"
+"\n"
+"Veuillez vérifier votre connexion réseau et ré-essayer."
 
 #: src/sscdaccess.cpp:233 src/sscdaccess.cpp:252 src/sscdaccess.cpp:270
-#, fuzzy
 msgid "Could not write request"
 msgstr "Impossible d'écrire la requête"
 
@@ -1499,27 +1460,24 @@ msgid "Users could not be read"
 msgstr "Impossible de lire les utilisateurs"
 
 #: src/sscdaccess.cpp:470
-#, fuzzy
 msgid "Could not add user"
 msgstr "Impossible d'ajouter l'utilisateur"
 
 #: src/sscdaccess.cpp:545
-#, fuzzy
 msgid "Microphones could not be read"
-msgstr "Impossible de lire les utilisateurs"
+msgstr "Impossible de lire les microphones"
 
 #: src/sscdaccess.cpp:592
-#, fuzzy
 msgid "SoundCards could not be read"
-msgstr "Impossible de lire les utilisateurs"
+msgstr "Impossible de lire les cartes son"
 
 #: src/sscdaccess.cpp:647
 msgid "Microphone could not be fetched / created"
-msgstr ""
+msgstr "Impossible de récupérer / créer le microphone"
 
 #: src/sscdaccess.cpp:698
 msgid "Sound card could not be fetched / created"
-msgstr ""
+msgstr "Impossible de récupérer / créer la carte son"
 
 #: src/sscdaccess.cpp:745
 msgid "Languages could not be read"
@@ -1530,7 +1488,6 @@ msgid "Institutions could not be read"
 msgstr "Impossible de lire les institutions"
 
 #: src/sscdaccess.cpp:825
-#, fuzzy
 msgid "Could not add institution"
 msgstr "Impossible d'ajouter l'institution"
 
@@ -1539,27 +1496,22 @@ msgid "Institution ID not found"
 msgstr "ID de l'institution non trouvée"
 
 #: src/sscdaccess.cpp:885
-#, fuzzy
 msgid "Could not delete institution"
 msgstr "Impossible de supprimer l'institution"
 
 #: src/sscdaccess.cpp:914
-#, fuzzy
 msgid "Could not delete user"
 msgstr "Impossible de supprimer l'utilisateur"
 
 #: src/sscdaccess.cpp:943
-#, fuzzy
 msgid "Could not find user"
 msgstr "Impossible de trouver l'utilisateur"
 
 #: src/sscdaccess.cpp:948
-#, fuzzy
 msgid "Could not find institution"
 msgstr "Impossible de trouver l'institution"
 
 #: src/sscdaccess.cpp:977
-#, fuzzy
 msgid "Could not find record"
 msgstr "Impossible de trouver l'enregistrement"
 
@@ -1576,12 +1528,10 @@ msgid "Please enter a valid user id."
 msgstr "Veuillez entrer une ID utilisateur valide."
 
 #: src/sscview.cpp:107
-#, fuzzy
 msgid "Could not retrieve user: %1"
-msgstr "Impossible de récupérer les utilisateurs : %1"
+msgstr "Impossible de récupérer l'utilisateur : %1"
 
 #: src/sscview.cpp:179
-#, fuzzy
 msgid ""
 "Could not resolve institution reference id of the given user.\n"
 "\n"
@@ -1595,52 +1545,51 @@ msgstr ""
 
 #: src/sscview.cpp:196
 msgid "Connect to the sscd server"
-msgstr ""
+msgstr "Connexion au serveur sscd"
 
 #: src/sscview.cpp:204
 msgid "Disconnect from the sscd server"
-msgstr ""
+msgstr "Déconnexion du serveur sscd"
 
 #: src/sscview.cpp:210
 msgid "Offline mode"
-msgstr ""
+msgstr "Mode offline"
 
 #: src/sscview.cpp:212
 msgid "Switch to offline mode"
-msgstr ""
+msgstr "Passer en mode offline"
 
 #: src/sscview.cpp:220
 msgid "Add user"
-msgstr "Ajouter un nouvel utilisateur"
+msgstr "Ajouter un utilisateur"
 
 #: src/sscview.cpp:222
-#, fuzzy
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
 #: src/sscview.cpp:229
 msgid "Show, edit and add users"
-msgstr ""
+msgstr "Affichage, édition et création des utilisateurs"
 
 #: src/sscview.cpp:236
 msgid "Manage institutions"
 msgstr "Gérer les institutions"
 
 #: src/sscview.cpp:238
-#, fuzzy
 msgid "Show, edit and add institutions"
-msgstr "Impossible d'ajouter l'institution"
+msgstr "Affichage, édition et création des institutions"
 
 #: src/sscview.cpp:244
 msgid "Upload stored data"
-msgstr ""
+msgstr "Envoi des données enregistrées"
 
 #: src/sscview.cpp:246
 msgid "Browse, edit, delete and upload stored sample collections"
 msgstr ""
+"Affichage, édition, suppression et envoi des collections d'échantillons "
+"enregistrés"
 
 #: src/sscview.cpp:257
-#, fuzzy
 msgctxt "Disconnected from server"
 msgid "Disconnected"
 msgstr "Déconnecté"
@@ -1652,6 +1601,10 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"Vous êtes actuellement connecté. Si vous passez en mode offline, vous serez "
+"déconnecté du serveur.\n"
+"\n"
+"Voulez-vous poursuivre ?"
 
 #: src/sscview.cpp:275
 msgid ""
@@ -1664,11 +1617,19 @@ msgid ""
 "Only use this function if you really know what you are doing! It is also not "
 "possible to use institution specific ids in offline mode."
 msgstr ""
+"Si vous continuez, vous aurez accès à l'entraînement malgré le fait d'être "
+"déconnecté du serveur.\n"
+"\n"
+"SSC ne pourra s'assurer que l'utilisateur existe. S'il n'existe pas, vous "
+"allez aux devants de sérieux ennuis plus tard.\n"
+"\n"
+"N'utilisez cette fonctionnalité que si vous êtes certain de savoir ce que "
+"vous faites ! Il n'est pas non plus possible d'utiliser les ID spécifiques "
+"aux institutions en mode offline."
 
 #: src/sscview.cpp:279
-#, fuzzy
 msgid "Not connected (Offline mode)"
-msgstr "Déconnecté"
+msgstr "Déconnecté (Mode offline)"
 
 #: src/sscview.cpp:287 src/sscview.cpp:427
 msgid "Not connected"
@@ -1679,13 +1640,11 @@ msgid "You are already connected."
 msgstr "Vous êtes déjà connecté."
 
 #: src/sscview.cpp:382
-#, fuzzy
 msgctxt "Connecting to server"
 msgid "Connecting..."
 msgstr "Connexion..."
 
 #: src/sscview.cpp:395
-#, fuzzy
 msgctxt "Connected to server"
 msgid "Connected"
 msgstr "Connecté"
@@ -1696,6 +1655,9 @@ msgid ""
 "\n"
 "Do you want to try to re-connect?"
 msgstr ""
+"Le serveur a fermé la connexion.\n"
+"\n"
+"Voulez-vous essayer de vous re-connecter ?"
 
 #: src/sscview.cpp:484
 msgid "You are not connected."
@@ -1706,7 +1668,6 @@ msgid "Disconnecting..."
 msgstr "Déconnexion..."
 
 #: src/trainingswizard.cpp:174
-#, fuzzy
 msgctxt ""
 "Trainings type where the user is required to repeat what the recording "
 "facilitator tells him"
@@ -1714,13 +1675,11 @@ msgid "Repeating"
 msgstr "Répétition"
 
 #: src/trainingswizard.cpp:180
-#, fuzzy
 msgctxt "Trainings type where the user reads prompts off the screen"
 msgid "Training"
-msgstr "Training"
+msgstr "Entraînement"
 
 #: src/trainingswizard.cpp:186
-#, fuzzy
 msgctxt ""
 "Trainings type where the facilitator asks general questions and the "
 "interviee answers them"
@@ -1764,6 +1723,9 @@ msgid ""
 "If activated the recording of the samples will automatically be started and "
 "stopped when you enter / leave the individual pages of the trainings text."
 msgstr ""
+"Si activé, l'enregistrement des échantillons démarrera et s'arrêtera "
+"automatiquement lorsque vous entrerez ou quitterez chaque page du texte "
+"d'entraînement."
 
 #: src/trainsamplepage.cpp:60
 msgid "Page %1 of %2"
@@ -1778,8 +1740,8 @@ msgid ""
 msgstr ""
 "Enregistrez le texte ci-dessous.\n"
 "\n"
-"Conseil : Laissez une à deux seconde de « silence » avant et après la "
-"lecture du texte pour de meilleurs résultats !\n"
+"Conseil : Laissez une à deux seconde de « silence » avant et après la lecture "
+"du texte pour de meilleurs résultats !\n"
 
 #: src/trainsamplepage.cpp:99
 msgid ""
@@ -1790,50 +1752,55 @@ msgid ""
 "\n"
 "Do you want to continue with your training without fixing this problem?"
 msgstr ""
+"Simon a détecté un problème dans au moins un des enregistrements récents.\n"
+"\n"
+"Choisissez \"Plus d'informations\" pour savoir comment corriger ce "
+"problème.\n"
+"\n"
+"Voulez-vous poursuivre l'entraînement sans corriger le problème ?"
 
 #: src/trainsamplepage.cpp:152
-#, fuzzy
 msgid "Could not remove samples \"%1\"."
-msgstr "Impossible de supprimer la séquence « %1 »."
+msgstr "Impossible de supprimer les échantillons « %1 »."
 
 #: src/uploadsamples.cpp:44
 msgid "Local Samples"
-msgstr ""
+msgstr "Échantillons locaux"
 
 #: src/uploadsamples.cpp:86
-#, fuzzy
 msgid "Do you really want to delete the stored samples at \"%1\"?"
 msgstr ""
-"Voulez-vous vraiment supprimer cette association utilisateur - institution ?"
+"Voulez-vous vraiment supprimer les échantillons enregistrés dans \"%1\" ?"
 
 #: src/uploadsamples.cpp:101
-#, fuzzy
 msgid ""
 "The directory could not be removed:\n"
 "%1"
-msgstr "Impossible de lire les utilisateurs"
+msgstr ""
+"Impossible de supprimer le répertoire :\n"
+"%1"
 
 #: src/uploadsamples.cpp:118
 msgid "Edit samples pack"
-msgstr ""
+msgstr "Éditer le paquet d'échantillons"
 
 #: src/uploadsamples.cpp:118
 msgid ""
 "If you want to change the user id of this samples pack, please provide the "
 "new id below."
 msgstr ""
+"Si vous voulez changer l'ID utilisateur de ce paquet d'échantillons, donnez "
+"le nouvel ID ci-dessus."
 
 #: src/uploadsamples.cpp:129
 msgid "Failed to create target directory at \"%1\""
-msgstr ""
+msgstr "Impossible de créer le répertoire cible dans \"%1\""
 
 #: src/uploadsamples.cpp:136
-#, fuzzy
 msgid "Could not move \"%1\" to \"%2\"."
-msgstr "Impossible de modifier l'utilisateur %1 : %2"
+msgstr "Impossible de déplacer \"%1\" vers \"%2\"."
 
 #: src/usermodel.cpp:49
-#, fuzzy
 msgctxt ""
 "Strings denoting a range from 1-5 (one being very good, the last one very "
 "bad; This is option 1"
@@ -1841,7 +1808,6 @@ msgid "Very good"
 msgstr "Très bien"
 
 #: src/usermodel.cpp:51
-#, fuzzy
 msgctxt ""
 "Strings denoting a range from 1-5 (one being very good, the last one very "
 "bad; This is option 2"
@@ -1849,7 +1815,6 @@ msgid "Good"
 msgstr "Bien"
 
 #: src/usermodel.cpp:53
-#, fuzzy
 msgctxt ""
 "Strings denoting a range from 1-5 (one being very good, the last one very "
 "bad; This is option 3"
@@ -1857,7 +1822,6 @@ msgid "Satisfactory"
 msgstr "Satisfaisant"
 
 #: src/usermodel.cpp:55
-#, fuzzy
 msgctxt ""
 "Strings denoting a range from 1-5 (one being very good, the last one very "
 "bad; This is option 4"
@@ -1865,7 +1829,6 @@ msgid "Acceptable"
 msgstr "Acceptable"
 
 #: src/usermodel.cpp:57
-#, fuzzy
 msgctxt ""
 "Strings denoting a range from 1-5 (one being very good, the last one very "
 "bad; This is option 5"
@@ -1873,13 +1836,11 @@ msgid "Not acceptable"
 msgstr "Insuffisant"
 
 #: src/usermodel.cpp:66
-#, fuzzy
 msgctxt "Possible answer to: Is x available?"
 msgid "Yes"
 msgstr "Oui"
 
 #: src/usermodel.cpp:67
-#, fuzzy
 msgctxt "Possible answer to: Is x available?"
 msgid "No"
 msgstr "Non"
@@ -1890,7 +1851,7 @@ msgstr "ID"
 
 #: src/usermodel.cpp:134
 msgid "Surname"
-msgstr "Surnom"
+msgstr "Nom"
 
 #: src/usermodel.cpp:136
 msgid "Forename"
@@ -1935,15 +1896,3 @@ msgstr "Interview possible"
 #: src/usermodel.cpp:156
 msgid "Repeate Possible"
 msgstr "Répétition possible"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Transmitting samples"
-#~ msgstr "Transmission des échantillons"
-
-#~ msgid "Request timed out (10000 ms)"
-#~ msgstr "Délai de requête expiré (10000 ms)"
-
-#~ msgid "Couldn't retrieve user: %1"
-#~ msgstr "Impossible de récupérer l'utilisateur : %1"

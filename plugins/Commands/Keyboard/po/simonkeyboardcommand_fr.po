@@ -1,21 +1,20 @@
-# Copyright (C) 2009
-# This file is distributed under the same license as the simon package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Dominik Neumeister <neudob06@edvhtl.at>, 2009.
 # Yann Cantin <yann.cantinlaposte.net>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
-"PO-Revision-Date: 2010-07-13 22:52+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-18 19:33+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -31,105 +30,87 @@ msgid "Keyboard"
 msgstr "Clavier"
 
 #: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:413
-#, fuzzy
 msgctxt "Number"
 msgid "Zero"
 msgstr "Zéro"
 
 #: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:416
-#, fuzzy
 msgctxt "Number"
 msgid "One"
 msgstr "Un"
 
 #: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:419
-#, fuzzy
 msgctxt "Number"
 msgid "Two"
 msgstr "Deux"
 
 #: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:422
-#, fuzzy
 msgctxt "Number"
 msgid "Three"
 msgstr "Trois"
 
 #: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:425
-#, fuzzy
 msgctxt "Number"
 msgid "Four"
 msgstr "Quatre"
 
 #: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:428
-#, fuzzy
 msgctxt "Number"
 msgid "Five"
 msgstr "Cinq"
 
 #: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:431
-#, fuzzy
 msgctxt "Number"
 msgid "Six"
 msgstr "Six"
 
 #: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:434
-#, fuzzy
 msgctxt "Number"
 msgid "Seven"
 msgstr "Sept"
 
 #: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:437
-#, fuzzy
 msgctxt "Number"
 msgid "Eight"
 msgstr "Huit"
 
 #: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:440
-#, fuzzy
 msgctxt "Number"
 msgid "Nine"
 msgstr "Neuf"
 
 #: keyboardcommandmanager.cpp:378
-#, fuzzy
 msgid "Starts the keyboard"
-msgstr "Activer le clavier"
+msgstr "Lance le clavier"
 
 #: keyboardcommandmanager.cpp:384
-#, fuzzy
 msgctxt "Close the dialog"
 msgid "Ok"
 msgstr "Ok"
 
 #: keyboardcommandmanager.cpp:385
-#, fuzzy
 msgid "Hides the keyboard"
-msgstr "Activer le clavier"
+msgstr "Cache le clavier"
 
 #: keyboardcommandmanager.cpp:387
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Shift"
 msgstr "Shift"
 
 #: keyboardcommandmanager.cpp:388
-#, fuzzy
 msgid "Shift key"
-msgstr "Shift"
+msgstr "Touche shift"
 
 #: keyboardcommandmanager.cpp:390
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Caps lock"
 msgstr "CapsLock"
 
 #: keyboardcommandmanager.cpp:391
-#, fuzzy
 msgid "Caps lock key"
-msgstr "CapsLock"
+msgstr "Touche CapsLock"
 
 #: keyboardcommandmanager.cpp:393
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Control"
 msgstr "Ctrl"
@@ -141,19 +122,17 @@ msgid "Control"
 msgstr "Ctrl"
 
 #: keyboardcommandmanager.cpp:396
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Backspace"
-msgstr "Backspace"
+msgstr "Retour arrière"
 
 #. i18n: file: keyboardwidget.ui:202
 #. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
 #: keyboardcommandmanager.cpp:397 po/rc.cpp:111 rc.cpp:111
 msgid "Backspace"
-msgstr "Backspace"
+msgstr "Retour arrière"
 
 #: keyboardcommandmanager.cpp:399
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Return"
 msgstr "Entrée"
@@ -165,7 +144,6 @@ msgid "Return"
 msgstr "Entrée"
 
 #: keyboardcommandmanager.cpp:402
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Alt"
 msgstr "Alt"
@@ -177,7 +155,6 @@ msgid "Alt"
 msgstr "Alt"
 
 #: keyboardcommandmanager.cpp:405
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "AltGr"
 msgstr "AltGr"
@@ -189,7 +166,6 @@ msgid "AltGr"
 msgstr "AltGr"
 
 #: keyboardcommandmanager.cpp:408
-#, fuzzy
 msgctxt "Keyboard key"
 msgid "Super"
 msgstr "Super"
@@ -197,59 +173,58 @@ msgstr "Super"
 #. i18n: file: keyboardwidget.ui:262
 #. i18n: ectx: property (text), widget (KPushButton, pbSuper)
 #: keyboardcommandmanager.cpp:409 po/rc.cpp:126 rc.cpp:126
-#, fuzzy
 msgctxt "Super key"
 msgid "Super"
 msgstr "Super"
 
 #: keyboardcommandmanager.cpp:414
 msgid "Clicks 0"
-msgstr ""
+msgstr "Touche 0"
 
 #: keyboardcommandmanager.cpp:417
 msgid "Clicks 1"
-msgstr ""
+msgstr "Touche 1"
 
 #: keyboardcommandmanager.cpp:420
 msgid "Clicks 2"
-msgstr ""
+msgstr "Touche 2"
 
 #: keyboardcommandmanager.cpp:423
 msgid "Clicks 3"
-msgstr ""
+msgstr "Touche 3"
 
 #: keyboardcommandmanager.cpp:426
 msgid "Clicks 4"
-msgstr ""
+msgstr "Touche 4"
 
 #: keyboardcommandmanager.cpp:429
 msgid "Clicks 5"
-msgstr ""
+msgstr "Touche 5"
 
 #: keyboardcommandmanager.cpp:432
 msgid "Clicks 6"
-msgstr ""
+msgstr "Touche 6"
 
 #: keyboardcommandmanager.cpp:435
 msgid "Clicks 7"
-msgstr ""
+msgstr "Touche 7"
 
 #: keyboardcommandmanager.cpp:438
 msgid "Clicks 8"
-msgstr ""
+msgstr "Touche 8"
 
 #: keyboardcommandmanager.cpp:441
 msgid "Clicks 9"
-msgstr ""
+msgstr "Touche 9"
 
 #: keyboardcommandmanager.cpp:443
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
-msgstr ""
+msgstr "Point"
 
 #: keyboardcommandmanager.cpp:444
 msgid "Decimal separator"
-msgstr ""
+msgstr "Séparateur décimal"
 
 #. i18n: file: keyboardwidget.ui:138
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
@@ -266,71 +241,65 @@ msgid "Write number"
 msgstr "Écrire un nombre"
 
 #: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454
-#, fuzzy
 msgid "Number backspace"
-msgstr "Nombre Backspace"
+msgstr "Nombre backspace"
 
 #: keyboardconfiguration.cpp:44
 msgid "Input signes with ease"
-msgstr "Saisir des lettres facilement"
+msgstr "Saisir des caractères facilement"
 
 #: keyboardconfiguration.cpp:128
-#, fuzzy
 msgid "Add keyboard set"
-msgstr "Ajouter une touche"
+msgstr "Ajouter une disposition de clavier"
 
 #: keyboardconfiguration.cpp:128
-#, fuzzy
 msgid "Please enter the name of the new set:"
-msgstr "Veuillez sélectionner l'onglet à supprimer"
+msgstr "Veuillez saisir le nom de la nouvelle disposition de clavier :"
 
 #: keyboardconfiguration.cpp:131
 msgid "Failed to add set"
-msgstr "Échec de l'ajout du groupe"
+msgstr "Échec de l'ajout de la disposition de clavier"
 
 #: keyboardconfiguration.cpp:145
 msgid "Please choose a set to be edited"
-msgstr "Veuillez sélectionner un groupe à éditer"
+msgstr "Veuillez sélectionner une disposition de clavier à éditer"
 
 #: keyboardconfiguration.cpp:151
 msgid "Edit keyboard set"
-msgstr ""
+msgstr "Éditer une disposition de clavier"
 
 #: keyboardconfiguration.cpp:151
-#, fuzzy
 msgid "Please enter the new name of the set:"
-msgstr "Veuillez sélectionner un onglet à éditer"
+msgstr "Veuillez saisir le nouveau nom de la disposition de clavier :"
 
 #: keyboardconfiguration.cpp:154
 msgid "Failed to edit set"
-msgstr "Échec de l'édition du groupe"
+msgstr "Échec de l'édition de la disposition de clavier"
 
 #: keyboardconfiguration.cpp:165
 msgid "Please choose a set to be deleted"
-msgstr "Veuillez sélectionner un groupe à supprimer"
+msgstr "Veuillez sélectionner une disposition de clavier à supprimer"
 
 #: keyboardconfiguration.cpp:168
 msgid "Do you really want to delete the selected set?"
-msgstr "Voulez-vous vraiment supprimer le groupe sélectionné ?"
+msgstr ""
+"Voulez-vous vraiment supprimer la disposition de clavier sélectionnée ?"
 
 #: keyboardconfiguration.cpp:171
-#, fuzzy
 msgid "Could not delete set"
-msgstr "Impossible de supprimer le groupe"
+msgstr "Impossible de supprimer la disposition de clavier"
 
 #: keyboardconfiguration.cpp:181 keyboardconfiguration.cpp:203
 msgid "Please insert or select a set first"
-msgstr "Veuillez d'abord insérer ou sélectionner un groupe"
+msgstr "Veuillez d'abord insérer ou sélectionner une disposition de clavier"
 
 #: keyboardconfiguration.cpp:185
-#, fuzzy
 msgid "Add keyboard tab"
-msgstr "Ajouter une touche"
+msgstr "Ajouter un onglet de clavier"
 
 #: keyboardconfiguration.cpp:185
-#, fuzzy
 msgid "Please enter the name of the new tab:"
-msgstr "Veuillez sélectionner un onglet à éditer"
+msgstr "Veuillez saisir le nom du nouvel onglet :"
 
 #: keyboardconfiguration.cpp:189
 msgid "Failed to add tab"
@@ -342,11 +311,11 @@ msgstr "Veuillez sélectionner un onglet à éditer"
 
 #: keyboardconfiguration.cpp:213
 msgid "Edit keyboard tab"
-msgstr ""
+msgstr "Éditer un onglet de clavier"
 
 #: keyboardconfiguration.cpp:213
 msgid "Please enter the new name of the tab:"
-msgstr ""
+msgstr "Veuillez saisir le nouveau nom de l'onglet :"
 
 #: keyboardconfiguration.cpp:217
 msgid "Failed to edit tab"
@@ -354,7 +323,7 @@ msgstr "Échec de l'édition de l'onglet"
 
 #: keyboardconfiguration.cpp:229
 msgid "Please select a set first"
-msgstr "Veuillez d'abord sélectionner un groupe "
+msgstr "Veuillez d'abord sélectionner une disposition de clavier"
 
 #: keyboardconfiguration.cpp:234
 msgid "Please select the tab to be deleted"
@@ -371,7 +340,9 @@ msgstr "Échec de la suppression de l'onglet"
 #: keyboardconfiguration.cpp:251 keyboardconfiguration.cpp:272
 #: keyboardconfiguration.cpp:300
 msgid "Please select a set to which to add the new button"
-msgstr "Veuillez sélectionner le groupe à qui ajouter le nouveau bouton"
+msgstr ""
+"Veuillez sélectionner la disposition de clavier à qui ajouter le nouveau "
+"bouton"
 
 #: keyboardconfiguration.cpp:255 keyboardconfiguration.cpp:276
 #: keyboardconfiguration.cpp:304
@@ -417,7 +388,7 @@ msgstr "Échec du déplacement du bouton. Peut-être est-il déjà en bas ?"
 
 #: keyboardconfiguration.cpp:512
 msgid "Failed to load keyboard sets from storage"
-msgstr "Impossible de charger les groupes de clavier."
+msgstr "Impossible de charger les dispositions de clavier."
 
 #: keyboardmodifybuttondialog.cpp:35
 msgid "Add key"
@@ -444,25 +415,21 @@ msgid "Shortcut"
 msgstr "Raccourci"
 
 #: keyboardtab.cpp:201
-#, fuzzy
 msgctxt "Name of the key"
 msgid "Name"
 msgstr "Nom"
 
 #: keyboardtab.cpp:203
-#, fuzzy
 msgctxt "Trigger of the key"
 msgid "Trigger"
 msgstr "Déclencheur"
 
 #: keyboardtab.cpp:205
-#, fuzzy
 msgctxt "Type of the key"
 msgid "Type"
 msgstr "Type"
 
 #: keyboardtab.cpp:207
-#, fuzzy
 msgctxt "Value of the key"
 msgid "Value"
 msgstr "Valeur"
@@ -482,15 +449,13 @@ msgstr "Vérification de la casse (Majuscule/minuscule) du déclencheur"
 #. i18n: file: keyboardconfigurationdlg.ui:60
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:9 rc.cpp:9
-#, fuzzy
 msgctxt "Which set (collection of tabs) is currently displayed"
 msgid "Set: "
-msgstr "Groupe :"
+msgstr "Disposition de clavier :"
 
 #. i18n: file: keyboardconfigurationdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:12 rc.cpp:12
-#, fuzzy
 msgctxt "Which page of the keyboard is now displayed"
 msgid "Tab: "
 msgstr "Onglet :"
@@ -536,10 +501,9 @@ msgstr "Supprimer"
 #. i18n: file: keyboardconfigurationdlg.ui:186
 #. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
 #: po/rc.cpp:27 po/rc.cpp:48 rc.cpp:27 rc.cpp:48
-#, fuzzy
 msgctxt "Direction"
 msgid "Up"
-msgstr "Haut"
+msgstr "Déplacer vers le haut"
 
 #. i18n: file: keyboardconfigurationdlg.ui:122
 #. i18n: ectx: property (text), widget (KPushButton, pbEditSet)
@@ -567,7 +531,7 @@ msgstr "Éditer"
 #. i18n: ectx: property (text), widget (KPushButton, pbDownButton)
 #: po/rc.cpp:36 po/rc.cpp:51 rc.cpp:36 rc.cpp:51
 msgid "Down"
-msgstr "Bas"
+msgstr "Déplacer vers le bas"
 
 #. i18n: file: keyboardwidget.ui:31
 #. i18n: ectx: property (title), widget (QGroupBox, gbNumPad)
@@ -674,16 +638,15 @@ msgstr "Ajouter un bouton"
 #. i18n: file: modifybuttondlg.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: po/rc.cpp:132 rc.cpp:132
-#, fuzzy
 msgctxt "Name of the key"
 msgid "Name:"
-msgstr "Nom :"
+msgstr "Nom :"
 
 #. i18n: file: modifybuttondlg.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:135 rc.cpp:135
 msgid "Trigger:"
-msgstr "Déclencheur :"
+msgstr "Déclencheur :"
 
 #. i18n: file: modifybuttondlg.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -705,47 +668,4 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:149 rc.cpp:149
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
-
-#~ msgid "Show Keyboard"
-#~ msgstr "Montrer le clavier"
-
-#~ msgid "CapsLock"
-#~ msgstr "CapsLock"
-
-#~ msgid "Alternate"
-#~ msgstr "Alt"
-
-#~ msgid "Alternate Graphic"
-#~ msgstr "Alt Gr"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Sets"
-#~ msgstr "Groupes"
-
-#~ msgid "Numpad"
-#~ msgstr "Pavé numérique"
-
-#~ msgid "Number backspace trigger:"
-#~ msgstr "Déclencheur du Backspace nombre"
-
-#~ msgid "Enable number based key selection"
-#~ msgstr "Activer la sélection de touche numérique"
-
-#~ msgid "Enable number write out"
-#~ msgstr "Activer l'écriture de nombre"
-
-#~ msgid "Special keys"
-#~ msgstr "Touches spéciales"
-
-#~ msgid "Input Number"
-#~ msgstr "Saisir un nombre"
-
-#~ msgctxt "Decimal point"
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
+msgstr "yann.cantin@laposte.net"

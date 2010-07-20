@@ -9,27 +9,26 @@ msgstr ""
 "Project-Id-Version: simond_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
-"PO-Revision-Date: 2010-07-13 23:34+0200\n"
+"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"PO-Revision-Date: 2010-07-18 23:53+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: config/plugin_exporter.cpp:34
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: config/plugin_exporter.cpp:35
 msgid "Network"
-msgstr ""
+msgstr "Réseau"
 
 #: config/simonduserconfiguration.cpp:73
-#, fuzzy
 msgid "Could not connect to database"
 msgstr "Impossible de se connecter à la base de données"
 
@@ -38,7 +37,6 @@ msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
 #: config/simonduserconfiguration.cpp:100
-#, fuzzy
 msgid "Could not add user"
 msgstr "Impossible d'ajouter l'utilisateur"
 
@@ -47,7 +45,6 @@ msgid "Do you really want to remove the user from the database?"
 msgstr "Voulez-vous vraiment supprimer l'utilisateur de la base de données ?"
 
 #: config/simonduserconfiguration.cpp:115
-#, fuzzy
 msgid "Could not remove User"
 msgstr "Impossible de supprimer l'utilisateur"
 
@@ -56,7 +53,6 @@ msgid "Do you also want to remove the speech model from the server?"
 msgstr "Voulez-vous aussi supprimer le modèle vocal du serveur ?"
 
 #: config/simonduserconfiguration.cpp:125
-#, fuzzy
 msgid "Could not remove the speech model"
 msgstr "Impossible de supprimer le modèle vocal"
 
@@ -65,7 +61,6 @@ msgid "Change Password for User \"%1\""
 msgstr "Modifier le mot de passe de l'utilisateur « %1 »"
 
 #: config/simonduserconfiguration.cpp:174
-#, fuzzy
 msgid "Could not change Password"
 msgstr "Impossible de modifier le mot de passe"
 
@@ -84,14 +79,12 @@ msgstr "Le port utilisé par le serveur."
 #. i18n: file: config/simondconfiguration.kcfg:16
 #. i18n: ectx: label, entry (BindTo), group (Network)
 #: po/rc.cpp:9 rc.cpp:9
-#, fuzzy
 msgid "whether we want to restrict access to a certain ip."
 msgstr "Si vous souhaitez restreindre l'accès à une IP particulière."
 
 #. i18n: file: config/simondconfiguration.kcfg:18
 #. i18n: ectx: tooltip, entry (BindTo), group (Network)
 #: po/rc.cpp:12 rc.cpp:12
-#, fuzzy
 msgid "Whether we want to restrict access to a certain ip."
 msgstr "Si vous souhaitez restreindre l'accès à une IP particulière."
 
@@ -110,14 +103,12 @@ msgstr "Le seul hôte autorisé à se connecter au serveur."
 #. i18n: file: config/simondconfiguration.kcfg:27
 #. i18n: ectx: label, entry (UseEncryption), group (Network)
 #: po/rc.cpp:21 rc.cpp:21
-#, fuzzy
 msgid "whether we want to encrypt the communication between simon and simond."
 msgstr "Si vous souhaitez chiffrer les communications entre simon et simond."
 
 #. i18n: file: config/simondconfiguration.kcfg:29
 #. i18n: ectx: tooltip, entry (UseEncryption), group (Network)
 #: po/rc.cpp:24 rc.cpp:24
-#, fuzzy
 msgid "Whether we want to encrypt the communication between simon and simond."
 msgstr "Si vous souhaitez chiffrer les communications entre simon et simond."
 
@@ -142,7 +133,6 @@ msgstr "L'emplacement du certificat SSL."
 #. i18n: file: config/simondconfiguration.kcfg:37
 #. i18n: ectx: tooltip, entry (Certificate), group (Network)
 #: po/rc.cpp:36 rc.cpp:36
-#, fuzzy
 msgid "The path to the SSL certificate."
 msgstr "L'emplacement du certificat SSL."
 
@@ -150,13 +140,13 @@ msgstr "L'emplacement du certificat SSL."
 #. i18n: ectx: label, entry (KeepRecognitionSamples), group (User)
 #: po/rc.cpp:39 rc.cpp:39
 msgid "keep temporary samples."
-msgstr ""
+msgstr "Garder les échantillons temporaires."
 
 #. i18n: file: config/simondconfiguration.kcfg:45
 #. i18n: ectx: tooltip, entry (KeepRecognitionSamples), group (User)
 #: po/rc.cpp:42 rc.cpp:42
 msgid "Keep the samples used for the recognition."
-msgstr ""
+msgstr "Garder les échantillons utilisés pour la reconnaissance."
 
 #. i18n: file: config/simondconfiguration.kcfg:50
 #. i18n: ectx: label, entry (DatabaseUrl), group (Database)
@@ -179,10 +169,11 @@ msgstr "Combien de versions du modèle conserver."
 #. i18n: file: config/simondconfiguration.kcfg:60
 #. i18n: ectx: tooltip, entry (ModelBackups), group (ModelManagement)
 #: po/rc.cpp:54 rc.cpp:54
-#, fuzzy
 msgid ""
 "How many model versions we should preserv for the model backup / restore."
-msgstr "Combien de versions du modèle conserver."
+msgstr ""
+"Combien de versions du modèle conserver pour la sauvegarde / restauration "
+"des modèles."
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -253,14 +244,12 @@ msgstr "Certificat SSL *.pem"
 #. i18n: file: config/simonduserconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, cbKeepSamples)
 #: po/rc.cpp:82 rc.cpp:82
-#, fuzzy
 msgid "Keep recognition samples"
-msgstr "Le serveur de reconnaissance de Simon"
+msgstr "Garder les échantillons"
 
 #. i18n: file: config/simonduserconfiguration.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:85 rc.cpp:85
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -284,9 +273,10 @@ msgstr ""
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Bitstream Vera Sans'; font-weight:600;\">Note : </span><span style="
-"\" font-family:'Bitstream Vera Sans';\"> Vous devez relancer simond pour que "
-"les changements prennent effet.</span></p></body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">ATTENTION :</span><span "
+"style=\" font-family:'Bitstream Vera Sans';\"> Tous les changements dans la "
+"base de données des utilisateurs seront appliqués instantanément.</span></"
+"p></body></html>"
 
 #. i18n: file: config/simonduserconfiguration.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -341,9 +331,25 @@ msgid ""
 "The following phonemes are affected (list may not be complete):\n"
 "%2"
 msgstr ""
+"La reconnaissance n'a pas pu être lancée car votre modèle contient des mots "
+"utilisant des sons non couverts par votre modèle acoustique.\n"
+"\n"
+"Vous devez soit les enlever, soit les transcrire différemment, soit les "
+"entraîner.\n"
+"\n"
+"Attention : La dernière option ne fonctionnera pas si vous utilisez un "
+"modèle de base statique !\n"
+"\n"
+"Cela peut aussi indiquer que le modèle de base utilise un groupe de phonèmes "
+"différent de celui du vocabulaire de votre scénario.\n"
+"\n"
+"Les mots suivants sont concernés (la liste peut être incomplète) :\n"
+"%1\n"
+"\n"
+"Les phonèmes suivants sont concernés (la liste peut être incomplète) :\n"
+"%2"
 
 #: src/juliuscontrol.cpp:442
-#, fuzzy
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr "Impossible d'ouvrir le fichier d'historique."
 
@@ -356,7 +362,6 @@ msgid "Could not initialize recognition"
 msgstr "Impossible d'initialiser de reconnaissance"
 
 #: src/juliuscontrol.cpp:479
-#, fuzzy
 msgid "Could not start adin-thread"
 msgstr "Impossible de démarrer le processus adin"
 
@@ -373,6 +378,7 @@ msgid ""
 "The simon recognition daemon (powered by the Large Vocabulary Continuous "
 "Speech Recognition Engine Julius)"
 msgstr ""
+"Le serveur de reconnaissance vocale de Simon (utilisant le moteur Julius)"
 
 #: src/main.cpp:39
 msgid "simond"
@@ -389,6 +395,14 @@ msgid ""
 "Technology\n"
 "Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology\n"
 msgstr ""
+"(C) 2008-2010 Peter Grasch\n"
+"\n"
+"Julius:\n"
+"Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan\n"
+"Copyright (c) 1991-2009 Kawahara Lab., Kyoto University\n"
+"Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and "
+"Technology\n"
+"Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology\n"
 
 #: src/main.cpp:46
 msgid "Peter Grasch"
