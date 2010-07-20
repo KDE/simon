@@ -145,7 +145,13 @@ It is a simond client and provides a graphical user interface for managing the s
 
 <para>
 In contrast to existing commercial offerings, simon provides a unique do-it-yourself approach to speech recognition. Instead of predefined, pre-trained speech models, simon does not ship with any model whatsoever. Instead, it provides an easy to use end-user interface to create language and acoustic models from scratch.
+</para>
 
+<para>
+Additionally the end-user can easily download created use cases from other users and share his / her own.
+</para>
+
+<para>
 The current release can be used to set up command-and-control solutions especially suitable for disabled people. However, because of the amount of training necessary, continuous, free dictation is neither supported nor reasonable with current versions of simon.
 </para>
 
@@ -161,7 +167,7 @@ Because of it's architecture, the same version of simon can be used with all lan
 <sect1 id="architecture">
 <title>Architecture</title>
 <para>
-The simon architecture consits of three applications.
+The main recognition architecture of simon consits of three applications.
 <itemizedlist>
   <listitem><para>&kmyapplication;</para><para>This is the main graphical interface.</para><para>It acts as a client to the simond server.</para></listitem>
   <listitem><para>simond</para><para>The recognition server.</para></listitem>
@@ -170,8 +176,21 @@ The simon architecture consits of three applications.
 </para>
 
 <para>
-simon (the solution as a whole) is a server / client solution. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
+These three components form a real a client / server solution for the recognition. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond graphically.
 </para>
+
+<para>
+Additionally to the simon, simond and ksimond other, more specialized applications are also part of this integrated simon distribution.
+<itemizedlist>
+  <listitem><para>sam</para><para>Provides more in-depth control to your speech model and allows to test the acoustic model.</para></listitem>
+  <listitem><para>ssc / sscd</para><para>These two applications can be used to collect large amount of speech samples from different persons more easily.</para></listitem>
+</itemizedlist>
+</para>
+
+<para>
+Please refer to the individual handbooks of those applications for more details.
+</para>
+
 
 <para>
 <screenshot>
@@ -188,9 +207,12 @@ simon (the solution as a whole) is a server / client solution. That means that t
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
 
-<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the <ulink url="help:/simond">simond manual</ulink> for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
-
+<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work "out of the box".</para>
+<para> Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
+<para>If you want to open up the server to the internet or use multiple users on one server, you will have to configure simond. Please see the <ulink url="help:/simond">simond manual</ulink> for details.
+</para>
 </sect1>
+
 
 
 <sect1 id="speech_model">
@@ -282,7 +304,25 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 </para>
 </sect2>
 </sect1>
+
+
+
+<sect1 id="scenarios">
+<title>Scenarios</title>
+<para>
+Scenarios are use case packages for simon.
+</para>
+</sect1>
+
+<sect1 id="base_models">
+<title>Base models</title>
+<para>
+Base models are already generated, most often speaker independent, acoustic models that can be used with simon.
+</para>
+</sect1>
 </chapter>
+
+
 
 <chapter id="guidelines">
 <title>Guidelines</title>
