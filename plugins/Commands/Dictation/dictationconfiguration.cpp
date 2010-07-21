@@ -35,14 +35,15 @@ DictationConfiguration::DictationConfiguration(Scenario *parent, const QVariantL
   Q_UNUSED(args);
   ui.setupUi(this);
 
-  QObject::connect(ui.leAppendText, SIGNAL(textChanged()), this, SLOT(slotChanged()));
+  QObject::connect(ui.leAppendText, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
   
 }
 
 
 bool DictationConfiguration::deSerialize(const QDomElement& elem)
 {
-  ui.leAppendText->setText(elem.firstChildElement("postText").text());
+  QString text = elem.firstChildElement("postText").attribute("value");
+  ui.leAppendText->setText(text);
   return true;
 }
 
@@ -51,7 +52,7 @@ QDomElement DictationConfiguration::serialize(QDomDocument *doc)
 {
   QDomElement configElem = doc->createElement("config");
   QDomElement postTextElem = doc->createElement("postText");
-  postTextElem.appendChild(doc->createTextNode(ui.leAppendText->text()));
+  postTextElem.setAttribute("value", ui.leAppendText->text());
   configElem.appendChild(postTextElem);
   return configElem;
 }
