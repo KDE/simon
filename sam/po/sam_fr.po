@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge."
 "net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-19 16:56+0200\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 22:45+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,11 +36,11 @@ msgstr "Peter Grasch"
 
 #: samview.cpp:61
 msgid "Modify simons model"
-msgstr "Modifier les modèles acoustiques de simon"
+msgstr "Modifier les modèles acoustiques de Simon"
 
 #: samview.cpp:62
 msgid "Manage simons current model with ssc"
-msgstr "Gérer le modèle acoustique actuel de simon avec ssc"
+msgstr "Gérer le modèle acoustique actuel de Simon avec ssc"
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
@@ -76,7 +76,7 @@ msgstr "Afficher les résultats du test."
 
 #: samview.cpp:211 samview.cpp:232
 msgid "sam projects *.sam"
-msgstr "Projets sam  *.sam"
+msgstr "Projets sam *.sam"
 
 #: samview.cpp:245
 msgid "Untitled"
@@ -88,19 +88,19 @@ msgstr "sam - %1"
 
 #: samview.cpp:256 samview.cpp:313
 msgid "Cannot open file: %1"
-msgstr "Impossible d'ouvrir le fichier : %1"
+msgstr "Impossible d'ouvrir le fichier : %1"
 
 #: samview.cpp:420
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
-"Vous devez indiquer un répertoire (de préférence vide) dans lequel déployer "
+"Vous devez indiquer un dossier (de préférence vide) dans lequel déployer "
 "le scénario"
 
 #: samview.cpp:420
 msgid "Do not ask again"
-msgstr "Ne plus demander"
+msgstr "Ne plus poser la question"
 
 #: samview.cpp:421
 msgid "Serialized scenario output"
@@ -108,15 +108,15 @@ msgstr "Sortie du déploiement du scénario"
 
 #: samview.cpp:431
 msgid "Open simon prompts"
-msgstr "Ouvrir les prompteurs de simon"
+msgstr "Ouvrir les prompteurs de Simon"
 
 #: samview.cpp:496
 msgid "Could not find scenario: %1"
-msgstr "Impossible de trouver le scénario : %1"
+msgstr "Impossible de trouver le scénario : %1"
 
 #: samview.cpp:534
 msgid "Unknown model type"
-msgstr "Type du modèle inconnu"
+msgstr "Type du modèle inconnu"
 
 #: samview.cpp:597
 msgid "Adaption aborted"
@@ -128,21 +128,21 @@ msgid ""
 "\n"
 "%1"
 msgstr ""
-"Échec de l'adaptation du modèle :\n"
+"Échec de l'adaptation du modèle :\n"
 "\n"
 "%1"
 
 #: samview.cpp:632
 msgid "Grammar class undefined: %1"
-msgstr "Grammaire indéfinie : %1"
+msgstr "Grammaire indéfinie : %1"
 
 #: samview.cpp:638
 msgid "Word undefined: %1"
-msgstr "Mot indéfini : %1"
+msgstr "Mot indéfini : %1"
 
 #: samview.cpp:645
 msgid "Phoneme undefined: %1"
-msgstr "Phonème indéfini : %1"
+msgstr "Phonème indéfini : %1"
 
 #: samview.cpp:802
 msgid ""
@@ -166,11 +166,12 @@ msgstr "Impossible d'écraser le fichier de prompteurs"
 
 #: samview.cpp:863 samview.cpp:879
 msgid "Could not remove original sample:  %1."
-msgstr "Impossible de supprimer l'échantillon original : %1"
+msgstr "Impossible de supprimer l'échantillon original : %1"
 
 #: samview.cpp:884
 msgid "Could not copy sample from temporary path %1 to %2."
-msgstr "Impossible de copier l'échantillon du chemin temporaire %1 vers %2."
+msgstr ""
+"Impossible de copier l'échantillon de l'emplacement temporaire %1 vers %2."
 
 #. i18n: file: main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
@@ -230,13 +231,13 @@ msgstr "Déployer les prompteurs"
 #. i18n: ectx: property (text), widget (QLabel, lbLexicon)
 #: rc.cpp:30
 msgid "Lexicon:"
-msgstr "Lexique :"
+msgstr "Lexique :"
 
 #. i18n: file: main.ui:101
 #. i18n: ectx: property (text), widget (QLabel, lbGrammar)
 #: rc.cpp:33
 msgid "Grammar:"
-msgstr "Grammaire :"
+msgstr "Grammaire :"
 
 #. i18n: file: main.ui:111
 #. i18n: ectx: property (text), widget (QLabel, lbVocabulary)
@@ -248,25 +249,25 @@ msgstr "Vocabulaire :"
 #. i18n: ectx: property (text), widget (QLabel, lbPrompts)
 #: rc.cpp:39
 msgid "Prompts:"
-msgstr "Prompteurs :"
+msgstr "Prompteurs :"
 
 #. i18n: file: main.ui:131
 #. i18n: ectx: property (text), widget (QLabel, lbPromptsBasePath)
 #: rc.cpp:42
 msgid "Prompts base path:"
-msgstr "Chemin de base des Prompteurs :"
+msgstr "Emplacement de base des prompteurs :"
 
 #. i18n: file: main.ui:141
 #. i18n: ectx: property (text), widget (QLabel, lbTreeHed)
 #: rc.cpp:45
 msgid "Tree.hed:"
-msgstr "Tree.hed :"
+msgstr "Tree.hed :"
 
 #. i18n: file: main.ui:151
 #. i18n: ectx: property (text), widget (QLabel, lbWavConfig)
 #: rc.cpp:48
 msgid "Wav-Config:"
-msgstr "Wav-Config :"
+msgstr "Wav-Config :"
 
 #. i18n: file: main.ui:161
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
@@ -284,25 +285,25 @@ msgstr "Modèle de base"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.cpp:57
 msgid "Base HMM-definitions:"
-msgstr "Définitions HMM de base :"
+msgstr "Définitions HMM de base :"
 
 #. i18n: file: main.ui:225
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.cpp:60
 msgid "Base tiedlist:"
-msgstr "Tiedlist de base :"
+msgstr "Tiedlist de base :"
 
 #. i18n: file: main.ui:235
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.cpp:63
 msgid "Base macros:"
-msgstr "Macros de base :"
+msgstr "Macros de base :"
 
 #. i18n: file: main.ui:245
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.cpp:66
 msgid "Base stats:"
-msgstr "Statistiques de base :"
+msgstr "Statistiques de base :"
 
 #. i18n: file: main.ui:258
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -314,25 +315,25 @@ msgstr "Fichiers de sortie"
 #. i18n: ectx: property (text), widget (QLabel, lbHmmdefs)
 #: rc.cpp:72
 msgid "HMM-definitions:"
-msgstr "Définitions HMM :"
+msgstr "Définitions HMM :"
 
 #. i18n: file: main.ui:274
 #. i18n: ectx: property (text), widget (QLabel, lbTiedlist)
 #: rc.cpp:75
 msgid "Tiedlist:"
-msgstr "Tiedlist :"
+msgstr "Tiedlist :"
 
 #. i18n: file: main.ui:284
 #. i18n: ectx: property (text), widget (QLabel, lbDict)
 #: rc.cpp:78
 msgid "Dict:"
-msgstr "Dict :"
+msgstr "Dict :"
 
 #. i18n: file: main.ui:291
 #. i18n: ectx: property (text), widget (QLabel, lbDFA)
 #: rc.cpp:81
 msgid "DFA:"
-msgstr "DFA :"
+msgstr "DFA :"
 
 #. i18n: file: main.ui:307
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_5)
@@ -347,19 +348,19 @@ msgstr "Test"
 #. i18n: ectx: property (text), widget (QLabel, lbTestPrompts)
 #: rc.cpp:87
 msgid "Test-prompts:"
-msgstr "Prompteurs de test :"
+msgstr "Prompteurs de test :"
 
 #. i18n: file: main.ui:326
 #. i18n: ectx: property (text), widget (QLabel, lbTestPromptsBasePath)
 #: rc.cpp:90
 msgid "Test-prompts base path:"
-msgstr "Chemin de base des Prompteurs de test :"
+msgstr "Emplacement de base des prompteurs de test :"
 
 #. i18n: file: main.ui:336
 #. i18n: ectx: property (text), widget (QLabel, lbJConf)
 #: rc.cpp:93
 msgid "JConf:"
-msgstr "JConf :"
+msgstr "JConf :"
 
 #. i18n: file: main.ui:365
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
@@ -371,7 +372,7 @@ msgstr "Adapter les scénarios"
 #. i18n: ectx: property (text), widget (QLabel, lbAdaptLog)
 #: rc.cpp:99
 msgid "Adapt log:"
-msgstr "Adapter le journal :"
+msgstr "Adapter le journal :"
 
 #. i18n: file: main.ui:404
 #. i18n: ectx: attribute (title), widget (QWidget, Seite)
@@ -391,19 +392,19 @@ msgstr "Annuler"
 #. i18n: ectx: property (text), widget (QLabel, lbBuildLog)
 #: rc.cpp:111
 msgid "Build log:"
-msgstr "Construire le journal :"
+msgstr "Construire le journal :"
 
 #. i18n: file: main.ui:493
 #. i18n: ectx: property (text), widget (QLabel, lbTestLog)
 #: rc.cpp:123
 msgid "Test log:"
-msgstr "Tester le journal :"
+msgstr "Tester le journal :"
 
 #. i18n: file: main.ui:518
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRate)
 #: rc.cpp:129
 msgid "Overall recognition rate:"
-msgstr "Taux de reconnaissance moyen :"
+msgstr "Taux de reconnaissance moyen :"
 
 #. i18n: file: main.ui:541
 #. i18n: ectx: attribute (title), widget (QWidget, pgWordResults)
@@ -427,7 +428,7 @@ msgstr "Fichiers"
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: rc.cpp:141
 msgid "Find file:"
-msgstr "Trouver un fichier :"
+msgstr "Trouver un fichier :"
 
 #. i18n: file: main.ui:606
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leResultFilesFilter)
@@ -462,4 +463,5 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
+
 

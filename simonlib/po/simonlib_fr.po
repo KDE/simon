@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlib_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-19 01:27+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 23:11+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid ""
 "simond developers. (Display: \"%1\")"
 msgstr ""
 "Impossible de lancer l'interface graphique. Vérifiez votre configuration et/"
-"ou contactez les développeurs de simond. ( Display : « %1 » )"
+"ou contactez les développeurs de Simon. ( Display : « %1 » )"
 
 #: eventsimulation/xeventsprivate.cpp:66
 msgid "The X-Server does not support the XTest extension. Please install it."
@@ -49,7 +49,7 @@ msgstr "Reconnaissance"
 #. i18n: ectx: property (text), widget (QLabel, lbMinimumConfidence)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Minimum Confidence:"
-msgstr "Pertinence minimum :"
+msgstr "Pertinence minimum :"
 
 #. i18n: file: simonactions/commandsettingsdlg.ui:57
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseDYM)
@@ -150,7 +150,7 @@ msgstr "Déclencheur :"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Icon:"
-msgstr "Icône :"
+msgstr "Icône :"
 
 #. i18n: file: simonactions/listconfigurationdlg.ui:105
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowIcon)
@@ -175,7 +175,7 @@ msgstr "Choix de la vue"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Visible trigger:"
-msgstr "Déclencheur visible :"
+msgstr "Déclencheur visible :"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, LogManagerDlg)
@@ -278,7 +278,7 @@ msgstr "Calendrier"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:105 po/rc.cpp:114 rc.cpp:105 rc.cpp:114
 msgid "Action:"
-msgstr "Action :"
+msgstr "Action :"
 
 #. i18n: file: simonscenarios/createvoicecommandwidget.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label_3)
@@ -290,7 +290,7 @@ msgstr "Action :"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:108 po/rc.cpp:117 rc.cpp:108 rc.cpp:117
 msgid "Visible Trigger:"
-msgstr "Déclencheur visible :"
+msgstr "Déclencheur visible :"
 
 #. i18n: file: simonscenarios/createvoicecommandwidget.ui:40
 #. i18n: ectx: property (text), widget (KPushButton, pbFromTemplate)
@@ -314,7 +314,7 @@ msgstr "Créer à partir d'un modèle d'action"
 #. i18n: ectx: tooltip, entry (ModelType), group (Model)
 #: po/rc.cpp:126 po/rc.cpp:129 rc.cpp:126 rc.cpp:129
 msgid "The type of model to use (0: static, 1: base model, 2: dynamic)"
-msgstr "Type de modèle à utiliser (0 : statique ; 1 : de base ; 2 : dynamique)"
+msgstr "Type de modèle à utiliser (0 : statique ; 1 : de base ; 2 : dynamique)"
 
 #. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:16
 #. i18n: ectx: label, entry (BaseModelHMMName), group (Model)
@@ -375,7 +375,7 @@ msgstr "Le nom des dernières statistiques de base chargées"
 #: po/rc.cpp:156 po/rc.cpp:159 rc.cpp:156 rc.cpp:159
 msgid "What samplerate the trainings samples should be recorded in."
 msgstr ""
-"Le taux d'échantillonnage à utiliser pour enregistrer les séquences "
+"Le taux d'échantillonnage à utiliser pour enregistrer les échantillons "
 "d'entraînement."
 
 #. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:42
@@ -388,7 +388,7 @@ msgstr ""
 #. i18n: ectx: tooltip, entry (ModelTrainingsDataPath), group (Model)
 #: po/rc.cpp:162 po/rc.cpp:165 rc.cpp:162 rc.cpp:165
 msgid "Where to save the trainings samples."
-msgstr "Où enregistrer les séquences d'entraînement."
+msgstr "Où enregistrer les échantillons d'entraînement."
 
 #. i18n: file: simonscenarios/trainingsettings.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
@@ -418,7 +418,7 @@ msgstr "Hz"
 #. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
 #: po/rc.cpp:177 rc.cpp:177
 msgid "Path to the Trainingssamples:"
-msgstr "Emplacement des séquences d'entraînement :"
+msgstr "Emplacement des échantillons d'entraînement :"
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyAuthor)
@@ -447,13 +447,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbContact)
 #: po/rc.cpp:189 rc.cpp:189
 msgid "Contact:"
-msgstr "Contact :"
+msgstr "Contact :"
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:41
 #. i18n: ectx: property (toolTip), widget (KLineEdit, leContact)
 #: po/rc.cpp:192 rc.cpp:192
 msgid "e.g. e-Mail Addresses, Instant Messenger contact names / numbers, etc."
-msgstr "Adresse de courriel, de messagerie instantanée, etc..."
+msgstr "Adresse de courriel, de messagerie instantanée, etc."
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyScenarioDlg)
@@ -473,13 +473,13 @@ msgstr "Nom :"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:201 rc.cpp:201
 msgid "Scenario version:"
-msgstr "Version du scénario :"
+msgstr "Version du scénario :"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:44
 #. i18n: ectx: property (text), widget (QLabel, lbMinVersion)
 #: po/rc.cpp:204 rc.cpp:204
 msgid "Min simon version:"
-msgstr "Version de simon minimum :"
+msgstr "Version de Simon minimum :"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:51
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leMinVersion)
@@ -491,7 +491,7 @@ msgstr "9.9xxxxxxx0; "
 #. i18n: ectx: property (text), widget (QLabel, lbMaxVersion)
 #: po/rc.cpp:210 rc.cpp:210
 msgid "Max simon version:"
-msgstr "Version de simon maximum :"
+msgstr "Version de Simon maximum :"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:100
 #. i18n: ectx: property (toolTip), widget (KLineEdit, leMaxVersion)
@@ -509,7 +509,7 @@ msgstr "0x0xxxxxxx0; "
 #. i18n: ectx: property (text), widget (QLabel, lbLicense)
 #: po/rc.cpp:219 rc.cpp:219
 msgid "License:"
-msgstr "Licence :"
+msgstr "Licence :"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:124
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
@@ -613,7 +613,7 @@ msgstr "X11"
 #. i18n: ectx: property (text), widget (QLabel, lbAuthors)
 #: po/rc.cpp:270 rc.cpp:270
 msgid "Authors:"
-msgstr "Auteurs :"
+msgstr "Auteurs :"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:232
 #. i18n: ectx: property (text), widget (KPushButton, pbAddAuthor)
@@ -728,7 +728,7 @@ msgstr "Changement du volume"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ProcessInternal)
 #: po/rc.cpp:321 rc.cpp:321
 msgid "Apply filters to recordings recorded with simon"
-msgstr "Appliquer les filtres aux enregistrements effectués par simon"
+msgstr "Appliquer les filtres aux enregistrements effectués par Simon"
 
 #. i18n: file: simonsound/postprocessing.ui:26
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_ProcessingFilters)
@@ -771,7 +771,7 @@ msgstr "Veuillez patienter..."
 #. i18n: ectx: property (text), widget (QLabel, lbInDevice_3)
 #: po/rc.cpp:343 rc.cpp:343
 msgid "Device:"
-msgstr "Périphérique :"
+msgstr "Périphérique :"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:52
 #. i18n: ectx: property (text), widget (QLabel, lbChannels_3)
@@ -789,7 +789,7 @@ msgstr "Taux d'échantillonnage :"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:355 rc.cpp:355
 msgid "Used for:"
-msgstr "Utilisé pour :"
+msgstr "Utilisé pour :"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:109
 #. i18n: ectx: property (text), widget (QCheckBox, cbTraining)
@@ -953,7 +953,7 @@ msgid ""
 "This is the amount of time simon will still keep recording after the volume "
 "fell below the configured level."
 msgstr ""
-"Durée pendant laquelle simon continue d'enregistrer après que le volume soit "
+"Durée pendant laquelle Simon continue d'enregistrer après que le volume soit "
 "repassé en dessous du seuil configuré."
 
 #. i18n: file: simonsound/soundconfig.kcfg:77
@@ -1055,7 +1055,7 @@ msgstr ""
 #. i18n: ectx: tooltip, entry (PromptFont), group (Prompt)
 #: po/rc.cpp:484 po/rc.cpp:487 rc.cpp:484 rc.cpp:487
 msgid "The font to use for all the promtps in simon."
-msgstr "La police de caractères utilisé pour tous les messages de simon."
+msgstr "La police de caractères utilisé pour tous les messages de Simon."
 
 #. i18n: file: simonsound/soundconfig.kcfg:124
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
@@ -1068,7 +1068,7 @@ msgstr "La police de caractères utilisé pour tous les messages de simon."
 #: po/rc.cpp:490 po/rc.cpp:493 rc.cpp:490 rc.cpp:493
 msgid "If samples recorded with simon should be processed at all."
 msgstr ""
-"Si simon doit effectuer un post-traitement sur les séquences qu'il "
+"Si Simon doit effectuer un post-traitement sur les échantillons qu'il "
 "enregistre."
 
 #. i18n: file: simonsound/soundconfig.kcfg:129
@@ -1087,13 +1087,13 @@ msgstr "Les filtres (commandes) à appliquer aux échantillons."
 #. i18n: ectx: property (text), widget (QLabel, lbFont)
 #: po/rc.cpp:505 rc.cpp:505
 msgid "Font:"
-msgstr "Police :"
+msgstr "Police :"
 
 #. i18n: file: simonsound/trainingsettings.ui:43
 #. i18n: ectx: property (text), widget (QLabel, lbSNR)
 #: po/rc.cpp:508 rc.cpp:508
 msgid "Minimum signal / noise ratio:"
-msgstr "Rapport signal/bruit minimum :"
+msgstr "Rapport signal/bruit minimum :"
 
 #. i18n: file: simonsound/trainingsettings.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -1122,13 +1122,13 @@ msgstr "Calibration du volume"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:518 rc.cpp:518
 msgid "Volume min:"
-msgstr "Volume min :"
+msgstr "Volume min :"
 
 #. i18n: file: simonsound/trainingsettings.ui:105
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:525 rc.cpp:525
 msgid "Volume max:"
-msgstr "Volume max :"
+msgstr "Volume max :"
 
 #. i18n: file: simonsound/trainingsettings.ui:138
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -1138,14 +1138,14 @@ msgid ""
 "Even at 100% maximum volume simon will tell the user to lower the volume "
 "when clipping occurs."
 msgstr ""
-"Même à 100% du volume, simon demandera à l'utilisateur de baisser le volume "
+"Même à 100% du volume, Simon demandera à l'utilisateur de baisser le volume "
 "en cas de saturation."
 
 #. i18n: file: simonsound/trainingsettings.ui:150
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:536 rc.cpp:536
 msgid "Text to calibrate recording volume:"
-msgstr "Texte pour calibrer le volume :"
+msgstr "Texte pour calibrer le volume :"
 
 #. i18n: file: simonsound/trainsamplevolumepage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -1158,22 +1158,22 @@ msgid ""
 "When you change the volume please press the \"Volume changed\" button."
 msgstr ""
 "Veuillez lire le texte ci-dessous en ajustant les niveaux de volume du ou "
-"des microphones jusqu'a ce que simon vous indique que le volume est "
-"correct.\n"
+"des microphones jusqu'à ce que Simon vous indique que le volume est correct."
 "\n"
-"Appuyez sur le bouton \"Volume modifié\" lorsque vous changez le volume."
+"\n"
+"Appuyez sur le bouton « Volume modifié » lorsque vous changez le volume."
 
 #. i18n: file: simonsound/vad.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_4)
 #: po/rc.cpp:544 rc.cpp:544
 msgid "Cutoff level:"
-msgstr "Seuil de détection :"
+msgstr "Seuil de détection :"
 
 #. i18n: file: simonsound/vad.ui:40
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
 #: po/rc.cpp:547 rc.cpp:547
 msgid "Head margin:"
-msgstr "Marge de début :"
+msgstr "Marge de début :"
 
 #. i18n: file: simonsound/vad.ui:62
 #. i18n: ectx: property (text), widget (QLabel, lbMs)
@@ -1195,13 +1195,13 @@ msgstr "ms"
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_2)
 #: po/rc.cpp:553 rc.cpp:553
 msgid "Tail margin:"
-msgstr "Marge de fin :"
+msgstr "Marge de fin :"
 
 #. i18n: file: simonsound/vad.ui:102
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_3)
 #: po/rc.cpp:559 rc.cpp:559
 msgid "Skip samples shorter than:"
-msgstr "Ignorer les échantillons plus courts que :"
+msgstr "Ignorer les échantillons plus courts que :"
 
 #. i18n: file: simonsound/volumewidget.ui:42
 #. i18n: ectx: property (text), widget (KPushButton, pbStartCalibration)
@@ -1225,7 +1225,7 @@ msgstr "Lire"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:577 rc.cpp:577
 msgid "Warning! Sample should be re-recorded!"
-msgstr "Attention : L'échantillon doit être ré-enregistré !"
+msgstr "Attention : l'échantillon doit être ré-enregistré !"
 
 #. i18n: file: simonsound/wavfilewidget.ui:73
 #. i18n: ectx: property (text), widget (KPushButton, pbMoreInformation)
@@ -1434,11 +1434,11 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:678 rc.cpp:678
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
 #: simonactions/actionmanager.cpp:224
 msgid "Did you mean ...?"
-msgstr "Vouliez-vous dire ... ?"
+msgstr "Vouliez-vous dire ... ?"
 
 #: simonactions/actionmanager.cpp:224
 msgid ""
@@ -1507,47 +1507,47 @@ msgstr "Commandes"
 
 #: simonactions/listconfiguration.cpp:126
 msgid "Selects the \"Back\" option"
-msgstr "Sélectionne l'option \"Précédent\""
+msgstr "Sélectionne l'option « Précédent »"
 
 #: simonactions/listconfiguration.cpp:127
 msgid "Selects the \"One\" option"
-msgstr "Sélectionne l'option \"Un\""
+msgstr "Sélectionne l'option « Un »"
 
 #: simonactions/listconfiguration.cpp:128
 msgid "Selects the \"Two\" option"
-msgstr "Sélectionne l'option \"Deux\""
+msgstr "Sélectionne l'option « Deux »"
 
 #: simonactions/listconfiguration.cpp:129
 msgid "Selects the \"Three\" option"
-msgstr "Sélectionne l'option \"Trois\""
+msgstr "Sélectionne l'option « Trois »"
 
 #: simonactions/listconfiguration.cpp:130
 msgid "Selects the \"Four\" option"
-msgstr "Sélectionne l'option \"Quatre\""
+msgstr "Sélectionne l'option « Quatre »"
 
 #: simonactions/listconfiguration.cpp:131
 msgid "Selects the \"Five\" option"
-msgstr "Sélectionne l'option \"Cinq\""
+msgstr "Sélectionne l'option « Cinq »"
 
 #: simonactions/listconfiguration.cpp:132
 msgid "Selects the \"Six\" option"
-msgstr "Sélectionne l'option \"Six\""
+msgstr "Sélectionne l'option « Six »"
 
 #: simonactions/listconfiguration.cpp:133
 msgid "Selects the \"Seven\" option"
-msgstr "Sélectionne l'option \"Sept\""
+msgstr "Sélectionne l'option « Sept »"
 
 #: simonactions/listconfiguration.cpp:134
 msgid "Selects the \"Eight\" option"
-msgstr "Sélectionne l'option \"Huit\""
+msgstr "Sélectionne l'option « Huit »"
 
 #: simonactions/listconfiguration.cpp:135
 msgid "Selects the \"Next\" option"
-msgstr "Sélectionne l'option \"Suivant\""
+msgstr "Sélectionne l'option « Suivant »"
 
 #: simonactions/listconfiguration.cpp:136
 msgid "Selects the \"Cancel\" option"
-msgstr "Sélectionne l'option \"Annuler\""
+msgstr "Sélectionne l'option « Annuler »"
 
 #: simonactions/listconfiguration.cpp:146
 msgctxt "Number"
@@ -1635,19 +1635,19 @@ msgstr ""
 
 #: simonmodeltest/modeltest.cpp:94
 msgid ""
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
+"More information: http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#Windows"
 msgstr ""
-"Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
+"Plus d'information : http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#Windows"
 
 #: simonmodeltest/modeltest.cpp:96
 msgid ""
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#HTK_Installation"
+"More information: http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#HTK_Installation"
 msgstr ""
-"Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#HTK_Installation"
+"Plus d'information : http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#HTK_Installation"
 
 #: simonmodeltest/modeltest.cpp:246
 #: speechmodelcompilation/modelcompilationmanager.cpp:343
@@ -1656,7 +1656,7 @@ msgid ""
 "\n"
 "Please check your permissions for \"%1\"."
 msgstr ""
-"Impossible de créer les répertoires temporaires.\n"
+"Impossible de créer les dossiers temporaires.\n"
 "\n"
 "Vérifiez vos permissions sur « %1 »."
 
@@ -1680,11 +1680,11 @@ msgstr "Ré-encodage des fichiers sonores..."
 
 #: simonmodeltest/modeltest.cpp:276
 msgid "Could not open prompts file for reading: %1"
-msgstr "Impossible d'ouvrir le fichier de prompteurs en lecture : %1"
+msgstr "Impossible d'ouvrir le fichier de prompteurs en lecture : %1"
 
 #: simonmodeltest/modeltest.cpp:282
 msgid "Could not open wavlist file for writing: %1"
-msgstr "Impossible d'ouvrir le fichier wavlist en écriture : %1"
+msgstr "Impossible d'ouvrir le fichier wavlist en écriture : %1"
 
 #: simonmodeltest/modeltest.cpp:320
 msgid "Generating MLF..."
@@ -1696,7 +1696,7 @@ msgstr "Reconnaissance..."
 
 #: simonmodeltest/modeltest.cpp:487
 msgid "Could not open julius jconf file: \"%1\"."
-msgstr "Impossible d'ouvrir le fichier jconf de Julius : « %1 »"
+msgstr "Impossible d'ouvrir le fichier jconf de Julius : « %1 »"
 
 #: simonmodeltest/modeltest.cpp:501
 msgid "Could not open hmm definitions"
@@ -1716,15 +1716,15 @@ msgstr "Impossible de démarrer le processus adin"
 
 #: simonmodeltest/modeltest.cpp:646
 msgid "Search failed for: %1"
-msgstr "Échec de la recherche pour  : %1"
+msgstr "Échec de la recherche pour  : %1"
 
 #: simonmodeltest/modeltest.cpp:672
 msgid "Prompts entry: %1"
-msgstr "Entrée de prompteur : %1"
+msgstr "Entrée de prompteur : %1"
 
 #: simonmodeltest/modeltest.cpp:673
 msgid "Received recognition result for: %1: %2"
-msgstr "Résultat de la reconnaissance reçue pour : %1 : %2"
+msgstr "Résultat de la reconnaissance reçue pour : %1 : %2"
 
 #: simonmodeltest/modeltest.cpp:736
 msgid "Processing recognition results..."
@@ -1755,14 +1755,14 @@ msgid ""
 "Raw SAMPA: %3\n"
 "Average Confidence: %4\n"
 msgstr ""
-"Phrase : %1\n"
-"SAMPA : %2\n"
-"SAMPA Brut : %3\n"
-"Pertinence moyenne : %4\n"
+"Phrase : %1\n"
+"SAMPA : %2\n"
+"SAMPA Brut : %3\n"
+"Pertinence moyenne : %4\n"
 
 #: simonrecognitionresult/recognitionresult.cpp:33
 msgid "Confidence Scores: "
-msgstr "Scores de pertinence :"
+msgstr "Scores de pertinence :"
 
 #: simonscenarios/actioncommandmodel.cpp:81 simonscenarios/actionmodel.cpp:117
 msgid "Action"
@@ -1778,7 +1778,7 @@ msgstr "Ordinateur"
 
 #: simonscenarios/createvoiceinterfacecommandwidget.cpp:36
 msgid "%1: Voice commands"
-msgstr "%1 : Commandes vocales"
+msgstr "%1 : commandes vocales"
 
 #: simonscenarios/createvoiceinterfacecommandwidgetprivate.cpp:66
 msgid "Please select a valid action"
@@ -1791,7 +1791,7 @@ msgstr "Phrase"
 #: simonscenarios/speechmodelsettings.cpp:45
 #: simonscenarios/trainingsettings.cpp:46
 msgid "Trainingsdata"
-msgstr "Séquences d'entraînement"
+msgstr "Données d'entraînement"
 
 #: simonscenarios/speechmodelsettings.cpp:59
 msgid ""
@@ -1861,7 +1861,7 @@ msgstr "Interface vocale"
 
 #: simonscenarioui/newscenario.cpp:76
 msgid "Scenario: %1"
-msgstr "Scénario : %1"
+msgstr "Scénario : %1"
 
 #: simonscenarioui/newscenario.cpp:112
 msgctxt "Author (contact information)"
@@ -1886,7 +1886,7 @@ msgstr ""
 "Impossible de lire le scénario original.\n"
 "\n"
 "Si vous continuez, toutes les données (vocabulaire, commandes, textes "
-"d'entraînement) de ce scénario seront perdues !"
+"d'entraînement) de ce scénario seront perdues !"
 
 #: simonscenarioui/newscenario.cpp:209
 msgid "Scenario could not be updated"
@@ -1924,7 +1924,7 @@ msgstr "Impossible de charger le scénario."
 #: simonscenarioui/scenariomanagementdialog.cpp:161
 #: simonscenarioui/scenariomanagementdialog.cpp:199
 msgid "Failed to store scenario"
-msgstr "Échec de la sauvegarde du scénario"
+msgstr "Échec de l'enregistrement du scénario"
 
 #: simonscenarioui/scenariomanagementdialog.cpp:195
 msgid "Select scenario output file"
@@ -1937,10 +1937,10 @@ msgid ""
 "\n"
 "Save your changes now?"
 msgstr ""
-"Télé-charger de nouveaux scénario nécessite que vous sauvegardiez les "
+"Télé-charger de nouveaux scénario nécessite que vous enregistriez les "
 "changements courants.\n"
 "\n"
-"Enregistrer vos changements maintenant ?"
+"Enregistrer vos changements maintenant ?"
 
 #: simonscenarioui/scenariomanagementdialog.cpp:252
 msgid "Please select a scenario from the list(s)"
@@ -1952,11 +1952,11 @@ msgstr "Impossible de trouver le scénario « %1 »"
 
 #: simonscenarioui/scenariomanagementdialog.cpp:273
 msgid ""
-"Do you really want to irrecoverably delete the selected scenario \"%1\" (\"%2"
-"\")?"
+"Do you really want to irrecoverably delete the selected scenario \"%1\" (\""
+"%2\")?"
 msgstr ""
-"Voulez-vous vraiment supprimer définitivement le scénario sélectionné « %"
-"1 » (« %2 ») ?"
+"Voulez-vous vraiment supprimer définitivement le scénario sélectionné « %1 » "
+"(« %2 ») ?"
 
 #: simonscenarioui/scenariomanagementdialog.cpp:281
 msgid ""
@@ -1969,12 +1969,12 @@ msgid ""
 "In the mean time, simon has automatically deactivated the scenario if it was "
 "not already."
 msgstr ""
-"Impossible de supprimer le scénario à l'emplacement suivant :\n"
+"Impossible de supprimer le scénario à l'emplacement suivant :\n"
 "%1\n"
 "Si c'est un scénario du système, un utilisateur normal ne peut le supprimer. "
 "Veuillez le supprimer manuellement.\n"
 "\n"
-"En attendant, simon a désactivé automatiquement ce scénario."
+"En attendant, Simon a désactivé automatiquement ce scénario."
 
 #: simonscenarioui/scenariomanagementdialog.cpp:379
 msgctxt "Name and contact information"
@@ -1986,13 +1986,13 @@ msgctxt ""
 "Information about the scenario; 1: name, 2: version, 3: license, 4: minimum "
 "version, 5: maximum version, 6: authors"
 msgid ""
-"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>License</h4><p>%"
-"3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: %5</"
-"p><h4>Authors</h4><p>%6</p></body></html>"
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>License</h4><p>"
+"%3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum version: "
+"%5</p><h4>Authors</h4><p>%6</p></body></html>"
 msgstr ""
-"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>%"
-"3</p><h4>Compatibilité</h4><p>Version minimum : %4</p><p>Version maximum : %"
-"5</p><h4>Auteurs</h4><p>%6</p></body></html>"
+"<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</h4><p>"
+"%3</p><h4>Compatibilité</h4><p>Version minimum : %4</p><p>Version maximum : "
+"%5</p><h4>Auteurs</h4><p>%6</p></body></html>"
 
 #: simonscenarioui/scenariomanagementdialog.cpp:413
 msgid "Could not init scenario \"%1\""
@@ -2010,11 +2010,11 @@ msgstr ""
 "\n"
 "Veuillez charger un scénario.\n"
 "\n"
-"Votre configuration courante (vide) n'a pas été sauvegardée."
+"Votre configuration courante (vide) n'a pas été enregistrée."
 
 #: simonsound/devicevolumewidget.cpp:38
 msgid "Device \"%1\":"
-msgstr "Périphérique « %1 » :"
+msgstr "Périphérique « %1 » :"
 
 #: simonsound/devicevolumewidget.cpp:84
 msgid "Lower the volume."
@@ -2022,7 +2022,7 @@ msgstr "Baissez le volume."
 
 #: simonsound/devicevolumewidget.cpp:91
 msgid "Volume correct!"
-msgstr "Volume correct !"
+msgstr "Volume correct !"
 
 #: simonsound/devicevolumewidget.cpp:98
 msgid "Raise the volume."
@@ -2030,11 +2030,11 @@ msgstr "Augmentez le volume."
 
 #: simonsound/devicevolumewidget.cpp:106
 msgid "Recording could not be started for device: %1."
-msgstr "Impossible de commencer l'enregistrement pour le périphérique : %1."
+msgstr "Impossible de commencer l'enregistrement pour le périphérique : %1."
 
 #: simonsound/devicevolumewidget.cpp:113
 msgid "Recording could not be stopped for device: %1."
-msgstr "Impossible d'arrêter l'enregistrement pour le périphérique : %1."
+msgstr "Impossible d'arrêter l'enregistrement pour le périphérique : %1."
 
 #: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:78
 msgid "Post-Processing"
@@ -2107,11 +2107,11 @@ msgstr ""
 
 #: simonsound/simonsoundinput.cpp:84
 msgid "The selected sound input device \"%1\" is not available."
-msgstr "Le périphérique d'entrée choisi \"%1\" n'est pas disponible."
+msgstr "Le périphérique d'entrée choisi « %1 » n'est pas disponible."
 
 #: simonsound/simonsoundinput.cpp:90
 msgid "Recording format not supported."
-msgstr "Format d'enregistrement non supporté."
+msgstr "Format d'enregistrement non pris en charge."
 
 #: simonsound/simonsoundinput.cpp:235
 msgid ""
@@ -2138,7 +2138,7 @@ msgstr "Une erreur fatale s'est produite pendant l'enregistrement."
 
 #: simonsound/simonsoundoutput.cpp:130
 msgid "The selected sound output device \"%1\" is not available."
-msgstr "Le périphérique de sortie choisi \"%1\" n'est pas disponible."
+msgstr "Le périphérique de sortie choisi « %1 » n'est pas disponible."
 
 #: simonsound/simonsoundoutput.cpp:141
 msgid "Sample size not equal to 16 bit."
@@ -2188,7 +2188,7 @@ msgid ""
 "temporarily deactivate the sound configuration in order to protect your "
 "previous configuration from being overwritten."
 msgstr ""
-"simon a remarqué que certains périphériques sonores précédemment "
+"Simon a remarqué que certains périphériques sonores précédemment "
 "sélectionnés ne sont plus disponibles.\n"
 "\n"
 "Ceci est tout a fait normal si vous êtes connecté à simond ou si une autre "
@@ -2215,7 +2215,7 @@ msgid ""
 "your vendor."
 msgstr ""
 "La configuration sonore sélectionnée n'est pas prise en charge par "
-"lematériel suivant :\n"
+"le matériel suivant :\n"
 "%1\n"
 "\n"
 "Vérifiez à nouveau votre configuration et, si nécessaire, contactez votre "
@@ -2261,7 +2261,7 @@ msgstr ""
 "Simon a détecté que la différence entre la voix et le bruit de fond est trop "
 "faible.\n"
 "\n"
-"Vérifiez que vous n'avez pas activé l'option \"Mic Boost\" dans votre "
+"Vérifiez que vous n'avez pas activé l'option « Mic Boost » dans votre "
 "configuration sonore, et augmentez plutôt le volume d'enregistrement "
 "directement."
 
@@ -2275,7 +2275,7 @@ msgid ""
 msgstr ""
 "Impossible de lancer l'enregistrement.\n"
 "\n"
-"Le périphérique d'entrée \"%1\" n'a pu être initialisé.\n"
+"Le périphérique d'entrée « %1 » n'a pas pu être initialisé.\n"
 "\n"
 "Vérifiez votre configuration sonore et réessayez."
 
@@ -2285,11 +2285,12 @@ msgid ""
 "\n"
 "Tip: Check if you have the needed permissions to write to \"%1\"!"
 msgstr ""
-"Impossible de finaliser la séquence. L'enregistrement a probablement "
-"échoué.\n"
+"Impossible de parachever l'échantillon. L'enregistrement a probablement "
+"échoué."
 "\n"
-"Indice : Vérifiez que vous avez les permissions requises pour écrire dans « %"
-"1 » !"
+"\n"
+"Indice : vérifiez que vous avez les permissions requises pour écrire dans "
+"« %1 » !"
 
 #: simonsound/wavfilewidget.cpp:283
 msgid "Post-Processing failed"
@@ -2368,7 +2369,7 @@ msgstr "Adaptation des prompteurs..."
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:136
 msgid "Could not adapt prompts. Does the file \"%1\" exist?"
-msgstr "Impossible d'adapter les prompteurs. Le fichier \"%1\" existe-t-il ?"
+msgstr "Impossible d'adapter les prompteurs. Le fichier « %1 » existe-t-il ?"
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:170
 msgid "Adapting lexicon..."
@@ -2376,7 +2377,7 @@ msgstr "Adaptation du lexique..."
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:175
 msgid "Failed to adapt lexicon to \"%1\", \"%2\""
-msgstr "Impossible d'adapter le lexique à \"%1\", \"%2\""
+msgstr "Impossible d'adapter le lexique à « %1 », « %2 »"
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:211
 msgid "Adapting vocabulary..."
@@ -2388,11 +2389,11 @@ msgstr "Adaptation de la grammaire..."
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:278
 msgid "Failed to adapt grammar to \"%1\""
-msgstr "Échec de l'adaptation de la grammaire à \"%1\""
+msgstr "Échec de l'adaptation de la grammaire à « %1 »"
 
 #: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:293
 msgid "Failed to adapt prompts from \"%1\" to \"%2\""
-msgstr "Impossible d'adapter les prompteurs de \"%1\" à \"%2\""
+msgstr "Impossible d'adapter les prompteurs de « %1 » à « %2 »"
 
 #: speechmodelcompilation/config/modelcompilationsettings.cpp:49
 msgid "External Programs"
@@ -2402,15 +2403,15 @@ msgstr "Programmes externes"
 msgid ""
 "The HTK can not be found. Please make sure it is installed correctly.\n"
 "\n"
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#WindowsMore information: http://www.cyber-byte.at/wiki/index.php/"
-"English:_Setup#HTK_Installation"
+"More information: http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#WindowsMore information: http://www.cyber-byte.at/wiki/index."
+"php/English:_Setup#HTK_Installation"
 msgstr ""
-"Impossible de trouver HTK. Veuillez vérifier qu'il est installé "
-"correctement.\n"
+"Impossible de trouver HTK. Veuillez vérifier qu'il est installé correctement."
 "\n"
-"Plus d'information : http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#HTK_Installation"
+"\n"
+"Plus d'information : http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup#HTK_Installation"
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:143
 msgid ""
@@ -2421,7 +2422,7 @@ msgstr ""
 "Impossible de trouver les outils grammaticaux de julius : mkfa et "
 "dfa_minimize.\n"
 "\n"
-"Une ré-installation de simon pourrait résoudre ce problème."
+"Une ré-installation de Simon pourrait résoudre ce problème."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:244
 msgid ""
@@ -2429,9 +2430,9 @@ msgid ""
 "\n"
 "Please train your acoustic model by recording samples."
 msgstr ""
-"Aucune séquence d'entraînement disponible.\n"
+"Aucun échantillon d'entraînement disponible.\n"
 "\n"
-"Entraînez votre modèle acoustique en enregistrant des séquences."
+"Entraînez votre modèle acoustique en enregistrant des échantillons."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:370
 msgctxt "Finished the model compilation"
@@ -2469,8 +2470,8 @@ msgid ""
 "Could not generate dfa. Please check the paths to mkfa and dfa_minimize (%1, "
 "%2)."
 msgstr ""
-"Impossible de générer DFA. Vérifiez l'emplacement de mkfa et dfa_minimize (%"
-"1, %2)."
+"Impossible de générer DFA. Vérifiez l'emplacement de mkfa et dfa_minimize ("
+"%1, %2)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:399
 msgid "Generating grammar dictionary..."
@@ -2497,7 +2498,7 @@ msgid ""
 "\n"
 "Please check the path to HCopy (%1) and the wav config (%2)"
 msgstr ""
-"Erreur pendant l'encodage des séquences !\n"
+"Erreur pendant l'encodage des échantillons !\n"
 "\n"
 "Vérifiez l'emplacement de HCopy (%1) et la configuration wav (%2)"
 
@@ -2509,7 +2510,7 @@ msgstr "Génération de la liste de mots..."
 msgid "Failed to create wordlist. Please check the path to your prompts file."
 msgstr ""
 "Impossible de créer la liste de mots. Vérifiez vos permissions sur le "
-"répertoire temporaire."
+"dossier temporaire."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:612
 msgid "Creating monophones..."
@@ -2523,7 +2524,7 @@ msgid ""
 msgstr ""
 "Impossible de générer les mono-phones. Vérifiez que vous avez correctement "
 "installé le programme HDMan et que le lexique contient tous les mots "
-"référencés dans les séquences d'entraînement."
+"référencés dans le corpus d'entraînement."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:627
 msgid "Generating Master Label File..."
@@ -2557,7 +2558,7 @@ msgid ""
 msgstr ""
 "Impossible de générer HMM0.\n"
 "\n"
-"Vérifiez qu'il y a suffisamment de séquences d'entraînement et que "
+"Vérifiez qu'il y a suffisamment d'échantillons d'entraînement et que "
 "l'emplacement de HCompV (%1), la configuration (%2) et le prototype de "
 "phonème (%3) sont corrects."
 
@@ -2663,8 +2664,8 @@ msgstr "Ré-alignement HMM7..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:716
 msgid ""
-"Could not re-align hmm7. Please check your paths to HVite (%1), the config (%"
-"2) and to the HMM7."
+"Could not re-align hmm7. Please check your paths to HVite (%1), the config ("
+"%2) and to the HMM7."
 msgstr ""
 "Impossible de ré-aligner HMM7.\n"
 "\n"
@@ -2707,8 +2708,8 @@ msgstr "Génération des tri-phones..."
 msgid ""
 "Could not bind triphones.\n"
 "\n"
-"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%"
-"3)."
+"Please check the paths to HDMan (%1), global.ded (%2) and to the lexicon ("
+"%3)."
 msgstr ""
 "Impossible de lier les tri-phones.\n"
 "\n"
@@ -2750,8 +2751,8 @@ msgstr "Génération HMM14..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:773
 msgid ""
-"Could not generate HMM14. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Could not generate HMM14. Please check the paths to HERest (%1), the config ("
+"%2) and to the stats-file (%3)."
 msgstr ""
 "Impossible de générer HMM14.\n"
 "\n"
@@ -2794,8 +2795,8 @@ msgstr "Génération HMM17..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:821
 msgid ""
-"Could not generate HMM17. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Could not generate HMM17. Please check the paths to HERest (%1), the config ("
+"%2) and to the stats-file (%3)."
 msgstr ""
 "Impossible de générer HMM17.\n"
 "\n"
@@ -2838,8 +2839,8 @@ msgstr "Génération HMM20..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:841
 msgid ""
-"Could not generate HMM20. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Could not generate HMM20. Please check the paths to HERest (%1), the config ("
+"%2) and to the stats-file (%3)."
 msgstr ""
 "Impossible de générer HMM20.\n"
 "\n"
@@ -2882,8 +2883,8 @@ msgstr "Génération HMM23..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:861
 msgid ""
-"Could not generate HMM23. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Could not generate HMM23. Please check the paths to HERest (%1), the config ("
+"%2) and to the stats-file (%3)."
 msgstr ""
 "Impossible de générer HMM23.\n"
 "\n"
@@ -2989,7 +2990,7 @@ msgstr ""
 "devriez utiliser le même dictionnaire que le modèle de base.\n"
 "\n"
 "Cette erreur peut aussi survenir si vous n'avez pas de données "
-"d'entraînement pour faire l'adaptation !"
+"d'entraînement pour faire l'adaptation !"
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1459
 msgid "Generating regtree.hed..."
@@ -3007,8 +3008,8 @@ msgstr "Création de l'arbre de régression..."
 msgid ""
 "Could not create regression class tree. Please check your paths to HHEd (%1)."
 msgstr ""
-"Impossible de générer l'arbre de régression. Vérifiez l'emplacement de HHEd "
-"(%1)."
+"Impossible de générer l'arbre de régression. Vérifiez l'emplacement de HHEd ("
+"%1)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1469
 msgid "Performing static adaption..."
@@ -3017,8 +3018,8 @@ msgstr "Adaptation statique..."
 #: speechmodelcompilation/modelcompilationmanager.cpp:1471
 msgid "Could not adapt the base model. Please check your paths to HERest (%1)."
 msgstr ""
-"Impossible d'adapter le modèle de base. Vérifiez l'emplacement de HERest (%"
-"1)."
+"Impossible d'adapter le modèle de base. Vérifiez l'emplacement de HERest ("
+"%1)."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:1475
 msgid "Switching to new model..."
@@ -3028,248 +3029,3 @@ msgstr "Basculement vers le nouveau modèle..."
 msgid "Could not switch to new model."
 msgstr "Impossible de basculer vers le nouveau modèle."
 
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Infos"
-#~ msgstr "Informations"
-
-#~ msgid "Launcher"
-#~ msgstr "Lanceur"
-
-#~ msgid ""
-#~ "Error requesting the sound output devices:\n"
-#~ "\n"
-#~ "Pa_CountDevices returned %1"
-#~ msgstr ""
-#~ "Erreur lors de la requête des périphériques de sortie sonore :\n"
-#~ "\n"
-#~ "Pa_CountDevices a retourné %1"
-
-#~ msgid ""
-#~ "Error requesting the sound input devices:\n"
-#~ "\n"
-#~ "Pa_CountDevices returned %1"
-#~ msgstr ""
-#~ "Erreur lors de la requête des périphériques d'entrée sonore :\n"
-#~ "\n"
-#~ "Pa_CountDevices a retourné %1"
-
-#~ msgid "Prompt Font"
-#~ msgstr "Police de caractères du prompteur"
-
-#~ msgid "Day"
-#~ msgstr "Jour"
-
-#~ msgid "Month"
-#~ msgstr "Mois"
-
-#~ msgid "Year"
-#~ msgstr "Année"
-
-#~ msgid ""
-#~ "The selected day does not exist in that month.\n"
-#~ "Please try again with a vaild date."
-#~ msgstr ""
-#~ "Le jour sélectionné n'existe pas pour ce mois.\n"
-#~ "Réessayez avec une date valable."
-
-#~ msgid ""
-#~ "The selected month does not exist.\n"
-#~ "\n"
-#~ "Please try again with a valid date."
-#~ msgstr ""
-#~ "Le mois sélectionné n'existe pas.\n"
-#~ "\n"
-#~ "Réessayez avec une date valable."
-
-#~ msgid ""
-#~ "You selected the year: %1.\n"
-#~ "\n"
-#~ "Do you really want to show that year?"
-#~ msgstr ""
-#~ "Vous avez sélectionné l'année : %1.\n"
-#~ "\n"
-#~ "Voulez-vous vraiment voir cette année ?"
-
-#~ msgid "The value you selected exceeds the boundaries of allowed values."
-#~ msgstr ""
-#~ "La valeur sélectionnée est en dehors de la plage des valeurs autorisées."
-
-#~ msgid ""
-#~ "The value you selected exceeds the boundaries of allowed values.\n"
-#~ "\n"
-#~ "Please try again."
-#~ msgstr ""
-#~ "La valeur sélectionnée est en dehors de la plage des valeurs autorisées.\n"
-#~ "\n"
-#~ "Réessayez."
-
-#~ msgid ""
-#~ "Couldn't re-align model to the selected base model. Please check your "
-#~ "paths to HVite (%1) and to the config (%2)."
-#~ msgstr ""
-#~ "Impossible de ré-aligner sur le modèle de base. Vérifiez l'emplacement de "
-#~ "HVite (%1) et la configuration (%2)."
-
-#~ msgid "Apply to all Plugins"
-#~ msgstr "Appliquer à tous les modules externes"
-
-#~ msgid "&Available Plug-Ins:"
-#~ msgstr "Modules externes &disponibles :"
-
-#~ msgid "&Selected Plug-Ins:"
-#~ msgstr "Modules externes &sélectionnés :"
-
-#~ msgid ""
-#~ "Couldn't initialize commandmanager \"%1\".\n"
-#~ "\n"
-#~ "Please check its configuration."
-#~ msgstr ""
-#~ "Impossible d'initialiser le gestionnaire de commandes « %1 ».\n"
-#~ "\n"
-#~ "Vérifier sa configuration."
-
-#~ msgid ""
-#~ "The trigger \"%1\" is already assigned to another command.\n"
-#~ "\n"
-#~ "Do you want to delete the other command that uses the Trigger \"%1\"?"
-#~ msgstr ""
-#~ "Le déclencheur « %1 » est déjà assigné à une autre commande.\n"
-#~ "\n"
-#~ "Voulez-vous supprimer l'autre commande utilisant le déclencheur « %1 » ?"
-
-#~ msgid "Couldn't add Command \"%1\"."
-#~ msgstr "Impossible d'ajouter la commande « %1 »."
-
-#~ msgid "General"
-#~ msgstr "Général"
-
-#~ msgid ""
-#~ "The HTK can not be found. Please make sure it is installed correctly.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Impossible de trouver HTK. Vérifiez qu'il est installé correctement.\n"
-#~ "\n"
-
-#~ msgid "[INF] Compiling model..."
-#~ msgstr "[INF] Compilation du modèle..."
-
-#~ msgid "[INF] Loading grammar from %1"
-#~ msgstr "[INF] Chargement de la grammaire depuis %1"
-
-#~ msgid "Loading grammar to %1"
-#~ msgstr "Chargement de la grammaire vers %1"
-
-#~ msgid "[INF] Removing \"%1\" from \"%2\""
-#~ msgstr "[INF] Suppression de « %1 » de « %2 »"
-
-#~ msgid "[INF] Reading the trainingstexts"
-#~ msgstr "[INF] Lecture des textes d'entraînement"
-
-#~ msgid "[INF] Calculating relevance"
-#~ msgstr "[INF] Calcul de la pertinence"
-
-#~ msgid "ZERO"
-#~ msgstr "ZÉRO"
-
-#~ msgid "ONE"
-#~ msgstr "UN"
-
-#~ msgid "TWO"
-#~ msgstr "DEUX"
-
-#~ msgid "THREE"
-#~ msgstr "TROIS"
-
-#~ msgid "FOUR"
-#~ msgstr "QUATRE"
-
-#~ msgid "FIVE"
-#~ msgstr "CINQ"
-
-#~ msgid "SIX"
-#~ msgstr "SIX"
-
-#~ msgid "SEVEN"
-#~ msgstr "SEPT"
-
-#~ msgid "EIGHT"
-#~ msgstr "HUIT"
-
-#~ msgid "NINE"
-#~ msgstr "NEUF"
-
-#~ msgid ""
-#~ "You are changing a temporary wordlist.\n"
-#~ "\n"
-#~ "Your changes will NOT be saved!"
-#~ msgstr ""
-#~ "Vous modifiez une liste de mots temporaire.\n"
-#~ "\n"
-#~ "Vos changements NE seront PAS enregistrés !"
-
-#~ msgid "Temporary changes"
-#~ msgstr "Changements temporaires"
-
-#~ msgid ""
-#~ "Couldn't read all the nescessairy files for the wordlist.\n"
-#~ "\n"
-#~ "A temporary wordlist will be created. Your changes will NOT be saved!"
-#~ msgstr ""
-#~ "Impossible de lire tous les fichiers nécessaires pour la liste de mots.\n"
-#~ "\n"
-#~ "Une liste temporaire sera créée. Vos changements NE seront PAS "
-#~ "enregistrés."
-
-#~ msgid "Read Error"
-#~ msgstr "Erreur de lecture"
-
-#~ msgid "Loading Shadow List"
-#~ msgstr "Chargement de la liste fantôme"
-
-#~ msgid "Parsing..."
-#~ msgstr "Analyse..."
-
-#~ msgid "[INF] Sorting a list of %1 words"
-#~ msgstr "[INF] Triage d'une liste de %1 mots"
-
-#~ msgid "[INF] Saving wordlist(s)"
-#~ msgstr "[INF] Enregistrement des listes de mots"
-
-#~ msgid "[INF] Opening output file: %1"
-#~ msgstr "[INF] Ouverture du fichier de sortie : %1"
-
-#~ msgid "[ERR] Could not open output file %1"
-#~ msgstr "[ERR] Impossible d'ouvrir le fichier de sortie %1"
-
-#~ msgid "[INF] Closing output file"
-#~ msgstr "[INF] Fermeture du fichier de sortie"
-
-#~ msgid "[INF] Reading wordlist consisting of"
-#~ msgstr "[INF] Lecture de la liste de mots comportant"
-
-#~ msgid "[INF] \t\tLexicon: %1,"
-#~ msgstr "[INF] \t\tLexique : %1, "
-
-#~ msgid "[INF \t\tVocabulary: %1"
-#~ msgstr "[INF] \t\tVocabulaire : %1"
-
-#~ msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
-#~ msgstr "[ERR] Erreur à l'ouverture du fichier de vocabulaire à « %1 »"
-
-#~ msgid "[INF] Wordlist created"
-#~ msgstr "[INF] Liste de mots créée"
-
-#~ msgid ""
-#~ "This word already exists in the shadow lexicon. It will not be inserted "
-#~ "again."
-#~ msgstr ""
-#~ "Ce mot existe déjà dans le lexique fantôme. Il ne sera pas inséré de "
-#~ "nouveau."
-
-#~ msgid "[INF] Adding %1 words to the wordlist"
-#~ msgstr "[INF] Ajout de %1 mots dans la liste de mots"
-
-#~ msgid "[INF] The wordlist now contains %1 words"
-#~ msgstr "[INF] La liste de mots contient maintenant %1 mots"

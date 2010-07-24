@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simondesktopgridcommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:08+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 23:13+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -161,25 +161,25 @@ msgstr "Abandonne la procédure de sélection"
 msgid ""
 "In the click mode selection popup, selects the simple click with the left "
 "mouse button"
-msgstr "Sélectionne le mode simple click gauche"
+msgstr "Sélectionne le mode simple clic gauche"
 
 #: desktopgridcommandmanager.cpp:210
 msgid ""
 "In the click mode selection popup, selects the double click with the left "
 "mouse button"
-msgstr "Sélectionne le mode double click gauche"
+msgstr "Sélectionne le mode double clic gauche"
 
 #: desktopgridcommandmanager.cpp:213
 msgid ""
 "In the click mode selection popup, selects the simple click with the right "
 "mouse button"
-msgstr "Sélectionne le mode simple click droit"
+msgstr "Sélectionne le mode simple clic droit"
 
 #: desktopgridcommandmanager.cpp:216
 msgid ""
 "In the click mode selection popup, selects the simple click with the middle "
 "mouse button"
-msgstr "Sélectionne le mode simple click milieu"
+msgstr "Sélectionne le mode simple clic milieu"
 
 #: desktopgridcommandmanager.cpp:219
 msgid "In the click mode selection popup, this selects the drag and drop mode"
@@ -203,7 +203,7 @@ msgstr "Utiliser la transparence réelle"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Action:"
-msgstr "Action :"
+msgstr "Action :"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:34
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAsk)
@@ -221,7 +221,7 @@ msgstr "Utiliser la valeur par défaut sans demander"
 #. i18n: ectx: property (text), widget (QRadioButton, rbActionAskAndDefault)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Ask, but select default user idles for:"
-msgstr "Demander, mais sélectionner la valeur par défaut au bout de :"
+msgstr "Demander, mais sélectionner la valeur par défaut au bout de :"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:70
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -233,7 +233,7 @@ msgstr "secondes"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Default mode:"
-msgstr "Mode par défaut :"
+msgstr "Mode par défaut :"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:100
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultClickMode)
@@ -249,10 +249,5 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:35 rc.cpp:35
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Cancel trigger:"
-#~ msgstr "Annuler le déclencheur :"

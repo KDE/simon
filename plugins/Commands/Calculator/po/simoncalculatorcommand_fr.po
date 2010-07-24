@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/"
+"?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
 "PO-Revision-Date: 2010-07-18 18:58+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -299,7 +299,7 @@ msgstr "Erreur de sortie"
 #: calculatorcommandmanager.cpp:545 calculatorcommandmanager.cpp:622
 #: calculatorcommandmanager.cpp:629
 msgid "Not a legal expression!"
-msgstr "Expression non valide !"
+msgstr "Expression non valide !"
 
 #: calculatorcommandmanager.cpp:741
 msgid "Can not divide through 0"
@@ -313,7 +313,7 @@ msgstr "Calculer à la voix"
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Show controls:"
-msgstr "Afficher les contrôles :"
+msgstr "Afficher les contrôles :"
 
 #. i18n: file: calculatorconfigurationdlg.ui:30
 #. i18n: ectx: property (text), item, widget (KComboBox, cbControlMode)
@@ -337,7 +337,7 @@ msgstr "Sortie uniquement"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Output mode selection:"
-msgstr "Sélection du mode de sortie :"
+msgstr "Sélection du mode de sortie :"
 
 #. i18n: file: calculatorconfigurationdlg.ui:57
 #. i18n: ectx: property (text), widget (QRadioButton, rbOutputAsk)
@@ -355,7 +355,7 @@ msgstr "Utiliser le choix par défaut sans demander"
 #. i18n: ectx: property (text), widget (QRadioButton, rbAskAndDefault)
 #: po/rc.cpp:24 rc.cpp:24
 msgid "Ask, but select default user idles for:"
-msgstr "Demander, mais sélectionner le choix par défaut au bout de :"
+msgstr "Demander, mais sélectionner le choix par défaut au bout de :"
 
 #. i18n: file: calculatorconfigurationdlg.ui:93
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -367,7 +367,7 @@ msgstr "secondes"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:30 rc.cpp:30
 msgid "Default mode:"
-msgstr "Mode par défaut :"
+msgstr "Mode par défaut :"
 
 #. i18n: file: calculatorconfigurationdlg.ui:128
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)

@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simon_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 23:38+0200\n"
+"PO-Revision-Date: 2010-07-22 22:49+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,12 +43,12 @@ msgid ""
 msgstr ""
 "<html><head />\n"
 "<body>\n"
-"<p>Simon compare les sons captés par le microphone à un \"modèle acoustique"
-"\" décrivant à quoi ressemble votre voix et ce que vous dites.</p>\n"
-"<p>Avec simon, vous pouvez créer et gérer vos propres modèles acoustiques ou "
+"<p>Simon compare les sons captés par le microphone à un « modèle acoustique » "
+"décrivant à quoi ressemble votre voix et ce que vous dites.</p>\n"
+"<p>Avec Simon, vous pouvez créer et gérer vos propres modèles acoustiques ou "
 "simplement télé-charger des modèles génériques correspondants à votre "
-"langue. Ces modèles génériques sont appelés des modèles \"de base\".</p>\n"
-"<p>Si vous ne sélectionnez pas de modèles de base, vous devrez \"entraîner\" "
+"langue. Ces modèles génériques sont appelés des modèles « de base ».</p>\n"
+"<p>Si vous ne sélectionnez pas de modèles de base, vous devrez « entraîner » "
 "vous-même un modèle en lisant à haute voix des textes d'entraînement.</p>\n"
 "<p>Si vous choisissez d'utiliser un modèle de base, vous n'aurez pas besoin "
 "d'entraînement, mais la reconnaissance vocale sera peut-être moins précise. "
@@ -79,10 +79,10 @@ msgstr ""
 "Les scenarios correspondent à des usages particuliers de la reconnaissance "
 "vocale.\n"
 "\n"
-"Vous pouvez, par exemple, utiliser simon pour contrôler Firefox en utilisant "
+"Vous pouvez, par exemple, utiliser Simon pour contrôler Firefox en utilisant "
 "le scénario approprié.\n"
 "\n"
-"Choisissez \"Obtenir des scénarios\" pour choisir et télé-charger des "
+"Cliquez sur « Obtenir des scénarios » pour choisir et télé-charger des "
 "scénarios depuis un dépôt en ligne."
 
 #. i18n: file: src/firstrunscenariosconfig.ui:49
@@ -114,7 +114,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, cbConnectAutomatically)
 #: po/rc.cpp:30 rc.cpp:30
 msgid "Connect automatically when simon starts"
-msgstr "Connexion automatique au lancement de simon"
+msgstr "Connexion automatique au lancement de Simon"
 
 #. i18n: file: src/firstrunsimondconfig.ui:42
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocalInstallation)
@@ -154,7 +154,7 @@ msgstr "Lancer automatiquement le serveur au lancement de simon"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StopLocalSimond)
 #: po/rc.cpp:42 po/rc.cpp:698 rc.cpp:42 rc.cpp:698
 msgid "Stop the server automatically when simon stops"
-msgstr "Arrêter automatique le serveur à l'arrêt de simon"
+msgstr "Arrêter automatique le serveur à l'arrêt de Simon"
 
 #. i18n: file: src/firstrunsimondconfig.ui:106
 #. i18n: ectx: property (text), widget (QRadioButton, rbRemoteInstallation)
@@ -367,7 +367,7 @@ msgstr ""
 #. i18n: ectx: tooltip, entry (AutoStart), group (General)
 #: po/rc.cpp:130 po/rc.cpp:133 rc.cpp:130 rc.cpp:133
 msgid "If we should start simon when KDE is started."
-msgstr "Si vous voulez lancer simon au démarrage de KDE."
+msgstr "Si vous voulez lancer Simon au démarrage de KDE."
 
 #. i18n: file: src/simonappcore/coreconfiguration.kcfg:23
 #. i18n: ectx: label, entry (StartMinimized), group (General)
@@ -380,7 +380,7 @@ msgstr "Si vous voulez lancer simon au démarrage de KDE."
 #: po/rc.cpp:136 po/rc.cpp:139 rc.cpp:136 rc.cpp:139
 msgid "If we should automatically minimize simon to the tray on startup."
 msgstr ""
-"Si vous voulez minimiser automatiquement simon dans la boîte à miniatures au "
+"Si vous voulez minimiser automatiquement Simon dans la boîte à miniatures au "
 "démarrage."
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:14
@@ -399,13 +399,13 @@ msgstr "Ne pas lancer l'assistant de premier lancement au démarrage"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StartMinimized)
 #: po/rc.cpp:148 rc.cpp:148
 msgid "Start simon minimized"
-msgstr "Démarrer simon minimisé"
+msgstr "Démarrer Simon minimisé"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
 #: po/rc.cpp:151 rc.cpp:151
 msgid "Start simon when logging in"
-msgstr "Démarrer simon lors de la connexion"
+msgstr "Démarrer Simon lors de la connexion"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:41
 #. i18n: ectx: property (text), widget (QCheckBox, cbAskBeforeQuit)
@@ -416,10 +416,9 @@ msgstr "Demander avant de quitter"
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:51
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowSampleWarning)
 #: po/rc.cpp:157 rc.cpp:157
-msgid ""
-"Do not display warning dialog when simon detects a problem with a sample"
+msgid "Do not display warning dialog when simon detects a problem with a sample"
 msgstr ""
-"Ne pas afficher de fenêtre d'alerte lorsque simon détecte un problème sur un "
+"Ne pas afficher de fenêtre d'alerte lorsque Simon détecte un problème sur un "
 "échantillon"
 
 #. i18n: file: src/simonmodelmanagementui/AddWord/addwordintropage.ui:24
@@ -737,7 +736,7 @@ msgid ""
 "please provide the file below."
 msgstr ""
 "Pour importer un vocabulaire compatible avec Julius (comme le vocabulaire de "
-"simon 0.2), veuillez fournir le fichier ci-dessus."
+"Simon 0.2), veuillez fournir le fichier ci-dessus."
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
@@ -774,10 +773,8 @@ msgstr ""
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictplspage.ui:60
 #. i18n: ectx: property (filter), widget (KUrlRequester, urPath)
 #: po/rc.cpp:306 rc.cpp:306
-msgid ""
-"*.xml *.xml.bz2 *.xml.gz | PLS-Dictionaries (*.xml, *.xml.bz2, *.xml.gz)"
-msgstr ""
-"*.xml *.xml.bz2 *.xml.gz | Dictionnaires PLS (*.xml *.xml.bz2 *.xml.gz)"
+msgid "*.xml *.xml.bz2 *.xml.gz | PLS-Dictionaries (*.xml, *.xml.bz2, *.xml.gz)"
+msgstr "*.xml *.xml.bz2 *.xml.gz | Dictionnaires PLS (*.xml *.xml.bz2 *.xml.gz)"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -897,9 +894,9 @@ msgid ""
 "this field is set)."
 msgstr ""
 "Si vous cochez cette case, les phrases contenant des mots avec des fonctions "
-"inconnues seront aussi importées (Les phrases contenant des mots avec "
-"plusieurs fonctions seront marquées comme \"inconnue\" et ne seront incluses "
-"que si cette case est cochée)."
+"inconnues seront aussi importées (Les mots ayant plusieurs fonctions sont "
+"marquées "
+"comme « inconnu » et ne seront inclus que si cette case est cochée)."
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectinputpage.ui:30
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeUnknown)
@@ -943,7 +940,7 @@ msgstr ""
 "Bienvenu dans l'outil d'importation de séquences d'entraînement existantes.\n"
 "\n"
 "Avec cet assistant, vous pourrez importer d'anciennes séquences, par exemple "
-"issues d'installations précédentes de simon."
+"issues d'installations précédentes de Simon."
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:44
 #. i18n: ectx: property (text), widget (QRadioButton, rbPrompts)
@@ -961,20 +958,20 @@ msgstr "Prompteurs :"
 #. i18n: ectx: property (text), widget (QLabel, lbBaseDirectory)
 #: po/rc.cpp:390 rc.cpp:390
 msgid "Base directory:"
-msgstr "Répertoire de base :"
+msgstr "Dossier de base :"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:97
 #. i18n: ectx: property (text), widget (QRadioButton, rbFolder)
 #: po/rc.cpp:393 rc.cpp:393
 msgid "Import Folder"
-msgstr "Importer un répertoire"
+msgstr "Importer un dossier"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:109
 #. i18n: ectx: property (text), widget (QLabel, lbFolder)
 #: po/rc.cpp:396 rc.cpp:396
 msgctxt "Folder (path)"
 msgid "Directory:"
-msgstr "Répertoire :"
+msgstr "Dossier :"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataworkingdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbMain)
@@ -1274,7 +1271,7 @@ msgstr "Taux de reconnaissance :"
 #. i18n: ectx: property (text), widget (QRadioButton, rbTerminal)
 #: po/rc.cpp:550 rc.cpp:550
 msgid "Move the word to the \"Unused\" terminal"
-msgstr "Déplacer le mot vers la fonction \"Inutilisé\""
+msgstr "Déplacer le mot vers la fonction « Inutilisé »"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:181
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalDesc)
@@ -1460,7 +1457,7 @@ msgstr "Ajouter un texte"
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
 #: po/rc.cpp:620 rc.cpp:620
 msgid "Import Trainings-Corpuses from other simon versions"
-msgstr "Importer un corpus d'entraînement depuis d'autres versions de simon"
+msgstr "Importer un corpus d'entraînement depuis d'autres versions de Simon"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:82
 #. i18n: ectx: property (text), widget (KPushButton, pbImportDir)
@@ -1613,7 +1610,7 @@ msgstr "Configurer simond"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
 #: po/rc.cpp:704 rc.cpp:704
 msgid "Connect automatically on simon start"
-msgstr "Connexion automatique au lancement de simon"
+msgstr "Connexion automatique au lancement de Simon"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:89
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticallyEnableRecognition)
@@ -1662,7 +1659,7 @@ msgstr "Si vous voulez lancer automatiquement un serveur simond local."
 #. i18n: ectx: tooltip, entry (StartLocalSimond), group (Recognition)
 #: po/rc.cpp:731 rc.cpp:731
 msgid "If a local simond server should be started when simon starts."
-msgstr "Si un serveur simond local doit être lancé au démarrage de simon."
+msgstr "Si un serveur simond local doit être lancé au démarrage de Simon."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:16
 #. i18n: ectx: label, entry (StopLocalSimond), group (Recognition)
@@ -1671,13 +1668,12 @@ msgid ""
 "If we should automatically stop the local simond server when simon exits."
 msgstr ""
 "Si vous voulez arrêter automatiquement le serveur simond local en quittant "
-"simon."
+"Simon."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:18
 #. i18n: ectx: tooltip, entry (StopLocalSimond), group (Recognition)
 #: po/rc.cpp:737 rc.cpp:737
-msgid ""
-"If the locally started simond server should be started when simon stops."
+msgid "If the locally started simond server should be started when simon stops."
 msgstr "Si le serveur simond local doit être arrêté à l'arrêt de simon."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:21
@@ -1887,13 +1883,13 @@ msgstr "Préférences"
 #: po/rc.cpp:836 po/rc.cpp:839 src/main.cpp:66 src/simonview.cpp:206
 #: rc.cpp:836 rc.cpp:839
 msgid "simon"
-msgstr "simon"
+msgstr "Simon"
 
 #. i18n: file: src/simonview.ui:26
 #. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
 #: po/rc.cpp:842 rc.cpp:842
 msgid "simon Main Window"
-msgstr "Fenêtre principale de simon"
+msgstr "Fenêtre principale de Simon"
 
 #: po/rc.cpp:843 rc.cpp:843
 msgctxt "NAME OF TRANSLATORS"
@@ -1925,13 +1921,13 @@ msgid ""
 "_Base_models\">base models on our wikis</a>.</p></body></html>"
 msgstr ""
 "<html><head /><body><p>Simon compare les sons captés par le microphone à un "
-"\"modèle acoustique\" décrivant à quoi ressemble votre voix et ce que vous "
-"dites.</p><p>Avec simon, vous pouvez créer et gérer vos propres modèles "
+"« modèle acoustique » décrivant à quoi ressemble votre voix et ce que vous "
+"dites.</p><p>Avec Simon, vous pouvez créer et gérer vos propres modèles "
 "acoustiques ou simplement télé-charger des modèles génériques correspondants "
-"à votre langue. Ces modèles génériques sont appelés des modèles \"de base\"."
+"à votre langue. Ces modèles génériques sont appelés des modèles « de base »."
 "</p><p>Si vous ne sélectionnez pas de modèles de base, vous devrez "
-"\"entraîner\" vous-même un modèle en lisant à haute voix des textes "
-"d'entraînement..</p><p>Si vous choisissez d'utiliser un modèle de base, vous "
+"« entraîner » vous-même un modèle en lisant à haute voix des textes "
+"d'entraînement.</p><p>Si vous choisissez d'utiliser un modèle de base, vous "
 "n'aurez pas besoin d'entraînement, mais la reconnaissance vocale sera peut-"
 "être moins précise. <span style=\" font-weight:600;\">Si vous utilisez un "
 "modèle de base statique, l'installation de HTK n'est pas nécessaire.</span></"
@@ -1943,7 +1939,7 @@ msgstr ""
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1222
 #: src/simonview.cpp:434
 msgid "Could not re-initialize scenarios. Please restart simon!"
-msgstr "Impossible de ré-initialiser les scénarios. Veuillez relancer simon !"
+msgstr "Impossible de ré-initialiser les scénarios. Veuillez relancer Simon !"
 
 #: src/firstrunsimondconfig.cpp:28
 #: src/simonrecognitioncontrol/plugin_exporter.cpp:33
@@ -1973,11 +1969,11 @@ msgstr ""
 "<html><head /><body><p>Simon est un logiciel de reconnaissance vocale open-"
 "source qui vous permet de contrôler votre ordinateur à la voix.</p><p>Cet "
 "assistant va vous guider pour configurer quelques paramètres importants de "
-"simon.</p><p><em>S'il vous plaît</em> veuillez suivre attentivement les "
+"Simon.</p><p><em>S'il vous plaît</em> veuillez suivre attentivement les "
 "étapes suivantes et lire les instructions.</p> <p>Vous pourrez changer "
 "ultérieurement ces paramètres (reportez-vous au manuel). Vous pouvez aussi "
 "choisir de relancer cet assistant au prochain démarrage dans les préférences "
-"de simon.</p><p>Vous pouvez trouver quelques instructions pour débutants "
+"de Simon.</p><p>Vous pouvez trouver quelques instructions pour débutants "
 "dans <a href=\"http://simon-listens.org/wiki\">notre wiki</a>.</p></body></"
 "html>"
 
@@ -1993,9 +1989,9 @@ msgid ""
 "the simon manual (press F1 in the simon main window to display).</p></body></"
 "html>"
 msgstr ""
-"<html><head /><body><p>Vous avez terminé la configuration initiale de simon."
+"<html><head /><body><p>Vous avez terminé la configuration initiale de Simon."
 "</p> <p>Vous pouvez trouver des informations supplémentaires, ainsi que des "
-"guides et des instructions dans le manuel de simon (appuyez sur la touche F1 "
+"guides et des instructions dans le manuel de Simon (appuyez sur la touche F1 "
 "dans la fenêtre principale de simon).</p></body></html>"
 
 #: src/main.cpp:67
@@ -2011,7 +2007,7 @@ msgid ""
 msgstr ""
 "<html><head /><body>\t\t\t\t\t      <h2>Développement et Distribution</h2>\t"
 "\t\t\t\t      <p>Développé et distribué par la société amicale <a href="
-"\"http://simon-listens.org\">simon listens e.V.</a> en coopération avec <a "
+"\"http://simon-listens.org\">Simon listens e.V.</a> en coopération avec <a "
 "href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t"
 "\t      <h3>Remerciements particuliers à</h3> \t\t\t\t\t      <ul><li>Franz "
 "Stieger</li><li>Mathias Stieger</li><li>Phillip Theussl</li><li>Moacyr "
@@ -2058,7 +2054,7 @@ msgid ""
 msgstr ""
 "Voulez-vous vraiment supprimer cette action du scénario ?\n"
 "\n"
-"Attention : Toutes les commandes et les configurations associées seront "
+"Attention : toutes les commandes et les configurations associées seront "
 "définitivement perdues !"
 
 #: src/simonactionsui/newcommand.cpp:106
@@ -2077,20 +2073,20 @@ msgid ""
 msgstr ""
 "Aucun plugins de commande chargés.\n"
 "\n"
-"Vous pouvez en charger dans la partie \"Gérer les plugins\". "
+"Vous pouvez en charger dans la partie « Gérer les plugins »."
 
 #: src/simonactionsui/runcommandview.cpp:32
 msgid "Direct Execution of simon Commands"
-msgstr "Exécution directe des commandes simon"
+msgstr "Exécution directe des commandes Simon"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:135
 msgid "%1: Voice commands"
-msgstr "%1 : Commandes vocales"
+msgstr "%1 : commandes vocales"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:276
 msgid "Are you sure that you want to irreversibly remove the command \"%1\"?"
 msgstr ""
-"Êtes-vous certain de vouloir définitivement supprimer la commande \"%1\" ?"
+"Êtes-vous certain de vouloir définitivement supprimer la commande « %1 » ?"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:276
 msgid "Remove Command"
@@ -2187,7 +2183,7 @@ msgstr "[INF] Connexion abandonnée"
 
 #: src/simonappcore/simoncontrol.cpp:316
 msgid "[INF] simon activated"
-msgstr "[INF] simon activé"
+msgstr "[INF] Simon activé"
 
 #: src/simonappcore/simoncontrol.cpp:322
 msgid "[INF] Continuing recognition"
@@ -2195,7 +2191,7 @@ msgstr "[INF] Poursuite de la reconnaissance"
 
 #: src/simonappcore/simoncontrol.cpp:340
 msgid "[INF] simon deactivated"
-msgstr "[INF] simon désactivé"
+msgstr "[INF] Simon désactivé"
 
 #: src/simonmodelmanagementui/AddWord/addwordintropage.cpp:32
 msgid "Add a new Word"
@@ -2328,9 +2324,9 @@ msgid ""
 "\n"
 "Note: Use terminals instead of distinct words!"
 msgstr ""
-"Entrez une nouvelle structure grammaticale.\n"
+"Saisissez une nouvelle structure grammaticale.\n"
 "\n"
-"Note : Utilisez des fonctions, pas des mots !"
+"Note : utilisez des fonctions, pas des mots !"
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:90
 msgid "Could not add structure to the grammar."
@@ -2338,8 +2334,7 @@ msgstr "Impossible d'ajouter la structure à la grammaire."
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:99
 msgid "Do you really want to delete the selected grammar structure?"
-msgstr ""
-"Voulez-vous vraiment supprimer la structure grammaticale sélectionnée ?"
+msgstr "Voulez-vous vraiment supprimer la structure grammaticale sélectionnée ?"
 
 #: src/simonmodelmanagementui/grammarviewprivate.cpp:101
 msgid "Could not delete structure."
@@ -2487,7 +2482,7 @@ msgid ""
 msgstr ""
 "Le dictionnaire a été importé avec succès.\n"
 "\n"
-"Merci d'avoir amélioré simon."
+"Merci d'avoir amélioré Simon."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:47
 msgid "Importing dictionary..."
@@ -2579,8 +2574,8 @@ msgid ""
 "This process requires a large shadow-lexicon containing terminal information "
 "or targeted input material."
 msgstr ""
-"Cet assistant va vous permettre de sélectionner des fichiers texte ou "
-"d'entrer du texte pour créer votre profil personnel de grammaire.\n"
+"Cet assistant va vous permettre de sélectionner des fichiers ou "
+"de saisir du texte pour créer votre profil personnel de grammaire.\n"
 "\n"
 "Pour cela, chaque fichier ou texte sera lu par l'analyseur grammatical qui "
 "recherchera chaque mot dans votre dictionnaire pour déterminer sa fonction "
@@ -2606,7 +2601,7 @@ msgstr ""
 "\n"
 "Vérifiez que les structures ne contiennent pas d'erreurs.\n"
 "\n"
-"Merci d'avoir améliorer simon."
+"Merci d'avoir améliorer Simon."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.cpp:32
 msgid "Analysis running..."
@@ -2662,7 +2657,7 @@ msgid ""
 msgstr ""
 "Les fichiers ont étés importés.\n"
 "\n"
-"Merci d'avoir amélioré simon !"
+"Merci d'avoir amélioré Simon !"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryintropage.cpp:36
 msgid "Import Training Samples"
@@ -2698,7 +2693,7 @@ msgstr ""
 "Cet assistant vous permet d'importer des textes d'entraînement depuis des "
 "fichiers locaux ou Internet.\n"
 "\n"
-"Comme cela, l'entraînement de simon ne sera pas ennuyeux !"
+"Comme cela, l'entraînement de Simon ne sera pas ennuyeux !"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:159
 msgid "Text added"
@@ -2712,7 +2707,7 @@ msgid ""
 msgstr ""
 "Vous venez d'ajouter un nouveau texte.\n"
 "\n"
-"Merci d'avoir amélioré simon."
+"Merci d'avoir amélioré Simon."
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.cpp:32
 msgid "Choose your Source"
@@ -2772,7 +2767,7 @@ msgid ""
 msgstr ""
 "Les fonctions ont étés fusionnées.\n"
 "\n"
-"Merci d'avoir amélioré simon."
+"Merci d'avoir amélioré Simon."
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.cpp:32
 msgid "Merging..."
@@ -2837,10 +2832,10 @@ msgid ""
 "simon-listens.org/wiki/index.php/English:_Base_models\">our wiki</a>.</p></"
 "body></html>"
 msgstr ""
-"<html><head /><body><p>Avec simon, vous pouvez créer et gérer vos propres "
+"<html><head /><body><p>Avec Simon, vous pouvez créer et gérer vos propres "
 "modèles acoustiques ou simplement télé-charger des modèles génériques "
 "correspondants à votre langue. Ces modèles génériques sont appelés des "
-"modèles \"de base\".</p><p>Vous trouverez des modèles de base et plus "
+"modèles « de base ».</p><p>Vous trouverez des modèles de base et plus "
 "d'informations dans <a href=\"http://www.simon-listens.org/wiki/index.php/"
 "English:_Base_models\">notre wiki</a>.</p></body></html>"
 
@@ -2915,7 +2910,7 @@ msgid ""
 msgstr ""
 "La fonction a changé de nom.\n"
 "\n"
-"Merci d'avoir amélioré simon."
+"Merci d'avoir amélioré Simon."
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.cpp:31
 msgid "Renaming terminal..."
@@ -2999,7 +2994,7 @@ msgid ""
 msgstr ""
 "Impossible de sauvegarder les changements au corpus d'entraînement.\n"
 "\n"
-"Veuillez relancer simon."
+"Veuillez relancer Simon."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:39
 msgid ""
@@ -3035,7 +3030,7 @@ msgid ""
 msgstr ""
 "Enregistrez le texte ci-dessous.\n"
 "\n"
-"Conseil : Laissez une à deux seconde de « silence » avant et après la lecture "
+"Conseil : laissez une à deux seconde de « silence » avant et après la lecture "
 "du texte pour de meilleurs résultats !\n"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:81
@@ -3049,7 +3044,7 @@ msgid ""
 msgstr ""
 "Simon a détecté un problème dans au moins un des enregistrements récents.\n"
 "\n"
-"Choisissez \"Plus d'informations\" pour savoir comment corriger ce "
+"Cliquez sur « Plus d'informations » pour savoir comment corriger ce "
 "problème.\n"
 "\n"
 "Voulez-vous poursuivre l'entraînement sans corriger le problème ?"
@@ -3225,7 +3220,7 @@ msgstr "Synchronisation du modèle actif"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1006
 msgid "No speech model available: Recognition deactivated"
-msgstr "Aucun modèle vocal disponible : Reconnaissance désactivée"
+msgstr "Aucun modèle vocal disponible : reconnaissance désactivée"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1018
 msgid "The server could not store the the active model."
@@ -3242,8 +3237,7 @@ msgstr "Le serveur ne peut pas enregistrer le scénario."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1233
 msgid "The server could not store the list of selected scenarios."
-msgstr ""
-"Le serveur ne peut pas enregistrer la liste des scénarios sélectionnés."
+msgstr "Le serveur ne peut pas enregistrer la liste des scénarios sélectionnés."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1242
 msgid "Synchronizing Training"
@@ -3361,7 +3355,7 @@ msgstr "Ajouter le mot"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1820
 msgid "Failed to remove word \"%1\" from the trainingscorpus"
-msgstr "Impossible de supprimer le mot \"%1\" du corpus d'entraînement"
+msgstr "Impossible de supprimer le mot « %1 » du corpus d'entraînement"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1835
 msgid ""
@@ -3431,11 +3425,11 @@ msgid ""
 msgstr ""
 "La requête a été envoyée au serveur.\n"
 "\n"
-"Surveillez la synchronisation dans la fenêtre principale de simon."
+"Surveillez la synchronisation dans la fenêtre principale de Simon."
 
 #: src/simonview.cpp:91
 msgid "[INF] Starting simon..."
-msgstr "[INF] Lancement de simon..."
+msgstr "[INF] Lancement de Simon..."
 
 #: src/simonview.cpp:95
 msgid "[INF] Displaying Splashscreen..."
@@ -3459,14 +3453,14 @@ msgstr ""
 
 #: src/simonview.cpp:113 src/simonview.cpp:633 src/simonview.cpp:707
 msgid "simon - Deactivated"
-msgstr "simon - désactivé"
+msgstr "Simon - désactivé"
 
 #: src/simonview.cpp:119
 msgid ""
 "The currently displayed scenario. Select \"Manage scenarios\" to edit the "
 "available options."
 msgstr ""
-"Le scénario actuellement affiché. Choisissez \"Gérer les scénarios\" pour "
+"Le scénario actuellement affiché. Cliquez sur « Gérer les scénarios » pour "
 "modifier les options."
 
 #: src/simonview.cpp:125
@@ -3508,7 +3502,7 @@ msgstr ""
 
 #: src/simonview.cpp:207
 msgid "simon listens."
-msgstr "simon listens."
+msgstr "Simon listens."
 
 #: src/simonview.cpp:209
 msgid "Open Source Speech Recognition Suite"
@@ -3524,7 +3518,7 @@ msgstr "Entrez en relation avec la communauté de Simon"
 
 #: src/simonview.cpp:237
 msgid "Mail support"
-msgstr "Support par courriel"
+msgstr "Assistance par courriel"
 
 #: src/simonview.cpp:237
 msgid "Get direct support from the developers"
@@ -3532,7 +3526,7 @@ msgstr "Recevez de l'aide directement par les développeurs"
 
 #: src/simonview.cpp:242
 msgid "simon WIKI"
-msgstr "Simon WIKI"
+msgstr "Simon wiki"
 
 #: src/simonview.cpp:242
 msgid "The simon knowledge base"
@@ -3612,7 +3606,7 @@ msgstr "Connexion..."
 
 #: src/simonview.cpp:666
 msgid "Connected: Deactivating..."
-msgstr "Connecté ; Désactivation..."
+msgstr "Connecté ; désactivation..."
 
 #: src/simonview.cpp:668
 msgid "Deactivating..."
@@ -3628,7 +3622,7 @@ msgstr "Simon a été désactivé"
 
 #: src/simonview.cpp:715
 msgid "Connected; Activating..."
-msgstr "Connecté ; Activation..."
+msgstr "Connecté ; activation..."
 
 #: src/simonview.cpp:717 src/simonview.cpp:720
 msgid "Activating..."
@@ -3661,603 +3655,3 @@ msgstr ""
 #: src/simonview.cpp:820
 msgid "[INF] Quitting..."
 msgstr "[INF] Fermeture du programme..."
-
-#~ msgid "Author"
-#~ msgstr "Auteur"
-
-#~ msgid ""
-#~ "Name of the author. Might be a screen name but usage of the real name is "
-#~ "encouraged."
-#~ msgstr ""
-#~ "Nom de l'auteur. Peut être un pseudonyme, mais l'usage du nom réel est "
-#~ "encouragé."
-
-#~ msgid "Contact:"
-#~ msgstr "Contact :"
-
-#~ msgid ""
-#~ "e.g. e-Mail Adresses, Instant Messenger contact names / numbers, etc."
-#~ msgstr "Adresse de courriel, de messagerie instantanée, etc..."
-
-#~ msgid "Scenario version:"
-#~ msgstr "Version du scénario :"
-
-#~ msgid "Min simon version:"
-#~ msgstr "Version de simon minimum :"
-
-#~ msgid "9.9xxxxxxx0; "
-#~ msgstr "9.9xxxxxxx0; "
-
-#~ msgid "Max simon version:"
-#~ msgstr "Version de simon maximum :"
-
-#~ msgid "You can leave this field empty to set no maximum version."
-#~ msgstr "Vous pouvez laisser ce champ vide (pas de maximum)."
-
-#~ msgid "0x0xxxxxxx0; "
-#~ msgstr "0x0xxxxxxx0; "
-
-#~ msgid "Licence:"
-#~ msgstr "Licence :"
-
-#~ msgid "Artistic 2.0"
-#~ msgstr "Artistic 2.0"
-
-#~ msgid "BSD"
-#~ msgstr "BSD"
-
-#~ msgid "CPL 1.0"
-#~ msgstr "CPL 1.0"
-
-#~ msgid "Creative Commons by"
-#~ msgstr "Creative Commons by"
-
-#~ msgid "Creative Commons by-nc"
-#~ msgstr "Creative Commons by-nc"
-
-#~ msgid "Creative Commons by-nc-nd"
-#~ msgstr "Creative Commons by-nc-nd"
-
-#~ msgid "Creative Commons by-nc-sa"
-#~ msgstr "Creative Commons by-nc-sa"
-
-#~ msgid "Creative Commons by-nd"
-#~ msgstr "Creative Commons by-nd"
-
-#~ msgid "Creative Commons by-sa"
-#~ msgstr "Creative Commons by-sa"
-
-#~ msgid "GFDL"
-#~ msgstr "GFDL"
-
-#~ msgid "GPL"
-#~ msgstr "GPL"
-
-#~ msgid "LGPL"
-#~ msgstr "LGPL"
-
-#~ msgid "MIT"
-#~ msgstr "MIT"
-
-#~ msgid "Proprietary License"
-#~ msgstr "Licence propriétaire"
-
-#~ msgid "QPL"
-#~ msgstr "QPL"
-
-#~ msgid "X11"
-#~ msgstr "X11"
-
-#~ msgid "Authors:"
-#~ msgstr "Auteurs :"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "New"
-#~ msgstr "Nouveau"
-
-#~ msgid "Export"
-#~ msgstr "Exporter"
-
-#~ msgid "SAMPA:"
-#~ msgstr "SAMPA :"
-
-#~ msgid "Start"
-#~ msgstr "Démarrer"
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:10pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">This early development "
-#~ "version is not yet suited for productive use. Should you encounter bugs, "
-#~ "please contact the developers to help us improve simon.</span></p></"
-#~ "body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:10pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">Cette version de "
-#~ "développement n'est pas encore prête pour un usage en production. Si vous "
-#~ "trouvez un bug, contactez les développeurs pour nous aider à améliorer "
-#~ "Simon.</span></p></body></html>"
-
-#~ msgid "Contact"
-#~ msgstr "Contact"
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
-#~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
-#~ "color:#0000ff;\">Direct Mail-Support</span></a> </p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
-#~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
-#~ "color:#0000ff;\">Support direct par Mail</span></a> </p></body></html>"
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
-#~ "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
-#~ "underline; color:#0000ff;\">Community Forums</span></a></p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
-#~ "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
-#~ "underline; color:#0000ff;\">Forums communautaires</span></a></p></body></"
-#~ "html>"
-
-#~ msgid "Documentation"
-#~ msgstr "Documentation"
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
-#~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
-#~ "#0000ff;\">Official Homepage</span></a> </p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
-#~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
-#~ "#0000ff;\">Site officiel</span></a> </p></body></html>"
-
-#~ msgid ""
-#~ "<html>\n"
-#~ "<head />\n"
-#~ "<body>\n"
-#~ "<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online "
-#~ "Wiki</a>\n"
-#~ "</body>\n"
-#~ "</html>"
-#~ msgstr ""
-#~ "<html>\n"
-#~ "<head />\n"
-#~ "<body>\n"
-#~ "<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Wiki en "
-#~ "ligne</a>\n"
-#~ "</body>\n"
-#~ "</html>"
-
-#~ msgid "Scenario: %1"
-#~ msgstr "Scénario : %1"
-
-#~ msgctxt "Author (contact information)"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgid "Scenario could not be created"
-#~ msgstr "Impossible de créer le scénario"
-
-#~ msgid "New scenario could not be saved"
-#~ msgstr "Impossible de sauvegarder le nouveau scénario"
-
-#~ msgid "Scenario could not be updated"
-#~ msgstr "Impossible de mettre à jour le scénario"
-
-#~ msgid "Publish"
-#~ msgstr "Publier"
-
-#~ msgid "Export to file"
-#~ msgstr "Exporter vers un fichier"
-
-#~ msgid "Download"
-#~ msgstr "Télé-charger"
-
-#~ msgid "Import from file"
-#~ msgstr "Importer depuis un fichier"
-
-#~ msgid "Select scenario file"
-#~ msgstr "Sélectionner un fichier de scénario"
-
-#~ msgid "Could not load scenario."
-#~ msgstr "Impossible de charger le scénario."
-
-#~ msgid "Failed to store scenario"
-#~ msgstr "Échec de la sauvegarde du scénario"
-
-#~ msgid "Select scenario output file"
-#~ msgstr "Sélectionner un fichier pour enregistrer le scénario"
-
-#~ msgid ""
-#~ "Downloading new scenarios requires you to save your current changes "
-#~ "before continuing.\n"
-#~ "\n"
-#~ "Save your changes now?"
-#~ msgstr ""
-#~ "Télé-charger de nouveaux scénario nécessite que vous sauvegardiez les "
-#~ "changements courants.\n"
-#~ "\n"
-#~ "Enregistrer vos changements maintenant ?"
-
-#~ msgid "Please select a scenario from the list(s)"
-#~ msgstr "Sélectionnez un scénario dans la (les) liste(s)"
-
-#~ msgid "Could not find scenario \"%1\""
-#~ msgstr "Impossible de trouver le scénario « %1 »"
-
-#~ msgid ""
-#~ "Do you really want to irrecoverably delete the selected scenario \"%1"
-#~ "\" (\"%2\")?"
-#~ msgstr ""
-#~ "Voulez-vous vraiment supprimer définitivement le scénario sélectionné « %"
-#~ "1 » (« %2 ») ?"
-
-#~ msgid ""
-#~ "Could not remove scenario at the following path:\n"
-#~ "%1\n"
-#~ "\n"
-#~ "If this is a system scenario, a normal user can not remove it. Please "
-#~ "remove the file manually.\n"
-#~ "\n"
-#~ "In the mean time, simon has automatically deactivated the scenario if it "
-#~ "wasn't already."
-#~ msgstr ""
-#~ "Impossible de supprimer le scénario à l'emplacement suivant :\n"
-#~ "%1\n"
-#~ "Si c'est un scénario du système, un utilisateur normal ne peut le "
-#~ "supprimer. Veuillez le supprimer manuellement.\n"
-#~ "\n"
-#~ "En attendant, simon a désactivé automatiquement ce scénario."
-
-#~ msgctxt "Name and contact information"
-#~ msgid "<p>%1 (%2)</p>"
-#~ msgstr "<p>%1 (%2)</p>"
-
-#~ msgctxt "Infos about the scenario"
-#~ msgid ""
-#~ "<html><head /><body><h3>%1</h3><h4>Version</h4><p>%2</p><h4>Licence</"
-#~ "h4><p>%3</p><h4>Compatibility</h4><p>Minimum version: %4</p><p>Maximum "
-#~ "version: %5</p><h4>Authors</h4><p>%6</p>"
-#~ msgstr ""
-#~ "<html><head /><body> <h3>%1</h3> <h4>Version</h4><p>%2</p><h4>Licence</"
-#~ "h4><p>%3</p> <h4>Compatibilité</h4><p>Version minimum : %4</p><p>Version "
-#~ "maximum : %5</p> <h4>Auteurs</h4><p>%6</p>"
-
-#~ msgid "Could not init scenario \"%1\""
-#~ msgstr "Impossible d'initialiser le scénario « %1 »"
-
-#~ msgid ""
-#~ "You need at least one active scenario.\n"
-#~ "\n"
-#~ "Please load a scenario.\n"
-#~ "\n"
-#~ "Your current (empty) configuration was not saved."
-#~ msgstr ""
-#~ "Vous devez avoir au moins un scénario actif.\n"
-#~ "\n"
-#~ "Veuillez charger un scénario.\n"
-#~ "\n"
-#~ "Votre configuration courante (vide) n'a pas été sauvegardée."
-
-#~ msgid "Kommando"
-#~ msgstr "Commande"
-
-#~ msgid " deaktivieren?"
-#~ msgstr "Désactiver ?"
-
-#~ msgid "Wortlist"
-#~ msgstr "Liste de mots"
-
-#~ msgid "Loading \"Wordlist\"..."
-#~ msgstr "Chargement \"Liste de mots\"..."
-
-#~ msgid "Run"
-#~ msgstr "Exécuter"
-
-#~ msgid "Import Activities"
-#~ msgstr "Importer des activités"
-
-#~ msgid "Also show non-perfect matches"
-#~ msgstr "Afficher aussi les concordances imparfaites"
-
-#~ msgid ""
-#~ "Please wait a second while the list of available trainingstexts is loaded "
-#~ "from the internet.\n"
-#~ "\n"
-#~ "Once the list is loaded, please select the text to download and proceed "
-#~ "to the next step."
-#~ msgstr ""
-#~ "Veuillez patienter pendant que la liste des textes d'entraînement "
-#~ "disponibles est télé-chargée.\n"
-#~ "\n"
-#~ "Une fois la liste chargée, sélectionnez le texte à télé-charger et passez "
-#~ "à l'étape suivante."
-
-#~ msgid ""
-#~ "You can import trainingstexts from local text files or download "
-#~ "predefined trainingstext from an online repository."
-#~ msgstr ""
-#~ "Vous pouvez importer des textes d'entraînement depuis des fichiers locaux "
-#~ "ou télé-charger des fichiers prédéfinis depuis un dépôt en ligne."
-
-#~ msgid "Local text file"
-#~ msgstr "Fichier texte local"
-
-#~ msgid "Download text from online repository"
-#~ msgstr "Télé-charger le texte depuis le dépôt en ligne"
-
-#~ msgid "Texts"
-#~ msgstr "Textes"
-
-#~ msgid "Textdownload-URL:"
-#~ msgstr "URL de télé-chargement de textes :"
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">You are about to delete "
-#~ "a word.</p>\n"
-#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
-#~ "\"></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">To \"delete\" a word "
-#~ "can have two different meanings.</p>\n"
-#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
-#~ "\"></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Regardless of what type "
-#~ "of deletion you choose, <span style=\" font-weight:600;\">all "
-#~ "trainignsmaterial referencing the word will be removed.</span></p></"
-#~ "body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Vous êtes sur le point "
-#~ "de supprimer un mot.</p>\n"
-#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
-#~ "\"></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">\"Supprimer\" un mot a "
-#~ "deux sens différents</p>\n"
-#~ "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
-#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
-#~ "\"></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Quel que soit le type "
-#~ "de suppression que vous choisirez, <span style=\" font-weight:600;"
-#~ "\">toutes les séquences d'entraînement concernant ce mot seront effacées."
-#~ "</span></p></body></html>"
-
-#~ msgid ""
-#~ "The word will stay saved, but it will be moved to the shadow lexicon and "
-#~ "thus no longer considered for recognition."
-#~ msgstr ""
-#~ "Le mot restera enregistré, mais il sera déplacé vers le lexique fantôme "
-#~ "et ne sera plus pris en compte par la reconnaissance."
-
-#~ msgid "Completely remove the word"
-#~ msgstr "Supprimer complètement le mot"
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "Pages"
-#~ msgstr "Pages"
-
-#~ msgid "Include unused Words from the Shadow Lexicon"
-#~ msgstr "Inclure les mots inutilisés du lexique fantôme"
-
-#~ msgid "Remove Selected Word"
-#~ msgstr "Supprimer le mot sélectionné"
-
-#~ msgid "Import from the Internet"
-#~ msgstr "Importer depuis Internet"
-
-#~ msgid "[INF] Retrieving List of available Texts"
-#~ msgstr "[INF] Récupération de la liste des textes disponibles"
-
-#~ msgid ""
-#~ "Couldn't open List of available Texts.\n"
-#~ "\n"
-#~ "Please check if the URL is correctly configured."
-#~ msgstr ""
-#~ "Impossible d'ouvrir la liste des textes disponibles.\n"
-#~ "\n"
-#~ "Vérifiez que l'URL est correctement configurée."
-
-#~ msgid "Importing Trainingstext"
-#~ msgstr "Importation des textes d'entraînement"
-
-#~ msgid "Adapting Grammar"
-#~ msgstr "Adaptation de la grammaire"
-
-#~ msgid ""
-#~ "Could not store the wordlist received from the server.\n"
-#~ "\n"
-#~ "Please check the permissions on the model folder: %1"
-#~ msgstr ""
-#~ "Impossible de sauvegarder la liste de mots reçue du serveur.\n"
-#~ "\n"
-#~ "Vérifiez les permissions du dossier de modèle : %1"
-
-#~ msgid ""
-#~ "Could not store the grammar received from the server.\n"
-#~ "\n"
-#~ "Please check the permissions on the model folder: %1"
-#~ msgstr ""
-#~ "Impossible de sauvegarder la grammaire reçue du serveur.\n"
-#~ "\n"
-#~ "Vérifiez les permissions du dossier de modèle : %1"
-
-#~ msgid ""
-#~ "If you confirm this dialog, the selected Text will be completely removed "
-#~ "from your hard drive.\n"
-#~ "\n"
-#~ "Do you want to continue?"
-#~ msgstr ""
-#~ "Si vous confirmez, le texte sélectionné sera effacé de votre disque dur.\n"
-#~ "\n"
-#~ "Voulez-vous poursuivre ?"
-
-#~ msgid "Preview: %1..."
-#~ msgstr "Aperçu : %1..."
-
-#~ msgid "Empty"
-#~ msgstr "Vide"
-
-#~ msgid "Not yet supported"
-#~ msgstr "Non prise en charge actuellement"
-
-#~ msgid "View and modify the wordlist."
-#~ msgstr "Voir et modifier la liste de mots."
-
-#~ msgid "Synchronization already running"
-#~ msgstr "Synchronisation déjà en cours"
-
-#~ msgid "Checking Source"
-#~ msgstr "Vérification de la source"
-
-#~ msgid "Synchronizing Grammar"
-#~ msgstr "Synchronisation de la grammaire"
-
-#~ msgid "The server couldn't store the wordlist."
-#~ msgstr "Le serveur ne peut pas enregistrer la liste de mots."
-
-#~ msgid "[INF] Loading configuration modules..."
-#~ msgstr "[INF] Chargement des modules de configuration..."
-
-#~ msgid "This is not yet implemented, sorry!"
-#~ msgstr "Ce n'est pas encore implémenté, désolé !"
-
-#~ msgid "Couldn't create output folder %1"
-#~ msgstr "Impossible de créer le dossier de destination %1"
-
-#~ msgid ""
-#~ "The files found in the given folder are now being imported.\n"
-#~ "\n"
-#~ "Thank you for improving simon!"
-#~ msgstr ""
-#~ "Les fichiers du dossier ont étés importés.\n"
-#~ "\n"
-#~ "Merci d'avoir amélioré simon."
-
-#~ msgid "If we should ask the user before quitting simon."
-#~ msgstr "Si vous voulez demander confirmation avant de quitter."
-
-#~ msgid ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:10pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">This is a release "
-#~ "version of simon and has been tested extensively.</span></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:9pt;\">If you want to support simon and ensure further "
-#~ "development please consider <a href=\"http://kde-apps.org/content/donate."
-#~ "php?content=73815\"><span style=\" text-decoration: underline; color:"
-#~ "#0000ff;\">a small donation</span></a>.</p></body></html>"
-#~ msgstr ""
-#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#~ "REC-html40/strict.dtd\">\n"
-#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#~ "css\">\n"
-#~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:10pt; "
-#~ "font-weight:400; font-style:normal;\">\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">Ceci est une version "
-#~ "stable de simon qui a été testé intensivement.</span></p>\n"
-#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
-#~ "font-size:9pt;\">Si vous voulez encourager le développement de simon, "
-#~ "vous pouvez envisager <a href=\"http://kde-apps.org/content/donate.php?"
-#~ "content=73815\"><span style=\" text-decoration: underline; color:#0000ff;"
-#~ "\">une petite donation</span></a>.</p></body></html>"

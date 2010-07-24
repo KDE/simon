@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:33+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 21:49+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,11 +95,11 @@ msgstr "Cache le clavier"
 #: keyboardcommandmanager.cpp:387
 msgctxt "Keyboard key"
 msgid "Shift"
-msgstr "Shift"
+msgstr "Maj"
 
 #: keyboardcommandmanager.cpp:388
 msgid "Shift key"
-msgstr "Touche shift"
+msgstr "Touche Maj"
 
 #: keyboardcommandmanager.cpp:390
 msgctxt "Keyboard key"
@@ -254,7 +254,7 @@ msgstr "Ajouter une disposition de clavier"
 
 #: keyboardconfiguration.cpp:128
 msgid "Please enter the name of the new set:"
-msgstr "Veuillez saisir le nom de la nouvelle disposition de clavier :"
+msgstr "Veuillez saisir le nom de la nouvelle disposition de clavier :"
 
 #: keyboardconfiguration.cpp:131
 msgid "Failed to add set"
@@ -270,7 +270,7 @@ msgstr "Éditer une disposition de clavier"
 
 #: keyboardconfiguration.cpp:151
 msgid "Please enter the new name of the set:"
-msgstr "Veuillez saisir le nouveau nom de la disposition de clavier :"
+msgstr "Veuillez saisir le nouveau nom de la disposition de clavier :"
 
 #: keyboardconfiguration.cpp:154
 msgid "Failed to edit set"
@@ -299,7 +299,7 @@ msgstr "Ajouter un onglet de clavier"
 
 #: keyboardconfiguration.cpp:185
 msgid "Please enter the name of the new tab:"
-msgstr "Veuillez saisir le nom du nouvel onglet :"
+msgstr "Veuillez saisir le nom du nouvel onglet :"
 
 #: keyboardconfiguration.cpp:189
 msgid "Failed to add tab"
@@ -315,7 +315,7 @@ msgstr "Éditer un onglet de clavier"
 
 #: keyboardconfiguration.cpp:213
 msgid "Please enter the new name of the tab:"
-msgstr "Veuillez saisir le nouveau nom de l'onglet :"
+msgstr "Veuillez saisir le nouveau nom de l'onglet :"
 
 #: keyboardconfiguration.cpp:217
 msgid "Failed to edit tab"
@@ -372,19 +372,19 @@ msgstr "Veuillez sélectionner l'onglet à déplacer"
 
 #: keyboardconfiguration.cpp:334
 msgid "Failed to move tab up. Maybe it is already at the top?"
-msgstr "Échec du déplacement de l'onglet. Peut-être est-il déjà en haut ?"
+msgstr "Échec du déplacement de l'onglet. Peut-être est-il déjà en haut ?"
 
 #: keyboardconfiguration.cpp:355
 msgid "Failed to move tab down. Maybe it is already at the bottom?"
-msgstr "Échec du déplacement de l'onglet. Peut-être est-il déjà en bas ?"
+msgstr "Échec du déplacement de l'onglet. Peut-être est-il déjà en bas ?"
 
 #: keyboardconfiguration.cpp:377
 msgid "Button could not be moved up. Is it already at the top?"
-msgstr "Échec du déplacement du bouton. Peut-être est-il déjà en haut ?"
+msgstr "Échec du déplacement du bouton. Peut-être est-il déjà en haut ?"
 
 #: keyboardconfiguration.cpp:396
 msgid "Button could not be moved down. Is it already at the bottom?"
-msgstr "Échec du déplacement du bouton. Peut-être est-il déjà en bas ?"
+msgstr "Échec du déplacement du bouton. Peut-être est-il déjà en bas ?"
 
 #: keyboardconfiguration.cpp:512
 msgid "Failed to load keyboard sets from storage"
@@ -438,7 +438,7 @@ msgstr "Valeur"
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowNumpad)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Show Numpad"
-msgstr "Montrer le pavé numérique"
+msgstr "Afficher le pavé numérique"
 
 #. i18n: file: keyboardconfigurationdlg.ui:39
 #. i18n: ectx: property (text), widget (QCheckBox, cbCaseSensitivity)
@@ -451,14 +451,14 @@ msgstr "Vérification de la casse (Majuscule/minuscule) du déclencheur"
 #: po/rc.cpp:9 rc.cpp:9
 msgctxt "Which set (collection of tabs) is currently displayed"
 msgid "Set: "
-msgstr "Disposition de clavier :"
+msgstr "Disposition de clavier :"
 
 #. i18n: file: keyboardconfigurationdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:12 rc.cpp:12
 msgctxt "Which page of the keyboard is now displayed"
 msgid "Tab: "
-msgstr "Onglet :"
+msgstr "Onglet :"
 
 #. i18n: file: keyboardconfigurationdlg.ui:87
 #. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
@@ -615,7 +615,7 @@ msgstr "."
 #. i18n: ectx: property (text), widget (KPushButton, pbShift)
 #: po/rc.cpp:105 rc.cpp:105
 msgid "Shift"
-msgstr "Shift"
+msgstr "Maj"
 
 #. i18n: file: keyboardwidget.ui:189
 #. i18n: ectx: property (text), widget (KPushButton, pbCapsLock)
@@ -652,7 +652,7 @@ msgstr "Déclencheur :"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:138 rc.cpp:138
 msgid "Type:"
-msgstr "Type :"
+msgstr "Type :"
 
 #. i18n: file: simonkeyboardpluginui.rc:6
 #. i18n: ectx: Menu (commands)
@@ -669,3 +669,5 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
+
+

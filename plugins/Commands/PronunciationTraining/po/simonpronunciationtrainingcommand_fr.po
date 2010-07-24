@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:39+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 23:11+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbWordGroup)
 #: po/rc.cpp:3 rc.cpp:3
 msgid "Terminal to fetch:"
-msgstr "Fonction à récupérer :"
+msgstr "Fonction à récupérer :"
 
 #. i18n: file: pronunciationtrainingdlg.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Form)
@@ -44,7 +44,7 @@ msgstr "Entraînement de la prononciation"
 #: po/rc.cpp:13 rc.cpp:13
 #, no-c-format
 msgid "Score: %p%"
-msgstr "Score : %p%"
+msgstr "Score : %p%"
 
 #. i18n: file: pronunciationtrainingdlg.ui:93
 #. i18n: ectx: property (text), widget (KPushButton, pbPrev)
@@ -75,7 +75,7 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:24 rc.cpp:24
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
 #: pronunciationtrainingcommandmanager.cpp:39
 msgid "Activate Pronunciation Training"
@@ -93,4 +93,5 @@ msgstr ""
 
 #: pronunciationtraining.cpp:90
 msgid "Sample %1 of %2:"
-msgstr "Échantillon %1 de %2 :"
+msgstr "Échantillon %1 de %2 :"
+

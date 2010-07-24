@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonshortcutcommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:43+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 21:44+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Alt+Tab"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Alt+Shift+Tab"
-msgstr "Alt+Shift+Tab"
+msgstr "Alt+Maj+Tab"
 
 #. i18n: file: createshortcutcommandwidget.ui:50
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
@@ -54,7 +54,7 @@ msgstr "Meta+Tab"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Meta+Shift+Tab"
-msgstr "Meta+Shift+Tab"
+msgstr "Meta+Maj+Tab"
 
 #. i18n: file: createshortcutcommandwidget.ui:60
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
@@ -114,13 +114,13 @@ msgstr "Meta+Droite"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:48 rc.cpp:48
 msgid "Meta+Shift+Left"
-msgstr "Meta+Shift+Gauche"
+msgstr "Meta+Maj+Gauche"
 
 #. i18n: file: createshortcutcommandwidget.ui:110
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:51 rc.cpp:51
 msgid "Meta+Shift+Right"
-msgstr "Meta+Shift+Droite"
+msgstr "Meta+Maj+Droite"
 
 #. i18n: file: createshortcutcommandwidget.ui:115
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
@@ -249,12 +249,3 @@ msgstr "yann.cantin@laposte.net"
 #: shortcutcommand.cpp:30 shortcutcommand.cpp:56
 msgid "Shortcut"
 msgstr "Raccourci"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "[INF] Loading shortcuts from %1"
-#~ msgstr "[INF] Chargement des raccourcis depuis %1"
-
-#~ msgid "[INF] Saving Shortcuts to %1"
-#~ msgstr "[INF] Enregistrement des raccourcis dans %1"

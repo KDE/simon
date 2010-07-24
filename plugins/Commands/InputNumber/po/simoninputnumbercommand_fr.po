@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:19+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 23:12+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -256,20 +256,5 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:47 rc.cpp:47
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
-#~ msgctxt "Name of the decimal seperator"
-#~ msgid "Comma"
-#~ msgstr "Virgule"
-
-#~ msgid "Input number"
-#~ msgstr "Saisir un nombre"
-
-#~ msgid "Input numbers with ease"
-#~ msgstr "Saisir un nombre facilement"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Trigger:"
-#~ msgstr "Déclencheur :"

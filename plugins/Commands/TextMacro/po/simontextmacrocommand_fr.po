@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -42,12 +42,3 @@ msgstr "Macro-textuelle"
 #: textmacrocommand.cpp:56
 msgid "Text"
 msgstr "Texte"
-
-#~ msgid "Form"
-#~ msgstr "Form"
-
-#~ msgid "[INF] Loading text-macro commands from %1"
-#~ msgstr "[INF] Chargement des macros-textuelles depuis %1"
-
-#~ msgid "[INF] Saving text-macro commands to %1"
-#~ msgstr "[INF] Enregistrement des macros-textuelles dans %1"

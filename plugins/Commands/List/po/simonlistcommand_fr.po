@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlistcommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/"
+"?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
 "PO-Revision-Date: 2010-07-18 19:34+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -68,85 +68,4 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:17 rc.cpp:17
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
-
-#~ msgid "Launcher"
-#~ msgstr "Lanceur"
-
-#~ msgid "Plugin"
-#~ msgstr "Module"
-
-#~ msgid "Plugin trigger"
-#~ msgstr "Déclencheur du module"
-
-#~ msgid "Launcher trigger"
-#~ msgstr "Déclencheur du lanceur"
-
-#~ msgid "Description"
-#~ msgstr "Description"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Launcher:"
-#~ msgstr "Lanceur :"
-
-#~ msgid "Add Launcher"
-#~ msgstr "Ajouter un lanceur"
-
-#~ msgid "Back"
-#~ msgstr "Précédent"
-
-#~ msgid "Next"
-#~ msgstr "Suivant"
-
-#~ msgid "Zero"
-#~ msgstr "Zéro"
-
-#~ msgid "One"
-#~ msgstr "Un"
-
-#~ msgid "Two"
-#~ msgstr "Deux"
-
-#~ msgid "Three"
-#~ msgstr "Trois"
-
-#~ msgid "Four"
-#~ msgstr "Quatre"
-
-#~ msgid "Five"
-#~ msgstr "Cinq"
-
-#~ msgid "Six"
-#~ msgstr "Six"
-
-#~ msgid "Seven"
-#~ msgstr "Sept"
-
-#~ msgid "Eight"
-#~ msgstr "Huit"
-
-#~ msgid "Nine"
-#~ msgstr "Neuf"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
-#~ msgid "List"
-#~ msgstr "Liste"
-
-#~ msgid "Commands"
-#~ msgstr "Commandes"
-
-#~ msgid "[INF] Loading list commands from %1"
-#~ msgstr "[INF] Chargement des commandes de la liste depuis %1"
-
-#~ msgid "[INF] Saving list commands to %1"
-#~ msgstr "[INF] Enregistrement des commandes de la liste dans %1"
-
-#~ msgid "Number"
-#~ msgstr "Nombre"
-
-#~ msgid "Command"
-#~ msgstr "Commande"
+msgstr "yann.cantin@laposte.net"

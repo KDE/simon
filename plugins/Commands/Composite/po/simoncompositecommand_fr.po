@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoncompositecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/"
+"?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
 "PO-Revision-Date: 2010-07-18 18:59+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -29,8 +29,7 @@ msgid "Commands"
 msgstr "Commandes"
 
 #: compositecommand.cpp:99 compositecommand.cpp:100
-#: createcompositecommandwidget.cpp:121 delaycommand.cpp:36
-#: delaycommand.cpp:61
+#: createcompositecommandwidget.cpp:121 delaycommand.cpp:36 delaycommand.cpp:61
 msgid "Delay"
 msgstr "Délai"
 
@@ -101,33 +100,3 @@ msgstr "Yann Cantin"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
-
-#~ msgid "Launcher"
-#~ msgstr "Lanceur"
-
-#~ msgid "Plugin"
-#~ msgstr "Module"
-
-#~ msgid "Plugin trigger"
-#~ msgstr "Déclencheur du module"
-
-#~ msgid "Launcher trigger"
-#~ msgstr "Déclencheur du lanceur"
-
-#~ msgid "Description"
-#~ msgstr "Description"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Launcher:"
-#~ msgstr "Lanceur :"
-
-#~ msgid "Add Launcher"
-#~ msgstr "Ajouter un lanceur"
-
-#~ msgid "[INF] Loading composite commands from %1"
-#~ msgstr "[INF] Chargement des commandes composites depuis %1"
-
-#~ msgid "[INF] Saving composite commands to %1"
-#~ msgstr "[INF] Enregistrement des commandes composites dans %1"

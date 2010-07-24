@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 19:11+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 23:12+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,47 +79,9 @@ msgstr "Yann Cantin"
 #: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "yann.cantin@laposte.fr"
+msgstr "yann.cantin@laposte.net"
 
 #: selectprogramdialog.cpp:132
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#~ msgid "Import a program"
-#~ msgstr "Importer une application"
-
-#~ msgid ""
-#~ "This wizard will guide you through the process of adding a new program.\n"
-#~ "\n"
-#~ "Simon will query KDE for a list of installed programs and you will then "
-#~ "be able to choose the program you want to assign a command to from this "
-#~ "list."
-#~ msgstr ""
-#~ "Cet assistant va vous guider pour ajouter une nouvelle application.\n"
-#~ "\n"
-#~ "Simon va demander à KDE la liste des applications installées et vous "
-#~ "pourrez alors choisir celle à qui vous voulez affecter une commande."
-
-#~ msgid "Added the new Program"
-#~ msgstr "Nouvelle application ajoutée"
-
-#~ msgid "Press \"Finish\" to complete the wizard."
-#~ msgstr "Cliquez sur « Terminer » pour fermer cet assistant. "
-
-#~ msgid "Form"
-#~ msgstr "Forme"
-
-#~ msgid "Import Program"
-#~ msgstr "Importer une application"
-
-#~ msgid ""
-#~ "This wizard will help you to add commands for installed programs easily"
-#~ msgstr ""
-#~ "Cet assistant va vous aider à ajouter facilement une commande pour une "
-#~ "application installée"
-
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Chargement des commandes d'applications depuis %1"
-
-#~ msgid "[INF] Saving executable commands to %1"
-#~ msgstr "[INF] Enregistrement des commandes d'applications dans %1"

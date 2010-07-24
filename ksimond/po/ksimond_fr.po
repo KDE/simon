@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-19 16:51+0200\n"
-"PO-Revision-Date: 2010-07-18 18:26+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"PO-Revision-Date: 2010-07-22 22:52+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr "Lancer simond"
 
 #: src/ksimondview.cpp:62 src/ksimondview.cpp:84
 msgid "Start simon"
-msgstr "Lancer simon"
+msgstr "Lancer Simon"
 
 #: src/ksimondview.cpp:67 src/ksimondview.cpp:86
 msgid "Restart simond"
@@ -114,15 +114,15 @@ msgstr "Configuration"
 
 #: src/ksimondview.cpp:117
 msgid "simond is already running"
-msgstr "Simond est déjà lancé"
+msgstr "simond est déjà lancé"
 
 #: src/ksimondview.cpp:138
 msgid "simond stopped"
-msgstr "Simond arrêté"
+msgstr "simond arrêté"
 
 #: src/ksimondview.cpp:153
 msgid "simond started"
-msgstr "Simond lancé"
+msgstr "simond lancé"
 
 #: src/ksimondview.cpp:181
 msgid ""
@@ -148,11 +148,11 @@ msgstr "Délai imparti dépassé."
 
 #: src/ksimondview.cpp:192
 msgid "Could not communicate with simond: Write failed."
-msgstr "Impossible de communiquer avec simond : L'écriture a échouée."
+msgstr "Impossible de communiquer avec simond : l'écriture a échouée."
 
 #: src/ksimondview.cpp:195
 msgid "Could not communicate with simond: Read failed."
-msgstr "Impossible de communiquer avec simond : La lecture a échouée."
+msgstr "Impossible de communiquer avec simond : la lecture a échouée."
 
 #: src/ksimondview.cpp:198
 msgid "Unknown Error"
@@ -173,6 +173,3 @@ msgstr "(C) 2008 Peter Grasch"
 #: src/main.cpp:34
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
-
-#~ msgid "Form"
-#~ msgstr "Forme"
