@@ -698,7 +698,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
       activateAction->setText(i18n("Activate"));
       activateAction->setChecked(false);
       activateAction->setIcon(KIcon("media-playback-start"));
-      connectAction->setText("Connected");
+      connectAction->setText(i18n("Connected"));
       connectAction->setIcon(KIcon("network-connect"));
       connectAction->setChecked(true);
 
