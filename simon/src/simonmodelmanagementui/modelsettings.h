@@ -39,6 +39,8 @@ class ModelSettings : public KCModule
 
     int m_storedModelType;
     void touchModelSrcRc();
+    
+    QString translateDefault(const QString& in);
 
   private slots:
     void slotChanged();

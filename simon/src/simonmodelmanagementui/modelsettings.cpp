@@ -88,14 +88,25 @@ void ModelSettings::load()
 
   m_storedModelType = ScenarioManager::getInstance()->baseModelType();
 
-  ui.lbLastLoadedBaseHMM->setText(ScenarioManager::getInstance()->baseModelHMMName());
-  ui.lbLastLoadedBaseTiedlist->setText(ScenarioManager::getInstance()->baseModelTiedlistName());
-  ui.lbLastLoadedBaseMacros->setText(ScenarioManager::getInstance()->baseModelMacros());
-  ui.lbLastLoadedBaseStats->setText(ScenarioManager::getInstance()->baseModelStats());
+  ui.lbLastLoadedBaseHMM->setText(
+      translateDefault(ScenarioManager::getInstance()->baseModelHMMName()));
+  ui.lbLastLoadedBaseTiedlist->setText(
+      translateDefault(ScenarioManager::getInstance()->baseModelTiedlistName()));
+  ui.lbLastLoadedBaseMacros->setText(
+      translateDefault(ScenarioManager::getInstance()->baseModelMacros()));
+  ui.lbLastLoadedBaseStats->setText(
+      translateDefault(ScenarioManager::getInstance()->baseModelStats()));
   KCModule::load();
   emit changed(false);
 }
 
+QString ModelSettings::translateDefault(const QString& in)
+{
+  if (in == "None")
+    return i18nc("Filename of a not yet selected file", "None");
+
+  return in;
+}
 
 void ModelSettings::save()
 {
