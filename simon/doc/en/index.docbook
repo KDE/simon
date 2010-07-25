@@ -57,7 +57,7 @@ as Authors, publish date, the abstract, and Keywords -->
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
-<year>2008</year>
+<year>2008-2010</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
@@ -68,8 +68,8 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2008-05-27</date>
-<releaseinfo>0.2</releaseinfo>
+<date>2010-07-25</date>
+<releaseinfo>0.3</releaseinfo>
 
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
@@ -115,6 +115,8 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>voice</keyword>
 <keyword>command</keyword>
 <keyword>control</keyword>
+<keyword>scenarios</keyword>
+<keyword>acoustic</keyword>
 <keyword>accessibility</keyword>
 </keywordset>
 
@@ -214,7 +216,6 @@ Please refer to the individual handbooks of those applications for more details.
 </sect1>
 
 
-
 <sect1 id="speech_model">
 <title>Speech Recognition: Background</title>
 
@@ -309,16 +310,140 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 
 <sect1 id="scenarios">
 <title>Scenarios</title>
+
 <para>
-Scenarios are use case packages for simon.
+One scenario makes up one complete use case of simon. To control firefox, for example, the user just installs the firefox scenario.
 </para>
+
+<para>
+Each scenario consists of the following components:
+<itemizedlist>
+<listitem><para><link linkend="wordlist">Vocabulary</link></para></listitem>
+<listitem><para><link linkend="grammar">Grammar</link></para></listitem>
+<listitem><para><link linkend="training">Trainingstexts</link></para></listitem>
+<listitem><para><link linkend="commands">Commands</link></para></listitem>
+</itemizedlist>
+</para>
+
+<para>
+Scenarios only cover the language model of the recognition system, the acoustic model is completely independent.
+</para>
+
+<para>
+However, in most cases scenarios are tailored to work best with a specific <link linkend="base_model">base model</link> to avoid <link linkend="phoneme_set_issues">issues with the phoneme set</link>.
+</para>
+
+<para>
+Because scenarios are not specifically bound to the acoustic model, they can be shared and exchanged between different simon users without problems. To accomodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692">category for simon scenarios has been created on kde-files.org</ulink> where the scenarios, which are just simple text files (XML format), can be exchanged easily.
+</para>
+
+<para>
+For information on how to use scenarios in simon, please refer to the <link linkend="scenarios_use">Scenario section in the Use simon chapter</link>.
+</para>
+
 </sect1>
 
-<sect1 id="base_models">
+<sect1 id="base_model">
 <title>Base models</title>
 <para>
 Base models are already generated, most often speaker independent, acoustic models that can be used with simon.
 </para>
+<para>
+Using base models, the user can greatly reduce or even eliminate the need for personalized training. When using a static base model (see below), installation of the HTK is not necessary.
+</para>
+
+<para>
+Base models usable by simon consists of four files which you will find in archive when you download base models from their respective website.
+
+<itemizedlist>
+<listitem><para>hmmdefs</para></listitem>
+<listitem><para>tiedlist</para></listitem>
+<listitem><para>macros</para></listitem>
+<listitem><para>stats</para></listitem>
+</itemizedlist>
+</para>
+
+<para>
+The latter two files, macros and stats, are not required when using a static base model and might, in that case, be replaced with empty files if they are not available.
+</para>
+
+<sect2 id="base_model_get">
+<title>Where to get base models</title>
+
+<para>
+To keep this list up to date, please refer to <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Base_models#Where_to_get_base_models">the list in our online wiki</ulink>.
+</para>
+</sect2>
+
+<sect2 id="base_model_types">
+<title>Types of base models</title>
+
+<para>
+There are three types of base models:
+
+<itemizedlist>
+<listitem><para>Static base model</para>
+</listitem>
+<listitem><para>Adapted base model</para>
+</listitem>
+<listitem><para>User generated model</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>
+For information on how to use base models in simon, please refer to the <link linkend="base_model_use">Base Models section in the Use simon chapter</link>.
+</para>
+
+<sect3 id="base_model_static">
+<title>Static base model</title>
+
+<para>Static base models simply use a pre-compiled acoustic model without modifying it.</para>
+
+<para>Any training data collected through simon will not be used to improve the recognition accuracy.</para>
+
+<para>This type of model <emphasis>does not</emphasis> require the HTK to be installed.</para>
+
+</sect3>
+
+<sect3 id="base_model_adapted">
+<title>Adapted base model</title>
+
+<para>By adapting a pre-compiled acoustic model you can improve accuracy by adapting it to your voice.</para>
+
+<para>Collected training data will be compiled in a adaption matrix which will then be applied to the selected base model.</para>
+
+<para>This type of model <emphasis>does</emphasis> require the HTK to be installed.</para>
+
+</sect3>
+
+<sect3 id="base_model_user_generated">
+<title>User generated model</title>
+
+<para>When using user generated models, the user is responsible for training his own model. No base model will be used.</para>
+
+<para>The training data will be used to compile your own acoustic model allowing you to create a system which directly reflects your voice.</para>
+
+<para>This type of model <emphasis>does</emphasis> require the HTK to be installed.</para>
+</sect3>
+
+</sect2>
+
+
+<sect2 id="phoneme_set_issues">
+<title>Phoneme set issues</title>
+<para>Because the statistical comparison happens <link linkend="acoustic_model">at phoneme level</link> the base models describe how these phonemes sound.</para>
+
+<para>Your scenarios (language model) on the other hand describe what phonemes a word is composed of.</para>
+
+<para>In order for this association to work, both your scenarios and your base model need to use the same set of phonemes.</para>
+
+<para>If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the "correct" phonemes when adding the words automatically.</para>
+
+<para>
+If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user generated model.
+</para>
+</sect2>
 </sect1>
 </chapter>
 
@@ -475,6 +600,76 @@ The simon main window provides quick access to most of its features through the 
 The simon main window can be hidden at any time by clicking on the simon logo in the system tray (usually next to the system clock in the task bar) which will minimize simon to the tray. Click it again to show the main window again.</para>
 
 </sect1>
+
+
+<sect1 id="needed_parts">
+<title>Required Resources for a Working &kmyapplication; Setup</title>
+
+<note>
+<para>
+For more information about speech models, please refer to the <link linkend="speech_model">Speech Recognition: Background section in the Overview chapter</link>.
+</para>
+</note>
+
+<para>To get simon to recognize speech and react to it you need a speech model. </para>
+
+<para>Speech models describe how your voice sounds, what words exist, how they sound and what word combination ("sentences" or "structures") exist.</para>
+
+<para>A speech model basically consists of two parts: 
+<itemizedlist>
+<listitem><para>Language model: Describes all existing words and what sentences are grammatically correct </para></listitem>
+<listitem><para>Acoustic model: Describes how words sound </para></listitem>
+</itemizedlist>
+</para>
+
+<para>You need both these components to get simon to recognize your voice.</para>
+
+<sect2>
+<title>Language Model</title>
+<para>
+In most cases you only need to <link linkend="scenarios_use">install the appropriate scenario</link> for your use case to set up your language model. 
+</para>
+<para>
+To create your own language model, you can use simon to <link linkend="add_word">add</link> / <link linkend="edit_word">edit</link> / <link linkend="remove_word">remove</link> words and <link linkend="grammar">grammar structures</link>.
+</para>
+<para>
+To make the adding of words easier, you can import a <link linkend="shadow_dictionary">shadow dictionary</link>.
+</para>
+
+</sect2>
+
+<sect2>
+<title>Acoustic Model</title>
+<para>
+To create your own acoustic model you can simple <link linkend="training">read the trainings texts</link> that come with your selected scenarios a couple of times. 
+</para>
+<para>
+If you are creating your own scenario you can easily <link linkend="training">create trainingstexts yourself</link>.
+</para>
+<para>
+You can, however use <link linkend="base_model_use">static or adapted base models</link> to avoid using the HTK or to improve the recognition rate.
+</para>
+</sect2>
+</sect1>
+
+<sect1 id="first_run">
+<title>First run wizard</title>
+
+<para>On the first start of simon, this wizard is displayed to guide you through the initial configuration of &kmyapplication;.</para>
+
+
+</sect1>
+
+<sect1 id="scenarios_use">
+<title>Scenarios</title>
+<para>This section describes how to use scenarios from within simon. For <link linkend="scenarios">general information about scenarios, please refer to the chapter background</link>.</para>
+</sect1>
+
+<sect1 id="base_model_use">
+<title>Base models</title>
+<para>This section describes how to use base models from within simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
+</sect1>
+
 
 <sect1 id="wordlist">
 <title>Wordlist</title>
@@ -782,6 +977,12 @@ All that is left is to record the examples.
 
 </sect2>
 
+<sect2 id="edit_word">
+<title>Editing a word</title>
+<para>
+TODO
+</para>
+</sect2>
 
 <sect2 id="remove_word">
 <title>Removing a word</title>
