@@ -455,15 +455,57 @@ If you try to use scenarios designed for a different phoneme set (different base
 
 <sect1 id="recording">
 <title>Recordings</title>
-<para>simon builds it's acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition.</para>
+<para>If you are using user generated or adapted models, simon builds it's acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition performance.</para>
 
 <sect2 id="volume">
 <title>Volume</title>
 <para>It is important that you check your microphone volume before recording any samples.</para>
-<para>A simple way to ensure that your microphone is configured correctly is to use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink>.</para>
 
-<para>Open the program and start the recording. Say a few words. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+<sect3>
+<title>simon Calibration</title>
 
+<para>The current version of &kmyapplication; includes a simple way of ensuring that your volume is configured correctly.</para>
+
+<para>
+<screenshot>
+<screeninfo>simon Volume Calibration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="volume_calibration.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>By default the volume calibration is displayed before starting any recording in &kmyapplication;.</para>
+
+<para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status.
+</para>
+
+<para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+
+<para>In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed.</para>
+
+<para>
+<screenshot>
+<screeninfo>simon Volume Calibration Configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="volume_calibration_config.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+In the options you can also deactivate the calibration completely.
+</para>
+</sect3>
+
+<sect3>
+<title>Audacity Calibration</title>
+
+<para>Alternatively you can use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink> to monitor the recording volume.</para>
 
 <para>
 Too quiet:
@@ -500,14 +542,93 @@ Perfect volume:
   </mediaobject>
 </screenshot>
 </para>
+</sect3>
 
 </sect2>
 
 <sect2 id="silence">
 <title>Silence</title>
 <para>To help simon with the automatic segmentation it is recommended to leave about one or two seconds of silence on the recording before and after reading the prompted text.</para>
+
+<para>
+Current simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for one second:
+<screenshot>
+<screeninfo>Please wait</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="pause_control_wait.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+... before telling the user to speak:
+<screenshot>
+<screeninfo>Please speak</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="pause_control_speak.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+This method of visual feedback proved especially valuable when recording with people who can't read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures.
+</para>
+</sect2>
+
+
+<sect2 id="microphone">
+<title>Microphone</title>
+<para>For simon to work well, a high quality microphone is recommended.</para>
+
+<para>However, even relatively cheap headsets (around 30 €) achieve very good results - magnitudes better than internal microphones.</para>
+
+<para>For maximum compatability we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
+</sect2>
+
+
+<sect2 id="sample_quality_assurance">
+<title>Sample Quality Assurance</title>
+<para>simon will check each recording against certain criteria to ensure that the recorded samples are not errenous or of poor quality.</para>
+
+<para>If simon detects a problematic sample, it will warn the user to re-record the sample.</para>
+
+<para>
+Currently, simon checks the following criteria:
+<itemizedlist>
+<listitem>
+<para>Sample peak volume</para>
+<para>If the volume is too loud and the microphone started to "clip" (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29">Clipping on wikipedia</ulink>), simon will display a warning message urging the user to lower the microphone volume.</para>
+</listitem>
+<listitem>
+<para>Signal to noise ratio (SNR)</para>
+<para>simon will automatically determine the signal to noise ratio of each recording. If the ratio is below a configurable threshold, a warning message will be displayed.</para>
+<para>The default value of 5000 % means that for simon to accept a sample as correctly recorded the peak volume has to be 500 times louder than the noise baseline (lowest average over 50 ms).</para>
+<para>
+Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a "microphone boost" option in the system mixer.
+</para>
+</listitem>
+</itemizedlist>
+</para>
+
+
+<para>
+SNR warning message triggered by an empty sample; This information dialog is displayed when clicking on the "More information" button visible in the background.
+<screenshot>
+<screeninfo>Empty sample triggering the SNR warning</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="snr_warning.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
 </sect2>
 </sect1>
+
 </chapter>
 
 
