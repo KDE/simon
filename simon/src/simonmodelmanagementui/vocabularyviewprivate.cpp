@@ -92,6 +92,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 
   shadowProxy = new QSortFilterProxyModel(this);
   shadowProxy->setFilterKeyColumn(0);
+  shadowProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   shadowProxy->setSourceModel(ScenarioManager::getInstance()->getShadowVocabulary());
   ui.tvShadowVocab->setModel(shadowProxy);
 }
