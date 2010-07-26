@@ -36,7 +36,7 @@ class ExecutableCommandManager : public CommandManager
 {
   Q_OBJECT
 
-    protected:
+  protected:
     bool shouldAcceptCommand(Command *command);
   public:
     const QString name() const;
