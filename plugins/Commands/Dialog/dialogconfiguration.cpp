@@ -63,6 +63,7 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 
 bool DialogConfiguration::deSerialize(const QDomElement& elem)
 {
+  Q_UNUSED(elem);
 //   QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
 //   if (caseSensitivityElem.isNull()) {
 //     defaults();

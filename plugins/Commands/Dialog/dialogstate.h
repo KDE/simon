@@ -24,17 +24,25 @@
 
 class DialogCommand;
 class DialogText;
+class DialogTextParser;
+class QDomElement;
+class QDomDocument;
 
 class DialogState
 {
   private:
     DialogText *m_text;
     QList<DialogCommand*> m_transitions;
+    bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
+    DialogState() {}
 
   public:
-    DialogState();
+    DialogState(DialogTextParser *parser, const QString& text, QList<DialogCommand*> transitions);
 
     QList<DialogCommand*> getTransitions() { return m_transitions; }
+
+    static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
+    QDomElement serialize(QDomDocument *doc);
 
     ~DialogState();
 };

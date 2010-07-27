@@ -19,11 +19,67 @@
 
 #include "dialogstate.h"
 #include "dialogcommand.h"
+#include "dialogtext.h"
+#include <QDomDocument>
+#include <QDomElement>
 
-DialogState::DialogState()
+DialogState::DialogState(DialogTextParser *parser, const QString& text, QList<DialogCommand*> transitions) : 
+  m_text(new DialogText(parser, text)),
+  m_transitions(transitions)
 {
 }
 
+DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomElement& elem)
+{
+  DialogState *state = new DialogState();
+
+  if (!state->deSerialize(parser, elem))
+  {
+    delete state;
+    return NULL;
+  }
+
+  return state;
+}
+
+bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
+{
+  if (elem.isNull()) return false;
+
+  QDomElement text = elem.firstChildElement("text");
+
+  QDomElement transitions = elem.firstChildElement("transitions");
+  QDomElement transition = elem.firstChildElement("command");
+
+  QList<DialogCommand*> commands;
+  while (!transition.isNull())
+  {
+    DialogCommand *c = DialogCommand::createInstance(transition);
+    if (c)
+      commands << c;
+
+    transition = transition.nextSiblingElement("command");
+  }
+
+  m_text = new DialogText(parser, text.text());
+  m_transitions = commands;
+  return true;
+}
+
+QDomElement DialogState::serialize(QDomDocument *doc)
+{
+  QDomElement elem = doc->createElement("state");
+  QDomElement textElem = doc->createElement("text");
+  QDomElement transitionsElem = doc->createElement("transitions");
+  
+  foreach (DialogCommand *c, m_transitions)
+    transitionsElem.appendChild(c->serialize(doc));
+
+  elem.appendChild(textElem);
+  elem.appendChild(transitionsElem);
+
+  return elem;
+}
 
 DialogState::~DialogState()
 {

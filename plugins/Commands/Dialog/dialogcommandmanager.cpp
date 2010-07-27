@@ -19,6 +19,8 @@
 #include "dialogcommandmanager.h"
 #include "dialogconfiguration.h"
 #include "dialogcommand.h"
+#include "dialogstate.h"
+#include "dialogtextparser.h"
 
 #include "dialogview.h"
 #include "visualdialogview.h"
@@ -36,7 +38,8 @@ K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
   GreedyReceiver(this),
-  activateAction(new KAction(this))
+  activateAction(new KAction(this)),
+  dialogParser(NULL)
 {
   activateAction->setText(i18n("Activate Dialog"));
   activateAction->setIcon(KIcon("input-dialog"));
@@ -99,29 +102,58 @@ DialogConfiguration* DialogCommandManager::getDialogConfiguration()
   return static_cast<DialogConfiguration*>(getConfigurationPage());
 }
 
+QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
+{
+  QDomElement commandsElem = CommandManager::serializeCommands(doc);
+
+  foreach (DialogState *state, dialogStates) {
+    QDomElement commandElem = state->serialize(doc);
+    commandsElem.appendChild(commandElem);
+  }
+
+  return commandsElem;
+}
+
+bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
+{ 
+  kDebug() << "lala?";
+  if (elem.isNull()) return false;
+
+  if (!commands)
+    commands = new CommandList();
+  kDebug() << "here";
+
+  QDomElement stateElem = elem.firstChildElement("state");
+  while(!stateElem.isNull())
+  {
+    DialogState *state = DialogState::createInstance(dialogParser, stateElem);
+
+    if (state)
+      dialogStates << state;
+
+    stateElem = stateElem.nextSiblingElement("state");
+  }
+
+  return true;
+}
 
 
 bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  //Connect to Slots
-  //connect(ui.pbOk, SIGNAL(clicked()), dialogWidget, SLOT(hide()));
-  //connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(deregister()));
-
   if (!config) config->deleteLater();
   config = new DialogConfiguration(this, parentScenario);
   config->deSerialize(elem);
 
   bool succ = true;
   succ &= installInterfaceCommand(this, "activate", i18n("Dialog"), iconSrc(),
-    i18n("Starts dialog"), true /* announce */, true /* show icon */,
+    i18n("Start dialog"), true /* announce */, true /* show icon */,
     SimonCommand::DefaultState /* consider this command when in this state */,
     SimonCommand::GreedyState,                    /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "startDialog" /* id */);
 
-  //succ &= installInterfaceCommand(ui.pbOk, "click", i18nc("Close the dialog", "Ok"), "dialog-ok",
-    //i18n("Hides the dialog"), false, true, SimonCommand::GreedyState,
-    //SimonCommand::DefaultState);
+  if (!dialogParser)
+    dialogParser = new DialogTextParser();
     
   dialogViews << new VisualDialogView(this);
   

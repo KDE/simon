@@ -22,10 +22,12 @@
 
 #include <QWidget>
 #include <simonscenarios/createcommandwidget.h>
+#include <simonscenarios/command.h>
 #include "ui_createdialogcommandwidget.h"
 
 class Command;
 class CommandManager;
+class CommandTableModel;
 
 /**
  *	@class CreateDialogCommandWidget
@@ -39,8 +41,19 @@ class CreateDialogCommandWidget : public CreateCommandWidget
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::CreateDialogCommandWidget ui;
+
+    CommandList* m_allCommands;
+    CommandTableModel *m_model;
+
+
+  private slots:
+    void addCommandToDialog();
+    void removeCommand();
+    void moveUp();
+    void moveDown();
+    void enableButtons(const QModelIndex& index);
 
 
   public:
@@ -49,11 +62,6 @@ class CreateDialogCommandWidget : public CreateCommandWidget
     bool init(Command* command);
     bool isComplete();
 
-    /**
-     * @brief Constructor
-     *
-     *	@author Peter Grasch
-     */
     explicit CreateDialogCommandWidget(CommandManager *manager, QWidget *parent=0);
 
     virtual ~CreateDialogCommandWidget();

@@ -29,9 +29,9 @@
 class QWidget;
 class KAction;
 class DialogConfiguration;
-class DialogSet;
-class DialogSetContainer;
 class DialogView;
+class DialogState;
+class DialogTextParser;
 
 /**
  *	@class DialogCommandManager
@@ -47,7 +47,9 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
   private:
     KAction *activateAction;
 
+    DialogTextParser *dialogParser;
     QList<DialogView*> dialogViews;
+    QList<DialogState*> dialogStates;
 
 
   private slots:
@@ -66,6 +68,10 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     const QString preferredTrigger() const { return QString(); }
     const QString iconSrc() const;
     const QString name() const;
+
+    QDomElement serializeCommands(QDomDocument *doc);
+    bool deSerializeCommandsPrivate(const QDomElement& elem);
+
     bool deSerializeConfig(const QDomElement& elem);
     void setFont(const QFont& font);
 

@@ -22,6 +22,8 @@
 
 #include <simonscenarios/command.h>
 #include <QDomElement>
+#include <QString>
+#include <QStringList>
 #include <KUrl>
 class QDomDocument;
 
@@ -35,6 +37,17 @@ class QDomDocument;
  */
 class DialogCommand : public Command
 {
+  private:
+    QString m_text;
+    bool m_showIcon;
+
+    bool m_changeDialogState;
+    int m_nextDialogState;
+    bool m_executeCommands;
+    QStringList m_commands;
+    QStringList m_commandTypes;
+
+ 
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
@@ -50,9 +63,32 @@ class DialogCommand : public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
-    DialogCommand(const QString& name, const QString& iconSrc, const QString& description) :
-    Command(name, iconSrc, description) {
+    DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
+        const QString& text, bool showIcon,
+        bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QStringList& commands, const QStringList& commandTypes
+        ) :
+      Command(name, iconSrc, description),
+      m_text(text),
+      m_showIcon(showIcon),
+      m_changeDialogState(changeDialogState),
+      m_nextDialogState(nextDialogState),
+      m_executeCommands(executeCommands),
+      m_commands(commands),
+      m_commandTypes(commandTypes)
+    {
     }
+
+    QString text() { return m_text; }
+    bool showIcon() { return m_showIcon; }
+
+    bool changeDialogState() { return m_changeDialogState; }
+    int nextDialogState() { return m_nextDialogState; }
+
+    bool executeCommands() { return m_executeCommands; }
+
+    QStringList getCommands() { return m_commands; }
+    QStringList getCommandTypes() { return m_commandTypes; }
 
     ~DialogCommand() {}
 
