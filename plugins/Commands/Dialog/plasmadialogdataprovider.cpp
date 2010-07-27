@@ -17,16 +17,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogstate.h"
-#include "dialogcommand.h"
+#include "plasmadialogdataprovider.h"
 
-DialogState::DialogState()
+PlasmaDialogDataProvider::PlasmaDialogDataProvider()
 {
 }
 
-
-DialogState::~DialogState()
+QVariant PlasmaDialogDataProvider::retrieveData(const QString& id)
 {
-  delete m_text;
+  return "TODO";
 }
 

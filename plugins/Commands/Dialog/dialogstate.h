@@ -20,10 +20,23 @@
 #ifndef SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 
+#include <QList>
+
+class DialogCommand;
+class DialogText;
 
 class DialogState
 {
+  private:
+    DialogText *m_text;
+    QList<DialogCommand*> m_transitions;
 
+  public:
+    DialogState();
+
+    QList<DialogCommand*> getTransitions() { return m_transitions; }
+
+    ~DialogState();
 };
 
 #endif

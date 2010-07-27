@@ -14,6 +14,10 @@ set (simondialogcommandplugin_SRCS
 
   visualdialogview.cpp
   dialogstate.cpp
+  dialogtext.cpp
+  dialogtextparser.cpp
+
+  plasmadialogdataprovider.cpp
  
     )
 

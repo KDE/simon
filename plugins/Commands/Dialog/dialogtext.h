@@ -17,16 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogstate.h"
-#include "dialogcommand.h"
+#ifndef SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
 
-DialogState::DialogState()
+#include <QString>
+
+class DialogTextParser;
+
+class DialogText
 {
-}
+  private:
+    DialogTextParser *m_textParser;
+    QString m_data;
 
+  public:
+    DialogText(DialogTextParser *textParser, const QString& data);
+    ~DialogText();
+};
 
-DialogState::~DialogState()
-{
-  delete m_text;
-}
+#endif
+
 

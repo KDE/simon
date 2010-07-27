@@ -17,16 +17,22 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogstate.h"
-#include "dialogcommand.h"
+#include "dialogtextparser.h"
 
-DialogState::DialogState()
+#include "dialogdataprovider.h"
+
+DialogTextParser::DialogTextParser()
 {
 }
 
-
-DialogState::~DialogState()
+bool DialogTextParser::parse(QString& data)
 {
-  delete m_text;
+  return true;
 }
+
+DialogTextParser::~DialogTextParser()
+{
+  qDeleteAll(m_dataProvider);
+}
+
 
