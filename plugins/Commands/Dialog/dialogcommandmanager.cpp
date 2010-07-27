@@ -19,9 +19,12 @@
 #include "dialogcommandmanager.h"
 #include "dialogconfiguration.h"
 #include "dialogcommand.h"
+
+#include "dialogview.h"
+#include "visualdialogview.h"
+
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
-#include <simonactions/actionmanager.h>
 #include <KLocalizedString>
 #include <KAction>
 
@@ -32,16 +35,9 @@ registerPlugin< DialogCommandManager >();
 K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-GreedyReceiver(this),
-dialogWidget(new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
-activateAction(new KAction(this))
+  GreedyReceiver(this),
+  activateAction(new KAction(this))
 {
-  setFont(ActionManager::getInstance()->pluginBaseFont());
-
-  dialogWidget->setWindowIcon(KIcon("im-user"));
-  ui.setupUi(dialogWidget);
-  dialogWidget->hide();
-
   activateAction->setText(i18n("Activate Dialog"));
   activateAction->setIcon(KIcon("input-dialog"));
   connect(activateAction, SIGNAL(triggered(bool)),
@@ -56,20 +52,26 @@ bool DialogCommandManager::shouldAcceptCommand(Command *command)
 
 void DialogCommandManager::setFont(const QFont& font)
 {
-  dialogWidget->setFont(font);
+  foreach (DialogView* view, dialogViews)
+    view->setFont(font);
 }
 
 
 
 void DialogCommandManager::activate()
 {
-  dialogWidget->show();
+  foreach (DialogView* view, dialogViews)
+    view->start();
+
   startGreedy();
 }
 
 
 void DialogCommandManager::deregister()
 {
+  foreach (DialogView* view, dialogViews)
+    view->stop();
+
   stopGreedy();
 }
 
@@ -102,8 +104,8 @@ DialogConfiguration* DialogCommandManager::getDialogConfiguration()
 bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   //Connect to Slots
-  connect(ui.pbOk, SIGNAL(clicked()), dialogWidget, SLOT(hide()));
-  connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(deregister()));
+  //connect(ui.pbOk, SIGNAL(clicked()), dialogWidget, SLOT(hide()));
+  //connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(deregister()));
 
   if (!config) config->deleteLater();
   config = new DialogConfiguration(this, parentScenario);
@@ -117,9 +119,11 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
     QString() /* take default visible id from action name */,
     "startDialog" /* id */);
 
-  succ &= installInterfaceCommand(ui.pbOk, "click", i18nc("Close the dialog", "Ok"), "dialog-ok",
-    i18n("Hides the dialog"), false, true, SimonCommand::GreedyState,
-    SimonCommand::DefaultState);
+  //succ &= installInterfaceCommand(ui.pbOk, "click", i18nc("Close the dialog", "Ok"), "dialog-ok",
+    //i18n("Hides the dialog"), false, true, SimonCommand::GreedyState,
+    //SimonCommand::DefaultState);
+    
+  dialogViews << new VisualDialogView(this);
   
   return succ;
 }
@@ -133,6 +137,6 @@ CreateCommandWidget* DialogCommandManager::getCreateCommandWidget(QWidget *paren
 
 DialogCommandManager::~DialogCommandManager()
 {
-  dialogWidget->deleteLater();
   activateAction->deleteLater();
+  qDeleteAll(dialogViews);
 }

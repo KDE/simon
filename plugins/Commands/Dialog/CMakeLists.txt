@@ -11,6 +11,10 @@ set (simondialogcommandplugin_SRCS
 	dialogconfiguration.cpp
 	dialogcommand.cpp
 	createdialogcommandwidget.cpp
+
+  visualdialogview.cpp
+  dialogstate.cpp
+ 
     )
 
 kde4_add_ui_files(simondialogcommandplugin_SRCS 
