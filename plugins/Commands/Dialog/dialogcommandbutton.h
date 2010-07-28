@@ -17,27 +17,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_DIALOGCOMMANDBUTTON_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_DIALOGCOMMANDBUTTON_H_7A7B9100FF5245329569C1B540119C37
 
-#include <QString>
+#include <KPushButton>
 
-class DialogTextParser;
+class DialogCommand;
 
-class DialogText
+class DialogCommandButton : public KPushButton
 {
+  Q_OBJECT
+
+  signals:
+    void requestDialogState(int state);
+
   private:
-    DialogTextParser *m_textParser;
-    QString m_data;
+    DialogCommand *m_transition;
+
+  private slots:
+    void go();
 
   public:
-    DialogText(DialogTextParser *textParser, const QString& data);
-    ~DialogText();
+    DialogCommandButton(DialogCommand* transition, QWidget *parent=0);
 
-    QString parse() const;
-    QString source() const { return m_data; }
 };
 
 #endif
-
 

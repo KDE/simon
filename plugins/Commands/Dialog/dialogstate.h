@@ -21,6 +21,7 @@
 #define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 
 #include <QList>
+#include <QObject>
 
 class DialogCommand;
 class DialogText;
@@ -28,18 +29,25 @@ class DialogTextParser;
 class QDomElement;
 class QDomDocument;
 
-class DialogState
+class DialogState : public QObject
 {
+  Q_OBJECT
+  signals:
+    void requestDialogState(int state);
+
   private:
     DialogText *m_text;
     QList<DialogCommand*> m_transitions;
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState() {}
+    DialogState(QObject *parent=0) : QObject(parent) {}
+
 
   public:
-    DialogState(DialogTextParser *parser, const QString& text, QList<DialogCommand*> transitions);
+    DialogState(DialogTextParser *parser, const QString& text, 
+        QList<DialogCommand*> transitions, QObject *parent=0);
 
-    QList<DialogCommand*> getTransitions() { return m_transitions; }
+    QString getText() const;
+    QList<DialogCommand*> getTransitions() const { return m_transitions; }
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);

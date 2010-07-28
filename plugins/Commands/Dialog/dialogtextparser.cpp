@@ -27,6 +27,7 @@ DialogTextParser::DialogTextParser()
 
 bool DialogTextParser::parse(QString& data)
 {
+  //TODO
   return true;
 }
 

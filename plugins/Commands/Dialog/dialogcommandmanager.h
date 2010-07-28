@@ -51,6 +51,8 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     QList<DialogView*> dialogViews;
     QList<DialogState*> dialogStates;
 
+    void initState(DialogState *state);
+
 
   private slots:
     void deregister();
@@ -58,6 +60,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     DialogConfiguration* getDialogConfiguration();
 
   public slots:
+    void initState(int state);
     bool greedyTrigger(const QString& inputText);
     void activate();
 

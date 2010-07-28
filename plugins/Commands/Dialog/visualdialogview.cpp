@@ -21,7 +21,15 @@
 #include "visualdialogview.h"
 #include "ui_dialogwidget.h"
 
+#include "dialogstate.h"
+#include "dialogcommand.h"
+#include "dialogcommandmanager.h"
+#include "dialogcommandbutton.h"
+
 #include <simonactions/actionmanager.h>
+
+#include <QVBoxLayout>
+#include <QList>
 
 #include <KIcon>
 
@@ -33,9 +41,19 @@ VisualDialogView::VisualDialogView(DialogCommandManager *dialog, QWidget *parent
   setFont(ActionManager::getInstance()->pluginBaseFont());
 
   setWindowIcon(KIcon("im-user"));
+
   ui->setupUi(this);
   hide();
+
+  ui->wgAnswers->setLayout(new QVBoxLayout());
+
+  connect(ui->pbClose, SIGNAL(clicked()), this, SLOT(requestClose()));
 } 
+
+void VisualDialogView::requestClose()
+{
+  m_dialog->initState(0);
+}
 
 bool VisualDialogView::start()
 {
@@ -52,9 +70,24 @@ bool VisualDialogView::stop()
 
 bool VisualDialogView::present(const DialogState& state)
 {
-  Q_UNUSED(state);
+  qDeleteAll(m_buttons);
+  m_buttons.clear();
 
-  kDebug() << "Presenting state...";
+  kDebug() << "Presenting state: " << state.getText();
+
+  ui->lbText->setText(state.getText());
+
+  QList<DialogCommand*> transitions = state.getTransitions();
+
+  kDebug() << "Presenting " << transitions.count() << " transitions";
+
+  foreach (DialogCommand* transition, transitions)
+  {
+    DialogCommandButton *button = new DialogCommandButton(transition);
+    static_cast<QVBoxLayout*>(ui->wgAnswers->layout())->addWidget(button);
+    m_buttons << button;
+  }
+
   return true;
 }
 

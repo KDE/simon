@@ -22,11 +22,14 @@
 
 #include "dialogview.h"
 #include <QWidget>
+#include <QList>
 
 namespace Ui
 {
   class DialogView;
 }
+
+class DialogCommandButton;
 
 class VisualDialogView : public QWidget, public DialogView
 {
@@ -34,6 +37,10 @@ class VisualDialogView : public QWidget, public DialogView
 
   private:
     Ui::DialogView *ui;
+    QList<DialogCommandButton*> m_buttons;
+
+  private slots:
+    void requestClose();
 
   public:
     VisualDialogView(DialogCommandManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);

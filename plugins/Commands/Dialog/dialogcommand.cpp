@@ -18,10 +18,14 @@
  */
 
 #include "dialogcommand.h"
+
+#include <simonactions/actionmanager.h>
+
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
+
 #include <KIcon>
 #include <KLocalizedString>
 #include <KDebug>
@@ -65,6 +69,14 @@ bool DialogCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
   kDebug() << "Triggering...";
+  if (m_changeDialogState)
+    emit requestDialogState(m_nextDialogState);
+  if (m_executeCommands)
+  {
+    for (int i=0; i < m_commands.count();i++)
+      ActionManager::getInstance()->triggerCommand(m_commandTypes[i], m_commands[i]);
+  }
+
   return true;
 }
 

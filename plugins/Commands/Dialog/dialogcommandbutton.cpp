@@ -17,27 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGTEXT_H_7A7B9100FF5245329569C1B540119C37
+#include "dialogcommandbutton.h"
+#include "dialogcommand.h"
 
-#include <QString>
-
-class DialogTextParser;
-
-class DialogText
+DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *parent) :
+  KPushButton(parent),
+  m_transition(transition)
 {
-  private:
-    DialogTextParser *m_textParser;
-    QString m_data;
+  setText(transition->text());
 
-  public:
-    DialogText(DialogTextParser *textParser, const QString& data);
-    ~DialogText();
+  if (transition->showIcon())
+    setIcon(transition->getIcon());
 
-    QString parse() const;
-    QString source() const { return m_data; }
-};
+  setToolTip(transition->getDescription());
 
-#endif
+  connect(transition, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+  connect(this, SIGNAL(clicked()), this, SLOT(go()));
+}
 
+void DialogCommandButton::go()
+{
+  //FIXME?
+  int state = 0;
+  m_transition->trigger(&state);
+}
 

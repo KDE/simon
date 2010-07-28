@@ -23,6 +23,7 @@
 #include <simonscenarios/command.h>
 #include <QDomElement>
 #include <QString>
+#include <QObject>
 #include <QStringList>
 #include <KUrl>
 class QDomDocument;
@@ -35,8 +36,13 @@ class QDomDocument;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class DialogCommand : public Command
+class DialogCommand : public QObject, public Command
 {
+  Q_OBJECT
+
+  signals:
+    void requestDialogState(int newState);
+
   private:
     QString m_text;
     bool m_showIcon;

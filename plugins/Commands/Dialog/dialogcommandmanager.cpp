@@ -59,7 +59,35 @@ void DialogCommandManager::setFont(const QFont& font)
     view->setFont(font);
 }
 
+void DialogCommandManager::initState(DialogState *state)
+{
+  foreach (DialogView* view, dialogViews)
+    view->present(*state);
+}
 
+void DialogCommandManager::initState(int state)
+{
+  kDebug() << "Switching to state: " << state;
+
+  //0 state means quit
+  if (state == 0)
+  {
+    deregister();
+    return;
+  }
+
+  //else, keep in mind that indizes do still start with 0 so 
+  //decrement state
+  state--;
+
+  if (state >= dialogStates.count() || state < 0)
+  {
+    kWarning() << "Invalid state provided";
+    return;
+  }
+
+  initState(dialogStates.at(state));
+}
 
 void DialogCommandManager::activate()
 {
@@ -67,6 +95,8 @@ void DialogCommandManager::activate()
     view->start();
 
   startGreedy();
+
+  initState(1); // always start with state 1;
 }
 
 
@@ -116,20 +146,22 @@ QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
 
 bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 { 
-  kDebug() << "lala?";
   if (elem.isNull()) return false;
 
   if (!commands)
     commands = new CommandList();
-  kDebug() << "here";
 
   QDomElement stateElem = elem.firstChildElement("state");
   while(!stateElem.isNull())
   {
+    kDebug() << "Deserializing state element";
     DialogState *state = DialogState::createInstance(dialogParser, stateElem);
 
     if (state)
+    {
+      connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
       dialogStates << state;
+    }
 
     stateElem = stateElem.nextSiblingElement("state");
   }
