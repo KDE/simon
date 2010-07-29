@@ -26,6 +26,7 @@
 #include "visualdialogview.h"
 
 #include <simonscenarios/scenario.h>
+#include <simonscenarios/voiceinterfacecommand.h>
 
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
@@ -140,7 +141,18 @@ DialogConfiguration* DialogCommandManager::getDialogConfiguration()
 
 QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
 {
-  QDomElement commandsElem = CommandManager::serializeCommands(doc);
+  QDomElement commandsElem = doc->createElement("commands");
+  if (commands) {
+    foreach (Command *c, *commands) {
+      //only store voice interface commands
+      if (dynamic_cast<VoiceInterfaceCommand*>(c))
+      {
+        QDomElement commandElem = c->serialize(doc);
+        commandElem.setTagName("voiceInterfaceCommand");
+        commandsElem.appendChild(commandElem);
+      }
+    }
+  }
 
   foreach (DialogState *state, dialogStates) {
     QDomElement commandElem = state->serialize(doc);
@@ -148,6 +160,12 @@ QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
   }
 
   return commandsElem;
+}
+
+void DialogCommandManager::stateChanged()
+{
+  bindStateCommands();
+  parentScenario->save();
 }
 
 bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
@@ -166,8 +184,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     if (state)
     {
       connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
-      connect(state, SIGNAL(changed()), this, SLOT(bindStateCommands()));
-      connect(state, SIGNAL(changed()), parentScenario, SLOT(save()));
+      connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
       dialogStates << state;
     }
 
@@ -182,9 +199,17 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 
 void DialogCommandManager::bindStateCommands()
 {
+  kDebug() << "rebinding";
+  QList<Command*> oldCommands;
+
   foreach (Command* c, *commands)
+  {
     if (dynamic_cast<DialogCommand*>(c))
+    {
       commands->removeAll(c);
+      oldCommands << c;
+    }
+  }
 
   int stateId = SimonCommand::GreedyState + 1;
   foreach (DialogState *state, dialogStates)
@@ -198,6 +223,12 @@ void DialogCommandManager::bindStateCommands()
     }
 
     stateId++;
+  }
+
+  foreach (Command* c, oldCommands)
+  {
+    if (!commands->contains(c))
+      delete c;
   }
 }
 

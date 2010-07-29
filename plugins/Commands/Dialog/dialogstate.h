@@ -70,6 +70,7 @@ class DialogState : public QAbstractItemModel
     QDomElement serialize(QDomDocument *doc);
 
     void addTransition(DialogCommand* command);
+    void removeTransition(DialogCommand* command);
 
     ~DialogState();
 };

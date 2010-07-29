@@ -58,6 +58,8 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
   private slots:
     void bindStateCommands();
     void deregister();
+
+    void stateChanged();
     
     DialogConfiguration* getDialogConfiguration();
 

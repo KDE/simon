@@ -111,7 +111,20 @@ void DialogState::addTransition(DialogCommand* command)
   endInsertRows();
 }
 
+void DialogState::removeTransition(DialogCommand* command)
+{
+  for (int i=0; i < m_transitions.count(); i++) {
+    if (m_transitions.at(i) == command) {
+      beginRemoveRows(QModelIndex(), i, i);
+      m_transitions.removeAt(i);
+      endRemoveRows();
 
+      //will be deleted in the command manager
+      //delete command;
+    }
+  }
+  emit changed();
+}
 
 
 Qt::ItemFlags DialogState::flags(const QModelIndex &index) const

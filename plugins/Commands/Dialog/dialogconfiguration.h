@@ -27,6 +27,7 @@
 #include <QPoint>
 #include <QSize>
 
+class DialogCommand;
 class DialogState;
 class DialogSetContainer;
 class DialogCommandManager;
@@ -41,10 +42,28 @@ class DialogConfiguration : public CommandConfiguration
 
     void displayStates();
     DialogState* getCurrentState();
+    DialogState* getCurrentStateGraphical();
+    DialogCommand* getCurrentTransition();
+    DialogCommand* getCurrentTransitionGraphical();
 
   private slots:
     void displayCurrentState();
+
+    void addState();
+    void renameState();
+    void removeState();
+
+    void moveStateUp();
+    void moveStateDown();
+
+    void editText();
+
     void addTransition();
+    void editTransition();
+    void removeTransition();
+
+    void moveTransitionUp();
+    void moveTransitionDown();
 
   public slots:
     void init();

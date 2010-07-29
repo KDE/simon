@@ -52,24 +52,112 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
 
+  connect(ui.pbAddState, SIGNAL(clicked()), this, SLOT(addState()));
+  connect(ui.pbRenameState, SIGNAL(clicked()), this, SLOT(renameState()));
+  connect(ui.pbRemoveState, SIGNAL(clicked()), this, SLOT(removeState()));
+
+  connect(ui.pbMoveStateUp, SIGNAL(clicked()), this, SLOT(moveStateUp()));
+  connect(ui.pbMoveStateDown, SIGNAL(clicked()), this, SLOT(moveStateDown()));
+
+  connect(ui.pbEditText, SIGNAL(clicked()), this, SLOT(editText()));
+
   connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
+  connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
+  connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
+
+  connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
+  connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
+
+  ui.pbAddState->setIcon(KIcon("list-add"));
+  ui.pbAddTransition->setIcon(KIcon("list-add"));
+
+  ui.pbRemoveState->setIcon(KIcon("list-remove"));
+  ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
+
+  ui.pbRenameState->setIcon(KIcon("document-edit"));
+  ui.pbEditTransition->setIcon(KIcon("document-edit"));
+  ui.pbEditText->setIcon(KIcon("document-edit"));
+
+  ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
+  ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
+
+  ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
+  ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
 }
+
+void DialogConfiguration::addState()
+{
+  //TODO
+}
+
+void DialogConfiguration::renameState()
+{
+  //TODO
+}
+
+void DialogConfiguration::removeState()
+{
+  //TODO
+}
+
+
+void DialogConfiguration::moveStateUp()
+{
+  //TODO
+}
+
+void DialogConfiguration::moveStateDown()
+{
+  //TODO
+}
+
+
+void DialogConfiguration::editText()
+{
+  //TODO
+}
+ 
 
 void DialogConfiguration::addTransition()
 {
-  DialogState *state = getCurrentState();
+  DialogState *state = getCurrentStateGraphical();
   if (!state)
-  {
-    KMessageBox::information(this, i18n("Please select a state from the left or add new ones as appropriate."));
     return;
-  }
 
   CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   DialogCommand *transition = dialog->createTransition();
 
+  if (!transition) return;
+
   state->addTransition(transition);
+}
+
+void DialogConfiguration::editTransition()
+{
+  //TODO
+
+}
+
+void DialogConfiguration::removeTransition()
+{
+  DialogState *state = getCurrentStateGraphical();
+  DialogCommand *transition = getCurrentTransitionGraphical();
+  if (!state || !transition)
+    return;
+
+  state->removeTransition(transition);
+}
+
+void DialogConfiguration::moveTransitionUp()
+{
+  //TODO
+}
+
+void DialogConfiguration::moveTransitionDown()
+{
+  //TODO
 }
 
 
@@ -121,12 +209,40 @@ DialogState* DialogConfiguration::getCurrentState()
 {
   int row = ui.lwStates->currentRow();
 
-  if (row == -1) return NULL;
+  if (row == -1) return 0;
 
   QList<DialogState*> states = commandManager->getStates();
 
   return states[row];
 }
+
+DialogState* DialogConfiguration::getCurrentStateGraphical()
+{
+  DialogState *state = getCurrentState();
+  if (!state)
+    KMessageBox::information(this, i18n("Please select a state from the left or add new ones as appropriate."));
+
+  return state;
+}
+
+DialogCommand* DialogConfiguration::getCurrentTransition()
+{
+  QModelIndex index = ui.lvTransitions->currentIndex();
+  if (!index.isValid())
+    return 0;
+
+  return static_cast<DialogCommand*>(index.internalPointer());
+}
+
+DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
+{
+  DialogCommand *command = getCurrentTransition();
+  if (!command)
+    KMessageBox::information(this, i18n("Please select an option from the right or add new ones as appropriate."));
+
+  return command;
+}
+
 
 void DialogConfiguration::displayCurrentState()
 {
