@@ -57,7 +57,7 @@ class DialogCommand : public QObject, public Command
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
-    DialogCommand() {}
+    DialogCommand() { setHidden(true); }
 
   public:
     static const QString staticCategoryText();
@@ -69,6 +69,8 @@ class DialogCommand : public QObject, public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
+    //Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState,
+      //int newState_ = SimonCommand::DefaultState, bool announce_ = true)
     DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
         const QString& text, bool showIcon,
         bool changeDialogState, int nextDialogState, bool executeCommands, 
@@ -83,6 +85,7 @@ class DialogCommand : public QObject, public Command
       m_commands(commands),
       m_commandTypes(commandTypes)
     {
+     setHidden(true); 
     }
 
     QString text() { return m_text; }
@@ -95,6 +98,8 @@ class DialogCommand : public QObject, public Command
 
     QStringList getCommands() { return m_commands; }
     QStringList getCommandTypes() { return m_commandTypes; }
+
+    void createStateLink(int thisState);
 
     ~DialogCommand() {}
 

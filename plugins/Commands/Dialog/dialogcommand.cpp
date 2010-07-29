@@ -155,5 +155,13 @@ bool DialogCommand::deSerializePrivate(const QDomElement& commandElem)
   return true;
 }
 
+void DialogCommand::createStateLink(int thisState)
+{
+  setBoundState(thisState);
+  if (m_changeDialogState)
+    setTargetState(SimonCommand::GreedyState|m_nextDialogState);
+  else
+    setTargetState(thisState);
+}
 
 STATIC_CREATE_INSTANCE_C(DialogCommand);

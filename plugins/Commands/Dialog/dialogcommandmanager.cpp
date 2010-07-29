@@ -95,7 +95,10 @@ void DialogCommandManager::activate()
     view->start();
 
   startGreedy();
-
+  
+  //switch the command managers internal state to +1 as then the
+  //numbers line up to the pages
+  switchToState(SimonCommand::GreedyState + 1);
   initState(1); // always start with state 1;
 }
 
@@ -152,6 +155,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     commands = new CommandList();
 
   QDomElement stateElem = elem.firstChildElement("state");
+  int stateId = SimonCommand::GreedyState + 1;
   while(!stateElem.isNull())
   {
     kDebug() << "Deserializing state element";
@@ -161,9 +165,19 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     {
       connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
       dialogStates << state;
+
+      QList<DialogCommand*> transitions = state->getTransitions();
+
+      foreach (DialogCommand* transition, transitions)
+      {
+        transition->createStateLink(stateId);
+        *commands << transition;
+      }
     }
 
     stateElem = stateElem.nextSiblingElement("state");
+
+    stateId++;
   }
 
   return true;
