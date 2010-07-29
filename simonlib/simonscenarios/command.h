@@ -344,6 +344,19 @@ class MODELMANAGEMENT_EXPORT  Command
     }
 
     /**
+     * @brief Returns true if the command should be hidden in the list
+     * Hidden commands will not be shown in the commands list and are therefore not 
+     * configurable through the default interface. Use this carefully!
+     * @return True if the command should not be shown in the command list
+     */
+    bool getHidden() const
+    {
+      return this->hidden;
+    }
+
+
+
+    /**
      * \brief Empty destructor
      */
     virtual ~Command() {}

@@ -295,6 +295,14 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
       return false;
     }
 
+
+    /**
+     * \brief Adapts a row number to the real command number
+     * \param in The row number to find
+     * \return The id in the commands list that the row number refers to
+     */
+    inline int resolveRowNumber(int in) const;
+
   public:
     /**
      * \brief Return the localized name of this plugin
