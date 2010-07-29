@@ -180,6 +180,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     stateId++;
   }
 
+  getDialogConfiguration()->init();
   return true;
 }
 

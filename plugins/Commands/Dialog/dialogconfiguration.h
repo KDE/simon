@@ -34,11 +34,16 @@ class DialogConfiguration : public CommandConfiguration
 {
   Q_OBJECT
 
-    private:
+  private:
     Ui::DialogConfigurationDlg ui;
+    DialogCommandManager *commandManager;
+
+    void displayStates();
 
 
   public slots:
+    void init();
+
     virtual bool deSerialize(const QDomElement&);
     virtual QDomElement serialize(QDomDocument *doc);
     virtual void defaults();

@@ -44,6 +44,7 @@ class DialogTextParser;
 class DialogCommandManager : public CommandManager, public GreedyReceiver
 {
   Q_OBJECT
+
   private:
     KAction *activateAction;
 
@@ -79,6 +80,8 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     void setFont(const QFont& font);
 
     CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+
+    QList<DialogState*> getStates() { return dialogStates; }
 
     /**
      * @brief Constructor

@@ -23,9 +23,10 @@
 #include <QDomDocument>
 #include <QDomElement>
 
-DialogState::DialogState(DialogTextParser *parser, const QString& text, QList<DialogCommand*> transitions,
-    QObject *parent) : 
+DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
+    QList<DialogCommand*> transitions, QObject *parent) : 
   QObject(parent),
+  m_name(name),
   m_text(new DialogText(parser, text)),
   m_transitions(transitions)
 {
@@ -52,6 +53,8 @@ QString DialogState::getText() const
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
   if (elem.isNull()) return false;
+
+  m_name = elem.attribute("name");
 
   QDomElement text = elem.firstChildElement("text");
 
@@ -82,6 +85,8 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 QDomElement DialogState::serialize(QDomDocument *doc)
 {
   QDomElement elem = doc->createElement("state");
+  elem.setAttribute("name", m_name);
+
   QDomElement textElem = doc->createElement("text");
   textElem.appendChild(doc->createTextNode(m_text->source()));
   QDomElement transitionsElem = doc->createElement("transitions");

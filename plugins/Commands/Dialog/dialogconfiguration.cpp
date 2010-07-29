@@ -19,6 +19,9 @@
 #include "dialogconfiguration.h"
 #include "dialogcommandmanager.h"
 
+#include "dialogstate.h"
+#include "dialogcommand.h"
+
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <QList>
@@ -37,13 +40,13 @@ K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
 DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "dialog", ki18n( "Dialog" ),
-"0.1", ki18n("Control a robot"),
-"im-user",
-DialogCommandPluginFactory::componentData())
+  "0.1", ki18n("Control a robot"),
+  "im-user",
+  DialogCommandPluginFactory::componentData()),
+  commandManager(_commandManager)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
-
 }
 
 
@@ -70,7 +73,26 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
 //     return true;
 //   }
 //   ui.cbCaseSensitivity->setChecked(caseSensitivityElem.text() == "1");
+
   return true;
+}
+
+void DialogConfiguration::init()
+{
+  displayStates();
+}
+
+void DialogConfiguration::displayStates()
+{
+  ui.lwStates->clear();
+  
+  QList<DialogState*> states = commandManager->getStates();
+  int id = 1;
+  foreach (DialogState* state, states)
+  {
+    ui.lwStates->addItem(i18nc("%1: id of state; %2: name of state", "%1: %2", id, state->getName()));
+    id++;
+  }
 }
 
 

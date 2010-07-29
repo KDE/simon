@@ -22,6 +22,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QString>
 
 class DialogCommand;
 class DialogText;
@@ -36,6 +37,7 @@ class DialogState : public QObject
     void requestDialogState(int state);
 
   private:
+    QString m_name;
     DialogText *m_text;
     QList<DialogCommand*> m_transitions;
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
@@ -43,9 +45,10 @@ class DialogState : public QObject
 
 
   public:
-    DialogState(DialogTextParser *parser, const QString& text, 
+    DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
         QList<DialogCommand*> transitions, QObject *parent=0);
 
+    QString getName() const { return m_name; }
     QString getText() const;
     QList<DialogCommand*> getTransitions() const { return m_transitions; }
 
