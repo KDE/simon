@@ -121,6 +121,9 @@ class MODELMANAGEMENT_EXPORT  Command
     /// If this is true, the base class will provide graphical feedback when the command is triggered (passive popup)
     bool announce;
 
+    /// If this is true, the command will NOT be displayed in the command list of the plugin
+    bool hidden;
+
     /// The parent CommandManager
     CommandManager *m_parent;
 
@@ -133,7 +136,7 @@ class MODELMANAGEMENT_EXPORT  Command
     int switchToState;
 
     /// Empty private constructor
-    Command() {}
+    Command() { hidden = false; }
 
     /**
      * \brief Execute the plugin specific action
@@ -255,6 +258,7 @@ class MODELMANAGEMENT_EXPORT  Command
       iconSrc(icon),
       description(description_),
       announce(announce_),
+      hidden(false),
       boundState(boundState_),
     switchToState(newState_) {
     }
@@ -272,10 +276,22 @@ class MODELMANAGEMENT_EXPORT  Command
     int getBoundState() const { return this->boundState; }
 
     /**
+     * \brief Re-binds the command to a different state
+     * \param state The state the command manager should be in for this command to be relevant
+     */
+    void setBoundState(int state) { this->boundState = state; }
+
+    /**
      * \brief Returns the state the command manager should switch to when the command is executed
      * \return Switch to this state when the command is triggered
      */
     int getTargetState() const { return this->switchToState; }
+
+    /**
+     * \brief Sets the state the command manager should switch to when the command is executed
+     * \param targetState Switch to this state when the command is triggered
+     */
+    void setTargetState(int targetState) { this->switchToState = targetState; }
 
     /**
      * \brief Returns if the base class should notify the user when the command is run
@@ -314,6 +330,17 @@ class MODELMANAGEMENT_EXPORT  Command
     const QString getIconSrc() const
     {
       return iconSrc;
+    }
+
+    /**
+     * @brief Sets the command "hidden"
+     * Hidden commands will not be shown in the commands list and are therefore not 
+     * configurable through the default interface. Use this carefully!
+     * @param hide Should the command be hidden
+     */
+    void setHidden(bool hide)
+    {
+      this->hidden = hide;
     }
 
     /**

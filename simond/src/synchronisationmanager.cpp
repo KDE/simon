@@ -732,7 +732,7 @@ bool SynchronisationManager::startSynchronisation()
 bool SynchronisationManager::removeAllFiles(const QString& dir)
 {
   QDir tempDir(dir);
-  QStringList files = tempDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
+  QStringList files = tempDir.entryList(QDir::Files|QDir::NoDotAndDotDot|QDir::Hidden);
   bool allRemoved=true;
   foreach (const QString& file, files) {
     if (!QFile::remove(dir+QDir::separator()+file)) {
