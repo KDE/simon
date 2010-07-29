@@ -25,6 +25,8 @@
 #include "dialogview.h"
 #include "visualdialogview.h"
 
+#include <simonscenarios/scenario.h>
+
 #include "createdialogcommandwidget.h"
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
@@ -73,6 +75,7 @@ void DialogCommandManager::initState(int state)
   if (state == 0)
   {
     deregister();
+    switchToState(SimonCommand::DefaultState);
     return;
   }
 
@@ -155,7 +158,6 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     commands = new CommandList();
 
   QDomElement stateElem = elem.firstChildElement("state");
-  int stateId = SimonCommand::GreedyState + 1;
   while(!stateElem.isNull())
   {
     kDebug() << "Deserializing state element";
@@ -164,26 +166,40 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     if (state)
     {
       connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
+      connect(state, SIGNAL(changed()), this, SLOT(bindStateCommands()));
+      connect(state, SIGNAL(changed()), parentScenario, SLOT(save()));
       dialogStates << state;
-
-      QList<DialogCommand*> transitions = state->getTransitions();
-
-      foreach (DialogCommand* transition, transitions)
-      {
-        transition->createStateLink(stateId);
-        *commands << transition;
-      }
     }
 
     stateElem = stateElem.nextSiblingElement("state");
-
-    stateId++;
   }
+
+  bindStateCommands();
 
   getDialogConfiguration()->init();
   return true;
 }
 
+void DialogCommandManager::bindStateCommands()
+{
+  foreach (Command* c, *commands)
+    if (dynamic_cast<DialogCommand*>(c))
+      commands->removeAll(c);
+
+  int stateId = SimonCommand::GreedyState + 1;
+  foreach (DialogState *state, dialogStates)
+  {
+    QList<DialogCommand*> transitions = state->getTransitions();
+
+    foreach (DialogCommand* transition, transitions)
+    {
+      transition->createStateLink(stateId);
+      *commands << transition;
+    }
+
+    stateId++;
+  }
+}
 
 bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
 {
@@ -205,11 +221,6 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
   dialogViews << new VisualDialogView(this);
   
   return succ;
-}
-
-CreateCommandWidget* DialogCommandManager::getCreateCommandWidget(QWidget *parent)
-{
-  return new CreateDialogCommandWidget(this, parent);
 }
 
 

@@ -21,7 +21,7 @@
 #define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 
 #include <QList>
-#include <QObject>
+#include <QAbstractItemModel>
 #include <QString>
 
 class DialogCommand;
@@ -30,18 +30,32 @@ class DialogTextParser;
 class QDomElement;
 class QDomDocument;
 
-class DialogState : public QObject
+class DialogState : public QAbstractItemModel
 {
   Q_OBJECT
   signals:
     void requestDialogState(int state);
+    void changed();
 
   private:
     QString m_name;
     DialogText *m_text;
     QList<DialogCommand*> m_transitions;
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState(QObject *parent=0) : QObject(parent) {}
+    DialogState(QObject *parent=0) : QAbstractItemModel(parent) {}
+
+  protected:
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+                      int role = Qt::DisplayRole) const;
+    QObject* parent() { return QObject::parent(); }
+    QModelIndex parent(const QModelIndex &index) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
 
 
   public:
@@ -54,6 +68,8 @@ class DialogState : public QObject
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
+
+    void addTransition(DialogCommand* command);
 
     ~DialogState();
 };

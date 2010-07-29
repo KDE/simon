@@ -21,6 +21,8 @@
 
 #include "dialogstate.h"
 #include "dialogcommand.h"
+#include "createdialogcommandwidget.h"
+#include "createtransitiondialog.h"
 
 #include <QVariantList>
 #include <kgenericfactory.h>
@@ -47,8 +49,28 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 {
   Q_UNUSED(args);
   ui.setupUi(this);
+
+  connect(ui.lwStates, SIGNAL(currentRowChanged(int)), this, SLOT(displayCurrentState()));
+
+  connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
 }
 
+void DialogConfiguration::addTransition()
+{
+  DialogState *state = getCurrentState();
+  if (!state)
+  {
+    KMessageBox::information(this, i18n("Please select a state from the left or add new ones as appropriate."));
+    return;
+  }
+
+  CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
+  CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
+
+  DialogCommand *transition = dialog->createTransition();
+
+  state->addTransition(transition);
+}
 
 
 QDomElement DialogConfiguration::serialize(QDomDocument* doc)
@@ -95,6 +117,25 @@ void DialogConfiguration::displayStates()
   }
 }
 
+DialogState* DialogConfiguration::getCurrentState()
+{
+  int row = ui.lwStates->currentRow();
+
+  if (row == -1) return NULL;
+
+  QList<DialogState*> states = commandManager->getStates();
+
+  return states[row];
+}
+
+void DialogConfiguration::displayCurrentState()
+{
+  DialogState *currentState = getCurrentState();
+  if (!currentState) return;
+  ui.teText->setText(currentState->getText());
+
+  ui.lvTransitions->setModel(currentState);
+}
 
 void DialogConfiguration::defaults()
 {

@@ -177,6 +177,10 @@ Command* CreateDialogCommandWidget::createCommand(const QString& name, const QSt
       selectedCategories);
 }
 
+void CreateDialogCommandWidget::updatePresentation(const QString& presentation)
+{
+  ui.leText->setText(presentation);
+}
 
 CreateDialogCommandWidget::~CreateDialogCommandWidget()
 {

@@ -56,6 +56,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
 
 
   private slots:
+    void bindStateCommands();
     void deregister();
     
     DialogConfiguration* getDialogConfiguration();
@@ -78,8 +79,6 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
 
     bool deSerializeConfig(const QDomElement& elem);
     void setFont(const QFont& font);
-
-    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     QList<DialogState*> getStates() { return dialogStates; }
 

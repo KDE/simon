@@ -66,5 +66,8 @@ class CreateDialogCommandWidget : public CreateCommandWidget
 
     virtual ~CreateDialogCommandWidget();
 
+  public slots:
+    void updatePresentation(const QString& presentation);
+
 };
 #endif

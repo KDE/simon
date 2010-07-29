@@ -96,6 +96,13 @@
             <item>
              <widget class="KTextEdit" name="teText"/>
             </item>
+            <item>
+             <widget class="KPushButton" name="pbEditText">
+              <property name="text">
+               <string>Edit</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>

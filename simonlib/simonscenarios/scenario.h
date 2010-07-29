@@ -123,7 +123,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
     bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
-    bool save(QString path=QString());
 
     ActiveVocabulary* vocabulary() { return m_vocabulary; }
     Grammar* grammar() { return m_grammar; }
@@ -151,6 +150,9 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
     void setListInterfaceCommands(QHash<CommandListElements::Element, VoiceInterfaceCommand*> commands);
+
+  public slots:
+    bool save(QString path=QString());
 
 };
 #endif

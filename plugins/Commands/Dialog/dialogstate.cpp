@@ -25,7 +25,7 @@
 
 DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
     QList<DialogCommand*> transitions, QObject *parent) : 
-  QObject(parent),
+  QAbstractItemModel(parent),
   m_name(name),
   m_text(new DialogText(parser, text)),
   m_transitions(transitions)
@@ -98,6 +98,83 @@ QDomElement DialogState::serialize(QDomDocument *doc)
   elem.appendChild(transitionsElem);
 
   return elem;
+}
+
+void DialogState::addTransition(DialogCommand* command)
+{
+  beginInsertRows(QModelIndex(), m_transitions.count(), m_transitions.count());
+
+  m_transitions << command;
+  connect(command, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+  emit changed();
+
+  endInsertRows();
+}
+
+
+
+
+Qt::ItemFlags DialogState::flags(const QModelIndex &index) const
+{
+  if (!index.isValid())
+    return 0;
+
+  return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
+QVariant DialogState::headerData(int column, Qt::Orientation orientation,
+                  int role) const
+{
+  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+    switch (column) {
+      case 0:
+        return i18n("Name");
+    }
+  }
+
+  //default
+  return QVariant();
+}
+
+QModelIndex DialogState::parent(const QModelIndex &index) const
+{
+  Q_UNUSED(index);
+  return QModelIndex();
+}
+
+int DialogState::rowCount(const QModelIndex &parent) const
+{
+  Q_UNUSED(parent);
+  return m_transitions.count();
+}
+
+
+QModelIndex DialogState::index(int row, int column,const QModelIndex &parent) const
+{
+  if (!hasIndex(row, column, parent) || parent.isValid())
+    return QModelIndex();
+
+
+   return createIndex(row, column, m_transitions[row]);
+}
+
+QVariant DialogState::data(const QModelIndex &index, int role) const
+{
+  if (!index.isValid()) return QVariant();
+
+  if (role == Qt::DisplayRole)
+    return m_transitions.at(index.row())->getTrigger();
+
+  if (role == Qt::DecorationRole)
+    return m_transitions.at(index.row())->getIcon();
+
+  return QVariant();
+}
+
+int DialogState::columnCount(const QModelIndex &parent) const
+{
+  Q_UNUSED(parent)
+  return 1;
 }
 
 DialogState::~DialogState()
