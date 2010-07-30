@@ -64,6 +64,7 @@ class DialogState : public QAbstractItemModel
 
     QString getName() const { return m_name; }
     QString getText() const;
+    QString getRawText() const;
     QList<DialogCommand*> getTransitions() const { return m_transitions; }
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
@@ -71,6 +72,9 @@ class DialogState : public QAbstractItemModel
 
     void addTransition(DialogCommand* command);
     void removeTransition(DialogCommand* command);
+
+    bool rename(const QString& newName);
+    bool setRawText(const QString& data);
 
     ~DialogState();
 };

@@ -24,19 +24,21 @@
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
 
+#include <simonscenarios/scenario.h>
+
 #include <QVariantList>
-#include <kgenericfactory.h>
 #include <QList>
-#include <KAboutData>
-#include <KMessageBox>
-#include <KStandardDirs>
 #include <QString>
 #include <QDialog>
-#include <KInputDialog>
 #include <QTableView>
 #include <QThread>
 #include <QApplication>
-#include <simonscenarios/scenario.h>
+
+#include <kgenericfactory.h>
+#include <KAboutData>
+#include <KInputDialog>
+#include <KMessageBox>
+#include <KStandardDirs>
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
@@ -83,21 +85,56 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
   ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
+
+  displayCurrentState();
 }
 
 void DialogConfiguration::addState()
 {
-  //TODO
+  bool ok = true;
+  QString name = KInputDialog::getText(i18n("Add state"), i18n("Name of the new state:"), 
+                                        QString(), &ok);
+  if (!ok) return;
+
+  if (!commandManager->addState(name))
+    KMessageBox::sorry(this, i18n("Failed to add state"));
+  displayStates();
 }
 
 void DialogConfiguration::renameState()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
+
+  bool ok = true;
+  QString name = KInputDialog::getText(i18n("Rename state"), i18n("New name of the state:"), 
+                                        state->getName(), &ok);
+  if (!ok) return;
+
+  if (!state->rename(name))
+    KMessageBox::sorry(this, i18n("Failed to rename state"));
+
+  displayStates();
 }
 
 void DialogConfiguration::removeState()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
+
+  if (!state ||
+      KMessageBox::questionYesNoCancel(this, 
+        i18n("Do you really want to remove the selected state?"))
+      != KMessageBox::Yes)
+    return;
+
+  if (!commandManager->removeState(state))
+    KMessageBox::sorry(this, i18n("Failed to remove state"));
+
+  displayStates();
+
+  if (ui.lwStates->count() > 0)
+    ui.lwStates->setCurrentRow(0);
 }
 
 
@@ -115,6 +152,20 @@ void DialogConfiguration::moveStateDown()
 void DialogConfiguration::editText()
 {
   //TODO
+
+  DialogState *state = getCurrentStateGraphical();
+  if (!state)
+    return;
+
+  bool ok;
+  QString text = KInputDialog::getMultiLineText(i18n("Text"), i18n("Enter the text to present to the user when this state is entered:"), 
+                                        state->getRawText(), &ok);
+  if (!ok) return;
+  
+  if (!state->setRawText(text))
+    KMessageBox::sorry(this, i18n("Failed to update state text"));
+
+  displayCurrentState();
 }
  
 
@@ -194,6 +245,8 @@ void DialogConfiguration::init()
 
 void DialogConfiguration::displayStates()
 {
+  int oldRow = ui.lwStates->currentRow();
+
   ui.lwStates->clear();
   
   QList<DialogState*> states = commandManager->getStates();
@@ -202,6 +255,14 @@ void DialogConfiguration::displayStates()
   {
     ui.lwStates->addItem(i18nc("%1: id of state; %2: name of state", "%1: %2", id, state->getName()));
     id++;
+  }
+
+  if (ui.lwStates->count() > 0)
+  {
+    if ((ui.lwStates->count() > oldRow) && (oldRow >= 0))
+      ui.lwStates->setCurrentRow(oldRow);
+    else
+      ui.lwStates->setCurrentRow(0);
   }
 }
 
@@ -247,8 +308,18 @@ DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
 void DialogConfiguration::displayCurrentState()
 {
   DialogState *currentState = getCurrentState();
-  if (!currentState) return;
-  ui.teText->setText(currentState->getText());
+
+  ui.gbText->setEnabled(currentState);
+  ui.gbOptions->setEnabled(currentState);
+
+  if (!currentState) 
+  {
+    ui.teText->clear();
+    ui.lvTransitions->setModel(0);
+    return;
+  }
+
+  ui.teText->setText(currentState->getRawText());
 
   ui.lvTransitions->setModel(currentState);
 }

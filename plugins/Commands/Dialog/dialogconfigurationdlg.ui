@@ -107,7 +107,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox">
+          <widget class="QGroupBox" name="gbOptions">
            <property name="title">
             <string>Options</string>
            </property>

@@ -93,6 +93,28 @@ void DialogCommandManager::initState(int state)
   initState(dialogStates.at(state));
 }
 
+bool DialogCommandManager::addState(const QString& name)
+{
+  DialogState *state = new DialogState(dialogParser, name, QString(),
+                                    QList<DialogCommand*>(), this);
+  connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
+  connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
+  dialogStates << state;
+
+  return parentScenario->save();
+}
+
+bool DialogCommandManager::removeState(DialogState *state)
+{
+  int removed = dialogStates.removeAll(state);
+
+  if (!removed)
+    return false;
+
+  delete state;
+  return parentScenario->save();
+}
+
 void DialogCommandManager::activate()
 {
   foreach (DialogView* view, dialogViews)

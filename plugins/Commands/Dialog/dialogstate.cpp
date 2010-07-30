@@ -50,6 +50,18 @@ QString DialogState::getText() const
   return m_text->parse();
 }
 
+QString DialogState::getRawText() const
+{
+  return m_text->source();
+}
+
+bool DialogState::setRawText(const QString& data)
+{
+  m_text->setSource(data);
+  emit changed();
+  return true;
+}
+
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
   if (elem.isNull()) return false;
@@ -124,6 +136,13 @@ void DialogState::removeTransition(DialogCommand* command)
     }
   }
   emit changed();
+}
+
+bool DialogState::rename(const QString& name)
+{
+  m_name = name;
+  emit changed();
+  return true;
 }
 
 

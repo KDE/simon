@@ -36,6 +36,7 @@ class DialogText
 
     QString parse() const;
     QString source() const { return m_data; }
+    void setSource(const QString& data) { m_data = data; }
 };
 
 #endif

@@ -84,6 +84,9 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
 
     QList<DialogState*> getStates() { return dialogStates; }
 
+    bool addState(const QString& name);
+    bool removeState(DialogState *state);
+
     /**
      * @brief Constructor
      *
