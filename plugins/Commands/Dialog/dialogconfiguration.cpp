@@ -19,10 +19,13 @@
 #include "dialogconfiguration.h"
 #include "dialogcommandmanager.h"
 
+#include "dialogtemplateoptions.h"
+
 #include "dialogstate.h"
 #include "dialogcommand.h"
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
+#include "createtemplateoptiondialog.h"
 
 #include <simonscenarios/scenario.h>
 
@@ -47,7 +50,8 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   "0.1", ki18n("Control a robot"),
   "im-user",
   DialogCommandPluginFactory::componentData()),
-  commandManager(_commandManager)
+  commandManager(_commandManager),
+  templateOptions(NULL)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -70,6 +74,10 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
   connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
 
+  connect(ui.pbAddTemplateOption, SIGNAL(clicked()), this, SLOT(addTemplateOption()));
+  connect(ui.pbEditTemplateOption, SIGNAL(clicked()), this, SLOT(editTemplateOption()));
+  connect(ui.pbRemoveTemplateOption, SIGNAL(clicked()), this, SLOT(removeTemplateOption()));
+
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
   ui.pbAddBoundValue->setIcon(KIcon("list-add"));
@@ -84,7 +92,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbEditTransition->setIcon(KIcon("document-edit"));
   ui.pbEditText->setIcon(KIcon("document-edit"));
   ui.pbEditBoundValue->setIcon(KIcon("document-edit"));
-  ui.pbEditTemplateOption->setIcon(KIcon("document-editlist-remove"));
+  ui.pbEditTemplateOption->setIcon(KIcon("document-edit"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
   ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
@@ -272,9 +280,30 @@ void DialogConfiguration::moveTransitionDown()
 }
 
 
+void DialogConfiguration::addTemplateOption()
+{
+  CreateTemplateOptionDialog *dialog = new CreateTemplateOptionDialog(this);
+  if (dialog->exec())
+    templateOptions->addOption(dialog->getName(), dialog->getEnabled());
+  dialog->deleteLater();
+}
+
+void DialogConfiguration::editTemplateOption()
+{
+}
+
+void DialogConfiguration::removeTemplateOption()
+{
+}
+
+
+    
 QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 {
   QDomElement configElem = doc->createElement("config");
+
+  QDomElement options = templateOptions->serialize(doc);
+  configElem.appendChild(options);
 
   //general
 //   QDomElement caseSensitivityElem = doc->createElement("caseSensitivity");
@@ -288,6 +317,23 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 bool DialogConfiguration::deSerialize(const QDomElement& elem)
 {
   Q_UNUSED(elem);
+  QDomElement options = elem.firstChildElement("options");
+  if (!templateOptions)
+  {
+    kDebug() << "CREATING INSTANCE";
+    templateOptions = DialogTemplateOptions::createInstance(options);
+    if (!templateOptions) {
+      kDebug() << "Failed to deserialize";
+      return false;
+    }
+    ui.tvTemplateOptions->setModel(templateOptions);
+  } else {
+    templateOptions->deSerialize(options);
+  }
+
+
+  kDebug() << "Template options is now: " << templateOptions;
+
 //   QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
 //   if (caseSensitivityElem.isNull()) {
 //     defaults();

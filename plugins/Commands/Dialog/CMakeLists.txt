@@ -20,6 +20,9 @@ set (simondialogcommandplugin_SRCS
   dialogcommandbutton.cpp
   createtransitiondialog.cpp
 
+  dialogtemplateoptions.cpp
+  createtemplateoptiondialog.cpp
+
   plasmadialogdataprovider.cpp
  
     )
@@ -29,6 +32,7 @@ kde4_add_ui_files(simondialogcommandplugin_SRCS
 	dialogconfigurationdlg.ui
 	createdialogcommandwidget.ui
 	createtransitiondlg.ui
+  createtemplateoptiondialog.ui
     )
 
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})

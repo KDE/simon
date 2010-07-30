@@ -17,32 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 
-#include <QList>
-#include <QAbstractItemModel>
+#ifndef SIMON_DIALOGTEMPLATEOPTIONS_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_DIALOGTEMPLATEOPTIONS_H_4B4956DCAE204C49977297D20CB81F09
+
+#include <QMap>
 #include <QString>
+#include <QDomElement>
+#include <QAbstractItemModel>
 
-class DialogCommand;
-class DialogText;
-class DialogTextParser;
-class QDomElement;
-class QDomDocument;
-
-class DialogState : public QAbstractItemModel
+class DialogTemplateOptions : public QAbstractItemModel
 {
-  Q_OBJECT
-  signals:
-    void requestDialogState(int state);
-    void changed();
-
   private:
-    QString m_name;
-    DialogText *m_text;
-    QList<DialogCommand*> m_transitions;
-    bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState(QObject *parent=0) : QAbstractItemModel(parent) {}
+    QMap<QString, bool> options;
+    DialogTemplateOptions();
 
   protected:
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -57,30 +45,11 @@ class DialogState : public QAbstractItemModel
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
-    DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
-        QList<DialogCommand*> transitions, QObject *parent=0);
-
-    QString getName() const { return m_name; }
-    QString getText() const;
-    QString getRawText() const;
-    QList<DialogCommand*> getTransitions() const { return m_transitions; }
-
-    static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
+    static DialogTemplateOptions* createInstance(const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
+    bool deSerialize(const QDomElement& elem);
 
-    void addTransition(DialogCommand* command);
-    void removeTransition(DialogCommand* command);
-
-    bool moveTransitionUp(DialogCommand* command);
-    bool moveTransitionDown(DialogCommand* command);
-
-    bool rename(const QString& newName);
-    bool setRawText(const QString& data);
-
-    void presented();
-    void left();
-
-    ~DialogState();
+    void addOption(const QString& name, bool enabled);
 };
 
 #endif

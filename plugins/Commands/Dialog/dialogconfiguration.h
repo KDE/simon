@@ -31,6 +31,7 @@ class DialogCommand;
 class DialogState;
 class DialogSetContainer;
 class DialogCommandManager;
+class DialogTemplateOptions;
 
 class DialogConfiguration : public CommandConfiguration
 {
@@ -39,6 +40,8 @@ class DialogConfiguration : public CommandConfiguration
   private:
     Ui::DialogConfigurationDlg ui;
     DialogCommandManager *commandManager;
+
+    DialogTemplateOptions *templateOptions;
 
     void displayStates();
     DialogState* getCurrentState();
@@ -64,6 +67,10 @@ class DialogConfiguration : public CommandConfiguration
 
     void moveTransitionUp();
     void moveTransitionDown();
+
+    void addTemplateOption();
+    void editTemplateOption();
+    void removeTemplateOption();
 
   public slots:
     void init();
