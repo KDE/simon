@@ -19,6 +19,8 @@
 
 #include "createdialogcommandwidget.h"
 #include "dialogcommand.h"
+#include "dialogcommandmanager.h"
+#include "dialogstate.h"
 
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>
@@ -32,6 +34,8 @@ CreateDialogCommandWidget::CreateDialogCommandWidget(CommandManager *manager, QW
   m_model(new CommandTableModel())
 {
   ui.setupUi(this);
+
+  initStates();
 
   setWindowIcon(DialogCommand::staticCategoryIcon());
   setWindowTitle(DialogCommand::staticCategoryText());
@@ -97,6 +101,21 @@ bool CreateDialogCommandWidget::isComplete()
   return true;
 }
 
+void CreateDialogCommandWidget::initStates()
+{
+  ui.cbNextState->clear();
+  QList<DialogState*> states =  static_cast<DialogCommandManager*>(m_manager)->getStates();
+    kDebug() << "Got states: " << states.count();
+
+  ui.cbNextState->addItem(i18n("0: Close dialog"));
+  int index = 1;
+  foreach (DialogState *state, states)
+  {
+    kDebug() << "Adding state";
+    ui.cbNextState->addItem(i18nc("%1...Index of the state; %2...Name of the state", "%1: %2",
+          QString::number(index++), state->getName()));
+  }
+}
 
 bool CreateDialogCommandWidget::init(Command* command)
 {
@@ -110,7 +129,7 @@ bool CreateDialogCommandWidget::init(Command* command)
   ui.gbSwitchState->setChecked(dialogCommand->changeDialogState());
   ui.gbAutomatic->setChecked(dialogCommand->activateAutomatically());
   ui.sbAutoTimeout->setValue(dialogCommand->activationTimeout());
-  ui.sbNextState->setValue(dialogCommand->nextDialogState());
+  ui.cbNextState->setCurrentIndex(dialogCommand->nextDialogState());
   ui.gbCommands->setChecked(dialogCommand->executeCommands());
 
   QStringList selectedTriggers = dialogCommand->getCommands();
@@ -175,7 +194,7 @@ Command* CreateDialogCommandWidget::createCommand(const QString& name, const QSt
   return new DialogCommand(name, iconSrc, description, 
       ui.leText->text(), ui.cbShowIcon->isChecked(),
       ui.gbAutomatic->isChecked(), ui.sbAutoTimeout->value(),
-      ui.gbSwitchState->isChecked(), ui.sbNextState->value(), 
+      ui.gbSwitchState->isChecked(), ui.cbNextState->currentIndex(), 
       ui.gbCommands->isChecked(), selectedTriggers,
       selectedCategories);
 }
@@ -194,7 +213,7 @@ void CreateDialogCommandWidget::editCommand(DialogCommand *dialogCommand, const 
   dialogCommand->update(name, iconSrc, description, 
       ui.leText->text(), ui.cbShowIcon->isChecked(),
       ui.gbAutomatic->isChecked(), ui.sbAutoTimeout->value(),
-      ui.gbSwitchState->isChecked(), ui.sbNextState->value(), 
+      ui.gbSwitchState->isChecked(), ui.cbNextState->currentIndex(), 
       ui.gbCommands->isChecked(), selectedTriggers,
       selectedCategories);
 }

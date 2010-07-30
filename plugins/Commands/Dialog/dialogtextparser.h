@@ -23,14 +23,16 @@
 #include <QList>
 
 class DialogDataProvider;
+class DialogConfiguration;
 
 class DialogTextParser
 {
   private:
+    DialogConfiguration *m_configuration;
     QList<DialogDataProvider*> m_dataProvider;
 
   public:
-    DialogTextParser();
+    DialogTextParser(DialogConfiguration* configuration);
     ~DialogTextParser();
 
     bool parse(QString& data);

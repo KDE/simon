@@ -72,19 +72,26 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
+  ui.pbAddBoundValue->setIcon(KIcon("list-add"));
+  ui.pbAddTemplateOption->setIcon(KIcon("list-add"));
 
   ui.pbRemoveState->setIcon(KIcon("list-remove"));
   ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
+  ui.pbRemoveBoundValue->setIcon(KIcon("list-remove"));
+  ui.pbRemoveTemplateOption->setIcon(KIcon("list-remove"));
 
   ui.pbRenameState->setIcon(KIcon("document-edit"));
   ui.pbEditTransition->setIcon(KIcon("document-edit"));
   ui.pbEditText->setIcon(KIcon("document-edit"));
+  ui.pbEditBoundValue->setIcon(KIcon("document-edit"));
+  ui.pbEditTemplateOption->setIcon(KIcon("document-editlist-remove"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
   ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
 
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
   ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
+
 
   displayCurrentState();
 }
@@ -218,10 +225,6 @@ void DialogConfiguration::editTransition()
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   dialog->editTransition(transition);
-//
-  //if (!transition) return;
-//
-  //state->addTransition(transition);
 }
 
 void DialogConfiguration::removeTransition()

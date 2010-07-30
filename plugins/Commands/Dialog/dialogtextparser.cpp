@@ -18,10 +18,12 @@
  */
 
 #include "dialogtextparser.h"
+#include "dialogconfiguration.h"
 
 #include "dialogdataprovider.h"
 
-DialogTextParser::DialogTextParser()
+DialogTextParser::DialogTextParser(DialogConfiguration* configuration) :
+  m_configuration(configuration)
 {
 }
 

@@ -48,6 +48,7 @@ class CreateDialogCommandWidget : public CreateCommandWidget
     CommandList* m_allCommands;
     CommandTableModel *m_model;
 
+    void initStates();
 
   private slots:
     void addCommandToDialog();

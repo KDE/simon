@@ -29,6 +29,7 @@ DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *par
   if (transition->showIcon())
     setIcon(transition->getIcon());
 
+  //setDescription(transition->getDescription());
   setToolTip(transition->getDescription());
 
   connect(transition, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
@@ -37,7 +38,6 @@ DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *par
 
 void DialogCommandButton::go()
 {
-  //FIXME?
   int state = 0;
   m_transition->trigger(&state);
 }

@@ -23,6 +23,7 @@
 #include "dialogview.h"
 #include <QWidget>
 #include <QList>
+#include <QFont>
 
 namespace Ui
 {

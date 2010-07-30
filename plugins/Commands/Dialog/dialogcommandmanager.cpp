@@ -316,7 +316,7 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
     "startDialog" /* id */);
 
   if (!dialogParser)
-    dialogParser = new DialogTextParser();
+    dialogParser = new DialogTextParser(getDialogConfiguration());
     
   dialogViews << new VisualDialogView(this);
   
