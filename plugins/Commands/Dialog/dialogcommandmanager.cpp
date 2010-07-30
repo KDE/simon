@@ -66,6 +66,7 @@ void DialogCommandManager::initState(DialogState *state)
 {
   foreach (DialogView* view, dialogViews)
     view->present(*state);
+  state->presented();
 }
 
 void DialogCommandManager::initState(int state)

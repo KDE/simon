@@ -76,6 +76,8 @@ class DialogState : public QAbstractItemModel
     bool rename(const QString& newName);
     bool setRawText(const QString& data);
 
+    void presented();
+
     ~DialogState();
 };
 

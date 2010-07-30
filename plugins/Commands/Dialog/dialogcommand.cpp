@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
+#include <QTimer>
 #include <QVariant>
 
 #include <KIcon>
@@ -92,6 +93,15 @@ QDomElement DialogCommand::serializePrivate(QDomDocument *doc, QDomElement& comm
   presentationElem.appendChild(showIconElem);
   commandElem.appendChild(presentationElem);
 
+  QDomElement autoElem = doc->createElement("auto");
+  QDomElement autoActiveElem = doc->createElement("active");
+  QDomElement autoTimeoutElem = doc->createElement("timeout");
+  autoActiveElem.appendChild(doc->createTextNode(m_activateAutomatically ? "1" : "0"));
+  autoTimeoutElem.appendChild(doc->createTextNode(QString::number(m_activateAfter)));
+  autoElem.appendChild(autoActiveElem);
+  autoElem.appendChild(autoTimeoutElem);
+  commandElem.appendChild(autoElem);
+
   QDomElement switchStateElem = doc->createElement("switchState");
   switchStateElem.setAttribute("enabled", m_changeDialogState);
   switchStateElem.appendChild(doc->createTextNode(QString::number(m_nextDialogState)));
@@ -128,6 +138,13 @@ bool DialogCommand::deSerializePrivate(const QDomElement& commandElem)
   m_text = textElem.text();
   m_showIcon = showIconElem.attribute("enabled").toInt();
 
+  QDomElement autoElem = commandElem.firstChildElement("auto");
+  QDomElement autoActiveElem = autoElem.firstChildElement("active");
+  QDomElement autoTimeoutElem = autoElem.firstChildElement("timeout");
+
+  m_activateAutomatically = (autoActiveElem.text().toInt() != 0);
+  m_activateAfter = autoTimeoutElem.text().toInt();
+
   QDomElement switchStateElem = commandElem.firstChildElement("switchState");
   m_changeDialogState = switchStateElem.attribute("enabled").toInt();
   m_nextDialogState = switchStateElem.text().toInt();
@@ -162,6 +179,20 @@ void DialogCommand::createStateLink(int thisState)
     setTargetState(SimonCommand::GreedyState|m_nextDialogState);
   else
     setTargetState(thisState);
+}
+
+void DialogCommand::autoTrigger()
+{
+  int fake;
+  trigger(&fake);
+}
+
+void DialogCommand::presented()
+{
+  //this command has just been shown to the user...
+  
+  if (m_activateAutomatically)
+    QTimer::singleShot(m_activateAfter, this, SLOT(autoTrigger()));
 }
 
 STATIC_CREATE_INSTANCE_C(DialogCommand);

@@ -62,6 +62,12 @@ bool DialogState::setRawText(const QString& data)
   return true;
 }
 
+void DialogState::presented()
+{
+  foreach (DialogCommand *c, m_transitions)
+    c->presented();
+}
+
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
   if (elem.isNull()) return false;

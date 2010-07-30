@@ -108,6 +108,8 @@ bool CreateDialogCommandWidget::init(Command* command)
   ui.leText->setText(dialogCommand->text());
   ui.cbShowIcon->setChecked(dialogCommand->showIcon());
   ui.gbSwitchState->setChecked(dialogCommand->changeDialogState());
+  ui.gbAutomatic->setChecked(dialogCommand->activateAutomatically());
+  ui.sbAutoTimeout->setValue(dialogCommand->activationTimeout());
   ui.sbNextState->setValue(dialogCommand->nextDialogState());
   ui.gbCommands->setChecked(dialogCommand->executeCommands());
 
@@ -172,6 +174,7 @@ Command* CreateDialogCommandWidget::createCommand(const QString& name, const QSt
 
   return new DialogCommand(name, iconSrc, description, 
       ui.leText->text(), ui.cbShowIcon->isChecked(),
+      ui.gbAutomatic->isChecked(), ui.sbAutoTimeout->value(),
       ui.gbSwitchState->isChecked(), ui.sbNextState->value(), 
       ui.gbCommands->isChecked(), selectedTriggers,
       selectedCategories);

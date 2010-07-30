@@ -47,12 +47,16 @@ class DialogCommand : public QObject, public Command
     QString m_text;
     bool m_showIcon;
 
+    bool m_activateAutomatically;
+    int m_activateAfter;
     bool m_changeDialogState;
     int m_nextDialogState;
     bool m_executeCommands;
     QStringList m_commands;
     QStringList m_commandTypes;
 
+  private slots:
+    void autoTrigger();
  
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -72,13 +76,15 @@ class DialogCommand : public QObject, public Command
     //Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState,
       //int newState_ = SimonCommand::DefaultState, bool announce_ = true)
     DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
-        const QString& text, bool showIcon,
+        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
         bool changeDialogState, int nextDialogState, bool executeCommands, 
         const QStringList& commands, const QStringList& commandTypes
         ) :
       Command(name, iconSrc, description),
       m_text(text),
       m_showIcon(showIcon),
+      m_activateAutomatically(triggerAutomatically),
+      m_activateAfter(triggerAfter),
       m_changeDialogState(changeDialogState),
       m_nextDialogState(nextDialogState),
       m_executeCommands(executeCommands),
@@ -88,6 +94,8 @@ class DialogCommand : public QObject, public Command
      setHidden(true); 
     }
 
+    void presented();
+
     QString text() { return m_text; }
     bool showIcon() { return m_showIcon; }
 
@@ -95,6 +103,9 @@ class DialogCommand : public QObject, public Command
     int nextDialogState() { return m_nextDialogState; }
 
     bool executeCommands() { return m_executeCommands; }
+
+    bool activateAutomatically() { return m_activateAutomatically; }
+    int activationTimeout() { return m_activateAfter; }
 
     QStringList getCommands() { return m_commands; }
     QStringList getCommandTypes() { return m_commandTypes; }
