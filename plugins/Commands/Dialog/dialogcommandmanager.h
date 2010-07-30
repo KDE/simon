@@ -87,6 +87,8 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     bool addState(const QString& name);
     bool removeState(DialogState *state);
 
+    virtual bool trigger(const QString& triggerName);
+
     /**
      * @brief Constructor
      *

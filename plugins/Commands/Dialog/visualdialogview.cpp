@@ -47,8 +47,13 @@ VisualDialogView::VisualDialogView(DialogCommandManager *dialog, QWidget *parent
 
   ui->wgAnswers->setLayout(new QVBoxLayout());
 
-  connect(ui->pbClose, SIGNAL(clicked()), this, SLOT(requestClose()));
+  ui->frmWrongInput->hide();
 } 
+
+void VisualDialogView::closeEvent(QCloseEvent*)
+{
+  requestClose();
+}
 
 void VisualDialogView::requestClose()
 {
@@ -89,6 +94,17 @@ bool VisualDialogView::present(const DialogState& state)
   }
 
   return true;
+}
+
+void VisualDialogView::correctInputReceived()
+{
+  ui->frmWrongInput->hide();
+}
+
+void VisualDialogView::warnOfInvalidInput(const QString& input)
+{
+  ui->lbInvalidInput->setText(i18n("Invalid input: %1\nPlease say one of the displayed options.", input));
+  ui->frmWrongInput->show();
 }
 
 

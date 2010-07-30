@@ -42,6 +42,9 @@ class VisualDialogView : public QWidget, public DialogView
   private slots:
     void requestClose();
 
+  protected:
+    void closeEvent(QCloseEvent* event);
+
   public:
     VisualDialogView(DialogCommandManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);
 
@@ -51,6 +54,9 @@ class VisualDialogView : public QWidget, public DialogView
     bool present(const DialogState& state);
 
     void setFont(const QFont& font);
+
+    void correctInputReceived();
+    void warnOfInvalidInput(const QString& input);
 };
 
 #endif

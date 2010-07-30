@@ -23,6 +23,7 @@
 class QFont;
 class DialogCommandManager;
 class DialogState;
+class QString;
 
 class DialogView
 {
@@ -38,6 +39,9 @@ class DialogView
     virtual bool present(const DialogState& state)=0;
 
     virtual void setFont(const QFont& font)=0;
+
+    virtual void correctInputReceived() {};
+    virtual void warnOfInvalidInput(const QString& /*input*/) {}
 
     virtual ~DialogView() {}
 };

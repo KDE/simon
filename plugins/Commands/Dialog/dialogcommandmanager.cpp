@@ -117,6 +117,9 @@ bool DialogCommandManager::removeState(DialogState *state)
 
 void DialogCommandManager::activate()
 {
+  if (dialogViews.isEmpty() || dialogStates.isEmpty())
+    return;
+
   foreach (DialogView* view, dialogViews)
     view->start();
 
@@ -149,6 +152,18 @@ const QString DialogCommandManager::name() const
   return i18n("Dialog");
 }
 
+bool DialogCommandManager::trigger(const QString& triggerName)
+{
+  bool found = CommandManager::trigger(triggerName);
+  if (found) {
+    foreach (DialogView* view, dialogViews)
+      view->correctInputReceived();
+  } else {
+    foreach (DialogView* view, dialogViews)
+      view->warnOfInvalidInput(triggerName);
+  }
+  return found;
+}
 
 bool DialogCommandManager::greedyTrigger(const QString& inputText)
 {
