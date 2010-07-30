@@ -180,6 +180,25 @@ Command* CreateDialogCommandWidget::createCommand(const QString& name, const QSt
       selectedCategories);
 }
 
+void CreateDialogCommandWidget::editCommand(DialogCommand *dialogCommand, const QString& name, 
+    const QString& iconSrc, const QString& description)
+{
+  CommandList *selectedCommands = m_model->selectedCommands();
+  QStringList selectedTriggers, selectedCategories;
+
+  foreach (Command* com, *selectedCommands) {
+    selectedTriggers << com->getTrigger();
+    selectedCategories << com->getCategoryText();
+  }
+
+  dialogCommand->update(name, iconSrc, description, 
+      ui.leText->text(), ui.cbShowIcon->isChecked(),
+      ui.gbAutomatic->isChecked(), ui.sbAutoTimeout->value(),
+      ui.gbSwitchState->isChecked(), ui.sbNextState->value(), 
+      ui.gbCommands->isChecked(), selectedTriggers,
+      selectedCategories);
+}
+
 void CreateDialogCommandWidget::updatePresentation(const QString& presentation)
 {
   ui.leText->setText(presentation);

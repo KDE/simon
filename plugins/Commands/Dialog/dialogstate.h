@@ -73,10 +73,14 @@ class DialogState : public QAbstractItemModel
     void addTransition(DialogCommand* command);
     void removeTransition(DialogCommand* command);
 
+    bool moveTransitionUp(DialogCommand* command);
+    bool moveTransitionDown(DialogCommand* command);
+
     bool rename(const QString& newName);
     bool setRawText(const QString& data);
 
     void presented();
+    void left();
 
     ~DialogState();
 };

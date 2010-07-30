@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>426</height>
+    <width>590</width>
+    <height>456</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
-    <width>590</width>
+    <width>16777215</width>
     <height>16777215</height>
    </size>
   </property>
@@ -94,7 +94,14 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="KTextEdit" name="teText"/>
+             <widget class="KTextEdit" name="teText">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="KPushButton" name="pbEditText">

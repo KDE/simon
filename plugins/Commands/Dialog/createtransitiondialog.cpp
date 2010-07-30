@@ -27,6 +27,8 @@ CreateTransitionDialog::CreateTransitionDialog(CreateDialogCommandWidget *creato
   KDialog(parent),
   m_creator(creator)
 {
+  setCaption(i18n("Dialog option"));
+
   QWidget *mainWidget = new QWidget(this);
   ui.setupUi(mainWidget);
   setMainWidget(mainWidget);
@@ -43,5 +45,20 @@ DialogCommand* CreateTransitionDialog::createTransition()
   DialogCommand *command = static_cast<DialogCommand*>(m_creator->createCommand(ui.leTrigger->text(), 
                                               ui.ibIcon->icon(), ui.teDescription->toPlainText()));
   return command;
+}
+
+bool CreateTransitionDialog::editTransition(DialogCommand *transition)
+{
+  ui.leTrigger->setText(transition->getTrigger());
+  ui.ibIcon->setIcon(transition->getIconSrc());
+  ui.teDescription->setText(transition->getDescription());
+
+  m_creator->init(transition);
+
+  if (!exec()) return false;
+
+  kDebug() << "setting icon to: " << ui.ibIcon->icon();
+  m_creator->editCommand(transition, ui.leTrigger->text(), ui.ibIcon->icon(), ui.teDescription->toPlainText());
+  return true;
 }
 

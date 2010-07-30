@@ -48,6 +48,8 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
   private:
     KAction *activateAction;
 
+    DialogState *currentDialogSate;
+
     DialogTextParser *dialogParser;
     QList<DialogView*> dialogViews;
     QList<DialogState*> dialogStates;
@@ -86,6 +88,9 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
 
     bool addState(const QString& name);
     bool removeState(DialogState *state);
+
+    bool moveStateUp(DialogState *state);
+    bool moveStateDown(DialogState *state);
 
     virtual bool trigger(const QString& triggerName);
 

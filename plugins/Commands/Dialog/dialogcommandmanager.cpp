@@ -42,6 +42,7 @@ K_EXPORT_PLUGIN( DialogCommandPluginFactory("simondialogcommand") )
 DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
   GreedyReceiver(this),
   activateAction(new KAction(this)),
+  currentDialogSate(NULL),
   dialogParser(NULL)
 {
   activateAction->setText(i18n("Activate Dialog"));
@@ -64,9 +65,15 @@ void DialogCommandManager::setFont(const QFont& font)
 
 void DialogCommandManager::initState(DialogState *state)
 {
+  if (currentDialogSate)
+    currentDialogSate->left();
+
   foreach (DialogView* view, dialogViews)
     view->present(*state);
+
   state->presented();
+
+  currentDialogSate = state;
 }
 
 void DialogCommandManager::initState(int state)
@@ -76,6 +83,10 @@ void DialogCommandManager::initState(int state)
   //0 state means quit
   if (state == 0)
   {
+    if (currentDialogSate)
+      currentDialogSate->left();
+    currentDialogSate = NULL;
+
     deregister();
     switchToState(SimonCommand::DefaultState);
     return;
@@ -115,6 +126,26 @@ bool DialogCommandManager::removeState(DialogState *state)
   delete state;
   return parentScenario->save();
 }
+
+bool DialogCommandManager::moveStateUp(DialogState *state)
+{
+  int index = dialogStates.indexOf(state);
+  if (index <= 0) return false;
+
+  dialogStates.insert(index-1, dialogStates.takeAt(index));
+  return parentScenario->save();
+}
+
+bool DialogCommandManager::moveStateDown(DialogState *state)
+{
+  int index = dialogStates.indexOf(state);
+  if ((index == -1) || (index == (dialogStates.count()-1))) 
+    return false;
+
+  dialogStates.insert(index+1, dialogStates.takeAt(index));
+  return parentScenario->save();
+}
+
 
 void DialogCommandManager::activate()
 {

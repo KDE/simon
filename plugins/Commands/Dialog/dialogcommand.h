@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <KUrl>
 class QDomDocument;
+class QTimer;
 
 /**
  *	@class DialogCommand
@@ -42,6 +43,7 @@ class DialogCommand : public QObject, public Command
 
   signals:
     void requestDialogState(int newState);
+    void changed();
 
   private:
     QString m_text;
@@ -55,13 +57,15 @@ class DialogCommand : public QObject, public Command
     QStringList m_commands;
     QStringList m_commandTypes;
 
+    QTimer *m_autoTimer;
+
   private slots:
     void autoTrigger();
  
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
-    DialogCommand() { setHidden(true); }
+    DialogCommand();
 
   public:
     static const QString staticCategoryText();
@@ -73,27 +77,18 @@ class DialogCommand : public QObject, public Command
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
     bool deSerializePrivate(const QDomElement& commandElem);
 
-    //Command(const QString& name, const QString& icon, const QString& description_, int boundState_ = SimonCommand::DefaultState,
-      //int newState_ = SimonCommand::DefaultState, bool announce_ = true)
     DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
         const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
         bool changeDialogState, int nextDialogState, bool executeCommands, 
         const QStringList& commands, const QStringList& commandTypes
-        ) :
-      Command(name, iconSrc, description),
-      m_text(text),
-      m_showIcon(showIcon),
-      m_activateAutomatically(triggerAutomatically),
-      m_activateAfter(triggerAfter),
-      m_changeDialogState(changeDialogState),
-      m_nextDialogState(nextDialogState),
-      m_executeCommands(executeCommands),
-      m_commands(commands),
-      m_commandTypes(commandTypes)
-    {
-     setHidden(true); 
-    }
+        );
 
+    void update(const QString& name, const QString& iconSrc, const QString& description,
+        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
+        bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QStringList& commands, const QStringList& commandTypes);
+
+    void left();
     void presented();
 
     QString text() { return m_text; }
@@ -112,7 +107,7 @@ class DialogCommand : public QObject, public Command
 
     void createStateLink(int thisState);
 
-    ~DialogCommand() {}
+    ~DialogCommand();
 
     STATIC_CREATE_INSTANCE_H(DialogCommand);
 };

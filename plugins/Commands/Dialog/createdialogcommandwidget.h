@@ -26,6 +26,7 @@
 #include "ui_createdialogcommandwidget.h"
 
 class Command;
+class DialogCommand;
 class CommandManager;
 class CommandTableModel;
 
@@ -58,6 +59,8 @@ class CreateDialogCommandWidget : public CreateCommandWidget
 
   public:
     Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+    void editCommand(DialogCommand *command, const QString& name, 
+        const QString& iconSrc, const QString& description);
 
     bool init(Command* command);
     bool isComplete();

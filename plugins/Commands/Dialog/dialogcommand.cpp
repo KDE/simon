@@ -31,6 +31,35 @@
 #include <KLocalizedString>
 #include <KDebug>
 
+DialogCommand::DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
+        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
+        bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QStringList& commands, const QStringList& commandTypes
+        ) :
+      Command(name, iconSrc, description),
+      m_text(text),
+      m_showIcon(showIcon),
+      m_activateAutomatically(triggerAutomatically),
+      m_activateAfter(triggerAfter),
+      m_changeDialogState(changeDialogState),
+      m_nextDialogState(nextDialogState),
+      m_executeCommands(executeCommands),
+      m_commands(commands),
+      m_commandTypes(commandTypes),
+      m_autoTimer(new QTimer())
+{
+ setHidden(true); 
+ connect(m_autoTimer, SIGNAL(timeout()), this, SLOT(autoTrigger()));
+}
+
+
+
+DialogCommand::DialogCommand() : m_autoTimer(new QTimer())
+{
+  setHidden(true);
+ connect(m_autoTimer, SIGNAL(timeout()), this, SLOT(autoTrigger()));
+}
+
 const QString DialogCommand::staticCategoryText()
 {
   return i18n("Dialog");
@@ -183,16 +212,53 @@ void DialogCommand::createStateLink(int thisState)
 
 void DialogCommand::autoTrigger()
 {
+  m_autoTimer->stop();
   int fake;
   trigger(&fake);
+}
+
+void DialogCommand::left()
+{
+  //We just switched away from the state this command belongs to
+  if (m_activateAutomatically)
+    m_autoTimer->stop();
 }
 
 void DialogCommand::presented()
 {
   //this command has just been shown to the user...
-  
   if (m_activateAutomatically)
-    QTimer::singleShot(m_activateAfter, this, SLOT(autoTrigger()));
+  {
+    kDebug() << "Starting auto timer";
+    m_autoTimer->start(m_activateAfter);
+  }
+}
+
+void DialogCommand::update(const QString& name, const QString& iconSrc, const QString& description,
+        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
+        bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QStringList& commands, const QStringList& commandTypes)
+{
+  setTriggerName(name);
+
+  setIconSrc(iconSrc);
+  setDescription(description);
+
+  m_text = text;
+  m_showIcon = showIcon;
+  m_activateAutomatically = triggerAutomatically;
+  m_activateAfter = triggerAfter;
+  m_changeDialogState = changeDialogState;
+  m_nextDialogState = nextDialogState;
+  m_executeCommands = executeCommands;
+  m_commands = commands;
+  m_commandTypes = commandTypes;
+  emit changed();
+}
+
+DialogCommand::~DialogCommand()
+{
+  m_autoTimer->deleteLater();
 }
 
 STATIC_CREATE_INSTANCE_C(DialogCommand);

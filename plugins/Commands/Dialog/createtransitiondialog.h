@@ -37,6 +37,7 @@ class CreateTransitionDialog : protected KDialog
     CreateTransitionDialog(CreateDialogCommandWidget *creator, QWidget *parent=0);
 
     DialogCommand* createTransition();
+    bool editTransition(DialogCommand *transition);
 
 };
 

@@ -30,6 +30,11 @@ DialogState::DialogState(DialogTextParser *parser, const QString& name, const QS
   m_text(new DialogText(parser, text)),
   m_transitions(transitions)
 {
+  foreach (DialogCommand *c, m_transitions)
+  {
+    connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+    connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
+  }
 }
 
 DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomElement& elem)
@@ -68,6 +73,12 @@ void DialogState::presented()
     c->presented();
 }
 
+void DialogState::left()
+{
+  foreach (DialogCommand *c, m_transitions)
+    c->left();
+}
+
 bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 {
   if (elem.isNull()) return false;
@@ -88,6 +99,7 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
     if (c)
     {
       connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+      connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
       commands << c;
     }
 
@@ -142,6 +154,29 @@ void DialogState::removeTransition(DialogCommand* command)
     }
   }
   emit changed();
+}
+
+bool DialogState::moveTransitionUp(DialogCommand* command)
+{
+  int i = m_transitions.indexOf(command);
+  if (i <= 0) return false;
+
+  m_transitions.insert(i-1, m_transitions.takeAt(i));
+  emit changed();
+  emit dataChanged(index(i-1, 0),index(i, 0));
+  return true;
+}
+
+bool DialogState::moveTransitionDown(DialogCommand* command)
+{
+  int i = m_transitions.indexOf(command);
+  if ((i == -1) || (i == (m_transitions.count()-1))) 
+    return false;
+
+  m_transitions.insert(i+1, m_transitions.takeAt(i));
+  emit changed();
+  emit dataChanged(index(i, 0),index(i+1, 0));
+  return true;
 }
 
 bool DialogState::rename(const QString& name)

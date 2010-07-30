@@ -139,6 +139,24 @@ class MODELMANAGEMENT_EXPORT  Command
     Command() { hidden = false; }
 
     /**
+     * \brief Setter method for triggerName
+     * \param trigger The new triggerName
+     */
+    void setTriggerName(const QString& trigger) { triggerName = trigger; }
+
+    /**
+     * \brief Setter method for iconSrc
+     * \param iconSrc The new iconSrc
+     */
+    void setIconSrc(const QString& iconSrc) { this->iconSrc = iconSrc; }
+
+    /**
+     * \brief Setter method for description
+     * \param description The new description
+     */
+    void setDescription(const QString& description) { this->description = description; }
+
+    /**
      * \brief Execute the plugin specific action
      *
      * This method does the actual work. Whatever a command of your plugin should do, it should do it in this method
@@ -353,8 +371,6 @@ class MODELMANAGEMENT_EXPORT  Command
     {
       return this->hidden;
     }
-
-
 
     /**
      * \brief Empty destructor

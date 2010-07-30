@@ -140,19 +140,41 @@ void DialogConfiguration::removeState()
 
 void DialogConfiguration::moveStateUp()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  if (!state)
+    return;
+
+  if (!commandManager->moveStateUp(state))
+  {
+    KMessageBox::sorry(this, i18n("Failed to move state up.\n\nMaybe it is already at the top of the list?"));
+    return;
+  }
+
+  int row = ui.lwStates->currentRow();
+  displayStates();
+  ui.lwStates->setCurrentRow(row-1);
 }
 
 void DialogConfiguration::moveStateDown()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  if (!state)
+    return;
+
+  if (!commandManager->moveStateDown(state))
+  {
+    KMessageBox::sorry(this, i18n("Failed to move state up.\n\nMaybe it is already at the end of the list?"));
+    return;
+  }
+
+  int row = ui.lwStates->currentRow();
+  displayStates();
+  ui.lwStates->setCurrentRow(row+1);
 }
 
 
 void DialogConfiguration::editText()
 {
-  //TODO
-
   DialogState *state = getCurrentStateGraphical();
   if (!state)
     return;
@@ -187,8 +209,19 @@ void DialogConfiguration::addTransition()
 
 void DialogConfiguration::editTransition()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  DialogCommand *transition = getCurrentTransitionGraphical();
+  if (!state || !transition)
+    return;
 
+  CreateDialogCommandWidget *create = new CreateDialogCommandWidget(commandManager, this);
+  CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
+
+  dialog->editTransition(transition);
+//
+  //if (!transition) return;
+//
+  //state->addTransition(transition);
 }
 
 void DialogConfiguration::removeTransition()
@@ -203,12 +236,36 @@ void DialogConfiguration::removeTransition()
 
 void DialogConfiguration::moveTransitionUp()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  DialogCommand *transition = getCurrentTransitionGraphical();
+  if (!state || !transition)
+    return;
+
+  QItemSelectionModel *model = ui.lvTransitions->selectionModel();
+  int row = model->selectedRows().at(0).row();
+
+  if (!state->moveTransitionUp(transition))
+    KMessageBox::sorry(this, i18n("Failed to move transition up.\n\nMaybe it is already at the top of the list?"));
+
+  model->select(ui.lvTransitions->model()->index(row-1, 0),
+                          QItemSelectionModel::ClearAndSelect);
 }
 
 void DialogConfiguration::moveTransitionDown()
 {
-  //TODO
+  DialogState *state = getCurrentStateGraphical();
+  DialogCommand *transition = getCurrentTransitionGraphical();
+  if (!state || !transition)
+    return;
+
+  QItemSelectionModel *model = ui.lvTransitions->selectionModel();
+  int row = model->selectedRows().at(0).row();
+
+  if (!state->moveTransitionDown(transition))
+    KMessageBox::sorry(this, i18n("Failed to move transition down.\n\nMaybe it is already at the end of the list?"));
+
+  model->select(ui.lvTransitions->model()->index(row+1, 0),
+                          QItemSelectionModel::ClearAndSelect);
 }
 
 
