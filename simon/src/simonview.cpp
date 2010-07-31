@@ -322,6 +322,8 @@ void SimonView::setupActions()
   this->trayManager->addAction("activate", activateAction);
   activateAction->setEnabled(false);
   actionCollection()->addAction("activate", activateAction);
+  //must be set after addAction() because of the unique name set in addAction(name,...)
+  activateAction->setGlobalShortcut(KShortcut(Qt::SHIFT + Qt::Key_Pause));
 
   disconnectAction = new KAction(this);
   disconnectAction->setText(i18n("Disconnect"));
@@ -468,12 +470,14 @@ void SimonView::toggleConnection()
 
   if (status==SimonControl::Disconnected) {
     this->control->connectToServer();
-  } else if (status==SimonControl::Connecting)
-  {
+  } 
+  else if (status==SimonControl::Connecting) {
     this->control->abortConnecting();
-  } else control->disconnectFromServer();
+  } 
+  else {
+    control->disconnectFromServer();
+  }
 }
-
 
 /**
  * \brief An error occurred
@@ -588,8 +592,10 @@ void SimonView::toggleActivation()
   if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady) {
     KMessageBox::error(this, i18n("Could not start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a vocabulary, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
     representState(control->getStatus());
-  } else
-  this->control->toggleActivition();
+  } 
+  else {
+    this->control->toggleActivition();
+  }
 }
 
 
