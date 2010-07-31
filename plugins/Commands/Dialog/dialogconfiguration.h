@@ -87,6 +87,7 @@ class DialogConfiguration : public CommandConfiguration
     ~DialogConfiguration();
 
     void destroy();
+    DialogTemplateOptions* getDialogTemplateOptions() { return templateOptions; }
 
 };
 #endif

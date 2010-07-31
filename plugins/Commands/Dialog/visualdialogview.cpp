@@ -78,8 +78,6 @@ bool VisualDialogView::present(const DialogState& state)
   qDeleteAll(m_buttons);
   m_buttons.clear();
 
-  kDebug() << "Presenting state: " << state.getText();
-
   ui->lbText->setText(state.getText());
 
   QList<DialogCommand*> transitions = state.getTransitions();
