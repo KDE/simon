@@ -26,6 +26,7 @@
 
 class Command;
 class NewCommand;
+class CommandManager;
 class CreateCommandWidget;
 
 // typedef EditCommand NewCommand;
@@ -35,9 +36,10 @@ class NewCommand : protected KDialog
 
   Q_OBJECT
 
-    private:
+  private:
     Ui::DlgModifyCommands ui;
     QList<CreateCommandWidget*> *commandCreaters;
+    void switchToTypeOfManager(CommandManager* manager);
 
   private slots:
     void setWindowTitleToCommandName(QString name);
@@ -49,7 +51,7 @@ class NewCommand : protected KDialog
 
     bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
 
-    bool newCommand(const QString& preSelectedCategory=QString());
+    bool newCommand(CommandManager* preSelectedCategory=0);
 
   public slots:
     void deleteLater();

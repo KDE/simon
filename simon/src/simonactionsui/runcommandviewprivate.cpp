@@ -129,14 +129,8 @@ void RunCommandViewPrivate::addCommand()
   newCommand->registerCreators(scenario->actionCollection()->getCreateCommandWidgets(0/*newCommand*/));
 
   Action *a = getCurrentlySelectedAction();
-  if (a && a->manager()) {
-    QString managerName;
-    if (dynamic_cast<VoiceInterfaceCommand*>(getCurrentCommand()))
-      managerName = i18n("%1: Voice commands", a->manager()->name());
-    else
-      managerName = a->manager()->name();
-    newCommand->newCommand(managerName);
-  }
+  if (a && a->manager())
+    newCommand->newCommand(a->manager());
   else
     newCommand->newCommand();
 
