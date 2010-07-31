@@ -36,5 +36,11 @@ void CreateCommandWidget::propagateCreatedCommand(Command *c)
 bool CreateCommandWidget::isInstanceOfSameManager(Command *c)
 {
   Q_ASSERT(c);
-  return (m_manager == c->parent());
+  return isInstanceOfSameManager(c->parent());
 }
+
+bool CreateCommandWidget::isInstanceOfSameManager(CommandManager *manager)
+{
+  return (m_manager == manager);
+}
+

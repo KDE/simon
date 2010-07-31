@@ -316,6 +316,8 @@ QString defaultVisibleTrigger)
 
     QList<VoiceInterfaceCommand*> adaptionCommands = standardAdaption.values(element);
 
+    if (adaptionCommands.isEmpty()) return false;
+
     QStringList triggers;
     foreach (VoiceInterfaceCommand* c, adaptionCommands)
       triggers << c->getTrigger();

@@ -78,6 +78,17 @@ void NewCommand::commandSuggested(Command *command)
   delete command;
 }
 
+void NewCommand::switchToTypeOfManager(CommandManager *manager)
+{
+  int i = 0;
+  foreach (CreateCommandWidget *widget, *commandCreaters) {
+    if (widget->isInstanceOfSameManager(manager)) {
+      ui.cbType->setCurrentIndex(i);
+      break;
+    }
+    i++;
+  }
+}
 
 void NewCommand::init(Command *command)
 {
@@ -94,7 +105,6 @@ void NewCommand::init(Command *command)
       widget->init(command);
       found=true;
       ui.cbType->setCurrentIndex(i);
-      ui.swCommandCreaters->setCurrentIndex(i);
       break;
     }
     i++;
@@ -129,10 +139,9 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 }
 
 
-bool NewCommand::newCommand(const QString& preSelectedCategory)
+bool NewCommand::newCommand(CommandManager* preSelectedCategory)
 {
-  if (!preSelectedCategory.isNull())
-    ui.cbType->setCurrentIndex(ui.cbType->findText(preSelectedCategory));
+  switchToTypeOfManager(preSelectedCategory);
 
   if (ui.swCommandCreaters->count() == 0) {
     KMessageBox::information(this, i18n("No command plugins loaded that provide command engines.\n\nYou can load some in the \"Manage plugins\" dialog."));

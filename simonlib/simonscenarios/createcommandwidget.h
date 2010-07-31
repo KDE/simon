@@ -136,10 +136,21 @@ class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
     /**
      * \brief Tests if the command was created from the same manager
      *
+     * Calls \sa isInstanceOfSameManager(CommandManager*)
+     *
      * \param command The command to check
      * \return True if the parent manager (#m_manager) is the same as the parent manager of the provided command
      */
     virtual bool isInstanceOfSameManager(Command *command);
+
+    /**
+     * \brief Tests the creator refers to the same manager
+     *
+     * \param manager The manager to compare
+     * \return True if the parent manager (#m_manager) is the same as the provided manager
+     */
+    virtual bool isInstanceOfSameManager(CommandManager *manager);
+
 
     /**
      * @brief Constructor
