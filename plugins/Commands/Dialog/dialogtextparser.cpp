@@ -45,7 +45,6 @@ bool DialogTextParser::parse(QString& data)
   int oldStartPos=0;
   int endPos=data.count();
   QString condition=QString();
-  QString lastCondition=QString();
 
   QStringList activeLimitingConditions;
   QStringList activeMetConditions; //only to detect syntax errors
@@ -62,29 +61,16 @@ bool DialogTextParser::parse(QString& data)
       if (startPos == -1) 
       {
         if (oldStartPos == -1)
-        {
-          kDebug() << "Adding last part from (1): " << oldStartPos;
           outData += data.mid(oldStartPos);
-        }
         else
-        {
-          kDebug() << "Adding last part from (2): " << oldStartPos;
           outData += data.mid(oldStartPos+4+condition.count());
-        }
 
         break;
       } else {
-
         if (oldStartPos == -1)
-        {
-          kDebug() << "Adding part(3): " << data.mid(0, startPos) << oldStartPos << startPos;
           outData += data.mid(0, startPos);
-        }
         else
-        {
-          kDebug() << "Adding part(4): " << data.mid(oldStartPos+4+condition.count(), startPos-oldStartPos-4-condition.count()) << oldStartPos << startPos;
           outData += data.mid(oldStartPos+4+condition.count(), startPos-oldStartPos-4-condition.count());
-        }
       }
     } else {
       if (startPos == -1)
@@ -102,20 +88,35 @@ bool DialogTextParser::parse(QString& data)
       return false;
     }
 
-    lastCondition = condition;
     condition = data.mid(startPos+2, endPos-startPos-2);
     kDebug() << "Found condition: " << condition;
 
     if (!condition.startsWith("end"))
     {
-      //condition only relevant if it is NOT enabled in the template options
-      if (!m_templateOptions->isEnabled(condition))
+      if (condition.startsWith("else"))
       {
-        kDebug() << "Is not enabled: " << condition;
-        activeLimitingConditions << condition;
+        QString baseCondition = condition.mid(4);
+        kDebug() << "Parsing else for " << baseCondition;
+        bool wasActive = (activeLimitingConditions.removeAll(baseCondition) != 0);
+        if (wasActive) activeMetConditions << baseCondition;
+        else {
+          if (activeMetConditions.removeAll(baseCondition) == 0)
+          {
+            kWarning() << "Else for unopened condition: " << baseCondition;
+            return false;
+          }
+          activeLimitingConditions << baseCondition;
+        }
       } else {
-        kDebug() << "Is enabled: " << condition;
-        activeMetConditions << condition;
+        //condition only relevant if it is NOT enabled in the template options
+        if (!m_templateOptions->isEnabled(condition))
+        {
+          kDebug() << "Is not enabled: " << condition;
+          activeLimitingConditions << condition;
+        } else {
+          kDebug() << "Is enabled: " << condition;
+          activeMetConditions << condition;
+        }
       }
     } else {
       QString baseCondition = condition.mid(3);
