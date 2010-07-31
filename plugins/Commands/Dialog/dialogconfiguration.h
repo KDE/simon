@@ -75,6 +75,10 @@ class DialogConfiguration : public CommandConfiguration
     void editTemplateOption();
     void removeTemplateOption();
 
+    void addBoundValue();
+    void editBoundValue();
+    void removeBoundValue();
+
   public slots:
     void init();
 

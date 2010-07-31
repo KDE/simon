@@ -32,10 +32,8 @@ DialogTextParser::DialogTextParser(DialogTemplateOptions* templateOptions) :
 {
 }
 
-bool DialogTextParser::parse(QString& data)
+bool DialogTextParser::parseTemplates(QString& data)
 {
-  kDebug() << "Parsing: " << data;
-
   QString outData;
 
   //find {{x}}
@@ -47,7 +45,7 @@ bool DialogTextParser::parse(QString& data)
   QString condition=QString();
 
   QStringList activeLimitingConditions;
-  QStringList activeMetConditions; //only to detect syntax errors
+  QStringList activeMetConditions;
 
   forever
   {
@@ -132,6 +130,28 @@ bool DialogTextParser::parse(QString& data)
   data = outData;
 
   return true;
+}
+
+bool DialogTextParser::parseBoundValues(QString& data)
+{
+  QString outData = data;
+
+  //TODO: processing
+
+  data = outData;
+  return true;
+}
+
+bool DialogTextParser::parse(QString& data)
+{
+  kDebug() << "Parsing: " << data;
+  bool ok = parseTemplates(data);
+
+  if (!ok) return false;
+
+  ok = parseBoundValues(data);
+
+  return ok;
 }
 
 DialogTextParser::~DialogTextParser()

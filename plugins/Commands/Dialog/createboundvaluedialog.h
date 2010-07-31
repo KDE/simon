@@ -17,31 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
 
-#include <QList>
+#ifndef SIMON_CREATEBOUNDVALUENDIALOG_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_CREATEBOUNDVALUENDIALOG_H_4B4956DCAE204C49977297D20CB81F09
 
-class DialogDataProvider;
-class DialogTemplateOptions;
+#include <KDialog>
 
-class DialogTextParser
+namespace Ui
+{
+  class CreateBoundValueDialog;
+}
+
+class BoundValue;
+
+class CreateBoundValueDialog : protected KDialog
 {
   private:
-    DialogTemplateOptions *m_templateOptions;
-    QList<DialogDataProvider*> m_dataProvider;
-
-    bool parseTemplates(QString& data);
-    bool parseBoundValues(QString& data);
-
+    Ui::CreateBoundValueDialog *ui;
   public:
-    DialogTextParser(DialogTemplateOptions* templateOptions);
-    ~DialogTextParser();
+    CreateBoundValueDialog(QWidget *parent=0);
+    virtual ~CreateBoundValueDialog();
 
-    bool parse(QString& data);
+
+    BoundValue *createBoundValue();
 };
 
 #endif
-
 
 

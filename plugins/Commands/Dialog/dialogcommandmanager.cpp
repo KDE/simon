@@ -46,7 +46,7 @@ DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& 
   dialogParser(NULL)
 {
   activateAction->setText(i18n("Activate Dialog"));
-  activateAction->setIcon(KIcon("input-dialog"));
+  activateAction->setIcon(KIcon("im-user"));
   connect(activateAction, SIGNAL(triggered(bool)),
     this, SLOT(activate()));
   guiActions<<activateAction;

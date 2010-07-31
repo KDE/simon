@@ -26,6 +26,7 @@
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
 #include "createtemplateoptiondialog.h"
+#include "createboundvaluedialog.h"
 
 #include <simonscenarios/scenario.h>
 
@@ -77,6 +78,10 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddTemplateOption, SIGNAL(clicked()), this, SLOT(addTemplateOption()));
   connect(ui.pbEditTemplateOption, SIGNAL(clicked()), this, SLOT(editTemplateOption()));
   connect(ui.pbRemoveTemplateOption, SIGNAL(clicked()), this, SLOT(removeTemplateOption()));
+
+  connect(ui.pbAddBoundValue, SIGNAL(clicked()), this, SLOT(addBoundValue()));
+  connect(ui.pbEditBoundValue, SIGNAL(clicked()), this, SLOT(editBoundValue()));
+  connect(ui.pbRemoveBoundValue, SIGNAL(clicked()), this, SLOT(removeBoundValue()));
 
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
@@ -326,9 +331,33 @@ void DialogConfiguration::editTemplateOption()
 void DialogConfiguration::removeTemplateOption()
 {
   QString id = getCurrentTemplateIndexGraphical();
-  if (id.isNull()) return;
+
+  if (id.isNull() || KMessageBox::questionYesNoCancel(this, 
+        i18n("Do you really want to remove the selected template option?"))
+      != KMessageBox::Yes)
+    return;
 
   templateOptions->removeOption(id);
+}
+
+void DialogConfiguration::addBoundValue()
+{
+  CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
+
+  BoundValue *boundValue = dialog->createBoundValue();
+
+  //if (boundValue)
+  //TODO
+}
+
+void DialogConfiguration::editBoundValue()
+{
+
+}
+
+void DialogConfiguration::removeBoundValue()
+{
+
 }
 
 

@@ -23,6 +23,7 @@ set (simondialogcommandplugin_SRCS
   dialogtemplateoptions.cpp
   createtemplateoptiondialog.cpp
 
+  createboundvaluedialog.cpp
   plasmadialogdataprovider.cpp
  
     )
@@ -33,6 +34,7 @@ kde4_add_ui_files(simondialogcommandplugin_SRCS
 	createdialogcommandwidget.ui
 	createtransitiondlg.ui
   createtemplateoptiondialog.ui
+  createboundvalue.ui
     )
 
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
