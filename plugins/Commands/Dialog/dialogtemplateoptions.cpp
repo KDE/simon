@@ -102,6 +102,10 @@ QVariant DialogTemplateOptions::data(const QModelIndex &index, int role) const
     }
   }
 
+  //always return internal key
+  if (role == Qt::UserRole)
+    return options.keys().at(index.row());
+
   return QVariant();
 }
 

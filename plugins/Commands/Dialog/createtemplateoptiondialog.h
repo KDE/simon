@@ -38,6 +38,10 @@ class CreateTemplateOptionDialog : public KDialog
 
     QString getName();
     bool getEnabled();
+
+    void setName(const QString& id);
+    void setNameReadOnly(bool readOnly);
+    void setEnabled(bool enabled);
 };
 
 #endif

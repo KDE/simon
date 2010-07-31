@@ -41,6 +41,22 @@ bool CreateTemplateOptionDialog::getEnabled()
   return ui->cbEnabled->isChecked();
 }
 
+void CreateTemplateOptionDialog::setName(const QString& id)
+{
+  ui->leOptionName->setText(id);
+}
+
+void CreateTemplateOptionDialog::setNameReadOnly(bool readOnly)
+{
+  ui->leOptionName->setReadOnly(readOnly);
+}
+
+void CreateTemplateOptionDialog::setEnabled(bool enabled)
+{
+  ui->cbEnabled->setChecked(enabled);
+}
+
+
 
 CreateTemplateOptionDialog::~CreateTemplateOptionDialog()
 {

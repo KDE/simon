@@ -280,6 +280,23 @@ void DialogConfiguration::moveTransitionDown()
 }
 
 
+QString DialogConfiguration::getCurrentTemplateIndex()
+{
+  QModelIndex index = ui.tvTemplateOptions->currentIndex();
+  if (!index.isValid())
+    return QString();
+  QString id = index.data(Qt::UserRole).toString();
+  return id;
+}
+
+QString DialogConfiguration::getCurrentTemplateIndexGraphical()
+{
+  QString id = getCurrentTemplateIndex();
+  if (id.isNull())
+    KMessageBox::sorry(this, i18n("Please select a template option."));
+  return id;
+}
+
 void DialogConfiguration::addTemplateOption()
 {
   CreateTemplateOptionDialog *dialog = new CreateTemplateOptionDialog(this);
@@ -290,11 +307,28 @@ void DialogConfiguration::addTemplateOption()
 
 void DialogConfiguration::editTemplateOption()
 {
+  QString id = getCurrentTemplateIndexGraphical();
+  if (id.isNull()) return;
+
+  bool currentData = templateOptions->isEnabled(id);
+
+  CreateTemplateOptionDialog *dialog = new CreateTemplateOptionDialog(this);
+
+  dialog->setName(id);
+  dialog->setNameReadOnly(true);
+  dialog->setEnabled(currentData);
+
+  if (dialog->exec())
+    //will automatically replace the old value because they share the same id
+    templateOptions->addOption(dialog->getName(), dialog->getEnabled());
 }
 
 void DialogConfiguration::removeTemplateOption()
 {
+  QString id = getCurrentTemplateIndexGraphical();
+  if (id.isNull()) return;
 
+  templateOptions->removeOption(id);
 }
 
 

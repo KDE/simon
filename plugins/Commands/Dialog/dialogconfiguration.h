@@ -49,6 +49,9 @@ class DialogConfiguration : public CommandConfiguration
     DialogCommand* getCurrentTransition();
     DialogCommand* getCurrentTransitionGraphical();
 
+    QString getCurrentTemplateIndex();
+    QString getCurrentTemplateIndexGraphical();
+
   private slots:
     void displayCurrentState();
 
