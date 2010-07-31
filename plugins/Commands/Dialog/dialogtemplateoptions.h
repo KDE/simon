@@ -50,6 +50,8 @@ class DialogTemplateOptions : public QAbstractItemModel
     bool deSerialize(const QDomElement& elem);
 
     void addOption(const QString& name, bool enabled);
+    void removeOption(const QString& name);
+    bool isEnabled(const QString& name) { return options.value(name); }
 };
 
 #endif

@@ -294,6 +294,7 @@ void DialogConfiguration::editTemplateOption()
 
 void DialogConfiguration::removeTemplateOption()
 {
+
 }
 
 

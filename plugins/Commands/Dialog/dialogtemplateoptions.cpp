@@ -147,3 +147,9 @@ void DialogTemplateOptions::addOption(const QString& name, bool enabled)
   reset();
 }
 
+void DialogTemplateOptions::removeOption(const QString& name)
+{
+  options.remove(name);
+  reset();
+}
+
