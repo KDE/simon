@@ -59,6 +59,7 @@ CreateBoundValueDialog::CreateBoundValueDialog(QWidget *parent) : KDialog(parent
   connect(ui->cbDataEngine, SIGNAL(activated(QString)), this, SLOT(initDataEngine()));
   connect(ui->pbRequest, SIGNAL(clicked()), this, SLOT(requestSource()));
 #endif
+  connect(ui->pbTest, SIGNAL(clicked()), this, SLOT(test()));
 }
 
 #ifdef USE_PLASMA
@@ -259,8 +260,16 @@ BoundValue* CreateBoundValueDialog::createBoundValue(BoundValue *init)
   } 
   while (name.isEmpty());
 
-  BoundValue *value = 0;
+  BoundValue *value = createBoundValueInstance();
 
+  return value;
+}
+
+
+BoundValue* CreateBoundValueDialog::createBoundValueInstance()
+{
+  BoundValue *value = 0;
+  QString name = ui->leName->text();
   switch (ui->cbType->currentIndex())
   {
     case 0:
@@ -279,8 +288,16 @@ BoundValue* CreateBoundValueDialog::createBoundValue(BoundValue *init)
       break;
 #endif
   }
-
   return value;
+}
+
+
+void CreateBoundValueDialog::test()
+{
+  BoundValue *value = createBoundValueInstance();
+  KMessageBox::information(this, i18n("Expression $%1$ evaluates to:\n%2", ui->leName->text(),
+        value->getValue().toString()));
+  delete value;
 }
 
 CreateBoundValueDialog::~CreateBoundValueDialog()

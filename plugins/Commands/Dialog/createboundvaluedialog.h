@@ -50,6 +50,7 @@ class CreateBoundValueDialog : protected KDialog
   private:
     Ui::CreateBoundValueDialog *ui;
 
+    BoundValue* createBoundValueInstance();
 #ifdef USE_PLASMA
     bool m_requestingSource;
     QString m_currentEngineName;
@@ -62,8 +63,9 @@ class CreateBoundValueDialog : protected KDialog
 
     void initToBoundValue(BoundValue *init);
 
-#ifdef USE_PLASMA
   private slots:
+    void test();
+#ifdef USE_PLASMA
     void initDataEngine();
     void sourceAdded(const QString& source);
     void sourceRemoved(const QString& source);
