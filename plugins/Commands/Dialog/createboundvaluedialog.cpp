@@ -57,7 +57,7 @@ BoundValue* CreateBoundValueDialog::createBoundValue(BoundValue *init)
     if (scriptBoundValue)
     {
       ui->cbType->setCurrentIndex(1);
-      ui->teScript->setText(scriptBoundValue->getValue().toString());
+      ui->teScript->setText(scriptBoundValue->getScript());
     }
   }
 

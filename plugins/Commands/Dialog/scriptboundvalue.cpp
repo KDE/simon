@@ -22,6 +22,9 @@
 #include <QDomElement>
 #include <QDomDocument>
 
+#include <QScriptEngine>
+#include <QScriptValue>
+
 #include <KLocalizedString>
 
 ScriptBoundValue::ScriptBoundValue(const QString& name) : BoundValue(name)
@@ -40,7 +43,9 @@ QString ScriptBoundValue::getTypeName()
 
 QVariant ScriptBoundValue::getValue()
 {
-  return "Fixme";
+  QScriptEngine engine;
+  QScriptValue result = engine.evaluate(m_script);
+  return result.toVariant();
 }
 
 QString ScriptBoundValue::getValueDescription()

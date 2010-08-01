@@ -1,6 +1,10 @@
+find_package(Qt4 COMPONENTS QtCore QtGui QtXml QtScript REQUIRED)
+include (${QT_USE_FILE})
+
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 include(KDE4Macros)
+
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
@@ -44,8 +48,8 @@ kde4_add_ui_files(simondialogcommandplugin_SRCS
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 
 
-target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
-	${KDE4_KIO_LIBS} simonscenarios simonactions )
+target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
+  ${QT_LIBRARIES}	${KDE4_KIO_LIBS} simonscenarios simonactions )
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
 install( FILES simondialogcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddialogplugin )

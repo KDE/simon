@@ -38,6 +38,7 @@ class ScriptBoundValue : public BoundValue
 
     QString getTypeName();
 
+    QString getScript() { return m_script; }
     QVariant getValue();
     QString getValueDescription();
 

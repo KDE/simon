@@ -83,7 +83,11 @@
         </widget>
        </item>
        <item>
-        <widget class="KTextEdit" name="teScript"/>
+        <widget class="KTextEdit" name="teScript">
+         <property name="acceptRichText">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
