@@ -38,7 +38,7 @@ QString DialogText::parse() const
   if (!ok)
     kWarning() << "Failed to parse: " << out;
 
-  out = QString("<html><head /><body><p>%1</p></body></html>").arg(out);
+  out = QString("<html><head /><body><p>%1</p></body></html>").arg(out.replace("\n", "<br />"));
 
   return out;
 }
