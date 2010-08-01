@@ -33,13 +33,12 @@ QString DialogText::parse() const
   kDebug() << "parsing text: " << m_data;
   QString out = m_data;
   
-  //TODO: handle templates
-  
-  //TODO: handle values
   bool ok = m_textParser->parse(out);
 
   if (!ok)
     kWarning() << "Failed to parse: " << out;
+
+  out = QString("<html><head /><body><p>%1</p></body></html>").arg(out);
 
   return out;
 }

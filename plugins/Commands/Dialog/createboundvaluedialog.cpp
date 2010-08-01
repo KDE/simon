@@ -160,6 +160,7 @@ void CreateBoundValueDialog::dataUpdated(const QString& source, const Plasma::Da
   kDebug() << "Source sent new data: " << source;
   Plasma::DataEngine::DataIterator it(data);
 
+  QString currentText = ui->cbKey->currentText();
   while (it.hasNext()) {
     it.next();
 
@@ -200,6 +201,12 @@ void CreateBoundValueDialog::dataUpdated(const QString& source, const Plasma::Da
       ++rowCount;
     }
     */
+  }
+  if (ui->cbKey->currentText() != currentText)
+  {
+    int changedIndex = ui->cbKey->findText(currentText);
+    if (changedIndex != -1)
+      ui->cbKey->setCurrentIndex(changedIndex);
   }
 }
 

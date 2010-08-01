@@ -24,13 +24,21 @@
 #include <QVariant>
 #include <QString>
 
+namespace Plasma
+{
+  class DataEngine;
+}
+
 class PlasmaBoundValue : public BoundValue
 {
   private:
+    Plasma::DataEngine *m_currentEngine;
     QString m_dataEngine;
     QString m_dataEngineName;
     QString m_dataSource;
     QString m_key;
+
+    void initEngine();
 
   protected:
     bool deSerialize(const QDomElement& elem);
@@ -39,6 +47,7 @@ class PlasmaBoundValue : public BoundValue
     PlasmaBoundValue(const QString& name);
     PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName, 
         const QString& dataSource, const QString& key);
+    ~PlasmaBoundValue();
 
     QString getTypeName();
 

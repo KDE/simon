@@ -24,15 +24,24 @@
 
 #include <KLocalizedString>
 #include <Plasma/DataEngine>
+#include <Plasma/DataEngineManager>
 
-PlasmaBoundValue::PlasmaBoundValue(const QString& name) : BoundValue(name)
+PlasmaBoundValue::PlasmaBoundValue(const QString& name) : BoundValue(name), m_currentEngine(0)
 {
 }
 
 PlasmaBoundValue::PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName,
     const QString& dataSource, const QString& key) :
-  BoundValue(name), m_dataEngine(dataEngine), m_dataEngineName(dataEngineName), m_dataSource(dataSource), m_key(key)
+  BoundValue(name), m_currentEngine(0), m_dataEngine(dataEngine), 
+  m_dataEngineName(dataEngineName), m_dataSource(dataSource), m_key(key)
 {
+  initEngine();
+}
+
+void PlasmaBoundValue::initEngine()
+{
+  m_currentEngine = Plasma::DataEngineManager::self()->loadEngine(m_dataEngine);
+  m_currentEngine->query(m_dataSource);
 }
 
 QString PlasmaBoundValue::getTypeName()
@@ -42,12 +51,13 @@ QString PlasmaBoundValue::getTypeName()
 
 QVariant PlasmaBoundValue::getValue()
 {
-  return "FIXME";
+  Plasma::DataEngine::Data data = m_currentEngine->query(m_dataSource);
+  return data.value(m_key);
 }
 
 QString PlasmaBoundValue::getValueDescription()
 {
-  return m_dataEngine+'/'+m_dataSource+'/'+m_key;
+  return m_dataEngineName+'/'+m_dataSource+'/'+m_key;
 }
 
 bool PlasmaBoundValue::deSerialize(const QDomElement& elem)
@@ -63,6 +73,8 @@ bool PlasmaBoundValue::deSerialize(const QDomElement& elem)
   m_dataEngineName = dataEngineElem.attribute("name");
   m_dataSource = dataSourceElem.text();
   m_key = keyElem.text();
+
+  initEngine();
   return true;
 }
 
@@ -87,6 +99,10 @@ bool PlasmaBoundValue::serializePrivate(QDomDocument *doc, QDomElement& elem, in
 }
 
 
+PlasmaBoundValue::~PlasmaBoundValue()
+{
+  Plasma::DataEngineManager::self()->unloadEngine(m_dataEngine);
+}
 
 
 
