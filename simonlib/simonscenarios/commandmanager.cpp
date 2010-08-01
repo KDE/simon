@@ -170,10 +170,12 @@ bool CommandManager::appendCommand(Command *c)
   if (!commands)
     commands = new CommandList();
 
-  beginInsertRows(QModelIndex(), commands->count(), commands->count());
+  int visibleCommands = rowCount();
+  beginInsertRows(QModelIndex(), visibleCommands, visibleCommands);
   c->setParent(this);                             //assign parent
   *commands << c;
   endInsertRows();
+
   return parentScenario->save();
 }
 
@@ -727,9 +729,10 @@ bool CommandManager::deleteCommand(Command *command)
 {
   if (!commands) return false;
 
+  int visibleIndex = 0;
   for (int i=0; i < commands->count(); i++) {
     if (commands->at(i) == command) {
-      beginRemoveRows(QModelIndex(), i, i);
+      beginRemoveRows(QModelIndex(), visibleIndex, visibleIndex);
       commands->removeAt(i);
       endRemoveRows();
 
@@ -739,6 +742,8 @@ bool CommandManager::deleteCommand(Command *command)
       delete command;
       return parentScenario->save();
     }
+    if (!commands->at(i)->getHidden())
+      ++visibleIndex;
   }
 
   return false;
@@ -882,14 +887,21 @@ QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent
 
 int CommandManager::resolveRowNumber(int in) const
 {
-   int i=0;
   int hiddenBefore=0;
+  int shownBefore=0;
 
-  while (i < in)
-    if (!commands->at(i)->getHidden())
+  while (shownBefore < in)
+  {
+    if (commands->at(shownBefore+hiddenBefore)->getHidden())
       ++hiddenBefore;
+    else 
+      ++shownBefore;
+  }
 
-  return hiddenBefore + in;
+  while (commands->at(shownBefore+hiddenBefore)->getHidden())
+    hiddenBefore++;
+
+  return hiddenBefore + shownBefore;
 }
 
 
