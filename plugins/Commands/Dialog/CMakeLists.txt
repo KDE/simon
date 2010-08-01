@@ -26,6 +26,9 @@ set (simondialogcommandplugin_SRCS
   createboundvaluedialog.cpp
   plasmadialogdataprovider.cpp
  
+  boundvalue.cpp
+  dialogboundvalues.cpp
+  staticboundvalue.cpp
     )
 
 kde4_add_ui_files(simondialogcommandplugin_SRCS 

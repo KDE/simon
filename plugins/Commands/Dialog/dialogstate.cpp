@@ -201,7 +201,7 @@ QVariant DialogState::headerData(int column, Qt::Orientation orientation,
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
-        return i18n("Name");
+        return i18nc("Name of the state", "Name");
     }
   }
 

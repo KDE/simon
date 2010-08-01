@@ -27,8 +27,9 @@
 
 #include <KDebug>
 
-DialogTextParser::DialogTextParser(DialogTemplateOptions* templateOptions) :
-  m_templateOptions(templateOptions)
+DialogTextParser::DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues) :
+  m_templateOptions(templateOptions),
+  m_boundValues(boundValues)
 {
 }
 

@@ -57,9 +57,9 @@ QVariant DialogTemplateOptions::headerData(int column, Qt::Orientation orientati
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     switch (column) {
       case 0:
-        return i18n("Name");
+        return i18nc("Name of the template option", "Name");
       case 1:
-        return i18n("Value");
+        return i18nc("Value of the template option", "Value");
     }
   }
 

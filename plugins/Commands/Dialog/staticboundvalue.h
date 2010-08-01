@@ -17,33 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
 
-#include <QList>
+#include "boundvalue.h"
+#include <QVariant>
+#include <QString>
 
-class DialogDataProvider;
-class DialogTemplateOptions;
-class DialogBoundValues;
-
-class DialogTextParser
+class StaticBoundValue : public BoundValue
 {
   private:
-    DialogTemplateOptions *m_templateOptions;
-    DialogBoundValues *m_boundValues;
-    QList<DialogDataProvider*> m_dataProvider;
+    QVariant m_value;
 
-    bool parseTemplates(QString& data);
-    bool parseBoundValues(QString& data);
+  protected:
+    bool deSerialize(const QDomElement& elem);
 
   public:
-    DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues);
-    ~DialogTextParser();
+    StaticBoundValue(const QString& name);
+    StaticBoundValue(const QString& name, const QVariant& value);
+    QVariant getValue();
 
-    bool parse(QString& data);
+    bool serializePrivate(QDomDocument *doc, QDomElement& elem, int& id);
 };
 
 #endif
-
 
 

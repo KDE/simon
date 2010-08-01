@@ -32,6 +32,7 @@ class DialogState;
 class DialogSetContainer;
 class DialogCommandManager;
 class DialogTemplateOptions;
+class DialogBoundValues;
 
 class DialogConfiguration : public CommandConfiguration
 {
@@ -42,6 +43,7 @@ class DialogConfiguration : public CommandConfiguration
     DialogCommandManager *commandManager;
 
     DialogTemplateOptions *templateOptions;
+    DialogBoundValues *boundValues;
 
     void displayStates();
     DialogState* getCurrentState();
@@ -92,6 +94,7 @@ class DialogConfiguration : public CommandConfiguration
 
     void destroy();
     DialogTemplateOptions* getDialogTemplateOptions() { return templateOptions; }
+    DialogBoundValues* getDialogBoundValues() { return boundValues; }
 
 };
 #endif

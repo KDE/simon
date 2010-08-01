@@ -20,6 +20,7 @@
 #include "dialogcommandmanager.h"
 
 #include "dialogtemplateoptions.h"
+#include "dialogboundvalues.h"
 
 #include "dialogstate.h"
 #include "dialogcommand.h"
@@ -52,7 +53,8 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   "im-user",
   DialogCommandPluginFactory::componentData()),
   commandManager(_commandManager),
-  templateOptions(NULL)
+  templateOptions(NULL),
+  boundValues(NULL)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -345,9 +347,11 @@ void DialogConfiguration::addBoundValue()
   CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
 
   BoundValue *boundValue = dialog->createBoundValue();
+ 
+  if (!boundValue)
+    return;
 
-  //if (boundValue)
-  //TODO
+  boundValues->addBoundValue(boundValue);
 }
 
 void DialogConfiguration::editBoundValue()
@@ -369,6 +373,9 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
   QDomElement options = templateOptions->serialize(doc);
   configElem.appendChild(options);
 
+  QDomElement boundValuesElem = boundValues->serialize(doc);
+  configElem.appendChild(boundValuesElem);
+
   //general
 //   QDomElement caseSensitivityElem = doc->createElement("caseSensitivity");
 //   caseSensitivityElem.appendChild(doc->createTextNode(ui.cbCaseSensitivity->isChecked() ? "1" : "0"));
@@ -384,26 +391,26 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   QDomElement options = elem.firstChildElement("options");
   if (!templateOptions)
   {
-    kDebug() << "CREATING INSTANCE";
     templateOptions = DialogTemplateOptions::createInstance(options);
-    if (!templateOptions) {
-      kDebug() << "Failed to deserialize";
+    if (!templateOptions)
       return false;
-    }
+    
     ui.tvTemplateOptions->setModel(templateOptions);
   } else {
     templateOptions->deSerialize(options);
   }
 
-
-  kDebug() << "Template options is now: " << templateOptions;
-
-//   QDomElement caseSensitivityElem = elem.firstChildElement("caseSensitivity");
-//   if (caseSensitivityElem.isNull()) {
-//     defaults();
-//     return true;
-//   }
-//   ui.cbCaseSensitivity->setChecked(caseSensitivityElem.text() == "1");
+  QDomElement boundValuesElem = elem.firstChildElement("boundValues");
+  if (!boundValues)
+  {
+    boundValues = DialogBoundValues::createInstance(boundValuesElem);
+    if (!boundValues)
+      return false;
+    
+    ui.tvBoundValues->setModel(boundValues);
+  } else {
+    boundValues->deSerialize(options);
+  }
 
   return true;
 }

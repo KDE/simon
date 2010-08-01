@@ -17,58 +17,52 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#include "createboundvaluedialog.h"
-#include "ui_createboundvalue.h"
+#include "boundvalue.h"
 #include "staticboundvalue.h"
+#include <QDomElement>
 
-#include <QWidget>
-
-#include <KMessageBox>
-#include <KLocalizedString>
-
-CreateBoundValueDialog::CreateBoundValueDialog(QWidget *parent) : KDialog(parent),
-  ui(new Ui::CreateBoundValueDialog())
+BoundValue* BoundValue::createInstance(const QDomElement& elem)
 {
-  QWidget *main = new QWidget(this);
-  ui->setupUi(main);
-  setMainWidget(main);
-  setCaption(i18n("Bound value"));
-}
+  if (elem.isNull()) return 0;
 
-BoundValue* CreateBoundValueDialog::createBoundValue()
-{
-  QString name;
-  do
-  {
-    if (!exec()) return 0;
-    name = ui->leName->text();
-    if (name.isEmpty())
-      KMessageBox::information(this, i18n("Each bound value has to have a name."));
-  } 
-  while (name.isEmpty());
-
+  QDomElement nameElem = elem.firstChildElement("name");
+  QString name = nameElem.text();
 
   BoundValue *value = 0;
-
-  switch (ui->cbType->currentIndex())
+  switch (elem.attribute("type").toInt())
   {
-    case 0:
-      //static
-      value = new StaticBoundValue(name, ui->leStaticValue->text());
-      break;
     case 1:
-      //script
+      //static
+      value = new StaticBoundValue(name);
       break;
     case 2:
+      //script
+      //value = new ScriptBoundValue(name);
+      break;
+    case 3:
       //plasma
+      //value = new PlasmaBoundValue(name);
       break;
   }
-
+  if (value && !value->deSerialize(elem))
+  {
+    delete value;
+    value = 0;
+  }
   return value;
 }
 
-CreateBoundValueDialog::~CreateBoundValueDialog()
+QDomElement BoundValue::serialize(QDomDocument *doc)
 {
-}
+  int id = 0;
+  QDomElement elem = doc->createElement("boundValue");
+  QDomElement nameElem = doc->createElement("name");
+  nameElem.appendChild(doc->createTextNode(m_name));
+  elem.appendChild(nameElem);
 
+  if (!serializePrivate(doc, elem, id))
+    return QDomElement();
+
+  elem.setAttribute("type", QString::number(id));
+  return elem;
+}
