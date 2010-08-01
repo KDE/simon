@@ -17,24 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
-#define SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#ifndef SIMON_SCRIPTBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_SCRIPTBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
 
 #include "boundvalue.h"
 #include <QVariant>
 #include <QString>
 
-class StaticBoundValue : public BoundValue
+class ScriptBoundValue : public BoundValue
 {
   private:
-    QVariant m_value;
+    QString m_script;
 
   protected:
     bool deSerialize(const QDomElement& elem);
 
   public:
-    StaticBoundValue(const QString& name);
-    StaticBoundValue(const QString& name, const QVariant& value);
+    ScriptBoundValue(const QString& name);
+    ScriptBoundValue(const QString& name, const QString& script);
 
     QString getTypeName();
 
@@ -45,5 +45,6 @@ class StaticBoundValue : public BoundValue
 };
 
 #endif
+
 
 

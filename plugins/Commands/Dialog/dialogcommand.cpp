@@ -194,10 +194,7 @@ bool DialogCommand::deSerializePrivate(const QDomElement& commandElem)
     m_commandTypes << childCommandCategoryElem.text();
     childCommandElem = childCommandElem.nextSiblingElement();
   }
-  kDebug() << "Triggers: " << m_commands;
-  kDebug() << "Categories: " << m_commandTypes;
 
-  kDebug() << "Deserialized " << m_text;
   return true;
 }
 

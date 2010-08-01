@@ -83,7 +83,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KTextEdit" name="ktextedit"/>
+        <widget class="KTextEdit" name="teScript"/>
        </item>
       </layout>
      </widget>

@@ -56,6 +56,8 @@ class DialogBoundValues : public QAbstractItemModel
 
     //BoundValue* getBoundValue(const QString& name);
     QVariant getBoundValue(const QString& name);
+    
+    ~DialogBoundValues();
 };
 
 #endif

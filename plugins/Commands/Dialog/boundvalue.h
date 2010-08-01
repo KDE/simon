@@ -42,8 +42,11 @@ class BoundValue
     virtual ~BoundValue() {}
 
     virtual QVariant getValue()=0;
+    virtual QString getValueDescription()=0;
 
     static BoundValue* createInstance(const QDomElement& elem);
+
+    virtual QString getTypeName()=0;
 
     QString getName() { return m_name; }
 

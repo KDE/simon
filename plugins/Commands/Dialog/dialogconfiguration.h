@@ -32,6 +32,7 @@ class DialogState;
 class DialogSetContainer;
 class DialogCommandManager;
 class DialogTemplateOptions;
+class BoundValue;
 class DialogBoundValues;
 
 class DialogConfiguration : public CommandConfiguration
@@ -53,6 +54,9 @@ class DialogConfiguration : public CommandConfiguration
 
     QString getCurrentTemplateIndex();
     QString getCurrentTemplateIndexGraphical();
+
+    BoundValue* getCurrentBoundValue();
+    BoundValue* getCurrentBoundValueGraphical();
 
   private slots:
     void displayCurrentState();

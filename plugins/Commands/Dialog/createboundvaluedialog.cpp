@@ -21,6 +21,7 @@
 #include "createboundvaluedialog.h"
 #include "ui_createboundvalue.h"
 #include "staticboundvalue.h"
+#include "scriptboundvalue.h"
 
 #include <QWidget>
 
@@ -36,8 +37,30 @@ CreateBoundValueDialog::CreateBoundValueDialog(QWidget *parent) : KDialog(parent
   setCaption(i18n("Bound value"));
 }
 
-BoundValue* CreateBoundValueDialog::createBoundValue()
+BoundValue* CreateBoundValueDialog::createBoundValue(BoundValue *init)
 {
+  if (init)
+  {
+    //init
+    ui->leName->setText(init->getName());
+
+    //static
+    StaticBoundValue *staticBoundValue = dynamic_cast<StaticBoundValue*>(init);
+    if (staticBoundValue)
+    {
+      ui->cbType->setCurrentIndex(0);
+      ui->leStaticValue->setText(staticBoundValue->getValue().toString());
+    }
+
+    //script
+    ScriptBoundValue *scriptBoundValue = dynamic_cast<ScriptBoundValue*>(init);
+    if (scriptBoundValue)
+    {
+      ui->cbType->setCurrentIndex(1);
+      ui->teScript->setText(scriptBoundValue->getValue().toString());
+    }
+  }
+
   QString name;
   do
   {
@@ -59,6 +82,7 @@ BoundValue* CreateBoundValueDialog::createBoundValue()
       break;
     case 1:
       //script
+      value = new ScriptBoundValue(name, ui->teScript->toPlainText());
       break;
     case 2:
       //plasma

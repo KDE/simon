@@ -91,10 +91,8 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
   QDomElement transition = transitions.firstChildElement("command");
 
   QList<DialogCommand*> commands;
-  kDebug() << "Deserializing transitions";
   while (!transition.isNull())
   {
-    kDebug() << "Deserializing transition!";
     DialogCommand *c = DialogCommand::createInstance(transition);
     if (c)
     {
@@ -108,7 +106,6 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
 
   m_text = new DialogText(parser, text.text());
   m_transitions = commands;
-  kDebug() << "Deserialized state: " << text.text();
   return true;
 }
 

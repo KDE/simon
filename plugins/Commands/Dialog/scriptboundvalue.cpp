@@ -17,57 +17,58 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "staticboundvalue.h"
+#include "scriptboundvalue.h"
 
 #include <QDomElement>
 #include <QDomDocument>
 
 #include <KLocalizedString>
 
-StaticBoundValue::StaticBoundValue(const QString& name) : BoundValue(name)
+ScriptBoundValue::ScriptBoundValue(const QString& name) : BoundValue(name)
 {
 }
 
-StaticBoundValue::StaticBoundValue(const QString& name, const QVariant& value) :
-  BoundValue(name), m_value(value)
+ScriptBoundValue::ScriptBoundValue(const QString& name, const QString& script) :
+  BoundValue(name), m_script(script)
 {
 }
 
-QString StaticBoundValue::getTypeName()
+QString ScriptBoundValue::getTypeName()
 {
-  return i18nc("Typename of static bound values", "Static");
+  return i18nc("Typename of script bound values", "Script");
 }
 
-QVariant StaticBoundValue::getValue()
+QVariant ScriptBoundValue::getValue()
 {
-  return m_value;
+  return "Fixme";
 }
 
-QString StaticBoundValue::getValueDescription()
+QString ScriptBoundValue::getValueDescription()
 {
-  return m_value.toString();
+  return m_script;
 }
 
-bool StaticBoundValue::deSerialize(const QDomElement& elem)
+bool ScriptBoundValue::deSerialize(const QDomElement& elem)
 {
-  QDomElement valueElem = elem.firstChildElement("value");
+  QDomElement scriptElem = elem.firstChildElement("script");
 
-  if (valueElem.isNull()) return false;
+  if (scriptElem.isNull()) return false;
 
-  m_value = valueElem.attribute("content");
+  m_script = scriptElem.text();
   return true;
 }
 
-bool StaticBoundValue::serializePrivate(QDomDocument *doc, QDomElement& elem, int& id)
+bool ScriptBoundValue::serializePrivate(QDomDocument *doc, QDomElement& elem, int& id)
 {
-  id = 1;
+  id = 2;
 
-  QDomElement valueElem = doc->createElement("value");
-  valueElem.setAttribute("content", m_value.toString());
+  QDomElement scriptElem = doc->createElement("script");
+  scriptElem.appendChild(doc->createTextNode(m_script));
   
-  elem.appendChild(valueElem);
+  elem.appendChild(scriptElem);
   return true;
 }
+
 
 
 

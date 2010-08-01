@@ -25,7 +25,11 @@
 
 DialogBoundValues::DialogBoundValues()
 {
+}
 
+DialogBoundValues::~DialogBoundValues()
+{
+  qDeleteAll(boundValues);
 }
 
 bool DialogBoundValues::deSerialize(const QDomElement& elem)
@@ -35,22 +39,19 @@ bool DialogBoundValues::deSerialize(const QDomElement& elem)
   QDomElement valueElem = elem.firstChildElement("boundValue");
   while (!valueElem.isNull())
   {
-    kDebug() << "============== Deserializing child";
     BoundValue *value = BoundValue::createInstance(valueElem);
 
     if (value)
     {
-      kDebug() << "============== Successfully";
       boundValues << value;
     }
     else 
     {
-      kDebug() << "============== BAD";
       kDebug() << "Failed to create bound value instance";
       return false;
     }
 
-    valueElem = valueElem.nextSiblingElement("boundValues");
+    valueElem = valueElem.nextSiblingElement("boundValue");
   }
   reset();
 
@@ -110,14 +111,15 @@ QVariant DialogBoundValues::data(const QModelIndex &index, int role) const
 
   if (role == Qt::DisplayRole)
   {
+    BoundValue *value = boundValues.at(index.row());
     switch (index.column())
     {
       case 0:
-        return boundValues.at(index.row())->getName();
+        return value->getName();
       case 1:
-        return "FIXME";
+        return value->getTypeName();
       case 2:
-        return boundValues.at(index.row())->getValue();
+        return value->getValueDescription();
     }
   }
 

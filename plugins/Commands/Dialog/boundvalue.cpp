@@ -19,7 +19,9 @@
 
 #include "boundvalue.h"
 #include "staticboundvalue.h"
+#include "scriptboundvalue.h"
 #include <QDomElement>
+#include <KDebug>
 
 BoundValue* BoundValue::createInstance(const QDomElement& elem)
 {
@@ -29,6 +31,7 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
   QString name = nameElem.text();
 
   BoundValue *value = 0;
+  kDebug() << "Bound value type: " << elem.attribute("type").toInt();
   switch (elem.attribute("type").toInt())
   {
     case 1:
@@ -37,7 +40,8 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
       break;
     case 2:
       //script
-      //value = new ScriptBoundValue(name);
+      value = new ScriptBoundValue(name);
+      kDebug() << "Creating script bound value";
       break;
     case 3:
       //plasma
@@ -46,6 +50,7 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
   }
   if (value && !value->deSerialize(elem))
   {
+      kDebug() << "Failed to deserialize";
     delete value;
     value = 0;
   }

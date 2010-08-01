@@ -39,7 +39,7 @@ class CreateBoundValueDialog : protected KDialog
     virtual ~CreateBoundValueDialog();
 
 
-    BoundValue *createBoundValue();
+    BoundValue *createBoundValue(BoundValue *init=0);
 };
 
 #endif

@@ -22,6 +22,7 @@
 #include "dialogtemplateoptions.h"
 #include "dialogboundvalues.h"
 
+#include "boundvalue.h"
 #include "dialogstate.h"
 #include "dialogcommand.h"
 #include "createdialogcommandwidget.h"
@@ -342,6 +343,19 @@ void DialogConfiguration::removeTemplateOption()
   templateOptions->removeOption(id);
 }
 
+BoundValue* DialogConfiguration::getCurrentBoundValue()
+{
+  return static_cast<BoundValue*>(ui.tvBoundValues->currentIndex().internalPointer());
+}
+
+BoundValue* DialogConfiguration::getCurrentBoundValueGraphical()
+{
+  BoundValue *value = getCurrentBoundValue();
+  if (!value)
+    KMessageBox::information(this, i18n("Please select a bound value from the table above."));
+  return value;
+}
+
 void DialogConfiguration::addBoundValue()
 {
   CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
@@ -352,16 +366,31 @@ void DialogConfiguration::addBoundValue()
     return;
 
   boundValues->addBoundValue(boundValue);
+  delete dialog;
 }
 
 void DialogConfiguration::editBoundValue()
 {
+  BoundValue *value = getCurrentBoundValueGraphical();
+  if (!value) return;
 
+  CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
+  BoundValue *newValue = dialog->createBoundValue(value);
+  if (newValue)
+  {
+    if (!boundValues->removeBoundValue(value))
+      delete value;
+    if (!boundValues->addBoundValue(newValue))
+      KMessageBox::sorry(this, i18n("Could not edit bound value."));
+  }
+  delete dialog;
 }
 
 void DialogConfiguration::removeBoundValue()
 {
-
+  BoundValue *value = getCurrentBoundValueGraphical();
+  if (!value) return;
+  boundValues->removeBoundValue(value);
 }
 
 

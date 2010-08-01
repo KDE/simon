@@ -29,6 +29,7 @@ set (simondialogcommandplugin_SRCS
   boundvalue.cpp
   dialogboundvalues.cpp
   staticboundvalue.cpp
+  scriptboundvalue.cpp
     )
 
 kde4_add_ui_files(simondialogcommandplugin_SRCS 
