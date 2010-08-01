@@ -178,13 +178,13 @@ bool DialogBoundValues::removeBoundValue(BoundValue *value)
   return false;
 }
 
-BoundValue* DialogBoundValues::getBoundValue(const QString& name)
+QVariant DialogBoundValues::getBoundValue(const QString& name)
 {
   foreach (BoundValue *value, boundValues)
     if (value->getName() == name)
-      return value;
+      return value->getValue();
 
-  return 0;
+  return QVariant();
 }
 
 

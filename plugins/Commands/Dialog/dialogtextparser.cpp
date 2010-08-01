@@ -19,11 +19,13 @@
 
 #include "dialogtextparser.h"
 #include "dialogtemplateoptions.h"
+#include "dialogboundvalues.h"
 
 #include "dialogdataprovider.h"
 
 #include <QStringList>
 #include <QRegExp>
+#include <QVariant>
 
 #include <KDebug>
 
@@ -138,6 +140,34 @@ bool DialogTextParser::parseBoundValues(QString& data)
   QString outData = data;
 
   //TODO: processing
+
+  int beginPos = outData.indexOf("$");
+  int endPos = -1;
+
+  kDebug() << "Processing";
+
+  while (beginPos != -1)
+  {
+    kDebug() << "Found variable";
+    endPos = outData.indexOf("$", beginPos + 1);
+    if (endPos == -1)
+    {
+      kWarning() << "Syntax error: Unclosed variable at " << beginPos;
+      return false;
+    }
+    QString variable = outData.mid(beginPos+1, endPos-beginPos-1);
+    kDebug() << "Requesting variable" << variable;
+
+    QVariant value = m_boundValues->getBoundValue(variable);
+    if (value.isNull())
+    {
+      kWarning() << "Variable not bound: " << variable;
+      return false;
+    }
+    
+    outData = outData.replace(beginPos, endPos-beginPos+1, value.toString());
+    beginPos = outData.indexOf("$", beginPos+1);
+  }
 
   data = outData;
   return true;
