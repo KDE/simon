@@ -247,7 +247,10 @@ void DialogConfiguration::removeTransition()
 {
   DialogState *state = getCurrentStateGraphical();
   DialogCommand *transition = getCurrentTransitionGraphical();
-  if (!state || !transition)
+  if (!state || !transition || 
+      KMessageBox::questionYesNoCancel(this, 
+        i18n("Do you really want to remove the selected transition?"))
+      != KMessageBox::Yes)
     return;
 
   state->removeTransition(transition);
@@ -389,7 +392,10 @@ void DialogConfiguration::editBoundValue()
 void DialogConfiguration::removeBoundValue()
 {
   BoundValue *value = getCurrentBoundValueGraphical();
-  if (!value) return;
+  if (!value || KMessageBox::questionYesNoCancel(this, 
+        i18n("Do you really want to remove the selected bound value option?"))
+      != KMessageBox::Yes) return;
+
   boundValues->removeBoundValue(value);
 }
 

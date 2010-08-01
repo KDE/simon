@@ -23,17 +23,56 @@
 
 #include <KDialog>
 
+//#ifdef USE_PLASMA
+//#include <KService>
+//#endif
+
 namespace Ui
 {
   class CreateBoundValueDialog;
 }
 
+#ifdef USE_PLASMA
+namespace Plasma
+{
+  class DataEngineManager;
+  //class DataEngine::Data;
+}
+
+#include <Plasma/DataEngine>
+#endif
+
 class BoundValue;
 
 class CreateBoundValueDialog : protected KDialog
 {
+  Q_OBJECT
   private:
     Ui::CreateBoundValueDialog *ui;
+
+#ifdef USE_PLASMA
+    bool m_requestingSource;
+    QString m_currentEngineName;
+    Plasma::DataEngine *m_currentEngine;
+    Plasma::DataEngineManager *m_engineManager;
+    //QList<KService::Ptr> m_dataEngines;
+
+    void initPlasma();
+#endif
+
+    void initToBoundValue(BoundValue *init);
+
+#ifdef USE_PLASMA
+  private slots:
+    void initDataEngine();
+    void sourceAdded(const QString& source);
+    void sourceRemoved(const QString& source);
+    void requestSource();
+    void addPlasmaSource(const QString source);
+
+    void dataUpdated(const QString& source, const Plasma::DataEngine::Data& data);
+#endif
+
   public:
     CreateBoundValueDialog(QWidget *parent=0);
     virtual ~CreateBoundValueDialog();

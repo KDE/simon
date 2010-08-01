@@ -20,6 +20,9 @@
 #include "boundvalue.h"
 #include "staticboundvalue.h"
 #include "scriptboundvalue.h"
+#ifdef USE_PLASMA
+#include "plasmaboundvalue.h"
+#endif
 #include <QDomElement>
 #include <KDebug>
 
@@ -43,10 +46,12 @@ BoundValue* BoundValue::createInstance(const QDomElement& elem)
       value = new ScriptBoundValue(name);
       kDebug() << "Creating script bound value";
       break;
+#ifdef USE_PLASMA
     case 3:
       //plasma
-      //value = new PlasmaBoundValue(name);
+      value = new PlasmaBoundValue(name);
       break;
+#endif
   }
   if (value && !value->deSerialize(elem))
   {

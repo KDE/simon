@@ -47,8 +47,7 @@ bool DialogBoundValues::deSerialize(const QDomElement& elem)
     }
     else 
     {
-      kDebug() << "Failed to create bound value instance";
-      return false;
+      kWarning() << "Failed to create bound value instance";
     }
 
     valueElem = valueElem.nextSiblingElement("boundValue");
