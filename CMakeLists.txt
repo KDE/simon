@@ -1,5 +1,7 @@
 project(simon)
 
+ENABLE_TESTING()
+
 cmake_minimum_required(VERSION 2.6)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
@@ -308,6 +310,7 @@ include(CPack)
 add_subdirectory(julius)
 
 find_package(KDE4 "4.4" REQUIRED)
+
 if(WIN32)
 # old gcc because of MinGW
 #add_definitions(-std=c++98 -D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)

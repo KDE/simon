@@ -1,3 +1,5 @@
+ENABLE_TESTING()
+
 find_package(Qt4 COMPONENTS QtCore QtGui QtXml QtScript REQUIRED)
 include (${QT_USE_FILE})
 
@@ -72,5 +74,10 @@ install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPO
 install( FILES simondialogcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
 add_subdirectory(po)
 
-# install(FILES dialogsets.xml DESTINATION
-# 	${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommanddialogplugin)
+########
+# Tests
+########
+
+add_subdirectory(tests)
+
+
