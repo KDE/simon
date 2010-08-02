@@ -44,7 +44,6 @@ set (simondialogcommandplugin_SRCS
 if (USE_PLASMA)
 set (simondialogcommandplugin_SRCS 
   ${simondialogcommandplugin_SRCS}
-  #plasmadialogdataprovider.cpp
   plasmaboundvalue.cpp
   )
 endif(USE_PLASMA)

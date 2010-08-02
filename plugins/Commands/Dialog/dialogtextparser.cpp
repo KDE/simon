@@ -21,8 +21,6 @@
 #include "dialogtemplateoptions.h"
 #include "dialogboundvalues.h"
 
-#include "dialogdataprovider.h"
-
 #include <QStringList>
 #include <QRegExp>
 #include <QVariant>
@@ -187,7 +185,6 @@ bool DialogTextParser::parse(QString& data)
 
 DialogTextParser::~DialogTextParser()
 {
-  qDeleteAll(m_dataProvider);
 }
 
 

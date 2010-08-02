@@ -31,7 +31,6 @@ class DialogTextParser
   private:
     DialogTemplateOptions *m_templateOptions;
     DialogBoundValues *m_boundValues;
-    QList<DialogDataProvider*> m_dataProvider;
 
     bool parseTemplates(QString& data);
     bool parseBoundValues(QString& data);
