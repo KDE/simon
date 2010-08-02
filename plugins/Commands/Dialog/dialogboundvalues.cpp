@@ -159,6 +159,8 @@ QDomElement DialogBoundValues::serialize(QDomDocument *doc)
 
 bool DialogBoundValues::addBoundValue(BoundValue *value)
 {
+  if (!value) return false;
+
   beginInsertRows(QModelIndex(), boundValues.count(), boundValues.count());
   boundValues << value;
   endInsertRows();

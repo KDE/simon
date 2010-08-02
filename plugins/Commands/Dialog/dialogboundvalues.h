@@ -34,7 +34,7 @@ class DialogBoundValues : public QAbstractItemModel
     QList<BoundValue*> boundValues;
     DialogBoundValues();
 
-  protected:
+  public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;
@@ -46,7 +46,6 @@ class DialogBoundValues : public QAbstractItemModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-  public:
     static DialogBoundValues* createInstance(const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
     bool deSerialize(const QDomElement& elem);

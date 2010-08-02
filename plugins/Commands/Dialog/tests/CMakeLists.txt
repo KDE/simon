@@ -4,7 +4,22 @@ find_package(KDE4 REQUIRED)
 
 include(KDE4Defaults)
 
-set (simondialogcommandplugintest_SRCS
+if (USE_PLASMA)
+  set (simondialogcommandplugintest_plasma_SRCS
+      ../plasmaboundvalue.cpp
+      )
+  set (simondialogcommandplugintest_plasma_LIBS
+      ${KDE4_PLASMA_LIBS}
+      )
+endif (USE_PLASMA)
+
+
+
+#################################
+##### *BoundValue ####=##########
+#################################
+
+set (simondialogcommandpluginboundvaluetest_SRCS
   boundvaluetest.cpp
 
   #deps
@@ -13,26 +28,42 @@ set (simondialogcommandplugintest_SRCS
   ../scriptboundvalue.cpp
 )
 
-if (USE_PLASMA)
-  set (simondialogcommandplugintest_ADITIONAL_SRCS
-      ../plasmaboundvalue.cpp
-      )
-endif (USE_PLASMA)
 
-
-kde4_add_unit_test(simondialogcommandplugintest-boundvalues TESTNAME
-  boundValues
-  ${simondialogcommandplugintest_SRCS}
-  ${simondialogcommandplugintest_ADITIONAL_SRCS}
+kde4_add_unit_test(simondialogcommandplugintest-boundvalue TESTNAME
+  simondialogcommandplugin-boundValue
+  ${simondialogcommandpluginboundvaluetest_SRCS}
+  ${simondialogcommandplugintest_plasma_SRCS}
 )
 
-if (USE_PLASMA)
-  set (simondialogcommandplugintest_ADITIONAL_LIBS
-      ${KDE4_PLASMA_LIBS}
-      )
-endif (USE_PLASMA)
 
-target_link_libraries( simondialogcommandplugintest-boundvalues
-  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY}
-  ${QT_LIBRARIES} ${simondialogcommandplugintest_ADITIONAL_LIBS}
+target_link_libraries( simondialogcommandplugintest-boundvalue
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${simondialogcommandplugintest_plasma_LIBS}
 )
+
+#################################
+##### DialogBoundValues #########
+#################################
+
+set (simondialogcommandplugindialogboundvaluestest_SRCS
+  dialogboundvaluestest.cpp
+
+  #deps
+  ../dialogboundvalues.cpp
+  ../boundvalue.cpp
+  ../staticboundvalue.cpp
+  ../scriptboundvalue.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-dialogboundvalues TESTNAME
+  simondialogcommandplugin-dialogboundvalues
+  ${simondialogcommandplugindialogboundvaluestest_SRCS}
+  ${simondialogcommandplugintest_plasma_SRCS}
+)
+
+target_link_libraries( simondialogcommandplugintest-dialogboundvalues
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${simondialogcommandplugintest_plasma_LIBS}
+)
+
+
