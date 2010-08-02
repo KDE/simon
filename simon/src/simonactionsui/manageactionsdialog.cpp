@@ -29,7 +29,6 @@
 #include <simonscenarios/actioncollection.h>
 
 #include <KMessageBox>
-#include <KCModule>
 #include <KAboutData>
 #include <KPageWidget>
 
