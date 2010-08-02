@@ -95,6 +95,7 @@ set (simondialogcommandplugindialogtextparsertest_SRCS
 
   #deps
   ../dialogtextparser.cpp
+  ../dialogtext.cpp
   ../dialogtemplateoptions.cpp
   ../dialogboundvalues.cpp
   ../boundvalue.cpp

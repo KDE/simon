@@ -6,6 +6,7 @@
 
 #include "../dialogtemplateoptions.h"
 #include "../dialogtextparser.h"
+#include "../dialogtext.h"
 #include "../dialogboundvalues.h"
 
 class testDialogTextParser: public QObject
@@ -15,6 +16,7 @@ class testDialogTextParser: public QObject
     void testGeneral();
     void testParse();
     void testParse_data();
+    void testText();
 
   private:
     DialogTemplateOptions *options;
@@ -94,6 +96,18 @@ void testDialogTextParser::testParse()
   bool ret = textParser->parse(input);
   QCOMPARE(input, output);
   QCOMPARE(ret, success);
+}
+
+void testDialogTextParser::testText()
+{
+  QString source = "{{nice}}$time${{endnice}}";
+  DialogText *test = new DialogText(textParser, source);
+  QCOMPARE(test->parse(), QString("<html><head /><body><p>Test</p></body></html>"));
+  QCOMPARE(test->source(), source);
+  source = "$unbound$";
+  test->setSource(source);
+  QCOMPARE(test->source(), source);
+  QCOMPARE(test->parse(), QString("<html><head /><body><p>$unbound$</p></body></html>"));
 }
 
  
