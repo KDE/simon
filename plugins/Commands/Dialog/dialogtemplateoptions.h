@@ -32,7 +32,7 @@ class DialogTemplateOptions : public QAbstractItemModel
     QMap<QString, bool> options;
     DialogTemplateOptions();
 
-  protected:
+  public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;
@@ -44,7 +44,6 @@ class DialogTemplateOptions : public QAbstractItemModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-  public:
     static DialogTemplateOptions* createInstance(const QDomElement& elem);
     QDomElement serialize(QDomDocument *doc);
     bool deSerialize(const QDomElement& elem);

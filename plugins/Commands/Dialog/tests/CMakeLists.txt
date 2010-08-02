@@ -66,4 +66,50 @@ target_link_libraries( simondialogcommandplugintest-dialogboundvalues
   ${simondialogcommandplugintest_plasma_LIBS}
 )
 
+#################################
+##### DialogTemplateOptions #####
+#################################
+
+set (simondialogcommandplugindialogtemplateoptionstest_SRCS
+  dialogtemplateoptionstest.cpp
+
+  #deps
+  ../dialogtemplateoptions.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-dialogtemplateoptions TESTNAME
+  simondialogcommandplugin-dialogtemplateoptions
+  ${simondialogcommandplugindialogtemplateoptionstest_SRCS}
+)
+
+target_link_libraries( simondialogcommandplugintest-dialogtemplateoptions
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+)
+
+#################################
+##### DialogTextParser ##########
+#################################
+
+set (simondialogcommandplugindialogtextparsertest_SRCS
+  dialogtextparsertest.cpp
+
+  #deps
+  ../dialogtextparser.cpp
+  ../dialogtemplateoptions.cpp
+  ../dialogboundvalues.cpp
+  ../boundvalue.cpp
+  ../staticboundvalue.cpp
+  ../scriptboundvalue.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-dialogtextparser TESTNAME
+  simondialogcommandplugin-dialogtextparser
+  ${simondialogcommandplugindialogtextparsertest_SRCS}
+  ${simondialogcommandplugintest_plasma_SRCS}
+)
+
+target_link_libraries( simondialogcommandplugintest-dialogtextparser
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${simondialogcommandplugintest_plasma_LIBS}
+)
 
