@@ -196,7 +196,7 @@ void testDialog::testGeneral()
      "<transitions>"
       "<command>"
        "<name>Back</name>"
-       "<icon>go-back</icon>"
+       "<icon>go-left</icon>"
        "<description>Goes back to page 1</description>"
        "<state>4098</state>"
        "<newState>4096</newState>"
@@ -206,7 +206,7 @@ void testDialog::testGeneral()
         "<icon enabled=\"1\"/>"
        "</presentation>"
        "<auto>"
-        "<active>1</active>"
+        "<active>0</active>"
         "<timeout>1500</timeout>"
        "</auto>"
        "<switchState enabled=\"1\">1</switchState>"
@@ -243,7 +243,7 @@ void testDialog::testGeneral()
 
 void testDialog::testStates()
 {
-//  if (!sender()) QSKIP("Make it fast", SkipAll);
+  //if (!sender()) QSKIP("Make it fast", SkipAll);
 
   clickConfigButton("pbAddState", 500, SLOT(fillInNewStateDialog()));
   QTest::qWait(1000);
@@ -618,15 +618,14 @@ void testDialog::testView()
   kDebug() << "here4";
 
   //activate first option to go back to page 1
-  clickDialogOption("Back", 500, SLOT(checkView1()));
+  QTimer::singleShot(500, this, SLOT(checkView1()));
+  dialog->trigger("Back");
+  //clickDialogOption("Back", 500, SLOT(checkView1()));
 
   //let timeout run out
   QTest::qWait(4000);
 
   QCOMPARE(visualView->isVisible(), false);
- 
-  //QTimer::singleShot(3000, app, SLOT(quit()));
-  //app->exec();
 }
 
 QString testDialog::currentlyDisplayedDialogText()
@@ -644,14 +643,12 @@ QString testDialog::currentlyDisplayedDialogText()
 void testDialog::checkView1()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
-  kDebug() << "===================Check view 1";
   QCOMPARE(currentlyDisplayedDialogText(), QString("<html><head /><body><p>Welcome, Sir: Test</p></body></html>"));
 }
 
 void testDialog::checkView2()
 {
   if (!sender()) QSKIP("Internal slot, not a test by itself", SkipAll);
-  kDebug() << "===================Check view 2";
   QCOMPARE(currentlyDisplayedDialogText(), QString("<html><head /><body><p>Thanks</p></body></html>"));
 }
 
@@ -722,7 +719,6 @@ void testDialog::clickConfigButton(const QString& buttonName, int delay, const Q
   DialogConfiguration *config = static_cast<DialogConfiguration*>(dialog->getConfigurationPage());
   KPushButton *button = findChild<KPushButton*>(config, buttonName);
   QVERIFY(button);
-  kDebug() << "Clicking: " << button->text();
 
   QTimer::singleShot(delay, this, slot.toAscii().constData());
   QTest::mouseClick(button, Qt::LeftButton);
@@ -732,9 +728,7 @@ void testDialog::clickDialogOption(const QString& triggerName, int delay, const 
 {
   QWidget *visualView = getDialogView();
   KPushButton *button = findChild<KPushButton*>(visualView, QString("dialogOption%1").arg(triggerName));
-  kDebug() << "===================Clicking option: " << visualView << button;
   QVERIFY(button);
-  kDebug() << "Clicking: " << button->text();
 
   QTimer::singleShot(delay, this, slot.toAscii().constData());
   QTest::mouseClick(button, Qt::LeftButton);

@@ -68,8 +68,11 @@ bool Command::trigger(int* state)
     KIcon commandIcon = getIcon();
     SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
   }
-  *state = switchToState;
-  kDebug() << "Switchting to state: " << switchToState << getTrigger();
+  if (state)
+  {
+    *state = switchToState;
+    kDebug() << "Switchting to state: " << switchToState << getTrigger();
+  }
   return triggerPrivate(state);
 }
 

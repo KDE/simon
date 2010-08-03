@@ -39,7 +39,6 @@ DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *par
 
 void DialogCommandButton::go()
 {
-  int state = 0;
-  m_transition->trigger(&state);
+  m_transition->trigger(0);
 }
 

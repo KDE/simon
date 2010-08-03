@@ -108,6 +108,9 @@ bool DialogCommand::triggerPrivate(int *state)
       succ = ActionManager::getInstance()->triggerCommand(m_commandTypes[i], m_commands[i]) && succ;
   }
 
+  if (!state)
+    Command::parent()->switchToState(switchToState);
+
   return succ;
 }
 
@@ -211,8 +214,7 @@ void DialogCommand::createStateLink(int thisState)
 void DialogCommand::autoTrigger()
 {
   m_autoTimer->stop();
-  int fake;
-  trigger(&fake);
+  trigger(0);
 }
 
 void DialogCommand::left()

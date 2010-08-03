@@ -89,8 +89,10 @@ bool CommandManager::trigger(const QString& triggerName)
 
   foreach (Command* c, *commands) {
     if (c->matches(m_currentState, triggerName))
+    {
       if (c->trigger(&m_currentState))
         return true;
+    } else kDebug() << "Command doesn't match: " << c->getTrigger() << triggerName;
   }
 
   return false;
