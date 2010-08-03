@@ -195,6 +195,38 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      */
     CommandConfiguration *config;
 
+    
+    void adaptUi();
+
+    virtual bool appendCommand(Command *com);
+
+    /**
+     * \brief Can this CommandManager handle the given command?
+     *
+     * Reimplement this in your derived class if you handle commands
+     * of a custom Command derived type.
+     *
+     * The default implementation is false.
+     *
+     * \sa addCommandPrivate()
+     *
+     * \return True if the CommandManager can process the command
+     */
+    virtual bool shouldAcceptCommand(Command *com) {
+      Q_UNUSED(com);
+      return false;
+    }
+
+
+    /**
+     * \brief Adapts a row number to the real command number
+     * \param in The row number to find
+     * \return The id in the commands list that the row number refers to
+     */
+    inline int resolveRowNumber(int in) const;
+
+
+  public:
     /**
      * \brief Item flags of the given model index
      *
@@ -213,7 +245,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      * a (horizontal) header and not return any vertical headers.
      */
     QVariant headerData(int, Qt::Orientation orientation,
-    int role = Qt::DisplayRole) const;
+        int role = Qt::DisplayRole) const;
 
     /**
      * \brief Explicit call to QObject::parent()
@@ -274,36 +306,6 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      */
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-    void adaptUi();
-
-    virtual bool appendCommand(Command *com);
-
-    /**
-     * \brief Can this CommandManager handle the given command?
-     *
-     * Reimplement this in your derived class if you handle commands
-     * of a custom Command derived type.
-     *
-     * The default implementation is false.
-     *
-     * \sa addCommandPrivate()
-     *
-     * \return True if the CommandManager can process the command
-     */
-    virtual bool shouldAcceptCommand(Command *com) {
-      Q_UNUSED(com);
-      return false;
-    }
-
-
-    /**
-     * \brief Adapts a row number to the real command number
-     * \param in The row number to find
-     * \return The id in the commands list that the row number refers to
-     */
-    inline int resolveRowNumber(int in) const;
-
-  public:
     /**
      * \brief Return the localized name of this plugin
      */

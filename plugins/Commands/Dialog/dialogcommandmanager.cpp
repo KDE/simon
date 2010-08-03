@@ -112,8 +112,10 @@ bool DialogCommandManager::addState(const QString& name)
   connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
   connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
   dialogStates << state;
+  kDebug() << "Adding state...";
 
-  return parentScenario->save();
+  return true;
+  //return parentScenario->save();
 }
 
 bool DialogCommandManager::removeState(DialogState *state)
@@ -124,7 +126,8 @@ bool DialogCommandManager::removeState(DialogState *state)
     return false;
 
   delete state;
-  return parentScenario->save();
+  return true;
+  //return parentScenario->save();
 }
 
 bool DialogCommandManager::moveStateUp(DialogState *state)
@@ -133,7 +136,8 @@ bool DialogCommandManager::moveStateUp(DialogState *state)
   if (index <= 0) return false;
 
   dialogStates.insert(index-1, dialogStates.takeAt(index));
-  return parentScenario->save();
+  return true;
+  //return parentScenario->save();
 }
 
 bool DialogCommandManager::moveStateDown(DialogState *state)
@@ -143,7 +147,8 @@ bool DialogCommandManager::moveStateDown(DialogState *state)
     return false;
 
   dialogStates.insert(index+1, dialogStates.takeAt(index));
-  return parentScenario->save();
+  return true;
+  //return parentScenario->save();
 }
 
 
@@ -234,7 +239,8 @@ QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
 void DialogCommandManager::stateChanged()
 {
   bindStateCommands();
-  parentScenario->save();
+  //TODO: save here?
+  //parentScenario->save();
 }
 
 bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)

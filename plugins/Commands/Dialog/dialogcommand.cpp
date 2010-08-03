@@ -98,16 +98,17 @@ const QMap<QString,QVariant> DialogCommand::getValueMapPrivate() const
 bool DialogCommand::triggerPrivate(int *state)
 {
   Q_UNUSED(state);
+  bool succ = true;
   kDebug() << "Triggering...";
   if (m_changeDialogState)
     emit requestDialogState(m_nextDialogState);
   if (m_executeCommands)
   {
     for (int i=0; i < m_commands.count();i++)
-      ActionManager::getInstance()->triggerCommand(m_commandTypes[i], m_commands[i]);
+      succ = ActionManager::getInstance()->triggerCommand(m_commandTypes[i], m_commands[i]) && succ;
   }
 
-  return true;
+  return succ;
 }
 
 

@@ -114,3 +114,111 @@ target_link_libraries( simondialogcommandplugintest-dialogtextparser
   ${simondialogcommandplugintest_plasma_LIBS}
 )
 
+#################################
+##### DialogCommand #############
+#################################
+
+set (simondialogcommandplugindialogcommandtest_SRCS
+  dialogcommandtest.cpp
+
+  #deps
+  ../dialogcommand.cpp
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-dialogcommand TESTNAME
+  simondialogcommandplugin-dialogcommand
+  ${simondialogcommandplugindialogcommandtest_SRCS}
+)
+
+target_link_libraries( simondialogcommandplugintest-dialogcommand
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  simonscenarios simonactions
+)
+
+#################################
+##### DialogState ###############
+#################################
+
+set (simondialogcommandplugindialogstatetest_SRCS
+  dialogstatetest.cpp
+
+  #deps
+  ../dialogstate.cpp
+  ../dialogcommand.cpp
+
+  ../dialogtextparser.cpp
+  ../dialogtext.cpp
+  ../dialogtemplateoptions.cpp
+  ../dialogboundvalues.cpp
+  ../boundvalue.cpp
+  ../staticboundvalue.cpp
+  ../scriptboundvalue.cpp
+  ${simondialogcommandplugintest_plasma_SRCS}
+)
+
+kde4_add_unit_test(simondialogcommandplugintest-dialogstate TESTNAME
+  simondialogcommandplugin-dialogstate
+  ${simondialogcommandplugindialogstatetest_SRCS}
+)
+
+target_link_libraries( simondialogcommandplugintest-dialogstate
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${simondialogcommandplugintest_plasma_LIBS}
+  simonscenarios simonactions
+)
+
+#################################
+##### DialogState ###############
+#################################
+
+include_directories(../)
+set (simondialogcommandplugindialogtest_SRCS
+  dialogtest.cpp
+
+  #deps
+	../dialogcommandmanager.cpp 
+	../dialogconfiguration.cpp
+	../dialogcommand.cpp
+	../createdialogcommandwidget.cpp
+
+  ../visualdialogview.cpp
+  ../dialogstate.cpp
+  ../dialogtext.cpp
+  ../dialogtextparser.cpp
+
+  ../dialogcommandbutton.cpp
+  ../createtransitiondialog.cpp
+
+  ../dialogtemplateoptions.cpp
+  ../createtemplateoptiondialog.cpp
+
+  ../createboundvaluedialog.cpp
+ 
+  ../boundvalue.cpp
+  ../dialogboundvalues.cpp
+  ../staticboundvalue.cpp
+  ../scriptboundvalue.cpp
+  ${simondialogcommandplugintest_plasma_SRCS}
+)
+
+kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
+	../dialogwidget.ui
+	../dialogconfigurationdlg.ui
+	../createdialogcommandwidget.ui
+	../createtransitiondlg.ui
+  ../createtemplateoptiondialog.ui
+  ../createboundvalue.ui
+    )
+
+kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
+  simondialogcommandplugin-dialog
+  ${simondialogcommandplugindialogtest_SRCS}
+)
+
+
+target_link_libraries( simondialogcommandplugintest-dialog
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+  ${simondialogcommandplugintest_plasma_LIBS}
+  simonscenarios simonactions
+)
+

@@ -25,6 +25,7 @@ DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *par
   m_transition(transition)
 {
   setText(transition->text());
+  setObjectName(QString("dialogOption%1").arg(transition->getTrigger()));
 
   if (transition->showIcon())
     setIcon(transition->getIcon());

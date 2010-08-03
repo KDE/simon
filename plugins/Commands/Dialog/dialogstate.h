@@ -42,9 +42,9 @@ class DialogState : public QAbstractItemModel
     DialogText *m_text;
     QList<DialogCommand*> m_transitions;
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState(QObject *parent=0) : QAbstractItemModel(parent) {}
+    DialogState(QObject *parent=0) : QAbstractItemModel(parent), m_text(NULL) {}
 
-  protected:
+  public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;
@@ -56,7 +56,6 @@ class DialogState : public QAbstractItemModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
-  public:
     DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
         QList<DialogCommand*> transitions, QObject *parent=0);
 
