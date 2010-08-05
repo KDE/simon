@@ -3,87 +3,33 @@
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
   <!ENTITY kmyapplication "<application>simon</application>">
-  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
-                                            do *not* replace kappname-->
+  <!ENTITY kappname "&kmyapplication;">
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
-                                     original documentation, change
-                                     the language here -->
+  <!ENTITY % English "INCLUDE"> 
 
-  <!-- Do not define any other entities; instead, use the entities
-       from entities/general.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.9 January 10 2003
-     Changes to comments to clarify entity usage January 10 2003
-     Minor update to "Credits and Licenses" section on August 24, 2000
-     Removed "Revision history" section on 22 January 2001
-     Changed to Installation/Help menu entities 18 October 2001
-     Other minor cleanup and changes 18 October 2001
-     FPI change and minor changes November 2002 -->
 
-<!--
-This template was designed by: David Rugge davidrugge@mindspring.com
-with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
-and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
-of the KDE DocBook team.
 
-You may freely use this template for writing any sort of KDE documentation.
-If you have any changes or improvements, please let us know.
-
-Remember:
-- in XML, the case of the <tags> and attributes is relevant ;
-- also, quote all attributes.
-
-Please don't forget to remove all these comments in your final documentation,
-thanks ;-).
--->
-
-<!-- ................................................................ -->
-
-<!-- The language must NOT be changed here. -->
-<!-- If you are writing original documentation in a language other -->
-<!-- than English, change the language above ONLY, not here -->
 <book lang="&language;">
-
-<!-- This header contains all of the meta-information for the document such
-as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 <title>The &kmyapplication; Handbook</title>
-
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 <copyright>
 <year>2008-2010</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
-
 <date>2010-07-25</date>
 <releaseinfo>0.3</releaseinfo>
 
-<!-- Translators: put here the copyright notice of the translation -->
-<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-     and in the FDL itself on how to use it. -->
 <legalnotice>&FDLNotice;</legalnotice>
 
 <authorgroup>
 <author>
-<!-- This is just put in as an example.  For real documentation, please
-     define a general entity in entities/contributor.entities, e.g.
-<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
-<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
-and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
- -->
 <personname>
 <firstname>Peter</firstname>
 <othername>H.</othername>
@@ -93,17 +39,11 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 </author>
 </authorgroup>
 
-<!-- Abstract about this handbook -->
-
 <abstract>
 <para>
 &kmyapplication; is an open source speech recognition solution.
 </para>
 </abstract>
-
-<!-- This is a set of Keywords for indexing by search engines.
-Please at least include KDE, the KDE package it is in, the name
- of your application, and a few relevant keywords. -->
 
 <keywordset>
 <keyword>KDE</keyword>
@@ -122,22 +62,8 @@ Please at least include KDE, the KDE package it is in, the name
 
 </bookinfo>
 
-<!-- The contents of the documentation begin here.  Label
-each chapter so with the id attribute. This is necessary for two reasons: it
-allows you to easily reference the chapter from other chapters of your
-document, and if there is no ID, the name of the generated HTML files will vary
-from time to time making it hard to manage for maintainers and for the CVS
-system. Any chapter labelled (OPTIONAL) may be left out at the author's
-discretion. Other chapters should not be left out in order to maintain a
-consistent documentation style across all KDE apps. -->
-
 <chapter id="introduction">
 <title>Introduction</title>
-
-<!-- The introduction chapter contains a brief introduction for the
-application that explains what it does and where to report
-problems. Basically a long version of the abstract.  Don't include a
-revision history. (see installation appendix comment) -->
 
 <para>
 &kmyapplication; is the main front end for the simon open source speech recognition solution.
@@ -235,7 +161,7 @@ A speech model consists of two distinct parts:
 <title>Language Model</title>
 
 <para>The language model defines the vocabulary and the grammar you want to use.</para>
-<para>For more information see the <link linkend="wordlist">vocabulary section</link> and the <link linkend="grammar">grammar section</link>.</para>
+<para>For more information see the <link linkend="vocabulary">vocabulary section</link> and the <link linkend="grammar">grammar section</link>.</para>
 </sect2>
 
 <sect2 id="acoustic_model">
@@ -318,7 +244,7 @@ One scenario makes up one complete use case of simon. To control firefox, for ex
 <para>
 Each scenario consists of the following components:
 <itemizedlist>
-<listitem><para><link linkend="wordlist">Vocabulary</link></para></listitem>
+<listitem><para><link linkend="vocabulary">Vocabulary</link></para></listitem>
 <listitem><para><link linkend="grammar">Grammar</link></para></listitem>
 <listitem><para><link linkend="training">Trainingstexts</link></para></listitem>
 <listitem><para><link linkend="commands">Commands</link></para></listitem>
@@ -655,11 +581,11 @@ SNR warning message triggered by an empty sample; This information dialog is dis
 The simon main window provides quick access to most of its features through the main toolbar.
 </para>
 
-<para>There are 7 main actions listed:
+<para>There are 9 main actions listed:
 <itemizedlist>
 <listitem>
 <para>simond connection</para>
-<para>This is the only complex menu item. It has several states:
+<para>This menu item has several states:
 <itemizedlist>
 <listitem><para>Connect</para>
 <para>When simon is not connected to simond the option says "Connect". When activated, simon will start to connect to simond and change to the "Connecting" state.</para>
@@ -687,8 +613,8 @@ The simon main window provides quick access to most of its features through the 
 </listitem>
 
 <listitem>
-<para>Wordlist</para>
-<para>Displays the <link linkend="wordlist">wordlist</link>.</para>
+<para>Vocabulary</para>
+<para>Displays the <link linkend="vocabulary">vocabulary</link>.</para>
 </listitem>
 
 <listitem>
@@ -713,6 +639,17 @@ The simon main window provides quick access to most of its features through the 
 <para>The process of sending the speech input files, compiling them and receiving the compiled versions is called "synchronization". By default, simon will initiate a synchronization immediately after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
 <para>Using this menu option the synchronization can be triggered manually at any time.</para>
 </listitem>
+
+<listitem>
+<para>Scenario selection</para>
+<para>This selection box allows you to select the currently displayed scenario. Each subsection (vocabulary, grammar, commands, training) will then adapt to the currently displayed scenario. Selecting a different scenario here does not affect the recognition.</para>
+</listitem>
+
+<listitem>
+<para>Manage scenarios</para>
+<para>Shows the <link linkend="scenarios_use">scenario management dialog</link>. There you can manage your scenarios and change the options of the scenario selection box.</para>
+</listitem>
+
 
 </itemizedlist>
 </para>
@@ -778,6 +715,17 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>On the first start of simon, this wizard is displayed to guide you through the initial configuration of &kmyapplication;.</para>
 
+<para>The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
+
+<sect2 id="first_run_scenarios">
+<title>Scenario configuration</title>
+
+<para>In this step you can download <link linkend="scenarios">scenarios</link> from the internet and import them into simon.</para>
+
+<para>.</para>
+
+
+</sect2>
 
 </sect1>
 
@@ -792,11 +740,11 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 </sect1>
 
 
-<sect1 id="wordlist">
-<title>Wordlist</title>
-<para>The wordlist lets the user manage the vocabulary.</para>
+<sect1 id="vocabulary">
+<title>Vocabulary</title>
+<para>The vocabulary lets the user manage the vocabulary.</para>
 
-<sect2 id="wordlist_theory">
+<sect2 id="vocabulary_theory">
 <title>General</title>
 <para>
 The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary.
@@ -879,15 +827,15 @@ As simon is a multi-language solution we do not ship shadow dictionaries with si
 
 
 <sect2>
-<title>Maintaining the Wordlist</title>
+<title>Maintaining the Vocabulary</title>
 <para>
-simon provides a "Wordlist" menu which lists the current vocabulary.
+simon provides a "Vocabulary" menu which lists the current vocabulary.
 
 <screenshot>
-<screeninfo>simons Wordlist</screeninfo>
+<screeninfo>simons Vocabulary</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="wordlist.png"   format="PNG"/>
+      <imagedata fileref="vocabulary.png"   format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -904,10 +852,10 @@ When this number is only one or zero the word entry is colored red (1: light red
 <para>Because the shadow dictionary is not used for the recognition there are of course no trainings-samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
 
 <screenshot>
-<screeninfo>Shadow Wordlist</screeninfo>
+<screeninfo>Shadow Vocabulary</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="wordlist1.png" format="PNG"/>
+      <imagedata fileref="vocabulary1.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -1010,7 +958,7 @@ If you don't know how to transcribe a word yourself you can easily use your shad
 </para>
 
 <para>
-However, we know that firefox sounds like "fire" and "fox" put together. So let's just open the wordlist (you can keep the wizard open) by selecting "Wordlist" from your simon main toolbar.
+However, we know that firefox sounds like "fire" and "fox" put together. So let's just open the vocabulary (you can keep the wizard open) by selecting "Vocabulary" from your simon main toolbar.
 </para>
 <para>
 Check the "Include unused words from the shadow lexicon" checkbox beneath the list and simon will display both active and shadow dictionary.
@@ -1061,7 +1009,7 @@ To complete the wizard we need to train the word twice. (Note: If you are really
 simon will try to prompt you for real-world examples. To do that, simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
 </para>
 <para>
-For example: You have the grammar structure "Trigger Command" and have the word "Computer" of the terminal "Trigger" in your wordlist. You then add a new word "Firefox" of the terminal "Command". simon will now automatically prompt you for "Computer Firefox" as it is - according to your grammar - a valid sentence.
+For example: You have the grammar structure "Trigger Command" and have the word "Computer" of the terminal "Trigger" in your vocabulary. You then add a new word "Firefox" of the terminal "Command". simon will now automatically prompt you for "Computer Firefox" as it is - according to your grammar - a valid sentence.
 </para>
 <para>
 If simon is unable to find appropriate sentences using the word (i.e.: No grammar, not enough words in your active lexicon, etc.) it will just prompt you for the word alone.
@@ -1108,7 +1056,7 @@ TODO
 <sect2 id="remove_word">
 <title>Removing a word</title>
 
-<para>To remove a word from your language model, select it in the wordlist view and click on "Remove selected word".
+<para>To remove a word from your language model, select it in the vocabulary view and click on "Remove selected word".
 
 <screenshot>
 <screeninfo>Recording</screeninfo>
@@ -1222,7 +1170,7 @@ SPHINX dictionaries provide pronunciation information but no terminals. All word
 
 </sect2> <!-- End Import Dict -->
 
-</sect1> <!-- End Wordlist -->
+</sect1> <!-- End Vocabulary -->
 
 
 <sect1 id="grammar">
@@ -1479,7 +1427,7 @@ The interface lists all installed trainings-texts in a table consisting of three
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
 <listitem><para>Pages</para><para>The number of "pages" the text consists of. Each page represents one recording.</para></listitem>
-<listitem><para>Recognition Rate</para><para>Analogue to the wordlist; Represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
+<listitem><para>Recognition Rate</para><para>Analogue to the vocabulary; Represents how likely simon will recognize the words (higher is better). The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
 <screenshot>
@@ -1633,7 +1581,7 @@ simon supports two different sources for new trainings-texts:
 <title>On The Fly Training</title>
 <para>Additionally to trainings-texts, simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
 
-<para>This feature is located in the wordlist-menu of simon.</para>
+<para>This feature is located in the vocabulary-menu of simon.</para>
 
 <para>
 <screenshot>
@@ -1646,7 +1594,7 @@ simon supports two different sources for new trainings-texts:
 </screenshot>
 </para>
 
-<para>Select the words to train from the wordlist on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking "Add to Training".</para>
+<para>Select the words to train from the vocabulary on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking "Add to Training".</para>
 
 <para>Start the training by selecting "Train selected words". The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
 
@@ -2349,7 +2297,7 @@ The simon main application connects to the simond server (see the <link linkend=
 <para>
 To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the <ulink url="help:/simond">simond manual</ulink> on how to setup users for simond.</para>
 
-<para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - wordlist, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
+<para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
 
 <para>Using the "Connect automatically on simon start" option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
 </sect3>
@@ -2404,11 +2352,11 @@ Only after the speech model is synchronized the changes take effect and a new re
 However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the "Synchronization" menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
 </para>
 
-<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the "source files" (the wordlist, grammar, etc.) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
+<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the "source files" (the vocabulary, grammar, etc.) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
 
 <para>After you have connected to the server, you can select one of the available models and restore it by clicking on "Restore Model".</para>
 
-<para>Please note that the synchronization will only accept complete source models (containing a wordlist, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backupped.</para>
+<para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backupped.</para>
 
 </sect2>
 
