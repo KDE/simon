@@ -387,7 +387,7 @@ If you try to use scenarios designed for a different phoneme set (different base
 <title>Volume</title>
 <para>It is important that you check your microphone volume before recording any samples.</para>
 
-<sect3>
+<sect3 id="volume_calibration">
 <title>simon Calibration</title>
 
 <para>The current version of &kmyapplication; includes a simple way of ensuring that your volume is configured correctly.</para>
@@ -714,16 +714,67 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <title>First run wizard</title>
 
 <para>On the first start of simon, this wizard is displayed to guide you through the initial configuration of &kmyapplication;.</para>
+  <!-- TODO: screenshot -->
 
 <para>The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
 
 <sect2 id="first_run_scenarios">
-<title>Scenario configuration</title>
+<title>Scenarios</title>
 
 <para>In this step you can download <link linkend="scenarios">scenarios</link> from the internet and import them into simon.</para>
+  <!-- TODO: screenshot -->
 
-<para>.</para>
+<para>If you import some scenarios here (or later on in the <link linkend="scenarios_use">scenario management dialog</link>) you don't need to set up the vocuablary, grammar, commands, etc. for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
 
+</sect2>
+
+
+<sect2 id="first_run_basemodels">
+<title>Base models</title>
+
+<para>In this step you can set up simon to use <link linkend="base_model">base models</link>.</para>
+  <!-- TODO: screenshot -->
+
+<para>The configuration page opened is the same one that is described in the <link linkend="base_model_use">base model usage</link> section.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="base_model_use">simon configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_server">
+<title>Server</title>
+
+<para>Internally, simon is a <link linkend="architecture">server / client application</link>. If you want to take advantage of a network based installation, you can provide the server address here.</para>
+  <!-- TODO: screenshot -->
+
+<para>The default configuration is sufficient for a "normal" installation and will assume that you use a local simond server that will be automatically be started and stopped with simon.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server">server configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_sound_configuration">
+<title>Sound configuration</title>
+
+<para>Because simon recognizes sound from one or more microphones, you have to tell simon which devices you want to use for recognition and training.</para>
+  <!-- TODO: screenshot -->
+
+<para>simon can use one or more input- and output devices for different tasks. You can find more information about simons multiple device capabilities in the <link linkend="soundconfiguration_device">simon sound configuration section</link>.</para>
+
+<para>If you don't set at least one input device to be used for recognition, you will not be able to activate simon.</para>
+
+<para>When the option <guimenuitem>Default to power training</guimenuitem> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
+
+<para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="soundconfiguration_device">sound configuration</link>.</para>
+
+</sect2>
+
+<sect2 id="first_run_volume_calibration">
+<title>Volume calibration</title>
+
+<para>For simon to work correctly, you need to configure your microphones volume to a sensible level.</para>
+  <!-- TODO: screenshot -->
+<para>For more details on this, please see the <link linkend="volume_calibration">Volume Calibration section</link> in the <link linkend="guidelines">Guidelines chapter</link>.</para>
 
 </sect2>
 
@@ -732,17 +783,104 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <sect1 id="scenarios_use">
 <title>Scenarios</title>
 <para>This section describes how to use scenarios from within simon. For <link linkend="scenarios">general information about scenarios, please refer to the chapter background</link>.</para>
+
+<sect2 id="using_scenarios">
+<title>Using scenarios</title>
+<para>Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, etc.</para>
+<para>Using scenarios then becomes just using &kmyapplication; as you did in 0.2.</para>
+
+<para>Per default, simon ships with an empty scenario names "Standard", so your configuration will be stored in this scenario.</para>
+
+<para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down list in the upper right corner of the simon main window.</para>
+  <!-- TODO: screenshot -->
+
+  <para>To change the available options, click on the <guimenuitem>Manage scenarios</guimenuitem> button right next to it or use the menu entry <guimenu>Scenarios</guimenu> > <guimenuitem>Manage scenarios</guimenuitem>.</para>
+</sect2>
+
+<sect2 id="administrating_scenarios">
+<title>Managing scenarios</title>
+<para>The scenario management dialog allows you to load scenarios from your scenario pool as well as to import and export scenarios to files or directly from / to an online repository.</para>
+  <!-- TODO: screenshot -->
+
+<para>To load or unload a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
+<para>More information about individual scenarios can be found in the tooltips of the list items.</para>
+
+<sect3 id="add_scenario">
+  <title>Adding a new Scenario</title>
+  <para>To add a new scenario, select the <guimenuitem>Add</guimenuitem> button. A new dialog will be displayed.</para>
+
+  <!-- TODO: screenshot -->
+
+<para>When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692">KDE files</ulink> we would kindly ask you to follow a certain naming scheme altough this is of course not a requirement: "[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;". If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: "[EN/VF] Firefox". If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: "[EN] Firefox".</para>
+
+<para>The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
+
+<para>If your scenario needs a specific feature of simon (for example because you use a new plugin), you can define minimum and maximum version numbers of simon here.</para>
+
+<para>The license of your scenario can be set through the drop down. You can of course also add an arbitrary license text directly in the input field.</para>
+
+<para>You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail etc. If you don't feel comfortable providing your e-Mail address you can simply enter a dash "-" denoting that you are not willing to divulge this information.</para>
+
+</sect3>
+
+<sect3 id="edit_scenario">
+<title>Edit Scenario</title>
+<para>To edit scenarios, just select "Edit" from the "Manage scenarios" dialog.</para>
+<para>The dialog works exactly the same as the <link linkend="add_scenario">add scenario</link> dialog.</para>
+</sect3>
+
+<sect3 id="delete_scenario">
+<title>Delete Scenario</title>
+
+<para>To delete a scenario, select the scenario and click the "Delete" button.</para>
+
+<para>Because scenarios are synchronized with the recognition server, you can restore deleted scenarios through the <link linkend="configure_synchronization">model synchronization backup</link>.</para>
+</sect3>
+
+<sect3 id="import_scenario">
+  <title>Import Scenario</title>
+  <para>Scenarios can be imported from a local file in simons XML scenario file format but can also be directly downloaded and imported from the internet.</para>
+
+  <para>When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+
+  <!-- TODO: screenshot -->
+  <para>If you create a scenario that might be valuable for other simon users, please consider <link linkend="export_scenario">uploading it</link> to this online repository and help other simon users.</para>
+</sect3>
+
+<sect3 id="export_scenario">
+  <title>Export Scenario</title>
+  <para>Scenarios can be exported to a local file in simons XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692">simon Scenarios</ulink> subsection of the OpenDesktop site <ulink url="http://kde-files.org">KDE-files.org</ulink>.</para>
+
+  <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php">Registration</ulink> is very easy and of course free of charge.</para>
+
+  <para>simon allows you to upload new content directly from within simon (<guimenuitem>Export</guimenuitem> > <guimenuitem>Publish</guimenuitem>).</para>
+
+  <!-- TODO: screenshot -->
+  
+  <para>To use this functionality, simply enter your account credentials in the <link linkend="open_collaboration_config">open collaboration settings</link> in the simon configuration.</para>
+</sect3>
+
+</sect2>
 </sect1>
 
 <sect1 id="base_model_use">
 <title>Base models</title>
 <para>This section describes how to use base models from within simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
+
+<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simons configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>FIXME</guimenuitem> </para>
+
+  <!-- TODO: screenshot -->
+
+<para>Load the files with the appropriate "Load" button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
+
+<para>For static models you don't need macros or stats but simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point simon to empty files instead.</para>
+
 </sect1>
 
 
 <sect1 id="vocabulary">
 <title>Vocabulary</title>
-<para>The vocabulary lets the user manage the vocabulary.</para>
+<para>The vocabulary lets the user manage the available words.</para>
 
 <sect2 id="vocabulary_theory">
 <title>General</title>
@@ -1003,8 +1141,19 @@ We can now enter the pronunciation and change the terminal to something appropri
 <sect3 id="add_word_record">
 <title>Training the Word</title>
 <para>
-To complete the wizard we need to train the word twice. (Note: If you are really sure what you are doing you can skip this)
+To complete the wizard we need to train the word twice.
+</para> 
+
+<note>
+<para>
+If you are using static or adapted base models, you can of course skip this step.
 </para>
+</note>
+
+<para>
+  Because you are about to record some training samples, simon will display the volume calibration to make sure that your microphone is set up correctly. For more information please refer to the <link linkend="volume_calibration">volume calibration section</link>
+</para>
+
 <para>
 simon will try to prompt you for real-world examples. To do that, simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
 </para>
@@ -1049,7 +1198,13 @@ All that is left is to record the examples.
 <sect2 id="edit_word">
 <title>Editing a word</title>
 <para>
-TODO
+  To edit a word, simply select it from the vocabulary, and click on <guimenuitem>Edit word</guimenuitem>.
+</para>
+
+  <!-- TODO: screenshot -->
+
+<para>
+  There you can change name, terminal and pronunciation of the selected word.
 </para>
 </sect2>
 
@@ -1068,14 +1223,30 @@ TODO
 </screenshot></para>
 
 <para>
-As you can see, the dialog offers two choices:
+As you can see, the dialog offers four choices:
 <itemizedlist>
   <listitem>
+    <para>Move the word to the "Unused" terminal.</para>
+    <para>Because you (hopefully) don't use the terminal "Unused" in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
+    <para>If you want to use the terminal "Unused" in your grammar, you can of course use a different terminal for unused words. Just set the terminal through the <link linkend="edit_word">Edit word</link> dialog.</para>
+    <para>To use the word again, just set the right terminal again. No data will be lost.</para>
+  </listitem>
+  <listitem>
     <para>Move the word to the shadow lexicon</para>
-    <para>This will remove the selected word from the active lexicon (and thus from the recognition) but will keep a copy in the shadow vocabulary. All the recordings containing the word will still be lost.</para>
+    <para>This will remove the selected word from the active lexicon (and thus from the recognition) but will keep a copy in the shadow vocabulary. All the recordings containing the word will be preserved.</para>
+    <para>To use the word again, add it again to the active vocabulary. When adding a "new" word with the same name the values of the moved word will be suggested to you. Therefore, no data will be lost.</para>
+  </listitem>
+  <listitem>
+    <para>Delete the word but keep the samples</para>
+    <para>Removes the word completely but keeps the associated samples. Whenever you add another word with the same word name the samples will be re-associated.</para>
+    <para>Be careful with this option as the new word you add again might be transcribed differently and this difference can not be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
+    <para>Do not use this option if the samples you recorded for this word were errenous.</para>
   </listitem>
   <listitem><para>Remove the word completely</para>
-    <para>Just remove the word. All the recordings containing the word will of course be removed too.</para></listitem>
+  <para>Just remove the word. All the recordings containing the word will be removed too.</para>
+  <para>This option leaves no trace of neither the word itself nor the associated samples.</para>
+  <para>Because samples are global (not assigned to scenarios), even samples recorded from trainings session of other scenarios might be removed as well if they contain the word. Use this option carefully.</para>
+  </listitem>
 </itemizedlist>
 </para>
 
@@ -1085,7 +1256,6 @@ As you can see, the dialog offers two choices:
 <title>Special Training</title>
 <para>Please see the <link linkend="special_training">special training section in the training section</link>.</para>
 </sect2>
-
 
 
 <sect2 id="import_dictionary">
@@ -2272,6 +2442,19 @@ simon provides the feature to <link linkend="import_texts_remote">download new t
 
 </sect2>
 
+<sect2 id="configure_model">
+<title>Model Settings</title>
+
+<sect3 id="configure_model_general">
+  <title>General</title>
+<para>Please see the <link linkend="base_model_use">base model section</link>.</para>
+</sect3>
+
+<sect3 id="configure_model_extensions">
+<title>Extensions</title>
+<para>Here you can configure the base URL that is going to be used for the <link linkend="import_dict_hadifix">automatic bomp import</link>. The default points to the copy on the simon listens server.</para>
+</sect3>
+</sect2>
 
 <sect2 id="configure_server">
 <title>Server Configuration</title>
@@ -2366,6 +2549,12 @@ However, if you want more control you can instruct simon to ask you before start
 <title>Actions</title>
 <para>Please see the <link linkend="commands">command section</link>.</para>
 </sect2>
+
+<sect2 id="open_collaboration_config">
+<title>Open collaboration services</title>
+<para>FIXME</para>
+</sect2>
+
 
 
 <sect2 id="jconfs">
