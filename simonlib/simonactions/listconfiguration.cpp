@@ -283,5 +283,6 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ListConfiguration::g
 
 ListConfiguration::~ListConfiguration()
 {
+	kDebug() << "DELETING LIST CONFIGURATION";
   delete ui;
 }

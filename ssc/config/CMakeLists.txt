@@ -18,7 +18,7 @@ kde4_add_ui_files( sscsettings_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/sscconfiguration.ui
 )
 
-kde4_add_library( sscsettings SHARED ${sscsettings_LIB_SRCS} )
+kde4_add_plugin( sscsettings ${sscsettings_LIB_SRCS} )
 
 target_link_libraries( sscsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
 	${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
@@ -28,5 +28,5 @@ set_target_properties( sscsettings
 )
 
  
-install( TARGETS sscsettings DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT ssc )
+install( TARGETS sscsettings DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT ssc )
 install( FILES sscconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT ssc )

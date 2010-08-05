@@ -2,12 +2,12 @@
 Type=Service
 Icon=simond
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimondsettings
+X-KDE-Library=simondsettings
 
 X-DocPath=help:/simond/using-kapp.html
 
 X-KDE-FactoryName=simondsettingsfactory
-X-KDE-ParentComponents=libsimondsettings
+X-KDE-ParentComponents=simondsettings
 
 X-KDE-ParentApp=simond
 X-KDE-System-Settings-Parent-Category=simond

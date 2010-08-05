@@ -14,9 +14,6 @@ IF(WIN32)
 ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.cpp
@@ -38,6 +35,9 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
+	
+	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 )
 
 set( simonsound_LIB_HDRS
@@ -45,7 +45,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
-	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
+# 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h
@@ -62,7 +62,8 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/loudnessmetersoundprocessor.h
 	${CMAKE_CURRENT_SOURCE_DIR}/vadsoundprocessor.h
-	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.cpp
+	
+	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
@@ -70,16 +71,17 @@ kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)
 kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/vad.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.ui
 )
+
+kde4_add_ui_files(simonsound_LIB_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/singledeviceconfiguration.ui)
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
@@ -99,4 +101,21 @@ install( FILES ${simonsound_LIB_HDRS}
 )
  
 install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+
+
+############
+
+set( kcm_simonsound_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.cpp
+)
+
+kde4_add_kcfg_files(kcm_simonsound_LIB_SRCS soundconfig.kcfgc)
+
+kde4_add_plugin(simonsoundkcm ${kcm_simonsound_LIB_SRCS})
+target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS} 
+simonsound
+)
+
+install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+
 install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

@@ -2,7 +2,7 @@
 Type=Service
 Icon=preferences-desktop-sound
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonsound
+X-KDE-Library=simonsoundkcm
 
 X-DocPath=help:/simon/configuration.html#soundconfiguration
 

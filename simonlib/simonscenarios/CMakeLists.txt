@@ -13,7 +13,6 @@ include(KDE4Defaults)
 set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
@@ -86,7 +85,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 
 
 kde4_add_ui_files( simonscenarios_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/createvoiceinterfacecommandwidget.ui
 )
 
@@ -110,11 +108,23 @@ install( FILES ${simonscenarios_LIB_HDRS}
 )
  
 install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
 install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
 
 install(FILES
 ${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
 ${SERVICETYPES_INSTALL_DIR} COMPONENT simon)
  
-	
+##########
+set( kcm_simonscenarios_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
+)
+kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui)
+kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
+
+kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
+target_link_libraries( simonscenarioskcm  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
+)
+
+install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

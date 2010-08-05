@@ -2,7 +2,7 @@
 Type=Service
 Icon=view-refresh
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonrecognitioncontrol
+X-KDE-Library=simonrecognitioncontrolkcm
 
 
 
@@ -12,7 +12,6 @@ X-KDE-FactoryName=serversettingsfactory
 X-KDE-ParentComponents=libsimonrecognitioncontrol
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=simon
 
 X-KDE-PluginKeyword=SynchronisationSettings
 

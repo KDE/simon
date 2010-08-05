@@ -24,9 +24,6 @@ include(UseQt4)
 
 set( simonrecognition_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/networksettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.cpp
 )
 
 set( simonrecognition_LIB_HDRS
@@ -35,16 +32,12 @@ set( simonrecognition_LIB_HDRS
 
 kde4_add_kcfg_files(simonrecognition_LIB_SRCS recognitionconfiguration.kcfgc)
 
-kde4_add_ui_files( simonrecognition_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/networksettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.ui
-)
 
 kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
-	${KDE4_KUTILS_LIBS} ${KDE4_KDEUI_LIBS} simondstreamer simonuicomponents
+	${KDE4_KDEUI_LIBS} simondstreamer
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol
@@ -57,4 +50,29 @@ install( FILES ${simonrecognition_LIB_HDRS}
 )
  
 install( TARGETS simonrecognitioncontrol DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES simonrecognitionconfig.desktop simonsynchronisationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+
+#####
+
+set( kcm_simonrecognitioncontrol_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/networksettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.cpp
+)
+
+kde4_add_ui_files( simonrecognition_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/networksettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.ui
+)
+
+kde4_add_kcfg_files(kcm_simonrecognitioncontrol_LIB_SRCS recognitionconfiguration.kcfgc)
+
+kde4_add_plugin(simonrecognitioncontrolkcm ${kcm_simonrecognitioncontrol_LIB_SRCS})
+
+target_link_libraries( simonrecognitioncontrolkcm  ${KDE4_KUTILS_LIBS} ${KDE4_KDEUI_LIBS}
+	 simonuicomponents simonrecognitioncontrol
+)
+
+install(TARGETS simonrecognitioncontrolkcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+#simonsynchronisationconfig.desktop 
+install( FILES simonrecognitionconfig.desktop DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

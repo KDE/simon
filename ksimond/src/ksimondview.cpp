@@ -47,6 +47,7 @@ wantReload(false)
   KGlobal::locale()->insertCatalog("simonlib");
   configDialog->addModule("ksimondconfiguration");
   configDialog->addModule("simondconfiguration");
+  configDialog->addModule("simonmodelcompilationconfig");
   //configDialog->addModule("simonduserconfiguration");
   //configDialog->addModule("simondnetworkconfiguration");
 

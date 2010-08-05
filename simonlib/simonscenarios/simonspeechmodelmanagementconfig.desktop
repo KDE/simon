@@ -2,12 +2,12 @@
 Type=Service
 Icon=view-pim-news
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonmodelmanagement
+X-KDE-Library=simonscenarioskcm
 
 X-DocPath=help:/simon/configuration.html#configuration_speechmodel
 
 X-KDE-FactoryName=speechmodelsettingsfactory
-X-KDE-ParentComponents=libsimonmodelmanagement
+X-KDE-ParentComponents=libsimonscenarios
 
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon

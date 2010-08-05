@@ -2,7 +2,7 @@
 Type=Service
 Icon=ksimond
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libksimondsettings
+X-KDE-Library=ksimondsettings
 
 X-DocPath=help:/ksimond/using-kapp.html
 

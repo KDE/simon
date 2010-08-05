@@ -20,22 +20,16 @@
 #ifndef SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
 #define SIMON_COMMANDSETTINGS_H_92014DF656EC423699D2F493D77108BA
 
-#include "ui_commandsettingsdlg.h"
-#include "commandlistwidget.h"
-#include <simonscenarios/commandlistelements.h>
-#include <QStringList>
 #include <QVariantList>
-#include <QFont>
-#include <QList>
-#include <QHash>
 #include <KCModule>
 
-class QListWidgetItem;
-class KPageWidget;
+
+namespace Ui
+{
+	class CommandSettingsDlg;
+}
+
 class KPageWidgetItem;
-class Action;
-class VoiceInterfaceCommand;
-class ListConfiguration;
 
 /**
  * \class CommandSettings
@@ -48,18 +42,8 @@ class CommandSettings : public KCModule
 {
   Q_OBJECT
 
-    signals:
-  void recognitionResultsFilterParametersChanged();
-
-  private:
-    bool forceChangeFlag;
-    static CommandSettings* instance;
-
-    Ui::CommandSettingsDlg ui;
-    KSharedConfig::Ptr config;
-    QFont storedFont;
-
-    ListConfiguration *listConfiguration;
+	private:
+    Ui::CommandSettingsDlg *ui;
 
   public slots:
     virtual void save();
@@ -68,20 +52,12 @@ class CommandSettings : public KCModule
 
   private slots:
     void slotChanged();
+		void adaptViewToValues();
 
   public:
-    static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList()) {
-      if (!instance) return new CommandSettings(parent, args);
-      return instance;
-    }
 
     explicit CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 
-    float minimumConfidence();
-    bool useDYM();
-    QFont pluginBaseFont();
-
-    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
 
     ~CommandSettings();
 };

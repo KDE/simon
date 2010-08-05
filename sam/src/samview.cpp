@@ -168,6 +168,7 @@ void SamView::showConfig()
 {
   QPointer<KCMultiDialog> configDialog = new KCMultiDialog(this);
   configDialog->addModule("simonsoundconfig", QStringList() << "");
+  configDialog->addModule("simonmodelcompilationconfig", QStringList() << "");
   configDialog->exec();
   delete configDialog;
 }

@@ -20,7 +20,7 @@ kde4_add_ui_files( simondsettings_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonduserconfiguration.ui
 )
 
-kde4_add_library( simondsettings SHARED ${simondsettings_LIB_SRCS} )
+kde4_add_plugin( simondsettings ${simondsettings_LIB_SRCS} )
 
 target_link_libraries( simondsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
 	${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonddatabaseaccess
@@ -31,5 +31,5 @@ set_target_properties( simondsettings
 )
 
  
-install( TARGETS simondsettings DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simond )
+install( TARGETS simondsettings DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simond )
 install( FILES simondconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )

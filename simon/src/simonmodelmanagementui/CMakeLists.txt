@@ -10,16 +10,13 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SIMONMODELMANAGEME
 include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
-	
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanageruiproxy.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/editworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/droplistview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
+# 	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
 
@@ -140,7 +137,21 @@ install( FILES ${simonmodelmanagementui_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonmodelmanagementui
   COMPONENT simondevel
 )
- 
+
 install( TARGETS simonmodelmanagementui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+
+################
+
+set(kcm_simonmodelmanagementui_LIB_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
+ )
+
+kde4_add_kcfg_files(kcm_simonmodelmanagementui_LIB_SRCS
+ 	  speechmodelmanagementuiconfiguration.kcfgc)
+kde4_add_plugin(simonmodelmanagementuikcm ${kcm_simonmodelmanagementui_LIB_SRCS})
+target_link_libraries(simonmodelmanagementuikcm ${KDE4_KDEUI_LIBS}
+	${KDE4_KIO_LIBS} simonscenarios
+)
+install(TARGETS simonmodelmanagementuikcm DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES simonmodelconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
-# install( FILES simongrammarconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

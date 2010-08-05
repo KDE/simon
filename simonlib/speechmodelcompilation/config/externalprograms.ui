@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ExternalProgramsWidget</class>
- <widget class="QWidget" name="ExternalProgramsWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ExternalProgramsWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,79 +10,91 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4" >
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <widget class="QGroupBox" name="gbHTK" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbHTK">
+     <property name="title">
       <string>HTK Programs</string>
      </property>
-     <property name="flat" >
+     <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" >
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" >
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <layout class="QVBoxLayout" name="_2" >
+           <layout class="QVBoxLayout" name="_2">
             <item>
-             <widget class="QLabel" name="lbHDMan" >
-              <property name="text" >
+             <widget class="QLabel" name="lbHDMan">
+              <property name="text">
                <string>HDMan:</string>
               </property>
+              <property name="buddy">
+               <cstring>kcfg_HDMan</cstring>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbHLEd" >
-              <property name="text" >
+             <widget class="QLabel" name="lbHLEd">
+              <property name="text">
                <string>HLEd:</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lbHCopy" >
-              <property name="text" >
-               <string>HCopy:</string>
+              <property name="buddy">
+               <cstring>kcfg_HLEd</cstring>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbHCompV" >
-              <property name="text" >
+             <widget class="QLabel" name="lbHCopy">
+              <property name="text">
+               <string>HCopy:</string>
+              </property>
+              <property name="buddy">
+               <cstring>kcfg_HCopy</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbHCompV">
+              <property name="text">
                <string>HCompV:</string>
+              </property>
+              <property name="buddy">
+               <cstring>kcfg_HCompV</cstring>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="_3" >
+           <layout class="QVBoxLayout" name="_3">
             <item>
-             <widget class="KUrlRequester" name="kcfg_HDMan" />
+             <widget class="KUrlRequester" name="kcfg_HDMan"/>
             </item>
             <item>
-             <widget class="KUrlRequester" name="kcfg_HLEd" />
+             <widget class="KUrlRequester" name="kcfg_HLEd"/>
             </item>
             <item>
-             <widget class="KUrlRequester" name="kcfg_HCopy" />
+             <widget class="KUrlRequester" name="kcfg_HCopy"/>
             </item>
             <item>
-             <widget class="KUrlRequester" name="kcfg_HCompV" />
+             <widget class="KUrlRequester" name="kcfg_HCompV"/>
             </item>
            </layout>
           </item>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_3" >
-          <property name="orientation" >
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>1</height>
@@ -92,55 +105,64 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" >
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <layout class="QVBoxLayout" name="_4" >
+           <layout class="QVBoxLayout" name="_4">
             <item>
-             <widget class="QLabel" name="lbHERest" >
-              <property name="text" >
+             <widget class="QLabel" name="lbHERest">
+              <property name="text">
                <string>HERest:</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lbHHEd" >
-              <property name="text" >
-               <string>HHEd:</string>
+              <property name="buddy">
+               <cstring>kcfg_HERest</cstring>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lbHVite" >
-              <property name="text" >
+             <widget class="QLabel" name="lbHHEd">
+              <property name="text">
+               <string>HHEd:</string>
+              </property>
+              <property name="buddy">
+               <cstring>kcfg_HHEd</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbHVite">
+              <property name="text">
                <string>HVite:</string>
+              </property>
+              <property name="buddy">
+               <cstring>kcfg_HVite</cstring>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout" >
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="KUrlRequester" name="kcfg_HERest" />
+             <widget class="KUrlRequester" name="kcfg_HERest"/>
             </item>
             <item>
-             <widget class="KUrlRequester" name="kcfg_HHEd" />
+             <widget class="KUrlRequester" name="kcfg_HHEd"/>
             </item>
             <item>
-             <widget class="KUrlRequester" name="kcfg_HVite" />
+             <widget class="KUrlRequester" name="kcfg_HVite"/>
             </item>
            </layout>
           </item>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer" >
-          <property name="orientation" >
+         <spacer name="verticalSpacer">
+          <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0" >
+          <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
             <height>1</height>
@@ -154,43 +176,49 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbJulius" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbJulius">
+     <property name="title">
       <string>Julius</string>
      </property>
-     <property name="flat" >
+     <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="_5" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbMkfa" >
-        <property name="text" >
+     <layout class="QGridLayout" name="_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbMkfa">
+        <property name="text">
          <string>mkfa:</string>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbDfaMinimize" >
-        <property name="text" >
-         <string>dfa_minimize:</string>
+        <property name="buddy">
+         <cstring>kcfg_mkfa</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" >
-       <widget class="KUrlRequester" name="kcfg_mkfa" />
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbDfaMinimize">
+        <property name="text">
+         <string>dfa_minimize:</string>
+        </property>
+        <property name="buddy">
+         <cstring>kcfg_dfa_minimize</cstring>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="KUrlRequester" name="kcfg_dfa_minimize" />
+      <item row="0" column="1">
+       <widget class="KUrlRequester" name="kcfg_mkfa"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="KUrlRequester" name="kcfg_dfa_minimize"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_2" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>125</height>
@@ -207,6 +235,17 @@
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>kcfg_HDMan</tabstop>
+  <tabstop>kcfg_HLEd</tabstop>
+  <tabstop>kcfg_HCopy</tabstop>
+  <tabstop>kcfg_HCompV</tabstop>
+  <tabstop>kcfg_HERest</tabstop>
+  <tabstop>kcfg_HHEd</tabstop>
+  <tabstop>kcfg_HVite</tabstop>
+  <tabstop>kcfg_mkfa</tabstop>
+  <tabstop>kcfg_dfa_minimize</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

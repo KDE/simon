@@ -2,7 +2,7 @@
 Type=Service
 Icon=computer
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonappcore
+X-KDE-Library=simonappcorekcm
 
 X-DocPath=help:/simon/configuration.html#configuration_general
 

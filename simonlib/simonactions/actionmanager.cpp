@@ -20,7 +20,7 @@
 #include "actionmanager.h"
 
 #include "listcommand.h"
-#include "commandsettings.h"
+#include "commandsettingsinternal.h"
 
 #include <simoninfo/simoninfo.h>
 //#include <simonscenarios/commandconfiguration.h>
@@ -71,8 +71,8 @@ void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 
 void ActionManager::retrieveRecognitionResultFilteringParameters()
 {
-  useDYM = CommandSettings::getInstance()->useDYM();
-  minimumConfidenceThreshold = CommandSettings::getInstance()->minimumConfidence();
+  useDYM = CommandSettingsInternal::getInstance()->useDYM();
+  minimumConfidenceThreshold = CommandSettingsInternal::getInstance()->minimumConfidence();
   kDebug() << "Getting global interface commands";
   ScenarioManager::getInstance()->setListBaseConfiguration(getGlobalListInterfaceCommands());
 }
@@ -232,7 +232,7 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 
 QFont ActionManager::pluginBaseFont()
 {
-  return CommandSettings::getInstance()->pluginBaseFont();
+  return CommandSettingsInternal::getInstance()->pluginBaseFont();
 }
 
 
@@ -244,7 +244,7 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getLi
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGlobalListInterfaceCommands()
 {
-  return CommandSettings::getInstance()->getListInterfaceCommands();
+  return CommandSettingsInternal::getInstance()->getListInterfaceCommands();
 }
 
 

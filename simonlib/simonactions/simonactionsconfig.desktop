@@ -2,7 +2,7 @@
 Type=Service
 Icon=fork
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonactions
+X-KDE-Library=simonactionskcm
 
 X-DocPath=help:/simon/commands.html
 

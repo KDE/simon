@@ -17,7 +17,7 @@ kde4_add_ui_files( simonmodelcompilationconfiguration_LIB_SRCS
 
 kde4_add_kcfg_files(simonmodelcompilationconfiguration_LIB_SRCS modelcompilationconfiguration.kcfgc)
 
-kde4_add_library( simonmodelcompilationconfiguration  SHARED ${simonmodelcompilationconfiguration_LIB_SRCS} )
+kde4_add_plugin( simonmodelcompilationconfiguration  ${simonmodelcompilationconfiguration_LIB_SRCS} )
 target_link_libraries( simonmodelcompilationconfiguration ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
 
 
@@ -30,5 +30,5 @@ install( FILES ${simonmodelcompilationconfiguration_LIB_HDRS}
   COMPONENT simonddevel
 )
  
-install( TARGETS simonmodelcompilationconfiguration DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simond )
+install( TARGETS simonmodelcompilationconfiguration DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simond )
 install( FILES simonmodelcompilationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )

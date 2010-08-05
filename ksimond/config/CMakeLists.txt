@@ -17,7 +17,7 @@ kde4_add_ui_files( ksimondsettings_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ksimondconfiguration.ui
 )
 
-kde4_add_library( ksimondsettings SHARED ${ksimondsettings_LIB_SRCS} )
+kde4_add_plugin( ksimondsettings ${ksimondsettings_LIB_SRCS} )
 
 target_link_libraries( ksimondsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
 	${KDE4_KDEUI_LIBS} )
@@ -27,5 +27,5 @@ set_target_properties( ksimondsettings
 )
 
  
-install( TARGETS ksimondsettings DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT ksimond)
+install( TARGETS ksimondsettings DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT ksimond)
 install( FILES ksimondconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT ksimond)

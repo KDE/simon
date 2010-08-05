@@ -20,13 +20,13 @@
 #ifndef SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 #define SIMON_ACTIONMANAGER_H_232B26BFFBAC4D88A29901748E1EB441
 
+#include "actionlib_export.h"
 #include <QObject>
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenarios/command.h>
 #include <simonscenarios/commandlistelements.h>
 #include <simonactions/greedyreceiver.h>
-#include "actionlib_export.h"
 #include <KIcon>
 #include <simonscenarios/action.h>
 

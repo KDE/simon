@@ -27,6 +27,7 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 
+#include <simonactions/commandsettings.h>
 #include <simonactionsui/runcommandview.h>
 #include <simonuicomponents/trayiconmanager.h>
 
@@ -529,7 +530,8 @@ void SimonView::showSystemDialog ()
 
     configDialog->addModule("simongeneralconfig", QStringList() << "");
     configDialog->addModule("simonsoundconfig", QStringList() << "");
-    configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
+    configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
+    //configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
     configDialog->addModule("simonmodelconfig", QStringList() << "");
     configDialog->addModule("simonrecognitionconfig", QStringList() << "");
     //		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
