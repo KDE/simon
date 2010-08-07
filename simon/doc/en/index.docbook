@@ -763,7 +763,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <para>If you don't set at least one input device to be used for recognition, you will not be able to activate simon.</para>
 
-<para>When the option <guimenuitem>Default to power training</guimenuitem> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
+<para>When the option <guibutton>Default to power training</guibutton> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
 
 <para>After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="soundconfiguration_device">sound configuration</link>.</para>
 
@@ -794,7 +794,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <para>To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down list in the upper right corner of the simon main window.</para>
   <!-- TODO: screenshot -->
 
-  <para>To change the available options, click on the <guimenuitem>Manage scenarios</guimenuitem> button right next to it or use the menu entry <guimenu>Scenarios</guimenu> > <guimenuitem>Manage scenarios</guimenuitem>.</para>
+  <para>To change the available options, click on the <guibutton>Manage scenarios</guibutton> button right next to it or use the menu entry <guimenu>Scenarios</guimenu> > <guimenuitem>Manage scenarios</guimenuitem>.</para>
 </sect2>
 
 <sect2 id="administrating_scenarios">
@@ -807,7 +807,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
 <sect3 id="add_scenario">
   <title>Adding a new Scenario</title>
-  <para>To add a new scenario, select the <guimenuitem>Add</guimenuitem> button. A new dialog will be displayed.</para>
+  <para>To add a new scenario, select the <guibutton>Add</guibutton> button. A new dialog will be displayed.</para>
 
   <!-- TODO: screenshot -->
 
@@ -853,7 +853,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
   <para>To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php">Registration</ulink> is very easy and of course free of charge.</para>
 
-  <para>simon allows you to upload new content directly from within simon (<guimenuitem>Export</guimenuitem> > <guimenuitem>Publish</guimenuitem>).</para>
+  <para>simon allows you to upload new content directly from within simon (<guibutton>Export</guibutton> > <guimenuitem>Publish</guimenuitem>).</para>
 
   <!-- TODO: screenshot -->
   
@@ -867,7 +867,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 <title>Base models</title>
 <para>This section describes how to use base models from within simon. For <link linkend="base_model">general information about base models, please refer to the chapter background</link>.</para>
 
-<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simons configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>FIXME</guimenuitem> </para>
+<para>To configure simon to use base models, simply select the base model type you want to use and point simon to the valid files in simons configuration: <guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Model Settings</guimenuitem> </para>
 
   <!-- TODO: screenshot -->
 
@@ -1198,7 +1198,7 @@ All that is left is to record the examples.
 <sect2 id="edit_word">
 <title>Editing a word</title>
 <para>
-  To edit a word, simply select it from the vocabulary, and click on <guimenuitem>Edit word</guimenuitem>.
+  To edit a word, simply select it from the vocabulary, and click on <guibutton>Edit word</guibutton>.
 </para>
 
   <!-- TODO: screenshot -->
@@ -1275,15 +1275,23 @@ When the user <link linkend="add_word">adds a new word</link> to the model, he h
 These characteristics are taken out of the shadow dictionary if it contains the word in question. A large, high quality shadow dictionary can thus help the user to easily add new words to the model without keeping track of the phoneme set or - in many cases - even let him forget a the phonetic transcription is needed at all.
 </para>
 
+<!-- TODO: screenshot -->
+
+<para>Since version 0.3 you can also import dictionaries directly to the active dictionary. This option is mostly there to make it easier to move to simon from custom solutions and to encourage importing of older models (for example one used with simon 0.2). You will <emphasis>almost never</emphasis> want to import a very large dictionary as active dictionary.</para>
+
+<para>You can find a list of available dictionaries that work with simon on the <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Shadow_dictionary">simon wiki</ulink>.</para>
+
 <para>
-simon is able to import four different types of dictionaries:
+simon is able to import five different types of dictionaries:
 <itemizedlist>
   <listitem><para>HADIFIX</para></listitem>
   <listitem><para>HTK</para></listitem>
   <listitem><para>PLS</para></listitem>
   <listitem><para>SPHINX</para></listitem>
+  <listitem><para>Julius</para></listitem>
 </itemizedlist>
 </para>
+
 
 
 <sect3 id="import_dict_hadifix">
@@ -1297,6 +1305,13 @@ One example of a HADIFIX dictionary is the German <ulink url="http://www.sk.uni-
 <para>
 Hadifix dictionaries provide both terminals and pronunciation.
 </para>
+
+<para>
+Due to a special exemption in their license the simon listens team is proud to be able to offer you to download the excellent HADIFIX BOMP directly from within simon.
+</para>
+
+<!-- TODO: screenshot -->
+<para>Using the automatic bomp import you can, after providing name and e-Mail address for the team of the University Bonn, directly download and import the dictionary from the simon listens server.</para>
 </sect3>
 
 <sect3 id="import_dict_htk">
@@ -1338,6 +1353,18 @@ SPHINX dictionaries provide pronunciation information but no terminals. All word
 </para>
 </sect3>
 
+<sect3 id="import_dict_julius">
+<title>Julius Dictionary</title>
+<para>
+simon can import Julius vocabularies.
+</para>
+<para>
+One example of a Julius vocabularies are the word lists of simon 0.2.
+</para>
+<para>
+Julius dictionaries provide pronunciation information as well as terminal information.
+</para>
+</sect3>
 </sect2> <!-- End Import Dict -->
 
 </sect1> <!-- End Vocabulary -->
@@ -1475,7 +1502,6 @@ simon provides an easy to use text based interface to change the grammar. You ca
 <title>Import a Grammar</title>
 <para>Additionally to simply entering your desired grammar sentence by sentence, simon is able to automatically deduce allowed grammar structures by reading plain text using the Import Grammar wizard.
 
-
 <screenshot>
 <screeninfo>Import Grammar</screeninfo>
   <mediaobject>
@@ -1485,6 +1511,8 @@ simon provides an easy to use text based interface to change the grammar. You ca
   </mediaobject>
 </screenshot>
 </para>
+
+<para>simon can read and import text files but also provides an input field if you want to simply type the text into simon.</para>
 
 <para>Say we have a vocabulary like in the general section above: 
 
@@ -1519,10 +1547,19 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </tgroup>
 </table></para>
 
-<para>We want simon to recognize the sentence "Computer Internet!". So we create a simple text file with this content "Computer Internet!" (any punctuation mark would work) and save it as "simongrammar.txt".
+<para>We want simon to recognize the sentence "Computer Internet!". So we either enter the text using the <guibutton>Import text</guibutton> option or create a simple text file with this content "Computer Internet!" (any punctuation mark would work) and save it as "simongrammar.txt" to use the <guibutton>Import files</guibutton> option.
 
 <screenshot>
-<screeninfo>Import Grammar: Text</screeninfo>
+<screeninfo>Import Grammar: Enter text</screeninfo>
+  <mediaobject>
+    <imageobject> <!-- TODO: Screenshot -->
+      <imagedata fileref="import_grammar1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<screenshot>
+<screeninfo>Import Grammar: Text file</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_grammar2.png" format="PNG"/>
@@ -1540,9 +1577,9 @@ simon provides an easy to use text based interface to change the grammar. You ca
 </screenshot>
 </para>
 
-<para>simon will then read all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
+<para>simon will then read the entered text or all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
 <para>In our example this would mean that he would find the sentence "Computer Internet". simon would find out that "Computer" is of the terminal "Trigger" and "Internet" of the terminal "Command". Because of this simon would "learn" that "Trigger Command" is a valid sentence and add it to its grammar.</para>
-<para>The import automatically segments the input text files by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>The import automatically segments the input text by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
 <para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para> 
 
 </sect2>
@@ -1668,8 +1705,8 @@ Trainings-texts are stored at two different locations:
 </sect2>
 
 
-<sect2 id="import_texts">
-<title>Importing Texts</title>
+<sect2 id="add_texts">
+<title>Adding Texts</title>
 <para>
 <screenshot>
 <screeninfo>Import-trainings-texts-wizard</screeninfo>
@@ -1680,71 +1717,45 @@ Trainings-texts are stored at two different locations:
   </mediaobject>
 </screenshot>
 
-The import texts wizard provides a simple way to add new trainings-texts to simon.
+The add texts wizard provides a simple way to add new trainings-texts to simon.
 </para>
+
+<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctuation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.</para>
 
 <para>
-simon supports two different sources for new trainings-texts:
-
-<itemizedlist>
-  <listitem><para>Local text files</para>
-          <para>simon can import normal text files to use them as trainings-texts.</para></listitem>
-  <listitem><para>Remote list of texts</para>
-            <para>The other option is to load a pre-segmented text from an online repository.</para>
-          </listitem>
-</itemizedlist>
-
-<screenshot>
-<screeninfo>Import-trainings-texts-wizard: Select source</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="import_text_2.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
+  simon supports two different sources for new trainings-texts.
 </para>
 
+<sect3>
+  <title>Add trainings-texts</title>
+            <para>
+      <screenshot>
+      <screeninfo>Import-trainings-texts-wizard: Add trainings-texts</screeninfo>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="import_text_4.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
 
-<sect3 id="import_texts_local">
-<title>Local Text Files</title>
+        Simply enter the trainingstext in an input field.</para>
+</sect3>
+<sect3>
+  <title>Local text files</title>
 
-<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctuation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.
+    <para>
+      <screenshot>
+      <screeninfo>Import-trainings-texts-wizard: Local text files</screeninfo>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="import_text_3.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
 
-<screenshot>
-<screeninfo>Import-trainings-texts-wizard: Local text files</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="import_text_3.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
+    simon can import normal text files to use them as trainings-texts.</para>
 </sect3>
 
-<sect3 id="import_texts_remote">
-<title>Texts from the Online Repository</title>
-
-<para>When downloading text from and online repository, simon will first download a list of available texts from a specific URL. This URL defaults to a test repository on a server controlled by the official simon team but can easily be changed in the simon configuration (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Model Extensions</guimenuitem>).</para>
-
-<para>Currently, there are only a few examples available, but users are very welcome to send us their most useful trainings-texts per mail.</para>
-<para>To do that, just send the XML file (to be found in your <link linkend="training_storage">local storage directory</link>) to <ulink url="mailto:support@simon-listens.org">support@simon-listens.org</ulink> and we will add your text to the online repository. Please keep in mind that books or other copyrighted source material can not be accepted.</para>
-
-
-<para>
-<screenshot>
-<screeninfo>Import-trainings-texts-wizard: Remote import</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="import_text_4.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>To download a text just select it and click on Next. It will be automatically added to your local repository.</para>
-
-</sect3>
 </sect2>
 
 <sect2 id="special_training">
@@ -1835,7 +1846,7 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 <para>When simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing.</para>
 
 <para>
-<screenshot>
+<screenshot id="command_dialog">
 <screeninfo>simons Command Dialog</screeninfo>
   <mediaobject>
     <imageobject>
@@ -1845,7 +1856,7 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </screenshot>
 </para>
 
-<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Actions</guimenuitem>).</para>
+<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>).</para>
 
 
 <screenshot>
@@ -1862,11 +1873,33 @@ Each plugin can be associated with a "trigger". Using triggers, the responsibili
 </para>
 <para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of "Open my home folder" you say "Joe, open my home folder" and "Joe" (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
 <para>In practice you could have commands like the executable command "Firefox" to open the popular browser and the place command "Google" to open the web search engine. If you assign the trigger "Start" to the executable plugin and the trigger "Open" to the place command you would have to say "Start Firefox" (instead of just "Firefox" if you don't use a trigger for the executable plugin) and "Open Google" to open the search engine (instead of just "Google").</para>
-<para>Triggers are of course no requirement and you can easily use simon without defining any triggers (although many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the false-positives.</para>
+<para>Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the number false-positives.</para>
+
+<para>simons <link linkend="command_dialog">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
+
+<para>You can load multiple instances of one plugin even in one scenario. Each instance can of course also have a different plugin trigger.</para>
 
 <para>
 Each Command has a name (which will trigger its invocation), an icon and more fields depending on the type of the plugin (see below).
 </para>
+
+<para>
+Some command plugins might provide a configuration of the plugin itself (not the commands it contains). There configuration pages will be plugged directly into the action configuration dialog (below the <guimenuitem>General</guimenuitem> menu item) when you load the associated plugin.
+</para>
+
+<para>
+  Plugins that provide a graphical user interface (like for example the <link linkend="input_number">input number command plugin</link>) can be configured by configuring "Voice commands". You can change the associated word that will trigger the button, for example, but also change the displayed icon, etc. If you remove all voice interface commands from a graphical element, the element will be hidden automatically.
+</para>
+
+<para>Voice interface commands are added just like normal commands through the command configuration.</para>
+<!-- TODO: screenshot -->
+
+<para>To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting commando to your needs.</para>
+
+<para>
+  Some plugins (for example the <link linkend="desktopgrid">desktopgrid</link> or the <link linkend="calculator_command_plugin">calculator</link> might also provide a menu item in the <guimenu>Commands</guimenu> menu.
+</para>
+<!-- TODO: screenshot! -->
 
 
 <sect2 id="executable_commands">
@@ -1893,7 +1926,9 @@ Each Command has a name (which will trigger its invocation), an icon and more fi
 
 <sect3 id="importing_executable_commands">
 <title>Importing Programs</title>
-<para>For even easier configuration simon provides an import wizard which allows you to select programs directly from the KDE menu.</para>
+<para>For even easier configuration simon provides an import dialog which allows you to select programs directly from the KDE menu.</para>
+
+<note><para>This option is not available on Microsoft Windows.</para></note>
 
 <screenshot>
 <screeninfo>Import Programs</screeninfo>
@@ -1904,11 +1939,11 @@ Each Command has a name (which will trigger its invocation), an icon and more fi
   </mediaobject>
 </screenshot>
 
-<para>The wizard will list all programs that have an entry in your KDE menu in their respective category.</para>
+<para>The dialog will list all programs that have an entry in your KDE menu in their respective category.</para>
 
 <para>Sub-Categories are not supported and are thus listed on the same level as top-level categories.</para>
 
-<para>Just select the program you wish to start with simon and complete the wizard. The correct values for the executable and the working directory will automatically be filled out for you.</para>
+<para>Just select the program you wish to start with simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working directory as well as an appropriate command name and description will automatically be filled out for you.</para>
 
 </sect3>
 
@@ -1928,15 +1963,15 @@ Each Command has a name (which will trigger its invocation), an icon and more fi
   </mediaobject>
 </screenshot>
 
-<para>To associate a specific URL with the command you can manually enter it in the URL field (select "Manual" first) or import it with the import place wizard.</para>
+<para>To associate a specific URL with the command you can manually enter it in the URL field (select <guibutton>Manual</guibutton> first) or import it with the import place wizard.</para>
 
 
 <sect3 id="importing_place_commands">
 <title>Importing Places</title>
 
-<para>The import place wizard allows you to easily create the correct URL for the command.</para>
+<para>The import place dialog allows you to easily create the correct URL for the command.</para>
 
-<para>To add a local folder, select "Local Place" and choose the folder or file with the file selector.
+<para>To add a local folder, select <guibutton>Local Place</guibutton> and choose the folder or file with the file selector.
 
 <screenshot>
 <screeninfo>Import Places: Local</screeninfo>
@@ -1948,7 +1983,7 @@ Each Command has a name (which will trigger its invocation), an icon and more fi
 </screenshot>
 </para>
 
-<para>To add a remote URL (HTTP, FTP, etc.) choose "Remote URL".
+<para>To add a remote URL (HTTP, FTP, etc.) choose <guibutton>Remote URL</guibutton>
 
 <screenshot>
 <screeninfo>Import Places: Remote</screeninfo>
@@ -1982,7 +2017,9 @@ Please note that for URLs with authentication information the password will be s
 
 <para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
 <para>simon will capture the shortcut and associate it with the command.</para>
-<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button. (Note: This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.)</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+
+<note><para>This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para></note>
 </sect2>
 
 <sect2 id="text_macro_commands">
@@ -2007,7 +2044,6 @@ Please note that for URLs with authentication information the password will be s
 
 <para>This is very useful to limit the amount of training required and provides the possibility to keep the vocabulary to a minimum.</para>
 
-
 <para>
 <screenshot>
 <screeninfo>Defining List Commands</screeninfo>
@@ -2023,6 +2059,8 @@ Please note that for URLs with authentication information the password will be s
 
 <para>Commands of different types can of course be mixed.</para>
 
+<sect3 id="list_command_display">
+<title>List Command Display</title>
 
 <para>
 When invoked, the command will display the list centered on the screen. The list will automatically expand to accompany its items.
@@ -2052,9 +2090,13 @@ If there are more than 9 items simon will add "Next" and "Back" options to the l
   </mediaobject>
 </screenshot>
 </para>
+</sect3>
+
+<sect3 id="list_command_configure">
+<title>Configuring list elements</title>
 
 <para>
-To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the list command uses the following trigger words. To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following "sentences":
 <itemizedlist>
 <listitem><para>"Zero"</para></listitem>
 <listitem><para>"One"</para></listitem>
@@ -2069,6 +2111,23 @@ To use list commands to their full potential, make sure that your language and a
 <listitem><para>"Cancel"</para></listitem>
 </itemizedlist>
 </para>
+
+<para>Of course you can also configure these words in your simon configuration:
+  <itemizedlist>
+    <listitem>
+      <para><guimenuitem>Commands</guimenuitem> > <guibutton>Manage plugins</guibutton> > <guimenuitem>General</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the scenario wide list configuration.</para>
+    </listitem>
+    <listitem>
+      <para><guimenu>Settings</guimenu> > <guimenuitem>Configure simon...</guimenuitem> > <guimenuitem>Actions</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the global configuration. When creating a new scenario, the scenario configuration will be initialized with a copy of this list configuration.</para>
+    </listitem>
+  </itemizedlist>
+</para>
+
+<para>
+List commands are internally also used by other plugins like for example the <link linkend="desktopgrid">desktopgrid</link>. The confiugration of the triggers also affects their displayed lists.
+</para>
+
+</sect3>
 
 </sect2>
 
@@ -2119,11 +2178,14 @@ Using the composite command the user can compose complex "macros". The screensho
 </screenshot>
 The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, etc. This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area.</para>
 
+<para>The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point.</para>
+<!-- TODO: Screenshot -->
+
 <para>
 While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, etc.) will be rejected. Say "Cancel" at any time to abort the process.
 </para>
 
-<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog. However, the desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
+<para>The desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
 
 <para>
 <screenshot>
@@ -2151,7 +2213,7 @@ However, nearly all up-to-date systems will support compositing (real transparen
 
 
 <para>
-To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following "sentences":
 <itemizedlist>
 <listitem><para>"One"</para></listitem>
 <listitem><para>"Two"</para></listitem>
@@ -2165,6 +2227,10 @@ To use the desktopgrid, make sure that your language and acoustic model contains
 <listitem><para>"Cancel"</para></listitem>
 </itemizedlist>
 </para>
+
+<para>To configure these triggers, just configure the commands associated with the plugin.</para>
+
+<!-- TODO: screenshot -->
 
 </sect2>
 
@@ -2217,7 +2283,7 @@ The trigger defines what word or phrase that will trigger the display of the int
 
 
 <para>
-To use the input number plugin, make sure that your language and acoustic model contains and allows for the following "sentences":
+By default the input number plugin uses numbers to select the individual digits and a couple of control words. To use the input number plugin, make sure that your language and acoustic model contains and allows for the following "sentences":
 <itemizedlist>
 <listitem><para>"Zero"</para></listitem>
 <listitem><para>"One"</para></listitem>
@@ -2235,6 +2301,10 @@ To use the input number plugin, make sure that your language and acoustic model 
 <listitem><para>"Cancel"</para></listitem>
 </itemizedlist>
 </para>
+
+<para>To configure these triggers, just configure the commands associated with the plugin.</para>
+<!-- TODO: screenshot -->
+
 </sect2>
 
 <sect2 id="dictation_command_plugin">
@@ -2244,6 +2314,10 @@ To use the input number plugin, make sure that your language and acoustic model 
 <para>Assuming you didn't define a trigger for the dictation plugin it will accept all recognition results and just write them out. The written input will be considered as "processed input" and thus not be relayed to other plugins. This means that if you loaded the dictation plugin and defined no trigger for it, all plugins <emphasis>below it</emphasis> in the "Selected Plug-Ins" list in the command configuration will never receive any input.</para>
 
 <para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
+
+<para>The dictation plugin can be configured to append texts after recognition results to for example add a space after each recognized word.</para>
+
+<!-- TODO: screenshot -->
 </sect2>
 
 <sect2 id="ai_command_plugin">
@@ -2289,6 +2363,98 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 <para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a "conversation" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
 
 <para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
+</sect2>
+
+<sect2 id="calculator_command_plugin">
+<title>Calculator</title>
+<para>The calculator plugin is a simple, voice controlled calculator.</para>
+
+<!-- TODO: screenshot -->
+
+<para>The calculator extends the <link linkend="input_number">Input Number</link> plugin by providing additional features.</para>
+
+<para>When loading the plugin, a configuration screen is added to the plugin confiugration.</para>
+
+<!-- TODO: screenshot -->
+
+<para>There you can also confiugre the control mode of the calculator. Setting the mode to something else than <guimenuitem>Full calculator</guimenuitem> will hide options from the displayed widget.</para>
+
+<!-- TODO: screenshot -->
+
+<para>However, the hidden controls will, in contrast to simply removing all associated command from the functions, still react to the configured voice commands.</para>
+
+<para>When selecting <guibutton>Ok</guibutton>, the calculator will by default ask you what to do with the generated result. You can for example output the calculation, the result, both, etc. Besides always selecting this from the displayed list after selecting the <guibutton>Ok</guibutton> button, this can also be set in the configuration options.</para>
+
+<!-- TODO: screenshot of output selection -->
+</sect2>
+
+<sect2 id="filter_command_plugin">
+  <title>Filter</title>
+  <para>Using the filter plugin, you can intercept recognition results from being passed on to further command plugins. Using this plugin you can for example disable the recognition by voice.</para>
+  <para>The filter has two states:
+    <itemizedlist>
+      <listitem>
+        <para>Inactive</para>
+        <para>The default state. All recognition results will be passed through.</para>
+      </listitem>
+      <listitem>
+        <para>Active</para>
+        <para>When activated, the filter will "eat" all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
+      </listitem>
+    </itemizedlist>
+  </para>
+
+  <para>
+    The filter command plugin registers a configuration screen in the command configuration where you can change what results should be filtered.
+  </para>
+  <!-- TODO: screenshot -->
+
+  <para>The pattern is a regular expression that will be evaluated each time a recognition results receives the plugin for processing.</para>
+
+  <para>The plugin also registers voice interface commands for activating and deactivating the filter.</para>
+
+</sect2>
+
+<sect2 id="pronunciation_training_command_plugin">
+  <title>Pronunciation Training</title>
+
+  <para>The pronunciation training, when combined with a good <link linkend="base_model">static base model</link>, can be a powerful tool to improve your pronunciation of a new language.</para>
+  <!-- TODO: screenshot -->
+  <para>Essentially, the plugin will prompt you to say specific words. The recognition will then recognize your pronunciation of the word and compare it to your speech model which should be a base model of native speakers for this to work correctly. Then simon will display the recognition rate (how similar your version was to the stored base model).</para>
+
+  <para>The closer to the native speaker, the higher the score.</para>
+
+  <para>The plugin adds an entry to your <guimenu>Commands</guimenu> menu to launch the pronunciation training dialog.</para>
+
+  <para>The training itself consists of multiple pages. Each page contains one word fetched from your active vocabulary. They are identified by a terminal which needs to be selected in the command configuration before starting the training.</para>
+
+  <!-- TODO: screenshot -->
+</sect2>
+
+<sect2 id="keyboard_command_plugin">
+  <title>Keyboard</title>
+
+  <para>The keyboard plugin displays a virtual, voice controlled keyboard.</para>
+
+  <!-- TODO: screenshot -->
+
+  <para>The keyboard consits of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in "sets".</para>
+
+  <para>You can select sets in the configuration but also create new ones from scratch in the keyboard command confiugration.</para>
+
+  <!-- TODO: screenshot -->
+
+  <para>Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a "select all" key or a "Password" key (typing your password).</para>
+
+  <para>Next to the tabs that hold the keys of your set, the keyboard my also show special keys like Ctrl, Shift, etc. Those keys are provided as voice inteface commands and are displayed regardless of what tab of the set is currently active.</para>
+  <para>As with all voice triggers, removing the associated command, hides the buttons as well.</para>
+
+  <para>Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration.</para>
+  <!-- TODO: screenshot -->
+  <para>Next to the number keys and the delete key for the number input field (<guibutton>Number backspace</guibutton>), the numpad provides two options on what to do with the entered number.</para>
+  <para>When selecting <guibutton>Write number</guibutton>, the entered number will be written out using simulated key presses. Selecting <guibutton>Select number</guibutton> tries to find a key or tab in the currently active set that has this number as a trigger. This way you can control a complete keyboard just using numbers.</para>
+  <!-- TODO: screenshot -->
+  <para>The keys on the num pad are configurable voice interface commands.</para>
 </sect2>
 </sect1>
 
@@ -2422,6 +2588,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 </sect2>
 
+<!--
 <sect2 id="configuration_model_extensions">
 <title>Model Extensions</title>
 
@@ -2441,6 +2608,8 @@ simon provides the feature to <link linkend="import_texts_remote">download new t
 </para>
 
 </sect2>
+-->
+
 
 <sect2 id="configure_model">
 <title>Model Settings</title>
