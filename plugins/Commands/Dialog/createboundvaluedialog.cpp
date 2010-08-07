@@ -101,6 +101,8 @@ void CreateBoundValueDialog::initDataEngine()
   if (!m_currentEngineName.isEmpty())
     m_engineManager->unloadEngine(m_currentEngineName);
 
+  ui->cbKey->clear();
+
   QString internalName = ui->cbDataEngine->itemData(currentIndex).toString();
   kDebug() << "Loading data engine: " << internalName;
   Plasma::DataEngine *engine = m_engineManager->loadEngine(internalName);
