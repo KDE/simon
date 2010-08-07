@@ -857,7 +857,7 @@ You can, however use <link linkend="base_model_use">static or adapted base model
 
   <!-- TODO: screenshot -->
   
-  <para>To use this functionality, simply enter your account credentials in the <link linkend="open_collaboration_config">open collaboration settings</link> in the simon configuration.</para>
+  <para>To use this functionality, simply enter your account credentials in the <link linkend="social_desktop_config">social desktop configuration</link> in the simon configuration.</para>
 </sect3>
 
 </sect2>
@@ -1496,6 +1496,11 @@ simon provides an easy to use text based interface to change the grammar. You ca
   </mediaobject>
 </screenshot>
 </para>
+
+<para>When selecting a sentence on the left, the right pane will automatically show possible real sentences with the words of your vocabulary on the right.</para>
+
+<para>The example section will list at most 35 examples so if more than that amount of sentences match the selected grammar entry, the list might not be complete.</para>
+
 </sect2>
 
 <sect2>
@@ -2485,6 +2490,9 @@ Please note that the option to start simon at login will work on both Microsoft 
 <para>
 When the option to start simon minimized is selected, simon will minimize to the system tray immediately after starting.
 </para>
+<para>
+  Deselecting the option to warn when there are problems with samples deactivates the <link linkend="sample_quality_assurance">sample quality assurance</link>.
+</para>
 </sect2>
 
 <sect2 id="soundconfiguration">
@@ -2625,11 +2633,17 @@ simon provides the feature to <link linkend="import_texts_remote">download new t
 </sect3>
 </sect2>
 
-<sect2 id="configure_server">
-<title>Server Configuration</title>
-<para>Using the server configuration you can set parameters of the connection to simond.</para>
+<sect2 id="configure_recognition">
+<title>Recognition</title>
 
-<sect3 id="configure_server_general">
+<para>Here you can configure the recognition and model synchronization with the simond server.</para>
+
+<sect3 id="configure_server">
+  <title>Server</title>
+
+  <para>Using the server configuration you can set parameters of the connection to simond.</para>
+
+<sect4 id="configure_server_general">
 <title>General</title>
 <para>
 The simon main application connects to the simond server (see the <link linkend="architecture">architecture section</link> for more information).
@@ -2652,9 +2666,9 @@ To identify individual users of the system (one simond server can of course serv
 <para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
 
 <para>Using the "Connect automatically on simon start" option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
-</sect3>
+</sect4>
 
-<sect3 id="configure_server_network">
+<sect4 id="configure_server_network">
 <title>Network</title>
 <para>simon connects to simond using TCP/IP.</para>
 
@@ -2669,7 +2683,7 @@ To identify individual users of the system (one simond server can of course serv
 </screenshot>
 </para>
 <para>
-As of yet (simon 0.2), encryption is not yet supported.
+As of yet (simon 0.3), encryption is not yet supported.
 </para>
 <para>
 The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use "connect on start" on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
@@ -2678,11 +2692,10 @@ The timeout setting specifies, how long simon will wait for a first reply when c
 
 <para>To add a server, just enter the hostname or IP and the port (separated by ":") or use the dialog that appears when you select the blue arrow next to the input field.</para>
 
+</sect4>
 </sect3>
-</sect2>
 
-
-<sect2 id="configure_synchronization">
+<sect3 id="configure_synchronization">
 <title>Synchronization and Model Backup</title>
 <para>Here you can configure the model synchronization and restore older versions of your speech model.</para>
 
@@ -2710,17 +2723,19 @@ However, if you want more control you can instruct simon to ask you before start
 
 <para>Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backupped.</para>
 
+</sect3>
 </sect2>
 
 
 
 <sect2 id="configure_actions">
 <title>Actions</title>
-<para>Please see the <link linkend="commands">command section</link>.</para>
+
+<para>FIXME</para>
 </sect2>
 
-<sect2 id="open_collaboration_config">
-<title>Open collaboration services</title>
+<sect2 id="social_desktop_config">
+<title>Social desktop</title>
 <para>FIXME</para>
 </sect2>
 
