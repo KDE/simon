@@ -181,6 +181,7 @@ QString SynchronisationManager::getLatestScenarioPath(const QString& id)
 QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 {
   QString path = getLatestScenarioPath(scenarioId);
+  kDebug() << "Latest scenario date: " << scenarioId << path;
   if (path.isNull()) return QDateTime();
 
   return scenarioDate(path);
@@ -191,10 +192,12 @@ QDateTime SynchronisationManager::scenarioDate(const QString& path)
 {
   Scenario *s = new Scenario("");
   if (!s->skim(path)) {
+    kDebug() << "Failed to skim scenario at: " << path;
     delete s;
     return QDateTime();
   }
   QDateTime t = s->modifiedDate();
+  kDebug() << "Returning modified date of: " << path << t;
   delete s;
   return t;
 }
@@ -1068,7 +1071,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
         //touch it
         QDomDocument doc("scenario");
         QFile file(destPath);
-        if ((!file.open(QIODevice::ReadWrite))
+        if ((!file.open(QIODevice::ReadOnly))
         || (!doc.setContent(&file))) {
           allCopied = false;
           continue;
@@ -1076,7 +1079,10 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
 
         doc.documentElement().setAttribute("lastModified", QDateTime::currentDateTime().toString(Qt::ISODate));
 
-        file.seek(0);
+        file.close();
+        file.remove(destPath);
+
+        file.open(QIODevice::WriteOnly|QIODevice::Truncate);
         file.write(doc.toString().toUtf8());
 
         file.close();

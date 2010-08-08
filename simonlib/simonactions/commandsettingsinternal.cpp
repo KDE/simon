@@ -201,6 +201,7 @@ void CommandSettingsInternal::load()
   listConfiguration->registerVoiceInterfaceCommand(CommandListElements::Cancel, cancelTriggers, cancelVisibleTrigger, showCancelIcon, cancelIcon);
 
   listConfiguration->loadFinished();
+  ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
 }
 
 void CommandSettingsInternal::defaults()

@@ -66,6 +66,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
     QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(baseConfig);
     while (i.hasNext()) {
       i.next();
+      // i.value() is not a valid command
       listInterfaceCommands.insertMulti(i.key(), new VoiceInterfaceCommand(*(i.value())));
     }
   }

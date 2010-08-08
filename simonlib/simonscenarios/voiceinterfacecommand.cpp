@@ -44,6 +44,9 @@ m_visibleTrigger(b.visibleTrigger()),
 m_receiver(b.receiver()),
 m_showIcon(b.showIcon())
 {
+  kDebug() << "I'm here...";
+  kDebug() << this;
+  kDebug() << "Still here...";
   setParent(b.parent());
 }
 

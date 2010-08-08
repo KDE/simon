@@ -8,12 +8,6 @@
 <include>simonsound/simonsound.h</include>
 <kcfgfile name="simonsoundrc" />
   <group name="Devices">
-    <entry name="DefaultToPowerTraining" type="Bool">
-      <label>If the default mode to train is powertraining.</label>
-      <default>false</default>
-      <tooltip>If simon should default to the power training mode.</tooltip>
-    </entry>
-
    <entry name="SoundInputDevices" type="StringList">
       <label>The sounddevices used for recording.</label>
       <default code="true">QStringList() &lt;&lt; SoundServer::defaultInputDevice()</default>
@@ -80,7 +74,14 @@
     </entry>
   </group>
 
-  <group name="Calibrate">
+  <group name="Training">
+    <entry name="DefaultToPowerTraining" type="Bool">
+      <label>If the default mode to train is powertraining.</label>
+      <default>false</default>
+      <tooltip>If simon should default to the power training mode.</tooltip>
+    </entry>
+
+
      <entry name="DontShowSampleWarning" type="Bool">
       <label>Do not show a warning message on samples with problems.</label>
       <default>false</default>

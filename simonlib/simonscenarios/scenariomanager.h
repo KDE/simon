@@ -116,13 +116,10 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName,
       const QString& macrosName, const QString& statsName);
 
-    void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands) {
-      this->listInterfaceCommands = listInterfaceCommands;
-    }
+    void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 
-    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration() {
-      return listInterfaceCommands;
-    }
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration();
+   
 
   public slots:
     // If force is true, every registered display will switch to this scenario
