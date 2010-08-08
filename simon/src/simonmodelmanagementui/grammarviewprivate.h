@@ -24,15 +24,13 @@
 #include <QTimer>
 #include <simonscenarios/scenariodisplay.h>
 
-/**
-  @author Peter Grasch <grasch@simon-listens.org>
-*/
 class QSortFilterProxyModel;
+class QShowEvent;
 
 class GrammarViewPrivate : public QWidget, public ScenarioDisplay
 {
   Q_OBJECT
-    private:
+  private:
     Ui::GrammarView ui;
     QTimer autoSaveTimer;
     QSortFilterProxyModel *grammarProxy;
@@ -47,6 +45,9 @@ class GrammarViewPrivate : public QWidget, public ScenarioDisplay
     void addStructure();
     void deleteStructure();
     //	void slotChanged();
+
+  protected:
+    void showEvent(QShowEvent*);
 
   public slots:
     void displayScenarioPrivate(Scenario *scenario);

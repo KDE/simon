@@ -1,61 +1,62 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DlgModifyCommands</class>
- <widget class="QWidget" name="DlgModifyCommands" >
-  <property name="geometry" >
+ <widget class="QWidget" name="DlgModifyCommands">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
-    <height>401</height>
+    <width>431</width>
+    <height>343</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Command</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" >
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QFormLayout" name="formLayout" >
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_15" >
-         <property name="font" >
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="font">
           <font>
            <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Name (Trigger):</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="KLineEdit" name="leTrigger" >
-         <property name="text" >
+       <item row="0" column="1">
+        <widget class="KLineEdit" name="leTrigger">
+         <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
           <string>Type:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <widget class="KComboBox" name="cbType" />
+       <item row="1" column="1">
+        <widget class="KComboBox" name="cbType"/>
        </item>
-       <item row="2" column="1" >
-        <widget class="KTextEdit" name="teDescription" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <item row="2" column="1">
+        <widget class="KTextEdit" name="teDescription">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>16777215</width>
            <height>100</height>
@@ -63,9 +64,9 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lbDescription" >
-         <property name="text" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbDescription">
+         <property name="text">
           <string>Description:</string>
          </property>
         </widget>
@@ -73,11 +74,11 @@
       </layout>
      </item>
      <item>
-      <spacer name="horizontalSpacer" >
-       <property name="orientation" >
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -86,35 +87,38 @@
       </spacer>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="KIconButton" name="ibIcon" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+        <widget class="KIconButton" name="ibIcon">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize" >
+         <property name="minimumSize">
           <size>
            <width>72</width>
            <height>72</height>
           </size>
          </property>
-         <property name="icon" >
+         <property name="icon">
           <string>system-run</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>87</height>
           </size>
          </property>
         </spacer>
@@ -124,29 +128,24 @@
     </layout>
    </item>
    <item>
-    <widget class="QStackedWidget" name="swCommandCreaters" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+    <widget class="QStackedWidget" name="swCommandCreaters">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
+       <verstretch>2</verstretch>
       </sizepolicy>
      </property>
-     <property name="currentIndex" >
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="Seite_2" >
-      <layout class="QVBoxLayout" name="verticalLayout_2" />
+     <widget class="QWidget" name="Seite_2">
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
      </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
   <customwidget>
    <class>KIconButton</class>
    <extends>QPushButton</extends>
@@ -156,6 +155,11 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>
@@ -171,11 +175,11 @@
    <receiver>swCommandCreaters</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>162</x>
      <y>54</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>215</x>
      <y>104</y>
     </hint>

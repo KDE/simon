@@ -57,7 +57,7 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
   ui.lvStructures->setModel(grammarProxy);
   ui.lwExamples->clear();
 
-  currentSelectionChanged();
+  //currentSelectionChanged();
 }
 
 
@@ -142,6 +142,10 @@ void GrammarViewPrivate::showMergeWizard()
   currentSelectionChanged();
 }
 
+void GrammarViewPrivate::showEvent(QShowEvent*)
+{
+  currentSelectionChanged();
+}
 
 GrammarViewPrivate::~GrammarViewPrivate()
 {
