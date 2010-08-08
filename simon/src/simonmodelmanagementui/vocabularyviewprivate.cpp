@@ -118,6 +118,7 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   kDebug() << "Displaying scenario " << scenario->name();
 
+  clearTrainingList();
   activeProxy->setSourceModel(scenario->vocabulary());
 }
 
@@ -208,6 +209,7 @@ void VocabularyViewPrivate::deleteSelectedWord()
   DeleteWordDialog *del = new DeleteWordDialog(this);
 
   if (del->exec(w, isShadowed)) {
+    clearTrainingList();
     //delete the word
     switch (del->getDeletionType()) {
       case DeleteWordDialog::MoveToUnused:
@@ -253,8 +255,7 @@ void VocabularyViewPrivate::clear()
   if (KMessageBox::questionYesNo(this, i18n("Do you really want to clear the whole vocabulary?")) == KMessageBox::Yes) {
     if (KMessageBox::warningContinueCancel(this, i18n("This will remove every word from the currently displayed vocabulary list.\n\nAre you absolutely sure you want to continue?")) == KMessageBox::Continue) {
       //yipikayay motherf- <boom>
-      ui.lwTrainingWords->clear();
-      trainingVocabulary.clear();
+      clearTrainingList();
 
       if (isShadowed) {
         ScenarioManager::getInstance()->getShadowVocabulary()->empty();
@@ -323,12 +324,16 @@ void VocabularyViewPrivate::trainList()
 
   QPointer<TrainingsWizard> wizard = new TrainingsWizard(this);
   if (wizard->init(trainingVocabulary, ui.cbBuildSentences->isChecked()) && wizard->exec()) {
-    trainingVocabulary.clear();
-    ui.lwTrainingWords->clear();
+    clearTrainingList();
   }
   delete wizard;
 }
 
+void VocabularyViewPrivate::clearTrainingList()
+{
+    trainingVocabulary.clear();
+    ui.lwTrainingWords->clear();
+}
 
 /**
  * @brief Destructor

@@ -61,6 +61,7 @@ class VocabularyViewPrivate : public QWidget, public ScenarioDisplay
 
     void editSelectedWord();
     void clear();
+    void clearTrainingList();
     void deleteSelectedWord();
 
     void copyWordToTrain();
