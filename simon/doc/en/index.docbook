@@ -495,7 +495,7 @@ This method of visual feedback proved especially valuable when recording with pe
 <title>Microphone</title>
 <para>For simon to work well, a high quality microphone is recommended.</para>
 
-<para>However, even relatively cheap headsets (around 30 €) achieve very good results - magnitudes better than internal microphones.</para>
+<para>However, even relatively cheap headsets (around 30 Euros achieve very good results - magnitudes better than internal microphones.</para>
 
 <para>For maximum compatability we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
 </sect2>
