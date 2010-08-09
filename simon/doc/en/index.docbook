@@ -2954,18 +2954,6 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <para>This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable.</para>
 
 <para>Here you can also define the required signal to noise ratio for simon to consider a training sample to be correct. See the <link linkend="sample_quality_assurance">Sample Quality Assurance</link> section for more details.</para>
-
-<para>
-<screenshot>
-<screeninfo>simon Volume Calibration Configuration</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="volume_calibration_config.png" format="PNG"/>
-    </imageobject>
-  </mediaobject>
-</screenshot>
-</para>
-
 <para>On this configuration page you can also set the parameters for the <link linkend="volume_calibration">volume calibration</link>.</para>
 
 <para>It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
@@ -2982,7 +2970,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <screeninfo>Sound Configuration: Postprocessing</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="configure_sound_3.png" format="PNG"/>
+      <imagedata fileref="configure_sound_4.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
