@@ -106,6 +106,8 @@ void AddWordResolvePage::initializePage()
 {
   alreadyTriedToConvinceAboutCapitalization=false;
   setUpdatesEnabled(false);
+  ui.cbSimilarSearch->setChecked(false);
+  ui.cbContainsSearch->setChecked(false);
 
   QStringList words = field("wordNameIntro").toString().split(' ');
   kDebug() << words;
