@@ -18,7 +18,7 @@
     <item>
      <widget class="KTabWidget" name="twMain">
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Seite_3">
        <attribute name="title">
@@ -551,8 +551,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>731</width>
-                 <height>450</height>
+                 <width>86</width>
+                 <height>16</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="vbWordResultDetails"/>
@@ -655,7 +655,7 @@
      <x>0</x>
      <y>0</y>
      <width>777</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

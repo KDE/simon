@@ -46,8 +46,9 @@ class ImportTrainingDirectoryWorkingPage : public QWizardPage
 {
   Q_OBJECT
 
-    signals:
-  void done();
+  signals:
+    void done();
+
   private:
     Ui::ImportTrainingDataWorkingDlg ui;
 
@@ -61,12 +62,14 @@ class ImportTrainingDirectoryWorkingPage : public QWizardPage
     void displayProgress(int now, int max);
     void displayStatus(QString status);
     void displayError(QString error);
+
   public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
-    ~ImportTrainingDirectoryWorkingPage() {}
+    ~ImportTrainingDirectoryWorkingPage();
     // 	bool importDir(QString dir);
     bool isComplete() const { return completed; }
     void initializePage();
+    void cleanupPage();
 
 };
 #endif

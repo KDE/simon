@@ -73,6 +73,11 @@ void ImportTrainingDirectoryWorkingPage::setComplete()
   emit done();
 }
 
+void ImportTrainingDirectoryWorkingPage::cleanupPage()
+{
+  if (importer->isRunning())
+    importer->terminate();
+}
 
 /**
  * \brief Starts the importing process and calls all the other methods
@@ -95,3 +100,9 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
   }
   importer->import(importPrompts, path, basePath);
 }
+
+ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
+{
+  importer->deleteLater();
+}
+
