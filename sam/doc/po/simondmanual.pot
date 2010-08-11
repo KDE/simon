@@ -1,0 +1,364 @@
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-07-16 18:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: trans_comment
+#: index.docbook:56
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:72
+#, no-c-format
+msgid "&kmyapplication; is the server component of the simon speech recognition suite."
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:82
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:83
+#, no-c-format
+msgid "kdeutils"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:84
+#, no-c-format
+msgid "Kapp"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:85
+#, no-c-format
+msgid "simon"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:86
+#, no-c-format
+msgid "recognition"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:87
+#, no-c-format
+msgid "speech"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:88
+#, no-c-format
+msgid "voice"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:89
+#, no-c-format
+msgid "command"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:90
+#, no-c-format
+msgid "control"
+msgstr ""
+
+#. Tag: keyword
+#: index.docbook:91
+#, no-c-format
+msgid "accessibility"
+msgstr ""
+
+#. Tag: holder
+#: index.docbook:101
+#, no-c-format
+msgid "Peter Grasch"
+msgstr ""
+
+#. Tag: author
+#: index.docbook:105
+#, no-c-format
+msgid "<personname> <firstname>Peter</firstname> <othername>H.</othername> <surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</email>"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:122
+#, no-c-format
+msgid "The &kmyapplication; Handbook"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:135
+#, no-c-format
+msgid "Introduction"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:142
+#, no-c-format
+msgid "&kmyapplication; is the server component of the simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:145
+#, no-c-format
+msgid "For more information please see the <ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:149
+#, no-c-format
+msgid "Using &kmyapplication;"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:151
+#, no-c-format
+msgid "simond is a command line application which does not have any user interface. There are no special launch parameters."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:153
+#, no-c-format
+msgid "However, simond installs two KCMs that are listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:"
+msgstr ""
+
+#. Tag: command
+#: index.docbook:155
+#, no-c-format
+msgid "kcmshell4 simonduserconfiguration"
+msgstr ""
+
+#. Tag: command
+#: index.docbook:156
+#, no-c-format
+msgid "kcmshell4 simondnetworkconfiguration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:160
+#, no-c-format
+msgid "When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:164
+#, no-c-format
+msgid "User Configuration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:166
+#, no-c-format
+msgid "Using the user configuration you can define, edit and remove users and their models from the server."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:170
+#, no-c-format
+msgid "screenshot of the simond user configuration"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:176
+#, no-c-format
+msgid "simond user configuration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:182
+#, no-c-format
+msgid "simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:183
+#, no-c-format
+msgid "The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:185
+#, no-c-format
+msgid "This database is stored depending on your operating system:"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:187
+#, no-c-format
+msgid "simond user database storage"
+msgstr ""
+
+#. Tag: entry
+#: index.docbook:193
+#, no-c-format
+msgid "Microsoft Windows"
+msgstr ""
+
+#. Tag: entry
+#: index.docbook:194
+#, no-c-format
+msgid "GNU/Linux"
+msgstr ""
+
+#. Tag: filename
+#: index.docbook:199
+#, no-c-format
+msgid "%appdata%\\.kde\\share\\apps\\simond\\simond.db"
+msgstr ""
+
+#. Tag: filename
+#: index.docbook:200
+#, no-c-format
+msgid "~/.kde/share/apps/simond/simond.db"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:207
+#, no-c-format
+msgid "simond does not come with a default user so you have to add one user before you can connect simon to the simond server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:209
+#, no-c-format
+msgid "The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the \"Change Password\" button."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:211
+#, no-c-format
+msgid "When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:215
+#, no-c-format
+msgid "Network Configuration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:216
+#, no-c-format
+msgid "Using the network configuration, the user can change the port used by the server and restrict access to a specific IP."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:218
+#, no-c-format
+msgid "If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:221
+#, no-c-format
+msgid "screenshot of the simond network configuration"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:227
+#, no-c-format
+msgid "simond network configuration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:233
+#, no-c-format
+msgid "The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:235
+#, no-c-format
+msgid "Using the option to \"Only allow connections from\" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:236
+#, no-c-format
+msgid "This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:238
+#, no-c-format
+msgid "Protocol encryption is not yet implemented."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:249
+#, no-c-format
+msgid "Questions and Answers"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:251
+#, no-c-format
+msgid "In an effort to keep this section always up-to-date it is available at our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting\">online wiki</ulink>."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:283
+#, no-c-format
+msgid "Credits and License"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:285
+#, no-c-format
+msgid "&kmyapplication;"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:288
+#, no-c-format
+msgid "Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:292
+#, no-c-format
+msgid "Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>"
+msgstr ""
+
+#. Tag: trans_comment
+#: index.docbook:296
+#, no-c-format
+msgid "CREDIT_FOR_TRANSLATORS"
+msgstr ""
+
+#. Tag: chapter
+#: index.docbook:296
+#, no-c-format
+msgid "&underFDL; &underGPL;"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:311
+#, no-c-format
+msgid "Installation"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:312
+#, no-c-format
+msgid "Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Setup\">wiki</ulink> for install instructions."
+msgstr ""
+

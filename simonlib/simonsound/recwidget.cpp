@@ -192,7 +192,12 @@ void RecWidget::initialize()
       deviceNames << i18nc("Sound device selection; First parameter is device name",
       "%1 (%2 channels, %3 Hz)", dev.name(), dev.channels(), dev.sampleRate());
 
-    QString selected = KInputDialog::getItem(i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
+    QString selected;
+    if (deviceNames.count() == 1)
+      selected = deviceNames[0];
+    else
+      selected = KInputDialog::getItem(i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
+    kDebug() << selected;
     if (!selected.isEmpty()) {
       SimonSound::DeviceConfiguration selectedDevice = devices.takeAt(deviceNames.indexOf(selected));
       registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
