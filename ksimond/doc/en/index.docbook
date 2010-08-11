@@ -63,8 +63,8 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2008-03-04</date>
-<releaseinfo>0.2</releaseinfo>
+<date>2010-08-11</date>
+<releaseinfo>0.3</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -97,7 +97,7 @@ Please at least include KDE, the KDE package it is in, the name
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009</year>
+<year>2009-2010</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
@@ -122,22 +122,8 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 <title>The &kmyapplication; Handbook</title>
 </bookinfo>
 
-<!-- The contents of the documentation begin here.  Label
-each chapter so with the id attribute. This is necessary for two reasons: it
-allows you to easily reference the chapter from other chapters of your
-document, and if there is no ID, the name of the generated HTML files will vary
-from time to time making it hard to manage for maintainers and for the CVS
-system. Any chapter labelled (OPTIONAL) may be left out at the author's
-discretion. Other chapters should not be left out in order to maintain a
-consistent documentation style across all KDE apps. -->
-
 <chapter id="introduction">
 <title>Introduction</title>
-
-<!-- The introduction chapter contains a brief introduction for the
-application that explains what it does and where to report
-problems. Basically a long version of the abstract.  Don't include a
-revision history. (see installation appendix comment) -->
 
 <para>
 &kappname; is a simple graphical front-end to simond. It creates and displays a tray-icon from which you can start and stop the simond server.
@@ -154,13 +140,7 @@ Please report any problems or feature requests to <ulink url="http://sourceforge
 <chapter id="using-kapp">
 <title>Using &kappname;</title>
 
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
-
 <para>
-<!-- Note that all graphics should be in .png format. Do not use gifs because of
-patent issues. -->
 Due to it's minimalistic nature ksimond itself doesn't even have an application window. However, it the tray icon has a context menu from where you can start and stop simond and also open the configuration.
 
 <screenshot>
@@ -221,6 +201,18 @@ Alongside the ksimond configuration the simond configuration modules are listed 
     </textobject>
   </mediaobject>
 </screenshot>
+
+<screenshot>
+<screeninfo>screenshot of the speech model configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_speech_model_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond speech model configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
 </para>
 
 </chapter>
@@ -228,18 +220,13 @@ Alongside the ksimond configuration the simond configuration modules are listed 
 
 <chapter id="credits">
 
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
-
 <title>Credits and License</title>
 
 <para>
 &kappname;
 </para>
 <para>
-Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 <!--<para>
 Contributors:
@@ -252,7 +239,7 @@ Contributors:
 </para>-->
 
 <para>
-Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens.org</email>
+Documentation Copyright &copy; 2010 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
@@ -271,26 +258,12 @@ Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens.org
 <title>How to obtain &kappname;</title>
 
 <para>
-<!-- This first entity contains boiler plate for applications that are
-part of KDE CVS.  You should remove it if you are releasing your
-application -->
-Download the latest version of ksimond using the simon-bundle avaible from <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125">sourceforge</ulink>.
+Download the latest version of ksimond using the simon-bundle avaible from <ulink url="http://sourceforge.net/projects/speech2text">sourceforge</ulink>.
 </para>
 </sect1>
 
 <sect1 id="requirements">
 <title>Requirements</title>
-
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
 
 <para>
 In order to successfully use &kappname;, you need &kde; 4. simond is obviously also
@@ -298,7 +271,7 @@ required.
 </para>
 
 <para>
-simon and simond itself can be found on <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125">the simon sourceforge page</ulink>.
+simon and simond itself can be found on <ulink url="http://sourceforge.net/projects/speech2text">the simon sourceforge page</ulink>.
 </para>
 
 </sect1>
@@ -306,12 +279,7 @@ simon and simond itself can be found on <ulink url="http://sourceforge.net/proje
 <sect1 id="compilation">
 <title>Compilation and Installation</title>
 
-<!-- This entity contains the boilerplate text for standard -->
-<!-- compilation instructions.  If your application requires any -->
-<!-- special handling, remove it, and replace with your own text. -->
-
-&install.compile.documentation;
-
+<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
 </sect1>
 
 </appendix>

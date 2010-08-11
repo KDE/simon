@@ -156,6 +156,12 @@ revision history. (see installation appendix comment) -->
 </itemizedlist>
 </para>
 
+<para>Because simond compiles the speech model (if instructed to do so by the simon client(s)), the configuration of the speech model compilation is of course also relevant when administrating simond. You can open it by using <command>kcmshell4</command>:
+<itemizedlist>
+<listitem><para><command>kcmshell4 simonmodelcompilationconfig</command></para></listitem>
+</itemizedlist>
+</para>
+
 <para>When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details.</para>
 
 
@@ -261,6 +267,28 @@ revision history. (see installation appendix comment) -->
 <para>Protocol encryption is not yet implemented.</para>
 </sect1>
 
+<sect1 id="speech_model_compilation_configuration">
+<title>Speech Model Compilation Configuration</title>
+<para>simon compiles the speech model by utilizing external software.</para>
+
+<para>While simon will find the needed executables automatically if they are in your systems path, you can also override those automatic values in this configuration page.</para>
+
+<para>
+<screenshot>
+<screeninfo>screenshot of the speech model compilation configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_speech_model_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond speech model configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+</sect1>
+
 </chapter>
 
 
@@ -268,7 +296,7 @@ revision history. (see installation appendix comment) -->
 <title>Questions and Answers</title>
 
 <para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
 </para>
 
 </chapter>
@@ -297,8 +325,7 @@ Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listen
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
-
+<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
 </appendix>
 
 &documentation.index;
