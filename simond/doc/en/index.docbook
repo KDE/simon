@@ -63,8 +63,8 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2008-03-04</date>
-<releaseinfo>0.2</releaseinfo>
+<date>2010-08-11</date>
+<releaseinfo>0.3</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -97,7 +97,7 @@ Please at least include KDE, the KDE package it is in, the name
 <legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009</year>
+<year>2009-2010</year>
 <holder>Peter Grasch</holder>
 </copyright>
 
@@ -150,10 +150,9 @@ revision history. (see installation appendix comment) -->
 
 <para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
 
-<para>However, simond installs two KCMs that are listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
+<para>However, simond installs a KCM that is listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
 <itemizedlist>
-<listitem><para><command>kcmshell4 simonduserconfiguration</command></para></listitem>
-<listitem><para><command>kcmshell4 simondnetworkconfiguration</command></para></listitem>
+<listitem><para><command>kcmshell4 simondconfiguration</command></para></listitem>
 </itemizedlist>
 </para>
 
@@ -204,18 +203,42 @@ revision history. (see installation appendix comment) -->
 </table>
 </para>
 
-<para>simond does not come with a default user so you have to add one user before you can connect simon to the simond server.</para>
+<para>simond does come with a default user so you don't have to add a user before you can connect simon to the simond server.</para>
+
+<para>The default user name is "default" and the password is "nopassword".</para>
 
 <para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the "Change Password" button.</para>
 
-<para>When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
+<para>When removing a user from the database which already has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
+
+<para>When selecting the <guibutton>Keep recognition samples</guibutton> option the samples the recognition works on are not deleted. This means that during normal operation, users will gather everything they say with the most likely transcription returned by &kmyapplication;. This can be used to automatically gather training data while using simon. The samples will be stored in different locations depending on your operation system:
+
+<table frame='all'><title>simond recognition sample storage</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><filename>%appdata%\.kde\share\apps\simond\models\(user)\recognitionsamples</filename></entry>
+  <entry><filename>~/.kde/share/apps/simond/models/(user)/recognitionsamples</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
 </sect1>
 
 <sect1 id="network_configuration">
 <title>Network Configuration</title>
 <para>Using the network configuration, the user can change the port used by the server and restrict access to a specific IP.</para>
 
-<warning><para>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</para></warning>
+<note><para>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</para></note>
 <para>
 <screenshot>
 <screeninfo>screenshot of the simond network configuration</screeninfo>
@@ -238,10 +261,6 @@ revision history. (see installation appendix comment) -->
 <para>Protocol encryption is not yet implemented.</para>
 </sect1>
 
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
-
 </chapter>
 
 
@@ -252,56 +271,25 @@ your application. -->
 In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
 </para>
 
-<!--<qandaset id="faqlist">
-<qandaentry>
-<question>
-<para>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
-</question>
-<answer>
-<para>You silly goose! Check out the <link linkend="using-simon">Using &kmyapplication;</link> for the answer.</para>
-</answer>
-</qandaentry>
-<qandaentry>
-<question>
-<para>Why can't I twiddle my documents?</para>
-</question>
-<answer>
-<para>You can only twiddle your documents if you have the foobar.lib
-installed.</para>
-</answer>
-</qandaentry>
-</qandaset>-->
 </chapter>
 
 <chapter id="credits">
-
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
-
 <title>Credits and License</title>
 
 <para>
 &kmyapplication;
 </para>
 <para>
-Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 
 <para>
-Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
 &underFDL;               <!-- FDL: do not remove -->
-
-<!-- Determine which license your application is licensed under,
-     and delete all the remaining licenses below:
-
-     (NOTE:  All documentation are licensed under the FDL,
-     regardless of what license the application uses) -->
 
 &underGPL;           <!-- GPL License -->
 
