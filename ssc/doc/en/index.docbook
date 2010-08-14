@@ -67,36 +67,24 @@
 <title>Introduction</title>
 
 <para>
-  &kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by simon and produce models that can be used by simon later on.</para>
-<para>It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model.</para>
+  &kmyapplication; is a tool for large scale sample acquisition.</para>
+
+<para>Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect tham on the central sscd server.</para>
+
+<para>Like simon / simond, &kmyapplication; is a client to the sscd server.</para>
+
+<para>&kmyapplication; will collect samples through trainings procedures and send them to the sscd server.</para>
+
+<para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">sscd manual</ulink> for more information.</para>
+
 <para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
-
-<sect1>
-  <title>Background</title>
-
-  <para>This section will provide a bit of background information on the compilation and testing process.</para>
-
-<sect2 id="effective_testing">
-  <title>Effective testing</title>
-  <para>One of the major features of ssc is to test the generated acoustic models.</para>
-
-  <para>The basic testing procedure is to run recognition on samples where the transcription is already known and comparing the results. &kmyapplication; also takes the confidence score of the recognition into account to measure how robust the created system is.</para>
-
-  <para>Due to the way acoustic models are created, both the recognition accuracy and confidence will be highly skewed when the same samples are used both for training and testing. This is called "in corpus" testing (the samples used for testing are also in your training corpus).</para>
-
-  <para>While in corpus testing might tell you if the compilation process failed or produced sub par results it won't tell you the "real" recognition rate of the created model. Therefore it is recommended to do "out of corpus" testing: Use different samples for training and for testing.</para>
-  <para>For out of corpus testing simply split your prompts file in two parts: One used to compile the model and one to test the model. Of course the test set doesn't need to be very big to get a representative result.</para>
-  <para>If you don't have a lot of training data, you can also split the complete corpus in ten parts. Compile 10 models, each leaving out one part of the corpus. Then do then individual tests (always with the test set that was excluded during compilation) and average the results.</para>
-
-</sect2>
-</sect1>
 
 </chapter>
 
 <chapter id="using-kapp">
 <title>Using &kmyapplication;</title>
 
-<para>&kmyapplication; provides a graphical interface that is divided into five areas.</para>
+<para>&kmyapplication; provides a simple graphical interface for collecting training samples and managing speakers.</para>
 
 <para>
 <screenshot>
@@ -112,208 +100,7 @@
 </screenshot>
 </para>
 
-<para>
-  The order of the tabs represents a complete sam workflow from creating a model to testing it.
-</para>
-
-<sect1 id="input_output">
-  <title>Input &amp; output files</title>
-
-  <para>Define what files to work on. You can save and load this configuration by using the <guibutton>Save</guibutton> and <guibutton>Load</guibutton> buttons respectively.</para>
-<warning>
-    <para>The <guibutton>Save</guibutton> and <guibutton>Load</guibutton> menus <emphasis>only</emphasis> save the paths and options defined here. They don't save the associated files!</para>
-</warning>
-
-<para>
-<screenshot>
-<screeninfo>Input &amp; output selection</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="input_output.png" format="PNG"/>
-    </imageobject>
-    <textobject>
-      <phrase>Input &amp; output selection</phrase>
-    </textobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simons model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
-
-<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simons model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
-
-<para>Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths.</para>
-
-<para>
-  &kmyapplication; allows the user to provide two different types of prompts files. One prompts file to compile the model and test the model. For more information, please see the section on <link linkend="effective_testing">effective testing</link>.
-</para>
-
-</sect1>
-
-<sect1 id="adapt_scenarios">
-  <title>Adapt scenarios</title>
-
-  <para>simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK.</para>
-
-<para>
-<screenshot>
-<screeninfo>Adapt scenarios</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="adapt_scenarios.png" format="PNG"/>
-    </imageobject>
-    <textobject>
-      <phrase>Adapt scenarios</phrase>
-    </textobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simons scenarios will also be serialized when using the <guibutton>Modify simons model</guibutton> options.</para>
-
-  <para>In this page you can find status information of the adaption and read detailed error messages if an error occurs.</para>
-</sect1>
-
-<sect1 id="build_model">
-  <title>Create model</title>
-
-  <para>Here you can build the model using the input and output files defined in the <link linkend="input_output">input &amp; output section</link>.</para>
-
-  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of wether the compilation was successful or not.</para>
-
-<para>
-<screenshot>
-<screeninfo>Create model</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="build.png" format="PNG"/>
-    </imageobject>
-    <textobject>
-      <phrase>Create model</phrase>
-    </textobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-  <para>Using this verbose output it is much easier to find issues with the input data.</para>
-</sect1>
-
-<sect1 id="test">
-  <title>Test model</title>
-  <para>Here you can test the speech model.</para>
-  <para>&kmyapplication; will test the model set by in the <guilabel>Output files</guilabel> section in the <link linkend="input_output">input &amp; output section</link>.</para>
-
-  <para>During testing, Julius will run to recognize on the input files as set by the test prompts. Resulting word- and sentence errors will be counted as well as the overall robustness by analyzing confidence scores of the recognizer.</para>
-
-  <para>To test the model successfully you also need <ulink url="http://sox.sourceforge.net">SoX</ulink> installed and in your path.</para>
-
-  <para>While the test is running you can watch the current recognition in the test protocol.</para>
-<para>
-<screenshot>
-<screeninfo>Test model</screeninfo>
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="test_model.png" format="PNG"/>
-    </imageobject>
-    <textobject>
-      <phrase>Test model</phrase>
-    </textobject>
-  </mediaobject>
-</screenshot>
-</para>
-
-<para>As soon as the test is finished, the <link linkend="test_results">test results</link> will be automatically displayed.</para>
-
-
-</sect1>
-
-<sect1 id="test_results">
-  <title>Test results</title>
-
-  <para>After a successful <link linkend="test">model test</link> you can find a detailed report of the recognition accuracy here.</para>
-
-  <sect2 id="scoring">
-    <title>Scoring</title>
-
-    <para>To best reflect the recognition performance, &kmyapplication; uses multiple, ranked results for the tests.</para>
-
-    <para>A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as "recognized" even tough another recognition result might be ranked higher than the correct one.</para>
-
-    <para>If for example the sample "flowers" is recognized as "flower" (90%), "flowers" (70%), "apple" (12%) it will be marked as "recognized" with a score of 70%.</para>
-
-    <para>The displayed overall recognition rate is the average of the word recognition rate (average over each word) and the sentence recognition rate (average over each sentence).</para>
-
-  </sect2>
-
-  <sect2 id="test_results_words">
-    <title>Word</title>
-
-    <para>&kmyapplication; will list recognition accuracy for each word individually.</para>
-    
-    <para>
-    <screenshot>
-    <screeninfo>Word results</screeninfo>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="test_results_words.png" format="PNG"/>
-        </imageobject>
-        <textobject>
-          <phrase>Word results</phrase>
-        </textobject>
-      </mediaobject>
-    </screenshot>
-    </para>
-
-    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually altough the different words of course still influence each other.</para>
-  </sect2>
-
-  <sect2 id="test_results_sentences">
-    <title>Sentences</title>
-    <para>This section lists each prompt as "sentence".</para>
-
-    <para>Prompts that were recorded more than once are combined.</para>
-
-    <para>
-    <screenshot>
-    <screeninfo>Sentence results</screeninfo>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="test_results_sentences.png" format="PNG"/>
-        </imageobject>
-        <textobject>
-          <phrase>Sentence results</phrase>
-        </textobject>
-      </mediaobject>
-    </screenshot>
-    </para>
-  </sect2>
-
-  <sect2 id="test_results_files">
-    <title>Files</title>
-    <para>In the files section you can see the recognition results for each file. Each file will list the <link linkend="scoring">10 most likely results</link> in the details pane when you select it.</para>
-
-    <para>
-    <screenshot>
-    <screeninfo>File results</screeninfo>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="test_results_files.png" format="PNG"/>
-        </imageobject>
-        <textobject>
-          <phrase>File results</phrase>
-        </textobject>
-      </mediaobject>
-    </screenshot>
-    </para>
-
-    <para>When you identify problematic samples, you can re-record (or remove) them by selecting them and clicking on <guibutton>Edit sample</guibutton>.</para>
-
-    <para>You can sort the files by each column simply by clicking on the column header. This way it is very easy to find bad samples by sorting by recognition rate.</para>
-  </sect2>
-</sect1>
-
-
-</chapter>
+ </chapter>
 
 
 <chapter id="faq">
