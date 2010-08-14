@@ -59,7 +59,7 @@ set( kcm_simonrecognitioncontrol_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.cpp
 )
 
-kde4_add_ui_files( simonrecognition_LIB_SRCS
+kde4_add_ui_files( kcm_simonrecognitioncontrol_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/networksettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.ui
 )
