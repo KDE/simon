@@ -1,6 +1,6 @@
 #!/bin/sh
 BASEDIR="../en"   # root of translatable sources
-PROJECT="sammanual"  # project name
+PROJECT="sscmanual"  # project name
 BUGADDR="http://sourceforge.net/tracker/?atid=935103&group_id=190872"      # MSGID-Bugs
 WDIR=`pwd`          # working dir
  
