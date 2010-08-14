@@ -77,6 +77,7 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainsamplevolumepage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 )
 
 kde4_add_ui_files(simonsound_LIB_SRCS 
