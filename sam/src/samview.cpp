@@ -41,11 +41,14 @@
 #include <KCMultiDialog>
 #include <KMessageBox>
 #include <KFileDialog>
+#include <KGlobal>
+#include <KLocale>
 #include <KDebug>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
 	fileResultModelProxy(new QSortFilterProxyModel(this))
 {
+  KGlobal::locale()->insertCatalog("simonlib");
   ui.setupUi(this);
   ui.saWordResultDetails->setWidget(ui.wgWordResultDetails);
   ui.saSentenceResultDetails->setWidget(ui.wgSentenceResultDetails);

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-18 17:33+0200\n"
+"POT-Creation-Date: 2010-08-15 20:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: accuracydisplay.cpp:35
+msgid "Recognized %1 of %2: Recognition rate:"
+msgstr ""
 
 #: main.cpp:28
 msgid "An acoustic model modeller"
@@ -34,21 +38,21 @@ msgstr ""
 msgid "Peter Grasch"
 msgstr ""
 
-#: samview.cpp:61
+#: samview.cpp:64
 msgid "Modify simons model"
 msgstr ""
 
-#: samview.cpp:62
+#: samview.cpp:65
 msgid "Manage simons current model with ssc"
 msgstr ""
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:69 rc.cpp:105
+#: samview.cpp:72 rc.cpp:105
 msgid "Build model"
 msgstr ""
 
-#: samview.cpp:70
+#: samview.cpp:73
 msgid "Build the currently open model."
 msgstr ""
 
@@ -56,112 +60,112 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:78 rc.cpp:114 rc.cpp:117
+#: samview.cpp:81 rc.cpp:114 rc.cpp:117
 msgid "Test model"
 msgstr ""
 
-#: samview.cpp:79
+#: samview.cpp:82
 msgid "Test the model."
 msgstr ""
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:86 rc.cpp:126
+#: samview.cpp:89 rc.cpp:126
 msgid "Test results"
 msgstr ""
 
-#: samview.cpp:87
+#: samview.cpp:90
 msgid "Display the test results."
 msgstr ""
 
-#: samview.cpp:211 samview.cpp:232
+#: samview.cpp:215 samview.cpp:236
 msgid "sam projects *.sam"
 msgstr ""
 
-#: samview.cpp:245
+#: samview.cpp:249
 msgid "Untitled"
 msgstr ""
 
-#: samview.cpp:247
+#: samview.cpp:251
 msgid "sam - %1"
 msgstr ""
 
-#: samview.cpp:256 samview.cpp:313
+#: samview.cpp:260 samview.cpp:317
 msgid "Cannot open file: %1"
 msgstr ""
 
-#: samview.cpp:420
+#: samview.cpp:424
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
 msgstr ""
 
-#: samview.cpp:420
+#: samview.cpp:424
 msgid "Do not ask again"
 msgstr ""
 
-#: samview.cpp:421
+#: samview.cpp:425
 msgid "Serialized scenario output"
 msgstr ""
 
-#: samview.cpp:431
+#: samview.cpp:435
 msgid "Open simon prompts"
 msgstr ""
 
-#: samview.cpp:496
+#: samview.cpp:500
 msgid "Could not find scenario: %1"
 msgstr ""
 
-#: samview.cpp:534
+#: samview.cpp:538
 msgid "Unknown model type"
 msgstr ""
 
-#: samview.cpp:597
+#: samview.cpp:601
 msgid "Adaption aborted"
 msgstr ""
 
-#: samview.cpp:610
+#: samview.cpp:614
 msgid ""
 "Failed to adapt model:\n"
 "\n"
 "%1"
 msgstr ""
 
-#: samview.cpp:632
+#: samview.cpp:636
 msgid "Grammar class undefined: %1"
 msgstr ""
 
-#: samview.cpp:638
+#: samview.cpp:642
 msgid "Word undefined: %1"
 msgstr ""
 
-#: samview.cpp:645
+#: samview.cpp:649
 msgid "Phoneme undefined: %1"
 msgstr ""
 
-#: samview.cpp:802
+#: samview.cpp:806
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
 msgstr ""
 
-#: samview.cpp:835
+#: samview.cpp:839
 msgid "Modify sample"
 msgstr ""
 
-#: samview.cpp:847 samview.cpp:872
+#: samview.cpp:851 samview.cpp:876
 msgid "Could not modify prompts file"
 msgstr ""
 
-#: samview.cpp:859
+#: samview.cpp:863
 msgid "Could not overwrite prompts file"
 msgstr ""
 
-#: samview.cpp:863 samview.cpp:879
+#: samview.cpp:867 samview.cpp:883
 msgid "Could not remove original sample:  %1."
 msgstr ""
 
-#: samview.cpp:884
+#: samview.cpp:888
 msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""
 
@@ -423,7 +427,7 @@ msgid "Find file:"
 msgstr ""
 
 #. i18n: file: main.ui:606
-#. i18n: ectx: property (placeholderText), widget (KLineEdit, leResultFilesFilter)
+#. i18n: ectx: property (clickMessage), widget (KLineEdit, leResultFilesFilter)
 #: rc.cpp:144
 msgid "Filter"
 msgstr ""

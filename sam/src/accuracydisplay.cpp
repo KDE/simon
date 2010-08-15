@@ -18,10 +18,11 @@
  */
 
 #include "accuracydisplay.h"
+#include <math.h>
 #include <QProgressBar>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <math.h>
+#include <KLocalizedString>
 
 AccuracyDisplay::AccuracyDisplay(const QString& name, int count, int correct, float accuracy, QWidget* parent) : QWidget(parent),
 lbName(new QLabel(this)),
@@ -32,7 +33,7 @@ pbAccuracy(new QProgressBar(this))
 
   lbName->setText(name);
 
-  lbBreakdown->setText(QString("Recognized %1 of %2: Recognition rate:").arg(correct).arg(count));
+  lbBreakdown->setText(i18n("Recognized %1 of %2: Recognition rate:", correct, count));
 
   pbAccuracy->setMaximumWidth(200);
   pbAccuracy->setMaximum(100);
