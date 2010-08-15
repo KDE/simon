@@ -405,6 +405,8 @@ If you try to use scenarios designed for a different phoneme set (different base
 
 <para>By default the volume calibration is displayed before starting any recording in &kmyapplication;.</para>
 
+<para>To calibrate simply read the text displayed.</para>
+
 <para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status.
 </para>
 
