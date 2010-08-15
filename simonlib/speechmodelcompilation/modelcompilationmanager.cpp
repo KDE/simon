@@ -803,10 +803,54 @@ bool ModelCompilationManager::buildHMM15()
   return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
+bool ModelCompilationManager::shouldIncreaseMixtures()
+{
+  return doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm1.hed")) ||
+          doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm2.hed")) ||
+          doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm3.hed"));
+}
+
+bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
+{
+  QFile f(script);
+  if (!f.open(QIODevice::ReadOnly)) return false;
+
+  while (!f.atEnd())
+  {
+    QByteArray line = f.readLine().trimmed();
+    if (!line.startsWith("MU ")) continue;
+    line.remove(0, 2);
+    line = line.trimmed();
+    QByteArray number = line.left(line.indexOf(" "));
+
+    bool ok = true;
+    int newCount = number.toInt(&ok);
+    if (!ok) return false;
+
+    return ok && (newCount > 1);
+  }
+  return false;
+}
+
 
 bool ModelCompilationManager::increaseMixtures()
 {
   if (!keepGoing) return false;
+
+
+  //if we don't want to increase mixtures, the mixture count in the gmm files will be 0;
+  //If it is, skip this
+
+  if (!shouldIncreaseMixtures())
+  {
+    //copy hmm15 to hmm24
+    QFile::remove(tempDir+"/hmm24/macros");
+    QFile::remove(tempDir+"/hmm24/hmmdefs");
+    bool success = QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmm24/macros") && 
+            QFile::copy(tempDir+"/hmm15/hmmdefs", tempDir+"/hmm24/hmmdefs");
+    kDebug() << "Copy successful: " << success;
+    return success;
+  }
 
   emit status(i18n("Increasing mixtures..."),2000);
 

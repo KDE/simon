@@ -162,6 +162,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool buildHMM15();
 
     bool increaseMixtures();
+    bool shouldIncreaseMixtures();
+    bool doesIncreaseMixtures(const QString& script);
     bool buildHMM16();
     bool buildHMM17();
     bool buildHMM18();
