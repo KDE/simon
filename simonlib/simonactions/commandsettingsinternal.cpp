@@ -49,6 +49,10 @@ void CommandSettingsInternal::save(bool dym, float confidence, const QFont& font
   KConfigGroup cg(config, "");
   cg.writeEntry("MinimumConfidence", confidence);
   cg.writeEntry("UseDYM", dym);
+
+  storedConfidence = confidence;
+  storedDYM = dym;
+
   if (storedFont != font) {
     storedFont = font;
     cg.writeEntry("PluginBaseFont", storedFont);
@@ -106,6 +110,7 @@ void CommandSettingsInternal::save(bool dym, float confidence, const QFont& font
   cg.writeEntry("ListCancelVisibleTrigger", listConfiguration->getListVisibleTrigger(CommandListElements::Cancel));
 
   cg.sync();
+
   //	emit recognitionResultsFilterParametersChanged();
   //
   ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
@@ -259,6 +264,10 @@ void CommandSettingsInternal::defaults()
   cg.deleteEntry("ListEightVisibleTrigger");
   cg.deleteEntry("ListNextVisibleTrigger");
   cg.deleteEntry("ListCancelVisibleTrigger");
+
+  storedConfidence = 0.45f;
+  storedDYM = false;
+  storedFont = QFont();
 
   cg.sync();
 }
