@@ -404,7 +404,36 @@
 
 <sect1 id="stored_samples">
   <title>Stored samples</title>
-  <para>TODO</para>
+  <para>If you don't have a connection to the server or simply don't want to upload the samples right away, you get the option to store samples locally instead of sending them.</para>
+  <para>This is not intended as permanent storage but rather as a intermediate location before you can send the samples to the server.</para>
+
+  <para>To access (and upload) stored samples, select <guibutton>Upload stored data</guibutton> from the toolbar.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>Stored samples</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="upload_stored.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+        <phrase>Stored samples</phrase>
+      </textobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>
+    The list contains all locally stored trainings sessions. Each session is identified by the user id (first) and the exact date and time it was recorded (second).
+  </para>
+  <para>When recording in <link linkend="offline_mode">offline mode</link> the system doesn't know what user ids do exist. As such you have to either know the correct user id or guess.</para>
+
+  <para>Before uploading the sample, you can change the previously set user id by clicking <guibutton>Edit user</guibutton>.</para>
+
+  <para>If you press <guibutton>Upload</guibutton>, the training session will be restored and you get the possibility to hear / re-record all the trainings samples again before sending them to the server.</para>
+
+  <para>Once uploaded, the samples are removed from the local computer.</para>
+
 </sect1>
 
 

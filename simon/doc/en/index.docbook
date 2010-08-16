@@ -2026,7 +2026,7 @@ To import a directory containing trainings-samples just select the folder to imp
 </para>
 
 <para>
-The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav files. All files found will be imported.
+The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav, .flac, .mp3 and .ogg files. All files found will be imported.
 </para>
 
 <para>
