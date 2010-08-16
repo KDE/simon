@@ -27,6 +27,8 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 
+RecognitionControl* RecognitionControl::instance;
+
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
