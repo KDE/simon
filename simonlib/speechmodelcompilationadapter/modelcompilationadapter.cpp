@@ -23,6 +23,7 @@
 #include <KDebug>
 #include <KGlobal>
 #include <QString>
+#include <QCoreApplication>
 
 ModelCompilationAdapter::ModelCompilationAdapter(const QString& userName, QObject *parent) : QThread(parent), m_userName(userName)
 {
@@ -39,6 +40,7 @@ void ModelCompilationAdapter::run()
   }
   emit  status(i18n("Model adaption complete"), 100);
   emit adaptionComplete();
+  QCoreApplication::sendPostedEvents(0, 0);
 }
 
 

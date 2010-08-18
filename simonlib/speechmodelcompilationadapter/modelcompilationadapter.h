@@ -91,5 +91,6 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     QString m_lexiconPathOut, m_grammarPathOut, m_simpleVocabPathOut, m_promptsPathOut;
 
     void run();
+
 };
 #endif

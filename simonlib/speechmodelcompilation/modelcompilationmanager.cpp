@@ -369,6 +369,7 @@ void ModelCompilationManager::run()
 
   emit status(i18nc("Finished the model compilation", "Finished"), 2600, 2600);
   emit modelCompiled();
+  QCoreApplication::sendPostedEvents(0, 0);
 }
 
 

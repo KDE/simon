@@ -634,20 +634,21 @@ void SamView::slotModelCompilationError(const QString& error)
 void SamView::slotModelCompilationClassUndefined(const QString& undefinedClass)
 {
   KMessageBox::error(this, i18n("Grammar class undefined: %1", undefinedClass));
+  retrieveCompleteBuildLog();
 }
 
 
 void SamView::slotModelCompilationWordUndefined(const QString& undefinedWord)
 {
   KMessageBox::error(this, i18n("Word undefined: %1", undefinedWord));
-
+  retrieveCompleteBuildLog();
 }
 
 
 void SamView::slotModelCompilationPhonemeUndefined(const QString& undefinedPhoneme)
 {
   KMessageBox::error(this, i18n("Phoneme undefined: %1", undefinedPhoneme));
-
+  retrieveCompleteBuildLog();
 }
 
 
@@ -901,4 +902,8 @@ void SamView::slotEditSelectedSample()
 
 SamView::~SamView()
 {
+  modelCompilationManager->deleteLater();
+  modelCompilationAdapter->deleteLater();
+  modelTest->deleteLater();
+  fileResultModelProxy->deleteLater();
 }

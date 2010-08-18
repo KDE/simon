@@ -439,12 +439,38 @@
 
 <sect1 id="offline_mode">
   <title>Offline mode</title>
-  <para>TODO</para>
+  <para>&kmyapplication; is a <link linkend="introduction">server / client solution</link>.</para>
+
+  <para>Most of the time when working with &kmyapplication; you will want to connect to the server to access the remotely stored database containing users, institutions, etc. When recording samples you will also transfer them to the server directly in most cases.</para>
+
+  <para>Sometimes, tough, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpos &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
+
+  <para>In offline mode you can not add / edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
+
+  <para>Recording works the same in offline mode as it does when connected to the server but certain features might be unavailable (like resolving the name or validity of the entered user id).</para>
 </sect1>
 
 <sect1 id="configuring_ssc">
   <title>Configuring &kmyapplication;</title>
-  <para>TODO</para>
+  <para>In &kmyapplication;s configuration you can configure the server to connect to and set up some basic parameters. The audio configuration for the recordings can also be changed here.</para>
+
+  <para>
+  <screenshot>
+  <screeninfo>&kmyapplication; configuration</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="ssc_settings.png" format="PNG"/>
+      </imageobject>
+      <textobject>
+        <phrase>&kmyapplication; configuration</phrase>
+      </textobject>
+    </mediaobject>
+  </screenshot>
+  </para>
+
+  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guibutton>Use institution specific ids instead of ssc ids</guibutton> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
+
+  <para>The sound configuration is shared with the whole of the simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">simons manual</ulink>.</para>
 </sect1>
 
  </chapter>

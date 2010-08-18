@@ -414,8 +414,14 @@ void ScenarioManagementDialog::initDisplay()
     }
     else {
       if (selectedIds.contains(id))
+      {
         selectedList.insert(id, s);
-      else displayScenario(s, available);
+      }
+      else
+      {
+        displayScenario(s, available);
+        s->deleteLater();
+      }
     }
   }
 
@@ -424,6 +430,7 @@ void ScenarioManagementDialog::initDisplay()
     if (!s) continue;
 
     displayScenario(s, selected);
+    s->deleteLater();
   }
   ui->asScenarios->setButtonsEnabled();
   m_dirty = false;

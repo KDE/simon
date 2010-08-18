@@ -257,7 +257,11 @@ bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc
   }
   //kDebug() << m_grammar->structureCount() << " structurs loaded";
 
-  if (deleteDoc) delete doc;
+  if (deleteDoc) {
+    kDebug() << "DELETING DOC!";
+    delete doc;
+  } else kDebug() << "LEAKING DOC?...";
+
   return true;
 }
 
@@ -732,6 +736,7 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 
 Scenario::~Scenario()
 {
+  kDebug() << "I am deleted!";
   qDeleteAll(m_authors);
   if (m_actionCollection)
     m_actionCollection->deleteLater();
