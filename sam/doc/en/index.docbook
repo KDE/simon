@@ -72,7 +72,7 @@
 <para>It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model.</para>
 <para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
 
-<sect1>
+<sect1 id="background">
   <title>Background</title>
 
   <para>This section will provide a bit of background information on the compilation and testing process.</para>

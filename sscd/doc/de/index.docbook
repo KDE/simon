@@ -1,0 +1,211 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kmyapplication "<application>sscd</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2010-08-11</date>
+<releaseinfo>0.3</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is the server component of the simon speech recognition suite.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>sample</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>acquisition</keyword>
+<keyword>recording</keyword>
+<keyword>accessibility</keyword>
+</keywordset>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2009-2010</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>grasch@simon-listens.org</email>
+</author>
+</authorgroup>
+
+
+<title>The &kmyapplication; Handbook</title>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+  &kmyapplication; is the server component of the ssc sample acquisition tool. 
+</para>
+<para>
+  It manages speaker data (users, institutions) as well as sample meta data using a database and stores the samples.
+</para>
+<para>
+  It receives input from the ssc client(s) which connect to the server using TCP/IP.
+</para>
+
+<para>For more information on the general architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>. For information about the ssc client, please refer to the <ulink url="help:/ssc">ssc manual</ulink>.</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &kmyapplication;</title>
+
+<para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
+
+<sect1 id="user_configuration">
+  <title>User configuration</title>
+<para>This database is stored depending on your operating system:
+
+<table frame='all'><title>simond user database storage</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><filename>%appdata%\.kde\share\apps\simond\simond.db</filename></entry>
+  <entry><filename>~/.kde/share/apps/simond/simond.db</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</sect1>
+
+</chapter>
+
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+</para>
+
+</chapter>
+
+<chapter id="credits">
+<title>Credits and License</title>
+
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<para>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+&underGPL;           <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

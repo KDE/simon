@@ -1,0 +1,335 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kmyapplication "<application>sscd</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2010-08-11</date>
+<releaseinfo>0.3</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is the server component of the ssc sample acquisition tool. 
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>sample</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>acquisition</keyword>
+<keyword>recording</keyword>
+<keyword>accessibility</keyword>
+</keywordset>
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2009-2010</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>grasch@simon-listens.org</email>
+</author>
+</authorgroup>
+
+
+<title>The &kmyapplication; Handbook</title>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+  &kmyapplication; is the server component of the ssc sample acquisition tool. 
+</para>
+<para>
+  It manages speaker data (users, institutions) as well as sample meta data using a database and stores the samples.
+</para>
+<para>
+  It receives input from the ssc client(s) which connect to the server using TCP/IP.
+</para>
+
+<para>For more information on the general architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>. For information about the ssc client, please refer to the <ulink url="help:/ssc">ssc manual</ulink>.</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &kmyapplication;</title>
+
+<para>&kmyapplication; is a command line application which does not have any user interface. There are no special launch parameters.</para>
+
+
+<sect1 id="sscd_directory">
+  <title>Base folder</title>
+  <para>The base folder of &kmyapplication; contains the configuration file <filename>sscd.conf</filename> and an error log in case something goes wrong. This directory is also contains the <filename>samples</filename> subfolder where all the samples are stored.</para>
+
+<para>The location of the sscd folder depends on your operating system:
+
+<table frame='all'><title>simond user database storage</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><filename>Installation folder of sscd.exe (usually: C:\Program Files\simon 0.3\bin\sscd.exe</filename>)</entry>
+  <entry><filename>/usr/share/sscd</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+</sect1>
+
+<sect1 id="configuration">
+  <title>Configuration</title>
+
+  <para>There is no graphical configuration of sscd, but there is a configuration file (<filename>sscd.conf</filename>) stored in the <link linkend="sscd_directory">sscd directory</link>.</para>
+
+  <para>The default configuration file is heavily commented and should be self-explanatory.</para>
+
+  <para>Before running sscd, will want to at least change the DatabaseUser and DatabasePassword entry of the configuration file. See <link linkend="database">the database section</link> for more information.</para>
+
+  <screen>
+; This is an example config file and displays the built-in defaults
+; sscd will look for this file in:
+; Linux:
+;    /usr/share/sscd/sscd.conf
+; Windows:
+;    &lt;sscd installation path&gt;\sscd.conf
+
+[General]
+; Change this to use a different database; Because sscd uses db-specific
+; commands in places, only QMYSQL is supported at the moment.
+; Support for other DBMS can be added extremely easily, tough so please
+; feel free to request support through support@simon-listens.org
+DatabaseType=QMYSQL
+
+; The host of the DBMS
+DatabaseHost=127.0.0.1
+
+; The port of the DBMS; 3306 is the default port of MySQL
+DatabasePort=3306
+
+; The database to use; Make sure that you run the supplied create script
+; before you use sscd
+DatabaseName=ssc
+
+; The username to use when connecting to the DBMS
+DatabaseUser=sscuser
+
+; Database password. The default one will obviously not work in most cases
+DatabasePassword=CHANGE ME NOW
+
+; Database options. Refer to Qts documentation of QSqlDatabase for details
+DatabaseOptions=MYSQL_OPT_RECONNECT=1
+
+; The port the server will listen to; Default: 4440
+Port=4440
+
+; Bind the server to a specific client IP; If this is true, the server
+; will ignore requests from all but the BoundHost (see below)
+Bind=false
+
+; IP of the bound host (if Bind is active)
+BindHost=127.0.0.1
+  </screen>
+</sect1>
+
+<sect1 id="database">
+  <title>Database</title>
+  
+  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, tough. Contact the <ulink url="mailto:support@simon-listens.org">simon team</ulink> if necessary.</para>
+
+  <para>To set up the requried tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_directory">base directory</link> of &kmyapplication;.</para>
+
+
+  <para>Database errors can be found in the <filename>error.log</filename> which also resides in the base folder.</para>
+
+</sect1>
+
+
+<sect1 id="extracting_samples">
+  <title>Extracting collected samples</title>
+
+  <para>To build models using the samples collected with &kmyapplication; you first have to extract them from the database.</para>
+
+  <warning>
+    <para>
+      Because &kmyapplication; is designed for large scale sample acquisition this is not end user friendly. The documentation below is mainly provided for technically skilled professionals.
+    </para>
+    <para>
+      Most of the scripts below require the GNU tools (usually available by default on GNU/Linux).
+    </para>
+  </warning>
+
+  <para>You can use the following query (minor adjustments will be necessary depending on what samples exactly you need):
+
+    <screen>
+use ssc;
+                                                                                                                           
+select s.Path, s.Prompt
+  from Sample s inner join User u
+    on s.UserId = u.UserId inner join UserInInstitution uii
+      on u.UserId = uii.UserId inner join SampleType st
+        on s.TypeId = st.SampleTypeId inner join Microphone m
+          on m.MicrophoneId = s.MicrophoneId
+  WHERE st.ExactlyRepeated=1 and uii.InstitutionId = 3
+    and (m.MicrophoneId = 1);
+    </screen>
+  </para>
+
+  <para>This query will list all samples from institution 3 that were recorded with microphone 1.</para>
+
+  <para>You can then for example use this script to create a prompts file:
+    <screen>
+      #!/bin/bash
+      sed '1d' $1 > temp_out
+      sed -e 's/\\\\/\//g' -e 's/.*Samples\///g' -e 's/\.wav\t/ /' temp_out > $1
+      rm temp_out
+    </screen>
+  </para>
+
+  <para>
+    This prompts file can then be <ulink url="help:/simon/training.html#import_trainings-data">imported in simon</ulink>.
+  </para>
+
+  <para>
+    To build the appropriate dictionary to compile the model you might also want to list all the sentences contained in the prompts file. You can do this with this script:
+    <screen>
+      #!/bin/bash
+      cat $1 | sed -e 's/[0-9\/]* //' | sort | uniq
+    </screen>
+  </para>
+</sect1>
+</chapter>
+
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+</para>
+
+</chapter>
+
+<chapter id="credits">
+<title>Credits and License</title>
+
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<para>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+&underGPL;           <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
