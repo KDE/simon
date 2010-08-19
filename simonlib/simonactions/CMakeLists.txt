@@ -63,6 +63,7 @@ target_link_libraries( simonactionskcm  ${KDE4_KDEUI_LIBS}
 simonactions
 )
 
-install(TARGETS simonactionskcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS simonactionskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
+  simon)
 
 install( FILES simonactionsconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

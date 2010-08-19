@@ -107,12 +107,15 @@ install( FILES ${simonscenarios_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
-install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
+install( TARGETS simonscenarios DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
+  simoncore)
+install( FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg
+  DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simoncore )
 
 install(FILES
 ${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
-${SERVICETYPES_INSTALL_DIR} COMPONENT simon)
+${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
  
 ##########
 set( kcm_simonscenarios_LIB_SRCS
@@ -125,6 +128,8 @@ kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
 target_link_libraries( simonscenarioskcm  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 )
 
-install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
+  simoncore )
 
-install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION
+  ${SERVICES_INSTALL_DIR} COMPONENT simoncore )

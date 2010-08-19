@@ -36,4 +36,5 @@ install( FILES ${simonxml_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonxml DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+install( TARGETS simonxml DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
+  simoncore )

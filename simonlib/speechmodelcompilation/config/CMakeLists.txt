@@ -30,5 +30,7 @@ install( FILES ${simonmodelcompilationconfiguration_LIB_HDRS}
   COMPONENT simonddevel
 )
  
-install( TARGETS simonmodelcompilationconfiguration DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simond )
-install( FILES simonmodelcompilationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )
+install( TARGETS simonmodelcompilationconfiguration DESTINATION
+  ${PLUGIN_INSTALL_DIR} COMPONENT simoncore )
+install( FILES simonmodelcompilationconfig.desktop  DESTINATION
+  ${SERVICES_INSTALL_DIR} COMPONENT simoncore )

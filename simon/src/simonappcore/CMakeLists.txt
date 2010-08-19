@@ -50,6 +50,6 @@ kde4_add_plugin(simonappcorekcm ${kcm_simonappcore_LIB_SRCS})
 target_link_libraries( simonappcorekcm  ${KDE4_KDEUI_LIBS}
 )
 
-install(TARGETS simonappcorekcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS simonappcorekcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simon)
 
 install( FILES simongeneralconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

@@ -101,7 +101,8 @@ install( FILES ${simonsound_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT
+  simoncore )
 
 
 ############
@@ -117,6 +118,8 @@ target_link_libraries( simonsoundkcm  ${KDE4_KDEUI_LIBS}
 simonsound
 )
 
-install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS simonsoundkcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
+  simoncore)
 
-install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}
+  COMPONENT simoncore )

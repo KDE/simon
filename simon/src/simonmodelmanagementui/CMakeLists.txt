@@ -153,5 +153,5 @@ kde4_add_plugin(simonmodelmanagementuikcm ${kcm_simonmodelmanagementui_LIB_SRCS}
 target_link_libraries(simonmodelmanagementuikcm ${KDE4_KDEUI_LIBS}
 	${KDE4_KIO_LIBS} simonscenarios
 )
-install(TARGETS simonmodelmanagementuikcm DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS simonmodelmanagementuikcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simon)
 install( FILES simonmodelconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
