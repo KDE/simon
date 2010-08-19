@@ -1,408 +1,356 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!-- Define an entity for your application if it is not part of KDE
-       CVS -->
-  <!ENTITY kmyapplication "<application
->simond</application
->">
-  <!ENTITY kappname "&kmyapplication;"
-><!-- replace kmyapplication here
+  <!ENTITY kmyapplication "<application>sam</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
-  <!ENTITY package "kde-module"
-><!-- kdebase, kdeadmin, etc.  Leave
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"
-> <!-- ONLY If you are writing non-English
-                                     original documentation, change
-                                     the language here -->
+  <!ENTITY % English "INCLUDE"> 
 
-  <!-- Do not define any other entities; instead, use the entities
-       from entities/general.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.9 January 10 2003
-     Changes to comments to clarify entity usage January 10 2003
-     Minor update to "Credits and Licenses" section on August 24, 2000
-     Removed "Revision history" section on 22 January 2001
-     Changed to Installation/Help menu entities 18 October 2001
-     Other minor cleanup and changes 18 October 2001
-     FPI change and minor changes November 2002 -->
-
-<!--
-This template was designed by: David Rugge davidrugge@mindspring.com
-with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
-and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
-of the KDE DocBook team.
-
-You may freely use this template for writing any sort of KDE documentation.
-If you have any changes or improvements, please let us know.
-
-Remember:
-- in XML, the case of the <tags
-> and attributes is relevant ;
-- also, quote all attributes.
-
-Please don't forget to remove all these comments in your final documentation,
-thanks ;-).
--->
-
-<!-- ................................................................ -->
-
-<!-- The language must NOT be changed here. -->
-<!-- If you are writing original documentation in a language other -->
-<!-- than English, change the language above ONLY, not here -->
 <book lang="&language;">
-
-<!-- This header contains all of the meta-information for the document such
-as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 
-<othercredit role="translator"
-><firstname
->Peter</firstname
-><surname
->Grasch</surname
-><affiliation
-><address
-><email
->grasch@simon-listens.org</email
-></address
-></affiliation
-><contrib
->Deutsche Übersetzung</contrib
-></othercredit
-> 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
-
-<date
->2008-03-04</date>
-<releaseinfo
->0.2</releaseinfo>
-
-<!-- Abstract about this handbook -->
+<date>2010-08-11</date>
+<releaseinfo>0.3</releaseinfo>
 
 <abstract>
-<para
->&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. </para>
+<para>
+&kmyapplication; is an acoustic model manager.
+</para>
 </abstract>
 
-<!-- This is a set of Keywords for indexing by search engines.
-Please at least include KDE, the KDE package it is in, the name
- of your application, and a few relevant keywords. -->
-
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->kdeutils</keyword>
-<keyword
->Kapp</keyword>
-<keyword
->simon</keyword>
-<keyword
->Erkennung</keyword>
-<keyword
->Sprache</keyword>
-<keyword
->Sprecher</keyword>
-<keyword
->Kommando</keyword>
-<keyword
->Kontrolle</keyword>
-<keyword
->Zugangshilfe</keyword>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>recognition</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>command</keyword>
+<keyword>control</keyword>
+<keyword>model</keyword>
+<keyword>compilation</keyword>
+<keyword>sam</keyword>
+<keyword>accessibility</keyword>
 </keywordset>
 
-<!-- Translators: put here the copyright notice of the translation -->
-<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-     and in the FDL itself on how to use it. -->
-<legalnotice
->&FDLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
 <copyright>
-<year
->2009</year>
-<holder
->Peter Grasch</holder>
+<year>2009-2010</year>
+<holder>Peter Grasch</holder>
 </copyright>
 
 <authorgroup>
-<author
-><personname
-> <firstname
->Peter</firstname
-> <othername
->H.</othername
-> <surname
->Grasch</surname
-> </personname
-> <email
->grasch@simon-listens.org</email
-> </author>
+<author>
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>grasch@simon-listens.org</email>
+</author>
 </authorgroup>
 
 
-<title
->Das &kmyapplication; Handbuch</title>
+<title>The &kmyapplication; Handbook</title>
 </bookinfo>
 
-<!-- The contents of the documentation begin here.  Label
-each chapter so with the id attribute. This is necessary for two reasons: it
-allows you to easily reference the chapter from other chapters of your
-document, and if there is no ID, the name of the generated HTML files will vary
-from time to time making it hard to manage for maintainers and for the CVS
-system. Any chapter labelled (OPTIONAL) may be left out at the author's
-discretion. Other chapters should not be left out in order to maintain a
-consistent documentation style across all KDE apps. -->
-
 <chapter id="introduction">
-<title
->Einleitung</title>
+<title>Introduction</title>
 
-<!-- The introduction chapter contains a brief introduction for the
-application that explains what it does and where to report
-problems. Basically a long version of the abstract.  Don't include a
-revision history. (see installation appendix comment) -->
+<para>
+  &kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by simon and produce models that can be used by simon later on.</para>
+<para>It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model.</para>
+<para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
 
-<para
->&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. Es ist für die eigentliche Erkennung und für die Erzeugung des Modells zuständig. Es erhält die Eingabedateien und die Daten vom Mikrofon von den simon Client(s) über das Netzwerk (TCP/IP). </para>
-<para
->Für weitere Informationen sehen Sie bitte das <ulink url="help:/simon/overview.html#architecture"
->simon Handbuch</ulink
->.</para>
+<sect1 id="background">
+  <title>Background</title>
+
+  <para>This section will provide a bit of background information on the compilation and testing process.</para>
+
+<sect2 id="effective_testing">
+  <title>Effective testing</title>
+  <para>One of the major features of sam is to test the generated acoustic models.</para>
+
+  <para>The basic testing procedure is to run recognition on samples where the transcription is already known and comparing the results. &kmyapplication; also takes the confidence score of the recognition into account to measure how robust the created system is.</para>
+
+  <para>Due to the way acoustic models are created, both the recognition accuracy and confidence will be highly skewed when the same samples are used both for training and testing. This is called "in corpus" testing (the samples used for testing are also in your training corpus).</para>
+
+  <para>While in corpus testing might tell you if the compilation process failed or produced sub par results it won't tell you the "real" recognition rate of the created model. Therefore it is recommended to do "out of corpus" testing: Use different samples for training and for testing.</para>
+  <para>For out of corpus testing simply split your prompts file in two parts: One used to compile the model and one to test the model. Of course the test set doesn't need to be very big to get a representative result.</para>
+  <para>If you don't have a lot of training data, you can also split the complete corpus in ten parts. Compile 10 models, each leaving out one part of the corpus. Then do then individual tests (always with the test set that was excluded during compilation) and average the results.</para>
+
+</sect2>
+</sect1>
+
 </chapter>
 
 <chapter id="using-kapp">
-<title
->&kmyapplication; benutzen</title>
+<title>Using &kmyapplication;</title>
 
-<para
->simond ist eine Kommandozeilenapplikation die keine Benutzerinteraktion bietet. Es gibt auch keine speziellen Kommandozeilenparameter.</para>
-
-<para
->Allerdings installiert simond zwei KCModule die in KDEs "systemsettings" gelistet werden und auch direkt mit <command
->kcmshell4</command
-> angezeigt werden können: <itemizedlist>
-<listitem
-><para
-><command
->kcmshell4 simonduserconfiguration</command
-></para
-></listitem>
-<listitem
-><para
-><command
->kcmshell4 simondnetworkconfiguration</command
-></para
-></listitem>
-</itemizedlist>
-</para>
-
-<para
->Wenn simond innerhalb einer grafischen Benutzerumgebung ausgeführt wird (wenn Sie nicht wissen sollten was eine "grafische Benutzerumgebung" ist, verwenden Sie wahrscheinlich eine), ist es empfohlen simon über das grafische Frontend <command
->ksimond</command
-> zu benutzen. ksimond bietet Zugriff auf die Konfigurationsmodule über sein Konfigurationsmenü. Sehen Sie das ksimond Handbuch für Details.</para>
-
-
-<sect1 id="user_configuration">
-<title
->Benutzerkonfiguration</title>
-
-<para
->Mit der Benutzerkonfiguration können Sie die neue Benutzer anlegen, vorhandene bearbeiten und - auf Wunsch inklusive deren Modell - vom Server entfernen.</para>
+<para>&kmyapplication; provides a graphical interface that is divided into five areas.</para>
 
 <para>
 <screenshot>
-<screeninfo
->Screenshot der simond Benutzerkonfiguration</screeninfo>
+<screeninfo>Main window</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="simond_user_config.png" format="PNG"/>
+      <imagedata fileref="main.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->simond Benutzerkonfiguration</phrase>
+      <phrase>Main window</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para
->simond identifiziert seine Verbindungen mit einer Benutzername / Passwort Kombination die komplett unabhängig ist vom zugrunde liegenden Betriebssystem. Das bedeutet, dass Sie mindestens einen simond Benutzer anlegen müssen, um simond zu verwenden. Jeder simon Client meldet sich mit einer Benutzername / Passwort Kombination an die einen einzelnen Benutzer und damit sein persönliches Sprachmodell identifiziert.</para>
-<para
->Die Benutzer werden in einer SQLite Datenbank gespeichert die durch das <command
->simonduserconfiguration</command
-> KCM verwaltet werden.</para>
-
-<para
->Der Speicherort der Datenbank hängt vom Betriebssystem ab: <table frame='all'
-><title
->simond Benutzerdatenbank</title>
-<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<thead>
-<row>
-  <entry
->Microsoft Windows</entry>
-  <entry
->GNU/Linux</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry
-><filename
->%appdata%\.kde\share\apps\simond\simond.db</filename
-></entry>
-  <entry
-><filename
->~/.kde/share/apps/simond/simond.db</filename
-></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
+<para>
+  The order of the tabs represents a complete sam workflow from creating a model to testing it.
 </para>
 
-<para
->simond liefert keinen Defaultbenutzer mit aus also müssen Sie einen anlegen bevor Sie simon zum simond Server verbinden können.</para>
+<sect1 id="input_output">
+  <title>Input &amp; output files</title>
 
-<para
->Das Passwort der Benutzer wird "gehashed" und kann deshalb nicht im Klartext angezeigt werden. Wenn ein Benutzer sein Passwort verliert existiert kein weg das verwendete Passwort von der simond Datenbank zu rekonstruieren. Sie können aber ein neues Passwort mit dem "Passwort ändern" Knopf vergeben.</para>
+  <para>Define what files to work on. You can save and load this configuration by using the <guibutton>Save</guibutton> and <guibutton>Load</guibutton> buttons respectively.</para>
+<warning>
+    <para>The <guibutton>Save</guibutton> and <guibutton>Load</guibutton> menus <emphasis>only</emphasis> save the paths and options defined here. They don't save the associated files!</para>
+</warning>
 
-<para
->Wenn ein Benutzer von der Datenbank entfernt wird, der bereits ein Sprachmodell generiert und gespeichert hat wird der Benutzer gefragt ob er neben dem Benutzer-Eintrag in der Datenbank auch das gespeicherte Modell entfernen möchte. Wenn Sie das Sprachmodell gespeichert lassen (mit "Nein" antworten), wird der nächste Benutzer mit dem gleichen Benutzernamen das Modell "erben".</para>
-</sect1>
-
-<sect1 id="network_configuration">
-<title
->Netzwerkkonfiguration</title>
-<para
->Mit der Netzwerkkonfiguration können Sie den Port ändern auf dem der Server hört und die Zugriffe auf eine spezielle IP Adresse limitieren.</para>
-
-<warning
-><para
->Wenn Sie nicht wissen, was "Hosts", "Ports" oder "IPs" sind, dann werden die Standardwerte höchstwahrscheinlich ausreichen.</para
-></warning>
 <para>
 <screenshot>
-<screeninfo
->Screenshot der simond Netzwerkkonfiguration</screeninfo>
+<screeninfo>Input &amp; output selection</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="simond_network_config.png" format="PNG"/>
+      <imagedata fileref="input_output.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase
->simond Netzwerkkonfiguration</phrase>
+      <phrase>Input &amp; output selection</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para
->Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist allerdings von keiner anderen bekannten Applikation verwendet und deshalb empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf allen simon Clients entsprechend anpassen.</para>
+<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simons model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
 
-<para
->Mit der Option "Nur Verbindungen erlauben von" können Sie den kompletten Zugriff auf den Server auf die angegebene IP Adresse beschränken. Per Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur lokale simon Benutzer auf den Server zugreifen.</para>
-<para
->Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der Benutzername und Passwort Ihrer simon Installation kennt nicht über das Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "Nur Verbindungen erlauben von".</para>
+<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simons model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
 
-<para
->Protokollverschlüsselung ist derzeit noch nicht implementiert.</para>
+<para>Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths.</para>
+
+<para>
+  &kmyapplication; allows the user to provide two different types of prompts files. One prompts file to compile the model and test the model. For more information, please see the section on <link linkend="effective_testing">effective testing</link>.
+</para>
+
 </sect1>
 
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
+<sect1 id="adapt_scenarios">
+  <title>Adapt scenarios</title>
+
+  <para>simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK.</para>
+
+<para>
+<screenshot>
+<screeninfo>Adapt scenarios</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="adapt_scenarios.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Adapt scenarios</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simons scenarios will also be serialized when using the <guibutton>Modify simons model</guibutton> options.</para>
+
+  <para>In this page you can find status information of the adaption and read detailed error messages if an error occurs.</para>
+</sect1>
+
+<sect1 id="build_model">
+  <title>Create model</title>
+
+  <para>Here you can build the model using the input and output files defined in the <link linkend="input_output">input &amp; output section</link>.</para>
+
+  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of wether the compilation was successful or not.</para>
+
+<para>
+<screenshot>
+<screeninfo>Create model</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="build.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Create model</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+  <para>Using this verbose output it is much easier to find issues with the input data.</para>
+</sect1>
+
+<sect1 id="test">
+  <title>Test model</title>
+  <para>Here you can test the speech model.</para>
+  <para>&kmyapplication; will test the model set by in the <guilabel>Output files</guilabel> section in the <link linkend="input_output">input &amp; output section</link>.</para>
+
+  <para>During testing, Julius will run to recognize on the input files as set by the test prompts. Resulting word- and sentence errors will be counted as well as the overall robustness by analyzing confidence scores of the recognizer.</para>
+
+  <para>To test the model successfully you also need <ulink url="http://sox.sourceforge.net">SoX</ulink> installed and in your path.</para>
+
+  <para>While the test is running you can watch the current recognition in the test protocol.</para>
+<para>
+<screenshot>
+<screeninfo>Test model</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="test_model.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Test model</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>As soon as the test is finished, the <link linkend="test_results">test results</link> will be automatically displayed.</para>
+
+
+</sect1>
+
+<sect1 id="test_results">
+  <title>Test results</title>
+
+  <para>After a successful <link linkend="test">model test</link> you can find a detailed report of the recognition accuracy here.</para>
+
+  <sect2 id="scoring">
+    <title>Scoring</title>
+
+    <para>To best reflect the recognition performance, &kmyapplication; uses multiple, ranked results for the tests.</para>
+
+    <para>A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as "recognized" even tough another recognition result might be ranked higher than the correct one.</para>
+
+    <para>If for example the sample "flowers" is recognized as "flower" (90%), "flowers" (70%), "apple" (12%) it will be marked as "recognized" with a score of 70%.</para>
+
+    <para>The displayed overall recognition rate is the average of the word recognition rate (average over each word) and the sentence recognition rate (average over each sentence).</para>
+
+  </sect2>
+
+  <sect2 id="test_results_words">
+    <title>Word</title>
+
+    <para>&kmyapplication; will list recognition accuracy for each word individually.</para>
+    
+    <para>
+    <screenshot>
+    <screeninfo>Word results</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="test_results_words.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Word results</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+
+    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually altough the different words of course still influence each other.</para>
+  </sect2>
+
+  <sect2 id="test_results_sentences">
+    <title>Sentences</title>
+    <para>This section lists each prompt as "sentence".</para>
+
+    <para>Prompts that were recorded more than once are combined.</para>
+
+    <para>
+    <screenshot>
+    <screeninfo>Sentence results</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="test_results_sentences.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Sentence results</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+  </sect2>
+
+  <sect2 id="test_results_files">
+    <title>Files</title>
+    <para>In the files section you can see the recognition results for each file. Each file will list the <link linkend="scoring">10 most likely results</link> in the details pane when you select it.</para>
+
+    <para>
+    <screenshot>
+    <screeninfo>File results</screeninfo>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="test_results_files.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>File results</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+    </para>
+
+    <para>When you identify problematic samples, you can re-record (or remove) them by selecting them and clicking on <guibutton>Edit sample</guibutton>.</para>
+
+    <para>You can sort the files by each column simply by clicking on the column header. This way it is very easy to find bad samples by sorting by recognition rate.</para>
+  </sect2>
+</sect1>
+
 
 </chapter>
 
 
 <chapter id="faq">
-<title
->Fragen und Antworten</title>
+<title>Questions and Answers</title>
 
-<para
->Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in unserem <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting"
->online Wiki</ulink
-> und somit für alle editierbar verwaltet. </para>
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+</para>
 
-<!--<qandaset id="faqlist">
-<qandaentry>
-<question>
-<para
->My Mouse doesn't work. How do I quit &kmyapplication;?</para>
-</question>
-<answer>
-<para
->You silly goose! Check out the <link linkend="using-simon"
->Using &kmyapplication;</link
-> for the answer.</para>
-</answer>
-</qandaentry>
-<qandaentry>
-<question>
-<para
->Why can't I twiddle my documents?</para>
-</question>
-<answer>
-<para
->You can only twiddle your documents if you have the foobar.lib
-installed.</para>
-</answer>
-</qandaentry>
-</qandaset
->-->
 </chapter>
 
 <chapter id="credits">
+<title>Credits and License</title>
 
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
 
-<title
->Danksagungen und Lizenz</title>
+<para>
+Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
 
-<para
->&kmyapplication; </para>
-<para
->Program copyright 2008-2009 Peter Grasch <email
->grasch@simon-listens.org</email
-> </para>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
-<para
->Documentation Copyright &copy; 2009 Peter Grasch <email
->grasch@simon-listens.org</email
-> </para>
+&underFDL;               <!-- FDL: do not remove -->
 
-<para
->Übersetzung Copyright &copy; 2009 Peter Grasch <email
->grasch@simon-listens.org</email
-></para
-> 
-&underFDL; &underGPL; </chapter>
+&underGPL;           <!-- GPL License -->
+
+</chapter>
 
 <appendix id="installation">
-<title
->Installation</title>
-<para
->Bitte sehen Sie unser <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup"
->online Wiki</ulink
-> for eine detaillierte Installationsanleitung.</para>
-
+<title>Installation</title>
+<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
 </appendix>
 
 &documentation.index;

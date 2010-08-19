@@ -70,7 +70,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para>
-&kmyapplication; is the server component of the simon speech recognition suite.
+&kmyapplication; is the server component of the ssc sample acquisition tool. 
 </para>
 </abstract>
 
@@ -128,11 +128,14 @@ Do NOT change these in the translation. -->
 <chapter id="using-kapp">
 <title>Using &kmyapplication;</title>
 
-<para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
+<para>&kmyapplication; is a command line application which does not have any user interface. There are no special launch parameters.</para>
 
-<sect1 id="user_configuration">
-  <title>User configuration</title>
-<para>This database is stored depending on your operating system:
+
+<sect1 id="sscd_directory">
+  <title>Base folder</title>
+  <para>The base folder of &kmyapplication; contains the configuration file <filename>sscd.conf</filename> and an error log in case something goes wrong. This directory is also contains the <filename>samples</filename> subfolder where all the samples are stored.</para>
+
+<para>The location of the sscd folder depends on your operating system:
 
 <table frame='all'><title>simond user database storage</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -146,8 +149,8 @@ Do NOT change these in the translation. -->
 </thead>
 <tbody>
 <row>
-  <entry><filename>%appdata%\.kde\share\apps\simond\simond.db</filename></entry>
-  <entry><filename>~/.kde/share/apps/simond/simond.db</filename></entry>
+  <entry><filename>Installation folder of sscd.exe (usually: C:\Program Files\simon 0.3\bin\sscd.exe</filename>)</entry>
+  <entry><filename>/usr/share/sscd</filename></entry>
 </row>
 </tbody>
 </tgroup>
@@ -155,6 +158,127 @@ Do NOT change these in the translation. -->
 </para>
 </sect1>
 
+<sect1 id="configuration">
+  <title>Configuration</title>
+
+  <para>There is no graphical configuration of sscd, but there is a configuration file (<filename>sscd.conf</filename>) stored in the <link linkend="sscd_directory">sscd directory</link>.</para>
+
+  <para>The default configuration file is heavily commented and should be self-explanatory.</para>
+
+  <para>Before running sscd, will want to at least change the DatabaseUser and DatabasePassword entry of the configuration file. See <link linkend="database">the database section</link> for more information.</para>
+
+  <screen>
+; This is an example config file and displays the built-in defaults
+; sscd will look for this file in:
+; Linux:
+;    /usr/share/sscd/sscd.conf
+; Windows:
+;    &lt;sscd installation path&gt;\sscd.conf
+
+[General]
+; Change this to use a different database; Because sscd uses db-specific
+; commands in places, only QMYSQL is supported at the moment.
+; Support for other DBMS can be added extremely easily, tough so please
+; feel free to request support through support@simon-listens.org
+DatabaseType=QMYSQL
+
+; The host of the DBMS
+DatabaseHost=127.0.0.1
+
+; The port of the DBMS; 3306 is the default port of MySQL
+DatabasePort=3306
+
+; The database to use; Make sure that you run the supplied create script
+; before you use sscd
+DatabaseName=ssc
+
+; The username to use when connecting to the DBMS
+DatabaseUser=sscuser
+
+; Database password. The default one will obviously not work in most cases
+DatabasePassword=CHANGE ME NOW
+
+; Database options. Refer to Qts documentation of QSqlDatabase for details
+DatabaseOptions=MYSQL_OPT_RECONNECT=1
+
+; The port the server will listen to; Default: 4440
+Port=4440
+
+; Bind the server to a specific client IP; If this is true, the server
+; will ignore requests from all but the BoundHost (see below)
+Bind=false
+
+; IP of the bound host (if Bind is active)
+BindHost=127.0.0.1
+  </screen>
+</sect1>
+
+<sect1 id="database">
+  <title>Database</title>
+  
+  <para>&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, tough. Contact the <ulink url="mailto:support@simon-listens.org">simon team</ulink> if necessary.</para>
+
+  <para>To set up the requried tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend="sscd_directory">base directory</link> of &kmyapplication;.</para>
+
+
+  <para>Database errors can be found in the <filename>error.log</filename> which also resides in the base folder.</para>
+
+</sect1>
+
+
+<sect1 id="extracting_samples">
+  <title>Extracting collected samples</title>
+
+  <para>To build models using the samples collected with &kmyapplication; you first have to extract them from the database.</para>
+
+  <warning>
+    <para>
+      Because &kmyapplication; is designed for large scale sample acquisition this is not end user friendly. The documentation below is mainly provided for technically skilled professionals.
+    </para>
+    <para>
+      Most of the scripts below require the GNU tools (usually available by default on GNU/Linux).
+    </para>
+  </warning>
+
+  <para>You can use the following query (minor adjustments will be necessary depending on what samples exactly you need):
+
+    <screen>
+use ssc;
+                                                                                                                           
+select s.Path, s.Prompt
+  from Sample s inner join User u
+    on s.UserId = u.UserId inner join UserInInstitution uii
+      on u.UserId = uii.UserId inner join SampleType st
+        on s.TypeId = st.SampleTypeId inner join Microphone m
+          on m.MicrophoneId = s.MicrophoneId
+  WHERE st.ExactlyRepeated=1 and uii.InstitutionId = 3
+    and (m.MicrophoneId = 1);
+    </screen>
+  </para>
+
+  <para>This query will list all samples from institution 3 that were recorded with microphone 1.</para>
+
+  <para>You can then for example use this script to create a prompts file:
+    <screen>
+      #!/bin/bash
+      sed '1d' $1 > temp_out
+      sed -e 's/\\\\/\//g' -e 's/.*Samples\///g' -e 's/\.wav\t/ /' temp_out > $1
+      rm temp_out
+    </screen>
+  </para>
+
+  <para>
+    This prompts file can then be <ulink url="help:/simon/training.html#import_trainings-data">imported in simon</ulink>.
+  </para>
+
+  <para>
+    To build the appropriate dictionary to compile the model you might also want to list all the sentences contained in the prompts file. You can do this with this script:
+    <screen>
+      #!/bin/bash
+      cat $1 | sed -e 's/[0-9\/]* //' | sort | uniq
+    </screen>
+  </para>
+</sect1>
 </chapter>
 
 
