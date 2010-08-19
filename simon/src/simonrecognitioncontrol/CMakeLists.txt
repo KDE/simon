@@ -72,7 +72,8 @@ target_link_libraries( simonrecognitioncontrolkcm  ${KDE4_KUTILS_LIBS} ${KDE4_KD
 	 simonuicomponents simonrecognitioncontrol
 )
 
-install(TARGETS simonrecognitioncontrolkcm DESTINATION ${PLUGIN_INSTALL_DIR} component simon)
+install(TARGETS simonrecognitioncontrolkcm DESTINATION ${PLUGIN_INSTALL_DIR}
+  COMPONENT simon)
 
 #simonsynchronisationconfig.desktop 
 install( FILES simonrecognitionconfig.desktop DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
