@@ -1217,12 +1217,8 @@ void ClientSocket::recompileModel()
 bool ClientSocket::shouldRecompileModel()
 {
   QDateTime activeModelDate = synchronisationManager->getActiveModelDate();
-  if (synchronisationManager->getBaseModelDate() > activeModelDate)
-    return true;
 
   int baseModelType = synchronisationManager->getBaseModelType();
-  if (baseModelType != 0 && (synchronisationManager->getTrainingDate() > activeModelDate))
-    return true;
 
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
   KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
@@ -1241,16 +1237,29 @@ bool ClientSocket::shouldRecompileModel()
   // that some weird model compilation manager can work around this... somehow :)
 
   newLexiconHash = qHash(lexiconF.readAll());
+
+  ////////
+  lexiconF.seek(0);
+  kDebug() << "Lexicon hash: " << newLexiconHash << lexiconHash << "Lexicon: " << lexiconF.readAll();
+  ////////
+  
   newVocaHash = qHash(vocaF.readAll());
   newGrammarHash = qHash(grammarF.readAll());
 
-  if (!lexiconHash || !vocaHash || !grammarHash)
+  if (!newVocaHash || !newGrammarHash || !newLexiconHash)
     return true;
 
   if ((newLexiconHash != lexiconHash) || (newVocaHash != vocaHash) || (newGrammarHash != grammarHash)) {
     kDebug() << "HASH IS DIFFERENT!";
     return true;
   } else
+
+  if (baseModelType != 0 && (synchronisationManager->getTrainingDate() > activeModelDate))
+    return true;
+
+  if (synchronisationManager->getBaseModelDate() > activeModelDate)
+    return true;
+
   kDebug() << "Hashes are the same...";
 
   return false;
@@ -1259,6 +1268,7 @@ bool ClientSocket::shouldRecompileModel()
 
 void ClientSocket::writeHashesToConfig()
 {
+  kDebug() << "WRITING HASH: " << newLexiconHash;
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
   KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
   KConfigGroup cg(&config, "SerializedModel");
@@ -1457,15 +1467,22 @@ void ClientSocket::synchronisationDone()
   //simond(15006) ClientSocket::synchronisationDone: Restart:  false
   //simond(15006) ClientSocket::synchronisationDone: Restart:  QDateTime("Do. Apr 22 21:26:36 2010") QDateTime("Do. Apr 22 21:16:56 2010")
 
-  kDebug() << "Restart: " << (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate());
-  kDebug() << "Restart: " << recognitionControl->lastSuccessfulStart() <<  synchronisationManager->getActiveModelDate();
+  //kDebug() << "Restart: " << (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate());
+  //kDebug() << "Restart: " << recognitionControl->lastSuccessfulStart() <<  synchronisationManager->getActiveModelDate();
   kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
   kDebug() << "Modelcompilationmanager is running: : " << modelCompilationManager->isRunning();
+
+  /*
   if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
     ((recognitionControl->isInitialized() &&
-    (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
+    (recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())))
+    //(recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
   || !recognitionControl->isInitialized())) {
+  */
+
+  if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
+    recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
     kDebug() << "Initialize recognition";
     recognitionControl->initializeRecognition();
   }
@@ -1482,9 +1499,6 @@ void ClientSocket::synchronisationComplete()
   else {
     kDebug() << "Synchronization succeeded";
     sendCode(Simond::SynchronisationComplete);
-
-    kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
-    kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
 
     kDebug() << "Should recompile model: " << synchronisationManager->shouldRecompileModel();
 

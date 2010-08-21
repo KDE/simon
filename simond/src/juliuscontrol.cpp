@@ -358,6 +358,8 @@ void JuliusControl::emitError(const QString& error)
   QString specificError = error;
   QByteArray buildLog = getBuildLog();
 
+  //touchLastFailedStart();
+
   int indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
   if (indexStartVocaError != -1) {
     buildLog = buildLog.replace("<br />", "\n");

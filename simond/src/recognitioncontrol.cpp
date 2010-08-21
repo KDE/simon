@@ -22,12 +22,31 @@
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
 username(user_name)
 {
+  connect(this, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(touchLastFailedStart()));
 }
 
 
 void RecognitionControl::touchLastSuccessfulStart()
 {
   m_lastSuccessfulStart = QDateTime::currentDateTime();
+}
+
+void RecognitionControl::touchLastFailedStart()
+{
+  m_lastFailedStart = QDateTime::currentDateTime();
+}
+
+#include <KDebug>
+
+bool RecognitionControl::shouldTryToStart(const QDateTime& activeModelDate)
+{
+  kDebug() << "Last successful start: " << m_lastSuccessfulStart;
+  kDebug() << "Last failed start: " << m_lastFailedStart;
+  kDebug() << "Active model: " << activeModelDate;
+  bool start = ((m_lastFailedStart.isNull() || (activeModelDate > m_lastFailedStart)) && 
+                (m_lastSuccessfulStart.isNull() || (activeModelDate > m_lastSuccessfulStart)));
+  kDebug() << "Start: " << start;
+  return start;
 }
 
 

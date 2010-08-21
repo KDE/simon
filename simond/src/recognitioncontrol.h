@@ -31,9 +31,11 @@ class RecognitionControl : public QThread
 {
   Q_OBJECT
 
-    private:
+  private:
     QDateTime m_lastSuccessfulStart;
-    signals:
+    QDateTime m_lastFailedStart;
+
+  signals:
     void recognitionReady();
     void recognitionError(const QString& error, const QByteArray& buildLog);
     void recognitionWarning(const QString& warning);
@@ -43,12 +45,16 @@ class RecognitionControl : public QThread
     void recognitionResumed();
     void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
 
+  private slots:
+    void touchLastFailedStart();
+
   protected:
     void touchLastSuccessfulStart();
     QString username;
 
   public:
-    QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
+    //QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
+    bool shouldTryToStart(const QDateTime& activeModelDate);
     explicit RecognitionControl(const QString& username, QObject *parent=0);
 
     virtual bool initializeRecognition()=0;
