@@ -63,7 +63,8 @@ FIND_PROGRAM(FLEX_EXECUTABLE flex DOC "path to the flex executable")
 MARK_AS_ADVANCED(FLEX_EXECUTABLE)
 
 FIND_LIBRARY(FL_LIBRARY NAMES fl
-  PATHS /usr/lib DOC "path to the fl library")
+	PATHS /usr/lib F:/kde/msys/lib C:/kde/msys/lib
+  DOC "path to the fl library")
 SET(FLEX_LIBRARIES ${FL_LIBRARY})
 
 IF(FLEX_EXECUTABLE)

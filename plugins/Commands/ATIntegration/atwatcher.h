@@ -51,10 +51,7 @@ class ATWatcher : public QObject
 
   public:
     void applySettings();
-    static ATWatcher* getInstance() {
-      if (!instance) instance = new ATWatcher();
-      return instance;
-    }
+    static ATWatcher* getInstance():
 
     ~ATWatcher();
 

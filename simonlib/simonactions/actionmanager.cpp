@@ -56,6 +56,12 @@ useDYM(false)
   retrieveRecognitionResultFilteringParameters();
 }
 
+ActionManager* ActionManager::getInstance()
+{
+  if (!instance) instance = new ActionManager();
+  return instance;
+}
+
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {

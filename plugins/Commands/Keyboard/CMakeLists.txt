@@ -27,7 +27,7 @@ kde4_add_plugin(simonkeyboardcommandplugin ${simonkeyboardcommandplugin_SRCS})
 
 
 target_link_libraries(simonkeyboardcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
-	simonscenarios simonactions eventsimulation )
+	simonscenarios simonactions eventsimulation simonscenariobase )
 
 install(TARGETS simonkeyboardcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )
 install( FILES simonkeyboardcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )

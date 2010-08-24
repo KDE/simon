@@ -32,7 +32,7 @@
 #include <KDebug>
 #include <KLocalizedString>
 
-SoundServer* SoundServer::instance=0;
+SoundServer* SoundServer::instance;
 
 /**
  * \brief Constructor
@@ -41,6 +41,12 @@ SoundServer::SoundServer(QObject* parent) : QObject(parent)
 {
 }
 
+
+SoundServer* SoundServer::getInstance()
+{
+	if (!instance) instance = new SoundServer(0);
+	return instance;
+}
 
 QString SoundServer::defaultInputDevice()
 {
@@ -364,7 +370,8 @@ qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfigurat
 
 bool SoundServer::reinitializeDevices()
 {
-  kDebug() << "Reinitialize devices...";
+  kDebug() << "Reinitialize devices..." << this;
+  
   bool succ = true;
 
   emit devicesChanged();

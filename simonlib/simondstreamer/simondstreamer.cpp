@@ -34,11 +34,13 @@ m_sender(s)
 {
   initializeDevices();
   connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
+  kDebug() << "SoundServer: " << SoundServer::getInstance();
 }
 
 
 void SimondStreamer::initializeDevices()
 {
+  kDebug() << "Initializing streaming devices...";
   bool wasRunning = isRunning();
 
   foreach (SimondStreamerClient *c, clients)
@@ -73,7 +75,7 @@ bool SimondStreamer::isRunning()
 
 bool SimondStreamer::start()
 {
-  kDebug() << "Staring simondstreamer";
+  kDebug() << "Staring simondstreamer" << SoundServer::getInstance();
   if (clients.isEmpty())
   {
     kDebug() << "clients are empty";
