@@ -61,6 +61,9 @@ void Dict::buildTranslationTables()
   translationLookup.insert(0x0076, "v");
   translationLookup.insert(0x0077, "w");
   translationLookup.insert(0x0078, "x");
+
+  translationLookup.insert(0x03C7, "x");
+
   translationLookup.insert(0x0079, "y");
   translationLookup.insert(0x007A, "z");
   translationLookup.insert(0x0127, "X");
