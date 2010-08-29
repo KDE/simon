@@ -118,6 +118,13 @@ timeoutWatcher(new QTimer(this))
 }
 
 
+RecognitionControl* RecognitionControl::getInstance(QWidget *parent)
+{
+  if (!instance) instance = new RecognitionControl(parent);
+  return instance;
+}
+
+
 void RecognitionControl::startup()
 {
   if (RecognitionConfiguration::startLocalSimond()) {

@@ -58,10 +58,7 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
 
   public:
     void retrieveRecognitionResultFilteringParameters();
-    static ActionManager* getInstance() {
-      if (!instance) instance = new ActionManager();
-      return instance;
-    }
+    static ActionManager* getInstance();
 
     void processRawResults(RecognitionResultList* recognitionResults);
     void presentUserWithResults(RecognitionResultList* recognitionResults);

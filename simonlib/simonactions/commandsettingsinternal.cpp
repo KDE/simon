@@ -304,7 +304,7 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> CommandSettingsInter
 
 CommandSettingsInternal::~CommandSettingsInternal()
 {
-	kDebug() << "DELETING COMMAND SETTINGS INTERNAL";
+  kDebug() << "DELETING COMMAND SETTINGS INTERNAL";
   instance = 0;
 }
 

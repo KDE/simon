@@ -52,6 +52,12 @@ focusedWindow(0)
   applySettings();
 }
 
+ATWatcher* ATWatcher::getInstance():
+{
+  if (!instance) instance = new ATWatcher();
+  return instance;
+}
+
 
 /**
  * \brief Starts / stops the monitoring according to the defined settings

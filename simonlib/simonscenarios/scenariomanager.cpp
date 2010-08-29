@@ -42,6 +42,12 @@ currentScenario(0)
 {
 }
 
+ScenarioManager* ScenarioManager::getInstance()
+{
+  if (!instance) instance = new ScenarioManager();
+  return instance;
+}
+
 
 bool ScenarioManager::init()
 {

@@ -33,9 +33,6 @@
 #include <QFileInfo>
 #include <KDebug>
 
-#ifdef Q_OS_WIN32
-SoundServer* SoundServer::instance=0;
-#endif
 /**
  * @brief Constructor
  *
@@ -45,6 +42,7 @@ SoundServer* SoundServer::instance=0;
  */
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
+  kDebug() << "SoundServer: " << SoundServer::getInstance();
   setStatus(SimonControl::Disconnected);
   this->recognitionControl = RecognitionControl::getInstance(parent);
   QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));

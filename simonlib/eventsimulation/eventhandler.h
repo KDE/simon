@@ -45,10 +45,7 @@ class EVENTSIMULATION_EXPORT EventHandler
     void sendKey(const QChar& key) const;
 
   public:
-    static EventHandler* getInstance() {
-      if (!instance) instance = new EventHandler();
-      return instance;
-    }
+    static EventHandler* getInstance();
 
     ~EventHandler();
 

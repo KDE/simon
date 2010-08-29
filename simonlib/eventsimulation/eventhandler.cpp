@@ -52,6 +52,11 @@ EventHandler::EventHandler()
 {
 }
 
+EventHandler* EventHandler::getInstance()
+{
+  if (!instance) instance = new EventHandler();
+  return instance;
+}
 
 /**
  * \brief Tells coreEvents to click the coordinates

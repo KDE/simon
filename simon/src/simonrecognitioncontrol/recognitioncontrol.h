@@ -55,10 +55,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
 
     ~RecognitionControl();
 
-    static RecognitionControl* getInstance(QWidget *parent=0) {
-      if (!instance) instance = new RecognitionControl(parent);
-      return instance;
-    }
+    static RecognitionControl* getInstance(QWidget *parent=0);
 
     enum RecognitionStatus
     {

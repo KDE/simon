@@ -62,18 +62,15 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     void applyOutputPriorities();
 
     void initializeDevices();
+    SoundServer(QObject *parent=0);
 
   private slots:
     void slotRecordingFinished();
     void slotPlaybackFinished();
 
   public:
-    static SoundServer* getInstance() {
-      if (!instance) instance = new SoundServer(0);
-      return instance;
-    }
+    static SoundServer* getInstance();
 
-    SoundServer(QObject *parent=0);
 
     bool registerInputClient(SoundInputClient* client);
     bool deRegisterInputClient(SoundInputClient* client);

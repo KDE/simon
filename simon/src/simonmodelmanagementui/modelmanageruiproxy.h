@@ -48,10 +48,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
     ModelManagerUiProxy(QObject *parent=0);
 
   public:
-    static ModelManagerUiProxy* getInstance() {
-      if (!instance) instance = new ModelManagerUiProxy();
-      return instance;
-    }
+    static ModelManagerUiProxy* getInstance();
 
     ~ModelManagerUiProxy();
 

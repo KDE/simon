@@ -32,6 +32,11 @@ ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
   connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
 }
 
+ModelManagerUiProxy* ModelManagerUiProxy::getInstance()
+{
+	if (!instance) instance = new ModelManagerUiProxy();
+	return instance;
+}
 
 void ModelManagerUiProxy::slotModelChanged()
 {

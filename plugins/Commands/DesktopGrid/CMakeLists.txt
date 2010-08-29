@@ -18,7 +18,7 @@ kde4_add_plugin(simondesktopgridplugin ${simondesktopgridplugin_SRCS})
 
 
 target_link_libraries(simondesktopgridplugin ${KDE4_KDEUI_LIBS}
-	${QT_QTXML_LIBRARY}
+	${QT_QTXML_LIBRARY} simonscenariobase
 	eventsimulation simonlogging simonscenarios simonactions)
 
 install(TARGETS simondesktopgridplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddesktopgridplugin )

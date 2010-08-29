@@ -72,6 +72,8 @@
 #include <KPageWidgetItem>
 #include <KIconLoader>
 
+#include <simonsound/soundserver.h>
+ 
 /**
  * @brief Constructor
  *
@@ -98,7 +100,9 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   info->writeToSplash ( i18n ( "Loading core..." ) );
   KGlobal::locale()->insertCatalog("simonlib");
 
+																		kDebug() << 1 << SoundServer::getInstance();
   control = (new SimonControl(this));
+																		kDebug() << 2 << SoundServer::getInstance();
 
   if (!control->firstRunWizardCompleted()) {
     QPointer<FirstRunWizard> firstRun = new FirstRunWizard(this);
@@ -109,8 +113,10 @@ welcomePart(0), shownDialogs(0), configDialog(0)
       control->setFirstRunWizardCompleted(true);
   }
 
+																		kDebug() << 3 << SoundServer::getInstance();
   trayManager = (new TrayIconManager(this));
 
+																		kDebug() << 4 << SoundServer::getInstance();
   this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
   QMainWindow ( parent,flags );
@@ -127,25 +133,32 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   statusBar()->insertItem("",1,10);
   statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 
+																		kDebug() << 5 << SoundServer::getInstance();
   //Preloads all Dialogs
   ScenarioManager::getInstance()->registerScenarioDisplay(this);
 
+																		kDebug() << 6 << SoundServer::getInstance();
   info->writeToSplash ( i18n ( "Loading training..." ) );
   this->trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
+																		kDebug() << 7 << SoundServer::getInstance();
 
   info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
   vocabularyView = new VocabularyView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
+																		kDebug() << 8 << SoundServer::getInstance();
 
   info->writeToSplash ( i18n ( "Loading grammar..." ) );
   this->grammarView = new GrammarView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
+																		kDebug() << 9 << SoundServer::getInstance();
 
   info->writeToSplash ( i18n ( "Loading run..." ) );
   this->runDialog = new RunCommandView ( this );
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
+																		kDebug() << 10 << SoundServer::getInstance();
+  kDebug() << "SoundServer: " << SoundServer::getInstance();
 
   info->writeToSplash ( i18n ( "Loading interface..." ) );
 
@@ -166,6 +179,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   info->hideSplash();
   delete info;
 
+																		kDebug() << 11 << SoundServer::getInstance();
   if (!control->startMinimized())
     show();
 

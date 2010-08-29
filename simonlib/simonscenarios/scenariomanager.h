@@ -66,10 +66,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void touchBaseModelAccessTime();
 
   public:
-    static ScenarioManager *getInstance() {
-      if (!instance) instance = new ScenarioManager();
-      return instance;
-    }
+    static ScenarioManager *getInstance();
 
     ScenarioManager(QObject *parent=0);
     ~ScenarioManager();
