@@ -58,6 +58,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   
   fileResultModelProxy->setFilterKeyColumn(0);
   fileResultModelProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+  fileResultModelProxy->setSortRole(Qt::UserRole);
   connect(ui.leResultFilesFilter, SIGNAL(textChanged(const QString&)), fileResultModelProxy, SLOT(setFilterFixedString(const QString&)));
 
   KAction* getPathsFromSimon = new KAction(this);
