@@ -47,7 +47,7 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
   QString path = m_testResults.keys().at(row);
   TestResult *t = m_testResults.value(path);
 
-  if ((role == Qt::DisplayRole) || (role == Qt::UserRole)) {
+  if ((role == Qt::DisplayRole) || (role == Qt::UserRole+1)) {
     switch (index.column()) {
       case 0:
         return path.mid(path.lastIndexOf(QDir::separator())+1);
@@ -67,7 +67,7 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
             break;
           }
         }
-        if (role == Qt::UserRole)
+        if (role == Qt::UserRole+1)
           return confidenceScore*100.0f;
         else
           return QString("%1 %").arg(confidenceScore*100.0f);
