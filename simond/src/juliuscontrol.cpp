@@ -414,7 +414,7 @@ void JuliusControl::emitError(const QString& error)
     if (affectedWordsStr.length() > 200)
       affectedWordsStr = affectedWordsStr.left(200)+"...";
 
-    specificError = i18n("The recognition could not be started because your model contains words that consits of sounds that are not covered by your acoustic model.\n\nYou need to either remove those words, transcribe them differently or train them.\n\nWarning: The latter will not work if you are using static base models!\n\nThis could also be a sign of a base model that uses a different phoneme set than your scenario vocabulary.\n\nThe following words are affected (list may not be complete):\n%1\n\nThe following phonemes are affected (list may not be complete):\n%2", affectedWordsStr, missingPhonesStr);
+    specificError = i18n("The recognition could not be started because your model contains words that consists of sounds that are not covered by your acoustic model.\n\nYou need to either remove those words, transcribe them differently or train them.\n\nWarning: The latter will not work if you are using static base models!\n\nThis could also be a sign of a base model that uses a different phoneme set than your scenario vocabulary.\n\nThe following words are affected (list may not be complete):\n%1\n\nThe following phonemes are affected (list may not be complete):\n%2", affectedWordsStr, missingPhonesStr);
   }
 
   emit recognitionError(specificError, buildLog);

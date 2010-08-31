@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2010-08-30 15:20+0200\n"
 "PO-Revision-Date: 2010-07-16 20:58+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
@@ -172,8 +172,9 @@ msgstr "wie viele Modellversionen erhalten bleiben sollen."
 #: po/rc.cpp:54 rc.cpp:54
 msgid ""
 "How many model versions we should preserv for the model backup / restore."
-msgstr "wie viele Modellversionen für die Backup / Restore Funktionalität "
-"erhalten bleiben sollen."
+msgstr ""
+"wie viele Modellversionen für die Backup / Restore Funktionalität erhalten "
+"bleiben sollen."
 
 #. i18n: file: config/simondnetworkconfiguration.ui:24
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -304,10 +305,10 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#: src/juliuscontrol.cpp:415
+#: src/juliuscontrol.cpp:417
 msgid ""
 "The recognition could not be started because your model contains words that "
-"consits of sounds that are not covered by your acoustic model.\n"
+"consists of sounds that are not covered by your acoustic model.\n"
 "\n"
 "You need to either remove those words, transcribe them differently or train "
 "them.\n"
@@ -344,28 +345,28 @@ msgstr ""
 "vollständig):\n"
 "%2"
 
-#: src/juliuscontrol.cpp:442
+#: src/juliuscontrol.cpp:444
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
 "Konnte Logdatei nicht öffnen. Bitte ignorieren Sie die angezeigte Logdatei!"
 
-#: src/juliuscontrol.cpp:450
+#: src/juliuscontrol.cpp:452
 msgid "Internal Jconf error"
 msgstr "Interner JConf Fehler"
 
-#: src/juliuscontrol.cpp:462
+#: src/juliuscontrol.cpp:464
 msgid "Could not initialize recognition"
 msgstr "Konnte Erkennung nicht starten"
 
-#: src/juliuscontrol.cpp:479
+#: src/juliuscontrol.cpp:481
 msgid "Could not start adin-thread"
 msgstr "Konnte adin-thread nicht starten."
 
-#: src/juliuscontrol.cpp:501 src/juliuscontrol.cpp:528
+#: src/juliuscontrol.cpp:503 src/juliuscontrol.cpp:530
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/juliuscontrol.cpp:504 src/juliuscontrol.cpp:531
+#: src/juliuscontrol.cpp:506 src/juliuscontrol.cpp:533
 msgid "Error with the audio stream"
 msgstr "Fehler mit dem Audio-Stream"
 
@@ -374,8 +375,8 @@ msgid ""
 "The simon recognition daemon (powered by the Large Vocabulary Continuous "
 "Speech Recognition Engine Julius)"
 msgstr ""
-"Der simon Erkennungdaemon (powered by the Large Vocabulary Continuous "
-"Speech Recognition Engine Julius)"
+"Der simon Erkennungdaemon (powered by the Large Vocabulary Continuous Speech "
+"Recognition Engine Julius)"
 
 #: src/main.cpp:39
 msgid "simond"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2010-08-30 15:20+0200\n"
 "PO-Revision-Date: 2010-06-26 21:19+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -318,10 +318,11 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: src/juliuscontrol.cpp:415
+#: src/juliuscontrol.cpp:417
+#, fuzzy
 msgid ""
 "The recognition could not be started because your model contains words that "
-"consits of sounds that are not covered by your acoustic model.\n"
+"consists of sounds that are not covered by your acoustic model.\n"
 "\n"
 "You need to either remove those words, transcribe them differently or train "
 "them.\n"
@@ -354,33 +355,33 @@ msgstr ""
 "Jsou postiženy následující fonémy (seznam nemusí být úplný)::\n"
 "%2"
 
-#: src/juliuscontrol.cpp:442
+#: src/juliuscontrol.cpp:444
 #, fuzzy
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
 "Nepodařilo se otevřít soubor se zápisem. Nevšímejte si, prosím, podrobného "
 "výstupu zápisu!"
 
-#: src/juliuscontrol.cpp:450
+#: src/juliuscontrol.cpp:452
 msgid "Internal Jconf error"
 msgstr "Vnitřní chyba Jconf"
 
-#: src/juliuscontrol.cpp:462
+#: src/juliuscontrol.cpp:464
 msgid "Could not initialize recognition"
 msgstr "Rozpoznávání nelze inicializovat"
 
-#: src/juliuscontrol.cpp:479
+#: src/juliuscontrol.cpp:481
 #, fuzzy
 msgid "Could not start adin-thread"
 msgstr ""
 "Nelze spustit zachytávání dat z mikrofonu a jejich posílání serveru, který "
 "je zodpovědný za rozpoznávání"
 
-#: src/juliuscontrol.cpp:501 src/juliuscontrol.cpp:528
+#: src/juliuscontrol.cpp:503 src/juliuscontrol.cpp:530
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
-#: src/juliuscontrol.cpp:504 src/juliuscontrol.cpp:531
+#: src/juliuscontrol.cpp:506 src/juliuscontrol.cpp:533
 msgid "Error with the audio stream"
 msgstr "U zvukového proudu došlo k chybě"
 

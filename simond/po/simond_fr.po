@@ -7,16 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simond_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-08-30 15:20+0200\n"
 "PO-Revision-Date: 2010-07-22 22:52+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -181,8 +181,8 @@ msgstr ""
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
 "weight:400; font-style:normal;\">\n"
@@ -194,8 +194,8 @@ msgid ""
 msgstr ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
 "weight:400; font-style:normal;\">\n"
@@ -253,21 +253,21 @@ msgstr "Conserver les échantillons"
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-"family:'Bitstream Vera Sans'; font-weight:600;\">WARNING:</span><span "
-"style=\" font-family:'Bitstream Vera Sans';\"> All changes to the user "
-"database will be applied instantly.</span></p></body></html>"
+"family:'Bitstream Vera Sans'; font-weight:600;\">WARNING:</span><span style="
+"\" font-family:'Bitstream Vera Sans';\"> All changes to the user database "
+"will be applied instantly.</span></p></body></html>"
 msgstr ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-"css\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; font-"
 "weight:400; font-style:normal;\">\n"
@@ -312,10 +312,10 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#: src/juliuscontrol.cpp:415
+#: src/juliuscontrol.cpp:417
 msgid ""
 "The recognition could not be started because your model contains words that "
-"consits of sounds that are not covered by your acoustic model.\n"
+"consists of sounds that are not covered by your acoustic model.\n"
 "\n"
 "You need to either remove those words, transcribe them differently or train "
 "them.\n"
@@ -349,27 +349,27 @@ msgstr ""
 "Les phonèmes suivants sont concernés (la liste peut être incomplète) :\n"
 "%2"
 
-#: src/juliuscontrol.cpp:442
+#: src/juliuscontrol.cpp:444
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr "Impossible d'ouvrir le fichier d'historique."
 
-#: src/juliuscontrol.cpp:450
+#: src/juliuscontrol.cpp:452
 msgid "Internal Jconf error"
 msgstr "Erreur interne de Jconf"
 
-#: src/juliuscontrol.cpp:462
+#: src/juliuscontrol.cpp:464
 msgid "Could not initialize recognition"
 msgstr "Impossible d'initialiser de reconnaissance"
 
-#: src/juliuscontrol.cpp:479
+#: src/juliuscontrol.cpp:481
 msgid "Could not start adin-thread"
 msgstr "Impossible de démarrer le processus adin"
 
-#: src/juliuscontrol.cpp:501 src/juliuscontrol.cpp:528
+#: src/juliuscontrol.cpp:503 src/juliuscontrol.cpp:530
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 
-#: src/juliuscontrol.cpp:504 src/juliuscontrol.cpp:531
+#: src/juliuscontrol.cpp:506 src/juliuscontrol.cpp:533
 msgid "Error with the audio stream"
 msgstr "Erreur concernant le flux audio"
 
