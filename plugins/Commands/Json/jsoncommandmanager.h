@@ -25,6 +25,13 @@
 
 class JsonConfiguration;
 
+class QNetworkReply;
+
+namespace KIO
+{
+  class AccessManager;
+}
+
 /**
  *	@class JsonCommandManager
  *	@brief Manager for the json commands
@@ -36,6 +43,13 @@ class JsonConfiguration;
 class JsonCommandManager : public CommandManager
 {
   Q_OBJECT
+
+  private:
+    KIO::AccessManager *m_accessManager;
+
+  private slots:
+    void requestFinished(QNetworkReply *reply);
+
   protected:
     bool shouldAcceptCommand(Command *command);
 
@@ -48,6 +62,8 @@ class JsonCommandManager : public CommandManager
 
     DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
     bool deSerializeConfig(const QDomElement& elem);
+
+    bool sendRequest(const QString& url, const QString& request);
 
     /**
      * @brief Constructor

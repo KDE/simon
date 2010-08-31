@@ -42,6 +42,9 @@ class JsonConfiguration : public CommandConfiguration
     JsonConfiguration(Scenario *parent, const QVariantList &args = QVariantList());
     ~JsonConfiguration();
 
+    QString host();
+    int port();
+
     void destroy();
 
 };

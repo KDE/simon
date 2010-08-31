@@ -77,6 +77,15 @@ void JsonConfiguration::defaults()
   ui.sbPort->setValue(8080);
 }
 
+QString JsonConfiguration::host()
+{
+  return ui.leHost->text();
+}
+
+int JsonConfiguration::port()
+{
+  return ui.sbPort->value();
+}
 
 JsonConfiguration::~JsonConfiguration()
 {

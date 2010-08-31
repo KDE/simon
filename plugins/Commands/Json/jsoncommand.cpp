@@ -18,10 +18,12 @@
  */
 
 #include "jsoncommand.h"
+#include "jsoncommandmanager.h"
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QVariant>
+
 #include <KIcon>
 #include <KLocalizedString>
 #include <KDebug>
@@ -61,8 +63,8 @@ const QMap<QString,QVariant> JsonCommand::getValueMapPrivate() const
 
 bool JsonCommand::triggerPrivate(int *state)
 {
-  kDebug() << "Triggering..." << m_url << m_request;
-  return true;
+  Q_UNUSED(state);
+  return static_cast<JsonCommandManager*>(parent())->sendRequest(m_url, m_request);
 }
 
 

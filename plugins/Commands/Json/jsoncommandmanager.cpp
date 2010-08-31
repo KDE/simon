@@ -20,6 +20,11 @@
 #include "jsoncommand.h"
 #include "createjsoncommandwidget.h"
 #include "jsonconfiguration.h"
+
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <kio/accessmanager.h>
+
 #include <KLocalizedString>
 
 K_PLUGIN_FACTORY( JsonCommandPluginFactory,
@@ -28,18 +33,48 @@ registerPlugin< JsonCommandManager >();
 
 K_EXPORT_PLUGIN( JsonCommandPluginFactory("simonjsoncommand") )
 
-JsonCommandManager::JsonCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
+JsonCommandManager::JsonCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
+  m_accessManager(0)
 {
 }
 
 
+
+
 bool JsonCommandManager::deSerializeConfig(const QDomElement& elem)
 {
+  m_accessManager = new KIO::AccessManager(parent());
+  connect(m_accessManager, SIGNAL(finished(QNetworkReply*)),
+                    this, SLOT(requestFinished(QNetworkReply*)));
+
+
   delete config; // delete existing config
 
   config = new JsonConfiguration(parentScenario);
   return config->deSerialize(elem);
 }
+
+bool JsonCommandManager::sendRequest(const QString& url, const QString& request)
+{
+  JsonConfiguration *jsonConfig = static_cast<JsonConfiguration*>(config);
+  kDebug() << "Configuration: " << jsonConfig->host() << jsonConfig->port();
+  kDebug() << "Triggering..." << url << request;
+
+  QNetworkRequest networkRequest;
+  networkRequest.setUrl(QUrl("http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url));
+  kDebug() << "Url: " << "http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url;
+  m_accessManager->post(networkRequest, request.toAscii());
+
+  return true;
+}
+
+void JsonCommandManager::requestFinished(QNetworkReply *reply)
+{
+  kDebug() << "Request has finished...";
+  kDebug() << "Reply: " << reply->readAll();
+  kDebug() << "Error: " << reply->error();
+}
+
 
 bool JsonCommandManager::shouldAcceptCommand(Command *command)
 {
@@ -70,4 +105,5 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(JsonCommandManager, JsonCommand);
 
 JsonCommandManager::~JsonCommandManager()
 {
+  delete m_accessManager;
 }

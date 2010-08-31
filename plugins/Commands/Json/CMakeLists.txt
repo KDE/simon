@@ -21,7 +21,8 @@ kde4_add_ui_files(simonjsoncommandplugin_SRCS
 kde4_add_plugin(simonjsoncommandplugin ${simonjsoncommandplugin_SRCS})
 
 
-target_link_libraries(simonjsoncommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
+target_link_libraries(simonjsoncommandplugin ${KDE4_KDEUI_LIBS}
+  ${KDE4_KIO_LIBS} ${QT_QTXML_LIBRARY}
 	simonscenarios )
 
 install(TARGETS simonjsoncommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandjsonplugin )
