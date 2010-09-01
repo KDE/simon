@@ -27,10 +27,6 @@ class JsonConfiguration;
 
 class QNetworkReply;
 
-namespace KIO
-{
-  class AccessManager;
-}
 
 /**
  *	@class JsonCommandManager
@@ -43,9 +39,6 @@ namespace KIO
 class JsonCommandManager : public CommandManager
 {
   Q_OBJECT
-
-  private:
-    KIO::AccessManager *m_accessManager;
 
   private slots:
     void requestFinished(QNetworkReply *reply);

@@ -21,9 +21,9 @@
 #include "createjsoncommandwidget.h"
 #include "jsonconfiguration.h"
 
-#include <QNetworkRequest>
+#include <simonjsonconnector/simonjsonconnector.h>
+
 #include <QNetworkReply>
-#include <kio/accessmanager.h>
 
 #include <KLocalizedString>
 
@@ -33,21 +33,12 @@ registerPlugin< JsonCommandManager >();
 
 K_EXPORT_PLUGIN( JsonCommandPluginFactory("simonjsoncommand") )
 
-JsonCommandManager::JsonCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  m_accessManager(0)
+JsonCommandManager::JsonCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args)
 {
 }
 
-
-
-
 bool JsonCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  m_accessManager = new KIO::AccessManager(parent());
-  connect(m_accessManager, SIGNAL(finished(QNetworkReply*)),
-                    this, SLOT(requestFinished(QNetworkReply*)));
-
-
   delete config; // delete existing config
 
   config = new JsonConfiguration(parentScenario);
@@ -60,10 +51,12 @@ bool JsonCommandManager::sendRequest(const QString& url, const QString& request)
   kDebug() << "Configuration: " << jsonConfig->host() << jsonConfig->port();
   kDebug() << "Triggering..." << url << request;
 
-  QNetworkRequest networkRequest;
-  networkRequest.setUrl(QUrl("http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url));
-  kDebug() << "Url: " << "http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url;
-  m_accessManager->post(networkRequest, request.toAscii());
+  SimonJsonConnector::getInstance()->sendRequest(jsonConfig->host(), jsonConfig->port(), 
+                                                  url, request, this, "requestFinished");
+  //QNetworkRequest networkRequest;
+  //networkRequest.setUrl(QUrl("http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url));
+  //kDebug() << "Url: " << "http://"+jsonConfig->host()+':'+QString::number(jsonConfig->port())+'/'+url;
+  //m_accessManager->post(networkRequest, request.toAscii());
 
   return true;
 }
@@ -71,6 +64,8 @@ bool JsonCommandManager::sendRequest(const QString& url, const QString& request)
 void JsonCommandManager::requestFinished(QNetworkReply *reply)
 {
   kDebug() << "Request has finished...";
+  kDebug() << "Reply: " << reply;
+
   kDebug() << "Reply: " << reply->readAll();
   kDebug() << "Error: " << reply->error();
 }
@@ -105,5 +100,4 @@ DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(JsonCommandManager, JsonCommand);
 
 JsonCommandManager::~JsonCommandManager()
 {
-  delete m_accessManager;
 }
