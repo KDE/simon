@@ -1302,7 +1302,7 @@ We can now enter the pronunciation and change the terminal to something appropri
 <sect3 id="add_word_record">
 <title>Training the Word</title>
 <para>
-To complete the wizard we need to train the word twice.
+  To complete the wizard we can now train the word twice. If you don't want to do this or for example use a <link linkend="base_model_static">static base model</link>, you can skip these two pages.
 </para> 
 
 <note>
