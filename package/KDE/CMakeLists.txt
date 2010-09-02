@@ -33,16 +33,16 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libdbus-1.dll"
   "${KDE4_BIN_INSTALL_DIR}/libeay32.dll"
   "${KDE4_BIN_INSTALL_DIR}/libexpat.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libgettextpo-0.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libgettextsrc-0-17.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libgettextpo-0.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libgettextsrc-0-17.dll"
   "${KDE4_BIN_INSTALL_DIR}/libiconv.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libiconv2.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libiconv2.dll"
   "${KDE4_BIN_INSTALL_DIR}/libiconv-2.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libintl-2.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libintl-2.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdewin.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdewin32.dll"
   "${KDE4_BIN_INSTALL_DIR}/libknewstuff3.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libintl3.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libintl3.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdecore.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdeui.dll"
   
@@ -54,7 +54,6 @@ install( FILES
   #"${KDE4_BIN_INSTALL_DIR}/dwmapi.dll"
   "${KDE4_BIN_INSTALL_DIR}/kconf_update.exe"
   "${KDE4_BIN_INSTALL_DIR}/libkntlm.dll"
-  "${KDE4_BIN_INSTALL_DIR}/kcm_attica.dll"
   
   
   "${KDE4_BIN_INSTALL_DIR}/libkde3support.dll"
@@ -70,17 +69,17 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libkio.dll"
   #"${KDE4_BIN_INSTALL_DIR}/libkmime.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkparts.dll"
-  "${KDE4_BIN_INSTALL_DIR}/libkresources.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/libkresources.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkutils.dll"
   "${KDE4_BIN_INSTALL_DIR}/libpng12.dll"
   "${KDE4_BIN_INSTALL_DIR}/libsolid.dll"
   "${KDE4_BIN_INSTALL_DIR}/libstreamanalyzer.dll"
   "${KDE4_BIN_INSTALL_DIR}/libstreams.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxml2.dll"
-  "${KDE4_BIN_INSTALL_DIR}/mfc71.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/mfc71.dll"
   "${KDE4_BIN_INSTALL_DIR}/mingwm10.dll"
   #"${KDE4_BIN_INSTALL_DIR}/mingw-pcrecpp.dll"
-  "${KDE4_BIN_INSTALL_DIR}/msvcp71.dll"
+  #"${KDE4_BIN_INSTALL_DIR}/msvcp71.dll"
   "${KDE4_BIN_INSTALL_DIR}/libgcc_s_dw2-1.dll"
   #"${KDE4_BIN_INSTALL_DIR}/msvcr71.dll"
   "${KDE4_BIN_INSTALL_DIR}/QtCore4.dll"
@@ -95,6 +94,14 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/ssleay32.dll"
   "${KDE4_BIN_INSTALL_DIR}/update-mime-database.exe"
   "${KDE4_BIN_INSTALL_DIR}/zlib1.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libdbusmenu-qt.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libkcmutils.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libnepomuk.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libnepomukcommon.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libnepomukquery.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libnepomukutils.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libsoprano.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libsopranoclient.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxslt.dll"
   "${KDE4_LIB_INSTALL_DIR}/attica_kde.dll"
 		DESTINATION  ${BIN_INSTALL_DIR} COMPONENT kdecore )
@@ -199,9 +206,13 @@ install ( FILES
 		DESTINATION  ${BIN_INSTALL_DIR}/sqldrivers COMPONENT kdecore )
   
   install( FILES 
-   "${KDE4_INSTALL_DIR}/etc/session.conf"
-   "${KDE4_INSTALL_DIR}/etc/system.conf"
-		DESTINATION  ${SYSCONF_INSTALL_DIR} COMPONENT kdecore )
+   "${KDE4_INSTALL_DIR}/etc/dbus-1/session.conf"
+   "${KDE4_INSTALL_DIR}/etc/dbus-1/system.conf"
+		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1 COMPONENT kdecore )
+  install( FILES 
+   "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.auth.conf"
+   "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.kcontrol.kcmremotewidgets.conf"
+		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1/system.d COMPONENT kdecore )
   
 
 
@@ -344,6 +355,7 @@ install ( FILES
   install( FILES 
   #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.FavIcon.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.JobView.xml"
+  "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.JobViewV2.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.JobViewServer.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KCookieServer.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.kded.xml"
@@ -364,7 +376,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KTimeZoned.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.KWallet.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.Phonon.AudioOutput.xml"
-  "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.pim.IdentityManager.xml"
+  #"${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.pim.IdentityManager.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.kde.Solid.Networking.Client.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.soprano.Model.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.soprano.NodeIterator.xml"
@@ -777,32 +789,32 @@ FILE(GLOB kde4_services_kded "${KDE4_INSTALL_DIR}/share/kde4/services/kded/*.des
 install (FILES ${kde4_services_kded} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kded COMPONENT kdecore)
 
 
-  install( FILES 
+  #install( FILES 
   #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc_manager.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal_manager.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources COMPONENT kdecore )
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal_manager.desktop"
+	#	DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources COMPONENT kdecore )
 
 
-  install( FILES 
+  #install( FILES 
   #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/dir.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/file.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/ldapkio.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/net.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kabc COMPONENT kdecore )
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/file.desktop"
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/ldapkio.desktop"
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/net.desktop"
+#		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kabc COMPONENT kdecore )
 
 
 
-  install( FILES 
+  #install( FILES 
   #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/local.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/localdir.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kcal COMPONENT kdecore )
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/localdir.desktop"
+	#	DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kcal COMPONENT kdecore )
 
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/kde4/services/phononbackends/ds9.desktop"
-		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/phononbackends COMPONENT kdecore )
+  #install( FILES 
+  #"${KDE4_INSTALL_DIR}/share/kde4/services/phononbackends/ds9.desktop"
+#		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/phononbackends COMPONENT kdecore )
 
 
    
@@ -816,7 +828,7 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/all_languages"
-  "${KDE4_INSTALL_DIR}/share/locale/locale.alias"
+  #"${KDE4_INSTALL_DIR}/share/locale/locale.alias"
 		DESTINATION  ${DATA_INSTALL_DIR}/../locale COMPONENT kdecore )
 
 
@@ -830,8 +842,8 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/display.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/drkonqi.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/filetypes.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-tools.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-runtime.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/gettext-tools.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminfo.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcminit.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kcmstyle.mo"
@@ -907,8 +919,8 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/display.mo"
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/drkonqi.mo"
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/filetypes.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-tools.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-runtime.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/gettext-tools.mo"
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminfo.mo"
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcminit.mo"
   "${KDE4_INSTALL_DIR}/share/locale/fr/LC_MESSAGES/kcmstyle.mo"
@@ -968,20 +980,20 @@ install (FILES ${kde4_servicetypes} DESTINATION  ${DATA_INSTALL_DIR}/../kde4/ser
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
+  #install( FILES 
+  #"${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-runtime.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-tools.mo"
+	#	DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
 
 
 
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-runtime.mo"
-  "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@quot/LC_MESSAGES COMPONENT kdecore )
+  #install( FILES 
+  #"${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-runtime.mo"
+  #"${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-tools.mo"
+	#	DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@quot/LC_MESSAGES COMPONENT kdecore )
 
 
 

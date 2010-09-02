@@ -26,6 +26,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /opt/local/include
       /sw/include
       C:/programme/portaudio/include
+      f:/programme/portaudio/include
   )
 
   find_library(PORTAUDIO_LIBRARY

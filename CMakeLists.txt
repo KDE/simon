@@ -332,6 +332,6 @@ install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/version.h
 )
 
 
-#if(WIN32)
-#add_subdirectory(package/KDE)
-#ENDIF(WIN32)
+if(WIN32)
+add_subdirectory(package/KDE)
+ENDIF(WIN32)
