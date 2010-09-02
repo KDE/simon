@@ -53,8 +53,19 @@ void ImportTrainingData::run()
 
     QStringList files = prompts->keys();
     QStringList filesFullPath;
+
+    QStringList allowedFileTypes = getAllowedFileTypes();
+
     foreach (const QString& file, files) {
-      filesFullPath << basePath+QDir::separator()+file+".wav";
+      foreach (const QString& extension, allowedFileTypes)
+      {
+        QString thisFile = basePath+QDir::separator()+file+'.'+extension;
+        if (QFile::exists(thisFile))
+        {
+          filesFullPath << thisFile;
+          break;
+        }
+      }
     }
 
     QStringList *newFiles = processSounds(filesFullPath, wavDestDir);
@@ -117,6 +128,15 @@ bool ImportTrainingData::import(bool isPrompts, QString path, QString basePath)
   return true;
 }
 
+QStringList ImportTrainingData::getAllowedFileTypes()
+{
+  QStringList allowedFileTypes;
+  allowedFileTypes << "wav";
+  allowedFileTypes << "mp3";
+  allowedFileTypes << "ogg";
+  allowedFileTypes << "flac";
+  return allowedFileTypes;
+}
 
 /**
  * \brief Walks the given dir. recursively and returns all ,wav files
@@ -132,11 +152,10 @@ QStringList* ImportTrainingData::searchDir(QString dir)
   QStringList *dataFiles = new QStringList();
   dirsToCheck<<dir;
 
-  QStringList allowedFileTypes;
-  allowedFileTypes << "*.wav";
-  allowedFileTypes << "*.mp3";
-  allowedFileTypes << "*.ogg";
-  allowedFileTypes << "*.flac";
+  QStringList allowedFileTypes = getAllowedFileTypes();
+  allowedFileTypes.replaceInStrings(QRegExp("^"), "*.");
+  kDebug() << "Allowed: " << allowedFileTypes;
+
   QStringList dirs;
   QStringList files;
 

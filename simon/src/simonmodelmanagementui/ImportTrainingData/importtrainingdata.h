@@ -45,6 +45,8 @@ class ImportTrainingData : public QThread
     bool createPrompts(QStringList dataFiles);
     QStringList* searchDir(QString dir);
 
+    QStringList getAllowedFileTypes();
+
   public slots:
     void run();
 
