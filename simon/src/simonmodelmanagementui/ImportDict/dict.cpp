@@ -218,7 +218,7 @@ void Dict::buildTranslationTables()
   translationLookup.insert(0x0361, "_");
   translationLookup.insert(0x03B2, "B");
   translationLookup.insert(0x03B8, "T");
-  translationLookup.insert(0x03C7, "X");
+  translationLookup.insert(0x03C7, "x");
   //translationLookup.insert(0x203F, "-");
   translationLookup.insert(0x207F, "_n");
   translationLookup.insert(0x2191, "^");
