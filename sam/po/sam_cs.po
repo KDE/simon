@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-08-15 20:29+0200\n"
+"POT-Creation-Date: 2010-09-06 16:50+0200\n"
 "PO-Revision-Date: 2010-06-28 16:35+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: accuracydisplay.cpp:35
+#: accuracydisplay.cpp:36
 msgid "Recognized %1 of %2: Recognition rate:"
 msgstr ""
 
@@ -41,21 +41,21 @@ msgstr "(C) 2009 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#: samview.cpp:64
+#: samview.cpp:65
 msgid "Modify simons model"
 msgstr "Upravit simonův model"
 
-#: samview.cpp:65
+#: samview.cpp:66
 msgid "Manage simons current model with ssc"
 msgstr ""
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:72 rc.cpp:105
+#: samview.cpp:73 rc.cpp:105
 msgid "Build model"
 msgstr "Sestavit model"
 
-#: samview.cpp:73
+#: samview.cpp:74
 msgid "Build the currently open model."
 msgstr ""
 
@@ -63,42 +63,42 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:81 rc.cpp:114 rc.cpp:117
+#: samview.cpp:82 rc.cpp:114 rc.cpp:117
 msgid "Test model"
 msgstr "Vyzkoušet model"
 
-#: samview.cpp:82
+#: samview.cpp:83
 #, fuzzy
 msgid "Test the model."
 msgstr "Vyzkoušet model"
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:89 rc.cpp:126
+#: samview.cpp:90 rc.cpp:126
 msgid "Test results"
 msgstr "Výsledky zkoušky"
 
-#: samview.cpp:90
+#: samview.cpp:91
 msgid "Display the test results."
 msgstr ""
 
-#: samview.cpp:215 samview.cpp:236
+#: samview.cpp:216 samview.cpp:237
 msgid "sam projects *.sam"
 msgstr "Samovy projekty *.sam"
 
-#: samview.cpp:249
+#: samview.cpp:250
 msgid "Untitled"
 msgstr "Bez názvu"
 
-#: samview.cpp:251
+#: samview.cpp:252
 msgid "sam - %1"
 msgstr "sam - %1"
 
-#: samview.cpp:260 samview.cpp:317
+#: samview.cpp:261 samview.cpp:318
 msgid "Cannot open file: %1"
 msgstr "Nelze otevřít soubor: %1"
 
-#: samview.cpp:424
+#: samview.cpp:425
 #, fuzzy
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
@@ -106,33 +106,33 @@ msgid ""
 msgstr ""
 "nyní musíte zadat adresář (nejlépe prázdný), do něhož chcete dávat scénáře"
 
-#: samview.cpp:424
+#: samview.cpp:425
 #, fuzzy
 msgid "Do not ask again"
 msgstr "Znovu se neptat"
 
-#: samview.cpp:425
+#: samview.cpp:426
 msgid "Serialized scenario output"
 msgstr "Výstup vydaných scénářů"
 
-#: samview.cpp:435
+#: samview.cpp:436
 msgid "Open simon prompts"
 msgstr "Otevřít výzvy programu Simon"
 
-#: samview.cpp:500
+#: samview.cpp:501
 #, fuzzy
 msgid "Could not find scenario: %1"
 msgstr "Nepodařilo se nalézt scénář: %1"
 
-#: samview.cpp:538
+#: samview.cpp:539
 msgid "Unknown model type"
 msgstr "Neznámý typ modelu"
 
-#: samview.cpp:601
+#: samview.cpp:602
 msgid "Adaption aborted"
 msgstr "Přizpůsobení zrušeno"
 
-#: samview.cpp:614
+#: samview.cpp:615
 msgid ""
 "Failed to adapt model:\n"
 "\n"
@@ -142,19 +142,19 @@ msgstr ""
 "\n"
 "%1"
 
-#: samview.cpp:636
+#: samview.cpp:637
 msgid "Grammar class undefined: %1"
 msgstr "Mluvnická třída neurčena: %1"
 
-#: samview.cpp:642
+#: samview.cpp:644
 msgid "Word undefined: %1"
 msgstr "Slovo neurčeno: %1"
 
-#: samview.cpp:649
+#: samview.cpp:651
 msgid "Phoneme undefined: %1"
 msgstr "Foném neurčen: %1"
 
-#: samview.cpp:806
+#: samview.cpp:808
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
@@ -162,26 +162,26 @@ msgstr ""
 "Výsledek %1 z %2\n"
 "=====================\n"
 
-#: samview.cpp:839
+#: samview.cpp:841
 msgid "Modify sample"
 msgstr "Upravit nahrávku"
 
-#: samview.cpp:851 samview.cpp:876
+#: samview.cpp:853 samview.cpp:878
 #, fuzzy
 msgid "Could not modify prompts file"
 msgstr "Nepodařilo se upravit soubor s výzvami"
 
-#: samview.cpp:863
+#: samview.cpp:865
 #, fuzzy
 msgid "Could not overwrite prompts file"
 msgstr "Nepodařilo se přepsat soubor s výzvami"
 
-#: samview.cpp:867 samview.cpp:883
+#: samview.cpp:869 samview.cpp:885
 #, fuzzy
 msgid "Could not remove original sample:  %1."
 msgstr "Nepodařilo se odstranit původní nahrávku: %1"
 
-#: samview.cpp:888
+#: samview.cpp:890
 #, fuzzy
 msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""

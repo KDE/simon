@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-08-15 20:29+0200\n"
+"POT-Creation-Date: 2010-09-06 16:50+0200\n"
 "PO-Revision-Date: 2010-07-22 22:45+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: accuracydisplay.cpp:35
+#: accuracydisplay.cpp:36
 msgid "Recognized %1 of %2: Recognition rate:"
 msgstr ""
 
@@ -38,21 +38,21 @@ msgstr "(C) 2009 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#: samview.cpp:64
+#: samview.cpp:65
 msgid "Modify simons model"
 msgstr "Modifier les modèles acoustiques de Simon"
 
-#: samview.cpp:65
+#: samview.cpp:66
 msgid "Manage simons current model with ssc"
 msgstr "Gérer le modèle acoustique actuel de Simon avec ssc"
 
 #. i18n: file: main.ui:412
 #. i18n: ectx: property (text), widget (KPushButton, pbCompileModel)
-#: samview.cpp:72 rc.cpp:105
+#: samview.cpp:73 rc.cpp:105
 msgid "Build model"
 msgstr "Construire le modèle"
 
-#: samview.cpp:73
+#: samview.cpp:74
 msgid "Build the currently open model."
 msgstr "Construire le modèle actuellement ouvert."
 
@@ -60,41 +60,41 @@ msgstr "Construire le modèle actuellement ouvert."
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_2)
 #. i18n: file: main.ui:465
 #. i18n: ectx: property (text), widget (KPushButton, pbTestModel)
-#: samview.cpp:81 rc.cpp:114 rc.cpp:117
+#: samview.cpp:82 rc.cpp:114 rc.cpp:117
 msgid "Test model"
 msgstr "Tester le modèle"
 
-#: samview.cpp:82
+#: samview.cpp:83
 msgid "Test the model."
 msgstr "Tester le modèle."
 
 #. i18n: file: main.ui:510
 #. i18n: ectx: attribute (title), widget (QWidget, Seite_4)
-#: samview.cpp:89 rc.cpp:126
+#: samview.cpp:90 rc.cpp:126
 msgid "Test results"
 msgstr "Résultats du test"
 
-#: samview.cpp:90
+#: samview.cpp:91
 msgid "Display the test results."
 msgstr "Afficher les résultats du test."
 
-#: samview.cpp:215 samview.cpp:236
+#: samview.cpp:216 samview.cpp:237
 msgid "sam projects *.sam"
 msgstr "Projets sam *.sam"
 
-#: samview.cpp:249
+#: samview.cpp:250
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: samview.cpp:251
+#: samview.cpp:252
 msgid "sam - %1"
 msgstr "sam - %1"
 
-#: samview.cpp:260 samview.cpp:317
+#: samview.cpp:261 samview.cpp:318
 msgid "Cannot open file: %1"
 msgstr "Impossible d'ouvrir le fichier : %1"
 
-#: samview.cpp:424
+#: samview.cpp:425
 msgid ""
 "You now have to provide a (preferably empty) directory where you want to "
 "serialize the scenarios to"
@@ -102,31 +102,31 @@ msgstr ""
 "Vous devez indiquer un dossier (de préférence vide) dans lequel déployer le "
 "scénario"
 
-#: samview.cpp:424
+#: samview.cpp:425
 msgid "Do not ask again"
 msgstr "Ne plus poser la question"
 
-#: samview.cpp:425
+#: samview.cpp:426
 msgid "Serialized scenario output"
 msgstr "Sortie du déploiement du scénario"
 
-#: samview.cpp:435
+#: samview.cpp:436
 msgid "Open simon prompts"
 msgstr "Ouvrir les prompteurs de Simon"
 
-#: samview.cpp:500
+#: samview.cpp:501
 msgid "Could not find scenario: %1"
 msgstr "Impossible de trouver le scénario : %1"
 
-#: samview.cpp:538
+#: samview.cpp:539
 msgid "Unknown model type"
 msgstr "Type du modèle inconnu"
 
-#: samview.cpp:601
+#: samview.cpp:602
 msgid "Adaption aborted"
 msgstr "Adaptation abandonnée"
 
-#: samview.cpp:614
+#: samview.cpp:615
 msgid ""
 "Failed to adapt model:\n"
 "\n"
@@ -136,19 +136,19 @@ msgstr ""
 "\n"
 "%1"
 
-#: samview.cpp:636
+#: samview.cpp:637
 msgid "Grammar class undefined: %1"
 msgstr "Grammaire indéfinie : %1"
 
-#: samview.cpp:642
+#: samview.cpp:644
 msgid "Word undefined: %1"
 msgstr "Mot indéfini : %1"
 
-#: samview.cpp:649
+#: samview.cpp:651
 msgid "Phoneme undefined: %1"
 msgstr "Phonème indéfini : %1"
 
-#: samview.cpp:806
+#: samview.cpp:808
 msgid ""
 "Result %1 of %2\n"
 "=====================\n"
@@ -156,23 +156,23 @@ msgstr ""
 "Résultat %1 de %2\n"
 "=====================\n"
 
-#: samview.cpp:839
+#: samview.cpp:841
 msgid "Modify sample"
 msgstr "Modifier l'échantillon"
 
-#: samview.cpp:851 samview.cpp:876
+#: samview.cpp:853 samview.cpp:878
 msgid "Could not modify prompts file"
 msgstr "Impossible de modifier le fichier de prompteurs"
 
-#: samview.cpp:863
+#: samview.cpp:865
 msgid "Could not overwrite prompts file"
 msgstr "Impossible d'écraser le fichier de prompteurs"
 
-#: samview.cpp:867 samview.cpp:883
+#: samview.cpp:869 samview.cpp:885
 msgid "Could not remove original sample:  %1."
 msgstr "Impossible de supprimer l'échantillon original : %1"
 
-#: samview.cpp:888
+#: samview.cpp:890
 msgid "Could not copy sample from temporary path %1 to %2."
 msgstr ""
 "Impossible de copier l'échantillon de l'emplacement temporaire %1 vers %2."

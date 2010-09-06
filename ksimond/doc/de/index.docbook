@@ -84,9 +84,9 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 Do NOT change these in the translation. -->
 
 <date
->2008-03-04</date>
+>2010-09-06</date>
 <releaseinfo
->0.2</releaseinfo>
+>0.3</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -130,7 +130,7 @@ Please at least include KDE, the KDE package it is in, the name
 
 <copyright>
 <year
->2009</year>
+>2009-2010</year>
 <holder
 >Peter Grasch</holder>
 </copyright>
@@ -155,23 +155,9 @@ Please at least include KDE, the KDE package it is in, the name
 >Das &kmyapplication; Handbuch</title>
 </bookinfo>
 
-<!-- The contents of the documentation begin here.  Label
-each chapter so with the id attribute. This is necessary for two reasons: it
-allows you to easily reference the chapter from other chapters of your
-document, and if there is no ID, the name of the generated HTML files will vary
-from time to time making it hard to manage for maintainers and for the CVS
-system. Any chapter labelled (OPTIONAL) may be left out at the author's
-discretion. Other chapters should not be left out in order to maintain a
-consistent documentation style across all KDE apps. -->
-
 <chapter id="introduction">
 <title
 >Einleitung</title>
-
-<!-- The introduction chapter contains a brief introduction for the
-application that explains what it does and where to report
-problems. Basically a long version of the abstract.  Don't include a
-revision history. (see installation appendix comment) -->
 
 <para
 >&kappname; ist ein einfaches, grafisches Frontend von simond. Es zeigt ein Symbol im Systembereich der Taskleiste an, von dem aus man den simond Server starten, stoppen und konfigurieren kann. Im Konfigurationsdialog von ksimond werden auch die simond Konfigurationselement angezeigt. </para>
@@ -186,10 +172,6 @@ revision history. (see installation appendix comment) -->
 <chapter id="using-kapp">
 <title
 >&kappname; benutzen</title>
-
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
 
 <para
 >&kappname; hat kein Applikationsfenster. Stattdessen erzeugt es ein Symbol im Systembereich der Taskleiste. Über das Kontextmenü des Symbols kann simond gestartet und gestoppt werden und die Konfiguration angezeigt werden. <screenshot>
@@ -255,6 +237,20 @@ your application. -->
     </textobject>
   </mediaobject>
 </screenshot>
+
+<screenshot>
+<screeninfo
+>Bildschirmfoto der Sprachmodellkonfiguration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_speech_model_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+>simond Sprachmodellkonfiguration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
 </para>
 
 </chapter>
@@ -262,18 +258,13 @@ your application. -->
 
 <chapter id="credits">
 
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
-
 <title
 >Danksagungen und Lizenz</title>
 
 <para
 >&kappname; </para>
 <para
->Program copyright 2008-2009 Peter Grasch <email
+>Program copyright 2008-2010 Peter Grasch <email
 >grasch@simon-listens.org</email
 > </para>
 <!--<para>
@@ -296,7 +287,7 @@ Contributors:
 >-->
 
 <para
->Documentation Copyright &copy; 2008 Peter Grasch <email
+>Documentation Copyright &copy; 2010 Peter Grasch <email
 >grasch@simon-listens.org</email
 > </para>
 
@@ -316,31 +307,20 @@ Contributors:
 >&kappname; herunterladen</title>
 
 <para
->Laden Sie die letzte Version von ksimond im simon-Paket von <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125"
+>Laden Sie die letzte Version von ksimond im simon-Paket von <ulink url="http://sourceforge.net/projects/speech2text"
 >Sourceforge</ulink
->.herunter  </para>
+> herunter. </para>
 </sect1>
 
 <sect1 id="requirements">
 <title
 >Voraussetzungen</title>
 
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
-
 <para
 >Um &kappname; zu benutzen benötigen Sie &kde; 4 und simond. </para>
 
 <para
->simon und simond können auf der <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125"
+>simon und simond können auf der <ulink url="<ulink url="http://sourceforge.net/projects/speech2text"
 >simon Sourceforge Seite</ulink
 > finden. </para>
 
@@ -349,7 +329,12 @@ information here.
 <sect1 id="compilation">
 <title
 >Kompilierung und Installation</title>
-&install.compile.documentation; </sect1>
+
+<para
+>Bitte sehen Sie unser <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup"
+>online Wiki</ulink
+> for eine detaillierte Installationsanleitung.</para>
+</sect1>
 
 </appendix>
 
