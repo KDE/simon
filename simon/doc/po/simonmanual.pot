@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-02 15:44+0000\n"
+"POT-Creation-Date: 2010-09-03 07:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -177,7 +177,7 @@ msgid "The main recognition architecture of simon consits of three applications.
 msgstr ""
 
 #. Tag: para
-#: index.docbook:100 index.docbook:3302
+#: index.docbook:100 index.docbook:3308
 #, no-c-format
 msgid "&kmyapplication;"
 msgstr ""
@@ -1419,7 +1419,7 @@ msgid "After completing or aborting the first run wizard you can change configur
 msgstr ""
 
 #. Tag: title
-#: index.docbook:786 index.docbook:3063
+#: index.docbook:786 index.docbook:3069
 #, no-c-format
 msgid "Server"
 msgstr ""
@@ -1479,7 +1479,7 @@ msgid "If you don't set at least one input device to be used for recognition, yo
 msgstr ""
 
 #. Tag: para
-#: index.docbook:827 index.docbook:2952
+#: index.docbook:827 index.docbook:2958
 #, no-c-format
 msgid "When the option <guibutton>Default to power training</guibutton> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session."
 msgstr ""
@@ -1803,7 +1803,7 @@ msgid "The vocabulary lets the user manage the available words."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:1048 index.docbook:1570 index.docbook:3047 index.docbook:3068
+#: index.docbook:1048 index.docbook:1570 index.docbook:3053 index.docbook:3074
 #, no-c-format
 msgid "General"
 msgstr ""
@@ -3119,13 +3119,19 @@ msgstr ""
 #. Tag: para
 #: index.docbook:2004
 #, no-c-format
-msgid "When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain \"This is a test\" and nothing else. Numbers and special characters (\".\", \"-\",...) in the filename are ignored and stripped."
+msgid "When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: \"[filename] [content]\". Filenames are without file extensions and the content has to be uppercase. For example: \"demo_2007_03_20 DEMO\" to import the file \"demo_2007_03_20.wav\" containing the spoken word \"Demo\"."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:2006
+#, no-c-format
+msgid "Because prompts files do not contain a file extension, simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported)."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:2008
 #, no-c-format
-msgid "The files and their transcription are then added to the trainings corpus."
+msgid "When using file based transcriptions, a file called this_is_a_test.wav <emphasis>must</emphasis> contain \"This is a test\" and nothing else. Numbers and special characters (\".\", \"-\",...) in the filename are ignored and stripped."
 msgstr ""
 
 #. Tag: para
@@ -3135,2029 +3141,2041 @@ msgid "Files recorded by simon 0.2 <emphasis>will</emphasis> follow this naming 
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2015
+#: index.docbook:2014
+#, no-c-format
+msgid "Imported files and their transcription are then added to the trainings corpus."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:2018
 #, no-c-format
 msgid "To import a directory containing trainings-samples just select the folder to import and depending on your import type also the prompts file."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2019
+#: index.docbook:2022
 #, no-c-format
 msgid "Import-trainings-data-wizard"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2028
+#: index.docbook:2031
 #, no-c-format
 msgid "The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav, .flac, .mp3 and .ogg files. All files found will be imported."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2032
+#: index.docbook:2035
 #, no-c-format
 msgid "When importing the sound files, all configured <link linkend=\"soundconfiguration_postprocessing\">post processing filters</link> are applied."
 msgstr ""
 
+#. Tag: para
+#: index.docbook:2038
+#, no-c-format
+msgid "If you import anything other than WAV files you are responsible for decoding them during the import process (for example through post processing filters) or the model creation <emphasis>will</emphasis> fail."
+msgstr ""
+
 #. Tag: title
-#: index.docbook:2042
+#: index.docbook:2048
 #, no-c-format
 msgid "<title>Commands</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2043
+#: index.docbook:2049
 #, no-c-format
 msgid "When simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2047
+#: index.docbook:2053
 #, no-c-format
 msgid "simons Command Dialog"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2056
+#: index.docbook:2062
 #, no-c-format
 msgid "The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. \"Karl\" knows how to start a program and \"Joe\" knows how to open a folder, etc.). Whenever simon recognizes something it is given to \"Karl\" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to \"Joe\" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton>Commands</guibutton> > <guibutton>Manage plugins</guibutton>)."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2061
+#: index.docbook:2067
 #, no-c-format
 msgid "simons Action Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2070
+#: index.docbook:2076
 #, no-c-format
 msgid "Each plugin can be associated with a \"trigger\". Using triggers, the responsibility of each plugin can be easily be divided."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2073
+#: index.docbook:2079
 #, no-c-format
 msgid "Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of \"Open my home folder\" you say \"Joe, open my home folder\" and \"Joe\" (the plugin responsible for opening folders) will instantly know that the request is meant for him."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2074
+#: index.docbook:2080
 #, no-c-format
 msgid "In practice you could have commands like the executable command \"Firefox\" to open the popular browser and the place command \"Google\" to open the web search engine. If you assign the trigger \"Start\" to the executable plugin and the trigger \"Open\" to the place command you would have to say \"Start Firefox\" (instead of just \"Firefox\" if you don't use a trigger for the executable plugin) and \"Open Google\" to open the search engine (instead of just \"Google\")."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2075
+#: index.docbook:2081
 #, no-c-format
 msgid "Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of \"Computer\" set which you would have to remove). But even if you use just on trigger for all your commands (like \"Computer\" to say \"Computer, Firefox\" and \"Computer, Google\" like) it has the advantage of greatly limiting the number false-positives."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2077
+#: index.docbook:2083
 #, no-c-format
 msgid "simons <link linkend=\"command_dialog\">command dialog</link> displays the complete phrase associated with a command in the upper right corner of the command configuration."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2079
+#: index.docbook:2085
 #, no-c-format
 msgid "You can load multiple instances of one plugin even in one scenario. Each instance can of course also have a different plugin trigger."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2081
+#: index.docbook:2087
 #, no-c-format
 msgid "Each Command has a name (which will trigger its invocation), an icon and more fields depending on the type of the plugin (see below)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2085
+#: index.docbook:2091
 #, no-c-format
 msgid "Some command plugins might provide a configuration of the plugin itself (not the commands it contains). There configuration pages will be plugged directly into the action configuration dialog (below the <guimenuitem>General</guimenuitem> menu item) when you load the associated plugin."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2089
+#: index.docbook:2095
 #, no-c-format
 msgid "Plugins that provide a graphical user interface (like for example the <link linkend=\"input_number\">input number command plugin</link>) can be configured by configuring \"Voice commands\". You can change the associated word that will trigger the button, for example, but also change the displayed icon, etc. If you remove all voice interface commands from a graphical element, the element will be hidden automatically."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2093
+#: index.docbook:2099
 #, no-c-format
 msgid "Voice interface commands are added just like normal commands through the command configuration."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2097
+#: index.docbook:2103
 #, no-c-format
 msgid "Configure voice interface commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2106
+#: index.docbook:2112
 #, no-c-format
 msgid "To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton>Create from template</guibutton> and adapt the resulting commando to your needs."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2108
+#: index.docbook:2114
 #, no-c-format
 msgid "Some plugins (for example the <link linkend=\"desktopgrid\">desktopgrid</link> or the <link linkend=\"calculator_command_plugin\">calculator</link> might also provide a menu item in the <guimenu>Commands</guimenu> menu."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2114
+#: index.docbook:2120
 #, no-c-format
 msgid "Command plugged into main window"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2124
+#: index.docbook:2130
 #, no-c-format
 msgid "<title>Executable Commands</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2126
+#: index.docbook:2132
 #, no-c-format
 msgid "Executable commands are associated with an executable file (\"Program\") which is started when the command is invoked."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2129
+#: index.docbook:2135
 #, no-c-format
 msgid "<screeninfo>Executable Commands</screeninfo>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2137
+#: index.docbook:2143
 #, no-c-format
 msgid "Arguments to the commands are supported. If either path to the executable or the parameters contain spaces they <emphasis>must</emphasis> be wrapped in quotes."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2139
+#: index.docbook:2145
 #, no-c-format
 msgid "Given the executable file <filename>C:\\Program Files\\Mozilla Firefox\\firefox.exe</filename> the local html file <filename>C:\\test file.html</filename> the correct line for the \"Executable\" would be: <filename>\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" \"C:\\test file.html\"</filename>."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2141
+#: index.docbook:2147
 #, no-c-format
 msgid "The working directory defines where the process should be launched from. Given the working directory <filename>C:\\folder</filename>, the command <filename>\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" file.html</filename> would cause firefox to search for the file <filename>C:\\folder\\file.html</filename>."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2143
+#: index.docbook:2149
 #, no-c-format
 msgid "The working directory does not normally need to be set and can be left blank most of the time."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2146
+#: index.docbook:2152
 #, no-c-format
 msgid "Importing Programs"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2147
+#: index.docbook:2153
 #, no-c-format
 msgid "For even easier configuration simon provides an import dialog which allows you to select programs directly from the KDE menu."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2149
+#: index.docbook:2155
 #, no-c-format
 msgid "This option is not available on Microsoft Windows."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2152
+#: index.docbook:2158
 #, no-c-format
 msgid "Import Programs"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2160
+#: index.docbook:2166
 #, no-c-format
 msgid "The dialog will list all programs that have an entry in your KDE menu in their respective category."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2162
+#: index.docbook:2168
 #, no-c-format
 msgid "Sub-Categories are not supported and are thus listed on the same level as top-level categories."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2164
+#: index.docbook:2170
 #, no-c-format
 msgid "Just select the program you wish to start with simon and press <guibutton>Ok</guibutton>. The correct values for the executable and the working directory as well as an appropriate command name and description will automatically be filled out for you."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2171
+#: index.docbook:2177
 #, no-c-format
 msgid "Place Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2172
+#: index.docbook:2178
 #, no-c-format
 msgid "With place commands you can allow simon to open any given URL. Because simon just hands the address over to the platforms URL handler, special Protocols like \"remote:/\" (on Linux/KDE) or even KDEs \"Web-Shortcuts\" are supported."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2173
+#: index.docbook:2179
 #, no-c-format
 msgid "Instead of folders, files can also be set as the commands URL which will cause the file to be opened with the application which is associated with it when the command is invoked."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2176
+#: index.docbook:2182
 #, no-c-format
 msgid "Places"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2184
+#: index.docbook:2190
 #, no-c-format
 msgid "To associate a specific URL with the command you can manually enter it in the URL field (select <guibutton>Manual</guibutton> first) or import it with the import place wizard."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2188
+#: index.docbook:2194
 #, no-c-format
 msgid "Importing Places"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2190
+#: index.docbook:2196
 #, no-c-format
 msgid "The import place dialog allows you to easily create the correct URL for the command."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2192
+#: index.docbook:2198
 #, no-c-format
 msgid "To add a local folder, select <guibutton>Local Place</guibutton> and choose the folder or file with the file selector."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2195
+#: index.docbook:2201
 #, no-c-format
 msgid "Import Places: Local"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2204
+#: index.docbook:2210
 #, no-c-format
 msgid "To add a remote URL (HTTP, FTP, etc.) choose <guibutton>Remote URL</guibutton> <screenshot> <screeninfo>Import Places: Remote</screeninfo> <mediaobject> <imageobject> <imagedata fileref=\"command_place_import_2.png\" format=\"PNG\"/> </imageobject> </mediaobject> </screenshot> Please note that for URLs with authentication information the password will be stored in clear text."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2221
+#: index.docbook:2227
 #, no-c-format
 msgid "Shortcut Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2222
+#: index.docbook:2228
 #, no-c-format
 msgid "Using shortcut commands the user can associate commands with key-combinations."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2224
+#: index.docbook:2230
 #, no-c-format
 msgid "The command will simulate keyboard input to \"press\" shortcuts like \"Ctrl+C\" or \"Alt+F4\"."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2227
+#: index.docbook:2233
 #, no-c-format
 msgid "Defining Shortcut Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2236
+#: index.docbook:2242
 #, no-c-format
 msgid "To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2237
+#: index.docbook:2243
 #, no-c-format
 msgid "simon will capture the shortcut and associate it with the command."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2238
+#: index.docbook:2244
 #, no-c-format
 msgid "Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2240
+#: index.docbook:2246
 #, no-c-format
 msgid "This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2244
+#: index.docbook:2250
 #, no-c-format
 msgid "Text-Macro Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2245
+#: index.docbook:2251
 #, no-c-format
 msgid "Using text-macro commands, the user can associate text with a command. When the command is invoked, the associated text will be \"written\" by simulating keystrokes."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2249
+#: index.docbook:2255
 #, no-c-format
 msgid "Defining Text-Macro Commands"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2260
+#: index.docbook:2266
 #, no-c-format
 msgid "List Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2261
+#: index.docbook:2267
 #, no-c-format
 msgid "The list command is designed to combine multiple commands (all types of commands are supported) into one list. The user can then select the n-th entry by saying the associated number (1-9)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2263
+#: index.docbook:2269
 #, no-c-format
 msgid "This is very useful to limit the amount of training required and provides the possibility to keep the vocabulary to a minimum."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2267
+#: index.docbook:2273
 #, no-c-format
 msgid "Defining List Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2276
+#: index.docbook:2282
 #, no-c-format
 msgid "List commands are especially useful when using commands with difficult triggers or commands that can be grouped under a general theme. A typical example would be a command \"Startmenu\" to present a list of programs to launch. That way the specific executable commands can still retain very descriptive names (like \"OpenOffice.org Writer 3.1\") without the user having to include these words in his vocabulary and consider them in the grammar just to trigger them."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2278
+#: index.docbook:2284
 #, no-c-format
 msgid "Commands of different types can of course be mixed."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2281
+#: index.docbook:2287
 #, no-c-format
 msgid "List Command Display"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2283
+#: index.docbook:2289
 #, no-c-format
 msgid "When invoked, the command will display the list centered on the screen. The list will automatically expand to accompany its items. <screenshot> <screeninfo>Defining List Commands</screeninfo> <mediaobject> <imageobject> <imagedata fileref=\"command_list_2.png\" format=\"PNG\"/> </imageobject> </mediaobject> </screenshot> The user can invoke the commands contained in the list by simply saying their associated number (In this example: \"One\" to launch Mozilla Firefox)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2296
+#: index.docbook:2302
 #, no-c-format
 msgid "While a list command is active (displayed), all input that is not directed at the list itself (other commands, etc.) will be rejected. The process can be canceled by pressing the \"Cancel\" button or by saying \"Cancel\"."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2299
+#: index.docbook:2305
 #, no-c-format
 msgid "If there are more than 9 items simon will add \"Next\" and \"Back\" options to the list (\"Zero\" will be associated with \"Back\" and \"Nine\" with \"Next\")."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2303
+#: index.docbook:2309
 #, no-c-format
 msgid "List Command with many entries"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2314
+#: index.docbook:2320
 #, no-c-format
 msgid "Configuring list elements"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2316
+#: index.docbook:2322
 #, no-c-format
 msgid "By default the list command uses the following trigger words. To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following \"sentences\":"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2319 index.docbook:2525
+#: index.docbook:2325 index.docbook:2531
 #, no-c-format
 msgid "\"Zero\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2320 index.docbook:2446 index.docbook:2526
+#: index.docbook:2326 index.docbook:2452 index.docbook:2532
 #, no-c-format
 msgid "\"One\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2321 index.docbook:2447 index.docbook:2527
+#: index.docbook:2327 index.docbook:2453 index.docbook:2533
 #, no-c-format
 msgid "\"Two\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2322 index.docbook:2448 index.docbook:2528
+#: index.docbook:2328 index.docbook:2454 index.docbook:2534
 #, no-c-format
 msgid "\"Three\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2323 index.docbook:2449 index.docbook:2529
+#: index.docbook:2329 index.docbook:2455 index.docbook:2535
 #, no-c-format
 msgid "\"Four\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2324 index.docbook:2450 index.docbook:2530
+#: index.docbook:2330 index.docbook:2456 index.docbook:2536
 #, no-c-format
 msgid "\"Five\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2325 index.docbook:2451 index.docbook:2531
+#: index.docbook:2331 index.docbook:2457 index.docbook:2537
 #, no-c-format
 msgid "\"Six\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2326 index.docbook:2452 index.docbook:2532
+#: index.docbook:2332 index.docbook:2458 index.docbook:2538
 #, no-c-format
 msgid "\"Seven\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2327 index.docbook:2453 index.docbook:2533
+#: index.docbook:2333 index.docbook:2459 index.docbook:2539
 #, no-c-format
 msgid "\"Eight\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2328 index.docbook:2454 index.docbook:2534
+#: index.docbook:2334 index.docbook:2460 index.docbook:2540
 #, no-c-format
 msgid "\"Nine\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2329 index.docbook:2455 index.docbook:2538
+#: index.docbook:2335 index.docbook:2461 index.docbook:2544
 #, no-c-format
 msgid "\"Cancel\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2333
+#: index.docbook:2339
 #, no-c-format
 msgid "Of course you can also configure these words in your simon configuration:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2336
+#: index.docbook:2342
 #, no-c-format
 msgid "<guimenuitem>Commands</guimenuitem> > <guibutton>Manage plugins</guibutton> > <guimenuitem>General</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the scenario wide list configuration."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2339
+#: index.docbook:2345
 #, no-c-format
 msgid "<guimenu>Settings</guimenu> > <guimenuitem>Configure simon...</guimenuitem> > <guimenuitem>Actions</guimenuitem> > <guimenuitem>Lists</guimenuitem> for the global configuration. When creating a new scenario, the scenario configuration will be initialized with a copy of this list configuration."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2344
+#: index.docbook:2350
 #, no-c-format
 msgid "List commands are internally also used by other plugins like for example the <link linkend=\"desktopgrid\">desktopgrid</link>. The confiugration of the triggers also affects their displayed lists."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2353
+#: index.docbook:2359
 #, no-c-format
 msgid "Composite Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2354
+#: index.docbook:2360
 #, no-c-format
 msgid "Composite commands allow the user to group multiple commands into a sequence."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2356
+#: index.docbook:2362
 #, no-c-format
 msgid "When invoked the commands will be executed in order. Delays between commands can be inserted."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2359
+#: index.docbook:2365
 #, no-c-format
 msgid "Defining Composite Commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2368
+#: index.docbook:2374
 #, no-c-format
 msgid "Using the composite command the user can compose complex \"macros\". The screenshot above - for example - does the following:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2371
+#: index.docbook:2377
 #, no-c-format
 msgid "Start Kopete (Executable Command)"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2372
+#: index.docbook:2378
 #, no-c-format
 msgid "Wait 2000ms for Kopete do be started"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2373
+#: index.docbook:2379
 #, no-c-format
 msgid "Type \"Mathias\" (Text-Macro Command) which will select Mathias in my contact list"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2374
+#: index.docbook:2380
 #, no-c-format
 msgid "Press Enter (Shortcut Command)"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2375
+#: index.docbook:2381
 #, no-c-format
 msgid "Wait 1000ms for the chat window to appear"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2376
+#: index.docbook:2382
 #, no-c-format
 msgid "Write \"Hi!\" (Text-Macro Command); The text associated to this command contains a newline at the end so that the message will be send."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2377
+#: index.docbook:2383
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the chat window"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2378
+#: index.docbook:2384
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the kopete main window"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2385
+#: index.docbook:2391
 #, no-c-format
 msgid "Desktopgrid"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2386
+#: index.docbook:2392
 #, no-c-format
 msgid "The desktopgrid allows the user to control his mouse with his voice."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2390
+#: index.docbook:2396
 #, no-c-format
 msgid "The Desktopgrid"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2396
+#: index.docbook:2402
 #, no-c-format
 msgid "The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, etc. This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2399
+#: index.docbook:2405
 #, no-c-format
 msgid "The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2403
+#: index.docbook:2409
 #, no-c-format
 msgid "Desktopgrid: Click selection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2412
+#: index.docbook:2418
 #, no-c-format
 msgid "While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, etc.) will be rejected. Say \"Cancel\" at any time to abort the process."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2416
+#: index.docbook:2422
 #, no-c-format
 msgid "The desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2420
+#: index.docbook:2426
 #, no-c-format
 msgid "Configuring the Desktopgrid"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2426
+#: index.docbook:2432
 #, no-c-format
 msgid "The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use \"real\" or \"fake\" transparency. If your graphical environment allows for compositing effects (\"desktop effects\") then you can safely use \"real\" transparency which will make the desktogrid transparent. If your platform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2430
+#: index.docbook:2436
 #, no-c-format
 msgid "If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2432
+#: index.docbook:2438
 #, no-c-format
 msgid "However, nearly all up-to-date systems will support compositing (real transparency)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2435
+#: index.docbook:2441
 #, no-c-format
 msgid "This includes:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2437
+#: index.docbook:2443
 #, no-c-format
 msgid "Microsoft Windows 2000 or higher (XP, Vista, 7)"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2438
+#: index.docbook:2444
 #, no-c-format
 msgid "GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, etc."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2443
+#: index.docbook:2449
 #, no-c-format
 msgid "By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following \"sentences\":"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2459 index.docbook:2542
+#: index.docbook:2465 index.docbook:2548
 #, no-c-format
 msgid "To configure these triggers, just configure the commands associated with the plugin."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2463
+#: index.docbook:2469
 #, no-c-format
 msgid "Desktopgrid: Configuring list elements"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2475
+#: index.docbook:2481
 #, no-c-format
 msgid "Input Number"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2476
+#: index.docbook:2482
 #, no-c-format
 msgid "Using the input-number plugin the user can input large numbers easily."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2479
+#: index.docbook:2485
 #, no-c-format
 msgid "Using the Dictation or the Text-Macro plugin one could associate the numbers with their digits and use that as input method. however, to input larger numbers there are two ways that both have significant disadvantages:"
 msgstr ""
 
 #. Tag: emphasis
-#: index.docbook:2482
+#: index.docbook:2488
 #, no-c-format
 msgid "Adding the words \"eleven, \"twelve\", etc."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2483
+#: index.docbook:2489
 #, no-c-format
 msgid "While this seems like the most elegant solution as it would enable the user to say \"fivehundredseventytwo\" we can easily see that it would be quite a problem to add all these words - let alone train them. What about \"twothousandninehundredtwo\"? Where to stop?"
 msgstr ""
 
 #. Tag: emphasis
-#: index.docbook:2484
+#: index.docbook:2490
 #, no-c-format
 msgid "Spell out the number using the individual digits"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2485
+#: index.docbook:2491
 #, no-c-format
 msgid "While this is not as elegant as stating the complete number it is much more practical."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2486
+#: index.docbook:2492
 #, no-c-format
 msgid "However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouselss browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say \"Five (pause) Two\". Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of \"Five\" complete."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2490
+#: index.docbook:2496
 #, no-c-format
 msgid "The input number plugin - when triggered - presents a calculator-like interface for inputting a number. The input can be corrected by saying \"Back\". It features a decimal point accessible by saying \"Comma\". When saying \"Ok\" the number will be typed out. As all the voice-input and the correction is handled by the plugin itself the application that finally receive the input will only get couple of milliseconds between the individual digits."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2494 index.docbook:2546
+#: index.docbook:2500 index.docbook:2552
 #, no-c-format
 msgid "Input Number Plugin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2503
+#: index.docbook:2509
 #, no-c-format
 msgid "While the input number plugin is active (the user currently inputs a number), all input that is not directed at the input number plugin (other commands, etc.) will be rejected. Say \"Cancel\" at any time to abort the process."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2507
+#: index.docbook:2513
 #, no-c-format
 msgid "As there can no command instances be created of this plugin it is not listed in the \"New Command\" dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded. <screenshot> <screeninfo>Input Number Plugin</screeninfo> <mediaobject> <imageobject> <imagedata fileref=\"input_number_configure.png\" format=\"PNG\"/> </imageobject> </mediaobject> </screenshot> The trigger defines what word or phrase that will trigger the display of the interface."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2522
+#: index.docbook:2528
 #, no-c-format
 msgid "By default the input number plugin uses numbers to select the individual digits and a couple of control words. To use the input number plugin, make sure that your language and acoustic model contains and allows for the following \"sentences\":"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2535
+#: index.docbook:2541
 #, no-c-format
 msgid "\"Back\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2536
+#: index.docbook:2542
 #, no-c-format
 msgid "\"Comma\""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2537
+#: index.docbook:2543
 #, no-c-format
 msgid "\"Ok\""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2558
+#: index.docbook:2564
 #, no-c-format
 msgid "Dictation"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2559
+#: index.docbook:2565
 #, no-c-format
 msgid "The dictation plugin writes the recognition result it gets using simulated keystrokes."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2561
+#: index.docbook:2567
 #, no-c-format
 msgid "Assuming you didn't define a trigger for the dictation plugin it will accept all recognition results and just write them out. The written input will be considered as \"processed input\" and thus not be relayed to other plugins. This means that if you loaded the dictation plugin and defined no trigger for it, all plugins <emphasis>below it</emphasis> in the \"Selected Plug-Ins\" list in the command configuration will never receive any input."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2563 index.docbook:2617
+#: index.docbook:2569 index.docbook:2623
 #, no-c-format
 msgid "As there can no command instances be created of this plugin it is not listed in the \"New Command\" dialog."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2565
+#: index.docbook:2571
 #, no-c-format
 msgid "The dictation plugin can be configured to append texts after recognition results to for example add a space after each recognized word."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2569
+#: index.docbook:2575
 #, no-c-format
 msgid "Configure dictation"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2580
+#: index.docbook:2586
 #, no-c-format
 msgid "Artificial Intelligence"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2581
+#: index.docbook:2587
 #, no-c-format
 msgid "The Artificial Intelligence is a just-for-fun plugin that emulates a human conversation."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2583
+#: index.docbook:2589
 #, no-c-format
 msgid "Using the festival text to speech technology the computer can \"talk\" with the user and answer question or chat about the weather."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2585
+#: index.docbook:2591
 #, no-c-format
 msgid "The plugin uses AIMLs for the actual \"intelligence\". Most AIML sets should be supported. The popular <ulink url=\"http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1\">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin. <screenshot> <screeninfo>AI Plugin</screeninfo> <mediaobject> <imageobject> <imagedata fileref=\"ai_configure.png\" format=\"PNG\"/> </imageobject> </mediaobject> </screenshot> The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2599
+#: index.docbook:2605
 #, no-c-format
 msgid "simon will look for AIML sets in the following directory: <itemizedlist> <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem> <listitem><para>Microsoft Windows: <filename>[installation folder (C:\\Program Files\\simon 0.2\\ by default)]\\share\\apps\\ai\\aimls\\</filename></para></listitem> </itemizedlist> To add a new set just create a new directory with a descriptive name and copy the .aiml files into it."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2607
+#: index.docbook:2613
 #, no-c-format
 msgid "To adjust your bots personality have a look at the bot.xml and vars.xml files in the following directory:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2610
+#: index.docbook:2616
 #, no-c-format
 msgid "GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2611
+#: index.docbook:2617
 #, no-c-format
 msgid "Microsoft Windows: <filename>[installation folder (C:\\Program Files\\simon 0.2\\ by default)]\\share\\apps\\ai\\util\\</filename>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2615
+#: index.docbook:2621
 #, no-c-format
 msgid "The plugin will use <ulink url=\"http://tcts.fpms.ac.be/synthesis/mbrola.html\">mbrola voices</ulink> if they are installed."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2619
+#: index.docbook:2625
 #, no-c-format
 msgid "It is recommended to not use any trigger for this plugin to provide a more natural \"feel\" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a \"conversation\" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: \"Computer, open Firefox\"; Computer: \"Certainly, Sir! Starting Firefox...\"; Firefox opens)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2621
+#: index.docbook:2627
 #, no-c-format
 msgid "Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2625
+#: index.docbook:2631
 #, no-c-format
 msgid "Calculator"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2626
+#: index.docbook:2632
 #, no-c-format
 msgid "The calculator plugin is a simple, voice controlled calculator."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2630
+#: index.docbook:2636
 #, no-c-format
 msgid "Calculator plugin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2639
+#: index.docbook:2645
 #, no-c-format
 msgid "The calculator extends the <link linkend=\"input_number\">Input Number</link> plugin by providing additional features."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2641
+#: index.docbook:2647
 #, no-c-format
 msgid "When loading the plugin, a configuration screen is added to the plugin confiugration."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2645
+#: index.docbook:2651
 #, no-c-format
 msgid "Calculator plugin: Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2654
+#: index.docbook:2660
 #, no-c-format
 msgid "There you can also confiugre the control mode of the calculator. Setting the mode to something else than <guimenuitem>Full calculator</guimenuitem> will hide options from the displayed widget."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2658
+#: index.docbook:2664
 #, no-c-format
 msgid "Calculator plugin: Minimal"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2667
+#: index.docbook:2673
 #, no-c-format
 msgid "However, the hidden controls will, in contrast to simply removing all associated command from the functions, still react to the configured voice commands."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2669
+#: index.docbook:2675
 #, no-c-format
 msgid "When selecting <guibutton>Ok</guibutton>, the calculator will by default ask you what to do with the generated result. You can for example output the calculation, the result, both, etc. Besides always selecting this from the displayed list after selecting the <guibutton>Ok</guibutton> button, this can also be set in the configuration options."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2673
+#: index.docbook:2679
 #, no-c-format
 msgid "Calculator plugin: Output mode selection"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2685
+#: index.docbook:2691
 #, no-c-format
 msgid "Filter"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2686
+#: index.docbook:2692
 #, no-c-format
 msgid "Using the filter plugin, you can intercept recognition results from being passed on to further command plugins. Using this plugin you can for example disable the recognition by voice."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2687
+#: index.docbook:2693
 #, no-c-format
 msgid "The filter has two states:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2690
+#: index.docbook:2696
 #, no-c-format
 msgid "Inactive"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2691
+#: index.docbook:2697
 #, no-c-format
 msgid "The default state. All recognition results will be passed through."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2694
+#: index.docbook:2700
 #, no-c-format
 msgid "Active"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2695
+#: index.docbook:2701
 #, no-c-format
 msgid "When activated, the filter will \"eat\" all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2700
+#: index.docbook:2706
 #, no-c-format
 msgid "The filter command plugin registers a configuration screen in the command configuration where you can change what results should be filtered."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2706
+#: index.docbook:2712
 #, no-c-format
 msgid "Filter plugin: Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2715
+#: index.docbook:2721
 #, no-c-format
 msgid "The pattern is a regular expression that will be evaluated each time a recognition results receives the plugin for processing."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2717
+#: index.docbook:2723
 #, no-c-format
 msgid "The plugin also registers voice interface commands for activating and deactivating the filter."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2722
+#: index.docbook:2728
 #, no-c-format
 msgid "Pronunciation Training"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2724
+#: index.docbook:2730
 #, no-c-format
 msgid "The pronunciation training, when combined with a good <link linkend=\"base_model\">static base model</link>, can be a powerful tool to improve your pronunciation of a new language."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2728
+#: index.docbook:2734
 #, no-c-format
 msgid "Pronunciation training"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2737
+#: index.docbook:2743
 #, no-c-format
 msgid "Essentially, the plugin will prompt you to say specific words. The recognition will then recognize your pronunciation of the word and compare it to your speech model which should be a base model of native speakers for this to work correctly. Then simon will display the recognition rate (how similar your version was to the stored base model)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2739
+#: index.docbook:2745
 #, no-c-format
 msgid "The closer to the native speaker, the higher the score."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2741
+#: index.docbook:2747
 #, no-c-format
 msgid "The plugin adds an entry to your <guimenu>Commands</guimenu> menu to launch the pronunciation training dialog."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2743
+#: index.docbook:2749
 #, no-c-format
 msgid "The training itself consists of multiple pages. Each page contains one word fetched from your active vocabulary. They are identified by a terminal which needs to be selected in the command configuration before starting the training."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2747
+#: index.docbook:2753
 #, no-c-format
 msgid "Pronunciation training: Confiugration"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2758
+#: index.docbook:2764
 #, no-c-format
 msgid "<title>Keyboard</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2760
+#: index.docbook:2766
 #, no-c-format
 msgid "The keyboard plugin displays a virtual, voice controlled keyboard."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2764
+#: index.docbook:2770
 #, no-c-format
 msgid "<screeninfo>Keyboard</screeninfo>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2773
+#: index.docbook:2779
 #, no-c-format
 msgid "The keyboard consits of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in \"sets\"."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2775
+#: index.docbook:2781
 #, no-c-format
 msgid "You can select sets in the configuration but also create new ones from scratch in the keyboard command confiugration."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2779
+#: index.docbook:2785
 #, no-c-format
 msgid "Keyboard: Confiugration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2788
+#: index.docbook:2794
 #, no-c-format
 msgid "Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a \"select all\" key or a \"Password\" key (typing your password)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2790
+#: index.docbook:2796
 #, no-c-format
 msgid "Next to the tabs that hold the keys of your set, the keyboard my also show special keys like Ctrl, Shift, etc. Those keys are provided as voice inteface commands and are displayed regardless of what tab of the set is currently active."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2791
+#: index.docbook:2797
 #, no-c-format
 msgid "As with all voice triggers, removing the associated command, hides the buttons as well."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2793
+#: index.docbook:2799
 #, no-c-format
 msgid "Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2797
+#: index.docbook:2803
 #, no-c-format
 msgid "Keyboard: Keypad"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2806
+#: index.docbook:2812
 #, no-c-format
 msgid "Next to the number keys and the delete key for the number input field (<guibutton>Number backspace</guibutton>), the numpad provides two options on what to do with the entered number."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2807
+#: index.docbook:2813
 #, no-c-format
 msgid "When selecting <guibutton>Write number</guibutton>, the entered number will be written out using simulated key presses. Selecting <guibutton>Select number</guibutton> tries to find a key or tab in the currently active set that has this number as a trigger. This way you can control a complete keyboard just using numbers."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2811
+#: index.docbook:2817
 #, no-c-format
 msgid "Keyboard: Number based"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2820
+#: index.docbook:2826
 #, no-c-format
 msgid "The keys on the num pad are configurable voice interface commands."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2827
+#: index.docbook:2833
 #, no-c-format
 msgid "Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2828
+#: index.docbook:2834
 #, no-c-format
 msgid "simon was designed with high configurability in mind."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2833
+#: index.docbook:2839
 #, no-c-format
 msgid "<title>General Configuration</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2834
+#: index.docbook:2840
 #, no-c-format
 msgid "The general configuration page lists some basic settings."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2837
+#: index.docbook:2843
 #, no-c-format
 msgid "<screeninfo>General Configuration</screeninfo>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2845
+#: index.docbook:2851
 #, no-c-format
 msgid "Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2848
+#: index.docbook:2854
 #, no-c-format
 msgid "When the option to start simon minimized is selected, simon will minimize to the system tray immediately after starting."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2851
+#: index.docbook:2857
 #, no-c-format
 msgid "Deselecting the option to warn when there are problems with samples deactivates the <link linkend=\"sample_quality_assurance\">sample quality assurance</link>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2857
+#: index.docbook:2863
 #, no-c-format
 msgid "Sound Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2858
+#: index.docbook:2864
 #, no-c-format
 msgid "simon uses QtMultimedia to record and play sound. QtMultimedia is also used to gather data from the microphone which is then sent to the simond server for recognition."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2863
+#: index.docbook:2869
 #, no-c-format
 msgid "Device Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2864
+#: index.docbook:2870
 #, no-c-format
 msgid "The sound device configuration allows you to choose which sound device(s) to use, how many channels to use and at which samplerate to record."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2865
+#: index.docbook:2871
 #, no-c-format
 msgid "Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz being the other option)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2868
+#: index.docbook:2874
 #, no-c-format
 msgid "However, some low-cost sound cards might not support this particular mode in which case simon can in many cases work around this limitation by using postprocessing chains and 3rd party software. Please see the <link linkend=\"soundconfiguration_postprocessing\">postprocessing section</link> for more details."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2870
+#: index.docbook:2876
 #, no-c-format
 msgid "Bottom line: Only change the channel and the samplerate if you really know what you are doing. Otherwise the recognition will <emphasis>most likely</emphasis> not work."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2874
+#: index.docbook:2880
 #, no-c-format
 msgid "Sound Configuration: General"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2883
+#: index.docbook:2889
 #, no-c-format
 msgid "Use the selection boxes to change the device. Use the <guibutton>Refresh devices</guibutton> button if you have changed the sound configuration since you started simon."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2885
+#: index.docbook:2891
 #, no-c-format
 msgid "You can use simon with more than one sound device at the same time. Use <guibutton>Add device</guibutton> to add a new device to the configuration and <guibutton>Remove device</guibutton> to remove it from your configuration."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2887
+#: index.docbook:2893
 #, no-c-format
 msgid "The first device in your sound setup can not be removed."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2889
+#: index.docbook:2895
 #, no-c-format
 msgid "For each device you can determine for what you want the device to be used: Training or recognition (last one only applicable for input devices)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2891
+#: index.docbook:2897
 #, no-c-format
 msgid "If you use more than one device for training, you will create multiple sound files for each utterance. When using multiple devices for recognition each one feeds a separate sound input stream to the server resulting in recognition results for each stream."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2893
+#: index.docbook:2899
 #, no-c-format
 msgid "If you use multiple output devices the playback of the trainings samples will play on all configured audio devices."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2895
+#: index.docbook:2901
 #, no-c-format
 msgid "When using different sample rates for your input devices, the output will only play on matching output devices. If you for example have one input device configured to use 16kHz and the other to use 48kHz, the playback of samples generated by the first one will only play on 16kHz outputs, the other one only on 48kHz devices."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2899
+#: index.docbook:2905
 #, no-c-format
 msgid "Voice Activity Detection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2901
+#: index.docbook:2907
 #, no-c-format
 msgid "The recognition is done one the simond server. See the <link linkend=\"architecture\">architecture section</link> for more details."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2903
+#: index.docbook:2909
 #, no-c-format
 msgid "The sound stream is not continuous but is segmented by the simon client. This is done by something called \"voice activity detection\"."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2907
+#: index.docbook:2913
 #, no-c-format
 msgid "Voice activity detection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2916
+#: index.docbook:2922
 #, no-c-format
 msgid "Here you can configure this segmentation through the following parameters:"
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2919
+#: index.docbook:2925
 #, no-c-format
 msgid "Cutoff level"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2920
+#: index.docbook:2926
 #, no-c-format
 msgid "Everything below this level is considered \"silence\" (background noise)."
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2923
+#: index.docbook:2929
 #, no-c-format
 msgid "Head margin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2924
+#: index.docbook:2930
 #, no-c-format
 msgid "Cache for as long as head margin to start consider it a real sample. During this whole time the input level needs to be above the cutoff level."
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2927
+#: index.docbook:2933
 #, no-c-format
 msgid "Tail margin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2928
+#: index.docbook:2934
 #, no-c-format
 msgid "After the recording went below the cutoff level, simon will wait for as long as tail margin to consider the current recording a finished sammple."
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2931
+#: index.docbook:2937
 #, no-c-format
 msgid "Skip samples shorter than"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2932
+#: index.docbook:2938
 #, no-c-format
 msgid "Samples that are shorter than this value are not considered for recognition. (coughs, etc.)"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2939
+#: index.docbook:2945
 #, no-c-format
 msgid "<title>Training settings</title>"
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2943
+#: index.docbook:2949
 #, no-c-format
 msgid "<screeninfo>Training settings</screeninfo>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2954
+#: index.docbook:2960
 #, no-c-format
 msgid "The confiugrable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2956
+#: index.docbook:2962
 #, no-c-format
 msgid "This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2958
+#: index.docbook:2964
 #, no-c-format
 msgid "Here you can also define the required signal to noise ratio for simon to consider a training sample to be correct. See the <link linkend=\"sample_quality_assurance\">Sample Quality Assurance</link> section for more details."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2959
+#: index.docbook:2965
 #, no-c-format
 msgid "On this configuration page you can also set the parameters for the <link linkend=\"volume_calibration\">volume calibration</link>."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2961
+#: index.docbook:2967
 #, no-c-format
 msgid "It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2962
+#: index.docbook:2968
 #, no-c-format
 msgid "Clipping (hitting the maximum amplitute) will always cause a \"too loud\" warning."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2963
+#: index.docbook:2969
 #, no-c-format
 msgid "The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2967
+#: index.docbook:2973
 #, no-c-format
 msgid "Postprocessing"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2968
+#: index.docbook:2974
 #, no-c-format
 msgid "All recorded (training) and imported (through the import training data) samples can be processed using a series of postprocessing commands. Postprocessing chains are an advanced feature and shouldn't be needed by the average user."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2972
+#: index.docbook:2978
 #, no-c-format
 msgid "Sound Configuration: Postprocessing"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2981
+#: index.docbook:2987
 #, no-c-format
 msgid "The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these \"filters\" one could define commands to suppress background noise in the training data or normalize the recordings."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2983
+#: index.docbook:2989
 #, no-c-format
 msgid "Given the program \"process_audio\" which takes the input- and output files as its arguments (e.g.: \"process_audio in.wav out.wav\") the postprocessing command would be: \"process_audio %1 %2\". The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2985
+#: index.docbook:2991
 #, no-c-format
 msgid "The switch to \"apply filters to recordings recorded with simon\" enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend=\"import_trainings-data\">import trainings-data wizard</link>)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2987
+#: index.docbook:2993
 #, no-c-format
 msgid "One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo (\"CD\") recordings, one could use the free command line sound processing utility <ulink url=\"http://sox.sourceforge.net\">SoX</ulink> to resample the recorded files after the recording."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2988
+#: index.docbook:2994
 #, no-c-format
 msgid "This example would require the following postprocessing command:"
 msgstr ""
 
 #. Tag: filename
-#: index.docbook:2990
+#: index.docbook:2996
 #, no-c-format
 msgid "sox -c 1 -r 16000 %1 %2"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2994
+#: index.docbook:3000
 #, no-c-format
 msgid "Using this command you can safely record in 44100Hz and 2 channels and - assuming the option to apply the filters to recordings recorded with simon is selected - simon will automatically downsample them to 16000Hz and 1 channel automatically after recording them. Make sure to adjust your <link linkend=\"soundconfiguration_device\">sound device configuration</link> accordingly."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2999
+#: index.docbook:3005
 #, no-c-format
 msgid "Speech Model"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3000
+#: index.docbook:3006
 #, no-c-format
 msgid "Here you can adjust the parameters of the speech model."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3004
+#: index.docbook:3010
 #, no-c-format
 msgid "Speech Model Configuration"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3012
+#: index.docbook:3018
 #, no-c-format
 msgid "The samplerate set here is the target samplerate of the acoustic model. It has nothing to do with the recording samplerate and it is the responsibility of the user to ensure that the samples are actually made available in that format (usually by recording in that exact samplerate or by defining postprocessing commands that resample the files; see the <link linkend=\"soundconfiguration\">sound configuration section</link> for more details)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3014
+#: index.docbook:3020
 #, no-c-format
 msgid "Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably wont result in higher recognition rates."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3016
+#: index.docbook:3022
 #, no-c-format
 msgid "Moreover, the path to the trainings-samples can be adjusted. However, be sure that the previously gathered trainings-samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3044
+#: index.docbook:3050
 #, no-c-format
 msgid "Model Settings"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3048
+#: index.docbook:3054
 #, no-c-format
 msgid "Please see the <link linkend=\"base_model_use\">base model section</link>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3052
+#: index.docbook:3058
 #, no-c-format
 msgid "Extensions"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3053
+#: index.docbook:3059
 #, no-c-format
 msgid "Here you can configure the base URL that is going to be used for the <link linkend=\"import_dict_hadifix\">automatic bomp import</link>. The default points to the copy on the simon listens server."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3058 index.docbook:3158
+#: index.docbook:3064 index.docbook:3164
 #, no-c-format
 msgid "Recognition"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3060
+#: index.docbook:3066
 #, no-c-format
 msgid "Here you can configure the recognition and model synchronization with the simond server."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3065
+#: index.docbook:3071
 #, no-c-format
 msgid "Using the server configuration you can set parameters of the connection to simond."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3069
+#: index.docbook:3075
 #, no-c-format
 msgid "The simon main application connects to the simond server (see the <link linkend=\"architecture\">architecture section</link> for more information)."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3075
+#: index.docbook:3081
 #, no-c-format
 msgid "Configure Server: General"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3084
+#: index.docbook:3090
 #, no-c-format
 msgid "To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the <ulink url=\"help:/simond\">simond manual</ulink> on how to setup users for simond."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3087
+#: index.docbook:3093
 #, no-c-format
 msgid "The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3089
+#: index.docbook:3095
 #, no-c-format
 msgid "Using the \"Connect automatically on simon start\" option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3093
+#: index.docbook:3099
 #, no-c-format
 msgid "Network"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3094
+#: index.docbook:3100
 #, no-c-format
 msgid "simon connects to simond using TCP/IP."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3098
+#: index.docbook:3104
 #, no-c-format
 msgid "Configure Server: Network"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3106
+#: index.docbook:3112
 #, no-c-format
 msgid "As of yet (simon 0.3), encryption is not yet supported."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3109
+#: index.docbook:3115
 #, no-c-format
 msgid "The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use \"connect on start\" on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3112
+#: index.docbook:3118
 #, no-c-format
 msgid "simon supports to be configured to use more than one simond. This is very useful if you for example are going to use simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3114
+#: index.docbook:3120
 #, no-c-format
 msgid "To add a server, just enter the hostname or IP and the port (separated by \":\") or use the dialog that appears when you select the blue arrow next to the input field."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3120
+#: index.docbook:3126
 #, no-c-format
 msgid "<title>Synchronization and Model Backup</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3121
+#: index.docbook:3127
 #, no-c-format
 msgid "Here you can configure the model synchronization and restore older versions of your speech model."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3125
+#: index.docbook:3131
 #, no-c-format
 msgid "<screeninfo>Synchronization and Model Backup</screeninfo>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3134
+#: index.docbook:3140
 #, no-c-format
 msgid "Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called \"Automatic Synchronization\" and is the recommended setting."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3137
+#: index.docbook:3143
 #, no-c-format
 msgid "However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the \"Synchronization\" menu item of the simon main window (also see the section <link linkend=\"main_window\">simon main window</link>) every time you want to compile the speech model."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3141
+#: index.docbook:3147
 #, no-c-format
 msgid "The simon server will maintain a copy of the last five iterations of model files. However, this only includes the \"source files\" (the vocabulary, grammar, etc.) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3143
+#: index.docbook:3149
 #, no-c-format
 msgid "After you have connected to the server, you can select one of the available models and restore it by clicking on \"Restore Model\"."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3145
+#: index.docbook:3151
 #, no-c-format
 msgid "Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backed up."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3153
+#: index.docbook:3159
 #, no-c-format
 msgid "Actions"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3155
+#: index.docbook:3161
 #, no-c-format
 msgid "In the actions configuration you can configure the reactions to recognition results."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3160
+#: index.docbook:3166
 #, no-c-format
 msgid "The recognition of simon computes not only the most likely result but rather the top ten results."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3161
+#: index.docbook:3167
 #, no-c-format
 msgid "Each of the results are assigned a confidence score between 0 and 1 (were 1 is 100% sure)."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3162
+#: index.docbook:3168
 #, no-c-format
 msgid "Using the <guilabel>Minimum confidence</guilabel> you can set a minimum confidence for recognition results to be considered valid."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3164
+#: index.docbook:3170
 #, no-c-format
 msgid "If more than one recognition results are rated higher than the minimum confidence score, simon will provide a popup listing the most likely options for you to choose from."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3168
+#: index.docbook:3174
 #, no-c-format
 msgid "Did you mean...?"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3177
+#: index.docbook:3183
 #, no-c-format
 msgid "This popup can be disabled using the <guibutton>Display selection popup for ambiguous results</guibutton> checkbox."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3180
+#: index.docbook:3186
 #, no-c-format
 msgid "Plugin base font"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3181
+#: index.docbook:3187
 #, no-c-format
 msgid "Many plugins of simon have a graphical user interface."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3182
+#: index.docbook:3188
 #, no-c-format
 msgid "The fonts of these interfaces can be configured centrally and independant of the systems font settings here."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3186
+#: index.docbook:3192
 #, no-c-format
 msgid "Input number with custom font"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3197
+#: index.docbook:3203
 #, no-c-format
 msgid "Lists"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3198
+#: index.docbook:3204
 #, no-c-format
 msgid "Here you can find the global list element configuration. This serves as a template for new scenarios but is also directly used for <link linkend=\"configure_actions_recognition\">the popup for ambiguous recognition results</link>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3203
+#: index.docbook:3209
 #, no-c-format
 msgid "Social desktop"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3204
+#: index.docbook:3210
 #, no-c-format
 msgid "Scenarios can be <link linkend=\"export_scenario\">uploaded</link> and <link linkend=\"import_scenario\">downloaded from within simon</link>."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3206
+#: index.docbook:3212
 #, no-c-format
 msgid "For this we use KDEs social desktop facilities and our own <ulink url=\"http://kde-files.org/index.php?xcontentmode=692\">category for simon scenarios on kde-files.org</ulink>."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3208
+#: index.docbook:3214
 #, no-c-format
 msgid "If you already have an account on <ulink url=\"http://opendesktop.org\">opendesktop.org</ulink> you can input the credentials there. If you don't, you can register directly in the configuration module."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3210
+#: index.docbook:3216
 #, no-c-format
 msgid "The registration is of course free of charge."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3216
+#: index.docbook:3222
 #, no-c-format
 msgid "Adjusting the recognition parameters manually"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3218
+#: index.docbook:3224
 #, no-c-format
 msgid "simon is targeted towards end-users. It's interface is designed to allow even users without any background in speech technology to design their own language and acoustic models by providing reasonable default values for simple uses."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3221
+#: index.docbook:3227
 #, no-c-format
 msgid "In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by simon and can of course be modified to suit your needs."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3225
+#: index.docbook:3231
 #, no-c-format
 msgid "There are basically to parts of the Julius configuration that can be adjusted:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3227
+#: index.docbook:3233
 #, no-c-format
 msgid "adin.jconf"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3227
+#: index.docbook:3233
 #, no-c-format
 msgid "This is the configuration of the simon client of the Soundstream sent from simon to the simond. This file is directly read by the adinstreamer."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3228
+#: index.docbook:3234
 #, no-c-format
 msgid "simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3230
+#: index.docbook:3236
 #, no-c-format
 msgid "julius.jconf"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3230
+#: index.docbook:3236
 #, no-c-format
 msgid "This is a configuration of the simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3231
+#: index.docbook:3237
 #, no-c-format
 msgid "simond ships with a default julius.jconf. Whenever there is a new user added to the simond database, simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the \"template\" (the system wide configuration) can be changed without affecting other users."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3236
+#: index.docbook:3242
 #, no-c-format
 msgid "The path to the Julius configuration files will depend on your platform:"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3238
+#: index.docbook:3244
 #, no-c-format
 msgid "Julius Configuration Files"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3245
+#: index.docbook:3251
 #, no-c-format
 msgid "File"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3246
+#: index.docbook:3252
 #, no-c-format
 msgid "Microsoft Windows"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3247
+#: index.docbook:3253
 #, no-c-format
 msgid "GNU/Linux"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3252
+#: index.docbook:3258
 #, no-c-format
 msgid "adin.jconf (system)"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3253
+#: index.docbook:3259
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simon\\adin.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3254
+#: index.docbook:3260
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simon/adin.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3257
+#: index.docbook:3263
 #, no-c-format
 msgid "adin.jconf (user)"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3258
+#: index.docbook:3264
 #, no-c-format
 msgid "%appdata%\\.kde\\share\\apps\\simon\\adin.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3259
+#: index.docbook:3265
 #, no-c-format
 msgid "~/.kde/share/apps/simon/adin.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3262
+#: index.docbook:3268
 #, no-c-format
 msgid "julius.jconf (template)"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3263
+#: index.docbook:3269
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simond\\default.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3264
+#: index.docbook:3270
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simond/default.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3267
+#: index.docbook:3273
 #, no-c-format
 msgid "julius.jconf (user)"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3268
+#: index.docbook:3274
 #, no-c-format
 msgid "%appdata%\\.kde\\share\\apps\\simond\\models\\(user)\\active\\julius.jconf"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:3269
+#: index.docbook:3275
 #, no-c-format
 msgid "~/.kde/share/apps/simond/models/(user)/active/julius.jconf"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3285
+#: index.docbook:3291
 #, no-c-format
 msgid "Questions and Answers"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3287
+#: index.docbook:3293
 #, no-c-format
 msgid "In an effort to keep this section always up-to-date it is available at our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting\">online wiki</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3300
+#: index.docbook:3306
 #, no-c-format
 msgid "Credits and License"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3305
+#: index.docbook:3311
 #, no-c-format
 msgid "Program copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</email>, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3309
+#: index.docbook:3315
 #, no-c-format
 msgid "Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: trans_comment
-#: index.docbook:3313
+#: index.docbook:3319
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
 
 #. Tag: chapter
-#: index.docbook:3313
+#: index.docbook:3319
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3328
+#: index.docbook:3334
 #, no-c-format
 msgid "Installation"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3329
+#: index.docbook:3335
 #, no-c-format
 msgid "Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""

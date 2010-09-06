@@ -2650,6 +2650,12 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >You can either provide a separate prompts file or let simon extract the transcriptions from the filenames.</para>
 
 <para
+>When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: "[filename] [content]". Filenames are without file extensions and the content has to be uppercase. For example: "demo_2007_03_20 DEMO" to import the file "demo_2007_03_20.wav" containing the spoken word "Demo".</para>
+
+<para
+>Because prompts files do not contain a file extension, simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
+
+<para
 >Wenn dateibasierte Transkriptionen verwendet werden, wird der Assistent die Transkription aus den gefunden Trainingsdaten anhand der <emphasis
 >Dateinamen</emphasis
 > auslesen. Eine Datei die <filename
@@ -2659,11 +2665,10 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 > die Worte "das ist ein Test" beinhalten und nichts anderes. Satzzeichen wie (".", "-",...) in den Dateinamen werden ignoriert. </para>
 
 <para
->Die Dateien und Ihre Transkription werden dann zum Trainingskorpus hinzugefügt. </para>
-
-<para
 >Dateien die mit simon 0.2 aufgenommen wurden, werden automatisch dieser Namensgebung folgen sodass Sie sie ohne Probleme importieren können sollten. Dateien Die von vorigen Versionen von simon aufgenommen wurden sollten nicht importiert werden. Sie können diese Aufnahmen aber natürlich über den Prompts-basierten Import importieren.</para>
 
+<para
+>Imported files and their transcription are then added to the trainings corpus. </para>
 
 <para
 >Um einen Ordner zu importieren der die Trainingsdateien beinhaltet wählen Sie ihn - und abhängig vom Importierungstyp auch die entsprechende Prompts-Datei - im Assistenten aus. <screenshot>
@@ -2684,6 +2689,10 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >Wenn Trainingsdaten importiert werden, werden alle konfigurierten <link linkend="soundconfiguration_postprocessing"
 >Nachbearbeitungsfilter</link
 > angewandt. </para>
+<para
+>If you import anything other than WAV files you are responsible for decoding them during the import process (for example through post processing filters) or the model creation <emphasis
+>will</emphasis
+> fail. </para>
 
 </sect2>
 

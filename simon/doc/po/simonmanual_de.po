@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-02 15:44+0000\n"
-"PO-Revision-Date: 2010-09-02 17:48+0200\n"
+"POT-Creation-Date: 2010-09-03 07:07+0000\n"
+"PO-Revision-Date: 2010-09-06 10:39+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: \n"
@@ -32,7 +32,7 @@ msgstr "Peter Grasch"
 #: index.docbook:26
 #, no-c-format
 msgid "2010-07-25"
-msgstr ""
+msgstr "25. 7. 2010"
 
 #. Tag: releaseinfo
 #: index.docbook:27
@@ -189,11 +189,11 @@ msgid ""
 "training necessary, continuous, free dictation is neither supported nor "
 "reasonable with current versions of simon."
 msgstr ""
-"Die aktuelle Version kann dazu benutzt werden, um Command "
-"&amp; Control Lösungen zu verwirklichen, die besonders bei der körperlich "
-"eingeschränkte Zielgruppe Anwendungen finden dürfte. Eine freie Diktation "
-"ist aufgrund der großen Menge an dafür notwendigen Trainingsdaten in der "
-"derzeitigen Version nicht vorgesehen."
+"Die aktuelle Version kann dazu benutzt werden, um Command &amp; Control "
+"Lösungen zu verwirklichen, die besonders bei der körperlich eingeschränkte "
+"Zielgruppe Anwendungen finden dürfte. Eine freie Diktation ist aufgrund der "
+"großen Menge an dafür notwendigen Trainingsdaten in der derzeitigen Version "
+"nicht vorgesehen."
 
 #. Tag: para
 #: index.docbook:86
@@ -227,7 +227,7 @@ msgid ""
 msgstr "Die Erkennungsarchitektur von simon besteht aus drei Anwendungen."
 
 #. Tag: para
-#: index.docbook:100 index.docbook:3302
+#: index.docbook:100 index.docbook:3308
 #, no-c-format
 msgid "&kmyapplication;"
 msgstr "&kmyapplication;"
@@ -389,6 +389,15 @@ msgid ""
 "typical use case of one simond server per simon client will work \"out of "
 "the box\"."
 msgstr ""
+"simond identifiziert die Verbindung mit einem Benutzernamen und einem "
+"Passwort die komplett "
+"unabhängig sind vom zugrunde liegenden Betriebssystem und dessen "
+"Benutzerkonten. "
+"Standardmäßig kommt simond mit einem Standardbenutzer in sowohl simon als "
+"auch simond so "
+"das der typische Anwendungsfall von einem simon Client auf einem simond "
+"Server ohne zusätzliche "
+"Konfiguration funktionieren wird."
 
 #. Tag: para
 #: index.docbook:139
@@ -690,18 +699,21 @@ msgid ""
 "One scenario makes up one complete use case of simon. To control firefox, "
 "for example, the user just installs the firefox scenario."
 msgstr ""
+"Ein Szenario bestimmt einen kompletten Anwendungsfall von simon. Um Firefox "
+"zu steuern, "
+"zum beispiel, kann man einfach das Firefox Szenario installieren."
 
 #. Tag: para
 #: index.docbook:244
 #, no-c-format
 msgid "Each scenario consists of the following components:"
-msgstr ""
+msgstr "Jedes Szenario beinhaltet die folgenden Komponenten:"
 
 #. Tag: link
 #: index.docbook:247
 #, no-c-format
 msgid "<link>Vocabulary</link>"
-msgstr ""
+msgstr "<link>Vokabular</link>"
 
 #. Tag: link
 #: index.docbook:248
@@ -739,6 +751,10 @@ msgid ""
 "<link linkend=\"base_model\">base model</link> to avoid <link linkend="
 "\"phoneme_set_issues\">issues with the phoneme set</link>."
 msgstr ""
+"In den meisten Fällen sind Szenarios so entwickelt um optimal mit einem "
+"gewissen <link linkend=\"base_model\">Basismodell</link> zusammenzuarbeiten "
+"um <link linkend=\"phoneme_set_issues\">Probleme mit dem Phonemset</link> zu "
+"vermeiden."
 
 #. Tag: para
 #: index.docbook:262
@@ -751,6 +767,14 @@ msgid ""
 "created on kde-files.org</ulink> where the scenarios, which are just simple "
 "text files (XML format), can be exchanged easily."
 msgstr ""
+"Weil Szenarios nicht direkt an ein Akustikmodell gebunden sind können Sie "
+"weitergegeben werden und ohne Probleme mit anderen simon Anwendern "
+"ausgetauscht werden . "
+"Um diesen Anwendungsfall möglichst gut abzubilden, wurde eine <ulink "
+"url=\"http://kde-files.org/index.php?xcontentmode=692\">Kategorie für simon "
+"Szenarios auf kde-files.org</ulink> eingerichtet.  Dort können Szenarios, "
+"die intern simple Textdateien im XML Format sind, komfortabel hoch- und "
+"heruntergeladen werden."
 
 #. Tag: para
 #: index.docbook:266
@@ -759,12 +783,15 @@ msgid ""
 "For information on how to use scenarios in simon, please refer to the <link "
 "linkend=\"scenarios_use\">Scenario section in the Use simon chapter</link>."
 msgstr ""
+"Für Informationen wie Sie Szenarios in simon verwenden können, sehen Sie "
+"bitte die <link linkend=\"scenarios_use\">Szenario Sektion im simon "
+"Verwenden Kapitel</link>."
 
 #. Tag: title
 #: index.docbook:273 index.docbook:753 index.docbook:1020
 #, no-c-format
 msgid "Base models"
-msgstr ""
+msgstr "Basismodelle"
 
 #. Tag: para
 #: index.docbook:274
@@ -773,6 +800,8 @@ msgid ""
 "Base models are already generated, most often speaker independent, acoustic "
 "models that can be used with simon."
 msgstr ""
+"Basismodelle sind bereits generierte, meist sprecherunabhängige "
+"Akustikmodelle die mit simon verwendet werden können."
 
 #. Tag: para
 #: index.docbook:277
@@ -782,6 +811,9 @@ msgid ""
 "for personalized training. When using a static base model (see below), "
 "installation of the HTK is not necessary."
 msgstr ""
+"Mit Basismodellen kann ein Anwender die benötigte Zeit für ein individuelles "
+"Training stark reduzieren. Bei Verwendung von statischen Basismodellen "
+"(siehe unten) ist eine Installation des HTKs nicht notwendig."
 
 #. Tag: para
 #: index.docbook:281
@@ -790,30 +822,33 @@ msgid ""
 "Base models usable by simon consists of four files which you will find in "
 "archive when you download base models from their respective website."
 msgstr ""
+"Basismodelle die von simon verwendet werden können bestehen aus vier Dateien "
+"die Sie in einem Archiv finden werden wenn Sie die Modelle von der "
+"jeweiligen Webseite herunterladen."
 
 #. Tag: para
 #: index.docbook:285
 #, no-c-format
 msgid "hmmdefs"
-msgstr ""
+msgstr "hmmdefs"
 
 #. Tag: para
 #: index.docbook:286
 #, no-c-format
 msgid "tiedlist"
-msgstr ""
+msgstr "tiedlist"
 
 #. Tag: para
 #: index.docbook:287
 #, no-c-format
 msgid "macros"
-msgstr ""
+msgstr "macros"
 
 #. Tag: para
 #: index.docbook:288
 #, no-c-format
 msgid "stats"
-msgstr ""
+msgstr "stats"
 
 #. Tag: para
 #: index.docbook:292
@@ -823,12 +858,15 @@ msgid ""
 "base model and might, in that case, be replaced with empty files if they are "
 "not available."
 msgstr ""
+"Die letzten beiden Dateien, macros und stats, sind nicht notwendig wenn Sie "
+"statische Basismodelle verwenden und können in diesem Fall mit leeren "
+"Dateien ersetzt werden sollten Sie nicht verfügbar sein."
 
 #. Tag: title
 #: index.docbook:297
 #, no-c-format
 msgid "Where to get base models"
-msgstr ""
+msgstr "Wo bekommen Sie Basismodelle"
 
 #. Tag: para
 #: index.docbook:299
@@ -846,13 +884,13 @@ msgstr ""
 #: index.docbook:305
 #, no-c-format
 msgid "Types of base models"
-msgstr ""
+msgstr "Verschiedene Typen von Basismodellen"
 
 #. Tag: para
 #: index.docbook:307
 #, no-c-format
 msgid "There are three types of base models:"
-msgstr ""
+msgstr "Es existieren drei typen von Basismodellen:"
 
 #. Tag: para
 #: index.docbook:311
@@ -880,6 +918,9 @@ msgid ""
 "<link linkend=\"base_model_use\">Base Models section in the Use simon "
 "chapter</link>."
 msgstr ""
+"Für Informationen wie Sie Basismodelle mit simon verwenden können, sehen Sie "
+"bitte die <link linkend=\"base_model_use\">Basismodelle verwenden Sektion im "
+"simon Verwenden Kapitel</link>"
 
 #. Tag: title
 #: index.docbook:325
@@ -894,6 +935,8 @@ msgid ""
 "Static base models simply use a pre-compiled acoustic model without "
 "modifying it."
 msgstr ""
+"Statische Modelle verwenden einfach ein zuvor kompiliertes Akustikmodell "
+"ohne es zu bearbeiten."
 
 #. Tag: para
 #: index.docbook:329
@@ -902,6 +945,8 @@ msgid ""
 "Any training data collected through simon will not be used to improve the "
 "recognition accuracy."
 msgstr ""
+"Trainingsdaten die mit simon aufgenommen werden werden nicht verwendet um "
+"die Erkennungsrate zu erhöhen."
 
 #. Tag: para
 #: index.docbook:331
@@ -909,7 +954,7 @@ msgstr ""
 msgid ""
 "This type of model <emphasis>does not</emphasis> require the HTK to be "
 "installed."
-msgstr ""
+msgstr "Dieser Typ von Modell <emphasis>benötigt kein</emphasis> HTK."
 
 #. Tag: title
 #: index.docbook:336
@@ -924,6 +969,8 @@ msgid ""
 "By adapting a pre-compiled acoustic model you can improve accuracy by "
 "adapting it to your voice."
 msgstr ""
+"Durch Adaption von bereits kompilierten Akustikmodellen können Sie die "
+"Erkennungsrate steigern indem Sie das Modell an Ihre Stimme anpassen."
 
 #. Tag: para
 #: index.docbook:340
@@ -932,6 +979,8 @@ msgid ""
 "Collected training data will be compiled in a adaption matrix which will "
 "then be applied to the selected base model."
 msgstr ""
+"Gesammelte Trainingsdaten werden in eine Adaptionsmatrix kompiliert die dann "
+"auf das ausgewählte Basismodell angewendet wird."
 
 #. Tag: para
 #: index.docbook:342 index.docbook:353
@@ -939,6 +988,7 @@ msgstr ""
 msgid ""
 "This type of model <emphasis>does</emphasis> require the HTK to be installed."
 msgstr ""
+"Dieser Typ von Modell <emphasis>benötigt</emphasis> ein installiertes HTK."
 
 #. Tag: title
 #: index.docbook:347
@@ -953,6 +1003,9 @@ msgid ""
 "When using user generated models, the user is responsible for training his "
 "own model. No base model will be used."
 msgstr ""
+"Wenn Sie benutzergenerierte Modelle verwenden ist der Benutzer dafür "
+"verantwortlich, dass das Modell trainiert ist. Es wird kein Basismodell "
+"verwendet."
 
 #. Tag: para
 #: index.docbook:351
@@ -961,12 +1014,15 @@ msgid ""
 "The training data will be used to compile your own acoustic model allowing "
 "you to create a system which directly reflects your voice."
 msgstr ""
+"Die Trainingsdaten werden verwendet um das eigene Akustikmodell zu "
+"kompilieren. Dies erlaubt es ein System zu entwickeln das direkt Ihre eigene "
+"Sprache reflektiert."
 
 #. Tag: title
 #: index.docbook:360
 #, no-c-format
 msgid "Phoneme set issues"
-msgstr ""
+msgstr "Phonemset Probleme"
 
 #. Tag: para
 #: index.docbook:361
@@ -975,6 +1031,9 @@ msgid ""
 "Because the statistical comparison happens <link linkend=\"acoustic_model"
 "\">at phoneme level</link> the base models describe how these phonemes sound."
 msgstr ""
+"Da der statistische Vergleich auf <link linkend=\"acoustic_model\">"
+"Phonemebene</link> geschieht, beschreibt das Basismodell wie diese Phoneme "
+"klingen."
 
 #. Tag: para
 #: index.docbook:363
@@ -983,6 +1042,8 @@ msgid ""
 "Your scenarios (language model) on the other hand describe what phonemes a "
 "word is composed of."
 msgstr ""
+"Ihr Szenario (Sprachmodell / Language model) hingegen beschreibt wie die "
+"Phoneme klingen aus denen die Wörter aufgebaut sind."
 
 #. Tag: para
 #: index.docbook:365
@@ -991,6 +1052,8 @@ msgid ""
 "In order for this association to work, both your scenarios and your base "
 "model need to use the same set of phonemes."
 msgstr ""
+"Damit diese Verbindung funktioniert, muss sowohl Ihr Szenario als auch Ihr "
+"Basismodell das selbe Phonemset verwenden."
 
 #. Tag: para
 #: index.docbook:367
@@ -1001,6 +1064,10 @@ msgid ""
 "way simon will suggest the \"correct\" phonemes when adding the words "
 "automatically."
 msgstr ""
+"Wenn Sie ein neues Szenario entwerfen ist es also eine gute Idee jenes "
+"Wörterbuch als Schattenvokabular zu verwenden das verwendet wurde um das "
+"Basismodell zu generieren. Auf diese Weise wird simon automatisch die "
+"\"richtigen\" Phoneme vorschlagen wenn Wörter hinzugefügt werden."
 
 #. Tag: para
 #: index.docbook:369
@@ -1012,6 +1079,12 @@ msgid ""
 "according to the base models phoneme set, use a different base model or use "
 "an user generated model."
 msgstr ""
+"Wenn Sie Szenarios verwenden die für ein anderes Phonemset entwickelt wurden "
+"(anderes Basismodell) werden Sie unter umständen beim Starten der Erkennung "
+"einen Fehler erhalten der betroffene Phoneme und damit assoziierte Wörter "
+"anzeigt. Um dies zu reparieren, transkripieren Sie ihre Wörter entsprechend "
+"des verwendeten Phonemset des Basismodells oder verwenden Sie ein anderes "
+"Basismodell oder benutzen Sie ein benutzergeneriertes Modell."
 
 #. Tag: title
 #: index.docbook:379
@@ -1078,6 +1151,8 @@ msgid ""
 "The current version of &kmyapplication; includes a simple way of ensuring "
 "that your volume is configured correctly."
 msgstr ""
+"Die aktuelle Version von &kmyapplication; inkludiert einen einfachen Weg um "
+"sicherzustellen, dass die Lautstärke korrekt konfiguriert ist."
 
 #. Tag: screeninfo
 #: index.docbook:397
@@ -1092,12 +1167,16 @@ msgid ""
 "By default the volume calibration is displayed before starting any recording "
 "in &kmyapplication;."
 msgstr ""
+"Standardmäßig wird die Lautstärkekalibrierung angezeigt bevor eine Aufnahme "
+"in &kmyapplication; startet."
 
 #. Tag: para
 #: index.docbook:408
 #, no-c-format
 msgid "To calibrate simply read the text displayed."
 msgstr ""
+"Um die Lautstärke zu kalibrieren, sprechen Sie einfach den angezeigten Text "
+"nach."
 
 #. Tag: para
 #: index.docbook:410
@@ -1109,6 +1188,12 @@ msgid ""
 "running), press the \"Volume changed\" button next to the affected device. "
 "This will reset the volume status."
 msgstr ""
+"Um die Kalibrierung zu überwachen, sehen Sie bitte die angezeigte Lautstärke "
+"und die Notiz darunter die sagt, ob Sie die Lautstärke heben oder senken "
+"sollten. Um die Lautstärke zu verändern, verwenden Sie bitte die "
+"Lautstärkekonfiguration Ihres Betriebssystems. Sobald Sie dort die "
+"Lautstärke verändert haben drücken Sie bitte in &kmyapplication; auf "
+"\"Lautstärke geändert\" um die Kallibrierung darüber zu informieren."
 
 #. Tag: para
 #: index.docbook:413
@@ -1140,12 +1225,19 @@ msgid ""
 "calibration completely. See the <link linkend=\"soundconfiguration_training"
 "\">training section</link> for more details."
 msgstr ""
+"In den Einstellungen von &kmyapplication; lässt sich sowohl der angezeigte "
+"Text als auch die Lautstärken die als korrekt bzw. inkorrekt markiert werden "
+"konfigurieren. Wird der dortige Text leer gelassen (Standard) wird ein "
+"Standardtext angezeigt. In der Konfiguration können Sie die "
+"Lautstärkenkalibrierung auch komplett deaktivieren. Sehen Sie <link "
+"linkend=\"soundconfiguration_training\">Training Sektion</link> für mehr "
+"Details."
 
 #. Tag: title
 #: index.docbook:419
 #, no-c-format
 msgid "Audacity Calibration"
-msgstr ""
+msgstr "Audacity Kalibrierung"
 
 #. Tag: para
 #: index.docbook:421
@@ -1220,24 +1312,26 @@ msgid ""
 "Current simon versions include a graphical notice on when to speak during "
 "recording. The message will tell the user to wait for one second:"
 msgstr ""
+"Die aktuelle simon Version inkludiert eine grafische Warteanzeige während "
+"dem Training. Diese Nachricht wird den Benutzer bitte eine Sekunde zu warten:"
 
 #. Tag: screeninfo
 #: index.docbook:469
 #, no-c-format
 msgid "Please wait"
-msgstr ""
+msgstr "Bitte warten"
 
 #. Tag: para
 #: index.docbook:478
 #, no-c-format
 msgid "... before telling the user to speak:"
-msgstr ""
+msgstr "... bevor er gebeten wird zu sprechen:"
 
 #. Tag: screeninfo
 #: index.docbook:481
 #, no-c-format
 msgid "Please speak"
-msgstr ""
+msgstr "Bitte sprechen"
 
 #. Tag: para
 #: index.docbook:490
@@ -1249,18 +1343,26 @@ msgid ""
 "tells them when to start repeating what the facilitator said without the "
 "need of unreliable hand gestures."
 msgstr ""
+"Diese Methode des visuellen Feedbacks hat sich als besonders wertvoll "
+"erwiesen wenn mit Personen aufgenommen wird die den angezeigten text nicht "
+"selbst lesen können und deshalb auf Moderatoren angewiesen sind die Ihnen "
+"sagen was Sie sprechen sollen. Die farbige Anzeige hilft Ihnen zu erkennen, "
+"wann Sie sprechen sollen statt direkt nach dem Moderator zu sprechen oder "
+"auf umständliche Handsignale angewiesen zu sein."
 
 #. Tag: title
 #: index.docbook:497
 #, no-c-format
 msgid "Microphone"
-msgstr ""
+msgstr "Mikrofon"
 
 #. Tag: para
 #: index.docbook:498
 #, no-c-format
 msgid "For simon to work well, a high quality microphone is recommended."
 msgstr ""
+"Damit simon gut funktionieren kann ist ein hochqualitatives Mikrofon "
+"empfohlen."
 
 #. Tag: para
 #: index.docbook:500
@@ -1269,6 +1371,8 @@ msgid ""
 "However, even relatively cheap headsets (around 30 Euros) achieve very good "
 "results - magnitudes better than internal microphones."
 msgstr ""
+"Aber sogar mit relativ günstigen Headsets (um 30 €) erreicht sehr gute "
+"Ergebnisse - viel bessere als ein möglichereweise integriertes Mikrofon."
 
 #. Tag: para
 #: index.docbook:502
@@ -1279,12 +1383,16 @@ msgid ""
 "Microsoft Windows as well as GNU/Linux and normally don't require special, "
 "proprietary drivers to operate."
 msgstr ""
+"Für maximale Kompatibilität empfehlen wir USB Headset die in der Regel die "
+"notwendige Samplerate von 16kHz direkt unterstützen. Sie sind außerdem gut "
+"von sowohl Microsoft Windows als auch von GNU/Linux unterstützt und "
+"benötigen keine speziellen, properitären Treiber."
 
 #. Tag: title
 #: index.docbook:507
 #, no-c-format
 msgid "Sample Quality Assurance"
-msgstr ""
+msgstr "Aufnahmen Qualitätskontrolle"
 
 #. Tag: para
 #: index.docbook:508
@@ -1293,6 +1401,9 @@ msgid ""
 "simon will check each recording against certain criteria to ensure that the "
 "recorded samples are not errenous or of poor quality."
 msgstr ""
+"simon wird jede Aufnahme mit einigen Kriterien überprüfen um "
+"sicherzustellen, dass die Aufnahmen nicht fehlerhaft oder von schlechter "
+"Qualität sind."
 
 #. Tag: para
 #: index.docbook:510
@@ -1301,18 +1412,20 @@ msgid ""
 "If simon detects a problematic sample, it will warn the user to re-record "
 "the sample."
 msgstr ""
+"Wenn simon eine problematische Aufnahme erkennt, wird er den Benutzer warnen "
+"und ihn auffordern die Aufnahme zu wiederholen. "
 
 #. Tag: para
 #: index.docbook:512
 #, no-c-format
 msgid "Currently, simon checks the following criteria:"
-msgstr ""
+msgstr "Derzeit überprüft simon die folgenden Kriterien:"
 
 #. Tag: para
 #: index.docbook:516
 #, no-c-format
 msgid "Sample peak volume"
-msgstr ""
+msgstr "Höchste Lautstärkepegel"
 
 #. Tag: para
 #: index.docbook:517
@@ -1323,12 +1436,17 @@ msgid ""
 "ulink>), simon will display a warning message urging the user to lower the "
 "microphone volume."
 msgstr ""
+"Wenn die Lautstärke zu hoch ist und das Mikrofon beginnt zu \"übersteuern\" "
+"(<ulink url=\"http://de.wikipedia."
+"org/wiki/%C3%9Cbersteuern_%28Signalverarbeitung%29\">Übersteuern auf "
+"Wikipedia</ulink>). simon wird automatisch eine Warnung anzeigen die den "
+"Benutzer auffordert die Lautstärke des Mikrofons zu senken."
 
 #. Tag: para
 #: index.docbook:520
 #, no-c-format
 msgid "Signal to noise ratio (SNR)"
-msgstr ""
+msgstr "Signal zu Rauschen Verhältnis (engl.: Signal to noise ratio; SNR)"
 
 #. Tag: para
 #: index.docbook:521
@@ -1338,6 +1456,9 @@ msgid ""
 "recording. If the ratio is below a configurable threshold, a warning message "
 "will be displayed."
 msgstr ""
+"simon wird automatisch das Signal / Rausch Verhältnis für jede Aufnahme "
+"bestimmen. Ist dieses Verhältnis unter einem konfigurierbaren Level, wird "
+"eine Warnung angezeigt."
 
 #. Tag: para
 #: index.docbook:522
@@ -1347,6 +1468,10 @@ msgid ""
 "correctly recorded the peak volume has to be 500 times louder than the noise "
 "baseline (lowest average over 50 ms)."
 msgstr ""
+"Der Defaultwert von 5000 % bedeutet, dass simon nur Samples als \"korrekt\" "
+"ansieht, deren Spitzenpegel 500 mal lauter ist als der niedrigste Lautstärke "
+"(niedrigste Lautstärke wird als niedrigster Durchschnitt von jeweils 50 "
+"Millisekunden errechnet)."
 
 #. Tag: para
 #: index.docbook:523
@@ -1356,6 +1481,9 @@ msgid ""
 "levels of ambient noise or a low microphone gain coupled with a \"microphone "
 "boost\" option in the system mixer."
 msgstr ""
+"Oft ist dies ein Problem von sehr schlechten Mikrofonen, hohen Leveln von "
+"Umgebungsgeräuschen oder eine kleine Mikrofonlautstärke in Verbindung mit "
+"einem \"Signalboost\" im Systemmixer."
 
 #. Tag: para
 #: index.docbook:531
@@ -1365,12 +1493,15 @@ msgid ""
 "displayed when clicking on the \"More information\" button visible in the "
 "background."
 msgstr ""
+"SNR Warnungen werden naturgemäß auch von leeren Aufnahmen ausgelöst. Dieser "
+"Dialog wird bspw. Angezeigt wenn auf den <guibutton>Mehr Information<"
+"/guibutton> Knopf gedrückt wird (sichtbar im Hintegrund)."
 
 #. Tag: screeninfo
 #: index.docbook:534
 #, no-c-format
 msgid "Empty sample triggering the SNR warning"
-msgstr ""
+msgstr "Leeres Sample löst SNR Warnung aus"
 
 #. Tag: title
 #: index.docbook:549
@@ -1663,7 +1794,7 @@ msgstr ""
 #: index.docbook:631
 #, no-c-format
 msgid "Scenario selection"
-msgstr ""
+msgstr "Szenario Auswahl"
 
 #. Tag: para
 #: index.docbook:632
@@ -1674,6 +1805,10 @@ msgid ""
 "the currently displayed scenario. Selecting a different scenario here does "
 "not affect the recognition."
 msgstr ""
+"Dieses Auswahlfeld erlaubt Ihnen das derzeit angezeigte Szenario anzupassen. "
+"Jede Untersektion (Vokabular, Grammatik, Kommandos, Training) wird dann das "
+"ausgewählte Szenario anzeigen. Das hier ausgewählte Szenario beeinflusst die "
+"Erkennung nicht."
 
 #. Tag: para
 #: index.docbook:636
@@ -1689,6 +1824,9 @@ msgid ""
 "There you can manage your scenarios and change the options of the scenario "
 "selection box."
 msgstr ""
+"Anzeigen des <link linkend=\"scenario_use\">Szenarios verwalten Dialog</link>"
+". Hier können Sie Szenarios verwalten und die verfügbaren Optionen der "
+"Szenario Auswahlbox anpassen."
 
 #. Tag: para
 #: index.docbook:644
@@ -1709,6 +1847,7 @@ msgstr ""
 #, no-c-format
 msgid "Required Resources for a Working &kmyapplication; Setup"
 msgstr ""
+"Benötigte Resourcen für eine Funktionierende &kmyapplication; Konfiguration"
 
 #. Tag: para
 #: index.docbook:654
@@ -1718,6 +1857,9 @@ msgid ""
 "\"speech_model\">Speech Recognition: Background section in the Overview "
 "chapter</link>."
 msgstr ""
+"Für mehr Information über Sprachmodelle sehen Sie bitte die Sektion <link "
+"linkend=\"speech_model\">Spracherkennung: Hintergrund im Übersichtskapitel<"
+"/link>."
 
 #. Tag: para
 #: index.docbook:659
@@ -1725,6 +1867,8 @@ msgstr ""
 msgid ""
 "To get simon to recognize speech and react to it you need a speech model."
 msgstr ""
+"Damit die Spracherkennung funktioniert, benötigt simon ein Sprachmodell "
+"(engl.: speech model)."
 
 #. Tag: para
 #: index.docbook:661
@@ -1733,6 +1877,9 @@ msgid ""
 "Speech models describe how your voice sounds, what words exist, how they "
 "sound and what word combination (\"sentences\" or \"structures\") exist."
 msgstr ""
+"Sprachmodelle (speech models) beschreiben wie Ihre Stimme klingt wie welche "
+"Wörter klingen, welche Wörter existieren und welche Kombinationen (\"Sätze\" "
+"oder \"Strukturen\") existieren."
 
 #. Tag: para
 #: index.docbook:663
@@ -1747,18 +1894,22 @@ msgid ""
 "Language model: Describes all existing words and what sentences are "
 "grammatically correct"
 msgstr ""
+"Sprachmodell (language model): Beschreibt welche Wörter existieren und "
+"welche Sätze grammatikalisch korrekt sind."
 
 #. Tag: para
 #: index.docbook:666
 #, no-c-format
 msgid "Acoustic model: Describes how words sound"
 msgstr ""
+"Akustikmodell (acoustic model): Beschreibt wie welche Töne (Phoneme) klingen."
 
 #. Tag: para
 #: index.docbook:670
 #, no-c-format
 msgid "You need both these components to get simon to recognize your voice."
 msgstr ""
+"Sie benötigen beide Komponenten um die Erkennung in simon zu aktivieren."
 
 #. Tag: para
 #: index.docbook:674
@@ -1767,6 +1918,9 @@ msgid ""
 "In most cases you only need to <link linkend=\"scenarios_use\">install the "
 "appropriate scenario</link> for your use case to set up your language model."
 msgstr ""
+"In den meisten Fällen werden Sie nur <link linkend=\"scenarios_use\">die "
+"gewünschten Szenarios</link> für Ihren Anwendungsfall einrichten um ihr "
+"Sprachmodell (language model) zu erstellen."
 
 #. Tag: para
 #: index.docbook:677
@@ -1777,6 +1931,10 @@ msgid ""
 "linkend=\"remove_word\">remove</link> words and <link linkend=\"grammar"
 "\">grammar structures</link>."
 msgstr ""
+"Um ihr eigenes Sprachmodell zu bauen, können Sie simon verwenden um Wörter <"
+"link linkend=\"add_word\">hinzuzufügen</link> / <link linkend=\"edit_word\"> "
+"zu editieren</link> / <link linkend=\"remove_word\">zu löschen</link> und "
+"ihre <link linkend=\"grammar\">Grammatikstrukturen</link> zu verwalten."
 
 #. Tag: para
 #: index.docbook:680
@@ -1796,6 +1954,9 @@ msgid ""
 "\">read the trainings texts</link> that come with your selected scenarios a "
 "couple of times."
 msgstr ""
+"Um ein eigenes Akustikmodell zu erzeugen, können Sie einfach die <link "
+"linkend=\"training\">Trainingstexte</link> ein paar mal vorlesen die mit den "
+"Szenarios ausgeliefert werden die Sie installieren."
 
 #. Tag: para
 #: index.docbook:691
@@ -1804,6 +1965,8 @@ msgid ""
 "If you are creating your own scenario you can easily <link linkend=\"training"
 "\">create trainingstexts yourself</link>."
 msgstr ""
+"Wenn Sie ihre eigenen Szenarios erstellen können Sie leicht <link "
+"linkend=\"training\">Trainingstexte selbst erstellen</link>."
 
 #. Tag: para
 #: index.docbook:694
@@ -1812,12 +1975,15 @@ msgid ""
 "You can, however use <link linkend=\"base_model_use\">static or adapted base "
 "models</link> to avoid using the HTK or to improve the recognition rate."
 msgstr ""
+"Sie können außerdem <link linkend=\"base_model_use\">statische oder "
+"adaptierte Sprachmodelle verwenden</link> um die Abhängigkeit des HTKs zu "
+"vermeiden oder die Erkennungsrate zu steigern."
 
 #. Tag: title
 #: index.docbook:701
 #, no-c-format
 msgid "First run wizard"
-msgstr ""
+msgstr "Einrichtungsassistent"
 
 #. Tag: para
 #: index.docbook:703
@@ -1826,12 +1992,14 @@ msgid ""
 "On the first start of simon, this wizard is displayed to guide you through "
 "the initial configuration of &kmyapplication;."
 msgstr ""
+"Beim ersten Start von simon wird eine Anleitung angezeigt die Sie durch die "
+"ersten Schritte mit &kmyapplication; führt."
 
 #. Tag: screeninfo
 #: index.docbook:707
 #, no-c-format
 msgid "First run: Welcome"
-msgstr ""
+msgstr "Einrichtungsassistent: Willkommen"
 
 #. Tag: para
 #: index.docbook:716
@@ -1841,6 +2009,9 @@ msgid ""
 "can skip each step and even the whole wizard if you want to - in that case, "
 "the system will be set up with default values."
 msgstr ""
+"Die Konfiguration besteht aus fünf einfachen Schritten die hier aufgezeigt "
+"sind. Sie können jeden Schritt oder sogar den ganzen Assistenten "
+"überspringen. In diesem Fall wird das System mit Standardwerten eingerichtet."
 
 #. Tag: para
 #: index.docbook:721
@@ -1849,12 +2020,14 @@ msgid ""
 "In this step you can download <link linkend=\"scenarios\">scenarios</link> "
 "from the internet and import them into simon."
 msgstr ""
+"In diesem Schritt können Sie <link linkend=\"scenarios\">Szenarios</link> "
+"aus dem Internet herunterladen und direkt in simon importieren."
 
 #. Tag: screeninfo
 #: index.docbook:725
 #, no-c-format
 msgid "First run: Scenarios"
-msgstr ""
+msgstr "Einrichtungsassistent: Szenarios"
 
 #. Tag: para
 #: index.docbook:734
@@ -1862,12 +2035,14 @@ msgstr ""
 msgid ""
 "Pressing <guibutton>Get scenarios</guibutton> displays the download dialog."
 msgstr ""
+"Wenn Sie <guibutton>Szenarios holen</guibutton> drücken, wird der Szenario "
+"Downloaddialog angezeigt."
 
 #. Tag: screeninfo
 #: index.docbook:738
 #, no-c-format
 msgid "First run: Get scenarios"
-msgstr ""
+msgstr "Einrichtungsassistent: Szenarios holen"
 
 #. Tag: para
 #: index.docbook:747
@@ -1879,6 +2054,11 @@ msgid ""
 "users it is recommended to try some scenarios first to see how the system "
 "works before diving into configuring it exactly for your use case."
 msgstr ""
+"Wenn Sie hier Szenarios importieren (oder später über den <link "
+"linkend=\"scenarios_use\">Szenarioverwaltungsdialog</link>) müssen Sie das "
+"Vokabular, die Grammatik und die Kommandos nicht selbst konfigurieren. "
+"Speziell für neue Anwender ist es deshalb empfohlen ein paar Szenarios hier "
+"herunterzuladen um zu sehen wie das System funktioniert."
 
 #. Tag: para
 #: index.docbook:755
@@ -1894,7 +2074,7 @@ msgstr ""
 #: index.docbook:759
 #, no-c-format
 msgid "First run: Base models"
-msgstr ""
+msgstr "Einrichtungsassistent: Basismodelle"
 
 #. Tag: para
 #: index.docbook:768
@@ -1903,12 +2083,15 @@ msgid ""
 "The configuration page opened is the same one that is described in the <link "
 "linkend=\"base_model_use\">base model usage</link> section."
 msgstr ""
+"Die Konfigurationsseite die hier geöffnet wird ist die selbe die in der <"
+"link linkend=\"base_model_use\">Verwendung von Basismodelle Sektion</link> "
+"erklärt wird."
 
 #. Tag: screeninfo
 #: index.docbook:772
 #, no-c-format
 msgid "First run: Configure base models"
-msgstr ""
+msgstr "Einrichtungsassistent: Basismodelle konfigurieren"
 
 #. Tag: para
 #: index.docbook:781
@@ -1918,12 +2101,15 @@ msgid ""
 "configuration options defined here in the <link linkend=\"base_model_use"
 "\">simon configuration</link>."
 msgstr ""
+"Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde "
+"können Sie die Konfigurationsoptionen dieses Schritts in der <link "
+"linkend=\"base_model_use\">simon Konfiguration</link> jederzeit ändern."
 
 #. Tag: title
-#: index.docbook:786 index.docbook:3063
+#: index.docbook:786 index.docbook:3069
 #, no-c-format
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #. Tag: para
 #: index.docbook:788
@@ -1933,12 +2119,15 @@ msgid ""
 "application</link>. If you want to take advantage of a network based "
 "installation, you can provide the server address here."
 msgstr ""
+"Intern ist simon eine <link linkend=\"architecture\">Server / Client "
+"Anwendung</link>. Wenn Sie Nutzen daraus durch eine netzwerkbasierten "
+"Verbindung ziehen wollen können Sie die Serveraddresse hier angeben."
 
 #. Tag: screeninfo
 #: index.docbook:792
 #, no-c-format
 msgid "First run: Server"
-msgstr ""
+msgstr "Einrichtungsassistent: Server"
 
 #. Tag: para
 #: index.docbook:801
@@ -1948,6 +2137,9 @@ msgid ""
 "will assume that you use a local simond server that will be automatically be "
 "started and stopped with simon."
 msgstr ""
+"Die Standardkonfiguration ist ausreichend für eine \"normale\" Installation "
+"und nimmt an, dass Sie einen lokalen simond Server verwenden der von simon "
+"automatisch gestartet und gestoppt wird."
 
 #. Tag: para
 #: index.docbook:803
@@ -1957,6 +2149,9 @@ msgid ""
 "configuration options defined here in the <link linkend=\"configure_server"
 "\">server configuration</link>."
 msgstr ""
+"Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde "
+"können Sie die Konfigurationsoptionen dieses Schritts in der <link "
+"linkend=\"configure_server\">Server Konfiguration</link> jederzeit ändern."
 
 #. Tag: title
 #: index.docbook:808
@@ -1971,6 +2166,9 @@ msgid ""
 "Because simon recognizes sound from one or more microphones, you have to "
 "tell simon which devices you want to use for recognition and training."
 msgstr ""
+"Da simon Sound von einem oder meheren Mikrofonen aufnimmt müssen Sie simon "
+"zuerst sagen welche Geräte er für das Training bzw. die Erkennung verwenden "
+"soll."
 
 #. Tag: screeninfo
 #: index.docbook:814
@@ -1987,6 +2185,10 @@ msgid ""
 "<link linkend=\"soundconfiguration_device\">simon sound configuration "
 "section</link>."
 msgstr ""
+"simon kann ein oder mehrere Ein- und Ausgabegeräte für verschiedene Aufgaben "
+"verwenden. Sie können mehr informationen über simons Mehrgerätefähigkeiten "
+"in der <link linkend=\"soundconfiguration_device\">Soundkonfiguration "
+"Sektion</link> nachlesen."
 
 #. Tag: para
 #: index.docbook:825
@@ -1995,9 +2197,11 @@ msgid ""
 "If you don't set at least one input device to be used for recognition, you "
 "will not be able to activate simon."
 msgstr ""
+"Wenn Sie nicht zumindest ein Eingabegerät für die Erkennung definieren "
+"werden Sie simon nicht aktivieren können."
 
 #. Tag: para
-#: index.docbook:827 index.docbook:2952
+#: index.docbook:827 index.docbook:2958
 #, no-c-format
 msgid ""
 "When the option <guibutton>Default to power training</guibutton> is "
@@ -2006,6 +2210,11 @@ msgid ""
 "This option only sets the default value of the option, the user can change "
 "it at any time before beginning a training session."
 msgstr ""
+"Wenn die Option <guibutton>Powertraining per Default</guibutton> aktiviert "
+"ist wird simon beim Trainieren automatisch die Aufnahme starten bzw. stoppen "
+"wenn der dazugehörige Prompt angezeigt bzw. versteckt wird. Diese option "
+"setzt nur den Standardwert der Benutzer kann diesen bei jeder "
+"Trainingssitzung wieder überschreiben."
 
 #. Tag: para
 #: index.docbook:829
@@ -2015,12 +2224,16 @@ msgid ""
 "configuration options defined here in the <link linkend="
 "\"soundconfiguration_device\">sound configuration</link>."
 msgstr ""
+"Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde "
+"können Sie die Konfigurationsoptionen dieses Schritts in der <link "
+"linkend=\"soundconfiguration_device\">Soundkonfiguration</link> jederzeit "
+"ändern."
 
 #. Tag: title
 #: index.docbook:834
 #, no-c-format
 msgid "Volume calibration"
-msgstr ""
+msgstr "Lautstärkeeinpegelung"
 
 #. Tag: para
 #: index.docbook:836
@@ -2029,12 +2242,14 @@ msgid ""
 "For simon to work correctly, you need to configure your microphones volume "
 "to a sensible level."
 msgstr ""
+"Damit simon korrekt funktioniert muss die Mikrofonlautstärke korrekt "
+"eingestellt sein."
 
 #. Tag: screeninfo
 #: index.docbook:840
 #, no-c-format
 msgid "First run: Volume calibration"
-msgstr ""
+msgstr "Einrichtungsassistent: Lautstärkeeinpegelung"
 
 #. Tag: para
 #: index.docbook:849
@@ -2056,12 +2271,15 @@ msgid ""
 "linkend=\"scenarios\">general information about scenarios, please refer to "
 "the chapter background</link>."
 msgstr ""
+"Diese Sektion beschreibt wie Sie Szenarios innerhalb von simon verwenden. "
+"Für <link linkend=\"scenarios\">generelle Informationen über Szenarios sehen "
+"Sie bitte das Hintegrund Kapitel</link>."
 
 #. Tag: title
 #: index.docbook:860
 #, no-c-format
 msgid "Using scenarios"
-msgstr ""
+msgstr "Szenarios verwenden"
 
 #. Tag: para
 #: index.docbook:861
@@ -2071,6 +2289,9 @@ msgid ""
 "currently active scenario. The same goes for grammar sentences, commands, "
 "etc."
 msgstr ""
+"Beginnend mit &kmyapplication; 0.3 wird jedes Wort das hinzugefügt wird zum "
+"aktuell aktiven Szenario hinzugefügt. Das selbe gilt für "
+"Grammatikstrukturen, Kommandos, etc."
 
 #. Tag: para
 #: index.docbook:862
@@ -2078,6 +2299,8 @@ msgstr ""
 msgid ""
 "Using scenarios then becomes just using &kmyapplication; as you did in 0.2."
 msgstr ""
+"Szenarios zu verwenden ist dann gleichzusetzen mit dem normalen verwenden "
+"von &kmyapplication; wie Sie es vielleicht schon in 0.2 gemacht haben."
 
 #. Tag: para
 #: index.docbook:864
@@ -2086,6 +2309,9 @@ msgid ""
 "Per default, simon ships with an empty scenario names \"Standard\", so your "
 "configuration will be stored in this scenario."
 msgstr ""
+"Standardmäßig kommt simon mit einem leeren Szenario namens \"Standard\". "
+"Wenn Sie keine weitere Einstellungen vornehmen werden Ihre persönlichen "
+"Einstellungen dort gespeichert."
 
 #. Tag: para
 #: index.docbook:866
@@ -2095,12 +2321,15 @@ msgid ""
 "example before adding new words), just select it from the drop down list in "
 "the upper right corner of the simon main window."
 msgstr ""
+"Um ein anderes Szenario zur Bearbeitung auszuwählen (z.B. vor dem Hinzufügen "
+"neuer Wörter), wählen Sie das Szenario einfach in der in der Auswahlliste im "
+"oberen rechten Eck des Hauptfensters aus."
 
 #. Tag: screeninfo
 #: index.docbook:870
 #, no-c-format
 msgid "Scenario toolbar"
-msgstr ""
+msgstr "Szenario Werkzeugleiste"
 
 #. Tag: para
 #: index.docbook:879
@@ -2110,12 +2339,15 @@ msgid ""
 "guibutton> button right next to it or use the menu entry <guimenu>Scenarios</"
 "guimenu> > <guimenuitem>Manage scenarios</guimenuitem>."
 msgstr ""
+"Um die verfügbaren Optionen zu ändern, klicken Sie <guibutton>Szenarios "
+"verwalten</guibutton> oder verwenden Sie den Menüeintrag <guimenu>Szenarios<"
+"/guimenu> > <guimenuitem>Szenarios verwalten</guimenuitem>."
 
 #. Tag: title
 #: index.docbook:883
 #, no-c-format
 msgid "Managing scenarios"
-msgstr ""
+msgstr "Szenarios verwalten"
 
 #. Tag: para
 #: index.docbook:884
@@ -2125,6 +2357,9 @@ msgid ""
 "scenario pool as well as to import and export scenarios to files or directly "
 "from / to an online repository."
 msgstr ""
+"Der Szenario verwaltungsdialog erlaubt Ihnen, Szenarios zu laden, neue zu "
+"importieren oder vorhandene in Dateien oder direkt in eine Onlinesammlung zu "
+"exportieren."
 
 #. Tag: screeninfo
 #: index.docbook:888
@@ -2139,6 +2374,9 @@ msgid ""
 "To load or unload a scenario you can use the arrow buttons between the two "
 "lists or simply double click the option you want to load / unload."
 msgstr ""
+"Um ein Szenario zu laden oder zu entladen, verwenden Sie die Knöpfe mit "
+"Pfeilsymbolen oder doppelklicken Sie das entsprechende Szenario in den "
+"Listen."
 
 #. Tag: para
 #: index.docbook:898
@@ -2147,6 +2385,8 @@ msgid ""
 "More information about individual scenarios can be found in the tooltips of "
 "the list items."
 msgstr ""
+"Mehr Informationen über die Szenarios selbst können Sie in dem Tip lesen der "
+"erscheint, wenn die Maus einige Zeit über ein Element halten."
 
 #. Tag: title
 #: index.docbook:901
@@ -2161,12 +2401,14 @@ msgid ""
 "To add a new scenario, select the <guibutton>Add</guibutton> button. A new "
 "dialog will be displayed."
 msgstr ""
+"Um ein neues Szenario hinzuzufügen, wählen Sie den <guibutton>Hinzufügen<"
+"/guibutton> Knopf aus. Ein Dialog wird angezeigt."
 
 #. Tag: screeninfo
 #: index.docbook:906
 #, no-c-format
 msgid "Add scenario"
-msgstr ""
+msgstr "Szenario hinzufügen"
 
 #. Tag: para
 #: index.docbook:915
@@ -2182,6 +2424,15 @@ msgid ""
 "specifically tailored to one phoneme set (base model), just omit the second "
 "tag like this: \"[EN] Firefox\"."
 msgstr ""
+"Wenn Sie ein neues Szenario erzeugen, geben Sie Ihm bitte einen deskreptiven "
+"Namen. Um es später auf <ulink url=\"http://kde-files.org/index."
+"php?xcontentmode=692\">KDE files</ulink> hochzuladen würden wir Sie bitten "
+"das folgende Namensschema zu übernehmen: "
+"\"[&lt;Sprache&gt;/&lt;Basismodell&gt;] &lt;Name&gt;\". Wenn Sie zum "
+"Beispiel ein deutsches Szenario erzeugen das mit dem Voxforge Basismodell "
+"funktioniert um Mozilla Firefox zu kontrollieren wird das: \"[DE/VF] "
+"Firefox\". Ist Ihr Szenario nicht speziell auf ein Phonemset (Basismodell) "
+"zugeschnitten, können Sie den zweiten Tag entfernen: \"[DE] Firefox\"."
 
 #. Tag: para
 #: index.docbook:917
@@ -2190,6 +2441,8 @@ msgid ""
 "The scenario version is just an incremental version number that makes it "
 "easier to distinguish between different revisions of a scenario."
 msgstr ""
+"Die Szenario Version ist nur eine inkrementelle Nummer die es leichter macht "
+"zwischen verschiedenen Versionen des selben Seznarios zu unterscheiden."
 
 #. Tag: para
 #: index.docbook:919
@@ -2199,6 +2452,10 @@ msgid ""
 "use a new plugin), you can define minimum and maximum version numbers of "
 "simon here."
 msgstr ""
+"Wenn Ihr Szenario eine spezielle Funktion von simon verwendet (zum Beispiel "
+"ein neues Plugin), können Sie hier die minimal benötigte simon "
+"Versionsnummer angeben. Wurde die benötigte Funktionialität entfernt, lässt "
+"sich auch eine maximale Versionsnummer definieren."
 
 #. Tag: para
 #: index.docbook:921
@@ -2207,6 +2464,8 @@ msgid ""
 "The license of your scenario can be set through the drop down. You can of "
 "course also add an arbitrary license text directly in the input field."
 msgstr ""
+"Die Lizenz lässt sich über das Drop-Down Menü auswählen. Sie können auch "
+"beliebigen Text in das Eingabefeld eintragen."
 
 #. Tag: para
 #: index.docbook:923
@@ -2219,12 +2478,18 @@ msgid ""
 "address you can simply enter a dash \"-\" denoting that you are not willing "
 "to divulge this information."
 msgstr ""
+"Sie können Ihren Namen (oder Alias) zu der Liste der Szenarioautoren "
+"hinzufügen. Sie werden auch nach einer Kontaktmöglichkeit gefragt werden. "
+"Diese Kontaktmöglichkeit kann dazu verwendet werden den Autor über "
+"Änderungen in simon zu kontaktieren die das Szenariosystem betreffen, "
+"Fanmail, etc. Wenn Sie keine Kontaktinformation hinterlegen wollen, geben "
+"Sie einfach einen Strich \"-\" ein."
 
 #. Tag: title
 #: index.docbook:928
 #, no-c-format
 msgid "Edit Scenario"
-msgstr ""
+msgstr "Szenario editieren"
 
 #. Tag: para
 #: index.docbook:929
@@ -2232,6 +2497,8 @@ msgstr ""
 msgid ""
 "To edit scenarios, just select \"Edit\" from the \"Manage scenarios\" dialog."
 msgstr ""
+"Um Szenarios zu editieren, wählen Sie \"Bearbeiten\" vom \"Szenarios "
+"verwalten\" Dialog."
 
 #. Tag: para
 #: index.docbook:930
@@ -2240,12 +2507,14 @@ msgid ""
 "The dialog works exactly the same as the <link linkend=\"add_scenario\">add "
 "scenario</link> dialog."
 msgstr ""
+"Der Dialog funktioniert exakt gleich wie der <link linkend=\"add_scenario\">"
+"Szenario hinzufügen</link> Dialog."
 
 #. Tag: title
 #: index.docbook:934
 #, no-c-format
 msgid "Delete Scenario"
-msgstr ""
+msgstr "Szenario entfernen"
 
 #. Tag: para
 #: index.docbook:936
@@ -2253,6 +2522,8 @@ msgstr ""
 msgid ""
 "To delete a scenario, select the scenario and click the \"Delete\" button."
 msgstr ""
+"Um ein Szenario zu löschen, wählen Sie das Szenario aus der Liste und "
+"klicken Sie den \"Löschen\" Knopf."
 
 #. Tag: para
 #: index.docbook:938
@@ -2262,6 +2533,10 @@ msgid ""
 "restore deleted scenarios through the <link linkend="
 "\"configure_synchronization\">model synchronization backup</link>."
 msgstr ""
+"Weil Szenarios mit dem Erkennungsdienst synchronisiert werden, können Sie "
+"zuvor gelöschte Szenarios über das <link "
+"linkend=\"configure_synchronization\">Modell Synchronisationsbackup</link> "
+"wiederherstellen."
 
 #. Tag: title
 #: index.docbook:942
@@ -2276,6 +2551,9 @@ msgid ""
 "Scenarios can be imported from a local file in simons XML scenario file "
 "format but can also be directly downloaded and imported from the internet."
 msgstr ""
+"Szenarios können von einer lokalen Textdatei (simons XML Szenario "
+"Dateiformat) importiert werden oder direkt aus dem Internet heruntergeladen "
+"werden."
 
 #. Tag: para
 #: index.docbook:945
@@ -2286,12 +2564,17 @@ msgid ""
 "ulink> subsection of the OpenDesktop site <ulink url=\"http://kde-files.org"
 "\">KDE-files.org</ulink>."
 msgstr ""
+"Wenn Sie Szenarios herunterladen, wird eine Liste der verfügbaren Szenarios "
+"von der <ulink "
+"url=\"http://kde-files.org/index.php?xcontentmode=692\">simon Scenarios</"
+"ulink> Sektion der OpenDesktop Seite <ulink url=\"http://kde-files.org"
+"\">KDE-files.org</ulink> heruntergeladen."
 
 #. Tag: screeninfo
 #: index.docbook:949
 #, no-c-format
 msgid "Download scenarios"
-msgstr ""
+msgstr "Szenarios herunterladne"
 
 #. Tag: para
 #: index.docbook:958
@@ -2301,12 +2584,15 @@ msgid ""
 "please consider <link linkend=\"export_scenario\">uploading it</link> to "
 "this online repository and help other simon users."
 msgstr ""
+"Wenn Sie ein Szenario erstellen das für andere simon Anwender von interesse "
+"sein könnte, <link linkend\"export_scenario\">laden Sie es bitte hoch damit "
+"es auch anderen simon Anwendern zugute kommen kann</link>."
 
 #. Tag: title
 #: index.docbook:962
 #, no-c-format
 msgid "Export Scenario"
-msgstr ""
+msgstr "Szenario exportieren"
 
 #. Tag: para
 #: index.docbook:963
@@ -2317,6 +2603,11 @@ msgid ""
 "xcontentmode=692\">simon Scenarios</ulink> subsection of the OpenDesktop "
 "site <ulink url=\"http://kde-files.org\">KDE-files.org</ulink>."
 msgstr ""
+"Szenarios können in eine lokale Datei (simons XML Szenariodateiformat) "
+"exportiert werden und diese Datei dann in die <ulink "
+"url=\"http://kde-files.org/index.php?xcontentmode=692\">simon Scenarios</"
+"ulink> Sektion der OpenDesktop Seite <ulink url=\"http://kde-files.org"
+"\">KDE-files.org</ulink> hochgeladen werden."
 
 #. Tag: para
 #: index.docbook:965
@@ -2326,6 +2617,10 @@ msgid ""
 "\"http://opendesktop.org/usermanager/new.php\">Registration</ulink> is very "
 "easy and of course free of charge."
 msgstr ""
+"Um auf den OpenDesktop Seiten hochladen zu können, benötigen Sie einen "
+"Account auf der Seite. Die <ulink url="
+"\"http://opendesktop.org/usermanager/new.php\">Registration</ulink> ist "
+"allerdings sehr leicht und natürlich kostenlos."
 
 #. Tag: para
 #: index.docbook:967
@@ -2334,30 +2629,33 @@ msgid ""
 "simon allows you to upload new content directly from within simon "
 "(<guibutton>Export</guibutton> > <guimenuitem>Publish</guimenuitem>)."
 msgstr ""
+"simon erlaubt es Ihnen neue Inhalte direkt von der Benutzeroberfläche heraus "
+"hochzuladen (<guibutton>Export</guibutton> > <guimenuitem>Veröffentlichen<"
+"/guimenuitem>)."
 
 #. Tag: screeninfo
 #: index.docbook:971
 #, no-c-format
 msgid "Upload scenario wizard: 1 of 4"
-msgstr ""
+msgstr "Szenarios hochladen: 1 von 4"
 
 #. Tag: screeninfo
 #: index.docbook:982
 #, no-c-format
 msgid "Upload scenario wizard: 2 of 4"
-msgstr ""
+msgstr "Szenarios hochladen: 2 von 4"
 
 #. Tag: screeninfo
 #: index.docbook:993
 #, no-c-format
 msgid "Upload scenario wizard: 3 of 4"
-msgstr ""
+msgstr "Szenarios hochladen: 3 von 4"
 
 #. Tag: screeninfo
 #: index.docbook:1004
 #, no-c-format
 msgid "Upload scenario wizard: 4 of 4"
-msgstr ""
+msgstr "Szenarios hochladen: 4 von 4"
 
 #. Tag: para
 #: index.docbook:1013
@@ -2367,6 +2665,9 @@ msgid ""
 "<link linkend=\"social_desktop_config\">social desktop configuration</link> "
 "in the simon configuration."
 msgstr ""
+"Um diese Funktionalität zu verwenden geben Sie einfach Ihre Accountdetails "
+"in die <link linkend=\"social_desktop_config\">Soziale Desktop "
+"Konfiguration</link> in der simon Konfiguration ein."
 
 #. Tag: para
 #: index.docbook:1021
@@ -2376,6 +2677,9 @@ msgid ""
 "linkend=\"base_model\">general information about base models, please refer "
 "to the chapter background</link>."
 msgstr ""
+"Diese Sektion beschreibt wie Sie Basismodelle mit simon verwenden. Für <link "
+"linkend=\"base_model\">generelle Informationen über Basismodelle, sehen Sie "
+"bitte das Hintergrund Kapitel</link>."
 
 #. Tag: para
 #: index.docbook:1023
@@ -2395,7 +2699,7 @@ msgstr ""
 #: index.docbook:1027
 #, no-c-format
 msgid "Base model settings"
-msgstr ""
+msgstr "Konfiguration von Basismodelle"
 
 #. Tag: para
 #: index.docbook:1036
@@ -2405,6 +2709,10 @@ msgid ""
 "want to set. The files will be copied to an internal location so the source "
 "files can be removed once you have selected them here."
 msgstr ""
+"Laden Sie die Dateien mit den entsprechenden \"Laden\" Knöpfen neben den "
+"Dateien die Sie laden wollen. Die Dateien werden zu einem internen Pfad "
+"kopiert sodass die Quelle entfernt werden kann nachdem das Basismodell "
+"übernommen wurde."
 
 #. Tag: para
 #: index.docbook:1038
@@ -2415,6 +2723,11 @@ msgid ""
 "to generate the language model) without them. If your base model doesn't "
 "provide them you can simply point simon to empty files instead."
 msgstr ""
+"Für statische Modelle benötigen Sie weder \"macros\" noch \"stats\" Dateien "
+"aber simon wird die Kompilierung (die auch fuer statische Modelle notwendig "
+"ist um das Sprachmodell zu erzeugen) nicht ohne sie starten. Falls Ihr "
+"Basismodell diese Dateien nicht mitliefert können Sie einfach leeren Dateien "
+"angeben."
 
 #. Tag: title
 #: index.docbook:1044
@@ -2430,7 +2743,7 @@ msgstr ""
 "Das Vokabular ermöglicht es dem User, die verfügbaren Wörter zu verwalten."
 
 #. Tag: title
-#: index.docbook:1048 index.docbook:1570 index.docbook:3047 index.docbook:3068
+#: index.docbook:1048 index.docbook:1570 index.docbook:3053 index.docbook:3074
 #, no-c-format
 msgid "General"
 msgstr "Allgemein"
@@ -2591,6 +2904,9 @@ msgid ""
 "Per default, the active vocabulary is shown. To display the shadow "
 "vocabulary select the tab <guilabel>Shadow Vocabulary</guilabel>."
 msgstr ""
+"Standardmäßig wird das aktive Vokabular angezeigt. Um das Schattenvokabular "
+"anzuzeigen wählen Sie die Registerkarte <guilabel>Schattenvokabular<"
+"/guilabel>."
 
 #. Tag: para
 #: index.docbook:1146
@@ -2982,6 +3298,10 @@ msgid ""
 "do this or for example use a <link linkend=\"base_model_static\">static base "
 "model</link>, you can skip these two pages."
 msgstr ""
+"Um den Assistenten abzuschließen können Sie jetzt das Wort zwei mal "
+"aufnehmen. Falls Sie das nicht tun wollen oder z.B. ein <link "
+"linkend=\"base_model_static\">statisches Modell</link> verwenden können Sie "
+"die folgenden zwei Seiten überspringen."
 
 #. Tag: para
 #: index.docbook:1309
@@ -4429,6 +4749,27 @@ msgstr ""
 #: index.docbook:2004
 #, no-c-format
 msgid ""
+"When using prompts based transcriptions your prompts file (UTF-8) needs to "
+"contain lines of the following content: \"[filename] [content]\". Filenames "
+"are without file extensions and the content has to be uppercase. For "
+"example: \"demo_2007_03_20 DEMO\" to import the file \"demo_2007_03_20.wav\" "
+"containing the spoken word \"Demo\"."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:2006
+#, no-c-format
+msgid ""
+"Because prompts files do not contain a file extension, simon will try wav, "
+"mp3, ogg and flac (in that order). If one of those match, no other extension "
+"will be tested and only the first file will be imported (in contrast to file "
+"based transcription where all files would be imported)."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:2008
+#, no-c-format
+msgid ""
 "When using file based transcriptions, a file called this_is_a_test.wav "
 "<emphasis>must</emphasis> contain \"This is a test\" and nothing else. "
 "Numbers and special characters (\".\", \"-\",...) in the filename are "
@@ -4440,15 +4781,6 @@ msgstr ""
 "<filename>das_ist_ein_Text.wav</filename> genannt ist, <emphasis>muss</"
 "emphasis> die Worte \"das ist ein Test\" beinhalten und nichts anderes. "
 "Satzzeichen wie (\".\", \"-\",...) in den Dateinamen werden ignoriert."
-
-#. Tag: para
-#: index.docbook:2008
-#, no-c-format
-msgid ""
-"The files and their transcription are then added to the trainings corpus."
-msgstr ""
-"Die Dateien und Ihre Transkription werden dann zum Trainingskorpus "
-"hinzugefügt."
 
 #. Tag: para
 #: index.docbook:2012
@@ -4466,7 +4798,17 @@ msgstr ""
 "Prompts-basierten Import importieren."
 
 #. Tag: para
-#: index.docbook:2015
+#: index.docbook:2014
+#, fuzzy, no-c-format
+msgid ""
+"Imported files and their transcription are then added to the trainings "
+"corpus."
+msgstr ""
+"Die Dateien und Ihre Transkription werden dann zum Trainingskorpus "
+"hinzugefügt."
+
+#. Tag: para
+#: index.docbook:2018
 #, no-c-format
 msgid ""
 "To import a directory containing trainings-samples just select the folder to "
@@ -4477,13 +4819,13 @@ msgstr ""
 "Datei - im Assistenten aus."
 
 #. Tag: screeninfo
-#: index.docbook:2019
+#: index.docbook:2022
 #, no-c-format
 msgid "Import-trainings-data-wizard"
 msgstr "Trainingsdaten importieren Assistent"
 
 #. Tag: para
-#: index.docbook:2028
+#: index.docbook:2031
 #, fuzzy, no-c-format
 msgid ""
 "The folder will be scanned recursively. This means that the given folder and "
@@ -4495,7 +4837,7 @@ msgstr ""
 "wird. Alle Dateien die gefunden wurden, werden importiert."
 
 #. Tag: para
-#: index.docbook:2032
+#: index.docbook:2035
 #, no-c-format
 msgid ""
 "When importing the sound files, all configured <link linkend="
@@ -4506,14 +4848,23 @@ msgstr ""
 "linkend=\"soundconfiguration_postprocessing\">Nachbearbeitungsfilter</link> "
 "angewandt."
 
+#. Tag: para
+#: index.docbook:2038
+#, no-c-format
+msgid ""
+"If you import anything other than WAV files you are responsible for decoding "
+"them during the import process (for example through post processing filters) "
+"or the model creation <emphasis>will</emphasis> fail."
+msgstr ""
+
 #. Tag: title
-#: index.docbook:2042
+#: index.docbook:2048
 #, no-c-format
 msgid "<title>Commands</title>"
 msgstr "<title>Kommandos</title>"
 
 #. Tag: para
-#: index.docbook:2043
+#: index.docbook:2049
 #, no-c-format
 msgid ""
 "When simon is active and recognizes something, the recognition result is "
@@ -4524,13 +4875,13 @@ msgstr ""
 "Verarbeitung übergeben."
 
 #. Tag: screeninfo
-#: index.docbook:2047
+#: index.docbook:2053
 #, no-c-format
 msgid "simons Command Dialog"
 msgstr "simons Kommando Dialog"
 
 #. Tag: para
-#: index.docbook:2056
+#: index.docbook:2062
 #, fuzzy, no-c-format
 msgid ""
 "The command system can be compared with a group of factory workers. Each one "
@@ -4558,13 +4909,13 @@ msgstr ""
 "einrichten...</guimenuitem> > <guimenuitem>Aktionen</guimenuitem>)."
 
 #. Tag: screeninfo
-#: index.docbook:2061
+#: index.docbook:2067
 #, no-c-format
 msgid "simons Action Configuration"
 msgstr "simons Aktionenkonfiguration"
 
 #. Tag: para
-#: index.docbook:2070
+#: index.docbook:2076
 #, no-c-format
 msgid ""
 "Each plugin can be associated with a \"trigger\". Using triggers, the "
@@ -4574,7 +4925,7 @@ msgstr ""
 "kann die Verantwortung der einzelnen Plug-Ins besser aufgeteilt werden."
 
 #. Tag: para
-#: index.docbook:2073
+#: index.docbook:2079
 #, no-c-format
 msgid ""
 "Using the factory workers abstraction from above it could be compared to "
@@ -4590,7 +4941,7 @@ msgstr ""
 "Öffnen der Ordner) weiß sofort, dass diese Anfrage für ihn ist."
 
 #. Tag: para
-#: index.docbook:2074
+#: index.docbook:2080
 #, no-c-format
 msgid ""
 "In practice you could have commands like the executable command \"Firefox\" "
@@ -4610,7 +4961,7 @@ msgstr ""
 "müssten Sie \"Öffne Google\" sagen statt nur \"Google\" ohne Auslöser."
 
 #. Tag: para
-#: index.docbook:2075
+#: index.docbook:2081
 #, fuzzy, no-c-format
 msgid ""
 "Triggers are of course no requirement and you can easily use simon without "
@@ -4629,7 +4980,7 @@ msgstr ""
 "versehentlichen Kommandoaufrufe zu minimieren."
 
 #. Tag: para
-#: index.docbook:2077
+#: index.docbook:2083
 #, no-c-format
 msgid ""
 "simons <link linkend=\"command_dialog\">command dialog</link> displays the "
@@ -4638,7 +4989,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2079
+#: index.docbook:2085
 #, no-c-format
 msgid ""
 "You can load multiple instances of one plugin even in one scenario. Each "
@@ -4646,7 +4997,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2081
+#: index.docbook:2087
 #, no-c-format
 msgid ""
 "Each Command has a name (which will trigger its invocation), an icon and "
@@ -4657,7 +5008,7 @@ msgstr ""
 "des Kommandos abhängen (siehe unten)."
 
 #. Tag: para
-#: index.docbook:2085
+#: index.docbook:2091
 #, no-c-format
 msgid ""
 "Some command plugins might provide a configuration of the plugin itself (not "
@@ -4668,7 +5019,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2089
+#: index.docbook:2095
 #, no-c-format
 msgid ""
 "Plugins that provide a graphical user interface (like for example the <link "
@@ -4680,7 +5031,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2093
+#: index.docbook:2099
 #, no-c-format
 msgid ""
 "Voice interface commands are added just like normal commands through the "
@@ -4688,13 +5039,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2097
+#: index.docbook:2103
 #, no-c-format
 msgid "Configure voice interface commands"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2106
+#: index.docbook:2112
 #, no-c-format
 msgid ""
 "To add a new interface command to a function, just select the action you "
@@ -4703,7 +5054,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2108
+#: index.docbook:2114
 #, no-c-format
 msgid ""
 "Some plugins (for example the <link linkend=\"desktopgrid\">desktopgrid</"
@@ -4712,19 +5063,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2114
+#: index.docbook:2120
 #, no-c-format
 msgid "Command plugged into main window"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2124
+#: index.docbook:2130
 #, no-c-format
 msgid "<title>Executable Commands</title>"
 msgstr "<title>Programm-Kommandos</title>"
 
 #. Tag: para
-#: index.docbook:2126
+#: index.docbook:2132
 #, no-c-format
 msgid ""
 "Executable commands are associated with an executable file (\"Program\") "
@@ -4734,13 +5085,13 @@ msgstr ""
 "\") welches gestartet wird wenn das Kommando ausgelöst wird."
 
 #. Tag: screeninfo
-#: index.docbook:2129
+#: index.docbook:2135
 #, no-c-format
 msgid "<screeninfo>Executable Commands</screeninfo>"
 msgstr "<screeninfo>Programm-Kommandos</screeninfo>"
 
 #. Tag: para
-#: index.docbook:2137
+#: index.docbook:2143
 #, no-c-format
 msgid ""
 "Arguments to the commands are supported. If either path to the executable or "
@@ -4753,7 +5104,7 @@ msgstr ""
 "Anführungszeichen umgeben werden."
 
 #. Tag: para
-#: index.docbook:2139
+#: index.docbook:2145
 #, no-c-format
 msgid ""
 "Given the executable file <filename>C:\\Program Files\\Mozilla Firefox"
@@ -4769,7 +5120,7 @@ msgstr ""
 "filename>."
 
 #. Tag: para
-#: index.docbook:2141
+#: index.docbook:2147
 #, no-c-format
 msgid ""
 "The working directory defines where the process should be launched from. "
@@ -4785,7 +5136,7 @@ msgstr ""
 "\\folder\\file.html</filename> suchen."
 
 #. Tag: para
-#: index.docbook:2143
+#: index.docbook:2149
 #, no-c-format
 msgid ""
 "The working directory does not normally need to be set and can be left blank "
@@ -4795,13 +5146,13 @@ msgstr ""
 "leer gelassen werden."
 
 #. Tag: title
-#: index.docbook:2146
+#: index.docbook:2152
 #, no-c-format
 msgid "Importing Programs"
 msgstr "Programme importieren"
 
 #. Tag: para
-#: index.docbook:2147
+#: index.docbook:2153
 #, fuzzy, no-c-format
 msgid ""
 "For even easier configuration simon provides an import dialog which allows "
@@ -4811,19 +5162,19 @@ msgstr ""
 "Menü auswählen können."
 
 #. Tag: para
-#: index.docbook:2149
+#: index.docbook:2155
 #, no-c-format
 msgid "This option is not available on Microsoft Windows."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2152
+#: index.docbook:2158
 #, no-c-format
 msgid "Import Programs"
 msgstr "Programme Importieren"
 
 #. Tag: para
-#: index.docbook:2160
+#: index.docbook:2166
 #, fuzzy, no-c-format
 msgid ""
 "The dialog will list all programs that have an entry in your KDE menu in "
@@ -4833,7 +5184,7 @@ msgstr ""
 "Kategorie anzeigen."
 
 #. Tag: para
-#: index.docbook:2162
+#: index.docbook:2168
 #, no-c-format
 msgid ""
 "Sub-Categories are not supported and are thus listed on the same level as "
@@ -4843,7 +5194,7 @@ msgstr ""
 "ihre übergeordneten Kategorien angezeigt."
 
 #. Tag: para
-#: index.docbook:2164
+#: index.docbook:2170
 #, fuzzy, no-c-format
 msgid ""
 "Just select the program you wish to start with simon and press "
@@ -4856,13 +5207,13 @@ msgstr ""
 "Datei und für den Arbeitsordner werden automatisch ausgefüllt."
 
 #. Tag: title
-#: index.docbook:2171
+#: index.docbook:2177
 #, no-c-format
 msgid "Place Commands"
 msgstr "Ort-Kommandos"
 
 #. Tag: para
-#: index.docbook:2172
+#: index.docbook:2178
 #, no-c-format
 msgid ""
 "With place commands you can allow simon to open any given URL. Because simon "
@@ -4877,7 +5228,7 @@ msgstr ""
 "unterstützt."
 
 #. Tag: para
-#: index.docbook:2173
+#: index.docbook:2179
 #, no-c-format
 msgid ""
 "Instead of folders, files can also be set as the commands URL which will "
@@ -4889,13 +5240,13 @@ msgstr ""
 "wenn das Kommando ausgelöst wird."
 
 #. Tag: screeninfo
-#: index.docbook:2176
+#: index.docbook:2182
 #, no-c-format
 msgid "Places"
 msgstr "Orte"
 
 #. Tag: para
-#: index.docbook:2184
+#: index.docbook:2190
 #, fuzzy, no-c-format
 msgid ""
 "To associate a specific URL with the command you can manually enter it in "
@@ -4907,13 +5258,13 @@ msgstr ""
 "Ort importieren Assistent auswählen."
 
 #. Tag: title
-#: index.docbook:2188
+#: index.docbook:2194
 #, no-c-format
 msgid "Importing Places"
 msgstr "Orte importieren"
 
 #. Tag: para
-#: index.docbook:2190
+#: index.docbook:2196
 #, fuzzy, no-c-format
 msgid ""
 "The import place dialog allows you to easily create the correct URL for the "
@@ -4922,7 +5273,7 @@ msgstr ""
 "Der Ort importieren Assistent erleichtert es eine korrekte URL anzugeben."
 
 #. Tag: para
-#: index.docbook:2192
+#: index.docbook:2198
 #, fuzzy, no-c-format
 msgid ""
 "To add a local folder, select <guibutton>Local Place</guibutton> and choose "
@@ -4932,13 +5283,13 @@ msgstr ""
 "\"Lokaler Ort\" und wählen Sie den Ordner oder die Datei mit dem Feld aus."
 
 #. Tag: screeninfo
-#: index.docbook:2195
+#: index.docbook:2201
 #, no-c-format
 msgid "Import Places: Local"
 msgstr "Lokale Orte importieren"
 
 #. Tag: para
-#: index.docbook:2204
+#: index.docbook:2210
 #, fuzzy, no-c-format
 msgid ""
 "To add a remote URL (HTTP, FTP, etc.) choose <guibutton>Remote URL</"
@@ -4956,13 +5307,13 @@ msgstr ""
 "gespeichert werden und das Passwort also unverschlüsselt vorliegt."
 
 #. Tag: title
-#: index.docbook:2221
+#: index.docbook:2227
 #, no-c-format
 msgid "Shortcut Commands"
 msgstr "Tastenkürzel-Kommandos"
 
 #. Tag: para
-#: index.docbook:2222
+#: index.docbook:2228
 #, no-c-format
 msgid ""
 "Using shortcut commands the user can associate commands with key-"
@@ -4972,7 +5323,7 @@ msgstr ""
 "Tastenkombinationen verbinden."
 
 #. Tag: para
-#: index.docbook:2224
+#: index.docbook:2230
 #, no-c-format
 msgid ""
 "The command will simulate keyboard input to \"press\" shortcuts like \"Ctrl+C"
@@ -4982,13 +5333,13 @@ msgstr ""
 "\"oder \"Alt-F4\" auszulösen."
 
 #. Tag: screeninfo
-#: index.docbook:2227
+#: index.docbook:2233
 #, no-c-format
 msgid "Defining Shortcut Commands"
 msgstr "Tastenkürzel Kommandos definieren"
 
 #. Tag: para
-#: index.docbook:2236
+#: index.docbook:2242
 #, no-c-format
 msgid ""
 "To select the shortcut you wish to simulate just toggle the shortcut button "
@@ -4999,13 +5350,13 @@ msgstr ""
 "Kommando assozieren möchten auf Ihrer Tastatur."
 
 #. Tag: para
-#: index.docbook:2237
+#: index.docbook:2243
 #, no-c-format
 msgid "simon will capture the shortcut and associate it with the command."
 msgstr "simon wird das Tastenkürzel abfangen und mit dem Kommando assozieren."
 
 #. Tag: para
-#: index.docbook:2238
+#: index.docbook:2244
 #, fuzzy, no-c-format
 msgid ""
 "Due to technical limitations there are several shortcuts on Microsoft "
@@ -5020,7 +5371,7 @@ msgstr ""
 "und deshalb auf dem Bildschirmfoto nicht zu sehen ist."
 
 #. Tag: para
-#: index.docbook:2240
+#: index.docbook:2246
 #, no-c-format
 msgid ""
 "This selection box is not visible in the screenshot above as the list is "
@@ -5028,13 +5379,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2244
+#: index.docbook:2250
 #, no-c-format
 msgid "Text-Macro Commands"
 msgstr "Text-Makro-Kommandos"
 
 #. Tag: para
-#: index.docbook:2245
+#: index.docbook:2251
 #, no-c-format
 msgid ""
 "Using text-macro commands, the user can associate text with a command. When "
@@ -5046,19 +5397,19 @@ msgstr ""
 "Kommando verbunden ist über simulierte Tastendrücke \"geschrieben\"."
 
 #. Tag: screeninfo
-#: index.docbook:2249
+#: index.docbook:2255
 #, no-c-format
 msgid "Defining Text-Macro Commands"
 msgstr "Text-Makro-Kommandos definieren"
 
 #. Tag: title
-#: index.docbook:2260
+#: index.docbook:2266
 #, no-c-format
 msgid "List Commands"
 msgstr "List-Kommandos"
 
 #. Tag: para
-#: index.docbook:2261
+#: index.docbook:2267
 #, no-c-format
 msgid ""
 "The list command is designed to combine multiple commands (all types of "
@@ -5071,7 +5422,7 @@ msgstr ""
 "dieses Kommando auslösen."
 
 #. Tag: para
-#: index.docbook:2263
+#: index.docbook:2269
 #, no-c-format
 msgid ""
 "This is very useful to limit the amount of training required and provides "
@@ -5081,13 +5432,13 @@ msgstr ""
 "damit die Menge der benötigten Trainingsdaten gering zu halten."
 
 #. Tag: screeninfo
-#: index.docbook:2267
+#: index.docbook:2273
 #, no-c-format
 msgid "Defining List Commands"
 msgstr "List-Kommandos definieren"
 
 #. Tag: para
-#: index.docbook:2276
+#: index.docbook:2282
 #, no-c-format
 msgid ""
 "List commands are especially useful when using commands with difficult "
@@ -5107,20 +5458,20 @@ msgstr ""
 "muss um das Kommando auszulösen."
 
 #. Tag: para
-#: index.docbook:2278
+#: index.docbook:2284
 #, no-c-format
 msgid "Commands of different types can of course be mixed."
 msgstr ""
 "Kommandos unterschiedlicher Typen können in einer Liste gemischt werden."
 
 #. Tag: title
-#: index.docbook:2281
+#: index.docbook:2287
 #, fuzzy, no-c-format
 msgid "List Command Display"
 msgstr "List-Kommandos"
 
 #. Tag: para
-#: index.docbook:2283
+#: index.docbook:2289
 #, no-c-format
 msgid ""
 "When invoked, the command will display the list centered on the screen. The "
@@ -5141,7 +5492,7 @@ msgstr ""
 "\"Eins\" um Mozilla Firefox aufzurufen)."
 
 #. Tag: para
-#: index.docbook:2296
+#: index.docbook:2302
 #, no-c-format
 msgid ""
 "While a list command is active (displayed), all input that is not directed "
@@ -5154,7 +5505,7 @@ msgstr ""
 "sagen von \"Abbrechen\"oder durch klicken auf das \"Abbrechen\" Feld."
 
 #. Tag: para
-#: index.docbook:2299
+#: index.docbook:2305
 #, no-c-format
 msgid ""
 "If there are more than 9 items simon will add \"Next\" and \"Back\" options "
@@ -5167,19 +5518,19 @@ msgstr ""
 "verbunden)."
 
 #. Tag: screeninfo
-#: index.docbook:2303
+#: index.docbook:2309
 #, no-c-format
 msgid "List Command with many entries"
 msgstr "List-Kommando mit vielen Einträgen"
 
 #. Tag: title
-#: index.docbook:2314
+#: index.docbook:2320
 #, fuzzy, no-c-format
 msgid "Configuring list elements"
 msgstr "Konfiguration des Desktopgrids"
 
 #. Tag: para
-#: index.docbook:2316
+#: index.docbook:2322
 #, fuzzy, no-c-format
 msgid ""
 "By default the list command uses the following trigger words. To use list "
@@ -5190,80 +5541,80 @@ msgstr ""
 "dass Ihr Sprachmodell die folgenden \"Sätze\" kennt und erlaubt:"
 
 #. Tag: para
-#: index.docbook:2319 index.docbook:2525
+#: index.docbook:2325 index.docbook:2531
 #, no-c-format
 msgid "\"Zero\""
 msgstr "\"Null\""
 
 #. Tag: para
-#: index.docbook:2320 index.docbook:2446 index.docbook:2526
+#: index.docbook:2326 index.docbook:2452 index.docbook:2532
 #, no-c-format
 msgid "\"One\""
 msgstr "\"Eins\""
 
 #. Tag: para
-#: index.docbook:2321 index.docbook:2447 index.docbook:2527
+#: index.docbook:2327 index.docbook:2453 index.docbook:2533
 #, no-c-format
 msgid "\"Two\""
 msgstr "\"Zwei\""
 
 #. Tag: para
-#: index.docbook:2322 index.docbook:2448 index.docbook:2528
+#: index.docbook:2328 index.docbook:2454 index.docbook:2534
 #, no-c-format
 msgid "\"Three\""
 msgstr "\"Drei\""
 
 #. Tag: para
-#: index.docbook:2323 index.docbook:2449 index.docbook:2529
+#: index.docbook:2329 index.docbook:2455 index.docbook:2535
 #, no-c-format
 msgid "\"Four\""
 msgstr "\"Vier\""
 
 #. Tag: para
-#: index.docbook:2324 index.docbook:2450 index.docbook:2530
+#: index.docbook:2330 index.docbook:2456 index.docbook:2536
 #, no-c-format
 msgid "\"Five\""
 msgstr "\"Fünf\""
 
 #. Tag: para
-#: index.docbook:2325 index.docbook:2451 index.docbook:2531
+#: index.docbook:2331 index.docbook:2457 index.docbook:2537
 #, no-c-format
 msgid "\"Six\""
 msgstr "\"Sechs\""
 
 #. Tag: para
-#: index.docbook:2326 index.docbook:2452 index.docbook:2532
+#: index.docbook:2332 index.docbook:2458 index.docbook:2538
 #, no-c-format
 msgid "\"Seven\""
 msgstr "\"Sieben\""
 
 #. Tag: para
-#: index.docbook:2327 index.docbook:2453 index.docbook:2533
+#: index.docbook:2333 index.docbook:2459 index.docbook:2539
 #, no-c-format
 msgid "\"Eight\""
 msgstr "\"Acht\""
 
 #. Tag: para
-#: index.docbook:2328 index.docbook:2454 index.docbook:2534
+#: index.docbook:2334 index.docbook:2460 index.docbook:2540
 #, no-c-format
 msgid "\"Nine\""
 msgstr "\"Neun\""
 
 #. Tag: para
-#: index.docbook:2329 index.docbook:2455 index.docbook:2538
+#: index.docbook:2335 index.docbook:2461 index.docbook:2544
 #, no-c-format
 msgid "\"Cancel\""
 msgstr "\"Abbrechen\""
 
 #. Tag: para
-#: index.docbook:2333
+#: index.docbook:2339
 #, no-c-format
 msgid ""
 "Of course you can also configure these words in your simon configuration:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2336
+#: index.docbook:2342
 #, no-c-format
 msgid ""
 "<guimenuitem>Commands</guimenuitem> > <guibutton>Manage plugins</guibutton> "
@@ -5272,7 +5623,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2339
+#: index.docbook:2345
 #, no-c-format
 msgid ""
 "<guimenu>Settings</guimenu> > <guimenuitem>Configure simon...</guimenuitem> "
@@ -5282,7 +5633,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2344
+#: index.docbook:2350
 #, no-c-format
 msgid ""
 "List commands are internally also used by other plugins like for example the "
@@ -5291,13 +5642,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2353
+#: index.docbook:2359
 #, no-c-format
 msgid "Composite Commands"
 msgstr "Kombination-Kommandos"
 
 #. Tag: para
-#: index.docbook:2354
+#: index.docbook:2360
 #, no-c-format
 msgid ""
 "Composite commands allow the user to group multiple commands into a sequence."
@@ -5306,7 +5657,7 @@ msgstr ""
 "hintereinander ablaufen lassen."
 
 #. Tag: para
-#: index.docbook:2356
+#: index.docbook:2362
 #, no-c-format
 msgid ""
 "When invoked the commands will be executed in order. Delays between commands "
@@ -5318,13 +5669,13 @@ msgstr ""
 "werden."
 
 #. Tag: screeninfo
-#: index.docbook:2359
+#: index.docbook:2365
 #, no-c-format
 msgid "Defining Composite Commands"
 msgstr "Kombination-Kommandos dfinieren"
 
 #. Tag: para
-#: index.docbook:2368
+#: index.docbook:2374
 #, no-c-format
 msgid ""
 "Using the composite command the user can compose complex \"macros\". The "
@@ -5334,19 +5685,19 @@ msgstr ""
 "einzelnes Kommando packen. Zum Beispiel: "
 
 #. Tag: para
-#: index.docbook:2371
+#: index.docbook:2377
 #, no-c-format
 msgid "Start Kopete (Executable Command)"
 msgstr "Starte Kopete (Program Kommando)"
 
 #. Tag: para
-#: index.docbook:2372
+#: index.docbook:2378
 #, no-c-format
 msgid "Wait 2000ms for Kopete do be started"
 msgstr "Warte 2000ms bis Kopete gestartet ist"
 
 #. Tag: para
-#: index.docbook:2373
+#: index.docbook:2379
 #, no-c-format
 msgid ""
 "Type \"Mathias\" (Text-Macro Command) which will select Mathias in my "
@@ -5356,19 +5707,19 @@ msgstr ""
 "\"in meiner Kontaktliste auswählen"
 
 #. Tag: para
-#: index.docbook:2374
+#: index.docbook:2380
 #, no-c-format
 msgid "Press Enter (Shortcut Command)"
 msgstr "Drücke Eingabe (Tastenkürzel-Kommando)"
 
 #. Tag: para
-#: index.docbook:2375
+#: index.docbook:2381
 #, no-c-format
 msgid "Wait 1000ms for the chat window to appear"
 msgstr "Warte 1000ms bis Kopete das Chatfenster öffnet"
 
 #. Tag: para
-#: index.docbook:2376
+#: index.docbook:2382
 #, no-c-format
 msgid ""
 "Write \"Hi!\" (Text-Macro Command); The text associated to this command "
@@ -5378,13 +5729,13 @@ msgstr ""
 "Kommando) um die Nachricht zu senden."
 
 #. Tag: para
-#: index.docbook:2377
+#: index.docbook:2383
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the chat window"
 msgstr "Drücke Alt+F4 (Tastenkürzel-Kommando) um das Chatfenster zu schließen."
 
 #. Tag: para
-#: index.docbook:2378
+#: index.docbook:2384
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the kopete main window"
 msgstr ""
@@ -5392,26 +5743,26 @@ msgstr ""
 "schließen."
 
 #. Tag: title
-#: index.docbook:2385
+#: index.docbook:2391
 #, no-c-format
 msgid "Desktopgrid"
 msgstr "Desktopgitter"
 
 #. Tag: para
-#: index.docbook:2386
+#: index.docbook:2392
 #, no-c-format
 msgid "The desktopgrid allows the user to control his mouse with his voice."
 msgstr ""
 "Das Desktopgitter erlaubt dem Benutzer die Maus mit der Sprache zu steuern."
 
 #. Tag: screeninfo
-#: index.docbook:2390
+#: index.docbook:2396
 #, no-c-format
 msgid "The Desktopgrid"
 msgstr "Das Desktopgitter"
 
 #. Tag: para
-#: index.docbook:2396
+#: index.docbook:2402
 #, no-c-format
 msgid ""
 "The desktopgrid divides the screen into nine parts which are numbered from "
@@ -5429,7 +5780,7 @@ msgstr ""
 "(mit der linken Maustaste)."
 
 #. Tag: para
-#: index.docbook:2399
+#: index.docbook:2405
 #, no-c-format
 msgid ""
 "The exact click action is configurable but defaults to asking the user. "
@@ -5439,13 +5790,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2403
+#: index.docbook:2409
 #, no-c-format
 msgid "Desktopgrid: Click selection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2412
+#: index.docbook:2418
 #, no-c-format
 msgid ""
 "While the desktopgrid is active (displayed), all input that is not directed "
@@ -5458,7 +5809,7 @@ msgstr ""
 "werden durch sagen von \"Abbrechen\"."
 
 #. Tag: para
-#: index.docbook:2416
+#: index.docbook:2422
 #, fuzzy, no-c-format
 msgid ""
 "The desktopgrid plugin registers a configuration screen right in the command "
@@ -5470,13 +5821,13 @@ msgstr ""
 "Kommandokonfiguration."
 
 #. Tag: screeninfo
-#: index.docbook:2420
+#: index.docbook:2426
 #, no-c-format
 msgid "Configuring the Desktopgrid"
 msgstr "Konfiguration des Desktopgrids"
 
 #. Tag: para
-#: index.docbook:2426
+#: index.docbook:2432
 #, no-c-format
 msgid ""
 "The trigger that invokes the desktopgrid is of course completely "
@@ -5498,7 +5849,7 @@ msgstr ""
 "\" Transparenz verwendet werden."
 
 #. Tag: para
-#: index.docbook:2430
+#: index.docbook:2436
 #, no-c-format
 msgid ""
 "If the desktopgrid is configured to use real transparency and the system "
@@ -5509,7 +5860,7 @@ msgstr ""
 "Gitters undurchsichtig und grau sein."
 
 #. Tag: para
-#: index.docbook:2432
+#: index.docbook:2438
 #, no-c-format
 msgid ""
 "However, nearly all up-to-date systems will support compositing (real "
@@ -5519,26 +5870,26 @@ msgstr ""
 "unterstützen."
 
 #. Tag: para
-#: index.docbook:2435
+#: index.docbook:2441
 #, no-c-format
 msgid "This includes:"
 msgstr "Das beinhaltet zum Beispiel:"
 
 #. Tag: para
-#: index.docbook:2437
+#: index.docbook:2443
 #, no-c-format
 msgid "Microsoft Windows 2000 or higher (XP, Vista, 7)"
 msgstr "Microsoft Windows 2000 oder höher (XP, Vista, 7)"
 
 #. Tag: para
-#: index.docbook:2438
+#: index.docbook:2444
 #, no-c-format
 msgid "GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, etc."
 msgstr ""
 "GNU/Linux mit einem Composite Manager wie Compiz, KWin4, xcompgrc, etc."
 
 #. Tag: para
-#: index.docbook:2443
+#: index.docbook:2449
 #, fuzzy, no-c-format
 msgid ""
 "By default the desktopgrid uses numbers to select the individual fields. To "
@@ -5549,7 +5900,7 @@ msgstr ""
 "folgende \"Sätze\" ermöglicht:"
 
 #. Tag: para
-#: index.docbook:2459 index.docbook:2542
+#: index.docbook:2465 index.docbook:2548
 #, no-c-format
 msgid ""
 "To configure these triggers, just configure the commands associated with the "
@@ -5557,19 +5908,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2463
+#: index.docbook:2469
 #, no-c-format
 msgid "Desktopgrid: Configuring list elements"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2475
+#: index.docbook:2481
 #, no-c-format
 msgid "Input Number"
 msgstr "Nummer eingeben"
 
 #. Tag: para
-#: index.docbook:2476
+#: index.docbook:2482
 #, no-c-format
 msgid "Using the input-number plugin the user can input large numbers easily."
 msgstr ""
@@ -5577,7 +5928,7 @@ msgstr ""
 "Größe eingeben."
 
 #. Tag: para
-#: index.docbook:2479
+#: index.docbook:2485
 #, no-c-format
 msgid ""
 "Using the Dictation or the Text-Macro plugin one could associate the numbers "
@@ -5590,13 +5941,13 @@ msgstr ""
 "entsprechenden Nachteilen:"
 
 #. Tag: emphasis
-#: index.docbook:2482
+#: index.docbook:2488
 #, no-c-format
 msgid "Adding the words \"eleven, \"twelve\", etc."
 msgstr "Die vollen Wörter hinzufügen: \"Elf\", \"Zwölf\", etc."
 
 #. Tag: para
-#: index.docbook:2483
+#: index.docbook:2489
 #, no-c-format
 msgid ""
 "While this seems like the most elegant solution as it would enable the user "
@@ -5610,13 +5961,13 @@ msgstr ""
 "noch zu trainieren. Und wo hören wir auf?"
 
 #. Tag: emphasis
-#: index.docbook:2484
+#: index.docbook:2490
 #, no-c-format
 msgid "Spell out the number using the individual digits"
 msgstr "Die Nummern mit Ihren einzelnen Ziffern buchstabieren"
 
 #. Tag: para
-#: index.docbook:2485
+#: index.docbook:2491
 #, no-c-format
 msgid ""
 "While this is not as elegant as stating the complete number it is much more "
@@ -5626,7 +5977,7 @@ msgstr ""
 "natürlich viel praktikabler."
 
 #. Tag: para
-#: index.docbook:2486
+#: index.docbook:2492
 #, no-c-format
 msgid ""
 "However, many applications (like the great mouseless browsing firefox addon) "
@@ -5648,7 +5999,7 @@ msgstr ""
 "vollständig interpretieren."
 
 #. Tag: para
-#: index.docbook:2490
+#: index.docbook:2496
 #, no-c-format
 msgid ""
 "The input number plugin - when triggered - presents a calculator-like "
@@ -5669,13 +6020,13 @@ msgstr ""
 "auseinanderliegen."
 
 #. Tag: screeninfo
-#: index.docbook:2494 index.docbook:2546
+#: index.docbook:2500 index.docbook:2552
 #, no-c-format
 msgid "Input Number Plugin"
 msgstr "Nummer eingeben Plug-In"
 
 #. Tag: para
-#: index.docbook:2503
+#: index.docbook:2509
 #, no-c-format
 msgid ""
 "While the input number plugin is active (the user currently inputs a "
@@ -5690,7 +6041,7 @@ msgstr ""
 "Feld."
 
 #. Tag: para
-#: index.docbook:2507
+#: index.docbook:2513
 #, no-c-format
 msgid ""
 "As there can no command instances be created of this plugin it is not listed "
@@ -5711,7 +6062,7 @@ msgstr ""
 "Phrase die Oberfläche zum Eingeben der Nummer anzeigen wird."
 
 #. Tag: para
-#: index.docbook:2522
+#: index.docbook:2528
 #, fuzzy, no-c-format
 msgid ""
 "By default the input number plugin uses numbers to select the individual "
@@ -5723,31 +6074,31 @@ msgstr ""
 "sicher, dass Ihr Sprachmodell folgende Sätze ermöglicht:"
 
 #. Tag: para
-#: index.docbook:2535
+#: index.docbook:2541
 #, no-c-format
 msgid "\"Back\""
 msgstr "\"Zurück\""
 
 #. Tag: para
-#: index.docbook:2536
+#: index.docbook:2542
 #, no-c-format
 msgid "\"Comma\""
 msgstr "\"Komma\""
 
 #. Tag: para
-#: index.docbook:2537
+#: index.docbook:2543
 #, no-c-format
 msgid "\"Ok\""
 msgstr "\"Ok\""
 
 #. Tag: title
-#: index.docbook:2558
+#: index.docbook:2564
 #, no-c-format
 msgid "Dictation"
 msgstr "Diktation"
 
 #. Tag: para
-#: index.docbook:2559
+#: index.docbook:2565
 #, no-c-format
 msgid ""
 "The dictation plugin writes the recognition result it gets using simulated "
@@ -5757,7 +6108,7 @@ msgstr ""
 "Tastendrücken hin."
 
 #. Tag: para
-#: index.docbook:2561
+#: index.docbook:2567
 #, no-c-format
 msgid ""
 "Assuming you didn't define a trigger for the dictation plugin it will accept "
@@ -5774,7 +6125,7 @@ msgstr ""
 "Erkennungsergebnis erhalten."
 
 #. Tag: para
-#: index.docbook:2563 index.docbook:2617
+#: index.docbook:2569 index.docbook:2623
 #, no-c-format
 msgid ""
 "As there can no command instances be created of this plugin it is not listed "
@@ -5784,7 +6135,7 @@ msgstr ""
 "das Diktationsplug-in nicht im \"Neues Kommando\" Dialog auf."
 
 #. Tag: para
-#: index.docbook:2565
+#: index.docbook:2571
 #, no-c-format
 msgid ""
 "The dictation plugin can be configured to append texts after recognition "
@@ -5792,19 +6143,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2569
+#: index.docbook:2575
 #, fuzzy, no-c-format
 msgid "Configure dictation"
 msgstr "Konfiguration"
 
 #. Tag: title
-#: index.docbook:2580
+#: index.docbook:2586
 #, no-c-format
 msgid "Artificial Intelligence"
 msgstr "Künstliche Intelligenz"
 
 #. Tag: para
-#: index.docbook:2581
+#: index.docbook:2587
 #, no-c-format
 msgid ""
 "The Artificial Intelligence is a just-for-fun plugin that emulates a human "
@@ -5814,7 +6165,7 @@ msgstr ""
 "Kommunikation simuliert."
 
 #. Tag: para
-#: index.docbook:2583
+#: index.docbook:2589
 #, no-c-format
 msgid ""
 "Using the festival text to speech technology the computer can \"talk\" with "
@@ -5825,7 +6176,7 @@ msgstr ""
 "beantworten oder z.B. über das Wetter tratschen)."
 
 #. Tag: para
-#: index.docbook:2585
+#: index.docbook:2591
 #, no-c-format
 msgid ""
 "The plugin uses AIMLs for the actual \"intelligence\". Most AIML sets should "
@@ -5848,7 +6199,7 @@ msgstr ""
 "das zu verwendende AIML Set auswählen können."
 
 #. Tag: para
-#: index.docbook:2599
+#: index.docbook:2605
 #, no-c-format
 msgid ""
 "simon will look for AIML sets in the following directory: <itemizedlist> "
@@ -5867,7 +6218,7 @@ msgstr ""
 "itemizedlist>"
 
 #. Tag: para
-#: index.docbook:2607
+#: index.docbook:2613
 #, no-c-format
 msgid ""
 "To adjust your bots personality have a look at the bot.xml and vars.xml "
@@ -5877,7 +6228,7 @@ msgstr ""
 "bot.xml und vars.xml in den folgenden Ordnern:"
 
 #. Tag: para
-#: index.docbook:2610
+#: index.docbook:2616
 #, no-c-format
 msgid ""
 "GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename>"
@@ -5885,7 +6236,7 @@ msgstr ""
 "GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename>"
 
 #. Tag: para
-#: index.docbook:2611
+#: index.docbook:2617
 #, no-c-format
 msgid ""
 "Microsoft Windows: <filename>[installation folder (C:\\Program Files\\simon "
@@ -5895,7 +6246,7 @@ msgstr ""
 "0.2\\ per default)]\\share\\apps\\ai\\util\\</filename>"
 
 #. Tag: para
-#: index.docbook:2615
+#: index.docbook:2621
 #, no-c-format
 msgid ""
 "The plugin will use <ulink url=\"http://tcts.fpms.ac.be/synthesis/mbrola.html"
@@ -5905,7 +6256,7 @@ msgstr ""
 "html\">mbrola Stimmen</ulink> verwenden wenn diese installiert sind."
 
 #. Tag: para
-#: index.docbook:2619
+#: index.docbook:2625
 #, no-c-format
 msgid ""
 "It is recommended to not use any trigger for this plugin to provide a more "
@@ -5928,7 +6279,7 @@ msgstr ""
 "Kommando ausgeführt und der Browser tatsächlich gestartet."
 
 #. Tag: para
-#: index.docbook:2621
+#: index.docbook:2627
 #, no-c-format
 msgid ""
 "Please keep in mind that the AI plugin will only work if festival is "
@@ -5938,25 +6289,25 @@ msgstr ""
 "festival installiert und konfiguriert ist und in Ihrem Systempfad liegt."
 
 #. Tag: title
-#: index.docbook:2625
+#: index.docbook:2631
 #, no-c-format
 msgid "Calculator"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2626
+#: index.docbook:2632
 #, no-c-format
 msgid "The calculator plugin is a simple, voice controlled calculator."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2630
+#: index.docbook:2636
 #, no-c-format
 msgid "Calculator plugin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2639
+#: index.docbook:2645
 #, no-c-format
 msgid ""
 "The calculator extends the <link linkend=\"input_number\">Input Number</"
@@ -5964,7 +6315,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2641
+#: index.docbook:2647
 #, no-c-format
 msgid ""
 "When loading the plugin, a configuration screen is added to the plugin "
@@ -5972,13 +6323,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2645
+#: index.docbook:2651
 #, fuzzy, no-c-format
 msgid "Calculator plugin: Configuration"
 msgstr "Aufnahmen"
 
 #. Tag: para
-#: index.docbook:2654
+#: index.docbook:2660
 #, no-c-format
 msgid ""
 "There you can also confiugre the control mode of the calculator. Setting the "
@@ -5987,13 +6338,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2658
+#: index.docbook:2664
 #, no-c-format
 msgid "Calculator plugin: Minimal"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2667
+#: index.docbook:2673
 #, no-c-format
 msgid ""
 "However, the hidden controls will, in contrast to simply removing all "
@@ -6002,7 +6353,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2669
+#: index.docbook:2675
 #, no-c-format
 msgid ""
 "When selecting <guibutton>Ok</guibutton>, the calculator will by default ask "
@@ -6013,19 +6364,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2673
+#: index.docbook:2679
 #, no-c-format
 msgid "Calculator plugin: Output mode selection"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2685
+#: index.docbook:2691
 #, no-c-format
 msgid "Filter"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2686
+#: index.docbook:2692
 #, no-c-format
 msgid ""
 "Using the filter plugin, you can intercept recognition results from being "
@@ -6034,31 +6385,31 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2687
+#: index.docbook:2693
 #, no-c-format
 msgid "The filter has two states:"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2690
+#: index.docbook:2696
 #, fuzzy, no-c-format
 msgid "Inactive"
 msgstr "Aktivieren"
 
 #. Tag: para
-#: index.docbook:2691
+#: index.docbook:2697
 #, no-c-format
 msgid "The default state. All recognition results will be passed through."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2694
+#: index.docbook:2700
 #, fuzzy, no-c-format
 msgid "Active"
 msgstr "Aktivieren"
 
 #. Tag: para
-#: index.docbook:2695
+#: index.docbook:2701
 #, no-c-format
 msgid ""
 "When activated, the filter will \"eat\" all results that match the "
@@ -6068,7 +6419,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2700
+#: index.docbook:2706
 #, no-c-format
 msgid ""
 "The filter command plugin registers a configuration screen in the command "
@@ -6076,13 +6427,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2706
+#: index.docbook:2712
 #, fuzzy, no-c-format
 msgid "Filter plugin: Configuration"
 msgstr "Aufnahmen"
 
 #. Tag: para
-#: index.docbook:2715
+#: index.docbook:2721
 #, no-c-format
 msgid ""
 "The pattern is a regular expression that will be evaluated each time a "
@@ -6090,7 +6441,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2717
+#: index.docbook:2723
 #, no-c-format
 msgid ""
 "The plugin also registers voice interface commands for activating and "
@@ -6098,13 +6449,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2722
+#: index.docbook:2728
 #, fuzzy, no-c-format
 msgid "Pronunciation Training"
 msgstr "Aussprache"
 
 #. Tag: para
-#: index.docbook:2724
+#: index.docbook:2730
 #, no-c-format
 msgid ""
 "The pronunciation training, when combined with a good <link linkend="
@@ -6113,13 +6464,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2728
+#: index.docbook:2734
 #, fuzzy, no-c-format
 msgid "Pronunciation training"
 msgstr "Aussprache"
 
 #. Tag: para
-#: index.docbook:2737
+#: index.docbook:2743
 #, no-c-format
 msgid ""
 "Essentially, the plugin will prompt you to say specific words. The "
@@ -6130,13 +6481,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2739
+#: index.docbook:2745
 #, no-c-format
 msgid "The closer to the native speaker, the higher the score."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2741
+#: index.docbook:2747
 #, no-c-format
 msgid ""
 "The plugin adds an entry to your <guimenu>Commands</guimenu> menu to launch "
@@ -6144,7 +6495,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2743
+#: index.docbook:2749
 #, no-c-format
 msgid ""
 "The training itself consists of multiple pages. Each page contains one word "
@@ -6154,31 +6505,31 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2747
+#: index.docbook:2753
 #, fuzzy, no-c-format
 msgid "Pronunciation training: Confiugration"
 msgstr "simons Aktionenkonfiguration"
 
 #. Tag: title
-#: index.docbook:2758
+#: index.docbook:2764
 #, fuzzy, no-c-format
 msgid "<title>Keyboard</title>"
 msgstr "<title>Wortliste</title>"
 
 #. Tag: para
-#: index.docbook:2760
+#: index.docbook:2766
 #, no-c-format
 msgid "The keyboard plugin displays a virtual, voice controlled keyboard."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2764
+#: index.docbook:2770
 #, fuzzy, no-c-format
 msgid "<screeninfo>Keyboard</screeninfo>"
 msgstr "<screeninfo>Grammatik</screeninfo>"
 
 #. Tag: para
-#: index.docbook:2773
+#: index.docbook:2779
 #, no-c-format
 msgid ""
 "The keyboard consits of multiple tabs, each possibly containing many keys. "
@@ -6186,7 +6537,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2775
+#: index.docbook:2781
 #, no-c-format
 msgid ""
 "You can select sets in the configuration but also create new ones from "
@@ -6194,13 +6545,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2779
+#: index.docbook:2785
 #, fuzzy, no-c-format
 msgid "Keyboard: Confiugration"
 msgstr "Aufnahmen"
 
 #. Tag: para
-#: index.docbook:2788
+#: index.docbook:2794
 #, no-c-format
 msgid ""
 "Keys are usually mapped to single characters but can also hold long texts "
@@ -6209,7 +6560,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2790
+#: index.docbook:2796
 #, no-c-format
 msgid ""
 "Next to the tabs that hold the keys of your set, the keyboard my also show "
@@ -6219,7 +6570,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2791
+#: index.docbook:2797
 #, no-c-format
 msgid ""
 "As with all voice triggers, removing the associated command, hides the "
@@ -6227,7 +6578,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2793
+#: index.docbook:2799
 #, no-c-format
 msgid ""
 "Moreover, the keyboard provides a numpad that can be shown by selecting the "
@@ -6235,13 +6586,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2797
+#: index.docbook:2803
 #, no-c-format
 msgid "Keyboard: Keypad"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2806
+#: index.docbook:2812
 #, no-c-format
 msgid ""
 "Next to the number keys and the delete key for the number input field "
@@ -6250,7 +6601,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2807
+#: index.docbook:2813
 #, no-c-format
 msgid ""
 "When selecting <guibutton>Write number</guibutton>, the entered number will "
@@ -6261,49 +6612,49 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2811
+#: index.docbook:2817
 #, no-c-format
 msgid "Keyboard: Number based"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2820
+#: index.docbook:2826
 #, no-c-format
 msgid "The keys on the num pad are configurable voice interface commands."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2827
+#: index.docbook:2833
 #, no-c-format
 msgid "Configuration"
 msgstr "Konfiguration"
 
 #. Tag: para
-#: index.docbook:2828
+#: index.docbook:2834
 #, no-c-format
 msgid "simon was designed with high configurability in mind."
 msgstr "simon ist auf extrem hohe Konfigurabilität ausgelegt."
 
 #. Tag: title
-#: index.docbook:2833
+#: index.docbook:2839
 #, no-c-format
 msgid "<title>General Configuration</title>"
 msgstr "<title>Allgemein</title>"
 
 #. Tag: para
-#: index.docbook:2834
+#: index.docbook:2840
 #, no-c-format
 msgid "The general configuration page lists some basic settings."
 msgstr "Die allgemeine Konfiguration bietet einige basische Optionen."
 
 #. Tag: screeninfo
-#: index.docbook:2837
+#: index.docbook:2843
 #, no-c-format
 msgid "<screeninfo>General Configuration</screeninfo>"
 msgstr "<screeninfo>Allgemeine Konfiguration</screeninfo>"
 
 #. Tag: para
-#: index.docbook:2845
+#: index.docbook:2851
 #, no-c-format
 msgid ""
 "Please note that the option to start simon at login will work on both "
@@ -6319,7 +6670,7 @@ msgstr ""
 "Sie die Handbücher Ihrer Desktopumgebung für mehr Informationen)."
 
 #. Tag: para
-#: index.docbook:2848
+#: index.docbook:2854
 #, no-c-format
 msgid ""
 "When the option to start simon minimized is selected, simon will minimize to "
@@ -6330,7 +6681,7 @@ msgstr ""
 "Systembereich der Taskleiste minimiert."
 
 #. Tag: para
-#: index.docbook:2851
+#: index.docbook:2857
 #, no-c-format
 msgid ""
 "Deselecting the option to warn when there are problems with samples "
@@ -6339,13 +6690,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2857
+#: index.docbook:2863
 #, no-c-format
 msgid "Sound Configuration"
 msgstr "Aufnahmen"
 
 #. Tag: para
-#: index.docbook:2858
+#: index.docbook:2864
 #, fuzzy, no-c-format
 msgid ""
 "simon uses QtMultimedia to record and play sound. QtMultimedia is also used "
@@ -6356,13 +6707,13 @@ msgstr ""
 "um Trainingsdaten aufzunehmen und wiederzugeben."
 
 #. Tag: title
-#: index.docbook:2863
+#: index.docbook:2869
 #, no-c-format
 msgid "Device Configuration"
 msgstr "Gerätekonfiguration"
 
 #. Tag: para
-#: index.docbook:2864
+#: index.docbook:2870
 #, fuzzy, no-c-format
 msgid ""
 "The sound device configuration allows you to choose which sound device(s) to "
@@ -6374,7 +6725,7 @@ msgstr ""
 "Samplerate Sie aufnehmen wollen."
 
 #. Tag: para
-#: index.docbook:2865
+#: index.docbook:2871
 #, no-c-format
 msgid ""
 "Most of the time you will want to use 1 channel and 16kHz (which is also the "
@@ -6387,7 +6738,7 @@ msgstr ""
 "Aufnahmen (8kHz wäre die Alternative)."
 
 #. Tag: para
-#: index.docbook:2868
+#: index.docbook:2874
 #, no-c-format
 msgid ""
 "However, some low-cost sound cards might not support this particular mode in "
@@ -6404,7 +6755,7 @@ msgstr ""
 "mehr Informationen."
 
 #. Tag: para
-#: index.docbook:2870
+#: index.docbook:2876
 #, no-c-format
 msgid ""
 "Bottom line: Only change the channel and the samplerate if you really know "
@@ -6416,13 +6767,13 @@ msgstr ""
 "wahrscheinlich</emphasis> nicht funktionieren."
 
 #. Tag: screeninfo
-#: index.docbook:2874
+#: index.docbook:2880
 #, no-c-format
 msgid "Sound Configuration: General"
 msgstr "Aufnahmen konfigurieren: Allgemein"
 
 #. Tag: para
-#: index.docbook:2883
+#: index.docbook:2889
 #, fuzzy, no-c-format
 msgid ""
 "Use the selection boxes to change the device. Use the <guibutton>Refresh "
@@ -6436,7 +6787,7 @@ msgstr ""
 "nicht in der Liste aufgeführt wird versuchen Sie simon neu zu starten."
 
 #. Tag: para
-#: index.docbook:2885
+#: index.docbook:2891
 #, no-c-format
 msgid ""
 "You can use simon with more than one sound device at the same time. Use "
@@ -6446,13 +6797,13 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2887
+#: index.docbook:2893
 #, no-c-format
 msgid "The first device in your sound setup can not be removed."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2889
+#: index.docbook:2895
 #, no-c-format
 msgid ""
 "For each device you can determine for what you want the device to be used: "
@@ -6460,7 +6811,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2891
+#: index.docbook:2897
 #, no-c-format
 msgid ""
 "If you use more than one device for training, you will create multiple sound "
@@ -6470,7 +6821,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2893
+#: index.docbook:2899
 #, no-c-format
 msgid ""
 "If you use multiple output devices the playback of the trainings samples "
@@ -6478,7 +6829,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2895
+#: index.docbook:2901
 #, no-c-format
 msgid ""
 "When using different sample rates for your input devices, the output will "
@@ -6489,13 +6840,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2899
+#: index.docbook:2905
 #, no-c-format
 msgid "Voice Activity Detection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2901
+#: index.docbook:2907
 #, fuzzy, no-c-format
 msgid ""
 "The recognition is done one the simond server. See the <link linkend="
@@ -6505,7 +6856,7 @@ msgstr ""
 "linkend=\"architecture\">Architektur Sektion</link> für mehr Informationen)."
 
 #. Tag: para
-#: index.docbook:2903
+#: index.docbook:2909
 #, no-c-format
 msgid ""
 "The sound stream is not continuous but is segmented by the simon client. "
@@ -6513,39 +6864,39 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:2907
+#: index.docbook:2913
 #, no-c-format
 msgid "Voice activity detection"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2916
+#: index.docbook:2922
 #, no-c-format
 msgid ""
 "Here you can configure this segmentation through the following parameters:"
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2919
+#: index.docbook:2925
 #, no-c-format
 msgid "Cutoff level"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2920
+#: index.docbook:2926
 #, no-c-format
 msgid ""
 "Everything below this level is considered \"silence\" (background noise)."
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2923
+#: index.docbook:2929
 #, no-c-format
 msgid "Head margin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2924
+#: index.docbook:2930
 #, no-c-format
 msgid ""
 "Cache for as long as head margin to start consider it a real sample. During "
@@ -6553,13 +6904,13 @@ msgid ""
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2927
+#: index.docbook:2933
 #, no-c-format
 msgid "Tail margin"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2928
+#: index.docbook:2934
 #, no-c-format
 msgid ""
 "After the recording went below the cutoff level, simon will wait for as long "
@@ -6567,13 +6918,13 @@ msgid ""
 msgstr ""
 
 #. Tag: guilabel
-#: index.docbook:2931
+#: index.docbook:2937
 #, no-c-format
 msgid "Skip samples shorter than"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2932
+#: index.docbook:2938
 #, no-c-format
 msgid ""
 "Samples that are shorter than this value are not considered for recognition. "
@@ -6581,19 +6932,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2939
+#: index.docbook:2945
 #, fuzzy, no-c-format
 msgid "<title>Training settings</title>"
 msgstr "<title>Training</title>"
 
 #. Tag: screeninfo
-#: index.docbook:2943
+#: index.docbook:2949
 #, fuzzy, no-c-format
 msgid "<screeninfo>Training settings</screeninfo>"
 msgstr "<screeninfo>Training</screeninfo>"
 
 #. Tag: para
-#: index.docbook:2954
+#: index.docbook:2960
 #, fuzzy, no-c-format
 msgid ""
 "The confiugrable font here refers to the text that is recorded to train the "
@@ -6604,7 +6955,7 @@ msgstr ""
 "Schriftart und vor allem die Größe können hier geändert werden."
 
 #. Tag: para
-#: index.docbook:2956
+#: index.docbook:2962
 #, no-c-format
 msgid ""
 "This option has been introduced after we have worked with a few clients "
@@ -6627,7 +6978,7 @@ msgstr ""
 "vorzulesenden Text zu lenken."
 
 #. Tag: para
-#: index.docbook:2958
+#: index.docbook:2964
 #, no-c-format
 msgid ""
 "Here you can also define the required signal to noise ratio for simon to "
@@ -6637,7 +6988,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2959
+#: index.docbook:2965
 #, fuzzy, no-c-format
 msgid ""
 "On this configuration page you can also set the parameters for the <link "
@@ -6647,7 +6998,7 @@ msgstr ""
 "werden."
 
 #. Tag: para
-#: index.docbook:2961
+#: index.docbook:2967
 #, no-c-format
 msgid ""
 "It can be deactivated for both the add word dialog and the trainings wizard "
@@ -6658,7 +7009,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2962
+#: index.docbook:2968
 #, no-c-format
 msgid ""
 "Clipping (hitting the maximum amplitute) will always cause a \"too loud\" "
@@ -6666,7 +7017,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:2963
+#: index.docbook:2969
 #, no-c-format
 msgid ""
 "The prompted text can be configured by entering text in the input field "
@@ -6674,13 +7025,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:2967
+#: index.docbook:2973
 #, no-c-format
 msgid "Postprocessing"
 msgstr "Nachbearbeitung"
 
 #. Tag: para
-#: index.docbook:2968
+#: index.docbook:2974
 #, no-c-format
 msgid ""
 "All recorded (training) and imported (through the import training data) "
@@ -6695,13 +7046,13 @@ msgstr ""
 "die vom durchschnittlichen simon Anwender wohl nicht benötigt werden."
 
 #. Tag: screeninfo
-#: index.docbook:2972
+#: index.docbook:2978
 #, no-c-format
 msgid "Sound Configuration: Postprocessing"
 msgstr "Aufnahmen konfigurieren: Nachbearbeitung"
 
 #. Tag: para
-#: index.docbook:2981
+#: index.docbook:2987
 #, no-c-format
 msgid ""
 "The postprocessing commands can be seen as a chain of filters through which "
@@ -6714,7 +7065,7 @@ msgstr ""
 "Hintergrundrauschen entfernen oder die Aufnahmen normalisieren."
 
 #. Tag: para
-#: index.docbook:2983
+#: index.docbook:2989
 #, no-c-format
 msgid ""
 "Given the program \"process_audio\" which takes the input- and output files "
@@ -6729,7 +7080,7 @@ msgstr ""
 "den Ausgabedateinamen (respektive) ersetzt."
 
 #. Tag: para
-#: index.docbook:2985
+#: index.docbook:2991
 #, no-c-format
 msgid ""
 "The switch to \"apply filters to recordings recorded with simon\" enables "
@@ -6746,7 +7097,7 @@ msgstr ""
 "\"</link> importiert wurden."
 
 #. Tag: para
-#: index.docbook:2987
+#: index.docbook:2993
 #, no-c-format
 msgid ""
 "One common use-case of postprocessing chains would be the resampling of "
@@ -6764,19 +7115,19 @@ msgstr ""
 "automatisch auf ein entsprechendes Format zu resampeln."
 
 #. Tag: para
-#: index.docbook:2988
+#: index.docbook:2994
 #, no-c-format
 msgid "This example would require the following postprocessing command:"
 msgstr "Dieses Beispiel würde das folgende Nachbearbeitungskommando verwenden:"
 
 #. Tag: filename
-#: index.docbook:2990
+#: index.docbook:2996
 #, no-c-format
 msgid "sox -c 1 -r 16000 %1 %2"
 msgstr "sox -c 1 -r 16000 %1 %2"
 
 #. Tag: para
-#: index.docbook:2994
+#: index.docbook:3000
 #, no-c-format
 msgid ""
 "Using this command you can safely record in 44100Hz and 2 channels and - "
@@ -6793,25 +7144,25 @@ msgstr ""
 "abgeschlossen wird."
 
 #. Tag: title
-#: index.docbook:2999
+#: index.docbook:3005
 #, no-c-format
 msgid "Speech Model"
 msgstr "Sprachmodell"
 
 #. Tag: para
-#: index.docbook:3000
+#: index.docbook:3006
 #, no-c-format
 msgid "Here you can adjust the parameters of the speech model."
 msgstr "Hier können Sie die Parameter des Sprachmodells anpassen."
 
 #. Tag: screeninfo
-#: index.docbook:3004
+#: index.docbook:3010
 #, no-c-format
 msgid "Speech Model Configuration"
 msgstr "Sprachmodell Konfiguration"
 
 #. Tag: para
-#: index.docbook:3012
+#: index.docbook:3018
 #, no-c-format
 msgid ""
 "The samplerate set here is the target samplerate of the acoustic model. It "
@@ -6832,7 +7183,7 @@ msgstr ""
 "Details."
 
 #. Tag: para
-#: index.docbook:3014
+#: index.docbook:3020
 #, no-c-format
 msgid ""
 "Usually either 16kHz or 8kHz models are built / used. 16kHz models will have "
@@ -6847,7 +7198,7 @@ msgstr ""
 "werden und in der Praxis kaum eine bessere Erkennungsrate erzielen."
 
 #. Tag: para
-#: index.docbook:3016
+#: index.docbook:3022
 #, no-c-format
 msgid ""
 "Moreover, the path to the trainings-samples can be adjusted. However, be "
@@ -6864,13 +7215,13 @@ msgstr ""
 "notwendig solange zuvor synchronisiert wird, aber es ist empfohlen."
 
 #. Tag: title
-#: index.docbook:3044
+#: index.docbook:3050
 #, no-c-format
 msgid "Model Settings"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3048
+#: index.docbook:3054
 #, fuzzy, no-c-format
 msgid ""
 "Please see the <link linkend=\"base_model_use\">base model section</link>."
@@ -6878,13 +7229,13 @@ msgstr ""
 "Bitte sehen Sie die <link linkend=\"commands\">Kommando Sektion</link>."
 
 #. Tag: title
-#: index.docbook:3052
+#: index.docbook:3058
 #, no-c-format
 msgid "Extensions"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3053
+#: index.docbook:3059
 #, no-c-format
 msgid ""
 "Here you can configure the base URL that is going to be used for the <link "
@@ -6893,13 +7244,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3058 index.docbook:3158
+#: index.docbook:3064 index.docbook:3164
 #, fuzzy, no-c-format
 msgid "Recognition"
 msgstr "Spracherkennung"
 
 #. Tag: para
-#: index.docbook:3060
+#: index.docbook:3066
 #, fuzzy, no-c-format
 msgid ""
 "Here you can configure the recognition and model synchronization with the "
@@ -6909,7 +7260,7 @@ msgstr ""
 "ältere Versionen Ihres Sprachmodells wiederherstellen."
 
 #. Tag: para
-#: index.docbook:3065
+#: index.docbook:3071
 #, no-c-format
 msgid ""
 "Using the server configuration you can set parameters of the connection to "
@@ -6919,7 +7270,7 @@ msgstr ""
 "werden."
 
 #. Tag: para
-#: index.docbook:3069
+#: index.docbook:3075
 #, no-c-format
 msgid ""
 "The simon main application connects to the simond server (see the <link "
@@ -6929,13 +7280,13 @@ msgstr ""
 "linkend=\"architecture\">Architektur Sektion</link> für mehr Informationen)."
 
 #. Tag: screeninfo
-#: index.docbook:3075
+#: index.docbook:3081
 #, no-c-format
 msgid "Configure Server: General"
 msgstr "Konfiguriere Server: Allgemein"
 
 #. Tag: para
-#: index.docbook:3084
+#: index.docbook:3090
 #, no-c-format
 msgid ""
 "To identify individual users of the system (one simond server can of course "
@@ -6955,7 +7306,7 @@ msgstr ""
 "über das Einrichten der Benutzer auf dem simond Server."
 
 #. Tag: para
-#: index.docbook:3087
+#: index.docbook:3093
 #, fuzzy, no-c-format
 msgid ""
 "The recognition itself - which is done by the server - might not be "
@@ -6976,7 +7327,7 @@ msgstr ""
 "werden."
 
 #. Tag: para
-#: index.docbook:3089
+#: index.docbook:3095
 #, no-c-format
 msgid ""
 "Using the \"Connect automatically on simon start\" option, simon will "
@@ -6987,31 +7338,31 @@ msgstr ""
 "automatisch zum simond verbinden sobald die Applikation gestartet wurde."
 
 #. Tag: title
-#: index.docbook:3093
+#: index.docbook:3099
 #, no-c-format
 msgid "Network"
 msgstr "Netzwerk"
 
 #. Tag: para
-#: index.docbook:3094
+#: index.docbook:3100
 #, no-c-format
 msgid "simon connects to simond using TCP/IP."
 msgstr "simon verbindet zum simond über TCP/IP."
 
 #. Tag: screeninfo
-#: index.docbook:3098
+#: index.docbook:3104
 #, no-c-format
 msgid "Configure Server: Network"
 msgstr "Server konfigurieren: Netzwerk"
 
 #. Tag: para
-#: index.docbook:3106
+#: index.docbook:3112
 #, fuzzy, no-c-format
 msgid "As of yet (simon 0.3), encryption is not yet supported."
 msgstr "Derzeit (simon 0.2) ist Protokollverschlüsselung nicht unterstützt."
 
 #. Tag: para
-#: index.docbook:3109
+#: index.docbook:3115
 #, no-c-format
 msgid ""
 "The timeout setting specifies, how long simon will wait for a first reply "
@@ -7028,7 +7379,7 @@ msgstr ""
 "die durch erneutes Aufbauen der Verbindung behoben werden können."
 
 #. Tag: para
-#: index.docbook:3112
+#: index.docbook:3118
 #, no-c-format
 msgid ""
 "simon supports to be configured to use more than one simond. This is very "
@@ -7047,7 +7398,7 @@ msgstr ""
 "Timeout antwortet."
 
 #. Tag: para
-#: index.docbook:3114
+#: index.docbook:3120
 #, no-c-format
 msgid ""
 "To add a server, just enter the hostname or IP and the port (separated by \":"
@@ -7060,13 +7411,13 @@ msgstr ""
 "wählen Sie \"Hinzufügen\"."
 
 #. Tag: title
-#: index.docbook:3120
+#: index.docbook:3126
 #, no-c-format
 msgid "<title>Synchronization and Model Backup</title>"
 msgstr "<title>Synchronisation und Modell Backup</title>"
 
 #. Tag: para
-#: index.docbook:3121
+#: index.docbook:3127
 #, no-c-format
 msgid ""
 "Here you can configure the model synchronization and restore older versions "
@@ -7076,13 +7427,13 @@ msgstr ""
 "ältere Versionen Ihres Sprachmodells wiederherstellen."
 
 #. Tag: screeninfo
-#: index.docbook:3125
+#: index.docbook:3131
 #, no-c-format
 msgid "<screeninfo>Synchronization and Model Backup</screeninfo>"
 msgstr "<screeninfo>Synchronisation und Modell Backup</screeninfo>"
 
 #. Tag: para
-#: index.docbook:3134
+#: index.docbook:3140
 #, no-c-format
 msgid ""
 "Only after the speech model is synchronized the changes take effect and a "
@@ -7098,7 +7449,7 @@ msgstr ""
 "die empfohlene Einstellung."
 
 #. Tag: para
-#: index.docbook:3137
+#: index.docbook:3143
 #, no-c-format
 msgid ""
 "However, if you want more control you can instruct simon to ask you before "
@@ -7117,7 +7468,7 @@ msgstr ""
 "wollen."
 
 #. Tag: para
-#: index.docbook:3141
+#: index.docbook:3147
 #, fuzzy, no-c-format
 msgid ""
 "The simon server will maintain a copy of the last five iterations of model "
@@ -7133,7 +7484,7 @@ msgstr ""
 "generiert."
 
 #. Tag: para
-#: index.docbook:3143
+#: index.docbook:3149
 #, no-c-format
 msgid ""
 "After you have connected to the server, you can select one of the available "
@@ -7144,7 +7495,7 @@ msgstr ""
 "auswählen\" wieder her."
 
 #. Tag: para
-#: index.docbook:3145
+#: index.docbook:3151
 #, fuzzy, no-c-format
 msgid ""
 "Please note that the synchronization will only accept complete source models "
@@ -7159,13 +7510,13 @@ msgstr ""
 "Backup."
 
 #. Tag: title
-#: index.docbook:3153
+#: index.docbook:3159
 #, no-c-format
 msgid "Actions"
 msgstr "Aktionen"
 
 #. Tag: para
-#: index.docbook:3155
+#: index.docbook:3161
 #, fuzzy, no-c-format
 msgid ""
 "In the actions configuration you can configure the reactions to recognition "
@@ -7175,7 +7526,7 @@ msgstr ""
 "werden."
 
 #. Tag: para
-#: index.docbook:3160
+#: index.docbook:3166
 #, no-c-format
 msgid ""
 "The recognition of simon computes not only the most likely result but rather "
@@ -7183,7 +7534,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3161
+#: index.docbook:3167
 #, no-c-format
 msgid ""
 "Each of the results are assigned a confidence score between 0 and 1 (were 1 "
@@ -7191,7 +7542,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3162
+#: index.docbook:3168
 #, no-c-format
 msgid ""
 "Using the <guilabel>Minimum confidence</guilabel> you can set a minimum "
@@ -7199,7 +7550,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3164
+#: index.docbook:3170
 #, no-c-format
 msgid ""
 "If more than one recognition results are rated higher than the minimum "
@@ -7208,13 +7559,13 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3168
+#: index.docbook:3174
 #, no-c-format
 msgid "Did you mean...?"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3177
+#: index.docbook:3183
 #, no-c-format
 msgid ""
 "This popup can be disabled using the <guibutton>Display selection popup for "
@@ -7222,19 +7573,19 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3180
+#: index.docbook:3186
 #, no-c-format
 msgid "Plugin base font"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3181
+#: index.docbook:3187
 #, fuzzy, no-c-format
 msgid "Many plugins of simon have a graphical user interface."
 msgstr "Das grafische Interface."
 
 #. Tag: para
-#: index.docbook:3182
+#: index.docbook:3188
 #, no-c-format
 msgid ""
 "The fonts of these interfaces can be configured centrally and independant of "
@@ -7242,19 +7593,19 @@ msgid ""
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:3186
+#: index.docbook:3192
 #, no-c-format
 msgid "Input number with custom font"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3197
+#: index.docbook:3203
 #, no-c-format
 msgid "Lists"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3198
+#: index.docbook:3204
 #, no-c-format
 msgid ""
 "Here you can find the global list element configuration. This serves as a "
@@ -7264,13 +7615,13 @@ msgid ""
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3203
+#: index.docbook:3209
 #, no-c-format
 msgid "Social desktop"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3204
+#: index.docbook:3210
 #, no-c-format
 msgid ""
 "Scenarios can be <link linkend=\"export_scenario\">uploaded</link> and <link "
@@ -7278,7 +7629,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3206
+#: index.docbook:3212
 #, no-c-format
 msgid ""
 "For this we use KDEs social desktop facilities and our own <ulink url="
@@ -7287,7 +7638,7 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3208
+#: index.docbook:3214
 #, no-c-format
 msgid ""
 "If you already have an account on <ulink url=\"http://opendesktop.org"
@@ -7296,19 +7647,19 @@ msgid ""
 msgstr ""
 
 #. Tag: para
-#: index.docbook:3210
+#: index.docbook:3216
 #, no-c-format
 msgid "The registration is of course free of charge."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:3216
+#: index.docbook:3222
 #, no-c-format
 msgid "Adjusting the recognition parameters manually"
 msgstr "Aufnahmeparameter manuell anpassen"
 
 #. Tag: para
-#: index.docbook:3218
+#: index.docbook:3224
 #, no-c-format
 msgid ""
 "simon is targeted towards end-users. It's interface is designed to allow "
@@ -7322,7 +7673,7 @@ msgstr ""
 "Default-Werte bereits beim ersten Öffnen der Applikation festgelegt wurden."
 
 #. Tag: para
-#: index.docbook:3221
+#: index.docbook:3227
 #, no-c-format
 msgid ""
 "In special cases (severe speech impairments for example), special "
@@ -7337,7 +7688,7 @@ msgstr ""
 "werden als würde man direkt mit Julius arbeiten."
 
 #. Tag: para
-#: index.docbook:3225
+#: index.docbook:3231
 #, no-c-format
 msgid ""
 "There are basically to parts of the Julius configuration that can be "
@@ -7346,13 +7697,13 @@ msgstr ""
 "Es gibt zwei Teile der Julius Konfiguration die angepasst werden können: "
 
 #. Tag: para
-#: index.docbook:3227
+#: index.docbook:3233
 #, no-c-format
 msgid "adin.jconf"
 msgstr "adin.jconf"
 
 #. Tag: para
-#: index.docbook:3227
+#: index.docbook:3233
 #, no-c-format
 msgid ""
 "This is the configuration of the simon client of the Soundstream sent from "
@@ -7362,7 +7713,7 @@ msgstr ""
 "server steuert. Die Datei wird direkt vom adinstreamer gelesen."
 
 #. Tag: para
-#: index.docbook:3228
+#: index.docbook:3234
 #, no-c-format
 msgid ""
 "simon ships with a default adin.jconf without any special parameters. You "
@@ -7378,13 +7729,13 @@ msgstr ""
 "Sie die Konfiguration zum Benutzerpfad und passen Sie die Kopie an."
 
 #. Tag: para
-#: index.docbook:3230
+#: index.docbook:3236
 #, no-c-format
 msgid "julius.jconf"
 msgstr "julius.jconf"
 
 #. Tag: para
-#: index.docbook:3230
+#: index.docbook:3236
 #, no-c-format
 msgid ""
 "This is a configuration of the simond server and directly influences the "
@@ -7394,7 +7745,7 @@ msgstr ""
 "beeinflusst. Die Datei wird direkt von libjulius und libsent gelesen."
 
 #. Tag: para
-#: index.docbook:3231
+#: index.docbook:3237
 #, no-c-format
 msgid ""
 "simond ships with a default julius.jconf. Whenever there is a new user added "
@@ -7413,7 +7764,7 @@ msgstr ""
 "dadurch aber keine bereits angelegten Benutzer."
 
 #. Tag: para
-#: index.docbook:3236
+#: index.docbook:3242
 #, no-c-format
 msgid ""
 "The path to the Julius configuration files will depend on your platform:"
@@ -7422,91 +7773,91 @@ msgstr ""
 "Plattform abhängen:"
 
 #. Tag: title
-#: index.docbook:3238
+#: index.docbook:3244
 #, no-c-format
 msgid "Julius Configuration Files"
 msgstr "Julius Konfigurationsdateien"
 
 #. Tag: entry
-#: index.docbook:3245
+#: index.docbook:3251
 #, no-c-format
 msgid "File"
 msgstr "Datei"
 
 #. Tag: entry
-#: index.docbook:3246
+#: index.docbook:3252
 #, no-c-format
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
 #. Tag: entry
-#: index.docbook:3247
+#: index.docbook:3253
 #, no-c-format
 msgid "GNU/Linux"
 msgstr "GNU/Linux"
 
 #. Tag: entry
-#: index.docbook:3252
+#: index.docbook:3258
 #, no-c-format
 msgid "adin.jconf (system)"
 msgstr "adin.jconf (System)"
 
 #. Tag: entry
-#: index.docbook:3253
+#: index.docbook:3259
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simon\\adin.jconf"
 msgstr "(Installationspfad)\\share\\apps\\simon\\adin.jconf"
 
 #. Tag: entry
-#: index.docbook:3254
+#: index.docbook:3260
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simon/adin.jconf"
 msgstr "`kde4-config --prefix`/share/apps/simon/adin.jconf"
 
 #. Tag: entry
-#: index.docbook:3257
+#: index.docbook:3263
 #, no-c-format
 msgid "adin.jconf (user)"
 msgstr "adin.jconf (Benutzer)"
 
 #. Tag: entry
-#: index.docbook:3258
+#: index.docbook:3264
 #, no-c-format
 msgid "%appdata%\\.kde\\share\\apps\\simon\\adin.jconf"
 msgstr "%appdata%\\.kde\\share\\apps\\simon\\adin.jconf"
 
 #. Tag: entry
-#: index.docbook:3259
+#: index.docbook:3265
 #, no-c-format
 msgid "~/.kde/share/apps/simon/adin.jconf"
 msgstr "~/.kde/share/apps/simon/adin.jconf"
 
 #. Tag: entry
-#: index.docbook:3262
+#: index.docbook:3268
 #, no-c-format
 msgid "julius.jconf (template)"
 msgstr "julius.jconf (Template)"
 
 #. Tag: entry
-#: index.docbook:3263
+#: index.docbook:3269
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simond\\default.jconf"
 msgstr "(Installationspfad)\\share\\apps\\simond\\default.jconf"
 
 #. Tag: entry
-#: index.docbook:3264
+#: index.docbook:3270
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simond/default.jconf"
 msgstr "`kde4-config --prefix`/share/apps/simond/default.jconf"
 
 #. Tag: entry
-#: index.docbook:3267
+#: index.docbook:3273
 #, no-c-format
 msgid "julius.jconf (user)"
 msgstr "julius.jconf (Benutzer)"
 
 #. Tag: entry
-#: index.docbook:3268
+#: index.docbook:3274
 #, no-c-format
 msgid ""
 "%appdata%\\.kde\\share\\apps\\simond\\models\\(user)\\active\\julius.jconf"
@@ -7515,19 +7866,19 @@ msgstr ""
 "jconf"
 
 #. Tag: entry
-#: index.docbook:3269
+#: index.docbook:3275
 #, no-c-format
 msgid "~/.kde/share/apps/simond/models/(user)/active/julius.jconf"
 msgstr "~/.kde/share/apps/simond/models/(Benutzer)/active/julius.jconf"
 
 #. Tag: title
-#: index.docbook:3285
+#: index.docbook:3291
 #, no-c-format
 msgid "Questions and Answers"
 msgstr "Fragen und Antworten"
 
 #. Tag: para
-#: index.docbook:3287
+#: index.docbook:3293
 #, no-c-format
 msgid ""
 "In an effort to keep this section always up-to-date it is available at our "
@@ -7540,13 +7891,13 @@ msgstr ""
 "verwaltet."
 
 #. Tag: title
-#: index.docbook:3300
+#: index.docbook:3306
 #, no-c-format
 msgid "Credits and License"
 msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
-#: index.docbook:3305
+#: index.docbook:3311
 #, no-c-format
 msgid ""
 "Program copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</"
@@ -7556,7 +7907,7 @@ msgstr ""
 "email>, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
 
 #. Tag: para
-#: index.docbook:3309
+#: index.docbook:3315
 #, no-c-format
 msgid ""
 "Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens."
@@ -7566,7 +7917,7 @@ msgstr ""
 "org</email>"
 
 #. Tag: trans_comment
-#: index.docbook:3313
+#: index.docbook:3319
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
@@ -7574,19 +7925,19 @@ msgstr ""
 "listens.org</email></para>"
 
 #. Tag: chapter
-#: index.docbook:3313
+#: index.docbook:3319
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
-#: index.docbook:3328
+#: index.docbook:3334
 #, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
 #. Tag: para
-#: index.docbook:3329
+#: index.docbook:3335
 #, no-c-format
 msgid ""
 "Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
