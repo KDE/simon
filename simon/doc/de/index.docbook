@@ -31,7 +31,7 @@
 </copyright>
 
 <date
->2010-07-25</date>
+>25. 7. 2010</date>
 <releaseinfo
 >0.3</releaseinfo>
 
@@ -184,7 +184,7 @@
 >&kmyapplication; benutzt dieses Erkennungsergebnis dann um Kommandos auszuführen wie beispielsweise das Öffnen von Programmen oder URLs.</para>
 
 <para
->simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users. By default a standard user is set up in both simon and simond so the typical use case of one simond server per simon client will work "out of the box".</para>
+>simond identifiziert die Verbindung mit einem Benutzernamen und einem Passwort die komplett unabhängig sind vom zugrunde liegenden Betriebssystem und dessen Benutzerkonten. Standardmäßig kommt simond mit einem Standardbenutzer in sowohl simon als auch simond so das der typische Anwendungsfall von einem simon Client auf einem simond Server ohne zusätzliche Konfiguration funktionieren wird.</para>
 <para
 >Jeder simon Client meldet sich am Server mit einem Benutzernamen und einem Passwort an das einen eindeutigen Benutzer mit ein eindeutiges Sprachmodell identifiziert. Jeder Benutzer verwaltet sein eigenes Sprachmodell aber kann es von verschiedenen Computern (verschiedene physische simon Instanzen) verwenden einfach indem er den selben simond Server verwenden. Eine simond instanz kann natürlich mehrere Benutzer verwalten.</para>
 <para
@@ -335,14 +335,14 @@
 >Szenarios</title>
 
 <para
->One scenario makes up one complete use case of simon. To control firefox, for example, the user just installs the firefox scenario. </para>
+>Ein Szenario bestimmt einen kompletten Anwendungsfall von simon. Um Firefox zu steuern, zum beispiel, kann man einfach das Firefox Szenario installieren. </para>
 
 <para
->Each scenario consists of the following components: <itemizedlist>
+>Jedes Szenario beinhaltet die folgenden Komponenten: <itemizedlist>
 <listitem
 ><para
 ><link linkend="vocabulary"
->Vocabulary</link
+>Vokabular</link
 ></para
 ></listitem>
 <listitem
@@ -370,34 +370,34 @@
 >Szenarios decken nur das Sprachmodell (language model) des Erkennungssystem ab, das Akustikmodell (acoustic model) ist dabei vollkommen unabhängig. </para>
 
 <para
->However, in most cases scenarios are tailored to work best with a specific <link linkend="base_model"
->base model</link
-> to avoid <link linkend="phoneme_set_issues"
->issues with the phoneme set</link
->. </para>
+>In den meisten Fällen sind Szenarios so entwickelt um optimal mit einem gewissen <link linkend="base_model"
+>Basismodell</link
+> zusammenzuarbeiten um <link linkend="phoneme_set_issues"
+>Probleme mit dem Phonemset</link
+> zu vermeiden. </para>
 
 <para
->Because scenarios are not specifically bound to the acoustic model, they can be shared and exchanged between different simon users without problems. To accomodate this community based repository pool, a <ulink url="http://kde-files.org/index.php?xcontentmode=692"
->category for simon scenarios has been created on kde-files.org</ulink
-> where the scenarios, which are just simple text files (XML format), can be exchanged easily. </para>
+>Weil Szenarios nicht direkt an ein Akustikmodell gebunden sind können Sie weitergegeben werden und ohne Probleme mit anderen simon Anwendern ausgetauscht werden . Um diesen Anwendungsfall möglichst gut abzubilden, wurde eine <ulink url="http://kde-files.org/index.php?xcontentmode=692"
+>Kategorie für simon Szenarios auf kde-files.org</ulink
+> eingerichtet.  Dort können Szenarios, die intern simple Textdateien im XML Format sind, komfortabel hoch- und heruntergeladen werden. </para>
 
 <para
->For information on how to use scenarios in simon, please refer to the <link linkend="scenarios_use"
->Scenario section in the Use simon chapter</link
+>Für Informationen wie Sie Szenarios in simon verwenden können, sehen Sie bitte die <link linkend="scenarios_use"
+>Szenario Sektion im simon Verwenden Kapitel</link
 >. </para>
 
 </sect1>
 
 <sect1 id="base_model">
 <title
->Base models</title>
+>Basismodelle</title>
 <para
->Base models are already generated, most often speaker independent, acoustic models that can be used with simon. </para>
+>Basismodelle sind bereits generierte, meist sprecherunabhängige Akustikmodelle die mit simon verwendet werden können. </para>
 <para
->Using base models, the user can greatly reduce or even eliminate the need for personalized training. When using a static base model (see below), installation of the HTK is not necessary. </para>
+>Mit Basismodellen kann ein Anwender die benötigte Zeit für ein individuelles Training stark reduzieren. Bei Verwendung von statischen Basismodellen (siehe unten) ist eine Installation des HTKs nicht notwendig. </para>
 
 <para
->Base models usable by simon consists of four files which you will find in archive when you download base models from their respective website. <itemizedlist>
+>Basismodelle die von simon verwendet werden können bestehen aus vier Dateien die Sie in einem Archiv finden werden wenn Sie die Modelle von der jeweiligen Webseite herunterladen. <itemizedlist>
 <listitem
 ><para
 >hmmdefs</para
@@ -418,11 +418,11 @@
 </para>
 
 <para
->The latter two files, macros and stats, are not required when using a static base model and might, in that case, be replaced with empty files if they are not available. </para>
+>Die letzten beiden Dateien, macros und stats, sind nicht notwendig wenn Sie statische Basismodelle verwenden und können in diesem Fall mit leeren Dateien ersetzt werden sollten Sie nicht verfügbar sein. </para>
 
 <sect2 id="base_model_get">
 <title
->Where to get base models</title>
+>Wo bekommen Sie Basismodelle</title>
 
 <para
 >Um diese Liste aktuell zu halten, sehen Sie bitte <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Base_models#Where_to_get_base_models"
@@ -432,10 +432,10 @@
 
 <sect2 id="base_model_types">
 <title
->Types of base models</title>
+>Verschiedene Typen von Basismodellen</title>
 
 <para
->There are three types of base models: <itemizedlist>
+>Es existieren drei typen von Basismodellen: <itemizedlist>
 <listitem
 ><para
 >Statisches Basismodell</para>
@@ -452,24 +452,24 @@
 </para>
 
 <para
->For information on how to use base models in simon, please refer to the <link linkend="base_model_use"
->Base Models section in the Use simon chapter</link
->. </para>
+>Für Informationen wie Sie Basismodelle mit simon verwenden können, sehen Sie bitte die <link linkend="base_model_use"
+>Basismodelle verwenden Sektion im simon Verwenden Kapitel</link
+> </para>
 
 <sect3 id="base_model_static">
 <title
 >Statisches Basismodell</title>
 
 <para
->Static base models simply use a pre-compiled acoustic model without modifying it.</para>
+>Statische Modelle verwenden einfach ein zuvor kompiliertes Akustikmodell ohne es zu bearbeiten.</para>
 
 <para
->Any training data collected through simon will not be used to improve the recognition accuracy.</para>
+>Trainingsdaten die mit simon aufgenommen werden werden nicht verwendet um die Erkennungsrate zu erhöhen.</para>
 
 <para
->This type of model <emphasis
->does not</emphasis
-> require the HTK to be installed.</para>
+>Dieser Typ von Modell <emphasis
+>benötigt kein</emphasis
+> HTK.</para>
 
 </sect3>
 
@@ -478,15 +478,15 @@
 >Adaptiertes Basismodell</title>
 
 <para
->By adapting a pre-compiled acoustic model you can improve accuracy by adapting it to your voice.</para>
+>Durch Adaption von bereits kompilierten Akustikmodellen können Sie die Erkennungsrate steigern indem Sie das Modell an Ihre Stimme anpassen.</para>
 
 <para
->Collected training data will be compiled in a adaption matrix which will then be applied to the selected base model.</para>
+>Gesammelte Trainingsdaten werden in eine Adaptionsmatrix kompiliert die dann auf das ausgewählte Basismodell angewendet wird.</para>
 
 <para
->This type of model <emphasis
->does</emphasis
-> require the HTK to be installed.</para>
+>Dieser Typ von Modell <emphasis
+>benötigt</emphasis
+> ein installiertes HTK.</para>
 
 </sect3>
 
@@ -495,15 +495,15 @@
 >Benutergeneriertes Modell</title>
 
 <para
->When using user generated models, the user is responsible for training his own model. No base model will be used.</para>
+>Wenn Sie benutzergenerierte Modelle verwenden ist der Benutzer dafür verantwortlich, dass das Modell trainiert ist. Es wird kein Basismodell verwendet.</para>
 
 <para
->The training data will be used to compile your own acoustic model allowing you to create a system which directly reflects your voice.</para>
+>Die Trainingsdaten werden verwendet um das eigene Akustikmodell zu kompilieren. Dies erlaubt es ein System zu entwickeln das direkt Ihre eigene Sprache reflektiert.</para>
 
 <para
->This type of model <emphasis
->does</emphasis
-> require the HTK to be installed.</para>
+>Dieser Typ von Modell <emphasis
+>benötigt</emphasis
+> ein installiertes HTK.</para>
 </sect3>
 
 </sect2>
@@ -511,23 +511,23 @@
 
 <sect2 id="phoneme_set_issues">
 <title
->Phoneme set issues</title>
+>Phonemset Probleme</title>
 <para
->Because the statistical comparison happens <link linkend="acoustic_model"
->at phoneme level</link
-> the base models describe how these phonemes sound.</para>
+>Da der statistische Vergleich auf <link linkend="acoustic_model"
+>Phonemebene</link
+> geschieht, beschreibt das Basismodell wie diese Phoneme klingen.</para>
 
 <para
->Your scenarios (language model) on the other hand describe what phonemes a word is composed of.</para>
+>Ihr Szenario (Sprachmodell / Language model) hingegen beschreibt wie die Phoneme klingen aus denen die Wörter aufgebaut sind.</para>
 
 <para
->In order for this association to work, both your scenarios and your base model need to use the same set of phonemes.</para>
+>Damit diese Verbindung funktioniert, muss sowohl Ihr Szenario als auch Ihr Basismodell das selbe Phonemset verwenden.</para>
 
 <para
->If you design a new scenario it is therefore a good idea to use the dictionary that was used to create the base model as shadow dictionary. This way simon will suggest the "correct" phonemes when adding the words automatically.</para>
+>Wenn Sie ein neues Szenario entwerfen ist es also eine gute Idee jenes Wörterbuch als Schattenvokabular zu verwenden das verwendet wurde um das Basismodell zu generieren. Auf diese Weise wird simon automatisch die "richtigen" Phoneme vorschlagen wenn Wörter hinzugefügt werden.</para>
 
 <para
->If you try to use scenarios designed for a different phoneme set (different base model) then you will get an error when starting the recognition listing the affected phonemes and words. To fix this, either transcribe the words according to the base models phoneme set, use a different base model or use an user generated model. </para>
+>Wenn Sie Szenarios verwenden die für ein anderes Phonemset entwickelt wurden (anderes Basismodell) werden Sie unter umständen beim Starten der Erkennung einen Fehler erhalten der betroffene Phoneme und damit assoziierte Wörter anzeigt. Um dies zu reparieren, transkripieren Sie ihre Wörter entsprechend des verwendeten Phonemset des Basismodells oder verwenden Sie ein anderes Basismodell oder benutzen Sie ein benutzergeneriertes Modell. </para>
 </sect2>
 </sect1>
 </chapter>
@@ -557,7 +557,7 @@
 >simon Kalibrierung</title>
 
 <para
->The current version of &kmyapplication; includes a simple way of ensuring that your volume is configured correctly.</para>
+>Die aktuelle Version von &kmyapplication; inkludiert einen einfachen Weg um sicherzustellen, dass die Lautstärke korrekt konfiguriert ist.</para>
 
 <para>
 <screenshot>
@@ -572,26 +572,26 @@
 </para>
 
 <para
->By default the volume calibration is displayed before starting any recording in &kmyapplication;.</para>
+>Standardmäßig wird die Lautstärkekalibrierung angezeigt bevor eine Aufnahme in &kmyapplication; startet.</para>
 
 <para
->To calibrate simply read the text displayed.</para>
+>Um die Lautstärke zu kalibrieren, sprechen Sie einfach den angezeigten Text nach.</para>
 
 <para
->The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status. </para>
+>Um die Kalibrierung zu überwachen, sehen Sie bitte die angezeigte Lautstärke und die Notiz darunter die sagt, ob Sie die Lautstärke heben oder senken sollten. Um die Lautstärke zu verändern, verwenden Sie bitte die Lautstärkekonfiguration Ihres Betriebssystems. Sobald Sie dort die Lautstärke verändert haben drücken Sie bitte in &kmyapplication; auf "Lautstärke geändert" um die Kallibrierung darüber zu informieren. </para>
 
 <para
 >Versuchen Sie während der Kalibrierung so normal wie möglich zu sprechen. Schreien Sie nicht aber seien Sie auch nicht unnötig leise. Bitte bedenken Sie, dass Sie die besten Ergebnisse erzielen wenn alle Aufnahmen ungefähr gleich laut sind und Sie auch während der Erkennung gleich laut sprechen. Möglicherweise könnten Sie zu anderen Tageszeiten oder einer anderen Stimmung lauter sprechen also sprechen Sie in diesem Test lieber etwas lauter um diese Möglichkeit einzukalkulieren. Grundsätzlich sind zu leise Aufnahmen viel besser als zu laute, da es dann zu Verzerrungen kommen kann.</para>
 
 <para
->In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed. In the options you can also deactivate the calibration completely. See the <link linkend="soundconfiguration_training"
->training section</link
-> for more details.</para>
+>In den Einstellungen von &kmyapplication; lässt sich sowohl der angezeigte Text als auch die Lautstärken die als korrekt bzw. inkorrekt markiert werden konfigurieren. Wird der dortige Text leer gelassen (Standard) wird ein Standardtext angezeigt. In der Konfiguration können Sie die Lautstärkenkalibrierung auch komplett deaktivieren. Sehen Sie <link linkend="soundconfiguration_training"
+>Training Sektion</link
+> für mehr Details.</para>
 </sect3>
 
 <sect3>
 <title
->Audacity Calibration</title>
+>Audacity Kalibrierung</title>
 
 <para
 >Ein alternativer Weg um sicherzustellen, dass die Lautstärke richtig eingestellt ist, ist ein Audio Tool wie das freie <ulink url="http://audacity.sf.net"
@@ -644,9 +644,9 @@
 >Um simon mit der automatischen Segmentierung zwischen den Wörtern zu helfen, empfehlen wir vor und nach dem Sprechen ca. ein bis zwei Sekunden "Stille" aufzunehmen.</para>
 
 <para
->Current simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for one second: <screenshot>
+>Die aktuelle simon Version inkludiert eine grafische Warteanzeige während dem Training. Diese Nachricht wird den Benutzer bitte eine Sekunde zu warten: <screenshot>
 <screeninfo
->Please wait</screeninfo>
+>Bitte warten</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="pause_control_wait.png" format="PNG"/>
@@ -656,9 +656,9 @@
 </para>
 
 <para
->... before telling the user to speak: <screenshot>
+>... bevor er gebeten wird zu sprechen: <screenshot>
 <screeninfo
->Please speak</screeninfo>
+>Bitte sprechen</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="pause_control_speak.png" format="PNG"/>
@@ -668,61 +668,63 @@
 </para>
 
 <para
->This method of visual feedback proved especially valuable when recording with people who can't read the prompted text for themselves and therefore need someone to tell them what they have to say. The colorful visual cue tells them when to start repeating what the facilitator said without the need of unreliable hand gestures. </para>
+>Diese Methode des visuellen Feedbacks hat sich als besonders wertvoll erwiesen wenn mit Personen aufgenommen wird die den angezeigten text nicht selbst lesen können und deshalb auf Moderatoren angewiesen sind die Ihnen sagen was Sie sprechen sollen. Die farbige Anzeige hilft Ihnen zu erkennen, wann Sie sprechen sollen statt direkt nach dem Moderator zu sprechen oder auf umständliche Handsignale angewiesen zu sein. </para>
 </sect2>
 
 
 <sect2 id="microphone">
 <title
->Microphone</title>
+>Mikrofon</title>
 <para
->For simon to work well, a high quality microphone is recommended.</para>
+>Damit simon gut funktionieren kann ist ein hochqualitatives Mikrofon empfohlen.</para>
 
 <para
->However, even relatively cheap headsets (around 30 Euros) achieve very good results - magnitudes better than internal microphones.</para>
+>Aber sogar mit relativ günstigen Headsets (um 30 €) erreicht sehr gute Ergebnisse - viel bessere als ein möglichereweise integriertes Mikrofon.</para>
 
 <para
->For maximum compatability we recommend USB headsets as they usually support the necessary samplerate of 16 kHz, are very well supported from both Microsoft Windows as well as GNU/Linux and normally don't require special, proprietary drivers to operate.</para>
+>Für maximale Kompatibilität empfehlen wir USB Headset die in der Regel die notwendige Samplerate von 16kHz direkt unterstützen. Sie sind außerdem gut von sowohl Microsoft Windows als auch von GNU/Linux unterstützt und benötigen keine speziellen, properitären Treiber.</para>
 </sect2>
 
 
 <sect2 id="sample_quality_assurance">
 <title
->Sample Quality Assurance</title>
+>Aufnahmen Qualitätskontrolle</title>
 <para
->simon will check each recording against certain criteria to ensure that the recorded samples are not errenous or of poor quality.</para>
+>simon wird jede Aufnahme mit einigen Kriterien überprüfen um sicherzustellen, dass die Aufnahmen nicht fehlerhaft oder von schlechter Qualität sind.</para>
 
 <para
->If simon detects a problematic sample, it will warn the user to re-record the sample.</para>
+>Wenn simon eine problematische Aufnahme erkennt, wird er den Benutzer warnen und ihn auffordern die Aufnahme zu wiederholen. </para>
 
 <para
->Currently, simon checks the following criteria: <itemizedlist>
+>Derzeit überprüft simon die folgenden Kriterien: <itemizedlist>
 <listitem>
 <para
->Sample peak volume</para>
+>Höchste Lautstärkepegel</para>
 <para
->If the volume is too loud and the microphone started to "clip" (<ulink url="http://en.wikipedia.org/wiki/Clipping_%28audio%29"
->Clipping on wikipedia</ulink
->), simon will display a warning message urging the user to lower the microphone volume.</para>
+>Wenn die Lautstärke zu hoch ist und das Mikrofon beginnt zu "übersteuern" (<ulink url="http://de.wikipedia.org/wiki/%C3%9Cbersteuern_%28Signalverarbeitung%29"
+>Übersteuern auf Wikipedia</ulink
+>). simon wird automatisch eine Warnung anzeigen die den Benutzer auffordert die Lautstärke des Mikrofons zu senken.</para>
 </listitem>
 <listitem>
 <para
->Signal to noise ratio (SNR)</para>
+>Signal zu Rauschen Verhältnis (engl.: Signal to noise ratio; SNR)</para>
 <para
->simon will automatically determine the signal to noise ratio of each recording. If the ratio is below a configurable threshold, a warning message will be displayed.</para>
+>simon wird automatisch das Signal / Rausch Verhältnis für jede Aufnahme bestimmen. Ist dieses Verhältnis unter einem konfigurierbaren Level, wird eine Warnung angezeigt.</para>
 <para
->The default value of 5000 % means that for simon to accept a sample as correctly recorded the peak volume has to be 500 times louder than the noise baseline (lowest average over 50 ms).</para>
+>Der Defaultwert von 5000 % bedeutet, dass simon nur Samples als "korrekt" ansieht, deren Spitzenpegel 500 mal lauter ist als der niedrigste Lautstärke (niedrigste Lautstärke wird als niedrigster Durchschnitt von jeweils 50 Millisekunden errechnet).</para>
 <para
->Often this can be a result of either a very low quality microphone, high levels of ambient noise or a low microphone gain coupled with a "microphone boost" option in the system mixer. </para>
+>Oft ist dies ein Problem von sehr schlechten Mikrofonen, hohen Leveln von Umgebungsgeräuschen oder eine kleine Mikrofonlautstärke in Verbindung mit einem "Signalboost" im Systemmixer. </para>
 </listitem>
 </itemizedlist>
 </para>
 
 
 <para
->SNR warning message triggered by an empty sample; This information dialog is displayed when clicking on the "More information" button visible in the background. <screenshot>
+>SNR Warnungen werden naturgemäß auch von leeren Aufnahmen ausgelöst. Dieser Dialog wird bspw. Angezeigt wenn auf den <guibutton
+>Mehr Information</guibutton
+> Knopf gedrückt wird (sichtbar im Hintergrund). <screenshot>
 <screeninfo
->Empty sample triggering the SNR warning</screeninfo>
+>Leeres Sample löst SNR Warnung aus</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="snr_warning.png" format="PNG"/>
@@ -872,18 +874,18 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <listitem>
 <para
->Scenario selection</para>
+>Szenario Auswahl</para>
 <para
->This selection box allows you to select the currently displayed scenario. Each subsection (vocabulary, grammar, commands, training) will then adapt to the currently displayed scenario. Selecting a different scenario here does not affect the recognition.</para>
+>Dieses Auswahlfeld erlaubt Ihnen das derzeit angezeigte Szenario anzupassen. Jede Untersektion (Vokabular, Grammatik, Kommandos, Training) wird dann das ausgewählte Szenario anzeigen. Das hier ausgewählte Szenario beeinflusst die Erkennung nicht.</para>
 </listitem>
 
 <listitem>
 <para
 >Szenarios verwalten</para>
 <para
->Shows the <link linkend="scenarios_use"
->scenario management dialog</link
->. There you can manage your scenarios and change the options of the scenario selection box.</para>
+>Anzeigen des <link linkend="scenario_use"
+>Szenarios verwalten Dialog</link
+>. Hier können Sie Szenarios verwalten und die verfügbaren Optionen der Szenario Auswahlbox anpassen.</para>
 </listitem>
 
 
@@ -898,54 +900,54 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <sect1 id="needed_parts">
 <title
->Required Resources for a Working &kmyapplication; Setup</title>
+>Benötigte Resourcen für eine Funktionierende &kmyapplication; Konfiguration</title>
 
 <note>
 <para
->For more information about speech models, please refer to the <link linkend="speech_model"
->Speech Recognition: Background section in the Overview chapter</link
+>Für mehr Information über Sprachmodelle sehen Sie bitte die Sektion <link linkend="speech_model"
+>Spracherkennung: Hintergrund im Übersichtskapitel</link
 >. </para>
 </note>
 
 <para
->To get simon to recognize speech and react to it you need a speech model. </para>
+>Damit die Spracherkennung funktioniert, benötigt simon ein Sprachmodell (engl.: speech model). </para>
 
 <para
->Speech models describe how your voice sounds, what words exist, how they sound and what word combination ("sentences" or "structures") exist.</para>
+>Sprachmodelle (speech models) beschreiben wie Ihre Stimme klingt wie welche Wörter klingen, welche Wörter existieren und welche Kombinationen ("Sätze" oder "Strukturen") existieren.</para>
 
 <para
 >Ein Sprachmodell besteht aus zwei Teilen: <itemizedlist>
 <listitem
 ><para
->Language model: Describes all existing words and what sentences are grammatically correct </para
+>Sprachmodell (language model): Beschreibt welche Wörter existieren und welche Sätze grammatikalisch korrekt sind. </para
 ></listitem>
 <listitem
 ><para
->Acoustic model: Describes how words sound </para
+>Akustikmodell (acoustic model): Beschreibt wie welche Töne (Phoneme) klingen. </para
 ></listitem>
 </itemizedlist>
 </para>
 
 <para
->You need both these components to get simon to recognize your voice.</para>
+>Sie benötigen beide Komponenten um die Erkennung in simon zu aktivieren.</para>
 
 <sect2>
 <title
 >Sprachmodell</title>
 <para
->In most cases you only need to <link linkend="scenarios_use"
->install the appropriate scenario</link
-> for your use case to set up your language model. </para>
+>In den meisten Fällen werden Sie nur <link linkend="scenarios_use"
+>die gewünschten Szenarios</link
+> für Ihren Anwendungsfall einrichten um ihr Sprachmodell (language model) zu erstellen. </para>
 <para
->To create your own language model, you can use simon to <link linkend="add_word"
->add</link
+>Um ihr eigenes Sprachmodell zu bauen, können Sie simon verwenden um Wörter <link linkend="add_word"
+>hinzuzufügen</link
 > / <link linkend="edit_word"
->edit</link
+> zu editieren</link
 > / <link linkend="remove_word"
->remove</link
-> words and <link linkend="grammar"
->grammar structures</link
->. </para>
+>zu löschen</link
+> und ihre <link linkend="grammar"
+>Grammatikstrukturen</link
+> zu verwalten. </para>
 <para
 >Um das Hinzufügen von Wörtern leichter zu machen, können Sie ein <link linkend="shadow_dictionary"
 >Schattenlexikon</link
@@ -957,31 +959,31 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <title
 >Akustikmodell</title>
 <para
->To create your own acoustic model you can simple <link linkend="training"
->read the trainings texts</link
-> that come with your selected scenarios a couple of times. </para>
+>Um ein eigenes Akustikmodell zu erzeugen, können Sie einfach die <link linkend="training"
+>Trainingstexte</link
+> ein paar mal vorlesen die mit den Szenarios ausgeliefert werden die Sie installieren. </para>
 <para
->If you are creating your own scenario you can easily <link linkend="training"
->create trainingstexts yourself</link
+>Wenn Sie ihre eigenen Szenarios erstellen können Sie leicht <link linkend="training"
+>Trainingstexte selbst erstellen</link
 >. </para>
 <para
->You can, however use <link linkend="base_model_use"
->static or adapted base models</link
-> to avoid using the HTK or to improve the recognition rate. </para>
+>Sie können außerdem <link linkend="base_model_use"
+>statische oder adaptierte Sprachmodelle verwenden</link
+> um die Abhängigkeit des HTKs zu vermeiden oder die Erkennungsrate zu steigern. </para>
 </sect2>
 </sect1>
 
 <sect1 id="first_run">
 <title
->First run wizard</title>
+>Einrichtungsassistent</title>
 
 <para
->On the first start of simon, this wizard is displayed to guide you through the initial configuration of &kmyapplication;.</para>
+>Beim ersten Start von simon wird eine Anleitung angezeigt die Sie durch die ersten Schritte mit &kmyapplication; führt.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Welcome</screeninfo>
+>Einrichtungsassistent: Willkommen</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_1.png" format="PNG"/>
@@ -991,21 +993,21 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->The configuration consists of five easy steps which are outlined below. You can skip each step and even the whole wizard if you want to - in that case, the system will be set up with default values.</para>
+>Die Konfiguration besteht aus fünf einfachen Schritten die hier aufgezeigt sind. Sie können jeden Schritt oder sogar den ganzen Assistenten überspringen. In diesem Fall wird das System mit Standardwerten eingerichtet.</para>
 
 <sect2 id="first_run_scenarios">
 <title
 >Szenarios</title>
 
 <para
->In this step you can download <link linkend="scenarios"
->scenarios</link
-> from the internet and import them into simon.</para>
+>In diesem Schritt können Sie <link linkend="scenarios"
+>Szenarios</link
+> aus dem Internet herunterladen und direkt in simon importieren.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Scenarios</screeninfo>
+>Einrichtungsassistent: Szenarios</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_2.png" format="PNG"/>
@@ -1015,14 +1017,14 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Pressing <guibutton
->Get scenarios</guibutton
-> displays the download dialog.</para>
+>Wenn Sie <guibutton
+>Szenarios holen</guibutton
+> drücken, wird der Szenario Downloaddialog angezeigt.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Get scenarios</screeninfo>
+>Einrichtungsassistent: Szenarios holen</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
@@ -1032,16 +1034,16 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->If you import some scenarios here (or later on in the <link linkend="scenarios_use"
->scenario management dialog</link
->) you don't need to set up the vocuablary, grammar, commands, etc. for yourself. Especially for new users it is recommended to try some scenarios first to see how the system works before diving into configuring it exactly for your use case.</para>
+>Wenn Sie hier Szenarios importieren (oder später über den <link linkend="scenarios_use"
+>Szenarioverwaltungsdialog</link
+>) müssen Sie das Vokabular, die Grammatik und die Kommandos nicht selbst konfigurieren. Speziell für neue Anwender ist es deshalb empfohlen ein paar Szenarios hier herunterzuladen um zu sehen wie das System funktioniert.</para>
 
 </sect2>
 
 
 <sect2 id="first_run_basemodels">
 <title
->Base models</title>
+>Basismodelle</title>
 
 <para
 >In diesem Schritt können Sie simon konfigurieren <link linkend="base_model"
@@ -1051,7 +1053,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para>
   <screenshot>
     <screeninfo
->First run: Base models</screeninfo>
+>Einrichtungsassistent: Basismodelle</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_3.png" format="PNG"/>
@@ -1061,14 +1063,14 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->The configuration page opened is the same one that is described in the <link linkend="base_model_use"
->base model usage</link
-> section.</para>
+>Die Konfigurationsseite die hier geöffnet wird ist die selbe die in der <link linkend="base_model_use"
+>Verwendung von Basismodelle Sektion</link
+> erklärt wird.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Configure base models</screeninfo>
+>Einrichtungsassistent: Basismodelle konfigurieren</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_base_model.png" format="PNG"/>
@@ -1078,9 +1080,9 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="base_model_use"
->simon configuration</link
->.</para>
+>Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde können Sie die Konfigurationsoptionen dieses Schritts in der <link linkend="base_model_use"
+>simon Konfiguration</link
+> jederzeit ändern.</para>
 
 </sect2>
 
@@ -1089,14 +1091,14 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 >Server</title>
 
 <para
->Internally, simon is a <link linkend="architecture"
->server / client application</link
->. If you want to take advantage of a network based installation, you can provide the server address here.</para>
+>Intern ist simon eine <link linkend="architecture"
+>Server / Client Anwendung</link
+>. Wenn Sie Nutzen daraus durch eine netzwerkbasierten Verbindung ziehen wollen können Sie die Serveraddresse hier angeben.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Server</screeninfo>
+>Einrichtungsassistent: Server</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_4.png" format="PNG"/>
@@ -1106,12 +1108,12 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->The default configuration is sufficient for a "normal" installation and will assume that you use a local simond server that will be automatically be started and stopped with simon.</para>
+>Die Standardkonfiguration ist ausreichend für eine "normale" Installation und nimmt an, dass Sie einen lokalen simond Server verwenden der von simon automatisch gestartet und gestoppt wird.</para>
 
 <para
->After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="configure_server"
->server configuration</link
->.</para>
+>Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde können Sie die Konfigurationsoptionen dieses Schritts in der <link linkend="configure_server"
+>Server Konfiguration</link
+> jederzeit ändern.</para>
 
 </sect2>
 
@@ -1120,7 +1122,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 >Aufnahmekonfiguration</title>
 
 <para
->Because simon recognizes sound from one or more microphones, you have to tell simon which devices you want to use for recognition and training.</para>
+>Da simon Sound von einem oder meheren Mikrofonen aufnimmt müssen Sie simon zuerst sagen welche Geräte er für das Training bzw. die Erkennung verwenden soll.</para>
 
 <para>
   <screenshot>
@@ -1135,36 +1137,36 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->simon can use one or more input- and output devices for different tasks. You can find more information about simons multiple device capabilities in the <link linkend="soundconfiguration_device"
->simon sound configuration section</link
->.</para>
+>simon kann ein oder mehrere Ein- und Ausgabegeräte für verschiedene Aufgaben verwenden. Sie können mehr informationen über simons Mehrgerätefähigkeiten in der <link linkend="soundconfiguration_device"
+>Soundkonfiguration Sektion</link
+> nachlesen.</para>
 
 <para
->If you don't set at least one input device to be used for recognition, you will not be able to activate simon.</para>
+>Wenn Sie nicht zumindest ein Eingabegerät für die Erkennung definieren werden Sie simon nicht aktivieren können.</para>
 
 <para
->When the option <guibutton
->Default to power training</guibutton
-> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
+>Wenn die Option <guibutton
+>Powertraining per Default</guibutton
+> aktiviert ist wird simon beim Trainieren automatisch die Aufnahme starten bzw. stoppen wenn der dazugehörige Prompt angezeigt bzw. versteckt wird. Diese option setzt nur den Standardwert der Benutzer kann diesen bei jeder Trainingssitzung wieder überschreiben.</para>
 
 <para
->After completing or aborting the first run wizard you can change configuration options defined here in the <link linkend="soundconfiguration_device"
->sound configuration</link
->.</para>
+>Nachdem der Einrichtungsassistent abgeschlossen ist oder abgebrochen wurde können Sie die Konfigurationsoptionen dieses Schritts in der <link linkend="soundconfiguration_device"
+>Soundkonfiguration</link
+> jederzeit ändern.</para>
 
 </sect2>
 
 <sect2 id="first_run_volume_calibration">
 <title
->Volume calibration</title>
+>Lautstärkeeinpegelung</title>
 
 <para
->For simon to work correctly, you need to configure your microphones volume to a sensible level.</para>
+>Damit simon korrekt funktioniert muss die Mikrofonlautstärke korrekt eingestellt sein.</para>
 
 <para>
   <screenshot>
     <screeninfo
->First run: Volume calibration</screeninfo>
+>Einrichtungsassistent: Lautstärkeeinpegelung</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="first_run_6.png" format="PNG"/>
@@ -1188,28 +1190,28 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <title
 >Szenarios</title>
 <para
->This section describes how to use scenarios from within simon. For <link linkend="scenarios"
->general information about scenarios, please refer to the chapter background</link
+>Diese Sektion beschreibt wie Sie Szenarios innerhalb von simon verwenden. Für <link linkend="scenarios"
+>generelle Informationen über Szenarios sehen Sie bitte das Hintergrund Kapitel</link
 >.</para>
 
 <sect2 id="using_scenarios">
 <title
->Using scenarios</title>
+>Szenarios verwenden</title>
 <para
->Beginning with &kmyapplication; 0.3, each word you add will be added to the currently active scenario. The same goes for grammar sentences, commands, etc.</para>
+>Beginnend mit &kmyapplication; 0.3 wird jedes Wort das hinzugefügt wird zum aktuell aktiven Szenario hinzugefügt. Das selbe gilt für Grammatikstrukturen, Kommandos, etc.</para>
 <para
->Using scenarios then becomes just using &kmyapplication; as you did in 0.2.</para>
+>Szenarios zu verwenden ist dann gleichzusetzen mit dem normalen verwenden von &kmyapplication; wie Sie es vielleicht schon in 0.2 gemacht haben.</para>
 
 <para
->Per default, simon ships with an empty scenario names "Standard", so your configuration will be stored in this scenario.</para>
+>Standardmäßig kommt simon mit einem leeren Szenario namens "Standard". Wenn Sie keine weitere Einstellungen vornehmen werden Ihre persönlichen Einstellungen dort gespeichert.</para>
 
 <para
->To select which of your currently active scenarios should be changed (for example before adding new words), just select it from the drop down list in the upper right corner of the simon main window.</para>
+>Um ein anderes Szenario zur Bearbeitung auszuwählen (z.B. vor dem Hinzufügen neuer Wörter), wählen Sie das Szenario einfach in der in der Auswahlliste im oberen rechten Eck des Hauptfensters aus.</para>
 
 <para>
   <screenshot>
     <screeninfo
->Scenario toolbar</screeninfo>
+>Szenario Werkzeugleiste</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="scenarios_use_1.png" format="PNG"/>
@@ -1219,21 +1221,21 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
   <para
->To change the available options, click on the <guibutton
->Manage scenarios</guibutton
-> button right next to it or use the menu entry <guimenu
->Scenarios</guimenu
+>Um die verfügbaren Optionen zu ändern, klicken Sie <guibutton
+>Szenarios verwalten</guibutton
+> oder verwenden Sie den Menüeintrag <guimenu
+>Szenarios</guimenu
 > 
 > <guimenuitem
->Manage scenarios</guimenuitem
+>Szenarios verwalten</guimenuitem
 >.</para>
 </sect2>
 
 <sect2 id="administrating_scenarios">
 <title
->Managing scenarios</title>
+>Szenarios verwalten</title>
 <para
->The scenario management dialog allows you to load scenarios from your scenario pool as well as to import and export scenarios to files or directly from / to an online repository.</para>
+>Der Szenario verwaltungsdialog erlaubt Ihnen, Szenarios zu laden, neue zu importieren oder vorhandene in Dateien oder direkt in eine Onlinesammlung zu exportieren.</para>
 
 <para>
   <screenshot>
@@ -1248,22 +1250,22 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->To load or unload a scenario you can use the arrow buttons between the two lists or simply double click the option you want to load / unload.</para>
+>Um ein Szenario zu laden oder zu entladen, verwenden Sie die Knöpfe mit Pfeilsymbolen oder doppelklicken Sie das entsprechende Szenario in den Listen.</para>
 <para
->More information about individual scenarios can be found in the tooltips of the list items.</para>
+>Mehr Informationen über die Szenarios selbst können Sie in dem Tip lesen der erscheint, wenn die Maus einige Zeit über ein Element halten.</para>
 
 <sect3 id="add_scenario">
   <title
 >Neues Szenario hinzufügen</title>
   <para
->To add a new scenario, select the <guibutton
->Add</guibutton
-> button. A new dialog will be displayed.</para>
+>Um ein neues Szenario hinzuzufügen, wählen Sie den <guibutton
+>Hinzufügen</guibutton
+> Knopf aus. Ein Dialog wird angezeigt.</para>
 
 <para>
   <screenshot>
     <screeninfo
->Add scenario</screeninfo>
+>Szenario hinzufügen</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="add_scenario.png" format="PNG"/>
@@ -1273,65 +1275,65 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->When creating a new scenario, please give it a descriptive name. For the later upload on <ulink url="http://kde-files.org/index.php?xcontentmode=692"
+>Wenn Sie ein neues Szenario erzeugen, geben Sie Ihm bitte einen deskreptiven Namen. Um es später auf <ulink url="http://kde-files.org/index.php?xcontentmode=692"
 >KDE files</ulink
-> we would kindly ask you to follow a certain naming scheme altough this is of course not a requirement: "[&lt;language&gt;/&lt;base model&gt;] &lt;name&gt;". If, for example you create a scenario in English that works with the Voxforge base model and controls Mozilla Firefox this becomes: "[EN/VF] Firefox". If your scenario is not specifically tailored to one phoneme set (base model), just omit the second tag like this: "[EN] Firefox".</para>
+> hochzuladen würden wir Sie bitten das folgende Namensschema zu übernehmen: "[&lt;Sprache&gt;/&lt;Basismodell&gt;] &lt;Name&gt;". Wenn Sie zum Beispiel ein deutsches Szenario erzeugen das mit dem Voxforge Basismodell funktioniert um Mozilla Firefox zu kontrollieren wird das: "[DE/VF] Firefox". Ist Ihr Szenario nicht speziell auf ein Phonemset (Basismodell) zugeschnitten, können Sie den zweiten Tag entfernen: "[DE] Firefox".</para>
 
 <para
->The scenario version is just an incremental version number that makes it easier to distinguish between different revisions of a scenario.</para>
+>Die Szenario Version ist nur eine inkrementelle Nummer die es leichter macht zwischen verschiedenen Versionen des selben Seznarios zu unterscheiden.</para>
 
 <para
->If your scenario needs a specific feature of simon (for example because you use a new plugin), you can define minimum and maximum version numbers of simon here.</para>
+>Wenn Ihr Szenario eine spezielle Funktion von simon verwendet (zum Beispiel ein neues Plugin), können Sie hier die minimal benötigte simon Versionsnummer angeben. Wurde die benötigte Funktionialität entfernt, lässt sich auch eine maximale Versionsnummer definieren.</para>
 
 <para
->The license of your scenario can be set through the drop down. You can of course also add an arbitrary license text directly in the input field.</para>
+>Die Lizenz lässt sich über das Drop-Down Menü auswählen. Sie können auch beliebigen Text in das Eingabefeld eintragen.</para>
 
 <para
->You can then add your name (or alias) to the list of scenario authors. There you will also be asked for contact information. This field is purely provided as a convenient way to contact a scenario author for changes, problems, fanmail etc. If you don't feel comfortable providing your e-Mail address you can simply enter a dash "-" denoting that you are not willing to divulge this information.</para>
+>Sie können Ihren Namen (oder Alias) zu der Liste der Szenarioautoren hinzufügen. Sie werden auch nach einer Kontaktmöglichkeit gefragt werden. Diese Kontaktmöglichkeit kann dazu verwendet werden den Autor über Änderungen in simon zu kontaktieren die das Szenariosystem betreffen, Fanmail, etc. Wenn Sie keine Kontaktinformation hinterlegen wollen, geben Sie einfach einen Strich "-" ein.</para>
 
 </sect3>
 
 <sect3 id="edit_scenario">
 <title
->Edit Scenario</title>
+>Szenario editieren</title>
 <para
->To edit scenarios, just select "Edit" from the "Manage scenarios" dialog.</para>
+>Um Szenarios zu editieren, wählen Sie "Bearbeiten" vom "Szenarios verwalten" Dialog.</para>
 <para
->The dialog works exactly the same as the <link linkend="add_scenario"
->add scenario</link
-> dialog.</para>
+>Der Dialog funktioniert exakt gleich wie der <link linkend="add_scenario"
+>Szenario hinzufügen</link
+> Dialog.</para>
 </sect3>
 
 <sect3 id="delete_scenario">
 <title
->Delete Scenario</title>
+>Szenario entfernen</title>
 
 <para
->To delete a scenario, select the scenario and click the "Delete" button.</para>
+>Um ein Szenario zu löschen, wählen Sie das Szenario aus der Liste und klicken Sie den "Löschen" Knopf.</para>
 
 <para
->Because scenarios are synchronized with the recognition server, you can restore deleted scenarios through the <link linkend="configure_synchronization"
->model synchronization backup</link
->.</para>
+>Weil Szenarios mit dem Erkennungsdienst synchronisiert werden, können Sie zuvor gelöschte Szenarios über das <link linkend="configure_synchronization"
+>Modell Synchronisationsbackup</link
+> wiederherstellen.</para>
 </sect3>
 
 <sect3 id="import_scenario">
   <title
 >Szenario importieren</title>
   <para
->Scenarios can be imported from a local file in simons XML scenario file format but can also be directly downloaded and imported from the internet.</para>
+>Szenarios können von einer lokalen Textdatei (simons XML Szenario Dateiformat) importiert werden oder direkt aus dem Internet heruntergeladen werden.</para>
 
   <para
->When downloading scenarios, the list of scenarios is retrieved from <ulink url="http://kde-files.org/index.php?xcontentmode=692"
+>Wenn Sie Szenarios herunterladen, wird eine Liste der verfügbaren Szenarios von der <ulink url="http://kde-files.org/index.php?xcontentmode=692"
 >simon Scenarios</ulink
-> subsection of the OpenDesktop site <ulink url="http://kde-files.org"
+> Sektion der OpenDesktop Seite <ulink url="http://kde-files.org"
 >KDE-files.org</ulink
->.</para>
+> heruntergeladen.</para>
 
 <para>
   <screenshot>
     <screeninfo
->Download scenarios</screeninfo>
+>Szenarios herunterladne</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="get_hot_new_scenarios_1.png" format="PNG"/>
@@ -1341,38 +1343,38 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
   <para
->If you create a scenario that might be valuable for other simon users, please consider <link linkend="export_scenario"
->uploading it</link
-> to this online repository and help other simon users.</para>
+>Wenn Sie ein Szenario erstellen das für andere simon Anwender von interesse sein könnte, <link linkend"export_scenario"
+>laden Sie es bitte hoch damit es auch anderen simon Anwendern zugute kommen kann</link
+>.</para>
 </sect3>
 
 <sect3 id="export_scenario">
   <title
->Export Scenario</title>
+>Szenario exportieren</title>
   <para
->Scenarios can be exported to a local file in simons XML scenario file format and directly uploaded to the <ulink url="http://kde-files.org/index.php?xcontentmode=692"
+>Szenarios können in eine lokale Datei (simons XML Szenariodateiformat) exportiert werden und diese Datei dann in die <ulink url="http://kde-files.org/index.php?xcontentmode=692"
 >simon Scenarios</ulink
-> subsection of the OpenDesktop site <ulink url="http://kde-files.org"
+> Sektion der OpenDesktop Seite <ulink url="http://kde-files.org"
 >KDE-files.org</ulink
->.</para>
+> hochgeladen werden.</para>
 
   <para
->To upload to OpenDesktop sites, you need an account on the site. <ulink url="http://opendesktop.org/usermanager/new.php"
+>Um auf den OpenDesktop Seiten hochladen zu können, benötigen Sie einen Account auf der Seite. Die <ulink url="http://opendesktop.org/usermanager/new.php"
 >Registration</ulink
-> is very easy and of course free of charge.</para>
+> ist allerdings sehr leicht und natürlich kostenlos.</para>
 
   <para
->simon allows you to upload new content directly from within simon (<guibutton
+>simon erlaubt es Ihnen neue Inhalte direkt von der Benutzeroberfläche heraus hochzuladen (<guibutton
 >Export</guibutton
 > 
 > <guimenuitem
->Publish</guimenuitem
+>Veröffentlichen</guimenuitem
 >).</para>
 
 <para>
   <screenshot>
     <screeninfo
->Upload scenario wizard: 1 of 4</screeninfo>
+>Szenarios hochladen: 1 von 4</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="upload_scenario_1.png" format="PNG"/>
@@ -1384,7 +1386,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para>
   <screenshot>
     <screeninfo
->Upload scenario wizard: 2 of 4</screeninfo>
+>Szenarios hochladen: 2 von 4</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="upload_scenario_2.png" format="PNG"/>
@@ -1396,7 +1398,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para>
   <screenshot>
     <screeninfo
->Upload scenario wizard: 3 of 4</screeninfo>
+>Szenarios hochladen: 3 von 4</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="upload_scenario_3.png" format="PNG"/>
@@ -1408,7 +1410,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para>
   <screenshot>
     <screeninfo
->Upload scenario wizard: 4 of 4</screeninfo>
+>Szenarios hochladen: 4 von 4</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="upload_scenario_4.png" format="PNG"/>
@@ -1418,9 +1420,9 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
   <para
->To use this functionality, simply enter your account credentials in the <link linkend="social_desktop_config"
->social desktop configuration</link
-> in the simon configuration.</para>
+>Um diese Funktionalität zu verwenden geben Sie einfach Ihre Accountdetails in die <link linkend="social_desktop_config"
+>Soziale Desktop Konfiguration</link
+> in der simon Konfiguration ein.</para>
 </sect3>
 
 </sect2>
@@ -1428,10 +1430,10 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <sect1 id="base_model_use">
 <title
->Base models</title>
+>Basismodelle</title>
 <para
->This section describes how to use base models from within simon. For <link linkend="base_model"
->general information about base models, please refer to the chapter background</link
+>Diese Sektion beschreibt wie Sie Basismodelle mit simon verwenden. Für <link linkend="base_model"
+>generelle Informationen über Basismodelle, sehen Sie bitte das Hintergrund Kapitel</link
 >.</para>
 
 <para
@@ -1448,7 +1450,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para>
   <screenshot>
     <screeninfo
->Base model settings</screeninfo>
+>Konfiguration von Basismodelle</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="base_model_settings_1.png" format="PNG"/>
@@ -1458,10 +1460,10 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Load the files with the appropriate "Load" button next to the file you want to set. The files will be copied to an internal location so the source files can be removed once you have selected them here.</para>
+>Laden Sie die Dateien mit den entsprechenden "Laden" Knöpfen neben den Dateien die Sie laden wollen. Die Dateien werden zu einem internen Pfad kopiert sodass die Quelle entfernt werden kann nachdem das Basismodell übernommen wurde.</para>
 
 <para
->For static models you don't need macros or stats but simon will not start a model compilation (which is needed even for setups using static base models to generate the language model) without them. If your base model doesn't provide them you can simply point simon to empty files instead.</para>
+>Für statische Modelle benötigen Sie weder "macros" noch "stats" Dateien aber simon wird die Kompilierung (die auch fuer statische Modelle notwendig ist um das Sprachmodell zu erzeugen) nicht ohne sie starten. Falls Ihr Basismodell diese Dateien nicht mitliefert können Sie einfach leeren Dateien angeben.</para>
 
 </sect1>
 
@@ -1600,8 +1602,8 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Per default, the active vocabulary is shown. To display the shadow vocabulary select the tab <guilabel
->Shadow Vocabulary</guilabel
+>Standardmäßig wird das aktive Vokabular angezeigt. Um das Schattenvokabular anzuzeigen wählen Sie die Registerkarte <guilabel
+>Schattenvokabular</guilabel
 >.</para>
 
 <para
@@ -1771,20 +1773,15 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <title
 >Trainieren des Wortes</title>
 <para
->To complete the wizard we can now train the word twice. If you don't want to do this or for example use a <link linkend="base_model_static"
->static base model</link
->, you can skip these two pages. </para
+>Um den Assistenten abzuschließen können Sie jetzt das Wort zwei mal aufnehmen. Falls Sie das nicht tun wollen oder z.B. ein <link linkend="base_model_static"
+>statisches Modell</link
+> verwenden können Sie die folgenden zwei Seiten überspringen. </para
 > 
 
-<note>
 <para
->If you are using static or adapted base models, you can of course skip this step. </para>
-</note>
-
-<para
->Because you are about to record some training samples, simon will display the volume calibration to make sure that your microphone is set up correctly. For more information please refer to the <link linkend="volume_calibration"
->volume calibration section</link
-> </para>
+>Weil Sie jetzt gleich zwei Trainingsaufnahmen aufnehmen werden wird simon die Lautstärkeeinpegelung anzeigen um sicherzustellen, dass die Lautstärke optimal eingestellt ist. Für mehr Informationen sehen Sie bitte die <link linkend="voklume_calibration"
+>Lautstärkeeinpegelung Sektion</link
+>. </para>
 
 <para
 >simon wird automatisch versuchen Sie beim Training nach Sätzen statt einzelnen Wörtern zu fragen. Dazu wird simon Ihre Grammatik durchforsten nach Satzstrukturen die den Terminal des neuen Wortes beinhalten und dann anhand der Terminale der anderen Wörter in ihrem aktiven Lexikon einen gültigen Satz bilden. </para>
@@ -1830,14 +1827,14 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <title
 >Ein Wort ändern</title>
 <para
->To edit a word, simply select it from the vocabulary, and click on <guibutton
->Edit word</guibutton
+>Um ein Wort zu editieren, wählen Sie es im angezeigten Vokabular aus und klicken Sie auf <guibutton
+>Wort editieren</guibutton
 >. </para>
 
 <para>
   <screenshot>
     <screeninfo
->Wort ändern</screeninfo>
+>Wort editieren</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="edit_word.png" format="PNG"/>
@@ -1847,7 +1844,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->There you can change name, terminal and pronunciation of the selected word. </para>
+>Hier können Sie Namen, Terminal und Aussprache des ausgewählten Wortes ändern. </para>
 </sect2>
 
 <sect2 id="remove_word">
@@ -1872,13 +1869,13 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
     <para
 >Das Wort zum Terminal "Unbenutzt" verschieben.</para>
     <para
->Because you (hopefully) don't use the terminal "Unused" in your grammar, the word will no longer be considered for recognition. In fact, it will be removed from the active vocabulary before compiling the model because no grammar sentence references it.</para>
+>Weil Sie (hoffentlich) den Terminal "Unbenutzt" in Ihrer Grammatik nicht verwenden, werden Wörter die so markiert sind nicht länger für die Erkennung verwenden. Sie werden vom aktiven Vokabular entfernt bevor das Modell erstellt wird weil keine Grammatikstruktur sie mehr referenziert.</para>
     <para
->If you want to use the terminal "Unused" in your grammar, you can of course use a different terminal for unused words. Just set the terminal through the <link linkend="edit_word"
->Edit word</link
-> dialog.</para>
+>Wenn Sie den Terminal "Unbenutzt" in Ihrer Grammatik verwenden wollen können Sie natürlich einen anderen Terminal für unbenutzte Wörter verwenden. Sie können den Terminal über den <link linkend="edit_word"
+>Wort editieren</link
+> Dialog setzen.</para>
     <para
->To use the word again, just set the right terminal again. No data will be lost.</para>
+>Um das Wort erneut zu verwenden, setzen Sie es einfach weder auf den richtigen Terminal. Assoziierte Trainingsdaten bleiben erhalten.</para>
   </listitem>
   <listitem>
     <para
@@ -1886,17 +1883,17 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
     <para
 >Diese Option wird das ausgewählte Wort vom aktiven Lexikon (und damit von der Erkennung) entfernen aber wird das Wort im Schattenvokabular weiterführen(sollte das Schattenlexikon das selbe Wort bereits beinhalten, wird es nicht noch einmal eingefügt). Alle Aufnahmen (Trainingsdaten) die das Wort beinhalten bleiben erhalten.</para>
     <para
->To use the word again, add it again to the active vocabulary. When adding a "new" word with the same name the values of the moved word will be suggested to you. Therefore, no data will be lost.</para>
+>Um das Wort wieder zu verwenden, fügen Sie es wieder zum aktiven Vokabular dazu. Wenn Sie ein neues Wort mit dem selben Namen hinzufügen werden die Werte dieses Wortes vorgeschlagen werden. Es gehen also keine Daten unwiederbringlich verloren.</para>
   </listitem>
   <listitem>
     <para
->Delete the word but keep the samples</para>
+>Lösche das Wort aber behalte assoziierte Aufnahmen</para>
     <para
->Removes the word completely but keeps the associated samples. Whenever you add another word with the same word name the samples will be re-associated.</para>
+>Entfernt das Wort komplett aber behält Aufnahmen in denen es vorkommt. Wenn Sie ein weiteres Wort mit dem selben Namen hinzufügen werden die Aufnahmen wieder damit assoziiert.</para>
     <para
->Be careful with this option as the new word you add again might be transcribed differently and this difference can not be taken into account automatically (simon will then try to force the new transcription on the old recordings during the model compilation).</para>
+>Seien Sie vorsichtig mit dieser Option da das neu hinzugefügte Wort möglicherweise anders transkripiert wird und dieser Unterschied nicht automatisch erkannt und beachtet ewrden kann (simon wird dann bei der Modellgenerierung die neue Aussprache auch bei den alten Aufnahmen erwarten).</para>
     <para
->Do not use this option if the samples you recorded for this word were errenous.</para>
+>Wählen Sie diese Option nicht wenn die Aufnahmen für das Wort falsch (betont) waren.</para>
   </listitem>
   <listitem
 ><para
@@ -1904,9 +1901,9 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
   <para
 >Entfernt das Wort. Alle Aufnahmen die das Wort beinhalten werden ebenfalls entfernt.</para>
   <para
->This option leaves no trace of neither the word itself nor the associated samples.</para>
+>Diese Option lässt keine Spuren von weder dem Wort selbst noch assoziierten Sprachdaten auf dem System zurück.</para>
   <para
->Because samples are global (not assigned to scenarios), even samples recorded from trainings session of other scenarios might be removed as well if they contain the word. Use this option carefully.</para>
+>Da Aufnahmen global sind (nicht zu einem spezifischen Szenario zugewiesen) werden auch Aufnahmen die in Trainingssitzungen von anderen Szenarios aufgenommen wurden entfernt wenn Sie dieses Wort beinhalten. Verwenden Sie diese Funktion vorsichtig.</para>
   </listitem>
 </itemizedlist>
 </para>
@@ -1964,9 +1961,9 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Since version 0.3 you can also import dictionaries directly to the active dictionary. This option is mostly there to make it easier to move to simon from custom solutions and to encourage importing of older models (for example one used with simon 0.2). You will <emphasis
->almost never</emphasis
-> want to import a very large dictionary as active dictionary.</para>
+>Seit Version 0.3 können Sie Wörterbücher auch direkt in das aktive Vokabular importieren. Diese Option ist hauptsächlich nützlich um es leichter zu machen von selbst entwickelten manuellen Lösungen auf simon umzusteigern und um Modelle aus älteren simon Versionen zu importieren (z.B. aus Version 0.2). Sie werden <emphasis
+>fast nie</emphasis
+> ein sehr großes Wörterbuch in das aktive Vokabular importieren wollen.</para>
 
 <para
 >Sie finden eine Liste verfügbarer Wörterbücher die mit simon getestet wurden auf dem <ulink url="http://www.cyber-byte.at/wiki/index.php/Deutsch:_Schattenw%C3%B6rterbuch"
@@ -2013,13 +2010,13 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 >Hadifix Wörterbücher bieten sowohl Terminal- als auch Ausspracheinformationen. </para>
 
 <para
->Due to a special exemption in their license the simon listens team is proud to be able to offer you to download the excellent HADIFIX BOMP directly from within simon. </para>
+>Durch eine spezielle Ausnahme in Ihrer LIzenz ist das Simon Listens Team stolz darauf Ihnen einen direkten Download und Import des ausgezeichneten HADIFIX BOMPs in simon anbieten zu können. </para>
 
 
 <para>
   <screenshot>
     <screeninfo
->Import dictionary: Automatic BOMP import</screeninfo>
+>Wörterbuch importieren: Automatischer BOMP Import</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="import_dictionary_hadifix_1.png" format="PNG"/>
@@ -2029,7 +2026,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Using the automatic bomp import you can, after providing name and e-Mail address for the team of the University Bonn, directly download and import the dictionary from the simon listens server.</para>
+>Mit dem automatischen BOMP Import können Sie, nachdem Sie Namen und e-Mail Adresse für die Universität Bonn angegeben haben, das Wörterbuch direkt von einem simon listens Server importieren.</para>
 </sect3>
 
 <sect3 id="import_dict_htk">
@@ -2077,7 +2074,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >simon kann Julius Wörterbücher importieren. </para>
 <para
->One example of a Julius vocabularies are the word lists of simon 0.2. </para>
+>Ein Beispiel eines Julius Vokabulars sind Wortlisten von simon 0.2. </para>
 <para
 >Julius Wörterbücher bieten Ausspracheinformationen und Terminalinformationen. </para>
 </sect3>
@@ -2251,10 +2248,10 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->When selecting a sentence on the left, the right pane will automatically show possible real sentences with the words of your vocabulary on the right.</para>
+>Wenn Sie einen Satz links auswählen wir das Feld rechts automatisch echte Sätze die mit Ihrem aktuellen Vokabular dadurch ermöglicht werden anzeigen.</para>
 
 <para
->The example section will list at most 35 examples so if more than that amount of sentences match the selected grammar entry, the list might not be complete.</para>
+>Die Beispielsektion erlaubt maximal 35 Beispiele sodass die Liste nicht vollständig sein muss.</para>
 
 </sect2>
 
@@ -2274,7 +2271,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->simon can read and import text files but also provides an input field if you want to simply type the text into simon.</para>
+>simon kann Textdateien einlesen aber erlaubt auch direkte Eingabe von Text in ein Eingabefeld.</para>
 
 <para
 >Wenn wir bspw. ein Vokabular wie vorhin in der allgemeinen Sektion haben: <table frame='all'
@@ -2570,7 +2567,7 @@ Der Trainingstexte hinzufügen Assistent bietet einen einfachen Weg neue Texte z
           </imageobject>
         </mediaobject>
       </screenshot>
-Simply enter the trainingstext in an input field.</para>
+Tragen Sie den Trainingstext einfach in das entsprechende Eingabefeld ein.</para>
 </sect3>
 <sect3>
   <title
@@ -2647,13 +2644,13 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >Diese Funktion ist sehr speziell. Bitte benutzen Sie sie nur wenn Sie sich sicher sind, dass Sie wissen was Sie tun. </para>
 
 <para
->You can either provide a separate prompts file or let simon extract the transcriptions from the filenames.</para>
+>Sie können entweder seperate Promptsdateien angeben oder simon die Transkription aus den Dateinamen ablesen lassen.</para>
 
 <para
->When using prompts based transcriptions your prompts file (UTF-8) needs to contain lines of the following content: "[filename] [content]". Filenames are without file extensions and the content has to be uppercase. For example: "demo_2007_03_20 DEMO" to import the file "demo_2007_03_20.wav" containing the spoken word "Demo".</para>
+>Wenn Sie prompts basierte Transkriptionen verwenden (UTF-8 enkodiert) muss die Eingabedatei den folgenden inhalt besitzen: "[Dateiname] [Inhalt]". Dateinamen sind ohne Dateiwereiterung anzugeben und der Inhalt besteht nur aus Großbuchstaben. Zum Beispiel: Die Zeiele "demo_2007_03_20 DEMO" bedeutet dass die datei "demo_2007_03_20.wav" den Inhalt "Demo" besitzt.</para>
 
 <para
->Because prompts files do not contain a file extension, simon will try wav, mp3, ogg and flac (in that order). If one of those match, no other extension will be tested and only the first file will be imported (in contrast to file based transcription where all files would be imported).</para>
+>Weil Promptsdateien keine Dateierweiterung besitzen wird simon wav, mp3, ogg und flac probieren (in dieser Reihenfolge). Sollte eine Datei mit einem solchen Dateinamen existieren wird diese Datei importiert und folgende Übereinstimmung ignoriert (sollten demo.wav und demo.mp3 existieren wird nur die demo.wav importiert). Dies ist im Gegensatz zu Dateibasierten Transkriptionen wo beide Dateien importiert werden würden.</para>
 
 <para
 >Wenn dateibasierte Transkriptionen verwendet werden, wird der Assistent die Transkription aus den gefunden Trainingsdaten anhand der <emphasis
@@ -2668,7 +2665,7 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >Dateien die mit simon 0.2 aufgenommen wurden, werden automatisch dieser Namensgebung folgen sodass Sie sie ohne Probleme importieren können sollten. Dateien Die von vorigen Versionen von simon aufgenommen wurden sollten nicht importiert werden. Sie können diese Aufnahmen aber natürlich über den Prompts-basierten Import importieren.</para>
 
 <para
->Imported files and their transcription are then added to the trainings corpus. </para>
+>Die Dateien und Ihre Transkription werden dann zum Trainingskorpus hinzugefügt. </para>
 
 <para
 >Um einen Ordner zu importieren der die Trainingsdateien beinhaltet wählen Sie ihn - und abhängig vom Importierungstyp auch die entsprechende Prompts-Datei - im Assistenten aus. <screenshot>
@@ -2683,16 +2680,24 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </para>
 
 <para
->The folder will be scanned recursively. This means that the given folder and all its subfolders will be searched for .wav, .flac, .mp3 and .ogg files. All files found will be imported. </para>
+>Der Ordner wird rekursiv durchsucht. Das heißt, dass der angegebene Ordner und all seine Unterordner nach <filename
+>.wav</filename
+>, <filename
+>.flac</filename
+>, <filename
+>.mp3</filename
+> und <filename
+>.ogg</filename
+> Dateien durchsucht wird. Alle gefundenen Dateien werden importiert. </para>
 
 <para
 >Wenn Trainingsdaten importiert werden, werden alle konfigurierten <link linkend="soundconfiguration_postprocessing"
 >Nachbearbeitungsfilter</link
 > angewandt. </para>
 <para
->If you import anything other than WAV files you are responsible for decoding them during the import process (for example through post processing filters) or the model creation <emphasis
->will</emphasis
-> fail. </para>
+>Wenn Sie etwas anderes als WAV Dateien importieren sind Sie dafür verantwortlich, dass die Dateien während dem Import korrekt dekodiert werden (zum Beispiel durch Nachbearbeitungsketten) oder die Modellerstellung <emphasis
+>wird</emphasis
+> fehlschlagen. </para>
 
 </sect2>
 
@@ -2718,11 +2723,11 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </para>
 
 <para
->The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guibutton
->Commands</guibutton
+>Das Kommandosystem kann mit einer Gruppe von Fabrikarbeitern verglichen werden. Jeder von Ihnen weiß, wie er genau eine Aufgabe bewältigt (z.B. Weiß "Karl" wie man Programme startet und "Hans" weiß wie Ordner geöffnet werden, etc.). Wenn simon jetzt etwas erkennt wird dieses Erkennungsergebnis zuerst an "Karl" übergeben, der sich das einmal ansieht. Ist die Anweisung für ihn gedacht, handelt er danach (und startet in diesem Beispiel ein Programm). Ansonsten gibt er die Anweisung weiter an "Hans", usw. Wenn keiner der geladenen Plug-Ins weiß was zu tun ist, wird das Erkennungsergebnis verworfen. Die Abfolge in der das Erkennungsergebnis zu den einzelnen Plug-Ins übergeben wird ist konfigurierbar in der Kommandokonfiguration (<guibutton
+>Kommandos</guibutton
 > 
 > <guibutton
->Manage plugins</guibutton
+>Plug-Ins verwalten</guibutton
 >).</para>
 
 
@@ -2745,36 +2750,36 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 <para
 >In der Praxis bedeutet dass, z.B. dass wenn Sie ein Programm-Kommando "Firefox" haben um den Webbrowser zu öffnen und ein Ort-Kommando "Google" um die Websuche zu öffnen und die Auslöser "Starte" für das "Program" Plug-In und "Öffne" für das "Ort" Plug-In vergeben, müssten Sie "Starte Firefox" sagen um Firefox zu starten - statt einfach "Firefox" (den Namen des Kommandos) wenn Sie keinen Auslöser verwenden würden. Analog dazu müssten Sie "Öffne Google" sagen statt nur "Google" ohne Auslöser.</para>
 <para
->Triggers are of course no requirement and you can easily use simon without defining any plugin triggers (although many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the number false-positives.</para>
+>Trigger sind natürlich keine Voraussetzung und Sie können simon auch ohne Trigger verwenden (manche Kommandos haben aber per Default den Auslöser "Computer" den Sie in diesem Fall entfernen müssten). Aber sogar wenn Sie nur einen einzelnen Auslöser für all Ihre Plug-Ins verwenden (wie etwa den allgemeinen Trigger "Computer" um z.B. "Computer, Firefox" und "Computer Google" zu sagen) hat dies den großen Vorteil die versehentlichen Kommandoaufrufe zu minimieren.</para>
 
 <para
 >simons <link linkend="command_dialog"
->command dialog</link
-> displays the complete phrase associated with a command in the upper right corner of the command configuration.</para>
+>Kommando Sektion</link
+> zeigt den kompletten Satz der mit dem Kommando verbunden ist in der rechten oberen Ecke der Kommandoanzeige an.</para>
 
 <para
->You can load multiple instances of one plugin even in one scenario. Each instance can of course also have a different plugin trigger.</para>
+>Sie können mehrere Instanzen eines Plugins pro Szenario laden. Jede Instanz kann unterschiedliche Plugin Auslöser verwenden.</para>
 
 <para
 >Jedes Kommando hat einen Namen (der das Kommando - mit einem etwaigen Plug-In Auslöser verbunden - auslöst), ein Symbol und mehrere Felder die vom Typ des Kommandos abhängen (siehe unten). </para>
 
 <para
->Some command plugins might provide a configuration of the plugin itself (not the commands it contains). There configuration pages will be plugged directly into the action configuration dialog (below the <guimenuitem
->General</guimenuitem
-> menu item) when you load the associated plugin. </para>
+>Einige Kommandoplugins bieten vielleicht eine Konfiguration für das Plugin selbst an (nicht die Kommandos die es verwaltet). Diese Konfigurationsseiten werden direkt in den Plug-Ins konfigurieren Dialog eingebunden (unter dem <guimenuitem
+>Allgemein</guimenuitem
+> Menüeintrag) wenn Sie das Plugin laden. </para>
 
 <para
->Plugins that provide a graphical user interface (like for example the <link linkend="input_number"
->input number command plugin</link
->) can be configured by configuring "Voice commands". You can change the associated word that will trigger the button, for example, but also change the displayed icon, etc. If you remove all voice interface commands from a graphical element, the element will be hidden automatically. </para>
+>Plug-Ins die eine grafische Benutzeroberfläche anbieten (zum Beispiel das <link linkend="input_number"
+>Nummer eingeben</link
+> Kommandoplugin) können über "Sprachkommandos" konfiguriert werden. Sie können das assoziierte Wort ändern das den grafischen Knopf auslöst ändern aber auch das angezeigte Symbol, usw. Wenn Sie alle Sprachkommandos von einem grafischen Element entfernen wird das Element nicht mehr angezeigt (versteckt). </para>
 
 <para
->Voice interface commands are added just like normal commands through the command configuration.</para>
+>Sprachkommandos können gleich wie normale Kommandos durch die Kommandokonfiguration verwaltet werden.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Configure voice interface commands</screeninfo>
+>Sprachkommandos verwalten</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="voice_interface_command_1.png" format="PNG"/>
@@ -2784,23 +2789,23 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </para>
 
 <para
->To add a new interface command to a function, just select the action you want to associate with a command, click <guibutton
->Create from template</guibutton
-> and adapt the resulting commando to your needs.</para>
+>Um ein neues Sprachkommando zu einer Funktion hinzuzufügen, wählen Sie die Aktion die Sie mit dem Kommando verbinden wollen aus und klicken Sie <guibutton
+>Von Vorlage erzeugen</guibutton
+>. Passen Sie die erzeugten Werte an Ihre Wünsche an.</para>
 
 <para
->Some plugins (for example the <link linkend="desktopgrid"
->desktopgrid</link
-> or the <link linkend="calculator_command_plugin"
->calculator</link
-> might also provide a menu item in the <guimenu
->Commands</guimenu
-> menu. </para>
+>Einige Plug-Ins (zum Beispiel das <link linkend="desktopgrid"
+>Desktopgitter</link
+> oder der <link linkend="calculator_command_plugin"
+>Taschenrechner</link
+> können auch einen Menüeintrag im <guimenu
+>Kommando</guimenu
+> Menü anzeigen. </para>
 
 <para>
 <screenshot>
 <screeninfo
->Command plugged into main window</screeninfo>
+>Kommando im Hauptfenster eingebettet</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="command_plugin.png" format="PNG"/>
@@ -2854,11 +2859,11 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 <title
 >Programme importieren</title>
 <para
->For even easier configuration simon provides an import dialog which allows you to select programs directly from the KDE menu.</para>
+>simon bietet einen Dialog mit dem Sie Programme auch direkt aus dem KDE Menü auswählen können.</para>
 
 <note
 ><para
->This option is not available on Microsoft Windows.</para
+>Diese Option ist unter Microsoft Windows nicht verfügbar.</para
 ></note>
 
 <screenshot>
@@ -2872,15 +2877,15 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </screenshot>
 
 <para
->The dialog will list all programs that have an entry in your KDE menu in their respective category.</para>
+>Der Dialog wird alle Programme aus dem KDE Menü in ihrer entsprechenden Kategorie anzeigen.</para>
 
 <para
 >Unterkategorien werden nicht unterstützt und werden auf der selben Ebene wie ihre übergeordneten Kategorien angezeigt.</para>
 
 <para
->Just select the program you wish to start with simon and press <guibutton
+>Wählen Sie einfach das Programm aus, das Sie importieren wollen und schließen klicken Sie <guibutton
 >Ok</guibutton
->. The correct values for the executable and the working directory as well as an appropriate command name and description will automatically be filled out for you.</para>
+>. Die korrekten Werte für die Ausführbare Datei und für den Arbeitsordner werden automatisch ausgefüllt.</para>
 
 </sect3>
 
@@ -2905,9 +2910,9 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </screenshot>
 
 <para
->To associate a specific URL with the command you can manually enter it in the URL field (select <guibutton
->Manual</guibutton
-> first) or import it with the import place wizard.</para>
+>Um einen URL mit einem Kommando zu verbinden können Sie den URL entweder manuell in das URL-Feld eingeben (wählen Sie <guibutton
+>Manuell<guibutton
+>) oder ihn mit dem Ort importieren Dialog auswählen.</para>
 
 
 <sect3 id="importing_place_commands">
@@ -2915,12 +2920,12 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >Orte importieren</title>
 
 <para
->The import place dialog allows you to easily create the correct URL for the command.</para>
+>Der Ort importieren Dialog erleichtert es eine korrekte URL anzugeben.</para>
 
 <para
->To add a local folder, select <guibutton
->Local Place</guibutton
-> and choose the folder or file with the file selector. <screenshot>
+>Um einen lokalen Ordner oder eine lokale Datei anzugeben, wählen Sie <guibutton
+>Lokaler Ort</guibutton
+> und wählen Sie den Ordner oder die Datei mit dem Feld aus. <screenshot>
 <screeninfo
 >Lokale Orte importieren</screeninfo>
   <mediaobject>
@@ -2932,17 +2937,17 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </para>
 
 <para
->To add a remote URL (HTTP, FTP, etc.) choose <guibutton
->Remote URL</guibutton
-> <screenshot
+>Um einen entfernten URL (HTTP, FTP, etc.) anzugeben wählen Sie <guibutton
+>URL</guibutton
+>.<screenshot
 > <screeninfo
->Import Places: Remote</screeninfo
+>Entfernte Orte importieren</screeninfo
 > <mediaobject
 > <imageobject
 > <imagedata fileref="command_place_import_2.png" format="PNG"/> </imageobject
 > </mediaobject
 > </screenshot
-> Please note that for URLs with authentication information the password will be stored in clear text.</para>
+> Bitte beachten Sie, dass URLs mit Authentifizierungsinformation im Klartext gespeichert werden und das Passwort also unverschlüsselt vorliegt.</para>
 
 </sect3>
 </sect2>
@@ -2970,11 +2975,11 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 <para
 >simon wird das Tastenkürzel abfangen und mit dem Kommando assozieren.</para>
 <para
->Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button.</para>
+>Wegen technischen Einschränkungen gibt es unter Microsoft Windows einige Tastenkürzel die sich nicht ohne weiteres abfangen lassen mit simon (z.B. Strg+Alt+Entf und Alt+F4). Diese speziellen Tastenkombinationen können mit einer eigenen Liste ausgewählt werden.</para>
 
 <note
 ><para
->This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.</para
+>Diese Auswahlliste ist im Bildschirmfoto nicht sichtbar da sie nur unter Microsoft Windows angezeigt wird.</para
 ></note>
 </sect2>
 
@@ -3026,7 +3031,7 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 
 <sect3 id="list_command_display">
 <title
->List Command Display</title>
+>Listen Kommandos Anzeige</title>
 
 <para
 >Wenn ein List-Kommando ausgelöst wird, wird eine Liste in der Mitte des Bildschirmes angezeigt. Diese Liste wird automatisch größer und kleiner um alle Elemente anzeigen zu können. <screenshot
@@ -3057,10 +3062,10 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 
 <sect3 id="list_command_configure">
 <title
->Configuring list elements</title>
+>Konfiguration von Listenelementen</title>
 
 <para
->By default the list command uses the following trigger words. To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following "sentences": <itemizedlist>
+>Standardmäßig verwendet das Listenkommando die folgenden Auslöser.Um List-Kommandos zu ihrem vollen Potential zu benutzen, stellen Sie sicher, dass Ihr Sprachmodell die folgenden "Sätze" kennt und erlaubt: <itemizedlist>
 <listitem
 ><para
 >"Null"</para
@@ -3109,44 +3114,44 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 </para>
 
 <para
->Of course you can also configure these words in your simon configuration: <itemizedlist>
+>Natürlich können Sie diese Wörter in der simon Konfiguration anpassen: <itemizedlist>
     <listitem>
       <para
 ><guimenuitem
->Commands</guimenuitem
+>Kommandos</guimenuitem
 > 
 > <guibutton
->Manage plugins</guibutton
+>Plug-Ins verwalten</guibutton
 > 
 > <guimenuitem
->General</guimenuitem
+>Allgemein</guimenuitem
 > 
 > <guimenuitem
->Lists</guimenuitem
-> for the scenario wide list configuration.</para>
+>Listen</guimenuitem
+> für die szenarioweite Listenkonfiguration.</para>
     </listitem>
     <listitem>
       <para
 ><guimenu
->Settings</guimenu
+>Einstellungen</guimenu
 > 
 > <guimenuitem
->Configure simon...</guimenuitem
+>simon einrichten...</guimenuitem
 > 
 > <guimenuitem
->Actions</guimenuitem
+>Aktionen</guimenuitem
 > 
 > <guimenuitem
->Lists</guimenuitem
-> for the global configuration. When creating a new scenario, the scenario configuration will be initialized with a copy of this list configuration.</para>
+>Listen</guimenuitem
+> fürdie globale Konfiguration. When Sie ein neues Szenario anlegen wird diese Konfiguration als die Listenkonfiguration des neuen Szenarios übernommen.</para>
     </listitem>
   </itemizedlist>
 </para>
 
 <para
->List commands are internally also used by other plugins like for example the <link linkend="desktopgrid"
->desktopgrid</link
->. The confiugration of the triggers also affects their displayed lists. </para>
+>Listenkommandos sind intern auch verwendet von anderen Plugins wie z.B. das <link linkend="desktopgrid"
+>Desktopgitter</link
+>. Die Konfiguration der Trigger beeinflusst auch deren Listen. </para>
 
 </sect3>
 
@@ -3228,12 +3233,12 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert werden. Wenn eine der neun Nummer ausgesprochen wird, wird das Feld das mit dieser Nummer verbunden war in neun weitere Felder zerteilt die wieder von 1-9 durchnummeriert werden, etc. Dies wird insgesamt drei Mal gemacht. Nach der vierten Auswahl einer Zahl (der immer kleiner werdenden Teile des Bildschirms) wird in die Mitte des verbleibenden Vierecks geklickt (mit der linken Maustaste).</para>
 
 <para
->The exact click action is configurable but defaults to asking the user. Therefore you will be presented with a list of possible click modes. When selecting Drag and Drop, the desktopgrid will be displayed again to select the drop point.</para>
+>Die Exakte Aktion die beim "Klick" ausgewählt wird ist konfigurierbar. Standardmäßig wird der benutzer jedes mal durch eine Liste gefragt. Wird Drag and Drop ausgewählt wird das Desktopgitter nocheinmal angezeigt um den Punkt des "loslassens" auszuwählen.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Desktopgrid: Click selection</screeninfo>
+>Desktopgitter: Klickauswahl</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="desktop_grid_click_selection.png" format="PNG"/>
@@ -3246,7 +3251,7 @@ Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert
 >Während das Desktopgitter aktiv ist (es wird angezeigt) wird jedes Erkennungsergebnis das nicht das Desktopgitter selbst betrifft (andere Kommandos, etc.) verworfen. Der Auswahlprozess kann jederzeit abgebrochen werden durch sagen von "Abbrechen". </para>
 
 <para
->The desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
+>Das Plug-In "Desktopgitter" registriert eine Konfigurationsseite in der Kommandokonfiguration.</para>
 
 <para>
 <screenshot>
@@ -3280,7 +3285,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 
 
 <para
->By default the desktopgrid uses numbers to select the individual fields. To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following "sentences": <itemizedlist>
+>Standardmäßig verwendet das Desktopgitter nummern um die individuellen Felder auszuwählen.Um das Desktopgitter zu benutzen stellen Sie sicher, dass Ihr Sprachmodell folgende "Sätze" ermöglicht: <itemizedlist>
 <listitem
 ><para
 >"Eins"</para
@@ -3325,12 +3330,12 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->To configure these triggers, just configure the commands associated with the plugin.</para>
+>Um diese Auslöser zu konfigurieren, verändern Sie einfach die Kommandos die mit dem Plugin assoziiert sind.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Desktopgrid: Configuring list elements</screeninfo>
+>Desktopgitter: Listenelemente konfigurieren</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="desktop_grid_configure_list_elements.png" format="PNG"/>
@@ -3399,7 +3404,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 
 
 <para
->By default the input number plugin uses numbers to select the individual digits and a couple of control words. To use the input number plugin, make sure that your language and acoustic model contains and allows for the following "sentences": <itemizedlist>
+>Standardmäßig verwendet das Nummer eingeben Plug-In Nummern um die einzelnen Zahlen auszuwählen und einige Kontrollworte.Um das Nummer eingeben Plug-In komplett zu verwenden, stellen Sie bitte sicher, dass Ihr Sprachmodell folgende Sätze ermöglicht: <itemizedlist>
 <listitem
 ><para
 >"Null"</para
@@ -3460,7 +3465,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->To configure these triggers, just configure the commands associated with the plugin.</para>
+>Um diese Auslöser zu konfigurieren, verändern Sie einfach die Kommandos die mit dem Plugin assoziiert sind.</para>
 
 <para>
 <screenshot>
@@ -3491,12 +3496,12 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 >Weil keine Kommandos vom Typ "Diktation" angelegt werden können, scheint das Diktationsplug-in nicht im "Neues Kommando" Dialog auf.</para>
 
 <para
->The dictation plugin can be configured to append texts after recognition results to for example add a space after each recognized word.</para>
+>Das Diktationsplugin kann so konfiguriert werden beliebigen Text nach jedem Erkennungsergebnis anzuhängen.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Configure dictation</screeninfo>
+>Diktation konfigurieren</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="configure_dictation.png" format="PNG"/>
@@ -3580,14 +3585,14 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 
 <sect2 id="calculator_command_plugin">
 <title
->Calculator</title>
+>Taschenrechner</title>
 <para
->The calculator plugin is a simple, voice controlled calculator.</para>
+>Das Taschenrechner Plug-In ist ein simpler, sprachgesteuerter Taschenrechner.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Calculator plugin</screeninfo>
+>Taschenrechner Plug-In</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="calculator.png" format="PNG"/>
@@ -3597,17 +3602,17 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->The calculator extends the <link linkend="input_number"
->Input Number</link
-> plugin by providing additional features.</para>
+>Der Taschenrechner erweitert das <link linkend="input_number"
+>Nummer eingeben</link
+> Plug-In mit weiteren Funktionen.</para>
 
 <para
->When loading the plugin, a configuration screen is added to the plugin confiugration.</para>
+>Wenn das Plug-In geladen wird, wird eine Konfigurationsseite zum Plug-Ins verwalten Dialog hinzugefügt.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Calculator plugin: Configuration</screeninfo>
+>Taschenrechner Plug-In: Konfiguration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="calculator_configuration.png" format="PNG"/>
@@ -3617,14 +3622,14 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->There you can also confiugre the control mode of the calculator. Setting the mode to something else than <guimenuitem
->Full calculator</guimenuitem
-> will hide options from the displayed widget.</para>
+>Dort können Sie auch den Kontrollmodus des Taschenrechner konfigurieren. Wird dieser auf etwas anderes als <guimenuitem
+>Voller Taschenrechner</guimenuitem
+> gesetzt werden Optionen ausgeblendet.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Calculator plugin: Minimal</screeninfo>
+>Taschenrechner Plug-in: Minimal</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="calculator_minimal.png" format="PNG"/>
@@ -3634,19 +3639,17 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->However, the hidden controls will, in contrast to simply removing all associated command from the functions, still react to the configured voice commands.</para>
+>Die so versteckten Kontrollelemente können aber im Gegensatz zu solchen bei denen einfach alle assoziierten Sprachkommandos gelöscht wurden noch immer über die Sprache ausgewählt werden</para>
 
 <para
->When selecting <guibutton
+>Wenn der <guibutton
 >Ok</guibutton
->, the calculator will by default ask you what to do with the generated result. You can for example output the calculation, the result, both, etc. Besides always selecting this from the displayed list after selecting the <guibutton
->Ok</guibutton
-> button, this can also be set in the configuration options.</para>
+> ausgewählt wird, wird der Taschenrechner standardmäßig fragen was mit dem erzeugten Ergebnis gemacht werden soll. Sie können z.B. das Ergebnis der Rechnung, die Rechnung selbst oder beides ausgeben. Sie können dies jedes mal von der Liste auswählen oder in der Kommandokonfiguration fix setzen.</para>
 
 <para>
 <screenshot>
 <screeninfo
->Calculator plugin: Output mode selection</screeninfo>
+>Taschenrechner Plug-In: Ausgabemodus</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="calculator_output_mode_selection.png" format="PNG"/>
@@ -3661,31 +3664,31 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   <title
 >Filter</title>
   <para
->Using the filter plugin, you can intercept recognition results from being passed on to further command plugins. Using this plugin you can for example disable the recognition by voice.</para>
+>Mit dem Filter Plug-In können Sie Erkennungsergebnisse "abfangen" bevor Sie andere Plug-Ins erreichen. Mit diesem Plug-In können Sie beispielsweise die Erkennung über die Sprache pausieren.</para>
   <para
->The filter has two states: <itemizedlist>
+>Ein Filter hat zwei Zustände: <itemizedlist>
       <listitem>
         <para
->Inactive</para>
+>Inaktiv</para>
         <para
->The default state. All recognition results will be passed through.</para>
+>Der Standardzustand. Alle Erkennungsergebnisse werden weitergereicht.</para>
       </listitem>
       <listitem>
         <para
->Active</para>
+>Aktiv</para>
         <para
->When activated, the filter will "eat" all results that match the configured pattern. By default this means every result that simon recognizes will be accepted by the filter and therefore not relayed to any of the plugins following the filter plugin.</para>
+>Wenn der Filter aktiviert ist, wird der Filter alle Ergebnisse "fressen" die zu einem konfigurierten String passen. Standardmäßig bedeutet dass, dass jedes Erkennungsergebnis vom Filter akzeptiert werden wird und somit nicht zu den folgenden Plug-Ins weitergereicht wird.</para>
       </listitem>
     </itemizedlist>
   </para>
 
   <para
->The filter command plugin registers a configuration screen in the command configuration where you can change what results should be filtered. </para>
+>Das Filter Plug-In registriert eine Konfigurationsseite im Plug-Ins verwalten Dialog wo auch konfiguriert werden kann welche Ergebnisse herausgefiltert werden sollen. </para>
  
   <para>
   <screenshot>
   <screeninfo
->Filter plugin: Configuration</screeninfo>
+>Filter Plug-In: Konfiguration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="filter_configuration.png" format="PNG"/>
@@ -3695,26 +3698,26 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->The pattern is a regular expression that will be evaluated each time a recognition results receives the plugin for processing.</para>
+>Der Filter ist ein regulärer Ausdruck der zur Laufzeit evaluiert wird sobald ein Erkennungsergebnis das Plug-In erreicht.</para>
 
   <para
->The plugin also registers voice interface commands for activating and deactivating the filter.</para>
+>Das Plug-In registert Spracheingabekommandos zum aktivieren und deaktivieren des Filters.</para>
 
 </sect2>
 
 <sect2 id="pronunciation_training_command_plugin">
   <title
->Pronunciation Training</title>
+>Aussprachetraining</title>
 
   <para
->The pronunciation training, when combined with a good <link linkend="base_model"
->static base model</link
->, can be a powerful tool to improve your pronunciation of a new language.</para>
+>Das aussprachetraining, wenn kombiniert mit einem guten <link linkend="base_model"
+>statischen Basismodell</link
+>, kann ein hilfreiches Werkzeug sein um die Aussprache einer Fremdsprache zu trainieren.</para>
  
   <para>
   <screenshot>
   <screeninfo
->Pronunciation training</screeninfo>
+>Aussprachetraining</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="pronunciation_training.png" format="PNG"/>
@@ -3724,23 +3727,23 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->Essentially, the plugin will prompt you to say specific words. The recognition will then recognize your pronunciation of the word and compare it to your speech model which should be a base model of native speakers for this to work correctly. Then simon will display the recognition rate (how similar your version was to the stored base model).</para>
+>Das Plug-In wird Sie auffordern Wörter auszusprechen. Die Erkennung wird dann die Aufnahme analysieren und dabei je nach Aussprache hoffentlich das richtige Wort auswählen. Wird das richtige Wort erkannt wird anhand der Erkennungsgenauigkeit festgestellt wie nahe Ihre Aussprache an der der Sprecher des Basismodells liegt. Da Basismodelle in der Regel von Muttersprachlern aufgenommen wird, zeigt die angezeigte Erkennungsrate einen Qualitätsindex Ihrer Aussprache.</para>
 
   <para
->The closer to the native speaker, the higher the score.</para>
+>Je ähnlicher Sie zu den Muttersprachlern klingen, desto höher ist der angezeigte Wert.</para>
 
   <para
->The plugin adds an entry to your <guimenu
->Commands</guimenu
-> menu to launch the pronunciation training dialog.</para>
+>Das Plug-In fügt einen Eintrag zum <guimenu
+>Kommandos</guimenu
+> Menü hinzu um das Training zu starten.</para>
 
   <para
->The training itself consists of multiple pages. Each page contains one word fetched from your active vocabulary. They are identified by a terminal which needs to be selected in the command configuration before starting the training.</para>
+>Das Training selbst besteht aus mehreren Seiten. Jede Seite beinhaltet ein Wort das vom aktiven Vokabular geholt wird. Die zu trainierenden Wörter werden per Terminal selektiert der in der Kommandokonfiguration eingestellt wird bevor das Training gestartet werden kann.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Pronunciation training: Confiugration</screeninfo>
+>Aussprachetraining: Konfiguration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="pronunciation_training_configuration.png" format="PNG"/>
@@ -3752,15 +3755,15 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 
 <sect2 id="keyboard_command_plugin">
   <title
->Keyboard</title>
+>Tastatur</title>
 
   <para
->The keyboard plugin displays a virtual, voice controlled keyboard.</para>
+>Das Tastatur Plug-In zeigt eine virtuelle, sprachgesteuerte Tastatur.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Keyboard</screeninfo>
+>Tastatur</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="keyboard_1.png" format="PNG"/>
@@ -3770,15 +3773,15 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->The keyboard consits of multiple tabs, each possibly containing many keys. The entirety of tabs and keys are collected in "sets".</para>
+>Die Tastatur besteht aus mehreren Registerkarten mit jeweils anderen Tasten. Die Gesamtheit von Registerkarten und Tasten sind in "Sets" gesammelt.</para>
 
   <para
->You can select sets in the configuration but also create new ones from scratch in the keyboard command confiugration.</para>
+>Sie können das zu verwendende Set in der Konfiguration auswählen oder neue anlegen.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Keyboard: Confiugration</screeninfo>
+>Tastatur: Konfiguration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="keyboard_2.png" format="PNG"/>
@@ -3788,20 +3791,20 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->Keys are usually mapped to single characters but can also hold long texts and even shortcuts. Because of this, keyboard sets can contain special keys like a "select all" key or a "Password" key (typing your password).</para>
+>Tasten sind in der Regel mit genau einem Zeichen verbunden, können aber auch längere Texte und sogar Tastenkürzel beinhalten. Deshalb können Tastatursets auch spezielle Tasten wie "Alle auswählen" oder "Passwort hinschreiben" besitzen.</para>
 
   <para
->Next to the tabs that hold the keys of your set, the keyboard my also show special keys like Ctrl, Shift, etc. Those keys are provided as voice inteface commands and are displayed regardless of what tab of the set is currently active.</para>
+>Neben den Registerkarten die die Tasten aufnehmen kann die Tastatur einige spezielle Tasten wie Steuerung, Shift, etc. anzeigen. Diese Tasten sind als Spracheingabekommandos realisiert und werden unabhängig von der ausgewählten Registerkarte angezeigt.</para>
   <para
->As with all voice triggers, removing the associated command, hides the buttons as well.</para>
+>Wie alle Spracheingabekommandos können die Knöpfe versteckt werden indem alle assoziierten Sprachkommandos entfernt werden.</para>
 
   <para
->Moreover, the keyboard provides a numpad that can be shown by selecting the appropriate option in the keyboard configuration.</para>
+>Die Tastatur bietet außerdem einen Nummernblock der angezeigt werden kann indem die entsprechende Option inder Konfiguration gesetzt wird.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Keyboard: Keypad</screeninfo>
+>Tastatur: Nummernblock</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="keyboard_3.png" format="PNG"/>
@@ -3811,20 +3814,20 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->Next to the number keys and the delete key for the number input field (<guibutton
->Number backspace</guibutton
->), the numpad provides two options on what to do with the entered number.</para>
+>Neben den Nummerntasten existiert ein eigener Löschen-Knopf für das Nummereingabefeld (<guibutton
+>Nummer löschen</guibutton
+>) und zwei Knöpfe die bestimmen was mit der eingegebenen Nummer geschehen soll.</para>
   <para
->When selecting <guibutton
->Write number</guibutton
->, the entered number will be written out using simulated key presses. Selecting <guibutton
->Select number</guibutton
-> tries to find a key or tab in the currently active set that has this number as a trigger. This way you can control a complete keyboard just using numbers.</para>
+>Wenn <guibutton
+>Nummer hinschreiben</guibutton
+> ausgewählt wird, wird die eingegebene Nummer mit simulierten Tastendrücken hingeschrieben. <guibutton
+>Nummer auswählen</guibutton
+> hingegen sucht einen Knopf der diese Nummer als Trigger konfiguriert hat und löst diesen aus. Auf diese Weise können Sie eine komplette Tastatur nur mit Nummern bedienen.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Keyboard: Number based</screeninfo>
+>Tastatur: Nummernbasiert</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="keyboard_4.png" format="PNG"/>
@@ -3834,7 +3837,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->The keys on the num pad are configurable voice interface commands.</para>
+>Die Tasten auf dem Nummernpad sind konfigurierbare Spracheingabekommandos</para>
 </sect2>
 </sect1>
 
@@ -3867,8 +3870,8 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <para
 >Wenn die Option zum minimiert Starten von simon gesetzt ist, wird das simon Hauptfenster beim simon Start nicht angezeigt sondern sofort in den Systembereich der Taskleiste minimiert. </para>
 <para
->Deselecting the option to warn when there are problems with samples deactivates the <link linkend="sample_quality_assurance"
->sample quality assurance</link
+>Wenn Sie die option auswählen nicht zu warnen wenn Probleme mit Aufnahmen auftreten deaktiviert die <link linkend="sample_quality_assurance"
+>Aufnahmen Qualitätskontrolle</link
 >. </para>
 </sect2>
 
@@ -3876,13 +3879,13 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <title
 >Aufnahmen</title>
 <para
->simon uses QtMultimedia to record and play sound. QtMultimedia is also used to gather data from the microphone which is then sent to the simond server for recognition. </para>
+>simon benutzt QtMultimedia um Ton aufzunehmen und wiederzugeben. QtMultimedia wird außerdem dazu verwendet einen Datenstrom vom Mikrofon an den Erkennungsserver zu senden. </para>
 
 <sect3 id="soundconfiguration_device">
 <title
 >Gerätekonfiguration</title>
 <para
->The sound device configuration allows you to choose which sound device(s) to use, how many channels to use and at which samplerate to record.</para>
+>Die Gerätekonfiguration erlaubt Ihnen das jeweilige Audiogerät auszuwählen das Sie für die Aufnahme und Wiedergabe in ganz simon verwenden möchten. Außerdem können sie auch angeben, in wievielen Kanälen und bei welcher Samplerate Sie aufnehmen wollen.</para>
 <para
 >Der Defaultwert von einem Kanal und einer Samplerate von 16kHz sind normalerweise korrekt und müssen nicht geändert werden. Die Erkennung funktioniert nur mit mono Aufnahmen und funktioniert besser mit 16kHz Aufnahmen (8kHz wäre die Alternative).</para>
 
@@ -3909,49 +3912,47 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->Use the selection boxes to change the device. Use the <guibutton
->Refresh devices</guibutton
-> button if you have changed the sound configuration since you started simon.</para>
+>Verwenden Sie die Auswahllisten um die Geräte auszuwählen. Mit dem Knopf "Aktualisieren" können Sie simon veranlassen erneut nach Geräten zu suchen.</para>
 
 <para
->You can use simon with more than one sound device at the same time. Use <guibutton
->Add device</guibutton
-> to add a new device to the configuration and <guibutton
->Remove device</guibutton
-> to remove it from your configuration.</para>
+>Sie können simon mit mehr als einem Audiogerät gleichzeitig verwenden. Verwenden Sie <guibutton
+>Gerät hinzufügen</guibutton
+> um ein Gerät zu Ihrer Konfiguration hinzuzufügen und <guibutton
+>Gerät entfernen</guibutton
+> um das Gerät wieder zu entfernen.</para>
 
 <para
->The first device in your sound setup can not be removed.</para>
+>Das erste Gerät in Ihrer kann nicht entfernt werden.</para>
 
 <para
->For each device you can determine for what you want the device to be used: Training or recognition (last one only applicable for input devices).</para>
+>Für jedes Gerät können Sie bestimmen wofür es verwendet werden soll: Training oder Erkennung (letzteres ist nur für Eingabegeräte verfügbar).</para>
 
 <para
->If you use more than one device for training, you will create multiple sound files for each utterance. When using multiple devices for recognition each one feeds a separate sound input stream to the server resulting in recognition results for each stream.</para>
+>Wenn Sie mehr als ein Gerät für das Training verwenden wird simon mehrere Tondateien pro Trainingsaufnahme sammeln. Wird mehr als ein Gerät für die Erkennung verwendet werden mehrere Datenströme zum Server aufgebaut was in mehreren Erkennungsergebnissen (eines pro Mikrofon) resultiert.</para>
 
 <para
->If you use multiple output devices the playback of the trainings samples will play on all configured audio devices.</para>
+>Wenn Sie mehr als ein Ausgabegerät verwenden wird ein Ton auf allen konfigurierten Geräten gleichzeitig wiedergegeben.</para>
 
 <para
->When using different sample rates for your input devices, the output will only play on matching output devices. If you for example have one input device configured to use 16kHz and the other to use 48kHz, the playback of samples generated by the first one will only play on 16kHz outputs, the other one only on 48kHz devices.</para>
+>Wenn Sie unterschliedliche Samplerates für Ihre Eingabegeräte verwenden wird die Ausgabe nur auf diesen Ausgabegeräten stattfinden die ebenfalls die selbe Samplerate verwenden. Verwenden Sie beispielsweise ein Eingabegerät mit 16kHz und eines mit 48kHz wird die Wiedergabe von Aufnahmen die mit dem ersten Gerät aufgenommen wurden nur auf Ausgabegeräten stattfinden die auf 16kHz konfiguriert sind wohingegen Aufnahmen mit 48kHz nur auf Wiedergabengeräten abgespielt werden die selbst auf 48kHz eingestellt sind.</para>
 </sect3>
 
 <sect3 id="soundconfiguration_vad">
   <title
->Voice Activity Detection</title>
+>Sprachaktivitätserkennung</title>
 
   <para
->The recognition is done one the simond server. See the <link linkend="architecture"
->architecture section</link
-> for more details.</para>
+>Die Erkennung selbst geschieht auf dem simond Server. Sehen Sie die <link linkend="architecture"
+>Architektur Sektion</link
+> für mehr Informationen).</para>
 
   <para
->The sound stream is not continuous but is segmented by the simon client. This is done by something called "voice activity detection".</para>
+>Die Aufnahme-Daten vom Mikrofon werden nicht die ganze Zeit an den Server gesendet sondern werden vom simon Client segmentiert. Dies geschieht durch die sogenannte "Sprachaktivitätserkennung".</para>
 
   <para>
   <screenshot>
   <screeninfo
->Voice activity detection</screeninfo>
+>Sprachaktivitätserkennung</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="vad.png" format="PNG"/>
@@ -3961,14 +3962,14 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->Here you can configure this segmentation through the following parameters: <itemizedlist>
+>Hier können Sie die Segmentierung durch die folgenden Parameter beeinflussen: <itemizedlist>
       <listitem>
         <para
 ><guilabel
 >Cutoff level</guilabel
 ></para>
         <para
->Everything below this level is considered "silence" (background noise).</para>
+>Alles unter dieser Lautstärke wird als "Stille" behandelt (Hintergrundgeräusch).</para>
       </listitem>
       <listitem>
         <para
@@ -3976,7 +3977,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 >Head margin</guilabel
 ></para>
         <para
->Cache for as long as head margin to start consider it a real sample. During this whole time the input level needs to be above the cutoff level.</para>
+>Für die Dauer von Head Margin werden Daten gesammelt bevor die aktuelle Aufnahme tatsächlich als Sprache klassifiziert wird. Während dieser kompletten Zeit muss die Lautstärke über dem Cutoff Level bleiben.</para>
       </listitem>
       <listitem>
         <para
@@ -3984,15 +3985,15 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 >Tail margin</guilabel
 ></para>
         <para
->After the recording went below the cutoff level, simon will wait for as long as tail margin to consider the current recording a finished sammple.</para>
+>Nachdem die Lautstärke unter das Cutoff Level fällt wird simon die Zeit von Tail Margin abwarten bis er die aktuelle Aufnahme abschließt.</para>
       </listitem>
       <listitem>
         <para
 ><guilabel
->Skip samples shorter than</guilabel
+>Aufnahmen überspringen die kürzer sind als</guilabel
 ></para>
         <para
->Samples that are shorter than this value are not considered for recognition. (coughs, etc.)</para>
+>Aufnahmen die kürzer als dieser Wert sind werden nicht an die Erkennung weitergegeben (husten, etc.)</para>
       </listitem>
     </itemizedlist>
   </para>
@@ -4000,12 +4001,12 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 
 <sect3 id="soundconfiguration_training">
   <title
->Training settings</title>
+>Trainingskonfiguration</title>
 
   <para>
   <screenshot>
   <screeninfo
->Training settings</screeninfo>
+>Trainingskonfiguration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="training_config.png" format="PNG"/>
@@ -4015,31 +4016,31 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   </para>
 
   <para
->When the option <guibutton
->Default to power training</guibutton
-> is selected, simon will, when training, automatically start- and stop the recording when displaying and hiding (respectively) the recording prompt. This option only sets the default value of the option, the user can change it at any time before beginning a training session.</para>
+>Wenn die Option <guibutton
+>Powertraining per Default</guibutton
+> aktiviert ist wird simon beim Trainieren automatisch die Aufnahme starten bzw. stoppen wenn der dazugehörige Prompt angezeigt bzw. versteckt wird. Diese option setzt nur den Standardwert der Benutzer kann diesen bei jeder Trainingssitzung wieder überschreiben.</para>
 
 <para
->The confiugrable font here refers to the text that is recorded to train the acoustic model (through explicit training or when adding a word).</para>
+>Der Text der aufgenommen werden soll um das Akustikmodell zu trainieren wird in einer konfigurierbaren Schriftart angezeigt. Die zu verwendende Schriftart und vor allem die Größe können hier geändert werden.</para>
 
 <para
 >Diese Option wurde eingeführt, nachdem wir mit einigen Kunden Tests durchgeführt haben die unter infantiler Zerebralparese ("Spastische Lähmung") leiden. Während wir mit der Maus simon bedienten um sie durch das Training zu führen, mussten Sie im Rahmen des Trainings vorlesen was am Bildschirm geschrieben stand. Im Laufe des Tests fanden wir heraus, dass es unseren Probanden teilweise schwer fiel die kleine Schrift zu entziffern. Deshalb führten wir eine eigene Konfigurationsoption ein mit der eben jener Text der von den Probanden vorgelesen werden muss größer als der restliche Programmtext gemacht werden kann ohne den Rest des Programmes zu beeinflussen. Dies half außerdem um die Aufmerksamkeit direkt auf den vorzulesenden Text zu lenken.</para>
 
 <para
->Here you can also define the required signal to noise ratio for simon to consider a training sample to be correct. See the <link linkend="sample_quality_assurance"
->Sample Quality Assurance</link
-> section for more details.</para>
+>Hier können Sie auch das benötigte Signal / Rauschverhältnis einstellen das erreicht werden muss damit eine Aufnahme von simon als korrekt angesehen wird. Sehen Sie die <link linkend="sample_quality_assurance"
+>Aufnahme Qualitätskontrolle</link
+> Sektion für mehr Details.</para>
 <para
->On this configuration page you can also set the parameters for the <link linkend="volume_calibration"
->volume calibration</link
->.</para>
+>Auf dieser Konfigurationsseite können Sie auch die Paramter für die <link linkend="volume_calibration"
+>Lautstärkeeinpegelung</link
+> festlegen.</para>
 
 <para
->It can be deactivated for both the add word dialog and the trainings wizard by unchecking the group box itself. As long as the volume is not louder than the minimum volume simon will prompt the user to raise the microphone volume. If the recording hits the maximum volume once, simon will tell the user to lower the volume.</para>
+>Sie kann sowohl für den Wort hinzufügen Dialog als auch für den Trainingsassistenten deaktiviert werden indem das Konfigurationsfeld deselektiert wird. Solange die aktuelle Aufnahmelautstärke unter der konfigurierten Minimumlautstärke bleibt wird der Anwender aufgefordert die Lautstärke zu erhöhen. Erreicht die Aufnahme die Maximallautstärke auch nur einmal wird simon Sie bitten die Lautstärke des Mikrofons zu verringern.</para>
 <para
->Clipping (hitting the maximum amplitute) will always cause a "too loud" warning.</para>
+>Übersteuern (erreichen der Maximallautstärke) wird immer eine "zu laut" Warnung erzeugen.</para>
 <para
->The prompted text can be configured by entering text in the input field below. If the edit is empty a default text will be used.</para>
+>Der angezeigte Text kann konfiguriert werden indem Text im Eingabefeld eingetragen wird. Bleibt das Feld leer (Standard) wird ein Standardtext verwendet.</para>
 </sect3>
 
 <sect3 id="soundconfiguration_postprocessing">
@@ -4151,33 +4152,33 @@ simon provides the feature to <link linkend="import_texts_remote"
 
 <sect2 id="configure_model">
 <title
->Model Settings</title>
+>Modellkonfiguration</title>
 
 <sect3 id="configure_model_general">
   <title
 >Allgemein</title>
 <para
->Please see the <link linkend="base_model_use"
->base model section</link
+>Bitte sehen Sie die <link linkend="base_model_use"
+>Basismodell Sektion</link
 >.</para>
 </sect3>
 
 <sect3 id="configure_model_extensions">
 <title
->Extensions</title>
+>Erweiterungen</title>
 <para
->Here you can configure the base URL that is going to be used for the <link linkend="import_dict_hadifix"
->automatic bomp import</link
->. The default points to the copy on the simon listens server.</para>
+>Hier können Sie die Basis-URL konfigurieren die für den <link linkend="import_dict_hadifix"
+>automatischen BOMP Import</link
+> verwendet wird. Die Standardeinstellung zeigt auf die Kopie auf dem simon listens Server.</para>
 </sect3>
 </sect2>
 
 <sect2 id="configure_recognition">
 <title
->Recognition</title>
+>Erkennung</title>
 
 <para
->Here you can configure the recognition and model synchronization with the simond server.</para>
+>Hier können Sie die Erkennung und die Modellsynchronisation mit dem simond Server konfigurieren.</para>
 
 <sect3 id="configure_server">
   <title
@@ -4212,7 +4213,7 @@ simon provides the feature to <link linkend="import_texts_remote"
 > für mehr Information über das Einrichten der Benutzer auf dem simond Server.</para>
 
 <para
->The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - vocabulary, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
+>Die Erkennung selbst - die ja vom Server übernommen wird - ist nicht immer verfügbar. Beispielsweise ist es nicht möglich die Erkennung zu starten bis der Benutzer sein Akustikmodell das erste mal erzeugt (was automatisch gemacht wird wenn bei der Synchronisation alle "Zutaten" vorliegen: Wortliste, Grammatik und Trainingsdaten). Per Default wird simon die Erkennung sofort starten sobald Sie verfügbar ist (Sprach- und Akustikmodell wurden konfiguriert). Dies kann hier geändert werden.</para>
 
 <para
 >Mit der Option "Bei simon-Start automatisch verbinden" wird simon automatisch zum simond verbinden sobald die Applikation gestartet wurde.</para>
@@ -4236,7 +4237,7 @@ simon provides the feature to <link linkend="import_texts_remote"
 </screenshot>
 </para>
 <para
->As of yet (simon 0.3), encryption is not yet supported. </para>
+>Derzeit (simon 0.3) ist Protokollverschlüsselung nicht unterstützt. </para>
 <para
 >Der angegebene Timeout Wert gibt an wie lange simon auf eine Antwort der Gegenstelle wartet. Wenn Sie eine sehr, sehr langsame Netzwerkverbindung besitzen und/oder die "Beim simon-Start automatisch verbinden" Option verwenden und einen sehr langsamen Rechner verwenden erhöhen Sie diese Option wenn Sie Timeout Fehler beim Verbinden mit dem simond Server erhalten die durch erneutes Aufbauen der Verbindung behoben werden können. </para>
 <para
@@ -4274,15 +4275,13 @@ simon provides the feature to <link linkend="import_texts_remote"
 >) wenn Sie das Sprachmodell synchronisieren wollen. </para>
 
 <para
->The simon server will maintain a copy of the last five iterations of model files. However, this only includes the "source files" (the vocabulary, grammar, etc.) - <emphasis
->not the compiled model</emphasis
->. However, the compiled model will be regenerated from the restored source files automatically.</para>
+>Der simond Server wird eine Kopie der letzten fünf Versionen von den Modell-Eingabedateien (Wortliste, Grammatik, etc.) aufbehalten. Das fertige, erstellte Modell wird dabei nicht aufbehalten. Wenn Sie eine frühere Version einspielen wird aber das Modell anhand dieser Quelldateien automatisch neu generiert.</para>
 
 <para
 >Wählen Sie dazu - wenn Sie mit dem Server verbunden sind - einen der verfügbaren Modelle aus und stellen Sie es mit einem Klick auf "Modell auswählen" wieder her.</para>
 
 <para
->Please note that the synchronization will only accept complete source models (containing a vocabulary, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backed up.</para>
+>Bitte beachten Sie, dass die Synchronisation generell nur komplette Quell-Modelle akzeptieren wird (eine Modellquelle ist komplett wenn Sie eine Wortliste, eine Grammatik und ein paar Trainingssamples besitzt) sodass nicht komplette Modelle nie auf dem Server gespeichert werden. Unvollständige Quellmodelle obliegen damit auch nicht dem automatischen Backup.</para>
 
 </sect3>
 </sect2>
@@ -4294,28 +4293,28 @@ simon provides the feature to <link linkend="import_texts_remote"
 >Aktionen</title>
 
 <para
->In the actions configuration you can configure the reactions to recognition results.</para>
+>Mit der Aktionskonfiguration kann die Reaktion auf Erkennungsergebnisse konfiguriert werden.</para>
 
 <sect3 id="configure_actions_recognition">
   <title
->Recognition</title>
+>Erkennung</title>
 
   <para
->The recognition of simon computes not only the most likely result but rather the top ten results.</para>
+>Neben dem wahrscheinlichsten Ergebnis kalkuliert simon die 10 besten Erkennungsergebnisse.</para>
   <para
->Each of the results are assigned a confidence score between 0 and 1 (were 1 is 100% sure).</para>
+>Jedes Ergebnis wird mit einer Punkteanzahl zwischen 0 und 1 versehen (wobei 1 einer Sicherheit von 100% entspricht).</para>
   <para
->Using the <guilabel
->Minimum confidence</guilabel
-> you can set a minimum confidence for recognition results to be considered valid.</para>
+>Mit Hilfe der <guilabel
+>Minimale Sicherheit</guilabel
+> können Sie eine minimale Sicherheit für Erkennungsergebnisse unter dieser Ergebnisse ignoriert werden.</para>
 
   <para
->If more than one recognition results are rated higher than the minimum confidence score, simon will provide a popup listing the most likely options for you to choose from.</para>
+>Wenn mehr als ein Erkennungsergebnis diesen Wert überschreitet wird simon ein Popup anzeigen das die wahrscheinlichsten Ergebnisse anzeigt aus denen dann ausgewählt werden kann.</para>
 
   <para>
   <screenshot>
   <screeninfo
->Did you mean...?</screeninfo>
+>Meinten Sie...?</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="did_you_mean.png" format="PNG"/>
@@ -4325,22 +4324,22 @@ simon provides the feature to <link linkend="import_texts_remote"
   </para>
 
   <para
->This popup can be disabled using the <guibutton
->Display selection popup for ambiguous results</guibutton
-> checkbox.</para>
+>Dieses Pup kann über die Option <guibutton
+>Auswahlliste anzeigen für ungenaue Ergebnisse</guibutton
+> kontrolliert werden.</para>
 </sect3>
 <sect3>
   <title
->Plugin base font</title>
+>Plug-In Basisschriftart</title>
   <para
->Many plugins of simon have a graphical user interface.</para>
+>Einige Plug-Ins von simon haben eine grafische Oberfläche.</para>
   <para
->The fonts of these interfaces can be configured centrally and independant of the systems font settings here.</para>
+>Die Schriftarten dieser Oberflächen können hier zentral konfiguriert werden - unabhängig von den Systemschriftarten Ihres Betriebssystems.</para>
 
   <para>
   <screenshot>
     <screeninfo
->Input number with custom font</screeninfo>
+>Nummer eingeben mit spezieller Schriftart</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="input_number_huge_font.png" format="PNG"/>
@@ -4352,36 +4351,36 @@ simon provides the feature to <link linkend="import_texts_remote"
 
 <sect3>
   <title
->Lists</title>
+>Listen</title>
   <para
->Here you can find the global list element configuration. This serves as a template for new scenarios but is also directly used for <link linkend="configure_actions_recognition"
->the popup for ambiguous recognition results</link
+>Hier finden Sie die globale Listenkonfiguration. Diese fungiert als Vorlage für neue Szenarios aber wird auch direkt verwendet für das <link linkend="configure_actions_recognition"
+>Auswahlfenster für mehrdeutige Erkennungsergebnisse</link
 >.</para>
 </sect3>
 </sect2>
 
 <sect2 id="social_desktop_config">
 <title
->Social desktop</title>
+>Sozialer Desktop</title>
 <para
->Scenarios can be <link linkend="export_scenario"
->uploaded</link
-> and <link linkend="import_scenario"
->downloaded from within simon</link
+>Szenarios können <link linkend="export_scenario"
+>hochgeladen</link
+> und <link linkend="import_scenario"
+>heruntergeladen werden mt simon</link
 >.</para>
 
 <para
->For this we use KDEs social desktop facilities and our own <ulink url="http://kde-files.org/index.php?xcontentmode=692"
->category for simon scenarios on kde-files.org</ulink
+>Dafür verwenden wir KDEs soziale Desktop Fähigkeiten und unsere eigene <ulink url="http://kde-files.org/index.php?xcontentmode=692"
+>Kategorie für simon Szenarios auf kde-files.org</ulink
 >.</para>
 
 <para
->If you already have an account on <ulink url="http://opendesktop.org"
+>Wenn Sie bereits einen Account auf <ulink url="http://opendesktop.org"
 >opendesktop.org</ulink
-> you can input the credentials there. If you don't, you can register directly in the configuration module.</para>
+> besitzen, können Sie die Anmeldedaten hier angeben. Ansonsten können Sie direkt im Konfigurationsmodul auch einen neuen Account anlegen.</para>
 
 <para
->The registration is of course free of charge.</para>
+>Die Registrierung ist natürlich kostenlos.</para>
 </sect2>
 
 
