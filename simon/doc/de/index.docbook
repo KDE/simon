@@ -31,7 +31,7 @@
 </copyright>
 
 <date
->25. 7. 2010</date>
+>2010-07-25</date>
 <releaseinfo
 >0.3</releaseinfo>
 
@@ -883,7 +883,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >Szenarios verwalten</para>
 <para
->Anzeigen des <link linkend="scenario_use"
+>Anzeigen des <link linkend="scenarios_use"
 >Szenarios verwalten Dialog</link
 >. Hier können Sie Szenarios verwalten und die verfügbaren Optionen der Szenario Auswahlbox anpassen.</para>
 </listitem>
@@ -1343,7 +1343,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
   <para
->Wenn Sie ein Szenario erstellen das für andere simon Anwender von interesse sein könnte, <link linkend"export_scenario"
+>Wenn Sie ein Szenario erstellen das für andere simon Anwender von interesse sein könnte, <link linkend="export_scenario"
 >laden Sie es bitte hoch damit es auch anderen simon Anwendern zugute kommen kann</link
 >.</para>
 </sect3>
@@ -1779,7 +1779,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 > 
 
 <para
->Weil Sie jetzt gleich zwei Trainingsaufnahmen aufnehmen werden wird simon die Lautstärkeeinpegelung anzeigen um sicherzustellen, dass die Lautstärke optimal eingestellt ist. Für mehr Informationen sehen Sie bitte die <link linkend="voklume_calibration"
+>Weil Sie jetzt gleich zwei Trainingsaufnahmen aufnehmen werden wird simon die Lautstärkeeinpegelung anzeigen um sicherzustellen, dass die Lautstärke optimal eingestellt ist. Für mehr Informationen sehen Sie bitte die <link linkend="volume_calibration"
 >Lautstärkeeinpegelung Sektion</link
 >. </para>
 
@@ -2911,7 +2911,7 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 
 <para
 >Um einen URL mit einem Kommando zu verbinden können Sie den URL entweder manuell in das URL-Feld eingeben (wählen Sie <guibutton
->Manuell<guibutton
+>Manuell</guibutton
 >) oder ihn mit dem Ort importieren Dialog auswählen.</para>
 
 

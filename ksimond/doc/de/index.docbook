@@ -84,7 +84,7 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 Do NOT change these in the translation. -->
 
 <date
->2010-09-06</date>
+>2010-08-11</date>
 <releaseinfo
 >0.3</releaseinfo>
 
@@ -320,7 +320,7 @@ Contributors:
 >Um &kappname; zu benutzen benötigen Sie &kde; 4 und simond. </para>
 
 <para
->simon und simond können auf der <ulink url="<ulink url="http://sourceforge.net/projects/speech2text"
+>simon und simond können auf der <ulink url="http://sourceforge.net/projects/speech2text"
 >simon Sourceforge Seite</ulink
 > finden. </para>
 

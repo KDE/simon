@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2010-09-06 14:27+0000\n"
-"PO-Revision-Date: 2010-09-06 16:47+0200\n"
+"PO-Revision-Date: 2010-09-06 16:55+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
@@ -581,7 +581,7 @@ msgid ""
 "Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-"
 "listens.org</email>"
 msgstr ""
-"Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-"
+"Dokumentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-"
 "listens.org</email>"
 
 #. Tag: trans_comment
@@ -589,7 +589,8 @@ msgstr ""
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
-"<para>Übersetzung Copyright &copy; 2009 Peter Grasch <email>grasch@simon-"
+"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email>"
+"grasch@simon-"
 "listens.org</email></para>"
 
 #. Tag: chapter
