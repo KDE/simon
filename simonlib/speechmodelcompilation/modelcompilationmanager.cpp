@@ -223,6 +223,8 @@ QString ModelCompilationManager::getBuildLog()
  */
 void ModelCompilationManager::analyseError(QString readableError)
 {
+  if (!keepGoing) return;
+
   if (!processError())
     emit error(readableError);
 }
