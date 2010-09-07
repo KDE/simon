@@ -7,6 +7,7 @@ ADD_CUSTOM_TARGET(package) #remove all
 
 install( FILES 
   "${KDE4_BIN_INSTALL_DIR}/aspell.exe"
+  "${KDE4_BIN_INSTALL_DIR}/meinproc4.exe"
   "${KDE4_BIN_INSTALL_DIR}/bzip2.dll"
   "${KDE4_BIN_INSTALL_DIR}/portaudio.dll"
   "${KDE4_BIN_INSTALL_DIR}/portaudio_x86.dll"
@@ -22,10 +23,12 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/kded4.exe"
   "${KDE4_BIN_INSTALL_DIR}/kdeinit4.exe"
   "${KDE4_BIN_INSTALL_DIR}/kiconfinder.exe"
+  "${KDE4_BIN_INSTALL_DIR}/kde4-config.exe"
   "${KDE4_BIN_INSTALL_DIR}/kioexec.exe"
   "${KDE4_BIN_INSTALL_DIR}/khotnewstuff-upload.exe"
   "${KDE4_BIN_INSTALL_DIR}/khotnewstuff4.exe"
   "${KDE4_BIN_INSTALL_DIR}/kioslave.exe"
+  "${KDE4_BIN_INSTALL_DIR}/kio_http_cache_cleaner.exe"
   "${KDE4_BIN_INSTALL_DIR}/klauncher.exe"
   "${KDE4_BIN_INSTALL_DIR}/kmimetypefinder.exe"
   "${KDE4_BIN_INSTALL_DIR}/kuiserver.exe"
@@ -103,9 +106,10 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libsoprano.dll"
   "${KDE4_BIN_INSTALL_DIR}/libsopranoclient.dll"
   "${KDE4_BIN_INSTALL_DIR}/libxslt.dll"
-  "${KDE4_LIB_INSTALL_DIR}/attica_kde.dll"
 		DESTINATION  ${BIN_INSTALL_DIR} COMPONENT kdecore )
 		
+install (FILES  "${KDE4_LIB_INSTALL_DIR}/attica_kde.dll" 
+		DESTINATION  ${BIN_INSTALL_DIR}/../lib COMPONENT kdecore)
 
 FILE(GLOB kde4_plugins_binary "${KDE4_LIB_INSTALL_DIR}/kde4/*.dll")
 install (FILES ${kde4_plugins_binary} DESTINATION  ${BIN_INSTALL_DIR}/../lib/kde4 COMPONENT kdecore)
@@ -205,15 +209,23 @@ install ( FILES
   "${QT_PLUGINS_DIR}/sqldrivers/qsqlmysql4.dll"
 		DESTINATION  ${BIN_INSTALL_DIR}/sqldrivers COMPONENT kdecore )
   
+#  install( FILES 
+#   "${KDE4_INSTALL_DIR}/etc/dbus-1/session.conf"
+#   "${KDE4_INSTALL_DIR}/etc/dbus-1/system.conf"
+#		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1 COMPONENT kdecore )
+  #install( FILES 
+  # "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.auth.conf"
+ #  "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.kcontrol.kcmremotewidgets.conf"
+#		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1/system.d COMPONENT kdecore )
+  
   install( FILES 
    "${KDE4_INSTALL_DIR}/etc/dbus-1/session.conf"
    "${KDE4_INSTALL_DIR}/etc/dbus-1/system.conf"
-		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1 COMPONENT kdecore )
+		DESTINATION  ${SYSCONF_INSTALL_DIR}/ COMPONENT kdecore )
   install( FILES 
    "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.auth.conf"
    "${KDE4_INSTALL_DIR}/etc/dbus-1/system.d/org.kde.kcontrol.kcmremotewidgets.conf"
-		DESTINATION  ${SYSCONF_INSTALL_DIR}/dbus-1/system.d COMPONENT kdecore )
-  
+		DESTINATION  ${SYSCONF_INSTALL_DIR}/system.d COMPONENT kdecore )
 
 
 
@@ -343,6 +355,56 @@ install ( FILES
 		DESTINATION  ${DATA_INSTALL_DIR}/../doc/HTML/en/common COMPONENT kdecore )
 
 
+  install( FILES 
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/1.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/2.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/3.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/4.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/5.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/6.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/7.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/8.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/9.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/10.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/artistic-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/block_title_bottom.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/block_title_mid.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/block_title_top.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/bottom-left.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/bottom-middle.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/bottom-right.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/bsd-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/doxygen.css"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/favicon.ico"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/fdl-license"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/fdl-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/fdl-notice.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/footer.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/gpl-license"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/gpl-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/header.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/kde_logo_bg.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/kde-default.css"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/lgpl-license"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/lgpl-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/mainfooter.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/mainheader.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/qpl-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/tabs.css"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top.jpg"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-kde.jpg"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-left.jpg"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-left.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-middle.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-right.jpg"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/top-right.png"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/x11-license.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/en/common/xml.dcl"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/de/common/fdl-translated.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/de/common/gpl-translated.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/de/common/lgpl-translated.html"
+  "${KDE4_INSTALL_DIR}/share/doc/HTML/de/common/kde-localised.css"
+		DESTINATION  ${DATA_INSTALL_DIR}/../doc/HTML/de/common COMPONENT kdecore )
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/config/ui/ui_standards.rc"

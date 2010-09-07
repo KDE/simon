@@ -137,9 +137,9 @@ void RecognitionControl::startup()
     }
 
     if (RecognitionConfiguration::stopLocalSimond())
-      localSimond->start(KStandardDirs::findExe("simond"));
+      localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
     else
-      localSimond->startDetached(KStandardDirs::findExe("simond"));
+      localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
 
     QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
   }
