@@ -108,7 +108,7 @@ void KSimondView::showConfigurationDialog()
 
 void KSimondView::startSimon()
 {
-  QProcess::startDetached(KStandardDirs::findExe("simon"));
+  QProcess::startDetached('"'+KStandardDirs::findExe("simon")+'"');
 }
 
 

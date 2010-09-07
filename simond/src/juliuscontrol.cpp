@@ -34,6 +34,7 @@
 #include <KConfig>
 #include <KDebug>
 #include <KConfigGroup>
+#include <KMimeType>
 #include <locale.h>
 
 #ifdef FALSE
@@ -69,25 +70,43 @@ Jconf* JuliusControl::setupJconf()
   QByteArray jConfPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf").toUtf8();
   QByteArray gram = dirPath.toUtf8()+"model";
   QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
-
-  //////BEGIN: Workaround
-  //convert '.' in hmmdefs to its locale specific equivalent
-  lconv * localeConv = localeconv();
-  char *decimalPoint = localeConv->decimal_point;
+  QByteArray hmmDefs;
+  
+  //KMimeType::Ptr hmmMime = KMimeType::findByFileContent(dirPath+"hmmdefs");
+  //kDebug() << "HMMDefs mime types: " << hmmMime->parentMimeTypes();
+  //if (hmmMime->parentMimeTypes().contains("text/plain"))
 
   QFile hmm(dirPath+"hmmdefs");
-  QFile hmmLoc(dirPath+"hmmdefs_loc");
-  if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly))
+  if (!hmm.open(QIODevice::ReadOnly))
     return 0;
+  QByteArray hmmHead = hmm.read(16);
+  kDebug() << "Head: " << hmmHead;
+  if (hmmHead.startsWith("~o\n<STREAMINFO> "))
+  {
+    kDebug() << "Plain text hmm";
+    //////BEGIN: Workaround
+    //convert '.' in hmmdefs to its locale specific equivalent
+    lconv * localeConv = localeconv();
+    char *decimalPoint = localeConv->decimal_point;
 
-  while (!hmm.atEnd())
-    hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
+    QFile hmmLoc(dirPath+"hmmdefs_loc");
+    if (!hmmLoc.open(QIODevice::WriteOnly))
+      return 0;
+
+    hmm.reset();
+    while (!hmm.atEnd())
+      hmmLoc.write(hmm.readLine(3000).replace('.', decimalPoint));
+
+    hmmLoc.close();
+    //////END: Workaround
+  
+    hmmDefs = dirPath.toUtf8()+"hmmdefs_loc";
+  } else {
+    kDebug() << "Binary hmm";
+    hmmDefs = dirPath.toUtf8()+"hmmdefs";
+  }
 
   hmm.close();
-  hmmLoc.close();
-  //////END: Workaround
-
-  QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs_loc";
 
   //	QString configPath = dirPath+"activerc";
   //	KConfig config( configPath, KConfig::SimpleConfig );

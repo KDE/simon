@@ -1282,7 +1282,10 @@ void ClientSocket::writeHashesToConfig()
 
 void ClientSocket::slotModelAdaptionComplete()
 {
-  if (!shouldRecompileModel()) return;
+  if (!shouldRecompileModel())
+  {
+    return;
+  }
 
   QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 
