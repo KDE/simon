@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-08-14 08:02+0000\n"
+"POT-Creation-Date: 2010-09-08 06:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -20,10 +20,22 @@ msgstr ""
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
+#. Tag: date
+#: index.docbook:20
+#, no-c-format
+msgid "2010-08-14"
+msgstr ""
+
+#. Tag: releaseinfo
+#: index.docbook:21
+#, no-c-format
+msgid "<releaseinfo>0.3</releaseinfo>"
+msgstr ""
+
 #. Tag: para
 #: index.docbook:24
 #, no-c-format
-msgid "&kmyapplication; is an acoustic model manager."
+msgid "&kmyapplication; is a sample acquisition tool."
 msgstr ""
 
 #. Tag: keyword
@@ -65,7 +77,7 @@ msgstr ""
 #. Tag: keyword
 #: index.docbook:36
 #, no-c-format
-msgid "training"
+msgid "<keyword>training</keyword>"
 msgstr ""
 
 #. Tag: keyword
@@ -117,7 +129,7 @@ msgid "The &kmyapplication; Handbook"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:67
+#: index.docbook:67 index.docbook:298
 #, no-c-format
 msgid "Introduction"
 msgstr ""
@@ -125,479 +137,791 @@ msgstr ""
 #. Tag: para
 #: index.docbook:69
 #, no-c-format
-msgid "&kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by simon and produce models that can be used by simon later on."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:71
-#, no-c-format
-msgid "It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model."
+msgid "&kmyapplication; is a tool for large scale sample acquisition."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:72
 #, no-c-format
+msgid "Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect tham on the central sscd server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:74
+#, no-c-format
+msgid "Like simon / simond, &kmyapplication; is a client to the sscd server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:76
+#, no-c-format
+msgid "&kmyapplication; will collect samples through trainings procedures and send them to the sscd server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:78
+#, no-c-format
+msgid "The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url=\"help:/sscd\">sscd manual</ulink> for more information."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:80
+#, no-c-format
 msgid "For more information on the architecture of the simon suite please see the <ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:75
-#, no-c-format
-msgid "Background"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:77
-#, no-c-format
-msgid "This section will provide a bit of background information on the compilation and testing process."
-msgstr ""
-
-#. Tag: title
-#: index.docbook:80
-#, no-c-format
-msgid "Effective testing"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:81
-#, no-c-format
-msgid "One of the major features of ssc is to test the generated acoustic models."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:83
-#, no-c-format
-msgid "The basic testing procedure is to run recognition on samples where the transcription is already known and comparing the results. &kmyapplication; also takes the confidence score of the recognition into account to measure how robust the created system is."
-msgstr ""
-
-#. Tag: para
 #: index.docbook:85
-#, no-c-format
-msgid "Due to the way acoustic models are created, both the recognition accuracy and confidence will be highly skewed when the same samples are used both for training and testing. This is called \"in corpus\" testing (the samples used for testing are also in your training corpus)."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:87
-#, no-c-format
-msgid "While in corpus testing might tell you if the compilation process failed or produced sub par results it won't tell you the \"real\" recognition rate of the created model. Therefore it is recommended to do \"out of corpus\" testing: Use different samples for training and for testing."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:88
-#, no-c-format
-msgid "For out of corpus testing simply split your prompts file in two parts: One used to compile the model and one to test the model. Of course the test set doesn't need to be very big to get a representative result."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:89
-#, no-c-format
-msgid "If you don't have a lot of training data, you can also split the complete corpus in ten parts. Compile 10 models, each leaving out one part of the corpus. Then do then individual tests (always with the test set that was excluded during compilation) and average the results."
-msgstr ""
-
-#. Tag: title
-#: index.docbook:97
 #, no-c-format
 msgid "Using &kmyapplication;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:99
+#: index.docbook:87
 #, no-c-format
-msgid "&kmyapplication; provides a graphical interface that is divided into five areas."
+msgid "&kmyapplication; provides a simple graphical interface for collecting training samples and managing speakers."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:103
+#: index.docbook:91 index.docbook:283
 #, no-c-format
 msgid "<screeninfo>Main window</screeninfo>"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:109
+#: index.docbook:97 index.docbook:289
 #, no-c-format
 msgid "<phrase>Main window</phrase>"
 msgstr ""
 
 #. Tag: para
+#: index.docbook:103
+#, no-c-format
+msgid "To use ssc connect to the sscd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and insitutions and record new samples."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:105
+#, no-c-format
+msgid "To proceed without connecting to the sscd, you may use the <link linkend=\"offline_mode\">offline mode</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:108
+#, no-c-format
+msgid "To collect samples for a user, simply enter the id of the user in the <guilabel>User ID</guilabel> input field and press <guibutton>Select</guibutton>. The user information will be fetched from the database (sscd) and the name of the user displayed."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:112
+#, no-c-format
+msgid "Managing users"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:113
+#, no-c-format
+msgid "Before you can record samples from a new speaker you need to add a new user to the system."
+msgstr ""
+
+#. Tag: para
 #: index.docbook:115
 #, no-c-format
-msgid "The order of the tabs represents a complete sam workflow from creating a model to testing it."
-msgstr ""
-
-#. Tag: title
-#: index.docbook:120
-#, no-c-format
-msgid "Input &amp; output files"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:122
-#, no-c-format
-msgid "Define what files to work on. You can save and load this configuration by using the <guibutton>Save</guibutton> and <guibutton>Load</guibutton> buttons respectively."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:124
-#, no-c-format
-msgid "The <guibutton>Save</guibutton> and <guibutton>Load</guibutton> menus <emphasis>only</emphasis> save the paths and options defined here. They don't save the associated files!"
+msgid "To add, edit and remove users, select the <guibutton>Manage users</guibutton> option from the toolbar."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:129
+#: index.docbook:119
 #, no-c-format
-msgid "<screeninfo>Input &amp; output selection</screeninfo>"
+msgid "<screeninfo>Manage users</screeninfo>"
 msgstr ""
 
 #. Tag: phrase
+#: index.docbook:125
+#, no-c-format
+msgid "<phrase>Manage users</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:131
+#, no-c-format
+msgid "Here you see a list of all existing speakers in the database. For performance reason the list <emphasis>may not be complete</emphasis>. To find users in large deployments you can apply filters to the result set by filling out the mask above and pressing <guibutton>Apply Filters</guibutton>. The default is no filter. Empty fields are ignored when filtering."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:133
+#, no-c-format
+msgid "To filter for a specific institution enter the institution id into the <guilabel>Institution</guilabel> field. If you don't know the intitution id by hard you can use the <guibutton>Search</guibutton> menu."
+msgstr ""
+
+#. Tag: para
 #: index.docbook:135
 #, no-c-format
-msgid "<phrase>Input &amp; output selection</phrase>"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:141
-#, no-c-format
-msgid "If you want to compile and / or test the simon model, you can use the <guibutton>Modify simons model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:143
-#, no-c-format
-msgid "When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simons model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:145
-#, no-c-format
-msgid "Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:147
-#, no-c-format
-msgid "&kmyapplication; allows the user to provide two different types of prompts files. One prompts file to compile the model and test the model. For more information, please see the section on <link linkend=\"effective_testing\">effective testing</link>."
+msgid "To add, edit or remove users simply press the buttons <guibutton>Add</guibutton>, <guibutton>Edit</guibutton> and <guibutton>Remove</guibutton>, respectively."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:154
+#: index.docbook:138
 #, no-c-format
-msgid "<title>Adapt scenarios</title>"
+msgid "<title>Add user</title>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:156
+#: index.docbook:140
 #, no-c-format
-msgid "simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK."
+msgid "To add a user press <guibutton>Add</guibutton> and fill out the presented form."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:160
+#: index.docbook:144
 #, no-c-format
-msgid "<screeninfo>Adapt scenarios</screeninfo>"
+msgid "<screeninfo>Add user</screeninfo>"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:166
+#: index.docbook:150
 #, no-c-format
-msgid "<phrase>Adapt scenarios</phrase>"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:172
-#, no-c-format
-msgid "To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend=\"input_output\">Input output tab</link>. simons scenarios will also be serialized when using the <guibutton>Modify simons model</guibutton> options."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:174
-#, no-c-format
-msgid "In this page you can find status information of the adaption and read detailed error messages if an error occurs."
+msgid "<phrase>Add user</phrase>"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:178
+#: index.docbook:158
 #, no-c-format
-msgid "<title>Create model</title>"
+msgid "Associating with an institution"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:180
+#: index.docbook:159
 #, no-c-format
-msgid "Here you can build the model using the input and output files defined in the <link linkend=\"input_output\">input &amp; output section</link>."
+msgid "Often institutions give unique ideas to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> bellow <guilabel>Institution(s):</guilabel>."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:163
+#, no-c-format
+msgid "<screeninfo>New institution association</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:169
+#, no-c-format
+msgid "<phrase>New institution association</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:175
+#, no-c-format
+msgid "Simply enter the id of the institution the identifier originates from (you may want to use the <guibutton>Search</guibutton> to find institution ids) and the id that identifies the user in that institution."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:177
+#, no-c-format
+msgid "For example: The speaker \"Jack Jones\" is currently a patient in institution #1. There he is patient \"#520f\". You can then add an instition association associating the speaker \"Jack Jones\" (internal sscd id \"7\") with the institution \"1\" and institution id \"520f\". If &kmyapplication; is the configured to use institution specific ids of institution \"1\" you can refer to \"Jack Jones\" by using the id \"520f\" instead of \"7\"."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:181
+#, no-c-format
+msgid "Capabilities"
 msgstr ""
 
 #. Tag: para
 #: index.docbook:182
 #, no-c-format
-msgid "The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of wether the compilation was successful or not."
-msgstr ""
-
-#. Tag: screeninfo
-#: index.docbook:186
-#, no-c-format
-msgid "<screeninfo>Create model</screeninfo>"
-msgstr ""
-
-#. Tag: phrase
-#: index.docbook:192
-#, no-c-format
-msgid "<phrase>Create model</phrase>"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:198
-#, no-c-format
-msgid "Using this verbose output it is much easier to find issues with the input data."
+msgid "If the speaker is not able to answer interview questions or repeat words spoken by the facilitator then you can let &kmyapplication; know about it by unchecking <guibutton>Interview possible</guibutton> and / or <guibutton>Repeating possible</guibutton>. The unchecked training modes (Repeat and Interview) will then no longer be available for this speaker."
 msgstr ""
 
 #. Tag: title
+#: index.docbook:187
+#, no-c-format
+msgid "Edit user"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:188
+#, no-c-format
+msgid "To edit a user, simply select the user from the list in the <link linkend=\"manage_users\">manage users dialog</link> and press <guibutton>Edit</guibutton>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:189
+#, no-c-format
+msgid "The interface for editing the user is identical to the interface for <link linkend=\"add_users\">adding a new user</link>."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:193
+#, no-c-format
+msgid "Remove user"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:194
+#, no-c-format
+msgid "To remove a user, simply select <guibutton>Remove</guibutton> after selecting the user from the list in the <link linkend=\"manage_users\">manage users dialog</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:196
+#, no-c-format
+msgid "When removing a user, all associated samples of this speaker will be lost."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:201
+#, no-c-format
+msgid "<title>Manage institutions</title>"
+msgstr ""
+
+#. Tag: para
 #: index.docbook:202
 #, no-c-format
-msgid "<title>Test model</title>"
+msgid "&kmyapplication; can organize speakers in \"institutions\". Those might be virtual institutions like groups but was originally designed to keep track of hospital and rehabilitation patients. One user can be in zero, one or many institutions."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:203
 #, no-c-format
-msgid "Here you can test the speech model."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:204
-#, no-c-format
-msgid "&kmyapplication; will test the model set by in the <guilabel>Output files</guilabel> section in the <link linkend=\"input_output\">input &amp; output section</link>."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:206
-#, no-c-format
-msgid "During testing, Julius will run to recognize on the input files as set by the test prompts. Resulting word- and sentence errors will be counted as well as the overall robustness by analyzing confidence scores of the recognizer."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:208
-#, no-c-format
-msgid "To test the model successfully you also need <ulink url=\"http://sox.sourceforge.net\">SoX</ulink> installed and in your path."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:210
-#, no-c-format
-msgid "While the test is running you can watch the current recognition in the test protocol."
+msgid "To add, edit and remove institutions select <guibutton>Manage institutions</guibutton> from the toolbar."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:213
+#: index.docbook:207
 #, no-c-format
-msgid "<screeninfo>Test model</screeninfo>"
+msgid "<screeninfo>Manage institutions</screeninfo>"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:219
+#: index.docbook:213
 #, no-c-format
-msgid "<phrase>Test model</phrase>"
+msgid "<phrase>Manage institutions</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:218
+#, no-c-format
+msgid "When removing institutions, the <link linkend=\"institution_association\">associations to users</link> will be lost, the users however will not be removed."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:222
+#, no-c-format
+msgid "Collecting samples"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:223
+#, no-c-format
+msgid "To collect samples of a user, there are three training types:"
 msgstr ""
 
 #. Tag: para
 #: index.docbook:225
 #, no-c-format
-msgid "As soon as the test is finished, the <link linkend=\"test_results\">test results</link> will be automatically displayed."
+msgid "Repeat"
 msgstr ""
 
-#. Tag: title
-#: index.docbook:231
+#. Tag: para
+#: index.docbook:226
 #, no-c-format
-msgid "Test results"
+msgid "During repeating, the facilitator reads out a word that the user tries to repeat."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:229
+#, no-c-format
+msgid "Training"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:230
+#, no-c-format
+msgid "The user reads the text from the screen. In practice the facilitator can read it out for the user to repeat as well."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:233
 #, no-c-format
-msgid "After a successful <link linkend=\"test\">model test</link> you can find a detailed report of the recognition accuracy here."
+msgid "Interview"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:234
+#, no-c-format
+msgid "During the interview the facilitator asks the user a couple of questions and record the answers."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:236
-#, no-c-format
-msgid "Scoring"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:238
-#, no-c-format
-msgid "To best reflect the recognition performance, &kmyapplication; uses multiple, ranked results for the tests."
-msgstr ""
-
-#. Tag: para
 #: index.docbook:240
 #, no-c-format
-msgid "A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as \"recognized\" even tough another recognition result might be ranked higher than the correct one."
+msgid "Setting up trainings material"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:241
+#, no-c-format
+msgid "Before you can use ssc you will likely want to adjust the trainings prompts for the recordings."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:242
 #, no-c-format
-msgid "If for example the sample \"flowers\" is recognized as \"flower\" (90%), \"flowers\" (70%), \"apple\" (12%) it will be marked as \"recognized\" with a score of 70%."
+msgid "They are three, one for each trainingy type, simple text files containing one line per prompt. The encoding is UTF-8."
 msgstr ""
 
 #. Tag: para
+#: index.docbook:243
+#, no-c-format
+msgid "Their location depends on your operation system:"
+msgstr ""
+
+#. Tag: title
 #: index.docbook:244
 #, no-c-format
-msgid "The displayed overall recognition rate is the average of the word recognition rate (average over each word) and the sentence recognition rate (average over each sentence)."
+msgid "Trainings data files"
 msgstr ""
 
-#. Tag: title
-#: index.docbook:249
+#. Tag: entry
+#: index.docbook:250
 #, no-c-format
-msgid "Word"
+msgid "Microsoft Windows"
 msgstr ""
 
-#. Tag: para
+#. Tag: entry
 #: index.docbook:251
 #, no-c-format
-msgid "&kmyapplication; will list recognition accuracy for each word individually."
+msgid "GNU/Linux"
 msgstr ""
 
-#. Tag: screeninfo
-#: index.docbook:255
+#. Tag: filename
+#: index.docbook:256
 #, no-c-format
-msgid "<screeninfo>Word results</screeninfo>"
+msgid "%installation directory%\\texts\\"
 msgstr ""
 
-#. Tag: phrase
-#: index.docbook:261
+#. Tag: filename
+#: index.docbook:257
 #, no-c-format
-msgid "<phrase>Word results</phrase>"
+msgid "`kde4-config --install data`/ssc/texts/"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:267
+#: index.docbook:263
 #, no-c-format
-msgid "If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually altough the different words of course still influence each other."
+msgid "The path for GNU/Linux uses an inline command to resolve the installation directory for you. You can also run <command>kde4-config --install data</command> in a shell to find out the exact path. On Microsoft Windows you have to fill in the installation directory for yourself. Usually this will be something like <filename>C:\\Program files\\simon 0.3\\</filename> or similar."
 msgstr ""
 
-#. Tag: title
+#. Tag: para
+#: index.docbook:266
+#, no-c-format
+msgid "The <filename>texts</filename> folder will contain three subfolders containing the prompts:"
+msgstr ""
+
+#. Tag: filename
+#: index.docbook:270
+#, no-c-format
+msgid "repeat"
+msgstr ""
+
+#. Tag: filename
 #: index.docbook:271
 #, no-c-format
-msgid "Sentences"
+msgid "<filename>training</filename>"
 msgstr ""
 
-#. Tag: para
+#. Tag: filename
 #: index.docbook:272
 #, no-c-format
-msgid "This section lists each prompt as \"sentence\"."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:274
-#, no-c-format
-msgid "Prompts that were recorded more than once are combined."
-msgstr ""
-
-#. Tag: screeninfo
-#: index.docbook:278
-#, no-c-format
-msgid "<screeninfo>Sentence results</screeninfo>"
-msgstr ""
-
-#. Tag: phrase
-#: index.docbook:284
-#, no-c-format
-msgid "<phrase>Sentence results</phrase>"
+msgid "interview"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:292
+#: index.docbook:277
 #, no-c-format
-msgid "Files"
+msgid "The training"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:293
+#: index.docbook:279
 #, no-c-format
-msgid "In the files section you can see the recognition results for each file. Each file will list the <link linkend=\"scoring\">10 most likely results</link> in the details pane when you select it."
+msgid "To launch a training session, simply press the appropriate button for your training type in the ssc main window."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:295
+#, no-c-format
+msgid "To do this you must either be connected to the server or use the <link linkend=\"offline_mode\">offline mode</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:300
+#, no-c-format
+msgid "When starting the training, you will have the option to use the power training mode."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:297
+#: index.docbook:304
 #, no-c-format
-msgid "<screeninfo>File results</screeninfo>"
+msgid "<screeninfo>Training: Intro</screeninfo>"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:303
+#: index.docbook:310
 #, no-c-format
-msgid "<phrase>File results</phrase>"
+msgid "<phrase>Training: Intro</phrase>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:309
+#: index.docbook:315
 #, no-c-format
-msgid "When you identify problematic samples, you can re-record (or remove) them by selecting them and clicking on <guibutton>Edit sample</guibutton>."
+msgid "In power training mode samples will start to be recording as soon as the associated prompt is displayed. You can then proceed to the next page simply by pressing <guibutton>Next</guibutton> in the wizard. When you do that the current recording will be stored, written and the next sample will start recording."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:311
+#: index.docbook:316
 #, no-c-format
-msgid "You can sort the files by each column simply by clicking on the column header. This way it is very easy to find bad samples by sorting by recognition rate."
+msgid "Using the power training option an averagely proficient speaker can complete the trainings process much quicker. However, because you don't have a break between individual prompts it might be more taxing for the speaker."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:317
+#, no-c-format
+msgid "Of course the power training is not an option when letting the speaker repeat what the facilitator says as the latter will invariably be heard on the created recordings."
 msgstr ""
 
 #. Tag: title
 #: index.docbook:320
 #, no-c-format
+msgid "Device information"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:321
+#, no-c-format
+msgid "In this page of the wizard you can provide information about the used hardware devices (soundcard and microphone)."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:324
+#, no-c-format
+msgid "<screeninfo>Training: Device Information</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:330
+#, no-c-format
+msgid "<phrase>Training: Device Information</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:335
+#, no-c-format
+msgid "Please enter the model and type of the sound card in the <guilabel>Model</guilabel> and <guilabel>Type</guilabel> fields. Enter the information about the microphone in the two input boxes bellow."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:336
+#, no-c-format
+msgid "The drop down boxes are filled with the current list of makes and models from already recorded samples. Before entering a new device please make sure that the same device, maybe named a little bit differently, doesn't already exist to avoid duplicates."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:340
+#, no-c-format
+msgid "Volume calibration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:342
+#, no-c-format
+msgid "Before the recording starts, &kmyapplication; will try to make sure that the microphone volume(s) are correctly configured."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:346
+#, no-c-format
+msgid "<screeninfo>Training: Volume</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:352
+#, no-c-format
+msgid "<phrase>Training: Volume</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:358
+#, no-c-format
+msgid "To calibrate simply read the text displayed."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:360
+#, no-c-format
+msgid "The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the \"Volume changed\" button next to the affected device. This will reset the volume status."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:363
+#, no-c-format
+msgid "During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:365
+#, no-c-format
+msgid "In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed. In the options you can also deactivate the calibration completely. See the <link linkend=\"configuring_ssc\">configuration section</link> for more details."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:368
+#, no-c-format
+msgid "Recording data"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:369
+#, no-c-format
+msgid "For each line in your <link linkend=\"files\">prompts file</link> you will get one page asking you to record a sample."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:372
+#, no-c-format
+msgid "<screeninfo>Training: Record</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:378
+#, no-c-format
+msgid "<phrase>Training: Record</phrase>"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:385
+#, no-c-format
+msgid "Storing or transmitting data"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:386
+#, no-c-format
+msgid "After you recorded the prompts (you may skip prompts at any time) you can upload the collected samples to the server or store them locally to send them later on."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:389
+#, no-c-format
+msgid "<screeninfo>Training: Transmit</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:395
+#, no-c-format
+msgid "<phrase>Training: Transmit</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:400
+#, no-c-format
+msgid "To upload stored samples please refer to the <link linkend=\"stored_samples\">next section</link>."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:406
+#, no-c-format
+msgid "<title>Stored samples</title>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:407
+#, no-c-format
+msgid "If you don't have a connection to the server or simply don't want to upload the samples right away, you get the option to store samples locally instead of sending them."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:408
+#, no-c-format
+msgid "This is not intended as permanent storage but rather as a intermediate location before you can send the samples to the server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:410
+#, no-c-format
+msgid "To access (and upload) stored samples, select <guibutton>Upload stored data</guibutton> from the toolbar."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:414
+#, no-c-format
+msgid "<screeninfo>Stored samples</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:420
+#, no-c-format
+msgid "<phrase>Stored samples</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:426
+#, no-c-format
+msgid "The list contains all locally stored trainings sessions. Each session is identified by the user id (first) and the exact date and time it was recorded (second)."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:429
+#, no-c-format
+msgid "When recording in <link linkend=\"offline_mode\">offline mode</link> the system doesn't know what user ids do exist. As such you have to either know the correct user id or guess."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:431
+#, no-c-format
+msgid "Before uploading the sample, you can change the previously set user id by clicking <guibutton>Edit user</guibutton>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:433
+#, no-c-format
+msgid "If you press <guibutton>Upload</guibutton>, the training session will be restored and you get the possibility to hear / re-record all the trainings samples again before sending them to the server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:435
+#, no-c-format
+msgid "Once uploaded, the samples are removed from the local computer."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:441
+#, no-c-format
+msgid "Offline mode"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:442
+#, no-c-format
+msgid "&kmyapplication; is a <link linkend=\"introduction\">server / client solution</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:444
+#, no-c-format
+msgid "Most of the time when working with &kmyapplication; you will want to connect to the server to access the remotely stored database containing users, institutions, etc. When recording samples you will also transfer them to the server directly in most cases."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:446
+#, no-c-format
+msgid "Sometimes, tough, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpos &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:448
+#, no-c-format
+msgid "In offline mode you can not add / edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend=\"stored_samples\">stored samples</link> functionality."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:450
+#, no-c-format
+msgid "Recording works the same in offline mode as it does when connected to the server but certain features might be unavailable (like resolving the name or validity of the entered user id)."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:454
+#, no-c-format
+msgid "Configuring &kmyapplication;"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:455
+#, no-c-format
+msgid "In &kmyapplication;s configuration you can configure the server to connect to and set up some basic parameters. The audio configuration for the recordings can also be changed here."
+msgstr ""
+
+#. Tag: screeninfo
+#: index.docbook:459
+#, no-c-format
+msgid "<screeninfo>&kmyapplication; configuration</screeninfo>"
+msgstr ""
+
+#. Tag: phrase
+#: index.docbook:465
+#, no-c-format
+msgid "<phrase>&kmyapplication; configuration</phrase>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:471
+#, no-c-format
+msgid "When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guibutton>Use institution specific ids instead of ssc ids</guibutton> checkbox. For more information see the <link linkend=\"institution_association\">section about institution associations</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:473
+#, no-c-format
+msgid "The sound configuration is shared with the whole of the simon application suite. Read more about it in <ulink url=\"help:/simon/configuration.html#soundconfiguration\">simons manual</ulink>."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:480
+#, no-c-format
 msgid "Questions and Answers"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:322
+#: index.docbook:482
 #, no-c-format
 msgid "In an effort to keep this section always up-to-date it is available at our <ulink url=\"http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting\">online wiki</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:329
+#: index.docbook:489
 #, no-c-format
 msgid "Credits and License"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:331
+#: index.docbook:491
 #, no-c-format
 msgid "&kmyapplication;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:334
+#: index.docbook:494
 #, no-c-format
 msgid "Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:338
+#: index.docbook:498
 #, no-c-format
 msgid "Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: trans_comment
-#: index.docbook:342
+#: index.docbook:502
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
 
 #. Tag: chapter
-#: index.docbook:342
+#: index.docbook:502
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:351
+#: index.docbook:511
 #, no-c-format
 msgid "Installation"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:352
+#: index.docbook:512
 #, no-c-format
 msgid "Please see our <ulink url=\"http://www.simon-listens.org/wiki/index.php/English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""

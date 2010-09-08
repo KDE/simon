@@ -256,5 +256,5 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGl
 
 ActionManager::~ActionManager()
 {
-  //...
+  delete greedyReceivers;
 }

@@ -1,153 +1,245 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kmyapplication "<application>ssc</application>">
-  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+  <!ENTITY kmyapplication "<application
+>ssc</application
+>">
+  <!ENTITY kappname "&kmyapplication;"
+><!-- replace kmyapplication here
                                             do *not* replace kappname-->
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+  <!ENTITY package "kde-module"
+><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE"
+> 
 
 ]>
 <book lang="&language;">
 
 <bookinfo>
 
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<othercredit role="translator"
+><firstname
+>Peter</firstname
+><surname
+>Grasch</surname
+><affiliation
+><address
+><email
+>grasch@simon-listens.org</email
+></address
+></affiliation
+><contrib
+>Deutsche Übersetzung</contrib
+></othercredit
+> 
 
 
-<date>2010-08-14</date>
-<releaseinfo>0.3</releaseinfo>
+<date
+>2010-09-08</date>
+<releaseinfo
+>0.3</releaseinfo>
 
 <abstract>
-<para>
-&kmyapplication; is a sample acquisition tool.
-</para>
+<para
+>&kmyapplication; ist ein Werkzeug um Aufnahmen zu sammeln. </para>
 </abstract>
 
 <keywordset>
-<keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>simon</keyword>
-<keyword>sample</keyword>
-<keyword>acquisition</keyword>
-<keyword>training</keyword>
-<keyword>collection</keyword>
-<keyword>gathering</keyword>
-<keyword>model</keyword>
-<keyword>ssc</keyword>
-<keyword>utility</keyword>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeutils</keyword>
+<keyword
+>Kapp</keyword>
+<keyword
+>simon</keyword>
+<keyword
+>sample</keyword>
+<keyword
+>sammeln</keyword>
+<keyword
+>training</keyword>
+<keyword
+>Sammlung</keyword>
+<keyword
+>sammeln</keyword>
+<keyword
+>Modell</keyword>
+<keyword
+>ssc</keyword>
+<keyword
+>utility</keyword>
 </keywordset>
 
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice
+>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
-<holder>Peter Grasch</holder>
+<year
+>2009-2010</year>
+<holder
+>Peter Grasch</holder>
 </copyright>
 
 <authorgroup>
-<author>
-<personname>
-<firstname>Peter</firstname>
-<othername>H.</othername>
-<surname>Grasch</surname>
-</personname>
-<email>grasch@simon-listens.org</email>
-</author>
+<author
+><personname
+> <firstname
+>Peter</firstname
+> <othername
+>H.</othername
+> <surname
+>Grasch</surname
+> </personname
+> <email
+>grasch@simon-listens.org</email
+> </author>
 </authorgroup>
 
 
-<title>The &kmyapplication; Handbook</title>
+<title
+>Das &kmyapplication; Handbuch</title>
 </bookinfo>
 
 <chapter id="introduction">
-<title>Introduction</title>
+<title
+>Einleitung</title>
 
-<para>
-  &kmyapplication; is a tool for large scale sample acquisition.</para>
+<para
+>&kmyapplication; ist ein Werkzeug um viele Aufnahmen komfortabel zu sammeln.</para>
 
-<para>Using &kmyapplication; multiple teams can gather training data from potential end users or professional speakers and collect tham on the central sscd server.</para>
+<para
+>Mit &kmyapplication; können mehrere Aufnahmeteams gleichzeitig mit Sprechern bzw. potentiellen Endanwendern aufnehmen und die Aufnahmen auf einem zentralen sscd Server sammeln.</para>
 
-<para>Like simon / simond, &kmyapplication; is a client to the sscd server.</para>
+<para
+>Im Gegensatz zu simon / simond ist &kmyapplication; ein Client zum sscd Server.</para>
 
-<para>&kmyapplication; will collect samples through trainings procedures and send them to the sscd server.</para>
+<para
+>&kmyapplication; wird Aufnahmen über Trainings sammeln und diese dann zum sscd Server senden.</para>
 
-<para>The system also collects useful metadata to the samples like names (or aliases) of the recorded people, their speaking niveau, possible impairments, etc. Information about the used recording equipment is also stored. This and other information is stored on the server side in a database. Please refer to the <ulink url="help:/sscd">sscd manual</ulink> for more information.</para>
+<para
+>Das System sammelt auch nützliche Metadaten zu den Aufnahmen wie zum Beispiel Namen (oder Aliase) der aufgenommenen Personen, deren sprachliches Niveau, mögliche Einschränkungen, etc. Informationen über das verwendete Aufnahmeequipment werden ebenfalls gespeichert. Diese und andere Informationen werden serverseitig in einer Datenbank gespeichert. Bitte sehen Sie das <ulink url="help:/sscd"
+>sscd Handbuch</ulink
+> für mehr Informationen.</para>
 
-<para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para
+>Für mehr Information über die Architektur der simon Suite sehen Sie bitte das <ulink url="help:/simon/overview.html#architecture"
+>simon Handbuch</ulink
+>.</para>
 
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using &kmyapplication;</title>
+<title
+>&kmyapplication; verwenden</title>
 
-<para>&kmyapplication; provides a simple graphical interface for collecting training samples and managing speakers.</para>
+<para
+>&kmyapplication; bietet eine simple grafische Oberfläche um Trainingsaufnahmen zu sammeln und Sprecher zu verwalten.</para>
 
 <para>
 <screenshot>
-<screeninfo>Main window</screeninfo>
+<screeninfo
+>Hauptfenster</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="main.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Main window</phrase>
+      <phrase
+>Hauptfenster</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>
-  To use ssc connect to the sscd by pressing <guibutton>Connect</guibutton>. As soon as you are connected, the user interface will allow you to manage users and insitutions and record new samples.</para>
-<para>To proceed without connecting to the sscd, you may use the <link linkend="offline_mode">offline mode</link>.
-</para>
+<para
+>Um ssc zu verwenden, verbinden Sie zum sscd indem Sie <guibutton
+>Verbinden</guibutton
+> klicken. Sobald Sie verbunden sind, wird die Oberfläche Ihnen erlauben neue Benutzer und Institutionen hinzuzufügen und Sprachdaten aufzunehmen.</para>
+<para
+>Um fortzufahren ohne zum sscd zu verbinden können Sie den <link linkend="offline_mode"
+>Offlinemodus</link
+> verwenden. </para>
 
-<para>
-  To collect samples for a user, simply enter the id of the user in the <guilabel>User ID</guilabel> input field and press <guibutton>Select</guibutton>. The user information will be fetched from the database (sscd) and the name of the user displayed.</para>
+<para
+>Um Sprachdaten von einem Benutzer aufzunehmen, geben Sie einfach die ID des Benutzers im Feld <guilabel
+>User ID</guilabel
+> und drücken Sie Enter oder den <guibutton
+>Auswählen</guibutton
+>-Knopf. Die Benutzerinformation wird von der Datenbank (sscd) geholt und der Name des ausgewählten Benutzers angezeigt.</para>
 
 <sect1 id="manage_users">
-  <title>Managing users</title>
-  <para>Before you can record samples from a new speaker you need to add a new user to the system.</para>
+  <title
+>Benutzer verwalten</title>
+  <para
+>Bevor Sie Aufnahmen von einem neuen Sprecher aufnehmen können müssen Sie den Benutzer zum System hinzufügen.</para>
 
-  <para>To add, edit and remove users, select the <guibutton>Manage users</guibutton> option from the toolbar.</para>
+  <para
+>Um Benutzer hinzuzufügen / editieren oder zu entferenen wählen Sie bitte den <guibutton
+>Benutzer verwalten</guibutton
+> Knopf von der Werkzeugleiste aus.</para>
 
   <para>
   <screenshot>
-  <screeninfo>Manage users</screeninfo>
+  <screeninfo
+>Benutzer verwalten</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="users.png" format="PNG"/>
       </imageobject>
       <textobject>
-        <phrase>Manage users</phrase>
+        <phrase
+>Benutzer verwalten</phrase>
       </textobject>
     </mediaobject>
   </screenshot>
   </para>
 
-  <para>Here you see a list of all existing speakers in the database. For performance reason the list <emphasis>may not be complete</emphasis>. To find users in large deployments you can apply filters to the result set by filling out the mask above and pressing <guibutton>Apply Filters</guibutton>. The default is no filter. Empty fields are ignored when filtering.</para>
+  <para
+>Hier sehen Sie eine Liste aller existierenden Sprecher in der Datenbank. Aus Performancegründen kann es sein, dass diese list <emphasis
+>nicht komplett</emphasis
+> ist. Um Benutzer in großen Installationen zu finden, können Sie Filter auf das Ergebnisset anwenden indem Sie die Eingabemaske ausfüllen und auf <guibutton
+>Filter anwenden</guibutton
+> klicken. Die Standardeinstellung ist keinen Filter zu verwenden. Leere Eingabefelder werden beim Filtern ignoriert.</para>
 
-  <para>To filter for a specific institution enter the institution id into the <guilabel>Institution</guilabel> field. If you don't know the intitution id by hard you can use the <guibutton>Search</guibutton> menu.</para>
+  <para
+>Um nach einer speziellen Institution zu filtern, geben Sie die Institutionsid in das <guilabel
+>Institution</guilabel
+> Feld ein. Wenn Sie die Institutionsid nicht auswendig wissen können Sie das <guibutton
+>Suchen</guibutton
+> Menü verwenden.</para>
 
-  <para>To add, edit or remove users simply press the buttons <guibutton>Add</guibutton>, <guibutton>Edit</guibutton> and <guibutton>Remove</guibutton>, respectively.</para>
+  <para
+>Um Benutzer hinzuzufügen, zu editieren oder zu entfernen klicken Sie einfach die entsprechenden Knöpfe: <guibutton
+>Hinzufügen</guibutton
+>, <guibutton
+>Bearbeiten</guibutton
+> und <guibutton
+>Löschen</guibutton
+>.</para>
 
   <sect2 id="add_users">
-    <title>Add user</title>
+    <title
+>Benutzer hinzufügen</title>
 
-    <para>To add a user press <guibutton>Add</guibutton> and fill out the presented form.</para>
+    <para
+>Um einen Benutzer hinzuzufügen, dürcken Sie <guibutton
+>Hinzufügen</guibutton
+> und füllen Sie das angezeigte Formular aus.</para>
 
     <para>
     <screenshot>
-    <screeninfo>Add user</screeninfo>
+    <screeninfo
+>Benutzer hinzufügen</screeninfo>
       <mediaobject>
         <imageobject>
           <imagedata fileref="user.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>Add user</phrase>
+          <phrase
+>Benutzer hinzufügen</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
@@ -155,361 +247,540 @@
 
 
     <sect3 id="institution_association">
-      <title>Associating with an institution</title>
-      <para>Often institutions give unique ideas to each patient to reference them in their computer system. &kmyapplication; can be configured to use those institution ids instead of the internal sscd identifiers. To connect a ssc user to the institution id add a new institution connection to the user by pressing <guibutton>Add</guibutton> bellow <guilabel>Institution(s):</guilabel>.</para>
+      <title
+>Mit einer Institution assoziieren</title>
+      <para
+>Oft vergeben Institutionen eindeutige Identifikationsnummern um Patienten z.B. in der EDV zu referenzieren. &kmyapplication; kann so konfiguriert werden, dass diese institutionsspezifischen IDs statt der internen IDs von sscd verwendet werden. Um ssc Benutzer mit einer Institution zu verbinden fügen Sie eine neue Institutionsassoziation beim Benutzer hinzu indem Sie den <guibutton
+>Hinzufügen</guibutton
+> Knopf unter <guilabel
+>Institution(en):</guilabel
+> auswählen.</para>
 
       <para>
       <screenshot>
-      <screeninfo>New institution association</screeninfo>
+      <screeninfo
+>Neue Institutionsassoziation</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="add_institution_association.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>New institution association</phrase>
+            <phrase
+>Neue Institutionsassoziation</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
 
-      <para>Simply enter the id of the institution the identifier originates from (you may want to use the <guibutton>Search</guibutton> to find institution ids) and the id that identifies the user in that institution.</para>
+      <para
+>Geben Sie einfach die ID der Institution ein deren ID Sie verbinden wollen (verwenden Sie die <guibutton
+>Suche</guibutton
+> um die ID der Institution herauszufinden) und die ID selbst.</para>
 
-      <para>For example: The speaker "Jack Jones" is currently a patient in institution #1. There he is patient "#520f". You can then add an instition association associating the speaker "Jack Jones" (internal sscd id "7")  with the institution "1" and institution id "520f". If &kmyapplication; is the configured to use institution specific ids of institution "1" you can refer to "Jack Jones" by using the id "520f" instead of "7".</para>
+      <para
+>Zum Beispiel: Der Sprecher "Jack Jones" ist derzeit ein Patient in Institution #1. Dort hat er eine Patientennummer "520f". Sie können dann eine Institutionsverbindung anlgen die den Spracher "Jack Jones" (interne sscd ID "7") mit der Institution "1" und dortigen ID "520f" assoziiert. Wenn &kmyapplication; konfiguriert wird institutionsspezifische IDs der Institution "1" zu verwenden können Sie "Jack Jones" mit der ID "520f" ansprechen statt "7".</para>
     </sect3>
 
     <sect3 id="user_capabilities">
-      <title>Capabilities</title>
-      <para>If the speaker is not able to answer interview questions or repeat words spoken by the facilitator then you can let &kmyapplication; know about it by unchecking <guibutton>Interview possible</guibutton> and / or <guibutton>Repeating possible</guibutton>. The unchecked training modes (Repeat and Interview) will then no longer be available for this speaker.</para>
+      <title
+>Fähigkeiten</title>
+      <para
+>Wenn ein Sprecher nicht in der Lage ist Interviewfragen zu beantworten oder Wörter nachzusprechen die der Moderator vorspricht können Sie &kmyapplication; darüber informieren indem Sie <guibutton
+>Interview möglich</guibutton
+> und / oder <guibutton
+>Nachsprechen möglich</guibutton
+> deaktivieren. Die abgehackten Trainingsmodi (Nachsprechen und Interview) werden dann für diesen Sprecher nicht mehr zur Verfügung stehen.</para>
     </sect3>
   </sect2>
 
   <sect2 id="edit_user">
-    <title>Edit user</title>
-    <para>To edit a user, simply select the user from the list  in the <link linkend="manage_users">manage users dialog</link> and press <guibutton>Edit</guibutton>.</para>
-    <para>The interface for editing the user is identical to the interface for <link linkend="add_users">adding a new user</link>.</para>
+    <title
+>Benutzer bearbeiten</title>
+    <para
+>Um einen Benutzer zu bearbeiten wählen Sie ihn von der Liste im <link linkend="manage_users"
+>Benutzer verwalten Dialog</link
+> aus und drücken Sie <guibutton
+>Bearbeiten</guibutton
+>.</para>
+    <para
+>Die Oberfläche für das bearbeiten von Benutzern ist ident mit der Oberflache <link linkend="add_users"
+>neue Benutzer hinzuzufügen</link
+>.</para>
   </sect2>
 
   <sect2 id="remove_user">
-    <title>Remove user</title>
-    <para>To remove a user, simply select <guibutton>Remove</guibutton> after selecting the user from the list in the <link linkend="manage_users">manage users dialog</link>.</para>
+    <title
+>Benutzer entfernen</title>
+    <para
+>Um einen Benutzer zu entfernen, wählen Sie einfach <guibutton
+>Löschen</guibutton
+> aus nachdem Sie den Benutzer im <link linkend="manage_users"
+>Benutzer verwalten Dialog</link
+> ausgewählt haben.</para>
 
-    <warning><para>When removing a user, all associated samples of this speaker will be lost.</para></warning>
+    <warning
+><para
+>Wenn Sie einen Benutzer entfernen, werden alle assoziierten Aufnahmen von diesem Sprecher gelöscht.</para
+></warning>
   </sect2>
 </sect1>
 
 <sect1 id="manage_institutions">
-  <title>Manage institutions</title>
-  <para>&kmyapplication; can organize speakers in "institutions". Those might be virtual institutions like groups but was originally designed to keep track of hospital and rehabilitation patients. One user can be in zero, one or many institutions.</para>
-  <para>To add, edit and remove institutions select <guibutton>Manage institutions</guibutton> from the toolbar.</para>
+  <title
+>Institutionen verwalten</title>
+  <para
+>&kmyapplication; kann Sprecher in "Institutionen" verwalten. Diese können virtuelle Institutionen wie Gruppen sein. Das System wurde aber ursprünglich entworfen um einen Überblick über Sprecher in Krankenhäuser oder Rehabilitationszentren zu behalten. Ein Benutzer (Sprecher) kann in keiner, einer oder mehreren Institution sein.</para>
+  <para
+>Um Institutionen zu verwalten wählen Sie <guibutton
+>Institutionen verwalten</guibutton
+> von der Werkzeugleiste.</para>
 
     <para>
     <screenshot>
-    <screeninfo>Manage institutions</screeninfo>
+    <screeninfo
+>Institutionen verwalten</screeninfo>
       <mediaobject>
         <imageobject>
           <imagedata fileref="institutions.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>Manage institutions</phrase>
+          <phrase
+>Institutionen verwalten</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
     </para>
-    <para>When removing institutions, the <link linkend="institution_association">associations to users</link> will be lost, the users however will not be removed.</para>
+    <para
+>Wenn Sie Institutionen entfernen werden die <link linkend="institution_association"
+>Assoziationen zu deren Benutzer</link
+> gelöscht, die Benutzer bleiben allerdings erhalten.</para>
 </sect1>
 
 <sect1 id="collecting_samples">
-  <title>Collecting samples</title>
-  <para>To collect samples of a user, there are three training types:
-    <itemizedlist>
-      <listitem><para>Repeat</para>
-        <para>During repeating, the facilitator reads out a word that the user tries to repeat.</para>
+  <title
+>Aufnahmen sammeln</title>
+  <para
+>Um Aufnahmen von einem Sprecher zu sammeln existieren drei Trainingstypen: <itemizedlist>
+      <listitem
+><para
+>Wiederholen</para>
+        <para
+>Beim Wiederholen spricht der Moderator etwas vor das vom Benutzer nachgesprochen wird.</para>
       </listitem>
       <listitem>
-        <para>Training</para>
-        <para>The user reads the text from the screen. In practice the facilitator can read it out for the user to repeat as well.</para>
+        <para
+>Training</para>
+        <para
+>Der Benutzer liest die Trainingstexte vom Bildschirm. In der Praxis kann der Moderator auch hier vorlesen sollte der Sprecher Leseschwierigkeiten haben.</para>
       </listitem>
       <listitem>
-        <para>Interview</para>
-        <para>During the interview the facilitator asks the user a couple of questions and record the answers.</para>
+        <para
+>Interview</para>
+        <para
+>Der Benutzer beantwortet Interviewfragen die vom Moderator gestellt werden frei. Die Antworten werden aufgezeichnet.</para>
       </listitem>
     </itemizedlist>
   </para>
 
   <sect2 id="files">
-    <title>Setting up trainings material</title>
-    <para>Before you can use ssc you will likely want to adjust the trainings prompts for the recordings.</para>
-    <para>They are three, one for each trainingy type, simple text files containing one line per prompt. The encoding is UTF-8.</para>
-    <para>Their location depends on your operation system:
-      <table frame='all'><title>Trainings data files</title>
+    <title
+>Trainingsmaterial einrichten</title>
+    <para
+>Bevor Sie ssc verwenden können werden Sie wahrscheinlich die Trainingstexte für die Aufnahmen anpassen wollen.</para>
+    <para
+>Es gibt drei Trainingstexte - jeweils einen für jeden Trainingstyp. Sie sind einfache Textdateien die eine Zeile pro Seite beinhalten. Die Trainingstexte müssen UTF-8 kodiert werden.</para>
+    <para
+>Ihr Speicherort hängt von Ihrem Betriebssystem ab: <table frame='all'
+><title
+>Trainingsdatendateien</title>
       <tgroup cols='2' align='left' colsep='1' rowsep='1'>
       <colspec colname='c1'/>
       <colspec colname='c2'/>
       <thead>
       <row>
-        <entry>Microsoft Windows</entry>
-        <entry>GNU/Linux</entry>
+        <entry
+>Microsoft Windows</entry>
+        <entry
+>GNU/Linux</entry>
       </row>
       </thead>
       <tbody>
       <row>
-        <entry><filename>%installation directory%\texts\</filename></entry>
-        <entry><filename>`kde4-config --install data`/ssc/texts/</filename></entry>
+        <entry
+><filename
+>%Installationsordner%\texts\</filename
+></entry>
+        <entry
+><filename
+>`kde4-config --install data`/ssc/texts/</filename
+></entry>
       </row>
       </tbody>
       </tgroup>
       </table>
     </para>
-    <para>
-      The path for GNU/Linux uses an inline command to resolve the installation directory for you. You can also run <command>kde4-config --install data</command> in a shell to find out the exact path. On Microsoft Windows you have to fill in the installation directory for yourself. Usually this will be something like <filename>C:\Program files\simon 0.3\</filename> or similar.
-    </para>
-    <para>
-
-      The <filename>texts</filename> folder will contain three subfolders containing the prompts:
-      <itemizedlist>
-        <listitem><para><filename>repeat</filename></para></listitem>
-        <listitem><para><filename>training</filename></para></listitem>
-        <listitem><para><filename>interview</filename></para></listitem>
+    <para
+>Der Pfad von GNU/Linux verwendet ein Inline-Kommando um den Installationsordner für Sie herauszufinden. Sie können auch <command
+>kde4-config --install data</command
+> in einer Konsole ausführen um den exakten Pfad herauszufinden. Auf Microsoft Windows müssen Sie den Installationsordner manuell eintragen. In der Regel wird das <filename
+>C:\Programme\simon 0.3\</filename
+> oder ähnlich sein. </para>
+    <para
+>Der <filename
+>texts</filename
+> Ordner wird die drei Unterordner beinhalten die die Trainingstexte beinhalten: <itemizedlist>
+        <listitem
+><para
+><filename
+>repeat</filename
+></para
+></listitem>
+        <listitem
+><para
+><filename
+>training</filename
+></para
+></listitem>
+        <listitem
+><para
+><filename
+>interview</filename
+></para
+></listitem>
       </itemizedlist>
     </para>
   </sect2>
   <sect2 id="trainingsprocess">
-    <title>The training</title>
+    <title
+>Das Training</title>
 
-    <para>To launch a training session, simply press the appropriate button for your training type in the ssc main window.</para>
+    <para
+>Um eine Trainingssitzung zu starten, klicken Sie einfach den entsprechenden Knopf für den Trainingstyp den Sie durchführen wollen.</para>
 
     <para>
     <screenshot>
-    <screeninfo>Main window</screeninfo>
+    <screeninfo
+>Hauptfenster</screeninfo>
       <mediaobject>
         <imageobject>
           <imagedata fileref="main.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>Main window</phrase>
+          <phrase
+>Hauptfenster</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
     </para>
 
-    <para>To do this you must either be connected to the server or use the <link linkend="offline_mode">offline mode</link>.</para>
+    <para
+>Damit das funktionierten müssen Sie zum Server verbunden sein oder sich im <link linkend="offline_mode"
+>Offlinemodus</link
+> befinden.</para>
 
     <sect3 id="training_intro">
-      <title>Introduction</title>
+      <title
+>Einleitung</title>
 
-      <para>When starting the training, you will have the option to use the power training mode.</para>
+      <para
+>Wenn Sie das Training starten werden Sie die Option besitzen, das Powertraining zu aktivieren.</para>
 
       <para>
       <screenshot>
-      <screeninfo>Training: Intro</screeninfo>
+      <screeninfo
+>Training: Einführung</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="training_intro.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>Training: Intro</phrase>
+            <phrase
+>Training: Einführung</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
-      <para>In power training mode samples will start to be recording as soon as the associated prompt is displayed. You can then proceed to the next page simply by pressing <guibutton>Next</guibutton> in the wizard. When you do that the current recording will be stored, written and the next sample will start recording.</para>
-      <para>Using the power training option an averagely proficient speaker can complete the trainings process much quicker. However, because you don't have a break between individual prompts it might be more taxing for the speaker.</para>
-      <para>Of course the power training is not an option when letting the speaker repeat what the facilitator says as the latter will invariably be heard on the created recordings.</para>
+      <para
+>Im Powertrainingmodus wird die Aufnahme starten sobald der zu sprechende Text angezeigt wird. Sie können dann einfach mit dem <guibutton
+>Weiter</guibutton
+> Knopf zur nächsten Seite im Assistenten fortfahren. Sobald Sie das machen wird die aktuelle Aufnahme abgeschlossen, gespeichert und die nächste Aufnahme beginnt.</para>
+      <para
+>Mit der Powertraining Funktion kann ein durchnittlicher Sprecher den Trainingsprozess viel effizienter bewältigen. Da Sie aber keine Pausen zwischen den Seiten haben ist diese Form des Trainings natürlich auch anstrengender für den Sprecher.</para>
+      <para
+>Die Powertraining Funktion kann nicht verwendet werden wenn der Benutzer dem Moderator nachsprechen muss / soll da in diesen Fällen die Stimme des Moderators sonst auf der Aufnahme zu hören wäre.</para>
     </sect3>
     <sect3>
-      <title>Device information</title>
-      <para>In this page of the wizard you can provide information about the used hardware devices (soundcard and microphone).</para>
+      <title
+>Geräteinformation</title>
+      <para
+>Auf dieser Seite des Assistenten können Sie Informationen über die verwendete Aufnahmegeräte angeben (Soundkarte und Mikrofon).</para>
       <para>
       <screenshot>
-      <screeninfo>Training: Device Information</screeninfo>
+      <screeninfo
+>Training: Geräteinformation</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="training_device_information.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>Training: Device Information</phrase>
+            <phrase
+>Training: Geräteinformation</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
-      <para>Please enter the model and type of the sound card in the <guilabel>Model</guilabel> and <guilabel>Type</guilabel> fields. Enter the information about the microphone in the two input boxes bellow.</para>
-      <para>The drop down boxes are filled with the current list of makes and models from already recorded samples. Before entering a new device please make sure that the same device, maybe named a little bit differently, doesn't already exist to avoid duplicates.</para>
+      <para
+>Bitte geben Sie das Modell und den Typ der Soundkarte in der <guilabel
+>Model</guilabel
+> und <guilabel
+>Typ</guilabel
+> Felder ein. Geben Sie die Information über Mikrofone in den zwei Eingabefelder darunter an.</para>
+      <para
+>Die Dropdown Felder beinhalten die aktuelle Liste der Marken und Modelle der bereits aufgenommen Aufnahmen. Bevor ein neues Gerät eingetragen wird, achten Sie bitte darauf das das Gerät nicht bereits unter einem ähnlichen Namen eingetragen ist um Duplikate zu vermeiden.</para>
     </sect3>
 
     <sect3>
-      <title>Volume calibration</title>
+      <title
+>Lautstärkeneinpegelung</title>
 
-      <para>Before the recording starts, &kmyapplication; will try to make sure that the microphone volume(s) are correctly configured.</para>
+      <para
+>Bevor die Aufnahme beginng, wird &kmyapplication; sicherstellen das Ihre Mikrofon Lautstärke(n) korrekt konfiguriert sind.</para>
 
       <para>
       <screenshot>
-      <screeninfo>Training: Volume</screeninfo>
+      <screeninfo
+>Training: Lautstärke</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="training_volume.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>Training: Volume</phrase>
+            <phrase
+>Training: Lautstärke</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
 
-      <para>To calibrate simply read the text displayed.</para>
+      <para
+>Um die Lautstärke zu kalibirieren, lesen Sie den angezeigten Text vor.</para>
 
-      <para>The calibration will monitor the current volume and tell you to either raise or lower the volume but you have to do that manually in your systems audio mixer. Once you changed the volume in any way (while the calibration is running), press the "Volume changed" button next to the affected device. This will reset the volume status.
-      </para>
+      <para
+>Um die Kalibrierung zu überwachen, sehen Sie bitte die angezeigte Lautstärke und die Notiz darunter die sagt, ob Sie die Lautstärke heben oder senken sollten. Um die Lautstärke zu verändern, verwenden Sie bitte die Lautstärkekonfiguration Ihres Betriebssystems. Sobald Sie dort die Lautstärke verändert haben drücken Sie bitte in &kmyapplication; auf "Lautstärke geändert" um die Kallibrierung darüber zu informieren. </para>
 
-      <para>During calibration, try to talk normally. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+      <para
+>Versuchen Sie während der Kalibrierung so normal wie möglich zu sprechen. Schreien Sie nicht aber seien Sie auch nicht unnötig leise. Bitte bedenken Sie, dass Sie die besten Ergebnisse erzielen wenn alle Aufnahmen ungefähr gleich laut sind und Sie auch während der Erkennung gleich laut sprechen. Möglicherweise könnten Sie zu anderen Tageszeiten oder einer anderen Stimmung lauter sprechen also sprechen Sie in diesem Test lieber etwas lauter um diese Möglichkeit einzukalkulieren. Grundsätzlich sind zu leise Aufnahmen viel besser als zu laute, da es dann zu Verzerrungen kommen kann.</para>
 
-      <para>In the &kmyapplication; settings, both the text displayed and the levels considered correct can be changed. If you leave the text empty, the default text will be displayed. In the options you can also deactivate the calibration completely. See the <link linkend="configuring_ssc">configuration section</link> for more details.</para>
+      <para
+>In den Einstellungen von &kmyapplication; lässt sich sowohl der angezeigte Text als auch die Lautstärken die als korrekt bzw. inkorrekt markiert werden konfigurieren. Wird der dortige Text leer gelassen (Standard) wird ein Standardtext angezeigt. In der Konfiguration können Sie die Lautstärkenkalibrierung auch komplett deaktivieren. Sehen Sie <link linkend="configuring_ssc"
+>Konfiguration Sektion</link
+> für mehr Details.</para>
     </sect3>
     <sect3>
-      <title>Recording data</title>
-      <para>For each line in your <link linkend="files">prompts file</link> you will get one page asking you to record a sample.</para>
+      <title
+>Daten aufnehmen</title>
+      <para
+>Für jede Zeile in der <link linkend="files"
+>Promptsdatei</link
+> wird eine Seite angezeigt die den Sprecher bittet eine Aufnahme aufzunehmen.</para>
       <para>
       <screenshot>
-      <screeninfo>Training: Record</screeninfo>
+      <screeninfo
+>Training: Aufnahme</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="training_sample.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>Training: Record</phrase>
+            <phrase
+>Training: Aufnahme</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
     </sect3>
     <sect3>
-      <title>Storing or transmitting data</title>
-      <para>After you recorded the prompts (you may skip prompts at any time) you can upload the collected samples to the server or store them locally to send them later on.</para>
+      <title
+>Daten speichern oder übermitteln</title>
+      <para
+>Nachdem Sie die Prompts aufgenommen haben (Sie können einzelne Seiten jederzeit überspringen) können Sie die gesammelten Sprachdaten zum Server hochladen oder lokal speichern um sie später zu senden.</para>
       <para>
       <screenshot>
-      <screeninfo>Training: Transmit</screeninfo>
+      <screeninfo
+>Training: Senden</screeninfo>
         <mediaobject>
           <imageobject>
             <imagedata fileref="training_transmit.png" format="PNG"/>
           </imageobject>
           <textobject>
-            <phrase>Training: Transmit</phrase>
+            <phrase
+>Training: Senden</phrase>
           </textobject>
         </mediaobject>
       </screenshot>
       </para>
-      <para>To upload stored samples please refer to the <link linkend="stored_samples">next section</link>.</para>
+      <para
+>Um gespeicherte Aufnahmen zu senden sehen Sie bitte die <link linkend="stored_samples"
+>nächste Sektion</link
+>.</para>
     </sect3>
   </sect2>
 </sect1>
 
 <sect1 id="stored_samples">
-  <title>Stored samples</title>
-  <para>If you don't have a connection to the server or simply don't want to upload the samples right away, you get the option to store samples locally instead of sending them.</para>
-  <para>This is not intended as permanent storage but rather as a intermediate location before you can send the samples to the server.</para>
+  <title
+>Gespeicherte Aufnahmen</title>
+  <para
+>Wenn Sie keine Verbindung zum Server haben oder einfach die Aufnahmen noch nicht hochladen wollen, können Sie die Option die Aufnahmen stattdessen lokal zu speichern verwenden.</para>
+  <para
+>Dies ist nicht als permanenter Speicherort ausgelegt sondern nur als Zwischenspeicherung bevor die Aufnahmen zum Server gesendet werden können.</para>
 
-  <para>To access (and upload) stored samples, select <guibutton>Upload stored data</guibutton> from the toolbar.</para>
+  <para
+>Um die gespeicherten Aufnahmen zu verwalten (und hochzuladen), wählen Sie <guibutton
+>Gespeicherte Daten hochladen</guibutton
+> von der Werkzeugleiste.</para>
 
   <para>
   <screenshot>
-  <screeninfo>Stored samples</screeninfo>
+  <screeninfo
+>Gespeicherte Aufnahmen</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="upload_stored.png" format="PNG"/>
       </imageobject>
       <textobject>
-        <phrase>Stored samples</phrase>
+        <phrase
+>Gespeicherte Aufnahmen</phrase>
       </textobject>
     </mediaobject>
   </screenshot>
   </para>
 
-  <para>
-    The list contains all locally stored trainings sessions. Each session is identified by the user id (first) and the exact date and time it was recorded (second).
-  </para>
-  <para>When recording in <link linkend="offline_mode">offline mode</link> the system doesn't know what user ids do exist. As such you have to either know the correct user id or guess.</para>
+  <para
+>Die Liste beinhaltet alle lokal gespeicherten Trainingssitzungen. Jede Sitzung wird durch eine Benutzerid (zuerst) und das exakte Datum und die genaue Uhrzeit zu der das Paket gespeichert wurde (zuletzt) identifiziert. </para>
+  <para
+>Wenn Sie im <link linkend="offline_mode"
+>Offlinemodus</link
+> aufnehmen weiß das System nicht welche Benutzer IDs existieren. Deshalb müssen Sie die Benutzerkennung dort entweder wissen oder raten.</para>
 
-  <para>Before uploading the sample, you can change the previously set user id by clicking <guibutton>Edit user</guibutton>.</para>
+  <para
+>Bevor Sie die Aufnahmen hochladen können Sie die zuvor gesetzte BenutzerID allerdings durch klicken auf <guibutton
+>Benutzer bearbeiten</guibutton
+> ändern.</para>
 
-  <para>If you press <guibutton>Upload</guibutton>, the training session will be restored and you get the possibility to hear / re-record all the trainings samples again before sending them to the server.</para>
+  <para
+>Wenn Sie <guibutton
+>Hochladen</guibutton
+> klicken wird die Trainingssitzung wiederhergestellt und Sie haben erneut die Möglichkeit die Aufnahmen noch einmal anzuhören / neu aufzunehmen bevor Sie zum Server gesendet werden.</para>
 
-  <para>Once uploaded, the samples are removed from the local computer.</para>
+  <para
+>Nachdem die Aufnahmen hochgeladen wurden werden Sie vom lokalen Rechner entfernt.</para>
 
 </sect1>
 
 
 <sect1 id="offline_mode">
-  <title>Offline mode</title>
-  <para>&kmyapplication; is a <link linkend="introduction">server / client solution</link>.</para>
+  <title
+>Offlinemodus</title>
+  <para
+>&kmyapplication; ist eine <link linkend="introduction"
+>Server / Client Lösung</link
+>.</para>
 
-  <para>Most of the time when working with &kmyapplication; you will want to connect to the server to access the remotely stored database containing users, institutions, etc. When recording samples you will also transfer them to the server directly in most cases.</para>
+  <para
+>Die meiste Zeit werden Sie beim arbeiten mit &kmyapplication; mit dem Server verbunden sein um Zugriff auf die dort gespeicherte Datenbank in der Benutzer, Institutionen, etc. gespeichert werden zu erhalten. Wenn Sie Daten aufnehmen werden Sie sie auch in den meisten Fällen direkt dem Server übermitteln.</para>
 
-  <para>Sometimes, tough, you might not have a (trusted) internet connection available and still need to record samples with &kmyapplication;. For this purpos &kmyapplication; contains an offline mode allowing you to gather speech data without a connection to the sscd server.</para>
+  <para
+>Manchmal jedoch wenn keine (vertrauenswürdige) Internetverbindung verfügbar ist und Sie trotzdem Sprachaufnahmen machen wollen bietet &kmyapplication; einen Offlinemodus indem Sie Sprachdaten auch ohne Verbindung zum sscd Server sammeln können.</para>
 
-  <para>In offline mode you can not add / edit or view users or institutions. You can only gather new samples to send to the server later on through the <link linkend="stored_samples">stored samples</link> functionality.</para>
+  <para
+>Im Offlinemodus können Sie keine Benutzer oder Institutionen hinzufügen / editieren oder anzeigen. Sie können nur neue Aufnahmen sammeln und diese später über die <link linkend="stored_samples"
+>gespeicherte Aufnahmen Funktionalität</link
+> hochladen.</para>
 
-  <para>Recording works the same in offline mode as it does when connected to the server but certain features might be unavailable (like resolving the name or validity of the entered user id).</para>
+  <para
+>Die Aufnahme selbst funktioniert im Offlinemodus gleich wie wenn Sie zum Server verbunden sind aber einige Funktionen (z.B. das Auflösen und Testen der Validität der eingegebenen Benutzerkennung) sind nicht verfügbar.</para>
 </sect1>
 
 <sect1 id="configuring_ssc">
-  <title>Configuring &kmyapplication;</title>
-  <para>In &kmyapplication;s configuration you can configure the server to connect to and set up some basic parameters. The audio configuration for the recordings can also be changed here.</para>
+  <title
+>&kmyapplication; konfigurieren</title>
+  <para
+>In &kmyapplication;s Konfiguration können Sie den Server zu dem simon verbinden soll konfigurieren und einge bassiche Parameter festlegen. Die Konfiguration des Audiosystems für die Aufnahmen kann hier ebenfalls bearbeitet werden.</para>
 
   <para>
   <screenshot>
-  <screeninfo>&kmyapplication; configuration</screeninfo>
+  <screeninfo
+>&kmyapplication; Konfiguration</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="ssc_settings.png" format="PNG"/>
       </imageobject>
       <textobject>
-        <phrase>&kmyapplication; configuration</phrase>
+        <phrase
+>&kmyapplication; Konfiguration</phrase>
       </textobject>
     </mediaobject>
   </screenshot>
   </para>
 
-  <para>When you set up &kmyapplication; for a specific institution you might want to bind it directly to this institution. The user can then use the institution specific ids of the users (instead of the internal ssc ids) when referencing the users. To set up the bound institution, use the <guibutton>Use institution specific ids instead of ssc ids</guibutton> checkbox. For more information see the <link linkend="institution_association">section about institution associations</link>.</para>
+  <para
+>Wenn Sie &kmyapplication; für die Verwendung in einer spezifischen Institution einrichten können Sie es direkt an diese Institution binden. Anwender können dann direkt die institutionsspezifischen BenutzerIDs verwenden (statt der internen ssc IDs) wenn Sie den Sprecher identifizieren. Um diese Verbindung aufzubauen verwenden Sie die Option <guibutton
+>Instiutionsspezifische IDs statt SSC IDs verwenden</guibutton
+> verwenden. Für mehr Informationen sehen Sie die <link linkend="institution_association"
+>Sektion über Institutionsassoziationen</link
+>.</para>
 
-  <para>The sound configuration is shared with the whole of the simon application suite. Read more about it in <ulink url="help:/simon/configuration.html#soundconfiguration">simons manual</ulink>.</para>
+  <para
+>Die Soundkonfiguration wird mit der ganzen simon Anwendungssuite geteilt. Lesen Sie mehr in <ulink url="help:/simon/configuration.html#soundconfiguration"
+>simons Handbuch</ulink
+>.</para>
 </sect1>
 
  </chapter>
 
 
 <chapter id="faq">
-<title>Questions and Answers</title>
+<title
+>Fragen und Antworten</title>
 
-<para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
-</para>
+<para
+>Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in unserem <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting"
+>online Wiki</ulink
+> und somit für alle editierbar verwaltet. </para>
 
 </chapter>
 
 <chapter id="credits">
-<title>Credits and License</title>
+<title
+>Danksagungen und Lizenz</title>
 
-<para>
-&kmyapplication;
-</para>
-<para>
-Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>&kmyapplication; </para>
+<para
+>Program copyright 2008-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<para>
-Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>Dokumentation Copyright &copy; 2009-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-
-&underFDL;               <!-- FDL: do not remove -->
-
-&underGPL;           <!-- GPL License -->
-
-</chapter>
+<para
+>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
 
 <appendix id="installation">
-<title>Installation</title>
-<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<title
+>Installation</title>
+<para
+>Bitte sehen Sie unser <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup"
+>online Wiki</ulink
+> for eine detaillierte Installationsanleitung.</para>
 </appendix>
 
 &documentation.index;
