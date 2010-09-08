@@ -1,13 +1,14 @@
-# sscd manual
-# Peter Grasch <grasch@simon-listens.org>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.3\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-07-16 18:21+0000\n"
-"PO-Revision-Date: 2010-08-18 18:47+0002\n"
-"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"POT-Creation-Date: 2010-09-08 10:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: application/x-xml2pot; charset=UTF-8\n"
@@ -19,345 +20,427 @@ msgstr ""
 msgid "ROLES_OF_TRANSLATORS"
 msgstr ""
 
-#. Tag: para
-#: index.docbook:72
+#. Tag: date
+#: index.docbook:66
 #, no-c-format
-msgid "&kmyapplication; is the server component of the simon speech recognition suite."
+msgid "2010-08-11"
+msgstr ""
+
+#. Tag: releaseinfo
+#: index.docbook:67
+#, no-c-format
+msgid "<releaseinfo>0.3</releaseinfo>"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:72 index.docbook:115
+#, no-c-format
+msgid "&kmyapplication; is the server component of the ssc sample acquisition tool."
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:82
+#: index.docbook:78
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:83
+#: index.docbook:79
 #, no-c-format
 msgid "kdeutils"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:84
+#: index.docbook:80
 #, no-c-format
 msgid "Kapp"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:85
+#: index.docbook:81
 #, no-c-format
 msgid "simon"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:86
+#: index.docbook:82
 #, no-c-format
-msgid "recognition"
+msgid "sample"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:87
+#: index.docbook:83
 #, no-c-format
 msgid "speech"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:88
+#: index.docbook:84
 #, no-c-format
 msgid "voice"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:89
+#: index.docbook:85
 #, no-c-format
-msgid "command"
+msgid "acquisition"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:90
+#: index.docbook:86
 #, no-c-format
-msgid "control"
+msgid "recording"
 msgstr ""
 
 #. Tag: keyword
-#: index.docbook:91
+#: index.docbook:87
 #, no-c-format
 msgid "accessibility"
 msgstr ""
 
 #. Tag: holder
-#: index.docbook:101
+#: index.docbook:94
 #, no-c-format
 msgid "Peter Grasch"
 msgstr ""
 
 #. Tag: author
-#: index.docbook:105
+#: index.docbook:98
 #, no-c-format
 msgid "<personname> <firstname>Peter</firstname> <othername>H.</othername> <surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:122
+#: index.docbook:109
 #, no-c-format
 msgid "The &kmyapplication; Handbook"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:135
+#: index.docbook:113
 #, no-c-format
 msgid "Introduction"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:142
+#: index.docbook:118
 #, no-c-format
-msgid "&kmyapplication; is the server component of the simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP."
+msgid "It manages speaker data (users, institutions) as well as sample meta data using a database and stores the samples."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:145
+#: index.docbook:121
 #, no-c-format
-msgid "For more information please see the <ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
+msgid "It receives input from the ssc client(s) which connect to the server using TCP/IP."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:125
+#, no-c-format
+msgid "For more information on the general architecture of the simon suite please see the <ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>. For information about the ssc client, please refer to the <ulink url=\"help:/ssc\">ssc manual</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:149
+#: index.docbook:129
 #, no-c-format
 msgid "Using &kmyapplication;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:151
+#: index.docbook:131
 #, no-c-format
-msgid "simond is a command line application which does not have any user interface. There are no special launch parameters."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:153
-#, no-c-format
-msgid "However, simond installs two KCMs that are listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:"
-msgstr ""
-
-#. Tag: command
-#: index.docbook:155
-#, no-c-format
-msgid "kcmshell4 simonduserconfiguration"
-msgstr ""
-
-#. Tag: command
-#: index.docbook:156
-#, no-c-format
-msgid "kcmshell4 simondnetworkconfiguration"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:160
-#, no-c-format
-msgid "When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details."
+msgid "&kmyapplication; is a command line application which does not have any user interface. There are no special launch parameters."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:164
+#: index.docbook:135
 #, no-c-format
-msgid "User Configuration"
+msgid "Base folder"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:166
+#: index.docbook:136
 #, no-c-format
-msgid "Using the user configuration you can define, edit and remove users and their models from the server."
-msgstr ""
-
-#. Tag: screeninfo
-#: index.docbook:170
-#, no-c-format
-msgid "screenshot of the simond user configuration"
-msgstr ""
-
-#. Tag: phrase
-#: index.docbook:176
-#, no-c-format
-msgid "simond user configuration"
+msgid "The base folder of &kmyapplication; contains the configuration file <filename>sscd.conf</filename> and an error log in case something goes wrong. This directory is also contains the <filename>samples</filename> subfolder where all the samples are stored."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:182
+#: index.docbook:138
 #, no-c-format
-msgid "simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:183
-#, no-c-format
-msgid "The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:185
-#, no-c-format
-msgid "This database is stored depending on your operating system:"
+msgid "The location of the sscd folder depends on your operating system:"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:187
+#: index.docbook:140
 #, no-c-format
-msgid "simond user database storage"
+msgid "ssc base folder"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:193
+#: index.docbook:146
 #, no-c-format
 msgid "Microsoft Windows"
 msgstr ""
 
 #. Tag: entry
-#: index.docbook:194
+#: index.docbook:147
 #, no-c-format
 msgid "GNU/Linux"
 msgstr ""
 
-#. Tag: filename
-#: index.docbook:199
+#. Tag: entry
+#: index.docbook:152
 #, no-c-format
-msgid "%appdata%\\.kde\\share\\apps\\simond\\simond.db"
+msgid "<filename>Installation folder of sscd.exe (usually: C:\\Program Files\\simon 0.3\\bin\\sscd.exe</filename>)"
 msgstr ""
 
 #. Tag: filename
+#: index.docbook:153
+#, no-c-format
+msgid "/usr/share/sscd"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:162
+#, no-c-format
+msgid "Configuration"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:164
+#, no-c-format
+msgid "There is no graphical configuration of sscd, but there is a configuration file (<filename>sscd.conf</filename>) stored in the <link linkend=\"sscd_directory\">sscd directory</link>."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:166
+#, no-c-format
+msgid "The default configuration file is heavily commented and should be self-explanatory."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:168
+#, no-c-format
+msgid "Before running sscd, will want to at least change the DatabaseUser and DatabasePassword entry of the configuration file. See <link linkend=\"database\">the database section</link> for more information."
+msgstr ""
+
+#. Tag: screen
+#: index.docbook:170
+#, no-c-format
+msgid ""
+      "; This is an example config file and displays the built-in defaults\n"
+      "; sscd will look for this file in:\n"
+      "; Linux:\n"
+      ";    /usr/share/sscd/sscd.conf\n"
+      "; Windows:\n"
+      ";    &lt;sscd installation path&gt;\\sscd.conf\n"
+      "\n"
+      "[General]\n"
+      "; Change this to use a different database; Because sscd uses db-specific\n"
+      "; commands in places, only QMYSQL is supported at the moment.\n"
+      "; Support for other DBMS can be added extremely easily, tough so please\n"
+      "; feel free to request support through support@simon-listens.org\n"
+      "DatabaseType=QMYSQL\n"
+      "\n"
+      "; The host of the DBMS\n"
+      "DatabaseHost=127.0.0.1\n"
+      "\n"
+      "; The port of the DBMS; 3306 is the default port of MySQL\n"
+      "DatabasePort=3306\n"
+      "\n"
+      "; The database to use; Make sure that you run the supplied create script\n"
+      "; before you use sscd\n"
+      "DatabaseName=ssc\n"
+      "\n"
+      "; The username to use when connecting to the DBMS\n"
+      "DatabaseUser=sscuser\n"
+      "\n"
+      "; Database password. The default one will obviously not work in most cases\n"
+      "DatabasePassword=CHANGE ME NOW\n"
+      "\n"
+      "; Database options. Refer to Qts documentation of QSqlDatabase for details\n"
+      "DatabaseOptions=MYSQL_OPT_RECONNECT=1\n"
+      "\n"
+      "; The port the server will listen to; Default: 4440\n"
+      "Port=4440\n"
+      "\n"
+      "; Bind the server to a specific client IP; If this is true, the server\n"
+      "; will ignore requests from all but the BoundHost (see below)\n"
+      "Bind=false\n"
+      "\n"
+      "; IP of the bound host (if Bind is active)\n"
+      "BindHost=127.0.0.1"
+msgstr ""
+
+#. Tag: title
+#: index.docbook:174
+#, no-c-format
+msgid "Database"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:176
+#, no-c-format
+msgid "&kmyapplication; stores the speaker and sample data (but not the samples themselves) in a database. At the moment, only MySQL databases are fully supported. Adding support for a new database is trivial, tough. Contact the <ulink url=\"mailto:support@simon-listens.org\">simon team</ulink> if necessary."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:178
+#, no-c-format
+msgid "To set up the requried tables &kmyapplication; ships with an appropriate create script <filename>mysql_create_script.sql</filename> installed in the <link linkend=\"sscd_directory\">base directory</link> of &kmyapplication;."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:181
+#, no-c-format
+msgid "Database errors can be found in the <filename>error.log</filename> which also resides in the base folder."
+msgstr ""
+
+#. Tag: title
+#: index.docbook:187
+#, no-c-format
+msgid "Extracting collected samples"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:189
+#, no-c-format
+msgid "To build models using the samples collected with &kmyapplication; you first have to extract them from the database."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:192
+#, no-c-format
+msgid "Because &kmyapplication; is designed for large scale sample acquisition this is not end user friendly. The documentation below is mainly provided for technically skilled professionals."
+msgstr ""
+
+#. Tag: para
+#: index.docbook:195
+#, no-c-format
+msgid "Most of the scripts below require the GNU tools (usually available by default on GNU/Linux)."
+msgstr ""
+
+#. Tag: para
 #: index.docbook:200
 #, no-c-format
-msgid "~/.kde/share/apps/simond/simond.db"
+msgid "You can use the following query (minor adjustments will be necessary depending on what samples exactly you need):"
+msgstr ""
+
+#. Tag: screen
+#: index.docbook:202
+#, no-c-format
+msgid ""
+      "use ssc;\n"
+      "                                                                                                                           \n"
+      "select s.Path, s.Prompt\n"
+      "  from Sample s inner join User u\n"
+      "    on s.UserId = u.UserId inner join UserInInstitution uii\n"
+      "      on u.UserId = uii.UserId inner join SampleType st\n"
+      "        on s.TypeId = st.SampleTypeId inner join Microphone m\n"
+      "          on m.MicrophoneId = s.MicrophoneId\n"
+      "  WHERE st.ExactlyRepeated=1 and uii.InstitutionId = 3\n"
+      "    and (m.MicrophoneId = 1);"
+msgstr ""
+
+#. Tag: para
+#: index.docbook:205
+#, no-c-format
+msgid "This query will list all samples from institution 3 that were recorded with microphone 1."
 msgstr ""
 
 #. Tag: para
 #: index.docbook:207
 #, no-c-format
-msgid "simond does not come with a default user so you have to add one user before you can connect simon to the simond server."
+msgid "You can then for example use this script to create a prompts file:"
 msgstr ""
 
-#. Tag: para
-#: index.docbook:209
+#. Tag: screen
+#: index.docbook:208
 #, no-c-format
-msgid "The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the \"Change Password\" button."
+msgid ""
+      "#!/bin/bash\n"
+      "      sed '1d' $1 > temp_out\n"
+      "      sed -e 's/\\\\\\\\/\\//g' -e 's/.*Samples\\///g' -e 's/\\.wav\\t/ /' temp_out > $1\n"
+      "      rm temp_out"
 msgstr ""
 
 #. Tag: para
 #: index.docbook:211
 #, no-c-format
-msgid "When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model."
+msgid "This prompts file can then be <ulink url=\"help:/simon/training.html#import_trainings-data\">imported in simon</ulink>."
 msgstr ""
 
-#. Tag: title
+#. Tag: para
 #: index.docbook:215
 #, no-c-format
-msgid "Network Configuration"
+msgid "To build the appropriate dictionary to compile the model you might also want to list all the sentences contained in the prompts file. You can do this with this script:"
 msgstr ""
 
-#. Tag: para
-#: index.docbook:216
+#. Tag: screen
+#: index.docbook:217
 #, no-c-format
-msgid "Using the network configuration, the user can change the port used by the server and restrict access to a specific IP."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:218
-#, no-c-format
-msgid "If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine."
-msgstr ""
-
-#. Tag: screeninfo
-#: index.docbook:221
-#, no-c-format
-msgid "screenshot of the simond network configuration"
-msgstr ""
-
-#. Tag: phrase
-#: index.docbook:227
-#, no-c-format
-msgid "simond network configuration"
-msgstr ""
-
-#. Tag: para
-#: index.docbook:233
-#, no-c-format
-msgid "The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:235
-#, no-c-format
-msgid "Using the option to \"Only allow connections from\" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:236
-#, no-c-format
-msgid "This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:238
-#, no-c-format
-msgid "Protocol encryption is not yet implemented."
+msgid ""
+      "#!/bin/bash\n"
+      "      cat $1 | sed -e 's/[0-9\\/]* //' | sort | uniq"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:249
+#: index.docbook:224
 #, no-c-format
 msgid "Questions and Answers"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:251
+#: index.docbook:226
 #, no-c-format
-msgid "In an effort to keep this section always up-to-date it is available at our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting\">online wiki</ulink>."
+msgid "In an effort to keep this section always up-to-date it is available at our <ulink url=\"http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting\">online wiki</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:283
+#: index.docbook:233
 #, no-c-format
 msgid "Credits and License"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:285
+#: index.docbook:235
 #, no-c-format
 msgid "&kmyapplication;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:288
+#: index.docbook:238
 #, no-c-format
-msgid "Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>"
+msgid "Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:292
+#: index.docbook:242
 #, no-c-format
-msgid "Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>"
+msgid "Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: trans_comment
-#: index.docbook:296
+#: index.docbook:246
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
 
 #. Tag: chapter
-#: index.docbook:296
+#: index.docbook:246
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:311
+#: index.docbook:255
 #, no-c-format
 msgid "Installation"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:312
+#: index.docbook:256
 #, no-c-format
-msgid "Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Setup\">wiki</ulink> for install instructions."
+msgid "Please see our <ulink url=\"http://www.simon-listens.org/wiki/index.php/English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""
 
