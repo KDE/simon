@@ -137,7 +137,7 @@ Do NOT change these in the translation. -->
 
 <para>The location of the sscd folder depends on your operating system:
 
-<table frame='all'><title>simond user database storage</title>
+<table frame='all'><title>ssc base folder</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>

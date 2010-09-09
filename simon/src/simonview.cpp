@@ -111,7 +111,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
       control->setFirstRunWizardCompleted(true);
   }
 
-  trayManager = (new TrayIconManager(this));
+  trayManager = new TrayIconManager(this);
 
   this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 

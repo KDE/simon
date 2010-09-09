@@ -1,0 +1,899 @@
+#
+# Peter Grasch <grasch@simon-listens.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-09-06 14:51+0000\n"
+"PO-Revision-Date: 2010-09-08 10:14+0200\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+
+#. Tag: trans_comment
+#: index.docbook:17
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+"<othercredit role=\"translator\"><firstname>Peter</"
+"firstname><surname>Grasch</surname><affiliation><address><email>grasch@simon-"
+"listens.org</email></address></affiliation><contrib>Deutsche Übersetzung</"
+"contrib></othercredit>"
+
+#. Tag: date
+#: index.docbook:20
+#, no-c-format
+msgid "2010-08-11"
+msgstr "2010-09-06"
+
+#. Tag: releaseinfo
+#: index.docbook:21
+#, no-c-format
+msgid "<releaseinfo>0.3</releaseinfo>"
+msgstr "<releaseinfo>0.3</releaseinfo>"
+
+#. Tag: para
+#: index.docbook:24
+#, no-c-format
+msgid "&kmyapplication; is an acoustic model manager."
+msgstr "&kmyapplication; ist ein Tool um Akustikmodelle zu verwalten."
+
+#. Tag: keyword
+#: index.docbook:30
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr "<keyword>KDE</keyword>"
+
+#. Tag: keyword
+#: index.docbook:31
+#, no-c-format
+msgid "kdeutils"
+msgstr "kdeutils"
+
+#. Tag: keyword
+#: index.docbook:32
+#, no-c-format
+msgid "Kapp"
+msgstr "Kapp"
+
+#. Tag: keyword
+#: index.docbook:33
+#, no-c-format
+msgid "simon"
+msgstr "simon"
+
+#. Tag: keyword
+#: index.docbook:34
+#, no-c-format
+msgid "recognition"
+msgstr "Spracherkennung"
+
+#. Tag: keyword
+#: index.docbook:35
+#, no-c-format
+msgid "speech"
+msgstr "Sprache"
+
+#. Tag: keyword
+#: index.docbook:36
+#, no-c-format
+msgid "voice"
+msgstr "Sprache"
+
+#. Tag: keyword
+#: index.docbook:37
+#, no-c-format
+msgid "command"
+msgstr "command"
+
+#. Tag: keyword
+#: index.docbook:38
+#, no-c-format
+msgid "control"
+msgstr "control"
+
+#. Tag: keyword
+#: index.docbook:39
+#, no-c-format
+msgid "model"
+msgstr "Modell"
+
+#. Tag: keyword
+#: index.docbook:40
+#, no-c-format
+msgid "compilation"
+msgstr "Kompilierung"
+
+#. Tag: keyword
+#: index.docbook:41
+#, no-c-format
+msgid "<keyword>sam</keyword>"
+msgstr "<keyword>sam</keyword>"
+
+#. Tag: keyword
+#: index.docbook:42
+#, no-c-format
+msgid "accessibility"
+msgstr "accessibility"
+
+#. Tag: holder
+#: index.docbook:49
+#, no-c-format
+msgid "Peter Grasch"
+msgstr "Peter Grasch"
+
+#. Tag: author
+#: index.docbook:53
+#, no-c-format
+msgid ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: title
+#: index.docbook:64
+#, no-c-format
+msgid "The &kmyapplication; Handbook"
+msgstr "Das &kmyapplication; Handbuch"
+
+#. Tag: title
+#: index.docbook:68
+#, no-c-format
+msgid "Introduction"
+msgstr "Einleitung"
+
+#. Tag: para
+#: index.docbook:70
+#, no-c-format
+msgid ""
+"&kmyapplication; is a tool to create and test acoustic models. It can "
+"compile new speech models, use models created by simon and produce models "
+"that can be used by simon later on."
+msgstr ""
+"&kmyapplication; ist ein Werkzeug um Akustikmodelle zu erzeugen und zu "
+"testen. Es kann neue Sprachmodelle kompilieren, Sprachmodelle die von simon "
+"erzeugt werden verwenden und Modelle erzeugen die simon verwenden kann."
+
+#. Tag: para
+#: index.docbook:72
+#, no-c-format
+msgid ""
+"It is targeted towards people wanting more control over their acoustic model "
+"and provides much lower level access to the build process. &kmyapplication; "
+"is mainly geared towards speech professionals wanting to improve their "
+"acoustic model."
+msgstr ""
+"Das Programm ist hauptsächlich für Leute ausgelegt die viel Kontrolle über "
+"Ihr Akustikmodell benötigen und bietet so viel low-level Zugriff zum "
+"Erzeugungsprozess wie möglich. &kmyapplication; ist hauptsächlich für "
+"Experten ausgelegt die Ihr Sprachmodell verbessern wollen."
+
+#. Tag: para
+#: index.docbook:73
+#, no-c-format
+msgid ""
+"For more information on the architecture of the simon suite please see the "
+"<ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
+msgstr ""
+"Für mehr Information über die Architektur der simon Suite sehen Sie bitte "
+"das <ulink url=\"help:/simon/overview.html#architecture\">simon Handbuch<"
+"/ulink>."
+
+#. Tag: title
+#: index.docbook:76
+#, no-c-format
+msgid "Background"
+msgstr "Hintergrund"
+
+#. Tag: para
+#: index.docbook:78
+#, no-c-format
+msgid ""
+"This section will provide a bit of background information on the compilation "
+"and testing process."
+msgstr ""
+"In dieser Sektion wird etwas Hintergrundwissen rund um das Kompilieren und "
+"Testen von Sprachmodellen vermittelt."
+
+#. Tag: title
+#: index.docbook:81
+#, no-c-format
+msgid "Effective testing"
+msgstr "Effektives Testen"
+
+#. Tag: para
+#: index.docbook:82
+#, no-c-format
+msgid ""
+"One of the major features of sam is to test the generated acoustic models."
+msgstr ""
+"Eines der Hauptfunktionen von sam ist es generierte Sprachmodelle zu testen."
+
+#. Tag: para
+#: index.docbook:84
+#, no-c-format
+msgid ""
+"The basic testing procedure is to run recognition on samples where the "
+"transcription is already known and comparing the results. &kmyapplication; "
+"also takes the confidence score of the recognition into account to measure "
+"how robust the created system is."
+msgstr ""
+"Der grundsätzliche Testablauf ist, die Erkennung auf Aufnahmen anzuwenden "
+"bei denen die korrekte Transkription bereits bekannt ist und die Ergebnisse "
+"zu vergleichen. &kmyapplication; achtet außerdem auf die Erkennungsrate des "
+"Erkennungsergebnisses um zu messen wie robust das System arbeitet."
+
+#. Tag: para
+#: index.docbook:86
+#, no-c-format
+msgid ""
+"Due to the way acoustic models are created, both the recognition accuracy "
+"and confidence will be highly skewed when the same samples are used both for "
+"training and testing. This is called \"in corpus\" testing (the samples used "
+"for testing are also in your training corpus)."
+msgstr ""
+"Aufgrund der Art wie Akustikmodelle erzeugt werden wird sowohl die "
+"Erkennungsgenauigkeit als auch die Erkennungsrate stark beeinflusst wenn die "
+"selben Aufnahmen für das Training und für das Testen verwendet werden. Dies "
+"nennt man \"in corpus\" testen (die Aufnahmen für die Tests sind auch im "
+"Trainingskorpus)."
+
+#. Tag: para
+#: index.docbook:88
+#, no-c-format
+msgid ""
+"While in corpus testing might tell you if the compilation process failed or "
+"produced sub par results it won't tell you the \"real\" recognition rate of "
+"the created model. Therefore it is recommended to do \"out of corpus\" "
+"testing: Use different samples for training and for testing."
+msgstr ""
+"Obwohl in corpus Tests ausschluss geben kann ob der "
+"Modellgenerierungsprozess reibungslos abgelaufen ist, geben die Ergebnisse "
+"keinen Aufschluss auf die Qualität des erzeugten Modells. Es ist also "
+"empfohlen \"out of corpus\" zu testen: Verwenden Sie unterschiedliche "
+"Aufnahmen für das Testen und das Training."
+
+#. Tag: para
+#: index.docbook:89
+#, no-c-format
+msgid ""
+"For out of corpus testing simply split your prompts file in two parts: One "
+"used to compile the model and one to test the model. Of course the test set "
+"doesn't need to be very big to get a representative result."
+msgstr ""
+"Um out of corpos zu testen, teilen Sie Ihre prompts Datei einfach in zwei "
+"Teile: Eine um das Sprachmodell zu generieren und eine um es zu testen. "
+"Deises Testset muss nicht sehr groß sein um repräsentative Ergebnisse zu "
+"liefern."
+
+#. Tag: para
+#: index.docbook:90
+#, no-c-format
+msgid ""
+"If you don't have a lot of training data, you can also split the complete "
+"corpus in ten parts. Compile 10 models, each leaving out one part of the "
+"corpus. Then do then individual tests (always with the test set that was "
+"excluded during compilation) and average the results."
+msgstr ""
+"Wenn Sie nicht viele Trainingsdaten haben, können Sie diese auch in zehn "
+"Teile teilen um möglichst repräsentative Ergebnisse zu erhalten. Kompilieren "
+"10 Modelle wobei Sie bei jedem einen der zehn Teile auslassen Teil auslassen."
+" Testen Sie das jeweilige Modell mit dem zehnten, übrigbleibenden, Teil und "
+"bilden Sie über alle Ergebnisse einen Mittelwert."
+
+#. Tag: title
+#: index.docbook:98
+#, no-c-format
+msgid "Using &kmyapplication;"
+msgstr "&kmyapplication; verwenden"
+
+#. Tag: para
+#: index.docbook:100
+#, no-c-format
+msgid ""
+"&kmyapplication; provides a graphical interface that is divided into five "
+"areas."
+msgstr ""
+"&kmyapplication;s grafische Oberfläche ist in fünf Bereiche unterteilt."
+
+#. Tag: screeninfo
+#: index.docbook:104
+#, no-c-format
+msgid "<screeninfo>Main window</screeninfo>"
+msgstr "<screeninfo>Hauptfenster</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:110
+#, no-c-format
+msgid "<phrase>Main window</phrase>"
+msgstr "<phrase>Hauptfenster</phrase>"
+
+#. Tag: para
+#: index.docbook:116
+#, no-c-format
+msgid ""
+"The order of the tabs represents a complete sam workflow from creating a "
+"model to testing it."
+msgstr ""
+"Die Anordnung der Registerkarten reflektiert einen typischen sam "
+"Arbeitsablauf vom Kreieren des Modells bis zum Testen."
+
+#. Tag: title
+#: index.docbook:121
+#, no-c-format
+msgid "Input &amp; output files"
+msgstr "Eingabe- &amp; Ausgabedateien"
+
+#. Tag: para
+#: index.docbook:123
+#, no-c-format
+msgid ""
+"Define what files to work on. You can save and load this configuration by "
+"using the <guibutton>Save</guibutton> and <guibutton>Load</guibutton> "
+"buttons respectively."
+msgstr ""
+"Definiert mit welchen Dateien gearbeitet wird. Sie können diese "
+"Konfiguration speichern bzw. laden indem Sie den <guibutton>Speichern<"
+"/guibutton> bzw. <guibutton>Laden</guibutton> Knopf drücken."
+
+#. Tag: para
+#: index.docbook:125
+#, no-c-format
+msgid ""
+"The <guibutton>Save</guibutton> and <guibutton>Load</guibutton> menus "
+"<emphasis>only</emphasis> save the paths and options defined here. They "
+"don't save the associated files!"
+msgstr ""
+"Die <guibutton>Speichern</guibutton> und <guibutton>Laden</guibutton> Knöpfe "
+"speichern <emphasis>nur</emphasis> Dateipfade und Optionen die hier "
+"konfiguriert wurden. Sie speichern keine assoziierten Dateien!"
+
+#. Tag: screeninfo
+#: index.docbook:130
+#, no-c-format
+msgid "<screeninfo>Input &amp; output selection</screeninfo>"
+msgstr "<screeninfo>Eingabe-&amp; Ausgabe Auswahl</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:136
+#, no-c-format
+msgid "<phrase>Input &amp; output selection</phrase>"
+msgstr "<phrase>Eingabe-&amp; Ausgabe Auswahl</phrase>"
+
+#. Tag: para
+#: index.docbook:142
+#, no-c-format
+msgid ""
+"If you want to compile and / or test the simon model, you can use the "
+"<guibutton>Modify simons model</guibutton> option to load the appropriate "
+"files. Both scenarios and prompts will be serialized as appropriate."
+msgstr ""
+"Wenn Sie das von simon verwaltete Modell generieren oder testen wollen "
+"können Sie die <guibutton>Verändere simons Modell</guibutton> Option "
+"verwenden um die entsprechenden Dateien zu laden. Sowohl Szenarios als auch "
+"Prompts werden entsprechend serialisiert werden."
+
+#. Tag: para
+#: index.docbook:144
+#, no-c-format
+msgid ""
+"When simon compiles the model, it will automatically remove untrained words "
+"during serialization as well as adapting the prompts appropriately. This "
+"will also happen when selecting <guibutton>Modify simons model</guibutton>. "
+"If you do, however serialize them separately using <guibutton>Serialize "
+"scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this "
+"adaption will not be performed and you alone are responsible for the "
+"validity of the input files. If you provide file names directly this of "
+"course applies even more so."
+msgstr ""
+"Wenn simon das Modell kompiliert wird es automatisch untrainierte Wörter "
+"während der Serialisation entfernen sowie die prompts entsprechend anpassen. "
+"Dies wird ebenfalls geschehen wenn Sie <guibutton>Verändere simons Modell<"
+"/guibutton> auswählen. "
+"Wenn Sie die Dateien aber seperat serialisieren über <guibutton>Serialisiere "
+"Szenarios</guibutton> und <guibutton>Serialisiere prompts</guibutton> wird "
+"die Bereinigung nicht aktiviert und Sie sind selbst verantwortlich für die "
+"Validität der Eingabedateien. Wenn Sie Dateinamen direkt angeben gilt das "
+"natürlich ebenso."
+
+#. Tag: para
+#: index.docbook:146
+#, no-c-format
+msgid ""
+"Selecting a static model as the used model type will still compile the "
+"language model, just like simon would do as well. It also copies the given "
+"base model input files to the output paths."
+msgstr ""
+"Wenn Sie ein statisches Modell als Modelltyp auswählen wird das Sprachmodell "
+"(language model) noch immer generiert - wie simon es auch selbst erzeugen "
+"würde. Es werden auch die Basismodell Dateien auf die Ausgabepfade kopiert."
+
+#. Tag: para
+#: index.docbook:148
+#, no-c-format
+msgid ""
+"&kmyapplication; allows the user to provide two different types of prompts "
+"files. One prompts file to compile the model and test the model. For more "
+"information, please see the section on <link linkend=\"effective_testing"
+"\">effective testing</link>."
+msgstr ""
+"&kmyapplication; erlaubt dem Benutzer zwei unterschiedliche Prompts Dateien "
+"anzugeben. Eine Promptsdatei wird verwendet das Modell zu kompilieren und "
+"eine um es zu testen. Mehr Informationen finden Sie in der <link "
+"linkend=\"effective_testing\">Sektion über effektives Testen</link>."
+
+#. Tag: title
+#: index.docbook:155
+#, no-c-format
+msgid "<title>Adapt scenarios</title>"
+msgstr "<title>Szenarios adaptieren</title>"
+
+#. Tag: para
+#: index.docbook:157
+#, no-c-format
+msgid ""
+"simon stores the language model in scenarios. When you want to use them to "
+"compile the model, you first need to serialize them to files readable by "
+"Julius and the HTK."
+msgstr ""
+"simon speichert das Sprachmodell (language model) in Szenarios. Wenn Sie "
+"diese verwenden wollen um das Modell zu kompilieren müssen Sie sie zuerst in "
+"Dateien serialisieren die von Julius und dem HTK gelesen werden können."
+
+#. Tag: screeninfo
+#: index.docbook:161
+#, no-c-format
+msgid "<screeninfo>Adapt scenarios</screeninfo>"
+msgstr "<screeninfo>Adaptiere Szenarios</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:167
+#, no-c-format
+msgid "<phrase>Adapt scenarios</phrase>"
+msgstr "<phrase>Adaptiere Szenarios</phrase>"
+
+#. Tag: para
+#: index.docbook:173
+#, no-c-format
+msgid ""
+"To do this, select <guibutton>Serialize scenarios</guibutton> button in the "
+"<link linkend=\"input_output\">Input output tab</link>. simons scenarios "
+"will also be serialized when using the <guibutton>Modify simons model</"
+"guibutton> options."
+msgstr ""
+"Um das zu tun, wählen Sie den <guibutton>Serialisiere Szenarios</guibutton> "
+"Knopf im <link linkend=\"input_output\">Eingabe &amp; Ausgabe Reiter</link>. "
+"simons Szenarios werden auch serialisiert wenn Sie die <guibutton>Verändere "
+"simons Modell</guibutton> Option verwenden."
+
+#. Tag: para
+#: index.docbook:175
+#, no-c-format
+msgid ""
+"In this page you can find status information of the adaption and read "
+"detailed error messages if an error occurs."
+msgstr ""
+"Auf dieser Seite finden Sie Statusinformationen über die Adaption und können "
+"detailierte Fehlermeldungen finden sollte ein Fehler auftreten."
+
+#. Tag: title
+#: index.docbook:179
+#, no-c-format
+msgid "<title>Create model</title>"
+msgstr "<title>Modell erstellen</title>"
+
+#. Tag: para
+#: index.docbook:181
+#, no-c-format
+msgid ""
+"Here you can build the model using the input and output files defined in the "
+"<link linkend=\"input_output\">input &amp; output section</link>."
+msgstr ""
+"Hier können Sie ein Modell aus den Eingabe- und Ausgabedateien erstellen die "
+"Sie in der <link linkend=\"input_output\">Eingabe &amp; Ausgabe Sektio</link>"
+" definiert haben."
+
+#. Tag: para
+#: index.docbook:183
+#, no-c-format
+msgid ""
+"The compilation process is identical to the one used by simond. Unlike "
+"simond, however, the full log of all called external programs, their output "
+"as well as progress information is shown regardless of wether the "
+"compilation was successful or not."
+msgstr ""
+"Der Erstellungsprozess ist ident zu dem von simond. Im Gegensatz zu simond "
+"wird allerdings das komplette Protokoll aufgerufener externer Kommandos "
+"sowie deren Startparameter ausgegeben egal ob die Kompilierung erfolgreich "
+"war oder nicht."
+
+#. Tag: screeninfo
+#: index.docbook:187
+#, no-c-format
+msgid "<screeninfo>Create model</screeninfo>"
+msgstr "<screeninfo>Modell erstellen</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:193
+#, no-c-format
+msgid "<phrase>Create model</phrase>"
+msgstr "<phrase>Modell erstellen</phrase>"
+
+#. Tag: para
+#: index.docbook:199
+#, no-c-format
+msgid ""
+"Using this verbose output it is much easier to find issues with the input "
+"data."
+msgstr ""
+"Mit diesem detailierten Output ist es viel leichter Probleme mit den "
+"Eingabedateien zu erkennen."
+
+#. Tag: title
+#: index.docbook:203
+#, no-c-format
+msgid "<title>Test model</title>"
+msgstr "<title>Modell testen</title>"
+
+#. Tag: para
+#: index.docbook:204
+#, no-c-format
+msgid "Here you can test the speech model."
+msgstr "Hier können Sie das Sprachmodell testen."
+
+#. Tag: para
+#: index.docbook:205
+#, no-c-format
+msgid ""
+"&kmyapplication; will test the model set by in the <guilabel>Output files</"
+"guilabel> section in the <link linkend=\"input_output\">input &amp; output "
+"section</link>."
+msgstr ""
+"&kmyapplication; wird das Modell testen das in der <guilabel>Ausgabedateien<"
+"/guilabel> Sektion in der <link linkend=\"input_output\">Eingabe &amp; "
+"Ausgabe Sektion</link> angegeben ist."
+
+#. Tag: para
+#: index.docbook:207
+#, no-c-format
+msgid ""
+"During testing, Julius will run to recognize on the input files as set by "
+"the test prompts. Resulting word- and sentence errors will be counted as "
+"well as the overall robustness by analyzing confidence scores of the "
+"recognizer."
+msgstr ""
+"Beim Testen wird Julius' Erkennung alle Eingabesamples analysieren die in "
+"der Testprompts angegeben sind. Resultierende Wort- und Satzfehler fließen "
+"ebenso in die Bewertung ein wie Julius' Erkennungsrate (confidence score)."
+
+#. Tag: para
+#: index.docbook:209
+#, no-c-format
+msgid ""
+"To test the model successfully you also need <ulink url=\"http://sox."
+"sourceforge.net\">SoX</ulink> installed and in your path."
+msgstr ""
+"Um das Modell erfolgreich zu testen müssen Sie außerdem <ulink "
+"url=\"http://sox.sourceforge.net\">SoX</ulink> in Ihrem Systempfad "
+"installieren."
+
+#. Tag: para
+#: index.docbook:211
+#, no-c-format
+msgid ""
+"While the test is running you can watch the current recognition in the test "
+"protocol."
+msgstr ""
+"Während der Test läuft können Sie die aktuellen Erkennungsergebnisse im "
+"Testprotokolle überwachen."
+
+#. Tag: screeninfo
+#: index.docbook:214
+#, no-c-format
+msgid "<screeninfo>Test model</screeninfo>"
+msgstr "<screeninfo>Modell testen</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:220
+#, no-c-format
+msgid "<phrase>Test model</phrase>"
+msgstr "<phrase>Model testen</phrase>"
+
+#. Tag: para
+#: index.docbook:226
+#, no-c-format
+msgid ""
+"As soon as the test is finished, the <link linkend=\"test_results\">test "
+"results</link> will be automatically displayed."
+msgstr ""
+"Sobald der Test fertig ist werden die <link linkend=\"test_results\">"
+"Testergebnisse</link> automatisch angezeigt."
+
+#. Tag: title
+#: index.docbook:232
+#, no-c-format
+msgid "Test results"
+msgstr "Testergebnisse"
+
+#. Tag: para
+#: index.docbook:234
+#, no-c-format
+msgid ""
+"After a successful <link linkend=\"test\">model test</link> you can find a "
+"detailed report of the recognition accuracy here."
+msgstr ""
+"Nach einem erfolgreichen <link linkend=\"test\">Modelltest</link>, finden "
+"Sie einen detailierten Bericht über die Erkennungsraten die mit Ihrem Modell "
+"erzielt werden hier."
+
+#. Tag: title
+#: index.docbook:237
+#, no-c-format
+msgid "Scoring"
+msgstr "Bewertung"
+
+#. Tag: para
+#: index.docbook:239
+#, no-c-format
+msgid ""
+"To best reflect the recognition performance, &kmyapplication; uses multiple, "
+"ranked results for the tests."
+msgstr ""
+"Um die Erkennungsperformance möglichst gut zu reflektieren verwendet "
+"&kmyapplication; mehrere bewertete Ergebnisse für die Tests."
+
+#. Tag: para
+#: index.docbook:241
+#, no-c-format
+msgid ""
+"A correctly recognized word or sentence will be scored with the confidence "
+"score the word achieved and the word will still be listed as \"recognized\" "
+"even tough another recognition result might be ranked higher than the "
+"correct one."
+msgstr ""
+"Ein korrekt erkanntes Wort oder Satz wird mit der Erkennungsrate bewertet "
+"die das jeweilige Ergebnis bei der Erkennung erreicht hat. Das Wort oder der "
+"Satz wird dann in jedem Fall als \"erkannt\" markiert - auch wenn ein "
+"anderes Ergebnis eine höhere Erkennungsrate hätte und somit das von simon "
+"preferierte Ergbenis wäre."
+
+#. Tag: para
+#: index.docbook:243
+#, no-c-format
+msgid ""
+"If for example the sample \"flowers\" is recognized as \"flower\" (90%), "
+"\"flowers\" (70%), \"apple\" (12%) it will be marked as \"recognized\" with "
+"a score of 70%."
+msgstr ""
+"Wenn z.B. die Aufnahme \"Blumen\" als \"Blume\" (90%), \"Blumen\" (70%), "
+"\"Apfel\" (12%) erkannt wird, wird die Aufnahme als erkannt gewertet und "
+"erzielt eine Erkennungsrate von 70%."
+
+#. Tag: para
+#: index.docbook:245
+#, no-c-format
+msgid ""
+"The displayed overall recognition rate is the average of the word "
+"recognition rate (average over each word) and the sentence recognition rate "
+"(average over each sentence)."
+msgstr ""
+"Die angezeigte Gesamterkennungsrate ist der Durchschnitt der "
+"Worterkennungsraten (Durchschnitt über alle Worte) und Satzerkennungsrate "
+"(Durchschnitt aller Sätze)."
+
+#. Tag: title
+#: index.docbook:250
+#, no-c-format
+msgid "Word"
+msgstr "Wort"
+
+#. Tag: para
+#: index.docbook:252
+#, no-c-format
+msgid ""
+"&kmyapplication; will list recognition accuracy for each word individually."
+msgstr ""
+"&kmyapplication; wird Erkennungsraten für jedes Wort einzeln auflisten."
+
+#. Tag: screeninfo
+#: index.docbook:256
+#, no-c-format
+msgid "<screeninfo>Word results</screeninfo>"
+msgstr "<screeninfo>Wort Ergebnisse</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:262
+#, no-c-format
+msgid "<phrase>Word results</phrase>"
+msgstr "<phrase>Wort Ergebnisse</phrase>"
+
+#. Tag: para
+#: index.docbook:268
+#, no-c-format
+msgid ""
+"If you have samples containing more than one word they will be segment "
+"during recognition. Each word will be scored individually altough the "
+"different words of course still influence each other."
+msgstr ""
+"Wenn Sie Aufnahmen haben die mehr als ein Wort beinhalten werden Sie "
+"automatisch während der Erkennung segmentiert. Jedes Wort wird trotzdem "
+"einzeln bewertet obwohl die einzelnen Wörter sich natürlich immer noch "
+"gegenseitig beeinflussen."
+
+#. Tag: title
+#: index.docbook:272
+#, no-c-format
+msgid "Sentences"
+msgstr "Sätze"
+
+#. Tag: para
+#: index.docbook:273
+#, no-c-format
+msgid "This section lists each prompt as \"sentence\"."
+msgstr "Diese Sektion listetet jeden Prompt als \"Satz\"."
+
+#. Tag: para
+#: index.docbook:275
+#, no-c-format
+msgid "Prompts that were recorded more than once are combined."
+msgstr "Sätze die mehr als einmal vorkommen werden kombiniert."
+
+#. Tag: screeninfo
+#: index.docbook:279
+#, no-c-format
+msgid "<screeninfo>Sentence results</screeninfo>"
+msgstr "<screeninfo>Satz Ergebnisse</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:285
+#, no-c-format
+msgid "<phrase>Sentence results</phrase>"
+msgstr "<phrase>Satz Ergebnisse</phrase>"
+
+#. Tag: title
+#: index.docbook:293
+#, no-c-format
+msgid "Files"
+msgstr "Dateien"
+
+#. Tag: para
+#: index.docbook:294
+#, no-c-format
+msgid ""
+"In the files section you can see the recognition results for each file. Each "
+"file will list the <link linkend=\"scoring\">10 most likely results</link> "
+"in the details pane when you select it."
+msgstr ""
+"In der Dateiensektion sehen Sie die Erkennungsergebnisse für jede Datei. "
+"Jede Aufnahme wird die <link linkend=\"scoring\">10 wahrscheinlichsten "
+"Ergebnisse</link> im Details-Feld anzeigen wenn Sie ausgewählt wird."
+
+#. Tag: screeninfo
+#: index.docbook:298
+#, no-c-format
+msgid "<screeninfo>File results</screeninfo>"
+msgstr "<screeninfo>Datei Ergebnisse</screeninfo>"
+
+#. Tag: phrase
+#: index.docbook:304
+#, no-c-format
+msgid "<phrase>File results</phrase>"
+msgstr "<phrase>Datei Ergebnisse</phrase>"
+
+#. Tag: para
+#: index.docbook:310
+#, no-c-format
+msgid ""
+"When you identify problematic samples, you can re-record (or remove) them by "
+"selecting them and clicking on <guibutton>Edit sample</guibutton>."
+msgstr ""
+"Wenn Sie problematische Aufnahmen identifizieren, können Sie sie neu "
+"aufnehmen (oder entfernen) indem Sie sie auswählen und dann auf <guibutton>"
+"Sprachaufnahme bearbeiten</guibuitton> klicken."
+
+#. Tag: para
+#: index.docbook:312
+#, no-c-format
+msgid ""
+"You can sort the files by each column simply by clicking on the column "
+"header. This way it is very easy to find bad samples by sorting by "
+"recognition rate."
+msgstr ""
+"Sie können die Dateien sortieren indem Sie auf die jeweilige Spalte klicken "
+"nach der sortiert werden soll. Auf diese Weise ist es sehr einfach "
+"problematische Aufnahmen zu finden indem einfach nach Erkennungsrate "
+"sortiert wird."
+
+#. Tag: title
+#: index.docbook:321
+#, no-c-format
+msgid "Questions and Answers"
+msgstr "Fragen und Antworten"
+
+#. Tag: para
+#: index.docbook:323
+#, no-c-format
+msgid ""
+"In an effort to keep this section always up-to-date it is available at our "
+"<ulink url=\"http://www.simon-listens.org/wiki/index.php/English:"
+"_Troubleshooting\">online wiki</ulink>."
+msgstr ""
+"Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in "
+"unserem <ulink url=\"http://www.simon-listens.org/wiki/index.php/English:"
+"_Troubleshooting\">online Wiki</ulink> und somit für alle editierbar "
+"verwaltet."
+
+#. Tag: title
+#: index.docbook:330
+#, no-c-format
+msgid "Credits and License"
+msgstr "Danksagungen und Lizenz"
+
+#. Tag: para
+#: index.docbook:332
+#, no-c-format
+msgid "&kmyapplication;"
+msgstr "&kmyapplication;"
+
+#. Tag: para
+#: index.docbook:335
+#, no-c-format
+msgid ""
+"Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: para
+#: index.docbook:339
+#, no-c-format
+msgid ""
+"Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-"
+"listens.org</email>"
+msgstr ""
+"Dokumentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-"
+"listens.org</email>"
+
+#. Tag: trans_comment
+#: index.docbook:343
+#, no-c-format
+msgid "CREDIT_FOR_TRANSLATORS"
+msgstr ""
+"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email>"
+"grasch@simon-"
+"listens.org</email></para>"
+
+#. Tag: chapter
+#: index.docbook:343
+#, no-c-format
+msgid "&underFDL; &underGPL;"
+msgstr "&underFDL; &underGPL;"
+
+#. Tag: title
+#: index.docbook:352
+#, no-c-format
+msgid "Installation"
+msgstr "Installation"
+
+#. Tag: para
+#: index.docbook:353
+#, no-c-format
+msgid ""
+"Please see our <ulink url=\"http://www.simon-listens.org/wiki/index.php/"
+"English:_Setup\">wiki</ulink> for install instructions."
+msgstr ""
+"Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index."
+"php/"
+"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"Installationsanleitung."
+
+

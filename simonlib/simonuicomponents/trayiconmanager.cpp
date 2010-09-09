@@ -82,6 +82,5 @@ void TrayIconManager::addAction(const QString& name, KAction* action)
 TrayIconManager::~TrayIconManager()
 {
   icon->hide();
-  if (icon)
-    delete this->icon;
+  delete this->icon;
 }
