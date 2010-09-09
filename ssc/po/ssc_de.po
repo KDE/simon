@@ -1853,7 +1853,7 @@ msgstr "Nachname"
 
 #: src/usermodel.cpp:136
 msgid "Forename"
-msgstr "Nachname"
+msgstr "Vorname"
 
 #: src/usermodel.cpp:138
 msgid "Sex"
