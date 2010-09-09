@@ -125,22 +125,28 @@ RecognitionControl* RecognitionControl::getInstance(QWidget *parent)
 }
 
 
+void RecognitionControl::startPrivateSimond()
+{
+  if (!localSimond) {
+    localSimond = new QProcess(this);
+  }
+  if (localSimond->state() != QProcess::NotRunning) {
+    localSimond->close();
+    localSimond->waitForFinished();
+  }
+
+  if (RecognitionConfiguration::stopLocalSimond())
+    localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
+  else
+    localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
+
+}
+
 void RecognitionControl::startup()
 {
   if (RecognitionConfiguration::startLocalSimond()) {
-    if (!localSimond) {
-      localSimond = new QProcess(this);
-    }
-    if (localSimond->state() != QProcess::NotRunning) {
-      localSimond->close();
-      localSimond->waitForFinished();
-    }
-
-    if (RecognitionConfiguration::stopLocalSimond())
-      localSimond->start('"'+KStandardDirs::findExe("simond")+'"');
-    else
-      localSimond->startDetached('"'+KStandardDirs::findExe("simond")+'"');
-
+  if (RecognitionConfiguration::stopLocalSimond())
+    startPrivateSimond();
     QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
   }
   else
@@ -151,7 +157,13 @@ void RecognitionControl::startup()
 void RecognitionControl::actOnAutoConnect()
 {
   if ( RecognitionConfiguration::juliusdAutoConnect() )
+  {
+    if ((RecognitionConfiguration::startLocalSimond()) &&
+        (RecognitionConfiguration::stopLocalSimond()))
+      localSimond->waitForStarted(3000);
+
     startConnecting();
+  }
 }
 
 
