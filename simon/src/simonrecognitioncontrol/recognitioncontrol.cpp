@@ -129,6 +129,7 @@ void RecognitionControl::startPrivateSimond()
 {
   if (!localSimond) {
     localSimond = new QProcess(this);
+    connect(localSimond, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startPrivateSimond()));
   }
   if (localSimond->state() != QProcess::NotRunning) {
     localSimond->close();
