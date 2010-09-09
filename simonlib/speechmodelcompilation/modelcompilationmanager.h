@@ -80,17 +80,14 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     QString getGraphicBuildLog();
     QString getBuildLog();
 
-    QString getStatus() { return currentStatus; }
     void abort();
 
     ~ModelCompilationManager();
 
   private:
     bool keepGoing;
-    QString currentStatus;
 
-    QString buildLog;
-    QString lastOutput;
+    QByteArray buildLog;
 
     CompilationType compilationType;
 

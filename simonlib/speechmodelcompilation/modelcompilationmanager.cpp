@@ -156,13 +156,13 @@ bool ModelCompilationManager::execute(const QString& command)
 
   activeProcesses << &proc;
 
-  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
+  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>";
   proc.waitForFinished(-1);
 
   activeProcesses.removeAll(&proc);
 
-  QString err = QString::fromLocal8Bit(proc.readAllStandardError());
-  QString out = QString::fromLocal8Bit(proc.readAllStandardOutput());
+  QByteArray err = proc.readAllStandardError();
+  QByteArray out = proc.readAllStandardOutput();
 
   if (!out.isEmpty())
     buildLog += "<p>"+out+"</p>";
@@ -178,7 +178,7 @@ bool ModelCompilationManager::execute(const QString& command)
 
 void ModelCompilationManager::addStatusToLog(const QString& status)
 {
-  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status+"</span></p>";
+  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>";
 
 }
 
@@ -191,7 +191,7 @@ bool ModelCompilationManager::hasBuildLog()
 
 QString ModelCompilationManager::getGraphicBuildLog()
 {
-  QString htmlLog = buildLog;
+  QString htmlLog = QString::fromLocal8Bit(buildLog);
   htmlLog=htmlLog.replace('\n', "<br />");
   return "<html><head /><body>"+htmlLog+"</body></html>";
 }
@@ -199,7 +199,7 @@ QString ModelCompilationManager::getGraphicBuildLog()
 
 QString ModelCompilationManager::getBuildLog()
 {
-  QString plainLog = buildLog;
+  QString plainLog = QString::fromLocal8Bit(buildLog);
   plainLog.remove("<p>");
   plainLog.remove("</p>");
   plainLog.remove("<span style=\"color:#aa0000;\">");
@@ -327,7 +327,7 @@ const QString& treeHedPath, const QString& wavConfigPath)
 
   keepGoing=true;
 
-  buildLog="";
+  buildLog.clear();
 
   if (!parseConfiguration())
     return false;
