@@ -12,7 +12,7 @@
  * @author Akinobu Lee
  * @date   Sat Aug  2 09:46:09 2008
  * 
- * $Revision: 1.3 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -255,6 +255,7 @@ plugin_load_dir(char *dir)
   cnt = 0;
   do {
     jlog("STAT: file: %-23s ", FindFileData.cFileName);
+    sprintf_s(buf, 512, "%s\\%s", dir, FindFileData.cFileName);
     if (plugin_load_file(buf)) cnt++;
   } while (FindNextFile(hFind, &FindFileData));
 
@@ -505,6 +506,8 @@ plugin_exec_process_result(Recog *recog)
 }
 
 
+#endif /* ENABLE_PLUGIN */
+
 /************************************************************************/
 /* assume only one MFCC module! */
 
@@ -513,6 +516,7 @@ plugin_exec_process_result(Recog *recog)
 boolean
 mfc_module_init(MFCCCalc *mfcc, Recog *recog)
 {
+#ifdef ENABLE_PLUGIN
   mfcc->plugin_source = recog->jconf->input.plugin_source;
   if (mfcc->plugin_source < 0) {
     jlog("ERROR: SP_MDCMODULE selected but plugin is missing?\n");
@@ -531,6 +535,7 @@ mfc_module_init(MFCCCalc *mfcc, Recog *recog)
     jlog("ERROR: FEATURE_INPUT plugin: fvin_read() not found!\n");
     return FALSE;
   }
+#endif
 
   return TRUE;
 }
@@ -541,6 +546,7 @@ mfc_module_set_header(MFCCCalc *mfcc, Recog *recog)
   FUNC_INT func;
   unsigned int ret;
 
+#ifdef ENABLE_PLUGIN
   func = (FUNC_INT) plugin_get_func(mfcc->plugin_source, "fvin_get_configuration");
   if (func == NULL) {
     jlog("ERROR: feature vector input plugin: fvin_get_configuration() not found\n");
@@ -560,6 +566,7 @@ mfc_module_set_header(MFCCCalc *mfcc, Recog *recog)
   } else {
     mfcc->param->header.samptype = ret;
   }
+#endif
 
   return TRUE;
 }
@@ -567,6 +574,7 @@ mfc_module_set_header(MFCCCalc *mfcc, Recog *recog)
 boolean
 mfc_module_standby(MFCCCalc *mfcc)
 {
+#ifdef ENABLE_PLUGIN
   FUNC_INT func;
   int ret;
 
@@ -574,11 +582,15 @@ mfc_module_standby(MFCCCalc *mfcc)
   else ret = TRUE;
   mfcc->segmented_by_input = FALSE;
   return ret;
+#else
+  return TRUE;
+#endif
 }
 
 boolean
 mfc_module_begin(MFCCCalc *mfcc)
 {
+#ifdef ENABLE_PLUGIN
   FUNC_INT func;
   int ret;
 
@@ -587,11 +599,15 @@ mfc_module_begin(MFCCCalc *mfcc)
   if (mfcc->func.fv_begin) ret = mfcc->func.fv_begin();
   else ret = TRUE;
   return ret;
+#else
+  return TRUE;
+#endif
 }
 
 boolean
 mfc_module_end(MFCCCalc *mfcc)
 {
+#ifdef ENABLE_PLUGIN
   FUNC_INT func;
   int ret;
 
@@ -600,11 +616,15 @@ mfc_module_end(MFCCCalc *mfcc)
   if (mfcc->func.fv_end) ret = mfcc->func.fv_end();
   else ret = TRUE;
   return ret;
+#else
+  return TRUE;
+#endif
 }
 
 int
 mfc_module_read(MFCCCalc *mfcc, int *new_t)
 {
+#ifdef ENABLE_PLUGIN
   FUNC_INT func;
   int ret;
 
@@ -632,6 +652,7 @@ mfc_module_read(MFCCCalc *mfcc, int *new_t)
   }
     
   *new_t = mfcc->f + 1;
+#endif
 
   return 0;
 }  
@@ -639,12 +660,12 @@ mfc_module_read(MFCCCalc *mfcc, int *new_t)
 char *
 mfc_module_input_name(MFCCCalc *mfcc)
 {
+#ifdef ENABLE_PLUGIN
   int ret;
 
   if (mfcc->func.fv_input_name) return(mfcc->func.fv_input_name());
+#endif
   return NULL;
 }
-
-#endif /* ENABLE_PLUGIN */
 
 /* end of file */

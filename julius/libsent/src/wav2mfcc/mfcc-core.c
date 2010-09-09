@@ -17,7 +17,7 @@
  * @author Akinobu Lee
  * @date   Mon Aug  7 11:55:45 2006
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -130,10 +130,16 @@ make_sintbl_wcep(MFCCWork *w, int lifter, int mfcc_dim)
   float a, b;
 
   w->sintbl_wcep = (double *)mymalloc(sizeof(double) * mfcc_dim);
-  a = PI / lifter;
-  b = lifter / 2.0;
-  for(i=0;i<mfcc_dim;i++) {
-    w->sintbl_wcep[i] = 1.0 + b * sin((i+1) * a);
+  if (lifter > 0) {
+    a = PI / lifter;
+    b = lifter / 2.0;
+    for(i=0;i<mfcc_dim;i++) {
+      w->sintbl_wcep[i] = 1.0 + b * sin((i+1) * a);
+    }
+  } else {
+    for(i=0;i<mfcc_dim;i++) {
+      w->sintbl_wcep[i] = 1.0;
+    }
   }
   w->sintbl_wcep_len = mfcc_dim;
 #ifdef MFCC_TABLE_DEBUG

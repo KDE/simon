@@ -4,6 +4,7 @@
 
                                 Julius
 
+                                                (Rev 4.1.5 2010/06/04)
                                                 (Rev 4.1.4 2009/12/25)
                                                 (Rev 4.1.3 2009/11/02)
                                                 (Rev 4.1.2 2009/02/12)
@@ -16,10 +17,10 @@
                                                 (Rev 2.0   1999/02/20)
                                                 (Rev 1.0   1998/02/20)
 
- Copyright (c) 1991-2009 Kawahara Lab., Kyoto University
+ Copyright (c) 1991-2010 Kawahara Lab., Kyoto University
  Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
  Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- Copyright (c) 2005-2009 Julius project team, Nagoya Institute of Technology
+ Copyright (c) 2005-2010 Julius project team, Nagoya Institute of Technology
  All rights reserved
 ======================================================================
 
@@ -48,16 +49,21 @@ on Windows (SAPI/console). Julius is distributed with open license
 together with source codes.
 
 
-What's new in Julius-4.1.4
+What's new in Julius-4.1.5
 ===========================
 
-This release contains minor fixes: improved Julius class definition
-on Microsoft Visual C++ 2008, fixes for audio input on Windows, and 
-support for Mac OS X 10.6 SDK.  Now you can select the audio device
-to use on Windows.  See "Release.txt" for details of the changes.
+The version 4.1.5 is a bug-fix release.  Two bugs are found relating
+search algorithm, word insertion penalty handling on grammar
+recognition and LM score handling of the first word on the second
+pass.  They have been fixed on this release.  If you have been
+encountering unreasonable search failures on the second pass, they 
+may be eased by using the newest version.
+
+Other bugs are also fixed.  See "Release.txt" for the full list of the
+fixed bugs.
 
 
-Contents of Julius-4.1.4
+Contents of Julius-4.1.5
 =========================
 
 	(Documents with suffix "ja" are written in Japanese)

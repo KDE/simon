@@ -516,9 +516,8 @@ msock_exec_command(char *command, Recog *recog)
   }
 
   else if (strmatch(command, "DELPROCESS")) {
-    JCONF_LM *lmconf;
-    JCONF_AM *amconf;
     JCONF_SEARCH *sconf;
+    JCONF_LM *lmconf;
     RecogProcess *r;
 
     if (
@@ -529,18 +528,14 @@ msock_exec_command(char *command, Recog *recog)
       return;
     }
 
-    lmconf = j_get_lmconf_by_name(recog->jconf, buf);
-    if (lmconf == NULL) {
-      fprintf(stderr, "Error: msock(DELPROCESS): no lmconf named %s\n", buf);
-      module_send(module_sd, "<RECOGPROCESS STATUS=\"ERROR\" REASON=\"NO LM PROCESS OF THE NAME\"/>\n.\n");
-      return;
-    }
     sconf =  j_get_searchconf_by_name(recog->jconf, buf);
     if (sconf == NULL) {
       fprintf(stderr, "Error: msock(DELPROCESS): no searchconf named %s\n", buf);
       module_send(module_sd, "<RECOGPROCESS STATUS=\"ERROR\" REASON=\"NO RECOGPROCESS OF THE NAME\"/>\n.\n");
       return;
     }
+
+    lmconf = sconf->lmconf;
     printf("remove process: SR%02d %s, LM%02d %s\n", sconf->id, sconf->name, lmconf->id, lmconf->name);
     module_send(module_sd, "<RECOGPROCESS INFO=\"DELETE\">\n");
     for(r=recog->process_list;r;r=r->next) {

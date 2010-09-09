@@ -12,7 +12,7 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 07:09:25 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -45,16 +45,21 @@ rd(int fd, char *data, int *len, int maxlen)
 {
   int count=0;
   int tmpbytes, tmplen;
+  int toread = sizeof(int), ret, off = 0;
   
-  if ((tmpbytes=
+  while (toread > 0) {
+    ret = 
 #ifdef WINSOCK
-       recv(fd,(char *)len,sizeof(int),0)
+      recv(fd,((char *)len) + off, toread, 0);
 #else
-       read(fd,(char *)len,sizeof(int))
+      read(fd,((char *)len) + off, toread);
 #endif
-       ) != sizeof(int)) {
-    /*jlog( "failed to read num\n");*/
-    return(-1);
+    if (ret <= 0) {  
+      if (ret < 0) jlog("Error: rdwt: failed to read data at %d / %d\n", count, len);
+      return(-1);
+    }
+    toread -= ret;
+    off += ret;
   }
   if (*len > maxlen) {
     jlog("Error: rdwt: transfer data length exceeded: %d (>%d)\n", len, maxlen);

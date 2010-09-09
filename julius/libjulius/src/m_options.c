@@ -18,7 +18,7 @@
  * @author Akinobu Lee
  * @date   Thu May 12 18:52:07 2005
  *
- * $Revision: 1.17 $
+ * $Revision: 1.19 $
  * 
  */
 /*
@@ -898,6 +898,7 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
       continue;
     } else if (strmatch(argv[i],"-mapunk")) { /* unknown word */
       if (!check_section(jconf, argv[i], JCONF_OPT_LM)) return FALSE; 
+      GET_TMPARG;
       strncpy(jconf->lmnow->unknown_name, tmparg, UNK_WORD_MAXLEN);
       continue;
     } else if (strmatch(argv[i],"-iwspword")) { /* add short pause word */
@@ -1200,10 +1201,13 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
     } else if (strmatch(argv[i],"-htkconf")) {
       if (!check_section(jconf, argv[i], JCONF_OPT_AM)) return FALSE; 
       GET_TMPARG;
+      tmparg = filepath(tmparg, cwd);
       if (htk_config_file_parse(tmparg, &(jconf->amnow->analysis.para_htk)) == FALSE) {
 	jlog("ERROR: m_options: failed to read %s\n", tmparg);
+	free(tmparg);
 	return FALSE;
       }
+      free(tmparg);
       continue;
     } else if (strmatch(argv[i], "-wlist")) {
       if (!check_section(jconf, argv[i], JCONF_OPT_LM)) return FALSE; 

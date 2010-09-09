@@ -56,7 +56,7 @@
  * @author Akinobu LEE
  * @date   Sun Feb 13 13:31:20 2005
  *
- * $Revision: 1.7 $
+ * $Revision: 1.8 $
  * 
  */
 /*
@@ -535,7 +535,7 @@ adin_stdin_read(SP16 *buf, int sampnum)
   int cnt;
 
   if (wav_p) {
-    cnt = myfread(buf, sizeof(SP16), sampnum, stdin);
+    cnt = fread(buf, sizeof(SP16), sampnum, stdin);
     if (cnt == 0) {
       if (feof(stdin)) return -1; /* EOF */
       if (ferror(stdin)) {

@@ -12,7 +12,7 @@
  * @author Akinobu LEE
  * @date   Thu Mar 24 07:13:41 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.4 $
  * 
  */
 /*
@@ -49,7 +49,7 @@ check_grammar_path(char *prefix)
 
   i = strlen(prefix) - 1;
   while(prefix[i] != '.' && i >= 0) i--;
-  if (i < 0 && strcmp(&(prefix[i]), ".dict") != 0) {
+  if (i < 0 || strcmp(&(prefix[i]), ".dict") != 0) {
     snprintf(buf, MAXLINELEN, "%s.dfa", prefix);
     if (access(buf, R_OK) < 0) {
       fprintf(stderr, "Error: \"%s.dfa\" not exist\n", prefix);
@@ -94,7 +94,7 @@ send_grammar(int sd, char *prefix)
 
   i = strlen(prefix) - 1;
   while(prefix[i] != '.' && i >= 0) i--;
-  if (i < 0 && strcmp(&(prefix[i]), ".dict") != 0) {
+  if (i < 0 || strcmp(&(prefix[i]), ".dict") != 0) {
     snprintf(buf, MAXLINELEN, "%s.dfa", prefix);
     if ((fp = fopen(buf, "r")) == NULL) {
       perror("japi_change_grammar"); return -1;

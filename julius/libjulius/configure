@@ -592,7 +592,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 
 
 JULIUS_PRODUCTNAME=JuliusLib
-JULIUS_VERSION=4.1.4
+JULIUS_VERSION=4.1.5
 
 
 # Check whether --enable-pthread or --disable-pthread was given.

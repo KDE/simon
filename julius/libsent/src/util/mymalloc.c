@@ -17,7 +17,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 16:27:03 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -42,7 +42,11 @@ mymalloc(size_t size)
 {
   void *p;
   if ( (p = malloc(size)) == NULL) {
+#if defined(_WIN32) && !defined(__CYGWIN32__)
+    jlog("Error: mymalloc: failed to allocate %Iu bytes\n", size);
+#else
     jlog("Error: mymalloc: failed to allocate %zu bytes\n", size);
+#endif
     exit(1);
   }
   return p;
@@ -64,12 +68,20 @@ mymalloc_big(size_t elsize, size_t nelem)
   if (sizeof(size_t) == 4) {	/* 32bit environment */
     limit = (double)4294967296.0 / elsize; /* 2^32 */
     if (nelem >= limit) {
+#if defined(_WIN32) && !defined(__CYGWIN32__)
+      jlog("Error: mymalloc_big: %Iu bytes x %Iu unit exceeds 4GB limit\n", elsize, nelem);
+#else
       jlog("Error: mymalloc_big: %zu bytes x %zu unit exceeds 4GB limit\n", elsize, nelem);
+#endif
       exit(1);
     }
   }
   if ( (p = malloc(nelem * elsize)) == NULL) {
-    jlog("Error: mymalloc: failed to allocate %zu bytes\n", nelem * elsize);
+#if defined(_WIN32) && !defined(__CYGWIN32__)
+    jlog("Error: mymalloc_big: failed to allocate %Iu x %Iu bytes\n", elsize, nelem);
+#else
+    jlog("Error: mymalloc_big: failed to allocate %zu x %zu bytes\n", elsize, nelem);
+#endif
     exit(1);
   }
   return p;
@@ -88,7 +100,11 @@ myrealloc(void *ptr, size_t size)
 {
   void *p;
   if ( (p = realloc(ptr,size)) == NULL) {
+#if defined(_WIN32) && !defined(__CYGWIN32__)
+    jlog("Error: mymalloc: failed to reallocate %Iu bytes\n", size);
+#else
     jlog("Error: mymalloc: failed to reallocate %zu bytes\n", size);
+#endif
     exit(1);
   }
   return p;
@@ -107,7 +123,11 @@ mycalloc(size_t nelem, size_t elsize)
 {
   void *p;
   if ( (p = calloc(nelem,elsize)) == NULL) {
+#if defined(_WIN32) && !defined(__CYGWIN32__)
+    jlog("Error: mymalloc: failed to clear-allocate %Iu bytes\n", nelem*elsize);
+#else
     jlog("Error: mymalloc: failed to clear-allocate %zu bytes\n", nelem*elsize);
+#endif
     exit(1);
   }
   return p;
