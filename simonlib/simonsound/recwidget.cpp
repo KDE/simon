@@ -77,6 +77,7 @@ m_simpleMode(forceSimpleMode)
   connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 
   hideActionPrompt();
+  ui->lbPromptAction->setStyleSheet("color:white");
   connect(statusTimer, SIGNAL(timeout()), this, SLOT(showStartPrompt()));
 }
 
@@ -100,9 +101,7 @@ SimonSamples::SampleProblems RecWidget::sampleProblems()
 void RecWidget::showStartPrompt()
 {
   ui->frmPromptAction->show();
-  QPalette p = ui->frmPromptAction->palette();
-  p.setBrush(QPalette::Active, QPalette::Window, QColor("green"));
-  ui->frmPromptAction->setPalette(p);
+  ui->frmPromptAction->setStyleSheet("background-color: green");
   ui->lbPromptAction->setText(i18n("Please speak..."));
   statusTimer->stop();
 }
@@ -111,9 +110,7 @@ void RecWidget::showStartPrompt()
 void RecWidget::showFinishPrompt()
 {
   ui->frmPromptAction->show();
-  QPalette p = ui->frmPromptAction->palette();
-  p.setBrush(QPalette::Active, QPalette::Window, QColor("blue"));
-  ui->frmPromptAction->setPalette(p);
+  ui->frmPromptAction->setStyleSheet("background-color: blue");
   ui->lbPromptAction->setText(i18nc("Waiting for the recording to finish...", "Idle..."));
 }
 
@@ -121,9 +118,7 @@ void RecWidget::showFinishPrompt()
 void RecWidget::showWaitPrompt()
 {
   ui->frmPromptAction->show();
-  QPalette p = ui->frmPromptAction->palette();
-  p.setBrush(QPalette::Active, QPalette::Window, QColor("red"));
-  ui->frmPromptAction->setPalette(p);
+  ui->frmPromptAction->setStyleSheet("background-color: red");
   ui->lbPromptAction->setText(i18n("Please wait..."));
 }
 
