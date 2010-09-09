@@ -30,8 +30,9 @@
 class ModelSettings : public KCModule
 {
   Q_OBJECT
-    private:
+  private:
     Ui::ModelDlg ui;
+    QString lastDirectory;
     QString m_hmmDefsToImport;
     QString m_tiedlistToImport;
     QString m_macrosToImport;

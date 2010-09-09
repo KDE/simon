@@ -1284,6 +1284,7 @@ void ClientSocket::slotModelAdaptionComplete()
 {
   if (!shouldRecompileModel())
   {
+    slotModelAdaptionAborted();
     return;
   }
 
@@ -1293,7 +1294,10 @@ void ClientSocket::slotModelAdaptionComplete()
   bool hasGrammar = (fiGrammar.size() > 0);
 
   if (!hasGrammar)
+  {
+    slotModelAdaptionAborted();
     return;
+  }
 
   int baseModelType = synchronisationManager->getBaseModelType();
 
@@ -1305,6 +1309,7 @@ void ClientSocket::slotModelAdaptionComplete()
         baseModelType = 0;
         break;
       case 2:                                     //do not bother creating the model without prompts
+        slotModelAdaptionAborted();
         return;
     }
   }

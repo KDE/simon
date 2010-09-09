@@ -381,11 +381,12 @@ void JuliusControl::emitError(const QString& error)
 
   int indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
   if (indexStartVocaError != -1) {
-    buildLog = buildLog.replace("<br />", "\n");
-    indexStartVocaError = buildLog.indexOf("Error: voca_load_htkdict");
-    int indexEndMissingPhones = buildLog.indexOf("end missing phones");
+    QByteArray findPhonesLog = buildLog;
+    findPhonesLog  = findPhonesLog.replace("<br />", "\n");
+    indexStartVocaError = findPhonesLog.indexOf("Error: voca_load_htkdict");
+    int indexEndMissingPhones = findPhonesLog.indexOf("end missing phones");
 
-    QList<QByteArray> lines = buildLog.mid(indexStartVocaError, indexEndMissingPhones - indexStartVocaError).split('\n');
+    QList<QByteArray> lines = findPhonesLog.mid(indexStartVocaError, indexEndMissingPhones - indexStartVocaError).split('\n');
 
     QStringList missingPhones;
     QStringList affectedWords;
@@ -394,7 +395,7 @@ void JuliusControl::emitError(const QString& error)
     bool thisLineMoreMissingPhones = false;
     foreach (const QByteArray& lineByte, lines) {
       QString line = QString::fromUtf8(lineByte);
-      if (line.contains(QRegExp("line [0-9]+: triphone \".*\" (or biphone \".*\" )?not found$"))) {
+      if (line.contains(QRegExp("line [0-9]+: triphone \".*\" (or biphone \".*\" )?not found"))) {
         //Error: voca_load_htkdict: line 33: triphone "*-dh+ix" or biphone "dh+ix" not found
         //Error: voca_load_htkdict: line 33: triphone "dh-ix+s" not found
         thisLineMoreInfoForMissingTriphone = true;

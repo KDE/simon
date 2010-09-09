@@ -195,20 +195,21 @@ void ModelSettings::touchModelSrcRc()
 
 void ModelSettings::loadBaseHMM()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base hmmdefs"));
+  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base hmmdefs"));
   if (path.isEmpty()) return;
 
   m_hmmDefsToImport = path;
 
   emit changed(true);
   QFileInfo f(path);
+  lastDirectory = f.path();
   ui.lbLastLoadedBaseHMM->setText(f.fileName());
 }
 
 
 void ModelSettings::loadBaseTiedlist()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base tiedlist"));
+  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base tiedlist"));
   if (path.isEmpty()) return;
 
   m_tiedlistToImport = path;
@@ -216,32 +217,35 @@ void ModelSettings::loadBaseTiedlist()
   emit changed(true);
 
   QFileInfo f(path);
+  lastDirectory = f.path();
   ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
 }
 
 
 void ModelSettings::loadBaseMacros()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base macros"));
+  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base macros"));
   if (path.isEmpty()) return;
 
   m_macrosToImport = path;
 
   emit changed(true);
   QFileInfo f(path);
+  lastDirectory = f.path();
   ui.lbLastLoadedBaseMacros->setText(f.fileName());
 }
 
 
 void ModelSettings::loadBaseStats()
 {
-  QString path = KFileDialog::getOpenFileName(KUrl(), QString(), this, i18n("Select base stats"));
+  QString path = KFileDialog::getOpenFileName(KUrl(lastDirectory), QString(), this, i18n("Select base stats"));
   if (path.isEmpty()) return;
 
   m_statsToImport = path;
 
   emit changed(true);
   QFileInfo f(path);
+  lastDirectory = f.path();
   ui.lbLastLoadedBaseStats->setText(f.fileName());
 }
 

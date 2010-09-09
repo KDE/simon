@@ -195,5 +195,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
     void streamStarted();
     void streamStopped();
 
+    void startPrivateSimond();
+
 };
 #endif
