@@ -190,6 +190,8 @@ QDateTime SynchronisationManager::localScenarioDate(const QString& scenarioId)
 
 QDateTime SynchronisationManager::scenarioDate(const QString& path)
 {
+  return Scenario::skimDate(path);
+  /*
   Scenario *s = new Scenario("");
   if (!s->skim(path)) {
     kDebug() << "Failed to skim scenario at: " << path;
@@ -200,6 +202,7 @@ QDateTime SynchronisationManager::scenarioDate(const QString& path)
   kDebug() << "Returning modified date of: " << path << t;
   delete s;
   return t;
+  */
 }
 
 

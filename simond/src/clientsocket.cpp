@@ -1503,9 +1503,10 @@ void ClientSocket::synchronisationComplete()
     kDebug() << "Synchronization succeeded";
     sendCode(Simond::SynchronisationComplete);
 
-    kDebug() << "Should recompile model: " << synchronisationManager->shouldRecompileModel();
+    bool shouldRecompileModel = synchronisationManager->shouldRecompileModel();
+    kDebug() << "Should recompile model: " << shouldRecompileModel;
 
-    if (synchronisationManager->shouldRecompileModel())
+    if (shouldRecompileModel)
       startModelCompilation();
   }
 

@@ -71,6 +71,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
+    bool setupPathToParse(QString& path);
     bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
 
   public:
@@ -114,6 +115,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool containsWord(const QString& word);
     bool containsWord(const QString& word, const QString& terminal, const QString& pronunciation);
 
+    static QDateTime skimDate(QString path=QString());
     bool skim(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readLanguageModel(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readActions(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);

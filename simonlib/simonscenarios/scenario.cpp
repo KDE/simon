@@ -116,8 +116,7 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
   return create(name, iconSrc, version, simonMinVersion, simonMaxVersion, license, authors);
 }
 
-
-bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
+bool Scenario::setupPathToParse(QString& path)
 {
   if (path.isNull()) {
     if (m_prefix.isNull())
@@ -125,6 +124,12 @@ bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
     else
       path = KStandardDirs::locate("data", m_prefix+"scenarios/"+m_scenarioId);
   }
+  return true;
+}
+
+bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
+{
+  if (!setupPathToParse(path)) return false;
 
   if (!doc) {
     doc = new QDomDocument("scenario");
@@ -144,6 +149,27 @@ bool Scenario::setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc)
   return true;
 }
 
+QDateTime Scenario::skimDate(QString path)
+{
+  QFile f(path);
+  if (!f.open(QIODevice::ReadOnly)) return QDateTime();
+
+  QByteArray line;
+  do
+  {
+    line = f.readLine();
+  }
+  while (!f.atEnd() && (!line.contains("lastModified")));
+  
+  int index = line.indexOf("lastModified");
+  if (index == -1) return QDateTime();
+
+  int startIndex = line.indexOf('"', index+13);
+  int endIndex = line.indexOf('"', startIndex+1);
+
+  kDebug() << "Line: " << line.mid(startIndex, endIndex - startIndex);
+  return QDateTime::fromString(line.mid(startIndex+1, endIndex - startIndex), Qt::ISODate);
+}
 
 bool Scenario::skim(QString path, QDomDocument* doc, bool deleteDoc)
 {
