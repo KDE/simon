@@ -612,7 +612,7 @@ msgstr "X11"
 #. i18n: ectx: property (text), widget (QLabel, lbAuthors)
 #: po/rc.cpp:270 rc.cpp:270
 msgid "Authors:"
-msgstr "Authors:"
+msgstr "Autoren:"
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:232
 #. i18n: ectx: property (text), widget (KPushButton, pbAddAuthor)

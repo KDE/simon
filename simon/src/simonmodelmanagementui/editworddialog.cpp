@@ -34,7 +34,7 @@ EditWordDialog::EditWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(pare
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
   setMainWidget( widget );
-  setCaption( i18n("Remove Word") );
+  setCaption( i18n("Edit Word") );
   ui.tbAddTerminal->setIcon(KIcon("list-add"));
   connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
 }

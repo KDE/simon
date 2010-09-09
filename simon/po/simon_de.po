@@ -1074,7 +1074,7 @@ msgstr "Schattenlexikon verändern"
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeGrammar)
 #: po/rc.cpp:452 rc.cpp:452
 msgid "Change grammar"
-msgstr "Change grammar"
+msgstr "Grammatik anpassen"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
@@ -1086,7 +1086,7 @@ msgid ""
 msgstr ""
 "Die ausgewählten Terminale werden zu einem neuen verbunden.\n"
 "\n"
-"This can take some time..."
+"Dies kann eine Weile dauern..."
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.ui:56
 #. i18n: ectx: property (text), widget (QLabel, lbStatus)
@@ -1588,7 +1588,7 @@ msgstr "Netzwerk"
 #. i18n: ectx: property (text), widget (KPushButton, pbConfigureSimond)
 #: po/rc.cpp:701 rc.cpp:701
 msgid "Configure simond"
-msgstr "Betonung"
+msgstr "simond konfigurieren"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:79
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
