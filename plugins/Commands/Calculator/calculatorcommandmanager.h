@@ -102,11 +102,12 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 
     void printCancel();
     void printResult() { writeoutRequestReceived(1); }
-    void printCalculationAndResult() { writeoutRequestReceived(2); }
-    void printFormattedResult() { writeoutRequestReceived(3); }
-    void printFormattedCalculationAndResult() { writeoutRequestReceived(4); }
-    void printFormattedMoneyResult() { writeoutRequestReceived(5); }
-    void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(6); }
+    void printCalculation() { writeoutRequestReceived(2); }
+    void printCalculationAndResult() { writeoutRequestReceived(3); }
+    void printFormattedResult() { writeoutRequestReceived(4); }
+    void printFormattedCalculationAndResult() { writeoutRequestReceived(5); }
+    void printFormattedMoneyResult() { writeoutRequestReceived(6); }
+    void printFormattedMoneyCalculationAndResult() { writeoutRequestReceived(7); }
 
   public slots:
     void activate();

@@ -277,7 +277,7 @@ msgstr "Ergebnis"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbDefaultOutputMode)
 #: calculatorcommandmanager.cpp:237 po/rc.cpp:36 rc.cpp:36
 msgid "Calculation"
-msgstr "Taschenrechner"
+msgstr "Rechnung"
 
 #: calculatorcommandmanager.cpp:238
 msgid "Calculation & result"
