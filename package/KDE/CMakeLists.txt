@@ -267,21 +267,21 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/entities/underLGPL.docbook"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/entities/underX11License.docbook"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/entities/update-doc.docbook"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/de/entities )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/de/entities COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/lang.entities"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/catalog.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/strings.entities"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/de/user.entities"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/de )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/de COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/dtd/kdex.dtd"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/dtd/modifications.elements"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/dtd/rdbhier2.elements"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/dtd/rdbpool.elements"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/dtd )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/dtd COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/entities/fdl-notice.docbook"
@@ -298,7 +298,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/entities/underLGPL.docbook"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/entities/underX11License.docbook"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/entities/update-doc.docbook"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/en/entities )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/en/entities COMPONENT kdecore )
   
 		
   install( FILES 
@@ -306,7 +306,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/strings.entities"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/catalog.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/en/user.entities"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/en )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/en COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/xsl/ca.xml"
@@ -341,7 +341,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/xsl/sr@latin.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/xsl/sv.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/customization/xsl/zh_tw.xml"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/customization/xsl)
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/customization/xsl COMPONENT kdecore )
   
   
   install( FILES 
@@ -410,7 +410,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/common/xh.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/common/zh_cn.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/common/zh_tw.xml"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/common )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/common COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/html/admon.xsl"
@@ -471,7 +471,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/html/toc.xsl"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/html/verbatim.xsl"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/html/xref.xsl"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/html )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/html COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/callouts/1.gif"
@@ -505,7 +505,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/callouts/9.gif"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/callouts/9.png"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/callouts/ChangeLog"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/images/callouts )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/images/callouts COMPONENT kdecore )
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/caution.gif"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/caution.png"
@@ -536,14 +536,14 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/warning.gif"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/warning.png"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/images/warning.tif"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/images )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/images COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/lib/ChangeLog"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/lib/lib.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/lib/lib.xsl"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/lib/lib.xweb"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/lib )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/lib COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/manpages/docbook.xsl"
@@ -551,7 +551,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/manpages/sect23.xsl"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/manpages/synop.xsl"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/manpages/xref.xsl"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/manpages )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/manpages COMPONENT kdecore )
   
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/params/admon.graphics.extension.xml"
@@ -957,7 +957,7 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/params/xref.properties.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/params/xref.title-page.separator.xml"
   "${KDE4_INSTALL_DIR}/share/apps/ksgmltools2/docbook/xsl/params/xref.with.number.and.title.xml"
-      DESTINATION ${DATA_INSTALL_DIR}/apps/ksgmltools2/docbook/xsl/params )
+      DESTINATION ${DATA_INSTALL_DIR}/ksgmltools2/docbook/xsl/params COMPONENT kdecore )
 
   
 		
