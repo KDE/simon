@@ -1,4 +1,69 @@
 ===========================================================================
+simon: 0.3.0
+===========================================================================
+
+General
+=======
+* Up-to-date manuals for all applications
+* KCMs have been moved to their own library; This fixes problems on 
+  e.g. OpenSUSE
+* Windows' system language is now automatically detected during installation
+  and simon will start in this language automatically
+* Translating custom installer page to German
+* Beautifying code through krazy and cppcheck
+* Global coding style update
+
+Translations
+============
+* General: Added context to many i18n calls with i18nc to help translaters
+* German: Applications, handbooks
+* French: Applications
+* Czech: Applications (90%)
+
+
+Commands
+=========
+* Fixed manual toggle in filter plugin
+* Fixed calculator output modes
+* Dictation can now append a configurable text after recognition result 
+  (for example a space)
+
+Sound
+=====
+* Sample quality assurance: Better warnings and configurable SNR check
+
+simon
+=====
+* Vocabulary search is now case insensitive
+* Adding global keyboard shortcut to activate / deactivate
+* Bugfix in command configuration
+* Bugfix: Removing words scheduled for training
+* Importing trainingsdata (prompts) now also imports flac, mp3 and ogg files
+* Improved the IPA import routine
+* When selecting the individual files of the base model: 
+  Stay in the same folder even on windows
+* Automatically restart a crashing simond
+
+simond
+======
+* Updating to the latest version of the Julius LVCSR
+* Performance improvements
+* Support for binary HMMs for Julius (big performance improvement)
+* Bugfix in the model check hash
+* Removing unneeded error messages
+* Fixing Julius log parsing on Windows
+
+ssc
+===
+* Offline mode
+* Fixed potential memory leak
+
+
+sam
+===
+* Sorting and filtering of file test results
+
+===========================================================================
 simon: 0.3-alpha-3
 ===========================================================================
 
