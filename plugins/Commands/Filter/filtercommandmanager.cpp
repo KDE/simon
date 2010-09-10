@@ -60,11 +60,11 @@ const QString FilterCommandManager::iconSrc() const
 void FilterCommandManager::updateAction()
 {
   if (!isActive) {
-    SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
+    //SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
     activateAction->setText(i18n("Activate Filter"));
   }
   else {
-    SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
+    //SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
     activateAction->setText(i18n("Deactivate Filter"));
   }
 }
@@ -78,6 +78,18 @@ void FilterCommandManager::toggle()
   updateAction();
 }
 
+void FilterCommandManager::activateFilter()
+{
+  if (isActive) return;
+  toggle();
+}
+
+void FilterCommandManager::deactivateFilter()
+{
+  if (!isActive) return;
+  toggle();
+}
+
 
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
@@ -85,7 +97,6 @@ bool FilterCommandManager::trigger(const QString& triggerName)
     return true;
 
   //would pass through - should it?
-  kDebug() << "would pass through - should it?";
   if (!isActive)
     return false;
 
@@ -104,14 +115,14 @@ bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
   config = new FilterConfiguration(parentScenario);
   succ = config->deSerialize(elem);
 
-  succ &= installInterfaceCommand(this, "toggle", i18n("Activate filter"), "view-filter",
+  succ &= installInterfaceCommand(this, "activateFilter", i18n("Activate filter"), "view-filter",
     i18n("Starts filtering"), true /* announce */, true /* show icon */,
     SimonCommand::DefaultState /* consider this command when in this state */,
     SimonCommand::DefaultState+1,                 /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "startFiltering" /* id */);
 
-  succ &= installInterfaceCommand(this, "toggle", i18n("Deactivate filter"), "view-filter",
+  succ &= installInterfaceCommand(this, "deactivateFilter", i18n("Deactivate filter"), "view-filter",
     i18n("Stops filtering"), true /* announce */, true /* show icon */,
     SimonCommand::DefaultState+1 /* consider this command when in this state */,
     SimonCommand::DefaultState,                   /* if executed switch to this state */

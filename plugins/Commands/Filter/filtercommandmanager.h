@@ -45,6 +45,8 @@ class FilterCommandManager : public CommandManager
 
   public slots:
     void toggle();
+    void activateFilter();
+    void deactivateFilter();
   public:
     const QString preferredTrigger() const;
     const QString iconSrc() const;
