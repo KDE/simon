@@ -147,6 +147,9 @@ set(kcm_simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
  )
 
+kde4_add_ui_files( kcm_simonmodelmanagementui_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/modelsettingsdlg.ui)
+
 kde4_add_kcfg_files(kcm_simonmodelmanagementui_LIB_SRCS
  	  speechmodelmanagementuiconfiguration.kcfgc)
 kde4_add_plugin(simonmodelmanagementuikcm ${kcm_simonmodelmanagementui_LIB_SRCS})

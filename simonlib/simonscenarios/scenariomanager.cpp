@@ -508,28 +508,28 @@ const QString& macrosName, const QString& statsName)
   touchBaseModelAccessTime();
 }
 
-#include "voiceinterfacecommand.h"
+//#include "voiceinterfacecommand.h"
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {
   kDebug() << "Setting list interface commands";
   this->listInterfaceCommands = listInterfaceCommands;
-
-  QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  while (i.hasNext()) {
-    i.next();
-    // i.value() is not a valid command
-    kDebug() << (*(i.value())).getTrigger();
-  }
+//
+  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
+  //while (i.hasNext()) {
+    //i.next();
+    //// i.value() is not a valid command
+    //kDebug() << (*(i.value())).getTrigger();
+  //}
 }
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::getListBaseConfiguration()
 {
-  QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  while (i.hasNext()) {
-    i.next();
-    // i.value() is not a valid command
-    kDebug() << (*(i.value())).getTrigger();
-  }
+  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
+  //while (i.hasNext()) {
+    //i.next();
+    //// i.value() is not a valid command
+    //kDebug() << (*(i.value())).getTrigger();
+  //}
 
   return listInterfaceCommands;
 }

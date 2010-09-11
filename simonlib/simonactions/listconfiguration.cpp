@@ -256,7 +256,7 @@ void ListConfiguration::registerVoiceInterfaceCommand(CommandListElements::Eleme
 const QStringList& triggers, const QString& visibleTrigger, bool showIcon, const QString& iconSrc)
 {
   foreach (const QString& trigger, triggers) {
-    kDebug() << "Storing element: " << trigger;
+    //kDebug() << "Storing element: " << trigger;
     listInterfaceCommands.insertMulti(element, new VoiceInterfaceCommand(0, trigger, iconSrc,
       getListSelectionDescription(element), getListSelectionId(element),
       0, 0, visibleTrigger, showIcon, false));
