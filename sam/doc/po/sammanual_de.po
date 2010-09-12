@@ -797,7 +797,7 @@ msgid ""
 msgstr ""
 "Wenn Sie problematische Aufnahmen identifizieren, können Sie sie neu "
 "aufnehmen (oder entfernen) indem Sie sie auswählen und dann auf <guibutton>"
-"Sprachaufnahme bearbeiten</guibuitton> klicken."
+"Sprachaufnahme bearbeiten</guibutton> klicken."
 
 #. Tag: para
 #: index.docbook:312

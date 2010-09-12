@@ -1,93 +1,148 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kmyapplication "<application>sam</application>">
-  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+  <!ENTITY kmyapplication "<application
+>sam</application
+>">
+  <!ENTITY kappname "&kmyapplication;"
+><!-- replace kmyapplication here
                                             do *not* replace kappname-->
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+  <!ENTITY package "kde-module"
+><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE"
+> 
 
 ]>
 <book lang="&language;">
 
 <bookinfo>
 
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<othercredit role="translator"
+><firstname
+>Peter</firstname
+><surname
+>Grasch</surname
+><affiliation
+><address
+><email
+>grasch@simon-listens.org</email
+></address
+></affiliation
+><contrib
+>Deutsche Übersetzung</contrib
+></othercredit
+> 
 
 
-<date>2010-08-11</date>
-<releaseinfo>0.3</releaseinfo>
+<date
+>2010-09-06</date>
+<releaseinfo
+>0.3</releaseinfo>
 
 <abstract>
-<para>
-&kmyapplication; is an acoustic model manager.
-</para>
+<para
+>&kmyapplication; ist ein Tool um Akustikmodelle zu verwalten. </para>
 </abstract>
 
 <keywordset>
-<keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>simon</keyword>
-<keyword>recognition</keyword>
-<keyword>speech</keyword>
-<keyword>voice</keyword>
-<keyword>command</keyword>
-<keyword>control</keyword>
-<keyword>model</keyword>
-<keyword>compilation</keyword>
-<keyword>sam</keyword>
-<keyword>accessibility</keyword>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeutils</keyword>
+<keyword
+>Kapp</keyword>
+<keyword
+>simon</keyword>
+<keyword
+>Spracherkennung</keyword>
+<keyword
+>Sprache</keyword>
+<keyword
+>Sprache</keyword>
+<keyword
+>command</keyword>
+<keyword
+>control</keyword>
+<keyword
+>Modell</keyword>
+<keyword
+>Kompilierung</keyword>
+<keyword
+>sam</keyword>
+<keyword
+>accessibility</keyword>
 </keywordset>
 
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice
+>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009-2010</year>
-<holder>Peter Grasch</holder>
+<year
+>2009-2010</year>
+<holder
+>Peter Grasch</holder>
 </copyright>
 
 <authorgroup>
-<author>
-<personname>
-<firstname>Peter</firstname>
-<othername>H.</othername>
-<surname>Grasch</surname>
-</personname>
-<email>grasch@simon-listens.org</email>
-</author>
+<author
+><personname
+> <firstname
+>Peter</firstname
+> <othername
+>H.</othername
+> <surname
+>Grasch</surname
+> </personname
+> <email
+>grasch@simon-listens.org</email
+> </author>
 </authorgroup>
 
 
-<title>The &kmyapplication; Handbook</title>
+<title
+>Das &kmyapplication; Handbuch</title>
 </bookinfo>
 
 <chapter id="introduction">
-<title>Introduction</title>
+<title
+>Einleitung</title>
 
-<para>
-  &kmyapplication; is a tool to create and test acoustic models. It can compile new speech models, use models created by simon and produce models that can be used by simon later on.</para>
-<para>It is targeted towards people wanting more control over their acoustic model and provides much lower level access to the build process. &kmyapplication; is mainly geared towards speech professionals wanting to improve their acoustic model.</para>
-<para>For more information on the architecture of the simon suite please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para
+>&kmyapplication; ist ein Werkzeug um Akustikmodelle zu erzeugen und zu testen. Es kann neue Sprachmodelle kompilieren, Sprachmodelle die von simon erzeugt werden verwenden und Modelle erzeugen die simon verwenden kann.</para>
+<para
+>Das Programm ist hauptsächlich für Leute ausgelegt die viel Kontrolle über Ihr Akustikmodell benötigen und bietet so viel low-level Zugriff zum Erzeugungsprozess wie möglich. &kmyapplication; ist hauptsächlich für Experten ausgelegt die Ihr Sprachmodell verbessern wollen.</para>
+<para
+>Für mehr Information über die Architektur der simon Suite sehen Sie bitte das <ulink url="help:/simon/overview.html#architecture"
+>simon Handbuch</ulink
+>.</para>
 
 <sect1 id="background">
-  <title>Background</title>
+  <title
+>Hintergrund</title>
 
-  <para>This section will provide a bit of background information on the compilation and testing process.</para>
+  <para
+>In dieser Sektion wird etwas Hintergrundwissen rund um das Kompilieren und Testen von Sprachmodellen vermittelt.</para>
 
 <sect2 id="effective_testing">
-  <title>Effective testing</title>
-  <para>One of the major features of sam is to test the generated acoustic models.</para>
+  <title
+>Effektives Testen</title>
+  <para
+>Eines der Hauptfunktionen von sam ist es generierte Sprachmodelle zu testen.</para>
 
-  <para>The basic testing procedure is to run recognition on samples where the transcription is already known and comparing the results. &kmyapplication; also takes the confidence score of the recognition into account to measure how robust the created system is.</para>
+  <para
+>Der grundsätzliche Testablauf ist, die Erkennung auf Aufnahmen anzuwenden bei denen die korrekte Transkription bereits bekannt ist und die Ergebnisse zu vergleichen. &kmyapplication; achtet außerdem auf die Erkennungsrate des Erkennungsergebnisses um zu messen wie robust das System arbeitet.</para>
 
-  <para>Due to the way acoustic models are created, both the recognition accuracy and confidence will be highly skewed when the same samples are used both for training and testing. This is called "in corpus" testing (the samples used for testing are also in your training corpus).</para>
+  <para
+>Aufgrund der Art wie Akustikmodelle erzeugt werden wird sowohl die Erkennungsgenauigkeit als auch die Erkennungsrate stark beeinflusst wenn die selben Aufnahmen für das Training und für das Testen verwendet werden. Dies nennt man "in corpus" testen (die Aufnahmen für die Tests sind auch im Trainingskorpus).</para>
 
-  <para>While in corpus testing might tell you if the compilation process failed or produced sub par results it won't tell you the "real" recognition rate of the created model. Therefore it is recommended to do "out of corpus" testing: Use different samples for training and for testing.</para>
-  <para>For out of corpus testing simply split your prompts file in two parts: One used to compile the model and one to test the model. Of course the test set doesn't need to be very big to get a representative result.</para>
-  <para>If you don't have a lot of training data, you can also split the complete corpus in ten parts. Compile 10 models, each leaving out one part of the corpus. Then do then individual tests (always with the test set that was excluded during compilation) and average the results.</para>
+  <para
+>Obwohl in corpus Tests ausschluss geben kann ob der Modellgenerierungsprozess reibungslos abgelaufen ist, geben die Ergebnisse keinen Aufschluss auf die Qualität des erzeugten Modells. Es ist also empfohlen "out of corpus" zu testen: Verwenden Sie unterschiedliche Aufnahmen für das Testen und das Training.</para>
+  <para
+>Um out of corpos zu testen, teilen Sie Ihre prompts Datei einfach in zwei Teile: Eine um das Sprachmodell zu generieren und eine um es zu testen. Deises Testset muss nicht sehr groß sein um repräsentative Ergebnisse zu liefern.</para>
+  <para
+>Wenn Sie nicht viele Trainingsdaten haben, können Sie diese auch in zehn Teile teilen um möglichst repräsentative Ergebnisse zu erhalten. Kompilieren 10 Modelle wobei Sie bei jedem einen der zehn Teile auslassen Teil auslassen. Testen Sie das jeweilige Modell mit dem zehnten, übrigbleibenden, Teil und bilden Sie über alle Ergebnisse einen Mittelwert.</para>
 
 </sect2>
 </sect1>
@@ -95,194 +150,280 @@
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using &kmyapplication;</title>
+<title
+>&kmyapplication; verwenden</title>
 
-<para>&kmyapplication; provides a graphical interface that is divided into five areas.</para>
+<para
+>&kmyapplication;s grafische Oberfläche ist in fünf Bereiche unterteilt.</para>
 
 <para>
 <screenshot>
-<screeninfo>Main window</screeninfo>
+<screeninfo
+>Hauptfenster</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="main.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Main window</phrase>
+      <phrase
+>Hauptfenster</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>
-  The order of the tabs represents a complete sam workflow from creating a model to testing it.
-</para>
+<para
+>Die Anordnung der Registerkarten reflektiert einen typischen sam Arbeitsablauf vom Kreieren des Modells bis zum Testen. </para>
 
 <sect1 id="input_output">
-  <title>Input &amp; output files</title>
+  <title
+>Eingabe- &amp; Ausgabedateien</title>
 
-  <para>Define what files to work on. You can save and load this configuration by using the <guibutton>Save</guibutton> and <guibutton>Load</guibutton> buttons respectively.</para>
+  <para
+>Definiert mit welchen Dateien gearbeitet wird. Sie können diese Konfiguration speichern bzw. laden indem Sie den <guibutton
+>Speichern</guibutton
+> bzw. <guibutton
+>Laden</guibutton
+> Knopf drücken.</para>
 <warning>
-    <para>The <guibutton>Save</guibutton> and <guibutton>Load</guibutton> menus <emphasis>only</emphasis> save the paths and options defined here. They don't save the associated files!</para>
+    <para
+>Die <guibutton
+>Speichern</guibutton
+> und <guibutton
+>Laden</guibutton
+> Knöpfe speichern <emphasis
+>nur</emphasis
+> Dateipfade und Optionen die hier konfiguriert wurden. Sie speichern keine assoziierten Dateien!</para>
 </warning>
 
 <para>
 <screenshot>
-<screeninfo>Input &amp; output selection</screeninfo>
+<screeninfo
+>Eingabe-&amp; Ausgabe Auswahl</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="input_output.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Input &amp; output selection</phrase>
+      <phrase
+>Eingabe-&amp; Ausgabe Auswahl</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>If you want to compile and / or test the simon model, you can use the <guibutton>Modify simons model</guibutton> option to load the appropriate files. Both scenarios and prompts will be serialized as appropriate.</para>
+<para
+>Wenn Sie das von simon verwaltete Modell generieren oder testen wollen können Sie die <guibutton
+>Verändere simons Modell</guibutton
+> Option verwenden um die entsprechenden Dateien zu laden. Sowohl Szenarios als auch Prompts werden entsprechend serialisiert werden.</para>
 
-<para>When simon compiles the model, it will automatically remove untrained words during serialization as well as adapting the prompts appropriately. This will also happen when selecting <guibutton>Modify simons model</guibutton>. If you do, however serialize them separately using <guibutton>Serialize scenarios</guibutton> and <guibutton>Serialize prompts</guibutton> this adaption will not be performed and you alone are responsible for the validity of the input files. If you provide file names directly this of course applies even more so.</para>
+<para
+>Wenn simon das Modell kompiliert wird es automatisch untrainierte Wörter während der Serialisation entfernen sowie die prompts entsprechend anpassen. Dies wird ebenfalls geschehen wenn Sie <guibutton
+>Verändere simons Modell</guibutton
+> auswählen. Wenn Sie die Dateien aber seperat serialisieren über <guibutton
+>Serialisiere Szenarios</guibutton
+> und <guibutton
+>Serialisiere prompts</guibutton
+> wird die Bereinigung nicht aktiviert und Sie sind selbst verantwortlich für die Validität der Eingabedateien. Wenn Sie Dateinamen direkt angeben gilt das natürlich ebenso.</para>
 
-<para>Selecting a static model as the used model type will still compile the language model, just like simon would do as well. It also copies the given base model input files to the output paths.</para>
+<para
+>Wenn Sie ein statisches Modell als Modelltyp auswählen wird das Sprachmodell (language model) noch immer generiert - wie simon es auch selbst erzeugen würde. Es werden auch die Basismodell Dateien auf die Ausgabepfade kopiert.</para>
 
-<para>
-  &kmyapplication; allows the user to provide two different types of prompts files. One prompts file to compile the model and test the model. For more information, please see the section on <link linkend="effective_testing">effective testing</link>.
-</para>
+<para
+>&kmyapplication; erlaubt dem Benutzer zwei unterschiedliche Prompts Dateien anzugeben. Eine Promptsdatei wird verwendet das Modell zu kompilieren und eine um es zu testen. Mehr Informationen finden Sie in der <link linkend="effective_testing"
+>Sektion über effektives Testen</link
+>. </para>
 
 </sect1>
 
 <sect1 id="adapt_scenarios">
-  <title>Adapt scenarios</title>
+  <title
+>Szenarios adaptieren</title>
 
-  <para>simon stores the language model in scenarios. When you want to use them to compile the model, you first need to serialize them to files readable by Julius and the HTK.</para>
+  <para
+>simon speichert das Sprachmodell (language model) in Szenarios. Wenn Sie diese verwenden wollen um das Modell zu kompilieren müssen Sie sie zuerst in Dateien serialisieren die von Julius und dem HTK gelesen werden können.</para>
 
 <para>
 <screenshot>
-<screeninfo>Adapt scenarios</screeninfo>
+<screeninfo
+>Adaptiere Szenarios</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="adapt_scenarios.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Adapt scenarios</phrase>
+      <phrase
+>Adaptiere Szenarios</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-  <para>To do this, select <guibutton>Serialize scenarios</guibutton> button in the <link linkend="input_output">Input output tab</link>. simons scenarios will also be serialized when using the <guibutton>Modify simons model</guibutton> options.</para>
+  <para
+>Um das zu tun, wählen Sie den <guibutton
+>Serialisiere Szenarios</guibutton
+> Knopf im <link linkend="input_output"
+>Eingabe &amp; Ausgabe Reiter</link
+>. simons Szenarios werden auch serialisiert wenn Sie die <guibutton
+>Verändere simons Modell</guibutton
+> Option verwenden.</para>
 
-  <para>In this page you can find status information of the adaption and read detailed error messages if an error occurs.</para>
+  <para
+>Auf dieser Seite finden Sie Statusinformationen über die Adaption und können detailierte Fehlermeldungen finden sollte ein Fehler auftreten.</para>
 </sect1>
 
 <sect1 id="build_model">
-  <title>Create model</title>
+  <title
+>Modell erstellen</title>
 
-  <para>Here you can build the model using the input and output files defined in the <link linkend="input_output">input &amp; output section</link>.</para>
+  <para
+>Hier können Sie ein Modell aus den Eingabe- und Ausgabedateien erstellen die Sie in der <link linkend="input_output"
+>Eingabe &amp; Ausgabe Sektio</link
+> definiert haben.</para>
 
-  <para>The compilation process is identical to the one used by simond. Unlike simond, however, the full log of all called external programs, their output as well as progress information is shown regardless of wether the compilation was successful or not.</para>
+  <para
+>Der Erstellungsprozess ist ident zu dem von simond. Im Gegensatz zu simond wird allerdings das komplette Protokoll aufgerufener externer Kommandos sowie deren Startparameter ausgegeben egal ob die Kompilierung erfolgreich war oder nicht.</para>
 
 <para>
 <screenshot>
-<screeninfo>Create model</screeninfo>
+<screeninfo
+>Modell erstellen</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="build.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Create model</phrase>
+      <phrase
+>Modell erstellen</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-  <para>Using this verbose output it is much easier to find issues with the input data.</para>
+  <para
+>Mit diesem detailierten Output ist es viel leichter Probleme mit den Eingabedateien zu erkennen.</para>
 </sect1>
 
 <sect1 id="test">
-  <title>Test model</title>
-  <para>Here you can test the speech model.</para>
-  <para>&kmyapplication; will test the model set by in the <guilabel>Output files</guilabel> section in the <link linkend="input_output">input &amp; output section</link>.</para>
+  <title
+>Modell testen</title>
+  <para
+>Hier können Sie das Sprachmodell testen.</para>
+  <para
+>&kmyapplication; wird das Modell testen das in der <guilabel
+>Ausgabedateien</guilabel
+> Sektion in der <link linkend="input_output"
+>Eingabe &amp; Ausgabe Sektion</link
+> angegeben ist.</para>
 
-  <para>During testing, Julius will run to recognize on the input files as set by the test prompts. Resulting word- and sentence errors will be counted as well as the overall robustness by analyzing confidence scores of the recognizer.</para>
+  <para
+>Beim Testen wird Julius' Erkennung alle Eingabesamples analysieren die in der Testprompts angegeben sind. Resultierende Wort- und Satzfehler fließen ebenso in die Bewertung ein wie Julius' Erkennungsrate (confidence score).</para>
 
-  <para>To test the model successfully you also need <ulink url="http://sox.sourceforge.net">SoX</ulink> installed and in your path.</para>
+  <para
+>Um das Modell erfolgreich zu testen müssen Sie außerdem <ulink url="http://sox.sourceforge.net"
+>SoX</ulink
+> in Ihrem Systempfad installieren.</para>
 
-  <para>While the test is running you can watch the current recognition in the test protocol.</para>
+  <para
+>Während der Test läuft können Sie die aktuellen Erkennungsergebnisse im Testprotokolle überwachen.</para>
 <para>
 <screenshot>
-<screeninfo>Test model</screeninfo>
+<screeninfo
+>Modell testen</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="test_model.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>Test model</phrase>
+      <phrase
+>Model testen</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>As soon as the test is finished, the <link linkend="test_results">test results</link> will be automatically displayed.</para>
+<para
+>Sobald der Test fertig ist werden die <link linkend="test_results"
+>Testergebnisse</link
+> automatisch angezeigt.</para>
 
 
 </sect1>
 
 <sect1 id="test_results">
-  <title>Test results</title>
+  <title
+>Testergebnisse</title>
 
-  <para>After a successful <link linkend="test">model test</link> you can find a detailed report of the recognition accuracy here.</para>
+  <para
+>Nach einem erfolgreichen <link linkend="test"
+>Modelltest</link
+>, finden Sie einen detailierten Bericht über die Erkennungsraten die mit Ihrem Modell erzielt werden hier.</para>
 
   <sect2 id="scoring">
-    <title>Scoring</title>
+    <title
+>Bewertung</title>
 
-    <para>To best reflect the recognition performance, &kmyapplication; uses multiple, ranked results for the tests.</para>
+    <para
+>Um die Erkennungsperformance möglichst gut zu reflektieren verwendet &kmyapplication; mehrere bewertete Ergebnisse für die Tests.</para>
 
-    <para>A correctly recognized word or sentence will be scored with the confidence score the word achieved and the word will still be listed as "recognized" even tough another recognition result might be ranked higher than the correct one.</para>
+    <para
+>Ein korrekt erkanntes Wort oder Satz wird mit der Erkennungsrate bewertet die das jeweilige Ergebnis bei der Erkennung erreicht hat. Das Wort oder der Satz wird dann in jedem Fall als "erkannt" markiert - auch wenn ein anderes Ergebnis eine höhere Erkennungsrate hätte und somit das von simon preferierte Ergbenis wäre.</para>
 
-    <para>If for example the sample "flowers" is recognized as "flower" (90%), "flowers" (70%), "apple" (12%) it will be marked as "recognized" with a score of 70%.</para>
+    <para
+>Wenn z.B. die Aufnahme "Blumen" als "Blume" (90%), "Blumen" (70%), "Apfel" (12%) erkannt wird, wird die Aufnahme als erkannt gewertet und erzielt eine Erkennungsrate von 70%.</para>
 
-    <para>The displayed overall recognition rate is the average of the word recognition rate (average over each word) and the sentence recognition rate (average over each sentence).</para>
+    <para
+>Die angezeigte Gesamterkennungsrate ist der Durchschnitt der Worterkennungsraten (Durchschnitt über alle Worte) und Satzerkennungsrate (Durchschnitt aller Sätze).</para>
 
   </sect2>
 
   <sect2 id="test_results_words">
-    <title>Word</title>
+    <title
+>Wort</title>
 
-    <para>&kmyapplication; will list recognition accuracy for each word individually.</para>
+    <para
+>&kmyapplication; wird Erkennungsraten für jedes Wort einzeln auflisten.</para>
     
     <para>
     <screenshot>
-    <screeninfo>Word results</screeninfo>
+    <screeninfo
+>Wort Ergebnisse</screeninfo>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="test_results_words.png" format="PNG"/>
+          <imagedata fileref="test_result_words.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>Word results</phrase>
+          <phrase
+>Wort Ergebnisse</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
     </para>
 
-    <para>If you have samples containing more than one word they will be segment during recognition. Each word will be scored individually altough the different words of course still influence each other.</para>
+    <para
+>Wenn Sie Aufnahmen haben die mehr als ein Wort beinhalten werden Sie automatisch während der Erkennung segmentiert. Jedes Wort wird trotzdem einzeln bewertet obwohl die einzelnen Wörter sich natürlich immer noch gegenseitig beeinflussen.</para>
   </sect2>
 
   <sect2 id="test_results_sentences">
-    <title>Sentences</title>
-    <para>This section lists each prompt as "sentence".</para>
+    <title
+>Sätze</title>
+    <para
+>Diese Sektion listetet jeden Prompt als "Satz".</para>
 
-    <para>Prompts that were recorded more than once are combined.</para>
+    <para
+>Sätze die mehr als einmal vorkommen werden kombiniert.</para>
 
     <para>
     <screenshot>
-    <screeninfo>Sentence results</screeninfo>
+    <screeninfo
+>Satz Ergebnisse</screeninfo>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="test_results_sentences.png" format="PNG"/>
+          <imagedata fileref="test_result_sentences.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>Sentence results</phrase>
+          <phrase
+>Satz Ergebnisse</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
@@ -290,26 +431,36 @@
   </sect2>
 
   <sect2 id="test_results_files">
-    <title>Files</title>
-    <para>In the files section you can see the recognition results for each file. Each file will list the <link linkend="scoring">10 most likely results</link> in the details pane when you select it.</para>
+    <title
+>Dateien</title>
+    <para
+>In der Dateiensektion sehen Sie die Erkennungsergebnisse für jede Datei. Jede Aufnahme wird die <link linkend="scoring"
+>10 wahrscheinlichsten Ergebnisse</link
+> im Details-Feld anzeigen wenn Sie ausgewählt wird.</para>
 
     <para>
     <screenshot>
-    <screeninfo>File results</screeninfo>
+    <screeninfo
+>Datei Ergebnisse</screeninfo>
       <mediaobject>
         <imageobject>
-          <imagedata fileref="test_results_files.png" format="PNG"/>
+          <imagedata fileref="test_result_files.png" format="PNG"/>
         </imageobject>
         <textobject>
-          <phrase>File results</phrase>
+          <phrase
+>Datei Ergebnisse</phrase>
         </textobject>
       </mediaobject>
     </screenshot>
     </para>
 
-    <para>When you identify problematic samples, you can re-record (or remove) them by selecting them and clicking on <guibutton>Edit sample</guibutton>.</para>
+    <para
+>Wenn Sie problematische Aufnahmen identifizieren, können Sie sie neu aufnehmen (oder entfernen) indem Sie sie auswählen und dann auf <guibutton
+>Sprachaufnahme bearbeiten</guibutton
+> klicken.</para>
 
-    <para>You can sort the files by each column simply by clicking on the column header. This way it is very easy to find bad samples by sorting by recognition rate.</para>
+    <para
+>Sie können die Dateien sortieren indem Sie auf die jeweilige Spalte klicken nach der sortiert werden soll. Auf diese Weise ist es sehr einfach problematische Aufnahmen zu finden indem einfach nach Erkennungsrate sortiert wird.</para>
   </sect2>
 </sect1>
 
@@ -318,39 +469,46 @@
 
 
 <chapter id="faq">
-<title>Questions and Answers</title>
+<title
+>Fragen und Antworten</title>
 
-<para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
-</para>
+<para
+>Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in unserem <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Troubleshooting"
+>online Wiki</ulink
+> und somit für alle editierbar verwaltet. </para>
 
 </chapter>
 
 <chapter id="credits">
-<title>Credits and License</title>
+<title
+>Danksagungen und Lizenz</title>
 
-<para>
-&kmyapplication;
-</para>
-<para>
-Program copyright 2008-2010 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>&kmyapplication; </para>
+<para
+>Program copyright 2008-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<para>
-Documentation Copyright &copy; 2009-2010 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>Dokumentation Copyright &copy; 2009-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-
-&underFDL;               <!-- FDL: do not remove -->
-
-&underGPL;           <!-- GPL License -->
-
-</chapter>
+<para
+>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email
+>grasch@simon-listens.org</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
 
 <appendix id="installation">
-<title>Installation</title>
-<para>Please see our <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<title
+>Installation</title>
+<para
+>Bitte sehen Sie unser <ulink url="http://www.simon-listens.org/wiki/index.php/English:_Setup"
+>online Wiki</ulink
+> for eine detaillierte Installationsanleitung.</para>
 </appendix>
 
 &documentation.index;

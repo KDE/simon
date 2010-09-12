@@ -1149,7 +1149,7 @@ Every word states it "recognition rate" which at the moment is just a counter of
 <para>
 When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
 </para>
-<para>Because the shadow dictionary is not used for the recognition there are of course no trainings-samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
+<para>
 
 <screenshot>
 <screeninfo>Shadow Vocabulary</screeninfo>
@@ -2114,7 +2114,7 @@ Some command plugins might provide a configuration of the plugin itself (not the
 <screeninfo>Command plugged into main window</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="command_plugin.png" format="PNG"/>
+      <imagedata fileref="command_plug.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>

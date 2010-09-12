@@ -31,7 +31,7 @@
 </copyright>
 
 <date
->2010-07-25</date>
+>25. 7. 2010</date>
 <releaseinfo
 >0.3</releaseinfo>
 
@@ -1614,8 +1614,9 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 > kompiliert werden. Allerdings wird simon einen entsprechende Fehlermeldung anzeigen sollte dieses Problem eintreten. Allgemein ist es eine gute Idee jedes Wort mindestens ein oder zweimal aufzunehmen (am besten währen das <link linkend="add_word_record"
 >Wort hinzugefügt</link
 > wird) um diesen Problem grundsätzlich aus dem Weg zu gehen. </para>
-<para
->Weil das Schattenlexikon ja nicht für die Erkennung benutzt wird, werden seine Wörter auch niemals aufgenommen. Deshalb sind natürlich auch alle Einträge dunkelrot markiert. Das ist normal und kein Grund zur Besorgnis. <screenshot>
+<para>
+
+<screenshot>
 <screeninfo
 >Schattenvokabular</screeninfo>
   <mediaobject>
@@ -2808,7 +2809,7 @@ simon kann herkömmliche Textdateien importieren um Sie für das Training zu ver
 >Kommando im Hauptfenster eingebettet</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="command_plugin.png" format="PNG"/>
+      <imagedata fileref="command_plug.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
