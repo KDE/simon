@@ -34,9 +34,6 @@ commandCreaters(0)
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  //	ui.teDescription->hide();
-  //	ui.lbDescription->hide();
-
   ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
 
   setMainWidget( widget );

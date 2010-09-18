@@ -1930,7 +1930,14 @@ void RecognitionControl::recognizeSample(qint8 id)
  */
 RecognitionControl::~RecognitionControl()
 {
-  if (localSimond) localSimond->deleteLater();
+  if (localSimond) {
+    localSimond->terminate();
+    localSimond->waitForFinished(1000);
+    if (localSimond->state() != QProcess::NotRunning)
+      localSimond->kill();
+
+    localSimond->deleteLater();
+  }
   socket->deleteLater();
   timeoutWatcher->deleteLater();
 }

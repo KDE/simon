@@ -89,8 +89,10 @@ bool CommandManager::trigger(const QString& triggerName)
 
   foreach (Command* c, *commands) {
     if (c->matches(m_currentState, triggerName))
+    {
       if (c->trigger(&m_currentState))
         return true;
+    } else kDebug() << "Command doesn't match: " << c->getTrigger() << triggerName;
   }
 
   return false;
@@ -170,10 +172,12 @@ bool CommandManager::appendCommand(Command *c)
   if (!commands)
     commands = new CommandList();
 
-  beginInsertRows(QModelIndex(), commands->count(), commands->count());
+  int visibleCommands = rowCount();
+  beginInsertRows(QModelIndex(), visibleCommands, visibleCommands);
   c->setParent(this);                             //assign parent
   *commands << c;
   endInsertRows();
+
   return parentScenario->save();
 }
 
@@ -727,9 +731,10 @@ bool CommandManager::deleteCommand(Command *command)
 {
   if (!commands) return false;
 
+  int visibleIndex = 0;
   for (int i=0; i < commands->count(); i++) {
     if (commands->at(i) == command) {
-      beginRemoveRows(QModelIndex(), i, i);
+      beginRemoveRows(QModelIndex(), visibleIndex, visibleIndex);
       commands->removeAt(i);
       endRemoveRows();
 
@@ -739,6 +744,8 @@ bool CommandManager::deleteCommand(Command *command)
       delete command;
       return parentScenario->save();
     }
+    if (!commands->at(i)->getHidden())
+      ++visibleIndex;
   }
 
   return false;
@@ -810,10 +817,10 @@ QVariant CommandManager::data(const QModelIndex &index, int role) const
   if (!index.isValid() || !commands) return QVariant();
 
   if (role == Qt::DisplayRole)
-    return commands->at(index.row())->getTrigger();
+    return commands->at(resolveRowNumber(index.row()))->getTrigger();
 
   if (role == Qt::DecorationRole)
-    return commands->at(index.row())->getIcon();
+    return commands->at(resolveRowNumber(index.row()))->getIcon();
 
   return QVariant();
 }
@@ -853,7 +860,13 @@ QModelIndex CommandManager::parent(const QModelIndex &index) const
 int CommandManager::rowCount(const QModelIndex &parent) const
 {
   if (!parent.isValid() && commands)
-    return commands->count();
+  {
+    int count = 0;
+    foreach (Command* c, *commands)
+      if (!c->getHidden())
+        ++count;
+    return count;
+  }
   else return 0;
 }
 
@@ -870,7 +883,27 @@ QModelIndex CommandManager::index(int row, int column, const QModelIndex &parent
   if (!hasIndex(row, column, parent) || parent.isValid() || !commands)
     return QModelIndex();
 
-  return createIndex(row, column, commands->at(row));
+
+   return createIndex(row, column, commands->at(resolveRowNumber(row)));
+}
+
+int CommandManager::resolveRowNumber(int in) const
+{
+  int hiddenBefore=0;
+  int shownBefore=0;
+
+  while (shownBefore < in)
+  {
+    if (commands->at(shownBefore+hiddenBefore)->getHidden())
+      ++hiddenBefore;
+    else 
+      ++shownBefore;
+  }
+
+  while (commands->at(shownBefore+hiddenBefore)->getHidden())
+    hiddenBefore++;
+
+  return hiddenBefore + shownBefore;
 }
 
 

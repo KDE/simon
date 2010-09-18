@@ -17,42 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_EXECUTABLECOMMANDMANAGER_H_1234C148A54C491F8324D40535523A70
-#define SIMON_EXECUTABLECOMMANDMANAGER_H_1234C148A54C491F8324D40535523A70
+#ifndef SIMON_CREATEDIALOGCOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
+#define SIMON_CREATEDIALOGCOMMANDWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 
-#include <simonscenarios/commandmanager.h>
-#include <QVariantList>
+#include <QWidget>
+#include <simonscenarios/createcommandwidget.h>
+#include "ui_createdialogcommandwidget.h"
 
-class CreateExecutableCommandWidget;
+class Command;
+class CommandManager;
+
 /**
- *	@class ExecutableCommandManager
- *	@brief Manager for the executable commands
+ *	@class CreateDialogCommandWidget
+ *	@brief Provides a widget to modify the specific attributes of an DialogCommand
  *
  *	@version 0.1
- *	@date 20.05.2008
+ *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class ExecutableCommandManager : public CommandManager
+class CreateDialogCommandWidget : public CreateCommandWidget
 {
   Q_OBJECT
 
-  protected:
-    bool shouldAcceptCommand(Command *command);
-  public:
-    const QString name() const;
-    const QString iconSrc() const;
-    CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+    private:
+    Ui::CreateDialogCommandWidget ui;
 
-    DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_H;
+
+  public:
+    Command* createCommand(const QString& name, const QString& iconSrc, const QString& description);
+
+    bool init(Command* command);
+    bool isComplete();
 
     /**
      * @brief Constructor
      *
      *	@author Peter Grasch
      */
-    ExecutableCommandManager(QObject* parent, const QVariantList& args);
+    explicit CreateDialogCommandWidget(CommandManager *manager, QWidget *parent=0);
 
-    ~ExecutableCommandManager();
+    virtual ~CreateDialogCommandWidget();
 
 };
 #endif
