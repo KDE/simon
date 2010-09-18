@@ -1,4 +1,4 @@
-include(FindQt4)
+find_package(Qt4 COMPONENTS QtCore QtDbus QtGui)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
@@ -32,6 +32,9 @@ kde4_add_ui_files( simonactions_LIB_SRCS
 		${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/listconfigurationdlg.ui
 	)
+
+qt4_add_dbus_adaptor( simonactions_LIB_SRCS org.simon-listens.ActionManager.xml
+  actionmanager.h ActionManager)
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 

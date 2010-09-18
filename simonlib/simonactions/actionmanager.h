@@ -36,10 +36,10 @@ class Action;
 
 class SIMONACTIONS_EXPORT ActionManager : public QObject
 {
-
   Q_OBJECT
+  Q_CLASSINFO("simons action interface", "org.simon-listens.ActionManager")
 
-    private:
+  private:
     static ActionManager* instance;
 
     QList<Action::Ptr> actions;
@@ -50,16 +50,13 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     float minimumConfidenceThreshold;
     bool useDYM;
 
-  protected:
-    ActionManager(QObject *parent=0);
-
   private slots:
     void resultSelectionDone();
 
-  public:
-    void retrieveRecognitionResultFilteringParameters();
-    static ActionManager* getInstance();
+  protected:
+    ActionManager(QObject *parent=0);
 
+  public slots:
     void processRawResults(RecognitionResultList* recognitionResults);
     void presentUserWithResults(RecognitionResultList* recognitionResults);
     bool processResult(RecognitionResult recognitionResult);
@@ -69,9 +66,15 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     void registerGreedyReceiver(GreedyReceiver *);
 
     CommandList* getCommandList();
+
     QFont pluginBaseFont();
+
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getGlobalListInterfaceCommands();
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListInterfaceCommands();
+
+  public:
+    void retrieveRecognitionResultFilteringParameters();
+    static ActionManager* getInstance();
 
     ~ActionManager();
 

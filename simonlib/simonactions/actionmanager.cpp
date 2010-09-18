@@ -18,6 +18,7 @@
  */
 
 #include "actionmanager.h"
+#include "actionmanageradaptor.h"
 
 #include "listcommand.h"
 #include "commandsettingsinternal.h"
@@ -32,6 +33,7 @@
 
 #include <QFile>
 #include <QMetaObject>
+#include <QDBusConnection>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -54,6 +56,11 @@ minimumConfidenceThreshold(0.45),
 useDYM(false)
 {
   retrieveRecognitionResultFilteringParameters();
+
+  new ActionManagerAdaptor(this);
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  dbus.registerObject("/ActionManager", this);
+  dbus.registerService("org.simon-listens.ActionManager");
 }
 
 ActionManager* ActionManager::getInstance()
