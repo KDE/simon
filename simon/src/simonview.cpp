@@ -27,6 +27,8 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 
+#include <simonsound/volumewidget.h>
+
 #include <simonactions/commandsettings.h>
 #include <simonactionsui/runcommandview.h>
 #include <simonuicomponents/trayiconmanager.h>
@@ -367,6 +369,14 @@ void SimonView::setupActions()
   connect(commands, SIGNAL(triggered(bool)),
     this, SLOT(showRunDialog()));
 
+  KAction* volumeCalibration = new KAction(this);
+  volumeCalibration->setText(i18n("Volume calibration"));
+  volumeCalibration->setIcon(KIcon("player-volume"));
+  volumeCalibration->setShortcut(Qt::CTRL + Qt::Key_V);
+  actionCollection()->addAction("volumeCalibration", volumeCalibration);
+  connect(volumeCalibration, SIGNAL(triggered(bool)),
+    this, SLOT(showVolumeCalibration()));
+
   KAction* wordlist = new KAction(this);
   wordlist->setText(i18n("Vocabulary"));
   wordlist->setIcon(KIcon("format-justify-fill"));
@@ -418,6 +428,15 @@ void SimonView::setupActions()
   displayScenarioPrivate(ScenarioManager::getInstance()->getCurrentScenario());
 }
 
+void SimonView::showVolumeCalibration()
+{
+  VolumeWidget *widget = new VolumeWidget(0);
+  widget->init();
+  widget->setWindowTitle(i18n("Volume calibration"));
+  widget->start();
+  widget->setAttribute(Qt::WA_DeleteOnClose);
+  widget->show();
+}
 
 void SimonView::displayScenarioPrivate(Scenario *scenario)
 {
