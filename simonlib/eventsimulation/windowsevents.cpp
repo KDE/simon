@@ -505,27 +505,32 @@ void WindowsEvents::unsetModifier(int virtualKey)
 void WindowsEvents::unsetUnneededModifiers()
 {
   if (shiftSet && shiftOnce) {
-    unsetModifier(VK_SHIFT);
+    unsetModifier(Qt::SHIFT);
+    //unsetModifier(VK_SHIFT);
     shiftSet=false;
     shiftOnce=false;
   }
   if (altSet && altOnce) {
-    unsetModifier(VK_MENU);
+    unsetModifier(Qt::ALT);
+    //unsetModifier(VK_MENU);
     altSet=false;
     altOnce=false;
   }
   if (strgSet && strgOnce) {
-    unsetModifier(VK_CONTROL);
+    unsetModifier(Qt::CTRL);
+    //unsetModifier(VK_CONTROL);
     strgSet=false;
     strgOnce=false;
   }
   if (superSet && superOnce) {
-    unsetModifier(VK_LWIN);
+    unsetModifier(Qt::META);
+    //unsetModifier(VK_LWIN);
     superSet=false;
     superOnce=false;
   }
   if (altgrSet && altgrOnce) {
-    unsetModifier(VK_RMENU);
+    unsetModifier(Qt::Key_AltGr);
+    //unsetModifier(VK_RMENU);
     altgrSet=false;
     altgrOnce=false;
   }
