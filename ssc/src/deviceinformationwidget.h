@@ -38,12 +38,14 @@ class DeviceInformationWidget : public QWidget
 
   Q_OBJECT
 
-    signals:
-  void completeChanged();
+  signals:
+    void completeChanged();
 
   private:
     Ui::DeviceInformationWidget *ui;
     QString m_deviceName;
+	int m_channels;
+	int m_sampleRate;
 
   public:
     void deleteLater();
@@ -62,5 +64,6 @@ class DeviceInformationWidget : public QWidget
 
     void serialize(QSettings& ini) const;
     void deserialize(QSettings& ini);
+    SimonSound::DeviceConfiguration buildDevice();
 };
 #endif

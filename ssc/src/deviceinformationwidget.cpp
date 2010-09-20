@@ -86,6 +86,8 @@ void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& devic
   }
 
   m_deviceName = device.name();
+  m_channels = device.channels();
+  m_sampleRate = device.sampleRate();
   ui->lbDevice->setText(device.name());
   ui->cbModel->setEditText(deviceName);
   ui->cbType->setEditText(deviceType);
@@ -169,6 +171,8 @@ void DeviceInformationWidget::serialize(QSettings& ini) const
   ini.setValue("DeviceType", getType());
   ini.setValue("MicName", getMicModel());
   ini.setValue("MicType", getMicType());
+  ini.setValue("Channels", m_channels);
+  ini.setValue("SampleRate", m_sampleRate);
 }
 
 
@@ -180,8 +184,14 @@ void DeviceInformationWidget::deserialize(QSettings& ini)
   ui->cbType->setEditText(ini.value("DeviceType").toString());
   ui->cbMicModel->setEditText(ini.value("MicName").toString());
   ui->cbMicType->setEditText(ini.value("MicType").toString());
+  m_channels = ini.value("Channels").toInt();
+  m_sampleRate = ini.value("SampleRate").toInt();
 }
 
+SimonSound::DeviceConfiguration DeviceInformationWidget::buildDevice()
+{
+  return SimonSound::DeviceConfiguration(m_deviceName, m_channels, m_sampleRate);
+}
 
 DeviceInformationWidget::~DeviceInformationWidget()
 {

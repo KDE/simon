@@ -102,6 +102,7 @@ bool SampleDataProvider::startTransmission()
     fprintf(stderr, "Mapping building failed.\n");
     return false;
   }
+  kDebug() << "Found Microphones: " << microphones.keys();
 
   kDebug() << "Microphone done...";
   fprintf(stderr, "Building soundcards mappings\n");
@@ -110,6 +111,7 @@ bool SampleDataProvider::startTransmission()
     fprintf(stderr, "Building mappings for soundcards failed\n");
     return false;
   }
+  kDebug() << "Found Soundcards: " << soundCards.keys();
 
   fprintf(stderr, "Starting transmission\n");
   kDebug() << "Starting transmission";
@@ -118,6 +120,8 @@ bool SampleDataProvider::startTransmission()
     QStringList fileNames = page->getFileNames();
     QStringList devices = page->getDevices();
 
+	kDebug() << "Page contains these files: " << fileNames;
+	kDebug() << "Recorded with these devices: " << devices;
     Q_ASSERT(fileNames.count() == devices.count());
 
     for (int i=0; i < fileNames.count(); i++) {

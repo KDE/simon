@@ -23,6 +23,7 @@
 #include <QWizardPage>
 #include <QList>
 #include <QHash>
+#include <simonsound/simonsound.h>
 
 class QScrollArea;
 class DeviceInformationWidget;
@@ -51,6 +52,8 @@ class DeviceInformationPage : public QWizardPage
 
     QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
     QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+	
+    QList<SimonSound::DeviceConfiguration> buildDeviceList();
 
     bool isComplete() const;
     bool validatePage();
