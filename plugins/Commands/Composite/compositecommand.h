@@ -41,6 +41,7 @@ class CompositeCommand : public Command
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
     bool triggerPrivate(int *state);
+    void triggerPrivateThread();
     bool deSerializePrivate(const QDomElement& commandElem);
 
     CompositeCommand() {}
