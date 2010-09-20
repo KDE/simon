@@ -100,6 +100,27 @@ bool CommandManager::trigger(const QString& triggerName)
 
 
 /**
+ * \brief Directly executes the given command
+ *
+ * This function will do nothing if the given command is not managed by this manager.
+ *
+ * Use this instead of directly calling \sa Command::trigger to use the CommandManagers
+ * internal state.
+ *
+ * \see trigger(const QString&)
+ * \param command The command to execute
+ * \return True if the CommandManagers accepts the command
+ */
+bool CommandManager::triggerCommand(Command *command)
+{
+  if (!commands || !commands->contains(command))
+    return false;
+
+  return command->trigger(&m_currentState);
+}
+
+
+/**
  * \brief Low level access to the selected recognition result
  *
  * Re-implement this if you need access to the raw recognition result instead of

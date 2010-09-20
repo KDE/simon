@@ -116,9 +116,9 @@ void RunCommandViewPrivate::displayScenarioPrivate(Scenario *scenario)
 void RunCommandViewPrivate::triggerCommand()
 {
   Command *com = getCurrentCommand();
-  int state = SimonCommand::DefaultState;
-  if (com)
-    com->trigger(&state);
+  Action *a = getCurrentlySelectedAction();
+  if (a && a->manager())
+    a->manager()->triggerCommand(com);
 }
 
 

@@ -72,6 +72,7 @@ bool Command::trigger(int* state)
   {
     *state = switchToState;
     kDebug() << "Switchting to state: " << switchToState << getTrigger();
+    kDebug() << "Switchting to state: " << state;
   }
   return triggerPrivate(state);
 }

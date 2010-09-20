@@ -367,6 +367,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
     virtual QDomElement serializeCommands(QDomDocument *doc);
 
     virtual bool trigger(const QString& triggerName);
+    virtual bool triggerCommand(Command *command);
 
     virtual bool installInterfaceCommand(QObject* object, const QString& slot,
     const QString& actionName, const QString& iconSrc,
