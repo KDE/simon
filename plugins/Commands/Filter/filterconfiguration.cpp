@@ -44,6 +44,16 @@ QString FilterConfiguration::regExp() const
   return ui.leRegExp->text();
 }
 
+bool FilterConfiguration::relayStageOne() const
+{
+  return ui.cbRelayStageOne->isChecked();
+}
+
+bool FilterConfiguration::twoStage() const
+{
+  return ui.cbTwoStage->isChecked();
+}
+
 
 bool FilterConfiguration::deSerialize(const QDomElement& elem)
 {
@@ -54,6 +64,8 @@ bool FilterConfiguration::deSerialize(const QDomElement& elem)
   else
     ui.leRegExp->setText(regExpElem.text());
 
+  ui.cbTwoStage->setChecked(elem.firstChildElement("twoStage").text() == "1");
+  ui.cbRelayStageOne->setChecked(elem.firstChildElement("relayStageOne").text() == "1");
   return true;
 }
 
@@ -65,7 +77,15 @@ QDomElement FilterConfiguration::serialize(QDomDocument *doc)
   QDomElement regExpElem = doc->createElement("regExp");
   regExpElem.appendChild(doc->createTextNode(regExp()));
 
+  QDomElement twoStageElem = doc->createElement("twoStage");
+  twoStageElem.appendChild(doc->createTextNode(twoStage() ? "1" : "0"));
+
+  QDomElement relayElem = doc->createElement("relayStageOne");
+  relayElem.appendChild(doc->createTextNode(relayStageOne() ? "1" : "0"));
+
   configElem.appendChild(regExpElem);
+  configElem.appendChild(twoStageElem);
+  configElem.appendChild(relayElem);
 
   return configElem;
 }
@@ -74,6 +94,8 @@ QDomElement FilterConfiguration::serialize(QDomDocument *doc)
 void FilterConfiguration::defaults()
 {
   ui.leRegExp->setText(i18n(".*"));
+  ui.cbTwoStage->setChecked(false);
+  ui.cbRelayStageOne->setChecked(false);
 }
 
 

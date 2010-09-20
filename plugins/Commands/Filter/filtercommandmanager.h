@@ -25,6 +25,7 @@
 #include <QVariantList>
 
 class KAction;
+class FilterConfiguration;
 
 /**
  *	@class FilterCommandManager
@@ -38,15 +39,18 @@ class FilterCommandManager : public CommandManager
 {
   Q_OBJECT
 
-    protected:
+  protected:
     bool isActive;
+    bool stageOne;
     bool trigger(const QString& triggerName);
     void updateAction();
+    FilterConfiguration* configuration();
 
   public slots:
     void toggle();
     void activateFilter();
     void deactivateFilter();
+    void deactivateOnce();
   public:
     const QString preferredTrigger() const;
     const QString iconSrc() const;

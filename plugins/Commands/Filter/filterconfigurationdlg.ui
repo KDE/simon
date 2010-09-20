@@ -36,6 +36,20 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="cbTwoStage">
+     <property name="text">
+      <string>Two stage activation</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbRelayStageOne">
+     <property name="text">
+      <string>Relay result in stage one of two stage activation</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

@@ -43,5 +43,7 @@ class FilterConfiguration : public CommandConfiguration
 
     //configuration options
     QString regExp() const;
+    bool relayStageOne() const;
+    bool twoStage() const;
 };
 #endif
