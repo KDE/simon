@@ -66,3 +66,8 @@ void GreedyReceiver::stopGreedy()
   if (m_manager)
     m_manager->setGreedyStatus(false);
 }
+
+GreedyReceiver::~GreedyReceiver()
+{
+  ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+}

@@ -143,7 +143,7 @@ class SIMONACTIONS_EXPORT GreedyReceiver
     /**
      * \brief Destructor
      */
-    virtual ~GreedyReceiver() {}
+    virtual ~GreedyReceiver();
 
 };
 #endif

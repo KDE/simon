@@ -149,5 +149,5 @@ bool PronunciationTraining::greedyTriggerRawList(RecognitionResultList* results)
 
 PronunciationTraining::~PronunciationTraining()
 {
-  stopGreedy();
+  //stopGreedy();
 }
