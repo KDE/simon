@@ -21,6 +21,7 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <QRegExp>
+#include <QTimer>
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
@@ -34,6 +35,7 @@ K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
 FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
 isActive(false),
+stageOne(false),
 activateAction(new KAction(this))
 {
   activateAction->setText(i18n("Activate Filter"));
@@ -82,25 +84,69 @@ void FilterCommandManager::activateFilter()
 {
   if (isActive) return;
   toggle();
+  stageOne = false;
 }
 
 void FilterCommandManager::deactivateFilter()
 {
   if (!isActive) return;
   toggle();
+  stageOne = false;
 }
 
+void FilterCommandManager::deactivateOnce()
+{
+  if (!isActive) return;
+  stageOne = true;
+  if (configuration()->autoLeaveStageOne())
+  {
+    QTimer::singleShot(configuration()->autoLeaveStageOneTimeout(), this, SLOT(leaveStageOne()));
+  }
+}
+
+FilterConfiguration* FilterCommandManager::configuration()
+{
+  return static_cast<FilterConfiguration*>(config);
+}
+
+void FilterCommandManager::leaveStageOne()
+{
+  if (!configuration()->twoStage() || !stageOne) return;
+
+  stageOne = false;
+  switchToState(SimonCommand::DefaultState+1);
+}
 
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
+  kDebug() << "Current state: " << m_currentState;
+  kDebug() << "Trigger: " << triggerName;
+  kDebug() << "Is active: " << isActive;
+  kDebug() << "Is in stage one: " << stageOne;
+  kDebug() << "Is two stage: " << configuration()->twoStage();
+  kDebug() << "Relay two stage: " << configuration()->relayStageOne();
+  
+  if ((m_currentState == SimonCommand::DefaultState+1) && (!configuration()->twoStage()))
+  {
+    switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediatly
+  }
+
   if (CommandManager::trigger(triggerName))
     return true;
 
-  //would pass through - should it?
-  if (!isActive)
-    return false;
+  if (configuration()->twoStage() && stageOne)
+    switchToState(SimonCommand::DefaultState+1);
 
-  if (triggerName.contains(QRegExp(dynamic_cast<FilterConfiguration*>(config)->regExp())))
+  //would pass through - should it?
+  if (!isActive || (configuration()->twoStage() && stageOne && configuration()->relayStageOne()))
+  {
+    stageOne = false;
+    return false;
+  }
+
+  stageOne = false;
+
+  if (triggerName.contains(QRegExp(configuration()->regExp())))
     return true;                                  //matches so filter it out!
 
   //not for us
@@ -124,10 +170,26 @@ bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
 
   succ &= installInterfaceCommand(this, "deactivateFilter", i18n("Deactivate filter"), "view-filter",
     i18n("Stops filtering"), true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState+1 /* consider this command when in this state */,
+    SimonCommand::DefaultState+2 /* consider this command when in this state */,
     SimonCommand::DefaultState,                   /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "stopsFiltering" /* id */);
+
+  succ &= installInterfaceCommand(this, "deactivateOnce", i18n("Deactivate filter once"), "view-filter",
+    i18n("When two stage mode is activated; Will consider the next recognition result and either only listen for the command to deactivate the filter completely or also pass the next result through to other plugins depending on the setting in the configuration."), true /* announce */, true /* show icon */,
+    SimonCommand::DefaultState+1 /* consider this command when in this state */,
+    SimonCommand::DefaultState+2,                   /* if executed switch to this state */
+    QString() /* take default visible id from action name */,
+    "stopsFilteringOnce" /* id */);
+
+#if 0
+  succ &= installInterfaceCommand(this, "deactivateFilterFinal", i18n("Deactivate filter (Stage two)"), "view-filter",
+    i18n("Stops filtering until filter is activated again in the two stage filter mode"), true /* announce */, true /* show icon */,
+    SimonCommand::DefaultState+2 /* consider this command when in this state */,
+    SimonCommand::DefaultState,                   /* if executed switch to this state */
+    QString() /* take default visible id from action name */,
+    "stopsFilteringFinal" /* id */);
+#endif
 
   if (!succ)
     kDebug() << "Something went wrong!";

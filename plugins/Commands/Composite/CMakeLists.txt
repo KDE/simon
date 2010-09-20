@@ -1,4 +1,5 @@
 find_package(KDE4 REQUIRED)
+find_package(Qt4 COMPONENTS QtConcurrent)
 include(KDE4Defaults)
 include(KDE4Macros)
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -21,7 +22,7 @@ kde4_add_plugin(simoncompositecommandplugin ${simoncompositecommandplugin_SRCS})
 
 
 target_link_libraries(simoncompositecommandplugin ${KDE4_KDEUI_LIBS}
-	${KDE4_KIO_LIBS} simonscenarios simonactions simonlogging simonscenariobase)
+	${KDE4_KIO_LIBS} ${QT_LIBRARIES} simonscenarios simonactions simonlogging simonscenariobase)
 
 install(TARGETS simoncompositecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )
 install( FILES simoncompositecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcompositeplugin )

@@ -26,6 +26,7 @@
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>
+#include <QtConcurrentRun>
 #ifdef Q_OS_WIN32
 #include <windows.h>
 #else
@@ -89,11 +90,8 @@ QDomElement CompositeCommand::serializePrivate(QDomDocument *doc, QDomElement& c
 }
 
 
-bool CompositeCommand::triggerPrivate(int *state)
+void CompositeCommand::triggerPrivateThread()
 {
-  Q_UNUSED(state);
-  Q_ASSERT(commands.count() == commandTypes.count());
-
   for (int i=0; i<commands.count();i++) {
     QString type = commandTypes[i];
     kDebug() << type << i18n("Delay");
@@ -110,8 +108,19 @@ bool CompositeCommand::triggerPrivate(int *state)
       #endif
     }
     else
-      ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);
+      QMetaObject::invokeMethod(ActionManager::getInstance(), "triggerCommand", Qt::QueuedConnection, 
+          QGenericReturnArgument(), Q_ARG(QString, commandTypes[i]), Q_ARG(QString, commands[i]));
   }
+}
+
+
+bool CompositeCommand::triggerPrivate(int *state)
+{
+  Q_UNUSED(state);
+  Q_ASSERT(commands.count() == commandTypes.count());
+
+  QtConcurrent::run(this, &CompositeCommand::triggerPrivateThread);
+  //triggerPrivateThread();
 
   return true;
 }

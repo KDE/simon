@@ -113,6 +113,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void updateScenarioDisplays();
     void updateActionList();
     void displayScenarios();
+    void showVolumeCalibration();
 
   #ifdef DEBUG_TEST_SYNCHRONIZATION
     void testSlot();
