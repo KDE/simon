@@ -69,6 +69,7 @@ class ClientSocket : public QSslSocket
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
+    void recognitionDone(const QString& fileName);
 
   private slots:
     void startSynchronisation();
