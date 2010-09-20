@@ -461,12 +461,36 @@ void WindowsEvents::pressVk(BYTE vK, PressMode mode)
  * @param int virtualKey
  *
  *
- * @author Phillip Goriup
+ * @author Peter Grasch
  */
 void WindowsEvents::unsetModifier(int virtualKey)
 {
-  //keybd_event(virtualKey,0,KEYEVENTF_KEYUP,0);
-  pressVk(virtualKey, Up);
+  int msVirtualKey = 0;
+  
+  if (virtualKey & Qt::SHIFT) {
+	pressVk(VK_SHIFT, Up);
+    shiftSet=false;
+  }
+
+  if (virtualKey & Qt::Key_AltGr) {
+	pressVk(VK_RMENU, Up);
+    altgrSet=false;
+  }
+
+  if (virtualKey & Qt::CTRL) {
+	pressVk(VK_CONTROL, Up);
+    strgSet=false;
+  }
+
+  if (virtualKey & Qt::ALT) {
+	pressVk(VK_MENU, Up);
+    altSet=false;
+  }
+
+  if (virtualKey & Qt::META) {
+	pressVk(VK_LWIN, Up);
+    superSet=false;
+  }
 }
 
 
