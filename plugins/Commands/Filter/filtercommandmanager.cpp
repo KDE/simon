@@ -120,6 +120,7 @@ void FilterCommandManager::leaveStageOne()
 bool FilterCommandManager::trigger(const QString& triggerName)
 {
   kDebug() << "Current state: " << m_currentState;
+  kDebug() << "Current state: " << &m_currentState;
   kDebug() << "Trigger: " << triggerName;
   kDebug() << "Is active: " << isActive;
   kDebug() << "Is in stage one: " << stageOne;
@@ -181,15 +182,6 @@ bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
     SimonCommand::DefaultState+2,                   /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "stopsFilteringOnce" /* id */);
-
-#if 0
-  succ &= installInterfaceCommand(this, "deactivateFilterFinal", i18n("Deactivate filter (Stage two)"), "view-filter",
-    i18n("Stops filtering until filter is activated again in the two stage filter mode"), true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState+2 /* consider this command when in this state */,
-    SimonCommand::DefaultState,                   /* if executed switch to this state */
-    QString() /* take default visible id from action name */,
-    "stopsFilteringFinal" /* id */);
-#endif
 
   if (!succ)
     kDebug() << "Something went wrong!";
