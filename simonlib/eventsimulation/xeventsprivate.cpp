@@ -139,7 +139,7 @@ void XEventsPrivate::dragAndDrop(int xStart, int yStart, int x, int y)
  * \brief Resolves the string to an appropriate keysym and sends it using pressKey(...)
  * \author Peter Grasch
  * @param keysymString The string to convert/send
- * @see sendKey()
+ * @see pressKey()
  */
 void XEventsPrivate::sendKeySymString(const QString& keysymString)
 {
