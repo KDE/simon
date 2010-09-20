@@ -29,6 +29,7 @@ class Action;
 class CommandConfiguration;
 class KPageWidget;
 class KPageWidgetItem;
+class ManageActionsAutorunWidget;
 class ListConfiguration;
 
 class ManageActionsDialog : public KDialog
@@ -44,6 +45,7 @@ class ManageActionsDialog : public KDialog
 
     QList<CommandConfiguration*>* configurationPages;
 
+    ManageActionsAutorunWidget *manageActionsAutorunWidget;
     ListConfiguration *listConfiguration;
 
     Action* getCurrentlySelectedAction();

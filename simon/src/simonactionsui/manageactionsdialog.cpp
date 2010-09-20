@@ -18,6 +18,7 @@
  */
 
 #include "manageactionsdialog.h"
+#include "manageactionsautorunwidget.h"
 #include "addactiondialog.h"
 
 #include <simonactions/listconfiguration.h>
@@ -34,6 +35,7 @@
 
 ManageActionsDialog::ManageActionsDialog(QWidget* parent) : KDialog(parent),
 pageWidget(new KPageWidget(this)),
+manageActionsAutorunWidget(new ManageActionsAutorunWidget(this)),
 listConfiguration(new ListConfiguration(this))
 {
   setCaption( i18n("Manage actions") );
@@ -68,6 +70,7 @@ listConfiguration(new ListConfiguration(this))
   connect(ui.lvPlugins, SIGNAL(clicked(const QModelIndex&)), this, SLOT(currentSelectionChanged()));
 
   ui.twActionConfig->addTab(listConfiguration, i18n("Lists"));
+  ui.twActionConfig->addTab(manageActionsAutorunWidget, i18n("Autorun"));
 }
 
 
@@ -118,6 +121,7 @@ int ManageActionsDialog::exec()
     listConfiguration->prepareToSave();
     ScenarioManager::getInstance()->getCurrentScenario()->setListInterfaceCommands(
       listConfiguration->getListInterfaceCommands());
+    manageActionsAutorunWidget->save();
     ScenarioManager::getInstance()->getCurrentScenario()->save();
   }
   ScenarioManager::getInstance()->commitGroup();
@@ -215,4 +219,5 @@ ManageActionsDialog::~ManageActionsDialog()
   }
   pages.clear();
   delete configurationPages;
+  delete manageActionsAutorunWidget;
 }

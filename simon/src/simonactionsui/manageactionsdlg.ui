@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="KTabWidget" name="twActionConfig">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string comment="General settings">General</string>

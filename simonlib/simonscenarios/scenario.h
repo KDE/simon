@@ -136,6 +136,11 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     bool removeCommand(Command *command);
 
+    bool setAutorun(bool active, const QString& type, const QString& trigger);
+    bool autorunActive();
+    QString autorunType();
+    QString autorunTrigger();
+
     bool processResult(RecognitionResult recognitionResult);
     bool triggerCommand(const QString& type, const QString& trigger);
 

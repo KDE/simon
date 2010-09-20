@@ -698,6 +698,25 @@ bool Scenario::removeCommand(Command *command)
   return m_actionCollection->removeCommand(command);
 }
 
+bool Scenario::setAutorun(bool active, const QString& type, const QString& trigger)
+{
+  return m_actionCollection->setAutorun(active, type, trigger);
+}
+
+bool Scenario::autorunActive()
+{
+  return m_actionCollection->autorunActive();
+}
+
+QString Scenario::autorunType()
+{
+  return m_actionCollection->autorunType();
+}
+
+QString Scenario::autorunTrigger()
+{
+  return m_actionCollection->autorunTrigger();
+}
 
 bool Scenario::processResult(RecognitionResult recognitionResult)
 {

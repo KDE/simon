@@ -44,6 +44,8 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
   private:
     ActionCommandModel *proxy;
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+    bool m_autorunActive;
+    QString m_autorunCommand, m_autorunType;
 
   public:
     ActionCollection(Scenario *parent);
@@ -61,6 +63,10 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
     QList<Action*> actions() { return m_actions; }
 
     bool removeCommand(Command *command);
+    bool setAutorun(bool active, const QString& type, const QString& trigger);
+    bool autorunActive();
+    QString autorunType();
+    QString autorunTrigger();
 
     bool addAction(Action *action, bool silent, bool save);
     bool deleteAction(Action *action);

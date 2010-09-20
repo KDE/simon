@@ -13,6 +13,7 @@ set( simonactionsui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandpreviewwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/newcommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/manageactionsdialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/manageactionsautorunwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/runcommandview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/runcommandviewprivate.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/addactiondialog.cpp
@@ -27,6 +28,7 @@ kde4_add_ui_files( simonactionsui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modifycommands.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/rundialog.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/manageactionsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/manageactionsautorunwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/addactiondlg.ui
 )
 

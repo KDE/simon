@@ -86,6 +86,11 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
     }
   }
 
+  QDomElement autorunElem = actionCollectionElem.firstChildElement("autorun");
+  m_autorunActive = autorunElem.attribute("active") == "1";
+  m_autorunCommand = autorunElem.firstChildElement("trigger").text();
+  m_autorunType = autorunElem.firstChildElement("category").text();
+
   //clean member
   qDeleteAll(m_actions);
   m_actions.clear();
@@ -105,6 +110,13 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
   }
   proxy->update();
   reset();
+
+  if (m_autorunActive)
+  {
+    bool succ = triggerCommand(m_autorunType, m_autorunCommand);
+    kDebug() << "Executed autorun command; Success: " << succ;
+  }
+
   return true;
 }
 
@@ -118,6 +130,16 @@ QDomElement ActionCollection::createEmpty(QDomDocument *doc)
 QDomElement ActionCollection::serialize(QDomDocument *doc)
 {
   QDomElement actionsElem = createEmpty(doc);
+
+  QDomElement autorunElem = doc->createElement("autorun");
+  autorunElem.setAttribute("active", m_autorunActive ? "1" : "0");
+  QDomElement autorunCommandElem = doc->createElement("trigger");
+  autorunCommandElem.appendChild(doc->createTextNode(m_autorunCommand));
+  QDomElement autorunCategoryElem = doc->createElement("category");
+  autorunCategoryElem.appendChild(doc->createTextNode(m_autorunType));
+  autorunElem.appendChild(autorunCommandElem);
+  autorunElem.appendChild(autorunCategoryElem);
+  actionsElem.appendChild(autorunElem);
 
   QDomElement listInterfaceCommandsElem = doc->createElement("lists");
 
@@ -206,6 +228,29 @@ bool ActionCollection::removeCommand(Command *command)
   }
   proxy->update();
   return removed;
+}
+
+bool ActionCollection::setAutorun(bool active, const QString& type, const QString& trigger)
+{
+  m_autorunActive = active;
+  m_autorunType = type;
+  m_autorunCommand = trigger;
+  return true;
+}
+
+bool ActionCollection::autorunActive()
+{
+  return m_autorunActive;
+}
+
+QString ActionCollection::autorunType()
+{
+  return m_autorunType;
+}
+
+QString ActionCollection::autorunTrigger()
+{
+  return m_autorunCommand;
 }
 
 

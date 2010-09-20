@@ -33,7 +33,7 @@ class NewScenario : protected KDialog
 
   Q_OBJECT
 
-    private:
+  private:
     Ui::ModifyScenarioDlg ui;
     QList<Author*> m_authors;
 

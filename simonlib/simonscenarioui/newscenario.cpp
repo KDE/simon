@@ -136,15 +136,17 @@ Scenario* NewScenario::newScenario()
       s->deleteLater();
       return 0;
     }
-    else if (!s->save()) {
-      m_authors.clear();
-      KMessageBox::sorry(this, i18n("New scenario could not be saved"));
-      s->deleteLater();
-      return 0;
-    }
     else {
-      m_authors.clear();
-      return s;
+      if (!s->save()) {
+        m_authors.clear();
+        KMessageBox::sorry(this, i18n("New scenario could not be saved"));
+        s->deleteLater();
+        return 0;
+      }
+      else {
+        m_authors.clear();
+        return s;
+      }
     }
   }
   else {
