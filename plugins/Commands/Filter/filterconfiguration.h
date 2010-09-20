@@ -45,5 +45,7 @@ class FilterConfiguration : public CommandConfiguration
     QString regExp() const;
     bool relayStageOne() const;
     bool twoStage() const;
+    bool autoLeaveStageOne() const;
+    int autoLeaveStageOneTimeout() const;
 };
 #endif

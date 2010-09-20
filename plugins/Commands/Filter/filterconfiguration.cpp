@@ -54,6 +54,17 @@ bool FilterConfiguration::twoStage() const
   return ui.cbTwoStage->isChecked();
 }
 
+bool FilterConfiguration::autoLeaveStageOne() const
+{
+  return ui.cbLeaveStageOneAutomatically->isChecked();
+}
+
+
+int FilterConfiguration::autoLeaveStageOneTimeout() const
+{
+  return ui.sbAutoLeaveTimeout->value();
+}
+
 
 bool FilterConfiguration::deSerialize(const QDomElement& elem)
 {
@@ -66,6 +77,8 @@ bool FilterConfiguration::deSerialize(const QDomElement& elem)
 
   ui.cbTwoStage->setChecked(elem.firstChildElement("twoStage").text() == "1");
   ui.cbRelayStageOne->setChecked(elem.firstChildElement("relayStageOne").text() == "1");
+  ui.cbLeaveStageOneAutomatically->setChecked(elem.firstChildElement("autoLeaveStageOne").text() == "1");
+  ui.sbAutoLeaveTimeout->setValue(elem.firstChildElement("autoLeaveStageOneTimeout").text().toInt());
   return true;
 }
 
@@ -83,9 +96,17 @@ QDomElement FilterConfiguration::serialize(QDomDocument *doc)
   QDomElement relayElem = doc->createElement("relayStageOne");
   relayElem.appendChild(doc->createTextNode(relayStageOne() ? "1" : "0"));
 
+  QDomElement autoLeaveElem = doc->createElement("autoLeaveStageOne");
+  autoLeaveElem.appendChild(doc->createTextNode(autoLeaveStageOne() ? "1" : "0"));
+
+  QDomElement autoLeaveTimeoutElem = doc->createElement("autoLeaveStageOneTimeout");
+  autoLeaveTimeoutElem.appendChild(doc->createTextNode(QString::number(autoLeaveStageOneTimeout())));
+
   configElem.appendChild(regExpElem);
   configElem.appendChild(twoStageElem);
   configElem.appendChild(relayElem);
+  configElem.appendChild(autoLeaveElem);
+  configElem.appendChild(autoLeaveTimeoutElem);
 
   return configElem;
 }
@@ -96,6 +117,8 @@ void FilterConfiguration::defaults()
   ui.leRegExp->setText(i18n(".*"));
   ui.cbTwoStage->setChecked(false);
   ui.cbRelayStageOne->setChecked(false);
+  ui.cbLeaveStageOneAutomatically->setChecked(false);
+  ui.sbAutoLeaveTimeout->setValue(5000);
 }
 
 

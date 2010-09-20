@@ -46,6 +46,9 @@ class FilterCommandManager : public CommandManager
     void updateAction();
     FilterConfiguration* configuration();
 
+  private slots:
+    void leaveStageOne();
+
   public slots:
     void toggle();
     void activateFilter();

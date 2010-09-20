@@ -21,6 +21,7 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include <QRegExp>
+#include <QTimer>
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
@@ -97,11 +98,23 @@ void FilterCommandManager::deactivateOnce()
 {
   if (!isActive) return;
   stageOne = true;
+  if (configuration()->autoLeaveStageOne())
+  {
+    QTimer::singleShot(configuration()->autoLeaveStageOneTimeout(), this, SLOT(leaveStageOne()));
+  }
 }
 
 FilterConfiguration* FilterCommandManager::configuration()
 {
   return static_cast<FilterConfiguration*>(config);
+}
+
+void FilterCommandManager::leaveStageOne()
+{
+  if (!configuration()->twoStage() || !stageOne) return;
+
+  stageOne = false;
+  switchToState(SimonCommand::DefaultState+1);
 }
 
 bool FilterCommandManager::trigger(const QString& triggerName)
