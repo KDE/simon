@@ -520,9 +520,11 @@ void JuliusControl::run()
       break;
     case -1:
       emitError(i18n("Unknown error"));
+      emit recognitionDone(currentFileName);
       return;
     case -2:
       emitError(i18n("Error with the audio stream"));
+      emit recognitionDone(currentFileName);
       return;
   }
 
@@ -539,42 +541,7 @@ void JuliusControl::run()
       break;
   }
 
-  #if 0
-  while (shouldBeRunning) {
-    switch(j_open_stream(recog, 0)) {
-      case 0:
-        kDebug() << "Recognizing...";
-        break;
-      case -1:
-        emitError(i18n("Unknown error"));
-        return;
-      case -2:
-        emitError(i18n("Error with the audio stream"));
-        return;
-    }
-
-    touchLastSuccessfulStart();
-
-    /**********************/
-    /* Recognization Loop */
-    /**********************/
-    /* enter main loop to recognize the input stream */
-    /* finish after whole input has been processed and input reaches end */
-    int ret = j_recognize_stream(recog);
-    switch (ret) {
-      case 0:
-        //client exited
-        //shouldBeRunning=false;
-        break;
-      case -1:
-        //emitError("recognize_stream: -1");
-        shouldBeRunning=false;
-        break;
-    }
-    usleep(300);
-  }
-  emit recognitionStopped();
-  #endif
+  emit recognitionDone(currentFileName);
 }
 
 

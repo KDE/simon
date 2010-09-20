@@ -44,6 +44,7 @@ class RecognitionControl : public QThread
     void recognitionPaused();
     void recognitionResumed();
     void recognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
+    void recognitionDone(const QString& fileName);
 
   private slots:
     void touchLastFailedStart();

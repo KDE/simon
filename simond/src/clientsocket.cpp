@@ -172,6 +172,7 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
           connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const QString&, const RecognitionResultList&)));
+          connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
 
           if (synchronisationManager )
             synchronisationManager->deleteLater();
@@ -1631,6 +1632,13 @@ void ClientSocket::recognitionStopped()
   sendCode(Simond::RecognitionStopped);
 }
 
+void ClientSocket::recognitionDone(const QString& fileName)
+{
+  if (!m_keepSamples) {
+    kDebug() << "Removing: " << fileName;
+    QFile::remove(fileName);
+  }
+}
 
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
@@ -1653,10 +1661,7 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
   write(toWrite);
   write(body);
 
-  if (!m_keepSamples) {
-    QFile::remove(fileName);
-  }
-  else {
+  if (m_keepSamples) {
     QFile f(fileName+"-log.txt");
     if (f.open(QIODevice::WriteOnly)) {
       foreach (const RecognitionResult& result, recognitionResults)
