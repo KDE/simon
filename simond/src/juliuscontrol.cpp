@@ -16,6 +16,16 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
+ *   In addition, as a special exception, the copyright holders give
+ *   permission to link this portion of this program with the
+ *   Julius library and distribute linked combinations including the two.
+ *
+ *   You must obey the GNU General Public License in all respects
+ *   for all of the code used other than Julius.  If you modify
+ *   file(s) with this exception, you may extend this exception to your
+ *   version of the file(s), but you are not obligated to do so.  If you
+ *   do not wish to do so, delete this exception statement from your
+ *   version. 
  *
  *   Powered By:
  *
