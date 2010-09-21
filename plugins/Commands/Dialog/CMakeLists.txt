@@ -25,6 +25,7 @@ set (simondialogcommandplugin_SRCS
 	createdialogcommandwidget.cpp
 
   visualdialogview.cpp
+  ttsdialogview.cpp
   dialogstate.cpp
   dialogtext.cpp
   dialogtextparser.cpp

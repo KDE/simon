@@ -24,6 +24,7 @@
 
 #include "dialogview.h"
 #include "visualdialogview.h"
+#include "ttsdialogview.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/voiceinterfacecommand.h>
@@ -326,6 +327,7 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
                         getDialogConfiguration()->getDialogBoundValues());
     
   dialogViews << new VisualDialogView(this);
+  dialogViews << new TTSDialogView(this);
   
   return succ;
 }

@@ -177,6 +177,7 @@ set (simondialogcommandplugindialogtest_SRCS
 
   #deps
 	../dialogcommandmanager.cpp 
+	../ttsdialogview.cpp 
 	../dialogconfiguration.cpp
 	../dialogcommand.cpp
 	../createdialogcommandwidget.cpp

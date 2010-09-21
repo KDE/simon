@@ -71,8 +71,11 @@ void TrainSamplePage::setupUi()
 
   if (recorder) recorder->deleteLater();
 
+  QList<SimonSound::DeviceConfiguration>* forcedDevs = 0;
+  if (m_forcedDevices) forcedDevs = m_forcedDevices->buildDeviceList();
   recorder = new RecWidget("", prompt,
-    m_directory+fileName, false, this, m_forcedDevices ? &(m_forcedDevices->buildDeviceList()) : 0);
+    m_directory+fileName, false, this, forcedDevs);
+  delete forcedDevs;
 
   lay->addWidget(recorder);
 

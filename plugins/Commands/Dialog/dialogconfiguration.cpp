@@ -224,6 +224,10 @@ void DialogConfiguration::addTransition()
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   DialogCommand *transition = dialog->createTransition();
+  ((Command*) transition)->setParent(commandManager);
+
+  delete create;
+  delete dialog;
 
   if (!transition) return;
 
@@ -241,6 +245,9 @@ void DialogConfiguration::editTransition()
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   dialog->editTransition(transition);
+
+  delete create;
+  delete dialog;
 }
 
 void DialogConfiguration::removeTransition()
@@ -310,10 +317,10 @@ QString DialogConfiguration::getCurrentTemplateIndexGraphical()
 
 void DialogConfiguration::addTemplateOption()
 {
-  CreateTemplateOptionDialog *dialog = new CreateTemplateOptionDialog(this);
+  QPointer<CreateTemplateOptionDialog> dialog = new CreateTemplateOptionDialog(this);
   if (dialog->exec())
     templateOptions->addOption(dialog->getName(), dialog->getEnabled());
-  dialog->deleteLater();
+  if (dialog) dialog->deleteLater();
 }
 
 void DialogConfiguration::editTemplateOption()
@@ -323,7 +330,7 @@ void DialogConfiguration::editTemplateOption()
 
   bool currentData = templateOptions->isEnabled(id);
 
-  CreateTemplateOptionDialog *dialog = new CreateTemplateOptionDialog(this);
+  QPointer<CreateTemplateOptionDialog> dialog = new CreateTemplateOptionDialog(this);
 
   dialog->setName(id);
   dialog->setNameReadOnly(true);
@@ -332,6 +339,8 @@ void DialogConfiguration::editTemplateOption()
   if (dialog->exec())
     //will automatically replace the old value because they share the same id
     templateOptions->addOption(dialog->getName(), dialog->getEnabled());
+
+  if (dialog) dialog->deleteLater();
 }
 
 void DialogConfiguration::removeTemplateOption()
