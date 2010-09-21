@@ -220,6 +220,6 @@ kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
 target_link_libraries( simondialogcommandplugintest-dialog
   ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
   ${simondialogcommandplugintest_plasma_LIBS}
-  simonscenarios simonactions
+  simonscenarios simonactions simontts
 )
 

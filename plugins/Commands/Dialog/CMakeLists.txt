@@ -65,10 +65,12 @@ kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 
 if (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
-  ${QT_LIBRARIES}	${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios simonscenariobase simonactions )
+  ${QT_LIBRARIES}	${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
+  simonscenariobase simonactions simontts)
 else (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
-  ${QT_LIBRARIES}	${KDE4_KIO_LIBS} simonscenarios simonscenariobase simonactions )
+  ${QT_LIBRARIES}	${KDE4_KIO_LIBS} simonscenarios simonscenariobase
+  simonactions simontts)
 endif(USE_PLASMA)
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )
