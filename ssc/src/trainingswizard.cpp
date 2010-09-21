@@ -86,7 +86,8 @@ bool TrainingsWizard::init(qint32 userId, const QString& path)
     ini.setArrayIndex(i);
     TrainSamplePage *page = new TrainSamplePage(name, ini.value("Prompt").toString(), i+1, size,
       path, this,
-      ini.value("FileNameTemplate").toString()
+      ini.value("FileNameTemplate").toString(),
+	  m_infoPage
       );
     page->setupUi();
     addPage(page);

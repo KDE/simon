@@ -53,10 +53,12 @@
  * @param forceSimpleMode
  * If true, the recWidget will treat the fileTemplate as fileName and only record with a single device
  * no matter how many are configured
+ * @param forcedDevices
+ * Forces the recwidget to use these devices instead of simons global sound configuration
  * @param *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent) : QWidget(parent),
+RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent, QList<SimonSound::DeviceConfiguration>* forcedDevices) : QWidget(parent),
 statusTimer(new QTimer(this)),
 ui(new Ui::RecWidgetUi()),
 m_simpleMode(forceSimpleMode)
@@ -73,8 +75,10 @@ m_simpleMode(forceSimpleMode)
   ui->tePrompt->setPlainText(text);
 
   setupSignalsSlots();
-  initialize();
-  connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
+  initialize(forcedDevices);
+  
+  if (!forcedDevices)
+	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 
   hideActionPrompt();
   ui->lbPromptAction->setStyleSheet("color:white");
@@ -173,13 +177,18 @@ QStringList RecWidget::getDevices()
 }
 
 
-void RecWidget::initialize()
+void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices)
 {
   foreach (WavFileWidget *wg, waves)
     wg->deleteLater();
   waves.clear();
 
-  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingInputDevices();
+  QList<SimonSound::DeviceConfiguration> devices;
+  if (!forcedDevices)
+    devices = SoundServer::getTrainingInputDevices();
+  else
+    devices = *forcedDevices;
+	
   if (m_simpleMode) {
     //which device?
     QStringList deviceNames;
@@ -194,13 +203,13 @@ void RecWidget::initialize()
       selected = KInputDialog::getItem(i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
     kDebug() << selected;
     if (!selected.isEmpty()) {
-      SimonSound::DeviceConfiguration selectedDevice = devices.takeAt(deviceNames.indexOf(selected));
+      SimonSound::DeviceConfiguration selectedDevice = devices.at(deviceNames.indexOf(selected));
       registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
     }
   }
   else {
     for (int i=0; i < devices.count(); i++)
-      registerDevice(devices[i].name(), devices[i].channels(), devices[i].sampleRate(), '.'+QString::number(i));
+      registerDevice(devices.at(i).name(), devices.at(i).channels(), devices.at(i).sampleRate(), '.'+QString::number(i));
   }
   adjustButtonsToFile();
 }

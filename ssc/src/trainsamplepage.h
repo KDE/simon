@@ -24,6 +24,7 @@
 #include <QWizardPage>
 class RecWidget;
 class QSettings;
+class DeviceInformationPage;
 
 class TrainSamplePage : public QWizardPage
 {
@@ -32,6 +33,7 @@ class TrainSamplePage : public QWizardPage
     private:
     QString m_name;
     RecWidget *recorder;
+	DeviceInformationPage *m_forcedDevices;
     QString prompt;
     QString fileName;
     int m_thisPage;
@@ -41,7 +43,8 @@ class TrainSamplePage : public QWizardPage
   public:
     TrainSamplePage(const QString& name, QString prompt, int nowPage, int maxPage,
       const QString& directory, QWidget *parent=0,
-      const QString& forcedFileNameTemplate=QString());
+      const QString& forcedFileNameTemplate=QString(),
+	  DeviceInformationPage *forcedDevices=0);
     ~TrainSamplePage();
     bool isComplete() const;
 

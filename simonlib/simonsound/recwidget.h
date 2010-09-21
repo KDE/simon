@@ -22,6 +22,7 @@
 
 #include "simonsound_export.h"
 #include "simonsamples.h"
+#include "simonsound.h"
 #include <QWidget>
 
 class WavFileWidget;
@@ -72,7 +73,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     void adjustButtonsToFile();
 
   private slots:
-    void initialize();
+    void initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices);
 
     void changePromptFont(const QFont& font);
     void displayError(const QString& error);
@@ -95,7 +96,8 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     void slotEnableDeleteAll();
 
   public:
-    RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, QWidget *parent=0);
+    RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, 
+	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration>* forcedDevices=0);
     ~RecWidget();
     bool hasRecordingReady();
     bool isRecording();

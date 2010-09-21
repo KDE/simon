@@ -182,6 +182,14 @@ void DeviceInformationPage::initializePage()
   }
 }
 
+QList<SimonSound::DeviceConfiguration> DeviceInformationPage::buildDeviceList()
+{
+  QList<SimonSound::DeviceConfiguration> devices;
+  foreach (DeviceInformationWidget *wg, informationWidgets)
+    devices << wg->buildDevice();
+  return devices;
+}
+
 
 bool DeviceInformationPage::isComplete() const
 {

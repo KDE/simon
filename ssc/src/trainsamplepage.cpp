@@ -17,6 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "trainsamplepage.h"
+#include "deviceinformationpage.h"
 #include <simonsound/recwidget.h>
 
 #include <QDateTime>
@@ -31,10 +32,11 @@
 #include <KDebug>
 
 TrainSamplePage::TrainSamplePage(const QString& name, QString prompt_, int nowPage, int maxPage, const QString& directory,
-QWidget* parent, const QString& forcedFileNameTemplate) :
+QWidget* parent, const QString& forcedFileNameTemplate, DeviceInformationPage *forcedDevices) :
 QWizardPage(parent),
 m_name(name),
 recorder(0),
+m_forcedDevices(forcedDevices),
 prompt(prompt_),
 m_thisPage(nowPage),
 m_maxPage(maxPage),
@@ -70,7 +72,7 @@ void TrainSamplePage::setupUi()
   if (recorder) recorder->deleteLater();
 
   recorder = new RecWidget("", prompt,
-    m_directory+fileName, false, this);
+    m_directory+fileName, false, this, m_forcedDevices ? &(m_forcedDevices->buildDeviceList()) : 0);
 
   lay->addWidget(recorder);
 
