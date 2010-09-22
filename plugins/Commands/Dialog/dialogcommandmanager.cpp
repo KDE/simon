@@ -208,6 +208,9 @@ const QString DialogCommandManager::name() const
 bool DialogCommandManager::trigger(const QString& triggerName)
 {
   bool found = CommandManager::trigger(triggerName);
+  if (!currentDialogSate)
+    return found;
+
   if (!found)
   {
     //check if this is a repeat trigger

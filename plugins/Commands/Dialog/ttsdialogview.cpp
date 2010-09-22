@@ -105,6 +105,8 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
 bool TTSDialogView::present(const DialogState& state)
 {
   kDebug() << "Presenting state in tts dialog view...";
+  if (!SimonTTS::interrupt()) return false;
+
   return synthesizeState(state);
 }
 
