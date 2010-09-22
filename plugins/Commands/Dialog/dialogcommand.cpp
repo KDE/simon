@@ -32,13 +32,14 @@
 #include <KDebug>
 
 DialogCommand::DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
-        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
+        const QString& text, bool showIcon, bool silent, bool triggerAutomatically, int triggerAfter,
         bool changeDialogState, int nextDialogState, bool executeCommands, 
         const QStringList& commands, const QStringList& commandTypes
         ) :
       Command(name, iconSrc, description),
       m_text(text),
       m_showIcon(showIcon),
+      m_silent(silent),
       m_activateAutomatically(triggerAutomatically),
       m_activateAfter(triggerAfter),
       m_changeDialogState(changeDialogState),
@@ -100,8 +101,6 @@ bool DialogCommand::triggerPrivate(int *state)
   Q_UNUSED(state);
   bool succ = true;
   kDebug() << "Triggering...";
-  if (m_changeDialogState)
-    emit requestDialogState(m_nextDialogState);
   if (m_executeCommands)
   {
     for (int i=0; i < m_commands.count();i++)
@@ -109,8 +108,14 @@ bool DialogCommand::triggerPrivate(int *state)
   }
 
   if (!state)
+  {
+    kDebug() << "Not given any state... Calling this on the parent...";
     Command::parent()->switchToState(switchToState);
+    kDebug() << "My switch to state of " << getTrigger() << " is " << switchToState;
+  }
 
+  if (m_changeDialogState)
+    emit requestDialogState(m_nextDialogState);
   return succ;
 }
 
@@ -124,6 +129,9 @@ QDomElement DialogCommand::serializePrivate(QDomDocument *doc, QDomElement& comm
   QDomElement showIconElem = doc->createElement("icon");
   showIconElem.setAttribute("enabled", m_showIcon );
   presentationElem.appendChild(showIconElem);
+  QDomElement silentElem = doc->createElement("silent");
+  silentElem.appendChild(doc->createTextNode(m_silent ? "1" : "0"));
+  presentationElem.appendChild(silentElem);
   commandElem.appendChild(presentationElem);
 
   QDomElement autoElem = doc->createElement("auto");
@@ -170,6 +178,7 @@ bool DialogCommand::deSerializePrivate(const QDomElement& commandElem)
   QDomElement showIconElem = presentationElem.firstChildElement("icon");
   m_text = textElem.text();
   m_showIcon = showIconElem.attribute("enabled").toInt();
+  m_silent = (presentationElem.firstChildElement("silent").text() == "1");
 
   QDomElement autoElem = commandElem.firstChildElement("auto");
   QDomElement autoActiveElem = autoElem.firstChildElement("active");
@@ -235,7 +244,7 @@ void DialogCommand::presented()
 }
 
 void DialogCommand::update(const QString& name, const QString& iconSrc, const QString& description,
-        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
+        const QString& text, bool showIcon, bool silent, bool triggerAutomatically, int triggerAfter,
         bool changeDialogState, int nextDialogState, bool executeCommands, 
         const QStringList& commands, const QStringList& commandTypes)
 {
@@ -246,6 +255,8 @@ void DialogCommand::update(const QString& name, const QString& iconSrc, const QS
 
   m_text = text;
   m_showIcon = showIcon;
+  m_silent = silent;
+
   m_activateAutomatically = triggerAutomatically;
   m_activateAfter = triggerAfter;
   m_changeDialogState = changeDialogState;

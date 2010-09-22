@@ -50,6 +50,11 @@ VisualDialogView::VisualDialogView(DialogCommandManager *dialog, QWidget *parent
   ui->frmWrongInput->hide();
 } 
 
+void VisualDialogView::transitionDestroyed()
+{
+  m_buttons.removeAll(static_cast<DialogCommandButton*>(sender()));
+}
+
 void VisualDialogView::closeEvent(QCloseEvent*)
 {
   requestClose();
@@ -88,6 +93,7 @@ bool VisualDialogView::present(const DialogState& state)
   {
     DialogCommandButton *button = new DialogCommandButton(transition);
     static_cast<QVBoxLayout*>(ui->wgAnswers->layout())->addWidget(button);
+    connect(button, SIGNAL(destroyed()), this, SLOT(transitionDestroyed()));
     m_buttons << button;
   }
 

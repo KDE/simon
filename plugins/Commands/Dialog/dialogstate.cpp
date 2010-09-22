@@ -24,10 +24,13 @@
 #include <QDomElement>
 
 DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
+    bool silence, bool announceRepeat,
     QList<DialogCommand*> transitions, QObject *parent) : 
   QAbstractItemModel(parent),
   m_name(name),
   m_text(new DialogText(parser, text)),
+  m_silence(silence),
+  m_announceRepeat(announceRepeat),
   m_transitions(transitions)
 {
   foreach (DialogCommand *c, m_transitions)
@@ -86,6 +89,11 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
   m_name = elem.attribute("name");
 
   QDomElement text = elem.firstChildElement("text");
+  QDomElement textOptions = elem.firstChildElement("textOptions");
+  QDomElement textSilenceOption = textOptions.firstChildElement("silence");
+  QDomElement textAnnounceRepeatOption = textOptions.firstChildElement("announceRepeat");
+  m_silence = (textSilenceOption.text() == "1");
+  m_announceRepeat = (textAnnounceRepeatOption.text() == "1");
 
   QDomElement transitions = elem.firstChildElement("transitions");
   QDomElement transition = transitions.firstChildElement("command");
@@ -119,12 +127,23 @@ QDomElement DialogState::serialize(QDomDocument *doc)
 
   QDomElement textElem = doc->createElement("text");
   textElem.appendChild(doc->createTextNode(m_text->source()));
+  QDomElement textOptions = doc->createElement("textOptions");
+  QDomElement textSilenceOption = doc->createElement("silence");
+  QDomElement textAnnounceOption = doc->createElement("announceRepeat");
+
+  textSilenceOption.appendChild(doc->createTextNode(m_silence ? "1" : "0"));
+  textAnnounceOption.appendChild(doc->createTextNode(m_announceRepeat ? "1" : "0"));
+
+  textOptions.appendChild(textSilenceOption);
+  textOptions.appendChild(textAnnounceOption);
+
   QDomElement transitionsElem = doc->createElement("transitions");
   
   foreach (DialogCommand *c, m_transitions)
     transitionsElem.appendChild(c->serialize(doc));
 
   elem.appendChild(textElem);
+  elem.appendChild(textOptions);
   elem.appendChild(transitionsElem);
 
   return elem;
@@ -249,6 +268,17 @@ int DialogState::columnCount(const QModelIndex &parent) const
   Q_UNUSED(parent)
   return 1;
 }
+
+void DialogState::setSilence(bool silence)
+{
+  m_silence = silence;
+}
+
+void DialogState::setAnnounceRepeat(bool announce)
+{
+  m_announceRepeat = announce;
+}
+
 
 DialogState::~DialogState()
 {

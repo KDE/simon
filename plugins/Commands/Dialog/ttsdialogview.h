@@ -21,6 +21,7 @@
 #define SIMON_TTSDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 
 #include "dialogview.h"
+#include <QString>
 
 class DialogState;
 class QFont;
@@ -28,17 +29,22 @@ class QFont;
 class TTSDialogView : public DialogView
 {
   private:
+    QString optionsRepeat;
+
     bool say(const QString& text);
+    bool synthesizeState(const DialogState& state);
 
   public:
     TTSDialogView(DialogCommandManager *dialog);
+    ~TTSDialogView();
 
     bool start();
     bool stop();
+    void repeat(const DialogState&);
 
+    void warnOfInvalidInput(const QString& input);
     bool present(const DialogState& state);
 
-    void setFont(const QFont& font);
 };
 
 #endif

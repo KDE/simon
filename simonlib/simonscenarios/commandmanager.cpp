@@ -710,7 +710,7 @@ CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
  * \brief Returns the configuration page of the plugin
  * \author Peter Grasch
  */
-CommandConfiguration* CommandManager::getConfigurationPage()
+CommandConfiguration* CommandManager::getConfigurationPage() const
 {
   return config;
 }
@@ -945,6 +945,10 @@ void CommandManager::setGreedyStatus(bool isGreedy)
     m_currentState &= ~(SimonCommand::GreedyState);
 }
 
+void CommandManager::switchToState(int newState)
+{
+  m_currentState = newState;
+}
 
 /**
  * \brief Destructor

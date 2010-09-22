@@ -40,6 +40,8 @@ class DialogState : public QAbstractItemModel
   private:
     QString m_name;
     DialogText *m_text;
+    bool m_silence;
+    bool m_announceRepeat;
     QList<DialogCommand*> m_transitions;
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
     DialogState(QObject *parent=0) : QAbstractItemModel(parent), m_text(NULL) {}
@@ -57,7 +59,7 @@ class DialogState : public QAbstractItemModel
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
     DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
-        QList<DialogCommand*> transitions, QObject *parent=0);
+        bool silence, bool announceRepeat, QList<DialogCommand*> transitions, QObject *parent=0);
 
     QString getName() const { return m_name; }
     QString getText() const;
@@ -75,6 +77,11 @@ class DialogState : public QAbstractItemModel
 
     bool rename(const QString& newName);
     bool setRawText(const QString& data);
+
+    void setSilence(bool silence);
+    void setAnnounceRepeat(bool announce);
+    bool silence() const { return m_silence; }
+    bool announceRepeat() const { return m_announceRepeat; }
 
     void presented();
     void left();

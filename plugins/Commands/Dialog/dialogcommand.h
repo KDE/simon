@@ -49,6 +49,8 @@ class DialogCommand : public QObject, public Command
     QString m_text;
     bool m_showIcon;
 
+    bool m_silent;
+
     bool m_activateAutomatically;
     int m_activateAfter;
     bool m_changeDialogState;
@@ -78,14 +80,13 @@ class DialogCommand : public QObject, public Command
     bool deSerializePrivate(const QDomElement& commandElem);
 
     DialogCommand(const QString& name, const QString& iconSrc, const QString& description,
-        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
-        bool changeDialogState, int nextDialogState, bool executeCommands, 
-        const QStringList& commands, const QStringList& commandTypes
-        );
+        const QString& text, bool showIcon, bool silent, bool triggerAutomatically, 
+        int triggerAfter, bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QStringList& commands, const QStringList& commandTypes);
 
     void update(const QString& name, const QString& iconSrc, const QString& description,
-        const QString& text, bool showIcon, bool triggerAutomatically, int triggerAfter,
-        bool changeDialogState, int nextDialogState, bool executeCommands, 
+        const QString& text, bool showIcon, bool silent, bool triggerAutomatically, 
+        int triggerAfter, bool changeDialogState, int nextDialogState, bool executeCommands, 
         const QStringList& commands, const QStringList& commandTypes);
 
     void left();
@@ -94,6 +95,7 @@ class DialogCommand : public QObject, public Command
     QString text() { return m_text; }
     bool showIcon() { return m_showIcon; }
 
+    bool silent() { return m_silent; }
     bool changeDialogState() { return m_changeDialogState; }
     int nextDialogState() { return m_nextDialogState; }
 

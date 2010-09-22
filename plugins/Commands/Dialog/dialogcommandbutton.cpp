@@ -35,6 +35,7 @@ DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *par
 
   connect(transition, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
   connect(this, SIGNAL(clicked()), this, SLOT(go()));
+  connect(transition, SIGNAL(destroyed()), this, SLOT(deleteLater()));
 }
 
 void DialogCommandButton::go()

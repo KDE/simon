@@ -69,6 +69,8 @@ class DialogConfiguration : public CommandConfiguration
     void moveStateDown();
 
     void editText();
+    void textSilenceChanged();
+    void textAnnounceRepeatChanged();
 
     void addTransition();
     void editTransition();
@@ -99,6 +101,13 @@ class DialogConfiguration : public CommandConfiguration
     void destroy();
     DialogTemplateOptions* getDialogTemplateOptions() { return templateOptions; }
     DialogBoundValues* getDialogBoundValues() { return boundValues; }
+
+    bool useGUIOutput() const;
+    bool useTTSOutput() const;
+    QString getOptionSeparatorText() const;
+    QString getRepeatAnnouncement() const;
+    QStringList getRepeatTriggers() const;
+    bool getRepeatOnInvalidInput() const;
 
 };
 #endif

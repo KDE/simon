@@ -63,7 +63,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
 
     void stateChanged();
     
-    DialogConfiguration* getDialogConfiguration();
+    DialogConfiguration* getDialogConfiguration() const;
 
   public slots:
     void initState(int state);
@@ -93,6 +93,10 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     bool moveStateDown(DialogState *state);
 
     virtual bool trigger(const QString& triggerName);
+
+    QString getOptionSeparatorText() const;
+    QString getRepeatAnnouncement() const;
+    bool getRepeatOnInvalidInput() const;
 
     /**
      * @brief Constructor

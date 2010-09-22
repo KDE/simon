@@ -44,7 +44,7 @@ void testDialogCommand::testGeneral()
   command = DialogCommand::createInstance(QDomElement());
   QVERIFY(!command);
 
-  command = new DialogCommand("Yes", "accessories-dictionary", "desc", "Yup", true, false, 3000, 
+  command = new DialogCommand("Yes", "accessories-dictionary", "desc", "Yup", true, true, false, 3000, 
       true,  2, true, QStringList() << "testT", QStringList() << "testC");
   QVERIFY(command);
 
@@ -53,6 +53,7 @@ void testDialogCommand::testGeneral()
   QCOMPARE(command->getDescription(), QString("desc"));
   QCOMPARE(command->text(), QString("Yup"));
   QCOMPARE(command->showIcon(), true);
+  QCOMPARE(command->silent(), true);
   QCOMPARE(command->activateAutomatically(), false);
   QCOMPARE(command->activationTimeout(), 3000);
   QCOMPARE(command->changeDialogState(), true);
@@ -65,7 +66,7 @@ void testDialogCommand::testGeneral()
   QVERIFY(changedSpy.isValid());
   QCOMPARE(changedSpy.count(), 0);
 
-  command->update("YesU", "accessories-dictionaryU", "descU", "YupU", false, true, 2500, 
+  command->update("YesU", "accessories-dictionaryU", "descU", "YupU", false, false, true, 2500, 
       false,  1, false, QStringList() << "testTU", QStringList() << "testCU");
 
   QCOMPARE(changedSpy.count(), 1);
@@ -75,6 +76,7 @@ void testDialogCommand::testGeneral()
   QCOMPARE(command->getDescription(), QString("descU"));
   QCOMPARE(command->text(), QString("YupU"));
   QCOMPARE(command->showIcon(), false);
+  QCOMPARE(command->silent(), false);
   QCOMPARE(command->activateAutomatically(), true);
   QCOMPARE(command->activationTimeout(), 2500);
   QCOMPARE(command->changeDialogState(), false);
@@ -162,7 +164,7 @@ void testDialogCommand::testExecution()
   QCOMPARE(arguments.count(), 1);
   QCOMPARE(arguments.at(0), QVariant(2));
 
-  command->update("YesU", "accessories-dictionaryU", "descU", "YupU", false, true, 2500, 
+  command->update("YesU", "accessories-dictionaryU", "descU", "YupU", false, false, true, 2500, 
       false,  1, true, QStringList() << "testTUNBOUND", QStringList() << "testCU");
   succ = command->trigger(&fake);
   QCOMPARE(dialogStateSpy.count(), 0);

@@ -40,6 +40,16 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="cbSilent">
+        <property name="toolTip">
+         <string>Don't announce this command when using TTS</string>
+        </property>
+        <property name="text">
+         <string>Silent</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

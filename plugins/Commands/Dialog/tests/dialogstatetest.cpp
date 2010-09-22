@@ -114,7 +114,7 @@ void testDialogState::testGeneral()
 
   QCOMPARE(containedCommand->text(), QString("Yup"));
 
-  containedCommand->update("No", "dialog-cancel", "description", "Really no", false, true, 3000, 
+  containedCommand->update("No", "dialog-cancel", "description", "Really no", false, true, true, 3000, 
       false,  1, false, QStringList() << "testTU", QStringList() << "testCU");
 
   QCOMPARE(changedSpy.count(), 3);
@@ -127,7 +127,7 @@ void testDialogState::testGeneral()
   state->addTransition(containedCommand);
   QCOMPARE(state->rowCount(), 1);
   
-  DialogCommand *otherCommand =  new DialogCommand("Yes", "accessories-dictionary", "desc", "Yup", true, false, 3000, 
+  DialogCommand *otherCommand =  new DialogCommand("Yes", "accessories-dictionary", "desc", "Yup", true, true, false, 3000, 
       true,  2, true, QStringList() << "testT", QStringList() << "testC");
 
   state->addTransition(otherCommand);

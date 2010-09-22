@@ -39,8 +39,8 @@ QDBusInterface* SimonTTS::interface = 0;
  */
 bool SimonTTS::initialize()
 {
-  kDebug() << "Initializing tts";
   if (interface && interface->isValid()) return true;
+  kDebug() << "Initializing tts";
 
   interface = new QDBusInterface("org.kde.jovie",
         "/KSpeech",
@@ -68,7 +68,7 @@ bool SimonTTS::initialize()
  */
 bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
 {
-  if (!initialize()) return false;
+  if (!interrupt() || !initialize()) return false;
 
   QString spokenText = text;
   kDebug() << "Text requested to be spoken: " << spokenText;
@@ -88,8 +88,22 @@ bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
 
 
 /**
+ * \brief Interrupts the current spoken text
+ * \return true if successfully sent interrupt request or if service seems unavailable
+ */
+bool SimonTTS::interrupt()
+{
+  if (!initialize()) return true;
+  interface->call("stop");
+  return true;
+}
+
+
+/**
  * \brief Uninitializes the TTS system. 
  * \note It's safe to call this anytime because the system will be re-initialized automatically if needed 
+ *
+ * Call \sa interrupt() if you want to stop the TTS immediatly
  */
 bool SimonTTS::uninitialize()
 {

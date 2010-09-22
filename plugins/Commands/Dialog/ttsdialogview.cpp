@@ -19,6 +19,8 @@
 
 #include "ttsdialogview.h"
 #include "dialogstate.h"
+#include "dialogcommand.h"
+#include "dialogcommandmanager.h"
 #include <simontts/simontts.h>
 #include <KDebug>
 #include <KLocale>
@@ -46,7 +48,7 @@ bool TTSDialogView::stop()
 {
   kDebug() << "Stopping tts dialog view...";
 
-  if (!SimonTTS::uninitialize())
+  if (!SimonTTS::interrupt() || !SimonTTS::uninitialize())
   {
     KMessageBox::information(0, i18n("Failed to uninitialize text to speech subsystem"));
     return false;
@@ -65,32 +67,61 @@ bool TTSDialogView::say(const QString& text)
   return true;
 }
 
-bool TTSDialogView::present(const DialogState& state)
+bool TTSDialogView::synthesizeState(const DialogState& state)
 {
-  kDebug() << "Presenting state in tts dialog view...";
+  QString text;
+  
+  if (!state.silence())
+    text += state.getText()+'\n';
+  
+  optionsRepeat = "";
+  
 
-  bool succ = true;
-  succ &= say(state.getText());
-
-  /*
   QList<DialogCommand*> transitions = state.getTransitions();
 
   kDebug() << "Presenting " << transitions.count() << " transitions";
-
   foreach (DialogCommand* transition, transitions)
   {
-    DialogCommandButton *button = new DialogCommandButton(transition);
-    static_cast<QVBoxLayout*>(ui->wgAnswers->layout())->addWidget(button);
-    m_buttons << button;
+    if (!transition->silent())
+      optionsRepeat += transition->getTrigger()+".\n";
   }
-  */
+  if (!optionsRepeat.trimmed().isEmpty())
+  {
+    optionsRepeat.insert(0, m_dialog->getOptionSeparatorText()+'\n');
+    text += optionsRepeat;
+  }
 
-  return succ;
+  if (state.announceRepeat())
+    text += m_dialog->getRepeatAnnouncement();
+
+  if (text.isEmpty())
+  {
+    kDebug() << "Nothing to say";
+    return true;
+  }
+  return say(text);
 }
 
-
-void TTSDialogView::setFont(const QFont& font)
+bool TTSDialogView::present(const DialogState& state)
 {
-  Q_UNUSED(font);
+  kDebug() << "Presenting state in tts dialog view...";
+  return synthesizeState(state);
+}
+
+void TTSDialogView::repeat(const DialogState& state)
+{
+  synthesizeState(state);
+}
+
+void TTSDialogView::warnOfInvalidInput(const QString& input)
+{
+  kDebug() << "User said bullshit: " << input;
+
+  if (m_dialog->getRepeatOnInvalidInput())
+    say(optionsRepeat);
+}
+
+TTSDialogView::~TTSDialogView()
+{
 }
 

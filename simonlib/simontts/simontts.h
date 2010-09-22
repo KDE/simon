@@ -54,6 +54,7 @@ class SIMONTTS_EXPORT SimonTTS
     static bool initialize();
     static bool uninitialize();
     static bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
+    static bool interrupt();
 
 };
 

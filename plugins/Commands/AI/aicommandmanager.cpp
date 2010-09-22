@@ -60,7 +60,7 @@ const QString AICommandManager::iconSrc() const
 }
 
 
-CommandConfiguration* AICommandManager::getConfigurationPage()
+CommandConfiguration* AICommandManager::getConfigurationPage() const
 {
   return config;
 }

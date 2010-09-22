@@ -71,6 +71,9 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
 
   connect(ui.pbEditText, SIGNAL(clicked()), this, SLOT(editText()));
 
+  connect(ui.cbSilence, SIGNAL(toggled(bool)), this, SLOT(textSilenceChanged()));
+  connect(ui.cbAnnounceRepeat, SIGNAL(toggled(bool)), this, SLOT(textAnnounceRepeatChanged()));
+
   connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
   connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
   connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
@@ -208,8 +211,28 @@ void DialogConfiguration::editText()
   if (!ok) return;
   
   if (!state->setRawText(text))
-    KMessageBox::sorry(this, i18n("Failed to update state text"));
+    KMessageBox::sorry(this, i18n("Failed to update state text."));
 
+  displayCurrentState();
+}
+
+void DialogConfiguration::textSilenceChanged()
+{
+  DialogState *state = getCurrentStateGraphical();
+  if (!state)
+    return;
+
+  state->setSilence(ui.cbSilence->isChecked());
+  displayCurrentState();
+}
+
+void DialogConfiguration::textAnnounceRepeatChanged()
+{
+  DialogState *state = getCurrentStateGraphical();
+  if (!state)
+    return;
+
+  state->setAnnounceRepeat(ui.cbAnnounceRepeat->isChecked());
   displayCurrentState();
 }
  
@@ -420,11 +443,42 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
   QDomElement boundValuesElem = boundValues->serialize(doc);
   configElem.appendChild(boundValuesElem);
 
-  //general
-//   QDomElement caseSensitivityElem = doc->createElement("caseSensitivity");
-//   caseSensitivityElem.appendChild(doc->createTextNode(ui.cbCaseSensitivity->isChecked() ? "1" : "0"));
-//   configElem.appendChild(caseSensitivityElem);
 
+  QDomElement outputElem = doc->createElement("output");
+  QDomElement graphicalOutput = doc->createElement("gui");
+  QDomElement ttsOutput = doc->createElement("tts");
+  graphicalOutput.appendChild(doc->createTextNode(ui.cbGraphical->isChecked() ? "1" : "0"));
+  ttsOutput.appendChild(doc->createTextNode(ui.cbTextToSpeech->isChecked() ? "1" : "0"));
+
+  outputElem.appendChild(graphicalOutput);
+  outputElem.appendChild(ttsOutput);
+
+  configElem.appendChild(outputElem);
+
+  QDomElement ttsOptions = doc->createElement("ttsOptions");
+  QDomElement separatorElem = doc->createElement("optionsSeparator");
+  separatorElem.appendChild(doc->createTextNode(ui.leOptionSeparator->text()));
+  ttsOptions.appendChild(separatorElem);
+      
+  QDomElement repeatTriggersElem = doc->createElement("repeatTriggers");
+  QStringList repeatTriggers = ui.elwRepeatTriggers->items();
+  foreach (const QString& trigger, repeatTriggers)
+  {
+    QDomElement repeatTriggerElem = doc->createElement("repeatTrigger");
+    repeatTriggerElem.appendChild(doc->createTextNode(trigger));
+    repeatTriggersElem.appendChild(repeatTriggerElem);
+  }
+  ttsOptions.appendChild(repeatTriggersElem);
+
+  QDomElement announceRepeatElem = doc->createElement("announceRepeat");
+  announceRepeatElem.appendChild(doc->createTextNode(ui.leAnnounceRepeat->text()));
+  ttsOptions.appendChild(announceRepeatElem);
+
+  QDomElement repeatOnInvalidInputElem = doc->createElement("repeatOnInvalidInput");
+  repeatOnInvalidInputElem.appendChild(doc->createTextNode(ui.cbRepeatOnInvalidInput->isChecked() ? "1" : "0"));
+  ttsOptions.appendChild(repeatOnInvalidInputElem);
+
+  outputElem.appendChild(ttsOptions);
   return configElem;
 }
 
@@ -455,6 +509,37 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   } else {
     boundValues->deSerialize(options);
   }
+
+  QDomElement outputElem = elem.firstChildElement("output");
+  if (outputElem.isNull())
+  {
+    defaults();
+    return true;
+  }
+
+  QDomElement graphicalOutput = outputElem.firstChildElement("gui");
+  QDomElement ttsOutput = outputElem.firstChildElement("tts");
+  ui.cbGraphical->setChecked(graphicalOutput.text() == "1");
+  ui.cbTextToSpeech->setChecked(ttsOutput.text() == "1");
+
+  QDomElement ttsOptions = outputElem.firstChildElement("ttsOptions");
+  QDomElement separatorElem = ttsOptions.firstChildElement("optionsSeparator");
+  ui.leOptionSeparator->setText(separatorElem.text());
+  QDomElement repeatTriggers = ttsOptions.firstChildElement("repeatTriggers");
+  QDomElement repeatTrigger = repeatTriggers.firstChildElement("repeatTrigger");
+  QStringList repeatTriggersStrs;
+  while (!repeatTrigger.isNull())
+  {
+    repeatTriggersStrs << repeatTrigger.text();
+    repeatTrigger = repeatTrigger.nextSiblingElement("repeatTrigger");
+  }
+  ui.elwRepeatTriggers->setItems(repeatTriggersStrs);
+
+  QDomElement announceRepeatElem = ttsOptions.firstChildElement("announceRepeat");
+  ui.leAnnounceRepeat->setText(announceRepeatElem.text());
+
+  QDomElement repeatOnInvalidInputElem = ttsOptions.firstChildElement("repeatOnInvalidInput");
+  ui.cbRepeatOnInvalidInput->setChecked(repeatOnInvalidInputElem.text() == "1");
 
   return true;
 }
@@ -541,15 +626,54 @@ void DialogConfiguration::displayCurrentState()
   }
 
   ui.teText->setText(currentState->getRawText());
+  ui.cbSilence->setChecked(currentState->silence());
+  ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
 
   ui.lvTransitions->setModel(currentState);
 }
 
 void DialogConfiguration::defaults()
 {
-  
+  ui.cbGraphical->setChecked(true);
+  ui.cbTextToSpeech->setChecked(false);
+  ui.leOptionSeparator->setText(i18n("Please answer with any of the following options."));
+
+  ui.elwRepeatTriggers->setItems(QStringList() << i18n("Repeat"));
+  ui.leAnnounceRepeat->setText(i18n("Say \"Repeat\" to hear this text again."));
+
+  ui.cbRepeatOnInvalidInput->setChecked(true);
 }
 
+bool DialogConfiguration::useGUIOutput() const
+{
+  return ui.cbGraphical->isChecked();
+}
+
+bool DialogConfiguration::useTTSOutput() const
+{
+  return ui.cbTextToSpeech->isChecked();
+}
+
+
+QString DialogConfiguration::getOptionSeparatorText() const
+{
+  return ui.leOptionSeparator->text();
+}
+
+QString DialogConfiguration::getRepeatAnnouncement() const
+{
+  return ui.leAnnounceRepeat->text();
+}
+
+QStringList DialogConfiguration::getRepeatTriggers() const
+{
+  return ui.elwRepeatTriggers->items();
+}
+
+bool DialogConfiguration::getRepeatOnInvalidInput() const
+{
+  return ui.cbRepeatOnInvalidInput->isChecked();
+}
 
 DialogConfiguration::~DialogConfiguration()
 {

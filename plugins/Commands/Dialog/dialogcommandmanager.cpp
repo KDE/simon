@@ -82,7 +82,7 @@ void DialogCommandManager::initState(int state)
   kDebug() << "Switching to state: " << state;
 
   //0 state means quit
-  if (state == 0)
+  if ((state == 0) ||  (state >= dialogStates.count()+1 || state < 1))
   {
     if (currentDialogSate)
       currentDialogSate->left();
@@ -96,19 +96,20 @@ void DialogCommandManager::initState(int state)
   //else, keep in mind that indizes do still start with 0 so 
   //decrement state
   state--;
-
-  if (state >= dialogStates.count() || state < 0)
+/*
+  if
   {
     kWarning() << "Invalid state provided";
     return;
   }
+  */
 
   initState(dialogStates.at(state));
 }
 
 bool DialogCommandManager::addState(const QString& name)
 {
-  DialogState *state = new DialogState(dialogParser, name, QString(),
+  DialogState *state = new DialogState(dialogParser, name, QString(), false, true,
                                     QList<DialogCommand*>(), this);
   connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
   connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
@@ -121,6 +122,11 @@ bool DialogCommandManager::addState(const QString& name)
 
 bool DialogCommandManager::removeState(DialogState *state)
 {
+  if (state == currentDialogSate)
+  {
+    currentDialogSate = NULL;
+    initState(0);
+  }
   int removed = dialogStates.removeAll(state);
 
   if (!removed)
@@ -155,8 +161,18 @@ bool DialogCommandManager::moveStateDown(DialogState *state)
 
 void DialogCommandManager::activate()
 {
-  if (dialogViews.isEmpty() || dialogStates.isEmpty())
+  qDeleteAll(dialogViews);
+  dialogViews.clear();
+
+  if (dialogStates.isEmpty())
     return;
+
+  if (getDialogConfiguration()->useGUIOutput())
+    dialogViews << new VisualDialogView(this);
+  if (getDialogConfiguration()->useTTSOutput())
+    dialogViews << new TTSDialogView(this);
+  
+  if (dialogViews.isEmpty()) return;
 
   foreach (DialogView* view, dialogViews)
     view->start();
@@ -168,7 +184,6 @@ void DialogCommandManager::activate()
   switchToState(SimonCommand::GreedyState + 1);
   initState(1); // always start with state 1;
 }
-
 
 void DialogCommandManager::deregister()
 {
@@ -193,6 +208,16 @@ const QString DialogCommandManager::name() const
 bool DialogCommandManager::trigger(const QString& triggerName)
 {
   bool found = CommandManager::trigger(triggerName);
+  if (!found)
+  {
+    //check if this is a repeat trigger
+    if (getDialogConfiguration()->getRepeatTriggers().contains(triggerName, Qt::CaseInsensitive))
+    {
+      foreach (DialogView* view, dialogViews)
+        view->repeat(*currentDialogSate);
+      found = true;
+    }
+  }
   if (found) {
     foreach (DialogView* view, dialogViews)
       view->correctInputReceived();
@@ -209,7 +234,7 @@ bool DialogCommandManager::greedyTrigger(const QString& inputText)
 }
 
 
-DialogConfiguration* DialogCommandManager::getDialogConfiguration()
+DialogConfiguration* DialogCommandManager::getDialogConfiguration() const
 {
   return static_cast<DialogConfiguration*>(getConfigurationPage());
 }
@@ -261,6 +286,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     {
       connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
       connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
+      connect(state, SIGNAL(destroyed()), this, SLOT(()));
       dialogStates << state;
     }
 
@@ -326,13 +352,23 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
     dialogParser = new DialogTextParser(getDialogConfiguration()->getDialogTemplateOptions(),
                         getDialogConfiguration()->getDialogBoundValues());
     
-  dialogViews << new VisualDialogView(this);
-  dialogViews << new TTSDialogView(this);
-  
   return succ;
 }
 
+QString DialogCommandManager::getOptionSeparatorText() const
+{
+  return getDialogConfiguration()->getOptionSeparatorText();
+}
 
+QString DialogCommandManager::getRepeatAnnouncement() const
+{
+  return getDialogConfiguration()->getRepeatAnnouncement();
+}
+ 
+bool DialogCommandManager::getRepeatOnInvalidInput() const
+{
+  return getDialogConfiguration()->getRepeatOnInvalidInput();
+}
 
 DialogCommandManager::~DialogCommandManager()
 {

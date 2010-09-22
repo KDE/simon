@@ -69,11 +69,7 @@ bool Command::trigger(int* state)
     SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
   }
   if (state)
-  {
     *state = switchToState;
-    kDebug() << "Switchting to state: " << switchToState << getTrigger();
-    kDebug() << "Switchting to state: " << state;
-  }
   return triggerPrivate(state);
 }
 

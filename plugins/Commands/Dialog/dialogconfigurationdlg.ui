@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>590</width>
-    <height>456</height>
+    <width>541</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -107,6 +107,20 @@
              <widget class="KPushButton" name="pbEditText">
               <property name="text">
                <string>Edit</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbSilence">
+              <property name="text">
+               <string>Silent</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbAnnounceRepeat">
+              <property name="text">
+               <string>Announce repeat option</string>
               </property>
              </widget>
             </item>
@@ -282,6 +296,107 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Output</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <widget class="QCheckBox" name="cbGraphical">
+         <property name="text">
+          <string>Graphical interface</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbTextToSpeech">
+         <property name="text">
+          <string>Text to speech interface</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="title">
+          <string>Text to speech configuration</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Separator to options:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="leOptionSeparator">
+            <property name="toolTip">
+             <string>This text will be said after the text of the current state and before the available options</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Repeat on trigger:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KEditListWidget" name="elwRepeatTriggers">
+            <property name="toolTip">
+             <string>These triggers will cause the TTS system to repeat the current prompt</string>
+            </property>
+            <property name="buttons">
+             <set>KEditListWidget::Add|KEditListWidget::Remove</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Announce repeat:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="KLineEdit" name="leAnnounceRepeat">
+            <property name="toolTip">
+             <string>This text will be said after the complete announcement</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="cbRepeatOnInvalidInput">
+            <property name="text">
+             <string>Repeat available options on invalid input</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -293,10 +408,20 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>
@@ -305,5 +430,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cbTextToSpeech</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

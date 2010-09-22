@@ -346,7 +346,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
 
     virtual void setFont(const QFont& font);
 
-    virtual CommandConfiguration* getConfigurationPage();
+    virtual CommandConfiguration* getConfigurationPage() const;
     virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
     CreateCommandWidget* getCreateVoiceInterfaceCommandWidget(QWidget *parent);
 
@@ -397,8 +397,7 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
      * \brief Switches the CommandManager to the given new state
      * \param newState New state (see also \ref SimonCommand::State)
      */
-    void switchToState(int newState)
-    { m_currentState = newState; }
+    void switchToState(int newState);
 
     /**
      * \brief Sets the parent action collection to the given pointer

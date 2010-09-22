@@ -42,6 +42,7 @@ class VisualDialogView : public QWidget, public DialogView
 
   private slots:
     void requestClose();
+    void transitionDestroyed();
 
   protected:
     void closeEvent(QCloseEvent* event);

@@ -53,7 +53,7 @@ class AICommandManager : public CommandManager
     bool setupParser();
     bool addCommandPrivate(Command *) { return false; }
 
-    CommandConfiguration* getConfigurationPage();
+    CommandConfiguration* getConfigurationPage() const;
 
     /**
      * @brief Constructor
