@@ -25,11 +25,6 @@ set_target_properties( simonmodelcompilationconfiguration
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
-install( FILES ${simonmodelcompilationconfiguration_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechmodelcompilation/config
-  COMPONENT simonddevel
-)
- 
 install( TARGETS simonmodelcompilationconfiguration DESTINATION
   ${PLUGIN_INSTALL_DIR} COMPONENT simoncore )
 install( FILES simonmodelcompilationconfig.desktop  DESTINATION
