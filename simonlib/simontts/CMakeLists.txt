@@ -34,3 +34,5 @@ install( FILES ${simontts_LIB_HDRS}
 )
  
 install( TARGETS simontts DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
+
+add_subdirectory(config)

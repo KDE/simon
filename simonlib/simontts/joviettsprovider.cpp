@@ -18,6 +18,8 @@
  */
 
 #include "joviettsprovider.h"
+#include <QStringList>
+#include <QRegExp>
 #include <QDBusInterface>
 #include <QDBusConnection>
 #include <KDebug>
@@ -69,6 +71,7 @@ bool JovieTTSProvider::initialize()
  */
 bool JovieTTSProvider::canSay(const QString& text)
 {
+  Q_UNUSED(text);
   return initialize();
 }
 
@@ -85,6 +88,20 @@ bool JovieTTSProvider::say(const QString& text)
   if (!interrupt() || !initialize()) return false;
 
   interface->call("say", text, 0);
+
+  /*
+   * Configure speech dispatcher to allow "some" punctuation marks for not needing this
+   *
+  //TODO: some voices have problems with sentence characters in jovie; strip them out for now
+  QStringList sentences = text.split(QRegExp("(\\?|\\!|\\.|:)"), QString::SkipEmptyParts);
+
+  while (!sentences.isEmpty())
+  {
+    kDebug() << "Saying: " << sentences[0].trimmed();
+    interface->call("say", sentences.takeAt(0).trimmed(), 0);
+  }
+  */
+
   return true;
 }
 
@@ -97,6 +114,7 @@ bool JovieTTSProvider::interrupt()
 {
   if (!initialize()) return true;
   interface->call("stop");
+  interface->call("removeAllJobs");
   return true;
 }
 

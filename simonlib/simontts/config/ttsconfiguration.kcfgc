@@ -1,0 +1,4 @@
+File=ttsconfiguration.kcfg
+ClassName=TTSConfiguration
+Singleton=true
+Mutators=true
