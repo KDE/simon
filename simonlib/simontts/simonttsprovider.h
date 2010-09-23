@@ -17,42 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SIMONTTS_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_SIMONTTS_H_7A7B9100FF5245329569C1B540119C37
-
-#include "simontts_export.h"
-#include <QFlags>
+#ifndef SIMON_SimonTTSProvider_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_SimonTTSProvider_H_7A7B9100FF5245329569C1B540119C37
 
 class QString;
-class SimonTTSPrivate;
 
 /**
- * \class SimonTTS
+ * \class SimonTTSProvider
  * \author Peter Grasch
  * \since 0.4
- * \brief Provides access to text to speech functionality
+ * \brief Abstract base class for every TTSProvider
  */
-class SIMONTTS_EXPORT SimonTTS
+class SimonTTSProvider
 {
-  protected:
-    static SimonTTSPrivate *d;
-    static SimonTTSPrivate* getInstance();
-
   public:
-    enum TTSFlag
-    {
-      None=0,
-      StripHTML=1
-    };
-    Q_DECLARE_FLAGS(TTSFlags, TTSFlag);
-
-    static bool initialize();
-    static bool uninitialize();
-    static bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
-    static bool interrupt();
+    virtual bool initialize()=0;
+    virtual bool uninitialize()=0;
+    virtual bool canSay(const QString& text)=0;
+    virtual bool say(const QString& text)=0;
+    virtual bool interrupt()=0;
+    virtual ~SimonTTSProvider() {}
 
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(SimonTTS::TTSFlags);
 #endif
+
 

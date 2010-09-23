@@ -11,6 +11,8 @@ set (QT_USE_QTMAIN true)
  
 set( simontts_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simontts.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonttsprivate.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/joviettsprovider.cpp
 )
 
 set( simontts_LIB_HDRS

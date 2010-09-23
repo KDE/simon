@@ -17,22 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "simontts.h"
 #include "simonttsprivate.h"
+#include "joviettsprovider.h"
 #include <QString>
+#include <QRegExp>
 #include <KDebug>
 
-SimonTTSPrivate* SimonTTS::d = 0;
-
 /**
- * \brief Singleton method
- * Returns a new instance of SimonTTSPrivate if there isn't already one
- * \return a valid instance of SimonTTSPrivate
+ * \brief Constructor
+ *
+ * \todo Will set up the backends to the configured values
  */
-SimonTTSPrivate* SimonTTS::getInstance()
+SimonTTSPrivate::SimonTTSPrivate()
 {
-  if (!d) d = new SimonTTSPrivate();
-  return d;
+  providers << new JovieTTSProvider();
 }
 
 /**
@@ -45,11 +43,32 @@ SimonTTSPrivate* SimonTTS::getInstance()
  *
  * \return Success
  */
-bool SimonTTS::initialize()
+bool SimonTTSPrivate::initialize()
 {
-  getInstance()->initialize();
+  bool succ = true;
+  foreach (SimonTTSProvider *p, providers)
+    succ = p->initialize() && succ;
+  return succ;
 }
 
+
+/**
+ * \brief Will apply the given flags and return the new text
+ * \param text The text to process
+ * \param flags The flags to apply
+ * \return The new text
+ */
+QString SimonTTSPrivate::processString(QString text, SimonTTS::TTSFlags flags)
+{
+  if (flags & SimonTTS::StripHTML)
+  {
+    text = text.replace(QRegExp("<br */?>"), "\n");
+    text = text.replace("</p>", "\n");
+    text = text.remove(QRegExp("<[^>]*>"));
+    text = text.trimmed();
+  }
+  return text;
+}
 
 /**
  * \brief Says the given text using the text to speech engine
@@ -59,9 +78,18 @@ bool SimonTTS::initialize()
  * \param text The text to say
  * \return True if successful
  */
-bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
+bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)
 {
-  getInstance()->say(text, flags);
+  QString spokenText = processString(text, flags);
+  if (spokenText.isEmpty()) return true;
+
+  kDebug() << "Saying: " << spokenText;
+
+  foreach (SimonTTSProvider *p, providers)
+    if (p->canSay(spokenText))
+      return p->say(spokenText);
+        
+  return false;
 }
 
 
@@ -69,9 +97,12 @@ bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
  * \brief Interrupts the current spoken text
  * \return true if successfully sent interrupt request or if service seems unavailable
  */
-bool SimonTTS::interrupt()
+bool SimonTTSPrivate::interrupt()
 {
-  getInstance()->interrupt();
+  bool succ = true;
+  foreach (SimonTTSProvider *p, providers)
+    succ = p->interrupt() && succ;
+  return succ;
 }
 
 
@@ -81,8 +112,20 @@ bool SimonTTS::interrupt()
  *
  * Call \sa interrupt() if you want to stop the TTS immediatly
  */
-bool SimonTTS::uninitialize()
+bool SimonTTSPrivate::uninitialize()
 {
-  getInstance()->uninitialize();
+  bool succ = true;
+  foreach (SimonTTSProvider *p, providers)
+    succ = p->uninitialize() && succ;
+  return succ;
+}
+
+/**
+ * \brief Destructor
+ * Will destroy associated backends
+ */
+SimonTTSPrivate::~SimonTTSPrivate()
+{
+  qDeleteAll(providers);
 }
 

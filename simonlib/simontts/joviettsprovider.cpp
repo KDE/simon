@@ -17,23 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "simontts.h"
-#include "simonttsprivate.h"
-#include <QString>
+#include "joviettsprovider.h"
+#include <QDBusInterface>
+#include <QDBusConnection>
 #include <KDebug>
 
-SimonTTSPrivate* SimonTTS::d = 0;
-
-/**
- * \brief Singleton method
- * Returns a new instance of SimonTTSPrivate if there isn't already one
- * \return a valid instance of SimonTTSPrivate
- */
-SimonTTSPrivate* SimonTTS::getInstance()
+JovieTTSProvider::JovieTTSProvider() : interface(0)
 {
-  if (!d) d = new SimonTTSPrivate();
-  return d;
 }
+
 
 /**
  * \brief Will force the sytem to performe the initialization
@@ -45,11 +37,40 @@ SimonTTSPrivate* SimonTTS::getInstance()
  *
  * \return Success
  */
-bool SimonTTS::initialize()
+bool JovieTTSProvider::initialize()
 {
-  getInstance()->initialize();
+  if (interface && interface->isValid()) return true;
+  kDebug() << "Initializing tts";
+
+  interface = new QDBusInterface("org.kde.jovie",
+        "/KSpeech",
+        "org.kde.KSpeech",
+        QDBusConnection::sessionBus()); 
+
+  if (!interface->isValid())
+  {
+    kWarning() << "DBus interface for speech to text not valid: " << interface->lastError();
+    uninitialize();
+    return false;
+  }
+
+  return true;
 }
 
+
+/**
+ * \brief Returns true if the given text can be synthesized
+ *
+ * As the Jovie TTS system takes any text this method returns true whenever
+ * the connection to Jovie can be initialized i.e. when \sa initialize() 
+ * worked.
+ *
+ * \return True if the text can be said
+ */
+bool JovieTTSProvider::canSay(const QString& text)
+{
+  return initialize();
+}
 
 /**
  * \brief Says the given text using the text to speech engine
@@ -59,9 +80,12 @@ bool SimonTTS::initialize()
  * \param text The text to say
  * \return True if successful
  */
-bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
+bool JovieTTSProvider::say(const QString& text)
 {
-  getInstance()->say(text, flags);
+  if (!interrupt() || !initialize()) return false;
+
+  interface->call("say", text, 0);
+  return true;
 }
 
 
@@ -69,9 +93,11 @@ bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
  * \brief Interrupts the current spoken text
  * \return true if successfully sent interrupt request or if service seems unavailable
  */
-bool SimonTTS::interrupt()
+bool JovieTTSProvider::interrupt()
 {
-  getInstance()->interrupt();
+  if (!initialize()) return true;
+  interface->call("stop");
+  return true;
 }
 
 
@@ -79,10 +105,20 @@ bool SimonTTS::interrupt()
  * \brief Uninitializes the TTS system. 
  * \note It's safe to call this anytime because the system will be re-initialized automatically if needed 
  *
- * Call \sa interrupt() if you want to stop the TTS immediatly
+ * Call \sa interrupt() if you want to stop the TTS immediatly; Otherwise the current text will still be
+ * finished
+ * \return Success
  */
-bool SimonTTS::uninitialize()
+bool JovieTTSProvider::uninitialize()
 {
-  getInstance()->uninitialize();
+  if (!interface) return true;
+  interface->deleteLater();
+  interface = 0;
+  return true;
 }
 
+
+JovieTTSProvider::~JovieTTSProvider()
+{
+  if (interface) interface->deleteLater();
+}

@@ -17,42 +17,42 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SIMONTTS_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_SIMONTTS_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_JovieTTSProvider_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_JovieTTSProvider_H_7A7B9100FF5245329569C1B540119C37
 
-#include "simontts_export.h"
-#include <QFlags>
+#include "simonttsprovider.h"
 
 class QString;
-class SimonTTSPrivate;
+class QDBusInterface;
 
 /**
- * \class SimonTTS
+ * \class JovieTTSProvider
  * \author Peter Grasch
  * \since 0.4
- * \brief Provides access to text to speech functionality
+ * \brief Interface to Jovie - the KDE text to speech system
  */
-class SIMONTTS_EXPORT SimonTTS
+class JovieTTSProvider : public SimonTTSProvider
 {
-  protected:
-    static SimonTTSPrivate *d;
-    static SimonTTSPrivate* getInstance();
+  private:
+    /**
+     * \brief The interface to talk to; May be 0 if not yet initialized
+     *
+     * The initialization is performed each time \sa say() or \sa initialize()
+     * is called for as long as this remains 0 
+     */
+    QDBusInterface *interface;
 
   public:
-    enum TTSFlag
-    {
-      None=0,
-      StripHTML=1
-    };
-    Q_DECLARE_FLAGS(TTSFlags, TTSFlag);
-
-    static bool initialize();
-    static bool uninitialize();
-    static bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
-    static bool interrupt();
+    JovieTTSProvider();
+    bool initialize();
+    bool uninitialize();
+    bool canSay(const QString& text);
+    bool say(const QString& text);
+    bool interrupt();
+    ~JovieTTSProvider();
 
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(SimonTTS::TTSFlags);
 #endif
+
 
