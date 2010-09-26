@@ -348,16 +348,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="KEditListWidget" name="elwRepeatTriggers">
-            <property name="toolTip">
-             <string>These triggers will cause the TTS system to repeat the current prompt</string>
-            </property>
-            <property name="buttons">
-             <set>KEditListWidget::Add|KEditListWidget::Remove</set>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
@@ -376,6 +366,13 @@
            <widget class="QCheckBox" name="cbRepeatOnInvalidInput">
             <property name="text">
              <string>Repeat available options on invalid input</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KEditListBox" name="elwRepeatTriggers">
+            <property name="buttons">
+             <set>KEditListBox::Add|KEditListBox::Remove</set>
             </property>
            </widget>
           </item>
@@ -403,6 +400,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
@@ -417,11 +419,6 @@
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>KEditListWidget</class>
-   <extends>QWidget</extends>
-   <header>keditlistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>
