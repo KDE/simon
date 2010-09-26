@@ -22,6 +22,8 @@
 #include <QListWidget>
 #include <kgenericfactory.h>
 #include <KActionSelector>
+#include <KInputDialog>
+#include <KMessageBox>
 
 K_PLUGIN_FACTORY( TTSSettingsFactory,
   registerPlugin< TTSSettings >();
@@ -29,15 +31,20 @@ K_PLUGIN_FACTORY( TTSSettingsFactory,
 
 K_EXPORT_PLUGIN( TTSSettingsFactory("TTSSettings") )
 
-TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
-{
+TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
+  setDirty(false),
+  oldSetIndex(-1)
+{ 
   Q_UNUSED(args);
 
   ui.setupUi(this);
 
-  ui.pbAdd->setIcon(KIcon("list-add"));
-  ui.pbEdit->setIcon(KIcon("document-edit"));
-  ui.pbRemove->setIcon(KIcon("list-remove"));
+  ui.pbAddRecording->setIcon(KIcon("list-add"));
+  ui.pbEditRecording->setIcon(KIcon("document-edit"));
+  ui.pbRemoveRecording->setIcon(KIcon("list-remove"));
+  ui.pbAddSet->setIcon(KIcon("list-add"));
+  ui.pbRenameSet->setIcon(KIcon("document-edit"));
+  ui.pbRemoveSet->setIcon(KIcon("list-remove"));
   connect(ui.asBackends, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotChanged()));
   connect(ui.asBackends, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
   connect(ui.asBackends, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotChanged()));
@@ -45,7 +52,50 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
   connect(ui.asBackends->availableListWidget(), SIGNAL(currentRowChanged(int)), ui.asBackends, SLOT(polish()));
   connect(ui.asBackends->selectedListWidget(), SIGNAL(currentRowChanged(int)), ui.asBackends, SLOT(polish()));
 
+  connect(ui.kcfg_activeSet, SIGNAL(currentIndexChanged(int)), this, SLOT(setSelectionChanged(int)));
+  connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
+  connect(ui.pbRenameSet, SIGNAL(clicked()), this, SLOT(renameSet()));
+  connect(ui.pbRemoveSet, SIGNAL(clicked()), this, SLOT(removeSet()));
+  connect(ui.pbAddRecording, SIGNAL(clicked()), this, SLOT(addRecording()));
+  connect(ui.pbEditRecording, SIGNAL(clicked()), this, SLOT(editRecording()));
+  connect(ui.pbRemoveRecording, SIGNAL(clicked()), this, SLOT(removeRecording()));
+
+  connect(ui.kcfg_useRecordingsAcrossSets, SIGNAL(clicked()), this, SLOT(slotChanged()));
+
   addConfig(TTSConfiguration::self(), this);
+}
+
+void TTSSettings::setSelectionChanged(int newIndex)
+{
+  emit changed(true);
+  if (setDirty && (newIndex != oldSetIndex))
+  {
+    int ret = KMessageBox::questionYesNoCancel(this, i18n("Before you change / view another set you have to either save or revert your changes to this set.\n\nDo you want to save your current changes before continuing?\n\nSelecting \"Cancel\" will keep the current set open."));
+
+    switch (ret)
+    {
+      case KMessageBox::Yes:
+        //save current changes and continue
+        save();
+        break;
+
+      case KMessageBox::No:
+        break; // just continue but keep changed at true because we changed the 
+        //currently active set
+
+      case KMessageBox::Cancel:
+        ui.kcfg_activeSet->setCurrentIndex(oldSetIndex);
+        return;
+    }
+  }
+  oldSetIndex = newIndex;
+
+  displayCurrentSet();
+}
+
+void TTSSettings::displayCurrentSet()
+{
+  kDebug() << "Displaying set: " << ui.kcfg_activeSet->currentText();
 }
 
 void TTSSettings::slotChanged()
@@ -89,6 +139,9 @@ void TTSSettings::load()
     item->setData(Qt::UserRole, a);
     ui.asBackends->availableListWidget()->addItem(item);
   }
+
+  displayCurrentSet();
+
   emit changed(false);
 }
 
@@ -99,6 +152,53 @@ void TTSSettings::save()
   QStringList selectedBackends;
   for (int i=0; i < ui.asBackends->selectedListWidget()->count(); i++)
     selectedBackends << ui.asBackends->selectedListWidget()->item(i)->data(Qt::UserRole).toString();
+  TTSConfiguration::setBackends(selectedBackends);
+
+  emit changed(false);
+}
+
+void TTSSettings::addSet()
+{
+  bool ok = false;
+  QString setName = KInputDialog::getText(i18n("Set name"), 
+      i18n("Please enter the name of the new set of recordings:"), QString(), 
+      &ok, this);
+
+  if (!ok) return;
+
+  ui.kcfg_activeSet->addItem(setName);
+}
+
+void TTSSettings::renameSet()
+{
+  int currentIndex = ui.kcfg_activeSet->currentIndex();
+  if (currentIndex == -1) return;
+
+  bool ok = false;
+  QString setName = KInputDialog::getText(i18n("Set name"), 
+      i18n("Please enter the changed name of the set of recordings:"), ui.kcfg_activeSet->currentText(), 
+      &ok, this);
+
+  if (!ok) return;
+
+  ui.kcfg_activeSet->insertItem(currentIndex, setName);
+  ui.kcfg_activeSet->removeItem(currentIndex+1);
+}
+
+void TTSSettings::removeSet()
+{
+}
+
+void TTSSettings::addRecording()
+{
+}
+
+void TTSSettings::editRecording()
+{
+}
+
+void TTSSettings::removeRecording()
+{
 }
 
 

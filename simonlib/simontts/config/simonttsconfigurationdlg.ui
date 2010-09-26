@@ -17,7 +17,7 @@
    <item>
     <widget class="KTabWidget" name="ktabwidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -35,12 +35,61 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Set:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="kcfg_activeSet"/>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbAddSet">
+           <property name="text">
+            <string>Add </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbRenameSet">
+           <property name="text">
+            <string>Rename</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbRemoveSet">
+           <property name="text">
+            <string>Remove</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="kcfg_useRecordingsAcrossSets">
+         <property name="text">
+          <string>Search all sets when looking for a recording instead of only the currently active one</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Recordings:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QListWidget" name="listWidget"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="KPushButton" name="pbAdd">
+          <widget class="KPushButton" name="pbAddRecording">
            <property name="text">
             <string>Add</string>
            </property>
@@ -60,14 +109,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="KPushButton" name="pbEdit">
+          <widget class="KPushButton" name="pbEditRecording">
            <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="KPushButton" name="pbRemove">
+          <widget class="KPushButton" name="pbRemoveRecording">
            <property name="text">
             <string>Remove</string>
            </property>
@@ -86,6 +135,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

@@ -20,6 +20,8 @@ set( simontts_LIB_HDRS
   simontts.h
 )
 
+kde4_add_kcfg_files(simontts_SRCS config/ttsconfiguration.kcfgc)
+
 kde4_add_library( simontts  SHARED ${simontts_LIB_SRCS} )
 target_link_libraries( simontts ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} )
 

@@ -12,5 +12,14 @@
       <default>Jovie,File</default>
     </entry>
   </group>
+  <group name="recordings">
+    <entry name="activeSet" type="String">
+      <label>Currently active set</label>
+    </entry>
+    <entry name="useRecordingsAcrossSets" type="Bool">
+      <label>Search all sets when looking for a recording instead of only the currently active one"</label>
+      <default>true</default>
+    </entry>
+  </group>
 </kcfg>
 

@@ -47,7 +47,7 @@ SimonTTSPrivate* SimonTTS::getInstance()
  */
 bool SimonTTS::initialize()
 {
-  getInstance()->initialize();
+  return getInstance()->initialize();
 }
 
 
@@ -61,7 +61,7 @@ bool SimonTTS::initialize()
  */
 bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
 {
-  getInstance()->say(text, flags);
+  return getInstance()->say(text, flags);
 }
 
 
@@ -71,7 +71,7 @@ bool SimonTTS::say(const QString& text, SimonTTS::TTSFlags flags)
  */
 bool SimonTTS::interrupt()
 {
-  getInstance()->interrupt();
+  return getInstance()->interrupt();
 }
 
 
@@ -83,6 +83,6 @@ bool SimonTTS::interrupt()
  */
 bool SimonTTS::uninitialize()
 {
-  getInstance()->uninitialize();
+  return getInstance()->uninitialize();
 }
 

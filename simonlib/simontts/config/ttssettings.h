@@ -32,10 +32,22 @@ class TTSSettings : public KCModule
   Q_OBJECT
   private:
     Ui::TTSConfiguration ui;
+    bool setDirty;
+    int oldSetIndex;
     QString translateBackend(const QString& backend);
 
   private slots:
     void slotChanged();
+
+    void addSet();
+    void renameSet();
+    void removeSet();
+    void addRecording();
+    void editRecording();
+    void removeRecording(); 
+
+    void setSelectionChanged(int newIndex);
+    void displayCurrentSet();
 
   public:
     explicit TTSSettings(QWidget* parent, const QVariantList& args=QVariantList());
