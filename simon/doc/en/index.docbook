@@ -464,7 +464,7 @@ Perfect volume:
 <para>To help simon with the automatic segmentation it is recommended to leave about one or two seconds of silence on the recording before and after reading the prompted text.</para>
 
 <para>
-Current simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for one second:
+Current simon versions include a graphical notice on when to speak during recording. The message will tell the user to wait for about half a second:
 <screenshot>
 <screeninfo>Please wait</screeninfo>
   <mediaobject>
