@@ -290,7 +290,7 @@ void RecWidget::record()
 
   if (someoneIsRecording) {
     showWaitPrompt();
-    statusTimer->start(1000);
+    statusTimer->start(700);
   }
 }
 
