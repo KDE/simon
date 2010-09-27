@@ -18,7 +18,9 @@
  */
 
 #include "simonttsprivate.h"
+#include "ttsconfiguration.h"
 #include "joviettsprovider.h"
+#include "recordedttsprovider.h"
 #include <QString>
 #include <QRegExp>
 #include <KDebug>
@@ -30,7 +32,6 @@
  */
 SimonTTSPrivate::SimonTTSPrivate()
 {
-  providers << new JovieTTSProvider();
 }
 
 /**
@@ -45,6 +46,30 @@ SimonTTSPrivate::SimonTTSPrivate()
  */
 bool SimonTTSPrivate::initialize()
 {
+  if (providers.isEmpty())
+  {
+    QStringList backends = TTSConfiguration::backends();
+    kDebug() << "Backends: " << backends;
+    foreach (const QString& back, backends)
+    {
+      if (back == "File")
+      {
+        providers << new RecordedTTSProvider();
+        kDebug() << "Initializing file...";
+      }
+      else
+      {
+        kDebug() << "Initializing jovie...";
+        if (back == "Jovie")
+          providers << new JovieTTSProvider();
+        else
+          kDebug() << "Unknown provider: " << back;
+      }
+    }
+
+  }
+
+
   bool succ = true;
   foreach (SimonTTSProvider *p, providers)
     succ = p->initialize() && succ;
@@ -73,8 +98,6 @@ QString SimonTTSPrivate::processString(QString text, SimonTTS::TTSFlags flags)
 /**
  * \brief Says the given text using the text to speech engine
  *
- * Will call \sa initialize() if the system has not yet been initialized
- *
  * \param text The text to say
  * \return True if successful
  */
@@ -82,8 +105,6 @@ bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)
 {
   QString spokenText = processString(text, flags);
   if (spokenText.isEmpty()) return true;
-
-  kDebug() << "Saying: " << spokenText;
 
   foreach (SimonTTSProvider *p, providers)
     if (p->canSay(spokenText))
@@ -117,6 +138,8 @@ bool SimonTTSPrivate::uninitialize()
   bool succ = true;
   foreach (SimonTTSProvider *p, providers)
     succ = p->uninitialize() && succ;
+  qDeleteAll(providers);
+  providers.clear();
   return succ;
 }
 

@@ -13,7 +13,7 @@
     </entry>
   </group>
   <group name="recordings">
-    <entry name="activeSet" type="String">
+    <entry name="activeSet" type="Int">
       <label>Currently active set</label>
     </entry>
     <entry name="useRecordingsAcrossSets" type="Bool">

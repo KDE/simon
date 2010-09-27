@@ -62,6 +62,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     void deregister();
 
     void stateChanged();
+    void stateDestroyed();
     
     DialogConfiguration* getDialogConfiguration() const;
 

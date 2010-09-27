@@ -289,7 +289,7 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
     {
       connect(state, SIGNAL(requestDialogState(int)), this, SLOT(initState(int)));
       connect(state, SIGNAL(changed()), this, SLOT(stateChanged()));
-      connect(state, SIGNAL(destroyed()), this, SLOT(()));
+      connect(state, SIGNAL(destroyed()), this, SLOT(stateDestroyed()));
       dialogStates << state;
     }
 
@@ -300,6 +300,11 @@ bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
 
   getDialogConfiguration()->init();
   return true;
+}
+
+void DialogCommandManager::stateDestroyed()
+{
+  dialogStates.removeAll(static_cast<DialogState*>(sender()));
 }
 
 void DialogCommandManager::bindStateCommands()

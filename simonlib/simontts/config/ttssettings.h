@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,6 +24,8 @@
 #include <KCModule>
 #include <QVariantList>
 
+class RecordingSetCollection;
+
 /**
   @author Peter Grasch <grasch@simon-listens.org>
 */
@@ -34,7 +36,14 @@ class TTSSettings : public KCModule
     Ui::TTSConfiguration ui;
     bool setDirty;
     int oldSetIndex;
+
+    RecordingSetCollection *sets;
+
     QString translateBackend(const QString& backend);
+    void setupSets();
+    void displaySets();
+
+    int getCurrentlySelectedSet();
 
   private slots:
     void slotChanged();
