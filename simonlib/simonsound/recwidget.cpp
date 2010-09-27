@@ -71,6 +71,9 @@ m_simpleMode(forceSimpleMode)
 
   setTitle(name);
 
+  if (text.isEmpty())
+    ui->tePrompt->hide();
+
   ui->tePrompt->setFont(SoundConfiguration::promptFont());
   ui->tePrompt->setPlainText(text);
 
