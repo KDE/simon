@@ -20,6 +20,7 @@
 #include "recordedttsprovider.h"
 #include "recordingsetcollection.h"
 #include <simonsound/wavplayerclient.h>
+#include <simonsound/soundserver.h>
 #include <QStringList>
 #include <QRegExp>
 #include <QDBusInterface>
@@ -27,11 +28,11 @@
 #include <KDebug>
 #include <KStandardDirs>
 
-//TODO: handle sound configuration changes affecting the player
 RecordedTTSProvider::RecordedTTSProvider() : QObject(), sets(0),
-  player(new WavPlayerClient(0))
+  player(0)
 {
-  connect(player, SIGNAL(finished()), this, SLOT(playNext()));
+  initializeOutput();
+  connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeDevices()));
 }
 
 
@@ -59,6 +60,18 @@ bool RecordedTTSProvider::initialize()
 
   return true;
 }
+
+void RecordedTTSProvider::initializeOutput()
+{
+  if (player)
+  {
+    player->stop();
+    player->deleteLater();
+  }
+  player = new WavPlayerClient();
+  connect(player, SIGNAL(finished()), this, SLOT(playNext()));
+}
+
 
 
 /**
@@ -110,11 +123,9 @@ bool RecordedTTSProvider::say(const QString& text)
  */
 void RecordedTTSProvider::playNext()
 {
-  kDebug() << "Done playing; Queue: " << filesToPlay;
   if (filesToPlay.isEmpty()) return;
   player->play(filesToPlay.takeAt(0));
 }
-
 
 /**
  * \brief Interrupts the current spoken text
@@ -128,7 +139,6 @@ bool RecordedTTSProvider::interrupt()
   player->stop();
   return true;
 }
-
 
 /**
  * \brief Uninitializes the playback system. 

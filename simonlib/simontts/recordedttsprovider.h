@@ -44,6 +44,7 @@ class RecordedTTSProvider : public QObject, public SimonTTSProvider
 
   private slots:
     void playNext();
+    void initializeOutput();
 
   public:
     RecordedTTSProvider();

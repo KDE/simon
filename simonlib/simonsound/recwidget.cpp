@@ -83,7 +83,7 @@ m_simpleMode(forceSimpleMode)
   initialize(forcedDevices);
   
   if (!forcedDevices)
-	connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
+    connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initialize()));
 
   hideActionPrompt();
   ui->lbPromptAction->setStyleSheet("color:white");
