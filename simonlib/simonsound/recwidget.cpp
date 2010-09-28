@@ -71,6 +71,8 @@ m_simpleMode(forceSimpleMode)
 
   setTitle(name);
 
+  if (m_simpleMode) ui->pbDeleteAll->hide();
+
   if (text.isEmpty())
     ui->tePrompt->hide();
 
