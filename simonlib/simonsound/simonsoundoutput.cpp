@@ -49,9 +49,9 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
   if (!m_activeOutputClient) {
     kDebug() << "No current output client\n";
     if (m_suspendedOutputClients.isEmpty()) {
-      #ifdef Q_OS_WIN32
+      //#ifdef Q_OS_WIN32
       stopPlayback();
-      #endif
+      //#endif
       return -1;
     }
     else
