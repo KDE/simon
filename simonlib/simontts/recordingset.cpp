@@ -353,14 +353,19 @@ QVariant RecordingSet::data (const QModelIndex& index, int role) const
   switch (role)
   {
     case Qt::DisplayRole:
-      return m_recordings.keys().at(index.row());
+      {
+      QString text = m_recordings.keys().at(index.row());
+      return text.replace("\n", " ");
+      }
     case Qt::UserRole:
+      {
       QString file = m_recordings.value(m_recordings.keys().at(index.row()));
       QString baseFile = getBaseDirectory()+file;
       QString tempFile = getTempDirectory()+file;
       if (QFile::exists(tempFile)) return tempFile;
       if (QFile::exists(baseFile)) return baseFile;
       break;
+      }
   }
   return QVariant();
 }
