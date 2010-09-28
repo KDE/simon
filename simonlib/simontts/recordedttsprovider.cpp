@@ -84,10 +84,8 @@ bool RecordedTTSProvider::canSay(const QString& text)
  */
 bool RecordedTTSProvider::say(const QString& text)
 {
-  if (!interrupt() || (!sets && !initialize())) {
-    kDebug() << "Giving up...";
+  if (!interrupt() || (!sets && !initialize()))
     return false;
-  }
 
   //play wav file
   QString path = sets->getPath(text);
