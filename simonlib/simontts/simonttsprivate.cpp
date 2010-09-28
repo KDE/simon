@@ -21,6 +21,7 @@
 #include "ttsconfiguration.h"
 #include "joviettsprovider.h"
 #include "recordedttsprovider.h"
+#include "webservicettsprovider.h"
 #include <QString>
 #include <QRegExp>
 #include <KDebug>
@@ -62,8 +63,13 @@ bool SimonTTSPrivate::initialize()
       {
         kDebug() << "Initializing jovie...";
         if (back == "Jovie")
+        {
           providers << new JovieTTSProvider();
-        else
+        }
+        else if (back == "Webservice")
+        {
+          providers << new WebserviceTTSProvider();
+        } else
           kDebug() << "Unknown provider: " << back;
       }
     }

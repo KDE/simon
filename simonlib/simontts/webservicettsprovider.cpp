@@ -17,15 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "recordedttsprovider.h"
-#include "recordingsetcollection.h"
+#include "webservicettsprovider.h"
+#include "ttsconfiguration.h"
 #include <simonsound/wavplayerclient.h>
 #include <simonsound/soundserver.h>
 #include <QStringList>
+#include <QFile>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QNetworkAccessManager>
 #include <KDebug>
 #include <KStandardDirs>
 
-RecordedTTSProvider::RecordedTTSProvider() : QObject(), sets(0),
+WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
+  net(0),
   player(0)
 {
   initializeOutput();
@@ -36,29 +41,46 @@ RecordedTTSProvider::RecordedTTSProvider() : QObject(), sets(0),
 /**
  * \brief Will force the sytem to performe the initialization
  *
- * For file based systems that means reading the set definition from the 
- * XML file and loading the individual recording sets
- *
  * \return Success
  */
-bool RecordedTTSProvider::initialize()
+bool WebserviceTTSProvider::initialize()
 {
-  if (sets) return true;
-  delete sets;
-  sets = new RecordingSetCollection;
-  if (!sets->init(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
+  if (!net)
   {
-    kDebug() << "Failed to init...";
-    delete sets;
-    sets = 0;
-    return false;
+    net = new QNetworkAccessManager(this);
+    connect(net, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyReceived(QNetworkReply*)));
+    kDebug() << "Initialized";
   }
-  kDebug() << "Initialized";
 
   return true;
 }
 
-void RecordedTTSProvider::initializeOutput()
+void WebserviceTTSProvider::replyReceived(QNetworkReply* reply)
+{
+  if (reply->error() != QNetworkReply::NoError)
+  {
+    kWarning() << "Webservice reported error: " << reply->error();
+    return;
+  }
+
+  QString path = KStandardDirs::locateLocal("tmp", "simontts/webservice/return.wav");
+  QFile f(path);
+  if (!f.open(QIODevice::WriteOnly|QIODevice::Truncate))
+    return;
+  f.write(reply->readAll());
+  f.close();
+
+  //play wav file
+  kDebug() << "Playing: " << path;
+  if (!player->isPlaying())
+    player->play(path);
+  else {
+    kDebug() << "Adding to playback queue: " << path;
+    filesToPlay << path;
+  }
+}
+
+void WebserviceTTSProvider::initializeOutput()
 {
   if (player)
   {
@@ -74,17 +96,12 @@ void RecordedTTSProvider::initializeOutput()
 /**
  * \brief Returns true if the given text can be synthesized
  *
- * Checks if we have a recorded sound file for the given text;
- * Returns false if not.
- *
- * \return True if the text can be said
+ * \return Current implementation returns true if we are initialized
  */
-bool RecordedTTSProvider::canSay(const QString& text)
+bool WebserviceTTSProvider::canSay(const QString& text)
 {
-  if (!sets && !initialize()) return false;
-
-  kDebug() << "Looking if we have a recording for " << text;
-  return sets->canSay(text);
+  Q_UNUSED(text);
+  return initialize();
 }
 
 /**
@@ -95,21 +112,13 @@ bool RecordedTTSProvider::canSay(const QString& text)
  * \param text The text to say
  * \return True if successful
  */
-bool RecordedTTSProvider::say(const QString& text)
+bool WebserviceTTSProvider::say(const QString& text)
 {
-  if (/*!interrupt() ||*/ (!sets && !initialize()))
+  if (!initialize())
     return false;
 
-  //play wav file
-  QString path = sets->getPath(text);
-  kDebug() << "Playing: " << path;
-  if (!player->isPlaying())
-    player->play(path);
-  else {
-    kDebug() << "Adding to playback queue: " << path;
-    filesToPlay << path;
-  }
-
+  kDebug() << "Getting: " << TTSConfiguration::webserviceURL().replace("%1", text);
+  net->get(QNetworkRequest(KUrl(TTSConfiguration::webserviceURL().replace("%1", text))));
   return true;
 }
 
@@ -117,7 +126,7 @@ bool RecordedTTSProvider::say(const QString& text)
 /**
  * \brief Plays the next file in the playing queue
  */
-void RecordedTTSProvider::playNext()
+void WebserviceTTSProvider::playNext()
 {
   if (filesToPlay.isEmpty()) return;
   player->play(filesToPlay.takeAt(0));
@@ -127,7 +136,7 @@ void RecordedTTSProvider::playNext()
  * \brief Interrupts the current spoken text
  * \return true if successfully interrupted text or no text was playing
  */
-bool RecordedTTSProvider::interrupt()
+bool WebserviceTTSProvider::interrupt()
 {
   if (!initialize()) return true;
 
@@ -144,17 +153,13 @@ bool RecordedTTSProvider::interrupt()
  * finished
  * \return Success
  */
-bool RecordedTTSProvider::uninitialize()
+bool WebserviceTTSProvider::uninitialize()
 {
-  delete sets;
-  sets = 0;
   return true;
 }
 
-
-RecordedTTSProvider::~RecordedTTSProvider()
+WebserviceTTSProvider::~WebserviceTTSProvider()
 {
-  delete sets;
   delete player;
 }
 

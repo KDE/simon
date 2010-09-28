@@ -18,6 +18,7 @@ set( simontts_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonttsprivate.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/joviettsprovider.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/recordedttsprovider.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/webservicettsprovider.cpp
 )
 
 set( simontts_LIB_HDRS

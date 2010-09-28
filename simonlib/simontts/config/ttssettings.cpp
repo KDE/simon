@@ -97,7 +97,10 @@ void TTSSettings::slotChanged()
 QString TTSSettings::translateBackend(const QString& backend)
 {
   if (backend == "File")
-    return i18nc("The option to use pre-recorded sounds instead of the tts syste", "Recordings");
+    return i18nc("The option to use pre-recorded sounds instead of the tts system", "Recordings");
+
+  if (backend == "Webservice")
+    return i18nc("The option to use a web service to convert text to speech", "Webservice");
 
   if (backend == "Jovie")
     return i18nc("KDEs text to speech system Jovie", "Jovie");
@@ -111,6 +114,7 @@ void TTSSettings::load()
   QStringList availableBackends;
   availableBackends << "File";
   availableBackends << "Jovie";
+  availableBackends << "Webservice";
   QStringList selectedBackends = TTSConfiguration::backends();
   foreach (const QString& s, selectedBackends)
   {
