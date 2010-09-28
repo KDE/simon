@@ -38,10 +38,20 @@ class SIMONTTS_EXPORT RecordingSetCollection
     /// List of managed sets
     QList<RecordingSet*> m_sets;
 
+    /// Sets that should be removed the next time we save
+    QList<RecordingSet*> m_setsScheduledForDeletion;
+
     /**
-     * \brief Clears the @sa m_sets list and clears it
+     * \brief Clears the @sa m_sets and @sa m_setsScheduledForDeletion lists
      */
     void deleteAll();
+
+    /**
+     * \brief Deletes all sets scheduled for deletion
+     * \see m_setsScheduledForDeletion
+     * \return Success
+     */
+    bool purgeSelectedSets();
 
     /**
      * \brief Gets all sets that are going to be used to resolve samples
@@ -131,6 +141,32 @@ class SIMONTTS_EXPORT RecordingSetCollection
      * \return true if the set was removed (false if it wasn't even in there)
      */
     bool removeSet(int id);
+
+    /**
+     * \brief Adds the given recording to the set identified by id
+     * \param id The id of the set to add the recording to
+     * \param text The text said in the recording
+     * \param path Path to the (temporary) recording file
+     * \return success
+     */
+    bool addRecording(int id, const QString& text, const QString& path);
+
+    /**
+     * \brief Edits the given recording of the set identified by id
+     * \param id The id of the set to edit the recording of
+     * \param text The text said in the recording
+     * \param path Path to the (temporary) recording file
+     * \return success
+     */
+    bool editRecording(int id, const QString& text, const QString& path);
+
+    /**
+     * \brief Removes the given recording from the set identified by id
+     * \param id The id of the set to remove the recording from
+     * \param text The text said in the recording
+     * \return success
+     */
+    bool removeRecording(int id, const QString& text);
 
     /**
      * \brief Destructor

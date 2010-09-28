@@ -357,6 +357,13 @@ bool WavFileWidget::deleteSample()
   return true;
 }
 
+void WavFileWidget::checkFile()
+{
+  bool recordingReady = QFile::exists(m_filename);
+  ui->pbPlay->setEnabled(recordingReady);
+  ui->pbDelete->setEnabled(recordingReady);
+}
+
 
 /**
  * \brief Destructor

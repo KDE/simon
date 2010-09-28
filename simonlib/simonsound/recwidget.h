@@ -47,13 +47,13 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 {
   Q_OBJECT
 
-    signals:
-  void playing();
-  void recording();
-  void sampleDeleted();
-  void progress(int);
-  void recordingFinished();
-  void playbackFinished();
+  signals:
+    void playing();
+    void recording();
+    void sampleDeleted();
+    void progress(int);
+    void recordingFinished();
+    void playbackFinished();
 
   private:
     QTimer *statusTimer;
@@ -73,6 +73,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     void adjustButtonsToFile();
 
   private slots:
+    void initialize();
     void initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices);
 
     void changePromptFont(const QFont& font);
@@ -103,6 +104,8 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     bool isRecording();
     QStringList getFileNames();
     QStringList getDevices();
+
+    void checkFile();
 
     SimonSamples::SampleProblems sampleProblems();
 

@@ -19,10 +19,12 @@
 
 #include "ttssettings.h"
 #include "ttsconfiguration.h"
+#include "editrecording.h"
 #include <simontts/simontts.h>
 #include <simontts/recordingset.h>
 #include <simontts/recordingsetcollection.h>
 #include <QListWidget>
+#include <QSortFilterProxyModel>
 #include <kgenericfactory.h>
 #include <KActionSelector>
 #include <KInputDialog>
@@ -35,8 +37,6 @@ K_PLUGIN_FACTORY( TTSSettingsFactory,
 K_EXPORT_PLUGIN( TTSSettingsFactory("TTSSettings") )
 
 TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
-  setDirty(false),
-  oldSetIndex(-1),
   sets(0)
 { 
   Q_UNUSED(args);
@@ -49,6 +49,11 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
   ui.pbAddSet->setIcon(KIcon("list-add"));
   ui.pbRenameSet->setIcon(KIcon("document-edit"));
   ui.pbRemoveSet->setIcon(KIcon("list-remove"));
+
+  recordings = new QSortFilterProxyModel(this);
+  recordings->setSortCaseSensitivity(Qt::CaseInsensitive);
+  ui.tvRecordings->setModel(recordings);
+
   connect(ui.asBackends, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotChanged()));
   connect(ui.asBackends, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
   connect(ui.asBackends, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotChanged()));
@@ -56,7 +61,7 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
   connect(ui.asBackends->availableListWidget(), SIGNAL(currentRowChanged(int)), ui.asBackends, SLOT(polish()));
   connect(ui.asBackends->selectedListWidget(), SIGNAL(currentRowChanged(int)), ui.asBackends, SLOT(polish()));
 
-  connect(ui.cbActiveSet, SIGNAL(currentIndexChanged(int)), this, SLOT(setSelectionChanged(int)));
+  connect(ui.cbActiveSet, SIGNAL(currentIndexChanged(int)), this, SLOT(displayCurrentSet()));
   connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
   connect(ui.pbRenameSet, SIGNAL(clicked()), this, SLOT(renameSet()));
   connect(ui.pbRemoveSet, SIGNAL(clicked()), this, SLOT(removeSet()));
@@ -66,40 +71,21 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
 
   connect(ui.kcfg_useRecordingsAcrossSets, SIGNAL(clicked()), this, SLOT(slotChanged()));
 
+  connect(ui.leFilter, SIGNAL(textChanged(const QString&)), recordings, SLOT(setFilterWildcard(const QString&)));
+  ui.tvRecordings->setSortingEnabled(true);
+
   addConfig(TTSConfiguration::self(), this);
-}
-
-void TTSSettings::setSelectionChanged(int newIndex)
-{
-  emit changed(true);
-  if (setDirty && (newIndex != oldSetIndex))
-  {
-    int ret = KMessageBox::questionYesNoCancel(this, i18n("Before you change / view another set you have to either save or revert your changes to this set.\n\nDo you want to save your current changes before continuing?\n\nSelecting \"Cancel\" will keep the current set open."));
-
-    switch (ret)
-    {
-      case KMessageBox::Yes:
-        //save current changes and continue
-        save();
-        break;
-
-      case KMessageBox::No:
-        break; // just continue but keep changed at true because we changed the 
-        //currently active set
-
-      case KMessageBox::Cancel:
-        ui.cbActiveSet->setCurrentIndex(oldSetIndex);
-        return;
-    }
-  }
-  oldSetIndex = newIndex;
-
-  displayCurrentSet();
 }
 
 void TTSSettings::displayCurrentSet()
 {
-  kDebug() << "Displaying set: " << ui.cbActiveSet->currentText();
+  int currentSet = getCurrentlySelectedSet();
+  if (currentSet == -1)
+    recordings->setSourceModel(0);
+  else
+    recordings->setSourceModel(sets->getSet(currentSet));
+
+  ui.tvRecordings->resizeColumnsToContents();
 }
 
 void TTSSettings::slotChanged()
@@ -161,6 +147,8 @@ void TTSSettings::setupSets()
 
 void TTSSettings::displaySets()
 {
+  kDebug() << "Entering displaySets..." << sender();
+  int oldSetIndex = ui.cbActiveSet->currentIndex();
   ui.cbActiveSet->clear();
   QList<int> setIds = sets->getSets();
   foreach (int id, setIds)
@@ -168,7 +156,16 @@ void TTSSettings::displaySets()
     RecordingSet* set = sets->getSet(id);
     ui.cbActiveSet->addItem(set->name(), set->id());
   }
-  ui.cbActiveSet->setCurrentIndex(oldSetIndex);
+  kDebug() << "Old set index: " << oldSetIndex;
+  if (((oldSetIndex == -1) && (ui.cbActiveSet->count() > 0)) ||
+      (oldSetIndex >= ui.cbActiveSet->count()))
+  {
+    kDebug() << "Setting 0 index";
+    ui.cbActiveSet->setCurrentIndex(0);
+  }
+  else
+    ui.cbActiveSet->setCurrentIndex(oldSetIndex);
+  kDebug() << "Old set index: " << oldSetIndex;
 
   displayCurrentSet();
 }
@@ -188,7 +185,6 @@ void TTSSettings::save()
   kDebug() << "Saving sets...";
   if (!sets->save(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
     KMessageBox::sorry(this, i18n("Couldn't write recording sets to the configuration file."));
-  else kDebug() << "Saved sets!";
 
   SimonTTS::uninitialize();
   emit changed(false);
@@ -210,6 +206,7 @@ void TTSSettings::addSet()
 
   emit changed(true);
   displaySets();
+  ui.cbActiveSet->setCurrentIndex(ui.cbActiveSet->count()-1);
 }
 
 void TTSSettings::renameSet()
@@ -224,8 +221,6 @@ void TTSSettings::renameSet()
 
   if (!ok) return;
 
-  //FIXME shouldn't I rather change the recordingsetcollection and call displaySets()?
-  //ui.cbActiveSet->insertItem(currentIndex, setName);
   if (!sets->renameSet(getCurrentlySelectedSet(), setName))
     KMessageBox::sorry(this, i18n("Couldn't rename set to: %1", setName));
 
@@ -237,7 +232,8 @@ void TTSSettings::removeSet()
 {
   int currentIndex = ui.cbActiveSet->currentIndex();
   if (currentIndex == -1) return;
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irreversibly delete the current set?")) == KMessageBox::Yes)
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irreversibly delete "
+          "the current set and all associated samples?")) == KMessageBox::Yes)
     if (!sets->removeSet(getCurrentlySelectedSet()))
       KMessageBox::sorry(this, i18n("Couldn't remove set"));
 
@@ -248,19 +244,101 @@ void TTSSettings::removeSet()
 int TTSSettings::getCurrentlySelectedSet()
 {
   int currentIndex = ui.cbActiveSet->currentIndex();
+  if (currentIndex == -1) return -1;
   return ui.cbActiveSet->itemData(currentIndex, Qt::UserRole).toInt();
+}
+
+QString TTSSettings::getCurrentlySelectedRecording()
+{
+  QModelIndexList selectedIndexes = ui.tvRecordings->selectionModel()->selectedIndexes();
+  if (selectedIndexes.count() != 1)
+    return QString();
+
+  return recordings->data(selectedIndexes.at(0)).toString();
+}
+
+QString TTSSettings::getCurrentlySelectedPath()
+{
+  QModelIndexList selectedIndexes = ui.tvRecordings->selectionModel()->selectedIndexes();
+  if (selectedIndexes.count() != 1)
+    return QString();
+
+  return recordings->data(selectedIndexes.at(0), Qt::UserRole).toString();
 }
 
 void TTSSettings::addRecording()
 {
+  int currentSet = getCurrentlySelectedSet();
+  if (currentSet == -1) {
+    KMessageBox::information(this, i18n("Please add or select a set above."));
+    return;
+  }
+
+  QString text;
+  QString path;
+  QPointer<EditRecording> dlg = new EditRecording(this);
+  if (!dlg->addRecording(text, path))
+  {
+    delete dlg;
+    return;
+  }
+
+  kDebug() << "Adding: " << text << path << " to set " << currentSet;
+  if (!sets->addRecording(currentSet, text, path))
+    KMessageBox::sorry(this, i18n("Couldn't add recording to set."));
+
+  emit changed(true);
+  delete dlg;
 }
 
 void TTSSettings::editRecording()
 {
+  int currentSet = getCurrentlySelectedSet();
+  if (currentSet == -1) {
+    KMessageBox::information(this, i18n("Please add or select a set above."));
+    return;
+  }
+  QString text = getCurrentlySelectedRecording();
+  if (text.isNull()) {
+    KMessageBox::information(this, i18n("Please select a recording above."));
+    return;
+  }
+
+  QString path = getCurrentlySelectedPath();
+  QPointer<EditRecording> dlg = new EditRecording(this);
+  if (!dlg->editRecording(text, path))
+  {
+    delete dlg;
+    return;
+  }
+
+  if (!sets->editRecording(currentSet, text, path))
+    KMessageBox::sorry(this, i18n("Couldn't edit recording of set."));
+  emit changed(true);
+
+  delete dlg;
 }
 
 void TTSSettings::removeRecording()
 {
+  int currentSet = getCurrentlySelectedSet();
+  if (currentSet == -1) {
+    KMessageBox::information(this, i18n("Please add or select a set above."));
+    return;
+  }
+  QString text = getCurrentlySelectedRecording();
+  if (text.isNull()) {
+    KMessageBox::information(this, i18n("Please select a recording above."));
+    return;
+  }
+
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to irreversibly remove this recording?")) == 
+      KMessageBox::Yes)
+  {
+    if (!sets->removeRecording(currentSet, text))
+      KMessageBox::sorry(this, i18n("Failed to remove the recording."));
+  }
+  emit changed(true);
 }
 
 
@@ -270,4 +348,7 @@ void TTSSettings::defaults()
 }
 
 TTSSettings::~TTSSettings()
-{}
+{
+  delete recordings;
+  delete sets;
+}

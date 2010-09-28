@@ -115,6 +115,7 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget
     void displayRecordingProgress(int msecs, float level);
 
     void displayWarning();
+    void checkFile();
 
     // 	void displayClippingWarning();
     // 	void displayNoiseWarning();

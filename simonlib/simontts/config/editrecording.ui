@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>DlgEditRecording</class>
+ <widget class="QWidget" name="DlgEditRecording">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,6 +14,9 @@
    <string/>
   </property>
   <layout class="QFormLayout" name="formLayout">
+   <property name="fieldGrowthPolicy">
+    <enum>QFormLayout::ExpandingFieldsGrow</enum>
+   </property>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
@@ -24,20 +27,10 @@
    <item row="0" column="1">
     <widget class="KTextEdit" name="teText"/>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Recording:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QWidget" name="wgRecord" native="true"/>
-   </item>
    <item row="1" column="1">
     <widget class="KPushButton" name="pbLastTextToSpeechRequests">
      <property name="text">
-      <string>Last text-to-speech-requests</string>
+      <string>Last text-to-speech requests</string>
      </property>
     </widget>
    </item>

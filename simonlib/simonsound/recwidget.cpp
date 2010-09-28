@@ -179,6 +179,10 @@ QStringList RecWidget::getDevices()
   return devices;
 }
 
+void RecWidget::initialize()
+{
+  initialize(0);
+}
 
 void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices)
 {
@@ -290,7 +294,7 @@ void RecWidget::record()
 
   if (someoneIsRecording) {
     showWaitPrompt();
-    statusTimer->start(700);
+    statusTimer->start(600);
   }
 }
 
@@ -365,6 +369,12 @@ bool RecWidget::deleteAll()
   return success;
 }
 
+void RecWidget::checkFile()
+{
+  adjustButtonsToFile();
+  foreach (WavFileWidget *wav, waves)
+    wav->checkFile();
+}
 
 RecWidget::~RecWidget()
 {

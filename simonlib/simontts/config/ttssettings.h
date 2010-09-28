@@ -25,6 +25,7 @@
 #include <QVariantList>
 
 class RecordingSetCollection;
+class QSortFilterProxyModel;
 
 /**
   @author Peter Grasch <grasch@simon-listens.org>
@@ -34,16 +35,18 @@ class TTSSettings : public KCModule
   Q_OBJECT
   private:
     Ui::TTSConfiguration ui;
-    bool setDirty;
-    int oldSetIndex;
 
     RecordingSetCollection *sets;
+
+    QSortFilterProxyModel *recordings;
 
     QString translateBackend(const QString& backend);
     void setupSets();
     void displaySets();
 
     int getCurrentlySelectedSet();
+    QString getCurrentlySelectedRecording();
+    QString getCurrentlySelectedPath();
 
   private slots:
     void slotChanged();
@@ -55,7 +58,6 @@ class TTSSettings : public KCModule
     void editRecording();
     void removeRecording(); 
 
-    void setSelectionChanged(int newIndex);
     void displayCurrentSet();
 
   public:

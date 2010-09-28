@@ -31,6 +31,8 @@ void RecordingSetCollection::deleteAll()
 {
   qDeleteAll(m_sets);
   m_sets.clear();
+  qDeleteAll(m_setsScheduledForDeletion);
+  m_setsScheduledForDeletion.clear();
 }
 
 bool RecordingSetCollection::init(const QString& path)
@@ -64,16 +66,26 @@ bool RecordingSetCollection::save(const QString& path)
   QFile f(path);
   if (!f.open(QIODevice::WriteOnly)) return false;
 
+  bool succ = purgeSelectedSets();
+  
   QDomDocument doc;
   QDomElement rootElem = doc.createElement("ttssets");
   foreach (RecordingSet *set, m_sets)
-    rootElem.appendChild(set->serialize(&doc));
+  {
+    QDomElement elem = set->serialize(&doc);
+    if (elem.isNull())
+    {
+      succ = false;
+      continue;
+    }
+    rootElem.appendChild(elem);
+  }
   doc.appendChild(rootElem);
   
   f.write(doc.toString().toUtf8());
 
   f.close();
-  return true;
+  return succ;
 }
 
 bool RecordingSetCollection::canSay(const QString& text)
@@ -153,10 +165,45 @@ bool RecordingSetCollection::renameSet(int id, const QString& name)
 bool RecordingSetCollection::removeSet(int id)
 {
   RecordingSet *set = getSet(id);
-  if (!set) return false;
+  if (!set || !set->clear()) return false;
   m_sets.removeAll(set);
-  delete set;
+  m_setsScheduledForDeletion << set;
+  kDebug() << "Scheduling set for deletion";
   return true;
+}
+
+bool RecordingSetCollection::purgeSelectedSets()
+{
+  bool succ = true;
+  foreach (RecordingSet* set, m_setsScheduledForDeletion)
+  {
+    kDebug() << "Purging set";
+    succ = set->applyTemp() && succ;
+    m_setsScheduledForDeletion.removeAll(set);
+    delete set;
+  }
+  return succ;
+}
+
+bool RecordingSetCollection::addRecording(int id, const QString& text, const QString& path)
+{
+  RecordingSet *set = getSet(id);
+  if (!set) return false;
+  return set->addRecording(text, path);
+}
+
+bool RecordingSetCollection::editRecording(int id, const QString& text, const QString& path)
+{
+  RecordingSet *set = getSet(id);
+  if (!set) return false;
+  return set->editRecording(text, path);
+}
+
+bool RecordingSetCollection::removeRecording(int id, const QString& text)
+{
+  RecordingSet *set = getSet(id);
+  if (!set) return false;
+  return set->removeRecording(text);
 }
 
 RecordingSetCollection::~RecordingSetCollection()
