@@ -93,6 +93,7 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
 
   if (state.announceRepeat())
     text += m_dialog->getRepeatAnnouncement();
+    //say(m_dialog->getRepeatAnnouncement());
 
   if (text.isEmpty())
   {
@@ -100,6 +101,7 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
     return true;
   }
   kDebug() << "Saying text: " << text;
+
   return say(text);
 }
 

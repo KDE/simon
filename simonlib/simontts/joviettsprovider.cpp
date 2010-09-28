@@ -85,7 +85,7 @@ bool JovieTTSProvider::canSay(const QString& text)
  */
 bool JovieTTSProvider::say(const QString& text)
 {
-  if (!interrupt() || !initialize()) return false;
+  if (/*!interrupt() ||*/ !initialize()) return false;
 
   interface->call("say", text, 0);
 

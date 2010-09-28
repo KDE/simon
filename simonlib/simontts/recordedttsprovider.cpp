@@ -19,6 +19,7 @@
 
 #include "recordedttsprovider.h"
 #include "recordingsetcollection.h"
+#include <simonsound/wavplayerclient.h>
 #include <QStringList>
 #include <QRegExp>
 #include <QDBusInterface>
@@ -26,8 +27,11 @@
 #include <KDebug>
 #include <KStandardDirs>
 
-RecordedTTSProvider::RecordedTTSProvider() : sets(0)
+//TODO: handle sound configuration changes affecting the player
+RecordedTTSProvider::RecordedTTSProvider() : QObject(), sets(0),
+  player(new WavPlayerClient(0))
 {
+  connect(player, SIGNAL(finished()), this, SLOT(playNext()));
 }
 
 
@@ -41,8 +45,8 @@ RecordedTTSProvider::RecordedTTSProvider() : sets(0)
  */
 bool RecordedTTSProvider::initialize()
 {
+  if (sets) return true;
   delete sets;
-
   sets = new RecordingSetCollection;
   if (!sets->init(KStandardDirs::locateLocal("appdata", "ttsrec/ttssets.xml")))
   {
@@ -84,14 +88,31 @@ bool RecordedTTSProvider::canSay(const QString& text)
  */
 bool RecordedTTSProvider::say(const QString& text)
 {
-  if (!interrupt() || (!sets && !initialize()))
+  if (/*!interrupt() ||*/ (!sets && !initialize()))
     return false;
 
   //play wav file
   QString path = sets->getPath(text);
   kDebug() << "Playing: " << path;
+  if (!player->isPlaying())
+    player->play(path);
+  else {
+    kDebug() << "Adding to playback queue: " << path;
+    filesToPlay << path;
+  }
 
   return true;
+}
+
+
+/**
+ * \brief Plays the next file in the playing queue
+ */
+void RecordedTTSProvider::playNext()
+{
+  kDebug() << "Done playing; Queue: " << filesToPlay;
+  if (filesToPlay.isEmpty()) return;
+  player->play(filesToPlay.takeAt(0));
 }
 
 
@@ -103,6 +124,8 @@ bool RecordedTTSProvider::interrupt()
 {
   if (!initialize()) return true;
 
+  filesToPlay.clear();
+  player->stop();
   return true;
 }
 
@@ -117,7 +140,8 @@ bool RecordedTTSProvider::interrupt()
  */
 bool RecordedTTSProvider::uninitialize()
 {
-  //TODO: delete _after_ playback finished
+  delete sets;
+  sets = 0;
   return true;
 }
 
@@ -125,5 +149,6 @@ bool RecordedTTSProvider::uninitialize()
 RecordedTTSProvider::~RecordedTTSProvider()
 {
   delete sets;
+  delete player;
 }
 

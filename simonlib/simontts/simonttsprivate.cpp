@@ -110,6 +110,8 @@ bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)
   QString spokenText = processString(text, flags);
   if (spokenText.isEmpty()) return true;
 
+
+  recentlyRequestedTexts.removeAll(spokenText);
   recentlyRequestedTexts.insert(0, spokenText);
   if (recentlyRequestedTexts.count() >= 30)
     recentlyRequestedTexts.removeAt(30);

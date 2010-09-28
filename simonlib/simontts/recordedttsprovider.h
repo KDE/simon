@@ -21,9 +21,12 @@
 #define SIMON_RecordedTTSProvider_H_7A7B9100FF5245329569C1B540119C37
 
 #include "simonttsprovider.h"
+#include <QStringList>
+#include <QObject>
 
 class QString;
 class RecordingSetCollection;
+class WavPlayerClient;
 
 /**
  * \class RecordedTTSProvider
@@ -31,10 +34,16 @@ class RecordingSetCollection;
  * \since 0.4
  * \brief Interface to pre recorded sound snippets
  */
-class RecordedTTSProvider : public SimonTTSProvider
+class RecordedTTSProvider : public QObject, public SimonTTSProvider
 {
+  Q_OBJECT
   private:
     RecordingSetCollection *sets;
+    QStringList filesToPlay;
+    WavPlayerClient *player;
+
+  private slots:
+    void playNext();
 
   public:
     RecordedTTSProvider();

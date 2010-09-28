@@ -27,7 +27,7 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent)
+WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent), m_isPlaying(false)
 {
   QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
 
@@ -56,14 +56,20 @@ void WavPlayerClient::slotCurrentProgress(int progress)
 
 void WavPlayerClient::slotFinished()
 {
+  kDebug() << "Received finish!";
   WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
-  if (!c) return;
+  if (!c) {
+    kDebug() << "Sender not a wavplayersubclient: " << sender();
+    return;
+  }
 
   clientsWaitingToFinish.removeAll(c);
 
   if (clientsWaitingToFinish.isEmpty()) {
+    kDebug() << "Emitting finish";
     emit finished();
-  }
+    m_isPlaying = false;
+  } else kDebug() << "More clients waiting to finish";
 }
 
 
@@ -74,15 +80,24 @@ void WavPlayerClient::slotFinished()
 bool WavPlayerClient::play( QString filename, int channels )
 {
   bool succ = false;
+
+  if (channels == -1)
+  {
+    //determine channels automatically
+    WAV w(filename);
+    channels = w.getChannels();
+    kDebug() << "File has " << channels << " channels";
+  }
+
   kDebug() << "Playing: " << filename;
   foreach (WavPlayerSubClient *client, clients) {
-    kDebug() << "Go Client!";
     if ((client->getChannelCount() == channels) &&
     client->play(filename)) {
       clientsWaitingToFinish << client;
       succ = true;
     }
   }
+  if (succ) m_isPlaying = true;
   return succ;
 }
 
@@ -97,6 +112,7 @@ void WavPlayerClient::stop()
   foreach (WavPlayerSubClient *client, clients)
     client->stop();
 
+  m_isPlaying = false;
 }
 
 

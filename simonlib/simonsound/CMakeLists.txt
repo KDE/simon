@@ -55,6 +55,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsamples.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsoundoutput.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
+	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound_export.h

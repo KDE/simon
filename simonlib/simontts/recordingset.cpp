@@ -143,6 +143,8 @@ QString RecordingSet::getPath(const QString& text, bool forceTemp) const
   if (m_isNull) return QString();
   
   QString file = m_recordings.value(text.trimmed());
+  if (file.isNull()) return QString();
+
   QString tempFile = getTempDirectory()+file;
 
   if (QFile::exists(tempFile))

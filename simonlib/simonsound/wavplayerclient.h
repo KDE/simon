@@ -20,6 +20,7 @@
 #ifndef SIMON_WAVPLAYERCLIENT_H_272785B973C443B89098D25E583308C1
 #define SIMON_WAVPLAYERCLIENT_H_272785B973C443B89098D25E583308C1
 
+#include "simonsound_export.h"
 #include <QObject>
 #include <QList>
 
@@ -28,20 +29,21 @@ class WavPlayerSubClient;
 /**
   \class WavPlayerClient
 
-  \brief This class is used to get the needed data out of existing wav files to play them
+  \brief Plays wav files using simons sound server
 
   \author Peter Grasch
-  \version 0.1
+  \version 0.2
 */
-class WavPlayerClient : public QObject
+class SIMONSOUND_EXPORT WavPlayerClient : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void currentProgress(int);
-  void finished();
+  signals:
+    void currentProgress(int);
+    void finished();
 
   private:
+    bool m_isPlaying;
     QList<WavPlayerSubClient*> clients;
     QList<WavPlayerSubClient*> clientsWaitingToFinish;
 
@@ -53,8 +55,9 @@ class WavPlayerClient : public QObject
     WavPlayerClient(QObject *parent=0);
     ~WavPlayerClient();
 
-    bool play(QString filename, int channels);
+    bool play(QString filename, int channels=-1);
     void stop();
+    bool isPlaying() { return m_isPlaying; }
 
 };
 #endif
