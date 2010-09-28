@@ -18,11 +18,13 @@
  */
 
 #include "editrecording.h"
+#include <simontts/simontts.h>
 #include <simonsound/recwidget.h>
 #include <QWidget>
 #include <QFormLayout>
 #include <QFile>
 #include <KStandardDirs>
+#include <KInputDialog>
 
 EditRecording::EditRecording(QWidget *parent) : KDialog(parent), recorder(0)
 {
@@ -40,7 +42,18 @@ EditRecording::EditRecording(QWidget *parent) : KDialog(parent), recorder(0)
   connect(ui.teText, SIGNAL(textChanged()), this, SLOT(checkComplete()));
   connect(recorder, SIGNAL(sampleDeleted()), this, SLOT(checkComplete()));
   connect(recorder, SIGNAL(recordingFinished()), this, SLOT(checkComplete()));
+  connect(ui.pbLastTextToSpeechRequests, SIGNAL(clicked()), this, SLOT(getFromRecentlyUsed()));
   checkComplete();
+}
+
+void EditRecording::getFromRecentlyUsed()
+{
+  bool ok = true;
+  QString selectedText = KInputDialog::getItem(i18n("Recently requested texts"),
+      i18n("These texts were recently requested from the TTS system:"), SimonTTS::recentlyUsed(),
+      0, true, &ok, this);
+  if (!ok) return;
+  ui.teText->setPlainText(selectedText);
 }
 
 EditRecording::~EditRecording()

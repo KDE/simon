@@ -21,6 +21,7 @@
 #define SIMON_SIMONTTSPRIVATE_H_7A7B9100FF5245329569C1B540119C37
 
 #include <QList>
+#include <QStringList>
 #include "simontts.h"
 
 class QString;
@@ -35,7 +36,9 @@ class SimonTTSProvider;
 class SimonTTSPrivate
 {
   protected:
+    bool forceReinitialization;
     QList<SimonTTSProvider*> providers;
+    QStringList recentlyRequestedTexts;
     QString processString(QString text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
 
   public:
@@ -44,6 +47,7 @@ class SimonTTSPrivate
     bool uninitialize();
     bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
     bool interrupt();
+    QStringList recentlyUsed();
    ~SimonTTSPrivate();
 };
 

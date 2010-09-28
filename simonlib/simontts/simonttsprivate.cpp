@@ -30,7 +30,7 @@
  *
  * \todo Will set up the backends to the configured values
  */
-SimonTTSPrivate::SimonTTSPrivate()
+SimonTTSPrivate::SimonTTSPrivate() : forceReinitialization(false)
 {
 }
 
@@ -48,6 +48,7 @@ bool SimonTTSPrivate::initialize()
 {
   if (providers.isEmpty())
   {
+    TTSConfiguration::self()->readConfig();
     QStringList backends = TTSConfiguration::backends();
     kDebug() << "Backends: " << backends;
     foreach (const QString& back, backends)
@@ -69,10 +70,12 @@ bool SimonTTSPrivate::initialize()
 
   }
 
-
   bool succ = true;
   foreach (SimonTTSProvider *p, providers)
     succ = p->initialize() && succ;
+
+  if (succ)
+    forceReinitialization = false;
   return succ;
 }
 
@@ -103,8 +106,13 @@ QString SimonTTSPrivate::processString(QString text, SimonTTS::TTSFlags flags)
  */
 bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)
 {
+  if (forceReinitialization && !initialize()) return false;
   QString spokenText = processString(text, flags);
   if (spokenText.isEmpty()) return true;
+
+  recentlyRequestedTexts.insert(0, spokenText);
+  if (recentlyRequestedTexts.count() >= 30)
+    recentlyRequestedTexts.removeAt(30);
 
   foreach (SimonTTSProvider *p, providers)
     if (p->canSay(spokenText))
@@ -120,12 +128,22 @@ bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)
  */
 bool SimonTTSPrivate::interrupt()
 {
+  if (forceReinitialization && !initialize()) return false;
   bool succ = true;
   foreach (SimonTTSProvider *p, providers)
     succ = p->interrupt() && succ;
   return succ;
 }
 
+
+/**
+ * \brief Returns the last texts (up to 30) that were requested from the tts system
+ * \return List of texts
+ */
+QStringList SimonTTSPrivate::recentlyUsed()
+{
+  return recentlyRequestedTexts;
+}
 
 /**
  * \brief Uninitializes the TTS system. 
@@ -139,7 +157,9 @@ bool SimonTTSPrivate::uninitialize()
   foreach (SimonTTSProvider *p, providers)
     succ = p->uninitialize() && succ;
   qDeleteAll(providers);
+  kDebug() << "Destroying all providers";
   providers.clear();
+  forceReinitialization = true;
   return succ;
 }
 

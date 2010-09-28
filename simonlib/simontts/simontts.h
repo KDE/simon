@@ -22,6 +22,7 @@
 
 #include "simontts_export.h"
 #include <QFlags>
+#include <QStringList>
 
 class QString;
 class SimonTTSPrivate;
@@ -50,7 +51,7 @@ class SIMONTTS_EXPORT SimonTTS
     static bool uninitialize();
     static bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
     static bool interrupt();
-
+    static QStringList recentlyUsed();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(SimonTTS::TTSFlags);

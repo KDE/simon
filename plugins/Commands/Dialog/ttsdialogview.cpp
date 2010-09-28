@@ -99,6 +99,7 @@ bool TTSDialogView::synthesizeState(const DialogState& state)
     kDebug() << "Nothing to say";
     return true;
   }
+  kDebug() << "Saying text: " << text;
   return say(text);
 }
 
@@ -115,10 +116,8 @@ void TTSDialogView::repeat(const DialogState& state)
   synthesizeState(state);
 }
 
-void TTSDialogView::warnOfInvalidInput(const QString& input)
+void TTSDialogView::warnOfInvalidInput(const QString& /*input*/)
 {
-  kDebug() << "User said bullshit: " << input;
-
   if (m_dialog->getRepeatOnInvalidInput())
     say(optionsRepeat);
 }

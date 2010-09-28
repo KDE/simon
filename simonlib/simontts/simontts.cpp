@@ -50,6 +50,15 @@ bool SimonTTS::initialize()
   return getInstance()->initialize();
 }
 
+/**
+ * \brief Returns the last texts (up to 30) that were requested from the tts system
+ * \return List of texts
+ */
+QStringList SimonTTS::recentlyUsed()
+{
+  return getInstance()->recentlyUsed();
+}
+
 
 /**
  * \brief Says the given text using the text to speech engine

@@ -36,6 +36,7 @@ class EditRecording : public KDialog
 
   private slots:
     void checkComplete();
+    void getFromRecentlyUsed();
 
   public:
     EditRecording(QWidget *parent=0);
