@@ -86,6 +86,7 @@ void TTSSettings::displayCurrentSet()
     recordings->setSourceModel(sets->getSet(currentSet));
 
   ui.tvRecordings->resizeColumnsToContents();
+  emit changed(true);
 }
 
 void TTSSettings::slotChanged()
@@ -131,7 +132,6 @@ void TTSSettings::load()
   }
 
   setupSets();
-
   emit changed(false);
 }
 
@@ -142,13 +142,16 @@ void TTSSettings::setupSets()
   if (!sets->init(KStandardDirs::locate("appdata", "ttsrec/ttssets.xml")))
     KMessageBox::sorry(this, i18n("Couldn't read recording sets from the configuration file."));
 
-  displaySets();
+  displaySets(TTSConfiguration::activeSet());
 }
 
-void TTSSettings::displaySets()
+void TTSSettings::displaySets(int changeToIndex)
 {
   kDebug() << "Entering displaySets..." << sender();
-  int oldSetIndex = ui.cbActiveSet->currentIndex();
+  int oldSetIndex;
+  if (changeToIndex != -1) oldSetIndex = changeToIndex;
+  else oldSetIndex = ui.cbActiveSet->currentIndex();
+
   ui.cbActiveSet->clear();
   QList<int> setIds = sets->getSets();
   foreach (int id, setIds)
@@ -180,6 +183,7 @@ void TTSSettings::save()
   TTSConfiguration::setBackends(selectedBackends);
   kDebug() << "Selected backends: " << selectedBackends;
 
+  TTSConfiguration::setActiveSet(getCurrentlySelectedSet());
   TTSConfiguration::self()->writeConfig();
 
   kDebug() << "Saving sets...";

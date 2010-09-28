@@ -97,7 +97,7 @@ QString RecordingSetCollection::getPath(const QString& text)
 {
   QList<RecordingSet*> activeSets = getActiveSets();
   QString path;
-  foreach (RecordingSet *s, m_sets)
+  foreach (RecordingSet *s, activeSets)
   {
     path = s->getPath(text);
     if (!path.isNull())
@@ -118,15 +118,19 @@ RecordingSet* RecordingSetCollection::getSet(int id)
 QList<RecordingSet*> RecordingSetCollection::getActiveSets()
 {
   int activeSetId = TTSConfiguration::activeSet();
+  kDebug() << "Active set: " << activeSetId;
   QList<RecordingSet*> activeSets;
   RecordingSet *activeSet = getSet(activeSetId);
   if (activeSet)
     activeSets << activeSet;
 
   if (TTSConfiguration::useRecordingsAcrossSets())
+  {
+    kDebug() << "Using recordings acorss sets";
     foreach (RecordingSet *s, m_sets)
       if (s != activeSet)
         activeSets << s;
+  }
 
   return activeSets;
 }

@@ -42,7 +42,7 @@ class TTSSettings : public KCModule
 
     QString translateBackend(const QString& backend);
     void setupSets();
-    void displaySets();
+    void displaySets(int changeToIndex=-1);
 
     int getCurrentlySelectedSet();
     QString getCurrentlySelectedRecording();
