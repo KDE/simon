@@ -29,6 +29,7 @@
 #include <KActionSelector>
 #include <KInputDialog>
 #include <KMessageBox>
+#include <KFileDialog>
 
 K_PLUGIN_FACTORY( TTSSettingsFactory,
   registerPlugin< TTSSettings >();
@@ -49,6 +50,8 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
   ui.pbAddSet->setIcon(KIcon("list-add"));
   ui.pbRenameSet->setIcon(KIcon("document-edit"));
   ui.pbRemoveSet->setIcon(KIcon("list-remove"));
+  ui.pbExportSet->setIcon(KIcon("document-export"));
+  ui.pbImportSet->setIcon(KIcon("document-import"));
 
   recordings = new QSortFilterProxyModel(this);
   recordings->setSortCaseSensitivity(Qt::CaseInsensitive);
@@ -69,12 +72,39 @@ TTSSettings::TTSSettings(QWidget* parent, const QVariantList& args): KCModule(KG
   connect(ui.pbEditRecording, SIGNAL(clicked()), this, SLOT(editRecording()));
   connect(ui.pbRemoveRecording, SIGNAL(clicked()), this, SLOT(removeRecording()));
 
+  connect(ui.pbExportSet, SIGNAL(clicked()), this, SLOT(exportSet()));
+  connect(ui.pbImportSet, SIGNAL(clicked()), this, SLOT(importSet()));
+
   connect(ui.kcfg_useRecordingsAcrossSets, SIGNAL(clicked()), this, SLOT(slotChanged()));
 
   connect(ui.leFilter, SIGNAL(textChanged(const QString&)), recordings, SLOT(setFilterWildcard(const QString&)));
   ui.tvRecordings->setSortingEnabled(true);
 
   addConfig(TTSConfiguration::self(), this);
+}
+
+void TTSSettings::exportSet()
+{
+  int currentSet = getCurrentlySelectedSet();
+  if (currentSet == -1) return;
+
+  QString path = KFileDialog::getSaveFileName(KUrl(), i18n("TTS Files *.tts"), this, i18n("Set output file"));
+  if (path.isEmpty()) return;
+
+  kDebug() << "Exporting set to: " << path;
+  if (!sets->exportSet(path, currentSet))
+    KMessageBox::sorry(this, i18n("Couldn't export set to \"%1\".", path));
+}
+
+void TTSSettings::importSet()
+{
+  QString path = KFileDialog::getOpenFileName(KUrl(), i18n("TTS Files *.tts"), this, i18n("Set file"));
+  if (path.isEmpty()) return;
+
+  kDebug() << "Importing set from: " << path;
+  if (!sets->importSet(path))
+    KMessageBox::sorry(this, i18n("Couldn't import set from \"%1\".", path));
+  displaySets();
 }
 
 void TTSSettings::displayCurrentSet()

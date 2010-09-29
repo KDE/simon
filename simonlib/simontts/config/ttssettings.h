@@ -54,6 +54,8 @@ class TTSSettings : public KCModule
     void addSet();
     void renameSet();
     void removeSet();
+    void exportSet();
+    void importSet();
     void addRecording();
     void editRecording();
     void removeRecording(); 

@@ -129,7 +129,22 @@ class SIMONTTS_EXPORT RecordingSet : public QAbstractItemModel
      * \param doc Parent document
      * \return The created element
      */
-    QDomElement serialize(QDomDocument* doc);
+    QDomElement serialize(QDomDocument* doc) const;
+
+    /**
+     * \brief Copies all data files to the given location
+     * \note This will always copy the most recent version (uncommitted changes)
+     * \param path Output path
+     * \return success
+     */
+    bool exportData(const QString& path);
+
+    /**
+     * \brief Copies all data files from the given location
+     * \param path Input path
+     * \return success
+     */
+    bool importData(const QString& path);
 
     /**
      * \brief Applies temporary changes

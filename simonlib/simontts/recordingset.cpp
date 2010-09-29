@@ -74,9 +74,9 @@ bool RecordingSet::deserialize(const QDomElement& elem)
   return true;
 }
 
-QDomElement RecordingSet::serialize(QDomDocument *doc)
+QDomElement RecordingSet::serialize(QDomDocument *doc) const
 {
-  if (m_isNull || !applyTemp()) return QDomElement();
+  if (m_isNull) return QDomElement();
 
   QDomElement recordingSetElem = doc->createElement("ttsset");
   recordingSetElem.setAttribute("id", QString::number(m_id));
@@ -104,6 +104,41 @@ QDomElement RecordingSet::serialize(QDomDocument *doc)
   recordingSetElem.appendChild(nameElem);
   recordingSetElem.appendChild(recordingsElem);
   return recordingSetElem;
+}
+
+bool RecordingSet::exportData(const QString& path)
+{
+  QHash<RecordingSetText, QString>::const_iterator i = m_recordings.constBegin();
+  QHash<RecordingSetText, QString>::const_iterator end = m_recordings.constEnd();
+
+  while (i != end)
+  {
+    QString fPath = getPath(i.key());
+    QString tPath = path+i.value();
+    if (QFile::exists(tPath) && !QFile::remove(tPath))
+      return false; // couldn't remove existing exported version
+    if (!QFile::copy(fPath, tPath))
+      return false; // couldn't copy this one
+    i++;
+  }
+  return true;
+}
+
+bool RecordingSet::importData(const QString& path)
+{
+  kDebug() << "Importing data from: " << path;
+  QList<QString> files = m_recordings.values();
+
+  bool succ = true;
+  foreach (const QString& f, files)
+  {
+    if (!QFile::copy(path+f, getBaseDirectory()+f))
+    {
+      kDebug() << "Failed to copy from " << path+f << " to " << getBaseDirectory()+f;
+      succ = false;
+    } else QFile::remove(path+f);
+  }
+  return succ;
 }
 
 QString RecordingSet::getBaseDirectory() const
@@ -253,7 +288,7 @@ bool RecordingSet::removeRecording(const QString& text)
     kDebug() << "Adding to torm";
     QFile f(getTempDirectory()+"torm");
     kDebug() << "Torm file:" << getTempDirectory()+"torm";
-    if (f.open(QIODevice::WriteOnly))
+    if (f.open(QIODevice::WriteOnly|QIODevice::Append))
     {
       kDebug() << "Wrote to file" << file.toUtf8()+"\n";
       f.write(file.toUtf8()+"\n");

@@ -65,6 +65,7 @@ class SIMONTTS_EXPORT RecordingSetCollection
      */
     int getFreeId();
 
+
   public:
     /**
      * \brief Constructor
@@ -84,6 +85,23 @@ class SIMONTTS_EXPORT RecordingSetCollection
      * \return Success of loading
      */
     bool save(const QString& path);
+
+    /**
+     * \brief Exports the set identified by id to the given path
+     * \param path The file to write to
+     * \param set The set to export
+     * \return success
+     * \see importSet()
+     */
+    bool exportSet(const QString& path, int set) const;
+
+    /**
+     * \brief Imports a set from the given file
+     * \param path The file to read from
+     * \return success
+     * \see exportSet()
+     */
+    bool importSet(const QString& path);
 
     /**
      * \brief Returns the set with the given id
@@ -112,13 +130,6 @@ class SIMONTTS_EXPORT RecordingSetCollection
      * \see getSet(int)
      */
     QList<int> getSets();
-
-    /**
-     * \brief Returns the set with the given id
-     * \param id The id to look for
-     * \return The found set
-     */
-    RecordingSet* getSet(int id);
 
     /**
      * \brief Adds new set

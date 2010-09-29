@@ -21,7 +21,9 @@
 #include "recordingset.h"
 #include "ttsconfiguration.h"
 #include <QFile>
+#include <QDir>
 #include <QDomDocument>
+#include <KTar>
 
 RecordingSetCollection::RecordingSetCollection()
 {
@@ -66,12 +68,19 @@ bool RecordingSetCollection::save(const QString& path)
   QFile f(path);
   if (!f.open(QIODevice::WriteOnly)) return false;
 
-  bool succ = purgeSelectedSets();
+  bool succ = true;
+  succ = purgeSelectedSets();
   
   QDomDocument doc;
   QDomElement rootElem = doc.createElement("ttssets");
   foreach (RecordingSet *set, m_sets)
   {
+    if (!set->applyTemp())
+    {
+      succ = false;
+      continue;
+    }
+
     QDomElement elem = set->serialize(&doc);
     if (elem.isNull())
     {
@@ -86,6 +95,103 @@ bool RecordingSetCollection::save(const QString& path)
 
   f.close();
   return succ;
+}
+
+bool RecordingSetCollection::exportSet(const QString& path, int setId) const
+{
+  RecordingSet *set = getSet(setId);
+  if (!set) return false;
+
+  QDomDocument doc;
+  QDomElement elem = set->serialize(&doc);
+  if (elem.isNull())
+    return false;
+
+  QDomElement rootElem = doc.createElement("ttssets");
+  rootElem.appendChild(elem);
+  doc.appendChild(rootElem);
+  
+  QByteArray data = doc.toString().toUtf8();
+
+  QString dataDir = KStandardDirs::locateLocal("tmp", "simontts/ttsrec/export/");
+
+  if (!set->exportData(dataDir))
+    return false;
+
+  KTar tar(path, "application/x-gzip");
+  if (!tar.open(QIODevice::WriteOnly))
+  {
+    kDebug() << "Couldn't open output archive" << path;
+    return false;
+  }
+
+  bool succ = true;
+  QString archiveDataDir = QString::number(setId)+'/';
+  succ = tar.writeFile("set.xml", "", "", data.constData(), data.size()) && succ;
+  succ = tar.writeDir(archiveDataDir, "", "") && succ;
+
+  QDir d(dataDir);
+  QStringList files = d.entryList(QDir::NoDotAndDotDot|QDir::Files);
+  foreach (const QString& file, files)
+  {
+    QFile f(dataDir+file);
+    if (!f.open(QIODevice::ReadOnly))
+    {
+      kDebug() << "Couldn't read: " << file;
+      succ = false;
+      continue;
+    }
+    QByteArray recordingData = f.readAll();
+    f.close();
+    f.remove();
+    tar.writeFile(archiveDataDir+file, "", "", recordingData.constData(), recordingData.size());
+  }
+  tar.close();
+  d.rmdir(dataDir);
+  return true;
+}
+
+bool RecordingSetCollection::importSet(const QString& path)
+{
+  KTar tar(path, "application/x-gzip");
+  if (!tar.open(QIODevice::ReadOnly))
+  {
+    kDebug() << "Couldn't open input archive: " << path;
+    return false;
+  }
+  const KArchiveDirectory *directory = tar.directory();
+  if (!directory) return false;
+  QString importDirectory = KStandardDirs::locateLocal("tmp", "simontts/ttsrec/import/");
+  directory->copyTo(importDirectory);
+
+
+  QFile f(importDirectory+"set.xml");
+  if (!f.open(QIODevice::ReadOnly))
+    return false;
+  QDomDocument doc;
+  doc.setContent(QString::fromUtf8(f.readAll()));
+  f.close();
+  f.remove();
+
+  QDomElement rootElem = doc.documentElement();
+  if (rootElem.isNull()) return false;
+  QDomElement setElem = rootElem.firstChildElement("ttsset");
+  if (setElem.isNull()) return false;
+  setElem.setAttribute("id", getFreeId());
+
+  RecordingSet *set = new RecordingSet;
+  QString setDataDir = importDirectory+QString::number(set->id())+'/';
+  if (!set->deserialize(setElem) || 
+      !set->importData(setDataDir))
+  {
+    set->clear();
+    delete set;
+    return false;
+  }
+
+  m_sets << set;
+  QDir d;
+  return d.rmdir(setDataDir) && d.rmdir(importDirectory);
 }
 
 bool RecordingSetCollection::canSay(const QString& text)
@@ -107,7 +213,7 @@ QString RecordingSetCollection::getPath(const QString& text)
   return QString();
 }
 
-RecordingSet* RecordingSetCollection::getSet(int id)
+RecordingSet* RecordingSetCollection::getSet(int id) const
 {
   foreach (RecordingSet *s, m_sets)
     if (s->id() ==  id)
