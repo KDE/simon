@@ -49,10 +49,28 @@ QString PlasmaBoundValue::getTypeName()
   return i18nc("Typename of script bound values", "Plasma");
 }
 
+#include <KDebug>
 QVariant PlasmaBoundValue::getValue()
 {
   Plasma::DataEngine::Data data = m_currentEngine->query(m_dataSource);
-  return data.value(m_key);
+  QString key = m_key;
+  QString arrKey;
+  bool isSplittable = m_key.contains("|");
+  if (isSplittable)
+  {
+    key = m_key.left(m_key.indexOf("|"));
+    arrKey = m_key.mid(m_key.indexOf("|")+1);
+    kDebug() << "Split: " << key << arrKey;
+  }
+  QVariant value = data.value(key);
+
+  if (isSplittable)
+  {
+    QHash<QString, QVariant> hash = value.toHash();
+    return hash.value(arrKey);
+  }
+
+  return value;
 }
 
 QString PlasmaBoundValue::getValueDescription()
