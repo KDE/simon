@@ -32,7 +32,6 @@
 #include <simonscenarios/scenario.h>
 
 #include <QFile>
-#include <QFont>
 #include <QMetaObject>
 #include <QDBusConnection>
 

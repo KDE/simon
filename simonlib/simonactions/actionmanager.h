@@ -22,6 +22,7 @@
 
 #include "actionlib_export.h"
 #include <QObject>
+#include <QFont>
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonscenarios/command.h>
