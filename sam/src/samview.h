@@ -108,6 +108,8 @@ class SamView :  public KXmlGuiWindow
     void slotFileResultSelected(QModelIndex index);
     void slotEditSelectedSample();
 
+    void exportTestResults();
+
   private:
     QString m_filename;
     Ui::MainWindow ui;

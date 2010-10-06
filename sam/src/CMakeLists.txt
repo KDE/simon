@@ -7,10 +7,12 @@ set(sam_SRCS
    main.cpp
    samview.cpp
    accuracydisplay.cpp
+   exporttestresults.cpp
  )
 
 kde4_add_ui_files( sam_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/exporttestresultsdlg.ui
 )
 
 

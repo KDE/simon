@@ -25,6 +25,7 @@
 #include "simonsoundoutput.h"
 
 #include <QObject>
+#include <qaudio.h>
 #include <QAudioInput>
 #include <QAudioOutput>
 #include <QAudioDeviceInfo>

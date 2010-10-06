@@ -19,6 +19,7 @@
 
 #include "samview.h"
 #include "accuracydisplay.h"
+#include "exporttestresults.h"
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonmodeltest/modeltest.h>
@@ -94,6 +95,15 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(testResults, SIGNAL(triggered(bool)),
     this, SLOT(switchToTestResults()));
 
+  KAction* exportTestResults = new KAction(this);
+  exportTestResults->setText(i18n("Export test result"));
+  exportTestResults->setStatusTip(i18n("Export the test results to a file."));
+  exportTestResults->setIcon(KIcon("document-export"));
+  actionCollection()->addAction("exportTestResults", exportTestResults);
+  connect(exportTestResults, SIGNAL(triggered(bool)),
+    this, SLOT(exportTestResults()));
+
+
   connect(ui.pbCompileModel, SIGNAL(clicked()), this, SLOT(compileModel()));
   connect(ui.pbTestModel, SIGNAL(clicked()), this, SLOT(testModel()));
 
@@ -163,8 +173,13 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
+}
 
-  //getBuildPathsFromSimon();
+void SamView::exportTestResults()
+{
+  ExportTestResults *e = new ExportTestResults(this);
+  e->exportTestResults();
+  delete e;
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="sam" version="1">
+<gui name="sam" version="2">
 	<ToolBar name="mainToolBar" >
 		<text>Main Actions</text>
 		<Action name="save" />
@@ -22,6 +22,7 @@
 			<text context="Test the model">Test</text>
 			<Action name="testModel" />
 			<Action name="testResults" />
+			<Action name="exportTestResults" />
 		</Menu>
 	</MenuBar>
 </gui>

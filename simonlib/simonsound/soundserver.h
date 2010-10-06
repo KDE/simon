@@ -24,7 +24,6 @@
 #include <QIODevice>
 #include <QHash>
 #include <QList>
-#include <qaudio.h>
 #include "simonsound_export.h"
 
 class QAudioInput;
