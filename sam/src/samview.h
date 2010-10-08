@@ -29,6 +29,7 @@
 
 class KProcess;
 class KAction;
+class ReportParameters;
 class QCloseEvent;
 class KCMultiDialog;
 class ModelCompilationManager;
@@ -112,6 +113,7 @@ class SamView :  public KXmlGuiWindow
 
   private:
     QString m_filename;
+    ReportParameters *m_reportParameters;
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
     ModelCompilationAdapter *modelCompilationAdapter;
@@ -120,5 +122,9 @@ class SamView :  public KXmlGuiWindow
 
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
+
+    int getTrainingSampleCount();
+    int getDevelopmentSampleCount();
+    int getTestSampleCount();
 };
 #endif                                            // samVIEW_H

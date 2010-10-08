@@ -142,26 +142,6 @@ class MODELTEST_EXPORT ModelTest : public QThread
       return testResults;
     }
 
-    //	QHash<QString, QString> getPrompts() {
-    //		return this->promptsTable;
-    //	}
-
-    //	QHash<QString, RecognitionResultList> getFileResults() {
-    //		return this->fileResults;
-    //	}
-
-    //	QString getFileNameByIndex(int index) {
-    //		return fileResults.keys().at(index);
-    //	}
-
-    //	RecognitionResultList getFileResults(const QString& fileName) {
-    //		return fileResults.value(fileName);
-    //	}
-
-    //	QString getPromptOfFile(const QString& fileName) {
-    //		return promptsTable.value(fileName);
-    //	}
-
     QString getOriginalFilePath(const QString& fileName) {
       return recodedSamples.value(fileName);
     }

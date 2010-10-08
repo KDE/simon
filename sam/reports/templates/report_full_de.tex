@@ -1,0 +1,87 @@
+[DE] Voller LaTeX Report
+LATEX
+\documentclass[a4paper,10pt,bibtotoc]{scrartcl}
+\usepackage[utf8x]{inputenc}
+
+\usepackage[sf,compact]{titlesec}
+\usepackage[rflt]{floatflt}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\usepackage[a4paper]{geometry}
+\usepackage{a4wide}
+\usepackage[ngerman]{babel}
+\usepackage[fixlanguage]{babelbib}
+\usepackage[babel,german=quotes]{csquotes} 
+
+\usepackage{natbib}
+
+\usepackage{hyperref}
+\hypersetup{
+   bookmarksnumbered,
+   pdfstartview={FitH},
+   citecolor={black},
+   linkcolor={black},
+   urlcolor={black},
+   pdftitle={$title$},    % title
+   colorlinks=false,
+   pdfpagemode={UseOutlines}
+}
+
+
+% Kopf / Fuszzeile
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%
+%\fancypagestyle{plain}{% coolster hack wo gibt
+%  \thispagestyle{fancy}
+%}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+%
+%\lhead[\nouppercase{\textsc{\leftmark}}]{}
+%\rhead[]{\nouppercase{\textsc{\rightmark}}}
+%\cfoot[]{}
+%\lfoot[\thepage]{} \rfoot[]{\thepage}
+
+\setlength{\parindent}{0mm}
+
+%\newcommand{\doi}[1]{\textsc{doi:} \textsf{#1}\xspace} 
+
+\title{$title$\\$tag$}
+% \author{Authors}
+
+
+\begin{document}
+\selectbiblanguage{german}
+
+\maketitle
+
+\begin{multicols}{2}
+
+\tableofcontents
+
+
+\section{Task definition}
+$taskDefinition$
+
+\section{System}
+$systemDefinition$
+
+
+\section{Section}
+Der Wahlkampf für die Wiener Gemeinderatswahl neigt sich offiziell dem Ende zu: Heute halten ÖVP, FPÖ, Grüne und BZÖ am Nachmittag ihre Abschlussveranstaltungen ab. Morgen versucht dann die SPÖ, noch einmal ihre Wählerschaft für den Urnengang zu mobilisieren. Am Sonntag werden sowohl der künftige Landtag und Gemeinderat als auch die Bezirksvertretungen gewählt.
+
+\subsection{Test}
+
+Die Freiheitlichen und die Grünen beenden ihren Wahlkampf um 16.00 Uhr. FPÖ-Spitzenkandidat Heinz-Christian Strache lädt auf den Stephansplatz, die grüne Nummer eins, Maria Vassilakou, in das Architekturzentrum im MuseumsQuartier. Im Kulturareal, genauer in der Halle E, feuert dann ÖVP-Frontfrau Christine Marek ab 20.00 Uhr ein letztes Mal ihre Sympathisanten an. BZÖ-Spitzenkandidat Walter Sonnleitner serviert letzte Wahlkampfparolen bereits ab 19.00 Uhr im Schweizerhaus im Prater. Die SPÖ mit Bürgermeister Michael Häupl trifft sich dann am Freitag um 17.00 Uhr im Festzelt vor der Parteizentrale in der Löwelstraße zum Endspurt.
+
+\subsection{Die Deutschmängel der Parteien}
+Wer in Österreich lebt, soll auch perfekt Deutsch sprechen. Das scheint derzeit ein Hauptanliegen der Politiker zu sein, zumindest wenn man sich im Plakatedschungel vor der Wiener Wahl umsieht. Wer Amtsträgern der vier im Wiener Gemeinderat vertretenen Parteien beim Sprechen zuhört und ihre Statements im Internet liest, wird rasch merken: Das ist reines Wunschdenken. Die Äußerungen der Politiker strotzen vor Fehlern, selbst wenn man sie nur einem ``Schnelltest'' unterzieht.
+
+% \bibliographystyle{babunsrt}
+% \bibliography{semantische_videosuche}
+
+\end{multicols}
+
+\end{document}

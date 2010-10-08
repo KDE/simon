@@ -84,6 +84,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     ~ModelCompilationManager();
 
+    static QString information(bool condensed=false);
+
   private:
     bool keepGoing;
 
@@ -184,6 +186,9 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool makeTempVocab();
     bool makeDfa();
     bool generateDict();
+
+    static QString htkInformation(bool condensed);
+    static QString juliusInformation(bool condensed);
 
   private slots:
     void addStatusToLog(const QString&);

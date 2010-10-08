@@ -17,40 +17,17 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_EXPORTTESTRESULTS_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_EXPORTTESTRESULTS_H_4002119636CC42C68FE07273F9000A73
+#ifndef SIMON_LATEXREPORTTEMPLATEENGINE_H_4002119636CC42C68FE07273F9000A73
+#define SIMON_LATEXREPORTTEMPLATEENGINE_H_4002119636CC42C68FE07273F9000A73
 
-#include <QHash>
-#include <QFlags>
-#include "ui_exporttestresultsdlg.h"
-
-class ReportParameters;
-
-class ExportTestResults : public KDialog
+#include "reporttemplateengine.h"
+class LatexReportTemplateEngine : public ReportTemplateEngine
 {
-  Q_OBJECT
-
-  private:
-    Ui::ExportTestDlg ui;
-    QHash<QString, QString> createTemplateValues();
-
-    QString getSelectedTemplate();
-
-    void initTemplates();
-    void createReport();
-
-  private slots:
-    void initSystemDefinition();
-
-  protected:
-    int exec();
 
   public:
-    ExportTestResults(QWidget *parent);
-    bool exportTestResults(ReportParameters *reportParameters);
-    ReportParameters *getReportParameters();
-
+    QString fileType();
 };
 
 #endif
+
 

@@ -2,12 +2,17 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include
+	${CMAKE_CURRENT_SOURCE_DIR}/../..
+  
 )
 set(sam_SRCS
    main.cpp
    samview.cpp
    accuracydisplay.cpp
    exporttestresults.cpp
+   reporttemplateengine.cpp
+   latexreporttemplateengine.cpp
+   reportparameters.cpp
  )
 
 kde4_add_ui_files( sam_SRCS

@@ -20,6 +20,7 @@
 #include "samview.h"
 #include "accuracydisplay.h"
 #include "exporttestresults.h"
+#include "reportparameters.h"
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonmodeltest/modeltest.h>
@@ -47,6 +48,7 @@
 #include <KDebug>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
+  m_reportParameters(0),
 	fileResultModelProxy(new QSortFilterProxyModel(this))
 {
   KGlobal::locale()->insertCatalog("simonlib");
@@ -178,7 +180,22 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 void SamView::exportTestResults()
 {
   ExportTestResults *e = new ExportTestResults(this);
-  e->exportTestResults();
+  /*
+  if (!m_reportParameters)
+  {
+    int trainingSamples = getTrainingSampleCount();
+    int developmentSamples = getDevelopmentSampleCount();
+    int testSamples = getTestSampleCount();
+    m_reportParameters = new ReportParameters(
+      trainingSamples, developmentSamples, testSamples);
+  }
+  */
+  
+  if (e->exportTestResults(m_reportParameters))
+  {
+    delete m_reportParameters;
+    m_reportParameters = e->getReportParameters();
+  }
   delete e;
 }
 
@@ -196,6 +213,8 @@ void SamView::showConfig()
 void SamView::newProject()
 {
   m_filename = "";
+  delete m_reportParameters;
+  m_reportParameters = 0;
   updateWindowTitle();
 
   ui.urHmmDefs->clear();
@@ -306,6 +325,49 @@ void SamView::parseFile()
   ui.urBaseMacros->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urBaseStats->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
 
+  QString title = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString tag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString taskDefinition = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString outputTemplate = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString conclusion = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString experimentTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QDate experimentDate = QDate::fromString(QString::fromUtf8(f.readLine()).trimmed(), Qt::ISODate);
+  QString experimentDescription = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString systemTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString systemDefinition = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString vocabularyTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString vocabularyNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString grammarTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString grammarNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString trainingTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString trainingNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  int trainingSpeakers = f.readLine().trimmed().toInt();
+  int trainingSamples = f.readLine().trimmed().toInt();
+  QString developmentTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString developmentNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  int developmentSpeakers = f.readLine().trimmed().toInt();
+  int developmentSamples = f.readLine().trimmed().toInt();
+  QString testTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString testNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  int testSpeakers = f.readLine().trimmed().toInt();
+  int testSamples = f.readLine().trimmed().toInt();
+  bool ok = true;
+  ReportParameters::OutputOptions options = (ReportParameters::OutputOptions) f.readLine().trimmed().toInt(&ok);
+
+  delete m_reportParameters;
+
+  if (ok)
+    m_reportParameters = new ReportParameters(title, tag,
+        taskDefinition, options, outputTemplate,
+        conclusion, experimentTag, experimentDate, experimentDescription,
+        systemTag, systemDefinition, vocabularyTag, vocabularyNotes, grammarTag,
+        grammarNotes, trainingTag, trainingNotes, trainingSpeakers,
+        trainingSamples, developmentTag, developmentNotes, 
+        developmentSpeakers, developmentSamples, testTag, testNotes, testSpeakers,
+        testSamples);
+  else 
+    m_reportParameters = 0;
+
   ui.twMain->setCurrentIndex(0);
   ui.teBuildLog->clear();
   ui.teTestLog->clear();
@@ -354,6 +416,37 @@ void SamView::storeFile()
   f.write(ui.urBaseTiedlist->url().path().toUtf8()+'\n');
   f.write(ui.urBaseMacros->url().path().toUtf8()+'\n');
   f.write(ui.urBaseStats->url().path().toUtf8()+'\n');
+
+  if (m_reportParameters)
+  {
+    f.write(m_reportParameters->title().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->tag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->taskDefinition().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->outputTemplate().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->conclusion().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->experimentTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->experimentDate().toString(Qt::ISODate).toUtf8()+'\n');
+    f.write(m_reportParameters->experimentDescription().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->systemTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->systemDefinition().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->vocabularyTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->vocabularyNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->grammarTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->grammarNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->trainingTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->trainingNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(QByteArray::number(m_reportParameters->trainingSpeakers())+'\n');
+    f.write(QByteArray::number(m_reportParameters->trainingSamples())+'\n');
+    f.write(m_reportParameters->developmentTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->developmentNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(QByteArray::number(m_reportParameters->developmentSpeakers())+'\n');
+    f.write(QByteArray::number(m_reportParameters->developmentSamples())+'\n');
+    f.write(m_reportParameters->testTag().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(m_reportParameters->testNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(QByteArray::number(m_reportParameters->testSpeakers())+'\n');
+    f.write(QByteArray::number(m_reportParameters->testSamples())+'\n');
+    f.write(QByteArray::number(m_reportParameters->options())+'\n');
+  }
 
   updateWindowTitle();
 }
@@ -751,11 +844,7 @@ void SamView::analyzeTestOutput()
   float sentenceRecognitionRate = 0;
 
   QObjectList accs = ui.wgWordResultDetails->children();
-  foreach (QObject *acc, accs)
-    if (dynamic_cast<AccuracyDisplay*>(acc))
-    acc->deleteLater();
-
-  accs = ui.wgSentenceResultDetails->children();
+  accs << ui.wgSentenceResultDetails->children();
   foreach (QObject *acc, accs)
     if (dynamic_cast<AccuracyDisplay*>(acc))
     acc->deleteLater();
@@ -905,15 +994,31 @@ void SamView::slotEditSelectedSample()
         KMessageBox::error(this, i18n("Could not copy sample from temporary path %1 to %2.",
           tempFileName, originalFileName));
       }
-
     }
   }
 
   //remove temp sample
   QFile::remove(tempFileName);
-
   delete d;
 }
+
+
+//TODO
+int SamView::getTrainingSampleCount()
+{
+  return 7;
+}
+
+int SamView::getDevelopmentSampleCount()
+{
+  return 8;
+}
+
+int SamView::getTestSampleCount()
+{
+  return 9;
+}
+
 
 
 SamView::~SamView()
@@ -922,4 +1027,5 @@ SamView::~SamView()
   modelCompilationAdapter->deleteLater();
   modelTest->deleteLater();
   fileResultModelProxy->deleteLater();
+  delete m_reportParameters;
 }

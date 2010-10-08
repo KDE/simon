@@ -20,6 +20,7 @@
 #include "modelcompilationmanager.h"
 
 #include <simonlogging/logger.h>
+#include <julius/config.h>
 
 #include <QCoreApplication>
 #include <QDir>
@@ -1589,6 +1590,48 @@ bool ModelCompilationManager::staticAdaption()
   return true;
 }
 
+QString ModelCompilationManager::information(bool condensed)
+{
+  return i18n("HTK: %1\nJulius: %2", htkInformation(condensed), juliusInformation(condensed));
+}
+
+QString ModelCompilationManager::htkInformation(bool condensed)
+{
+  QProcess proc;
+  KConfig config( KStandardDirs::locateLocal("config", "simonmodelcompilationrc"), KConfig::FullConfig );
+  KConfigGroup programGroup(&config, "Programs");
+  QString hHEd = programGroup.readEntry("HHEd", KUrl(KStandardDirs::findExe("HHEd"))).toLocalFile();
+  proc.start(hHEd, QStringList() << "-V");
+  if (!proc.waitForStarted() || !proc.waitForFinished())
+    return i18nc("\"version information\" for a not installed HTK", "Not available");
+
+  QString information = proc.readAllStandardOutput().trimmed();
+  if (condensed)
+  {
+    QStringList info = information.split("\n");
+    info.removeAt(0);
+    info.removeAt(0);
+    QStringList versions;
+    foreach (const QString& line, info)
+    {
+      QStringList columns = line.split(QRegExp("  +"));
+      if (columns.count() == 5)
+        if (!versions.contains(columns[1]))
+          versions << columns[1];
+    }
+    return versions.join(", ");
+  }
+
+  return information;
+}
+
+QString ModelCompilationManager::juliusInformation(bool condensed)
+{
+  if (condensed)
+    return QString("%1").arg(JULIUS_VERSION);
+  else
+    return QString("%1 (%2 %3)").arg(JULIUS_VERSION).arg(JULIUS_SETUP).arg(JULIUS_HOSTINFO);
+}
 
 ModelCompilationManager::~ModelCompilationManager()
 {
