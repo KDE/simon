@@ -112,8 +112,6 @@ class MODELTEST_EXPORT ModelTest : public QThread
     bool analyzeResults();
     void emitError(const QString& message);
 
-    void deleteAllResults();
-
   private slots:
     void addStatusToLog(const QString&);
     void addRecognitionInfoToLog(const QString&);
@@ -140,10 +138,6 @@ class MODELTEST_EXPORT ModelTest : public QThread
     TestResultModel* wordResultsModel();
     TestResultModel* sentenceResultsModel();
 
-    //QHash<QString,RecognizerResult*> getRecognizerResults() {
-      //return recognizerResults;
-    //}
-    
     RecognizerResult* getRecognizerResult(const QString& fileName) {
       return recognizerResults.value(fileName);
     }
@@ -155,6 +149,8 @@ class MODELTEST_EXPORT ModelTest : public QThread
     float getOverallConfidence();
     float getOverallAccuracy();
     float getOverallWER();
+
+    void deleteAllResults();
 
     ~ModelTest();
 

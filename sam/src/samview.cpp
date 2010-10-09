@@ -178,8 +178,13 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
 
   fileResultModelProxy->setSourceModel(modelTest->recognizerResultsModel());
-  ui.tvWordResults->setModel(modelTest->wordResultsModel());
-  ui.tvSentenceResults->setModel(modelTest->sentenceResultsModel());
+
+  QSortFilterProxyModel *wordFilterProxy = new QSortFilterProxyModel(this);
+  wordFilterProxy->setSourceModel(modelTest->wordResultsModel());
+  ui.tvWordResults->setModel(wordFilterProxy);
+  QSortFilterProxyModel *sentenceFilterProxy = new QSortFilterProxyModel(this);
+  sentenceFilterProxy->setSourceModel(modelTest->sentenceResultsModel());
+  ui.tvSentenceResults->setModel(sentenceFilterProxy);
 }
 
 void SamView::exportTestResults()
@@ -247,6 +252,8 @@ void SamView::newProject()
   ui.teBuildLog->clear();
   ui.teTestLog->clear();
   ui.teAdaptLog->clear();
+
+  clearTestResults();
 }
 
 
@@ -257,8 +264,16 @@ void SamView::load()
 
   m_filename = filename;
   parseFile();
+  clearTestResults();
 }
 
+void SamView::clearTestResults()
+{
+  modelTest->deleteAllResults();
+  displayRate(ui.pbRecognitionRate, 0);
+  displayRate(ui.pbAccuracy, 0);
+  displayRate(ui.pbWordErrorRate, 0);
+}
 
 void SamView::save()
 {
