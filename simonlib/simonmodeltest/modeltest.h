@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 #ifndef SIMON_MODELTEST_H_D0E9CBE71B3343D39663FF655B61ED20
@@ -44,6 +44,10 @@ extern "C"
 
 
 class RecognizerResult;
+class TestResult;
+class TestResultLeaf;
+class TestResultModel;
+class FileResultModel;
 
 typedef QList<float> FloatList;
 
@@ -81,12 +85,18 @@ class MODELTEST_EXPORT ModelTest : public QThread
 
     QHash<QString, QString> promptsTable;
 
+    QList<TestResultLeaf*> leafesToDelete;
     QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
-    //QHash<QString, FloatList> wordRates;
-    //QHash<QString, FloatList> sentenceRates;
+    QList<TestResult*> wordResults;
+    QList<TestResult*> sentenceResults;
+
+    FileResultModel *m_recognizerResultsModel;
+    TestResultModel *m_wordResultsModel;
+    TestResultModel *m_sentenceResultsModel;
 
     QHash<QString, QString> recodedSamples;
 
+    TestResult* getResult(QList<TestResult*>& list, const QString& prompt);
     void closeLog();
 
     bool createDirs();
@@ -99,9 +109,10 @@ class MODELTEST_EXPORT ModelTest : public QThread
     bool recodeAudio();
     bool generateMLF();
     bool recognize();
-    bool processJuliusOutput();
     bool analyzeResults();
     void emitError(const QString& message);
+
+    void deleteAllResults();
 
   private slots:
     void addStatusToLog(const QString&);
@@ -125,20 +136,16 @@ class MODELTEST_EXPORT ModelTest : public QThread
     void recognized(RecognitionResultList);
     void searchFailed();
 
-    //QHash<QString, FloatList> getWordRates() {
-      //return this->wordRates;
-    //}
+    FileResultModel* recognizerResultsModel();
+    TestResultModel* wordResultsModel();
+    TestResultModel* sentenceResultsModel();
 
-    //QHash<QString, FloatList> getSentenceRates() {
-      //return this->sentenceRates;
+    //QHash<QString,RecognizerResult*> getRecognizerResults() {
+      //return recognizerResults;
     //}
-
+    
     RecognizerResult* getRecognizerResult(const QString& fileName) {
       return recognizerResults.value(fileName);
-    }
-
-    QHash<QString,RecognizerResult*> getRecognizerResults() {
-      return recognizerResults;
     }
 
     QString getOriginalFilePath(const QString& fileName) {

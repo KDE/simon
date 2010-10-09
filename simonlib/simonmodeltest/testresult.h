@@ -40,15 +40,20 @@ class MODELTEST_EXPORT TestResult
     bool registerChild(TestResultLeaf* child);
     bool registerChildren(const QList<TestResultLeaf*>& children);
 
-    float accuracy();
-    float wordErrorRate();
-    int insertionErrors();
-    int deletionErrors();
-    int substitutionErrors();
-    int count();
-    int correctCount();
+    float accuracy() const;
+    float wordErrorRate() const;
+    int insertionErrors() const;
+    int deletionErrors() const;
+    int substitutionErrors() const;
+    int count() const;
+    int correctCount() const;
 
     void deleteAll();
+
+    bool matchesLabel(const QString& label) const;
+    QString label() const { return m_label; }
+    QString prettyLabel();
+    ~TestResult();
 };
 
 Q_DECLARE_METATYPE(TestResult*);

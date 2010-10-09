@@ -19,6 +19,11 @@
 
 #include "modeltest.h"
 #include "recognizerresult.h"
+#include "testresult.h"
+#include "fileresultmodel.h"
+#include "testresultmodel.h"
+#include "testresultleaf.h"
+#include "testresultinstance.h"
 
 #include <simonlogging/logger.h>
 
@@ -48,13 +53,11 @@ recog(0),
 logFile(0),
 userName(user_name)
 {
+  m_recognizerResultsModel = new FileResultModel(this);
+  m_wordResultsModel = new TestResultModel(this);
+  m_sentenceResultsModel = new TestResultModel(this);
   connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
   connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
-
-  promptsTable.clear();
-  //wordRates.clear();
-  //sentenceRates.clear();
-  recognizerResults.clear();
 }
 
 
@@ -236,16 +239,29 @@ int sampleRate, const QString& juliusJConf)
   return true;
 }
 
+void ModelTest::deleteAllResults()
+{
+  m_wordResultsModel->clear();
+  m_sentenceResultsModel->clear();
+  m_recognizerResultsModel->clear();
+
+  promptsTable.clear();
+  qDeleteAll(leafesToDelete);
+  qDeleteAll(sentenceResults);
+  qDeleteAll(wordResults);
+  qDeleteAll(recognizerResults.values());
+  recognizerResults.clear();
+  wordResults.clear();
+  sentenceResults.clear();
+  leafesToDelete.clear();
+}
 
 void ModelTest::run()
 {
   if (!createDirs())
     emitError(i18n("Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
-  promptsTable.clear();
-  //wordRates.clear();
-  //sentenceRates.clear();
-  recognizerResults.clear();
+  deleteAllResults();
 
   if (!keepGoing) return;
   Logger::log(i18n("[INF] Testing model..."));
@@ -254,7 +270,6 @@ void ModelTest::run()
   if (!recodeAudio()) return;
   if (!generateMLF()) return;
   if (!recognize()) return;
-  //	if (!processJuliusOutput()) return;
   if (!analyzeResults()) return;
 
   //if (!keepGoing) return;
@@ -353,6 +368,25 @@ bool ModelTest::generateMLF()
   return true;
 }
 
+QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
+{
+  QString result;
+  WORD_ID w;
+  static char buf[MAX_HMMNAME_LEN];
+
+  if (seq != 0) {
+    for (int i=0;i<n;i++) {
+      if (i > 0) result += " |";
+      w = seq[i];
+      for (int j=0;j<winfo->wlen[w];j++) {
+        center_name(winfo->wseq[w][j]->name, buf);
+        result += ' ';
+        result += QString::fromUtf8(buf);
+      }
+    }
+  }
+  return result;
+}
 
 void processRecognitionResult(Recog *recog, void *test)
 {
@@ -423,7 +457,7 @@ void processRecognitionResult(Recog *recog, void *test)
       }
       result.remove("<s> ");
       result.remove(" </s>");
-      //       printf("\n");
+      sampaRaw = sampa = getHypoPhoneme(seq, seqnum, winfo);
 
       /* confidence scores */
       //       printf("cmscore%d:", n+1);
@@ -466,9 +500,6 @@ void ModelTest::emitError(const QString& message)
 
 bool ModelTest::recognize()
 {
-  //	return execute(QString("%1 -C %2 -realtime -dfa %3 -v %4 -input rawfile -filelist %5 -smpFreq %6").arg(julius)
-  //			.arg(juliusJConf).arg(dfaPath).arg(dictPath).arg(tempDir+"wavlist").arg(sampleRate), tempDir+"juliusOutput");
-
   if (!keepGoing) return false;
   emit status(i18n("Recognizing..."), 35, 100);
 
@@ -643,17 +674,42 @@ void ModelTest::searchFailed()
   QString prompt = promptsTable.value(fileName);
   QStringList promptWordList = prompt.split(' ');
 
-  //FloatList list = sentenceRates.value(prompt);
-  //sentenceRates.insert(prompt, list << 0.0f);
-//
-  //foreach (const QString& word, promptWordList) {
-    //FloatList list2 = wordRates.value(word);
-    //wordRates.insert(word, list2 << 0.0f);
-  //}
+  TestResult *sentenceResult = getResult(sentenceResults, prompt);
+  QList<TestResultLeaf*> sentenceLeafes;
 
+  foreach (const QString& label, promptWordList)
+  {
+    TestResultLeaf *dummyLeaf = new TestResultLeaf(label, "", 0.0);
+    dummyLeaf->setDeletionError(true);
+    leafesToDelete << dummyLeaf;
+
+    sentenceLeafes << dummyLeaf;
+
+    TestResult *wordResult = getResult(wordResults, label);
+    if (!wordResult->registerChild(dummyLeaf))
+      kWarning() << "Failed to process dummy word result";
+  }
+
+  if (!sentenceResult->registerChildren(sentenceLeafes))
+    kWarning() << "Could not process dummy sentence result";
+  
   recognizerResults.insert(fileName, new RecognizerResult(prompt, RecognitionResultList()));
 }
 
+/**
+ * Finds the result in the given list or creates a new one and adds that to the 
+ * list if it doesn't yet exist
+ */
+TestResult* ModelTest::getResult(QList<TestResult*>& list, const QString& prompt)
+{
+  foreach (TestResult* result, list)
+    if (result->matchesLabel(prompt))
+      return result;
+
+  TestResult *result = new TestResult(prompt);
+  list << result;
+  return result;
+}
 
 void ModelTest::recognized(RecognitionResultList results)
 {
@@ -667,92 +723,56 @@ void ModelTest::recognized(RecognitionResultList results)
   {
     emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
 
-    //RecognitionResult& highestRatedResult = results.first();
-    //TestResult *testResult = new TestResult(prompt);
-    //QList<TestResultLeaf*> leafs = TestResult::parseResult(highestRatedResult);
-    //testResult->registerChildren(leafs);
+    RecognitionResult& highestRatedResult = results.first();
 
-  }
+    TestResult *sentenceResult = getResult(sentenceResults, prompt);
 
-#if 0
-  QStringList promptWordList = prompt.split(' ');
+    QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(highestRatedResult);
+    leafesToDelete << leafs;
 
-  bool sentenceFound = false;
-  QList<bool> wordFound;
-  for (int i=0; i< promptWordList.count(); i++)
-    wordFound << false;
+    if (!sentenceResult->registerChildren(leafs))
+      kWarning() << "Could not process sentence result";
 
-  foreach (const RecognitionResult& result, results) {
-    QStringList resultWordList = result.sentence().split(' ');
-    QList<float> confidenceScores = result.confidenceScores();
-
-    if (promptWordList.count() != resultWordList.count()) {
-      //if different word count skip this result
-      //wrong segmentation is "punished" with a 0% rate
-      continue;
-    }
-
-    int i=0;
-    foreach (const QString& resultWord, resultWordList) {
-      //word recognition rates
-      if (wordFound[i]) continue;
-
-      if (resultWord.toUpper() == promptWordList[i]) {
-        float wordConfidence = confidenceScores[i];
-        FloatList previousWordConfidenceList = wordRates.value(resultWord.toUpper());
-
-        wordRates.insert(resultWord.toUpper(), previousWordConfidenceList << wordConfidence);
-        wordFound.replace(i, true);
-      }
-
-      ++i;
-    }
-
-    if ((!sentenceFound) && (prompt == result.sentence().toUpper())) {
-      //correct sentence
-      FloatList list = sentenceRates.value(result.sentence().toUpper());
-
-      sentenceRates.insert(result.sentence().toUpper(), list << result.averageConfidenceScore());
-      sentenceFound = true;
+    foreach (TestResultLeaf* leaf, leafs)
+    {
+      TestResult *wordResult = getResult(wordResults, leaf->label());
+      if (!wordResult->registerChild(leaf))
+        kWarning() << "Could not process word result";
     }
   }
-
-  if (!sentenceFound) {
-    FloatList list = sentenceRates.value(prompt);
-    sentenceRates.insert(prompt, list << 0.0f);
-  }
-
-  int k=0;
-  foreach (const bool& found, wordFound) {
-    if (!found) {
-      FloatList list = wordRates.value(promptWordList[k]);
-
-      wordRates.insert(promptWordList[k], list << 0.0f);
-    }
-    ++k;
-  }
-#endif
 }
 
-
-bool ModelTest::processJuliusOutput()
+FileResultModel* ModelTest::recognizerResultsModel()
 {
-  emit status(i18n("Processing recognition results..."), 85, 100);
-
-  return true;
+  return m_recognizerResultsModel;
 }
 
+TestResultModel* ModelTest::wordResultsModel()
+{
+  return m_wordResultsModel;
+}
+
+TestResultModel* ModelTest::sentenceResultsModel()
+{
+  return m_sentenceResultsModel;
+}
 
 bool ModelTest::analyzeResults()
 {
   if (!keepGoing) return false;
 
   emit status(i18n("Analyzing recognition results..."), 90, 100);
-
+  m_recognizerResultsModel->setResults(recognizerResults);
+  m_sentenceResultsModel->setResults(sentenceResults);
+  m_wordResultsModel->setResults(wordResults);
   return true;
 }
 
 
 ModelTest::~ModelTest()
 {
+  deleteAllResults();
+  delete m_wordResultsModel;
+  delete m_sentenceResultsModel;
+  delete m_recognizerResultsModel;
 }

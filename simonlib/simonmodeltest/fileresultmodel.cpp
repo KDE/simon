@@ -26,12 +26,8 @@
 #include <KLocale>
 #include <KColorScheme>
 
-FileResultModel::FileResultModel(QHash<QString /*filename*/, RecognizerResult*> testResults, QObject *parent) : QAbstractItemModel(parent),
-m_testResults(testResults)
+FileResultModel::FileResultModel(QObject *parent) : QAbstractItemModel(parent)
 {
-  //	m_results = results;
-  //	m_prompts = prompts;
-
   KColorScheme colorScheme(QPalette::Active);
   QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
   recogWrong = KColorScheme::shade(negative, KColorScheme::MidShade);
@@ -150,6 +146,19 @@ int FileResultModel::columnCount(const QModelIndex &parent) const
   Q_UNUSED(parent);
   return 4;
 }
+
+void FileResultModel::setResults(QHash<QString /*filename*/, RecognizerResult*> testResults)
+{
+  m_testResults = testResults;
+  reset();
+}
+
+void FileResultModel::clear()
+{
+  m_testResults.clear();
+  reset();
+}
+
 
 
 FileResultModel::~FileResultModel()

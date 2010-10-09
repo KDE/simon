@@ -15,6 +15,7 @@ set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/recognizerresult.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/testresult.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/testresultmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/testresultinstance.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/testresultleaf.cpp
 )

@@ -56,7 +56,7 @@ bool TestResultInstance::registerChildren(const QString& label,
       int j = 0;
       for (; j < labels.count(); j++)
       {
-        if (labels[j] == t->label())
+        if (labels[j].compare(t->label(), Qt::CaseInsensitive) == 0)
         {
           found = true;
           break;
@@ -176,18 +176,28 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
   QList<TestResultLeaf*> leafs;
   for (int i=0; i < words.count(); i++)
     leafs << new TestResultLeaf(words[i], pronunciations[i], scores[i]);
+
   return leafs;
 }
 
 bool TestResultInstance::correct(const QString& label)
+{
+  return (label.compare(recognizedText(), Qt::CaseInsensitive) == 0);
+}
+
+QString TestResultInstance::recognizedText()
 {
   QString recognizedSentence;
   
   foreach (TestResultLeaf *t, m_children)
     recognizedSentence += t->label()+' ';
 
-  return (label == recognizedSentence.trimmed());
+  return recognizedSentence.trimmed();
 }
 
+TestResult::~TestResult()
+{
+  qDeleteAll(m_children);
+}
 
 

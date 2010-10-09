@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,46 +17,36 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_FILERESULTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
-#define SIMON_FILERESULTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
 
-#include "recognizerresult.h"
-#include <QAbstractItemModel>
-#include <QHash>
-#include <QBrush>
-#include <simonrecognitionresult/recognitionresult.h>
+#ifndef SIMON_TESTRESULTMODEL_H_8163A007180343A3A027C402EDCE6C93
+#define SIMON_TESTRESULTMODEL_H_8163A007180343A3A027C402EDCE6C93
+
 #include "simonmodeltest_export.h"
+#include <QList>
+#include <QAbstractItemModel>
 
-class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel
+class TestResult;
+
+class MODELTEST_EXPORT TestResultModel : public QAbstractItemModel
 {
+  private:
+    QList<TestResult*> m_results;
 
-  Q_OBJECT
-
-    private:
-    QBrush recogWrong;
-
-    QHash<QString /*filename*/, RecognizerResult*> m_testResults;
-
-    QVariant data(const QModelIndex &index, int role) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+  protected:
     QVariant headerData(int, Qt::Orientation orientation,
       int role = Qt::DisplayRole) const;
-
-    QModelIndex index(int row, int column,
-      const QModelIndex &parent = QModelIndex()) const;
-
     QModelIndex parent(const QModelIndex &index) const;
-
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
-
-    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
-    FileResultModel(QObject *parent=0);
-    ~FileResultModel();
-
-    void setResults(QHash<QString /*filename*/, RecognizerResult*> testResults);
+    TestResultModel(QObject *parent=0);
+    void setResults(QList<TestResult*>& results);
     void clear();
 
 };
+
 #endif
+

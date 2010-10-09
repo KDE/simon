@@ -110,7 +110,7 @@ void testTestResult::testMultiple_data()
   QList<float> confidenceScores;
   confidenceScores << 1.0 << 0.7 << 0.3 << 0.9;
   QString sampa = "t h i s | i s | ax | t E s t";
-  RecognitionResult correctResult("This is a Test", sampa, sampa, confidenceScores);
+  RecognitionResult correctResult("THIS IS A TEST", sampa, sampa, confidenceScores);
 
   QTest::newRow("correct") << (RecognitionResultList() << correctResult << correctResult << correctResult) << 
     expectedResult << 0 << 0 << 0;
@@ -120,8 +120,8 @@ void testTestResult::testMultiple_data()
 
   QList<float> confidenceScores2;
   confidenceScores2 << 1.0 << 0.7 << 0.1 << 0.3 << 0.9;
-  QString sampa2 = "t h i s | i s | t E s t | ax | t E s t";
-  RecognitionResult ins1Result("This is test a Test", sampa2, sampa2, confidenceScores2);
+  QString sampa2 = "t h i s | i s | w oy | ax | t E s t";
+  RecognitionResult ins1Result("This is wow a Test", sampa2, sampa2, confidenceScores2);
   QTest::newRow("ins1") << (RecognitionResultList() << correctResult << ins1Result) << 
     expectedResult << 1 << 0 << 0;
 

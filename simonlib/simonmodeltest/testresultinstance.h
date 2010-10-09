@@ -50,6 +50,7 @@ class MODELTEST_EXPORT TestResultInstance
     int deletionErrors();
     int substitutionErrors();
     bool correct(const QString& label);
+    QString recognizedText();
 
     void deleteAll();
 };

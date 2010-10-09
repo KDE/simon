@@ -25,6 +25,7 @@
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonmodeltest/modeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
+#include <simonmodeltest/testresultmodel.h>
 #include <simonmodeltest/recognizerresult.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonsound/recwidget.h>
@@ -53,8 +54,8 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 {
   KGlobal::locale()->insertCatalog("simonlib");
   ui.setupUi(this);
-  ui.saWordResultDetails->setWidget(ui.wgWordResultDetails);
-  ui.saSentenceResultDetails->setWidget(ui.wgSentenceResultDetails);
+  //ui.saWordResultDetails->setWidget(ui.wgWordResultDetails);
+  //ui.saSentenceResultDetails->setWidget(ui.wgSentenceResultDetails);
 
   ui.tvFiles->setModel(fileResultModelProxy);
   ui.tvFiles->setSortingEnabled(true);
@@ -175,6 +176,10 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
+
+  fileResultModelProxy->setSourceModel(modelTest->recognizerResultsModel());
+  ui.tvWordResults->setModel(modelTest->wordResultsModel());
+  ui.tvSentenceResults->setModel(modelTest->sentenceResultsModel());
 }
 
 void SamView::exportTestResults()
@@ -893,9 +898,9 @@ void SamView::analyzeTestOutput()
   ui.pbRecognitionRate->setFormat(QString::number(overallRecognitionRate*100.0f)+" %");
 #endif
 
-  QAbstractItemModel *m = fileResultModelProxy->sourceModel();
-  if (m) m->deleteLater();
-  fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getRecognizerResults(), this));
+  //QAbstractItemModel *m = fileResultModelProxy->sourceModel();
+  //if (m) m->deleteLater();
+  //fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getRecognizerResults(), this));
 }
 
 
