@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,9 +18,89 @@
  */
 
 #include "testresult.h"
+#include "testresultinstance.h"
+#include "testresultleaf.h"
+#include <simonrecognitionresult/recognitionresult.h>
 
-TestResult::TestResult(const QString& prompt_, const RecognitionResultList& RRL)
-: prompt(prompt_),
-results(RRL)
+TestResult::TestResult(const QString& label) : m_label(label)
 {
 }
+
+bool TestResult::registerChild(TestResultLeaf* child)
+{
+  return registerChildren(QList<TestResultLeaf*>() << child);
+}
+
+
+bool TestResult::registerChildren(const QList<TestResultLeaf*>& children)
+{
+  TestResultInstance *instance = TestResultInstance::createInstance(m_label, children);
+  if (instance) {
+    m_children << instance;
+    return true;
+  }
+  return false;
+}
+
+float TestResult::accuracy()
+{
+  float acc = 0.0;
+  foreach (TestResultInstance *t, m_children)
+    acc += t->accuracy();
+  acc /= (float) m_children.count();
+  return acc;
+}
+
+float TestResult::wordErrorRate()
+{
+  return ((float) (insertionErrors()+deletionErrors()+substitutionErrors())) / m_children.count();
+}
+
+int TestResult::insertionErrors()
+{
+  int insertionErrors = 0;
+  foreach (TestResultInstance *t, m_children)
+    insertionErrors += t->insertionErrors();
+  return insertionErrors;
+}
+
+int TestResult::deletionErrors()
+{
+  int deletionErrors = 0;
+  foreach (TestResultInstance *t, m_children)
+    deletionErrors += t->deletionErrors();
+  return deletionErrors;
+}
+
+int TestResult::substitutionErrors()
+{
+  int substitationErrors = 0;
+  foreach (TestResultInstance *t, m_children)
+    substitationErrors += t->substitutionErrors();
+  return substitationErrors;
+}
+
+void TestResult::deleteAll()
+{
+  foreach (TestResultInstance *t, m_children)
+    t->deleteAll();
+  qDeleteAll(m_children);
+  m_children.clear();
+}
+
+int TestResult::count()
+{
+  return m_children.count();
+}
+
+int TestResult::correctCount()
+{
+  int count = 0;
+  foreach (TestResultInstance *t, m_children)
+    if (t->correct(m_label))
+      ++count;
+
+  return count;
+}
+
+

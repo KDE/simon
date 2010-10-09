@@ -18,7 +18,7 @@
  */
 
 #include "modeltest.h"
-#include "testresult.h"
+#include "recognizerresult.h"
 
 #include <simonlogging/logger.h>
 
@@ -52,10 +52,9 @@ userName(user_name)
   connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
 
   promptsTable.clear();
-  wordRates.clear();
-  sentenceRates.clear();
-  testResults.clear();
-  //fileResults.clear();
+  //wordRates.clear();
+  //sentenceRates.clear();
+  recognizerResults.clear();
 }
 
 
@@ -244,9 +243,9 @@ void ModelTest::run()
     emitError(i18n("Could not generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
   promptsTable.clear();
-  wordRates.clear();
-  sentenceRates.clear();
-  testResults.clear();
+  //wordRates.clear();
+  //sentenceRates.clear();
+  recognizerResults.clear();
 
   if (!keepGoing) return;
   Logger::log(i18n("[INF] Testing model..."));
@@ -639,22 +638,20 @@ void ModelTest::searchFailed()
 {
   QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-  //fileResults.insert(fileName, RecognitionResultList());
-
   emit recognitionInfo(i18n("Search failed for: %1", fileName));
 
   QString prompt = promptsTable.value(fileName);
   QStringList promptWordList = prompt.split(' ');
 
-  FloatList list = sentenceRates.value(prompt);
-  sentenceRates.insert(prompt, list << 0.0f);
+  //FloatList list = sentenceRates.value(prompt);
+  //sentenceRates.insert(prompt, list << 0.0f);
+//
+  //foreach (const QString& word, promptWordList) {
+    //FloatList list2 = wordRates.value(word);
+    //wordRates.insert(word, list2 << 0.0f);
+  //}
 
-  foreach (const QString& word, promptWordList) {
-    FloatList list2 = wordRates.value(word);
-    wordRates.insert(word, list2 << 0.0f);
-  }
-
-  testResults.insert(fileName, new TestResult(prompt, RecognitionResultList()));
+  recognizerResults.insert(fileName, new RecognizerResult(prompt, RecognitionResultList()));
 }
 
 
@@ -662,14 +659,22 @@ void ModelTest::recognized(RecognitionResultList results)
 {
   QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-  //fileResults.insert(fileName, results);
-
   QString prompt = promptsTable.value(fileName);
-  testResults.insert(fileName, new TestResult(prompt, results));
+  recognizerResults.insert(fileName, new RecognizerResult(prompt, results));
 
   emit recognitionInfo(i18n("Prompts entry: %1", prompt));
-  emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
+  if (results.count() > 0)
+  {
+    emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));
 
+    //RecognitionResult& highestRatedResult = results.first();
+    //TestResult *testResult = new TestResult(prompt);
+    //QList<TestResultLeaf*> leafs = TestResult::parseResult(highestRatedResult);
+    //testResult->registerChildren(leafs);
+
+  }
+
+#if 0
   QStringList promptWordList = prompt.split(' ');
 
   bool sentenceFound = false;
@@ -726,6 +731,7 @@ void ModelTest::recognized(RecognitionResultList results)
     }
     ++k;
   }
+#endif
 }
 
 

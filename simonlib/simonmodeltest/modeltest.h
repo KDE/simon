@@ -43,7 +43,7 @@ extern "C"
 }
 
 
-class TestResult;
+class RecognizerResult;
 
 typedef QList<float> FloatList;
 
@@ -81,10 +81,9 @@ class MODELTEST_EXPORT ModelTest : public QThread
 
     QHash<QString, QString> promptsTable;
 
-    //QHash<QString /*filename*/, RecognitionResultList /*recognitionresults*/> fileResults;
-    QHash<QString /*filename*/, TestResult*> testResults;
-    QHash<QString, FloatList> wordRates;
-    QHash<QString, FloatList> sentenceRates;
+    QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
+    //QHash<QString, FloatList> wordRates;
+    //QHash<QString, FloatList> sentenceRates;
 
     QHash<QString, QString> recodedSamples;
 
@@ -126,20 +125,20 @@ class MODELTEST_EXPORT ModelTest : public QThread
     void recognized(RecognitionResultList);
     void searchFailed();
 
-    QHash<QString, FloatList> getWordRates() {
-      return this->wordRates;
+    //QHash<QString, FloatList> getWordRates() {
+      //return this->wordRates;
+    //}
+
+    //QHash<QString, FloatList> getSentenceRates() {
+      //return this->sentenceRates;
+    //}
+
+    RecognizerResult* getRecognizerResult(const QString& fileName) {
+      return recognizerResults.value(fileName);
     }
 
-    QHash<QString, FloatList> getSentenceRates() {
-      return this->sentenceRates;
-    }
-
-    TestResult* getTestResult(const QString& fileName) {
-      return testResults.value(fileName);
-    }
-
-    QHash<QString,TestResult*> getTestResults() {
-      return testResults;
+    QHash<QString,RecognizerResult*> getRecognizerResults() {
+      return recognizerResults;
     }
 
     QString getOriginalFilePath(const QString& fileName) {

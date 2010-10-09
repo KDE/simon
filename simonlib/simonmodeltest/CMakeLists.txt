@@ -12,8 +12,11 @@ include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modeltest.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/testresult.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/recognizerresult.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/testresult.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/testresultinstance.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/testresultleaf.cpp
 )
 
 
@@ -21,7 +24,7 @@ set( simonmodeltest_LIB_HDRS
   simonmodeltest_export.h
   modeltest.h
   fileresultmodel.h
-  testresult.h
+  recognizerresult.h
 )
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )
@@ -40,4 +43,4 @@ install( FILES ${simonmodeltest_LIB_HDRS}
  
 install( TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT sam  )
 
-#add_subdirectory(config)
+add_subdirectory(test)

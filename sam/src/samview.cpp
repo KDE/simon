@@ -25,7 +25,7 @@
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonmodeltest/modeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
-#include <simonmodeltest/testresult.h>
+#include <simonmodeltest/recognizerresult.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 #include <simonsound/recwidget.h>
 #include <QHash>
@@ -830,9 +830,10 @@ void SamView::abortModelTest()
 
 void SamView::analyzeTestOutput()
 {
-  QHash<QString, FloatList> wordRates = modelTest->getWordRates();
-  QHash<QString, FloatList> sentenceRates = modelTest->getSentenceRates();
+  //QHash<QString, FloatList> wordRates = modelTest->getWordRates();
+  //QHash<QString, FloatList> sentenceRates = modelTest->getSentenceRates();
 
+#if 0
   QStringList wordList = wordRates.keys();
   qSort(wordList);
   QStringList sentenceList = sentenceRates.keys();
@@ -890,17 +891,18 @@ void SamView::analyzeTestOutput()
 
   ui.pbRecognitionRate->setValue(round(overallRecognitionRate*100.0f));
   ui.pbRecognitionRate->setFormat(QString::number(overallRecognitionRate*100.0f)+" %");
+#endif
 
   QAbstractItemModel *m = fileResultModelProxy->sourceModel();
   if (m) m->deleteLater();
-  fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getTestResults(), this));
+  fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getRecognizerResults(), this));
 }
 
 
 void SamView::slotFileResultSelected(QModelIndex index)
 {
   QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
-  TestResult *t = modelTest->getTestResult(fileName);
+  RecognizerResult *t = modelTest->getRecognizerResult(fileName);
 
   if (!t) return;
 
@@ -927,7 +929,7 @@ void SamView::slotEditSelectedSample()
     return;
 
   QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
-  TestResult *t = modelTest->getTestResult(fileName);
+  RecognizerResult *t = modelTest->getRecognizerResult(fileName);
 
   if (!t) return;
 

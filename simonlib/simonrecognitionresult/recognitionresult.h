@@ -22,6 +22,7 @@
 
 #include <QList>
 #include <QString>
+#include <QStringList>
 #include <QMetaType>
 #include "simonrecognitionresult_export.h"
 
@@ -33,6 +34,7 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
     QString m_sampaRaw;
     QList<float> m_confidenceScores;
   public:
+    RecognitionResult() {}
     RecognitionResult(QString sentence, QString sampa, QString sampaRaw, QList<float> confidenceScores)
       : m_sentence(sentence),
       m_sampa(sampa),
@@ -41,7 +43,9 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
     }
 
     QString sentence() const { return m_sentence; }
+    QStringList words() const { return m_sentence.split(" ", QString::SkipEmptyParts); }
     QString sampa() const { return m_sampa; }
+    QStringList sampas() const { return m_sampa.split(" |", QString::SkipEmptyParts); }
     QString sampaRaw() const { return m_sampaRaw; }
     QList<float> confidenceScores() const { return m_confidenceScores; }
 
@@ -56,5 +60,6 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 
 typedef QList<RecognitionResult> RecognitionResultList;
 
-Q_DECLARE_METATYPE(RecognitionResultList)
+Q_DECLARE_METATYPE(RecognitionResult);
+Q_DECLARE_METATYPE(RecognitionResultList);
 #endif

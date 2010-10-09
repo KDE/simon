@@ -26,7 +26,7 @@
 #include <KLocale>
 #include <KColorScheme>
 
-FileResultModel::FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent) : QAbstractItemModel(parent),
+FileResultModel::FileResultModel(QHash<QString /*filename*/, RecognizerResult*> testResults, QObject *parent) : QAbstractItemModel(parent),
 m_testResults(testResults)
 {
   //	m_results = results;
@@ -45,7 +45,7 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
   int row = index.row();
 
   QString path = m_testResults.keys().at(row);
-  TestResult *t = m_testResults.value(path);
+  RecognizerResult *t = m_testResults.value(path);
 
   if ((role == Qt::DisplayRole) || (role == Qt::UserRole+1)) {
     switch (index.column()) {

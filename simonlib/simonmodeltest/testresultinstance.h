@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SENTENCETESTRESULT_H_8163A007180343A3A027C402EDCE6C93
-#define SIMON_SENTENCETESTRESULT_H_8163A007180343A3A027C402EDCE6C93
+#ifndef SIMON_SENTENCEINSTANCETESTRESULT_H_8163A007180343A3A027C402EDCE6C93
+#define SIMON_SENTENCEINSTANCETESTRESULT_H_8163A007180343A3A027C402EDCE6C93
 
 #include "simonmodeltest_export.h"
 #include "testresult.h"
@@ -26,32 +26,36 @@
 #include <QString>
 #include <QMetaType>
 
-class TestResultInstance;
 class TestResultLeaf;
+class RecognitionResult;
 
-class MODELTEST_EXPORT TestResult
+class MODELTEST_EXPORT TestResultInstance 
 {
   private:
-    QList<TestResultInstance*> m_children;
-    QString m_label; //expected result
+    QList<TestResultLeaf*> m_children;
+
+    void advanceToNextValidResultAfterSkipping(int skippedCount, QStringList& labels);
+    TestResultInstance();
 
   public:
-    TestResult(const QString& label);
-    bool registerChild(TestResultLeaf* child);
-    bool registerChildren(const QList<TestResultLeaf*>& children);
+    static QList<TestResultLeaf*> parseResult(const RecognitionResult& result);
+
+    static TestResultInstance* createInstance(const QString& label, const QList<TestResultLeaf*>& children);
+
+    bool registerChildren(const QString& label, const QList<TestResultLeaf*>& children);
 
     float accuracy();
     float wordErrorRate();
     int insertionErrors();
     int deletionErrors();
     int substitutionErrors();
-    int count();
-    int correctCount();
+    bool correct(const QString& label);
 
     void deleteAll();
 };
 
-Q_DECLARE_METATYPE(TestResult*);
+Q_DECLARE_METATYPE(TestResultInstance*);
 
 #endif
+
 

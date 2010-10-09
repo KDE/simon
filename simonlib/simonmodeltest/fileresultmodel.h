@@ -20,7 +20,7 @@
 #ifndef SIMON_FILERESULTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
 #define SIMON_FILERESULTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
 
-#include "testresult.h"
+#include "recognizerresult.h"
 #include <QAbstractItemModel>
 #include <QHash>
 #include <QBrush>
@@ -38,7 +38,7 @@ class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel
     //QHash<QString, RecognitionResultList> m_results;
     //QHash<QString, QString> m_prompts;
 
-    QHash<QString /*filename*/, TestResult*> m_testResults;
+    QHash<QString /*filename*/, RecognizerResult*> m_testResults;
 
     QVariant data(const QModelIndex &index, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -55,7 +55,7 @@ class MODELTEST_EXPORT FileResultModel : public QAbstractItemModel
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
-    FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent=0);
+    FileResultModel(QHash<QString /*filename*/, RecognizerResult*> testResults, QObject *parent=0);
     ~FileResultModel();
 
 };
