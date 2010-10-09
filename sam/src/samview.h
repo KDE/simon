@@ -126,5 +126,7 @@ class SamView :  public KXmlGuiWindow
     int getTrainingSampleCount();
     int getDevelopmentSampleCount();
     int getTestSampleCount();
+
+    void displayRate(QProgressBar *pbRate, float rate);
 };
 #endif                                            // samVIEW_H

@@ -102,7 +102,7 @@ void TestResultInstance::advanceToNextValidResultAfterSkipping(int skippedCount,
     if (foundRedeemableChild) 
     {
       m_children[++l]->setInsertionError(false);
-      m_children[l]->setSubstitutionError(true);
+      m_children[l]->setSubstitutionError(true, labels[0]);
       //qDebug() << "Switching child to substitution: " << m_children[l]->label();
       labels.removeAt(0);
       --skippedCount;
@@ -120,7 +120,7 @@ void TestResultInstance::advanceToNextValidResultAfterSkipping(int skippedCount,
   }
 }
 
-float TestResultInstance::accuracy()
+float TestResultInstance::accuracy() const
 {
   float acc = 0.0;
   foreach (TestResultLeaf *t, m_children)
@@ -129,12 +129,25 @@ float TestResultInstance::accuracy()
   return acc;
 }
 
-float TestResultInstance::wordErrorRate()
+float TestResultInstance::confidence() const
 {
-  return ((float) (insertionErrors()+deletionErrors()+substitutionErrors())) / m_children.count();
+  float conf = 0.0;
+  foreach (TestResultLeaf *t, m_children)
+    conf += t->confidence();
+  conf /= (float) m_children.count();
+  return conf;
 }
 
-int TestResultInstance::insertionErrors()
+float TestResultInstance::wordErrorRate() const
+{
+  float rate = 0.0;
+  foreach (TestResultLeaf *t, m_children)
+    rate += t->wordErrorRate();
+  return rate / ((float) m_children.count());
+  //return ((float) (insertionErrors()+deletionErrors()+substitutionErrors())) / m_children.count();
+}
+
+int TestResultInstance::insertionErrors() const
 {
   int insertionErrors = 0;
   foreach (TestResultLeaf *t, m_children)
@@ -142,7 +155,7 @@ int TestResultInstance::insertionErrors()
   return insertionErrors;
 }
 
-int TestResultInstance::deletionErrors()
+int TestResultInstance::deletionErrors() const
 {
   int deletionErrors = 0;
   foreach (TestResultLeaf *t, m_children)
@@ -150,7 +163,7 @@ int TestResultInstance::deletionErrors()
   return deletionErrors;
 }
 
-int TestResultInstance::substitutionErrors()
+int TestResultInstance::substitutionErrors() const
 {
   int substitationErrors = 0;
   foreach (TestResultLeaf *t, m_children)
@@ -180,17 +193,17 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
   return leafs;
 }
 
-bool TestResultInstance::correct(const QString& label)
+bool TestResultInstance::correct() const
 {
-  return (label.compare(recognizedText(), Qt::CaseInsensitive) == 0);
+  return (accuracy() == 1.0f);
 }
 
-QString TestResultInstance::recognizedText()
+QString TestResultInstance::recognizedText() const
 {
   QString recognizedSentence;
   
   foreach (TestResultLeaf *t, m_children)
-    recognizedSentence += t->label()+' ';
+    recognizedSentence += t->prettyLabel()+' ';
 
   return recognizedSentence.trimmed();
 }

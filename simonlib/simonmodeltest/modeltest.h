@@ -85,7 +85,7 @@ class MODELTEST_EXPORT ModelTest : public QThread
 
     QHash<QString, QString> promptsTable;
 
-    QList<TestResultLeaf*> leafesToDelete;
+    QList<TestResultLeaf*> resultLeafes;
     QHash<QString /*filename*/, RecognizerResult*> recognizerResults;
     QList<TestResult*> wordResults;
     QList<TestResult*> sentenceResults;
@@ -151,6 +151,10 @@ class MODELTEST_EXPORT ModelTest : public QThread
     QString getOriginalFilePath(const QString& fileName) {
       return recodedSamples.value(fileName);
     }
+
+    float getOverallConfidence();
+    float getOverallAccuracy();
+    float getOverallWER();
 
     ~ModelTest();
 

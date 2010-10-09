@@ -44,13 +44,14 @@ class MODELTEST_EXPORT TestResultInstance
 
     bool registerChildren(const QString& label, const QList<TestResultLeaf*>& children);
 
-    float accuracy();
-    float wordErrorRate();
-    int insertionErrors();
-    int deletionErrors();
-    int substitutionErrors();
-    bool correct(const QString& label);
-    QString recognizedText();
+    float accuracy() const;
+    float confidence() const;
+    float wordErrorRate() const;
+    int insertionErrors() const;
+    int deletionErrors() const;
+    int substitutionErrors() const;
+    bool correct() const;
+    QString recognizedText() const;
 
     void deleteAll();
 };

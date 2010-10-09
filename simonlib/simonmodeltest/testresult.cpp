@@ -42,6 +42,15 @@ bool TestResult::registerChildren(const QList<TestResultLeaf*>& children)
   return false;
 }
 
+float TestResult::confidence() const
+{
+  float conf = 0.0;
+  foreach (TestResultInstance *t, m_children)
+    conf += t->confidence();
+  conf /= (float) m_children.count();
+  return conf;
+}
+
 float TestResult::accuracy() const
 {
   float acc = 0.0;
@@ -74,10 +83,10 @@ int TestResult::deletionErrors() const
 
 int TestResult::substitutionErrors() const
 {
-  int substitationErrors = 0;
+  int substitutionErrors = 0;
   foreach (TestResultInstance *t, m_children)
-    substitationErrors += t->substitutionErrors();
-  return substitationErrors;
+    substitutionErrors += t->substitutionErrors();
+  return substitutionErrors;
 }
 
 void TestResult::deleteAll()
@@ -97,19 +106,32 @@ int TestResult::correctCount() const
 {
   int count = 0;
   foreach (TestResultInstance *t, m_children)
-    if (t->correct(m_label))
+    if (t->correct())
       ++count;
 
   return count;
 }
 
+int TestResult::incorrectCount() const
+{
+  return count() - correctCount();
+}
+
 QString TestResult::prettyLabel()
 {
   foreach (TestResultInstance *t, m_children)
-    if (t->correct(m_label))
+    if (t->correct())
       return t->recognizedText();
 
   return label();
+}
+
+QString TestResult::recognitionResults() const
+{
+  QString results;
+  foreach (TestResultInstance *t, m_children)
+    results += t->recognizedText()+'\n';
+  return results.trimmed();
 }
 
 bool TestResult::matchesLabel(const QString& label) const

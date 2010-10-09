@@ -509,13 +509,13 @@
        <attribute name="title">
         <string>Test results</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_15">
+       <layout class="QVBoxLayout" name="verticalLayout_14">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QLabel" name="lbRecognitionRate">
             <property name="text">
-             <string>Overall recognition rate:</string>
+             <string>Overall recognition rate (confidence):</string>
             </property>
            </widget>
           </item>
@@ -536,23 +536,40 @@
           <property name="currentIndex">
            <number>0</number>
           </property>
-          <widget class="QWidget" name="pgWordResults">
-           <attribute name="title">
-            <string>Individual words</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_16">
-            <item>
-             <widget class="QTableView" name="tvWordResults"/>
-            </item>
-           </layout>
-          </widget>
+          <property name="automaticResizeTabs">
+           <bool>false</bool>
+          </property>
           <widget class="QWidget" name="pgSentenceResults">
            <attribute name="title">
             <string>Sentences</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_17">
             <item>
-             <widget class="QTableView" name="tvSentenceResults"/>
+             <widget class="QTableView" name="tvSentenceResults">
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Recognized words</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <widget class="QTableView" name="tvWordResults">
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -612,6 +629,38 @@
            </layout>
           </widget>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Accuracy:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="pbAccuracy">
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Word error rate:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="pbWordErrorRate">
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>

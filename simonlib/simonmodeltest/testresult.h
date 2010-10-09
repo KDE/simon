@@ -41,17 +41,20 @@ class MODELTEST_EXPORT TestResult
     bool registerChildren(const QList<TestResultLeaf*>& children);
 
     float accuracy() const;
+    float confidence() const;
     float wordErrorRate() const;
     int insertionErrors() const;
     int deletionErrors() const;
     int substitutionErrors() const;
     int count() const;
     int correctCount() const;
+    int incorrectCount() const;
 
     void deleteAll();
 
     bool matchesLabel(const QString& label) const;
     QString label() const { return m_label; }
+    QString recognitionResults() const;
     QString prettyLabel();
     ~TestResult();
 };

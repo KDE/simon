@@ -832,75 +832,19 @@ void SamView::abortModelTest()
   modelTest->abort();
 }
 
+void SamView::displayRate(QProgressBar *pbRate, float rate)
+{
+  pbRate->setValue(round(rate*100.0f));
+  pbRate->setFormat(QString::number(rate*100.0f, 'f', 2)+" %");
+}
 
 void SamView::analyzeTestOutput()
 {
-  //QHash<QString, FloatList> wordRates = modelTest->getWordRates();
-  //QHash<QString, FloatList> sentenceRates = modelTest->getSentenceRates();
+  float overallRecognitionRate = modelTest->getOverallConfidence();
+  displayRate(ui.pbRecognitionRate, overallRecognitionRate);
 
-#if 0
-  QStringList wordList = wordRates.keys();
-  qSort(wordList);
-  QStringList sentenceList = sentenceRates.keys();
-  qSort(sentenceList);
-
-  float overallRecognitionRate = 0;
-
-  float wordRecognitionRate = 0;
-  float sentenceRecognitionRate = 0;
-
-  QObjectList accs = ui.wgWordResultDetails->children();
-  accs << ui.wgSentenceResultDetails->children();
-  foreach (QObject *acc, accs)
-    if (dynamic_cast<AccuracyDisplay*>(acc))
-    acc->deleteLater();
-
-  foreach (const QString& word, wordList) {
-    FloatList rates = wordRates.value(word);
-    float avg=0;
-    int rateCorrect = 0;
-
-    foreach (float rate, rates) {
-      avg += rate;
-      if (rate > 0)
-        rateCorrect++;
-    }
-    avg /= (float) rates.count();
-
-    wordRecognitionRate += avg;
-
-    AccuracyDisplay *acc = new AccuracyDisplay(word, rates.count(), rateCorrect, avg, ui.wgWordResultDetails);
-    ui.vbWordResultDetails->addWidget(acc);
-  }
-  wordRecognitionRate /= (float) wordList.count();
-
-  foreach (const QString& sentence, sentenceList) {
-    FloatList rates = sentenceRates.value(sentence);
-    float avg=0;
-    int rateCorrect = 0;
-    foreach (float rate, rates) {
-      avg += rate;
-      if (rate > 0)
-        rateCorrect++;
-    }
-    avg /= (float) rates.count();
-
-    sentenceRecognitionRate += avg;
-
-    AccuracyDisplay *acc = new AccuracyDisplay(sentence, rates.count(), rateCorrect, avg, ui.wgSentenceResultDetails);
-    ui.vbSentenceResultDetails->addWidget(acc);
-  }
-  sentenceRecognitionRate /= (float) sentenceList.count();
-
-  overallRecognitionRate = (sentenceRecognitionRate + wordRecognitionRate) / 2.0f;
-
-  ui.pbRecognitionRate->setValue(round(overallRecognitionRate*100.0f));
-  ui.pbRecognitionRate->setFormat(QString::number(overallRecognitionRate*100.0f)+" %");
-#endif
-
-  //QAbstractItemModel *m = fileResultModelProxy->sourceModel();
-  //if (m) m->deleteLater();
-  //fileResultModelProxy->setSourceModel(new FileResultModel(modelTest->getRecognizerResults(), this));
+  displayRate(ui.pbAccuracy, modelTest->getOverallAccuracy());
+  displayRate(ui.pbWordErrorRate, modelTest->getOverallWER());
 }
 
 

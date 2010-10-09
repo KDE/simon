@@ -27,25 +27,33 @@ class MODELTEST_EXPORT TestResultLeaf
 {
   private:
     QString m_label;
+    QString m_originalLabel;
     QString m_pronunciation;
     float m_accuracy;
+    float m_confidence;
     bool m_insertionError, m_substitutionError, m_deletionError;
+    void calcAccuracy();
 
   public:
-    TestResultLeaf(const QString& label, const QString& pronunciation, float accuracy);
+    TestResultLeaf(const QString& label, const QString& pronunciation, float confidence);
     TestResultLeaf();
 
-    void setInsertionError(bool f) { m_insertionError = f; }
-    void setSubstitutionError(bool f) { m_substitutionError = f; }
-    void setDeletionError(bool f) { m_deletionError = f; }
+    void setInsertionError(bool f);
+    void setSubstitutionError(bool f, const QString&);
+    void setDeletionError(bool f);
 
-    bool insertionError() { return m_insertionError; }
-    bool substitutionError() { return m_substitutionError; }
-    bool deletionError() { return m_deletionError; }
+    int wordErrorRate() const;
+    bool correct();
+    bool insertionError() const { return m_insertionError; }
+    bool substitutionError() const { return m_substitutionError; }
+    bool deletionError() const { return m_deletionError; }
 
-    float accuracy() { return m_accuracy; }
-    QString label() { return m_label; }
-    QString prompt() { return m_pronunciation; }
+    float accuracy() const { return m_accuracy; }
+    float confidence() const { return m_confidence; }
+    QString label() const { return m_label; }
+    QString prettyLabel() const;
+    QString originalLabel() const { return m_originalLabel; }
+    QString prompt() const { return m_pronunciation; }
 
 };
 #endif

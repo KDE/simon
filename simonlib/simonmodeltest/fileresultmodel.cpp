@@ -117,7 +117,7 @@ int role) const
       case 2:
         return i18n("Actual result");
       case 3:
-        return i18n("Recognition rate");
+        return i18n("Recognition rate (confidence scored)");
     }
   }
 

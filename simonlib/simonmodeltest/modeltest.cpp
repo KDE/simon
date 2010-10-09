@@ -246,14 +246,14 @@ void ModelTest::deleteAllResults()
   m_recognizerResultsModel->clear();
 
   promptsTable.clear();
-  qDeleteAll(leafesToDelete);
+  qDeleteAll(resultLeafes);
   qDeleteAll(sentenceResults);
   qDeleteAll(wordResults);
   qDeleteAll(recognizerResults.values());
   recognizerResults.clear();
   wordResults.clear();
   sentenceResults.clear();
-  leafesToDelete.clear();
+  resultLeafes.clear();
 }
 
 void ModelTest::run()
@@ -681,7 +681,7 @@ void ModelTest::searchFailed()
   {
     TestResultLeaf *dummyLeaf = new TestResultLeaf(label, "", 0.0);
     dummyLeaf->setDeletionError(true);
-    leafesToDelete << dummyLeaf;
+    resultLeafes << dummyLeaf;
 
     sentenceLeafes << dummyLeaf;
 
@@ -728,14 +728,14 @@ void ModelTest::recognized(RecognitionResultList results)
     TestResult *sentenceResult = getResult(sentenceResults, prompt);
 
     QList<TestResultLeaf*> leafs = TestResultInstance::parseResult(highestRatedResult);
-    leafesToDelete << leafs;
+    resultLeafes << leafs;
 
     if (!sentenceResult->registerChildren(leafs))
       kWarning() << "Could not process sentence result";
 
     foreach (TestResultLeaf* leaf, leafs)
     {
-      TestResult *wordResult = getResult(wordResults, leaf->label());
+      TestResult *wordResult = getResult(wordResults, leaf->originalLabel());
       if (!wordResult->registerChild(leaf))
         kWarning() << "Could not process word result";
     }
@@ -745,6 +745,35 @@ void ModelTest::recognized(RecognitionResultList results)
 FileResultModel* ModelTest::recognizerResultsModel()
 {
   return m_recognizerResultsModel;
+}
+
+float ModelTest::getOverallConfidence()
+{
+  float overallConfidence = 0;
+  foreach (TestResultLeaf *leaf, resultLeafes)
+    if (leaf->correct())
+      overallConfidence += leaf->confidence();
+
+  overallConfidence /= (float) resultLeafes.count();
+  return overallConfidence;
+}
+
+float ModelTest::getOverallAccuracy()
+{
+  float overallAccuracy = 0;
+  foreach (TestResultLeaf *leaf, resultLeafes)
+    overallAccuracy += leaf->accuracy();
+  overallAccuracy /= (float) resultLeafes.count();
+  return overallAccuracy;
+}
+
+float ModelTest::getOverallWER()
+{
+  float overallWER = 0;
+  foreach (TestResultLeaf *leaf, resultLeafes)
+    overallWER += leaf->wordErrorRate();
+  overallWER /= (float) resultLeafes.count();
+  return overallWER;
 }
 
 TestResultModel* ModelTest::wordResultsModel()

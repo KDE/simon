@@ -23,6 +23,7 @@
 
 #include "simonmodeltest_export.h"
 #include <QList>
+#include <QBrush>
 #include <QAbstractItemModel>
 
 class TestResult;
@@ -30,7 +31,9 @@ class TestResult;
 class MODELTEST_EXPORT TestResultModel : public QAbstractItemModel
 {
   private:
+    QBrush recogWrong;
     QList<TestResult*> m_results;
+    QString printPercentage(float in) const;
 
   protected:
     QVariant headerData(int, Qt::Orientation orientation,
