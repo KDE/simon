@@ -1,5 +1,4 @@
-/*
- *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+/* *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -20,26 +19,22 @@
 #include "samview.h"
 #include "accuracydisplay.h"
 #include "exporttestresults.h"
+#include "testconfigurationwidget.h"
+#include "testresultwidget.h"
 #include "reportparameters.h"
+
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
-#include <simonmodeltest/modeltest.h>
-#include <simonmodeltest/fileresultmodel.h>
-#include <simonmodeltest/testresultmodel.h>
-#include <simonmodeltest/recognizerresult.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
-#include <simonsound/recwidget.h>
+
 #include <QHash>
 #include <QPointer>
-#include <QSortFilterProxyModel>
 #include <KStandardAction>
-#include <KActionCollection>
 #include <KAction>
-#include <KDialog>
+#include <KActionCollection>
 #include <KIcon>
 #include <KStandardDirs>
-#include <KAboutData>
-#include <KConfig>
+#include <KSharedConfig>
 #include <KConfigGroup>
 #include <KCMultiDialog>
 #include <KMessageBox>
@@ -49,21 +44,11 @@
 #include <KDebug>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
-  m_reportParameters(0),
-	fileResultModelProxy(new QSortFilterProxyModel(this))
+  m_reportParameters(0)
 {
   KGlobal::locale()->insertCatalog("simonlib");
   ui.setupUi(this);
-  //ui.saWordResultDetails->setWidget(ui.wgWordResultDetails);
-  //ui.saSentenceResultDetails->setWidget(ui.wgSentenceResultDetails);
-
-  ui.tvFiles->setModel(fileResultModelProxy);
-  ui.tvFiles->setSortingEnabled(true);
-  
-  fileResultModelProxy->setFilterKeyColumn(0);
-  fileResultModelProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  fileResultModelProxy->setSortRole(Qt::UserRole+1);
-  connect(ui.leResultFilesFilter, SIGNAL(textChanged(const QString&)), fileResultModelProxy, SLOT(setFilterFixedString(const QString&)));
+  ui.saTestConfigurations->setWidget(ui.wgTestConfigurations);
 
   KAction* getPathsFromSimon = new KAction(this);
   getPathsFromSimon->setText(i18n("Modify simons model"));
@@ -122,15 +107,12 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
   ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
   ui.urDict->setMode(KFile::File|KFile::LocalOnly);
-  ui.urJConf->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
   ui.urPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urLexicon->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urGrammar->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urVocabulary->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urTestPromptsBasePath->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-  ui.urTestPrompts->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urTreeHed->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urWavConfig->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
   ui.urBaseHmmDefs->setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly);
@@ -157,49 +139,120 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this,
     SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 
-  modelTest = new ModelTest("internalsamuser", this);
-  connect(modelTest, SIGNAL(testComplete()), this, SLOT(retrieveCompleteTestLog()));
-  connect(modelTest, SIGNAL(testComplete()), this, SLOT(analyzeTestOutput()));
-  connect(modelTest, SIGNAL(testAborted()), this, SLOT(retrieveCompleteTestLog()));
-  connect(modelTest, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelTestStatus(const QString&, int, int)));
-  connect(modelTest, SIGNAL(recognitionInfo(const QString&)), this, SLOT(slotModelTestRecognitionInfo(const QString&)));
-  connect(modelTest, SIGNAL(error(const QString&, const QByteArray&)), this, SLOT(slotModelTestError(const QString&, const QByteArray&)));
-  connect(modelTest, SIGNAL(testComplete()), this, SLOT(switchToTestResults()));
 
-  ui.tvFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-  connect(ui.tvFiles, SIGNAL(pressed(QModelIndex)), this, SLOT(slotFileResultSelected(QModelIndex)));
-  connect(ui.pbEditSample, SIGNAL(clicked()), this, SLOT(slotEditSelectedSample()));
+  connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 
   connect(ui.pbSerializeScenarios, SIGNAL(clicked()), this, SLOT(serializeScenarios()));
   connect(ui.pbSerializePrompts, SIGNAL(clicked()), this, SLOT(serializePrompts()));
 
   connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
+}
 
-  fileResultModelProxy->setSourceModel(modelTest->recognizerResultsModel());
+void SamView::addTestConfiguration()
+{
+  TestConfigurationWidget *config = new TestConfigurationWidget(this);
+  addTestConfiguration(config);
+}
 
-  QSortFilterProxyModel *wordFilterProxy = new QSortFilterProxyModel(this);
-  wordFilterProxy->setSourceModel(modelTest->wordResultsModel());
-  ui.tvWordResults->setModel(wordFilterProxy);
-  QSortFilterProxyModel *sentenceFilterProxy = new QSortFilterProxyModel(this);
-  sentenceFilterProxy->setSourceModel(modelTest->sentenceResultsModel());
-  ui.tvSentenceResults->setModel(sentenceFilterProxy);
+void SamView::addTestConfiguration(TestConfigurationWidget* config)
+{
+  connect(config, SIGNAL(destroyed()), this, SLOT(testConfigurationRemoved()));
+  testConfigurations << config;
+  ui.vlTestConfigurations->addWidget(config);
+
+  TestResultWidget *result = new TestResultWidget(config, this);
+  connect(result, SIGNAL(testComplete()), this, SLOT(subTestComplete()));
+  connect(result, SIGNAL(testAborted()), this, SLOT(subTestAborted()));
+  connect(result, SIGNAL(testStarted()), this, SLOT(subTestStarted()));
+  connect(result, SIGNAL(destroyed()), this, SLOT(testResultRemoved()));
+  testResults << result;
+  ui.twTestResults->addTab(result, config->tag());
+}
+
+void SamView::displayModelTestStatus()
+{
+  int running = 0;
+  int idle = 0;
+  int done = 0;
+  foreach (TestResultWidget* test, testResults)
+  {
+    switch (test->getState())
+    {
+      case TestResultWidget::Idle:
+        idle++;
+        break;
+      case TestResultWidget::Running:
+        running++;
+        break;
+      case TestResultWidget::Done:
+        done++;
+        break;
+    }
+  }
+
+  if (done == testResults.count())
+  {
+    ui.pbTestProgress->setValue(1);
+    ui.pbTestProgress->setMaximum(1);
+    allTestsFinished();
+  } else if (idle == testResults.count())
+  {
+    ui.pbTestProgress->setValue(0);
+    ui.pbTestProgress->setMaximum(1);
+  } else {
+    ui.pbTestProgress->setValue(0);
+    ui.pbTestProgress->setMaximum(0);
+  }
+}
+
+void SamView::subTestStarted()
+{
+  kDebug() << "Subtest started...";
+  ui.teTestLog->append(i18n("Test started: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
+
+  displayModelTestStatus();
+}
+
+void SamView::subTestAborted()
+{
+  kDebug() << "Subtest aborted...";
+  ui.teTestLog->append(i18n("Test aborted: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
+  displayModelTestStatus();
+}
+
+void SamView::subTestComplete()
+{
+  kDebug() << "Subtest completed...";
+  ui.teTestLog->append(i18n("Test completed: %1", 
+        static_cast<TestResultWidget*>(sender())->getTag()));
+  displayModelTestStatus();
+}
+
+void SamView::allTestsFinished()
+{
+  //fill general tab with information
+  
+  //ui.lbTestResultInformation->setText(i18n("Ran);
+
+  switchToTestResults();
+}
+
+void SamView::testConfigurationRemoved()
+{
+  testConfigurations.removeAll(static_cast<TestConfigurationWidget*>(sender()));
+}
+
+void SamView::testResultRemoved()
+{
+  testResults.removeAll(static_cast<TestResultWidget*>(sender()));
 }
 
 void SamView::exportTestResults()
 {
   ExportTestResults *e = new ExportTestResults(this);
-  /*
-  if (!m_reportParameters)
-  {
-    int trainingSamples = getTrainingSampleCount();
-    int developmentSamples = getDevelopmentSampleCount();
-    int testSamples = getTestSampleCount();
-    m_reportParameters = new ReportParameters(
-      trainingSamples, developmentSamples, testSamples);
-  }
-  */
   
   if (e->exportTestResults(m_reportParameters))
   {
@@ -232,16 +285,14 @@ void SamView::newProject()
   ui.urDict->clear();
   ui.urDFA->clear();
   ui.urPromptsBasePath->clear();
-  ui.urTestPromptsBasePath->clear();
   ui.urLexicon->clear();
   ui.urGrammar->clear();
   ui.urVocabulary->clear();
   ui.urPrompts->clear();
-  ui.urTestPrompts->clear();
+  qDeleteAll(testConfigurations); // will be removed automatically through signal magic
   ui.urTreeHed->clear();
   ui.urWavConfig->clear();
   ui.sbSampleRate->setValue(16000 /* default*/);
-  ui.urJConf->clear();
   ui.rbDynamicModel->animateClick();
   ui.urBaseHmmDefs->clear();
   ui.urBaseTiedlist->clear();
@@ -250,10 +301,8 @@ void SamView::newProject()
 
   ui.twMain->setCurrentIndex(0);
   ui.teBuildLog->clear();
-  ui.teTestLog->clear();
+  clearTest();
   ui.teAdaptLog->clear();
-
-  clearTestResults();
 }
 
 
@@ -263,16 +312,8 @@ void SamView::load()
   if (filename.isEmpty()) return;
 
   m_filename = filename;
+  qDeleteAll(testConfigurations); //cleared by signal
   parseFile();
-  clearTestResults();
-}
-
-void SamView::clearTestResults()
-{
-  modelTest->deleteAllResults();
-  displayRate(ui.pbRecognitionRate, 0);
-  displayRate(ui.pbAccuracy, 0);
-  displayRate(ui.pbWordErrorRate, 0);
 }
 
 void SamView::save()
@@ -320,16 +361,13 @@ void SamView::parseFile()
   ui.urDict->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urDFA->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urPromptsBasePath->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urTestPromptsBasePath->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urLexicon->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urGrammar->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urVocabulary->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urPrompts->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urTestPrompts->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urTreeHed->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urWavConfig->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.sbSampleRate->setValue(QString::fromUtf8(f.readLine()).trimmed().toInt());
-  ui.urJConf->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
 
   int modelType = f.readLine().trimmed().toInt();
   switch (modelType) {
@@ -344,6 +382,23 @@ void SamView::parseFile()
   ui.urBaseTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urBaseMacros->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urBaseStats->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+
+  int testConfigCount = f.readLine().trimmed().toInt(); 
+  for (int i=0; i < testConfigCount; i++)
+  {
+    QString tag = QString::fromUtf8(f.readLine().trimmed());
+    KUrl hmmDefsUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl tiedlistUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl dictUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl dfaUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl testPromptsUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl testPromptsBasePathUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    KUrl jconfUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
+    int sampleRate = f.readLine().trimmed().toInt();
+
+    addTestConfiguration(new TestConfigurationWidget(tag, hmmDefsUrl, tiedlistUrl, dictUrl,
+          dfaUrl, testPromptsUrl, testPromptsBasePathUrl, jconfUrl, sampleRate));
+  }
 
   QString title = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
   QString tag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
@@ -390,7 +445,7 @@ void SamView::parseFile()
 
   ui.twMain->setCurrentIndex(0);
   ui.teBuildLog->clear();
-  ui.teTestLog->clear();
+  clearTest();
   ui.teAdaptLog->clear();
 
   updateWindowTitle();
@@ -415,27 +470,38 @@ void SamView::storeFile()
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
 
-  f.write(ui.urHmmDefs->url().path().toUtf8()+'\n');
-  f.write(ui.urTiedlist->url().path().toUtf8()+'\n');
-  f.write(ui.urDict->url().path().toUtf8()+'\n');
-  f.write(ui.urDFA->url().path().toUtf8()+'\n');
-  f.write(ui.urPromptsBasePath->url().path().toUtf8()+'\n');
-  f.write(ui.urTestPromptsBasePath->url().path().toUtf8()+'\n');
-  f.write(ui.urLexicon->url().path().toUtf8()+'\n');
-  f.write(ui.urGrammar->url().path().toUtf8()+'\n');
-  f.write(ui.urVocabulary->url().path().toUtf8()+'\n');
-  f.write(ui.urPrompts->url().path().toUtf8()+'\n');
-  f.write(ui.urTestPrompts->url().path().toUtf8()+'\n');
-  f.write(ui.urTreeHed->url().path().toUtf8()+'\n');
-  f.write(ui.urWavConfig->url().path().toUtf8()+'\n');
-  f.write(QString::number(ui.sbSampleRate->value()).toUtf8()+'\n');
-  f.write(ui.urJConf->url().path().toUtf8()+'\n');
+  f.write(ui.urHmmDefs->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urTiedlist->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urDict->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urDFA->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urPromptsBasePath->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urLexicon->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urGrammar->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urVocabulary->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urPrompts->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urTreeHed->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urWavConfig->url().toLocalFile().toUtf8()+'\n');
+  f.write(QByteArray::number(ui.sbSampleRate->value())+'\n');
 
-  f.write(QString::number(getModelType()).toUtf8()+'\n');
-  f.write(ui.urBaseHmmDefs->url().path().toUtf8()+'\n');
-  f.write(ui.urBaseTiedlist->url().path().toUtf8()+'\n');
-  f.write(ui.urBaseMacros->url().path().toUtf8()+'\n');
-  f.write(ui.urBaseStats->url().path().toUtf8()+'\n');
+  f.write(QByteArray::number(getModelType())+'\n');
+  f.write(ui.urBaseHmmDefs->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urBaseTiedlist->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urBaseMacros->url().toLocalFile().toUtf8()+'\n');
+  f.write(ui.urBaseStats->url().toLocalFile().toUtf8()+'\n');
+
+  f.write(QByteArray::number(testConfigurations.count())+'\n');
+  foreach (TestConfigurationWidget *config, testConfigurations)
+  {
+    f.write(config->tag().toUtf8()+'\n');
+    f.write(config->hmmDefs().toLocalFile().toUtf8()+'\n');
+    f.write(config->tiedlist().toLocalFile().toUtf8()+'\n');
+    f.write(config->dict().toLocalFile().toUtf8()+'\n');
+    f.write(config->dfa().toLocalFile().toUtf8()+'\n');
+    f.write(config->testPrompts().toLocalFile().toUtf8()+'\n');
+    f.write(config->testPromptsBasePath().toLocalFile().toUtf8()+'\n');
+    f.write(config->jconf().toLocalFile().toUtf8()+'\n');
+    f.write(QByteArray::number(config->sampleRate())+'\n');
+  }
 
   if (m_reportParameters)
   {
@@ -479,7 +545,8 @@ void SamView::getBuildPathsFromSimon()
   ui.urDict->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dict")));
   ui.urDFA->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dfa")));
   ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
-  ui.urTestPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
+  //ui.urTestPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
+  qDeleteAll(testConfigurations); //cleared by signal
 
   ui.urTreeHed->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/tree1.hed")));
   ui.urWavConfig->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/wav_config")));
@@ -513,7 +580,6 @@ void SamView::getBuildPathsFromSimon()
     ui.rbStaticModel->animateClick();
 
   ui.sbSampleRate->setValue(sampleRate);
-  ui.urJConf->setUrl(KUrl(KStandardDirs::locate("data", "simond/default.jconf")));
 
   //target path is simon model folder
   //
@@ -604,7 +670,7 @@ void SamView::serializeScenariosRun(const QStringList& scenarioIds, const QStrin
     (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel),
     output+"lexicon", output+"model.grammar",
     output+"simple.voca", output+"prompts",
-    scenarioPaths, ui.urPrompts->url().path());
+    scenarioPaths, ui.urPrompts->url().toLocalFile());
 }
 
 
@@ -647,10 +713,10 @@ void SamView::compileModel()
       //static model
       type = (ModelCompilationManager::CompileLanguageModel);
 
-      QFile::remove(ui.urHmmDefs->url().path());
-      QFile::remove(ui.urTiedlist->url().path());
-      QFile::copy(ui.urBaseHmmDefs->url().path(), ui.urHmmDefs->url().path());
-      QFile::copy(ui.urBaseTiedlist->url().path(), ui.urTiedlist->url().path());
+      QFile::remove(ui.urHmmDefs->url().toLocalFile());
+      QFile::remove(ui.urTiedlist->url().toLocalFile());
+      QFile::copy(ui.urBaseHmmDefs->url().toLocalFile(), ui.urHmmDefs->url().toLocalFile());
+      QFile::copy(ui.urBaseTiedlist->url().toLocalFile(), ui.urTiedlist->url().toLocalFile());
       break;
     case 1:
       //adapted base model
@@ -669,23 +735,23 @@ void SamView::compileModel()
   }
   modelCompilationManager->startCompilation(
     type,
-    ui.urHmmDefs->url().path(),
-    ui.urTiedlist->url().path(),
-    ui.urDict->url().path(),
-    ui.urDFA->url().path(),
+    ui.urHmmDefs->url().toLocalFile(),
+    ui.urTiedlist->url().toLocalFile(),
+    ui.urDict->url().toLocalFile(),
+    ui.urDFA->url().toLocalFile(),
 
-    ui.urBaseHmmDefs->url().path(),
-    ui.urBaseTiedlist->url().path(),
-    ui.urBaseMacros->url().path(),
-    ui.urBaseStats->url().path(),
+    ui.urBaseHmmDefs->url().toLocalFile(),
+    ui.urBaseTiedlist->url().toLocalFile(),
+    ui.urBaseMacros->url().toLocalFile(),
+    ui.urBaseStats->url().toLocalFile(),
 
-    ui.urPromptsBasePath->url().path(),
-    ui.urLexicon->url().path(),
-    ui.urGrammar->url().path(),
-    ui.urVocabulary->url().path(),
-    ui.urPrompts->url().path(),
-    ui.urTreeHed->url().path(),
-    ui.urWavConfig->url().path());
+    ui.urPromptsBasePath->url().toLocalFile(),
+    ui.urLexicon->url().toLocalFile(),
+    ui.urGrammar->url().toLocalFile(),
+    ui.urVocabulary->url().toLocalFile(),
+    ui.urPrompts->url().toLocalFile(),
+    ui.urTreeHed->url().toLocalFile(),
+    ui.urWavConfig->url().toLocalFile());
 }
 
 
@@ -716,11 +782,22 @@ void SamView::slotModelAdaptionComplete()
 
     QString promptsTestPath = path+QDir::separator()+"samprompts_test";
 
-    if (QFile::exists(promptsTestPath))
-      ui.urTestPrompts->setUrl(KUrl(promptsTestPath));
-    else
-      ui.urTestPrompts->setUrl(KUrl(prompts));
-    ui.urTestPromptsBasePath->setUrl(KUrl(trainingDataPath));
+    if (testConfigurations.isEmpty())
+    {
+      //automatically add appropriate test configuration
+
+      QString testPromptsPathUsed;
+      if (QFile::exists(promptsTestPath))
+        testPromptsPathUsed = promptsTestPath;
+      else
+        testPromptsPathUsed = prompts;
+      addTestConfiguration(new TestConfigurationWidget(i18nc("The tag name of an automatically added"
+              " test set. The needed string really is please change this (for the user to change).",
+              "PLEASE_CHANGE_THIS"), ui.urHmmDefs->url(), ui.urTiedlist->url(), ui.urDict->url(),
+              ui.urDFA->url(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath), 
+              KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(), 
+              this));
+    }
   }
 }
 
@@ -788,210 +865,43 @@ void SamView::retrieveCompleteBuildLog()
 }
 
 
-void SamView::retrieveCompleteTestLog()
-{
-  ui.teTestLog->clear();
-  ui.teTestLog->append(modelTest->getGraphicLog());
-}
-
-
-void SamView::slotModelTestStatus(const QString& status, int now, int max)
-{
-  ui.pbTestProgress->setMaximum(max);
-  ui.pbTestProgress->setValue(now);
-
-  ui.teTestLog->append(status);
-}
-
-
-void SamView::slotModelTestRecognitionInfo(const QString& status)
-{
-  ui.teTestLog->append(status);
-}
-
-
-void SamView::slotModelTestError(const QString& error, const QByteArray& protocol)
-{
-  retrieveCompleteTestLog();
-  KMessageBox::detailedSorry(0, error, protocol);
-}
-
-
 void SamView::switchToTestResults()
 {
   ui.twMain->setCurrentIndex(4);
 }
 
+void SamView::clearTest()
+{
+  ui.teTestLog->clear();
+  ui.lbTestResultInformation->clear();
+  //ui.qpPlot->hide();
+}
 
 void SamView::testModel()
 {
   ui.twMain->setCurrentIndex(3);
 
-  ui.teTestLog->clear();
+  clearTest();
 
-  modelTest->startTest(ui.urHmmDefs->url().path(),
-    ui.urTiedlist->url().path(),
-    ui.urDict->url().path(),
-    ui.urDFA->url().path(),
-    ui.urTestPromptsBasePath->url().path(),
-    ui.urTestPrompts->url().path(),
-    ui.sbSampleRate->value(),
-    ui.urJConf->url().path()
-    );
+  foreach (TestResultWidget *test, testResults)
+    test->startTest();
+
+  if (testResults.isEmpty())
+    KMessageBox::information(this, i18n("No tests configured yet. Please provide your test configuration in the input / output section."));
 }
 
 
 void SamView::abortModelTest()
 {
   kDebug() << "Aborting model test";
-  modelTest->abort();
+  foreach (TestResultWidget *test, testResults)
+    test->abort();
 }
-
-void SamView::displayRate(QProgressBar *pbRate, float rate)
-{
-  pbRate->setValue(round(rate*100.0f));
-  pbRate->setFormat(QString::number(rate*100.0f, 'f', 2)+" %");
-}
-
-void SamView::analyzeTestOutput()
-{
-  float overallRecognitionRate = modelTest->getOverallConfidence();
-  displayRate(ui.pbRecognitionRate, overallRecognitionRate);
-
-  displayRate(ui.pbAccuracy, modelTest->getOverallAccuracy());
-  displayRate(ui.pbWordErrorRate, modelTest->getOverallWER());
-}
-
-
-void SamView::slotFileResultSelected(QModelIndex index)
-{
-  QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
-  RecognizerResult *t = modelTest->getRecognizerResult(fileName);
-
-  if (!t) return;
-
-  RecognitionResultList results = t->getResults();
-
-  QString resultInfo="";
-  int i=1;
-  foreach (const RecognitionResult& result, results) {
-    resultInfo += i18n("Result %1 of %2\n=====================\n", i, results.count());
-    resultInfo += result.toString();
-    resultInfo += "\n\n";
-    i++;
-  }
-
-  ui.teResultDetails->clear();
-  ui.teResultDetails->append(resultInfo);
-}
-
-
-void SamView::slotEditSelectedSample()
-{
-  QModelIndex index = ui.tvFiles->currentIndex();
-  if (!index.isValid())
-    return;
-
-  QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
-  RecognizerResult *t = modelTest->getRecognizerResult(fileName);
-
-  if (!t) return;
-
-  QString originalFileName = modelTest->getOriginalFilePath(fileName);
-  //copy to temp
-  QString justFileName = originalFileName.mid(originalFileName.lastIndexOf(QDir::separator())+1);
-  QString tempFileName = KStandardDirs::locateLocal("tmp",
-    "sam/internalsamuser/edit/"+justFileName);
-
-  //if file could not be copied this is not a reason to display an error or to abort
-  //because we could have already deleted the file
-  QFile::copy(originalFileName, tempFileName);
-
-  QPointer<KDialog> d = new KDialog(0);
-  RecWidget *rec = new RecWidget(i18n("Modify sample"),
-    t->getPrompt(), tempFileName.left(tempFileName.lastIndexOf('.')), true, d);
-  d->setMainWidget(rec);
-  if (d->exec()) {
-    if (!QFile::exists(tempFileName)) {
-      //sample has been deleted
-      //removing file from prompts
-      QFile prompts(ui.urPrompts->url().path());
-      QString tempPromptsPath = KStandardDirs::locateLocal("tmp", "sam/internalsamuser/edit/prompts");
-      QFile temp(tempPromptsPath);
-      if ((!prompts.open(QIODevice::ReadOnly)) ||
-      (!temp.open(QIODevice::WriteOnly))) {
-        KMessageBox::error(this, i18n("Could not modify prompts file"));
-      }
-      else {
-        while (!prompts.atEnd()) {
-          QString line = QString::fromUtf8(prompts.readLine());
-          if (!line.startsWith(justFileName.left(justFileName.lastIndexOf('.'))+' ')) {
-            temp.write(line.toUtf8());
-          }
-        }
-
-        if ((!QFile::remove(ui.urPrompts->url().path())) ||
-        (!QFile::copy(tempPromptsPath, ui.urPrompts->url().path()))) {
-          KMessageBox::error(this, i18n("Could not overwrite prompts file"));
-        }
-
-        if (!QFile::remove(originalFileName)) {
-          KMessageBox::error(this, i18n("Could not remove original sample:  %1.", originalFileName));
-        }
-      }
-    }
-    else {
-      if (!QFile::exists(originalFileName)) {
-        //we have to re-add this to the prompts
-        QFile prompts(ui.urPrompts->url().path());
-        if (!prompts.open(QIODevice::WriteOnly|QIODevice::Append)) {
-          KMessageBox::error(this, i18n("Could not modify prompts file"));
-        }
-        else {
-          prompts.write(QString("%1 %2").arg(justFileName).arg(t->getPrompt()).toUtf8());
-        }
-      }
-      else if (!QFile::remove(originalFileName)) {
-        KMessageBox::error(this, i18n("Could not remove original sample:  %1.", originalFileName));
-      }
-
-      //copy sample back
-      if (!QFile::copy(tempFileName, originalFileName)) {
-        KMessageBox::error(this, i18n("Could not copy sample from temporary path %1 to %2.",
-          tempFileName, originalFileName));
-      }
-    }
-  }
-
-  //remove temp sample
-  QFile::remove(tempFileName);
-  delete d;
-}
-
-
-//TODO
-int SamView::getTrainingSampleCount()
-{
-  return 7;
-}
-
-int SamView::getDevelopmentSampleCount()
-{
-  return 8;
-}
-
-int SamView::getTestSampleCount()
-{
-  return 9;
-}
-
 
 
 SamView::~SamView()
 {
   modelCompilationManager->deleteLater();
   modelCompilationAdapter->deleteLater();
-  modelTest->deleteLater();
-  fileResultModelProxy->deleteLater();
   delete m_reportParameters;
 }

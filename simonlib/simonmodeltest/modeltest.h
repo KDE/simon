@@ -54,13 +54,13 @@ typedef QList<float> FloatList;
 class MODELTEST_EXPORT ModelTest : public QThread
 {
   Q_OBJECT
-    signals:
-  void status(const QString&, int progressNow, int progressTotal=100);
-  void error(const QString&, const QByteArray& log);
-  void recognitionInfo(const QString&);
+  signals:
+    void status(const QString&, int progressNow, int progressTotal=100);
+    void error(const QString&, const QByteArray& log);
+    void recognitionInfo(const QString&);
 
-  void testComplete();
-  void testAborted();
+    void testComplete();
+    void testAborted();
 
   private:
     bool keepGoing;

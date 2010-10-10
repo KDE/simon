@@ -13,10 +13,14 @@ set(sam_SRCS
    reporttemplateengine.cpp
    latexreporttemplateengine.cpp
    reportparameters.cpp
+   testconfigurationwidget.cpp
+   testresultwidget.cpp
  )
 
 kde4_add_ui_files( sam_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/testresult.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/testconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/exporttestresultsdlg.ui
 )
 

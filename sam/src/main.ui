@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>777</width>
-    <height>600</height>
+    <width>722</width>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,339 +24,400 @@
        <attribute name="title">
         <string>Input &amp;&amp; output files</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_15">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="QGroupBox" name="groupBox_4">
-            <property name="title">
-             <string>Model type</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QRadioButton" name="rbStaticModel">
-               <property name="text">
-                <string>Static model</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rbAdaptedBaseModel">
-               <property name="text">
-                <string>Adapted base model</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rbDynamicModel">
-               <property name="text">
-                <string>Entirely user generated model</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox">
-            <property name="title">
-             <string>Input files</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
-             <item>
-              <widget class="KPushButton" name="pbSerializeScenarios">
-               <property name="text">
-                <string>Serialize scenarios</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="KPushButton" name="pbSerializePrompts">
-               <property name="text">
-                <string>Serialize prompts</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QFormLayout" name="formLayout">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::ExpandingFieldsGrow</enum>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="lbLexicon">
-                 <property name="text">
-                  <string>Lexicon:</string>
+         <widget class="KTabWidget" name="ktabwidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_3">
+           <attribute name="title">
+            <string>Creating</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QGroupBox" name="groupBox_4">
+                <property name="title">
+                 <string>Model type</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <widget class="QRadioButton" name="rbStaticModel">
+                   <property name="text">
+                    <string>Static model</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="rbAdaptedBaseModel">
+                   <property name="text">
+                    <string>Adapted base model</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="rbDynamicModel">
+                   <property name="text">
+                    <string>Entirely user generated model</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox">
+                <property name="title">
+                 <string>Input files</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_9">
+                 <item>
+                  <widget class="KPushButton" name="pbSerializeScenarios">
+                   <property name="text">
+                    <string>Serialize scenarios</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbSerializePrompts">
+                   <property name="text">
+                    <string>Serialize prompts</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QFormLayout" name="formLayout">
+                   <property name="fieldGrowthPolicy">
+                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="lbLexicon">
+                     <property name="text">
+                      <string>Lexicon:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urLexicon</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="KUrlRequester" name="urLexicon"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="lbGrammar">
+                     <property name="text">
+                      <string>Grammar:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urGrammar</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="KUrlRequester" name="urGrammar"/>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="lbVocabulary">
+                     <property name="text">
+                      <string>Vocabulary:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urVocabulary</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="KUrlRequester" name="urVocabulary"/>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="lbPrompts">
+                     <property name="text">
+                      <string>Prompts:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urPrompts</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="KUrlRequester" name="urPrompts"/>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="lbPromptsBasePath">
+                     <property name="text">
+                      <string>Prompts base path:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urPromptsBasePath</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="KUrlRequester" name="urPromptsBasePath"/>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="lbTreeHed">
+                     <property name="text">
+                      <string>Tree.hed:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urTreeHed</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="KUrlRequester" name="urTreeHed"/>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="lbWavConfig">
+                     <property name="text">
+                      <string>Wav-Config:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>urWavConfig</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="KUrlRequester" name="urWavConfig"/>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="lbSampleRate">
+                     <property name="text">
+                      <string>Samplerate:</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>sbSampleRate</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="QSpinBox" name="sbSampleRate">
+                     <property name="minimum">
+                      <number>8000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>128000</number>
+                     </property>
+                     <property name="value">
+                      <number>16000</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QGroupBox" name="groupBox_3">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="title">
+                 <string>Base model</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_3">
+                 <property name="fieldGrowthPolicy">
+                  <enum>QFormLayout::ExpandingFieldsGrow</enum>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="KUrlRequester" name="urLexicon"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="lbGrammar">
-                 <property name="text">
-                  <string>Grammar:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="KUrlRequester" name="urGrammar"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="lbVocabulary">
-                 <property name="text">
-                  <string>Vocabulary:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="KUrlRequester" name="urVocabulary"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="lbPrompts">
-                 <property name="text">
-                  <string>Prompts:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="KUrlRequester" name="urPrompts"/>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="lbPromptsBasePath">
-                 <property name="text">
-                  <string>Prompts base path:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="KUrlRequester" name="urPromptsBasePath"/>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="lbTreeHed">
-                 <property name="text">
-                  <string>Tree.hed:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="KUrlRequester" name="urTreeHed"/>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="lbWavConfig">
-                 <property name="text">
-                  <string>Wav-Config:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="KUrlRequester" name="urWavConfig"/>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="lbSampleRate">
-                 <property name="text">
-                  <string>Samplerate:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1">
-                <widget class="QSpinBox" name="sbSampleRate">
-                 <property name="minimum">
-                  <number>8000</number>
-                 </property>
-                 <property name="maximum">
-                  <number>128000</number>
-                 </property>
-                 <property name="value">
-                  <number>16000</number>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QGroupBox" name="groupBox_3">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="title">
-             <string>Base model</string>
-            </property>
-            <layout class="QFormLayout" name="formLayout_3">
-             <property name="fieldGrowthPolicy">
-              <enum>QFormLayout::ExpandingFieldsGrow</enum>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Base HMM-definitions:</string>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Base HMM-definitions:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="KUrlRequester" name="urBaseHmmDefs"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Base tiedlist:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="KUrlRequester" name="urBaseTiedlist"/>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Base macros:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="KUrlRequester" name="urBaseMacros"/>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Base stats:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="KUrlRequester" name="urBaseStats"/>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="title">
+                 <string>Output files</string>
+                </property>
+                <layout class="QFormLayout" name="formLayout_2">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="lbHmmdefs">
+                   <property name="text">
+                    <string>HMM-definitions:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>urHmmDefs</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="KUrlRequester" name="urHmmDefs"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="lbTiedlist">
+                   <property name="text">
+                    <string>Tiedlist:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>urTiedlist</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="KUrlRequester" name="urTiedlist"/>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="lbDict">
+                   <property name="text">
+                    <string>Dict:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>urDict</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="lbDFA">
+                   <property name="text">
+                    <string>DFA:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>urDFA</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="KUrlRequester" name="urDict"/>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="KUrlRequester" name="urDFA"/>
+                 </item>
+                 <item row="4" column="1">
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_4">
+           <attribute name="title">
+            <string>Testing</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <widget class="QWidget" name="wgTestConfigurations" native="true">
+              <layout class="QVBoxLayout" name="vlTestConfigurations"/>
+             </widget>
+            </item>
+            <item>
+             <widget class="QScrollArea" name="saTestConfigurations">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>676</width>
+                 <height>416</height>
+                </rect>
                </property>
               </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="KUrlRequester" name="urBaseHmmDefs"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Base tiedlist:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="KUrlRequester" name="urBaseTiedlist"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Base macros:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="KUrlRequester" name="urBaseMacros"/>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Base stats:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="KUrlRequester" name="urBaseStats"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Output files</string>
-            </property>
-            <layout class="QFormLayout" name="formLayout_2">
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbHmmdefs">
-               <property name="text">
-                <string>HMM-definitions:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="KUrlRequester" name="urHmmDefs"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbTiedlist">
-               <property name="text">
-                <string>Tiedlist:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="KUrlRequester" name="urTiedlist"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbDict">
-               <property name="text">
-                <string>Dict:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbDFA">
-               <property name="text">
-                <string>DFA:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="KUrlRequester" name="urDict"/>
-             </item>
-             <item row="3" column="1">
-              <widget class="KUrlRequester" name="urDFA"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_5">
-            <property name="title">
-             <string comment="Test the model">Test</string>
-            </property>
-            <layout class="QFormLayout" name="formLayout_4">
-             <property name="fieldGrowthPolicy">
-              <enum>QFormLayout::ExpandingFieldsGrow</enum>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbTestPrompts">
-               <property name="text">
-                <string>Test-prompts:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="KUrlRequester" name="urTestPrompts"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbTestPromptsBasePath">
-               <property name="text">
-                <string>Test-prompts base path:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="KUrlRequester" name="urTestPromptsBasePath"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbJConf">
-               <property name="text">
-                <string>JConf:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="KUrlRequester" name="urJConf"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="KPushButton" name="pbAddTestConfiguration">
+                <property name="text">
+                 <string>Add</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -509,158 +570,24 @@
        <attribute name="title">
         <string>Test results</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_14">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLabel" name="lbRecognitionRate">
-            <property name="text">
-             <string>Overall recognition rate (confidence):</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QProgressBar" name="pbRecognitionRate">
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="KTabWidget" name="twDetailedResults">
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <property name="automaticResizeTabs">
-           <bool>false</bool>
-          </property>
-          <widget class="QWidget" name="pgSentenceResults">
-           <attribute name="title">
-            <string>Sentences</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_17">
-            <item>
-             <widget class="QTableView" name="tvSentenceResults">
-              <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+         <widget class="KTabWidget" name="twTestResults">
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
-            <string>Recognized words</string>
+            <string>General</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_13">
             <item>
-             <widget class="QTableView" name="tvWordResults">
-              <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <property name="sortingEnabled">
-               <bool>true</bool>
+             <widget class="QLabel" name="lbTestResultInformation">
+              <property name="text">
+               <string/>
               </property>
              </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="pgFileResults">
-           <attribute name="title">
-            <string>Files</string>
-           </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Find file:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="KLineEdit" name="leResultFilesFilter">
-                <property name="clickMessage">
-                 <string>Filter</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QTableView" name="tvFiles"/>
-            </item>
-            <item>
-             <widget class="KTextEdit" name="teResultDetails"/>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_20">
-              <item>
-               <spacer name="horizontalSpacer_90">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>50</width>
-                  <height>5</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="KPushButton" name="pbEditSample">
-                <property name="text">
-                 <string>Edit sample</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </item>
            </layout>
           </widget>
          </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>Accuracy:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QProgressBar" name="pbAccuracy">
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Word error rate:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QProgressBar" name="pbWordErrorRate">
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </item>
        </layout>
       </widget>
@@ -673,7 +600,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>777</width>
+     <width>722</width>
      <height>21</height>
     </rect>
    </property>
@@ -681,11 +608,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>

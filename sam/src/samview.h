@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QProcess>
+#include <QList>
 #include <QModelIndex>
 #include <kxmlguiwindow.h>
 
@@ -36,6 +37,8 @@ class ModelCompilationManager;
 class ModelCompilationAdapter ;
 class ModelTest;
 class QSortFilterProxyModel;
+class TestConfigurationWidget;
+class TestResultWidget;
 
 /**
  * @short Main view
@@ -76,12 +79,16 @@ class SamView :  public KXmlGuiWindow
     void testModel();
 
     void retrieveCompleteBuildLog();
-    void retrieveCompleteTestLog();
 
     QString getTargetDirectory();
     void switchToAdapt();
     void serializePrompts();
     void serializeScenarios();
+
+    void addTestConfiguration();
+    void addTestConfiguration(TestConfigurationWidget* configuration);
+    void testConfigurationRemoved();
+    void testResultRemoved();
 
     void serializePromptsRun(const QString promptsPath, const QString& output);
     void serializeScenariosRun(const QStringList& scenarioIds, const QString& output);
@@ -99,15 +106,12 @@ class SamView :  public KXmlGuiWindow
     void slotModelCompilationPhonemeUndefined(const QString&);
 
     void abortModelTest();
-    void slotModelTestStatus(const QString& status, int now, int max);
-    void slotModelTestRecognitionInfo(const QString& status);
-    void slotModelTestError(const QString& error, const QByteArray&);
+    void subTestStarted();
+    void subTestAborted();
+    void subTestComplete();
+    void allTestsFinished();
     void switchToTestResults();
-
-    void analyzeTestOutput();
-
-    void slotFileResultSelected(QModelIndex index);
-    void slotEditSelectedSample();
+    void clearTest();
 
     void exportTestResults();
 
@@ -117,17 +121,14 @@ class SamView :  public KXmlGuiWindow
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
     ModelCompilationAdapter *modelCompilationAdapter;
-    ModelTest *modelTest;
-    QSortFilterProxyModel *fileResultModelProxy;
+    QList<TestConfigurationWidget*> testConfigurations;
+    QList<TestResultWidget*> testResults;
 
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
 
-    int getTrainingSampleCount();
-    int getDevelopmentSampleCount();
-    int getTestSampleCount();
-
-    void displayRate(QProgressBar *pbRate, float rate);
-    void clearTestResults();
+    void displayModelTestStatus();
 };
-#endif                                            // samVIEW_H
+
+#endif
+
