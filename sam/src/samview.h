@@ -39,6 +39,8 @@ class ModelTest;
 class QSortFilterProxyModel;
 class TestConfigurationWidget;
 class TestResultWidget;
+class QwtBarsItem;
+class QwtLegend;
 
 /**
  * @short Main view
@@ -124,10 +126,16 @@ class SamView :  public KXmlGuiWindow
     QList<TestConfigurationWidget*> testConfigurations;
     QList<TestResultWidget*> testResults;
 
+    QwtBarsItem *barGraph;
+    QwtLegend *barGraphLegend;
+
     QStringList findScenarios(const QStringList& ids);
     int getModelType();
 
     void displayModelTestStatus();
+    void startNextScheduledTest();
+
+    void initGraph();
 };
 
 #endif

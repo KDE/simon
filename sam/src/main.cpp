@@ -32,6 +32,11 @@ int main(int argc, char **argv)
   KAboutData about("sam", 0, ki18n("sam"), simon_version, ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2009 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+
+  KCmdLineOptions options;
+  options.add("l <samfile>", ki18n("If provided, this file will automatically be loaded"), "");
+     
+  KCmdLineArgs::addCmdLineOptions(options);
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;

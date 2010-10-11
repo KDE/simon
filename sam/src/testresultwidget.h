@@ -40,8 +40,9 @@ class TestResultWidget : public QWidget
   public:
     enum TestState {
       Idle=0,
-      Running=1,
-      Done=2
+      Waiting=1,
+      Running=2,
+      Done=3
     };
 
   private:
@@ -75,6 +76,12 @@ class TestResultWidget : public QWidget
     int getTestSampleCount();
 
     QString getTag();
+
+    float getAccuracy();
+    float getWordErrorRate();
+    float getConfidence();
+
+    void schedule();
 
   public slots:
     void abort();

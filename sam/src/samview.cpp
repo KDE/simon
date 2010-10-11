@@ -1,4 +1,5 @@
-/* *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+/* 
+ *  Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2,
@@ -22,10 +23,18 @@
 #include "testconfigurationwidget.h"
 #include "testresultwidget.h"
 #include "reportparameters.h"
+#include "carraydata.h"
+#include "qwt_bars_item.h"
+#include "qwt_series_data.h"
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
+
+#include <qwt_plot.h>
+#include <qwt_legend.h>
+#include <qwt_legend_item.h>
+#include <qwt_series_data.h>
 
 #include <QHash>
 #include <QPointer>
@@ -42,12 +51,21 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KDebug>
+#include <KCmdLineArgs>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
-  m_reportParameters(0)
+  m_reportParameters(0),
+  barGraph(0)
 {
   KGlobal::locale()->insertCatalog("simonlib");
   ui.setupUi(this);
+  ui.qpPlot->hide();
+
+  barGraphLegend = new QwtLegend(ui.qpPlot);
+  ui.qpPlot->insertLegend(barGraphLegend);
+
+  initGraph();
+
   ui.saTestConfigurations->setWidget(ui.wgTestConfigurations);
 
   KAction* getPathsFromSimon = new KAction(this);
@@ -147,6 +165,14 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
+
+  QString loadPath = KCmdLineArgs::parsedArgs()->getOption("l");
+  if (!loadPath.isEmpty())
+  {
+    m_filename = loadPath;
+    qDeleteAll(testConfigurations); //cleared by signal
+    parseFile();
+  }
 }
 
 void SamView::addTestConfiguration()
@@ -182,6 +208,7 @@ void SamView::displayModelTestStatus()
       case TestResultWidget::Idle:
         idle++;
         break;
+      case TestResultWidget::Waiting:
       case TestResultWidget::Running:
         running++;
         break;
@@ -201,8 +228,11 @@ void SamView::displayModelTestStatus()
     ui.pbTestProgress->setValue(0);
     ui.pbTestProgress->setMaximum(1);
   } else {
-    ui.pbTestProgress->setValue(0);
-    ui.pbTestProgress->setMaximum(0);
+    if (ui.pbTestProgress->maximum() != 0)
+    {
+      ui.pbTestProgress->setValue(0);
+      ui.pbTestProgress->setMaximum(0);
+    }
   }
 }
 
@@ -229,13 +259,58 @@ void SamView::subTestComplete()
   ui.teTestLog->append(i18n("Test completed: %1", 
         static_cast<TestResultWidget*>(sender())->getTag()));
   displayModelTestStatus();
+  startNextScheduledTest();
+}
+
+void SamView::startNextScheduledTest()
+{
+  foreach (TestResultWidget *test, testResults)
+  {
+    if (test->getState() == TestResultWidget::Waiting)
+    {
+      test->startTest();
+      break;
+    }
+  }
 }
 
 void SamView::allTestsFinished()
 {
   //fill general tab with information
   
-  //ui.lbTestResultInformation->setText(i18n("Ran);
+  if (testResults.count() == 1)
+    ui.lbTestResultInformation->setText(i18n("Ran 1 test.", testResults.count()));
+  else 
+    ui.lbTestResultInformation->setText(i18n("Ran %1 tests.", testResults.count()));
+
+  ui.qpPlot->show();
+
+  QStringList labels;
+  double *accuracy = new double[testResults.count()];
+  double *confidence = new double[testResults.count()];
+  int i=0;
+  foreach (TestResultWidget *test, testResults)
+  {
+    confidence[i] = test->getConfidence() * 100.0;
+    accuracy[i] = test->getAccuracy() * 100.0;
+
+    labels << test->getTag();
+    i++;
+  }
+
+
+  QwtSeriesData<double> *accSeries = new CArrayData<double>( accuracy, testResults.count() );
+  barGraph->addSerie( i18n("Accuracy"), *accSeries, QBrush( Qt::blue ), QPen( QColor( Qt::darkBlue ), 1 ) );
+
+  QwtSeriesData<double> *confSeries = new CArrayData<double>( confidence, testResults.count() );
+  barGraph->addSerie( i18n("Confidence"), *confSeries, QBrush( Qt::green ), QPen( QColor( Qt::darkGreen ), 1 ) );
+  barGraph->updateLegend(barGraphLegend);
+  
+	// scale:
+	ui.qpPlot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );
+	ui.qpPlot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
+	ui.qpPlot->setAxisMaxMajor( QwtPlot::xBottom, testResults.count()+1 );
+  ui.qpPlot->replot();
 
   switchToTestResults();
 }
@@ -874,7 +949,20 @@ void SamView::clearTest()
 {
   ui.teTestLog->clear();
   ui.lbTestResultInformation->clear();
-  //ui.qpPlot->hide();
+  ui.qpPlot->hide();
+
+  barGraph->detach();
+  ui.qpPlot->replot();
+  initGraph();
+  barGraphLegend->clear();
+}
+
+void SamView::initGraph()
+{
+  delete barGraph;
+  barGraph = new QwtBarsItem();
+  barGraph->setType(QwtBarsItem::SideBySide);
+  barGraph->attach(ui.qpPlot);
 }
 
 void SamView::testModel()
@@ -884,10 +972,12 @@ void SamView::testModel()
   clearTest();
 
   foreach (TestResultWidget *test, testResults)
-    test->startTest();
+    test->schedule();
 
   if (testResults.isEmpty())
     KMessageBox::information(this, i18n("No tests configured yet. Please provide your test configuration in the input / output section."));
+
+  startNextScheduledTest();
 }
 
 

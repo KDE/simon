@@ -266,29 +266,31 @@ int TestResultWidget::getTestSampleCount()
   return 9;
 }
 
-/*TestResultWidget::TestState TestResultWidget::getState()
-{
-  if (modelTest->isRunning())
-    return TestResultWidget::Running;
-  else
-    return TestResultWidget::Idle;
-}
-*/
-
 QString TestResultWidget::getTag()
 {
   return config->tag();
 }
 
-  /*
-void TestResultWidget::clearTestResults()
+float TestResultWidget::getAccuracy()
 {
-  modelTest->deleteAllResults();
-  displayRate(ui.pbRecognitionRate, 0);
-  displayRate(ui.pbAccuracy, 0);
-  displayRate(ui.pbWordErrorRate, 0);
+  return modelTest->getOverallAccuracy();
 }
-  */
+
+float TestResultWidget::getWordErrorRate()
+{
+  return modelTest->getOverallWER();
+}
+
+float TestResultWidget::getConfidence()
+{
+  return modelTest->getOverallConfidence();
+}
+
+void TestResultWidget::schedule()
+{
+  currentState = TestResultWidget::Waiting;
+}
+
 
 TestResultWidget::~TestResultWidget()
 {

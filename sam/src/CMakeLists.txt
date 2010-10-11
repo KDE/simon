@@ -1,10 +1,14 @@
+find_package(Qwt6 REQUIRED)
+
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../..
-  
+  ${Qwt6_INCLUDE_DIR}
 )
+
+
 set(sam_SRCS
    main.cpp
    samview.cpp
@@ -15,6 +19,8 @@ set(sam_SRCS
    reportparameters.cpp
    testconfigurationwidget.cpp
    testresultwidget.cpp
+   #qwt_series_data.cpp
+   qwt_bars_item.cpp
  )
 
 kde4_add_ui_files( sam_SRCS
@@ -33,7 +39,7 @@ kde4_add_executable(sam ${sam_SRCS})
 
 target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	${KDE4_KIO_LIBS} simonmodelcompilation simonmodelcompilationadapter
-	simonmodeltest simonsound
+	simonmodeltest simonsound ${Qwt6_Qt4_LIBRARY}
 	simonrecognitionresult simonscenarioui)
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
