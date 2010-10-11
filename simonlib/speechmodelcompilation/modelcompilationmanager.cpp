@@ -93,11 +93,15 @@ bool ModelCompilationManager::createDirs()
   if (!tempDirHandle.exists("classes") && !tempDirHandle.mkdir("classes"))
     return false;
 
-  for (int i=0; i < 26; i++) {
+  for (int i=0; i < 16+(getMixtureConfigs().count()*3); i++) {
     if (!tempDirHandle.exists("hmm"+QString::number(i)) &&
       !tempDirHandle.mkdir("hmm"+QString::number(i)))
       return false;
   }
+  if (!tempDirHandle.exists("hmmout") &&
+      !tempDirHandle.mkdir("hmmout"))
+      return false;
+
   return true;
 }
 
@@ -744,8 +748,6 @@ bool ModelCompilationManager::tieStates()
   if (!keepGoing) return false;
   emit status(i18n("Generating triphone..."),1700);
 
-  // some important triphones are removed in this step?...
-
   if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
     analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("data", "simon/scripts/global.ded"), lexiconPath));
     return false;
@@ -807,11 +809,41 @@ bool ModelCompilationManager::buildHMM15()
   return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
+QStringList ModelCompilationManager::getMixtureConfigs()
+{
+  QStringList mixtureConfigs = KGlobal::dirs()->findAllResources("data", 
+      "simon/scripts/gmm*.hed", KStandardDirs::NoDuplicates);
+  //sorting mixtureConfigs
+  QStringList sortedConfigs;
+  QStringList thisConfigs;
+  QString lastPath;
+  foreach (const QString& config, mixtureConfigs)
+  {
+    QFileInfo fi(config);
+    QDir configDir = fi.absoluteDir();
+    thisConfigs << config;
+    if (!lastPath.isEmpty() && (lastPath != configDir.absolutePath()))
+    {
+      thisConfigs.sort();
+      sortedConfigs << thisConfigs;
+    }
+    lastPath = configDir.absolutePath();
+  }
+  thisConfigs.sort();
+  sortedConfigs << thisConfigs;
+  return sortedConfigs;
+}
+
 bool ModelCompilationManager::shouldIncreaseMixtures()
 {
-  return doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm1.hed")) ||
-          doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm2.hed")) ||
-          doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm3.hed"));
+  QStringList mixtureConfigs = getMixtureConfigs();
+  foreach (const QString& config, mixtureConfigs)
+    if (doesIncreaseMixtures(config))
+      return true;
+  return false;
+  //return doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm1.hed")) ||
+          //doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm2.hed")) ||
+          //doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm3.hed"));
 }
 
 bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
@@ -831,33 +863,87 @@ bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
     int newCount = number.toInt(&ok);
     if (!ok) return false;
 
-    return ok && (newCount > 1);
+    return ok && (newCount > 0);
   }
   return false;
 }
 
+QString ModelCompilationManager::createHMMPath(int number)
+{
+  return htkIfyPath(tempDir)+"/hmm"+QString::number(number)+"/";
+}
 
 bool ModelCompilationManager::increaseMixtures()
 {
   if (!keepGoing) return false;
-
 
   //if we don't want to increase mixtures, the mixture count in the gmm files will be 0;
   //If it is, skip this
 
   if (!shouldIncreaseMixtures())
   {
-    //copy hmm15 to hmm24
-    QFile::remove(tempDir+"/hmm24/macros");
-    QFile::remove(tempDir+"/hmm24/hmmdefs");
-    bool success = QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmm24/macros") && 
-            QFile::copy(tempDir+"/hmm15/hmmdefs", tempDir+"/hmm24/hmmdefs");
+    //copy hmm15 to hmmout
+    QFile::remove(tempDir+"/hmmout/macros");
+    QFile::remove(tempDir+"/hmmout/hmmdefs");
+    bool success = QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmmout/macros") && 
+            QFile::copy(tempDir+"/hmm15/hmmdefs", tempDir+"/hmmout/hmmdefs");
     kDebug() << "Copy successful: " << success;
     return success;
   }
 
-  emit status(i18n("Increasing mixtures..."),2000);
+  //emit status(i18n("Increasing mixtures..."),2000);
 
+  QStringList mixtureConfigs = getMixtureConfigs();
+  int currentState = 2000;
+  int steps = mixtureConfigs.count()*3;
+  int progressPerStep = qRound(500.0 /* full range */ / ((float) steps));
+
+  int currentHMMNumber = 15;
+  kDebug() << "Increasing mixtures: " << mixtureConfigs;
+  for (int i=0; i < mixtureConfigs.count(); i++)
+  {
+    QString config = mixtureConfigs[i];
+
+    bool succ = true;
+    kDebug() << "Succ: " << succ;
+    emit status(i18n("Increasing mixtures..."),currentState);
+    succ = execute('"'+hHEd+"\" -A -D -T 1 -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+
+        "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+    kDebug() << '"'+hHEd+"\" -A -D -T 1 -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+
+        "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
+    currentState += progressPerStep;
+    currentHMMNumber += 1;
+    kDebug() << "Succ: " << succ;
+
+    emit status(i18n("Re-estimation (1/2)..."),currentState);
+    succ = succ && execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+
+        "\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+
+        "/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+
+        createHMMPath(currentHMMNumber)+"hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(tempDir)+
+        "/tiedlist\"");
+    currentState += progressPerStep;
+    currentHMMNumber += 1;
+    kDebug() << "Succ: " << succ;
+
+    emit status(i18n("Re-estimation (2/2)..."),currentState);
+    succ = succ && execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+
+        "\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+
+        htkIfyPath(tempDir)+"/aligned.scp\" -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+"hmmdefs\" -M \""+
+        createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+    currentState += progressPerStep;
+    currentHMMNumber += 1;
+    kDebug() << "Succ: " << succ;
+
+    if (!succ)
+    {
+      analyseError(i18n("Could not generate increase mixtures according to this config: %1.\n\n"
+            "Please check the path to HHEd (%1), HERest (%2) and the content of the config file.", config, hHEd, hERest));
+      return false;
+    }
+  }
+  emit status(i18n("Done increasing mixtures."),currentState);
+
+  /*
   if (!buildHMM16()) {
     analyseError(i18n("Could not generate HMM16.\n\nPlease check the path to HHEd (%1).", hHEd));
     return false;
@@ -916,11 +1002,13 @@ bool ModelCompilationManager::increaseMixtures()
     analyseError(i18n("Could not generate the HMM24.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
     return false;
   }
+  */
 
   return true;
 }
 
 
+/*
 bool ModelCompilationManager::buildHMM16()
 {
   QString execString = '"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm15/macros\" -H \""+htkIfyPath(tempDir)+"/hmm15/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm16/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/gmm1.hed"))+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
@@ -976,6 +1064,7 @@ bool ModelCompilationManager::buildHMM24()
 {
   return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm23/macros\" -H \""+htkIfyPath(tempDir)+"/hmm23/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm24/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
+*/
 
 
 bool ModelCompilationManager::makeFulllist()
@@ -1062,7 +1151,7 @@ bool ModelCompilationManager::buildHMM()
 
   if (QFile::exists(hmmDefsPath))
     if (!QFile::remove(hmmDefsPath)) return false;
-  if (!QFile::copy(tempDir+"/hmm24/hmmdefs", hmmDefsPath))
+  if (!QFile::copy(tempDir+"/hmmout/hmmdefs", hmmDefsPath))
     return false;
 
   if (QFile::exists(tiedListPath))

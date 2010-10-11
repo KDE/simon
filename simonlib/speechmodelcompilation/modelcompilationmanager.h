@@ -106,6 +106,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     QList<QProcess*> activeProcesses;
 
     QString htkIfyPath(const QString& in);
+    QString createHMMPath(int number);
     bool pruneScp(const QString& inMlf, const QString& inScp, const QString& outScp);
 
     void analyseError(QString readableError);
@@ -163,17 +164,17 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool increaseMixtures();
     bool shouldIncreaseMixtures();
     bool doesIncreaseMixtures(const QString& script);
-    bool buildHMM16();
-    bool buildHMM17();
-    bool buildHMM18();
+    //bool buildHMM16();
+    //bool buildHMM17();
+    //bool buildHMM18();
 
-    bool buildHMM19();
-    bool buildHMM20();
-    bool buildHMM21();
+    //bool buildHMM19();
+    //bool buildHMM20();
+    //bool buildHMM21();
 
-    bool buildHMM22();
-    bool buildHMM23();
-    bool buildHMM24();
+    //bool buildHMM22();
+    //bool buildHMM23();
+    //bool buildHMM24();
 
     bool adaptBaseModel();
     bool realignToBaseModel();
@@ -189,6 +190,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     static QString htkInformation(bool condensed);
     static QString juliusInformation(bool condensed);
+
+    QStringList getMixtureConfigs();
 
   private slots:
     void addStatusToLog(const QString&);
