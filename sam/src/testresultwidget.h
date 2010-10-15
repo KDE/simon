@@ -37,6 +37,7 @@ class TestResultWidget : public QWidget
     void testComplete();
     void testAborted();
 
+
   public:
     enum TestState {
       Idle=0,
@@ -82,6 +83,7 @@ class TestResultWidget : public QWidget
     float getConfidence();
 
     void schedule();
+    TestConfigurationWidget* getConfiguration() { return config; }
 
   public slots:
     void abort();

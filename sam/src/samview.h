@@ -41,6 +41,7 @@ class TestConfigurationWidget;
 class TestResultWidget;
 class QwtBarsItem;
 class QwtLegend;
+class CorpusInformation;
 
 /**
  * @short Main view
@@ -67,6 +68,7 @@ class SamView :  public KXmlGuiWindow
 
     void newProject();
     void load();
+    void load(const QString& filename);
     void saveAs();
     void save();
 
@@ -113,12 +115,15 @@ class SamView :  public KXmlGuiWindow
     void subTestComplete();
     void allTestsFinished();
     void switchToTestResults();
+    void clearCurrentConfiguration();
     void clearTest();
+    void testConfigTagChanged();
 
     void exportTestResults();
 
   private:
     QString m_filename;
+    CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
@@ -136,6 +141,12 @@ class SamView :  public KXmlGuiWindow
     void startNextScheduledTest();
 
     void initGraph();
+
+    void storeCorpusInformation(QFile &f, CorpusInformation* info);
+    CorpusInformation* readCorpusInformation(QFile &f);
+    CorpusInformation* createEmptyCorpusInformation();
+
+    QList<CorpusInformation*> creationCorpusInformation();
 };
 
 #endif

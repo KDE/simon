@@ -23,24 +23,34 @@
 #include "ui_testconfiguration.h"
 #include <QFrame>
 
+class CorpusInformation;
+
 class TestConfigurationWidget : public QFrame
 {
   Q_OBJECT
 
+  signals:
+    void tagChanged();
   private:
+    CorpusInformation* m_corpusInfo;
     Ui::TestConfigurationWdg ui;
     void setupUi();
   private slots:
+    void updateTag();
     void remove();
 
   public:
     TestConfigurationWidget(QWidget *parent=0);
-    TestConfigurationWidget(const QString& tag, const KUrl& hmmDefsUrl,
+    TestConfigurationWidget(CorpusInformation* corpusInfo, //const QString& tag, 
+        const KUrl& hmmDefsUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
         const KUrl& jconfUrl, int sampleRate, QWidget *parent=0);
 
+    ~TestConfigurationWidget();
+
     QString tag() const;
+    CorpusInformation* corpusInformation() { return m_corpusInfo; }
     KUrl hmmDefs() const;
     KUrl tiedlist() const;
     KUrl dict() const;

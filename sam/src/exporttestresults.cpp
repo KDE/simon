@@ -19,6 +19,11 @@
 
 #include "exporttestresults.h"
 #include "reportparameters.h"
+#include "corpusinformation.h"
+#include "templatevaluelist.h"
+#include "corpusinformationwidget.h"
+#include "testresultwidget.h"
+#include "testconfigurationwidget.h"
 #include "version.h"
 #include "latexreporttemplateengine.h"
 #include <speechmodelcompilation/modelcompilationmanager.h>
@@ -28,6 +33,7 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KMessageBox>
+#include <KTabWidget>
 #include <KStandardDirs>
 #include <KProcess>
 #include <KDebug>
@@ -72,6 +78,14 @@ void ExportTestResults::initTemplates()
   }
 }
 
+void ExportTestResults::clearCorpora()
+{
+  qDeleteAll(m_creationCorporaWidgets);
+  m_creationCorporaWidgets.clear();
+  qDeleteAll(m_testCorporaWidgets);
+  m_testCorporaWidgets.clear();
+}
+
 void ExportTestResults::initSystemDefinition()
 {
   QString systemInfo;
@@ -100,19 +114,36 @@ QHash<QString, QString> ExportTestResults::createTemplateValues()
   values.insert("vocabularyNotes", ui.teVocabularyNotes->toPlainText());
   values.insert("grammarTag", ui.leGrammarTag->text());
   values.insert("grammarNotes", ui.teGrammarNotes->toPlainText());
-  values.insert("trainingTag", ui.leTrainingTag->text());
-  values.insert("trainingNotes", ui.teTrainingNotes->toPlainText());
-  values.insert("trainingSpeakers", QString::number(ui.sbTrainingSpeakers->value()));
-  values.insert("trainingSamples", QString::number(ui.sbTrainingSamples->value()));
-  values.insert("developmentTag", ui.leDevelopmentTag->text());
-  values.insert("developmentNotes", ui.teDevelopmentNotes->toPlainText());
-  values.insert("developmentSpeakers", QString::number(ui.sbDevelopmentSpeakers->value()));
-  values.insert("developmentSamples", QString::number(ui.sbDevelopmentSamples->value()));
-  values.insert("testTag", ui.leTestTag->text());
-  values.insert("testNotes", ui.teTestNotes->toPlainText());
-  values.insert("testSpeakers", QString::number(ui.sbTestSpeakers->value()));
-  values.insert("testSamples", QString::number(ui.sbTestSamples->value()));
+  values.insert("trainingsCorpusCount", QString::number(m_creationCorporaWidgets.count()));
+  values.insert("testCorpusCount", QString::number(m_testCorporaWidgets.count()));
   return values;
+}
+
+TemplateValueList* ExportTestResults::extractCorpusTemplateInformation(const QString& id, QList<CorpusInformationWidget*> widgets)
+{
+  TemplateValueList *l = new TemplateValueList(id);
+  foreach (CorpusInformationWidget* w, widgets)
+  {
+    QHash<QString,QString> values;
+    CorpusInformation *info = w->information();
+    values.insert("corpusTag", info->tag());
+    values.insert("corpusNotes", info->notes());
+    values.insert("corpusSpeakers", QString::number(info->speakers()));
+    values.insert("corpusSamples", QString::number(info->samples()));
+    l->add(values);
+  }
+
+  return l;
+}
+
+QList<TemplateValueList*> ExportTestResults::createTemplateValueLists()
+{
+  QList<TemplateValueList*> list;
+
+  list << extractCorpusTemplateInformation("trainingCorpora", m_creationCorporaWidgets);
+  list << extractCorpusTemplateInformation("testCorpora", m_testCorporaWidgets);
+
+  return list;
 }
 
 void ExportTestResults::createReport()
@@ -143,8 +174,9 @@ void ExportTestResults::createReport()
   QString outputFile = KFileDialog::getSaveFileName(KUrl(), engine->fileType(), this);
   
   if (!outputFile.isEmpty() &&
-      !engine->parse(templateData, createTemplateValues(), 
-      ui.cbTables->isChecked(), ui.cbGraphs->isChecked(), outputFile))
+      !engine->parse(templateData, createTemplateValues(),  createTemplateValueLists(),
+      ui.cbTables->isChecked(), ui.cbGraphs->isChecked(), /*m_creationCorporaWidgets, m_testCorporaWidgets,
+      m_testResults,*/ outputFile))
     KMessageBox::sorry(this, i18n("Failed to parse template: %1", engine->lastError()));
    
   delete engine;
@@ -155,9 +187,25 @@ int ExportTestResults::exec()
   return KDialog::exec();
 }
 
-bool ExportTestResults::exportTestResults(ReportParameters *reportParameters)
+void ExportTestResults::displayCorpora(KTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
+    const QList<CorpusInformation*>& corpora)
 {
+  kDebug() << "Displaying corpora: " << corpora;
+  foreach (CorpusInformation* corpus, corpora)
+  {
+    kDebug() << corpus->tag();
+    CorpusInformationWidget *widget = new CorpusInformationWidget(corpus, this);
+    tableWidget->addTab(widget, corpus->tag());
+    list << widget;
+  }
+}
+
+bool ExportTestResults::exportTestResults(ReportParameters *reportParameters, QList<CorpusInformation*> creationCorpora,
+                            QList<TestResultWidget*> testResults)
+{
+  clearCorpora();
   initTemplates();
+  this->testResults = testResults;
   if (reportParameters)
   {
     ui.leTitle->setText(reportParameters->title());
@@ -174,18 +222,6 @@ bool ExportTestResults::exportTestResults(ReportParameters *reportParameters)
     ui.teVocabularyNotes->setPlainText(reportParameters->vocabularyNotes());
     ui.leGrammarTag->setText(reportParameters->grammarTag());
     ui.teGrammarNotes->setPlainText(reportParameters->grammarNotes());
-    ui.leTrainingTag->setText(reportParameters->trainingTag());
-    ui.teTrainingNotes->setPlainText(reportParameters->trainingNotes());
-    ui.sbTrainingSpeakers->setValue(reportParameters->trainingSpeakers());
-    ui.sbTrainingSamples->setValue(reportParameters->trainingSamples());
-    ui.leDevelopmentTag->setText(reportParameters->developmentTag());
-    ui.teDevelopmentNotes->setPlainText(reportParameters->developmentNotes());
-    ui.sbDevelopmentSpeakers->setValue(reportParameters->developmentSpeakers());
-    ui.sbDevelopmentSamples->setValue(reportParameters->developmentSamples());
-    ui.leTestTag->setText(reportParameters->testTag());
-    ui.teTestNotes->setPlainText(reportParameters->testNotes());
-    ui.sbTestSpeakers->setValue(reportParameters->testSpeakers());
-    ui.sbTestSamples->setValue(reportParameters->testSamples());
 
     ReportParameters::OutputOptions options = reportParameters->options();
     ui.cbTables->setChecked(options & ReportParameters::Tables);
@@ -193,6 +229,14 @@ bool ExportTestResults::exportTestResults(ReportParameters *reportParameters)
   }
   else
     initSystemDefinition();
+
+  QList<CorpusInformation*> testCorpora;
+  foreach (TestResultWidget* testResult, testResults)
+    testCorpora << testResult->getConfiguration()->corpusInformation();
+
+  kDebug() << "Exporting creation corpora: " << creationCorpora.count();
+  displayCorpora(ui.twTrainingCorpora, m_creationCorporaWidgets, creationCorpora);
+  displayCorpora(ui.twTestCorpora, m_testCorporaWidgets, testCorpora);
 
   if (exec())
   {
@@ -206,6 +250,28 @@ QString ExportTestResults::getSelectedTemplate()
 {
   return ui.cbOutputFormat->itemData(ui.cbOutputFormat->currentIndex()).toString();
 }
+
+QList<CorpusInformation*> ExportTestResults::getCorpusInformation(const QList<CorpusInformationWidget*>& widgets)
+{
+  QList<CorpusInformation*> infos;
+  foreach (CorpusInformationWidget *w, widgets)
+  {
+    w->submit();
+    infos << w->information();
+  }
+  return infos;
+}
+
+QList<CorpusInformation*> ExportTestResults::getTestCorpusInformation()
+{
+  return getCorpusInformation(m_testCorporaWidgets);
+}
+
+QList<CorpusInformation*> ExportTestResults::getTrainingCorpusInformation()
+{
+  return getCorpusInformation(m_creationCorporaWidgets);
+}
+
 
 ReportParameters* ExportTestResults::getReportParameters()
 {
@@ -222,13 +288,35 @@ ReportParameters* ExportTestResults::getReportParameters()
       ui.teExperimentDescription->toPlainText(), ui.leSystemTag->text(),
       ui.teSystemDefinition->toPlainText(), ui.leVocabularyTag->text(),
       ui.teVocabularyNotes->toPlainText(), ui.leGrammarTag->text(), 
-      ui.teGrammarNotes->toPlainText(), ui.leTrainingTag->text(), 
-      ui.teTrainingNotes->toPlainText(), ui.sbTrainingSpeakers->value(),
-      ui.sbTrainingSamples->value(),
-      ui.leDevelopmentTag->text(), ui.teDevelopmentNotes->toPlainText(),
-      ui.sbDevelopmentSpeakers->value(), ui.sbDevelopmentSamples->value(),
-      ui.leTestTag->text(), ui.teTestNotes->toPlainText(),
-      ui.sbTestSpeakers->value(), ui.sbTestSamples->value());
+      ui.teGrammarNotes->toPlainText());
   return reportParameters;
+}
+
+void ExportTestResults::saveCorporaInformation()
+{
+  foreach (CorpusInformationWidget* w, m_testCorporaWidgets)
+    w->submit();
+  foreach (CorpusInformationWidget* w, m_creationCorporaWidgets)
+    w->submit();
+
+    //QList<CorpusInformationWidget*> m_creationCorporaWidgets;
+    //QList<CorpusInformationWidget*> m_testCorporaWidgets;
+  //Q_ASSERT(m_testCorporaWidgets == testResults.count());
+//
+  //int i=0;
+  //foreach (CorpusInformationWidget* w, m_testCorporaWidgets)
+  //{
+    //TestResultWidget *testResult = testResults[i];
+//
+    //testResult->
+    //i++;
+  //}
+  
+}
+
+ExportTestResults::~ExportTestResults()
+{
+  qDeleteAll(m_creationCorporaWidgets);
+  qDeleteAll(m_testCorporaWidgets);
 }
 

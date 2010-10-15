@@ -1,0 +1,134 @@
+[EN] Full LaTeX Report
+LATEX
+\documentclass[a4paper,10pt,bibtotoc]{scrartcl}
+\usepackage[utf8x]{inputenc}
+
+\usepackage[sf,compact]{titlesec}
+\usepackage[rflt]{floatflt}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\usepackage[a4paper]{geometry}
+\usepackage{a4wide}
+\usepackage[english]{babel}
+\usepackage[fixlanguage]{babelbib}
+\usepackage[babel]{csquotes} 
+
+\usepackage{natbib}
+
+\usepackage{hyperref}
+\hypersetup{
+   bookmarksnumbered,
+   pdfstartview={FitH},
+   citecolor={black},
+   linkcolor={black},
+   urlcolor={black},
+   pdftitle={$title$},    % title
+   colorlinks=false,
+   pdfpagemode={UseOutlines}
+}
+
+
+% Kopf / Fuszzeile
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%
+%\fancypagestyle{plain}{% coolster hack wo gibt
+%  \thispagestyle{fancy}
+%}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
+%
+%\lhead[\nouppercase{\textsc{\leftmark}}]{}
+%\rhead[]{\nouppercase{\textsc{\rightmark}}}
+%\cfoot[]{}
+%\lfoot[\thepage]{} \rfoot[]{\thepage}
+
+\setlength{\parindent}{0mm}
+
+%\newcommand{\doi}[1]{\textsc{doi:} \textsf{#1}\xspace} 
+
+\title{$title$\\$tag$}
+% \author{Authors}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{multicols}{2}
+
+\tableofcontents
+
+
+\section{Task definition}
+$taskDefinition$
+
+\section{Setup}
+
+This section explains the test configuration in detail.
+
+\subsection{System}
+\label{sec:System}
+
+Internal experiment identification: $systemTag$.
+
+$systemDefinition$
+
+\subsection{Vocabulary}
+
+Internal vocabulary identification: $vocabularyTag$.
+
+$vocabularyNotes$
+
+\subsection{Grammar}
+
+Internal grammar identification: $grammarTag$.
+
+$grammarNotes$
+
+\subsection{Trainingdata}
+
+This model uses $trainingsCorpusCount$ trainings corpora.
+
+$BEGIN_trainingCorpora$
+\subsubsection{$corpusTag$}
+
+$corpusNotes$
+
+This corpus consists of $corpusSamples$ recordings from $corpusSpeakers$ speakers.
+
+$END_trainingCorpora$
+
+\section{Test}
+
+This section will describe the test configuration. For more information about the used software, please refer to section \ref{sec:System}.
+
+\subsection{Experiment}
+
+Internal experiment identification: $experimentTag$.
+
+$experimentDescription$
+
+This experiment was conducted on $experimentDate$.
+
+\subsection{Testsets}
+
+This model uses $testCorpusCount$ test corpora.
+
+$BEGIN_testCorpora$
+\subsubsection{$corpusTag$}
+
+$corpusNotes$
+
+This corpus consists of $corpusSamples$ recordings from $corpusSpeakers$ speakers.
+
+$END_testCorpora$
+
+
+\section{Conclusion}
+$conclusion$
+
+\end{multicols}
+
+\end{document}

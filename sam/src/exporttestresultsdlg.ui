@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>498</width>
+    <width>572</width>
     <height>469</height>
    </rect>
   </property>
@@ -279,209 +279,28 @@ p, li { white-space: pre-wrap; }
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Samples</string>
+       <string>Trainingssamples</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="KTabWidget" name="twTrainingCorpora">
          <property name="currentIndex">
-          <number>0</number>
+          <number>-1</number>
          </property>
-         <widget class="QWidget" name="tab_5">
-          <attribute name="title">
-           <string>Training</string>
-          </attribute>
-          <layout class="QFormLayout" name="formLayout_6">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::ExpandingFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Tag:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="KLineEdit" name="leTrainingTag"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_14">
-             <property name="text">
-              <string>Notes:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="KTextEdit" name="teTrainingNotes">
-             <property name="acceptRichText">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Speakers:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="KIntSpinBox" name="sbTrainingSpeakers">
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Samples:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="KIntSpinBox" name="sbTrainingSamples">
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_6">
-          <attribute name="title">
-           <string>Development</string>
-          </attribute>
-          <layout class="QFormLayout" name="formLayout_5">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::ExpandingFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_17">
-             <property name="text">
-              <string>Tag:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="KLineEdit" name="leDevelopmentTag"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>Notes:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="KTextEdit" name="teDevelopmentNotes">
-             <property name="acceptRichText">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
-              <string>Speakers:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="KIntSpinBox" name="sbDevelopmentSpeakers">
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_21">
-             <property name="text">
-              <string>Samples:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="KIntSpinBox" name="sbDevelopmentSamples">
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="tab_7">
-          <attribute name="title">
-           <string>Test</string>
-          </attribute>
-          <layout class="QFormLayout" name="formLayout_4">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::ExpandingFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Tag:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="KLineEdit" name="leTestTag"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_18">
-             <property name="text">
-              <string>Notes:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="KTextEdit" name="teTestNotes">
-             <property name="acceptRichText">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Speakers:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="KIntSpinBox" name="sbTestSpeakers">
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_24">
-             <property name="text">
-              <string>Samples:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="KIntSpinBox" name="sbTestSamples">
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-             <property name="maximum">
-              <number>999999999</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>Testset</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="KTabWidget" name="twTestCorpora">
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
         </widget>
        </item>
       </layout>
@@ -505,11 +324,6 @@ p, li { white-space: pre-wrap; }
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>

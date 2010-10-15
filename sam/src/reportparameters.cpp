@@ -26,26 +26,23 @@ ReportParameters::ReportParameters(const QString& title, const QString& tag,
       const QString& experimentDescription, const QString& systemTag,
       const QString& systemDefinition, const QString& vocabularyTag,
       const QString& vocabularyNotes, const QString& grammarTag,
-      const QString& grammarNotes, const QString& trainingTag,
-      const QString& trainingNotes, int trainingSpeakers, int trainingSamples,
-      const QString& developmentTag,
-      const QString& developmentNotes, int developmentSpeakers, 
-      int developmentSamples, 
-      const QString& testTag, const QString& testNotes, 
-      int testSpeakers, int testSamples) :
+      const QString& grammarNotes//, 
+      //const QList<CorpusInformation*>& creationCorpora,
+      //const QList<CorpusInformation*>& testCorpora
+      ) :
   m_title(title), m_tag(tag), m_taskDefinition(taskDefinition),
   m_options(options),  m_outputTemplate(outputTemplate), 
   m_conclusion(conclusion), m_experimentTag(experimentTag),
   m_experimentDate(experimentDate), m_experimentDescription(experimentDescription),
   m_systemTag(systemTag), m_systemDefinition(systemDefinition), 
   m_vocabularyTag(vocabularyTag), m_vocabularyNotes(vocabularyNotes), 
-  m_grammarTag(grammarTag), m_grammarNotes(grammarNotes),
-  m_trainingTag(trainingTag), m_trainingNotes(trainingNotes),
-  m_trainingSpeakers(trainingSpeakers), m_trainingSamples(trainingSamples),
-  m_developmentTag(developmentTag), m_developmentNotes(developmentNotes),
-  m_developmentSpeakers(developmentSpeakers), m_developmentSamples(developmentSamples),
-  m_testTag(testTag), m_testNotes(testNotes),
-  m_testSpeakers(testSpeakers), m_testSamples(testSamples)
+  m_grammarTag(grammarTag), m_grammarNotes(grammarNotes)//,
+  //m_creationCorpora(creationCorpora), m_testCorpora(testCorpora)
 {
 }
 
+ReportParameters::~ReportParameters()
+{
+  //qDeleteAll(m_creationCorpora);
+  //qDeleteAll(m_testCorpora);
+}

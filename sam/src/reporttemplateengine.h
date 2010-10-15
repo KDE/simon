@@ -21,6 +21,8 @@
 #define SIMON_REPORTTEMPLATEENGINE_H_4002119636CC42C68FE07273F9000A73
 
 #include <QHash>
+#include <QList>
+class TemplateValueList;
 
 class ReportTemplateEngine
 {
@@ -29,6 +31,9 @@ class ReportTemplateEngine
 
     virtual QByteArray lineBreak();
     virtual QByteArray replaceTemplateParameters(const QByteArray& templateData, QHash<QString, QString> templateValues);
+    virtual QByteArray replaceTemplateLists(const QByteArray& templateData, QList<TemplateValueList*> templateValues);
+
+    virtual bool splitTemplate(const QByteArray& input, const QByteArray& id, QByteArray& pre, QByteArray& part, QByteArray& post);
 
     QString tempDir();
     bool cleanTempDir();
@@ -40,6 +45,7 @@ class ReportTemplateEngine
     QString lastError() { return m_lastError; }
 
     virtual bool parse(const QByteArray& templateData, QHash<QString, QString> templateValues, 
+        QList<TemplateValueList*> templateValueLists,
         bool useGraphs, bool useTables, const QString& outputFilename);
 
     virtual bool storeFile(const QByteArray& output, const QString& outputFilename);

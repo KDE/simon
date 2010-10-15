@@ -24,6 +24,8 @@
 #include <QString>
 #include <QDate>
 
+#include "corpusinformation.h"
+
 class ReportParameters
 {
   public:
@@ -52,18 +54,9 @@ class ReportParameters
     QString m_vocabularyNotes;
     QString m_grammarTag;
     QString m_grammarNotes;
-    QString m_trainingTag;
-    QString m_trainingNotes;
-    int m_trainingSpeakers;
-    int m_trainingSamples;
-    QString m_developmentTag;
-    QString m_developmentNotes;
-    int m_developmentSpeakers;
-    int m_developmentSamples;
-    QString m_testTag;
-    QString m_testNotes;
-    int m_testSpeakers;
-    int m_testSamples;
+    
+    //QList<CorpusInformation*> m_creationCorpora;
+    //QList<CorpusInformation*> m_testCorpora;
 
   public:
     ReportParameters(const QString& title, const QString& tag,
@@ -73,13 +66,10 @@ class ReportParameters
       const QString& experimentDescription, const QString& systemTag,
       const QString& systemDefinition, const QString& vocabularyTag,
       const QString& vocabularyNotes, const QString& grammarTag,
-      const QString& grammarNotes, const QString& trainingTag,
-      const QString& trainingNotes, int trainingSpeakers, int trainingSamples,
-      const QString& developmentTag,
-      const QString& developmentNotes, int developmentSpeakers, 
-      int developmentSamples,
-      const QString& testTag, const QString& testNotes, 
-      int testSpeakers, int testSamples);
+      const QString& grammarNotes//, 
+      //const QList<CorpusInformation*>& creationCorpora,
+      //const QList<CorpusInformation*>& testCorpora
+      );
 
     QString title() { return m_title; }
     QString tag() { return m_tag; }
@@ -91,12 +81,10 @@ class ReportParameters
     QString vocabularyTag() { return m_vocabularyTag; }
     QString grammarTag() { return m_grammarTag; }
     QString grammarNotes() { return m_grammarNotes; }
-    QString trainingTag() { return m_trainingTag; }
-    QString trainingNotes() { return m_trainingNotes; }
-    QString developmentTag() { return m_developmentTag; }
-    QString developmentNotes() { return m_developmentNotes; }
-    QString testTag() { return m_testTag; }
-    QString testNotes() { return m_testNotes; }
+
+    //QList<CorpusInformation*> creationCorpora() { return m_creationCorpora; }
+    //QList<CorpusInformation*> testCorpora() { return m_testCorpora; }
+
     OutputOptions options() { return m_options; }
 
     QString experimentTag() { return m_experimentTag; }
@@ -104,12 +92,7 @@ class ReportParameters
     QString experimentDescription() { return m_experimentDescription; }
     QString systemTag() { return m_systemTag; }
 
-    int trainingSpeakers() { return m_trainingSpeakers; }
-    int trainingSamples() { return m_trainingSamples; }
-    int developmentSpeakers() { return m_developmentSpeakers; }
-    int developmentSamples() { return m_developmentSamples; }
-    int testSpeakers() { return m_testSpeakers; }
-    int testSamples() { return m_testSamples; }
+    ~ReportParameters();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ReportParameters::OutputOptions);

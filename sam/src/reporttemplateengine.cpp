@@ -18,6 +18,7 @@
  */
 
 #include "reporttemplateengine.h"
+#include "templatevaluelist.h"
 #include <QDir>
 #include <QFile>
 #include <KLocale>
@@ -44,6 +45,47 @@ QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& tem
   {
     output = output.replace(QByteArray("$").append(i.key()).append("$"), i.value().toUtf8());
     i++;
+  }
+  return output;
+}
+
+bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArray& id, 
+    QByteArray& pre, QByteArray& part, QByteArray& post)
+{
+  QByteArray beginTag = "$BEGIN_"+id+"$";
+  QByteArray endTag = "$END_"+id+"$";
+  int startIndex = input.indexOf(beginTag);
+  int endIndex = input.indexOf(endTag, startIndex);
+  //kDebug() << "Looking for " << beginTag << endTag << " in " << input << startIndex << endIndex;
+  if ((startIndex == -1) || (endIndex == -1))
+    return false;
+  pre = input.left(startIndex);
+  part = input.mid(startIndex + beginTag.count(), endIndex-startIndex-beginTag.count());
+  post = input.mid(endIndex+endTag.count());
+  kDebug() << "Part: " << part;
+  return true;
+}
+
+QByteArray ReportTemplateEngine::replaceTemplateLists(const QByteArray& templateData, QList<TemplateValueList*> templateValues)
+{
+  QByteArray output = templateData;
+
+  int c = 0;
+  foreach (TemplateValueList* value, templateValues)
+  {
+    QByteArray pre, part, post; 
+    while ((c < 3) && (splitTemplate(output, value->id().toUtf8(), pre, part, post)))
+    {
+      output = pre;
+      for (int i=0; i < value->count(); i++)
+      {
+        QHash<QString,QString> tValues = value->at(i);
+        part = replaceTemplateParameters(part, tValues);
+        output += part;
+      }
+      output += post;
+      c++;
+    }
   }
   return output;
 }
@@ -78,6 +120,7 @@ bool ReportTemplateEngine::cleanTempDir()
 }
 
 bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, QString> templateValues, 
+    QList<TemplateValueList*> templateValueLists,
     bool useGraphs, bool useTables, const QString& outputFilename)
 {
   if (!cleanTempDir())
@@ -88,6 +131,7 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
 
   QByteArray output;
   output = replaceTemplateParameters(templateData, templateValues);
+  output = replaceTemplateLists(output, templateValueLists);
 
   if (useGraphs)
   {

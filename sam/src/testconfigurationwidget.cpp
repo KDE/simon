@@ -18,9 +18,11 @@
  */
 
 #include "testconfigurationwidget.h"
+#include "corpusinformation.h"
 
 TestConfigurationWidget::TestConfigurationWidget(QWidget *parent) : QFrame(parent)
 {
+  m_corpusInfo = new CorpusInformation;
   setupUi();
 }
 
@@ -29,13 +31,15 @@ void TestConfigurationWidget::remove()
   deleteLater();
 }
 
-TestConfigurationWidget::TestConfigurationWidget(const QString& tag, const KUrl& hmmDefsUrl,
+TestConfigurationWidget::TestConfigurationWidget(CorpusInformation *info, //const QString& tag, 
+        const KUrl& hmmDefsUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,
-        const KUrl& jconfUrl, int sampleRate, QWidget *parent) : QFrame(parent)
+        const KUrl& jconfUrl, int sampleRate, QWidget *parent) : QFrame(parent),
+  m_corpusInfo(info)
 {
   setupUi();
-  ui.leTag->setText(tag);
+  ui.leTag->setText(info->tag());
   ui.urHmmDefs->setUrl(hmmDefsUrl);
   ui.urTiedlist->setUrl(tiedlistUrl);
   ui.urDict->setUrl(dictUrl);
@@ -58,6 +62,13 @@ void TestConfigurationWidget::setupUi()
   ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
 
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteLater()));
+  connect(ui.leTag, SIGNAL(editingFinished()), this, SIGNAL(tagChanged()));
+  connect(ui.leTag, SIGNAL(editingFinished()), this, SLOT(updateTag()));
+}
+
+void TestConfigurationWidget::updateTag()
+{
+  m_corpusInfo->setTag(ui.leTag->text());
 }
 
 QString TestConfigurationWidget::tag() const
@@ -103,5 +114,10 @@ KUrl TestConfigurationWidget::jconf() const
 int TestConfigurationWidget::sampleRate() const
 {
   return ui.sbSampleRate->value();
+}
+
+TestConfigurationWidget::~TestConfigurationWidget()
+{
+  delete m_corpusInfo;
 }
 

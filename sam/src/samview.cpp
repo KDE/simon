@@ -26,6 +26,7 @@
 #include "carraydata.h"
 #include "qwt_bars_item.h"
 #include "qwt_series_data.h"
+#include "corpusinformation.h"
 
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
@@ -54,6 +55,7 @@
 #include <KCmdLineArgs>
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
+  m_creationCorpus(0),
   m_reportParameters(0),
   barGraph(0)
 {
@@ -168,11 +170,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   QString loadPath = KCmdLineArgs::parsedArgs()->getOption("l");
   if (!loadPath.isEmpty())
-  {
-    m_filename = loadPath;
-    qDeleteAll(testConfigurations); //cleared by signal
-    parseFile();
-  }
+    load(loadPath);
 }
 
 void SamView::addTestConfiguration()
@@ -184,6 +182,7 @@ void SamView::addTestConfiguration()
 void SamView::addTestConfiguration(TestConfigurationWidget* config)
 {
   connect(config, SIGNAL(destroyed()), this, SLOT(testConfigurationRemoved()));
+  connect(config, SIGNAL(tagChanged()), this, SLOT(testConfigTagChanged()));
   testConfigurations << config;
   ui.vlTestConfigurations->addWidget(config);
 
@@ -194,6 +193,19 @@ void SamView::addTestConfiguration(TestConfigurationWidget* config)
   connect(result, SIGNAL(destroyed()), this, SLOT(testResultRemoved()));
   testResults << result;
   ui.twTestResults->addTab(result, config->tag());
+}
+
+void SamView::testConfigTagChanged()
+{
+  TestConfigurationWidget *configurationWidget = static_cast<TestConfigurationWidget*>(sender());
+  for (int i=1; i < ui.twTestResults->count(); i++)
+  {
+    if (static_cast<TestResultWidget*>(ui.twTestResults->widget(i))->getConfiguration() == configurationWidget)
+    {
+      ui.twTestResults->setTabText(i, configurationWidget->tag());
+      break;
+    }
+  }
 }
 
 void SamView::displayModelTestStatus()
@@ -329,14 +341,23 @@ void SamView::exportTestResults()
 {
   ExportTestResults *e = new ExportTestResults(this);
   
-  if (e->exportTestResults(m_reportParameters))
+  if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults))
   {
     delete m_reportParameters;
     m_reportParameters = e->getReportParameters();
+    e->saveCorporaInformation();
+    //apply corpus informations and test results
   }
   delete e;
 }
 
+QList<CorpusInformation*> SamView::creationCorpusInformation()
+{
+  if (!m_creationCorpus)
+    m_creationCorpus = createEmptyCorpusInformation();
+
+  return QList<CorpusInformation*>() << m_creationCorpus;
+}
 
 void SamView::showConfig()
 {
@@ -350,10 +371,7 @@ void SamView::showConfig()
 
 void SamView::newProject()
 {
-  m_filename = "";
-  delete m_reportParameters;
-  m_reportParameters = 0;
-  updateWindowTitle();
+  clearCurrentConfiguration();
 
   ui.urHmmDefs->clear();
   ui.urTiedlist->clear();
@@ -386,6 +404,12 @@ void SamView::load()
   QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("sam projects *.sam"), this);
   if (filename.isEmpty()) return;
 
+  load(filename);
+}
+
+void SamView::load(const QString& filename)
+{
+  clearCurrentConfiguration();
   m_filename = filename;
   qDeleteAll(testConfigurations); //cleared by signal
   parseFile();
@@ -431,6 +455,8 @@ void SamView::parseFile()
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
 
+  m_creationCorpus = readCorpusInformation(f);
+
   ui.urHmmDefs->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
   ui.urDict->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
@@ -461,7 +487,8 @@ void SamView::parseFile()
   int testConfigCount = f.readLine().trimmed().toInt(); 
   for (int i=0; i < testConfigCount; i++)
   {
-    QString tag = QString::fromUtf8(f.readLine().trimmed());
+    CorpusInformation *testInfo = readCorpusInformation(f);
+
     KUrl hmmDefsUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
     KUrl tiedlistUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
     KUrl dictUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
@@ -471,7 +498,7 @@ void SamView::parseFile()
     KUrl jconfUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
     int sampleRate = f.readLine().trimmed().toInt();
 
-    addTestConfiguration(new TestConfigurationWidget(tag, hmmDefsUrl, tiedlistUrl, dictUrl,
+    addTestConfiguration(new TestConfigurationWidget(testInfo, hmmDefsUrl, tiedlistUrl, dictUrl,
           dfaUrl, testPromptsUrl, testPromptsBasePathUrl, jconfUrl, sampleRate));
   }
 
@@ -489,41 +516,34 @@ void SamView::parseFile()
   QString vocabularyNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
   QString grammarTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
   QString grammarNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString trainingTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString trainingNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  int trainingSpeakers = f.readLine().trimmed().toInt();
-  int trainingSamples = f.readLine().trimmed().toInt();
-  QString developmentTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString developmentNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  int developmentSpeakers = f.readLine().trimmed().toInt();
-  int developmentSamples = f.readLine().trimmed().toInt();
-  QString testTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString testNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  int testSpeakers = f.readLine().trimmed().toInt();
-  int testSamples = f.readLine().trimmed().toInt();
+
   bool ok = true;
   ReportParameters::OutputOptions options = (ReportParameters::OutputOptions) f.readLine().trimmed().toInt(&ok);
-
-  delete m_reportParameters;
 
   if (ok)
     m_reportParameters = new ReportParameters(title, tag,
         taskDefinition, options, outputTemplate,
         conclusion, experimentTag, experimentDate, experimentDescription,
         systemTag, systemDefinition, vocabularyTag, vocabularyNotes, grammarTag,
-        grammarNotes, trainingTag, trainingNotes, trainingSpeakers,
-        trainingSamples, developmentTag, developmentNotes, 
-        developmentSpeakers, developmentSamples, testTag, testNotes, testSpeakers,
-        testSamples);
+        grammarNotes//, 
+        //creationCorpus, testCorpus
+        );
   else 
     m_reportParameters = 0;
 
   ui.twMain->setCurrentIndex(0);
   ui.teBuildLog->clear();
-  clearTest();
   ui.teAdaptLog->clear();
-
   updateWindowTitle();
+}
+
+CorpusInformation* SamView::readCorpusInformation(QFile &f)
+{
+  QString tag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  QString notes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
+  int speakers = f.readLine().trimmed().toInt();
+  int samples = f.readLine().trimmed().toInt();
+  return new CorpusInformation(tag, notes, speakers, samples);
 }
 
 
@@ -545,6 +565,7 @@ void SamView::storeFile()
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
 
+  storeCorpusInformation(f, m_creationCorpus);
   f.write(ui.urHmmDefs->url().toLocalFile().toUtf8()+'\n');
   f.write(ui.urTiedlist->url().toLocalFile().toUtf8()+'\n');
   f.write(ui.urDict->url().toLocalFile().toUtf8()+'\n');
@@ -567,7 +588,8 @@ void SamView::storeFile()
   f.write(QByteArray::number(testConfigurations.count())+'\n');
   foreach (TestConfigurationWidget *config, testConfigurations)
   {
-    f.write(config->tag().toUtf8()+'\n');
+    storeCorpusInformation(f, config->corpusInformation());
+
     f.write(config->hmmDefs().toLocalFile().toUtf8()+'\n');
     f.write(config->tiedlist().toLocalFile().toUtf8()+'\n');
     f.write(config->dict().toLocalFile().toUtf8()+'\n');
@@ -594,24 +616,20 @@ void SamView::storeFile()
     f.write(m_reportParameters->vocabularyNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
     f.write(m_reportParameters->grammarTag().replace('\n', "<%newline%>").toUtf8()+'\n');
     f.write(m_reportParameters->grammarNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->trainingTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->trainingNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(QByteArray::number(m_reportParameters->trainingSpeakers())+'\n');
-    f.write(QByteArray::number(m_reportParameters->trainingSamples())+'\n');
-    f.write(m_reportParameters->developmentTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->developmentNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(QByteArray::number(m_reportParameters->developmentSpeakers())+'\n');
-    f.write(QByteArray::number(m_reportParameters->developmentSamples())+'\n');
-    f.write(m_reportParameters->testTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->testNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(QByteArray::number(m_reportParameters->testSpeakers())+'\n');
-    f.write(QByteArray::number(m_reportParameters->testSamples())+'\n');
+
     f.write(QByteArray::number(m_reportParameters->options())+'\n');
   }
 
   updateWindowTitle();
 }
 
+void SamView::storeCorpusInformation(QFile &f, CorpusInformation* info)
+{
+  f.write(info->tag().replace('\n', "<%newline%>").toUtf8()+'\n');
+  f.write(info->notes().replace('\n', "<%newline%>").toUtf8()+'\n');
+  f.write(QByteArray::number(info->speakers())+'\n');
+  f.write(QByteArray::number(info->samples())+'\n');
+}
 
 void SamView::getBuildPathsFromSimon()
 {
@@ -620,7 +638,6 @@ void SamView::getBuildPathsFromSimon()
   ui.urDict->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dict")));
   ui.urDFA->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dfa")));
   ui.urPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
-  //ui.urTestPromptsBasePath->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/training.data/")));
   qDeleteAll(testConfigurations); //cleared by signal
 
   ui.urTreeHed->setUrl(KUrl(KStandardDirs::locate("data", "simon/model/tree1.hed")));
@@ -679,7 +696,6 @@ void SamView::getBuildPathsFromSimon()
   //information he can extract from the input files
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
-  kDebug() << "Scenario paths: " << scenarioPaths;
   modelCompilationAdapter->startAdaption(
     (ModelCompilationAdapter::AdaptionType)
     (ModelCompilationAdapter::AdaptLanguageModel | ModelCompilationAdapter::AdaptAcousticModel),
@@ -866,9 +882,9 @@ void SamView::slotModelAdaptionComplete()
         testPromptsPathUsed = promptsTestPath;
       else
         testPromptsPathUsed = prompts;
-      addTestConfiguration(new TestConfigurationWidget(i18nc("The tag name of an automatically added"
-              " test set. The needed string really is please change this (for the user to change).",
-              "PLEASE_CHANGE_THIS"), ui.urHmmDefs->url(), ui.urTiedlist->url(), ui.urDict->url(),
+      addTestConfiguration(new TestConfigurationWidget(
+              createEmptyCorpusInformation(), ui.urHmmDefs->url(), 
+              ui.urTiedlist->url(), ui.urDict->url(),
               ui.urDFA->url(), KUrl(testPromptsPathUsed), KUrl(trainingDataPath), 
               KUrl(KStandardDirs::locate("data", "simond/default.jconf")), ui.sbSampleRate->value(), 
               this));
@@ -876,6 +892,12 @@ void SamView::slotModelAdaptionComplete()
   }
 }
 
+CorpusInformation* SamView::createEmptyCorpusInformation()
+{
+  return new CorpusInformation(i18nc("The tag name of an automatically added"
+              " test set. The needed string really is please change this (for the user to change).",
+              "PLEASE_CHANGE_THIS"), QString(), 0, 0);
+}
 
 void SamView::slotModelAdaptionAborted()
 {
@@ -945,6 +967,17 @@ void SamView::switchToTestResults()
   ui.twMain->setCurrentIndex(4);
 }
 
+void SamView::clearCurrentConfiguration()
+{
+  delete m_reportParameters;
+  delete m_creationCorpus;
+  m_reportParameters = 0;
+  m_creationCorpus = 0;
+  m_filename = QString();
+  clearTest();
+  updateWindowTitle();
+}
+
 void SamView::clearTest()
 {
   ui.teTestLog->clear();
@@ -994,4 +1027,5 @@ SamView::~SamView()
   modelCompilationManager->deleteLater();
   modelCompilationAdapter->deleteLater();
   delete m_reportParameters;
+  delete m_creationCorpus;
 }

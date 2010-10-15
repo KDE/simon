@@ -12,19 +12,21 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 set(sam_SRCS
    main.cpp
    samview.cpp
+   corpusinformationwidget.cpp
    accuracydisplay.cpp
    exporttestresults.cpp
    reporttemplateengine.cpp
    latexreporttemplateengine.cpp
    reportparameters.cpp
    testconfigurationwidget.cpp
+   templatevaluelist.cpp
    testresultwidget.cpp
-   #qwt_series_data.cpp
    qwt_bars_item.cpp
  )
 
 kde4_add_ui_files( sam_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/corpusinformation.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/testresult.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/testconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/exporttestresultsdlg.ui

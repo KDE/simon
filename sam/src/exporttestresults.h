@@ -22,9 +22,14 @@
 
 #include <QHash>
 #include <QFlags>
+#include "corpusinformation.h"
 #include "ui_exporttestresultsdlg.h"
 
 class ReportParameters;
+class TestResultWidget;
+class CorpusInformationWidget;
+class KTabWidget;
+class TemplateValueList;
 
 class ExportTestResults : public KDialog
 {
@@ -32,12 +37,27 @@ class ExportTestResults : public KDialog
 
   private:
     Ui::ExportTestDlg ui;
+    QList<TestResultWidget*> testResults;
+    QList<CorpusInformationWidget*> m_creationCorporaWidgets;
+    QList<CorpusInformationWidget*> m_testCorporaWidgets;
+
     QHash<QString, QString> createTemplateValues();
+    QList<TemplateValueList*> createTemplateValueLists();
+
+    TemplateValueList* extractCorpusTemplateInformation(const QString& id, QList<CorpusInformationWidget*> w);
+    
 
     QString getSelectedTemplate();
 
     void initTemplates();
+    void clearCorpora();
     void createReport();
+    QList<CorpusInformation*> getCorpusInformation(const QList<CorpusInformationWidget*>& widgets);
+    QList<CorpusInformation*> getTestCorpusInformation();
+    QList<CorpusInformation*> getTrainingCorpusInformation();
+
+    void displayCorpora(KTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
+        const QList<CorpusInformation*>& corpora);
 
   private slots:
     void initSystemDefinition();
@@ -47,7 +67,10 @@ class ExportTestResults : public KDialog
 
   public:
     ExportTestResults(QWidget *parent);
-    bool exportTestResults(ReportParameters *reportParameters);
+    ~ExportTestResults();
+    bool exportTestResults(ReportParameters *reportParameters, QList<CorpusInformation*> creationCorpora,
+                            QList<TestResultWidget*> testResults);
+    void saveCorporaInformation();
     ReportParameters *getReportParameters();
 
 };
