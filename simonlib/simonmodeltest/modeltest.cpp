@@ -776,6 +776,11 @@ float ModelTest::getOverallWER()
   return overallWER;
 }
 
+int ModelTest::getTotalSampleCount()
+{
+  return promptsTable.count();
+}
+
 TestResultModel* ModelTest::wordResultsModel()
 {
   return m_wordResultsModel;

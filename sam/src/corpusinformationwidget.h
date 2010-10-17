@@ -26,9 +26,13 @@
 
 class CorpusInformationWidget : public QWidget
 {
+  Q_OBJECT
   private:
     Ui::CorpusInformationWidget ui;
     CorpusInformation *m_information;
+
+  private slots:
+    void determineSampleCount();
     
   public:
     CorpusInformationWidget(CorpusInformation *information, QWidget *parent=0);

@@ -19,6 +19,7 @@
 
 #include "testresultwidget.h"
 #include "testconfigurationwidget.h"
+#include "corpusinformation.h"
 #include <simonmodeltest/modeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
 #include <simonmodeltest/testresultmodel.h>
@@ -78,6 +79,7 @@ void TestResultWidget::slotModelTestCompleted()
   currentState = TestResultWidget::Done;
   retrieveCompleteTestLog();
   analyzeTestOutput();
+  config->corpusInformation()->setTotalSampleCount(modelTest->getTotalSampleCount());
   emit testComplete();
 }
 

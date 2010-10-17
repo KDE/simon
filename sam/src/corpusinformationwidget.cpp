@@ -28,6 +28,13 @@ CorpusInformationWidget::CorpusInformationWidget(CorpusInformation*information, 
   ui.teNotes->setPlainText(information->notes());
   ui.sbSamples->setValue(information->samples());
   ui.sbSpeakers->setValue(information->speakers());
+
+  connect(ui.pbAutomaticallyDetermine, SIGNAL(clicked()), this, SLOT(determineSampleCount()));
+}
+
+void CorpusInformationWidget::determineSampleCount()
+{
+  ui.sbSamples->setValue(m_information->samplesTotal());
 }
 
 /**

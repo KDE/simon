@@ -152,6 +152,8 @@ class MODELTEST_EXPORT ModelTest : public QThread
 
     void deleteAllResults();
 
+    int getTotalSampleCount();
+
     ~ModelTest();
 
 };

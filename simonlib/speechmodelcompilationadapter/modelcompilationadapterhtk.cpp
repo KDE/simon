@@ -180,6 +180,7 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
   lexicon.setCodec("UTF-8");
 
   bool sentWritten = false;
+  m_pronunciationCount = 0;
   QList<Word*> words = vocab->getWords();
   QString htkIfiedWord;
   foreach (Word *w, words) {
@@ -189,17 +190,19 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
     }
     htkIfiedWord = htkify(w->getLexiconWord());
 
-    if (!sentWritten && (htkIfiedWord >= "SENT-END")) {
+    if (!sentWritten && (htkIfiedWord >= QLatin1String("SENT-END"))) {
       lexicon << "SENT-END\t\t[]\t\tsil\n";
       lexicon << "SENT-START\t\t[]\t\tsil\n";
       sentWritten=true;
     }
-    lexicon << htkIfiedWord << "\t\t[" << w->getWord() << "]\t\t" <<
-      w->getPronunciation() << "\n";
+    ++m_pronunciationCount;
+    lexicon << htkIfiedWord << QLatin1String("\t\t[") << w->getWord() << QLatin1String("]\t\t") <<
+      w->getPronunciation() << QLatin1String("\n");
 
     if (!definedVocabulary.contains(htkIfiedWord))
       definedVocabulary << htkIfiedWord;
   }
+  m_wordCount = definedVocabulary.count();
   if (!sentWritten) {
     lexicon << "SENT-END\t\t[]\t\tsil\n";
     lexicon << "SENT-START\t\t[]\t\tsil\n";
@@ -288,6 +291,7 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
   if (adaptionType & ModelCompilationAdapter::AdaptAcousticModel) {
     QFile promptsFile(promptsPathIn);
     QFile promptsFileOut(promptsPathOut);
+    m_sampleCount = 0;
 
     if (!promptsFile.open(QIODevice::ReadOnly) || !promptsFileOut.open(QIODevice::WriteOnly)) {
       emit error(i18n("Failed to adapt prompts from \"%1\" to \"%2\"", promptsPathIn, promptsPathOut));
@@ -307,7 +311,10 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
         }
       }
       if (allWordsInLexicon)
+      {
         promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
+        ++m_sampleCount;
+      }
     }
 
     promptsFile.close();

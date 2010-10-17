@@ -71,6 +71,15 @@ void TestConfigurationWidget::updateTag()
   m_corpusInfo->setTag(ui.leTag->text());
 }
 
+void TestConfigurationWidget::retrieveTag()
+{
+  QString oldTag = ui.leTag->text();
+  QString currentTag = m_corpusInfo->tag();
+  ui.leTag->setText(currentTag);
+  if (currentTag != oldTag)
+    emit tagChanged();
+}
+
 QString TestConfigurationWidget::tag() const
 {
   return ui.leTag->text();

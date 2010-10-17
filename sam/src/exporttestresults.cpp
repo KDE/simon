@@ -114,6 +114,9 @@ QHash<QString, QString> ExportTestResults::createTemplateValues()
   values.insert("vocabularyNotes", ui.teVocabularyNotes->toPlainText());
   values.insert("grammarTag", ui.leGrammarTag->text());
   values.insert("grammarNotes", ui.teGrammarNotes->toPlainText());
+
+  //values.insert("wordCount", QString::number(m_testCorporaWidgets.count()));
+
   values.insert("trainingsCorpusCount", QString::number(m_creationCorporaWidgets.count()));
   values.insert("testCorpusCount", QString::number(m_testCorporaWidgets.count()));
   return values;
@@ -173,11 +176,14 @@ void ExportTestResults::createReport()
 
   QString outputFile = KFileDialog::getSaveFileName(KUrl(), engine->fileType(), this);
   
-  if (!outputFile.isEmpty() &&
-      !engine->parse(templateData, createTemplateValues(),  createTemplateValueLists(),
-      ui.cbTables->isChecked(), ui.cbGraphs->isChecked(), /*m_creationCorporaWidgets, m_testCorporaWidgets,
-      m_testResults,*/ outputFile))
-    KMessageBox::sorry(this, i18n("Failed to parse template: %1", engine->lastError()));
+  if (!outputFile.isEmpty())
+  {
+    saveCorporaInformation();
+    if (!engine->parse(templateData, createTemplateValues(),  createTemplateValueLists(),
+          ui.cbTables->isChecked(), ui.cbGraphs->isChecked(), /*m_creationCorporaWidgets, m_testCorporaWidgets,
+          m_testResults,*/ outputFile))
+      KMessageBox::sorry(this, i18n("Failed to parse template: %1", engine->lastError()));
+  }
    
   delete engine;
 }
@@ -220,6 +226,8 @@ bool ExportTestResults::exportTestResults(ReportParameters *reportParameters, QL
     ui.teSystemDefinition->setPlainText(reportParameters->systemDefinition());
     ui.leVocabularyTag->setText(reportParameters->vocabularyTag());
     ui.teVocabularyNotes->setPlainText(reportParameters->vocabularyNotes());
+    ui.sbWordCount->setValue(reportParameters->wordCount());
+    ui.sbPronunciationCount->setValue(reportParameters->wordCount());
     ui.leGrammarTag->setText(reportParameters->grammarTag());
     ui.teGrammarNotes->setPlainText(reportParameters->grammarNotes());
 
@@ -288,7 +296,9 @@ ReportParameters* ExportTestResults::getReportParameters()
       ui.teExperimentDescription->toPlainText(), ui.leSystemTag->text(),
       ui.teSystemDefinition->toPlainText(), ui.leVocabularyTag->text(),
       ui.teVocabularyNotes->toPlainText(), ui.leGrammarTag->text(), 
-      ui.teGrammarNotes->toPlainText());
+      ui.teGrammarNotes->toPlainText(),
+      ui.sbWordCount->value(), ui.sbPronunciationCount->value()
+      );
   return reportParameters;
 }
 
@@ -298,20 +308,6 @@ void ExportTestResults::saveCorporaInformation()
     w->submit();
   foreach (CorpusInformationWidget* w, m_creationCorporaWidgets)
     w->submit();
-
-    //QList<CorpusInformationWidget*> m_creationCorporaWidgets;
-    //QList<CorpusInformationWidget*> m_testCorporaWidgets;
-  //Q_ASSERT(m_testCorporaWidgets == testResults.count());
-//
-  //int i=0;
-  //foreach (CorpusInformationWidget* w, m_testCorporaWidgets)
-  //{
-    //TestResultWidget *testResult = testResults[i];
-//
-    //testResult->
-    //i++;
-  //}
-  
 }
 
 ExportTestResults::~ExportTestResults()

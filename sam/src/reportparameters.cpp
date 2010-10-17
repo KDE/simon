@@ -26,9 +26,8 @@ ReportParameters::ReportParameters(const QString& title, const QString& tag,
       const QString& experimentDescription, const QString& systemTag,
       const QString& systemDefinition, const QString& vocabularyTag,
       const QString& vocabularyNotes, const QString& grammarTag,
-      const QString& grammarNotes//, 
-      //const QList<CorpusInformation*>& creationCorpora,
-      //const QList<CorpusInformation*>& testCorpora
+      const QString& grammarNotes,
+      int wordCount, int pronunciationCount
       ) :
   m_title(title), m_tag(tag), m_taskDefinition(taskDefinition),
   m_options(options),  m_outputTemplate(outputTemplate), 
@@ -36,13 +35,11 @@ ReportParameters::ReportParameters(const QString& title, const QString& tag,
   m_experimentDate(experimentDate), m_experimentDescription(experimentDescription),
   m_systemTag(systemTag), m_systemDefinition(systemDefinition), 
   m_vocabularyTag(vocabularyTag), m_vocabularyNotes(vocabularyNotes), 
-  m_grammarTag(grammarTag), m_grammarNotes(grammarNotes)//,
-  //m_creationCorpora(creationCorpora), m_testCorpora(testCorpora)
+  m_grammarTag(grammarTag), m_grammarNotes(grammarNotes),
+  m_wordCount(wordCount), m_pronunciationCount(pronunciationCount)
 {
 }
 
 ReportParameters::~ReportParameters()
 {
-  //qDeleteAll(m_creationCorpora);
-  //qDeleteAll(m_testCorpora);
 }

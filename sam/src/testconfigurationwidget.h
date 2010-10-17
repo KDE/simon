@@ -36,12 +36,15 @@ class TestConfigurationWidget : public QFrame
     Ui::TestConfigurationWdg ui;
     void setupUi();
   private slots:
-    void updateTag();
     void remove();
+    void updateTag();
+
+  public slots:
+    void retrieveTag();
 
   public:
     TestConfigurationWidget(QWidget *parent=0);
-    TestConfigurationWidget(CorpusInformation* corpusInfo, //const QString& tag, 
+    TestConfigurationWidget(CorpusInformation* corpusInfo,
         const KUrl& hmmDefsUrl,
         const KUrl& tiedlistUrl, const KUrl& dictUrl, const KUrl& dfaUrl,
         const KUrl& testPromptsUrl, const KUrl& testPromptsBasePathUrl,

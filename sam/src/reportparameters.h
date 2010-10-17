@@ -54,11 +54,12 @@ class ReportParameters
     QString m_vocabularyNotes;
     QString m_grammarTag;
     QString m_grammarNotes;
+    int m_wordCount;
+    int m_pronunciationCount;
     
-    //QList<CorpusInformation*> m_creationCorpora;
-    //QList<CorpusInformation*> m_testCorpora;
 
   public:
+    ReportParameters() {}
     ReportParameters(const QString& title, const QString& tag,
       const QString& taskDefinition,const OutputOptions options, 
       const QString& outputTemplate, const QString& conclusion, 
@@ -66,9 +67,8 @@ class ReportParameters
       const QString& experimentDescription, const QString& systemTag,
       const QString& systemDefinition, const QString& vocabularyTag,
       const QString& vocabularyNotes, const QString& grammarTag,
-      const QString& grammarNotes//, 
-      //const QList<CorpusInformation*>& creationCorpora,
-      //const QList<CorpusInformation*>& testCorpora
+      const QString& grammarNotes,
+      int wordCount, int pronunciationCount
       );
 
     QString title() { return m_title; }
@@ -81,16 +81,17 @@ class ReportParameters
     QString vocabularyTag() { return m_vocabularyTag; }
     QString grammarTag() { return m_grammarTag; }
     QString grammarNotes() { return m_grammarNotes; }
-
-    //QList<CorpusInformation*> creationCorpora() { return m_creationCorpora; }
-    //QList<CorpusInformation*> testCorpora() { return m_testCorpora; }
-
     OutputOptions options() { return m_options; }
 
     QString experimentTag() { return m_experimentTag; }
     QDate experimentDate() { return m_experimentDate; }
     QString experimentDescription() { return m_experimentDescription; }
     QString systemTag() { return m_systemTag; }
+
+    int wordCount() { return m_wordCount; }
+    int pronunciationCount() { return m_pronunciationCount; }
+    void setWordCount(int count) { m_wordCount = count; }
+    void setPronunciationCount(int count) { m_pronunciationCount = count; }
 
     ~ReportParameters();
 };

@@ -145,6 +145,7 @@ class SamView :  public KXmlGuiWindow
     void storeCorpusInformation(QFile &f, CorpusInformation* info);
     CorpusInformation* readCorpusInformation(QFile &f);
     CorpusInformation* createEmptyCorpusInformation();
+    ReportParameters* createEmptyReportParameters();
 
     QList<CorpusInformation*> creationCorpusInformation();
 };

@@ -31,15 +31,14 @@ class CorpusInformation
     int m_samples;
 
     //optional fields
-    int m_wordCount;
-    int m_pronunciationCount;
     int m_samplesTotal;
     
   public:
     CorpusInformation() : m_speakers(0), m_samples(0) {}
-    CorpusInformation(const QString& tag, const QString& notes, int speakers, int samples) :
-      m_tag(tag), m_notes(notes), m_speakers(speakers), m_samples(samples),
-      m_wordCount(-1), m_pronunciationCount(-1), m_samplesTotal(-1)
+    CorpusInformation(const QString& tag, const QString& notes, int speakers, int samples,
+        int samplesTotal) :
+      m_tag(tag), m_notes(notes), m_speakers(speakers), m_samples(samples), 
+      m_samplesTotal(samplesTotal)
     {}
 
     QString tag() { return m_tag; }
@@ -47,16 +46,15 @@ class CorpusInformation
     int speakers() { return m_speakers; }
     int samples() { return m_samples; }
 
+    int samplesTotal() { return m_samplesTotal; }
+    //float averagePronunciationsPerWord() { return ((float) m_pronunciationCount) / ((float) m_wordCount); }
+
     void setTag(const QString& tag) { m_tag = tag; }
     void setNotes(const QString& notes) { m_notes = notes; }
     void setSpeakers(int speakers) { m_speakers = speakers; }
     void setSamples(int samples) { m_samples = samples; }
 
-    void setWordCount(int count) { m_wordCount = count; }
-    void setPronunciationCount(int count) { m_pronunciationCount = count; }
     void setTotalSampleCount(int count) { m_samplesTotal = count; }
-
-    float averagePronunciationsPerWord() { return ((float) m_pronunciationCount) / ((float) m_wordCount); }
 };
 
 #endif

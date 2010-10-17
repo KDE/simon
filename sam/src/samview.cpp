@@ -345,8 +345,9 @@ void SamView::exportTestResults()
   {
     delete m_reportParameters;
     m_reportParameters = e->getReportParameters();
-    e->saveCorporaInformation();
-    //apply corpus informations and test results
+    //sync displays to potentially changed test result tags
+    foreach (TestConfigurationWidget *t, testConfigurations)
+      t->retrieveTag();
   }
   delete e;
 }
@@ -517,6 +518,9 @@ void SamView::parseFile()
   QString grammarTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
   QString grammarNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
 
+  int wordCount = f.readLine().trimmed().toInt();
+  int pronunciationCount = f.readLine().trimmed().toInt();
+
   bool ok = true;
   ReportParameters::OutputOptions options = (ReportParameters::OutputOptions) f.readLine().trimmed().toInt(&ok);
 
@@ -525,8 +529,7 @@ void SamView::parseFile()
         taskDefinition, options, outputTemplate,
         conclusion, experimentTag, experimentDate, experimentDescription,
         systemTag, systemDefinition, vocabularyTag, vocabularyNotes, grammarTag,
-        grammarNotes//, 
-        //creationCorpus, testCorpus
+        grammarNotes, wordCount, pronunciationCount
         );
   else 
     m_reportParameters = 0;
@@ -543,7 +546,8 @@ CorpusInformation* SamView::readCorpusInformation(QFile &f)
   QString notes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
   int speakers = f.readLine().trimmed().toInt();
   int samples = f.readLine().trimmed().toInt();
-  return new CorpusInformation(tag, notes, speakers, samples);
+  int totalSamples = f.readLine().trimmed().toInt();
+  return new CorpusInformation(tag, notes, speakers, samples, totalSamples);
 }
 
 
@@ -616,6 +620,8 @@ void SamView::storeFile()
     f.write(m_reportParameters->vocabularyNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
     f.write(m_reportParameters->grammarTag().replace('\n', "<%newline%>").toUtf8()+'\n');
     f.write(m_reportParameters->grammarNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
+    f.write(QByteArray::number(m_reportParameters->wordCount())+'\n');
+    f.write(QByteArray::number(m_reportParameters->pronunciationCount())+'\n');
 
     f.write(QByteArray::number(m_reportParameters->options())+'\n');
   }
@@ -629,6 +635,7 @@ void SamView::storeCorpusInformation(QFile &f, CorpusInformation* info)
   f.write(info->notes().replace('\n', "<%newline%>").toUtf8()+'\n');
   f.write(QByteArray::number(info->speakers())+'\n');
   f.write(QByteArray::number(info->samples())+'\n');
+  f.write(QByteArray::number(info->samplesTotal())+'\n');
 }
 
 void SamView::getBuildPathsFromSimon()
@@ -861,11 +868,23 @@ void SamView::slotModelAdaptionComplete()
   QString simpleVocab = modelCompilationAdapter->simpleVocabPath();
   QString prompts = modelCompilationAdapter->promptsPath();
 
-  if (!lexicon.isEmpty()) ui.urLexicon->setUrl(KUrl(lexicon));
+  if (!lexicon.isEmpty()) 
+  {
+    ui.urLexicon->setUrl(KUrl(lexicon));
+    
+    if (!m_reportParameters)
+      m_reportParameters = createEmptyReportParameters();
+    
+    m_reportParameters->setWordCount(modelCompilationAdapter->wordCount());
+    m_reportParameters->setPronunciationCount(modelCompilationAdapter->pronunciationCount());
+  }
   if (!grammar.isEmpty()) ui.urGrammar->setUrl(KUrl(grammar));
   if (!simpleVocab.isEmpty()) ui.urVocabulary->setUrl(KUrl(simpleVocab));
   if (!prompts.isEmpty()) {
     ui.urPrompts->setUrl(KUrl(prompts));
+    if (!m_creationCorpus)
+      m_creationCorpus = createEmptyCorpusInformation();
+    m_creationCorpus->setTotalSampleCount(modelCompilationAdapter->sampleCount());
     QFileInfo fi(prompts);
     QString path = fi.absolutePath();
     QString trainingDataPath = path+QDir::separator()+"training.data";
@@ -876,7 +895,6 @@ void SamView::slotModelAdaptionComplete()
     if (testConfigurations.isEmpty())
     {
       //automatically add appropriate test configuration
-
       QString testPromptsPathUsed;
       if (QFile::exists(promptsTestPath))
         testPromptsPathUsed = promptsTestPath;
@@ -896,7 +914,12 @@ CorpusInformation* SamView::createEmptyCorpusInformation()
 {
   return new CorpusInformation(i18nc("The tag name of an automatically added"
               " test set. The needed string really is please change this (for the user to change).",
-              "PLEASE_CHANGE_THIS"), QString(), 0, 0);
+              "PLEASE_CHANGE_THIS"), QString(), 0, 0, 0);
+}
+
+ReportParameters* SamView::createEmptyReportParameters()
+{
+  return new ReportParameters();
 }
 
 void SamView::slotModelAdaptionAborted()

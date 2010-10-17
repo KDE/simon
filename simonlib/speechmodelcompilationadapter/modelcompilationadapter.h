@@ -74,6 +74,10 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     QString simpleVocabPath() { return m_simpleVocabPathOut; }
     QString promptsPath() { return m_promptsPathOut; }
 
+    int wordCount() { return m_wordCount; }
+    int pronunciationCount() { return m_pronunciationCount; }
+    int sampleCount() { return m_sampleCount; }
+
     void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
     void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
 
@@ -84,6 +88,10 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     QStringList m_scenarioPathsIn;
     QString m_promptsPathIn;
     QString m_userName;
+
+    int m_wordCount;
+    int m_pronunciationCount;
+    int m_sampleCount;
 
     QStringList poisonedPhonemes;
 
