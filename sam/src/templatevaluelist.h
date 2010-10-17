@@ -21,21 +21,30 @@
 #define SIMON_TEMPLATEVALUELIST_H_4002119636CC42C68FE07273F9000A73
 
 #include <QString>
-#include <QList>
+#include <QStringList>
 #include <QHash>
+#include <QList>
 
 class TemplateValueList
 {
   private:
     QString m_id;
-    QList< QHash<QString,QString> > m_values;
+    QHash<QString,QString> m_values;
+    QList<TemplateValueList*> m_children;
+
   public:
     TemplateValueList(const QString& id);
 
     QString id() { return m_id; }
-    void add(QHash<QString,QString> value);
-    QHash<QString,QString> at(int i);
-    int count();
+
+    void add(const QString& key,const QString& value);
+    QHash<QString,QString> values();
+    
+    bool hasChildren() const;
+    void addChild(TemplateValueList* values);
+    QList<TemplateValueList*> children() const;
+
+    ~TemplateValueList();
 
 };
 

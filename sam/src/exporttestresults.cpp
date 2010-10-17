@@ -115,7 +115,12 @@ QHash<QString, QString> ExportTestResults::createTemplateValues()
   values.insert("grammarTag", ui.leGrammarTag->text());
   values.insert("grammarNotes", ui.teGrammarNotes->toPlainText());
 
-  //values.insert("wordCount", QString::number(m_testCorporaWidgets.count()));
+  int wordCount = ui.sbWordCount->value();
+  int pronunciationCount = ui.sbPronunciationCount->value();
+  int averagePronunciationsPerWord = ((float) wordCount) / ((float)pronunciationCount);
+  values.insert("wordCount", QString::number(wordCount));
+  values.insert("pronunciationCount", QString::number(pronunciationCount));
+  values.insert("averagePronunciationsPerWord", QString::number(averagePronunciationsPerWord, 'd', 2));
 
   values.insert("trainingsCorpusCount", QString::number(m_creationCorporaWidgets.count()));
   values.insert("testCorpusCount", QString::number(m_testCorporaWidgets.count()));
@@ -129,14 +134,22 @@ TemplateValueList* ExportTestResults::extractCorpusTemplateInformation(const QSt
   {
     QHash<QString,QString> values;
     CorpusInformation *info = w->information();
-    values.insert("corpusTag", info->tag());
-    values.insert("corpusNotes", info->notes());
-    values.insert("corpusSpeakers", QString::number(info->speakers()));
-    values.insert("corpusSamples", QString::number(info->samples()));
-    l->add(values);
+    TemplateValueList *thisList = new TemplateValueList(info->tag());
+    thisList->add("corpusTag", info->tag());
+    thisList->add("corpusNotes", info->notes());
+    thisList->add("corpusSpeakers", QString::number(info->speakers()));
+    thisList->add("corpusSamples", QString::number(info->samples()));
+    thisList->add("corpusSamplesPerSpeaker", QString::number(((float) info->samples()) / 
+          ((float) info->speakers()), 'd', 2));
+    l->addChild(thisList);
   }
 
   return l;
+}
+
+QString ExportTestResults::printPercentage(float rate)
+{
+  return QString::number(rate*100.0, 'd', 2);
 }
 
 QList<TemplateValueList*> ExportTestResults::createTemplateValueLists()
@@ -145,6 +158,19 @@ QList<TemplateValueList*> ExportTestResults::createTemplateValueLists()
 
   list << extractCorpusTemplateInformation("trainingCorpora", m_creationCorporaWidgets);
   list << extractCorpusTemplateInformation("testCorpora", m_testCorporaWidgets);
+
+  TemplateValueList *testResultsT = new TemplateValueList("testResults");
+  foreach (TestResultWidget *result, testResults)
+  {
+    TemplateValueList *testResultT = new TemplateValueList("testResult");
+    testResultT->add("testResultTag", result->getTag());
+    testResultT->add("corpusTag", result->getTag()); // alias for continuity
+    testResultT->add("testResultAccuracy", printPercentage(result->getAccuracy()));
+    testResultT->add("testResultWER", printPercentage(result->getWordErrorRate()));
+    testResultT->add("testResultConfidence", printPercentage(result->getConfidence()));
+    testResultsT->addChild(testResultT);
+  }
+  list << testResultsT;
 
   return list;
 }
@@ -179,9 +205,8 @@ void ExportTestResults::createReport()
   if (!outputFile.isEmpty())
   {
     saveCorporaInformation();
-    if (!engine->parse(templateData, createTemplateValues(),  createTemplateValueLists(),
-          ui.cbTables->isChecked(), ui.cbGraphs->isChecked(), /*m_creationCorporaWidgets, m_testCorporaWidgets,
-          m_testResults,*/ outputFile))
+    if (!engine->parse(templateData, createTemplateValues(), createTemplateValueLists(),
+          ui.cbGraphs->isChecked(), ui.cbTables->isChecked(), outputFile))
       KMessageBox::sorry(this, i18n("Failed to parse template: %1", engine->lastError()));
   }
    

@@ -59,6 +59,8 @@ class ExportTestResults : public KDialog
     void displayCorpora(KTabWidget* tableWidget, QList<CorpusInformationWidget*>& list,
         const QList<CorpusInformation*>& corpora);
 
+    QString printPercentage(float rate);
+
   private slots:
     void initSystemDefinition();
 

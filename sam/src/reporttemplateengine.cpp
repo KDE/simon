@@ -49,11 +49,11 @@ QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& tem
   return output;
 }
 
-bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArray& id, 
-    QByteArray& pre, QByteArray& part, QByteArray& post)
+bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArray& id, const QByteArray& conditionStartPrefix,
+            const QByteArray& conditionEndPrefix, QByteArray& pre, QByteArray& part, QByteArray& post)
 {
-  QByteArray beginTag = "$BEGIN_"+id+"$";
-  QByteArray endTag = "$END_"+id+"$";
+  QByteArray beginTag = "$"+conditionStartPrefix+"_"+id+"$";
+  QByteArray endTag = "$"+conditionEndPrefix+"_"+id+"$";
   int startIndex = input.indexOf(beginTag);
   int endIndex = input.indexOf(endTag, startIndex);
   //kDebug() << "Looking for " << beginTag << endTag << " in " << input << startIndex << endIndex;
@@ -66,27 +66,52 @@ bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArr
   return true;
 }
 
+
+QByteArray ReportTemplateEngine::replaceTemplateList(const QByteArray& templateData, TemplateValueList* templateValues)
+{
+  QByteArray output = templateData;
+  if (templateValues->hasChildren())
+  {
+    QByteArray pre, part, post; 
+    while (splitTemplate(output, templateValues->id().toUtf8(), "BEGIN", "END", pre, part, post))
+    {
+      output = pre;
+      foreach (TemplateValueList* child, templateValues->children())
+        output += replaceTemplateList(part, child);
+      output += post;
+    }
+  }
+  output = replaceTemplateParameters(output, templateValues->values());
+  return output;
+}
+
 QByteArray ReportTemplateEngine::replaceTemplateLists(const QByteArray& templateData, QList<TemplateValueList*> templateValues)
 {
   QByteArray output = templateData;
 
-  int c = 0;
   foreach (TemplateValueList* value, templateValues)
+    output = replaceTemplateList(output, value);
+  return output;
+}
+
+QByteArray ReportTemplateEngine::parseIf(const QByteArray& templateData, const QString& condition, bool value)
+{
+  QByteArray output = templateData;
+
+  if (value)
   {
-    QByteArray pre, part, post; 
-    while ((c < 3) && (splitTemplate(output, value->id().toUtf8(), pre, part, post)))
-    {
-      output = pre;
-      for (int i=0; i < value->count(); i++)
-      {
-        QHash<QString,QString> tValues = value->at(i);
-        part = replaceTemplateParameters(part, tValues);
-        output += part;
-      }
-      output += post;
-      c++;
-    }
+    output.replace("$IF_"+condition+"$", "");
+    output.replace("$ENDIF_"+condition+"$", "");
+  } else {
+    //remove block
+    QByteArray pre;
+    QByteArray conditional;
+    QByteArray post;
+
+    while (splitTemplate(output, condition.toUtf8(), "IF", "ENDIF", pre, conditional, post))
+      output = pre+post;
   }
+
   return output;
 }
 
@@ -133,6 +158,8 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
   output = replaceTemplateParameters(templateData, templateValues);
   output = replaceTemplateLists(output, templateValueLists);
 
+  output = parseIf(output, "graphs", useGraphs);
+  output = parseIf(output, "tables", useTables);
   if (useGraphs)
   {
     kDebug() << "Creating graphs...";

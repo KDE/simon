@@ -23,19 +23,33 @@ TemplateValueList::TemplateValueList(const QString& id) : m_id(id)
 {
 }
 
-void TemplateValueList::add(QHash<QString,QString> value)
+void TemplateValueList::add(const QString& key,const QString& value)
 {
-  m_values << value;
+  m_values.insert(key, value);
 }
 
-QHash<QString,QString> TemplateValueList::at(int i)
+QHash<QString,QString> TemplateValueList::values()
 {
-  return m_values[i];
+  return m_values;
 }
 
-int TemplateValueList::count()
+bool TemplateValueList::hasChildren() const
 {
-  return m_values.count();
+  return !m_children.isEmpty();
 }
 
+void TemplateValueList::addChild(TemplateValueList* value)
+{
+  m_children << value;
+}
+
+QList<TemplateValueList*> TemplateValueList::children() const
+{
+  return m_children;
+}
+
+TemplateValueList::~TemplateValueList()
+{
+  qDeleteAll(m_children);
+}
 

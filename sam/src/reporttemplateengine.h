@@ -32,8 +32,11 @@ class ReportTemplateEngine
     virtual QByteArray lineBreak();
     virtual QByteArray replaceTemplateParameters(const QByteArray& templateData, QHash<QString, QString> templateValues);
     virtual QByteArray replaceTemplateLists(const QByteArray& templateData, QList<TemplateValueList*> templateValues);
+    virtual QByteArray replaceTemplateList(const QByteArray& templateData, TemplateValueList* templateValues);
+    virtual QByteArray parseIf(const QByteArray& templateData, const QString& condition, bool value);
 
-    virtual bool splitTemplate(const QByteArray& input, const QByteArray& id, QByteArray& pre, QByteArray& part, QByteArray& post);
+    virtual bool splitTemplate(const QByteArray& input, const QByteArray& id, const QByteArray& conditionStartPrefix,
+        const QByteArray& conditionEndPrefix, QByteArray& pre, QByteArray& part, QByteArray& post);
 
     QString tempDir();
     bool cleanTempDir();

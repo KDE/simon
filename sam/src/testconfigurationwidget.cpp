@@ -63,12 +63,12 @@ void TestConfigurationWidget::setupUi()
 
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteLater()));
   connect(ui.leTag, SIGNAL(editingFinished()), this, SIGNAL(tagChanged()));
-  connect(ui.leTag, SIGNAL(editingFinished()), this, SLOT(updateTag()));
+  connect(ui.leTag, SIGNAL(textChanged(const QString&)), this, SLOT(updateTag(const QString&)));
 }
 
-void TestConfigurationWidget::updateTag()
+void TestConfigurationWidget::updateTag(const QString& tag)
 {
-  m_corpusInfo->setTag(ui.leTag->text());
+  m_corpusInfo->setTag(tag);
 }
 
 void TestConfigurationWidget::retrieveTag()

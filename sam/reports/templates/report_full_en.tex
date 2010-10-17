@@ -65,6 +65,7 @@ LATEX
 $taskDefinition$
 
 \section{Setup}
+\label{sec:Setup}
 
 This section explains the test configuration in detail.
 
@@ -78,6 +79,8 @@ $systemDefinition$
 \subsection{Vocabulary}
 
 Internal vocabulary identification: $vocabularyTag$.
+
+This vocabulary consists of $wordCount$ words and a total of $pronunciationCount$ pronunciations (on average, $averagePronunciationsPerWord$ pronunciations per entry).
 
 $vocabularyNotes$
 
@@ -96,11 +99,12 @@ $BEGIN_trainingCorpora$
 
 $corpusNotes$
 
-This corpus consists of $corpusTotalSamples$ recordings from $corpusSpeakers$ speakers (.
+This corpus consists of $corpusSamples$ recordings from $corpusSpeakers$ speaker(s) (on average, $corpusSamplesPerSpeaker$ samples per speaker).
 
 $END_trainingCorpora$
 
 \section{Test}
+\label{sec:Test}
 
 This section will describe the test configuration. For more information about the used software, please refer to section \ref{sec:System}.
 
@@ -113,6 +117,7 @@ $experimentDescription$
 This experiment was conducted on $experimentDate$.
 
 \subsection{Testsets}
+\label{sec:Testsets}
 
 This model uses $testCorpusCount$ test corpora.
 
@@ -121,12 +126,37 @@ $BEGIN_testCorpora$
 
 $corpusNotes$
 
-This corpus consists of $corpusSamples$ recordings from $corpusSpeakers$ speakers.
+This corpus consists of $corpusSamples$ recordings from $corpusSpeakers$ speaker(s) (on average, $corpusSamplesPerSpeaker$ samples per speaker).
 
 $END_testCorpora$
 
 
-\section{Conclusion}
+\section{Results}
+
+The following section will present the achieved results by testing the setup described in \ref{sec:Setup} with the test configuration detailed in \ref{sec:Test}.
+
+\subsection{Overview}
+
+$IF_graphs$
+Here is a big ass graph.
+$ENDIF_graphs$
+
+$IF_tables$
+Here goes a big ass table.
+$ENDIF_tables$
+
+\subsection{Detailed results}
+
+$BEGIN_testResults$
+\subsubsection{$testResultTag$}
+
+The test set ``$testResultTag$'' achieved an overall accuracy rating of $testResultAccuracy$ \%. The word error rate was calculated to be $testResultWER$ \% and the recognizer reported a confidence rating of $testResultConfidence$ \%.
+
+For more information about the used corpus for this test please see \ref{sec:Testsets}.
+$END_testResults$
+
+
+\subsection{Conclusion}
 $conclusion$
 
 \end{multicols}

@@ -37,7 +37,7 @@ class TestConfigurationWidget : public QFrame
     void setupUi();
   private slots:
     void remove();
-    void updateTag();
+    void updateTag(const QString&);
 
   public slots:
     void retrieveTag();
