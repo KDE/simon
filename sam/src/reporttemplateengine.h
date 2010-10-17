@@ -30,6 +30,7 @@ class ReportTemplateEngine
     QString m_lastError;
 
     virtual QByteArray lineBreak();
+    virtual QByteArray escape(const QByteArray& in, bool extraSafety);
     virtual QByteArray replaceTemplateParameters(const QByteArray& templateData, QHash<QString, QString> templateValues);
     virtual QByteArray replaceTemplateLists(const QByteArray& templateData, QList<TemplateValueList*> templateValues);
     virtual QByteArray replaceTemplateList(const QByteArray& templateData, TemplateValueList* templateValues);

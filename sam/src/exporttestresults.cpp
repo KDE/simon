@@ -168,6 +168,12 @@ QList<TemplateValueList*> ExportTestResults::createTemplateValueLists()
     testResultT->add("testResultAccuracy", printPercentage(result->getAccuracy()));
     testResultT->add("testResultWER", printPercentage(result->getWordErrorRate()));
     testResultT->add("testResultConfidence", printPercentage(result->getConfidence()));
+
+    testResultT->add("testResultSubstitutionErrors", QString::number(result->getSubstitutionErrors()));
+    testResultT->add("testResultInsertionErrors", QString::number(result->getInsertionErrors()));
+    testResultT->add("testResultDeletionErrors", QString::number(result->getDeletionErrors()));
+    testResultT->add("testResultSentenceCount", QString::number(result->getSentenceCount()));
+
     testResultsT->addChild(testResultT);
   }
   list << testResultsT;

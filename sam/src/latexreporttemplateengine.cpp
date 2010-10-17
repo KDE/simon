@@ -20,6 +20,25 @@
 #include "latexreporttemplateengine.h"
 #include <KLocale>
 
+QByteArray LatexReportTemplateEngine::lineBreak()
+{
+  return "\\\\\n";
+}
+
+QByteArray LatexReportTemplateEngine::escape(const QByteArray& in, bool extraSafety)
+{
+  QByteArray out = in;
+  out = out.replace("%", "\\%");
+
+  if (extraSafety)
+    out = out.replace("_", "-");
+  else
+    out = out.replace("_", "\\_");
+
+  return ReportTemplateEngine::escape(out, extraSafety);
+}
+
+
 QString LatexReportTemplateEngine::fileType()
 {
   return i18n("LaTeX files *.tex");

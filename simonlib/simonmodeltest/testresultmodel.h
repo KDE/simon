@@ -39,15 +39,16 @@ class MODELTEST_EXPORT TestResultModel : public QAbstractItemModel
     QVariant headerData(int, Qt::Orientation orientation,
       int role = Qt::DisplayRole) const;
     QModelIndex parent(const QModelIndex &index) const;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
   public:
     TestResultModel(QObject *parent=0);
     void setResults(QList<TestResult*>& results);
     void clear();
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 };
 

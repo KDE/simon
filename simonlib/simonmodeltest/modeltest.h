@@ -49,7 +49,6 @@ class TestResultLeaf;
 class TestResultModel;
 class FileResultModel;
 
-typedef QList<float> FloatList;
 
 class MODELTEST_EXPORT ModelTest : public QThread
 {
@@ -112,6 +111,15 @@ class MODELTEST_EXPORT ModelTest : public QThread
     bool analyzeResults();
     void emitError(const QString& message);
 
+    int aggregateLeafDetail(
+        bool (TestResultLeaf::*function)(void)const) const;
+
+    template<typename T>
+    T aggregateLeafDetail(
+        T (TestResultLeaf::*function)(void)const,
+        bool onlyCorrect, bool average) const;
+
+
   private slots:
     void addStatusToLog(const QString&);
     void addRecognitionInfoToLog(const QString&);
@@ -149,6 +157,11 @@ class MODELTEST_EXPORT ModelTest : public QThread
     float getOverallConfidence();
     float getOverallAccuracy();
     float getOverallWER();
+
+    int getSubstitutionErrors();
+    int getInsertionErrors();
+    int getDeletionErrors();
+    int getSentenceCount();
 
     void deleteAllResults();
 

@@ -123,6 +123,7 @@ This model uses $testCorpusCount$ test corpora.
 
 $BEGIN_testCorpora$
 \subsubsection{$corpusTag$}
+\label{sec:$SAVE_corpusTag$}
 
 $corpusNotes$
 
@@ -137,12 +138,31 @@ The following section will present the achieved results by testing the setup des
 
 \subsection{Overview}
 
+This section gives a brief overview of the received results.
+
 $IF_graphs$
 Here is a big ass graph.
 $ENDIF_graphs$
 
 $IF_tables$
-Here goes a big ass table.
+Table \ref{fig:TableOverview} provides a tabular overview of the results.
+
+\begin{center}
+\begin{figure*}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+{\bf Tag} & {\bf WER} & {\bf Acc} & {\bf SUB} & {\bf INS} & {\bf DEL} & {\bf Sentences} \\
+& [\%] & [\%] & [1] & [1] & [1] & [1] \\
+\hline
+$BEGIN_testResults$
+$testResultTag$ & $testResultWER$ & $testResultAccuracy$ & $testResultSubstitutionErrors$ & $testResultInsertionErrors$ & $testResultDeletionErrors$ & $testResultSentenceCount$ \\
+\hline
+$END_testResults$
+\end{tabular}
+\caption{Recognition results: Tabular overview}
+\label{fig:TableOverview} 
+\end{figure*}
+\end{center}
 $ENDIF_tables$
 
 \subsection{Detailed results}
@@ -150,9 +170,9 @@ $ENDIF_tables$
 $BEGIN_testResults$
 \subsubsection{$testResultTag$}
 
-The test set ``$testResultTag$'' achieved an overall accuracy rating of $testResultAccuracy$ \%. The word error rate was calculated to be $testResultWER$ \% and the recognizer reported a confidence rating of $testResultConfidence$ \%.
+The test set ``$testResultTag$'' achieved an overall accuracy rating of $testResultAccuracy$~\%. The word error rate was calculated to be $testResultWER$~\% and the recognizer reported a confidence rating of $testResultConfidence$~\%.
 
-For more information about the used corpus for this test please see \ref{sec:Testsets}.
+For more information about the used corpus for this test please see \ref{sec:$SAVE_corpusTag$}.
 $END_testResults$
 
 

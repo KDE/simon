@@ -72,15 +72,16 @@ class TestResultWidget : public QWidget
 
     TestState getState() { return currentState; }
 
-    int getTrainingSampleCount();
-    int getDevelopmentSampleCount();
-    int getTestSampleCount();
-
     QString getTag();
 
     float getAccuracy();
     float getWordErrorRate();
     float getConfidence();
+
+    int getSubstitutionErrors();
+    int getInsertionErrors();
+    int getDeletionErrors();
+    int getSentenceCount();
 
     void schedule();
     TestConfigurationWidget* getConfiguration() { return config; }

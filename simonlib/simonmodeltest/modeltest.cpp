@@ -747,33 +747,64 @@ FileResultModel* ModelTest::recognizerResultsModel()
   return m_recognizerResultsModel;
 }
 
+int ModelTest::aggregateLeafDetail(bool(TestResultLeaf::*function)(void)const) const
+{
+  int out = 0;
+  foreach (TestResultLeaf *leaf, resultLeafes)
+    if ((leaf->*function)())
+      ++out;
+
+  return out;
+}
+
+template <typename T>
+T ModelTest::aggregateLeafDetail(T(TestResultLeaf::*function)(void)const, bool onlyCorrect, bool average) const
+{
+  T out = 0;
+  foreach (TestResultLeaf *leaf, resultLeafes)
+    if (!onlyCorrect || leaf->correct())
+      out += (leaf->*function)();
+
+  if (average)
+    out /= (T) resultLeafes.count();
+  return out;
+}
+
 float ModelTest::getOverallConfidence()
 {
-  float overallConfidence = 0;
-  foreach (TestResultLeaf *leaf, resultLeafes)
-    if (leaf->correct())
-      overallConfidence += leaf->confidence();
-
-  overallConfidence /= (float) resultLeafes.count();
+  float overallConfidence = aggregateLeafDetail<float>(&TestResultLeaf::confidence, 
+      true /* only correct */, true /*average*/);
   return overallConfidence;
 }
 
 float ModelTest::getOverallAccuracy()
 {
-  float overallAccuracy = 0;
-  foreach (TestResultLeaf *leaf, resultLeafes)
-    overallAccuracy += leaf->accuracy();
-  overallAccuracy /= (float) resultLeafes.count();
-  return overallAccuracy;
+  return aggregateLeafDetail<float>(&TestResultLeaf::accuracy, false /* only correct*/, true /*avg*/);
 }
 
 float ModelTest::getOverallWER()
 {
-  float overallWER = 0;
-  foreach (TestResultLeaf *leaf, resultLeafes)
-    overallWER += leaf->wordErrorRate();
-  overallWER /= (float) resultLeafes.count();
-  return overallWER;
+  return aggregateLeafDetail<float>(&TestResultLeaf::wordErrorRateF, false /* only correct*/, true /*avg*/);
+}
+
+int ModelTest::getSubstitutionErrors()
+{
+  return aggregateLeafDetail(&TestResultLeaf::substitutionError);
+}
+
+int ModelTest::getInsertionErrors()
+{
+  return aggregateLeafDetail(&TestResultLeaf::insertionError);
+}
+
+int ModelTest::getDeletionErrors()
+{
+  return aggregateLeafDetail(&TestResultLeaf::deletionError);
+}
+
+int ModelTest::getSentenceCount()
+{
+  return m_sentenceResultsModel->rowCount();
 }
 
 int ModelTest::getTotalSampleCount()

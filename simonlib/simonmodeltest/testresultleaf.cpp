@@ -51,6 +51,11 @@ bool TestResultLeaf::correct()
   return !m_deletionError && !m_substitutionError && !m_insertionError;
 }
 
+float TestResultLeaf::wordErrorRateF() const
+{
+  return wordErrorRate();
+}
+
 int TestResultLeaf::wordErrorRate() const
 {
   int errorRate = 0;

@@ -24,6 +24,9 @@
 class LatexReportTemplateEngine : public ReportTemplateEngine
 {
 
+  private:
+    QByteArray lineBreak();
+    QByteArray escape(const QByteArray& in, bool extraSafety);
   public:
     QString fileType();
 };

@@ -43,6 +43,7 @@ class MODELTEST_EXPORT TestResultLeaf
     void setDeletionError(bool f);
 
     int wordErrorRate() const;
+    float wordErrorRateF() const;
     bool correct();
     bool insertionError() const { return m_insertionError; }
     bool substitutionError() const { return m_substitutionError; }

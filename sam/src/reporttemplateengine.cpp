@@ -34,6 +34,14 @@ QByteArray ReportTemplateEngine::lineBreak()
   return "\n";
 }
 
+QByteArray ReportTemplateEngine::escape(const QByteArray& in, bool extraSafety)
+{
+  Q_UNUSED(extraSafety);
+  QByteArray out = in;
+  out = out.replace("\n", lineBreak());
+  return in;
+}
+
 QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& templateData, QHash<QString, QString> templateValues)
 {
   QHash<QString, QString>::const_iterator i = templateValues.constBegin();
@@ -43,7 +51,8 @@ QByteArray ReportTemplateEngine::replaceTemplateParameters(const QByteArray& tem
 
   while (i != end)
   {
-    output = output.replace(QByteArray("$").append(i.key()).append("$"), i.value().toUtf8());
+    output = output.replace(QByteArray("$").append(i.key()).append("$"), escape(i.value().toUtf8(), false));
+    output = output.replace(QByteArray("$SAVE_").append(i.key()).append("$"), escape(i.value().toUtf8(), true));
     i++;
   }
   return output;
@@ -56,13 +65,11 @@ bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArr
   QByteArray endTag = "$"+conditionEndPrefix+"_"+id+"$";
   int startIndex = input.indexOf(beginTag);
   int endIndex = input.indexOf(endTag, startIndex);
-  //kDebug() << "Looking for " << beginTag << endTag << " in " << input << startIndex << endIndex;
   if ((startIndex == -1) || (endIndex == -1))
     return false;
   pre = input.left(startIndex);
   part = input.mid(startIndex + beginTag.count(), endIndex-startIndex-beginTag.count());
   post = input.mid(endIndex+endTag.count());
-  kDebug() << "Part: " << part;
   return true;
 }
 
@@ -163,10 +170,6 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
   if (useGraphs)
   {
     kDebug() << "Creating graphs...";
-  }
-  if (useTables)
-  {
-    kDebug() << "Creating tables...";
   }
 
   if (!storeFile(output, outputFilename))

@@ -252,22 +252,6 @@ void TestResultWidget::analyzeTestOutput()
 }
 
 
-//TODO
-int TestResultWidget::getTrainingSampleCount()
-{
-  return 7;
-}
-
-int TestResultWidget::getDevelopmentSampleCount()
-{
-  return 8;
-}
-
-int TestResultWidget::getTestSampleCount()
-{
-  return 9;
-}
-
 QString TestResultWidget::getTag()
 {
   return config->tag();
@@ -288,11 +272,30 @@ float TestResultWidget::getConfidence()
   return modelTest->getOverallConfidence();
 }
 
+int TestResultWidget::getSubstitutionErrors()
+{
+  return modelTest->getSubstitutionErrors();
+}
+
+int TestResultWidget::getInsertionErrors()
+{
+  return modelTest->getInsertionErrors();
+}
+
+int TestResultWidget::getDeletionErrors()
+{
+  return modelTest->getDeletionErrors();
+}
+
+int TestResultWidget::getSentenceCount()
+{
+  return modelTest->getSentenceCount();
+}
+
 void TestResultWidget::schedule()
 {
   currentState = TestResultWidget::Waiting;
 }
-
 
 TestResultWidget::~TestResultWidget()
 {
