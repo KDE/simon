@@ -105,9 +105,11 @@ QByteArray ModelCompilationAdapterHTK::htkify(const QByteArray& in)
 
 
 bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionType adaptionType,
-const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
-const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
+    const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
+    const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
+  kDebug() << adaptionType << lexiconPathOut << simpleVocabPathOut << grammar << promptsPathIn << 
+    /*vocab->count() << grammar->count() <<*/ promptsPathIn;
   ///// Prompts ///////////
   QStringList trainedVocabulary;                  // words where prompts exist
   QStringList definedVocabulary;                  // words that are in the dictionary
@@ -182,10 +184,13 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
   bool sentWritten = false;
   m_pronunciationCount = 0;
   QList<Word*> words = vocab->getWords();
+  kDebug() << "Word count: " << words;
   QString htkIfiedWord;
   foreach (Word *w, words) {
     if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
-    !trainedVocabulary.contains(w->getLexiconWord())) {
+        !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&
+          !trainedVocabulary.contains(w->getLexiconWord())) {
+      kDebug() << "Skipping word " << w->getLexiconWord();
       continue;
     }
     htkIfiedWord = htkify(w->getLexiconWord());
@@ -240,7 +245,9 @@ const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QStrin
           hasAssociatedWord = true;
         else vocab->removeWord(w, true /* delete word*/);
       }
-      if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) && !hasAssociatedWord) {
+      if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) 
+          && !(adaptionType & ModelCompilationAdapter::AdaptIndependently)
+          && !hasAssociatedWord) {
         kDebug() << "Terminal has no associated words: " << terminal;
         grammarTerminals.removeAll(terminal);
 

@@ -48,8 +48,10 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
   public:
     enum AdaptionType
     {
+      None=0,
       AdaptLanguageModel=1,
-      AdaptAcousticModel=2
+      AdaptAcousticModel=2,
+      AdaptIndependently=4
     };
 
     virtual int maxProgress();

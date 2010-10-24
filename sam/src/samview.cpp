@@ -655,6 +655,7 @@ void SamView::getBuildPathsFromSimon()
   int sampleRate = group.readEntry("ModelSampleRate", "16000").toInt();
 
   int modelType = group.readEntry("ModelType", 2);
+  kDebug() << "Model type: " << modelType;
   switch (modelType) {
     case 0:
       //static model
@@ -695,20 +696,25 @@ void SamView::getBuildPathsFromSimon()
 
   //can not use the methods serializeScenariosRun and serializePromptsRun,
   //because this would make two calls to the model adaption manager
-  //who, instead of cueuing would abort the first job in order to work on the second one
+  //who, instead of queuing would abort the first job in order to work on the second one
   //this makes a lot of sense when seen in the context of simon / simond
   //
   //Moreover this way the model compilation adapter knows what we want to do and will
   //take several corner cases into account as well as streamline the model with the
   //information he can extract from the input files
 
+  ModelCompilationAdapter::AdaptionType adaptionType = ModelCompilationAdapter::None;
+  if (modelType == 0 /*static*/)
+    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
+        ModelCompilationAdapter::AdaptAcousticModel | ModelCompilationAdapter::AdaptIndependently);
+  else
+    adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
+        ModelCompilationAdapter::AdaptAcousticModel);
+
   QStringList scenarioPaths = findScenarios(scenarioIds);
   modelCompilationAdapter->startAdaption(
-    (ModelCompilationAdapter::AdaptionType)
-    (ModelCompilationAdapter::AdaptLanguageModel | ModelCompilationAdapter::AdaptAcousticModel),
-    path+"lexicon", path+"model.grammar",
-    path+"simple.voca", path+"samprompts",
-    scenarioPaths, path+"prompts");
+    adaptionType, path+"lexicon", path+"model.grammar",
+    path+"simple.voca", path+"samprompts", scenarioPaths, path+"prompts");
 }
 
 
