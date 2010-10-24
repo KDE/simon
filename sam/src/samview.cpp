@@ -167,10 +167,32 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   connect(ui.pbCancelBuildModel, SIGNAL(clicked()), this, SLOT(abortModelCompilation()));
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
+  connect(ui.pbSaveCompleteBuildlog, SIGNAL(clicked()), this, SLOT(storeBuildLog()));
 
   QString loadPath = KCmdLineArgs::parsedArgs()->getOption("l");
   if (!loadPath.isEmpty())
     load(loadPath);
+}
+
+void SamView::storeBuildLog()
+{
+  if (!modelCompilationManager->hasBuildLog())
+  {
+    KMessageBox::sorry(this, i18n("No current log."));
+    return;
+  }
+
+  QString buildLog = modelCompilationManager->getGraphicBuildLog();
+
+  QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("HTML files *.html"), this);
+  if (filename.isEmpty()) return;
+  QFile f(filename);
+  if (!f.open(QIODevice::WriteOnly))
+  {
+    KMessageBox::sorry(this, i18n("Could not open output file %1.", filename));
+    return;
+  }
+  f.write(buildLog.toUtf8());
 }
 
 void SamView::addTestConfiguration()
@@ -394,7 +416,7 @@ void SamView::newProject()
   ui.urBaseStats->clear();
 
   ui.twMain->setCurrentIndex(0);
-  ui.teBuildLog->clear();
+  clearBuildLog();
   clearTest();
   ui.teAdaptLog->clear();
 }
@@ -640,6 +662,7 @@ void SamView::storeCorpusInformation(QFile &f, CorpusInformation* info)
 
 void SamView::getBuildPathsFromSimon()
 {
+  clearBuildLog();
   ui.urHmmDefs->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/hmmdefs")));
   ui.urTiedlist->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/tiedlist")));
   ui.urDict->setUrl(KUrl(KStandardDirs::locateLocal("data", "simon/model/model.dict")));
@@ -655,7 +678,6 @@ void SamView::getBuildPathsFromSimon()
   int sampleRate = group.readEntry("ModelSampleRate", "16000").toInt();
 
   int modelType = group.readEntry("ModelType", 2);
-  kDebug() << "Model type: " << modelType;
   switch (modelType) {
     case 0:
       //static model
@@ -744,7 +766,7 @@ void SamView::serializePrompts()
 void SamView::switchToAdapt()
 {
   ui.twMain->setCurrentIndex(1);
-  ui.teBuildLog->clear();
+  clearBuildLog();
   ui.pbAdaptProgress->setValue(0);
 }
 
@@ -807,7 +829,7 @@ void SamView::compileModel()
 {
   ui.twMain->setCurrentIndex(2);
 
-  ui.teBuildLog->clear();
+  clearBuildLog();
 
   int modelType = getModelType();
 
@@ -984,10 +1006,24 @@ void SamView::slotModelCompilationPhonemeUndefined(const QString& undefinedPhone
 }
 
 
-void SamView::retrieveCompleteBuildLog()
+void SamView::clearBuildLog()
 {
   ui.teBuildLog->clear();
-  ui.teBuildLog->append(modelCompilationManager->getGraphicBuildLog());
+}
+
+void SamView::retrieveCompleteBuildLog()
+{
+  QString graphicBuildLog = modelCompilationManager->getGraphicBuildLog();
+
+  if (graphicBuildLog.size() > 300000) // ~ 300kb
+  {
+    //too big to display nicely
+    ui.teBuildLog->append(i18n("Build log too big to display. Please use the button below to store it to a local file."));
+  } else
+  {
+    ui.teBuildLog->clear();
+    ui.teBuildLog->append(graphicBuildLog);
+  }
 }
 
 

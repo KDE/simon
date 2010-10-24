@@ -134,7 +134,10 @@ void SimonControl::slotRecognitionError(const QString &err, const QString& log)
 
 void SimonControl::slotCompilationError(const QString &err, const QString& protocol)
 {
-  KMessageBox::detailedError(0, i18n("As the server compiled the model the following error occurred:\n%1", err), protocol);
+  //only display the last ~300kb; The HTML renderer copes fine with broken html so this is
+  //far better than to bring the whole app to its knees just to display the detailed error message.
+  QString shortProtocol = protocol.right(300000);
+  KMessageBox::detailedError(0, i18n("As the server compiled the model the following error occurred:\n%1", err), shortProtocol);
 }
 
 

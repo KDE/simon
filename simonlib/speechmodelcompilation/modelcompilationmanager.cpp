@@ -206,7 +206,7 @@ QString ModelCompilationManager::getBuildLog()
 {
   QString plainLog = QString::fromLocal8Bit(buildLog);
   plainLog.remove("<p>");
-  plainLog.remove("</p>");
+  plainLog.replace("</p>", "\n\n");
   plainLog.remove("<span style=\"color:#aa0000;\">");
   plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
   plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");

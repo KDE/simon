@@ -108,8 +108,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     const QString& lexiconPathOut, const QString& simpleVocabPathOut, const QString& grammarPathOut,
     const QString& promptsPathOut, Vocabulary* vocab, Grammar *grammar, const QString& promptsPathIn)
 {
-  kDebug() << adaptionType << lexiconPathOut << simpleVocabPathOut << grammar << promptsPathIn << 
-    /*vocab->count() << grammar->count() <<*/ promptsPathIn;
   ///// Prompts ///////////
   QStringList trainedVocabulary;                  // words where prompts exist
   QStringList definedVocabulary;                  // words that are in the dictionary

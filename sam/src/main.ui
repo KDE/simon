@@ -509,6 +509,16 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="KPushButton" name="pbSaveCompleteBuildlog">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Save complete buildlog (HTML)</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
@@ -648,11 +658,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QwtPlot</class>
-   <extends>QFrame</extends>
-   <header>qwt_plot.h</header>
-  </customwidget>
-  <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
@@ -672,6 +677,12 @@
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

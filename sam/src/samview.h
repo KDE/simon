@@ -82,7 +82,9 @@ class SamView :  public KXmlGuiWindow
 
     void testModel();
 
+    void clearBuildLog();
     void retrieveCompleteBuildLog();
+    void storeBuildLog();
 
     QString getTargetDirectory();
     void switchToAdapt();
