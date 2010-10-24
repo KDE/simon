@@ -36,7 +36,6 @@ class ImportTrainingData : public QThread
   void status(QString);
   private:
     PostProcessing *pp;
-    bool stopRequest;
     QString directory, promptsPath, basePath;
     bool isPrompts;
     int prog;
@@ -55,7 +54,6 @@ class ImportTrainingData : public QThread
     ImportTrainingData(QObject* parent);
 
     bool import(bool isPrompts, QString path, QString basePath);
-    void terminate();
 
     ~ImportTrainingData();
 

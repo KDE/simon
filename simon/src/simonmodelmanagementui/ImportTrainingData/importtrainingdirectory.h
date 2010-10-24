@@ -30,18 +30,6 @@ class ImportTrainingDirectoryWorkingPage;
   \class ImportTrainingDirectory
   \author Peter Grasch
   \brief The wizard to import a training-directory
-
-  The wizard is there to migrated tagged-audio-data into the language
-  model.
-  It does that using the filename to determine what the user said;
-  e.g.: this_is_a_test.wav
-  would be the line: *\/this_is_a_test.wav THIS IS A TEST
-  in the prompts file and so on.
-
-The wizard walks the directory recursive;
-
-Extends QWizard;
-
 */
 class ImportTrainingDirectory : public SimonWizard
 {

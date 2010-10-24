@@ -287,7 +287,6 @@ void ImportTrainingData::terminate()
 {
   stopRequest = true;
   QThread::terminate();
-  wait();
 }
 
 ImportTrainingData::~ImportTrainingData()
