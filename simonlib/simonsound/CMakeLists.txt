@@ -2,7 +2,9 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
+find_package(QtMobility REQUIRED)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
+${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -89,7 +91,7 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
 target_link_libraries( simonsound ${QT_LIBRARIES}
-	${QT_QTMULTIMEDIA_LIBRARY} 
+	${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY}
 		${KDE4_KDEUI_LIBS} simonwav)
 
 

@@ -841,9 +841,6 @@ bool ModelCompilationManager::shouldIncreaseMixtures()
     if (doesIncreaseMixtures(config))
       return true;
   return false;
-  //return doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm1.hed")) ||
-          //doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm2.hed")) ||
-          //doesIncreaseMixtures(KStandardDirs::locate("data", "simon/scripts/gmm3.hed"));
 }
 
 bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
@@ -862,6 +859,7 @@ bool ModelCompilationManager::doesIncreaseMixtures(const QString& script)
     bool ok = true;
     int newCount = number.toInt(&ok);
     if (!ok) return false;
+    kDebug() << number << ok << newCount << script;
 
     return ok && (newCount > 0);
   }
@@ -880,16 +878,12 @@ bool ModelCompilationManager::increaseMixtures()
   //if we don't want to increase mixtures, the mixture count in the gmm files will be 0;
   //If it is, skip this
 
+  QFile::remove(tempDir+"/hmmout/macros");
+  QFile::remove(tempDir+"/hmmout/hmmdefs");
   if (!shouldIncreaseMixtures())
-  {
     //copy hmm15 to hmmout
-    QFile::remove(tempDir+"/hmmout/macros");
-    QFile::remove(tempDir+"/hmmout/hmmdefs");
-    bool success = QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmmout/macros") && 
+    return QFile::copy(tempDir+"/hmm15/macros", tempDir+"/hmmout/macros") && 
             QFile::copy(tempDir+"/hmm15/hmmdefs", tempDir+"/hmmout/hmmdefs");
-    kDebug() << "Copy successful: " << success;
-    return success;
-  }
 
   //emit status(i18n("Increasing mixtures..."),2000);
 
@@ -926,6 +920,7 @@ bool ModelCompilationManager::increaseMixtures()
     kDebug() << "Succ: " << succ;
 
     emit status(i18n("Re-estimation (2/2)..."),currentState);
+    QString outputPath;
     succ = succ && execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+
         "\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+
         htkIfyPath(tempDir)+"/aligned.scp\" -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+"hmmdefs\" -M \""+
@@ -943,7 +938,8 @@ bool ModelCompilationManager::increaseMixtures()
   }
   emit status(i18n("Done increasing mixtures."),currentState);
 
-  return true;
+  return QFile::copy(createHMMPath(currentHMMNumber)+"macros", tempDir+"/hmmout/macros") && 
+            QFile::copy(createHMMPath(currentHMMNumber)+"hmmdefs", tempDir+"/hmmout/hmmdefs");
 }
 
 
@@ -1028,17 +1024,20 @@ bool ModelCompilationManager::buildHMM()
   if (!makeTriphones()) return false;
   if (!tieStates()) return false;
   if (!increaseMixtures()) return false;
+  kDebug() << "Here";
 
   if (QFile::exists(hmmDefsPath))
     if (!QFile::remove(hmmDefsPath)) return false;
   if (!QFile::copy(tempDir+"/hmmout/hmmdefs", hmmDefsPath))
     return false;
 
+  kDebug() << "Here1";
   if (QFile::exists(tiedListPath))
     if (!QFile::remove(tiedListPath)) return false;
   if (!QFile::copy(tempDir+"/tiedlist", tiedListPath))
     return false;
 
+  kDebug() << "Here2";
   return true;
 }
 

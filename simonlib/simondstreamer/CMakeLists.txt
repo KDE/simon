@@ -2,11 +2,13 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
+find_package(QtMobility REQUIRED)
 
 #set (QT_USE_QTNETWORK true)
 #include(${QT_USE_FILE})
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
+	${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
 
 #IF(WIN32)
 #	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
@@ -31,6 +33,7 @@ set( simondstreamer_LIB_HDRS
 kde4_add_library( simondstreamer  SHARED ${simondstreamer_LIB_SRCS} )
 
 target_link_libraries( simondstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
+	${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY}
 	simonsound simonwav )
 
 
