@@ -172,7 +172,24 @@ QList<TemplateValueList*> ExportTestResults::createTemplateValueLists()
     testResultT->add("testResultSubstitutionErrors", QString::number(result->getSubstitutionErrors()));
     testResultT->add("testResultInsertionErrors", QString::number(result->getInsertionErrors()));
     testResultT->add("testResultDeletionErrors", QString::number(result->getDeletionErrors()));
-    testResultT->add("testResultSentenceCount", QString::number(result->getSentenceCount()));
+    int sentenceCount = result->getSentenceCount();
+    testResultT->add("testResultSentenceCount", QString::number(sentenceCount));
+
+    TemplateValueList *sentenceResultsT = new TemplateValueList("sentenceResults");
+    for (int i=0; i < sentenceCount; i++)
+    {
+      TemplateValueList *sentenceResultT = new TemplateValueList("sentenceResult");
+
+      sentenceResultT->add("sentenceResultSentence", result->getSentencePrompt(i));
+      sentenceResultT->add("sentenceResultCount", QString::number(result->getSentenceCount(i)));
+      sentenceResultT->add("sentenceResultWER", result->getSentenceWER(i));
+      sentenceResultT->add("sentenceResultAccuracy", result->getSentenceAccuracy(i));
+      sentenceResultT->add("sentenceResultSubstitutionErrors", QString::number(result->getSentenceSubstitutionErrors(i)));
+      sentenceResultT->add("sentenceResultInsertionErrors", QString::number(result->getSentenceInsertionErrors(i)));
+      sentenceResultT->add("sentenceResultDeletionErrors", QString::number(result->getSentenceDeletionErrors(i)));
+      sentenceResultsT->addChild(sentenceResultT);
+    }
+    testResultT->addChild(sentenceResultsT);
 
     testResultsT->addChild(testResultT);
   }

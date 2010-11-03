@@ -18,7 +18,10 @@
  */
 
 #include "latexreporttemplateengine.h"
+#include <QDir>
+#include <QFileInfo>
 #include <KLocale>
+#include <KZip>
 
 QByteArray LatexReportTemplateEngine::lineBreak()
 {
@@ -38,9 +41,27 @@ QByteArray LatexReportTemplateEngine::escape(const QByteArray& in, bool extraSaf
   return ReportTemplateEngine::escape(out, extraSafety);
 }
 
+bool LatexReportTemplateEngine::storeFile(const QByteArray& output, const QString& outputFilename, const QStringList& associatedFiles)
+{
+  KZip zip(outputFilename);
+  if (!zip.open(QIODevice::WriteOnly)) return false;
+
+  QFileInfo fi(outputFilename);
+  zip.writeFile(fi.baseName()+".tex", "", "", output.constData(), output.size());
+  foreach (const QString& file, associatedFiles)
+  {
+    QFileInfo assocFileInfo(file);
+    QFile f(file);
+    if (!f.open(QIODevice::ReadOnly)) continue;
+
+    zip.writeFile(assocFileInfo.fileName(), "", "", f.readAll().constData(), output.size());
+  }
+
+  return zip.close();
+}
 
 QString LatexReportTemplateEngine::fileType()
 {
-  return i18n("LaTeX files *.tex");
+  return i18n("LaTeX files (zipped) *.zip");
 } 
 

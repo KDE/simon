@@ -48,6 +48,7 @@ class MODELTEST_EXPORT TestResultModel : public QAbstractItemModel
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(int row, int column) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 };

@@ -39,6 +39,8 @@ class ReportTemplateEngine
     virtual bool splitTemplate(const QByteArray& input, const QByteArray& id, const QByteArray& conditionStartPrefix,
         const QByteArray& conditionEndPrefix, QByteArray& pre, QByteArray& part, QByteArray& post);
 
+    virtual QByteArray createGraphs(const QByteArray& input, const QList<TemplateValueList*>& options, QStringList& associatedFiles);
+
     QString tempDir();
     bool cleanTempDir();
 
@@ -52,7 +54,7 @@ class ReportTemplateEngine
         QList<TemplateValueList*> templateValueLists,
         bool useGraphs, bool useTables, const QString& outputFilename);
 
-    virtual bool storeFile(const QByteArray& output, const QString& outputFilename);
+    virtual bool storeFile(const QByteArray& output, const QString& outputFilename, const QStringList& associatedFiles);
 
     virtual QString fileType()=0;
 

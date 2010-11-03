@@ -21,6 +21,7 @@ set(sam_SRCS
    testconfigurationwidget.cpp
    templatevaluelist.cpp
    testresultwidget.cpp
+   testresultplotter.cpp
    qwt_bars_item.cpp
  )
 

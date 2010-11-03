@@ -29,6 +29,7 @@ class LatexReportTemplateEngine : public ReportTemplateEngine
     QByteArray escape(const QByteArray& in, bool extraSafety);
   public:
     QString fileType();
+    bool storeFile(const QByteArray& output, const QString& outputFilename, const QStringList& associatedFiles);
 };
 
 #endif

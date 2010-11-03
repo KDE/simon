@@ -52,6 +52,7 @@ class TestResultWidget : public QWidget
     TestConfigurationWidget *config;
     ModelTest *modelTest;
     QSortFilterProxyModel *fileResultModelProxy;
+    QVariant getSentenceResultValue(int row, int column);
 
   private slots:
     void slotFileResultSelected(const QModelIndex& index);
@@ -85,6 +86,15 @@ class TestResultWidget : public QWidget
 
     void schedule();
     TestConfigurationWidget* getConfiguration() { return config; }
+
+
+    QString getSentencePrompt(int i);
+    int getSentenceCount(int i);
+    QString getSentenceWER(int i);
+    QString getSentenceAccuracy(int i);
+    int getSentenceSubstitutionErrors(int i);
+    int getSentenceInsertionErrors(int i);
+    int getSentenceDeletionErrors(int i);
 
   public slots:
     void abort();

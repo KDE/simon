@@ -22,6 +22,7 @@
 #include "exporttestresults.h"
 #include "testconfigurationwidget.h"
 #include "testresultwidget.h"
+#include "testresultplotter.h"
 #include "reportparameters.h"
 #include "carraydata.h"
 #include "qwt_bars_item.h"
@@ -32,10 +33,8 @@
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <simonscenarioui/scenariomanagementdialog.h>
 
-#include <qwt_plot.h>
 #include <qwt_legend.h>
 #include <qwt_legend_item.h>
-#include <qwt_series_data.h>
 
 #include <QHash>
 #include <QPointer>
@@ -319,6 +318,7 @@ void SamView::allTestsFinished()
 
   ui.qpPlot->show();
 
+#if 0
   QStringList labels;
   double *accuracy = new double[testResults.count()];
   double *confidence = new double[testResults.count()];
@@ -345,6 +345,8 @@ void SamView::allTestsFinished()
 	ui.qpPlot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
 	ui.qpPlot->setAxisMaxMajor( QwtPlot::xBottom, testResults.count()+1 );
   ui.qpPlot->replot();
+#endif
+  TestResultPlotter::plot(testResults, ui.qpPlot);
 
   switchToTestResults();
 }

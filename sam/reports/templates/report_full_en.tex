@@ -173,6 +173,30 @@ $BEGIN_testResults$
 The test set ``$testResultTag$'' achieved an overall accuracy rating of $testResultAccuracy$~\%. The word error rate was calculated to be $testResultWER$~\% and the recognizer reported a confidence rating of $testResultConfidence$~\%.
 
 For more information about the used corpus for this test please see \ref{sec:$SAVE_corpusTag$}.
+
+$IF_tables$
+Table \ref{fig:$SAVE_testResultTag$} provides a tabular overview of the results broken down for each sentence.
+
+\begin{center}
+\begin{figure*}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+{\bf Sentence} & {\bf Count} & {\bf WER} & {\bf Acc} & {\bf SUB} & {\bf INS} & {\bf DEL} \\
+& [1] & [\%] & [\%] & [1] & [1] & [1] \\
+\hline
+$BEGIN_testResult$
+$BEGIN_sentenceResults$
+$sentenceResultSentence$ & $sentenceResultCount$ & $sentenceResultWER$ & $sentenceResultAccuracy$ & $sentenceResultSubstitutionErrors$ & $sentenceResultInsertionErrors$ & $sentenceResultDeletionErrors$ \\
+\hline
+$END_sentenceResults$
+$END_testResult$
+\end{tabular}
+\caption{Recognition results for $testResultTag$}
+\label{fig:$SAVE_testResultTag$} 
+\end{figure*}
+\end{center}
+$ENDIF_tables$
+
 $END_testResults$
 
 

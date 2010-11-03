@@ -377,4 +377,6 @@ QwtText QwtScaleDrawLabels::label(double val) const {
 	if ( intVal < 0 || intVal >= d_labels.size() )
 		return QwtText();
 	return d_labels[intVal];
-}
+}
+
+

@@ -297,6 +297,48 @@ void TestResultWidget::schedule()
   currentState = TestResultWidget::Waiting;
 }
 
+QVariant TestResultWidget::getSentenceResultValue(int row, int column)
+{
+  if (!modelTest->sentenceResultsModel()) return QVariant();
+
+  return modelTest->sentenceResultsModel()->data(row, column);
+}
+
+QString TestResultWidget::getSentencePrompt(int i)
+{
+  return getSentenceResultValue(i, 0).toString();
+}
+
+int TestResultWidget::getSentenceCount(int i)
+{
+  return getSentenceResultValue(i, 1).toInt();
+}
+
+QString TestResultWidget::getSentenceWER(int i)
+{
+  return getSentenceResultValue(i, 6).toString();
+}
+
+QString TestResultWidget::getSentenceAccuracy(int i)
+{
+  return getSentenceResultValue(i, 5).toString();
+}
+
+int TestResultWidget::getSentenceSubstitutionErrors(int i)
+{
+  return getSentenceResultValue(i, 9).toInt();
+}
+
+int TestResultWidget::getSentenceInsertionErrors(int i)
+{
+  return getSentenceResultValue(i, 7).toInt();
+}
+
+int TestResultWidget::getSentenceDeletionErrors(int i)
+{
+  return getSentenceResultValue(i, 8).toInt();
+}
+
 TestResultWidget::~TestResultWidget()
 {
   modelTest->deleteLater();

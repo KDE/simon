@@ -68,9 +68,9 @@ int TestResultLeaf::wordErrorRate() const
 QString TestResultLeaf::prettyLabel() const
 {
   if (insertionError())
-    return i18n("Pretty label showing that the current leaf is not present in the transcription", "%1 (mistakenly inserted)", m_label);
+    return i18nc("Pretty label showing that the current leaf is not present in the transcription", "%1 (mistakenly inserted)", m_label);
   if (deletionError())
-    return i18n("Pretty label showing that a word from the transcription is missing", "(missing: %1)", m_originalLabel);
+    return i18nc("Pretty label showing that a word from the transcription is missing", "(missing: %1)", m_originalLabel);
   if (substitutionError())
     return i18nc("Pretty label showing the user that the transcription and the result mismatch", "%1 (correct: %2)", m_label, m_originalLabel);
   return m_label;

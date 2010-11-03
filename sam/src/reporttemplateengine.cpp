@@ -19,6 +19,10 @@
 
 #include "reporttemplateengine.h"
 #include "templatevaluelist.h"
+#include "testresultplotter.h"
+#include "qwt_bars_item.h"
+#include <qwt_plot.h>
+#include <qwt_legend.h>
 #include <QDir>
 #include <QFile>
 #include <KLocale>
@@ -77,14 +81,19 @@ bool ReportTemplateEngine::splitTemplate(const QByteArray& input, const QByteArr
 QByteArray ReportTemplateEngine::replaceTemplateList(const QByteArray& templateData, TemplateValueList* templateValues)
 {
   QByteArray output = templateData;
+  kDebug() << "Root node: " << templateValues->id() << templateValues->hasChildren();
   if (templateValues->hasChildren())
   {
-    QByteArray pre, part, post; 
+    QByteArray pre, part, post;
+    kDebug() << "Trying to split";
+    kDebug() << "Splitting: " << templateValues->id().toUtf8();
     while (splitTemplate(output, templateValues->id().toUtf8(), "BEGIN", "END", pre, part, post))
     {
+      kDebug() << "Splitting: " << templateValues->id().toUtf8();
       output = pre;
       foreach (TemplateValueList* child, templateValues->children())
         output += replaceTemplateList(part, child);
+        //output += replaceTemplateList(part, child);
       output += post;
     }
   }
@@ -151,6 +160,35 @@ bool ReportTemplateEngine::cleanTempDir()
   return removeDir(tempDir());
 }
 
+QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QList<TemplateValueList*>& options, QStringList& associatedFiles)
+{
+  QByteArray output = input;
+
+  int plotNr = 0;
+
+  QwtPlot plot(QwtText("Overview"));
+  QwtLegend barGraphLegend;
+  plot.insertLegend(&barGraphLegend);
+  QwtBarsItem barGraph;
+  barGraph.setType(QwtBarsItem::SideBySide);
+  barGraph.attach(&plot);
+  barGraph.updateLegend(&barGraphLegend);
+
+  //FIXME
+  //TestResultPlotter::plot(/*testResults*/, &plot);
+
+  QImage img(1000, 500, QImage::Format_ARGB32_Premultiplied);
+  img.fill(0);
+  //plot.print(img);
+  QString path = KStandardDirs::locateLocal("tmp", "sam/reports/temp/report"+QString::number(plotNr)+".png");
+  img.save(path);
+  associatedFiles << path;
+
+
+  kDebug() << "Creating graphs...";
+  return output;
+}
+
 bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, QString> templateValues, 
     QList<TemplateValueList*> templateValueLists,
     bool useGraphs, bool useTables, const QString& outputFilename)
@@ -167,12 +205,11 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
 
   output = parseIf(output, "graphs", useGraphs);
   output = parseIf(output, "tables", useTables);
+  QStringList associatedFiles;
   if (useGraphs)
-  {
-    kDebug() << "Creating graphs...";
-  }
+    output = createGraphs(output, templateValueLists, associatedFiles);
 
-  if (!storeFile(output, outputFilename))
+  if (!storeFile(output, outputFilename, associatedFiles))
   {
     m_lastError = i18n("Failed to store file.");
     return false;
@@ -180,8 +217,10 @@ bool ReportTemplateEngine::parse(const QByteArray& templateData, QHash<QString, 
   return  true;
 }
 
-bool ReportTemplateEngine::storeFile(const QByteArray& output, const QString& outputFilename)
+bool ReportTemplateEngine::storeFile(const QByteArray& output, const QString& outputFilename, 
+    const QStringList& associatedFiles)
 {
+  Q_UNUSED(associatedFiles);
   QFile f(outputFilename);
   if (!f.open(QIODevice::WriteOnly))
     return false;

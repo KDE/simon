@@ -125,6 +125,11 @@ void TestResultModel::setResults(QList<TestResult*>& results)
   reset();
 }
 
+QVariant TestResultModel::data(int row, int column) const
+{
+  return data(index(row, column), Qt::DisplayRole);
+}
+
 void TestResultModel::clear()
 {
   m_results.clear();
