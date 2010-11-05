@@ -146,8 +146,8 @@ void RecognitionControl::startPrivateSimond()
 void RecognitionControl::startup()
 {
   if (RecognitionConfiguration::startLocalSimond()) {
-  if (RecognitionConfiguration::stopLocalSimond())
-    startPrivateSimond();
+    if (RecognitionConfiguration::stopLocalSimond())
+      startPrivateSimond();
     QTimer::singleShot(1000, this, SLOT(actOnAutoConnect()));
   }
   else
@@ -221,10 +221,12 @@ void RecognitionControl::startConnecting()
   if (socket->state() != QAbstractSocket::UnconnectedState)
     disconnectFromServer();
 
+  RecognitionConfiguration::self()->readConfig();
   serverConnectionErrors.clear();
   serverConnectionsToTry = RecognitionConfiguration::juliusdServers();
 
-  if (serverConnectionsToTry.count() == 0) return;
+  if (serverConnectionsToTry.isEmpty())
+    return;
 
   connectToNext();
 }
@@ -237,7 +239,11 @@ void RecognitionControl::connectToNext()
   }
   else {
     QStringList address = serverConnectionsToTry.takeAt(0).split(':');
-    connectTo(address[0], address[1].toInt());
+    if (address.count() == 2)
+      connectTo(address[0], address[1].toInt());
+    else 
+      if (!serverConnectionsToTry.isEmpty())
+        connectToNext();
   }
 }
 
@@ -819,6 +825,7 @@ void RecognitionControl::sendSample(QString sampleName)
 
 void RecognitionControl::askStartSynchronisation()
 {
+  RecognitionConfiguration::self()->readConfig();
   if (isConnected()) {
     switch (RecognitionConfiguration::synchronizationMode()) {
       case 0:                                     //automatic
@@ -905,6 +912,7 @@ void RecognitionControl::messageReceived()
         {
           advanceStream(sizeof(qint32));
           emit loggedIn();
+          RecognitionConfiguration::self()->readConfig();
           switch (RecognitionConfiguration::synchronizationMode()) {
             case 0:                               //automatic
               startSynchronisation();
@@ -1634,6 +1642,7 @@ void RecognitionControl::messageReceived()
 
           recognitionReady = false;
 
+          RecognitionConfiguration::self()->readConfig();
           if (RecognitionConfiguration::automaticallyEnableRecognition()) {
             sendRequest(Simond::StartRecognition);
           }
