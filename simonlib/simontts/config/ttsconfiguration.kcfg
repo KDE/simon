@@ -24,8 +24,7 @@
   <group name="webservice">
     <entry name="webserviceURL" type="String">
       <label>Currently active set</label>
-      <default>http://localhost:59125
-        http://localhost:59125/process?INPUT_TYPE=TEXT&amp;OUTPUT_TYPE=AUDIO&amp;INPUT_TEXT=%1&amp;OUTPUT_TEXT=&amp;AUDIO_OUT=WAVE_FILE&amp;LOCALE=de&amp;VOICE=bits3-hsmm&amp;AUDIO=WAVE_FILE</default>
+      <default>http://localhost:59125/process?INPUT_TYPE=TEXT&amp;OUTPUT_TYPE=AUDIO&amp;INPUT_TEXT=%1&amp;OUTPUT_TEXT=&amp;AUDIO_OUT=WAVE_FILE&amp;LOCALE=de&amp;VOICE=bits3-hsmm&amp;AUDIO=WAVE_FILE</default>
     </entry>
   </group>
 </kcfg>
