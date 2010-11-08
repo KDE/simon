@@ -28,7 +28,7 @@
 #include <qwt_series_data.h>
 #include <QStringList>
 
-void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot)
+void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend)
 {
   QStringList labels;
   double *accuracy = new double[testResults.count()];
@@ -43,14 +43,16 @@ void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlo
     i++;
   }
 
-  QwtBarsItem *barGraph = new QwtBarsItem();
-  QwtLegend *barGraphLegend = new QwtLegend();
+  //QwtBarsItem *barGraph = new QwtBarsItem();
+  //QwtLegend *barGraphLegend = new QwtLegend();
   QwtSeriesData<double> *accSeries = new CArrayData<double>( accuracy, testResults.count() );
   barGraph->addSerie( i18n("Accuracy"), *accSeries, QBrush( Qt::blue ), QPen( QColor( Qt::darkBlue ), 1 ) );
 
   QwtSeriesData<double> *confSeries = new CArrayData<double>( confidence, testResults.count() );
   barGraph->addSerie( i18n("Confidence"), *confSeries, QBrush( Qt::green ), QPen( QColor( Qt::darkGreen ), 1 ) );
   barGraph->updateLegend(barGraphLegend);
+  barGraph->setType(QwtBarsItem::SideBySide);
+  barGraph->attach(plot);
   
 	// scale:
 	plot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );

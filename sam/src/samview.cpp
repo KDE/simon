@@ -318,35 +318,8 @@ void SamView::allTestsFinished()
 
   ui.qpPlot->show();
 
-#if 0
-  QStringList labels;
-  double *accuracy = new double[testResults.count()];
-  double *confidence = new double[testResults.count()];
-  int i=0;
-  foreach (TestResultWidget *test, testResults)
-  {
-    confidence[i] = test->getConfidence() * 100.0;
-    accuracy[i] = test->getAccuracy() * 100.0;
-
-    labels << test->getTag();
-    i++;
-  }
-
-
-  QwtSeriesData<double> *accSeries = new CArrayData<double>( accuracy, testResults.count() );
-  barGraph->addSerie( i18n("Accuracy"), *accSeries, QBrush( Qt::blue ), QPen( QColor( Qt::darkBlue ), 1 ) );
-
-  QwtSeriesData<double> *confSeries = new CArrayData<double>( confidence, testResults.count() );
-  barGraph->addSerie( i18n("Confidence"), *confSeries, QBrush( Qt::green ), QPen( QColor( Qt::darkGreen ), 1 ) );
-  barGraph->updateLegend(barGraphLegend);
-  
-	// scale:
-	ui.qpPlot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );
-	ui.qpPlot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
-	ui.qpPlot->setAxisMaxMajor( QwtPlot::xBottom, testResults.count()+1 );
+  TestResultPlotter::plot(testResults, ui.qpPlot, barGraph, barGraphLegend);
   ui.qpPlot->replot();
-#endif
-  TestResultPlotter::plot(testResults, ui.qpPlot);
 
   switchToTestResults();
 }

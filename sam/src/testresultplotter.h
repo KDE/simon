@@ -23,13 +23,15 @@
 #include <QList>
 class TestResultWidget;
 class QwtPlot;
+class QwtLegend;
+class QwtBarsItem;
 
 class TestResultPlotter
 {
   private:
     TestResultPlotter() {}
   public:
-    static void plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot);
+    static void plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend* barGraphLegend);
 };
 #endif
 
