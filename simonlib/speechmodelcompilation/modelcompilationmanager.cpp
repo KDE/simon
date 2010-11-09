@@ -1024,20 +1024,17 @@ bool ModelCompilationManager::buildHMM()
   if (!makeTriphones()) return false;
   if (!tieStates()) return false;
   if (!increaseMixtures()) return false;
-  kDebug() << "Here";
 
   if (QFile::exists(hmmDefsPath))
     if (!QFile::remove(hmmDefsPath)) return false;
   if (!QFile::copy(tempDir+"/hmmout/hmmdefs", hmmDefsPath))
     return false;
 
-  kDebug() << "Here1";
   if (QFile::exists(tiedListPath))
     if (!QFile::remove(tiedListPath)) return false;
   if (!QFile::copy(tempDir+"/tiedlist", tiedListPath))
     return false;
 
-  kDebug() << "Here2";
   return true;
 }
 
@@ -1521,14 +1518,12 @@ bool ModelCompilationManager::makeRegTreeHed()
 {
   QFile regTreeHed(tempDir+"/regtree.hed");
   QFile regTreeHed1(KStandardDirs::locate("data", "simon/scripts/regtree.hed"));
-  kDebug() << KStandardDirs::locate("data", "simon/scripts/regtree.hed");
 
   if (!regTreeHed.open(QIODevice::WriteOnly) || !regTreeHed1.open(QIODevice::ReadOnly)) return false;
 
   while (!regTreeHed1.atEnd())
   {
     QByteArray line = regTreeHed1.readLine().replace("$basestats$", baseStatsPath.toUtf8());
-    kDebug() << line;
     regTreeHed.write(line);
   }
 
@@ -1541,14 +1536,48 @@ bool ModelCompilationManager::makeRegTreeHed()
   return true;
 }
 
+int ModelCompilationManager::getBaseModelMixtureCount()
+{
+  QFile f(baseHmmDefsPath);
+  if (!f.open(QIODevice::ReadOnly))
+    return 1;
+
+  while (!f.atEnd())
+  {
+    QByteArray l = f.readLine().trimmed();
+    if (l.startsWith("<NUMMIXES> "))
+      return l.mid(11).toInt();
+  }
+
+  return 1;
+}
+
+bool ModelCompilationManager::prepareGlobalConfig()
+{
+  int baseMixCount = getBaseModelMixtureCount();
+  QByteArray textualMixCount;
+  if (baseMixCount != 1)
+    textualMixCount = QByteArray("1-") + QByteArray::number(baseMixCount);
+  else
+    textualMixCount = QByteArray::number(baseMixCount);
+
+  QString staticAdaptionPath = tempDir+QDir::separator()+"classes/global";
+  QFile globalAdaption(staticAdaptionPath);
+  QFile globalAdaption1(KStandardDirs::locate("data", "simon/scripts/global"));
+
+  if (!globalAdaption.open(QIODevice::WriteOnly) || !globalAdaption1.open(QIODevice::ReadOnly))
+    return false;
+
+  while (!globalAdaption1.atEnd())
+    globalAdaption.write(globalAdaption1.readLine().replace("$basemixcount$", textualMixCount));
+
+  return true;
+}
 
 bool ModelCompilationManager::staticAdaption()
 {
-  QString staticAdaptionPath = tempDir+QDir::separator()+"classes/global";
-  if (QFile::exists(staticAdaptionPath) &&
-    !QFile::remove(staticAdaptionPath))
+  if (!prepareGlobalConfig()) 
     return false;
-  if (!QFile::copy(KStandardDirs::locate("data", "simon/scripts/global"), staticAdaptionPath)) return false;
 
   QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/basehmmdefs";
   QString adaptFromTiedlist = baseTiedlistPath;

@@ -2,4 +2,4 @@
 <MMFIDMASK> *
 <PARAMETERS> MIXBASE
 <NUMCLASSES> 1
- <CLASS> 1 {*.state[2-4].mix[1-12]}
+ <CLASS> 1 {*.state[2-4].mix[$basemixcount$]}

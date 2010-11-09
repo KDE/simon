@@ -176,6 +176,9 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     //bool buildHMM23();
     //bool buildHMM24();
 
+    int getBaseModelMixtureCount();
+    bool prepareGlobalConfig();
+
     bool adaptBaseModel();
     bool realignToBaseModel();
     bool makeRegTreeHed();
