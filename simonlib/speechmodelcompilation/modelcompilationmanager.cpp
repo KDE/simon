@@ -1519,20 +1519,25 @@ bool ModelCompilationManager::createRegressionClassTree()
 
 bool ModelCompilationManager::makeRegTreeHed()
 {
-  QFile::remove(tempDir+"/regtree.hed");
-
   QFile regTreeHed(tempDir+"/regtree.hed");
+  QFile regTreeHed1(KStandardDirs::locate("data", "simon/scripts/regtree.hed"));
+  kDebug() << KStandardDirs::locate("data", "simon/scripts/regtree.hed");
 
-  if (!regTreeHed.open(QIODevice::WriteOnly)) return false;
+  if (!regTreeHed.open(QIODevice::WriteOnly) || !regTreeHed1.open(QIODevice::ReadOnly)) return false;
+
+  while (!regTreeHed1.atEnd())
+  {
+    QByteArray line = regTreeHed1.readLine().replace("$basestats$", baseStatsPath.toUtf8());
+    kDebug() << line;
+    regTreeHed.write(line);
+  }
 
   //RN "models"
   //LS "stats"
   //RC 32 "rtree"
-  regTreeHed.write("RN \"models\"\n");
-  regTreeHed.write("LS \""+baseStatsPath.toUtf8()+"\"\n");
-  regTreeHed.write("RC 32 \"rtree\"\n");
-  regTreeHed.close();
 
+  regTreeHed1.close();
+  regTreeHed.close();
   return true;
 }
 

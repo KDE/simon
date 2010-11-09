@@ -11,6 +11,7 @@ set ( simon_model_scripts
 		${CMAKE_CURRENT_SOURCE_DIR}/mkphones1.led
 		${CMAKE_CURRENT_SOURCE_DIR}/mktri.led
 		${CMAKE_CURRENT_SOURCE_DIR}/proto
+		${CMAKE_CURRENT_SOURCE_DIR}/regtree.hed
 		${CMAKE_CURRENT_SOURCE_DIR}/sil.hed
 	)
 
