@@ -21,6 +21,8 @@
 #define SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
 
 #include "coreevents.h"
+#include "shortcutmode.h"
+#include "clickmode.h"
 #include <QString>
 #include <windows.h>
 #include <QHash>
@@ -39,6 +41,7 @@ class WindowsEvents : public CoreEvents
 {
 
   private:
+    /*
     enum PressMode
     {
       Down=1,
@@ -51,9 +54,10 @@ class WindowsEvents : public CoreEvents
       Right=2,
       Middle=3
     };
-    void pressVk(BYTE vK, PressMode mode);
+    */
+    void pressVk(BYTE vK, EventSimulation::ShortcutMode mode);
     void moveMouse(int x, int y);
-    void activateMouseButton(MouseButton btn, PressMode mode);
+    void activateMouseButton(MouseButton btn, EventSimulation::ClickMode mode);
   public:
     WindowsEvents();
     void click(int x, int y, EventSimulation::ClickMode clickMode);

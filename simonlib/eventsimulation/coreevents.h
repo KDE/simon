@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +23,7 @@
 
 #include <QHash>
 #include "clickmode.h"
+#include "shortcutmode.h"
 
 class QKeySequence;
 
@@ -68,11 +70,11 @@ class CoreEvents
     virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
     virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
 
-    void sendKey(unsigned int key /*unicode representation*/);
-    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;
+    void sendKey(unsigned int key /*unicode representation*/, EventSimulation::ShortcutMode mode);
+    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::ShortcutMode mode)=0;
 
     void unsetUnneededModifiers();
-    void sendShortcut(const QKeySequence& shortcut);
+    void sendShortcut(const QKeySequence& shortcut, EventSimulation::ShortcutMode mode);
 
     virtual void setModifierKey(int virtualKey, bool once=false)=0;
     virtual void unsetModifier(int virtualKey)=0;

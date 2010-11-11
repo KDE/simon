@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -105,9 +106,9 @@ void EventHandler::sendWord(const QString& word) const
  * \author Peter Grasch
  * @param shortcut The shortcut to send
  */
-void EventHandler::sendShortcut(const QKeySequence& shortcut) const
+void EventHandler::sendShortcut(const QKeySequence& shortcut, EventSimulation::ShortcutMode mode) const
 {
-  coreEvents->sendShortcut(shortcut);
+  coreEvents->sendShortcut(shortcut, mode);
 }
 
 
@@ -127,7 +128,8 @@ void EventHandler::sendKey(const QChar& key) const
 {
   unsigned int c;
   c = key.unicode();
-  coreEvents->sendKey(c);
+  coreEvents->sendKey(c, (EventSimulation::ShortcutMode)
+      (EventSimulation::Press|EventSimulation::Release));
 }
 
 

@@ -18,6 +18,7 @@
  */
 
 #include "coreevents.h"
+#include "shortcutmode.h"
 #include <QKeySequence>
 
 CoreEvents::CoreEvents()
@@ -376,17 +377,17 @@ strgOnce(false)
 }
 
 
-void CoreEvents::sendKey(unsigned int key /*unicode representation*/)
+void CoreEvents::sendKey(unsigned int key /*unicode representation*/, EventSimulation::ShortcutMode mode)
 {
   //handle dead keys
   DeadKey* d = deadKeys.value(key);
 
   if (d) {
-    sendKeyPrivate(d->deadKey());
+    sendKeyPrivate(d->deadKey(), mode);
     key = d->baseKey();
   }
 
-  sendKeyPrivate(key);
+  sendKeyPrivate(key, mode);
 }
 
 
@@ -424,7 +425,7 @@ void CoreEvents::unsetUnneededModifiers()
  * \author Peter Grasch
  * @param shortcut The shortcut to send
  */
-void CoreEvents::sendShortcut(const QKeySequence& shortcut)
+void CoreEvents::sendShortcut(const QKeySequence& shortcut, EventSimulation::ShortcutMode mode)
 {
   int key = 0;
   int modifiers = 0;
@@ -442,7 +443,12 @@ void CoreEvents::sendShortcut(const QKeySequence& shortcut)
     key = Qt::Key_Tab;
     mods |= Qt::ShiftModifier;
   }
-  setModifierKey(mods, true);
-  sendKey(key);
-  unsetUnneededModifiers();
+  if (mode & EventSimulation::Press)
+  {
+    setModifierKey(mods, (mode & EventSimulation::Release));
+    sendKey(key, mode);
+  }
+  if (mode & EventSimulation::Release)
+    unsetUnneededModifiers();
 }
+

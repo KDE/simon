@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -64,16 +65,44 @@ bool CreateShortcutCommandWidget::init(Command* command)
   if (!shortcutCommand) return false;
 
   ui.ksShortcut->setKeySequence(shortcutCommand->getShortcut());
+  ui.cbMode->setCurrentIndex(getShortcutModeIndex(shortcutCommand->getMode()));
   return true;
 }
 
 
 Command* CreateShortcutCommandWidget::createCommand(const QString& name, const QString& iconSrc, const QString& description)
 {
-  return new ShortcutCommand(name, iconSrc, description, ui.ksShortcut->keySequence());
+  return new ShortcutCommand(name, iconSrc, description, ui.ksShortcut->keySequence(), getSelectedShortcutMode());
 }
 
 
 CreateShortcutCommandWidget::~CreateShortcutCommandWidget()
 {
 }
+
+EventSimulation::ShortcutMode CreateShortcutCommandWidget::getSelectedShortcutMode()
+{
+  switch(ui.cbMode->currentIndex())
+  {
+    case 1: 
+      return EventSimulation::Press;
+    case 2: 
+      return EventSimulation::Release;
+    default: //case 0: 
+      return (EventSimulation::ShortcutMode) (EventSimulation::Press | EventSimulation::Release);
+  }
+}
+
+int CreateShortcutCommandWidget::getShortcutModeIndex(EventSimulation::ShortcutMode mode)
+{
+  switch(mode)
+  {
+    case EventSimulation::Press: 
+      return 1;
+    case EventSimulation::Release: 
+      return 2;
+    default: //b
+      return 0;
+  }  
+}
+

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,6 +24,7 @@
 #include <QWidget>
 #include <simonscenarios/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
+#include <eventsimulation/shortcutmode.h>
 
 class Command;
 class CommandManager;
@@ -41,6 +43,9 @@ class CreateShortcutCommandWidget : public CreateCommandWidget
 
     private:
     Ui::CreateShortcutCommandWidget ui;
+    
+    EventSimulation::ShortcutMode getSelectedShortcutMode();
+    int getShortcutModeIndex(EventSimulation::ShortcutMode mode);
 
   private slots:
   #ifdef Q_OS_WIN
@@ -53,7 +58,7 @@ class CreateShortcutCommandWidget : public CreateCommandWidget
     bool init(Command* command);
     bool isComplete();
 
-    /**
+    /**ShortcutCommand
      * @brief Constructor
      *
      *	@author Peter Grasch

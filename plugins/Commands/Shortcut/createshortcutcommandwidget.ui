@@ -211,6 +211,32 @@
      </item>
     </layout>
    </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Mode:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="KComboBox" name="cbMode">
+     <item>
+      <property name="text">
+       <string>Press and release</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Only press</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Only release</string>
+      </property>
+     </item>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>

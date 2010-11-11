@@ -136,23 +136,11 @@ void XEventsPrivate::dragAndDrop(int xStart, int yStart, int x, int y)
 
 
 /**
- * \brief Resolves the string to an appropriate keysym and sends it using pressKey(...)
- * \author Peter Grasch
- * @param keysymString The string to convert/send
- * @see pressKey()
- */
-void XEventsPrivate::sendKeySymString(const QString& keysymString)
-{
-  pressKey(XStringToKeysym(keysymString.toAscii().data()));
-}
-
-
-/**
  * \brief Sends the raw unicode character given by key
  * \author Peter Grasch
  * @param key The key to send
  */
-void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
+void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/, EventSimulation::ShortcutMode mode)
 {
   if (!display) return;
   KeyCode keyCode;
@@ -417,19 +405,23 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 
     XFree(keyToSendShifted);
 
-    if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08)) {
-      setModifierKey(Qt::SHIFT);
-    }
-    if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08)) {
-      setModifierKey(Qt::Key_AltGr);
+    if (mode & EventSimulation::Press)
+    {
+      if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
+        setModifierKey(Qt::SHIFT);
+      if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08))
+        setModifierKey(Qt::Key_AltGr);
     }
 
-    pressKeyCode(keyCode);
+    pressKeyCode(keyCode, mode);
 
-    if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
-      unsetModifier(Qt::SHIFT);
-    if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08))
-      unsetModifier(Qt::Key_AltGr);
+    if (mode & EventSimulation::Release)
+    {
+      if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
+        unsetModifier(Qt::SHIFT);
+      if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08))
+        unsetModifier(Qt::Key_AltGr);
+    }
   }
   else {
     QKeySequence k(key);                          //do some magic
@@ -441,27 +433,29 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
       shortcutCodes << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().constData()));
     }
 
-    foreach (const KeyCode& shortcutCode, shortcutCodes)
-      XTestFakeKeyEvent(display, shortcutCode, True, 15);
+    if (mode & EventSimulation::Press)
+    {
+      foreach (const KeyCode& shortcutCode, shortcutCodes)
+        XTestFakeKeyEvent(display, shortcutCode, True, 15);
+    }
 
-    foreach (const KeyCode& shortcutCode, shortcutCodes)
-      XTestFakeKeyEvent(display, shortcutCode, False, 15);
+    if (mode & EventSimulation::Release)
+    {
+      foreach (const KeyCode& shortcutCode, shortcutCodes)
+        XTestFakeKeyEvent(display, shortcutCode, False, 15);
+    }
 
     XFlush ( display );
   }
 }
 
 
-void XEventsPrivate::pressKey(const KeySym& key)
+void XEventsPrivate::pressKeyCode(const KeyCode& code, EventSimulation::ShortcutMode mode)
 {
-  pressKeyCode(XKeysymToKeycode(display, key));
-}
-
-
-void XEventsPrivate::pressKeyCode(const KeyCode& code)
-{
-  XTestFakeKeyEvent(display, code, True, 15);
-  XTestFakeKeyEvent(display, code, False, 15);
+  if (mode & EventSimulation::Press)
+    XTestFakeKeyEvent(display, code, True, 15);
+  if (mode & EventSimulation::Release)
+    XTestFakeKeyEvent(display, code, False, 15);
   XFlush ( display );
 }
 

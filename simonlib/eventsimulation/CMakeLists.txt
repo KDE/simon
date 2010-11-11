@@ -33,6 +33,7 @@ set( eventsimulation_LIB_HDRS
   eventsimulation_export.h
   eventhandler.h
   clickmode.h
+  shortcutmode.h
 )
 
 

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +23,7 @@
 
 #include <QKeySequence>
 #include <simonscenarios/command.h>
+#include <eventsimulation/shortcutmode.h>
 
 /**
  *	@class ShortcutCommand
@@ -34,16 +36,14 @@
 class ShortcutCommand : public Command
 {
 
-  private:
-    QKeySequence shortcut;
-
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
 
     bool triggerPrivate(int *state);
 
     ShortcutCommand() {}
-  public:
+    
+  public:    
     bool deSerializePrivate(const QDomElement& commandElem);
     QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
@@ -58,8 +58,8 @@ class ShortcutCommand : public Command
      *
      *	@author Peter Grasch
      */
-    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_) : Command(name, iconSrc, description),
-    shortcut(shortcut_) {
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_, EventSimulation::ShortcutMode mode_) : Command(name, iconSrc, description),
+    shortcut(shortcut_), mode(mode_) {
     }
 
     STATIC_CREATE_INSTANCE_H(ShortcutCommand);
@@ -69,10 +69,17 @@ class ShortcutCommand : public Command
      *
      *	@author Peter Grasch
      */
-    const QKeySequence getShortcut() const { return this->shortcut; }
+    QKeySequence getShortcut() const { return shortcut; }
+    EventSimulation::ShortcutMode getMode() const { return this->mode; }
 
     ~ShortcutCommand() {
     }
+    
+  private:
+    QKeySequence shortcut;
+    EventSimulation::ShortcutMode mode;
+    
+    QString prettyPrintMode() const;
 
 };
 #endif

@@ -425,7 +425,6 @@ void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
   }
 
   setModifierKey(modifiers, true);
-  //	//keybd_event(virtualKey,0,0,0);
   pressVk(virtualKey, DownAndUp);
 
   unsetUnneededModifiers();
@@ -433,7 +432,7 @@ void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
 }
 
 
-void WindowsEvents::pressVk(BYTE vK, PressMode mode)
+void WindowsEvents::pressVk(BYTE vK, EventSimulation::ShortcutMode mode)
 {
   INPUT *key = new INPUT;
   key->type = INPUT_KEYBOARD;

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2010 Manfred Scheucher <deadalps@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +23,7 @@
 
 #include "eventsimulation_export.h"
 #include "clickmode.h"
+#include "shortcutmode.h"
 
 class CoreEvents;
 class QChar;
@@ -52,7 +54,11 @@ class EVENTSIMULATION_EXPORT EventHandler
     void click(int x, int y, EventSimulation::ClickMode);
     void dragAndDrop(int xStart, int yStart, int x, int y);
     void sendWord(const QString& word) const;
-    void sendShortcut(const QKeySequence& shortcut) const;
+    void sendShortcut(
+      const QKeySequence& shortcut, 
+      EventSimulation::ShortcutMode mode =
+	(EventSimulation::ShortcutMode) (EventSimulation::Press|EventSimulation::Release)
+    ) const;
 
     void setModifier(int virtualKey, bool once=false) const;
     void unsetModifier(int virtualKey) const;

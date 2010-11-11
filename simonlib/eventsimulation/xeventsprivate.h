@@ -21,6 +21,7 @@
 #define SIMON_XEVENTSPRIVATE_H_19828198203F448BA166FF11295B2B25
 
 #include "clickmode.h"
+#include "shortcutmode.h"
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/XF86keysym.h>
@@ -42,13 +43,11 @@ class XEventsPrivate
   private:
     Display *display;                             //!< The opened Display
 
-    void pressKey (const KeySym& key);
-    void pressKeyCode (const KeyCode& code);
-    void sendKeySymString (const QString& keysymString);
+    void pressKeyCode (const KeyCode& code, EventSimulation::ShortcutMode mode);
   public:
     void click (int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop (int xStart, int yStart, int x, int y);
-    void sendKeyPrivate (unsigned int key);
+    void sendKeyPrivate (unsigned int key, EventSimulation::ShortcutMode mode);
 
     void setModifierKey (int virtualKey);
 
