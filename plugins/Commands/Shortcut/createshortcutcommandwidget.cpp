@@ -80,7 +80,7 @@ CreateShortcutCommandWidget::~CreateShortcutCommandWidget()
 {
 }
 
-EventSimulation::ShortcutMode CreateShortcutCommandWidget::getSelectedShortcutMode()
+EventSimulation::PressMode CreateShortcutCommandWidget::getSelectedShortcutMode()
 {
   switch(ui.cbMode->currentIndex())
   {
@@ -89,11 +89,11 @@ EventSimulation::ShortcutMode CreateShortcutCommandWidget::getSelectedShortcutMo
     case 2: 
       return EventSimulation::Release;
     default: //case 0: 
-      return (EventSimulation::ShortcutMode) (EventSimulation::Press | EventSimulation::Release);
+      return (EventSimulation::PressMode) (EventSimulation::Press | EventSimulation::Release);
   }
 }
 
-int CreateShortcutCommandWidget::getShortcutModeIndex(EventSimulation::ShortcutMode mode)
+int CreateShortcutCommandWidget::getShortcutModeIndex(EventSimulation::PressMode mode)
 {
   switch(mode)
   {
@@ -101,7 +101,7 @@ int CreateShortcutCommandWidget::getShortcutModeIndex(EventSimulation::ShortcutM
       return 1;
     case EventSimulation::Release: 
       return 2;
-    default: //b
+    default: //both
       return 0;
   }  
 }

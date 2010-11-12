@@ -24,7 +24,7 @@
 #include <QWidget>
 #include <simonscenarios/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
-#include <eventsimulation/shortcutmode.h>
+#include <eventsimulation/pressmode.h>
 
 class Command;
 class CommandManager;
@@ -44,8 +44,8 @@ class CreateShortcutCommandWidget : public CreateCommandWidget
     private:
     Ui::CreateShortcutCommandWidget ui;
     
-    EventSimulation::ShortcutMode getSelectedShortcutMode();
-    int getShortcutModeIndex(EventSimulation::ShortcutMode mode);
+    EventSimulation::PressMode getSelectedShortcutMode();
+    int getShortcutModeIndex(EventSimulation::PressMode mode);
 
   private slots:
   #ifdef Q_OS_WIN

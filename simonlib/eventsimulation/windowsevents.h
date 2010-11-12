@@ -21,7 +21,7 @@
 #define SIMON_WINDOWSEVENTS_H_648808A9BE984CC98FF8681C9BF5D4F9
 
 #include "coreevents.h"
-#include "shortcutmode.h"
+#include "pressmode.h"
 #include "clickmode.h"
 #include <QString>
 #include <windows.h>
@@ -41,32 +41,24 @@ class WindowsEvents : public CoreEvents
 {
 
   private:
-    /*
-    enum PressMode
-    {
-      Down=1,
-      Up=2,
-      DownAndUp=3
-    };
     enum MouseButton
     {
       Left=1,
       Right=2,
       Middle=3
     };
-    */
-    void pressVk(BYTE vK, EventSimulation::ShortcutMode mode);
+    void pressVk(BYTE vK, EventSimulation::PressMode mode);
     void moveMouse(int x, int y);
-    void activateMouseButton(MouseButton btn, EventSimulation::ClickMode mode);
+    void activateMouseButton(MouseButton btn, EventSimulation::PressMode mode);
   public:
     WindowsEvents();
     void click(int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop(int xStart, int yStart, int x, int y);
-    void sendKeyPrivate(unsigned int key /*unicode representation*/);
+    void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
 
     inline void setModifierKey(int virtualKey, bool once);
     inline void unsetModifier(int virtualKey);
-    void unsetUnneededModifiers();
+    //void unsetUnneededModifiers();
     ~WindowsEvents();
 
 };

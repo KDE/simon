@@ -23,7 +23,7 @@
 
 namespace EventSimulation
 {
-  enum ShortcutMode
+  enum PressMode
   {
     Press=1,
     Release=2

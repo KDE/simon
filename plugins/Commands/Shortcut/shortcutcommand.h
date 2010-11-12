@@ -23,7 +23,7 @@
 
 #include <QKeySequence>
 #include <simonscenarios/command.h>
-#include <eventsimulation/shortcutmode.h>
+#include <eventsimulation/pressmode.h>
 
 /**
  *	@class ShortcutCommand
@@ -58,7 +58,7 @@ class ShortcutCommand : public Command
      *
      *	@author Peter Grasch
      */
-    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_, EventSimulation::ShortcutMode mode_) : Command(name, iconSrc, description),
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QString& description, const QKeySequence& shortcut_, EventSimulation::PressMode mode_) : Command(name, iconSrc, description),
     shortcut(shortcut_), mode(mode_) {
     }
 
@@ -70,14 +70,14 @@ class ShortcutCommand : public Command
      *	@author Peter Grasch
      */
     QKeySequence getShortcut() const { return shortcut; }
-    EventSimulation::ShortcutMode getMode() const { return this->mode; }
+    EventSimulation::PressMode getMode() const { return this->mode; }
 
     ~ShortcutCommand() {
     }
     
   private:
     QKeySequence shortcut;
-    EventSimulation::ShortcutMode mode;
+    EventSimulation::PressMode mode;
     
     QString prettyPrintMode() const;
 

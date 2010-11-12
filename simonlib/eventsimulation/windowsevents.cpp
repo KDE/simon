@@ -73,10 +73,10 @@ void WindowsEvents::moveMouse(int x, int y)
 }
 
 
-void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
+void WindowsEvents::activateMouseButton(MouseButton btn, EventSimulation::PressMode mode)
 {
   INPUT Input={0};
-  if (mode & Down) {
+  if (mode & EventSimulation::Press) {
     Input.type      = INPUT_MOUSE;
     switch (btn) {
       case Left:
@@ -93,7 +93,7 @@ void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
     ::SendInput(1,&Input,sizeof(INPUT));
   }
 
-  if (mode & Up) {
+  if (mode & EventSimulation::Release) {
     ::ZeroMemory(&Input,sizeof(INPUT));
     Input.type      = INPUT_MOUSE;
     switch (btn) {
@@ -123,23 +123,23 @@ void WindowsEvents::click(int x, int y, EventSimulation::ClickMode clickMode)
 
   switch (clickMode) {
     case EventSimulation::LMB:
-      activateMouseButton(Left, DownAndUp);
+      activateMouseButton(Left, (EventSimulation::PressMode)(EventSimulation::Press|EventSimulation::Release));
       break;
     case EventSimulation::LMBDouble:
-      activateMouseButton(Left, DownAndUp);
-      activateMouseButton(Left, DownAndUp);
+      activateMouseButton(Left, (EventSimulation::PressMode)(EventSimulation::Press|EventSimulation::Release));
+      activateMouseButton(Left, (EventSimulation::PressMode)(EventSimulation::Press|EventSimulation::Release));
       break;
     case EventSimulation::LMBDown:
-      activateMouseButton(Left, Down);
+      activateMouseButton(Left, EventSimulation::Press);
       break;
     case EventSimulation::LMBUp:
-      activateMouseButton(Left, Up);
+      activateMouseButton(Left, EventSimulation::Release);
       break;
     case EventSimulation::RMB:
-      activateMouseButton(Right, DownAndUp);
+      activateMouseButton(Right, (EventSimulation::PressMode)(EventSimulation::Press|EventSimulation::Release));
       break;
     case EventSimulation::MMB:
-      activateMouseButton(Middle, DownAndUp);
+      activateMouseButton(Middle, (EventSimulation::PressMode)(EventSimulation::Press|EventSimulation::Release));
       break;
   }
 }
@@ -149,11 +149,11 @@ void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
 {
   moveMouse(xStart, yStart);
   Sleep(200);
-  activateMouseButton(Left, Down);
+  activateMouseButton(Left, EventSimulation::Press);
   Sleep(200);
   moveMouse(x, y);
   Sleep(200);
-  activateMouseButton(Left, Up);
+  activateMouseButton(Left, EventSimulation::Release);
 }
 
 
@@ -167,27 +167,27 @@ void WindowsEvents::dragAndDrop(int xStart, int yStart, int x, int y)
 void WindowsEvents::setModifierKey(int virtualKey, bool once)
 {
   if ((!shiftSet) && (virtualKey & Qt::SHIFT)) {
-    pressVk(VK_SHIFT, Down);
+    pressVk(VK_SHIFT, EventSimulation::Press);
     shiftSet=true;
     shiftOnce=once;
   }
   if ((!altgrSet) && (virtualKey & Qt::Key_AltGr)) {
-    pressVk(VK_RMENU, Down);
+    pressVk(VK_RMENU, EventSimulation::Press);
     altgrSet=true;
     altgrOnce=once;
   }
   if ((!strgSet) && (virtualKey & Qt::CTRL)) {
-    pressVk(VK_CONTROL, Down);
+    pressVk(VK_CONTROL, EventSimulation::Press);
     strgSet=true;
     strgOnce=once;
   }
   if ((!altSet) && (virtualKey & Qt::ALT)) {
-    pressVk(VK_MENU, Down);
+    pressVk(VK_MENU, EventSimulation::Press);
     altSet=true;
     altOnce=once;
   }
   if ((!superSet) && (virtualKey & Qt::META)) {
-    pressVk(VK_LWIN, Down);
+    pressVk(VK_LWIN, EventSimulation::Press);
     superSet=true;
     superOnce=once;
   }
@@ -202,7 +202,7 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
  *
  * @author Phillip Goriup
  */
-void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
+void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode)
 {
   int modifiers=0;
   BYTE virtualKey=0;
@@ -424,15 +424,18 @@ void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
     }
   }
 
-  setModifierKey(modifiers, true);
-  pressVk(virtualKey, DownAndUp);
+  if (mode & EventSimulation::Press)
+	setModifierKey(modifiers, (mode & EventSimulation::Release));
+	
+  pressVk(virtualKey, mode);
 
-  unsetUnneededModifiers();
+  if (mode & EventSimulation::Release)
+	unsetUnneededModifiers();
   Sleep(40);
 }
 
 
-void WindowsEvents::pressVk(BYTE vK, EventSimulation::ShortcutMode mode)
+void WindowsEvents::pressVk(BYTE vK, EventSimulation::PressMode mode)
 {
   INPUT *key = new INPUT;
   key->type = INPUT_KEYBOARD;
@@ -442,10 +445,10 @@ void WindowsEvents::pressVk(BYTE vK, EventSimulation::ShortcutMode mode)
   key->ki.wScan = 0;
   key->ki.dwExtraInfo = 0;
 
-  if (mode & Down) {
+  if (mode &EventSimulation::Press) {
     SendInput(1,key,sizeof(INPUT));
   }
-  if (mode & Up) {
+  if (mode & EventSimulation::Release) {
     key->ki.dwFlags = KEYEVENTF_KEYUP;
     SendInput(1,key,sizeof(INPUT));
   }
@@ -467,27 +470,27 @@ void WindowsEvents::unsetModifier(int virtualKey)
   int msVirtualKey = 0;
   
   if (virtualKey & Qt::SHIFT) {
-	pressVk(VK_SHIFT, Up);
+	pressVk(VK_SHIFT, EventSimulation::Release);
     shiftSet=false;
   }
 
   if (virtualKey & Qt::Key_AltGr) {
-	pressVk(VK_RMENU, Up);
+	pressVk(VK_RMENU, EventSimulation::Release);
     altgrSet=false;
   }
 
   if (virtualKey & Qt::CTRL) {
-	pressVk(VK_CONTROL, Up);
+	pressVk(VK_CONTROL, EventSimulation::Release);
     strgSet=false;
   }
 
   if (virtualKey & Qt::ALT) {
-	pressVk(VK_MENU, Up);
+	pressVk(VK_MENU, EventSimulation::Release);
     altSet=false;
   }
 
   if (virtualKey & Qt::META) {
-	pressVk(VK_LWIN, Up);
+	pressVk(VK_LWIN, EventSimulation::Release);
     superSet=false;
   }
 }
@@ -501,39 +504,36 @@ void WindowsEvents::unsetModifier(int virtualKey)
  *
  * @author Phillip Goriup
  */
+ /*
 void WindowsEvents::unsetUnneededModifiers()
 {
   if (shiftSet && shiftOnce) {
     unsetModifier(Qt::SHIFT);
-    //unsetModifier(VK_SHIFT);
     shiftSet=false;
     shiftOnce=false;
   }
   if (altSet && altOnce) {
     unsetModifier(Qt::ALT);
-    //unsetModifier(VK_MENU);
     altSet=false;
     altOnce=false;
   }
   if (strgSet && strgOnce) {
     unsetModifier(Qt::CTRL);
-    //unsetModifier(VK_CONTROL);
     strgSet=false;
     strgOnce=false;
   }
   if (superSet && superOnce) {
     unsetModifier(Qt::META);
-    //unsetModifier(VK_LWIN);
     superSet=false;
     superOnce=false;
   }
   if (altgrSet && altgrOnce) {
     unsetModifier(Qt::Key_AltGr);
-    //unsetModifier(VK_RMENU);
     altgrSet=false;
     altgrOnce=false;
   }
 }
+*/
 
 
 /**

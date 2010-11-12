@@ -23,7 +23,7 @@
 
 #include "eventsimulation_export.h"
 #include "clickmode.h"
-#include "shortcutmode.h"
+#include "pressmode.h"
 
 class CoreEvents;
 class QChar;
@@ -56,8 +56,8 @@ class EVENTSIMULATION_EXPORT EventHandler
     void sendWord(const QString& word) const;
     void sendShortcut(
       const QKeySequence& shortcut, 
-      EventSimulation::ShortcutMode mode =
-	(EventSimulation::ShortcutMode) (EventSimulation::Press|EventSimulation::Release)
+      EventSimulation::PressMode mode =
+	(EventSimulation::PressMode) (EventSimulation::Press|EventSimulation::Release)
     ) const;
 
     void setModifier(int virtualKey, bool once=false) const;

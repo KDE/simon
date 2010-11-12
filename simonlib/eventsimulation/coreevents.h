@@ -23,7 +23,7 @@
 
 #include <QHash>
 #include "clickmode.h"
-#include "shortcutmode.h"
+#include "pressmode.h"
 
 class QKeySequence;
 
@@ -70,11 +70,11 @@ class CoreEvents
     virtual void click(int x, int y, EventSimulation::ClickMode clickMode)=0;
     virtual void dragAndDrop(int xStart, int yStart, int x, int y)=0;
 
-    void sendKey(unsigned int key /*unicode representation*/, EventSimulation::ShortcutMode mode);
-    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::ShortcutMode mode)=0;
+    void sendKey(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode);
+    virtual void sendKeyPrivate(unsigned int key /*unicode representation*/, EventSimulation::PressMode mode)=0;
 
     void unsetUnneededModifiers();
-    void sendShortcut(const QKeySequence& shortcut, EventSimulation::ShortcutMode mode);
+    void sendShortcut(const QKeySequence& shortcut, EventSimulation::PressMode mode);
 
     virtual void setModifierKey(int virtualKey, bool once=false)=0;
     virtual void unsetModifier(int virtualKey)=0;

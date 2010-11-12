@@ -7,9 +7,9 @@
 #
 # Look in standard UNIX install locations
 #
-FIND_PATH(ZLIB_INCLUDE_DIR zlib.h /usr/include/zlib /usr/local/include/zlib)
+FIND_PATH(ZLIB_INCLUDE_DIR zlib.h /usr/include/zlib /usr/local/include/zlib F:/kde/include)
 
-FIND_LIBRARY(ZLIB_LIBRARY NAMES zlib z PATH /usr/lib /usr/local/lib) 
+FIND_LIBRARY(ZLIB_LIBRARY NAMES zlib zlib1 z PATH /usr/lib /usr/local/lib F:/kde/bin) 
 
 IF (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY)
    SET(ZLIB_FOUND TRUE)

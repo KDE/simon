@@ -105,9 +105,9 @@ bool ShortcutCommand::deSerializePrivate(const QDomElement& commandElem)
   
   QDomElement modeElem = commandElem.firstChildElement("mode");  
   if (modeElem.isNull())
-    mode = (EventSimulation::ShortcutMode) ( EventSimulation::Press | EventSimulation::Release );
+    mode = (EventSimulation::PressMode) ( EventSimulation::Press | EventSimulation::Release );
   else
-    mode = (EventSimulation::ShortcutMode) modeElem.text().toInt();
+    mode = (EventSimulation::PressMode) modeElem.text().toInt();
 
   return true;
 }

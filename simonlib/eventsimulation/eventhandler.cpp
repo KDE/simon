@@ -106,7 +106,7 @@ void EventHandler::sendWord(const QString& word) const
  * \author Peter Grasch
  * @param shortcut The shortcut to send
  */
-void EventHandler::sendShortcut(const QKeySequence& shortcut, EventSimulation::ShortcutMode mode) const
+void EventHandler::sendShortcut(const QKeySequence& shortcut, EventSimulation::PressMode mode) const
 {
   coreEvents->sendShortcut(shortcut, mode);
 }
@@ -128,7 +128,7 @@ void EventHandler::sendKey(const QChar& key) const
 {
   unsigned int c;
   c = key.unicode();
-  coreEvents->sendKey(c, (EventSimulation::ShortcutMode)
+  coreEvents->sendKey(c, (EventSimulation::PressMode)
       (EventSimulation::Press|EventSimulation::Release));
 }
 
