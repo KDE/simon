@@ -20,7 +20,7 @@
 #ifndef SIMON_XEVENTS_H_2BF2636B0148404495C2D0D8A926A43A
 #define SIMON_XEVENTS_H_2BF2636B0148404495C2D0D8A926A43A
 
-#include "shortcutmode.h"
+#include "pressmode.h"
 #include "coreevents.h"
 
 class QString;
@@ -46,7 +46,7 @@ class XEvents : public CoreEvents
   public:
     void click (int x, int y, EventSimulation::ClickMode clickMode);
     void dragAndDrop (int xStart, int yStart, int x, int y);
-    void sendKeyPrivate (unsigned int key, EventSimulation::ShortcutMode mode);
+    void sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode);
     void setModifierKey (int virtualKey, bool once);
     void unsetModifier (int virtualKey);
     XEvents (char* displayName=":0.0");

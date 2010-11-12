@@ -140,7 +140,7 @@ void XEventsPrivate::dragAndDrop(int xStart, int yStart, int x, int y)
  * \author Peter Grasch
  * @param key The key to send
  */
-void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/, EventSimulation::ShortcutMode mode)
+void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/, EventSimulation::PressMode mode)
 {
   if (!display) return;
   KeyCode keyCode;
@@ -450,7 +450,7 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/, EventSimulatio
 }
 
 
-void XEventsPrivate::pressKeyCode(const KeyCode& code, EventSimulation::ShortcutMode mode)
+void XEventsPrivate::pressKeyCode(const KeyCode& code, EventSimulation::PressMode mode)
 {
   if (mode & EventSimulation::Press)
     XTestFakeKeyEvent(display, code, True, 15);

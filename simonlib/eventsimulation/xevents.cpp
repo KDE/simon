@@ -49,7 +49,7 @@ void XEvents::dragAndDrop (int xStart, int yStart, int x, int y)
 }
 
 
-void XEvents::sendKeyPrivate (unsigned int key, EventSimulation::ShortcutMode mode)
+void XEvents::sendKeyPrivate (unsigned int key, EventSimulation::PressMode mode)
 {
   d->sendKeyPrivate (key, mode);
   unsetUnneededModifiers();
