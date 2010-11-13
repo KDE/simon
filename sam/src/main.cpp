@@ -34,14 +34,29 @@ int main(int argc, char **argv)
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 
   KCmdLineOptions options;
-  options.add("l <samfile>", ki18n("If provided, this file will automatically be loaded"), "");
+  options.add("paths-from-simon");
+  options.add("s", ki18n("Get configuration from simon"), "");
+  options.add("compile");
+  options.add("c", ki18n("Automatically start compiling the model"), "");
+  options.add("test");
+  options.add("t", ki18n("Automatically start testing the model(s)"), "");
+  options.add("export <filename>");
+  options.add("e <filename>", ki18n("Export test results to the given filename"), "");
+  options.add("b");
+  options.add("batch", ki18n("Batch processing: Close after all other arguments have been processed"), "");
+  options.add("cl <filename>");
+  options.add("compilelog <filename>", ki18n("Store compilation log"), "");
+
+  options.add("+samfile", ki18n("If provided, this file will automatically be loaded"), "");
      
   KCmdLineArgs::addCmdLineOptions(options);
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;
   SamView *widget = new SamView(0,0);
-  widget->show();
+
+  if (!KCmdLineArgs::parsedArgs()->isSet("b"))
+    widget->show();
 
   return app.exec();
 }

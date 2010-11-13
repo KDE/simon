@@ -20,6 +20,7 @@
 #ifndef SIMON_EXPORTTESTRESULTS_H_4002119636CC42C68FE07273F9000A73
 #define SIMON_EXPORTTESTRESULTS_H_4002119636CC42C68FE07273F9000A73
 
+#include "samui.h"
 #include <QHash>
 #include <QFlags>
 #include "corpusinformation.h"
@@ -31,7 +32,7 @@ class CorpusInformationWidget;
 class KTabWidget;
 class TemplateValueList;
 
-class ExportTestResults : public KDialog
+class ExportTestResults : public KDialog, public SamUi
 {
   Q_OBJECT
 
