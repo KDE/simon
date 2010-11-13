@@ -54,7 +54,11 @@ bool LatexReportTemplateEngine::storeFile(const QByteArray& output, const QStrin
     QFile f(file);
     if (!f.open(QIODevice::ReadOnly)) continue;
 
-    zip.writeFile(assocFileInfo.fileName(), "", "", f.readAll().constData(), output.size());
+    QByteArray data;
+    while (!f.atEnd())
+      data += f.read(4096);
+    
+    zip.writeFile(assocFileInfo.fileName(), "", "", data.constData(), data.size());
   }
 
   return zip.close();

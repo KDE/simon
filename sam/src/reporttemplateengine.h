@@ -39,12 +39,14 @@ class ReportTemplateEngine
     virtual bool splitTemplate(const QByteArray& input, const QByteArray& id, const QByteArray& conditionStartPrefix,
         const QByteArray& conditionEndPrefix, QByteArray& pre, QByteArray& part, QByteArray& post);
 
-    virtual QByteArray createGraphs(const QByteArray& input, const QList<TemplateValueList*>& options, QStringList& associatedFiles);
+    virtual QByteArray createGraphs(const QByteArray& input, const QList< TemplateValueList* >& options, QStringList& associatedFiles);
 
     QString tempDir();
     bool cleanTempDir();
 
     bool removeDir(const QString& path);
+    
+    float parsePrettyPrintedPercentage(QString in);
 
   public:
     virtual ~ReportTemplateEngine();

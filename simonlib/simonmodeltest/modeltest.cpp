@@ -85,16 +85,9 @@ bool ModelTest::parseConfiguration()
   KConfigGroup programGroup(&config, "Programs");
 
   sox = programGroup.readEntry("SOX", KUrl(KStandardDirs::findExe("sox"))).toLocalFile();
-  julius = programGroup.readEntry("Julius", KUrl(KStandardDirs::findExe("juliusexe"))).toLocalFile();
 
-  if (!QFile::exists(sox) ||
-    !QFile::exists(julius)) {
-    QString errorMsg = i18n("SOX or Julius can not be found. Please make sure it is installed correctly.\n\n");
-    #ifdef Q_OS_WIN32
-    errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
-    #else
-    errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
-    #endif
+  if (!QFile::exists(sox)) {
+    QString errorMsg = i18n("SOX can not be found. Please make sure it is installed correctly.");
     emitError(errorMsg);
     return false;
   }

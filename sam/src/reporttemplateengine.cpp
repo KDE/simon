@@ -24,6 +24,8 @@
 #include <qwt_plot.h>
 #include <qwt_legend.h>
 #include <QDir>
+#include <QPicture>
+#include <QPainter>
 #include <QFile>
 #include <KLocale>
 #include <KDebug>
@@ -85,15 +87,11 @@ QByteArray ReportTemplateEngine::replaceTemplateList(const QByteArray& templateD
   if (templateValues->hasChildren())
   {
     QByteArray pre, part, post;
-    kDebug() << "Trying to split";
-    kDebug() << "Splitting: " << templateValues->id().toUtf8();
     while (splitTemplate(output, templateValues->id().toUtf8(), "BEGIN", "END", pre, part, post))
     {
-      kDebug() << "Splitting: " << templateValues->id().toUtf8();
       output = pre;
       foreach (TemplateValueList* child, templateValues->children())
         output += replaceTemplateList(part, child);
-        //output += replaceTemplateList(part, child);
       output += post;
     }
   }
@@ -160,12 +158,19 @@ bool ReportTemplateEngine::cleanTempDir()
   return removeDir(tempDir());
 }
 
+float ReportTemplateEngine::parsePrettyPrintedPercentage(QString in)
+{
+  return in.remove("%").trimmed().toFloat();
+}
+
+
 QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QList<TemplateValueList*>& options, QStringList& associatedFiles)
 {
   QByteArray output = input;
 
   int plotNr = 0;
 
+  //overview graph
   QwtPlot plot(QwtText("Overview"));
   QwtLegend barGraphLegend;
   plot.insertLegend(&barGraphLegend);
@@ -174,18 +179,54 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
   barGraph.attach(&plot);
   barGraph.updateLegend(&barGraphLegend);
 
-  //FIXME
-  //TestResultPlotter::plot(/*testResults*/, &plot);
+  
+  QStringList labels;
+  QList<double> confidence;
+  QList<double> accuracy;
+  
+  //find test result values
+  foreach (TemplateValueList *l, options)
+  {
+    if (l->id() == "testResults")
+    {
+      QList<TemplateValueList*> children = l->children();
+      foreach (TemplateValueList *cl, children)
+      {
+	QHash<QString,QString> values = cl->values();
+	labels << values.value("testResultTag");
+	confidence << parsePrettyPrintedPercentage(values.value("testResultConfidence"));
+	accuracy << parsePrettyPrintedPercentage(values.value("testResultAccuracy"));
+      }
+      break;
+    }
+  }
+  
+  TestResultPlotter::plot(labels, confidence, accuracy, &plot, &barGraph, &barGraphLegend);
+  
+  plot.resize(1000, 400);
+  plot.setMargin(3);
+  plot.setFrameStyle(QFrame::Plain);
+  plot.setLineWidth(1);
+  plot.replot();
 
-  QImage img(1000, 500, QImage::Format_ARGB32_Premultiplied);
+  QString filename = "report"+QString::number(plotNr)+".png";
+  QString path = KStandardDirs::locateLocal("tmp", "sam/reports/temp/"+filename);
+  
+  QImage img(plot.size().width(), plot.size().height(), QImage::Format_ARGB32_Premultiplied);
   img.fill(0);
-  //plot.print(img);
-  QString path = KStandardDirs::locateLocal("tmp", "sam/reports/temp/report"+QString::number(plotNr)+".png");
+//   plot.canvas()
+  plot.render(&img);
+  QPainter p;
+  p.begin(&img);
+  p.drawRect(0, 0, 999, 399);
+  p.end();
+
   img.save(path);
   associatedFiles << path;
 
+  output = output.replace(QByteArray("$overviewGraph$"), filename.toUtf8());
 
-  kDebug() << "Creating graphs...";
+  kDebug() << "Created graphs...";
   return output;
 }
 

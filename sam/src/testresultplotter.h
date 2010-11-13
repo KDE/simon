@@ -25,13 +25,15 @@ class TestResultWidget;
 class QwtPlot;
 class QwtLegend;
 class QwtBarsItem;
+class QStringList;
 
 class TestResultPlotter
 {
   private:
     TestResultPlotter() {}
   public:
-    static void plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend* barGraphLegend);
+    static void plot(const QStringList& labels, const QList< double >& confidence, const QList< double >& accuracy, QwtPlot* plot, QwtBarsItem* barGraph, QwtLegend* barGraphLegend);
+    static void plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend);
 };
 #endif
 

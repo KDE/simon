@@ -20,7 +20,7 @@
 #include "testresultinstance.h"
 #include "testresultleaf.h"
 #include <simonrecognitionresult/recognitionresult.h>
-//#include <QDebug>
+#include <QDebug>
 
 TestResultInstance::TestResultInstance()
 {
@@ -183,12 +183,14 @@ QList<TestResultLeaf*> TestResultInstance::parseResult(const RecognitionResult& 
   QStringList pronunciations = result.sampas();
   QList<float> scores = result.confidenceScores();
 
+  pronunciations.removeAll("sil");
+  pronunciations.removeAll(" sil");
   Q_ASSERT(pronunciations.count() == words.count());
   Q_ASSERT(words.count() == scores.count());
 
   QList<TestResultLeaf*> leafs;
   for (int i=0; i < words.count(); i++)
-    leafs << new TestResultLeaf(words[i], pronunciations[i], scores[i]);
+    leafs << new TestResultLeaf(words[i], pronunciations[i].trimmed(), scores[i]);
 
   return leafs;
 }

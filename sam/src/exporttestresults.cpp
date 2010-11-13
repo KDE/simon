@@ -89,7 +89,7 @@ void ExportTestResults::clearCorpora()
 void ExportTestResults::initSystemDefinition()
 {
   QString systemInfo;
-  systemInfo += i18n("sam: part of simon %1\n", simon_version);
+  systemInfo += i18n("sam: part of simon %1\n", QString::fromAscii(simon_version));
   
   systemInfo += ModelCompilationManager::information(
       !ui.cbDetailedSystemInformation->isChecked() /*short version*/);

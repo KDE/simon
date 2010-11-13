@@ -80,7 +80,7 @@ class MODELTEST_EXPORT ModelTest : public QThread
     QString juliusJConf;
 
     //config options
-    QString sox, julius, hResults;
+    QString sox;
 
     QHash<QString, QString> promptsTable;
 

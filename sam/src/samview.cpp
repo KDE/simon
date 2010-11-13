@@ -319,7 +319,6 @@ void SamView::allTestsFinished()
   ui.qpPlot->show();
 
   TestResultPlotter::plot(testResults, ui.qpPlot, barGraph, barGraphLegend);
-  ui.qpPlot->replot();
 
   switchToTestResults();
 }

@@ -28,37 +28,53 @@
 #include <qwt_series_data.h>
 #include <QStringList>
 
-void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend)
+
+void TestResultPlotter::plot(const QStringList& labels, const QList<double>& confidence, const QList<double>& accuracy, 
+	    QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend)
 {
-  QStringList labels;
-  double *accuracy = new double[testResults.count()];
-  double *confidence = new double[testResults.count()];
-  int i=0;
-  foreach (TestResultWidget *test, testResults)
+  int count = labels.count();
+  Q_ASSERT(count == confidence.count());
+  Q_ASSERT(count == accuracy.count());
+  
+  double *accuracyA = new double[count];
+  double *confidenceA = new double[count];
+  for (int i=0; i < count; i++)
   {
-    confidence[i] = test->getConfidence() * 100.0;
-    accuracy[i] = test->getAccuracy() * 100.0;
-
-    labels << test->getTag();
-    i++;
+    confidenceA[i] = confidence[i];
+    accuracyA[i] = accuracy[i];
   }
-
-  //QwtBarsItem *barGraph = new QwtBarsItem();
-  //QwtLegend *barGraphLegend = new QwtLegend();
-  QwtSeriesData<double> *accSeries = new CArrayData<double>( accuracy, testResults.count() );
+  
+  QwtSeriesData<double> *accSeries = new CArrayData<double>( accuracyA, count );
   barGraph->addSerie( i18n("Accuracy"), *accSeries, QBrush( Qt::blue ), QPen( QColor( Qt::darkBlue ), 1 ) );
 
-  QwtSeriesData<double> *confSeries = new CArrayData<double>( confidence, testResults.count() );
+  QwtSeriesData<double> *confSeries = new CArrayData<double>( confidenceA, count );
   barGraph->addSerie( i18n("Confidence"), *confSeries, QBrush( Qt::green ), QPen( QColor( Qt::darkGreen ), 1 ) );
+  
   barGraph->updateLegend(barGraphLegend);
   barGraph->setType(QwtBarsItem::SideBySide);
   barGraph->attach(plot);
   
-	// scale:
-	plot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );
-	plot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
-	plot->setAxisMaxMajor( QwtPlot::xBottom, testResults.count()+1 );
+  // scale:
+  plot->setAxisScaleDraw( QwtPlot::xBottom, new QwtScaleDrawLabels( labels, 1 ) );
+  plot->setAxisMaxMinor( QwtPlot::xBottom, 0 );
+  plot->setAxisMaxMajor( QwtPlot::xBottom, count+1 );
   plot->replot();
+}
+
+void TestResultPlotter::plot(const QList<TestResultWidget*>& testResults, QwtPlot *plot, QwtBarsItem *barGraph, QwtLegend *barGraphLegend)
+{
+  QStringList labels;
+  QList<double> confidence;
+  QList<double> accuracy;
+  
+  foreach (TestResultWidget *test, testResults)
+  {
+    confidence << test->getConfidence() * 100.0;
+    accuracy << test->getAccuracy() * 100.0;
+
+    labels << test->getTag();
+  }
+  TestResultPlotter::plot(labels, confidence, accuracy, plot, barGraph, barGraphLegend);
 }
 
 

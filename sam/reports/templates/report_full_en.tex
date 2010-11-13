@@ -4,7 +4,6 @@ LATEX
 \usepackage[utf8x]{inputenc}
 
 \usepackage[sf,compact]{titlesec}
-\usepackage[rflt]{floatflt}
 \usepackage{graphicx}
 \usepackage{multicol}
 
@@ -29,7 +28,7 @@ LATEX
 }
 
 
-% Kopf / Fuszzeile
+% Header / Footer
 %\usepackage{fancyhdr}
 %\pagestyle{fancy}
 %
@@ -140,15 +139,24 @@ The following section will present the achieved results by testing the setup des
 
 This section gives a brief overview of the received results.
 
+\end{multicols}
+
+Graph \ref{fig:GraphOverview} provides a graphical overview of the results.
+
 $IF_graphs$
-Here is a big ass graph.
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=\linewidth]{$overviewGraph$}
+ \caption{Overview}
+ \label{fig:GraphOverview}
+\end{figure}
 $ENDIF_graphs$
 
 $IF_tables$
 Table \ref{fig:TableOverview} provides a tabular overview of the results.
 
 \begin{center}
-\begin{figure*}
+\begin{figure}[h]
 \begin{tabular}{|l|c|c|c|c|c|c|}
 \hline
 {\bf Tag} & {\bf WER} & {\bf Acc} & {\bf SUB} & {\bf INS} & {\bf DEL} & {\bf Sentences} \\
@@ -161,9 +169,11 @@ $END_testResults$
 \end{tabular}
 \caption{Recognition results: Tabular overview}
 \label{fig:TableOverview} 
-\end{figure*}
+\end{figure}
 \end{center}
 $ENDIF_tables$
+
+\begin{multicols}{2}
 
 \subsection{Detailed results}
 
