@@ -19,6 +19,7 @@
 
 #include "testconfigurationwidget.h"
 #include "corpusinformation.h"
+#include "samxmlhelper.h"
 
 TestConfigurationWidget::TestConfigurationWidget(QWidget *parent) : QFrame(parent)
 {
@@ -128,5 +129,45 @@ int TestConfigurationWidget::sampleRate() const
 TestConfigurationWidget::~TestConfigurationWidget()
 {
   delete m_corpusInfo;
+}
+
+TestConfigurationWidget* TestConfigurationWidget::deSerialize(const QDomElement& elem)
+{
+  QDomElement corpusElem = elem.firstChildElement("corpus");
+  CorpusInformation *corpusInfo = CorpusInformation::deSerialize(corpusElem);
+  if (!corpusInfo) return 0;
+  
+  KUrl hmmDefsUrl = KUrl(SamXMLHelper::getText(elem, "hmm"));
+  KUrl tiedlistUrl = KUrl(SamXMLHelper::getText(elem, "tiedlist"));
+  KUrl dictUrl = KUrl(SamXMLHelper::getText(elem, "dict"));
+  KUrl dfaUrl = KUrl(SamXMLHelper::getText(elem, "dfa"));
+  KUrl testPromptsUrl = KUrl(SamXMLHelper::getText(elem, "testPrompts"));
+  KUrl testPromptsBasePathUrl = KUrl(SamXMLHelper::getText(elem, "testPromptsBasePath"));
+  KUrl jconfUrl = KUrl(SamXMLHelper::getText(elem, "jconf"));
+  
+  int sampleRate = SamXMLHelper::getInt(elem, "sampleRate");
+  
+  return new TestConfigurationWidget(corpusInfo,
+        hmmDefsUrl, tiedlistUrl, dictUrl, dfaUrl,
+        testPromptsUrl, testPromptsBasePathUrl,
+        jconfUrl, sampleRate);
+}
+
+QDomElement TestConfigurationWidget::serialize(QDomDocument* doc)
+{
+  QDomElement elem = doc->createElement("testConfiguration");
+  elem.appendChild(corpusInformation()->serialize(doc));
+  
+  SamXMLHelper::serializePath(doc, elem, ui.urHmmDefs, "hmm");
+  SamXMLHelper::serializePath(doc, elem, ui.urTiedlist, "tiedlist");
+  SamXMLHelper::serializePath(doc, elem, ui.urDict, "dict");
+  SamXMLHelper::serializePath(doc, elem, ui.urDFA, "dfa");
+  SamXMLHelper::serializePath(doc, elem, ui.urTestPrompts, "testPrompts");
+  SamXMLHelper::serializePath(doc, elem, ui.urTestPromptsBasePath, "testPromptsBasePath");
+  SamXMLHelper::serializePath(doc, elem, ui.urJConf, "jconf");
+  
+  SamXMLHelper::serializeInt(doc, elem, sampleRate(), "sampleRate");
+  
+  return elem;
 }
 

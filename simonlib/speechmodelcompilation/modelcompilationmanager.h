@@ -66,16 +66,13 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool startCompilation(ModelCompilationManager::CompilationType compilationType,
       const QString& hmmDefsPath, const QString& tiedListPath,
       const QString& dictPath, const QString& dfaPath,
-
       const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
       const QString& baseStatsPath, const QString& baseMacrosPath,
-
       const QString& samplePath,
-
       const QString& lexiconPath, const QString& grammarPath,
       const QString& vocabPath, const QString& promptsPath,
-
-      const QString& treeHedPath, const QString& wavConfigPath);
+      const QString& treeHedPath, const QString& wavConfigPath,
+      const QString& scriptBasePrefix);
     bool hasBuildLog();
     QString getGraphicBuildLog();
     QString getBuildLog();
@@ -99,6 +96,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
     QString baseHmmDefsPath, baseTiedlistPath, baseMacrosPath, baseStatsPath;
     QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
+    QString scriptBasePrefix;
 
     //config options
     QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
@@ -164,18 +162,10 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool increaseMixtures();
     bool shouldIncreaseMixtures();
     bool doesIncreaseMixtures(const QString& script);
-    //bool buildHMM16();
-    //bool buildHMM17();
-    //bool buildHMM18();
-
-    //bool buildHMM19();
-    //bool buildHMM20();
-    //bool buildHMM21();
-
-    //bool buildHMM22();
-    //bool buildHMM23();
-    //bool buildHMM24();
-
+    
+    QString getScriptFile(const QString& id);
+    QStringList getScriptFiles(const QString& id);
+    
     int getBaseModelMixtureCount();
     bool prepareGlobalConfig();
 

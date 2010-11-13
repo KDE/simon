@@ -18,6 +18,7 @@
  */
 
 #include "reportparameters.h"
+#include "samxmlhelper.h"
 
 ReportParameters::ReportParameters(const QString& title, const QString& tag,
       const QString& taskDefinition,const OutputOptions options, 
@@ -42,4 +43,65 @@ ReportParameters::ReportParameters(const QString& title, const QString& tag,
 
 ReportParameters::~ReportParameters()
 {
+}
+
+ReportParameters* ReportParameters::deSerialize(const QDomElement& elem)
+{
+  QString title = SamXMLHelper::getText(elem, "title");
+  QString tag = SamXMLHelper::getText(elem, "tag");
+  QString taskDefinition = SamXMLHelper::getText(elem, "taskDefinition");
+  QString outputTemplate = SamXMLHelper::getText(elem, "outputTemplate");
+  QString conclusion = SamXMLHelper::getText(elem, "conclusion");
+  QString experimentTag = SamXMLHelper::getText(elem, "experimentTag");
+  QDate experimentDate = QDate::fromString(SamXMLHelper::getText(elem, "experimentDate"), Qt::ISODate);
+  QString experimentDescription = SamXMLHelper::getText(elem, "experimentDescription");
+  QString systemTag = SamXMLHelper::getText(elem, "systemTag");
+  QString systemDefinition = SamXMLHelper::getText(elem, "systemDefinition");
+  QString vocabularyTag = SamXMLHelper::getText(elem, "vocabularyTag");
+  QString vocabularyNotes = SamXMLHelper::getText(elem, "vocabularyNotes");
+  QString grammarTag = SamXMLHelper::getText(elem, "grammarTag");
+  QString grammarNotes = SamXMLHelper::getText(elem, "grammarNotes");
+
+  int wordCount = SamXMLHelper::getInt(elem, "wordCount");
+  int pronunciationCount = SamXMLHelper::getInt(elem, "pronunciationCount");
+
+  bool ok = true;
+  ReportParameters::OutputOptions options = (ReportParameters::OutputOptions) SamXMLHelper::getInt(elem, "options");
+
+  if (ok)
+    return new ReportParameters(title, tag,
+        taskDefinition, options, outputTemplate,
+        conclusion, experimentTag, experimentDate, experimentDescription,
+        systemTag, systemDefinition, vocabularyTag, vocabularyNotes, grammarTag,
+        grammarNotes, wordCount, pronunciationCount
+        );
+  
+  return 0;
+}
+
+QDomElement ReportParameters::serialize(QDomDocument* doc)
+{
+  QDomElement elem = doc->createElement("reportParameters");
+  
+  SamXMLHelper::serializeText(doc, elem, title(), "title");
+  SamXMLHelper::serializeText(doc, elem, tag(), "tag");
+  SamXMLHelper::serializeText(doc, elem, taskDefinition(), "taskDefinition");
+  SamXMLHelper::serializeText(doc, elem, outputTemplate(), "outputTemplate");
+  SamXMLHelper::serializeText(doc, elem, conclusion(), "conclusion");
+  SamXMLHelper::serializeText(doc, elem, experimentTag(), "experimentTag");
+  SamXMLHelper::serializeText(doc, elem, experimentDate().toString(Qt::ISODate), "experimentDate");
+  
+  SamXMLHelper::serializeText(doc, elem, experimentDescription(), "experimentDescription");
+  SamXMLHelper::serializeText(doc, elem, systemTag(), "systemTag");
+  SamXMLHelper::serializeText(doc, elem, systemDefinition(), "systemDefinition");
+  SamXMLHelper::serializeText(doc, elem, vocabularyTag(), "vocabularyTag");
+  SamXMLHelper::serializeText(doc, elem, vocabularyNotes(), "vocabularyNotes");
+  SamXMLHelper::serializeText(doc, elem, grammarTag(), "grammarTag");
+  SamXMLHelper::serializeText(doc, elem, grammarNotes(), "grammarNotes");
+  
+  SamXMLHelper::serializeInt(doc, elem, wordCount(), "wordCount");
+  SamXMLHelper::serializeInt(doc, elem, pronunciationCount(), "pronunciationCount");
+  SamXMLHelper::serializeInt(doc, elem, options(), "options");
+  
+  return elem;
 }

@@ -52,6 +52,8 @@
 #include <KLocale>
 #include <KDebug>
 #include <KCmdLineArgs>
+#include <QDomDocument>
+#include "samxmlhelper.h"
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
   m_creationCorpus(0),
@@ -451,23 +453,36 @@ void SamView::parseFile()
   if (!f.open(QIODevice::ReadOnly)) {
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
+  
+  QDomDocument doc;
+  doc.setContent(f.readAll());
+  
+  QDomElement samProjectElem = doc.documentElement();
+  if (samProjectElem.tagName() != "samProject")
+  {
+    KMessageBox::sorry(this, i18n("Corrupt or outdated sam configuration file."));
+    return;
+  }
+  
+  QDomElement creationElem = samProjectElem.firstChildElement("creation");
+  m_creationCorpus = CorpusInformation::deSerialize(creationElem.firstChildElement("corpus"));
 
-  m_creationCorpus = readCorpusInformation(f);
+  ui.urHmmDefs->setUrl(KUrl( SamXMLHelper::getText(creationElem, "hmm") ));
+  ui.urTiedlist->setUrl(KUrl( SamXMLHelper::getText(creationElem, "tiedlist") ));
+  ui.urDict->setUrl(KUrl( SamXMLHelper::getText(creationElem, "dict") ));
+  ui.urDFA->setUrl(KUrl( SamXMLHelper::getText(creationElem, "dfa") ));
+  ui.urPrompts->setUrl(KUrl( SamXMLHelper::getText(creationElem, "prompts") ));
+  ui.urPromptsBasePath->setUrl(KUrl( SamXMLHelper::getText(creationElem, "promptsBase") ));
+  ui.urLexicon->setUrl(KUrl( SamXMLHelper::getText(creationElem, "lexicon") ));
+  ui.urGrammar->setUrl(KUrl( SamXMLHelper::getText(creationElem, "grammar") ));
+  ui.urVocabulary->setUrl(KUrl( SamXMLHelper::getText(creationElem, "vocabulary") ));
+  ui.urTreeHed->setUrl(KUrl( SamXMLHelper::getText(creationElem, "tree") ));
+  ui.urWavConfig->setUrl(KUrl( SamXMLHelper::getText(creationElem, "wavConfig") ));
+  ui.sbSampleRate->setValue( SamXMLHelper::getInt(creationElem, "sampleRate") );
+  
+  ui.leScriptPrefix->setText(SamXMLHelper::getText(creationElem, "scriptPrefix"));
 
-  ui.urHmmDefs->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urDict->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urDFA->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urPromptsBasePath->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urLexicon->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urGrammar->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urVocabulary->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urPrompts->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urTreeHed->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urWavConfig->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.sbSampleRate->setValue(QString::fromUtf8(f.readLine()).trimmed().toInt());
-
-  int modelType = f.readLine().trimmed().toInt();
+  int modelType = SamXMLHelper::getInt(creationElem, "modelType");
   switch (modelType) {
     case 0: ui.rbStaticModel->animateClick();
     break;
@@ -476,58 +491,23 @@ void SamView::parseFile()
     case 2: ui.rbDynamicModel->animateClick();
     break;
   }
-  ui.urBaseHmmDefs->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urBaseTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urBaseMacros->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
-  ui.urBaseStats->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+  ui.urBaseHmmDefs->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseHmm")));
+  ui.urBaseTiedlist->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseTiedlist")));
+  ui.urBaseMacros->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseMacros")));
+  ui.urBaseStats->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseStats")));
 
-  int testConfigCount = f.readLine().trimmed().toInt(); 
-  for (int i=0; i < testConfigCount; i++)
+  QDomElement testConfigurations = samProjectElem.firstChildElement("testConfigurations");
+  QDomElement testConfiguration = testConfigurations.firstChildElement("testConfiguration");
+  while (!testConfiguration.isNull())
   {
-    CorpusInformation *testInfo = readCorpusInformation(f);
-
-    KUrl hmmDefsUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl tiedlistUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl dictUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl dfaUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl testPromptsUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl testPromptsBasePathUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    KUrl jconfUrl = KUrl(QString::fromUtf8(f.readLine().trimmed()));
-    int sampleRate = f.readLine().trimmed().toInt();
-
-    addTestConfiguration(new TestConfigurationWidget(testInfo, hmmDefsUrl, tiedlistUrl, dictUrl,
-          dfaUrl, testPromptsUrl, testPromptsBasePathUrl, jconfUrl, sampleRate));
+    addTestConfiguration(TestConfigurationWidget::deSerialize(testConfiguration));
+    testConfiguration = testConfiguration.nextSiblingElement("testConfiguration");
   }
 
-  QString title = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString tag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString taskDefinition = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString outputTemplate = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString conclusion = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString experimentTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QDate experimentDate = QDate::fromString(QString::fromUtf8(f.readLine()).trimmed(), Qt::ISODate);
-  QString experimentDescription = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString systemTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString systemDefinition = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString vocabularyTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString vocabularyNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString grammarTag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString grammarNotes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-
-  int wordCount = f.readLine().trimmed().toInt();
-  int pronunciationCount = f.readLine().trimmed().toInt();
-
-  bool ok = true;
-  ReportParameters::OutputOptions options = (ReportParameters::OutputOptions) f.readLine().trimmed().toInt(&ok);
-
-  if (ok)
-    m_reportParameters = new ReportParameters(title, tag,
-        taskDefinition, options, outputTemplate,
-        conclusion, experimentTag, experimentDate, experimentDescription,
-        systemTag, systemDefinition, vocabularyTag, vocabularyNotes, grammarTag,
-        grammarNotes, wordCount, pronunciationCount
-        );
-  else 
+  QDomElement reportParametersElem = samProjectElem.firstChildElement("reportParameters");
+  if (!reportParametersElem.isNull())
+    m_reportParameters = ReportParameters::deSerialize(reportParametersElem);
+  else
     m_reportParameters = 0;
 
   ui.twMain->setCurrentIndex(0);
@@ -535,17 +515,6 @@ void SamView::parseFile()
   ui.teAdaptLog->clear();
   updateWindowTitle();
 }
-
-CorpusInformation* SamView::readCorpusInformation(QFile &f)
-{
-  QString tag = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  QString notes = QString::fromUtf8(f.readLine()).replace("<%newline%>", "\n").trimmed();
-  int speakers = f.readLine().trimmed().toInt();
-  int samples = f.readLine().trimmed().toInt();
-  int totalSamples = f.readLine().trimmed().toInt();
-  return new CorpusInformation(tag, notes, speakers, samples, totalSamples);
-}
-
 
 int SamView::getModelType()
 {
@@ -556,7 +525,6 @@ int SamView::getModelType()
   return 2;
 }
 
-
 void SamView::storeFile()
 {
   //store to m_filename
@@ -564,74 +532,52 @@ void SamView::storeFile()
   if (!f.open(QIODevice::WriteOnly)) {
     KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
   }
+  
+  QDomDocument doc;
+  QDomElement samProjectElem = doc.createElement("samProject");
 
-  storeCorpusInformation(f, m_creationCorpus);
-  f.write(ui.urHmmDefs->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urTiedlist->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urDict->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urDFA->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urPromptsBasePath->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urLexicon->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urGrammar->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urVocabulary->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urPrompts->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urTreeHed->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urWavConfig->url().toLocalFile().toUtf8()+'\n');
-  f.write(QByteArray::number(ui.sbSampleRate->value())+'\n');
-
-  f.write(QByteArray::number(getModelType())+'\n');
-  f.write(ui.urBaseHmmDefs->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urBaseTiedlist->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urBaseMacros->url().toLocalFile().toUtf8()+'\n');
-  f.write(ui.urBaseStats->url().toLocalFile().toUtf8()+'\n');
-
-  f.write(QByteArray::number(testConfigurations.count())+'\n');
+  QDomElement creationElem = doc.createElement("creation");
+  
+  creationElem.appendChild(m_creationCorpus->serialize(&doc));
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urHmmDefs, "hmm");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urTiedlist, "tiedlist");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urDict, "dict");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urDFA, "dfa");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urPrompts, "prompts");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urPromptsBasePath, "promptsBase");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urLexicon, "lexicon");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urGrammar, "grammar");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urVocabulary, "vocabulary");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urTreeHed, "tree");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urWavConfig, "wavConfig");
+  
+  
+  SamXMLHelper::serializeText(&doc, creationElem, ui.leScriptPrefix->text(), "scriptPrefix");
+  
+  SamXMLHelper::serializeInt(&doc, creationElem, ui.sbSampleRate->value(), "sampleRate");
+  SamXMLHelper::serializeInt(&doc, creationElem, getModelType(), "modelType");
+  
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseHmmDefs, "baseHmm");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseTiedlist, "baseTiedlist");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseMacros, "baseMacros");
+  SamXMLHelper::serializePath(&doc, creationElem, ui.urBaseStats, "baseStats");
+  
+  samProjectElem.appendChild(creationElem);
+  
+  QDomElement testConfigurationsElem = doc.createElement("testConfigurations");
+  
   foreach (TestConfigurationWidget *config, testConfigurations)
-  {
-    storeCorpusInformation(f, config->corpusInformation());
-
-    f.write(config->hmmDefs().toLocalFile().toUtf8()+'\n');
-    f.write(config->tiedlist().toLocalFile().toUtf8()+'\n');
-    f.write(config->dict().toLocalFile().toUtf8()+'\n');
-    f.write(config->dfa().toLocalFile().toUtf8()+'\n');
-    f.write(config->testPrompts().toLocalFile().toUtf8()+'\n');
-    f.write(config->testPromptsBasePath().toLocalFile().toUtf8()+'\n');
-    f.write(config->jconf().toLocalFile().toUtf8()+'\n');
-    f.write(QByteArray::number(config->sampleRate())+'\n');
-  }
+    testConfigurationsElem.appendChild(config->serialize(&doc));
+  samProjectElem.appendChild(testConfigurationsElem);
 
   if (m_reportParameters)
-  {
-    f.write(m_reportParameters->title().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->tag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->taskDefinition().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->outputTemplate().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->conclusion().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->experimentTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->experimentDate().toString(Qt::ISODate).toUtf8()+'\n');
-    f.write(m_reportParameters->experimentDescription().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->systemTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->systemDefinition().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->vocabularyTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->vocabularyNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->grammarTag().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(m_reportParameters->grammarNotes().replace('\n', "<%newline%>").toUtf8()+'\n');
-    f.write(QByteArray::number(m_reportParameters->wordCount())+'\n');
-    f.write(QByteArray::number(m_reportParameters->pronunciationCount())+'\n');
-
-    f.write(QByteArray::number(m_reportParameters->options())+'\n');
-  }
+    samProjectElem.appendChild(m_reportParameters->serialize(&doc));
+  
+  doc.appendChild(samProjectElem);
+  
+  f.write(doc.toByteArray());
 
   updateWindowTitle();
-}
-
-void SamView::storeCorpusInformation(QFile &f, CorpusInformation* info)
-{
-  f.write(info->tag().replace('\n', "<%newline%>").toUtf8()+'\n');
-  f.write(info->notes().replace('\n', "<%newline%>").toUtf8()+'\n');
-  f.write(QByteArray::number(info->speakers())+'\n');
-  f.write(QByteArray::number(info->samples())+'\n');
-  f.write(QByteArray::number(info->samplesTotal())+'\n');
 }
 
 void SamView::getBuildPathsFromSimon()
@@ -706,6 +652,8 @@ void SamView::getBuildPathsFromSimon()
   else
     adaptionType = (ModelCompilationAdapter::AdaptionType) (ModelCompilationAdapter::AdaptLanguageModel | 
         ModelCompilationAdapter::AdaptAcousticModel);
+    
+  ui.leScriptPrefix->setText("simon/scripts");
 
   QStringList scenarioPaths = findScenarios(scenarioIds);
   modelCompilationAdapter->startAdaption(
@@ -851,7 +799,8 @@ void SamView::compileModel()
     ui.urVocabulary->url().toLocalFile(),
     ui.urPrompts->url().toLocalFile(),
     ui.urTreeHed->url().toLocalFile(),
-    ui.urWavConfig->url().toLocalFile());
+    ui.urWavConfig->url().toLocalFile(),
+    ui.leScriptPrefix->text());
 }
 
 

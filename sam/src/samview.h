@@ -23,6 +23,7 @@
 #include <QWidget>
 #include <QProcess>
 #include <QList>
+#include <QDomElement>
 #include <QModelIndex>
 #include <kxmlguiwindow.h>
 
@@ -42,6 +43,7 @@ class TestResultWidget;
 class QwtBarsItem;
 class QwtLegend;
 class CorpusInformation;
+class QDomDocument;
 
 /**
  * @short Main view
@@ -143,13 +145,13 @@ class SamView :  public KXmlGuiWindow
     void startNextScheduledTest();
 
     void initGraph();
-
-    void storeCorpusInformation(QFile &f, CorpusInformation* info);
-    CorpusInformation* readCorpusInformation(QFile &f);
+    
     CorpusInformation* createEmptyCorpusInformation();
     ReportParameters* createEmptyReportParameters();
 
     QList<CorpusInformation*> creationCorpusInformation();
+    
+    void serializePath(QDomDocument* doc, QDomElement& parent, KUrlRequester* requester, const QString& tagName);
 };
 
 #endif

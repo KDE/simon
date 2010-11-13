@@ -12,7 +12,9 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 set(sam_SRCS
    main.cpp
    samview.cpp
+   samxmlhelper.cpp
    corpusinformationwidget.cpp
+   corpusinformation.cpp
    accuracydisplay.cpp
    exporttestresults.cpp
    reporttemplateengine.cpp

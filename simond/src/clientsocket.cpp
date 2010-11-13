@@ -1327,7 +1327,8 @@ void ClientSocket::slotModelAdaptionComplete()
         KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
         activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
         activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath());
+        synchronisationManager->getWavConfigPath(),
+	"simon/scripts");
 
       QFile::remove(activeDir+"hmmdefs");
       QFile::remove(activeDir+"tiedlist");
@@ -1347,7 +1348,8 @@ void ClientSocket::slotModelAdaptionComplete()
         KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
         activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
         activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath());
+        synchronisationManager->getWavConfigPath(),
+	"simon/scripts");
 
       break;
 
@@ -1363,7 +1365,8 @@ void ClientSocket::slotModelAdaptionComplete()
         KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
         activeDir+"lexicon", activeDir+"model.grammar", activeDir+"simple.voca",
         activeDir+"prompts", synchronisationManager->getTreeHedPath(),
-        synchronisationManager->getWavConfigPath());
+        synchronisationManager->getWavConfigPath(),
+	"simon/scripts");
       break;
   }
 }

@@ -23,8 +23,11 @@
 #include <QFlags>
 #include <QString>
 #include <QDate>
+#include <QDomElement>
 
 #include "corpusinformation.h"
+
+class QDomDocument;
 
 class ReportParameters
 {
@@ -94,6 +97,9 @@ class ReportParameters
     void setPronunciationCount(int count) { m_pronunciationCount = count; }
 
     ~ReportParameters();
+    
+    QDomElement serialize(QDomDocument* doc);
+    static ReportParameters* deSerialize(const QDomElement& elem);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ReportParameters::OutputOptions);

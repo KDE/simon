@@ -21,6 +21,9 @@
 #define SIMON_CORPUSINFORMATION_H_4002119636CC42C68FE07273F9000A73
 
 #include <QString>
+#include <QDomElement>
+
+class QDomDocument;
 
 class CorpusInformation
 {
@@ -55,6 +58,9 @@ class CorpusInformation
     void setSamples(int samples) { m_samples = samples; }
 
     void setTotalSampleCount(int count) { m_samplesTotal = count; }
+    
+    QDomElement serialize(QDomDocument* doc);
+    static CorpusInformation* deSerialize(const QDomElement& elem);
 };
 
 #endif

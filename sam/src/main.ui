@@ -186,7 +186,7 @@
                    <item row="6" column="1">
                     <widget class="KUrlRequester" name="urWavConfig"/>
                    </item>
-                   <item row="7" column="0">
+                   <item row="8" column="0">
                     <widget class="QLabel" name="lbSampleRate">
                      <property name="text">
                       <string>Samplerate:</string>
@@ -196,7 +196,7 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="1">
+                   <item row="8" column="1">
                     <widget class="QSpinBox" name="sbSampleRate">
                      <property name="minimum">
                       <number>8000</number>
@@ -208,6 +208,16 @@
                       <number>16000</number>
                      </property>
                     </widget>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="label_5">
+                     <property name="text">
+                      <string>Script base prefix:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="KLineEdit" name="leScriptPrefix"/>
                    </item>
                   </layout>
                  </item>
@@ -385,7 +395,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>676</width>
-                 <height>416</height>
+                 <height>421</height>
                 </rect>
                </property>
               </widget>
@@ -650,7 +660,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -658,26 +668,31 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
   </customwidget>
   <customwidget>
    <class>QwtPlot</class>

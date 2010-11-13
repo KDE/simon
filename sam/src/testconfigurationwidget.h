@@ -22,6 +22,9 @@
 
 #include "ui_testconfiguration.h"
 #include <QFrame>
+#include <QDomElement>
+
+class QDomDocument;
 
 class CorpusInformation;
 
@@ -62,5 +65,8 @@ class TestConfigurationWidget : public QFrame
     KUrl testPromptsBasePath() const;
     KUrl jconf() const;
     int sampleRate() const;
+    
+    static TestConfigurationWidget* deSerialize(const QDomElement& elem);
+    QDomElement serialize(QDomDocument *doc);
 };
 #endif
