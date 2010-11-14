@@ -277,8 +277,8 @@ void SamView::storeBuildLog()
   QString buildLog = modelCompilationManager->getGraphicBuildLog();
 
   QString filename;
-  if (KCmdLineArgs::parsedArgs()->isSet("cl"))
-    filename = KCmdLineArgs::parsedArgs()->getOption("cl");
+  if (KCmdLineArgs::parsedArgs()->isSet("l"))
+    filename = KCmdLineArgs::parsedArgs()->getOption("l");
   else
     filename = KFileDialog::getSaveFileName(KUrl(), i18n("HTML files *.html"), this);
   if (filename.isEmpty()) return;
@@ -448,7 +448,7 @@ void SamView::exportTestResults()
     ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
 
-    if (temp != m_reportParameters)
+    if (*temp != *m_reportParameters)
       setDirty();
 
     delete temp;
@@ -1100,7 +1100,7 @@ void SamView::retrieveCompleteBuildLog()
     ui.teBuildLog->append(graphicBuildLog);
   }
 
-  if (KCmdLineArgs::parsedArgs()->isSet("cl"))
+  if (KCmdLineArgs::parsedArgs()->isSet("l"))
     storeBuildLog();
 }
 

@@ -36,16 +36,12 @@ int main(int argc, char **argv)
   KCmdLineOptions options;
   options.add("paths-from-simon");
   options.add("s", ki18n("Get configuration from simon"), "");
-  options.add("compile");
   options.add("c", ki18n("Automatically start compiling the model"), "");
-  options.add("test");
   options.add("t", ki18n("Automatically start testing the model(s)"), "");
-  options.add("export <filename>");
   options.add("e <filename>", ki18n("Export test results to the given filename"), "");
-  options.add("b");
-  options.add("batch", ki18n("Batch processing: Close after all other arguments have been processed"), "");
-  options.add("cl <filename>");
-  options.add("compilelog <filename>", ki18n("Store compilation log"), "");
+  options.add("b", ki18n("Batch processing: Close after all other arguments have been processed"), "");
+  options.add("l <filename>", ki18n("Store compilation log"), "");
+  options.add("w", ki18n("Write opened file when done (batch mode)."), "");
 
   options.add("+samfile", ki18n("If provided, this file will automatically be loaded"), "");
      
