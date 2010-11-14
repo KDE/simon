@@ -59,6 +59,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   m_startCompilationAfterAdaption(false),
   m_startTestAfterCompile(false),
   m_exportAfterTest(false),
+  m_dirty(false),
   m_creationCorpus(0),
   m_reportParameters(0),
   barGraph(0)
@@ -127,6 +128,27 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   KStandardAction::quit(this, SLOT(close()), actionCollection());
 
   setupGUI();
+
+  connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
+  connect(ui.rbStaticModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
+
+  connect(ui.urHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urDict, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urDFA, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urPromptsBasePath, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urLexicon, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urGrammar, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urVocabulary, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urTreeHed, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urWavConfig, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseMacros, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseStats, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.leScriptPrefix, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(setDirty()));
 
   ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
   ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
@@ -206,6 +228,44 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
     m_exportAfterTest = true;
 }
 
+bool SamView::askIfQuit()
+{
+  if (batchMode())
+    return true;
+
+  if (m_dirty)
+  {
+    int ret = KMessageBox::questionYesNoCancel(this, i18n("Your sam configuration has changed.\n\nDo you want to save?"));
+    switch (ret)
+    {
+      case KMessageBox::Yes:
+        save();
+        return true;
+      case KMessageBox::Cancel:
+        return false;
+      default:
+        return true;
+    }
+  }
+  return true;
+}
+
+bool SamView::close()
+{
+  kDebug() << "Closing";
+  if (batchMode())
+  {
+    if (KCmdLineArgs::parsedArgs()->isSet("w"))
+      save();
+    return QWidget::close();
+  }
+
+  if (askIfQuit())
+    return QWidget::close();
+
+  return false;
+}
+
 void SamView::storeBuildLog()
 {
   if (!modelCompilationManager->hasBuildLog())
@@ -241,6 +301,7 @@ void SamView::addTestConfiguration(TestConfigurationWidget* config)
 {
   connect(config, SIGNAL(destroyed()), this, SLOT(testConfigurationRemoved()));
   connect(config, SIGNAL(tagChanged()), this, SLOT(testConfigTagChanged()));
+  connect(config, SIGNAL(changed()), this, SLOT(setDirty()));
   testConfigurations << config;
   ui.vlTestConfigurations->addWidget(config);
 
@@ -251,6 +312,7 @@ void SamView::addTestConfiguration(TestConfigurationWidget* config)
   connect(result, SIGNAL(destroyed()), this, SLOT(testResultRemoved()));
   testResults << result;
   ui.twTestResults->addTab(result, config->tag());
+  setDirty();
 }
 
 void SamView::testConfigTagChanged()
@@ -369,6 +431,7 @@ void SamView::allTestsFinished()
 void SamView::testConfigurationRemoved()
 {
   testConfigurations.removeAll(static_cast<TestConfigurationWidget*>(sender()));
+  setDirty();
 }
 
 void SamView::testResultRemoved()
@@ -382,8 +445,14 @@ void SamView::exportTestResults()
   
   if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults))
   {
-    delete m_reportParameters;
+    ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
+
+    if (temp != m_reportParameters)
+      setDirty();
+
+    delete temp;
+
     //sync displays to potentially changed test result tags
     foreach (TestConfigurationWidget *t, testConfigurations)
       t->retrieveTag();
@@ -414,6 +483,8 @@ void SamView::showConfig()
 
 void SamView::newProject()
 {
+  if (!askIfQuit())
+    return;
   clearCurrentConfiguration();
 
   ui.urHmmDefs->clear();
@@ -452,6 +523,8 @@ void SamView::load()
 
 void SamView::load(const QString& filename)
 {
+  if (!askIfQuit()) return;
+
   clearCurrentConfiguration();
   m_filename = filename;
   qDeleteAll(testConfigurations); //cleared by signal
@@ -471,6 +544,8 @@ void SamView::save()
 
 void SamView::saveAs()
 {
+  if (batchMode()) return;
+
   QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("sam projects *.sam"), this);
   if (filename.isEmpty())
     return;
@@ -486,7 +561,8 @@ void SamView::updateWindowTitle()
   if (m_filename.isEmpty())
     decoFile = i18n("Untitled");
 
-  setWindowTitle(i18n("sam - %1", decoFile));
+  setWindowTitle(i18n("sam - %1 [*]", decoFile));
+  setWindowModified(m_dirty);
 }
 
 
@@ -558,6 +634,7 @@ void SamView::parseFile()
   ui.teBuildLog->clear();
   ui.teAdaptLog->clear();
   updateWindowTitle();
+  setClean();
 }
 
 int SamView::getModelType()
@@ -575,6 +652,7 @@ void SamView::storeFile()
   QFile f(m_filename);
   if (!f.open(QIODevice::WriteOnly)) {
     fatalError(i18n("Cannot open file: %1", m_filename));
+    return;
   }
   
   QDomDocument doc;
@@ -621,6 +699,19 @@ void SamView::storeFile()
   
   f.write(doc.toByteArray());
 
+  setClean();
+  updateWindowTitle();
+}
+
+void SamView::setDirty()
+{
+  m_dirty = true;
+  updateWindowTitle();
+}
+
+void SamView::setClean()
+{
+  m_dirty = false;
   updateWindowTitle();
 }
 

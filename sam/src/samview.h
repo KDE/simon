@@ -55,7 +55,7 @@ class QDomDocument;
 class SamView :  public KXmlGuiWindow, public SamUi
 {
   Q_OBJECT
-    public:
+  public:
     /**
      * Default constructor
      */
@@ -66,7 +66,13 @@ class SamView :  public KXmlGuiWindow, public SamUi
      */
     virtual ~SamView();
 
+  public slots:
+    bool close();
+
   private slots:
+    void setDirty();
+    void setClean();
+
     void showConfig();
 
     void newProject();
@@ -135,6 +141,8 @@ class SamView :  public KXmlGuiWindow, public SamUi
     bool m_startTestAfterCompile;
     bool m_exportAfterTest;
 
+    bool m_dirty;
+
     QString m_filename;
     CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
@@ -159,6 +167,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
     ReportParameters* createEmptyReportParameters();
 
     QList<CorpusInformation*> creationCorpusInformation();
+    bool askIfQuit();
 };
 
 #endif

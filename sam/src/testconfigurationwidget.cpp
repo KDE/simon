@@ -62,6 +62,15 @@ void TestConfigurationWidget::setupUi()
   ui.urDict->setMode(KFile::File|KFile::LocalOnly);
   ui.urDFA->setMode(KFile::File|KFile::LocalOnly);
 
+  connect(ui.urJConf, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urTestPromptsBasePath, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urTestPrompts, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urHmmDefs, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urDict, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.urDFA, SIGNAL(textChanged(const QString&)), this, SIGNAL(changed()));
+  connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
+
   connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteLater()));
   connect(ui.leTag, SIGNAL(editingFinished()), this, SIGNAL(tagChanged()));
   connect(ui.leTag, SIGNAL(textChanged(const QString&)), this, SLOT(updateTag(const QString&)));
