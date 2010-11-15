@@ -396,7 +396,6 @@ void processRecognitionResult(Recog *recog, void *test)
   /* all recognition results are stored at each recognition process
   instance */
   for(r=recog->process_list;r;r=r->next) {
-    bool searchFailed=false;
     /* skip the process if the process is not alive */
     if (! r->live) continue;
 
@@ -423,9 +422,9 @@ void processRecognitionResult(Recog *recog, void *test)
           break;
         case J_RESULT_STATUS_FAIL:
           printf("<search failed>\n");
-          searchFailed=true;
           break;
       }
+      modelTest->searchFailed();
       /* continue to next process instance */
       continue;
     }
@@ -464,7 +463,7 @@ void processRecognitionResult(Recog *recog, void *test)
         sampa.trimmed(),
         sampaRaw.trimmed(), confidenceScores));
     }
-    if (recognitionResults.isEmpty() && searchFailed)
+    if (recognitionResults.isEmpty())
       modelTest->searchFailed();
     else
       modelTest->recognized(recognitionResults);
@@ -482,8 +481,6 @@ void ModelTest::emitError(const QString& message)
     emit error(message, QByteArray());
     return;
   }
-
-  kDebug() << "Reading file!";
 
   QByteArray out = "<html><head /><body><p>"+f.readAll().replace('\n', "<br />")+"</p></body></html>";
   emit error(message, out);
@@ -538,8 +535,6 @@ bool ModelTest::recognize()
   QByteArray hmmDefs = tempDir.toUtf8()+"hmmdefs";
   int argc=15;
 
-  kDebug() << juliusJConf.toLocal8Bit().data();
-  kDebug() << dfaPath.toLocal8Bit().data();
   QByteArray juliusJConfByte = juliusJConf.toLocal8Bit();
   QByteArray dfaPathByte = dfaPath.toLocal8Bit();
   QByteArray dictPathByte = dictPath.toLocal8Bit();
@@ -672,6 +667,7 @@ void ModelTest::searchFailed()
 
   foreach (const QString& label, promptWordList)
   {
+    kDebug() << "Test result dummy leaf: " << label;
     TestResultLeaf *dummyLeaf = new TestResultLeaf(label, "", 0.0);
     dummyLeaf->setDeletionError(true);
     resultLeafes << dummyLeaf;

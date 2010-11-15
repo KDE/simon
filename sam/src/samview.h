@@ -20,6 +20,7 @@
 #ifndef SIMON_SAMVIEW_H_4002119636CC42C68FE07273F9000A73
 #define SIMON_SAMVIEW_H_4002119636CC42C68FE07273F9000A73
 
+#include "samui.h"
 #include <QWidget>
 #include <QProcess>
 #include <QList>
@@ -51,10 +52,10 @@ class QDomDocument;
  * @version 0.1
  */
 
-class SamView :  public KXmlGuiWindow
+class SamView :  public KXmlGuiWindow, public SamUi
 {
   Q_OBJECT
-    public:
+  public:
     /**
      * Default constructor
      */
@@ -65,7 +66,13 @@ class SamView :  public KXmlGuiWindow
      */
     virtual ~SamView();
 
+  public slots:
+    bool close();
+
   private slots:
+    void setDirty();
+    void setClean();
+
     void showConfig();
 
     void newProject();
@@ -85,6 +92,7 @@ class SamView :  public KXmlGuiWindow
     void testModel();
 
     void clearBuildLog();
+    void slotModelCompilationFinished();
     void retrieveCompleteBuildLog();
     void storeBuildLog();
 
@@ -126,6 +134,15 @@ class SamView :  public KXmlGuiWindow
     void exportTestResults();
 
   private:
+    /**
+     * \brief Start the model test the next time the model finished compiling
+     */
+    bool m_startCompilationAfterAdaption;
+    bool m_startTestAfterCompile;
+    bool m_exportAfterTest;
+
+    bool m_dirty;
+
     QString m_filename;
     CorpusInformation *m_creationCorpus;
     ReportParameters *m_reportParameters;
@@ -150,8 +167,7 @@ class SamView :  public KXmlGuiWindow
     ReportParameters* createEmptyReportParameters();
 
     QList<CorpusInformation*> creationCorpusInformation();
-    
-    void serializePath(QDomDocument* doc, QDomElement& parent, KUrlRequester* requester, const QString& tagName);
+    bool askIfQuit();
 };
 
 #endif

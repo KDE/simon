@@ -32,6 +32,7 @@
 #include <QFile>
 #include <KGlobal>
 #include <KLocale>
+#include <KCmdLineArgs>
 #include <KMessageBox>
 #include <KTabWidget>
 #include <KStandardDirs>
@@ -204,7 +205,7 @@ void ExportTestResults::createReport()
   QFile f(templateFile);
   if (!f.open(QIODevice::ReadOnly))
   {
-    KMessageBox::sorry(this, i18n("Could not initialize output template at \"%1\". "
+    fatalError(i18n("Could not initialize output template at \"%1\". "
           "Please select a valid output format.", templateFile));
     return;
   }
@@ -215,7 +216,7 @@ void ExportTestResults::createReport()
   //hardcode only currently available output engine
   if (outputEngine != "LATEX")
   {
-    KMessageBox::sorry(this, i18n("Output type not supported: %1.\n\n"
+    fatalError(i18n("Output type not supported: %1.\n\n"
           "Please make sure that your output format is compatible with this version of sam.", QString::fromUtf8(outputEngine)));
     return;
   }
@@ -223,14 +224,18 @@ void ExportTestResults::createReport()
   ReportTemplateEngine *engine = new LatexReportTemplateEngine;
   QByteArray templateData = f.readAll().trimmed();
 
-  QString outputFile = KFileDialog::getSaveFileName(KUrl(), engine->fileType(), this);
+  QString outputFile;
+  if (KCmdLineArgs::parsedArgs()->isSet("e"))
+    outputFile = KCmdLineArgs::parsedArgs()->getOption("e");
+  else
+    outputFile = KFileDialog::getSaveFileName(KUrl(), engine->fileType(), this);
   
   if (!outputFile.isEmpty())
   {
     saveCorporaInformation();
     if (!engine->parse(templateData, createTemplateValues(), createTemplateValueLists(),
           ui.cbGraphs->isChecked(), ui.cbTables->isChecked(), outputFile))
-      KMessageBox::sorry(this, i18n("Failed to parse template: %1", engine->lastError()));
+      fatalError(i18n("Failed to parse template: %1", engine->lastError()));
   }
    
   delete engine;
@@ -238,6 +243,9 @@ void ExportTestResults::createReport()
 
 int ExportTestResults::exec()
 {
+  if (batchMode())
+    return true;
+
   return KDialog::exec();
 }
 

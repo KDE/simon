@@ -105,3 +105,25 @@ QDomElement ReportParameters::serialize(QDomDocument* doc)
   
   return elem;
 }
+
+bool ReportParameters::operator!=(const ReportParameters& other)
+{
+  return ((title() != other.title()) ||
+    (tag() != other.tag()) ||
+    (taskDefinition() != other.taskDefinition()) ||
+    (systemDefinition() != other.systemDefinition()) ||
+    (outputTemplate() != other.outputTemplate()) ||
+    (conclusion() != other.conclusion()) ||
+    (vocabularyNotes() != other.vocabularyNotes()) ||
+    (vocabularyTag() != other.vocabularyTag()) ||
+    (grammarTag() != other.grammarTag()) ||
+    (grammarNotes() != other.grammarNotes()) ||
+    (options() != other.options()) ||
+    (experimentTag() != other.experimentTag()) ||
+    (experimentDate() != other.experimentDate()) ||
+    (experimentDescription() != other.experimentDescription()) ||
+    (systemTag() != other.systemTag()) ||
+    (wordCount() != other.wordCount()) ||
+    (pronunciationCount() != other.pronunciationCount()));
+}
+

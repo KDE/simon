@@ -56,6 +56,10 @@
 #include "samxmlhelper.h"
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
+  m_startCompilationAfterAdaption(false),
+  m_startTestAfterCompile(false),
+  m_exportAfterTest(false),
+  m_dirty(false),
   m_creationCorpus(0),
   m_reportParameters(0),
   barGraph(0)
@@ -125,6 +129,27 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   setupGUI();
 
+  connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
+  connect(ui.rbStaticModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
+
+  connect(ui.urHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urDict, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urDFA, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urPromptsBasePath, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urLexicon, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urGrammar, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urVocabulary, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urTreeHed, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urWavConfig, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseHmmDefs, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseTiedlist, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseMacros, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.urBaseStats, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.leScriptPrefix, SIGNAL(textChanged(const QString&)), this, SLOT(setDirty()));
+  connect(ui.sbSampleRate, SIGNAL(valueChanged(int)), this, SLOT(setDirty()));
+
   ui.urHmmDefs->setMode(KFile::File|KFile::LocalOnly);
   ui.urTiedlist->setMode(KFile::File|KFile::LocalOnly);
   ui.urDict->setMode(KFile::File|KFile::LocalOnly);
@@ -148,7 +173,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
   modelCompilationManager = new ModelCompilationManager("internalsamuser", this);
-  connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(retrieveCompleteBuildLog()));
+  connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(slotModelCompilationFinished()));
   connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(retrieveCompleteBuildLog()));
   connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
   connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
@@ -160,7 +185,6 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this,
     SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 
-
   connect(ui.pbAddTestConfiguration, SIGNAL(clicked()), this, SLOT(addTestConfiguration()));
 
   connect(ui.pbSerializeScenarios, SIGNAL(clicked()), this, SLOT(serializeScenarios()));
@@ -170,27 +194,98 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
   connect(ui.pbCancelTestModel, SIGNAL(clicked()), this, SLOT(abortModelTest()));
   connect(ui.pbSaveCompleteBuildlog, SIGNAL(clicked()), this, SLOT(storeBuildLog()));
 
-  QString loadPath = KCmdLineArgs::parsedArgs()->getOption("l");
-  if (!loadPath.isEmpty())
-    load(loadPath);
+  if (KCmdLineArgs::parsedArgs()->count() > 0)
+  {
+    QString loadPath = KCmdLineArgs::parsedArgs()->url(0).toLocalFile();
+    kDebug() << "Load path: " << loadPath;
+
+    if (!loadPath.isEmpty())
+      load(loadPath);
+  }
+
+  bool autoTestModel = KCmdLineArgs::parsedArgs()->isSet("t");
+  if (KCmdLineArgs::parsedArgs()->isSet("s"))
+  {
+    getBuildPathsFromSimon();
+    //async 
+    if (KCmdLineArgs::parsedArgs()->isSet("c"))
+    {
+      m_startCompilationAfterAdaption = true;
+    }
+    if (autoTestModel)
+      m_startTestAfterCompile = true;
+  } else {
+    if (KCmdLineArgs::parsedArgs()->isSet("c"))
+    {
+      compileModel();
+      if (autoTestModel)
+        m_startTestAfterCompile = true;
+    }
+    else if (autoTestModel)
+      testModel();
+  }
+  if (KCmdLineArgs::parsedArgs()->isSet("e"))
+    m_exportAfterTest = true;
+}
+
+bool SamView::askIfQuit()
+{
+  if (batchMode())
+    return true;
+
+  if (m_dirty)
+  {
+    int ret = KMessageBox::questionYesNoCancel(this, i18n("Your sam configuration has changed.\n\nDo you want to save?"));
+    switch (ret)
+    {
+      case KMessageBox::Yes:
+        save();
+        return true;
+      case KMessageBox::Cancel:
+        return false;
+      default:
+        return true;
+    }
+  }
+  return true;
+}
+
+bool SamView::close()
+{
+  kDebug() << "Closing";
+  if (batchMode())
+  {
+    if (KCmdLineArgs::parsedArgs()->isSet("w"))
+      save();
+    return QWidget::close();
+  }
+
+  if (askIfQuit())
+    return QWidget::close();
+
+  return false;
 }
 
 void SamView::storeBuildLog()
 {
   if (!modelCompilationManager->hasBuildLog())
   {
-    KMessageBox::sorry(this, i18n("No current log."));
+    error(i18n("No current log."));
     return;
   }
 
   QString buildLog = modelCompilationManager->getGraphicBuildLog();
 
-  QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("HTML files *.html"), this);
+  QString filename;
+  if (KCmdLineArgs::parsedArgs()->isSet("l"))
+    filename = KCmdLineArgs::parsedArgs()->getOption("l");
+  else
+    filename = KFileDialog::getSaveFileName(KUrl(), i18n("HTML files *.html"), this);
   if (filename.isEmpty()) return;
   QFile f(filename);
   if (!f.open(QIODevice::WriteOnly))
   {
-    KMessageBox::sorry(this, i18n("Could not open output file %1.", filename));
+    fatalError(i18n("Could not open output file %1.", filename));
     return;
   }
   f.write(buildLog.toUtf8());
@@ -206,6 +301,7 @@ void SamView::addTestConfiguration(TestConfigurationWidget* config)
 {
   connect(config, SIGNAL(destroyed()), this, SLOT(testConfigurationRemoved()));
   connect(config, SIGNAL(tagChanged()), this, SLOT(testConfigTagChanged()));
+  connect(config, SIGNAL(changed()), this, SLOT(setDirty()));
   testConfigurations << config;
   ui.vlTestConfigurations->addWidget(config);
 
@@ -216,6 +312,7 @@ void SamView::addTestConfiguration(TestConfigurationWidget* config)
   connect(result, SIGNAL(destroyed()), this, SLOT(testResultRemoved()));
   testResults << result;
   ui.twTestResults->addTab(result, config->tag());
+  setDirty();
 }
 
 void SamView::testConfigTagChanged()
@@ -312,7 +409,6 @@ void SamView::startNextScheduledTest()
 void SamView::allTestsFinished()
 {
   //fill general tab with information
-  
   if (testResults.count() == 1)
     ui.lbTestResultInformation->setText(i18n("Ran 1 test.", testResults.count()));
   else 
@@ -323,11 +419,19 @@ void SamView::allTestsFinished()
   TestResultPlotter::plot(testResults, ui.qpPlot, barGraph, barGraphLegend);
 
   switchToTestResults();
+
+  if (m_exportAfterTest)
+  {
+    m_exportAfterTest = false;
+    exportTestResults();
+  } else if (batchMode())
+    exit(0);
 }
 
 void SamView::testConfigurationRemoved()
 {
   testConfigurations.removeAll(static_cast<TestConfigurationWidget*>(sender()));
+  setDirty();
 }
 
 void SamView::testResultRemoved()
@@ -341,13 +445,22 @@ void SamView::exportTestResults()
   
   if (e->exportTestResults(m_reportParameters, creationCorpusInformation(), testResults))
   {
-    delete m_reportParameters;
+    ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
+
+    if (*temp != *m_reportParameters)
+      setDirty();
+
+    delete temp;
+
     //sync displays to potentially changed test result tags
     foreach (TestConfigurationWidget *t, testConfigurations)
       t->retrieveTag();
   }
   delete e;
+
+  if (batchMode())
+    exit(0);
 }
 
 QList<CorpusInformation*> SamView::creationCorpusInformation()
@@ -370,6 +483,8 @@ void SamView::showConfig()
 
 void SamView::newProject()
 {
+  if (!askIfQuit())
+    return;
   clearCurrentConfiguration();
 
   ui.urHmmDefs->clear();
@@ -385,7 +500,7 @@ void SamView::newProject()
   ui.urTreeHed->clear();
   ui.urWavConfig->clear();
   ui.sbSampleRate->setValue(16000 /* default*/);
-  ui.rbDynamicModel->animateClick();
+  ui.rbDynamicModel->click();
   ui.urBaseHmmDefs->clear();
   ui.urBaseTiedlist->clear();
   ui.urBaseMacros->clear();
@@ -408,6 +523,8 @@ void SamView::load()
 
 void SamView::load(const QString& filename)
 {
+  if (!askIfQuit()) return;
+
   clearCurrentConfiguration();
   m_filename = filename;
   qDeleteAll(testConfigurations); //cleared by signal
@@ -427,6 +544,8 @@ void SamView::save()
 
 void SamView::saveAs()
 {
+  if (batchMode()) return;
+
   QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("sam projects *.sam"), this);
   if (filename.isEmpty())
     return;
@@ -442,7 +561,8 @@ void SamView::updateWindowTitle()
   if (m_filename.isEmpty())
     decoFile = i18n("Untitled");
 
-  setWindowTitle(i18n("sam - %1", decoFile));
+  setWindowTitle(i18n("sam - %1 [*]", decoFile));
+  setWindowModified(m_dirty);
 }
 
 
@@ -451,7 +571,7 @@ void SamView::parseFile()
   //read from m_filename
   QFile f(m_filename);
   if (!f.open(QIODevice::ReadOnly)) {
-    KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
+    fatalError(i18n("Cannot open file: %1", m_filename));
   }
   
   QDomDocument doc;
@@ -460,7 +580,7 @@ void SamView::parseFile()
   QDomElement samProjectElem = doc.documentElement();
   if (samProjectElem.tagName() != "samProject")
   {
-    KMessageBox::sorry(this, i18n("Corrupt or outdated sam configuration file."));
+    fatalError(i18n("Corrupt or outdated sam configuration file."));
     return;
   }
   
@@ -484,11 +604,11 @@ void SamView::parseFile()
 
   int modelType = SamXMLHelper::getInt(creationElem, "modelType");
   switch (modelType) {
-    case 0: ui.rbStaticModel->animateClick();
+    case 0: ui.rbStaticModel->click();
     break;
-    case 1: ui.rbAdaptedBaseModel->animateClick();
+    case 1: ui.rbAdaptedBaseModel->click();
     break;
-    case 2: ui.rbDynamicModel->animateClick();
+    case 2: ui.rbDynamicModel->click();
     break;
   }
   ui.urBaseHmmDefs->setUrl(KUrl(SamXMLHelper::getText(creationElem, "baseHmm")));
@@ -514,6 +634,7 @@ void SamView::parseFile()
   ui.teBuildLog->clear();
   ui.teAdaptLog->clear();
   updateWindowTitle();
+  setClean();
 }
 
 int SamView::getModelType()
@@ -530,7 +651,8 @@ void SamView::storeFile()
   //store to m_filename
   QFile f(m_filename);
   if (!f.open(QIODevice::WriteOnly)) {
-    KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
+    fatalError(i18n("Cannot open file: %1", m_filename));
+    return;
   }
   
   QDomDocument doc;
@@ -577,6 +699,19 @@ void SamView::storeFile()
   
   f.write(doc.toByteArray());
 
+  setClean();
+  updateWindowTitle();
+}
+
+void SamView::setDirty()
+{
+  m_dirty = true;
+  updateWindowTitle();
+}
+
+void SamView::setClean()
+{
+  m_dirty = false;
   updateWindowTitle();
 }
 
@@ -607,7 +742,7 @@ void SamView::getBuildPathsFromSimon()
       ui.urBaseTiedlist->setUrl(KStandardDirs::locate("data", "simon/model/basetiedlist"));
       ui.urBaseMacros->setUrl(KStandardDirs::locate("data", "simon/model/basemacros"));
       ui.urBaseStats->setUrl(KStandardDirs::locate("data", "simon/model/basestats"));
-      ui.rbAdaptedBaseModel->animateClick();
+      ui.rbAdaptedBaseModel->click();
       break;
     case 2:
       //dynamic model
@@ -615,11 +750,11 @@ void SamView::getBuildPathsFromSimon()
       ui.urBaseTiedlist->clear();
       ui.urBaseMacros->clear();
       ui.urBaseStats->clear();
-      ui.rbDynamicModel->animateClick();
+      ui.rbDynamicModel->click();
       break;
   }
   if (modelType == 0)
-    ui.rbStaticModel->animateClick();
+    ui.rbStaticModel->click();
 
   ui.sbSampleRate->setValue(sampleRate);
 
@@ -754,6 +889,7 @@ void SamView::compileModel()
   clearBuildLog();
 
   int modelType = getModelType();
+  kDebug() << "Model type: " << modelType;
 
   ModelCompilationManager::CompilationType type;
   switch (modelType) {
@@ -778,7 +914,7 @@ void SamView::compileModel()
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel);
       break;
     default:
-      KMessageBox::error(this, i18n("Unknown model type"));
+      fatalError(i18n("Unknown model type"));
       return;
   }
   modelCompilationManager->startCompilation(
@@ -859,6 +995,13 @@ void SamView::slotModelAdaptionComplete()
               this));
     }
   }
+  if (m_startCompilationAfterAdaption)
+  {
+    kDebug() << "Starting compilation";
+    m_startCompilationAfterAdaption = false;
+    compileModel();
+  } else if (batchMode())
+    exit(0);
 }
 
 CorpusInformation* SamView::createEmptyCorpusInformation()
@@ -888,7 +1031,7 @@ void SamView::slotModelAdaptionStatus(QString status, int progress)
 
 void SamView::slotModelAdaptionError(QString errorMessage)
 {
-  KMessageBox::error(this, i18n("Failed to adapt model:\n\n%1", errorMessage));
+  fatalError(i18n("Failed to adapt model:\n\n%1", errorMessage));
 }
 
 
@@ -900,32 +1043,41 @@ void SamView::slotModelCompilationStatus(const QString& status, int now, int max
   ui.teBuildLog->append(status);
 }
 
+void SamView::slotModelCompilationFinished()
+{
+  retrieveCompleteBuildLog();
+  if (m_startTestAfterCompile)
+  {
+    testModel();
+    m_startTestAfterCompile = false;
+  } else if (batchMode())
+    exit(0);
+}
 
 void SamView::slotModelCompilationError(const QString& error)
 {
-  KMessageBox::error(this, error);
   retrieveCompleteBuildLog();
+  fatalError(error);
 }
-
 
 void SamView::slotModelCompilationClassUndefined(const QString& undefinedClass)
 {
-  KMessageBox::error(this, i18n("Grammar class undefined: %1", undefinedClass));
   retrieveCompleteBuildLog();
+  fatalError(i18n("Grammar class undefined: %1", undefinedClass));
 }
 
 
 void SamView::slotModelCompilationWordUndefined(const QString& undefinedWord)
 {
-  KMessageBox::error(this, i18n("Word undefined: %1", undefinedWord));
   retrieveCompleteBuildLog();
+  fatalError(i18n("Word undefined: %1", undefinedWord));
 }
 
 
 void SamView::slotModelCompilationPhonemeUndefined(const QString& undefinedPhoneme)
 {
-  KMessageBox::error(this, i18n("Phoneme undefined: %1", undefinedPhoneme));
   retrieveCompleteBuildLog();
+  fatalError(i18n("Phoneme undefined: %1", undefinedPhoneme));
 }
 
 
@@ -947,6 +1099,9 @@ void SamView::retrieveCompleteBuildLog()
     ui.teBuildLog->clear();
     ui.teBuildLog->append(graphicBuildLog);
   }
+
+  if (KCmdLineArgs::parsedArgs()->isSet("l"))
+    storeBuildLog();
 }
 
 
@@ -1008,7 +1163,6 @@ void SamView::abortModelTest()
   foreach (TestResultWidget *test, testResults)
     test->abort();
 }
-
 
 SamView::~SamView()
 {

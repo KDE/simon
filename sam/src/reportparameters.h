@@ -74,25 +74,25 @@ class ReportParameters
       int wordCount, int pronunciationCount
       );
 
-    QString title() { return m_title; }
-    QString tag() { return m_tag; }
-    QString taskDefinition() { return m_taskDefinition; }
-    QString systemDefinition() { return m_systemDefinition; }
-    QString outputTemplate() { return m_outputTemplate; }
-    QString conclusion() { return m_conclusion; }
-    QString vocabularyNotes() { return m_vocabularyNotes; }
-    QString vocabularyTag() { return m_vocabularyTag; }
-    QString grammarTag() { return m_grammarTag; }
-    QString grammarNotes() { return m_grammarNotes; }
-    OutputOptions options() { return m_options; }
+    QString title() const { return m_title; }
+    QString tag() const { return m_tag; }
+    QString taskDefinition() const { return m_taskDefinition; }
+    QString systemDefinition() const { return m_systemDefinition; }
+    QString outputTemplate() const { return m_outputTemplate; }
+    QString conclusion() const { return m_conclusion; }
+    QString vocabularyNotes() const { return m_vocabularyNotes; }
+    QString vocabularyTag() const { return m_vocabularyTag; }
+    QString grammarTag() const { return m_grammarTag; }
+    QString grammarNotes() const { return m_grammarNotes; }
+    OutputOptions options() const { return m_options; }
 
-    QString experimentTag() { return m_experimentTag; }
-    QDate experimentDate() { return m_experimentDate; }
-    QString experimentDescription() { return m_experimentDescription; }
-    QString systemTag() { return m_systemTag; }
+    QString experimentTag() const { return m_experimentTag; }
+    QDate experimentDate() const { return m_experimentDate; }
+    QString experimentDescription() const { return m_experimentDescription; }
+    QString systemTag() const { return m_systemTag; }
 
-    int wordCount() { return m_wordCount; }
-    int pronunciationCount() { return m_pronunciationCount; }
+    int wordCount() const { return m_wordCount; }
+    int pronunciationCount() const { return m_pronunciationCount; }
     void setWordCount(int count) { m_wordCount = count; }
     void setPronunciationCount(int count) { m_pronunciationCount = count; }
 
@@ -100,6 +100,8 @@ class ReportParameters
     
     QDomElement serialize(QDomDocument* doc);
     static ReportParameters* deSerialize(const QDomElement& elem);
+
+    bool operator!=(const ReportParameters& other);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ReportParameters::OutputOptions);

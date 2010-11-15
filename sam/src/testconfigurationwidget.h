@@ -34,6 +34,8 @@ class TestConfigurationWidget : public QFrame
 
   signals:
     void tagChanged();
+    void changed();
+
   private:
     CorpusInformation* m_corpusInfo;
     Ui::TestConfigurationWdg ui;

@@ -11,6 +11,7 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 
 set(sam_SRCS
    main.cpp
+   samui.cpp
    samview.cpp
    samxmlhelper.cpp
    corpusinformationwidget.cpp
