@@ -549,14 +549,15 @@ bool ModelCompilationManager::codeAudioData()
   emit status(i18n("Coding audio files..."), 150);
 
   //creating codetrain
-  if (!generateCodetrainScp()) {
+  bool allCached;
+  if (!generateCodetrainScp(allCached)) {
     analyseError(i18n("Could not create codetrain-file."));
     return false;
   }
 
-  QString codetrainPath = tempDir+"/codetrain.scp";
+  if (allCached) return true;
 
-  //TODO: implement some sort of caching (maybe with an file/hash combination?)
+  QString codetrainPath = tempDir+"/codetrain.scp";
   QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(codetrainPath)+'"';
   if (!execute(execStr)) {
     analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
@@ -566,8 +567,14 @@ bool ModelCompilationManager::codeAudioData()
 }
 
 
-bool ModelCompilationManager::generateCodetrainScp()
+/**
+ * \param allCached True if all wave files are already cached; HCopy must not
+ * be run if this is true! This will not be true if there are no available
+ * samples at all
+ */
+bool ModelCompilationManager::generateCodetrainScp(bool &allCached)
 {
+  allCached = false;
   QString codetrainPath = tempDir+"/codetrain.scp";
   QString trainPath = tempDir+"/train.scp";
 
@@ -586,24 +593,40 @@ bool ModelCompilationManager::generateCodetrainScp()
 
   QString fileBase;
   QString mfcFile;
-
+  allCached = true;
+  bool hasSamples = false;
   while (!promptsFile.atEnd()) {
     QString line = QString::fromUtf8(promptsFile.readLine());
 
     fileBase =  line.left(line.indexOf(' '));
     mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
-
     QString wavFile = htkIfyPath(samplePath)+'/'+fileBase+".wav";
-    scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
+
+    if (QFile::exists(wavFile))
+      hasSamples = true;
+
     #ifdef Q_OS_WIN
     trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
     #else
     trainScpFile.write(mfcFile.toUtf8()+'\n');
     #endif
+
+    if (QFile::exists(mfcFile))
+    {
+      kDebug() << "MFC already exists: " << mfcFile;
+      continue;
+    }
+
+    scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
+    allCached = false;
   }
   promptsFile.close();
   scpFile.close();
   trainScpFile.close();
+  
+  if (!hasSamples)
+    allCached = false;
+
   return true;
 }
 

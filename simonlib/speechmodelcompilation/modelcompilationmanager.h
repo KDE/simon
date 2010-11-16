@@ -124,7 +124,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool generateMlf();
 
     bool codeAudioData();
-    bool generateCodetrainScp();
+    bool generateCodetrainScp(bool &allCached);
 
     bool buildHMM();
 
