@@ -186,6 +186,10 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     QStringList getMixtureConfigs();
 
+    bool reestimate(const QString& mlf, bool useStats, const QString& scp, const QString& inputMacros, 
+        const QString& inputHMMs, const QString& outputDirectory, const QString& phoneList, 
+        const QStringList& additionalConfigs=QStringList(), const QString& additionalParameters="");
+
   private slots:
     void addStatusToLog(const QString&);
 };
