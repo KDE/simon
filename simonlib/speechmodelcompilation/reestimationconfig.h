@@ -17,23 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_AUDIOCOPYCONFIG_H_18BCB183592A48D3962815FFDEA7C214
-#define SIMON_AUDIOCOPYCONFIG_H_18BCB183592A48D3962815FFDEA7C214
+#ifndef SIMON_REESTIMATIONCONFIG_H_18BCB183592A48D3962815FFDEA7C214
+#define SIMON_REESTIMATIONCONFIG_H_18BCB183592A48D3962815FFDEA7C214
 
 #include <QString>
 
 class ModelCompilationManager;
 
-class AudioCopyConfig
+class ReestimationConfig
 {
   private:
-    QString m_path;
+    QString m_command;
     ModelCompilationManager *m_manager;
   public:
-    AudioCopyConfig(const QString& path, ModelCompilationManager *manager) : m_path(path), m_manager(manager)
+    ReestimationConfig(const QString& command, ModelCompilationManager *manager) : m_command(command), m_manager(manager)
     {}
 
-    QString path() { return m_path; }
+    QString command() { return m_command; }
     ModelCompilationManager* manager() { return m_manager; }
 };
 

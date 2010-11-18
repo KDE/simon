@@ -19,10 +19,12 @@
 
 #include "modelcompilationmanager.h"
 #include "audiocopyconfig.h"
+#include "reestimationconfig.h"
 
 #include <simonlogging/logger.h>
 #include <julius/config.h>
 
+#include <QtCore/qmath.h>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -45,6 +47,18 @@
 #endif
 
 #define MIN_WAV_FILESIZE 45 //44 byte is the length of the header
+#define HEREST_MULTITHREADED
+
+
+bool codeAudioDataFromScpHelper(AudioCopyConfig *config)
+{
+  return config->manager()->codeAudioDataFromScp(config->path());
+}
+
+bool reestimateHelper(ReestimationConfig *config)
+{
+  return config->manager()->reestimate(config->command());
+}
 
 ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 QObject* parent) : QThread(parent),
@@ -547,12 +561,6 @@ bool ModelCompilationManager::generateDict()
   return true;
 }
 
-
-bool codeAudioDataFromScpHelper(AudioCopyConfig *config)
-{
-  return config->manager()->codeAudioDataFromScp(config->path());
-}
-
 bool ModelCompilationManager::codeAudioData()
 {
   if (!keepGoing) return false;
@@ -576,10 +584,7 @@ bool ModelCompilationManager::codeAudioData()
   
   qDeleteAll(configs);
 
-  foreach (bool r, results)
-    if (!r) return false;
-
-  return true;
+  return !results.contains(false);
 }
 
 bool ModelCompilationManager::codeAudioDataFromScp(const QString& path)
@@ -591,6 +596,11 @@ bool ModelCompilationManager::codeAudioDataFromScp(const QString& path)
     return false;
   }
   return true;
+}
+
+bool ModelCompilationManager::reestimate(const QString& command)
+{
+  return execute(command);
 }
 
 
@@ -663,6 +673,43 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
   return true;
 }
 
+bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles)
+{
+  QFile f(scpIn);
+  if (!f.open(QIODevice::ReadOnly))
+    return false;
+  
+  int lineCount = 0;
+  while (!f.atEnd())
+  {
+    f.readLine();
+    lineCount++;
+  }
+  f.seek(0);
+  
+  int preferredLength = qCeil(((float)lineCount) / ((float)QThread::idealThreadCount()));
+  kDebug() << "Scp line count: " << lineCount << preferredLength << "Cores: " << QThread::idealThreadCount();
+  
+  QFile scpFile;
+  int currentLine = 0;
+  int currentScpI=0;
+  while (!f.atEnd())
+  {
+    if (currentLine % preferredLength == 0)
+    {
+      QString path = outputDirectory+fileNamePrefix+QString::number(currentScpI)+".scp";
+      scpFile.close();
+      scpFile.setFileName(path);
+      if (!scpFile.open(QIODevice::WriteOnly))
+	return false;
+      scpFiles << path;
+      ++currentScpI;
+    }
+    scpFile.write(f.readLine());
+    ++currentLine;
+  }
+  return true;
+}
 
 bool ModelCompilationManager::generateInputFiles()
 {
@@ -1655,20 +1702,27 @@ bool ModelCompilationManager::staticAdaption()
 
   QFileInfo fiMacros(baseMacrosPath);
   QString adaptFromMacros = htkIfyPath(tempDir)+"classes/"+fiMacros.fileName();
-
-  if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
-        adaptFromMacros, adaptFromHMM, "" /*output directory*/, adaptFromTiedlist,
-        QStringList() << htkIfyPath(getScriptFile("config.global")),
-        "-u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1"
-        ))
+  
+  //TODO: Parelellize
+  if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
     return false;
 
-  if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
-        adaptFromMacros, adaptFromHMM, "" /*output directory*/, adaptFromTiedlist,
-        QStringList() << htkIfyPath(getScriptFile("config.rc")),
-        "-u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2"
-        ))
+  if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
     return false;
+
+//   if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
+//         adaptFromMacros, adaptFromHMM, ""/*tempDir+"/xforms"*/ /*output directory*/, adaptFromTiedlist,
+//         QStringList() << htkIfyPath(getScriptFile("config.global")),
+//         "-u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1"
+//         ))
+//     return false;
+// 
+//   if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
+//         adaptFromMacros, adaptFromHMM, ""/*tempDir+"/xforms"*/ /*output directory*/, adaptFromTiedlist,
+//         QStringList() << htkIfyPath(getScriptFile("config.rc")),
+//         "-u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2"
+//         ))
+//     return false;
 
   return true;
 }
@@ -1716,11 +1770,22 @@ QString ModelCompilationManager::juliusInformation(bool condensed)
     return QString("%1 (%2 %3)").arg(JULIUS_VERSION).arg(JULIUS_SETUP).arg(JULIUS_HOSTINFO);
 }
 
-
 bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, const QString& scp, 
     const QString& inputMacros, const QString& inputHMMs, const QString& outputDirectory, 
     const QString& phoneList, const QStringList& additionalConfigs, const QString& additionalParameters)
 {
+#ifdef HEREST_MULTITHREADED
+  QStringList scpFiles;
+  QStringList commands;
+  splitScp(scp, tempDir, "reestimate", scpFiles);
+  int channel = 0;
+  scpFiles.insert(0, QString());
+  foreach (const QString& thisScp, scpFiles)
+  {
+#else
+  QString thisScp = scp;
+#endif
+  
   QString command = '"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" ";
 
   foreach (const QString& c, additionalConfigs)
@@ -1733,14 +1798,48 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
   if (useStats)
     command += "-s \""+htkIfyPath(tempDir)+"/stats\" ";
 
-  command += "-S \""+scp+"\" -H \""+inputMacros+"\" -H \""+inputHMMs+"\" ";
+  if (!thisScp.isEmpty())
+    command += "-S \""+thisScp+"\" " ;
+  command += "-H \""+inputMacros+"\" -H \""+inputHMMs+"\" ";
 
   if (!outputDirectory.isEmpty())
     command += "-M \""+outputDirectory+"\" ";
+  
+#ifdef HEREST_MULTITHREADED
+    command += "-p "+QString::number(channel++)+' ';
+#endif
 
-  command += "\""+phoneList+"\"";
+  command += '"'+phoneList+'"';
 
+#ifdef HEREST_MULTITHREADED
+  commands << command;
+  }
+//   kDebug() << commands; exit(0);
+  QString mergeCmd = commands.takeFirst();
+  for (int i=1; i <= commands.count(); i++)
+    mergeCmd += " \""+outputDirectory+"HER"+QString::number(i)+".acc\"";
+  
+  //execute all commands in paralell and merge results
+  QList<ReestimationConfig*> reestimationConfigs;
+  foreach (const QString& c, commands)
+    reestimationConfigs << new ReestimationConfig(c, this);
+    
+  QList<bool> results = QtConcurrent::blockingMapped(reestimationConfigs, reestimateHelper);
+  if (results.contains(false)) return false;
+  
+  if (!outputDirectory.isEmpty())
+  {
+    //merge
+    // no -S parameter; add -p 0; add /tmp/kde-bedahr/sam/internalsamuser/compile//hmm1//*.acc
+    kDebug() << "Merge command: " << mergeCmd;
+    
+    return execute(mergeCmd);
+  }
+  return true;
+  
+#else
   return execute(command);
+#endif
 }
 
 

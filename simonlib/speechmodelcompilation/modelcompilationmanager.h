@@ -26,6 +26,7 @@
 #include "simonmodelcompilationmanagement_export.h"
 
 class AudioCopyConfig;
+class ReestimationConfig;
 
 /**
  *	@class ModelManager
@@ -87,6 +88,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     //helper functions from outside
     bool codeAudioDataFromScp(const QString& path);
+    bool reestimate(const QString& command);
 
   private:
     bool keepGoing;
@@ -194,6 +196,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool reestimate(const QString& mlf, bool useStats, const QString& scp, const QString& inputMacros, 
         const QString& inputHMMs, const QString& outputDirectory, const QString& phoneList, 
         const QStringList& additionalConfigs=QStringList(), const QString& additionalParameters="");
+    
+    bool splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles);
 
   private slots:
     void addStatusToLog(const QString&);
