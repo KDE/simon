@@ -18,6 +18,7 @@
  */
 
 #include "modelcompilationmanager.h"
+#include "audiocopyconfig.h"
 
 #include <simonlogging/logger.h>
 #include <julius/config.h>
@@ -28,6 +29,7 @@
 #include <QProcess>
 #include <QString>
 #include <QVector>
+#include <QtConcurrentMap>
 
 #include <KUrl>
 #include <KConfig>
@@ -41,6 +43,8 @@
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
+
+#define MIN_WAV_FILESIZE 45 //44 byte is the length of the header
 
 ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 QObject* parent) : QThread(parent),
@@ -544,22 +548,44 @@ bool ModelCompilationManager::generateDict()
 }
 
 
+bool codeAudioDataFromScpHelper(AudioCopyConfig *config)
+{
+  return config->manager()->codeAudioDataFromScp(config->path());
+}
+
 bool ModelCompilationManager::codeAudioData()
 {
   if (!keepGoing) return false;
   emit status(i18n("Coding audio files..."), 150);
 
   //creating codetrain
-  bool allCached;
-  if (!generateCodetrainScp(allCached)) {
+  QStringList codeTrainScps;
+  if (!generateCodetrainScp(codeTrainScps)) {
     analyseError(i18n("Could not create codetrain-file."));
     return false;
   }
 
-  if (allCached) return true;
+  if (codeTrainScps.isEmpty())
+    return true;
 
-  QString codetrainPath = tempDir+"/codetrain.scp";
-  QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(codetrainPath)+'"';
+  QList<AudioCopyConfig*> configs;
+  foreach (const QString& scp, codeTrainScps)
+    configs << new AudioCopyConfig(scp, this);
+
+  QList<bool> results = QtConcurrent::blockingMapped(configs, codeAudioDataFromScpHelper);
+  
+  qDeleteAll(configs);
+
+  foreach (bool r, results)
+    if (!r) return false;
+
+  return true;
+}
+
+bool ModelCompilationManager::codeAudioDataFromScp(const QString& path)
+{
+  //QString codetrainPath = tempDir+"/codetrain.scp";
+  QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(path)+'"';
   if (!execute(execStr)) {
     analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
     return false;
@@ -573,10 +599,10 @@ bool ModelCompilationManager::codeAudioData()
  * be run if this is true! This will not be true if there are no available
  * samples at all
  */
-bool ModelCompilationManager::generateCodetrainScp(bool &allCached)
+bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
 {
-  allCached = false;
-  QString codetrainPath = tempDir+"/codetrain.scp";
+  int codeTrainCount=0;
+  int samples = 0;
   QString trainPath = tempDir+"/train.scp";
 
   QFile promptsFile(promptsPath);
@@ -586,16 +612,14 @@ bool ModelCompilationManager::generateCodetrainScp(bool &allCached)
   QString pathToMFCs =tempDir+"/mfcs";
   QDir().mkpath(pathToMFCs);
 
-  QFile scpFile(codetrainPath);
   QFile trainScpFile(trainPath);
-  if (!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate) || !trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate)) {
+  if (!trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate))
     return false;
-  }
 
   QString fileBase;
   QString mfcFile;
-  allCached = true;
-  bool hasSamples = false;
+
+  QFile scpFile;
   while (!promptsFile.atEnd()) {
     QString line = QString::fromUtf8(promptsFile.readLine());
 
@@ -603,8 +627,9 @@ bool ModelCompilationManager::generateCodetrainScp(bool &allCached)
     mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
     QString wavFile = htkIfyPath(samplePath)+'/'+fileBase+".wav";
 
-    if (QFile::exists(wavFile))
-      hasSamples = true;
+    QFileInfo wavInfo(wavFile);
+    if (wavInfo.size() < MIN_WAV_FILESIZE)
+      continue;
 
     #ifdef Q_OS_WIN
     trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
@@ -618,16 +643,23 @@ bool ModelCompilationManager::generateCodetrainScp(bool &allCached)
       continue;
     }
 
+    if (samples % 50 == 0)
+    {
+      scpFile.close();
+      QString codetrainPath = tempDir+"/codetrain"+QString::number(codeTrainCount)+".scp";
+      codeTrainScps << codetrainPath;
+      scpFile.setFileName(codetrainPath);
+      if (!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate) )
+        return false;
+      codeTrainCount++;
+    }
     scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
-    allCached = false;
+    samples++;
   }
   promptsFile.close();
   scpFile.close();
   trainScpFile.close();
   
-  if (!hasSamples)
-    allCached = false;
-
   return true;
 }
 

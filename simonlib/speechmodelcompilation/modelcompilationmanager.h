@@ -25,6 +25,8 @@
 #include <QString>
 #include "simonmodelcompilationmanagement_export.h"
 
+class AudioCopyConfig;
+
 /**
  *	@class ModelManager
  *	@brief Manages the Acoustic-Model
@@ -83,6 +85,9 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     static QString information(bool condensed=false);
 
+    //helper functions from outside
+    bool codeAudioDataFromScp(const QString& path);
+
   private:
     bool keepGoing;
 
@@ -124,7 +129,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool generateMlf();
 
     bool codeAudioData();
-    bool generateCodetrainScp(bool &allCached);
+    bool generateCodetrainScp(QStringList &codeTrainScps);
 
     bool buildHMM();
 
