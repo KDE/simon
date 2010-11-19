@@ -611,7 +611,6 @@ bool ModelCompilationManager::reestimate(const QString& command)
  */
 bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
 {
-  int codeTrainCount=0;
   int samples = 0;
   QString trainPath = tempDir+"/train.scp";
 
@@ -622,14 +621,16 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
   QString pathToMFCs =tempDir+"/mfcs";
   QDir().mkpath(pathToMFCs);
 
+  QString codetrainPath = tempDir+"/codetrain.scp";
+
   QFile trainScpFile(trainPath);
-  if (!trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate))
+  QFile scpFile(codetrainPath);
+  if ((!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate))|| (!trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate)))
     return false;
 
   QString fileBase;
   QString mfcFile;
 
-  QFile scpFile;
   while (!promptsFile.atEnd()) {
     QString line = QString::fromUtf8(promptsFile.readLine());
 
@@ -653,16 +654,6 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
       continue;
     }
 
-    if (samples % 50 == 0)
-    {
-      scpFile.close();
-      QString codetrainPath = tempDir+"/codetrain"+QString::number(codeTrainCount)+".scp";
-      codeTrainScps << codetrainPath;
-      scpFile.setFileName(codetrainPath);
-      if (!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate) )
-        return false;
-      codeTrainCount++;
-    }
     scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
     samples++;
   }
@@ -670,44 +661,42 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
   scpFile.close();
   trainScpFile.close();
   
-  return true;
+  return splitScp(codetrainPath, tempDir, "codetrain", codeTrainScps);
 }
 
 bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles)
 {
+  QList<QFile*> scpFilesF;
+  int threadCount = QThread::idealThreadCount();
+  for (int i=0; i < threadCount; i++)
+  {
+    QString thisPath = outputDirectory+fileNamePrefix+QString::number(i)+".scp";
+    QFile *f = new QFile(thisPath);
+    if (!f->open(QIODevice::WriteOnly))
+    {
+      qDeleteAll(scpFilesF);
+      kDebug() << "Returning false" << thisPath;
+      return false;
+    }
+    scpFilesF << f;
+    scpFiles << thisPath;
+  }
+
   QFile f(scpIn);
   if (!f.open(QIODevice::ReadOnly))
+  {
+    kDebug() << "Returning a false" << scpIn;
     return false;
-  
-  int lineCount = 0;
-  while (!f.atEnd())
-  {
-    f.readLine();
-    lineCount++;
   }
-  f.seek(0);
   
-  int preferredLength = qCeil(((float)lineCount) / ((float)QThread::idealThreadCount()));
-  kDebug() << "Scp line count: " << lineCount << preferredLength << "Cores: " << QThread::idealThreadCount();
-  
-  QFile scpFile;
   int currentLine = 0;
-  int currentScpI=0;
   while (!f.atEnd())
   {
-    if (currentLine % preferredLength == 0)
-    {
-      QString path = outputDirectory+fileNamePrefix+QString::number(currentScpI)+".scp";
-      scpFile.close();
-      scpFile.setFileName(path);
-      if (!scpFile.open(QIODevice::WriteOnly))
-	return false;
-      scpFiles << path;
-      ++currentScpI;
-    }
-    scpFile.write(f.readLine());
+    scpFilesF[currentLine % threadCount]->write(f.readLine());
     ++currentLine;
   }
+
+  qDeleteAll(scpFilesF);
   return true;
 }
 
@@ -1825,6 +1814,7 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
     reestimationConfigs << new ReestimationConfig(c, this);
     
   QList<bool> results = QtConcurrent::blockingMapped(reestimationConfigs, reestimateHelper);
+  qDeleteAll(reestimationConfigs);
   if (results.contains(false)) return false;
   
   if (!outputDirectory.isEmpty())
