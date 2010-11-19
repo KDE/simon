@@ -660,7 +660,9 @@ void SamView::storeFile()
 
   QDomElement creationElem = doc.createElement("creation");
   
-  creationElem.appendChild(m_creationCorpus->serialize(&doc));
+  if (m_creationCorpus)
+    creationElem.appendChild(m_creationCorpus->serialize(&doc));
+
   SamXMLHelper::serializePath(&doc, creationElem, ui.urHmmDefs, "hmm");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urTiedlist, "tiedlist");
   SamXMLHelper::serializePath(&doc, creationElem, ui.urDict, "dict");
