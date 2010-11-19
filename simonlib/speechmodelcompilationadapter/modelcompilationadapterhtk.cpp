@@ -182,8 +182,8 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
   bool sentWritten = false;
   m_pronunciationCount = 0;
   QList<Word*> words = vocab->getWords();
-  kDebug() << "Word count: " << words;
   QString htkIfiedWord;
+  m_wordCount = 0;
   foreach (Word *w, words) {
     if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
         !(adaptionType & ModelCompilationAdapter::AdaptIndependently) &&
@@ -202,10 +202,11 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     lexicon << htkIfiedWord << QLatin1String("\t\t[") << w->getWord() << QLatin1String("]\t\t") <<
       w->getPronunciation() << QLatin1String("\n");
 
-    if (!definedVocabulary.contains(htkIfiedWord))
+    m_wordCount++;
+    if ((adaptionType & ModelCompilationAdapter::AdaptAcousticModel) &&
+        (!definedVocabulary.contains(htkIfiedWord)))
       definedVocabulary << htkIfiedWord;
   }
-  m_wordCount = definedVocabulary.count();
   if (!sentWritten) {
     lexicon << "SENT-END\t\t[]\t\tsil\n";
     lexicon << "SENT-START\t\t[]\t\tsil\n";
