@@ -44,11 +44,14 @@
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#undef HTK_UNICODE
+#endif
+#ifdef Q_OS_UNIX
+#define HTK_UNICODE
 #endif
 
 #define MIN_WAV_FILESIZE 45 //44 byte is the length of the header
 #define HEREST_MULTITHREADED
-
 
 bool codeAudioDataFromScpHelper(AudioCopyConfig *config)
 {
@@ -642,10 +645,10 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
     if (wavInfo.size() < MIN_WAV_FILESIZE)
       continue;
 
-    #ifdef Q_OS_WIN
-    trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
-    #else
+    #ifdef HTK_UNICODE
     trainScpFile.write(mfcFile.toUtf8()+'\n');
+    #else
+    trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
     #endif
 
     if (QFile::exists(mfcFile))
@@ -1442,7 +1445,7 @@ bool ModelCompilationManager::makeMonophones()
   if (QFile::exists(latinLexiconpath))
     if (!QFile::remove(latinLexiconpath)) return false;
 
-  #ifdef Q_OS_WIN
+  #ifndef HTK_UNICODE
   QFile utfLexicon(lexiconPath);
 
   QFile latinLexicon(latinLexiconpath);
@@ -1546,13 +1549,13 @@ bool ModelCompilationManager::generateMlf()
     lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
                                                   //ditch the file-id
     QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
-    #ifdef Q_OS_WIN
+    #ifndef HTK_UNICODE
     mlf.write(labFile.toLatin1()+'\n');
     #else
     mlf.write(labFile.toUtf8()+'\n');
     #endif
     for (int i=0; i < lineWords.count(); i++)
-    #ifdef Q_OS_WIN
+    #ifndef HTK_UNICODE
       mlf.write(lineWords[i].toLatin1()+'\n');
     #else
     mlf.write(lineWords[i].toUtf8()+'\n');
