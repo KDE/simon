@@ -97,6 +97,9 @@ class DialogConfiguration : public CommandConfiguration
     void addAvatar();
     void editAvatar();
     void removeAvatar();
+    
+    void avatarSelected(const QModelIndex& selected);
+    void avatarDisplayToggled(bool show);
 
   public slots:
     void init();
@@ -118,6 +121,11 @@ class DialogConfiguration : public CommandConfiguration
     QString getRepeatAnnouncement() const;
     QStringList getRepeatTriggers() const;
     bool getRepeatOnInvalidInput() const;
+    
+    int getAvatarSize() const;
+    bool getDisplayAvatarNames() const;
+    
+    Avatar* getAvatar(int id) const;
 
 };
 #endif

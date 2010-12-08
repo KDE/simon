@@ -158,3 +158,9 @@ int AvatarModel::getNextId(const QString& name)
   } while (alreadyTaken);
   return i;
 }
+
+QModelIndex AvatarModel::getAvatarIndex ( int id )
+{
+  return index(m_avatars.indexOf(getAvatar(id)), 0);
+}
+

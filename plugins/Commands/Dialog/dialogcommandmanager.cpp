@@ -261,8 +261,6 @@ QDomElement DialogCommandManager::serializeCommands(QDomDocument *doc)
 void DialogCommandManager::stateChanged()
 {
   bindStateCommands();
-  //TODO: save here?
-  //parentScenario->save();
 }
 
 bool DialogCommandManager::deSerializeCommandsPrivate(const QDomElement& elem)
@@ -369,6 +367,19 @@ QString DialogCommandManager::getRepeatAnnouncement() const
 bool DialogCommandManager::getRepeatOnInvalidInput() const
 {
   return getDialogConfiguration()->getRepeatOnInvalidInput();
+}
+
+Avatar* DialogCommandManager::getAvatar ( int id ) const
+{
+  return getDialogConfiguration()->getAvatar(id);
+}
+bool DialogCommandManager::getDisplayAvatarNames() const
+{
+  return getDialogConfiguration()->getDisplayAvatarNames();
+}
+int DialogCommandManager::getAvatarSize() const
+{
+  return getDialogConfiguration()->getAvatarSize();
 }
 
 DialogCommandManager::~DialogCommandManager()

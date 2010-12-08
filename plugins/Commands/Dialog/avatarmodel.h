@@ -46,6 +46,8 @@ public:
     bool removeAvatar(Avatar *a);
     Avatar* getAvatar(int id);
     int getNextId(const QString& name);
+    
+    QModelIndex getAvatarIndex(int id);
 };
 
 #endif // AVATARMODEL_H

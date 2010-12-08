@@ -23,7 +23,7 @@
    <item>
     <widget class="KTabWidget" name="twMain">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -394,26 +394,68 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
-        <widget class="QCheckBox" name="cbGraphical">
-         <property name="text">
+        <widget class="QGroupBox" name="gbGraphical">
+         <property name="title">
           <string>Graphical interface</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="cbTextToSpeech">
-         <property name="text">
-          <string>Text to speech interface</string>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbAvatarSize">
+            <property name="text">
+             <string>Avatar size:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QSpinBox" name="sbAvatarSize">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>1024</number>
+              </property>
+              <property name="value">
+               <number>96</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>px</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cbDisplayAvatarNames">
+            <property name="text">
+             <string>Display avatar names</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="gbTextToSpeech">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <property name="title">
           <string>Text to speech configuration</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
          <layout class="QFormLayout" name="formLayout">
           <property name="fieldGrowthPolicy">
@@ -520,22 +562,6 @@
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>cbTextToSpeech</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>groupBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>195</x>
-     <y>61</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>195</x>
-     <y>93</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>cbDisplayAvatar</sender>
    <signal>toggled(bool)</signal>

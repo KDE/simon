@@ -96,6 +96,9 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddBoundValue, SIGNAL(clicked()), this, SLOT(addBoundValue()));
   connect(ui.pbEditBoundValue, SIGNAL(clicked()), this, SLOT(editBoundValue()));
   connect(ui.pbRemoveBoundValue, SIGNAL(clicked()), this, SLOT(removeBoundValue()));
+  
+  connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
+  connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
 
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
@@ -454,13 +457,15 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
   configElem.appendChild(boundValuesElem);
 
   QDomElement avatarsElem = avatarModel->serialize(doc);
+  avatarsElem.setAttribute("size", QString::number(ui.sbAvatarSize->value()));
+  avatarsElem.setAttribute("displayNames", ui.cbDisplayAvatarNames->isChecked() ? "1" : "0");
   configElem.appendChild(avatarsElem);
 
   QDomElement outputElem = doc->createElement("output");
   QDomElement graphicalOutput = doc->createElement("gui");
   QDomElement ttsOutput = doc->createElement("tts");
-  graphicalOutput.appendChild(doc->createTextNode(ui.cbGraphical->isChecked() ? "1" : "0"));
-  ttsOutput.appendChild(doc->createTextNode(ui.cbTextToSpeech->isChecked() ? "1" : "0"));
+  graphicalOutput.appendChild(doc->createTextNode(ui.gbGraphical->isChecked() ? "1" : "0"));
+  ttsOutput.appendChild(doc->createTextNode(ui.gbTextToSpeech->isChecked() ? "1" : "0"));
 
   outputElem.appendChild(graphicalOutput);
   outputElem.appendChild(ttsOutput);
@@ -532,6 +537,9 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
     ui.lvStateAvatar->setModel(avatarModel);
   } else
     avatarModel->deSerialize(avatarsElement);
+  
+  ui.sbAvatarSize->setValue(avatarsElement.attribute("size").toInt());
+  ui.cbDisplayAvatarNames->setChecked(avatarsElement.attribute("displayNames") == "1");
 
   QDomElement outputElem = elem.firstChildElement("output");
   if (outputElem.isNull())
@@ -542,8 +550,8 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
 
   QDomElement graphicalOutput = outputElem.firstChildElement("gui");
   QDomElement ttsOutput = outputElem.firstChildElement("tts");
-  ui.cbGraphical->setChecked(graphicalOutput.text() == "1");
-  ui.cbTextToSpeech->setChecked(ttsOutput.text() == "1");
+  ui.gbGraphical->setChecked(graphicalOutput.text() == "1");
+  ui.gbTextToSpeech->setChecked(ttsOutput.text() == "1");
 
   QDomElement ttsOptions = outputElem.firstChildElement("ttsOptions");
   QDomElement separatorElem = ttsOptions.firstChildElement("optionsSeparator");
@@ -652,30 +660,37 @@ void DialogConfiguration::displayCurrentState()
   ui.teText->setText(currentState->getRawText());
   ui.cbSilence->setChecked(currentState->silence());
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
+  
+  ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
+  ui.lvStateAvatar->selectionModel()->select(avatarModel->getAvatarIndex(currentState->getAvatarId()),
+    QItemSelectionModel::ClearAndSelect);
 
   ui.lvTransitions->setModel(currentState);
 }
 
 void DialogConfiguration::defaults()
 {
-  ui.cbGraphical->setChecked(true);
-  ui.cbTextToSpeech->setChecked(false);
+  ui.gbGraphical->setChecked(true);
+  ui.gbTextToSpeech->setChecked(false);
   ui.leOptionSeparator->setText(i18n("Please answer with any of the following options."));
 
   ui.elwRepeatTriggers->setItems(QStringList() << i18n("Repeat"));
   ui.leAnnounceRepeat->setText(i18n("Say \"Repeat\" to hear this text again."));
 
   ui.cbRepeatOnInvalidInput->setChecked(true);
+  
+  ui.sbAvatarSize->setValue(96),
+  ui.cbDisplayAvatarNames->setChecked(true);
 }
 
 bool DialogConfiguration::useGUIOutput() const
 {
-  return ui.cbGraphical->isChecked();
+  return ui.gbGraphical->isChecked();
 }
 
 bool DialogConfiguration::useTTSOutput() const
 {
-  return ui.cbTextToSpeech->isChecked();
+  return ui.gbTextToSpeech->isChecked();
 }
 
 
@@ -740,6 +755,37 @@ void DialogConfiguration::removeAvatar()
   }
 }
 
+void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
+{
+  if (!selected.isValid())
+  {
+    getCurrentState()->setAvatar(0);
+  } else {
+    Avatar *a = static_cast<Avatar*>(selected.internalPointer());
+    kDebug() << "Selected avatar: " << a->name();
+    getCurrentState()->setAvatar(a->id());
+  }
+}
+
+void DialogConfiguration::avatarDisplayToggled ( bool show )
+{
+  getCurrentState()->setDisplayAvatar(show);
+}
+
+Avatar* DialogConfiguration::getAvatar ( int id ) const
+{
+  return avatarModel->getAvatar(id);
+}
+
+bool DialogConfiguration::getDisplayAvatarNames() const
+{
+  return ui.cbDisplayAvatarNames->isChecked();
+}
+
+int DialogConfiguration::getAvatarSize() const
+{
+  return ui.sbAvatarSize->value();
+}
 
 DialogConfiguration::~DialogConfiguration()
 {

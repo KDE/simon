@@ -42,7 +42,12 @@ class DialogState : public QAbstractItemModel
     DialogText *m_text;
     bool m_silence;
     bool m_announceRepeat;
+    
+    bool m_displayAvatar;
+    int m_avatarId;
+    
     QList<DialogCommand*> m_transitions;
+    
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
     DialogState(QObject *parent=0) : QAbstractItemModel(parent), m_text(NULL) {}
 
@@ -82,6 +87,12 @@ class DialogState : public QAbstractItemModel
     void setAnnounceRepeat(bool announce);
     bool silence() const { return m_silence; }
     bool announceRepeat() const { return m_announceRepeat; }
+    
+    bool getDisplayAvatar() const { return m_displayAvatar; }
+    void setDisplayAvatar(bool display) { m_displayAvatar = display; }
+    
+    int getAvatarId() const { return m_avatarId; }
+    void setAvatar(int id) { m_avatarId = id; }
 
     void presented();
     void left();
