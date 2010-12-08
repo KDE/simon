@@ -108,10 +108,11 @@ void testDialog::initTestCase()
   char **argv = new char*[1];
   *argv = appName;
   KCmdLineArgs::init(1, argv, "test", "test", ki18n("appname"), "0.1");
-  delete[] argv;
-  delete[] appName;
 
   app = new KApplication(true);
+  
+  delete[] argv;
+  delete[] appName;
 }
 
 void testDialog::cleanupTestCase()

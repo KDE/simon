@@ -33,6 +33,7 @@ private:
 
 public:
     AvatarModel(const QList<Avatar*> avatars);
+    virtual ~AvatarModel();
     static AvatarModel* createInstance(const QDomElement& elem);
     
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
@@ -48,6 +49,7 @@ public:
     int getNextId(const QString& name);
     
     QModelIndex getAvatarIndex(int id);
+    void clear();
 };
 
 #endif // AVATARMODEL_H

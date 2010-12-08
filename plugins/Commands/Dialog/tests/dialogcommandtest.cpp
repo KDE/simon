@@ -143,10 +143,8 @@ void testDialogCommand::testExecution()
   char *appName = new char[5];
   strcpy(appName, "test");
   char **argv = new char*[1];
-  *argv = appName;
-  KCmdLineArgs::init(1, argv, "test", "test", ki18n("appname"), "0.1");
-  delete[] argv;
-  delete[] appName;
+  argv[0] = appName;
+  KCmdLineArgs::init(1, argv, argv[0], "", ki18n("test"), "0.1");
 
   KApplication *app = new KApplication(true);
 
@@ -172,6 +170,8 @@ void testDialogCommand::testExecution()
 
   delete app;
   delete command;
+  delete[] argv;
+  delete[] appName;
 }
 
  

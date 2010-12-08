@@ -38,11 +38,7 @@ AvatarModel* AvatarModel::createInstance(const QDomElement& elem)
 
 bool AvatarModel::deSerialize(const QDomElement& elem)
 {
-  //clear
-  beginRemoveRows(QModelIndex(), 0, m_avatars.count());
-  qDeleteAll(m_avatars);
-  m_avatars.clear();
-  endRemoveRows();
+  clear();
   
   bool succ = true;
   m_avatars.clear();
@@ -110,9 +106,9 @@ int AvatarModel::rowCount(const QModelIndex& parent) const
 QModelIndex AvatarModel::index(int row, int column, const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
-  if (row >= m_avatars.count())
+  if ((row >= m_avatars.count()) || (row == -1))
     return QModelIndex();
-  
+ 
   return createIndex(row, column, m_avatars[row]);
 }
 
@@ -162,5 +158,19 @@ int AvatarModel::getNextId(const QString& name)
 QModelIndex AvatarModel::getAvatarIndex ( int id )
 {
   return index(m_avatars.indexOf(getAvatar(id)), 0);
+}
+
+void AvatarModel::clear()
+{
+  //clear
+  beginRemoveRows(QModelIndex(), 0, m_avatars.count());
+  qDeleteAll(m_avatars);
+  m_avatars.clear();
+  endRemoveRows();
+}
+
+AvatarModel::~AvatarModel()
+{
+  clear();
 }
 

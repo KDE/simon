@@ -528,15 +528,20 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   }
   
   QDomElement avatarsElement = elem.firstChildElement("avatars");
+  kDebug() << "Loading avatars";
   if (!avatarModel)
   {
     avatarModel = AvatarModel::createInstance(avatarsElement);
     if (!avatarModel)
+    {
+      kDebug() << "Error loading avatars";
       return false;
+    }
     ui.lvAvatars->setModel(avatarModel);
     ui.lvStateAvatar->setModel(avatarModel);
   } else
     avatarModel->deSerialize(avatarsElement);
+  kDebug() << "Loaded avatars";
   
   ui.sbAvatarSize->setValue(avatarsElement.attribute("size").toInt());
   ui.cbDisplayAvatarNames->setChecked(avatarsElement.attribute("displayNames") == "1");

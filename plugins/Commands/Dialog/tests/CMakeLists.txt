@@ -16,7 +16,7 @@ endif (USE_PLASMA)
 
 
 #################################
-##### *BoundValue ####=##########
+##### BoundValue ################
 #################################
 
 set (simondialogcommandpluginboundvaluetest_SRCS
@@ -199,6 +199,9 @@ set (simondialogcommandplugindialogtest_SRCS
   ../dialogboundvalues.cpp
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
+  ../avatar.cpp
+  ../avatarmodel.cpp
+  ../createavatardialog.cpp
   ${simondialogcommandplugintest_plasma_SRCS}
 )
 
@@ -207,8 +210,9 @@ kde4_add_ui_files(simondialogcommandplugindialogtest_SRCS
 	../dialogconfigurationdlg.ui
 	../createdialogcommandwidget.ui
 	../createtransitiondlg.ui
-  ../createtemplateoptiondialog.ui
-  ../createboundvalue.ui
+	../createtemplateoptiondialog.ui
+	../createboundvalue.ui
+	../createavatardlg.ui
     )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialog TESTNAME
@@ -223,3 +227,28 @@ target_link_libraries( simondialogcommandplugintest-dialog
   simonscenarios simonactions simontts
 )
 
+
+
+
+#################################
+##### Avatars ###################
+#################################
+
+set (simonavatarstest_SRCS
+  dialogavatartest.cpp
+
+  #deps
+  ../avatar.cpp
+  ../avatarmodel.cpp
+)
+
+
+kde4_add_unit_test(simondialogcommandplugintest-avatars TESTNAME
+  simondialogcommandplugin-avatars
+  ${simonavatarstest_SRCS}
+)
+
+
+target_link_libraries( simondialogcommandplugintest-avatars
+  ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} 
+)
