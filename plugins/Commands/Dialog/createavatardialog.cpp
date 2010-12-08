@@ -29,6 +29,7 @@ CreateAvatarDialog::CreateAvatarDialog(QWidget* parent, Qt::WFlags flags): KDial
   QWidget *w = new QWidget(this);
   ui->setupUi(this);
   setMainWidget(w);
+  setCaption(i18n("Avatar"));
   connect(ui->urImage, SIGNAL(returnPressed()), this, SLOT(updateImagePreview()));
 }
 
@@ -37,18 +38,34 @@ void CreateAvatarDialog::updateImagePreview()
   ui->ifImage->showPreview(ui->urImage->url());
 }
 
+bool CreateAvatarDialog::getData(QString& name, QImage& image)
+{
+  bool dataOk = false;
+  do
+  {
+    if (!KDialog::exec())
+      return false;
+    name = ui->leName->text();
+    image.load(ui->urImage->url().toLocalFile());
+    if (name.isEmpty() || image.isNull())
+      KMessageBox::information(this, i18n("Please fill in all fields or select cancel."));
+    else
+      dataOk = true;
+  } while (!dataOk);
+  return dataOk;
+}
+
 void CreateAvatarDialog::addAvatar(AvatarModel* model)
 {
-  if (!KDialog::exec())
-    return;
-  
-  QString name = ui->leName->text();
-  QImage image(ui->urImage->url().toLocalFile());
-  model->addAvatar(new Avatar(model->getNextId(name), name, image));
+  QString name;
+  QImage image;
+  if (getData(name, image))
+    model->addAvatar(new Avatar(model->getNextId(name), name, image));
 }
 
 void CreateAvatarDialog::editAvatar(Avatar* avatar)
 {
+  ui->leName->setText(avatar->name());
   QString fileName = KStandardDirs::locateLocal("tmp", "simon_avatar_tmp.png");
   QFile f(fileName);
   
@@ -63,11 +80,14 @@ void CreateAvatarDialog::editAvatar(Avatar* avatar)
   
   updateImagePreview();
   
-  if (!KDialog::exec())
-    return;
+  QString name;
+  QImage image;
   
-  avatar->setName(ui->leName->text());
-  avatar->setImage(QImage(ui->urImage->url().toLocalFile()));
+  if (getData(name, image))
+  {
+    avatar->setName(name);
+    avatar->setImage(image);
+  }
   
   QFile::remove(fileName);
 }

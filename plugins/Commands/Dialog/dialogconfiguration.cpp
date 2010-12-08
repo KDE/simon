@@ -667,6 +667,8 @@ void DialogConfiguration::displayCurrentState()
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
   
   ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
+  kDebug() << currentState->getAvatarId();
+  kDebug() <<(avatarModel->getAvatarIndex(currentState->getAvatarId()));
   ui.lvStateAvatar->selectionModel()->select(avatarModel->getAvatarIndex(currentState->getAvatarId()),
     QItemSelectionModel::ClearAndSelect);
 

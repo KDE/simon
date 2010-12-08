@@ -33,6 +33,7 @@
 #include <eventsimulation/eventhandler.h>
 #include <KLocalizedString>
 #include <KAction>
+#include <KMessageBox>
 
 K_PLUGIN_FACTORY( DialogCommandPluginFactory,
 registerPlugin< DialogCommandManager >();
@@ -337,7 +338,8 @@ bool DialogCommandManager::deSerializeConfig(const QDomElement& elem)
 {
   if (!config) config->deleteLater();
   config = new DialogConfiguration(this, parentScenario);
-  config->deSerialize(elem);
+  if (!config->deSerialize(elem))
+    KMessageBox::sorry(0, i18n("Failed to initialize dialog configuration."));
 
   bool succ = true;
   succ &= installInterfaceCommand(this, "activate", i18n("Dialog"), iconSrc(),

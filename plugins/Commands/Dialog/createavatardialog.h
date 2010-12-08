@@ -34,6 +34,8 @@ class CreateAvatarDialog : public KDialog
 private:
   Ui::CreateAvatarDlg *ui;
   
+  bool getData(QString& name, QImage& image);
+  
 private slots:
   void updateImagePreview();
   
