@@ -1,4 +1,4 @@
-/*   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+/*   Copyright (C) 2009-2010 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,6 +29,8 @@
 #include "createtransitiondialog.h"
 #include "createtemplateoptiondialog.h"
 #include "createboundvaluedialog.h"
+#include "avatarmodel.h"
+#include "avatar.h"
 
 #include <simonscenarios/scenario.h>
 
@@ -45,6 +47,7 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include "createavatardialog.h"
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
@@ -54,8 +57,9 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   "im-user",
   DialogCommandPluginFactory::componentData()),
   commandManager(_commandManager),
-  templateOptions(NULL),
-  boundValues(NULL)
+  templateOptions(0),
+  boundValues(0),
+  avatarModel(0)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -77,6 +81,10 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
   connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
   connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
+  
+  connect(ui.pbAddAvatar, SIGNAL(clicked()), this, SLOT(addAvatar()));
+  connect(ui.pbEditAvatar, SIGNAL(clicked()), this, SLOT(editAvatar()));
+  connect(ui.pbRemoveAvatar, SIGNAL(clicked()), this, SLOT(removeAvatar()));
 
   connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
   connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
@@ -93,6 +101,7 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbAddTransition->setIcon(KIcon("list-add"));
   ui.pbAddBoundValue->setIcon(KIcon("list-add"));
   ui.pbAddTemplateOption->setIcon(KIcon("list-add"));
+  ui.pbAddAvatar->setIcon(KIcon("list-add"));
 
   ui.pbRemoveState->setIcon(KIcon("list-remove"));
   ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
@@ -104,13 +113,14 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbEditText->setIcon(KIcon("document-edit"));
   ui.pbEditBoundValue->setIcon(KIcon("document-edit"));
   ui.pbEditTemplateOption->setIcon(KIcon("document-edit"));
+  ui.pbEditAvatar->setIcon(KIcon("document-edit"));
+  ui.pbRemoveAvatar->setIcon(KIcon("list-remove"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
   ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
 
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
   ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
-
 
   displayCurrentState();
 }
@@ -443,6 +453,8 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
   QDomElement boundValuesElem = boundValues->serialize(doc);
   configElem.appendChild(boundValuesElem);
 
+  QDomElement avatarsElem = avatarModel->serialize(doc);
+  configElem.appendChild(avatarsElem);
 
   QDomElement outputElem = doc->createElement("output");
   QDomElement graphicalOutput = doc->createElement("gui");
@@ -509,6 +521,16 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   } else {
     boundValues->deSerialize(options);
   }
+  
+  QDomElement avatarsElement = elem.firstChildElement("avatars");
+  if (!avatarModel)
+  {
+    avatarModel = AvatarModel::createInstance(avatarsElement);
+    if (!avatarModel)
+      return false;
+    ui.lvAvatars->setModel(avatarModel);
+  } else
+    avatarModel->deSerialize(avatarsElement);
 
   QDomElement outputElem = elem.firstChildElement("output");
   if (outputElem.isNull())
@@ -615,8 +637,9 @@ void DialogConfiguration::displayCurrentState()
 {
   DialogState *currentState = getCurrentState();
 
-  ui.gbText->setEnabled(currentState);
-  ui.gbOptions->setEnabled(currentState);
+  ui.wgText->setEnabled(currentState);
+  ui.wgOptions->setEnabled(currentState);
+  ui.wgAvatar->setEnabled(currentState);
 
   if (!currentState) 
   {
@@ -674,6 +697,48 @@ bool DialogConfiguration::getRepeatOnInvalidInput() const
 {
   return ui.cbRepeatOnInvalidInput->isChecked();
 }
+
+void DialogConfiguration::addAvatar()
+{
+  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
+  dlg->addAvatar(avatarModel);
+  delete dlg;
+}
+  
+Avatar* DialogConfiguration::getCurrentAvatar()
+{
+  QModelIndex currentIndex = ui.lvAvatars->currentIndex();
+  if (!currentIndex.isValid()) return 0;
+  
+  return static_cast<Avatar*>(currentIndex.internalPointer());
+}
+
+Avatar* DialogConfiguration::getCurrentAvatarGraphical()
+{
+  Avatar *a = getCurrentAvatar();
+  if (!a)
+    KMessageBox::information(this, i18n("Please select an existing avatar from the list or add a new one as appropriate."));
+  return a;
+}
+
+void DialogConfiguration::editAvatar()
+{
+  Avatar *a = getCurrentAvatarGraphical();
+  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
+  dlg->editAvatar(a);
+  delete dlg;
+}
+void DialogConfiguration::removeAvatar()
+{
+  Avatar *a = getCurrentAvatarGraphical();
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
+  {
+    if (!avatarModel->removeAvatar(a))
+      KMessageBox::sorry(this, i18n("Failed to remove avatar."));
+    else delete a;
+  }
+}
+
 
 DialogConfiguration::~DialogConfiguration()
 {

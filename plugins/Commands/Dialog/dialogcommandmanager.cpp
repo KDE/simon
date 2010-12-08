@@ -96,13 +96,6 @@ void DialogCommandManager::initState(int state)
   //else, keep in mind that indizes do still start with 0 so 
   //decrement state
   state--;
-/*
-  if
-  {
-    kWarning() << "Invalid state provided";
-    return;
-  }
-  */
 
   initState(dialogStates.at(state));
 }
