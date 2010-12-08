@@ -22,8 +22,12 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QMutex>
 #include <QString>
 #include "simonmodelcompilationmanagement_export.h"
+
+class AudioCopyConfig;
+class ReestimationConfig;
 
 /**
  *	@class ModelManager
@@ -83,9 +87,16 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
     static QString information(bool condensed=false);
 
+    //helper functions from outside
+    bool codeAudioDataFromScp(const QString& path);
+    bool reestimate(const QString& command);
+
   private:
     bool keepGoing;
+    bool catchUndefiniedPhonemes;
+    QByteArray undefinedPhoneme;
 
+    QMutex buildLogMutex;
     QByteArray buildLog;
 
     CompilationType compilationType;
@@ -124,7 +135,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     bool generateMlf();
 
     bool codeAudioData();
-    bool generateCodetrainScp();
+    bool generateCodetrainScp(QStringList &codeTrainScps);
 
     bool buildHMM();
 
@@ -185,6 +196,14 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
     static QString juliusInformation(bool condensed);
 
     QStringList getMixtureConfigs();
+
+    bool reestimate(const QString& mlf, bool useStats, const QString& scp, const QString& inputMacros, 
+        const QString& inputHMMs, const QString& outputDirectory, const QString& phoneList, 
+        const QStringList& additionalConfigs=QStringList(), const QString& additionalParameters="");
+    
+    bool splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles);
+
+    bool removePhoneme(const QByteArray& phoneme);
 
   private slots:
     void addStatusToLog(const QString&);

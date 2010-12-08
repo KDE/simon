@@ -25,6 +25,7 @@
 #include "dialogcommand.h"
 #include "dialogcommandmanager.h"
 #include "dialogcommandbutton.h"
+#include "avatar.h"
 
 #include <simonactions/actionmanager.h>
 
@@ -82,6 +83,22 @@ bool VisualDialogView::present(const DialogState& state)
 {
   qDeleteAll(m_buttons);
   m_buttons.clear();
+  
+  Avatar* a = m_dialog->getAvatar(state.getAvatarId());
+  if (a && state.getDisplayAvatar())
+  {
+    ui->wgAvatar->show();
+    QString avatarName = a->name();
+    if (!m_dialog->getDisplayAvatarNames() || avatarName.isEmpty()) {
+      ui->wgAvatarName->hide();
+    } else {
+      ui->lbName->setText(avatarName);
+      ui->wgAvatarName->show();
+    }
+    int size = m_dialog->getAvatarSize();
+    ui->lbAvatar->setPixmap(QPixmap::fromImage(a->image().scaled(size,size, Qt::KeepAspectRatio)));
+  } else
+    ui->wgAvatar->hide();
 
   ui->lbText->setText(state.getText());
 

@@ -42,6 +42,10 @@ set (simondialogcommandplugin_SRCS
   dialogboundvalues.cpp
   staticboundvalue.cpp
   scriptboundvalue.cpp
+
+  avatar.cpp
+  avatarmodel.cpp
+  createavatardialog.cpp
     )
 
 if (USE_PLASMA)
@@ -58,6 +62,7 @@ kde4_add_ui_files(simondialogcommandplugin_SRCS
 	createtransitiondlg.ui
   createtemplateoptiondialog.ui
   createboundvalue.ui
+  createavatardlg.ui
     )
 
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})

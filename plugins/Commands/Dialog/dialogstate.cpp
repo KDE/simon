@@ -92,8 +92,13 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
   QDomElement textOptions = elem.firstChildElement("textOptions");
   QDomElement textSilenceOption = textOptions.firstChildElement("silence");
   QDomElement textAnnounceRepeatOption = textOptions.firstChildElement("announceRepeat");
+  
   m_silence = (textSilenceOption.text() == "1");
   m_announceRepeat = (textAnnounceRepeatOption.text() == "1");
+  
+  QDomElement avatarElem = elem.firstChildElement("avatar");
+  m_displayAvatar = (avatarElem.attribute("enabled") == "1");
+  m_avatarId = avatarElem.text().toInt();
 
   QDomElement transitions = elem.firstChildElement("transitions");
   QDomElement transition = transitions.firstChildElement("command");
@@ -136,6 +141,10 @@ QDomElement DialogState::serialize(QDomDocument *doc)
 
   textOptions.appendChild(textSilenceOption);
   textOptions.appendChild(textAnnounceOption);
+  
+  QDomElement avatarElem = doc->createElement("avatar");
+  avatarElem.setAttribute("enabled", m_displayAvatar ? "1" : "0");
+  avatarElem.appendChild(doc->createTextNode(QString::number(m_avatarId)));
 
   QDomElement transitionsElem = doc->createElement("transitions");
   
@@ -144,6 +153,7 @@ QDomElement DialogState::serialize(QDomDocument *doc)
 
   elem.appendChild(textElem);
   elem.appendChild(textOptions);
+  elem.appendChild(avatarElem);
   elem.appendChild(transitionsElem);
 
   return elem;

@@ -18,16 +18,21 @@
  */
 
 #include "modelcompilationmanager.h"
+#include "audiocopyconfig.h"
+#include "reestimationconfig.h"
 
 #include <simonlogging/logger.h>
 #include <julius/config.h>
 
+#include <QtCore/qmath.h>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QProcess>
 #include <QString>
 #include <QVector>
+#include <QtConcurrentMap>
+#include <QMutexLocker>
 
 #include <KUrl>
 #include <KConfig>
@@ -40,10 +45,29 @@
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#undef HTK_UNICODE
 #endif
+#ifdef Q_OS_UNIX
+#define HTK_UNICODE
+#endif
+#undef HTK_UNICODE
+
+#define MIN_WAV_FILESIZE 45 //44 byte is the length of the header
+#define HEREST_MULTITHREADED
+
+bool codeAudioDataFromScpHelper(AudioCopyConfig *config)
+{
+  return config->manager()->codeAudioDataFromScp(config->path());
+}
+
+bool reestimateHelper(ReestimationConfig *config)
+{
+  return config->manager()->reestimate(config->command());
+}
 
 ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 QObject* parent) : QThread(parent),
+catchUndefiniedPhonemes(false),
 userName(user_name)
 {
   connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
@@ -155,13 +179,17 @@ bool ModelCompilationManager::parseConfiguration()
 
 bool ModelCompilationManager::execute(const QString& command)
 {
+  kDebug() << command;
   QProcess proc;
   proc.setWorkingDirectory(tempDir);
   proc.start(command);
 
   activeProcesses << &proc;
 
-  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>";
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
+
   proc.waitForFinished(-1);
 
   activeProcesses.removeAll(&proc);
@@ -169,11 +197,18 @@ bool ModelCompilationManager::execute(const QString& command)
   QByteArray err = proc.readAllStandardError();
   QByteArray out = proc.readAllStandardOutput();
 
+  proc.close();
+
+  buildLogMutex.lock();
   if (!out.isEmpty())
-    buildLog += "<p>"+out+"</p>";
+    buildLog.append("<p>"+out+"</p>");
 
   if (!err.isEmpty())
-    buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
+  {
+    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
+    kDebug() << "Appended error: " << err;
+  }
+  buildLogMutex.unlock();
 
   if (proc.exitCode() != 0)
     return false;
@@ -183,13 +218,15 @@ bool ModelCompilationManager::execute(const QString& command)
 
 void ModelCompilationManager::addStatusToLog(const QString& status)
 {
-  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>";
-
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
 }
 
 
 bool ModelCompilationManager::hasBuildLog()
 {
+  QMutexLocker l(&buildLogMutex);
   return (buildLog.count() > 0);
 }
 
@@ -234,6 +271,26 @@ void ModelCompilationManager::analyseError(QString readableError)
     emit error(readableError);
 }
 
+bool ModelCompilationManager::removePhoneme(const QByteArray& phoneme)
+{
+  //check 
+  QFile f1(tempDir+"lexicon");
+  QFile f2(tempDir+"lexicon2");
+  if (!f1.open(QIODevice::ReadOnly) || !f2.open(QIODevice::WriteOnly))
+    return false;
+  while (!f1.atEnd())
+  {
+    QByteArray line = f1.readLine();
+    if (line.contains(' '+phoneme) || line.contains(phoneme+' ') || line.contains('\t'+phoneme))
+      continue;
+    f2.write(line);
+  }
+  f1.close();
+  f2.close();
+  if (!f1.remove())
+    return false;
+  return f2.rename(tempDir+"lexicon2", tempDir+"lexicon");
+}
 
 /**
  * \brief Processes an error (reacts on it some way)
@@ -267,7 +324,15 @@ bool ModelCompilationManager::processError()
     // 		 FindProtoModel: no proto for n
     QString phoneme = err.mid(44+startIndex);
     phoneme = phoneme.left(phoneme.indexOf(' '));
-    emit phonemeUndefined(phoneme);
+
+    if (catchUndefiniedPhonemes)
+    {
+      undefinedPhoneme = phoneme.toLocal8Bit();
+      buildLog.replace("ERROR [+2662]", "ERROR  [+2662]"); // marked as processed; Yes, thats an awful hack
+    }
+    else
+      emit phonemeUndefined(phoneme);
+
     return true;
   }
   if ((startIndex = err.indexOf("undefined class \"")) != -1) {
@@ -338,7 +403,9 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 
   keepGoing=true;
 
+  buildLogMutex.lock();
   buildLog.clear();
+  buildLogMutex.unlock();
 
   if (!parseConfiguration())
     return false;
@@ -542,22 +609,36 @@ bool ModelCompilationManager::generateDict()
   return true;
 }
 
-
 bool ModelCompilationManager::codeAudioData()
 {
   if (!keepGoing) return false;
   emit status(i18n("Coding audio files..."), 150);
 
   //creating codetrain
-  if (!generateCodetrainScp()) {
+  QStringList codeTrainScps;
+  if (!generateCodetrainScp(codeTrainScps)) {
     analyseError(i18n("Could not create codetrain-file."));
     return false;
   }
 
-  QString codetrainPath = tempDir+"/codetrain.scp";
+  if (codeTrainScps.isEmpty())
+    return true;
 
-  //TODO: implement some sort of caching (maybe with an file/hash combination?)
-  QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(codetrainPath)+'"';
+  QList<AudioCopyConfig*> configs;
+  foreach (const QString& scp, codeTrainScps)
+    configs << new AudioCopyConfig(scp, this);
+
+  QList<bool> results = QtConcurrent::blockingMapped(configs, codeAudioDataFromScpHelper);
+  
+  qDeleteAll(configs);
+
+  return !results.contains(false);
+}
+
+bool ModelCompilationManager::codeAudioDataFromScp(const QString& path)
+{
+  //QString codetrainPath = tempDir+"/codetrain.scp";
+  QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+htkIfyPath(wavConfigPath)+"\" -S \""+htkIfyPath(path)+'"';
   if (!execute(execStr)) {
     analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
     return false;
@@ -565,10 +646,20 @@ bool ModelCompilationManager::codeAudioData()
   return true;
 }
 
-
-bool ModelCompilationManager::generateCodetrainScp()
+bool ModelCompilationManager::reestimate(const QString& command)
 {
-  QString codetrainPath = tempDir+"/codetrain.scp";
+  return execute(command);
+}
+
+
+/**
+ * \param allCached True if all wave files are already cached; HCopy must not
+ * be run if this is true! This will not be true if there are no available
+ * samples at all
+ */
+bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
+{
+  int samples = 0;
   QString trainPath = tempDir+"/train.scp";
 
   QFile promptsFile(promptsPath);
@@ -578,11 +669,12 @@ bool ModelCompilationManager::generateCodetrainScp()
   QString pathToMFCs =tempDir+"/mfcs";
   QDir().mkpath(pathToMFCs);
 
-  QFile scpFile(codetrainPath);
+  QString codetrainPath = tempDir+"/codetrain.scp";
+
   QFile trainScpFile(trainPath);
-  if (!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate) || !trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate)) {
+  QFile scpFile(codetrainPath);
+  if ((!scpFile.open(QIODevice::WriteOnly|QIODevice::Truncate))|| (!trainScpFile.open(QIODevice::WriteOnly|QIODevice::Truncate)))
     return false;
-  }
 
   QString fileBase;
   QString mfcFile;
@@ -591,22 +683,73 @@ bool ModelCompilationManager::generateCodetrainScp()
     QString line = QString::fromUtf8(promptsFile.readLine());
 
     fileBase =  line.left(line.indexOf(' '));
+    if (fileBase.contains("/"))
+    {
+      QString subDir = fileBase.left(fileBase.lastIndexOf("/"));
+      QDir d(pathToMFCs+'/'+subDir);
+      if (!d.exists() && !d.mkpath(subDir))
+        return false;
+    }
     mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
-
     QString wavFile = htkIfyPath(samplePath)+'/'+fileBase+".wav";
-    scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
-    #ifdef Q_OS_WIN
-    trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
-    #else
+
+    QFileInfo wavInfo(wavFile);
+    if (wavInfo.size() < MIN_WAV_FILESIZE)
+      continue;
+
+    #ifdef HTK_UNICODE
     trainScpFile.write(mfcFile.toUtf8()+'\n');
+    #else
+    trainScpFile.write(mfcFile.toLocal8Bit()+'\n');
     #endif
+
+    if (QFile::exists(mfcFile))
+    {
+      kDebug() << "MFC already exists: " << mfcFile;
+      continue;
+    }
+
+    scpFile.write(QString('"'+wavFile+ "\" \"" +mfcFile+"\"\n").toLocal8Bit());
+    samples++;
   }
   promptsFile.close();
   scpFile.close();
   trainScpFile.close();
-  return true;
+  
+  return splitScp(codetrainPath, tempDir, "codetrain", codeTrainScps);
 }
 
+bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles)
+{
+  QList<QFile*> scpFilesF;
+  int threadCount = QThread::idealThreadCount();
+  for (int i=0; i < threadCount; i++)
+  {
+    QString thisPath = outputDirectory+fileNamePrefix+QString::number(i)+".scp";
+    QFile *f = new QFile(thisPath);
+    if (!f->open(QIODevice::WriteOnly))
+    {
+      qDeleteAll(scpFilesF);
+      return false;
+    }
+    scpFilesF << f;
+    scpFiles << thisPath;
+  }
+
+  QFile f(scpIn);
+  if (!f.open(QIODevice::ReadOnly))
+    return false;
+  
+  int currentLine = 0;
+  while (!f.atEnd())
+  {
+    scpFilesF[currentLine % threadCount]->write(f.readLine());
+    ++currentLine;
+  }
+
+  qDeleteAll(scpFilesF);
+  return true;
+}
 
 bool ModelCompilationManager::generateInputFiles()
 {
@@ -762,30 +905,50 @@ bool ModelCompilationManager::tieStates()
   if (!keepGoing) return false;
   emit status(i18n("Generating triphone..."),1700);
 
-  if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
-    analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
-    return false;
-  }
+  //start watching triphones
+  catchUndefiniedPhonemes = true;
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating list of triphones..."),1705);
-  if (!makeFulllist()) {
-    analyseError(i18n("Could not generate list of triphones."));
-    return false;
+  do
+  {
+    undefinedPhoneme = QByteArray();
+    if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
+      analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating list of triphones..."),1705);
+    if (!makeFulllist()) {
+      analyseError(i18n("Could not generate list of triphones."));
+      return false;
+    }
+    if (!keepGoing) return false;
+    emit status(i18n("Generating tree.hed..."), 1750);
+    if (!makeTreeHed()) {
+      analyseError(i18n("Could not generate tree.hed."));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating hmm13..."),1830);
+    if (!buildHMM13()) {
+      analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
+      if (!undefinedPhoneme.isEmpty())
+      {
+        if (!removePhoneme(undefinedPhoneme))
+	{
+	  catchUndefiniedPhonemes = false;
+          analyseError(i18n("Failed to remove undefined phoneme."));
+	  return false;
+	}
+      }
+      else
+        return false;
+    }
   }
-  if (!keepGoing) return false;
-  emit status(i18n("Generating tree.hed..."), 1750);
-  if (!makeTreeHed()) {
-    analyseError(i18n("Could not generate tree.hed."));
-    return false;
-  }
+  while (!undefinedPhoneme.isEmpty());
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating hmm13..."),1830);
-  if (!buildHMM13()) {
-    analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
-    return false;
-  }
+  catchUndefiniedPhonemes = false;
 
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm14..."),1900);
@@ -807,20 +970,21 @@ bool ModelCompilationManager::tieStates()
 
 bool ModelCompilationManager::buildHMM13()
 {
-  QString execString = '"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm12/macros\" -H \""+htkIfyPath(tempDir)+"/hmm12/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm13/\" \""+htkIfyPath(tempDir)+"/tree.hed\" \""+htkIfyPath(tempDir)+"/triphones1\"";
-  return execute(execString);
+  return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm12/macros\" -H \""+htkIfyPath(tempDir)+"/hmm12/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm13/\" \""+htkIfyPath(tempDir)+"/tree.hed\" \""+htkIfyPath(tempDir)+"/triphones1\"");
 }
 
 
 bool ModelCompilationManager::buildHMM14()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm13/macros\" -H \""+htkIfyPath(tempDir)+"/hmm13/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm14/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(13)+"macros", 
+      createHMMPath(13)+"hmmdefs", createHMMPath(14), htkIfyPath(tempDir)+"/tiedlist");
 }
 
 
 bool ModelCompilationManager::buildHMM15()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(14)+"macros", 
+      createHMMPath(14)+"hmmdefs", createHMMPath(15), htkIfyPath(tempDir)+"/tiedlist");
 }
 
 QStringList ModelCompilationManager::getMixtureConfigs()
@@ -912,35 +1076,26 @@ bool ModelCompilationManager::increaseMixtures()
     QString config = mixtureConfigs[i];
 
     bool succ = true;
-    kDebug() << "Succ: " << succ;
     emit status(i18n("Increasing mixtures..."),currentState);
     succ = execute('"'+hHEd+"\" -A -D -T 1 -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+
         "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
-    kDebug() << '"'+hHEd+"\" -A -D -T 1 -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+
-        "hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(config)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"";
     currentState += progressPerStep;
     currentHMMNumber += 1;
-    kDebug() << "Succ: " << succ;
 
     emit status(i18n("Re-estimation (1/2)..."),currentState);
-    succ = succ && execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+
-        "\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+
-        "/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+
-        createHMMPath(currentHMMNumber)+"hmmdefs\" -M \""+createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(tempDir)+
-        "/tiedlist\"");
+
+    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros", 
+      createHMMPath(currentHMMNumber)+"hmmdefs", createHMMPath(currentHMMNumber+1), htkIfyPath(tempDir)+"/tiedlist");
+
     currentState += progressPerStep;
     currentHMMNumber += 1;
-    kDebug() << "Succ: " << succ;
 
     emit status(i18n("Re-estimation (2/2)..."),currentState);
     QString outputPath;
-    succ = succ && execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+
-        "\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+
-        htkIfyPath(tempDir)+"/aligned.scp\" -H \""+createHMMPath(currentHMMNumber)+"macros\" -H \""+createHMMPath(currentHMMNumber)+"hmmdefs\" -M \""+
-        createHMMPath(currentHMMNumber+1)+"\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+    succ = succ && reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(currentHMMNumber)+"macros", 
+      createHMMPath(currentHMMNumber)+"hmmdefs", createHMMPath(currentHMMNumber+1), htkIfyPath(tempDir)+"/tiedlist");
     currentState += progressPerStep;
     currentHMMNumber += 1;
-    kDebug() << "Succ: " << succ;
 
     if (!succ)
     {
@@ -1095,14 +1250,15 @@ bool ModelCompilationManager::makeTriphones()
 
 bool ModelCompilationManager::buildHMM12()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm11/macros\" -H \""+htkIfyPath(tempDir)+"/hmm11/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm12/"+"\" \""+htkIfyPath(tempDir)+"/triphones1"+"\"");
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(11)+"macros", 
+      createHMMPath(11)+"hmmdefs", createHMMPath(12), htkIfyPath(tempDir)+"/triphones1");
 }
 
 
 bool ModelCompilationManager::buildHMM11()
 {
-  QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm10/macros\" -H \""+htkIfyPath(tempDir)+"/hmm10/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm11/\" \""+htkIfyPath(tempDir)+"/triphones1\"";
-  return execute(execStr);
+  return reestimate(htkIfyPath(tempDir)+"/wintri.mlf", true, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(10)+"macros", 
+      createHMMPath(10)+"hmmdefs", createHMMPath(11), htkIfyPath(tempDir)+"/triphones1");
 }
 
 
@@ -1136,13 +1292,15 @@ bool ModelCompilationManager::makeMkTriHed()
 
 bool ModelCompilationManager::buildHMM9()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm8/macros\" -H \""+htkIfyPath(tempDir)+"/hmm8/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm9/"+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(8)+"macros", 
+      createHMMPath(8)+"hmmdefs", createHMMPath(9), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
 bool ModelCompilationManager::buildHMM8()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm8/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return reestimate(htkIfyPath(tempDir)+"/aligned.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", createHMMPath(7)+"macros", 
+      createHMMPath(7)+"hmmdefs", createHMMPath(8), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
@@ -1173,11 +1331,15 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
     QByteArray originalLine = trainScp.readLine();
     QByteArray line = originalLine.trimmed().mid(htkIfyPath(tempDir).count() + 1 /* separator*/ + 5 /* mfcs/ */);
     line = line.left(line.count() - 4 /* .mfc */);
+    line = line.mid(line.lastIndexOf("/")+1);
 
     if (transcribedFiles.contains(line))
       alignedScp.write(originalLine);
     else
+    {
+      kDebug() << "Transcribed files: " << transcribedFiles;
       kDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
+    }
 
   }
   return true;
@@ -1208,13 +1370,15 @@ bool ModelCompilationManager::makeDict1()
 
 bool ModelCompilationManager::buildHMM7()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm6/macros\" -H \""+htkIfyPath(tempDir)+"/hmm6/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm7/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(6)+"macros", 
+      createHMMPath(6)+"hmmdefs", createHMMPath(7), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
 bool ModelCompilationManager::buildHMM6()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm5/macros\" -H \""+htkIfyPath(tempDir)+"/hmm5/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm6/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+  return reestimate(htkIfyPath(tempDir)+"/phones1.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(5)+"macros", 
+      createHMMPath(5)+"hmmdefs", createHMMPath(6), htkIfyPath(tempDir)+"/monophones1");
 }
 
 
@@ -1269,20 +1433,22 @@ bool ModelCompilationManager::buildHMM4()
 
 bool ModelCompilationManager::buildHMM3()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm2/macros\" -H \""+htkIfyPath(tempDir)+"/hmm2/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm3/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(2)+"macros", 
+      createHMMPath(2)+"hmmdefs", createHMMPath(3), htkIfyPath(tempDir)+"/monophones0");
 }
 
 
 bool ModelCompilationManager::buildHMM2()
 {
-  return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm1/macros\" -H \""+htkIfyPath(tempDir)+"/hmm1/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm2/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(1)+"macros", 
+      createHMMPath(1)+"hmmdefs", createHMMPath(2), htkIfyPath(tempDir)+"/monophones0");
 }
 
 
 bool ModelCompilationManager::buildHMM1()
 {
-  QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(getScriptFile("config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm0/macros\" -H \""+htkIfyPath(tempDir)+"/hmm0/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm1/\" \""+htkIfyPath(tempDir)+"/monophones0\"";
-  return execute(execStr);
+  return reestimate(htkIfyPath(tempDir)+"/phones0.mlf", false, htkIfyPath(tempDir)+"/train.scp", createHMMPath(0)+"macros", 
+      createHMMPath(0)+"hmmdefs", createHMMPath(1), htkIfyPath(tempDir)+"/monophones0");
 }
 
 
@@ -1351,7 +1517,7 @@ bool ModelCompilationManager::makeMonophones()
   if (QFile::exists(latinLexiconpath))
     if (!QFile::remove(latinLexiconpath)) return false;
 
-  #ifdef Q_OS_WIN
+  #ifndef HTK_UNICODE
   QFile utfLexicon(lexiconPath);
 
   QFile latinLexicon(latinLexiconpath);
@@ -1454,14 +1620,16 @@ bool ModelCompilationManager::generateMlf()
     if (line.trimmed().isEmpty()) continue;
     lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
                                                   //ditch the file-id
-    QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
-    #ifdef Q_OS_WIN
+    QString fileName = lineWords.takeFirst();
+    fileName = fileName.mid(fileName.lastIndexOf("/")+1);
+    QString labFile = "\"*/"+fileName+".lab\"";
+    #ifndef HTK_UNICODE
     mlf.write(labFile.toLatin1()+'\n');
     #else
     mlf.write(labFile.toUtf8()+'\n');
     #endif
     for (int i=0; i < lineWords.count(); i++)
-    #ifdef Q_OS_WIN
+    #ifndef HTK_UNICODE
       mlf.write(lineWords[i].toLatin1()+'\n');
     #else
     mlf.write(lineWords[i].toUtf8()+'\n');
@@ -1500,10 +1668,12 @@ bool ModelCompilationManager::adaptBaseModel()
 
   emit status(i18n("Switching to new model..."), 1500);
 
-  if ( (((QFile::exists(hmmDefsPath)) && (!QFile::remove(hmmDefsPath))) ||
-    (!QFile::copy(tempDir+"/xforms/basehmmdefs.mfc.mllr2", hmmDefsPath))) ||
-    (((QFile::exists(tiedListPath)) && (!QFile::remove(tiedListPath))) ||
-  (!QFile::copy(baseTiedlistPath, tiedListPath)))) {
+  QString expectedHmmPath = QFileInfo(baseHmmDefsPath).fileName();
+  expectedHmmPath = expectedHmmPath.left(expectedHmmPath.indexOf("."));
+  if ( (QFile::exists(hmmDefsPath) && (!QFile::remove(hmmDefsPath))) ||
+       (!QFile::copy(tempDir+"/xforms/"+expectedHmmPath+".mfc.mllr2", hmmDefsPath)) ||
+       (QFile::exists(tiedListPath) && (!QFile::remove(tiedListPath))) ||
+       (!QFile::copy(baseTiedlistPath, tiedListPath)) ) {
     analyseError(i18n("Could not switch to new model."));
     return false;
   }
@@ -1592,15 +1762,33 @@ bool ModelCompilationManager::staticAdaption()
   if (!prepareGlobalConfig()) 
     return false;
 
-  QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/basehmmdefs";
+  QFileInfo fiHMM(baseHmmDefsPath);
+  QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/"+fiHMM.fileName();
   QString adaptFromTiedlist = baseTiedlistPath;
-  QString adaptFromMacros = htkIfyPath(tempDir)+"classes/basemacros";
 
+  QFileInfo fiMacros(baseMacrosPath);
+  QString adaptFromMacros = htkIfyPath(tempDir)+"classes/"+fiMacros.fileName();
+  
+  //TODO: Parelellize
   if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
     return false;
 
   if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
     return false;
+
+//   if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
+//         adaptFromMacros, adaptFromHMM, ""/*tempDir+"/xforms"*/ /*output directory*/, adaptFromTiedlist,
+//         QStringList() << htkIfyPath(getScriptFile("config.global")),
+//         "-u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1"
+//         ))
+//     return false;
+// 
+//   if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
+//         adaptFromMacros, adaptFromHMM, ""/*tempDir+"/xforms"*/ /*output directory*/, adaptFromTiedlist,
+//         QStringList() << htkIfyPath(getScriptFile("config.rc")),
+//         "-u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2"
+//         ))
+//     return false;
 
   return true;
 }
@@ -1647,6 +1835,80 @@ QString ModelCompilationManager::juliusInformation(bool condensed)
   else
     return QString("%1 (%2 %3)").arg(JULIUS_VERSION).arg(JULIUS_SETUP).arg(JULIUS_HOSTINFO);
 }
+
+bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, const QString& scp, 
+    const QString& inputMacros, const QString& inputHMMs, const QString& outputDirectory, 
+    const QString& phoneList, const QStringList& additionalConfigs, const QString& additionalParameters)
+{
+#ifdef HEREST_MULTITHREADED
+  QStringList scpFiles;
+  QStringList commands;
+  splitScp(scp, tempDir, "reestimate", scpFiles);
+  int channel = 0;
+  scpFiles.insert(0, QString());
+  foreach (const QString& thisScp, scpFiles)
+  {
+#else
+  QString thisScp = scp;
+#endif
+  
+  QString command = '"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" ";
+
+  foreach (const QString& c, additionalConfigs)
+    command += "-C \""+c+"\" ";
+
+  if (!additionalParameters.isEmpty())
+    command += additionalParameters+" ";
+
+  command += "-I \""+mlf+"\" -t 250.0 150.0 3000.0 ";
+  if (useStats)
+    command += "-s \""+htkIfyPath(tempDir)+"/stats\" ";
+
+  if (!thisScp.isEmpty())
+    command += "-S \""+thisScp+"\" " ;
+  command += "-H \""+inputMacros+"\" -H \""+inputHMMs+"\" ";
+
+  if (!outputDirectory.isEmpty())
+    command += "-M \""+outputDirectory+"\" ";
+  
+#ifdef HEREST_MULTITHREADED
+    command += "-p "+QString::number(channel++)+' ';
+#endif
+
+  command += '"'+phoneList+'"';
+
+#ifdef HEREST_MULTITHREADED
+  commands << command;
+  }
+//   kDebug() << commands; exit(0);
+  QString mergeCmd = commands.takeFirst();
+  for (int i=1; i <= commands.count(); i++)
+    mergeCmd += " \""+outputDirectory+"HER"+QString::number(i)+".acc\"";
+  
+  //execute all commands in paralell and merge results
+  QList<ReestimationConfig*> reestimationConfigs;
+  foreach (const QString& c, commands)
+    reestimationConfigs << new ReestimationConfig(c, this);
+    
+  QList<bool> results = QtConcurrent::blockingMapped(reestimationConfigs, reestimateHelper);
+  qDeleteAll(reestimationConfigs);
+  if (results.contains(false)) return false;
+  
+  if (!outputDirectory.isEmpty())
+  {
+    //merge
+    // no -S parameter; add -p 0; add /tmp/kde-bedahr/sam/internalsamuser/compile//hmm1//*.acc
+    kDebug() << "Merge command: " << mergeCmd;
+    
+    return execute(mergeCmd);
+  }
+  return true;
+  
+#else
+  return execute(command);
+#endif
+}
+
 
 ModelCompilationManager::~ModelCompilationManager()
 {
