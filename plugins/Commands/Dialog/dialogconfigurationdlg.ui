@@ -390,7 +390,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Output</string>
+       <string comment="dialogoutput">Output</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>

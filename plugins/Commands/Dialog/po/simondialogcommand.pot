@@ -1,0 +1,804 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-12-08 19:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. i18n: file: dialogconfigurationdlg.ui:200
+#. i18n: ectx: attribute (title), widget (QWidget, tab_8)
+#: createavatardialog.cpp:32 po/rc.cpp:168 rc.cpp:168
+msgid "Avatar"
+msgstr ""
+
+#: createavatardialog.cpp:51
+msgid "Please fill in all fields or select cancel."
+msgstr ""
+
+#: createavatardialog.cpp:74
+msgid "Couldn't open temporary file at \"%1\"."
+msgstr ""
+
+#: createboundvaluedialog.cpp:54
+msgid "Bound value"
+msgstr ""
+
+#: createboundvaluedialog.cpp:58
+msgid "Plasma data engine"
+msgstr ""
+
+#: createboundvaluedialog.cpp:268
+msgid "Each bound value has to have a name."
+msgstr ""
+
+#: createboundvaluedialog.cpp:307
+msgid ""
+"Expression $%1$ evaluates to:\n"
+"%2"
+msgstr ""
+
+#: createdialogcommandwidget.cpp:110
+msgid "0: Close dialog"
+msgstr ""
+
+#: createdialogcommandwidget.cpp:115
+msgctxt "%1...Index of the state; %2...Name of the state"
+msgid "%1: %2"
+msgstr ""
+
+#: createdialogcommandwidget.cpp:162
+msgid ""
+"Could not find all of the commands that are referenced form this dialog "
+"command.\n"
+"\n"
+"The missing commands are: %1."
+msgstr ""
+
+#: createtemplateoptiondialog.cpp:33
+msgid "Template option"
+msgstr ""
+
+#: createtransitiondialog.cpp:30
+msgid "Dialog option"
+msgstr ""
+
+#: dialogboundvalues.cpp:75
+msgctxt "Name of the bound value"
+msgid "Name"
+msgstr ""
+
+#: dialogboundvalues.cpp:77
+msgctxt "Type of the bound value"
+msgid "Type"
+msgstr ""
+
+#: dialogboundvalues.cpp:79
+msgctxt "Value of the bound value"
+msgid "Value"
+msgstr ""
+
+#. i18n: file: dialogwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, DialogView)
+#: dialogcommand.cpp:66 dialogcommandmanager.cpp:199
+#: dialogcommandmanager.cpp:345 dialogconfiguration.cpp:55 po/rc.cpp:246
+#: rc.cpp:246
+msgid "Dialog"
+msgstr ""
+
+#: dialogcommand.cpp:91
+msgctxt "Label for a bool value"
+msgid "Switch state"
+msgstr ""
+
+#: dialogcommand.cpp:91 dialogcommand.cpp:93
+msgid "Yes"
+msgstr ""
+
+#: dialogcommand.cpp:91 dialogcommand.cpp:93
+msgid "No"
+msgstr ""
+
+#: dialogcommand.cpp:92
+msgid "Next state"
+msgstr ""
+
+#: dialogcommand.cpp:93
+msgctxt "Label for a bool value"
+msgid "Execute command(s)"
+msgstr ""
+
+#. i18n: file: simondialogpluginui.rc:6
+#. i18n: ectx: Menu (commands)
+#: dialogcommand.cpp:94 po/rc.cpp:249 rc.cpp:249
+msgid "Commands"
+msgstr ""
+
+#: dialogcommandmanager.cpp:50
+msgid "Activate Dialog"
+msgstr ""
+
+#: dialogcommandmanager.cpp:342
+msgid "Failed to initialize dialog configuration."
+msgstr ""
+
+#: dialogcommandmanager.cpp:346
+msgid "Start dialog"
+msgstr ""
+
+#: dialogconfiguration.cpp:56
+msgid "Control a robot"
+msgstr ""
+
+#: dialogconfiguration.cpp:134
+msgid "Add state"
+msgstr ""
+
+#: dialogconfiguration.cpp:134
+msgid "Name of the new state:"
+msgstr ""
+
+#: dialogconfiguration.cpp:139
+msgid "Failed to add state"
+msgstr ""
+
+#: dialogconfiguration.cpp:149
+msgid "Rename state"
+msgstr ""
+
+#: dialogconfiguration.cpp:149
+msgid "New name of the state:"
+msgstr ""
+
+#: dialogconfiguration.cpp:154
+msgid "Failed to rename state"
+msgstr ""
+
+#: dialogconfiguration.cpp:166
+msgid "Do you really want to remove the selected state?"
+msgstr ""
+
+#: dialogconfiguration.cpp:171
+msgid "Failed to remove state"
+msgstr ""
+
+#: dialogconfiguration.cpp:188
+msgid ""
+"Failed to move state up.\n"
+"\n"
+"Maybe it is already at the top of the list?"
+msgstr ""
+
+#: dialogconfiguration.cpp:205
+msgid ""
+"Failed to move state down.\n"
+"\n"
+"Maybe it is already at the end of the list?"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:97
+#. i18n: ectx: attribute (title), widget (QWidget, tab_6)
+#: dialogconfiguration.cpp:222 po/rc.cpp:138 rc.cpp:138
+msgid "Text"
+msgstr ""
+
+#: dialogconfiguration.cpp:222
+msgid "Enter the text to present to the user when this state is entered:"
+msgstr ""
+
+#: dialogconfiguration.cpp:227
+msgid "Failed to update state text."
+msgstr ""
+
+#: dialogconfiguration.cpp:295
+msgid "Do you really want to remove the selected transition?"
+msgstr ""
+
+#: dialogconfiguration.cpp:313
+msgid ""
+"Failed to move transition up.\n"
+"\n"
+"Maybe it is already at the top of the list?"
+msgstr ""
+
+#: dialogconfiguration.cpp:330
+msgid ""
+"Failed to move transition down.\n"
+"\n"
+"Maybe it is already at the end of the list?"
+msgstr ""
+
+#: dialogconfiguration.cpp:350
+msgid "Please select a template option."
+msgstr ""
+
+#: dialogconfiguration.cpp:387
+msgid "Do you really want to remove the selected template option?"
+msgstr ""
+
+#: dialogconfiguration.cpp:403
+msgid "Please select a bound value from the table above."
+msgstr ""
+
+#: dialogconfiguration.cpp:432
+msgid "Could not edit bound value."
+msgstr ""
+
+#: dialogconfiguration.cpp:441
+msgid "Do you really want to remove the selected bound value option?"
+msgstr ""
+
+#: dialogconfiguration.cpp:598
+msgctxt "%1: id of state; %2: name of state"
+msgid "%1: %2"
+msgstr ""
+
+#: dialogconfiguration.cpp:626
+msgid "Please select a state from the left or add new ones as appropriate."
+msgstr ""
+
+#: dialogconfiguration.cpp:644
+msgid "Please select an option from the right or add new ones as appropriate."
+msgstr ""
+
+#: dialogconfiguration.cpp:682
+msgid "Please answer with any of the following options."
+msgstr ""
+
+#: dialogconfiguration.cpp:684
+msgid "Repeat"
+msgstr ""
+
+#: dialogconfiguration.cpp:685
+msgid "Say \"Repeat\" to hear this text again."
+msgstr ""
+
+#: dialogconfiguration.cpp:743
+msgid ""
+"Please select an existing avatar from the list or add a new one as "
+"appropriate."
+msgstr ""
+
+#: dialogconfiguration.cpp:757
+msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+msgstr ""
+
+#: dialogconfiguration.cpp:760
+msgid "Failed to remove avatar."
+msgstr ""
+
+#: dialogstate.cpp:233
+msgctxt "Name of the state"
+msgid "Name"
+msgstr ""
+
+#: dialogtemplateoptions.cpp:60
+msgctxt "Name of the template option"
+msgid "Name"
+msgstr ""
+
+#: dialogtemplateoptions.cpp:62
+msgctxt "Value of the template option"
+msgid "Value"
+msgstr ""
+
+#: plasmaboundvalue.cpp:49
+msgctxt "Typename of script bound values"
+msgid "Plasma"
+msgstr ""
+
+#. i18n: file: createavatardlg.ui:20
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: createboundvalue.ui:22
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: createtemplateoptiondialog.ui:20
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: createavatardlg.ui:20
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: createboundvalue.ui:22
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: createtemplateoptiondialog.ui:20
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:3 po/rc.cpp:12 po/rc.cpp:96 rc.cpp:3 rc.cpp:12 rc.cpp:96
+msgid "Name:"
+msgstr ""
+
+#. i18n: file: createavatardlg.ui:30
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Image:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateBoundValueDialog)
+#. i18n: file: createtemplateoptiondialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateTemplateOptionDialog)
+#. i18n: file: createtransitiondlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateTransitionDlg)
+#. i18n: file: createboundvalue.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateBoundValueDialog)
+#. i18n: file: createtemplateoptiondialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateTemplateOptionDialog)
+#. i18n: file: createtransitiondlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateTransitionDlg)
+#: po/rc.cpp:9 po/rc.cpp:93 po/rc.cpp:105 rc.cpp:9 rc.cpp:93 rc.cpp:105
+msgid "Form"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:32
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Type:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:40
+#. i18n: ectx: property (text), item, widget (QComboBox, cbType)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Static value"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:45
+#. i18n: ectx: property (text), item, widget (QComboBox, cbType)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "QtScript"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:62
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Value:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:76
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Script to run:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:94
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "Dataengine:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:101
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Data source:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:129
+#. i18n: ectx: property (text), widget (KPushButton, pbRequest)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Request"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:138
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Key:"
+msgstr ""
+
+#. i18n: file: createboundvalue.ui:181
+#. i18n: ectx: property (text), widget (KPushButton, pbTest)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "Test"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:20
+#. i18n: ectx: property (title), widget (QGroupBox, gbTrigger)
+#: po/rc.cpp:45 rc.cpp:45
+msgctxt "More general version of \"display\""
+msgid "Presentation"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:26
+#. i18n: ectx: property (text), widget (QLabel, lbText)
+#: po/rc.cpp:48 rc.cpp:48
+msgid "Text:"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:36
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowIcon)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "Show icon"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:46
+#. i18n: ectx: property (toolTip), widget (QCheckBox, cbSilent)
+#: po/rc.cpp:54 rc.cpp:54
+msgid "Don't announce this command when using TTS"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:49
+#. i18n: ectx: property (text), widget (QCheckBox, cbSilent)
+#. i18n: file: dialogconfigurationdlg.ui:123
+#. i18n: ectx: property (text), widget (QCheckBox, cbSilence)
+#. i18n: file: createdialogcommandwidget.ui:49
+#. i18n: ectx: property (text), widget (QCheckBox, cbSilent)
+#. i18n: file: dialogconfigurationdlg.ui:123
+#. i18n: ectx: property (text), widget (QCheckBox, cbSilence)
+#: po/rc.cpp:57 po/rc.cpp:144 rc.cpp:57 rc.cpp:144
+msgid "Silent"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:59
+#. i18n: ectx: property (title), widget (QGroupBox, gbAutomatic)
+#: po/rc.cpp:60 rc.cpp:60
+msgid "Trigger automatically"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:71
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "After:"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:96
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:66 rc.cpp:66
+msgid "ms"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:108
+#. i18n: ectx: property (title), widget (QGroupBox, gbSwitchState)
+#: po/rc.cpp:69 rc.cpp:69
+msgid "Switch state"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:120
+#. i18n: ectx: property (text), widget (QLabel, lbNextState)
+#: po/rc.cpp:72 rc.cpp:72
+msgid "Next state:"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:133
+#. i18n: ectx: property (title), widget (QGroupBox, gbCommands)
+#: po/rc.cpp:75 rc.cpp:75
+msgid "Execute commands"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:149
+#. i18n: ectx: property (text), widget (QLabel, lbCommand)
+#: po/rc.cpp:78 rc.cpp:78
+msgid "Command:"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:159
+#. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
+#: po/rc.cpp:81 rc.cpp:81
+msgid "Add Command"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:185
+#. i18n: ectx: property (text), widget (QPushButton, pbRemove)
+#. i18n: file: dialogconfigurationdlg.ui:65
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveState)
+#. i18n: file: dialogconfigurationdlg.ui:169
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveTransition)
+#. i18n: file: dialogconfigurationdlg.ui:280
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:335
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:383
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveAvatar)
+#. i18n: file: createdialogcommandwidget.ui:185
+#. i18n: ectx: property (text), widget (QPushButton, pbRemove)
+#. i18n: file: dialogconfigurationdlg.ui:65
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveState)
+#. i18n: file: dialogconfigurationdlg.ui:169
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveTransition)
+#. i18n: file: dialogconfigurationdlg.ui:280
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:335
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:383
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveAvatar)
+#: po/rc.cpp:84 po/rc.cpp:129 po/rc.cpp:159 po/rc.cpp:183 po/rc.cpp:195
+#: po/rc.cpp:207 rc.cpp:84 rc.cpp:129 rc.cpp:159 rc.cpp:183 rc.cpp:195
+#: rc.cpp:207
+msgid "Remove"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:195
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
+#: po/rc.cpp:87 rc.cpp:87
+msgid "Move Up"
+msgstr ""
+
+#. i18n: file: createdialogcommandwidget.ui:205
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
+#: po/rc.cpp:90 rc.cpp:90
+msgid "Move Down"
+msgstr ""
+
+#. i18n: file: createtemplateoptiondialog.ui:30
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:99 rc.cpp:99
+msgid "State:"
+msgstr ""
+
+#. i18n: file: createtemplateoptiondialog.ui:37
+#. i18n: ectx: property (text), widget (QCheckBox, cbEnabled)
+#: po/rc.cpp:102 rc.cpp:102
+msgid "Enabled"
+msgstr ""
+
+#. i18n: file: createtransitiondlg.ui:30
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: po/rc.cpp:108 rc.cpp:108
+msgid "Name (Trigger):"
+msgstr ""
+
+#. i18n: file: createtransitiondlg.ui:44
+#. i18n: ectx: property (text), widget (QLabel, lbDescription)
+#: po/rc.cpp:111 rc.cpp:111
+msgid "Description:"
+msgstr ""
+
+#. i18n: file: createtransitiondlg.ui:96
+#. i18n: ectx: property (icon), widget (KIconButton, ibIcon)
+#: po/rc.cpp:114 rc.cpp:114
+msgid "system-run"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:30
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:117 rc.cpp:117
+msgid "Dialog design"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:40
+#. i18n: ectx: property (title), widget (QGroupBox, gbStates)
+#: po/rc.cpp:120 rc.cpp:120
+msgid "States"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:51
+#. i18n: ectx: property (text), widget (KPushButton, pbAddState)
+#. i18n: file: dialogconfigurationdlg.ui:155
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTransition)
+#. i18n: file: dialogconfigurationdlg.ui:266
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:321
+#. i18n: ectx: property (text), widget (KPushButton, pbAddBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:369
+#. i18n: ectx: property (text), widget (KPushButton, pbAddAvatar)
+#. i18n: file: dialogconfigurationdlg.ui:51
+#. i18n: ectx: property (text), widget (KPushButton, pbAddState)
+#. i18n: file: dialogconfigurationdlg.ui:155
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTransition)
+#. i18n: file: dialogconfigurationdlg.ui:266
+#. i18n: ectx: property (text), widget (KPushButton, pbAddTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:321
+#. i18n: ectx: property (text), widget (KPushButton, pbAddBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:369
+#. i18n: ectx: property (text), widget (KPushButton, pbAddAvatar)
+#: po/rc.cpp:123 po/rc.cpp:153 po/rc.cpp:177 po/rc.cpp:189 po/rc.cpp:201
+#: rc.cpp:123 rc.cpp:153 rc.cpp:177 rc.cpp:189 rc.cpp:201
+msgid "Add"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:58
+#. i18n: ectx: property (text), widget (KPushButton, pbRenameState)
+#: po/rc.cpp:126 rc.cpp:126
+msgid "Rename"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:76
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveStateUp)
+#. i18n: file: dialogconfigurationdlg.ui:180
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveTransitionUp)
+#. i18n: file: dialogconfigurationdlg.ui:76
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveStateUp)
+#. i18n: file: dialogconfigurationdlg.ui:180
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveTransitionUp)
+#: po/rc.cpp:132 po/rc.cpp:162 rc.cpp:132 rc.cpp:162
+msgid "Move up"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:83
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveStateDown)
+#. i18n: file: dialogconfigurationdlg.ui:187
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveTransitionDown)
+#. i18n: file: dialogconfigurationdlg.ui:83
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveStateDown)
+#. i18n: file: dialogconfigurationdlg.ui:187
+#. i18n: ectx: property (text), widget (KPushButton, pbMoveTransitionDown)
+#: po/rc.cpp:135 po/rc.cpp:165 rc.cpp:135 rc.cpp:165
+msgid "Move down"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:116
+#. i18n: ectx: property (text), widget (KPushButton, pbEditText)
+#. i18n: file: dialogconfigurationdlg.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTransition)
+#. i18n: file: dialogconfigurationdlg.ui:273
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:328
+#. i18n: ectx: property (text), widget (KPushButton, pbEditBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:376
+#. i18n: ectx: property (text), widget (KPushButton, pbEditAvatar)
+#. i18n: file: dialogconfigurationdlg.ui:116
+#. i18n: ectx: property (text), widget (KPushButton, pbEditText)
+#. i18n: file: dialogconfigurationdlg.ui:162
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTransition)
+#. i18n: file: dialogconfigurationdlg.ui:273
+#. i18n: ectx: property (text), widget (KPushButton, pbEditTemplateOption)
+#. i18n: file: dialogconfigurationdlg.ui:328
+#. i18n: ectx: property (text), widget (KPushButton, pbEditBoundValue)
+#. i18n: file: dialogconfigurationdlg.ui:376
+#. i18n: ectx: property (text), widget (KPushButton, pbEditAvatar)
+#: po/rc.cpp:141 po/rc.cpp:156 po/rc.cpp:180 po/rc.cpp:192 po/rc.cpp:204
+#: rc.cpp:141 rc.cpp:156 rc.cpp:180 rc.cpp:192 rc.cpp:204
+msgid "Edit"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:130
+#. i18n: ectx: property (text), widget (QCheckBox, cbAnnounceRepeat)
+#: po/rc.cpp:147 rc.cpp:147
+msgid "Announce repeat option"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:141
+#. i18n: ectx: attribute (title), widget (QWidget, tab_7)
+#: po/rc.cpp:150 rc.cpp:150
+msgid "Options"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:209
+#. i18n: ectx: property (text), widget (QCheckBox, cbDisplayAvatar)
+#: po/rc.cpp:171 rc.cpp:171
+msgid "Display avatar"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:235
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: po/rc.cpp:174 rc.cpp:174
+msgid "Template options"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:290
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: po/rc.cpp:186 rc.cpp:186
+msgid "Bound values"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:345
+#. i18n: ectx: attribute (title), widget (QWidget, tab_5)
+#: po/rc.cpp:198 rc.cpp:198
+msgid "Avatars"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:393
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: po/rc.cpp:210 rc.cpp:210
+msgctxt "dialogoutput"
+msgid "Output"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:399
+#. i18n: ectx: property (title), widget (QGroupBox, gbGraphical)
+#: po/rc.cpp:213 rc.cpp:213
+msgid "Graphical interface"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:408
+#. i18n: ectx: property (text), widget (QLabel, lbAvatarSize)
+#: po/rc.cpp:216 rc.cpp:216
+msgid "Avatar size:"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:430
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: po/rc.cpp:219 rc.cpp:219
+msgid "px"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:439
+#. i18n: ectx: property (text), widget (QCheckBox, cbDisplayAvatarNames)
+#: po/rc.cpp:222 rc.cpp:222
+msgid "Display avatar names"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:452
+#. i18n: ectx: property (title), widget (QGroupBox, gbTextToSpeech)
+#: po/rc.cpp:225 rc.cpp:225
+msgid "Text to speech configuration"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:467
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:228 rc.cpp:228
+msgid "Separator to options:"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:474
+#. i18n: ectx: property (toolTip), widget (KLineEdit, leOptionSeparator)
+#: po/rc.cpp:231 rc.cpp:231
+msgid ""
+"This text will be said after the text of the current state and before the "
+"available options"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:481
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:234 rc.cpp:234
+msgid "Repeat on trigger:"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:488
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:237 rc.cpp:237
+msgid "Announce repeat:"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:495
+#. i18n: ectx: property (toolTip), widget (KLineEdit, leAnnounceRepeat)
+#: po/rc.cpp:240 rc.cpp:240
+msgid "This text will be said after the complete announcement"
+msgstr ""
+
+#. i18n: file: dialogconfigurationdlg.ui:502
+#. i18n: ectx: property (text), widget (QCheckBox, cbRepeatOnInvalidInput)
+#: po/rc.cpp:243 rc.cpp:243
+msgid "Repeat available options on invalid input"
+msgstr ""
+
+#: po/rc.cpp:250 rc.cpp:250
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:251 rc.cpp:251
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#: scriptboundvalue.cpp:41
+msgctxt "Typename of script bound values"
+msgid "Script"
+msgstr ""
+
+#: staticboundvalue.cpp:38
+msgctxt "Typename of static bound values"
+msgid "Static"
+msgstr ""
+
+#: tests/dialogcommandtest.cpp:147
+msgid "test"
+msgstr ""
+
+#: tests/dialogtest.cpp:110
+msgid "appname"
+msgstr ""
+
+#: ttsdialogview.cpp:40
+msgid "Failed to initialize text to speech subsystem"
+msgstr ""
+
+#: ttsdialogview.cpp:53
+msgid "Failed to uninitialize text to speech subsystem"
+msgstr ""
+
+#: ttsdialogview.cpp:64
+msgid "Could not speak text: %1"
+msgstr ""
+
+#: visualdialogview.cpp:127
+msgid ""
+"Invalid input: %1\n"
+"Please say one of the displayed options."
+msgstr ""
