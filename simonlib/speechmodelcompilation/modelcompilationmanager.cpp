@@ -32,6 +32,7 @@
 #include <QString>
 #include <QVector>
 #include <QtConcurrentMap>
+#include <QMutexLocker>
 
 #include <KUrl>
 #include <KConfig>
@@ -66,6 +67,7 @@ bool reestimateHelper(ReestimationConfig *config)
 
 ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 QObject* parent) : QThread(parent),
+catchUndefiniedPhonemes(false),
 userName(user_name)
 {
   connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
@@ -184,7 +186,10 @@ bool ModelCompilationManager::execute(const QString& command)
 
   activeProcesses << &proc;
 
-  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>";
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
+
   proc.waitForFinished(-1);
 
   activeProcesses.removeAll(&proc);
@@ -192,11 +197,18 @@ bool ModelCompilationManager::execute(const QString& command)
   QByteArray err = proc.readAllStandardError();
   QByteArray out = proc.readAllStandardOutput();
 
+  proc.close();
+
+  buildLogMutex.lock();
   if (!out.isEmpty())
-    buildLog += "<p>"+out+"</p>";
+    buildLog.append("<p>"+out+"</p>");
 
   if (!err.isEmpty())
-    buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
+  {
+    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
+    kDebug() << "Appended error: " << err;
+  }
+  buildLogMutex.unlock();
 
   if (proc.exitCode() != 0)
     return false;
@@ -206,13 +218,15 @@ bool ModelCompilationManager::execute(const QString& command)
 
 void ModelCompilationManager::addStatusToLog(const QString& status)
 {
-  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>";
-
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
 }
 
 
 bool ModelCompilationManager::hasBuildLog()
 {
+  QMutexLocker l(&buildLogMutex);
   return (buildLog.count() > 0);
 }
 
@@ -257,6 +271,26 @@ void ModelCompilationManager::analyseError(QString readableError)
     emit error(readableError);
 }
 
+bool ModelCompilationManager::removePhoneme(const QByteArray& phoneme)
+{
+  //check 
+  QFile f1(tempDir+"lexicon");
+  QFile f2(tempDir+"lexicon2");
+  if (!f1.open(QIODevice::ReadOnly) || !f2.open(QIODevice::WriteOnly))
+    return false;
+  while (!f1.atEnd())
+  {
+    QByteArray line = f1.readLine();
+    if (line.contains(' '+phoneme) || line.contains(phoneme+' ') || line.contains('\t'+phoneme))
+      continue;
+    f2.write(line);
+  }
+  f1.close();
+  f2.close();
+  if (!f1.remove())
+    return false;
+  return f2.rename(tempDir+"lexicon2", tempDir+"lexicon");
+}
 
 /**
  * \brief Processes an error (reacts on it some way)
@@ -290,7 +324,15 @@ bool ModelCompilationManager::processError()
     // 		 FindProtoModel: no proto for n
     QString phoneme = err.mid(44+startIndex);
     phoneme = phoneme.left(phoneme.indexOf(' '));
-    emit phonemeUndefined(phoneme);
+
+    if (catchUndefiniedPhonemes)
+    {
+      undefinedPhoneme = phoneme.toLocal8Bit();
+      buildLog.replace("ERROR [+2662]", "ERROR  [+2662]"); // marked as processed; Yes, thats an awful hack
+    }
+    else
+      emit phonemeUndefined(phoneme);
+
     return true;
   }
   if ((startIndex = err.indexOf("undefined class \"")) != -1) {
@@ -361,7 +403,9 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 
   keepGoing=true;
 
+  buildLogMutex.lock();
   buildLog.clear();
+  buildLogMutex.unlock();
 
   if (!parseConfiguration())
     return false;
@@ -639,6 +683,13 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
     QString line = QString::fromUtf8(promptsFile.readLine());
 
     fileBase =  line.left(line.indexOf(' '));
+    if (fileBase.contains("/"))
+    {
+      QString subDir = fileBase.left(fileBase.lastIndexOf("/"));
+      QDir d(pathToMFCs+'/'+subDir);
+      if (!d.exists() && !d.mkpath(subDir))
+        return false;
+    }
     mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
     QString wavFile = htkIfyPath(samplePath)+'/'+fileBase+".wav";
 
@@ -679,7 +730,6 @@ bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outp
     if (!f->open(QIODevice::WriteOnly))
     {
       qDeleteAll(scpFilesF);
-      kDebug() << "Returning false" << thisPath;
       return false;
     }
     scpFilesF << f;
@@ -688,10 +738,7 @@ bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outp
 
   QFile f(scpIn);
   if (!f.open(QIODevice::ReadOnly))
-  {
-    kDebug() << "Returning a false" << scpIn;
     return false;
-  }
   
   int currentLine = 0;
   while (!f.atEnd())
@@ -858,30 +905,50 @@ bool ModelCompilationManager::tieStates()
   if (!keepGoing) return false;
   emit status(i18n("Generating triphone..."),1700);
 
-  if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
-    analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
-    return false;
-  }
+  //start watching triphones
+  catchUndefiniedPhonemes = true;
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating list of triphones..."),1705);
-  if (!makeFulllist()) {
-    analyseError(i18n("Could not generate list of triphones."));
-    return false;
+  do
+  {
+    undefinedPhoneme = QByteArray();
+    if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
+      analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating list of triphones..."),1705);
+    if (!makeFulllist()) {
+      analyseError(i18n("Could not generate list of triphones."));
+      return false;
+    }
+    if (!keepGoing) return false;
+    emit status(i18n("Generating tree.hed..."), 1750);
+    if (!makeTreeHed()) {
+      analyseError(i18n("Could not generate tree.hed."));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating hmm13..."),1830);
+    if (!buildHMM13()) {
+      analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
+      if (!undefinedPhoneme.isEmpty())
+      {
+        if (!removePhoneme(undefinedPhoneme))
+	{
+	  catchUndefiniedPhonemes = false;
+          analyseError(i18n("Failed to remove undefined phoneme."));
+	  return false;
+	}
+      }
+      else
+        return false;
+    }
   }
-  if (!keepGoing) return false;
-  emit status(i18n("Generating tree.hed..."), 1750);
-  if (!makeTreeHed()) {
-    analyseError(i18n("Could not generate tree.hed."));
-    return false;
-  }
+  while (!undefinedPhoneme.isEmpty());
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating hmm13..."),1830);
-  if (!buildHMM13()) {
-    analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
-    return false;
-  }
+  catchUndefiniedPhonemes = false;
 
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm14..."),1900);
@@ -1264,11 +1331,15 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
     QByteArray originalLine = trainScp.readLine();
     QByteArray line = originalLine.trimmed().mid(htkIfyPath(tempDir).count() + 1 /* separator*/ + 5 /* mfcs/ */);
     line = line.left(line.count() - 4 /* .mfc */);
+    line = line.mid(line.lastIndexOf("/")+1);
 
     if (transcribedFiles.contains(line))
       alignedScp.write(originalLine);
     else
+    {
+      kDebug() << "Transcribed files: " << transcribedFiles;
       kDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
+    }
 
   }
   return true;
