@@ -202,7 +202,7 @@ void DialogConfiguration::moveStateDown()
 
   if (!commandManager->moveStateDown(state))
   {
-    KMessageBox::sorry(this, i18n("Failed to move state up.\n\nMaybe it is already at the end of the list?"));
+    KMessageBox::sorry(this, i18n("Failed to move state down.\n\nMaybe it is already at the end of the list?"));
     return;
   }
 
