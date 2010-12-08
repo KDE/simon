@@ -29,6 +29,12 @@ CreateAvatarDialog::CreateAvatarDialog(QWidget* parent, Qt::WFlags flags): KDial
   QWidget *w = new QWidget(this);
   ui->setupUi(this);
   setMainWidget(w);
+  connect(ui->urImage, SIGNAL(returnPressed()), this, SLOT(updateImagePreview()));
+}
+
+void CreateAvatarDialog::updateImagePreview()
+{
+  ui->ifImage->showPreview(ui->urImage->url());
 }
 
 void CreateAvatarDialog::addAvatar(AvatarModel* model)
@@ -54,6 +60,8 @@ void CreateAvatarDialog::editAvatar(Avatar* avatar)
   
   avatar->image().save(fileName);
   ui->urImage->setUrl(KUrl(fileName));
+  
+  updateImagePreview();
   
   if (!KDialog::exec())
     return;

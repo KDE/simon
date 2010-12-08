@@ -61,6 +61,9 @@ class DialogConfiguration : public CommandConfiguration
 
     BoundValue* getCurrentBoundValue();
     BoundValue* getCurrentBoundValueGraphical();
+    
+    Avatar* getCurrentAvatar();
+    Avatar* getCurrentAvatarGraphical();
 
   private slots:
     void displayCurrentState();
@@ -94,8 +97,6 @@ class DialogConfiguration : public CommandConfiguration
     void addAvatar();
     void editAvatar();
     void removeAvatar();
-    Avatar* getCurrentAvatar();
-    Avatar* getCurrentAvatarGraphical();
 
   public slots:
     void init();

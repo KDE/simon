@@ -529,6 +529,7 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
     if (!avatarModel)
       return false;
     ui.lvAvatars->setModel(avatarModel);
+    ui.lvStateAvatar->setModel(avatarModel);
   } else
     avatarModel->deSerialize(avatarsElement);
 

@@ -30,8 +30,12 @@ namespace Ui
 
 class CreateAvatarDialog : public KDialog
 {
+  Q_OBJECT
 private:
   Ui::CreateAvatarDlg *ui;
+  
+private slots:
+  void updateImagePreview();
   
 public:
     CreateAvatarDialog(QWidget* parent = 0, Qt::WFlags flags = 0);

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>892</width>
-    <height>691</height>
+    <width>843</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -211,34 +211,17 @@
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="label_4">
-                   <property name="text">
-                    <string>Avatar:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="KComboBox" name="cbAvatar"/>
-                 </item>
-                </layout>
+                <widget class="QListView" name="lvStateAvatar">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="viewMode">
+                  <enum>QListView::IconMode</enum>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>541</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -524,11 +507,6 @@
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
@@ -555,6 +533,22 @@
     <hint type="destinationlabel">
      <x>195</x>
      <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDisplayAvatar</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lvStateAvatar</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>524</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>531</x>
+     <y>115</y>
     </hint>
    </hints>
   </connection>

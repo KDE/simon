@@ -82,7 +82,7 @@ QVariant AvatarModel::data(const QModelIndex& index, int role) const
     case Qt::DisplayRole:
       return a->name();
     case Qt::DecorationRole:
-      return QPixmap::fromImage(a->image());
+      return QPixmap::fromImage(a->image().scaled(64,64,Qt::KeepAspectRatio));
     case Qt::UserRole:
       return a->id();
   }
@@ -110,6 +110,9 @@ int AvatarModel::rowCount(const QModelIndex& parent) const
 QModelIndex AvatarModel::index(int row, int column, const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
+  if (row >= m_avatars.count())
+    return QModelIndex();
+  
   return createIndex(row, column, m_avatars[row]);
 }
 
