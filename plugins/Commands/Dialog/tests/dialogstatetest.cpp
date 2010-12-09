@@ -34,7 +34,7 @@ class testDialogState: public QObject
   Q_OBJECT
   private slots:
     void testGeneral();
-
+    
   private:
     DialogState *state;
 };
@@ -163,6 +163,29 @@ void testDialogState::testGeneral()
   QCOMPARE(transitions.count(), 2);
   QCOMPARE(transitions.at(0)->getTrigger(), QString("No"));
   QCOMPARE(transitions.at(1)->getTrigger(), QString("Yes"));
+  
+  
+  QCOMPARE(state->getTextCount(), 1);
+  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
+  
+  state->addText("SecondTestText");
+  QCOMPARE(state->getTextCount(), 2);
+  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
+  QCOMPARE(state->getRawText(1), QString("SecondTestText"));
+  
+  QVERIFY(!state->removeText(7));
+  QVERIFY(state->removeText(0));
+  QCOMPARE(state->getTextCount(), 1);
+  
+  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
+  state->addText("ThirdTestText");
+  QCOMPARE(state->getTextCount(), 2);
+  
+  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
+  QCOMPARE(state->getRawText(1), QString("ThirdTestText"));
+  
+  QDomElement multipleTextsElem = state->serialize(&doc);
+  
 
   QSignalSpy destroyedSpy(containedCommand, SIGNAL(destroyed()));
   QVERIFY(destroyedSpy.isValid());
@@ -172,8 +195,12 @@ void testDialogState::testGeneral()
 
   delete containedCommand;
   delete otherCommand;
+  
+  state = DialogState::createInstance(textParser, multipleTextsElem);
+  QCOMPARE(state->getRawText(0), QString("SecondTestText"));
+  QCOMPARE(state->getRawText(1), QString("ThirdTestText"));
+  delete state;
 }
-
 
  
 QTEST_MAIN(testDialogState)

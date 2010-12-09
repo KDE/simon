@@ -81,6 +81,8 @@ bool DialogState::removeText(int id)
 
 void DialogState::updateRandomTextSelection()
 {
+  //yeah, yeah non-even distribution and predictable randoms on old implementations..
+  //who cares for this purpose :)
   m_currentRandomTextIndex = qrand() % m_texts.count();
 }
 

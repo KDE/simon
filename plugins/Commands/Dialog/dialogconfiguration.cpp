@@ -172,6 +172,9 @@ void DialogConfiguration::removeText()
   DialogState *state = getCurrentStateGraphical();
   if (!state) return;
   
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the selected text variant?")) != KMessageBox::Yes)
+    return;
+  
   if (state->getTextCount() == 1)
   {
     KMessageBox::information(this, i18n("Each dialog state has to have at least one text."));
