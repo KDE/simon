@@ -70,6 +70,8 @@ void DialogCommandManager::initState(DialogState *state)
   if (currentDialogSate)
     currentDialogSate->left();
 
+  state->updateRandomTextSelection();
+  
   foreach (DialogView* view, dialogViews)
     view->present(*state);
 

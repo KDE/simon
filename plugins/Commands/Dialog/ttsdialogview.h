@@ -40,7 +40,7 @@ class TTSDialogView : public DialogView
 
     bool start();
     bool stop();
-    void repeat(const DialogState&);
+    void repeat(const DialogState& state);
 
     void warnOfInvalidInput(const QString& input);
     bool present(const DialogState& state);

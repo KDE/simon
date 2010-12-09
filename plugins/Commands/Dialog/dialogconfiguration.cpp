@@ -99,6 +99,11 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   
   connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
   connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
+  
+  
+  connect(ui.sbText, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
+  connect(ui.pbAddText, SIGNAL(clicked()), this, SLOT(addText()));
+  connect(ui.pbRemoveText, SIGNAL(clicked()), this, SLOT(removeText()));
 
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
@@ -125,7 +130,56 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
   ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
 
+  ui.pbAddText->setIcon(KIcon("list-add"));
+  ui.pbRemoveText->setIcon(KIcon("list-remove"));
   displayCurrentState();
+}
+
+void DialogConfiguration::updateTextSelector()
+{
+  DialogState *state = getCurrentState();
+  if (!state) return;
+  
+  ui.sbText->setMaximum(state->getTextCount());
+  
+  displaySelectedText();
+  ui.pbRemoveText->setEnabled(state->getTextCount() > 1);
+}
+
+void DialogConfiguration::displaySelectedText()
+{
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
+  int textId = ui.sbText->value()-1;
+  kDebug() << "Getting text " << textId;
+  
+  ui.teText->setText(state->getRawText(textId));
+}
+
+void DialogConfiguration::addText()
+{
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
+
+  state->addText("");
+  updateTextSelector();
+  ui.sbText->setValue(ui.sbText->maximum());
+  displaySelectedText();
+}
+
+void DialogConfiguration::removeText()
+{
+  DialogState *state = getCurrentStateGraphical();
+  if (!state) return;
+  
+  if (state->getTextCount() == 1)
+  {
+    KMessageBox::information(this, i18n("Each dialog state has to have at least one text."));
+    return;
+  }
+  if (!state->removeText(ui.sbText->value()-1))
+    KMessageBox::sorry(this, i18n("Couldn't remove text from state."));
+  updateTextSelector();
 }
 
 void DialogConfiguration::addState()
@@ -220,10 +274,10 @@ void DialogConfiguration::editText()
 
   bool ok;
   QString text = KInputDialog::getMultiLineText(i18n("Text"), i18n("Enter the text to present to the user when this state is entered:"), 
-                                        state->getRawText(), &ok);
+                                        state->getRawText(ui.sbText->value()-1), &ok);
   if (!ok) return;
   
-  if (!state->setRawText(text))
+  if (!state->setRawText(ui.sbText->value()-1, text))
     KMessageBox::sorry(this, i18n("Failed to update state text."));
 
   displayCurrentState();
@@ -662,7 +716,7 @@ void DialogConfiguration::displayCurrentState()
     return;
   }
 
-  ui.teText->setText(currentState->getRawText());
+  updateTextSelector();
   ui.cbSilence->setChecked(currentState->silence());
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
   

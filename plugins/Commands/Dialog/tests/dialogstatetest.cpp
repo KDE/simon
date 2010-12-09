@@ -103,10 +103,10 @@ void testDialogState::testGeneral()
   QCOMPARE(state->getName(), QString("Renamed"));
 
   QCOMPARE(state->getText(), QString("<html><head /><body><p>Testtext</p></body></html>"));
-  QCOMPARE(state->getRawText(), QString("Testtext{{bla}} here{{endbla}}"));
-  state->setRawText("Raw text changed");
+  QCOMPARE(state->getRawText(0), QString("Testtext{{bla}} here{{endbla}}"));
+  state->setRawText(0, "Raw text changed");
   QCOMPARE(changedSpy.count(), 2);
-  QCOMPARE(state->getRawText(), QString("Raw text changed"));
+  QCOMPARE(state->getRawText(0), QString("Raw text changed"));
 
   QList<DialogCommand*> transitions = state->getTransitions();
   QCOMPARE(transitions.count(), 1);

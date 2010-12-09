@@ -39,7 +39,9 @@ class DialogState : public QAbstractItemModel
 
   private:
     QString m_name;
-    DialogText *m_text;
+    int m_currentRandomTextIndex;
+    QList<DialogText*> m_texts;
+    DialogTextParser *m_parser;
     bool m_silence;
     bool m_announceRepeat;
     
@@ -49,7 +51,7 @@ class DialogState : public QAbstractItemModel
     QList<DialogCommand*> m_transitions;
     
     bool deSerialize(DialogTextParser *parser, const QDomElement& elem);
-    DialogState(QObject *parent=0) : QAbstractItemModel(parent), m_text(NULL) {}
+    DialogState(QObject *parent=0) : QAbstractItemModel(parent) {}
 
   public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -67,8 +69,13 @@ class DialogState : public QAbstractItemModel
         bool silence, bool announceRepeat, QList<DialogCommand*> transitions, QObject *parent=0);
 
     QString getName() const { return m_name; }
+    int getTextCount();
+    
+    int addText(const QString& text);
+    bool removeText(int id);
+    
     QString getText() const;
-    QString getRawText() const;
+    QString getRawText(int index) const;
     QList<DialogCommand*> getTransitions() const { return m_transitions; }
 
     static DialogState* createInstance(DialogTextParser *parser, const QDomElement& elem);
@@ -81,7 +88,7 @@ class DialogState : public QAbstractItemModel
     bool moveTransitionDown(DialogCommand* command);
 
     bool rename(const QString& newName);
-    bool setRawText(const QString& data);
+    bool setRawText(int index, const QString& data);
 
     void setSilence(bool silence);
     void setAnnounceRepeat(bool announce);
@@ -93,6 +100,8 @@ class DialogState : public QAbstractItemModel
     
     int getAvatarId() const { return m_avatarId; }
     void setAvatar(int id) { m_avatarId = id; }
+    
+    void updateRandomTextSelection();
 
     void presented();
     void left();

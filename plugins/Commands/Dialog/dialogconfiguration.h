@@ -100,6 +100,11 @@ class DialogConfiguration : public CommandConfiguration
     
     void avatarSelected(const QModelIndex& selected);
     void avatarDisplayToggled(bool show);
+    
+    void addText();
+    void removeText();
+    void updateTextSelector();
+    void displaySelectedText();
 
   public slots:
     void init();

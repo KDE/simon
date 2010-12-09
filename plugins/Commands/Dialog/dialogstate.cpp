@@ -22,17 +22,21 @@
 #include "dialogtext.h"
 #include <QDomDocument>
 #include <QDomElement>
+#include <QDateTime>
 
 DialogState::DialogState(DialogTextParser *parser, const QString& name, const QString& text, 
     bool silence, bool announceRepeat,
     QList<DialogCommand*> transitions, QObject *parent) : 
   QAbstractItemModel(parent),
   m_name(name),
-  m_text(new DialogText(parser, text)),
+  m_currentRandomTextIndex(0), /*only one text*/
+  m_parser(parser),
   m_silence(silence),
   m_announceRepeat(announceRepeat),
   m_transitions(transitions)
 {
+  qsrand(QDateTime::currentMSecsSinceEpoch());
+  m_texts << new DialogText(parser, text);
   foreach (DialogCommand *c, m_transitions)
   {
     connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
@@ -53,19 +57,46 @@ DialogState* DialogState::createInstance(DialogTextParser *parser, const QDomEle
   return state;
 }
 
+int DialogState::getTextCount()
+{
+  return m_texts.count();
+}
+
+int DialogState::addText(const QString& text)
+{
+  m_texts << new DialogText(m_parser, text);
+  updateRandomTextSelection();
+  return m_texts.count() - 1;
+}
+
+bool DialogState::removeText(int id)
+{
+  if (id >= m_texts.count())
+    return false;
+  
+  delete m_texts.takeAt(id);
+  updateRandomTextSelection();
+  return true;
+}
+
+void DialogState::updateRandomTextSelection()
+{
+  m_currentRandomTextIndex = qrand() % m_texts.count();
+}
+
 QString DialogState::getText() const
 {
-  return m_text->parse();
+  return m_texts[m_currentRandomTextIndex]->parse();
 }
 
-QString DialogState::getRawText() const
+QString DialogState::getRawText(int index) const
 {
-  return m_text->source();
+  return m_texts[index]->source();
 }
 
-bool DialogState::setRawText(const QString& data)
+bool DialogState::setRawText(int index, const QString& data)
 {
-  m_text->setSource(data);
+  m_texts[index]->setSource(data);
   emit changed();
   return true;
 }
@@ -87,8 +118,20 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
   if (elem.isNull()) return false;
 
   m_name = elem.attribute("name");
+  m_parser = parser;
 
+  qDeleteAll(m_texts);
+  m_texts.clear();
+  
   QDomElement text = elem.firstChildElement("text");
+  do
+  {
+    m_texts << new DialogText(parser, text.text());
+    text = text.nextSiblingElement("text");
+  } while (!text.isNull());
+  
+  updateRandomTextSelection();
+  
   QDomElement textOptions = elem.firstChildElement("textOptions");
   QDomElement textSilenceOption = textOptions.firstChildElement("silence");
   QDomElement textAnnounceRepeatOption = textOptions.firstChildElement("announceRepeat");
@@ -120,7 +163,6 @@ bool DialogState::deSerialize(DialogTextParser *parser, const QDomElement& elem)
     transition = transition.nextSiblingElement("command");
   }
 
-  m_text = new DialogText(parser, text.text());
   m_transitions = commands;
   return true;
 }
@@ -130,8 +172,12 @@ QDomElement DialogState::serialize(QDomDocument *doc)
   QDomElement elem = doc->createElement("state");
   elem.setAttribute("name", m_name);
 
-  QDomElement textElem = doc->createElement("text");
-  textElem.appendChild(doc->createTextNode(m_text->source()));
+  foreach (DialogText *t, m_texts)
+  {
+    QDomElement textElem = doc->createElement("text");
+    textElem.appendChild(doc->createTextNode(t->source()));
+    elem.appendChild(textElem);
+  }
   QDomElement textOptions = doc->createElement("textOptions");
   QDomElement textSilenceOption = doc->createElement("silence");
   QDomElement textAnnounceOption = doc->createElement("announceRepeat");
@@ -151,7 +197,6 @@ QDomElement DialogState::serialize(QDomDocument *doc)
   foreach (DialogCommand *c, m_transitions)
     transitionsElem.appendChild(c->serialize(doc));
 
-  elem.appendChild(textElem);
   elem.appendChild(textOptions);
   elem.appendChild(avatarElem);
   elem.appendChild(transitionsElem);
@@ -292,6 +337,6 @@ void DialogState::setAnnounceRepeat(bool announce)
 
 DialogState::~DialogState()
 {
-  delete m_text;
+  qDeleteAll(m_texts);
 }
 

@@ -101,6 +101,44 @@
              <widget class="QWidget" name="wgText" native="true">
               <layout class="QVBoxLayout" name="verticalLayout_10">
                <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <item>
+                  <widget class="QLabel" name="lbVariant">
+                   <property name="text">
+                    <string>Variant:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="sbText">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>1</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbAddText">
+                   <property name="text">
+                    <string>Add</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbRemoveText">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>Remove</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
                 <widget class="KTextEdit" name="teText">
                  <property name="readOnly">
                   <bool>true</bool>
