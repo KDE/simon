@@ -448,7 +448,7 @@ void SamView::exportTestResults()
     ReportParameters *temp = m_reportParameters;
     m_reportParameters = e->getReportParameters();
 
-    if (*temp != *m_reportParameters)
+    if (temp && *temp != *m_reportParameters)
       setDirty();
 
     delete temp;

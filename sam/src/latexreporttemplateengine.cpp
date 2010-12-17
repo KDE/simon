@@ -32,6 +32,7 @@ QByteArray LatexReportTemplateEngine::escape(const QByteArray& in, bool extraSaf
 {
   QByteArray out = in;
   out = out.replace("%", "\\%");
+  out = out.replace("#", "\\#");
 
   if (extraSafety)
     out = out.replace("_", "-");
