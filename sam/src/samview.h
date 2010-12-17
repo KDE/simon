@@ -139,6 +139,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
      */
     bool m_startCompilationAfterAdaption;
     bool m_startTestAfterCompile;
+    bool m_startTestAfterAdaption;
     bool m_exportAfterTest;
 
     bool m_dirty;

@@ -747,6 +747,13 @@ bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outp
     ++currentLine;
   }
 
+  //remove files without content
+  kDebug() << currentLine << threadCount;
+  kDebug() << scpFiles;
+  for (int i = currentLine; i < threadCount; i++)
+    scpFiles.removeAt(currentLine);
+  kDebug() << scpFiles;
+
   qDeleteAll(scpFilesF);
   return true;
 }

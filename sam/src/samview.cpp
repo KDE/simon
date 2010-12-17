@@ -211,9 +211,11 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
     if (KCmdLineArgs::parsedArgs()->isSet("c"))
     {
       m_startCompilationAfterAdaption = true;
-    }
-    if (autoTestModel)
-      m_startTestAfterCompile = true;
+      if (autoTestModel)
+        m_startTestAfterCompile = true;
+    } else
+      if (autoTestModel)
+        m_startTestAfterAdaption = true;
   } else {
     if (KCmdLineArgs::parsedArgs()->isSet("c"))
     {
@@ -1002,8 +1004,15 @@ void SamView::slotModelAdaptionComplete()
     kDebug() << "Starting compilation";
     m_startCompilationAfterAdaption = false;
     compileModel();
-  } else if (batchMode())
-    exit(0);
+  } else {
+    if (m_startTestAfterAdaption)
+    {
+      m_startTestAfterAdaption = false;
+      testModel();
+    } else 
+      if (batchMode())
+        exit(0);
+  }
 }
 
 CorpusInformation* SamView::createEmptyCorpusInformation()
