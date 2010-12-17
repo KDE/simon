@@ -79,6 +79,8 @@ class TestResultWidget : public QWidget
     float getWordErrorRate();
     float getConfidence();
 
+    int getSampleCount();
+    int getCorrect();
     int getSubstitutionErrors();
     int getInsertionErrors();
     int getDeletionErrors();

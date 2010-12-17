@@ -44,7 +44,7 @@ class MODELTEST_EXPORT TestResultLeaf
 
     int wordErrorRate() const;
     float wordErrorRateF() const;
-    bool correct();
+    bool correct() const;
     bool insertionError() const { return m_insertionError; }
     bool substitutionError() const { return m_substitutionError; }
     bool deletionError() const { return m_deletionError; }

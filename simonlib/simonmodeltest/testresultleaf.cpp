@@ -46,7 +46,7 @@ void TestResultLeaf::setDeletionError(bool f)
   calcAccuracy();
 }
 
-bool TestResultLeaf::correct()
+bool TestResultLeaf::correct() const
 {
   return !m_deletionError && !m_substitutionError && !m_insertionError;
 }

@@ -6,6 +6,7 @@ LATEX
 \usepackage[sf,compact]{titlesec}
 \usepackage{graphicx}
 \usepackage{multicol}
+\usepackage{multirow}
 
 \usepackage[a4paper]{geometry}
 \usepackage{a4wide}
@@ -47,7 +48,7 @@ LATEX
 
 %\newcommand{\doi}[1]{\textsc{doi:} \textsf{#1}\xspace} 
 
-\title{$title$\\$tag$}
+\title{$tag$: $title$}
 % \author{Authors}
 
 
@@ -56,60 +57,56 @@ LATEX
 
 \maketitle
 
-\begin{multicols}{2}
-
-\tableofcontents
-
+% \begin{multicols}{2}
 
 \section{Task definition}
 $taskDefinition$
 
-\section{Setup}
-\label{sec:Setup}
-
-Diese Sektion beschreibt die Testkonfiguration im Detail.
-
-\subsection{System}
+\section{System}
 \label{sec:System}
 
 Interne System Identifikation: $systemTag$.
 
 $systemDefinition$
 
-\subsection{Vokabular}
+\section{Vokabular}
 
 Interne Identifikation des Vokabulars: $vocabularyTag$.
 
-
-Das Vokabular besteht aus $wordCount$ Wörtern und insgesamt $pronunciationCount$ Aussprachen (durdschnittlich $averagePronunciationsPerWord$ Aussprachen pro Wort).
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Wörter} & {\bf Aussprachen} & {\bf Durchschnitt} \\
+\hline
+$wordCount$ & $pronunciationCount$ & $averagePronunciationsPerWord$ \\
+\hline
+\end{tabular}
 
 $vocabularyNotes$
 
-\subsection{Grammatik}
+\section{Grammatik}
 
 Interne Identifikation der Grammatik: $grammarTag$.
 
 $grammarNotes$
 
-\subsection{Trainingsdaten}
-
-Diese Modell verwendet $trainingsCorpusCount$ Trainingskorpora.
+\section{Trainingsdaten}
 
 $BEGIN_trainingCorpora$
-\subsubsection{$corpusTag$}
+Interne Identifikation: $corpusTag$.
+
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Aufnahmen} & {\bf Sprecher} & {\bf Durchschnitt} \\
+\hline
+$corpusSamples$ & $corpusSpeakers$ & $corpusSamplesPerSpeaker$ \\
+\hline
+\end{tabular}
 
 $corpusNotes$
 
-Dieser Korpus besteht aus $corpusSamples$ Aufnahmen von $corpusSpeakers$ Sprecher(n) (durchschnittlich $corpusSamplesPerSpeaker$ Aufnahmen pro Sprecher).
-
 $END_trainingCorpora$
 
-\section{Test}
-\label{sec:Test}
-
-Diese Sektion beschreibt die Testkonfiguration. Für mehr Information über diese Software, sehen Sie bitte die Sektion \ref{sec:System}.
-
-\subsection{Experiment}
+\section{Experiment}
 
 Interne Identifikation des Experiments: $experimentTag$.
 
@@ -117,34 +114,31 @@ $experimentDescription$
 
 Dieses Experiment wurde durchgeführt am $experimentDate$.
 
-\subsection{Testsets}
+\section{Testsets}
 \label{sec:Testsets}
 
-Das Modell verwendet $testCorpusCount$ Testkorpora.
+Das Modell verwendet $testCorpusCount$ Testsets.
 
 $BEGIN_testCorpora$
-\subsubsection{$corpusTag$}
+\subsection{$corpusTag$}
 \label{sec:$SAVE_corpusTag$}
 
-$corpusNotes$
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Aufnahmen} & {\bf Sprecher} & {\bf Durchschnitt} \\
+\hline
+$corpusSamples$ & $corpusSpeakers$ & $corpusSamplesPerSpeaker$ \\
+\hline
+\end{tabular}
 
-Dieser Korpus besteht aus $corpusSamples$ Aufnahmen von $corpusSpeakers$ Sprecher(n) (durchschnittlich $corpusSamplesPerSpeaker$ Aufnahmen pro Sprecher).
+$corpusNotes$
 
 $END_testCorpora$
 
 
 \section{Ergebnisse}
 
-Die folgende Sektion beschreibt die erzielten Resultate. Diese Ergebnisse wurden mit dem in Sektion \ref{sec:Setup} beschriebenen System und der Testkonfiguration laut Sektion \ref{sec:Test} erzielt.
-
-\subsection{Übersicht}
-
-Diese Sektion gibt einen kurzen Überblick über die erzielten Resultate.
-
-\end{multicols}
-
-Graph \ref{fig:GraphOverview} bietet einen grafischen Überblick über die Ergebnisse.
-
+% \end{multicols}
 $IF_graphs$
 \begin{figure}[h]
  \centering
@@ -155,33 +149,32 @@ $IF_graphs$
 $ENDIF_graphs$
 
 $IF_tables$
-Tabelle \ref{fig:TableOverview} bietet einen tabellarischen Überblick über die Ergebnisse.
 
 \begin{center}
-\begin{figure}[h]
-\begin{tabular}{|l|c|c|c|c|c|c|}
+\begin{table}[h]
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|}
 \hline
-{\bf Tag} & {\bf WER} & {\bf Acc} & {\bf SUB} & {\bf INS} & {\bf DEL} & {\bf Sätze} \\
-& [\%] & [\%] & [1] & [1] & [1] & [1] \\
+\multicolumn{9}{|c|}{$experimentTag$} \\
+\hline
+{\bf Tag} & {\bf WER} & {\bf Acc} & {\bf COR} & {\bf SUB} & {\bf INS} & {\bf DEL} & {\bf Sätze} & {\bf Aufnahmen} \\
+& [\%] & [\%] & [1] & [1] & [1] & [1]& [1] & [1] \\
 \hline
 $BEGIN_testResults$
-$testResultTag$ & $testResultWER$ & $testResultAccuracy$ & $testResultSubstitutionErrors$ & $testResultInsertionErrors$ & $testResultDeletionErrors$ & $testResultSentenceCount$ \\
+$testResultTag$ & $testResultWER$ & $testResultAccuracy$ & $testResultCorrect$ & $testResultSubstitutionErrors$ & $testResultInsertionErrors$ & $testResultDeletionErrors$ & $testResultSentenceCount$ & $testResultSampleCount$ \\
 \hline
 $END_testResults$
 \end{tabular}
 \caption{Erkennungsergebnisse: Tabellarischer Überblick}
 \label{fig:TableOverview} 
-\end{figure}
+\end{table}
 \end{center}
 $ENDIF_tables$
 
-\begin{multicols}{2}
+% \begin{multicols}{2}
 
-\subsection{Fazit}
 $conclusion$
 
 
-
-\end{multicols}
+% \end{multicols}
 
 \end{document}

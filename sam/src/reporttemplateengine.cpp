@@ -171,7 +171,7 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
   int plotNr = 0;
 
   //overview graph
-  QwtPlot plot(QwtText("Overview"));
+  QwtPlot plot(QwtText(i18n("Overview")));
   QwtLegend barGraphLegend;
   plot.insertLegend(&barGraphLegend);
   QwtBarsItem barGraph;

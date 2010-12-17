@@ -159,6 +159,7 @@ class MODELTEST_EXPORT ModelTest : public QThread
     float getOverallWER();
 
     int getSubstitutionErrors();
+    int getCorrect();
     int getInsertionErrors();
     int getDeletionErrors();
     int getSentenceCount();

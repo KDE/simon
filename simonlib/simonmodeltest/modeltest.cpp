@@ -781,6 +781,11 @@ int ModelTest::getSubstitutionErrors()
   return aggregateLeafDetail(&TestResultLeaf::substitutionError);
 }
 
+int ModelTest::getCorrect()
+{
+  return aggregateLeafDetail(&TestResultLeaf::correct);
+}
+
 int ModelTest::getInsertionErrors()
 {
   return aggregateLeafDetail(&TestResultLeaf::insertionError);

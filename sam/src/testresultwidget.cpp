@@ -272,6 +272,16 @@ float TestResultWidget::getConfidence()
   return modelTest->getOverallConfidence();
 }
 
+int TestResultWidget::getSampleCount()
+{
+  return modelTest->getTotalSampleCount();
+}
+
+int TestResultWidget::getCorrect()
+{
+  return modelTest->getCorrect();
+}
+
 int TestResultWidget::getSubstitutionErrors()
 {
   return modelTest->getSubstitutionErrors();
