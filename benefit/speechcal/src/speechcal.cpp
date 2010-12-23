@@ -28,12 +28,11 @@
 
 #include <akonadi/control.h>
 #include <akonadi/collection.h>
-#include <akonadi/itemmodel.h>
+#include <akonadi/monitor.h>
 #include <akonadi/collectionfetchjob.h>
 #include <akonadi/collectionfetchscope.h>
 #include <akonadi/itemfetchjob.h>
 #include <akonadi/itemfetchscope.h>
-#include <akonadi/changerecorder.h>
 
 #include <kcalcore/incidence.h>
 #include <kcalcore/event.h>
@@ -42,6 +41,8 @@
 SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
 {
   view = new SpeechCalView(calendar, this);
+  
+  displayDate = KDateTime(QDateTime::currentDateTime());
   
   if (!Logger::init())
   {
@@ -55,6 +56,17 @@ SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
     qApp->exit( -1 );
     return;
   }
+  
+  monitor = new Akonadi::Monitor(this);
+  monitor->setMimeTypeMonitored("application/x-vnd.akonadi.calendar.event", true);
+  connect(monitor, SIGNAL(collectionAdded (const Akonadi::Collection &, const Akonadi::Collection &)),
+	  this, SLOT(setupCollections()));
+  connect(monitor, SIGNAL(collectionChanged (const Akonadi::Collection &collection)), this, SLOT(setupCollections()));
+  connect(monitor, SIGNAL(itemAdded(Akonadi::Item,Akonadi::Collection)), this, SLOT(retrieveEvents()));
+  connect(monitor, SIGNAL(itemChanged(Akonadi::Item,QSet<QByteArray>)), this, SLOT(retrieveEvents()));
+  connect(monitor, SIGNAL(itemRemoved(Akonadi::Item)), this, SLOT(retrieveEvents()));
+  connect(monitor, SIGNAL(itemMoved(Akonadi::Item,Akonadi::Collection,Akonadi::Collection)), this, SLOT(retrieveEvents()));
+  
   setupCollections();
 }
 
@@ -77,8 +89,6 @@ void SpeechCal::exec()
 
 void SpeechCal::setupCollections()
 {
-  displayDate = KDateTime(QDateTime::currentDateTime());
-  
 //   // Show events starting up to 30 mins ago to account for delays
 //   fromDate = KDateTime(QDateTime::currentDateTime().addSecs(-1800));
 //   toDate = KDateTime(QDateTime::currentDateTime().addDays(1)); //next 24 hours
@@ -199,6 +209,8 @@ void SpeechCal::quit()
 
 SpeechCal::~SpeechCal()
 {
-
+  delete view;
+  delete calendar;
+  delete monitor;
 }
 

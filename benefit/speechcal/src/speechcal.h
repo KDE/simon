@@ -25,6 +25,7 @@
 
 #include <akonadi/collection.h>
 #include <akonadi/item.h>
+#include <akonadi/monitor.h>
 
 class SpeechCalView;
 class KJob;
@@ -44,18 +45,19 @@ Q_OBJECT
   private slots:
     void collectionJobFinished(KJob*);
     void itemJobFinished(KJob*);
+    void setupCollections();
+    void retrieveEvents();
     
   private:
     SpeechCalView* view;
     CalendarModel *calendar;
     KDateTime displayDate;
     Akonadi::Collection::List collectionList;
+    Akonadi::Monitor *monitor;
 //     KDateTime fromDate;
 //     KDateTime toDate;
     
-    void setupCollections();
     void updateView();
-    void retrieveEvents();
     
     void collectionsReceived(Akonadi::Collection::List);
     void itemsReceived(Akonadi::Item::List);
