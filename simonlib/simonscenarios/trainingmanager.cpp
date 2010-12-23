@@ -235,7 +235,7 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-  Logger::log ( i18n ( "[INF] Parsing prompts-file from %1", promptspath ) );
+  Logger::log ( i18n ( "Parsing prompts-file from %1", promptspath ) );
   PromptsTable *promptsTable = new PromptsTable();
 
   QFile *prompts = new QFile ( promptspath );
@@ -258,7 +258,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
   }
   prompts->close();
   prompts->deleteLater();
-  Logger::log ( i18n ( "[INF] %1 Prompts read", promptsTable->count() ) );
+  Logger::log ( i18n ( "%1 Prompts read", promptsTable->count() ) );
   return promptsTable;
 }
 

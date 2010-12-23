@@ -259,7 +259,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
 void SimonControl::connectedToServer()
 {
   setStatus(SimonControl::ConnectedDeactivatedNotReady);
-  Logger::log(i18n("[INF]")+' '+i18n("Connected to the Server"));
+  Logger::log(i18n("Connected to the Server"));
 }
 
 
@@ -274,7 +274,7 @@ void SimonControl::connectedToServer()
 void SimonControl::disconnectedFromServer()
 {
   setStatus(SimonControl::Disconnected);
-  Logger::log(i18n("[INF] Connection lost"));
+  Logger::log(i18n("Connection lost"));
 }
 
 
@@ -285,7 +285,7 @@ void SimonControl::disconnectedFromServer()
  */
 void SimonControl::abortConnecting()
 {
-  Logger::log(i18n("[INF] Connecting aborted"));
+  Logger::log(i18n("Connecting aborted"));
   this->recognitionControl->disconnectFromServer();
 }
 
@@ -314,13 +314,13 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
 SimonControl::SystemStatus SimonControl::activateSimon()
 {
   if (status == SimonControl::ConnectedDeactivatedReady) {
-    Logger::log(i18n("[INF] simon activated"));
+    Logger::log(i18n("simon activated"));
     setStatus(SimonControl::ConnectedActivating);
     if (!recognitionControl->startRecognition())
             setStatus(SimonControl::ConnectedDeactivatedReady);
   }
   if (status == SimonControl::ConnectedPaused) {
-    Logger::log(i18n("[INF] Continuing recognition"));
+    Logger::log(i18n("Continuing recognition"));
     setStatus(SimonControl::ConnectedResuming);
     if (!recognitionControl->resumeRecognition())
             setStatus(SimonControl::ConnectedPaused);
@@ -338,7 +338,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 {
   if (status == SimonControl::ConnectedActivated) {
     setStatus(SimonControl::ConnectedDeactivating);
-    Logger::log(i18n("[INF] simon deactivated"));
+    Logger::log(i18n("simon deactivated"));
     recognitionControl->pauseRecognition();
   }
   return status;

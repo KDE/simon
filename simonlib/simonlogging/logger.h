@@ -38,6 +38,11 @@ class SIMONLOGGING_EXPORT Logger
     static QFile *logF;
 
   public:
+    enum LogType {
+      Info=1,
+      Warning=2,
+      Upgrade=4
+    };
     /**
      * \brief Initialises the file handle and the stream
      * \author Peter Grasch
@@ -54,7 +59,7 @@ class SIMONLOGGING_EXPORT Logger
      * @param message
      * The message to log
      */
-    static void log(QString message);
+    static void log(QString message, LogType type=Info);
 
     /**
      *        \brief Closes and flushes the buffer

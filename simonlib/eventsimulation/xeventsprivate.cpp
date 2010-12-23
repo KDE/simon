@@ -50,7 +50,7 @@ Display* XEventsPrivate::openDisplay(char* displayName)
   int Event, Error;
   int Major, Minor;
 
-  // 	Logger::log(i18n("[INF] Öffne display \"%1\"", QString(displayName)));
+  // 	Logger::log(i18n("Öffne display \"%1\"", QString(displayName)));
 
   Display * display = XOpenDisplay(displayName);
 
@@ -69,11 +69,11 @@ Display* XEventsPrivate::openDisplay(char* displayName)
     return 0;
   }
 
-  // 	Logger::log(i18n("[INF] XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
+  // 	Logger::log(i18n("XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
 
-  // 	Logger::log(i18n("[INF] Aufnahme der Display-Kontrolle"));
+  // 	Logger::log(i18n("Aufnahme der Display-Kontrolle"));
   XTestGrabControl( display, True );
-  // 	Logger::log(i18n("[INF] Synchronisiere Display"));
+  // 	Logger::log(i18n("Synchronisiere Display"));
   XSync( display,True );
   return display;
 }

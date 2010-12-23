@@ -62,7 +62,7 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
 void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
   if (!path.isLocalFile()) {
-    Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
+    Logger::log(i18n("Copying import from \"%1\"", path.prettyUrl()));
 
     KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
 

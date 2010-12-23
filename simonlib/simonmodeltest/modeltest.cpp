@@ -257,7 +257,7 @@ void ModelTest::run()
   deleteAllResults();
 
   if (!keepGoing) return;
-  Logger::log(i18n("[INF] Testing model..."));
+  Logger::log(i18n("Testing model..."));
   emit status(i18n("Preperation"), 0,100);
 
   if (!recodeAudio()) return;

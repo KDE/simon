@@ -423,7 +423,7 @@ void ModelCompilationManager::run()
   fprintf(stderr, "Temp dir in run(): %s\n", tempDir.toUtf8().data());
 
   if (!keepGoing) return;
-  Logger::log("[INF] Compiling model...");
+  Logger::log("Compiling model...");
   emit status(i18n("Preperation"), 0);
 
   if ((compilationType & ModelCompilationManager::CompileSpeechModel) ||
@@ -1489,7 +1489,7 @@ bool ModelCompilationManager::buildHMM0()
     monophones.append(monophones0.readLine(50).trimmed());
   monophones0.close();
 
-  Logger::log(i18n("[INF] Used Monophones of the model: %1", monophones.join(", ")));
+  Logger::log(i18n("Used Monophones of the model: %1", monophones.join(", ")));
 
   QFile hmmdefs(tempDir+"/hmm0/hmmdefs");
   if (!hmmdefs.open(QIODevice::WriteOnly)) return false;

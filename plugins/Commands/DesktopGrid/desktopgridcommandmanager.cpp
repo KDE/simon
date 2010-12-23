@@ -73,7 +73,7 @@ const QString DesktopGridCommandManager::name() const
 
 void DesktopGridCommandManager::activate()
 {
-  Logger::log(i18n("[INF] Activating desktopgrid"));
+  Logger::log(i18n("Activating desktopgrid"));
   startGreedy();
   init();
 }

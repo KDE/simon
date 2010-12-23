@@ -93,11 +93,11 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
 welcomePart(0), shownDialogs(0), configDialog(0)
 {
-  Logger::log ( i18n ( "[INF] Starting simon..." ) );
+  Logger::log ( i18n ( "Starting simon..." ) );
 
   //showing splash
   SimonInfo *info = new SimonInfo();
-  Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
+  Logger::log ( i18n ( "Displaying Splashscreen..." ) );
   info->showSplash();
   info->writeToSplash ( i18n ( "Loading core..." ) );
   KGlobal::locale()->insertCatalog("simonlib");
@@ -848,7 +848,7 @@ SimonView::~SimonView()
   if (welcomePart)
     welcomePart->deleteLater();
 
-  Logger::log ( i18n ( "[INF] Quitting..." ) );
+  Logger::log ( i18n ( "Quitting..." ) );
   trayManager->deleteLater();
   control->deleteLater();
   Logger::close();

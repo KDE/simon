@@ -24,14 +24,35 @@
 #include <QDir>
 #include <QFileInfo>
 #include <KStandardDirs>
+#include <QFileInfo>
 #include <QDebug>
+#include <KDebug>
 
 QTextStream * Logger::logFile = 0;
 QFile * Logger::logF = 0;
 
 QTextStream* Logger::init()
 {
-  QString path = KStandardDirs::locateLocal("appdata", "protocol.log");
+  //remove logs older than 2 months
+  QDate currentDate = QDate::currentDate();
+  QDate purgeToDate = currentDate.addMonths(-2);
+  
+  QString protocolDir = KStandardDirs::locateLocal("appdata", "logs/");
+  QStringList files = QDir(protocolDir).entryList(QStringList() << "*.log", QDir::NoDotAndDotDot|QDir::Files);
+  foreach (const QString& file, files)
+  {
+    QString dateStr = file;
+    dateStr.remove("protocol-").remove(".log");
+    QDate logDate = QDate::fromString(dateStr, Qt::ISODate);
+    if (logDate < purgeToDate)
+    {
+      QString logPath = protocolDir+QDir::separator()+file;
+      if (!QFile::remove(logPath))
+	kWarning() << "Couldn't remove old log at " << logPath;
+    }
+  }
+  
+  QString path = KStandardDirs::locateLocal("appdata", QString("logs/protocol-%1.log").arg(currentDate.toString(Qt::ISODate)));
 
   Logger::logF = new QFile(path);
   if (!Logger::logF->open(QIODevice::WriteOnly|QIODevice::Append)) return 0;
@@ -41,11 +62,24 @@ QTextStream* Logger::init()
 }
 
 
-void Logger::log(QString message)
+void Logger::log(QString message, Logger::LogType type)
 {
   if (!logFile) logFile = Logger::init();
 
-  *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << message << endl;
+  QString tag;
+  switch (type)
+  {
+    case Logger::Info:
+      tag = "[INF] ";
+      break;
+    case Logger::Warning:
+      tag = "[WRN] ";
+      break;
+    case Logger::Upgrade:
+      tag = "[UPG] ";
+      break;
+  }
+  *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << tag << message << endl;
 }
 
 

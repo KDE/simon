@@ -74,7 +74,7 @@ void FilterCommandManager::updateAction()
 
 void FilterCommandManager::toggle()
 {
-  Logger::log(i18n("[INF] Changing filter state..."));
+  Logger::log(i18n("Changing filter state..."));
 
   isActive = !isActive;
   updateAction();
