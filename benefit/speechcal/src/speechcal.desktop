@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=speechcal
+Name[fr]=speechcal
+Exec=speechcal %i -caption "%c"
+Icon=speechcal
+Type=Application
+#X-DocPath=speechcal/index.html
+GenericName=Speech controlled calendar
+GenericName[de]=Sprachgesteuerter Kalender
+Terminal=false
+Categories=Qt;KDE;Office;Accessibility;

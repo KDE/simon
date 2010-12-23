@@ -330,6 +330,7 @@ add_subdirectory(plugins)
 add_subdirectory(sam)
 add_subdirectory(ssc)
 add_subdirectory(sscd)
+add_subdirectory(benefit)
 
 
 install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/version.h
