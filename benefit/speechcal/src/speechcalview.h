@@ -22,9 +22,7 @@
 
 #include <QWidget>
 #include <kxmlguiwindow.h>
-
 #include "ui_main.h"
-
 
 /**
  * @short Main view
@@ -38,7 +36,7 @@ class SpeechCalView :  public KXmlGuiWindow
     /**
      * Default constructor
      */
-    SpeechCalView(QWidget *parent, Qt::WFlags flags);
+    SpeechCalView(QWidget *parent=0, Qt::WFlags flags=0);
 
     /**
      * Destructor

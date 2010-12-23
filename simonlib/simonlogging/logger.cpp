@@ -75,8 +75,8 @@ void Logger::log(QString message, Logger::LogType type)
     case Logger::Warning:
       tag = "[WRN] ";
       break;
-    case Logger::Upgrade:
-      tag = "[UPG] ";
+    case Logger::Error:
+      tag = "[ERR] ";
       break;
   }
   *(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << tag << message << endl;

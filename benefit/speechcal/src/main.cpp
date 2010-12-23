@@ -17,7 +17,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "speechcalview.h"
+#include "speechcal.h"
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -36,9 +36,9 @@ int main(int argc, char **argv)
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;
-  SpeechCalView *widget = new SpeechCalView(0,0);
+  SpeechCal *cal = new SpeechCal();
 
-  widget->show();
+  cal->exec();
 
   return app.exec();
 }

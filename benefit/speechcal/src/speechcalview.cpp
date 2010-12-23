@@ -18,26 +18,25 @@
  */
 
 #include "speechcalview.h"
-#include <akonadi/control.h>
-#include <akonadi/collection.h>
-#include <akonadi/itemmodel.h>
-#include <akonadi/collectionfetchjob.h>
-#include <akonadi/collectionfetchscope.h>
-#include <akonadi/itemfetchjob.h>
-#include <akonadi/itemfetchscope.h>
-#include <akonadi/changerecorder.h>
-#include <kcalcore/incidence.h>
-#include <kcalcore/event.h>
+#include <simonlogging/logger.h>
+
+#include <KStandardAction>
+#include <KActionCollection>
+#include <KAction>
+#include <KMenuBar>
+#include <KStatusBar>
 
 
 SpeechCalView::SpeechCalView(QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
 {
   ui.setupUi(this);
-  if ( !Akonadi::Control::start( this ) ) {
-    kWarning() << "Couldn't start akonadi control";
-    qApp->exit( -1 );
-    return;
-  }
+  
+  //add quit action with escape and ctrl+q as shortcuts
+  KStandardAction::quit(this, SLOT(close()), actionCollection())->setShortcut(
+	      KShortcut(QKeySequence(Qt::Key_Escape), QKeySequence("Ctrl+Q")));
+  setupGUI();
+  menuBar()->hide();
+  statusBar()->hide();
 }
 
 SpeechCalView::~SpeechCalView()

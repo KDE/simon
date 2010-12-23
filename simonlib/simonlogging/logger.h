@@ -41,7 +41,7 @@ class SIMONLOGGING_EXPORT Logger
     enum LogType {
       Info=1,
       Warning=2,
-      Upgrade=4
+      Error=4
     };
     /**
      * \brief Initialises the file handle and the stream
