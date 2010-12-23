@@ -12,6 +12,7 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 
 set(speechcal_SRCS
    main.cpp
+   calendarmodel.cpp
    speechcal.cpp
    speechcalview.cpp
  )

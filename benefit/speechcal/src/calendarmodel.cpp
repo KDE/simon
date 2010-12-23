@@ -16,40 +16,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SPEECHCAL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_SPEECHCAL_H_4002119636CC42C68FE07273F9000A73
+#include "calendarmodel.h"
 
-#include <QObject>
-#include <QList>
-#include <KDateTime>
-
-#include <akonadi/collection.h>
-#include <akonadi/item.h>
-
-class SpeechCalView;
-class KJob;
-class CalendarModel;
-
-class SpeechCal : public QObject
+CalendarModel::CalendarModel(QObject* parent): QAbstractListModel(parent)
 {
-Q_OBJECT
-  public:
-    SpeechCal();
-    virtual ~SpeechCal();
-    void exec();
-    
-  private slots:
-    void slotCollectionsReceived(Akonadi::Collection::List);
-    void slotItemsReceived(Akonadi::Item::List);
-    
-  private:
-    SpeechCalView* view;
-    CalendarModel *calendar;
-    KDateTime fromDate;
-    KDateTime toDate;
-    
-    void setupCollections();
+}
 
-};
+void CalendarModel::initialize(const QList<QSharedPointer<KCalCore::Event> > items)
+{
+  relevantItems = items;
+  reset();
+}
 
-#endif // SPEECHCAL_H
+QVariant CalendarModel::data(const QModelIndex& index, int role) const
+{
+  if (role != Qt::DisplayRole) return QVariant();
+  QSharedPointer< KCalCore::Event > event = relevantItems[index.row()];
+  QString text = QString("%1: %2").arg(event->dtStart().toString(KDateTime::LocalDate)).arg(event->summary());
+  return text;
+}
+
+int CalendarModel::rowCount(const QModelIndex& /*parent*/) const
+{
+  return relevantItems.count();
+}
+

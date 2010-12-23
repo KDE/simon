@@ -24,6 +24,8 @@
 #include <kxmlguiwindow.h>
 #include "ui_main.h"
 
+class CalendarModel;
+
 /**
  * @short Main view
  * @author Peter Grasch <grasch@simon-listens.org>
@@ -42,6 +44,8 @@ class SpeechCalView :  public KXmlGuiWindow
      * Destructor
      */
     virtual ~SpeechCalView();
+    
+    void displayModel(CalendarModel* model);
     
   private:
     Ui::MainWindow ui;

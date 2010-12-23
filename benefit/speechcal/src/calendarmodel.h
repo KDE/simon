@@ -16,40 +16,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SPEECHCAL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_SPEECHCAL_H_4002119636CC42C68FE07273F9000A73
+#ifndef SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#define SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
 
-#include <QObject>
+#include <QModelIndex>
 #include <QList>
-#include <KDateTime>
+#include <QSharedPointer>
+#include <kcalcore/event.h>
 
-#include <akonadi/collection.h>
-#include <akonadi/item.h>
-
-class SpeechCalView;
-class KJob;
-class CalendarModel;
-
-class SpeechCal : public QObject
+class CalendarModel : public QAbstractListModel
 {
-Q_OBJECT
-  public:
-    SpeechCal();
-    virtual ~SpeechCal();
-    void exec();
-    
-  private slots:
-    void slotCollectionsReceived(Akonadi::Collection::List);
-    void slotItemsReceived(Akonadi::Item::List);
-    
-  private:
-    SpeechCalView* view;
-    CalendarModel *calendar;
-    KDateTime fromDate;
-    KDateTime toDate;
-    
-    void setupCollections();
-
+private:
+    QList< QSharedPointer<KCalCore::Event> > relevantItems;
+  
+public:
+    CalendarModel(QObject* parent = 0);
+    void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 };
 
-#endif // SPEECHCAL_H
+#endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73

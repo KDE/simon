@@ -14,13 +14,16 @@
    <string>SpeechCal</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_8">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="lbUpcomingEvents">
       <property name="text">
-       <string>Hello world</string>
+       <string>Upcoming events:</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QListView" name="lvCalendar"/>
     </item>
    </layout>
   </widget>

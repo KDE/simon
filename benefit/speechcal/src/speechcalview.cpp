@@ -18,6 +18,7 @@
  */
 
 #include "speechcalview.h"
+#include "calendarmodel.h"
 #include <simonlogging/logger.h>
 
 #include <KStandardAction>
@@ -37,6 +38,11 @@ SpeechCalView::SpeechCalView(QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(
   setupGUI();
   menuBar()->hide();
   statusBar()->hide();
+}
+
+void SpeechCalView::displayModel(CalendarModel *model)
+{
+  ui.lvCalendar->setModel(model);
 }
 
 SpeechCalView::~SpeechCalView()
