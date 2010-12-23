@@ -32,7 +32,8 @@ QVariant CalendarModel::data(const QModelIndex& index, int role) const
 {
   if (role != Qt::DisplayRole) return QVariant();
   QSharedPointer< KCalCore::Event > event = relevantItems[index.row()];
-  QString text = QString("%1: %2").arg(event->dtStart().toString(KDateTime::LocalDate)).arg(event->summary());
+  QString text = QString("%1 - %2: %3").arg(event->dtStart().toString("%H:%M")).arg(
+						event->dtEnd().toString("%H:%M")).arg(event->summary());
   return text;
 }
 
@@ -40,4 +41,11 @@ int CalendarModel::rowCount(const QModelIndex& /*parent*/) const
 {
   return relevantItems.count();
 }
+
+void CalendarModel::clear()
+{
+  relevantItems.clear();
+  reset();
+}
+
 

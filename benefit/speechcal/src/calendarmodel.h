@@ -34,6 +34,7 @@ public:
     void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    void clear();
 };
 
 #endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73

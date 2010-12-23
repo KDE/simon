@@ -19,6 +19,7 @@
 
 #include "speechcalview.h"
 #include "calendarmodel.h"
+#include "speechcal.h"
 #include <simonlogging/logger.h>
 
 #include <KStandardAction>
@@ -28,7 +29,8 @@
 #include <KStatusBar>
 
 
-SpeechCalView::SpeechCalView(QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
+SpeechCalView::SpeechCalView(CalendarModel* model, SpeechCal* c, QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags), 
+	controller(c)
 {
   ui.setupUi(this);
   
@@ -38,13 +40,49 @@ SpeechCalView::SpeechCalView(QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(
   setupGUI();
   menuBar()->hide();
   statusBar()->hide();
+  ui.lvCalendar->setModel(model);
+  
+  ui.pbPreviousDay->setIcon(KIcon("go-previous"));
+  ui.pbNextDay->setIcon(KIcon("go-next"));
+  
+  
+  KAction* previousDayAction = new KAction(this);
+  previousDayAction->setText(i18n("Previous day"));
+  previousDayAction->setIcon(KIcon("go-previous"));
+  previousDayAction->setShortcut(Qt::Key_Down);
+  actionCollection()->addAction("previousDay", previousDayAction);
+  connect(previousDayAction, SIGNAL(triggered(bool)),
+    this, SLOT(previousDay()));
+  
+  KAction* nextDayAction = new KAction(this);
+  nextDayAction->setText(i18n("Previous day"));
+  nextDayAction->setIcon(KIcon("go-next"));
+  nextDayAction->setShortcut(Qt::Key_Up);
+  actionCollection()->addAction("nextDay", nextDayAction);
+  connect(nextDayAction, SIGNAL(triggered(bool)),
+    this, SLOT(nextDay()));
+  
+  connect(ui.pbNextDay, SIGNAL(clicked()), this, SLOT(nextDay()));
+  connect(ui.pbPreviousDay, SIGNAL(clicked()), this, SLOT(previousDay()));
 }
 
-void SpeechCalView::displayModel(CalendarModel *model)
+void SpeechCalView::updateDisplay(const QString& name)
 {
-  ui.lvCalendar->setModel(model);
+  ui.lbDate->setText(name);
 }
+
+void SpeechCalView::nextDay()
+{
+  controller->nextDay();
+}
+
+void SpeechCalView::previousDay()
+{
+  controller->previousDay();
+}
+
 
 SpeechCalView::~SpeechCalView()
 {
+  controller->quit();
 }

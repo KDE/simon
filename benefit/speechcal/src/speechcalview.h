@@ -25,6 +25,7 @@
 #include "ui_main.h"
 
 class CalendarModel;
+class SpeechCal;
 
 /**
  * @short Main view
@@ -38,16 +39,23 @@ class SpeechCalView :  public KXmlGuiWindow
     /**
      * Default constructor
      */
-    SpeechCalView(QWidget *parent=0, Qt::WFlags flags=0);
+    SpeechCalView(CalendarModel* model, SpeechCal *c, 
+		  QWidget *parent=0, Qt::WFlags flags=0);
 
     /**
      * Destructor
      */
     virtual ~SpeechCalView();
     
-    void displayModel(CalendarModel* model);
+    void updateDisplay(const QString& name);
+
+    
+  private slots:
+    void nextDay();
+    void previousDay();
     
   private:
+    SpeechCal *controller;
     Ui::MainWindow ui;
 };
 

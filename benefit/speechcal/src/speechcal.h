@@ -37,18 +37,28 @@ Q_OBJECT
     SpeechCal();
     virtual ~SpeechCal();
     void exec();
+    void nextDay();
+    void previousDay();
+    void quit();
     
   private slots:
-    void slotCollectionsReceived(Akonadi::Collection::List);
-    void slotItemsReceived(Akonadi::Item::List);
+    void collectionJobFinished(KJob*);
+    void itemJobFinished(KJob*);
     
   private:
     SpeechCalView* view;
     CalendarModel *calendar;
-    KDateTime fromDate;
-    KDateTime toDate;
+    KDateTime displayDate;
+    Akonadi::Collection::List collectionList;
+//     KDateTime fromDate;
+//     KDateTime toDate;
     
     void setupCollections();
+    void updateView();
+    void retrieveEvents();
+    
+    void collectionsReceived(Akonadi::Collection::List);
+    void itemsReceived(Akonadi::Item::List);
 
 };
 

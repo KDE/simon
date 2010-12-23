@@ -24,6 +24,7 @@
 
 #include <QSharedPointer>
 #include <KLocale>
+#include <KGlobal>
 
 #include <akonadi/control.h>
 #include <akonadi/collection.h>
@@ -37,10 +38,11 @@
 #include <kcalcore/incidence.h>
 #include <kcalcore/event.h>
 
-typedef QSharedPointer<KCalCore::Event> EventPtr;
 
-SpeechCal::SpeechCal() : view( new SpeechCalView() ), calendar(new CalendarModel(this))
+SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
 {
+  view = new SpeechCalView(calendar, this);
+  
   if (!Logger::init())
   {
     kError() << "Couldn't initialize logging";
@@ -54,8 +56,19 @@ SpeechCal::SpeechCal() : view( new SpeechCalView() ), calendar(new CalendarModel
     return;
   }
   setupCollections();
-  view->displayModel(calendar);
 }
+
+void SpeechCal::nextDay()
+{
+  displayDate = displayDate.addDays(1);
+  retrieveEvents();
+}
+void SpeechCal::previousDay()
+{
+  displayDate = displayDate.addDays(-1);
+  retrieveEvents();
+}
+
 
 void SpeechCal::exec()
 {
@@ -64,28 +77,62 @@ void SpeechCal::exec()
 
 void SpeechCal::setupCollections()
 {
-  // Show events starting up to 30 mins ago to account for delays
-  fromDate = KDateTime(QDateTime::currentDateTime().addSecs(-1800));
-  toDate = KDateTime(QDateTime::currentDateTime().addDays(1)); //next 24 hours
+  displayDate = KDateTime(QDateTime::currentDateTime());
+  
+//   // Show events starting up to 30 mins ago to account for delays
+//   fromDate = KDateTime(QDateTime::currentDateTime().addSecs(-1800));
+//   toDate = KDateTime(QDateTime::currentDateTime().addDays(1)); //next 24 hours
   
   Akonadi::CollectionFetchJob *job = new Akonadi::CollectionFetchJob( Akonadi::Collection::root(), Akonadi::CollectionFetchJob::Recursive, this );
-  connect(job, SIGNAL(collectionsReceived(Akonadi::Collection::List)), this, SLOT(slotCollectionsReceived(Akonadi::Collection::List)));
+//   connect(job, SIGNAL(collectionsReceived(Akonadi::Collection::List)), this, SLOT(slotCollectionsReceived(Akonadi::Collection::List)));
+  connect(job, SIGNAL(finished(KJob*)), this, SLOT(collectionJobFinished(KJob*)));
   job->fetchScope().setContentMimeTypes(QStringList() << "application/x-vnd.akonadi.calendar.event");
 }
 
-void SpeechCal::slotCollectionsReceived(Akonadi::Collection::List list)
+void SpeechCal::collectionJobFinished(KJob* job)
 {
-  foreach (const Akonadi::Collection &collection, list)
+  Akonadi::CollectionFetchJob *fetchJob = static_cast<Akonadi::CollectionFetchJob*>( job );
+  if ( job->error() ) {
+      Logger::log(i18n("Job returned error: %1", job->errorString()), Logger::Error);
+      kError() << job->errorString();
+      return;
+  }
+  collectionsReceived(fetchJob->collections());
+}
+
+void SpeechCal::itemJobFinished(KJob* job)
+{
+  Akonadi::ItemFetchJob *fetchJob = static_cast<Akonadi::ItemFetchJob*>( job );
+  if ( job->error() ) {
+      Logger::log(i18n("Job returned error: %1", job->errorString()), Logger::Error);
+      kError() << job->errorString();
+      return;
+  }
+
+  itemsReceived(fetchJob->items());
+}
+
+
+void SpeechCal::collectionsReceived(Akonadi::Collection::List list)
+{
+  collectionList = list;
+  retrieveEvents(); 
+}
+void SpeechCal::retrieveEvents()
+{
+  calendar->clear();
+  view->updateDisplay(i18n("Loading..."));
+  foreach (const Akonadi::Collection &collection, collectionList)
   {
     kDebug() << "Received collection: " << collection.name();
     Logger::log(i18n("Received collection: %1", collection.name()));
     Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(collection, this);
     itemFetcher->fetchScope().fetchFullPayload();
-    connect(itemFetcher, SIGNAL(itemsReceived(Akonadi::Item::List)), this, SLOT(slotItemsReceived(Akonadi::Item::List)));
+    connect(itemFetcher, SIGNAL(finished(KJob*)), this, SLOT(itemJobFinished(KJob*)));
   }
 }
 
-void SpeechCal::slotItemsReceived(Akonadi::Item::List items)
+void SpeechCal::itemsReceived(Akonadi::Item::List items)
 {
   if (items.isEmpty())
   {
@@ -113,15 +160,42 @@ void SpeechCal::slotItemsReceived(Akonadi::Item::List items)
 
     KDateTime startDate = event->dtStart();
     KDateTime endDate = event->dtEnd();
-    if ((startDate > toDate) || (endDate < fromDate))
-    continue;
+//     if ((startDate > toDate) || (endDate < fromDate))
+    if ((startDate.date() > displayDate.date()) || (endDate.date() < displayDate.date()))
+      continue;
 
-    relevantItems << event;
+    //insert sorted
+    int j=0;
+    for (; j < relevantItems.count(); j++)
+    {
+      if (relevantItems[j]->dtStart() > event->dtStart())
+      {
+	relevantItems.insert(j, event);
+	break;
+      }
+    }
+    if (j == relevantItems.count())
+      relevantItems << event;
   }
   Logger::log(i18n("Retrieved %1 relevant items", relevantItems.count()));
   calendar->initialize(relevantItems);
+  updateView();
 }
 
+void SpeechCal::updateView()
+{
+  if (!view) return;
+  
+  QString dateString;
+  dateString = KGlobal::locale()->formatDate(displayDate.date(), KLocale::LongDate);
+  view->updateDisplay(dateString);
+}
+
+void SpeechCal::quit()
+{
+  view = 0;
+  deleteLater();
+}
 
 SpeechCal::~SpeechCal()
 {
