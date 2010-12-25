@@ -58,7 +58,7 @@ SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
   }
   
   monitor = new Akonadi::Monitor(this);
-  monitor->setMimeTypeMonitored("application/x-vnd.akonadi.calendar.event", true);
+  monitor->setMimeTypeMonitored(KCalCore::Event::eventMimeType(), true);
   connect(monitor, SIGNAL(collectionAdded (const Akonadi::Collection &, const Akonadi::Collection &)),
 	  this, SLOT(setupCollections()));
   connect(monitor, SIGNAL(collectionChanged (const Akonadi::Collection &collection)), this, SLOT(setupCollections()));
@@ -89,14 +89,9 @@ void SpeechCal::exec()
 
 void SpeechCal::setupCollections()
 {
-//   // Show events starting up to 30 mins ago to account for delays
-//   fromDate = KDateTime(QDateTime::currentDateTime().addSecs(-1800));
-//   toDate = KDateTime(QDateTime::currentDateTime().addDays(1)); //next 24 hours
-  
   Akonadi::CollectionFetchJob *job = new Akonadi::CollectionFetchJob( Akonadi::Collection::root(), Akonadi::CollectionFetchJob::Recursive, this );
-//   connect(job, SIGNAL(collectionsReceived(Akonadi::Collection::List)), this, SLOT(slotCollectionsReceived(Akonadi::Collection::List)));
   connect(job, SIGNAL(finished(KJob*)), this, SLOT(collectionJobFinished(KJob*)));
-  job->fetchScope().setContentMimeTypes(QStringList() << "application/x-vnd.akonadi.calendar.event");
+  job->fetchScope().setContentMimeTypes(QStringList() << KCalCore::Event::eventMimeType());
 }
 
 void SpeechCal::collectionJobFinished(KJob* job)
@@ -170,7 +165,6 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
 
     KDateTime startDate = event->dtStart();
     KDateTime endDate = event->dtEnd();
-//     if ((startDate > toDate) || (endDate < fromDate))
     if ((startDate.date() > displayDate.date()) || (endDate.date() < displayDate.date()))
       continue;
 

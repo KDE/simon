@@ -1,5 +1,11 @@
 add_subdirectory(AI)
 #add_subdirectory(ATIntegration)
+
+find_package (KdepimLibs)
+if (KDEPIMLIBS_FOUND)
+add_subdirectory(Akonadi)
+endif (KDEPIMLIBS_FOUND)
+
 add_subdirectory(Calculator)
 add_subdirectory(Composite)
 add_subdirectory(DBus)

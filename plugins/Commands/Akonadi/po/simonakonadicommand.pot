@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2010-12-25 12:46+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: akonadicommand.cpp:40 akonadicommandmanager.cpp:156
+#: akonadiconfiguration.cpp:42
+msgid "Akonadi"
+msgstr ""
+
+#: akonadicommand.cpp:89
+msgid "The associated command"
+msgstr ""
+
+#: akonadicommand.cpp:95
+msgctxt "Timer type"
+msgid "Relative"
+msgstr ""
+
+#: akonadicommand.cpp:98
+msgctxt "Timer type"
+msgid "Absolute"
+msgstr ""
+
+#: akonadicommand.cpp:101
+msgid "Associated command"
+msgstr ""
+
+#: akonadicommand.cpp:102
+msgid "Timer type"
+msgstr ""
+
+#: akonadicommand.cpp:105
+msgid "Absolute time"
+msgstr ""
+
+#: akonadicommand.cpp:115
+msgctxt "Time dimension"
+msgid "Second(s)"
+msgstr ""
+
+#: akonadicommand.cpp:118
+msgctxt "Time dimension"
+msgid "Minute(s)"
+msgstr ""
+
+#: akonadicommand.cpp:121
+msgctxt "Time dimension"
+msgid "Hour(s)"
+msgstr ""
+
+#: akonadicommand.cpp:124
+msgctxt "Time dimension"
+msgid "Day(s)"
+msgstr ""
+
+#: akonadicommand.cpp:128
+msgid "Relative time"
+msgstr ""
+
+#: akonadicommand.cpp:157
+msgid "Akonadi item create job returned error: %1"
+msgstr ""
+
+#: akonadicommandmanager.cpp:69
+msgid "Invalid akonadi command format: %1"
+msgstr ""
+
+#: akonadicommandmanager.cpp:74
+msgid "Couldn't execute command: %1"
+msgstr ""
+
+#: akonadicommandmanager.cpp:98
+msgid "Akonadi item job returned error: %1"
+msgstr ""
+
+#: akonadicommandmanager.cpp:109
+msgid "Retrieved %1 items from collection"
+msgstr ""
+
+#: akonadicommandmanager.cpp:124
+msgid ""
+"Fetched event has wrong type and could not be deserialized (Payload: %1)"
+msgstr ""
+
+#: akonadicommandmanager.cpp:139
+msgid "Retrieved %1 relevant items"
+msgstr ""
+
+#: akonadicommandmanager.cpp:186
+msgid "Failed to contact akonadi."
+msgstr ""
+
+#: akonadiconfiguration.cpp:43
+msgid "Integrate with the personal data manager akonadi"
+msgstr ""
+
+#: akonadiconfiguration.cpp:69
+msgid "Akonadi Plug-in"
+msgstr ""
+
+#: akonadiconfiguration.cpp:69
+msgid "Fetching collections from akonadi..."
+msgstr ""
+
+#: akonadiconfiguration.cpp:89
+msgid "Job returned error: %1"
+msgstr ""
+
+#: akonadiconfiguration.cpp:134
+msgid ""
+"Without this option, you can not use commands to schedule events.\n"
+"\n"
+"You can still configure them through simon but triggering them will not have "
+"any effect."
+msgstr ""
+
+#: akonadiconfiguration.cpp:136
+msgid "Don't show this info again"
+msgstr ""
+
+#: createakonadicommandwidget.cpp:70
+msgid "Could not find child command: %1 (%2)."
+msgstr ""
+
+#. i18n: file: akonadiconfigurationdlg.ui:28
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Selected collection:"
+msgstr ""
+
+#. i18n: file: akonadiconfigurationdlg.ui:40
+#. i18n: ectx: property (text), widget (QCheckBox, cbDisplayAlarms)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Display alarms"
+msgstr ""
+
+#. i18n: file: akonadiconfigurationdlg.ui:47
+#. i18n: ectx: property (text), widget (QCheckBox, cbExecuteAkonadiRequests)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Execute Akonadi based command requests"
+msgstr ""
+
+#. i18n: file: akonadiconfigurationdlg.ui:72
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Command prefix:"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:22
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Command:"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:34
+#. i18n: ectx: property (text), widget (QRadioButton, rbAbsolute)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Absolute"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:68
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "At:"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:83
+#. i18n: ectx: property (text), widget (QRadioButton, rbRelative)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Relative"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:114
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "After:"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:134
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDurationType)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "Seconds"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:139
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDurationType)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Minutes"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:144
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDurationType)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Hours"
+msgstr ""
+
+#. i18n: file: createakonadicommandwidget.ui:149
+#. i18n: ectx: property (text), item, widget (KComboBox, cbDurationType)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Days"
+msgstr ""
+
+#. i18n: file: simonakonadipluginui.rc:6
+#. i18n: ectx: Menu (commands)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "Commands"
+msgstr ""
+
+#: po/rc.cpp:43 rc.cpp:43
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:44 rc.cpp:44
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""

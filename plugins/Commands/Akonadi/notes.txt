@@ -1,0 +1,1 @@
+One plugin instance handles exactly one akonadi
