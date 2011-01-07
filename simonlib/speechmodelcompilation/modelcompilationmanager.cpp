@@ -1534,7 +1534,7 @@ bool ModelCompilationManager::makeMonophones()
   while (!utfLexicon.atEnd()) {
     QByteArray utfByte = utfLexicon.readLine(3000);
     QByteArray latinByte;
-    latinByte = (QString::fromUtf8(utfByte)).toLatin1();
+    latinByte = (QString::fromUtf8(utfByte)).toLocal8Bit();
     latinLexicon.write(latinByte);
   }
 
@@ -1631,13 +1631,13 @@ bool ModelCompilationManager::generateMlf()
     fileName = fileName.mid(fileName.lastIndexOf("/")+1);
     QString labFile = "\"*/"+fileName+".lab\"";
     #ifndef HTK_UNICODE
-    mlf.write(labFile.toLatin1()+'\n');
+    mlf.write(labFile.toLocal8Bit()+'\n');
     #else
     mlf.write(labFile.toUtf8()+'\n');
     #endif
     for (int i=0; i < lineWords.count(); i++)
     #ifndef HTK_UNICODE
-      mlf.write(lineWords[i].toLatin1()+'\n');
+      mlf.write(lineWords[i].toLocal8Bit()+'\n');
     #else
     mlf.write(lineWords[i].toUtf8()+'\n');
     #endif
@@ -1769,18 +1769,18 @@ bool ModelCompilationManager::staticAdaption()
   if (!prepareGlobalConfig()) 
     return false;
 
-  QFileInfo fiHMM(baseHmmDefsPath);
-  QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/"+fiHMM.fileName();
-  QString adaptFromTiedlist = baseTiedlistPath;
+  //QFileInfo fiHMM(baseHmmDefsPath);
+  //QString adaptFromHMM = htkIfyPath(tempDir)+"/classes/"+fiHMM.fileName();
+  //QString adaptFromTiedlist = baseTiedlistPath;
 
-  QFileInfo fiMacros(baseMacrosPath);
-  QString adaptFromMacros = htkIfyPath(tempDir)+"classes/"+fiMacros.fileName();
+  //QFileInfo fiMacros(baseMacrosPath);
+  //QString adaptFromMacros = htkIfyPath(tempDir)+"classes/"+fiMacros.fileName();
   
   //TODO: Parelellize
-  if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+  if (!execute('"'+hERest+"\" -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.global"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
     return false;
 
-  if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+adaptFromMacros+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+adaptFromHMM+"\" \""+adaptFromTiedlist+"\""))
+  if (!execute('"'+hERest+"\" -a -C \""+htkIfyPath(getScriptFile("config"))+"\" -C \""+htkIfyPath(getScriptFile("config.rc"))+"\" -I \""+htkIfyPath(tempDir)+"/adaptPhones.mlf\" -S \""+htkIfyPath(tempDir)+"/aligned.scp\" -H \""+baseMacrosPath+"\" -u a -J \""+htkIfyPath(tempDir)+"/xforms\" mllr1 -J \""+htkIfyPath(tempDir)+"/classes\" -K \""+htkIfyPath(tempDir)+"/xforms\" mllr2 -H \""+baseHmmDefsPath+"\" \""+baseTiedlistPath+"\""))
     return false;
 
 //   if (!reestimate(htkIfyPath(tempDir)+"/adaptPhones.mlf", false, htkIfyPath(tempDir)+"/aligned.scp", 
