@@ -104,6 +104,7 @@ Command* CreateAkonadiCommandWidget::createCommand(const QString& name, const QS
     type = AkonadiCommand::Absolute;
   else
     type = AkonadiCommand::Relative;
+  kDebug() << "type";
   
   int relativeTime;
   
