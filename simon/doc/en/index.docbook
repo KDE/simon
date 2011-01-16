@@ -493,6 +493,15 @@ This method of visual feedback proved especially valuable when recording with pe
 </sect2>
 
 
+<sect2 id="recording_content">
+<title>Content</title>
+<para>Generally we recommend to record roughly the same sentences that simon should recognize later.</para>
+<para>(Obviously that does not apply to massive sample acquisitions where other properties like phonetic balance are more important)</para>
+
+<para>Care should be taken to avoid recordings like "One One One" to quickly ramp up the "recognition rate" property. Such recordings often decrease recognition performance because the pronunciation differs greatly from saying the word in isolation.</para>
+</sect2>
+
+
 <sect2 id="microphone">
 <title>Microphone</title>
 <para>For simon to work well, a high quality microphone is recommended.</para>
