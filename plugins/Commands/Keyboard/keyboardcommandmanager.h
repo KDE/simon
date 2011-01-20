@@ -79,6 +79,7 @@ class KeyboardCommandManager : public CommandManager, public GreedyReceiver
     void send7() { processRequest(7); }
     void send8() { processRequest(8); }
     void send9() { processRequest(9); }
+    void sendDecimalSeparator();
 
     KeyboardConfiguration* getKeyboardConfiguration();
 

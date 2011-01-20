@@ -335,6 +335,11 @@ void KeyboardCommandManager::backSpace()
   EventHandler::getInstance()->sendShortcut(QKeySequence("Backspace"));
 }
 
+void KeyboardCommandManager::sendDecimalSeparator()
+{
+  ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());
+}
+
 
 bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 {
@@ -356,6 +361,7 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
   connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
   connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
   connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
+  connect(ui.pbDecimalSeparator, SIGNAL(clicked()), this, SLOT(sendDecimalSeparator()));
   connect(ui.pbSelectNumber, SIGNAL(clicked()), this, SLOT(selectNumber()));
   connect(ui.pbWriteOutNumber, SIGNAL(clicked()), this, SLOT(writeOutNumber()));
   connect(ui.pbNumberBackspace, SIGNAL(clicked()), this, SLOT(numberBackSpace()));
@@ -456,7 +462,6 @@ bool KeyboardCommandManager::deSerializeConfig(const QDomElement& elem)
 
   return succ;
 }
-
 
 KeyboardCommandManager::~KeyboardCommandManager()
 {
