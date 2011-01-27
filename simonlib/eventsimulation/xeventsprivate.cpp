@@ -171,6 +171,9 @@ void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/, EventSimulatio
     case 16777223:
       key = XK_Delete;
       break;
+    case Qt::Key_Insert:
+      key = XK_Insert;
+      break;
     case Qt::Key_VolumeUp:
       key = XF86XK_AudioRaiseVolume;
       break;
