@@ -82,6 +82,11 @@
        </item>
        <item>
         <property name="text">
+         <string>Meta+D</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Meta+Up</string>
         </property>
        </item>
