@@ -18,7 +18,7 @@
  */
 
 #include "createtransitiondialog.h"
-#include "dialogcommand.h"
+#include <simondialogengine/dialogcommand.h>
 #include "createdialogcommandwidget.h"
 #include <QWidget>
 #include <QVBoxLayout>

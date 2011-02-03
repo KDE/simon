@@ -18,15 +18,15 @@
  */
 
 #include "ttsdialogview.h"
-#include "dialogstate.h"
-#include "dialogcommand.h"
-#include "dialogcommandmanager.h"
+#include <simondialogengine/dialogmanager.h>
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogcommand.h>
 #include <simontts/simontts.h>
 #include <KDebug>
 #include <KLocale>
 #include <KMessageBox>
 
-TTSDialogView::TTSDialogView(DialogCommandManager *dialog) :
+TTSDialogView::TTSDialogView(DialogManager *dialog) :
   DialogView(dialog)
 {
 }

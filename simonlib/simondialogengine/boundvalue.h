@@ -17,33 +17,41 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_TTSDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_TTSDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 
-#include "dialogview.h"
+#ifndef SIMON_BOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_BOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+
+#include "simondialogengine_export.h"
+#include <QVariant>
 #include <QString>
 
-class DialogState;
-class QFont;
+class QDomElement;
+class QDomDocument;
 
-class TTSDialogView : public DialogView
+class SIMONDIALOGENGINE_EXPORT BoundValue
 {
   private:
-    QString optionsRepeat;
+    QString m_name;
 
-    bool say(const QString& text);
-    bool synthesizeState(const DialogState& state);
+  protected:
+    BoundValue(const QString& name) : m_name(name) {}
+
+    virtual bool deSerialize(const QDomElement& elem)=0;
+    virtual bool serializePrivate(QDomDocument *doc, QDomElement& elem, int& id)=0;
 
   public:
-    TTSDialogView(DialogCommandManager *dialog);
-    ~TTSDialogView();
+    virtual ~BoundValue() {}
 
-    bool start();
-    bool stop();
-    void repeat(const DialogState& state);
+    virtual QVariant getValue()=0;
+    virtual QString getValueDescription()=0;
 
-    void warnOfInvalidInput(const QString& input);
-    bool present(const DialogState& state);
+    static BoundValue* createInstance(const QDomElement& elem);
+
+    virtual QString getTypeName()=0;
+
+    QString getName() { return m_name; }
+
+    QDomElement serialize(QDomDocument *doc);
 
 };
 

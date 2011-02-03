@@ -20,12 +20,13 @@
 #ifndef SIMON_AVATARMODEL_H_4B4956DCAE204C49977297D20CB81F09
 #define SIMON_AVATARMODEL_H_4B4956DCAE204C49977297D20CB81F09
 
+#include "simondialogengine_export.h"
 #include <QList>
 #include <QModelIndex>
 #include <QAbstractListModel>
 #include "avatar.h"
 
-class AvatarModel : public QAbstractListModel
+class SIMONDIALOGENGINE_EXPORT AvatarModel : public QAbstractListModel
 {
 private:
     QList<Avatar*> m_avatars;

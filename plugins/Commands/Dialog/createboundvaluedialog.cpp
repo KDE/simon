@@ -20,11 +20,11 @@
 
 #include "createboundvaluedialog.h"
 #include "ui_createboundvalue.h"
-#include "staticboundvalue.h"
-#include "scriptboundvalue.h"
+#include <simondialogengine/staticboundvalue.h>
+#include <simondialogengine/scriptboundvalue.h>
 
 #ifdef USE_PLASMA
-#include "plasmaboundvalue.h"
+#include <simondialogengine/plasmaboundvalue.h>
 #endif
 
 #include <QWidget>

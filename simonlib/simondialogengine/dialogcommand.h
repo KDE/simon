@@ -25,6 +25,7 @@
 #include <QString>
 #include <QObject>
 #include <QStringList>
+#include "simondialogengine_export.h"
 #include <KUrl>
 class QDomDocument;
 class QTimer;
@@ -37,7 +38,7 @@ class QTimer;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class DialogCommand : public QObject, public Command
+class SIMONDIALOGENGINE_EXPORT DialogCommand : public QObject, public Command
 {
   Q_OBJECT
 

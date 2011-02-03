@@ -20,6 +20,7 @@
 #ifndef SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_DIALOGSTATE_H_7A7B9100FF5245329569C1B540119C37
 
+#include "simondialogengine_export.h"
 #include <QList>
 #include <QAbstractItemModel>
 #include <QString>
@@ -30,7 +31,7 @@ class DialogTextParser;
 class QDomElement;
 class QDomDocument;
 
-class DialogState : public QAbstractItemModel
+class SIMONDIALOGENGINE_EXPORT DialogState : public QAbstractItemModel
 {
   Q_OBJECT
   signals:

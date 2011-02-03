@@ -17,29 +17,33 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "dialogcommandbutton.h"
-#include "dialogcommand.h"
+#ifndef SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
+#define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
 
-DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *parent) :
-  KPushButton(parent),
-  m_transition(transition)
+#include <QList>
+#include "simondialogengine_export.h"
+
+class DialogDataProvider;
+class DialogTemplateOptions;
+class DialogBoundValues;
+
+class SIMONDIALOGENGINE_EXPORT DialogTextParser
 {
-  setText(transition->text());
-  setObjectName(QString("dialogOption%1").arg(transition->getTrigger()));
+  private:
+    DialogTemplateOptions *m_templateOptions;
+    DialogBoundValues *m_boundValues;
 
-  if (transition->showIcon())
-    setIcon(transition->getIcon());
+    bool parseTemplates(QString& data);
+    bool parseBoundValues(QString& data);
 
-  //setDescription(transition->getDescription());
-  setToolTip(transition->getDescription());
+  public:
+    DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues);
+    ~DialogTextParser();
 
-  connect(transition, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
-  connect(this, SIGNAL(clicked()), this, SLOT(go()));
-  connect(transition, SIGNAL(destroyed()), this, SLOT(deleteLater()));
-}
+    bool parse(QString& data);
+};
 
-void DialogCommandButton::go()
-{
-  m_transition->trigger(0);
-}
+#endif
+
+
 

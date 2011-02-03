@@ -20,7 +20,8 @@
 #ifndef SIMON_VISUALDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_VISUALDIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
 
-#include "dialogview.h"
+#include "simondialogenginevisualview_export.h"
+#include <simondialogengine/dialogview.h>
 #include <QWidget>
 #include <QList>
 #include <QFont>
@@ -32,7 +33,7 @@ namespace Ui
 
 class DialogCommandButton;
 
-class VisualDialogView : public QWidget, public DialogView
+class SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT VisualDialogView : public QWidget, public DialogView
 {
   Q_OBJECT
 
@@ -48,7 +49,7 @@ class VisualDialogView : public QWidget, public DialogView
     void closeEvent(QCloseEvent* event);
 
   public:
-    VisualDialogView(DialogCommandManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);
+    VisualDialogView(DialogManager *dialog, QWidget *parent=0, Qt::WindowFlags flags=0);
 
     bool start();
     bool stop();

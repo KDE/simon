@@ -17,33 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
-#define SIMON_STATICBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#ifndef SIMON_SIMONDIALOGENGINETTSVIEW_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
+#define SIMON_SIMONDIALOGENGINETTSVIEW_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
 
-#include "boundvalue.h"
-#include <QVariant>
-#include <QString>
+// needed for KDE_EXPORT and KDE_IMPORT macros
+#include <kdemacros.h>
 
-class StaticBoundValue : public BoundValue
-{
-  private:
-    QVariant m_value;
-
-  protected:
-    bool deSerialize(const QDomElement& elem);
-
-  public:
-    StaticBoundValue(const QString& name);
-    StaticBoundValue(const QString& name, const QVariant& value);
-
-    QString getTypeName();
-
-    QVariant getValue();
-    QString getValueDescription();
-
-    bool serializePrivate(QDomDocument *doc, QDomElement& elem, int& id);
-};
-
+#ifndef SIMONDIALOGENGINETTSVIEW_EXPORT
+# if defined(MAKE_SIMONDIALOGENGINETTSVIEW_LIB)
+// We are building this library
+#  define SIMONDIALOGENGINETTSVIEW_EXPORT KDE_EXPORT
+# else
+// We are using this library
+#  define SIMONDIALOGENGINETTSVIEW_EXPORT KDE_IMPORT
+# endif
 #endif
 
-
+# ifndef SIMONDIALOGENGINETTSVIEW_EXPORT_DEPRECATED
+#  define SIMONDIALOGENGINETTSVIEW_EXPORT_DEPRECATED KDE_DEPRECATED SIMONDIALOGENGINETTSVIEW_EXPORT
+# endif
+#endif

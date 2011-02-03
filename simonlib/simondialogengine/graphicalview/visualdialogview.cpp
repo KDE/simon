@@ -21,11 +21,11 @@
 #include "visualdialogview.h"
 #include "ui_dialogwidget.h"
 
-#include "dialogstate.h"
-#include "dialogcommand.h"
-#include "dialogcommandmanager.h"
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogcommand.h>
+#include <simondialogengine/avatar.h>
+#include <simondialogengine/dialogmanager.h>
 #include "dialogcommandbutton.h"
-#include "avatar.h"
 
 #include <simonactions/actionmanager.h>
 
@@ -34,7 +34,7 @@
 
 #include <KIcon>
 
-VisualDialogView::VisualDialogView(DialogCommandManager *dialog, QWidget *parent, Qt::WindowFlags flags) : 
+VisualDialogView::VisualDialogView(DialogManager *dialog, QWidget *parent, Qt::WindowFlags flags) : 
   QWidget(parent,flags),
   DialogView(dialog),
   ui(new Ui::DialogView)

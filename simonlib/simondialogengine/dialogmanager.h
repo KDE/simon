@@ -1,5 +1,4 @@
-/*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+/*   Copyright (C) 2010 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,32 +16,26 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGTEXTPARSER_H_7A7B9100FF5245329569C1B540119C37
+#ifndef DIALOGMANAGER_H_7A7B9100FF5245329562C1B540119C37
+#define DIALOGMANAGER_H_7A7B9100FF5245329562C1B540119C37
+#include "simondialogengine_export.h"
 
-#include <QList>
+class Avatar;
+class DialogState;
 
-class DialogDataProvider;
-class DialogTemplateOptions;
-class DialogBoundValues;
-
-class DialogTextParser
+class SIMONDIALOGENGINE_EXPORT DialogManager
 {
-  private:
-    DialogTemplateOptions *m_templateOptions;
-    DialogBoundValues *m_boundValues;
-
-    bool parseTemplates(QString& data);
-    bool parseBoundValues(QString& data);
-
-  public:
-    DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues);
-    ~DialogTextParser();
-
-    bool parse(QString& data);
+public:
+  virtual void initState(DialogState *state)=0;
+  virtual Avatar* getAvatar(int id) const=0;
+  virtual int getAvatarSize() const=0;
+  virtual bool getDisplayAvatarNames() const=0;
+  
+  virtual QString getOptionSeparatorText() const=0;
+  virtual QString getRepeatAnnouncement() const=0;
+  virtual bool getRepeatOnInvalidInput() const=0;
+  
+  virtual ~DialogManager() {}
 };
 
-#endif
-
-
-
+#endif // DIALOGMANAGER_H

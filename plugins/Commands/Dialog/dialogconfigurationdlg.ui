@@ -474,7 +474,7 @@
           <item row="1" column="1">
            <widget class="QCheckBox" name="cbDisplayAvatarNames">
             <property name="text">
-             <string>Display avatar names</string>
+             <string>Display avatar name</string>
             </property>
            </widget>
           </item>

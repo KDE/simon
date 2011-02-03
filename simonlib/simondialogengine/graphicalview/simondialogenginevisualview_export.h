@@ -17,35 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_DIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
-#define SIMON_DIALOGVIEW_H_7A7B9100FF5245329569C1B540119C37
+#ifndef SIMON_SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
+#define SIMON_SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT_H_4FA87AEF3A384359BC5F62307EE59A64
 
-class QFont;
-class DialogCommandManager;
-class DialogState;
-class QString;
+// needed for KDE_EXPORT and KDE_IMPORT macros
+#include <kdemacros.h>
 
-class DialogView
-{
-  protected:
-    DialogCommandManager *m_dialog;
-
-  public:
-    DialogView(DialogCommandManager *dialog) : m_dialog(dialog) {}
-
-    virtual bool start()=0;
-    virtual bool stop()=0;
-
-    virtual bool present(const DialogState& state)=0;
-
-    virtual void setFont(const QFont& /*font*/) {}
-
-    virtual void correctInputReceived() {};
-    virtual void warnOfInvalidInput(const QString& /*input*/) {}
-    virtual void repeat(const DialogState& /*state*/) {}
-
-    virtual ~DialogView() {}
-};
-
+#ifndef SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT
+# if defined(MAKE_SIMONDIALOGENGINEGRAPHICALVIEW_LIB)
+// We are building this library
+#  define SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT KDE_EXPORT
+# else
+// We are using this library
+#  define SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT KDE_IMPORT
+# endif
 #endif
 
+# ifndef SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT_DEPRECATED
+#  define SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT_DEPRECATED KDE_DEPRECATED SIMONDIALOGENGINEGRAPHICALVIEW_EXPORT
+# endif
+#endif

@@ -25,8 +25,9 @@
 #include <QString>
 #include <QDomElement>
 #include <QAbstractItemModel>
+#include "simondialogengine_export.h"
 
-class DialogTemplateOptions : public QAbstractItemModel
+class SIMONDIALOGENGINE_EXPORT DialogTemplateOptions : public QAbstractItemModel
 {
   private:
     QMap<QString, bool> options;

@@ -70,6 +70,9 @@ bool CreateAkonadiCommandWidget::init(Command* command)
     KMessageBox::sorry(this, i18n("Could not find child command: %1 (%2).", akonadiCommand->getChildTrigger(), 
 				  akonadiCommand->getChildType()));
   }
+  
+  ui.rbAbsolute->setChecked(akonadiCommand->getType() == AkonadiCommand::Absolute);
+  ui.rbRelative->setChecked(akonadiCommand->getType() != AkonadiCommand::Absolute);
 
   ui.dtAbsoluteTime->setDateTime(akonadiCommand->getAbsoluteExecutionTime().dateTime());
   AkonadiCommand::RelativeDurationDimension dimension;
@@ -104,7 +107,6 @@ Command* CreateAkonadiCommandWidget::createCommand(const QString& name, const QS
     type = AkonadiCommand::Absolute;
   else
     type = AkonadiCommand::Relative;
-  kDebug() << "type";
   
   int relativeTime;
   

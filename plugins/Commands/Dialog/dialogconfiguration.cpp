@@ -19,20 +19,20 @@
 #include "dialogconfiguration.h"
 #include "dialogcommandmanager.h"
 
-#include "dialogtemplateoptions.h"
-#include "dialogboundvalues.h"
+#include <simondialogengine/dialogtemplateoptions.h>
+#include <simondialogengine/dialogboundvalues.h>
 
-#include "boundvalue.h"
-#include "dialogstate.h"
-#include "dialogcommand.h"
+#include <simondialogengine/boundvalue.h>
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogcommand.h>
+#include <simondialogengine/avatarmodel.h>
+#include <simondialogengine/avatar.h>
+#include <simonscenarios/scenario.h>
+
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
 #include "createtemplateoptiondialog.h"
 #include "createboundvaluedialog.h"
-#include "avatarmodel.h"
-#include "avatar.h"
-
-#include <simonscenarios/scenario.h>
 
 #include <QVariantList>
 #include <QList>
@@ -724,6 +724,7 @@ void DialogConfiguration::displayCurrentState()
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
   
   ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
+  ui.lvAvatars->setEnabled(ui.cbDisplayAvatar->isChecked());
   kDebug() << currentState->getAvatarId();
   kDebug() <<(avatarModel->getAvatarIndex(currentState->getAvatarId()));
   ui.lvStateAvatar->selectionModel()->select(avatarModel->getAvatarIndex(currentState->getAvatarId()),

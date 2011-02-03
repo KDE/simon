@@ -17,28 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SCRIPTBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
-#define SIMON_SCRIPTBOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#ifndef SIMON_PLASMABOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
+#define SIMON_PLASMABOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
 
 #include "boundvalue.h"
+#include "simondialogengine_export.h"
 #include <QVariant>
 #include <QString>
 
-class ScriptBoundValue : public BoundValue
+namespace Plasma
+{
+  class DataEngine;
+}
+
+class SIMONDIALOGENGINE_EXPORT PlasmaBoundValue : public BoundValue
 {
   private:
-    QString m_script;
+    Plasma::DataEngine *m_currentEngine;
+    QString m_dataEngine;
+    QString m_dataEngineName;
+    QString m_dataSource;
+    QString m_key;
+
+    void initEngine();
 
   protected:
     bool deSerialize(const QDomElement& elem);
 
   public:
-    ScriptBoundValue(const QString& name);
-    ScriptBoundValue(const QString& name, const QString& script);
+    PlasmaBoundValue(const QString& name);
+    PlasmaBoundValue(const QString& name, const QString& dataEngine, const QString& dataEngineName, 
+        const QString& dataSource, const QString& key);
+    ~PlasmaBoundValue();
 
     QString getTypeName();
 
-    QString getScript() { return m_script; }
+    QString getDataEngine() { return m_dataEngine; }
+    QString getDataEngineName() { return m_dataEngineName; }
+    QString getDataSource() { return m_dataSource; }
+    QString getKey() { return m_key; }
+
     QVariant getValue();
     QString getValueDescription();
 
@@ -46,6 +64,7 @@ class ScriptBoundValue : public BoundValue
 };
 
 #endif
+
 
 
 

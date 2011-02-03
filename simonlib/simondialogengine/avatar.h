@@ -20,13 +20,14 @@
 #ifndef SIMON_AVATAR_H_4B4956DCAE204C49977297D20CB81F09
 #define SIMON_AVATAR_H_4B4956DCAE204C49977297D20CB81F09
 
+#include "simondialogengine_export.h"
 #include <QImage>
 #include <QString>
 #include <QDomElement>
 
 class QDomDocument;
 
-class Avatar
+class SIMONDIALOGENGINE_EXPORT Avatar
 {
 private:
   static const char* formatString;

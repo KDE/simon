@@ -17,42 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "dialogcommandbutton.h"
+#include <simondialogengine/dialogcommand.h>
 
-#ifndef SIMON_BOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
-#define SIMON_BOUNDVALUE_H_4B4956DCAE204C49977297D20CB81F09
-
-#include <QVariant>
-#include <QString>
-
-class QDomElement;
-class QDomDocument;
-
-class BoundValue
+DialogCommandButton::DialogCommandButton(DialogCommand* transition, QWidget *parent) :
+  KPushButton(parent),
+  m_transition(transition)
 {
-  private:
-    QString m_name;
+  setText(transition->text());
+  setObjectName(QString("dialogOption%1").arg(transition->getTrigger()));
 
-  protected:
-    BoundValue(const QString& name) : m_name(name) {}
+  if (transition->showIcon())
+    setIcon(transition->getIcon());
 
-    virtual bool deSerialize(const QDomElement& elem)=0;
-    virtual bool serializePrivate(QDomDocument *doc, QDomElement& elem, int& id)=0;
+  //setDescription(transition->getDescription());
+  setToolTip(transition->getDescription());
 
-  public:
-    virtual ~BoundValue() {}
+  connect(transition, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
+  connect(this, SIGNAL(clicked()), this, SLOT(go()));
+  connect(transition, SIGNAL(destroyed()), this, SLOT(deleteLater()));
+}
 
-    virtual QVariant getValue()=0;
-    virtual QString getValueDescription()=0;
-
-    static BoundValue* createInstance(const QDomElement& elem);
-
-    virtual QString getTypeName()=0;
-
-    QString getName() { return m_name; }
-
-    QDomElement serialize(QDomDocument *doc);
-
-};
-
-#endif
+void DialogCommandButton::go()
+{
+  m_transition->trigger(0);
+}
 

@@ -18,8 +18,8 @@
 
 #include "createavatardialog.h"
 #include "ui_createavatardlg.h"
-#include "avatar.h"
-#include "avatarmodel.h"
+#include <simondialogengine/avatar.h>
+#include <simondialogengine/avatarmodel.h>
 #include <QFile>
 #include <KStandardDirs>
 #include <KMessageBox>

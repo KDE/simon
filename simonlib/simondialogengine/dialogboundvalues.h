@@ -21,6 +21,7 @@
 #ifndef SIMON_DIALOGBOUNDVALUES_H_4B4956DCAE204C49977297D20CB81F09
 #define SIMON_DIALOGBOUNDVALUES_H_4B4956DCAE204C49977297D20CB81F09
 
+#include "simondialogengine_export.h"
 #include <QList>
 #include <QString>
 #include <QDomElement>
@@ -28,7 +29,7 @@
 
 class BoundValue;
 
-class DialogBoundValues : public QAbstractItemModel
+class SIMONDIALOGENGINE_EXPORT DialogBoundValues : public QAbstractItemModel
 {
   private:
     QList<BoundValue*> boundValues;
