@@ -7,16 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-22 23:12+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -48,6 +48,7 @@ msgstr "Sélectionner une application depuis une liste"
 #. i18n: file: createexecutablecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbManual)
 #: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
 msgctxt "Enter information by hand"
 msgid "Manual"
 msgstr "Manuel"
@@ -61,6 +62,7 @@ msgstr "Configurer les paramètres nécessaires manuellement"
 #. i18n: file: createexecutablecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: po/rc.cpp:15 rc.cpp:15
+#, fuzzy
 msgctxt "Executable file (program)"
 msgid "Executable:"
 msgstr "Exécutable :"
@@ -85,3 +87,159 @@ msgstr "yann.cantin@laposte.net"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
+#, fuzzy
+#~ msgid "Director"
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgctxt "Page size"
+#~ msgid "US Executive"
+#~ msgstr "Exécutable"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgid "Configure the necessairy parameters manually"
+#~ msgstr "Configurer les paramètres nécessaires manuellement"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Dossier de travail"
+
+#, fuzzy
+#~ msgid "Directory:"
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgid "HTK Programs"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgid "Importing Dictionary"
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Dossier de travail"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Pretty label showing the user that the transcription and the result "
+#~ "mismatch"
+#~ msgid "%1 (correct: %2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "Author (contact information)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "Name and contact information"
+#~ msgid "<p>%1 (%2)</p>"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "KDE Test Program"
+#~ msgstr "Application"
+
+#, fuzzy
+#~ msgid "xsltproc &executable:"
+#~ msgstr "Exécutable :"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgctxt "In which directory is the file located?"
+#~ msgid "&Directory:"
+#~ msgstr "Dossier de travail :"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Parsing directory..."
+#~ msgstr "Dossier de travail"
+
+#, fuzzy
+#~ msgctxt "%1 is collection name, %2 is image count in collection"
+#~ msgid "%1 (%2 image)"
+#~ msgid_plural "%1 (%2 images)"
+#~ msgstr[0] "%1 (%2)"
+#~ msgstr[1] "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgid "%1%"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "<Tool Name> (<Single Accel Key>)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Selection (Free-Form)"
+#~ msgstr "Sélectionner une application"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Sélectionner une application"

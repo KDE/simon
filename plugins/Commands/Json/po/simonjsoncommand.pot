@@ -18,30 +18,54 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: aicommandmanager.cpp:53 aicommandmanager.cpp:113 aiconfiguration.cpp:32
-msgid "Artificial Intelligence"
+#: jsoncommand.cpp:33 jsoncommandmanager.cpp:89 jsonconfiguration.cpp:28
+msgid "Json"
 msgstr ""
 
-#: aicommandmanager.cpp:113
-msgid "Loading artificial intelligence..."
+#: jsoncommand.cpp:58
+msgctxt "Url of the call"
+msgid "Url"
 msgstr ""
 
-#: aiconfiguration.cpp:33
-msgid "Voice controlled chatbot"
+#: jsoncommand.cpp:59
+msgctxt "The request itself (\"function\")"
+msgid "Request"
 msgstr ""
 
-#. i18n: file: aiconfigurationdlg.ui:21
+#: jsonconfiguration.cpp:29
+msgid "Send JSON messages"
+msgstr ""
+
+#. i18n: file: createjsoncommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:3 rc.cpp:3
-msgid "AI Personality:"
+msgid "URL:"
 msgstr ""
 
-#: po/rc.cpp:4 rc.cpp:4
+#. i18n: file: createjsoncommandwidget.ui:30
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Request:"
+msgstr ""
+
+#. i18n: file: jsonconfigurationdlg.ui:26
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Host:"
+msgstr ""
+
+#. i18n: file: jsonconfigurationdlg.ui:36
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Port:"
+msgstr ""
+
+#: po/rc.cpp:13 rc.cpp:13
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:5 rc.cpp:5
+#: po/rc.cpp:14 rc.cpp:14
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

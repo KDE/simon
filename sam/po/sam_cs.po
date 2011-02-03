@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-17 17:45+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: 2010-06-28 16:35+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -34,13 +34,13 @@ msgstr "Výsledky zkoušky"
 msgid "sam: part of simon %1\n"
 msgstr ""
 
-#: exporttestresults.cpp:208
+#: exporttestresults.cpp:210
 msgid ""
 "Could not initialize output template at \"%1\". Please select a valid output "
 "format."
 msgstr ""
 
-#: exporttestresults.cpp:219
+#: exporttestresults.cpp:221
 msgid ""
 "Output type not supported: %1.\n"
 "\n"
@@ -48,7 +48,7 @@ msgid ""
 "sam."
 msgstr ""
 
-#: exporttestresults.cpp:238
+#: exporttestresults.cpp:240
 #, fuzzy
 msgid "Failed to parse template: %1"
 msgstr ""
@@ -798,14 +798,16 @@ msgstr "Zpráva o zkoušce:"
 #. i18n: file: samui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:247
+#, fuzzy
 msgid "Main Actions"
 msgstr "Hlavní činnosti"
 
 #. i18n: file: samui.rc:17
 #. i18n: ectx: Menu (build)
 #: rc.cpp:250
+#, fuzzy
 msgid "Build"
-msgstr "Sestavit"
+msgstr "Zpráva o sestavení:"
 
 #. i18n: file: samui.rc:23
 #. i18n: ectx: Menu (test)
@@ -917,5 +919,1022 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#~ msgid "Individual words"
+#, fuzzy
+#~ msgid "Settings"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "Bez názvu"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Creator"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Audio Files"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Video Files"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Open audio file(s)"
+#~ msgstr "Výstupní soubory"
+
+#, fuzzy
+#~ msgid "No results"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Restore Defaults"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "okular"
+#~ msgstr "Slovní zásoba:"
+
+#, fuzzy
+#~ msgid "settings"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid " instances"
+#~ msgstr "Věty"
+
+#, fuzzy
+#~ msgid "Create a New Edge"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Could not open file <i>%1</i> for reading."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Does not Contain"
+#~ msgstr "Znovu se neptat"
+
+#, fuzzy
+#~ msgid "&Quick Actions"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgctxt "Vehicle types used in a journey with public transport"
+#~ msgid "Vehicle types"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgctxt "The company that is responsible for this departure/arrival/journey"
+#~ msgid "Operator:"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Export Filter Settings"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Maintainer"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Do nothing"
+#~ msgstr "Znovu se neptat"
+
+#, fuzzy
+#~ msgid "&Settings"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Default mode:"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Formatted result"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "Static value"
+#~ msgstr "Neměnný model"
+
+#, fuzzy
+#~ msgid "Next state:"
+#~ msgstr "Základní statistiky:"
+
+#, fuzzy
+#~ msgid "Output"
+#~ msgstr "Výstupní soubory"
+
+#, fuzzy
+#~ msgid "Input Number"
+#~ msgstr "Vstupní soubory"
+
+#, fuzzy
+#~ msgid "smb"
+#~ msgstr "sam"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "Grammar Settings"
+#~ msgstr "Mluvnice:"
+
+#, fuzzy
+#~ msgid "Sentences:"
+#~ msgstr "Věty"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Věty"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "HTK Lexicon"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "PLS Lexicon"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "SPHINX Lexicon"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "Julius Vocabulary"
+#~ msgstr "Slovní zásoba:"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Výzvy:"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Základní vázaný seznam:"
+
+#, fuzzy
+#~ msgid "Model type:"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "User generated model"
+#~ msgstr "Výlučně uživatelem vytvořený model"
+
+#, fuzzy
+#~ msgid "HMM definition:"
+#~ msgstr "Vymezení HMM:"
+
+#, fuzzy
+#~ msgid "Macros:"
+#~ msgstr "Základní makra:"
+
+#, fuzzy
+#~ msgid "Adapt grammar"
+#~ msgstr "Zpráva o přizpůsobení:"
+
+#, fuzzy
+#~ msgid "Include similar words"
 #~ msgstr "Jednotlivá slova"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Vstupní soubory"
+
+#, fuzzy
+#~ msgid "Active Vocabulary"
+#~ msgstr "Slovní zásoba:"
+
+#, fuzzy
+#~ msgid "Shadow Vocabulary"
+#~ msgstr "Slovní zásoba:"
+
+#, fuzzy
+#~ msgid "Build sentences"
+#~ msgstr "Věty"
+
+#, fuzzy
+#~ msgid "Choose Model"
+#~ msgstr "Základní model"
+
+#, fuzzy
+#~ msgid "Configure base models"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Get scenarios"
+#~ msgstr "Přizpůsobit scénáře"
+
+#, fuzzy
+#~ msgid "Icon:"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "Scenario"
+#~ msgstr "Přizpůsobit scénáře"
+
+#, fuzzy
+#~ msgid "Input"
+#~ msgstr "Vstupní soubory"
+
+#, fuzzy
+#~ msgid "Sample-Rate:"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "Microphone type:"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Upravit nahrávku"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "Přizpůsobení zrušeno"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Timer type"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "Could not find child command: %1 (%2)."
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Couldn't open temporary file at \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Rename state"
+#~ msgstr "Základní statistiky:"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to update state text."
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to edit set"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Failed to add tab"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to edit tab"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to delete tab"
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Open local file: %1"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Základní model"
+
+#, fuzzy
+#~ msgid "Scenarios"
+#~ msgstr "Přizpůsobit scénáře"
+
+#, fuzzy
+#~ msgid "Connecting aborted"
+#~ msgstr "Přizpůsobení zrušeno"
+
+#, fuzzy
+#~ msgid "Could not add %1 to the Prompts-Table"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Opening Lexicon"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Create Text"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Vstupní soubory"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Select base tiedlist"
+#~ msgstr "Základní vázaný seznam:"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Základní makra:"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Základní statistiky:"
+
+#, fuzzy
+#~ msgid "Synchronizing scenarios"
+#~ msgstr "Vydat scénáře"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgctxt "Model compilation status message"
+#~ msgid "Model: %1"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "Compiling model"
+#~ msgstr "Sestavit model"
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Manage scenarios"
+#~ msgstr "Přizpůsobit scénáře"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgctxt "Typename of static bound values"
+#~ msgid "Static"
+#~ msgstr "Neměnný model"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Expected result"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Actual result"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Recognition rate (confidence scored)"
+#~ msgstr "Celková rychlost rozpoznávání:"
+
+#, fuzzy
+#~ msgid "Testing model..."
+#~ msgstr "Vyzkoušet model"
+
+#, fuzzy
+#~ msgid "Could not open prompts file for reading: %1"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open wavlist file for writing: %1"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open julius jconf file: \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open hmm definitions"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Prompts entry: %1"
+#~ msgstr "Výzvy:"
+
+#, fuzzy
+#~ msgctxt "The operation has been canceled"
+#~ msgid "Aborted"
+#~ msgstr "Přizpůsobení zrušeno"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "Sentence"
+#~ msgstr "Věty"
+
+#, fuzzy
+#~ msgid "%1 Prompts read"
+#~ msgstr "Výzvy:"
+
+#, fuzzy
+#~ msgid "Export to file"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Select scenario file"
+#~ msgstr "Vydat scénáře"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Select scenario output file"
+#~ msgstr "Výstup vydaných scénářů"
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Výstupní soubory"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Vstupní soubory"
+
+#, fuzzy
+#~ msgid "Couldn't import set from \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Adapting model..."
+#~ msgstr "Přizpůsobený základní model"
+
+#, fuzzy
+#~ msgid "Could not adapt prompts. Does the file \"%1\" exist?"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Failed to adapt lexicon to \"%1\", \"%2\""
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not modify institution: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve institutions: %1"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not modify user \"%1\": %2"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Send samples"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Server could not process sample: %1"
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Nepodařilo se přepsat soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the user is required to repeat what the recording "
+#~ "facilitator tells him"
+#~ msgid "Repeating"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid "Invalid set of prompts"
+#~ msgstr "Vydat výzvy"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Edit samples pack"
+#~ msgstr "Upravit nahrávku"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Unable to open file."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Unable to open file "
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "File Exists"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Merge result"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Create Folder..."
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Start in fullscreen mode"
+#~ msgstr "Neměnný model"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Upravit nahrávku"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rating"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr[1] ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr[2] ""
+#~ "Model se nepodařilo přizpůsobit:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr ""
+#~ "Nepodařilo se zkopírovat nahrávku z dočasného %1 do cílového umístění %2"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Neznámý typ modelu"
+
+#, fuzzy
+#~ msgid "Gamma:"
+#~ msgstr "Mluvnice:"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\" - out of graphics memory."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Nepodařilo se nalézt scénář: %1"
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Nepodařilo se odstranit původní nahrávku: %1"
+
+#, fuzzy
+#~ msgid "&Gamma:"
+#~ msgstr "Mluvnice:"
+
+#, fuzzy
+#~ msgid "untitled"
+#~ msgstr "Bez názvu"
+
+#, fuzzy
+#~ msgid "Rebuild"
+#~ msgstr "Sestavit"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Mexico"
+#~ msgstr "Slovníček:"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Palestine"
+#~ msgstr "Zkouška"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Základní vymezení HMM:"
+
+#, fuzzy
+#~ msgid "Basic Options"
+#~ msgstr "Hlavní činnosti"
+
+#, fuzzy
+#~ msgid "Gamma"
+#~ msgstr "Mluvnice:"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Created"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Cannot find font %1, file %2."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Cannot recognize format for font file %1"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Cannot open font file %1."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Export File As"
+#~ msgstr "Výsledky zkoušky"
+
+#, fuzzy
+#~ msgid "Font generation aborted"
+#~ msgstr "Přizpůsobení zrušeno"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Neznámý typ modelu"
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "Could not open the temporary file for saving."
+#~ msgstr "Nelze otevřít soubor: %1"
+
+#, fuzzy
+#~ msgid "*|All Files"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgid "Created: %1"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Modified: %1"
+#~ msgstr "Slovo neurčeno: %1"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Soubory"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Created"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Nepodařilo se upravit soubor s výzvami"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Neznámý typ modelu"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Neznámý typ modelu"
+
+#, fuzzy
+#~ msgid "Camera Model"
+#~ msgstr "Vytvořit model"
+
+#, fuzzy
+#~ msgid "Model"
+#~ msgstr "Typ modelu"
+
+#, fuzzy
+#~ msgid "Creation Date"
+#~ msgstr "Přizpůsobení zrušeno"

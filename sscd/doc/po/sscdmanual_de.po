@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-08 10:29+0000\n"
+"POT-Creation-Date: 2011-02-03 15:13+0000\n"
 "PO-Revision-Date: 2010-09-08 12:38+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -40,7 +40,8 @@ msgstr "<releaseinfo>0.3</releaseinfo>"
 #. Tag: para
 #: index.docbook:72 index.docbook:115
 #, no-c-format
-msgid "&kmyapplication; is the server component of the ssc sample acquisition tool."
+msgid ""
+"&kmyapplication; is the server component of the ssc sample acquisition tool."
 msgstr ""
 "&kmyapplication; ist die Serverkomponente zum ssc Werkzeug zum sammeln von "
 "Aufnahmen."
@@ -71,13 +72,13 @@ msgstr "simon"
 
 #. Tag: keyword
 #: index.docbook:82
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "sample"
 msgstr "sample"
 
 #. Tag: keyword
 #: index.docbook:83
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "speech"
 msgstr "speech"
 
@@ -89,19 +90,19 @@ msgstr "Sprache"
 
 #. Tag: keyword
 #: index.docbook:85
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "acquisition"
-msgstr "sammeln"
+msgstr "Installation"
 
 #. Tag: keyword
 #: index.docbook:86
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "recording"
 msgstr "Aufnahme"
 
 #. Tag: keyword
 #: index.docbook:87
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "accessibility"
 msgstr "accessibility"
 
@@ -131,9 +132,9 @@ msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: title
 #: index.docbook:113
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Introduction"
-msgstr "Einleitung"
+msgstr "Installation"
 
 #. Tag: para
 #: index.docbook:118
@@ -171,9 +172,9 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:129
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Using &kmyapplication;"
-msgstr "&kmyapplication; verwenden"
+msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: para
 #: index.docbook:131
@@ -187,9 +188,9 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:135
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Base folder"
-msgstr "Basisordner"
+msgstr "ssc Basisordner"
 
 #. Tag: para
 #: index.docbook:136
@@ -219,7 +220,7 @@ msgstr "ssc Basisordner"
 
 #. Tag: entry
 #: index.docbook:146
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -236,8 +237,8 @@ msgid ""
 "<filename>Installation folder of sscd.exe (usually: C:\\Program Files\\simon "
 "0.3\\bin\\sscd.exe</filename>)"
 msgstr ""
-"<filename>Installationsordner von sscd.exe (normalerweise: C:\\Programme\\simon "
-"0.3\\bin\\sscd.exe</filename>)"
+"<filename>Installationsordner von sscd.exe (normalerweise: C:\\Programme"
+"\\simon 0.3\\bin\\sscd.exe</filename>)"
 
 #. Tag: filename
 #: index.docbook:153
@@ -259,8 +260,9 @@ msgid ""
 "file (<filename>sscd.conf</filename>) stored in the <link linkend="
 "\"sscd_directory\">sscd directory</link>."
 msgstr ""
-"Es existiert keine grafische Konfiguration für sscd aber es gibt eine Konfigurationsdatei (<filename>sscd.conf</filename>) "
-"die im <link linkend=\"sscd_directory\">Basisordner</link> gespeichert ist."
+"Es existiert keine grafische Konfiguration für sscd aber es gibt eine "
+"Konfigurationsdatei (<filename>sscd.conf</filename>) die im <link linkend="
+"\"sscd_directory\">Basisordner</link> gespeichert ist."
 
 #. Tag: para
 #: index.docbook:166
@@ -268,7 +270,9 @@ msgstr ""
 msgid ""
 "The default configuration file is heavily commented and should be self-"
 "explanatory."
-msgstr "Die Standardkonfigurationsdatei ist gut dokumentiert und sollte selbstklärend sein."
+msgstr ""
+"Die Standardkonfigurationsdatei ist gut dokumentiert und sollte "
+"selbstklärend sein."
 
 #. Tag: para
 #: index.docbook:168
@@ -278,8 +282,9 @@ msgid ""
 "DatabasePassword entry of the configuration file. See <link linkend="
 "\"database\">the database section</link> for more information."
 msgstr ""
-"Bevor Sie sscd starten werden Sie vermutlich zumindest den Eintrag DatabaseUser und DatabasePassword anpassen wollen. Sehen "
-"Sie die <link linkend=\"database\">Datenbank Sektion</link> für mehr Informationen."
+"Bevor Sie sscd starten werden Sie vermutlich zumindest den Eintrag "
+"DatabaseUser und DatabasePassword anpassen wollen. Sehen Sie die <link "
+"linkend=\"database\">Datenbank Sektion</link> für mehr Informationen."
 
 #. Tag: screen
 #: index.docbook:170
@@ -373,7 +378,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:174
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Database"
 msgstr "Datenbank"
 
@@ -387,9 +392,11 @@ msgid ""
 "<ulink url=\"mailto:support@simon-listens.org\">simon team</ulink> if "
 "necessary."
 msgstr ""
-"&kmyapplication; speichert die Sprecher und die Aufnahmenendaten (aber nicht die Aufnahmen selbst) ein einer Datenbank. "
-"Derzeit werden nur MySQL Datenbanken voll unterstützt. Support für eine neue Datenbank ist aber trivial. Kontaktieren Sie "
-"das <ulink url=\"mailto:support@simon-listens.org\">simon Team</ulink> falls notwendig."
+"&kmyapplication; speichert die Sprecher und die Aufnahmenendaten (aber nicht "
+"die Aufnahmen selbst) ein einer Datenbank. Derzeit werden nur MySQL "
+"Datenbanken voll unterstützt. Support für eine neue Datenbank ist aber "
+"trivial. Kontaktieren Sie das <ulink url=\"mailto:support@simon-listens.org"
+"\">simon Team</ulink> falls notwendig."
 
 #. Tag: para
 #: index.docbook:178
@@ -399,8 +406,10 @@ msgid ""
 "create script <filename>mysql_create_script.sql</filename> installed in the "
 "<link linkend=\"sscd_directory\">base directory</link> of &kmyapplication;."
 msgstr ""
-"Um die notwendigen Tabellen einzurichten liefert &kmyapplication; ein entsprechendes Skript <filename>mysql_create_script."
-"sql</filename> mit aus das im <link linkend=\"sscd_directory\">Basisordner</link> von &kmyapplication; liegt."
+"Um die notwendigen Tabellen einzurichten liefert &kmyapplication; ein "
+"entsprechendes Skript <filename>mysql_create_script.sql</filename> mit aus "
+"das im <link linkend=\"sscd_directory\">Basisordner</link> von "
+"&kmyapplication; liegt."
 
 #. Tag: para
 #: index.docbook:181
@@ -409,8 +418,8 @@ msgid ""
 "Database errors can be found in the <filename>error.log</filename> which "
 "also resides in the base folder."
 msgstr ""
-"Datenbankfehler können in der Fehlerprotokolldatei <filename>error.log</filename> gefunden werden die ebenfalls im "
-"Basisordner liegt."
+"Datenbankfehler können in der Fehlerprotokolldatei <filename>error.log</"
+"filename> gefunden werden die ebenfalls im Basisordner liegt."
 
 #. Tag: title
 #: index.docbook:187
@@ -425,8 +434,8 @@ msgid ""
 "To build models using the samples collected with &kmyapplication; you first "
 "have to extract them from the database."
 msgstr ""
-"Um Modelle aus den Aufnahmen die in &kmyapplication; gesammelt wurden zu erstellen müssen Sie diese zuerst aus der Datenbank "
-"extrahieren."
+"Um Modelle aus den Aufnahmen die in &kmyapplication; gesammelt wurden zu "
+"erstellen müssen Sie diese zuerst aus der Datenbank extrahieren."
 
 #. Tag: para
 #: index.docbook:192
@@ -436,8 +445,9 @@ msgid ""
 "is not end user friendly. The documentation below is mainly provided for "
 "technically skilled professionals."
 msgstr ""
-"Weil &kmyapplication; für große Installationen gedacht ist ist dieser Prozess derzeit noch nicht Endanwenderfreundlich. Die "
-"Dokumentation hier ist hauptsächlich für technisch versierte Profis gedacht."
+"Weil &kmyapplication; für große Installationen gedacht ist ist dieser "
+"Prozess derzeit noch nicht Endanwenderfreundlich. Die Dokumentation hier ist "
+"hauptsächlich für technisch versierte Profis gedacht."
 
 #. Tag: para
 #: index.docbook:195
@@ -445,7 +455,9 @@ msgstr ""
 msgid ""
 "Most of the scripts below require the GNU tools (usually available by "
 "default on GNU/Linux)."
-msgstr "Die meisten Skripte hier benötigen die GNU Tools (normalerweise standardmäßig installiert auf GNU/Linux)."
+msgstr ""
+"Die meisten Skripte hier benötigen die GNU Tools (normalerweise "
+"standardmäßig installiert auf GNU/Linux)."
 
 #. Tag: para
 #: index.docbook:200
@@ -454,8 +466,8 @@ msgid ""
 "You can use the following query (minor adjustments will be necessary "
 "depending on what samples exactly you need):"
 msgstr ""
-"Sie können die folgende Query (kleine Anpassungen sind je nach dem welche Aufnahmen Sie extrahieren wollen eventuell "
-"notwendig) verwenden:"
+"Sie können die folgende Query (kleine Anpassungen sind je nach dem welche "
+"Aufnahmen Sie extrahieren wollen eventuell notwendig) verwenden:"
 
 #. Tag: screen
 #: index.docbook:202
@@ -489,13 +501,17 @@ msgstr ""
 msgid ""
 "This query will list all samples from institution 3 that were recorded with "
 "microphone 1."
-msgstr "Diese Query wird eine Liste aller Sample von Institution 3 holen die Mikrofon 1 aufgenommen wurden."
+msgstr ""
+"Diese Query wird eine Liste aller Sample von Institution 3 holen die "
+"Mikrofon 1 aufgenommen wurden."
 
 #. Tag: para
 #: index.docbook:207
 #, no-c-format
 msgid "You can then for example use this script to create a prompts file:"
-msgstr "Sie können diese Liste zum Beispiel verwenden um eine prompts Datei zu erzeugen."
+msgstr ""
+"Sie können diese Liste zum Beispiel verwenden um eine prompts Datei zu "
+"erzeugen."
 
 #. Tag: screen
 #: index.docbook:208
@@ -531,8 +547,9 @@ msgid ""
 "to list all the sentences contained in the prompts file. You can do this "
 "with this script:"
 msgstr ""
-"Um das entsprechende Wörterbuch für das Modellkompilieren zu kreieren benötigen Sie eventuell eine Liste aller Sätze die in "
-"der prompts-Datei enthalten sind. Sie können so eine Liste mit dem folgenden Skript erstellen:"
+"Um das entsprechende Wörterbuch für das Modellkompilieren zu kreieren "
+"benötigen Sie eventuell eine Liste aller Sätze die in der prompts-Datei "
+"enthalten sind. Sie können so eine Liste mit dem folgenden Skript erstellen:"
 
 #. Tag: screen
 #: index.docbook:217
@@ -565,13 +582,13 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:233
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Credits and License"
 msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
 #: index.docbook:235
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "&kmyapplication;"
 msgstr "&kmyapplication;"
 
@@ -599,9 +616,7 @@ msgstr ""
 #: index.docbook:246
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
-msgstr ""
-"<para>Peter Grasch"
-"<email>grasch@simon-listens.org</email></para>"
+msgstr "<para>Peter Grasch<email>grasch@simon-listens.org</email></para>"
 
 #. Tag: chapter
 #: index.docbook:246
@@ -611,7 +626,7 @@ msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: index.docbook:255
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
@@ -622,9 +637,321 @@ msgid ""
 "Please see our <ulink url=\"http://www.simon-listens.org/wiki/index.php/"
 "English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""
-"Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index.php/"
-"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index."
+"php/English:_Setup\">online Wiki</ulink> for eine detaillierte "
 "Installationsanleitung."
+
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Saturation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Application icon"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "sammeln"
+
+#, fuzzy
+#~ msgid "Reloading"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Reload Confirmation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "International"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "SpeechCal"
+#~ msgstr "speech"
+
+#, fuzzy
+#~ msgid "Data source:"
+#~ msgstr "Datenbank"
+
+#, fuzzy
+#~ msgid "Press and release"
+#~ msgstr "Danksagungen und Lizenz"
+
+#, fuzzy
+#~ msgid "Samples:"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Base model"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgid "Test configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Edit sample"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Encoding:"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Configure simond"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Record"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Recordings:"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Recordings"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Data"
+#~ msgstr "Datenbank"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Institution:"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Institutions"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Subtraction"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Multiplication"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgid "sam"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Modify sample"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Recording:"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgctxt "The option to use pre-recorded sounds instead of the tts system"
+#~ msgid "Recordings"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Send samples"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Power Recording"
+#~ msgstr "Aufnahme"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Motor function"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "&Configure"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "KDE Accessibility Bridge"
+#~ msgstr "accessibility"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "&kmyapplication; verwenden"
+
+#, fuzzy
+#~ msgid "Closing Configuration Window"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Initial Configuration - KMouth"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "sammeln"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Paste One Folder"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgid "%1 folder"
+#~ msgid_plural "%1 folders"
+#~ msgstr[0] "Basisordner"
+#~ msgstr[1] "Basisordner"
+
+#, fuzzy
+#~ msgid "Source folder"
+#~ msgstr "Basisordner"
+
+#, fuzzy
+#~ msgid "Configure..."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Camera configuration failed."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Accessibility Reading Aids"
+#~ msgstr "accessibility"
+
+#, fuzzy
+#~ msgid "Configure Backends"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Installation"
+#~ msgstr[1] "Installation"
 
 #~ msgid "simond user database storage"
 #~ msgstr "simond Benutzerdatenbank"

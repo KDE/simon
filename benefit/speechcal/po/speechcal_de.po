@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-23 16:06+0100\n"
-"PO-Revision-Date: 2010-12-23 16:09+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
+"PO-Revision-Date: 2011-02-03 16:15+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -33,36 +33,36 @@ msgstr "(C) 2010 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#: speechcal.cpp:54
+#: speechcal.cpp:55
 msgid "Failed to contact akonadi."
 msgstr "Konnte Akonadi nicht kontaktieren"
 
-#: speechcal.cpp:96 speechcal.cpp:107
+#: speechcal.cpp:101 speechcal.cpp:112
 msgid "Job returned error: %1"
 msgstr "Job lieferte Fehler: %1"
 
 #. i18n: file: main.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDate)
-#: speechcal.cpp:124 rc.cpp:6
+#: speechcal.cpp:129 rc.cpp:6
 msgid "Loading..."
 msgstr "Lade..."
 
-#: speechcal.cpp:128
+#: speechcal.cpp:133
 msgid "Received collection: %1"
 msgstr "Kollektionen erhalten: %1"
 
-#: speechcal.cpp:142
+#: speechcal.cpp:147
 msgid "Retrieved %1 items from collection"
 msgstr "Erhielt %1 Elemente der Kollektion"
 
-#: speechcal.cpp:157
+#: speechcal.cpp:162
 msgid ""
 "Fetched event has wrong type and could not be deserialized (Payload: %1)"
 msgstr ""
 "Geladener event hat falschen Typen und konnte nicht deserialisiert werden "
 "(Payload: %1)"
 
-#: speechcal.cpp:180
+#: speechcal.cpp:184
 msgid "Retrieved %1 relevant items"
 msgstr "Erhielt %1 relevante Elemente"
 
@@ -103,3 +103,4 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+

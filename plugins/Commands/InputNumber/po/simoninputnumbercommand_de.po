@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:30+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -256,15 +256,309 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#~ msgid "Input numbers with ease"
-#~ msgstr "Zahlen eingeben leicht gemacht"
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Abbrechen"
 
-#~ msgctxt "Name of the decimal seperator"
-#~ msgid "Comma"
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Nummer"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "Command:"
 #~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Points (pt)"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Zahl eingeben"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Neun"
 
 #~ msgid "Form"
 #~ msgstr "Form"
 
+#, fuzzy
+#~ msgid "Only number input"
+#~ msgstr "Zeigt die Nummerneingabe an"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr ","
+
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Zurück"
+
 #~ msgid "Trigger:"
 #~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Zahl eingeben"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Zwei"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Drei"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Vier"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Fünf"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sieben"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Clears the whole input"
+#~ msgstr "Zeigt die Nummerneingabe an"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog and sends the input"
+#~ msgstr "Akzeptiert den Eingabedialog und schreibt die Nummer"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog"
+#~ msgstr "Bricht den Dialog ab"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Zeigt die Nummerneingabe an"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "Display the desktop grid"
+#~ msgstr "Zeigt die Nummerneingabe an"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Aktiviere Nummerneingabe"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Aktiviere Nummerneingabe"
+
+#, fuzzy
+#~ msgctxt "Close the dialog"
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgid "Input signes with ease"
+#~ msgstr "Zahlen eingeben leicht gemacht"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Hides the dialog"
+#~ msgstr "Bricht den Dialog ab"
+
+#, fuzzy
+#~ msgid "Display the test results."
+#~ msgstr "Zeigt die Nummerneingabe an"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Bricht den Dialog ab"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Null"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Zurück"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Komma"

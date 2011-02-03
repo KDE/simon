@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-06 14:47+0000\n"
+"POT-Creation-Date: 2011-02-03 15:14+0000\n"
 "PO-Revision-Date: 2010-09-06 16:50+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -73,13 +73,13 @@ msgstr "simon"
 
 #. Tag: keyword
 #: index.docbook:86
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "recognition"
 msgstr "Erkennung"
 
 #. Tag: keyword
 #: index.docbook:87
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "speech"
 msgstr "Sprache"
 
@@ -91,19 +91,19 @@ msgstr "Sprecher"
 
 #. Tag: keyword
 #: index.docbook:89
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "command"
 msgstr "Kommando"
 
 #. Tag: keyword
 #: index.docbook:90
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "control"
 msgstr "Kontrolle"
 
 #. Tag: keyword
 #: index.docbook:91
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "accessibility"
 msgstr "Zugangshilfe"
 
@@ -133,9 +133,9 @@ msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: title
 #: index.docbook:126
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Introduction"
-msgstr "Einleitung"
+msgstr "Installation"
 
 #. Tag: para
 #: index.docbook:128
@@ -216,7 +216,7 @@ msgstr "Screenshot von der &kappname;-Konfiguration"
 
 #. Tag: phrase
 #: index.docbook:169
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "ksimond configuration"
 msgstr "ksimond Konfiguration"
 
@@ -250,13 +250,13 @@ msgstr ""
 
 #. Tag: screeninfo
 #: index.docbook:182
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "screenshot of the simond user configuration"
-msgstr "Screenshot der simond Benutzerkonfiguration"
+msgstr "Screenshot der simond Netzwerkkonfiguration"
 
 #. Tag: phrase
 #: index.docbook:188
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "simond user configuration"
 msgstr "simond Benutzerkonfiguration"
 
@@ -268,9 +268,9 @@ msgstr "Screenshot der simond Netzwerkkonfiguration"
 
 #. Tag: phrase
 #: index.docbook:200
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "simond network configuration"
-msgstr "simond Netzwerkkonfiguration"
+msgstr "Screenshot der simond Netzwerkkonfiguration"
 
 #. Tag: screeninfo
 #: index.docbook:206
@@ -280,19 +280,19 @@ msgstr "Bildschirmfoto der Sprachmodellkonfiguration"
 
 #. Tag: phrase
 #: index.docbook:212
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "simond speech model configuration"
-msgstr "simond Sprachmodellkonfiguration"
+msgstr "Bildschirmfoto der Sprachmodellkonfiguration"
 
 #. Tag: title
 #: index.docbook:223
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Credits and License"
 msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
 #: index.docbook:225
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "&kappname;"
 msgstr "&kappname;"
 
@@ -332,7 +332,7 @@ msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: index.docbook:255
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
@@ -355,7 +355,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:266
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Requirements"
 msgstr "Voraussetzungen"
 
@@ -374,14 +374,12 @@ msgid ""
 "simon and simond itself can be found on <ulink url=\"http://sourceforge.net/"
 "projects/speech2text\">the simon sourceforge page</ulink>."
 msgstr ""
-"simon und simond können auf der <ulink url=\"http://sourceforge."
-"net/"
-"projects/speech2text\">simon Sourceforge "
-"Seite</ulink> finden."
+"simon und simond können auf der <ulink url=\"http://sourceforge.net/projects/"
+"speech2text\">simon Sourceforge Seite</ulink> finden."
 
 #. Tag: title
 #: index.docbook:280
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Compilation and Installation"
 msgstr "Kompilierung und Installation"
 
@@ -393,9 +391,327 @@ msgid ""
 "English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""
 "Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index."
-"php/"
-"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"php/English:_Setup\">online Wiki</ulink> for eine detaillierte "
 "Installationsanleitung."
+
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Hide controls"
+#~ msgstr "Kontrolle"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Media controller"
+#~ msgstr "Kontrolle"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Opening in new window confirmation"
+#~ msgstr "simond Netzwerkkonfiguration"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Reload Confirmation"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr "simond Netzwerkkonfiguration"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "International"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "New Name of the Filter Configuration:"
+#~ msgstr "Screenshot der simond Benutzerkonfiguration"
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "simond Benutzerkonfiguration"
+
+#, fuzzy
+#~ msgid "kapp4_base"
+#~ msgstr "&kappname;"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "SpeechCal"
+#~ msgstr "Sprache"
+
+#, fuzzy
+#~ msgid "Show controls:"
+#~ msgstr "Kontrolle"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Execute commands"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Text to speech configuration"
+#~ msgstr "simond Sprachmodellkonfiguration"
+
+#, fuzzy
+#~ msgid "Request:"
+#~ msgstr "Voraussetzungen"
+
+#, fuzzy
+#~ msgid "Press and release"
+#~ msgstr "Danksagungen und Lizenz"
+
+#, fuzzy
+#~ msgid "Autorun command:"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Recognition Rate:"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Recognition Rate"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Institution:"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Institutions"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Subtraction"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgctxt "The request itself (\"function\")"
+#~ msgid "Request"
+#~ msgstr "Voraussetzungen"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Control"
+#~ msgstr "Kontrolle"
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Recognition: %1"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Continuing recognition"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Synchronization"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Recognizing..."
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "Motor function"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Speech Control"
+#~ msgstr "Kontrolle"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "simond Benutzerkonfiguration"
+
+#, fuzzy
+#~ msgid "KDE Accessibility Bridge"
+#~ msgstr "Zugangshilfe"
+
+#, fuzzy
+#~ msgid "Closing Configuration Window"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "simond Sprachmodellkonfiguration"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "simond Benutzerkonfiguration"
+
+#, fuzzy
+#~ msgid "KDE Text-to-Speech Daemon Configuration"
+#~ msgstr "simond Sprachmodellkonfiguration"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Camera configuration failed."
+#~ msgstr "simond Benutzerkonfiguration"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Corrections"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgid "Accessibility Reading Aids"
+#~ msgstr "Zugangshilfe"
+
+#, fuzzy
+#~ msgid "Ghostscript Backend Configuration"
+#~ msgstr "ksimond Konfiguration"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Installation"
+#~ msgstr[1] "Installation"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Erkennung"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Erkennung"
 
 #~ msgid "&install.compile.documentation;"
 #~ msgstr "&install.compile.documentation;"

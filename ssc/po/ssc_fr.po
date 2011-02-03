@@ -5,24 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-22 22:52+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. i18n: file: config/sscconfig.kcfg:11
 #. i18n: ectx: label, entry (AutoConnect), group (ssc)
 #: po/rc.cpp:3 rc.cpp:3
+#, fuzzy
 msgid "whether to connect automatically during startup."
-msgstr "Connexion automatique au lancement."
+msgstr "Connexion automatique au lancement"
 
 #. i18n: file: config/sscconfig.kcfg:13
 #. i18n: ectx: tooltip, entry (AutoConnect), group (ssc)
@@ -105,8 +106,9 @@ msgstr "Le langage par défaut pour les nouveaux utilisateurs."
 #. i18n: file: config/sscconfig.kcfg:45
 #. i18n: ectx: tooltip, entry (DefaultLanguage), group (ssc)
 #: po/rc.cpp:42 rc.cpp:42
+#, fuzzy
 msgid "Default language of new users."
-msgstr "Langage par défaut des nouveaux utilisateurs."
+msgstr "Le langage par défaut pour les nouveaux utilisateurs."
 
 #. i18n: file: config/sscconfig.kcfg:49
 #. i18n: ectx: label, entry (UseEncryption), group (ssc)
@@ -153,6 +155,7 @@ msgstr "Entraînement avancé activé par défaut."
 #. i18n: file: config/sscconfig.kcfg:65
 #. i18n: ectx: tooltip, entry (DefaultToPowerTrain), group (ssc)
 #: po/rc.cpp:66 rc.cpp:66
+#, fuzzy
 msgid "Default to power training."
 msgstr "Entraînement avancé par défaut."
 
@@ -236,49 +239,49 @@ msgstr "Le type de microphone donné par l'utilisateur."
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #. i18n: file: src/sscui.rc:16
 #. i18n: ectx: Menu (sscd)
-#: po/rc.cpp:105 po/rc.cpp:547 rc.cpp:105 rc.cpp:547
+#: po/rc.cpp:106 po/rc.cpp:548 rc.cpp:106 rc.cpp:548
 msgid "Server"
 msgstr "Serveur"
 
 #. i18n: file: config/sscconfiguration.ui:26
 #. i18n: ectx: property (text), widget (QLabel, lbHost)
-#: po/rc.cpp:108 rc.cpp:108
+#: po/rc.cpp:109 rc.cpp:109
 msgid "Host:"
 msgstr "Hôte :"
 
 #. i18n: file: config/sscconfiguration.ui:39
 #. i18n: ectx: property (text), widget (QLabel, lbPort)
-#: po/rc.cpp:111 rc.cpp:111
+#: po/rc.cpp:112 rc.cpp:112
 msgid "Port:"
 msgstr "Port :"
 
 #. i18n: file: config/sscconfiguration.ui:59
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:114 rc.cpp:114
+#: po/rc.cpp:115 rc.cpp:115
 msgid "Timeout:"
 msgstr "Délai imparti :"
 
 #. i18n: file: config/sscconfiguration.ui:73
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoConnect)
-#: po/rc.cpp:117 rc.cpp:117
+#: po/rc.cpp:118 rc.cpp:118
 msgid "Connect automatically on startup"
 msgstr "Connexion automatique au lancement"
 
 #. i18n: file: config/sscconfiguration.ui:83
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: po/rc.cpp:120 rc.cpp:120
+#: po/rc.cpp:121 rc.cpp:121
 msgid "Data"
 msgstr "Données"
 
 #. i18n: file: config/sscconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute)
-#: po/rc.cpp:123 rc.cpp:123
+#: po/rc.cpp:124 rc.cpp:124
 msgid "Institute:"
 msgstr "Institution :"
 
 #. i18n: file: config/sscconfiguration.ui:122
 #. i18n: ectx: property (text), widget (QLabel, lbInstitute_2)
-#: po/rc.cpp:126 rc.cpp:126
+#: po/rc.cpp:127 rc.cpp:127
 msgid ""
 "Default language (ISO Code):\n"
 "(requires restart)"
@@ -288,25 +291,25 @@ msgstr ""
 
 #. i18n: file: config/sscconfiguration.ui:138
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_UseInstitutionSpecificIDs)
-#: po/rc.cpp:130 rc.cpp:130
+#: po/rc.cpp:131 rc.cpp:131
 msgid "Use institution specific ids instead of ssc ids"
 msgstr "Utiliser les IDs spécifiques à une institution au lieu des IDs ssc"
 
 #. i18n: file: config/sscconfiguration.ui:148
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:133 rc.cpp:133
+#: po/rc.cpp:134 rc.cpp:134
 msgid "User interface"
 msgstr "Interface utilisateur"
 
 #. i18n: file: config/sscconfiguration.ui:154
 #. i18n: ectx: property (text), widget (QCheckBox, cbAskForOfflineMode)
-#: po/rc.cpp:136 rc.cpp:136
+#: po/rc.cpp:137 rc.cpp:137
 msgid "Do not ask before entering offline mode"
 msgstr "Ne pas demander avant de passer en mode offline"
 
 #. i18n: file: config/sscconfiguration.ui:161
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowSampleWarning)
-#: po/rc.cpp:139 rc.cpp:139
+#: po/rc.cpp:140 rc.cpp:140
 msgid ""
 "Do not display warning dialog when simon detects a problem with a sample"
 msgstr ""
@@ -321,7 +324,7 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserDetails)
 #. i18n: file: src/main.ui:99
 #. i18n: ectx: property (text), widget (KPushButton, pbDetails)
-#: po/rc.cpp:142 po/rc.cpp:484 rc.cpp:142 rc.cpp:484
+#: po/rc.cpp:143 po/rc.cpp:485 rc.cpp:143 rc.cpp:485
 msgid "Details"
 msgstr "Détails"
 
@@ -333,7 +336,7 @@ msgstr "Détails"
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
 #. i18n: file: src/finduser.ui:76
 #. i18n: ectx: property (text), widget (QLabel, lbSurname)
-#: po/rc.cpp:145 po/rc.cpp:298 rc.cpp:145 rc.cpp:298
+#: po/rc.cpp:146 po/rc.cpp:299 rc.cpp:146 rc.cpp:299
 msgid "Surname:"
 msgstr "Nom :"
 
@@ -345,13 +348,13 @@ msgstr "Nom :"
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
 #. i18n: file: src/finduser.ui:86
 #. i18n: ectx: property (text), widget (QLabel, lbGivenName)
-#: po/rc.cpp:148 po/rc.cpp:301 rc.cpp:148 rc.cpp:301
+#: po/rc.cpp:149 po/rc.cpp:302 rc.cpp:149 rc.cpp:302
 msgid "Given name:"
 msgstr "Nom :"
 
 #. i18n: file: src/details.ui:45
 #. i18n: ectx: property (text), widget (QLabel, lbInstition)
-#: po/rc.cpp:151 rc.cpp:151
+#: po/rc.cpp:152 rc.cpp:152
 msgid "Institution(s):"
 msgstr "Institution(s) :"
 
@@ -363,7 +366,7 @@ msgstr "Institution(s) :"
 #. i18n: ectx: property (text), widget (QPushButton, pbAddInstitution)
 #. i18n: file: src/institution.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:154 po/rc.cpp:460 rc.cpp:154 rc.cpp:460
+#: po/rc.cpp:155 po/rc.cpp:461 rc.cpp:155 rc.cpp:461
 msgid "Add"
 msgstr "Ajouter"
 
@@ -383,8 +386,8 @@ msgstr "Ajouter"
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
 #. i18n: file: src/main.ui:109
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:157 po/rc.cpp:448 po/rc.cpp:466 po/rc.cpp:487 rc.cpp:157
-#: rc.cpp:448 rc.cpp:466 rc.cpp:487
+#: po/rc.cpp:158 po/rc.cpp:449 po/rc.cpp:467 po/rc.cpp:488 rc.cpp:158
+#: rc.cpp:449 rc.cpp:467 rc.cpp:488
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -396,20 +399,22 @@ msgstr "Supprimer"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/finduser.ui:174
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:160 po/rc.cpp:328 rc.cpp:160 rc.cpp:328
+#: po/rc.cpp:161 po/rc.cpp:329 rc.cpp:161 rc.cpp:329
 msgid "Sex:"
 msgstr "Genre :"
 
 #. i18n: file: src/details.ui:92
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#: po/rc.cpp:163 rc.cpp:163
+#: po/rc.cpp:164 rc.cpp:164
+#, fuzzy
 msgctxt "Sex of the user"
 msgid "Male"
 msgstr "Homme"
 
 #. i18n: file: src/details.ui:99
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#: po/rc.cpp:166 rc.cpp:166
+#: po/rc.cpp:167 rc.cpp:167
+#, fuzzy
 msgctxt "Sex of the user"
 msgid "Female"
 msgstr "Femme"
@@ -422,13 +427,13 @@ msgstr "Femme"
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
 #. i18n: file: src/finduser.ui:115
 #. i18n: ectx: property (text), widget (QLabel, lbBirthYear)
-#: po/rc.cpp:169 po/rc.cpp:307 rc.cpp:169 rc.cpp:307
+#: po/rc.cpp:170 po/rc.cpp:308 rc.cpp:170 rc.cpp:308
 msgid "Birth year:"
 msgstr "Année de naissance :"
 
 #. i18n: file: src/details.ui:115
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leBirthYear)
-#: po/rc.cpp:172 rc.cpp:172
+#: po/rc.cpp:173 rc.cpp:173
 msgid "9999; "
 msgstr "9999; "
 
@@ -440,7 +445,7 @@ msgstr "9999; "
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/finduser.ui:132
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:175 po/rc.cpp:313 rc.cpp:175 rc.cpp:313
+#: po/rc.cpp:176 po/rc.cpp:314 rc.cpp:176 rc.cpp:314
 msgid "ZIP Code:"
 msgstr "Code postal :"
 
@@ -456,7 +461,7 @@ msgstr "Code postal :"
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leBirthYear)
 #. i18n: file: src/finduser.ui:139
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leZIPCode)
-#: po/rc.cpp:178 po/rc.cpp:310 po/rc.cpp:316 rc.cpp:178 rc.cpp:310 rc.cpp:316
+#: po/rc.cpp:179 po/rc.cpp:311 po/rc.cpp:317 rc.cpp:179 rc.cpp:311 rc.cpp:317
 msgid "99990; "
 msgstr "99990; "
 
@@ -468,7 +473,7 @@ msgstr "99990; "
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: file: src/finduser.ui:197
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:181 po/rc.cpp:334 rc.cpp:181 rc.cpp:334
+#: po/rc.cpp:182 po/rc.cpp:335 rc.cpp:182 rc.cpp:335
 msgid "Education:"
 msgstr "Cours :"
 
@@ -480,7 +485,7 @@ msgstr "Cours :"
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: file: src/finduser.ui:214
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:184 po/rc.cpp:337 rc.cpp:184 rc.cpp:337
+#: po/rc.cpp:185 po/rc.cpp:338 rc.cpp:185 rc.cpp:338
 msgid "Current occupation:"
 msgstr "Occupation actuelle :"
 
@@ -492,19 +497,19 @@ msgstr "Occupation actuelle :"
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #. i18n: file: src/finduser.ui:228
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: po/rc.cpp:187 po/rc.cpp:340 rc.cpp:187 rc.cpp:340
+#: po/rc.cpp:188 po/rc.cpp:341 rc.cpp:188 rc.cpp:341
 msgid "Mothers Tongue:"
 msgstr "Langue maternelle :"
 
 #. i18n: file: src/details.ui:179
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:190 rc.cpp:190
+#: po/rc.cpp:191 rc.cpp:191
 msgid "Institution"
 msgstr "Institut"
 
 #. i18n: file: src/details.ui:184
 #. i18n: ectx: property (text), widget (QTableWidget, twInstitutions)
-#: po/rc.cpp:193 rc.cpp:193
+#: po/rc.cpp:194 rc.cpp:194
 msgid "ReferenceId"
 msgstr "ReferenceId"
 
@@ -516,7 +521,7 @@ msgstr "ReferenceId"
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #. i18n: file: src/finduser.ui:238
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: po/rc.cpp:196 po/rc.cpp:343 rc.cpp:196 rc.cpp:343
+#: po/rc.cpp:197 po/rc.cpp:344 rc.cpp:197 rc.cpp:344
 msgid "Diagnosis:"
 msgstr "Diagnostic :"
 
@@ -528,7 +533,7 @@ msgstr "Diagnostic :"
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: file: src/finduser.ui:292
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:199 po/rc.cpp:352 rc.cpp:199 rc.cpp:352
+#: po/rc.cpp:200 po/rc.cpp:353 rc.cpp:200 rc.cpp:353
 msgid "Orientation:"
 msgstr "Orientation :"
 
@@ -544,7 +549,8 @@ msgstr "Orientation :"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:286
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:202 po/rc.cpp:220 po/rc.cpp:238 rc.cpp:202 rc.cpp:220 rc.cpp:238
+#: po/rc.cpp:203 po/rc.cpp:221 po/rc.cpp:239 rc.cpp:203 rc.cpp:221 rc.cpp:239
+#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "1: Very Good"
 msgstr "1 : Très bien"
@@ -561,7 +567,8 @@ msgstr "1 : Très bien"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:291
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:205 po/rc.cpp:223 po/rc.cpp:241 rc.cpp:205 rc.cpp:223 rc.cpp:241
+#: po/rc.cpp:206 po/rc.cpp:224 po/rc.cpp:242 rc.cpp:206 rc.cpp:224 rc.cpp:242
+#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "2: Good"
 msgstr "2 : Bien"
@@ -578,7 +585,8 @@ msgstr "2 : Bien"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:296
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:208 po/rc.cpp:226 po/rc.cpp:244 rc.cpp:208 rc.cpp:226 rc.cpp:244
+#: po/rc.cpp:209 po/rc.cpp:227 po/rc.cpp:245 rc.cpp:209 rc.cpp:227 rc.cpp:245
+#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "3: Satisfactory"
 msgstr "3 : Satisfaisant"
@@ -595,7 +603,8 @@ msgstr "3 : Satisfaisant"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:301
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:211 po/rc.cpp:229 po/rc.cpp:247 rc.cpp:211 rc.cpp:229 rc.cpp:247
+#: po/rc.cpp:212 po/rc.cpp:230 po/rc.cpp:248 rc.cpp:212 rc.cpp:230 rc.cpp:248
+#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "4: Acceptable"
 msgstr "4 : Acceptable"
@@ -612,7 +621,8 @@ msgstr "4 : Acceptable"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/details.ui:306
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:214 po/rc.cpp:232 po/rc.cpp:250 rc.cpp:214 rc.cpp:232 rc.cpp:250
+#: po/rc.cpp:215 po/rc.cpp:233 po/rc.cpp:251 rc.cpp:215 rc.cpp:233 rc.cpp:251
+#, fuzzy
 msgctxt "Rating; Scale from 1 - 5"
 msgid "5: Not acceptable"
 msgstr "5 : Insuffisant"
@@ -625,7 +635,7 @@ msgstr "5 : Insuffisant"
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #. i18n: file: src/finduser.ui:340
 #. i18n: ectx: property (text), widget (QLabel, label_7)
-#: po/rc.cpp:217 po/rc.cpp:373 rc.cpp:217 rc.cpp:373
+#: po/rc.cpp:218 po/rc.cpp:374 rc.cpp:218 rc.cpp:374
 msgid "Communication:"
 msgstr "Communication :"
 
@@ -637,7 +647,7 @@ msgstr "Communication :"
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #. i18n: file: src/finduser.ui:381
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: po/rc.cpp:235 po/rc.cpp:394 rc.cpp:235 rc.cpp:394
+#: po/rc.cpp:236 po/rc.cpp:395 rc.cpp:236 rc.cpp:395
 msgid "Motor function:"
 msgstr "Fonctions motrices :"
 
@@ -649,7 +659,7 @@ msgstr "Fonctions motrices :"
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #. i18n: file: src/finduser.ui:272
 #. i18n: ectx: property (text), widget (QLabel, label_9)
-#: po/rc.cpp:253 po/rc.cpp:349 rc.cpp:253 rc.cpp:349
+#: po/rc.cpp:254 po/rc.cpp:350 rc.cpp:254 rc.cpp:350
 msgid "Mouth motoric / teeth:"
 msgstr "Articulation :"
 
@@ -661,19 +671,20 @@ msgstr "Articulation :"
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #. i18n: file: src/finduser.ui:422
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: po/rc.cpp:256 po/rc.cpp:415 rc.cpp:256 rc.cpp:415
+#: po/rc.cpp:257 po/rc.cpp:416 rc.cpp:257 rc.cpp:416
 msgid "Interview:"
 msgstr "Interview :"
 
 #. i18n: file: src/details.ui:331
 #. i18n: ectx: property (text), widget (QCheckBox, cbInterviewPossible)
-#: po/rc.cpp:259 rc.cpp:259
+#: po/rc.cpp:260 rc.cpp:260
 msgid "Interview possible"
 msgstr "Interview possible"
 
 #. i18n: file: src/details.ui:341
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: po/rc.cpp:262 rc.cpp:262
+#: po/rc.cpp:263 rc.cpp:263
+#, fuzzy
 msgctxt ""
 "Trainings method where the user has to repeat everything the facilitator says"
 msgid "Repeating:"
@@ -681,50 +692,52 @@ msgstr "Répétition :"
 
 #. i18n: file: src/details.ui:348
 #. i18n: ectx: property (text), widget (QCheckBox, cbRepeatingPossible)
-#: po/rc.cpp:265 rc.cpp:265
+#: po/rc.cpp:266 rc.cpp:266
 msgid "Repeating possible"
 msgstr "Répétition possible"
 
 #. i18n: file: src/deviceinformation.ui:29
 #. i18n: ectx: property (text), widget (QLabel, lbDeviceDesc)
-#: po/rc.cpp:268 rc.cpp:268
+#: po/rc.cpp:269 rc.cpp:269
 msgid "Device:"
 msgstr "Périphérique :"
 
 #. i18n: file: src/deviceinformation.ui:43
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:271 rc.cpp:271
+#: po/rc.cpp:272 rc.cpp:272
+#, fuzzy
 msgctxt "Make of the sound card"
 msgid "Model:"
 msgstr "Modèle :"
 
 #. i18n: file: src/deviceinformation.ui:63
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:274 rc.cpp:274
+#: po/rc.cpp:275 rc.cpp:275
 msgid "Type:"
 msgstr "Type :"
 
 #. i18n: file: src/deviceinformation.ui:83
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:277 rc.cpp:277
+#: po/rc.cpp:278 rc.cpp:278
 msgid "Microphone model:"
 msgstr "Modèle du microphone :"
 
 #. i18n: file: src/deviceinformation.ui:103
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: po/rc.cpp:280 rc.cpp:280
+#: po/rc.cpp:281 rc.cpp:281
 msgid "Microphone type:"
 msgstr "Type de microphone :"
 
 #. i18n: file: src/finduser.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, Users)
-#: po/rc.cpp:283 src/sscview.cpp:228 rc.cpp:283
+#: po/rc.cpp:284 src/sscview.cpp:228 rc.cpp:284
 msgid "Manage users"
 msgstr "Gérer les utilisateurs"
 
 #. i18n: file: src/finduser.ui:30
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:286 rc.cpp:286
+#: po/rc.cpp:287 rc.cpp:287
+#, fuzzy
 msgctxt "Basic filtering options"
 msgid "Basic"
 msgstr "Simple"
@@ -737,13 +750,14 @@ msgstr "Simple"
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
 #. i18n: file: src/modifyuserininstitution.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbInstitution)
-#: po/rc.cpp:289 po/rc.cpp:535 rc.cpp:289 rc.cpp:535
+#: po/rc.cpp:290 po/rc.cpp:536 rc.cpp:290 rc.cpp:536
 msgid "Institution:"
 msgstr "Institut :"
 
 #. i18n: file: src/finduser.ui:57
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchInstitution)
-#: po/rc.cpp:292 rc.cpp:292
+#: po/rc.cpp:293 rc.cpp:293
+#, fuzzy
 msgctxt "Pick institution from a list"
 msgid "Search"
 msgstr "Rechercher"
@@ -756,13 +770,13 @@ msgstr "Rechercher"
 #. i18n: ectx: property (text), widget (QLabel, lbId)
 #. i18n: file: src/main.ui:38
 #. i18n: ectx: property (text), widget (QLabel, lbPatientIdDesc)
-#: po/rc.cpp:295 po/rc.cpp:472 rc.cpp:295 rc.cpp:472
+#: po/rc.cpp:296 po/rc.cpp:473 rc.cpp:296 rc.cpp:473
 msgid "User ID:"
 msgstr "ID utilisateur :"
 
 #. i18n: file: src/finduser.ui:105
 #. i18n: ectx: property (text), widget (QLabel, lbReferenceId)
-#: po/rc.cpp:304 rc.cpp:304
+#: po/rc.cpp:305 rc.cpp:305
 msgid "Reference Id:"
 msgstr "ID de référence :"
 
@@ -778,35 +792,37 @@ msgstr "ID de référence :"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewIgnored)
 #. i18n: file: src/finduser.ui:481
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingIgnored)
-#: po/rc.cpp:319 po/rc.cpp:421 po/rc.cpp:430 src/manageusers.cpp:71 rc.cpp:319
-#: rc.cpp:421 rc.cpp:430
+#: po/rc.cpp:320 po/rc.cpp:422 po/rc.cpp:431 src/manageusers.cpp:71 rc.cpp:320
+#: rc.cpp:422 rc.cpp:431
 msgid "Ignored"
 msgstr "Ignoré"
 
 #. i18n: file: src/finduser.ui:158
 #. i18n: ectx: property (text), widget (QRadioButton, rbMale)
-#: po/rc.cpp:322 rc.cpp:322
+#: po/rc.cpp:323 rc.cpp:323
 msgctxt "Only show users of this sex"
 msgid "Male"
 msgstr "Homme"
 
 #. i18n: file: src/finduser.ui:165
 #. i18n: ectx: property (text), widget (QRadioButton, rbFemale)
-#: po/rc.cpp:325 rc.cpp:325
+#: po/rc.cpp:326 rc.cpp:326
 msgctxt "Only show users of this sex"
 msgid "Female"
 msgstr "Femme"
 
 #. i18n: file: src/finduser.ui:186
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:331 rc.cpp:331
+#: po/rc.cpp:332 rc.cpp:332
+#, fuzzy
 msgctxt "First page of advanced filtering options"
 msgid "Advanced 1"
 msgstr "Avancé 1"
 
 #. i18n: file: src/finduser.ui:258
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: po/rc.cpp:346 rc.cpp:346
+#: po/rc.cpp:347 rc.cpp:347
+#, fuzzy
 msgctxt "Second page of advanced filtering options"
 msgid "Advanced 2"
 msgstr "Avancé 2"
@@ -823,7 +839,8 @@ msgstr "Avancé 2"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:389
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:355 po/rc.cpp:376 po/rc.cpp:397 rc.cpp:355 rc.cpp:376 rc.cpp:397
+#: po/rc.cpp:356 po/rc.cpp:377 po/rc.cpp:398 rc.cpp:356 rc.cpp:377 rc.cpp:398
+#, fuzzy
 msgctxt "Ignore this field when filtering"
 msgid "0: All"
 msgstr "0 : Tout"
@@ -840,7 +857,7 @@ msgstr "0 : Tout"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:394
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:358 po/rc.cpp:379 po/rc.cpp:400 rc.cpp:358 rc.cpp:379 rc.cpp:400
+#: po/rc.cpp:359 po/rc.cpp:380 po/rc.cpp:401 rc.cpp:359 rc.cpp:380 rc.cpp:401
 msgctxt "Scale from 1-5 with explanation"
 msgid "1: Very Good"
 msgstr "1 : Très bien"
@@ -857,7 +874,7 @@ msgstr "1 : Très bien"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:399
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:361 po/rc.cpp:382 po/rc.cpp:403 rc.cpp:361 rc.cpp:382 rc.cpp:403
+#: po/rc.cpp:362 po/rc.cpp:383 po/rc.cpp:404 rc.cpp:362 rc.cpp:383 rc.cpp:404
 msgctxt "Scale from 1-5 with explanation"
 msgid "2: Good"
 msgstr "2 : Bien"
@@ -874,7 +891,7 @@ msgstr "2 : Bien"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:404
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:364 po/rc.cpp:385 po/rc.cpp:406 rc.cpp:364 rc.cpp:385 rc.cpp:406
+#: po/rc.cpp:365 po/rc.cpp:386 po/rc.cpp:407 rc.cpp:365 rc.cpp:386 rc.cpp:407
 msgctxt "Scale from 1-5 with explanation"
 msgid "3: Satisfactory"
 msgstr "3 : Satisfaisant"
@@ -891,7 +908,7 @@ msgstr "3 : Satisfaisant"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:409
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:367 po/rc.cpp:388 po/rc.cpp:409 rc.cpp:367 rc.cpp:388 rc.cpp:409
+#: po/rc.cpp:368 po/rc.cpp:389 po/rc.cpp:410 rc.cpp:368 rc.cpp:389 rc.cpp:410
 msgctxt "Scale from 1-5 with explanation"
 msgid "4: Acceptable"
 msgstr "4 : Acceptable"
@@ -908,14 +925,14 @@ msgstr "4 : Acceptable"
 #. i18n: ectx: property (text), item, widget (KComboBox, cbCommunication)
 #. i18n: file: src/finduser.ui:414
 #. i18n: ectx: property (text), item, widget (KComboBox, cbMotorFunction)
-#: po/rc.cpp:370 po/rc.cpp:391 po/rc.cpp:412 rc.cpp:370 rc.cpp:391 rc.cpp:412
+#: po/rc.cpp:371 po/rc.cpp:392 po/rc.cpp:413 rc.cpp:371 rc.cpp:392 rc.cpp:413
 msgctxt "Scale from 1-5 with explanation"
 msgid "5: Not acceptable"
 msgstr "5 : Insuffisant"
 
 #. i18n: file: src/finduser.ui:429
 #. i18n: ectx: property (text), widget (QLabel, label_11)
-#: po/rc.cpp:418 rc.cpp:418
+#: po/rc.cpp:419 rc.cpp:419
 msgctxt ""
 "Trainings mode where the user tries to repeat everything the facilitator says"
 msgid "Repeating:"
@@ -929,7 +946,8 @@ msgstr "Répétition :"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewYes)
 #. i18n: file: src/finduser.ui:491
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingYes)
-#: po/rc.cpp:424 po/rc.cpp:433 rc.cpp:424 rc.cpp:433
+#: po/rc.cpp:425 po/rc.cpp:434 rc.cpp:425 rc.cpp:434
+#, fuzzy
 msgctxt "Answer to: Only show users where x is true?"
 msgid "Yes"
 msgstr "Oui"
@@ -942,20 +960,21 @@ msgstr "Oui"
 #. i18n: ectx: property (text), widget (QRadioButton, rbInterviewNo)
 #. i18n: file: src/finduser.ui:498
 #. i18n: ectx: property (text), widget (QRadioButton, rbRepeatingNo)
-#: po/rc.cpp:427 po/rc.cpp:436 rc.cpp:427 rc.cpp:436
+#: po/rc.cpp:428 po/rc.cpp:437 rc.cpp:428 rc.cpp:437
+#, fuzzy
 msgctxt "Answer to: Only show users where x is false?"
 msgid "No"
 msgstr "Non"
 
 #. i18n: file: src/finduser.ui:514
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:439 rc.cpp:439
+#: po/rc.cpp:440 rc.cpp:440
 msgid "Apply Filters"
 msgstr "Appliquer les filtres"
 
 #. i18n: file: src/finduser.ui:537
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:442 rc.cpp:442
+#: po/rc.cpp:443 rc.cpp:443
 msgctxt "Add user"
 msgid "Add"
 msgstr "Ajouter"
@@ -968,7 +987,7 @@ msgstr "Ajouter"
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
 #. i18n: file: src/institution.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
-#: po/rc.cpp:445 po/rc.cpp:463 rc.cpp:445 rc.cpp:463
+#: po/rc.cpp:446 po/rc.cpp:464 rc.cpp:446 rc.cpp:464
 msgid "Edit"
 msgstr "Éditer"
 
@@ -980,47 +999,49 @@ msgstr "Éditer"
 #. i18n: ectx: property (windowTitle), widget (QWidget, Institutions)
 #. i18n: file: src/main.ui:235
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:451 po/rc.cpp:529 src/manageinstitutions.cpp:51 rc.cpp:451
-#: rc.cpp:529
+#: po/rc.cpp:452 po/rc.cpp:530 src/manageinstitutions.cpp:51 rc.cpp:452
+#: rc.cpp:530
 msgid "Institutions"
 msgstr "Institutions"
 
 #. i18n: file: src/institution.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbName)
-#: po/rc.cpp:454 rc.cpp:454
+#: po/rc.cpp:455 rc.cpp:455
+#, fuzzy
 msgctxt "Name of the institution"
 msgid "Name:"
 msgstr "Nom :"
 
 #. i18n: file: src/institution.ui:32
 #. i18n: ectx: property (text), widget (KPushButton, pbFilter)
-#: po/rc.cpp:457 rc.cpp:457
+#: po/rc.cpp:458 rc.cpp:458
 msgid "Filter"
 msgstr "Filtrer"
 
 #. i18n: file: src/main.ui:14
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, SampleCollectorUi)
-#: po/rc.cpp:469 rc.cpp:469
+#: po/rc.cpp:470 rc.cpp:470
 msgid "SSC"
 msgstr "SSC"
 
 #. i18n: file: src/main.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbPatientNameDesc)
-#: po/rc.cpp:475 rc.cpp:475
+#: po/rc.cpp:476 rc.cpp:476
 msgctxt "Name of the user"
 msgid "Name:"
 msgstr "Nom :"
 
 #. i18n: file: src/main.ui:79
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectPatient)
-#: po/rc.cpp:478 rc.cpp:478
+#: po/rc.cpp:479 rc.cpp:479
+#, fuzzy
 msgctxt "Select user associated with the entered id (fetch)"
 msgid "Select"
 msgstr "Sélectionner"
 
 #. i18n: file: src/main.ui:89
 #. i18n: ectx: property (text), widget (KPushButton, pbSearchPatient)
-#: po/rc.cpp:481 rc.cpp:481
+#: po/rc.cpp:482 rc.cpp:482
 msgctxt "Search for user"
 msgid "Search"
 msgstr "Rechercher"
@@ -1033,13 +1054,13 @@ msgstr "Rechercher"
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbRepeat)
 #. i18n: file: src/main.ui:210
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:490 po/rc.cpp:514 rc.cpp:490 rc.cpp:514
+#: po/rc.cpp:491 po/rc.cpp:515 rc.cpp:491 rc.cpp:515
 msgid "Repeat"
 msgstr "Répétition"
 
 #. i18n: file: src/main.ui:142
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbRepeat)
-#: po/rc.cpp:493 rc.cpp:493
+#: po/rc.cpp:494 rc.cpp:494
 msgid ""
 "The interviewer reads out words on the screen which are then repeated and "
 "recorded by the patient"
@@ -1055,14 +1076,14 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbTraining)
 #. i18n: file: src/main.ui:215
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:496 po/rc.cpp:517 src/trainsampleintropage.cpp:32 rc.cpp:496
-#: rc.cpp:517
+#: po/rc.cpp:497 po/rc.cpp:518 src/trainsampleintropage.cpp:32 rc.cpp:497
+#: rc.cpp:518
 msgid "Training"
 msgstr "Entraînement"
 
 #. i18n: file: src/main.ui:152
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbTraining)
-#: po/rc.cpp:499 rc.cpp:499
+#: po/rc.cpp:500 rc.cpp:500
 msgid "The user reads training texts from the screen."
 msgstr "L'utilisateur lit des textes d'entraînement affichés sur l'écran."
 
@@ -1074,13 +1095,13 @@ msgstr "L'utilisateur lit des textes d'entraînement affichés sur l'écran."
 #. i18n: ectx: property (text), widget (QCommandLinkButton, pbInterview)
 #. i18n: file: src/main.ui:220
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:502 po/rc.cpp:520 rc.cpp:502 rc.cpp:520
+#: po/rc.cpp:503 po/rc.cpp:521 rc.cpp:503 rc.cpp:521
 msgid "Interview"
 msgstr "Interview"
 
 #. i18n: file: src/main.ui:162
 #. i18n: ectx: property (description), widget (QCommandLinkButton, pbInterview)
-#: po/rc.cpp:505 rc.cpp:505
+#: po/rc.cpp:506 rc.cpp:506
 msgid "The user answers interview questions freely. The answers are recorded."
 msgstr ""
 "L'utilisateur réponds librement à des questions de l'interviewer. Les "
@@ -1088,69 +1109,72 @@ msgstr ""
 
 #. i18n: file: src/main.ui:195
 #. i18n: ectx: property (title), widget (QMenu, menuFile)
-#: po/rc.cpp:508 rc.cpp:508
+#: po/rc.cpp:509 rc.cpp:509
 msgid "File"
 msgstr "Fichier"
 
 #. i18n: file: src/main.ui:205
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:511 rc.cpp:511
+#: po/rc.cpp:512 rc.cpp:512
+#, fuzzy
 msgctxt "Quit the application"
 msgid "Quit"
 msgstr "Quitter"
 
 #. i18n: file: src/main.ui:225
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:523 src/sscview.cpp:194 rc.cpp:523
+#: po/rc.cpp:524 src/sscview.cpp:194 rc.cpp:524
 msgid "Connect"
 msgstr "Connecter"
 
 #. i18n: file: src/main.ui:230
 #. i18n: ectx: property (text), widget (QMenu, menuFile)
-#: po/rc.cpp:526 src/sscview.cpp:202 rc.cpp:526
+#: po/rc.cpp:527 src/sscview.cpp:202 rc.cpp:527
 msgid "Disconnect"
 msgstr "Déconnecter"
 
 #. i18n: file: src/modifyuserininstitution.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyUserInInstitution)
-#: po/rc.cpp:532 src/modifyuserininstitution.cpp:44 rc.cpp:532
+#: po/rc.cpp:533 src/modifyuserininstitution.cpp:44 rc.cpp:533
 msgid "User - Institution"
 msgstr "Utilisateur - Institution"
 
 #. i18n: file: src/modifyuserininstitution.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectInstitution)
-#: po/rc.cpp:538 rc.cpp:538
+#: po/rc.cpp:539 rc.cpp:539
 msgctxt "Search for institutions"
 msgid "Search"
 msgstr "Rechercher"
 
 #. i18n: file: src/modifyuserininstitution.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:541 rc.cpp:541
+#: po/rc.cpp:542 rc.cpp:542
 msgid "Institution assigned ID:"
 msgstr "ID assignée par l'institution :"
 
 #. i18n: file: src/sscui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:544 rc.cpp:544
+#: po/rc.cpp:545 rc.cpp:545
+#, fuzzy
 msgid "Main actions"
 msgstr "Actions principales"
 
 #. i18n: file: src/sscui.rc:22
 #. i18n: ectx: Menu (manage)
-#: po/rc.cpp:550 rc.cpp:550
+#: po/rc.cpp:551 rc.cpp:551
 msgid "Manage"
 msgstr "Gérer"
 
 #. i18n: file: src/sscui.rc:30
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:553 rc.cpp:553
+#: po/rc.cpp:554 rc.cpp:554
+#, fuzzy
 msgid "Preferences"
 msgstr "Préférences"
 
 #. i18n: file: src/uploadsamples.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:556 rc.cpp:556
+#: po/rc.cpp:557 rc.cpp:557
 msgid "Please select the data set to edit / send from the list below."
 msgstr ""
 "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
@@ -1158,29 +1182,30 @@ msgstr ""
 
 #. i18n: file: src/uploadsamples.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbUploadSamples)
-#: po/rc.cpp:559 rc.cpp:559
+#: po/rc.cpp:560 rc.cpp:560
 msgid "Upload"
 msgstr "Upload"
 
 #. i18n: file: src/uploadsamples.ui:55
 #. i18n: ectx: property (text), widget (KPushButton, pbEdit)
-#: po/rc.cpp:562 rc.cpp:562
+#: po/rc.cpp:563 rc.cpp:563
 msgid "Edit user"
 msgstr "Éditer l'utilisateur"
 
 #. i18n: file: src/uploadsamples.ui:62
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteSamples)
-#: po/rc.cpp:565 rc.cpp:565
+#: po/rc.cpp:566 rc.cpp:566
+#, fuzzy
 msgctxt "Delete the selected sample package"
 msgid "Delete selected"
 msgstr "Supprimer la sélection"
 
-#: po/rc.cpp:566 rc.cpp:566
+#: po/rc.cpp:567 rc.cpp:567
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:567 rc.cpp:567
+#: po/rc.cpp:568 rc.cpp:568
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
@@ -1415,8 +1440,8 @@ msgstr "Impossible de supprimer le dossier de stockage : %1."
 
 #: src/sscdaccess.cpp:119
 msgid ""
-"The certificate of the remote host is self-signed and thus not trustworthy. "
-"\n"
+"The certificate of the remote host is self-signed and thus not "
+"trustworthy. \n"
 "\n"
 "Do you still want to continue?"
 msgstr ""
@@ -1667,40 +1692,40 @@ msgstr "Vous n'êtes pas connecté."
 msgid "Disconnecting..."
 msgstr "Déconnexion..."
 
-#: src/trainingswizard.cpp:174
+#: src/trainingswizard.cpp:175
 msgctxt ""
 "Trainings type where the user is required to repeat what the recording "
 "facilitator tells him"
 msgid "Repeating"
 msgstr "Répétition"
 
-#: src/trainingswizard.cpp:180
+#: src/trainingswizard.cpp:181
 msgctxt "Trainings type where the user reads prompts off the screen"
 msgid "Training"
 msgstr "Entraînement"
 
-#: src/trainingswizard.cpp:186
+#: src/trainingswizard.cpp:187
 msgctxt ""
 "Trainings type where the facilitator asks general questions and the "
 "interviee answers them"
 msgid "Interview"
 msgstr "Interview"
 
-#: src/trainingswizard.cpp:192
+#: src/trainingswizard.cpp:193
 msgid "Invalid set of prompts"
 msgstr "Lot de prompteurs invalide"
 
-#: src/trainingswizard.cpp:209
+#: src/trainingswizard.cpp:210
 msgid "Training completed"
 msgstr "Entraînement achevé"
 
-#: src/trainingswizard.cpp:211
+#: src/trainingswizard.cpp:212
 msgid ""
 "The samples have been collected. They will now be transferred to the server."
 msgstr ""
 "Les échantillons sont prêts. Ils vont êtres maintenant envoyés au serveur."
 
-#: src/trainingswizard.cpp:252
+#: src/trainingswizard.cpp:253
 msgid ""
 "Could not clean sample directory %1.\n"
 "\n"
@@ -1727,11 +1752,11 @@ msgstr ""
 "automatiquement lorsque vous entrerez ou quitterez chaque page du texte "
 "d'entraînement."
 
-#: src/trainsamplepage.cpp:60
+#: src/trainsamplepage.cpp:62
 msgid "Page %1 of %2"
 msgstr "Page %1 sur %2"
 
-#: src/trainsamplepage.cpp:64
+#: src/trainsamplepage.cpp:66
 msgid ""
 "Please record the Text below.\n"
 "\n"
@@ -1743,7 +1768,7 @@ msgstr ""
 "Conseil : laissez une à deux seconde de « silence » avant et après la "
 "lecture du texte pour de meilleurs résultats !\n"
 
-#: src/trainsamplepage.cpp:99
+#: src/trainsamplepage.cpp:104
 msgid ""
 "simon detected that at least one of the just recorded sample might have some "
 "issues.\n"
@@ -1754,12 +1779,12 @@ msgid ""
 msgstr ""
 "Simon a détecté un problème dans au moins un des enregistrements récents.\n"
 "\n"
-"Choisissez « Plus d'informations » pour savoir comment corriger ce problème."
-"\n"
+"Choisissez « Plus d'informations » pour savoir comment corriger ce "
+"problème.\n"
 "\n"
 "Voulez-vous poursuivre l'entraînement sans corriger le problème ?"
 
-#: src/trainsamplepage.cpp:152
+#: src/trainsamplepage.cpp:157
 msgid "Could not remove samples \"%1\"."
 msgstr "Impossible de supprimer les échantillons « %1 »."
 
@@ -1897,4 +1922,2387 @@ msgstr "Interview possible"
 msgid "Repeate Possible"
 msgstr "Répétition possible"
 
+#, fuzzy
+#~ msgid "Add list"
+#~ msgstr "Ajouter un utilisateur"
 
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "Add List"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Current Selection"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Play selected media in list"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Play Selected"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Turn on Repeat"
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Play selected"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Remove selected info"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "Loading..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Saturation"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Edit launcher..."
+#~ msgstr "Éditer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this Daisy?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this trash plugin?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Arrangement"
+#~ msgstr "Gestion des utilisateurs"
+
+#, fuzzy
+#~ msgid "Edit launcher"
+#~ msgstr "Éditer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Do you really want to empty the trash? All items will be deleted."
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette institution ? Tous les liens entre "
+#~ "des utilisateurs et cette institution seront également supprimés."
+
+#, fuzzy
+#~ msgid "Advanced"
+#~ msgstr "Avancé 1"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Institut"
+
+#, fuzzy
+#~ msgid "Hide automatically"
+#~ msgstr "Connexion automatique au lancement"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Communication :"
+
+#, fuzzy
+#~ msgid "Add &borders"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Add page numbers"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "Related actions:"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Add a new attribute"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "Session Management"
+#~ msgstr "Gestion des utilisateurs"
+
+#, fuzzy
+#~ msgid "Could not find the KGraphViewer part."
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgid "Unknown error running %1."
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Print Preview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgctxt "Page (number) of (total)"
+#~ msgid "Page %1 of %2"
+#~ msgstr "Page %1 sur %2"
+
+#, fuzzy
+#~ msgid "Page %1"
+#~ msgstr "Page %1 sur %2"
+
+#, fuzzy
+#~ msgid "Portrait"
+#~ msgstr "Port :"
+
+#, fuzzy
+#~ msgid "Peak of %1"
+#~ msgstr "Page %1 sur %2"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Impossible d'ajouter l'utilisateur"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "The stop name is invalid."
+#~ msgstr "InstitutionID invalide"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgctxt "Unknown type of vehicle"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "&Quick Actions"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Appliquer les filtres"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr "Veuillez sélectionner une institution"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a date/time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "at"
+#~ msgstr "Données"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Hide Additional &Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "&Advanced"
+#~ msgstr "Avancé 1"
+
+#, fuzzy
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Nouvelle institution"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "Nouvelle institution"
+
+#, fuzzy
+#~ msgid "Update interval:"
+#~ msgstr "Interface utilisateur"
+
+#, fuzzy
+#~ msgid "&Add a feed:"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "Add Feed"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "RenameMe"
+#~ msgstr "Prénom"
+
+#, fuzzy
+#~ msgid "Icons view"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Detailed view"
+#~ msgstr "Détails"
+
+#, fuzzy
+#~ msgid "All"
+#~ msgstr "0 : Tout"
+
+#, fuzzy
+#~ msgid "Maintainer"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "&Connect"
+#~ msgstr "Connecter"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "Couldn't translate input"
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Calculation"
+#~ msgstr "Occupation"
+
+#, fuzzy
+#~ msgid "Service name:"
+#~ msgstr "Nom :"
+
+#, fuzzy
+#~ msgid "Interface:"
+#~ msgstr "Interview :"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Rename"
+#~ msgstr "Prénom"
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "Occupation"
+
+#, fuzzy
+#~ msgid "Graphical interface"
+#~ msgstr "Interface utilisateur"
+
+#, fuzzy
+#~ msgid "Repeat on trigger:"
+#~ msgstr "Répétition :"
+
+#, fuzzy
+#~ msgid "Select number"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "Local Place"
+#~ msgstr "Échantillons locaux"
+
+#, fuzzy
+#~ msgid "Local File"
+#~ msgstr "Échantillons locaux"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "Use Authentication"
+#~ msgstr "Utilisateur - Institution"
+
+#, fuzzy
+#~ msgid "User:"
+#~ msgstr "Utilisateurs"
+
+#, fuzzy
+#~ msgid "Mode:"
+#~ msgstr "Modèle :"
+
+#, fuzzy
+#~ msgid "Samples:"
+#~ msgstr "Envoi des échantillons"
+
+#, fuzzy
+#~ msgid "Options:"
+#~ msgstr "Occupation"
+
+#, fuzzy
+#~ msgid "Conclusion:"
+#~ msgstr "Communication :"
+
+#, fuzzy
+#~ msgid "Conducted on:"
+#~ msgstr "Connecté"
+
+#, fuzzy
+#~ msgid "Detailed"
+#~ msgstr "Détails"
+
+#, fuzzy
+#~ msgid "Retrieve system information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Trainingssamples"
+#~ msgstr "Transmission des échantillons..."
+
+#, fuzzy
+#~ msgid "Model type"
+#~ msgstr "Modèle :"
+
+#, fuzzy
+#~ msgid "Serialize prompts"
+#~ msgstr "Lot de prompteurs invalide"
+
+#, fuzzy
+#~ msgid "Creating"
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Testing"
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Sentences"
+#~ msgstr "Préférences"
+
+#, fuzzy
+#~ msgid "Edit sample"
+#~ msgstr "Éditer le paquet d'échantillons"
+
+#, fuzzy
+#~ msgid "Files"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Communication"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Manage plugins"
+#~ msgstr "Gérer les utilisateurs"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Communication :"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Delete sentence"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgid "Encoding:"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Waiting..."
+#~ msgstr "Déconnexion..."
+
+#, fuzzy
+#~ msgid "New Name:"
+#~ msgstr "Nom :"
+
+#, fuzzy
+#~ msgid "Model type:"
+#~ msgstr "Modèle :"
+
+#, fuzzy
+#~ msgid "HMM definition:"
+#~ msgstr "Fonctions motrices :"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Communication"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Envoi des échantillons"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Removes all trainings samples from the corpus"
+#~ msgstr "L'utilisateur lit des textes d'entraînement affichés sur l'écran."
+
+#, fuzzy
+#~ msgid "Clear Trainingdata"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Delete selected Text"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Éditer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "Add to Training"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Start the server automatically when simon starts"
+#~ msgstr "Connexion automatique au lancement."
+
+#, fuzzy
+#~ msgid "Connect automatically on simon start"
+#~ msgstr "Connexion automatique au lancement"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Nom :"
+
+#, fuzzy
+#~ msgid "Hosts"
+#~ msgstr "Hôte :"
+
+#, fuzzy
+#~ msgid "Connect automatically when simon starts"
+#~ msgstr "Connexion automatique au lancement"
+
+#, fuzzy
+#~ msgid "Server:"
+#~ msgstr "Serveur"
+
+#, fuzzy
+#~ msgid "Encryption"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Certificate:"
+#~ msgstr "Certificat auto-signé"
+
+#, fuzzy
+#~ msgid "Database:"
+#~ msgstr "Données"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Genre"
+
+#, fuzzy
+#~ msgid "Recording"
+#~ msgstr "Enregistrement avancé"
+
+#, fuzzy
+#~ msgid "Delete all"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Recordings:"
+#~ msgstr "Enregistrement avancé"
+
+#, fuzzy
+#~ msgid "Recordings"
+#~ msgstr "Enregistrement avancé"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "Communication"
+
+#, fuzzy
+#~ msgid "Timeout."
+#~ msgstr "Délai imparti :"
+
+#, fuzzy
+#~ msgid "Unknown Error"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "Impossible de supprimer l'utilisateur : %1"
+
+#, fuzzy
+#~ msgid "Could not find child command: %1 (%2)."
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Six"
+#~ msgstr "Genre"
+
+#, fuzzy
+#~ msgctxt "Name of the service"
+#~ msgid "Servicename"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "Name of the DBus interface"
+#~ msgid "Interface"
+#~ msgstr "Interface utilisateur"
+
+#, fuzzy
+#~ msgid "Couldn't open temporary file at \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected text variant?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr "Impossible de créer le dossier cible dans « %1 »"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected state?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected transition?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Please select a template option."
+#~ msgstr "Veuillez sélectionner une institution"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected template option?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Please select a bound value from the table above."
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected bound value option?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Impossible d'ajouter l'utilisateur: %1"
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Send JSON messages"
+#~ msgstr "Envoi des échantillons"
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr "Impossible d'ajouter l'utilisateur"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected set?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Please insert or select a set first"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Please select the tab to be edited"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Please select a set first"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Please select the tab to be deleted"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected tab?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Please select a set to which to add the new button"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Please select a button to delete from the list"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected button?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Failed to delete button"
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Please select the tab to be moved"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgctxt "Name of the key"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "Type of the key"
+#~ msgid "Type"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "Sample %1 of %2:"
+#~ msgstr "Page %1 sur %2"
+
+#, fuzzy
+#~ msgid "Mode"
+#~ msgstr "Modèle :"
+
+#, fuzzy
+#~ msgid "Overview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Failed to store file."
+#~ msgstr "Le serveur n'a pas réussi à enregistrer l'échantillon"
+
+#, fuzzy
+#~ msgid "Could not open output file %1."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Test completed: %1"
+#~ msgstr "Entraînement achevé"
+
+#, fuzzy
+#~ msgid "Open simon prompts"
+#~ msgstr "Lot de prompteurs invalide"
+
+#, fuzzy
+#~ msgid "Could not find scenario: %1"
+#~ msgstr "Impossible de trouver l'utilisateur"
+
+#, fuzzy
+#~ msgid "Modify sample"
+#~ msgstr "Envoi des échantillons"
+
+#, fuzzy
+#~ msgid "Could not modify prompts file"
+#~ msgstr "Impossible de modifier l'utilisateur « %1 » : %2"
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Could not remove original sample:  %1."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Please select an action"
+#~ msgstr "Veuillez sélectionner une institution"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to remove this action from this scenario?\n"
+#~ "\n"
+#~ "WARNING: All associated commands and configuration will be irreversibly "
+#~ "deleted!"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer l'utilisateur « %1 » ( « %2 » ) ?\n"
+#~ "\n"
+#~ "Tous les échantillons associés à cet utilisateur seront définitivement "
+#~ "supprimés !"
+
+#, fuzzy
+#~ msgid "Could not determine Command Type"
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "Recognition: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Model management: %1"
+#~ msgstr "Gestion des utilisateurs"
+
+#, fuzzy
+#~ msgid "Connected to the Server"
+#~ msgstr "Connexion au serveur sscd"
+
+#, fuzzy
+#~ msgid "Connection lost"
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Connecting aborted"
+#~ msgstr "Connecté"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "Define Word"
+#~ msgstr "Mode offline"
+
+#, fuzzy
+#~ msgid "Add Terminal"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "Creating List..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgid "Could not retrieve BOMP license terms."
+#~ msgstr "Impossible de récupérer les utilisateurs : %1"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Terminal name for words that are imported from a dictionary which does "
+#~ "not provide terminal information"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Opening File..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Reading File..."
+#~ msgstr "Répétition possible"
+
+#, fuzzy
+#~ msgid "Processing..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Entraînement achevé"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "Reading prompts file..."
+#~ msgstr "Répétition possible"
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Impossible d'ajouter l'institution : %1"
+
+#, fuzzy
+#~ msgid "Collecting files..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Le serveur ne peut pas traiter l'échantillon : %1"
+
+#, fuzzy
+#~ msgid "Import Training Samples"
+#~ msgstr "Entraînement achevé"
+
+#, fuzzy
+#~ msgid "Add Trainingstext"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Merging..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Renaming complete"
+#~ msgstr "Entraînement achevé"
+
+#, fuzzy
+#~ msgid "Renaming terminal..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Special Training"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Power Training"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "Could not add structure to the grammar."
+#~ msgstr "Impossible d'ajouter l'institution"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not import hmm definitions."
+#~ msgstr "Impossible de modifier l'institution : %1"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Please select a text first"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Could not clear trainingdata"
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Could not add words to the list"
+#~ msgstr "Impossible d'ajouter l'utilisateur"
+
+#, fuzzy
+#~ msgid "Please select a word first"
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Do you really want to clear the whole vocabulary?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Initializing..."
+#~ msgstr "Initialisation"
+
+#, fuzzy
+#~ msgid "Could not abort synchronization."
+#~ msgstr "Impossible d'ajouter l'institution"
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgid "The server could not store trainings sample."
+#~ msgstr "Le serveur ne peut pas traiter l'échantillon : %1"
+
+#, fuzzy
+#~ msgid "Could not complete Synchronization"
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgctxt "Model compilation status message"
+#~ msgid "Model: %1"
+#~ msgstr "Modèle :"
+
+#, fuzzy
+#~ msgid "Could not retrieve model compilation protocol"
+#~ msgstr "Impossible de récupérer les institutions : %1"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Not connected to the server"
+#~ msgstr "Déconnecté du serveur."
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Impossible de trouver l'utilisateur"
+
+#, fuzzy
+#~ msgid "Please select a Model from the List"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Starting simon..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Community forums"
+#~ msgstr "Communication"
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Impossible de récupérer l'utilisateur : %1"
+
+#, fuzzy
+#~ msgid "Manage scenarios"
+#~ msgstr "Gérer les utilisateurs"
+
+#, fuzzy
+#~ msgctxt "Disconnected from the server"
+#~ msgid "Disconnected"
+#~ msgstr "Déconnecté"
+
+#, fuzzy
+#~ msgid "Connection to server lost"
+#~ msgstr "Connexion au serveur sscd"
+
+#, fuzzy
+#~ msgctxt "Connecting to the server"
+#~ msgid "Connecting..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Connected: Deactivating..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Deactivating..."
+#~ msgstr "Déconnexion..."
+
+#, fuzzy
+#~ msgid "Connected"
+#~ msgstr "Connecté"
+
+#, fuzzy
+#~ msgid "Connected; Activating..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Activating..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "User"
+#~ msgstr "Utilisateurs"
+
+#, fuzzy
+#~ msgid "Could not connect to database"
+#~ msgstr "Déconnecté du serveur."
+
+#, fuzzy
+#~ msgid "Do you really want to remove the user from the database?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not change Password"
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgid "Internal Jconf error"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Could not initialize recognition"
+#~ msgstr "Impossible de trouver l'institution"
+
+#, fuzzy
+#~ msgid "Could not start adin-thread"
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgctxt "Name of the simond user"
+#~ msgid "Username"
+#~ msgstr "Gestion des utilisateurs"
+
+#, fuzzy
+#~ msgctxt "Name of the bound value"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "Type of the bound value"
+#~ msgid "Type"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgctxt "Name of the state"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "Name of the template option"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "Parsing Days..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgid "Filtering List..."
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgctxt "Reload the display of the log"
+#~ msgid "Reload"
+#~ msgstr "Upload"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Prénom"
+
+#, fuzzy
+#~ msgid "Testing model..."
+#~ msgstr "Transmission des échantillons..."
+
+#, fuzzy
+#~ msgid "Preperation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Recoding audio..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Could not open wavlist file for writing: %1"
+#~ msgstr "Impossible de modifier l'institution : %1"
+
+#, fuzzy
+#~ msgid "Recognizing..."
+#~ msgstr "Déconnexion..."
+
+#, fuzzy
+#~ msgid "Could not open julius jconf file: \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not open hmm definitions"
+#~ msgstr "Impossible de trouver l'institution"
+
+#, fuzzy
+#~ msgid "Insertion errors"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Substitution errors"
+#~ msgstr "Institutions"
+
+#, fuzzy
+#~ msgctxt "Aborting the operation"
+#~ msgid "Aborting..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Please select a valid action"
+#~ msgstr "Veuillez sélectionner une institution"
+
+#, fuzzy
+#~ msgid "Trainingsdata"
+#~ msgstr "Entraînement"
+
+#, fuzzy
+#~ msgctxt "Name of the trainings text"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "Possible answer to the question: Should we show an icon?"
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#, fuzzy
+#~ msgctxt "Possible answer to the question: Should we show an icon?"
+#~ msgid "No"
+#~ msgstr "Non"
+
+#, fuzzy
+#~ msgid "Voice Interface"
+#~ msgstr "Interface utilisateur"
+
+#, fuzzy
+#~ msgid "Scenario: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Scenario could not be created"
+#~ msgstr "Impossible de lire les cartes son"
+
+#, fuzzy
+#~ msgid "New scenario could not be saved"
+#~ msgstr "Impossible de lire les utilisateurs"
+
+#, fuzzy
+#~ msgid "Scenario could not be updated"
+#~ msgstr "Impossible de lire les cartes son"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Impossible d'ajouter l'utilisateur"
+
+#, fuzzy
+#~ msgid "Failed to store scenario"
+#~ msgstr "Le serveur n'a pas réussi à enregistrer l'échantillon"
+
+#, fuzzy
+#~ msgid "Please select a scenario from the list(s)"
+#~ msgstr ""
+#~ "Sélectionnez le groupe de données à éditer ou envoyer dans la liste ci-"
+#~ "dessus."
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Impossible de trouver l'utilisateur"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irrecoverably delete the selected scenario "
+#~ "\"%1\" (\"%2\")?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Impossible de modifier l'utilisateur « %1 » : %2"
+
+#, fuzzy
+#~ msgid "Device \"%1\":"
+#~ msgstr "Périphérique :"
+
+#, fuzzy
+#~ msgid "Recording could not be started for device: %1."
+#~ msgstr "Impossible de supprimer l'information du profile : %1."
+
+#, fuzzy
+#~ msgid "Recording could not be stopped for device: %1."
+#~ msgstr "Impossible de supprimer l'information du profile : %1."
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Recording:"
+#~ msgstr "Enregistrement avancé"
+
+#, fuzzy
+#~ msgid "Couldn't export set to \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Couldn't import set from \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgctxt "The option to use pre-recorded sounds instead of the tts system"
+#~ msgid "Recordings"
+#~ msgstr "Enregistrement avancé"
+
+#, fuzzy
+#~ msgid "Set name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Impossible d'ajouter l'utilisateur: %1"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Impossible de récupérer l'utilisateur : %1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irreversibly delete the current set and all "
+#~ "associated samples?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer les échantillons enregistrés dans « %1 » ?"
+
+#, fuzzy
+#~ msgid "Couldn't remove set"
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Please add or select a set above."
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Couldn't add recording to set."
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgid "Please select a recording above."
+#~ msgstr "Veuillez sélectionner un utilisateur"
+
+#, fuzzy
+#~ msgid "Couldn't edit recording of set."
+#~ msgstr "Impossible de trouver l'enregistrement"
+
+#, fuzzy
+#~ msgid "Do you really want to irreversibly remove this recording?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment supprimer cette association utilisateur - "
+#~ "institution ?"
+
+#, fuzzy
+#~ msgid "Failed to remove the recording."
+#~ msgstr "Impossible de créer le dossier cible dans « %1 »"
+
+#, fuzzy
+#~ msgctxt "Network port"
+#~ msgid "Port:"
+#~ msgstr "Port :"
+
+#, fuzzy
+#~ msgid "Add new Host"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Creating monophones..."
+#~ msgstr "Transmission des échantillons..."
+
+#, fuzzy
+#~ msgid "Generating dict1..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Impossible de supprimer l'utilisateur : %1"
+
+#, fuzzy
+#~ msgid "Could not generate list of triphones."
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "Could not generate tree.hed."
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Impossible de supprimer l'utilisateur"
+
+#, fuzzy
+#~ msgid "Could not create regtree.hed."
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Switching to new model..."
+#~ msgstr "Passer en mode offline"
+
+#, fuzzy
+#~ msgid "Could not switch to new model."
+#~ msgstr "Passer en mode offline"
+
+#, fuzzy
+#~ msgctxt "\"version information\" for a not installed HTK"
+#~ msgid "Not available"
+#~ msgstr "Insuffisant"
+
+#, fuzzy
+#~ msgid "Failed to adapt lexicon to \"%1\", \"%2\""
+#~ msgstr "Impossible de créer le dossier cible dans « %1 »"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "Impossible de créer le dossier cible dans « %1 »"
+
+#, fuzzy
+#~ msgid "Failed to adapt prompts from \"%1\" to \"%2\""
+#~ msgstr "Impossible de déplacer « %1 » vers « %2 »."
+
+#, fuzzy
+#~ msgid "&No"
+#~ msgstr "Non"
+
+#, fuzzy
+#~ msgid "&Type"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "&Name:"
+#~ msgstr "Nom :"
+
+#, fuzzy
+#~ msgid "&Edit"
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Supprimer"
+
+#, fuzzy
+#~ msgid "&Apply This Filter When"
+#~ msgstr "Appliquer les filtres"
+
+#, fuzzy
+#~ msgid "Apply This &Filter When"
+#~ msgstr "Appliquer les filtres"
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "&Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "Male 1"
+#~ msgstr "Homme"
+
+#, fuzzy
+#~ msgid "Male 2"
+#~ msgstr "Homme"
+
+#, fuzzy
+#~ msgid "Male 3"
+#~ msgstr "Homme"
+
+#, fuzzy
+#~ msgid "Female 1"
+#~ msgstr "Femme"
+
+#, fuzzy
+#~ msgid "Female 2"
+#~ msgstr "Femme"
+
+#, fuzzy
+#~ msgid "Female 3"
+#~ msgstr "Femme"
+
+#, fuzzy
+#~ msgid "Female Child"
+#~ msgstr "Femme"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "No"
+#~ msgstr "Non"
+
+#, fuzzy
+#~ msgid "R&epeat"
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Current Maintainer"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Code"
+#~ msgstr "Code postal"
+
+#, fuzzy
+#~ msgctxt "The name of the first Male voice"
+#~ msgid "Male 1"
+#~ msgstr "Homme"
+
+#, fuzzy
+#~ msgctxt "The name of the first Female voice"
+#~ msgid "Female 1"
+#~ msgstr "Femme"
+
+#, fuzzy
+#~ msgid "Voice Type:"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgctxt "Zoom at very low"
+#~ msgid "&Very Low"
+#~ msgstr "Très bien"
+
+#, fuzzy
+#~ msgctxt "Zoom at very high"
+#~ msgid "V&ery High"
+#~ msgstr "Très bien"
+
+#, fuzzy
+#~ msgid "&Rotation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Current maintainer"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgid "Opening file..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Printing..."
+#~ msgstr "Déconnexion..."
+
+#, fuzzy
+#~ msgctxt "Shutting down the application"
+#~ msgid "Exiting..."
+#~ msgstr "Déconnexion..."
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Ajouter un nouvel utilisateur"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Interval:"
+#~ msgstr "Interview :"
+
+#, fuzzy
+#~ msgid "Rating:"
+#~ msgstr "Répétition :"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Preview:"
+#~ msgstr "Interview :"
+
+#, fuzzy
+#~ msgid "Settings..."
+#~ msgstr "Connexion..."
+
+#, fuzzy
+#~ msgid "Advanced settings"
+#~ msgstr "Avancé 1"
+
+#, fuzzy
+#~ msgid "Ratio:"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Institut :"
+
+#, fuzzy
+#~ msgid "Image Position"
+#~ msgstr "Gérer les institutions"
+
+#, fuzzy
+#~ msgid "Current size:"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgid "Rating >="
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Rating ="
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Rating <="
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Meta Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgctxt "@title:group"
+#~ msgid "Meta Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgctxt "@label"
+#~ msgid "%1 file selected"
+#~ msgid_plural "%1 files selected"
+#~ msgstr[0] "Supprimer la sélection"
+#~ msgstr[1] "Supprimer la sélection"
+
+#, fuzzy
+#~ msgctxt "@label"
+#~ msgid "%1 folder selected"
+#~ msgid_plural "%1 folders selected"
+#~ msgstr[0] "Supprimer la sélection"
+#~ msgstr[1] "Supprimer la sélection"
+
+#, fuzzy
+#~ msgctxt "@action reload the currently viewed image"
+#~ msgid "Reload"
+#~ msgstr "Upload"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgid "Operations"
+#~ msgstr "Occupation"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "One document could not be saved:"
+#~ msgid_plural "%1 documents could not be saved:"
+#~ msgstr[0] ""
+#~ "Impossible de supprimer le dossier :\n"
+#~ "%1"
+#~ msgstr[1] ""
+#~ "Impossible de supprimer le dossier :\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Semantic Information"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Éditer l'utilisateur"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu Navigation Bar"
+#~ msgid "Edit Location"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgctxt "@addAction:inmenu"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Prénom"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "File Size"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rating"
+#~ msgstr "Répétition"
+
+#, fuzzy
+#~ msgid "Shooting date"
+#~ msgstr "Enregistrement des données..."
+
+#, fuzzy
+#~ msgid "Ignore"
+#~ msgstr "Ignoré"
+
+#, fuzzy
+#~ msgid "Could not create destination folder."
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr "Impossible de récupérer l'utilisateur : %1"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Impossible d'ajouter l'utilisateur: %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "No document selected"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgctxt "@item:intable Image file name"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgctxt "@item:intable"
+#~ msgid "File Size"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "@item:intable"
+#~ msgid "File Time"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Impossible de supprimer l'institution"
+
+#, fuzzy
+#~ msgid "RedEyeReduction"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Could not load ability list."
+#~ msgstr "Impossible d'ajouter l'institution"
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Port"
+#~ msgstr "Port :"
+
+#, fuzzy
+#~ msgid "Reinitializing camera"
+#~ msgstr "Initialisation"
+
+#, fuzzy
+#~ msgid "Initializing camera"
+#~ msgstr "Initialisation"
+
+#, fuzzy
+#~ msgid "Selection: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "&Undo: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "&Redo: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Undo: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Redo: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Preview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Occupation"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not open \"%1\" - unknown mimetype."
+#~ msgstr "Impossible de déplacer « %1 » vers « %2 »."
+
+#, fuzzy
+#~ msgid "Could not open \"%1\" - out of graphics memory."
+#~ msgstr "Impossible de déplacer « %1 » vers « %2 »."
+
+#, fuzzy
+#~ msgid "Could not save image - insufficient information."
+#~ msgstr "Impossible d'ajouter l'association utilisateur - institution : %1"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Impossible de supprimer les échantillons « %1 »."
+
+#, fuzzy
+#~ msgid "&Reload"
+#~ msgstr "Upload"
+
+#, fuzzy
+#~ msgid "&Delete Selection"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Selection: Delete"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Selection: Deselect"
+#~ msgstr "Supprimer la sélection"
+
+#, fuzzy
+#~ msgid "Could not change wallpaper."
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure that translation has the same "
+#~ "accel as the &Image translation"
+#~ msgid "Select&ion"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "Connected Lines"
+#~ msgstr "Connecté"
+
+#, fuzzy
+#~ msgid "Draws connected lines"
+#~ msgstr "Déconnecté"
+
+#, fuzzy
+#~ msgid "&Saturation:"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Send To..."
+#~ msgstr "Envoi des données..."
+
+#, fuzzy
+#~ msgid "Refine interpolation"
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Noise reduction:"
+#~ msgstr "Cours :"
+
+#, fuzzy
+#~ msgid "Corrections"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgid "Color Management"
+#~ msgstr "Gestion des utilisateurs"
+
+#, fuzzy
+#~ msgid "Default Language"
+#~ msgstr "Langage par défaut des nouveaux utilisateurs."
+
+#, fuzzy
+#~ msgid "Portugal"
+#~ msgstr "Port :"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "United Nations"
+#~ msgstr "Institutions"
+
+#, fuzzy
+#~ msgid "Reference:"
+#~ msgstr "ID de référence :"
+
+#, fuzzy
+#~ msgid "Detail:"
+#~ msgstr "Détails"
+
+#, fuzzy
+#~ msgid "Cancel current scan operation"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgctxt "Preview button text"
+#~ msgid "Preview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Basic Options"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgctxt "SpinBox parameter unit"
+#~ msgid " usec"
+#~ msgid_plural " usecs"
+#~ msgstr[0] "Ajouter un utilisateur"
+#~ msgstr[1] "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgctxt "Double numbers. SpinBox parameter unit"
+#~ msgid " usec"
+#~ msgstr "Ajouter un utilisateur"
+
+#, fuzzy
+#~ msgctxt "Label for button to write text in a KLineEdit to sane"
+#~ msgid "Set"
+#~ msgstr "Genre"
+
+#, fuzzy
+#~ msgctxt "@label:listbox The current screen, for the presentation mode"
+#~ msgid "Current Screen"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Éditer"
+
+#, fuzzy
+#~ msgid "Start Presentation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "End Presentation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Impossible d'envoyer l'échantillon"
+
+#, fuzzy
+#~ msgid "File Path"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgid "File Size"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgctxt "Unknown title"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown author"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown editor"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown publisher"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown creation date"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown volume information"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown type of document"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown number of component files"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Type of DjVu document"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Embedding %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Font file not found"
+#~ msgstr "Impossible de trouver l'ID utilisateur"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Unknown Encryption"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown description"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown producer"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "Unknown copyright statement"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Reviews"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "P&resentation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Impossible de déplacer « %1 » vers « %2 »."
+
+#, fuzzy
+#~ msgid "ps2pdf not found"
+#~ msgstr "Impossible de trouver l'ID utilisateur"
+
+#, fuzzy
+#~ msgid "Presentation Mode"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Do not allow the presentation mode"
+#~ msgstr "Ne pas demander avant de passer en mode offline"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Impossible d'ajouter l'utilisateur: %1"
+
+#, fuzzy
+#~ msgid "File could not be saved in '%1'. %2"
+#~ msgstr "Impossible de supprimer l'information du profile : %1."
+
+#, fuzzy
+#~ msgid "*|All Files"
+#~ msgstr "Appliquer les filtres"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Orientation"
+#~ msgstr[1] "Orientation"
+
+#, fuzzy
+#~ msgid "Modified: %1"
+#~ msgstr "Modifier « %1 »"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Communication"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#, fuzzy
+#~ msgid "Name: %1"
+#~ msgstr "Nom :"
+
+#, fuzzy
+#~ msgid "Size: %1"
+#~ msgstr "Envoi : %1"
+
+#, fuzzy
+#~ msgid "Current document only"
+#~ msgstr "Occupation actuelle :"
+
+#, fuzzy
+#~ msgctxt "Unknown date"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Impossible d'écrire la requête"
+
+#, fuzzy
+#~ msgid "Inline Note"
+#~ msgstr "Mode offline"
+
+#, fuzzy
+#~ msgid "S&earch:"
+#~ msgstr "Rechercher"
+
+#, fuzzy
+#~ msgid "Original Orientation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgid "&Review"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Sélectionner"
+
+#, fuzzy
+#~ msgctxt "[document title/filename] – Presentation"
+#~ msgid "%1 – Presentation"
+#~ msgstr "Orientation"
+
+#, fuzzy
+#~ msgid "Pages: %1"
+#~ msgstr "Page %1 sur %2"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Reading font information..."
+#~ msgstr "Informations sur le périphérique"
+
+#, fuzzy
+#~ msgid "Type 1"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "Type 1C"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "Type 3"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgid "TrueType"
+#~ msgstr "Type :"
+
+#, fuzzy
+#~ msgctxt "Unknown font type"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "3dsMax Details"
+#~ msgstr "Détails"
+
+#, fuzzy
+#~ msgid "Local Time"
+#~ msgstr "Échantillons locaux"
+
+#, fuzzy
+#~ msgctxt "Compression"
+#~ msgid "Unknown"
+#~ msgstr "Erreur inconnue"
+
+#, fuzzy
+#~ msgid "Model"
+#~ msgstr "Modèle :"

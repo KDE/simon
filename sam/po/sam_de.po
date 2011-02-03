@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-17 17:45+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: 2010-12-17 17:55+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -29,15 +29,15 @@ msgstr "Testergebnisse exportieren"
 msgid "sam: part of simon %1\n"
 msgstr "sam: Teil von simon %1\n"
 
-#: exporttestresults.cpp:208
+#: exporttestresults.cpp:210
 msgid ""
 "Could not initialize output template at \"%1\". Please select a valid output "
 "format."
 msgstr ""
-"Konnte Ausgabeschema \"%1\" nicht initialisieren. Bitte wählen Sie ein valides "
-"Ausgabeformat."
+"Konnte Ausgabeschema \"%1\" nicht initialisieren. Bitte wählen Sie ein "
+"valides Ausgabeformat."
 
-#: exporttestresults.cpp:219
+#: exporttestresults.cpp:221
 msgid ""
 "Output type not supported: %1.\n"
 "\n"
@@ -49,10 +49,9 @@ msgstr ""
 "Bitte stellen Sie sicher, dass das Ausgabeformat mit dieser Version von sam "
 "kompatibel ist."
 
-#: exporttestresults.cpp:238
+#: exporttestresults.cpp:240
 msgid "Failed to parse template: %1"
-msgstr ""
-"Konnte Vorlage nicht verarbeiten: %1"
+msgstr "Konnte Vorlage nicht verarbeiten: %1"
 
 #: latexreporttemplateengine.cpp:70
 msgid "LaTeX files (zipped) *.zip"
@@ -92,8 +91,9 @@ msgstr "Testergebnis zum angegebenen Dateinamen exportieren"
 
 #: main.cpp:42
 msgid "Batch processing: Close after all other arguments have been processed"
-msgstr "Stapelverarbeitung: Beende sam nachdem alle anderen Argumente "
-"verarbeitet wurden."
+msgstr ""
+"Stapelverarbeitung: Beende sam nachdem alle anderen Argumente verarbeitet "
+"wurden."
 
 #: main.cpp:43
 msgid "Store compilation log"
@@ -796,18 +796,21 @@ msgstr "Testprotokoll:"
 #. i18n: file: samui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:247
+#, fuzzy
 msgid "Main Actions"
 msgstr "Hauptaktionen"
 
 #. i18n: file: samui.rc:17
 #. i18n: ectx: Menu (build)
 #: rc.cpp:250
+#, fuzzy
 msgid "Build"
-msgstr "Erstellen"
+msgstr "Erstellungsprotokoll:"
 
 #. i18n: file: samui.rc:23
 #. i18n: ectx: Menu (test)
 #: rc.cpp:253
+#, fuzzy
 msgctxt "Test the model"
 msgid "Test"
 msgstr "Test"
@@ -815,6 +818,7 @@ msgstr "Test"
 #. i18n: file: testconfiguration.ui:125
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_5)
 #: rc.cpp:274
+#, fuzzy
 msgctxt "Test the model"
 msgid "Test configuration"
 msgstr "Testkonfiguration"
@@ -913,5 +917,1894 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#~ msgid "Individual words"
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Settings"
+#~ msgstr "Teste"
+
+#, fuzzy
+#~ msgid "List Title"
+#~ msgstr "Titel:"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "Titel:"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Kurze Beschreibung:"
+
+#, fuzzy
+#~ msgid "Creator"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Samplerate:"
+
+#, fuzzy
+#~ msgid "Title %1"
+#~ msgstr "Titel:"
+
+#, fuzzy
+#~ msgid "Audio Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Video Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Open audio file(s)"
+#~ msgstr "Ausgabedateien"
+
+#, fuzzy
+#~ msgid "No results"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Restore Defaults"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Hauptaktionen"
+
+#, fuzzy
+#~ msgid "system"
+#~ msgstr "System"
+
+#, fuzzy
+#~ msgid "okular"
+#~ msgstr "Vokabular"
+
+#, fuzzy
+#~ msgid "settings"
+#~ msgstr "Teste"
+
+#, fuzzy
+#~ msgid " instances"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Floating"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Hide automatically"
+#~ msgstr "Automatisch bestimmen"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Example:</p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Command</span>: <span style=\" font-style:italic;"
+#~ "\">kfmclient openURL</span></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Alias</span>: <span style=\" font-style:italic;"
+#~ "\">konqueror</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid "Number of pages to fit on"
+#~ msgstr "Anzahl von Aussprachen:"
+
+#, fuzzy
+#~ msgid "Create a New Edge"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Main KGraphViewer configuration options."
+#~ msgstr "Hole Konfiguration von simon"
+
+#, fuzzy
+#~ msgid "Page Preview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Unable to start %1."
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgid "Reload Confirmation"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Could not open file <i>%1</i> for reading."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Does not Contain"
+#~ msgstr "Nicht mehr fragen"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "&Quick Actions"
+#~ msgstr "Hauptaktionen"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgctxt "Vehicle types used in a journey with public transport"
+#~ msgid "Vehicle types"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgctxt "The company that is responsible for this departure/arrival/journey"
+#~ msgid "Operator:"
+#~ msgstr "Samplerate:"
+
+#, fuzzy
+#~ msgid "> %1 stops"
+#~ msgstr "%1 Tests abgeschlossen."
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid ""
+#~ "There is already a filter configuration with the name '%1'.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Ihre sam Konfiguration wurde geändert.\n"
+#~ "\n"
+#~ "Wollen Sie speichern?"
+
+#, fuzzy
+#~ msgid "Export Filter Settings"
+#~ msgstr "Testergebnisse exportieren"
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgctxt "Autocompletion for names of public transport stops"
+#~ msgid "Autocompletion"
+#~ msgstr "Speichere Kompilierungsprotokoll"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Detailed view"
+#~ msgstr "Detailiert"
+
+#, fuzzy
+#~ msgid "Maintainer"
+#~ msgstr "Hauptaktionen"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid ""
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
+#~ "\" font-weight:600;\">background</span> color by clicking here and choose "
+#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
+#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
+#~ "\" font-weight:600;\">foreground</span> color by clicking here and choose "
+#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
+#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid "Do nothing"
+#~ msgstr "Nicht mehr fragen"
+
+#, fuzzy
+#~ msgid "&Settings"
+#~ msgstr "Teste"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Konnte temporären Ordner nicht bereinigen"
+
+#, fuzzy
+#~ msgid "Retrieved %1 items from collection"
+#~ msgstr "Hole Systeminformationen"
+
+#, fuzzy
+#~ msgid "Default mode:"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Formatted result"
+#~ msgstr "Testergebnisse exportieren"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Static value"
+#~ msgstr "Statisches Modell"
+
+#, fuzzy
+#~ msgid "Script to run:"
+#~ msgstr "Skript Basisprefix:"
+
+#, fuzzy
+#~ msgid "Trigger automatically"
+#~ msgstr "Automatisch bestimmen"
+
+#, fuzzy
+#~ msgid "Next state:"
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgid "Enabled"
+#~ msgstr "Tabellen"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Kurze Beschreibung:"
+
+#, fuzzy
+#~ msgid "system-run"
+#~ msgstr "System"
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Text to speech configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Output"
+#~ msgstr "Ausgabedateien"
+
+#, fuzzy
+#~ msgid "Input Number"
+#~ msgstr "Eingabedateien"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "smb"
+#~ msgstr "sam"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Hauptaktionen"
+
+#, fuzzy
+#~ msgid "General Settings"
+#~ msgstr "Allgemein"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Anzahl von Aussprachen:"
+
+#, fuzzy
+#~ msgid "Grammar Settings"
+#~ msgstr "Grammatik"
+
+#, fuzzy
+#~ msgid "Sentences:"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "HTK Lexicon"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "PLS Lexicon"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "SPHINX Lexicon"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "Julius Vocabulary"
+#~ msgstr "Vokabular"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Bitstream "
+#~ "Vera Sans';\">Please select the SPHINX dictionary that you want to import "
+#~ "below.<br /></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please keep in mind "
+#~ "that those dictionaries do not provide information about terminals of the "
+#~ "words.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Prompts:"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Basis tiedlist:"
+
+#, fuzzy
+#~ msgid "Model type:"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "User generated model"
+#~ msgstr "Komplett Benutzergeneriertes Modell"
+
+#, fuzzy
+#~ msgid "HMM definition:"
+#~ msgstr "HMM Definitionen:"
+
+#, fuzzy
+#~ msgid "Macros:"
+#~ msgstr "Basis Makros:"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">This will remove the "
+#~ "word from both active and shadow vocabulary. All associated samples will "
+#~ "be deleted.</p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Warning: simon will also remove all samples of other words "
+#~ "with the same name - even across scenarios!</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid "Adapt grammar"
+#~ msgstr "Adaptionsprotokoll:"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Anzahl von Aussprachen:"
+
+#, fuzzy
+#~ msgid "Include similar words"
 #~ msgstr "Einzelne Wörter"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Aufnahmen:"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Eingabedateien"
+
+#, fuzzy
+#~ msgid "Textfiles *.txt"
+#~ msgstr "HTML Dateien *.html"
+
+#, fuzzy
+#~ msgid "Training"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Active Vocabulary"
+#~ msgstr "Vokabular"
+
+#, fuzzy
+#~ msgid "Shadow Vocabulary"
+#~ msgstr "Vokabular"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Build sentences"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Choose Model"
+#~ msgstr "Basismodell"
+
+#, fuzzy
+#~ msgid "Configure base models"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Get scenarios"
+#~ msgstr "Adaptiere Szenarios"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please select the sound "
+#~ "devices that simon will use for recording and playback.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Bitstream Vera Sans'; font-weight:600;\">Note:</span><span style="
+#~ "\" font-family:'Bitstream Vera Sans';\"> You must restart simond for the "
+#~ "changes to take effect.</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "family:'Bitstream Vera Sans'; font-weight:600;\">WARNING:</span><span "
+#~ "style=\" font-family:'Bitstream Vera Sans';\"> All changes to the user "
+#~ "database will be applied instantly.</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+
+#, fuzzy
+#~ msgid "Minimum Confidence:"
+#~ msgstr "Sicherheit"
+
+#, fuzzy
+#~ msgid "Recognition"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Icon:"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "Path to the Trainingssamples:"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Scenario"
+#~ msgstr "Adaptiere Szenarios"
+
+#, fuzzy
+#~ msgid "Input"
+#~ msgstr "Eingabedateien"
+
+#, fuzzy
+#~ msgid "Sample-Rate:"
+#~ msgstr "Samplerate:"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "Hole Systeminformationen"
+
+#, fuzzy
+#~ msgid "Details"
+#~ msgstr "Detailiert"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Fazit:"
+
+#, fuzzy
+#~ msgid "Interview:"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Repeating:"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "Microphone type:"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "Apply Filters"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Interview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Sprachaufnahme bearbeiten"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Timer type"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "Could not find child command: %1 (%2)."
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Anzeigen der Testergebnisse."
+
+#, fuzzy
+#~ msgid "Display the desktop grid"
+#~ msgstr "Anzeigen der Testergebnisse."
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Couldn't open temporary file at \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr "Konnte Vorlage nicht verarbeiten: %1"
+
+#, fuzzy
+#~ msgid "Rename state"
+#~ msgstr "Basis stats:"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr "Konnte Vorlage nicht verarbeiten: %1"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr "Konnte Vorlage nicht verarbeiten: %1"
+
+#, fuzzy
+#~ msgid "Failed to update state text."
+#~ msgstr "Konnte Vorlage nicht verarbeiten: %1"
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Failed to remove avatar."
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Display the number input"
+#~ msgstr "Anzeigen der Testergebnisse."
+
+#, fuzzy
+#~ msgid "Displays the number input field"
+#~ msgstr "Anzeigen der Testergebnisse."
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr ""
+#~ "Modelladaption fehlgeschlagen:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to edit set"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Failed to add tab"
+#~ msgstr "Konnte Vorlage nicht verarbeiten: %1"
+
+#, fuzzy
+#~ msgid "Failed to edit tab"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Failed to delete tab"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Open local file: %1"
+#~ msgstr "Konnte Datei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Basismodell"
+
+#, fuzzy
+#~ msgid "Scenarios"
+#~ msgstr "Adaptiere Szenarios"
+
+#, fuzzy
+#~ msgctxt "General settings page"
+#~ msgid "General"
+#~ msgstr "Allgemein"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Connecting aborted"
+#~ msgstr "Adaption abgebrochen"
+
+#, fuzzy
+#~ msgid "New word: "
+#~ msgstr "Anzahl von Wörtern:"
+
+#, fuzzy
+#~ msgid "Could not add %1 to the Prompts-Table"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Opening Lexicon"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "Creating List..."
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Test abgeschlossen: %1"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Importing Training Samples"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Import Training Samples"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Create Text"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Eingabedateien"
+
+#, fuzzy
+#~ msgid "Add Trainingstext"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Training completed"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Erstelle das derzeit offene Modell."
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Select base tiedlist"
+#~ msgstr "Basis tiedlist:"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Basis Makros:"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Basis stats:"
+
+#, fuzzy
+#~ msgid "Synchronizing scenarios"
+#~ msgstr "Serialisierte Szenarios"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgctxt "Model compilation status message"
+#~ msgid "Model: %1"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "Compiling model"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Manage scenarios"
+#~ msgstr "Adaptiere Szenarios"
+
+#, fuzzy
+#~ msgid "Connected"
+#~ msgstr "Abgehalten am:"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Next state"
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgctxt "Typename of static bound values"
+#~ msgid "Static"
+#~ msgstr "Statisches Modell"
+
+#, fuzzy
+#~ msgid "Loading Overview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Expected result"
+#~ msgstr "Testergebnisse exportieren"
+
+#, fuzzy
+#~ msgid "Actual result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Recognition rate (confidence scored)"
+#~ msgstr "Gesamte Erkennungsrate (Sicherheit):"
+
+#, fuzzy
+#~ msgid "Testing model..."
+#~ msgstr "Modell testen"
+
+#, fuzzy
+#~ msgid "Could not open prompts file for reading: %1"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open wavlist file for writing: %1"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open julius jconf file: \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open hmm definitions"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Prompts entry: %1"
+#~ msgstr "Prompts:"
+
+#, fuzzy
+#~ msgid "Word error rate"
+#~ msgstr "Word error rate:"
+
+#, fuzzy
+#~ msgctxt "The operation has been canceled"
+#~ msgid "Aborted"
+#~ msgstr "Adaption abgebrochen"
+
+#, fuzzy
+#~ msgid "Confidence Scores: "
+#~ msgstr "Sicherheit"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Hauptaktionen"
+
+#, fuzzy
+#~ msgid "Sentence"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Trainingsdata"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "%1 Prompts read"
+#~ msgstr "Prompts:"
+
+#, fuzzy
+#~ msgid "Export to file"
+#~ msgstr "Testergebnisse exportieren"
+
+#, fuzzy
+#~ msgid "Select scenario file"
+#~ msgstr "Serialisierte Szenarios"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Failed to store scenario"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Select scenario output file"
+#~ msgstr "Ausgabe serialisierter Szenarios"
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "TTS Files *.tts"
+#~ msgstr "HTML Dateien *.html"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Ausgabedateien"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Eingabedateien"
+
+#, fuzzy
+#~ msgid "Couldn't import set from \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Couldn't read recording sets from the configuration file."
+#~ msgstr "Korrupierte oder veraltete SAM Konfigurationsdatei."
+
+#, fuzzy
+#~ msgid "Couldn't write recording sets to the configuration file."
+#~ msgstr "Korrupierte oder veraltete SAM Konfigurationsdatei."
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not create temporary vocabular."
+#~ msgstr "Konnte temporären Ordner nicht bereinigen"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Failed to remove undefined phoneme."
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Adapting model..."
+#~ msgstr "Adaptiertes Basismodell"
+
+#, fuzzy
+#~ msgid "Could not adapt prompts. Does the file \"%1\" exist?"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Failed to adapt lexicon to \"%1\", \"%2\""
+#~ msgstr ""
+#~ "Modelladaption fehlgeschlagen:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr ""
+#~ "Modelladaption fehlgeschlagen:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Device information"
+#~ msgstr "Hole Systeminformationen"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not modify institution: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve institutions: %1"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not modify user \"%1\": %2"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Transmitting samples..."
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgid "Send samples"
+#~ msgstr "Aufnahmen:"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Server could not process sample: %1"
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Konnte prompts-Datei nicht überschreiben"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Server failed to store sample"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgctxt "Connected to server"
+#~ msgid "Connected"
+#~ msgstr "Abgehalten am:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the user is required to repeat what the recording "
+#~ "facilitator tells him"
+#~ msgid "Repeating"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgctxt "Trainings type where the user reads prompts off the screen"
+#~ msgid "Training"
+#~ msgstr "Trainingsaufnahmen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the facilitator asks general questions and the "
+#~ "interviee answers them"
+#~ msgid "Interview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Invalid set of prompts"
+#~ msgstr "Serialisierte Prompts"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Aufnahmen:"
+
+#, fuzzy
+#~ msgid "Edit samples pack"
+#~ msgstr "Sprachaufnahme bearbeiten"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Te&xt contains:"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Click to load a Talker Chooser configuration from a file."
+#~ msgstr "Korrupierte oder veraltete SAM Konfigurationsdatei."
+
+#, fuzzy
+#~ msgid "Talkers"
+#~ msgstr "Sprecher:"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Spea&k File"
+#~ msgstr "Sprecher:"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Unable to open file."
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Unable to open file "
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "&Configure"
+#~ msgstr "Sicherheit"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "File to open"
+#~ msgstr "Konnte Datei nicht speichern."
+
+#, fuzzy
+#~ msgid "Closing Configuration Window"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Word Completion"
+#~ msgstr "Speichere Kompilierungsprotokoll"
+
+#, fuzzy
+#~ msgctxt "Start speaking"
+#~ msgid "&Speak"
+#~ msgstr "Sprecher:"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "&Speak"
+#~ msgstr "Sprecher:"
+
+#, fuzzy
+#~ msgid "General Options"
+#~ msgstr "Allgemein"
+
+#, fuzzy
+#~ msgid "File Exists"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "&Overwrite"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Merge result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Creating Word List"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Rating:"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Rename documents automatically"
+#~ msgstr "Automatisch bestimmen"
+
+#, fuzzy
+#~ msgid "Preview:"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Fazit:"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "File Operations"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Create Folder..."
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Rating ="
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Meta Information"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgctxt "@title:group"
+#~ msgid "Meta Information"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Gwenview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Start in fullscreen mode"
+#~ msgstr "Statisches Modell"
+
+#, fuzzy
+#~ msgid "Operations"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Sprachaufnahme bearbeiten"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rating"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] ""
+#~ "Modelladaption fehlgeschlagen:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr[1] ""
+#~ "Modelladaption fehlgeschlagen:\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr "Konnte temporären Ordner nicht bereinigen"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Last visited: %1"
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgctxt "@title:group General info about the image"
+#~ msgid "General"
+#~ msgstr "Allgemein"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Camera configuration failed."
+#~ msgstr "Korrupierte oder veraltete SAM Konfigurationsdatei."
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Unbekannter modelltyp"
+
+#, fuzzy
+#~ msgid "Gamma:"
+#~ msgstr "Grammatik:"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Preview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Save Preview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\" - out of graphics memory."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Konnte Szenario nicht finden: %1"
+
+#, fuzzy
+#~ msgid "Overwrite"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Konnte die originale Aufnahme nicht löschen: %1"
+
+#, fuzzy
+#~ msgid "Connected Lines"
+#~ msgstr "Abgehalten am:"
+
+#, fuzzy
+#~ msgid "&Gamma:"
+#~ msgstr "Grammatik:"
+
+#, fuzzy
+#~ msgid "E&nable"
+#~ msgstr "Tabellen"
+
+#, fuzzy
+#~ msgid "&Preview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "untitled"
+#~ msgstr "Unbenannt"
+
+#, fuzzy
+#~ msgid "Rebuild"
+#~ msgstr "Erstellen"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Lao"
+#~ msgstr "Protokoll"
+
+#, fuzzy
+#~ msgid "Mexico"
+#~ msgstr "Lexicon:"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Palestine"
+#~ msgstr "Teste"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Systemdefinition:"
+
+#, fuzzy
+#~ msgid "Detail:"
+#~ msgstr "Detailiert"
+
+#, fuzzy
+#~ msgctxt "Preview button text"
+#~ msgid "Preview"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Basic Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Gamma"
+#~ msgstr "Grammatik"
+
+#, fuzzy
+#~ msgid "Editor Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Created"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Cannot find font %1, file %2."
+#~ msgstr "Konnte Datei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Cannot recognize format for font file %1"
+#~ msgstr "Konnte Datei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Cannot open font file %1."
+#~ msgstr "Konnte Datei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Export File As"
+#~ msgstr "Testergebnisse exportieren"
+
+#, fuzzy
+#~ msgid "Font generation aborted"
+#~ msgstr "Adaption abgebrochen"
+
+#, fuzzy
+#~ msgid "Unable to read style information"
+#~ msgstr "Hole Systeminformationen"
+
+#, fuzzy
+#~ msgid "PDF Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Unbekannter modelltyp"
+
+#, fuzzy
+#~ msgid "Ghostscript"
+#~ msgstr "Kurze Beschreibung:"
+
+#, fuzzy
+#~ msgid "Ghostscript Backend Configuration"
+#~ msgstr "Testkonfiguration"
+
+#, fuzzy
+#~ msgid "Reviews"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Reload the current document from disk."
+#~ msgstr "Erstelle das derzeit offene Modell."
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "Could not open the temporary file for saving."
+#~ msgstr "Konnte Ausgabedatei nicht öffnen: %1"
+
+#, fuzzy
+#~ msgid "*|All Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "&General"
+#~ msgstr "Allgemein"
+
+#, fuzzy
+#~ msgid "Created: %1"
+#~ msgstr "Test gestartet: %1"
+
+#, fuzzy
+#~ msgid "Modified: %1"
+#~ msgstr "Wort undefiniert: %1"
+
+#, fuzzy
+#~ msgid "Note"
+#~ msgstr "Notizen:"
+
+#, fuzzy
+#~ msgid "Confidential"
+#~ msgstr "Sicherheit"
+
+#, fuzzy
+#~ msgid "Experimental"
+#~ msgstr "Experiment"
+
+#, fuzzy
+#~ msgctxt "Symbol for file attachment annotations"
+#~ msgid "Graph"
+#~ msgstr "Graphen"
+
+#, fuzzy
+#~ msgctxt "Symbol for file attachment annotations"
+#~ msgid "Tag"
+#~ msgstr "Tag:"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "No description available."
+#~ msgstr "Kurze Beschreibung:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Kurze Beschreibung:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Created"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Konnte prompts-Datei nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "From current page"
+#~ msgstr "Kein aktuelles Protokoll."
+
+#, fuzzy
+#~ msgid "Search Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "&Review"
+#~ msgstr "Übersicht"
+
+#, fuzzy
+#~ msgid "Speak Text"
+#~ msgstr "Sprecher:"
+
+#, fuzzy
+#~ msgid "Find Next"
+#~ msgstr "Finde Datei:"
+
+#, fuzzy
+#~ msgid "Title: %1"
+#~ msgstr "Titel:"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Unbekannter modelltyp"
+
+#, fuzzy
+#~ msgid "No document opened."
+#~ msgstr "Kein aktuelles Protokoll."
+
+#, fuzzy
+#~ msgid "Reading font information..."
+#~ msgstr "Hole Systeminformationen"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Unbekannter modelltyp"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Optionen:"
+
+#, fuzzy
+#~ msgid "System Time"
+#~ msgstr "System"
+
+#, fuzzy
+#~ msgid "Camera Model"
+#~ msgstr "Modell erstellen"
+
+#, fuzzy
+#~ msgid "Model"
+#~ msgstr "Modelltyp"
+
+#, fuzzy
+#~ msgid "Creation Date"
+#~ msgstr "Erstelle"
+
+#, fuzzy
+#~ msgid "Number of Documents"
+#~ msgstr "Anzahl von Wörtern:"

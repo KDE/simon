@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,223 +24,223 @@ msgstr ""
 
 #. i18n: file: keyboardwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeyboardDlg)
-#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:377
+#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:383
 #: keyboardconfiguration.cpp:43 po/rc.cpp:54 rc.cpp:54
 msgid "Keyboard"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:413
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:419
 msgctxt "Number"
 msgid "Zero"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:416
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:422
 msgctxt "Number"
 msgid "One"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:419
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:425
 msgctxt "Number"
 msgid "Two"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:422
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:428
 msgctxt "Number"
 msgid "Three"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:425
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:431
 msgctxt "Number"
 msgid "Four"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:428
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:434
 msgctxt "Number"
 msgid "Five"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:431
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:437
 msgctxt "Number"
 msgid "Six"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:440
 msgctxt "Number"
 msgid "Seven"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:437
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:443
 msgctxt "Number"
 msgid "Eight"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:440
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:446
 msgctxt "Number"
 msgid "Nine"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:378
+#: keyboardcommandmanager.cpp:384
 msgid "Starts the keyboard"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:384
+#: keyboardcommandmanager.cpp:390
 msgctxt "Close the dialog"
 msgid "Ok"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:385
+#: keyboardcommandmanager.cpp:391
 msgid "Hides the keyboard"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:387
+#: keyboardcommandmanager.cpp:393
 msgctxt "Keyboard key"
 msgid "Shift"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:388
+#: keyboardcommandmanager.cpp:394
 msgid "Shift key"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:390
+#: keyboardcommandmanager.cpp:396
 msgctxt "Keyboard key"
 msgid "Caps lock"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:391
+#: keyboardcommandmanager.cpp:397
 msgid "Caps lock key"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:393
+#: keyboardcommandmanager.cpp:399
 msgctxt "Keyboard key"
 msgid "Control"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:169
 #. i18n: ectx: property (text), widget (KPushButton, pbControl)
-#: keyboardcommandmanager.cpp:394 po/rc.cpp:102 rc.cpp:102
+#: keyboardcommandmanager.cpp:400 po/rc.cpp:102 rc.cpp:102
 msgid "Control"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:396
+#: keyboardcommandmanager.cpp:402
 msgctxt "Keyboard key"
 msgid "Backspace"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:202
 #. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
-#: keyboardcommandmanager.cpp:397 po/rc.cpp:111 rc.cpp:111
+#: keyboardcommandmanager.cpp:403 po/rc.cpp:111 rc.cpp:111
 msgid "Backspace"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:399
+#: keyboardcommandmanager.cpp:405
 msgctxt "Keyboard key"
 msgid "Return"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:235
 #. i18n: ectx: property (text), widget (KPushButton, pbReturn)
-#: keyboardcommandmanager.cpp:400 po/rc.cpp:117 rc.cpp:117
+#: keyboardcommandmanager.cpp:406 po/rc.cpp:117 rc.cpp:117
 msgid "Return"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:402
+#: keyboardcommandmanager.cpp:408
 msgctxt "Keyboard key"
 msgid "Alt"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:242
 #. i18n: ectx: property (text), widget (KPushButton, pbAlt)
-#: keyboardcommandmanager.cpp:403 po/rc.cpp:120 rc.cpp:120
+#: keyboardcommandmanager.cpp:409 po/rc.cpp:120 rc.cpp:120
 msgid "Alt"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:405
+#: keyboardcommandmanager.cpp:411
 msgctxt "Keyboard key"
 msgid "AltGr"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:252
 #. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
-#: keyboardcommandmanager.cpp:406 po/rc.cpp:123 rc.cpp:123
+#: keyboardcommandmanager.cpp:412 po/rc.cpp:123 rc.cpp:123
 msgid "AltGr"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:408
+#: keyboardcommandmanager.cpp:414
 msgctxt "Keyboard key"
 msgid "Super"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:262
 #. i18n: ectx: property (text), widget (KPushButton, pbSuper)
-#: keyboardcommandmanager.cpp:409 po/rc.cpp:126 rc.cpp:126
+#: keyboardcommandmanager.cpp:415 po/rc.cpp:126 rc.cpp:126
 msgctxt "Super key"
 msgid "Super"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:414
+#: keyboardcommandmanager.cpp:420
 msgid "Clicks 0"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:417
+#: keyboardcommandmanager.cpp:423
 msgid "Clicks 1"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:420
+#: keyboardcommandmanager.cpp:426
 msgid "Clicks 2"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:423
+#: keyboardcommandmanager.cpp:429
 msgid "Clicks 3"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:426
+#: keyboardcommandmanager.cpp:432
 msgid "Clicks 4"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:429
+#: keyboardcommandmanager.cpp:435
 msgid "Clicks 5"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:438
 msgid "Clicks 6"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:435
+#: keyboardcommandmanager.cpp:441
 msgid "Clicks 7"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:438
+#: keyboardcommandmanager.cpp:444
 msgid "Clicks 8"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:441
+#: keyboardcommandmanager.cpp:447
 msgid "Clicks 9"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:443
+#: keyboardcommandmanager.cpp:449
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:444
+#: keyboardcommandmanager.cpp:450
 msgid "Decimal separator"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:138
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
-#: keyboardcommandmanager.cpp:447 keyboardcommandmanager.cpp:448 po/rc.cpp:96
+#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454 po/rc.cpp:96
 #: rc.cpp:96
 msgid "Select number"
 msgstr ""
 
 #. i18n: file: keyboardwidget.ui:145
 #. i18n: ectx: property (text), widget (KPushButton, pbWriteOutNumber)
-#: keyboardcommandmanager.cpp:450 keyboardcommandmanager.cpp:451 po/rc.cpp:99
+#: keyboardcommandmanager.cpp:456 keyboardcommandmanager.cpp:457 po/rc.cpp:99
 #: rc.cpp:99
 msgid "Write number"
 msgstr ""
 
-#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454
+#: keyboardcommandmanager.cpp:459 keyboardcommandmanager.cpp:460
 msgid "Number backspace"
 msgstr ""
 

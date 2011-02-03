@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-23 16:06+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,34 +34,34 @@ msgstr ""
 msgid "Peter Grasch"
 msgstr ""
 
-#: speechcal.cpp:54
+#: speechcal.cpp:55
 msgid "Failed to contact akonadi."
 msgstr ""
 
-#: speechcal.cpp:96 speechcal.cpp:107
+#: speechcal.cpp:101 speechcal.cpp:112
 msgid "Job returned error: %1"
 msgstr ""
 
 #. i18n: file: main.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDate)
-#: speechcal.cpp:124 rc.cpp:6
+#: speechcal.cpp:129 rc.cpp:6
 msgid "Loading..."
 msgstr ""
 
-#: speechcal.cpp:128
+#: speechcal.cpp:133
 msgid "Received collection: %1"
 msgstr ""
 
-#: speechcal.cpp:142
+#: speechcal.cpp:147
 msgid "Retrieved %1 items from collection"
 msgstr ""
 
-#: speechcal.cpp:157
+#: speechcal.cpp:162
 msgid ""
 "Fetched event has wrong type and could not be deserialized (Payload: %1)"
 msgstr ""
 
-#: speechcal.cpp:180
+#: speechcal.cpp:184
 msgid "Retrieved %1 relevant items"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.3.51\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-09 17:14+0100\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-12-09 17:15+0100\n"
 "Last-Translator: Grasch Peter <grasch@simon-listens.org>\n"
 "Language-Team: DE <de@li.org>\n"
@@ -80,60 +80,16 @@ msgstr "Templateoption"
 msgid "Dialog option"
 msgstr "Dialogoption"
 
-#: dialogboundvalues.cpp:75
-msgctxt "Name of the bound value"
-msgid "Name"
-msgstr "Name"
-
-#: dialogboundvalues.cpp:77
-msgctxt "Type of the bound value"
-msgid "Type"
-msgstr "Typ"
-
-#: dialogboundvalues.cpp:79
-msgctxt "Value of the bound value"
-msgid "Value"
-msgstr "Wert"
-
-#. i18n: file: dialogwidget.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, DialogView)
-#: dialogcommand.cpp:66 dialogcommandmanager.cpp:201
-#: dialogcommandmanager.cpp:347 dialogconfiguration.cpp:55 po/rc.cpp:255
-#: rc.cpp:255
-msgid "Dialog"
-msgstr "Dialog"
-
-#: dialogcommand.cpp:91
-msgctxt "Label for a bool value"
-msgid "Switch state"
-msgstr "Zustand wechseln"
-
-#: dialogcommand.cpp:91 dialogcommand.cpp:93
-msgid "Yes"
-msgstr "Ja"
-
-#: dialogcommand.cpp:91 dialogcommand.cpp:93
-msgid "No"
-msgstr "Nein"
-
-#: dialogcommand.cpp:92
-msgid "Next state"
-msgstr "Nächster Zustand"
-
-#: dialogcommand.cpp:93
-msgctxt "Label for a bool value"
-msgid "Execute command(s)"
-msgstr "Kommando(s) ausführen"
-
-#. i18n: file: simondialogpluginui.rc:6
-#. i18n: ectx: Menu (commands)
-#: dialogcommand.cpp:94 po/rc.cpp:258 rc.cpp:258
-msgid "Commands"
-msgstr "Kommandos"
-
 #: dialogcommandmanager.cpp:50
 msgid "Activate Dialog"
 msgstr "Aktiviere Dialog"
+
+#. i18n: file: dialogwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, DialogView)
+#: dialogcommandmanager.cpp:201 dialogcommandmanager.cpp:347
+#: dialogconfiguration.cpp:55 po/rc.cpp:255 rc.cpp:255
+msgid "Dialog"
+msgstr "Dialog"
 
 #: dialogcommandmanager.cpp:344
 msgid "Failed to initialize dialog configuration."
@@ -287,19 +243,19 @@ msgid "Please select an option from the right or add new ones as appropriate."
 msgstr ""
 "Bitte wählen Sie eine Option von rechts oder fügen Sie eine neue hinzu."
 
-#: dialogconfiguration.cpp:739
+#: dialogconfiguration.cpp:740
 msgid "Please answer with any of the following options."
 msgstr "Bitte antworten Sie mit einer der folgenden Optionen."
 
-#: dialogconfiguration.cpp:741
+#: dialogconfiguration.cpp:742
 msgid "Repeat"
 msgstr "Wiederholen"
 
-#: dialogconfiguration.cpp:742
+#: dialogconfiguration.cpp:743
 msgid "Say \"Repeat\" to hear this text again."
 msgstr "Sagen Sie \"Wiederholen\" um diesen Text erneut zu hören."
 
-#: dialogconfiguration.cpp:800
+#: dialogconfiguration.cpp:801
 msgid ""
 "Please select an existing avatar from the list or add a new one as "
 "appropriate."
@@ -307,33 +263,13 @@ msgstr ""
 "Bitte wählen Sie einen existierenden Avatar von der Liste oder fügen Sie "
 "einen neuen hinzu."
 
-#: dialogconfiguration.cpp:814
+#: dialogconfiguration.cpp:815
 msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
 msgstr "Wollen Sie den Avatar \"%1\" wirklich vom Dialog entfernen?"
 
-#: dialogconfiguration.cpp:817
+#: dialogconfiguration.cpp:818
 msgid "Failed to remove avatar."
 msgstr "Konnte den Avatar nicht entfernen."
-
-#: dialogstate.cpp:280
-msgctxt "Name of the state"
-msgid "Name"
-msgstr "Name"
-
-#: dialogtemplateoptions.cpp:60
-msgctxt "Name of the template option"
-msgid "Name"
-msgstr "Name"
-
-#: dialogtemplateoptions.cpp:62
-msgctxt "Value of the template option"
-msgid "Value"
-msgstr "Value"
-
-#: plasmaboundvalue.cpp:49
-msgctxt "Typename of script bound values"
-msgid "Plasma"
-msgstr "Plasma"
 
 #. i18n: file: createavatardlg.ui:20
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -436,6 +372,7 @@ msgstr "Test"
 #. i18n: file: createdialogcommandwidget.ui:20
 #. i18n: ectx: property (title), widget (QGroupBox, gbTrigger)
 #: po/rc.cpp:45 rc.cpp:45
+#, fuzzy
 msgctxt "More general version of \"display\""
 msgid "Presentation"
 msgstr "Präsentation"
@@ -736,6 +673,7 @@ msgstr "Avatare"
 #. i18n: file: dialogconfigurationdlg.ui:431
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: po/rc.cpp:219 rc.cpp:219
+#, fuzzy
 msgctxt "dialogoutput"
 msgid "Output"
 msgstr "Ausgabe"
@@ -761,7 +699,8 @@ msgstr "px"
 #. i18n: file: dialogconfigurationdlg.ui:477
 #. i18n: ectx: property (text), widget (QCheckBox, cbDisplayAvatarNames)
 #: po/rc.cpp:231 rc.cpp:231
-msgid "Display avatar names"
+#, fuzzy
+msgid "Display avatar name"
 msgstr "Avatarnamen anzeigen"
 
 #. i18n: file: dialogconfigurationdlg.ui:490
@@ -810,6 +749,12 @@ msgstr "Dieser Text wird abschließend gesprochen"
 msgid "Repeat available options on invalid input"
 msgstr "Verfügbare optionen bei fehlerhafter Eingabe wiederholen"
 
+#. i18n: file: simondialogpluginui.rc:6
+#. i18n: ectx: Menu (commands)
+#: po/rc.cpp:258 rc.cpp:258
+msgid "Commands"
+msgstr "Kommandos"
+
 #: po/rc.cpp:259 rc.cpp:259
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
@@ -819,20 +764,6 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
-
-#: scriptboundvalue.cpp:41
-msgctxt "Typename of script bound values"
-msgid "Script"
-msgstr "Skript"
-
-#: staticboundvalue.cpp:38
-msgctxt "Typename of static bound values"
-msgid "Static"
-msgstr "Statisch"
-
-#: tests/dialogcommandtest.cpp:147
-msgid "test"
-msgstr "test"
 
 #: tests/dialogtest.cpp:110
 msgid "appname"
@@ -857,3 +788,1910 @@ msgid ""
 msgstr ""
 "Fehlerhafte Eingabe: %1\n"
 "Bitte sagen Sie eine der angezeigten Optionen."
+
+#~ msgid "test"
+#~ msgstr "test"
+
+#, fuzzy
+#~ msgid "Add list"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Add List"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Show Upcoming"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Turn on Repeat"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Add to list"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Show items"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Show info"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Contrast"
+#~ msgstr "Einen Roboter kontrollieren"
+
+#, fuzzy
+#~ msgid "Automatic"
+#~ msgstr "Statisch"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this Daisy?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr "Wollen Sie den Avatar \"%1\" wirklich vom Dialog entfernen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this trash plugin?"
+#~ msgstr "Wollen Sie den ausgewählten Übergang wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "system"
+#~ msgstr "system-run"
+
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Do you really want to empty the trash? All items will be deleted."
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Drawers size:"
+#~ msgstr "Avatar Größe:"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Hide automatically"
+#~ msgstr "Automatisch auslösen"
+
+#, fuzzy
+#~ msgid "Media source:"
+#~ msgstr "Datenquelle:"
+
+#, fuzzy
+#~ msgid "Add date and time"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Natural size"
+#~ msgstr "Avatar Größe:"
+
+#, fuzzy
+#~ msgid "Related actions:"
+#~ msgstr "Templateoptionen"
+
+#~ msgid "No"
+#~ msgstr "Nein"
+
+#, fuzzy
+#~ msgid "&External command"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Specify layout command"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Next Page"
+#~ msgstr "Nächster Zustand"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "%1\\ncost: %2"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "New Name of the Filter Configuration:"
+#~ msgstr "Neuer Name des Zustandes:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This is a clickMessage for the line edit in the rename filter config "
+#~ "dialog"
+#~ msgid "Type the new name"
+#~ msgstr "Name des neuen Zustandes:"
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Support for getting information about the status of a journey with public "
+#~ "transport or an aeroplane. This string is used in a feature list, should "
+#~ "be short."
+#~ msgid "Status"
+#~ msgstr "Zustände"
+
+#, fuzzy
+#~ msgid "Show animations"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Switch interval:"
+#~ msgstr "Status wechseln"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "After"
+#~ msgstr "Nach:"
+
+#, fuzzy
+#~ msgid "RenameMe"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgid "Show facets"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Images"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "Swi&tch Colors"
+#~ msgstr "Status wechseln"
+
+#, fuzzy
+#~ msgctxt "The user name left to the chat input field"
+#~ msgid "%1:"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Failed to contact akonadi."
+#~ msgstr "Konnte den Avatar nicht entfernen."
+
+#, fuzzy
+#~ msgid "Control"
+#~ msgstr "Einen Roboter kontrollieren"
+
+#, fuzzy
+#~ msgid "Next day"
+#~ msgstr "Nächster Zustand"
+
+#, fuzzy
+#~ msgid "Display alarms"
+#~ msgstr "Avatar anzeigen"
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "At:"
+#~ msgstr "Nach:"
+
+#, fuzzy
+#~ msgid "Show controls:"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Only output"
+#~ msgstr "Ausgabe"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Request:"
+#~ msgstr "Anfrage"
+
+#, fuzzy
+#~ msgid "Down"
+#~ msgstr "Runter verschieben"
+
+#, fuzzy
+#~ msgid "Add button"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Trigger:"
+#~ msgstr "Name (Auslöser):"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Runter verschieben"
+
+#, fuzzy
+#~ msgid "Determine automatically"
+#~ msgstr "Automatisch auslösen"
+
+#, fuzzy
+#~ msgid "Options:"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "Tables"
+#~ msgstr "Aktiv"
+
+#, fuzzy
+#~ msgid "Short description:"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "System"
+#~ msgstr "system-run"
+
+#, fuzzy
+#~ msgid "Testset"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Static model"
+#~ msgstr "Statischer Wert"
+
+#, fuzzy
+#~ msgid "Script base prefix:"
+#~ msgstr "Auszuführendes Skript:"
+
+#, fuzzy
+#~ msgid "Base stats:"
+#~ msgstr "Folgender Zustand:"
+
+#, fuzzy
+#~ msgid "Output files"
+#~ msgstr "Ausgabe"
+
+#, fuzzy
+#~ msgid "Testing"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Test log:"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Test configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Name (Auslöser):"
+
+#, fuzzy
+#~ msgid "Autorun command:"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "PLS Lexicon"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Add trainingstext"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "New Name:"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Stats:"
+#~ msgstr "Zustand:"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Encryption"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Database:"
+#~ msgstr "Datenquelle:"
+
+#, fuzzy
+#~ msgid "Recognition"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Name (Auslöser):"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Name (Auslöser):"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "User interface"
+#~ msgstr "Grafische Oberfläche"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "Repeating:"
+#~ msgstr "Wiederholen"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#, fuzzy
+#~ msgid "Please select the data set to edit / send from the list below."
+#~ msgstr "Bitte wählen Sie einen gebunden Wert von der obigen Tabelle aus."
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Start simond"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "The associated command"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Avatar anzeigen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that make up this composited command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Konnte nicht alle Kommandos finden die von diesem Dialogkommando "
+#~ "aufgerufen werden.\n"
+#~ "\n"
+#~ "Die fehlenden Kommandos sind: %1."
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Dialogoption"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Deactivate Filter"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Starts filtering"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "Deactivate filter"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgctxt "The request itself (\"function\")"
+#~ msgid "Request"
+#~ msgstr "Anfrage"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Control"
+#~ msgstr "Einen Roboter kontrollieren"
+
+#, fuzzy
+#~ msgid "Please enter the name of the new set:"
+#~ msgstr "Bitte antworten Sie mit einer der folgenden Optionen."
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please enter the new name of the set:"
+#~ msgstr "Neuer Name des Zustandes:"
+
+#, fuzzy
+#~ msgid "Failed to edit set"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected set?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Please enter the name of the new tab:"
+#~ msgstr "Bitte antworten Sie mit einer der folgenden Optionen."
+
+#, fuzzy
+#~ msgid "Failed to add tab"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select the tab to be edited"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Please enter the new name of the tab:"
+#~ msgstr "Neuer Name des Zustandes:"
+
+#, fuzzy
+#~ msgid "Failed to edit tab"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select a set first"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Please select the tab to be deleted"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected tab?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Failed to delete tab"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select a set to which to add the new button"
+#~ msgstr ""
+#~ "Bitte wählen Sie einen Zustand von links aus oder fügen Sie einen neuen "
+#~ "hinzu."
+
+#, fuzzy
+#~ msgid "Please select a tab to which to add the new button"
+#~ msgstr ""
+#~ "Bitte wählen Sie einen Zustand von links aus oder fügen Sie einen neuen "
+#~ "hinzu."
+
+#, fuzzy
+#~ msgid "Please select a button to delete from the list"
+#~ msgstr "Bitte wählen Sie einen gebunden Wert von der obigen Tabelle aus."
+
+#, fuzzy
+#~ msgid "Failed to edit button"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected button?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Failed to delete button"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select the tab to be moved"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Failed to move tab up. Maybe it is already at the top?"
+#~ msgstr ""
+#~ "Konnte Zustand nicht nach oben verschieben.\n"
+#~ "\n"
+#~ "Vielleicht ist er bereits am Beginn der Liste?"
+
+#, fuzzy
+#~ msgid "Failed to move tab down. Maybe it is already at the bottom?"
+#~ msgstr ""
+#~ "Konnte Zustand nicht nach oben verschieben.\n"
+#~ "\n"
+#~ "Vielleicht ist er bereits am Beginn der Liste?"
+
+#, fuzzy
+#~ msgid "Failed to load keyboard sets from storage"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgctxt "Name of the key"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Name (Auslöser):"
+
+#, fuzzy
+#~ msgctxt "Type of the key"
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgctxt "Value of the key"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that make up this list command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Konnte nicht alle Kommandos finden die von diesem Dialogkommando "
+#~ "aufgerufen werden.\n"
+#~ "\n"
+#~ "Die fehlenden Kommandos sind: %1."
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgid "Failed to parse template: %1"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Couldn't clean temporary directory"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Failed to store file."
+#~ msgstr "Konnte den Text des Zustandes nicht aktualisieren."
+
+#, fuzzy
+#~ msgid "Could not open output file %1."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Test started: %1"
+#~ msgstr "Folgender Zustand:"
+
+#, fuzzy
+#~ msgid "Could not find scenario: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to adapt model:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Could not modify prompts file"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not remove original sample:  %1."
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Could not copy sample from temporary path %1 to %2."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Sound devices"
+#~ msgstr "Gebundene Werte"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select an action"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Could not determine Command Type"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgctxt "Advance to the next step in the wizard"
+#~ msgid "Next >"
+#~ msgstr "Nächster Zustand"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Selection box for the encoding: Determine the encoding automatically"
+#~ msgid "Automatic"
+#~ msgstr "Statisch"
+
+#, fuzzy
+#~ msgid "Active Dictionary"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Text added"
+#~ msgstr "Nächster Zustand"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Rename terminal"
+#~ msgstr "Zustand umbenennen"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Add structure"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Please select a text first"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Please select a word first"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Failed to re-order the changed word."
+#~ msgstr "Konnte den Avatar nicht entfernen."
+
+#, fuzzy
+#~ msgid "Do you really want to clear the whole vocabulary?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Please select a word scheduled for training first."
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not remove Sample from the Trainingscorpus"
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Please select a Model from the List"
+#~ msgstr "Bitte wählen Sie einen gebunden Wert von der obigen Tabelle aus."
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr "Wollen Sie den ausgewählten Übergang wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Loading interface..."
+#~ msgstr "Grafische Oberfläche"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Activating..."
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Aktiviere Dialog"
+
+#, fuzzy
+#~ msgid "Could not connect to database"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Do you really want to remove the user from the database?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Konnte Zustand nicht entfernen"
+
+#, fuzzy
+#~ msgid "Do you also want to remove the speech model from the server?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Could not initialize recognition"
+#~ msgstr "Konnte Dialogkonfiguration nicht initialisieren."
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgctxt "Name of the simond user"
+#~ msgid "Username"
+#~ msgstr "Umbenennen"
+
+#~ msgctxt "Name of the bound value"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgctxt "Type of the bound value"
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#~ msgctxt "Value of the bound value"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#~ msgctxt "Label for a bool value"
+#~ msgid "Switch state"
+#~ msgstr "Zustand wechseln"
+
+#~ msgid "Next state"
+#~ msgstr "Nächster Zustand"
+
+#~ msgctxt "Label for a bool value"
+#~ msgid "Execute command(s)"
+#~ msgstr "Kommando(s) ausführen"
+
+#~ msgctxt "Name of the state"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgctxt "Name of the template option"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgctxt "Value of the template option"
+#~ msgid "Value"
+#~ msgstr "Value"
+
+#~ msgctxt "Typename of script bound values"
+#~ msgid "Plasma"
+#~ msgstr "Plasma"
+
+#~ msgctxt "Typename of script bound values"
+#~ msgid "Script"
+#~ msgstr "Skript"
+
+#~ msgctxt "Typename of static bound values"
+#~ msgid "Static"
+#~ msgstr "Statisch"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgid "Preperation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Could not open prompts file for reading: %1"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not open wavlist file for writing: %1"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not open julius jconf file: \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "%1: Voice commands"
+#~ msgstr "Kommandos ausführen"
+
+#, fuzzy
+#~ msgid "Please select a valid action"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgctxt "Name of the trainings text"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Possible answer to the question: Should we show an icon?"
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#, fuzzy
+#~ msgctxt "Possible answer to the question: Should we show an icon?"
+#~ msgid "No"
+#~ msgstr "Nein"
+
+#, fuzzy
+#~ msgid "Voice Interface"
+#~ msgstr "Grafische Oberfläche"
+
+#, fuzzy
+#~ msgid "Failed to store scenario"
+#~ msgstr "Konnte Zustand nicht umbenennen"
+
+#, fuzzy
+#~ msgid "Please select a scenario from the list(s)"
+#~ msgstr "Bitte wählen Sie einen gebunden Wert von der obigen Tabelle aus."
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irrecoverably delete the selected scenario "
+#~ "\"%1\" (\"%2\")?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Couldn't export set to \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Couldn't import set from \"%1\"."
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Set name"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irreversibly delete the current set and all "
+#~ "associated samples?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Couldn't remove set"
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Please add or select a set above."
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Couldn't add recording to set."
+#~ msgstr "Konnte Text nicht vom Zustand entfernen."
+
+#, fuzzy
+#~ msgid "Please select a recording above."
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Couldn't edit recording of set."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Do you really want to irreversibly remove this recording?"
+#~ msgstr "Wollen Sie den ausgewählten Übergang wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Failed to remove the recording."
+#~ msgstr "Konnte den Avatar nicht entfernen."
+
+#, fuzzy
+#~ msgid "Could not create temporary vocabular."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Failed to remove undefined phoneme."
+#~ msgstr "Konnte Zustand nicht entfernen"
+
+#, fuzzy
+#~ msgid "Could not switch to new model."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "Konnte Zustand nicht hinzufügen"
+
+#, fuzzy
+#~ msgctxt "Name of the institution"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Please select an institution"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Could not modify institution: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve institutions: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Please select an user"
+#~ msgstr "Bitte wählen Sie eine Templateoption aus."
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this user - institution association?"
+#~ msgstr "Wollen Sie den ausgewählten Übergang wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the user is required to repeat what the recording "
+#~ "facilitator tells him"
+#~ msgid "Repeating"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
+#~ msgstr "Wollen Sie den ausgewählten Zustand wirklich entfernen?"
+
+#, fuzzy
+#~ msgid "Failed to create target directory at \"%1\""
+#~ msgstr "Konnte Zustand nicht umbenennen"
+
+#, fuzzy
+#~ msgctxt "Possible answer to: Is x available?"
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#, fuzzy
+#~ msgctxt "Possible answer to: Is x available?"
+#~ msgid "No"
+#~ msgstr "Nein"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "&No"
+#~ msgstr "Nein"
+
+#, fuzzy
+#~ msgid "&Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "&Name:"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgid "&Edit"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "&Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "No"
+#~ msgstr "Nein"
+
+#, fuzzy
+#~ msgid "R&epeat"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Text-to-speech synthesis daemon"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Voice Type:"
+#~ msgstr "Typ:"
+
+#, fuzzy
+#~ msgid "Enable Logs"
+#~ msgstr "Aktiv"
+
+#, fuzzy
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "State"
+#~ msgstr "Zustand:"
+
+#, fuzzy
+#~ msgid "Show &Menu"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "General Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "KDE Text-to-Speech Daemon Configuration"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Name of the &phrase book:"
+#~ msgstr "Name des neuen Zustandes:"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Show videos"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgid "Rename Format:"
+#~ msgstr "Zustand umbenennen"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Image Position"
+#~ msgstr "Templateoption"
+
+#, fuzzy
+#~ msgid "x"
+#~ msgstr "px"
+
+#, fuzzy
+#~ msgid "Image View"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "Move To"
+#~ msgstr "Runter verschieben"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "Move"
+#~ msgstr "Rauf verschieben"
+
+#, fuzzy
+#~ msgid "Enter the name of the folder to create:"
+#~ msgstr "Neuer Name des Zustandes:"
+
+#, fuzzy
+#~ msgid "Move Here"
+#~ msgstr "Rauf verschieben"
+
+#, fuzzy
+#~ msgid "File Operations"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgctxt "Verb"
+#~ msgid "Move To..."
+#~ msgstr "Runter verschieben"
+
+#, fuzzy
+#~ msgctxt "Verb"
+#~ msgid "Rename..."
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Image Operations"
+#~ msgstr "Templateoptionen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@item:intext %1 is a key, we append a colon to it. A value is displayed "
+#~ "after"
+#~ msgid "%1:"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Images"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Start Page"
+#~ msgstr "Dialog starten"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Operations"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgctxt "@title:window"
+#~ msgid "Open Image"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Add to Places"
+#~ msgstr "Zustand hinzufügen"
+
+#, fuzzy
+#~ msgctxt "@addAction:inmenu"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Umbenennen"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Image Size"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] "Konnte den Text des Zustandes nicht aktualisieren."
+#~ msgstr[1] "Konnte den Text des Zustandes nicht aktualisieren."
+
+#, fuzzy
+#~ msgid "Could not create destination folder."
+#~ msgstr "Konnte gebundenen Wert nicht editieren."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgctxt "%1 is the importer keyword, %2 is keyword explanation"
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgctxt "@item:intable Image file name"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "@item:intable"
+#~ msgid "Image Size"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Blue:"
+#~ msgstr "Wert:"
+
+#, fuzzy
+#~ msgid "Rotate"
+#~ msgstr "Zustand:"
+
+#, fuzzy
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Key"
+#~ msgstr "Schlüssel:"
+
+#, fuzzy
+#~ msgid "Flip Image"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "After rotate:"
+#~ msgstr "Nach:"
+
+#, fuzzy
+#~ msgid "Skew Image"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "After skew:"
+#~ msgstr "Nach:"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Text: Paste"
+#~ msgstr "Text:"
+
+#, fuzzy
+#~ msgid "Open Image"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure the translation has the same "
+#~ "accel as the Select&ion translation"
+#~ msgid "&Image"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "%1%"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Show &Grid"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "%1: "
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Text: Write"
+#~ msgstr "Text:"
+
+#, fuzzy
+#~ msgid "Text: Font"
+#~ msgstr "Text:"
+
+#, fuzzy
+#~ msgid "Text: Bold"
+#~ msgstr "Text:"
+
+#, fuzzy
+#~ msgid "E&nable"
+#~ msgstr "Aktiv"
+
+#, fuzzy
+#~ msgctxt "The V of HSV"
+#~ msgid "&Value:"
+#~ msgstr "Wert:"
+
+#, fuzzy
+#~ msgid "I&mage Position"
+#~ msgstr "Templateoption"
+
+#, fuzzy
+#~ msgid "&Center of the page"
+#~ msgstr "Neuer Name des Zustandes:"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Vatican"
+#~ msgstr "Statisch"
+
+#, fuzzy
+#~ msgid "Qatar"
+#~ msgstr "Avatar"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Matter:"
+#~ msgstr "Nach:"
+
+#, fuzzy
+#~ msgid "Found devices:"
+#~ msgstr "Gebundene Werte"
+
+#, fuzzy
+#~ msgid "Basic Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgctxt "Label for button to write text in a KLineEdit to sane"
+#~ msgid "Set"
+#~ msgstr "Still"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Editieren"
+
+#, fuzzy
+#~ msgid "Editor Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "Start Presentation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "End Presentation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Mime Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Cannot open font file %1."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "PDF Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Ghostscript"
+#~ msgstr "QtScript"
+
+#, fuzzy
+#~ msgid "P&resentation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "Presentation Mode"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Konnte Text nicht sprechen: %1"
+
+#, fuzzy
+#~ msgid "&Page:"
+#~ msgstr "Bild:"
+
+#, fuzzy
+#~ msgid "Could not open the temporary file for saving."
+#~ msgstr "Konnte temporäre Datei nicht öffnen: \"%1\"."
+
+#, fuzzy
+#~ msgid "Add Bookmark"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Präsentation"
+#~ msgstr[1] "Präsentation"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Name: %1"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Beschreibung:"
+
+#, fuzzy
+#~ msgid "Text to search for"
+#~ msgstr "Sprachausgabe Konfiguration"
+
+#, fuzzy
+#~ msgid "Search Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "Scroll Down"
+#~ msgstr "Runter verschieben"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Show Forms"
+#~ msgstr "Icon anzeigen"
+
+#, fuzzy
+#~ msgid "Text of the new note:"
+#~ msgstr "Name des neuen Zustandes:"
+
+#, fuzzy
+#~ msgid "New Text Note"
+#~ msgstr "Nächster Zustand"
+
+#, fuzzy
+#~ msgctxt "[document title/filename] – Presentation"
+#~ msgid "%1 – Presentation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "Switch Screen"
+#~ msgstr "Status wechseln"
+
+#, fuzzy
+#~ msgid "Exit Presentation Mode"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Reason for inhibiting the screensaver activation, when the presentation "
+#~ "mode is active"
+#~ msgid "Giving a presentation"
+#~ msgstr "Präsentation"
+
+#, fuzzy
+#~ msgid "%1:"
+#~ msgstr "%1: %2"
+
+#, fuzzy
+#~ msgid "Type 1"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 1C"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 3"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "TrueType"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Optionen"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgctxt "Metres"
+#~ msgid "m"
+#~ msgstr "ms"
+
+#, fuzzy
+#~ msgid "Image Info"
+#~ msgstr "Bild:"

@@ -7,16 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-22 23:12+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -258,3 +258,242 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Nombre"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Un"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Huit"
+
+#, fuzzy
+#~ msgid "Points (pt)"
+#~ msgstr "Point"
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Saisir un nombre"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Quatre"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Neuf"
+
+#, fuzzy
+#~ msgid "Only number input"
+#~ msgstr "Affiche la saisie de nombres"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr "."
+
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Saisir un nombre"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Un"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Deux"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Trois"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Quatre"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Cinq"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Six"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sept"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Huit"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Clears the whole input"
+#~ msgstr "Affiche la saisie de nombres"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog and sends the input"
+#~ msgstr "Valider l'entrée et écrire le nombre"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog"
+#~ msgstr "Abandonne la saisie"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Affiche la saisie de nombres"
+
+#, fuzzy
+#~ msgid "Display the desktop grid"
+#~ msgstr "Affiche la saisie de nombres"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Activer la saisie de nombres"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Activer la saisie de nombres"
+
+#, fuzzy
+#~ msgctxt "Close the dialog"
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "Hides the dialog"
+#~ msgstr "Abandonne la saisie"
+
+#, fuzzy
+#~ msgid "Display the test results."
+#~ msgstr "Affiche la saisie de nombres"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Six"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Abandonne la saisie"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Huit"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Zéro"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Huit"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Précédent"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Huit"

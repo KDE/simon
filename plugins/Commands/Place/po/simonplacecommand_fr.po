@@ -7,16 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonplacecommand_fr\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-22 23:12+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -47,6 +47,7 @@ msgstr ""
 #. i18n: file: createplacecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
 #: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
 msgctxt "Input the information manually (instead of automatically)"
 msgid "Manual"
 msgstr "Manuel"
@@ -185,3 +186,234 @@ msgstr "Ouvrir un fichier local : %1"
 msgid "Open remote URL: %1"
 msgstr "Ouvrir une URL distante : %1"
 
+#, fuzzy
+#~ msgid "personal files"
+#~ msgstr "Ouvrir un fichier local : %1"
+
+#, fuzzy
+#~ msgid "&Selected plugins:"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Places"
+#~ msgstr "Emplacement"
+
+#, fuzzy
+#~ msgid "Remove"
+#~ msgstr "URL distante"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgid "Select program"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Configure the needed parameters manually"
+#~ msgstr "Configurer les paramètres nécessaires manuellement"
+
+#, fuzzy
+#~ msgid "Select number"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Utilisateur :"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Mot de passe :"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgid "Hosts"
+#~ msgstr "Hôte :"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "User ID:"
+#~ msgstr "Utilisateur :"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "User - Institution"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgctxt "Name of the path"
+#~ msgid "Path"
+#~ msgstr "Emplacement :"
+
+#, fuzzy
+#~ msgid "sam"
+#~ msgstr "smb"
+
+#, fuzzy
+#~ msgid "Cannot open file: %1"
+#~ msgstr "Ouvrir un fichier local : %1"
+
+#, fuzzy
+#~ msgid "User authenticated"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "User"
+#~ msgstr "Utilisateur :"
+
+#, fuzzy
+#~ msgctxt "Name of the simond user"
+#~ msgid "Username"
+#~ msgstr "Utilisateur :"
+
+#, fuzzy
+#~ msgid "Loading File..."
+#~ msgstr "Fichier local"
+
+#, fuzzy
+#~ msgid "Select input device"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Users"
+#~ msgstr "Utilisateur :"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Fichier local"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid " Help "
+#~ msgstr "Aide"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgctxt "Local characterset"
+#~ msgid "Local"
+#~ msgstr "Fichier local"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Recent URLs"
+#~ msgstr "URL distante"
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "&Select test picture:"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Selection: Scale"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Selection: Create"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Selection: Delete"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Utiliser une authentification"
+
+#, fuzzy
+#~ msgid "&Replace"
+#~ msgstr "Emplacement"
+
+#, fuzzy
+#~ msgid "Open external file"
+#~ msgstr "Ouvrir un fichier local : %1"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Sélectionner un emplacement"
+
+#, fuzzy
+#~ msgid "Local Time"
+#~ msgstr "Fichier local"
+
+#, fuzzy
+#~ msgid "RLE"
+#~ msgstr "URL"

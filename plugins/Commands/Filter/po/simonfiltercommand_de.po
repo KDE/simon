@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-02-09 13:32+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -17,45 +17,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: filtercommandmanager.cpp:39 filtercommandmanager.cpp:64
+#: filtercommandmanager.cpp:41 filtercommandmanager.cpp:66
 msgid "Activate Filter"
 msgstr "Aktiviere Filter"
 
-#: filtercommandmanager.cpp:50 filterconfiguration.cpp:30
+#: filtercommandmanager.cpp:52 filterconfiguration.cpp:30
 msgid "Filter"
 msgstr "Filter"
 
-#: filtercommandmanager.cpp:63
-msgid "Filter deactivated"
-msgstr "Filter deaktiviert"
-
-#: filtercommandmanager.cpp:67
-msgid "Filter activated"
-msgstr "Filter aktiviert"
-
-#: filtercommandmanager.cpp:68
+#: filtercommandmanager.cpp:70
 msgid "Deactivate Filter"
 msgstr "Deaktiviere Filter"
 
-#: filtercommandmanager.cpp:75
-msgid "[INF] Changing filter state..."
+#: filtercommandmanager.cpp:77
+#, fuzzy
+msgid "Changing filter state..."
 msgstr "[INF] Filter Status geändert..."
 
-#: filtercommandmanager.cpp:107
+#: filtercommandmanager.cpp:165
 msgid "Activate filter"
 msgstr "Aktiviere Filter"
 
-#: filtercommandmanager.cpp:108
+#: filtercommandmanager.cpp:166
 msgid "Starts filtering"
 msgstr "Starte Filterung"
 
-#: filtercommandmanager.cpp:114
+#: filtercommandmanager.cpp:172
 msgid "Deactivate filter"
 msgstr "Deaktiviere Filter"
 
-#: filtercommandmanager.cpp:115
+#: filtercommandmanager.cpp:173
 msgid "Stops filtering"
 msgstr "Stoppe Filterung"
+
+#: filtercommandmanager.cpp:179
+#, fuzzy
+msgid "Deactivate filter once"
+msgstr "Deaktiviere Filter"
+
+#: filtercommandmanager.cpp:180
+msgid ""
+"When two stage mode is activated; Will consider the next recognition result "
+"and either only listen for the command to deactivate the filter completely "
+"or also pass the next result through to other plugins depending on the "
+"setting in the configuration."
+msgstr ""
 
 #: filterconfiguration.cpp:31
 msgid "Filter recognition results"
@@ -63,7 +69,7 @@ msgstr "Filtere Erkennungsergebnisse"
 
 #. i18n: file: filterconfigurationdlg.ui:32
 #. i18n: ectx: property (text), widget (KLineEdit, leRegExp)
-#: filterconfiguration.cpp:76 po/rc.cpp:6 rc.cpp:6
+#: filterconfiguration.cpp:117 po/rc.cpp:6 rc.cpp:6
 msgid ".*"
 msgstr ".*"
 
@@ -73,15 +79,288 @@ msgstr ".*"
 msgid "Filter (RegExp):"
 msgstr "Filter (RegExp):"
 
-#: po/rc.cpp:7 rc.cpp:7
+#. i18n: file: filterconfigurationdlg.ui:41
+#. i18n: ectx: property (text), widget (QCheckBox, cbTwoStage)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:48
+#. i18n: ectx: property (text), widget (QCheckBox, cbRelayStageOne)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Relay result in stage one of two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, cbLeaveStageOneAutomatically)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Leave stage one automatically after timeout:"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:77
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "ms"
+msgstr ""
+
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
+#, fuzzy
+#~ msgid "File directive"
+#~ msgstr "Filter deaktiviert"
+
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "alternative"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "Stoppe Filterung"
+
 #~ msgid "Form"
 #~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "*"
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Starte Filterung"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Filtere Erkennungsergebnisse"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Starte Filterung"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Apply Filters"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Start dialog"
+#~ msgstr "Starte Filterung"
+
+#, fuzzy
+#~ msgid "Activate Number Input"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Starte Filterung"
+
+#, fuzzy
+#~ msgid "simon activated"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgid "simon deactivated"
+#~ msgstr "Filter deaktiviert"
+
+#, fuzzy
+#~ msgid "Active Dictionary"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "simon - Deactivated"
+#~ msgstr "Filter deaktiviert"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Deactivating..."
+#~ msgstr "Deaktiviere Filter"
+
+#, fuzzy
+#~ msgid "Connected but Deactivated"
+#~ msgstr "Filter deaktiviert"
+
+#, fuzzy
+#~ msgid "simon has been deactivated"
+#~ msgstr "Filter deaktiviert"
+
+#, fuzzy
+#~ msgid "Connected and Activated"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "simon has been activated"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgid "Received recognition result for: %1: %2"
+#~ msgstr "Filtere Erkennungsergebnisse"
+
+#, fuzzy
+#~ msgid "Analyzing recognition results..."
+#~ msgstr "Filtere Erkennungsergebnisse"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recognition results:\n"
+#~ "%1"
+#~ msgstr "Filtere Erkennungsergebnisse"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Stoppe Filterung"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Stoppe Filterung"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Aktiviere Filter"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Deaktiviere Filter"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Filtere Erkennungsergebnisse"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Deaktiviere Filter"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Rating"
+#~ msgstr "Filter aktiviert"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filter"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Stop Speaking"
+#~ msgstr "Stoppe Filterung"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Filtere Erkennungsergebnisse"

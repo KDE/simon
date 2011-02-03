@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonexecutablecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:28+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -46,6 +46,7 @@ msgstr "Wählen Sie ein installiertes Programm aus der Liste"
 #. i18n: file: createexecutablecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbManual)
 #: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
 msgctxt "Enter information by hand"
 msgid "Manual"
 msgstr "Manuell"
@@ -59,6 +60,7 @@ msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
 #. i18n: file: createexecutablecommandwidget.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: po/rc.cpp:15 rc.cpp:15
+#, fuzzy
 msgctxt "Executable file (program)"
 msgid "Executable:"
 msgstr "Ausführbare Datei:"
@@ -83,8 +85,559 @@ msgstr "grasch@simon-listens.org"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
+#, fuzzy
+#~ msgid "Save Shortcuts"
+#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "Director"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Loading playlist..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Add &borders"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Add page numbers"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Add a new attribute"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgctxt "Page size"
+#~ msgid "US Executive"
+#~ msgstr "Ausführbare Datei"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This is a clickMessage for the line edit in the rename filter config "
+#~ "dialog"
+#~ msgid "Type the new name"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "&Add a feed:"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Add Feed"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
 #~ msgid "Form"
 #~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "Configure the necessairy parameters manually"
+#~ msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
+
+#, fuzzy
+#~ msgid "Local Place"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Word:"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Import"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Import Folder"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Directory:"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Import from local text file"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Import Text"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Import Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "HTK Programs"
+#~ msgstr "Programm"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "Test completed: %1"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Added Word: "
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Import HADIFIX Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Shadow Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Active Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Import PLS Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Import SPHINX Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Importing Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing HTK-Dictionary %1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing HADIFIX-dictionary %1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing PLS-dictionary %1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing SPHINX-dictionary %1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing Julius vocabulary %1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Reading prompts file..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Importing %1 Files..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing Training Samples"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Importing of the Folder completed"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Renaming complete"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Training completed"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Starting simon..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Loading core..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Not connected"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Loading training..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading vocabulary..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading run..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading interface..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Loading File..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Loading Log..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Parsing Days..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Pretty label showing the user that the transcription and the result "
+#~ "mismatch"
+#~ msgid "%1 (correct: %2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "Author (contact information)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Import from file"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgctxt "Name and contact information"
+#~ msgid "<p>%1 (%2)</p>"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Add new Host"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Generating grammar dictionary..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Generating dict1..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Generating triphone..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Performing static adaption..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Adapting prompts..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Adapting lexicon..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Adapting grammar..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Storing data..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "KDE Test Program"
+#~ msgstr "Programm"
+
+#, fuzzy
+#~ msgid "&Word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "xsltproc &executable:"
+#~ msgstr "Ausführbare Datei:"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "&Print History..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Toggling toolbar..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Import Phrasebook"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgctxt "In which directory is the file located?"
+#~ msgid "&Directory:"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Export Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Merging dictionaries..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Parsing directory..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Importing documents..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgctxt "%1 is collection name, %2 is image count in collection"
+#~ msgid "%1 (%2 image)"
+#~ msgid_plural "%1 (%2 images)"
+#~ msgstr[0] "%1 (%2)"
+#~ msgstr[1] "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Add to Places"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Add Folder to Places"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Import Selected"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Import All"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "&Add Row"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgctxt "@item:inmenu colors"
+#~ msgid "Add Row"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "%1%"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "<Tool Name> (<Single Accel Key>)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Selection (Free-Form)"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Manuell"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Manuell"
+
+#, fuzzy
+#~ msgid "Search in progress..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Locating fonts..."
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Add Bookmark"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Programm auswählen"
+
+#, fuzzy
+#~ msgid "RLE Word"
+#~ msgstr "Programm hinzufügen"
 
 #~ msgid "Import a program"
 #~ msgstr "Programm importieren"
@@ -102,14 +655,8 @@ msgstr "%1 (%2)"
 #~ "Simon wird KDE nach einer Liste von verfügbaren Applikationen fragen und "
 #~ "Sie können aus dieser Liste dann ein Programm auswählen."
 
-#~ msgid "Added the new Program"
-#~ msgstr "Neues Programm hinzugefügt"
-
 #~ msgid "Press \"Finish\" to complete the wizard."
 #~ msgstr "Sie können den Assistenten jetzt mit \"Fertigstellen\" abschließen."
-
-#~ msgid "Import Program"
-#~ msgstr "Importiere Program"
 
 #~ msgid ""
 #~ "This wizard will help you to add commands for installed programs easily"
@@ -117,47 +664,16 @@ msgstr "%1 (%2)"
 #~ "Dieser Assistent wird Ihnen helfen, installierte Programme mit Kommandos "
 #~ "zu assoziieren"
 
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
-
 #~ msgid "[INF] Saving executable commands to %1"
 #~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
-
-#, fuzzy
-#~ msgid "Import Place"
-#~ msgstr "Importiere Program"
-
-#, fuzzy
-#~ msgid "Configure the necessairy parameters manually"
-#~ msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
-
-#, fuzzy
-#~ msgid "HTK Programme"
-#~ msgstr "Programm"
-
-#, fuzzy
-#~ msgid "Add a new Place"
-#~ msgstr "Neues Programm hinzugefügt"
 
 #, fuzzy
 #~ msgid "Press Finish to complete this wizard."
 #~ msgstr "Sie können den Assistenten jetzt mit \"Fertigstellen\" abschließen."
 
 #, fuzzy
-#~ msgid "[INF] Loading place commands from %1"
-#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving place commands to %1"
-#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
-
-#, fuzzy
 #~ msgid "[INF] Loading shortcuts from %1"
 #~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving Shortcuts to %1"
-#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
 
 #, fuzzy
 #~ msgid "[INF] Loading text-macro commands from %1"
@@ -166,47 +682,3 @@ msgstr "%1 (%2)"
 #, fuzzy
 #~ msgid "[INF] Saving text-macro commands to %1"
 #~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
-
-#, fuzzy
-#~ msgid "[INF] Loading grammar from %1"
-#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
-
-#, fuzzy
-#~ msgid "Add a new Word"
-#~ msgstr "Neues Programm hinzugefügt"
-
-#, fuzzy
-#~ msgid "Add Word"
-#~ msgstr "Programm hinzufügen"
-
-#, fuzzy
-#~ msgid "Importing BOMP Dictionary"
-#~ msgstr "Arbeitspfad:"
-
-#, fuzzy
-#~ msgid "Sorting Dictionary..."
-#~ msgstr "Arbeitspfad:"
-
-#, fuzzy
-#~ msgid "Storing Dictionary..."
-#~ msgstr "Arbeitspfad:"
-
-#, fuzzy
-#~ msgid "Importing Dictionary"
-#~ msgstr "Arbeitspfad:"
-
-#, fuzzy
-#~ msgid "Importing dictionary..."
-#~ msgstr "Arbeitsordner"
-
-#, fuzzy
-#~ msgid "Import completed"
-#~ msgstr "Importiere Program"
-
-#, fuzzy
-#~ msgid "[INF] Loading List of Trainingstexts from %1"
-#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
-
-#, fuzzy
-#~ msgid "Loading program..."
-#~ msgstr "Programm hinzufügen"

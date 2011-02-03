@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simoninputnumbercommand_cs\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-25 12:18+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -270,15 +270,309 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#~ msgid "Input numbers with ease"
-#~ msgstr "Vstupní čísla s lehkostí"
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Zrušit"
 
-#~ msgctxt "Name of the decimal seperator"
-#~ msgid "Comma"
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Číslo"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Command:"
 #~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Points (pt)"
+#~ msgstr "Bod "
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Zadávané číslo"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Devět"
 
 #~ msgid "Form"
 #~ msgstr "Formulář"
 
+#, fuzzy
+#~ msgid "Only number input"
+#~ msgstr "Zobrazí pole pro zadávání čísel"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr ","
+
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
 #~ msgid "Trigger:"
 #~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Zadávané číslo"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Dva"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Tři"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Čtyři"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Pět"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sedm"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Clears the whole input"
+#~ msgstr "Zobrazí pole pro zadávání čísel"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog and sends the input"
+#~ msgstr "Přijme zadávací dialog a napíše číslo"
+
+#, fuzzy
+#~ msgid "Closes the calculator dialog"
+#~ msgstr "Zruší zadávací dialog"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Zobrazí pole pro zadávání čísel"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "Display the desktop grid"
+#~ msgstr "Zobrazí pole pro zadávání čísel"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Zapnout číselný vstup"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Zapnout číselný vstup"
+
+#, fuzzy
+#~ msgctxt "Close the dialog"
+#~ msgid "Ok"
+#~ msgstr "OK"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Input signes with ease"
+#~ msgstr "Vstupní čísla s lehkostí"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Hides the dialog"
+#~ msgstr "Zruší zadávací dialog"
+
+#, fuzzy
+#~ msgid "Display the test results."
+#~ msgstr "Zobrazí pole pro zadávání čísel"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Zruší zadávací dialog"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Čárka"

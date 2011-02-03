@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simonkeyboardcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-25 12:12+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -25,106 +25,106 @@ msgstr "Zapnout klávesnici"
 
 #. i18n: file: keyboardwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeyboardDlg)
-#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:377
+#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:383
 #: keyboardconfiguration.cpp:43 po/rc.cpp:54 rc.cpp:54
 msgid "Keyboard"
 msgstr "Klávesnice"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:413
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:419
 #, fuzzy
 msgctxt "Number"
 msgid "Zero"
 msgstr "Nula"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:416
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:422
 #, fuzzy
 msgctxt "Number"
 msgid "One"
 msgstr "Jeden"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:419
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:425
 #, fuzzy
 msgctxt "Number"
 msgid "Two"
 msgstr "Dva"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:422
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:428
 #, fuzzy
 msgctxt "Number"
 msgid "Three"
 msgstr "Tři"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:425
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:431
 #, fuzzy
 msgctxt "Number"
 msgid "Four"
 msgstr "Čtyři"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:428
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:434
 #, fuzzy
 msgctxt "Number"
 msgid "Five"
 msgstr "Pět"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:431
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:437
 #, fuzzy
 msgctxt "Number"
 msgid "Six"
 msgstr "Šest"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:440
 #, fuzzy
 msgctxt "Number"
 msgid "Seven"
 msgstr "Sedm"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:437
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:443
 #, fuzzy
 msgctxt "Number"
 msgid "Eight"
 msgstr "Osm"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:440
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:446
 #, fuzzy
 msgctxt "Number"
 msgid "Nine"
 msgstr "Devět"
 
-#: keyboardcommandmanager.cpp:378
+#: keyboardcommandmanager.cpp:384
 msgid "Starts the keyboard"
 msgstr "Spustí klávesnici"
 
-#: keyboardcommandmanager.cpp:384
+#: keyboardcommandmanager.cpp:390
 #, fuzzy
 msgctxt "Close the dialog"
 msgid "Ok"
 msgstr "OK"
 
-#: keyboardcommandmanager.cpp:385
+#: keyboardcommandmanager.cpp:391
 msgid "Hides the keyboard"
 msgstr "Skryje klávesnici"
 
-#: keyboardcommandmanager.cpp:387
+#: keyboardcommandmanager.cpp:393
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Shift"
 msgstr "Shift (jedenkrát napsat velkým písmenem)"
 
-#: keyboardcommandmanager.cpp:388
+#: keyboardcommandmanager.cpp:394
 msgid "Shift key"
 msgstr "Klávesa Shift"
 
-#: keyboardcommandmanager.cpp:390
+#: keyboardcommandmanager.cpp:396
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Caps lock"
 msgstr "Caps lock (psát velkým písmenem)"
 
-#: keyboardcommandmanager.cpp:391
+#: keyboardcommandmanager.cpp:397
 msgid "Caps lock key"
 msgstr "Klávesa Caps lock"
 
-#: keyboardcommandmanager.cpp:393
+#: keyboardcommandmanager.cpp:399
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Control"
@@ -132,11 +132,11 @@ msgstr "Control (Ctrl)"
 
 #. i18n: file: keyboardwidget.ui:169
 #. i18n: ectx: property (text), widget (KPushButton, pbControl)
-#: keyboardcommandmanager.cpp:394 po/rc.cpp:102 rc.cpp:102
+#: keyboardcommandmanager.cpp:400 po/rc.cpp:102 rc.cpp:102
 msgid "Control"
 msgstr "Control (Ctrl)"
 
-#: keyboardcommandmanager.cpp:396
+#: keyboardcommandmanager.cpp:402
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Backspace"
@@ -144,11 +144,11 @@ msgstr "Backspace (smazat)"
 
 #. i18n: file: keyboardwidget.ui:202
 #. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
-#: keyboardcommandmanager.cpp:397 po/rc.cpp:111 rc.cpp:111
+#: keyboardcommandmanager.cpp:403 po/rc.cpp:111 rc.cpp:111
 msgid "Backspace"
 msgstr "Backspace (smazat)"
 
-#: keyboardcommandmanager.cpp:399
+#: keyboardcommandmanager.cpp:405
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Return"
@@ -156,11 +156,11 @@ msgstr "Enter"
 
 #. i18n: file: keyboardwidget.ui:235
 #. i18n: ectx: property (text), widget (KPushButton, pbReturn)
-#: keyboardcommandmanager.cpp:400 po/rc.cpp:117 rc.cpp:117
+#: keyboardcommandmanager.cpp:406 po/rc.cpp:117 rc.cpp:117
 msgid "Return"
 msgstr "Enter"
 
-#: keyboardcommandmanager.cpp:402
+#: keyboardcommandmanager.cpp:408
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Alt"
@@ -168,11 +168,11 @@ msgstr "Alt"
 
 #. i18n: file: keyboardwidget.ui:242
 #. i18n: ectx: property (text), widget (KPushButton, pbAlt)
-#: keyboardcommandmanager.cpp:403 po/rc.cpp:120 rc.cpp:120
+#: keyboardcommandmanager.cpp:409 po/rc.cpp:120 rc.cpp:120
 msgid "Alt"
 msgstr "Alt"
 
-#: keyboardcommandmanager.cpp:405
+#: keyboardcommandmanager.cpp:411
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "AltGr"
@@ -180,11 +180,11 @@ msgstr "AltGr"
 
 #. i18n: file: keyboardwidget.ui:252
 #. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
-#: keyboardcommandmanager.cpp:406 po/rc.cpp:123 rc.cpp:123
+#: keyboardcommandmanager.cpp:412 po/rc.cpp:123 rc.cpp:123
 msgid "AltGr"
 msgstr "AltGr"
 
-#: keyboardcommandmanager.cpp:408
+#: keyboardcommandmanager.cpp:414
 #, fuzzy
 msgctxt "Keyboard key"
 msgid "Super"
@@ -192,76 +192,76 @@ msgstr "Super"
 
 #. i18n: file: keyboardwidget.ui:262
 #. i18n: ectx: property (text), widget (KPushButton, pbSuper)
-#: keyboardcommandmanager.cpp:409 po/rc.cpp:126 rc.cpp:126
+#: keyboardcommandmanager.cpp:415 po/rc.cpp:126 rc.cpp:126
 #, fuzzy
 msgctxt "Super key"
 msgid "Super"
 msgstr "Super"
 
-#: keyboardcommandmanager.cpp:414
+#: keyboardcommandmanager.cpp:420
 msgid "Clicks 0"
 msgstr "Klepne 0"
 
-#: keyboardcommandmanager.cpp:417
+#: keyboardcommandmanager.cpp:423
 msgid "Clicks 1"
 msgstr "Klepne 1"
 
-#: keyboardcommandmanager.cpp:420
+#: keyboardcommandmanager.cpp:426
 msgid "Clicks 2"
 msgstr "Klepne 2"
 
-#: keyboardcommandmanager.cpp:423
+#: keyboardcommandmanager.cpp:429
 msgid "Clicks 3"
 msgstr "Klepne 3"
 
-#: keyboardcommandmanager.cpp:426
+#: keyboardcommandmanager.cpp:432
 msgid "Clicks 4"
 msgstr "Klepne 4"
 
-#: keyboardcommandmanager.cpp:429
+#: keyboardcommandmanager.cpp:435
 msgid "Clicks 5"
 msgstr "Klepne 5"
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:438
 msgid "Clicks 6"
 msgstr "Klepne 6"
 
-#: keyboardcommandmanager.cpp:435
+#: keyboardcommandmanager.cpp:441
 msgid "Clicks 7"
 msgstr "Klepne 7"
 
-#: keyboardcommandmanager.cpp:438
+#: keyboardcommandmanager.cpp:444
 msgid "Clicks 8"
 msgstr "Klepne 8"
 
-#: keyboardcommandmanager.cpp:441
+#: keyboardcommandmanager.cpp:447
 msgid "Clicks 9"
 msgstr "Klepne 9"
 
-#: keyboardcommandmanager.cpp:443
+#: keyboardcommandmanager.cpp:449
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr "Čárka"
 
-#: keyboardcommandmanager.cpp:444
+#: keyboardcommandmanager.cpp:450
 msgid "Decimal separator"
 msgstr "Desetinný oddělovač"
 
 #. i18n: file: keyboardwidget.ui:138
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
-#: keyboardcommandmanager.cpp:447 keyboardcommandmanager.cpp:448 po/rc.cpp:96
+#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454 po/rc.cpp:96
 #: rc.cpp:96
 msgid "Select number"
 msgstr "Vybrat číslo"
 
 #. i18n: file: keyboardwidget.ui:145
 #. i18n: ectx: property (text), widget (KPushButton, pbWriteOutNumber)
-#: keyboardcommandmanager.cpp:450 keyboardcommandmanager.cpp:451 po/rc.cpp:99
+#: keyboardcommandmanager.cpp:456 keyboardcommandmanager.cpp:457 po/rc.cpp:99
 #: rc.cpp:99
 msgid "Write number"
 msgstr "Napsat číslo"
 
-#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454
+#: keyboardcommandmanager.cpp:459 keyboardcommandmanager.cpp:460
 msgid "Number backspace"
 msgstr "Smazat číslo"
 
@@ -704,14 +704,1287 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Play selected media in list"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Save Shortcuts"
+#~ msgstr "Klávesová zkratka"
+
+#, fuzzy
+#~ msgid "Hide controls"
+#~ msgstr "Control (Ctrl)"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Writer"
+#~ msgstr "Napsat číslo"
+
+#, fuzzy
+#~ msgid "Contributor"
+#~ msgstr "Control (Ctrl)"
+
+#, fuzzy
+#~ msgid "Are you sure you want to clear the current playlist?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Contrast"
+#~ msgstr "Control (Ctrl)"
+
+#, fuzzy
+#~ msgid "Scale to fit"
+#~ msgstr "Sadu se nepodařilo upravit"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this Daisy?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this trash plugin?"
+#~ msgstr "Opravdu chcete smazat vybranou kartu"
+
+#, fuzzy
+#~ msgid "alternative"
+#~ msgstr "Alternative"
+
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Do you really want to empty the trash? All items will be deleted."
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Add &borders"
+#~ msgstr "Konnte Sets nicht speichern"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Points (pt)"
+#~ msgstr "Čárka"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Napsat číslo"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "&Hide header"
+#~ msgstr "Skryje klávesnici"
+
+#, fuzzy
+#~ msgid "Show &header"
+#~ msgstr "Ukázat číslicovou klávesnici"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Devět"
+
+#, fuzzy
+#~ msgid "&Add Stop"
+#~ msgstr "Přidat tlačítko"
+
+#, fuzzy
+#~ msgid "Add Feed"
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Ukázat číslicovou klávesnici"
+
+#, fuzzy
+#~ msgid "All"
+#~ msgstr "Alt"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
 
-#~ msgid "Write out number"
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Failed to contact akonadi."
+#~ msgstr "Kartu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "At:"
+#~ msgstr "Alt"
+
+#, fuzzy
+#~ msgid "Only number input"
+#~ msgstr "Nummer ausschreiben"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Add Delay"
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Move Down"
+#~ msgstr "Dolů"
+
+#, fuzzy
+#~ msgid "Value:"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgid "Text:"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr ","
+
+#~ msgid "Input Number"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgid "Super"
+#~ msgstr "Super"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Shortcut:"
+#~ msgstr "Klávesová zkratka"
+
+#, fuzzy
+#~ msgid "Special Shortcut:"
+#~ msgstr "Klávesová zkratka"
+
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Dolů"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Spoušť"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "New Name:"
+#~ msgstr "Název:"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "Files to import"
+#~ msgstr "Sadu se nepodařilo upravit"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Konnte Sets nicht speichern"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Dva"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Tři"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Čtyři"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Pět"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sedm"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Spoušť:"
+
+#, fuzzy
+#~ msgid "Delete all"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "Set:"
+#~ msgstr "Sada:"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Please select the data set to edit / send from the list below."
+#~ msgstr "Vyberte, prosím, tlačítko (klávesu), které se má smazat ze seznamu"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Starts the calculator"
+#~ msgstr "Spustí klávesnici"
+
+#, fuzzy
+#~ msgctxt "Word to say to remove the last recognized digit"
+#~ msgid "Back"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Activating desktopgrid"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Starts the desktop grid"
+#~ msgstr "Spustí klávesnici"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Control a robot"
+#~ msgstr "Control (Ctrl)"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected text variant?"
+#~ msgstr "Opravdu chcete smazat vybranou kartu"
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "Přidat tlačítko"
+
+#, fuzzy
+#~ msgid "Name of the new state:"
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr "Sadu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "New name of the state:"
+#~ msgstr "Vyberte, prosím, kartu, která se má upravit"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr "Sadu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected state?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr "Kartu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move state up.\n"
+#~ "\n"
+#~ "Maybe it is already at the top of the list?"
+#~ msgstr "Kartu se nepodařilo posunout nahoru. Možná je již zcela nahoře?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move state down.\n"
+#~ "\n"
+#~ "Maybe it is already at the end of the list?"
+#~ msgstr "Kartu se nepodařilo posunout dolů. Možná je již zcela dole?"
+
+#, fuzzy
+#~ msgid "Failed to update state text."
+#~ msgstr "Sadu se nepodařilo upravit"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected transition?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move transition up.\n"
+#~ "\n"
+#~ "Maybe it is already at the top of the list?"
+#~ msgstr "Kartu se nepodařilo posunout nahoru. Možná je již zcela nahoře?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move transition down.\n"
+#~ "\n"
+#~ "Maybe it is already at the end of the list?"
+#~ msgstr "Kartu se nepodařilo posunout dolů. Možná je již zcela dole?"
+
+#, fuzzy
+#~ msgid "Please select a template option."
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected template option?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid "Please select a bound value from the table above."
+#~ msgstr "Vyberte, prosím, tlačítko (klávesu), které se má smazat ze seznamu"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected bound value option?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid "Please select a state from the left or add new ones as appropriate."
+#~ msgstr ""
+#~ "Vyberte, prosím, sadu, ke které se má přidat nové tlačítko (klávesa)"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please select an option from the right or add new ones as appropriate."
+#~ msgstr ""
+#~ "Vyberte, prosím, sadu, ke které se má přidat nové tlačítko (klávesa)"
+
+#, fuzzy
+#~ msgid "Please answer with any of the following options."
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid "Failed to remove avatar."
+#~ msgstr "Kartu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Number"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ","
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Hides the dialog"
+#~ msgstr "Skryje klávesnici"
+
+#, fuzzy
+#~ msgid "Failed to parse template: %1"
+#~ msgstr "Kartu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Failed to store file."
+#~ msgstr "Sadu se nepodařilo upravit"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to adapt model:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr "Sadu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Přidat tlačítko"
+
+#, fuzzy
+#~ msgid "Please select an action"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Could not determine Command Type"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Please select a text first"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Could not add words to the list"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please select a word first"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Do you really want to clear the whole vocabulary?"
+#~ msgstr "Opravdu chcete smazat vybranou kartu"
+
+#, fuzzy
+#~ msgid "Please select a word scheduled for training first."
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Skryje klávesnici"
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please select a Model from the List"
+#~ msgstr "Vyberte, prosím, tlačítko (klávesu), které se má smazat ze seznamu"
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Zapnout klávesnici"
+
+#, fuzzy
+#~ msgid "Could not connect to database"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the user from the database?"
+#~ msgstr "Opravdu chcete smazat vybranou kartu"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Do you also want to remove the speech model from the server?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgctxt "Name of the bound value"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "Type of the bound value"
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgctxt "Value of the bound value"
+#~ msgid "Value"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgctxt "Name of the state"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "Name of the template option"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "Value of the template option"
+#~ msgid "Value"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgid "Please select a valid action"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgctxt "Name of the trainings text"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Download"
+#~ msgstr "Dolů"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Failed to store scenario"
+#~ msgstr "Sadu se nepodařilo upravit"
+
+#, fuzzy
+#~ msgid "Please select a scenario from the list(s)"
+#~ msgstr "Vyberte, prosím, tlačítko (klávesu), které se má smazat ze seznamu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irrecoverably delete the selected scenario "
+#~ "\"%1\" (\"%2\")?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Select input device"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please enter the name of the new set of recordings:"
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please enter the changed name of the set of recordings:"
+#~ msgstr "Vyberte, prosím, kartu, která se má upravit"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irreversibly delete the current set and all "
+#~ "associated samples?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Couldn't remove set"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please add or select a set above."
+#~ msgstr "Nejprve, prosím, vložte nebo vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Couldn't add recording to set."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please select a recording above."
+#~ msgstr "Vyberte, prosím, kartu, která se má přesunout"
+
+#, fuzzy
+#~ msgid "Do you really want to irreversibly remove this recording?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid "Failed to remove the recording."
+#~ msgstr "Tlačítko (klávesu) se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not generate tree.hed."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not create regtree.hed."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgctxt "Name of the institution"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Please select an institution"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Please select an user"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this user - institution association?"
+#~ msgstr "Opravdu chcete smazat vybrané tlačítko (klávesu)?"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not add institution"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not delete institution"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
+#~ msgstr "Opravdu chcete smazat vybranou sadu"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgctxt "A non-functional package"
+#~ msgid "Invalid"
+#~ msgstr "Nesprávné tlačítko"
+
+#, fuzzy
+#~ msgid "&Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "&Name:"
+#~ msgstr "Název:"
+
+#, fuzzy
+#~ msgid "Click to load a word list from a file."
+#~ msgstr "Sady kláves se nepodařilo nahrát z úložiště"
+
+#, fuzzy
+#~ msgid "&Up"
+#~ msgstr "Nahoru"
+
+#, fuzzy
+#~ msgid "&Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "U&p"
+#~ msgstr "Nahoru"
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Speech Control"
+#~ msgstr "Control (Ctrl)"
+
+#, fuzzy
+#~ msgid "&Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "&Stop/Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Přidat klávesu"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Voice Type:"
+#~ msgstr "Typ:"
+
+#, fuzzy
+#~ msgid "Value"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgid "Hide the mouse cursor"
+#~ msgstr "Skryje klávesnici"
+
+#, fuzzy
+#~ msgid "Select the rotation degree."
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgid "File to open"
+#~ msgstr "Sadu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "Invalid Value"
+#~ msgstr "Nesprávné tlačítko"
+
+#, fuzzy
+#~ msgid "&Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "without name"
 #~ msgstr "Nummer hinschreiben"
 
-#~ msgid "Alternate"
+#, fuzzy
+#~ msgid "Show thumbnails"
+#~ msgstr "Ukázat číslicovou klávesnici"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "&Check board"
+#~ msgstr "Klávesnice"
+
+#, fuzzy
+#~ msgid "Enter the name of the folder to create:"
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
 #~ msgstr "Alternative"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#, fuzzy
+#~ msgctxt "@addAction:inmenu"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] "Tlačítko (klávesu) se nepodařilo smazat"
+#~ msgstr[1] "Tlačítko (klávesu) se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgctxt "@item:intable Image file name"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Value"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgid "Click this button to remove the selected camera from the list."
+#~ msgstr "Vyberte, prosím, tlačítko (klávesu), které se má smazat ze seznamu"
+
+#, fuzzy
+#~ msgid "Could not load ability list."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "&Delete Row"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure that translation has the same "
+#~ "accel as the &Image translation"
+#~ msgid "Select&ion"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Show T&humbnail"
+#~ msgstr "Ukázat číslicovou klávesnici"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Writes text"
+#~ msgstr "Napsat číslo"
+
+#, fuzzy
+#~ msgid "Text: Backspace"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgid "Text: Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgctxt "The V of HSV"
+#~ msgid "&Value:"
+#~ msgstr "Hodnota"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgctxt "Make Kruler Height Short"
+#~ msgid "&Short"
+#~ msgstr "Klávesová zkratka"
+
+#, fuzzy
+#~ msgid "Workspace:"
+#~ msgstr "Backspace (smazat)"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgctxt "Label for button to write text in a KLineEdit to sane"
+#~ msgid "Set"
+#~ msgstr "Sets"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Mime Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Please be patient"
+#~ msgstr "Nejprve, prosím, vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Unable to load document"
+#~ msgstr "Sadu se nepodařilo přidat"
+
+#, fuzzy
+#~ msgid "Please enter the password to read the document:"
+#~ msgstr "Vyberte, prosím, kartu, která se má smazat"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Moves to the next page of the document"
+#~ msgstr "Vyberte, prosím, kartu, která se má upravit"
+
+#, fuzzy
+#~ msgid "Moves to the end of the document"
+#~ msgstr "Vyberte, prosím, kartu, která se má upravit"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Sadu se nepodařilo smazat"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "Name: %1"
+#~ msgstr "Název:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Case sensitive"
+#~ msgstr "Pověřování psaní velkých a malých písmen"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Vybrat číslo"
+
+#, fuzzy
+#~ msgid "Please insert your name or initials:"
+#~ msgstr "Nejprve, prosím, vložte nebo vyberte nějakou sadu"
+
+#, fuzzy
+#~ msgid "Type 1"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 1C"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 3"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "TrueType"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "U"
+#~ msgstr "Nahoru"
 
 #~ msgid "Alternate Graphics"
 #~ msgstr "Alternative Grafik"
@@ -722,9 +1995,6 @@ msgstr "fripohled.blogspot.com"
 #~ msgid "Alternate Graphic"
 #~ msgstr "Alternative Grafik"
 
-#~ msgid "Sets"
-#~ msgstr "Sets"
-
 #~ msgid "Numpad"
 #~ msgstr "Zahlenblock"
 
@@ -734,11 +2004,5 @@ msgstr "fripohled.blogspot.com"
 #~ msgid "Enable number based key selection"
 #~ msgstr "Nummern basierte Tastenauswahl"
 
-#~ msgid "Enable number write out"
-#~ msgstr "Nummer ausschreiben"
-
 #~ msgid "Special keys"
 #~ msgstr "Spezialtasten"
-
-#~ msgid "Input Number"
-#~ msgstr "Nummer eingeben"

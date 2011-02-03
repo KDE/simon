@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,43 +84,43 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/ksimondview.cpp:54
+#: src/ksimondview.cpp:55
 msgid "simond"
 msgstr ""
 
-#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
+#: src/ksimondview.cpp:58 src/ksimondview.cpp:86
 msgid "Start simond"
 msgstr ""
 
-#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
+#: src/ksimondview.cpp:63 src/ksimondview.cpp:85
 msgid "Start simon"
 msgstr ""
 
-#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:68 src/ksimondview.cpp:87
 msgid "Restart simond"
 msgstr ""
 
-#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:74 src/ksimondview.cpp:88
 msgid "Stop simond"
 msgstr ""
 
-#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
+#: src/ksimondview.cpp:80 src/ksimondview.cpp:89
 msgid "Configuration"
 msgstr ""
 
-#: src/ksimondview.cpp:117
+#: src/ksimondview.cpp:118
 msgid "simond is already running"
 msgstr ""
 
-#: src/ksimondview.cpp:138
+#: src/ksimondview.cpp:139
 msgid "simond stopped"
 msgstr ""
 
-#: src/ksimondview.cpp:153
+#: src/ksimondview.cpp:154
 msgid "simond started"
 msgstr ""
 
-#: src/ksimondview.cpp:181
+#: src/ksimondview.cpp:182
 msgid ""
 "Could not start simond.\n"
 "\n"
@@ -129,23 +129,23 @@ msgid ""
 "Command: \"%1\""
 msgstr ""
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:186
 msgid "simond crashed. (Status: %1)"
 msgstr ""
 
-#: src/ksimondview.cpp:189
+#: src/ksimondview.cpp:190
 msgid "Timeout."
 msgstr ""
 
-#: src/ksimondview.cpp:192
+#: src/ksimondview.cpp:193
 msgid "Could not communicate with simond: Write failed."
 msgstr ""
 
-#: src/ksimondview.cpp:195
+#: src/ksimondview.cpp:196
 msgid "Could not communicate with simond: Read failed."
 msgstr ""
 
-#: src/ksimondview.cpp:198
+#: src/ksimondview.cpp:199
 msgid "Unknown Error"
 msgstr ""
 

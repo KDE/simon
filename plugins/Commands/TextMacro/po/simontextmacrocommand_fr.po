@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand_fr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-06-09 01:31+0200\n"
 "Last-Translator: Yann Cantin <yann.cantin@laposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -42,3 +42,59 @@ msgstr "Macro-textuelle"
 #: textmacrocommand.cpp:56
 msgid "Text"
 msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Text:"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Texte associé :"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Texte"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Texte"

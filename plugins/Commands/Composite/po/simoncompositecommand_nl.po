@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-01-14 12:04+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: compositecommand.cpp:37
+#: compositecommand.cpp:38
 msgid "Composite"
 msgstr "Samengesteld"
 
-#: compositecommand.cpp:62
+#: compositecommand.cpp:63
 msgid "Commands"
 msgstr "Commando's"
 
-#: compositecommand.cpp:99 compositecommand.cpp:100
+#: compositecommand.cpp:97 compositecommand.cpp:98
 #: createcompositecommandwidget.cpp:121 delaycommand.cpp:36
 #: delaycommand.cpp:61
 msgid "Delay"
@@ -101,11 +101,223 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
 
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Samengesteld"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Commando toevoegen"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgctxt "Information about delays of a journey with public transport"
+#~ msgid "Delay:"
+#~ msgstr "Vertraging:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Support for getting delay information. This string is used in a feature "
+#~ "list, should be short."
+#~ msgid "Delay"
+#~ msgstr "Vertraging"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Laden samengestelde commando's van %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Opslaan samengestelde commando's naar %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulier"
 
-#~ msgid "[INF] Loading composite commands from %1"
-#~ msgstr "[INF] Laden samengestelde commando's van %1"
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Commando:"
 
-#~ msgid "[INF] Saving composite commands to %1"
-#~ msgstr "[INF] Opslaan samengestelde commando's naar %1"
+#, fuzzy
+#~ msgid "Move up"
+#~ msgstr "Omhoog"
+
+#, fuzzy
+#~ msgid "Move down"
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgid "Down"
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Vertraging toevoegen"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Commando:"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Commando toevoegen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that are referenced form this dialog "
+#~ "command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Kon niet alle commando's vinden die zich in het samengestelde commando "
+#~ "bevinden.\n"
+#~ "\n"
+#~ "De missende commando's zijn: %1."
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Vertraging toevoegen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that make up this list command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Kon niet alle commando's vinden die zich in het samengestelde commando "
+#~ "bevinden.\n"
+#~ "\n"
+#~ "De missende commando's zijn: %1."
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Commando:"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Commando toevoegen"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Commando toevoegen"
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgid "Computer"
+#~ msgstr "Samengesteld"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Move To"
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "Move"
+#~ msgstr "Omhoog"
+
+#, fuzzy
+#~ msgid "Move Here"
+#~ msgstr "Omhoog"
+
+#, fuzzy
+#~ msgctxt "Verb"
+#~ msgid "Move To..."
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Compression"
+#~ msgstr "Samengesteld"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgid "Add Bookmark"
+#~ msgstr "Commando toevoegen"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgid "Scroll Down"
+#~ msgstr "Omlaag"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Commando's"
+
+#, fuzzy
+#~ msgctxt "Metres"
+#~ msgid "m"
+#~ msgstr "ms"
