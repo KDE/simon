@@ -27,6 +27,7 @@
 #include <kgenericfactory.h>
 #include <KAboutData>
 #include <KMessageBox>
+#include <simondialogengine/avatar.h>
 #include <simondialogengine/confui/templateoptionsconfiguration.h>
 #include <simondialogengine/confui/boundvaluesconfiguration.h>
 #include <simondialogengine/confui/avatarconfiguration.h>
@@ -39,6 +40,7 @@
 #include <akonadi/collectionfetchscope.h>
 #include <kcalcore/event.h>
 #include <KProgressDialog>
+#include <simondialogengine/avatarmodel.h>
 
 K_PLUGIN_FACTORY_DECLARATION(AkonadiCommandPluginFactory)
 
@@ -133,6 +135,16 @@ QDomElement AkonadiConfiguration::serialize(QDomDocument* doc)
   alarmTextElem.appendChild(doc->createTextNode(ui.teText->toPlainText()));
   alarmsElem.appendChild(alarmTextElem);
   
+  QDomElement alarmAvatarElem = doc->createElement("displayAvatar");
+  alarmAvatarElem.setAttribute("enabled", ui.cbDisplayAvatar->isChecked());
+  
+  QModelIndex currentSelectedAvatar = avatarsConfig->getModel()->index(ui.cbAvatar->currentIndex(), 0);
+  if (currentSelectedAvatar.isValid()) {
+    Avatar *a = static_cast<Avatar*>(currentSelectedAvatar.internalPointer());
+    alarmAvatarElem.appendChild(doc->createTextNode(QString::number(a->id())));
+  }
+  alarmsElem.appendChild(alarmAvatarElem);
+  
   QDomElement alarmOptionsElem = doc->createElement("options");
   
   QDomElement alarmDismissElem = doc->createElement("dismiss");
@@ -225,6 +237,13 @@ bool AkonadiConfiguration::deSerialize(const QDomElement& elem)
   if (!avatarsConfig->deSerialize(elem))
     return false;
   
+  ui.cbAvatar->setModel(avatarsConfig->getModel());
+  
+  QDomElement selectedAvatar = alarmsElem.firstChildElement("displayAvatar");
+  ui.cbDisplayAvatar->setChecked(selectedAvatar.attribute("enabled") == "1");
+  int row = ui.cbAvatar->findData(selectedAvatar.text().toInt(), Qt::UserRole);
+  ui.cbAvatar->setCurrentIndex(row);
+  
   return true;
 }
 
@@ -238,6 +257,13 @@ void AkonadiConfiguration::defaults()
   templateOptionsConfig->defaults();
   outputConfiguration->defaults();
   boundValuesConfig->defaults();
+  
+  ui.cbDismiss->setChecked(true);
+  ui.cbShowLater->setChecked(false);
+  ui.leDismiss->setText(i18n("Ok"));
+  ui.leShowLater->setText(i18n("Snooze"));
+  ui.wgRestartTime->setTime(AkonadiCommand::Minutes, 5);
+  ui.teText->setText(i18n("Event: %%1 (%%2 %%3)\nLocation: %%4"));
 }
 
 QString AkonadiConfiguration::akonadiRequestPrefix()

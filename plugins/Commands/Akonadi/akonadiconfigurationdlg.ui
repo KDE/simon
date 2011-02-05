@@ -281,11 +281,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>158</x>
-     <y>417</y>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>225</x>
-     <y>418</y>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDismiss</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leDismiss</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>417</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowLater</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leShowLater</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>219</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>388</y>
     </hint>
    </hints>
   </connection>
