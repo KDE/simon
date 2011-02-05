@@ -23,18 +23,12 @@ set (simondialogcommandplugin_SRCS
   dialogconfiguration.cpp
   createdialogcommandwidget.cpp
   createtransitiondialog.cpp
-  createtemplateoptiondialog.cpp
-  createboundvaluedialog.cpp 
-  createavatardialog.cpp
     )
 
 kde4_add_ui_files(simondialogcommandplugin_SRCS 
-	dialogconfigurationdlg.ui
-	createdialogcommandwidget.ui
-	createtransitiondlg.ui
-  createtemplateoptiondialog.ui
-  createboundvalue.ui
-  createavatardlg.ui
+  dialogconfigurationdlg.ui
+  createdialogcommandwidget.ui
+  createtransitiondlg.ui
     )
 
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
@@ -43,11 +37,13 @@ kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 if (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
   ${QT_LIBRARIES}	${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
-  simonscenariobase simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview)
+  simonscenariobase simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview
+  simondialogengineconfui)
 else (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
   ${QT_LIBRARIES}	${KDE4_KIO_LIBS} simonscenarios simonscenariobase
-  simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview)
+  simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview
+  simondialogengineconfui)
 endif(USE_PLASMA)
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )

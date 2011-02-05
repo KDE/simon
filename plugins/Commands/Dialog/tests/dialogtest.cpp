@@ -39,11 +39,11 @@
 #include <KComboBox>
 
 #include "../dialogcommandmanager.h"
-#include "../visualdialogview.h"
-#include "../dialogstate.h"
 #include "../dialogconfiguration.h"
-#include "../dialogcommand.h"
-#include "../dialogview.h"
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogcommand.h>
+#include <simondialogengine/dialogview.h>
+#include <simondialogengine/graphicalview/visualdialogview.h>
 
 
 class testDialog: public QObject
@@ -137,6 +137,18 @@ void testDialog::testGeneral()
       "<value content=\"Test\"/>"
      "</boundValue>"
     "</boundValues>"
+    "<output>"
+     "<gui>1</gui>"
+     "<tts>0</tts>"
+     "<ttsOptions>"
+      "<optionsSeparator>Please answer with any of the following options.</optionsSeparator>"
+      "<repeatTriggers>"
+       "<repeatTrigger>Repeat</repeatTrigger>"
+      "</repeatTriggers>"
+      "<announceRepeat>Say \"Repeat\" to hear this text again.</announceRepeat>"
+      "<repeatOnInvalidInput>1</repeatOnInvalidInput>"
+     "</ttsOptions>"
+    "</output>"
    "</config>"
    "<commands>"
     "<voiceInterfaceCommand>"

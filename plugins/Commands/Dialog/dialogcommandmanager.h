@@ -87,7 +87,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
     bool deSerializeConfig(const QDomElement& elem);
     void setFont(const QFont& font);
 
-    QList<DialogState*> getStates() { return dialogStates; }
+    QList<DialogState*> getStates() const { return dialogStates; }
 
     bool addState(const QString& name);
     bool removeState(DialogState *state);

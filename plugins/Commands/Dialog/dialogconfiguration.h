@@ -33,9 +33,11 @@ class DialogState;
 class DialogSetContainer;
 class DialogCommandManager;
 class DialogTemplateOptions;
-class BoundValue;
 class DialogBoundValues;
-class AvatarModel;
+class AvatarConfiguration;
+class BoundValuesConfiguration;
+class OutputConfiguration;
+class TemplateOptionsConfiguration;
 
 class DialogConfiguration : public CommandConfiguration
 {
@@ -44,26 +46,17 @@ class DialogConfiguration : public CommandConfiguration
   private:
     Ui::DialogConfigurationDlg ui;
     DialogCommandManager *commandManager;
+    BoundValuesConfiguration *boundValuesConfig;
+    TemplateOptionsConfiguration *templateOptionsConfig;
+    AvatarConfiguration *avatarsConfig;
+    OutputConfiguration *outputConfiguration;
 
-    DialogTemplateOptions *templateOptions;
-    DialogBoundValues *boundValues;
     
-    AvatarModel *avatarModel;
-
     void displayStates();
     DialogState* getCurrentState();
     DialogState* getCurrentStateGraphical();
     DialogCommand* getCurrentTransition();
     DialogCommand* getCurrentTransitionGraphical();
-
-    QString getCurrentTemplateIndex();
-    QString getCurrentTemplateIndexGraphical();
-
-    BoundValue* getCurrentBoundValue();
-    BoundValue* getCurrentBoundValueGraphical();
-    
-    Avatar* getCurrentAvatar();
-    Avatar* getCurrentAvatarGraphical();
 
   private slots:
     void displayCurrentState();
@@ -86,19 +79,7 @@ class DialogConfiguration : public CommandConfiguration
     void moveTransitionUp();
     void moveTransitionDown();
 
-    void addTemplateOption();
-    void editTemplateOption();
-    void removeTemplateOption();
-
-    void addBoundValue();
-    void editBoundValue();
-    void removeBoundValue();
-    
-    void addAvatar();
-    void editAvatar();
-    void removeAvatar();
-    
-    void avatarSelected(const QModelIndex& selected);
+    void avatarSelected ( const QModelIndex& selected );
     void avatarDisplayToggled(bool show);
     
     void addText();
@@ -117,9 +98,6 @@ class DialogConfiguration : public CommandConfiguration
     DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args = QVariantList());
     ~DialogConfiguration();
 
-    DialogTemplateOptions* getDialogTemplateOptions() { return templateOptions; }
-    DialogBoundValues* getDialogBoundValues() { return boundValues; }
-
     bool useGUIOutput() const;
     bool useTTSOutput() const;
     QString getOptionSeparatorText() const;
@@ -127,10 +105,11 @@ class DialogConfiguration : public CommandConfiguration
     QStringList getRepeatTriggers() const;
     bool getRepeatOnInvalidInput() const;
     
+    Avatar* getAvatar(int id) const;
     int getAvatarSize() const;
     bool getDisplayAvatarNames() const;
-    
-    Avatar* getAvatar(int id) const;
 
+    DialogTemplateOptions* getDialogTemplateOptions() const;
+    DialogBoundValues* getDialogBoundValues() const;
 };
 #endif

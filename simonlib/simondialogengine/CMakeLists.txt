@@ -1,6 +1,6 @@
 ENABLE_TESTING()
 
-find_package(Qt4 COMPONENTS QtCore QtXml QtScript REQUIRED)
+find_package(Qt4 COMPONENTS QtGui QtCore QtXml QtScript REQUIRED)
 include (${QT_USE_FILE})
 
 find_package(KDE4 REQUIRED)
@@ -79,6 +79,7 @@ install( FILES ${simondialogengine_LIB_HDRS}
 
 add_subdirectory(graphicalview)
 add_subdirectory(ttsview)
+add_subdirectory(confui)
 
 ########
 # Tests

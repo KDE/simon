@@ -25,8 +25,10 @@ class DialogState;
 
 class SIMONDIALOGENGINE_EXPORT DialogManager
 {
-public:
+protected:
   virtual void initState(DialogState *state)=0;
+public:
+  virtual void initState(int state)=0;
   virtual Avatar* getAvatar(int id) const=0;
   virtual int getAvatarSize() const=0;
   virtual bool getDisplayAvatarNames() const=0;
@@ -34,7 +36,7 @@ public:
   virtual QString getOptionSeparatorText() const=0;
   virtual QString getRepeatAnnouncement() const=0;
   virtual bool getRepeatOnInvalidInput() const=0;
-  
+
   virtual ~DialogManager() {}
 };
 
