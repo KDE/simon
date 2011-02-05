@@ -30,9 +30,9 @@ class SIMONDIALOGENGINE_EXPORT AvatarModel : public QAbstractListModel
 {
 private:
     QList<Avatar*> m_avatars;
-    AvatarModel() {}
 
 public:
+    AvatarModel() {}
     AvatarModel(const QList<Avatar*> avatars);
     virtual ~AvatarModel();
     static AvatarModel* createInstance(const QDomElement& elem);

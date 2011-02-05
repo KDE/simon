@@ -63,6 +63,8 @@ bool TemplateOptionsConfiguration::deSerialize(const QDomElement& elem)
 
 void TemplateOptionsConfiguration::defaults()
 {
+  delete templateOptions;
+  templateOptions = new DialogTemplateOptions();
 }
 
 

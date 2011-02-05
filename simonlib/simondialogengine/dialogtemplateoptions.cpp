@@ -127,11 +127,10 @@ DialogTemplateOptions* DialogTemplateOptions::createInstance(const QDomElement& 
 
   return options;
 }
-
 QDomElement DialogTemplateOptions::serialize(QDomDocument *doc)
 {
   QDomElement elem = doc->createElement("options");
-
+  
   QMap<QString,bool>::const_iterator i = options.constBegin();
   while (i != options.constEnd())
   {

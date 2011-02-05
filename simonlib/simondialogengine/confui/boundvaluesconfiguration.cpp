@@ -61,6 +61,8 @@ bool BoundValuesConfiguration::deSerialize(const QDomElement& elem)
 
 void BoundValuesConfiguration::defaults()
 {
+  delete boundValues;
+  boundValues = new DialogBoundValues();
 }
   
 

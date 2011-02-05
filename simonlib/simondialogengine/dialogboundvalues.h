@@ -33,9 +33,9 @@ class SIMONDIALOGENGINE_EXPORT DialogBoundValues : public QAbstractItemModel
 {
   private:
     QList<BoundValue*> boundValues;
-    DialogBoundValues();
 
   public:
+    DialogBoundValues();
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;

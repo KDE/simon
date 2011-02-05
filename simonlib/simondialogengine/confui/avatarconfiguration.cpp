@@ -64,6 +64,8 @@ bool AvatarConfiguration::deSerialize(const QDomElement& elem)
 
 void AvatarConfiguration::defaults()
 {
+  delete avatarModel;
+  avatarModel = new AvatarModel();
 }
   
 Avatar* AvatarConfiguration::getCurrentAvatar()

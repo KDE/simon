@@ -33,6 +33,10 @@ class AkonadiCommandManager;
 class KJob;
 class KProgressDialog;
 class QShowEvent;
+class AvatarConfiguration;
+class BoundValuesConfiguration;
+class OutputConfiguration;
+class TemplateOptionsConfiguration;
 
 class AkonadiConfiguration : public CommandConfiguration
 {
@@ -43,6 +47,12 @@ class AkonadiConfiguration : public CommandConfiguration
     AkonadiCommandManager *m_manager;
     int collectionIndexToSelect;
     KProgressDialog *fetchCollectionsDialog;
+    
+    BoundValuesConfiguration *boundValuesConfig;
+    TemplateOptionsConfiguration *templateOptionsConfig;
+    AvatarConfiguration *avatarsConfig;
+    OutputConfiguration *outputConfiguration;
+    
     virtual void showEvent(QShowEvent* );
 
   private slots:

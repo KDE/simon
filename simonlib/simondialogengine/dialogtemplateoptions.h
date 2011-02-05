@@ -31,9 +31,9 @@ class SIMONDIALOGENGINE_EXPORT DialogTemplateOptions : public QAbstractItemModel
 {
   private:
     QMap<QString, bool> options;
-    DialogTemplateOptions();
 
   public:
+    DialogTemplateOptions();
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int, Qt::Orientation orientation,
                       int role = Qt::DisplayRole) const;
