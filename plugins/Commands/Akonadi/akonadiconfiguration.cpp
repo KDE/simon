@@ -128,6 +128,25 @@ QDomElement AkonadiConfiguration::serialize(QDomDocument* doc)
   
   QDomElement alarmsElem = doc->createElement("displayAlarms");
   alarmsElem.setAttribute("enabled", ui.cbDisplayAlarms->isChecked() ? "1" : "0");
+  
+  QDomElement alarmTextElem = doc->createElement("text");
+  alarmTextElem.appendChild(doc->createTextNode(ui.teText->toPlainText()));
+  alarmsElem.appendChild(alarmTextElem);
+  
+  QDomElement alarmOptionsElem = doc->createElement("options");
+  
+  QDomElement alarmDismissElem = doc->createElement("dismiss");
+  alarmDismissElem.setAttribute("enabled", ui.cbDismiss->isChecked() ? "1" : "0");
+  alarmDismissElem.appendChild(doc->createTextNode(ui.leDismiss->text()));
+  alarmOptionsElem.appendChild(alarmDismissElem);
+  QDomElement alarmShowLaterElem = doc->createElement("showLater");
+  alarmShowLaterElem.setAttribute("enabled", ui.cbShowLater->isChecked() ? "1" : "0");
+  alarmShowLaterElem.setAttribute("delay", QString::number(ui.wgRestartTime->getTime()));
+  alarmShowLaterElem.appendChild(doc->createTextNode(ui.leShowLater->text()));
+  alarmOptionsElem.appendChild(alarmShowLaterElem);
+  
+  alarmsElem.appendChild(alarmOptionsElem);
+  
   configElem.appendChild(alarmsElem);
   
   QDomElement executeAkonadiCommandsElem = doc->createElement("executeAkonadiCommands");
@@ -175,6 +194,20 @@ bool AkonadiConfiguration::deSerialize(const QDomElement& elem)
   
   QDomElement alarmsElem = elem.firstChildElement("displayAlarms");
   ui.cbDisplayAlarms->setChecked(alarmsElem.attribute("enabled") == "1");
+  
+  ui.teText->setText(alarmsElem.firstChildElement("text").text());
+  
+  QDomElement alarmOptionsElem = alarmsElem.firstChildElement("options");
+  QDomElement dismissElement = alarmOptionsElem.firstChildElement("dismiss");
+  
+  ui.cbDismiss->setChecked(dismissElement.attribute("enabled") == "1");
+  ui.leDismiss->setText(dismissElement.text());
+  
+  QDomElement showLaterElem = alarmOptionsElem.firstChildElement("showLater");
+  ui.cbShowLater->setChecked(showLaterElem.attribute("enabled") == "1");
+  ui.leShowLater->setText(showLaterElem.text());
+  
+  ui.wgRestartTime->setTime(showLaterElem.attribute("delay").toInt());
   
   QDomElement executeAkonadiCommandsElem = elem.firstChildElement("executeAkonadiCommands");
   ui.cbExecuteAkonadiRequests->setChecked(executeAkonadiCommandsElem.attribute("enabled") == "1");

@@ -17,10 +17,46 @@
  */
 
 #include "timeselector.h"
+#include "akonadicommandmanager.h"
 
 TimeSelector::TimeSelector(QWidget* parent, Qt::WindowFlags f): QWidget(parent, f)
 {
   ui.setupUi(this);
+}
+
+void TimeSelector::setTime(int seconds)
+{
+  kDebug() << "Requesting time: " << seconds;
+  AkonadiCommand::RelativeDurationDimension dimension;
+  int value;
+  getRelativeTime(seconds, dimension, value);
+  kDebug() << "Result: " << dimension << value;
+  setTime(dimension, value);
+}
+
+void TimeSelector::getRelativeTime(int seconds, AkonadiCommand::RelativeDurationDimension& dimension, int& value)
+{
+  if (seconds % (24*60*60) == 0)
+  {
+    dimension = AkonadiCommand::Days;
+    value = seconds /  (24*60*60);
+    return;
+  }
+  if (seconds % (60*60) == 0)
+  {
+    dimension = AkonadiCommand::Hours;
+    value = seconds /  (60*60);
+    return;
+  }
+  if (seconds % (60) == 0)
+  {
+    dimension = AkonadiCommand::Minutes;
+    value = seconds /  (60);
+    return;
+  }
+  
+  dimension = AkonadiCommand::Seconds;
+  value = seconds;
 }
 
 int TimeSelector::getTime() const

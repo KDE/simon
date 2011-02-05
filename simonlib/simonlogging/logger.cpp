@@ -89,4 +89,7 @@ void Logger::close()
   delete (Logger::logFile);
   if (Logger::logF)
     Logger::logF->deleteLater();
+
+  Logger::logFile = 0;
+  Logger::logF = 0;
 }

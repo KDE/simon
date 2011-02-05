@@ -45,7 +45,6 @@ QDomElement AvatarConfiguration::serialize(QDomDocument* doc)
 
 bool AvatarConfiguration::deSerialize(const QDomElement& elem)
 {
-  kDebug() << "Loading avatars";
   QDomElement avatarsElement = elem.firstChildElement("avatars");
   if (!avatarModel)
   {
@@ -58,7 +57,6 @@ bool AvatarConfiguration::deSerialize(const QDomElement& elem)
     ui->lvAvatars->setModel(avatarModel);
   } else
     avatarModel->deSerialize(avatarsElement);
-  kDebug() << "Loaded avatars";
   return true;
 }
 
@@ -111,9 +109,6 @@ void AvatarConfiguration::addAvatar()
 
 QModelIndex AvatarConfiguration::getAvatarIndex ( int id )
 {
-  kDebug() << "here";
-  kDebug() << avatarModel;
-  kDebug() << "here2";
   return avatarModel->getAvatarIndex(id);
 }
 

@@ -31,6 +31,9 @@ private:
 public:
     explicit TimeSelector(QWidget* parent = 0, Qt::WindowFlags f = 0);
     int getTime() const;
+    
+    static void getRelativeTime(int seconds, AkonadiCommand::RelativeDurationDimension& dimension, int& value);
+    void setTime(int value);
     void setTime(AkonadiCommand::RelativeDurationDimension dimension, int value);
 };
 

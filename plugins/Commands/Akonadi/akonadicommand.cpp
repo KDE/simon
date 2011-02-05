@@ -34,6 +34,7 @@
 #include <kcalcore/incidence.h>
 #include <kcalcore/event.h>
 #include "akonadicommandmanager.h"
+#include "timeselector.h"
 
 const QString AkonadiCommand::staticCategoryText()
 {
@@ -60,27 +61,7 @@ const KIcon AkonadiCommand::getCategoryIcon() const
 
 void AkonadiCommand::getRelativeTime(AkonadiCommand::RelativeDurationDimension& dimension, int& value) const
 {
-  if (m_relativeDuration % (24*60*60) == 0)
-  {
-    dimension = AkonadiCommand::Days;
-    value = m_relativeDuration /  (24*60*60);
-    return;
-  }
-  if (m_relativeDuration % (24*60) == 0)
-  {
-    dimension = AkonadiCommand::Hours;
-    value = m_relativeDuration /  (24*60);
-    return;
-  }
-  if (m_relativeDuration % (60) == 0)
-  {
-    dimension = AkonadiCommand::Minutes;
-    value = m_relativeDuration /  (60);
-    return;
-  }
-  
-  dimension = AkonadiCommand::Seconds;
-  value = m_relativeDuration;
+  return TimeSelector::getRelativeTime(m_relativeDuration, dimension, value);
 }
 
 const QMap<QString,QVariant> AkonadiCommand::getValueMapPrivate() const
