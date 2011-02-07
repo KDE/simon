@@ -1,0 +1,44 @@
+.QWidget {
+    padding: 20px;
+    background-color: white;
+    background-image: url(pic.png);
+    background-position: top left;
+    background-origin: content;
+    background-repeat: none;
+}
+
+QGroupBox {
+    padding-top: 30px;
+    margin-top: 70px;
+    background-color: white;
+    font: 24px;
+    font-family: liberation-sans;
+    color: green;
+    width: 200px;
+    text-align: center;
+}
+
+QPushButton, QAbstractButton {
+    background-color: #f5f5f5;
+    border-width: 0px;
+    border-style: solid;
+    color: blue;
+    font: 28px;
+    font-family: liberation-sans;
+    width: 100px;
+    height: 50px;
+}
+
+QLabel, QListView {
+    background-color: white;
+    font: 28px;
+    font-family: liberation-sans;
+}
+
+QLabel {
+    border: none;
+    padding: 0;
+    background: none;
+    color: green;
+}
+

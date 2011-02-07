@@ -80,19 +80,19 @@ msgstr "SpeechCal"
 #. i18n: ectx: property (windowTitle), widget (QDockWidget, dockWidget)
 #: rc.cpp:9
 msgid "Control"
-msgstr "Steuerung"
+msgstr "Sprachbefehle"
 
 #. i18n: file: main.ui:56
 #. i18n: ectx: property (text), widget (KPushButton, pbPreviousDay)
 #: rc.cpp:12
 msgid "Previous Day"
-msgstr "Nächster Tag"
+msgstr "ZURÜCK"
 
 #. i18n: file: main.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pbNextDay)
 #: rc.cpp:15
 msgid "Next day"
-msgstr "Nächster Tag"
+msgstr "WEITER"
 
 #: rc.cpp:16
 msgctxt "NAME OF TRANSLATORS"
