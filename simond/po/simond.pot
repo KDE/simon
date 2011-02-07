@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-08-30 15:20+0200\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,7 +283,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/juliuscontrol.cpp:417
+#: src/juliuscontrol.cpp:446
 msgid ""
 "The recognition could not be started because your model contains words that "
 "consists of sounds that are not covered by your acoustic model.\n"
@@ -303,27 +303,27 @@ msgid ""
 "%2"
 msgstr ""
 
-#: src/juliuscontrol.cpp:444
+#: src/juliuscontrol.cpp:473
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
 
-#: src/juliuscontrol.cpp:452
+#: src/juliuscontrol.cpp:481
 msgid "Internal Jconf error"
 msgstr ""
 
-#: src/juliuscontrol.cpp:464
+#: src/juliuscontrol.cpp:493
 msgid "Could not initialize recognition"
 msgstr ""
 
-#: src/juliuscontrol.cpp:481
+#: src/juliuscontrol.cpp:510
 msgid "Could not start adin-thread"
 msgstr ""
 
-#: src/juliuscontrol.cpp:503 src/juliuscontrol.cpp:530
+#: src/juliuscontrol.cpp:532
 msgid "Unknown error"
 msgstr ""
 
-#: src/juliuscontrol.cpp:506 src/juliuscontrol.cpp:533
+#: src/juliuscontrol.cpp:536
 msgid "Error with the audio stream"
 msgstr ""
 

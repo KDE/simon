@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,44 +18,48 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: filtercommandmanager.cpp:39 filtercommandmanager.cpp:64
+#: filtercommandmanager.cpp:41 filtercommandmanager.cpp:66
 msgid "Activate Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:50 filterconfiguration.cpp:30
+#: filtercommandmanager.cpp:52 filterconfiguration.cpp:30
 msgid "Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:63
-msgid "Filter deactivated"
-msgstr ""
-
-#: filtercommandmanager.cpp:67
-msgid "Filter activated"
-msgstr ""
-
-#: filtercommandmanager.cpp:68
+#: filtercommandmanager.cpp:70
 msgid "Deactivate Filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:75
-msgid "[INF] Changing filter state..."
+#: filtercommandmanager.cpp:77
+msgid "Changing filter state..."
 msgstr ""
 
-#: filtercommandmanager.cpp:107
+#: filtercommandmanager.cpp:165
 msgid "Activate filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:108
+#: filtercommandmanager.cpp:166
 msgid "Starts filtering"
 msgstr ""
 
-#: filtercommandmanager.cpp:114
+#: filtercommandmanager.cpp:172
 msgid "Deactivate filter"
 msgstr ""
 
-#: filtercommandmanager.cpp:115
+#: filtercommandmanager.cpp:173
 msgid "Stops filtering"
+msgstr ""
+
+#: filtercommandmanager.cpp:179
+msgid "Deactivate filter once"
+msgstr ""
+
+#: filtercommandmanager.cpp:180
+msgid ""
+"When two stage mode is activated; Will consider the next recognition result "
+"and either only listen for the command to deactivate the filter completely "
+"or also pass the next result through to other plugins depending on the "
+"setting in the configuration."
 msgstr ""
 
 #: filterconfiguration.cpp:31
@@ -64,7 +68,7 @@ msgstr ""
 
 #. i18n: file: filterconfigurationdlg.ui:32
 #. i18n: ectx: property (text), widget (KLineEdit, leRegExp)
-#: filterconfiguration.cpp:76 po/rc.cpp:6 rc.cpp:6
+#: filterconfiguration.cpp:117 po/rc.cpp:6 rc.cpp:6
 msgid ".*"
 msgstr ""
 
@@ -74,12 +78,36 @@ msgstr ""
 msgid "Filter (RegExp):"
 msgstr ""
 
-#: po/rc.cpp:7 rc.cpp:7
+#. i18n: file: filterconfigurationdlg.ui:41
+#. i18n: ectx: property (text), widget (QCheckBox, cbTwoStage)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:48
+#. i18n: ectx: property (text), widget (QCheckBox, cbRelayStageOne)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Relay result in stage one of two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, cbLeaveStageOneAutomatically)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Leave stage one automatically after timeout:"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:77
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "ms"
+msgstr ""
+
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

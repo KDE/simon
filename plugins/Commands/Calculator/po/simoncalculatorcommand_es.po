@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-09-20 00:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
@@ -543,18 +543,159 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Su correo electrónico"
 
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Número"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "un"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "ocho"
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Introduzca un número"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Forma"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "nueve"
+
 #~ msgid "Form"
 #~ msgstr "Forma"
 
-#~ msgctxt "Name of the decimal seperator"
-#~ msgid "Comma"
+#, fuzzy
+#~ msgid "Add Command"
 #~ msgstr "Coma"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr "."
 
 #~ msgid "Input Number"
 #~ msgstr "Introduzca un número"
 
-#~ msgid "Input numbers with ease"
-#~ msgstr "Un simple cálculo de números"
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Espalda"
+
+#~ msgid "Trigger:"
+#~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Introduzca un número"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "un"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "dos"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "tres"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "quatro"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "cinco"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "seis"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "siete"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "ocho"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
 
 #~ msgid "Number"
 #~ msgstr "Número"
@@ -563,5 +704,110 @@ msgstr "Su correo electrónico"
 #~ msgid "."
 #~ msgstr "."
 
-#~ msgid "Trigger:"
+#, fuzzy
+#~ msgctxt "Close the dialog"
+#~ msgid "Ok"
+#~ msgstr "Vale"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgid "Input signes with ease"
+#~ msgstr "Un simple cálculo de números"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
 #~ msgstr "Shutter"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "seis"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "ocho"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "cero"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "ocho"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Espalda"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Sus nombres"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Forma"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Coma"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "ocho"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Coma"

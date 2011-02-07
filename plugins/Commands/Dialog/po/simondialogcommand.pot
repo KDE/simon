@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-09 17:14+0100\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,59 +75,15 @@ msgstr ""
 msgid "Dialog option"
 msgstr ""
 
-#: dialogboundvalues.cpp:75
-msgctxt "Name of the bound value"
-msgid "Name"
-msgstr ""
-
-#: dialogboundvalues.cpp:77
-msgctxt "Type of the bound value"
-msgid "Type"
-msgstr ""
-
-#: dialogboundvalues.cpp:79
-msgctxt "Value of the bound value"
-msgid "Value"
+#: dialogcommandmanager.cpp:50
+msgid "Activate Dialog"
 msgstr ""
 
 #. i18n: file: dialogwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, DialogView)
-#: dialogcommand.cpp:66 dialogcommandmanager.cpp:201
-#: dialogcommandmanager.cpp:347 dialogconfiguration.cpp:55 po/rc.cpp:255
-#: rc.cpp:255
+#: dialogcommandmanager.cpp:201 dialogcommandmanager.cpp:347
+#: dialogconfiguration.cpp:55 po/rc.cpp:255 rc.cpp:255
 msgid "Dialog"
-msgstr ""
-
-#: dialogcommand.cpp:91
-msgctxt "Label for a bool value"
-msgid "Switch state"
-msgstr ""
-
-#: dialogcommand.cpp:91 dialogcommand.cpp:93
-msgid "Yes"
-msgstr ""
-
-#: dialogcommand.cpp:91 dialogcommand.cpp:93
-msgid "No"
-msgstr ""
-
-#: dialogcommand.cpp:92
-msgid "Next state"
-msgstr ""
-
-#: dialogcommand.cpp:93
-msgctxt "Label for a bool value"
-msgid "Execute command(s)"
-msgstr ""
-
-#. i18n: file: simondialogpluginui.rc:6
-#. i18n: ectx: Menu (commands)
-#: dialogcommand.cpp:94 po/rc.cpp:258 rc.cpp:258
-msgid "Commands"
-msgstr ""
-
-#: dialogcommandmanager.cpp:50
-msgid "Activate Dialog"
 msgstr ""
 
 #: dialogcommandmanager.cpp:344
@@ -265,50 +221,30 @@ msgstr ""
 msgid "Please select an option from the right or add new ones as appropriate."
 msgstr ""
 
-#: dialogconfiguration.cpp:739
+#: dialogconfiguration.cpp:740
 msgid "Please answer with any of the following options."
 msgstr ""
 
-#: dialogconfiguration.cpp:741
+#: dialogconfiguration.cpp:742
 msgid "Repeat"
 msgstr ""
 
-#: dialogconfiguration.cpp:742
+#: dialogconfiguration.cpp:743
 msgid "Say \"Repeat\" to hear this text again."
 msgstr ""
 
-#: dialogconfiguration.cpp:800
+#: dialogconfiguration.cpp:801
 msgid ""
 "Please select an existing avatar from the list or add a new one as "
 "appropriate."
 msgstr ""
 
-#: dialogconfiguration.cpp:814
+#: dialogconfiguration.cpp:815
 msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
 msgstr ""
 
-#: dialogconfiguration.cpp:817
+#: dialogconfiguration.cpp:818
 msgid "Failed to remove avatar."
-msgstr ""
-
-#: dialogstate.cpp:280
-msgctxt "Name of the state"
-msgid "Name"
-msgstr ""
-
-#: dialogtemplateoptions.cpp:60
-msgctxt "Name of the template option"
-msgid "Name"
-msgstr ""
-
-#: dialogtemplateoptions.cpp:62
-msgctxt "Value of the template option"
-msgid "Value"
-msgstr ""
-
-#: plasmaboundvalue.cpp:49
-msgctxt "Typename of script bound values"
-msgid "Plasma"
 msgstr ""
 
 #. i18n: file: createavatardlg.ui:20
@@ -737,7 +673,7 @@ msgstr ""
 #. i18n: file: dialogconfigurationdlg.ui:477
 #. i18n: ectx: property (text), widget (QCheckBox, cbDisplayAvatarNames)
 #: po/rc.cpp:231 rc.cpp:231
-msgid "Display avatar names"
+msgid "Display avatar name"
 msgstr ""
 
 #. i18n: file: dialogconfigurationdlg.ui:490
@@ -784,6 +720,12 @@ msgstr ""
 msgid "Repeat available options on invalid input"
 msgstr ""
 
+#. i18n: file: simondialogpluginui.rc:6
+#. i18n: ectx: Menu (commands)
+#: po/rc.cpp:258 rc.cpp:258
+msgid "Commands"
+msgstr ""
+
 #: po/rc.cpp:259 rc.cpp:259
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
@@ -792,20 +734,6 @@ msgstr ""
 #: po/rc.cpp:260 rc.cpp:260
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
-
-#: scriptboundvalue.cpp:41
-msgctxt "Typename of script bound values"
-msgid "Script"
-msgstr ""
-
-#: staticboundvalue.cpp:38
-msgctxt "Typename of static bound values"
-msgid "Static"
-msgstr ""
-
-#: tests/dialogcommandtest.cpp:147
-msgid "test"
 msgstr ""
 
 #: tests/dialogtest.cpp:110

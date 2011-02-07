@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonplacecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:35+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -45,6 +45,7 @@ msgstr ""
 #. i18n: file: createplacecommandwidget.ui:30
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
 #: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
 msgctxt "Input the information manually (instead of automatically)"
 msgid "Manual"
 msgstr "Manuell"
@@ -183,77 +184,234 @@ msgstr "Lokale Datei öffnen: %1"
 msgid "Open remote URL: %1"
 msgstr "Entfernten URL öffnen: %1"
 
-#~ msgid "Form"
-#~ msgstr "Form"
+#, fuzzy
+#~ msgid "Play All"
+#~ msgstr "Ort"
 
-#~ msgid "Add Place"
-#~ msgstr "Ort hinzufügen"
+#, fuzzy
+#~ msgid "Playlist"
+#~ msgstr "Ort"
 
-#~ msgid "Add a new Place"
-#~ msgstr "Neuen Ort hinzufügen"
-
-#~ msgid ""
-#~ "With this wizard you can assoziate places with commands.\n"
-#~ "\n"
-#~ "Both local and remote places are supported."
-#~ msgstr ""
-#~ "Mit diesem Assistenten können Sie Orte mit Kommandos öffnen.\n"
-#~ "\n"
-#~ "Sowohl lokale als auch entfernte Orte werden unterstützt."
-
-#~ msgid "Place added"
-#~ msgstr "Ort hinzugefügt"
-
-#~ msgid "Press Finish to complete this wizard."
-#~ msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschließen."
-
-#~ msgid "Import Place"
-#~ msgstr "Ort importieren"
-
-#~ msgid "Using this wizard, you can import local and remote places easily."
-#~ msgstr ""
-#~ "Mit diesem Assitenten können Sie lokale und entfernte Orte importieren."
-
-#~ msgid "[INF] Loading place commands from %1"
-#~ msgstr "[INF] Lade Ort Kommandos von %1"
-
-#~ msgid "[INF] Saving place commands to %1"
+#, fuzzy
+#~ msgid "Save Shortcuts"
 #~ msgstr "[INF] Speichere Ort Kommandos zu %1"
 
 #, fuzzy
-#~ msgid "Import Program"
-#~ msgstr "Ort importieren"
+#~ msgid "Play next"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Play all"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "A Media Player"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "personal files"
+#~ msgstr "Lokale Datei öffnen: %1"
+
+#, fuzzy
+#~ msgid "&Selected plugins:"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Add page numbers"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Add a new attribute"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Specify layout command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Page setup"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Page %1"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Portrait"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "&Page setup"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Next Page"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This is a clickMessage for the line edit in the rename filter config "
+#~ "dialog"
+#~ msgid "Type the new name"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "&Add a feed:"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "RenameMe"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Places"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Images"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+
+#~ msgid "Form"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Play"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Add Delay"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Remove"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgid "Service name:"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Execute commands"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Rename"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Select program"
+#~ msgstr "Ort auswählen"
 
 #, fuzzy
 #~ msgid "Configure the needed parameters manually"
 #~ msgstr "Die notwendigen Parameter manuell konfigurieren"
 
 #, fuzzy
+#~ msgid "Request:"
+#~ msgstr "Host:"
+
+#, fuzzy
 #~ msgid "Port:"
 #~ msgstr "Host:"
 
 #, fuzzy
-#~ msgid "HERest:"
-#~ msgstr "Host:"
+#~ msgid "Select number"
+#~ msgstr "Ort auswählen"
 
 #, fuzzy
-#~ msgid "Import Activities"
+#~ msgid "Input files"
 #~ msgstr "Ort importieren"
 
 #, fuzzy
-#~ msgid "Import Texts"
+#~ msgid "Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Import"
 #~ msgstr "Ort importieren"
 
 #, fuzzy
-#~ msgid "Local text file"
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Folder"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import from local text file"
 #~ msgstr "Lokaler Ort"
 
 #, fuzzy
-#~ msgid "Pages"
-#~ msgstr "Ort"
+#~ msgid "TextLabel"
+#~ msgstr "Ort hinzugefgt"
 
 #, fuzzy
 #~ msgid "Import Text"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Files"
 #~ msgstr "Ort importieren"
 
 #, fuzzy
@@ -273,63 +431,117 @@ msgstr "Entfernten URL öffnen: %1"
 #~ msgstr "Host:"
 
 #, fuzzy
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Lade Ort Kommandos von %1"
+#~ msgid "Encryption"
+#~ msgstr "Benutze Authentifizierung"
 
 #, fuzzy
-#~ msgid "[INF] Saving executable commands to %1"
-#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+#~ msgid "Change Password"
+#~ msgstr "Passwort:"
 
 #, fuzzy
-#~ msgid "Added the new Program"
-#~ msgstr "Neuen Ort hinzufügen"
+#~ msgid "Add device"
+#~ msgstr "Ort hinzufügen"
 
 #, fuzzy
-#~ msgid "Press \"Finish\" to complete the wizard."
-#~ msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschlieen."
+#~ msgid "Add "
+#~ msgstr "Ort hinzufügen"
 
 #, fuzzy
-#~ msgid "[INF] Loading shortcuts from %1"
-#~ msgstr "[INF] Lade Ort Kommandos von %1"
+#~ msgid "HTK Programs"
+#~ msgstr "Ort importieren"
 
 #, fuzzy
-#~ msgid "[INF] Saving Shortcuts to %1"
-#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+#~ msgid "HERest:"
+#~ msgstr "Host:"
 
 #, fuzzy
-#~ msgid "[INF] Loading text-macro commands from %1"
-#~ msgstr "[INF] Lade Ort Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving text-macro commands to %1"
-#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
-
-#, fuzzy
-#~ msgid "Play"
-#~ msgstr "Ort"
-
-#, fuzzy
-#~ msgid "Add a new user"
-#~ msgstr "Neuen Ort hinzufügen"
-
-#, fuzzy
-#~ msgid "Username"
+#~ msgid "User interface"
 #~ msgstr "Benutzer:"
 
 #, fuzzy
-#~ msgid "[INF] Loading grammar from %1"
+#~ msgid "Surname:"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Given name:"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Manage users"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "User ID:"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "User - Institution"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
 #~ msgstr "[INF] Lade Ort Kommandos von %1"
 
 #, fuzzy
-#~ msgid "[INF] Parsing prompts-file from %1"
+#~ msgid "Couldn't execute command: %1"
 #~ msgstr "[INF] Lade Ort Kommandos von %1"
 
 #, fuzzy
-#~ msgid "Select Command"
+#~ msgid "Commands"
 #~ msgstr "Ort auswhlen"
 
 #, fuzzy
-#~ msgid "User athenticated"
+#~ msgctxt "Name of the service"
+#~ msgid "Servicename"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgctxt "Name of the path"
+#~ msgid "Path"
+#~ msgstr "Pfad:"
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Program"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Lokaler Ort"
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "sam"
+#~ msgstr "smb"
+
+#, fuzzy
+#~ msgid "Test completed: %1"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Cannot open file: %1"
+#~ msgstr "Lokale Datei öffnen: %1"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "User authenticated"
 #~ msgstr "Benutze Authentifizierung"
 
 #, fuzzy
@@ -337,7 +549,31 @@ msgstr "Entfernten URL öffnen: %1"
 #~ msgstr "Neuen Ort hinzufügen"
 
 #, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Added Word: "
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid " imported"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
 #~ msgid "Import completed"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Importing of the Folder completed"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Create Text"
 #~ msgstr "Ort importieren"
 
 #, fuzzy
@@ -349,5 +585,433 @@ msgstr "Entfernten URL öffnen: %1"
 #~ msgstr "Ort hinzugefgt"
 
 #, fuzzy
-#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgid "Text is being added"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
 #~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Renaming complete"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Training completed"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Select base hmmdefs"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Not connected"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "User"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgctxt "Name of the simond user"
+#~ msgid "Username"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Next state"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgctxt "Label for a bool value"
+#~ msgid "Execute command(s)"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Loading File..."
+#~ msgstr "Lokale Datei"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgctxt "Number of pages in the trainings text"
+#~ msgid "Pages"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Export to file"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import from file"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Select input device"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Lokaler Ort"
+
+#, fuzzy
+#~ msgid "Set name"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgctxt "Network port"
+#~ msgid "Port:"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "Add new Host"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Users"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "User management"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Lokale Datei"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "KDE Test Program"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid " Help "
+#~ msgstr "Hilfe"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Selection Window"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Import Phrasebook"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgctxt "Local characterset"
+#~ msgid "Local"
+#~ msgstr "Lokale Datei"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Recent URLs"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Images"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Add to Places"
+#~ msgstr "Ort hinzufügen"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Add Folder to Places"
+#~ msgstr "Neuen Ort hinzufügen"
+
+#, fuzzy
+#~ msgid "Import Finished"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import more Documents"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Selected"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import All"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Port"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "&Select test picture:"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Selection: Scale"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "&Text Fields"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Selection: Create"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Text: Paste"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgid "Selection: Delete"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure that translation has the same "
+#~ "accel as the &Image translation"
+#~ msgid "Select&ion"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Text: Bold"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Manuell"
+
+#, fuzzy
+#~ msgid "Portugal"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Manuell"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "&Replace"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Padded"
+#~ msgstr "Ort hinzugefügt"
+
+#, fuzzy
+#~ msgid "Open external file"
+#~ msgstr "Lokale Datei öffnen: %1"
+
+#, fuzzy
+#~ msgid "Pages"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Document Password"
+#~ msgstr "Passwort:"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Encrypted"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Unencrypted"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Unknown Encryption"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "&Page:"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Fit Page"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Ort auswählen"
+
+#, fuzzy
+#~ msgid "Pages: %1"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgctxt "start the movie playback"
+#~ msgid "Play"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Local Time"
+#~ msgstr "Lokale Datei"
+
+#, fuzzy
+#~ msgid "Fax Pages"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "RLE"
+#~ msgstr "URL"
+
+#~ msgid ""
+#~ "With this wizard you can assoziate places with commands.\n"
+#~ "\n"
+#~ "Both local and remote places are supported."
+#~ msgstr ""
+#~ "Mit diesem Assistenten können Sie Orte mit Kommandos öffnen.\n"
+#~ "\n"
+#~ "Sowohl lokale als auch entfernte Orte werden unterstützt."
+
+#~ msgid "Press Finish to complete this wizard."
+#~ msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschließen."
+
+#~ msgid "Using this wizard, you can import local and remote places easily."
+#~ msgstr ""
+#~ "Mit diesem Assitenten können Sie lokale und entfernte Orte importieren."
+
+#, fuzzy
+#~ msgid "[INF] Saving executable commands to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "Press \"Finish\" to complete the wizard."
+#~ msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschlieen."
+
+#, fuzzy
+#~ msgid "[INF] Loading shortcuts from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving text-macro commands to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,18 +77,18 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: pronunciationtrainingcommandmanager.cpp:39
-msgid "Activate Pronunciation Training"
-msgstr ""
-
-#: pronunciationtrainingcommandmanager.cpp:72
-msgid "[INF] Activating pronunciationtraining"
-msgstr ""
-
 #: pronunciationtraining.cpp:64
 msgid "There are no words to train. Please check your configuration."
 msgstr ""
 
 #: pronunciationtraining.cpp:90
 msgid "Sample %1 of %2:"
+msgstr ""
+
+#: pronunciationtrainingcommandmanager.cpp:39
+msgid "Activate Pronunciation Training"
+msgstr ""
+
+#: pronunciationtrainingcommandmanager.cpp:72
+msgid "Activating pronunciationtraining"
 msgstr ""

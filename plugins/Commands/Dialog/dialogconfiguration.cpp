@@ -19,20 +19,21 @@
 #include "dialogconfiguration.h"
 #include "dialogcommandmanager.h"
 
-#include "dialogtemplateoptions.h"
-#include "dialogboundvalues.h"
+#include <simondialogengine/dialogtemplateoptions.h>
+#include <simondialogengine/dialogboundvalues.h>
 
-#include "boundvalue.h"
-#include "dialogstate.h"
-#include "dialogcommand.h"
+#include <simondialogengine/avatar.h>
+#include <simondialogengine/avatarmodel.h>
+#include <simondialogengine/boundvalue.h>
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogcommand.h>
+#include <simondialogengine/confui/templateoptionsconfiguration.h>
+#include <simondialogengine/confui/boundvaluesconfiguration.h>
+#include <simondialogengine/confui/avatarconfiguration.h>
+#include <simonscenarios/scenario.h>
+
 #include "createdialogcommandwidget.h"
 #include "createtransitiondialog.h"
-#include "createtemplateoptiondialog.h"
-#include "createboundvaluedialog.h"
-#include "avatarmodel.h"
-#include "avatar.h"
-
-#include <simonscenarios/scenario.h>
 
 #include <QVariantList>
 #include <QList>
@@ -47,7 +48,7 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KStandardDirs>
-#include "createavatardialog.h"
+#include <simondialogengine/confui/outputconfiguration.h>
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
@@ -57,9 +58,10 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   "im-user",
   DialogCommandPluginFactory::componentData()),
   commandManager(_commandManager),
-  templateOptions(0),
-  boundValues(0),
-  avatarModel(0)
+  boundValuesConfig(new BoundValuesConfiguration(this)),
+  templateOptionsConfig(new TemplateOptionsConfiguration(this)),
+  avatarsConfig(new AvatarConfiguration(this)),
+  outputConfiguration(new OutputConfiguration(this))
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -81,48 +83,32 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
   connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
   connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
-  
-  connect(ui.pbAddAvatar, SIGNAL(clicked()), this, SLOT(addAvatar()));
-  connect(ui.pbEditAvatar, SIGNAL(clicked()), this, SLOT(editAvatar()));
-  connect(ui.pbRemoveAvatar, SIGNAL(clicked()), this, SLOT(removeAvatar()));
 
   connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
   connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
-
-  connect(ui.pbAddTemplateOption, SIGNAL(clicked()), this, SLOT(addTemplateOption()));
-  connect(ui.pbEditTemplateOption, SIGNAL(clicked()), this, SLOT(editTemplateOption()));
-  connect(ui.pbRemoveTemplateOption, SIGNAL(clicked()), this, SLOT(removeTemplateOption()));
-
-  connect(ui.pbAddBoundValue, SIGNAL(clicked()), this, SLOT(addBoundValue()));
-  connect(ui.pbEditBoundValue, SIGNAL(clicked()), this, SLOT(editBoundValue()));
-  connect(ui.pbRemoveBoundValue, SIGNAL(clicked()), this, SLOT(removeBoundValue()));
   
   connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
-  connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
-  
   
   connect(ui.sbText, SIGNAL(valueChanged(int)), this, SLOT(displaySelectedText()));
   connect(ui.pbAddText, SIGNAL(clicked()), this, SLOT(addText()));
   connect(ui.pbRemoveText, SIGNAL(clicked()), this, SLOT(removeText()));
 
+  connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
+
+  ui.twMain->addTab(boundValuesConfig, i18n("Bound values"));
+  ui.twMain->addTab(templateOptionsConfig, i18n("Template options"));
+  ui.twMain->addTab(avatarsConfig, i18n("Avatars"));
+  ui.twMain->addTab(outputConfiguration, i18n("Output"));
+
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
-  ui.pbAddBoundValue->setIcon(KIcon("list-add"));
-  ui.pbAddTemplateOption->setIcon(KIcon("list-add"));
-  ui.pbAddAvatar->setIcon(KIcon("list-add"));
 
   ui.pbRemoveState->setIcon(KIcon("list-remove"));
   ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
-  ui.pbRemoveBoundValue->setIcon(KIcon("list-remove"));
-  ui.pbRemoveTemplateOption->setIcon(KIcon("list-remove"));
 
   ui.pbRenameState->setIcon(KIcon("document-edit"));
   ui.pbEditTransition->setIcon(KIcon("document-edit"));
   ui.pbEditText->setIcon(KIcon("document-edit"));
-  ui.pbEditBoundValue->setIcon(KIcon("document-edit"));
-  ui.pbEditTemplateOption->setIcon(KIcon("document-edit"));
-  ui.pbEditAvatar->setIcon(KIcon("document-edit"));
-  ui.pbRemoveAvatar->setIcon(KIcon("list-remove"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
   ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
@@ -133,6 +119,18 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbAddText->setIcon(KIcon("list-add"));
   ui.pbRemoveText->setIcon(KIcon("list-remove"));
   displayCurrentState();
+}
+
+void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
+{
+  if (!selected.isValid())
+  {
+    getCurrentState()->setAvatar(0);
+  } else {
+    Avatar *a = static_cast<Avatar*>(selected.internalPointer());
+    kDebug() << "Selected avatar: " << a->name();
+    getCurrentState()->setAvatar(a->id());
+  }
 }
 
 void DialogConfiguration::updateTextSelector()
@@ -152,7 +150,6 @@ void DialogConfiguration::displaySelectedText()
   if (!state) return;
   int textId = ui.sbText->value()-1;
   kDebug() << "Getting text " << textId;
-  
   ui.teText->setText(state->getRawText(textId));
 }
 
@@ -390,249 +387,40 @@ void DialogConfiguration::moveTransitionDown()
                           QItemSelectionModel::ClearAndSelect);
 }
 
-
-QString DialogConfiguration::getCurrentTemplateIndex()
-{
-  QModelIndex index = ui.tvTemplateOptions->currentIndex();
-  if (!index.isValid())
-    return QString();
-  QString id = index.data(Qt::UserRole).toString();
-  return id;
-}
-
-QString DialogConfiguration::getCurrentTemplateIndexGraphical()
-{
-  QString id = getCurrentTemplateIndex();
-  if (id.isNull())
-    KMessageBox::sorry(this, i18n("Please select a template option."));
-  return id;
-}
-
-void DialogConfiguration::addTemplateOption()
-{
-  QPointer<CreateTemplateOptionDialog> dialog = new CreateTemplateOptionDialog(this);
-  if (dialog->exec())
-    templateOptions->addOption(dialog->getName(), dialog->getEnabled());
-  if (dialog) dialog->deleteLater();
-}
-
-void DialogConfiguration::editTemplateOption()
-{
-  QString id = getCurrentTemplateIndexGraphical();
-  if (id.isNull()) return;
-
-  bool currentData = templateOptions->isEnabled(id);
-
-  QPointer<CreateTemplateOptionDialog> dialog = new CreateTemplateOptionDialog(this);
-
-  dialog->setName(id);
-  dialog->setNameReadOnly(true);
-  dialog->setEnabled(currentData);
-
-  if (dialog->exec())
-    //will automatically replace the old value because they share the same id
-    templateOptions->addOption(dialog->getName(), dialog->getEnabled());
-
-  if (dialog) dialog->deleteLater();
-}
-
-void DialogConfiguration::removeTemplateOption()
-{
-  QString id = getCurrentTemplateIndexGraphical();
-
-  if (id.isNull() || KMessageBox::questionYesNoCancel(this, 
-        i18n("Do you really want to remove the selected template option?"))
-      != KMessageBox::Yes)
-    return;
-
-  templateOptions->removeOption(id);
-}
-
-BoundValue* DialogConfiguration::getCurrentBoundValue()
-{
-  return static_cast<BoundValue*>(ui.tvBoundValues->currentIndex().internalPointer());
-}
-
-BoundValue* DialogConfiguration::getCurrentBoundValueGraphical()
-{
-  BoundValue *value = getCurrentBoundValue();
-  if (!value)
-    KMessageBox::information(this, i18n("Please select a bound value from the table above."));
-  return value;
-}
-
-void DialogConfiguration::addBoundValue()
-{
-  CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
-
-  BoundValue *boundValue = dialog->createBoundValue();
- 
-  if (!boundValue)
-    return;
-
-  boundValues->addBoundValue(boundValue);
-  delete dialog;
-}
-
-void DialogConfiguration::editBoundValue()
-{
-  BoundValue *value = getCurrentBoundValueGraphical();
-  if (!value) return;
-
-  CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
-  BoundValue *newValue = dialog->createBoundValue(value);
-  if (newValue)
-  {
-    if (!boundValues->removeBoundValue(value))
-      delete value;
-    if (!boundValues->addBoundValue(newValue))
-      KMessageBox::sorry(this, i18n("Could not edit bound value."));
-  }
-  delete dialog;
-}
-
-void DialogConfiguration::removeBoundValue()
-{
-  BoundValue *value = getCurrentBoundValueGraphical();
-  if (!value || KMessageBox::questionYesNoCancel(this, 
-        i18n("Do you really want to remove the selected bound value option?"))
-      != KMessageBox::Yes) return;
-
-  boundValues->removeBoundValue(value);
-}
-
-
     
 QDomElement DialogConfiguration::serialize(QDomDocument* doc)
 {
   QDomElement configElem = doc->createElement("config");
 
-  QDomElement options = templateOptions->serialize(doc);
-  configElem.appendChild(options);
+  configElem.appendChild(templateOptionsConfig->serialize(doc));
 
-  QDomElement boundValuesElem = boundValues->serialize(doc);
-  configElem.appendChild(boundValuesElem);
+  configElem.appendChild(boundValuesConfig->serialize(doc));
 
-  QDomElement avatarsElem = avatarModel->serialize(doc);
-  avatarsElem.setAttribute("size", QString::number(ui.sbAvatarSize->value()));
-  avatarsElem.setAttribute("displayNames", ui.cbDisplayAvatarNames->isChecked() ? "1" : "0");
+  QDomElement avatarsElem = avatarsConfig->serialize(doc);
   configElem.appendChild(avatarsElem);
 
-  QDomElement outputElem = doc->createElement("output");
-  QDomElement graphicalOutput = doc->createElement("gui");
-  QDomElement ttsOutput = doc->createElement("tts");
-  graphicalOutput.appendChild(doc->createTextNode(ui.gbGraphical->isChecked() ? "1" : "0"));
-  ttsOutput.appendChild(doc->createTextNode(ui.gbTextToSpeech->isChecked() ? "1" : "0"));
-
-  outputElem.appendChild(graphicalOutput);
-  outputElem.appendChild(ttsOutput);
-
-  configElem.appendChild(outputElem);
-
-  QDomElement ttsOptions = doc->createElement("ttsOptions");
-  QDomElement separatorElem = doc->createElement("optionsSeparator");
-  separatorElem.appendChild(doc->createTextNode(ui.leOptionSeparator->text()));
-  ttsOptions.appendChild(separatorElem);
-      
-  QDomElement repeatTriggersElem = doc->createElement("repeatTriggers");
-  QStringList repeatTriggers = ui.elwRepeatTriggers->items();
-  foreach (const QString& trigger, repeatTriggers)
-  {
-    QDomElement repeatTriggerElem = doc->createElement("repeatTrigger");
-    repeatTriggerElem.appendChild(doc->createTextNode(trigger));
-    repeatTriggersElem.appendChild(repeatTriggerElem);
-  }
-  ttsOptions.appendChild(repeatTriggersElem);
-
-  QDomElement announceRepeatElem = doc->createElement("announceRepeat");
-  announceRepeatElem.appendChild(doc->createTextNode(ui.leAnnounceRepeat->text()));
-  ttsOptions.appendChild(announceRepeatElem);
-
-  QDomElement repeatOnInvalidInputElem = doc->createElement("repeatOnInvalidInput");
-  repeatOnInvalidInputElem.appendChild(doc->createTextNode(ui.cbRepeatOnInvalidInput->isChecked() ? "1" : "0"));
-  ttsOptions.appendChild(repeatOnInvalidInputElem);
-
-  outputElem.appendChild(ttsOptions);
+  configElem.appendChild(outputConfiguration->serialize(doc));
   return configElem;
 }
 
 
 bool DialogConfiguration::deSerialize(const QDomElement& elem)
 {
-  Q_UNUSED(elem);
-  QDomElement options = elem.firstChildElement("options");
-  if (!templateOptions)
-  {
-    templateOptions = DialogTemplateOptions::createInstance(options);
-    if (!templateOptions)
-      return false;
-    
-    ui.tvTemplateOptions->setModel(templateOptions);
-  } else {
-    templateOptions->deSerialize(options);
-  }
-
-  QDomElement boundValuesElem = elem.firstChildElement("boundValues");
-  if (!boundValues)
-  {
-    boundValues = DialogBoundValues::createInstance(boundValuesElem);
-    if (!boundValues)
-      return false;
-    
-    ui.tvBoundValues->setModel(boundValues);
-  } else {
-    boundValues->deSerialize(options);
-  }
-  
-  QDomElement avatarsElement = elem.firstChildElement("avatars");
-  kDebug() << "Loading avatars";
-  if (!avatarModel)
-  {
-    avatarModel = AvatarModel::createInstance(avatarsElement);
-    if (!avatarModel)
-    {
-      kDebug() << "Error loading avatars";
-      return false;
-    }
-    ui.lvAvatars->setModel(avatarModel);
-    ui.lvStateAvatar->setModel(avatarModel);
-  } else
-    avatarModel->deSerialize(avatarsElement);
-  kDebug() << "Loaded avatars";
-  
-  ui.sbAvatarSize->setValue(avatarsElement.attribute("size").toInt());
-  ui.cbDisplayAvatarNames->setChecked(avatarsElement.attribute("displayNames") == "1");
-
-  QDomElement outputElem = elem.firstChildElement("output");
-  if (outputElem.isNull())
-  {
+  if (!outputConfiguration->deSerialize(elem)) {
     defaults();
+    kDebug() << "Setting defaults...";
     return true;
   }
+  
+  if (!templateOptionsConfig->deSerialize(elem))
+    return false;
 
-  QDomElement graphicalOutput = outputElem.firstChildElement("gui");
-  QDomElement ttsOutput = outputElem.firstChildElement("tts");
-  ui.gbGraphical->setChecked(graphicalOutput.text() == "1");
-  ui.gbTextToSpeech->setChecked(ttsOutput.text() == "1");
+  if (!boundValuesConfig->deSerialize(elem))
+    return false;
 
-  QDomElement ttsOptions = outputElem.firstChildElement("ttsOptions");
-  QDomElement separatorElem = ttsOptions.firstChildElement("optionsSeparator");
-  ui.leOptionSeparator->setText(separatorElem.text());
-  QDomElement repeatTriggers = ttsOptions.firstChildElement("repeatTriggers");
-  QDomElement repeatTrigger = repeatTriggers.firstChildElement("repeatTrigger");
-  QStringList repeatTriggersStrs;
-  while (!repeatTrigger.isNull())
-  {
-    repeatTriggersStrs << repeatTrigger.text();
-    repeatTrigger = repeatTrigger.nextSiblingElement("repeatTrigger");
-  }
-  ui.elwRepeatTriggers->setItems(repeatTriggersStrs);
-
-  QDomElement announceRepeatElem = ttsOptions.firstChildElement("announceRepeat");
-  ui.leAnnounceRepeat->setText(announceRepeatElem.text());
-
-  QDomElement repeatOnInvalidInputElem = ttsOptions.firstChildElement("repeatOnInvalidInput");
-  ui.cbRepeatOnInvalidInput->setChecked(repeatOnInvalidInputElem.text() == "1");
+  if (!avatarsConfig->deSerialize(elem))
+    return false;
+  ui.lvStateAvatar->setModel(avatarsConfig->getModel());
 
   return true;
 }
@@ -706,12 +494,14 @@ DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
 
 void DialogConfiguration::displayCurrentState()
 {
+  kDebug() << "Going...1";
   DialogState *currentState = getCurrentState();
 
   ui.wgText->setEnabled(currentState);
   ui.wgOptions->setEnabled(currentState);
   ui.wgAvatar->setEnabled(currentState);
 
+  kDebug() << "Going...2";
   if (!currentState) 
   {
     ui.teText->clear();
@@ -719,116 +509,71 @@ void DialogConfiguration::displayCurrentState()
     return;
   }
 
+  kDebug() << "Going...3";
   updateTextSelector();
   ui.cbSilence->setChecked(currentState->silence());
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
   
+  kDebug() << "Going...4";
   ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
-  kDebug() << currentState->getAvatarId();
-  kDebug() <<(avatarModel->getAvatarIndex(currentState->getAvatarId()));
-  ui.lvStateAvatar->selectionModel()->select(avatarModel->getAvatarIndex(currentState->getAvatarId()),
+  kDebug() << "Going...5";
+  ui.lvStateAvatar->setEnabled(ui.cbDisplayAvatar->isChecked());
+  kDebug() << "Going...6";
+  int avatarId = currentState->getAvatarId();
+  kDebug() << "Going...7";
+  kDebug() << avatarsConfig;
+  QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
+  kDebug() << "Going...8";
+  
+  ui.lvStateAvatar->selectionModel()->select(avatarIndex,
     QItemSelectionModel::ClearAndSelect);
 
+  kDebug() << "Going...";
+  kDebug() << currentState;
   ui.lvTransitions->setModel(currentState);
+  kDebug() << "Done";
 }
 
 void DialogConfiguration::defaults()
 {
-  ui.gbGraphical->setChecked(true);
-  ui.gbTextToSpeech->setChecked(false);
-  ui.leOptionSeparator->setText(i18n("Please answer with any of the following options."));
-
-  ui.elwRepeatTriggers->setItems(QStringList() << i18n("Repeat"));
-  ui.leAnnounceRepeat->setText(i18n("Say \"Repeat\" to hear this text again."));
-
-  ui.cbRepeatOnInvalidInput->setChecked(true);
-  
-  ui.sbAvatarSize->setValue(96),
-  ui.cbDisplayAvatarNames->setChecked(true);
+  avatarsConfig->defaults();
+  templateOptionsConfig->defaults();
+  outputConfiguration->defaults();
+  boundValuesConfig->defaults();
 }
 
-bool DialogConfiguration::useGUIOutput() const
+int DialogConfiguration::getAvatarSize() const
 {
-  return ui.gbGraphical->isChecked();
+  return outputConfiguration->getAvatarSize();
 }
 
-bool DialogConfiguration::useTTSOutput() const
+bool DialogConfiguration::getDisplayAvatarNames() const
 {
-  return ui.gbTextToSpeech->isChecked();
+  return outputConfiguration->getDisplayAvatarNames();
 }
-
-
 QString DialogConfiguration::getOptionSeparatorText() const
 {
-  return ui.leOptionSeparator->text();
+  return outputConfiguration->getOptionSeparatorText();
 }
-
 QString DialogConfiguration::getRepeatAnnouncement() const
 {
-  return ui.leAnnounceRepeat->text();
+  return outputConfiguration->getRepeatAnnouncement();
 }
-
-QStringList DialogConfiguration::getRepeatTriggers() const
-{
-  return ui.elwRepeatTriggers->items();
-}
-
 bool DialogConfiguration::getRepeatOnInvalidInput() const
 {
-  return ui.cbRepeatOnInvalidInput->isChecked();
+  return outputConfiguration->getRepeatOnInvalidInput();
 }
-
-void DialogConfiguration::addAvatar()
+QStringList DialogConfiguration::getRepeatTriggers() const
 {
-  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
-  dlg->addAvatar(avatarModel);
-  delete dlg;
+  return outputConfiguration->getRepeatTriggers();
 }
-  
-Avatar* DialogConfiguration::getCurrentAvatar()
+bool DialogConfiguration::useGUIOutput() const
 {
-  QModelIndex currentIndex = ui.lvAvatars->currentIndex();
-  if (!currentIndex.isValid()) return 0;
-  
-  return static_cast<Avatar*>(currentIndex.internalPointer());
+  return outputConfiguration->useGUIOutput();
 }
-
-Avatar* DialogConfiguration::getCurrentAvatarGraphical()
+bool DialogConfiguration::useTTSOutput() const
 {
-  Avatar *a = getCurrentAvatar();
-  if (!a)
-    KMessageBox::information(this, i18n("Please select an existing avatar from the list or add a new one as appropriate."));
-  return a;
-}
-
-void DialogConfiguration::editAvatar()
-{
-  Avatar *a = getCurrentAvatarGraphical();
-  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
-  dlg->editAvatar(a);
-  delete dlg;
-}
-void DialogConfiguration::removeAvatar()
-{
-  Avatar *a = getCurrentAvatarGraphical();
-  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
-  {
-    if (!avatarModel->removeAvatar(a))
-      KMessageBox::sorry(this, i18n("Failed to remove avatar."));
-    else delete a;
-  }
-}
-
-void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
-{
-  if (!selected.isValid())
-  {
-    getCurrentState()->setAvatar(0);
-  } else {
-    Avatar *a = static_cast<Avatar*>(selected.internalPointer());
-    kDebug() << "Selected avatar: " << a->name();
-    getCurrentState()->setAvatar(a->id());
-  }
+  return outputConfiguration->useTTSOutput();
 }
 
 void DialogConfiguration::avatarDisplayToggled ( bool show )
@@ -836,19 +581,19 @@ void DialogConfiguration::avatarDisplayToggled ( bool show )
   getCurrentState()->setDisplayAvatar(show);
 }
 
+DialogTemplateOptions* DialogConfiguration::getDialogTemplateOptions() const
+{
+  return templateOptionsConfig->getDialogTemplateOptions();
+}
+
+DialogBoundValues* DialogConfiguration::getDialogBoundValues() const
+{
+  return boundValuesConfig->getDialogBoundValues();
+}
+
 Avatar* DialogConfiguration::getAvatar ( int id ) const
 {
-  return avatarModel->getAvatar(id);
-}
-
-bool DialogConfiguration::getDisplayAvatarNames() const
-{
-  return ui.cbDisplayAvatarNames->isChecked();
-}
-
-int DialogConfiguration::getAvatarSize() const
-{
-  return ui.sbAvatarSize->value();
+  return avatarsConfig->getAvatar(id);
 }
 
 DialogConfiguration::~DialogConfiguration()

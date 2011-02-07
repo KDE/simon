@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonlib\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-05 13:14+0300\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -39,7 +39,7 @@ msgstr "X server nepodporuje rozšíření XTest. Nainstalujte jej, prosím."
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #. i18n: file: simonsound/singledeviceconfiguration.ui:116
 #. i18n: ectx: property (text), widget (QCheckBox, cbRecognition)
-#: po/rc.cpp:3 po/rc.cpp:361 rc.cpp:3 rc.cpp:361
+#: po/rc.cpp:3 po/rc.cpp:359 rc.cpp:3 rc.cpp:359
 msgid "Recognition"
 msgstr "Rozpoznávání"
 
@@ -169,7 +169,7 @@ msgstr "Ikona:"
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowIcon)
 #. i18n: file: simonscenarios/createvoiceinterfacecommandwidget.ui:50
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowIcon)
-#: po/rc.cpp:54 po/rc.cpp:123 simonscenarios/voiceinterfacecommand.cpp:94
+#: po/rc.cpp:54 po/rc.cpp:123 simonscenarios/voiceinterfacecommand.cpp:97
 #: rc.cpp:54 rc.cpp:123
 msgid "Show icon"
 msgstr "Ukázat ikonu"
@@ -189,12 +189,14 @@ msgstr "Viditelná spoušť:"
 #. i18n: file: simonlogging/logmanagerdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, LogManagerDlg)
 #: po/rc.cpp:63 rc.cpp:63
+#, fuzzy
 msgid "Log Manager"
 msgstr "Správce přihlášení"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:20
 #. i18n: ectx: property (text), widget (QTreeWidget, twLogEntries)
 #: po/rc.cpp:66 rc.cpp:66
+#, fuzzy
 msgid "Date"
 msgstr "Datum"
 
@@ -223,6 +225,7 @@ msgstr "Hledat:"
 #. i18n: file: simonlogging/logmanagerdlg.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbClearSearch)
 #: po/rc.cpp:78 rc.cpp:78
+#, fuzzy
 msgid "&x"
 msgstr "&x"
 
@@ -236,7 +239,7 @@ msgstr "Hledat"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:105
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogError)
-#: po/rc.cpp:84 rc.cpp:84
+#: po/rc.cpp:84 simontts/config/ttssettings.cpp:138 rc.cpp:84
 msgid "Error"
 msgstr "Chyba"
 
@@ -279,8 +282,9 @@ msgstr "Pouze ze dne"
 #. i18n: file: simonlogging/logmanagerdlg.ui:180
 #. i18n: ectx: property (text), widget (QLabel, lbCalendar)
 #: po/rc.cpp:102 rc.cpp:102
+#, fuzzy
 msgid "Calendar"
-msgstr "Kalendář"
+msgstr "Kalendář *"
 
 #. i18n: file: simonscenarios/createvoicecommandwidget.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -400,48 +404,43 @@ msgstr ""
 #. i18n: file: simonscenarios/speechmodelmanagementconfiguration.kcfg:44
 #. i18n: ectx: tooltip, entry (ModelTrainingsDataPath), group (Model)
 #: po/rc.cpp:162 po/rc.cpp:165 rc.cpp:162 rc.cpp:165
+#, fuzzy
 msgid "Where to save the trainings samples."
-msgstr "Kam se budou ukládat nahrávky na procvičování."
+msgstr "Cesta k nahrávkám na procvičování."
 
-#. i18n: file: simonscenarios/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTrain)
-#: po/rc.cpp:168 rc.cpp:168
-msgid "Activate power training by default"
-msgstr "Zapnout procvičování schopnosti ve výchozím nastavení"
-
-#. i18n: file: simonscenarios/trainingsettings.ui:29
+#. i18n: file: simonscenarios/trainingsettings.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#: po/rc.cpp:171 rc.cpp:171
+#: po/rc.cpp:169 rc.cpp:169
 msgid "Samplerate:"
 msgstr "Vzorkovací kmitočet:"
 
-#. i18n: file: simonscenarios/trainingsettings.ui:54
+#. i18n: file: simonscenarios/trainingsettings.ui:47
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: simonsound/singledeviceconfiguration.ui:91
 #. i18n: ectx: property (text), widget (QLabel, lbHz_3)
-#. i18n: file: simonscenarios/trainingsettings.ui:54
+#. i18n: file: simonscenarios/trainingsettings.ui:47
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: simonsound/singledeviceconfiguration.ui:91
 #. i18n: ectx: property (text), widget (QLabel, lbHz_3)
-#: po/rc.cpp:174 po/rc.cpp:352 rc.cpp:174 rc.cpp:352
+#: po/rc.cpp:172 po/rc.cpp:350 rc.cpp:172 rc.cpp:350
 msgid "Hz"
 msgstr "Hz"
 
-#. i18n: file: simonscenarios/trainingsettings.ui:63
+#. i18n: file: simonscenarios/trainingsettings.ui:56
 #. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#: po/rc.cpp:177 rc.cpp:177
+#: po/rc.cpp:175 rc.cpp:175
 msgid "Path to the Trainingssamples:"
 msgstr "Cesta k nahrávkám na procvičování."
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyAuthor)
-#: po/rc.cpp:180 simonscenarioui/newauthor.cpp:33 rc.cpp:180
+#: po/rc.cpp:178 simonscenarioui/newauthor.cpp:33 rc.cpp:178
 msgid "Author"
 msgstr "Autor"
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbName)
-#: po/rc.cpp:183 rc.cpp:183
+#: po/rc.cpp:181 rc.cpp:181
 #, fuzzy
 msgctxt "The name of the author"
 msgid "Name:"
@@ -449,7 +448,7 @@ msgstr "Jméno:"
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:27
 #. i18n: ectx: property (toolTip), widget (KLineEdit, leName)
-#: po/rc.cpp:186 rc.cpp:186
+#: po/rc.cpp:184 rc.cpp:184
 msgid ""
 "Name of the author. Might be a screen name but usage of the real name is "
 "encouraged."
@@ -459,13 +458,13 @@ msgstr ""
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbContact)
-#: po/rc.cpp:189 rc.cpp:189
+#: po/rc.cpp:187 rc.cpp:187
 msgid "Contact:"
 msgstr "Spojení:"
 
 #. i18n: file: simonscenarioui/modifyauthor.ui:41
 #. i18n: ectx: property (toolTip), widget (KLineEdit, leContact)
-#: po/rc.cpp:192 rc.cpp:192
+#: po/rc.cpp:190 rc.cpp:190
 #, fuzzy
 msgid "e.g. e-Mail Addresses, Instant Messenger contact names / numbers, etc."
 msgstr ""
@@ -474,185 +473,207 @@ msgstr ""
 
 #. i18n: file: simonscenarioui/modifyscenario.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ModifyScenarioDlg)
-#: po/rc.cpp:195 simonscenarioui/newscenario.cpp:39
-#: simonscenarioui/newscenario.cpp:77 rc.cpp:195
+#: po/rc.cpp:193 simonscenarioui/newscenario.cpp:39
+#: simonscenarioui/newscenario.cpp:77 rc.cpp:193
 msgid "Scenario"
 msgstr "Scénář"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:27
+#. i18n: file: simonscenarioui/modifyscenario.ui:24
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:196 rc.cpp:196
+msgid "General"
+msgstr "Obecné"
+
+#. i18n: file: simonscenarioui/modifyscenario.ui:37
 #. i18n: ectx: property (text), widget (QLabel, lbName)
-#: po/rc.cpp:198 rc.cpp:198
+#: po/rc.cpp:199 rc.cpp:199
 #, fuzzy
 msgctxt "Name of the scenario"
 msgid "Name:"
 msgstr "Jméno:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:37
+#. i18n: file: simonscenarioui/modifyscenario.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:201 rc.cpp:201
+#: po/rc.cpp:202 rc.cpp:202
 msgid "Scenario version:"
 msgstr "Verze scénáře:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:44
+#. i18n: file: simonscenarioui/modifyscenario.ui:67
 #. i18n: ectx: property (text), widget (QLabel, lbMinVersion)
-#: po/rc.cpp:204 rc.cpp:204
+#: po/rc.cpp:205 rc.cpp:205
 msgid "Min simon version:"
 msgstr "Nejnižší verze programu Simon:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:51
+#. i18n: file: simonscenarioui/modifyscenario.ui:74
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leMinVersion)
-#: po/rc.cpp:207 rc.cpp:207
+#: po/rc.cpp:208 rc.cpp:208
 msgid "9.9xxxxxxx0; "
 msgstr "9.9xxxxxxx0; "
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:90
+#. i18n: file: simonscenarioui/modifyscenario.ui:97
 #. i18n: ectx: property (text), widget (QLabel, lbMaxVersion)
-#: po/rc.cpp:210 rc.cpp:210
+#: po/rc.cpp:211 rc.cpp:211
 msgid "Max simon version:"
 msgstr "Nejnižší verze programu Simon:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:100
+#. i18n: file: simonscenarioui/modifyscenario.ui:109
 #. i18n: ectx: property (toolTip), widget (KLineEdit, leMaxVersion)
-#: po/rc.cpp:213 rc.cpp:213
+#: po/rc.cpp:214 rc.cpp:214
 msgid "You can leave this field empty to set no maximum version."
 msgstr ""
 "Toto pole můžete ponechat prázdné, čímž nebude nastavena žádná nejvyšší "
 "verze."
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:103
+#. i18n: file: simonscenarioui/modifyscenario.ui:112
 #. i18n: ectx: property (inputMask), widget (KLineEdit, leMaxVersion)
-#: po/rc.cpp:216 rc.cpp:216
+#: po/rc.cpp:217 rc.cpp:217
 msgid "0x0xxxxxxx0; "
 msgstr "0x0xxxxxxx0; "
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:110
+#. i18n: file: simonscenarioui/modifyscenario.ui:137
 #. i18n: ectx: property (text), widget (QLabel, lbLicense)
-#: po/rc.cpp:219 rc.cpp:219
+#: po/rc.cpp:220 rc.cpp:220
 #, fuzzy
 msgid "License:"
 msgstr "Povolení:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:124
+#. i18n: file: simonscenarioui/modifyscenario.ui:151
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:222 rc.cpp:222
+#: po/rc.cpp:223 rc.cpp:223
 #, fuzzy
 msgctxt "Artistic license"
 msgid "Artistic 2.0"
 msgstr "Umělecké (Artistic 2.0)"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:129
+#. i18n: file: simonscenarioui/modifyscenario.ui:156
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:225 rc.cpp:225
+#: po/rc.cpp:226 rc.cpp:226
 msgid "BSD"
 msgstr "BSD"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:134
+#. i18n: file: simonscenarioui/modifyscenario.ui:161
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:228 rc.cpp:228
+#: po/rc.cpp:229 rc.cpp:229
 msgid "CPL 1.0"
 msgstr "CPL 1.0"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:139
+#. i18n: file: simonscenarioui/modifyscenario.ui:166
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:231 rc.cpp:231
+#: po/rc.cpp:232 rc.cpp:232
 msgid "Creative Commons by"
 msgstr "Creative Commons by"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:144
+#. i18n: file: simonscenarioui/modifyscenario.ui:171
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:234 rc.cpp:234
+#: po/rc.cpp:235 rc.cpp:235
 msgid "Creative Commons by-nc"
 msgstr "Creative Commons by-nc"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:149
+#. i18n: file: simonscenarioui/modifyscenario.ui:176
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:237 rc.cpp:237
+#: po/rc.cpp:238 rc.cpp:238
 msgid "Creative Commons by-nc-nd"
 msgstr "Creative Commons by-nc-nd"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:154
+#. i18n: file: simonscenarioui/modifyscenario.ui:181
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:240 rc.cpp:240
+#: po/rc.cpp:241 rc.cpp:241
 msgid "Creative Commons by-nc-sa"
 msgstr "Creative Commons by-nc-sa"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:159
+#. i18n: file: simonscenarioui/modifyscenario.ui:186
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:243 rc.cpp:243
+#: po/rc.cpp:244 rc.cpp:244
 msgid "Creative Commons by-nd"
 msgstr "Creative Commons by-nd"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:164
+#. i18n: file: simonscenarioui/modifyscenario.ui:191
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:246 rc.cpp:246
+#: po/rc.cpp:247 rc.cpp:247
 msgid "Creative Commons by-sa"
 msgstr "Creative Commons by-sa"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:169
+#. i18n: file: simonscenarioui/modifyscenario.ui:196
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:249 rc.cpp:249
+#: po/rc.cpp:250 rc.cpp:250
 msgid "GFDL"
 msgstr "GFDL"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:174
+#. i18n: file: simonscenarioui/modifyscenario.ui:201
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:252 rc.cpp:252
+#: po/rc.cpp:253 rc.cpp:253
 msgid "GPL"
 msgstr "GPL"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:179
+#. i18n: file: simonscenarioui/modifyscenario.ui:206
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:255 rc.cpp:255
+#: po/rc.cpp:256 rc.cpp:256
 msgid "LGPL"
 msgstr "LGPL"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:184
+#. i18n: file: simonscenarioui/modifyscenario.ui:211
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:258 rc.cpp:258
+#: po/rc.cpp:259 rc.cpp:259
 msgid "MIT"
 msgstr "MIT"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:189
+#. i18n: file: simonscenarioui/modifyscenario.ui:216
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:261 rc.cpp:261
+#: po/rc.cpp:262 rc.cpp:262
 msgid "Proprietary License"
 msgstr "Vlastnické povolení (Proprietary License)"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:194
+#. i18n: file: simonscenarioui/modifyscenario.ui:221
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:264 rc.cpp:264
+#: po/rc.cpp:265 rc.cpp:265
 msgid "QPL"
 msgstr "QPL"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:199
+#. i18n: file: simonscenarioui/modifyscenario.ui:226
 #. i18n: ectx: property (text), item, widget (KComboBox, cbLicense)
-#: po/rc.cpp:267 rc.cpp:267
+#: po/rc.cpp:268 rc.cpp:268
 #, fuzzy
 msgctxt "X11 license"
 msgid "X11"
 msgstr "X11"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:207
+#. i18n: file: simonscenarioui/modifyscenario.ui:234
 #. i18n: ectx: property (text), widget (QLabel, lbAuthors)
-#: po/rc.cpp:270 rc.cpp:270
+#: po/rc.cpp:271 rc.cpp:271
 msgid "Authors:"
 msgstr "Autoři:"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:232
+#. i18n: file: simonscenarioui/modifyscenario.ui:261
 #. i18n: ectx: property (text), widget (KPushButton, pbAddAuthor)
-#: po/rc.cpp:273 rc.cpp:273
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:159
+#. i18n: ectx: property (text), widget (KPushButton, pbAddRecording)
+#. i18n: file: simonscenarioui/modifyscenario.ui:261
+#. i18n: ectx: property (text), widget (KPushButton, pbAddAuthor)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:159
+#. i18n: ectx: property (text), widget (KPushButton, pbAddRecording)
+#: po/rc.cpp:274 po/rc.cpp:628 rc.cpp:274 rc.cpp:628
 msgid "Add"
 msgstr "Přidat"
 
-#. i18n: file: simonscenarioui/modifyscenario.ui:242
+#. i18n: file: simonscenarioui/modifyscenario.ui:271
 #. i18n: ectx: property (text), widget (KPushButton, pbRemoveAuthor)
-#: po/rc.cpp:276 rc.cpp:276
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:66
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveSet)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:186
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveRecording)
+#. i18n: file: simonscenarioui/modifyscenario.ui:271
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveAuthor)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:66
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveSet)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:186
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveRecording)
+#: po/rc.cpp:277 po/rc.cpp:610 po/rc.cpp:634 rc.cpp:277 rc.cpp:610 rc.cpp:634
 msgid "Remove"
 msgstr "Odstranit"
 
 #. i18n: file: simonscenarioui/scenariomanagementdlg.ui:29
 #. i18n: ectx: property (text), widget (KPushButton, pbCreateScenario)
-#: po/rc.cpp:279 rc.cpp:279
+#: po/rc.cpp:280 rc.cpp:280
 #, fuzzy
 msgctxt "Create a new scenario"
 msgid "New"
@@ -660,19 +681,37 @@ msgstr "Nový"
 
 #. i18n: file: simonscenarioui/scenariomanagementdlg.ui:36
 #. i18n: ectx: property (text), widget (KPushButton, pbImportScenario)
-#: po/rc.cpp:282 rc.cpp:282
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:90
+#. i18n: ectx: property (text), widget (KPushButton, pbImportSet)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:36
+#. i18n: ectx: property (text), widget (KPushButton, pbImportScenario)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:90
+#. i18n: ectx: property (text), widget (KPushButton, pbImportSet)
+#: po/rc.cpp:283 po/rc.cpp:613 rc.cpp:283 rc.cpp:613
 msgid "Import"
 msgstr "Zavést"
 
 #. i18n: file: simonscenarioui/scenariomanagementdlg.ui:43
 #. i18n: ectx: property (text), widget (KPushButton, pbExportScenario)
-#: po/rc.cpp:285 rc.cpp:285
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:97
+#. i18n: ectx: property (text), widget (KPushButton, pbExportSet)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:43
+#. i18n: ectx: property (text), widget (KPushButton, pbExportScenario)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:97
+#. i18n: ectx: property (text), widget (KPushButton, pbExportSet)
+#: po/rc.cpp:286 po/rc.cpp:616 rc.cpp:286 rc.cpp:616
 msgid "Export"
 msgstr "Vyvést"
 
 #. i18n: file: simonscenarioui/scenariomanagementdlg.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pbEditScenario)
-#: po/rc.cpp:288 rc.cpp:288
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:179
+#. i18n: ectx: property (text), widget (KPushButton, pbEditRecording)
+#. i18n: file: simonscenarioui/scenariomanagementdlg.ui:63
+#. i18n: ectx: property (text), widget (KPushButton, pbEditScenario)
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:179
+#. i18n: ectx: property (text), widget (KPushButton, pbEditRecording)
+#: po/rc.cpp:289 po/rc.cpp:631 rc.cpp:289 rc.cpp:631
 msgid "Edit"
 msgstr "Upravit"
 
@@ -684,146 +723,134 @@ msgstr "Upravit"
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteScenario)
 #. i18n: file: simonsound/wavfilewidget.ui:51
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:291 po/rc.cpp:574 rc.cpp:291 rc.cpp:574
+#: po/rc.cpp:292 po/rc.cpp:580 rc.cpp:292 rc.cpp:580
 msgid "Delete"
 msgstr "Smazat"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, DeviceConfiguration)
-#: po/rc.cpp:294 rc.cpp:294
+#: po/rc.cpp:295 rc.cpp:295
 msgid "Soundsettings"
 msgstr "Nastavení zvuku"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTraining)
-#. i18n: file: simonsound/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTraining)
-#. i18n: file: simonsound/deviceconfiguration.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTraining)
-#. i18n: file: simonsound/trainingsettings.ui:20
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTraining)
-#: po/rc.cpp:297 po/rc.cpp:502 rc.cpp:297 rc.cpp:502
-msgid "Default to power training"
-msgstr "Procvičování schopnosti ve výchozím nastavení"
-
-#. i18n: file: simonsound/deviceconfiguration.ui:31
+#. i18n: file: simonsound/deviceconfiguration.ui:24
 #. i18n: ectx: attribute (title), widget (QWidget, tbInput)
-#: po/rc.cpp:300 rc.cpp:300
+#: po/rc.cpp:298 rc.cpp:298
 msgid "Input"
 msgstr "Vstup"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:84
+#. i18n: file: simonsound/deviceconfiguration.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbAddInput)
-#. i18n: file: simonsound/deviceconfiguration.ui:154
+#. i18n: file: simonsound/deviceconfiguration.ui:147
 #. i18n: ectx: property (text), widget (KPushButton, pbAddOutput)
-#. i18n: file: simonsound/deviceconfiguration.ui:84
+#. i18n: file: simonsound/deviceconfiguration.ui:77
 #. i18n: ectx: property (text), widget (KPushButton, pbAddInput)
-#. i18n: file: simonsound/deviceconfiguration.ui:154
+#. i18n: file: simonsound/deviceconfiguration.ui:147
 #. i18n: ectx: property (text), widget (KPushButton, pbAddOutput)
-#: po/rc.cpp:303 po/rc.cpp:312 rc.cpp:303 rc.cpp:312
+#: po/rc.cpp:301 po/rc.cpp:310 rc.cpp:301 rc.cpp:310
 msgid "Add device"
 msgstr "Přidat zařízení"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:91
+#. i18n: file: simonsound/deviceconfiguration.ui:84
 #. i18n: ectx: property (text), widget (KPushButton, pbReload1)
-#. i18n: file: simonsound/deviceconfiguration.ui:161
+#. i18n: file: simonsound/deviceconfiguration.ui:154
 #. i18n: ectx: property (text), widget (KPushButton, pbReload2)
-#. i18n: file: simonsound/deviceconfiguration.ui:91
+#. i18n: file: simonsound/deviceconfiguration.ui:84
 #. i18n: ectx: property (text), widget (KPushButton, pbReload1)
-#. i18n: file: simonsound/deviceconfiguration.ui:161
+#. i18n: file: simonsound/deviceconfiguration.ui:154
 #. i18n: ectx: property (text), widget (KPushButton, pbReload2)
-#: po/rc.cpp:306 po/rc.cpp:315 rc.cpp:306 rc.cpp:315
+#: po/rc.cpp:304 po/rc.cpp:313 rc.cpp:304 rc.cpp:313
 msgid "Refresh devices"
 msgstr "Obnovit zařízení"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:101
+#. i18n: file: simonsound/deviceconfiguration.ui:94
 #. i18n: ectx: attribute (title), widget (QWidget, tbOutput)
-#: po/rc.cpp:309 rc.cpp:309
+#: po/rc.cpp:307 rc.cpp:307
 msgid "Output"
 msgstr "Výstup"
 
 #. i18n: file: simonsound/devicevolumewidget.ui:62
 #. i18n: ectx: property (text), widget (KPushButton, pbVolumeChanged)
-#: po/rc.cpp:318 rc.cpp:318
+#: po/rc.cpp:316 rc.cpp:316
 msgid "Volume changed"
 msgstr "Hlasitost změněna"
 
 #. i18n: file: simonsound/postprocessing.ui:19
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ProcessInternal)
-#: po/rc.cpp:321 rc.cpp:321
+#: po/rc.cpp:319 rc.cpp:319
 msgid "Apply filters to recordings recorded with simon"
 msgstr "Na nahrávky nahrané Simonem použít filtry"
 
 #. i18n: file: simonsound/postprocessing.ui:26
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_ProcessingFilters)
-#: po/rc.cpp:324 rc.cpp:324
+#: po/rc.cpp:322 rc.cpp:322
 msgid "Post-Processing Commands"
 msgstr "Příkazy následného zpracování"
 
 #. i18n: file: simonsound/postprocessing.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:328 rc.cpp:328
+#: po/rc.cpp:326 rc.cpp:326
 #, no-c-format
 msgid "Legend: %1........Inputfile, %2........Outputfile"
 msgstr "Vysvětlivka: %1........vstupní soubor, %2........výstupní soubor"
 
 #. i18n: file: simonsound/recwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, RecWidgetUi)
-#: po/rc.cpp:331 rc.cpp:331
+#: po/rc.cpp:329 simontts/config/editrecording.cpp:35 rc.cpp:329
 msgid "Recording"
 msgstr "Nahrává"
 
 #. i18n: file: simonsound/recwidget.ui:35
 #. i18n: ectx: property (text), widget (KPushButton, pbRecord)
-#: po/rc.cpp:334 rc.cpp:334
+#: po/rc.cpp:332 rc.cpp:332
 msgid "Record"
 msgstr "Nahrávat"
 
 #. i18n: file: simonsound/recwidget.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteAll)
-#: po/rc.cpp:337 rc.cpp:337
+#: po/rc.cpp:335 rc.cpp:335
 msgid "Delete all"
 msgstr "Smazat vše"
 
-#. i18n: file: simonsound/recwidget.ui:106
+#. i18n: file: simonsound/recwidget.ui:193
 #. i18n: ectx: property (text), widget (QLabel, lbPromptAction)
-#: po/rc.cpp:340 simonsound/recwidget.cpp:127 rc.cpp:340
+#: po/rc.cpp:338 simonsound/recwidget.cpp:131 rc.cpp:338
 msgid "Please wait..."
 msgstr "Počkejte, prosím..."
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbInDevice_3)
-#: po/rc.cpp:343 rc.cpp:343
+#: po/rc.cpp:341 rc.cpp:341
 msgid "Device:"
 msgstr "Zařízení:"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:52
 #. i18n: ectx: property (text), widget (QLabel, lbChannels_3)
-#: po/rc.cpp:346 rc.cpp:346
+#: po/rc.cpp:344 rc.cpp:344
 msgid "Channels:"
 msgstr "Kanály:"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:69
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_3)
-#: po/rc.cpp:349 rc.cpp:349
+#: po/rc.cpp:347 rc.cpp:347
 msgid "Sample-Rate:"
 msgstr "Vzorkovací kmitočet:"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:100
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:355 rc.cpp:355
+#: po/rc.cpp:353 rc.cpp:353
 msgid "Used for:"
 msgstr "Používáno pro:"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:109
 #. i18n: ectx: property (text), widget (QCheckBox, cbTraining)
-#: po/rc.cpp:358 simonsound/soundsettings.cpp:76 rc.cpp:358
+#: po/rc.cpp:356 simonsound/soundsettings.cpp:76 rc.cpp:356
 msgid "Training"
 msgstr "Procvičování"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:140
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
-#: po/rc.cpp:364 rc.cpp:364
+#: po/rc.cpp:362 rc.cpp:362
 #, fuzzy
 msgctxt "Test the current configuration for errors"
 msgid "Test"
@@ -831,297 +858,303 @@ msgstr "Provést zkoušku"
 
 #. i18n: file: simonsound/singledeviceconfiguration.ui:147
 #. i18n: ectx: property (text), widget (KPushButton, pbRemove)
-#: po/rc.cpp:367 rc.cpp:367
+#: po/rc.cpp:365 rc.cpp:365
 msgid "Remove device"
 msgstr "Odstranit zařízení"
 
 #. i18n: file: simonsound/soundconfig.kcfg:12
-#. i18n: ectx: label, entry (DefaultToPowerTraining), group (Devices)
-#: po/rc.cpp:370 rc.cpp:370
-msgid "If the default mode to train is powertraining."
-msgstr "Pokud je výchozím režimem procvičování schopnosti."
-
+#. i18n: ectx: label, entry (SoundInputDevices), group (Devices)
 #. i18n: file: simonsound/soundconfig.kcfg:14
-#. i18n: ectx: tooltip, entry (DefaultToPowerTraining), group (Devices)
-#: po/rc.cpp:373 rc.cpp:373
-#, fuzzy
-msgid "If simon should default to the power training mode."
-msgstr "Pokud je výchozím režimem procvičování schopnosti."
-
-#. i18n: file: simonsound/soundconfig.kcfg:18
-#. i18n: ectx: label, entry (SoundInputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:20
 #. i18n: ectx: tooltip, entry (SoundInputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:18
+#. i18n: file: simonsound/soundconfig.kcfg:12
 #. i18n: ectx: label, entry (SoundInputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:20
+#. i18n: file: simonsound/soundconfig.kcfg:14
 #. i18n: ectx: tooltip, entry (SoundInputDevices), group (Devices)
-#: po/rc.cpp:376 po/rc.cpp:379 rc.cpp:376 rc.cpp:379
+#: po/rc.cpp:368 po/rc.cpp:371 rc.cpp:368 rc.cpp:371
 #, fuzzy
 msgid "The sounddevices used for recording."
 msgstr "Zvukové zařízení používané při nahrávání."
 
-#. i18n: file: simonsound/soundconfig.kcfg:23
+#. i18n: file: simonsound/soundconfig.kcfg:17
 #. i18n: ectx: label, entry (SoundInputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:25
+#. i18n: file: simonsound/soundconfig.kcfg:19
 #. i18n: ectx: tooltip, entry (SoundInputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:44
+#. i18n: file: simonsound/soundconfig.kcfg:38
 #. i18n: ectx: label, entry (SoundOutputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:46
+#. i18n: file: simonsound/soundconfig.kcfg:40
 #. i18n: ectx: tooltip, entry (SoundOutputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:23
+#. i18n: file: simonsound/soundconfig.kcfg:17
 #. i18n: ectx: label, entry (SoundInputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:25
+#. i18n: file: simonsound/soundconfig.kcfg:19
 #. i18n: ectx: tooltip, entry (SoundInputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:44
+#. i18n: file: simonsound/soundconfig.kcfg:38
 #. i18n: ectx: label, entry (SoundOutputChannels), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:46
+#. i18n: file: simonsound/soundconfig.kcfg:40
 #. i18n: ectx: tooltip, entry (SoundOutputChannels), group (Devices)
-#: po/rc.cpp:382 po/rc.cpp:385 po/rc.cpp:406 po/rc.cpp:409 rc.cpp:382
-#: rc.cpp:385 rc.cpp:406 rc.cpp:409
+#: po/rc.cpp:374 po/rc.cpp:377 po/rc.cpp:398 po/rc.cpp:401 rc.cpp:374
+#: rc.cpp:377 rc.cpp:398 rc.cpp:401
 msgid "How many channels should the samples be recorded with."
 msgstr "Do kolika kanálů se budou nahrávky nahrávat."
 
-#. i18n: file: simonsound/soundconfig.kcfg:28
+#. i18n: file: simonsound/soundconfig.kcfg:22
 #. i18n: ectx: label, entry (SoundInputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:30
+#. i18n: file: simonsound/soundconfig.kcfg:24
 #. i18n: ectx: tooltip, entry (SoundInputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:49
+#. i18n: file: simonsound/soundconfig.kcfg:43
 #. i18n: ectx: label, entry (SoundOutputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:51
+#. i18n: file: simonsound/soundconfig.kcfg:45
 #. i18n: ectx: tooltip, entry (SoundOutputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:28
+#. i18n: file: simonsound/soundconfig.kcfg:22
 #. i18n: ectx: label, entry (SoundInputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:30
+#. i18n: file: simonsound/soundconfig.kcfg:24
 #. i18n: ectx: tooltip, entry (SoundInputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:49
+#. i18n: file: simonsound/soundconfig.kcfg:43
 #. i18n: ectx: label, entry (SoundOutputSampleRates), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:51
+#. i18n: file: simonsound/soundconfig.kcfg:45
 #. i18n: ectx: tooltip, entry (SoundOutputSampleRates), group (Devices)
-#: po/rc.cpp:388 po/rc.cpp:391 po/rc.cpp:412 po/rc.cpp:415 rc.cpp:388
-#: rc.cpp:391 rc.cpp:412 rc.cpp:415
+#: po/rc.cpp:380 po/rc.cpp:383 po/rc.cpp:404 po/rc.cpp:407 rc.cpp:380
+#: rc.cpp:383 rc.cpp:404 rc.cpp:407
 #, fuzzy
 msgid "The samplerates used for recording."
 msgstr "Vzorkovací kmitočet, který se používá pro nahrávání."
 
-#. i18n: file: simonsound/soundconfig.kcfg:33
+#. i18n: file: simonsound/soundconfig.kcfg:27
 #. i18n: ectx: label, entry (SoundInputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:35
+#. i18n: file: simonsound/soundconfig.kcfg:29
 #. i18n: ectx: tooltip, entry (SoundInputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:33
+#. i18n: file: simonsound/soundconfig.kcfg:27
 #. i18n: ectx: label, entry (SoundInputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:35
+#. i18n: file: simonsound/soundconfig.kcfg:29
 #. i18n: ectx: tooltip, entry (SoundInputUses), group (Devices)
-#: po/rc.cpp:394 po/rc.cpp:397 rc.cpp:394 rc.cpp:397
+#: po/rc.cpp:386 po/rc.cpp:389 rc.cpp:386 rc.cpp:389
 msgid "What the input devices are going to be used for."
 msgstr "K čemu jsou vstupní zařízení používána."
 
-#. i18n: file: simonsound/soundconfig.kcfg:39
+#. i18n: file: simonsound/soundconfig.kcfg:33
 #. i18n: ectx: label, entry (SoundOutputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:41
+#. i18n: file: simonsound/soundconfig.kcfg:35
 #. i18n: ectx: tooltip, entry (SoundOutputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:39
+#. i18n: file: simonsound/soundconfig.kcfg:33
 #. i18n: ectx: label, entry (SoundOutputDevices), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:41
+#. i18n: file: simonsound/soundconfig.kcfg:35
 #. i18n: ectx: tooltip, entry (SoundOutputDevices), group (Devices)
-#: po/rc.cpp:400 po/rc.cpp:403 rc.cpp:400 rc.cpp:403
+#: po/rc.cpp:392 po/rc.cpp:395 rc.cpp:392 rc.cpp:395
 #, fuzzy
 msgid "The sounddevices used for playback."
 msgstr "Zvukové zařízení používané při přehrávání."
 
-#. i18n: file: simonsound/soundconfig.kcfg:54
+#. i18n: file: simonsound/soundconfig.kcfg:48
 #. i18n: ectx: label, entry (SoundOutputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:56
+#. i18n: file: simonsound/soundconfig.kcfg:50
 #. i18n: ectx: tooltip, entry (SoundOutputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:54
+#. i18n: file: simonsound/soundconfig.kcfg:48
 #. i18n: ectx: label, entry (SoundOutputUses), group (Devices)
-#. i18n: file: simonsound/soundconfig.kcfg:56
+#. i18n: file: simonsound/soundconfig.kcfg:50
 #. i18n: ectx: tooltip, entry (SoundOutputUses), group (Devices)
-#: po/rc.cpp:418 po/rc.cpp:421 rc.cpp:418 rc.cpp:421
+#: po/rc.cpp:410 po/rc.cpp:413 rc.cpp:410 rc.cpp:413
 #, fuzzy
 msgid "What the devices are going to be used for."
 msgstr "K čemu budou výstupní zařízení používána."
 
-#. i18n: file: simonsound/soundconfig.kcfg:62
+#. i18n: file: simonsound/soundconfig.kcfg:56
 #. i18n: ectx: label, entry (Level), group (VAD)
-#: po/rc.cpp:424 rc.cpp:424
+#: po/rc.cpp:416 rc.cpp:416
 msgid "voice activity detection level."
 msgstr "Úroveň zjištění hlasové činnosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:64
+#. i18n: file: simonsound/soundconfig.kcfg:58
 #. i18n: ectx: tooltip, entry (Level), group (VAD)
-#: po/rc.cpp:427 rc.cpp:427
+#: po/rc.cpp:419 rc.cpp:419
 msgid "simon will consider everything above this level \"voice\"."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:67
+#. i18n: file: simonsound/soundconfig.kcfg:61
 #. i18n: ectx: label, entry (HeadMargin), group (VAD)
-#: po/rc.cpp:430 rc.cpp:430
+#: po/rc.cpp:422 rc.cpp:422
 msgid "voice activity head margin."
 msgstr "Okraj přední části hlasové činnosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:69
+#. i18n: file: simonsound/soundconfig.kcfg:63
 #. i18n: ectx: tooltip, entry (HeadMargin), group (VAD)
-#: po/rc.cpp:433 rc.cpp:433
+#: po/rc.cpp:425 rc.cpp:425
 msgid ""
 "This is the amount of time the volume has to stay above the configured level "
 "to not be considered background noise."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:72
+#. i18n: file: simonsound/soundconfig.kcfg:66
 #. i18n: ectx: label, entry (TailMargin), group (VAD)
-#: po/rc.cpp:436 rc.cpp:436
+#: po/rc.cpp:428 rc.cpp:428
 msgid "voice activity tail margin."
 msgstr "Okraj koncové části hlasové činnosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:74
+#. i18n: file: simonsound/soundconfig.kcfg:68
 #. i18n: ectx: tooltip, entry (TailMargin), group (VAD)
-#: po/rc.cpp:439 rc.cpp:439
+#: po/rc.cpp:431 rc.cpp:431
 msgid ""
 "This is the amount of time simon will still keep recording after the volume "
 "fell below the configured level."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:77
+#. i18n: file: simonsound/soundconfig.kcfg:71
 #. i18n: ectx: label, entry (SkipSamples), group (VAD)
-#: po/rc.cpp:442 rc.cpp:442
+#: po/rc.cpp:434 rc.cpp:434
 msgid "drop samples shorter than this value."
 msgstr "Vypustit nahrávky, které jsou kratší než tato hodnota."
 
-#. i18n: file: simonsound/soundconfig.kcfg:79
+#. i18n: file: simonsound/soundconfig.kcfg:73
 #. i18n: ectx: tooltip, entry (SkipSamples), group (VAD)
-#: po/rc.cpp:445 rc.cpp:445
+#: po/rc.cpp:437 rc.cpp:437
 #, fuzzy
 msgid "Drop samples shorter than this value."
 msgstr "Vypustit nahrávky, které jsou kratší než tato hodnota."
 
-#. i18n: file: simonsound/soundconfig.kcfg:85
-#. i18n: ectx: label, entry (DontShowSampleWarning), group (Calibrate)
-#. i18n: file: simonsound/soundconfig.kcfg:87
-#. i18n: ectx: tooltip, entry (DontShowSampleWarning), group (Calibrate)
-#. i18n: file: simonsound/soundconfig.kcfg:85
-#. i18n: ectx: label, entry (DontShowSampleWarning), group (Calibrate)
-#. i18n: file: simonsound/soundconfig.kcfg:87
-#. i18n: ectx: tooltip, entry (DontShowSampleWarning), group (Calibrate)
-#: po/rc.cpp:448 po/rc.cpp:451 rc.cpp:448 rc.cpp:451
+#. i18n: file: simonsound/soundconfig.kcfg:79
+#. i18n: ectx: label, entry (DefaultToPowerTraining), group (Training)
+#: po/rc.cpp:440 rc.cpp:440
+msgid "If the default mode to train is powertraining."
+msgstr "Pokud je výchozím režimem procvičování schopnosti."
+
+#. i18n: file: simonsound/soundconfig.kcfg:81
+#. i18n: ectx: tooltip, entry (DefaultToPowerTraining), group (Training)
+#: po/rc.cpp:443 rc.cpp:443
+#, fuzzy
+msgid "If simon should default to the power training mode."
+msgstr "Pokud je výchozím režimem procvičování schopnosti."
+
+#. i18n: file: simonsound/soundconfig.kcfg:86
+#. i18n: ectx: label, entry (DontShowSampleWarning), group (Training)
+#. i18n: file: simonsound/soundconfig.kcfg:88
+#. i18n: ectx: tooltip, entry (DontShowSampleWarning), group (Training)
+#. i18n: file: simonsound/soundconfig.kcfg:86
+#. i18n: ectx: label, entry (DontShowSampleWarning), group (Training)
+#. i18n: file: simonsound/soundconfig.kcfg:88
+#. i18n: ectx: tooltip, entry (DontShowSampleWarning), group (Training)
+#: po/rc.cpp:446 po/rc.cpp:449 rc.cpp:446 rc.cpp:449
 msgid "Do not show a warning message on samples with problems."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:90
-#. i18n: ectx: label, entry (MinimumSNR), group (Calibrate)
-#: po/rc.cpp:454 rc.cpp:454
+#. i18n: file: simonsound/soundconfig.kcfg:91
+#. i18n: ectx: label, entry (MinimumSNR), group (Training)
+#: po/rc.cpp:452 rc.cpp:452
 msgid "the minimum signal to noise ratio."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:92
-#. i18n: ectx: tooltip, entry (MinimumSNR), group (Calibrate)
-#: po/rc.cpp:457 rc.cpp:457
+#. i18n: file: simonsound/soundconfig.kcfg:93
+#. i18n: ectx: tooltip, entry (MinimumSNR), group (Training)
+#: po/rc.cpp:455 rc.cpp:455
 msgid "The minimum signal to noise ratio."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:95
-#. i18n: ectx: label, entry (CalibrateVolume), group (Calibrate)
-#: po/rc.cpp:460 rc.cpp:460
+#. i18n: file: simonsound/soundconfig.kcfg:96
+#. i18n: ectx: label, entry (CalibrateVolume), group (Training)
+#: po/rc.cpp:458 rc.cpp:458
 msgid "if the volume calibration should be shown."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:97
-#. i18n: ectx: tooltip, entry (CalibrateVolume), group (Calibrate)
-#: po/rc.cpp:463 rc.cpp:463
+#. i18n: file: simonsound/soundconfig.kcfg:98
+#. i18n: ectx: tooltip, entry (CalibrateVolume), group (Training)
+#: po/rc.cpp:461 rc.cpp:461
 #, fuzzy
 msgid "If the volume calibration should be shown."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:100
-#. i18n: ectx: label, entry (CalibrateMinVolume), group (Calibrate)
-#: po/rc.cpp:466 rc.cpp:466
+#. i18n: file: simonsound/soundconfig.kcfg:101
+#. i18n: ectx: label, entry (CalibrateMinVolume), group (Training)
+#: po/rc.cpp:464 rc.cpp:464
 #, fuzzy
 msgid "minimum volume for the volume calibration to show \"correct volume\"."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:102
-#. i18n: ectx: tooltip, entry (CalibrateMinVolume), group (Calibrate)
-#: po/rc.cpp:469 rc.cpp:469
+#. i18n: file: simonsound/soundconfig.kcfg:103
+#. i18n: ectx: tooltip, entry (CalibrateMinVolume), group (Training)
+#: po/rc.cpp:467 rc.cpp:467
 #, fuzzy
 msgid "Minimum volume for the volume calibration to show \"correct volume\"."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:105
-#. i18n: ectx: label, entry (CalibrateMaxVolume), group (Calibrate)
-#: po/rc.cpp:472 rc.cpp:472
+#. i18n: file: simonsound/soundconfig.kcfg:106
+#. i18n: ectx: label, entry (CalibrateMaxVolume), group (Training)
+#: po/rc.cpp:470 rc.cpp:470
 #, fuzzy
 msgid "maximum volume for the volume calibration to show \"correct volume\"."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:107
-#. i18n: ectx: tooltip, entry (CalibrateMaxVolume), group (Calibrate)
-#: po/rc.cpp:475 rc.cpp:475
+#. i18n: file: simonsound/soundconfig.kcfg:108
+#. i18n: ectx: tooltip, entry (CalibrateMaxVolume), group (Training)
+#: po/rc.cpp:473 rc.cpp:473
 #, fuzzy
 msgid "Maximum volume for the volume calibration to show \"correct volume\"."
 msgstr "Zda se má ukazovat přesné změření hlasitosti."
 
-#. i18n: file: simonsound/soundconfig.kcfg:111
-#. i18n: ectx: label, entry (VolumePrompt), group (Calibrate)
-#: po/rc.cpp:478 rc.cpp:478
+#. i18n: file: simonsound/soundconfig.kcfg:112
+#. i18n: ectx: label, entry (VolumePrompt), group (Training)
+#: po/rc.cpp:476 rc.cpp:476
 msgid "the prompt for the user to speak to set up an appropriate volume."
 msgstr ""
 "Výzva pro uživatele, kterou musí přečíst, aby nastavil vhodnou hlasitost."
 
-#. i18n: file: simonsound/soundconfig.kcfg:112
-#. i18n: ectx: tooltip, entry (VolumePrompt), group (Calibrate)
-#: po/rc.cpp:481 rc.cpp:481
+#. i18n: file: simonsound/soundconfig.kcfg:113
+#. i18n: ectx: tooltip, entry (VolumePrompt), group (Training)
+#: po/rc.cpp:479 rc.cpp:479
 #, fuzzy
 msgid "The prompt for the user to speak to set up an appropriate volume."
 msgstr ""
 "Výzva pro uživatele, kterou musí přečíst, aby nastavil vhodnou hlasitost."
 
-#. i18n: file: simonsound/soundconfig.kcfg:117
-#. i18n: ectx: label, entry (PromptFont), group (Prompt)
 #. i18n: file: simonsound/soundconfig.kcfg:118
-#. i18n: ectx: tooltip, entry (PromptFont), group (Prompt)
-#. i18n: file: simonsound/soundconfig.kcfg:117
 #. i18n: ectx: label, entry (PromptFont), group (Prompt)
-#. i18n: file: simonsound/soundconfig.kcfg:118
+#. i18n: file: simonsound/soundconfig.kcfg:119
 #. i18n: ectx: tooltip, entry (PromptFont), group (Prompt)
-#: po/rc.cpp:484 po/rc.cpp:487 rc.cpp:484 rc.cpp:487
+#. i18n: file: simonsound/soundconfig.kcfg:118
+#. i18n: ectx: label, entry (PromptFont), group (Prompt)
+#. i18n: file: simonsound/soundconfig.kcfg:119
+#. i18n: ectx: tooltip, entry (PromptFont), group (Prompt)
+#: po/rc.cpp:482 po/rc.cpp:485 rc.cpp:482 rc.cpp:485
 msgid "The font to use for all the promtps in simon."
 msgstr ""
 "Písmo, které se v Simonu bude používat pro všechny nápovědy (tabulka nápověd "
 "obsahující název souborů wav a jejich přepis)"
 
-#. i18n: file: simonsound/soundconfig.kcfg:124
+#. i18n: file: simonsound/soundconfig.kcfg:125
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
-#. i18n: file: simonsound/soundconfig.kcfg:126
+#. i18n: file: simonsound/soundconfig.kcfg:127
 #. i18n: ectx: tooltip, entry (ProcessInternal), group (PostProcessing)
-#. i18n: file: simonsound/soundconfig.kcfg:124
+#. i18n: file: simonsound/soundconfig.kcfg:125
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
-#. i18n: file: simonsound/soundconfig.kcfg:126
+#. i18n: file: simonsound/soundconfig.kcfg:127
 #. i18n: ectx: tooltip, entry (ProcessInternal), group (PostProcessing)
-#: po/rc.cpp:490 po/rc.cpp:493 rc.cpp:490 rc.cpp:493
+#: po/rc.cpp:488 po/rc.cpp:491 rc.cpp:488 rc.cpp:491
 msgid "If samples recorded with simon should be processed at all."
 msgstr "Zda budou nahrávky nahrané se Simonem vůbec zpracovány."
 
-#. i18n: file: simonsound/soundconfig.kcfg:129
-#. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
 #. i18n: file: simonsound/soundconfig.kcfg:130
-#. i18n: ectx: tooltip, entry (ProcessingFilters), group (PostProcessing)
-#. i18n: file: simonsound/soundconfig.kcfg:129
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
-#. i18n: file: simonsound/soundconfig.kcfg:130
+#. i18n: file: simonsound/soundconfig.kcfg:131
 #. i18n: ectx: tooltip, entry (ProcessingFilters), group (PostProcessing)
-#: po/rc.cpp:496 po/rc.cpp:499 rc.cpp:496 rc.cpp:499
+#. i18n: file: simonsound/soundconfig.kcfg:130
+#. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
+#. i18n: file: simonsound/soundconfig.kcfg:131
+#. i18n: ectx: tooltip, entry (ProcessingFilters), group (PostProcessing)
+#: po/rc.cpp:494 po/rc.cpp:497 rc.cpp:494 rc.cpp:497
 msgid "The filters (commands) to apply to the samples."
 msgstr "Filtry (příkazy), které budou použity na nahrávky."
 
+#. i18n: file: simonsound/trainingsettings.ui:20
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DefaultToPowerTraining)
+#: po/rc.cpp:508 rc.cpp:508
+msgid "Default to power training"
+msgstr "Procvičování schopnosti ve výchozím nastavení"
+
 #. i18n: file: simonsound/trainingsettings.ui:29
 #. i18n: ectx: property (text), widget (QLabel, lbFont)
-#: po/rc.cpp:505 rc.cpp:505
+#: po/rc.cpp:511 rc.cpp:511
 msgid "Font:"
 msgstr "Písmo:"
 
 #. i18n: file: simonsound/trainingsettings.ui:43
 #. i18n: ectx: property (text), widget (QLabel, lbSNR)
-#: po/rc.cpp:508 rc.cpp:508
+#: po/rc.cpp:514 rc.cpp:514
 msgid "Minimum signal / noise ratio:"
 msgstr ""
 
@@ -1137,33 +1170,33 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #. i18n: file: simonsound/trainingsettings.ui:124
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: po/rc.cpp:512 po/rc.cpp:522 po/rc.cpp:529 rc.cpp:512 rc.cpp:522 rc.cpp:529
+#: po/rc.cpp:518 po/rc.cpp:528 po/rc.cpp:535 rc.cpp:518 rc.cpp:528 rc.cpp:535
 #, no-c-format
 msgid "%"
 msgstr "%"
 
 #. i18n: file: simonsound/trainingsettings.ui:66
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_CalibrateVolume)
-#: po/rc.cpp:515 rc.cpp:515
+#: po/rc.cpp:521 rc.cpp:521
 msgid "Volume calibration"
 msgstr "Přesné změření hlasitosti"
 
 #. i18n: file: simonsound/trainingsettings.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:518 rc.cpp:518
+#: po/rc.cpp:524 rc.cpp:524
 msgid "Volume min:"
 msgstr "Nejnižší hlasitost:"
 
 #. i18n: file: simonsound/trainingsettings.ui:105
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:525 rc.cpp:525
+#: po/rc.cpp:531 rc.cpp:531
 msgid "Volume max:"
 msgstr "Nejvyšší hlasitost:"
 
 #. i18n: file: simonsound/trainingsettings.ui:138
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:533 rc.cpp:533
-#, no-c-format
+#: po/rc.cpp:539 rc.cpp:539
+#, fuzzy, no-c-format
 msgid ""
 "Even at 100% maximum volume simon will tell the user to lower the volume "
 "when clipping occurs."
@@ -1173,13 +1206,13 @@ msgstr ""
 
 #. i18n: file: simonsound/trainingsettings.ui:150
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:536 rc.cpp:536
+#: po/rc.cpp:542 rc.cpp:542
 msgid "Text to calibrate recording volume:"
 msgstr "Text pro přesné změření hlasitosti při nahrávání:"
 
 #. i18n: file: simonsound/trainsamplevolumepage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:539 rc.cpp:539
+#: po/rc.cpp:545 rc.cpp:545
 msgid ""
 "Please read the text below while adjusting the microphone(s) volume level(s) "
 "using your systems mixer until simon displays that the volume is configured "
@@ -1195,13 +1228,13 @@ msgstr ""
 
 #. i18n: file: simonsound/vad.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_4)
-#: po/rc.cpp:544 rc.cpp:544
+#: po/rc.cpp:550 rc.cpp:550
 msgid "Cutoff level:"
 msgstr "Nejzazší úroveň:"
 
 #. i18n: file: simonsound/vad.ui:40
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
-#: po/rc.cpp:547 rc.cpp:547
+#: po/rc.cpp:553 rc.cpp:553
 msgid "Head margin:"
 msgstr "Okraj přední části:"
 
@@ -1217,55 +1250,167 @@ msgstr "Okraj přední části:"
 #. i18n: ectx: property (text), widget (QLabel, lbMs_2)
 #. i18n: file: simonsound/vad.ui:124
 #. i18n: ectx: property (text), widget (QLabel, lbMs_3)
-#: po/rc.cpp:550 po/rc.cpp:556 po/rc.cpp:562 rc.cpp:550 rc.cpp:556 rc.cpp:562
+#: po/rc.cpp:556 po/rc.cpp:562 po/rc.cpp:568 rc.cpp:556 rc.cpp:562 rc.cpp:568
 msgid "ms"
 msgstr "ms"
 
 #. i18n: file: simonsound/vad.ui:71
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_2)
-#: po/rc.cpp:553 rc.cpp:553
+#: po/rc.cpp:559 rc.cpp:559
 msgid "Tail margin:"
 msgstr "Okraj koncové části"
 
 #. i18n: file: simonsound/vad.ui:102
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate_3)
-#: po/rc.cpp:559 rc.cpp:559
+#: po/rc.cpp:565 rc.cpp:565
 msgid "Skip samples shorter than:"
 msgstr "Přeskočit nahrávky, které jsou kratší než:"
 
 #. i18n: file: simonsound/volumewidget.ui:42
 #. i18n: ectx: property (text), widget (KPushButton, pbStartCalibration)
-#: po/rc.cpp:565 rc.cpp:565
+#: po/rc.cpp:571 rc.cpp:571
 msgid "Start calibration"
 msgstr "Začít s přesným měřením"
 
 #. i18n: file: simonsound/wavfilewidget.ui:28
 #. i18n: ectx: property (format), widget (QProgressBar, pbProgress)
-#: po/rc.cpp:568 rc.cpp:568
+#: po/rc.cpp:574 rc.cpp:574
 msgid "00:00 / 00:00"
 msgstr "00:00 / 00:00"
 
 #. i18n: file: simonsound/wavfilewidget.ui:38
 #. i18n: ectx: property (text), widget (KPushButton, pbPlay)
-#: po/rc.cpp:571 rc.cpp:571
+#: po/rc.cpp:577 rc.cpp:577
 msgid "Play"
 msgstr "&Přehrát"
 
 #. i18n: file: simonsound/wavfilewidget.ui:66
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:577 rc.cpp:577
+#: po/rc.cpp:583 rc.cpp:583
 msgid "Warning! Sample should be re-recorded!"
 msgstr "Varování! tato nahrávka by se měla nahrát znovu!"
 
 #. i18n: file: simonsound/wavfilewidget.ui:73
 #. i18n: ectx: property (text), widget (KPushButton, pbMoreInformation)
-#: po/rc.cpp:580 rc.cpp:580
+#: po/rc.cpp:586 rc.cpp:586
 msgid "More information"
 msgstr "Více informací"
 
+#. i18n: file: simontts/config/editrecording.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:589 rc.cpp:589
+msgid "Text:"
+msgstr ""
+
+#. i18n: file: simontts/config/editrecording.ui:33
+#. i18n: ectx: property (text), widget (KPushButton, pbLastTextToSpeechRequests)
+#: po/rc.cpp:592 rc.cpp:592
+msgid "Last text-to-speech requests"
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:24
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: po/rc.cpp:595 rc.cpp:595
+#, fuzzy
+msgid "Backends"
+msgstr "Zpět"
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:34
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: po/rc.cpp:598 simonsound/soundsettings.cpp:93 rc.cpp:598
+msgid "Recordings"
+msgstr "Nahrávky"
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:42
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:601 rc.cpp:601
+msgid "Set:"
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:52
+#. i18n: ectx: property (text), widget (KPushButton, pbAddSet)
+#: po/rc.cpp:604 rc.cpp:604
+msgid "Add "
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:59
+#. i18n: ectx: property (text), widget (KPushButton, pbRenameSet)
+#: po/rc.cpp:607 rc.cpp:607
+#, fuzzy
+msgid "Rename"
+msgstr "Název souboru"
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:106
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_useRecordingsAcrossSets)
+#: po/rc.cpp:619 rc.cpp:619
+msgid ""
+"Search all sets when looking for a recording instead of only the currently "
+"active one"
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:115
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:622 rc.cpp:622
+#, fuzzy
+msgid "Recordings:"
+msgstr "Nahrávky"
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:138
+#. i18n: ectx: property (clickMessage), widget (KLineEdit, leFilter)
+#: po/rc.cpp:625 rc.cpp:625
+#, fuzzy
+msgid "Filter..."
+msgstr "Filtruje se seznam..."
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:196
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: po/rc.cpp:637 rc.cpp:637
+msgid "Webservice"
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:202
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:640 rc.cpp:640
+msgid "Url:"
+msgstr ""
+
+#. i18n: file: simontts/config/simonttsconfigurationdlg.ui:212
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: po/rc.cpp:644 rc.cpp:644
+#, no-c-format
+msgid "%1 will be replaced with the current text"
+msgstr ""
+
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:11
+#. i18n: ectx: label, entry (Backends), group (Backends)
+#: po/rc.cpp:647 rc.cpp:647
+#, fuzzy
+msgid "Selected TTS backends"
+msgstr "Vybrat soubor se scénářem"
+
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:17
+#. i18n: ectx: label, entry (activeSet), group (recordings)
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:26
+#. i18n: ectx: label, entry (webserviceURL), group (webservice)
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:17
+#. i18n: ectx: label, entry (activeSet), group (recordings)
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:26
+#. i18n: ectx: label, entry (webserviceURL), group (webservice)
+#: po/rc.cpp:650 po/rc.cpp:656 rc.cpp:650 rc.cpp:656
+msgid "Currently active set"
+msgstr ""
+
+#. i18n: file: simontts/config/ttsconfiguration.kcfg:20
+#. i18n: ectx: label, entry (useRecordingsAcrossSets), group (recordings)
+#: po/rc.cpp:653 rc.cpp:653
+msgid ""
+"Search all sets when looking for a recording instead of only the currently "
+"active one\""
+msgstr ""
+
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:18
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:583 rc.cpp:583
+#: po/rc.cpp:659 rc.cpp:659
 #, fuzzy
 msgctxt "Ip address or hostname"
 msgid "Address:"
@@ -1273,80 +1418,80 @@ msgstr "Adresa:"
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:25
 #. i18n: ectx: property (text), widget (KLineEdit, leAddress)
-#: po/rc.cpp:586 rc.cpp:586
+#: po/rc.cpp:662 rc.cpp:662
 msgid "localhost"
 msgstr "Místní hostitelský počítač (localhost)"
 
 #. i18n: file: simonuicomponents/addserverconnectiondlg.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:589 rc.cpp:589
+#: po/rc.cpp:665 rc.cpp:665
 msgid "Port:"
 msgstr "Brána (port):"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:19
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:20
 #. i18n: ectx: property (title), widget (QGroupBox, gbHTK)
-#: po/rc.cpp:592 rc.cpp:592
+#: po/rc.cpp:668 rc.cpp:668
 #, fuzzy
 msgid "HTK Programs"
 msgstr "Program HTK"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:34
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbHDMan)
-#: po/rc.cpp:595 rc.cpp:595
+#: po/rc.cpp:671 rc.cpp:671
 msgid "HDMan:"
 msgstr "HDMan:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:41
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:45
 #. i18n: ectx: property (text), widget (QLabel, lbHLEd)
-#: po/rc.cpp:598 rc.cpp:598
+#: po/rc.cpp:674 rc.cpp:674
 msgid "HLEd:"
 msgstr "HLEd:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:48
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbHCopy)
-#: po/rc.cpp:601 rc.cpp:601
+#: po/rc.cpp:677 rc.cpp:677
 msgid "HCopy:"
 msgstr "HCopy:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:55
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:65
 #. i18n: ectx: property (text), widget (QLabel, lbHCompV)
-#: po/rc.cpp:604 rc.cpp:604
+#: po/rc.cpp:680 rc.cpp:680
 msgid "HCompV:"
 msgstr "HCompV:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:103
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:116
 #. i18n: ectx: property (text), widget (QLabel, lbHERest)
-#: po/rc.cpp:607 rc.cpp:607
+#: po/rc.cpp:683 rc.cpp:683
 msgid "HERest:"
 msgstr "HERest:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:110
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:126
 #. i18n: ectx: property (text), widget (QLabel, lbHHEd)
-#: po/rc.cpp:610 rc.cpp:610
+#: po/rc.cpp:686 rc.cpp:686
 msgid "HHEd:"
 msgstr "HHEd:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:117
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:136
 #. i18n: ectx: property (text), widget (QLabel, lbHVite)
-#: po/rc.cpp:613 rc.cpp:613
+#: po/rc.cpp:689 rc.cpp:689
 msgid "HVite:"
 msgstr "HVite:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:159
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:181
 #. i18n: ectx: property (title), widget (QGroupBox, gbJulius)
-#: po/rc.cpp:616 rc.cpp:616
+#: po/rc.cpp:692 rc.cpp:692
 msgid "Julius"
 msgstr "Julius"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:168
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:190
 #. i18n: ectx: property (text), widget (QLabel, lbMkfa)
-#: po/rc.cpp:619 rc.cpp:619
+#: po/rc.cpp:695 rc.cpp:695
 msgid "mkfa:"
 msgstr "mkfa:"
 
-#. i18n: file: speechmodelcompilation/config/externalprograms.ui:175
+#. i18n: file: speechmodelcompilation/config/externalprograms.ui:200
 #. i18n: ectx: property (text), widget (QLabel, lbDfaMinimize)
-#: po/rc.cpp:622 rc.cpp:622
+#: po/rc.cpp:698 rc.cpp:698
 msgid "dfa_minimize:"
 msgstr "dfa_minimize:"
 
@@ -1358,7 +1503,7 @@ msgstr "dfa_minimize:"
 #. i18n: ectx: label, entry (HDMan), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:13
 #. i18n: ectx: tooltip, entry (HDMan), group (Programs)
-#: po/rc.cpp:625 po/rc.cpp:628 rc.cpp:625 rc.cpp:628
+#: po/rc.cpp:701 po/rc.cpp:704 rc.cpp:701 rc.cpp:704
 msgid "The path to the HDMan executable."
 msgstr "Cesta ke spustitelnému souboru HDMan."
 
@@ -1370,7 +1515,7 @@ msgstr "Cesta ke spustitelnému souboru HDMan."
 #. i18n: ectx: label, entry (HLEd), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:18
 #. i18n: ectx: tooltip, entry (HLEd), group (Programs)
-#: po/rc.cpp:631 po/rc.cpp:634 rc.cpp:631 rc.cpp:634
+#: po/rc.cpp:707 po/rc.cpp:710 rc.cpp:707 rc.cpp:710
 msgid "The path to the HLEd executable."
 msgstr "Cesta ke spustitelnému souboru HLEd."
 
@@ -1382,7 +1527,7 @@ msgstr "Cesta ke spustitelnému souboru HLEd."
 #. i18n: ectx: label, entry (HCopy), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:23
 #. i18n: ectx: tooltip, entry (HCopy), group (Programs)
-#: po/rc.cpp:637 po/rc.cpp:640 rc.cpp:637 rc.cpp:640
+#: po/rc.cpp:713 po/rc.cpp:716 rc.cpp:713 rc.cpp:716
 msgid "The path to the HCopy executable."
 msgstr "Cesta ke spustitelnému souboru HCopy."
 
@@ -1394,7 +1539,7 @@ msgstr "Cesta ke spustitelnému souboru HCopy."
 #. i18n: ectx: label, entry (HCompV), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:28
 #. i18n: ectx: tooltip, entry (HCompV), group (Programs)
-#: po/rc.cpp:643 po/rc.cpp:646 rc.cpp:643 rc.cpp:646
+#: po/rc.cpp:719 po/rc.cpp:722 rc.cpp:719 rc.cpp:722
 msgid "The path to the HCompV executable."
 msgstr "Cesta ke spustitelnému souboru HCompV."
 
@@ -1406,7 +1551,7 @@ msgstr "Cesta ke spustitelnému souboru HCompV."
 #. i18n: ectx: label, entry (HERest), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:33
 #. i18n: ectx: tooltip, entry (HERest), group (Programs)
-#: po/rc.cpp:649 po/rc.cpp:652 rc.cpp:649 rc.cpp:652
+#: po/rc.cpp:725 po/rc.cpp:728 rc.cpp:725 rc.cpp:728
 msgid "The path to the HERest executable."
 msgstr "Cesta ke spustitelnému souboru HERest."
 
@@ -1418,7 +1563,7 @@ msgstr "Cesta ke spustitelnému souboru HERest."
 #. i18n: ectx: label, entry (HHEd), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:38
 #. i18n: ectx: tooltip, entry (HHEd), group (Programs)
-#: po/rc.cpp:655 po/rc.cpp:658 rc.cpp:655 rc.cpp:658
+#: po/rc.cpp:731 po/rc.cpp:734 rc.cpp:731 rc.cpp:734
 msgid "The path to the HHEd executable."
 msgstr "Cesta ke spustitelnému souboru HHEd."
 
@@ -1430,7 +1575,7 @@ msgstr "Cesta ke spustitelnému souboru HHEd."
 #. i18n: ectx: label, entry (HVite), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:43
 #. i18n: ectx: tooltip, entry (HVite), group (Programs)
-#: po/rc.cpp:661 po/rc.cpp:664 rc.cpp:661 rc.cpp:664
+#: po/rc.cpp:737 po/rc.cpp:740 rc.cpp:737 rc.cpp:740
 msgid "The path to the HVite executable."
 msgstr "Cesta ke spustitelnému souboru HVite."
 
@@ -1442,7 +1587,7 @@ msgstr "Cesta ke spustitelnému souboru HVite."
 #. i18n: ectx: label, entry (mkfa), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:48
 #. i18n: ectx: tooltip, entry (mkfa), group (Programs)
-#: po/rc.cpp:667 po/rc.cpp:670 rc.cpp:667 rc.cpp:670
+#: po/rc.cpp:743 po/rc.cpp:746 rc.cpp:743 rc.cpp:746
 msgid "The path to the mkfa executable."
 msgstr "Cesta ke spustitelnému souboru mkfa."
 
@@ -1454,25 +1599,25 @@ msgstr "Cesta ke spustitelnému souboru mkfa."
 #. i18n: ectx: label, entry (dfa_minimize), group (Programs)
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:53
 #. i18n: ectx: tooltip, entry (dfa_minimize), group (Programs)
-#: po/rc.cpp:673 po/rc.cpp:676 rc.cpp:673 rc.cpp:676
+#: po/rc.cpp:749 po/rc.cpp:752 rc.cpp:749 rc.cpp:752
 msgid "The path to the dfa_minimize executable."
 msgstr "Cesta ke spustitelnému souboru dfa_minimize."
 
-#: po/rc.cpp:677 rc.cpp:677
+#: po/rc.cpp:762 rc.cpp:762
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:678 rc.cpp:678
+#: po/rc.cpp:763 rc.cpp:763
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#: simonactions/actionmanager.cpp:224
+#: simonactions/actionmanager.cpp:237
 msgid "Did you mean ...?"
 msgstr "Měl jste na mysli ...?"
 
-#: simonactions/actionmanager.cpp:224
+#: simonactions/actionmanager.cpp:237
 #, fuzzy
 msgid ""
 "simon is not sure what you meant.\n"
@@ -1507,15 +1652,15 @@ msgctxt "Go to the next list of commands"
 msgid "Next"
 msgstr "Další"
 
-#: simonactions/commandsettings.cpp:68
+#: simonactions/commandsettings.cpp:60
 msgid "Command Settings"
 msgstr "Nastavení příkazů"
 
-#: simonactions/commandsettings.cpp:69
+#: simonactions/commandsettings.cpp:61
 msgid "Configuration about the Commands and the Selection of Plugins to use"
 msgstr "Použít nastavení příkazů a výběru přídavných modulů"
 
-#: simonactions/commandsettings.cpp:84
+#: simonactions/commandsettings.cpp:78
 msgid "Lists"
 msgstr "Seznamy"
 
@@ -1523,7 +1668,7 @@ msgstr "Seznamy"
 msgid "Delay"
 msgstr "Zpoždění"
 
-#: simonactions/commandtablemodel.cpp:99 simonscenarios/commandmanager.cpp:835
+#: simonactions/commandtablemodel.cpp:99 simonscenarios/commandmanager.cpp:865
 msgid "Trigger"
 msgstr "Spoušť"
 
@@ -1535,7 +1680,7 @@ msgstr "Skupina"
 msgid "List"
 msgstr "Seznam"
 
-#: simonactions/listcommand.cpp:251
+#: simonactions/listcommand.cpp:251 simondialogengine/dialogcommand.cpp:94
 msgid "Commands"
 msgstr "Příkazy"
 
@@ -1605,6 +1750,89 @@ msgstr "Uživatelské jméno"
 msgid "Encrypted Password"
 msgstr "Zašifrované heslo"
 
+#: simondialogengine/dialogboundvalues.cpp:75
+#, fuzzy
+msgctxt "Name of the bound value"
+msgid "Name"
+msgstr "Název"
+
+#: simondialogengine/dialogboundvalues.cpp:77
+msgctxt "Type of the bound value"
+msgid "Type"
+msgstr ""
+
+#: simondialogengine/dialogboundvalues.cpp:79
+msgctxt "Value of the bound value"
+msgid "Value"
+msgstr ""
+
+#: simondialogengine/dialogcommand.cpp:66
+msgid "Dialog"
+msgstr ""
+
+#: simondialogengine/dialogcommand.cpp:91
+msgctxt "Label for a bool value"
+msgid "Switch state"
+msgstr ""
+
+#: simondialogengine/dialogcommand.cpp:91
+#: simondialogengine/dialogcommand.cpp:93
+#, fuzzy
+msgid "Yes"
+msgstr "Ano"
+
+#: simondialogengine/dialogcommand.cpp:91
+#: simondialogengine/dialogcommand.cpp:93
+#, fuzzy
+msgid "No"
+msgstr "Ne"
+
+#: simondialogengine/dialogcommand.cpp:92
+msgid "Next state"
+msgstr ""
+
+#: simondialogengine/dialogcommand.cpp:93
+#, fuzzy
+msgctxt "Label for a bool value"
+msgid "Execute command(s)"
+msgstr "%1: Hlasové příkazy"
+
+#: simondialogengine/dialogstate.cpp:280
+#, fuzzy
+msgctxt "Name of the state"
+msgid "Name"
+msgstr "Název"
+
+#: simondialogengine/dialogtemplateoptions.cpp:60
+#, fuzzy
+msgctxt "Name of the template option"
+msgid "Name"
+msgstr "Název"
+
+#: simondialogengine/dialogtemplateoptions.cpp:62
+msgctxt "Value of the template option"
+msgid "Value"
+msgstr ""
+
+#: simondialogengine/plasmaboundvalue.cpp:49
+msgctxt "Typename of script bound values"
+msgid "Plasma"
+msgstr ""
+
+#: simondialogengine/scriptboundvalue.cpp:41
+msgctxt "Typename of script bound values"
+msgid "Script"
+msgstr ""
+
+#: simondialogengine/staticboundvalue.cpp:38
+msgctxt "Typename of static bound values"
+msgid "Static"
+msgstr ""
+
+#: simondialogengine/tests/dialogcommandtest.cpp:147
+msgid "test"
+msgstr ""
+
 #: simonlogging/logview.cpp:91
 msgid "Loading Overview"
 msgstr "Nahrává se přehled"
@@ -1647,49 +1875,33 @@ msgctxt "Reload the display of the log"
 msgid "Reload"
 msgstr "Nahrát znovu"
 
-#: simonmodeltest/fileresultmodel.cpp:115
+#: simonmodeltest/fileresultmodel.cpp:114
 msgid "Filename"
 msgstr "Název souboru"
 
-#: simonmodeltest/fileresultmodel.cpp:117
+#: simonmodeltest/fileresultmodel.cpp:116
 msgid "Expected result"
 msgstr "Očekávaný výsledek"
 
-#: simonmodeltest/fileresultmodel.cpp:119
+#: simonmodeltest/fileresultmodel.cpp:118
 msgid "Actual result"
 msgstr "Skutečný výsledek"
 
-#: simonmodeltest/fileresultmodel.cpp:121
-msgid "Recognition rate"
+#: simonmodeltest/fileresultmodel.cpp:120
+#, fuzzy
+msgid "Recognition rate (confidence scored)"
 msgstr "Míra rozpoznávání"
 
-#: simonmodeltest/modeltest.cpp:92
-msgid ""
-"SOX or Julius can not be found. Please make sure it is installed correctly.\n"
-"\n"
+#: simonmodeltest/modeltest.cpp:90
+#, fuzzy
+msgid "SOX can not be found. Please make sure it is installed correctly."
 msgstr ""
 "SOX nebo Julius se nepodařilo najít. Ujistěte se, prosím, že jsou správně "
 "nainstalovány.\n"
 "\n"
 
-#: simonmodeltest/modeltest.cpp:94
-msgid ""
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
-msgstr ""
-"Více informací: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#Windows"
-
-#: simonmodeltest/modeltest.cpp:96
-msgid ""
-"More information: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#HTK_Installation"
-msgstr ""
-"Více informací: http://www.cyber-byte.at/wiki/index.php/English:"
-"_Setup#HTK_Installation"
-
-#: simonmodeltest/modeltest.cpp:246
-#: speechmodelcompilation/modelcompilationmanager.cpp:343
+#: simonmodeltest/modeltest.cpp:255
+#: speechmodelcompilation/modelcompilationmanager.cpp:421
 #, fuzzy
 msgid ""
 "Could not generate temporary folders.\n"
@@ -1700,87 +1912,158 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, svá oprávnění pro \"%1\"."
 
-#: simonmodeltest/modeltest.cpp:254
-msgid "[INF] Testing model..."
+#: simonmodeltest/modeltest.cpp:260
+#, fuzzy
+msgid "Testing model..."
 msgstr "[INF] Zkouší se model..."
 
-#: simonmodeltest/modeltest.cpp:255
-#: speechmodelcompilation/modelcompilationmanager.cpp:349
+#: simonmodeltest/modeltest.cpp:261
+#: speechmodelcompilation/modelcompilationmanager.cpp:427
 msgid "Preperation"
 msgstr "Příprava"
 
-#: simonmodeltest/modeltest.cpp:265
+#: simonmodeltest/modeltest.cpp:270
 #, fuzzy
 msgctxt "The model test has completed"
 msgid "Finished"
 msgstr "Hotovo"
 
-#: simonmodeltest/modeltest.cpp:272
+#: simonmodeltest/modeltest.cpp:277
 msgid "Recoding audio..."
 msgstr "Kódují se zvukové soubory..."
 
-#: simonmodeltest/modeltest.cpp:276
+#: simonmodeltest/modeltest.cpp:281
 #, fuzzy
 msgid "Could not open prompts file for reading: %1"
 msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
 
-#: simonmodeltest/modeltest.cpp:282
+#: simonmodeltest/modeltest.cpp:287
 #, fuzzy
 msgid "Could not open wavlist file for writing: %1"
 msgstr "Nepodařilo se otevřít soubor wavlist pro zápis: %1"
 
-#: simonmodeltest/modeltest.cpp:320
+#: simonmodeltest/modeltest.cpp:325
 msgid "Generating MLF..."
 msgstr "Vytváří se MLF..."
 
-#: simonmodeltest/modeltest.cpp:476
+#: simonmodeltest/modeltest.cpp:494
 msgid "Recognizing..."
 msgstr "Rozpoznává se..."
 
-#: simonmodeltest/modeltest.cpp:487
+#: simonmodeltest/modeltest.cpp:505
 #, fuzzy
 msgid "Could not open julius jconf file: \"%1\"."
 msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
 
-#: simonmodeltest/modeltest.cpp:501
+#: simonmodeltest/modeltest.cpp:519
 #, fuzzy
 msgid "Could not open hmm definitions"
 msgstr "Nepodařilo se otevřít vymezení hmm"
 
-#: simonmodeltest/modeltest.cpp:546
+#: simonmodeltest/modeltest.cpp:562
 msgid "Internal Jconf error"
 msgstr "Vnitřní chyba Jconf"
 
-#: simonmodeltest/modeltest.cpp:552
+#: simonmodeltest/modeltest.cpp:568
 msgid "Could not initialize recognition"
 msgstr "Nepodařilo se začít s rozpoznáváním"
 
-#: simonmodeltest/modeltest.cpp:566
+#: simonmodeltest/modeltest.cpp:582
 #, fuzzy
 msgid "Could not start adin-thread"
 msgstr ""
 "Nepodařilo se spustit zachytávání dat z mikrofonu a jejich posílání serveru, "
 "který je zodpovědný za rozpoznávání (adin-thread)"
 
-#: simonmodeltest/modeltest.cpp:646
+#: simonmodeltest/modeltest.cpp:660
 msgid "Search failed for: %1"
 msgstr "Hledání se nezdařilo pro: %1"
 
-#: simonmodeltest/modeltest.cpp:672
+#: simonmodeltest/modeltest.cpp:710
 msgid "Prompts entry: %1"
 msgstr "Záznam výzvy: %1"
 
-#: simonmodeltest/modeltest.cpp:673
+#: simonmodeltest/modeltest.cpp:713
 msgid "Received recognition result for: %1: %2"
 msgstr "Přijat výsledek rozpoznávání pro: %1: %2"
 
-#: simonmodeltest/modeltest.cpp:736
-msgid "Processing recognition results..."
-msgstr "Zpracovávají se výsledky rozpoznávání..."
-
-#: simonmodeltest/modeltest.cpp:746
+#: simonmodeltest/modeltest.cpp:823
 msgid "Analyzing recognition results..."
 msgstr "Provádí se rozbor výsledků rozpoznávání..."
+
+#: simonmodeltest/testresultleaf.cpp:71
+msgctxt ""
+"Pretty label showing that the current leaf is not present in the "
+"transcription"
+msgid "%1 (mistakenly inserted)"
+msgstr ""
+
+#: simonmodeltest/testresultleaf.cpp:73
+msgctxt "Pretty label showing that a word from the transcription is missing"
+msgid "(missing: %1)"
+msgstr ""
+
+#: simonmodeltest/testresultleaf.cpp:75
+#, fuzzy
+msgctxt ""
+"Pretty label showing the user that the transcription and the result mismatch"
+msgid "%1 (correct: %2)"
+msgstr "%1 (%2)"
+
+#: simonmodeltest/testresultmodel.cpp:42
+msgctxt "Text that is being said in this sample according to the prompts file"
+msgid "Label"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:43
+msgid "Count"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:44
+msgid "Correct"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:45
+msgid "Incorrect"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:46
+#, fuzzy
+msgid "Confidence"
+msgstr "Nejmenší velikost jistoty:"
+
+#: simonmodeltest/testresultmodel.cpp:47
+msgid "Accuracy"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:48
+msgid "Word error rate"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:49
+#, fuzzy
+msgid "Insertion errors"
+msgstr "Vnitřní chyba Jconf"
+
+#: simonmodeltest/testresultmodel.cpp:50
+msgid "Deletion errors"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:51
+msgid "Substitution errors"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:79
+msgctxt "Printing nice percentage display"
+msgid "%1 %"
+msgstr ""
+
+#: simonmodeltest/testresultmodel.cpp:92
+#, fuzzy
+msgid ""
+"Recognition results:\n"
+"%1"
+msgstr "Míra rozpoznávání"
 
 #: simonprogresstracking/compositeprogresswidget.cpp:46
 msgid "Details"
@@ -1822,7 +2105,7 @@ msgstr "Činnost"
 msgid "Description"
 msgstr "Popis"
 
-#: simonscenarios/commandmanager.cpp:704
+#: simonscenarios/commandmanager.cpp:731
 msgid "Computer"
 msgstr "Počítač"
 
@@ -1839,7 +2122,6 @@ msgid "Sentence"
 msgstr "Věta"
 
 #: simonscenarios/speechmodelsettings.cpp:45
-#: simonscenarios/trainingsettings.cpp:46
 msgid "Trainingsdata"
 msgstr "Data na procvičování"
 
@@ -1857,11 +2139,13 @@ msgstr ""
 "seřízení."
 
 #: simonscenarios/trainingmanager.cpp:238
-msgid "[INF] Parsing prompts-file from %1"
+#, fuzzy
+msgid "Parsing prompts-file from %1"
 msgstr "[INF] Zpracovává se soubor výzev z %1"
 
 #: simonscenarios/trainingmanager.cpp:261
-msgid "[INF] %1 Prompts read"
+#, fuzzy
+msgid "%1 Prompts read"
 msgstr "[INF] Přečteno %1  výzev"
 
 #: simonscenarios/trainingtextcollection.cpp:117
@@ -1894,23 +2178,23 @@ msgstr "Výslovnost"
 msgid "Recognition Rate"
 msgstr "Míra rozpoznávání"
 
-#: simonscenarios/voiceinterfacecommand.cpp:93
+#: simonscenarios/voiceinterfacecommand.cpp:96
 msgid "Visible trigger"
 msgstr "Viditelná spoušť"
 
-#: simonscenarios/voiceinterfacecommand.cpp:95
+#: simonscenarios/voiceinterfacecommand.cpp:98
 #, fuzzy
 msgctxt "Possible answer to the question: Should we show an icon?"
 msgid "Yes"
 msgstr "Ano"
 
-#: simonscenarios/voiceinterfacecommand.cpp:96
+#: simonscenarios/voiceinterfacecommand.cpp:99
 #, fuzzy
 msgctxt "Possible answer to the question: Should we show an icon?"
 msgid "No"
 msgstr "Ne"
 
-#: simonscenarios/voiceinterfacecommand.cpp:150
+#: simonscenarios/voiceinterfacecommand.cpp:153
 msgid "Voice Interface"
 msgstr "Řečové rozhraní"
 
@@ -1927,11 +2211,11 @@ msgstr "%1 (%2)"
 msgid "Scenario could not be created"
 msgstr "Scénář se nepodařilo vytvořit"
 
-#: simonscenarioui/newscenario.cpp:141 simonscenarioui/newscenario.cpp:213
+#: simonscenarioui/newscenario.cpp:142 simonscenarioui/newscenario.cpp:215
 msgid "New scenario could not be saved"
 msgstr "Nový scénář se nepodařilo uložit"
 
-#: simonscenarioui/newscenario.cpp:199
+#: simonscenarioui/newscenario.cpp:201
 msgid ""
 "Original scenario could not be read.\n"
 "\n"
@@ -1943,7 +2227,7 @@ msgstr ""
 "Budete-li pokračovat, budou všechna data (slovní zásoba, mluvnice, příkazy, "
 "text na procvičování) scénáře ztracena!"
 
-#: simonscenarioui/newscenario.cpp:209
+#: simonscenarioui/newscenario.cpp:211
 msgid "Scenario could not be updated"
 msgstr "Scénář se nepodařilo obnovit"
 
@@ -2054,7 +2338,7 @@ msgstr ""
 msgid "Could not init scenario \"%1\""
 msgstr "Nepodařilo se začít scénář \"%1\""
 
-#: simonscenarioui/scenariomanagementdialog.cpp:450
+#: simonscenarioui/scenariomanagementdialog.cpp:457
 msgid ""
 "You need at least one active scenario.\n"
 "\n"
@@ -2133,26 +2417,26 @@ msgstr ""
 msgid "Could not remove %1"
 msgstr "Nelze odstranit %1"
 
-#: simonsound/recwidget.cpp:106
+#: simonsound/recwidget.cpp:114
 msgid "Please speak..."
 msgstr "Mluvte, prosím..."
 
-#: simonsound/recwidget.cpp:117
+#: simonsound/recwidget.cpp:123
 #, fuzzy
 msgctxt "Waiting for the recording to finish..."
 msgid "Idle..."
 msgstr "Čeká se..."
 
-#: simonsound/recwidget.cpp:193
+#: simonsound/recwidget.cpp:206
 msgctxt "Sound device selection; First parameter is device name"
 msgid "%1 (%2 channels, %3 Hz)"
 msgstr "%1 (%2 kanály, %3 Hz)"
 
-#: simonsound/recwidget.cpp:195
+#: simonsound/recwidget.cpp:212
 msgid "Select input device"
 msgstr "Vybrat vstupní zařízení"
 
-#: simonsound/recwidget.cpp:195
+#: simonsound/recwidget.cpp:212
 msgid ""
 "Your sound configuration lists multiple input devices.\n"
 "\n"
@@ -2288,10 +2572,6 @@ msgstr "Nastavení zařízení"
 msgid "Voice Activity Detection"
 msgstr "Zjištění hlasové činnosti"
 
-#: simonsound/soundsettings.cpp:93
-msgid "Recordings"
-msgstr "Nahrávky"
-
 #: simonsound/soundsettings.cpp:94
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr "Nastavení nahrávání a přehrávání zvuku"
@@ -2371,6 +2651,139 @@ msgstr ""
 msgid "Could not remove file %1"
 msgstr "Nelze odstranit soubor %1"
 
+#: simontts/config/editrecording.cpp:40
+#, fuzzy
+msgid "Recording:"
+msgstr "Nahrává"
+
+#: simontts/config/editrecording.cpp:52
+msgid "Recently requested texts"
+msgstr ""
+
+#: simontts/config/editrecording.cpp:53
+msgid "These texts were recently requested from the TTS system:"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:91 simontts/config/ttssettings.cpp:101
+msgid "TTS Files *.tts"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:91
+#, fuzzy
+msgid "Set output file"
+msgstr "Vybrat výstupní soubor se scénářem"
+
+#: simontts/config/ttssettings.cpp:96
+#, fuzzy
+msgid "Couldn't export set to \"%1\"."
+msgstr "Nepodařilo se začít scénář \"%1\""
+
+#: simontts/config/ttssettings.cpp:101
+msgid "Set file"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:106
+#, fuzzy
+msgid "Couldn't import set from \"%1\"."
+msgstr "Nepodařilo se začít scénář \"%1\""
+
+#: simontts/config/ttssettings.cpp:130
+#, fuzzy
+msgctxt "The option to use pre-recorded sounds instead of the tts system"
+msgid "Recordings"
+msgstr "Nahrávky"
+
+#: simontts/config/ttssettings.cpp:133
+msgctxt "The option to use a web service to convert text to speech"
+msgid "Webservice"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:136
+msgctxt "KDEs text to speech system Jovie"
+msgid "Jovie"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:177
+msgid "Couldn't read recording sets from the configuration file."
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:225
+#, fuzzy
+msgid "Couldn't write recording sets to the configuration file."
+msgstr ""
+"Nelze inicializovat správce příkazů \"%1\".\n"
+"\n"
+"Zkontrolujte, prosím, jeho nastavení."
+
+#: simontts/config/ttssettings.cpp:236 simontts/config/ttssettings.cpp:256
+#, fuzzy
+msgid "Set name"
+msgstr "Název souboru"
+
+#: simontts/config/ttssettings.cpp:237
+msgid "Please enter the name of the new set of recordings:"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:243
+#, fuzzy
+msgid "Couldn't add set: %1"
+msgstr "Příkaz \"%1\" nelze přidat."
+
+#: simontts/config/ttssettings.cpp:257
+msgid "Please enter the changed name of the set of recordings:"
+msgstr ""
+
+#: simontts/config/ttssettings.cpp:263
+#, fuzzy
+msgid "Couldn't rename set to: %1"
+msgstr "Nelze odstranit soubor %1"
+
+#: simontts/config/ttssettings.cpp:273
+#, fuzzy
+msgid ""
+"Do you really want to irreversibly delete the current set and all associated "
+"samples?"
+msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#: simontts/config/ttssettings.cpp:276
+#, fuzzy
+msgid "Couldn't remove set"
+msgstr "Nelze odstranit %1"
+
+#: simontts/config/ttssettings.cpp:311 simontts/config/ttssettings.cpp:336
+#: simontts/config/ttssettings.cpp:364
+#, fuzzy
+msgid "Please add or select a set above."
+msgstr "Vyberte, prosím, platnou činnost"
+
+#: simontts/config/ttssettings.cpp:326
+#, fuzzy
+msgid "Couldn't add recording to set."
+msgstr "Příkaz \"%1\" nelze přidat."
+
+#: simontts/config/ttssettings.cpp:341 simontts/config/ttssettings.cpp:369
+#, fuzzy
+msgid "Please select a recording above."
+msgstr "Vyberte, prosím, platnou činnost"
+
+#: simontts/config/ttssettings.cpp:354
+#, fuzzy
+msgid "Couldn't edit recording of set."
+msgstr "Soubor codetrain nelze vytvořit."
+
+#: simontts/config/ttssettings.cpp:373
+#, fuzzy
+msgid "Do you really want to irreversibly remove this recording?"
+msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#: simontts/config/ttssettings.cpp:377
+msgid "Failed to remove the recording."
+msgstr ""
+
+#: simontts/recordingset.cpp:385
+msgid "Text"
+msgstr ""
+
 #: simonuicomponents/addserverconnection.cpp:34
 msgid "IP address or hostname"
 msgstr ""
@@ -2411,53 +2824,11 @@ msgstr ""
 msgid "You ahve entered an empty host-address. The input will be discarded."
 msgstr "Zadal jste prázdnou adresu hostitelského počítače. Vstup bude vyhozen."
 
-#: speechmodelcompilationadapter/modelcompilationadapter.cpp:34
-msgid "Adapting model..."
-msgstr "Přizpůsobuje se model..."
-
-#: speechmodelcompilationadapter/modelcompilationadapter.cpp:40
-msgid "Model adaption complete"
-msgstr "Přizpůsobení modelu dokončeno"
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:129
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:287
-msgid "Adapting prompts..."
-msgstr "Přizpůsobují se výzvy..."
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:136
-#, fuzzy
-msgid "Could not adapt prompts. Does the file \"%1\" exist?"
-msgstr "Výzvy se nepodařilo přizpůsobit. Soubor \"%1\" existuje?"
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:170
-msgid "Adapting lexicon..."
-msgstr "Přizpůsobuje se slovníček..."
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:175
-msgid "Failed to adapt lexicon to \"%1\", \"%2\""
-msgstr "Nepodařilo se přizpůsobit slovníček na \"%1\", \"%2\""
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:211
-msgid "Adapting vocabulary..."
-msgstr "Přizpůsobuje se slovní zásoba..."
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:275
-msgid "Adapting grammar..."
-msgstr "Přizpůsobuje se mluvnice..."
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:278
-msgid "Failed to adapt grammar to \"%1\""
-msgstr "Nepodařilo se přizpůsobit mluvnici na \"%1\""
-
-#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:293
-msgid "Failed to adapt prompts from \"%1\" to \"%2\""
-msgstr "Nepodařilo se přizpůsobit výzvy z \"%1\" na \"%2\""
-
 #: speechmodelcompilation/config/modelcompilationsettings.cpp:49
 msgid "External Programs"
 msgstr "Vnější programy"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:129
+#: speechmodelcompilation/modelcompilationmanager.cpp:158
 msgid ""
 "The HTK can not be found. Please make sure it is installed correctly.\n"
 "\n"
@@ -2471,7 +2842,7 @@ msgstr ""
 "_Setup#WindowsMore information: http://www.cyber-byte.at/wiki/index.php/"
 "English:_Setup#HTK_Installation"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:143
+#: speechmodelcompilation/modelcompilationmanager.cpp:172
 msgid ""
 "The julius related grammar tools mkfa and dfa_minimize can not be found.\n"
 "\n"
@@ -2482,7 +2853,7 @@ msgstr ""
 "\n"
 "Tuto potíž by mohlo vyřešit přeinstalování programu Simon."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:244
+#: speechmodelcompilation/modelcompilationmanager.cpp:308
 msgid ""
 "No training material available.\n"
 "\n"
@@ -2492,17 +2863,17 @@ msgstr ""
 "\n"
 "Vycvičte, prosím, svůj zvukový model, v němž přijímáte nahrávky."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:370
+#: speechmodelcompilation/modelcompilationmanager.cpp:448
 #, fuzzy
 msgctxt "Finished the model compilation"
 msgid "Finished"
 msgstr "Hotovo"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:378
+#: speechmodelcompilation/modelcompilationmanager.cpp:457
 msgid "Generating reverse grammar..."
 msgstr "Vytváří se opačná mluvnice..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:380
+#: speechmodelcompilation/modelcompilationmanager.cpp:459
 #, fuzzy
 msgid ""
 "Could not create reverse grammar.\n"
@@ -2513,20 +2884,20 @@ msgstr ""
 "\n"
 "Určil jste mluvnici?"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:385
+#: speechmodelcompilation/modelcompilationmanager.cpp:464
 msgid "Generating termporary vocabulary..."
 msgstr "Vytváří se dočasná slovní zásoba..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:387
+#: speechmodelcompilation/modelcompilationmanager.cpp:466
 #, fuzzy
 msgid "Could not create temporary vocabular."
 msgstr "Dočasnou slovní zásobu nelze vytvořit."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:392
+#: speechmodelcompilation/modelcompilationmanager.cpp:471
 msgid "Generating DFA..."
 msgstr "Vytváří se DFA..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:394
+#: speechmodelcompilation/modelcompilationmanager.cpp:473
 #, fuzzy
 msgid ""
 "Could not generate dfa. Please check the paths to mkfa and dfa_minimize (%1, "
@@ -2535,27 +2906,27 @@ msgstr ""
 "Dfa se nepodařilo vytvořit. Zkontrolujte, prosím, cesty k mkfa a "
 "daf_minimize (%1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:399
+#: speechmodelcompilation/modelcompilationmanager.cpp:478
 msgid "Generating grammar dictionary..."
 msgstr "Vytváří se slovník mluvnice..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:401
+#: speechmodelcompilation/modelcompilationmanager.cpp:480
 #, fuzzy
 msgid ""
 "Could not generate grammatical lexicon. Please check the output path (%1)."
 msgstr ""
 "Slovník mluvnice nelze vytvořit. Zkontrolujte, prosím, výstupní cestu (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:537
+#: speechmodelcompilation/modelcompilationmanager.cpp:615
 msgid "Coding audio files..."
 msgstr "Kódují se zvukové soubory..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:541
+#: speechmodelcompilation/modelcompilationmanager.cpp:620
 #, fuzzy
 msgid "Could not create codetrain-file."
 msgstr "Soubor codetrain nelze vytvořit."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:550
+#: speechmodelcompilation/modelcompilationmanager.cpp:643
 msgid ""
 "Error while coding the samples!\n"
 "\n"
@@ -2565,21 +2936,21 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HCopy (%1) a nastavení wav (%2)"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:602
+#: speechmodelcompilation/modelcompilationmanager.cpp:764
 msgid "Generating wordlist..."
 msgstr "Vytváří se seznam slov..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:606
+#: speechmodelcompilation/modelcompilationmanager.cpp:768
 msgid "Failed to create wordlist. Please check the path to your prompts file."
 msgstr ""
 "Seznam slov se nepodařilo vytvořit. Zkontrolujte, prosím, cestu ke svému "
 "souboru s výzvami."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:612
+#: speechmodelcompilation/modelcompilationmanager.cpp:774
 msgid "Creating monophones..."
 msgstr "Vytváří se monofonní telefon..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:615
+#: speechmodelcompilation/modelcompilationmanager.cpp:777
 msgid ""
 "Failed to generate monophones. Please check that you have installed the "
 "Program HDMan correctly and that the lexicon contains all words referenced "
@@ -2589,11 +2960,11 @@ msgstr ""
 "jste nainstaloval program HDMan správně a že slovník obsahuje všechna slova, "
 "která jsou zmíněna ve vašem souboru textů na procvičování."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:627
+#: speechmodelcompilation/modelcompilationmanager.cpp:799
 msgid "Generating Master Label File..."
 msgstr "Vytváří se soubor hlavního štítku..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:629
+#: speechmodelcompilation/modelcompilationmanager.cpp:801
 #, fuzzy
 msgid ""
 "Could not generate Master Label File. Please check your prompts file (%1)."
@@ -2602,7 +2973,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, soubor s výzvami (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:634
+#: speechmodelcompilation/modelcompilationmanager.cpp:806
 msgid ""
 "Generation of the transcription failed. Please check if you have correctly "
 "specified the paths to mkphones0.led and mkphons1.led. (%1, %2)"
@@ -2610,11 +2981,11 @@ msgstr ""
 "Při vytváření přepisu došlo k chybě. Zkontrolujte, prosím, zda cesty k "
 "mkphones0.led a mkphons1.led. (%1, %2) jsou určeny správně"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:644
+#: speechmodelcompilation/modelcompilationmanager.cpp:816
 msgid "Generating hmm0..."
 msgstr "Vytváří se hmm0..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:646
+#: speechmodelcompilation/modelcompilationmanager.cpp:818
 msgid ""
 "Error when generating the HMM0.\n"
 "\n"
@@ -2626,11 +2997,11 @@ msgstr ""
 "Zkontrolujte, prosím, zda je dostatek materiálu na procvičování a že cesta "
 "tos HCompV(%1), nastavení (%2) a model fonému (%3) jsou správně."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:650
+#: speechmodelcompilation/modelcompilationmanager.cpp:822
 msgid "Generating hmm1..."
 msgstr "Vytváří se hmm1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:652
+#: speechmodelcompilation/modelcompilationmanager.cpp:824
 msgid ""
 "Could not generate the HMM1.\n"
 "\n"
@@ -2640,11 +3011,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:656
+#: speechmodelcompilation/modelcompilationmanager.cpp:828
 msgid "Generating hmm2..."
 msgstr "Vytváří se hmm2..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:658
+#: speechmodelcompilation/modelcompilationmanager.cpp:830
 msgid ""
 "Could not generate the HMM2.\n"
 "\n"
@@ -2654,11 +3025,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:662
+#: speechmodelcompilation/modelcompilationmanager.cpp:834
 msgid "Generating hmm3..."
 msgstr "Vytváří se hmm3..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:664
+#: speechmodelcompilation/modelcompilationmanager.cpp:836
 msgid ""
 "Could not generate the HMM3.\n"
 "\n"
@@ -2668,11 +3039,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:674
+#: speechmodelcompilation/modelcompilationmanager.cpp:846
 msgid "Generating Pause-Model (hmm4)..."
 msgstr "Vytváří se model pozastavení (hmm4)..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:676
+#: speechmodelcompilation/modelcompilationmanager.cpp:848
 msgid ""
 "Could not generate HMM4.\n"
 "\n"
@@ -2682,11 +3053,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, HMM3."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:682
+#: speechmodelcompilation/modelcompilationmanager.cpp:854
 msgid "Generating hmm5..."
 msgstr "Vytváří se hmm5..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:684
+#: speechmodelcompilation/modelcompilationmanager.cpp:856
 msgid ""
 "Could not generate HMM5. Please check the paths to HHEd (%1) and to the "
 "silence-model (%2)."
@@ -2695,12 +3066,12 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HHEd (%1) a k modelu ticha (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:688
+#: speechmodelcompilation/modelcompilationmanager.cpp:860
 msgid "Generating hmm6..."
 msgstr "Vytváří se hmm6..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:690
-#: speechmodelcompilation/modelcompilationmanager.cpp:696
+#: speechmodelcompilation/modelcompilationmanager.cpp:862
+#: speechmodelcompilation/modelcompilationmanager.cpp:868
 msgid ""
 "Could not generate the HMM6.\n"
 "\n"
@@ -2710,23 +3081,23 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:694
+#: speechmodelcompilation/modelcompilationmanager.cpp:866
 msgid "Generating hmm7..."
 msgstr "Vytváří se hmm7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:707
+#: speechmodelcompilation/modelcompilationmanager.cpp:879
 msgid "Generating dict1..."
 msgstr "Vytváří se dict1..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:709
+#: speechmodelcompilation/modelcompilationmanager.cpp:881
 msgid "Could not generate the dict1"
 msgstr "Dict1 nelze vytvořit"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:714
+#: speechmodelcompilation/modelcompilationmanager.cpp:886
 msgid "Re-aligning hmm7..."
 msgstr "Opětovné přizpůsobení HMM7..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:716
+#: speechmodelcompilation/modelcompilationmanager.cpp:888
 #, fuzzy
 msgid ""
 "Could not re-align hmm7. Please check your paths to HVite (%1), the config "
@@ -2736,11 +3107,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HVite (%1), k nastavení (%2) a k HMM7."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:721
+#: speechmodelcompilation/modelcompilationmanager.cpp:893
 msgid "Generating hmm8..."
 msgstr "Vytváří se hmm8..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:723
+#: speechmodelcompilation/modelcompilationmanager.cpp:895
 msgid ""
 "Could not generate the HMM8.\n"
 "\n"
@@ -2750,11 +3121,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:728
+#: speechmodelcompilation/modelcompilationmanager.cpp:900
 msgid "Generating hmm9..."
 msgstr "Vytváří se hmm9..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:730
+#: speechmodelcompilation/modelcompilationmanager.cpp:902
 msgid ""
 "Could not generate the HMM9.\n"
 "\n"
@@ -2764,12 +3135,12 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:741
-#: speechmodelcompilation/modelcompilationmanager.cpp:1032
+#: speechmodelcompilation/modelcompilationmanager.cpp:913
+#: speechmodelcompilation/modelcompilationmanager.cpp:1220
 msgid "Generating triphone..."
 msgstr "Vytváří se tri telefon"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:746
+#: speechmodelcompilation/modelcompilationmanager.cpp:922
 #, fuzzy
 msgid ""
 "Could not bind triphones.\n"
@@ -2781,29 +3152,29 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HDMan (%1), global.ded (%2) a ke slovníku (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:751
+#: speechmodelcompilation/modelcompilationmanager.cpp:927
 msgid "Generating list of triphones..."
 msgstr "Vytváří se seznam tri telefonů..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:753
+#: speechmodelcompilation/modelcompilationmanager.cpp:929
 #, fuzzy
 msgid "Could not generate list of triphones."
 msgstr "Seznam tri telefonů nelze vytvořit."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:757
+#: speechmodelcompilation/modelcompilationmanager.cpp:933
 msgid "Generating tree.hed..."
 msgstr "Vytváří se tree.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:759
+#: speechmodelcompilation/modelcompilationmanager.cpp:935
 #, fuzzy
 msgid "Could not generate tree.hed."
 msgstr "Tree.hed nelze vytvořit."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:764
+#: speechmodelcompilation/modelcompilationmanager.cpp:940
 msgid "Generating hmm13..."
 msgstr "Vytváří se hmm13..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:766
+#: speechmodelcompilation/modelcompilationmanager.cpp:942
 msgid ""
 "Could not generate HMM13.\n"
 "\n"
@@ -2813,11 +3184,15 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:771
+#: speechmodelcompilation/modelcompilationmanager.cpp:948
+msgid "Failed to remove undefined phoneme."
+msgstr ""
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:961
 msgid "Generating hmm14..."
 msgstr "Vytváří se hmm14..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:773
+#: speechmodelcompilation/modelcompilationmanager.cpp:963
 #, fuzzy
 msgid ""
 "Could not generate HMM14. Please check the paths to HERest (%1), the config "
@@ -2828,11 +3203,11 @@ msgstr ""
 "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
 "statistikou (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:778
+#: speechmodelcompilation/modelcompilationmanager.cpp:968
 msgid "Generating hmm15..."
 msgstr "Vytváří se hmm15..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:780
+#: speechmodelcompilation/modelcompilationmanager.cpp:970
 msgid ""
 "Could not generate the HMM15.\n"
 "\n"
@@ -2844,142 +3219,36 @@ msgstr ""
 "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
 "statistikou (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:811
+#: speechmodelcompilation/modelcompilationmanager.cpp:1086
 msgid "Increasing mixtures..."
 msgstr "Zvětšují se směsice..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:814
-msgid ""
-"Could not generate HMM16.\n"
-"\n"
-"Please check the path to HHEd (%1)."
+#: speechmodelcompilation/modelcompilationmanager.cpp:1092
+msgid "Re-estimation (1/2)..."
 msgstr ""
-"Nepodařilo se vytvořit HMM16.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:819
-msgid "Generating hmm17..."
-msgstr "Vytváří se hmm17..."
+#: speechmodelcompilation/modelcompilationmanager.cpp:1100
+msgid "Re-estimation (2/2)..."
+msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:821
+#: speechmodelcompilation/modelcompilationmanager.cpp:1109
 #, fuzzy
 msgid ""
-"Could not generate HMM17. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
+"Could not generate increase mixtures according to this config: %1.\n"
+"\n"
+"Please check the path to HHEd (%1), HERest (%2) and the content of the "
+"config file."
 msgstr ""
-"Nepodařilo se vytvořit HMM17.\n"
+"Při vytváření HMM1 došlo k chybě.\n"
 "\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
+"Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:826
-msgid "Generating hmm18..."
-msgstr "Vytváří se hmm18..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:828
-msgid ""
-"Could not generate the HMM18.\n"
-"\n"
-"Please check the path to HERest (%1), to the config (%2) and to the stats-"
-"file (%3)."
-msgstr ""
-"Nepodařilo se vytvořit HMM18.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:832
-msgid "Generating hmm19..."
-msgstr "Vytváří se hmm19..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:834
-msgid ""
-"Could not generate HMM19.\n"
-"\n"
-"Please check the path to HHEd (%1)."
-msgstr ""
-"Nepodařilo se vytvořit HMM19.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HHEd (%1)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:839
-msgid "Generating hmm20..."
-msgstr "Vytváří se hmm20..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:841
+#: speechmodelcompilation/modelcompilationmanager.cpp:1114
 #, fuzzy
-msgid ""
-"Could not generate HMM20. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
-msgstr ""
-"Nepodařilo se vytvořit HMM20.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
+msgid "Done increasing mixtures."
+msgstr "Zvětšují se směsice..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:846
-msgid "Generating hmm21..."
-msgstr "Vytváří se hmm21..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:848
-msgid ""
-"Could not generate the HMM21.\n"
-"\n"
-"Please check the path to HERest (%1), to the config (%2) and to the stats-"
-"file (%3)."
-msgstr ""
-"Nepodařilo se vytvořit HMM21.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:852
-msgid "Generating hmm22..."
-msgstr "Vytváří se hmm22..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:854
-msgid ""
-"Could not generate HMM22.\n"
-"\n"
-"Please check the path to HHEd (%1)."
-msgstr ""
-"Nepodařilo se vytvořit HMM22.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HHEd (%1)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:859
-msgid "Generating hmm23..."
-msgstr "Vytváří se hmm23..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:861
-#, fuzzy
-msgid ""
-"Could not generate HMM23. Please check the paths to HERest (%1), the config "
-"(%2) and to the stats-file (%3)."
-msgstr ""
-"Nepodařilo se vytvořit HMM23.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:866
-msgid "Generating hmm24..."
-msgstr "Vytváří se hmm24..."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:868
-msgid ""
-"Could not generate the HMM24.\n"
-"\n"
-"Please check the path to HERest (%1), to the config (%2) and to the stats-"
-"file (%3)."
-msgstr ""
-"Nepodařilo se vytvořit HMM24.\n"
-"\n"
-"Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
-"statistikou (%3)."
-
-#: speechmodelcompilation/modelcompilationmanager.cpp:1034
+#: speechmodelcompilation/modelcompilationmanager.cpp:1222
 msgid ""
 "Could not generate triphones.\n"
 "\n"
@@ -2989,30 +3258,30 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k souborům mktri.led a HLEd (%1, %2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1039
+#: speechmodelcompilation/modelcompilationmanager.cpp:1227
 msgid "Generating mktri.hed..."
 msgstr "Vytváří se mktri.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1041
+#: speechmodelcompilation/modelcompilationmanager.cpp:1229
 msgid "Could not generate mktri.hed"
 msgstr "Mktri.hed nelze vytvořit"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1046
+#: speechmodelcompilation/modelcompilationmanager.cpp:1234
 msgid "Generating hmm10..."
 msgstr "Vytváří se hmm10..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1048
+#: speechmodelcompilation/modelcompilationmanager.cpp:1236
 msgid "Could not generate HMM10. Please check th e path to HHEd (%1)."
 msgstr ""
 "HMM10 nelze vytvořit.\n"
 "\n"
 "Zkontrolujte, prosím, cestu k HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1053
+#: speechmodelcompilation/modelcompilationmanager.cpp:1241
 msgid "Generating hmm11..."
 msgstr "Vytváří se hmm11..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1055
+#: speechmodelcompilation/modelcompilationmanager.cpp:1243
 msgid ""
 "Could not generate HMM11. Please check your paths to HERest (%1) and to the "
 "config (%2)."
@@ -3021,11 +3290,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HERest (%1) a k nastavení (%2)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1060
+#: speechmodelcompilation/modelcompilationmanager.cpp:1248
 msgid "Generating hmm12..."
 msgstr "Vytváří se hmm12..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1062
+#: speechmodelcompilation/modelcompilationmanager.cpp:1250
 msgid ""
 "Could not generate the HMM12.\n"
 "\n"
@@ -3037,15 +3306,16 @@ msgstr ""
 "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru se "
 "statistikou (%3)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1293
-msgid "[INF] Used Monophones of the model: %1"
+#: speechmodelcompilation/modelcompilationmanager.cpp:1492
+#, fuzzy
+msgid "Used Monophones of the model: %1"
 msgstr "[INF] Použita monofonní sluchátka modelu: %1"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1454
+#: speechmodelcompilation/modelcompilationmanager.cpp:1655
 msgid "Re-aligninging to base model..."
 msgstr "Přizpůsobit znovu k základnímu modelu..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1456
+#: speechmodelcompilation/modelcompilationmanager.cpp:1657
 #, fuzzy
 msgid ""
 "Could not re-align model to the selected base model.\n"
@@ -3065,20 +3335,20 @@ msgstr ""
 "Tato chyba se také vyskytuje tehdy, když nemáte žádná procvičovací data, ke "
 "kterým by se dalo provést přizpůsobení!"
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1459
+#: speechmodelcompilation/modelcompilationmanager.cpp:1660
 msgid "Generating regtree.hed..."
 msgstr "Vytváří se regtree.hed..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1461
+#: speechmodelcompilation/modelcompilationmanager.cpp:1662
 #, fuzzy
 msgid "Could not create regtree.hed."
 msgstr "Regtree.hed. se nepodařilo vytvořit."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1464
+#: speechmodelcompilation/modelcompilationmanager.cpp:1665
 msgid "Creating regression class tree..."
 msgstr "Vytváří se strom třídy návrat (regression class tree)..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1466
+#: speechmodelcompilation/modelcompilationmanager.cpp:1667
 #, fuzzy
 msgid ""
 "Could not create regression class tree. Please check your paths to HHEd (%1)."
@@ -3087,11 +3357,11 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, cestu k HHEd (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1469
+#: speechmodelcompilation/modelcompilationmanager.cpp:1670
 msgid "Performing static adaption..."
 msgstr "Provádí se neměnné přizpůsobení..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1471
+#: speechmodelcompilation/modelcompilationmanager.cpp:1672
 #, fuzzy
 msgid "Could not adapt the base model. Please check your paths to HERest (%1)."
 msgstr ""
@@ -3099,20 +3369,3333 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, soubor s výzvami (%1)."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1475
+#: speechmodelcompilation/modelcompilationmanager.cpp:1676
 msgid "Switching to new model..."
 msgstr "Přepíná se na nový model..."
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1481
+#: speechmodelcompilation/modelcompilationmanager.cpp:1684
 #, fuzzy
 msgid "Could not switch to new model."
 msgstr "Nepodařilo se přepnout na nový model."
 
+#: speechmodelcompilation/modelcompilationmanager.cpp:1805
+msgid ""
+"HTK: %1\n"
+"Julius: %2"
+msgstr ""
+
+#: speechmodelcompilation/modelcompilationmanager.cpp:1816
+msgctxt "\"version information\" for a not installed HTK"
+msgid "Not available"
+msgstr ""
+
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:35
+msgid "Adapting model..."
+msgstr "Přizpůsobuje se model..."
+
+#: speechmodelcompilationadapter/modelcompilationadapter.cpp:41
+msgid "Model adaption complete"
+msgstr "Přizpůsobení modelu dokončeno"
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:129
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:296
+msgid "Adapting prompts..."
+msgstr "Přizpůsobují se výzvy..."
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:136
+#, fuzzy
+msgid "Could not adapt prompts. Does the file \"%1\" exist?"
+msgstr "Výzvy se nepodařilo přizpůsobit. Soubor \"%1\" existuje?"
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:170
+msgid "Adapting lexicon..."
+msgstr "Přizpůsobuje se slovníček..."
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:175
+msgid "Failed to adapt lexicon to \"%1\", \"%2\""
+msgstr "Nepodařilo se přizpůsobit slovníček na \"%1\", \"%2\""
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:218
+msgid "Adapting vocabulary..."
+msgstr "Přizpůsobuje se slovní zásoba..."
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:284
+msgid "Adapting grammar..."
+msgstr "Přizpůsobuje se mluvnice..."
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:287
+msgid "Failed to adapt grammar to \"%1\""
+msgstr "Nepodařilo se přizpůsobit mluvnici na \"%1\""
+
+#: speechmodelcompilationadapter/modelcompilationadapterhtk.cpp:303
+msgid "Failed to adapt prompts from \"%1\" to \"%2\""
+msgstr "Nepodařilo se přizpůsobit výzvy z \"%1\" na \"%2\""
+
+#, fuzzy
+#~ msgid "Media Lists"
+#~ msgstr "Seznamy"
+
+#, fuzzy
+#~ msgid "Add list"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "Add List"
+#~ msgstr "Seznam"
+
+#, fuzzy
+#~ msgid "Current Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Saved List Settings"
+#~ msgstr "Nastavení příkazů"
+
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Info"
+#~ msgstr "Informace"
+
+#, fuzzy
+#~ msgid "Artist"
+#~ msgstr "Umělecké (Artistic 2.0)"
+
+#, fuzzy
+#~ msgid "Play All"
+#~ msgstr "&Přehrát"
+
+#, fuzzy
+#~ msgid "Playlist"
+#~ msgstr "&Přehrát"
+
+#, fuzzy
+#~ msgid "Show Upcoming"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Video Settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Mute volume"
+#~ msgstr "Snižte hlasitost."
+
+#, fuzzy
+#~ msgid "Volume"
+#~ msgstr "Hlasitost"
+
+#, fuzzy
+#~ msgid "Play next"
+#~ msgstr "&Přehrát"
+
+#, fuzzy
+#~ msgid "Play all"
+#~ msgstr "&Přehrát"
+
+#, fuzzy
+#~ msgid "Show Video Settings"
+#~ msgstr "Nastavení příkazů"
+
+#, fuzzy
+#~ msgid "Remove selected info"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "Refresh"
+#~ msgstr "Obnovit zařízení"
+
+#, fuzzy
+#~ msgid "Add to list"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgid "Show items"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Show info"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Saving..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Činnost"
+
+#~ msgid "Year"
+#~ msgstr "Rok"
+
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Číslo"
+
+#, fuzzy
+#~ msgid "Loading playlist..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Buffering..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "Loading..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Updating..."
+#~ msgstr "Přizpůsobuje se model..."
+
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Počítač"
+
+#, fuzzy
+#~ msgid "Open audio file(s)"
+#~ msgstr "Kódují se zvukové soubory..."
+
+#, fuzzy
+#~ msgid "No results"
+#~ msgstr "Skutečný výsledek"
+
+#, fuzzy
+#~ msgid "Artists"
+#~ msgstr "Seznamy"
+
+#, fuzzy
+#~ msgid "Contrast"
+#~ msgstr "Spojení:"
+
+#, fuzzy
+#~ msgid "Saturation"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Automatic"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Remove launcher"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "&Remove launcher"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "systemsettings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Columns:"
+#~ msgstr "Nejnižší hlasitost:"
+
+#, fuzzy
+#~ msgid "Column spacing:"
+#~ msgstr "Nejnižší hlasitost:"
+
+#, fuzzy
+#~ msgid "&External command"
+#~ msgstr "Vnější programy"
+
+#, fuzzy
+#~ msgid "Internal library"
+#~ msgstr "Vnitřní chyba Jconf"
+
+#, fuzzy
+#~ msgid "Remove this node"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "Parsing"
+#~ msgstr "Zpracovávají se dny..."
+
+#, fuzzy
+#~ msgid "Reloading"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgid "Gaël de Chalendar"
+#~ msgstr "Kalendář"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Error."
+#~ msgstr "Chyba"
+
+#, fuzzy
+#~ msgid "Layout process failed"
+#~ msgstr "Následné zpracování selhalo"
+
+#, fuzzy
+#~ msgid "Reload Confirmation"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Export Graph"
+#~ msgstr "Vyvést"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Page setup"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Page %1"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Portrait"
+#~ msgstr "Brána (port):"
+
+#, fuzzy
+#~ msgid "margins:"
+#~ msgstr "Okraj přední části:"
+
+#, fuzzy
+#~ msgid "&Page setup"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Next Page"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Could not open file <i>%1</i> for reading."
+#~ msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Contains"
+#~ msgstr "Spojení:"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "&Quick Actions"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr ""
+#~ "Nepodařilo se otevřít zvukové zařízení.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, vaše nastavení."
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a date/time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "at"
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Devět"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "No information available"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Činnost:"
+
+#, fuzzy
+#~ msgctxt "The changes of a journey"
+#~ msgid "Changes:"
+#~ msgstr "Kanály:"
+
+#, fuzzy
+#~ msgctxt "The company that is responsible for this departure/arrival/journey"
+#~ msgid "Operator:"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgctxt "Information about delays of a journey with public transport"
+#~ msgid "Delay:"
+#~ msgstr "Zpoždění"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "International"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Please Wait..."
+#~ msgstr "Počkejte, prosím..."
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgctxt "Autocompletion for names of public transport stops"
+#~ msgid "Autocompletion"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Support for getting delay information. This string is used in a feature "
+#~ "list, should be short."
+#~ msgid "Delay"
+#~ msgstr "Zpoždění"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Support for getting the operator of a journey with public transport or an "
+#~ "aeroplane. This string is used in a feature list, should be short."
+#~ msgid "Operator"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Show animations"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Add Feed"
+#~ msgstr "Přidat zařízení"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "RenameMe"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Show facets"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Detailed view"
+#~ msgstr "Podrobnosti"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Images"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "This Month"
+#~ msgstr "Měsíc"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Mluvnice se nahrává z %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
 
-#~ msgid "Infos"
-#~ msgstr "Informace"
+#, fuzzy
+#~ msgid "Settings changed"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "&Settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Failed to contact akonadi."
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Received collection: %1"
+#~ msgstr "Přijat výsledek rozpoznávání pro: %1: %2"
+
+#, fuzzy
+#~ msgid "Next day"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Selected collection:"
+#~ msgstr "Vybere volbu \"Zpět\""
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Nastavení příkazů"
+
+#, fuzzy
+#~ msgid "At:"
+#~ msgstr "Činnost:"
+
+#, fuzzy
+#~ msgid "Show controls:"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Only output"
+#~ msgstr "Výstup"
+
+#, fuzzy
+#~ msgid "Output mode selection:"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Formatted result"
+#~ msgstr "Očekávaný výsledek"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Delay:"
+#~ msgstr "Zpoždění"
+
+#, fuzzy
+#~ msgid "Add Delay"
+#~ msgstr "Zpoždění"
+
+#, fuzzy
+#~ msgid "Service name:"
+#~ msgstr "Zařízení:"
+
+#, fuzzy
+#~ msgid "Interface:"
+#~ msgstr "Řečové rozhraní"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Execute commands"
+#~ msgstr "%1: Hlasové příkazy"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Spouště:"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Options"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Graphical interface"
+#~ msgstr "Řečové rozhraní"
+
+#, fuzzy
+#~ msgid "Text to speech configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Input Number"
+#~ msgstr "Číslo"
+
+#, fuzzy
+#~ msgid "Request:"
+#~ msgstr "HERest:"
+
+#, fuzzy
+#~ msgid "Down"
+#~ msgstr "Stáhnout"
+
+#, fuzzy
+#~ msgid "Select number"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Trigger:"
+#~ msgstr "Spouště:"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Local File"
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "User:"
+#~ msgstr "Uživatelské jméno"
+
+#, fuzzy
+#~ msgid "Pronunciation Training"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Samples:"
+#~ msgstr "Vzorkovací kmitočet:"
+
+#, fuzzy
+#~ msgid "Output format:"
+#~ msgstr "Výstup"
+
+#, fuzzy
+#~ msgid "Options:"
+#~ msgstr "Činnost:"
+
+#, fuzzy
+#~ msgid "Short description:"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Detailed"
+#~ msgstr "Podrobnosti"
+
+#, fuzzy
+#~ msgid "Retrieve system information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "Number of pronunciations:"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Vocabulary"
+#~ msgstr "[INF \t\tSlovní zásoba: %1"
+
+#, fuzzy
+#~ msgid "Trainingssamples"
+#~ msgstr "Cesta k nahrávkám na procvičování."
+
+#, fuzzy
+#~ msgid "Testset"
+#~ msgstr "Provést zkoušku"
+
+#, fuzzy
+#~ msgid "Static model"
+#~ msgstr "Přizpůsobuje se model..."
+
+#, fuzzy
+#~ msgid "Adapted base model"
+#~ msgstr "Přizpůsobuje se model..."
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Vstup"
+
+#, fuzzy
+#~ msgid "Serialize scenarios"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "Lexicon:"
+#~ msgstr "Ikona:"
+
+#, fuzzy
+#~ msgid "Vocabulary:"
+#~ msgstr "[INF \t\tSlovní zásoba: %1"
+
+#, fuzzy
+#~ msgid "Prompts:"
+#~ msgstr "Záznam výzvy: %1"
+
+#, fuzzy
+#~ msgid "Prompts base path:"
+#~ msgstr "Záznam výzvy: %1"
+
+#, fuzzy
+#~ msgid "Output files"
+#~ msgstr "Výstup"
+
+#, fuzzy
+#~ msgid "Creating"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Testing"
+#~ msgstr "Provést zkoušku"
+
+#, fuzzy
+#~ msgid "Input && output files"
+#~ msgstr "[INF]  Výstupní soubor se zavírá"
+
+#, fuzzy
+#~ msgid "Adapt scenarios"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "[INF] Zkouší se model..."
+
+#, fuzzy
+#~ msgid "Test log:"
+#~ msgstr "Provést zkoušku"
+
+#, fuzzy
+#~ msgid "Test results"
+#~ msgstr "Očekávaný výsledek"
+
+#, fuzzy
+#~ msgid "Test configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Sentences"
+#~ msgstr "Věta"
+
+#, fuzzy
+#~ msgid "Files"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Autorun command when loading scenario"
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Apply for all plugins"
+#~ msgstr "Použít na všechny přídavné moduly"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Manage plugins"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "General Settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Word:"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Grammar Settings"
+#~ msgstr "Nastavení příkazů"
+
+#, fuzzy
+#~ msgid "Sentences:"
+#~ msgstr "Věta"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Věta"
+
+#, fuzzy
+#~ msgid "Delete sentence"
+#~ msgstr "Věta"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Encoding:"
+#~ msgstr "Nahrává"
+
+#, fuzzy
+#~ msgid "PLS Lexicon"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Waiting..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "Import Folder"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "Add trainingstext"
+#~ msgstr "[INF] Čtou se texty na procvičování"
+
+#, fuzzy
+#~ msgid "Import from local text file"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "New Name:"
+#~ msgstr "Jméno:"
+
+#, fuzzy
+#~ msgid "Change shadow vocabulary"
+#~ msgstr "Přizpůsobuje se slovní zásoba..."
+
+#, fuzzy
+#~ msgid "Change grammar"
+#~ msgstr "Přizpůsobuje se mluvnice..."
+
+#, fuzzy
+#~ msgid "Recognition Rate:"
+#~ msgstr "Míra rozpoznávání"
+
+#, fuzzy
+#~ msgid "Adapt grammar"
+#~ msgstr "Přizpůsobuje se mluvnice..."
+
+#, fuzzy
+#~ msgid "Import Text"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgid "Import Trainingsdata"
+#~ msgstr "Data na procvičování"
+
+#, fuzzy
+#~ msgid "Clear Trainingdata"
+#~ msgstr "Data na procvičování"
+
+#, fuzzy
+#~ msgid "Active Vocabulary"
+#~ msgstr "Přizpůsobuje se slovní zásoba..."
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "Build sentences"
+#~ msgstr "Věta"
+
+#, fuzzy
+#~ msgid "Add to Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Configure simond"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Uživatelské jméno"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Automatic Synchronization"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Get scenarios"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "Encryption"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Míra rozpoznávání"
+
+#, fuzzy
+#~ msgid "Change Password"
+#~ msgstr "Zašifrované heslo"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Dva"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Tři"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Čtyři"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Pět"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sedm"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "User interface"
+#~ msgstr "Řečové rozhraní"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Given name:"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Činnost:"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Manage users"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Please select the data set to edit / send from the list below."
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Upload"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Delete selected"
+#~ msgstr "Smazat vše"
+
+#, fuzzy
+#~ msgid "Start simond"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not start simond.\n"
+#~ "\n"
+#~ "Please check your configuration.\n"
+#~ "\n"
+#~ "Command: \"%1\""
+#~ msgstr ""
+#~ "Nepodařilo se otevřít zvukové zařízení.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, vaše nastavení."
+
+#, fuzzy
+#~ msgid "Could not communicate with simond: Write failed."
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not communicate with simond: Read failed."
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "The associated command"
+#~ msgstr "%1: Hlasové příkazy"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "%1: Hlasové příkazy"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "Příkaz \"%1\" nelze přidat."
+
+#, fuzzy
+#~ msgid "Could not find child command: %1 (%2)."
+#~ msgstr "Příkaz \"%1\" nelze přidat."
+
+#, fuzzy
+#~ msgid "Starts the calculator"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Addition"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgctxt "Word to say to remove the last recognized digit"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Calculation & result"
+#~ msgstr "Skutečný výsledek"
+
+#, fuzzy
+#~ msgid "Composite"
+#~ msgstr "Počítač"
+
+#, fuzzy
+#~ msgctxt "Name of the service"
+#~ msgid "Servicename"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgctxt "Name of the DBus interface"
+#~ msgid "Interface"
+#~ msgstr "Řečové rozhraní"
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Couldn't open temporary file at \"%1\"."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgid "Failed to initialize dialog configuration."
+#~ msgstr "Nepodařilo se začít s rozpoznáváním"
+
+#, fuzzy
+#~ msgid "Start dialog"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected text variant?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected state?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected transition?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Please select a template option."
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected template option?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Please select a bound value from the table above."
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected bound value option?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Failed to remove avatar."
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Program"
+#~ msgstr "Program HTK"
+
+#, fuzzy
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Starts filtering"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Filter recognition results"
+#~ msgstr "Provádí se rozbor výsledků rozpoznávání..."
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Failed to edit set"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected set?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Dict1 nelze vytvořit"
+
+#, fuzzy
+#~ msgid "Please insert or select a set first"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Please select the tab to be edited"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Failed to edit tab"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Please select a set first"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Please select the tab to be deleted"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected tab?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Failed to delete tab"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Please select a button to delete from the list"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected button?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Please select the tab to be moved"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgctxt "Name of the key"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Spoušť"
+
+#, fuzzy
+#~ msgid "Open local file: %1"
+#~ msgstr "[INF] Otevírá se výstupní soubor: %1"
+
+#, fuzzy
+#~ msgid "There are no words to train. Please check your configuration."
+#~ msgstr ""
+#~ "Nepodařilo se otevřít zvukové zařízení.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, vaše nastavení."
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Export test results"
+#~ msgstr "Očekávaný výsledek"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not initialize output template at \"%1\". Please select a valid "
+#~ "output format."
+#~ msgstr ""
+#~ "Nelze inicializovat správce příkazů \"%1\".\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, jeho nastavení."
+
+#, fuzzy
+#~ msgid "Failed to parse template: %1"
+#~ msgstr "Nepodařilo se přizpůsobit mluvnici na \"%1\""
+
+#, fuzzy
+#~ msgid "Overview"
+#~ msgstr "Nahrává se přehled"
+
+#, fuzzy
+#~ msgid "Couldn't clean temporary directory"
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Failed to store file."
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Export test result"
+#~ msgstr "Očekávaný výsledek"
+
+#, fuzzy
+#~ msgid "Could not open output file %1."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgid "Cannot open file: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Serialized scenario output"
+#~ msgstr "Vybrat výstupní soubor se scénářem"
+
+#, fuzzy
+#~ msgid "Could not find scenario: %1"
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Adaption aborted"
+#~ msgstr "Přerušeno"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to adapt model:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr "Nepodařilo se přizpůsobit mluvnici na \"%1\""
+
+#, fuzzy
+#~ msgid "Could not modify prompts file"
+#~ msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
+
+#, fuzzy
+#~ msgid "Could not remove original sample:  %1."
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Scenarios"
+#~ msgstr "Scénář"
+
+#, fuzzy
+#~ msgid "Could not re-initialize scenarios. Please restart simon!"
+#~ msgstr "Nepodařilo se začít s rozpoznáváním"
+
+#, fuzzy
+#~ msgid "Sound devices"
+#~ msgstr "Přidat zařízení"
+
+#, fuzzy
+#~ msgctxt "The user has completed the wizard"
+#~ msgid "Finished"
+#~ msgstr "Hotovo"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Manage actions"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgctxt "General settings page"
+#~ msgid "General"
+#~ msgstr "Obecné"
+
+#, fuzzy
+#~ msgid "Please select an action"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Could not determine Command Type"
+#~ msgstr "Příkaz \"%1\" nelze přidat."
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid ""
+#~ "Are you sure that you want to irreversibly remove the command \"%1\"?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Could not initialize scenarios and shadow dictionary."
+#~ msgstr "Nepodařilo se začít s rozpoznáváním"
+
+#, fuzzy
+#~ msgid "Recognition: %1"
+#~ msgstr "Rozpoznávání"
+
+#, fuzzy
+#~ msgid "Continuing recognition"
+#~ msgstr "Nepodařilo se začít s rozpoznáváním"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgctxt "Advance to the next step in the wizard"
+#~ msgid "Next >"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "Adding the new Word to the Model..."
+#~ msgstr "[INF] Přidává %1 slov do seznamu"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Opening Lexicon"
+#~ msgstr "Přizpůsobuje se slovníček..."
+
+#, fuzzy
+#~ msgid "Opening Lexicon..."
+#~ msgstr "Přizpůsobuje se slovníček..."
+
+#, fuzzy
+#~ msgid "Processing Lexicon..."
+#~ msgstr "Zpracovávají se výsledky rozpoznávání..."
+
+#, fuzzy
+#~ msgid "Creating List..."
+#~ msgstr "Filtruje se seznam..."
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Vytváří se slovník mluvnice..."
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Vytváří se slovník mluvnice..."
+
+#, fuzzy
+#~ msgid " imported"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Selection box for the encoding: Determine the encoding automatically"
+#~ msgid "Automatic"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Select the Type of Dictionary"
+#~ msgstr "Vybere volbu \"Tři\""
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Vytváří se slovník mluvnice..."
+
+#, fuzzy
+#~ msgid "Importing PLS-dictionary %1..."
+#~ msgstr "Vytváří se slovník mluvnice..."
+
+#, fuzzy
+#~ msgid "Importing Julius vocabulary %1..."
+#~ msgstr "Přizpůsobuje se slovní zásoba..."
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgid "Opening File..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Reading File..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Processing..."
+#~ msgstr "Následné zpracování"
+
+#, fuzzy
+#~ msgctxt "The import has finished"
+#~ msgid "Finished"
+#~ msgstr "Hotovo"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Reading prompts file..."
+#~ msgstr "Přizpůsobují se výzvy..."
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
+
+#, fuzzy
+#~ msgid "Importing %1 Files..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Collecting files..."
+#~ msgstr "Kódují se zvukové soubory..."
+
+#, fuzzy
+#~ msgid "Creating transcriptions..."
+#~ msgstr "Vytváří se monofonní telefon..."
+
+#, fuzzy
+#~ msgctxt "The import process has finished"
+#~ msgid "Finished"
+#~ msgstr "Hotovo"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Importing Training Samples"
+#~ msgstr "Cesta k nahrávkám na procvičování."
+
+#, fuzzy
+#~ msgid "Import Training Samples"
+#~ msgstr "Cesta k nahrávkám na procvičování."
+
+#, fuzzy
+#~ msgid "Processing folder..."
+#~ msgstr "Následné zpracování selhalo"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Zavést ze souboru"
+
+#, fuzzy
+#~ msgid "Add Trainingstext"
+#~ msgstr "Data na procvičování"
+
+#, fuzzy
+#~ msgid "Import a new Trainingstext"
+#~ msgstr "[INF] Čtou se texty na procvičování"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr ""
+#~ "Nepodařilo se spustit zachytávání dat z mikrofonu a jejich posílání "
+#~ "serveru, který je zodpovědný za rozpoznávání (adin-thread)"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Čtou se texty na procvičování"
+
+#, fuzzy
+#~ msgctxt "The wizard has completed"
+#~ msgid "Finished"
+#~ msgstr "Hotovo"
+
+#, fuzzy
+#~ msgid "Merging..."
+#~ msgstr "Rozpoznává se..."
+
+#, fuzzy
+#~ msgid "Renaming complete"
+#~ msgstr "Přizpůsobení modelu dokončeno"
+
+#, fuzzy
+#~ msgid "Renaming terminal..."
+#~ msgstr "Vytváří se tri telefon"
+
+#, fuzzy
+#~ msgid "Special Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Training completed"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Power Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Could not add structure to the grammar."
+#~ msgstr "Nepodařilo se přepnout na nový model."
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Tree.hed nelze vytvořit."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not store the base model received from the server.\n"
+#~ "\n"
+#~ "Please check the permissions on the model folder: %1"
+#~ msgstr ""
+#~ "Dočasné složky nelze vytvořit.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, svá oprávnění pro \"%1\"."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not store the active model received from the server.\n"
+#~ "\n"
+#~ "Please check the permissions on the model folder: %1"
+#~ msgstr ""
+#~ "Dočasné složky nelze vytvořit.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, svá oprávnění pro \"%1\"."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not store the sample %1 received from the server.\n"
+#~ "\n"
+#~ "Please check the permissions on the sample folder: %2"
+#~ msgstr ""
+#~ "Dočasné složky nelze vytvořit.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, svá oprávnění pro \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Could not import hmm definitions."
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Dict1 nelze vytvořit"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Select base tiedlist"
+#~ msgstr "Vybrat soubor se scénářem"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Vybrat soubor se scénářem"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Please select a text first"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Could not clear trainingdata"
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Wordlist"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "Could not add words to the list"
+#~ msgstr "Dict1 nelze vytvořit"
+
+#, fuzzy
+#~ msgid "Please select a word first"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Please select a word scheduled for training first."
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Synchronization"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Could not create active model container"
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not create base model container"
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Initializing..."
+#~ msgstr "Rozpoznává se..."
+
+#, fuzzy
+#~ msgid "Version not supported"
+#~ msgstr "Nahrávací formát není podporován."
+
+#, fuzzy
+#~ msgid "Could not abort synchronization."
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Synchronizing scenarios"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgid "The server could not store the scenario."
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "The server could not store the trainings corpus."
+#~ msgstr "Kam se budou ukládat nahrávky na procvičování."
+
+#, fuzzy
+#~ msgid "The server could not store trainings sample."
+#~ msgstr "Kam se budou ukládat nahrávky na procvičování."
+
+#, fuzzy
+#~ msgid "Could not complete Synchronization"
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Nepodařilo se přepnout na nový model."
+
+#, fuzzy
+#~ msgid "Compiling model"
+#~ msgstr "Přizpůsobuje se model..."
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Seznam tri telefonů nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Please select a Model from the List"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Starting simon..."
+#~ msgstr "Přizpůsobuje se slovníček..."
+
+#, fuzzy
+#~ msgid "Loading core..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Loading training..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Loading vocabulary..."
+#~ msgstr "Přizpůsobuje se slovní zásoba..."
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "Přizpůsobuje se mluvnice..."
+
+#, fuzzy
+#~ msgid "Loading run..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Loading interface..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgctxt "Connecting to the server"
+#~ msgid "Connecting..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "Deactivating..."
+#~ msgstr "Rozpoznává se..."
+
+#, fuzzy
+#~ msgid "Activating..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "Quitting..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "User"
+#~ msgstr "Uživatelské jméno"
+
+#, fuzzy
+#~ msgid "Could not connect to database"
+#~ msgstr "Dict1 nelze vytvořit"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Do you really want to remove the user from the database?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Could not change Password"
+#~ msgstr "Nepodařilo se přepnout na nový model."
+
+#, fuzzy
+#~ msgid "Unknown error"
+#~ msgstr "Vnitřní chyba Jconf"
+
+#, fuzzy
+#~ msgid "Device information"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgctxt "Name of the institution"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Nepodařilo se začít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Please select an institution"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Could not modify institution: %1"
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Seznam tri telefonů nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not retrieve institutions: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Users"
+#~ msgstr "Uživatelské jméno"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Please select an user"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "User management"
+#~ msgstr "Uživatelské jméno"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Could not modify user \"%1\": %2"
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Could not add user - institution association: %1"
+#~ msgstr "Nepodařilo se začít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Please enter a valid institution id"
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Transmitting samples..."
+#~ msgstr "Vytváří se monofonní telefon..."
+
+#, fuzzy
+#~ msgid "Storing data..."
+#~ msgstr "Filtruje se seznam..."
+
+#, fuzzy
+#~ msgid "Sending data..."
+#~ msgstr "Vytváří se dict1..."
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Sending: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgid "Server could not process sample: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Profile information could not be removed: %1."
+#~ msgstr "Nahrávání se nepodařilo spustit pro zařízení: %1."
+
+#, fuzzy
+#~ msgid "Storage directory could not be removed: %1."
+#~ msgstr "Nahrávání se nepodařilo spustit pro zařízení: %1."
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Tree.hed nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Users could not be read"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Microphones could not be read"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "SoundCards could not be read"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Microphone could not be fetched / created"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Sound card could not be fetched / created"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Languages could not be read"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Institutions could not be read"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Could not add institution"
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Could not delete institution"
+#~ msgstr "Seznam tri telefonů nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Nepodařilo se najít scénář \"%1\""
+
+#, fuzzy
+#~ msgid "Server failed to store sample"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Please enter a valid user id."
+#~ msgstr "Vyberte, prosím, platnou činnost"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Nelze odstranit soubor %1"
+
+#, fuzzy
+#~ msgid "Switch to offline mode"
+#~ msgstr "Přepíná se na nový model..."
+
+#, fuzzy
+#~ msgid "Manage institutions"
+#~ msgstr "Spravovat scénáře"
+
+#, fuzzy
+#~ msgctxt "Connecting to server"
+#~ msgid "Connecting..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "Disconnecting..."
+#~ msgstr "Rozpoznává se..."
+
+#, fuzzy
+#~ msgctxt "Trainings type where the user reads prompts off the screen"
+#~ msgid "Training"
+#~ msgstr "Procvičování"
+
+#, fuzzy
+#~ msgid "Power Recording"
+#~ msgstr "Nahrává"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
+#~ msgstr "Opravdu chcete nenávratně smazat vybraný scénář \"%1\" (\"%2\")?"
+
+#, fuzzy
+#~ msgid ""
+#~ "The directory could not be removed:\n"
+#~ "%1"
+#~ msgstr "Scénář se nepodařilo vytvořit"
+
+#, fuzzy
+#~ msgid "Failed to create target directory at \"%1\""
+#~ msgstr "Nepodařilo se přizpůsobit mluvnici na \"%1\""
+
+#, fuzzy
+#~ msgid "Could not move \"%1\" to \"%2\"."
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgctxt "Possible answer to: Is x available?"
+#~ msgid "Yes"
+#~ msgstr "Ano"
+
+#, fuzzy
+#~ msgctxt "Possible answer to: Is x available?"
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Motor function"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "KDE Test Program"
+#~ msgstr "Program HTK"
+
+#, fuzzy
+#~ msgid "print generated AST tree"
+#~ msgstr "Tree.hed nelze vytvořit."
+
+#, fuzzy
+#~ msgid "&No"
+#~ msgstr "Ne"
+
+#, fuzzy
+#~ msgid "&Word"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "&Name:"
+#~ msgstr "Jméno:"
+
+#, fuzzy
+#~ msgid "&Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "&Load..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "&Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgid "&Volume"
+#~ msgstr "Hlasitost"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "Yes"
+#~ msgstr "Ano"
+
+#, fuzzy
+#~ msgctxt "Yes or no"
+#~ msgid "No"
+#~ msgstr "Ne"
+
+#, fuzzy
+#~ msgid "&Stop/Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgctxt "Volume of noise"
+#~ msgid "Volume"
+#~ msgstr "Hlasitost"
+
+#, fuzzy
+#~ msgid "Show &Menu"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Select the zoom factor."
+#~ msgstr "Vybere volbu \"Dva\""
+
+#, fuzzy
+#~ msgid "&Rotation"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "Select the rotation degree."
+#~ msgstr "Vybere volbu \"Čtyři\""
+
+#, fuzzy
+#~ msgid "&Refresh"
+#~ msgstr "Obnovit zařízení"
+
+#, fuzzy
+#~ msgid "Refresh rate"
+#~ msgstr "Obnovit zařízení"
+
+#, fuzzy
+#~ msgid "File to open"
+#~ msgstr "Scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Closing Configuration Window"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Initial Configuration - KMouth"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "&Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "&Copy"
+#~ msgstr "HCopy:"
+
+#, fuzzy
+#~ msgid "Opening file..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Printing..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgctxt "Shutting down the application"
+#~ msgid "Exiting..."
+#~ msgstr "Přerušuje se..."
+
+#, fuzzy
+#~ msgid "General Options"
+#~ msgstr "Obecné"
+
+#, fuzzy
+#~ msgid "KDE Text-to-Speech Daemon Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Přidat nový hostitelský počítač"
+
+#, fuzzy
+#~ msgid "&Import..."
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgid "&Export..."
+#~ msgstr "Vyvést"
+
+#, fuzzy
+#~ msgid "Deletes the selected entries from the phrase book"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Merge result"
+#~ msgstr "Očekávaný výsledek"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Creating Word List"
+#~ msgstr "Vytváří se seznam slov..."
+
+#, fuzzy
+#~ msgid "Merging dictionaries..."
+#~ msgstr "Vytváří se slovník mluvnice..."
+
+#, fuzzy
+#~ msgid "Parsing file..."
+#~ msgstr "Zpracovávají se dny..."
+
+#, fuzzy
+#~ msgid "Parsing directory..."
+#~ msgstr "Zpracovávají se dny..."
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Show videos"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Přidat zařízení"
+
+#, fuzzy
+#~ msgid "Importing documents..."
+#~ msgstr "Přizpůsobují se výzvy..."
+
+#, fuzzy
+#~ msgid "Select the documents to import"
+#~ msgstr "Vybere volbu \"Čtyři\""
+
+#, fuzzy
+#~ msgid "Settings..."
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Advanced settings"
+#~ msgstr "Nastavení zvuku"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Výslovnost"
+
+#, fuzzy
+#~ msgid "Image Settings"
+#~ msgstr "Nastavení příkazů"
+
+#, fuzzy
+#~ msgid "Keep ratio"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Copy To"
+#~ msgstr "HCopy:"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "Copy"
+#~ msgstr "HCopy:"
+
+#, fuzzy
+#~ msgid "File Operations"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Properties"
+#~ msgstr "Vlastnické povolení (Proprietary License)"
+
+#, fuzzy
+#~ msgid "Date >="
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Date ="
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Date <="
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Meta Information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Mirror"
+#~ msgstr "Chyba"
+
+#, fuzzy
+#~ msgid "Image Operations"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgctxt "@title:group"
+#~ msgid "Meta Information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "%1 is collection name, %2 is image count in collection"
+#~ msgid "%1 (%2 image)"
+#~ msgid_plural "%1 (%2 images)"
+#~ msgstr[0] "%1 (%2)"
+#~ msgstr[1] "%1 (%2)"
+#~ msgstr[2] "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Images"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Export"
+#~ msgstr "Vyvést"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Batch Processing"
+#~ msgstr "Následné zpracování"
+
+#, fuzzy
+#~ msgctxt "@action reload the currently viewed image"
+#~ msgid "Reload"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "@action Go to next image"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Operations"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgctxt "@info:progress saving all image changes"
+#~ msgid "Saving..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "One document could not be saved:"
+#~ msgid_plural "%1 documents could not be saved:"
+#~ msgstr[0] "Nový scénář se nepodařilo uložit"
+#~ msgstr[1] "Nový scénář se nepodařilo uložit"
+#~ msgstr[2] "Nový scénář se nepodařilo uložit"
+
+#, fuzzy
+#~ msgid "Semantic Information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#, fuzzy
+#~ msgctxt "@addAction:inmenu"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Import Finished"
+#~ msgstr "Hotovo"
+
+#, fuzzy
+#~ msgid "Could not create destination folder."
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Photo Importer"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgid "Import All"
+#~ msgstr "Zavést"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Loading image failed."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "Could not overwrite file, check that you have the necessary rights to "
+#~ "write in <filename>%1</filename>."
+#~ msgstr ""
+#~ "Nelze přepsat %1.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, zda máte příslušná oprávnění."
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "%"
+
+#, fuzzy
+#~ msgctxt "@item:intable Image file name"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "@item:intable"
+#~ msgid "File Time"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgctxt "@title:group General info about the image"
+#~ msgid "General"
+#~ msgstr "Obecné"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Nepodařilo se otevřít soubor wavlist pro zápis: %1"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Properties"
+#~ msgstr "Vlastnické povolení (Proprietary License)"
+
+#, fuzzy
+#~ msgid "Could not allocate memory for the abilities list."
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not load ability list."
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Port"
+#~ msgstr "Brána (port):"
+
+#, fuzzy
+#~ msgid "Port Settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "&Select test picture:"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Důležitost"
+
+#, fuzzy
+#~ msgid "Selection: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgid "Selection: Scale"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Undo: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgid "Redo: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgid "&Delete Row"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "Flip Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Rotate Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Rotate Selection?"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Rotat&e Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Internal Error"
+#~ msgstr "Vnitřní chyba Jconf"
+
+#, fuzzy
+#~ msgid "Could not save image - unable to create temporary file."
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Selection: Create"
+#~ msgstr "Míra rozpoznávání"
+
+#, fuzzy
+#~ msgid "Icons"
+#~ msgstr "Ikona:"
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgctxt "@item:inmenu colors"
+#~ msgid "Reloa&d"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgctxt "@item:inmenu colors"
+#~ msgid "Delete Last Row"
+#~ msgstr "Smazat vše"
+
+#, fuzzy
+#~ msgid "&Reload"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgid "&Delete Selection"
+#~ msgstr "Vybere volbu \"Sedm\""
+
+#, fuzzy
+#~ msgid "Selection: Delete"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Copy to File"
+#~ msgstr "Vyvést do souboru"
+
+#, fuzzy
+#~ msgid "E&xport..."
+#~ msgstr "Vyvést"
+
+#, fuzzy
+#~ msgid "Reloa&d"
+#~ msgstr "Nahrát znovu"
+
+#, fuzzy
+#~ msgid "Could not change wallpaper."
+#~ msgstr "Soubor codetrain nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Show &Grid"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Loss of Color Information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "<Tool Name> (<Single Accel Key>)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Lets you select a color from the image"
+#~ msgstr "Vyberte, prosím, scénář ze seznamu(ů)"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Selection: Move"
+#~ msgstr "Vybrat vstupní zařízení"
+
+#, fuzzy
+#~ msgid "Text: Delete"
+#~ msgstr "Smazat"
+
+#, fuzzy
+#~ msgid "C&hannels:"
+#~ msgstr "Kanály:"
+
+#, fuzzy
+#~ msgid "Red"
+#~ msgstr "Nahrávat"
+
+#, fuzzy
+#~ msgid "&Saturation:"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "Channels"
+#~ msgstr "Kanály:"
+
+#, fuzzy
+#~ msgid "1x1"
+#~ msgstr "X11"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Copy"
+#~ msgstr "HCopy:"
+
+#, fuzzy
+#~ msgid "The screen has been successfully grabbed."
+#~ msgstr "Nastavení zvuku bylo úspěšně vyzkoušeno."
+
+#, fuzzy
+#~ msgid "Blend"
+#~ msgstr "Kalendář"
+
+#, fuzzy
+#~ msgid "White:"
+#~ msgstr "HVite:"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Portugal"
+#~ msgstr "Brána (port):"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Detail:"
+#~ msgstr "Podrobnosti"
+
+#, fuzzy
+#~ msgid "Reload devices list"
+#~ msgstr "Odstranit zařízení"
+
+#, fuzzy
+#~ msgid "Found devices:"
+#~ msgstr "Přidat zařízení"
+
+#, fuzzy
+#~ msgid "Zoom to Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgctxt "SpinBox parameter unit"
+#~ msgid " %"
+#~ msgstr "%"
+
+#, fuzzy
+#~ msgctxt "Double numbers. SpinBox parameter unit"
+#~ msgid " %"
+#~ msgstr "%"
+
+#, fuzzy
+#~ msgid "Identity Settings"
+#~ msgstr "Nastavení"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Upravit"
+
+#, fuzzy
+#~ msgid "Start Presentation"
+#~ msgstr "Začít s přesným měřením"
+
+#, fuzzy
+#~ msgid "End Presentation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Backend Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Searching for %1"
+#~ msgstr "Hledání se nezdařilo pro: %1"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Dočasnou slovní zásobu nelze vytvořit."
+
+#, fuzzy
+#~ msgid "Print conversion failed"
+#~ msgstr "Následné zpracování selhalo"
+
+#, fuzzy
+#~ msgid "Pages"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgctxt "'source' is a source file"
+#~ msgid "Source: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgid "Publisher"
+#~ msgstr "Vydat"
+
+#, fuzzy
+#~ msgid "Cannot open font file %1."
+#~ msgstr "Nepodařilo se otevřít soubor julius jconf: \"%1\"."
+
+#, fuzzy
+#~ msgid "The papersize data '%1' could not be parsed."
+#~ msgstr "Scénář se nepodařilo obnovit"
+
+#, fuzzy
+#~ msgid "Please be patient"
+#~ msgstr "Počkejte, prosím..."
+
+#, fuzzy
+#~ msgid "Export File As"
+#~ msgstr "Vyvést do souboru"
+
+#, fuzzy
+#~ msgid "Export: %1 to PDF"
+#~ msgstr "Vyvést do souboru"
+
+#, fuzzy
+#~ msgid "Locating fonts..."
+#~ msgstr "Nahrává se záznam o průběhu činnosti..."
+
+#, fuzzy
+#~ msgid "Abort"
+#~ msgstr "Přerušeno"
+
+#, fuzzy
+#~ msgid "Unable to read style information"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "Document Password"
+#~ msgstr "Zašifrované heslo"
+
+#, fuzzy
+#~ msgid "Incorrect password"
+#~ msgstr "Zašifrované heslo"
+
+#, fuzzy
+#~ msgid "Force rasterization"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Encrypted"
+#~ msgstr "Zašifrované heslo"
+
+#, fuzzy
+#~ msgid "Ghostscript Backend Configuration"
+#~ msgstr "Nastavení zařízení"
+
+#, fuzzy
+#~ msgid "Document version"
+#~ msgstr "Verze scénáře:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "%"
+
+#, fuzzy
+#~ msgid "Contents"
+#~ msgstr "Spojení:"
+
+#, fuzzy
+#~ msgctxt "Next page"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "&Properties"
+#~ msgstr "Vlastnické povolení (Proprietary License)"
+
+#, fuzzy
+#~ msgid "P&resentation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "E&xport As"
+#~ msgstr "Vyvést"
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Nepodařilo se otevřít vymezení hmm"
+
+#, fuzzy
+#~ msgid "Presentation Mode"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Nelze odstranit %1"
+
+#, fuzzy
+#~ msgid "Reloading the document..."
+#~ msgstr "Kódují se zvukové soubory..."
+
+#, fuzzy
+#~ msgid "&Page:"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Could not open the temporary file for saving."
+#~ msgstr "Nepodařilo se otevřít soubor s výzvou pro čtení: %1"
+
+#, fuzzy
+#~ msgid "File could not be saved in '%1'. %2"
+#~ msgstr "Nahrávání se nepodařilo spustit pro zařízení: %1."
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Více informací"
+#~ msgstr[1] "Více informací"
+#~ msgstr[2] "Více informací"
+
+#, fuzzy
+#~ msgctxt "Suffix for the opacity level, eg '80 %'"
+#~ msgid " %"
+#~ msgstr "%"
+
+#, fuzzy
+#~ msgid "&General"
+#~ msgstr "Obecné"
+
+#, fuzzy
+#~ msgid "&Author:"
+#~ msgstr "Autoři:"
+
+#, fuzzy
+#~ msgid "Sound Properties"
+#~ msgstr "Nastavení zvuku"
+
+#, fuzzy
+#~ msgid "Icon"
+#~ msgstr "Ikona:"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Name: %1"
+#~ msgstr "Jméno:"
+
+#, fuzzy
+#~ msgid "Size: %1"
+#~ msgstr "Scénář: %1"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Name"
+#~ msgstr "Název"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Popis"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Scénář se nepodařilo nahrát."
+
+#, fuzzy
+#~ msgctxt "Find and go to the next search match"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "File Attachment"
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Author: %1"
+#~ msgstr "Autoři:"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "&Trim Margins"
+#~ msgstr "Okraj koncové části"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Činnost"
+
+#, fuzzy
+#~ msgctxt "Text Selection Tool"
+#~ msgid "Text Selection"
+#~ msgstr "Automatický výběr"
+
+#, fuzzy
+#~ msgid "Save to File..."
+#~ msgstr "Nahrává se soubor..."
+
+#, fuzzy
+#~ msgid "File not saved."
+#~ msgstr "Název souboru"
+
+#, fuzzy
+#~ msgid "Fit Page"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Show Forms"
+#~ msgstr "Ukázat ikonu"
+
+#, fuzzy
+#~ msgid "Search for '%1' with"
+#~ msgstr "Hledání se nezdařilo pro: %1"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Vybere volbu \"Šest\""
+
+#, fuzzy
+#~ msgid "Find Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "[document title/filename] – Presentation"
+#~ msgid "%1 – Presentation"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "Pages: %1"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "&Fonts"
+#~ msgstr "Písmo:"
+
+#, fuzzy
+#~ msgid "Reading font information..."
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgctxt "start the movie playback"
+#~ msgid "Play"
+#~ msgstr "&Přehrát"
+
+#, fuzzy
+#~ msgid "Volume Texture"
+#~ msgstr "Nejvyšší hlasitost:"
+
+#, fuzzy
+#~ msgid "Format Version"
+#~ msgstr "Více informací"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgctxt "Metres"
+#~ msgid "m"
+#~ msgstr "ms"
+
+#, fuzzy
+#~ msgid "3dsMax Details"
+#~ msgstr "Podrobnosti"
+
+#, fuzzy
+#~ msgid "Plugin Version"
+#~ msgstr "Základní písmo přídavného modulu"
+
+#, fuzzy
+#~ msgid "Computer Name"
+#~ msgstr "Počítač"
+
+#, fuzzy
+#~ msgid "Resolution"
+#~ msgstr "Rozpoznávání"
+
+#, fuzzy
+#~ msgid "Date/Time"
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Fax Pages"
+#~ msgstr "Strany"
+
+#, fuzzy
+#~ msgid "Color separations"
+#~ msgstr "Příprava"
+
+#, fuzzy
+#~ msgid "RLE Word"
+#~ msgstr "Slovo"
+
+#, fuzzy
+#~ msgid "Creation Date"
+#~ msgstr "Míra rozpoznávání"
+
+#~ msgid "Activate power training by default"
+#~ msgstr "Zapnout procvičování schopnosti ve výchozím nastavení"
+
+#~ msgid ""
+#~ "More information: http://www.cyber-byte.at/wiki/index.php/English:"
+#~ "_Setup#Windows"
+#~ msgstr ""
+#~ "Více informací: http://www.cyber-byte.at/wiki/index.php/English:"
+#~ "_Setup#Windows"
+
+#~ msgid ""
+#~ "More information: http://www.cyber-byte.at/wiki/index.php/English:"
+#~ "_Setup#HTK_Installation"
+#~ msgstr ""
+#~ "Více informací: http://www.cyber-byte.at/wiki/index.php/English:"
+#~ "_Setup#HTK_Installation"
+
+#~ msgid ""
+#~ "Could not generate HMM16.\n"
+#~ "\n"
+#~ "Please check the path to HHEd (%1)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM16.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HHEd (%1)."
+
+#~ msgid "Generating hmm17..."
+#~ msgstr "Vytváří se hmm17..."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate HMM17. Please check the paths to HERest (%1), the "
+#~ "config (%2) and to the stats-file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM17.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
+
+#~ msgid "Generating hmm18..."
+#~ msgstr "Vytváří se hmm18..."
+
+#~ msgid ""
+#~ "Could not generate the HMM18.\n"
+#~ "\n"
+#~ "Please check the path to HERest (%1), to the config (%2) and to the stats-"
+#~ "file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM18.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
+
+#~ msgid "Generating hmm19..."
+#~ msgstr "Vytváří se hmm19..."
+
+#~ msgid ""
+#~ "Could not generate HMM19.\n"
+#~ "\n"
+#~ "Please check the path to HHEd (%1)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM19.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HHEd (%1)."
+
+#~ msgid "Generating hmm20..."
+#~ msgstr "Vytváří se hmm20..."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate HMM20. Please check the paths to HERest (%1), the "
+#~ "config (%2) and to the stats-file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM20.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
+
+#~ msgid "Generating hmm21..."
+#~ msgstr "Vytváří se hmm21..."
+
+#~ msgid ""
+#~ "Could not generate the HMM21.\n"
+#~ "\n"
+#~ "Please check the path to HERest (%1), to the config (%2) and to the stats-"
+#~ "file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM21.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
+
+#~ msgid "Generating hmm22..."
+#~ msgstr "Vytváří se hmm22..."
+
+#~ msgid ""
+#~ "Could not generate HMM22.\n"
+#~ "\n"
+#~ "Please check the path to HHEd (%1)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM22.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HHEd (%1)."
+
+#~ msgid "Generating hmm23..."
+#~ msgstr "Vytváří se hmm23..."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate HMM23. Please check the paths to HERest (%1), the "
+#~ "config (%2) and to the stats-file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM23.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
+
+#~ msgid "Generating hmm24..."
+#~ msgstr "Vytváří se hmm24..."
+
+#~ msgid ""
+#~ "Could not generate the HMM24.\n"
+#~ "\n"
+#~ "Please check the path to HERest (%1), to the config (%2) and to the stats-"
+#~ "file (%3)."
+#~ msgstr ""
+#~ "Nepodařilo se vytvořit HMM24.\n"
+#~ "\n"
+#~ "Zkontrolujte, prosím, cestu k HERest (%1), k nastavení (%2) a k souboru "
+#~ "se statistikou (%3)."
 
 #~ msgid "volume calibration minimum value."
 #~ msgstr "Nejnižší hodnota přesného změření hlasitosti."
@@ -3132,27 +6715,6 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ "Snižte, prosím, hlasitost a tuto nahrávku nahrajte znovu."
 
 #~ msgid ""
-#~ "Couldn't open sound device.\n"
-#~ "\n"
-#~ "Please check your configuration."
-#~ msgstr ""
-#~ "Nepodařilo se otevřít zvukové zařízení.\n"
-#~ "\n"
-#~ "Zkontrolujte, prosím, vaše nastavení."
-
-#~ msgid "Apply to all Plugins"
-#~ msgstr "Použít na všechny přídavné moduly"
-
-#~ msgid ""
-#~ "Couldn't initialize commandmanager \"%1\".\n"
-#~ "\n"
-#~ "Please check its configuration."
-#~ msgstr ""
-#~ "Nelze inicializovat správce příkazů \"%1\".\n"
-#~ "\n"
-#~ "Zkontrolujte, prosím, jeho nastavení."
-
-#~ msgid ""
 #~ "The trigger \"%1\" is already assigned to another command.\n"
 #~ "\n"
 #~ "Do you want to delete the other command that uses the Trigger \"%1\"?"
@@ -3160,12 +6722,6 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ "Spouštěč \"%1\" je již přiřazen jinému příkazu.\n"
 #~ "\n"
 #~ "Chcete, aby byl onen příkaz, který již používá spouštěč \"%1\", smazán?"
-
-#~ msgid "Couldn't add Command \"%1\"."
-#~ msgstr "Příkaz \"%1\" nelze přidat."
-
-#~ msgid "General"
-#~ msgstr "Obecné"
 
 #~ msgid ""
 #~ "Error requesting the sound output devices:\n"
@@ -3184,12 +6740,6 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ "Při požadavku o vstupní zvukové zařízení došlo k chybě:\n"
 #~ "\n"
 #~ "Pa_CountDevices odpovědělo %1"
-
-#~ msgid "Month"
-#~ msgstr "Měsíc"
-
-#~ msgid "Year"
-#~ msgstr "Rok"
 
 #~ msgid ""
 #~ "The selected day does not exist in that month.\n"
@@ -3228,14 +6778,8 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ "\n"
 #~ "Zkuste to, prosím, znovu."
 
-#~ msgid "[INF] Loading grammar from %1"
-#~ msgstr "[INF] Mluvnice se nahrává z %1"
-
 #~ msgid "[INF] Removing \"%1\" from \"%2\""
 #~ msgstr "[INF] Odstraňuje se \"%1\" z \"%2\""
-
-#~ msgid "[INF] Reading the trainingstexts"
-#~ msgstr "[INF] Čtou se texty na procvičování"
 
 #~ msgid "[INF] Calculating relevance"
 #~ msgstr "[INF] Počítá se důležitost"
@@ -3303,20 +6847,11 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ msgid "[INF] Saving wordlist(s)"
 #~ msgstr "INF] Ukládá(ají) se seznam(y) slov"
 
-#~ msgid "[INF] Opening output file: %1"
-#~ msgstr "[INF] Otevírá se výstupní soubor: %1"
-
-#~ msgid "[INF] Closing output file"
-#~ msgstr "[INF]  Výstupní soubor se zavírá"
-
 #~ msgid "[INF] Reading wordlist consisting of"
 #~ msgstr "[INF] Čtou se seznamy slov, které se skládají z"
 
 #~ msgid "[INF] \t\tLexicon: %1,"
 #~ msgstr "[INF] \t\tSlovníček: %1,"
-
-#~ msgid "[INF \t\tVocabulary: %1"
-#~ msgstr "[INF \t\tSlovní zásoba: %1"
 
 #~ msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
 #~ msgstr "[ERR]  Při otevírání souboru se slovní zásobou \"%1\" došlo k chybě"
@@ -3332,9 +6867,6 @@ msgstr "Nepodařilo se přepnout na nový model."
 #~ "again."
 #~ msgstr ""
 #~ "Toto slovo již existuje ve stínovém slovníčku. Znovu již nebude vloženo."
-
-#~ msgid "[INF] Adding %1 words to the wordlist"
-#~ msgstr "[INF] Přidává %1 slov do seznamu"
 
 #~ msgid "[INF] The wordlist now contains %1 words"
 #~ msgstr "[INF] Seznam slov nyní obsahuje %1 slov"

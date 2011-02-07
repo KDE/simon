@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-06 14:51+0000\n"
+"POT-Creation-Date: 2011-02-03 15:14+0000\n"
 "PO-Revision-Date: 2010-09-08 10:14+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -68,13 +68,13 @@ msgstr "simon"
 
 #. Tag: keyword
 #: index.docbook:34
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "recognition"
 msgstr "Spracherkennung"
 
 #. Tag: keyword
 #: index.docbook:35
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "speech"
 msgstr "Sprache"
 
@@ -86,25 +86,25 @@ msgstr "Sprache"
 
 #. Tag: keyword
 #: index.docbook:37
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "command"
 msgstr "command"
 
 #. Tag: keyword
 #: index.docbook:38
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "control"
 msgstr "control"
 
 #. Tag: keyword
 #: index.docbook:39
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "model"
 msgstr "Modell"
 
 #. Tag: keyword
 #: index.docbook:40
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "compilation"
 msgstr "Kompilierung"
 
@@ -116,7 +116,7 @@ msgstr "<keyword>sam</keyword>"
 
 #. Tag: keyword
 #: index.docbook:42
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "accessibility"
 msgstr "accessibility"
 
@@ -146,9 +146,9 @@ msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: title
 #: index.docbook:68
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Introduction"
-msgstr "Einleitung"
+msgstr "Installation"
 
 #. Tag: para
 #: index.docbook:70
@@ -184,12 +184,12 @@ msgid ""
 "<ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
 msgstr ""
 "Für mehr Information über die Architektur der simon Suite sehen Sie bitte "
-"das <ulink url=\"help:/simon/overview.html#architecture\">simon Handbuch<"
-"/ulink>."
+"das <ulink url=\"help:/simon/overview.html#architecture\">simon Handbuch</"
+"ulink>."
 
 #. Tag: title
 #: index.docbook:76
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Background"
 msgstr "Hintergrund"
 
@@ -285,15 +285,15 @@ msgid ""
 msgstr ""
 "Wenn Sie nicht viele Trainingsdaten haben, können Sie diese auch in zehn "
 "Teile teilen um möglichst repräsentative Ergebnisse zu erhalten. Kompilieren "
-"10 Modelle wobei Sie bei jedem einen der zehn Teile auslassen Teil auslassen."
-" Testen Sie das jeweilige Modell mit dem zehnten, übrigbleibenden, Teil und "
-"bilden Sie über alle Ergebnisse einen Mittelwert."
+"10 Modelle wobei Sie bei jedem einen der zehn Teile auslassen Teil "
+"auslassen. Testen Sie das jeweilige Modell mit dem zehnten, übrigbleibenden, "
+"Teil und bilden Sie über alle Ergebnisse einen Mittelwert."
 
 #. Tag: title
 #: index.docbook:98
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Using &kmyapplication;"
-msgstr "&kmyapplication; verwenden"
+msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: para
 #: index.docbook:100
@@ -328,7 +328,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:121
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Input &amp; output files"
 msgstr "Eingabe- &amp; Ausgabedateien"
 
@@ -341,8 +341,8 @@ msgid ""
 "buttons respectively."
 msgstr ""
 "Definiert mit welchen Dateien gearbeitet wird. Sie können diese "
-"Konfiguration speichern bzw. laden indem Sie den <guibutton>Speichern<"
-"/guibutton> bzw. <guibutton>Laden</guibutton> Knopf drücken."
+"Konfiguration speichern bzw. laden indem Sie den <guibutton>Speichern</"
+"guibutton> bzw. <guibutton>Laden</guibutton> Knopf drücken."
 
 #. Tag: para
 #: index.docbook:125
@@ -396,13 +396,12 @@ msgid ""
 msgstr ""
 "Wenn simon das Modell kompiliert wird es automatisch untrainierte Wörter "
 "während der Serialisation entfernen sowie die prompts entsprechend anpassen. "
-"Dies wird ebenfalls geschehen wenn Sie <guibutton>Verändere simons Modell<"
-"/guibutton> auswählen. "
-"Wenn Sie die Dateien aber seperat serialisieren über <guibutton>Serialisiere "
-"Szenarios</guibutton> und <guibutton>Serialisiere prompts</guibutton> wird "
-"die Bereinigung nicht aktiviert und Sie sind selbst verantwortlich für die "
-"Validität der Eingabedateien. Wenn Sie Dateinamen direkt angeben gilt das "
-"natürlich ebenso."
+"Dies wird ebenfalls geschehen wenn Sie <guibutton>Verändere simons Modell</"
+"guibutton> auswählen. Wenn Sie die Dateien aber seperat serialisieren über "
+"<guibutton>Serialisiere Szenarios</guibutton> und <guibutton>Serialisiere "
+"prompts</guibutton> wird die Bereinigung nicht aktiviert und Sie sind selbst "
+"verantwortlich für die Validität der Eingabedateien. Wenn Sie Dateinamen "
+"direkt angeben gilt das natürlich ebenso."
 
 #. Tag: para
 #: index.docbook:146
@@ -427,14 +426,14 @@ msgid ""
 msgstr ""
 "&kmyapplication; erlaubt dem Benutzer zwei unterschiedliche Prompts Dateien "
 "anzugeben. Eine Promptsdatei wird verwendet das Modell zu kompilieren und "
-"eine um es zu testen. Mehr Informationen finden Sie in der <link "
-"linkend=\"effective_testing\">Sektion über effektives Testen</link>."
+"eine um es zu testen. Mehr Informationen finden Sie in der <link linkend="
+"\"effective_testing\">Sektion über effektives Testen</link>."
 
 #. Tag: title
 #: index.docbook:155
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "<title>Adapt scenarios</title>"
-msgstr "<title>Szenarios adaptieren</title>"
+msgstr "<phrase>Adaptiere Szenarios</phrase>"
 
 #. Tag: para
 #: index.docbook:157
@@ -486,9 +485,9 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:179
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "<title>Create model</title>"
-msgstr "<title>Modell erstellen</title>"
+msgstr "<title>Modell testen</title>"
 
 #. Tag: para
 #: index.docbook:181
@@ -498,8 +497,8 @@ msgid ""
 "<link linkend=\"input_output\">input &amp; output section</link>."
 msgstr ""
 "Hier können Sie ein Modell aus den Eingabe- und Ausgabedateien erstellen die "
-"Sie in der <link linkend=\"input_output\">Eingabe &amp; Ausgabe Sektio</link>"
-" definiert haben."
+"Sie in der <link linkend=\"input_output\">Eingabe &amp; Ausgabe Sektio</"
+"link> definiert haben."
 
 #. Tag: para
 #: index.docbook:183
@@ -545,7 +544,7 @@ msgstr "<title>Modell testen</title>"
 
 #. Tag: para
 #: index.docbook:204
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Here you can test the speech model."
 msgstr "Hier können Sie das Sprachmodell testen."
 
@@ -557,8 +556,8 @@ msgid ""
 "guilabel> section in the <link linkend=\"input_output\">input &amp; output "
 "section</link>."
 msgstr ""
-"&kmyapplication; wird das Modell testen das in der <guilabel>Ausgabedateien<"
-"/guilabel> Sektion in der <link linkend=\"input_output\">Eingabe &amp; "
+"&kmyapplication; wird das Modell testen das in der <guilabel>Ausgabedateien</"
+"guilabel> Sektion in der <link linkend=\"input_output\">Eingabe &amp; "
 "Ausgabe Sektion</link> angegeben ist."
 
 #. Tag: para
@@ -581,9 +580,8 @@ msgid ""
 "To test the model successfully you also need <ulink url=\"http://sox."
 "sourceforge.net\">SoX</ulink> installed and in your path."
 msgstr ""
-"Um das Modell erfolgreich zu testen müssen Sie außerdem <ulink "
-"url=\"http://sox.sourceforge.net\">SoX</ulink> in Ihrem Systempfad "
-"installieren."
+"Um das Modell erfolgreich zu testen müssen Sie außerdem <ulink url=\"http://"
+"sox.sourceforge.net\">SoX</ulink> in Ihrem Systempfad installieren."
 
 #. Tag: para
 #: index.docbook:211
@@ -614,8 +612,8 @@ msgid ""
 "As soon as the test is finished, the <link linkend=\"test_results\">test "
 "results</link> will be automatically displayed."
 msgstr ""
-"Sobald der Test fertig ist werden die <link linkend=\"test_results\">"
-"Testergebnisse</link> automatisch angezeigt."
+"Sobald der Test fertig ist werden die <link linkend=\"test_results"
+"\">Testergebnisse</link> automatisch angezeigt."
 
 #. Tag: title
 #: index.docbook:232
@@ -796,8 +794,8 @@ msgid ""
 "selecting them and clicking on <guibutton>Edit sample</guibutton>."
 msgstr ""
 "Wenn Sie problematische Aufnahmen identifizieren, können Sie sie neu "
-"aufnehmen (oder entfernen) indem Sie sie auswählen und dann auf <guibutton>"
-"Sprachaufnahme bearbeiten</guibutton> klicken."
+"aufnehmen (oder entfernen) indem Sie sie auswählen und dann auf "
+"<guibutton>Sprachaufnahme bearbeiten</guibutton> klicken."
 
 #. Tag: para
 #: index.docbook:312
@@ -833,13 +831,13 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:330
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Credits and License"
 msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
 #: index.docbook:332
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "&kmyapplication;"
 msgstr "&kmyapplication;"
 
@@ -868,9 +866,8 @@ msgstr ""
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
-"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email>"
-"grasch@simon-"
-"listens.org</email></para>"
+"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch "
+"<email>grasch@simon-listens.org</email></para>"
 
 #. Tag: chapter
 #: index.docbook:343
@@ -880,7 +877,7 @@ msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: index.docbook:352
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
@@ -892,8 +889,494 @@ msgid ""
 "English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""
 "Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index."
-"php/"
-"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"php/English:_Setup\">online Wiki</ulink> for eine detaillierte "
 "Installationsanleitung."
 
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Kompilierung"
 
+#, fuzzy
+#~ msgid "Hide controls"
+#~ msgstr "control"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Audio Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Video Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "No results"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Restore Defaults"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Media controller"
+#~ msgstr "control"
+
+#, fuzzy
+#~ msgid "Application icon"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgid " instances"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Background opacity:"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "International"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Background color:"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "SpeechCal"
+#~ msgstr "Sprache"
+
+#, fuzzy
+#~ msgid "Show controls:"
+#~ msgstr "control"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Execute commands"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Press and release"
+#~ msgstr "Danksagungen und Lizenz"
+
+#, fuzzy
+#~ msgid "Testset"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Eingabe- &amp; Ausgabedateien"
+
+#, fuzzy
+#~ msgid "Base model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Output files"
+#~ msgstr "Eingabe- &amp; Ausgabedateien"
+
+#, fuzzy
+#~ msgid "Adapt scenarios"
+#~ msgstr "<title>Szenarios adaptieren</title>"
+
+#, fuzzy
+#~ msgid "Build model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Create model"
+#~ msgstr "<title>Modell erstellen</title>"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Test configuration"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Autorun command:"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "Word:"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Sentences:"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Recognition Rate:"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Recognition Rate"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Build sentences"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Here you can revert back to old model versions."
+#~ msgstr "Hier können Sie das Sprachmodell testen."
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Institution:"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Institutions"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Subtraction"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Multiplication"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "Template option"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Control"
+#~ msgstr "control"
+
+#, fuzzy
+#~ msgid "Export test results"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Store compilation log"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Export test result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "command"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Recognition: %1"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Continuing recognition"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Wordlist"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Synchronization"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "The server could not store the the active model."
+#~ msgstr "Hier können Sie das Sprachmodell testen."
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Expected result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Actual result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Recognizing..."
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Sentence"
+#~ msgstr "Sätze"
+
+#, fuzzy
+#~ msgid "Select scenario file"
+#~ msgstr "<title>Szenarios adaptieren</title>"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Eingabe- &amp; Ausgabedateien"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Motor function"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "&Word"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Speech Control"
+#~ msgstr "control"
+
+#, fuzzy
+#~ msgid "KDE Accessibility Bridge"
+#~ msgstr "accessibility"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "&kmyapplication; verwenden"
+
+#, fuzzy
+#~ msgid "&Rotation"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Word Completion"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "File Exists"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Merge result"
+#~ msgstr "Testergebnisse"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Kompilierung"
+
+#, fuzzy
+#~ msgid "Text: Opaque Background"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "Text: Background Color"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "KBackgroundSnapshot"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "Corrections"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "Accessibility Reading Aids"
+#~ msgstr "accessibility"
+
+#, fuzzy
+#~ msgid "PS Backend"
+#~ msgstr "Hintergrund"
+
+#, fuzzy
+#~ msgid "*|All Files"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Installation"
+#~ msgstr[1] "Installation"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Dateien"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Spracherkennung"
+
+#, fuzzy
+#~ msgid "RLE Word"
+#~ msgstr "Wort"

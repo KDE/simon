@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-26 21:21+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -83,14 +83,6 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#: pronunciationtrainingcommandmanager.cpp:39
-msgid "Activate Pronunciation Training"
-msgstr "Zapnout procvičování výslovnosti"
-
-#: pronunciationtrainingcommandmanager.cpp:72
-msgid "[INF] Activating pronunciationtraining"
-msgstr "[INF] Zapíná se procvičování výslovnosti"
-
 #: pronunciationtraining.cpp:64
 msgid "There are no words to train. Please check your configuration."
 msgstr ""
@@ -101,5 +93,224 @@ msgstr ""
 msgid "Sample %1 of %2:"
 msgstr "Nahrávka %1 z %2:"
 
+#: pronunciationtrainingcommandmanager.cpp:39
+msgid "Activate Pronunciation Training"
+msgstr "Zapnout procvičování výslovnosti"
+
+#: pronunciationtrainingcommandmanager.cpp:72
+#, fuzzy
+msgid "Activating pronunciationtraining"
+msgstr "[INF] Zapíná se procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Play previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "Page (number) of (total)"
+#~ msgid "Page %1 of %2"
+#~ msgstr "Nahrávka %1 z %2:"
+
+#, fuzzy
+#~ msgid "Previous Page"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "Next Page"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr ""
+#~ "Nejsou tu žádná slova, která by bylo možno procvičovat. Prověřte, prosím, "
+#~ "své nastavení."
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Previous day"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "Previous Day"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "Next day"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Terminal:"
+#~ msgstr "Zvolený terminál:"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Terminal A:"
+#~ msgstr "Zvolený terminál:"
+
+#, fuzzy
+#~ msgid "Terminal B:"
+#~ msgstr "Zvolený terminál:"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not start simond.\n"
+#~ "\n"
+#~ "Please check your configuration.\n"
+#~ "\n"
+#~ "Command: \"%1\""
+#~ msgstr ""
+#~ "Nejsou tu žádná slova, která by bylo možno procvičovat. Prověřte, prosím, "
+#~ "své nastavení."
+
+#, fuzzy
+#~ msgctxt "Advance to the next step in the wizard"
+#~ msgid "Next >"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Special Training"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Power Training"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Page %1 of %2"
+#~ msgstr "Nahrávka %1 z %2:"
+
+#, fuzzy
+#~ msgid "Synchronizing Training"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Procvičování výslovnosti"
+
+#, fuzzy
+#~ msgctxt "Go to the next list of commands"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to open the input audio device.\n"
+#~ "\n"
+#~ "Please check your sound configuration."
+#~ msgstr ""
+#~ "Nejsou tu žádná slova, která by bylo možno procvičovat. Prověřte, prosím, "
+#~ "své nastavení."
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to open the audio device.\n"
+#~ "\n"
+#~ "Please check your sound configuration."
+#~ msgstr ""
+#~ "Nejsou tu žádná slova, která by bylo možno procvičovat. Prověřte, prosím, "
+#~ "své nastavení."
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Preview:"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "@action Go to previous image"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "@action Go to next image"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Preview"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "&Preview"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgctxt "Preview button text"
+#~ msgid "Preview"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "'source' is a source file"
+#~ msgid "Source: %1"
+#~ msgstr "Výsledek: %p%"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt "Previous page"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "Next page"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Previous Bookmark"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgctxt "Find and go to the next search match"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "Find and go to the previous search match"
+#~ msgid "Previous"
+#~ msgstr "Předchozí"
+
+#, fuzzy
+#~ msgid "Find Next"
+#~ msgstr "Další"

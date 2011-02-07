@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-08-30 15:20+0200\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: 2009-01-13 12:54+0100\n"
 "Last-Translator: Daniël <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: config/plugin_exporter.cpp:34
@@ -100,6 +100,7 @@ msgstr "of we de toegang naar een bepaald IP-adres willen beperken."
 #. i18n: file: config/simondconfiguration.kcfg:23
 #. i18n: ectx: tooltip, entry (Host), group (Network)
 #: po/rc.cpp:15 po/rc.cpp:18 rc.cpp:15 rc.cpp:18
+#, fuzzy
 msgid "The only host to allow to connect to the server."
 msgstr "De enige gastcomputer toestaan om met de server te verbinden"
 
@@ -318,7 +319,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "E-mails"
 
-#: src/juliuscontrol.cpp:417
+#: src/juliuscontrol.cpp:446
 msgid ""
 "The recognition could not be started because your model contains words that "
 "consists of sounds that are not covered by your acoustic model.\n"
@@ -338,28 +339,28 @@ msgid ""
 "%2"
 msgstr ""
 
-#: src/juliuscontrol.cpp:444
+#: src/juliuscontrol.cpp:473
 msgid "Could not open log file. Please ignore detailed log output!"
 msgstr ""
 
-#: src/juliuscontrol.cpp:452
+#: src/juliuscontrol.cpp:481
 msgid "Internal Jconf error"
 msgstr "Interne Jconf-fout"
 
-#: src/juliuscontrol.cpp:464
+#: src/juliuscontrol.cpp:493
 msgid "Could not initialize recognition"
 msgstr "Kon herkenning niet initialiseren"
 
-#: src/juliuscontrol.cpp:481
+#: src/juliuscontrol.cpp:510
 #, fuzzy
 msgid "Could not start adin-thread"
 msgstr "Kon adin-thread niet starten"
 
-#: src/juliuscontrol.cpp:503 src/juliuscontrol.cpp:530
+#: src/juliuscontrol.cpp:532
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
-#: src/juliuscontrol.cpp:506 src/juliuscontrol.cpp:533
+#: src/juliuscontrol.cpp:536
 msgid "Error with the audio stream"
 msgstr "Fout in de audio-stream"
 
@@ -389,14 +390,29 @@ msgstr ""
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
-#~ msgid "Form"
-#~ msgstr "Formulier"
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Encryptie"
 
-#~ msgid "The simon recognition daemon"
-#~ msgstr "De simon herkenning-daemon"
+#, fuzzy
+#~ msgid "Create new audio stream item"
+#~ msgstr "Fout in de audio-stream"
 
-#~ msgid "(C) 2008 Peter Grasch"
-#~ msgstr "(C) 2008 Peter Grasch"
+#, fuzzy
+#~ msgid "Do you really want to remove this Daisy?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this trash plugin?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to empty the trash? All items will be deleted."
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
 
 #, fuzzy
 #~ msgid ""
@@ -405,12 +421,18 @@ msgstr "Peter Grasch"
 #~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
 #~ "css\">\n"
 #~ "p, li { white-space: pre-wrap; }\n"
-#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Example:</p>\n"
 #~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
 #~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-#~ "weight:600;\">WARNING:</span> All changes made here will be applied "
-#~ "instantly.</p></body></html>"
+#~ "weight:600;\">Command</span>: <span style=\" font-style:italic;"
+#~ "\">kfmclient openURL</span></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Alias</span>: <span style=\" font-style:italic;"
+#~ "\">konqueror</span></p></body></html>"
 #~ msgstr ""
 #~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 #~ "REC-html40/strict.dtd\">\n"
@@ -424,6 +446,976 @@ msgstr "Peter Grasch"
 #~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
 #~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
 #~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Add page numbers"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Internal library"
+#~ msgstr "Interne Jconf-fout"
+
+#, fuzzy
+#~ msgid "Add a new attribute"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Do you want to reload files from previous session?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you want to reload files from the previous session?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Unknown error running %1."
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Portrait"
+#~ msgstr "Poort:"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgctxt "Unknown type of vehicle"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "The changes of a journey"
+#~ msgid "Changes:"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "&Add a feed:"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#~ msgid "Form"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid ""
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
+#~ "\" font-weight:600;\">background</span> color by clicking here and choose "
+#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
+#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Change the <span style="
+#~ "\" font-weight:600;\">foreground</span> color by clicking here and choose "
+#~ "the new <span style=\" color:#ff0000;\">color</span> in the <span style="
+#~ "\" font-style:italic;\">color dialog</span>.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "SimonVideo"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Dataengine:"
+#~ msgstr "Database"
+
+#, fuzzy
+#~ msgid "Data source:"
+#~ msgstr "Database"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; "
+#~ "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; "
+#~ "font-family:'DejaVu Sans'; font-size:8pt;\"></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Bitstream "
+#~ "Vera Sans';\">Please select the SPHINX dictionary that you want to import "
+#~ "below.<br /></p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please keep in mind "
+#~ "that those dictionaries do not provide information about terminals of the "
+#~ "words.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Change grammar"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Recognition Rate:"
+#~ msgstr "De simon herkenning-daemon"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">This will remove the "
+#~ "word from both active and shadow vocabulary. All associated samples will "
+#~ "be deleted.</p>\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">Warning: simon will also remove all samples of other words "
+#~ "with the same name - even across scenarios!</span></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Recognition Rate"
+#~ msgstr "De simon herkenning-daemon"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'DejaVu Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Please select the sound "
+#~ "devices that simon will use for recording and playback.</p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+#~ "weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+#~ "zullen worden <span style=\" font-weight:600;\">toegepast</span> "
+#~ "instantly.</p></body></html>"
+
+#, fuzzy
+#~ msgid "simon"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Delete all"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Data"
+#~ msgstr "Database"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "Manage users"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Start simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Restart simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simond stopped"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Unknown Error"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simond"
+
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Failed to initialize dialog configuration."
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected text variant?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected state?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected transition?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected template option?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected bound value option?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Filter recognition results"
+#~ msgstr "De simon herkenning-daemon"
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected set?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected tab?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected button?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not find scenario: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not modify prompts file"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not remove original sample:  %1."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not re-initialize scenarios. Please restart simon!"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not initialize scenarios and shadow dictionary."
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Continuing recognition"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not retrieve BOMP license terms."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Terminal name for words that are imported from a dictionary which does "
+#~ "not provide terminal information"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr "Kon adin-thread niet starten"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not import hmm definitions."
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Kon adin-thread niet starten"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not clear trainingdata"
+#~ msgstr "Kon adin-thread niet starten"
+
+#, fuzzy
+#~ msgid "Could not add words to the list"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to clear the whole vocabulary?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Self-Signed Certificate"
+#~ msgstr "Certificaat"
+
+#, fuzzy
+#~ msgid "Could not create active model container"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not create base model container"
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not abort synchronization."
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not complete Synchronization"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Encrypted Password"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Could not open hmm definitions"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Insertion errors"
+#~ msgstr "Interne Jconf-fout"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irrecoverably delete the selected scenario "
+#~ "\"%1\" (\"%2\")?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irreversibly delete the current set and all "
+#~ "associated samples?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Couldn't remove set"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Do you really want to irreversibly remove this recording?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Failed to remove the recording."
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgctxt "Network port"
+#~ msgid "Port:"
+#~ msgstr "Poort:"
+
+#, fuzzy
+#~ msgid "Add new Host"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Could not create temporary vocabular."
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "Could not generate tree.hed."
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Kon adin-thread niet starten"
+
+#, fuzzy
+#~ msgid "Could not create regtree.hed."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not switch to new model."
+#~ msgstr "Kon het spraakmodel niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this user - institution association?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not modify user \"%1\": %2"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Not connected to server."
+#~ msgstr "Kon niet verbinden met database"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not add institution"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not delete institution"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "Show, edit and add users"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
+#~ msgstr "Wilt u echt de gebruiker uit de database verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not move \"%1\" to \"%2\"."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "&Stop/Delete"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "&Delete"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Een nieuwe gebruiker toevoegen"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgid "Vertical"
+#~ msgstr "Certificaat"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Kon herkenning niet initialiseren"
+
+#, fuzzy
+#~ msgid "Click this button to remove the selected camera from the list."
+#~ msgstr "Tevens het spraakmodel van de server verwijderen?"
+
+#, fuzzy
+#~ msgid "Could not load ability list."
+#~ msgstr "Kon gebruiker niet toevoegen"
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Port"
+#~ msgstr "Poort:"
+
+#, fuzzy
+#~ msgid "Vertical:"
+#~ msgstr "Certificaat"
+
+#, fuzzy
+#~ msgid "&Delete Row"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "&Vertical:"
+#~ msgstr "Certificaat"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Internal Error"
+#~ msgstr "Interne Jconf-fout"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgid "Could not change wallpaper."
+#~ msgstr "kon wachtwoord niet veranderen"
+
+#, fuzzy
+#~ msgid "Text: Delete"
+#~ msgstr "Verwijderen"
+
+#, fuzzy
+#~ msgid "Portugal"
+#~ msgstr "Poort:"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Namen"
+
+#, fuzzy
+#~ msgctxt "Unknown title"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown author"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown editor"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown publisher"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown creation date"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown volume information"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown type of document"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown number of component files"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Type of DjVu document"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Document Password"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Incorrect password"
+#~ msgstr "Wachtwoord veranderen"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgid "Encrypted"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Unknown Encryption"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgctxt "Unknown description"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown producer"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown copyright statement"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Kon gebruiker niet verwijderen"
+
+#, fuzzy
+#~ msgctxt "Unknown date"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Encryptie"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Kon adin-thread niet starten"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Unknown font type"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Onbekende fout"
+
+#, fuzzy
+#~ msgctxt "Compression"
+#~ msgid "Unknown"
+#~ msgstr "Onbekende fout"
+
+#~ msgid "The simon recognition daemon"
+#~ msgstr "De simon herkenning-daemon"
 
 #~ msgid "Couldn't initialize microphone"
 #~ msgstr "Kon microfoon niet initialiseren"

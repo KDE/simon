@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simondesktopgridcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:27+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -24,7 +24,8 @@ msgid "Desktopgrid"
 msgstr "Desktopgitter"
 
 #: desktopgridcommandmanager.cpp:76
-msgid "[INF] Activating desktopgrid"
+#, fuzzy
+msgid "Activating desktopgrid"
 msgstr "[INF] Aktiviere Desktopgitter"
 
 #: desktopgridcommandmanager.cpp:103
@@ -249,27 +250,392 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
+#, fuzzy
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "default"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Neun"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Default"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid " second"
+#~ msgid_plural " seconds"
+#~ msgstr[0] "Sekunden"
+#~ msgstr[1] "Sekunden"
+
 #~ msgid "Form"
 #~ msgstr "Form"
 
 #, fuzzy
-#~ msgid "In the output selection popup, selects printing the result"
-#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
-
-#~ msgid "Aborts the selection process when prompted to choose the click mode"
-#~ msgstr "Bei der Auswahl des Klickmodus, breche ab"
-
-#~ msgid "Trigger:"
-#~ msgstr "Auslöser:"
+#~ msgid "A voice controlled calendar application"
+#~ msgstr "Sprachgesteuerte Mausklicks"
 
 #, fuzzy
-#~ msgid "Trigger"
-#~ msgstr "Auslser:"
+#~ msgid "At:"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Seconds"
+#~ msgstr "Sekunden"
 
 #, fuzzy
 #~ msgid "Name (Trigger):"
 #~ msgstr "Auslser:"
 
 #, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Aktion:"
+
+#~ msgid "Trigger:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Options:"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Create model"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Auslser:"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Zwei"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Drei"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Vier "
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Fünf"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sieben"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Aktion:"
+
+#, fuzzy
 #~ msgid "Voice controlled chatbot"
 #~ msgstr "Sprachgesteuerte Mausklicks"
+
+#, fuzzy
+#~ msgctxt "Time dimension"
+#~ msgid "Second(s)"
+#~ msgstr "Sekunden"
+
+#, fuzzy
+#~ msgid "Starts the calculator"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Addition"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Clicks 0"
+#~ msgstr "Klickt 1"
+
+#, fuzzy
+#~ msgid "In the output selection popup, selects printing the result"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid "In the output selection popup, selects printing the calculation"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid ""
+#~ "In the output selection popup, selects printing the calculation and result"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid "In the output selection popup, selects printing the formatted result"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid ""
+#~ "In the output selection popup, selects printing the formatted calculation "
+#~ "and result"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid ""
+#~ "In the output selection popup, selects printing the result formatted as "
+#~ "money"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid ""
+#~ "In the output selection popup, selects printing the calculation and "
+#~ "result formatted as money"
+#~ msgstr "Bei der Auswahl des Klickmodus, wähle das Ergebnis auszugeben"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Display the number input"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Displays the number input field"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Starts the keyboard"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Auslser:"
+
+#, fuzzy
+#~ msgid "Display the test results."
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Aktiviere Desktopgitter"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgid "&Use default Talker"
+#~ msgstr "Standard ohne nachfragen auswählen"
+
+#, fuzzy
+#~ msgctxt "Default language code"
+#~ msgid "default"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgctxt "Default dictionary"
+#~ msgid "Default"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Selection: %1"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Aktion:"
+
+#, fuzzy
+#~ msgid "Right click to cancel."
+#~ msgstr "Rechtsklick"
+
+#, fuzzy
+#~ msgid "Left click to cancel."
+#~ msgstr "Linksklick"
+
+#, fuzzy
+#~ msgid "Captures the desktop"
+#~ msgstr "Startet das Desktopgitter"
+
+#, fuzzy
+#~ msgid "Default D65"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "Default Language"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Abbrechen"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgctxt "This is compared to the option string returned by sane"
+#~ msgid "Transparency"
+#~ msgstr "Verwende echte Transparenz"
+
+#, fuzzy
+#~ msgctxt "@label:listbox The default screen for the presentation mode"
+#~ msgid "Default Screen"
+#~ msgstr "Standardmodus:"
+
+#, fuzzy
+#~ msgctxt "Advance every %1 seconds"
+#~ msgid " second"
+#~ msgid_plural " seconds"
+#~ msgstr[0] "Sekunden"
+#~ msgstr[1] "Sekunden"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Aktion:"
+
+#~ msgid "Aborts the selection process when prompted to choose the click mode"
+#~ msgstr "Bei der Auswahl des Klickmodus, breche ab"

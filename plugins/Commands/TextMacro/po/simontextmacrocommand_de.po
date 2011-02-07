@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-02-09 14:24+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -42,8 +42,142 @@ msgstr "Text-Makro"
 msgid "Text"
 msgstr "Text"
 
+#, fuzzy
+#~ msgid "Save Shortcuts"
+#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
 #~ msgid "Form"
 #~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Test"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Text:"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Testset"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Testing"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Test log:"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Verknüpfter text:"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Text added"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Copying import from \"%1\""
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Text that is being said in this sample according to the prompts file"
+#~ msgid "Label"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Text: Paste"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Text"
 
 #~ msgid "[INF] Loading text-macro commands from %1"
 #~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
@@ -52,53 +186,9 @@ msgstr "Text"
 #~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
 
 #, fuzzy
-#~ msgid "Test"
-#~ msgstr "Text"
-
-#, fuzzy
-#~ msgid "Texts"
-#~ msgstr "Text"
-
-#, fuzzy
-#~ msgid "TextLabel"
-#~ msgstr "Text"
-
-#, fuzzy
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
 #~ msgid "[INF] Saving executable commands to %1"
 #~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
 
 #, fuzzy
-#~ msgid "[INF] Loading place commands from %1"
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving place commands to %1"
-#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
-
-#, fuzzy
 #~ msgid "[INF] Loading shortcuts from %1"
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving Shortcuts to %1"
-#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
-
-#, fuzzy
-#~ msgid "[INF] Loading grammar from %1"
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Parsing prompts-file from %1"
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Starting remove import from \"%1\""
-#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
-
-#, fuzzy
-#~ msgid "[INF] Loading List of Trainingstexts from %1"
 #~ msgstr "[INF] Lade Text-Makro Kommandos von %1"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simoncompositecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:27+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: compositecommand.cpp:37
+#: compositecommand.cpp:38
 msgid "Composite"
 msgstr "Kombination"
 
-#: compositecommand.cpp:62
+#: compositecommand.cpp:63
 msgid "Commands"
 msgstr "Kommandos"
 
-#: compositecommand.cpp:99 compositecommand.cpp:100
+#: compositecommand.cpp:97 compositecommand.cpp:98
 #: createcompositecommandwidget.cpp:121 delaycommand.cpp:36
 #: delaycommand.cpp:61
 msgid "Delay"
@@ -100,32 +100,346 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#~ msgid "Form"
-#~ msgstr "Form"
-
-#~ msgid "Launcher"
-#~ msgstr "Starter"
-
-#~ msgid "Plugin"
-#~ msgstr "Plug-In"
-
-#~ msgid "Plugin trigger"
-#~ msgstr "Plug-In Auslöser"
-
-#~ msgid "Launcher trigger"
-#~ msgstr "Starter Auslöser"
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Entfernen"
 
 #~ msgid "Description"
 #~ msgstr "Beschreibung"
 
-#~ msgid "Launcher:"
-#~ msgstr "Starter:"
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Kombination"
 
-#~ msgid "Add Launcher"
+#, fuzzy
+#~ msgid "Edit launcher..."
 #~ msgstr "Starter hinzufügen"
 
-#~ msgid "[INF] Loading composite commands from %1"
+#, fuzzy
+#~ msgid "Remove launcher"
+#~ msgstr "Starter"
+
+#, fuzzy
+#~ msgid "Launchers"
+#~ msgstr "Starter"
+
+#, fuzzy
+#~ msgid "Edit launcher"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "Total launchers:"
+#~ msgstr "Starter:"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgctxt "Information about delays of a journey with public transport"
+#~ msgid "Delay:"
+#~ msgstr "Verzögerung:"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Support for getting delay information. This string is used in a feature "
+#~ "list, should be short."
+#~ msgid "Delay"
+#~ msgstr "Verzögerung"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
 #~ msgstr "[INF] Lade Kombinations-Kommandos von %1"
 
-#~ msgid "[INF] Saving composite commands to %1"
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
 #~ msgstr "[INF] Speichere Kombinations-Kommandos nach %1"
+
+#~ msgid "Form"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "Description:"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Move up"
+#~ msgstr "Nach Oben"
+
+#, fuzzy
+#~ msgid "Move down"
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgid "Down"
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgid "Short description:"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Encryption"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Recognition"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Visible trigger:"
+#~ msgstr "Plug-In Auslöser"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Verzögerung hinzufügen"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that are referenced form this dialog "
+#~ "command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Konnte nicht alle Kommandos finden, die diese Kombination ausmachen. \n"
+#~ "\n"
+#~ "Die fehlenden Kommandos sind: %1."
+
+#, fuzzy
+#~ msgid "Dictation"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Verzögerung hinzufügen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that make up this list command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Konnte nicht alle Kommandos finden, die diese Kombination ausmachen. \n"
+#~ "\n"
+#~ "Die fehlenden Kommandos sind: %1."
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Kommando:"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Computer"
+#~ msgstr "Kombination"
+
+#, fuzzy
+#~ msgid "Visible trigger"
+#~ msgstr "Plug-In Auslöser"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Entfernen"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Starter hinzufügen"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Move To"
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "Move"
+#~ msgstr "Nach Oben"
+
+#, fuzzy
+#~ msgid "Move Here"
+#~ msgstr "Nach Oben"
+
+#, fuzzy
+#~ msgctxt "Verb"
+#~ msgid "Move To..."
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgid "Other Plugins"
+#~ msgstr "Plug-In"
+
+#, fuzzy
+#~ msgid "No Plugin"
+#~ msgstr "Plug-In"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Operation"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Compression"
+#~ msgstr "Kombination"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Add Bookmark"
+#~ msgstr "Kommando hinzufügen"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Beschreibung"
+
+#, fuzzy
+#~ msgid "Scroll Down"
+#~ msgstr "Nach Unten"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgctxt "Metres"
+#~ msgid "m"
+#~ msgstr "ms"
+
+#, fuzzy
+#~ msgid "Plugin Version"
+#~ msgstr "Plug-In Auslöser"
+
+#~ msgid "Launcher trigger"
+#~ msgstr "Starter Auslöser"

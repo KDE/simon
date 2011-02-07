@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-03-03 19:56+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -42,11 +42,77 @@ msgstr "Textové makro"
 msgid "Text"
 msgstr "Text"
 
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Nahrává příkazy textových maker z %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Ukládá příkazy textových maker do %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
 
-#~ msgid "[INF] Loading text-macro commands from %1"
-#~ msgstr "[INF] Nahrává příkazy textových maker z %1"
+#, fuzzy
+#~ msgid "Text:"
+#~ msgstr "Text"
 
-#~ msgid "[INF] Saving text-macro commands to %1"
-#~ msgstr "[INF] Ukládá příkazy textových maker do %1"
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Sdružený text:"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Text"

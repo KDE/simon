@@ -18,13 +18,13 @@
  */
 #include "dialogcommandmanager.h"
 #include "dialogconfiguration.h"
-#include "dialogcommand.h"
-#include "dialogstate.h"
-#include "dialogtextparser.h"
+#include <simondialogengine/dialogcommand.h>
+#include <simondialogengine/dialogstate.h>
+#include <simondialogengine/dialogtextparser.h>
 
-#include "dialogview.h"
-#include "visualdialogview.h"
-#include "ttsdialogview.h"
+#include <simondialogengine/dialogview.h>
+#include <simondialogengine/graphicalview/visualdialogview.h>
+#include <simondialogengine/ttsview/ttsdialogview.h>
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/voiceinterfacecommand.h>
@@ -47,6 +47,7 @@ DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& 
   currentDialogSate(NULL),
   dialogParser(NULL)
 {
+  kWarning() << "I AM ALIVE!";
   activateAction->setText(i18n("Activate Dialog"));
   activateAction->setIcon(KIcon("im-user"));
   connect(activateAction, SIGNAL(triggered(bool)),

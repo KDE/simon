@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonlistcommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-03-03 20:14+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -71,17 +71,128 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "Add List"
+#~ msgstr "Seznam"
+
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Track Number"
+#~ msgstr "Číslo"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Next Page"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Devět"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Ukládá příkazy zobrazující seznamy podřízených akcí do %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Next day"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Příkaz:"
+
+#, fuzzy
+#~ msgid "Move up"
+#~ msgstr "Přesunout nahoru"
+
+#, fuzzy
+#~ msgid "Move down"
+#~ msgstr "Přesunout dolů"
+
+#, fuzzy
+#~ msgid "Input Number"
+#~ msgstr "Číslo"
 
 #~ msgid "Back"
 #~ msgstr "Zpět"
 
+#, fuzzy
+#~ msgid "Down"
+#~ msgstr "Přesunout dolů"
+
+#, fuzzy
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Remote URL"
+#~ msgstr "Odstranit"
+
 #~ msgid "Next"
 #~ msgstr "Další"
 
-#~ msgid "Zero"
-#~ msgstr "Nula"
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Přesunout dolů"
+
+#~ msgid "Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Odstranit"
 
 #~ msgid "One"
 #~ msgstr "Jeden"
@@ -107,26 +218,289 @@ msgstr "pavelfric@seznam.cz"
 #~ msgid "Eight"
 #~ msgstr "Osm"
 
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "Backends"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Příkaz:"
+
+#, fuzzy
+#~ msgid "Associated command"
+#~ msgstr "Přidat příkaz"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
+#~ msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
+
+#, fuzzy
+#~ msgctxt "Word to say to remove the last recognized digit"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "One"
+#~ msgstr "Jeden"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Two"
+#~ msgstr "Dva"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Three"
+#~ msgstr "Tři"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Four"
+#~ msgstr "Čtyři"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Five"
+#~ msgstr "Pět"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Six"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Seven"
+#~ msgstr "Sedm"
+
+#, fuzzy
+#~ msgctxt "Number"
+#~ msgid "Eight"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgctxt "Number"
 #~ msgid "Nine"
 #~ msgstr "Devět"
-
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"
-
-#~ msgid "List"
-#~ msgstr "Seznam"
 
 #~ msgid "Commands"
 #~ msgstr "Příkazy"
 
-#~ msgid "[INF] Loading list commands from %1"
-#~ msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that make up this composited command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Všechny příkazy, které tvoří tento příkaz zobrazující seznam podřízených "
+#~ "akcí, z nichž se vybírá tím, že se řekne číslo odpovídajícího příkazu, "
+#~ "nelze najít.\n"
+#~ "\n"
+#~ "Chybějící příkazy jsou tyto: %1."
 
-#~ msgid "[INF] Saving list commands to %1"
-#~ msgstr "[INF] Ukládá příkazy zobrazující seznamy podřízených akcí do %1"
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not find all of the commands that are referenced form this dialog "
+#~ "command.\n"
+#~ "\n"
+#~ "The missing commands are: %1."
+#~ msgstr ""
+#~ "Všechny příkazy, které tvoří tento příkaz zobrazující seznam podřízených "
+#~ "akcí, z nichž se vybírá tím, že se řekne číslo odpovídajícího příkazu, "
+#~ "nelze najít.\n"
+#~ "\n"
+#~ "Chybějící příkazy jsou tyto: %1."
 
 #~ msgid "Number"
 #~ msgstr "Číslo"
 
-#~ msgid "Command"
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Backspace"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Lists"
+#~ msgstr "Seznam"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Příkaz:"
+
+#, fuzzy
+#~ msgid "Remove Command"
 #~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgctxt "Advance to the next step in the wizard"
+#~ msgid "Next >"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Přidat příkaz"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Nahrává příkazy zobrazující seznamy podřízených akcí z %1"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "Go to the next list of commands"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Příkazy"
+
+#~ msgid "List"
+#~ msgstr "Seznam"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Šest"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Odstranit"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Move To"
+#~ msgstr "Přesunout dolů"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "Move"
+#~ msgstr "Přesunout nahoru"
+
+#, fuzzy
+#~ msgid "Move Here"
+#~ msgstr "Přesunout nahoru"
+
+#, fuzzy
+#~ msgctxt "Verb"
+#~ msgid "Move To..."
+#~ msgstr "Přesunout dolů"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgctxt "@action Go to next image"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Nula"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Zpět"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Příkazy"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt "Next page"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Add Bookmark"
+#~ msgstr "Přidat příkaz"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Příkaz"
+
+#, fuzzy
+#~ msgctxt "Find and go to the next search match"
+#~ msgid "Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Osm"
+
+#, fuzzy
+#~ msgid "Scroll Down"
+#~ msgstr "Přesunout dolů"
+
+#, fuzzy
+#~ msgid "Find Next"
+#~ msgstr "Další"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Příkazy"

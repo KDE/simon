@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-17 17:45+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,13 +30,13 @@ msgstr ""
 msgid "sam: part of simon %1\n"
 msgstr ""
 
-#: exporttestresults.cpp:208
+#: exporttestresults.cpp:210
 msgid ""
 "Could not initialize output template at \"%1\". Please select a valid output "
 "format."
 msgstr ""
 
-#: exporttestresults.cpp:219
+#: exporttestresults.cpp:221
 msgid ""
 "Output type not supported: %1.\n"
 "\n"
@@ -44,7 +44,7 @@ msgid ""
 "sam."
 msgstr ""
 
-#: exporttestresults.cpp:238
+#: exporttestresults.cpp:240
 msgid "Failed to parse template: %1"
 msgstr ""
 

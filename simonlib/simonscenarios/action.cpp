@@ -97,7 +97,7 @@ void Action::init(const QString& source, const QString& trigger)
     factory->deleteLater();
   }
   else {
-    kWarning() << "Factory not found!";
+    kWarning() << "Factory not found! Source: " << source;
     m_manager = 0;
   }
 }
@@ -126,7 +126,7 @@ bool Action::deSerialize(const QDomElement& pluginElem)
     }
   }
 
-  if (!m_manager->deSerialize(pluginElem))
+  if (!m_manager || !m_manager->deSerialize(pluginElem))
     return false;
 
   return true;

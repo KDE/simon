@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OutputConfigurationDlg</class>
+ <widget class="QWidget" name="OutputConfigurationDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>531</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="gbGraphical">
+     <property name="title">
+      <string>Graphical interface</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbAvatarSize">
+        <property name="text">
+         <string>Avatar size:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QSpinBox" name="sbAvatarSize">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1024</number>
+          </property>
+          <property name="value">
+           <number>96</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>px</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="cbDisplayAvatarNames">
+        <property name="text">
+         <string>Display avatar name</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbTextToSpeech">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Text to speech configuration</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Separator to options:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="KLineEdit" name="leOptionSeparator">
+        <property name="toolTip">
+         <string>This text will be said after the text of the current state and before the available options</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Repeat on trigger:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Announce repeat:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="KLineEdit" name="leAnnounceRepeat">
+        <property name="toolTip">
+         <string>This text will be said after the complete announcement</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="cbRepeatOnInvalidInput">
+        <property name="text">
+         <string>Repeat available options on invalid input</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KEditListBox" name="elwRepeatTriggers">
+        <property name="buttons">
+         <set>KEditListBox::Add|KEditListBox::Remove</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
