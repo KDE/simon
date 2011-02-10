@@ -73,6 +73,11 @@ int main(int argc, char *argv[])
 	    KAboutData::License_GPL,
 	    ki18n("Copyright (c) 2008-2010 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 
+
+  KCmdLineOptions options;
+  options.add("nosplash", ki18n("Disable simons splash screen"));
+  KCmdLineArgs::addCmdLineOptions(options);
+
   KCmdLineArgs::init(argc, argv, &aboutData);
 
   SimonApplication app;
