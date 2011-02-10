@@ -73,6 +73,7 @@
 #include <KCModuleProxy>
 #include <KPageWidgetItem>
 #include <KIconLoader>
+#include <KCmdLineArgs>
 
 #include <simonsound/soundserver.h>
  
@@ -96,10 +97,16 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   Logger::log ( i18n ( "Starting simon..." ) );
 
   //showing splash
-  SimonInfo *info = new SimonInfo();
-  Logger::log ( i18n ( "Displaying Splashscreen..." ) );
-  info->showSplash();
-  info->writeToSplash ( i18n ( "Loading core..." ) );
+  bool showSplash = KCmdLineArgs::parsedArgs()->isSet("splash");
+  SimonInfo *info = 0;
+
+  if (showSplash) {
+    info = new SimonInfo();
+    Logger::log ( i18n ( "Displaying Splashscreen..." ) );
+    info->showSplash();
+    info->writeToSplash ( i18n ( "Loading core..." ) );
+  }
+
   KGlobal::locale()->insertCatalog("simonlib");
 
   control = (new SimonControl(this));
@@ -134,25 +141,30 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   //Preloads all Dialogs
   ScenarioManager::getInstance()->registerScenarioDisplay(this);
 
-  info->writeToSplash ( i18n ( "Loading training..." ) );
+  if (showSplash)
+    info->writeToSplash ( i18n ( "Loading training..." ) );
   this->trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
-  info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
+  if (showSplash)
+    info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
   vocabularyView = new VocabularyView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
-  info->writeToSplash ( i18n ( "Loading grammar..." ) );
+  if (showSplash)
+    info->writeToSplash ( i18n ( "Loading grammar..." ) );
   this->grammarView = new GrammarView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
-  info->writeToSplash ( i18n ( "Loading run..." ) );
+  if (showSplash)
+    info->writeToSplash ( i18n ( "Loading run..." ) );
   this->runDialog = new RunCommandView ( this );
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
   kDebug() << "SoundServer: " << SoundServer::getInstance();
 
-  info->writeToSplash ( i18n ( "Loading interface..." ) );
+  if (showSplash)
+    info->writeToSplash ( i18n ( "Loading interface..." ) );
 
   displayAboutPage();
 
@@ -168,8 +180,10 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   control->startup();
 
   //hiding splash again after loading
-  info->hideSplash();
-  delete info;
+  if (showSplash) {
+    info->hideSplash();
+    delete info;
+  }
 
   if (!control->startMinimized())
     show();
