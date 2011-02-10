@@ -67,7 +67,7 @@
    <item>
     <widget class="QGroupBox" name="gbTextToSpeech">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="title">
       <string>Text to speech configuration</string>
