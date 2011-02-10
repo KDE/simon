@@ -13,6 +13,10 @@ set (simonakonadicommandplugin_SRCS
 	akonadicommand.cpp
 	timeselector.cpp
 	createakonadicommandwidget.cpp
+	scheduleitem.cpp
+	alarmscheduleitem.cpp
+	commandscheduleitem.cpp
+	dialogrunner.cpp
     )
 
 kde4_add_ui_files(simonakonadicommandplugin_SRCS 

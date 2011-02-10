@@ -19,6 +19,9 @@
 #include "akonadicommandmanager.h"
 #include "akonadiconfiguration.h"
 #include "akonadicommand.h"
+#include "scheduleitem.h"
+#include "alarmscheduleitem.h"
+#include "commandscheduleitem.h"
 #include "createakonadicommandwidget.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
@@ -31,6 +34,7 @@
 #include <akonadi/itemfetchjob.h>
 #include <akonadi/itemfetchscope.h>
 #include <kcalcore/incidence.h>
+#include <kcalcore/alarm.h>
 #include <kcalcore/event.h>
 
 K_PLUGIN_FACTORY( AkonadiCommandPluginFactory,
@@ -55,23 +59,15 @@ AkonadiCommandManager::AkonadiCommandManager(QObject* parent, const QVariantList
 void AkonadiCommandManager::checkSchedule()
 {
   checkScheduleTimer.stop();
-  QMap< QDateTime, QString >::iterator i = schedule.begin();
+  QMap< QDateTime, ScheduleItem*>::iterator i = schedule.begin();
   while ((i != schedule.end()) && (i.key() < QDateTime::currentDateTime()))
   {
-    QString command = *i;
+    if (!(*i)->trigger())
+      Logger::log(i18n("Couldn't execute schedule item: %1", (*i)->getSummary()), Logger::Warning);
+      
+    delete *i;
     schedule.remove(i.key());
     i++;
-    kDebug() << "Executing: " << command;
-    QStringList parts = command.split("//");
-    if (parts.count() != 2)
-    {
-      kWarning() << "Bad command format: " << command;
-      Logger::log(i18n("Invalid akonadi command format: %1", command), Logger::Warning);
-      continue;
-    }
-    bool succ = ActionManager::getInstance()->triggerCommand(parts[0], parts[1]);
-    if (!succ)
-      Logger::log(i18n("Couldn't execute command: %1", command), Logger::Warning);
   }
   checkScheduleTimer.start(1000);
 }
@@ -129,16 +125,23 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
     KDateTime endDate = event->dtEnd();
     if (endDate.dateTime() < QDateTime::currentDateTime())
       continue;
-
-    QString summary = (*event).summary();
-    if (!summary.startsWith(getAkonadiConfiguration()->akonadiRequestPrefix()))
-      continue;
-    schedule.insert(startDate.dateTime(), 
-		    summary.remove(getAkonadiConfiguration()->akonadiRequestPrefix()).trimmed());
+    
+    if (getAkonadiConfiguration()->displayAlarms()) {
+      foreach (KCalCore::Alarm::Ptr a, event->alarms()) {
+	      QDateTime alarmDate = (a->time().dateTime());
+	      kDebug() << "Checking alarm" << alarmDate;
+	      if (alarmDate < QDateTime::currentDateTime())
+	        continue;
+	      kDebug() << "Adding alarm" << alarmDate;
+	      schedule.insert(a->time().dateTime(), new AlarmScheduleItem(event, a, getAkonadiConfiguration(), this));
+      }
+    }
+    
+     if ((getAkonadiConfiguration()->executeAkonadiRequests() && event->summary().startsWith(getAkonadiConfiguration()->akonadiRequestPrefix())))
+      schedule.insert(startDate.dateTime(), new CommandScheduleItem(event, getAkonadiConfiguration()));
   }
   Logger::log(i18n("Retrieved %1 relevant items", schedule.count()));
 }
-
 
 bool AkonadiCommandManager::shouldAcceptCommand(Command *command)
 {
@@ -158,7 +161,7 @@ const QString AkonadiCommandManager::name() const
 
 void AkonadiCommandManager::parseConfiguration()
 {
-  if (getAkonadiConfiguration()->executeAkonadiRequests())
+  if (getAkonadiConfiguration()->executeAkonadiRequests() || getAkonadiConfiguration()->displayAlarms())
     checkScheduleTimer.start(1000);
   else
     checkScheduleTimer.stop();
@@ -172,7 +175,7 @@ void AkonadiCommandManager::parseConfiguration()
   setupSchedule();
 }
 
-AkonadiConfiguration* AkonadiCommandManager::getAkonadiConfiguration()
+AkonadiConfiguration* AkonadiCommandManager::getAkonadiConfiguration() const
 {
   return static_cast<AkonadiConfiguration*>(getConfigurationPage());
 }

@@ -113,6 +113,8 @@ const QMap<QString,QVariant> AkonadiCommand::getValueMapPrivate() const
 
 bool AkonadiCommand::triggerPrivate(int *state)
 {
+  Q_UNUSED(state);
+  
   kDebug() << "Triggering...";
   KDateTime executionTime = calculateExecutionTime();
   AkonadiCommandManager *manager = static_cast<AkonadiCommandManager*>(Command::parent());
@@ -128,16 +130,17 @@ bool AkonadiCommand::triggerPrivate(int *state)
   Akonadi::ItemCreateJob *createJob = new Akonadi::ItemCreateJob(item, collection);
   
   connect(createJob, SIGNAL(finished(KJob*)), this, SLOT(storeJobFinished(KJob*)));
+  Q_UNUSED(createJob);
   return true;
 }
 
 void AkonadiCommand::storeJobFinished(KJob* job)
 {
   Akonadi::ItemCreateJob *createJob= static_cast<Akonadi::ItemCreateJob*>( job );
+  Q_UNUSED(createJob);
   if ( job->error() ) {
       Logger::log(i18n("Akonadi item create job returned error: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
-//       return;
   }
 }
 

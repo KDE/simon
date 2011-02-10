@@ -23,6 +23,8 @@
 #include "simonttsprovider.h"
 #include <QStringList>
 #include <QObject>
+#include <QBuffer>
+#include <QQueue>
 
 class QString;
 class WavPlayerClient;
@@ -39,11 +41,16 @@ class WebserviceTTSProvider : public QObject, public SimonTTSProvider
 {
   Q_OBJECT
   private:
-    QStringList filesToPlay;
+    QQueue<QString> filesToDownload;
+    QQueue<QString> filesToPlay;
+    QBuffer currentFileTemp;
+    QNetworkReply *currentConnection;
+    
     QNetworkAccessManager *net;
     WavPlayerClient *player;
 
   private slots:
+    void downloadProgress(qint64,qint64);
     void replyReceived(QNetworkReply*);
     void playNext();
     void initializeOutput();

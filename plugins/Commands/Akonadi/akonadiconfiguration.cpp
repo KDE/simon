@@ -138,11 +138,8 @@ QDomElement AkonadiConfiguration::serialize(QDomDocument* doc)
   QDomElement alarmAvatarElem = doc->createElement("displayAvatar");
   alarmAvatarElem.setAttribute("enabled", ui.cbDisplayAvatar->isChecked());
   
-  QModelIndex currentSelectedAvatar = avatarsConfig->getModel()->index(ui.cbAvatar->currentIndex(), 0);
-  if (currentSelectedAvatar.isValid()) {
-    Avatar *a = static_cast<Avatar*>(currentSelectedAvatar.internalPointer());
-    alarmAvatarElem.appendChild(doc->createTextNode(QString::number(a->id())));
-  }
+  int avatarId = getSelectedAvatar();
+  alarmAvatarElem.appendChild(doc->createTextNode(QString::number(avatarId)));
   alarmsElem.appendChild(alarmAvatarElem);
   
   QDomElement alarmOptionsElem = doc->createElement("options");
@@ -179,6 +176,16 @@ QDomElement AkonadiConfiguration::serialize(QDomDocument* doc)
 
   m_manager->parseConfiguration();
   return configElem;
+}
+
+int AkonadiConfiguration::getSelectedAvatar() const
+{
+  QModelIndex currentSelectedAvatar = avatarsConfig->getModel()->index(ui.cbAvatar->currentIndex(), 0);
+  if (currentSelectedAvatar.isValid()) {
+    Avatar *a = static_cast<Avatar*>(currentSelectedAvatar.internalPointer());
+    return a->id();
+  }
+  return -1;
 }
 
 void AkonadiConfiguration::uncheckAkonadiCommandRequests()
@@ -285,6 +292,84 @@ Akonadi::Entity::Id AkonadiConfiguration::getCollection()
 {
   return (Akonadi::Entity::Id) collectionIndexToSelect;
 }
+
+DialogBoundValues* AkonadiConfiguration::getBoundValues()
+{
+  return boundValuesConfig->getDialogBoundValues();
+}
+DialogTemplateOptions* AkonadiConfiguration::getTemplateOptions()
+{
+  return templateOptionsConfig->getDialogTemplateOptions();
+}
+
+QString AkonadiConfiguration::delayText()
+{
+  return ui.leShowLater->text();
+}
+QString AkonadiConfiguration::dismissText()
+{
+  return ui.leDismiss->text();
+}
+QString AkonadiConfiguration::dialogText()
+{
+  return ui.teText->toPlainText();
+}
+bool AkonadiConfiguration::getShowDelay()
+{
+  return ui.cbShowLater->isChecked();
+}
+int AkonadiConfiguration::getRestartDelay()
+{
+  return ui.wgRestartTime->getTime();
+}
+bool AkonadiConfiguration::getShowDismiss()
+{
+  return ui.cbDismiss->isChecked();
+}
+
+Avatar* AkonadiConfiguration::getAvatar(int id) const
+{
+  return avatarsConfig->getAvatar(id);
+}
+bool AkonadiConfiguration::getDisplayAvatar() const
+{
+  return ui.cbDisplayAvatar->isChecked();
+}
+int AkonadiConfiguration::getAvatarSize() const
+{
+  return outputConfiguration->getAvatarSize();
+}
+bool AkonadiConfiguration::getDisplayAvatarNames() const
+{
+  return outputConfiguration->getDisplayAvatarNames();
+}
+QString AkonadiConfiguration::getOptionSeparatorText() const
+{
+  return outputConfiguration->getOptionSeparatorText();
+}
+QString AkonadiConfiguration::getRepeatAnnouncement() const
+{
+  return outputConfiguration->getRepeatAnnouncement();
+}
+bool AkonadiConfiguration::getRepeatOnInvalidInput() const
+{
+  return outputConfiguration->getRepeatOnInvalidInput();
+}
+
+bool AkonadiConfiguration::useGUIOutput()
+{
+  return outputConfiguration->useGUIOutput();
+}
+bool AkonadiConfiguration::useTTSOutput()
+{
+  return outputConfiguration->useTTSOutput();
+}
+
+QStringList AkonadiConfiguration::getRepeatTriggers() const
+{
+  return outputConfiguration->getRepeatTriggers();
+}
+
 
 AkonadiConfiguration::~AkonadiConfiguration()
 {

@@ -29,10 +29,16 @@
 
 class AkonadiConfiguration;
 class KJob;
+class ScheduleItem;
 
 namespace Akonadi
 {
   class Monitor;
+}
+
+namespace KCalCore
+{
+  class Event;
 }
 
 class AkonadiCommandManager : public CommandManager
@@ -40,11 +46,11 @@ class AkonadiCommandManager : public CommandManager
   Q_OBJECT
 
   private:
-    QMap<QDateTime, QString> schedule;
+    QMap<QDateTime, ScheduleItem*> schedule;
     QTimer checkScheduleTimer;
     Akonadi::Monitor *akonadiMonitor;
     
-    AkonadiConfiguration* getAkonadiConfiguration();
+    AkonadiConfiguration* getAkonadiConfiguration() const;
     
   private slots:
     void itemsReceived(KJob* job);

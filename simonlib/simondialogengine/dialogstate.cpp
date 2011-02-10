@@ -39,6 +39,7 @@ DialogState::DialogState(DialogTextParser *parser, const QString& name, const QS
   m_texts << new DialogText(parser, text);
   foreach (DialogCommand *c, m_transitions)
   {
+    kDebug() << "Registering dialog command: " << c->getTrigger();
     connect(c, SIGNAL(requestDialogState(int)), this, SIGNAL(requestDialogState(int)));
     connect(c, SIGNAL(changed()), this, SIGNAL(changed()));
   }

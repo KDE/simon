@@ -28,8 +28,10 @@
 #include <QNetworkAccessManager>
 #include <KDebug>
 #include <KStandardDirs>
+#include <QBuffer>
 
 WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
+  currentConnection(0),
   net(0),
   player(0)
 {
@@ -48,8 +50,6 @@ bool WebserviceTTSProvider::initialize()
   if (!net)
   {
     net = new QNetworkAccessManager(this);
-    connect(net, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyReceived(QNetworkReply*)));
-    kDebug() << "Initialized";
   }
 
   return true;
@@ -76,8 +76,13 @@ void WebserviceTTSProvider::replyReceived(QNetworkReply* reply)
     player->play(path);
   else {
     kDebug() << "Adding to playback queue: " << path;
-    filesToPlay << path;
+    filesToPlay.enqueue(path);
   }
+  
+  if (!filesToDownload.isEmpty())
+    currentConnection = net->get(QNetworkRequest(KUrl(filesToDownload.dequeue())));
+  else
+    currentConnection = 0;
 }
 
 void WebserviceTTSProvider::initializeOutput()
@@ -117,11 +122,22 @@ bool WebserviceTTSProvider::say(const QString& text)
   if (!initialize())
     return false;
 
-  kDebug() << "Getting: " << TTSConfiguration::webserviceURL().replace("%1", text);
-  net->get(QNetworkRequest(KUrl(TTSConfiguration::webserviceURL().replace("%1", text))));
+  QString url = TTSConfiguration::webserviceURL().replace("%1", text);
+  kDebug() << "Getting: " << url;
+  
+  if (currentConnection)
+    filesToDownload.enqueue(url);
+  else {
+    currentConnection = net->get(QNetworkRequest(KUrl(url)));
+    connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
+  }
   return true;
 }
 
+void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
+{
+  kDebug() << "Download progress: " << now << max;
+}
 
 /**
  * \brief Plays the next file in the playing queue
@@ -129,7 +145,7 @@ bool WebserviceTTSProvider::say(const QString& text)
 void WebserviceTTSProvider::playNext()
 {
   if (filesToPlay.isEmpty()) return;
-  player->play(filesToPlay.takeAt(0));
+  player->play(filesToPlay.dequeue());
 }
 
 /**
