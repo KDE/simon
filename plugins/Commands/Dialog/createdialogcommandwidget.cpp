@@ -18,9 +18,9 @@
  */
 
 #include "createdialogcommandwidget.h"
-#include "dialogcommand.h"
+#include <simondialogengine/dialogcommand.h>
 #include "dialogcommandmanager.h"
-#include "dialogstate.h"
+#include <simondialogengine/dialogstate.h>
 
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>

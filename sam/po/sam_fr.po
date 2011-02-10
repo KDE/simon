@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-12-17 17:45+0100\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: 2010-07-22 22:45+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -31,13 +31,13 @@ msgstr "Résultats du test"
 msgid "sam: part of simon %1\n"
 msgstr ""
 
-#: exporttestresults.cpp:208
+#: exporttestresults.cpp:210
 msgid ""
 "Could not initialize output template at \"%1\". Please select a valid output "
 "format."
 msgstr ""
 
-#: exporttestresults.cpp:219
+#: exporttestresults.cpp:221
 msgid ""
 "Output type not supported: %1.\n"
 "\n"
@@ -45,7 +45,7 @@ msgid ""
 "sam."
 msgstr ""
 
-#: exporttestresults.cpp:238
+#: exporttestresults.cpp:240
 #, fuzzy
 msgid "Failed to parse template: %1"
 msgstr ""
@@ -789,18 +789,21 @@ msgstr "Tester le journal :"
 #. i18n: file: samui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:247
+#, fuzzy
 msgid "Main Actions"
 msgstr "Actions principales"
 
 #. i18n: file: samui.rc:17
 #. i18n: ectx: Menu (build)
 #: rc.cpp:250
+#, fuzzy
 msgid "Build"
-msgstr "Construire"
+msgstr "Construire le journal :"
 
 #. i18n: file: samui.rc:23
 #. i18n: ectx: Menu (test)
 #: rc.cpp:253
+#, fuzzy
 msgctxt "Test the model"
 msgid "Test"
 msgstr "Test"
@@ -907,5 +910,1107 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
-#~ msgid "Individual words"
+#, fuzzy
+#~ msgid "Settings"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "Sans titre"
+
+#, fuzzy
+#~ msgid "Cancel Edit"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Creator"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Complete"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Audio Files"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Video Files"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Open audio file(s)"
+#~ msgstr "Fichiers de sortie"
+
+#, fuzzy
+#~ msgid "No results"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Restore Defaults"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "&Cancel"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "okular"
+#~ msgstr "Vocabulaire :"
+
+#, fuzzy
+#~ msgid "settings"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid " instances"
+#~ msgstr "Phrases"
+
+#, fuzzy
+#~ msgid "Create a New Edge"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Could not open file <i>%1</i> for reading."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Does not Contain"
+#~ msgstr "Ne plus poser la question"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "&Quick Actions"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgctxt "Vehicle types used in a journey with public transport"
+#~ msgid "Vehicle types"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgctxt "The company that is responsible for this departure/arrival/journey"
+#~ msgid "Operator:"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Export Filter Settings"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Maintainer"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Do nothing"
+#~ msgstr "Ne plus poser la question"
+
+#, fuzzy
+#~ msgid "&Settings"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Default mode:"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Formatted result"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Static value"
+#~ msgstr "Modèle statique"
+
+#, fuzzy
+#~ msgid "Next state:"
+#~ msgstr "Statistiques de base :"
+
+#, fuzzy
+#~ msgid "Output"
+#~ msgstr "Fichiers de sortie"
+
+#, fuzzy
+#~ msgid "Input Number"
+#~ msgstr "Fichiers d'entrée"
+
+#, fuzzy
+#~ msgid "smb"
+#~ msgstr "sam"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Grammar Settings"
+#~ msgstr "Grammaire :"
+
+#, fuzzy
+#~ msgid "Sentences:"
+#~ msgstr "Phrases"
+
+#, fuzzy
+#~ msgid "Add sentence"
+#~ msgstr "Phrases"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "File:"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "HTK Lexicon"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "PLS Lexicon"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "SPHINX Lexicon"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "Julius Vocabulary"
+#~ msgstr "Vocabulaire :"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Prompteurs :"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Tiedlist de base :"
+
+#, fuzzy
+#~ msgid "Model type:"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "User generated model"
+#~ msgstr "Modèle entièrement généré par l'utilisateur"
+
+#, fuzzy
+#~ msgid "HMM definition:"
+#~ msgstr "Définitions HMM :"
+
+#, fuzzy
+#~ msgid "Macros:"
+#~ msgstr "Macros de base :"
+
+#, fuzzy
+#~ msgid "Adapt grammar"
+#~ msgstr "Adapter le journal :"
+
+#, fuzzy
+#~ msgid "Include similar words"
 #~ msgstr "Mots individuels"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Fichiers d'entrée"
+
+#, fuzzy
+#~ msgid "Active Vocabulary"
+#~ msgstr "Vocabulaire :"
+
+#, fuzzy
+#~ msgid "Shadow Vocabulary"
+#~ msgstr "Vocabulaire :"
+
+#, fuzzy
+#~ msgid "Build sentences"
+#~ msgstr "Phrases"
+
+#, fuzzy
+#~ msgid "Choose Model"
+#~ msgstr "Modèle de base"
+
+#, fuzzy
+#~ msgid "Configure base models"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Get scenarios"
+#~ msgstr "Adapter les scénarios"
+
+#, fuzzy
+#~ msgid "Icon:"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "Scenario"
+#~ msgstr "Adapter les scénarios"
+
+#, fuzzy
+#~ msgid "Input"
+#~ msgstr "Fichiers d'entrée"
+
+#, fuzzy
+#~ msgid "Sample-Rate:"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "Microphone type:"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "Apply Filters"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Éditer l'échantillon"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "Adaptation abandonnée"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "(C) 2009 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Timer type"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "Could not find child command: %1 (%2)."
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "Afficher les résultats du test."
+
+#, fuzzy
+#~ msgid "Display the desktop grid"
+#~ msgstr "Afficher les résultats du test."
+
+#, fuzzy
+#~ msgctxt "Cancel the destkop grid"
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Couldn't open temporary file at \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Couldn't remove text from state."
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Rename state"
+#~ msgstr "Statistiques de base :"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to update state text."
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not edit bound value."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Display the number input"
+#~ msgstr "Afficher les résultats du test."
+
+#, fuzzy
+#~ msgid "Displays the number input field"
+#~ msgstr "Afficher les résultats du test."
+
+#, fuzzy
+#~ msgid "Failed to add set"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to edit set"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not delete set"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Failed to add tab"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to edit tab"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to delete tab"
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Open local file: %1"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Modèle de base"
+
+#, fuzzy
+#~ msgid "Scenarios"
+#~ msgstr "Adapter les scénarios"
+
+#, fuzzy
+#~ msgid "Connecting aborted"
+#~ msgstr "Adaptation abandonnée"
+
+#, fuzzy
+#~ msgid "Could not add %1 to the Prompts-Table"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Opening Lexicon"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not parse input prompts: %1"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not process soundfiles"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Create Text"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Fichiers d'entrée"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not remove current base model"
+#~ msgstr "Construire le modèle actuellement ouvert."
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not import macros."
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Select base tiedlist"
+#~ msgstr "Tiedlist de base :"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Macros de base :"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Statistiques de base :"
+
+#, fuzzy
+#~ msgid "Synchronizing scenarios"
+#~ msgstr "Déployer les scénarios"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgctxt "Model compilation status message"
+#~ msgid "Model: %1"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "Compiling model"
+#~ msgstr "Construire le modèle"
+
+#, fuzzy
+#~ msgid "Could not retrieve Scenario \"%1\""
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Manage scenarios"
+#~ msgstr "Adapter les scénarios"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgctxt "Typename of static bound values"
+#~ msgid "Static"
+#~ msgstr "Modèle statique"
+
+#, fuzzy
+#~ msgid "Filename"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Expected result"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Actual result"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Recognition rate (confidence scored)"
+#~ msgstr "Taux de reconnaissance moyen :"
+
+#, fuzzy
+#~ msgid "Testing model..."
+#~ msgstr "Tester le modèle"
+
+#, fuzzy
+#~ msgid "Could not open prompts file for reading: %1"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open wavlist file for writing: %1"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open julius jconf file: \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open hmm definitions"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Prompts entry: %1"
+#~ msgstr "Prompteurs :"
+
+#, fuzzy
+#~ msgctxt "The operation has been canceled"
+#~ msgid "Aborted"
+#~ msgstr "Adaptation abandonnée"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Sentence"
+#~ msgstr "Phrases"
+
+#, fuzzy
+#~ msgid "%1 Prompts read"
+#~ msgstr "Prompteurs :"
+
+#, fuzzy
+#~ msgid "Export to file"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Select scenario file"
+#~ msgstr "Déployer les scénarios"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Select scenario output file"
+#~ msgstr "Sortie du déploiement du scénario"
+
+#, fuzzy
+#~ msgid "Could not find scenario \"%1\""
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not init scenario \"%1\""
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Fichiers de sortie"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Fichiers d'entrée"
+
+#, fuzzy
+#~ msgid "Couldn't import set from \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Adapting model..."
+#~ msgstr "Modèle de base adapté"
+
+#, fuzzy
+#~ msgid "Could not adapt prompts. Does the file \"%1\" exist?"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Failed to adapt lexicon to \"%1\", \"%2\""
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid "Could not add institution: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not modify institution: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve institutions: %1"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve languages: %1"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not modify user \"%1\": %2"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Send samples"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Server could not process sample: %1"
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Impossible d'écraser le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the user is required to repeat what the recording "
+#~ "facilitator tells him"
+#~ msgid "Repeating"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Invalid set of prompts"
+#~ msgstr "Déployer les prompteurs"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Taux d'échantillonnage :"
+
+#, fuzzy
+#~ msgid "Edit samples pack"
+#~ msgstr "Éditer l'échantillon"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Unable to open file."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Unable to open file "
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "File Exists"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Merge result"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "File"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Create Folder..."
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Start in fullscreen mode"
+#~ msgstr "Modèle statique"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Éditer l'échantillon"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filename"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rating"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr[1] ""
+#~ "Échec de l'adaptation du modèle :\n"
+#~ "\n"
+#~ "%1"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not create temporary upload folder:\n"
+#~ "%1"
+#~ msgstr ""
+#~ "Impossible de copier l'échantillon de l'emplacement temporaire %1 vers %2."
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgctxt "@info"
+#~ msgid "Could not open file for writing."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Type du modèle inconnu"
+
+#, fuzzy
+#~ msgid "Gamma:"
+#~ msgstr "Grammaire :"
+
+#, fuzzy
+#~ msgid "Balance"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\" - out of graphics memory."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Impossible de trouver le scénario : %1"
+
+#, fuzzy
+#~ msgid "Could not open color palette \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open KDE color palette \"%1\"."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not save color palette as \"%1\"."
+#~ msgstr "Impossible de supprimer l'échantillon original : %1"
+
+#, fuzzy
+#~ msgid "&Gamma:"
+#~ msgstr "Grammaire :"
+
+#, fuzzy
+#~ msgid "untitled"
+#~ msgstr "Sans titre"
+
+#, fuzzy
+#~ msgid "Rebuild"
+#~ msgstr "Construire"
+
+#, fuzzy
+#~ msgid "France"
+#~ msgstr "Annuler"
+
+#, fuzzy
+#~ msgid "Mexico"
+#~ msgstr "Lexique :"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Palestine"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Définitions HMM de base :"
+
+#, fuzzy
+#~ msgid "Basic Options"
+#~ msgstr "Actions principales"
+
+#, fuzzy
+#~ msgid "Gamma"
+#~ msgstr "Grammaire :"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Created"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Cannot find font %1, file %2."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Cannot recognize format for font file %1"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Cannot open font file %1."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Export File As"
+#~ msgstr "Résultats du test"
+
+#, fuzzy
+#~ msgid "Font generation aborted"
+#~ msgstr "Adaptation abandonnée"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Type du modèle inconnu"
+
+#, fuzzy
+#~ msgid "Reload the current document from disk."
+#~ msgstr "Construire le modèle actuellement ouvert."
+
+#, fuzzy
+#~ msgid "Could not open %1. Reason: %2"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "Could not open the temporary file for saving."
+#~ msgstr "Impossible d'ouvrir le fichier : %1"
+
+#, fuzzy
+#~ msgid "*|All Files"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgid "Created: %1"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Modified: %1"
+#~ msgstr "Mot indéfini : %1"
+
+#, fuzzy
+#~ msgctxt "'File' as normal file, that can be opened, saved, etc.."
+#~ msgid "File"
+#~ msgstr "Fichiers"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Created"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Could not load print preview part"
+#~ msgstr "Impossible de modifier le fichier de prompteurs"
+
+#, fuzzy
+#~ msgid "Find Next"
+#~ msgstr "Trouver un fichier :"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Type du modèle inconnu"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Type du modèle inconnu"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Filtre"
+
+#, fuzzy
+#~ msgid "Camera Model"
+#~ msgstr "Créer le modèle"
+
+#, fuzzy
+#~ msgid "Model"
+#~ msgstr "Type du modèle"
+
+#, fuzzy
+#~ msgid "Creation Date"
+#~ msgstr "Adaptation abandonnée"

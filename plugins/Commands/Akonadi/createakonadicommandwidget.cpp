@@ -70,27 +70,15 @@ bool CreateAkonadiCommandWidget::init(Command* command)
     KMessageBox::sorry(this, i18n("Could not find child command: %1 (%2).", akonadiCommand->getChildTrigger(), 
 				  akonadiCommand->getChildType()));
   }
+  
+  ui.rbAbsolute->setChecked(akonadiCommand->getType() == AkonadiCommand::Absolute);
+  ui.rbRelative->setChecked(akonadiCommand->getType() != AkonadiCommand::Absolute);
 
   ui.dtAbsoluteTime->setDateTime(akonadiCommand->getAbsoluteExecutionTime().dateTime());
   AkonadiCommand::RelativeDurationDimension dimension;
   int relativeValue;
   akonadiCommand->getRelativeTime(dimension, relativeValue);
-  ui.sbRelativeDuration->setValue(relativeValue);
-  switch (dimension)
-  {
-    case AkonadiCommand::Seconds:
-      ui.cbDurationType->setCurrentIndex(0);
-      break;
-    case AkonadiCommand::Minutes:
-      ui.cbDurationType->setCurrentIndex(1);
-      break;
-    case AkonadiCommand::Hours:
-      ui.cbDurationType->setCurrentIndex(2);
-      break;
-    case AkonadiCommand::Days:
-      ui.cbDurationType->setCurrentIndex(3);
-      break;
-  }
+  ui.wgRelativeTime->setTime(dimension,relativeValue);
 
   return found;
 }
@@ -104,25 +92,8 @@ Command* CreateAkonadiCommandWidget::createCommand(const QString& name, const QS
     type = AkonadiCommand::Absolute;
   else
     type = AkonadiCommand::Relative;
-  kDebug() << "type";
   
-  int relativeTime;
-  
-  switch (ui.cbDurationType->currentIndex())
-  {
-    case 0: //seconds
-      relativeTime = ui.sbRelativeDuration->value();
-      break;
-    case 1: //minutes
-      relativeTime = ui.sbRelativeDuration->value()*60;
-      break;
-    case 2: //hours
-      relativeTime = ui.sbRelativeDuration->value()*60*60;
-      break;
-    default: //days
-      relativeTime = ui.sbRelativeDuration->value()*60*60*24;
-      break;
-  }
+  int relativeTime =  ui.wgRelativeTime->getTime();
   
   return new AkonadiCommand(name, iconSrc, description, childCommand->getTrigger(), 
 			    childCommand->getCategoryText(), type, 

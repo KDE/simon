@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonplacecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-25 11:19+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -184,14 +184,390 @@ msgstr "Otevřít místní soubor: %1"
 msgid "Open remote URL: %1"
 msgstr "Otevřít vzdálenou internetovou adresu (URL): %1"
 
+#, fuzzy
+#~ msgid "A Media Player"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "personal files"
+#~ msgstr "Otevřít místní soubor: %1"
+
+#, fuzzy
+#~ msgid "&Selected plugins:"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Add a new attribute"
+#~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Places"
+#~ msgstr "Umístění"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Ukládá příkazy spojené s umístěními do %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
 
-#~ msgid "Add Place"
+#, fuzzy
+#~ msgid "Add Delay"
 #~ msgstr "Přidat umístění"
 
-#~ msgid "Add a new Place"
+#, fuzzy
+#~ msgid "Remove"
+#~ msgstr "Vzdálená internetová adresa"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Select program"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Configure the needed parameters manually"
+#~ msgstr "Nezbytné proměnné nastavit ručně"
+
+#, fuzzy
+#~ msgid "Select number"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Import"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import Folder"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import Text"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import Files"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Uživatel:"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Propustnost:"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Hosts"
+#~ msgstr "Hostitelský počítač"
+
+#, fuzzy
+#~ msgid "Add device"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "User ID:"
+#~ msgstr "Uživatel:"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "User - Institution"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
+#~ msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
+
+#, fuzzy
+#~ msgctxt "Name of the path"
+#~ msgid "Path"
+#~ msgstr "Cesta:"
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "Add key"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "sam"
+#~ msgstr "smb"
+
+#, fuzzy
+#~ msgid "Cannot open file: %1"
+#~ msgstr "Otevřít místní soubor: %1"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "User authenticated"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Add a new Word"
 #~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgid "Import Lexicon"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Text added"
+#~ msgstr "Bylo přidáno umístění"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "User"
+#~ msgstr "Uživatel:"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgctxt "Name of the simond user"
+#~ msgid "Username"
+#~ msgstr "Uživatel:"
+
+#, fuzzy
+#~ msgid "Loading File..."
+#~ msgstr "Místní soubor"
+
+#, fuzzy
+#~ msgid "Import from file"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Select input device"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Users"
+#~ msgstr "Uživatel:"
+
+#, fuzzy
+#~ msgid "Local Samples"
+#~ msgstr "Místní soubor"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid " Help "
+#~ msgstr "Nápověda"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "Adds a new phrase"
+#~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgid "Import Phrasebook"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgctxt "Local characterset"
+#~ msgid "Local"
+#~ msgstr "Místní soubor"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Recent URLs"
+#~ msgstr "Vzdálená internetová adresa"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Add to Places"
+#~ msgstr "Přidat umístění"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Add Folder to Places"
+#~ msgstr "Přidat nové umístění"
+
+#, fuzzy
+#~ msgid "Import Selected"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Import All"
+#~ msgstr "Zavést umístění"
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "&Select test picture:"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Selection: Scale"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Selection: Create"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Selection: Delete"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Ruční"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Ruční"
+
+#, fuzzy
+#~ msgid "Use custom definition"
+#~ msgstr "Použít potvrzení pravosti"
+
+#, fuzzy
+#~ msgid "&Replace"
+#~ msgstr "Umístění"
+
+#, fuzzy
+#~ msgid "Padded"
+#~ msgstr "Bylo přidáno umístění"
+
+#, fuzzy
+#~ msgid "Open external file"
+#~ msgstr "Otevřít místní soubor: %1"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Vybrat umístění"
+
+#, fuzzy
+#~ msgid "Local Time"
+#~ msgstr "Místní soubor"
+
+#, fuzzy
+#~ msgid "RLE"
+#~ msgstr "Internetová adresa"
 
 #~ msgid ""
 #~ "With this wizard you can assoziate places with commands.\n"
@@ -202,22 +578,10 @@ msgstr "Otevřít vzdálenou internetovou adresu (URL): %1"
 #~ "\n"
 #~ "Jsou podporována jak místní tak vzdálená umístění."
 
-#~ msgid "Place added"
-#~ msgstr "Bylo přidáno umístění"
-
 #~ msgid "Press Finish to complete this wizard."
 #~ msgstr "Stiskněte \"Dokončit\" pro dokončení tohoto kouzelníka."
-
-#~ msgid "Import Place"
-#~ msgstr "Zavést umístění"
 
 #~ msgid "Using this wizard, you can import local and remote places easily."
 #~ msgstr ""
 #~ "S pomocí tohoto kouzelníka můžete jednoduše zavést místní a vzdálená "
 #~ "umístění."
-
-#~ msgid "[INF] Loading place commands from %1"
-#~ msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
-
-#~ msgid "[INF] Saving place commands to %1"
-#~ msgstr "[INF] Ukládá příkazy spojené s umístěními do %1"

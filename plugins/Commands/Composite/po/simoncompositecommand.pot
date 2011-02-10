@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: compositecommand.cpp:37
+#: compositecommand.cpp:38
 msgid "Composite"
 msgstr ""
 
-#: compositecommand.cpp:62
+#: compositecommand.cpp:63
 msgid "Commands"
 msgstr ""
 
-#: compositecommand.cpp:99 compositecommand.cpp:100
+#: compositecommand.cpp:97 compositecommand.cpp:98
 #: createcompositecommandwidget.cpp:121 delaycommand.cpp:36
 #: delaycommand.cpp:61
 msgid "Delay"

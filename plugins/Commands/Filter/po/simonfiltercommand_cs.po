@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-25 12:21+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -20,45 +20,51 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: filtercommandmanager.cpp:39 filtercommandmanager.cpp:64
+#: filtercommandmanager.cpp:41 filtercommandmanager.cpp:66
 msgid "Activate Filter"
 msgstr "Zapnout filtr"
 
-#: filtercommandmanager.cpp:50 filterconfiguration.cpp:30
+#: filtercommandmanager.cpp:52 filterconfiguration.cpp:30
 msgid "Filter"
 msgstr "Filtr"
 
-#: filtercommandmanager.cpp:63
-msgid "Filter deactivated"
-msgstr "Filtr vypnut"
-
-#: filtercommandmanager.cpp:67
-msgid "Filter activated"
-msgstr "Filtr zapnut"
-
-#: filtercommandmanager.cpp:68
+#: filtercommandmanager.cpp:70
 msgid "Deactivate Filter"
 msgstr "Vypnout filtr"
 
-#: filtercommandmanager.cpp:75
-msgid "[INF] Changing filter state..."
+#: filtercommandmanager.cpp:77
+#, fuzzy
+msgid "Changing filter state..."
 msgstr "[INF] Stav filtru změněn..."
 
-#: filtercommandmanager.cpp:107
+#: filtercommandmanager.cpp:165
 msgid "Activate filter"
 msgstr "Zapnout filtr"
 
-#: filtercommandmanager.cpp:108
+#: filtercommandmanager.cpp:166
 msgid "Starts filtering"
 msgstr "Spustí filtrování"
 
-#: filtercommandmanager.cpp:114
+#: filtercommandmanager.cpp:172
 msgid "Deactivate filter"
 msgstr "Vypnout filtr"
 
-#: filtercommandmanager.cpp:115
+#: filtercommandmanager.cpp:173
 msgid "Stops filtering"
 msgstr "Zastaví filtrování"
+
+#: filtercommandmanager.cpp:179
+#, fuzzy
+msgid "Deactivate filter once"
+msgstr "Vypnout filtr"
+
+#: filtercommandmanager.cpp:180
+msgid ""
+"When two stage mode is activated; Will consider the next recognition result "
+"and either only listen for the command to deactivate the filter completely "
+"or also pass the next result through to other plugins depending on the "
+"setting in the configuration."
+msgstr ""
 
 #: filterconfiguration.cpp:31
 msgid "Filter recognition results"
@@ -66,7 +72,7 @@ msgstr "Výsledky rozpoznávání filtru"
 
 #. i18n: file: filterconfigurationdlg.ui:32
 #. i18n: ectx: property (text), widget (KLineEdit, leRegExp)
-#: filterconfiguration.cpp:76 po/rc.cpp:6 rc.cpp:6
+#: filterconfiguration.cpp:117 po/rc.cpp:6 rc.cpp:6
 msgid ".*"
 msgstr ".*"
 
@@ -76,15 +82,288 @@ msgstr ".*"
 msgid "Filter (RegExp):"
 msgstr "Filtr (regulární výrazy):"
 
-#: po/rc.cpp:7 rc.cpp:7
+#. i18n: file: filterconfigurationdlg.ui:41
+#. i18n: ectx: property (text), widget (QCheckBox, cbTwoStage)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:48
+#. i18n: ectx: property (text), widget (QCheckBox, cbRelayStageOne)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Relay result in stage one of two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, cbLeaveStageOneAutomatically)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Leave stage one automatically after timeout:"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:77
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "ms"
+msgstr ""
+
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
+#, fuzzy
+#~ msgid "File directive"
+#~ msgstr "Filtr vypnut"
+
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "alternative"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "Zastaví filtrování"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "*"
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Spustí filtrování"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Výsledky rozpoznávání filtru"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Spustí filtrování"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Apply Filters"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Start dialog"
+#~ msgstr "Spustí filtrování"
+
+#, fuzzy
+#~ msgid "Activate Number Input"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Spustí filtrování"
+
+#, fuzzy
+#~ msgid "simon activated"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgid "simon deactivated"
+#~ msgstr "Filtr vypnut"
+
+#, fuzzy
+#~ msgid "Active Dictionary"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "simon - Deactivated"
+#~ msgstr "Filtr vypnut"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Deactivating..."
+#~ msgstr "Vypnout filtr"
+
+#, fuzzy
+#~ msgid "Connected but Deactivated"
+#~ msgstr "Filtr vypnut"
+
+#, fuzzy
+#~ msgid "simon has been deactivated"
+#~ msgstr "Filtr vypnut"
+
+#, fuzzy
+#~ msgid "Connected and Activated"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "simon has been activated"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgid "Received recognition result for: %1: %2"
+#~ msgstr "Výsledky rozpoznávání filtru"
+
+#, fuzzy
+#~ msgid "Analyzing recognition results..."
+#~ msgstr "Výsledky rozpoznávání filtru"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recognition results:\n"
+#~ "%1"
+#~ msgstr "Výsledky rozpoznávání filtru"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Zastaví filtrování"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Zastaví filtrování"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Zapnout filtr"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Vypnout filtr"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Výsledky rozpoznávání filtru"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Vypnout filtr"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Rating"
+#~ msgstr "Filtr zapnut"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filtr"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Stop Speaking"
+#~ msgstr "Zastaví filtrování"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Výsledky rozpoznávání filtru"

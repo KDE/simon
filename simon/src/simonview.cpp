@@ -637,6 +637,14 @@ void SimonView::toggleActivation()
   }
 }
 
+void SimonView::setActivation(bool active)
+{
+  if (active)
+    control->activateSimon();
+  else
+    control->deactivateSimon();
+}
+
 
 /**
  * \brief Make the widgets represent the current state (connected / disconnected, active/inactive)

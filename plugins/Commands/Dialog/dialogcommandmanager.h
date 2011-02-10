@@ -22,6 +22,7 @@
 
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
+#include <simondialogengine/dialogmanager.h>
 #include <QVariantList>
 #include <QList>
 #include <KXMLGUIClient>
@@ -42,7 +43,7 @@ class DialogTextParser;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class DialogCommandManager : public CommandManager, public GreedyReceiver
+class DialogCommandManager : public CommandManager, public GreedyReceiver, public DialogManager
 {
   Q_OBJECT
 
@@ -86,7 +87,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     bool deSerializeConfig(const QDomElement& elem);
     void setFont(const QFont& font);
 
-    QList<DialogState*> getStates() { return dialogStates; }
+    QList<DialogState*> getStates() const { return dialogStates; }
 
     bool addState(const QString& name);
     bool removeState(DialogState *state);

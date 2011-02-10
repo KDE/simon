@@ -27,6 +27,10 @@
 #include <kgenericfactory.h>
 #include <KAboutData>
 #include <KMessageBox>
+#include <simondialogengine/confui/templateoptionsconfiguration.h>
+#include <simondialogengine/confui/boundvaluesconfiguration.h>
+#include <simondialogengine/confui/avatarconfiguration.h>
+#include <simondialogengine/confui/outputconfiguration.h>
 
 #include <akonadi/control.h>
 #include <akonadi/collection.h>
@@ -40,15 +44,24 @@ K_PLUGIN_FACTORY_DECLARATION(AkonadiCommandPluginFactory)
 
 AkonadiConfiguration::AkonadiConfiguration(AkonadiCommandManager *manager, Scenario *parent, const QVariantList &args)
 : CommandConfiguration(parent,  "akonadi", ki18n( "Akonadi" ),
-"0.1", ki18n("Integrate with the personal data manager akonadi"),
-"akonadi",
-AkonadiCommandPluginFactory::componentData()),
-m_manager(manager),
-fetchCollectionsDialog(0)
+  "0.1", ki18n("Integrate with the personal data manager akonadi"),
+  "akonadi",
+  AkonadiCommandPluginFactory::componentData()),
+  m_manager(manager),
+  fetchCollectionsDialog(0),
+  boundValuesConfig(new BoundValuesConfiguration(this)),
+  templateOptionsConfig(new TemplateOptionsConfiguration(this)),
+  avatarsConfig(new AvatarConfiguration(this)),
+  outputConfiguration(new OutputConfiguration(this))
 {
   Q_UNUSED(args);
   ui.setupUi(this);
   connect(ui.cbExecuteAkonadiRequests, SIGNAL(clicked(bool)), this, SLOT(uncheckAkonadiCommandRequests()));
+
+  ui.twDialog->addTab(boundValuesConfig, i18n("Bound values"));
+  ui.twDialog->addTab(templateOptionsConfig, i18n("Template options"));
+  ui.twDialog->addTab(avatarsConfig, i18n("Avatars"));
+  ui.twDialog->addTab(outputConfiguration, i18n("Output"));
 }
 
 void AkonadiConfiguration::selectedCollectionChanged()
@@ -121,6 +134,17 @@ QDomElement AkonadiConfiguration::serialize(QDomDocument* doc)
   executeAkonadiCommandsElem.setAttribute("enabled", ui.cbExecuteAkonadiRequests->isChecked() ? "1" : "0");
   executeAkonadiCommandsElem.setAttribute("trigger", ui.leAkonadiPrefix->text());
   configElem.appendChild(executeAkonadiCommandsElem);
+  
+  
+  configElem.appendChild(templateOptionsConfig->serialize(doc));
+
+  configElem.appendChild(boundValuesConfig->serialize(doc));
+
+  QDomElement avatarsElem = avatarsConfig->serialize(doc);
+  configElem.appendChild(avatarsElem);
+
+  configElem.appendChild(outputConfiguration->serialize(doc));
+  
 
   m_manager->parseConfiguration();
   return configElem;
@@ -156,6 +180,18 @@ bool AkonadiConfiguration::deSerialize(const QDomElement& elem)
   ui.cbExecuteAkonadiRequests->setChecked(executeAkonadiCommandsElem.attribute("enabled") == "1");
   ui.leAkonadiPrefix->setText(executeAkonadiCommandsElem.attribute("trigger"));
   
+  if (!outputConfiguration->deSerialize(elem))
+    return false;
+  
+  if (!templateOptionsConfig->deSerialize(elem))
+    return false;
+
+  if (!boundValuesConfig->deSerialize(elem))
+    return false;
+
+  if (!avatarsConfig->deSerialize(elem))
+    return false;
+  
   return true;
 }
 
@@ -165,6 +201,10 @@ void AkonadiConfiguration::defaults()
   ui.cbDisplayAlarms->setChecked(false);
   ui.cbExecuteAkonadiRequests->setChecked(true);
   ui.leAkonadiPrefix->setText("[simon-command]");
+  avatarsConfig->defaults();
+  templateOptionsConfig->defaults();
+  outputConfiguration->defaults();
+  boundValuesConfig->defaults();
 }
 
 QString AkonadiConfiguration::akonadiRequestPrefix()

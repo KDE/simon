@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonshortcutcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:36+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -24,231 +24,380 @@ msgstr ""
 msgid "Shortcut:"
 msgstr "Tastenkürzel:"
 
-#. i18n: file: createshortcutcommandwidget.ui:30
+#. i18n: file: createshortcutcommandwidget.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbSpecialShortcut)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Special Shortcut:"
 msgstr "Spezial-Tastenkürzel:"
 
-#. i18n: file: createshortcutcommandwidget.ui:40
+#. i18n: file: createshortcutcommandwidget.ui:44
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Alt+Tab"
 msgstr "Alt+Tab"
 
-#. i18n: file: createshortcutcommandwidget.ui:45
+#. i18n: file: createshortcutcommandwidget.ui:49
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Alt+Shift+Tab"
 msgstr "Alt+Shift+Tab"
 
-#. i18n: file: createshortcutcommandwidget.ui:50
+#. i18n: file: createshortcutcommandwidget.ui:54
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:15 rc.cpp:15
 msgid "Meta+Tab"
 msgstr "Meta+Tab"
 
-#. i18n: file: createshortcutcommandwidget.ui:55
+#. i18n: file: createshortcutcommandwidget.ui:59
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Meta+Shift+Tab"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:60
+#. i18n: file: createshortcutcommandwidget.ui:64
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Alt+F4"
 msgstr "Alt+F4"
 
-#. i18n: file: createshortcutcommandwidget.ui:65
+#. i18n: file: createshortcutcommandwidget.ui:69
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:24 rc.cpp:24
 msgid "Ctrl+Esc"
 msgstr "Ctrl+Esc"
 
-#. i18n: file: createshortcutcommandwidget.ui:70
+#. i18n: file: createshortcutcommandwidget.ui:74
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:27 rc.cpp:27
 msgid "Ctr+Alt+Del"
 msgstr "Ctrl+Alt+Del"
 
-#. i18n: file: createshortcutcommandwidget.ui:75
+#. i18n: file: createshortcutcommandwidget.ui:79
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:30 rc.cpp:30
 msgid "Meta+E"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:80
+#. i18n: file: createshortcutcommandwidget.ui:84
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:33 rc.cpp:33
 msgid "Meta+R"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:85
+#. i18n: file: createshortcutcommandwidget.ui:89
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
 #: po/rc.cpp:36 rc.cpp:36
+#, fuzzy
+msgid "Meta+D"
+msgstr "Meta+Tab"
+
+#. i18n: file: createshortcutcommandwidget.ui:94
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:39 rc.cpp:39
 msgid "Meta+Up"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:90
+#. i18n: file: createshortcutcommandwidget.ui:99
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:42 rc.cpp:42
 msgid "Meta+Down"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:95
+#. i18n: file: createshortcutcommandwidget.ui:104
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:45 rc.cpp:45
 msgid "Meta+Left"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:100
+#. i18n: file: createshortcutcommandwidget.ui:109
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:48 rc.cpp:48
 msgid "Meta+Right"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:105
+#. i18n: file: createshortcutcommandwidget.ui:114
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:51 rc.cpp:51
 msgid "Meta+Shift+Left"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:110
+#. i18n: file: createshortcutcommandwidget.ui:119
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:51 rc.cpp:51
+#: po/rc.cpp:54 rc.cpp:54
 msgid "Meta+Shift+Right"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:115
+#. i18n: file: createshortcutcommandwidget.ui:124
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:57 rc.cpp:57
 msgid "Meta+Home"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:120
+#. i18n: file: createshortcutcommandwidget.ui:129
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:57 rc.cpp:57
+#: po/rc.cpp:60 rc.cpp:60
 msgid "Meta+T"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:125
+#. i18n: file: createshortcutcommandwidget.ui:134
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:60 rc.cpp:60
+#: po/rc.cpp:63 rc.cpp:63
 msgid "Meta+Space"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:130
+#. i18n: file: createshortcutcommandwidget.ui:139
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:66 rc.cpp:66
 msgid "Meta+G"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:135
+#. i18n: file: createshortcutcommandwidget.ui:144
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:66 rc.cpp:66
+#: po/rc.cpp:69 rc.cpp:69
 msgid "Meta+P"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:140
+#. i18n: file: createshortcutcommandwidget.ui:149
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:69 rc.cpp:69
+#: po/rc.cpp:72 rc.cpp:72
 msgid "Meta+X"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:145
+#. i18n: file: createshortcutcommandwidget.ui:154
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:72 rc.cpp:72
+#: po/rc.cpp:75 rc.cpp:75
 msgid "Meta++"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:150
+#. i18n: file: createshortcutcommandwidget.ui:159
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:75 rc.cpp:75
+#: po/rc.cpp:78 rc.cpp:78
 msgid "Meta+-"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:155
+#. i18n: file: createshortcutcommandwidget.ui:164
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:78 rc.cpp:78
+#: po/rc.cpp:81 rc.cpp:81
 msgid "Meta+0"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:160
+#. i18n: file: createshortcutcommandwidget.ui:169
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:81 rc.cpp:81
+#: po/rc.cpp:84 rc.cpp:84
 msgid "Meta+1"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:165
+#. i18n: file: createshortcutcommandwidget.ui:174
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:84 rc.cpp:84
+#: po/rc.cpp:87 rc.cpp:87
 msgid "Meta+2"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:170
+#. i18n: file: createshortcutcommandwidget.ui:179
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:87 rc.cpp:87
+#: po/rc.cpp:90 rc.cpp:90
 msgid "Meta+3"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:175
+#. i18n: file: createshortcutcommandwidget.ui:184
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:90 rc.cpp:90
+#: po/rc.cpp:93 rc.cpp:93
 msgid "Meta+4"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:180
+#. i18n: file: createshortcutcommandwidget.ui:189
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:93 rc.cpp:93
+#: po/rc.cpp:96 rc.cpp:96
 msgid "Meta+5"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:185
+#. i18n: file: createshortcutcommandwidget.ui:194
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:96 rc.cpp:96
+#: po/rc.cpp:99 rc.cpp:99
 msgid "Meta+6"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:190
+#. i18n: file: createshortcutcommandwidget.ui:199
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:99 rc.cpp:99
+#: po/rc.cpp:102 rc.cpp:102
 msgid "Meta+7"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:195
+#. i18n: file: createshortcutcommandwidget.ui:204
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:102 rc.cpp:102
+#: po/rc.cpp:105 rc.cpp:105
 msgid "Meta+8"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:200
+#. i18n: file: createshortcutcommandwidget.ui:209
 #. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
-#: po/rc.cpp:105 rc.cpp:105
+#: po/rc.cpp:108 rc.cpp:108
 msgid "Meta+9"
 msgstr ""
 
-#. i18n: file: createshortcutcommandwidget.ui:208
+#. i18n: file: createshortcutcommandwidget.ui:217
 #. i18n: ectx: property (text), widget (KPushButton, pbApplySpecialShortcut)
-#: po/rc.cpp:108 rc.cpp:108
+#: po/rc.cpp:111 rc.cpp:111
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: po/rc.cpp:109 rc.cpp:109
+#. i18n: file: createshortcutcommandwidget.ui:226
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:114 rc.cpp:114
+msgid "Mode:"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:234
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMode)
+#: po/rc.cpp:117 shortcutcommand.cpp:72 rc.cpp:117
+msgid "Press and release"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:239
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMode)
+#: po/rc.cpp:120 rc.cpp:120
+msgid "Only press"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:244
+#. i18n: ectx: property (text), item, widget (KComboBox, cbMode)
+#: po/rc.cpp:123 rc.cpp:123
+msgid "Only release"
+msgstr ""
+
+#: po/rc.cpp:124 rc.cpp:124
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:110 rc.cpp:110
+#: po/rc.cpp:125 rc.cpp:125
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#: shortcutcommand.cpp:30 shortcutcommand.cpp:56
+#: shortcutcommand.cpp:31 shortcutcommand.cpp:57
 msgid "Shortcut"
 msgstr "Tastenkürzel"
 
+#: shortcutcommand.cpp:58
+msgid "Mode"
+msgstr ""
+
+#: shortcutcommand.cpp:68
+msgid "Only Press"
+msgstr ""
+
+#: shortcutcommand.cpp:70
+msgid "Only Release"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Save Shortcuts"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
+
 #~ msgid "Form"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Alt"
+#~ msgstr "Alt+F4"
+
+#, fuzzy
+#~ msgid "Input && output files"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Invalid akonadi command format: %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgctxt "Keyboard key"
+#~ msgid "Alt"
+#~ msgstr "Alt+F4"
+
+#, fuzzy
+#~ msgid "Open local file: %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Could not open output file %1."
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Copying import from \"%1\""
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Loading grammar..."
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Failed to adapt grammar to \"%1\""
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Metadata"
+#~ msgstr "Meta+Tab"
+
+#, fuzzy
+#~ msgctxt "Make Kruler Height Short"
+#~ msgid "&Short"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Format"
 #~ msgstr "Form"
 
 #~ msgid "[INF] Loading shortcuts from %1"
@@ -258,19 +407,7 @@ msgstr "Tastenkürzel"
 #~ msgstr "[INF] Speichere Tastenkürzel nach %1"
 
 #, fuzzy
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
 #~ msgid "[INF] Saving executable commands to %1"
-#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
-
-#, fuzzy
-#~ msgid "[INF] Loading place commands from %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
-#~ msgid "[INF] Saving place commands to %1"
 #~ msgstr "[INF] Speichere Tastenkrzel nach %1"
 
 #, fuzzy
@@ -282,33 +419,9 @@ msgstr "Tastenkürzel"
 #~ msgstr "[INF] Speichere Tastenkrzel nach %1"
 
 #, fuzzy
-#~ msgid "[INF] Loading grammar from %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
-#~ msgid "[INF] Parsing prompts-file from %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
 #~ msgid "[INF] Removing \"%1\" from \"%2\""
 #~ msgstr "[INF] Lade Tastenkrzel von %1"
 
 #, fuzzy
 #~ msgid "[INF] Saving wordlist(s)"
 #~ msgstr "[INF] Speichere Tastenkrzel nach %1"
-
-#, fuzzy
-#~ msgid "[INF] Opening output file: %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
-#~ msgid "[INF] Closing output file"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
-#~ msgid "[INF] Starting remove import from \"%1\""
-#~ msgstr "[INF] Lade Tastenkrzel von %1"
-
-#, fuzzy
-#~ msgid "[INF] Loading List of Trainingstexts from %1"
-#~ msgstr "[INF] Lade Tastenkrzel von %1"

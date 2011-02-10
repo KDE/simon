@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2009-01-14 12:04+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: desktopgridcommandmanager.cpp:70 desktopgridcommandmanager.cpp:165
@@ -23,7 +23,8 @@ msgid "Desktopgrid"
 msgstr "Bereaubladrooster"
 
 #: desktopgridcommandmanager.cpp:76
-msgid "[INF] Activating desktopgrid"
+#, fuzzy
+msgid "Activating desktopgrid"
 msgstr "[INF] Bureaubladrooster activeren"
 
 #: desktopgridcommandmanager.cpp:103
@@ -251,8 +252,118 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
 
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulier"
+
 #~ msgid "Form"
 #~ msgstr "Formulier"
 
+#, fuzzy
+#~ msgid "A voice controlled calendar application"
+#~ msgstr "Spraakbestuurde muisklikken"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Grenswaarde:"
+
 #~ msgid "Trigger:"
 #~ msgstr "Grenswaarde:"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Grenswaarde:"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Formulier"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Grenswaarde:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Grenswaarde:"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Voice controlled chatbot"
+#~ msgstr "Spraakbestuurde muisklikken"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Display the calculator"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Display the number input"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Displays the number input field"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgctxt "Trigger of the key"
+#~ msgid "Trigger"
+#~ msgstr "Grenswaarde:"
+
+#, fuzzy
+#~ msgid "Display the test results."
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "[INF] Bureaubladrooster activeren"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Daniël Heres"
+
+#, fuzzy
+#~ msgctxt "This is compared to the option string returned by sane"
+#~ msgid "Transparency"
+#~ msgstr "Gebruik echte doorzichtigheid"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulier"

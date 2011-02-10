@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ksimond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:14+0100\n"
 "PO-Revision-Date: 2010-07-16 20:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -84,43 +84,43 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
-#: src/ksimondview.cpp:54
+#: src/ksimondview.cpp:55
 msgid "simond"
 msgstr "simond"
 
-#: src/ksimondview.cpp:57 src/ksimondview.cpp:85
+#: src/ksimondview.cpp:58 src/ksimondview.cpp:86
 msgid "Start simond"
 msgstr "Starte simond"
 
-#: src/ksimondview.cpp:62 src/ksimondview.cpp:84
+#: src/ksimondview.cpp:63 src/ksimondview.cpp:85
 msgid "Start simon"
 msgstr "Starte simon"
 
-#: src/ksimondview.cpp:67 src/ksimondview.cpp:86
+#: src/ksimondview.cpp:68 src/ksimondview.cpp:87
 msgid "Restart simond"
 msgstr "simond neu starten"
 
-#: src/ksimondview.cpp:73 src/ksimondview.cpp:87
+#: src/ksimondview.cpp:74 src/ksimondview.cpp:88
 msgid "Stop simond"
 msgstr "simond stoppen"
 
-#: src/ksimondview.cpp:79 src/ksimondview.cpp:88
+#: src/ksimondview.cpp:80 src/ksimondview.cpp:89
 msgid "Configuration"
 msgstr "Konfiguration"
 
-#: src/ksimondview.cpp:117
+#: src/ksimondview.cpp:118
 msgid "simond is already running"
 msgstr "simond läuft bereits"
 
-#: src/ksimondview.cpp:138
+#: src/ksimondview.cpp:139
 msgid "simond stopped"
 msgstr "simond gestoppt"
 
-#: src/ksimondview.cpp:153
+#: src/ksimondview.cpp:154
 msgid "simond started"
 msgstr "simond gestartet"
 
-#: src/ksimondview.cpp:181
+#: src/ksimondview.cpp:182
 msgid ""
 "Could not start simond.\n"
 "\n"
@@ -134,23 +134,23 @@ msgstr ""
 "\n"
 "Kommando: \"%1\""
 
-#: src/ksimondview.cpp:185
+#: src/ksimondview.cpp:186
 msgid "simond crashed. (Status: %1)"
 msgstr "simond is abgestürzt. (Status: %1)"
 
-#: src/ksimondview.cpp:189
+#: src/ksimondview.cpp:190
 msgid "Timeout."
 msgstr "Zeitüberschreitung."
 
-#: src/ksimondview.cpp:192
+#: src/ksimondview.cpp:193
 msgid "Could not communicate with simond: Write failed."
 msgstr "Konnte nicht mit simond kommunizieren: Konnte Daten nicht schreiben."
 
-#: src/ksimondview.cpp:195
+#: src/ksimondview.cpp:196
 msgid "Could not communicate with simond: Read failed."
 msgstr "Konnte nicht mit simond kommunizieren: Konnte Daten nicht lesen."
 
-#: src/ksimondview.cpp:198
+#: src/ksimondview.cpp:199
 msgid "Unknown Error"
 msgstr "Unbekannter Fehler"
 
@@ -170,8 +170,722 @@ msgstr "(C) 2008 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Saturation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "now"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Toolbar configuration."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "%1 timed out."
+#~ msgstr "Zeitüberschreitung."
+
+#, fuzzy
+#~ msgid "Unknown error running %1."
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Reload Confirmation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt "Unknown type of vehicle"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Used Filter Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Please check your configuration."
+#~ msgstr ""
+#~ "Konnte simond nicht starten.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie Ihre Konfiguration.\n"
+#~ "\n"
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "simond stoppen"
+
+#, fuzzy
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "New Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "New Configuration %1"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Filter Configuration:"
+#~ msgstr "Konfiguration"
+
 #~ msgid "Form"
 #~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Copyright (c) 2011 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "SimonVideo"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Presentation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Text to speech configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Pronunciation Training"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Number of pronunciations:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Test configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Start simon minimized"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Start simon when logging in"
+#~ msgstr "Starte ksimond bei der Anmeldung"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Import"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Import Text"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Import Trainingsdata"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Clear Trainingdata"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Add to Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Start the server automatically when simon starts"
+#~ msgstr "Starte simond bei ksimond Start"
+
+#, fuzzy
+#~ msgid "Configure simond"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Synchronization mode:"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Manual Synchronization only"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Connect automatically when simon starts"
+#~ msgstr "Starte simond bei ksimond Start"
+
+#, fuzzy
+#~ msgid "simon"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Timeout:"
+#~ msgstr "Zeitüberschreitung."
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Start dialog"
+#~ msgstr "Starte simon"
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Starts filtering"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "There are no words to train. Please check your configuration."
+#~ msgstr ""
+#~ "Konnte simond nicht starten.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie Ihre Konfiguration.\n"
+#~ "\n"
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Starte simon"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not initialize output template at \"%1\". Please select a valid "
+#~ "output format."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "(C) 2008 Peter Grasch"
+
+#, fuzzy
+#~ msgid "Test started: %1"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Adaption aborted"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simon activated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "simon deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid " imported"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Dictionary imported"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Terminal name for words that are imported from a dictionary which does "
+#~ "not provide terminal information"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Special Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Power Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not store the active model received from the server.\n"
+#~ "\n"
+#~ "Please check the permissions on the model folder: %1"
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Synchronization"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Synchronizing scenarios"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Synchronizing Training"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Synchronizing Wordlist"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "Synchronizing Trainings-Corpus"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgctxt "Model compilation status message"
+#~ msgid "Model: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Starting simon..."
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "simon - Deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "simon listens."
+#~ msgstr "simond gestoppt"
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simon Homepage"
+#~ msgstr "simond gestoppt"
+
+#, fuzzy
+#~ msgid "Connected but Deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "simon has been deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "simon has been activated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Internal Jconf error"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Unknown error"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not open display. Please check your configuration and / or contact "
+#~ "the simond developers. (Display: \"%1\")"
+#~ msgstr ""
+#~ "Konnte simond nicht starten.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie Ihre Konfiguration.\n"
+#~ "\n"
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate temporary folders.\n"
+#~ "\n"
+#~ "Please check your permissions for \"%1\"."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgctxt "Pretty label showing that a word from the transcription is missing"
+#~ msgid "(missing: %1)"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Insertion errors"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "The operation has been canceled"
+#~ msgid "Aborted"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to open the input audio device.\n"
+#~ "\n"
+#~ "Please check your sound configuration."
+#~ msgstr ""
+#~ "Konnte simond nicht starten.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie Ihre Konfiguration.\n"
+#~ "\n"
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to open the audio device.\n"
+#~ "\n"
+#~ "Please check your sound configuration."
+#~ msgstr ""
+#~ "Konnte simond nicht starten.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie Ihre Konfiguration.\n"
+#~ "\n"
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Couldn't write recording sets to the configuration file."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Konnte nicht mit simond kommunizieren: Konnte Daten nicht lesen."
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate Master Label File. Please check your prompts file (%1)."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not generate triphones.\n"
+#~ "\n"
+#~ "Please check your path to the files mktri.led and HLEd (%1, %2)"
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not adapt the base model. Please check your paths to HERest (%1)."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Device information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "Trainings type where the user reads prompts off the screen"
+#~ msgid "Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "&Configure"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "Start updating the window"
+#~ msgid "Start"
+#~ msgstr "Starte simon"
+
+#, fuzzy
+#~ msgid "Closing Configuration Window"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Initial Configuration - KMouth"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Text-to-Speech Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Opens the configuration dialog"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "KDE Text-to-Speech Daemon Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "History has been disabled."
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Start in slideshow mode"
+#~ msgstr "Starte simond"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Start Page"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Start Slideshow"
+#~ msgstr "Starte simon"
+
+#, fuzzy
+#~ msgid "Semantic Information"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Could not create destination folder."
+#~ msgstr "Konnte nicht mit simond kommunizieren: Konnte Daten nicht lesen."
+
+#, fuzzy
+#~ msgid "Photo Importer"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Configure..."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Camera configuration failed."
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Unknown port"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Selection: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "&Undo: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Undo: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Start Presentation"
+#~ msgstr "Starte simon"
+
+#, fuzzy
+#~ msgctxt "Unknown title"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown author"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown editor"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown publisher"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown creation date"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown volume information"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown type of document"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown number of component files"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Type of DjVu document"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "Unknown Date"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Unknown Encryption"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Ghostscript Backend Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "Unknown description"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown producer"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown copyright statement"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "P&resentation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Configure Backends"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Konfiguration"
+#~ msgstr[1] "Konfiguration"
+
+#, fuzzy
+#~ msgctxt "Unknown date"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Unknown File"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Unknown font type"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Unknown font"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgctxt "Compression"
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
 
 #~ msgid "Start ksimond on KDE start"
 #~ msgstr "Starte ksimond bei KDE Start"
@@ -181,87 +895,9 @@ msgstr "Peter Grasch"
 #~ msgstr "Starte ksimond bei KDE Start"
 
 #, fuzzy
-#~ msgid "Start simon minimized"
-#~ msgstr "Starte ksimond bei KDE Start"
-
-#, fuzzy
-#~ msgid "Pronunciation"
-#~ msgstr "Konfiguration"
-
-#, fuzzy
-#~ msgid "Start Training"
-#~ msgstr "Starte ksimond bei KDE Start"
-
-#, fuzzy
-#~ msgid "simon"
-#~ msgstr "simond"
-
-#, fuzzy
 #~ msgid "wether we want to restrict access to a certain IP."
 #~ msgstr "ob wir simond automatisch starten wollen"
 
 #, fuzzy
 #~ msgid "If we should start simon when KDE is started."
 #~ msgstr "soll ksimond beim KDE Start starten?"
-
-#, fuzzy
-#~ msgid "Unknown error"
-#~ msgstr "Unbekannter Fehler"
-
-#, fuzzy
-#~ msgid ""
-#~ "Couldn't initialize commandmanager \"%1\".\n"
-#~ "\n"
-#~ "Please check its configuration."
-#~ msgstr ""
-#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
-#~ "Kommando: \"%1\""
-
-#, fuzzy
-#~ msgid "Device Configuration"
-#~ msgstr "Konfiguration"
-
-#, fuzzy
-#~ msgid ""
-#~ "Couldn't generate temporary folders.\n"
-#~ "\n"
-#~ "Please check your permissions for \"%1\"."
-#~ msgstr ""
-#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
-#~ "Kommando: \"%1\""
-
-#, fuzzy
-#~ msgid "simond: %1"
-#~ msgstr "simond"
-
-#, fuzzy
-#~ msgid "[INF] simon activated"
-#~ msgstr "simond gestartet"
-
-#, fuzzy
-#~ msgid " imported"
-#~ msgstr "simond gestartet"
-
-#, fuzzy
-#~ msgid "Unknown"
-#~ msgstr "Unbekannter Fehler"
-
-#, fuzzy
-#~ msgid "Synchronization already running"
-#~ msgstr "simond läuft bereits"
-
-#, fuzzy
-#~ msgid "[INF] Starting simon..."
-#~ msgstr "Starte ksimond bei KDE Start"
-
-#, fuzzy
-#~ msgid "simon has been deactivated"
-#~ msgstr "simond gestartet"
-
-#, fuzzy
-#~ msgid "Simon - Deactivated"
-#~ msgstr "simond gestartet"
-
-#, fuzzy
-#~ msgid "simon has been activated"
-#~ msgstr "simond gestartet"

@@ -283,11 +283,9 @@ bool Scenario::readLanguageModel(QString path, QDomDocument* doc, bool deleteDoc
   }
   //kDebug() << m_grammar->structureCount() << " structurs loaded";
 
-  if (deleteDoc) {
-    kDebug() << "DELETING DOC!";
+  if (deleteDoc)
     delete doc;
-  } else kDebug() << "LEAKING DOC?...";
-
+  
   return true;
 }
 

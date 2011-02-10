@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonkeyboardcommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-16 20:34+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <kde-i18n-de@lists.kde.org>\n"
@@ -24,223 +24,223 @@ msgstr "Tastatur aktivieren"
 
 #. i18n: file: keyboardwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KeyboardDlg)
-#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:377
+#: keyboardcommandmanager.cpp:114 keyboardcommandmanager.cpp:383
 #: keyboardconfiguration.cpp:43 po/rc.cpp:54 rc.cpp:54
 msgid "Keyboard"
 msgstr "Tastatur"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:413
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:419
 msgctxt "Number"
 msgid "Zero"
 msgstr "Null"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:416
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:422
 msgctxt "Number"
 msgid "One"
 msgstr "Eins"
 
-#: keyboardcommandmanager.cpp:342 keyboardcommandmanager.cpp:419
+#: keyboardcommandmanager.cpp:347 keyboardcommandmanager.cpp:425
 msgctxt "Number"
 msgid "Two"
 msgstr "Zwei"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:422
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:428
 msgctxt "Number"
 msgid "Three"
 msgstr "Drei"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:425
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:431
 msgctxt "Number"
 msgid "Four"
 msgstr "Vier"
 
-#: keyboardcommandmanager.cpp:343 keyboardcommandmanager.cpp:428
+#: keyboardcommandmanager.cpp:348 keyboardcommandmanager.cpp:434
 msgctxt "Number"
 msgid "Five"
 msgstr "Fünf"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:431
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:437
 msgctxt "Number"
 msgid "Six"
 msgstr "Sechs"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:434
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:440
 msgctxt "Number"
 msgid "Seven"
 msgstr "Sieben"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:437
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:443
 msgctxt "Number"
 msgid "Eight"
 msgstr "Acht"
 
-#: keyboardcommandmanager.cpp:344 keyboardcommandmanager.cpp:440
+#: keyboardcommandmanager.cpp:349 keyboardcommandmanager.cpp:446
 msgctxt "Number"
 msgid "Nine"
 msgstr "Neun"
 
-#: keyboardcommandmanager.cpp:378
+#: keyboardcommandmanager.cpp:384
 msgid "Starts the keyboard"
 msgstr "Tastatur starten"
 
-#: keyboardcommandmanager.cpp:384
+#: keyboardcommandmanager.cpp:390
 msgctxt "Close the dialog"
 msgid "Ok"
 msgstr "Ok"
 
-#: keyboardcommandmanager.cpp:385
+#: keyboardcommandmanager.cpp:391
 msgid "Hides the keyboard"
 msgstr "Tastatur deaktivieren"
 
-#: keyboardcommandmanager.cpp:387
+#: keyboardcommandmanager.cpp:393
 msgctxt "Keyboard key"
 msgid "Shift"
 msgstr "Einmal Großschreiben"
 
-#: keyboardcommandmanager.cpp:388
+#: keyboardcommandmanager.cpp:394
 msgid "Shift key"
 msgstr "Shift Taste"
 
-#: keyboardcommandmanager.cpp:390
+#: keyboardcommandmanager.cpp:396
 msgctxt "Keyboard key"
 msgid "Caps lock"
 msgstr "Großschreiben "
 
-#: keyboardcommandmanager.cpp:391
+#: keyboardcommandmanager.cpp:397
 msgid "Caps lock key"
 msgstr "Caps lock Taste"
 
-#: keyboardcommandmanager.cpp:393
+#: keyboardcommandmanager.cpp:399
 msgctxt "Keyboard key"
 msgid "Control"
 msgstr "Steuerung"
 
 #. i18n: file: keyboardwidget.ui:169
 #. i18n: ectx: property (text), widget (KPushButton, pbControl)
-#: keyboardcommandmanager.cpp:394 po/rc.cpp:102 rc.cpp:102
+#: keyboardcommandmanager.cpp:400 po/rc.cpp:102 rc.cpp:102
 msgid "Control"
 msgstr "Steuerung"
 
-#: keyboardcommandmanager.cpp:396
+#: keyboardcommandmanager.cpp:402
 msgctxt "Keyboard key"
 msgid "Backspace"
 msgstr "Löschen"
 
 #. i18n: file: keyboardwidget.ui:202
 #. i18n: ectx: property (text), widget (KPushButton, pbBackspace)
-#: keyboardcommandmanager.cpp:397 po/rc.cpp:111 rc.cpp:111
+#: keyboardcommandmanager.cpp:403 po/rc.cpp:111 rc.cpp:111
 msgid "Backspace"
 msgstr "Löschen"
 
-#: keyboardcommandmanager.cpp:399
+#: keyboardcommandmanager.cpp:405
 msgctxt "Keyboard key"
 msgid "Return"
 msgstr "Enter"
 
 #. i18n: file: keyboardwidget.ui:235
 #. i18n: ectx: property (text), widget (KPushButton, pbReturn)
-#: keyboardcommandmanager.cpp:400 po/rc.cpp:117 rc.cpp:117
+#: keyboardcommandmanager.cpp:406 po/rc.cpp:117 rc.cpp:117
 msgid "Return"
 msgstr "Enter"
 
-#: keyboardcommandmanager.cpp:402
+#: keyboardcommandmanager.cpp:408
 msgctxt "Keyboard key"
 msgid "Alt"
 msgstr "Alt"
 
 #. i18n: file: keyboardwidget.ui:242
 #. i18n: ectx: property (text), widget (KPushButton, pbAlt)
-#: keyboardcommandmanager.cpp:403 po/rc.cpp:120 rc.cpp:120
+#: keyboardcommandmanager.cpp:409 po/rc.cpp:120 rc.cpp:120
 msgid "Alt"
 msgstr "Alt"
 
-#: keyboardcommandmanager.cpp:405
+#: keyboardcommandmanager.cpp:411
 msgctxt "Keyboard key"
 msgid "AltGr"
 msgstr "AltGr"
 
 #. i18n: file: keyboardwidget.ui:252
 #. i18n: ectx: property (text), widget (KPushButton, pbAltGr)
-#: keyboardcommandmanager.cpp:406 po/rc.cpp:123 rc.cpp:123
+#: keyboardcommandmanager.cpp:412 po/rc.cpp:123 rc.cpp:123
 msgid "AltGr"
 msgstr "AltGr"
 
-#: keyboardcommandmanager.cpp:408
+#: keyboardcommandmanager.cpp:414
 msgctxt "Keyboard key"
 msgid "Super"
 msgstr "Super"
 
 #. i18n: file: keyboardwidget.ui:262
 #. i18n: ectx: property (text), widget (KPushButton, pbSuper)
-#: keyboardcommandmanager.cpp:409 po/rc.cpp:126 rc.cpp:126
+#: keyboardcommandmanager.cpp:415 po/rc.cpp:126 rc.cpp:126
 msgctxt "Super key"
 msgid "Super"
 msgstr "Super"
 
-#: keyboardcommandmanager.cpp:414
+#: keyboardcommandmanager.cpp:420
 msgid "Clicks 0"
 msgstr "Klickt 0"
 
-#: keyboardcommandmanager.cpp:417
+#: keyboardcommandmanager.cpp:423
 msgid "Clicks 1"
 msgstr "Klickt 1"
 
-#: keyboardcommandmanager.cpp:420
+#: keyboardcommandmanager.cpp:426
 msgid "Clicks 2"
 msgstr "Klickt 2"
 
-#: keyboardcommandmanager.cpp:423
+#: keyboardcommandmanager.cpp:429
 msgid "Clicks 3"
 msgstr "Klickt 3"
 
-#: keyboardcommandmanager.cpp:426
+#: keyboardcommandmanager.cpp:432
 msgid "Clicks 4"
 msgstr "Klickt 4"
 
-#: keyboardcommandmanager.cpp:429
+#: keyboardcommandmanager.cpp:435
 msgid "Clicks 5"
 msgstr "Klickt 5"
 
-#: keyboardcommandmanager.cpp:432
+#: keyboardcommandmanager.cpp:438
 msgid "Clicks 6"
 msgstr "Klickt 6"
 
-#: keyboardcommandmanager.cpp:435
+#: keyboardcommandmanager.cpp:441
 msgid "Clicks 7"
 msgstr "Klickt 7"
 
-#: keyboardcommandmanager.cpp:438
+#: keyboardcommandmanager.cpp:444
 msgid "Clicks 8"
 msgstr "Klickt 8"
 
-#: keyboardcommandmanager.cpp:441
+#: keyboardcommandmanager.cpp:447
 msgid "Clicks 9"
 msgstr "Klickt 9"
 
-#: keyboardcommandmanager.cpp:443
+#: keyboardcommandmanager.cpp:449
 msgctxt "Decimal separator (voice trigger)"
 msgid "Point"
 msgstr "Komma"
 
-#: keyboardcommandmanager.cpp:444
+#: keyboardcommandmanager.cpp:450
 msgid "Decimal separator"
 msgstr "Dezimal Separator"
 
 #. i18n: file: keyboardwidget.ui:138
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectNumber)
-#: keyboardcommandmanager.cpp:447 keyboardcommandmanager.cpp:448 po/rc.cpp:96
+#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454 po/rc.cpp:96
 #: rc.cpp:96
 msgid "Select number"
 msgstr "Nummer auswählen"
 
 #. i18n: file: keyboardwidget.ui:145
 #. i18n: ectx: property (text), widget (KPushButton, pbWriteOutNumber)
-#: keyboardcommandmanager.cpp:450 keyboardcommandmanager.cpp:451 po/rc.cpp:99
+#: keyboardcommandmanager.cpp:456 keyboardcommandmanager.cpp:457 po/rc.cpp:99
 #: rc.cpp:99
 msgid "Write number"
 msgstr "Nummer hinschreiben"
 
-#: keyboardcommandmanager.cpp:453 keyboardcommandmanager.cpp:454
+#: keyboardcommandmanager.cpp:459 keyboardcommandmanager.cpp:460
 msgid "Number backspace"
 msgstr "Nummer löschen"
 
@@ -454,6 +454,7 @@ msgstr "Groß- / Kleinschreibung beachten"
 #. i18n: file: keyboardconfigurationdlg.ui:60
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: po/rc.cpp:9 rc.cpp:9
+#, fuzzy
 msgctxt "Which set (collection of tabs) is currently displayed"
 msgid "Set: "
 msgstr "Set: "
@@ -461,6 +462,7 @@ msgstr "Set: "
 #. i18n: file: keyboardconfigurationdlg.ui:77
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: po/rc.cpp:12 rc.cpp:12
+#, fuzzy
 msgctxt "Which page of the keyboard is now displayed"
 msgid "Tab: "
 msgstr "Tab: "
@@ -506,6 +508,7 @@ msgstr "Löschen"
 #. i18n: file: keyboardconfigurationdlg.ui:186
 #. i18n: ectx: property (text), widget (KPushButton, pbUpButton)
 #: po/rc.cpp:27 po/rc.cpp:48 rc.cpp:27 rc.cpp:48
+#, fuzzy
 msgctxt "Direction"
 msgid "Up"
 msgstr "Rauf"
@@ -643,6 +646,7 @@ msgstr "Nummer hinzufügen"
 #. i18n: file: modifybuttondlg.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: po/rc.cpp:132 rc.cpp:132
+#, fuzzy
 msgctxt "Name of the key"
 msgid "Name:"
 msgstr "Name:"
@@ -675,14 +679,1300 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Play selected media in list"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Save Shortcuts"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "Hide controls"
+#~ msgstr "Steuerung"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Writer"
+#~ msgstr "Nummer hinschreiben"
+
+#, fuzzy
+#~ msgid "Contributor"
+#~ msgstr "Steuerung"
+
+#, fuzzy
+#~ msgid "Are you sure you want to clear the current playlist?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Contrast"
+#~ msgstr "Steuerung"
+
+#, fuzzy
+#~ msgid "Scale to fit"
+#~ msgstr "Konnte Set nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this Daisy?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this launcher from dock?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this trash plugin?"
+#~ msgstr "Wollen Sie den ausgewählten Tab wirklich löschen?"
+
+#, fuzzy
+#~ msgid "alternative"
+#~ msgstr "Alternative"
+
+#, fuzzy
+#~ msgid "Text only"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Do you really want to empty the trash? All items will be deleted."
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "On "
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "Command:"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Add &borders"
+#~ msgstr "Tastatur set hinzufügen"
+
+#, fuzzy
+#~ msgid "&Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Points (pt)"
+#~ msgstr "Komma"
+
+#, fuzzy
+#~ msgid "Layout Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Could not read file"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not parse file"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Line number"
+#~ msgstr "Nummer hinschreiben"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgid "&Hide header"
+#~ msgstr "Tastatur deaktivieren"
+
+#, fuzzy
+#~ msgid "Show &header"
+#~ msgstr "Zahlenblock anzeigen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "A comma seperated list of keywords for the journey search field, "
+#~ "indicating that a relative time string follows.\n"
+#~ "Note: Keywords should be unique for each meaning."
+#~ msgid "in"
+#~ msgstr "Neun"
+
+#, fuzzy
+#~ msgid "&Add Stop"
+#~ msgstr "Nummer hinzufügen"
+
+#, fuzzy
+#~ msgid "Add Feed"
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Show places"
+#~ msgstr "Zahlenblock anzeigen"
+
+#, fuzzy
+#~ msgid "All"
+#~ msgstr "Alt"
+
 #~ msgid "Form"
 #~ msgstr "Form"
 
-#~ msgid "Write out number"
+#, fuzzy
+#~ msgid "Could not open temporary image"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Failed to contact akonadi."
+#~ msgstr "Konnte Tab nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Command prefix:"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "At:"
+#~ msgstr "Alt"
+
+#, fuzzy
+#~ msgid "Only number input"
+#~ msgstr "Nummer ausschreiben"
+
+#, fuzzy
+#~ msgid "Add Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Add Delay"
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Move Down"
+#~ msgstr "Runter"
+
+#, fuzzy
+#~ msgid "Value:"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Text:"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid ".*"
+#~ msgstr ","
+
+#~ msgid "Input Number"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgid "Back"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Super"
+#~ msgstr "Super"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Shortcut:"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "Special Shortcut:"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "Meta+Down"
+#~ msgstr "Runter"
+
+#, fuzzy
+#~ msgid "Input files"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Auslöser"
+
+#, fuzzy
+#~ msgid "Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "New Name:"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "1:"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "2:"
+#~ msgstr "2"
+
+#, fuzzy
+#~ msgid "Files to import"
+#~ msgstr "Konnte Set nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Add Text"
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Tastatur Sets nicht editieren"
+
+#, fuzzy
+#~ msgid "One"
+#~ msgstr "Eins"
+
+#, fuzzy
+#~ msgid "Two"
+#~ msgstr "Zwei"
+
+#, fuzzy
+#~ msgid "Three"
+#~ msgstr "Drei"
+
+#, fuzzy
+#~ msgid "Four"
+#~ msgstr "Vier"
+
+#, fuzzy
+#~ msgid "Five"
+#~ msgstr "Fünf"
+
+#, fuzzy
+#~ msgid "Six"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgid "Seven"
+#~ msgstr "Sieben"
+
+#, fuzzy
+#~ msgid "Eight"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Triggers:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Visible Trigger:"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Delete all"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Set:"
+#~ msgstr "Set: "
+
+#, fuzzy
+#~ msgid "Add "
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Please select the data set to edit / send from the list below."
+#~ msgstr ""
+#~ "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
+
+#, fuzzy
+#~ msgid "Edit user"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgid "Starts the calculator"
+#~ msgstr "Tastatur starten"
+
+#, fuzzy
+#~ msgctxt "Word to say to remove the last recognized digit"
+#~ msgid "Back"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Activating desktopgrid"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Starts the desktop grid"
+#~ msgstr "Tastatur starten"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Control a robot"
+#~ msgstr "Steuerung"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected text variant?"
+#~ msgstr "Wollen Sie den ausgewählten Tab wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Add state"
+#~ msgstr "Nummer hinzufügen"
+
+#, fuzzy
+#~ msgid "Name of the new state:"
+#~ msgstr "Bitte geben Sie den Namen des neuen Sets ein:"
+
+#, fuzzy
+#~ msgid "Failed to add state"
+#~ msgstr "Konnte Set nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "New name of the state:"
+#~ msgstr "Bitte geben Sie den neuen Namen des Sets ein:"
+
+#, fuzzy
+#~ msgid "Failed to rename state"
+#~ msgstr "Konnte Set nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected state?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Failed to remove state"
+#~ msgstr "Konnte den Tab nicht löschen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move state up.\n"
+#~ "\n"
+#~ "Maybe it is already at the top of the list?"
+#~ msgstr ""
+#~ "Konnte den Tab nicht nach oben verschieben. Vielleicht ist er schon ganz "
+#~ "oben?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move state down.\n"
+#~ "\n"
+#~ "Maybe it is already at the end of the list?"
+#~ msgstr ""
+#~ "Konnte den Tab nicht nach unten verschieben. Vielleicht ist er schon ganz "
+#~ "unten?"
+
+#, fuzzy
+#~ msgid "Failed to update state text."
+#~ msgstr "Konnte Set nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected transition?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move transition up.\n"
+#~ "\n"
+#~ "Maybe it is already at the top of the list?"
+#~ msgstr ""
+#~ "Konnte den Tab nicht nach oben verschieben. Vielleicht ist er schon ganz "
+#~ "oben?"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to move transition down.\n"
+#~ "\n"
+#~ "Maybe it is already at the end of the list?"
+#~ msgstr ""
+#~ "Konnte den Tab nicht nach unten verschieben. Vielleicht ist er schon ganz "
+#~ "unten?"
+
+#, fuzzy
+#~ msgid "Please select a template option."
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected template option?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Please select a bound value from the table above."
+#~ msgstr ""
+#~ "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the selected bound value option?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Please select a state from the left or add new ones as appropriate."
+#~ msgstr ""
+#~ "Bitte wählen Sie ein Set aus, zu dem die Taste hinzugefügt werden soll"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please select an option from the right or add new ones as appropriate."
+#~ msgstr ""
+#~ "Bitte wählen Sie ein Set aus, zu dem die Taste hinzugefügt werden soll"
+
+#, fuzzy
+#~ msgid "Please answer with any of the following options."
+#~ msgstr "Bitte geben Sie den Namen des neuen Sets ein:"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the avatar \"%1\" from your dialog?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Failed to remove avatar."
+#~ msgstr "Konnte den Tab nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not speak text: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Activate Filter"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Activate filter"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Number"
+#~ msgstr "Nummer eingeben"
+
+#, fuzzy
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ","
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Hides the dialog"
+#~ msgstr "Tastatur deaktivieren"
+
+#, fuzzy
+#~ msgid "Failed to parse template: %1"
+#~ msgstr "Konnte den Tab nicht löschen"
+
+#, fuzzy
+#~ msgid "Failed to store file."
+#~ msgstr "Konnte Set nicht bearbeiten"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to adapt model:\n"
+#~ "\n"
+#~ "%1"
+#~ msgstr "Konnte Set nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Could not overwrite prompts file"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Add action"
+#~ msgstr "Nummer hinzufügen"
+
+#, fuzzy
+#~ msgid "Please select an action"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Could not determine Command Type"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Could not save prompts"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not open temporary file."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not store Trainingstext"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not remove samples \"%1\"."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected grammar structure?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not delete structure."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not import tiedlist."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not import stats."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Select base macros"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Select base stats"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the selected text?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Please select a text first"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all the collected samples?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not add words to the list"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please select a word first"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Do you really want to clear the whole vocabulary?"
+#~ msgstr "Wollen Sie den ausgewählten Tab wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Please select a word scheduled for training first."
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Could not restore old model"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Tastatur deaktivieren"
+
+#, fuzzy
+#~ msgid "Could not send Request to Server"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please select a Model from the List"
+#~ msgstr ""
+#~ "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Tastatur aktivieren"
+
+#, fuzzy
+#~ msgid "Could not connect to database"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not add user"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove the user from the database?"
+#~ msgstr "Wollen Sie den ausgewählten Tab wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not remove User"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Do you also want to remove the speech model from the server?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not remove the speech model"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgctxt "Go to the previous list of commands"
+#~ msgid "Back"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Command Settings"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgctxt "Name of the bound value"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Type of the bound value"
+#~ msgid "Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgctxt "Value of the bound value"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgctxt "Name of the state"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Name of the template option"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "Value of the template option"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Please select a valid action"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgctxt "Name of the trainings text"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Download"
+#~ msgstr "Runter"
+
+#, fuzzy
+#~ msgid "Could not load scenario."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Failed to store scenario"
+#~ msgstr "Konnte Set nicht bearbeiten"
+
+#, fuzzy
+#~ msgid "Please select a scenario from the list(s)"
+#~ msgstr ""
+#~ "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irrecoverably delete the selected scenario "
+#~ "\"%1\" (\"%2\")?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not remove %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Select input device"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Could not remove file %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please enter the name of the new set of recordings:"
+#~ msgstr "Bitte geben Sie den Namen des neuen Sets ein:"
+
+#, fuzzy
+#~ msgid "Couldn't add set: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please enter the changed name of the set of recordings:"
+#~ msgstr "Bitte geben Sie den neuen Namen des Sets ein:"
+
+#, fuzzy
+#~ msgid "Couldn't rename set to: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid ""
+#~ "Do you really want to irreversibly delete the current set and all "
+#~ "associated samples?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Couldn't remove set"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please add or select a set above."
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Couldn't add recording to set."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please select a recording above."
+#~ msgstr "Bitte wählen Sie einen Tab aus der verschoben werden soll"
+
+#, fuzzy
+#~ msgid "Do you really want to irreversibly remove this recording?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Failed to remove the recording."
+#~ msgstr "Konnte Taste nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not create codetrain-file."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not generate the dict1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not generate tree.hed."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not generate mktri.hed"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not create regtree.hed."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgctxt "Name of the institution"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Please select an institution"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Could not delete institution: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Please select an user"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Could not delete user: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not retrieve users: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Do you really want to remove this user - institution association?"
+#~ msgstr "Wollen Sie die ausgewählte Taste wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Could not add user: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not write request"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not add institution"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not delete institution"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not delete user"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not find user"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not find institution"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not find record"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not retrieve user: %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to delete the stored samples at \"%1\"?"
+#~ msgstr "Wollen Sie das ausgewählte Set wirklich löschen?"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Sex"
+#~ msgstr "Sechs"
+
+#, fuzzy
+#~ msgctxt "A non-functional package"
+#~ msgid "Invalid"
+#~ msgstr "Inkorrekter Knopf"
+
+#, fuzzy
+#~ msgid "&Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "&Name:"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgid "Click to load a word list from a file."
+#~ msgstr "Konnte sets nicht laden"
+
+#, fuzzy
+#~ msgid "&Up"
+#~ msgstr "Rauf"
+
+#, fuzzy
+#~ msgid "&Edit"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgid "U&p"
+#~ msgstr "Rauf"
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgid "Speech Control"
+#~ msgstr "Steuerung"
+
+#, fuzzy
+#~ msgid "&Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Select Talker"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "&Stop/Delete"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Add Talker"
+#~ msgstr "Taste hinzufügen"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Voice Type:"
+#~ msgstr "Typ:"
+
+#, fuzzy
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Hide the mouse cursor"
+#~ msgstr "Tastatur deaktivieren"
+
+#, fuzzy
+#~ msgid "Select the rotation degree."
+#~ msgstr "Bitte wählen Sie den Tab aus der gelöscht werden soll"
+
+#, fuzzy
+#~ msgid "File to open"
+#~ msgstr "Konnte Set nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Invalid Value"
+#~ msgstr "Inkorrekter Knopf"
+
+#, fuzzy
+#~ msgid "&Delete"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "without name"
 #~ msgstr "Nummer hinschreiben"
 
-#~ msgid "Alternate"
+#, fuzzy
+#~ msgid "Show thumbnails"
+#~ msgstr "Zahlenblock anzeigen"
+
+#, fuzzy
+#~ msgid "Height:"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "&Check board"
+#~ msgstr "Tastatur"
+
+#, fuzzy
+#~ msgid "Enter the name of the folder to create:"
+#~ msgstr "Bitte geben Sie den Namen des neuen Sets ein:"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
 #~ msgstr "Alternative"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action Go back to a more general page (start page <- list <- image)"
+#~ msgid "Back"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgctxt "@action Rating value of zero"
+#~ msgid "Zero"
+#~ msgstr "Null"
+
+#, fuzzy
+#~ msgctxt "@addAction:inmenu"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid ""
+#~ "Failed to delete the document:\n"
+#~ "%2"
+#~ msgid_plural ""
+#~ "Failed to delete documents:\n"
+#~ "%2"
+#~ msgstr[0] "Konnte Taste nicht löschen"
+#~ msgstr[1] "Konnte Taste nicht löschen"
+
+#, fuzzy
+#~ msgid "Height"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgid "Could not load document %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgctxt "@info:tooltip of custom toolbar button"
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgctxt "@item:intable Image file name"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Value"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Click this button to remove the selected camera from the list."
+#~ msgstr ""
+#~ "Bitte wählen Sie die Taste die gelöscht werden soll aus der Liste aus"
+
+#, fuzzy
+#~ msgid "Could not load ability list."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Select Camera Device"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "&Delete Row"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Text Box"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Could not open \"%1\"."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Could not save as \"%1\"."
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure that translation has the same "
+#~ "accel as the &Image translation"
+#~ msgid "Select&ion"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Show T&humbnail"
+#~ msgstr "Zahlenblock anzeigen"
+
+#, fuzzy
+#~ msgid "Selection: Opaque"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Writes text"
+#~ msgstr "Nummer hinschreiben"
+
+#, fuzzy
+#~ msgid "Text: Backspace"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Text: Delete"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgctxt "The V of HSV"
+#~ msgid "&Value:"
+#~ msgstr "Wert"
+
+#, fuzzy
+#~ msgid "Backslash"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgctxt "Make Kruler Height Short"
+#~ msgid "&Short"
+#~ msgstr "Tastenkürzel"
+
+#, fuzzy
+#~ msgid "Workspace:"
+#~ msgstr "Löschen"
+
+#, fuzzy
+#~ msgid "Cook Islands"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgctxt "Label for button to write text in a KLineEdit to sane"
+#~ msgid "Set"
+#~ msgstr "Sets"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Bearbeiten"
+
+#, fuzzy
+#~ msgid "Mime Type"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Please be patient"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Unable to load document"
+#~ msgstr "Konnte Set nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Please enter the password to read the document:"
+#~ msgstr "Bitte geben Sie den Namen des neuen Sets ein:"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Form"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This represents the libtiff version, as string with copyrights as well; "
+#~ "can be left as-is."
+#~ msgid "%1"
+#~ msgstr "1"
+
+#, fuzzy
+#~ msgid "Moves to the next page of the document"
+#~ msgstr "Bitte geben Sie den neuen Namen des Sets ein:"
+
+#, fuzzy
+#~ msgid "Moves to the end of the document"
+#~ msgstr "Bitte geben Sie den neuen Namen des Sets ein:"
+
+#, fuzzy
+#~ msgid "Could not open %1"
+#~ msgstr "Konnte Set nicht löschen"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "Name: %1"
+#~ msgstr "Name:"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#, fuzzy
+#~ msgid "Case sensitive"
+#~ msgstr "Groß- / Kleinschreibung beachten"
+
+#, fuzzy
+#~ msgctxt "Rotate right"
+#~ msgid "Right"
+#~ msgstr "Acht"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Copy Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Select text"
+#~ msgstr "Nummer auswählen"
+
+#, fuzzy
+#~ msgid "Please insert your name or initials:"
+#~ msgstr "Bitte wählen Sie zuerst ein Set aus"
+
+#, fuzzy
+#~ msgid "Type 1"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 1C"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Type 3"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "TrueType"
+#~ msgstr "Typ"
+
+#, fuzzy
+#~ msgid "Show Text"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Comments"
+#~ msgstr "Kommandos"
+
+#, fuzzy
+#~ msgid "U"
+#~ msgstr "Rauf"
 
 #~ msgid "Alternate Graphics"
 #~ msgstr "Alternative Grafik"
@@ -693,9 +1983,6 @@ msgstr "grasch@simon-listens.org"
 #~ msgid "Alternate Graphic"
 #~ msgstr "Alternative Grafik"
 
-#~ msgid "Sets"
-#~ msgstr "Sets"
-
 #~ msgid "Numpad"
 #~ msgstr "Zahlenblock"
 
@@ -705,11 +1992,5 @@ msgstr "grasch@simon-listens.org"
 #~ msgid "Enable number based key selection"
 #~ msgstr "Nummern basierte Tastenauswahl"
 
-#~ msgid "Enable number write out"
-#~ msgstr "Nummer ausschreiben"
-
 #~ msgid "Special keys"
 #~ msgstr "Spezialtasten"
-
-#~ msgid "Input Number"
-#~ msgstr "Nummer eingeben"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-09-08 06:59+0000\n"
+"POT-Creation-Date: 2011-02-03 15:13+0000\n"
 "PO-Revision-Date: 2010-09-08 12:03+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -68,15 +68,15 @@ msgstr "simon"
 
 #. Tag: keyword
 #: index.docbook:34
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "sample"
 msgstr "sample"
 
 #. Tag: keyword
 #: index.docbook:35
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "acquisition"
-msgstr "sammeln"
+msgstr "Installation"
 
 #. Tag: keyword
 #: index.docbook:36
@@ -86,7 +86,7 @@ msgstr "<keyword>training</keyword>"
 
 #. Tag: keyword
 #: index.docbook:37
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "collection"
 msgstr "Sammlung"
 
@@ -98,7 +98,7 @@ msgstr "sammeln"
 
 #. Tag: keyword
 #: index.docbook:39
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "model"
 msgstr "Modell"
 
@@ -110,7 +110,7 @@ msgstr "<keyword>ssc</keyword>"
 
 #. Tag: keyword
 #: index.docbook:41
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "utility"
 msgstr "utility"
 
@@ -140,9 +140,9 @@ msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: title
 #: index.docbook:67 index.docbook:298
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Introduction"
-msgstr "Einleitung"
+msgstr "Installation"
 
 #. Tag: para
 #: index.docbook:69
@@ -208,14 +208,14 @@ msgid ""
 "<ulink url=\"help:/simon/overview.html#architecture\">simon manual</ulink>."
 msgstr ""
 "Für mehr Information über die Architektur der simon Suite sehen Sie bitte "
-"das <ulink url=\"help:/simon/overview.html#architecture\">simon Handbuch<"
-"/ulink>."
+"das <ulink url=\"help:/simon/overview.html#architecture\">simon Handbuch</"
+"ulink>."
 
 #. Tag: title
 #: index.docbook:85
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Using &kmyapplication;"
-msgstr "&kmyapplication; verwenden"
+msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: para
 #: index.docbook:87
@@ -247,10 +247,10 @@ msgid ""
 "As soon as you are connected, the user interface will allow you to manage "
 "users and insitutions and record new samples."
 msgstr ""
-"Um ssc zu verwenden, verbinden Sie zum sscd indem Sie <guibutton>Verbinden<"
-"/guibutton> klicken. "
-"Sobald Sie verbunden sind, wird die Oberfläche Ihnen erlauben neue Benutzer "
-"und Institutionen hinzuzufügen und Sprachdaten aufzunehmen."
+"Um ssc zu verwenden, verbinden Sie zum sscd indem Sie <guibutton>Verbinden</"
+"guibutton> klicken. Sobald Sie verbunden sind, wird die Oberfläche Ihnen "
+"erlauben neue Benutzer und Institutionen hinzuzufügen und Sprachdaten "
+"aufzunehmen."
 
 #. Tag: para
 #: index.docbook:105
@@ -259,8 +259,8 @@ msgid ""
 "To proceed without connecting to the sscd, you may use the <link linkend="
 "\"offline_mode\">offline mode</link>."
 msgstr ""
-"Um fortzufahren ohne zum sscd zu verbinden können Sie den <link "
-"linkend=\"offline_mode\">Offlinemodus</link> verwenden."
+"Um fortzufahren ohne zum sscd zu verbinden können Sie den <link linkend="
+"\"offline_mode\">Offlinemodus</link> verwenden."
 
 #. Tag: para
 #: index.docbook:108
@@ -279,7 +279,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:112
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Managing users"
 msgstr "Benutzer verwalten"
 
@@ -327,8 +327,8 @@ msgid ""
 "filtering."
 msgstr ""
 "Hier sehen Sie eine Liste aller existierenden Sprecher in der Datenbank. Aus "
-"Performancegründen kann es sein, dass diese list <emphasis>nicht komplett<"
-"/emphasis> ist. Um Benutzer in großen Installationen zu finden, können Sie "
+"Performancegründen kann es sein, dass diese list <emphasis>nicht komplett</"
+"emphasis> ist. Um Benutzer in großen Installationen zu finden, können Sie "
 "Filter auf das Ergebnisset anwenden indem Sie die Eingabemaske ausfüllen und "
 "auf <guibutton>Filter anwenden</guibutton> klicken. Die Standardeinstellung "
 "ist keinen Filter zu verwenden. Leere Eingabefelder werden beim Filtern "
@@ -344,8 +344,8 @@ msgid ""
 msgstr ""
 "Um nach einer speziellen Institution zu filtern, geben Sie die "
 "Institutionsid in das <guilabel>Institution</guilabel> Feld ein. Wenn Sie "
-"die Institutionsid nicht auswendig wissen können Sie das <guibutton>Suchen<"
-"/guibutton> Menü verwenden."
+"die Institutionsid nicht auswendig wissen können Sie das <guibutton>Suchen</"
+"guibutton> Menü verwenden."
 
 #. Tag: para
 #: index.docbook:135
@@ -356,8 +356,8 @@ msgid ""
 "respectively."
 msgstr ""
 "Um Benutzer hinzuzufügen, zu editieren oder zu entfernen klicken Sie einfach "
-"die entsprechenden Knöpfe: <guibutton>Hinzufügen</guibutton>, <guibutton>"
-"Bearbeiten</guibutton> und <guibutton>Löschen</guibutton>."
+"die entsprechenden Knöpfe: <guibutton>Hinzufügen</guibutton>, "
+"<guibutton>Bearbeiten</guibutton> und <guibutton>Löschen</guibutton>."
 
 #. Tag: title
 #: index.docbook:138
@@ -372,8 +372,8 @@ msgid ""
 "To add a user press <guibutton>Add</guibutton> and fill out the presented "
 "form."
 msgstr ""
-"Um einen Benutzer hinzuzufügen, dürcken Sie <guibutton>Hinzufügen</guibutton>"
-" und füllen Sie das angezeigte Formular aus."
+"Um einen Benutzer hinzuzufügen, dürcken Sie <guibutton>Hinzufügen</"
+"guibutton> und füllen Sie das angezeigte Formular aus."
 
 #. Tag: screeninfo
 #: index.docbook:144
@@ -389,7 +389,7 @@ msgstr "<phrase>Benutzer hinzufügen</phrase>"
 
 #. Tag: title
 #: index.docbook:158
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Associating with an institution"
 msgstr "Mit einer Institution assoziieren"
 
@@ -409,8 +409,8 @@ msgstr ""
 "werden, dass diese institutionsspezifischen IDs statt der internen IDs von "
 "sscd verwendet werden. Um ssc Benutzer mit einer Institution zu verbinden "
 "fügen Sie eine neue Institutionsassoziation beim Benutzer hinzu indem Sie "
-"den <guibutton>Hinzufügen</guibutton> Knopf unter <guilabel>"
-"Institution(en):</guilabel> auswählen."
+"den <guibutton>Hinzufügen</guibutton> Knopf unter <guilabel>Institution(en):"
+"</guilabel> auswählen."
 
 #. Tag: screeninfo
 #: index.docbook:163
@@ -420,9 +420,9 @@ msgstr "<screeinfo>Neue Institutionsassoziation</screeninfo>"
 
 #. Tag: phrase
 #: index.docbook:169
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "<phrase>New institution association</phrase>"
-msgstr "<phrase>Neue Institutionsassoziation</phrase>"
+msgstr "<phrase>Institutionen verwalten</phrase>"
 
 #. Tag: para
 #: index.docbook:175
@@ -450,10 +450,10 @@ msgstr ""
 "Zum Beispiel: Der Sprecher \"Jack Jones\" ist derzeit ein Patient in "
 "Institution #1. Dort hat er eine Patientennummer \"520f\". Sie können dann "
 "eine Institutionsverbindung anlgen die den Spracher \"Jack Jones\" (interne "
-"sscd ID \"7\") mit der Institution \"1\" und dortigen ID \"520f\" assoziiert."
-" Wenn &kmyapplication; konfiguriert wird institutionsspezifische IDs der "
-"Institution \"1\" zu verwenden können Sie \"Jack Jones\" mit der ID \"520f\" "
-"ansprechen statt \"7\"."
+"sscd ID \"7\") mit der Institution \"1\" und dortigen ID \"520f\" "
+"assoziiert. Wenn &kmyapplication; konfiguriert wird institutionsspezifische "
+"IDs der Institution \"1\" zu verwenden können Sie \"Jack Jones\" mit der ID "
+"\"520f\" ansprechen statt \"7\"."
 
 #. Tag: title
 #: index.docbook:181
@@ -473,8 +473,8 @@ msgid ""
 msgstr ""
 "Wenn ein Sprecher nicht in der Lage ist Interviewfragen zu beantworten oder "
 "Wörter nachzusprechen die der Moderator vorspricht können Sie "
-"&kmyapplication; darüber informieren indem Sie <guibutton>Interview möglich<"
-"/guibutton> und / oder <guibutton>Nachsprechen möglich</guibutton> "
+"&kmyapplication; darüber informieren indem Sie <guibutton>Interview möglich</"
+"guibutton> und / oder <guibutton>Nachsprechen möglich</guibutton> "
 "deaktivieren. Die abgehackten Trainingsmodi (Nachsprechen und Interview) "
 "werden dann für diesen Sprecher nicht mehr zur Verfügung stehen."
 
@@ -508,7 +508,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:193
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Remove user"
 msgstr "Benutzer entfernen"
 
@@ -520,9 +520,9 @@ msgid ""
 "selecting the user from the list in the <link linkend=\"manage_users"
 "\">manage users dialog</link>."
 msgstr ""
-"Um einen Benutzer zu entfernen, wählen Sie einfach <guibutton>Löschen<"
-"/guibutton> aus nachdem Sie den Benutzer im <link linkend=\"manage_users\">"
-"Benutzer verwalten Dialog</link> ausgewählt haben."
+"Um einen Benutzer zu entfernen, wählen Sie einfach <guibutton>Löschen</"
+"guibutton> aus nachdem Sie den Benutzer im <link linkend=\"manage_users"
+"\">Benutzer verwalten Dialog</link> ausgewählt haben."
 
 #. Tag: para
 #: index.docbook:196
@@ -535,9 +535,9 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:201
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "<title>Manage institutions</title>"
-msgstr "<title>Institutionen verwalten</title>"
+msgstr "<phrase>Institutionen verwalten</phrase>"
 
 #. Tag: para
 #: index.docbook:202
@@ -561,8 +561,8 @@ msgid ""
 "To add, edit and remove institutions select <guibutton>Manage institutions</"
 "guibutton> from the toolbar."
 msgstr ""
-"Um Institutionen zu verwalten wählen Sie <guibutton>Institutionen verwalten<"
-"/guibutton> von der Werkzeugleiste."
+"Um Institutionen zu verwalten wählen Sie <guibutton>Institutionen verwalten</"
+"guibutton> von der Werkzeugleiste."
 
 #. Tag: screeninfo
 #: index.docbook:207
@@ -584,13 +584,13 @@ msgid ""
 "\">associations to users</link> will be lost, the users however will not be "
 "removed."
 msgstr ""
-"Wenn Sie Institutionen entfernen werden die <link "
-"linkend=\"institution_association\">Assoziationen zu deren Benutzer</link> "
-"gelöscht, die Benutzer bleiben allerdings erhalten."
+"Wenn Sie Institutionen entfernen werden die <link linkend="
+"\"institution_association\">Assoziationen zu deren Benutzer</link> gelöscht, "
+"die Benutzer bleiben allerdings erhalten."
 
 #. Tag: title
 #: index.docbook:222
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Collecting samples"
 msgstr "Aufnahmen sammeln"
 
@@ -647,8 +647,7 @@ msgid ""
 "record the answers."
 msgstr ""
 "Der Benutzer beantwortet Interviewfragen die vom Moderator gestellt werden "
-"frei. Die Antworten werden "
-"aufgezeichnet."
+"frei. Die Antworten werden aufgezeichnet."
 
 #. Tag: title
 #: index.docbook:240
@@ -685,13 +684,13 @@ msgstr "Ihr Speicherort hängt von Ihrem Betriebssystem ab:"
 
 #. Tag: title
 #: index.docbook:244
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Trainings data files"
 msgstr "Trainingsdatendateien"
 
 #. Tag: entry
 #: index.docbook:250
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Microsoft Windows"
 msgstr "Microsoft Windows"
 
@@ -725,11 +724,11 @@ msgid ""
 "similar."
 msgstr ""
 "Der Pfad von GNU/Linux verwendet ein Inline-Kommando um den "
-"Installationsordner für Sie herauszufinden. Sie können auch <command>"
-"kde4-config --install data</command> in einer Konsole ausführen um den "
-"exakten Pfad herauszufinden. Auf Microsoft Windows müssen Sie den "
-"Installationsordner manuell eintragen. In der Regel wird das <filename>"
-"C:\\Programme\\simon 0.3\\</filename> oder ähnlich sein."
+"Installationsordner für Sie herauszufinden. Sie können auch <command>kde4-"
+"config --install data</command> in einer Konsole ausführen um den exakten "
+"Pfad herauszufinden. Auf Microsoft Windows müssen Sie den "
+"Installationsordner manuell eintragen. In der Regel wird das <filename>C:"
+"\\Programme\\simon 0.3\\</filename> oder ähnlich sein."
 
 #. Tag: para
 #: index.docbook:266
@@ -743,27 +742,27 @@ msgstr ""
 
 #. Tag: filename
 #: index.docbook:270
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "repeat"
-msgstr "repeat"
+msgstr "Wiederholen"
 
 #. Tag: filename
 #: index.docbook:271
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "<filename>training</filename>"
 msgstr "<filename>training</filename>"
 
 #. Tag: filename
 #: index.docbook:272
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "interview"
-msgstr "interview"
+msgstr "Interview"
 
 #. Tag: title
 #: index.docbook:277
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "The training"
-msgstr "Das Training"
+msgstr "Training"
 
 #. Tag: para
 #: index.docbook:279
@@ -782,8 +781,8 @@ msgid ""
 "To do this you must either be connected to the server or use the <link "
 "linkend=\"offline_mode\">offline mode</link>."
 msgstr ""
-"Damit das funktionierten müssen Sie zum Server verbunden sein oder sich im <"
-"link linkend=\"offline_mode\">Offlinemodus</link> befinden."
+"Damit das funktionierten müssen Sie zum Server verbunden sein oder sich im "
+"<link linkend=\"offline_mode\">Offlinemodus</link> befinden."
 
 #. Tag: para
 #: index.docbook:300
@@ -818,8 +817,8 @@ msgid ""
 "recording."
 msgstr ""
 "Im Powertrainingmodus wird die Aufnahme starten sobald der zu sprechende "
-"Text angezeigt wird. Sie können dann einfach mit dem <guibutton>Weiter<"
-"/guibutton> Knopf zur nächsten Seite im Assistenten fortfahren. Sobald Sie "
+"Text angezeigt wird. Sie können dann einfach mit dem <guibutton>Weiter</"
+"guibutton> Knopf zur nächsten Seite im Assistenten fortfahren. Sobald Sie "
 "das machen wird die aktuelle Aufnahme abgeschlossen, gespeichert und die "
 "nächste Aufnahme beginnt."
 
@@ -884,9 +883,9 @@ msgid ""
 "guilabel> and <guilabel>Type</guilabel> fields. Enter the information about "
 "the microphone in the two input boxes bellow."
 msgstr ""
-"Bitte geben Sie das Modell und den Typ der Soundkarte in der <guilabel>"
-"Model</guilabel> und <guilabel>Typ</guilabel> Felder ein. Geben Sie die "
-"Information über Mikrofone in den zwei Eingabefelder darunter an."
+"Bitte geben Sie das Modell und den Typ der Soundkarte in der "
+"<guilabel>Model</guilabel> und <guilabel>Typ</guilabel> Felder ein. Geben "
+"Sie die Information über Mikrofone in den zwei Eingabefelder darunter an."
 
 #. Tag: para
 #: index.docbook:336
@@ -992,7 +991,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:368
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Recording data"
 msgstr "Daten aufnehmen"
 
@@ -1026,7 +1025,7 @@ msgstr "Daten speichern oder übermitteln"
 
 #. Tag: para
 #: index.docbook:386
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "After you recorded the prompts (you may skip prompts at any time) you can "
 "upload the collected samples to the server or store them locally to send "
@@ -1055,8 +1054,8 @@ msgid ""
 "To upload stored samples please refer to the <link linkend=\"stored_samples"
 "\">next section</link>."
 msgstr ""
-"Um gespeicherte Aufnahmen zu senden sehen Sie bitte die <link "
-"linkend=\"stored_samples\">nächste Sektion</link>."
+"Um gespeicherte Aufnahmen zu senden sehen Sie bitte die <link linkend="
+"\"stored_samples\">nächste Sektion</link>."
 
 #. Tag: title
 #: index.docbook:406
@@ -1093,8 +1092,8 @@ msgid ""
 "To access (and upload) stored samples, select <guibutton>Upload stored data</"
 "guibutton> from the toolbar."
 msgstr ""
-"Um die gespeicherten Aufnahmen zu verwalten (und hochzuladen), wählen Sie <"
-"guibutton>Gespeicherte Daten hochladen</guibutton> von der Werkzeugleiste."
+"Um die gespeicherten Aufnahmen zu verwalten (und hochzuladen), wählen Sie "
+"<guibutton>Gespeicherte Daten hochladen</guibutton> von der Werkzeugleiste."
 
 #. Tag: screeninfo
 #: index.docbook:414
@@ -1235,7 +1234,7 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:454
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Configuring &kmyapplication;"
 msgstr "&kmyapplication; konfigurieren"
 
@@ -1280,11 +1279,10 @@ msgstr ""
 "Institution einrichten können Sie es direkt an diese Institution binden. "
 "Anwender können dann direkt die institutionsspezifischen BenutzerIDs "
 "verwenden (statt der internen ssc IDs) wenn Sie den Sprecher identifizieren. "
-"Um diese Verbindung aufzubauen verwenden Sie die Option <guibutton>"
-"Instiutionsspezifische IDs statt SSC IDs verwenden</guibutton> verwenden. "
-"Für mehr Informationen sehen Sie die <link "
-"linkend=\"institution_association\">Sektion über Institutionsassoziationen<"
-"/link>."
+"Um diese Verbindung aufzubauen verwenden Sie die Option "
+"<guibutton>Instiutionsspezifische IDs statt SSC IDs verwenden</guibutton> "
+"verwenden. Für mehr Informationen sehen Sie die <link linkend="
+"\"institution_association\">Sektion über Institutionsassoziationen</link>."
 
 #. Tag: para
 #: index.docbook:473
@@ -1319,13 +1317,13 @@ msgstr ""
 
 #. Tag: title
 #: index.docbook:489
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Credits and License"
 msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
 #: index.docbook:491
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "&kmyapplication;"
 msgstr "&kmyapplication;"
 
@@ -1354,9 +1352,8 @@ msgstr ""
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
-"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch <email>"
-"grasch@simon-"
-"listens.org</email></para>"
+"<para>Übersetzung Copyright &copy; 2009-2010 Peter Grasch "
+"<email>grasch@simon-listens.org</email></para>"
 
 #. Tag: chapter
 #: index.docbook:502
@@ -1366,7 +1363,7 @@ msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: index.docbook:511
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "Installation"
 msgstr "Installation"
 
@@ -1378,7 +1375,632 @@ msgid ""
 "English:_Setup\">wiki</ulink> for install instructions."
 msgstr ""
 "Bitte sehen Sie unser <ulink url=\"http://www.simon-listens.org/wiki/index."
-"php/"
-"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"php/English:_Setup\">online Wiki</ulink> for eine detaillierte "
 "Installationsanleitung."
 
+#, fuzzy
+#~ msgid "Remove list"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Edit"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Turn on Repeat"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Edit launcher..."
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "&Remove launcher"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Application icon"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgid "Edit launcher"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "sammeln"
+
+#, fuzzy
+#~ msgid "Remove this node"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Reloading"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Print Preview"
+#~ msgstr "interview"
+
+#, fuzzy
+#~ msgid "Print Preview..."
+#~ msgstr "interview"
+
+#, fuzzy
+#~ msgctxt "Information about a journey with public transport"
+#~ msgid "Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Hide Additional &Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "International"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgctxt "Autocompletion for names of public transport stops"
+#~ msgid "Autocompletion"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Remove Feed"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Icons view"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "(C) 2010 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Received collection: %1"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Selected collection:"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Remove"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Interface:"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Press and release"
+#~ msgstr "Danksagungen und Lizenz"
+
+#, fuzzy
+#~ msgid "Samples:"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Retrieve system information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Trainingssamples"
+#~ msgstr "Trainingsdatendateien"
+
+#, fuzzy
+#~ msgid "Base model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Build model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Edit sample"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Add trainingstext"
+#~ msgstr "Das Training"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Recognition Rate"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Import Trainingsdata"
+#~ msgstr "Trainingsdatendateien"
+
+#, fuzzy
+#~ msgid "Clear Trainingdata"
+#~ msgstr "Trainingsdatendateien"
+
+#, fuzzy
+#~ msgid "Edit Word"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Remove Word"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Add to Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Aufnahmen sammeln"
+
+#, fuzzy
+#~ msgid "Volume changed"
+#~ msgstr "Lautstärkeneinpegelung"
+
+#, fuzzy
+#~ msgid "Record"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Remove device"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Volume min:"
+#~ msgstr "Lautstärkeneinpegelung"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Lautstärkeneinpegelung"
+
+#, fuzzy
+#~ msgid "More information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Recordings:"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Recordings"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Interview:"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Interview possible"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Repeating:"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Model:"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "Institution:"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "Institutions"
+#~ msgstr "Installation"
+
+#, fuzzy
+#~ msgid "simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Start simon"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "(C) 2008 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Subtraction"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Multiplication"
+#~ msgstr "&kmyapplication;"
+
+#, fuzzy
+#~ msgctxt "Name of the DBus interface"
+#~ msgid "Interface"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "sam"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "(C) 2009 Peter Grasch"
+#~ msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Overview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Modify sample"
+#~ msgstr "sample"
+
+#, fuzzy
+#~ msgid "Base models"
+#~ msgstr "Modell"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Connection lost"
+#~ msgstr "Aufnahmen sammeln"
+
+#, fuzzy
+#~ msgid "Connecting aborted"
+#~ msgstr "Aufnahmen sammeln"
+
+#, fuzzy
+#~ msgid "Define Word"
+#~ msgstr "Offlinemodus"
+
+#, fuzzy
+#~ msgid "Import Training Samples"
+#~ msgstr "Trainingsdatendateien"
+
+#, fuzzy
+#~ msgid "Add Trainingstext"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Special Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Training completed"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Power Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgid "simon WIKI"
+#~ msgstr "simon"
+
+#, fuzzy
+#~ msgid "Manage scenarios"
+#~ msgstr "Benutzer verwalten"
+
+#, fuzzy
+#~ msgid "Loading Overview"
+#~ msgstr "interview"
+
+#, fuzzy
+#~ msgid "Preperation"
+#~ msgstr "repeat"
+
+#, fuzzy
+#~ msgid "Recoding audio..."
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Volume correct!"
+#~ msgstr "Lautstärkeneinpegelung"
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Recording:"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgctxt "The option to use pre-recorded sounds instead of the tts system"
+#~ msgid "Recordings"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Send samples"
+#~ msgstr "Aufnahmen sammeln"
+
+#, fuzzy
+#~ msgid "Storing data..."
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Sending data..."
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Could not send sample"
+#~ msgstr "Aufnahmen sammeln"
+
+#, fuzzy
+#~ msgid "Could not add institution"
+#~ msgstr "Mit einer Institution assoziieren"
+
+#, fuzzy
+#~ msgid "User - institution associations could not be read"
+#~ msgstr "<phrase>Neue Institutionsassoziation</phrase>"
+
+#, fuzzy
+#~ msgid "Switch to offline mode"
+#~ msgstr "Offlinemodus"
+
+#, fuzzy
+#~ msgid "Add user"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Manage institutions"
+#~ msgstr "<title>Institutionen verwalten</title>"
+
+#, fuzzy
+#~ msgid "Show, edit and add institutions"
+#~ msgstr "Mit einer Institution assoziieren"
+
+#, fuzzy
+#~ msgid "Not connected (Offline mode)"
+#~ msgstr "Offlinemodus"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the user is required to repeat what the recording "
+#~ "facilitator tells him"
+#~ msgid "Repeating"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgctxt "Trainings type where the user reads prompts off the screen"
+#~ msgid "Training"
+#~ msgstr "Training"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Trainings type where the facilitator asks general questions and the "
+#~ "interviee answers them"
+#~ msgid "Interview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Power Recording"
+#~ msgstr "Daten aufnehmen"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Motor function"
+#~ msgstr "Einleitung"
+
+#, fuzzy
+#~ msgid "Interview Possible"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "&Remove"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "R&epeat"
+#~ msgstr "Wiederholen"
+
+#, fuzzy
+#~ msgid "Quits the application"
+#~ msgstr "&kmyapplication; verwenden"
+
+#, fuzzy
+#~ msgid "Interval:"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Position:"
+#~ msgstr "sammeln"
+
+#, fuzzy
+#~ msgid "Move Here"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Rename <filename>%1</filename> to:"
+#~ msgstr "<filename>training</filename>"
+
+#, fuzzy
+#~ msgctxt "@title actions category"
+#~ msgid "Edit"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Meta Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing image"
+#~ msgid "Edit"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgctxt "@title:group"
+#~ msgid "Meta Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgctxt "@title actions category - means actions changing smth in interface"
+#~ msgid "Edit"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Semantic Information"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgctxt "@action"
+#~ msgid "Edit Tags"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Loading <filename>%1</filename> failed"
+#~ msgstr "<filename>training</filename>"
+
+#, fuzzy
+#~ msgid "Selection: %1"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Flip Selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Preview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Scale Selection?"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Scal&e Selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Rotate Selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Image/Selection Menu caption - make sure that translation has the same "
+#~ "accel as the &Image translation"
+#~ msgid "Select&ion"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Refine interpolation"
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Corrections"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "Clear Selections"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgctxt "Preview button text"
+#~ msgid "Preview"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Editor"
+#~ msgstr "Benutzer bearbeiten"
+
+#, fuzzy
+#~ msgid "Printing to file failed"
+#~ msgstr "Trainingsdatendateien"
+
+#, fuzzy
+#~ msgid "Reviews"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Remove Bookmark"
+#~ msgstr "Benutzer entfernen"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Installation"
+#~ msgstr[1] "Installation"
+
+#, fuzzy
+#~ msgid "Inline Note"
+#~ msgstr "Offlinemodus"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Sammlung"
+
+#, fuzzy
+#~ msgid "&Review"
+#~ msgstr "Interview"
+
+#, fuzzy
+#~ msgid "Reading font information..."
+#~ msgstr "Geräteinformation"
+
+#, fuzzy
+#~ msgid "Resolution"
+#~ msgstr "Sammlung"

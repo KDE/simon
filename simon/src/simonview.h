@@ -128,6 +128,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void displayError(const QString& error);
 
     void toggleActivation();
+    void setActivation(bool active);
     void representState(SimonControl::SystemStatus status);
     
     void showAddWordDialog();

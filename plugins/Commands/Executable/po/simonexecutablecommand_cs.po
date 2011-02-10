@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonexecutablecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-16 20:21+0200\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-06-25 11:13+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -86,8 +86,230 @@ msgstr "pavelfric@seznam.cz"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
+#, fuzzy
+#~ msgid "Director"
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgctxt "Page size"
+#~ msgid "US Executive"
+#~ msgstr "Vykonatelný"
+
+#, fuzzy
+#~ msgid "or"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "This is a clickMessage for the line edit in the rename filter config "
+#~ "dialog"
+#~ msgid "Type the new name"
+#~ msgstr "Nový program byl přidán"
+
+#, fuzzy
+#~ msgid "[INF] Loading eventghost commands from %1"
+#~ msgstr "[INF] Nahrává vykonatelné příkazy z %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving eventghost commands to %1"
+#~ msgstr "[INF] Ukládá vykonatelné příkazy do %1"
+
 #~ msgid "Form"
 #~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgid "Select place"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "Configure the necessairy parameters manually"
+#~ msgstr "Nezbytné proměnné nastavit ručně"
+
+#, fuzzy
+#~ msgid "Import"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Import Prompts"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgid "Base directory:"
+#~ msgstr "Pracovní adresář"
+
+#, fuzzy
+#~ msgid "Import Folder"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgid "Directory:"
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgid "HTK Programs"
+#~ msgstr "Program"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "Couldn't execute command: %1"
+#~ msgstr "[INF] Nahrává vykonatelné příkazy z %1"
+
+#, fuzzy
+#~ msgid "Select Place"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Nový program byl přidán"
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgid "Importing Dictionary"
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Pracovní adresář"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgid "Add the word"
+#~ msgstr "Nový program byl přidán"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "Pretty label showing the user that the transcription and the result "
+#~ "mismatch"
+#~ msgid "%1 (correct: %2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "Author (contact information)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Import from file"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgctxt "Name and contact information"
+#~ msgid "<p>%1 (%2)</p>"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "KDE Test Program"
+#~ msgstr "Program"
+
+#, fuzzy
+#~ msgid "xsltproc &executable:"
+#~ msgstr "Vykonatelný:"
+
+#, fuzzy
+#~ msgid "Select Languages"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "Select Language"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "Import Phrasebook"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgctxt "In which directory is the file located?"
+#~ msgid "&Directory:"
+#~ msgstr "Pracovní adresář:"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Parsing directory..."
+#~ msgstr "Pracovní adresář"
+
+#, fuzzy
+#~ msgctxt "%1 is collection name, %2 is image count in collection"
+#~ msgid "%1 (%2 image)"
+#~ msgid_plural "%1 (%2 images)"
+#~ msgstr[0] "%1 (%2)"
+#~ msgstr[1] "%1 (%2)"
+#~ msgstr[2] "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "@title:menu"
+#~ msgid "Import"
+#~ msgstr "Zavést program"
+
+#, fuzzy
+#~ msgid "Selection"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgid "%1%"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgctxt "<Tool Name> (<Single Accel Key>)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
+
+#, fuzzy
+#~ msgid "Selection (Free-Form)"
+#~ msgstr "Vybrat program"
+
+#, fuzzy
+#~ msgctxt "set white balance manually"
+#~ msgid "Manual"
+#~ msgstr "Ruční"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Vanuatu"
+#~ msgstr "Ruční"
+
+#, fuzzy
+#~ msgid "Format"
+#~ msgstr "Formulář"
+
+#, fuzzy
+#~ msgctxt "Select Tool"
+#~ msgid "Selection"
+#~ msgstr "Vybrat program"
 
 #~ msgid "Import a program"
 #~ msgstr "Zavést program"
@@ -104,23 +326,11 @@ msgstr "%1 (%2)"
 #~ "Simon se zeptá KDE na seznam instalovaných programů a vy si potom budete "
 #~ "moci vybrat program, ke kterému chcete přiřadit příkaz z tohoto seznamu."
 
-#~ msgid "Added the new Program"
-#~ msgstr "Nový program byl přidán"
-
 #~ msgid "Press \"Finish\" to complete the wizard."
 #~ msgstr "Stiskněte \"Dokončit\" pro dokončení tohoto kouzelníka."
-
-#~ msgid "Import Program"
-#~ msgstr "Zavést program"
 
 #~ msgid ""
 #~ "This wizard will help you to add commands for installed programs easily"
 #~ msgstr ""
 #~ "Tento kouzelník vám pomůže s jednoduchým přidáním příkazů pro "
 #~ "nainstalované programy."
-
-#~ msgid "[INF] Loading executable commands from %1"
-#~ msgstr "[INF] Nahrává vykonatelné příkazy z %1"
-
-#~ msgid "[INF] Saving executable commands to %1"
-#~ msgstr "[INF] Ukládá vykonatelné příkazy do %1"

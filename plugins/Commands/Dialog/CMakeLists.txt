@@ -19,50 +19,16 @@ include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib)
 
 set (simondialogcommandplugin_SRCS 
-	dialogcommandmanager.cpp 
-	dialogconfiguration.cpp
-	dialogcommand.cpp
-	createdialogcommandwidget.cpp
-
-  visualdialogview.cpp
-  ttsdialogview.cpp
-  dialogstate.cpp
-  dialogtext.cpp
-  dialogtextparser.cpp
-
-  dialogcommandbutton.cpp
+  dialogcommandmanager.cpp 
+  dialogconfiguration.cpp
+  createdialogcommandwidget.cpp
   createtransitiondialog.cpp
-
-  dialogtemplateoptions.cpp
-  createtemplateoptiondialog.cpp
-
-  createboundvaluedialog.cpp
- 
-  boundvalue.cpp
-  dialogboundvalues.cpp
-  staticboundvalue.cpp
-  scriptboundvalue.cpp
-
-  avatar.cpp
-  avatarmodel.cpp
-  createavatardialog.cpp
     )
 
-if (USE_PLASMA)
-set (simondialogcommandplugin_SRCS 
-  ${simondialogcommandplugin_SRCS}
-  plasmaboundvalue.cpp
-  )
-endif(USE_PLASMA)
-
 kde4_add_ui_files(simondialogcommandplugin_SRCS 
-	dialogwidget.ui
-	dialogconfigurationdlg.ui
-	createdialogcommandwidget.ui
-	createtransitiondlg.ui
-  createtemplateoptiondialog.ui
-  createboundvalue.ui
-  createavatardlg.ui
+  dialogconfigurationdlg.ui
+  createdialogcommandwidget.ui
+  createtransitiondlg.ui
     )
 
 kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
@@ -71,11 +37,13 @@ kde4_add_plugin(simondialogcommandplugin ${simondialogcommandplugin_SRCS})
 if (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
   ${QT_LIBRARIES}	${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios
-  simonscenariobase simonactions simontts)
+  simonscenariobase simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview
+  simondialogengineconfui)
 else (USE_PLASMA)
 target_link_libraries(simondialogcommandplugin ${KDE4_KDEUI_LIBS}
   ${QT_LIBRARIES}	${KDE4_KIO_LIBS} simonscenarios simonscenariobase
-  simonactions simontts)
+  simonactions simondialogengine simondialogenginettsview simondialogenginegraphicalview
+  simondialogengineconfui)
 endif(USE_PLASMA)
 
 install(TARGETS simondialogcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddialogplugin )

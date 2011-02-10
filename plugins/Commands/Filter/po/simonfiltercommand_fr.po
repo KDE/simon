@@ -5,58 +5,64 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2010-07-22 14:45+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
 "PO-Revision-Date: 2010-07-22 21:42+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: filtercommandmanager.cpp:39 filtercommandmanager.cpp:64
+#: filtercommandmanager.cpp:41 filtercommandmanager.cpp:66
 msgid "Activate Filter"
 msgstr "Activer le filtre"
 
-#: filtercommandmanager.cpp:50 filterconfiguration.cpp:30
+#: filtercommandmanager.cpp:52 filterconfiguration.cpp:30
 msgid "Filter"
 msgstr "Filtrer"
 
-#: filtercommandmanager.cpp:63
-msgid "Filter deactivated"
-msgstr "Filtre désactivé"
-
-#: filtercommandmanager.cpp:67
-msgid "Filter activated"
-msgstr "Filtre activé"
-
-#: filtercommandmanager.cpp:68
+#: filtercommandmanager.cpp:70
 msgid "Deactivate Filter"
 msgstr "Désactiver le filtre"
 
-#: filtercommandmanager.cpp:75
-msgid "[INF] Changing filter state..."
+#: filtercommandmanager.cpp:77
+#, fuzzy
+msgid "Changing filter state..."
 msgstr "[INF] Changement d'état du filtre"
 
-#: filtercommandmanager.cpp:107
+#: filtercommandmanager.cpp:165
 msgid "Activate filter"
 msgstr "Activer le filtre"
 
-#: filtercommandmanager.cpp:108
+#: filtercommandmanager.cpp:166
 msgid "Starts filtering"
 msgstr "Démarrer le filtrage"
 
-#: filtercommandmanager.cpp:114
+#: filtercommandmanager.cpp:172
 msgid "Deactivate filter"
 msgstr "Désactiver le filtre"
 
-#: filtercommandmanager.cpp:115
+#: filtercommandmanager.cpp:173
 msgid "Stops filtering"
 msgstr "Arrêter le filtrage"
+
+#: filtercommandmanager.cpp:179
+#, fuzzy
+msgid "Deactivate filter once"
+msgstr "Désactiver le filtre"
+
+#: filtercommandmanager.cpp:180
+msgid ""
+"When two stage mode is activated; Will consider the next recognition result "
+"and either only listen for the command to deactivate the filter completely "
+"or also pass the next result through to other plugins depending on the "
+"setting in the configuration."
+msgstr ""
 
 #: filterconfiguration.cpp:31
 msgid "Filter recognition results"
@@ -64,7 +70,7 @@ msgstr "Filtrer les résultats de la reconnaissance"
 
 #. i18n: file: filterconfigurationdlg.ui:32
 #. i18n: ectx: property (text), widget (KLineEdit, leRegExp)
-#: filterconfiguration.cpp:76 po/rc.cpp:6 rc.cpp:6
+#: filterconfiguration.cpp:117 po/rc.cpp:6 rc.cpp:6
 msgid ".*"
 msgstr ".*"
 
@@ -74,14 +80,277 @@ msgstr ".*"
 msgid "Filter (RegExp):"
 msgstr "Filtre (Regexp) :"
 
-#: po/rc.cpp:7 rc.cpp:7
+#. i18n: file: filterconfigurationdlg.ui:41
+#. i18n: ectx: property (text), widget (QCheckBox, cbTwoStage)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:48
+#. i18n: ectx: property (text), widget (QCheckBox, cbRelayStageOne)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Relay result in stage one of two stage activation"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, cbLeaveStageOneAutomatically)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Leave stage one automatically after timeout:"
+msgstr ""
+
+#. i18n: file: filterconfigurationdlg.ui:77
+#. i18n: ectx: property (text), widget (QLabel, lbMs)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "ms"
+msgstr ""
+
+#: po/rc.cpp:19 rc.cpp:19
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Yann Cantin"
 
-#: po/rc.cpp:8 rc.cpp:8
+#: po/rc.cpp:20 rc.cpp:20
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yann.cantin@laposte.net"
 
+#, fuzzy
+#~ msgid "File directive"
+#~ msgstr "Filtre désactivé"
 
+#, fuzzy
+#~ msgid "Fit"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "alternative"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "&Add Filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Add another filter"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Enable Filters"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "&Stop selection"
+#~ msgstr "Arrêter le filtrage"
+
+#, fuzzy
+#~ msgid "*"
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Démarrer le filtrage"
+
+#, fuzzy
+#~ msgid "Keep recognition samples"
+#~ msgstr "Filtrer les résultats de la reconnaissance"
+
+#, fuzzy
+#~ msgid "Start calibration"
+#~ msgstr "Démarrer le filtrage"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Apply Filters"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Activate Calculator"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Activate Desktopgrid"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Activate Dialog"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Start dialog"
+#~ msgstr "Démarrer le filtrage"
+
+#, fuzzy
+#~ msgid "Activate Number Input"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ".*"
+
+#, fuzzy
+#~ msgid "Activate Keyboard"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Starts dialog"
+#~ msgstr "Démarrer le filtrage"
+
+#, fuzzy
+#~ msgid "simon activated"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgid "simon deactivated"
+#~ msgstr "Filtre désactivé"
+
+#, fuzzy
+#~ msgid "Active Dictionary"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "simon - Deactivated"
+#~ msgstr "Filtre désactivé"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Deactivating..."
+#~ msgstr "Désactiver le filtre"
+
+#, fuzzy
+#~ msgid "Connected but Deactivated"
+#~ msgstr "Filtre désactivé"
+
+#, fuzzy
+#~ msgid "simon has been deactivated"
+#~ msgstr "Filtre désactivé"
+
+#, fuzzy
+#~ msgid "Connected and Activated"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgid "Activated"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "simon has been activated"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgid "Received recognition result for: %1: %2"
+#~ msgstr "Filtrer les résultats de la reconnaissance"
+
+#, fuzzy
+#~ msgid "Analyzing recognition results..."
+#~ msgstr "Filtrer les résultats de la reconnaissance"
+
+#, fuzzy
+#~ msgid ""
+#~ "Recognition results:\n"
+#~ "%1"
+#~ msgstr "Filtrer les résultats de la reconnaissance"
+
+#, fuzzy
+#~ msgid "Set output file"
+#~ msgstr "Arrêter le filtrage"
+
+#, fuzzy
+#~ msgid "Set file"
+#~ msgstr "Arrêter le filtrage"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Filters"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "testfilter"
+#~ msgstr "Activer le filtre"
+
+#, fuzzy
+#~ msgid "Select Filter"
+#~ msgstr "Désactiver le filtre"
+
+#, fuzzy
+#~ msgid "Filter Configuration"
+#~ msgstr "Filtrer les résultats de la reconnaissance"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Add Filter"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Create Folder"
+#~ msgstr "Désactiver le filtre"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Name"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Date"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Rating"
+#~ msgstr "Filtre activé"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Filter by Tag"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgctxt ""
+#~ "@action:button Zoom to fit, shown in status bar, keep it short please"
+#~ msgid "Fit"
+#~ msgstr "Filtrer"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Yann Cantin"
+
+#, fuzzy
+#~ msgid "Stop Speaking"
+#~ msgstr "Arrêter le filtrage"
+
+#, fuzzy
+#~ msgid "Filter Options"
+#~ msgstr "Filtrer les résultats de la reconnaissance"
