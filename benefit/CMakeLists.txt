@@ -1,4 +1,4 @@
-find_package (KdepimLibs)
+find_package (KdepimLibs 4.5.60)
 
 if (KDEPIMLIBS_FOUND)
 add_subdirectory(speechcal)

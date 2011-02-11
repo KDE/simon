@@ -1,7 +1,7 @@
 add_subdirectory(AI)
 #add_subdirectory(ATIntegration)
 
-find_package (KdepimLibs)
+find_package (KdepimLibs 4.5.60)
 if (KDEPIMLIBS_FOUND)
 add_subdirectory(Akonadi)
 endif (KDEPIMLIBS_FOUND)
