@@ -28,6 +28,7 @@
 
 class QString;
 class WavPlayerClient;
+class QBuffer;
 class QNetworkReply;
 class QNetworkAccessManager;
 
@@ -42,16 +43,16 @@ class WebserviceTTSProvider : public QObject, public SimonTTSProvider
   Q_OBJECT
   private:
     QQueue<QString> filesToDownload;
-    QQueue<QString> filesToPlay;
-    QBuffer currentFileTemp;
+    QQueue<QBuffer*> filesToPlay;
     QNetworkReply *currentConnection;
     
     QNetworkAccessManager *net;
     WavPlayerClient *player;
+    void enquePlayback();
 
   private slots:
     void downloadProgress(qint64,qint64);
-    void replyReceived(QNetworkReply*);
+    void replyReceived();
     void playNext();
     void initializeOutput();
 

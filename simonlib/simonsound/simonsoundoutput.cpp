@@ -27,10 +27,12 @@
 #include <KLocalizedString>
 #include <KDebug>
 #include <KMessageBox>
+#include <QFile>
 
 QMutex SimonSoundOutput::playbackMutex(QMutex::Recursive);
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
+// initialRound(true),
 m_output(0),
 m_activeOutputClient(0)
 {
@@ -45,27 +47,42 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
   kDebug() << "readData()";
   Q_UNUSED(toRead);
   Q_UNUSED(maxLen);
+  
+//   if (initialRound) {
+//       //dummy data to give device time to open
+//       kDebug() << "Dummy round";
+//       initialRound = false;
+//       memset(toRead,0, maxLen);
+//       return maxLen;
+//   }
 
   if (!m_activeOutputClient) {
     kDebug() << "No current output client\n";
     if (m_suspendedOutputClients.isEmpty()) {
-      //#ifdef Q_OS_WIN32
       stopPlayback();
-      //#endif
       return -1;
+    } else {
+      //output silence until we get something better
+      memset(toRead,0, maxLen);
+      return maxLen;
     }
-    else
-      return 0;
   }
 
   qint64 read = m_activeOutputClient->getDataProvider()->read(toRead, maxLen);
+//   QFile f("/home/bedahr/t.t");
+//   if (!f.open(QIODevice::WriteOnly|QIODevice::Append)) kDebug() << "ERROR";
+//   f.write(toRead, read);
+//   kDebug() << "Added to: /home/bedahr/t";
+//   f.close();
 
   if (read <= 0) {
     SoundServer::getInstance()->deRegisterOutputClient(m_activeOutputClient);
+  } else if (read < maxLen) {
+    memset(toRead + read, 0, maxLen - read-1);
+    read = maxLen;
   }
 
   return read;
-  return 0;
 }
 
 
@@ -148,10 +165,13 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
 
   reset();
 
+//   initialRound = true;
+  
   kDebug() << "Using device: " << selectedInfo.deviceName();
   m_output = new QAudioOutput(selectedInfo, format, this);
   connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
   connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
+  m_output->setBufferSize(8192);
   m_output->start(this);
 
   kDebug() << "Started audio output";
@@ -169,6 +189,15 @@ SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
     priority = qMax(priority, client->priority());
 
   return priority;
+}
+
+void SimonSoundOutput::startClientUpdate()
+{
+//   playbackMutex.lock();
+}
+void SimonSoundOutput::completeClientUpdate()
+{
+//   playbackMutex.unlock();
 }
 
 
@@ -223,7 +252,9 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
         break;
 
       case QAudio::FatalError:
-        emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
+	//not much the user can do about that and with the current QtMultimedia that happens fairly regularly..
+//         emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
+// 	initialRound = true;
         m_output->start(this);
         break;
     }
@@ -249,7 +280,7 @@ void SimonSoundOutput::suspendOutput()
 void SimonSoundOutput::resumeOutput()
 {
   if (!m_output) return;
-  m_output->suspend();
+  m_output->resume();
 }
 
 

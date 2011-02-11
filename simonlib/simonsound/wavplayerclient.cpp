@@ -23,6 +23,7 @@
 #include <simonwav/wav.h>
 #include <KDebug>
 
+
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -100,6 +101,23 @@ bool WavPlayerClient::play( QString filename, int channels )
   if (succ) m_isPlaying = true;
   return succ;
 }
+
+bool WavPlayerClient::play(QIODevice* device, int channels, int samplerate)
+{
+  bool succ = false;
+  kDebug() << "Playing: stream" << channels << samplerate;
+  //FIXME: respect samplerate
+  foreach (WavPlayerSubClient *client, clients) {
+    if ((client->getChannelCount() == channels) &&
+	client->play(device)) {
+      clientsWaitingToFinish << client;
+      succ = true;
+    }
+  }
+  if (succ) m_isPlaying = true;
+  return succ;
+}
+
 
 
 /**

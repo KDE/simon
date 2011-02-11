@@ -29,6 +29,7 @@
 #include <KDebug>
 #include <KStandardDirs>
 #include <QBuffer>
+#include <simonwav/wav.h>
 
 WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
   currentConnection(0),
@@ -48,28 +49,29 @@ WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
 bool WebserviceTTSProvider::initialize()
 {
   if (!net)
-  {
     net = new QNetworkAccessManager(this);
-  }
 
   return true;
 }
 
-void WebserviceTTSProvider::replyReceived(QNetworkReply* reply)
+void WebserviceTTSProvider::replyReceived()
 {
+  QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
+  if (!reply) return;
+  
   if (reply->error() != QNetworkReply::NoError)
   {
-    kWarning() << "Webservice reported error: " << reply->error();
+    kWarning() << "Webservice reported error: " << reply->errorString();
     return;
   }
-
+  
+/*
   QString path = KStandardDirs::locateLocal("tmp", "simontts/webservice/return.wav");
   QFile f(path);
   if (!f.open(QIODevice::WriteOnly|QIODevice::Truncate))
     return;
-  f.write(reply->readAll());
+  f.write(filesToPlay.first()->buffer());
   f.close();
-
   //play wav file
   kDebug() << "Playing: " << path;
   if (!player->isPlaying())
@@ -77,7 +79,7 @@ void WebserviceTTSProvider::replyReceived(QNetworkReply* reply)
   else {
     kDebug() << "Adding to playback queue: " << path;
     filesToPlay.enqueue(path);
-  }
+  }*/
   
   if (!filesToDownload.isEmpty())
     currentConnection = net->get(QNetworkRequest(KUrl(filesToDownload.dequeue())));
@@ -124,20 +126,42 @@ bool WebserviceTTSProvider::say(const QString& text)
 
   QString url = TTSConfiguration::webserviceURL().replace("%1", text);
   kDebug() << "Getting: " << url;
-  
+ 
   if (currentConnection)
     filesToDownload.enqueue(url);
   else {
     currentConnection = net->get(QNetworkRequest(KUrl(url)));
     connect(currentConnection, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
+    connect(currentConnection, SIGNAL(finished()), this, SLOT(replyReceived()));
   }
+  QBuffer *b = new QBuffer(this);
+  b->open(QIODevice::ReadWrite);
+  filesToPlay.enqueue(b);
   return true;
 }
 
 void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 {
   kDebug() << "Download progress: " << now << max;
+  filesToPlay.first()->buffer() += currentConnection->readAll();
+  enquePlayback();
 }
+
+void WebserviceTTSProvider::enquePlayback()
+{
+  kDebug() << "Bytes available: " << filesToPlay.first()->bytesAvailable() << player->isPlaying();
+  if (filesToPlay.first()->bytesAvailable() >= 28 && !player->isPlaying()) {
+    kDebug() << "Received header so starting playback";
+    qint16 channels;
+    qint32 samplerate;
+    WAV::parseHeader(filesToPlay.first(), channels, samplerate);
+    kDebug() << "header: " << channels << samplerate;
+    QBuffer *handle = filesToPlay.first();
+    handle->buffer().remove(0, 44);
+    player->play(handle, channels, samplerate);
+  }
+}
+
 
 /**
  * \brief Plays the next file in the playing queue
@@ -145,7 +169,12 @@ void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 void WebserviceTTSProvider::playNext()
 {
   if (filesToPlay.isEmpty()) return;
-  player->play(filesToPlay.dequeue());
+  
+  kDebug() << "Finished playback";
+  filesToPlay.dequeue();
+  
+  if (filesToPlay.isEmpty()) return;
+  enquePlayback();
 }
 
 /**
@@ -156,8 +185,14 @@ bool WebserviceTTSProvider::interrupt()
 {
   if (!initialize()) return true;
 
-  filesToPlay.clear();
+  if (currentConnection) {
+    currentConnection->abort();
+    currentConnection->deleteLater();
+    currentConnection = 0;
+  }
   player->stop();
+  qDeleteAll(filesToPlay);
+  filesToPlay.clear();
   return true;
 }
 

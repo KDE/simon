@@ -29,7 +29,7 @@ set( simontts_LIB_HDRS
 kde4_add_kcfg_files(simontts_LIB_SRCS config/ttsconfiguration.kcfgc)
 
 kde4_add_library( simontts  SHARED ${simontts_LIB_SRCS} )
-target_link_libraries( simontts simonsound ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS}  ${KDE4_KIO_LIBS})
+target_link_libraries( simontts simonsound simonwav ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS}  ${KDE4_KIO_LIBS})
 
 
 set_target_properties( simontts

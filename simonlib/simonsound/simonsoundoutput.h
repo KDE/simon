@@ -28,6 +28,7 @@ class QAudioOutput;
 #include <QIODevice>
 #include <QMutex>
 #include <qaudio.h>
+#include <qvarlengtharray.h>
 
 class SoundOutputClient;
 
@@ -41,6 +42,7 @@ class SimonSoundOutput : public QIODevice
   void outputStateChanged(QAudio::State state);
 
   private:
+//     bool initialRound;
     static QMutex playbackMutex;
 
     QAudioOutput *m_output;
@@ -67,6 +69,9 @@ class SimonSoundOutput : public QIODevice
 
     SoundClient::SoundClientPriority getHighestPriority();
     bool activate(SoundClient::SoundClientPriority priority);
+    
+    void startClientUpdate();
+    void completeClientUpdate();
 
     void suspendOutput();
     void resumeOutput();
