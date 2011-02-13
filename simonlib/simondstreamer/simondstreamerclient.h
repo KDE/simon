@@ -43,7 +43,7 @@ class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundI
 
     void inputStateChanged(QAudio::State state);
 
-    signals:
+  signals:
     void clippingOccured();
     void started();
     void stopped();

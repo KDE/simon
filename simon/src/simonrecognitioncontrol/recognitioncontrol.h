@@ -23,7 +23,6 @@
 #include "recognitioncontrol_export.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simondstreamer/simonsender.h>
-#include <QObject>
 #include <QStringList>
 #include <QMutex>
 
@@ -46,16 +45,16 @@ class SimondStreamer;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public SimonSender
+class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
 {
   Q_OBJECT
 
     public:
-    RecognitionControl(QWidget *parent=0);
+    RecognitionControl();
 
     ~RecognitionControl();
 
-    static RecognitionControl* getInstance(QWidget *parent=0);
+    static RecognitionControl* getInstance();
 
     enum RecognitionStatus
     {
@@ -180,9 +179,9 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject, public Simo
 
     void sendSample(QString sampleName);
 
-    void startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate);
-    void sendSampleToRecognize(qint8 id, const QByteArray& data);
-    void recognizeSample(qint8 id);
+    void startSampleToRecognizePrivate(qint8 id, qint8 channels, qint32 sampleRate);
+    void sendSampleToRecognizePrivate(qint8 id, const QByteArray& data);
+    void recognizeSamplePrivate(qint8 id);
 
     void synchronisationComplete();
     void synchronisationDone();

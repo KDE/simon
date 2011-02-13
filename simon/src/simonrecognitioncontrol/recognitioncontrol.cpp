@@ -91,7 +91,7 @@ RecognitionControl* RecognitionControl::instance;
  *	@param qint16 port
  *	Port the Server should listen to
  */
-RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent), SimonSender(),
+RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
 simondStreamer(new SimondStreamer(this, this)),
 recognitionReady(false),
@@ -118,9 +118,9 @@ timeoutWatcher(new QTimer(this))
 }
 
 
-RecognitionControl* RecognitionControl::getInstance(QWidget *parent)
+RecognitionControl* RecognitionControl::getInstance()
 {
-  if (!instance) instance = new RecognitionControl(parent);
+  if (!instance) instance = new RecognitionControl();
   return instance;
 }
 
@@ -1706,6 +1706,7 @@ void RecognitionControl::messageReceived()
           qint8 sentenceCount;
           msg >> sentenceCount;
 
+	  emit receivedResults();
           RecognitionResultList* recognitionResults = new RecognitionResultList();
 
           for (int i=0; i < sentenceCount; i++) {
@@ -1891,7 +1892,7 @@ bool RecognitionControl::resumeRecognition()
 }
 
 
-void RecognitionControl::startSampleToRecognize(qint8 id, qint8 channels, qint32 sampleRate)
+void RecognitionControl::startSampleToRecognizePrivate(qint8 id, qint8 channels, qint32 sampleRate)
 {
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
@@ -1905,9 +1906,8 @@ void RecognitionControl::startSampleToRecognize(qint8 id, qint8 channels, qint32
 }
 
 
-void RecognitionControl::sendSampleToRecognize(qint8 id, const QByteArray& data)
+void RecognitionControl::sendSampleToRecognizePrivate(qint8 id, const QByteArray& data)
 {
-  kDebug() << "Sending sample to server...";
   QByteArray body;
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
   bodyStream << id << data;
@@ -1921,7 +1921,7 @@ void RecognitionControl::sendSampleToRecognize(qint8 id, const QByteArray& data)
 }
 
 
-void RecognitionControl::recognizeSample(qint8 id)
+void RecognitionControl::recognizeSamplePrivate(qint8 id)
 {
   kDebug() << "Recognize on the last transmitted data";
 
