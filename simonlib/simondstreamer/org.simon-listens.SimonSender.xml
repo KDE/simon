@@ -2,7 +2,7 @@
 <node>
   <interface name="local.SimonSender">
     <signal name="recordingLevel">
-      <arg name="peak" type="f" direction="out"/>
+      <arg name="peak" type="d" direction="out"/>
     </signal>
     <signal name="listening">
     </signal>

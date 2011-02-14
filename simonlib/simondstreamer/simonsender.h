@@ -52,7 +52,7 @@ class SIMONDSTREAMER_EXPORT SimonSender : public QObject
     void relayLoudness();
   
   signals:
-    void recordingLevel(float peak);
+    void recordingLevel(double peak);
     void listening();
     void processing();
     void receivedResults();
