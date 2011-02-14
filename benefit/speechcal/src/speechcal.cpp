@@ -145,7 +145,9 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
     return;
   }
   Logger::log(i18n("Retrieved %1 items from collection", items.count()));
-  
+
+
+  QList< QSharedPointer<KCalCore::Event> > consideredItems;
   QList< QSharedPointer<KCalCore::Event> > relevantItems;
   foreach (const Akonadi::Item& i, items)
   {
@@ -163,10 +165,26 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
       continue;
     }
 
+    if (event->recurs()) {
+      KCalCore::Recurrence *r = event->recurrence();
+      KCalCore::DateTimeList list = r->timesInInterval(KDateTime(displayDate.date()), KDateTime(displayDate.addDays(1).date()));
+      foreach (const KDateTime& recurrenceTime, list) {
+        QSharedPointer<KCalCore::Event> copy(new KCalCore::Event(*event));
+        KCalCore::Duration d = copy->duration();
+        copy->setDtStart(recurrenceTime);
+        copy->setDuration(d);
+        consideredItems << copy;
+      }
+    } else
+      consideredItems << event;
+  }
+
+  foreach (QSharedPointer<KCalCore::Event> event, consideredItems) {
     KDateTime startDate = event->dtStart();
     KDateTime endDate = event->dtEnd();
-    if ((startDate.date() > displayDate.date()) || (endDate.date() < displayDate.date()))
+    if ((startDate.date() > displayDate.date()) || (endDate.date() < displayDate.date())) {
       continue;
+    }
 
     //insert sorted
     int j=0;
@@ -174,15 +192,15 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
     {
       if (relevantItems[j]->dtStart() > event->dtStart())
       {
-	relevantItems.insert(j, event);
-	break;
+        relevantItems.insert(j, event);
+        break;
       }
     }
     if (j == relevantItems.count())
       relevantItems << event;
   }
   Logger::log(i18n("Retrieved %1 relevant items", relevantItems.count()));
-  calendar->initialize(relevantItems);
+  calendar->addItems(relevantItems);
   updateView();
 }
 
