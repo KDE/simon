@@ -47,6 +47,7 @@ AkonadiCommandManager::AkonadiCommandManager(QObject* parent, const QVariantList
     CommandManager((Scenario*) parent, args)
 {
   connect(&checkScheduleTimer, SIGNAL(timeout()), this, SLOT(checkSchedule()));
+  connect(&recurrenceSetupTimer, SIGNAL(timeout()), this, SLOT(setupSchedule()));
   
   akonadiMonitor = new Akonadi::Monitor(this);
   akonadiMonitor->setMimeTypeMonitored(KCalCore::Event::eventMimeType(), true);
@@ -104,7 +105,9 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
   }
   Logger::log(i18n("Retrieved %1 items from collection", items.count()));
   
+  QList< QSharedPointer<KCalCore::Event> > consideredItems;
   QList< QSharedPointer<KCalCore::Event> > relevantItems;
+  bool hasRecurringEvents = false;
   foreach (const Akonadi::Item& i, items)
   {
     QSharedPointer<KCalCore::Event> event;
@@ -120,7 +123,28 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
       Logger::log(i18n("Fetched event has wrong type and could not be deserialized (Payload: %1)", QString::fromAscii(i.payloadData())), Logger::Error);
       continue;
     }
+    if (event->recurs()) {
+      KCalCore::Recurrence *r = event->recurrence();
+      //  six hours (giving us one whole hour for fetching schedule to not miss
+      //  events
+      KCalCore::DateTimeList list = r->timesInInterval(KDateTime(QDateTime::currentDateTime()), KDateTime(QDateTime::currentDateTime().addSecs(21600)));
+      foreach (const KDateTime& recurrenceTime, list) {
+        QSharedPointer<KCalCore::Event> copy(new KCalCore::Event(*event));
+        KCalCore::Duration d = copy->duration();
+        copy->setDtStart(recurrenceTime);
+        copy->setDuration(d);
+        consideredItems << copy;
+        hasRecurringEvents = true;
+      }
+    } else
+      consideredItems << event;
+  }
+  if (hasRecurringEvents) {
+    recurrenceSetupTimer.start(18000000); // re-schedule every five hours
+  } else
+    recurrenceSetupTimer.stop();
 
+  foreach (QSharedPointer<KCalCore::Event> event, consideredItems) {
     KDateTime startDate = event->dtStart();
     KDateTime endDate = event->dtEnd();
     if (endDate.dateTime() < QDateTime::currentDateTime())
