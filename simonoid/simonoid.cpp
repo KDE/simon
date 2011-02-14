@@ -31,7 +31,7 @@ simonoid::simonoid ( QObject *parent, const QVariantList &args )
 {
     setBackgroundHints ( DefaultBackground );
     setHasConfigurationInterface ( true );
-    resize ( 280, 120 );
+    resize ( 200, 100 );
 }
 
 simonoid::~simonoid()
@@ -41,7 +41,7 @@ simonoid::~simonoid()
 
 void simonoid::init()
 {
-    m_status = i18n("waiting");
+    m_status = i18n("Waiting");
     m_peak = 0;
     m_dbusinterface = new QDBusInterface ( "org.kde.simon",
                                            "/SimonSender",
@@ -53,38 +53,46 @@ void simonoid::init()
     connect ( m_dbusinterface, SIGNAL ( recordingLevel ( double ) ), this, SLOT ( recordingLevelCalled ( double ) ) );
 
     if (m_icon.isNull()) {
-        setFailedToLaunch(true, i18n("could not load simon icon"));
+        setFailedToLaunch(true, i18n("Could not load simon icon!"));
     }
 }
 
 void simonoid::paintInterface ( QPainter *p,
                                  const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
 {
-    p->drawPixmap ( 180, 20, m_icon.pixmap ( 80,80 ));
+    int winsize_x = ( int ) this->size().width();
+    int winsize_y = ( int ) this->size().height();
+    
+    int img_size = ( winsize_x < winsize_y ? winsize_x : winsize_y )-40;
+    
+    int margin = (winsize_y-img_size)/2;
+    
+    p->drawPixmap ( winsize_x-img_size-margin, margin, m_icon.pixmap( img_size, img_size ));
     p->save();
-    p->setPen ( Qt::black );
-    p->setFont ( QFont ( "Arial", 15, QFont::Bold ) );
+    
+    p->setPen ( Qt::black );    
+    //p->setFont ( QFont ( "Arial", 15, QFont::Bold ) );
     p->drawText ( contentsRect,
                   Qt::AlignVCenter | Qt::AlignLeft,
-                  i18n ( "status:  %1\npeak:    %2\%" ).arg ( m_status ).arg ( qRound(m_peak*100) ) );
+                  i18n ( "Status:  %1\nPeak:    %2\%" ).arg ( m_status ).arg ( qRound(m_peak*100) ) );
     p->restore();
 }
 
 void simonoid::listeningCalled()
 {
-    m_status = i18n("listening");
+    m_status = i18n("Listening");
     update();
 }
 
 void simonoid::processingCalled()
 {
-    m_status = i18n("processing");
+    m_status = i18n("Processing");
     update();
 }
 
 void simonoid::receivedResultsCalled()
 {
-    m_status = i18n("waiting");
+    m_status = i18n("Waiting");
     update();
 }
 
