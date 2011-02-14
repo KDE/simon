@@ -1,5 +1,5 @@
 # Project Needs a name ofcourse
-project(plasma-simonoid2)
+project(plasma-simonoid)
  
 # Find the required Libaries
 find_package(KDE4 REQUIRED)
@@ -13,15 +13,15 @@ include_directories(
    )
  
 # We add our source code here
-set(simonoid2_SRCS simonoid2.cpp)
+set(simonoid_SRCS simonoid.cpp)
  
 # Now make sure all files get to the right place
-kde4_add_plugin(plasma_applet_simonoid2 ${simonoid2_SRCS})
-target_link_libraries(plasma_applet_simonoid2 
+kde4_add_plugin(plasma_applet_simonoid ${simonoid_SRCS})
+target_link_libraries(plasma_applet_simonoid 
                       ${KDE4_PLASMA_LIBS} ${KDE4_KDEUI_LIBS})
  
-install(TARGETS plasma_applet_simonoid2
+install(TARGETS plasma_applet_simonoid
         DESTINATION ${PLUGIN_INSTALL_DIR})
  
-install(FILES plasma-applet-simonoid2.desktop
+install(FILES plasma-applet-simonoid.desktop
         DESTINATION ${SERVICES_INSTALL_DIR})
