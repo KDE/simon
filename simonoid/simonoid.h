@@ -24,6 +24,7 @@
 #include <Plasma/Applet>
 #include <KIcon>
 #include <QString>
+#include <QTimer>
 
 class QDBusInterface;
 
@@ -40,16 +41,24 @@ class simonoid : public Plasma::Applet
         void init();
 
     private:
+	bool connectSignalsAndSlots();
+	void disconnectSignalsAndSlots();
+	bool m_isconnected;
+	
         KIcon m_icon;
 	QString m_status;
 	QDBusInterface* m_dbusinterface;
 	double m_peak;
+	QTimer m_timer;
+	const static int CHECK_CONNECTION_INTERVAL_S = 3;
 	
     private slots:
+	void checkConnection();
 	void listeningCalled();
 	void processingCalled();
 	void receivedResultsCalled();
 	void recordingLevelCalled( double peak );
+	
 };
  
 // linking the applet to the .desktop file
