@@ -16,26 +16,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#ifndef ALARMSCHEDULEITEM_H
+#define ALARMSCHEDULEITEM_H
 
-#include <QModelIndex>
-#include <QList>
-#include <QSharedPointer>
-#include <kcalcore/event.h>
+#include <scheduleitem.h>
+#include <kcalcore/alarm.h>
 
-class CalendarModel : public QAbstractListModel
+class AkonadiConfiguration;
+class AkonadiCommandManager;
+
+class AlarmScheduleItem : public ScheduleItem
 {
 private:
-    QList< QSharedPointer<KCalCore::Event> > relevantItems;
-  
+  QString m_alarmText;
+  QDateTime m_eventTime;
+  QString m_eventLocation;
+  AkonadiConfiguration *m_config;
+  AkonadiCommandManager *m_manager;
+
 public:
-    CalendarModel(QObject* parent = 0);
-    void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
-    void addItems(const QList< QSharedPointer<KCalCore::Event> > items);
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    void clear();
+    AlarmScheduleItem(QSharedPointer< KCalCore::Event > event, KCalCore::Alarm::Ptr alarm,
+      AkonadiConfiguration *config, AkonadiCommandManager *manager
+    );
+    
+    bool trigger();
 };
 
-#endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#endif // ALARMSCHEDULEITEM_H

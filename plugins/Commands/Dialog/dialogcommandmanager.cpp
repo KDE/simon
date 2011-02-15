@@ -47,7 +47,6 @@ DialogCommandManager::DialogCommandManager(QObject* parent, const QVariantList& 
   currentDialogSate(NULL),
   dialogParser(NULL)
 {
-  kWarning() << "I AM ALIVE!";
   activateAction->setText(i18n("Activate Dialog"));
   activateAction->setIcon(KIcon("im-user"));
   connect(activateAction, SIGNAL(triggered(bool)),

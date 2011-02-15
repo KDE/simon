@@ -18,16 +18,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SHORTCUTMODE_H_A54B4D68778B4988A4AB1950123164C2
-#define SIMON_SHORTCUTMODE_H_A54B4D68778B4988A4AB1950123164C2
+#ifndef SIMONOID2_HEADER
+#define SIMONOID2_HEADER
 
-namespace EventSimulation
+#include <Plasma/Applet>
+#include <KIcon>
+#include <QString>
+
+class QDBusInterface;
+
+class simonoid : public Plasma::Applet
 {
-  enum PressMode
-  {
-    Press=1,
-    Release=2
-  };
-}
-#endif
+    Q_OBJECT
+    public:
+        simonoid(QObject *parent, const QVariantList &args);
+        ~simonoid();
 
+        void paintInterface(QPainter *painter,
+                const QStyleOptionGraphicsItem *option,
+                const QRect& contentsRect);
+        void init();
+
+    private:
+        KIcon m_icon;
+	QString m_status;
+	QDBusInterface* m_dbusinterface;
+	double m_peak;
+	
+    private slots:
+	void listeningCalled();
+	void processingCalled();
+	void receivedResultsCalled();
+	void recordingLevelCalled( double peak );
+};
+ 
+// linking the applet to the .desktop file
+K_EXPORT_PLASMA_APPLET(simonoid, simonoid)
+#endif

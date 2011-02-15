@@ -16,26 +16,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#ifndef COMMANDSCHEDULEITEM_H
+#define COMMANDSCHEDULEITEM_H
 
-#include <QModelIndex>
-#include <QList>
-#include <QSharedPointer>
-#include <kcalcore/event.h>
+#include <scheduleitem.h>
 
-class CalendarModel : public QAbstractListModel
+class AkonadiConfiguration;
+class CommandScheduleItem : public ScheduleItem
 {
 private:
-    QList< QSharedPointer<KCalCore::Event> > relevantItems;
-  
+  AkonadiConfiguration *m_config;
 public:
-    CalendarModel(QObject* parent = 0);
-    void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
-    void addItems(const QList< QSharedPointer<KCalCore::Event> > items);
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    void clear();
+    CommandScheduleItem(QSharedPointer< KCalCore::Event > event,
+  AkonadiConfiguration *config);
+    bool trigger();
 };
 
-#endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#endif // COMMANDSCHEDULEITEM_H

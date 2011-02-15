@@ -1,3 +1,4 @@
+find_package(Qt4 COMPONENTS QtCore QtDbus)
 include(FindQt4)
 include(SimonDirs)
 
@@ -21,6 +22,7 @@ include(KDE4Defaults)
 set( simondstreamer_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simondstreamer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simondstreamerclient.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsender.cpp
 )
 
 
@@ -29,6 +31,9 @@ set( simondstreamer_LIB_HDRS
   simondstreamer.h
   simonsender.h
 )
+
+qt4_add_dbus_adaptor( simondstreamer_LIB_SRCS org.simon-listens.SimonSender.xml
+  simonsender.h SimonSender)
 
 kde4_add_library( simondstreamer  SHARED ${simondstreamer_LIB_SRCS} )
 

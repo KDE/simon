@@ -209,6 +209,7 @@ void outputResult(Recog *recog, void *control)
   /* all recognition results are stored at each recognition process
   instance */
   for(r=recog->process_list;r;r=r->next) {
+    QString fileName = QString::fromUtf8(adin_file_get_current_filename());
     /* skip the process if the process is not alive */
     if (! r->live) continue;
 
@@ -235,6 +236,7 @@ void outputResult(Recog *recog, void *control)
           break;
         case J_RESULT_STATUS_FAIL:
           printf("<search failed>\n");
+          jControl->recognized(fileName, QList<RecognitionResult>());
           break;
       }
       /* continue to next process instance */
@@ -300,7 +302,6 @@ void outputResult(Recog *recog, void *control)
         sampa.trimmed(),
         sampaRaw.trimmed(), confidenceScores));
     }
-    QString fileName = QString::fromUtf8(adin_file_get_current_filename());
     jControl->recognized(fileName, recognitionResults);
   }
 }

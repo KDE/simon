@@ -114,8 +114,11 @@ bool DialogCommand::triggerPrivate(int *state)
     kDebug() << "My switch to state of " << getTrigger() << " is " << switchToState;
   }
 
-  if (m_changeDialogState)
+  if (m_changeDialogState) {
+    kDebug() << "Changing dialog state to: " << m_nextDialogState;
     emit requestDialogState(m_nextDialogState);
+  } else
+    kDebug() << "Not changing dialog state.";
   return succ;
 }
 

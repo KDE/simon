@@ -34,6 +34,7 @@
 #include <kcalcore/incidence.h>
 #include <kcalcore/event.h>
 #include "akonadicommandmanager.h"
+#include "timeselector.h"
 
 const QString AkonadiCommand::staticCategoryText()
 {
@@ -60,27 +61,7 @@ const KIcon AkonadiCommand::getCategoryIcon() const
 
 void AkonadiCommand::getRelativeTime(AkonadiCommand::RelativeDurationDimension& dimension, int& value) const
 {
-  if (m_relativeDuration % (24*60*60) == 0)
-  {
-    dimension = AkonadiCommand::Days;
-    value = m_relativeDuration /  (24*60*60);
-    return;
-  }
-  if (m_relativeDuration % (24*60) == 0)
-  {
-    dimension = AkonadiCommand::Hours;
-    value = m_relativeDuration /  (24*60);
-    return;
-  }
-  if (m_relativeDuration % (60) == 0)
-  {
-    dimension = AkonadiCommand::Minutes;
-    value = m_relativeDuration /  (60);
-    return;
-  }
-  
-  dimension = AkonadiCommand::Seconds;
-  value = m_relativeDuration;
+  return TimeSelector::getRelativeTime(m_relativeDuration, dimension, value);
 }
 
 const QMap<QString,QVariant> AkonadiCommand::getValueMapPrivate() const
@@ -132,6 +113,8 @@ const QMap<QString,QVariant> AkonadiCommand::getValueMapPrivate() const
 
 bool AkonadiCommand::triggerPrivate(int *state)
 {
+  Q_UNUSED(state);
+  
   kDebug() << "Triggering...";
   KDateTime executionTime = calculateExecutionTime();
   AkonadiCommandManager *manager = static_cast<AkonadiCommandManager*>(Command::parent());
@@ -147,16 +130,17 @@ bool AkonadiCommand::triggerPrivate(int *state)
   Akonadi::ItemCreateJob *createJob = new Akonadi::ItemCreateJob(item, collection);
   
   connect(createJob, SIGNAL(finished(KJob*)), this, SLOT(storeJobFinished(KJob*)));
+  Q_UNUSED(createJob);
   return true;
 }
 
 void AkonadiCommand::storeJobFinished(KJob* job)
 {
   Akonadi::ItemCreateJob *createJob= static_cast<Akonadi::ItemCreateJob*>( job );
+  Q_UNUSED(createJob);
   if ( job->error() ) {
       Logger::log(i18n("Akonadi item create job returned error: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
-//       return;
   }
 }
 

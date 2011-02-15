@@ -16,26 +16,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-
-#include <QModelIndex>
-#include <QList>
+#ifndef SCHEDULEITEM_H
+#define SCHEDULEITEM_H
 #include <QSharedPointer>
-#include <kcalcore/event.h>
+namespace KCalCore {
+  class Event;
+}
 
-class CalendarModel : public QAbstractListModel
+class ScheduleItem
 {
-private:
-    QList< QSharedPointer<KCalCore::Event> > relevantItems;
-  
+protected:
+  QString m_summary;
 public:
-    CalendarModel(QObject* parent = 0);
-    void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
-    void addItems(const QList< QSharedPointer<KCalCore::Event> > items);
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    void clear();
+  ScheduleItem(QSharedPointer<KCalCore::Event> event);
+  virtual bool trigger()=0;
+    
+  QString getSummary()  { return m_summary; }
+  virtual ~ScheduleItem() {}
 };
 
-#endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+#endif // SCHEDULEITEM_H

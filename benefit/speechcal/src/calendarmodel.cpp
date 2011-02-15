@@ -24,7 +24,14 @@ CalendarModel::CalendarModel(QObject* parent): QAbstractListModel(parent)
 
 void CalendarModel::initialize(const QList<QSharedPointer<KCalCore::Event> > items)
 {
-  relevantItems = items;
+  clear();
+  addItems(items);
+  reset();
+}
+
+void CalendarModel::addItems(const QList< QSharedPointer<KCalCore::Event> > items)
+{
+  relevantItems << items;
   reset();
 }
 

@@ -16,26 +16,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-#define SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
-
-#include <QModelIndex>
-#include <QList>
-#include <QSharedPointer>
+#include "commandscheduleitem.h"
+#include "akonadiconfiguration.h"
+#include <simonactions/actionmanager.h>
+#include <simonlogging/logger.h>
 #include <kcalcore/event.h>
+#include <KDebug>
 
-class CalendarModel : public QAbstractListModel
+CommandScheduleItem::CommandScheduleItem(QSharedPointer< KCalCore::Event > event,
+  AkonadiConfiguration *config
+) : ScheduleItem(event), m_config(config)
 {
-private:
-    QList< QSharedPointer<KCalCore::Event> > relevantItems;
-  
-public:
-    CalendarModel(QObject* parent = 0);
-    void initialize(const QList< QSharedPointer<KCalCore::Event> > items);
-    void addItems(const QList< QSharedPointer<KCalCore::Event> > items);
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    void clear();
-};
+}
 
-#endif // SIMON_CALENDERMODEL_H_4002119636CC42C68FE07273F9000A73
+bool CommandScheduleItem::trigger()
+{
+      QString command = m_summary.remove(m_config->akonadiRequestPrefix()).trimmed();
+      kDebug() << "Executing: " << command;
+      QStringList parts = command.split("//");
+      if (parts.count() != 2)
+      {
+	kWarning() << "Bad command format: " << command;
+	Logger::log(i18n("Invalid akonadi command format: %1", command), Logger::Warning);
+	return false;
+      }
+      return ActionManager::getInstance()->triggerCommand(parts[0], parts[1]);
+}

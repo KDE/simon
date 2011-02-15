@@ -28,6 +28,8 @@
 #include <QSize>
 #include <akonadi/entity.h>
 
+class DialogBoundValues;
+class DialogTemplateOptions;
 class AkonadiSetContainer;
 class AkonadiCommandManager;
 class KJob;
@@ -37,6 +39,7 @@ class AvatarConfiguration;
 class BoundValuesConfiguration;
 class OutputConfiguration;
 class TemplateOptionsConfiguration;
+class Avatar;
 
 class AkonadiConfiguration : public CommandConfiguration
 {
@@ -74,6 +77,30 @@ class AkonadiConfiguration : public CommandConfiguration
     bool displayAlarms();
     bool executeAkonadiRequests();
     QString akonadiRequestPrefix();
+    
+    bool getShowDismiss();
+    QString dismissText();
+    bool getShowDelay();
+    QString delayText();
+    int getRestartDelay();
+    
+    QString dialogText();
+    
+    DialogTemplateOptions *getTemplateOptions();
+    DialogBoundValues *getBoundValues();
+    
+    bool getRepeatOnInvalidInput() const;
+    QString getRepeatAnnouncement() const;
+    QStringList getRepeatTriggers() const;
+    QString getOptionSeparatorText() const;
+    bool getDisplayAvatarNames() const;
+    int getAvatarSize() const;
+    bool getDisplayAvatar() const;
+    int getSelectedAvatar() const;
+    Avatar* getAvatar(int id) const;
+    
+    bool useGUIOutput();
+    bool useTTSOutput();
 
 };
 #endif

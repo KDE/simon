@@ -314,13 +314,13 @@ void DialogConfiguration::addTransition()
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   DialogCommand *transition = dialog->createTransition();
-  ((Command*) transition)->setParent(commandManager);
 
   delete create;
   delete dialog;
 
   if (!transition) return;
 
+  ((Command*) transition)->setParent(commandManager);
   state->addTransition(transition);
 }
 
@@ -494,14 +494,12 @@ DialogCommand* DialogConfiguration::getCurrentTransitionGraphical()
 
 void DialogConfiguration::displayCurrentState()
 {
-  kDebug() << "Going...1";
   DialogState *currentState = getCurrentState();
 
   ui.wgText->setEnabled(currentState);
   ui.wgOptions->setEnabled(currentState);
   ui.wgAvatar->setEnabled(currentState);
 
-  kDebug() << "Going...2";
   if (!currentState) 
   {
     ui.teText->clear();
@@ -509,29 +507,20 @@ void DialogConfiguration::displayCurrentState()
     return;
   }
 
-  kDebug() << "Going...3";
   updateTextSelector();
   ui.cbSilence->setChecked(currentState->silence());
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
   
-  kDebug() << "Going...4";
   ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
-  kDebug() << "Going...5";
   ui.lvStateAvatar->setEnabled(ui.cbDisplayAvatar->isChecked());
-  kDebug() << "Going...6";
   int avatarId = currentState->getAvatarId();
-  kDebug() << "Going...7";
-  kDebug() << avatarsConfig;
   QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
-  kDebug() << "Going...8";
   
   ui.lvStateAvatar->selectionModel()->select(avatarIndex,
     QItemSelectionModel::ClearAndSelect);
 
-  kDebug() << "Going...";
   kDebug() << currentState;
   ui.lvTransitions->setModel(currentState);
-  kDebug() << "Done";
 }
 
 void DialogConfiguration::defaults()

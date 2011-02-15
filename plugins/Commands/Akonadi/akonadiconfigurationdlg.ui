@@ -137,31 +137,31 @@
            </item>
           </layout>
          </item>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>Options:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="2" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="cbDismiss">
              <property name="text">
               <string>Close and do not show again:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leAccept"/>
+            <widget class="QLineEdit" name="leDismiss"/>
            </item>
           </layout>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="cbShowLater">
              <property name="text">
               <string>Close and show again:</string>
              </property>
@@ -172,7 +172,7 @@
            </item>
           </layout>
          </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
             <spacer name="horizontalSpacer_3">
@@ -202,14 +202,14 @@
            </item>
           </layout>
          </item>
-         <item row="4" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="label_7">
            <property name="text">
             <string>Avatar:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="1" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
             <widget class="QCheckBox" name="cbDisplayAvatar">
@@ -281,11 +281,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>158</x>
-     <y>417</y>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>225</x>
-     <y>418</y>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbDismiss</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leDismiss</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>417</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbShowLater</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leShowLater</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>219</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>314</x>
+     <y>388</y>
     </hint>
    </hints>
   </connection>

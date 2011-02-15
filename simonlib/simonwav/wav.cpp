@@ -46,13 +46,16 @@ samplerate(samplerate_),                          //the samplerate /has/ to be i
 channels(channels_),
 filename(file_name)
 {
-
-  // 	waveData = new short();
-
   if (samplerate == 0) {
-    this->importDataFromFile(file_name);
-    this->samplerate = this->retrieveSampleRate();
-    this->channels = this->retrieveChannels();
+    QFile wavFile(filename);
+    if (!wavFile.open(QIODevice::ReadOnly))
+      return;
+    
+    parseHeader(&wavFile, channels, samplerate);
+    importDataFromFile(&wavFile);
+//     this->importDataFromFile(file_name);
+//     this->samplerate = this->retrieveSampleRate();
+//     this->channels = this->retrieveChannels();
   }
 
 }
@@ -65,17 +68,16 @@ filename(file_name)
  * \param QString filename
  * The file to read
  */
-void WAV::importDataFromFile(QString filename)
+void WAV::importDataFromFile(QIODevice *device, bool skipHeader)
 {
-  QFile wavFile(filename);
-  if (!wavFile.open(QIODevice::ReadOnly))
-    return;
-
-  QDataStream *dstream = new QDataStream(&wavFile);
+  QDataStream *dstream = new QDataStream(device);
 
   dstream->setByteOrder( QDataStream::LittleEndian );
 
-  dstream->skipRawData( 40 );                     //we have to skip 40 bytes of header
+  if (skipHeader)
+    dstream->skipRawData( 40 );                     //we have to skip 40 bytes of header
+  else
+    dstream->skipRawData(12);
 
   quint32 bytesToFollow;
   dstream->readRawData((char*) &bytesToFollow, 4);
@@ -112,6 +114,23 @@ qint64 WAV::writeData ( const char * data, qint64 maxSize )
   qint64 written = QBuffer::writeData(data, maxSize);
   length += written;
   return written;
+}
+
+bool WAV::parseHeader(QIODevice* device, qint16& channels, qint32& samplerate)
+{
+  if (device->bytesAvailable() < 28) return false;
+  
+  QDataStream *dstream = new QDataStream(device);
+  dstream->setByteOrder( QDataStream::LittleEndian );
+
+  dstream->skipRawData( 22 );                   //we have to skip 22 bytes of other information before we reach the channels
+  dstream->readRawData( (char*) &channels, 2);  //2 byte samplerate, 16bit
+  dstream->readRawData( (char*) &samplerate, 4);//4 byte samplerate, 32bit
+
+  dstream->unsetDevice();
+  delete dstream;
+
+  return true;
 }
 
 

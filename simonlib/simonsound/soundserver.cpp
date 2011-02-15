@@ -349,10 +349,17 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
   while (i.hasNext()) {
     i.next();
+    i.value()->startClientUpdate();
     success = (i.value()->deRegisterOutputClient(client) && success);
   }
 
   applyOutputPriorities();
+  
+  i.toFront();
+  while (i.hasNext()) {
+    i.next();
+    i.value()->completeClientUpdate();
+  }
   return success;
 }
 

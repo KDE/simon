@@ -1,0 +1,14 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="local.SimonSender">
+    <signal name="recordingLevel">
+      <arg name="peak" type="d" direction="out"/>
+    </signal>
+    <signal name="listening">
+    </signal>
+    <signal name="processing">
+    </signal>
+    <signal name="receivedResults">
+    </signal>
+  </interface>
+</node>
