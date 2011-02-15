@@ -94,6 +94,12 @@ msgstr "ZURÜCK"
 msgid "Next day"
 msgstr "WEITER"
 
+#. i18n: file: main.ui:63
+#. i18n: ectx: property (text), widget (KPushButton, pbClose)
+#: rc.cpp:15
+msgid "Close"
+msgstr "SCHLIESSEN"
+
 #: rc.cpp:16
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
