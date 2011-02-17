@@ -22,9 +22,16 @@
 #define SIMONOID2_HEADER
 
 #include <Plasma/Applet>
+#include <Plasma/Meter>
+#include <Plasma/Label>
+#include <Plasma/IconWidget>
+#include <QGraphicsGridLayout>
 #include <KIcon>
+#include <KConfigGroup>
 #include <QString>
 #include <QTimer>
+#include <QWidget>
+#include "ui_config.h"
 
 class QDBusInterface;
 
@@ -32,25 +39,47 @@ class simonoid : public Plasma::Applet
 {
     Q_OBJECT
     public:
+	
         simonoid(QObject *parent, const QVariantList &args);
         ~simonoid();
 
-        void paintInterface(QPainter *painter,
+        virtual void paintInterface(QPainter *painter,
                 const QStyleOptionGraphicsItem *option,
                 const QRect& contentsRect);
-        void init();
+        virtual void init();
+	virtual void saveState(KConfigGroup &group) const;
+	virtual void restore( KConfigGroup &group );
+	virtual void createConfigurationInterface(KConfigDialog *parent);
 
     private:
+	// GUI
+        QGraphicsGridLayout *m_appletLayout;
+        Plasma::Meter* m_meter;
+        Plasma::Label* m_lb_status;
+        Plasma::Label* m_lb_peak;
+        Plasma::Label* m_lb_status_value;
+        Plasma::Label* m_lb_peak_value;
+	
+	enum LAYOUT_TYPE { LAYOUT_TINY=0, LAYOUT_SMALL=1, LAYOUT_LARGE=2, LAYOUT_OVERKILL=3 };
+	int m_layouttype;
 	bool connectSignalsAndSlots();
 	void disconnectSignalsAndSlots();
-	bool m_isconnected;
 	
-        KIcon m_icon;
+	// stuff
+	QString foo;
 	QString m_status;
+        KIcon m_icon;
+	bool m_isconnected;
+	QWidget *m_configpage;
+	Ui_Config m_uiconfig;
+	
 	QDBusInterface* m_dbusinterface;
 	double m_peak;
 	QTimer m_timer;
-	const static int CHECK_CONNECTION_INTERVAL_S = 3;
+	int m_interval;
+	void initLayout(LAYOUT_TYPE type);
+        //Plasma::Animation *m_ejectButtonAnimation;
+        Plasma::IconWidget *m_simonicon;
 	
     private slots:
 	void checkConnection();
@@ -58,6 +87,7 @@ class simonoid : public Plasma::Applet
 	void processingCalled();
 	void receivedResultsCalled();
 	void recordingLevelCalled( double peak );
+	void configAccepted();
 	
 };
  
