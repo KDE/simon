@@ -23,137 +23,105 @@
 #include <KConfigGroup>
 #include <KLocale>
 #include <QDBusInterface>
-#include <KConfigDialog> 
+#include <KConfigDialog>
 
 #include "simonoid.h"
 
-simonoid::simonoid ( QObject *parent, const QVariantList &args )
-        : Plasma::Applet ( parent, args ),
-        m_icon ( "simon" ),
-        m_isconnected(false),
-        m_dbusinterface( NULL ),
-        m_timer( this )
-{
-    setHasConfigurationInterface(true);
-    setBackgroundHints ( DefaultBackground );
-    setHasConfigurationInterface ( true );
+Simonoid::Simonoid ( QObject *parent, const QVariantList &args )
+  : Plasma::Applet ( parent, args ),
+    m_appletLayout(0),
+    m_layouttype ( Simonoid::LayoutInvalid ),
+    m_interval ( -1 ),
+    m_icon ( "simon" ),
+    m_isconnected ( false ),
+    m_configpage ( 0 ),
+    m_dbusinterface ( 0 ),
+    m_checkConnectionTimer ( this ) {
+  setHasConfigurationInterface ( true );
+  setBackgroundHints ( DefaultBackground );
+  setHasConfigurationInterface ( true );
 }
 
-simonoid::~simonoid()
-{
-    delete m_dbusinterface;
+Simonoid::~Simonoid() {
+  m_dbusinterface->deleteLater();
 }
 
 
-void simonoid::saveState( KConfigGroup &group ) const
-{
-    Plasma::Applet::saveState(group);
-    kDebug() << "FUUUUUUUUUUUUUUU: save called";
-    QMap<QString,QString> map = group.entryMap();
-    kDebug() << "Entries: " << map;
-    
-    QString key;
-    foreach( key, map.keys() )
-      qDebug() << key << " = " << map[key];
-    
-    kDebug() << QString() + "Access: " + ( group.accessMode() == KConfigGroup::ReadWrite ? "YES" : "NO" );
-    kDebug() << "i m gonna writhe somthing over this: " + group.readEntry("foo","nothing here yet...");
-    group.writeEntry("foo","barxxxxrrR!");
-    kDebug() << "just wrote somthing: " + group.readEntry("foo","dont know???");
-}
-
-void simonoid::restore(KConfigGroup& group)
-{
-    Plasma::Applet::restore(group);
-    kDebug() << "FUUUUUUUUUUUUUUU: restore called";
-    
-    QMap<QString,QString> map = group.entryMap();
-    kDebug() << "Entries: " << map;
-    
-    QString key;
-    foreach( key, map.keys() )
-      qDebug() << key << " = " << map[key];
-    
-    
-    kDebug() << QString() + "Access: " + ( group.accessMode() == KConfigGroup::ReadWrite ? "YES" : "NO" );
-    kDebug() << "foo=" + group.readEntry("foo","dont know???");
-    foo = group.readEntry("foo","dont know???");
-}
-
-void simonoid::init()
-{
-    Plasma::Applet::init();
-    
-    kDebug() << "FUUUUUUUUUUUUUUU: init called";
-    QMap<QString,QString> map = globalConfig().entryMap();
-    kDebug() << "Entries: " << map;
-    
-    kDebug() << "init foo=" + config().readEntry("foo","dont know???");
+void Simonoid::saveState ( KConfigGroup &group ) const {
+  kDebug() << "Save state";
+  Plasma::Applet::saveState ( group );
   
-    if (m_icon.isNull()) {
-        setFailedToLaunch(true, i18n("Could not load simon icon!"));
-	exit(-1);
-    }
-    
-    m_appletLayout = new QGraphicsGridLayout();
-    m_meter = new Plasma::Meter;
-    m_meter->setVisible(true);
-    m_meter->setMeterType(Plasma::Meter::BarMeterVertical);
-    m_meter->setMaximumWidth(32);
-    m_meter->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-    m_meter->setMaximum(100);
-    m_meter->setValue(66);
-    
-    m_lb_status = new Plasma::Label;
-    m_lb_status->setText(i18n("Status:"));
-    m_lb_status_value = new Plasma::Label;
-    m_lb_status_value->setText("1");
-    
-    m_lb_peak = new Plasma::Label;
-    m_lb_peak->setText(i18n("Peak:"));
-    m_lb_peak_value = new Plasma::Label;
-    m_lb_peak_value->setText("2");    
-    
-    m_simonicon = new Plasma::IconWidget();
-    m_simonicon->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-    m_simonicon->setIcon(m_icon);
-    m_simonicon->setOrientation(Qt::Vertical);
-    m_simonicon->setDrawBackground(true);
-    //m_simonicon->setMaximumHeight(36);
-    m_simonicon->setAcceptDrops(false);
-    
-    m_appletLayout->addItem( m_meter, 0, 0, 20, 10 );
-    m_appletLayout->addItem( m_lb_status, 0, 10 );
-    m_appletLayout->addItem( m_lb_status_value, 0, 20 );
-    m_appletLayout->addItem( m_lb_peak, 10, 10 );
-    m_appletLayout->addItem( m_lb_peak_value, 10, 20 );
-    m_appletLayout->addItem( m_simonicon, 0, 30, 20, 10 );
-    this->setLayout(m_appletLayout);
-   
-    initLayout(LAYOUT_LARGE);
-    m_interval = 3; // TODO delete me    
-    
-    connect( &m_timer, SIGNAL(timeout()), this, SLOT(checkConnection()) );
-    m_timer.start(1000*m_interval);
-        
-    checkConnection();
-    update();
+  KConfigGroup settings = config();
+  settings.writeEntry ( "LayoutType", ( int ) m_layouttype );
+  settings.writeEntry ( "RefreshInterval", m_interval );
+  settings.sync();
 }
 
-void simonoid::checkConnection() {
-    emit configNeedsSaving();
-  if(!m_isconnected) { 
-    if(!connectSignalsAndSlots()) { 
+void Simonoid::init() {
+  kDebug() << "Restoring";
+  KConfigGroup lconfig = config();
+  m_layouttype = ( LayoutType ) lconfig.readEntry ( "LayoutType", ( int ) LayoutLarge);
+  m_interval = lconfig.readEntry ( "RefreshInterval", 3 );
+
+  kDebug() << "Restored to: " << m_layouttype << m_interval;
+  
+  kDebug() << "Init called";
+  Plasma::Applet::init();
+
+  if ( m_icon.isNull() ) {
+    setFailedToLaunch ( true, i18n ( "Could not load simon icon!" ) );
+    exit ( -1 );
+  }
+
+  m_meter = new Plasma::Meter;
+  m_meter->setVisible ( true );
+  m_meter->setMeterType ( Plasma::Meter::BarMeterHorizontal );
+//   m_meter->setMaximumWidth ( 32 );
+//   m_meter->setSizePolicy ( QSizePolicy::Maximum, QSizePolicy::Expanding );
+  m_meter->setMaximum ( 100 );
+  m_meter->setValue ( 0 );
+
+  m_lb_status = new Plasma::Label;
+  m_lb_status->setText ( i18n ( "Status:" ) );
+  m_lb_status_value = new Plasma::Label;
+  m_lb_status_value->setText ( "1" );
+
+  m_lb_peak = new Plasma::Label;
+  m_lb_peak->setText ( i18n ( "Peak:" ) );
+  m_lb_peak_value = new Plasma::Label;
+  m_lb_peak_value->setText ( "2" );
+
+  m_simonicon = new Plasma::IconWidget();
+//   m_simonicon->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Maximum );
+  m_simonicon->setIcon ( m_icon );
+  m_simonicon->setOrientation ( Qt::Vertical );
+  m_simonicon->setDrawBackground ( true );
+  //m_simonicon->setMaximumHeight(36);
+  m_simonicon->setAcceptDrops ( false );
+  
+
+  initLayout ( m_layouttype );
+  m_interval = m_interval;
+
+  connect ( &m_checkConnectionTimer, SIGNAL ( timeout() ), this, SLOT ( checkConnection() ) );
+  m_checkConnectionTimer.start ( 1000*m_interval );
+
+  checkConnection();
+  update();
+}
+
+void Simonoid::checkConnection() {
+  if ( !m_isconnected ) {
+    if ( !connectSignalsAndSlots() ) {
       kDebug() << "waiting for simon to start...";
-    } 
-    else {
+    } else {
       kDebug() << "connected successful!";
-      m_status = i18n("Waiting");
+      m_status = i18n ( "Waiting" );
       m_peak = 0;
       update();
     }
   } else {
-    if(!m_dbusinterface->isValid()) {
+    if ( !m_dbusinterface->isValid() ) {
       kDebug() << "connection lost!";
       disconnectSignalsAndSlots();
       update();
@@ -163,174 +131,172 @@ void simonoid::checkConnection() {
   }
 }
 
-bool simonoid::connectSignalsAndSlots() 
-{    
-    if( m_dbusinterface == NULL ) 
-      m_dbusinterface = new QDBusInterface ( "org.kde.simon",
+bool Simonoid::connectSignalsAndSlots() {
+  if ( m_dbusinterface == NULL )
+    m_dbusinterface = new QDBusInterface ( "org.kde.simon",
                                            "/SimonSender",
                                            "local.SimonSender" );
-      
-    if(m_dbusinterface == NULL) return false;
-    
-    bool success = true;
-    if(success) {
-      success = connect ( m_dbusinterface, SIGNAL ( listening() ), this, SLOT ( listeningCalled() ) );
-      kDebug() << "connecting listening:" << (success?"connected":"disconnected") ;
-    }    
-    if(success) {
-      success = connect ( m_dbusinterface, SIGNAL ( processing() ), this, SLOT ( processingCalled() ) );
-      kDebug() << "connecting processing:" << (success?"connected":"disconnected") ;
+
+  if ( m_dbusinterface == NULL ) return false;
+
+  bool success = true;
+  if ( success ) {
+    success = connect ( m_dbusinterface, SIGNAL ( listening() ), this, SLOT ( listeningCalled() ) );
+    kDebug() << "connecting listening:" << ( success?"connected":"disconnected" ) ;
+  }
+  if ( success ) {
+    success = connect ( m_dbusinterface, SIGNAL ( processing() ), this, SLOT ( processingCalled() ) );
+    kDebug() << "connecting processing:" << ( success?"connected":"disconnected" ) ;
+  }
+  if ( success ) {
+    success = connect ( m_dbusinterface, SIGNAL ( receivedResults() ), this, SLOT ( receivedResultsCalled() ) );
+    kDebug() << "connecting receivedResults:" << ( success?"connected":"disconnected" ) ;
+  }
+  if ( success ) {
+    success = connect ( m_dbusinterface, SIGNAL ( recordingLevel ( double ) ), this, SLOT ( recordingLevelCalled ( double ) ) );
+    kDebug() << "connecting recordingLevel:" << ( success?"connected":"disconnected" ) ;
+  }
+  if ( success ) {
+    m_isconnected = true;
+  } else {
+    disconnectSignalsAndSlots();
+  }
+
+  return success;
+}
+
+
+void Simonoid::disconnectSignalsAndSlots() {
+  //if(m_dbusinterface != NULL) disconnect(m_dbusinterface,0,0,0); TODO
+  if ( m_dbusinterface ) m_dbusinterface->deleteLater();
+  m_dbusinterface = NULL;
+  m_isconnected = false;
+}
+
+
+void Simonoid::paintInterface ( QPainter *p,
+                                const QStyleOptionGraphicsItem *option, const QRect &contentsRect ) {
+  Q_UNUSED ( p );
+  Q_UNUSED ( option );
+  Q_UNUSED ( contentsRect );
+
+  m_meter->setValue(qRound(m_peak*100));
+  QString text;
+  switch ( m_layouttype ) {
+  case LayoutTiny:
+  case LayoutSmall:
+    break;
+//     if ( !m_isconnected ) {
+//       text = i18n ( "Simon not running" );
+//     } else {
+//       text = i18n ( "Peak:    %2\%" ).arg ( m_status ).arg ( qRound ( m_peak*100 ) );
+//     }
+    break;
+  case LayoutLarge:
+    if ( !m_isconnected ) {
+      m_lb_status_value->setText ( i18n ( "Simon not running" ) );
+    } else {
+      m_lb_status_value->setText ( m_status );
+      m_lb_peak_value->setText ( QString ( "%1%" ).arg ( qRound ( m_peak*100 ) ) );
     }
-    if(success) { 
-      success = connect ( m_dbusinterface, SIGNAL ( receivedResults() ), this, SLOT ( receivedResultsCalled() ) );
-      kDebug() << "connecting receivedResults:" << (success?"connected":"disconnected") ;
-    }
-    if(success) {
-      success = connect ( m_dbusinterface, SIGNAL ( recordingLevel ( double ) ), this, SLOT ( recordingLevelCalled ( double ) ) );
-      kDebug() << "connecting recordingLevel:" << (success?"connected":"disconnected") ;
-    }
-    if(success) {
-      m_isconnected = true;
-    }
-    else {
-      disconnectSignalsAndSlots();
-    }
-    
-    return success;
+    break;
+  default:
+    kWarning() << "Invalid layout";
+    break;
+  }
+
 }
 
-
-void simonoid::disconnectSignalsAndSlots() {
-    //if(m_dbusinterface != NULL) disconnect(m_dbusinterface,0,0,0); TODO
-    if(m_dbusinterface) delete m_dbusinterface;
-    m_dbusinterface = NULL;
-    m_isconnected = false;
+void Simonoid::listeningCalled() {
+  m_status = i18n ( "Listening" );
+  update();
 }
 
-
-void simonoid::paintInterface ( QPainter *p,
-                                 const QStyleOptionGraphicsItem *option, const QRect &contentsRect )
-{
-    //kDebug() << "paintInterface called:" << (m_isconnected?"connected":"disconnected") ;
-    QString text;
-    switch( m_layouttype )
-    {
-      case LAYOUT_TINY:
-	break;
-      case LAYOUT_SMALL:
-	if( !m_isconnected ) {
-	  text = i18n ( "Simon not running" );
-	  text += QString("\nDEBUG: foo=%3").arg(foo); 
-	} else {
-	  text = i18n ( "Peak:    %2\%" ).arg ( m_status ).arg ( qRound(m_peak*100) );
-	}
-	break;
-      case LAYOUT_LARGE:
-      case LAYOUT_OVERKILL:
-	if( !m_isconnected ) {
-	  m_lb_status_value->setText ( i18n( "Simon not running") );
-	} else {
-	  m_lb_status_value->setText ( m_status );
-	  m_lb_peak_value->setText ( QString() + qRound(m_peak*100) + "%" );
-	}
-	break;
-    }
-    
+void Simonoid::processingCalled() {
+  m_status = i18n ( "Processing" );
+  update();
 }
 
-void simonoid::listeningCalled()
-{
-    m_status = i18n("Listening");
-    update();
+void Simonoid::receivedResultsCalled() {
+  m_status = i18n ( "Waiting" );
+  update();
 }
 
-void simonoid::processingCalled()
-{
-    m_status = i18n("Processing");
-    update();
+void Simonoid::recordingLevelCalled ( double peak ) {
+  m_peak = peak;
+  update();
 }
 
-void simonoid::receivedResultsCalled()
-{
-    m_status = i18n("Waiting");
-    update();
+void Simonoid::createConfigurationInterface ( KConfigDialog* parent ) {
+  m_configpage = new QWidget();
+  m_uiconfig.setupUi ( m_configpage );
+  
+  m_uiconfig.ni_interval->setValue ( m_interval );
+  m_uiconfig.cb_layout->setCurrentIndex ( m_layouttype );
+
+  parent->addPage ( m_configpage, parent->windowTitle(), "chronometer" );
+  connect(parent, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
+  connect(parent, SIGNAL(okClicked()), this, SLOT(configAccepted()));
 }
 
-void simonoid::recordingLevelCalled ( double peak )
-{
-    m_peak = peak;
-    update();
-}
-
-void simonoid::createConfigurationInterface( KConfigDialog* parent )
-{
-    QWidget *widget = new QWidget();
-    m_uiconfig.setupUi(widget);
-    m_uiconfig.ni_interval->setValue( m_interval );
-    m_uiconfig.cb_layout->setCurrentIndex( m_layouttype );
-    
-    parent->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
-    connect(parent, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
-    connect(parent, SIGNAL(okClicked()), this, SLOT(configAccepted()));
-    parent->addPage(widget, parent->windowTitle(), "chronometer");
-    
-    connect( parent, SIGNAL( widgetModified() ), this, SLOT(recordingLevelCalled()) );
-}
-
-void simonoid::configAccepted()
-{
+void Simonoid::configAccepted() {
+  if ( m_configpage ) {
+    m_layouttype = ( LayoutType ) m_uiconfig.cb_layout->currentIndex();
     m_interval = m_uiconfig.ni_interval->value();
-    m_timer.setInterval(1000*m_interval);
-    
-    initLayout( (LAYOUT_TYPE) m_uiconfig.cb_layout->currentIndex() );
-    
-    update();
+  }
+
+  m_checkConnectionTimer.setInterval ( 1000*m_interval );
+
+  initLayout ( m_layouttype );
+
+  update();
+  emit configNeedsSaving();
+  m_configpage->deleteLater();
 }
 
-
-void simonoid::initLayout(simonoid::LAYOUT_TYPE type)
-{
-    m_meter->setVisible(false);
-    m_simonicon->setVisible(false);
-    m_lb_peak->setVisible(false);
-    m_lb_peak_value->setVisible(false);
-    m_lb_status->setVisible(false);
-    m_lb_status_value->setVisible(false);
-    
-    switch( type )
-    {
-      case LAYOUT_TINY:
-	m_meter->setVisible(true);
-	resize ( 50, 50 );
-	break;
-      case LAYOUT_SMALL:
-	m_meter->setVisible(true);
-	m_simonicon->setVisible(true);
-	resize ( 100, 100 );
-	break;
-      case LAYOUT_LARGE:
-	m_meter->setVisible(true);
-	m_simonicon->setVisible(true);
-	m_lb_peak->setVisible(true);
-	m_lb_peak_value->setVisible(true);
-	m_lb_status->setVisible(true);
-	m_lb_status_value->setVisible(true);
-	resize ( 230, 150 );
-	break;
-      case LAYOUT_OVERKILL:
-	m_meter->setVisible(true);
-	m_simonicon->setVisible(true);
-	m_lb_peak->setVisible(true);
-	m_lb_peak_value->setVisible(true);
-	m_lb_status->setVisible(true);
-	m_lb_status_value->setVisible(true);
-	resize ( 400, 300 );
-	break;
-      default:
-	exit(-1); // TODO: invalid layout handling
-    }
-    
-    m_layouttype = type;
+void Simonoid::initLayout ( Simonoid::LayoutType type ) {
+  if (type < 0) {
+    kWarning() << "Invalid layout";
+    return;
+  }
+  kDebug() << "Init";
+  
+  m_appletLayout = new QGraphicsGridLayout();
+  for (int i=0; i < m_appletLayout->count(); i++)
+   m_appletLayout->removeAt(i);
+  
+  m_meter->setVisible(false);
+  m_lb_status->setVisible(false);
+  m_lb_peak->setVisible(false);
+  m_lb_status_value->setVisible(false);
+  m_lb_peak_value->setVisible(false);
+  m_simonicon->setVisible(false);
+  
+  switch (type) {
+    case LayoutLarge:
+      m_appletLayout->addItem ( m_lb_status, 0, 0 );
+      m_appletLayout->addItem ( m_lb_status_value, 0, 1 );
+      m_appletLayout->addItem ( m_lb_peak, 1, 0 );
+      m_appletLayout->addItem ( m_lb_peak_value, 1, 1 );
+      m_lb_status->setVisible(true);
+      m_lb_peak->setVisible(true);
+      m_lb_status_value->setVisible(true);
+      m_lb_peak_value->setVisible(true);
+    case LayoutSmall:
+      m_appletLayout->addItem ( m_simonicon, 0, 2, 3, 1 );
+      m_simonicon->setVisible(true);
+    case LayoutTiny:
+      m_appletLayout->addItem ( m_meter, 2, 0, 1, 2 );
+      m_meter->setVisible(true);
+      break;
+    default:
+      return;
+  }
+  
+  this->setLayout ( m_appletLayout );
+  
+  m_layouttype = type;
+  update();
 }
 
 

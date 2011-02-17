@@ -35,62 +35,64 @@
 
 class QDBusInterface;
 
-class simonoid : public Plasma::Applet
-{
-    Q_OBJECT
-    public:
-	
-        simonoid(QObject *parent, const QVariantList &args);
-        ~simonoid();
+class Simonoid : public Plasma::Applet {
+  Q_OBJECT
+public:
 
-        virtual void paintInterface(QPainter *painter,
-                const QStyleOptionGraphicsItem *option,
-                const QRect& contentsRect);
-        virtual void init();
-	virtual void saveState(KConfigGroup &group) const;
-	virtual void restore( KConfigGroup &group );
-	virtual void createConfigurationInterface(KConfigDialog *parent);
+  Simonoid ( QObject *parent, const QVariantList &args );
+  ~Simonoid();
 
-    private:
-	// GUI
-        QGraphicsGridLayout *m_appletLayout;
-        Plasma::Meter* m_meter;
-        Plasma::Label* m_lb_status;
-        Plasma::Label* m_lb_peak;
-        Plasma::Label* m_lb_status_value;
-        Plasma::Label* m_lb_peak_value;
-	
-	enum LAYOUT_TYPE { LAYOUT_TINY=0, LAYOUT_SMALL=1, LAYOUT_LARGE=2, LAYOUT_OVERKILL=3 };
-	int m_layouttype;
-	bool connectSignalsAndSlots();
-	void disconnectSignalsAndSlots();
-	
-	// stuff
-	QString foo;
-	QString m_status;
-        KIcon m_icon;
-	bool m_isconnected;
-	QWidget *m_configpage;
-	Ui_Config m_uiconfig;
-	
-	QDBusInterface* m_dbusinterface;
-	double m_peak;
-	QTimer m_timer;
-	int m_interval;
-	void initLayout(LAYOUT_TYPE type);
-        //Plasma::Animation *m_ejectButtonAnimation;
-        Plasma::IconWidget *m_simonicon;
-	
-    private slots:
-	void checkConnection();
-	void listeningCalled();
-	void processingCalled();
-	void receivedResultsCalled();
-	void recordingLevelCalled( double peak );
-	void configAccepted();
-	
+  virtual void paintInterface ( QPainter *painter,
+                                const QStyleOptionGraphicsItem *option,
+                                const QRect& contentsRect );
+  virtual void init();
+  virtual void saveState ( KConfigGroup &group ) const;
+  virtual void createConfigurationInterface ( KConfigDialog *parent );
+
+private:
+  enum LayoutType {
+    LayoutInvalid=-1,
+    LayoutTiny=0,
+    LayoutSmall=1,
+    LayoutLarge=2,
+  };
+
+  // GUI
+  QGraphicsGridLayout *m_appletLayout;
+  Plasma::Meter* m_meter;
+  Plasma::Label* m_lb_status;
+  Plasma::Label* m_lb_peak;
+  Plasma::Label* m_lb_status_value;
+  Plasma::Label* m_lb_peak_value;
+  Plasma::IconWidget *m_simonicon;
+
+  LayoutType m_layouttype;
+  int m_interval;
+
+  QString m_status;
+  KIcon m_icon;
+  bool m_isconnected;
+  QWidget* m_configpage;
+  Ui_Config m_uiconfig;
+
+  QDBusInterface* m_dbusinterface;
+  double m_peak;
+  QTimer m_checkConnectionTimer;
+
+  void initLayout ( LayoutType type );
+  bool connectSignalsAndSlots();
+  void disconnectSignalsAndSlots();
+
+private slots:
+  void checkConnection();
+  void listeningCalled();
+  void processingCalled();
+  void receivedResultsCalled();
+  void recordingLevelCalled ( double peak );
+  void configAccepted();
+
 };
- 
+
 // linking the applet to the .desktop file
-K_EXPORT_PLASMA_APPLET(simonoid, simonoid)
+K_EXPORT_PLASMA_APPLET ( simonoid, Simonoid )
 #endif

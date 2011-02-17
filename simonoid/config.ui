@@ -48,11 +48,6 @@
        <string>Large</string>
       </property>
      </item>
-     <item>
-      <property name="text">
-       <string>Overkill</string>
-      </property>
-     </item>
     </widget>
    </item>
   </layout>
