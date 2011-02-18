@@ -1,20 +1,20 @@
 .QWidget {
     padding: 20px;
     background-color: white;
-    background-image: url(pic.png);
+    background-image: url(/usr/share/icons/hicolor/128x128/apps/speechcal.png);
     background-position: top left;
     background-origin: content;
     background-repeat: none;
 }
 
-QGroupBox {
+.QGroupBox {
     padding-top: 30px;
-    margin-top: 70px;
+    margin-top: 270px;
     background-color: white;
     font: 24px;
     font-family: liberation-sans;
     color: green;
-    width: 200px;
+    width: 250px;
     text-align: center;
 }
 
@@ -29,13 +29,16 @@ QPushButton, QAbstractButton {
     height: 50px;
 }
 
-QLabel, QListView {
+QListView {
     background-color: white;
-    font: 28px;
+    font: 64px;
     font-family: liberation-sans;
 }
 
 QLabel {
+    background-color: white;
+    font: 28px;
+    font-family: liberation-sans;
     border: none;
     padding: 0;
     background: none;

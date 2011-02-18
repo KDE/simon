@@ -86,13 +86,13 @@ msgstr "Sprachbefehle"
 #. i18n: ectx: property (text), widget (KPushButton, pbPreviousDay)
 #: rc.cpp:12
 msgid "Previous Day"
-msgstr "ZURÜCK"
+msgstr "RUNTER"
 
 #. i18n: file: main.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pbNextDay)
 #: rc.cpp:15
 msgid "Next day"
-msgstr "WEITER"
+msgstr "RAUF"
 
 #. i18n: file: main.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pbClose)

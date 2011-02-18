@@ -46,6 +46,22 @@ Simonoid::~Simonoid() {
   m_dbusinterface->deleteLater();
 }
 
+QSizeF Simonoid::sizeHint(Qt::SizeHint which, const QSizeF& constraint) const
+{
+  Q_UNUSED(constraint);
+  
+  switch (m_layouttype) {
+    case LayoutTiny:
+      return QSizeF(300, 50);
+    case LayoutSmall:
+      return QSizeF(300, 50);
+    case LayoutLarge:
+      return QSizeF(300, 220);
+    default:
+      return QSizeF(0,0);
+  }
+}
+
 
 void Simonoid::saveState ( KConfigGroup &group ) const {
   kDebug() << "Save state";
@@ -60,7 +76,7 @@ void Simonoid::saveState ( KConfigGroup &group ) const {
 void Simonoid::init() {
   kDebug() << "Restoring";
   KConfigGroup lconfig = config();
-  m_layouttype = ( LayoutType ) lconfig.readEntry ( "LayoutType", ( int ) LayoutLarge);
+  m_layouttype = ( LayoutType ) lconfig.readEntry ( "LayoutType", ( int ) LayoutTiny);
   m_interval = lconfig.readEntry ( "RefreshInterval", 3 );
 
   kDebug() << "Restored to: " << m_layouttype << m_interval;
@@ -296,6 +312,7 @@ void Simonoid::initLayout ( Simonoid::LayoutType type ) {
   this->setLayout ( m_appletLayout );
   
   m_layouttype = type;
+  resize(sizeHint(Qt::PreferredSize));
   update();
 }
 

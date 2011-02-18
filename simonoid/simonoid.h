@@ -31,6 +31,7 @@
 #include <QString>
 #include <QTimer>
 #include <QWidget>
+#include <QSizeF>
 #include "ui_config.h"
 
 class QDBusInterface;
@@ -48,6 +49,9 @@ public:
   virtual void init();
   virtual void saveState ( KConfigGroup &group ) const;
   virtual void createConfigurationInterface ( KConfigDialog *parent );
+
+protected:
+  QSizeF sizeHint(Qt::SizeHint which, const QSizeF& constraint=QSizeF()) const;
 
 private:
   enum LayoutType {
