@@ -64,6 +64,7 @@ SpeechCalView::SpeechCalView(CalendarModel* model, SpeechCal* c, QWidget* parent
   
   connect(ui.pbNextDay, SIGNAL(clicked()), this, SLOT(nextDay()));
   connect(ui.pbPreviousDay, SIGNAL(clicked()), this, SLOT(previousDay()));
+  connect(ui.pbClose, SIGNAL(clicked()), qApp, SLOT(quit()));
 }
 
 void SpeechCalView::updateDisplay(const QString& name)
