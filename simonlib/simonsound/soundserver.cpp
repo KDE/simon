@@ -83,15 +83,12 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
 {
   kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 
-  fprintf(stderr, "Registering input device\n");
-
   bool succ = true;
 
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
                                                   //recording not currently running
   if (!inputs.contains(client->deviceConfiguration())) {
     kDebug() << "No input for this particular configuration... Creating one";
-    fprintf(stderr, "Creating input for new configuration\n");
 
     SimonSoundInput *soundInput = new SimonSoundInput(this);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
@@ -130,7 +127,6 @@ void SoundServer::slotRecordingFinished()
 
   if (input->isActive()) {
     //apparently we resumed operations :)
-    fprintf(stderr, "INPUT IS ACTIVE AGAIN!\n");
     return;
   }
 
@@ -162,36 +158,6 @@ void SoundServer::slotPlaybackFinished()
   applyOutputPriorities();
 }
 
-
-/*
-bool SoundServer::restartNextInput();
-{
-  //restore other outputs starting with exclusive ones
-
-  bool haveExclusive = false;
-
-  foreach (SimonSoundInput *in, inputs.values())
-    if (in->restoreFirstExclusive())
-    {
-      haveExclusive = true;
-break;
-}
-
-bool haveNormal = false;
-if (!haveExclusive)
-{
-foreach (SimonSoundInput *in, inputs.values())
-//if no one has an exclusive lets restart normal priority
-haveNormal |= in->restoreFirst();
-}
-if (!haveNormal)
-{
-foreach (SimonSoundInput *in, inputs.values())
-in->restoreBackground();
-}
-}
-
-*/
 
 void SoundServer::applyInputPriorities()
 {
@@ -442,13 +408,16 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::
   QStringList soundInputDevices = SoundConfiguration::soundInputDevices();
   QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
   QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
+  QList<int> soundInputResampleEnabled = SoundConfiguration::soundInputResampleEnabled();
+  QList<int> soundInputResampleSampleRates = SoundConfiguration::soundInputResampleSampleRates();
   QList<int> soundInputUses = SoundConfiguration::soundInputUses();
 
   for (int i=0; i < soundInputDevices.count(); i++) {
     if (!(soundInputUses[i] & uses))
       continue;
 
-    devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i]);
+    devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i],
+        soundInputResampleEnabled[i], soundInputResampleSampleRates[i]);
   }
 
   return devices;
@@ -463,12 +432,14 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getOutputDevices(SimonSound:
   QList<int> soundOutputChannels = SoundConfiguration::soundOutputChannels();
   QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
   QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
+  QList<int> soundOutputResampleEnabled = SoundConfiguration::soundOutputResampleEnabled();
 
   for (int i=0; i < soundOutputDevices.count(); i++) {
     if (!(soundOutputUses[i] & uses))
       continue;
 
-    devices << SimonSound::DeviceConfiguration(soundOutputDevices[i], soundOutputChannels[i], soundOutputSampleRates[i]);
+    devices << SimonSound::DeviceConfiguration(soundOutputDevices[i], soundOutputChannels[i], soundOutputSampleRates[i],
+        soundOutputResampleEnabled[i], 0);
   }
 
   return devices;

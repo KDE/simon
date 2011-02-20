@@ -22,6 +22,7 @@
 
 #include "simonsound_export.h"
 #include "simonsamples.h"
+#include "simonsound.h"
 #include <QWidget>
 class WavRecorderClient;
 class WavPlayerClient;
@@ -54,7 +55,7 @@ class SIMONSOUND_EXPORT WavFileWidget : public QWidget
   Q_OBJECT
 
     public:
-    WavFileWidget(const QString& device, int channels, int sampleRate, const QString& filename, QWidget *parent=0);
+    WavFileWidget(const SimonSound::DeviceConfiguration& recordingDevice, const QString& filename, QWidget *parent=0);
     bool hasRecordingReady();
 
     bool getIsRecording() { return isRecording; }

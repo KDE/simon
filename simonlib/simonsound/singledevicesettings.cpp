@@ -1,5 +1,4 @@
-/*
- *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
+/* *   Copyright (C) 2010 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,9 +28,9 @@
 #include "ui_singledeviceconfiguration.h"
 
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
-int sampleRate, SimonSound::SoundDeviceUses selectedUses, SimonSound::SoundDeviceUses availableUses,
-SimonSound::SoundDeviceOptions options, QWidget* parent):
-QWidget(parent),
+int sampleRate, bool resampleEnabled, int resampleSampleRate, SimonSound::SoundDeviceUses selectedUses, 
+SimonSound::SoundDeviceUses availableUses,
+SimonSound::SoundDeviceOptions options, QWidget* parent): QWidget(parent),
 enabled(true),
 hasChanged(true),
 m_type(type),
@@ -48,8 +47,15 @@ m_options(options)
   if (!(availableUses & SimonSound::Recognition))
     ui->cbRecognition->hide();
 
-  ui->sbChannels->setValue(channels);
-  ui->sbSampleRate->setValue(sampleRate);
+#ifndef HAVE_LIBSAMPLERATE_H
+  ui->sbResampleSampleRate->hide();
+  ui->lbHzResample->hide();
+  ui->lbResample->hide();
+  ui->cbResample->hide();
+#else
+  ui->sbResampleSampleRate->setVisible((type == SimonSound::Input));
+  ui->lbHzResample->setVisible((type == SimonSound::Input));
+#endif
 
   ui->pbTest->setIcon(KIcon("help-hint"));
   ui->pbRemove->setIcon(KIcon("list-remove"));
@@ -66,7 +72,10 @@ m_options(options)
   connect(ui->cbTraining, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->cbRecognition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  load(deviceName, channels, sampleRate);
+  connect(ui->cbResample, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->sbResampleSampleRate, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate);
 }
 
 
@@ -89,12 +98,12 @@ void SingleDeviceSettings::refreshDevices()
   if (!getSelectedDeviceId().isEmpty())
     m_deviceName = getSelectedDeviceId();
 
-  load(m_deviceName, getChannels(), getSampleRate());
+  load(m_deviceName, getChannels(), getSampleRate(), getResampleEnabled(), getResampleSampleRate());
 }
 
 
 void SingleDeviceSettings::load(QString deviceName, int channels,
-int sampleRate)
+int sampleRate, bool resampleEnabled, int resampleSampleRate)
 {
   ui->cbSoundDevice->clear();
 
@@ -107,6 +116,9 @@ int sampleRate)
 
   ui->sbChannels->setValue(channels);
   ui->sbSampleRate->setValue(sampleRate);
+
+  ui->cbResample->setChecked(resampleEnabled);
+  ui->sbResampleSampleRate->setValue(resampleSampleRate);
 
   ui->cbRecognition->setChecked(m_uses & SimonSound::Recognition);
   ui->cbTraining->setChecked(m_uses & SimonSound::Training);
@@ -230,6 +242,15 @@ void SingleDeviceSettings::slotChanged()
   emit changed(true);
 }
 
+bool SingleDeviceSettings::getResampleEnabled()
+{
+  return ui->cbResample->isChecked();
+}
+
+int SingleDeviceSettings::getResampleSampleRate()
+{
+  return ui->sbResampleSampleRate->value();
+}
 
 SingleDeviceSettings::~SingleDeviceSettings()
 {

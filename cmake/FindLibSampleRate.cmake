@@ -1,0 +1,40 @@
+# - Find the libsamplerate library
+#
+# This module defines these variables:
+#
+#  LIBSAMPLERATE_FOUND
+#      True if the libsamplerate library was found
+#  LIBSAMPLERATE_LIBRARY
+#      The location of the libsamplerate library
+#  LIBSAMPLERATE_INCLUDE_DIR
+#      The include path of the libsamplerate library
+#  LIBSAMPLERATE_DEFINITIONS
+#      Preprocessor definitions to define
+
+#
+# Find the header file
+#
+FIND_PATH(LIBSAMPLERATE_INCLUDE_DIR samplerate.h)
+
+#
+# Find the library
+#
+FIND_LIBRARY(LIBSAMPLERATE_LIBRARY samplerate
+    DOC "The libsamplerate library")
+
+IF(LIBSAMPLERATE_INCLUDE_DIR AND LIBSAMPLERATE_LIBRARY)
+    SET(LIBSAMPLERATE_FOUND true)
+    SET(LIBSAMPLERATE_DEFINITIONS -DHAVE_LIBSAMPLERATE_H)
+    SET(LIBSAMPLERATE_INCLUDE_DIRS ${LIBSAMPLERATE_INCLUDE_DIR})
+    SET(LIBSAMPLERATE_LIBRARIES    ${LIBSAMPLERATE_LIBRARY})
+ENDIF(LIBSAMPLERATE_INCLUDE_DIR AND LIBSAMPLERATE_LIBRARY)
+
+IF(LIBSAMPLERATE_FOUND)
+    IF(NOT LIBSAMPLERATE_FIND_QUIETLY)
+        MESSAGE(STATUS "Found libsamplerate: ${LIBSAMPLERATE_LIBRARY}")
+    ENDIF(NOT LIBSAMPLERATE_FIND_QUIETLY)
+ELSE(LIBSAMPLERATE_FOUND) 
+    IF(LIBSAMPLERATE_FIND_REQUIRED)
+        MESSAGE(FATAL_ERROR "Could not find the libsamplerate")
+    ENDIF(LIBSAMPLERATE_FIND_REQUIRED)
+ENDIF(LIBSAMPLERATE_FOUND)

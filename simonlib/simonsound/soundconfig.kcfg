@@ -23,6 +23,16 @@
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
       <tooltip>The samplerates used for recording.</tooltip>
     </entry>
+    <entry name="SoundInputResampleEnabled" type="IntList">
+      <label>If the recordings should be resampled.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; false</default>
+      <tooltip>Resample the recordings.</tooltip>
+    </entry>
+    <entry name="SoundInputResampleSampleRates" type="IntList">
+      <label>The target resample samplerates used for recording.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
+      <tooltip>The samplerates to resample the recordings to.</tooltip>
+    </entry>
    <entry name="SoundInputUses" type="IntList">
       <label>What the input devices are going to be used for.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; (int) (SimonSound::Training|SimonSound::Recognition)</default>
@@ -43,6 +53,11 @@
       <label>The samplerates used for recording.</label>
       <default code="true">QList&lt;int&gt;() &lt;&lt; 16000</default>
       <tooltip>The samplerates used for recording.</tooltip>
+    </entry>
+    <entry name="SoundOutputResampleEnabled" type="IntList">
+      <label>If the playback files should be resampled.</label>
+      <default code="true">QList&lt;int&gt;() &lt;&lt; false</default>
+      <tooltip>Resample the output.</tooltip>
     </entry>
    <entry name="SoundOutputUses" type="IntList">
       <label>What the devices are going to be used for.</label>
