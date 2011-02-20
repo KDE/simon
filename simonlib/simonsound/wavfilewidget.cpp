@@ -312,7 +312,7 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
-  if (play->play(m_filename, m_channels)) {
+  if (play->play(m_filename)) {
     ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
     disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
     connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));

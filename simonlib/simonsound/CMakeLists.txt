@@ -45,12 +45,17 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
 )
 
+if(LIBSAMPLERATE_FOUND)
+  set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
+	${CMAKE_CURRENT_SOURCE_DIR}/resamplesoundprocessor.cpp
+  )
+endif(LIBSAMPLERATE_FOUND)
+
 set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/volumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicevolumewidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundclient.h
-# 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundserver.h

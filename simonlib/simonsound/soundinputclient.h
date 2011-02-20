@@ -23,15 +23,9 @@
 #include <simonsound/soundclient.h>
 #include <simonsound/simonsound.h>
 #include <simonsound/simonsound_export.h>
-#include <QList>
-
-class SoundProcessor;
 
 class SIMONSOUND_EXPORT SoundInputClient : public SoundClient
 {
-
-  private:
-    QList<SoundProcessor*> processors;
 
   public:
     explicit SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClientPriority options=Normal);
@@ -39,7 +33,5 @@ class SIMONSOUND_EXPORT SoundInputClient : public SoundClient
 
     void process(const QByteArray& data, qint64 currentTime);
     virtual void processPrivate(const QByteArray& data, qint64 currentTime)=0;
-
-    void registerSoundProcessor(SoundProcessor *p);
 };
 #endif

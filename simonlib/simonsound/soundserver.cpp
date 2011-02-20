@@ -101,8 +101,9 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
     else {
       if (inputs.contains(clientRequestedSoundConfiguration))
         soundInput->deleteLater();
-      else
+      else {
         inputs.insert(clientRequestedSoundConfiguration, soundInput);
+      }
 
       if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
                                                   // found something supported that is very close

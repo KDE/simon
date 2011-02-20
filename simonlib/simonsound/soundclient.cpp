@@ -34,6 +34,11 @@ m_priority(priority)
 }
 
 
+void SoundClient::registerSoundProcessor(SoundProcessor *p)
+{
+  processors << p;
+}
+
 /**
  * \brief Destructor
  */
