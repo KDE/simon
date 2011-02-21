@@ -41,16 +41,14 @@ class WavPlayerSubClient : public QIODevice, public SoundOutputClient
   protected:
     qint64 readData(char *toRead, qint64 maxLen);
     qint64 writeData(const char *toWrite, qint64 len);
-    bool playInternal();
+    QIODevice* getDataProvider() { return this; }
 
   public:
     explicit WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
     ~WavPlayerSubClient();
 
     bool play(QIODevice *device);
-    bool play(QString filename);
 
-    QIODevice* getDataProvider() { return this; }
     bool open (OpenMode mode);
     void close();
     void finish();

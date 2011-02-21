@@ -30,15 +30,6 @@
  */
 WavPlayerClient::WavPlayerClient(QObject* parent) : QObject(parent), m_isPlaying(false)
 {
-  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
-
-  kDebug() << "Found applicable devices: " << devices.count();
-  foreach (const SimonSound::DeviceConfiguration& dev, devices) {
-    WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent);
-    connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
-    connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));
-    clients << c;
-  }
 }
 
 
@@ -78,38 +69,48 @@ void WavPlayerClient::slotFinished()
  * \brief Plays back the given file
  * \author Peter Grasch
  */
-bool WavPlayerClient::play( QString filename, int channels )
+bool WavPlayerClient::play( QString filename )
 {
-  bool succ = false;
 
-  if (channels == -1)
-  {
-    //determine channels automatically
-    WAV w(filename);
-    channels = w.getChannels();
-    kDebug() << "File has " << channels << " channels";
+  WAV *w = new WAV(filename);
+  int channels = w->getChannels();
+  int sampleRate = w->getSampleRate();
+
+  kDebug() << "File has " << channels << " channels and a samplerate of " << sampleRate;
+
+  qint64 length = w->size();
+  if (length==0) {
+    w->deleteLater();
+    return false;
   }
 
-  kDebug() << "Playing: " << filename;
-  foreach (WavPlayerSubClient *client, clients) {
-    if ((client->getChannelCount() == channels) &&
-    client->play(filename)) {
-      clientsWaitingToFinish << client;
-      succ = true;
-    }
-  }
-  if (succ) m_isPlaying = true;
-  return succ;
+  return play(w, channels, sampleRate);
 }
 
 bool WavPlayerClient::play(QIODevice* device, int channels, int samplerate)
 {
+  qDeleteAll(clients);
+  clients.clear();
+
+  //get devices that support this playback configuration
+  QList<SimonSound::DeviceConfiguration> devices = SoundServer::getTrainingOutputDevices();
+  foreach (const SimonSound::DeviceConfiguration& dev, devices) {
+    if ((dev.channels() != channels) || (!dev.resample() && (dev.sampleRate() != samplerate)))
+      continue;
+
+    WavPlayerSubClient *c = new WavPlayerSubClient(dev, parent());
+    connect(c, SIGNAL(currentProgress(int)), this, SLOT(slotCurrentProgress(int)));
+    connect(c, SIGNAL(finished()), this, SLOT(slotFinished()));
+    c->initToSampleRate(samplerate);
+    clients << c;
+  }
+  kDebug() << "Found applicable devices: " << clients.count();
+
   bool succ = false;
   kDebug() << "Playing: stream" << channels << samplerate;
-  //FIXME: respect samplerate
+
   foreach (WavPlayerSubClient *client, clients) {
-    if ((client->getChannelCount() == channels) &&
-	client->play(device)) {
+    if (client->play(device)) {
       clientsWaitingToFinish << client;
       succ = true;
     }

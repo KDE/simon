@@ -68,7 +68,7 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
     }
   }
 
-  qint64 read = m_activeOutputClient->getDataProvider()->read(toRead, maxLen);
+  qint64 read = m_activeOutputClient->read(toRead, maxLen);
 //   QFile f("/home/bedahr/t.t");
 //   if (!f.open(QIODevice::WriteOnly|QIODevice::Append)) kDebug() << "ERROR";
 //   f.write(toRead, read);

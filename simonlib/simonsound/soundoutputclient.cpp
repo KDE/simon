@@ -18,6 +18,9 @@
  */
 
 #include "soundoutputclient.h"
+#ifdef HAVE_LIBSAMPLERATE_H
+#include "resamplesoundprocessor.h"
+#endif
 
 /**
  * \brief Constructor
@@ -25,6 +28,43 @@
 SoundOutputClient::SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration) :
 SoundClient(deviceConfiguration, SoundClient::Normal)
 {
+  localBuffer.open(QIODevice::ReadOnly);
+}
+
+qint64 SoundOutputClient::read(char *data, qint64 maxlen)
+{
+  qint64 currentStreamTime = 0; // TODO: no accurate time support yet
+  //processors and relay
+  while (localBuffer.bytesAvailable() < maxlen) {
+    QByteArray processedData = getDataProvider()->read(maxlen);
+
+    if (processedData.isEmpty())
+      break; // no more data from this device
+
+    foreach (SoundProcessor *p, processors) {
+      p->process(processedData, currentStreamTime);
+      if (processedData.isEmpty()) break; //sound processors ate everything
+    }
+    localBuffer.buffer().append(processedData);
+  }
+  
+  qint64 length = localBuffer.read(data, maxlen);
+  localBuffer.buffer().remove(0, length);
+  localBuffer.seek(0);
+
+  return length;
+}
+
+void SoundOutputClient::initToSampleRate(int contentSampleRate)
+{
+#ifdef HAVE_LIBSAMPLERATE_H
+  if (m_deviceConfiguration.resample() && 
+          m_deviceConfiguration.sampleRate() != contentSampleRate)
+      registerSoundProcessor(new ResampleSoundProcessor(
+                m_deviceConfiguration.channels(),
+                contentSampleRate,
+                m_deviceConfiguration.sampleRate()));
+#endif
 }
 
 
@@ -34,3 +74,4 @@ SoundClient(deviceConfiguration, SoundClient::Normal)
 SoundOutputClient::~SoundOutputClient()
 {
 }
+

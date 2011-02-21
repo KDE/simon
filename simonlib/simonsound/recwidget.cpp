@@ -132,10 +132,10 @@ void RecWidget::showWaitPrompt()
 }
 
 
-void RecWidget::registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix)
+void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, const QString& filenameSuffix)
 {
   kDebug() << "Wavfile: " << fileTemplate+filenameSuffix+".wav";
-  WavFileWidget *wg = new WavFileWidget(id, channels, sampleRate, fileTemplate+filenameSuffix+".wav", this);
+  WavFileWidget *wg = new WavFileWidget(device, fileTemplate+filenameSuffix+".wav", this);
 
   QBoxLayout *lay = dynamic_cast<QVBoxLayout*>(ui->gbContainer->layout());
 
@@ -213,12 +213,13 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
     kDebug() << selected;
     if (!selected.isEmpty()) {
       SimonSound::DeviceConfiguration selectedDevice = devices.at(deviceNames.indexOf(selected));
-      registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
+      //registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
+      registerDevice(selectedDevice, "");
     }
   }
   else {
     for (int i=0; i < devices.count(); i++)
-      registerDevice(devices.at(i).name(), devices.at(i).channels(), devices.at(i).sampleRate(), '.'+QString::number(i));
+      registerDevice(devices[i], '.'+QString::number(i));
   }
   adjustButtonsToFile();
 }

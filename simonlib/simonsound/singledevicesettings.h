@@ -49,7 +49,7 @@ class SingleDeviceSettings : public QWidget
     SimonSound::SoundDeviceOptions m_options;
 
     void load(QString deviceName, int channels,
-      int sampleRate);
+      int sampleRate, bool resampleEnabled, int resampleSampleRate);
 
   private slots:
     void slotChanged();
@@ -61,7 +61,8 @@ class SingleDeviceSettings : public QWidget
 
   public:
     SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
-      int sampleRate, SimonSound::SoundDeviceUses selectedUses,
+      int sampleRate, bool resampleEnabled, int resampleSampleRate, 
+      SimonSound::SoundDeviceUses selectedUses,
       SimonSound::SoundDeviceUses availableUses,
       SimonSound::SoundDeviceOptions options=SimonSound::NoOptions,
       QWidget* parent=0);
@@ -76,6 +77,8 @@ class SingleDeviceSettings : public QWidget
     QString getSelectedDeviceId();
     int getSampleRate();
     int getChannels();
+    bool getResampleEnabled();
+    int getResampleSampleRate();
     SimonSound::SoundDeviceType getType();
     SimonSound::SoundDeviceUses getUses();
 

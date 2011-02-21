@@ -68,7 +68,8 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 
     void setupSignalsSlots();
 
-    void registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix);
+    //void registerDevice(const QString& id, int channels, int sampleRate, const QString& filenameSuffix);
+    void registerDevice(const SimonSound::DeviceConfiguration& device, const QString& filenameSuffix);
 
     void adjustButtonsToFile();
 

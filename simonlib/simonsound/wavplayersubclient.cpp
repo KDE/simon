@@ -19,7 +19,6 @@
 
 #include "wavplayersubclient.h"
 #include "soundserver.h"
-#include <simonwav/wav.h>
 #include <KDebug>
 
 /**
@@ -83,11 +82,7 @@ bool WavPlayerSubClient::play(QIODevice* device)
 {
   if (wav) wav->deleteLater();
   wav = device;
-  return playInternal();
-}
 
-bool WavPlayerSubClient::playInternal()
-{
   open(QIODevice::ReadOnly);
 
   if (!SoundServer::getInstance()->registerOutputClient(this)) {
@@ -95,26 +90,6 @@ bool WavPlayerSubClient::playInternal()
   }
   return true;
 }
-
-/**
- * \brief Plays back the given file
- * \author Peter Grasch
- */
-bool WavPlayerSubClient::play( QString filename )
-{
-  if (wav) wav->deleteLater();
-
-  wav = new WAV(filename);
-  
-  length = wav->size();
-  if (length==0 || !playInternal()) {
-    wav->deleteLater();
-    wav = 0;
-    return false;
-  }
-  return true;
-}
-
 
 /**
  * \brief Stops the current playback
