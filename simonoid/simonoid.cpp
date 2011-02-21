@@ -50,16 +50,19 @@ QSizeF Simonoid::sizeHint(Qt::SizeHint which, const QSizeF& constraint) const
 {
   Q_UNUSED(constraint);
   
-  switch (m_layouttype) {
-    case LayoutTiny:
-      return QSizeF(300, 50);
-    case LayoutSmall:
-      return QSizeF(300, 50);
-    case LayoutLarge:
-      return QSizeF(300, 220);
-    default:
-      return QSizeF(0,0);
+  if (which == Qt::PreferredSize) {
+    switch (m_layouttype) {
+      case LayoutTiny:
+        return QSizeF(300, 50);
+      case LayoutSmall:
+        return QSizeF(300, 50);
+      case LayoutLarge:
+        return QSizeF(300, 220);
+      default:
+        return QSizeF(0,0);
+    }
   }
+  return Plasma::Applet::sizeHint(which, constraint);
 }
 
 

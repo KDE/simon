@@ -36,7 +36,7 @@ SpeechCalView::SpeechCalView(CalendarModel* model, SpeechCal* c, QWidget* parent
   
   //add quit action with escape and ctrl+q as shortcuts
   KStandardAction::quit(this, SLOT(close()), actionCollection())->setShortcut(
-	      KShortcut(QKeySequence(Qt::Key_Escape), QKeySequence("Ctrl+Q")));
+	      KShortcut(QKeySequence(Qt::Key_Escape), QKeySequence("Backspace")));
   setupGUI();
   menuBar()->hide();
   statusBar()->hide();

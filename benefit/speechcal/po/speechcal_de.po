@@ -98,7 +98,7 @@ msgstr "RAUF"
 #. i18n: ectx: property (text), widget (KPushButton, pbClose)
 #: rc.cpp:15
 msgid "Close"
-msgstr "SCHLIESSEN"
+msgstr "ZURÜCK"
 
 #: rc.cpp:16
 msgctxt "NAME OF TRANSLATORS"
