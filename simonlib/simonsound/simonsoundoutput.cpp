@@ -18,7 +18,9 @@
  */
 
 #include "simonsoundoutput.h"
+#include "soundoutputbuffer.h"
 
+#include <unistd.h>
 #include <simonsound/soundoutputclient.h>
 #include <simonsound/soundserver.h>
 #include <QAudioOutput>
@@ -29,12 +31,11 @@
 #include <KMessageBox>
 #include <QFile>
 
-QMutex SimonSoundOutput::playbackMutex(QMutex::Recursive);
-
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
 // initialRound(true),
 m_output(0),
-m_activeOutputClient(0)
+m_activeOutputClient(0),
+m_buffer(0)
 {
   open(QIODevice::ReadWrite);
 }
@@ -42,49 +43,53 @@ m_activeOutputClient(0)
 
 qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
-  QMutexLocker lock(&playbackMutex);
-
   kDebug() << "readData()";
-  Q_UNUSED(toRead);
-  Q_UNUSED(maxLen);
-  
-//   if (initialRound) {
-//       //dummy data to give device time to open
-//       kDebug() << "Dummy round";
-//       initialRound = false;
-//       memset(toRead,0, maxLen);
-//       return maxLen;
-//   }
+  if (!m_buffer) return -1;
 
-  if (!m_activeOutputClient) {
-    kDebug() << "No current output client\n";
-    if (m_suspendedOutputClients.isEmpty()) {
-      stopPlayback();
-      return -1;
-    } else {
-      //output silence until we get something better
-      memset(toRead,0, maxLen);
-      return maxLen;
-    }
-  }
+  qint64 read = m_buffer->read(toRead, maxLen);
 
-  qint64 read = m_activeOutputClient->read(toRead, maxLen);
-//   QFile f("/home/bedahr/t.t");
-//   if (!f.open(QIODevice::WriteOnly|QIODevice::Append)) kDebug() << "ERROR";
-//   f.write(toRead, read);
-//   kDebug() << "Added to: /home/bedahr/t";
-//   f.close();
-
-  if (read <= 0) {
-    SoundServer::getInstance()->deRegisterOutputClient(m_activeOutputClient);
-  } else if (read < maxLen) {
-    memset(toRead + read, 0, maxLen - read-1);
-    read = maxLen;
+  if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty()) {
+    stopPlayback();
+    return -1;
   }
 
   return read;
 }
 
+QByteArray SimonSoundOutput::requestData(qint64 maxLen)
+{
+  kDebug() << "requestData()";
+
+  if (!m_activeOutputClient) {
+    kDebug() << "No current output client\n";
+
+    return QByteArray();
+  }
+
+  char* toRead = (char*) malloc(maxLen);
+  qint64 read = m_activeOutputClient->read(toRead, maxLen);
+  QByteArray output = QByteArray().append(toRead, read);
+  free(toRead);
+  return output;
+}
+
+void SimonSoundOutput::popClient()
+{
+  if (!m_activeOutputClient) return;
+
+  SoundServer::getInstance()->deRegisterOutputClient(m_activeOutputClient);
+}
+
+int SimonSoundOutput::bufferSize()
+{
+  int bufferSize = (m_output) ? m_output->bufferSize() : QAudioOutput().bufferSize();
+  return qMax(bufferSize, 2048);
+}
+
+qint64 SimonSoundOutput::bufferTime()
+{
+  return SoundServer::getInstance()->byteSizeToLength(bufferSize(), m_device);
+}
 
 qint64 SimonSoundOutput::writeData(const char *toWrite, qint64 len)
 {
@@ -119,8 +124,7 @@ bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
   return true;
 }
 
-
-bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
+bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 {
   kDebug() << "Starting playback...";
   kDebug() << "Using device: " << device.name();
@@ -172,9 +176,21 @@ bool SimonSoundOutput::startPlayback(SimonSound::DeviceConfiguration& device)
   connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
   connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
   m_output->setBufferSize(8192);
-  m_output->start(this);
 
   kDebug() << "Started audio output";
+  m_device = device;
+
+  killBuffer();
+
+  return true;
+}
+
+bool SimonSoundOutput::startPlayback()
+{
+  killBuffer();
+  m_buffer = new SoundOutputBuffer(this);
+
+  m_output->start(this);
   return true;
 }
 
@@ -190,16 +206,6 @@ SoundClient::SoundClientPriority SimonSoundOutput::getHighestPriority()
 
   return priority;
 }
-
-void SimonSoundOutput::startClientUpdate()
-{
-//   playbackMutex.lock();
-}
-void SimonSoundOutput::completeClientUpdate()
-{
-//   playbackMutex.unlock();
-}
-
 
 bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 {
@@ -267,6 +273,9 @@ SimonSoundOutput::~SimonSoundOutput()
   kDebug() << "Deleting simon sound output";
   if (m_output)
     m_output->deleteLater();
+
+  killBuffer();
+  kDebug() << "Deleted buffer";
 }
 
 
@@ -283,10 +292,22 @@ void SimonSoundOutput::resumeOutput()
   m_output->resume();
 }
 
+void SimonSoundOutput::killBuffer()
+{
+  kDebug() << "Killing buffer";
+  if (m_buffer) {
+    kDebug() << "Stopping buffer";
+    m_buffer->stop();
+    kDebug() << "Waiting on buffer";
+    m_buffer->wait();
+  }
+  
+  m_buffer = 0;
+}
+
 
 bool SimonSoundOutput::stopPlayback()
 {
-  QMutexLocker lock(&playbackMutex);
   kDebug() << "Stop playback...";
   if (!m_output) return true;
 
@@ -295,6 +316,8 @@ bool SimonSoundOutput::stopPlayback()
   m_output->disconnect(this);
   m_output->deleteLater();
   m_output = 0;
+
+  killBuffer();
 
   reset();
 

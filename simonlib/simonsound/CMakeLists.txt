@@ -43,6 +43,10 @@ set( simonsound_LIB_SRCS
 	
 	${CMAKE_CURRENT_SOURCE_DIR}/devicesettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/singledevicesettings.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/soundbuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundinputbuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputbuffer.cpp
 )
 
 if(LIBSAMPLERATE_FOUND)
