@@ -84,6 +84,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   kDebug() << "Register input client for device " << client->deviceConfiguration().name();
 
   bool succ = true;
+  bool isNew = false;
 
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
                                                   //recording not currently running
@@ -94,7 +95,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
-    succ = soundInput->startRecording(clientRequestedSoundConfiguration);
+    succ = soundInput->prepareRecording(clientRequestedSoundConfiguration);
     if (!succ)
       //we had to adjust the format slightly and _that_ is already loaded
       soundInput->deleteLater();
@@ -103,6 +104,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
         soundInput->deleteLater();
       else {
         inputs.insert(clientRequestedSoundConfiguration, soundInput);
+        isNew = true;
       }
 
       if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
@@ -114,6 +116,8 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (succ) {
     SimonSoundInput *input = inputs.value(clientRequestedSoundConfiguration);
     input->registerInputClient(client);
+    if (isNew)
+      input->startRecording();
   }
   applyInputPriorities();
 
@@ -269,6 +273,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   SimonSound::DeviceConfiguration clientRequestedSoundConfiguration = client->deviceConfiguration();
 
   bool succ = true;
+  bool isNew = false;
   if (!outputs.contains(clientRequestedSoundConfiguration)) {
     //create output for this configuration
     kDebug() << "No output for this particular configuration... Creating one";
@@ -277,17 +282,19 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
     connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
     //then start playback
-    succ = soundOutput->startPlayback(clientRequestedSoundConfiguration);
+    succ = soundOutput->preparePlayback(clientRequestedSoundConfiguration);
     if (!succ) {
       //failed
       soundOutput->deleteLater();
     }
     else {
       //we had to adjust the format slightly and _that_ is already loaded
-      if (outputs.contains(clientRequestedSoundConfiguration))
+      if (outputs.contains(clientRequestedSoundConfiguration)) {
         soundOutput->deleteLater();
-      else
+      } else {
         outputs.insert(clientRequestedSoundConfiguration, soundOutput);
+        isNew = true;
+      }
 
       if (! (client->deviceConfiguration() == clientRequestedSoundConfiguration) )
                                                   // found something supported that is very close
@@ -298,6 +305,8 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
   if (succ) {
     SimonSoundOutput *output = outputs.value(clientRequestedSoundConfiguration);
     output->registerOutputClient(client);
+    if (isNew)
+      output->startPlayback();
   }
 
   applyOutputPriorities();
@@ -316,30 +325,29 @@ bool SoundServer::deRegisterOutputClient(SoundOutputClient* client)
   QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> i(outputs);
   while (i.hasNext()) {
     i.next();
-    i.value()->startClientUpdate();
     success = (i.value()->deRegisterOutputClient(client) && success);
   }
 
   applyOutputPriorities();
   
-  i.toFront();
-  while (i.hasNext()) {
-    i.next();
-    i.value()->completeClientUpdate();
-  }
   return success;
 }
 
 
+qint64 SoundServer::getDeviceLengthFactor(SimonSound::DeviceConfiguration device)
+{
+  return (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
+}
+
 qint64 SoundServer::byteSizeToLength(qint64 bytes, SimonSound::DeviceConfiguration device)
 {
-  return bytes / (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
+  return bytes / getDeviceLengthFactor(device);
 }
 
 
 qint64 SoundServer::lengthToByteSize(qint64 length, SimonSound::DeviceConfiguration device)
 {
-  return length * (device.channels() * 2 /* 16 bit */ * ((float)device.sampleRate() / 1000.0f));
+  return length * getDeviceLengthFactor(device);
 }
 
 

@@ -31,7 +31,8 @@ ResampleSoundProcessor::ResampleSoundProcessor(int channels, int sourceFreq, int
 {
   int err;
   //state = src_new(SRC_SINC_BEST_QUALITY, channels, &err);
-  state = src_new(SRC_SINC_MEDIUM_QUALITY, channels, &err);
+  //state = src_new(SRC_SINC_MEDIUM_QUALITY, channels, &err);
+  state = src_new(SRC_SINC_BEST_QUALITY, channels, &err);
   if (!state)
     kWarning() << "Couldn't initialize libsamplerate: " << src_strerror(err);
 }

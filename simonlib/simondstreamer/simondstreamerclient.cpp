@@ -82,6 +82,7 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
   if (vad->startListening()) {
 //     kDebug() << "Starting listening!";
     sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
+      m_deviceConfiguration.resample() ? m_deviceConfiguration.resampleSampleRate() : 
       m_deviceConfiguration.sampleRate());
   }
 

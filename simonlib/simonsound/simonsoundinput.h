@@ -20,6 +20,7 @@
 #ifndef SIMON_SIMONSOUNDINPUT_H_BAC62651BE6A419EA6156220815A2AAD
 #define SIMON_SIMONSOUNDINPUT_H_BAC62651BE6A419EA6156220815A2AAD
 
+class SoundInputBuffer;
 class QAudioInput;
 
 #include <simonsound/simonsound.h>
@@ -34,16 +35,19 @@ class SimonSoundInput : public QIODevice
 {
   Q_OBJECT
 
-    signals:
-  void recordingFinished();
-  void error(const QString& str);
-  void inputStateChanged(QAudio::State state);
+  signals:
+    void recordingFinished();
+    void error(const QString& str);
+    void inputStateChanged(QAudio::State state);
 
   private:
     SimonSound::DeviceConfiguration m_device;
     QAudioInput *m_input;
     QHash<SoundInputClient*, qint64> m_activeInputClients;
     QHash<SoundInputClient*, qint64> m_suspendedInputClients;
+    SoundInputBuffer *m_buffer;
+
+    void killBuffer();
 
   protected:
     qint64 readData(char *toRead, qint64 maxLen);
@@ -59,13 +63,17 @@ class SimonSoundInput : public QIODevice
 
     bool deRegisterInputClient(SoundInputClient* client);
 
-    bool startRecording(SimonSound::DeviceConfiguration& device);
+    bool prepareRecording(SimonSound::DeviceConfiguration& device);
+    bool startRecording();
     bool stopRecording();
 
     SoundClient::SoundClientPriority getHighestPriority();
     bool activate(SoundClient::SoundClientPriority priority);
 
     bool isActive() { return (m_activeInputClients.count() > 0); }
+    
+    int bufferSize();
+    void processData(const QByteArray& data);
 
     void suspend(SoundInputClient*);
     void resume(SoundInputClient*);
