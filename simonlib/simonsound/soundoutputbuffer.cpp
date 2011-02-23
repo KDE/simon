@@ -45,7 +45,6 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
   return realCpy;
 }
 
-#include <QFile>
 void SoundOutputBuffer::run()
 {
   m_buffer.fill(0, qMin(2*8192, BUFFER_MAX_LENGTH));
@@ -64,11 +63,6 @@ void SoundOutputBuffer::run()
       //output client as soon as the buffer is empty to make sure that
       //the current active output is really the current active output
       m_buffer += currentData;
-
-      QFile f("/home/simon/test.t");
-      f.open(QIODevice::WriteOnly|QIODevice::Append);
-      f.write(currentData);
-      f.close();
     }
     killLock.unlock();
 
