@@ -24,7 +24,7 @@
 #include <QByteArray>
 #include <QMutex>
 
-#define BUFFER_MAX_LENGTH 16384 // quite high; maybe try 8192 too
+#define BUFFER_MAX_LENGTH 4*8192
 
 class SoundBuffer : public QThread
 {
