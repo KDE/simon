@@ -45,8 +45,10 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
   return realCpy;
 }
 
+#include <QFile>
 void SoundOutputBuffer::run()
 {
+  m_buffer.fill(0, qMin(2*8192, BUFFER_MAX_LENGTH));
   while (m_shouldBeRunning)
   {
     killLock.lock();
@@ -62,12 +64,17 @@ void SoundOutputBuffer::run()
       //output client as soon as the buffer is empty to make sure that
       //the current active output is really the current active output
       m_buffer += currentData;
+
+      QFile f("/home/simon/test.t");
+      f.open(QIODevice::WriteOnly|QIODevice::Append);
+      f.write(currentData);
+      f.close();
     }
     killLock.unlock();
 
     //either half of the buffered time or 50 milliseconds, whichever is shorter
     int sleepDuration = qMin((bufferLength*100)/2, 5000);
-    kDebug() << "Sleeping: " << sleepDuration << " microseconds";
+    kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
     usleep(sleepDuration);
   }
   kDebug() << "Left run loop";

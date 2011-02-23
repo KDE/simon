@@ -150,7 +150,7 @@ void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 void WebserviceTTSProvider::enquePlayback()
 {
   kDebug() << "Bytes available: " << filesToPlay.first()->bytesAvailable() << player->isPlaying();
-  if (filesToPlay.first()->bytesAvailable() >= 28 && !player->isPlaying()) {
+  if (filesToPlay.first()->bytesAvailable() > 44 && !player->isPlaying()) {
     kDebug() << "Received header so starting playback";
     qint16 channels;
     qint32 samplerate;

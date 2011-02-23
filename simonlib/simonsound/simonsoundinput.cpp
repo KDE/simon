@@ -49,7 +49,7 @@ int SimonSoundInput::bufferSize()
 
 qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
 {
-  kDebug() << "Writing data()";
+  //kDebug() << "Writing data()";
   m_buffer->write(QByteArray::fromRawData(toWrite, len));
   return len;
 //   QByteArray data;
@@ -87,7 +87,7 @@ void SimonSoundInput::processData(const QByteArray& data)
 
 bool SimonSoundInput::prepareRecording(SimonSound::DeviceConfiguration& device)
 {
-  kDebug() << "Starting recording";
+  //kDebug() << "Starting recording";
 
   QAudioFormat format;
   format.setFrequency(device.sampleRate());
