@@ -44,6 +44,7 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
 
+	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
 )
 
 
@@ -69,6 +70,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/author.h
 ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.h
 	${CMAKE_CURRENT_SOURCE_DIR}/command.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simoncommand.h
 	#	${CMAKE_CURRENT_SOURCE_DIR}/commandlauncher.h

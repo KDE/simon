@@ -166,5 +166,14 @@ class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
      */
     virtual ~CreateCommandWidget() {}
 
+
+    /**
+     * \brief Returns a list of supported parameters of commands of this type
+     *
+     * This list will be displayed in the creation dialog below the trigger
+     *
+     * \return the list of supported parameters
+     */
+    virtual QList<CommandParameter>& supportedParameters() const;
 };
 #endif

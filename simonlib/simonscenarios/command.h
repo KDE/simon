@@ -215,6 +215,13 @@ class MODELMANAGEMENT_EXPORT  Command
      */
     virtual bool deSerializePrivate(const QDomElement& commandElem)=0;
 
+
+    /**
+     * \brief Parse the given input and extract the given parameters matching the placeholders in the trigger
+     * \return The list of extracted parameters
+     */
+    QStringList parseArguments(const QString& input);
+
   public:
     /**
      * \brief Sets the parent command manager to the given value.
@@ -370,6 +377,20 @@ class MODELMANAGEMENT_EXPORT  Command
     bool getHidden() const
     {
       return this->hidden;
+    }
+
+    /**
+     * \brief Returns the amount of parameter _needed_ from this type of command
+     * The default \see matches() function will require at least the amount of 
+     * parameters present here. "Needed" parameters are not allowed to be empty
+     *
+     * The default implementation returns 0
+     *
+     * \return The number of required arguments
+     */
+    virtual int neededParameterCount() const
+    {
+      return 0;
     }
 
     /**
