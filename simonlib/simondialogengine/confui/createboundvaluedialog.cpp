@@ -22,6 +22,7 @@
 #include "ui_createboundvalue.h"
 #include <simondialogengine/staticboundvalue.h>
 #include <simondialogengine/scriptboundvalue.h>
+#include <simondialogengine/argumentboundvalue.h>
 
 #ifdef USE_PLASMA
 #include <simondialogengine/plasmaboundvalue.h>
@@ -235,12 +236,20 @@ void CreateBoundValueDialog::initToBoundValue(BoundValue *init)
       ui->teScript->setText(scriptBoundValue->getScript());
     }
 
+    //argument
+    ArgumentBoundValue *argumentBoundValue = dynamic_cast<ArgumentBoundValue*>(init);
+    if (argumentBoundValue)
+    {
+      ui->cbType->setCurrentIndex(2);
+      ui->sbArgument->setValue(argumentBoundValue->getArgumentNumber());
+    }
+
 #ifdef USE_PLASMA
     //plasma
     PlasmaBoundValue *plasmaBoundValue = dynamic_cast<PlasmaBoundValue*>(init);
     if (plasmaBoundValue)
     {
-      ui->cbType->setCurrentIndex(2);
+      ui->cbType->setCurrentIndex(3);
       ui->cbDataEngine->setCurrentIndex(
           ui->cbDataEngine->findData(plasmaBoundValue->getDataEngine()));
       initDataEngine();
@@ -289,8 +298,12 @@ BoundValue* CreateBoundValueDialog::createBoundValueInstance()
       //script
       value = new ScriptBoundValue(name, ui->teScript->toPlainText());
       break;
-#ifdef USE_PLASMA
     case 2:
+      //script
+      value = new ArgumentBoundValue(name, ui->sbArgument->value());
+      break;
+#ifdef USE_PLASMA
+    case 3:
       //plasma
       value = new PlasmaBoundValue(name, ui->cbDataEngine->itemData(ui->cbDataEngine->currentIndex()).toString(),
           ui->cbDataEngine->currentText(), ui->cbDataSource->currentText(), ui->cbKey->currentText());

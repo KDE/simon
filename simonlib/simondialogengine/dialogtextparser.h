@@ -26,6 +26,7 @@
 class DialogDataProvider;
 class DialogTemplateOptions;
 class DialogBoundValues;
+class QStringList;
 
 class SIMONDIALOGENGINE_EXPORT DialogTextParser
 {
@@ -39,6 +40,8 @@ class SIMONDIALOGENGINE_EXPORT DialogTextParser
   public:
     DialogTextParser(DialogTemplateOptions* templateOptions, DialogBoundValues* boundValues);
     ~DialogTextParser();
+    
+    void setArguments(const QStringList& arguments);
 
     bool parse(QString& data);
 };

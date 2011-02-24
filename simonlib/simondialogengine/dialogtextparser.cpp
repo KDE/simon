@@ -33,6 +33,12 @@ DialogTextParser::DialogTextParser(DialogTemplateOptions* templateOptions, Dialo
 {
 }
 
+void DialogTextParser::setArguments(const QStringList& arguments)
+{
+  m_boundValues->setArguments(arguments);
+}
+
+
 bool DialogTextParser::parseTemplates(QString& data)
 {
   QString outData;

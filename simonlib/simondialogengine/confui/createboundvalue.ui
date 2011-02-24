@@ -45,6 +45,11 @@
          <string>QtScript</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Command Argument</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -81,6 +86,27 @@
         <widget class="KTextEdit" name="teScript">
          <property name="acceptRichText">
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_4">
+      <layout class="QFormLayout" name="formLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Argument:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="sbArgument">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
          </property>
         </widget>
        </item>
