@@ -102,6 +102,7 @@ class Command;
 typedef QList<Command*> CommandList;
 
 #include "commandmanager.h"
+#include <QStringList>
 
 class CommandManager;
 
@@ -126,6 +127,9 @@ class MODELMANAGEMENT_EXPORT  Command
 
     /// The parent CommandManager
     CommandManager *m_parent;
+    
+    /// Parameters of the last triggering
+    QStringList m_currentParameters;
 
   protected:
     /// \brief The command is bound to this state.
@@ -160,6 +164,7 @@ class MODELMANAGEMENT_EXPORT  Command
      * \brief Execute the plugin specific action
      *
      * This method does the actual work. Whatever a command of your plugin should do, it should do it in this method
+     * You can access the arguments passed to the command by calling \sa currentArguments()
      *
      * \param state Reference parameter; The state of the command manager.
      *
@@ -167,6 +172,10 @@ class MODELMANAGEMENT_EXPORT  Command
      * 	method of the CommandManager class for more details.
      */
     virtual bool triggerPrivate(int* state)=0;
+    
+    QStringList currentArguments() const;
+    
+    QString getParsedTrigger() const;
 
     /**
      * \brief Export the user relevant parts of your Command subclass
@@ -215,13 +224,6 @@ class MODELMANAGEMENT_EXPORT  Command
      */
     virtual bool deSerializePrivate(const QDomElement& commandElem)=0;
 
-
-    /**
-     * \brief Parse the given input and extract the given parameters matching the placeholders in the trigger
-     * \return The list of extracted parameters
-     */
-    QStringList parseArguments(const QString& input);
-
   public:
     /**
      * \brief Sets the parent command manager to the given value.
@@ -258,7 +260,7 @@ class MODELMANAGEMENT_EXPORT  Command
      * \return Category icon
      */
     virtual const KIcon getCategoryIcon() const=0;
-
+    
     virtual bool matches(int commandManagerState, const QString& trigger);
 
     virtual bool trigger(int* state);

@@ -28,33 +28,32 @@
 
 bool DialogRunner::greedyTrigger(const QString& sentence)
 {
-    QList<DialogCommand*> commands = m_state->getTransitions();
-    bool found = false;
-    foreach (DialogCommand* c, commands) {
-      if (c->matches(0, sentence)) {
-	return c->trigger(0);
-	found = true;
-      }
+  QList<DialogCommand*> commands = m_state->getTransitions();
+  bool found = false;
+  foreach (DialogCommand* c, commands) {
+    if (c->matches(0, sentence)) {
+      found = c->trigger(0);
     }
-    
-    if (!found)
+  }
+  
+  if (!found)
+  {
+    //check if this is a repeat trigger
+    if (m_config->getRepeatTriggers().contains(sentence, Qt::CaseInsensitive))
     {
-      //check if this is a repeat trigger
-      if (m_config->getRepeatTriggers().contains(sentence, Qt::CaseInsensitive))
-      {
-	foreach (DialogView* view, m_dialogViews)
-	  view->repeat(*m_state);
-	found = true;
-      }
-    }
-    if (found) {
       foreach (DialogView* view, m_dialogViews)
-	view->correctInputReceived();
-    } else {
-      foreach (DialogView* view, m_dialogViews)
-	view->warnOfInvalidInput(sentence);
+        view->repeat(*m_state);
+      found = true;
     }
-    return GreedyReceiver::greedyTrigger(sentence);
+  }
+  if (found) {
+    foreach (DialogView* view, m_dialogViews)
+      view->correctInputReceived();
+  } else {
+    foreach (DialogView* view, m_dialogViews)
+      view->warnOfInvalidInput(sentence);
+  }
+  return GreedyReceiver::greedyTrigger(sentence);
 }
 
 bool DialogRunner::getRepeatOnInvalidInput() const

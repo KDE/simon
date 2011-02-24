@@ -44,7 +44,7 @@ bool CreateCommandWidget::isInstanceOfSameManager(CommandManager *manager)
   return (m_manager == manager);
 }
 
-virtual QList<CommandParameter>& supportedParameters() const
+QList<CommandParameter> CreateCommandWidget::supportedParameters() const
 {
   return QList<CommandParameter>();
 }

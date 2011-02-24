@@ -21,6 +21,7 @@
 #define SIMON_CREATECOMMANDWIDGET_H_953FB9DDF3FA4DC5965BF6C9797CAA8A
 
 #include "simonmodelmanagement_export.h"
+#include "commandparameter.h"
 
 #include <QWidget>
 
@@ -174,6 +175,6 @@ class MODELMANAGEMENT_EXPORT CreateCommandWidget : public QWidget
      *
      * \return the list of supported parameters
      */
-    virtual QList<CommandParameter>& supportedParameters() const;
+    virtual QList<CommandParameter> supportedParameters() const;
 };
 #endif

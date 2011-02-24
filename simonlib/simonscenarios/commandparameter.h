@@ -31,7 +31,7 @@ class CommandParameter
   public:
     CommandParameter(const QString& name, bool optional=false);
     QString name() { return m_name; }
-    QString optional() { return m_optional; }
+    bool optional() { return m_optional; }
 
 };
 

@@ -38,11 +38,48 @@
  */
 bool Command::matches(int commandManagerState, const QString& trigger)
 {
-  kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
+  m_currentParameters.clear();
+//   kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
   if (commandManagerState != boundState)
     return false;
 
-  return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
+  if (!triggerName.contains(QRegExp("%?%\\d+")))
+    return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
+  
+  kDebug() << "Command trigger: " << getTrigger() << " provided trigger: " << trigger;
+  QStringList splitList = triggerName.split(QRegExp("%\\d+"));
+  kDebug() << "Split list: " << splitList;
+  QString callTrigger = trigger;
+  for (int i=0; i < splitList.count()-1; i++)
+  {
+    int partLength = splitList[i].length();
+    bool isString = (splitList[i].at(partLength-1) == '%');
+    if (isString) partLength--;
+    
+    if (callTrigger.left(partLength) != splitList[i].left(partLength))
+      return false;
+    
+    callTrigger.remove(0, partLength);
+    
+    int nextIndex;
+    if (!isString)
+      nextIndex = callTrigger.indexOf(QRegExp("( |$)"));
+    else {
+      QString nextString = splitList[i+1];
+      if ((i == splitList.count()-2) && nextString.isEmpty()) // last run
+	nextIndex = callTrigger.length();
+      else
+	nextIndex = callTrigger.indexOf(nextString);
+    }
+    
+    if (nextIndex == -1)
+      return false;
+    QString thisParameter = callTrigger.left(nextIndex);
+    callTrigger.remove(0, thisParameter.length());
+    m_currentParameters << thisParameter;
+  }
+  kDebug() << "Got parameter: " << m_currentParameters;
+  return (callTrigger.compare(splitList[splitList.count()-1]) == 0);
 }
 
 
@@ -66,11 +103,25 @@ bool Command::trigger(int* state)
 {
   if (announce) {
     KIcon commandIcon = getIcon();
-    SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
+    SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
   }
   if (state)
     *state = switchToState;
   return triggerPrivate(state);
+}
+
+/**
+ * \brief Returns the trigger name of this command with parsed arguments
+ * \return The parsed (current) trigger name
+ */
+QString Command::getParsedTrigger() const
+{
+  QString out = getTrigger();
+  for (int i=0; i < m_currentParameters.count(); i++) {
+    kDebug() << QString("%?%%1").arg(i+1);
+    out.replace(QRegExp(QString("%?%%1").arg(i+1)), m_currentParameters[i]);
+  }
+  return out;
 }
 
 
@@ -161,4 +212,13 @@ bool Command::deSerialize(const QDomElement& elem)
   announce = (announceElem.text().toInt() == 1);
 
   return deSerializePrivate(elem);
+}
+
+/**
+ * \brief Accesser method for @sa m_currentParameters
+ * \return The parameters of the last matches() call
+ */
+QStringList Command::currentArguments() const
+{
+  return m_currentParameters;
 }
