@@ -24,32 +24,27 @@
 #include <QDomDocument>
 #include <KDebug>
 
-/**
- * \brief Should this command be executed?
- *
- * This method tells the CommandManager if the command matches the current conditions (state and recognition result).
- *
- * The default implementation checks if the commandManagerState is the same as the #boundState and if the recognized trigger
- * is the same as the commands trigger name.
- *
- * \param commandManagerState The state of the CommandManager
- * \param trigger The recognized sentence
- * \return True, if the Command should be executed.
- */
-bool Command::matches(int commandManagerState, const QString& trigger)
-{
-  m_currentParameters.clear();
-//   kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
-  if (commandManagerState != boundState)
-    return false;
 
-  if (!triggerName.contains(QRegExp("%?%\\d+")))
-    return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
-  
-  kDebug() << "Command trigger: " << getTrigger() << " provided trigger: " << trigger;
-  QStringList splitList = triggerName.split(QRegExp("%\\d+"));
+/**
+ * \brief Parses the given arguments
+ * 
+ * Static function to parse command parameters; You can ues this from your commandmanager
+ * implementation if you are dealing with arguments there
+ * 
+ * This is called from \sa matches(int, const QString&) to parse the arguments
+ * 
+ * \param input The recognized text
+ * \param scheme The scheme of the commands (the general template)
+ * \param arguments Output paramter: The found arguments
+ * \return true if the input could be matched against the scheme; Returned arguments are invalid if this is false
+ */
+bool Command::parseArguments(const QString& input, const QString& scheme, QStringList& arguments)
+{
+  kDebug() << "Command trigger: " << scheme << " provided trigger: " << input;
+  arguments.clear();
+  QStringList splitList = scheme.split(QRegExp("%\\d+"));
   kDebug() << "Split list: " << splitList;
-  QString callTrigger = trigger;
+  QString callTrigger = input;
   for (int i=0; i < splitList.count()-1; i++)
   {
     int partLength = splitList[i].length();
@@ -76,10 +71,42 @@ bool Command::matches(int commandManagerState, const QString& trigger)
       return false;
     QString thisParameter = callTrigger.left(nextIndex);
     callTrigger.remove(0, thisParameter.length());
-    m_currentParameters << thisParameter;
+    arguments << thisParameter;
   }
-  kDebug() << "Got parameter: " << m_currentParameters;
+  kDebug() << "Got parameter: " << arguments;
   return (callTrigger.compare(splitList[splitList.count()-1]) == 0);
+}
+
+
+/**
+ * \brief Should this command be executed?
+ *
+ * This method tells the CommandManager if the command matches the current conditions (state and recognition result).
+ *
+ * The default implementation checks if the commandManagerState is the same as the #boundState and if the recognized trigger
+ * is the same as the commands trigger name.
+ *
+ * \param commandManagerState The state of the CommandManager
+ * \param trigger The recognized sentence
+ * \return True, if the Command should be executed.
+ */
+bool Command::matches(int commandManagerState, const QString& trigger)
+{
+//   kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
+  if (commandManagerState != boundState)
+    return false;
+
+  if (!triggerName.contains(QRegExp("%?%\\d+")))
+    return (trigger.compare(this->triggerName, Qt::CaseInsensitive) == 0);
+  
+  bool succ = Command::parseArguments(trigger, getTrigger(), m_currentParameters);
+  
+  int filledArguments = 0;
+  foreach (const QString& param, m_currentParameters)
+    if (!param.isEmpty())
+      filledArguments++;
+    
+  return (succ && (filledArguments >= neededParameterCount()));
 }
 
 

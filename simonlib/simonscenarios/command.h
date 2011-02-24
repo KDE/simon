@@ -399,5 +399,7 @@ class MODELMANAGEMENT_EXPORT  Command
      * \brief Empty destructor
      */
     virtual ~Command() {}
+    
+    static bool parseArguments(const QString& input, const QString& scheme, QStringList& arguments);
 };
 #endif
