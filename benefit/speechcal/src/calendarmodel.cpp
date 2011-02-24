@@ -31,7 +31,17 @@ void CalendarModel::initialize(const QList<QSharedPointer<KCalCore::Event> > ite
 
 void CalendarModel::addItems(const QList< QSharedPointer<KCalCore::Event> > items)
 {
-  relevantItems << items;
+  foreach (const QSharedPointer<KCalCore::Event>& event, items) {
+    bool alreadyHere = false;
+    foreach (const QSharedPointer<KCalCore::Event>& event2, relevantItems) {
+      if (*event2 == *event) {
+        alreadyHere = true;
+        break;
+      }
+    }
+    if (alreadyHere) break;
+    relevantItems << event;
+  }
   reset();
 }
 
