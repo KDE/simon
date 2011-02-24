@@ -25,6 +25,8 @@
 #include <QSharedPointer>
 #include <KLocale>
 #include <KGlobal>
+#include <KConfig>
+#include <KConfigGroup>
 
 #include <akonadi/control.h>
 #include <akonadi/collection.h>
@@ -56,6 +58,9 @@ SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
     qApp->exit( -1 );
     return;
   }
+
+  KConfigGroup cGroup(KGlobal::config(), "events");
+  ignoredEventsPrefixes = cGroup.readEntry("IgnoredEventPrefixes", QStringList() << "[simon-command]");
   
   monitor = new Akonadi::Monitor(this);
   monitor->setMimeTypeMonitored(KCalCore::Event::eventMimeType(), true);
@@ -165,6 +170,15 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
       continue;
     }
 
+    bool ignore = false;
+    foreach (const QString& prefix, ignoredEventsPrefixes) {
+      if (event->summary().startsWith(prefix)) {
+        ignore = true;
+        break;
+      }
+    }
+    if (ignore) continue;
+        
     if (event->recurs()) {
       KCalCore::Recurrence *r = event->recurrence();
       KCalCore::DateTimeList list = r->timesInInterval(KDateTime(displayDate.date()), KDateTime(displayDate.addDays(1).date()));

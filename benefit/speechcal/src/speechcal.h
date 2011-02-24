@@ -21,6 +21,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QStringList>
 #include <KDateTime>
 
 #include <akonadi/collection.h>
@@ -49,13 +50,13 @@ Q_OBJECT
     void retrieveEvents();
     
   private:
+    QStringList ignoredEventsPrefixes;
+
     SpeechCalView* view;
     CalendarModel *calendar;
     KDateTime displayDate;
     Akonadi::Collection::List collectionList;
     Akonadi::Monitor *monitor;
-//     KDateTime fromDate;
-//     KDateTime toDate;
     
     void updateView();
     
