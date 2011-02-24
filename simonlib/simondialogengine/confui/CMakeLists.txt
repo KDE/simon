@@ -61,7 +61,7 @@ target_link_libraries(simondialogengineconfui
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simondialogengine)
 endif(USE_PLASMA)
 
-install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simondialogengineconfui )
+install(TARGETS simondialogengineconfui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
 install( FILES ${simondialogengineconfui_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/confui

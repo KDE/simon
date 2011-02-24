@@ -31,7 +31,7 @@ kde4_add_library(simondialogenginegraphicalview SHARED ${simondialogenginegraphi
 target_link_libraries(simondialogenginegraphicalview 
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonactions simondialogengine)
 
-install(TARGETS simondialogenginegraphicalview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simondialogenginegraphicalview )
+install(TARGETS simondialogenginegraphicalview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
 install( FILES ${simondialogenginegraphicalview_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/graphicalview
