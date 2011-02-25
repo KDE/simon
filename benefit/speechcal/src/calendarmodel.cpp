@@ -29,18 +29,29 @@ void CalendarModel::initialize(const QList<QSharedPointer<KCalCore::Event> > ite
   reset();
 }
 
+#include <KDebug>
+
 void CalendarModel::addItems(const QList< QSharedPointer<KCalCore::Event> > items)
 {
   foreach (const QSharedPointer<KCalCore::Event>& event, items) {
     bool alreadyHere = false;
+    int insertionIndex = 0;
     foreach (const QSharedPointer<KCalCore::Event>& event2, relevantItems) {
-      if (*event2 == *event) {
+      if ((event2->summary() == event->summary()) && 
+	(event->dtStart() == event2->dtStart()) &&
+	(event2->dtEnd() == event->dtEnd())) {
         alreadyHere = true;
         break;
       }
+      if (event2->allDay() || (event2->dtStart() < event->dtStart()))
+	++insertionIndex;
     }
     if (alreadyHere) break;
-    relevantItems << event;
+    kDebug() << "Insertion index: " << insertionIndex << event->dtStart() << event->summary();
+    if (!event->allDay())
+      relevantItems.insert(insertionIndex, event);
+    else 
+      relevantItems.insert(0, event); //whole day events
   }
   reset();
 }
@@ -49,9 +60,10 @@ QVariant CalendarModel::data(const QModelIndex& index, int role) const
 {
   if (role != Qt::DisplayRole) return QVariant();
   QSharedPointer< KCalCore::Event > event = relevantItems[index.row()];
-  QString text = QString("%1 - %2: %3").arg(event->dtStart().toString("%H:%M")).arg(
+  if (!event->allDay())
+    return QString("%1 - %2: %3").arg(event->dtStart().toString("%H:%M")).arg(
 						event->dtEnd().toString("%H:%M")).arg(event->summary());
-  return text;
+  else return event->summary();
 }
 
 int CalendarModel::rowCount(const QModelIndex& /*parent*/) const

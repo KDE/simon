@@ -184,9 +184,9 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
       KCalCore::DateTimeList list = r->timesInInterval(KDateTime(displayDate.date()), KDateTime(displayDate.addDays(1).date()));
       foreach (const KDateTime& recurrenceTime, list) {
         QSharedPointer<KCalCore::Event> copy(new KCalCore::Event(*event));
-        KCalCore::Duration d = copy->duration();
+        int duration = event->dtStart().secsTo(event->dtEnd());
         copy->setDtStart(recurrenceTime);
-        copy->setDuration(d);
+        copy->setDtEnd(recurrenceTime.addSecs(duration));
         consideredItems << copy;
       }
     } else

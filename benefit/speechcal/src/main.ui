@@ -92,7 +92,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="lvCalendar"/>
+       <widget class="QListView" name="lvCalendar">
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -104,7 +111,7 @@
      <x>0</x>
      <y>0</y>
      <width>665</width>
-     <height>23</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

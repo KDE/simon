@@ -130,9 +130,9 @@ void AkonadiCommandManager::itemsReceived(KJob* job)
       KCalCore::DateTimeList list = r->timesInInterval(KDateTime(QDateTime::currentDateTime()), KDateTime(QDateTime::currentDateTime().addSecs(21600)));
       foreach (const KDateTime& recurrenceTime, list) {
         QSharedPointer<KCalCore::Event> copy(new KCalCore::Event(*event));
-        KCalCore::Duration d = copy->duration();
+        int duration = event->dtStart().secsTo(event->dtEnd());
         copy->setDtStart(recurrenceTime);
-        copy->setDuration(d);
+        copy->setDtEnd(recurrenceTime.addSecs(duration));
         consideredItems << copy;
         hasRecurringEvents = true;
       }
