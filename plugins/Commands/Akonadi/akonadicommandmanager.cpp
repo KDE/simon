@@ -76,6 +76,8 @@ void AkonadiCommandManager::checkSchedule()
 
 void AkonadiCommandManager::setupSchedule()
 {
+  if (!getAkonadiConfiguration()) return;
+
   kDebug() << "Setting up schedule";
   schedule.clear();
   
@@ -206,7 +208,7 @@ AkonadiConfiguration* AkonadiCommandManager::getAkonadiConfiguration() const
 
 bool AkonadiCommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  if (!config) config->deleteLater();
+  if (config) config->deleteLater();
   config = new AkonadiConfiguration(this, parentScenario);
   
   if ( !Akonadi::Control::start( config ) ) {

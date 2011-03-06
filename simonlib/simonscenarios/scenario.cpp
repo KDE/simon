@@ -36,6 +36,7 @@
 #include <QDomElement>
 #include <QFile>
 #include <KDebug>
+#include <KDateTime>
 
 Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
 m_prefix(prefix),
@@ -342,7 +343,7 @@ bool Scenario::save(QString path)
     return true;
   }
 
-  m_lastModifiedDate = QDateTime::currentDateTime();
+  m_lastModifiedDate = utcTime();
   QString serialized = serialize();
 
   if (serialized.isNull())
@@ -371,6 +372,10 @@ bool Scenario::save(QString path)
   return true;
 }
 
+QDateTime Scenario::utcTime()
+{
+  return KDateTime::currentUtcDateTime().dateTime();
+}
 
 QString Scenario::serialize()
 {
@@ -755,7 +760,7 @@ QString Scenario::createId(const QString& name)
 {
   QString id = name;
   id.replace(' ', '_').replace('/','_').replace(':', '-').remove('?').replace('\\', '_').remove('<').remove('>').remove('|').remove('"');
-  return id+'-'+QDateTime::currentDateTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
+  return id+'-'+utcTime().toString("dd.MM.dd.yyyy-hh-mm-ss-zzz");
 }
 
 

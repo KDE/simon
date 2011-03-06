@@ -73,6 +73,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     bool setupPathToParse(QString& path);
     bool setupToParse(QString& path, QDomDocument*& doc, bool& deleteDoc);
+    static QDateTime utcTime();
 
   public:
     explicit Scenario(const QString& scenarioId, const QString& prefix=QString());

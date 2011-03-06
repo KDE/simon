@@ -300,7 +300,7 @@ void DialogConfiguration::textAnnounceRepeatChanged()
     return;
 
   state->setAnnounceRepeat(ui.cbAnnounceRepeat->isChecked());
-  displayCurrentState();
+  //displayCurrentState();
 }
  
 
@@ -516,8 +516,10 @@ void DialogConfiguration::displayCurrentState()
   int avatarId = currentState->getAvatarId();
   QModelIndex avatarIndex = avatarsConfig->getAvatarIndex(avatarId);
   
-  ui.lvStateAvatar->selectionModel()->select(avatarIndex,
-    QItemSelectionModel::ClearAndSelect);
+  kDebug() << "Avatar index: " << avatarIndex;
+  //FIXME!
+  //ui.lvStateAvatar->selectionModel()->select(avatarIndex,
+    //QItemSelectionModel::ClearAndSelect);
 
   kDebug() << currentState;
   ui.lvTransitions->setModel(currentState);
