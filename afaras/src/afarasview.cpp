@@ -87,12 +87,13 @@ void AfarasView::start()
     QString file = line.left(separator);
     QString prompt = line.mid(separator+1).trimmed();
 
-    prompts.insert(file, prompt);
+    prompts << QPair<QString,QString>(file, prompt);
   }
 
   QFile buildLogF(ui.urBuildLog->url().toLocalFile());
   if (buildLogF.open(QIODevice::ReadOnly)) {
     //find forced alignment stage
+    QList< QPair<double, QString> > fileScores;
 
     QByteArray log;
     QByteArray alignLog;
@@ -111,7 +112,23 @@ void AfarasView::start()
       QString file = sample.mid(index, sample.indexOf(".mfc")-index);
       double score = sample.mid(scoreIndex, sample.indexOf(" ", scoreIndex+8)-scoreIndex).toDouble();
 
-      kDebug() << "File: " << file << " score: " << score;
+      //kDebug() << "File: " << file << " score: " << score;
+      fileScores << QPair<double,QString>(score, file);
+    }
+    qSort(fileScores);
+    kDebug() << "Sorted file scores: " << fileScores.count();
+    QList< QPair<QString,QString> > promptsSorted;
+    int startIndex = 0;
+    for (int j=0; j < fileScores.count(); j++) {
+      //find appropriate prompts entry if possible
+      // and move this to the front of the prompts list to check
+      // ignore everything before startIndex which denotes the already filled
+      // area (think about in place selection sort)
+      for (int i=startIndex; i < prompts.count(); i++)
+        if (prompts[i].first == fileScores[j].second) {
+          prompts.insert(startIndex++, prompts.takeAt(i));
+          break;
+        }
     }
   }
 
@@ -180,7 +197,7 @@ void AfarasView::save()
 
 QString AfarasView::currentSample() const
 {
-  return prompts.keys().at(currentIndex);
+  return prompts.at(currentIndex).first;
 }
 
 void AfarasView::setupRecorder()
@@ -191,7 +208,7 @@ void AfarasView::setupRecorder()
 
   QString fileSuffix = currentSample();
   QString file = ui.urPathPrefix->url().toLocalFile() + QDir::separator() + fileSuffix;
-  QString prompt = prompts.value(fileSuffix);
+  QString prompt = prompts.at(currentIndex).second;
 
   ui.pbBlacklistSample->setChecked(blackListedRecordings.contains(fileSuffix));
   

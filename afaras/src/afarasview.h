@@ -24,6 +24,7 @@
 
 #include "ui_main.h"
 #include <QStringList>
+#include <QPair>
 
 /**
  * @short Main view
@@ -66,7 +67,7 @@ class AfarasView :  public KXmlGuiWindow
     
     int currentIndex;
 
-    QHash<QString,QString> prompts;
+    QList< QPair<QString,QString> > prompts;
     QStringList blackListedRecordings;
     
     void setupRecorder();
