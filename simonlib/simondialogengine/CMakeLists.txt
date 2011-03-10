@@ -33,7 +33,7 @@ set (simondialogengine_SRCS
   avatar.cpp
   avatarmodel.cpp
   dialogmanager.cpp
-  dialogview.h
+  dialogview.cpp
     )
 
 set( simondialogengine_LIB_HDRS
