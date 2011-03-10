@@ -59,6 +59,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     QTimer *statusTimer;
     Ui::RecWidgetUi *ui;
     bool m_simpleMode;
+    bool m_playbackOnly;
 
     QList<WavFileWidget*> waves;
 
@@ -99,7 +100,8 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
 
   public:
     RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode=false, 
-	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration>* forcedDevices=0);
+	              QWidget *parent=0, QList<SimonSound::DeviceConfiguration>* forcedDevices=0,
+                bool playbackOnly=false);
     ~RecWidget();
     bool hasRecordingReady();
     bool isRecording();
@@ -107,6 +109,9 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     QStringList getDevices();
 
     void checkFile();
+
+    bool isPlaying();
+    void play();
 
     SimonSamples::SampleProblems sampleProblems();
 

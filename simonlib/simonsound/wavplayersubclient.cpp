@@ -118,5 +118,7 @@ void WavPlayerSubClient::finish()
  */
 WavPlayerSubClient::~WavPlayerSubClient()
 {
+  if (isOpen())
+    stop();
   if (wav) wav->deleteLater();
 }

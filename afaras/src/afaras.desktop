@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=afaras
+Name[fr]=afaras
+Exec=afaras %i -caption "%c"
+Icon=afaras
+Type=Application
+X-DocPath=afaras/index.html
+GenericName=Find and remove bad samples
+GenericName[de]=Schlechte Aufnahmen finden und entfernen
+Terminal=false
+Categories=Qt;KDE;Utility

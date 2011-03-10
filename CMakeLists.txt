@@ -331,6 +331,7 @@ add_subdirectory(sam)
 add_subdirectory(ssc)
 add_subdirectory(sscd)
 add_subdirectory(benefit)
+add_subdirectory(afaras)
 
 if (USE_PLASMA)
 add_subdirectory(simonoid)

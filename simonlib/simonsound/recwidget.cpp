@@ -55,13 +55,16 @@
  * no matter how many are configured
  * @param forcedDevices
  * Forces the recwidget to use these devices instead of simons global sound configuration
+ * @param playbackOnly
+ * Forces the recwidget to only provide playback options
  * @param *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent, QList<SimonSound::DeviceConfiguration>* forcedDevices) : QWidget(parent),
+RecWidget::RecWidget(QString name, QString text, QString fileTemplate, bool forceSimpleMode, QWidget *parent, QList<SimonSound::DeviceConfiguration>* forcedDevices, bool playbackOnly) : QWidget(parent),
 statusTimer(new QTimer(this)),
 ui(new Ui::RecWidgetUi()),
-m_simpleMode(forceSimpleMode)
+m_simpleMode(forceSimpleMode),
+m_playbackOnly(playbackOnly)
 {
   this->fileTemplate = fileTemplate;
 
@@ -71,7 +74,8 @@ m_simpleMode(forceSimpleMode)
 
   setTitle(name);
 
-  if (m_simpleMode) ui->pbDeleteAll->hide();
+  if (m_simpleMode || m_playbackOnly) ui->pbDeleteAll->hide();
+  if (m_playbackOnly) ui->pbRecord->hide();
 
   if (text.isEmpty())
     ui->tePrompt->hide();
@@ -150,6 +154,13 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   waves << wg;
 }
 
+bool RecWidget::isPlaying()
+{
+  foreach (WavFileWidget *wav, waves)
+    if (wav->getIsPlaying())
+      return true;
+  return false;
+}
 
 bool RecWidget::isRecording()
 {
@@ -206,14 +217,13 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
       "%1 (%2 channels, %3 Hz)", dev.name(), dev.channels(), dev.sampleRate());
 
     QString selected;
-    if (deviceNames.count() == 1)
+    if ((deviceNames.count() == 1) || (m_playbackOnly))
       selected = deviceNames[0];
     else
       selected = KInputDialog::getItem(i18n("Select input device"), i18n("Your sound configuration lists multiple input devices.\n\nThis function only allows you to use one of those devices.\n\nPlease select the sound device before you proceed."), deviceNames, 0, false);
-    kDebug() << selected;
+
     if (!selected.isEmpty()) {
       SimonSound::DeviceConfiguration selectedDevice = devices.at(deviceNames.indexOf(selected));
-      //registerDevice(selectedDevice.name(), selectedDevice.channels(), selectedDevice.sampleRate(), "");
       registerDevice(selectedDevice, "");
     }
   }
@@ -327,6 +337,12 @@ void RecWidget::stopPlayback()
 {
   foreach (WavFileWidget *wav, waves)
     wav->stopPlayback();
+}
+
+void RecWidget::play()
+{
+  foreach (WavFileWidget *wav, waves)
+    wav->playback();
 }
 
 
