@@ -130,6 +130,7 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
   kDebug() << "Using device: " << device.name();
 
   kDebug() << "Channels: " << device.channels();
+  kDebug() << "Samlerate: " << device.sampleRate();
   QAudioFormat format;
   format.setFrequency(device.sampleRate());
   format.setChannels(device.channels());

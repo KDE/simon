@@ -20,6 +20,7 @@
 #include "afarasview.h"
 #include <simonsound/recwidget.h>
 #include <QDir>
+#include <QProcess>
 #include <QVBoxLayout>
 #include <QKeySequence>
 #include <QKeyEvent>
@@ -233,10 +234,13 @@ void AfarasView::keyPressEvent ( QKeyEvent * event )
   switch (event->key())
   {
     case Qt::Key_P: {
-        if (recorder->isPlaying())
+        
+            QProcess::startDetached(QString("aplay -c 1 -r 16000 %1").arg(recorder->getFileTemplate()+".wav"));
+        /*if (recorder->isPlaying())
           recorder->stopPlayback();
         else
           recorder->play();
+        */
       }
       break;
     case Qt::Key_B: ui.pbBlacklistSample->click(); break;
