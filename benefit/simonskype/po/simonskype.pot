@@ -1,0 +1,185 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-03-21 15:24+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: libskype/skype.cpp:254
+msgid "This version of Skype is too old, consider upgrading"
+msgstr ""
+
+#: libskype/skype.cpp:288
+msgid "Skype protocol"
+msgstr ""
+
+#: libskype/skype.cpp:403
+msgid "Unknown"
+msgstr ""
+
+#: libskype/skype.cpp:405
+msgid "User not found"
+msgstr ""
+
+#: libskype/skype.cpp:407
+msgid "Does not have multi-user chat capability"
+msgstr ""
+
+#: libskype/skype.cpp:409
+msgid "Chat denied"
+msgstr ""
+
+#: libskype/skype.cpp:486
+msgid "Unknown error"
+msgstr ""
+
+#: libskype/skype.cpp:489
+msgid "Misc error"
+msgstr ""
+
+#: libskype/skype.cpp:492
+msgid "User or phone number does not exist"
+msgstr ""
+
+#: libskype/skype.cpp:495
+msgid "User is offline"
+msgstr ""
+
+#: libskype/skype.cpp:498
+msgid "No proxy found"
+msgstr ""
+
+#: libskype/skype.cpp:501
+msgid "Session terminated"
+msgstr ""
+
+#: libskype/skype.cpp:504
+msgid "No common codec found"
+msgstr ""
+
+#: libskype/skype.cpp:507
+msgid "Sound I/O error"
+msgstr ""
+
+#: libskype/skype.cpp:510
+msgid "Problem with remote sound device"
+msgstr ""
+
+#: libskype/skype.cpp:513
+msgid "Call blocked by recipient"
+msgstr ""
+
+#: libskype/skype.cpp:516
+msgid "Recipient not a friend"
+msgstr ""
+
+#: libskype/skype.cpp:519
+msgid "User not authorized by recipient"
+msgstr ""
+
+#: libskype/skype.cpp:522
+msgid "Sound recording error"
+msgstr ""
+
+#: libskype/skype.cpp:819
+msgid "This version of Skype does not support adding users to chat."
+msgstr ""
+
+#: libskype/skype.cpp:819
+msgid "Skype Protocol"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:91
+msgid "Could not ping Skype"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:111
+msgid "Skype did not accept this application"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:122
+msgid "Skype API syntax error"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:131
+msgid "Skype API not ready yet, wait a bit longer"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:177
+msgid "Cannot register Skype communication for Kopete on D-Bus"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:208
+msgid ""
+"Could not launch Skype.\n"
+"You need to install the original dynamic linked Skype version 2.0 binary "
+"from http://www.skype.com"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:215
+#: libskype/skypedbus/skypeconnection.cpp:323
+msgid ""
+"Could not find Skype.\n"
+"You need to install the original dynamic linked Skype version 2.0 binary "
+"from http://www.skype.com"
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:262
+msgid ""
+"Could not ping Skype.\n"
+"Maybe Skype not running.\n"
+"Error while sending a message to Skype (%1)."
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:264
+msgid "Error while sending a message to Skype (%1)."
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:272
+msgid ""
+"Could not ping Skype.\n"
+"You are logged out from Skype, please log in."
+msgstr ""
+
+#: libskype/skypedbus/skypeconnection.cpp:325
+msgid "Please login to Skype first"
+msgstr ""
+
+#: main.cpp:28
+msgid "A simple skype wrapper"
+msgstr ""
+
+#: main.cpp:32
+msgid "simonskype"
+msgstr ""
+
+#: main.cpp:33
+msgid "(C) 2011 Peter Grasch"
+msgstr ""
+
+#: main.cpp:34
+msgid "Peter Grasch"
+msgstr ""
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""

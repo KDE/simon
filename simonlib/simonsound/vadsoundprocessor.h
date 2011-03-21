@@ -24,16 +24,15 @@
 #include "simonsound.h"
 #include "loudnessmetersoundprocessor.h"
 
-#include <QObject>
 #include <QByteArray>
 
-class SIMONSOUND_EXPORT VADSoundProcessor : public QObject, public LoudnessMeterSoundProcessor
+class SIMONSOUND_EXPORT VADSoundProcessor : public LoudnessMeterSoundProcessor
 {
   Q_OBJECT
 
-    signals:
-  void listening();
-  void complete();
+  signals:
+    void listening();
+    void complete();
 
   private:
     SimonSound::DeviceConfiguration m_deviceConfiguration;
