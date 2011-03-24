@@ -74,9 +74,15 @@ bool DBusCommand::triggerPrivate(int *state)
                                                     m_interface,
                                                     m_method);
   QList<QVariant> args;
-  foreach (const QString& arg, m_args)
+  foreach (QString arg, m_args) {
+    int i=0; 
+    while ((arg.contains("%")) && (i < currentArguments().count())) {
+      arg = arg.arg(currentArguments()[i++]);
+    }
     args.append(arg);
+  }
 
+  kDebug() << args;
   m.setArguments(args);
   return QDBusConnection::sessionBus().send(m);
 }
