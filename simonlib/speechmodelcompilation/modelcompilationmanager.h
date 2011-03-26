@@ -22,6 +22,7 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QMutex>
 #include <QString>
 #include "simonmodelcompilationmanagement_export.h"
 
@@ -93,6 +94,7 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
   private:
     bool keepGoing;
 
+    QMutex buildLogMutex;
     QByteArray buildLog;
 
     CompilationType compilationType;

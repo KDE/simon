@@ -32,6 +32,7 @@
 #include <QString>
 #include <QVector>
 #include <QtConcurrentMap>
+#include <QMutexLocker>
 
 #include <KUrl>
 #include <KConfig>
@@ -184,7 +185,10 @@ bool ModelCompilationManager::execute(const QString& command)
 
   activeProcesses << &proc;
 
-  buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>";
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#00007f;\">"+command.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
+
   proc.waitForFinished(-1);
 
   activeProcesses.removeAll(&proc);
@@ -192,11 +196,18 @@ bool ModelCompilationManager::execute(const QString& command)
   QByteArray err = proc.readAllStandardError();
   QByteArray out = proc.readAllStandardOutput();
 
+  proc.close();
+
+  buildLogMutex.lock();
   if (!out.isEmpty())
-    buildLog += "<p>"+out+"</p>";
+    buildLog.append("<p>"+out+"</p>");
 
   if (!err.isEmpty())
-    buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
+  {
+    buildLog.append("<p><span style=\"color:#aa0000;\">"+err+"</span></p>");
+    kDebug() << "Appended error: " << err;
+  }
+  buildLogMutex.unlock();
 
   if (proc.exitCode() != 0)
     return false;
@@ -206,13 +217,15 @@ bool ModelCompilationManager::execute(const QString& command)
 
 void ModelCompilationManager::addStatusToLog(const QString& status)
 {
-  buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>";
-
+  buildLogMutex.lock();
+  buildLog.append("<p><span style=\"font-weight:bold; color:#358914;\">"+status.toLocal8Bit()+"</span></p>");
+  buildLogMutex.unlock();
 }
 
 
 bool ModelCompilationManager::hasBuildLog()
 {
+  QMutexLocker l(&buildLogMutex);
   return (buildLog.count() > 0);
 }
 
@@ -266,6 +279,7 @@ void ModelCompilationManager::analyseError(QString readableError)
 bool ModelCompilationManager::processError()
 {
   QString err = getBuildLog().trimmed();
+  kDebug() << err.right(1000);
 
   int startIndex=0;
   if (err.contains("ERROR [+2019]")) {
@@ -361,7 +375,9 @@ bool ModelCompilationManager::startCompilation(ModelCompilationManager::Compilat
 
   keepGoing=true;
 
+  buildLogMutex.lock();
   buildLog.clear();
+  buildLogMutex.unlock();
 
   if (!parseConfiguration())
     return false;
@@ -639,6 +655,13 @@ bool ModelCompilationManager::generateCodetrainScp(QStringList &codeTrainScps)
     QString line = QString::fromUtf8(promptsFile.readLine());
 
     fileBase =  line.left(line.indexOf(' '));
+    if (fileBase.contains("/"))
+    {
+      QString subDir = fileBase.left(fileBase.lastIndexOf("/"));
+      QDir d(pathToMFCs+'/'+subDir);
+      if (!d.exists() && !d.mkpath(subDir))
+        return false;
+    }
     mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
     QString wavFile = htkIfyPath(samplePath)+'/'+fileBase+".wav";
 
@@ -679,7 +702,6 @@ bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outp
     if (!f->open(QIODevice::WriteOnly))
     {
       qDeleteAll(scpFilesF);
-      kDebug() << "Returning false" << thisPath;
       return false;
     }
     scpFilesF << f;
@@ -688,10 +710,7 @@ bool ModelCompilationManager::splitScp(const QString& scpIn, const QString& outp
 
   QFile f(scpIn);
   if (!f.open(QIODevice::ReadOnly))
-  {
-    kDebug() << "Returning a false" << scpIn;
     return false;
-  }
   
   int currentLine = 0;
   while (!f.atEnd())
@@ -1264,11 +1283,15 @@ bool ModelCompilationManager::pruneScp(const QString& inMlf, const QString& inSc
     QByteArray originalLine = trainScp.readLine();
     QByteArray line = originalLine.trimmed().mid(htkIfyPath(tempDir).count() + 1 /* separator*/ + 5 /* mfcs/ */);
     line = line.left(line.count() - 4 /* .mfc */);
+    line = line.mid(line.lastIndexOf("/")+1);
 
     if (transcribedFiles.contains(line))
       alignedScp.write(originalLine);
     else
+    {
+      kDebug() << "Transcribed files: " << transcribedFiles;
       kDebug() << "Error decoding " << line << "; You might want to increase the beam width?";
+    }
 
   }
   return true;
