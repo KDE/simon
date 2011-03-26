@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QStringList>
 
+#include <KMessageBox>
 #include <KDebug>
 
 ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),
