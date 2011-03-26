@@ -49,6 +49,7 @@
 #ifdef Q_OS_UNIX
 #define HTK_UNICODE
 #endif
+#undef HTK_UNICODE
 
 #define MIN_WAV_FILESIZE 45 //44 byte is the length of the header
 #define HEREST_MULTITHREADED
@@ -1548,7 +1549,9 @@ bool ModelCompilationManager::generateMlf()
     if (line.trimmed().isEmpty()) continue;
     lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
                                                   //ditch the file-id
-    QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\"";
+    QString fileName = lineWords.takeFirst();
+    fileName = fileName.mid(fileName.lastIndexOf("/")+1);
+    QString labFile = "\"*/"+fileName+".lab\"";
     #ifndef HTK_UNICODE
     mlf.write(labFile.toLatin1()+'\n');
     #else
