@@ -93,6 +93,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
 
   private:
     bool keepGoing;
+    bool catchUndefiniedPhonemes;
+    QByteArray undefinedPhoneme;
 
     QMutex buildLogMutex;
     QByteArray buildLog;
@@ -200,6 +202,8 @@ class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread
         const QStringList& additionalConfigs=QStringList(), const QString& additionalParameters="");
     
     bool splitScp(const QString& scpIn, const QString& outputDirectory, const QString& fileNamePrefix, QStringList& scpFiles);
+
+    bool removePhoneme(const QByteArray& phoneme);
 
   private slots:
     void addStatusToLog(const QString&);

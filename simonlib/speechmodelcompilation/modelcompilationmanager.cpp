@@ -67,6 +67,7 @@ bool reestimateHelper(ReestimationConfig *config)
 
 ModelCompilationManager::ModelCompilationManager(const QString& user_name,
 QObject* parent) : QThread(parent),
+catchUndefiniedPhonemes(false),
 userName(user_name)
 {
   connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
@@ -270,6 +271,26 @@ void ModelCompilationManager::analyseError(QString readableError)
     emit error(readableError);
 }
 
+bool ModelCompilationManager::removePhoneme(const QByteArray& phoneme)
+{
+  //check 
+  QFile f1(tempDir+"lexicon");
+  QFile f2(tempDir+"lexicon2");
+  if (!f1.open(QIODevice::ReadOnly) || !f2.open(QIODevice::WriteOnly))
+    return false;
+  while (!f1.atEnd())
+  {
+    QByteArray line = f1.readLine();
+    if (line.contains(' '+phoneme) || line.contains(phoneme+' ') || line.contains('\t'+phoneme))
+      continue;
+    f2.write(line);
+  }
+  f1.close();
+  f2.close();
+  if (!f1.remove())
+    return false;
+  return f2.rename(tempDir+"lexicon2", tempDir+"lexicon");
+}
 
 /**
  * \brief Processes an error (reacts on it some way)
@@ -279,7 +300,6 @@ void ModelCompilationManager::analyseError(QString readableError)
 bool ModelCompilationManager::processError()
 {
   QString err = getBuildLog().trimmed();
-  kDebug() << err.right(1000);
 
   int startIndex=0;
   if (err.contains("ERROR [+2019]")) {
@@ -304,7 +324,15 @@ bool ModelCompilationManager::processError()
     // 		 FindProtoModel: no proto for n
     QString phoneme = err.mid(44+startIndex);
     phoneme = phoneme.left(phoneme.indexOf(' '));
-    emit phonemeUndefined(phoneme);
+
+    if (catchUndefiniedPhonemes)
+    {
+      undefinedPhoneme = phoneme.toLocal8Bit();
+      buildLog.replace("ERROR [+2662]", "ERROR  [+2662]"); // marked as processed; Yes, thats an awful hack
+    }
+    else
+      emit phonemeUndefined(phoneme);
+
     return true;
   }
   if ((startIndex = err.indexOf("undefined class \"")) != -1) {
@@ -877,30 +905,50 @@ bool ModelCompilationManager::tieStates()
   if (!keepGoing) return false;
   emit status(i18n("Generating triphone..."),1700);
 
-  if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
-    analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
-    return false;
-  }
+  //start watching triphones
+  catchUndefiniedPhonemes = true;
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating list of triphones..."),1705);
-  if (!makeFulllist()) {
-    analyseError(i18n("Could not generate list of triphones."));
-    return false;
+  do
+  {
+    undefinedPhoneme = QByteArray();
+    if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\"")) {
+      analyseError(i18n("Could not bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, getScriptFile("global.ded"), lexiconPath));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating list of triphones..."),1705);
+    if (!makeFulllist()) {
+      analyseError(i18n("Could not generate list of triphones."));
+      return false;
+    }
+    if (!keepGoing) return false;
+    emit status(i18n("Generating tree.hed..."), 1750);
+    if (!makeTreeHed()) {
+      analyseError(i18n("Could not generate tree.hed."));
+      return false;
+    }
+  
+    if (!keepGoing) return false;
+    emit status(i18n("Generating hmm13..."),1830);
+    if (!buildHMM13()) {
+      analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
+      if (!undefinedPhoneme.isEmpty())
+      {
+        if (!removePhoneme(undefinedPhoneme))
+	{
+	  catchUndefiniedPhonemes = false;
+          analyseError(i18n("Failed to remove undefined phoneme."));
+	  return false;
+	}
+      }
+      else
+        return false;
+    }
   }
-  if (!keepGoing) return false;
-  emit status(i18n("Generating tree.hed..."), 1750);
-  if (!makeTreeHed()) {
-    analyseError(i18n("Could not generate tree.hed."));
-    return false;
-  }
+  while (!undefinedPhoneme.isEmpty());
 
-  if (!keepGoing) return false;
-  emit status(i18n("Generating hmm13..."),1830);
-  if (!buildHMM13()) {
-    analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
-    return false;
-  }
+  catchUndefiniedPhonemes = false;
 
   if (!keepGoing) return false;
   emit status(i18n("Generating hmm14..."),1900);
