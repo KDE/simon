@@ -1,15 +1,14 @@
-.QWidget {
-    padding: 20px;
-    background-color: white;
+QWidget {
+    background-color: #ffffd8;
 }
 
-.QGroupBox {
+QGroupBox {
     padding-top: 180px;
     margin-top: 120px;
-    background-color: white;
-    font: 28px;
+    background-color: #ffffd8;
+    font: 40px;
     font-family: liberation-sans;
-    color: green;
+    color: black;
     width: 350px;
     text-align: center;
     border:0px;
@@ -24,26 +23,27 @@ QPushButton, QAbstractButton {
     border-width: 0px;
     border-style: solid;
     color: blue;
-    font: 28px;
+    font: 40px;
     font-family: liberation-sans;
     width: 100px;
     height: 50px;
 }
 
 QListView {
-    background-color: white;
-    font: 64px;
+    background-color: #ffffd8;
+    font: 40px;
     font-family: liberation-sans;
+    spacing: 50px;
 }
 
 QLabel {
-    background-color: white;
-    font: 28px;
+    background-color: #ffffd8;
+    font: 40px;
     font-family: liberation-sans;
     border: none;
     padding: 0;
     background: none;
-    color: green;
+    color: black;
     margin: 20px 0 20px 0;
 }
 
