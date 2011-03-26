@@ -27,7 +27,6 @@
  * \brief Constructor
  */
 VADSoundProcessor::VADSoundProcessor(SimonSound::DeviceConfiguration deviceConfiguration, bool passAll) :
-QObject(),
 LoudnessMeterSoundProcessor(),
 m_deviceConfiguration(deviceConfiguration),
 m_passAll(passAll),

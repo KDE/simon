@@ -26,6 +26,7 @@
  */
 
 LoudnessMeterSoundProcessor::LoudnessMeterSoundProcessor() :
+QObject(),
 SoundProcessor(),
 m_peak(0),
 m_average(0),

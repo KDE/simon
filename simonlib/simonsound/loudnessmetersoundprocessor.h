@@ -22,9 +22,11 @@
 
 #include "simonsound_export.h"
 #include "soundprocessor.h"
+#include <QObject>
 
-class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public SoundProcessor
+class SIMONSOUND_EXPORT LoudnessMeterSoundProcessor : public QObject, public SoundProcessor
 {
+  Q_OBJECT
 
   protected:
     int m_peak;
