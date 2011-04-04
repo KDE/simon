@@ -4,6 +4,14 @@ include(SimonDirs)
 find_package(KDE4 REQUIRED)
 find_package(QtMobility REQUIRED)
 find_package(LibSampleRate)
+
+
+IF(UNIX)
+  find_package(ALSA REQUIRED)
+  set (plattformLibraries ${ALSA_LIBRARY})
+  include_directories ( ${ALSA_INCLUDE_DIR} )
+ENDIF(UNIX)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
   ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../ ${LIBSAMPLERATE_INCLUDE_DIR})
 
@@ -47,7 +55,19 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputbuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundbackend.cpp
 )
+
+IF(WIN32)
+  set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
+	${CMAKE_CURRENT_SOURCE_DIR}/directsound/directsoundbackend.cpp
+  )
+ENDIF(WIN32)
+IF(UNIX)
+  set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
+	${CMAKE_CURRENT_SOURCE_DIR}/alsa/alsabackend.cpp
+  )
+ENDIF(UNIX)
 
 if(LIBSAMPLERATE_FOUND)
   set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
@@ -101,8 +121,7 @@ kde4_add_ui_files(simonsound_LIB_SRCS
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
-
-target_link_libraries( simonsound ${QT_LIBRARIES}
+target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
   ${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY} ${LIBSAMPLERATE_LIBRARY}
 		${KDE4_KDEUI_LIBS} simonwav)
 

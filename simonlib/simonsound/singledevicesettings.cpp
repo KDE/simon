@@ -17,9 +17,9 @@
  */
 
 #include "singledevicesettings.h"
+#include "soundserver.h"
 
 #include <KMessageBox>
-#include <QAudioDeviceInfo>
 #include <KIcon>
 
 #include <KLocalizedString>
@@ -106,10 +106,7 @@ void SingleDeviceSettings::load(QString deviceName, int channels,
 int sampleRate, bool resampleEnabled, int resampleSampleRate)
 {
   ui->cbSoundDevice->clear();
-
-  foreach(const QAudioDeviceInfo &deviceInfo, (m_type == SimonSound::Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
-  QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
-    ui->cbSoundDevice->addItem(deviceInfo.deviceName());
+  ui->cbSoundDevice->addItems(SoundServer::getDevices(m_type));
 
   //select
   ui->cbSoundDevice->setCurrentIndex(ui->cbSoundDevice->findText(deviceName));
@@ -126,11 +123,24 @@ int sampleRate, bool resampleEnabled, int resampleSampleRate)
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
   (ui->cbSoundDevice->currentText() != deviceName)) {
-    if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that the sound device \"%1\" is no longer available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that blocks the device.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your sound configuration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.", deviceName)) == KMessageBox::Yes) {
+    if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that the sound device "
+            "\"%1\" is no longer available.\n\nThis is perfectly normal if you are "
+            "connected to simond or are otherwise using an application that blocks the "
+            "device.\n\nDid you plug / unplug a device or otherwise change your systems "
+            "audio setup?\n\nSelecting \"Yes\" will allow you to change your sound "
+            "configuration, essentially deleting your previous configuration. Selecting "
+            "\"No\" will temporarily deactivate the sound configuration in order to "
+            "protect your previous configuration from being overwritten.", 
+            deviceName)) == KMessageBox::Yes) {
+      QString defaultDevice; 
+
+      if (m_type == SimonSound::Input)
+        defaultDevice = SoundServer::defaultInputDevice();
+      else
+        defaultDevice = SoundServer::defaultOutputDevice();
+
       ui->cbSoundDevice->setCurrentIndex(
-        ui->cbSoundDevice->findText(
-        (m_type == SimonSound::Input) ? QAudioDeviceInfo::defaultInputDevice().deviceName() :
-      QAudioDeviceInfo::defaultOutputDevice().deviceName()));
+        ui->cbSoundDevice->findText(defaultDevice));
       hasChanged=true;
       KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
       enable();
@@ -164,28 +174,10 @@ bool SingleDeviceSettings::check()
   int channels = getChannels();
   int samplerate = getSampleRate();
 
-  bool ok = true;
-  QAudioFormat format;
-  format.setFrequency(samplerate);
-  format.setChannels(channels);
-  format.setSampleSize(16);                       // 16 bit
-  format.setSampleType(QAudioFormat::SignedInt);  // SignedInt currently
-  format.setByteOrder(QAudioFormat::LittleEndian);
-  format.setCodec("audio/pcm");
-
-  foreach(const QAudioDeviceInfo &deviceInfo, (m_type == SimonSound::Input) ? QAudioDeviceInfo::availableDevices(QAudio::AudioInput) :
-  QAudioDeviceInfo::availableDevices(QAudio::AudioOutput)) {
-    if (deviceInfo.deviceName() == device) {
-      kDebug() << "Checking device: " << device;
-      if (!deviceInfo.isFormatSupported(format)) {
-        ok = false;
-        break;
-      }
-    }
-  }
+  bool ok = SoundServer::getInstance()->check(m_type, device, channels, samplerate);
 
   if (!ok)
-    KMessageBox::error(this, i18n("The selected sound configuration is not supported by the following device:\n%1\n\nPlease double-check your configuration and, if necessairy, please contact your vendor.", device));
+    KMessageBox::error(this, i18n("The selected sound configuration is not supported by the following device:\n%1\n\nPlease double-check your configuration and, if necessary, please contact your vendor.", device));
 
   return ok;
 }
