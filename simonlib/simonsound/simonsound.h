@@ -43,6 +43,22 @@ namespace SimonSound
     Output=2
   };
 
+  enum State
+  {
+    ActiveState=0,
+    StoppedState=1,
+    IdleState=2
+  };
+
+  enum Error
+  {
+      NoError=0,
+      OpenError=1,
+      IOError=2,
+      UnderrunError=3,
+      FatalError=4
+  };
+
   class DeviceConfiguration
   {
     private:

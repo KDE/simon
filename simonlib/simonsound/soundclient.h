@@ -23,7 +23,6 @@
 #include <QtGlobal>
 #include <QList>
 #include <simonsound/simonsound.h>
-#include <qaudio.h>
 #include "simonsound_export.h"
 
 class QByteArray;
@@ -71,8 +70,8 @@ class SIMONSOUND_EXPORT SoundClient
     bool isExclusive() const
       { return m_priority & Exclusive; }
 
-    virtual void inputStateChanged(QAudio::State) {}
-    virtual void outputStateChanged(QAudio::State) {}
+    virtual void inputStateChanged(SimonSound::State) {}
+    virtual void outputStateChanged(SimonSound::State) {}
 
     void registerSoundProcessor(SoundProcessor *p);
 };

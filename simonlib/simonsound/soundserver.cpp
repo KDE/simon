@@ -31,10 +31,6 @@
 #endif
 
 #include <QObject>
-#include <qaudio.h>
-#include <QAudioInput>
-#include <QAudioOutput>
-#include <QAudioDeviceInfo>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -94,7 +90,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (!inputs.contains(client->deviceConfiguration())) {
     kDebug() << "No input for this particular configuration... Creating one";
 
-    SimonSoundInput *soundInput = new SimonSoundInput(this);
+    SimonSoundInput *soundInput = new SimonSoundInput(backend, this);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
@@ -236,39 +232,6 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
   applyInputPriorities();
   return success;
 }
-
-
-void SoundServer::suspendRecording()
-{
-  QList<SimonSoundInput*> inputValues = inputs.values();
-  foreach (SimonSoundInput *in, inputValues)
-    in->suspendInput();
-}
-
-
-void SoundServer::resumeRecording()
-{
-  QList<SimonSoundInput*> inputValues = inputs.values();
-  foreach (SimonSoundInput *in, inputValues)
-    in->resumeInput();
-}
-
-
-void SoundServer::suspendPlayback()
-{
-  QList<SimonSoundOutput*> outputValues = outputs.values();
-  foreach (SimonSoundOutput *out, outputValues)
-    out->suspendOutput();
-}
-
-
-void SoundServer::resumePlayback()
-{
-  QList<SimonSoundOutput*> outputValues = outputs.values();
-  foreach (SimonSoundOutput *out, outputValues)
-    out->resumeOutput();
-}
-
 
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {

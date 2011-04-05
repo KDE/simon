@@ -233,8 +233,9 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 {
   kDebug() << "Output state changed: " << state;
 
-  if (m_activeOutputClient)
-    m_activeOutputClient->outputStateChanged(state);
+  //FIXME
+  //if (m_activeOutputClient)
+    //m_activeOutputClient->outputStateChanged(state);
 
   if (state == QAudio::StoppedState) {
     kDebug() << "Error: " << m_output->error();

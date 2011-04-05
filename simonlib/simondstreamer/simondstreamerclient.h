@@ -25,7 +25,6 @@
 #include <simonsound/soundinputclient.h>
 #include <simonsound/simonsound.h>
 #include <QObject>
-#include <qaudio.h>
 
 class VADSoundProcessor;
 
@@ -41,7 +40,7 @@ class SIMONDSTREAMER_EXPORT SimondStreamerClient : public QObject, public SoundI
     SimonSender *sender;
     VADSoundProcessor *vad;
 
-    void inputStateChanged(QAudio::State state);
+    void inputStateChanged(SimonSound::State state);
 
   signals:
     void clippingOccured();

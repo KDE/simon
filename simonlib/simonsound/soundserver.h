@@ -26,9 +26,7 @@
 #include <QList>
 #include "simonsound_export.h"
 
-class QAudioInput;
 class SoundInputClient;
-class QAudioOutput;
 class SoundOutputClient;
 class SimonSoundInput;
 class SimonSoundOutput;
@@ -49,13 +47,7 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
 
     QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
 
-    void suspendRecording();
-    void resumeRecording();
-
     QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
-
-    void suspendPlayback();
-    void resumePlayback();
     static QList<SimonSound::DeviceConfiguration> getInputDevices(SimonSound::SoundDeviceUses uses);
     static QList<SimonSound::DeviceConfiguration> getOutputDevices(SimonSound::SoundDeviceUses uses);
 

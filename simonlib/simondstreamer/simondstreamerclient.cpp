@@ -43,9 +43,9 @@ vad(new VADSoundProcessor(device))
 }
 
 
-void SimondStreamerClient::inputStateChanged(QAudio::State state)
+void SimondStreamerClient::inputStateChanged(SimonSound::State state)
 {
-  if (state == QAudio::StoppedState)
+  if (state == SimonSound::StoppedState)
     stop();
 }
 
