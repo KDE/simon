@@ -36,8 +36,8 @@ m_output(SoundBackend::createObject()),
 m_activeOutputClient(0),
 m_buffer(0)
 {
-  connect(m_output, SIGNAL(stateChanged(SimonSoundInput::State)), this, SLOT(slotInputStateChanged(SimonSoundInput::State)));
-  connect(m_output, SIGNAL(stateChanged(SimonSoundInput::State)), this, SIGNAL(outputStateChanged(SimonSoundInput::State)));
+  connect(m_output, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotInputStateChanged(SimonSound::State)));
+  connect(m_output, SIGNAL(stateChanged(SimonSound::State)), this, SIGNAL(outputStateChanged(SimonSound::State)));
 }
 
 
@@ -47,7 +47,6 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 
   qint64 read = m_buffer->read(toRead, maxLen);
 
-  kDebug() << "read: " << read;
   if (m_activeOutputClient)
     m_activeOutputClient->advanceStreamTimeByBytes(read);
   else  {
