@@ -20,30 +20,29 @@
 #ifndef SIMON_SIMONSOUNDOUTPUT_H_BAC62651BE6A419EA6156220815A2AAD
 #define SIMON_SIMONSOUNDOUTPUT_H_BAC62651BE6A419EA6156220815A2AAD
 
-class QAudioOutput;
-
 #include <simonsound/simonsound.h>
 #include <simonsound/soundclient.h>
+#include <simonsound/soundbackendclient.h>
 #include <QList>
-#include <QIODevice>
+#include <QObject>
 #include <QMutex>
-#include <qaudio.h>
 #include <qvarlengtharray.h>
 
 class SoundOutputClient;
 class SoundOutputBuffer;
+class SoundBackend;
 
-class SimonSoundOutput : public QIODevice
+class SimonSoundOutput : public QObject, public SoundBackendClient
 {
   Q_OBJECT
 
-    signals:
-  void playbackFinished();
-  void error(const QString& str);
-  void outputStateChanged(QAudio::State state);
+  signals:
+    void playbackFinished();
+    void error(const QString& str);
+    void outputStateChanged(SimonSound::State state);
 
   private:
-    QAudioOutput *m_output;
+    SoundBackend *m_output;
     SoundOutputClient* m_activeOutputClient;
     QList<SoundOutputClient*> m_suspendedOutputClients;
 
@@ -57,8 +56,9 @@ class SimonSoundOutput : public QIODevice
     qint64 writeData(const char *toWrite, qint64 len);
 
   private slots:
-    void slotOutputStateChanged(QAudio::State state);
+    void slotOutputStateChanged(SimonSound::State state);
     bool stopPlayback();
+    void startSoundPlayback();
 
   public:
     SimonSoundOutput(QObject *parent=0);
@@ -81,9 +81,6 @@ class SimonSoundOutput : public QIODevice
     
     void startClientUpdate();
     void completeClientUpdate();
-
-    void suspendOutput();
-    void resumeOutput();
 
 };
 #endif

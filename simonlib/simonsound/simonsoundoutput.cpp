@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <simonsound/soundoutputclient.h>
 #include <simonsound/soundserver.h>
-#include <QAudioOutput>
+#include <simonsound/soundbackend.h>
 #include <QTimer>
 #include <QMutexLocker>
 #include <KLocalizedString>
@@ -31,26 +31,30 @@
 #include <KMessageBox>
 #include <QFile>
 
-SimonSoundOutput::SimonSoundOutput(QObject *parent) : QIODevice(parent),
-// initialRound(true),
-m_output(0),
+SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),
+m_output(SoundBackend::createObject()),
 m_activeOutputClient(0),
 m_buffer(0)
 {
-  open(QIODevice::ReadWrite);
+  connect(m_output, SIGNAL(stateChanged(SimonSoundInput::State)), this, SLOT(slotInputStateChanged(SimonSoundInput::State)));
+  connect(m_output, SIGNAL(stateChanged(SimonSoundInput::State)), this, SIGNAL(outputStateChanged(SimonSoundInput::State)));
 }
 
 
 qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
-  kDebug() << "readData()";
   if (!m_buffer) return -1;
 
   qint64 read = m_buffer->read(toRead, maxLen);
 
-  if (!m_activeOutputClient && m_suspendedOutputClients.isEmpty()) {
-    stopPlayback();
-    return -1;
+  kDebug() << "read: " << read;
+  if (m_activeOutputClient)
+    m_activeOutputClient->advanceStreamTimeByBytes(read);
+  else  {
+    if (m_suspendedOutputClients.isEmpty()) {
+      stopPlayback();
+      return -1;
+    }
   }
 
   return read;
@@ -58,8 +62,6 @@ qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 
 QByteArray SimonSoundOutput::requestData(qint64 maxLen)
 {
-  kDebug() << "requestData()";
-
   if (!m_activeOutputClient) {
     kDebug() << "No current output client\n";
 
@@ -82,8 +84,7 @@ void SimonSoundOutput::popClient()
 
 int SimonSoundOutput::bufferSize()
 {
-  int bufferSize = (m_output) ? m_output->bufferSize() : QAudioOutput().bufferSize();
-  return qMax(bufferSize, 2048);
+  return m_output->bufferSize();
 }
 
 qint64 SimonSoundOutput::bufferTime()
@@ -131,54 +132,17 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
 
   kDebug() << "Channels: " << device.channels();
   kDebug() << "Samlerate: " << device.sampleRate();
-  QAudioFormat format;
-  format.setFrequency(device.sampleRate());
-  format.setChannels(device.channels());
-  format.setSampleSize(16);                       // 16 bit
-  format.setSampleType(QAudioFormat::SignedInt);  // SignedInt currently
-  format.setByteOrder(QAudioFormat::LittleEndian);
-  format.setCodec("audio/pcm");
 
-  bool deviceFound = false;
-  QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultOutputDevice();
-  kDebug() << "Looking for device: " << device.name();
-  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput)) {
-    if (deviceInfo.deviceName() == device.name()) {
-      selectedInfo = deviceInfo;
-      deviceFound = true;
-    }
-  }
-  if (!deviceFound) {
-    emit error(i18n("The selected sound output device \"%1\" is not available.", device.name()));
+  int channels = device.channels();
+  int sampleRate = device.sampleRate();
+  if (!m_output->preparePlayback(device.name(), channels, sampleRate)) {
+    kWarning() << "Failed to setup recording...";
     return false;
   }
 
-  if (!selectedInfo.isFormatSupported(format)) {
-    kDebug() << "Format not supported; Trying something similar";
-    format = selectedInfo.nearestFormat(format);
-  }
+  //TODO: move channels / samplerate to member
 
-  if(format.sampleSize() != 16) {
-    kDebug() << "Sample size is not 16 bit. Aborting.";
-    emit error(i18n("Sample size not equal to 16 bit."));
-    emit outputStateChanged(QAudio::StoppedState);
-    return false;
-  }
-
-  device.setChannels(format.channels());
-  device.setSampleRate(format.frequency());
-
-  reset();
-
-//   initialRound = true;
-  
-  kDebug() << "Using device: " << selectedInfo.deviceName();
-  m_output = new QAudioOutput(selectedInfo, format, this);
-  connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotOutputStateChanged(QAudio::State)));
-  connect(m_output, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(outputStateChanged(QAudio::State)));
-  m_output->setBufferSize(8192);
-
-  kDebug() << "Started audio output";
+  kDebug() << "Prepared audio output";
   m_device = device;
 
   killBuffer();
@@ -190,9 +154,15 @@ bool SimonSoundOutput::startPlayback()
 {
   killBuffer();
   m_buffer = new SoundOutputBuffer(this);
+  connect(m_buffer, SIGNAL(started()), this, SLOT(startSoundPlayback()));
+  m_buffer->start();
 
-  m_output->start(this);
   return true;
+}
+
+void SimonSoundOutput::startSoundPlayback()
+{
+  m_output->startPlayback(this);
 }
 
 
@@ -229,25 +199,24 @@ bool SimonSoundOutput::activate(SoundClient::SoundClientPriority priority)
 }
 
 
-void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
+void SimonSoundOutput::slotOutputStateChanged(SimonSound::State state)
 {
   kDebug() << "Output state changed: " << state;
 
-  //FIXME
-  //if (m_activeOutputClient)
-    //m_activeOutputClient->outputStateChanged(state);
+  if (m_activeOutputClient)
+    m_activeOutputClient->outputStateChanged(state);
 
-  if (state == QAudio::StoppedState) {
+  if (state == SimonSound::IdleState) {
     kDebug() << "Error: " << m_output->error();
     switch (m_output->error()) {
-      case QAudio::NoError:
+      case SimonSound::NoError:
         kDebug() << "Output stopped without error";
         break;
-      case QAudio::OpenError:
+      case SimonSound::OpenError:
         emit error(i18n("Failed to open the audio device.\n\nPlease check your sound configuration."));
         break;
 
-      case QAudio::IOError:
+      case SimonSound::IOError:
         if (m_activeOutputClient)
           emit error(i18n("An error occurred while writing data to the audio device."));
 
@@ -255,15 +224,19 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
           QTimer::singleShot(5, this, SLOT(stopPlayback()));
         break;
 
-      case QAudio::UnderrunError:
+      case SimonSound::UnderrunError:
         kWarning() << i18n("Buffer underrun when processing the sound data.");
         break;
 
-      case QAudio::FatalError:
-	//not much the user can do about that and with the current QtMultimedia that happens fairly regularly..
-//         emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
-// 	initialRound = true;
-        m_output->start(this);
+      case SimonSound::FatalError:
+        //this should never happen with the new implementation, if it does, look below
+        emit error(i18n("A fatal error occurred during playback.\n\nThe system will try to automatically recover."));
+
+        //not much the user can do about that and with the current QtMultimedia that happens fairly regularly..
+        //m_output->start(this);
+        break;
+      case SimonSound::BackendBusy:
+        emit error(i18n("The backend is already playing."));
         break;
     }
   }
@@ -273,34 +246,17 @@ void SimonSoundOutput::slotOutputStateChanged(QAudio::State state)
 SimonSoundOutput::~SimonSoundOutput()
 {
   kDebug() << "Deleting simon sound output";
-  if (m_output)
-    m_output->deleteLater();
+  m_output->deleteLater();
 
   killBuffer();
   kDebug() << "Deleted buffer";
 }
 
 
-void SimonSoundOutput::suspendOutput()
-{
-  if (!m_output) return;
-  m_output->suspend();
-}
-
-
-void SimonSoundOutput::resumeOutput()
-{
-  if (!m_output) return;
-  m_output->resume();
-}
-
 void SimonSoundOutput::killBuffer()
 {
-  kDebug() << "Killing buffer";
   if (m_buffer) {
-    kDebug() << "Stopping buffer";
     m_buffer->stop();
-    kDebug() << "Waiting on buffer";
     m_buffer->wait();
   }
   
@@ -311,17 +267,15 @@ void SimonSoundOutput::killBuffer()
 bool SimonSoundOutput::stopPlayback()
 {
   kDebug() << "Stop playback...";
-  if (!m_output) return true;
 
+  //TODO
+  /*
   m_output->reset();
   m_output->stop();
   m_output->disconnect(this);
-  m_output->deleteLater();
-  m_output = 0;
+  */
 
   killBuffer();
-
-  reset();
 
   emit playbackFinished();
   return true;

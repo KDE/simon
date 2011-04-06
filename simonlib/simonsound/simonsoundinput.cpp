@@ -70,41 +70,7 @@ bool SimonSoundInput::prepareRecording(SimonSound::DeviceConfiguration& device)
     kWarning() << "Failed to setup recording...";
     return false;
   }
-
-  /*
-   * TODO
-  QAudioFormat format;
-  format.setFrequency(device.sampleRate());
-  format.setChannels(device.channels());
-  format.setSampleSize(16);                       // 16 bit
-  format.setSampleType(QAudioFormat::SignedInt);  // SignedInt currently
-  format.setByteOrder(QAudioFormat::LittleEndian);
-  format.setCodec("audio/pcm");
-
-  QAudioDeviceInfo selectedInfo = QAudioDeviceInfo::defaultInputDevice();
-  bool deviceFound = false;
-  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput)) {
-    if (deviceInfo.deviceName() == device.name()) {
-      selectedInfo = deviceInfo;
-      deviceFound = true;
-    }
-  }
-  if (!deviceFound) {
-    emit error(i18n("The selected sound input device \"%1\" is not available.", device.name()));
-    return false;
-  }
-
-  if (!selectedInfo.isFormatSupported(format)) {
-    kDebug() << "Format not supported";
-    emit error(i18n("Recording format not supported."));
-    emit inputStateChanged(QAudio::StoppedState);
-    return false;
-  }
-
-  m_input = new QAudioInput(selectedInfo, format, this);
-  connect(m_input, SIGNAL(stateChanged(QAudio::State)), this, SLOT(slotInputStateChanged(QAudio::State)));
-  connect(m_input, SIGNAL(stateChanged(QAudio::State)), this, SIGNAL(inputStateChanged(QAudio::State)));
-  */
+  //TODO: move channels / samplerate to member
 
   killBuffer();
 
@@ -117,7 +83,6 @@ bool SimonSoundInput::startRecording()
   killBuffer();
   m_buffer = new SoundInputBuffer(this);
 
-  //TODO
   m_input->startRecording(this);
   kDebug() << "Started audio input";
   return true;

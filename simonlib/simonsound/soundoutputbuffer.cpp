@@ -24,7 +24,6 @@
 SoundOutputBuffer::SoundOutputBuffer(SimonSoundOutput* output): SoundBuffer(output),
   m_output(output)
 {
-  start();
 }
 
 qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
@@ -32,7 +31,7 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
   if (m_buffer.isEmpty()) {
     //return zeros to keep stream going while we sort out the next client or
     //stop the stream
-    kDebug() << "Buffer is empty, poping client!";
+    kDebug() << "Buffer is empty, popping client!";
     m_output->popClient();
     memset(data, 0, maxLen);
     return maxLen;
@@ -59,6 +58,7 @@ void SoundOutputBuffer::run()
       //fill buffer
       QByteArray currentData = m_output->requestData(bufferSize);
       kDebug() << "Got " << currentData.size() << " bytes of data from clients";
+
       //if currentData is empty, just keep going as read() will pop the
       //output client as soon as the buffer is empty to make sure that
       //the current active output is really the current active output

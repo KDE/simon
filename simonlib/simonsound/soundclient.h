@@ -53,6 +53,8 @@ class SIMONSOUND_EXPORT SoundClient
     SoundClientPriority m_priority;
     QList<SoundProcessor*> processors;
 
+    qint64 m_currentStreamTime;
+
   public:
     SimonSound::DeviceConfiguration deviceConfiguration() const
       { return m_deviceConfiguration; }
@@ -74,5 +76,9 @@ class SIMONSOUND_EXPORT SoundClient
     virtual void outputStateChanged(SimonSound::State) {}
 
     void registerSoundProcessor(SoundProcessor *p);
+
+    qint64 currentStreamTime() { return m_currentStreamTime; }
+    void resetStreamTime();
+    void advanceStreamTimeByBytes(qint64 amount);
 };
 #endif
