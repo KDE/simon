@@ -45,7 +45,7 @@ vad(new VADSoundProcessor(device))
 
 void SimondStreamerClient::inputStateChanged(SimonSound::State state)
 {
-  if (state == SimonSound::StoppedState)
+  if (state == SimonSound::IdleState)
     stop();
 }
 

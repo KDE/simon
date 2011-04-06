@@ -26,9 +26,11 @@
 #include <KLocalizedString>
 #include "soundinputbuffer.h"
 
-SimonSoundInput::SimonSoundInput(SoundBackend *backend, QObject *parent) : QObject(parent),
-m_input(backend), m_buffer(0)
+SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),
+m_input(SoundBackend::createObject()), m_buffer(0)
 {
+  connect(m_input, SIGNAL(stateChanged(SimonSoundInput::State)), this, SLOT(slotInputStateChanged(SimonSoundInput::State)));
+  connect(m_input, SIGNAL(stateChanged(SimonSoundInput::State)), this, SIGNAL(inputStateChanged(SimonSoundInput::State)));
 }
 
 
@@ -37,10 +39,9 @@ int SimonSoundInput::bufferSize()
   return m_input->bufferSize();
 }
 
-
 qint64 SimonSoundInput::writeData(const char *toWrite, qint64 len)
 {
-  m_buffer->write(QByteArray::fromRawData(toWrite, len));
+  m_buffer->write(toWrite, len);
   return len;
 }
 
@@ -63,6 +64,12 @@ void SimonSoundInput::processData(const QByteArray& data)
 bool SimonSoundInput::prepareRecording(SimonSound::DeviceConfiguration& device)
 {
   kDebug() << "Starting recording";
+  int channels = device.channels();
+  int sampleRate = device.sampleRate();
+  if (!m_input->prepareRecording(device.name(), channels, sampleRate)) {
+    kWarning() << "Failed to setup recording...";
+    return false;
+  }
 
   /*
    * TODO
@@ -111,7 +118,7 @@ bool SimonSoundInput::startRecording()
   m_buffer = new SoundInputBuffer(this);
 
   //TODO
-  //m_input->start(this);
+  m_input->startRecording(this);
   kDebug() << "Started audio input";
   return true;
 }
@@ -165,9 +172,9 @@ bool SimonSoundInput::deRegisterInputClient(SoundInputClient* client)
   if (m_activeInputClients.isEmpty() && m_suspendedInputClients.isEmpty()) {
     //then stop recording
     kDebug() << "No active clients available... Stopping recording";
-    //success = stopRecording();
-    //if (success)
-    emit recordingFinished();                     // destroy this sound input
+    success = stopRecording();
+    if (success)
+      emit recordingFinished();                     // destroy this sound input
   }
 
   return success;
@@ -237,7 +244,7 @@ void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
   foreach (SoundInputClient *c, activeInputClientsKeys)
     c->inputStateChanged(state);
 
-  if (state == SimonSound::StoppedState) {
+  if (state == SimonSound::IdleState) {
     switch (m_input->error()) {
       case SimonSound::NoError:
         kDebug() << "Input stopped without error";
@@ -257,6 +264,10 @@ void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
       case SimonSound::FatalError:
         emit error(i18n("A fatal error occurred during recording."));
         break;
+
+      case SimonSound::BackendBusy:
+        emit error(i18n("The backend is already recording."));
+        break;
     }
   }
 }
@@ -265,12 +276,10 @@ void SimonSoundInput::slotInputStateChanged(SimonSound::State state)
 bool SimonSoundInput::stopRecording()
 {
   kDebug() << "Stopping recording";
-  if (!m_input || (m_input->state() == SimonSound::StoppedState))
+  if (!m_input || (m_input->state() == SimonSound::IdleState))
     return true;
 
-  //TODO
-  //m_input->disconnect(this);
-  //m_input->stop();
+  m_input->stopRecording();
   
   kDebug() << "Now stopping buffer";
   killBuffer();
@@ -290,12 +299,10 @@ void SimonSoundInput::killBuffer()
 
 SimonSoundInput::~SimonSoundInput()
 {
-  if (m_input) {
-    if (m_input->state() != SimonSound::StoppedState)
-      stopRecording();
+  if (m_input->state() != SimonSound::IdleState)
+    stopRecording();
 
-    kDebug() << "Deleting during deletion";
-    m_input->deleteLater();
-  }
+  kDebug() << "Deleting during deletion";
+  m_input->deleteLater();
   killBuffer();
 }

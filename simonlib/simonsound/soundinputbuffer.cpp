@@ -27,11 +27,11 @@ SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
   start();
 }
 
-void SoundInputBuffer::write(const QByteArray& data)
+void SoundInputBuffer::write(const char *toWrite, qint64 len)
 {
   //kDebug() << "Buffering data";
-  m_buffer.append(data);
-  m_bufferLock.release(data.size());
+  m_buffer.append(toWrite, len);
+  m_bufferLock.release(len);
 }
 
 void SoundInputBuffer::run()

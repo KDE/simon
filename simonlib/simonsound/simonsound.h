@@ -45,9 +45,9 @@ namespace SimonSound
 
   enum State
   {
-    ActiveState=0,
-    StoppedState=1,
-    IdleState=2
+    IdleState=0,
+    PreparedState=1,
+    ActiveState=2
   };
 
   enum Error
@@ -56,7 +56,8 @@ namespace SimonSound
       OpenError=1,
       IOError=2,
       UnderrunError=3,
-      FatalError=4
+      FatalError=4,
+      BackendBusy=5
   };
 
   class DeviceConfiguration

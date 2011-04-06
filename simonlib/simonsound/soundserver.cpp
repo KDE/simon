@@ -23,12 +23,7 @@
 #include "soundoutputclient.h"
 #include "simonsoundinput.h"
 #include "simonsoundoutput.h"
-
-#ifdef Q_OS_WIN32
-#include "directsound/directsoundbackend.h"
-#else
-#include "alsa/alsabackend.h"
-#endif
+#include "soundbackend.h"
 
 #include <QObject>
 
@@ -42,11 +37,7 @@ SoundServer* SoundServer::instance;
  */
 SoundServer::SoundServer(QObject* parent) : QObject(parent)
 {
-#ifdef Q_OS_WIN32
-  backend = new DirectSoundBackend;
-#else
-  backend = new ALSABackend;
-#endif
+  backend = SoundBackend::createObject();
 }
 
 
@@ -90,7 +81,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (!inputs.contains(client->deviceConfiguration())) {
     kDebug() << "No input for this particular configuration... Creating one";
 
-    SimonSoundInput *soundInput = new SimonSoundInput(backend, this);
+    SimonSoundInput *soundInput = new SimonSoundInput(this);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
@@ -461,5 +452,5 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
  */
 SoundServer::~SoundServer()
 {
-  delete backend;
+  backend->deleteLater();;
 }

@@ -39,8 +39,8 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
   }
 
   int realCpy = qMin((int) maxLen, m_buffer.size());
-  memcpy(data, m_buffer.data(), realCpy);
-  m_buffer = m_buffer.mid(maxLen);
+  memcpy(data, m_buffer.constData(), realCpy);
+  m_buffer.remove(0,maxLen);
   
   return realCpy;
 }

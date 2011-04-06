@@ -25,13 +25,14 @@ class QAudioInput;
 
 #include <simonsound/simonsound.h>
 #include <simonsound/soundclient.h>
+#include <simonsound/soundbackendclient.h>
 #include <QHash>
 #include <QObject>
 
 class SoundInputClient;
 class SoundBackend;
 
-class SimonSoundInput : public QObject
+class SimonSoundInput : public QObject, public SoundBackendClient
 {
   Q_OBJECT
 
@@ -43,7 +44,6 @@ class SimonSoundInput : public QObject
   private:
     SimonSound::DeviceConfiguration m_device;
     SoundBackend *m_input;
-    //QAudioInput *m_input;
     QHash<SoundInputClient*, qint64> m_activeInputClients;
     QHash<SoundInputClient*, qint64> m_suspendedInputClients;
     SoundInputBuffer *m_buffer;
@@ -51,14 +51,13 @@ class SimonSoundInput : public QObject
     void killBuffer();
 
   protected:
-    qint64 readData(char *toRead, qint64 maxLen);
     qint64 writeData(const char *toWrite, qint64 len);
 
   private slots:
     void slotInputStateChanged(SimonSound::State state);
 
   public:
-    SimonSoundInput(SoundBackend *backend, QObject *parent=0);
+    SimonSoundInput(QObject *parent=0);
 
     void registerInputClient(SoundInputClient* client);
 
