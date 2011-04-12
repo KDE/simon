@@ -23,8 +23,6 @@
 #include <QThread>
 #include <KDebug>
 #include <KLocalizedString>
-#include <dsound.h>
-#include <dxerr9.h>
 
 
 class DirectSoundLoop : public QThread {
@@ -78,6 +76,9 @@ class DirectSoundPlaybackLoop : public DirectSoundLoop
 
 DirectSoundBackend::DirectSoundBackend() : 
   m_loop(0),
+  m_handle(0),
+  m_primaryBuffer(0),
+  m_secondaryBuffer(0),
   m_bufferSize(1024)
 {
 }
@@ -134,6 +135,94 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
   return m_devices;
 }
 
+bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer)
+{
+  DSBUFFERDESC BufferDesc;
+
+  //GET GUID
+  // remove everything up to (
+  QByteArray internalDeviceName = device.mid(device.lastIndexOf("(")+1).toAscii();
+  // remove )
+  internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
+
+  kDebug() << "Opening device: " << internalDeviceName; // contains the GUID or "" for default
+  LPGUID deviceID;
+  HRESULT err = CLSIDFromString(internalDeviceName.toWCharArray(), (LPCLSID) deviceID);
+  if (err != NOERROR) {
+    kWarning() << "Couldn't parse: " << internalDeviceName << err;
+    return false;
+  }
+
+  // Generate DirectSound-Interface
+  if(FAILED(DirectSoundCreate8(deviceID, ppDS8, NULL))) {
+    kWarning() << "Failed to open device";
+    emit errorOccured(SimonSound::OpenError);
+    return false;
+  }
+
+  (*ppDS8)->SetCooperativeLevel(NULL /*WTF?*/, DSSCL_PRIORITY);
+
+  // Fill DSBUFFERDESC-structure
+  BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
+  BufferDesc.dwFlags      = DSBCAPS_PRIMARYBUFFER;
+  BufferDesc.dwBufferBytes  = 0;
+  BufferDesc.dwReserved   = 0;
+  BufferDesc.lpwfxFormat    = NULL;
+  BufferDesc.guid3DAlgorithm  = GUID_NULL;
+
+  // Creating primary sound buffer
+  if(FAILED((*ppDS8)->CreateSoundBuffer(&BufferDesc,
+            primaryBuffer, NULL))) {
+    kDebug() << "Failed to create primary sound buffer
+    return false;
+  }
+
+  //init sound
+  WAVEFORMATEX    WaveFormat;
+  DSBUFFERDESC    BufferDesc;
+  LPDIRECTSOUNDBUFFER pTemp;
+  SSample*      pSamples;
+  DWORD       dwNumBytes;
+  float       fTime;
+  float       fLeft;
+  float       fRight;
+
+  // Audioformat ausfüllen
+  WaveFormat.wFormatTag   = WAVE_FORMAT_PCM;
+  WaveFormat.nChannels    = channel;
+  WaveFormat.nSamplesPerSec = samplerate;
+  WaveFormat.wBitsPerSample = 16; //S16_LE
+  WaveFormat.nBlockAlign    = WaveFormat.nChannels * (WaveFormat.wBitsPerSample >> 3);
+  WaveFormat.nAvgBytesPerSec  = WaveFormat.nSamplesPerSec * WaveFormat.nBlockAlign;
+  WaveFormat.cbSize     = 0;
+
+  // DSBUFFERDESC-Struktur ausfüllen
+  BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
+  BufferDesc.dwFlags      = DSBCAPS_LOCDEFER |
+                            DSBCAPS_CTRLVOLUME |
+                            DSBCAPS_CTRLPAN |
+                            DSBCAPS_CTRLFREQUENCY |
+                            DSBCAPS_GLOBALFOCUS;
+  BufferDesc.dwBufferBytes  = WaveFormat.nAvgBytesPerSec * 5; // 5 Sekunden Sound
+  BufferDesc.dwReserved   = 0;
+  BufferDesc.lpwfxFormat    = &WaveFormat;
+  BufferDesc.guid3DAlgorithm  = GUID_NULL;
+
+  // Soundpuffer erstellen
+  if(FAILED((*ppDS8)->CreateSoundBuffer(&BufferDesc,
+              &pTemp, NULL)))
+  {
+    kWarning() << "Couldn't create sound buffer.";
+    emit errorOccured(SimonSound::OpenError);
+    return TB_ERROR;
+  }
+
+  // 8er-Schnittstelle abfragen und die alte löschen
+  pTemp->QueryInterface(IID_IDirectSoundBuffer8, (void**)(secondaryBuffer));
+  TB_SAFE_RELEASE(pTemp);
+  return true;
+}
+
 /*
 snd_pcm_t* DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
 {
@@ -188,8 +277,7 @@ snd_pcm_t* DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, cons
 
 bool DirectSoundBackend::check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
 {
-
-  return false;
+  return true; // FIXME? or does windows resample automatically?
 }
 
 QString DirectSoundBackend::getDefaultInputDevice()

@@ -23,6 +23,8 @@
 #include <simonsound/simonsound.h>
 #include <simonsound/soundbackend.h>
 #include <QStringList>
+#include <dsound.h>
+#include <dxerr9.h>
 
 class DirectSoundLoop;
 class DirectSoundCaptureLoop;
@@ -36,6 +38,10 @@ class DirectSoundBackend : public SoundBackend
   private:
     DirectSoundLoop *m_loop;
 
+    LPDIRECTSOUND8 m_handle;
+    LPDIRECTSOUNDBUFFER m_primaryBuffer;
+    LPDIRECTSOUNDBUFFER8 m_secondaryBuffer;
+
     QStringList m_devices;
 
     int m_bufferSize;
@@ -46,6 +52,8 @@ class DirectSoundBackend : public SoundBackend
   protected:
     void errorRecoveryFailed();
     bool stop();
+
+    bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer);
 
   public:
     DirectSoundBackend();
