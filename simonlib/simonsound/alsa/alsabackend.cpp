@@ -379,7 +379,7 @@ bool ALSABackend::startPlayback(SoundBackendClient *client)
 
   if (!m_handle || !m_loop) return false;
 
-  //starting recording
+  //starting playback
   m_loop->start();
   emit stateChanged(SimonSound::ActiveState);
   kDebug() << "Started playback: " << m_handle;

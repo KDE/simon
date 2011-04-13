@@ -38,19 +38,27 @@ class DirectSoundBackend : public SoundBackend
   private:
     DirectSoundLoop *m_loop;
 
+    HANDLE m_bufferEvents[2];
+    WAVEFORMATEX    m_waveFormat;
+
+    LPBYTE m_audioBuffer;
+
     LPDIRECTSOUND8 m_handle;
     LPDIRECTSOUNDBUFFER m_primaryBuffer;
     LPDIRECTSOUNDBUFFER8 m_secondaryBuffer;
 
+    DWORD m_buffer1Circles;
+    DWORD m_buffer2Circles;
+
     QStringList m_devices;
 
     int m_bufferSize;
-    int m_periodSize;
-    unsigned int m_chunks;
+
     QStringList getDevices(SimonSound::SoundDeviceType type);
 
   protected:
     void errorRecoveryFailed();
+    void freeAllResources();
     bool stop();
 
     bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer);
