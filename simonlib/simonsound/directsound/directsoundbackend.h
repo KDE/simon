@@ -44,7 +44,7 @@ class DirectSoundBackend : public SoundBackend
     LPBYTE m_audioBuffer;
 
     LPDIRECTSOUND8 m_handle;
-    LPDIRECTSOUNDBUFFER m_primaryBuffer;
+    LPDIRECTSOUNDBUFFER m_primaryBuffer; // absolutely useless?
     LPDIRECTSOUNDBUFFER8 m_secondaryBuffer;
 
     DWORD m_buffer1Circles;
@@ -53,6 +53,8 @@ class DirectSoundBackend : public SoundBackend
     QStringList m_devices;
 
     int m_bufferSize;
+    int m_blockAlign;
+    int m_sampleRate;
 
     QStringList getDevices(SimonSound::SoundDeviceType type);
 
