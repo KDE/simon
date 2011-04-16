@@ -267,8 +267,6 @@ bool SimonSoundOutput::stopPlayback()
 {
   kWarning() << "Stop playback...";
 
-  //m_output->stopPlayback();
-
   kWarning() << "Killing buffer...";
   killBuffer();
   kWarning() << "Done killing buffer...";

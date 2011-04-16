@@ -22,6 +22,7 @@
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
 #include <KDebug>
+#include <KLocalizedString>
 
 //Basic functions to set up alsa
 static int set_hwparams(snd_pcm_t *handle,
@@ -87,6 +88,7 @@ class ALSACaptureLoop : public ALSALoop
       if (err < 0)
         m_parent->errorRecoveryFailed();
 
+      m_parent->closeSoundSystem();
       free(buffer);
       shouldRun = false;
     }
@@ -138,6 +140,7 @@ class ALSAPlaybackLoop : public ALSALoop
         m_parent->errorRecoveryFailed();
 
       free(buffer);
+      m_parent->closeSoundSystem();
 
       shouldRun = false;
     }
@@ -299,6 +302,7 @@ void ALSABackend::errorRecoveryFailed()
 // stop playback / recording
 bool ALSABackend::stop()
 {
+  kDebug() << "Called stop()";
   if (state() != SimonSound::ActiveState)
     return true;
 
@@ -310,7 +314,11 @@ bool ALSABackend::stop()
   m_loop->deleteLater();
   m_loop = 0;
 
-  kDebug() << "Stopped recording" << m_handle;
+  return true;
+}
+
+bool ALSABackend::closeSoundSystem()
+{
   snd_pcm_close(m_handle);
   emit stateChanged(SimonSound::IdleState);
   m_handle = 0;
@@ -351,6 +359,7 @@ bool ALSABackend::startRecording(SoundBackendClient *client)
 
 bool ALSABackend::stopRecording()
 {
+  kDebug() << "Stop recording";
   return stop();
 }
 

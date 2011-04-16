@@ -49,6 +49,7 @@ class ALSABackend : public SoundBackend
   protected:
     void errorRecoveryFailed();
     bool stop();
+    bool closeSoundSystem();
 
   public:
     ALSABackend();
