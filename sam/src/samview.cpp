@@ -19,6 +19,7 @@
 
 #include "samview.h"
 #include "accuracydisplay.h"
+#include "conservativetraining.h"
 #include "exporttestresults.h"
 #include "testconfigurationwidget.h"
 #include "testresultwidget.h"
@@ -49,6 +50,7 @@
 #include <KMessageBox>
 #include <KFileDialog>
 #include <KGlobal>
+#include <KInputDialog>
 #include <KLocale>
 #include <KDebug>
 #include <KCmdLineArgs>
@@ -129,6 +131,7 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 
   setupGUI();
 
+  connect(ui.pbImportRecognitionSamples, SIGNAL(clicked()), this, SLOT(importRecognitionSamples()));
   connect(ui.rbDynamicModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
   connect(ui.rbStaticModel, SIGNAL(toggled(bool)), this, SLOT(setDirty()));
 
@@ -810,6 +813,12 @@ QString SamView::getTargetDirectory()
   return path;
 }
 
+void SamView::importRecognitionSamples()
+{
+  QPointer<ConservativeTraining> training = new ConservativeTraining(this);
+  training->exec();
+  delete training;
+}
 
 void SamView::serializePrompts()
 {

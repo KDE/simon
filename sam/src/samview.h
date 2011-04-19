@@ -99,6 +99,7 @@ class SamView :  public KXmlGuiWindow, public SamUi
     QString getTargetDirectory();
     void switchToAdapt();
     void serializePrompts();
+    void importRecognitionSamples();
     void serializeScenarios();
 
     void addTestConfiguration();
