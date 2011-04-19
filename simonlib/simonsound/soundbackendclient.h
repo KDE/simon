@@ -1,4 +1,5 @@
-/*   Copyright (C) 2010 Grasch Peter <grasch@simon-listens.org>
+/*
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -16,10 +17,18 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "soundbuffer.h"
+#ifndef SIMON_SOUNDBACKENDCLIENT_H_BAC60651BE6A419EA6156220815A2AAD
+#define SIMON_SOUNDBACKENDCLIENT_H_BAC60651BE6A419EA6156220815A2AAD
 
-SoundBuffer::SoundBuffer(QObject* parent): QThread(parent), m_shouldBeRunning(true)
+#include <QtGlobal>
+
+class SoundBackendClient
 {
-  connect(this, SIGNAL(finished()), this, SLOT(deleteLater()));
-}
+  public:
+    virtual qint64 readData(char *, qint64) { return -1; }
+    virtual qint64 writeData(const char *, qint64) { return -1; }
+    virtual ~SoundBackendClient() {};
+};
+
+#endif
 

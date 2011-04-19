@@ -4,6 +4,18 @@ include(SimonDirs)
 find_package(KDE4 REQUIRED)
 find_package(QtMobility REQUIRED)
 find_package(LibSampleRate)
+
+
+IF(UNIX)
+  find_package(ALSA REQUIRED)
+  set (plattformLibraries ${ALSA_LIBRARY})
+  include_directories ( ${ALSA_INCLUDE_DIR} )
+ELSE(UNIX)
+	find_package(DirectSound REQUIRED)
+  set (plattformLibraries ${DIRECTSOUND_LIBRARY})
+  include_directories ( ${DIRECTSOUND_INCLUDE_DIRS} )
+ENDIF(UNIX)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
   ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
 
@@ -50,7 +62,19 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputbuffer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/soundbackend.cpp
 )
+
+IF(WIN32)
+  set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
+	${CMAKE_CURRENT_SOURCE_DIR}/directsound/directsoundbackend.cpp
+  )
+ENDIF(WIN32)
+IF(UNIX)
+  set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
+	${CMAKE_CURRENT_SOURCE_DIR}/alsa/alsabackend.cpp
+  )
+ENDIF(UNIX)
 
 if(LIBSAMPLERATE_FOUND)
   set ( simonsound_LIB_SRCS ${simonsound_LIB_SRCS} 
@@ -74,6 +98,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/wavplayerclient.h
 	${CMAKE_CURRENT_SOURCE_DIR}/wavfilewidget.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundbackendclient.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/simonsound_export.h
 
@@ -107,14 +132,13 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 if(LIBSAMPLERATE_FOUND)
 	message(STATUS "Enabling resample support")
-target_link_libraries( simonsound ${QT_LIBRARIES}
-  ${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY} ${LIBSAMPLERATE_LIBRARY}
+target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
+  ${LIBSAMPLERATE_LIBRARY}
 		${KDE4_KDEUI_LIBS} simonwav)
 else(LIBSAMPLERATE_FOUND)
 	message(STATUS "Disabling resample support")
-target_link_libraries( simonsound ${QT_LIBRARIES}
-  ${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY}
-		${KDE4_KDEUI_LIBS} simonwav)
+target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
+  ${KDE4_KDEUI_LIBS} simonwav)
 endif(LIBSAMPLERATE_FOUND)
 
 set_target_properties( simonsound

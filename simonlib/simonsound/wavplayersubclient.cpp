@@ -35,7 +35,10 @@ wav(0)
 qint64 WavPlayerSubClient::readData(char *data, qint64 maxlen)
 {
   qint64 read = wav->read(data, maxlen);
-  emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
+
+  //FIXME
+  //emit currentProgress(SoundServer::getInstance()->byteSizeToLength(wav->pos(), m_deviceConfiguration));
+  emit currentProgress(currentStreamTime());
 
   return read;
 
@@ -61,6 +64,7 @@ bool WavPlayerSubClient::open (OpenMode mode)
   if (wav) {
     if (wav->isOpen())
 	  wav->close();
+    resetStreamTime();
     if (!wav->open(QIODevice::ReadOnly))
       return false;
   }

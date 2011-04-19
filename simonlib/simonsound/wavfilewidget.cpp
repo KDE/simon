@@ -184,6 +184,10 @@ void WavFileWidget::displayRecordingProgress(int msecs, float level)
  */
 void WavFileWidget::displayPlaybackProgress(int msecs)
 {
+  if (recordingProgress) {
+    msecs = qMin(recordingProgress, msecs);
+  }
+
   QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
   textprog.insert(2, ':');
 

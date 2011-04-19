@@ -27,10 +27,21 @@
  * \brief Constructor
  */
 SoundClient::SoundClient(const SimonSound::DeviceConfiguration& deviceConfiguration,
-SoundClient::SoundClientPriority priority) :
-m_deviceConfiguration(deviceConfiguration),
-m_priority(priority)
+                          SoundClient::SoundClientPriority priority) :
+    m_deviceConfiguration(deviceConfiguration),
+    m_priority(priority),
+    m_currentStreamTime(0)
 {
+}
+
+void SoundClient::resetStreamTime()
+{
+  m_currentStreamTime = 0;
+}
+
+void SoundClient::advanceStreamTimeByBytes(qint64 amount)
+{
+  m_currentStreamTime += SoundServer::getInstance()->byteSizeToLength(amount, m_deviceConfiguration);
 }
 
 
