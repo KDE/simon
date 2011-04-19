@@ -23,12 +23,9 @@
 #include "soundoutputclient.h"
 #include "simonsoundinput.h"
 #include "simonsoundoutput.h"
+#include "soundbackend.h"
 
 #include <QObject>
-#include <qaudio.h>
-#include <QAudioInput>
-#include <QAudioOutput>
-#include <QAudioDeviceInfo>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -40,6 +37,9 @@ SoundServer* SoundServer::instance;
  */
 SoundServer::SoundServer(QObject* parent) : QObject(parent)
 {
+  qRegisterMetaType<SimonSound::State>("SimonSound::State");
+  qRegisterMetaType<SimonSound::Error>("SimonSound::Error");
+  backend = SoundBackend::createObject();
 }
 
 
@@ -51,32 +51,24 @@ SoundServer* SoundServer::getInstance()
 
 QString SoundServer::defaultInputDevice()
 {
-  QString systemDefault = QAudioDeviceInfo::defaultInputDevice().deviceName();
-
-  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput)) {
-    if (deviceInfo.deviceName() == "pulse") {
-      systemDefault = "pulse";
-      break;
-    }
-  }
-
-  return systemDefault;
+  return SoundServer::getInstance()->defaultInputDevicePrivate();
 }
 
 
 QString SoundServer::defaultOutputDevice()
 {
-  QString systemDefault = QAudioDeviceInfo::defaultOutputDevice().deviceName();
-
-  foreach(const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput)) {
-    if (deviceInfo.deviceName() == "pulse") {
-      systemDefault = "pulse";
-      break;
-    }
-  }
-
-  return systemDefault;
+  return SoundServer::getInstance()->defaultOutputDevicePrivate();
 }
+QString SoundServer::defaultInputDevicePrivate()
+{
+  return backend->getDefaultInputDevice();
+}
+
+QString SoundServer::defaultOutputDevicePrivate()
+{
+  return backend->getDefaultOutputDevice();
+}
+
 
 
 bool SoundServer::registerInputClient(SoundInputClient* client)
@@ -234,39 +226,6 @@ bool SoundServer::deRegisterInputClient(SoundInputClient* client)
   return success;
 }
 
-
-void SoundServer::suspendRecording()
-{
-  QList<SimonSoundInput*> inputValues = inputs.values();
-  foreach (SimonSoundInput *in, inputValues)
-    in->suspendInput();
-}
-
-
-void SoundServer::resumeRecording()
-{
-  QList<SimonSoundInput*> inputValues = inputs.values();
-  foreach (SimonSoundInput *in, inputValues)
-    in->resumeInput();
-}
-
-
-void SoundServer::suspendPlayback()
-{
-  QList<SimonSoundOutput*> outputValues = outputs.values();
-  foreach (SimonSoundOutput *out, outputValues)
-    out->suspendOutput();
-}
-
-
-void SoundServer::resumePlayback()
-{
-  QList<SimonSoundOutput*> outputValues = outputs.values();
-  foreach (SimonSoundOutput *out, outputValues)
-    out->resumeOutput();
-}
-
-
 bool SoundServer::registerOutputClient(SoundOutputClient* client)
 {
   kDebug() << "Register output client";
@@ -409,6 +368,23 @@ int SoundServer::getShortSampleCutoff()
   return SoundConfiguration::skipSamples();
 }
 
+QStringList SoundServer::getDevices(SimonSound::SoundDeviceType type)
+{
+  return SoundServer::getInstance()->getDevicesPrivate(type);
+}
+
+QStringList SoundServer::getDevicesPrivate(SimonSound::SoundDeviceType type)
+{
+  if (type == SimonSound::Input)
+    return backend->getAvailableInputDevices();
+  else
+    return backend->getAvailableOutputDevices();
+}
+
+bool SoundServer::check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
+{
+  return backend->check(type, device, channels, samplerate);
+}
 
 QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::SoundDeviceUses uses)
 {
@@ -478,4 +454,5 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
  */
 SoundServer::~SoundServer()
 {
+  backend->deleteLater();;
 }

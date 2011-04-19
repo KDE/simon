@@ -38,7 +38,7 @@ void WavPlayerClient::slotCurrentProgress(int progress)
   WavPlayerSubClient *c = dynamic_cast<WavPlayerSubClient*>(sender());
   if (!c) return;
 
-  Q_ASSERT(!clientsWaitingToFinish.isEmpty());
+  if (clientsWaitingToFinish.isEmpty()) return; // this is possible because the slot is connected indirectly
 
   if (c == clientsWaitingToFinish.at(0))
     emit currentProgress(progress);               //always emit current progress info from first
@@ -71,7 +71,6 @@ void WavPlayerClient::slotFinished()
  */
 bool WavPlayerClient::play( QString filename )
 {
-
   WAV *w = new WAV(filename);
   int channels = w->getChannels();
   int sampleRate = w->getSampleRate();

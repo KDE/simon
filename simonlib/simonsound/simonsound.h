@@ -21,6 +21,7 @@
 #define SIMON_SIMONSOUND_H_D0C0BA2429B04F65935956A32C79BB09
 
 #include <QString>
+#include <QMetaType>
 
 namespace SimonSound
 {
@@ -41,6 +42,23 @@ namespace SimonSound
   {
     Input=1,
     Output=2
+  };
+
+  enum State
+  {
+    IdleState=0,
+    PreparedState=1,
+    ActiveState=2
+  };
+
+  enum Error
+  {
+      NoError=0,
+      OpenError=1,
+      IOError=2,
+      UnderrunError=3,
+      FatalError=4,
+      BackendBusy=5
   };
 
   class DeviceConfiguration
@@ -90,6 +108,11 @@ namespace SimonSound
   };
 }
 
+Q_ENUMS(SimonSound::State);
+Q_DECLARE_METATYPE(SimonSound::State);
+Q_ENUMS(SimonSound::Error);
+Q_DECLARE_METATYPE(SimonSound::Error);
+
 
 //forward declaration needed for QHash include (cascading down to first use of a
 // Deviceconfiguration-based QHash)
@@ -101,4 +124,7 @@ inline uint qHash(const SimonSound::DeviceConfiguration& dev)
   return qHash(QString("%1||%2||%3||%4||%5").arg(dev.name()).arg(dev.channels()).arg(dev.sampleRate())
         .arg(dev.resample() ? "1" : "0").arg(dev.resampleSampleRate()));
 }
+
+
+
 #endif

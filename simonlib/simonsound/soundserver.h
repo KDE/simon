@@ -26,34 +26,28 @@
 #include <QList>
 #include "simonsound_export.h"
 
-class QAudioInput;
 class SoundInputClient;
-class QAudioOutput;
 class SoundOutputClient;
 class SimonSoundInput;
 class SimonSoundOutput;
+class SoundBackend;
 
 class SIMONSOUND_EXPORT SoundServer : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void error(const QString& str);
-
-  void devicesChanged();
+  signals:
+    void error(const QString& str);
+    void devicesChanged();
 
   private:
     static SoundServer* instance;
 
+    SoundBackend *backend;
+
     QHash<SimonSound::DeviceConfiguration, SimonSoundInput*> inputs;
 
-    void suspendRecording();
-    void resumeRecording();
-
     QHash<SimonSound::DeviceConfiguration, SimonSoundOutput*> outputs;
-
-    void suspendPlayback();
-    void resumePlayback();
     static QList<SimonSound::DeviceConfiguration> getInputDevices(SimonSound::SoundDeviceUses uses);
     static QList<SimonSound::DeviceConfiguration> getOutputDevices(SimonSound::SoundDeviceUses uses);
 
@@ -64,6 +58,9 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     SoundServer(QObject *parent=0);
 
     qint64 getDeviceLengthFactor(SimonSound::DeviceConfiguration device);
+    QStringList getDevicesPrivate(SimonSound::SoundDeviceType type);
+    QString defaultInputDevicePrivate();
+    QString defaultOutputDevicePrivate();
 
   private slots:
     void slotRecordingFinished();
@@ -87,6 +84,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     int getInputDeviceCount();
     int getOutputDeviceCount();
 
+    bool check(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate);
+
     static bool getDefaultToPowerTraining();
     static bool getCalibrateVolume();
 
@@ -102,6 +101,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     static QList<SimonSound::DeviceConfiguration> getRecognitionInputDevices();
 
     static QList<SimonSound::DeviceConfiguration> getTrainingOutputDevices();
+
+    static QStringList getDevices(SimonSound::SoundDeviceType type);
 
     virtual ~SoundServer();
 

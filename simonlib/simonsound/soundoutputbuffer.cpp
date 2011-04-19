@@ -24,7 +24,6 @@
 SoundOutputBuffer::SoundOutputBuffer(SimonSoundOutput* output): SoundBuffer(output),
   m_output(output)
 {
-  start();
 }
 
 qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
@@ -32,15 +31,15 @@ qint64 SoundOutputBuffer::read(char* data, qint64 maxLen)
   if (m_buffer.isEmpty()) {
     //return zeros to keep stream going while we sort out the next client or
     //stop the stream
-    kDebug() << "Buffer is empty, poping client!";
+    kDebug() << "Buffer is empty, popping client!";
     m_output->popClient();
     memset(data, 0, maxLen);
     return maxLen;
   }
 
   int realCpy = qMin((int) maxLen, m_buffer.size());
-  memcpy(data, m_buffer.data(), realCpy);
-  m_buffer = m_buffer.mid(maxLen);
+  memcpy(data, m_buffer.constData(), realCpy);
+  m_buffer.remove(0,maxLen);
   
   return realCpy;
 }
@@ -55,10 +54,11 @@ void SoundOutputBuffer::run()
     int bufferSize = m_output->bufferSize();
     int bufferLength = m_output->bufferTime();
     if (m_buffer.size() < BUFFER_MAX_LENGTH) {
-      kDebug() << "Buffer not full";
+      //kDebug() << "Buffer not full";
       //fill buffer
       QByteArray currentData = m_output->requestData(bufferSize);
-      kDebug() << "Got " << currentData.size() << " bytes of data from clients";
+      //kDebug() << "Got " << currentData.size() << " bytes of data from clients";
+
       //if currentData is empty, just keep going as read() will pop the
       //output client as soon as the buffer is empty to make sure that
       //the current active output is really the current active output
@@ -68,19 +68,21 @@ void SoundOutputBuffer::run()
 
     //either half of the buffered time or 50 milliseconds, whichever is shorter
     int sleepDuration = qMin((bufferLength*100)/2, 5000);
-    kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
+    //kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
     usleep(sleepDuration);
   }
-  kDebug() << "Left run loop";
-  deleteLater();
+  kWarning() << "Left run loop";
 }
 
 void SoundOutputBuffer::stop()
 {
+  kWarning() << "Locking killlock.";
   killLock.lock();
 
   m_shouldBeRunning = false;
+  kWarning() << "Set should be running, calling quit.";
   quit();
+  kWarning() << "Unlocking killLock..";
 
   killLock.unlock();
 }

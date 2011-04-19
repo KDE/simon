@@ -113,7 +113,7 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libical.dll"
   "${KDE4_BIN_INSTALL_DIR}/libicalss.dll"
 
-
+  "${KDE4_BIN_INSTALL_DIR}/libsamplerate-0.dll"
 
   "${KDE4_BIN_INSTALL_DIR}/LIBKDEWEBKIT.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdnssd.dll"

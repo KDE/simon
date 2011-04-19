@@ -23,7 +23,6 @@
 #include "singledevicesettings.h"
 
 #include <QVBoxLayout>
-#include <QAudioDeviceInfo>
 #include <KIcon>
 #include <QTimer>
 

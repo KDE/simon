@@ -34,10 +34,16 @@ QT4_ADD_DBUS_ADAPTOR(
 
 set(
 	libskype_SRCS
-
 	libskype/skype.cpp
-	libskype/skypewindow.cpp
 )
+
+if(UNIX)
+set(
+	libskype_SRCS
+	${libskype_SRCS}
+	libskype/skypewindow.cpp
+	)
+endif(UNIX)
 
 set(
 	simon_skype_SRCS

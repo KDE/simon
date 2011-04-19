@@ -29,7 +29,7 @@ private:
 public:
   SoundInputBuffer(SimonSoundInput* input);
   ~SoundInputBuffer();
-  void write(const QByteArray& data);
+  void write(const char *toWrite, qint64 len);
   void stop();
   virtual void run();
 };
