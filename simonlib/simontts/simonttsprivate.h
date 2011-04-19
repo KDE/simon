@@ -21,6 +21,7 @@
 #define SIMON_SIMONTTSPRIVATE_H_7A7B9100FF5245329569C1B540119C37
 
 #include <QList>
+#include <QObject>
 #include <QStringList>
 #include "simontts.h"
 
@@ -33,8 +34,11 @@ class SimonTTSProvider;
  * \since 0.4
  * \brief Provides access to text to speech functionality: Implementation
  */
-class SimonTTSPrivate
+class SimonTTSPrivate : public QObject
 {
+  Q_OBJECT
+  Q_CLASSINFO("simons TTS interface", "org.simon-listens.SimonTTS")
+
   protected:
     bool forceReinitialization;
     QList<SimonTTSProvider*> providers;
@@ -43,12 +47,15 @@ class SimonTTSPrivate
 
   public:
     SimonTTSPrivate();
+   ~SimonTTSPrivate();
+    QStringList recentlyUsed();
+
+  public slots:
     bool initialize();
     bool uninitialize();
-    bool say(const QString& text, SimonTTS::TTSFlags flags=SimonTTS::StripHTML);
+    bool say(const QString& text);
+    bool say(const QString& text, SimonTTS::TTSFlags flags);
     bool interrupt();
-    QStringList recentlyUsed();
-   ~SimonTTSPrivate();
 };
 
 #endif
