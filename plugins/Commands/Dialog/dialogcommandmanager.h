@@ -26,6 +26,7 @@
 #include <QList>
 #include <KXMLGUIClient>
 
+class Avatar;
 class QWidget;
 class KAction;
 class DialogConfiguration;
@@ -98,6 +99,10 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver
     QString getOptionSeparatorText() const;
     QString getRepeatAnnouncement() const;
     bool getRepeatOnInvalidInput() const;
+    
+    Avatar* getAvatar(int id) const;
+    int getAvatarSize() const;
+    bool getDisplayAvatarNames() const;
 
     /**
      * @brief Constructor

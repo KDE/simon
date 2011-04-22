@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>450</height>
+    <width>843</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -23,166 +23,210 @@
    <item>
     <widget class="KTabWidget" name="twMain">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Dialog design</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGroupBox" name="gbStates">
-         <property name="title">
-          <string>States</string>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QListWidget" name="lwStates"/>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="KPushButton" name="pbAddState">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="KPushButton" name="pbRenameState">
-              <property name="text">
-               <string>Rename</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="KPushButton" name="pbRemoveState">
-              <property name="text">
-               <string>Remove</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="KPushButton" name="pbMoveStateUp">
-              <property name="text">
-               <string>Move up</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="KPushButton" name="pbMoveStateDown">
-              <property name="text">
-               <string>Move down</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QGroupBox" name="gbText">
-           <property name="title">
+         <widget class="QGroupBox" name="gbStates">
+          <property name="title">
+           <string>States</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QListWidget" name="lwStates"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="KPushButton" name="pbAddState">
+               <property name="text">
+                <string>Add</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="KPushButton" name="pbRenameState">
+               <property name="text">
+                <string>Rename</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="KPushButton" name="pbRemoveState">
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="KPushButton" name="pbMoveStateUp">
+               <property name="text">
+                <string>Move up</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="KPushButton" name="pbMoveStateDown">
+               <property name="text">
+                <string>Move down</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="KTabWidget" name="twStateOptions">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="tab_6">
+           <attribute name="title">
             <string>Text</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <widget class="KTextEdit" name="teText">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="KPushButton" name="pbEditText">
-              <property name="text">
-               <string>Edit</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbSilence">
-              <property name="text">
-               <string>Silent</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cbAnnounceRepeat">
-              <property name="text">
-               <string>Announce repeat option</string>
-              </property>
+             <widget class="QWidget" name="wgText" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <item>
+                <widget class="KTextEdit" name="teText">
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="KPushButton" name="pbEditText">
+                 <property name="text">
+                  <string>Edit</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbSilence">
+                 <property name="text">
+                  <string>Silent</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="cbAnnounceRepeat">
+                 <property name="text">
+                  <string>Announce repeat option</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
           </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="gbOptions">
-           <property name="title">
+          <widget class="QWidget" name="tab_7">
+           <attribute name="title">
             <string>Options</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>
-             <widget class="QListView" name="lvTransitions"/>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="KPushButton" name="pbAddTransition">
-                <property name="text">
-                 <string>Add</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="KPushButton" name="pbEditTransition">
-                <property name="text">
-                 <string>Edit</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="KPushButton" name="pbRemoveTransition">
-                <property name="text">
-                 <string>Remove</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="KPushButton" name="pbMoveTransitionUp">
-                <property name="text">
-                 <string>Move up</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="KPushButton" name="pbMoveTransitionDown">
-                <property name="text">
-                 <string>Move down</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QWidget" name="wgOptions" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <item>
+                <widget class="QListView" name="lvTransitions"/>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="KPushButton" name="pbAddTransition">
+                   <property name="text">
+                    <string>Add</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbEditTransition">
+                   <property name="text">
+                    <string>Edit</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbRemoveTransition">
+                   <property name="text">
+                    <string>Remove</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <widget class="KPushButton" name="pbMoveTransitionUp">
+                   <property name="text">
+                    <string>Move up</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="KPushButton" name="pbMoveTransitionDown">
+                   <property name="text">
+                    <string>Move down</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
             </item>
            </layout>
           </widget>
-         </item>
-        </layout>
+          <widget class="QWidget" name="tab_8">
+           <attribute name="title">
+            <string>Avatar</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <widget class="QWidget" name="wgAvatar" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QCheckBox" name="cbDisplayAvatar">
+                 <property name="text">
+                  <string>Display avatar</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QListView" name="lvStateAvatar">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="viewMode">
+                  <enum>QListView::IconMode</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -296,32 +340,122 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_5">
+      <attribute name="title">
+       <string>Avatars</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="QListView" name="lvAvatars"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbAddAvatar">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbEditAvatar">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbRemoveAvatar">
+           <property name="text">
+            <string>Remove</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
        <string>Output</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
-        <widget class="QCheckBox" name="cbGraphical">
-         <property name="text">
+        <widget class="QGroupBox" name="gbGraphical">
+         <property name="title">
           <string>Graphical interface</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="cbTextToSpeech">
-         <property name="text">
-          <string>Text to speech interface</string>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbAvatarSize">
+            <property name="text">
+             <string>Avatar size:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QSpinBox" name="sbAvatarSize">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>1024</number>
+              </property>
+              <property name="value">
+               <number>96</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>px</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="cbDisplayAvatarNames">
+            <property name="text">
+             <string>Display avatar names</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="gbTextToSpeech">
          <property name="enabled">
           <bool>false</bool>
          </property>
          <property name="title">
           <string>Text to speech configuration</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
          <layout class="QFormLayout" name="formLayout">
           <property name="fieldGrowthPolicy">
@@ -429,18 +563,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>cbTextToSpeech</sender>
+   <sender>cbDisplayAvatar</sender>
    <signal>toggled(bool)</signal>
-   <receiver>groupBox</receiver>
+   <receiver>lvStateAvatar</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>195</x>
-     <y>61</y>
+     <x>524</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>195</x>
-     <y>93</y>
+     <x>531</x>
+     <y>115</y>
     </hint>
    </hints>
   </connection>

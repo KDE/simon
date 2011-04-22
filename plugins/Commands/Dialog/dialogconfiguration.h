@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+ *   Copyright (C) 2009-2010 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -27,6 +27,7 @@
 #include <QPoint>
 #include <QSize>
 
+class Avatar;
 class DialogCommand;
 class DialogState;
 class DialogSetContainer;
@@ -34,6 +35,7 @@ class DialogCommandManager;
 class DialogTemplateOptions;
 class BoundValue;
 class DialogBoundValues;
+class AvatarModel;
 
 class DialogConfiguration : public CommandConfiguration
 {
@@ -45,6 +47,8 @@ class DialogConfiguration : public CommandConfiguration
 
     DialogTemplateOptions *templateOptions;
     DialogBoundValues *boundValues;
+    
+    AvatarModel *avatarModel;
 
     void displayStates();
     DialogState* getCurrentState();
@@ -57,6 +61,9 @@ class DialogConfiguration : public CommandConfiguration
 
     BoundValue* getCurrentBoundValue();
     BoundValue* getCurrentBoundValueGraphical();
+    
+    Avatar* getCurrentAvatar();
+    Avatar* getCurrentAvatarGraphical();
 
   private slots:
     void displayCurrentState();
@@ -86,6 +93,13 @@ class DialogConfiguration : public CommandConfiguration
     void addBoundValue();
     void editBoundValue();
     void removeBoundValue();
+    
+    void addAvatar();
+    void editAvatar();
+    void removeAvatar();
+    
+    void avatarSelected(const QModelIndex& selected);
+    void avatarDisplayToggled(bool show);
 
   public slots:
     void init();
@@ -98,7 +112,6 @@ class DialogConfiguration : public CommandConfiguration
     DialogConfiguration(DialogCommandManager* _commandManager, Scenario *parent, const QVariantList &args = QVariantList());
     ~DialogConfiguration();
 
-    void destroy();
     DialogTemplateOptions* getDialogTemplateOptions() { return templateOptions; }
     DialogBoundValues* getDialogBoundValues() { return boundValues; }
 
@@ -108,6 +121,11 @@ class DialogConfiguration : public CommandConfiguration
     QString getRepeatAnnouncement() const;
     QStringList getRepeatTriggers() const;
     bool getRepeatOnInvalidInput() const;
+    
+    int getAvatarSize() const;
+    bool getDisplayAvatarNames() const;
+    
+    Avatar* getAvatar(int id) const;
 
 };
 #endif

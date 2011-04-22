@@ -1,4 +1,4 @@
-/*   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
+/*   Copyright (C) 2009-2010 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,6 +29,8 @@
 #include "createtransitiondialog.h"
 #include "createtemplateoptiondialog.h"
 #include "createboundvaluedialog.h"
+#include "avatarmodel.h"
+#include "avatar.h"
 
 #include <simonscenarios/scenario.h>
 
@@ -45,6 +47,7 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include "createavatardialog.h"
 
 K_PLUGIN_FACTORY_DECLARATION(DialogCommandPluginFactory)
 
@@ -54,8 +57,9 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   "im-user",
   DialogCommandPluginFactory::componentData()),
   commandManager(_commandManager),
-  templateOptions(NULL),
-  boundValues(NULL)
+  templateOptions(0),
+  boundValues(0),
+  avatarModel(0)
 {
   Q_UNUSED(args);
   ui.setupUi(this);
@@ -77,6 +81,10 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddTransition, SIGNAL(clicked()), this, SLOT(addTransition()));
   connect(ui.pbEditTransition, SIGNAL(clicked()), this, SLOT(editTransition()));
   connect(ui.pbRemoveTransition, SIGNAL(clicked()), this, SLOT(removeTransition()));
+  
+  connect(ui.pbAddAvatar, SIGNAL(clicked()), this, SLOT(addAvatar()));
+  connect(ui.pbEditAvatar, SIGNAL(clicked()), this, SLOT(editAvatar()));
+  connect(ui.pbRemoveAvatar, SIGNAL(clicked()), this, SLOT(removeAvatar()));
 
   connect(ui.pbMoveTransitionUp, SIGNAL(clicked()), this, SLOT(moveTransitionUp()));
   connect(ui.pbMoveTransitionDown, SIGNAL(clicked()), this, SLOT(moveTransitionDown()));
@@ -88,11 +96,15 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   connect(ui.pbAddBoundValue, SIGNAL(clicked()), this, SLOT(addBoundValue()));
   connect(ui.pbEditBoundValue, SIGNAL(clicked()), this, SLOT(editBoundValue()));
   connect(ui.pbRemoveBoundValue, SIGNAL(clicked()), this, SLOT(removeBoundValue()));
+  
+  connect(ui.cbDisplayAvatar, SIGNAL(toggled(bool)), this, SLOT(avatarDisplayToggled(bool)));
+  connect(ui.lvStateAvatar, SIGNAL(clicked(QModelIndex)), this, SLOT(avatarSelected(QModelIndex)));
 
   ui.pbAddState->setIcon(KIcon("list-add"));
   ui.pbAddTransition->setIcon(KIcon("list-add"));
   ui.pbAddBoundValue->setIcon(KIcon("list-add"));
   ui.pbAddTemplateOption->setIcon(KIcon("list-add"));
+  ui.pbAddAvatar->setIcon(KIcon("list-add"));
 
   ui.pbRemoveState->setIcon(KIcon("list-remove"));
   ui.pbRemoveTransition->setIcon(KIcon("list-remove"));
@@ -104,13 +116,14 @@ DialogConfiguration::DialogConfiguration(DialogCommandManager* _commandManager, 
   ui.pbEditText->setIcon(KIcon("document-edit"));
   ui.pbEditBoundValue->setIcon(KIcon("document-edit"));
   ui.pbEditTemplateOption->setIcon(KIcon("document-edit"));
+  ui.pbEditAvatar->setIcon(KIcon("document-edit"));
+  ui.pbRemoveAvatar->setIcon(KIcon("list-remove"));
 
   ui.pbMoveStateUp->setIcon(KIcon("arrow-up"));
   ui.pbMoveTransitionUp->setIcon(KIcon("arrow-up"));
 
   ui.pbMoveStateDown->setIcon(KIcon("arrow-down"));
   ui.pbMoveTransitionDown->setIcon(KIcon("arrow-down"));
-
 
   displayCurrentState();
 }
@@ -443,12 +456,16 @@ QDomElement DialogConfiguration::serialize(QDomDocument* doc)
   QDomElement boundValuesElem = boundValues->serialize(doc);
   configElem.appendChild(boundValuesElem);
 
+  QDomElement avatarsElem = avatarModel->serialize(doc);
+  avatarsElem.setAttribute("size", QString::number(ui.sbAvatarSize->value()));
+  avatarsElem.setAttribute("displayNames", ui.cbDisplayAvatarNames->isChecked() ? "1" : "0");
+  configElem.appendChild(avatarsElem);
 
   QDomElement outputElem = doc->createElement("output");
   QDomElement graphicalOutput = doc->createElement("gui");
   QDomElement ttsOutput = doc->createElement("tts");
-  graphicalOutput.appendChild(doc->createTextNode(ui.cbGraphical->isChecked() ? "1" : "0"));
-  ttsOutput.appendChild(doc->createTextNode(ui.cbTextToSpeech->isChecked() ? "1" : "0"));
+  graphicalOutput.appendChild(doc->createTextNode(ui.gbGraphical->isChecked() ? "1" : "0"));
+  ttsOutput.appendChild(doc->createTextNode(ui.gbTextToSpeech->isChecked() ? "1" : "0"));
 
   outputElem.appendChild(graphicalOutput);
   outputElem.appendChild(ttsOutput);
@@ -509,6 +526,20 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
   } else {
     boundValues->deSerialize(options);
   }
+  
+  QDomElement avatarsElement = elem.firstChildElement("avatars");
+  if (!avatarModel)
+  {
+    avatarModel = AvatarModel::createInstance(avatarsElement);
+    if (!avatarModel)
+      return false;
+    ui.lvAvatars->setModel(avatarModel);
+    ui.lvStateAvatar->setModel(avatarModel);
+  } else
+    avatarModel->deSerialize(avatarsElement);
+  
+  ui.sbAvatarSize->setValue(avatarsElement.attribute("size").toInt());
+  ui.cbDisplayAvatarNames->setChecked(avatarsElement.attribute("displayNames") == "1");
 
   QDomElement outputElem = elem.firstChildElement("output");
   if (outputElem.isNull())
@@ -519,8 +550,8 @@ bool DialogConfiguration::deSerialize(const QDomElement& elem)
 
   QDomElement graphicalOutput = outputElem.firstChildElement("gui");
   QDomElement ttsOutput = outputElem.firstChildElement("tts");
-  ui.cbGraphical->setChecked(graphicalOutput.text() == "1");
-  ui.cbTextToSpeech->setChecked(ttsOutput.text() == "1");
+  ui.gbGraphical->setChecked(graphicalOutput.text() == "1");
+  ui.gbTextToSpeech->setChecked(ttsOutput.text() == "1");
 
   QDomElement ttsOptions = outputElem.firstChildElement("ttsOptions");
   QDomElement separatorElem = ttsOptions.firstChildElement("optionsSeparator");
@@ -615,8 +646,9 @@ void DialogConfiguration::displayCurrentState()
 {
   DialogState *currentState = getCurrentState();
 
-  ui.gbText->setEnabled(currentState);
-  ui.gbOptions->setEnabled(currentState);
+  ui.wgText->setEnabled(currentState);
+  ui.wgOptions->setEnabled(currentState);
+  ui.wgAvatar->setEnabled(currentState);
 
   if (!currentState) 
   {
@@ -628,30 +660,37 @@ void DialogConfiguration::displayCurrentState()
   ui.teText->setText(currentState->getRawText());
   ui.cbSilence->setChecked(currentState->silence());
   ui.cbAnnounceRepeat->setChecked(currentState->announceRepeat());
+  
+  ui.cbDisplayAvatar->setChecked(currentState->getDisplayAvatar());
+  ui.lvStateAvatar->selectionModel()->select(avatarModel->getAvatarIndex(currentState->getAvatarId()),
+    QItemSelectionModel::ClearAndSelect);
 
   ui.lvTransitions->setModel(currentState);
 }
 
 void DialogConfiguration::defaults()
 {
-  ui.cbGraphical->setChecked(true);
-  ui.cbTextToSpeech->setChecked(false);
+  ui.gbGraphical->setChecked(true);
+  ui.gbTextToSpeech->setChecked(false);
   ui.leOptionSeparator->setText(i18n("Please answer with any of the following options."));
 
   ui.elwRepeatTriggers->setItems(QStringList() << i18n("Repeat"));
   ui.leAnnounceRepeat->setText(i18n("Say \"Repeat\" to hear this text again."));
 
   ui.cbRepeatOnInvalidInput->setChecked(true);
+  
+  ui.sbAvatarSize->setValue(96),
+  ui.cbDisplayAvatarNames->setChecked(true);
 }
 
 bool DialogConfiguration::useGUIOutput() const
 {
-  return ui.cbGraphical->isChecked();
+  return ui.gbGraphical->isChecked();
 }
 
 bool DialogConfiguration::useTTSOutput() const
 {
-  return ui.cbTextToSpeech->isChecked();
+  return ui.gbTextToSpeech->isChecked();
 }
 
 
@@ -673,6 +712,79 @@ QStringList DialogConfiguration::getRepeatTriggers() const
 bool DialogConfiguration::getRepeatOnInvalidInput() const
 {
   return ui.cbRepeatOnInvalidInput->isChecked();
+}
+
+void DialogConfiguration::addAvatar()
+{
+  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
+  dlg->addAvatar(avatarModel);
+  delete dlg;
+}
+  
+Avatar* DialogConfiguration::getCurrentAvatar()
+{
+  QModelIndex currentIndex = ui.lvAvatars->currentIndex();
+  if (!currentIndex.isValid()) return 0;
+  
+  return static_cast<Avatar*>(currentIndex.internalPointer());
+}
+
+Avatar* DialogConfiguration::getCurrentAvatarGraphical()
+{
+  Avatar *a = getCurrentAvatar();
+  if (!a)
+    KMessageBox::information(this, i18n("Please select an existing avatar from the list or add a new one as appropriate."));
+  return a;
+}
+
+void DialogConfiguration::editAvatar()
+{
+  Avatar *a = getCurrentAvatarGraphical();
+  CreateAvatarDialog *dlg = new CreateAvatarDialog(this);
+  dlg->editAvatar(a);
+  delete dlg;
+}
+void DialogConfiguration::removeAvatar()
+{
+  Avatar *a = getCurrentAvatarGraphical();
+  if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the avatar \"%1\" from your dialog?", a->name())) == KMessageBox::Yes)
+  {
+    if (!avatarModel->removeAvatar(a))
+      KMessageBox::sorry(this, i18n("Failed to remove avatar."));
+    else delete a;
+  }
+}
+
+void DialogConfiguration::avatarSelected ( const QModelIndex& selected )
+{
+  if (!selected.isValid())
+  {
+    getCurrentState()->setAvatar(0);
+  } else {
+    Avatar *a = static_cast<Avatar*>(selected.internalPointer());
+    kDebug() << "Selected avatar: " << a->name();
+    getCurrentState()->setAvatar(a->id());
+  }
+}
+
+void DialogConfiguration::avatarDisplayToggled ( bool show )
+{
+  getCurrentState()->setDisplayAvatar(show);
+}
+
+Avatar* DialogConfiguration::getAvatar ( int id ) const
+{
+  return avatarModel->getAvatar(id);
+}
+
+bool DialogConfiguration::getDisplayAvatarNames() const
+{
+  return ui.cbDisplayAvatarNames->isChecked();
+}
+
+int DialogConfiguration::getAvatarSize() const
+{
+  return ui.sbAvatarSize->value();
 }
 
 DialogConfiguration::~DialogConfiguration()
