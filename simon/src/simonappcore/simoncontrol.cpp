@@ -29,6 +29,7 @@
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonsound/soundserver.h>
+#include <simontts/simontts.h>
 
 #include <QFileInfo>
 #include <KDebug>
@@ -64,6 +65,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 
   ActionManager::getInstance();                   // initializing action manager
+  SimonTTS::getInstance();                   // initializing TTS system for dbus interface
 
   if (!ScenarioManager::getInstance()->init())
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));

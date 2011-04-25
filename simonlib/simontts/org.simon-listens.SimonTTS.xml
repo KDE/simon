@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="local.SimonTTS">
+    <method name="initialize">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="uninitialize">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="interrupt">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="say">
+      <arg type="b" direction="out"/>
+      <arg name="text" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>

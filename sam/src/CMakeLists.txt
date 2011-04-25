@@ -13,6 +13,7 @@ set(sam_SRCS
    main.cpp
    samui.cpp
    samview.cpp
+   conservativetraining.cpp
    samxmlhelper.cpp
    corpusinformationwidget.cpp
    corpusinformation.cpp
@@ -32,6 +33,7 @@ kde4_add_ui_files( sam_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/corpusinformation.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/testresult.ui
+  ${CMAKE_CURRENT_SOURCE_DIR}/conservativetraining.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/testconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/exporttestresultsdlg.ui
 )

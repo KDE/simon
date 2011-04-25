@@ -91,6 +91,13 @@
                   </widget>
                  </item>
                  <item>
+                  <widget class="KPushButton" name="pbImportRecognitionSamples">
+                   <property name="text">
+                    <string>Import recognition samples</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <layout class="QFormLayout" name="formLayout">
                    <property name="fieldGrowthPolicy">
                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
@@ -394,8 +401,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>676</width>
-                 <height>421</height>
+                 <width>94</width>
+                 <height>24</height>
                 </rect>
                </property>
               </widget>
@@ -660,7 +667,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

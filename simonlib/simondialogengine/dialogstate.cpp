@@ -35,7 +35,7 @@ DialogState::DialogState(DialogTextParser *parser, const QString& name, const QS
   m_announceRepeat(announceRepeat),
   m_transitions(transitions)
 {
-  qsrand(QDateTime::currentMSecsSinceEpoch());
+  qsrand(QDateTime::currentDateTime().toTime_t());
   m_texts << new DialogText(parser, text);
   foreach (DialogCommand *c, m_transitions)
   {
