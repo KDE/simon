@@ -30,6 +30,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 #include <simonsound/soundserver.h>
 #include <simontts/simontts.h>
+#include <simoncontextdetection/contextmanager.h>
 
 #include <QFileInfo>
 #include <KDebug>
@@ -71,6 +72,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
 
   connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(slotSoundError(const QString&)));
+
+  contextManager = new ContextManager();
 }
 
 
@@ -362,4 +365,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
+  delete contextManager;
 }
