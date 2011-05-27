@@ -1,0 +1,14 @@
+/*
+ * create a new library next to simonappcore, simonactionsui, etc. called &quot;simonsampleshare&quot;
+ * start by creating a ui (KDialog), that simply says &quot;Hello World&quot;
+ * integrate this library and dialog into simon by adding a menu option to &quot;Actions&quot; called &quot;Publish samples&quot; displaying the
+ * dialog from the new library
+ * 
+ */
+#include "sampleShare.ui"
+#include <KDialog>
+
+sampleShare::sampleShare(QWidget* parent) : KXmlGuiWindow(parent){
+  
+  
+};
