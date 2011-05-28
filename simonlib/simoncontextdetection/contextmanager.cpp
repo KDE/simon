@@ -1,25 +1,132 @@
-/*
- *   Copyright (C) 2011 Adam Nash <adam.t.nash@gmail.com>
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   or (at your option) any later version, as published by the Free
- *   Software Foundation
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details
- *
- *   You should have received a copy of the GNU General Public
- *   License along with this program; if not, write to the
- *   Free Software Foundation, Inc.,
- *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 #include "contextmanager.h"
+#include "KDE/KService"
+#include "KDebug"
+#include <QTextStream>
 
-ContextManager::ContextManager()
+ContextManager* ContextManager::m_instance;
+
+//for testing
+#include <QFile>
+
+ContextManager::ContextManager(QObject *parent) :
+    QObject(parent)
 {
-    kDebug() << "Hello World!!!";
+
 }
+
+void ContextManager::test()
+{
+  //for testing
+   QFile testXml;
+    testXml.setFileName("/home/anash/Documents/QtProjects/ProcessListing-build-desktop/test.xml");
+    testXml.open(QFile::ReadWrite);
+    QDomDocument doc;
+    doc.setContent(&testXml);
+    testXml.close();
+
+    QDomElement elem;
+    elem = doc.documentElement();
+
+    getCompoundCondition(elem);
+    //end for testing
+}
+
+ContextManager::~ContextManager()
+{
+    foreach(Condition* condition, m_conditions)
+    {
+        delete condition;
+    }
+    foreach(CompoundCondition* cCondition, m_compoundConditions)
+    {
+        delete cCondition;
+    }
+}
+
+ContextManager* ContextManager::instance()
+{
+    if (!m_instance)
+        m_instance = new ContextManager();
+
+    return m_instance;
+}
+
+Condition* ContextManager::getCondition(const QDomElement &elem)
+{
+    Condition* condition;
+    QString source;
+    QString str;
+    QTextStream stream(&str);
+    
+    //check to see if the condition has already been created
+    //if so, just return the existing condition
+    elem.save(stream, 4);
+    kDebug() << "Condition: " + str;
+    condition = m_conditionLookup.value(str, NULL);
+    if (condition != NULL)
+    {
+	kDebug() << "Condition is a duplicate!";
+	return condition;
+    }
+
+    //get the name of the service
+    source = elem.attribute("name");
+
+    //get the service
+    KService::Ptr service = KService::serviceByStorageId(source);
+    if (!service) {
+      kDebug() << "Service not found! Source: " << source;
+      condition=0;
+      return condition;
+    }
+
+    //create the factory for the service
+    KPluginFactory *factory = KPluginLoader(service->library()).factory();
+    if (factory) {
+      condition = factory->create<Condition>();
+      factory->deleteLater();
+    }
+    else {
+      kDebug() << "Factory not found! Source: " << source;
+      condition=0;
+      return condition;
+    }
+
+    //deserialize the service data
+    condition->deSerialize(elem);
+    
+    //add the condition to member containers for future lookup
+    m_conditions.push_back(condition);
+    m_conditionLookup.insert(str, condition);
+
+    return condition;
+}
+
+
+CompoundCondition* ContextManager::getCompoundCondition(const QDomElement &elem)
+{
+    QDomElement conditionElem;
+    QList<Condition*> conditions;
+    Condition* condition;
+    int i=0;
+
+    conditionElem = elem.firstChildElement("Condition");
+    while(!conditionElem.isNull())
+    {
+	condition = getCondition(conditionElem);
+	
+	if (condition != NULL)
+	{
+	  conditions.push_back(condition);
+	}
+	
+	kDebug() << "Condition: " << i;
+	i++;
+	
+	conditionElem = conditionElem.nextSiblingElement("Condition");
+    }
+
+    m_compoundConditions.push_back(new CompoundCondition(conditions));
+    return m_compoundConditions.back();
+}
+

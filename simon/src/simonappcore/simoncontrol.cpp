@@ -73,7 +73,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
   connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(slotSoundError(const QString&)));
 
-  contextManager = new ContextManager();
+  contextManager = ContextManager::instance();
+  contextManager->test();
 }
 
 
@@ -365,5 +366,8 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-  delete contextManager;
+  if (contextManager != NULL)
+  {
+    contextManager->deleteLater();
+  }
 }
