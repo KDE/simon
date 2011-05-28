@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Service
+Icon=text-field
+ServiceTypes=simon/ConditionPlugin
+X-KDE-Library=simonprocessopenedconditionplugin
+Name=simon Process Opened Plugin
+Name[de]=simon Process Opened Modul
+Name[fr]=Module de Process Opened de simon
+Comment=Checks for opened process
+Comment[de]=Checks for opened process
+Comment[fr]=Checks for opened process
+
+X-KDE-PluginInfo-Author=Adam Nash
+X-KDE-PluginInfo-Email=adam.t.nash@gmail.com
+X-KDE-PluginInfo-Name=simonprocessopenedconditionplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=simon
