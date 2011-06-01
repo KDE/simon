@@ -29,6 +29,7 @@ void OrConditionAssociation::evaluateConditions()
       m_satisfied = false;
       kDebug() << "Or condition is false!";
       emit conditionChanged();
+      return;
    }
    else
    {
@@ -39,6 +40,7 @@ void OrConditionAssociation::evaluateConditions()
 	  m_satisfied = true;
 	  kDebug() << "Or condition is true!";
 	  emit conditionChanged();
+          return;
        }
      }
    }

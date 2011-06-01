@@ -63,8 +63,9 @@ set(CPACK_COMPONENTS_ALL  kdecore julius juliusdevel ksimond simondoc translatio
 		simoncommandfilterplugin simoncommandpronunciationtrainingplugin  ssc sscd
 		simoncommandexecutableplugin simoncommandplaceplugin simoncommandshortcutplugin simoncommandtextmacroplugin
 		simon simond simoncore simoncoredevel simondevel simonddevel
-    simonmodelmanagement sam afaras simonstatus speechcal
-		simoncommandkeyboardplugin simoncommandcalculatorplugin)
+    		simonmodelmanagement sam afaras simonstatus speechcal
+		simoncommandkeyboardplugin simoncommandcalculatorplugin
+                simonprocessopenedconditionplugin simonorconditionassociationplugin)
 
 #SET(CPACK_COMPONENT_DEVEL_DISPLAY_NAME "simon System Files")
 SET(CPACK_COMPONENT_KDECORE_DISPLAY_NAME "KDE System Files")
@@ -103,6 +104,9 @@ SET(CPACK_COMPONENT_SIMONCORE_DISPLAY_NAME "Shared Components")
 SET(CPACK_COMPONENT_SIMONCOREDEVEL_DISPLAY_NAME "Shared Components Development Files")
 SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_NAME "Translations")
 
+SET(CPACK_COMPONENT_SIMONORCONDITIONASSOCIATIONPLUGIN_DISPLAY_NAME "'Or' Condition Association")
+SET(CPACK_COMPONENT_SIMONPROCESSOPENEDCONDITIONPLUGIN_DISPLAY_NAME "Process Opened Condition")
+
 
 
 #SET(CPACK_COMPONENT_DEVEL_DISPLAY_DESCRIPTION "Contains a needed set of libraries.")
@@ -117,10 +121,13 @@ SET(CPACK_COMPONENT_SSC_DISPLAY_DESCRIPTION "simon sample collector")
 SET(CPACK_COMPONENT_SSCD_DISPLAY_DESCRIPTION "simon sample collector daemon")
 SET(CPACK_COMPONENT_SIMONCOMMANDPLUGINBASE_DISPLAY_DESCRIPTION "Core library shared by all command plugins")
 
+<<<<<<< HEAD
 SET(CPACK_COMPONENT_SPEECHCAL_DISPLAY_DESCRIPTION "Speech controlled calendar")
 SET(CPACK_COMPONENT_SIMONSTATUS_DISPLAY_DESCRIPTION "simon status widget")
 
 
+=======
+>>>>>>> >Added plugins/Conditions directory
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGINAIMLSALICE_DISPLAY_DESCRIPTION "The Alice-Personality for the AI Command Plug-In")
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGINAIMLSGERMAN_DISPLAY_DESCRIPTION "A German Personality for the AI Command Plug-In")
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGIN_DISPLAY_DESCRIPTION "The AI Command Plug-In")
@@ -145,6 +152,10 @@ SET(CPACK_COMPONENT_SIMONDDEVEL_DISPLAY_DESCRIPTION "Development Files for the s
 SET(CPACK_COMPONENT_SIMONCORE_DISPLAY_DESCRIPTION "Required shared components.")
 SET(CPACK_COMPONENT_SIMONCOREDEVEL_DISPLAY_DESCRIPTION "Development Files of the shared components")
 SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_DESCRIPTION "Translations of all the components.")
+
+SET(CPACK_COMPONENT_SIMONORCONDITIONASSOCIATIONPLUGIN_DISPLAY_NAME "The 'Or' Condition Association Plug-In for context detection")
+SET(CPACK_COMPONENT_SIMONPROCESSOPENEDCONDITIONPLUGIN_DISPLAY_NAME "The Process Opened Condition Plug-In for context detection")
+
 
 
 set(CPACK_COMPONENT_KSIMOND_DEPENDS simond )
@@ -172,6 +183,9 @@ set(CPACK_COMPONENT_SIMONCORE_DEPENDS kdecore )#Devel
 SET(CPACK_COMPONENT_SAM_DEPENDS julius kdecore)
 SET(CPACK_COMPONENT_SSC_DEPENDS simoncore)
 SET(CPACK_COMPONENT_SSCD_DEPENDS simoncore)
+
+SET(CPACK_COMPONENT_SIMONORCONDITIONASSOCIATIONPLUGIN_DEPENDS simon)
+SET(CPACK_COMPONENT_SIMONPROCESSOPENEDCONDITIONPLUGIN_DEPENDS simon)
 
 
 #set(CPACK_COMPONENT_DEVEL_GROUP "Applications")
@@ -211,6 +225,10 @@ SET(CPACK_COMPONENT_SIMONCORE_GROUP "Applications")
 SET(CPACK_COMPONENT_SIMONCOREDEVEL_GROUP "Development")
 SET(CPACK_COMPONENT_TRANSLATIONS_GROUP "Localization")
 
+SET(CPACK_COMPONENT_SIMONORCONDITIONASSOCIATIONPLUGIN_GROUP "Conditions")
+SET(CPACK_COMPONENT_SIMONPROCESSOPENEDCONDITIONPLUGIN_GROUP "Conditions")
+
+
 set(CPACK_COMPONENT_GROUP_DEVELOPMENT_DESCRIPTION
    "Development Files (Headers,...)")
 set(CPACK_COMPONENT_GROUP_APPLICATIONS_DESCRIPTION
@@ -221,6 +239,8 @@ set(CPACK_COMPONENT_GROUP_DOCUMENTATION_DESCRIPTION
    "Manuals and other documentation.")
 set(CPACK_COMPONENT_GROUP_LOCALIZATION_DESCRIPTION
    "Translations and other localization files.")
+set(CPACK_COMPONENT_GROUP_CONDITIONS_DESCRIPTION
+   "Condition Plug-Ins.  These add context gathering to simon.")
 
    
 set(CPACK_ALL_INSTALL_TYPES Full User Developer)
@@ -260,9 +280,16 @@ SET(CPACK_COMPONENT_SIMOND_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_SIMONDDEVEL_INSTALL_TYPES Developer) 	 
 SET(CPACK_COMPONENT_SIMONCORE_INSTALL_TYPES Full User Developer) 	 
 SET(CPACK_COMPONENT_SIMONCOREDEVEL_INSTALL_TYPES Developer) 	 
+<<<<<<< HEAD
 SET(CPACK_COMPONENT_TRANSLATIONS_INSTALL_TYPES Full User) 	 
 SET(CPACK_COMPONENT_SPEECHCAL_INSTALL_TYPES Full) 	 
 SET(CPACK_COMPONENT_SIMONSTATUS_INSTALL_TYPES Full) 	 
+=======
+SET(CPACK_COMPONENT_TRANSLATIONS_INSTALL_TYPES Full User)
+
+SET(CPACK_COMPONENT_SIMONORCONDITIONASSOCIATIONPLUGIN_GROUP Full User)
+SET(CPACK_COMPONENT_SIMONPROCESSOPENEDCONDITIONPLUGIN_GROUP Full User)
+>>>>>>> >Added plugins/Conditions directory
  
 #SET(CPACK_COMPONENT_DEVEL_REQUIRED) 	 
 SET(CPACK_COMPONENT_KDECORE_REQUIRED) 	 

@@ -1,0 +1,2 @@
+add_subdirectory(ProcessOpened)
+add_subdirectory(OrConditionAssociation)

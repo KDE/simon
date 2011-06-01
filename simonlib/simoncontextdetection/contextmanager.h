@@ -15,7 +15,6 @@ public:
     ~ContextManager();
 
     Condition* getCondition(const QDomElement &elem);
-    CompoundCondition* getCompoundCondition(const QDomElement &elem);
     
     void test();
 
@@ -26,7 +25,6 @@ private:
   
     QHash<QString, Condition*> m_conditionLookup;
     QList<Condition*> m_conditions;
-    QList<CompoundCondition*> m_compoundConditions;
 
 signals:
 

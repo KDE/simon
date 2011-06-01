@@ -14,9 +14,12 @@ public:
     QString getName() {return m_processName;}
 
 private:
-    void privateDeSerialize(QDomElement elem);
+    bool privateDeSerialize(QDomElement elem);
+    QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
+    int m_openedInstances;
 
     QString m_processName;
+    QString m_pluginName;
 
 signals:
 

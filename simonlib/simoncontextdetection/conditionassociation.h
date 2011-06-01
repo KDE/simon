@@ -12,7 +12,9 @@ public:
 
 protected:
     QList<Condition*> m_conditions;
-    void privateDeSerialize(QDomElement elem);
+    bool privateDeSerialize(QDomElement elem);
+    QDomElement privateSerialize(QDomDocument *doc, QDomElement elem);
+    QString m_pluginName;
 
 signals:
 

@@ -12,6 +12,7 @@ public:
     explicit OrConditionAssociation(QObject *parent, const QVariantList& args);
 
 private:
+    QString m_pluginName;
 
 signals:
 

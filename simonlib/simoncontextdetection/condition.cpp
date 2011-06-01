@@ -17,15 +17,26 @@ bool Condition::isSatisfied()
     }
 }
 
-void Condition::serialize(QDomDocument *doc)
+QDomElement Condition::serialize(QDomDocument *doc)
 {
+    QDomElement conditionElement = doc->createElement("Condition");
 
+    conditionElement.setAttribute("name", m_pluginName);
+
+    QDomElement invertElem = doc->createElement("Inverted");
+    invertElem.appendChild(doc->createTextNode(m_inverted ? "1" : "0"));
+
+    conditionElement.appendChild(invertElem);
+
+    return privateSerialize(doc, conditionElement);
 }
 
-void Condition::deSerialize(QDomElement elem)
+bool Condition::deSerialize(QDomElement elem)
 {
+    m_pluginName = elem.attribute("name");
+
     QDomElement inverted = elem.firstChildElement();
     m_inverted = (inverted.text().toInt() == 1);
 
-    this->privateDeSerialize(elem);
+    return this->privateDeSerialize(elem);
 }

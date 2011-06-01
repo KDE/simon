@@ -8,11 +8,14 @@ class CompoundCondition : public QObject
 {
     Q_OBJECT
 public:
-    explicit CompoundCondition(QList<Condition*> conditions, QObject *parent = 0);
-
     bool isSatisfied() {return m_satisfied;}
+    QDomElement serialize(QDomDocument *doc);
+    static CompoundCondition* createInstance(const QDomElement &elem);
 
 private:
+    explicit CompoundCondition(QObject *parent = 0);
+    bool deSerialize(const QDomElement &elem);
+
     bool m_satisfied;
     QList<Condition*> m_conditions;
 

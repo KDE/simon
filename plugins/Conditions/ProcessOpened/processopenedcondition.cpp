@@ -1,5 +1,5 @@
 #include "processopenedcondition.h"
-#include <KDebug>
+#include <KDE/KDebug>
 
 K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
 registerPlugin< ProcessOpenedCondition >();
@@ -12,10 +12,28 @@ ProcessOpenedCondition::ProcessOpenedCondition(QObject *parent, const QVariantLi
 {
 }
 
-void ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
+QDomElement ProcessOpenedCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
+    QDomElement nameElem = doc->createElement("Name");
+    nameElem.appendChild(doc->createTextNode(m_processName));
+
+    elem.appendChild(nameElem);
+
+    return elem;
+}
+
+bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
+{
+    QDomElement nameElement;
+
     //get the process name
-    m_processName = elem.firstChildElement("Opened").firstChildElement("Name").text();
+    nameElement = elem.firstChildElement("ProcessName");
+    if (nameElement.isNull())
+    {
+        kDebug() << "No processes name specified!  Deserialization failure!";
+        return 0;
+    }
+    m_processName = nameElement.text();
 
     //connect to the ProcessInfo instance
     ProcessInfo* processInfo = ProcessInfo::instance();
@@ -26,12 +44,13 @@ void ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
             this, SLOT(checkRemovedProcess(QString)));
 
     //initialize the condition
-    if (processInfo->getRunningProcesses().contains(m_processName))
+    m_openedInstances = processInfo->getRunningProcesses().count(m_processName);
+
+    if (m_openedInstances > 0)
     {
         m_satisfied = true;
 	kDebug() << m_processName + " is opened!";
         emit conditionChanged();
-	
     }
     else
     {
@@ -39,15 +58,22 @@ void ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
 	kDebug() << m_processName + " is not opened!";
         emit conditionChanged();
     }
+
+    return 1;
 }
 
 void ProcessOpenedCondition::checkAddedProcess(QString name)
 {
     if (m_processName == name)
     {
-        m_satisfied = true;
-	kDebug() << m_processName + " is opened!";
-        emit conditionChanged();
+        m_openedInstances++;
+
+        if (m_openedInstances == 1)
+        {
+            m_satisfied = true;
+            kDebug() << m_processName + " is opened!";
+            emit conditionChanged();
+        }
     }
 }
 
@@ -55,8 +81,13 @@ void ProcessOpenedCondition::checkRemovedProcess(QString name)
 {
     if (m_processName == name)
     {
-        m_satisfied = false;
-	kDebug() << m_processName + " is not opened!";
-        emit conditionChanged();
+        m_openedInstances--;
+
+        if (m_openedInstances == 0)
+        {
+            m_satisfied = false;
+            kDebug() << m_processName + " is not opened!";
+            emit conditionChanged();
+        }
     }
 }

@@ -13,13 +13,15 @@ public:
 
     bool isSatisfied();
 
-    void serialize(QDomDocument *doc);
-    void deSerialize(QDomElement elem);
+    QDomElement serialize(QDomDocument *doc);
+    bool deSerialize(QDomElement elem);
 
 protected:
-    virtual void privateDeSerialize(QDomElement elem)=0;
+    virtual bool privateDeSerialize(QDomElement elem)=0;
+    virtual QDomElement privateSerialize(QDomDocument *doc, QDomElement elem)=0;
 
     bool m_satisfied;
+    QString m_pluginName;
 
 private:
     bool m_inverted;

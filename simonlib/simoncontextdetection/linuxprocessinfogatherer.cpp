@@ -39,9 +39,6 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
                 //get rid of the newline character
                 processName.chop(1);
 
-                //add the process name to the list of process names
-                processNames.push_back(processName);
-
                 //check to see if the name is new
                 if (m_previouslyRunningProcesses.contains(processName))
                 {
@@ -51,6 +48,9 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
                 {
                     emit processAdded(processName);
                 }
+
+                //add the process name to the list of process names
+                processNames.push_back(processName);
             }
         }
     }
@@ -58,11 +58,7 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
     //signal any processes that were removed
     foreach (processName, m_previouslyRunningProcesses)
     {
-        //check to make sure it was not just one of many instances of the process name
-        if (!processNames.contains(processName))
-        {
-            emit processRemoved(processName);
-        }
+        emit processRemoved(processName);
     }
 
     emit updateProcesses(processNames);

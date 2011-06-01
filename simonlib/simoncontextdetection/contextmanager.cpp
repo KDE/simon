@@ -5,8 +5,9 @@
 
 ContextManager* ContextManager::m_instance;
 
-//for testing
+//testing
 #include <QFile>
+//end testing
 
 ContextManager::ContextManager(QObject *parent) :
     QObject(parent)
@@ -16,8 +17,8 @@ ContextManager::ContextManager(QObject *parent) :
 
 void ContextManager::test()
 {
-  //for testing
-   QFile testXml;
+    //testing
+    QFile testXml;
     testXml.setFileName("/home/anash/Documents/QtProjects/ProcessListing-build-desktop/test.xml");
     testXml.open(QFile::ReadWrite);
     QDomDocument doc;
@@ -27,20 +28,24 @@ void ContextManager::test()
     QDomElement elem;
     elem = doc.documentElement();
 
-    getCompoundCondition(elem);
-    //end for testing
+    CompoundCondition *cCondition;
+    cCondition = CompoundCondition::createInstance(elem);
+
+    //serialize the compound condition and print the result
+    QString str;
+    QTextStream stream(&str);
+    QDomDocument *parentDoc = new QDomDocument();
+    elem = cCondition->serialize(parentDoc);
+    elem.save(stream, 4);
+
+    kDebug() << "Compound Condition: \n" + str;
+
+    //end testing
 }
 
 ContextManager::~ContextManager()
 {
-    foreach(Condition* condition, m_conditions)
-    {
-        delete condition;
-    }
-    foreach(CompoundCondition* cCondition, m_compoundConditions)
-    {
-        delete cCondition;
-    }
+    qDeleteAll(m_conditions);
 }
 
 ContextManager* ContextManager::instance()
@@ -76,8 +81,7 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     KService::Ptr service = KService::serviceByStorageId(source);
     if (!service) {
       kDebug() << "Service not found! Source: " << source;
-      condition=0;
-      return condition;
+      return 0;
     }
 
     //create the factory for the service
@@ -88,8 +92,7 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
     }
     else {
       kDebug() << "Factory not found! Source: " << source;
-      condition=0;
-      return condition;
+      return 0;
     }
 
     //deserialize the service data
@@ -101,32 +104,3 @@ Condition* ContextManager::getCondition(const QDomElement &elem)
 
     return condition;
 }
-
-
-CompoundCondition* ContextManager::getCompoundCondition(const QDomElement &elem)
-{
-    QDomElement conditionElem;
-    QList<Condition*> conditions;
-    Condition* condition;
-    int i=0;
-
-    conditionElem = elem.firstChildElement("Condition");
-    while(!conditionElem.isNull())
-    {
-	condition = getCondition(conditionElem);
-	
-	if (condition != NULL)
-	{
-	  conditions.push_back(condition);
-	}
-	
-	kDebug() << "Condition: " << i;
-	i++;
-	
-	conditionElem = conditionElem.nextSiblingElement("Condition");
-    }
-
-    m_compoundConditions.push_back(new CompoundCondition(conditions));
-    return m_compoundConditions.back();
-}
-
