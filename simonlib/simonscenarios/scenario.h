@@ -31,6 +31,7 @@
 #include "scenariomanager.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
+#include <simoncontextdetection/compoundcondition.h>
 
 class ScenarioObject;
 class Author;
@@ -68,6 +69,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     TrainingTextCollection *m_texts;
     Grammar *m_grammar;
     ActionCollection* m_actionCollection;
+    //CompoundCondition* m_compoundCondition;
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
@@ -161,6 +163,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
   public slots:
     bool save(QString path=QString());
-
+    //void shouldActivate(bool activate);
 };
 #endif
