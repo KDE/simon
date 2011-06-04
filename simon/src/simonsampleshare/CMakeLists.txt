@@ -10,13 +10,13 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonsampleshare_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/sampleShare.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.cpp)
 
 set( simonsampleshare_LIB_HDRS
-	${CMAKE_CURRENT_SOURCE_DIR}/sampleShare.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.h)
 
 kde4_add_ui_files( simonsampleshare_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/sampleShare.ui)
+	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.ui)
 
 kde4_add_library( simonsampleshare  SHARED ${simonsampleshare_LIB_SRCS} )
 

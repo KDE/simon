@@ -1,8 +1,9 @@
 #ifndef SAMPLESHARE_H
 #define SAMPLESHARE_H
-#include <KXmlGuiWindow>
 
-#include "ui_sampleShare.h"
+#include <KDialog>
+
+#include <ui_sampleshare.h>
 /**
  \class GeneralSettings
  \author Alessandro Buggin
@@ -13,16 +14,21 @@
 
 */
 
-class sampleShare:public KXmlGuiWindow
+class SampleShare:public KDialog
 {
   Q_OBJECT 
-  
-public:
-  sampleShare(QWidget *parent=0);
-  
+
 private:
-  void setupActions();
-  Ui_sampleShare ui;
+  Ui::SampleShare ui;
+  void SetupActions();
+  void initDisplay();
+
+public:
+  SampleShare(QWidget *parent=0);
+  ~SampleShare();
+  
+  int exec();
+
 };
 
 #endif

@@ -32,7 +32,6 @@
  *	@author Peter Grasch
  */
 
-#include "ui_simonview.h"
 #include <KXmlGuiWindow>
 #include <simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
@@ -45,6 +44,7 @@
 #endif
 
 #include <KHTMLPart>
+#include "simonsampleshare/sampleshare.h"
 // #include "operation.h"
 
 class QPoint;
@@ -98,7 +98,8 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     RunCommandView *runDialog;                    //!< Pointer on the Dialog "RunCommand"
     TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
     KCMultiDialog *configDialog;
-
+    SampleShare *sampleShare;
+    
     KComboBox *cbCurrentScenario;
 
     void setupSignalSlots();
