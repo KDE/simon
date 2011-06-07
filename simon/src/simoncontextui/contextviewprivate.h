@@ -38,15 +38,14 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
   private:
     Ui::ContextDlg ui;
 
-    //Command* getCurrentCommand();
-    //Action *getCurrentlySelectedAction();
-    //QSortFilterProxyModel *commandsProxy;
+    Condition* getCurrentCondition();
     QSortFilterProxyModel *conditionsProxy;
 
   private slots:
     void addCondition();
-    //void deleteCondition();
-    //void editCondition();
+    void deleteCondition();
+    void editCondition();
+    void selectionChanged();
 
     //void managePlugIns();
 

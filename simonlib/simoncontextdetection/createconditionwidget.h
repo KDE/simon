@@ -90,6 +90,8 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      */
     virtual bool init(Condition* condition)=0;
 
+    bool isInstanceOfSameCondition(Condition *condition);
+
     /**
      * \brief Have all needed attributes been specified?
      * \return True if all necessary fields have been filled out

@@ -48,6 +48,7 @@ class CreateProcessOpenedConditionWidget : public CreateConditionWidget
     Condition* createCondition();
 
     bool init(Condition* condition);
+    bool isInstanceOfSameCondition(Condition *condition);
     bool isComplete();
 
     explicit CreateProcessOpenedConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0);

@@ -25,3 +25,19 @@ bool CreateConditionWidget::addCondition()
 {
     return m_compoundCondition->addCondition(createCondition());
 }
+
+bool CreateConditionWidget::isInstanceOfSameCondition(Condition *condition)
+{
+    CreateConditionWidget* widget = condition->getCreateConditionWidget(0, 0);
+
+    if (widget->windowTitle() == this->windowTitle())
+    {
+        delete widget;
+        return true;
+    }
+    else
+    {
+        delete widget;
+        return false;
+    }
+}

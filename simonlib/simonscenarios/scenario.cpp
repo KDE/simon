@@ -341,13 +341,19 @@ bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool delet
   QDomElement docElem = doc->documentElement();
 
   QDomElement textsElem = docElem.firstChildElement("compoundcondition");
+
+  if (textsElem.isNull())
+  {
+      textsElem = CompoundCondition::createEmpty(doc);
+  }
+
   m_compoundCondition = CompoundCondition::createInstance(textsElem);
 
   if (deleteDoc) delete doc;
 
   if (!m_compoundCondition) {
     kDebug() << "CompoundCondition could not be deSerialized!";
-    return true;
+    return false;
   }
 
   kDebug() << "Compound condition has been deSerialized!";

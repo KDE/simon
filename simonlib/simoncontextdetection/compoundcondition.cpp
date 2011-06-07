@@ -26,6 +26,7 @@ CompoundCondition::CompoundCondition(QObject *parent) :
     QObject(parent)
 {
     m_proxy = new CompoundConditionModel(this);
+    m_satisfied = true;
 }
 
 CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
@@ -59,6 +60,29 @@ bool CompoundCondition::addCondition(Condition *condition)
     m_conditions.push_back(condition);
     connect(condition, SIGNAL(conditionChanged()),
             this, SLOT(evaluateConditions()));
+
+    this->evaluateConditions();
+
+    m_proxy->update();
+
+    emit modified();
+
+    return true;
+}
+
+bool CompoundCondition::removeCondition(Condition *condition)
+{
+    if (!condition)
+        return false;
+
+    if (!m_conditions.removeOne(condition))
+    {
+        kDebug() << "Condition is not part of the compound condition!";
+        return false;
+    }
+
+    disconnect(condition, SIGNAL(conditionChanged()),
+               this, SLOT(evaluateConditions()));
 
     this->evaluateConditions();
 

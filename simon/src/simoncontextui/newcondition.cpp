@@ -88,21 +88,21 @@ void NewCondition::conditionSuggested(Condition *condition)
 
 void NewCondition::init(Condition *condition)
 {
-//  if (!condition) return;
+  if (!condition) return;
 
-//  bool found=false;
-//  int i=0;
-//  foreach (CreateConditionWidget *widget, *m_conditionCreators) {
-//    if (widget->isInstanceOfSameCondition(condition)) {
-//      widget->init(condition);
-//      found=true;
-//      ui.cbType->setCurrentIndex(i);
-//      break;
-//    }
-//    i++;
-//  }
-//  if (!found)
-//    KMessageBox::error(this, i18n("Could not determine Condition Type"));
+  bool found=false;
+  int i=0;
+  foreach (CreateConditionWidget *widget, *m_conditionCreators) {
+    if (widget->isInstanceOfSameCondition(condition)) {
+      widget->init(condition);
+      found=true;
+      ui.cbType->setCurrentIndex(i);
+      break;
+    }
+    i++;
+  }
+  if (!found)
+    KMessageBox::error(this, i18n("Could not determine Condition Type"));
 
   checkIfComplete();
 }

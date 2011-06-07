@@ -33,6 +33,7 @@ public:
     static CompoundCondition* createInstance(const QDomElement &elem);
     static QDomElement createEmpty(QDomDocument *doc);
     bool addCondition(Condition* condition);
+    bool removeCondition(Condition* condition);
     QList<Condition*> getConditions() {return m_conditions;}
     CompoundConditionModel* getProxy() {return m_proxy;}
 
