@@ -1409,25 +1409,31 @@ bool ModelCompilationManager::buildHMM4()
   if (!hmmdefs4.open(QIODevice::WriteOnly)) return false;
 
   QByteArray line;
+  bool withGCONST = false;
   while (!hmmdefs3.atEnd()) {
     line = hmmdefs3.readLine(3000);
     if (line.contains("\"sil\"")) {
       while ((line != "<ENDHMM>\n") && (true /*!hmmdefs3.atEnd()*/)) {
+      	if (line.contains("GCONST")) withGCONST = true;
         hmmdefs4.write(line);
         tmp2 << line;
         line = hmmdefs3.readLine(3000);
       }
       hmmdefs4.write(line);
-      hmmdefs4.write(tmp2[0].replace("~h \"sil\"", "~h \"sp\"").toUtf8());
-      hmmdefs4.write(tmp2[1].toUtf8());
-      hmmdefs4.write(tmp2[2].replace('5', '3').toUtf8());
-      hmmdefs4.write(tmp2[9].replace('3', '2').toUtf8());
-      hmmdefs4.write(tmp2[10].toUtf8());
-      hmmdefs4.write(tmp2[11].toUtf8());
-      hmmdefs4.write(tmp2[12].toUtf8());
-      hmmdefs4.write(tmp2[13].toUtf8());
-      hmmdefs4.write(tmp2[14].toUtf8());
-      hmmdefs4.write(tmp2[21].replace('5', '3').toUtf8());
+      int copyLine = 0;
+      hmmdefs4.write(tmp2[copyLine++].replace("~h \"sil\"", "~h \"sp\"").toUtf8());
+      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      hmmdefs4.write(tmp2[copyLine].replace('5', '3').toUtf8());
+      copyLine = withGCONST ? 9 : 8;
+      hmmdefs4.write(tmp2[copyLine++].replace('3', '2').toUtf8());
+      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      if (withGCONST)
+	      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      copyLine = withGCONST ? 21 : 18;
+      hmmdefs4.write(tmp2[copyLine].replace('5', '3').toUtf8());
       hmmdefs4.write("0.000000e+000 1.000000e+000 0.000000e+000\n");
       hmmdefs4.write("0.000000e+000 0.900000e+000 0.100000e+000\n");
       hmmdefs4.write("0.000000e+000 0.000000e+000 0.000000e+000\n");
@@ -1867,7 +1873,8 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
   if (!additionalParameters.isEmpty())
     command += additionalParameters+" ";
 
-  command += "-I \""+mlf+"\" -t 250.0 150.0 3000.0 ";
+  //Pruning threshold (was: 3000.0 / 1000.0)
+  command += "-I \""+mlf+"\" -t 250.0 50.0 3000.0 ";
   if (useStats)
     command += "-s \""+htkIfyPath(tempDir)+"/stats\" ";
 

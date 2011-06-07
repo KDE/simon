@@ -37,9 +37,10 @@ class SIMONTTS_EXPORT SimonTTS
 {
   protected:
     static SimonTTSPrivate *d;
-    static SimonTTSPrivate* getInstance();
 
   public:
+    static SimonTTSPrivate* getInstance();
+
     enum TTSFlag
     {
       None=0,

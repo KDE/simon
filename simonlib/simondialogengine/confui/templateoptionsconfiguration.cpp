@@ -65,6 +65,7 @@ void TemplateOptionsConfiguration::defaults()
 {
   delete templateOptions;
   templateOptions = new DialogTemplateOptions();
+  ui->tvTemplateOptions->setModel(templateOptions);
 }
 
 

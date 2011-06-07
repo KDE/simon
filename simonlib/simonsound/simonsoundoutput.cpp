@@ -111,7 +111,7 @@ void SimonSoundOutput::registerOutputClient(SoundOutputClient* client)
 
 bool SimonSoundOutput::deRegisterOutputClient(SoundOutputClient* client)
 {
-  kDebug() << "Deregister output client";
+  kWarning() << "Deregister output client";
   if (client != m_activeOutputClient)
     //wasn't active anyways
     m_suspendedOutputClients.removeAll(client);
@@ -138,8 +138,6 @@ bool SimonSoundOutput::preparePlayback(SimonSound::DeviceConfiguration& device)
     kWarning() << "Failed to setup recording...";
     return false;
   }
-
-  //TODO: move channels / samplerate to member
 
   kDebug() << "Prepared audio output";
   m_device = device;
@@ -255,7 +253,9 @@ SimonSoundOutput::~SimonSoundOutput()
 void SimonSoundOutput::killBuffer()
 {
   if (m_buffer) {
+	  kWarning() << "Stopping buffer...";
     m_buffer->stop();
+	  kWarning() << "Stopping buffer: Done.";
     m_buffer->wait();
   }
   
@@ -265,16 +265,11 @@ void SimonSoundOutput::killBuffer()
 
 bool SimonSoundOutput::stopPlayback()
 {
-  kDebug() << "Stop playback...";
+  kWarning() << "Stop playback...";
 
-  //TODO
-  /*
-  m_output->reset();
-  m_output->stop();
-  m_output->disconnect(this);
-  */
-
+  kWarning() << "Killing buffer...";
   killBuffer();
+  kWarning() << "Done killing buffer...";
 
   emit playbackFinished();
   return true;

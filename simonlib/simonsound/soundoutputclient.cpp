@@ -18,6 +18,7 @@
  */
 
 #include "soundoutputclient.h"
+#include "soundprocessor.h"
 #ifdef HAVE_LIBSAMPLERATE_H
 #include "resamplesoundprocessor.h"
 #endif

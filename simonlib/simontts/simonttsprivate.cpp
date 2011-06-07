@@ -18,11 +18,13 @@
  */
 
 #include "simonttsprivate.h"
+#include "simonttsadaptor.h"
 #include "ttsconfiguration.h"
 #include "joviettsprovider.h"
 #include "recordedttsprovider.h"
 #include "webservicettsprovider.h"
 #include <QString>
+#include <QDBusConnection>
 #include <QRegExp>
 #include <KDebug>
 
@@ -33,6 +35,10 @@
  */
 SimonTTSPrivate::SimonTTSPrivate() : forceReinitialization(false)
 {
+  new SimonTTSAdaptor(this);
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  dbus.registerObject("/SimonTTS", this);
+  dbus.registerService("org.simon-listens.SimonTTS");
 }
 
 /**
@@ -105,9 +111,22 @@ QString SimonTTSPrivate::processString(QString text, SimonTTS::TTSFlags flags)
 }
 
 /**
+ * \brief Calls the other say method with a default parameter
+ *
+ * Just a wrapper function for the dbus interface
+ * \param text The text to say
+ * \return True if successful
+ */
+bool SimonTTSPrivate::say(const QString& text)
+{
+  return say(text, SimonTTS::StripHTML);
+}
+
+/**
  * \brief Says the given text using the text to speech engine
  *
  * \param text The text to say
+ * \param flags Te flags to apply
  * \return True if successful
  */
 bool SimonTTSPrivate::say(const QString& text, SimonTTS::TTSFlags flags)

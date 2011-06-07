@@ -45,6 +45,7 @@ QDomElement BoundValuesConfiguration::serialize(QDomDocument* doc)
 
 bool BoundValuesConfiguration::deSerialize(const QDomElement& elem)
 {
+  kDebug() << "Calling deSerialize()";
   QDomElement boundValuesElem = elem.firstChildElement("boundValues");
   if (!boundValues)
   {
@@ -63,6 +64,7 @@ void BoundValuesConfiguration::defaults()
 {
   delete boundValues;
   boundValues = new DialogBoundValues();
+  ui->tvBoundValues->setModel(boundValues);
 }
   
 
@@ -81,15 +83,19 @@ BoundValue* BoundValuesConfiguration::getCurrentBoundValueGraphical()
 
 void BoundValuesConfiguration::addBoundValue()
 {
+  kDebug() << "adding bound value...";
   CreateBoundValueDialog *dialog = new CreateBoundValueDialog(this);
 
   BoundValue *boundValue = dialog->createBoundValue();
  
   if (!boundValue)
     return;
+  kDebug() << "got bound value...";
 
   boundValues->addBoundValue(boundValue);
   delete dialog;
+  kDebug() << "done adding...";
+  kDebug() << "Bound values: " << boundValues;
 }
 
 void BoundValuesConfiguration::editBoundValue()
