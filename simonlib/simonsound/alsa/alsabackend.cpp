@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
+#include <KLocalizedString>
 #include <KDebug>
 
 //Basic functions to set up alsa
