@@ -29,6 +29,8 @@ class SIMONCONTEXTDETECTION_EXPORT ConditionAssociation : public Condition
 public:
     explicit ConditionAssociation(QObject *parent, const QVariantList &args);
 
+    virtual QString name();
+
 protected:
     QList<Condition*> m_conditions;
     bool privateDeSerialize(QDomElement elem);

@@ -69,7 +69,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     TrainingTextCollection *m_texts;
     Grammar *m_grammar;
     ActionCollection* m_actionCollection;
-    //CompoundCondition* m_compoundCondition;
+    CompoundCondition* m_compoundCondition;
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
@@ -123,6 +123,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool readLanguageModel(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readActions(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readCompoundCondition(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool init(QString path=QString());
     bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
@@ -133,6 +134,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     Grammar* grammar() { return m_grammar; }
     TrainingTextCollection* texts() { return m_texts; }
     ActionCollection* actionCollection() { return m_actionCollection; }
+    CompoundCondition* compoundCondition() {return m_compoundCondition;}
 
     bool removeText(TrainingText* text);
     bool addTrainingText(TrainingText* text);
@@ -163,6 +165,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
   public slots:
     bool save(QString path=QString());
-    //void shouldActivate(bool activate);
+    void shouldActivate(bool activate);
 };
 #endif

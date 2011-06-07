@@ -84,6 +84,10 @@ bool Scenario::init(QString path)
   //************************************************/
   if (!readTrainingsTexts(path, doc)) return false;
 
+  //  CompoundCondition
+  //************************************************/
+  if (!readCompoundCondition(path, doc)) return false;
+
   delete doc;
   commitGroup();
   return true;
@@ -330,6 +334,32 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
   return true;
 }
 
+bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool deleteDoc)
+{
+  if (!setupToParse(path, doc, deleteDoc)) return false;
+
+  QDomElement docElem = doc->documentElement();
+
+  QDomElement textsElem = docElem.firstChildElement("compoundcondition");
+  m_compoundCondition = CompoundCondition::createInstance(textsElem);
+
+  if (deleteDoc) delete doc;
+
+  if (!m_compoundCondition) {
+    kDebug() << "CompoundCondition could not be deSerialized!";
+    return true;
+  }
+
+  kDebug() << "Compound condition has been deSerialized!";
+
+  connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
+          this, SLOT(shouldActivate(bool)));
+  connect(m_compoundCondition, SIGNAL(modified()),
+          this, SLOT(save()));
+
+  return true;
+}
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -445,6 +475,20 @@ QString Scenario::serialize()
     rootElem.appendChild(TrainingTextCollection::createEmpty(&doc));
   else
     rootElem.appendChild(m_texts->serialize(&doc));
+
+  //  CompoundCondition
+  //************************************************/
+  if (!m_compoundCondition)
+  {
+      kDebug() << "No compound condition to serialize!";
+      rootElem.appendChild(CompoundCondition::createEmpty(&doc));
+  }
+  else
+  {
+      kDebug() << "Serializing compound condition!";
+      rootElem.appendChild(m_compoundCondition->serialize(&doc));
+  }
+
 
   doc.appendChild(rootElem);
   return doc.toString();
@@ -783,6 +827,18 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
   m_actionCollection->setListInterfaceCommands(commands);
 }
 
+void Scenario::shouldActivate(bool activate)
+{
+    if (activate)
+    {
+        kDebug() << "Scenario '" + m_name + "' should activate due to context!";
+    }
+    else
+    {
+        kDebug() << "Scenario '" + m_name + "' should deactivate due to context!";
+    }
+}
+
 
 Scenario::~Scenario()
 {
@@ -797,4 +853,7 @@ Scenario::~Scenario()
     m_vocabulary->deleteLater();
   delete m_simonMinVersion;
   delete m_simonMaxVersion;
+
+  //if (m_compoundCondition)
+    //m_compoundCondition->deleteLater;  //THIS CAUSES IT TO CRASH?
 }

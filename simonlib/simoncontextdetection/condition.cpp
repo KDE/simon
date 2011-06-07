@@ -18,6 +18,8 @@
  */
 
 #include "condition.h"
+#include "compoundcondition.h"
+#include <QWidget>
 
 Condition::Condition(QObject *parent, const QVariantList &args)
 {
@@ -36,13 +38,27 @@ bool Condition::isSatisfied()
     }
 }
 
+QString Condition::name()
+{
+    return "Unnamed condition";
+}
+
+CreateConditionWidget* Condition::getCreateConditionWidget(
+CompoundCondition* compoundCondition, QWidget *parent)
+{
+    Q_UNUSED(parent);
+    Q_UNUSED(compoundCondition);
+
+    return 0;
+}
+
 QDomElement Condition::serialize(QDomDocument *doc)
 {
-    QDomElement conditionElement = doc->createElement("Condition");
+    QDomElement conditionElement = doc->createElement("condition");
 
     conditionElement.setAttribute("name", m_pluginName);
 
-    QDomElement invertElem = doc->createElement("Inverted");
+    QDomElement invertElem = doc->createElement("inverted");
     invertElem.appendChild(doc->createTextNode(m_inverted ? "1" : "0"));
 
     conditionElement.appendChild(invertElem);

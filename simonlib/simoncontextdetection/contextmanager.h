@@ -34,6 +34,7 @@ public:
     ~ContextManager();
 
     Condition* getCondition(const QDomElement &elem);
+    QList<Condition*>* getConditions();
     
     void test();
 

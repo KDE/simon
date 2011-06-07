@@ -17,28 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ORCONDITIONASSOCIATION_H
-#define ORCONDITIONASSOCIATION_H
+#include "contextview.h"
+#include "contextviewprivate.h"
+#include <KDE/KLocalizedString>
 
-#include "simoncontextdetection/conditionassociation.h"
-#include "simoncontextdetection/processinfo.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
-
-class SIMONCONTEXTDETECTION_EXPORT OrConditionAssociation : public ConditionAssociation
+ContextView::ContextView(QWidget* parent)
+: InlineWidget(i18n("Context"),
+KIcon("system-run"),
+i18n("Modify the context dependence of the scenario"), parent),
+d(new ContextViewPrivate(this))
 {
-    Q_OBJECT
-public:
-    explicit OrConditionAssociation(QObject *parent, const QVariantList& args);
+  connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));
+  QVBoxLayout *lay = new QVBoxLayout(this);
+  lay->addWidget(d);
 
-    virtual QString name();
+  hide();
+}
 
-private:
-    QString m_pluginName;
+void ContextView::displayScenarioPrivate(Scenario *scenario)
+{
+  d->displayScenario(scenario);
+}
 
-signals:
-
-protected slots:
-    void evaluateConditions();
-};
-
-#endif // ORCONDITIONASSOCIATION_H
+ContextView::~ContextView()
+{
+  d->deleteLater();
+}

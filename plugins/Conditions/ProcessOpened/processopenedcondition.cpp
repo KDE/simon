@@ -19,6 +19,8 @@
 
 #include "processopenedcondition.h"
 #include <KDE/KDebug>
+#include "createprocessopenedconditionwidget.h"
+#include <QWidget>
 
 K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
 registerPlugin< ProcessOpenedCondition >();
@@ -31,9 +33,14 @@ ProcessOpenedCondition::ProcessOpenedCondition(QObject *parent, const QVariantLi
 {
 }
 
+CreateConditionWidget* ProcessOpenedCondition::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+{
+    return new CreateProcessOpenedConditionWidget(compoundCondition, parent);
+}
+
 QDomElement ProcessOpenedCondition::privateSerialize(QDomDocument *doc, QDomElement elem)
 {
-    QDomElement nameElem = doc->createElement("Name");
+    QDomElement nameElem = doc->createElement("processname");
     nameElem.appendChild(doc->createTextNode(m_processName));
 
     elem.appendChild(nameElem);
@@ -41,12 +48,17 @@ QDomElement ProcessOpenedCondition::privateSerialize(QDomDocument *doc, QDomElem
     return elem;
 }
 
+QString ProcessOpenedCondition::name()
+{
+    return "'" + m_processName + "' is opened";
+}
+
 bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
 {
     QDomElement nameElement;
 
     //get the process name
-    nameElement = elem.firstChildElement("ProcessName");
+    nameElement = elem.firstChildElement("processname");
     if (nameElement.isNull())
     {
         kDebug() << "No processes name specified!  Deserialization failure!";

@@ -17,28 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef ORCONDITIONASSOCIATION_H
-#define ORCONDITIONASSOCIATION_H
+#include "createconditionwidget.h"
+#include "condition.h"
+#include "compoundcondition.h"
 
-#include "simoncontextdetection/conditionassociation.h"
-#include "simoncontextdetection/processinfo.h"
-#include "simoncontextdetection/simoncontextdetection_export.h"
-
-class SIMONCONTEXTDETECTION_EXPORT OrConditionAssociation : public ConditionAssociation
+bool CreateConditionWidget::addCondition()
 {
-    Q_OBJECT
-public:
-    explicit OrConditionAssociation(QObject *parent, const QVariantList& args);
-
-    virtual QString name();
-
-private:
-    QString m_pluginName;
-
-signals:
-
-protected slots:
-    void evaluateConditions();
-};
-
-#endif // ORCONDITIONASSOCIATION_H
+    return m_compoundCondition->addCondition(createCondition());
+}

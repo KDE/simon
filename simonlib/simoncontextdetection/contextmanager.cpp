@@ -19,6 +19,7 @@
 
 #include "contextmanager.h"
 #include "KDE/KService"
+#include "KDE/KServiceTypeTrader"
 #include "KDebug"
 #include <QTextStream>
 
@@ -57,8 +58,6 @@ void ContextManager::test()
     elem = cCondition->serialize(parentDoc);
     elem.save(stream, 4);
 
-    kDebug() << "Compound Condition: \n" + str;
-
     //end testing
 }
 
@@ -73,6 +72,39 @@ ContextManager* ContextManager::instance()
         m_instance = new ContextManager();
 
     return m_instance;
+}
+
+QList<Condition*>* ContextManager::getConditions()
+{
+    QList<Condition*>* conditions = new QList<Condition*>();
+    KService::List services;
+    KServiceTypeTrader* trader = KServiceTypeTrader::self();
+    KPluginFactory *factory;
+    Condition *condition;
+
+    services = trader->query("simon/ConditionPlugin");
+
+    //foreach (KService::Ptr service, services)
+    //{
+    KService::Ptr service = KService::serviceByStorageId("simonprocessopenedconditionplugin.desktop");
+
+        //create the factory for the service
+        factory = KPluginLoader(service->library()).factory();
+        if (factory)
+        {
+            condition = factory->create<Condition>();
+            factory->deleteLater();
+        }
+        else
+        {
+            kDebug() << "Factory not found!";
+            return conditions;
+        }
+
+        conditions->push_back(condition);
+    //}
+
+    return conditions;
 }
 
 Condition* ContextManager::getCondition(const QDomElement &elem)

@@ -25,6 +25,7 @@
 CompoundCondition::CompoundCondition(QObject *parent) :
     QObject(parent)
 {
+    m_proxy = new CompoundConditionModel(this);
 }
 
 CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
@@ -45,6 +46,29 @@ CompoundCondition* CompoundCondition::createInstance(const QDomElement &elem)
     return instance;
 }
 
+QDomElement CompoundCondition::createEmpty(QDomDocument *doc)
+{
+    return doc->createElement("compoundcondition");
+}
+
+bool CompoundCondition::addCondition(Condition *condition)
+{
+    if (!condition)
+        return false;
+
+    m_conditions.push_back(condition);
+    connect(condition, SIGNAL(conditionChanged()),
+            this, SLOT(evaluateConditions()));
+
+    this->evaluateConditions();
+
+    m_proxy->update();
+
+    emit modified();
+
+    return true;
+}
+
 bool CompoundCondition::deSerialize(const QDomElement &elem)
 {
     QDomElement conditionElem;
@@ -54,7 +78,7 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
 
     manager = ContextManager::instance();
 
-    conditionElem = elem.firstChildElement("Condition");
+    conditionElem = elem.firstChildElement("condition");
     while(!conditionElem.isNull())
     {
         //get condition from the condition dom element
@@ -75,20 +99,24 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
         m_conditions.push_back(condition);
 
         //get next condition element
-        conditionElem = conditionElem.nextSiblingElement("Condition");
+        conditionElem = conditionElem.nextSiblingElement("condition");
     }
+
+    m_proxy->update();
 
     return 1;
 }
 
 QDomElement CompoundCondition::serialize(QDomDocument *doc)
 {
-    QDomElement elem = doc->createElement("CompoundCondition");
+    QDomElement elem = doc->createElement("compoundcondition");
 
     foreach (Condition* condition, m_conditions)
     {
         elem.appendChild(condition->serialize(doc));
     }
+
+    m_proxy->update();
 
     return elem;
 }
@@ -107,8 +135,10 @@ void CompoundCondition::evaluateConditions()
                 emit conditionChanged(m_satisfied);
 		
                 kDebug() << "CompoundCondition is not satisfied!";
+                return;
             }
         }
+        kDebug() << "CompoundCondition is still satisfied!";
     }
     else
     {
@@ -116,6 +146,7 @@ void CompoundCondition::evaluateConditions()
         {
             if (!condition->isSatisfied())
             {
+                kDebug() << "CompoundCondition is still not satisfied!";
                 return;
             }
         }

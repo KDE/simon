@@ -23,6 +23,7 @@
 #include "simoncontextdetection/condition.h"
 #include "simoncontextdetection/processinfo.h"
 #include "simoncontextdetection/simoncontextdetection_export.h"
+#include "simoncontextdetection/compoundcondition.h"
 
 class SIMONCONTEXTDETECTION_EXPORT ProcessOpenedCondition : public Condition
 {
@@ -31,6 +32,10 @@ public:
     explicit ProcessOpenedCondition(QObject *parent, const QVariantList& args);
 
     QString getName() {return m_processName;}
+
+    virtual QString name();
+
+    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
 
 private:
     bool privateDeSerialize(QDomElement elem);

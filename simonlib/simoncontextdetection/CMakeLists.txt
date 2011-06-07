@@ -2,7 +2,9 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
+                        ${CMAKE_CURRENT_SOURCE_DIR}/..
+                        ${CMAKE_CURRENT_SOURCE_DIR}/../)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -14,6 +16,8 @@ set( simoncontextdetection_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/condition.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/conditionassociation.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/compoundcondition.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/compoundconditionmodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/createconditionwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfogatherer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/linuxprocessinfogatherer.cpp
@@ -26,6 +30,8 @@ set( simoncontextdetection_LIB_HDRS
   condition.h
   conditionassociation.h
   compoundcondition.h
+  compoundconditionmodel.h
+  createconditionwidget.h
   processinfo.h
   processinfogatherer.h
   linuxprocessinfogatherer.h
@@ -34,7 +40,7 @@ set( simoncontextdetection_LIB_HDRS
 
 kde4_add_library( simoncontextdetection  SHARED ${simoncontextdetection_LIB_SRCS} )
 target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} 
-	${QT_QTXML_LIBRARY} )
+        ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS})
 
 
 set_target_properties( simoncontextdetection

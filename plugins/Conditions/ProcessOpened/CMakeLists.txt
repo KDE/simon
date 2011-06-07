@@ -8,6 +8,11 @@ ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simo
 
 set (simonprocessopenedconditionplugin_SRCS 
 	processopenedcondition.cpp 
+        createprocessopenedconditionwidget.cpp
+    )
+
+kde4_add_ui_files(simonprocessopenedconditionplugin_SRCS
+        createprocessopenedconditionwidget.ui
     )
 
 kde4_add_plugin(simonprocessopenedconditionplugin ${simonprocessopenedconditionplugin_SRCS})

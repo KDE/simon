@@ -1,0 +1,44 @@
+include(FindQt4)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_PATH})
+include(SimonDirs)
+
+find_package(KDE4 REQUIRED)
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include(KDE4Defaults)
+
+set( simoncontextui_LIB_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/contextview.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/contextviewprivate.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.cpp
+)
+
+set( simoncontextui_LIB_HDRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/contextview.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.h
+)
+
+kde4_add_ui_files( simoncontextui_LIB_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/contextdialog.ui
+        ${CMAKE_CURRENT_SOURCE_DIR}/modifycondition.ui
+)
+
+kde4_add_library( simoncontextui  SHARED ${simoncontextui_LIB_SRCS} )
+
+target_link_libraries( simoncontextui ${QT_LIBRARIES}
+${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions
+simonscenarios simonscenarios simonuicomponents simoncontextdetection)
+
+
+set_target_properties( simoncontextui
+  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+
+install( FILES ${simoncontextui_LIB_HDRS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simoncontextui
+  COMPONENT simondevel
+)
+
+install( TARGETS simoncontextui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )

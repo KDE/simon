@@ -24,6 +24,9 @@
 #include <QtXml/QDomElement>
 #include "simoncontextdetection_export.h"
 
+class CreateConditionWidget;
+class CompoundCondition;
+
 class SIMONCONTEXTDETECTION_EXPORT Condition : public QObject
 {
     Q_OBJECT
@@ -34,6 +37,11 @@ public:
 
     QDomElement serialize(QDomDocument *doc);
     bool deSerialize(QDomElement elem);
+
+    virtual CreateConditionWidget* getCreateConditionWidget(
+        CompoundCondition* compoundCondition, QWidget *parent);
+
+    virtual QString name();
 
 protected:
     virtual bool privateDeSerialize(QDomElement elem)=0;

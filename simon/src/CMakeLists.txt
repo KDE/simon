@@ -14,6 +14,7 @@ include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonappcore)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
@@ -49,7 +50,8 @@ ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} ${X11_X11_LIB}
 simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
-simonrecognitioncontrol simonactionsui simonprogresstracking)
+simonrecognitioncontrol simonactionsui simonprogresstracking
+simoncontextui)
 else(UNIX)
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${KDE4_KHTML_LIBS} ${KDE4_KPARTS_LIBS} 

@@ -36,6 +36,11 @@ QDomElement ConditionAssociation::privateSerialize(QDomDocument *doc, QDomElemen
     return elem;
 }
 
+QString ConditionAssociation::name()
+{
+    return "Unnamed condition association";
+}
+
 bool ConditionAssociation::privateDeSerialize(QDomElement elem)
 {
     QDomElement conditionElem;
@@ -45,7 +50,7 @@ bool ConditionAssociation::privateDeSerialize(QDomElement elem)
     //get manager instance
     manager = ContextManager::instance();
 
-    conditionElem = elem.firstChildElement("Condition");
+    conditionElem = elem.firstChildElement("condition");
     while(!conditionElem.isNull())
     {
 	//get a condition from the dom element
@@ -62,7 +67,7 @@ bool ConditionAssociation::privateDeSerialize(QDomElement elem)
 		this, SLOT(evaluateConditions()));
 	
 	//get the next condition dom element
-	conditionElem = conditionElem.nextSiblingElement("Condition");
+        conditionElem = conditionElem.nextSiblingElement("condition");
     }
     
     this->evaluateConditions();

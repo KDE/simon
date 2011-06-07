@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include "condition.h"
+#include "compoundconditionmodel.h"
 
 class SIMONCONTEXTDETECTION_EXPORT CompoundCondition : public QObject
 {
@@ -30,6 +31,10 @@ public:
     bool isSatisfied() {return m_satisfied;}
     QDomElement serialize(QDomDocument *doc);
     static CompoundCondition* createInstance(const QDomElement &elem);
+    static QDomElement createEmpty(QDomDocument *doc);
+    bool addCondition(Condition* condition);
+    QList<Condition*> getConditions() {return m_conditions;}
+    CompoundConditionModel* getProxy() {return m_proxy;}
 
 private:
     explicit CompoundCondition(QObject *parent = 0);
@@ -37,9 +42,11 @@ private:
 
     bool m_satisfied;
     QList<Condition*> m_conditions;
+    CompoundConditionModel *m_proxy;
 
 signals:
     void conditionChanged(bool);
+    void modified();
 
 public slots:
     void evaluateConditions();

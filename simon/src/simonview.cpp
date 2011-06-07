@@ -31,6 +31,7 @@
 
 #include <simonactions/commandsettings.h>
 #include <simonactionsui/runcommandview.h>
+#include <simoncontextui/contextview.h>
 #include <simonuicomponents/trayiconmanager.h>
 
 #include <simonprogresstracking/statusmanager.h>
@@ -76,7 +77,7 @@
 #include <KCmdLineArgs>
 
 #include <simonsound/soundserver.h>
- 
+
 /**
  * @brief Constructor
  *
@@ -157,6 +158,14 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
+    info->writeToSplash ( i18n ( "Loading context..." ) );
+  kDebug() << "Creating context dialog";
+  this->contextDialog = new ContextView(this);
+  kDebug() << "Registering context dialog";
+  ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
+  kDebug() << "Done registering context dialog";
+
+  if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
   this->runDialog = new RunCommandView ();
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
@@ -184,6 +193,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
     info->hideSplash();
     delete info;
   }
+
 
   if (!control->startMinimized())
     show();
@@ -383,6 +393,14 @@ void SimonView::setupActions()
   connect(commands, SIGNAL(triggered(bool)),
     this, SLOT(showRunDialog()));
 
+  KAction* context = new KAction(this);
+  context->setText(i18n("Context"));
+  context->setIcon(KIcon("system-run"));
+  context->setShortcut(Qt::CTRL + Qt::Key_E);
+  actionCollection()->addAction("context", context);
+  connect(context, SIGNAL(triggered(bool)),
+    this, SLOT(showContextDialog()));
+
   KAction* volumeCalibration = new KAction(this);
   volumeCalibration->setText(i18n("Volume calibration"));
   volumeCalibration->setIcon(KIcon("player-volume"));
@@ -538,6 +556,16 @@ void SimonView::displayError ( const QString& error )
 void SimonView::showRunDialog ()
 {
   ui.inlineView->toggleDisplay(runDialog);
+}
+
+/**
+ * @brief Shows the Run Dialog
+ *
+ * @author Adam Nash
+ */
+void SimonView::showContextDialog ()
+{
+  ui.inlineView->toggleDisplay(contextDialog);
 }
 
 
