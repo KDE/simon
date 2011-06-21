@@ -80,44 +80,44 @@ bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
     if (m_openedInstances > 0)
     {
         m_satisfied = true;
-	kDebug() << m_processName + " is opened!";
+        kDebug() << name() + " is true!";
         emit conditionChanged();
     }
     else
     {
         m_satisfied = false;
-	kDebug() << m_processName + " is not opened!";
+        kDebug() << name() + " is false!";
         emit conditionChanged();
     }
 
     return 1;
 }
 
-void ProcessOpenedCondition::checkAddedProcess(QString name)
+void ProcessOpenedCondition::checkAddedProcess(QString processName)
 {
-    if (m_processName == name)
+    if (m_processName == processName)
     {
         m_openedInstances++;
 
         if (m_openedInstances == 1)
         {
             m_satisfied = true;
-            kDebug() << m_processName + " is opened!";
+            kDebug() << name() + " is true!";
             emit conditionChanged();
         }
     }
 }
 
-void ProcessOpenedCondition::checkRemovedProcess(QString name)
+void ProcessOpenedCondition::checkRemovedProcess(QString processName)
 {
-    if (m_processName == name)
+    if (m_processName == processName)
     {
         m_openedInstances--;
 
         if (m_openedInstances == 0)
         {
             m_satisfied = false;
-            kDebug() << m_processName + " is not opened!";
+            kDebug() << name() + " is false!";
             emit conditionChanged();
         }
     }

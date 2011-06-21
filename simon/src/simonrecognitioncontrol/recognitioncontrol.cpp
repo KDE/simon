@@ -616,6 +616,22 @@ void RecognitionControl::sendScenarioList()
   socket->write(body);
 }
 
+void RecognitionControl::sendDeactivatedScenarioList()
+{
+  QByteArray toWrite;
+  QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+  QByteArray body;
+  QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+  bodyStream << ScenarioManager::getInstance()->getAllDeactivatedScenarioIds();
+
+  out << (qint32) Simond::DeactivatedScenarioList
+    << (qint64) body.count();
+  socket->write(toWrite);
+  socket->write(body);
+}
+
 
 void RecognitionControl::sendScenarioModifiedDate(QString scenarioId)
 {
@@ -1145,6 +1161,39 @@ void RecognitionControl::messageReceived()
           sendRequest(Simond::StartScenarioSynchronisation);
           break;
         }
+
+      case Simond::GetDeactivatedScenarioList:
+      {
+        kDebug() << "Server requested DEACTIVATED scenario list";
+
+        //advanceStream(sizeof(qint32));
+        //checkIfSynchronisationIsAborting();
+
+        //synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
+        //sendScenarioList();
+        //break;
+      }
+
+      case Simond::DeactivatedScenarioList:
+      {
+        //checkIfSynchronisationIsAborting();
+        //parseLengthHeader();
+
+        //QStringList remoteScenarioList;
+        //msg >> remoteScenarioList;
+        //missingScenarios.clear();
+        //QStringList localScenarioList = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
+
+        //foreach (const QString& id, remoteScenarioList)
+        //  if (!localScenarioList.contains(id))
+        //  missingScenarios << id;
+
+        //advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+        //synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
+        kDebug() << "Server sent DEACTIVATED scenario list";
+        //sendRequest(Simond::StartScenarioSynchronisation);
+        //break;
+      }
 
         case Simond::ScenarioStorageFailed:
         {

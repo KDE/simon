@@ -48,8 +48,8 @@ private:
 signals:
 
 public slots:
-    void checkRemovedProcess(QString name);
-    void checkAddedProcess(QString name);
+    void checkRemovedProcess(QString processName);
+    void checkAddedProcess(QString processName);
 };
 
 #endif // PROCESSOPENEDCONDITION_H

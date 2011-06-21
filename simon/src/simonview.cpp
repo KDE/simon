@@ -159,11 +159,8 @@ welcomePart(0), shownDialogs(0), configDialog(0)
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
-  kDebug() << "Creating context dialog";
   this->contextDialog = new ContextView(this);
-  kDebug() << "Registering context dialog";
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
-  kDebug() << "Done registering context dialog";
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
@@ -559,7 +556,7 @@ void SimonView::showRunDialog ()
 }
 
 /**
- * @brief Shows the Run Dialog
+ * @brief Shows the Context Dialog
  *
  * @author Adam Nash
  */

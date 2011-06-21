@@ -59,7 +59,6 @@ bool NewCondition::registerCreators(QList<CreateConditionWidget *> *conditionCre
     ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui.swConditionCreators->addWidget(widget);
     connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
-    //connect(widget, SIGNAL(conditionSuggested(Condition*)), this, SLOT(conditionSuggested(Condition*)));
   }
 
   m_conditionCreators = conditionCreators;
@@ -73,18 +72,6 @@ void NewCondition::conditionSuggested(Condition *condition)
   init(condition);
   delete condition;
 }
-
-//void NewCondition::switchToTypeOfCondition(Condition *condition)
-//{
-//  int i = 0;
-//  foreach (CreateConditionWidget *widget, *m_conditionCreators) {
-//    if (widget->isInstanceOfSameCondition(condition)) {
-//      ui.cbType->setCurrentIndex(i);
-//      break;
-//    }
-//    i++;
-//  }
-//}
 
 void NewCondition::init(Condition *condition)
 {
@@ -111,7 +98,7 @@ void NewCondition::init(Condition *condition)
 void NewCondition::checkIfComplete()
 {
   CreateConditionWidget *creator = dynamic_cast<CreateConditionWidget*>(ui.swConditionCreators->currentWidget());
-  // 	Q_ASSERT(creator);
+  Q_ASSERT(creator);
 
   bool complete;
   if (!creator)
@@ -122,19 +109,8 @@ void NewCondition::checkIfComplete()
   enableButtonOk(complete);
 }
 
-
-//void NewCondition::setWindowTitleToConditionName(QString name)
-//{
-//  if (!name.isEmpty())
-//    setCaption(i18n("Condition: %1", name));
-//  else setCaption(i18n("Condition"));
-//}
-
-
 bool NewCondition::newCondition()
 {
-  //switchToTypeOfCondition(preSelectedCategory);
-
   if (ui.swConditionCreators->count() == 0) {
     KMessageBox::information(this, i18n("No condition plugins loaded that provide condition engines."));
     return false;

@@ -36,6 +36,7 @@
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
 #include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
+#include <simoncontextadapter/contextadapter.h>
 
 #include <QDir>
 #include <QTime>
@@ -62,7 +63,8 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   modelCompilationAdapter(0),
   newLexiconHash(0),
   newGrammarHash(0),
-  newVocaHash(0)
+  newVocaHash(0),
+  contextAdapter(0)
 {
   qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -189,6 +191,10 @@ void ClientSocket::processRequest()
           connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
           connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
           connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+
+          if (contextAdapter) contextAdapter->deleteLater();
+
+          contextAdapter = new ContextAdapter(modelCompilationManager, modelCompilationAdapter, this);
 
           if (recognitionControl)
             closeRecognitionControl();
@@ -425,6 +431,24 @@ void ClientSocket::processRequest()
         sendScenarioList();
         break;
       }
+
+    case Simond::DeactivatedScenarioList:
+    {
+      kDebug() << "Received DEACTIVATED scenario list";
+      waitForMessage(sizeof(qint64), stream, msg);
+      qint64 length;
+      stream >> length;
+      waitForMessage(length, stream, msg);
+      QStringList scenarioIds;
+      stream >> scenarioIds;
+
+      kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
+
+      contextAdapter->updateDeactivatedScenarios(scenarioIds);
+
+      recompileModel();
+      break;
+    }
 
       case Simond::StartScenarioSynchronisation:
       {
@@ -1222,7 +1246,7 @@ void ClientSocket::recompileModel()
   switch (baseModelType) {
     case 0:
       //static model
-      modelCompilationAdapter->startAdaption(
+      contextAdapter->startAdaption(
         (ModelCompilationAdapter::AdaptionType)
         (ModelCompilationAdapter::AdaptLanguageModel),
         activeDir+"lexicon", activeDir+"model.grammar",
@@ -1236,7 +1260,7 @@ void ClientSocket::recompileModel()
       //let it run into dynamic model - no difference at this stage
     case 2:
       //dynamic model
-      modelCompilationAdapter->startAdaption(
+      contextAdapter->startAdaption(
         (ModelCompilationAdapter::AdaptionType)
         (ModelCompilationAdapter::AdaptAcousticModel|ModelCompilationAdapter::AdaptLanguageModel),
         activeDir+"lexicon", activeDir+"model.grammar",
@@ -1329,6 +1353,7 @@ void ClientSocket::slotModelAdaptionComplete()
 
   if (!hasGrammar)
   {
+      kDebug() << "No Grammar!  Model recompilation aborting!";
     slotModelAdaptionAborted();
     return;
   }
@@ -1343,6 +1368,7 @@ void ClientSocket::slotModelAdaptionComplete()
         baseModelType = 0;
         break;
       case 2:                                     //do not bother creating the model without prompts
+        kDebug() << "No Prompts!  Model recompilation aborting!";
         slotModelAdaptionAborted();
         return;
     }

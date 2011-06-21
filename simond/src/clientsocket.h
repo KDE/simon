@@ -37,6 +37,7 @@ class RecognitionControl;
 class SynchronisationManager;
 class ModelCompilationManager;
 class ModelCompilationAdapter;
+class ContextAdapter;
 class Model;
 class WAV;
 class QHostAddress;
@@ -60,6 +61,7 @@ class ClientSocket : public QSslSocket
     SynchronisationManager *synchronisationManager;
     ModelCompilationManager *modelCompilationManager;
     ModelCompilationAdapter *modelCompilationAdapter;
+    ContextAdapter *contextAdapter;
 
     uint newLexiconHash;
     uint newGrammarHash;

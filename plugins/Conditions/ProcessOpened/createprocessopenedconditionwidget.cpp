@@ -30,12 +30,6 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
   //setWindowIcon();
   setWindowTitle("Process Opened Condition");
 
-//  #ifdef Q_OS_WIN32
-//  ui.cbImportProgram->hide();
-//  ui.cbManual->animateClick();
-//  ui.cbManual->hide();
-//  #endif
-
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 }
 

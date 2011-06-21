@@ -37,10 +37,6 @@ QVariant CompoundConditionModel::data(const QModelIndex &index, int role) const
   if (role == Qt::DisplayRole)
     return m_conditions.at(index.row())->name();
 
-  //if (role == Qt::DecorationRole) {
-  //  return m_conditions.at(index.row())->manager()->icon();
-  //}
-
   return QVariant();
 }
 

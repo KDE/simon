@@ -137,6 +137,21 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
   return getAllAvailableScenarioIds("simon/");
 }
 
+QStringList ScenarioManager::getAllDeactivatedScenarioIds()
+{
+    QStringList deactivatedScenarios;
+
+    foreach (Scenario* scenario, scenarios)
+    {
+        if (!scenario->isActive())
+        {
+            deactivatedScenarios.push_back(scenario->id());
+        }
+    }
+
+    return deactivatedScenarios;
+}
+
 
 bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 {
@@ -294,7 +309,15 @@ bool ScenarioManager::setupScenario(Scenario *s)
   }
   //	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
   connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
+  connect(s, SIGNAL(activationChanged()), this, SLOT(scenarioActivationChanged()));
   return true;
+}
+
+void ScenarioManager::scenarioActivationChanged()
+{
+    kDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
+
+    emit deactivatedScenarioListChanged();
 }
 
 

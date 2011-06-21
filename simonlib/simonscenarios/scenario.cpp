@@ -48,7 +48,8 @@ m_simonMaxVersion(0),
 m_vocabulary(0),
 m_texts(0),
 m_grammar(0),
-m_actionCollection(0)
+m_actionCollection(0),
+m_compoundCondition(0)
 {
 }
 
@@ -838,11 +839,15 @@ void Scenario::shouldActivate(bool activate)
     if (activate)
     {
         kDebug() << "Scenario '" + m_name + "' should activate due to context!";
+        m_active = true;
     }
     else
     {
         kDebug() << "Scenario '" + m_name + "' should deactivate due to context!";
+        m_active = false;
     }
+
+    emit activationChanged();
 }
 
 
@@ -857,9 +862,8 @@ Scenario::~Scenario()
     m_texts->deleteLater();
   if (m_vocabulary)
     m_vocabulary->deleteLater();
+  if (m_compoundCondition)
+    m_compoundCondition->deleteLater();
   delete m_simonMinVersion;
   delete m_simonMaxVersion;
-
-  //if (m_compoundCondition)
-    //m_compoundCondition->deleteLater;  //THIS CAUSES IT TO CRASH?
 }

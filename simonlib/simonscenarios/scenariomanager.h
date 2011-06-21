@@ -56,6 +56,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void scenariosChanged();
     void shadowVocabularyChanged();
     void baseModelChanged();
+  void deactivatedScenarioListChanged();
 
   private:
     bool m_inGroup;
@@ -103,7 +104,13 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
     QStringList getAllAvailableScenarioIds();
 
+<<<<<<< HEAD
     bool triggerCommand(const QString& type, const QString& trigger, bool silent);
+=======
+    QStringList getAllDeactivatedScenarioIds();
+
+    bool triggerCommand(const QString& type, const QString& trigger);
+>>>>>>> >Added scenario activation/deactivation notification to the ScenarioManager
     bool processResult(RecognitionResult recognitionResult);
 
     CommandList* getCommandList();
@@ -133,6 +140,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     // If force is true, every registered display will switch to this scenario
     // if not, only displays that already display the scenario will be updated
     void updateDisplays(Scenario* scenario, bool force=false);
+    void scenarioActivationChanged();
 
     void slotBaseModelChanged();
     QHash< QString, QString > transcribe(QStringList words);

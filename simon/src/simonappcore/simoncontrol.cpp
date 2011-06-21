@@ -31,6 +31,7 @@
 #include <simonsound/soundserver.h>
 #include <simontts/simontts.h>
 #include <simoncontextdetection/contextmanager.h>
+#include <simonscenarios/scenariomanager.h>
 
 #include <QFileInfo>
 #include <KDebug>
@@ -65,6 +66,9 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
   QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 
+  QObject::connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SIGNAL(deactivatedScenarioListChanged()));
+  QObject::connect(this, SIGNAL(deactivatedScenarioListChanged()), recognitionControl, SLOT(sendDeactivatedScenarioList()));
+
   ActionManager::getInstance();                   // initializing action manager
   SimonTTS::getInstance();                   // initializing TTS system for dbus interface
 
@@ -72,9 +76,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
     KMessageBox::error(0, i18n("Could not initialize scenarios and shadow dictionary."));
 
   connect(SoundServer::getInstance(), SIGNAL(error(const QString&)), this, SLOT(slotSoundError(const QString&)));
-
-  contextManager = ContextManager::instance();
-  //contextManager->test();
 }
 
 
@@ -366,8 +367,4 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-  if (contextManager != NULL)
-  {
-    contextManager->deleteLater();
-  }
 }

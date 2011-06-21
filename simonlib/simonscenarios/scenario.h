@@ -49,12 +49,14 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     signals:
   void changed(Scenario*);
+  void activationChanged();
 
   private:
     QString m_prefix;
     int m_inGroup;
     bool m_dirty;
     QString m_scenarioId;
+    bool m_active;
 
     QDateTime m_lastModifiedDate;
 
@@ -90,6 +92,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
     QList<Author*> authors() { return m_authors; }
     QDateTime modifiedDate() { return m_lastModifiedDate; }
+    bool isActive() {return m_active;}
 
     QString serialize();
 

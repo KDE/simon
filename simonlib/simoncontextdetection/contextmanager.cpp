@@ -84,10 +84,10 @@ QList<Condition*>* ContextManager::getConditions()
 
     services = trader->query("simon/ConditionPlugin");
 
-    //foreach (KService::Ptr service, services)
-    //{
     KService::Ptr service = KService::serviceByStorageId("simonprocessopenedconditionplugin.desktop");
 
+    //foreach (KService::Ptr service, services)
+    //{
         //create the factory for the service
         factory = KPluginLoader(service->library()).factory();
         if (factory)

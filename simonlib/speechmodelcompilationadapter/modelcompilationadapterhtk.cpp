@@ -45,7 +45,7 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
 
   //merging scenarios
   foreach (const QString& src, scenarioPaths) {
-    kDebug() << "Serializing Szenario: " << src;
+    kDebug() << "Serializing Scenario: " << src;
     Scenario *s = new Scenario("");
     if (!s->readLanguageModel(src)) {
       kDebug() << "Could not parse language model at " << src;

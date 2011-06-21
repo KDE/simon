@@ -96,6 +96,9 @@ namespace Simond
     SelectedScenarioList=2098,
     SelectedScenarioListStorageFailed=2099,
 
+    GetDeactivatedScenarioList=2100,
+    DeactivatedScenarioList=2101,
+
     StartScenarioSynchronisation=2191,
     GetScenarioDate=2192,
     ScenarioDate=2193,

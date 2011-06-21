@@ -42,7 +42,7 @@ QString OrConditionAssociation::name()
     {
         if (i > 0)
         {
-            str += " OR ";
+            str += " or ";
         }
         str += m_conditions.at(i)->name();
     }
@@ -67,7 +67,7 @@ void OrConditionAssociation::evaluateConditions()
       }
       
       m_satisfied = false;
-      kDebug() << "Or condition is false!";
+      kDebug() << name() + " is false!";
       emit conditionChanged();
       return;
    }
@@ -78,7 +78,7 @@ void OrConditionAssociation::evaluateConditions()
        if (condition->isSatisfied())
        {
 	  m_satisfied = true;
-	  kDebug() << "Or condition is true!";
+          kDebug() << name() + " is true!";
 	  emit conditionChanged();
           return;
        }

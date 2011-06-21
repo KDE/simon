@@ -21,7 +21,6 @@
 #include <simonscenarios/scenario.h>
 #include "newcondition.h"
 #include "simoncontextdetection/contextmanager.h"
-//#include "manageactionsdialog.h"
 
 #include <QWidget>
 #include <QPointer>
@@ -58,7 +57,6 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
-  //connect(ui.lvCommands->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(updateCommandDetail()));
 }
 
 Condition* ContextViewPrivate::getCurrentCondition()
@@ -157,12 +155,6 @@ void ContextViewPrivate::selectionChanged()
 
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
-//  ActionCollection *actionCollection = scenario->actionCollection();
-
-//  conditionsProxy->setSourceModel((QAbstractItemModel*) actionCollection->getProxy());
-
-//  ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
-
   CompoundCondition *compoundCondition = scenario->compoundCondition();
 
   conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());

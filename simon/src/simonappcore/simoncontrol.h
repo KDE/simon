@@ -94,6 +94,8 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
     void recognitionError(const QString &err, const QString& log);
     void compilationError(const QString &err);
 
+    void deactivatedScenarioListChanged();
+
   public slots:
     void startup();
 

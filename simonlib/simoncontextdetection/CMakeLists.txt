@@ -48,7 +48,7 @@ set_target_properties( simoncontextdetection
 )
 
 install( FILES ${simoncontextdetection_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/logging
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/contextdetection
   COMPONENT simoncoredevel
 )
  
