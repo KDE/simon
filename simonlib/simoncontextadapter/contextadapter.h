@@ -2,6 +2,7 @@
 #define CONTEXTADAPTER_H
 
 #include <QObject>
+#include <QHash>
 
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
 #include <speechmodelcompilation/modelcompilationmanager.h>
@@ -13,7 +14,10 @@ class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
 
 public:
     ContextAdapter(ModelCompilationManager *modelCompilationManager,
-                   ModelCompilationAdapter *modelCompilationAdapter, QObject *parent=0);
+                   ModelCompilationAdapter *modelCompilationAdapter,
+                   QString username, QObject *parent=0);
+
+    ~ContextAdapter();
 
     void updateDeactivatedScenarios(QStringList deactivatedScenarios);
 
@@ -21,6 +25,8 @@ public:
       const QString& grammarPathOut, const QString& simpleVocabPathOut,
       const QString& promptsPathOut, const QStringList& scenarioPathsIn,
       const QString& promptsIn);
+
+    void clearCache();
 
 //    bool startCompilation(ModelCompilationManager::CompilationType compilationType,
 //      const QString& hmmDefsPath, const QString& tiedListPath,
@@ -37,6 +43,18 @@ private:
     ModelCompilationAdapter *m_modelCompilationAdapter;
     ModelCompilationManager *m_modelCompilationManager;
     QStringList m_deactivatedScenarios;
+    QStringList m_currentScenarioSet;
+    QString m_username;
+
+    //key: comma concatenated list of deactivated scenarios
+    //value: directory of the model cache
+    QHash<QString, QString> m_modelCache;
+
+public slots:
+    void storeModelInCache();
+
+signals:
+    void modelLoadedFromCache();
 };
 
 #endif // CONTEXTADAPTER_H

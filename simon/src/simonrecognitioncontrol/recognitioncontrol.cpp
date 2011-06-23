@@ -937,12 +937,14 @@ void RecognitionControl::messageReceived()
           RecognitionConfiguration::self()->readConfig();
           switch (RecognitionConfiguration::synchronizationMode()) {
             case 0:                               //automatic
-              startSynchronisation();
+              sendDeactivatedScenarioList();
+              //startSynchronisation();
               break;
             case 1:                               //semi-automatic
               if (KMessageBox::questionYesNo(0, i18n("Your speech model might have changed while you were disconnected.\n\n"
                 "Do you want to start a synchronization now?"))==KMessageBox::Yes)
-                startSynchronisation();
+                sendDeactivatedScenarioList();
+                //startSynchronisation();
               break;
           }
           break;
@@ -1162,37 +1164,15 @@ void RecognitionControl::messageReceived()
           break;
         }
 
+          //neither of these next two should ever happen
       case Simond::GetDeactivatedScenarioList:
       {
         kDebug() << "Server requested DEACTIVATED scenario list";
-
-        //advanceStream(sizeof(qint32));
-        //checkIfSynchronisationIsAborting();
-
-        //synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
-        //sendScenarioList();
-        //break;
       }
 
       case Simond::DeactivatedScenarioList:
       {
-        //checkIfSynchronisationIsAborting();
-        //parseLengthHeader();
-
-        //QStringList remoteScenarioList;
-        //msg >> remoteScenarioList;
-        //missingScenarios.clear();
-        //QStringList localScenarioList = ScenarioManager::getInstance()->getAllAvailableScenarioIds();
-
-        //foreach (const QString& id, remoteScenarioList)
-        //  if (!localScenarioList.contains(id))
-        //  missingScenarios << id;
-
-        //advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-        //synchronisationOperation->update(i18n("Synchronizing scenarios"), 9);
         kDebug() << "Server sent DEACTIVATED scenario list";
-        //sendRequest(Simond::StartScenarioSynchronisation);
-        //break;
       }
 
         case Simond::ScenarioStorageFailed:

@@ -106,6 +106,7 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
   delete m_simonMaxVersion;
   m_simonMaxVersion = simonMaxVersion;
   m_license = license;
+  m_active = true;
 
   foreach (Author *a, m_authors)
     if (!authors.contains(a))
@@ -337,34 +338,38 @@ bool Scenario::readTrainingsTexts(QString path, QDomDocument* doc, bool deleteDo
 
 bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool deleteDoc)
 {
-  if (!setupToParse(path, doc, deleteDoc)) return false;
+    if (!setupToParse(path, doc, deleteDoc)) return false;
 
-  QDomElement docElem = doc->documentElement();
+    QDomElement docElem = doc->documentElement();
 
-  QDomElement textsElem = docElem.firstChildElement("compoundcondition");
+    QDomElement textsElem = docElem.firstChildElement("compoundcondition");
 
-  if (textsElem.isNull())
-  {
-      textsElem = CompoundCondition::createEmpty(doc);
-  }
+    if (textsElem.isNull())
+    {
+        textsElem = CompoundCondition::createEmpty(doc);
+    }
 
-  m_compoundCondition = CompoundCondition::createInstance(textsElem);
+    m_active = true;
 
-  if (deleteDoc) delete doc;
+    m_compoundCondition = CompoundCondition::createInstance(textsElem);
 
-  if (!m_compoundCondition) {
-    kDebug() << "CompoundCondition could not be deSerialized!";
-    return false;
-  }
+    if (deleteDoc) delete doc;
 
-  kDebug() << "Compound condition has been deSerialized!";
+    if (!m_compoundCondition) {
+        kDebug() << "CompoundCondition could not be deSerialized!";
+        return false;
+    }
 
-  connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
-          this, SLOT(shouldActivate(bool)));
-  connect(m_compoundCondition, SIGNAL(modified()),
-          this, SLOT(save()));
+    m_active = m_compoundCondition->isSatisfied();
 
-  return true;
+    connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
+            this, SLOT(shouldActivate(bool)));
+    connect(m_compoundCondition, SIGNAL(modified()),
+            this, SLOT(save()));
+
+    kDebug() << "Compound condition has been deSerialized!";
+
+    return true;
 }
 
 

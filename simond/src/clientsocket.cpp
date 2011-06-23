@@ -194,7 +194,8 @@ void ClientSocket::processRequest()
 
           if (contextAdapter) contextAdapter->deleteLater();
 
-          contextAdapter = new ContextAdapter(modelCompilationManager, modelCompilationAdapter, this);
+          contextAdapter = new ContextAdapter(modelCompilationManager, modelCompilationAdapter, username, this);
+          connect(contextAdapter, SIGNAL(modelLoadedFromCache()), this, SLOT(activeModelCompiled()));
 
           if (recognitionControl)
             closeRecognitionControl();
@@ -1764,6 +1765,8 @@ ClientSocket::~ClientSocket()
     modelCompilationManager->deleteLater();
   if (modelCompilationAdapter)
     modelCompilationAdapter->deleteLater();
+  if (contextAdapter)
+      contextAdapter->deleteLater();
 
   qDeleteAll(currentSamples);
 }

@@ -62,7 +62,7 @@ bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
     if (nameElement.isNull())
     {
         kDebug() << "No processes name specified!  Deserialization failure!";
-        return 0;
+        return false;
     }
     m_processName = nameElement.text();
 
@@ -90,7 +90,7 @@ bool ProcessOpenedCondition::privateDeSerialize(QDomElement elem)
         emit conditionChanged();
     }
 
-    return 1;
+    return true;
 }
 
 void ProcessOpenedCondition::checkAddedProcess(QString processName)

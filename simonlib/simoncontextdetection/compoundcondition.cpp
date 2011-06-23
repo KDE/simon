@@ -96,7 +96,6 @@ bool CompoundCondition::removeCondition(Condition *condition)
 bool CompoundCondition::deSerialize(const QDomElement &elem)
 {
     QDomElement conditionElem;
-    QList<Condition*> conditions;
     Condition* condition;
     ContextManager* manager;
 
@@ -112,7 +111,7 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
         if (condition == NULL)
         {
             kDebug() << "Error: Invalid Condition within CompoundCondition!";
-            return 0;
+            return false;
         }
 
         //connect condition to the evaluateConditions slot
@@ -128,7 +127,7 @@ bool CompoundCondition::deSerialize(const QDomElement &elem)
 
     m_proxy->update();
 
-    return 1;
+    return true;
 }
 
 QDomElement CompoundCondition::serialize(QDomDocument *doc)

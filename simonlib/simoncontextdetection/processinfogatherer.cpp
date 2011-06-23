@@ -22,6 +22,7 @@
 ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
     QThread(parent)
 {
+    m_previouslyRunningProcesses = QStringList();
 }
 
 void ProcessInfoGatherer::run()

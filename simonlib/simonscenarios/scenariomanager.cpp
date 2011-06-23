@@ -141,11 +141,18 @@ QStringList ScenarioManager::getAllDeactivatedScenarioIds()
 {
     QStringList deactivatedScenarios;
 
+    kDebug() << "Preparing a list of deactivated scenarios...";
+
     foreach (Scenario* scenario, scenarios)
     {
         if (!scenario->isActive())
         {
             deactivatedScenarios.push_back(scenario->id());
+            kDebug() << scenario->id() + " is deactivated";
+        }
+        else
+        {
+            kDebug() << scenario->id() + " is activated";
         }
     }
 
