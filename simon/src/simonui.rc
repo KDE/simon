@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="5">
+<gui name="simon" version="6">
 	<ToolBar name="mainToolBar" >
 		<text>Main actions</text>
 		<Action name="connectActivate" />
@@ -38,6 +38,7 @@
 			<Action name="train" />
 			<Action name="commands" />
 			<Action name="volumeCalibration" />
+			<Action name="publishSample" />
 		</Menu>
 		<Menu name="commands">
 			<text>Commands</text>

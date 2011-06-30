@@ -40,6 +40,8 @@
 
 #include <simonscenarios/scenariomanager.h>
 
+#include <simonsampleshare/sampleshare.h>
+
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
