@@ -48,6 +48,8 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/actioncollection.h>
 
+#include <simonsampleshare/sampleshare.h>
+
 #include <QTimer>
 #include <QFile>
 #include <QPixmap>
@@ -168,6 +170,9 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
+  if (showSplash)
+    info->sampleShare;
+  kDebug() << "sampleShare: " << sampleShare::
   displayAboutPage();
 
   settingsShown=false;

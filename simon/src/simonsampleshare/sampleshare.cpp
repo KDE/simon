@@ -16,6 +16,7 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+<<<<<<< HEAD
 #include "ui_sampleshare.h"
 #include "sampleshare.h"
 
@@ -25,4 +26,21 @@ SampleShare::SampleShare(QWidget* parent):
 {
   QWidget *widget = new QWidget( this );
   ui->setupUi(widget);
+=======
+/*
+ * create a new library next to simonappcore, simonactionsui, etc. called "simonsampleshare";
+ * start by creating a ui (KDialog), that simply says "Hello World";
+ * integrate this library and dialog into simon by adding 
+ * a menu option to "Actions" called "Publish samples" 
+ * displaying the dialog from the new library
+ */
+// #include <KDialogButtonBox>
+#include "sampleshare.h"
+SampleShare::SampleShare(QWidget* parent) :
+KDialog(parent){
+  QWidget *widget = new QWidget( this );
+  ui.setupUi(widget);
+  ui.label->setText("Hello World!");
+  initDisplay();
+>>>>>>> a9304975c03500b8730c821cd44909183cfc613c
 }

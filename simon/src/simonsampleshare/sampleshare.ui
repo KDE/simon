@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+<<<<<<< HEAD
  <class>SampleShareDlg</class>
  <widget class="QWidget" name="SampleShareDlg">
+=======
+ <class>sampleShare</class>
+ <widget class="QWidget" name="sampleShare">
+>>>>>>> a9304975c03500b8730c821cd44909183cfc613c
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +16,11 @@
    </rect>
   </property>
   <property name="windowTitle">
+<<<<<<< HEAD
    <string>SendShare</string>
+=======
+   <string>Form</string>
+>>>>>>> a9304975c03500b8730c821cd44909183cfc613c
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
