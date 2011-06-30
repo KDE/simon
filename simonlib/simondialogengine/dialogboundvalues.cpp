@@ -19,6 +19,7 @@
 
 #include "dialogboundvalues.h"
 #include "boundvalue.h"
+#include "argumentboundvalue.h"
 #include <QDomDocument>
 #include <KLocalizedString>
 #include <KDebug>
@@ -191,3 +192,13 @@ QVariant DialogBoundValues::getBoundValue(const QString& name)
 }
 
 
+
+void DialogBoundValues::setArguments(const QStringList& arguments)
+{
+  foreach (BoundValue* b, boundValues)
+  {
+    ArgumentBoundValue *a = dynamic_cast<ArgumentBoundValue*>(b);
+    if (a)
+      a->setArguments(arguments);
+  }
+}

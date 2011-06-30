@@ -42,9 +42,8 @@
  */
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
-  kDebug() << "SoundServer: " << SoundServer::getInstance();
   setStatus(SimonControl::Disconnected);
-  this->recognitionControl = RecognitionControl::getInstance(parent);
+  this->recognitionControl = RecognitionControl::getInstance();
   QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
   QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 

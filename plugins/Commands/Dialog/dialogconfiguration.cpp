@@ -314,13 +314,13 @@ void DialogConfiguration::addTransition()
   CreateTransitionDialog *dialog = new CreateTransitionDialog(create, this);
 
   DialogCommand *transition = dialog->createTransition();
-  ((Command*) transition)->setParent(commandManager);
 
   delete create;
   delete dialog;
 
   if (!transition) return;
 
+  ((Command*) transition)->setParent(commandManager);
   state->addTransition(transition);
 }
 

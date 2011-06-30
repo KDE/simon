@@ -155,8 +155,15 @@ bool DialogCommandManager::moveStateDown(DialogState *state)
 }
 
 
-void DialogCommandManager::activate()
+void DialogCommandManager::activate(const QString& arg0, const QString& arg1, const QString& arg2, const QString& arg3,
+      const QString& arg4, const QString& arg5, const QString& arg6,
+      const QString& arg7, const QString& arg8, const QString& arg9)
 {
+  QStringList arguments;
+  arguments << arg0 << arg1 << arg2 << arg3 << arg4 
+	    << arg5 << arg6 << arg7 << arg8 << arg9;
+  dialogParser->setArguments(arguments);
+  
   qDeleteAll(dialogViews);
   dialogViews.clear();
 

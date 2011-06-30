@@ -21,15 +21,17 @@
 #define SIMON_SOUNDCLIENT_H_BAC60251BE6A419EA1236280815A2AAD
 
 #include <QtGlobal>
+#include <QList>
 #include <simonsound/simonsound.h>
 #include <qaudio.h>
 #include "simonsound_export.h"
 
 class QByteArray;
 
+class SoundProcessor;
+
 class SIMONSOUND_EXPORT SoundClient
 {
-
   public:
     enum SoundClientPriority
     {
@@ -50,6 +52,7 @@ class SIMONSOUND_EXPORT SoundClient
   protected:
     SimonSound::DeviceConfiguration m_deviceConfiguration;
     SoundClientPriority m_priority;
+    QList<SoundProcessor*> processors;
 
   public:
     SimonSound::DeviceConfiguration deviceConfiguration() const
@@ -70,5 +73,7 @@ class SIMONSOUND_EXPORT SoundClient
 
     virtual void inputStateChanged(QAudio::State) {}
     virtual void outputStateChanged(QAudio::State) {}
+
+    void registerSoundProcessor(SoundProcessor *p);
 };
 #endif

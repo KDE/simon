@@ -55,7 +55,8 @@ bool WavRecorderClient::record(QString filename)
   }
 
   wavData = new WAV(filename, m_deviceConfiguration.channels(),
-    m_deviceConfiguration.sampleRate());
+    m_deviceConfiguration.resample() ? m_deviceConfiguration.resampleSampleRate() :
+                                       m_deviceConfiguration.sampleRate());
   wavData->beginAddSequence();
 
   bool succ =  SoundServer::getInstance()->registerInputClient(this);

@@ -28,6 +28,7 @@ set (simondialogengine_SRCS
   boundvalue.cpp
   dialogboundvalues.cpp
   staticboundvalue.cpp
+  argumentboundvalue.cpp
   scriptboundvalue.cpp
   avatar.cpp
   avatarmodel.cpp
@@ -45,6 +46,7 @@ set( simondialogengine_LIB_HDRS
   dialogboundvalues.h
   staticboundvalue.h
   scriptboundvalue.h
+  argumentboundvalue.h
   avatar.h
   avatarmodel.h
   dialogmanager.h

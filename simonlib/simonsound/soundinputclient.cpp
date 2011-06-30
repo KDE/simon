@@ -19,6 +19,11 @@
 
 #include "soundinputclient.h"
 #include "soundprocessor.h"
+
+#ifdef HAVE_LIBSAMPLERATE_H
+#include "resamplesoundprocessor.h"
+#endif
+
 #include <QByteArray>
 
 /**
@@ -27,12 +32,13 @@
 SoundInputClient::SoundInputClient(const SimonSound::DeviceConfiguration& deviceConfiguration, SoundClient::SoundClientPriority priority) :
 SoundClient(deviceConfiguration, priority)
 {
-}
-
-
-void SoundInputClient::registerSoundProcessor(SoundProcessor *p)
-{
-  processors << p;
+#ifdef HAVE_LIBSAMPLERATE_H
+  if (deviceConfiguration.resample())
+      registerSoundProcessor(new ResampleSoundProcessor(
+                deviceConfiguration.channels(),
+                deviceConfiguration.sampleRate(),
+                deviceConfiguration.resampleSampleRate()));
+#endif
 }
 
 

@@ -25,6 +25,7 @@
 #include <QList>
 
 class WavPlayerSubClient;
+class QIODevice;
 
 /**
   \class WavPlayerClient
@@ -55,7 +56,8 @@ class SIMONSOUND_EXPORT WavPlayerClient : public QObject
     WavPlayerClient(QObject *parent=0);
     ~WavPlayerClient();
 
-    bool play(QString filename, int channels=-1);
+    bool play(QString filename);
+    bool play(QIODevice *device, int channels, int samplerate);
     void stop();
     bool isPlaying() { return m_isPlaying; }
 

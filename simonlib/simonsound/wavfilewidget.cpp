@@ -49,17 +49,17 @@
  * @param QWidget *parent
  * The parent of the object
  */
-WavFileWidget::WavFileWidget(const QString& device, int channels, int sampleRate,
+WavFileWidget::WavFileWidget(const SimonSound::DeviceConfiguration& recordingDevice,
 const QString& filename, QWidget *parent) : QWidget(parent),
-m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(device),
-m_filename(filename), m_channels(channels), postProc(0)
+m_problems(SimonSamples::None), ui(new Ui::WavFileWidgetUi()), m_device(recordingDevice.name()),
+m_filename(filename), m_channels(recordingDevice.channels()), postProc(0)
 {
   recordingProgress=0;
 
   isRecording = false;
   isPlaying = false;
 
-  rec = new WavRecorderClient(SimonSound::DeviceConfiguration(device, channels, sampleRate), this);
+  rec = new WavRecorderClient(recordingDevice, this);
   play = new WavPlayerClient(this);
 
   ui->setupUi(this);
@@ -312,7 +312,7 @@ void WavFileWidget::stopPlayback()
  */
 void WavFileWidget::playback()
 {
-  if (play->play(m_filename, m_channels)) {
+  if (play->play(m_filename)) {
     ui->pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
     disconnect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
     connect(ui->pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));

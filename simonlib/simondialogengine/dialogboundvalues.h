@@ -58,6 +58,8 @@ class SIMONDIALOGENGINE_EXPORT DialogBoundValues : public QAbstractItemModel
     QVariant getBoundValue(const QString& name);
     
     ~DialogBoundValues();
+    
+    void setArguments(const QStringList& arguments);
 };
 
 #endif

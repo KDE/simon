@@ -44,8 +44,11 @@ class DeviceInformationWidget : public QWidget
   private:
     Ui::DeviceInformationWidget *ui;
     QString m_deviceName;
-	int m_channels;
-	int m_sampleRate;
+    int m_channels;
+    int m_sampleRate;
+
+    bool m_resample;
+    int m_resampleSampleRate;
 
   public:
     void deleteLater();

@@ -63,6 +63,8 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     void initializeDevices();
     SoundServer(QObject *parent=0);
 
+    qint64 getDeviceLengthFactor(SimonSound::DeviceConfiguration device);
+
   private slots:
     void slotRecordingFinished();
     void slotPlaybackFinished();

@@ -28,8 +28,10 @@ class QAudioOutput;
 #include <QIODevice>
 #include <QMutex>
 #include <qaudio.h>
+#include <qvarlengtharray.h>
 
 class SoundOutputClient;
+class SoundOutputBuffer;
 
 class SimonSoundOutput : public QIODevice
 {
@@ -41,11 +43,14 @@ class SimonSoundOutput : public QIODevice
   void outputStateChanged(QAudio::State state);
 
   private:
-    static QMutex playbackMutex;
-
     QAudioOutput *m_output;
     SoundOutputClient* m_activeOutputClient;
     QList<SoundOutputClient*> m_suspendedOutputClients;
+
+    SimonSound::DeviceConfiguration m_device;
+    SoundOutputBuffer *m_buffer;
+
+    void killBuffer();
 
   protected:
     qint64 readData(char *toRead, qint64 maxLen);
@@ -62,11 +67,20 @@ class SimonSoundOutput : public QIODevice
     void registerOutputClient(SoundOutputClient* client);
     bool deRegisterOutputClient(SoundOutputClient* client);
 
-    bool startPlayback(SimonSound::DeviceConfiguration& device);
+    bool preparePlayback(SimonSound::DeviceConfiguration& device);
+    bool startPlayback();
     bool isActive() { return m_activeOutputClient != 0; }
 
     SoundClient::SoundClientPriority getHighestPriority();
     bool activate(SoundClient::SoundClientPriority priority);
+    
+    int bufferSize();
+    qint64 bufferTime();
+    QByteArray requestData(qint64 maxSize);
+    void popClient();
+    
+    void startClientUpdate();
+    void completeClientUpdate();
 
     void suspendOutput();
     void resumeOutput();

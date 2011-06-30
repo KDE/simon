@@ -93,7 +93,7 @@ void DeviceSettings::refreshDevices()
 void DeviceSettings::addInputDevice()
 {
   registerInputDevice(new SingleDeviceSettings(SimonSound::Input,
-    SoundServer::defaultInputDevice(), 1, 16000,
+    SoundServer::defaultInputDevice(), 1, 16000, false, 16000,
     SimonSound::Training,
     (SimonSound::SoundDeviceUses) (SimonSound::Training|SimonSound::Recognition),
     SimonSound::Removable, this));
@@ -104,7 +104,7 @@ void DeviceSettings::addInputDevice()
 void DeviceSettings::addOutputDevice()
 {
   registerOutputDevice(new SingleDeviceSettings(SimonSound::Output,
-    SoundServer::defaultOutputDevice(), 1, 16000,
+    SoundServer::defaultOutputDevice(), 1, 16000, false, 16000,
     SimonSound::Training,
     SimonSound::Training,
     SimonSound::Removable, this));
@@ -188,24 +188,31 @@ void DeviceSettings::load()
   QList<int> soundInputChannels = SoundConfiguration::soundInputChannels();
   QList<int> soundInputSampleRates = SoundConfiguration::soundInputSampleRates();
   QList<int> soundInputUses = SoundConfiguration::soundInputUses();
+  QList<int> soundInputResampleEnabled = SoundConfiguration::soundInputResampleEnabled();
+  QList<int> soundInputResampleSampleRates = SoundConfiguration::soundInputResampleSampleRates();
 
   QStringList soundOutputDevices = SoundConfiguration::soundOutputDevices();
   QList<int> soundOutputChannels = SoundConfiguration::soundOutputChannels();
   QList<int> soundOutputSampleRates = SoundConfiguration::soundOutputSampleRates();
   QList<int> soundOutputUses = SoundConfiguration::soundOutputUses();
+  QList<int> soundOutputResampleEnabled = SoundConfiguration::soundOutputResampleEnabled();
 
   //making sure the splitting in separate lists didn't screw everything up...
   Q_ASSERT(soundInputDevices.count() == soundInputSampleRates.count());
   Q_ASSERT(soundInputSampleRates.count() == soundInputChannels.count());
   Q_ASSERT(soundInputSampleRates.count() == soundInputUses.count());
+  Q_ASSERT(soundInputResampleEnabled.count() == soundInputUses.count());
+  Q_ASSERT(soundInputResampleSampleRates.count() == soundInputUses.count());
   Q_ASSERT(soundOutputDevices.count() == soundOutputSampleRates.count());
   Q_ASSERT(soundOutputSampleRates.count() == soundOutputChannels.count());
   Q_ASSERT(soundOutputSampleRates.count() == soundOutputUses.count());
+  Q_ASSERT(soundOutputResampleEnabled.count() == soundOutputUses.count());
 
-  bool hasChanged= false;
+  bool hasChanged = false;
   for (int i=0; i < soundInputDevices.count(); i++) {
     SingleDeviceSettings *s = new SingleDeviceSettings(SimonSound::Input, soundInputDevices[i],
-      soundInputChannels[i], soundInputSampleRates[i],
+      soundInputChannels[i], soundInputSampleRates[i], (soundInputResampleEnabled[i] == 1), 
+      soundInputResampleSampleRates[i],
       (SimonSound::SoundDeviceUses) soundInputUses[i],
       (SimonSound::SoundDeviceUses) (SimonSound::Training|SimonSound::Recognition),
       (i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
@@ -217,7 +224,8 @@ void DeviceSettings::load()
 
   for (int i=0; i < soundOutputDevices.count(); i++) {
     SingleDeviceSettings *s = new SingleDeviceSettings(SimonSound::Output, soundOutputDevices[i],
-      soundOutputChannels[i], soundOutputSampleRates[i],
+      soundOutputChannels[i], soundOutputSampleRates[i], (soundOutputResampleEnabled[i] == 1), 
+      0,
       (SimonSound::SoundDeviceUses) soundOutputUses[i],
       SimonSound::Training,
       (i > 0) ? SimonSound::Removable : SimonSound::NoOptions,
@@ -240,11 +248,14 @@ void DeviceSettings::save()
   QList<int> soundInputChannels;
   QList<int> soundInputSampleRates;
   QList<int> soundInputUses;
+  QList<int> soundInputResampleEnabled;
+  QList<int> soundInputResampleSampleRates;
 
   QStringList soundOutputDevices;
   QList<int> soundOutputChannels;
   QList<int> soundOutputSampleRates;
   QList<int> soundOutputUses;
+  QList<int> soundOutputResampleEnabled;
 
   for (int i=0; i < inputDevices.count(); i++) {
     SingleDeviceSettings *dev = getInputDevice(i);
@@ -254,6 +265,8 @@ void DeviceSettings::save()
     soundInputDevices << dev->getSelectedDeviceId();
     soundInputChannels << dev->getChannels();
     soundInputSampleRates << dev->getSampleRate();
+    soundInputResampleEnabled << ((dev->getResampleEnabled()) ? 1 : 0);
+    soundInputResampleSampleRates << dev->getResampleSampleRate();
     soundInputUses << (int) dev->getUses();
 
     dev->stored();
@@ -267,6 +280,7 @@ void DeviceSettings::save()
     soundOutputDevices << dev->getSelectedDeviceId();
     soundOutputChannels << dev->getChannels();
     soundOutputSampleRates << dev->getSampleRate();
+    soundOutputResampleEnabled << ((dev->getResampleEnabled()) ? 1: 0);
     soundOutputUses << (int) dev->getUses();
 
     dev->stored();
@@ -275,13 +289,14 @@ void DeviceSettings::save()
   SoundConfiguration::setSoundInputDevices(soundInputDevices);
   SoundConfiguration::setSoundInputChannels(soundInputChannels);
   SoundConfiguration::setSoundInputSampleRates(soundInputSampleRates);
+  SoundConfiguration::setSoundInputResampleEnabled(soundInputResampleEnabled);
+  SoundConfiguration::setSoundInputResampleSampleRates(soundInputResampleSampleRates);
   SoundConfiguration::setSoundInputUses(soundInputUses);
 
   SoundConfiguration::setSoundOutputDevices(soundOutputDevices);
   SoundConfiguration::setSoundOutputChannels(soundOutputChannels);
   SoundConfiguration::setSoundOutputSampleRates(soundOutputSampleRates);
-  SoundConfiguration::setSoundOutputUses(soundOutputUses);
-
+  SoundConfiguration::setSoundOutputResampleEnabled(soundOutputResampleEnabled);
   SoundConfiguration::setSoundOutputUses(soundOutputUses);
 
   SoundConfiguration::self()->writeConfig();

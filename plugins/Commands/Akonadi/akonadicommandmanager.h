@@ -47,6 +47,7 @@ class AkonadiCommandManager : public CommandManager
 
   private:
     QMap<QDateTime, ScheduleItem*> schedule;
+    QTimer recurrenceSetupTimer;
     QTimer checkScheduleTimer;
     Akonadi::Monitor *akonadiMonitor;
     

@@ -19,7 +19,6 @@
 
 #include "wavplayersubclient.h"
 #include "soundserver.h"
-#include <simonwav/wav.h>
 #include <KDebug>
 
 /**
@@ -59,47 +58,38 @@ int WavPlayerSubClient::getChannelCount()
 
 bool WavPlayerSubClient::open (OpenMode mode)
 {
-  wav->beginReadSequence();
+  if (wav) {
+    if (wav->isOpen())
+	  wav->close();
+    if (!wav->open(QIODevice::ReadOnly))
+      return false;
+  }
   return QIODevice::open(mode);
 }
 
 
 void WavPlayerSubClient::close()
 {
-  if (wav)
-    wav->endReadSequence();
+  if (wav && wav->isOpen())
+      wav->close();
   QIODevice::close();
 }
 
-
 /**
- * \brief Plays back the given file
- * \author Peter Grasch
+ * \brief Plays directly from the given device to allow for streaming
  */
-bool WavPlayerSubClient::play( QString filename )
+bool WavPlayerSubClient::play(QIODevice* device)
 {
-  if (wav) {
-    wav->deleteLater();
-    wav = 0;
-  }
+  if (wav) wav->deleteLater();
+  wav = device;
 
-  wav = new WAV(filename);
-  length = wav->getLength();
-  if (length==0) {
-    wav->deleteLater();
-    wav = 0;
-    return false;
-  }
   open(QIODevice::ReadOnly);
 
   if (!SoundServer::getInstance()->registerOutputClient(this)) {
-    wav->deleteLater();
-    wav = 0;
     return false;
   }
   return true;
 }
-
 
 /**
  * \brief Stops the current playback

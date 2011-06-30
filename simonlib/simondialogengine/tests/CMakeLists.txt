@@ -26,6 +26,7 @@ set (simondialogcommandpluginboundvaluetest_SRCS
   ../boundvalue.cpp
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
+  ../argumentboundvalue.cpp
 )
 
 
@@ -53,6 +54,7 @@ set (simondialogcommandplugindialogboundvaluestest_SRCS
   ../boundvalue.cpp
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
+  ../argumentboundvalue.cpp
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialogboundvalues TESTNAME
@@ -101,6 +103,7 @@ set (simondialogcommandplugindialogtextparsertest_SRCS
   ../boundvalue.cpp
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
+  ../argumentboundvalue.cpp
 )
 
 kde4_add_unit_test(simondialogcommandplugintest-dialogtextparser TESTNAME
@@ -153,6 +156,7 @@ set (simondialogcommandplugindialogstatetest_SRCS
   ../boundvalue.cpp
   ../staticboundvalue.cpp
   ../scriptboundvalue.cpp
+  ../argumentboundvalue.cpp
   ${simondialogcommandplugintest_plasma_SRCS}
 )
 

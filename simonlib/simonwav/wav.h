@@ -43,14 +43,14 @@ class SIMONWAV_EXPORT WAV : public QBuffer
   private:
     //	QBuffer wavData;
     unsigned long length;                         //!< this is needed as there seems to be no way to determine the length of an array
-    int samplerate;                               //!< the samplerate of the file
-    int channels;
+    qint32 samplerate;                               //!< the samplerate of the file
+    qint16 channels;
     QString filename;                             //!< Filename
 
     void writeHeader(QDataStream *dstream);
     void writeFormat(QDataStream *dstream);
     void writeDataChunk(QDataStream *dstream);
-    void importDataFromFile(QString filename);
+    void importDataFromFile(QIODevice* device, bool skipHeader=false);
     int retrieveSampleRate();
     int retrieveChannels();
 
@@ -58,6 +58,7 @@ class SIMONWAV_EXPORT WAV : public QBuffer
     virtual qint64 writeData ( const char * data, qint64 maxSize );
 
   public:
+    static bool parseHeader(QIODevice* device, qint16& channels, qint32& samplerate);
     explicit WAV(QString filename,int channels=0, int samplerate=0);
 
     bool beginAddSequence() {

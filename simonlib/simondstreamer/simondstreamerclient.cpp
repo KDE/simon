@@ -59,8 +59,6 @@ bool SimondStreamerClient::isRunning()
 bool SimondStreamerClient::start()
 {
   vad->reset();
-  //lastTimeOverLevel = -1;
-  //lastTimeUnderLevel = -1;
   bool succ =  SoundServer::getInstance()->registerInputClient(this);
 
   kDebug() << "Registered input client: " << succ;
@@ -82,109 +80,19 @@ void SimondStreamerClient::processPrivate(const QByteArray& data, qint64 current
   Q_UNUSED(currentTime);
 
   if (vad->startListening()) {
-    kDebug() << "Starting listening!";
+//     kDebug() << "Starting listening!";
     sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
+      m_deviceConfiguration.resample() ? m_deviceConfiguration.resampleSampleRate() : 
       m_deviceConfiguration.sampleRate());
   }
 
-  kDebug() << "Sending data listening!";
+  sender->clientLoudness(id, ((float) vad->peak()) / ((float) vad->maxAmp()));
   sender->sendSampleToRecognize(id, data);
 
   if (vad->doneListening()) {
-    kDebug() << "Stopping listening!";
+//     kDebug() << "Stopping listening!";
     sender->recognizeSample(id);
   }
-
-  /*
-  int levelThreshold = SoundServer::getLevelThreshold();
-  int headMargin = SoundServer::getHeadMargin();
-  int tailMargin = SoundServer::getTailMargin();
-  int shortSampleCutoff = SoundServer::getShortSampleCutoff();
-
-  int peak = loudness->peak();
-  if (peak > levelThreshold)
-  {
-    if (lastLevel > levelThreshold)
-    {
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Still above level - now for : " << currentTime - lastTimeUnderLevel << "ms";
-  #endif
-
-  currentSample += data; // cache data (waiting for sample) or send it (if already sending)
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Adding data to sample...";
-  #endif
-
-  //stayed above level
-  if (waitingForSampleToStart)
-  {
-  if (currentTime - lastTimeUnderLevel > shortSampleCutoff)
-  {
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Sending started...";
-  #endif
-  waitingForSampleToStart = false;
-  waitingForSampleToFinish = true;
-  if (!currentlyRecordingSample)
-  {
-  sender->startSampleToRecognize(id, m_deviceConfiguration.channels(),
-  m_deviceConfiguration.sampleRate());
-  currentlyRecordingSample = true;
-  }
-  }
-  } else {
-  sender->sendSampleToRecognize(id, currentSample);
-  currentSample.clear();
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Clearing cached data...";
-  #endif
-  }
-  } else {
-  //crossed upward
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Crossed level upward...";
-  #endif
-  currentSample += data;
-  }
-  lastTimeOverLevel = currentTime;
-  } else {
-  waitingForSampleToStart = true;
-  if (lastLevel < levelThreshold)
-  {
-  //stayed below level
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Still below level - now for : " << currentTime - lastTimeOverLevel << "ms";
-  #endif
-  if (waitingForSampleToFinish)
-  {
-  //still append data during tail margin
-  currentSample += data;
-  sender->sendSampleToRecognize(id, currentSample);
-  currentSample.clear();
-  if (currentTime - lastTimeOverLevel > tailMargin)
-  {
-  sender->recognizeSample(id);
-  currentlyRecordingSample = false;
-  waitingForSampleToFinish = false;
-  kDebug() << "Sample finalized and sent.";
-  }
-  } else {
-  //get a bit of data before the first level cross
-  currentSample += data;
-  currentSample = currentSample.right(SoundServer::getInstance()->lengthToByteSize(headMargin, m_deviceConfiguration));
-  }
-  } else {
-  //crossed downward
-  #ifdef SIMOND_DEBUG
-  kDebug() << "Crossed level downward...";
-  #endif
-  currentSample += data;
-  }
-  lastTimeUnderLevel = currentTime;
-  }
-
-  lastLevel = peak;
-  */
 }
 
 

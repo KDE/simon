@@ -21,16 +21,26 @@
 #define SIMON_SOUNDOUTPUTCLIENT_H_4AC60251BE6A419BA1236280815A2AAD
 
 #include <QIODevice>
+#include <QBuffer>
 #include "soundclient.h"
 #include "simonsound_export.h"
 
 class SIMONSOUND_EXPORT SoundOutputClient : public SoundClient
 {
+  private:
+    QBuffer localBuffer;
+
+  protected:
+    virtual QIODevice* getDataProvider()=0;
+
   public:
     SoundOutputClient(const SimonSound::DeviceConfiguration& deviceConfiguration);
     virtual ~SoundOutputClient();
 
-    virtual QIODevice* getDataProvider()=0;
+    void initToSampleRate(int contentSampleRate);
+
+    qint64 read(char *data, qint64 maxlen);
+
     virtual void finish()=0;
 };
 #endif

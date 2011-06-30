@@ -44,9 +44,6 @@ m_visibleTrigger(b.visibleTrigger()),
 m_receiver(b.receiver()),
 m_showIcon(b.showIcon())
 {
-  //kDebug() << "I'm here...";
-  //kDebug() << this;
-  //kDebug() << "Still here...";
   setParent(b.parent());
 }
 
@@ -83,7 +80,21 @@ bool VoiceInterfaceCommand::triggerPrivate(int *status)
   // +: Works in multithreaded environments
   QByteArray slotName = m_slot.toAscii();
   kDebug() << "Executing slot: " << slotName << " on object " << m_receiver;
-  QMetaObject::invokeMethod(m_receiver, slotName.data()/*, Qt::QueuedConnection*/);
+  
+  QStringList args = currentArguments();
+
+  QMetaObject::invokeMethod(m_receiver, slotName.data(), Qt::AutoConnection,
+	    (currentArguments().count() >= 1) ? Q_ARG(QString, currentArguments()[0]) : QGenericArgument(),
+	    (currentArguments().count() >= 2) ? Q_ARG(QString, currentArguments()[1]) : QGenericArgument(),
+	    (currentArguments().count() >= 3) ? Q_ARG(QString, currentArguments()[2]) : QGenericArgument(),
+	    (currentArguments().count() >= 4) ? Q_ARG(QString, currentArguments()[3]) : QGenericArgument(),
+	    (currentArguments().count() >= 5) ? Q_ARG(QString, currentArguments()[4]) : QGenericArgument(),
+	    (currentArguments().count() >= 6) ? Q_ARG(QString, currentArguments()[5]) : QGenericArgument(),
+	    (currentArguments().count() >= 7) ? Q_ARG(QString, currentArguments()[6]) : QGenericArgument(),
+	    (currentArguments().count() >= 8) ? Q_ARG(QString, currentArguments()[7]) : QGenericArgument(),
+	    (currentArguments().count() >= 9) ? Q_ARG(QString, currentArguments()[8]) : QGenericArgument(),
+	    (currentArguments().count() >= 10) ? Q_ARG(QString, currentArguments()[9]) : QGenericArgument()
+  );
 
   return true;
 }

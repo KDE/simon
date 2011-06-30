@@ -24,14 +24,14 @@
 #include <simonsound/simonsound.h>
 #include "soundoutputclient.h"
 
-class WAV;
+class QIODevice;
 
 class WavPlayerSubClient : public QIODevice, public SoundOutputClient
 {
   Q_OBJECT
 
     private:
-    WAV *wav;
+    QIODevice *wav;
     qint64 length;
 
     signals:
@@ -41,14 +41,14 @@ class WavPlayerSubClient : public QIODevice, public SoundOutputClient
   protected:
     qint64 readData(char *toRead, qint64 maxLen);
     qint64 writeData(const char *toWrite, qint64 len);
+    QIODevice* getDataProvider() { return this; }
 
   public:
     explicit WavPlayerSubClient(SimonSound::DeviceConfiguration device, QObject *parent=0);
     ~WavPlayerSubClient();
 
-    bool play(QString filename);
+    bool play(QIODevice *device);
 
-    QIODevice* getDataProvider() { return this; }
     bool open (OpenMode mode);
     void close();
     void finish();

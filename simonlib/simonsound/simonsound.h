@@ -49,31 +49,42 @@ namespace SimonSound
       QString m_name;
       int m_channels;
       int m_sampleRate;
+      bool m_resample;
+      int m_resampleRate;
+
     public:
-      DeviceConfiguration(const QString& name, int channels, int sampleRate) :
-      m_name(name), m_channels(channels), m_sampleRate(sampleRate)
+      DeviceConfiguration(const QString& name, int channels, int sampleRate,
+          bool resample, int resampleRate) :
+      m_name(name), m_channels(channels), m_sampleRate(sampleRate),
+      m_resample(resample), m_resampleRate(resampleRate)
         {}
 
       DeviceConfiguration() :
-      m_name(""), m_channels(0), m_sampleRate(0)
+      m_name(""), m_channels(0), m_sampleRate(0),
+      m_resample(false), m_resampleRate(0)
         {}
 
       QString name() const { return m_name; }
       int channels() const { return m_channels; }
       int sampleRate() const { return m_sampleRate; }
+      bool resample() const { return m_resample; }
+      int resampleSampleRate() const { return m_resampleRate; }
 
       void setChannels(int channels) { m_channels = channels; }
       void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
 
       bool operator== (const DeviceConfiguration& b) const
       {
-        return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate());
+        return (m_name == b.name()) && (m_channels == b.channels()) && (m_sampleRate == b.sampleRate() &&
+                (m_resampleRate == b.resampleSampleRate()) && (m_resample == b.resample()));
       }
 
       DeviceConfiguration operator=(const DeviceConfiguration& b) {
         m_name = b.name();
         m_channels = b.channels();
         m_sampleRate = b.sampleRate();
+        m_resample = b.resample();
+        m_resampleRate = b.resampleSampleRate();
         return *this;
       }
   };
@@ -87,6 +98,7 @@ inline uint qHash(const SimonSound::DeviceConfiguration& dev);
 
 inline uint qHash(const SimonSound::DeviceConfiguration& dev)
 {
-  return qHash(QString("%1||%2||%3").arg(dev.name(), dev.channels(), dev.sampleRate()));
+  return qHash(QString("%1||%2||%3||%4||%5").arg(dev.name()).arg(dev.channels()).arg(dev.sampleRate())
+        .arg(dev.resample() ? "1" : "0").arg(dev.resampleSampleRate()));
 }
 #endif
