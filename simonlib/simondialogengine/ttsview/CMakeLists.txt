@@ -21,7 +21,7 @@ kde4_add_library(simondialogenginettsview SHARED ${simondialogenginettsview_SRCS
 target_link_libraries(simondialogenginettsview 
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simontts simondialogengine)
 
-install(TARGETS simondialogenginettsview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simondialogenginettsview )
+install(TARGETS simondialogenginettsview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
 install( FILES ${simondialogenginettsview_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simondialogengine/ttsview

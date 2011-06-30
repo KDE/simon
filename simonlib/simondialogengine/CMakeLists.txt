@@ -32,6 +32,7 @@ set (simondialogengine_SRCS
   avatar.cpp
   avatarmodel.cpp
   dialogmanager.cpp
+  dialogview.cpp
     )
 
 set( simondialogengine_LIB_HDRS
@@ -69,7 +70,7 @@ target_link_libraries(simondialogengine
   simonactions)
 endif(USE_PLASMA)
 
-install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simondialogengine )
+install(TARGETS simondialogengine DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
 
 install( FILES ${simondialogengine_LIB_HDRS}
