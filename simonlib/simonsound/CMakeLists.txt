@@ -62,6 +62,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundbackend.cpp
+	
+  ${CMAKE_CURRENT_SOURCE_DIR}/qsemaphore2.cpp
 )
 
 IF(WIN32)

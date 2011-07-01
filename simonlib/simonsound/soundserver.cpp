@@ -448,6 +448,12 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
   return getOutputDevices(SimonSound::Training);
 }
 
+void SoundServer::uninitializeSoundSystem()
+{
+  backend->stopPlayback();
+  backend->stopRecording();
+}
+
 
 /**
  * \brief Destructor
