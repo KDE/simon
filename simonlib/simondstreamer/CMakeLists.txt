@@ -3,7 +3,6 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-find_package(QtMobility REQUIRED)
 
 #set (QT_USE_QTNETWORK true)
 #include(${QT_USE_FILE})

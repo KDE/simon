@@ -71,16 +71,18 @@ void SoundOutputBuffer::run()
     //kDebug() << "Sleeping: " << sleepDuration << " microseconds; Buffersize: " << bufferSize << bufferLength;
     usleep(sleepDuration);
   }
-  //kDebug() << "Left run loop";
-  deleteLater();
+  kWarning() << "Left run loop";
 }
 
 void SoundOutputBuffer::stop()
 {
+  kWarning() << "Locking killlock.";
   killLock.lock();
 
   m_shouldBeRunning = false;
+  kWarning() << "Set should be running, calling quit.";
   quit();
+  kWarning() << "Unlocking killLock..";
 
   killLock.unlock();
 }

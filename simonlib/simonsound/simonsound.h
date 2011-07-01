@@ -21,6 +21,7 @@
 #define SIMON_SIMONSOUND_H_D0C0BA2429B04F65935956A32C79BB09
 
 #include <QString>
+#include <QMetaType>
 
 namespace SimonSound
 {
@@ -107,6 +108,11 @@ namespace SimonSound
   };
 }
 
+Q_ENUMS(SimonSound::State);
+Q_DECLARE_METATYPE(SimonSound::State);
+Q_ENUMS(SimonSound::Error);
+Q_DECLARE_METATYPE(SimonSound::Error);
+
 
 //forward declaration needed for QHash include (cascading down to first use of a
 // Deviceconfiguration-based QHash)
@@ -118,4 +124,7 @@ inline uint qHash(const SimonSound::DeviceConfiguration& dev)
   return qHash(QString("%1||%2||%3||%4||%5").arg(dev.name()).arg(dev.channels()).arg(dev.sampleRate())
         .arg(dev.resample() ? "1" : "0").arg(dev.resampleSampleRate()));
 }
+
+
+
 #endif

@@ -2996,7 +2996,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 <para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo ("CD") recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
 <para>This example would require the following postprocessing command:
 <itemizedlist>
-<listitem><para><filename>sox -c 1 -r 16000 %1 %2</filename></para></listitem>
+<listitem><para><filename>sox %1 -c 1 -r 16000 %2</filename></para></listitem>
 </itemizedlist>
 </para>
 

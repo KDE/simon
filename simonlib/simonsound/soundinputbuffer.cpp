@@ -58,7 +58,6 @@ void SoundInputBuffer::run()
     m_buffer = m_buffer.mid(bufferSize);
     //kDebug() << "Processed buffered data" << m_shouldBeRunning;
   }
-  deleteLater();
 }
 
 void SoundInputBuffer::stop()

@@ -29,8 +29,8 @@
 SimonSoundInput::SimonSoundInput(QObject *parent) : QObject(parent),
 m_input(SoundBackend::createObject()), m_buffer(0)
 {
-  connect(m_input, SIGNAL(stateChanged(SimonSoundInput::State)), this, SLOT(slotInputStateChanged(SimonSoundInput::State)));
-  connect(m_input, SIGNAL(stateChanged(SimonSoundInput::State)), this, SIGNAL(inputStateChanged(SimonSoundInput::State)));
+  connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SLOT(slotInputStateChanged(SimonSound::State)));
+  connect(m_input, SIGNAL(stateChanged(SimonSound::State)), this, SIGNAL(inputStateChanged(SimonSound::State)));
 }
 
 

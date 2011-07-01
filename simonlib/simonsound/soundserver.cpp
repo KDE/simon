@@ -37,6 +37,8 @@ SoundServer* SoundServer::instance;
  */
 SoundServer::SoundServer(QObject* parent) : QObject(parent)
 {
+  qRegisterMetaType<SimonSound::State>("SimonSound::State");
+  qRegisterMetaType<SimonSound::Error>("SimonSound::Error");
   backend = SoundBackend::createObject();
 }
 

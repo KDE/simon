@@ -204,7 +204,7 @@ QByteArray ReportTemplateEngine::createGraphs(const QByteArray& input, const QLi
   TestResultPlotter::plot(labels, confidence, accuracy, &plot, &barGraph, &barGraphLegend);
   
   plot.resize(1000, 400);
-  plot.setMargin(3);
+  //plot.setMargin(3);
   plot.setFrameStyle(QFrame::Plain);
   plot.setLineWidth(1);
   plot.replot();

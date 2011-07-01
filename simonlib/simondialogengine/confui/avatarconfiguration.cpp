@@ -64,6 +64,7 @@ void AvatarConfiguration::defaults()
 {
   delete avatarModel;
   avatarModel = new AvatarModel();
+  ui->lvAvatars->setModel(avatarModel);
 }
   
 Avatar* AvatarConfiguration::getCurrentAvatar()

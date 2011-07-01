@@ -29,7 +29,7 @@ ENDIF(NOT QT4_FOUND)
 IF( QT4_FOUND )
 	# Is Qwt6 installed? Look for header files
 	FIND_PATH( Qwt6_INCLUDE_DIR qwt.h 
-		PATHS ${QT_INCLUDE_DIR} /usr/local/qwt/include /usr/include/qwt /usr/local/qwt-6.0.0-rc1/include /usr/local/qwt-6.0.0-rc3/include /usr/local/qwt-6.0.0-rc5/include F:/kde/qwt-6.0.0-rc4/src C:/qwt-6.0.0-rc5
+		PATHS ${QT_INCLUDE_DIR} /usr/local/qwt/include /usr/local/qwt-6.0.0/include /usr/include/qwt 
                PATH_SUFFIXES qwt qwt6 qwt-qt4 qwt6-qt4 qwt-qt3 qwt6-qt3 include qwt/include qwt6/include qwt-qt4/include qwt6-qt4/include qwt-qt3/include qwt6-qt3/include ENV PATH)
 	
 	# Find Qwt version
@@ -41,7 +41,7 @@ IF( QT4_FOUND )
 		STRING(REGEX REPLACE ".*#define[\\t\\ ]+QWT_VERSION_STR[\\t\\ ]+\"([0-9]+\\.[0-9]+\\.[0-9]+)\".*" "\\1" Qwt_VERSION "${QWT_GLOBAL_H}")
 
 		# Find Qwt6 library linked to Qt4
-		FIND_LIBRARY( Qwt6_Qt4_TENTATIVE_LIBRARY NAMES qwt6-qt4 qwt-qt4 qwt6 qwt PATHS /usr/local/qwt/lib /usr/local/lib /usr/local/qwt-6.0.0-rc1/lib /usr/local/qwt-6.0.0-rc3/lib /usr/local/qwt-6.0.0-rc5/lib /usr/lib F:/kde/qwt-6.0.0-rc4/lib ${QT_LIBRARY_DIR} C:/qwt-6.0.0-rc5)
+		FIND_LIBRARY( Qwt6_Qt4_TENTATIVE_LIBRARY NAMES qwt6-qt4 qwt-qt4 qwt6 qwt PATHS /usr/local/qwt/lib /usr/local/lib /usr/local/qwt-6.0.0/lib /usr/lib F:/kde/qwt-6.0.0-rc4/lib ${QT_LIBRARY_DIR} C:/qwt-6.0.0-rc5)
 		IF( UNIX AND NOT CYGWIN)
 			IF( Qwt6_Qt4_TENTATIVE_LIBRARY )
         #MESSAGE("Qwt6_Qt4_TENTATIVE_LIBRARY = ${Qwt6_Qt4_TENTATIVE_LIBRARY}")
