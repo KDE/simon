@@ -68,6 +68,7 @@ class VocabularyView;
 class KComboBox;
 class KHTMLPart;
 class WelcomeHTMLPart;
+class SampleShare;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
