@@ -176,7 +176,7 @@ QStringList ALSABackend::getAvailableOutputDevices()
 QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 {
   QStringList devices;
-  devices << i18n("Default audio device (%1)", "default");
+  devices << i18nc("Default audio device (%1)", "default");
 
   char **hints, **hints_;
 
