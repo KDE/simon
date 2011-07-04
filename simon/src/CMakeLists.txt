@@ -28,6 +28,7 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	####${CMAKE_CURRENT_SOURCE_DIR}/simonsampleshare/sampleshare.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
@@ -58,7 +59,7 @@ ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
-simonrecognitioncontrol simonactionsui simonprogresstracking)
+simonrecognitioncontrol simonactionsui simonprogresstracking simonsampleshare)
 endif(UNIX)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

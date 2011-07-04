@@ -3,17 +3,20 @@
 
 #include <KDialog>
 #include "sampleshareui_export.h"
-#include "ui_sampleshare.h"
 
 /**
  \class SampleShare
  \author Alessandro Buggin
- \version 0.1a
- \date 23.05.2011
+ \version 0.2
+ \date 04.07.2011
 
  \brief Used to display a sample share kdialog saying "Hello World"
 
 */
+
+namespace Ui {
+  class SampleShareDlg;
+}
 
 class SAMPLESHAREUI_EXPORT SampleShare : public KDialog{
   Q_OBJECT
@@ -22,7 +25,7 @@ private:
   Ui::SampleShareDlg *ui;
   
 public:
-  explicit SampleShare(QWidget *parent=0);
+  explicit SampleShare(QDialog *parent=0);
 //  void SetupActions();
 
 

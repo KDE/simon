@@ -10,7 +10,7 @@
 		<Action name="grammar" />
 		<Action name="train" />
 		<Action name="commands" />
-		<Action name="publishSamples" />
+		<Action name="sampleShare" />
 		<Separator/>
 		<Action name="compileModel" />
 	</ToolBar>
@@ -39,7 +39,7 @@
 			<Action name="train" />
 			<Action name="commands" />
 			<Action name="volumeCalibration" />
-			<Action name="publishSample" />
+			<Action name="sampleShare" />
 		</Menu>
 		<Menu name="commands">
 			<text>Commands</text>

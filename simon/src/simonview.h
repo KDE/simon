@@ -44,7 +44,8 @@
 #endif
 
 #include <KHTMLPart>
-#include "simonsampleshare/sampleshare.h"
+#include "ui_simonview.h"
+//#include "simonsampleshare/sampleshare.h"
 // #include "operation.h"
 
 class QPoint;
@@ -68,7 +69,7 @@ class VocabularyView;
 class KComboBox;
 class KHTMLPart;
 class WelcomeHTMLPart;
-class SampleShare;
+class SampleShareDlg;
 
 class SimonView : public KXmlGuiWindow, public ScenarioDisplay
 {
@@ -99,7 +100,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     RunCommandView *runDialog;                    //!< Pointer on the Dialog "RunCommand"
     TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
     KCMultiDialog *configDialog;
-    SampleShare *sampleShare;
+    SampleShareDlg *sampleShareDlg;		//!< Pointer on the Dialog "SampleShareDlg"
     
     KComboBox *cbCurrentScenario;
 
@@ -139,6 +140,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void showWordListDialog();
     void showGrammarDialog();
     void showSystemDialog();
+    void showSampleShare();
 
   public:
     explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);

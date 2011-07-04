@@ -18,11 +18,12 @@
  */
 
 #include "sampleshare.h"
+#include "ui_sampleshare.h"
 
-SampleShare::SampleShare(QWidget* parent): 
+SampleShare::SampleShare(QDialog* parent): 
     KDialog(parent),
     ui(new Ui::SampleShareDlg)
 {
-  QWidget *widget = new QWidget( this );
-  ui->setupUi(widget);
+  QDialog *sampleShareWidget = new QDialog( this );
+  ui->setupUi(sampleShareWidget);
 }
