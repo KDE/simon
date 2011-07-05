@@ -117,22 +117,14 @@ void FilterCommandManager::leaveStageOne()
   switchToState(SimonCommand::DefaultState+1);
 }
 
-bool FilterCommandManager::trigger(const QString& triggerName)
+bool FilterCommandManager::trigger(const QString& triggerName, bool silent)
 {
-  kDebug() << "Current state: " << m_currentState;
-  kDebug() << "Current state: " << &m_currentState;
-  kDebug() << "Trigger: " << triggerName;
-  kDebug() << "Is active: " << isActive;
-  kDebug() << "Is in stage one: " << stageOne;
-  kDebug() << "Is two stage: " << configuration()->twoStage();
-  kDebug() << "Relay two stage: " << configuration()->relayStageOne();
-  
   if ((m_currentState == SimonCommand::DefaultState+1) && (!configuration()->twoStage()))
   {
     switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediatly
   }
 
-  if (CommandManager::trigger(triggerName))
+  if (CommandManager::trigger(triggerName, silent))
     return true;
 
   if (configuration()->twoStage() && stageOne)

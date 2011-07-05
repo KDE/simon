@@ -109,6 +109,8 @@ bool CreateCompositeCommandWidget::init(Command* command)
   CompositeCommand *compositeCommand = dynamic_cast<CompositeCommand*>(command);
   if (!compositeCommand) return false;
 
+  ui.cbPassResult->setChecked(compositeCommand->getPassThrough());
+  
   QStringList selectedTriggers = compositeCommand->getCommands();
   QStringList selectedCategories = compositeCommand->getCommandTypes();
 
@@ -192,7 +194,8 @@ Command* CreateCompositeCommandWidget::createCommand(const QString& name, const 
     selectedCategories << com->getCategoryText();
   }
 
-  return new CompositeCommand(name, iconSrc, description, selectedTriggers, selectedCategories);
+  return new CompositeCommand(name, iconSrc, description, ui.cbPassResult->isChecked(),
+                              selectedTriggers, selectedCategories);
 }
 
 

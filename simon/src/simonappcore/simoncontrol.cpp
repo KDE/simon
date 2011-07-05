@@ -359,6 +359,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-  SoundServer::getInstance()->uninitializeSoundSystem();
   recognitionControl->deleteLater();
 }

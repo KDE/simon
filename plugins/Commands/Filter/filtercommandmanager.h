@@ -42,7 +42,7 @@ class FilterCommandManager : public CommandManager
   protected:
     bool isActive;
     bool stageOne;
-    bool trigger(const QString& triggerName);
+    bool trigger(const QString& triggerName, bool silent);
     void updateAction();
     FilterConfiguration* configuration();
 

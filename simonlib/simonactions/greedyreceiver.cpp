@@ -48,7 +48,7 @@ bool GreedyReceiver::greedyTrigger(const QString& triggerResult)
   kDebug() << "Greedy triggering!";
   if (!m_manager) return false;
 
-  return m_manager->trigger(triggerResult);
+  return m_manager->trigger(triggerResult, false /* silent */);
 }
 
 

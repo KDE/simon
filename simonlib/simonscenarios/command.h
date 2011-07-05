@@ -263,7 +263,7 @@ class MODELMANAGEMENT_EXPORT  Command
     
     virtual bool matches(int commandManagerState, const QString& trigger);
 
-    virtual bool trigger(int* state);
+    virtual bool trigger(int* state, bool silent=false);
 
     virtual const QMap<QString,QVariant> getValueMap() const;
 

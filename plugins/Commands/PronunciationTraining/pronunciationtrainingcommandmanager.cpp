@@ -65,8 +65,10 @@ const QString PronunciationTrainingCommandManager::preferredTrigger() const
 }
 
 
-bool PronunciationTrainingCommandManager::trigger(const QString& triggerName)
+bool PronunciationTrainingCommandManager::trigger(const QString& triggerName, bool silent)
 {
+  Q_UNUSED(silent);
+  
   if (!triggerName.isEmpty()) return false;
 
   Logger::log(i18n("Activating pronunciationtraining"));

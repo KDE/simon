@@ -38,7 +38,7 @@ class PronunciationTrainingCommandManager : public CommandManager
   Q_OBJECT
 
     protected:
-    bool trigger(const QString& triggerName);
+    bool trigger(const QString& triggerName, bool silent);
 
   public slots:
     void activateTraining();

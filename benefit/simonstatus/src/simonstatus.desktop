@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=simonstatus
+Exec=simonstatus %i -caption "%c"
+Icon=simonstatus
+Type=Application
+#X-DocPath=simonstatus/index.html
+GenericName=simon status widget
+GenericName[de]=simon Statusanzeige
+Terminal=false
+Categories=Qt;KDE;Office;Accessibility;

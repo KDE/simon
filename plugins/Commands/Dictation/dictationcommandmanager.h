@@ -36,7 +36,7 @@ class DictationCommandManager : public CommandManager
   Q_OBJECT
 
     protected:
-    bool trigger(const QString& triggerName);
+    bool trigger(const QString& triggerName, bool silent);
 
   public:
     const QString preferredTrigger() const { return ""; }

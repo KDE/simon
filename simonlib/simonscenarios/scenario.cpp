@@ -727,9 +727,9 @@ bool Scenario::processResult(RecognitionResult recognitionResult)
 }
 
 
-bool Scenario::triggerCommand(const QString& type, const QString& trigger)
+bool Scenario::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
-  return m_actionCollection->triggerCommand(type, trigger);
+  return m_actionCollection->triggerCommand(type, trigger, silent);
 }
 
 

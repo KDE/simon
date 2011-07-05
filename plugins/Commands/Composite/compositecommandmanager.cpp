@@ -59,44 +59,6 @@ CreateCommandWidget* CompositeCommandManager::getCreateCommandWidget(QWidget *pa
 }
 
 
-/*
-bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem)
-{
-  if (commands)
-    qDeleteAll(*commands);
-  commands = new CommandList();
-
-  if (elem.isNull()) return false;
-
-  QDomElement commandElem = elem.firstChildElement();
-  while(!commandElem.isNull())
-{
-QDomElement name = commandElem.firstChildElement();
-QDomElement icon = name.nextSiblingElement();
-QDomElement description = icon.nextSiblingElement();
-QDomElement childCommandsElem = description.nextSiblingElement();
-QDomElement childCommandElem = childCommandsElem.firstChildElement();
-QStringList childCommandTrigger;
-QStringList childCommandCategory;
-while (!childCommandElem.isNull()) {
-QDomElement childCommandTriggerElem = childCommandElem.firstChildElement();
-QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
-childCommandTrigger << childCommandTriggerElem.text();
-childCommandCategory << childCommandCategoryElem.text();
-kDebug() << childCommandTriggerElem.text();
-kDebug() << childCommandCategoryElem.text();
-childCommandElem = childCommandElem.nextSiblingElement();
-}
-
-commands->append(new CompositeCommand(name.text(), icon.text(), description.text(),
-childCommandTrigger, childCommandCategory));
-commandElem = commandElem.nextSiblingElement();
-}
-
-return true;
-}
-*/
-
 DEFAULT_DESERIALIZE_COMMANDS_PRIVATE_C(CompositeCommandManager, CompositeCommand);
 
 CompositeCommandManager::~CompositeCommandManager()

@@ -97,7 +97,7 @@ class DialogCommandManager : public CommandManager, public GreedyReceiver, publi
     bool moveStateUp(DialogState *state);
     bool moveStateDown(DialogState *state);
 
-    virtual bool trigger(const QString& triggerName);
+    virtual bool trigger(const QString& triggerName, bool silent);
 
     QString getOptionSeparatorText() const;
     QString getRepeatAnnouncement() const;

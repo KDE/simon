@@ -120,17 +120,19 @@ bool Command::matches(int commandManagerState, const QString& trigger)
  * This function should not be overwritten directly. It calls triggerPrivate() which is where you should
  * implement the actions of your specific subclass.
  *
+ * \param silent Set this to true to hide the popup
  * \param state Reference parameter: The state of the parent CommandManager
  * \return If your work was done, return true. Otherwise return false (not correct state, etc.). Have a look at the trigger()
  * 	method of the CommandManager class for more details.
  *
  * \sa triggerPrivate()
  */
-bool Command::trigger(int* state)
+bool Command::trigger(int* state, bool silent)
 {
   if (announce) {
     KIcon commandIcon = getIcon();
-    SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
+    if (!silent)
+      SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
   }
   if (state)
     *state = switchToState;
@@ -145,9 +147,11 @@ QString Command::getParsedTrigger() const
 {
   QString out = getTrigger();
   for (int i=0; i < m_currentParameters.count(); i++) {
-    kDebug() << QString("%?%%1").arg(i+1);
-    out.replace(QRegExp(QString("%?%%1").arg(i+1)), m_currentParameters[i]);
+    QString regExp = QString("%?%")+QString::number(i+1);
+    kDebug() << regExp;
+    out.replace(QRegExp(regExp), m_currentParameters[i]);
   }
+  kDebug() << "Out: " << out;
   return out;
 }
 
