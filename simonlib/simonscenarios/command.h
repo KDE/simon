@@ -134,7 +134,7 @@ class MODELMANAGEMENT_EXPORT  Command
   protected:
     /// \brief The command is bound to this state.
     /// \sa matches()
-    int boundState;
+    QList<int> boundStates;
 
     /// Whenever the command is executed, the commandmanager should switch into this state
     int switchToState;
@@ -286,9 +286,33 @@ class MODELMANAGEMENT_EXPORT  Command
       description(description_),
       announce(announce_),
       hidden(false),
-      boundState(boundState_),
-    switchToState(newState_) {
-    }
+      boundStates(QList<int>() << boundState_),
+    switchToState(newState_)
+    {}
+    
+    
+    /**
+     * @brief Constructor
+     *
+     * Initializes the command
+     *
+     *  @param name The trigger of the command
+     *  @param icon The icon name of the command
+     *  \param description_ Detailed, user readable description of the command
+     *  \param boundStates_ The states the CommandManager should be in for this Command to be relevant
+     *  \param newState_ The state to switch to when the command was executed
+     *  \param announce_ Should we announce it when we execute this command?
+     */
+    Command(const QString& name, const QString& icon, const QString& description_, QList<int> boundStates_,
+      int newState_ = SimonCommand::DefaultState, bool announce_ = true)
+      : triggerName(name),
+      iconSrc(icon),
+      description(description_),
+      announce(announce_),
+      hidden(false),
+      boundStates(boundStates_),
+    switchToState(newState_)
+    {Q_ASSERT(boundStates.count());}
 
     /**
      * @brief Returns the trigger of the command
@@ -300,13 +324,24 @@ class MODELMANAGEMENT_EXPORT  Command
      * \brief Returns the bound state of the command
      * \return The state the command manager should be in for this command to be relevant
      */
-    int getBoundState() const { return this->boundState; }
+    QList<int> getBoundStates() const { return this->boundStates; }
 
     /**
      * \brief Re-binds the command to a different state
      * \param state The state the command manager should be in for this command to be relevant
      */
-    void setBoundState(int state) { this->boundState = state; }
+    void setBoundState(int state) { 
+      this->boundStates.clear();
+      this->boundStates << state;
+    }
+    
+    /**
+     * \brief Re-binds the command to different states
+     * \param states The states the command manager should be in for this command to be relevant
+     */
+    void setBoundState(QList<int> states) { 
+      this->boundStates = states;
+    }
 
     /**
      * \brief Returns the state the command manager should switch to when the command is executed

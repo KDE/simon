@@ -27,14 +27,29 @@ m_icon(icon),
 m_actionName(actionName),
 m_defaultVisibleTrigger(defaultVisibleTrigger),
 m_description(description),
-m_state(state),
+m_states(QList<int>() << state),
+m_newState(newState),
+m_announce(announce),
+m_showIcon(showIcon)
+{
+}
+
+
+VoiceInterfaceCommandTemplate::VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName,
+const QString& icon, const QString& description, QList<int> states, int newState,
+bool announce, bool showIcon,  QString defaultVisibleTrigger) :
+m_id(id),
+m_icon(icon),
+m_actionName(actionName),
+m_defaultVisibleTrigger(defaultVisibleTrigger),
+m_description(description),
+m_states(states),
 m_newState(newState),
 m_announce(announce),
 m_showIcon(showIcon)
 {
 
 }
-
 
 void VoiceInterfaceCommandTemplate::assignAction(QObject *receiver, const QString& slot)
 {

@@ -35,29 +35,56 @@ SimonStatusWidget::SimonStatusWidget(QWidget* parent, Qt::WindowFlags f) :
   setAttribute(Qt::WA_TransparentForMouseEvents);
   setAttribute(Qt::WA_X11NetWmWindowTypeDock);
   
+  connect(&timeoutTimer, SIGNAL(timeout()), this, SLOT(setInactive()));
+  
   setInactive();
 }
 
+void SimonStatusWidget::disableSingleShot()
+{
+  singleShotActive = false;
+  timeoutTimer.stop();
+}
+
+
 void SimonStatusWidget::setActive()
 {
-  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/bubble_on.png")));
+  disableSingleShot();
+  showActive();
 }
 
 void SimonStatusWidget::setInactive()
 {
+  disableSingleShot();
+  showInactive();
+}
+
+void SimonStatusWidget::showActive()
+{
+  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/bubble_on.png")));
+}
+
+void SimonStatusWidget::showInactive()
+{
   setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/bubble_off.png")));
 }
 
-void SimonStatusWidget::setActiveOnce()
+void SimonStatusWidget::setActiveOnce(int timeout)
 {
   singleShotActive = true;
-  setActive();
+  showActive();
+  
+  timeoutTimer.stop();
+  if (timeout != -1) {
+    timeoutTimer.setInterval(timeout);
+    timeoutTimer.start();
+  }
 }
 
 void SimonStatusWidget::recognizedSomething()
 {
   if (singleShotActive) {
-    singleShotActive = false;
+    disableSingleShot();
     setInactive();
   }
 }

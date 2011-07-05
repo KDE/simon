@@ -93,7 +93,7 @@ bool CommandManager::trigger(const QString& triggerName, bool silent)
       kDebug() << "Matches: " << c->getTrigger();
       if (c->trigger(&m_currentState, silent))
         return true;
-    } else kDebug() << "Command doesn't match: " << c->getTrigger() << triggerName;
+    } else kDebug() << "Command doesn't match: " << c->getTrigger() << c->getBoundStates() << triggerName << m_currentState;
   }
 
   return false;
@@ -204,6 +204,17 @@ bool CommandManager::appendCommand(Command *c)
 }
 
 
+bool CommandManager::installInterfaceCommand(QObject* object, const QString& slot,
+const QString& actionName, const QString& iconSrc,
+const QString& description, bool announce, bool showIcon,
+int state, int newState, const QString& defaultVisibleTrigger,
+QString id)
+{
+  return installInterfaceCommand(object, slot, actionName, iconSrc, description, 
+    announce, showIcon, QList<int>() << state, newState, defaultVisibleTrigger, id);
+}
+
+
 /**
  * \brief Creates and adds a new VoiceInterfaceCommandTemplate with the given parameters
  *
@@ -242,7 +253,7 @@ bool CommandManager::appendCommand(Command *c)
 bool CommandManager::installInterfaceCommand(QObject* object, const QString& slot,
 const QString& actionName, const QString& iconSrc,
 const QString& description, bool announce, bool showIcon,
-int state, int newState, const QString& defaultVisibleTrigger,
+QList<int> states, int newState, const QString& defaultVisibleTrigger,
 QString id)
 {
   if (id.isEmpty() && object)
@@ -268,7 +279,7 @@ QString id)
   } while (!unique);
 
   VoiceInterfaceCommandTemplate *templ = new VoiceInterfaceCommandTemplate(id, actionName, iconSrc, description,
-    state, newState, announce, showIcon, defaultVisibleTrigger);
+    states, newState, announce, showIcon, defaultVisibleTrigger);
 
   templ->assignAction(object, slot);
   voiceInterfaceCommandTemplates.append(templ);

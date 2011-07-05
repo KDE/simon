@@ -376,6 +376,14 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
     int newState=SimonCommand::DefaultState,
     const QString& defaultVisibleTrigger=QString(),
     QString id=QString());
+    
+    virtual bool installInterfaceCommand(QObject* object, const QString& slot,
+    const QString& actionName, const QString& iconSrc,
+    const QString& description, bool announce, bool showIcon,
+    QList<int> states,
+    int newState=SimonCommand::DefaultState,
+    const QString& defaultVisibleTrigger=QString(),
+    QString id=QString());
 
     virtual bool installListInterfaceCommand(CommandListElements::Element element,
     QObject* object, const QString& slot, QString id,

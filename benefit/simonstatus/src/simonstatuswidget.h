@@ -20,7 +20,7 @@
 #define SIMONSTATUSWIDGET_H
 
 #include <QLabel>
-
+#include <QTimer>
 
 class SimonStatusWidget : public QLabel
 {
@@ -28,7 +28,12 @@ Q_OBJECT
 Q_CLASSINFO("A simon status widget", "org.simon-listens.SimonStatusWidget")
 
 private:
+  QTimer timeoutTimer;
   bool singleShotActive;
+  
+  void showActive();
+  void showInactive();
+  void disableSingleShot();
   
 public:
   explicit SimonStatusWidget(QWidget* parent = 0, Qt::WindowFlags f = 0);
@@ -37,7 +42,7 @@ public slots:
     void setActive();
     void setInactive();
     
-    void setActiveOnce();
+    void setActiveOnce(int timeout);
     void recognizedSomething();
 };
 

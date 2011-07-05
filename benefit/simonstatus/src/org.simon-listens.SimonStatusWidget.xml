@@ -5,7 +5,9 @@
     <method name="setInactive" />
     
     <!-- for activate once setting in the filter -->
-    <method name="setActiveOnce" />
+    <method name="setActiveOnce">
+      <arg name="timeout" type="i" direction="in"/>
+    </method>
     <method name="recognizedSomething" />
   </interface>
 </node>
