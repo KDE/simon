@@ -61,12 +61,12 @@ void SimonStatusWidget::setInactive()
 
 void SimonStatusWidget::showActive()
 {
-  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/bubble_on.png")));
+  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/mic_on.png")));
 }
 
 void SimonStatusWidget::showInactive()
 {
-  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/bubble_off.png")));
+  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/mic_off.png")));
 }
 
 void SimonStatusWidget::setActiveOnce(int timeout)
