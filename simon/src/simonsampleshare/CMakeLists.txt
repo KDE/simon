@@ -30,6 +30,8 @@ set_target_properties( simonsampleshare
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
+add_definitions(-D SIMONSAMPLESHARE_EXPORT)
+
 install( FILES ${simonsampleshare_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsampleshare
   COMPONENT simondevel

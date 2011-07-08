@@ -507,8 +507,7 @@ void SimonView::setupSignalSlots()
  */
 void SimonView::showSampleShare()
 {
-  //SampleShare *sampleShareWidget = new SampleShare;
-  QDialog *sampleShareWidget = new QDialog;
+  SampleShare *sampleShareWidget = new SampleShare;
   sampleShareWidget->show();
   connect(sampleShareWidget, SIGNAL(finished(int)), sampleShareWidget, SLOT(deleteLater()));
 }

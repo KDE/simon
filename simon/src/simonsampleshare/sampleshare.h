@@ -1,8 +1,8 @@
-#ifndef SAMPLESHARE_H
-#define SAMPLESHARE_H
+#ifndef SIMONSAMPLESHARE_H
+#define SIMONSAMPLESHARE_H
 
 #include <KDialog>
-#include "sampleshareui_export.h"
+#include "simonsampleshareui_export.h"
 
 /**
  \class SampleShare
@@ -10,7 +10,7 @@
  \version 0.2
  \date 04.07.2011
 
- \brief Used to display a sample share kdialog saying "Hello World"
+ \brief Used to display a kdialog about sending user training files to Voxforge
 
 */
 
@@ -18,16 +18,15 @@ namespace Ui {
   class SampleShareDlg;
 }
 
-class SAMPLESHAREUI_EXPORT SampleShare : public KDialog{
+class SIMONSAMPLESHAREUI_EXPORT SampleShare : public KDialog{
   Q_OBJECT
   
 private:
   Ui::SampleShareDlg *ui;
   
 public:
-  explicit SampleShare(QDialog *parent=0);
-//  void SetupActions();
-
+  SampleShare( QWidget *parent = 0 );
+  ~SampleShare();
 
 };
 #endif

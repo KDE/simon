@@ -17,13 +17,21 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <KDialog>
 #include "sampleshare.h"
 #include "ui_sampleshare.h"
+//#include <QMainWindow>
 
-SampleShare::SampleShare(QDialog* parent): 
-    KDialog(parent),
-    ui(new Ui::SampleShareDlg)
+
+SampleShare::SampleShare(QWidget* parent): 
+    KDialog(parent),ui(new Ui::SampleShareDlg)
 {
-  QDialog *sampleShareWidget = new QDialog( this );
+  QWidget *sampleShareWidget = new QWidget( this );
   ui->setupUi(sampleShareWidget);
-}
+  setMainWidget(sampleShareWidget);
+};
+
+SampleShare::~SampleShare()
+{
+delete ui;
+};
