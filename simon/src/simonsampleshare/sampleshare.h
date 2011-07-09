@@ -3,7 +3,8 @@
 
 #include <KDialog>
 #include "simonsampleshareui_export.h"
-
+#include <ui_sampleshare.h>
+#include <KDebug>
 /**
  \class SampleShare
  \author Alessandro Buggin
@@ -28,5 +29,7 @@ public:
   SampleShare( QWidget *parent = 0 );
   ~SampleShare();
 
+private slots:
+    void enableButtonUser1(bool);
 };
 #endif
