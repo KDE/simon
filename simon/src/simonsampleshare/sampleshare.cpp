@@ -30,10 +30,11 @@ SampleShare::SampleShare(QWidget* parent):
   setMainWidget(sampleShareWidget);
   setButtons( User1 /*| KDialog::Apply*/ | ui->kdialog->Cancel);
   setButtonText(ui->kdialog->User1, "Upload");
-  setButtonIcon(User1,KIcon("repository"));
+  setButtonIcon(User1,KIcon("go-next"));
   enableButton(User1,false);
-  
+ // ui->ageComboBox->itemData();
   connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonUser1(bool)));
+  
 }
 
 SampleShare::~SampleShare(){

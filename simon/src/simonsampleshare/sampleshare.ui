@@ -73,11 +73,6 @@ p, li { white-space: pre-wrap; }
            <string>Female</string>
           </property>
          </item>
-	 <item>
-          <property name="text">
-           <string>Child</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="1" column="0">
@@ -91,22 +86,17 @@ p, li { white-space: pre-wrap; }
         <widget class="KComboBox" name="ageComboBox">
          <item>
           <property name="text">
-           <string>18-27</string>
+           <string>Youth</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>28-35</string>
+           <string>Adult</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>36-50</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>50-70</string>
+           <string>Senior</string>
           </property>
          </item>
         </widget>
@@ -152,12 +142,52 @@ p, li { white-space: pre-wrap; }
            </property>
            <item>
             <property name="text">
+             <string>Australian English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>American English</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Britannic English</string>
+             <string>British English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Canadian English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>European English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Indian English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Irish English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>New Zeland English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>South African English</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Other</string>
             </property>
            </item>
           </widget>

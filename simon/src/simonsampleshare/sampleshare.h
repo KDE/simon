@@ -30,6 +30,6 @@ public:
   ~SampleShare();
 
 private slots:
-    void enableButtonUser1(bool);
+    void enableButtonUser1(bool down);
 };
 #endif
