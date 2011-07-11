@@ -1,34 +1,36 @@
-#ifndef SAMPLESHARE_H
-#define SAMPLESHARE_H
+#ifndef SIMONSAMPLESHARE_H
+#define SIMONSAMPLESHARE_H
 
 #include <KDialog>
-
+#include <KDebug>
 #include <ui_sampleshare.h>
+#include "simonsampleshareui_export.h"
+#include "simonscenarios/trainingmanager.h"
 /**
- \class GeneralSettings
+ \class SampleShare
  \author Alessandro Buggin
- \version 0.1
- \date 23.05.2011
+ \version 0.2
+ \date 04.07.2011
 
- \brief Used to display a sample share kdialog saying "Hello World"
+ \brief Used to display a widget that takes care of sending user training files to Voxforge
 
 */
 
-class SampleShare:public KDialog
-{
-  Q_OBJECT 
+namespace Ui {
+  class SampleShareDlg;
+}
 
-private:
-  Ui::SampleShare ui;
-  void SetupActions();
-  void initDisplay();
-
-public:
-  SampleShare(QWidget *parent=0);
-  ~SampleShare();
+class SIMONSAMPLESHAREUI_EXPORT SampleShare : public KDialog{
+  Q_OBJECT
   
-  int exec();
+private:
+  Ui::SampleShareDlg *ui;
+  
+public:
+  SampleShare( QWidget *parent = 0 );
+  ~SampleShare();
 
+private slots:
+    void slotButtonClicked(int button);
 };
-
 #endif

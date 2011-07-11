@@ -478,7 +478,10 @@ void Skype::skypeMessage(const QString &message) {
 			if (d->knownCalls.indexOf(callId) == -1) {//new call
 				d->knownCalls << callId;
 				const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
-				emit newCall(callId, userId);
+        if (message.contains("ROUTING")) 
+          kDebug() << "Skipping as this is an outgoing call...";
+        else
+          emit newCall(callId, userId);
 			}
 			const QString &status = message.section(' ', 3, 3).toUpper();
 			if (status == "FAILED") {

@@ -11,7 +11,8 @@ include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR
 		     ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonappcore
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui
-		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
+		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui
+		     ${CMAKE_CURRENT_SOURCE_DIR}/simonsampleshare)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonappcore)
@@ -28,6 +29,7 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunbasemodelconfig.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsampleshare/sampleshare.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
@@ -36,6 +38,7 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsimondconfig.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunsoundconfig.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/firstrunscenariosconfig.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsampleshare/sampleshare.ui
 )
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
@@ -58,7 +61,7 @@ ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
-simonrecognitioncontrol simonactionsui simonprogresstracking)
+simonrecognitioncontrol simonactionsui simonprogresstracking simonsampleshare)
 endif(UNIX)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

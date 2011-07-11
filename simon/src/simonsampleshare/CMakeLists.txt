@@ -4,7 +4,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_BINARY_DIR} )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -28,6 +29,8 @@ simonscenarios simonscenarios simonuicomponents simonactionsui)
 set_target_properties( simonsampleshare
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
+
+add_definitions(-D SIMONSAMPLESHARE_EXPORT)
 
 install( FILES ${simonsampleshare_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsampleshare

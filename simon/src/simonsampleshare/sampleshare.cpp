@@ -16,19 +16,53 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/*
- * create a new library next to simonappcore, simonactionsui, etc. called "simonsampleshare";
- * start by creating a ui (KDialog), that simply says "Hello World";
- * integrate this library and dialog into simon by adding 
- * a menu option to "Actions" called "Publish samples" 
- * displaying the dialog from the new library
- */
-// #include <KDialogButtonBox>
+
+#include <KMessageBox>
+#include <KDialog>
+#include <KDebug>
 #include "sampleshare.h"
-SampleShare::SampleShare(QWidget* parent) :
-KDialog(parent){
-  QWidget *widget = new QWidget( this );
-  ui.setupUi(widget);
-  ui.label->setText("Hello World!");
-  initDisplay();
+#include "ui_sampleshare.h"
+
+
+SampleShare::SampleShare(QWidget* parent): 
+    KDialog(parent),ui(new Ui::SampleShareDlg){
+  QWidget *sampleShareWidget = new QWidget( this );
+  ui->setupUi(sampleShareWidget);
+  setMainWidget(sampleShareWidget);
+  setButtonText(ui->kdialog->Ok, "Upload");
+  setButtonIcon(Ok,KIcon("repository"));
+  enableButtonOk(false);
+  connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
+  connect(ui->kdialog, SIGNAL (okClicked()), this, SLOT(slotButtonClicked()));
+  ui->kTextEdit->setPlainText("path : " + TrainingManager::getInstance()->getTrainingDir()+" ; \nrecorded files to upload:");
+  ui->progressBar->setValue(0);
+  //QStringList::contains(TrainingManager::getInstance()->getPrompts()->keys());
+  //ui->listWidget->addItems(TrainingManager::getInstance()->getTrainingDir());//!fetch the files from
+  kDebug() << TrainingManager::getInstance()->getTrainingDir() << true;
+  kDebug() << TrainingManager::getInstance()->getPrompts()->keys() <<true;
+}
+
+SampleShare::~SampleShare(){
+delete ui;
+}
+
+void SampleShare::slotButtonClicked(int button) {
+if (button == KDialog::Ok){
+  if (ui->tabWidget->currentWidget())
+    ui->tabWidget->setCurrentWidget(ui->tabWidgetPage2);
+  else
+    kDebug() << "already on second tab"<< true;
+  }
+else
+KDialog::slotButtonClicked(button);
+}
+
+void enableButtonOk( bool state ){
+  kDebug() << "license accepted"<< true ;
+  if (state = (true)){
+  enableButtonOk(true);
+  kDebug() << "enabled Upload" << true;}
+  else{
+    enableButtonOk(false);
+    kDebug() << "enabled Upload" << false;};
 }
