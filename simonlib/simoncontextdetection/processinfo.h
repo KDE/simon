@@ -20,9 +20,29 @@
 #ifndef PROCESSINFO_H
 #define PROCESSINFO_H
 
+/** \file processinfo.h
+ * \brief The file containing the ProcessInfo baseclass header.
+ */
+
 #include <QThread>
 #include "processinfogatherer.h"
 #include "simoncontextdetection_export.h"
+
+/**
+ *	@class ProcessInfo
+ *	@brief The ProcessInfo class broadcasts changes in, and provides a list of the running processes in the system
+ *
+ *      The ProcessInfo class uses a ProcessInfoGatherer to monitor the running processes on the system.
+ *      When a process is added or removed, a signal is sent to broadcast this change.
+ *
+ *      ProcessInfo is a singleton.
+ *
+ *      \sa ProcessInfoGatherer, ProcessOpenedCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class SIMONCONTEXTDETECTION_EXPORT ProcessInfo : public QObject
 {

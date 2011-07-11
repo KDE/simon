@@ -20,9 +20,24 @@
 #ifndef WINDOWSPROCESSINFOGATHERER_H
 #define WINDOWSPROCESSINFOGATHERER_H
 
+/** \file windowsprocessinfogatherer.h
+ * \brief The file containing the WindowsProcessInfoGatherer baseclass header.
+ */
+
 #include "processinfogatherer.h"
 
-#ifdef Q_OS_WIN32
+/**
+ *	@class WindowsProcessInfoGatherer
+ *	@brief The WindowsProcessInfoGatherer class monitors running processes on Windows platforms
+ *
+ *      WindowsProcessInfoGatherer is a ProcessInfoGatherer for Windows platforms.
+ *
+ *      \sa ProcessInfoGatherer, ProcessInfo, ProcessOpenedCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class WindowsProcessInfoGatherer : public ProcessInfoGatherer
 {
@@ -35,7 +50,5 @@ signals:
 public slots:
     void checkCurrentProcesses();
 };
-
-#endif
 
 #endif // WINDOWSPROCESSINFOGATHERER_H

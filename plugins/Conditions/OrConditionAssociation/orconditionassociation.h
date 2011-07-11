@@ -20,9 +20,31 @@
 #ifndef ORCONDITIONASSOCIATION_H
 #define ORCONDITIONASSOCIATION_H
 
+/** \file orconditionassociation.h
+ * \brief The file containing the OrConditionAssociation baseclass header.
+ */
+
 #include "simoncontextdetection/conditionassociation.h"
 #include "simoncontextdetection/processinfo.h"
 #include "simoncontextdetection/simoncontextdetection_export.h"
+
+/**
+ *	@class OrConditionAssociation
+ *	@brief The OrConditionAssociation class is a condition plugin that monitors whether or not at least one of several other conditions is satisfied
+ *
+ *      The OrConditionAssociation class is a ConditionAssociation that is satisfied if one of its Condition objects (it monitors a group
+ *      of other Condition objects) is satisfied.  In other words, its satisfaction is the logical or of all of its component Condition
+ *      satisfactions.  Whenever the satisfaction of one of its component Condition objects changes, it reevaluates itself.
+ *
+ *      Just like any other condition, the OrConditionAssociation will accordingly update its \ref Condition::m_satisfied value and then emit its \ref Condition::conditionChanged()
+ *      signal whenever it becomes newly satisfied or unsatisfied.
+ *
+ *      \sa Condition, ConditionAssociation, CreateOrConditionAssociationWidget, NewAssociationCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class SIMONCONTEXTDETECTION_EXPORT OrConditionAssociation : public ConditionAssociation
 {
@@ -32,8 +54,9 @@ public:
 
     virtual QString name();
 
+    virtual CreateConditionWidget* getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent);
+
 private:
-    QString m_pluginName;
 
 signals:
 

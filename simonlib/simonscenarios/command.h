@@ -198,7 +198,7 @@ class MODELMANAGEMENT_EXPORT  Command
      * \brief Serializes the current command state to an XML element
      *
      * You only need to take care of the special attributes that your Command subclass introduces,
-     * everything else will be handeled by the base class implementation.
+     * everything else will be handled by the base class implementation.
      *
      * \param doc Parent document
      * \param commandElem Command elem. This already contains the base class attributes, just add the additional

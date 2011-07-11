@@ -20,6 +20,10 @@
 #ifndef SIMON_CREATEPROCESSOPENEDCONDITIONWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 #define SIMON_CREATEPROCESSOPENEDCONDITIONWIDGET_H_9F05429CB8EF43B8BFAC15877F9854C3
 
+/** \file createprocessopenedcondition.h
+ * \brief The file containing the CreateProcessOpenedCondition baseclass header.
+ */
+
 #include <QWidget>
 #include <simoncontextdetection/createconditionwidget.h>
 #include "ui_createprocessopenedconditionwidget.h"
@@ -29,10 +33,15 @@ class CompoundCondition;
 
 /**
  *	@class CreateProcessOpenedConditionWidget
- *	@brief Provides a widget to modify the specific attributes of a ProcessOpenedCondition
+ *	@brief The CreateProcessOpenedConditionWidget class provides a widget to modify the specific attributes of a ProcessOpenedCondition
+ *
+ *      The CreateProcessOpenedConditionWidget allows the process name that will be monitored by the ProcessOpenedCondition
+ *      to be specified by the user with a LineEdit.
+ *
+ *      \sa Condition, ProcessInfo, ProcessOpenedCondition
  *
  *	@version 0.1
- *	@date 6.3.2011
+ *	@date 7.7.2011
  *	@author Adam Nash
  */
 class CreateProcessOpenedConditionWidget : public CreateConditionWidget

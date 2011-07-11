@@ -11,6 +11,7 @@ include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR
 		     ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonappcore
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui
+                     ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui
 		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui)
@@ -59,7 +60,8 @@ ${KDE4_KUTILS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 simonappcore simonactions simoninfo
 simonlogging simonxml simonuicomponents simonsound simonscenarios 
 simonmodelmanagementui simonscenariobase simonscenarioui
-simonrecognitioncontrol simonactionsui simonprogresstracking)
+simonrecognitioncontrol simonactionsui simonprogresstracking
+simoncontextui)
 endif(UNIX)
 
 install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)

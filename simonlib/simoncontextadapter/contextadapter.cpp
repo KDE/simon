@@ -37,15 +37,6 @@ void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios
     m_deactivatedScenarios = deactivatedScenarios;
 }
 
-//(ModelCompilationAdapter::AdaptionType)
-//(ModelCompilationAdapter::AdaptLanguageModel),
-//activeDir+"lexicon",
-//activeDir+"model.grammar",
-//activeDir+"simple.voca",
-//activeDir+"prompts",
-//synchronisationManager->getScenarioPaths(),
-//synchronisationManager->getPromptsPath()
-
 bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
                                    const QString& grammarPathOut, const QString& simpleVocabPathOut,
                                    const QString& promptsPathOut, const QStringList& scenarioPathsIn,
@@ -134,44 +125,6 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 
     return success;
 }
-
-//bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType compilationType,
-//                                      const QString& hmmDefsPath,
-//                                      const QString& tiedListPath,
-//                                      const QString& dictPath,
-//                                      const QString& dfaPath,
-//                                      const QString& baseHmmDefsPath,
-//                                      const QString& baseTiedlistPath,
-//                                      const QString& baseStatsPath,
-//                                      const QString& baseMacrosPath,
-//                                      const QString& samplePath,
-//                                      const QString& lexiconPath,
-//                                      const QString& grammarPath,
-//                                      const QString& vocabPath,
-//                                      const QString& promptsPath,
-//                                      const QString& treeHedPath,
-//                                      const QString& wavConfigPath,
-//                                      const QString& scriptBasePrefix)
-//{
-//    return true;
-//}
-//(ModelCompilationManager::CompileLanguageModel),
-//activeDir+"hmmdefs",
-//activeDir+"tiedlist",
-//activeDir+"model.dict",
-//activeDir+"model.dfa",
-//activeDir+"basehmmdefs",
-//activeDir+"basetiedlist",
-//activeDir+"basemacros",
-//activeDir+"basestats",
-//KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
-//activeDir+"lexicon",
-//activeDir+"model.grammar",
-//activeDir+"simple.voca",
-//activeDir+"prompts",
-//synchronisationManager->getTreeHedPath(),
-//synchronisationManager->getWavConfigPath(),
-//"simon/scripts");
 
 void ContextAdapter::storeModelInCache()
 {

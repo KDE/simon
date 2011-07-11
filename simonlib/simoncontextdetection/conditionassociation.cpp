@@ -36,11 +36,6 @@ QDomElement ConditionAssociation::privateSerialize(QDomDocument *doc, QDomElemen
     return elem;
 }
 
-QString ConditionAssociation::name()
-{
-    return "Unnamed condition association";
-}
-
 bool ConditionAssociation::privateDeSerialize(QDomElement elem)
 {
     QDomElement conditionElem;

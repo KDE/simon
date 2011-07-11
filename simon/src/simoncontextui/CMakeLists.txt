@@ -18,6 +18,7 @@ set( simoncontextui_LIB_SRCS
 set( simoncontextui_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextview.h
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui_export.h
 )
 
 kde4_add_ui_files( simoncontextui_LIB_SRCS
@@ -28,9 +29,8 @@ kde4_add_ui_files( simoncontextui_LIB_SRCS
 kde4_add_library( simoncontextui  SHARED ${simoncontextui_LIB_SRCS} )
 
 target_link_libraries( simoncontextui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions
-simonscenarios simonscenarios simonuicomponents simoncontextdetection)
-
+        ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions
+        simonscenarios simonscenarios simonuicomponents simoncontextdetection)
 
 set_target_properties( simoncontextui
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

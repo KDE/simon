@@ -57,7 +57,7 @@
 #include <KToolBar>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KComboBox>
+#include <KDE/KComboBox>
 #include <QDesktopServices>
 
 #include <KMessageBox>
@@ -296,9 +296,17 @@ void SimonView::displayScenarios()
   setUpdatesEnabled(false);
   cbCurrentScenario->clear();
 
+  QVariant deactivatedFont = QVariant(QFont("Arial", -1, -1, true));
+  QVariant deactivatedColor = QVariant(Qt::gray);
+
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
   foreach (Scenario* s, scenarioList) {
     cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
+    if (!s->isActive())
+    {
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, deactivatedFont, Qt::FontRole);
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, deactivatedColor, Qt::ForegroundRole);
+    }
   }
   cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(currentData));
   setUpdatesEnabled(true);
@@ -320,6 +328,16 @@ void SimonView::updateScenarioDisplays()
 
   QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
   Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
+
+
+//  QFont selectedFont;
+//  QByteArray fontData;
+//  QDataStream fontStream(&fontData, QIODevice::ReadWrite);
+//  fontStream << cbCurrentScenario->itemData(currentIndex, Qt::FontRole);
+//  fontStream >> selectedFont;
+
+  //cbCurrentScenario->setForegroundRole((QBrush)cbCurrentScenario->itemData(currentIndex, Qt::ForegroundRole));
+
   kDebug() << "Scenario " << scenario;
   if (!scenario) {
     KMessageBox::error(this, i18n("Could not retrieve Scenario \"%1\"", currentId));
@@ -507,6 +525,7 @@ void SimonView::setupSignalSlots()
   connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
   connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
+  connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
 }
 
 

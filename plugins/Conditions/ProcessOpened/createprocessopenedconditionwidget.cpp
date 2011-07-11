@@ -53,6 +53,7 @@ bool CreateProcessOpenedConditionWidget::init(Condition *condition)
 
 Condition* CreateProcessOpenedConditionWidget::createCondition()
 {
+    kDebug() << "Creating Process Opened Condition";
     QDomDocument doc;
     QDomElement conditionElem = doc.createElement("condition");
     conditionElem.setAttribute("name", "simonprocessopenedconditionplugin.desktop");

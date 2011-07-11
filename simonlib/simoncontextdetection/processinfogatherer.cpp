@@ -25,11 +25,42 @@ ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
     m_previouslyRunningProcesses = QStringList();
 }
 
+void ProcessInfoGatherer::checkProcessListChanges()
+{
+    QString processName;
+
+    foreach(processName, m_currentlyRunningProcesses)
+    {
+        //check to see if the name is new
+        if (m_previouslyRunningProcesses.contains(processName))
+        {
+            m_previouslyRunningProcesses.removeOne(processName);
+        }
+        else
+        {
+            emit processAdded(processName);
+        }
+    }
+
+    //signal any processes that were removed
+    foreach (processName, m_previouslyRunningProcesses)
+    {
+        emit processRemoved(processName);
+    }
+
+    emit updateProcesses(m_currentlyRunningProcesses);
+    m_previouslyRunningProcesses = m_currentlyRunningProcesses;
+
+    //Refresh the current process list
+    m_currentlyRunningProcesses.clear();
+}
+
 void ProcessInfoGatherer::run()
 {
     forever
     {
         checkCurrentProcesses();
+        checkProcessListChanges();
 
         this->sleep(1);
     }

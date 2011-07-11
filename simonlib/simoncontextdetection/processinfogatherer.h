@@ -20,8 +20,29 @@
 #ifndef PROCESSINFOGATHERER_H
 #define PROCESSINFOGATHERER_H
 
+/** \file processinfogatherer.h
+ * \brief The file containing the ProcessInfoGatherer baseclass header.
+ */
+
 #include <QThread>
 #include <QStringList>
+
+/**
+ *	@class ProcessInfoGatherer
+ *	@brief The ProcessInfoGatherer class provides an abstract interface for monitoring running processes from a low priority thread
+ *
+ *      The ProcessInfoGatherer checks the running processes on a system in a continuous loop in a low priority thread.
+ *      It is expected to emit signals that specify changes in the list of running processes.
+ *
+ *      A class that uses the ProcessInfoGatherer interface must re-implement the \ref checkCurrentProcesses() function
+ *      which checks the running processes places them in the \ref m_currentlyRunningProcesses list.
+ *
+ *      \sa ProcessInfo, ProcessOpenedCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class ProcessInfoGatherer : public QThread
 {
@@ -32,7 +53,9 @@ public:
 protected:
     void run();
     QStringList m_previouslyRunningProcesses;
+    QStringList m_currentlyRunningProcesses;
     virtual void checkCurrentProcesses()=0;
+    void checkProcessListChanges();
 
 signals:
     void processAdded(QString);

@@ -20,14 +20,34 @@
 #ifndef SIMON_NEWCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
 #define SIMON_NEWCONDITION_H_CD6234308AA54117A89845ADFE98BCA1
 
+/** \file newcondition.h
+ * \brief The file containing the NewCondition baseclass header.
+ */
+
 #include <KDE/KDialog>
 #include <QList>
+#include "simoncontextui_export.h"
 #include "ui_modifycondition.h"
 
 class Condition;
 class CreateConditionWidget;
 
-class NewCondition : protected KDialog
+/**
+ *	@class NewCondition
+ *	@brief The NewCondition class is a dialog for creating Condition objects that will be monitored by the CompoundCondition of a Scenario
+ *
+ *      The NewCondition uses CreateConditionWidget objects that have been passed to it from \ref ContextViewPrivate::addCondition()
+ *      and uses those CreateConditionWidget objects to allow the user to customize a new Condition that
+ *      will be added to the CompoundCondition that was specified for the CreateConditionWidget objects by ContextViewPrivate.
+ *
+ *      \sa ContextViewPrivate, Condition, CompoundCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
+
+class SIMONCONTEXTUI_EXPORT NewCondition : protected KDialog
 {
   Q_OBJECT
 

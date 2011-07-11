@@ -26,6 +26,8 @@
 #include "psapi.h"
 #include <QDebug>
 
+#endif
+
 WindowsProcessInfoGatherer::WindowsProcessInfoGatherer(QObject *parent) :
     ProcessInfoGatherer(parent)
 {
@@ -33,6 +35,8 @@ WindowsProcessInfoGatherer::WindowsProcessInfoGatherer(QObject *parent) :
 
 void WindowsProcessInfoGatherer::checkCurrentProcesses()
 {
+    #ifdef Q_OS_WIN32
+
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     TCHAR szProcessName[MAX_PATH];
     HANDLE hProcess;
@@ -77,18 +81,8 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
                     processName = QString::fromLocal8Bit(szProcessName);
                     #endif
 
-                    //check to see if the name is new
-                    if (m_previouslyRunningProcesses.contains(processName))
-                    {
-                        m_previouslyRunningProcesses.removeOne(processName);
-                    }
-                    else
-                    {
-                        emit processAdded(processName);
-                    }
-
-                    //add the process name to the list of process names
-                    processNames.push_back(processName);
+                    //add the process name to the list of current process names
+                    m_currentlyRunningProcesses.push_back(processName);
                 }
             }
 
@@ -97,14 +91,7 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
         }
     }
 
-    //signal any processes that were removed
-    foreach (processName, m_previouslyRunningProcesses)
-    {
-        emit processRemoved(processName);
-    }
-
-    emit updateProcesses(processNames);
-    m_previouslyRunningProcesses = processNames;
+    #endif
 }
 
-#endif
+

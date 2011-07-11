@@ -31,6 +31,8 @@ K_EXPORT_PLUGIN( ProcessOpenedPluginFactory("simonprocessopenedcondition") )
 ProcessOpenedCondition::ProcessOpenedCondition(QObject *parent, const QVariantList &args) :
     Condition(parent, args)
 {
+    m_processName = "";
+    m_pluginName = "simonprocessopenedconditionplugin.desktop";
 }
 
 CreateConditionWidget* ProcessOpenedCondition::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)

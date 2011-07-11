@@ -20,6 +20,10 @@
 #ifndef SIMON_CONTEXTVIEWPRIVATE_H_819E2A6755D948FA917DEBAE89DA9F2D
 #define SIMON_CONTEXTVIEWPRIVATE_H_819E2A6755D948FA917DEBAE89DA9F2D
 
+/** \file contextviewprivate.h
+ * \brief The file containing the ContextViewPrivate baseclass header.
+ */
+
 #include "ui_contextdialog.h"
 #include <simoncontextdetection/condition.h>
 #include <simonscenarios/scenariodisplay.h>
@@ -27,6 +31,20 @@
 
 class Condition;
 class QSortFilterProxyModel;
+
+/**
+ *	@class ContextViewPrivate
+ *	@brief The ContextViewPrivate class provides a graphical frontend for changing the context requirements of a scenario
+ *
+ *      Conditions that are required in order for a scenario to be active can be added, editted and deleted with
+ *      the UI elements provided by ContextViewPrivate.
+ *
+ *      \sa ContextView, Scenario, Condition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class ContextViewPrivate : public QWidget, public ScenarioDisplay
 {

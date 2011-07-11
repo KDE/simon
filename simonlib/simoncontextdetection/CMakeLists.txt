@@ -39,6 +39,7 @@ set( simoncontextdetection_LIB_HDRS
 )
 
 kde4_add_library( simoncontextdetection  SHARED ${simoncontextdetection_LIB_SRCS} )
+
 target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} 
         ${QT_QTXML_LIBRARY} ${KDE4_KDEUI_LIBS})
 
@@ -53,3 +54,7 @@ install( FILES ${simoncontextdetection_LIB_HDRS}
 )
  
 install( TARGETS simoncontextdetection DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
+
+install(FILES
+${CMAKE_CURRENT_SOURCE_DIR}/simonconditionplugin.desktop DESTINATION
+${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)

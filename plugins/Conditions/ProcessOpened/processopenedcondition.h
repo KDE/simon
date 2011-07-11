@@ -20,10 +20,34 @@
 #ifndef PROCESSOPENEDCONDITION_H
 #define PROCESSOPENEDCONDITION_H
 
+/** \file processopenedcondition.h
+ * \brief The file containing the ProcessOpenedCondition baseclass header.
+ */
+
 #include "simoncontextdetection/condition.h"
 #include "simoncontextdetection/processinfo.h"
 #include "simoncontextdetection/simoncontextdetection_export.h"
 #include "simoncontextdetection/compoundcondition.h"
+
+/**
+ *	@class ProcessOpenedCondition
+ *	@brief The ProcessOpenedCondition class is a condition plugin that monitors whether or not a specified process is running
+ *
+ *      The ProcessOpenedCondition will be satisfied whenever the process name that it is monitoring (\ref m_processName) is
+ *      found among the list of running processes as determined by the ProcessInfo singleton.  Upon initialization, all
+ *      running processes are checked, and afterwards, the added and removed processes are checked by connecting the
+ *      ProcessInfo signals \ref ProcessInfo::processAdded(QString) and \ref ProcessInfo::processRemoved(QString) to the
+ *      ProcessOpenedCondition slots \ref checkAddedProcess(QString) and \ref checkRemovedProcess(QString) respectively.
+ *
+ *      Just like any other condition, the ProcessOpenedCondition will accordingly update its \ref Condition::m_satisfied value and then emit its \ref Condition::conditionChanged()
+ *      signal whenever it becomes newly satisfied or unsatisfied.
+ *
+ *      \sa Condition, ProcessInfo, CreateProcessOpenedConditionWidget
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class SIMONCONTEXTDETECTION_EXPORT ProcessOpenedCondition : public Condition
 {
@@ -43,7 +67,6 @@ private:
     int m_openedInstances;
 
     QString m_processName;
-    QString m_pluginName;
 
 signals:
 

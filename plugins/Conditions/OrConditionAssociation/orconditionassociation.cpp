@@ -19,6 +19,7 @@
 
 #include "orconditionassociation.h"
 #include <KDebug>
+#include "createorconditionassociationwidget.h"
 
 K_PLUGIN_FACTORY( OrConditionAssociationPluginFactory,
 registerPlugin< OrConditionAssociation >();
@@ -29,6 +30,12 @@ K_EXPORT_PLUGIN( OrConditionAssociationPluginFactory("simonorconditionassociatio
 OrConditionAssociation::OrConditionAssociation(QObject *parent, const QVariantList &args) :
     ConditionAssociation(parent, args)
 {
+    m_pluginName = "simonorconditionassociationplugin.desktop";
+}
+
+CreateConditionWidget* OrConditionAssociation::getCreateConditionWidget(CompoundCondition *compoundCondition, QWidget* parent)
+{
+    return new CreateOrConditionAssociationWidget(compoundCondition, parent);
 }
 
 QString OrConditionAssociation::name()

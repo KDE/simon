@@ -33,7 +33,6 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
     QFileInfoList files;
     QFile commFile;
     QString processName;
-    QStringList processNames;
 
     //process directories will be a series of digits
     digits = QRegExp("[0-9]+");
@@ -58,28 +57,9 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
                 //get rid of the newline character
                 processName.chop(1);
 
-                //check to see if the name is new
-                if (m_previouslyRunningProcesses.contains(processName))
-                {
-                    m_previouslyRunningProcesses.removeOne(processName);
-                }
-                else
-                {
-                    emit processAdded(processName);
-                }
-
-                //add the process name to the list of process names
-                processNames.push_back(processName);
+                //add the process name to the list of current process names
+                m_currentlyRunningProcesses.push_back(processName);
             }
         }
     }
-
-    //signal any processes that were removed
-    foreach (processName, m_previouslyRunningProcesses)
-    {
-        emit processRemoved(processName);
-    }
-
-    emit updateProcesses(processNames);
-    m_previouslyRunningProcesses = processNames;
 }

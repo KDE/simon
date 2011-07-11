@@ -20,7 +20,24 @@
 #ifndef LINUXPROCESSINFOGATHERER_H
 #define LINUXPROCESSINFOGATHERER_H
 
+/** \file linuxprocessinfogatherer.h
+ * \brief The file containing the LinuxProcessInfoGatherer baseclass header.
+ */
+
 #include "processinfogatherer.h"
+
+/**
+ *	@class LinuxProcessInfoGatherer
+ *	@brief The LinuxProcessInfoGatherer class monitors running processes on Linux-like platforms
+ *
+ *      LinuxProcessInfoGatherer is a ProcessInfoGatherer for Linux platforms.
+ *
+ *      \sa ProcessInfoGatherer, ProcessInfo, ProcessOpenedCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
+ */
 
 class LinuxProcessInfoGatherer : public ProcessInfoGatherer
 {

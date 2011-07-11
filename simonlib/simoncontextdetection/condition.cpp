@@ -23,6 +23,12 @@
 
 Condition::Condition(QObject *parent, const QVariantList &args)
 {
+    Q_UNUSED(args)
+
+    m_pluginName = "";
+    m_satisfied = true;
+    m_inverted = false;
+
     this->setParent(parent);
 }
 
@@ -36,20 +42,6 @@ bool Condition::isSatisfied()
     {
         return m_satisfied;
     }
-}
-
-QString Condition::name()
-{
-    return "Unnamed condition";
-}
-
-CreateConditionWidget* Condition::getCreateConditionWidget(
-CompoundCondition* compoundCondition, QWidget *parent)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(compoundCondition);
-
-    return 0;
 }
 
 QDomElement Condition::serialize(QDomDocument *doc)

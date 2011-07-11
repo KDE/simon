@@ -71,7 +71,7 @@ void ContextViewPrivate::addCondition()
 {
     NewCondition *newCondition = new NewCondition(this);
     QList<CreateConditionWidget*>* widgets = new QList<CreateConditionWidget*>();
-    QList<Condition*>* conditions = new QList<Condition*>();
+    QList<Condition*>* conditions;
     ContextManager* manager = ContextManager::instance();
 
     conditions = manager->getConditions();

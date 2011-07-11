@@ -155,9 +155,9 @@ void CompoundCondition::evaluateConditions()
             if (!condition->isSatisfied())
             {
                 m_satisfied = false;
-                emit conditionChanged(m_satisfied);
-		
                 kDebug() << "CompoundCondition is not satisfied!";
+                emit conditionChanged(m_satisfied);
+
                 return;
             }
         }
@@ -175,7 +175,7 @@ void CompoundCondition::evaluateConditions()
         }
 
         m_satisfied = true;
-        emit conditionChanged(m_satisfied);
         kDebug() << "CompoundCondition is satisfied!";
+        emit conditionChanged(m_satisfied);
     }
 }

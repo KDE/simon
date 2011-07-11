@@ -18,9 +18,9 @@
  */
 
 #include "contextmanager.h"
-#include "KDE/KService"
-#include "KDE/KServiceTypeTrader"
-#include "KDebug"
+#include <KService>
+#include <KServiceTypeTrader>
+#include <KDebug>
 #include <QTextStream>
 
 ContextManager* ContextManager::m_instance;
@@ -33,32 +33,6 @@ ContextManager::ContextManager(QObject *parent) :
     QObject(parent)
 {
 
-}
-
-void ContextManager::test()
-{
-    //testing
-    QFile testXml;
-    testXml.setFileName("/home/anash/Documents/QtProjects/ProcessListing-build-desktop/test.xml");
-    testXml.open(QFile::ReadWrite);
-    QDomDocument doc;
-    doc.setContent(&testXml);
-    testXml.close();
-
-    QDomElement elem;
-    elem = doc.documentElement();
-
-    CompoundCondition *cCondition;
-    cCondition = CompoundCondition::createInstance(elem);
-
-    //serialize the compound condition and print the result
-    QString str;
-    QTextStream stream(&str);
-    QDomDocument *parentDoc = new QDomDocument();
-    elem = cCondition->serialize(parentDoc);
-    elem.save(stream, 4);
-
-    //end testing
 }
 
 ContextManager::~ContextManager()
@@ -79,32 +53,54 @@ QList<Condition*>* ContextManager::getConditions()
     QList<Condition*>* conditions = new QList<Condition*>();
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
-    KPluginFactory *factory;
     Condition *condition;
 
     services = trader->query("simon/ConditionPlugin");
+    foreach (KService::Ptr service, services)
+    {
+        condition = getCondition(getEmptyCondition(service->storageId()));
 
-    KService::Ptr service = KService::serviceByStorageId("simonprocessopenedconditionplugin.desktop");
-
-    //foreach (KService::Ptr service, services)
-    //{
-        //create the factory for the service
-        factory = KPluginLoader(service->library()).factory();
-        if (factory)
-        {
-            condition = factory->create<Condition>();
-            factory->deleteLater();
-        }
-        else
-        {
-            kDebug() << "Factory not found!";
-            return conditions;
-        }
-
-        conditions->push_back(condition);
-    //}
+        if (condition)
+            conditions->push_back(condition);
+    }
 
     return conditions;
+}
+
+QDomElement ContextManager::getEmptyCondition(const QString &pluginName)
+{
+    QDomDocument doc;
+    QDomElement emptyElem;
+    Condition* condition;
+
+    //get the service
+    KService::Ptr service = KService::serviceByStorageId(pluginName);
+    if (!service) {
+      kDebug() << "Service not found! Source: " << pluginName;
+      return QDomElement();
+    }
+
+    //create the factory for the service
+    KPluginFactory *factory = KPluginLoader(service->library()).factory();
+    if (factory) {
+      condition = factory->create<Condition>();
+      factory->deleteLater();
+    }
+    else {
+      kDebug() << "Factory not found! Source: " << pluginName;
+      return QDomElement();
+    }
+
+    if (condition)
+    {
+        //serialize the service data
+        emptyElem = condition->serialize(&doc);
+        delete condition;
+
+        return emptyElem;
+    }
+
+    return QDomElement();
 }
 
 Condition* ContextManager::getCondition(const QDomElement &elem)

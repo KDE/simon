@@ -20,6 +20,10 @@
 #ifndef SIMON_CREATECONDITIONWIDGET_H_953FB9DDF3FA4DC5965BF6C9797CAA8A
 #define SIMON_CREATECONDITIONWIDGET_H_953FB9DDF3FA4DC5965BF6C9797CAA8A
 
+/** \file createconditionwidget.h
+ * \brief The file containing the CreateConditionWidget baseclass header.
+ */
+
 #include "simoncontextdetection_export.h"
 
 #include <QWidget>
@@ -30,13 +34,18 @@ class KIcon;
 
 /**
  *	@class CreateConditionWidget
- *	@brief Provides an abstract base-class for the widget that is going to be displayed in the New/Modify-Condition-Dialog
+ *	@brief The CreateConditionWidget class provides the abstract interface for the widget that is going to be displayed in the New/Modify-Condition-Dialog
  *
- *	If you want your conditions to be user configurable, you most likely want to derive a class from CreateConditionWidget.
- *	CreateConditionWidget are the graphical "factories" for Conditions where users can define and edit their conditions.
+ *	Condition plugins must derive a class from CreateConditionWidget.
+ *	The CreateConditionWidget is the graphical "factory" of Condition objects where users can define and edit their properties.
  *
- *	To enable the user to add and edit your Condition subclass, subclass this class and return an instance of it in the
- *	Condition::getCreateCommandWidget() method.
+ *	The Condition plugin should return its CreateConditionWidget in the \ref Condition::getCreateCommandWidget() method.
+ *
+ *      \sa Condition, CompoundCondition
+ *
+ *	@version 0.1
+ *	@date 7.7.2011
+ *	@author Adam Nash
  */
 class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
 {
@@ -50,7 +59,7 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
   void completeChanged();
 
   protected:
-    /// The parent compound condition
+    /// The parent CompoundCondition
     CompoundCondition *m_compoundCondition;
 
   protected slots:
@@ -61,7 +70,7 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      * @brief Creates the condition
      * @author Adam Nash
      *
-     * This function gets the common parameters for all conditions (name, iconSrc and description).
+     * This function gets the common parameters for all conditions (eg. name, whether or not it is inverted).
      *
      * A plugin implementing this should add the additional parameters of its Condition-derived
      * class (like the name of the program that it is monitoring) and create an instance
@@ -74,8 +83,8 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
     virtual Condition* createCondition()=0;
 
     /**
-     * \brief Creates the condition and adds it to the parent compound condition
-     * Calls createCondition() and adds the result to the manager by calling CompoundCondition::addCondition().
+     * \brief Creates the condition and adds it to the parent CompoundCondition
+     * Calls createCondition() and adds the result to the CompoundCondition by calling CompoundCondition::addCondition().
      * \sa createCondition()
      */
     virtual bool addCondition();
