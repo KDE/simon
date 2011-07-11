@@ -19,36 +19,50 @@
 
 #include <KMessageBox>
 #include <KDialog>
+#include <KDebug>
 #include "sampleshare.h"
 #include "ui_sampleshare.h"
-#include <KDebug>
+
 
 SampleShare::SampleShare(QWidget* parent): 
     KDialog(parent),ui(new Ui::SampleShareDlg){
   QWidget *sampleShareWidget = new QWidget( this );
   ui->setupUi(sampleShareWidget);
   setMainWidget(sampleShareWidget);
-  setButtons( User1 /*| KDialog::Apply*/ | ui->kdialog->Cancel);
-  setButtonText(ui->kdialog->User1, "Upload");
-  setButtonIcon(User1,KIcon("go-next"));
-  enableButton(User1,false);
- // ui->ageComboBox->itemData();
-  connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonUser1(bool)));
-  
+  setButtonText(ui->kdialog->Ok, "Upload");
+  setButtonIcon(Ok,KIcon("repository"));
+  enableButtonOk(false);
+  connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
+  connect(ui->kdialog, SIGNAL (okClicked()), this, SLOT(slotButtonClicked()));
+  ui->kTextEdit->setPlainText("path : " + TrainingManager::getInstance()->getTrainingDir()+" ; \nrecorded files to upload:");
+  ui->progressBar->setValue(0);
+  //QStringList::contains(TrainingManager::getInstance()->getPrompts()->keys());
+  //ui->listWidget->addItems(TrainingManager::getInstance()->getTrainingDir());//!fetch the files from
+  kDebug() << TrainingManager::getInstance()->getTrainingDir() << true;
+  kDebug() << TrainingManager::getInstance()->getPrompts()->keys() <<true;
 }
 
 SampleShare::~SampleShare(){
 delete ui;
 }
 
-void SampleShare::enableButtonUser1(bool down){
-  kDebug() << "license accepted"<< down ;
-  if (down == true){
-    kDebug() << "enabled Upload" << true;
-    enableButton(User1, true);
+void SampleShare::slotButtonClicked(int button) {
+if (button == KDialog::Ok){
+  if (ui->tabWidget->currentWidget())
+    ui->tabWidget->setCurrentWidget(ui->tabWidgetPage2);
+  else
+    kDebug() << "already on second tab"<< true;
   }
+else
+KDialog::slotButtonClicked(button);
+}
+
+void enableButtonOk( bool state ){
+  kDebug() << "license accepted"<< true ;
+  if (state = (true)){
+  enableButtonOk(true);
+  kDebug() << "enabled Upload" << true;}
   else{
-    kDebug() << "enabled Upload" << false;
-    enableButton(User1,false);
-  };
+    enableButtonOk(false);
+    kDebug() << "enabled Upload" << false;};
 }
