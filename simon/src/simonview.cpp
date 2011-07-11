@@ -168,6 +168,8 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
+  displayAboutPage();
+
   settingsShown=false;
 
   displayScenarios();
