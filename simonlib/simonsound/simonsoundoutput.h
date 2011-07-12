@@ -57,7 +57,6 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
 
   private slots:
     void slotOutputStateChanged(SimonSound::State state);
-    bool stopPlayback();
     void startSoundPlayback();
 
   public:
@@ -69,6 +68,7 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
 
     bool preparePlayback(SimonSound::DeviceConfiguration& device);
     bool startPlayback();
+    bool stopPlayback();
     bool isActive() { return m_activeOutputClient != 0; }
 
     SoundClient::SoundClientPriority getHighestPriority();

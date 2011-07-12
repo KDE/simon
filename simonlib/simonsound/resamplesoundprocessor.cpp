@@ -59,8 +59,8 @@ void ResampleSoundProcessor::process(QByteArray& data, qint64& currentTime)
   resampleData->output_frames = targetFrames;
   resampleData->src_ratio = ((double) m_targetFreq) / ((double) m_sourceFreq);
   resampleData->end_of_input = 0; 
-  kDebug() << "Input frames: " << inputFrames;
-  kDebug() << "Targetframes: " << targetFrames;
+  //kDebug() << "Input frames: " << inputFrames;
+  //kDebug() << "Targetframes: " << targetFrames;
 
   int error = src_process(state, resampleData);
   if (error != 0) {
@@ -75,8 +75,8 @@ void ResampleSoundProcessor::process(QByteArray& data, qint64& currentTime)
   src_float_to_short_array(resampleData->data_out, (short int*) data.data(), processedFrames);
   //data = QByteArray::fromRawData(outputData, processedFramesLength);
   internalBuffer.remove(0, resampleData->input_frames_used * 2 /* 16 bit */);
-  kDebug() << "Resampled " << resampleData->input_frames_used << " frames to " << processedFrames;
-  kDebug() << "Remaining buffer: " << internalBuffer.length();
+  //kDebug() << "Resampled " << resampleData->input_frames_used << " frames to " << processedFrames;
+  //kDebug() << "Remaining buffer: " << internalBuffer.length();
   free(inData);
   free(outData);
   //free(outputData);

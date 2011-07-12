@@ -450,8 +450,23 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
 
 void SoundServer::uninitializeSoundSystem()
 {
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+  while (i.hasNext()) {
+    i.next();
+    i.value()->stopRecording();
+  }
+  inputs.clear();
+
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> j(outputs);
+  while (j.hasNext()) {
+    j.next();
+    j.value()->stopPlayback();
+  }
+  outputs.clear();
+
   backend->stopPlayback();
   backend->stopRecording();
+
 }
 
 
