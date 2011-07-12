@@ -54,8 +54,8 @@ void SoundInputBuffer::run()
 
     killLock.lock();
     m_input->processData(m_buffer.left(bufferSize));
-    killLock.unlock();
     m_buffer = m_buffer.mid(bufferSize);
+    killLock.unlock();
     //kDebug() << "Processed buffered data" << m_shouldBeRunning;
   }
 }
