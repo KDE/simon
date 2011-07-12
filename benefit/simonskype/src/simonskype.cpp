@@ -22,13 +22,14 @@
 #include "unistd.h"
 #include <KDebug>
 #include <QTimer>
+#include <QApplication>
 #include <KCmdLineArgs>
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusInterface>
 
 
-SimonSkype::SimonSkype()
+SimonSkype::SimonSkype() : stopVoiceMail(false)
 {
   connect(&s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
   connect(&s, SIGNAL(callStatus(const QString&, const QString&)), this, SLOT(callStatus(const QString&, const QString&)));
@@ -48,17 +49,18 @@ SimonSkype::SimonSkype()
     exit(0);
   }
   if (KCmdLineArgs::parsedArgs()->isSet("n")) {
+    connect(&s, SIGNAL(voiceMailInProgress(int)), this, SLOT(voiceMailActive(int)));
+    kDebug() << s.searchVoiceMails();
+    kDebug() << s.searchMissedVoiceMails();
     foreach (const QString& call, s.searchActiveCalls())
       s.hangUp(call);
-    exit(0);
-  }
-
-  if (!KCmdLineArgs::parsedArgs()->isSet("d")) {
+    stopVoiceMail = true;
+    QTimer::singleShot(5000, qApp, SLOT(quit()));
+    //exit(0);
+  } else if (!KCmdLineArgs::parsedArgs()->isSet("d")) {
     kWarning() << "Nothing to do. Provide either c, y, n or d switches to use simonskype. See: simonskype --help";
     exit(0);
   }
-
-  s.setOnline();
 }
 
 void SimonSkype::callStatus(const QString &callId, const QString &status)
@@ -67,6 +69,12 @@ void SimonSkype::callStatus(const QString &callId, const QString &status)
     usleep(1000000);
     s.startSendingVideo(callId);
   }
+}
+
+void SimonSkype::voiceMailActive(int id)
+{
+  kDebug() << "Stopping voice mail...";
+  s.stopVoiceMail(id);
 }
 
 void SimonSkype::newCall(const QString& callId, const QString& userId)

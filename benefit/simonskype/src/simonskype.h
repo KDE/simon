@@ -28,10 +28,12 @@ class SimonSkype : public QObject
   Q_OBJECT
   private:
     Skype s;
+    bool stopVoiceMail;
 
   private slots:
     void newCall(const QString& callId, const QString& userId);
     void callStatus(const QString& callId, const QString& status);
+    void voiceMailActive(int id);
 
   public:
     SimonSkype();
