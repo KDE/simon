@@ -29,15 +29,13 @@ SampleShare::SampleShare(QWidget* parent):
   QWidget *sampleShareWidget = new QWidget( this );
   ui->setupUi(sampleShareWidget);
   setMainWidget(sampleShareWidget);
-  setButtonText(ui->kdialog->Ok, "Upload");
+  setButtonText(Ok, i18n("Upload"));
   setButtonIcon(Ok,KIcon("repository"));
   enableButtonOk(false);
   connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
-  connect(ui->kdialog, SIGNAL (okClicked()), this, SLOT(slotButtonClicked()));
-  ui->kTextEdit->setPlainText("path : " + TrainingManager::getInstance()->getTrainingDir()+" ; \nrecorded files to upload:");
+  //connect(this, SIGNAL (okClicked()), this, SLOT(slotButtonClicked()));
+  ui->kTextEdit->setPlainText(i18n("path : " )+ TrainingManager::getInstance()->getTrainingDir()+i18n(" ; \nrecorded files to upload:"));
   ui->progressBar->setValue(0);
-  //QStringList::contains(TrainingManager::getInstance()->getPrompts()->keys());
-  //ui->listWidget->addItems(TrainingManager::getInstance()->getTrainingDir());//!fetch the files from
   kDebug() << TrainingManager::getInstance()->getTrainingDir() << true;
   kDebug() << TrainingManager::getInstance()->getPrompts()->keys() <<true;
 }
@@ -48,8 +46,8 @@ delete ui;
 
 void SampleShare::slotButtonClicked(int button) {
 if (button == KDialog::Ok){
-  if (ui->tabWidget->currentWidget())
-    ui->tabWidget->setCurrentWidget(ui->tabWidgetPage2);
+  if (ui->stackedWidget->currentWidget()==ui->stackedWidgetPage1)
+    ui->stackedWidget->setCurrentWidget(ui->stackedWidgetPage2);
   else
     kDebug() << "already on second tab"<< true;
   }
@@ -59,7 +57,7 @@ KDialog::slotButtonClicked(button);
 
 void enableButtonOk( bool state ){
   kDebug() << "license accepted"<< true ;
-  if (state = (true)){
+  if (state == (true)){
   enableButtonOk(true);
   kDebug() << "enabled Upload" << true;}
   else{
