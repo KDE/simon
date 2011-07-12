@@ -5,3 +5,4 @@ add_subdirectory(speechcal)
 endif (KDEPIMLIBS_FOUND)
 
 add_subdirectory(simonskype)
+add_subdirectory(simonstatus)

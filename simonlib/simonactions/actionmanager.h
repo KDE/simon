@@ -61,7 +61,7 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     void processRawResults(RecognitionResultList* recognitionResults);
     void presentUserWithResults(RecognitionResultList* recognitionResults);
     bool processResult(RecognitionResult recognitionResult);
-    bool triggerCommand(const QString& type, const QString& trigger);
+    bool triggerCommand(const QString& type, const QString& trigger, bool silent=false);
 
     void deRegisterGreedyReceiver(GreedyReceiver *);
     void registerGreedyReceiver(GreedyReceiver *);

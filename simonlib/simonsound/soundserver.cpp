@@ -460,5 +460,6 @@ void SoundServer::uninitializeSoundSystem()
  */
 SoundServer::~SoundServer()
 {
-  backend->deleteLater();;
+  uninitializeSoundSystem();
+  backend->deleteLater();
 }

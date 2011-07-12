@@ -123,7 +123,7 @@ void KeyboardCommandManager::processRequest(int number)
 
 bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 {
-  if (trigger(inputText))
+  if (trigger(inputText, false /* silent */))
     return true;
 
   bool caseSensitivityBool = getKeyboardConfiguration()->caseSensitive();

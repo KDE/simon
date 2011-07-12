@@ -94,7 +94,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
     QStringList getAllAvailableScenarioIds();
 
-    bool triggerCommand(const QString& type, const QString& trigger);
+    bool triggerCommand(const QString& type, const QString& trigger, bool silent);
     bool processResult(RecognitionResult recognitionResult);
 
     CommandList* getCommandList();

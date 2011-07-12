@@ -37,6 +37,7 @@ class CompositeCommand : public Command
   private:
     QStringList commands;
     QStringList commandTypes;
+    bool passThrough;
 
   protected:
     const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -61,11 +62,15 @@ class CompositeCommand : public Command
      *
      *	@author Peter Grasch
      */
-    CompositeCommand(const QString& name, const QString& iconSrc, const QString& description, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
+    CompositeCommand(const QString& name, const QString& iconSrc, const QString& description, bool passThrough_,
+                     const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc, description),
       commands(commands_),
-    commandTypes(commandTypes_) {
+      commandTypes(commandTypes_),
+      passThrough(passThrough_)
+    {
     }
 
+    bool getPassThrough() const { return this->passThrough; }
     QStringList getCommands() const { return this->commands; }
     QStringList getCommandTypes() const { return this->commandTypes; }
 

@@ -363,11 +363,11 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
 }
 
 
-bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger)
+bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
   kDebug() << "Should execute command " << type << trigger;
   foreach (Scenario *s, scenarios) {
-    if (s->triggerCommand(type, trigger))
+    if (s->triggerCommand(type, trigger, silent))
       return true;
   }
 

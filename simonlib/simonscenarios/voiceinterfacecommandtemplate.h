@@ -31,7 +31,7 @@ class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
     QString m_actionName;
     QString m_defaultVisibleTrigger;
     QString m_description;
-    int m_state;
+    QList<int> m_states;
     int m_newState;
     bool m_announce;
     bool m_showIcon;
@@ -44,6 +44,10 @@ class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
       const QString& icon, const QString& description, int state,
       int newState, bool announce=false, bool showIcon=true,
       QString defaultVisibleTrigger=QString());
+    VoiceInterfaceCommandTemplate(const QString& id, const QString& actionName,
+      const QString& icon, const QString& description, QList<int> states,
+      int newState, bool announce=false, bool showIcon=true,
+      QString defaultVisibleTrigger=QString());
 
     void assignAction(QObject *receiver, const QString& slot);
 
@@ -53,7 +57,7 @@ class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommandTemplate
     QString icon() { return m_icon; }
     QObject* receiver() { return m_receiver; }
     QString slot() { return m_slot; }
-    int state() { return m_state; }
+    QList<int> states() { return m_states; }
     int newState() { return m_newState; }
 
     QString defaultVisibleTrigger() {

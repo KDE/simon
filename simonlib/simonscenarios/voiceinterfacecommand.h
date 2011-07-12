@@ -44,7 +44,7 @@ class MODELMANAGEMENT_EXPORT  VoiceInterfaceCommand : public Command
     VoiceInterfaceCommand(const VoiceInterfaceCommand& b);
     VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem);
     VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger,  const QString& iconSrc,
-      const QString& description, const QString& id, int state, int newState,
+      const QString& description, const QString& id, QList<int> state, int newState,
       const QString& visibleTrigger, bool showIcon, bool announce);
 
     void assignAction(CommandManager *m_parentManager, QObject *receiver, const QString& slot);

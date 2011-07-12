@@ -91,7 +91,7 @@ void ActionManager::retrieveRecognitionResultFilteringParameters()
 }
 
 
-bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
+bool ActionManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
   if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
     //result from a did-you-mean popup
@@ -112,7 +112,7 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
     return true;
   }
 
-  return ScenarioManager::getInstance()->triggerCommand(type, trigger);
+  return ScenarioManager::getInstance()->triggerCommand(type, trigger, silent);
 }
 
 
@@ -239,7 +239,7 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
   connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
   connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
   int state = SimonCommand::DefaultState;
-  list->trigger(&state);
+  list->trigger(&state, true /* silent */);
 }
 
 

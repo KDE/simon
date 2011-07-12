@@ -143,7 +143,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QString autorunTrigger();
 
     bool processResult(RecognitionResult recognitionResult);
-    bool triggerCommand(const QString& type, const QString& trigger);
+    bool triggerCommand(const QString& type, const QString& trigger, bool silent);
 
     CommandList* getCommandList();
 

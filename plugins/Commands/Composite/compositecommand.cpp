@@ -70,6 +70,11 @@ QDomElement CompositeCommand::serializePrivate(QDomDocument *doc, QDomElement& c
 {
   Q_ASSERT(commands.count() == commandTypes.count());
 
+  QDomElement passThroughElem = doc->createElement("passThrough");
+  passThroughElem.appendChild(doc->createTextNode(passThrough ? "1" : "0"));
+  
+  commandElem.appendChild(passThroughElem);
+  
   QDomElement childCommandsElement = doc->createElement("childCommands");
 
   for (int i=0; i < commands.count(); i++) {
@@ -99,8 +104,11 @@ void CompositeCommand::triggerPrivateThread()
       bool ok=true;
       kDebug() << commands[i];
       int amount = commands[i].toInt(&ok);
-      if (!ok) {kDebug() << "Not ok"; continue;}
-      kDebug() << "Sleeping: " << amount;
+      if (!ok) {
+        kDebug() << "Not ok";
+        continue;
+      }
+      
       #ifdef Q_OS_WIN32
       Sleep(amount);
       #else
@@ -109,7 +117,7 @@ void CompositeCommand::triggerPrivateThread()
     }
     else
       QMetaObject::invokeMethod(ActionManager::getInstance(), "triggerCommand", Qt::QueuedConnection, 
-          QGenericReturnArgument(), Q_ARG(QString, commandTypes[i]), Q_ARG(QString, commands[i]));
+          QGenericReturnArgument(), Q_ARG(QString, commandTypes[i]), Q_ARG(QString, commands[i]), Q_ARG(bool, true));
   }
 }
 
@@ -119,10 +127,11 @@ bool CompositeCommand::triggerPrivate(int *state)
   Q_UNUSED(state);
   Q_ASSERT(commands.count() == commandTypes.count());
 
-  QtConcurrent::run(this, &CompositeCommand::triggerPrivateThread);
-  //triggerPrivateThread();
+  //QtConcurrent::run(this, &CompositeCommand::triggerPrivateThread);
+  triggerPrivateThread();
 
-  return true;
+  kDebug() << "Returning " << !passThrough;
+  return !passThrough;
 }
 
 
@@ -131,6 +140,8 @@ bool CompositeCommand::deSerializePrivate(const QDomElement& commandElem)
   QDomElement childCommandsElem = commandElem.firstChildElement("childCommands");
   if (childCommandsElem.isNull()) return false;
 
+  passThrough = (commandElem.firstChildElement("passThrough").text() == "1");
+  
   commands.clear();
   commandTypes.clear();
 

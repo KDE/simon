@@ -92,15 +92,20 @@ void FilterCommandManager::deactivateFilter()
   if (!isActive) return;
   toggle();
   stageOne = false;
+  timeoutTimer.stop();
 }
 
 void FilterCommandManager::deactivateOnce()
 {
   if (!isActive) return;
   stageOne = true;
+  kDebug() << "Deactivating once..."  << configuration()->autoLeaveStageOne();
   if (configuration()->autoLeaveStageOne())
   {
-    QTimer::singleShot(configuration()->autoLeaveStageOneTimeout(), this, SLOT(leaveStageOne()));
+    kDebug() << "Starting timeout...";
+    timeoutTimer.stop();
+    timeoutTimer.setInterval(configuration()->autoLeaveStageOneTimeout());
+    timeoutTimer.start();
   }
 }
 
@@ -112,31 +117,29 @@ FilterConfiguration* FilterCommandManager::configuration()
 void FilterCommandManager::leaveStageOne()
 {
   if (!configuration()->twoStage() || !stageOne) return;
+  kDebug() << "Leaving stage one...";
 
   stageOne = false;
   switchToState(SimonCommand::DefaultState+1);
 }
 
-bool FilterCommandManager::trigger(const QString& triggerName)
+bool FilterCommandManager::trigger(const QString& triggerName, bool silent)
 {
-  kDebug() << "Current state: " << m_currentState;
-  kDebug() << "Current state: " << &m_currentState;
-  kDebug() << "Trigger: " << triggerName;
-  kDebug() << "Is active: " << isActive;
-  kDebug() << "Is in stage one: " << stageOne;
-  kDebug() << "Is two stage: " << configuration()->twoStage();
-  kDebug() << "Relay two stage: " << configuration()->relayStageOne();
-  
+  kDebug() << "Filter state: " << m_currentState;
   if ((m_currentState == SimonCommand::DefaultState+1) && (!configuration()->twoStage()))
   {
     switchToState(SimonCommand::DefaultState+2); // if not in two stage mode, "upgrade" immediatly
   }
 
-  if (CommandManager::trigger(triggerName))
+  kDebug() << "Triggering: " << triggerName;
+  if (CommandManager::trigger(triggerName, silent))
     return true;
 
-  if (configuration()->twoStage() && stageOne)
+  kDebug() << "Still here";
+  if (configuration()->twoStage() && stageOne) {
+    kDebug() << "Switching to " << SimonCommand::DefaultState+1;
     switchToState(SimonCommand::DefaultState+1);
+  }
 
   //would pass through - should it?
   if (!isActive || (configuration()->twoStage() && stageOne && configuration()->relayStageOne()))
@@ -171,20 +174,24 @@ bool FilterCommandManager::deSerializeConfig(const QDomElement& elem)
 
   succ &= installInterfaceCommand(this, "deactivateFilter", i18n("Deactivate filter"), "view-filter",
     i18n("Stops filtering"), true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState+2 /* consider this command when in this state */,
+    QList<int>() << SimonCommand::DefaultState+2,
     SimonCommand::DefaultState,                   /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "stopsFiltering" /* id */);
 
   succ &= installInterfaceCommand(this, "deactivateOnce", i18n("Deactivate filter once"), "view-filter",
     i18n("When two stage mode is activated; Will consider the next recognition result and either only listen for the command to deactivate the filter completely or also pass the next result through to other plugins depending on the setting in the configuration."), true /* announce */, true /* show icon */,
-    SimonCommand::DefaultState+1 /* consider this command when in this state */,
+    /* consider this command when in this state */
+    QList<int>() << SimonCommand::DefaultState+1 << SimonCommand::DefaultState+2,
     SimonCommand::DefaultState+2,                   /* if executed switch to this state */
     QString() /* take default visible id from action name */,
     "stopsFilteringOnce" /* id */);
 
   if (!succ)
     kDebug() << "Something went wrong!";
+  
+  connect(&timeoutTimer, SIGNAL(timeout()), this, SLOT(leaveStageOne()));
+  timeoutTimer.setSingleShot(true);
 
   return succ;
 }

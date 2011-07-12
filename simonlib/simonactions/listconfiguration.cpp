@@ -259,7 +259,7 @@ const QStringList& triggers, const QString& visibleTrigger, bool showIcon, const
     //kDebug() << "Storing element: " << trigger;
     listInterfaceCommands.insertMulti(element, new VoiceInterfaceCommand(0, trigger, iconSrc,
       getListSelectionDescription(element), getListSelectionId(element),
-      0, 0, visibleTrigger, showIcon, false));
+      QList<int>() << 0, 0, visibleTrigger, showIcon, false));
   }
 
 }

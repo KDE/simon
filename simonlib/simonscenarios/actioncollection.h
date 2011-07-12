@@ -75,7 +75,7 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
     bool moveActionDown(Action *action);
 
     bool processResult(RecognitionResult recognitionResult);
-    bool triggerCommand(const QString& type, const QString& trigger);
+    bool triggerCommand(const QString& type, const QString& trigger, bool silent);
 
     bool setTrigger(const QString& trigger);
     void setPluginFont(const QFont& font);

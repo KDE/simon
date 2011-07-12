@@ -1,0 +1,13 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="local.SimonStatusWidget">
+    <method name="setActive" />
+    <method name="setInactive" />
+    
+    <!-- for activate once setting in the filter -->
+    <method name="setActiveOnce">
+      <arg name="timeout" type="i" direction="in"/>
+    </method>
+    <method name="recognizedSomething" />
+  </interface>
+</node>

@@ -118,7 +118,7 @@ void RunCommandViewPrivate::triggerCommand()
   Command *com = getCurrentCommand();
   Action *a = getCurrentlySelectedAction();
   if (a && a->manager())
-    a->manager()->triggerCommand(com);
+    a->manager()->triggerCommand(com, false);
 }
 
 

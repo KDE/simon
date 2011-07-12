@@ -66,8 +66,9 @@ CommandConfiguration* AICommandManager::getConfigurationPage() const
 }
 
 
-bool AICommandManager::trigger(const QString& triggerName)
+bool AICommandManager::trigger(const QString& triggerName, bool silent)
 {
+  Q_UNUSED(silent);
   Q_ASSERT(parser);
   Q_ASSERT(festivalProc);
   if (!parser) return false;

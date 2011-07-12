@@ -1939,6 +1939,8 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
  */
 RecognitionControl::~RecognitionControl()
 {
+  simondStreamer->stop();
+  simondStreamer->deleteLater();
   if (localSimond) {
     localSimond->terminate();
     localSimond->waitForFinished(1000);

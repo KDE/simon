@@ -23,6 +23,7 @@
 #include <QDomElement>
 #include <QDomDocument>
 #include <KDebug>
+#include <qvarlengtharray.h>
 
 
 /**
@@ -62,9 +63,9 @@ bool Command::parseArguments(const QString& input, const QString& scheme, QStrin
     else {
       QString nextString = splitList[i+1];
       if ((i == splitList.count()-2) && nextString.isEmpty()) // last run
-	nextIndex = callTrigger.length();
+        nextIndex = callTrigger.length();
       else
-	nextIndex = callTrigger.indexOf(nextString);
+        nextIndex = callTrigger.indexOf(nextString);
     }
     
     if (nextIndex == -1)
@@ -83,7 +84,7 @@ bool Command::parseArguments(const QString& input, const QString& scheme, QStrin
  *
  * This method tells the CommandManager if the command matches the current conditions (state and recognition result).
  *
- * The default implementation checks if the commandManagerState is the same as the #boundState and if the recognized trigger
+ * The default implementation checks if the commandManagerState is the same as the #boundStates and if the recognized trigger
  * is the same as the commands trigger name.
  *
  * \param commandManagerState The state of the CommandManager
@@ -92,8 +93,7 @@ bool Command::parseArguments(const QString& input, const QString& scheme, QStrin
  */
 bool Command::matches(int commandManagerState, const QString& trigger)
 {
-//   kDebug() << "Commandmanager state: " << commandManagerState << "Command bound to: " << boundState << trigger << getTrigger();
-  if (commandManagerState != boundState)
+  if (!boundStates.contains(commandManagerState))
     return false;
 
   if (!triggerName.contains(QRegExp("%?%\\d+")))
@@ -120,17 +120,19 @@ bool Command::matches(int commandManagerState, const QString& trigger)
  * This function should not be overwritten directly. It calls triggerPrivate() which is where you should
  * implement the actions of your specific subclass.
  *
+ * \param silent Set this to true to hide the popup
  * \param state Reference parameter: The state of the parent CommandManager
  * \return If your work was done, return true. Otherwise return false (not correct state, etc.). Have a look at the trigger()
  * 	method of the CommandManager class for more details.
  *
  * \sa triggerPrivate()
  */
-bool Command::trigger(int* state)
+bool Command::trigger(int* state, bool silent)
 {
   if (announce) {
     KIcon commandIcon = getIcon();
-    SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
+    if (!silent)
+      SimonInfo::showMessage(getParsedTrigger(), 2500, &commandIcon);
   }
   if (state)
     *state = switchToState;
@@ -145,9 +147,11 @@ QString Command::getParsedTrigger() const
 {
   QString out = getTrigger();
   for (int i=0; i < m_currentParameters.count(); i++) {
-    kDebug() << QString("%?%%1").arg(i+1);
-    out.replace(QRegExp(QString("%?%%1").arg(i+1)), m_currentParameters[i]);
+    QString regExp = QString("%?%")+QString::number(i+1);
+    kDebug() << regExp;
+    out.replace(QRegExp(regExp), m_currentParameters[i]);
   }
+  kDebug() << "Out: " << out;
   return out;
 }
 
@@ -191,8 +195,15 @@ QDomElement Command::serialize(QDomDocument *doc)
   icon.appendChild(doc->createTextNode(iconSrc));
   QDomElement descriptionElem = doc->createElement("description");
   descriptionElem.appendChild(doc->createTextNode(description));
+  
   QDomElement stateElem = doc->createElement("state");
-  stateElem.appendChild(doc->createTextNode(QString::number(boundState)));
+  
+  QString states;
+  foreach (int elem, boundStates)
+    states += QString::number(elem)+",";
+  states = states.left(states.length()-1); //remove last ,
+  
+  stateElem.appendChild(doc->createTextNode(states));
   QDomElement newStateElem = doc->createElement("newState");
   newStateElem.appendChild(doc->createTextNode(QString::number(switchToState)));
   QDomElement announceElem = doc->createElement("announce");
@@ -234,7 +245,12 @@ bool Command::deSerialize(const QDomElement& elem)
   triggerName = name.text();
   iconSrc = icon.text();
   description = descriptionElem.text();
-  boundState = stateElem.text().toInt();
+  
+  boundStates.clear();
+  QString states = stateElem.text();
+  foreach (const QString& s, states.split(","))
+    boundStates << s.toInt();
+  
   switchToState = newStateElem.text().toInt();
   announce = (announceElem.text().toInt() == 1);
 
