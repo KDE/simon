@@ -89,6 +89,10 @@ bool Scenario::init(QString path)
   //************************************************/
   if (!readCompoundCondition(path, doc)) return false;
 
+  //  ChildScenarios
+  //************************************************/
+  if (!readChildScenarioIds(path, doc)) return false;
+
   delete doc;
   commitGroup();
   return true;
@@ -372,6 +376,35 @@ bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool delet
     return true;
 }
 
+bool Scenario::readChildScenarioIds(QString path, QDomDocument* doc, bool deleteDoc)
+{
+    if (!setupToParse(path, doc, deleteDoc)) return false;
+
+    QDomElement docElem = doc->documentElement();
+
+    QDomElement childrenElem = docElem.firstChildElement("childscenarioids");
+
+    if (childrenElem.isNull())
+    {
+        kDebug() << "No child scenario id list element!";
+        return true;
+    }
+
+    QDomElement idElem = childrenElem.firstChildElement("scenarioid");
+    while (!idElem.isNull())
+    {
+        m_childScenarioIds.push_back(idElem.text());
+
+         kDebug() << "Child scenario id added: " + idElem.text();
+
+        idElem = idElem.nextSiblingElement("scenarioid");
+    }
+
+    kDebug() << "Child scenario id list has been deSerialized!";
+
+    return true;
+}
+
 
 /**
  * Stores the scenario; The storage location will be determined automatically
@@ -500,6 +533,17 @@ QString Scenario::serialize()
       kDebug() << "Serializing compound condition!";
       rootElem.appendChild(m_compoundCondition->serialize(&doc));
   }
+
+  //  Child Scenario Ids
+  //************************************************/
+  QDomElement childrenElem = doc.createElement("childscenarioids");
+  QDomElement idElem;
+  foreach(QString id, m_childScenarioIds)
+  {
+      idElem = doc.createElement("scenarioid");
+      idElem.setNodeValue(id);
+  }
+  rootElem.appendChild(childrenElem);
 
 
   doc.appendChild(rootElem);

@@ -72,6 +72,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     Grammar *m_grammar;
     ActionCollection* m_actionCollection;
     CompoundCondition* m_compoundCondition;
+    QList<QString> m_childScenarioIds;
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
@@ -127,6 +128,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool readActions(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readCompoundCondition(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readChildScenarioIds(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool init(QString path=QString());
     bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
