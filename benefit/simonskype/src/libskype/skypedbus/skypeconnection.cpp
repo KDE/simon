@@ -72,8 +72,8 @@ SkypeConnection::~SkypeConnection() {
 	disconnectSkype();//disconnect before you leave
 	if ( d->skypeProcess.state() != QProcess::NotRunning )//if we started skype process kill it
 		d->skypeProcess.kill();
-	QProcess::execute("bash -c \"pkill -2 -U $USER -x ^skype.*$\"");//try find skype process (skype, skype.real, ...) and kill it if we dont start skype or use skype.real wrapper
-	QProcess::execute("bash -c \"pkill -2 -U $USER -x skype\"");
+	//QProcess::execute("bash -c \"pkill -2 -U $USER -x ^skype.*$\"");//try find skype process (skype, skype.real, ...) and kill it if we dont start skype or use skype.real wrapper
+	//QProcess::execute("bash -c \"pkill -2 -U $USER -x skype\"");
 	delete d;//Remove the D pointer
 }
 

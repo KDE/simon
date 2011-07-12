@@ -80,7 +80,7 @@ class ALSACaptureLoop : public ALSALoop
           readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
           if (readCount < 0) {
             xrun_recovery(m_parent->m_handle, readCount);
-            Logger::log(QString("Read failed: %1").arg(readCount));
+            Logger::log(QString("Read failed: %1").arg(snd_strerror(readCount)));
           }
         }
         if (err < 0) {
