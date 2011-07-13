@@ -57,11 +57,11 @@ void SoundInputBuffer::run()
 
     m_buffer.remove(0, bufferSize);
     if (m_buffer.size() > 20*bufferSize) // drop data as a last resort
-      m_buffer.resize(20*bufferSize);
+      m_buffer.clear();
 
     //m_buffer = m_buffer.mid(bufferSize);
     killLock.unlock();
-    //kDebug()  << "Local buffer size: " << m_buffer.length();
+    kDebug()  << "Local buffer size: " << m_buffer.length();
   }
 }
 
