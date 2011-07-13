@@ -30,10 +30,10 @@ SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
 void SoundInputBuffer::write(const char *toWrite, qint64 len)
 {
   //kDebug() << "Buffering data";
-  killLock.lock();
+  //killLock.lock();
   m_buffer.append(toWrite, len);
-  killLock.unlock();
   m_bufferLock.release(len);
+  //killLock.unlock();
 }
 
 void SoundInputBuffer::run()
@@ -52,16 +52,19 @@ void SoundInputBuffer::run()
       }
     }
 
-    killLock.lock();
+    //killLock.lock();
     m_input->processData(m_buffer.left(bufferSize));
 
     m_buffer.remove(0, bufferSize);
-    if (m_buffer.size() > 20*bufferSize) // drop data as a last resort
+    if (m_buffer.size() > 20*bufferSize) // drop data as a last resort 
+    {
       m_buffer.clear();
+      m_bufferLock.acquire(m_bufferLock.available());
+    }
 
     //m_buffer = m_buffer.mid(bufferSize);
-    killLock.unlock();
-    kDebug()  << "Local buffer size: " << m_buffer.length();
+    //killLock.unlock();
+    //kDebug()  << "Local buffer size: " << m_buffer.length();
   }
 }
 
