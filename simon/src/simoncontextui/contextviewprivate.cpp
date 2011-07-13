@@ -21,6 +21,7 @@
 #include <simonscenarios/scenario.h>
 #include "newcondition.h"
 #include "simoncontextdetection/contextmanager.h"
+#include "simonscenarios/scenariotreemodel.h"
 
 #include <QWidget>
 #include <QPointer>
@@ -49,10 +50,15 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   ui.pbEditCondition->setIcon(KIcon("edit-rename"));
   ui.pbDeleteCondition->setIcon(KIcon("edit-delete"));
 
+  ui.pbAddChild->setIcon(KIcon("list-add"));
+  ui.pbRemoveChild->setIcon(KIcon("edit-delete"));
+
   conditionsProxy = new QSortFilterProxyModel(this);
   conditionsProxy->setFilterKeyColumn(0);
   conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(conditionsProxy);
+
+  m_childrenTreeModel = new ScenarioTreeModel(this);
 
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
@@ -156,10 +162,11 @@ void ContextViewPrivate::selectionChanged()
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   CompoundCondition *compoundCondition = scenario->compoundCondition();
-
   conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
-
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
+
+  m_childrenTreeModel->setRootScenario(scenario);
+  ui.tvChildScenarios->setModel(m_childrenTreeModel);
 }
 
 ContextViewPrivate::~ContextViewPrivate()

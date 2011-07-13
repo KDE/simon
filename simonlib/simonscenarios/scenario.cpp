@@ -23,6 +23,7 @@
 #include "activevocabulary.h"
 #include "grammar.h"
 #include "trainingtextcollection.h"
+#include "scenariotreemodel.h"
 
 #include "actioncollection.h"
 
@@ -49,7 +50,8 @@ m_vocabulary(0),
 m_texts(0),
 m_grammar(0),
 m_actionCollection(0),
-m_compoundCondition(0)
+m_compoundCondition(0),
+m_parentScenario(0)
 {
 }
 
@@ -122,6 +124,59 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
   return true;
 }
 
+bool Scenario::setupChildScenarios()
+{
+//    if (this->id() == "[EN_VF]_Rekonq-16.05.16.2011-02-32-16-000")
+//    {
+//        m_childScenarioIds << "126701-mouse.scenario";
+//    }
+
+//    if (this->id() == "126701-mouse.scenario")
+//    {
+//        m_childScenarioIds << "general";
+//    }
+
+    foreach (QString id, m_childScenarioIds)
+    {
+        m_childScenarios << ScenarioManager::getInstance()->getScenario(id);
+        ScenarioManager::getInstance()->getScenario(id)->setParentScenario(this);
+
+        kDebug() << ScenarioManager::getInstance()->getScenario(id)->id() + " is child of " + ScenarioManager::getInstance()->getScenario(this->id())->id();
+    }
+
+    return true;
+}
+
+Scenario* Scenario::childScenario(int i)
+{
+    if (i < m_childScenarios.count())
+        return m_childScenarios.at(i);
+
+    return 0;
+}
+
+QList<Scenario*> Scenario::childScenarios() const
+{
+    return m_childScenarios;
+}
+
+Scenario* Scenario::parentScenario()
+{
+    return m_parentScenario;
+}
+
+void Scenario::setParentScenario(Scenario *parent)
+{
+    m_parentScenario = parent;
+}
+
+int Scenario::childIndex() const
+{
+    if (m_parentScenario)
+        return m_parentScenario->childScenarios().indexOf(const_cast<Scenario*>(this));
+
+    return 0;
+}
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
 VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)

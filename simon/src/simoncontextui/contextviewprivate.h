@@ -31,6 +31,7 @@
 
 class Condition;
 class QSortFilterProxyModel;
+class ScenarioTreeModel;
 
 /**
  *	@class ContextViewPrivate
@@ -58,6 +59,7 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
 
     Condition* getCurrentCondition();
     QSortFilterProxyModel *conditionsProxy;
+    ScenarioTreeModel *m_childrenTreeModel;
 
   private slots:
     void addCondition();

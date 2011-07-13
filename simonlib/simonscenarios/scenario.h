@@ -42,6 +42,7 @@ class Grammar;
 class ActiveVocabulary;
 class TrainingTextCollection;
 class TrainingText;
+class ScenarioTreeModel;
 
 class MODELMANAGEMENT_EXPORT Scenario : public QObject
 {
@@ -73,6 +74,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     ActionCollection* m_actionCollection;
     CompoundCondition* m_compoundCondition;
     QList<QString> m_childScenarioIds;
+    QList<Scenario*> m_childScenarios;
+    Scenario* m_parentScenario;
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
@@ -134,6 +137,14 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
     bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
+
+    bool setupChildScenarios();
+    Scenario* childScenario(int i);
+    QList<Scenario*> childScenarios() const;
+    //TODO: what if the scenario is a child of more than one scenario?
+    Scenario* parentScenario();
+    void setParentScenario(Scenario* parent);
+    int childIndex() const;
 
     ActiveVocabulary* vocabulary() { return m_vocabulary; }
     Grammar* grammar() { return m_grammar; }

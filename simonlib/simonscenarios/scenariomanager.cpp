@@ -282,6 +282,11 @@ bool ScenarioManager::setupScenarios(bool forceChange)
     }
   }
 
+  foreach(Scenario* loadedScenario, scenarios)
+  {
+      loadedScenario->setupChildScenarios();
+  }
+
   if (forceChange) {
     if (m_inGroup)
       m_scenariosDirty = true;
