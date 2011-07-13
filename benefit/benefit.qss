@@ -8,11 +8,11 @@ QGroupBox {
     background-color: #fffbc7;
     font: 40px;
     font-family: liberation-sans;
-    color: black;
+    color: #fffbc7;
     width: 350px;
     text-align: center;
     border:0px;
-    background-image: url(/usr/share/icons/hicolor/128x128/apps/speechcal.png);
+
     background-position: top center;
     background-origin: border;
     background-repeat: none;
