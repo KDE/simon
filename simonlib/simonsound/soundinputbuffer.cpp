@@ -22,18 +22,29 @@
 #include <KDebug>
 
 SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
-  m_input(input)
+  m_input(input), m_buffer(0), m_bufferLength(0)
 {
   start(QThread::HighestPriority); // make sure we don't lose samples on slow maschines
 }
 
 void SoundInputBuffer::write(const char *toWrite, qint64 len)
 {
-  //kDebug() << "Buffering data";
-  //killLock.lock();
-  m_buffer.append(toWrite, len);
+  kDebug() << "Writing: " << len;
+
+  m_bufferAllocLock.lock();
+  char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len));
+  memcpy(newBuffer, toWrite, len);
+  memcpy(newBuffer+len, m_buffer, m_bufferLength);
+  
+  char *oldBuffer = m_buffer;
+  m_buffer = newBuffer;
+  m_bufferLength += len;
+  m_bufferAllocLock.unlock();
+  free(oldBuffer);
+
+  //m_buffer.append(toWrite, len);
   m_bufferLock.release(len);
-  //killLock.unlock();
+
 }
 
 void SoundInputBuffer::run()
@@ -53,18 +64,40 @@ void SoundInputBuffer::run()
     }
 
     //killLock.lock();
-    m_input->processData(m_buffer.left(bufferSize));
+    m_bufferAllocLock.lock();
+    QByteArray currentData(m_buffer, bufferSize);
 
-    m_buffer.remove(0, bufferSize);
-    if (m_buffer.size() > 20*bufferSize) // drop data as a last resort 
+
+    char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength-bufferSize));
+
+    memcpy(newBuffer, m_buffer+bufferSize, m_bufferLength - bufferSize);
+    
+    char *oldBuffer = m_buffer;
+    m_buffer = newBuffer;
+    m_bufferLength -= bufferSize;
+    m_bufferAllocLock.unlock();
+    free(oldBuffer);
+
+    //m_input->processData(m_buffer.left(bufferSize));
+    m_input->processData(currentData);
+
+
+    //kDebug()  << "Local buffer size before removing data: " << m_buffer.length();
+    //m_buffer.remove(0, bufferSize);
+    if (m_bufferLength > 20*bufferSize) // drop data as a last resort 
     {
-      m_buffer.clear();
+      kDebug()  << "EMERGENCY: Clearing buffer " << m_bufferLength;
       m_bufferLock.acquire(m_bufferLock.available());
+      m_bufferAllocLock.lock();
+      free(m_buffer);
+      m_buffer = 0;
+      m_bufferLength = 0;
+      m_bufferAllocLock.unlock();
     }
 
     //m_buffer = m_buffer.mid(bufferSize);
     //killLock.unlock();
-    //kDebug()  << "Local buffer size: " << m_buffer.length();
+    kDebug()  << "Local buffer size: " << m_bufferLength;
   }
 }
 
@@ -78,5 +111,6 @@ void SoundInputBuffer::stop()
 
 SoundInputBuffer::~SoundInputBuffer()
 {
+  free (m_buffer);
 }
 

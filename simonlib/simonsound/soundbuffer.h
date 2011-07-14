@@ -35,7 +35,6 @@ public:
 protected:
     QMutex killLock;
     bool m_shouldBeRunning;
-    QByteArray m_buffer;
     QSemaphore2 m_bufferLock;
 };
 

@@ -78,18 +78,18 @@ class ALSACaptureLoop : public ALSALoop
 
         snd_pcm_sframes_t readCount = 0;
         if (err >= 0) {
-          readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
+          readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize/2);
           if (readCount < 0) {
             xrun_recovery(m_parent->m_handle, readCount);
             Logger::log(QString("Read failed: %1").arg(snd_strerror(readCount)));
+            readCount = 0;
           }
         }
         if (err < 0) {
           Logger::log(QString("XRUN / SUSPEND recovery failed: %1").arg(snd_strerror(err)));
           break;
-        }
-
-        m_parent->m_client->writeData((char*) buffer, readCount*sizeof(short));
+        } else
+	  m_parent->m_client->writeData((char*) buffer, readCount*sizeof(short));
       }
       if (err < 0)
         m_parent->errorRecoveryFailed();
@@ -551,6 +551,7 @@ static int set_swparams(snd_pcm_t *handle, snd_pcm_sw_params_t *swparams, int pe
 
 static int xrun_recovery(snd_pcm_t *handle, int err)
 {
+  Logger::log(QString("Recovering from: %1").arg(snd_strerror(err)));
   if (err == -EPIPE) {    /* under-run */
     err = snd_pcm_prepare(handle);
     if (err < 0) {

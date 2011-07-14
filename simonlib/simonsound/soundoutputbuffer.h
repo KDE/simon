@@ -25,6 +25,7 @@ class SoundOutputBuffer : public SoundBuffer
 {
 private:
   SimonSoundOutput *m_output;
+  QByteArray m_buffer;
   
 public:
   SoundOutputBuffer(SimonSoundOutput* output);

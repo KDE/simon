@@ -24,17 +24,17 @@
 
 SimonSender::SimonSender() : m_state(SimonSender::Idle)
 {
+  new SimonSenderAdaptor(this);
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  dbus.registerObject("/SimonSender", this);
+  dbus.registerService("org.simon-listens.SimonSender");
+
   connect(this, SIGNAL(processing()), this, SLOT(slotProcessing()));
   connect(this, SIGNAL(listening()), this, SLOT(slotListening()));
   connect(this, SIGNAL(receivedResults()), this, SLOT(slotReceivedResults()));
   connect(&loudnessTimer, SIGNAL(timeout()), this, SLOT(relayLoudness()));
   
   loudnessTimer.start(500);
-  
-  new SimonSenderAdaptor(this);
-  QDBusConnection dbus = QDBusConnection::sessionBus();
-  dbus.registerObject("/SimonSender", this);
-  dbus.registerService("org.simon-listens.SimonSender");
 }
 
 void SimonSender::relayLoudness()
