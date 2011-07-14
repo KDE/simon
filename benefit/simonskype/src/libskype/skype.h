@@ -232,11 +232,6 @@ class Skype : public QObject
 		 * @return all active callIDs
 		 */
 		QStringList searchActiveCalls();
-		QStringList searchCalls();
-		QStringList searchVoiceMails();
-		QStringList searchMissedVoiceMails();
-
-                bool stopVoiceMail(int id);
 
 		///Video section
 
@@ -586,8 +581,6 @@ class Skype : public QObject
 		 * @parma info info in request
 		 */
 		void receivedAuth(const QString &contactId, const QString &info);
-
-		void voiceMailInProgress(int id);
 
 		///Video section
 

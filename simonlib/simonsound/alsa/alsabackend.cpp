@@ -20,7 +20,6 @@
 #include "alsabackend.h"
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
-#include <simonlogging/logger.h>
 #include <QThread>
 #include <KLocalizedString>
 #include <KDebug>
@@ -59,7 +58,6 @@ class ALSACaptureLoop : public ALSALoop
 
     void run()
     {
-      Logger::log("Starting ALSA recording loop");
       shouldRun = true;
 
       int err = 0;
@@ -75,28 +73,22 @@ class ALSACaptureLoop : public ALSALoop
         else if (state == SND_PCM_STATE_SUSPENDED)
           err = xrun_recovery(m_parent->m_handle, -ESTRPIPE);
 
-	snd_pcm_sframes_t readCount = 0;
-	if (err >= 0) {
-	  readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
-	  if (readCount < 0) {
-	    Logger::log(QString("Read failed: %1").arg(readCount));
-	    err = xrun_recovery(m_parent->m_handle, readCount);
-	  }
-	}
         if (err < 0) {
-	  Logger::log(QString("XRUN / SUSPEND recovery failed: %1").arg(snd_strerror(err)));
+          kWarning() << "XRUN / SUSPEND recovery failed: " << snd_strerror(err);
+          break;
+        }
+        snd_pcm_sframes_t readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
+        if (readCount < 0) {
+          kWarning() << "Read failed";
           break;
         }
         //kDebug() << "Recorded " << readCount << " samples of " << m_parent->m_periodSize;
 
         m_parent->m_client->writeData((char*) buffer, readCount*sizeof(short));
       }
-      if (err < 0) {
+      if (err < 0)
         m_parent->errorRecoveryFailed();
-        Logger::log(QString("Failed to recover from sound system error: %1").arg(err));
-      }
 
-      Logger::log("Stopping ALSA recording loop");
       m_parent->closeSoundSystem();
       free(buffer);
       shouldRun = false;

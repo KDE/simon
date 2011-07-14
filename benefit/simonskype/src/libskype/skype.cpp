@@ -133,8 +133,8 @@ Skype::Skype(/*SkypeAccount &account*/) : QObject() {
 Skype::~Skype() {
 	kDebug(SKYPE_DEBUG_GLOBAL);
 
-	//if (d->connection.connected())
-		//d->connection << QString("SET USERSTATUS OFFLINE");
+	if (d->connection.connected())
+		d->connection << QString("SET USERSTATUS OFFLINE");
 
 	d->pingTimer->stop();
 	d->pingTimer->deleteLater();
@@ -308,12 +308,6 @@ void Skype::skypeMessage(const QString &message) {
 			d->connStatus = csLoggedOut;
 
 		resetStatus();//set new status
-	} else if (messageType == "VOICEMAIL") {//Status of currently transmitted voicemails
-		QString value = message.section(' ', 1, 1).trimmed().toUpper(); //get the second part
-		kDebug() << "got voice mail message: " << value;
-		value = value.left(value.indexOf(" "));
-		kDebug() << "got voice mail message id: " << value.toInt();
-		emit voiceMailInProgress(value.toInt());
 	} else if (messageType == "USERSTATUS") {//Status of this user
 		QString value = message.section(' ', 1, 1).trimmed().toUpper();//get the second part
 		if (value == "UNKNOWN")
@@ -841,12 +835,6 @@ QString Skype::createChat(const QString &users) {
 	return chatDesc.section(' ', 1, 1);
 }
 
-bool Skype::stopVoiceMail(int id) {
-	kDebug(SKYPE_DEBUG_GLOBAL);
-	d->connection << QString("ALTER VOICEMAIL %1 STOPRECORDING").arg(id);
-        return true;
-}
-
 void Skype::leaveChat(const QString &chatId) {
 	kDebug(SKYPE_DEBUG_GLOBAL);
 
@@ -1057,20 +1045,6 @@ QStringList Skype::searchActiveCalls()
 	return (d->connection % QString("SEARCH ACTIVECALLS")).section(' ', 1).trimmed().split(' ');
 }
 
-QStringList Skype::searchVoiceMails()
-{
-	return (d->connection % QString("SEARCH VOICEMAILS")).section(' ', 1).trimmed().split(' ');
-}
-
-QStringList Skype::searchMissedVoiceMails()
-{
-	return (d->connection % QString("SEARCH MISSEDVOICEMAILS")).section(' ', 1).trimmed().split(' ');
-}
-
-QStringList Skype::searchCalls()
-{
-	return (d->connection % QString("SEARCH CALLS")).section(' ', 1).trimmed().split(' ');
-}
 
 bool Skype::supportVideo(const QString &user) {
 	kDebug(SKYPE_DEBUG_GLOBAL) << user;
