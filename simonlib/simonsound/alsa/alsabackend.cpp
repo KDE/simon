@@ -20,6 +20,7 @@
 #include "alsabackend.h"
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
+#include <simonlogging/logger.h>
 #include <QThread>
 #include <KLocalizedString>
 #include <KDebug>
@@ -58,6 +59,8 @@ class ALSACaptureLoop : public ALSALoop
 
     void run()
     {
+      Logger::log(QString("Starting ALSA recording"));
+      Logger::log(QString("EPIPE: %1; ESTRPIPE: %2; EBADFD: %3").arg(EPIPE).arg(ESTRPIPE).arg(EBADFD));
       shouldRun = true;
 
       int err = 0;
@@ -73,22 +76,25 @@ class ALSACaptureLoop : public ALSALoop
         else if (state == SND_PCM_STATE_SUSPENDED)
           err = xrun_recovery(m_parent->m_handle, -ESTRPIPE);
 
+        snd_pcm_sframes_t readCount = 0;
+        if (err >= 0) {
+          readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
+          if (readCount < 0) {
+            xrun_recovery(m_parent->m_handle, readCount);
+            Logger::log(QString("Read failed: %1").arg(snd_strerror(readCount)));
+          }
+        }
         if (err < 0) {
-          kWarning() << "XRUN / SUSPEND recovery failed: " << snd_strerror(err);
+          Logger::log(QString("XRUN / SUSPEND recovery failed: %1").arg(snd_strerror(err)));
           break;
         }
-        snd_pcm_sframes_t readCount = snd_pcm_readi(m_parent->m_handle, buffer, m_parent->m_bufferSize);
-        if (readCount < 0) {
-          kWarning() << "Read failed";
-          break;
-        }
-        //kDebug() << "Recorded " << readCount << " samples of " << m_parent->m_periodSize;
 
         m_parent->m_client->writeData((char*) buffer, readCount*sizeof(short));
       }
       if (err < 0)
         m_parent->errorRecoveryFailed();
 
+      Logger::log(QString("Stopped ALSA recording"));
       m_parent->closeSoundSystem();
       free(buffer);
       shouldRun = false;
@@ -547,18 +553,19 @@ static int xrun_recovery(snd_pcm_t *handle, int err)
 {
   if (err == -EPIPE) {    /* under-run */
     err = snd_pcm_prepare(handle);
-    if (err < 0)
-      kWarning() << "Can't recovery from underrun, prepare failed: %s\n" << snd_strerror(err);
-    return 0;
+    if (err < 0) {
+      Logger::log(QString("Can't recovery from underrun, prepare failed: %1").arg(snd_strerror(err)));
+    }
+    //return 0;
   } else if (err == -ESTRPIPE) {
     while ((err = snd_pcm_resume(handle)) == -EAGAIN)
       sleep(1);       /* wait until the suspend flag is released */
     if (err < 0) {
       err = snd_pcm_prepare(handle);
       if (err < 0)
-        kWarning() << "Can't recovery from suspend, prepare failed: %s\n" << snd_strerror(err);
+        Logger::log(QString("Can't recovery from suspend, prepare failed: %1").arg(snd_strerror(err)));
     }
-    return 0;
+    //return 0;
   }
   return err;
 }

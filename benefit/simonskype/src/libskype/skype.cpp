@@ -108,7 +108,7 @@ class SkypePrivate {
 		QTimer *fixGroupTimer;
 };
 
-Skype::Skype(/*SkypeAccount &account*/) : QObject() {
+Skype::Skype(/*SkypeAccount &account*/) : QObject(), quitting(false) {
 	kDebug(SKYPE_DEBUG_GLOBAL);
 
 	d = new SkypePrivate(/*account*/);//create the d-pointer
@@ -133,11 +133,16 @@ Skype::Skype(/*SkypeAccount &account*/) : QObject() {
 Skype::~Skype() {
 	kDebug(SKYPE_DEBUG_GLOBAL);
 
-	if (d->connection.connected())
-		d->connection << QString("SET USERSTATUS OFFLINE");
+  quitting = true;
+
+  disconnect(&d->connection);
+	//if (d->connection.connected())
+		//d->connection << QString("SET USERSTATUS OFFLINE");
 
 	d->pingTimer->stop();
+	d->fixGroupTimer->stop();
 	d->pingTimer->deleteLater();
+	d->fixGroupTimer->deleteLater();
 
 	delete d;//release the memory
 }
@@ -235,6 +240,7 @@ void Skype::setValues(int launchType, const QString &appName) {
 
 void Skype::closed(int) {
 	kDebug(SKYPE_DEBUG_GLOBAL);
+  if (quitting) return;
 
 	emit wentOffline();//No longer connected
 	d->messageQueue.clear();//no messages will wait, it was lost
@@ -308,6 +314,10 @@ void Skype::skypeMessage(const QString &message) {
 			d->connStatus = csLoggedOut;
 
 		resetStatus();//set new status
+	} else if (messageType == "VOICEMAIL") {//the connection status
+		QString value = message.section(' ', 1, 1).trimmed().toUpper();//get the second part of the message
+    value = value.left(value.indexOf(" "));
+    emit voiceMailActive(value.toInt());
 	} else if (messageType == "USERSTATUS") {//Status of this user
 		QString value = message.section(' ', 1, 1).trimmed().toUpper();//get the second part
 		if (value == "UNKNOWN")
@@ -475,9 +485,11 @@ void Skype::skypeMessage(const QString &message) {
 			}
 		}
 		if (message.section(' ', 2, 2).trimmed().toUpper() == "STATUS") {
+      if (message.contains("VM_SENT")) 
+        emit voiceMessageSent();
 			if (d->knownCalls.indexOf(callId) == -1) {//new call
 				d->knownCalls << callId;
-				const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
+        const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
         if (message.contains("ROUTING")) 
           kDebug() << "Skipping as this is an outgoing call...";
         else
@@ -969,6 +981,11 @@ void Skype::fixGroups(bool loadOnly) {
 int Skype::getContactGroupID(const QString &name) {
 	kDebug(SKYPE_DEBUG_GLOBAL) << name;
 	return d->groupsContacts.key(name, -1); //get group id from d->groupsContacts
+}
+
+void Skype::stopVoiceMail(int id) {
+	kDebug(SKYPE_DEBUG_GLOBAL) << id;
+	d->connection << QString("ALTER VOICEMAIL %1 STOPRECORDING").arg(id);
 }
 
 void Skype::removeFromGroup(const QString &name, int groupID) {

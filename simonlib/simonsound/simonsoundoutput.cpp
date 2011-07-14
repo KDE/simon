@@ -152,7 +152,9 @@ bool SimonSoundOutput::startPlayback()
   killBuffer();
   m_buffer = new SoundOutputBuffer(this);
   connect(m_buffer, SIGNAL(started()), this, SLOT(startSoundPlayback()));
-  m_buffer->start();
+
+  // make sure we don't lose samples on slow maschines
+  m_buffer->start(QThread::HighestPriority);
 
   return true;
 }

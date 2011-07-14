@@ -35,6 +35,7 @@ class Skype : public QObject
 {
 	Q_OBJECT
 	private:
+    bool quitting;
 		///The d pointer for private things
 		SkypePrivate *d;
 		/**
@@ -425,6 +426,8 @@ class Skype : public QObject
 		 * @param author for what is he authorized
 		 */
 		void setAuthor(const QString &contactId, AuthorType author);
+
+		void stopVoiceMail(int id);
 	signals:
 		/**
 		 * Emitted when the skype changes to online (or says it goes online)
@@ -532,6 +535,10 @@ class Skype : public QObject
 		 * @see callError
 		 */
 		void newCall(const QString &callId, const QString &userId);
+
+		void voiceMailActive(int id);
+		void voiceMessageSent();
+
 		/**
 		 * Skype out balance info
 		 * @param balance How much does the user have
