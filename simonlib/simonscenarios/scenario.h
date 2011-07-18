@@ -145,6 +145,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     Scenario* parentScenario();
     void setParentScenario(Scenario* parent);
     int childIndex() const;
+    bool addChild(QString childId);
+    bool removeChild(QString childId);
 
     ActiveVocabulary* vocabulary() { return m_vocabulary; }
     Grammar* grammar() { return m_grammar; }

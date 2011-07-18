@@ -22,6 +22,7 @@
 #include "newcondition.h"
 #include "simoncontextdetection/contextmanager.h"
 #include "simonscenarios/scenariotreemodel.h"
+#include "newchildscenario.h"
 
 #include <QWidget>
 #include <QPointer>
@@ -42,6 +43,9 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   connect ( ui.pbNewCondition, SIGNAL(clicked()), this, SLOT(addCondition()));
   connect ( ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editCondition()));
   connect ( ui.pbDeleteCondition, SIGNAL(clicked()), this, SLOT(deleteCondition()));
+
+  connect (ui.pbAddChild, SIGNAL(clicked()), this, SLOT(addChild()));
+  connect (ui.pbRemoveChild, SIGNAL(clicked()), this, SLOT(removeChild()));
 
   ui.lvConditions->setIconSize(QSize(24,24));
   ui.lvConditions->setSpacing(2);
@@ -157,6 +161,21 @@ void ContextViewPrivate::selectionChanged()
         ui.pbDeleteCondition->setEnabled(true);
         ui.pbEditCondition->setEnabled(true);
     }
+}
+
+void ContextViewPrivate::addChild()
+{
+    NewChildScenario* newChild = new NewChildScenario(this);
+
+    if (newChild->exec())
+    {
+        scenario->addChild(newChild->selectedScenarioId());
+    }
+}
+
+void ContextViewPrivate::removeChild()
+{
+
 }
 
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)

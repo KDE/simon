@@ -136,6 +136,8 @@ bool Scenario::setupChildScenarios()
 //        m_childScenarioIds << "general";
 //    }
 
+    m_childScenarios.clear();
+
     foreach (QString id, m_childScenarioIds)
     {
         m_childScenarios << ScenarioManager::getInstance()->getScenario(id);
@@ -176,6 +178,30 @@ int Scenario::childIndex() const
         return m_parentScenario->childScenarios().indexOf(const_cast<Scenario*>(this));
 
     return 0;
+}
+
+bool Scenario::addChild(QString childId)
+{
+    if (!m_childScenarioIds.contains(childId))
+    {
+        m_childScenarioIds << childId;
+        setupChildScenarios();
+        return true;
+    }
+
+    return false;
+}
+
+bool Scenario::removeChild(QString childId)
+{
+    if (m_childScenarioIds.contains(childId))
+    {
+        m_childScenarioIds.removeOne(childId);
+        setupChildScenarios();
+        return true;
+    }
+
+    return false;
 }
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
