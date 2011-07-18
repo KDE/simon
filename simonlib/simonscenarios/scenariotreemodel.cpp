@@ -123,3 +123,9 @@ void ScenarioTreeModel::setRootScenario(Scenario *root)
     m_rootScenario = root;
     endResetModel();
 }
+
+void ScenarioTreeModel::update()
+{
+    beginResetModel();
+    endResetModel();
+}

@@ -41,6 +41,7 @@ public:
     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     void setRootScenario(Scenario* root);
+    void update();
 
 private:
     Scenario* m_rootScenario;

@@ -174,12 +174,14 @@ void ContextViewPrivate::addChild()
     if (newChild->exec())
     {
         scenario->addChild(newChild->selectedScenarioId());
+        m_childrenTreeModel->update();
     }
 }
 
 void ContextViewPrivate::removeChild()
 {
     scenario->removeChild(ui.tvChildScenarios->currentIndex().data().toString());
+    m_childrenTreeModel->update();
 }
 
 void ContextViewPrivate::selectedChildChanged()
@@ -202,6 +204,7 @@ void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 
   m_childrenTreeModel->setRootScenario(scenario);
   ui.tvChildScenarios->setModel(m_childrenTreeModel);
+  ui.tvChildScenarios->setCurrentIndex(m_childrenTreeModel->index(0, 0));
 }
 
 ContextViewPrivate::~ContextViewPrivate()
