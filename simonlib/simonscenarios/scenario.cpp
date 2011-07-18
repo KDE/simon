@@ -162,6 +162,11 @@ QList<Scenario*> Scenario::childScenarios() const
     return m_childScenarios;
 }
 
+QStringList Scenario::childScenarioIds() const
+{
+    return m_childScenarioIds;
+}
+
 Scenario* Scenario::parentScenario()
 {
     return m_parentScenario;

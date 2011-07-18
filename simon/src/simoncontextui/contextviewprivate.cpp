@@ -32,9 +32,9 @@
 #include <QSortFilterProxyModel>
 #include <QItemSelectionModel>
 
-#include <KDE/KMessageBox>
-#include <KDE/KIcon>
-#include <KDE/KCMultiDialog>
+#include <KMessageBox>
+#include <KIcon>
+#include <KCMultiDialog>
 
 ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
 {
@@ -63,10 +63,13 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   ui.lvConditions->setModel(conditionsProxy);
 
   m_childrenTreeModel = new ScenarioTreeModel(this);
+  ui.tvChildScenarios->setModel(m_childrenTreeModel);
 
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
+
+  connect(ui.tvChildScenarios->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectedChildChanged()));
 }
 
 Condition* ContextViewPrivate::getCurrentCondition()
@@ -165,6 +168,7 @@ void ContextViewPrivate::selectionChanged()
 
 void ContextViewPrivate::addChild()
 {
+    //TODO: filter out invalid children (disable adding children that are already parents)
     NewChildScenario* newChild = new NewChildScenario(this);
 
     if (newChild->exec())
@@ -175,7 +179,19 @@ void ContextViewPrivate::addChild()
 
 void ContextViewPrivate::removeChild()
 {
+    scenario->removeChild(ui.tvChildScenarios->currentIndex().data().toString());
+}
 
+void ContextViewPrivate::selectedChildChanged()
+{
+    if (scenario->childScenarioIds().contains(ui.tvChildScenarios->currentIndex().data().toString()))
+    {
+        ui.pbRemoveChild->setEnabled(true);
+    }
+    else
+    {
+        ui.pbRemoveChild->setEnabled(false);
+    }
 }
 
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)

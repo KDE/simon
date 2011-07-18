@@ -69,6 +69,7 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
 
     void addChild();
     void removeChild();
+    void selectedChildChanged();
 
     //void managePlugIns();
 

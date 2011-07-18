@@ -73,7 +73,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     Grammar *m_grammar;
     ActionCollection* m_actionCollection;
     CompoundCondition* m_compoundCondition;
-    QList<QString> m_childScenarioIds;
+    QStringList m_childScenarioIds;
     QList<Scenario*> m_childScenarios;
     Scenario* m_parentScenario;
 
@@ -141,7 +141,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool setupChildScenarios();
     Scenario* childScenario(int i);
     QList<Scenario*> childScenarios() const;
-    //TODO: what if the scenario is a child of more than one scenario?
+    QStringList childScenarioIds() const;
     Scenario* parentScenario();
     void setParentScenario(Scenario* parent);
     int childIndex() const;
