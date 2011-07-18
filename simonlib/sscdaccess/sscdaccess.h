@@ -20,11 +20,12 @@
 #ifndef SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 #define SIMON_SSCDACCESS_H_58DB5F6A2C9049A79FFCD02D32604B02
 
-#include <sscobjects/user.h>
-#include <sscobjects/language.h>
-#include <sscprotocol/sscprotocol.h>
+#include "../sscobjects/user.h"
+#include "../sscobjects/language.h"
+#include "../sscprotocol/sscprotocol.h"
 #include <QList>
 #include <QObject>
+#include "sscdaccess_export.h"
 
 class QSslSocket;
 class QTimer;
@@ -48,10 +49,13 @@ const qint8 protocolVersion=1;
  *	@date 24.10.2009
  *	@author Peter Grasch
  */
-class SSCDAccess : public QObject
+class SSCDACCESS_EXPORT SSCDAccess : public QObject
 {
   Q_OBJECT
-
+  
+  public :
+    static int timeout;
+  
     signals:
   void connected();
   void disconnected();
@@ -66,7 +70,7 @@ class SSCDAccess : public QObject
   public:
     SSCDAccess(QWidget *parent=0);
     ~SSCDAccess();
-
+    
     static SSCDAccess* getInstance(QWidget *parent=0) {
       if (!instance) instance = new SSCDAccess(parent);
       return instance;

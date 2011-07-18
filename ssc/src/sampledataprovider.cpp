@@ -19,7 +19,7 @@
 
 #include "sampledataprovider.h"
 #include "sscconfig.h"
-#include "sscdaccess.h"
+#include <sscdaccess/sscdaccess.h>
 #include "deviceinformationpage.h"
 #include "trainsamplepage.h"
 #include <sscobjects/sample.h>

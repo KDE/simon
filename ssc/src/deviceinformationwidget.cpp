@@ -19,9 +19,9 @@
 
 #include "deviceinformationwidget.h"
 #include "ui_deviceinformation.h"
-#include "sscdaccess.h"
 #include "sscconfig.h"
 
+#include <sscdaccess/sscdaccess.h>
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
 

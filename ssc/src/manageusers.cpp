@@ -1,3 +1,4 @@
+
 /*
  *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
@@ -22,7 +23,7 @@
 #include "modifyuser.h"
 #include "manageinstitutions.h"
 
-#include "sscdaccess.h"
+#include <sscdaccess/sscdaccess.h>
 #include <sscobjects/user.h>
 #include <sscobjects/institution.h>
 #include <QSortFilterProxyModel>

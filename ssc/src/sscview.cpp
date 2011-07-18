@@ -23,8 +23,9 @@
 #include "manageinstitutions.h"
 #include "manageusers.h"
 #include "trainingswizard.h"
-#include "sscdaccess.h"
 #include "uploadsamples.h"
+
+#include <sscdaccess/sscdaccess.h>
 
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>

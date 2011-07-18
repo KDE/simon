@@ -19,8 +19,8 @@
 #include "deviceinformationpage.h"
 #include "deviceinformationwidget.h"
 #include "sscconfig.h"
-#include "sscdaccess.h"
 
+#include <sscdaccess/sscdaccess.h>
 #include <simonsound/soundserver.h>
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>

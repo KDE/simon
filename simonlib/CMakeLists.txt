@@ -25,6 +25,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilationadapter)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprogresstracking)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simondialogengine)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess)
 
 #install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}  COMPONENT simon)
 install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )

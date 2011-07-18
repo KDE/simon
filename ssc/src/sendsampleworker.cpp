@@ -19,8 +19,9 @@
 
 #include "sendsampleworker.h"
 #include "sscconfig.h"
-#include "sscdaccess.h"
 #include "sampledataprovider.h"
+
+#include <sscdaccess/sscdaccess.h>
 #include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>

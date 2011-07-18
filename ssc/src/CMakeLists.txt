@@ -21,7 +21,7 @@ set(ssc_SRCS
    sendsamplespage.cpp
    sendsampleworker.cpp
    trainsampleintropage.cpp
-   sscdaccess.cpp
+   #sscdaccess.cpp
    deviceinformationwidget.cpp
    deviceinformationpage.cpp
    sampledataprovider.cpp
@@ -44,7 +44,7 @@ kde4_add_app_icon(ssc_SRCS
 kde4_add_executable(ssc ${ssc_SRCS})
 
 target_link_libraries(ssc ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-	${KDE4_KUTILS_LIBS} simonuicomponents simonprogresstracking sscobjects simonsound)
+	${KDE4_KUTILS_LIBS} simonuicomponents simonprogresstracking sscobjects simonsound sscdaccess)
 
 install(TARGETS ssc DESTINATION ${BIN_INSTALL_DIR}  COMPONENT ssc)
 
