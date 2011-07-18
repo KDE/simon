@@ -59,8 +59,6 @@ class ClientSocket : public QSslSocket
     RecognitionControlFactory *recognitionControlFactory;
     RecognitionControl *recognitionControl;
     SynchronisationManager *synchronisationManager;
-    ModelCompilationManager *modelCompilationManager;
-    ModelCompilationAdapter *modelCompilationAdapter;
     ContextAdapter *contextAdapter;
 
     uint newLexiconHash;

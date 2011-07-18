@@ -3,19 +3,45 @@
 #include <QDir>
 #include <KStandardDirs>
 
-ContextAdapter::ContextAdapter(ModelCompilationManager *modelCompilationManager,
-                               ModelCompilationAdapter *modelCompilationAdapter,
-                               QString username, QObject *parent) :
+ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     QObject(parent)
 {
-    m_modelCompilationManager = modelCompilationManager;
-    m_modelCompilationAdapter = modelCompilationAdapter;
+    m_modelCompilationManager = new ModelCompilationManager(username, this);
+    m_modelCompilationAdapter = new ModelCompilationAdapterHTK(username, this);
     m_username = username;
     m_deactivatedScenarios = QStringList();
+
+    //TODO:make a file in the cache folder that will save the currentScenarioSet
     m_currentScenarioSet = QStringList();
 
     connect(m_modelCompilationManager, SIGNAL(modelCompiled()),
             this, SLOT(storeModelInCache()));
+
+    //connect compilation adapter signals
+    connect(m_modelCompilationAdapter, SIGNAL(status(QString,int)),
+            this, SIGNAL(adaptStatus(QString,int)));
+    connect(m_modelCompilationAdapter, SIGNAL(error(QString)),
+            this, SIGNAL(adaptError(QString)));
+    connect(m_modelCompilationAdapter, SIGNAL(adaptionComplete()),
+            this, SIGNAL(adaptionComplete()));
+    connect(m_modelCompilationAdapter, SIGNAL(adaptionAborted()),
+            this, SIGNAL(adaptionAborted()));
+
+    //connect compilation manager signals
+    connect(m_modelCompilationManager, SIGNAL(status(QString,int,int)),
+            this, SIGNAL(manageStatus(QString,int,int)));
+    connect(m_modelCompilationManager, SIGNAL(error(QString)),
+            this, SIGNAL(manageError(QString)));
+    connect(m_modelCompilationManager, SIGNAL(wordUndefined(QString)),
+            this, SIGNAL(wordUndefined(QString)));
+    connect(m_modelCompilationManager, SIGNAL(classUndefined(QString)),
+            this, SIGNAL(classUndefined(QString)));
+    connect(m_modelCompilationManager, SIGNAL(phonemeUndefined(QString)),
+            this, SIGNAL(phonemeUndefined(QString)));
+    connect(m_modelCompilationManager, SIGNAL(modelCompiled()),
+            this, SIGNAL(modelCompiled()));
+    connect(m_modelCompilationManager, SIGNAL(activeModelCompilationAborted()),
+            this, SIGNAL(activeModelCompilationAborted()));
 
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QDir dir;
@@ -29,12 +55,84 @@ ContextAdapter::ContextAdapter(ModelCompilationManager *modelCompilationManager,
 
 ContextAdapter::~ContextAdapter()
 {
-    clearCache();
+    if (m_modelCompilationManager)
+        m_modelCompilationManager->deleteLater();
+    if (m_modelCompilationAdapter)
+        m_modelCompilationAdapter->deleteLater();
 }
 
 void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
 {
     m_deactivatedScenarios = deactivatedScenarios;
+}
+
+void ContextAdapter::storeModelInCache()
+{
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString cachedModelDir;
+    QDir dir;
+    QFile file;
+    QString deactivatedList = m_deactivatedScenarios.join(",");
+
+    cachedModelDir.setNum(m_modelCache.count());
+    kDebug() << "Adding the following entry to cache " + deactivatedList;
+    m_modelCache.insert(deactivatedList, cachedModelDir);
+    cachedModelDir = cacheDir + cachedModelDir + "/";
+    dir.mkpath(cachedModelDir);
+    kDebug() << "With the following cache directory " + cachedModelDir;
+
+    kDebug() << "Storing files in cache";
+
+    file.copy(activeDir+"lexicon", cachedModelDir+"lexicon");
+    file.copy(activeDir+"model.grammar", cachedModelDir+"model.grammar");
+    file.copy(activeDir+"simple.voca", cachedModelDir+"simple.voca");
+    file.copy(activeDir+"prompts", cachedModelDir+"prompts");
+    file.copy(activeDir+"hmmdefs", cachedModelDir+"hmmdefs");
+    file.copy(activeDir+"tiedlist", cachedModelDir+"tiedlist");
+    file.copy(activeDir+"model.dict", cachedModelDir+"model.dict");
+    file.copy(activeDir+"model.dfa", cachedModelDir+"model.dfa");
+    file.copy(activeDir+"basehmmdefs", cachedModelDir+"basehmmdefs");
+    file.copy(activeDir+"basetiedlist", cachedModelDir+"basetiedlist");
+    file.copy(activeDir+"basemacros", cachedModelDir+"basemacros");
+    file.copy(activeDir+"basestats", cachedModelDir+"basestats");
+    file.copy(activeDir+"activerc", cachedModelDir+"activerc");
+    file.copy(activeDir+"hmmdefs_loc", cachedModelDir+"hmmdefs_loc");
+    file.copy(activeDir+"julius.log", cachedModelDir+"julius.log");
+    file.copy(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
+}
+
+void ContextAdapter::clearCache()
+{
+    QDir dir;
+    QFile file;
+    QStringList cacheDirs;
+    QStringList cachedFiles;
+
+    kDebug() << "Clearing model cache";
+
+    m_modelCache.clear();
+
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QDir initialDir = dir.current();
+    dir.setCurrent(cacheDir);
+
+    cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
+    foreach (QString dirInfo, cacheDirs)
+    {
+        dir.setCurrent(dirInfo);
+        //kDebug() << "Clearing out directory " + dir.absoluteFilePath(dir.dirName());
+        cachedFiles = dir.entryList(QDir::Files);
+        foreach (QString fileInfo, cachedFiles)
+        {
+            //kDebug() << "Deleting file " + fileInfo;
+            file.remove(fileInfo);
+        }
+        dir.setCurrent(cacheDir);
+        dir.rmdir(dirInfo);
+    }
+
+    dir.setCurrent(initialDir.dirName());
 }
 
 bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
@@ -126,71 +224,32 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     return success;
 }
 
-void ContextAdapter::storeModelInCache()
+bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType compilationType,
+  const QString& hmmDefsPath, const QString& tiedListPath,
+  const QString& dictPath, const QString& dfaPath,
+  const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
+  const QString& baseStatsPath, const QString& baseMacrosPath,
+  const QString& samplePath,
+  const QString& lexiconPath, const QString& grammarPath,
+  const QString& vocabPath, const QString& promptsPath,
+  const QString& treeHedPath, const QString& wavConfigPath,
+  const QString& scriptBasePrefix)
 {
-    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
-    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
-    QString cachedModelDir;
-    QDir dir;
-    QFile file;
-    QString deactivatedList = m_deactivatedScenarios.join(",");
-
-    cachedModelDir.setNum(m_modelCache.count());
-    kDebug() << "Adding the following entry to cache " + deactivatedList;
-    m_modelCache.insert(deactivatedList, cachedModelDir);
-    cachedModelDir = cacheDir + cachedModelDir + "/";
-    dir.mkpath(cachedModelDir);
-    kDebug() << "With the following cache directory " + cachedModelDir;
-
-    kDebug() << "Storing files in cache";
-
-    file.copy(activeDir+"lexicon", cachedModelDir+"lexicon");
-    file.copy(activeDir+"model.grammar", cachedModelDir+"model.grammar");
-    file.copy(activeDir+"simple.voca", cachedModelDir+"simple.voca");
-    file.copy(activeDir+"prompts", cachedModelDir+"prompts");
-    file.copy(activeDir+"hmmdefs", cachedModelDir+"hmmdefs");
-    file.copy(activeDir+"tiedlist", cachedModelDir+"tiedlist");
-    file.copy(activeDir+"model.dict", cachedModelDir+"model.dict");
-    file.copy(activeDir+"model.dfa", cachedModelDir+"model.dfa");
-    file.copy(activeDir+"basehmmdefs", cachedModelDir+"basehmmdefs");
-    file.copy(activeDir+"basetiedlist", cachedModelDir+"basetiedlist");
-    file.copy(activeDir+"basemacros", cachedModelDir+"basemacros");
-    file.copy(activeDir+"basestats", cachedModelDir+"basestats");
-    file.copy(activeDir+"activerc", cachedModelDir+"activerc");
-    file.copy(activeDir+"hmmdefs_loc", cachedModelDir+"hmmdefs_loc");
-    file.copy(activeDir+"julius.log", cachedModelDir+"julius.log");
-    file.copy(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
-}
-
-void ContextAdapter::clearCache()
-{
-    QDir dir;
-    QFile file;
-    QStringList cacheDirs;
-    QStringList cachedFiles;
-
-    kDebug() << "Clearing model cache";
-
-    m_modelCache.clear();
-
-    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
-    QDir initialDir = dir.current();
-    dir.setCurrent(cacheDir);
-
-    cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
-    foreach (QString dirInfo, cacheDirs)
-    {
-        dir.setCurrent(dirInfo);
-        //kDebug() << "Clearing out directory " + dir.absoluteFilePath(dir.dirName());
-        cachedFiles = dir.entryList(QDir::Files);
-        foreach (QString fileInfo, cachedFiles)
-        {
-            //kDebug() << "Deleting file " + fileInfo;
-            file.remove(fileInfo);
-        }
-        dir.setCurrent(cacheDir);
-        dir.rmdir(dirInfo);
-    }
-
-    dir.setCurrent(initialDir.dirName());
+    return m_modelCompilationManager->startCompilation(compilationType,
+                                                       hmmDefsPath,
+                                                       tiedListPath,
+                                                       dictPath,
+                                                       dfaPath,
+                                                       baseHmmDefsPath,
+                                                       baseTiedlistPath,
+                                                       baseStatsPath,
+                                                       baseMacrosPath,
+                                                       samplePath,
+                                                       lexiconPath,
+                                                       grammarPath,
+                                                       vocabPath,
+                                                       promptsPath,
+                                                       treeHedPath,
+                                                       wavConfigPath,
+                                                       scriptBasePrefix);
 }

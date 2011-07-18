@@ -59,8 +59,6 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   recognitionControlFactory(factory),
   recognitionControl(0),
   synchronisationManager(0),
-  modelCompilationManager(0),
-  modelCompilationAdapter(0),
   newLexiconHash(0),
   newGrammarHash(0),
   newVocaHash(0),
@@ -167,35 +165,40 @@ void ClientSocket::processRequest()
         }
 
         if (databaseAccess->authenticateUser(user, pass)) {
-          //store authentication data
-          this->username = user;
+            //store authentication data
+            this->username = user;
 
-          if (modelCompilationManager) modelCompilationManager->deleteLater();
+            if (contextAdapter) contextAdapter->deleteLater();
 
-          modelCompilationManager = new ModelCompilationManager(user, this);
-          connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
-          connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
-          connect(modelCompilationManager, SIGNAL(status(QString, int, int)), this, SLOT(slotModelCompilationStatus(QString, int, int)));
-          connect(modelCompilationManager, SIGNAL(error(QString)), this, SLOT(slotModelCompilationError(QString)));
-          connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this,
-            SLOT(slotModelCompilationClassUndefined(const QString&)));
-          connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this,
-            SLOT(slotModelCompilationWordUndefined(const QString&)));
-          connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this,
-            SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
+            contextAdapter = new ContextAdapter(user, this);
 
-          if (modelCompilationAdapter) modelCompilationAdapter->deleteLater();
+            connect(contextAdapter, SIGNAL(modelCompiled()),
+                    this, SLOT(activeModelCompiled()));
+            connect(contextAdapter, SIGNAL(activeModelCompilationAborted()),
+                    this, SLOT(activeModelCompilationAborted()));
+            connect(contextAdapter, SIGNAL(manageStatus(QString, int, int)),
+                    this, SLOT(slotModelCompilationStatus(QString, int, int)));
+            connect(contextAdapter, SIGNAL(manageError(QString)),
+                    this, SLOT(slotModelCompilationError(QString)));
+            connect(contextAdapter, SIGNAL(classUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationClassUndefined(const QString&)));
+            connect(contextAdapter, SIGNAL(wordUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationWordUndefined(const QString&)));
+            connect(contextAdapter, SIGNAL(phonemeUndefined(const QString&)),
+                    this, SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 
-          modelCompilationAdapter = new ModelCompilationAdapterHTK(user, this);
-          connect(modelCompilationAdapter, SIGNAL(adaptionComplete()), this, SLOT(slotModelAdaptionComplete()));
-          connect(modelCompilationAdapter, SIGNAL(adaptionAborted()), this, SLOT(slotModelAdaptionAborted()));
-          connect(modelCompilationAdapter, SIGNAL(status(QString, int)), this, SLOT(slotModelAdaptionStatus(QString, int)));
-          connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
+            connect(contextAdapter, SIGNAL(adaptionComplete()),
+                    this, SLOT(slotModelAdaptionComplete()));
+            connect(contextAdapter, SIGNAL(adaptionAborted()),
+                    this, SLOT(slotModelAdaptionAborted()));
+            connect(contextAdapter, SIGNAL(adaptStatus(QString, int)),
+                    this, SLOT(slotModelAdaptionStatus(QString, int)));
+            connect(contextAdapter, SIGNAL(adaptError(QString)),
+                    this, SLOT(slotModelAdaptionError(QString)));
 
-          if (contextAdapter) contextAdapter->deleteLater();
+            connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
+                    this, SLOT(activeModelCompiled()));
 
-          contextAdapter = new ContextAdapter(modelCompilationManager, modelCompilationAdapter, username, this);
-          connect(contextAdapter, SIGNAL(modelLoadedFromCache()), this, SLOT(activeModelCompiled()));
 
           if (recognitionControl)
             closeRecognitionControl();
@@ -209,10 +212,9 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
           connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
           connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
-          
 
           if (synchronisationManager )
-            synchronisationManager->deleteLater();
+              synchronisationManager->deleteLater();
 
           synchronisationManager = new SynchronisationManager(username, this);
 
@@ -226,7 +228,6 @@ void ClientSocket::processRequest()
           sendCode(Simond::AuthenticationFailed);
 
         kDebug() << "Done with login";
-
         break;
 
       }
@@ -793,7 +794,7 @@ void ClientSocket::processRequest()
 
       case Simond::AbortModelCompilation:
       {
-        modelCompilationManager->abort();
+        contextAdapter->abort();
         break;
       }
 
@@ -825,8 +826,8 @@ void ClientSocket::processRequest()
 
       case Simond::GetModelCompilationProtocol:
       {
-        Q_ASSERT(modelCompilationManager);
-        if (!modelCompilationManager->hasBuildLog())
+        Q_ASSERT(contextAdapter);
+        if (!contextAdapter->hasBuildLog())
           sendCode(Simond::ErrorRetrievingModelCompilationProtocol);
         else sendModelCompilationLog();
         break;
@@ -1135,7 +1136,7 @@ void ClientSocket::sendModelCompilationLog()
 {
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
-  QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
 
   stream << (qint32) Simond::ModelCompilationProtocol
     << (qint64) (log.count()+sizeof(qint32) /*separator*/)
@@ -1146,8 +1147,8 @@ void ClientSocket::sendModelCompilationLog()
 
 void ClientSocket::slotModelCompilationStatus(QString status, int progressNow, int progressMax)
 {
-  progressNow += modelCompilationAdapter->maxProgress();
-  progressMax += modelCompilationAdapter->maxProgress();
+  progressNow += contextAdapter->maxProgress();
+  progressMax += contextAdapter->maxProgress();
   QByteArray toWrite;
   QByteArray statusByte = status.toUtf8();
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -1174,7 +1175,7 @@ void ClientSocket::slotModelCompilationError(QString error)
   QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
   QByteArray errorByte = error.toUtf8();
-  QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+  QByteArray log = contextAdapter->getGraphicBuildLog().toUtf8();
   bodyStream << errorByte << log;
 
   stream << (qint32) Simond::ModelCompilationError
@@ -1219,14 +1220,14 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
     write(toWrite);
     */
   //try to fix it automatically
-  modelCompilationAdapter->poisonPhoneme(phoneme);
+  contextAdapter->poisonPhoneme(phoneme);
   recompileModel();
 }
 
 
 void ClientSocket::startModelCompilation()
 {
-  modelCompilationAdapter->clearPoisonedPhonemes();
+  contextAdapter->clearPoisonedPhonemes();
   recompileModel();
 }
 
@@ -1378,7 +1379,7 @@ void ClientSocket::slotModelAdaptionComplete()
   switch (baseModelType) {
     case 0:
       //static model
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompileLanguageModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
         activeDir+"model.dict", activeDir+"model.dfa",
@@ -1398,7 +1399,7 @@ void ClientSocket::slotModelAdaptionComplete()
     case 1:
       //adapted base model
       kDebug() << "Starting modelcompilationmanager adapter";
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompilationType)
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::AdaptSpeechModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
@@ -1415,7 +1416,7 @@ void ClientSocket::slotModelAdaptionComplete()
 
     case 2:
       //dynamic model
-      modelCompilationManager->startCompilation(
+      contextAdapter->startCompilation(
         (ModelCompilationManager::CompilationType)
         (ModelCompilationManager::CompileLanguageModel|ModelCompilationManager::CompileSpeechModel),
         activeDir+"hmmdefs", activeDir+"tiedlist",
@@ -1440,7 +1441,7 @@ void ClientSocket::slotModelAdaptionAborted()
 
 void ClientSocket::slotModelAdaptionStatus(QString status, int progressNow)
 {
-  slotModelCompilationStatus(status, progressNow-modelCompilationAdapter->maxProgress(), 0);
+  slotModelCompilationStatus(status, progressNow-contextAdapter->maxProgress(), 0);
 }
 
 
@@ -1543,9 +1544,9 @@ void ClientSocket::initializeRecognitionSmartly()
 {
   kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
-  kDebug() << "Modelcompilationmanager is running: : " << modelCompilationManager->isRunning();
+  kDebug() << "Modelcompilationmanager is running: : " << contextAdapter->managerIsRunning();
 
-  if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
+  if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
     recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
     kDebug() << "Initialize recognition";
     recognitionControl->initializeRecognition();
@@ -1761,10 +1762,6 @@ ClientSocket::~ClientSocket()
 
   if (synchronisationManager)
     synchronisationManager->deleteLater();
-  if (modelCompilationManager)
-    modelCompilationManager->deleteLater();
-  if (modelCompilationAdapter)
-    modelCompilationAdapter->deleteLater();
   if (contextAdapter)
       contextAdapter->deleteLater();
 

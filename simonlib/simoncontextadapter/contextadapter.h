@@ -9,12 +9,13 @@
 #include <QHash>
 
 #include <speechmodelcompilationadapter/modelcompilationadapter.h>
+#include <speechmodelcompilationadapter/modelcompilationadapterhtk.h>
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include "simoncontextadapter_export.h"
 
 /**
  *	@class ContextAdapter
- *	@brief The ContextAdapter class provides a context-sensitive wrapper for the ModelCompilationAdapter
+ *	@brief The ContextAdapter class provides a context-sensitive wrapper for the ModelCompilationAdapter and ModelCompilationManager
  *
  *      The ContextAdapter manages a cache of adapted grammar models that have been generated with the current
  *      Scenario list and various contexts.  When a Scenario is deactivated due to context, the deactivated Scenario
@@ -25,7 +26,7 @@
  *
  *      Whenever the base Scenario list changes, the ContextAdapter clears its cache.
  *
- *	\sa ModelCompilationAdapter, ClientSocket
+ *	\sa ModelCompilationAdapter, ModelCompilationManager, ClientSocket
  *
  *	@version 0.1
  *	@date 7.7.2011
@@ -37,20 +38,49 @@ class SIMONCONTEXTADAPTER_EXPORT ContextAdapter : public QObject
     Q_OBJECT
 
 public:
-    ContextAdapter(ModelCompilationManager *modelCompilationManager,
-                   ModelCompilationAdapter *modelCompilationAdapter,
-                   QString username, QObject *parent=0);
+    ContextAdapter(QString username, QObject *parent=0);
 
     ~ContextAdapter();
 
     void updateDeactivatedScenarios(QStringList deactivatedScenarios);
+    void clearCache();
 
+    //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
       const QString& grammarPathOut, const QString& simpleVocabPathOut,
       const QString& promptsPathOut, const QStringList& scenarioPathsIn,
       const QString& promptsIn);
+    QString getStatus() { return m_modelCompilationAdapter->getStatus(); }
+    QString lexiconPath() { return m_modelCompilationAdapter->lexiconPath(); }
+    QString grammarPath() { return m_modelCompilationAdapter->grammarPath(); }
+    QString simpleVocabPath() { return m_modelCompilationAdapter->simpleVocabPath(); }
+    QString promptsPath() { return m_modelCompilationAdapter->promptsPath(); }
+    int wordCount() { return m_modelCompilationAdapter->wordCount(); }
+    int pronunciationCount() { return m_modelCompilationAdapter->pronunciationCount(); }
+    int sampleCount() { return m_modelCompilationAdapter->sampleCount(); }
+    void clearPoisonedPhonemes() { m_modelCompilationAdapter->clearPoisonedPhonemes(); }
+    void poisonPhoneme( const QString& phoneme ) { m_modelCompilationAdapter->poisonPhoneme(phoneme); }
+    int maxProgress() { return m_modelCompilationAdapter->maxProgress(); }
 
-    void clearCache();
+    //wrapper functions for ModelCompilationManager
+    bool startCompilation(ModelCompilationManager::CompilationType compilationType,
+      const QString& hmmDefsPath, const QString& tiedListPath,
+      const QString& dictPath, const QString& dfaPath,
+      const QString& baseHmmDefsPath, const QString& baseTiedlistPath,
+      const QString& baseStatsPath, const QString& baseMacrosPath,
+      const QString& samplePath,
+      const QString& lexiconPath, const QString& grammarPath,
+      const QString& vocabPath, const QString& promptsPath,
+      const QString& treeHedPath, const QString& wavConfigPath,
+      const QString& scriptBasePrefix);
+    bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
+    QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
+    QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
+    void abort() { m_modelCompilationManager->abort(); }
+    static QString information(bool condensed=false) { return ModelCompilationManager::information(condensed); }
+    bool codeAudioDataFromScp(const QString& path) { return m_modelCompilationManager->codeAudioDataFromScp(path); }
+    bool reestimate(const QString& command) { return m_modelCompilationManager->reestimate(command); }
+    bool managerIsRunning() { return m_modelCompilationManager->isRunning(); }
 
 private:
     ModelCompilationAdapter *m_modelCompilationAdapter;
@@ -68,6 +98,21 @@ public slots:
 
 signals:
     void modelLoadedFromCache();
+
+    //for relaying compilation adapter signals
+    void adaptStatus(QString, int progressNow);
+    void adaptError(QString);
+    void adaptionComplete();
+    void adaptionAborted();
+
+    //for relaying compilation manager signals
+    void manageStatus(QString, int progressNow, int progressTotal=2600);
+    void manageError(QString);
+    void wordUndefined(const QString&);
+    void classUndefined(const QString&);
+    void phonemeUndefined(const QString&);
+    void modelCompiled();
+    void activeModelCompilationAborted();
 };
 
 #endif // CONTEXTADAPTER_H
