@@ -21,7 +21,7 @@
 #include "newchildscenario.h"
 #include "ui_newchildscenario.h"
 
-NewChildScenario::NewChildScenario(QWidget* parent) : KDialog(parent)
+NewChildScenario::NewChildScenario(Scenario *parentScenario, QWidget *parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -30,15 +30,42 @@ NewChildScenario::NewChildScenario(QWidget* parent) : KDialog(parent)
   setCaption( i18n("Add Child Scenario") );
 
   m_listModel = new ScenarioListModel();
+  m_parentScenario = parentScenario;
+  enableButtonOk(false);
 
   ui.lvScenarios->setModel(m_listModel);
+
+  connect(ui.lvScenarios->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+          this, SLOT(checkIfValidChild()));
+
+  checkIfValidChild();
 }
 
 NewChildScenario::~NewChildScenario()
 {
+    m_listModel->deleteLater();
 }
 
 QString NewChildScenario::selectedScenarioId()
 {
     return ui.lvScenarios->currentIndex().data().toString();
+}
+
+
+void NewChildScenario::checkIfValidChild()
+{
+    Scenario *s = m_parentScenario;
+
+    while (s)
+    {
+        if (s->id() == selectedScenarioId())
+        {
+            enableButtonOk(false);
+            return;
+        }
+
+        s = s->parentScenario();
+    }
+
+    enableButtonOk(true);
 }

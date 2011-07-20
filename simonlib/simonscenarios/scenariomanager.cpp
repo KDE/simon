@@ -243,69 +243,66 @@ Scenario* ScenarioManager::getScenario(const QString& id)
 
 bool ScenarioManager::setupScenarios(bool forceChange)
 {
-  bool success = true;
+    bool success = true;
 
-  kDebug() << "Setting up scenarios...";
+    kDebug() << "Setting up scenarios...";
 
-  QStringList defaultScenarioIds;
-  defaultScenarioIds << "general";
+    QStringList defaultScenarioIds;
+    defaultScenarioIds << "general";
 
-  QStringList scenarioIds;
+    QStringList scenarioIds;
 
-  qDeleteAll(scenarios);
-  scenarios.clear();
+    qDeleteAll(scenarios);
+    scenarios.clear();
 
-  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
+    KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+    KConfigGroup cg(config, "");
 
-  if (cg.hasKey("SelectedScenarios")) {
-      scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
-  }
-  else {
-    scenarioIds = defaultScenarioIds;
-    cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-    cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
-    cg.sync();
-  }
+    if (cg.hasKey("SelectedScenarios")) {
+        scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
+    }
+    else {
+        scenarioIds = defaultScenarioIds;
+        cg.writeEntry("SelectedScenarios", defaultScenarioIds);
+        cg.writeEntry("LastModified", QDateTime::currentDateTime());
+        cg.sync();
+    }
 
-  kDebug() << "Loading scenario: " << scenarioIds;
+    kDebug() << "Loading scenario: " << scenarioIds;
 
-  foreach (const QString& id, scenarioIds) {
-      Scenario *s = new Scenario(id);
-      kDebug() << "Initializing scenario" << id;
+    foreach (const QString& id, scenarioIds) {
+        Scenario *s = new Scenario(id);
+        kDebug() << "Initializing scenario" << id;
 
-      if (setupScenario(s))
-          scenarios << s;
-      else {
-          success = false;
-          kDebug() << "Could not initialize scenario: " << id;
-      }
-  }
+        if (setupScenario(s))
+            scenarios << s;
+        else {
+            success = false;
+            kDebug() << "Could not initialize scenario: " << id;
+        }
+    }
 
-  while (addChildScenariosToSelected(true))
-  {
-  }
+    do
+    {
+        setupAllChildScenarios();
+    } while (addChildScenariosToSelected(true));
 
-  foreach(Scenario* loadedScenario, scenarios)
-  {
-      loadedScenario->setupChildScenarios();
-  }
 
-  if (forceChange) {
-    if (m_inGroup)
-      m_scenariosDirty = true;
-    else
-      emit scenariosChanged();
-  }
+    if (forceChange) {
+        if (m_inGroup)
+            m_scenariosDirty = true;
+        else
+            emit scenariosChanged();
+    }
 
-  emit scenarioSelectionChanged();
+    emit scenarioSelectionChanged();
 
-  //we have to have at least one scenario loaded anyways; If not this
-  //crash here is the least of our worries...
-  kDebug() << "Updating displays here";
-  updateDisplays(scenarios[0], true);
+    //we have to have at least one scenario loaded anyways; If not this
+    //crash here is the least of our worries...
+    kDebug() << "Updating displays here";
+    updateDisplays(scenarios[0], true);
 
-  return success;
+    return success;
 }
 
 bool ScenarioManager::addChildScenariosToSelected(bool doNotEmitChanged)
@@ -386,6 +383,13 @@ bool ScenarioManager::addChildScenariosToSelected(bool doNotEmitChanged)
     }
 }
 
+void ScenarioManager::setupAllChildScenarios()
+{
+    foreach(Scenario* loadedScenario, scenarios)
+    {
+        loadedScenario->setupChildScenarios();
+    }
+}
 
 void ScenarioManager::setPluginFont(const QFont& font)
 {

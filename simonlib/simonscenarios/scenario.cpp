@@ -127,16 +127,6 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 
 bool Scenario::setupChildScenarios()
 {
-//    if (this->id() == "[EN_VF]_Rekonq-16.05.16.2011-02-32-16-000")
-//    {
-//        m_childScenarioIds << "126701-mouse.scenario";
-//    }
-
-//    if (this->id() == "126701-mouse.scenario")
-//    {
-//        m_childScenarioIds << "general";
-//    }
-
     m_childScenarios.clear();
 
     foreach (QString id, m_childScenarioIds)
@@ -203,11 +193,12 @@ bool Scenario::addChild(QString childId)
 
         kDebug() << "Adding child: " + childId;
 
-        save();
-        if (ScenarioManager::getInstance()->addChildScenariosToSelected())
+        do
         {
-            setupChildScenarios();
-        }
+            ScenarioManager::getInstance()->setupAllChildScenarios();
+        } while(ScenarioManager::getInstance()->addChildScenariosToSelected());
+
+        save();
 
         return true;
     }
@@ -222,13 +213,17 @@ bool Scenario::removeChild(QString childId)
         m_childScenarioIds.removeAll(childId);
         save();
 
+        //unparent the child
         Scenario* formerChild = ScenarioManager::getInstance()->getScenario(childId);
-
         if (formerChild)
         {
-            formerChild->setParent(0);
+            formerChild->setParentScenario(0);
 
             m_childScenarios.removeAll(formerChild);
+        }
+        else
+        {
+            kDebug() << "Error: Could not get child scenario; unparenting failure for " << childId;
         }
 
         return true;

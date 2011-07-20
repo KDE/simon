@@ -48,16 +48,19 @@ class SIMONCONTEXTUI_EXPORT NewChildScenario : public KDialog
   private:
     Ui::NewChildScenario ui;
     ScenarioListModel* m_listModel;
+    Scenario *m_parentScenario;
 
   private slots:
 
   public:
-    NewChildScenario(QWidget *parent=0);
+    NewChildScenario(Scenario *parentScenario, QWidget *parent=0);
     ~NewChildScenario();
 
     QString selectedScenarioId();
 
+
   public slots:
+    void checkIfValidChild();
 };
 
 #endif // NEWCHILDSCENARIO_H

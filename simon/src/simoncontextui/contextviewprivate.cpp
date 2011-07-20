@@ -169,7 +169,7 @@ void ContextViewPrivate::selectionChanged()
 void ContextViewPrivate::addChild()
 {
     //TODO: filter out invalid children (disable adding children that are already parents)
-    NewChildScenario* newChild = new NewChildScenario(this);
+    NewChildScenario* newChild = new NewChildScenario(scenario, this);
 
     if (newChild->exec())
     {

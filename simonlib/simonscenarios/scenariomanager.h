@@ -102,6 +102,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool setupScenarios(bool forceChange=false);
 
     bool addChildScenariosToSelected(bool doNotEmitChanged=false);
+    void setupAllChildScenarios();
 
     QStringList getAllAvailableScenarioIds(const QString& dataPrefix);
     QStringList getAllAvailableScenarioIds();
