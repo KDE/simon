@@ -33,7 +33,8 @@
  *	@class ScenarioListModel
  *	@brief The ScenarioListModel class provides a view-compatible model of all the available scenarios
  *
- *
+ *      This class is very simple, if not useless right now, but it can be expanded to retrieve the list of
+ *      scenarios that can be imported as well as those that are directly available.
  *
  *	\sa Scenario, QAbstractItemModel, ContextViewPrivate
  *
@@ -47,15 +48,10 @@ class MODELMANAGEMENT_EXPORT ScenarioListModel : public QAbstractItemModel
 
   protected:
     /**
-     * \brief
+     * \brief The list of available scenario IDs
      *
      */
     QStringList m_scenarioIds;
-
-    /**
-     * \brief
-     *
-     */
 
     /**
      *

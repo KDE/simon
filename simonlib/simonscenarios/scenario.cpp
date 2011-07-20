@@ -128,6 +128,7 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 bool Scenario::setupChildScenarios()
 {
     m_childScenarios.clear();
+    m_invalidChildScenarioIds.clear();
     Scenario* scenario;
     bool validChild = true;
 
@@ -143,6 +144,7 @@ bool Scenario::setupChildScenarios()
                 if (scenario->id() == child->id())
                 {
                     kDebug() << "Error: Child '" + id + "'' is already a parent of " + this->id();
+                    m_invalidChildScenarioIds.push_back(id);
                     validChild = false;
                     break;
                 }
@@ -161,6 +163,7 @@ bool Scenario::setupChildScenarios()
         else
         {
             kDebug() << "Error: Child id '" + id + "'' is invalid or unavailable";
+            m_invalidChildScenarioIds.push_back(id);
         }
     }
 
@@ -183,6 +186,11 @@ QList<Scenario*> Scenario::childScenarios() const
 QStringList Scenario::childScenarioIds() const
 {
     return m_childScenarioIds;
+}
+
+QStringList Scenario::invalidChildScenarioIds() const
+{
+    return m_invalidChildScenarioIds;
 }
 
 Scenario* Scenario::parentScenario()
@@ -229,6 +237,7 @@ bool Scenario::removeChild(QString childId)
     if (m_childScenarioIds.contains(childId))
     {
         m_childScenarioIds.removeAll(childId);
+        m_invalidChildScenarioIds.removeAll(childId);
         save();
 
         //unparent the child

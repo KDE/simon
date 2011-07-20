@@ -74,6 +74,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     ActionCollection* m_actionCollection;
     CompoundCondition* m_compoundCondition;
     QStringList m_childScenarioIds;
+    QStringList m_invalidChildScenarioIds;
     QList<Scenario*> m_childScenarios;
     Scenario* m_parentScenario;
 
@@ -142,6 +143,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     Scenario* childScenario(int i);
     QList<Scenario*> childScenarios() const;
     QStringList childScenarioIds() const;
+    QStringList invalidChildScenarioIds() const;
     Scenario* parentScenario();
     void setParentScenario(Scenario* parent);
     int childIndex() const;

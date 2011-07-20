@@ -47,6 +47,8 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   connect (ui.pbAddChild, SIGNAL(clicked()), this, SLOT(addChild()));
   connect (ui.pbRemoveChild, SIGNAL(clicked()), this, SLOT(removeChild()));
 
+  connect (ui.pbRemoveInvalidChild, SIGNAL(clicked()), this, SLOT(removeInvalidChild()));
+
   ui.lvConditions->setIconSize(QSize(24,24));
   ui.lvConditions->setSpacing(2);
 
@@ -56,6 +58,8 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
 
   ui.pbAddChild->setIcon(KIcon("list-add"));
   ui.pbRemoveChild->setIcon(KIcon("edit-delete"));
+
+  ui.pbRemoveInvalidChild->setIcon(KIcon("edit-delete"));
 
   conditionsProxy = new QSortFilterProxyModel(this);
   conditionsProxy->setFilterKeyColumn(0);
@@ -184,6 +188,21 @@ void ContextViewPrivate::removeChild()
     m_childrenTreeModel->update();
 }
 
+void ContextViewPrivate::removeInvalidChild()
+{
+    //remove the child scenario
+    scenario->removeChild(ui.lwInvalidChildren->currentItem()->text());
+
+    //update the invalid child list widget
+    updateInvalidChildList();
+}
+
+void ContextViewPrivate::updateInvalidChildList()
+{
+    ui.lwInvalidChildren->clear();
+    ui.lwInvalidChildren->addItems(scenario->invalidChildScenarioIds());
+}
+
 void ContextViewPrivate::selectedChildChanged()
 {
     if (scenario->childScenarioIds().contains(ui.tvChildScenarios->currentIndex().data().toString()))
@@ -205,6 +224,8 @@ void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
   m_childrenTreeModel->setRootScenario(scenario);
   ui.tvChildScenarios->setModel(m_childrenTreeModel);
   ui.tvChildScenarios->setCurrentIndex(m_childrenTreeModel->index(0, 0));
+
+  updateInvalidChildList();
 }
 
 ContextViewPrivate::~ContextViewPrivate()
