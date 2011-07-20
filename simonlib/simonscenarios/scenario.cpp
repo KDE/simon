@@ -128,6 +128,8 @@ VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors)
 bool Scenario::setupChildScenarios()
 {
     m_childScenarios.clear();
+    Scenario* scenario;
+    bool validChild = true;
 
     foreach (QString id, m_childScenarioIds)
     {
@@ -135,14 +137,30 @@ bool Scenario::setupChildScenarios()
 
         if (child)
         {
-            m_childScenarios << ScenarioManager::getInstance()->getScenario(id);
-            child->setParentScenario(this);
+            scenario = this;
+            while (scenario)
+            {
+                if (scenario->id() == child->id())
+                {
+                    kDebug() << "Error: Child '" + id + "'' is already a parent of " + this->id();
+                    validChild = false;
+                    break;
+                }
 
-            kDebug() << child->id() + " is set as child of " + this->id();
+                scenario = scenario->parentScenario();
+            }
+
+            if (validChild)
+            {
+                m_childScenarios << child;
+                child->setParentScenario(this);
+
+                kDebug() << child->id() + " is set as child of " + this->id();
+            }
         }
         else
         {
-            kDebug() << "Error:  child id " + id + " is invalid or unavailable";
+            kDebug() << "Error: Child id '" + id + "'' is invalid or unavailable";
         }
     }
 
