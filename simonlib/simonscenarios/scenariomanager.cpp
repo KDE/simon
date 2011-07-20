@@ -245,21 +245,21 @@ bool ScenarioManager::setupScenarios(bool forceChange)
 {
   bool success = true;
 
-  qDeleteAll(scenarios);
-  scenarios.clear();
-
   kDebug() << "Setting up scenarios...";
-
-  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
 
   QStringList defaultScenarioIds;
   defaultScenarioIds << "general";
 
   QStringList scenarioIds;
 
+  qDeleteAll(scenarios);
+  scenarios.clear();
+
+  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+  KConfigGroup cg(config, "");
+
   if (cg.hasKey("SelectedScenarios")) {
-    scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
+      scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
   }
   else {
     scenarioIds = defaultScenarioIds;
@@ -271,15 +271,19 @@ bool ScenarioManager::setupScenarios(bool forceChange)
   kDebug() << "Loading scenario: " << scenarioIds;
 
   foreach (const QString& id, scenarioIds) {
-    Scenario *s = new Scenario(id);
-    kDebug() << "Initializing scenario" << id;
+      Scenario *s = new Scenario(id);
+      kDebug() << "Initializing scenario" << id;
 
-    if (setupScenario(s))
-      scenarios << s;
-    else {
-      success = false;
-      kDebug() << "Could not initialize scenario: " << id;
-    }
+      if (setupScenario(s))
+          scenarios << s;
+      else {
+          success = false;
+          kDebug() << "Could not initialize scenario: " << id;
+      }
+  }
+
+  while (addChildScenariosToSelected(true))
+  {
   }
 
   foreach(Scenario* loadedScenario, scenarios)
@@ -302,6 +306,84 @@ bool ScenarioManager::setupScenarios(bool forceChange)
   updateDisplays(scenarios[0], true);
 
   return success;
+}
+
+bool ScenarioManager::addChildScenariosToSelected(bool doNotEmitChanged)
+{
+    QStringList childScenarioIds;
+    QStringList newScenarioIds;
+    bool success;
+
+    //get all the child scenarios
+    foreach (Scenario* s, scenarios)
+    {
+        QStringList childIds = s->childScenarioIds();
+        foreach (QString id, childIds)
+        {
+            if (!childScenarioIds.contains(id))
+            {
+                childScenarioIds << id;
+            }
+        }
+    }
+
+    //make sure that all of the available children are selected
+    foreach (QString id, childScenarioIds)
+    {
+        //try to load the child (it might already be selected)
+        Scenario* child = getScenario(id);
+
+        if (!child)
+        {
+            //check if the scenario can be added
+            if (ScenarioManager::getInstance()->getAllAvailableScenarioIds().contains(id))
+            {
+                //add the scenario to the selected scenarios
+                newScenarioIds << id;
+            }
+            //if not there will be an error
+            else
+            {
+                //TODO: enable automatic importing of unavailable child scenarios
+                kDebug() << "Error: attempt to add unavailable child scenario " + id;
+            }
+        }
+    }
+
+    KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+    KConfigGroup cg(config, "");
+
+    QStringList selectedIds = cg.readEntry("SelectedScenarios", QStringList() << "general");
+
+    selectedIds << newScenarioIds;
+
+    cg.writeEntry("SelectedScenarios", selectedIds);
+    cg.writeEntry("LastModified", QDateTime::currentDateTime());
+    cg.sync();
+
+    //add the new child scenarios
+    foreach (const QString& id, newScenarioIds) {
+        Scenario *s = new Scenario(id);
+        kDebug() << "Initializing scenario" << id;
+
+        if (setupScenario(s))
+            scenarios << s;
+        else {
+            success = false;
+            kDebug() << "Could not initialize scenario: " << id;
+        }
+    }
+
+    if (newScenarioIds.isEmpty())
+    {
+            return false;
+    }
+    else
+    {
+        if (!doNotEmitChanged)
+            emit scenariosChanged();
+        return true;
+    }
 }
 
 

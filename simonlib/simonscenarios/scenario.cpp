@@ -38,6 +38,7 @@
 #include <QFile>
 #include <KDebug>
 #include <KDateTime>
+#include <KConfigGroup>
 
 Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
 m_prefix(prefix),
@@ -140,10 +141,19 @@ bool Scenario::setupChildScenarios()
 
     foreach (QString id, m_childScenarioIds)
     {
-        m_childScenarios << ScenarioManager::getInstance()->getScenario(id);
-        ScenarioManager::getInstance()->getScenario(id)->setParentScenario(this);
+        Scenario* child = ScenarioManager::getInstance()->getScenario(id);
 
-        kDebug() << ScenarioManager::getInstance()->getScenario(id)->id() + " is child of " + ScenarioManager::getInstance()->getScenario(this->id())->id();
+        if (child)
+        {
+            m_childScenarios << ScenarioManager::getInstance()->getScenario(id);
+            child->setParentScenario(this);
+
+            kDebug() << child->id() + " is set as child of " + this->id();
+        }
+        else
+        {
+            kDebug() << "Error:  child id " + id + " is invalid or unavailable";
+        }
     }
 
     return true;
@@ -190,7 +200,15 @@ bool Scenario::addChild(QString childId)
     if (!m_childScenarioIds.contains(childId))
     {
         m_childScenarioIds << childId;
-        setupChildScenarios();
+
+        kDebug() << "Adding child: " + childId;
+
+        save();
+        if (ScenarioManager::getInstance()->addChildScenariosToSelected())
+        {
+            setupChildScenarios();
+        }
+
         return true;
     }
 
@@ -201,8 +219,18 @@ bool Scenario::removeChild(QString childId)
 {
     if (m_childScenarioIds.contains(childId))
     {
-        m_childScenarioIds.removeOne(childId);
-        setupChildScenarios();
+        m_childScenarioIds.removeAll(childId);
+        save();
+
+        Scenario* formerChild = ScenarioManager::getInstance()->getScenario(childId);
+
+        if (formerChild)
+        {
+            formerChild->setParent(0);
+
+            m_childScenarios.removeAll(formerChild);
+        }
+
         return true;
     }
 
@@ -627,7 +655,9 @@ QString Scenario::serialize()
   foreach(QString id, m_childScenarioIds)
   {
       idElem = doc.createElement("scenarioid");
-      idElem.setNodeValue(id);
+      idElem.appendChild(doc.createTextNode(id));
+
+      childrenElem.appendChild(idElem);
   }
   rootElem.appendChild(childrenElem);
 
