@@ -378,7 +378,10 @@ bool ScenarioManager::addChildScenariosToSelected(bool doNotEmitChanged)
     else
     {
         if (!doNotEmitChanged)
+        {
             emit scenariosChanged();
+            emit scenarioSelectionChanged();
+        }
         return true;
     }
 }

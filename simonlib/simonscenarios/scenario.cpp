@@ -224,6 +224,8 @@ bool Scenario::addChild(QString childId)
             ScenarioManager::getInstance()->setupAllChildScenarios();
         } while(ScenarioManager::getInstance()->addChildScenariosToSelected());
 
+        ScenarioManager::getInstance()->updateDisplays(this, true);
+
         save();
 
         return true;
