@@ -35,8 +35,6 @@ ConservativeTraining::ConservativeTraining(QWidget *parent) : KDialog(parent),
   setMainWidget( widget );
   setCaption( i18n("Conservative Training") );
 
-  ui->urInputFolder->setMode(KFile::Directory|KFile::ExistingOnly|KFile::LocalOnly);
-
   connect(ui->urInputFolder, SIGNAL(textChanged(const QString&)), this, SLOT(updateComplete()));
   connect(ui->urOutputPrompts, SIGNAL(textChanged(const QString&)), this, SLOT(updateComplete()));
   connect(ui->sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(updateComplete()));

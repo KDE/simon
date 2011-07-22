@@ -203,7 +203,10 @@ bool ShadowVocabulary::addWord(Word *w)
 
 bool ShadowVocabulary::reOrder(Word* w)
 {
-  if (!Vocabulary::reOrder(w)) return false;
+  if (!Vocabulary::removeWord(w, false /* do not delete this */))
+    return false;
+  if (!Vocabulary::addWord(w)) return false;
+
   return save();
 }
 
