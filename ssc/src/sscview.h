@@ -23,6 +23,7 @@
 #include <KXmlGuiWindow>
 #include <QProcess>
 #include "ui_main.h"
+#include <sscdaccess/sscdaccess.h>
 
 class User;
 class KAction;
@@ -56,7 +57,7 @@ class SSCView : public KXmlGuiWindow
 
   private slots:
     void showConfigurationDialog();
-    void connectToServer();
+    void connectToServer(/*int timeout_*/);
     void disconnectFromServer();
     void displayConnectionStatus(const QString &status);
 

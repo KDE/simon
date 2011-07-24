@@ -52,10 +52,8 @@ const qint8 protocolVersion=1;
 class SSCDACCESS_EXPORT SSCDAccess : public QObject
 {
   Q_OBJECT
-  
-  public :
-    static int timeout;
-  
+  int timeout;
+
     signals:
   void connected();
   void disconnected();
@@ -75,10 +73,10 @@ class SSCDACCESS_EXPORT SSCDAccess : public QObject
       if (!instance) instance = new SSCDAccess(parent);
       return instance;
     }
-
+    
     bool isConnected();
     QString lastError();
-
+      
     User *getUser(qint32 id);
     QList<User*> getUsers(User *filter,qint32 institutionId, const QString& referenceId, bool *ok);
     qint32 addUser(User* u);
@@ -109,7 +107,8 @@ class SSCDACCESS_EXPORT SSCDAccess : public QObject
   public slots:
     void disconnectFromServer();
     void connectTo( QString server, quint16 port, bool encrypted );
-
+    const int& getTimeout() const;
+    void setTimeout(const int& timeout_);
   private:
     bool readyToRead;
     static SSCDAccess *instance;
@@ -117,7 +116,7 @@ class SSCDACCESS_EXPORT SSCDAccess : public QObject
 
     QTimer *timeoutWatcher;
     QString lastErrorString;
-    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message/*, int timeout*/);
 
   private slots:
     bool sendRequest (qint32 request);
