@@ -43,20 +43,16 @@ QString OrConditionAssociation::name()
     int i;
     QString str;
 
-    str = "(";
-
     for (i=0; i<m_conditions.count(); i++)
     {
         if (i > 0)
         {
             str += " or ";
         }
-        str += m_conditions.at(i)->name();
+        str += "(" + m_conditions.at(i)->name() + ")";
     }
 
-    str += ")";
-
-    return str;
+    return i18n("%1", str);
 }
 
 void OrConditionAssociation::evaluateConditions()
