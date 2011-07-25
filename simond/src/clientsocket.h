@@ -131,6 +131,7 @@ class ClientSocket : public QSslSocket
     void sendSample(QString sampleName);
 
     void activeModelCompiled();
+    void activeModelLoadedFromCache();
     void activeModelCompilationAborted();
 
     void closeRecognitionControl();

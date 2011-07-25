@@ -461,9 +461,9 @@ bool ModelCompilationManager::compileGrammar()
   }
 
   if (!keepGoing) return false;
-  emit status(i18n("Generating termporary vocabulary..."), 2530);
+  emit status(i18n("Generating temporary vocabulary..."), 2530);
   if (!makeTempVocab()) {
-    analyseError(i18n("Could not create temporary vocabular."));
+    analyseError(i18n("Could not create temporary vocabulary."));
     return false;
   }
 

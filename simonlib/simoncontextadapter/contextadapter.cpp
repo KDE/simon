@@ -12,6 +12,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_username = username;
     m_deactivatedScenarios = QStringList();
     m_currentScenarioSet = QStringList();
+    m_newAcousticModel = false;
 
     connect(m_modelCompilationManager, SIGNAL(modelCompiled()),
             this, SLOT(storeModelInCache()));
@@ -110,17 +111,9 @@ void ContextAdapter::storeModelInCache()
     file.copy(activeDir+"lexicon", cachedModelDir+"lexicon");
     file.copy(activeDir+"model.grammar", cachedModelDir+"model.grammar");
     file.copy(activeDir+"simple.voca", cachedModelDir+"simple.voca");
-    file.copy(activeDir+"prompts", cachedModelDir+"prompts");
-    file.copy(activeDir+"hmmdefs", cachedModelDir+"hmmdefs");
-    file.copy(activeDir+"tiedlist", cachedModelDir+"tiedlist");
     file.copy(activeDir+"model.dict", cachedModelDir+"model.dict");
     file.copy(activeDir+"model.dfa", cachedModelDir+"model.dfa");
-    file.copy(activeDir+"basehmmdefs", cachedModelDir+"basehmmdefs");
-    file.copy(activeDir+"basetiedlist", cachedModelDir+"basetiedlist");
-    file.copy(activeDir+"basemacros", cachedModelDir+"basemacros");
-    file.copy(activeDir+"basestats", cachedModelDir+"basestats");
     file.copy(activeDir+"activerc", cachedModelDir+"activerc");
-    file.copy(activeDir+"hmmdefs_loc", cachedModelDir+"hmmdefs_loc");
     file.copy(activeDir+"julius.log", cachedModelDir+"julius.log");
     file.copy(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
 
@@ -194,6 +187,10 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 
         m_currentScenarioSet = scenarioPathsIn;
 
+        //we need to generate a new acoustic model
+        m_newAcousticModel = true;
+        kDebug() << "A new acoustic model must be generated unless a base model is being used";
+
         //save the new base scenario list
         QFile scenariosFile(cacheDir + "ScenarioList");
         scenariosFile.open(QFile::Truncate | QFile::WriteOnly);
@@ -236,43 +233,36 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         file.copy(cachedModelDir+"model.grammar", activeDir+"model.grammar");
         file.remove(activeDir+"simple.voca");
         file.copy(cachedModelDir+"simple.voca", activeDir+"simple.voca");
-        file.remove(activeDir+"prompts");
-        file.copy(cachedModelDir+"prompts", activeDir+"prompts");
-        file.remove(activeDir+"hmmdefs");
-        file.copy(cachedModelDir+"hmmdefs", activeDir+"hmmdefs");
-        file.remove(activeDir+"tiedlist");
-        file.copy(cachedModelDir+"tiedlist", activeDir+"tiedlist");
         file.remove(activeDir+"model.dict");
         file.copy(cachedModelDir+"model.dict", activeDir+"model.dict");
         file.remove(activeDir+"model.dfa");
         file.copy(cachedModelDir+"model.dfa", activeDir+"model.dfa");
-        file.remove(activeDir+"basehmmdefs");
-        file.copy(cachedModelDir+"basehmmdefs", activeDir+"basehmmdefs");
-        file.remove(activeDir+"basetiedlist");
-        file.copy(cachedModelDir+"basetiedlist", activeDir+"basetiedlist");
-        file.remove(activeDir+"basemacros");
-        file.copy(cachedModelDir+"basemacros", activeDir+"basemacros");
-        file.remove(activeDir+"basestats");
-        file.copy(cachedModelDir+"basestats", activeDir+"basestats");
         file.remove(activeDir+"activerc");
         file.copy(cachedModelDir+"activerc", activeDir+"activerc");
-        file.remove(activeDir+"hmmdefs_loc");
-        file.copy(cachedModelDir+"hmmdefs_loc", activeDir+"hmmdefs_loc");
         file.remove(activeDir+"julius.log");
         file.copy(cachedModelDir+"julius.log", activeDir+"julius.log");
         file.remove(activeDir+"julius.jconf");
         file.copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
 
         emit modelLoadedFromCache();
-
         return true;
     }
 
     //otherwise, adapt the model
-    success =  m_modelCompilationAdapter->startAdaption(adaptionType, lexiconPathOut,
-                                                        grammarPathOut, simpleVocabPathOut,
-                                                        promptsPathOut, activeScenarioPathsIn,
-                                                        promptsIn);
+    if (m_newAcousticModel && (ModelCompilationAdapter::AdaptAcousticModel & adaptionType))
+    {
+        success =  m_modelCompilationAdapter->startAdaption(adaptionType, lexiconPathOut,
+                                                            grammarPathOut, simpleVocabPathOut,
+                                                            promptsPathOut, activeScenarioPathsIn,
+                                                            promptsIn);
+    }
+    else
+    {
+        success =  m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptLanguageModel, lexiconPathOut,
+                                                            grammarPathOut, simpleVocabPathOut,
+                                                            promptsPathOut, activeScenarioPathsIn,
+                                                            promptsIn);
+    }
 
     return success;
 }
@@ -288,21 +278,46 @@ bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType c
   const QString& treeHedPath, const QString& wavConfigPath,
   const QString& scriptBasePrefix)
 {
-    return m_modelCompilationManager->startCompilation(compilationType,
-                                                       hmmDefsPath,
-                                                       tiedListPath,
-                                                       dictPath,
-                                                       dfaPath,
-                                                       baseHmmDefsPath,
-                                                       baseTiedlistPath,
-                                                       baseStatsPath,
-                                                       baseMacrosPath,
-                                                       samplePath,
-                                                       lexiconPath,
-                                                       grammarPath,
-                                                       vocabPath,
-                                                       promptsPath,
-                                                       treeHedPath,
-                                                       wavConfigPath,
-                                                       scriptBasePrefix);
+    if (m_newAcousticModel)
+    {
+        return m_modelCompilationManager->startCompilation(compilationType,
+                                                           hmmDefsPath,
+                                                           tiedListPath,
+                                                           dictPath,
+                                                           dfaPath,
+                                                           baseHmmDefsPath,
+                                                           baseTiedlistPath,
+                                                           baseStatsPath,
+                                                           baseMacrosPath,
+                                                           samplePath,
+                                                           lexiconPath,
+                                                           grammarPath,
+                                                           vocabPath,
+                                                           promptsPath,
+                                                           treeHedPath,
+                                                           wavConfigPath,
+                                                           scriptBasePrefix);
+
+        m_newAcousticModel = false;
+    }
+    else
+    {
+        return m_modelCompilationManager->startCompilation(ModelCompilationManager::CompileLanguageModel,
+                                                           hmmDefsPath,
+                                                           tiedListPath,
+                                                           dictPath,
+                                                           dfaPath,
+                                                           baseHmmDefsPath,
+                                                           baseTiedlistPath,
+                                                           baseStatsPath,
+                                                           baseMacrosPath,
+                                                           samplePath,
+                                                           lexiconPath,
+                                                           grammarPath,
+                                                           vocabPath,
+                                                           promptsPath,
+                                                           treeHedPath,
+                                                           wavConfigPath,
+                                                           scriptBasePrefix);
+    }
 }

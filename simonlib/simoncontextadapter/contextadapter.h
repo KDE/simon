@@ -88,6 +88,7 @@ private:
     QStringList m_deactivatedScenarios;
     QStringList m_currentScenarioSet;
     QString m_username;
+    bool m_newAcousticModel;
 
     //key: comma concatenated list of deactivated scenarios
     //value: directory of the model cache

@@ -197,7 +197,7 @@ void ClientSocket::processRequest()
                     this, SLOT(slotModelAdaptionError(QString)));
 
             connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
-                    this, SLOT(activeModelCompiled()));
+                    this, SLOT(activeModelLoadedFromCache()));
 
 
           if (recognitionControl)
@@ -954,6 +954,16 @@ void ClientSocket::activeModelCompiled()
   sendCode(Simond::ModelCompilationCompleted);
 
   startSynchronisation();
+}
+
+void ClientSocket::activeModelLoadedFromCache()
+{
+    synchronisationManager->modelCompiled();
+    writeHashesToConfig();
+
+    sendCode(Simond::ModelCompilationCompleted);
+
+    startSynchronisation();
 }
 
 
