@@ -410,7 +410,7 @@ void SimonView::setupActions()
 
   KAction* context = new KAction(this);
   context->setText(i18n("Context"));
-  context->setIcon(KIcon("system-run"));
+  context->setIcon(KIcon("preferences-activities"));
   context->setShortcut(Qt::CTRL + Qt::Key_E);
   actionCollection()->addAction("context", context);
   connect(context, SIGNAL(triggered(bool)),

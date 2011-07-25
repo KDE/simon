@@ -956,6 +956,8 @@ void ClientSocket::activeModelCompiled()
   startSynchronisation();
 }
 
+//This was added to try to bypass the synchronization step, but it seems to need to do everything
+//that activeModelCompiled does in order to work
 void ClientSocket::activeModelLoadedFromCache()
 {
     synchronisationManager->modelCompiled();
