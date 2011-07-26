@@ -29,7 +29,7 @@
 #include <QStringList>
 #include <QString>
 #include <QObject>
-#include <QDate>
+#include <KDateTime>
 #include <QTextStream>
 #include <QVariant>
 #include <QTime>
@@ -75,7 +75,7 @@ void TrainingManager::trainingSettingsSaved()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   emit trainingSettingsChanged();
@@ -208,10 +208,10 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
     promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +'\n' );
   promptsFile.close();
 
-  kDebug() << "Writing date..." << QDateTime::currentDateTime();
+  kDebug() << "Writing date..." << KDateTime::currentUtcDateTime().dateTime();
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   return true;

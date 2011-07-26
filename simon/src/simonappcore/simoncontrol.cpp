@@ -202,6 +202,7 @@ void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
 
   kDebug() << "Received recognition results...";
   ActionManager::getInstance()->processRawResults(recognitionResults);
+  delete recognitionResults;
 }
 
 

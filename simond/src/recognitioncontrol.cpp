@@ -18,6 +18,8 @@
  */
 
 #include "recognitioncontrol.h"
+#include <KDateTime>
+#include <KDebug>
 
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
 username(user_name)
@@ -28,15 +30,13 @@ username(user_name)
 
 void RecognitionControl::touchLastSuccessfulStart()
 {
-  m_lastSuccessfulStart = QDateTime::currentDateTime();
+  m_lastSuccessfulStart = KDateTime::currentUtcDateTime().dateTime();
 }
 
 void RecognitionControl::touchLastFailedStart()
 {
-  m_lastFailedStart = QDateTime::currentDateTime();
+  m_lastFailedStart = KDateTime::currentUtcDateTime().dateTime();
 }
-
-#include <KDebug>
 
 bool RecognitionControl::shouldTryToStart(const QDateTime& activeModelDate)
 {

@@ -24,6 +24,7 @@
 #include <QDomElement>
 #include <KColorScheme>
 #include <KStandardDirs>
+#include <KDateTime>
 #include <KFilterDev>
 #include <KMimeType>
 
@@ -115,7 +116,7 @@ int ShadowVocabulary::columnCount(const QModelIndex &parent) const
 
 void ShadowVocabulary::touch()
 {
-  lastModifiedDate = QDateTime::currentDateTime();
+  lastModifiedDate = KDateTime::currentUtcDateTime().dateTime();
 }
 
 

@@ -162,7 +162,10 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 
     kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
 
-    if (selectedRecognitionResults->count() == 0) return;
+    if (selectedRecognitionResults->count() == 0) {
+      delete selectedRecognitionResults;
+      return;
+    }
   }
   else {
     //we are already asking...

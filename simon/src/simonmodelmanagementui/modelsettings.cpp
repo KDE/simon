@@ -21,7 +21,7 @@
 #include "speechmodelmanagementuiconfiguration.h"
 #include <simonscenarios/scenariomanager.h>
 #include <QFile>
-#include <QDateTime>
+#include <KDateTime>
 #include <QFileInfo>
 #include <KGlobal>
 #include <KConfig>
@@ -188,7 +188,7 @@ void ModelSettings::touchModelSrcRc()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("BaseModelDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("BaseModelDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 }
 

@@ -38,7 +38,7 @@
 
 #include <QDir>
 #include <QTime>
-#include <QDateTime>
+#include <KDateTime>
 #include <QHostAddress>
 #include <QMap>
 
@@ -810,7 +810,7 @@ void ClientSocket::processRequest()
         }
 
         WAV *currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
-          QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
+          KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
           channels, sampleRate);
         currentSamples.insert(id, currentSample);
         currentSample->beginAddSequence();

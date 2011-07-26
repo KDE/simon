@@ -35,6 +35,7 @@
 #include <KComponentData>
 #include <KAboutData>
 #include <KConfig>
+#include <KDateTime>
 #include <KConfigGroup>
 #include <KDebug>
 
@@ -405,7 +406,7 @@ void SynchronisationManager::modelCompiled()
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("Date", QDateTime::currentDateTime());
+  cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 }
 
@@ -965,7 +966,7 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
 void SynchronisationManager::touchTempModel()
 {
-  QDateTime newModelDate = QDateTime::currentDateTime();
+  QDateTime newModelDate = KDateTime::currentUtcDateTime().dateTime();
   KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("TrainingDate", newModelDate);
@@ -994,7 +995,7 @@ bool SynchronisationManager::createTrainingData(const QString& dest)
 
   KConfig config( dest+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   return allFine;
@@ -1080,7 +1081,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
           continue;
         }
 
-        doc.documentElement().setAttribute("lastModified", QDateTime::currentDateTime().toString(Qt::ISODate));
+        doc.documentElement().setAttribute("lastModified", KDateTime::currentUtcDateTime().dateTime().toString(Qt::ISODate));
 
         file.close();
         file.remove(destPath);

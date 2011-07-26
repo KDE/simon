@@ -45,7 +45,7 @@
 #include <QProcess>
 #include <QFile>
 #include <QDataStream>
-#include <QDateTime>
+#include <KDateTime>
 #include <QStringList>
 #include <QPointer>
 
@@ -1244,7 +1244,7 @@ void RecognitionControl::messageReceived()
           KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
           KConfigGroup cg(config, "");
           cg.writeEntry("SelectedScenarios", list);
-          cg.writeEntry("LastModified", QDateTime::currentDateTime());
+          cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
 
           if (!ScenarioManager::getInstance()->setupScenarios())
             emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart simon!"));

@@ -29,7 +29,7 @@
 #include <QVariant>
 #include <QMenu>
 #include <QFileInfo>
-#include <QDateTime>
+#include <KDateTime>
 #include <QListWidgetItem>
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -237,7 +237,7 @@ bool ScenarioManagementDialog::getNewScenarios()
     }
   }
   cg.writeEntry("SelectedScenarios", selectedIds);
-  cg.writeEntry("LastModified", QDateTime::currentDateTime());
+  cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
   cg.sync();
   initDisplay();
   delete dialog;
@@ -300,7 +300,7 @@ void ScenarioManagementDialog::deleteScenario()
       QStringList deletedScenariosTimes = cg.readEntry("DeletedScenariosTimes", QStringList());
 
       deletedScenarios << s->id();
-      deletedScenariosTimes << QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss");
+      deletedScenariosTimes << KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd-hh-mm-ss");
 
       cg.writeEntry("DeletedScenarios", deletedScenarios);
       cg.writeEntry("DeletedScenariosTimes", deletedScenariosTimes);
@@ -461,7 +461,7 @@ bool ScenarioManagementDialog::save()
   KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
   KConfigGroup cg(config, "");
   cg.writeEntry("SelectedScenarios", ids);
-  cg.writeEntry("LastModified", QDateTime::currentDateTime());
+  cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
   cg.sync();
   m_dirty = false;
   return true;

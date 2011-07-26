@@ -30,6 +30,7 @@
 #include <KStandardDirs>
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <KDateTime>
 
 ScenarioManager* ScenarioManager::instance;
 
@@ -191,7 +192,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
   else {
     scenarioIds = defaultScenarioIds;
     cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-    cg.writeEntry("LastModified", QDateTime::currentDateTime());
+    cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
     cg.sync();
   }
 
@@ -448,7 +449,7 @@ void ScenarioManager::touchBaseModelAccessTime()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("BaseModelDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("BaseModelDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   if (m_inGroup)
