@@ -185,6 +185,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
   public slots:
     bool save(QString path=QString());
-    void shouldActivate(bool activate);
+    void updateActivation();
 };
 #endif

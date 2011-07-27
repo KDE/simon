@@ -179,6 +179,7 @@ Scenario* Scenario::parentScenario()
 void Scenario::setParentScenario(Scenario *parent)
 {
     m_parentScenario = parent;
+    updateActivation();
 }
 
 void Scenario::setChildScenarioIds(QStringList ids)
@@ -488,7 +489,7 @@ bool Scenario::readCompoundCondition(QString path, QDomDocument* doc, bool delet
     m_active = m_compoundCondition->isSatisfied();
 
     connect(m_compoundCondition, SIGNAL(conditionChanged(bool)),
-            this, SLOT(shouldActivate(bool)));
+            this, SLOT(updateActivation()));
     connect(m_compoundCondition, SIGNAL(modified()),
             this, SLOT(save()));
 
@@ -1006,17 +1007,38 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
   m_actionCollection->setListInterfaceCommands(commands);
 }
 
-void Scenario::shouldActivate(bool activate)
+void Scenario::updateActivation()
 {
-    if (activate)
+    if (!m_parentScenario)
     {
-        kDebug() << "Scenario '" + m_name + "' should activate due to context!";
-        m_active = true;
+        if (m_compoundCondition->isSatisfied())
+        {
+            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+            m_active = true;
+        }
+        else
+        {
+            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+            m_active = false;
+        }
     }
     else
     {
-        kDebug() << "Scenario '" + m_name + "' should deactivate due to context!";
-        m_active = false;
+        if (m_compoundCondition->isSatisfied() && m_parentScenario->isActive())
+        {
+            kDebug() << "Scenario '" + m_name + "' and its applicable children should activate due to context!";
+            m_active = true;
+        }
+        else
+        {
+            kDebug() << "Scenario '" + m_name + "' and its children should deactivate due to context!";
+            m_active = false;
+        }
+    }
+
+    foreach(Scenario *s, m_childScenarios)
+    {
+        s->updateActivation();
     }
 
     emit activationChanged();
