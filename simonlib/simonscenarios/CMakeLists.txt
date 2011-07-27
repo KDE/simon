@@ -18,9 +18,7 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/scenariotreemodel.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/scenariolistmodel.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtextcollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
@@ -59,8 +57,6 @@ set( simonscenarios_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenariotreemodel.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenariolistmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
   ${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h

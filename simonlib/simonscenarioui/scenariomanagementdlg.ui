@@ -27,6 +27,9 @@
        </item>
        <item>
         <widget class="QTreeWidget" name="twAvailable">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
          <attribute name="headerVisible">
           <bool>false</bool>
          </attribute>
@@ -94,6 +97,21 @@
        </item>
        <item>
         <widget class="QTreeWidget" name="twSelected">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::InternalMove</enum>
+         </property>
+         <property name="defaultDropAction">
+          <enum>Qt::MoveAction</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectItems</enum>
+         </property>
          <attribute name="headerVisible">
           <bool>false</bool>
          </attribute>

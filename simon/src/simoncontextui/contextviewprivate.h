@@ -31,7 +31,6 @@
 
 class Condition;
 class QSortFilterProxyModel;
-class ScenarioTreeModel;
 
 /**
  *	@class ContextViewPrivate
@@ -59,7 +58,6 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
 
     Condition* getCurrentCondition();
     QSortFilterProxyModel *conditionsProxy;
-    ScenarioTreeModel *m_childrenTreeModel;
 
     void updateInvalidChildList();
 
@@ -68,12 +66,6 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
     void deleteCondition();
     void editCondition();
     void selectionChanged();
-
-    void addChild();
-    void removeChild();
-    void selectedChildChanged();
-
-    void removeInvalidChild();
 
     //void managePlugIns();
 

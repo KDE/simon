@@ -282,11 +282,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
         }
     }
 
-    do
-    {
-        setupAllChildScenarios();
-    } while (addChildScenariosToSelected(true));
-
+    setupAllChildScenarios();
 
     if (forceChange) {
         if (m_inGroup)

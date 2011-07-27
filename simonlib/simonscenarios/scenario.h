@@ -42,7 +42,6 @@ class Grammar;
 class ActiveVocabulary;
 class TrainingTextCollection;
 class TrainingText;
-class ScenarioTreeModel;
 
 class MODELMANAGEMENT_EXPORT Scenario : public QObject
 {
@@ -146,6 +145,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QStringList invalidChildScenarioIds() const;
     Scenario* parentScenario();
     void setParentScenario(Scenario* parent);
+    void setChildScenarioIds(QStringList ids);
     int childIndex() const;
     bool addChild(QString childId);
     bool removeChild(QString childId);

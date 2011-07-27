@@ -49,12 +49,14 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
     bool m_dirty;
 
     void initDisplay();
-    void displayScenario(Scenario *scenario, QTreeWidget* widget);
+    QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
     void setupItemToScenario(QTreeWidgetItem *item, Scenario *scenario);
 
     Scenario* getCurrentlySelectedScenario();
+    QStringList getChildScenarioIds(QTreeWidgetItem* parentItem);
 
     bool save();
+    void saveChildConfiguration(QTreeWidgetItem *parentItem);
 
   private slots:
     void availableScenarioSelected();

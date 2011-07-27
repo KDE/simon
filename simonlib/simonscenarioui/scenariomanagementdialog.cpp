@@ -394,11 +394,13 @@ void ScenarioManagementDialog::slotRemoved()
 }
 
 
-void ScenarioManagementDialog::displayScenario(Scenario *scenario, QTreeWidget* widget)
+QTreeWidgetItem* ScenarioManagementDialog::displayScenario(Scenario *scenario, QTreeWidget* widget)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(widget);
 
     setupItemToScenario(item, scenario);
+
+    return item;
 }
 
 
@@ -448,32 +450,50 @@ void ScenarioManagementDialog::initDisplay()
   QStringList scenarioIds = ScenarioManager::getInstance()->getAllAvailableScenarioIds(m_dataPrefix);
   kDebug() << "Found scenarios: " << scenarioIds;
 
-  QHash<QString, Scenario*> selectedList;
+  QList<Scenario*> scenarios;
+  QHash<QString, QTreeWidgetItem*> itemsByScenarioIds;
 
   foreach (const QString& id, scenarioIds) {
+
     Scenario *s = new Scenario(id, m_dataPrefix);
-    if (!s->skim()) {
+    if (!s->init())
+    {
       KMessageBox::information(this, i18n("Could not init scenario \"%1\"", id));
     }
-    else {
-      if (selectedIds.contains(id))
-      {
-        selectedList.insert(id, s);
-      }
-      else
-      {
-        displayScenario(s, available);
-        s->deleteLater();
-      }
+    else
+    {
+        scenarios << s;
     }
   }
 
-  foreach (const QString& id, selectedIds) {
-    Scenario *s = selectedList.value(id);
-    if (!s) continue;
+  //display the scenarios
+  foreach (Scenario* s, scenarios)
+  {
+      if (selectedIds.contains(s->id()))
+      {
+        itemsByScenarioIds.insert(s->id(), displayScenario(s, selected));
+      }
+      else
+      {
+        itemsByScenarioIds.insert(s->id(), displayScenario(s, available));
+      }
+  }
 
-    displayScenario(s, selected);
-    s->deleteLater();
+  //setup the scenarios according to their parent/child hierarchy
+  foreach (Scenario* s, scenarios)
+  {
+      QStringList ids = s->childScenarioIds();
+      kDebug() << "Setting up children of " << s->id() << ": " << ids;
+      foreach (QString id, ids)
+      {
+          QTreeWidgetItem *childItem = itemsByScenarioIds.value(id);
+          QTreeWidgetItem *parentItem = itemsByScenarioIds.value(s->id());
+          QTreeWidget *treeWidget = parentItem->treeWidget();
+          treeWidget->takeTopLevelItem(treeWidget->invisibleRootItem()->indexOfChild(childItem));
+          parentItem->addChild(childItem);
+          itemsByScenarioIds.value(s->id())->insertChild(0, itemsByScenarioIds.value(id));
+      }
+      s->deleteLater();
   }
 
   m_dirty = false;
@@ -491,9 +511,46 @@ void ScenarioManagementDialog::selectedScenarioSelected()
   //ui->asScenarios->setButtonsEnabled();
 }
 
+void ScenarioManagementDialog::saveChildConfiguration(QTreeWidgetItem *parentItem)
+{
+    for (int i=0; i<parentItem->childCount(); i++)
+    {
+        //setup the item
+        QTreeWidgetItem *item = parentItem->child(i);
+
+        kDebug() << "Configuring children of: " << item->data(0, Qt::UserRole).toString();
+
+        //save the item's child configuration
+        QStringList ids = getChildScenarioIds(item);
+        Scenario *s = ScenarioManager::getInstance()->getScenario(item->data(0, Qt::UserRole).toString());
+        kDebug() << "Saving: " << item->data(0, Qt::UserRole).toString();
+        if (!s)
+        {
+            s = new Scenario(item->data(0, Qt::UserRole).toString());
+            if (s->init())
+            {
+                s->setChildScenarioIds(ids);
+                s->save();
+                s->deleteLater();
+            }
+        }
+        else
+        {
+            s->setChildScenarioIds(ids);
+            s->save();
+        }
+        ids.clear();
+
+        //configure item's children's children
+        saveChildConfiguration(item);
+    }
+}
 
 bool ScenarioManagementDialog::save()
 {
+    saveChildConfiguration(ui->twSelected->invisibleRootItem());
+    saveChildConfiguration(ui->twAvailable->invisibleRootItem());
+
   QStringList ids = getSelectedScenarioIds();
 
   if (ids.count() == 0) {
@@ -530,7 +587,25 @@ QStringList ScenarioManagementDialog::getSelectedScenarioIds()
 
   QTreeWidget *s = ui->twSelected;
   for (int i=0; i < s->topLevelItemCount(); i++)
+  {
     ids << s->topLevelItem(i)->data(0, Qt::UserRole).toString();
+    ids << getChildScenarioIds(s->topLevelItem(i));
+  }
+
+  return ids;
+}
+
+QStringList ScenarioManagementDialog::getChildScenarioIds(QTreeWidgetItem* parentItem)
+{
+  QStringList ids;
+
+  kDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
+
+  for (int i=0; i < parentItem->childCount(); i++)
+  {
+    ids << parentItem->child(i)->data(0, Qt::UserRole).toString();
+    ids << getChildScenarioIds(parentItem->child(i));
+  }
 
   return ids;
 }

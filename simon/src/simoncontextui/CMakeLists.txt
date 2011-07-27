@@ -13,20 +13,17 @@ set( simoncontextui_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextview.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/contextviewprivate.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/newchildscenario.cpp
 )
 
 set( simoncontextui_LIB_HDRS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextview.h
         ${CMAKE_CURRENT_SOURCE_DIR}/newcondition.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/newchildscenario.h
         ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui_export.h
 )
 
 kde4_add_ui_files( simoncontextui_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/contextdialog.ui
         ${CMAKE_CURRENT_SOURCE_DIR}/modifycondition.ui
-        ${CMAKE_CURRENT_SOURCE_DIR}/newchildscenario.ui
 )
 
 kde4_add_library( simoncontextui  SHARED ${simoncontextui_LIB_SRCS} )

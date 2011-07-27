@@ -21,8 +21,6 @@
 #include <simonscenarios/scenario.h>
 #include "newcondition.h"
 #include "simoncontextdetection/contextmanager.h"
-#include "simonscenarios/scenariotreemodel.h"
-#include "newchildscenario.h"
 
 #include <QWidget>
 #include <QPointer>
@@ -44,11 +42,6 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   connect ( ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editCondition()));
   connect ( ui.pbDeleteCondition, SIGNAL(clicked()), this, SLOT(deleteCondition()));
 
-  connect (ui.pbAddChild, SIGNAL(clicked()), this, SLOT(addChild()));
-  connect (ui.pbRemoveChild, SIGNAL(clicked()), this, SLOT(removeChild()));
-
-  connect (ui.pbRemoveInvalidChild, SIGNAL(clicked()), this, SLOT(removeInvalidChild()));
-
   ui.lvConditions->setIconSize(QSize(24,24));
   ui.lvConditions->setSpacing(2);
 
@@ -56,24 +49,14 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   ui.pbEditCondition->setIcon(KIcon("edit-rename"));
   ui.pbDeleteCondition->setIcon(KIcon("edit-delete"));
 
-  ui.pbAddChild->setIcon(KIcon("list-add"));
-  ui.pbRemoveChild->setIcon(KIcon("edit-delete"));
-
-  ui.pbRemoveInvalidChild->setIcon(KIcon("edit-delete"));
-
   conditionsProxy = new QSortFilterProxyModel(this);
   conditionsProxy->setFilterKeyColumn(0);
   conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(conditionsProxy);
 
-  m_childrenTreeModel = new ScenarioTreeModel(this);
-  ui.tvChildScenarios->setModel(m_childrenTreeModel);
-
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
-
-  connect(ui.tvChildScenarios->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectedChildChanged()));
 }
 
 Condition* ContextViewPrivate::getCurrentCondition()
@@ -170,62 +153,11 @@ void ContextViewPrivate::selectionChanged()
     }
 }
 
-void ContextViewPrivate::addChild()
-{
-    //TODO: filter out invalid children (disable adding children that are already parents)
-    NewChildScenario* newChild = new NewChildScenario(scenario, this);
-
-    if (newChild->exec())
-    {
-        scenario->addChild(newChild->selectedScenarioId());
-        m_childrenTreeModel->update();
-    }
-}
-
-void ContextViewPrivate::removeChild()
-{
-    scenario->removeChild(ui.tvChildScenarios->currentIndex().data().toString());
-    m_childrenTreeModel->update();
-}
-
-void ContextViewPrivate::removeInvalidChild()
-{
-    //remove the child scenario
-    scenario->removeChild(ui.lwInvalidChildren->currentItem()->text());
-
-    //update the invalid child list widget
-    updateInvalidChildList();
-}
-
-void ContextViewPrivate::updateInvalidChildList()
-{
-    ui.lwInvalidChildren->clear();
-    ui.lwInvalidChildren->addItems(scenario->invalidChildScenarioIds());
-}
-
-void ContextViewPrivate::selectedChildChanged()
-{
-    if (scenario->childScenarioIds().contains(ui.tvChildScenarios->currentIndex().data().toString()))
-    {
-        ui.pbRemoveChild->setEnabled(true);
-    }
-    else
-    {
-        ui.pbRemoveChild->setEnabled(false);
-    }
-}
-
 void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
   CompoundCondition *compoundCondition = scenario->compoundCondition();
   conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
-
-  m_childrenTreeModel->setRootScenario(scenario);
-  ui.tvChildScenarios->setModel(m_childrenTreeModel);
-  ui.tvChildScenarios->setCurrentIndex(m_childrenTreeModel->index(0, 0));
-
-  updateInvalidChildList();
 }
 
 ContextViewPrivate::~ContextViewPrivate()
