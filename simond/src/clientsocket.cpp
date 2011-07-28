@@ -78,7 +78,7 @@ newVocaHash(0)
     connect(this, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(slotSocketError()));
     startServerEncryption();
   }
-
+  kDebug() << "Done constructing";
 }
 
 
@@ -99,6 +99,7 @@ void ClientSocket::processRequest()
   qint32 type;
 
   while (!stream.atEnd()) {
+    waitForMessage(sizeof(qint32), stream, msg);
     Simond::Request request;
     stream >> type;
     request = (Simond::Request) type;
@@ -185,6 +186,8 @@ void ClientSocket::processRequest()
             recognitionControl->initializeRecognition();
         } else
         sendCode(Simond::AuthenticationFailed);
+
+        kDebug() << "Done with login";
 
         break;
 
@@ -777,6 +780,7 @@ void ClientSocket::processRequest()
 
       case Simond::StartRecognition:
       {
+        kDebug() << "Got start recognition";
         recognitionControl->startRecognition();
         break;
       }
@@ -858,7 +862,7 @@ void ClientSocket::processRequest()
 
       default:
       {
-        kDebug() << "Unknown request: " << msg;
+        kDebug() << "Unknown request: " << request << msg;
       }
     }
 
