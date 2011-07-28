@@ -151,6 +151,8 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
   connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
+  ui->cbSampleGroup->addItem(device.name());
+
   waves << wg;
 }
 
@@ -210,6 +212,8 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
     devices = *forcedDevices;
 	
   if (m_simpleMode) {
+      ui->cbSampleGroup->hide();
+      ui->lbSampleGroup->hide();
     //which device?
     QStringList deviceNames;
     foreach (const SimonSound::DeviceConfiguration& dev, devices)
@@ -228,6 +232,8 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
     }
   }
   else {
+
+
     for (int i=0; i < devices.count(); i++)
       registerDevice(devices[i], '.'+QString::number(i));
   }
