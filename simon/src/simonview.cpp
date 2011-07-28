@@ -637,7 +637,7 @@ void SimonView::showTrainDialog ()
 
 
 /**
- * @brief Shows a dialog to Control the Laguage Model
+ * @brief Shows a dialog to Control the Language Model
  *
  * @author Peter Grasch
  */
@@ -648,7 +648,7 @@ void SimonView::showWordListDialog ()
 
 
 /**
- * @brief Shows a dialog to Control the Laguage Model
+ * @brief Shows a dialog to Control the Language Model
  *
  * @author Peter Grasch
  */

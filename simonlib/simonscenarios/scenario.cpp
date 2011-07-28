@@ -148,14 +148,6 @@ bool Scenario::setupChildScenarios()
     return true;
 }
 
-Scenario* Scenario::childScenario(int i)
-{
-    if (i < m_childScenarios.count())
-        return m_childScenarios.at(i);
-
-    return 0;
-}
-
 QList<Scenario*> Scenario::childScenarios() const
 {
     return m_childScenarios;
@@ -164,11 +156,6 @@ QList<Scenario*> Scenario::childScenarios() const
 QStringList Scenario::childScenarioIds() const
 {
     return m_childScenarioIds;
-}
-
-QStringList Scenario::invalidChildScenarioIds() const
-{
-    return m_invalidChildScenarioIds;
 }
 
 Scenario* Scenario::parentScenario()
@@ -185,64 +172,6 @@ void Scenario::setParentScenario(Scenario *parent)
 void Scenario::setChildScenarioIds(QStringList ids)
 {
     m_childScenarioIds = ids;
-}
-
-int Scenario::childIndex() const
-{
-    if (m_parentScenario)
-        return m_parentScenario->childScenarios().indexOf(const_cast<Scenario*>(this));
-
-    return 0;
-}
-
-bool Scenario::addChild(QString childId)
-{
-    if (!m_childScenarioIds.contains(childId))
-    {
-        m_childScenarioIds << childId;
-
-        kDebug() << "Adding child: " + childId;
-
-        do
-        {
-            ScenarioManager::getInstance()->setupAllChildScenarios();
-        } while(ScenarioManager::getInstance()->addChildScenariosToSelected());
-
-        ScenarioManager::getInstance()->updateDisplays(this, true);
-
-        save();
-
-        return true;
-    }
-
-    return false;
-}
-
-bool Scenario::removeChild(QString childId)
-{
-    if (m_childScenarioIds.contains(childId))
-    {
-        m_childScenarioIds.removeAll(childId);
-        m_invalidChildScenarioIds.removeAll(childId);
-        save();
-
-        //unparent the child
-        Scenario* formerChild = ScenarioManager::getInstance()->getScenario(childId);
-        if (formerChild)
-        {
-            formerChild->setParentScenario(0);
-
-            m_childScenarios.removeAll(formerChild);
-        }
-        else
-        {
-            kDebug() << "Error: Could not get child scenario; unparenting failure for " << childId;
-        }
-
-        return true;
-    }
-
-    return false;
 }
 
 bool Scenario::update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,

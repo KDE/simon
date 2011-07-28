@@ -100,8 +100,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     QStringList getExampleSentences(const QString& name, const QString& terminal, int count, SpeechModel::ModelElements elements);
     bool setupScenarios(bool forceChange=false);
-
-    bool addChildScenariosToSelected(bool doNotEmitChanged=false);
     void setupAllChildScenarios();
 
     QStringList getAllAvailableScenarioIds(const QString& dataPrefix);

@@ -73,7 +73,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     ActionCollection* m_actionCollection;
     CompoundCondition* m_compoundCondition;
     QStringList m_childScenarioIds;
-    QStringList m_invalidChildScenarioIds;
     QList<Scenario*> m_childScenarios;
     Scenario* m_parentScenario;
 
@@ -139,16 +138,11 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
 
     bool setupChildScenarios();
-    Scenario* childScenario(int i);
     QList<Scenario*> childScenarios() const;
     QStringList childScenarioIds() const;
-    QStringList invalidChildScenarioIds() const;
     Scenario* parentScenario();
     void setParentScenario(Scenario* parent);
     void setChildScenarioIds(QStringList ids);
-    int childIndex() const;
-    bool addChild(QString childId);
-    bool removeChild(QString childId);
 
     ActiveVocabulary* vocabulary() { return m_vocabulary; }
     Grammar* grammar() { return m_grammar; }
