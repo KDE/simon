@@ -172,7 +172,7 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
           connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-          connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const QString&, const RecognitionResultList&)));
+          connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
           connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
 
           if (synchronisationManager )
@@ -1647,6 +1647,11 @@ void ClientSocket::recognitionDone(const QString& fileName)
   }
 }
 
+void ClientSocket::processRecognitionResults(const QString& fileName, const RecognitionResultList& recognitionResults)
+{
+  emit recognized(username, fileName, recognitionResults);
+}
+
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
   QByteArray toWrite;
@@ -1680,6 +1685,10 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
   }
 }
 
+QString ClientSocket::getUsername()
+{
+  return username;
+}
 
 ClientSocket::~ClientSocket()
 {

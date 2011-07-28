@@ -98,8 +98,18 @@ void SimondControl::incomingConnection (int descriptor)
 
   connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
     this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
+  connect(clientSocket, SIGNAL(recognized(const QString&, const QString&, const RecognitionResultList&)),
+    this, SLOT(recognized(recognized(const QString&, const QString&, const RecognitionResultList&))));
 
   clients << clientSocket;
+}
+
+void SimondControl::recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults)
+{
+  foreach (ClientSocket *client, clients) {
+    if (client->getUsername() == username)
+      client->sendRecognitionResult(fileName, recognitionResults);
+  }
 }
 
 

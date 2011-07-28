@@ -43,7 +43,10 @@ class ClientSocket : public QSslSocket
 {
   Q_OBJECT
 
-    private:
+  signals:
+    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
+
+  private:
     bool m_keepSamples;
 
     bool synchronisationRunning;
@@ -69,10 +72,12 @@ class ClientSocket : public QSslSocket
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
-    void recognitionDone(const QString& fileName);
 
   private slots:
+    void processRecognitionResults(const QString& fileName, const RecognitionResultList& recognitionResults);
+
     void startSynchronisation();
+    void recognitionDone(const QString& fileName);
 
     void sendCode(Simond::Request code);
     void processRequest();
@@ -129,6 +134,8 @@ class ClientSocket : public QSslSocket
     ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
 
     virtual ~ClientSocket();
+
+    QString getUsername();
 
 };
 #endif

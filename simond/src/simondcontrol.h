@@ -47,6 +47,8 @@ class SimondControl : public QTcpServer
 
     void connectionClosing(QAbstractSocket::SocketState state);
 
+    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
+
   public:
     SimondControl(QObject *parent=0);
 
