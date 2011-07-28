@@ -110,7 +110,8 @@ void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
   for (int i=0; i<clients.count(); i++) {
     if (clients[i]->state() == state) {
       kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
-      clients[i]->close();
+      clients[i]->disconnectFromHost();
+      clients[i]->waitForDisconnected();
       clients.takeAt(i)->deleteLater();
       i--;
     }
