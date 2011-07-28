@@ -151,7 +151,7 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
   connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
-  ui->cbSampleGroup->addItem(device.name());
+  ui->cbSampleGroup->addItem(device.defaultSampleGroup());
 
   waves << wg;
 }

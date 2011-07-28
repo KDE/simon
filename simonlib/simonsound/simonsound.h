@@ -65,6 +65,7 @@ namespace SimonSound
   {
     private:
       QString m_name;
+      QString m_defaultSampleGroup;
       int m_channels;
       int m_sampleRate;
       bool m_resample;
@@ -72,9 +73,9 @@ namespace SimonSound
 
     public:
       DeviceConfiguration(const QString& name, int channels, int sampleRate,
-          bool resample, int resampleRate) :
+          bool resample, int resampleRate, QString defaultSampleGroup="default") :
       m_name(name), m_channels(channels), m_sampleRate(sampleRate),
-      m_resample(resample), m_resampleRate(resampleRate)
+      m_resample(resample), m_resampleRate(resampleRate), m_defaultSampleGroup(defaultSampleGroup)
         {}
 
       DeviceConfiguration() :
@@ -83,6 +84,7 @@ namespace SimonSound
         {}
 
       QString name() const { return m_name; }
+      QString defaultSampleGroup() const { return m_defaultSampleGroup; }
       int channels() const { return m_channels; }
       int sampleRate() const { return m_sampleRate; }
       bool resample() const { return m_resample; }
@@ -90,6 +92,7 @@ namespace SimonSound
 
       void setChannels(int channels) { m_channels = channels; }
       void setSampleRate(int sampleRate) { m_sampleRate = sampleRate; }
+      void setDefaultSampleGroup(QString sampleGroup) { m_defaultSampleGroup = sampleGroup; }
 
       bool operator== (const DeviceConfiguration& b) const
       {
