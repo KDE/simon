@@ -1649,6 +1649,17 @@ void ClientSocket::recognitionDone(const QString& fileName)
 
 void ClientSocket::processRecognitionResults(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
+  if (m_keepSamples) {
+    QFile f(fileName+"-log.txt");
+    if (f.open(QIODevice::WriteOnly)) {
+      foreach (const RecognitionResult& result, recognitionResults)
+        f.write(result.toString().toUtf8()+'\n');
+
+      f.close();
+    } else
+    kWarning() << "Can not open output log for sample";
+  }
+
   emit recognized(username, fileName, recognitionResults);
 }
 
@@ -1672,17 +1683,6 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
   stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
   write(toWrite);
   write(body);
-
-  if (m_keepSamples) {
-    QFile f(fileName+"-log.txt");
-    if (f.open(QIODevice::WriteOnly)) {
-      foreach (const RecognitionResult& result, recognitionResults)
-        f.write(result.toString().toUtf8()+'\n');
-
-      f.close();
-    } else
-    kWarning() << "Can not open output log for sample";
-  }
 }
 
 QString ClientSocket::getUsername()

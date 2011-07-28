@@ -107,8 +107,10 @@ void SimondControl::incomingConnection (int descriptor)
 void SimondControl::recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults)
 {
   foreach (ClientSocket *client, clients) {
-    if (client->getUsername() == username)
+    if (client->getUsername() == username) {
       client->sendRecognitionResult(fileName, recognitionResults);
+      kDebug() << "Relaying sample to clients...";
+    }
   }
 }
 
