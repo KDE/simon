@@ -108,6 +108,7 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
 
     void compileModel();
 
+
   private slots:
     void slotConnectionError(const QString& err);
     void slotSimondSystemError(const QString &err);

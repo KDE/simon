@@ -19,6 +19,8 @@
 
 #include "processinfogatherer.h"
 
+#include <KDebug>
+
 ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
     QThread(parent)
 {

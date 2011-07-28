@@ -54,6 +54,7 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
 
     Scenario* getCurrentlySelectedScenario();
     QStringList getChildScenarioIds(QTreeWidgetItem* parentItem);
+    QStringList getAllLevelChildScenarioIds(QTreeWidgetItem* parentItem);
 
     bool save();
     void saveChildConfiguration(QTreeWidgetItem *parentItem);

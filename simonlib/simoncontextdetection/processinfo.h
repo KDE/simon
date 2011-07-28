@@ -27,6 +27,7 @@
 #include <QThread>
 #include "processinfogatherer.h"
 #include "simoncontextdetection_export.h"
+#include <KDebug>
 
 /**
  *	@class ProcessInfo

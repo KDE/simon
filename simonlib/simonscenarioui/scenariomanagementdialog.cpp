@@ -586,11 +586,7 @@ QStringList ScenarioManagementDialog::getSelectedScenarioIds()
   QStringList ids;
 
   QTreeWidget *s = ui->twSelected;
-  for (int i=0; i < s->topLevelItemCount(); i++)
-  {
-    ids << s->topLevelItem(i)->data(0, Qt::UserRole).toString();
-    ids << getChildScenarioIds(s->topLevelItem(i));
-  }
+  ids << getAllLevelChildScenarioIds(s->invisibleRootItem());
 
   return ids;
 }
@@ -604,12 +600,25 @@ QStringList ScenarioManagementDialog::getChildScenarioIds(QTreeWidgetItem* paren
   for (int i=0; i < parentItem->childCount(); i++)
   {
     ids << parentItem->child(i)->data(0, Qt::UserRole).toString();
-    ids << getChildScenarioIds(parentItem->child(i));
   }
 
   return ids;
 }
 
+QStringList ScenarioManagementDialog::getAllLevelChildScenarioIds(QTreeWidgetItem* parentItem)
+{
+  QStringList ids;
+
+  kDebug() << "Getting child ids of: " << parentItem->data(0, Qt::UserRole).toString();
+
+  for (int i=0; i < parentItem->childCount(); i++)
+  {
+    ids << parentItem->child(i)->data(0, Qt::UserRole).toString();
+    ids << getAllLevelChildScenarioIds(parentItem->child(i));
+  }
+
+  return ids;
+}
 
 bool ScenarioManagementDialog::updateScenarioConfiguration()
 {
