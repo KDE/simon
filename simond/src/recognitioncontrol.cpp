@@ -40,12 +40,14 @@ void RecognitionControl::touchLastFailedStart()
 
 bool RecognitionControl::shouldTryToStart(const QDateTime& activeModelDate)
 {
-  kDebug() << "Last successful start: " << m_lastSuccessfulStart;
-  kDebug() << "Last failed start: " << m_lastFailedStart;
-  kDebug() << "Active model: " << activeModelDate;
-  bool start = ((m_lastFailedStart.isNull() || (activeModelDate > m_lastFailedStart)) && 
-                (m_lastSuccessfulStart.isNull() || (activeModelDate > m_lastSuccessfulStart)));
-  kDebug() << "Start: " << start;
+  QDateTime utcActiveModelDate(activeModelDate);
+  utcActiveModelDate.setTimeSpec(Qt::UTC);
+  kWarning() << "Last successful start: " << m_lastSuccessfulStart;
+  kWarning() << "Last failed start: " << m_lastFailedStart << m_lastFailedStart.isNull();
+  kWarning() << "Active model: " << utcActiveModelDate << (utcActiveModelDate > m_lastSuccessfulStart);
+  bool start = ((m_lastFailedStart.isNull() || (utcActiveModelDate > m_lastFailedStart)) && 
+                (m_lastSuccessfulStart.isNull() || (utcActiveModelDate > m_lastSuccessfulStart)));
+  kWarning() << "Start: " << start;
   return start;
 }
 
