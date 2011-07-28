@@ -43,8 +43,6 @@ void SoundInputBuffer::write(const char *toWrite, qint64 len)
   free(oldBuffer);
 
   //m_buffer.append(toWrite, len);
-  m_bufferLock.release(len);
-
 }
 
 void SoundInputBuffer::run()
@@ -56,15 +54,17 @@ void SoundInputBuffer::run()
     int bufferSize = m_input->bufferSize();
     killLock.unlock();
 
-    while (!m_bufferLock.tryAcquire(bufferSize, 50)) {
+    while (!m_bufferLength < bufferSize) {
       if (!m_shouldBeRunning) {
         deleteLater();
         return;
       }
+      msleep(50);
     }
 
     //killLock.lock();
     m_bufferAllocLock.lock();
+    kDebug() << "new buffer length: " << bufferSize;
     QByteArray currentData(m_buffer, bufferSize);
 
 
@@ -87,7 +87,6 @@ void SoundInputBuffer::run()
     if (m_bufferLength > 20*bufferSize) // drop data as a last resort 
     {
       kDebug()  << "EMERGENCY: Clearing buffer " << m_bufferLength;
-      m_bufferLock.acquire(m_bufferLock.available());
       m_bufferAllocLock.lock();
       free(m_buffer);
       m_buffer = 0;
