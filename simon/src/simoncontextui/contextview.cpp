@@ -23,7 +23,7 @@
 
 ContextView::ContextView(QWidget* parent)
 : InlineWidget(i18n("Context"),
-KIcon("system-run"),
+KIcon("preferences-activities"),
 i18n("Modify the context dependence of the scenario"), parent),
 d(new ContextViewPrivate(this))
 {

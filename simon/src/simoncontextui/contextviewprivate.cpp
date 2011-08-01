@@ -54,6 +54,8 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(conditionsProxy);
 
+  ui.lwParentScenario->setMaximumHeight(QFontMetrics(QFont()).height() + 8);
+
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
@@ -158,6 +160,35 @@ void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
   CompoundCondition *compoundCondition = scenario->compoundCondition();
   conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
+
+  //fill in parent scenario box
+  ui.lwParentScenario->clear();
+  if (scenario->parentScenario())
+  {
+      ui.lwParentScenario->addItem(new QListWidgetItem(scenario->parentScenario()->icon(), scenario->parentScenario()->name()));
+  }
+  else
+  {
+      ui.lwParentScenario->addItem(new QListWidgetItem(QIcon(), i18n("None")));
+  }
+
+  //fill in child scenario tree
+  ui.twChildScenarios->clear();
+  addChildScenarios(ui.twChildScenarios->invisibleRootItem(), scenario);
+}
+
+void ContextViewPrivate::addChildScenarios(QTreeWidgetItem *parentItem, Scenario *parentScenario)
+{
+    QList<Scenario*> childScenarios;
+    childScenarios = parentScenario->childScenarios();
+
+    foreach(Scenario* s, childScenarios)
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(parentItem);
+        item->setText(0, s->name());
+        item->setIcon(0, s->icon());
+        addChildScenarios(item, s);
+    }
 }
 
 ContextViewPrivate::~ContextViewPrivate()

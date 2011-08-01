@@ -20,6 +20,7 @@
 #include "compoundcondition.h"
 #include "compoundconditionmodel.h"
 #include <KDebug>
+#include <QFont>
 
 CompoundConditionModel::CompoundConditionModel(CompoundCondition *base) : m_ref(base)
 {
@@ -34,8 +35,19 @@ QVariant CompoundConditionModel::data(const QModelIndex &index, int role) const
   if (!m_conditions.at(index.row()))
     return QVariant();
 
-  if (role == Qt::DisplayRole)
-    return m_conditions.at(index.row())->name();
+  if (index.column() == 0)
+  {
+      if (role == Qt::DisplayRole)
+          return  m_conditions.at(index.row())->name();
+      else if (role == Qt::FontRole && !m_conditions.at(index.row())->isSatisfied())
+      {
+          QFont font;
+          font.setItalic(true);
+          return font;
+      }
+      else if (role == Qt::ForegroundRole && !m_conditions.at(index.row())->isSatisfied())
+          return Qt::darkGray;
+  }
 
   return QVariant();
 }
@@ -51,10 +63,10 @@ int CompoundConditionModel::rowCount(const QModelIndex &parent) const
 
 QModelIndex CompoundConditionModel::index(int row, int column, const QModelIndex &parent) const
 {
-  if (!hasIndex(row, column, parent) || parent.isValid())
-    return QModelIndex();
+    if (!hasIndex(row, column, parent) || parent.isValid())
+        return QModelIndex();
 
-  return createIndex(row, column, m_conditions.at(row));
+    return createIndex(row, column, m_conditions.at(row));
 }
 
 
@@ -68,14 +80,16 @@ Qt::ItemFlags CompoundConditionModel::flags(const QModelIndex &index) const
 
 
 QVariant CompoundConditionModel::headerData(int column, Qt::Orientation orientation,
-int role) const
+                                            int role) const
 {
-  if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-    switch (column) {
-      case 0:
-        return i18n("Condition");
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+    {
+        switch (column)
+        {
+        case 0:
+            return i18n("Condition");
+        }
     }
-  }
 
   //default
   return QVariant();
@@ -123,7 +137,6 @@ void CompoundConditionModel::update()
   for ( ; currentIndex < m_conditions.count(); currentIndex++)
     m_conditions.removeAt(currentIndex);
   endRemoveRows();
-
 }
 
 
