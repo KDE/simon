@@ -30,6 +30,7 @@ ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
 void ProcessInfoGatherer::checkProcessListChanges()
 {
     QString processName;
+    bool dirty = false;
 
     foreach(processName, m_currentlyRunningProcesses)
     {
@@ -40,6 +41,7 @@ void ProcessInfoGatherer::checkProcessListChanges()
         }
         else
         {
+            dirty = true;
             emit processAdded(processName);
         }
     }
@@ -47,11 +49,15 @@ void ProcessInfoGatherer::checkProcessListChanges()
     //signal any processes that were removed
     foreach (processName, m_previouslyRunningProcesses)
     {
+        dirty = true;
         emit processRemoved(processName);
     }
 
-    emit updateProcesses(m_currentlyRunningProcesses);
-    m_previouslyRunningProcesses = m_currentlyRunningProcesses;
+    if (dirty)
+    {
+        emit updateProcesses(m_currentlyRunningProcesses);
+        m_previouslyRunningProcesses = m_currentlyRunningProcesses;
+    }
 
     //Refresh the current process list
     m_currentlyRunningProcesses.clear();
@@ -63,6 +69,8 @@ void ProcessInfoGatherer::run()
     {
         checkCurrentProcesses();
         checkProcessListChanges();
+
+        emit finishedGatheringStep();
 
         this->sleep(1);
     }

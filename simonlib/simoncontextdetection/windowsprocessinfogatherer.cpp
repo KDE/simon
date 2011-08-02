@@ -35,7 +35,7 @@ WindowsProcessInfoGatherer::WindowsProcessInfoGatherer(QObject *parent) :
 
 void WindowsProcessInfoGatherer::checkCurrentProcesses()
 {
-    #ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN32
 
     DWORD aProcesses[1024], cbNeeded, cProcesses;
     TCHAR szProcessName[MAX_PATH];
@@ -58,8 +58,8 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
         {
             // Get a handle to the process.
             hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
-                                    PROCESS_VM_READ,
-                                    FALSE, aProcesses[i] );
+                                   PROCESS_VM_READ,
+                                   FALSE, aProcesses[i] );
 
             // Get the process name.
             if (NULL != hProcess )
@@ -68,18 +68,18 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
                 //it most likely fails because of privelages
                 //this should be fixed so that all the processes are listed
                 if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod),
-                                         &cbNeeded) )
+                                        &cbNeeded) )
                 {
 
                     GetModuleBaseName( hProcess, hMod, szProcessName,
-                                       sizeof(szProcessName)/sizeof(TCHAR) );
+                                      sizeof(szProcessName)/sizeof(TCHAR) );
 
                     //Make the process name a QString
-                    #ifdef UNICODE
+#ifdef UNICODE
                     processName = QString::fromUtf16((ushort*)szProcessName);
-                    #else
+#else
                     processName = QString::fromLocal8Bit(szProcessName);
-                    #endif
+#endif
 
                     //add the process name to the list of current process names
                     m_currentlyRunningProcesses.push_back(processName);
@@ -91,7 +91,74 @@ void WindowsProcessInfoGatherer::checkCurrentProcesses()
         }
     }
 
-    #endif
+#endif
+}
+
+void WindowsProcessInfoGatherer::checkActiveWindow()
+{
+#ifdef Q_OS_WIN32
+
+    HWND hwnd;
+    DWORD activeWindowProcess;
+    HANDLE hProcess;
+    HMODULE hMod;
+    TCHAR szProcessName[MAX_PATH];
+    QString processName;
+    WCHAR wWindowName[1024];
+    QString windowName;
+    unsigned int i;
+
+    //get the current foreground window
+    hwnd=GetForegroundWindow();
+
+    if (hwnd)
+    {
+        //get the foreground window name
+        GetWindowText(hwnd,wWindowName,1024);
+
+        //get the process ID of the foreground window
+        GetWindowThreadProcessId(hwnd, &activeWindowProcess);
+
+        if (activeWindowProcess != 0)
+        {
+            //get a process handle for the foreground window process
+            hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
+                                   PROCESS_VM_READ,
+                                   FALSE, activeWindowProcess );
+
+            if (hProcess != 0)
+            {
+                //get the name of the foreground window process
+                GetModuleBaseName( hProcess,
+                                  (HINSTANCE__*) GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+                                  szProcessName,
+                                  sizeof(szProcessName)/sizeof(TCHAR) );
+
+                //Make the window and process name a QString
+#ifdef UNICODE
+                processName = QString::fromUtf16((ushort*)szProcessName);
+                windowName = QString::fromUtf16((ushort*)wWindowName);
+#else
+                processName = QString::fromLocal8Bit(szProcessName);
+                windowName = QString::fromLocal8Bit(wWindowName);
+#endif
+
+                if (m_currentActiveWindowTitle != windowName)
+                {
+                    emit activeWindowTitleChanged(windowName);
+                }
+                if (m_currentActiveWindowProgram != processName)
+                {
+                    emit activeWindowProcessChanged(processName);
+                }
+            }
+
+            // Release the handle to the process.
+            CloseHandle( hProcess );
+        }
+    }
+
+#endif
 }
 
 

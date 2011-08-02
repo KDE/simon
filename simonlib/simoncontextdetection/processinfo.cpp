@@ -38,6 +38,8 @@ ProcessInfo::ProcessInfo()
     connect(m_gatherer, SIGNAL(updateProcesses(QStringList)),
             this, SLOT(checkRunningProcesses(QStringList)));
 
+
+
     m_gatherer->start(QThread::LowPriority);
 }
 

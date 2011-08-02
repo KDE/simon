@@ -54,13 +54,19 @@ protected:
     void run();
     QStringList m_previouslyRunningProcesses;
     QStringList m_currentlyRunningProcesses;
+    QString m_currentActiveWindowTitle;
+    QString m_currentActiveWindowProgram;
     virtual void checkCurrentProcesses()=0;
+    virtual void checkActiveWindow()=0;
     void checkProcessListChanges();
 
 signals:
     void processAdded(QString);
     void processRemoved(QString);
     void updateProcesses(QStringList);
+    void activeWindowTitleChanged(QString);
+    void activeWindowProcessChanged(QString);
+    void finishedGatheringStep();
 
 public slots:
 

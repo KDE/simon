@@ -48,6 +48,7 @@ public:
 signals:
 
 public slots:
+    void checkActiveWindow();
     void checkCurrentProcesses();
 };
 

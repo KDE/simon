@@ -47,6 +47,7 @@ public:
 
 protected:
     void checkCurrentProcesses();
+    void checkActiveWindow();
 
 signals:
 

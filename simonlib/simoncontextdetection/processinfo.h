@@ -65,11 +65,15 @@ private:
 signals:
     void processAdded(QString);
     void processRemoved(QString);
+    void activeWindowTitleChanged(QString);
+    void activeWindowProcessChanged(QString);
 
 public slots:
-    void checkRunningProcesses(QStringList names) {m_runningProcesses = names;}
-    void checkAddedProcesses(QString name) {emit processAdded(name);}
-    void checkRemovedProcesses(QString name) {emit processRemoved(name);}
+    void checkRunningProcesses(QStringList names) { m_runningProcesses = names; }
+    void checkAddedProcesses(QString name) { emit processAdded(name); }
+    void checkRemovedProcesses(QString name) { emit processRemoved(name); }
+    void checkActiveWindowTitle(QString title) { emit activeWindowTitleChanged(title); }
+    void checkActiveWindowProcess(QString process) { emit activeWindowProcessChanged(process); }
 };
 
 #endif // PROCESSINFO_H

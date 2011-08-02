@@ -63,3 +63,8 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
         }
     }
 }
+
+void LinuxProcessInfoGatherer::checkActiveWindow()
+{
+
+}
