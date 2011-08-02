@@ -3,5 +3,5 @@ QWidget#DialogView {
 }
 
 QWidget#DialogView * {
-    font: 20px;
+    font: 28px;
 }
