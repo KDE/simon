@@ -25,6 +25,7 @@
  */
 
 #include "processinfogatherer.h"
+#include "linuxprocessinfogathererhelper.h"
 
 /**
  *	@class LinuxProcessInfoGatherer
@@ -44,12 +45,17 @@ class LinuxProcessInfoGatherer : public ProcessInfoGatherer
     Q_OBJECT
 public:
     explicit LinuxProcessInfoGatherer(QObject *parent = 0);
+    ~LinuxProcessInfoGatherer();
+
+private:
+    LinuxProcessInfoGathererHelper* m_helper;
 
 protected:
     void checkCurrentProcesses();
     void checkActiveWindow();
 
 signals:
+    void triggerHelper();
 
 public slots:
 

@@ -20,10 +20,21 @@
 #include "linuxprocessinfogatherer.h"
 #include <QRegExp>
 #include <QDir>
+#include <QApplication>
 
 LinuxProcessInfoGatherer::LinuxProcessInfoGatherer(QObject *parent) :
     ProcessInfoGatherer(parent)
 {
+    m_helper = new LinuxProcessInfoGathererHelper();
+
+    connect(this, SIGNAL(triggerHelper()),
+            m_helper, SLOT(checkActiveWindow()));
+    connect(m_helper, SIGNAL(activeWindowProcessChanged(QString)),
+            this, SIGNAL(activeWindowProcessChanged(QString)));
+    connect(m_helper, SIGNAL(activeWindowTitleChanged(QString)),
+            this, SIGNAL(activeWindowTitleChanged(QString)));
+
+    m_helper->moveToThread(qApp->thread());
 }
 
 void LinuxProcessInfoGatherer::checkCurrentProcesses()
@@ -64,7 +75,12 @@ void LinuxProcessInfoGatherer::checkCurrentProcesses()
     }
 }
 
+LinuxProcessInfoGatherer::~LinuxProcessInfoGatherer()
+{
+    m_helper->deleteLater();
+}
+
 void LinuxProcessInfoGatherer::checkActiveWindow()
 {
-
+    emit triggerHelper();
 }

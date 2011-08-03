@@ -37,8 +37,10 @@ ProcessInfo::ProcessInfo()
             this, SLOT(checkRemovedProcesses(QString)));
     connect(m_gatherer, SIGNAL(updateProcesses(QStringList)),
             this, SLOT(checkRunningProcesses(QStringList)));
-
-
+    connect(m_gatherer, SIGNAL(activeWindowTitleChanged(QString)),
+            this, SLOT(checkActiveWindowTitle(QString)));
+    connect(m_gatherer, SIGNAL(activeWindowProcessChanged(QString)),
+            this, SLOT(checkActiveWindowProcess(QString)));
 
     m_gatherer->start(QThread::LowPriority);
 }
@@ -49,4 +51,9 @@ ProcessInfo* ProcessInfo::instance()
         m_instance = new ProcessInfo();
 
     return m_instance;
+}
+
+ProcessInfo::~ProcessInfo()
+{
+    m_gatherer->deleteLater();
 }

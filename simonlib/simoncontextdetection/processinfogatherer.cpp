@@ -70,7 +70,9 @@ void ProcessInfoGatherer::run()
         checkCurrentProcesses();
         checkProcessListChanges();
 
-        emit finishedGatheringStep();
+        checkActiveWindow();
+
+        //emit finishedGatheringStep();
 
         this->sleep(1);
     }

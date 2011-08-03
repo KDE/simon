@@ -21,6 +21,7 @@ set( simoncontextdetection_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/processinfogatherer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/linuxprocessinfogatherer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/linuxprocessinfogathererhelper.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/windowsprocessinfogatherer.cpp
 )
 
@@ -35,6 +36,7 @@ set( simoncontextdetection_LIB_HDRS
   processinfo.h
   processinfogatherer.h
   linuxprocessinfogatherer.h
+  linuxprocessinfogathererhelper.h
   windowsprocessinfogatherer.h
 )
 

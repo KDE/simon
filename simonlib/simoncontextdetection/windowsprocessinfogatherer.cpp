@@ -145,10 +145,12 @@ void WindowsProcessInfoGatherer::checkActiveWindow()
 
                 if (m_currentActiveWindowTitle != windowName)
                 {
+                    m_currentActiveWindowTitle = windowName;
                     emit activeWindowTitleChanged(windowName);
                 }
                 if (m_currentActiveWindowProgram != processName)
                 {
+                    m_currentActiveWindowProgram = processName;
                     emit activeWindowProcessChanged(processName);
                 }
             }
