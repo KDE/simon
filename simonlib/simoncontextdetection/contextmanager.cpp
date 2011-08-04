@@ -18,6 +18,7 @@
  */
 
 #include "contextmanager.h"
+#include "processinfo.h"
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KDebug>
@@ -38,6 +39,7 @@ ContextManager::ContextManager(QObject *parent) :
 ContextManager::~ContextManager()
 {
     qDeleteAll(m_conditions);
+    ProcessInfo::instance()->deleteLater();
 }
 
 ContextManager* ContextManager::instance()
