@@ -34,6 +34,7 @@ private:
   void showActive();
   void showInactive();
   void disableSingleShot();
+  QString getPrefix();
   
 public:
   explicit SimonStatusWidget(QWidget* parent = 0, Qt::WindowFlags f = 0);

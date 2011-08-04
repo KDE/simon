@@ -33,6 +33,9 @@ int main(int argc, char **argv)
     KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 
+  KCmdLineOptions options;
+  options.add("icons <prefix>", ki18n("Icon prefix [bubble]"), "");
+  KCmdLineArgs::addCmdLineOptions(options);
   KCmdLineArgs::init(argc, argv, &about);
 
   KApplication app;

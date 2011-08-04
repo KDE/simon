@@ -20,6 +20,7 @@
 #include "simonstatuswidgetadaptor.h"
 #include <KIcon>
 #include <KStandardDirs>
+#include <KCmdLineArgs>
 
 SimonStatusWidget::SimonStatusWidget(QWidget* parent, Qt::WindowFlags f) : 
   QLabel(parent, f|Qt::FramelessWindowHint), singleShotActive(false)
@@ -59,14 +60,21 @@ void SimonStatusWidget::setInactive()
   showInactive();
 }
 
+QString SimonStatusWidget::getPrefix()
+{
+  if (KCmdLineArgs::parsedArgs()->isSet("icons"))
+    return KCmdLineArgs::parsedArgs()->getOption("icons");
+  return "bubble";
+}
+
 void SimonStatusWidget::showActive()
 {
-  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/mic_on.png")));
+  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/"+getPrefix()+"_on.png")));
 }
 
 void SimonStatusWidget::showInactive()
 {
-  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/mic_off.png")));
+  setPixmap(QPixmap(KStandardDirs::locate("appdata", "symbols/"+getPrefix()+"_off.png")));
 }
 
 void SimonStatusWidget::setActiveOnce(int timeout)
