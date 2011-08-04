@@ -25,6 +25,16 @@ ProcessInfoGatherer::ProcessInfoGatherer(QObject *parent) :
     QThread(parent)
 {
     m_previouslyRunningProcesses = QStringList();
+    m_abort = false;
+}
+
+ProcessInfoGatherer::~ProcessInfoGatherer()
+{
+    m_mutex.lock();
+    m_abort = true;
+    m_mutex.unlock();
+
+    wait();
 }
 
 void ProcessInfoGatherer::checkProcessListChanges()
@@ -73,6 +83,11 @@ void ProcessInfoGatherer::run()
         checkActiveWindow();
 
         //emit finishedGatheringStep();
+
+        m_mutex.lock();
+        if (m_abort)
+            return;
+        m_mutex.unlock();
 
         this->sleep(1);
     }

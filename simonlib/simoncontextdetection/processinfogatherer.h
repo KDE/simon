@@ -26,6 +26,7 @@
 
 #include <QThread>
 #include <QStringList>
+#include <QMutex>
 
 /**
  *	@class ProcessInfoGatherer
@@ -49,6 +50,11 @@ class ProcessInfoGatherer : public QThread
     Q_OBJECT
 public:
     explicit ProcessInfoGatherer(QObject *parent = 0);
+    ~ProcessInfoGatherer();
+
+private:
+    bool m_abort;
+    QMutex m_mutex;
 
 protected:
     void run();
