@@ -52,6 +52,7 @@ class CreateActiveWindowWidget : public CreateConditionWidget
     Ui::CreateActiveWindowWidget ui;
 
   private slots:
+    void processFileDialog();
 
   public:
     Condition* createCondition();

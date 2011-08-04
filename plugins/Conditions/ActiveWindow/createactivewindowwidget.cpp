@@ -21,6 +21,8 @@
 #include "activewindow.h"
 #include <QLineEdit>
 #include "simoncontextdetection/contextmanager.h"
+#include <QFileDialog>
+#include <QStringList>
 
 CreateActiveWindowWidget::CreateActiveWindowWidget(CompoundCondition *compoundCondition,
 QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
@@ -32,8 +34,22 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leWindowTitle, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));
 }
 
+void CreateActiveWindowWidget::processFileDialog()
+{
+    QFileDialog *dlg = new QFileDialog(this);
+    dlg->setFileMode(QFileDialog::ExistingFile);
+    dlg->setLabelText(QFileDialog::Accept, i18n("Accept"));
+
+    if (dlg->exec())
+    {
+        ui.leProgramName->setText(dlg->selectedFiles().at(0).split(QRegExp("/+|\\\\+")).back());
+    }
+
+    dlg->deleteLater();
+}
 
 bool CreateActiveWindowWidget::isComplete()
 {
