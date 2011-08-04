@@ -1,2 +1,3 @@
 add_subdirectory(ProcessOpened)
 add_subdirectory(OrConditionAssociation)
+add_subdirectory(ActiveWindow)
