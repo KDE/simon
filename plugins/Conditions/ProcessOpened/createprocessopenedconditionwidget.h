@@ -52,6 +52,7 @@ class CreateProcessOpenedConditionWidget : public CreateConditionWidget
     Ui::CreateProcessOpenedConditionWidget ui;
 
   private slots:
+    void processFileDialog();
 
   public:
     Condition* createCondition();

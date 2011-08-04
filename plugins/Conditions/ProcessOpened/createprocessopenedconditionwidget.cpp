@@ -21,6 +21,8 @@
 #include "processopenedcondition.h"
 #include <QLineEdit>
 #include "simoncontextdetection/contextmanager.h"
+#include <QFileDialog>
+#include <QStringList>
 
 CreateProcessOpenedConditionWidget::CreateProcessOpenedConditionWidget(CompoundCondition *compoundCondition,
 QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
@@ -31,6 +33,21 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
   setWindowTitle("Process Opened Condition");
 
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
+  connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));
+}
+
+void CreateProcessOpenedConditionWidget::processFileDialog()
+{
+    QFileDialog *dlg = new QFileDialog(this);
+    dlg->setFileMode(QFileDialog::ExistingFile);
+    dlg->setLabelText(QFileDialog::Accept, i18n("Accept"));
+
+    if (dlg->exec())
+    {
+        ui.leProgramName->setText(dlg->selectedFiles().at(0).split(QRegExp("/+|\\\\+")).back());
+    }
+
+    dlg->deleteLater();
 }
 
 
