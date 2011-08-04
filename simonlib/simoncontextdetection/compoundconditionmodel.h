@@ -121,6 +121,7 @@ class SIMONCONTEXTDETECTION_EXPORT CompoundConditionModel : public QAbstractItem
      */
     ~CompoundConditionModel();
 
+  public slots:
     /**
      * \brief Updates the model to be in sync with its CompoundCondition
      *

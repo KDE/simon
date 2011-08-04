@@ -155,7 +155,7 @@ void CompoundCondition::evaluateConditions()
             if (!condition->isSatisfied())
             {
                 m_satisfied = false;
-                m_proxy->update();
+                //m_proxy->update();
                 kDebug() << "CompoundCondition is not satisfied!";
                 emit conditionChanged(m_satisfied);
 
@@ -176,8 +176,10 @@ void CompoundCondition::evaluateConditions()
         }
 
         m_satisfied = true;
-        m_proxy->update();
+        //m_proxy->update();
         kDebug() << "CompoundCondition is satisfied!";
         emit conditionChanged(m_satisfied);
     }
+
+    m_proxy->update();
 }

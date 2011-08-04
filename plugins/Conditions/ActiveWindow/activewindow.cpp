@@ -98,11 +98,11 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
     if (m_windowNameIsRegularExpression)
     {
         m_windowNameRegExp = QRegExp(m_windowName);
+        kDebug() << "RegExp '" << m_windowNameRegExp.pattern() << (m_windowNameRegExp.isValid() ? "' is Valid!" : "' is not Valid!");
     }
     else
     {
-        //TODO prevent meta-character instances
-        m_windowNameRegExp = QRegExp("^" + m_windowName + "$");
+        m_windowNameRegExp = QRegExp(m_windowName, Qt::CaseSensitive, QRegExp::FixedString);
     }
 
     //connect to the ProcessInfo instance

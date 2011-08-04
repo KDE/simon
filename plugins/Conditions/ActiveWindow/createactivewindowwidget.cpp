@@ -35,6 +35,7 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leWindowTitle, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));
+  connect(ui.cbRegExp, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
 }
 
 void CreateActiveWindowWidget::processFileDialog()
@@ -53,7 +54,22 @@ void CreateActiveWindowWidget::processFileDialog()
 
 bool CreateActiveWindowWidget::isComplete()
 {
-  return !(ui.leProgramName->text().isEmpty() || ui.leWindowTitle->text().isEmpty());
+    bool regExpOK = true;
+
+    if (ui.cbRegExp->isChecked())
+    {
+        ui.lbRegExpValid->setEnabled(true);
+        regExpOK = QRegExp(ui.leWindowTitle->text()).isValid();
+        ui.lbRegExpValid->setText(regExpOK ? i18n("Regular Expression is Valid") : i18n("Regular Expression is Invalid!"));
+    }
+    else
+    {
+        ui.lbRegExpValid->setEnabled(false);
+        ui.lbRegExpValid->setText("");
+    }
+
+    return !(ui.leProgramName->text().isEmpty() || ui.leWindowTitle->text().isEmpty())
+            && regExpOK;
 }
 
 bool CreateActiveWindowWidget::init(Condition *condition)

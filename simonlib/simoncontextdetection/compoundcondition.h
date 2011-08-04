@@ -168,6 +168,12 @@ private:
 
 signals:
     /**
+     * \brief Emitted when the satisfaction of the CompoundCondition is being reevaluated
+     *
+     */
+    void conditionBeingEvaluated();
+
+    /**
      * \brief Emitted when the satisfaction of the CompoundCondition changes
      *
      */
