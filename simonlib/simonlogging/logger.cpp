@@ -26,10 +26,13 @@
 #include <KStandardDirs>
 #include <QFileInfo>
 #include <QDebug>
+#include <QMutex>
+#include <QMutexLocker>
 #include <KDebug>
 
 QTextStream * Logger::logFile = 0;
 QFile * Logger::logF = 0;
+QMutex * Logger::lock = new QMutex;
 
 QTextStream* Logger::init()
 {
@@ -64,6 +67,7 @@ QTextStream* Logger::init()
 
 void Logger::log(QString message, Logger::LogType type)
 {
+  QMutexLocker l(lock);
   if (!logFile) logFile = Logger::init();
 
   QString tag;
@@ -85,6 +89,7 @@ void Logger::log(QString message, Logger::LogType type)
 
 void Logger::close()
 {
+  QMutexLocker l(lock);
   (Logger::logFile)->flush();
   delete (Logger::logFile);
   if (Logger::logF)

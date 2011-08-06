@@ -65,7 +65,7 @@ class ALSACaptureLoop : public ALSALoop
 
       int err = 0;
       snd_pcm_state_t state;
-      short* buffer = (short*) malloc(sizeof(short)*m_parent->m_bufferSize);
+      short* buffer = (short*) malloc(sizeof(short)*m_parent->m_bufferSize+1);
 
       while ((err >= 0) && shouldRun) {
         err = 0;
@@ -117,7 +117,7 @@ class ALSAPlaybackLoop : public ALSALoop
 
       snd_pcm_state_t state;
       int bufferSize = sizeof(short)*m_parent->m_bufferSize;
-      short* buffer = (short*) malloc(bufferSize);
+      short* buffer = (short*) malloc(bufferSize+1);
 
       while ((err >= 0) && shouldRun) {
         err = 0;
@@ -317,9 +317,11 @@ bool ALSABackend::stop()
   Q_ASSERT(m_handle); 
 
   m_loop->stop();
+  kDebug() << "Done stopping1";
   m_loop->wait();
   m_loop->deleteLater();
   m_loop = 0;
+  kDebug() << "Done stopping";
 
   return true;
 }

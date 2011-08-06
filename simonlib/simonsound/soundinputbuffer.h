@@ -28,6 +28,7 @@ private:
   char *m_buffer;
   int m_bufferLength;
   QMutex m_bufferAllocLock;
+  QSemaphore2 m_bufferLock;
   
 public:
   SoundInputBuffer(SimonSoundInput* input);

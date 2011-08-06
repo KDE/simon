@@ -42,6 +42,7 @@ class SimonSoundOutput : public QObject, public SoundBackendClient
     void outputStateChanged(SimonSound::State state);
 
   private:
+    QMutex killBufferLock;
     SoundBackend *m_output;
     SoundOutputClient* m_activeOutputClient;
     QList<SoundOutputClient*> m_suspendedOutputClients;

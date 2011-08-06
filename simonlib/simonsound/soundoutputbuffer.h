@@ -19,6 +19,7 @@
 #ifndef SOUNDOUTPUTBUFFER_H
 #define SOUNDOUTPUTBUFFER_H
 #include "soundbuffer.h"
+#include <QMutex>
 
 class SimonSoundOutput;
 class SoundOutputBuffer : public SoundBuffer
@@ -26,6 +27,7 @@ class SoundOutputBuffer : public SoundBuffer
 private:
   SimonSoundOutput *m_output;
   QByteArray m_buffer;
+  QMutex bufferLock;
   
 public:
   SoundOutputBuffer(SimonSoundOutput* output);

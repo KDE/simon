@@ -32,13 +32,14 @@ void SoundInputBuffer::write(const char *toWrite, qint64 len)
   kDebug() << "Writing: " << len;
 
   m_bufferAllocLock.lock();
-  char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len));
+  char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len+1));
   memcpy(newBuffer, toWrite, len);
   memcpy(newBuffer+len, m_buffer, m_bufferLength);
   
   char *oldBuffer = m_buffer;
   m_buffer = newBuffer;
   m_bufferLength += len;
+  m_bufferLock.release(len);
   m_bufferAllocLock.unlock();
   free(oldBuffer);
 
@@ -54,12 +55,13 @@ void SoundInputBuffer::run()
     int bufferSize = m_input->bufferSize();
     killLock.unlock();
 
-    while (m_bufferLength < bufferSize) {
+    while (!m_bufferLock.tryAcquire(bufferSize, 50)) {
+    //while (m_bufferLength < bufferSize) {
       if (!m_shouldBeRunning) {
         deleteLater();
         return;
       }
-      msleep(50);
+     // msleep(50);
     }
 
     //killLock.lock();
@@ -68,7 +70,7 @@ void SoundInputBuffer::run()
     QByteArray currentData(m_buffer, bufferSize);
 
 
-    char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength-bufferSize));
+    char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength-bufferSize+1));
 
     memcpy(newBuffer, m_buffer+bufferSize, m_bufferLength - bufferSize);
     
@@ -91,6 +93,7 @@ void SoundInputBuffer::run()
       free(m_buffer);
       m_buffer = 0;
       m_bufferLength = 0;
+      m_bufferLock.acquire(m_bufferLock.available());
       m_bufferAllocLock.unlock();
     }
 

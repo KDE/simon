@@ -30,8 +30,10 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <QFile>
+#include <QMutexLocker>
 
 SimonSoundOutput::SimonSoundOutput(QObject *parent) : QObject(parent),
+killBufferLock(QMutex::Recursive),
 m_output(SoundBackend::createObject()),
 m_activeOutputClient(0),
 m_buffer(0)
@@ -43,6 +45,7 @@ m_buffer(0)
 
 qint64 SimonSoundOutput::readData(char *toRead, qint64 maxLen)
 {
+  QMutexLocker m(&killBufferLock);
   if (!m_buffer) return -1;
 
   qint64 read = m_buffer->read(toRead, maxLen);
@@ -67,7 +70,7 @@ QByteArray SimonSoundOutput::requestData(qint64 maxLen)
     return QByteArray();
   }
 
-  char* toRead = (char*) malloc(maxLen);
+  char* toRead = (char*) malloc(maxLen+1);
   qint64 read = m_activeOutputClient->read(toRead, maxLen);
   QByteArray output = QByteArray().append(toRead, read);
   free(toRead);
@@ -254,11 +257,11 @@ SimonSoundOutput::~SimonSoundOutput()
 
 void SimonSoundOutput::killBuffer()
 {
+  QMutexLocker m(&killBufferLock);
   if (m_buffer) {
 	  kWarning() << "Stopping buffer...";
     m_buffer->stop();
 	  kWarning() << "Stopping buffer: Done.";
-    m_buffer->wait();
   }
   
   m_buffer = 0;
