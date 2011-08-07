@@ -20,20 +20,19 @@
 
 #include "languageprofileview.h"
 #include "ui_languageprofileview.h"
-#include <unistd.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/shadowvocabulary.h>
+#include <simongraphemetophoneme/graphemetophoneme.h>
 #include <QWidget>
-#include <KProcess>
 #include <KStandardDirs>
 #include <KMessageBox>
 #include <KDebug>
 #include <KPushButton>
+#include <QFile>
 
 LanguageProfileView::LanguageProfileView(QWidget* parent, Qt::WFlags flags): KDialog(parent, flags),
 ui(new Ui::LanguageProfileView),
-sequitur(new KProcess(this)),
-state(LanguageProfileView::Idle)
+g2p(new GraphemeToPhoneme)
 {
   QWidget *widget = new QWidget(this);
   ui->setupUi(widget);
@@ -43,14 +42,48 @@ state(LanguageProfileView::Idle)
   
   setButtonText(Ok, i18n("Create profile"));
   
-  connect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
-  
-  connect(sequitur, SIGNAL(finished(int)), this, SLOT(nextStep()));
+  connect(g2p, SIGNAL(state(const QString&,int,int)), this, SLOT(displayState(const QString&,int,int)));
+  connect(g2p, SIGNAL(success(const QString&)), this, SLOT(success(const QString&)));
+  connect(g2p, SIGNAL(failed()), this, SLOT(failed()));
 }
+
+void LanguageProfileView::displayState(const QString& state, int now, int max)
+{
+  ui->pbTotal->setFormat(state);
+  ui->pbTotal->setValue(now);
+  ui->pbTotal->setMaximum(max);
+}
+
+void LanguageProfileView::success(const QString& path)
+{
+  QString storePath = KStandardDirs::locateLocal("appdata", "model/languageProfile");
+  if ((QFile::exists(storePath) && !QFile::remove(storePath)) || 
+       !QFile::copy(path, storePath)) {
+    KMessageBox::sorry(this, i18n("Could not copy model to final destination."));
+    failed();
+  } else {
+    ScenarioManager::getInstance()->setLanguageProfileName(i18n("Generated from shadow dictionary"));
+    setButtonText(Ok, i18n("Ok"));
+    button(Ok)->setEnabled(true);
+  }
+}
+
+void LanguageProfileView::failed()
+{
+  button(Ok)->setEnabled(true);
+}
+
+
+
+LanguageProfileView::~LanguageProfileView()
+{
+  g2p->deleteLater();
+}
+
 
 void LanguageProfileView::slotButtonClicked(int button)
 {
-  if ((button == Ok) && (state == Idle))
+  if ((button == Ok) && (g2p->getState() == GraphemeToPhoneme::Idle))
     createProfile();
   else
     KDialog::slotButtonClicked(button);
@@ -60,18 +93,6 @@ void LanguageProfileView::slotButtonClicked(int button)
 void LanguageProfileView::createProfile()
 {
   button(Ok)->setEnabled(false);
-  sequiturExe = KStandardDirs::findExe("g2p.py");
-  
-  if (sequiturExe.isEmpty()) {
-    KMessageBox::error(this, i18n("Sequitur G2P is required to use this feature.\n\n"
-	"It's free software and you can download it from "
-	"<a href=\"http://www-i6.informatik.rwth-aachen.de/web/Software/g2p.html\">"
-	"its homepage the university of Aachen</a>."));
-    return;
-  }
-  
-  sequitur->setWorkingDirectory(KStandardDirs::locateLocal("tmp", "simon/sequitur/"));
-  sequitur->setOutputChannelMode(KProcess::OnlyStderrChannel);
   
   //prepare sphinx dict
   if (!ScenarioManager::getInstance()->getShadowVocabulary()->
@@ -79,78 +100,15 @@ void LanguageProfileView::createProfile()
     KMessageBox::sorry(this, i18n("Couldn't export current shadow dictionary to file for further processing."));
     return;
   }
- 
-  nextStep();
-}
-
-void LanguageProfileView::nextStep()
-{
-  switch(state) {
-    case Idle:
-      sequitur->setProgram(sequiturExe, QStringList() << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model1");
-      state = Initial;
-      ui->pbTotal->setValue(3);
-      ui->pbTotal->setFormat("Creating initial model...");
-      break;
-    case Initial:
-      sequitur->setProgram(sequiturExe, QStringList() << "--model" << "model1" << "--ramp-up" << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model2");
-      state = RampUp1;
-      ui->pbTotal->setValue(7);
-      ui->pbTotal->setFormat("Improving model (1/4)...");
-      break;
-    case RampUp1:
-      sequitur->setProgram(sequiturExe, QStringList() << "--model" << "model2" << "--ramp-up" << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model3");
-      state = RampUp2;
-      ui->pbTotal->setValue(15);
-      ui->pbTotal->setFormat("Improving model (2/4)...");
-      break;
-    case RampUp2:
-      sequitur->setProgram(sequiturExe, QStringList() << "--model" << "model3" << "--ramp-up" << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model4");
-      state = RampUp3;
-      ui->pbTotal->setValue(32);
-      ui->pbTotal->setFormat("Improving model (3/4)...");
-      break;
-    case RampUp3:
-      sequitur->setProgram(sequiturExe, QStringList() << "--model" << "model4" << "--ramp-up" << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model5");
-      state = RampUp4;
-      ui->pbTotal->setValue(58);
-      ui->pbTotal->setFormat("Improving model (4/4)...");
-      break;
-    case RampUp4:
-      ui->pbTotal->setValue(100);
-      ui->pbTotal->setFormat("Finished.");
-      setButtonText(Ok, i18n("Ok"));
-      button(Ok)->setEnabled(true);
-      break;
-    case Error:
-      button(Ok)->setEnabled(true);
-      return;
-    default:
-      kDebug() << "Not implemented";
-      return;
-  };
-
-   sequitur->start();
-}
-
-void LanguageProfileView::parseErrorLog()
-{
-  disconnect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
   
-  QString error = QString::fromUtf8(sequitur->readAllStandardError());
-  KMessageBox::detailedError(this, i18n("An unexpected error occurred when creating the model with sequitur."), error);
-  
-  sequitur->terminate(); //if we are not yet done, abort
-  state = Error;
-  kDebug() << "Error: " << error;
-  
-  connect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
+  if (!g2p->createProfile())
+    KMessageBox::sorry(this, g2p->getError(), QString(), KMessageBox::Notify|KMessageBox::AllowLink);
 }
 
 void LanguageProfileView::done(int p)
 {
-  disconnect(sequitur);
-  sequitur->terminate();
+  disconnect(g2p);
+  g2p->abort();
   QDialog::done(p);
 }
 

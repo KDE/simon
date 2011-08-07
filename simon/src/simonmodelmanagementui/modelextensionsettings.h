@@ -20,46 +20,23 @@
 #ifndef SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 #define SIMON_MODELSETTINGS_H_69CD51EDBC2948939B9B8D4BD76FDAF7
 
-#include "ui_modelsettingsdlg.h"
+#include "ui_modelextensionsettingsdlg.h"
 #include <KCModule>
 #include <QVariantList>
 #include <QString>
 /**
   @author Peter Grasch <bedahr@gmx.net>
 */
-class ModelSettings : public KCModule
+class ModelExtensionSettings : public KCModule
 {
   Q_OBJECT
   private:
     Ui::ModelDlg ui;
-    QString lastDirectory;
-    QString m_hmmDefsToImport;
-    QString m_tiedlistToImport;
-    QString m_macrosToImport;
-    QString m_statsToImport;
-
-    int m_storedModelType;
-    void touchModelSrcRc();
-    
-    QString translateDefault(const QString& in);
-
-  private slots:
-    void slotChanged();
-    void loadBaseHMM();
-    void loadBaseTiedlist();
-    void loadBaseMacros();
-    void loadBaseStats();
-    void displayHelp();
-
-  public slots:
-    void load();
-    void save();
-    void defaults();
 
   public:
-    explicit ModelSettings(QWidget* parent, const QVariantList &args=QVariantList());
+    explicit ModelExtensionSettings(QWidget* parent, const QVariantList &args=QVariantList());
 
-    ~ModelSettings();
+    ~ModelExtensionSettings();
 
 };
 #endif

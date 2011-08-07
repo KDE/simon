@@ -16,7 +16,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/editworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
-# 	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
+# 	${CMAKE_CURRENT_SOURCE_DIR}/modelextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
 
@@ -75,7 +75,7 @@ set( simonmodelmanagementui_LIB_SRCS
 )
 
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/modelsettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/modelextensionsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/editword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
@@ -133,7 +133,7 @@ kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SR
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging simonscenarios simoninfo simonxml
-simonsound simonuicomponents)
+simonsound simonuicomponents simongraphemetophoneme)
 
 set_target_properties( simonmodelmanagementui
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
@@ -149,12 +149,12 @@ install( TARGETS simonmodelmanagementui DESTINATION ${SIMON_LIB_INSTALL_DIR} COM
 ################
 
 set(kcm_simonmodelmanagementui_LIB_SRCS 
-	${CMAKE_CURRENT_SOURCE_DIR}/modelsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/modelextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
  )
 
 kde4_add_ui_files( kcm_simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/modelsettingsdlg.ui)
+	${CMAKE_CURRENT_SOURCE_DIR}/modelextensionsettingsdlg.ui)
 
 kde4_add_kcfg_files(kcm_simonmodelmanagementui_LIB_SRCS
  	  speechmodelmanagementuiconfiguration.kcfgc)
@@ -163,4 +163,4 @@ target_link_libraries(simonmodelmanagementuikcm ${KDE4_KDEUI_LIBS}
 	${KDE4_KIO_LIBS} simonscenarios
 )
 install(TARGETS simonmodelmanagementuikcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simon)
-install( FILES simonmodelconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES simonmodelextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

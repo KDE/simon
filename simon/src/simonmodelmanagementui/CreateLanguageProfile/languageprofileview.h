@@ -24,6 +24,7 @@
 #include <KDialog>
 
 class KProcess;
+class GraphemeToPhoneme;
 namespace Ui {
   class LanguageProfileView;
 }
@@ -34,34 +35,21 @@ class LanguageProfileView : public KDialog
   
 private:
   Ui::LanguageProfileView *ui;
-  KProcess *sequitur;
-  QString sequiturExe;
-  
-  enum SequiturImportState {
-    Idle=0,
-    Initial=1,
-    RampUp1=2,
-    RampUp2=3,
-    RampUp3=4,
-    RampUp4=5,
-    Finished=6,
-    Error=6
-  };
-  
-  SequiturImportState state;
+  GraphemeToPhoneme *g2p;
   
 private slots:
   void createProfile();
   
-  void parseErrorLog();
-  
-  void nextStep();
+  void displayState(const QString& state, int now, int max);
+  void success(const QString& path);
+  void failed();
   
   virtual void slotButtonClicked(int button);
   
 public:
     explicit LanguageProfileView(QWidget* parent = 0, Qt::WFlags flags = 0);
     virtual void done(int);
+    virtual ~LanguageProfileView();
 };
 
 #endif // LANGUAGEPROFILEVIEW_H

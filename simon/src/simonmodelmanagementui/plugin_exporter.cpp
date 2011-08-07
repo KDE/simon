@@ -20,11 +20,11 @@
 #ifndef SIMONMODELMANAGEMENTUI_EXPORTER
 #define SIMONMODELMANAGEMENTUI_EXPORTER
 
-#include "modelsettings.h"
 #include <kgenericfactory.h>
+#include "modelextensionsettings.h"
 
 K_PLUGIN_FACTORY( SpeechModelManagementUiFactory,
-registerPlugin< ModelSettings >();
+registerPlugin< ModelExtensionSettings >();
 )
 
 K_EXPORT_PLUGIN( SpeechModelManagementUiFactory("SpeechModelManagementUi"); )

@@ -110,6 +110,8 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QString baseModelTiedlistName();
     QString baseModelMacros();
     QString baseModelStats();
+    QString languageProfileName();
+    void setLanguageProfileName(const QString& name);
     void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName,
       const QString& macrosName, const QString& statsName);
 
@@ -124,6 +126,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void updateDisplays(Scenario* scenario, bool force=false);
 
     void slotBaseModelChanged();
+    QString transcribe(QString word);
 
   private:
     static ScenarioManager *instance;

@@ -12,10 +12,10 @@ X-KDE-ParentComponents=libsimonmodelmanagementui
 X-KDE-ParentApp=simon
 # X-KDE-System-Settings-Parent-Category=simon
 
-Name=Model Settings
-Name[de]=Modell Einstellungen
+Name=Model Extensions
+Name[de]=Modell Erweiterungen
 
 #X-KDE-PluginKeyword=ModelSettings
 
-Comment=Configuration of the simon speech model
-Comment[de]=Konfiguration des Sprachmodells
+Comment=Configuration of the simon speech model extensions
+Comment[de]=Konfiguration der Erweiterungen des Sprachmodells

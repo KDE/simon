@@ -70,6 +70,18 @@ void ScenarioManager::slotBaseModelChanged()
     emit baseModelChanged();
 }
 
+QString ScenarioManager::transcribe(QString word)
+{
+  QList<Word*> similar = ScenarioManager::getInstance()->findWords(word,
+    (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
+    SpeechModel::AllScenariosVocabulary), Vocabulary::ExactMatch);
+  if (!similar.isEmpty()) {
+    return similar.first()->getPronunciation();
+  }
+  
+  //sequitur
+  return "seas";
+}
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)
 {
@@ -509,31 +521,28 @@ const QString& macrosName, const QString& statsName)
   touchBaseModelAccessTime();
 }
 
-//#include "voiceinterfacecommand.h"
+QString ScenarioManager::languageProfileName()
+{
+  return SpeechModelManagementConfiguration::languageProfileName();
+}
+void ScenarioManager::setLanguageProfileName(const QString& name)
+{
+  SpeechModelManagementConfiguration::setLanguageProfileName(name);
+  SpeechModelManagementConfiguration::self()->writeConfig();
+}
+
+
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {
   kDebug() << "Setting list interface commands";
   this->listInterfaceCommands = listInterfaceCommands;
-//
-  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  //while (i.hasNext()) {
-    //i.next();
-    //// i.value() is not a valid command
-    //kDebug() << (*(i.value())).getTrigger();
-  //}
 }
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::getListBaseConfiguration()
 {
-  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  //while (i.hasNext()) {
-    //i.next();
-    //// i.value() is not a valid command
-    //kDebug() << (*(i.value())).getTrigger();
-  //}
-
   return listInterfaceCommands;
 }
+
 
 ScenarioManager::~ScenarioManager()
 {

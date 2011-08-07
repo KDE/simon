@@ -33,6 +33,9 @@ Depending on the size of your shadow dictionary this process can take a very lon
      <property name="value">
       <number>0</number>
      </property>
+     <property name="format">
+      <string>Waiting</string>
+     </property>
     </widget>
    </item>
   </layout>

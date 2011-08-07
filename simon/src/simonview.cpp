@@ -568,7 +568,7 @@ void SimonView::showSystemDialog ()
     configDialog->addModule("simonsoundconfig", QStringList() << "");
     configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
     //configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-    configDialog->addModule("simonmodelconfig", QStringList() << "");
+    configDialog->addModule("simonmodelextensionconfig", QStringList() << "");
     configDialog->addModule("simonrecognitionconfig", QStringList() << "");
     //		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
     configDialog->addModule("simonactionsconfig", QStringList() << "");

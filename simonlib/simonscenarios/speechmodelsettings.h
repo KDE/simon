@@ -22,6 +22,7 @@
 
 #include "ui_trainingsettings.h"
 #include "ui_languageprofilesettings.h"
+#include "ui_modelsettingsdlg.h"
 
 #include <KCModule>
 #include <QVariantList>
@@ -33,16 +34,42 @@
 class SpeechModelSettings : public KCModule
 {
   Q_OBJECT
-    private:
+  private:
     Ui::TrainingSettingsWidget uiTrainingsData;
     Ui::LanguageProfileSettingsWidget uiLanguageProfile;
 
-    signals:
-    void changed();
+    Ui::ModelDlg ui;
+    QString lastDirectory;
+    QString m_hmmDefsToImport;
+    QString m_tiedlistToImport;
+    QString m_macrosToImport;
+    QString m_statsToImport;
+    QString m_languageProfileToImport;
+
+    int m_storedModelType;
+    void touchModelSrcRc();
+    
+    QString translateDefault(const QString& in);
+    
+  signals:
+    void changed(bool);
+    
+  private slots:
+    void slotChanged();
+    void loadLanguageProfile();
+    void loadBaseHMM();
+    void loadBaseTiedlist();
+    void loadBaseMacros();
+    void loadBaseStats();
+    void displayHelp();
+    
+  public slots:
+    void load();
+    void save();
+    void defaults();
 
   public:
     explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
-    void save();
 
     ~SpeechModelSettings();
 
