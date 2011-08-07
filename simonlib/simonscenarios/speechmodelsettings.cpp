@@ -41,10 +41,18 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 
   QWidget *trainingsDataWidget = new QWidget(this);
   uiTrainingsData.setupUi(trainingsDataWidget);
+  
+  
+  QWidget *languageProfileWidget = new QWidget(this);
+  uiLanguageProfile.setupUi(languageProfileWidget);
+
 
   KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
   trainingsData->setIcon(KIcon("view-pim-news"));
   trainingsData->setHeader("");
+  KPageWidgetItem *languageProfile = pageWidget->addPage(languageProfileWidget, i18n("Language Profile"));
+  languageProfile->setIcon(KIcon("applications-education-language"));
+  languageProfile->setHeader("");
 
   addConfig(SpeechModelManagementConfiguration::self(), this);
 }

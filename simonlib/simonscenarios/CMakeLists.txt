@@ -123,7 +123,7 @@ ${SERVICETYPES_INSTALL_DIR} COMPONENT simoncore)
 set( kcm_simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 )
-kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui)
+kde4_add_ui_files(kcm_simonscenarios_LIB_SRCS trainingsettings.ui languageprofilesettings.ui)
 kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})

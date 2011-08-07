@@ -67,6 +67,8 @@ class VocabularyViewPrivate : public QWidget, public ScenarioDisplay
     void copyWordToTrain();
     void deleteTrainingWord();
     void trainList();
+    
+    void createLanguageProfile();
 
   public:
     VocabularyViewPrivate(QWidget *parent);

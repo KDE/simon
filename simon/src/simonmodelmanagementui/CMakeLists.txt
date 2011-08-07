@@ -67,6 +67,9 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainingswizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsampleintropage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplepage.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/CreateLanguageProfile/languageprofileview.cpp
+
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarviewprivate.cpp
 )
@@ -97,6 +100,9 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.ui
+
+	${CMAKE_CURRENT_SOURCE_DIR}/CreateLanguageProfile/languageprofileview.ui
+
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.ui
 )
 

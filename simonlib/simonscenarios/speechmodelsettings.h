@@ -21,6 +21,8 @@
 #define SIMON_SPEECHMODELSETTINGS_H_AA56F9F6811E4A39949D79E491A2C84C
 
 #include "ui_trainingsettings.h"
+#include "ui_languageprofilesettings.h"
+
 #include <KCModule>
 #include <QVariantList>
 
@@ -33,6 +35,7 @@ class SpeechModelSettings : public KCModule
   Q_OBJECT
     private:
     Ui::TrainingSettingsWidget uiTrainingsData;
+    Ui::LanguageProfileSettingsWidget uiLanguageProfile;
 
     signals:
     void changed();
