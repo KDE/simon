@@ -95,6 +95,7 @@ class SIMONSOUND_EXPORT SoundServer : public QObject
     static int getShortSampleCutoff();
 
     static QString defaultInputDevice();
+    static QString defaultSampleGroup();
     static QString defaultOutputDevice();
 
     static QList<SimonSound::DeviceConfiguration> getTrainingInputDevices();

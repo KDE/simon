@@ -30,11 +30,14 @@
 SingleDeviceSettings::SingleDeviceSettings(SimonSound::SoundDeviceType type, QString deviceName, int channels,
 int sampleRate, bool resampleEnabled, int resampleSampleRate, SimonSound::SoundDeviceUses selectedUses, 
 SimonSound::SoundDeviceUses availableUses,
-SimonSound::SoundDeviceOptions options, QWidget* parent): QWidget(parent),
+QString defaultSampleGroup,
+SimonSound::SoundDeviceOptions options,
+QWidget* parent): QWidget(parent),
 enabled(true),
 hasChanged(true),
 m_type(type),
 m_deviceName(deviceName),
+m_defaultSampleGroup(defaultSampleGroup),
 m_uses(selectedUses),
 m_options(options)
 {
@@ -75,7 +78,9 @@ m_options(options)
   connect(ui->cbResample, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbResampleSampleRate, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
-  load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate);
+  connect(ui->leSampleGroup, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+
+  load(deviceName, channels, sampleRate, resampleEnabled, resampleSampleRate, defaultSampleGroup);
 }
 
 
@@ -98,12 +103,16 @@ void SingleDeviceSettings::refreshDevices()
   if (!getSelectedDeviceId().isEmpty())
     m_deviceName = getSelectedDeviceId();
 
-  load(m_deviceName, getChannels(), getSampleRate(), getResampleEnabled(), getResampleSampleRate());
+  if (!getDefaultSampleGroup().isEmpty())
+      m_defaultSampleGroup = getDefaultSampleGroup();
+
+  load(m_deviceName, getChannels(), getSampleRate(), getResampleEnabled(), getResampleSampleRate(), m_defaultSampleGroup);
 }
 
 
 void SingleDeviceSettings::load(QString deviceName, int channels,
-int sampleRate, bool resampleEnabled, int resampleSampleRate)
+int sampleRate, bool resampleEnabled, int resampleSampleRate,
+QString defaultSampleGroup)
 {
   ui->cbSoundDevice->clear();
   ui->cbSoundDevice->addItems(SoundServer::getDevices(m_type));
@@ -119,6 +128,8 @@ int sampleRate, bool resampleEnabled, int resampleSampleRate)
 
   ui->cbRecognition->setChecked(m_uses & SimonSound::Recognition);
   ui->cbTraining->setChecked(m_uses & SimonSound::Training);
+
+  ui->leSampleGroup->setText(defaultSampleGroup);
 
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
@@ -163,6 +174,18 @@ void SingleDeviceSettings::disable()
 {
   ui->frmDevice->setEnabled(false);
   enabled=false;
+}
+
+void SingleDeviceSettings::disableSampleGroup()
+{
+    ui->lbSampleGroup->setVisible(false);
+    ui->leSampleGroup->setVisible(false);
+}
+
+void SingleDeviceSettings::enableSampleGroup()
+{
+    ui->lbSampleGroup->setVisible(true);
+    ui->leSampleGroup->setVisible(true);
 }
 
 
@@ -225,6 +248,14 @@ SimonSound::SoundDeviceUses SingleDeviceSettings::getUses()
     uses = (SimonSound::SoundDeviceUses) (uses|SimonSound::Training);
 
   return uses;
+}
+
+QString SingleDeviceSettings::getDefaultSampleGroup()
+{
+    if (!isEnabled())
+      return m_defaultSampleGroup;
+
+    return ui->leSampleGroup->text();
 }
 
 
