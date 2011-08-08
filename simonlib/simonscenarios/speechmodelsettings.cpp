@@ -171,6 +171,8 @@ void SpeechModelSettings::save()
     }
     if (!QFile::copy(m_languageProfileToImport, targetPathLanguageProfile))
       KMessageBox::sorry(this, i18n("Could not import language profile."));
+    else
+      touchLanguageProfileDate();
 
     m_languageProfileToImport.clear();
   }
@@ -241,11 +243,11 @@ void SpeechModelSettings::defaults()
 }
 
 
-void SpeechModelSettings::touchModelSrcRc()
+void SpeechModelSettings::touchLanguageProfileDate()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("BaseModelDate", KDateTime::currentUtcDateTime().dateTime());
+  cGroup.writeEntry("LanguageDescriptionDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 }
 

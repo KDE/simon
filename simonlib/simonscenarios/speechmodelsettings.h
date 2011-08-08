@@ -47,7 +47,7 @@ class SpeechModelSettings : public KCModule
     QString m_languageProfileToImport;
 
     int m_storedModelType;
-    void touchModelSrcRc();
+    void touchLanguageProfileDate();
     
     QString translateDefault(const QString& in);
     

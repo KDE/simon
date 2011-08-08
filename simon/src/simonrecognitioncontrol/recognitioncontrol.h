@@ -32,7 +32,7 @@ class QProcess;
 class ModelManagerUiProxy;
 class Operation;
 
-const qint8 protocolVersion=4;
+const qint8 protocolVersion=5;
 
 class QDateTime;
 class SimondStreamer;

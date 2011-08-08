@@ -51,11 +51,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void scenarioSelectionChanged();
-  void scenariosChanged();
-  void shadowVocabularyChanged();
-  void baseModelChanged();
+  signals:
+    void scenarioSelectionChanged();
+    void scenariosChanged();
+    void shadowVocabularyChanged();
+    void baseModelChanged();
 
   private:
     bool m_inGroup;

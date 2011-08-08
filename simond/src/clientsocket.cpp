@@ -618,9 +618,6 @@ void ClientSocket::processRequest()
 
         Q_ASSERT(synchronisationManager);
 
-        //FIXME: The direct comparison (without toTime_t() doesn't work)
-        //kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
-        //kDebug() << "Language description: " << remoteLanguageDescriptionDate.toTime_t() << localLanguageDescriptionDate.toTime_t();
         if (remoteLanguageDescriptionDate.toTime_t() != localLanguageDescriptionDate.toTime_t()) {
           kDebug() << "Language description differs";
           if (localLanguageDescriptionDate.toTime_t() > remoteLanguageDescriptionDate.toTime_t()) {
@@ -658,14 +655,15 @@ void ClientSocket::processRequest()
 
         waitForMessage(length, stream, msg);
 
-        QByteArray treeHed, shadowVocab;
+        QByteArray treeHed, shadowVocab, languageProfile;
         QDateTime changedTime;
 
         stream >> changedTime;
         stream >> treeHed;
         stream >> shadowVocab;
+        stream >> languageProfile;
 
-        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed)) {
+        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed, languageProfile)) {
           sendCode(Simond::LanguageDescriptionStorageFailed);
         } else
         synchronizeSamples();
@@ -1541,7 +1539,8 @@ bool ClientSocket::sendLanguageDescription()
 
   bodyStream << synchronisationManager->getLanguageDescriptionDate()
     << languageDescription->treeHed()
-    << languageDescription->shadowVocab();
+    << languageDescription->shadowVocab()
+    << languageDescription->languageProfile();
 
   out << (qint32) Simond::LanguageDescription
     << (qint64) body.count();

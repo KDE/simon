@@ -43,9 +43,7 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
     bool modelChangedFlag;
 
     QStringList missingFiles;
-    bool hasWordList();
     bool hasTraining();
-    bool hasGrammar();
     bool hasLanguageDescription();
     bool hasActiveContainer();
 
@@ -65,8 +63,9 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 
     LanguageDescriptionContainer* getLanguageDescriptionContainer();
     QDateTime getLanguageDescriptionModifiedTime();
+    void touchLanguageDescription();
     virtual bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-      const QByteArray& treeHed);
+      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
 
     TrainingContainer* getTrainingContainer();
     QDateTime getTrainingModifiedTime();

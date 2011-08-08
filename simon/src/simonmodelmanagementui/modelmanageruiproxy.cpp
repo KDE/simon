@@ -59,9 +59,9 @@ const QByteArray& macros, const QByteArray& stats)
 
 
 bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-const QByteArray& treeHed)
+const QByteArray& treeHed, const QByteArray& languageProfile)
 {
-  bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed);
+  bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed, languageProfile);
   if (!succ) {
     KMessageBox::sorry(0, i18n("Could not store the language description received from the server."
       "\n\nPlease check the permissions on the model folder: %1",

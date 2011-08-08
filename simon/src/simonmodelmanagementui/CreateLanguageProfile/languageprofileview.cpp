@@ -19,6 +19,7 @@
 
 
 #include "languageprofileview.h"
+#include "modelmanageruiproxy.h"
 #include "ui_languageprofileview.h"
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/shadowvocabulary.h>
@@ -62,6 +63,7 @@ void LanguageProfileView::success(const QString& path)
     KMessageBox::sorry(this, i18n("Could not copy model to final destination."));
     failed();
   } else {
+    ModelManagerUiProxy::getInstance()->touchLanguageDescription();
     ScenarioManager::getInstance()->setLanguageProfileName(i18n("Generated from shadow dictionary"));
     setButtonText(Ok, i18n("Ok"));
     button(Ok)->setEnabled(true);

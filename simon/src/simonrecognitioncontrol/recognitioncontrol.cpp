@@ -719,7 +719,8 @@ void RecognitionControl::sendLanguageDescription()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime()
     << languageDescription->treeHed()
-    << languageDescription->shadowVocab();
+    << languageDescription->shadowVocab()
+    << languageDescription->languageProfile();
 
   out << (qint32) Simond::LanguageDescription
     << (qint64) body.count();
@@ -1359,12 +1360,14 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server sent languagedescription";
 
-          QByteArray treeHed, shadowVocab;
+          QByteArray treeHed, shadowVocab, languageProfile;
           QDateTime changedTime;
           msg >> changedTime;
           msg >> treeHed;
           msg >> shadowVocab;
-          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed);
+          msg >> languageProfile;
+	  
+          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed, languageProfile);
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           sendRequest(Simond::StartTrainingsSampleSynchronisation);
