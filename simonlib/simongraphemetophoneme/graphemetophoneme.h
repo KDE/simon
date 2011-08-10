@@ -64,6 +64,12 @@ public:
 
   bool createProfile();
   
+  /**
+   * \return True if the transcription was successful
+   * \param transcription The transcription, if true is returned - otherwise an error string
+   */
+  static bool transcribe(const QString& word, const QString& pathToModel, QString& transcription);
+  
   void abort();
   GraphemeToPhonemeState getState();
   QString getError();
