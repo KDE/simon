@@ -66,8 +66,9 @@ void ProcessInfoGatherer::checkProcessListChanges()
     if (dirty)
     {
         emit updateProcesses(m_currentlyRunningProcesses);
-        m_previouslyRunningProcesses = m_currentlyRunningProcesses;
     }
+
+    m_previouslyRunningProcesses = m_currentlyRunningProcesses;
 
     //Refresh the current process list
     m_currentlyRunningProcesses.clear();

@@ -140,10 +140,21 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
     while (!promptsFile.atEnd()) {
       QString line = QString::fromUtf8(promptsFile.readLine());
       int splitter = line.indexOf(" ");
+      QStringList words;
 
       //			bool allWordsDefined = true;
 
-      QStringList words = line.mid(splitter+1).trimmed().split(' ');
+      //new format
+      if (line.split('"').count() == 3)
+      {
+          words = line.split('"').back().trimmed().split(' ');
+      }
+      //old format
+      else
+      {
+          words = line.mid(splitter+1).trimmed().split(' ');
+      }
+
       foreach (const QString& word, words) {
         if (!vocab->containsWord(word)) {
           kDebug() << "Word not defined in vocabulary: " << word;
@@ -155,7 +166,21 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       }
 
       if (!(adaptionType & ModelCompilationAdapter::AdaptLanguageModel))
-        promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
+      {
+          //new format
+          if (line.split('"').count() == 3)
+          {
+              QStringList splitLine = line.split('"');
+              promptsFileOut.write(splitLine.at(0).toUtf8() /*filename*/
+                                   + '"' + splitLine.at(1).toUtf8() + '"' /*sample group*/
+                                   + htkify(splitLine.at(2).toUtf8()));
+          }
+          //old format
+          else
+          {
+              promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
+          }
+      }
     }
 
     promptsFile.close();
@@ -308,8 +333,19 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       QString line = QString::fromUtf8(promptsFile.readLine());
       int splitter = line.indexOf(" ");
       bool allWordsInLexicon = true;
+      QStringList words;
 
-      QStringList words = line.mid(splitter+1).trimmed().split(' ');
+      //new format
+      if (line.split('"').count() == 3)
+      {
+          words = line.split('"').back().trimmed().split(' ');
+      }
+      //old format
+      else
+      {
+          words = line.mid(splitter+1).trimmed().split(' ');
+      }
+
       foreach (const QString& word, words) {
         if (!definedVocabulary.contains(word)) {
           allWordsInLexicon = false;
@@ -318,8 +354,20 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       }
       if (allWordsInLexicon)
       {
-        promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
-        ++m_sampleCount;
+          //new format
+          if (line.split('"').count() == 3)
+          {
+              QStringList splitLine = line.split('"');
+              promptsFileOut.write(splitLine.at(0).toUtf8() /*filename*/
+                                   + '"' + splitLine.at(1).toUtf8() + '"' /*sample group*/
+                                   + htkify(splitLine.at(2).toUtf8()));
+          }
+          //old format
+          else
+          {
+              promptsFileOut.write(line.left(splitter).toUtf8() /*filename*/ + htkify(line.mid(splitter).toUtf8()));
+          }
+          ++m_sampleCount;
       }
     }
 
