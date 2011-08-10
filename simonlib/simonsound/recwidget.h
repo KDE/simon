@@ -106,6 +106,7 @@ class SIMONSOUND_EXPORT RecWidget : public QWidget
     bool hasRecordingReady();
     bool isRecording();
     QStringList getFileNames();
+    QString getSampleGroup();
     QStringList getDevices();
 
     void checkFile();

@@ -99,12 +99,16 @@ QStringList TrainSamplePage::getFileNames()
   return  fileNames;
 }
 
+QString TrainSamplePage::getSampleGroup()
+{
+    return recorder->getSampleGroup();
+}
 
 bool TrainSamplePage::submit()
 {
   bool succ = true;
   foreach (const QString& fileName, getFileNames())
-    succ = TrainingManager::getInstance()->addSample(fileName, prompt.toUpper()) && succ;
+    succ = TrainingManager::getInstance()->addSample(fileName, recorder->getSampleGroup(), prompt.toUpper()) && succ;
 
   if (!succ) {
     KMessageBox::error(this, i18n("Could not add samples to the corpus.\n\nThis indicates internal data corruption."));

@@ -1588,8 +1588,21 @@ bool ModelCompilationManager::generateWlist()
   QString line;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-    lineWords.removeAt(0);                        //ditch the file-id
+    lineWords = line.split('"');
+
+    if (lineWords.count() == 3)
+    {
+        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
+        line = lineWords.back();
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+    }
+    else
+    {
+        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+        lineWords.removeAt(0);                        //ditch the file-id
+    }
+
     words << lineWords;
   }
   promptsFile.close();
@@ -1628,12 +1641,30 @@ bool ModelCompilationManager::generateMlf()
   mlf.write("#!MLF!#\n");
   QStringList lineWords;
   QString line;
+  QString fileName;
   while (!promptsFile.atEnd()) {
     line = QString::fromUtf8(promptsFile.readLine(3000));
     if (line.trimmed().isEmpty()) continue;
-    lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
-                                                  //ditch the file-id
-    QString fileName = lineWords.takeFirst();
+
+    lineWords = line.split('"');
+
+    //the prompts file is the new format
+    if (lineWords.count() == 3)
+    {
+        kDebug() << "READING NEW FORMAT PROMPTS: " << line;
+        fileName = lineWords.front().trimmed();
+
+        lineWords = lineWords.back().split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+    }
+    //the prompts file is the old format
+    else
+    {
+        kDebug() << "READING OLD FORMAT PROMPTS: " << line;
+        lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
+                                                      //ditch the file-id
+        fileName = lineWords.takeFirst();
+    }
+
     fileName = fileName.mid(fileName.lastIndexOf("/")+1);
     QString labFile = "\"*/"+fileName+".lab\"";
     #ifndef HTK_UNICODE

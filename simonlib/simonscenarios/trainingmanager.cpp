@@ -40,7 +40,7 @@
 #include <KLocale>
 #include <math.h>
 
-TrainingManager* TrainingManager::instance;
+TrainingManager* TrainingManager::m_instance;
 
 /**
  * @brief Constructor
@@ -48,10 +48,10 @@ TrainingManager* TrainingManager::instance;
  *	@author Peter Grasch
  */
 TrainingManager::TrainingManager(QObject* parent) : QObject(parent),
-dirty(false),
-trainingTexts(new TrainingList()),
-promptsLock(QMutex::Recursive),
-promptsTable(0)
+m_dirty(false),
+m_trainingTexts(new TrainingList()),
+m_promptsLock(QMutex::Recursive),
+m_promptsTable(0)
 {
 }
 
@@ -59,16 +59,17 @@ promptsTable(0)
 bool TrainingManager::init()
 {
   //init prompts
-  QMutexLocker lock(&promptsLock);
-  PromptsTable *promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
-  if (promptsTable) {
-    delete this->promptsTable;
-
-    this->promptsTable = promptsTable;
-    dirty=false;
-
+  QMutexLocker lock(&m_promptsLock);
+  PromptsTable *promptsTable = new PromptsTable(KStandardDirs::locate("appdata", "model/prompts"));
+  if (promptsTable)
+  {
+    delete this->m_promptsTable;
+    m_promptsTable = promptsTable;
+    m_dirty=false;
     return true;
-  } else return false;
+  }
+  else
+    return false;
 }
 
 
@@ -85,11 +86,11 @@ void TrainingManager::trainingSettingsSaved()
 
 TrainingManager* TrainingManager::getInstance()
 {
-  if (!instance) {
-    instance = new TrainingManager();
-    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  if (!m_instance) {
+    m_instance = new TrainingManager();
+    connect(qApp, SIGNAL(aboutToQuit()), m_instance, SLOT(deleteLater()));
   }
-  return instance;
+  return m_instance;
 }
 
 
@@ -101,31 +102,15 @@ TrainingManager* TrainingManager::getInstance()
  */
 bool TrainingManager::deleteWord ( Word *w )
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
-  QString wordToDelete = w->getLexiconWord();
-
-  QMutexLocker lock(&promptsLock);
-
-  QStringList sampleFileNames = promptsTable->keys();
-  bool succ = true;
-  for ( int i=0; i < sampleFileNames.count(); i++ ) {
-    QString filename = sampleFileNames[i];
-    QStringList promptWords = promptsTable->value ( filename ).split ( ' ' );
-    if (promptWords.contains(wordToDelete)) {
-      if (!deletePrompt(filename)) succ = false;
-    }
-  }
-  return (savePrompts() && succ);
+  return m_promptsTable->deleteWord(w);
 }
 
 
 bool TrainingManager::deleteWord(const QString& word)
 {
-  Word *w = new Word(word, "", "");
-  bool succ = deleteWord(w);
-  delete w;
-  return succ;
+  return m_promptsTable->deleteWord(word);
 }
 
 
@@ -137,19 +122,9 @@ bool TrainingManager::deleteWord(const QString& word)
  */
 bool TrainingManager::deletePrompt ( QString key )
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
-  QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().toLocalFile()+'/'+key+".wav";
-
-  bool found = true;
-  found &= promptsTable->contains(key);
-  if (found) dirty = true;
-
-  QMutexLocker lock(&promptsLock);
-  promptsTable->remove ( key );
-  //removes the sample
-  found &= QFile::remove ( path.toUtf8() );
-  return found;
+  return m_promptsTable->deletePrompt(key);
 }
 
 
@@ -177,17 +152,23 @@ QString TrainingManager::getTrainingDir()
  */
 bool TrainingManager::savePrompts()
 {
-  QMutexLocker lock(&promptsLock);
-  if (!writePromptsFile(getPrompts(), KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
+  QMutexLocker lock(&m_promptsLock);
 
-  if (dirty) {
-    wordRelevance.clear();                        // drop probability cache
-    emit trainingDataChanged();
+  if (!m_promptsTable) init();
+
+  bool succ = m_promptsTable->save();
+  if (succ)
+  {
+      m_dirty=false;
   }
 
-  dirty=false;
+  kDebug() << "Writing date..." << QDateTime::currentDateTime();
+  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfigGroup cGroup(&config, "");
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
+  config.sync();
 
-  return true;
+  return succ;
 }
 
 
@@ -200,31 +181,17 @@ bool TrainingManager::savePrompts()
  */
 bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 {
-  if (!promptsTable) init();
+  //FIXME: does trainingdate get written?
 
-  QFile promptsFile ( path );
-  if ( !promptsFile.open ( QIODevice::WriteOnly ) ) return false;
-
-  QStringList samples = this->promptsTable->keys();
-
-  for ( int i=0; i <samples.count(); i++ )
-    promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +'\n' );
-  promptsFile.close();
-
-  kDebug() << "Writing date..." << KDateTime::currentUtcDateTime().dateTime();
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
-  KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
-  config.sync();
-
-  return true;
+  prompts->setFileName(path);
+  return prompts->save();
 }
 
 
 PromptsTable* TrainingManager::getPrompts()
 {
-  if (!promptsTable) init();
-  return this->promptsTable;
+  if (!m_promptsTable) init();
+  return this->m_promptsTable;
 }
 
 
@@ -238,37 +205,13 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-  Logger::log ( i18n ( "Parsing prompts-file from %1", promptspath ) );
-  PromptsTable *promptsTable = new PromptsTable();
-
-  QFile *prompts = new QFile ( promptspath );
-  prompts->open ( QFile::ReadOnly );
-  if ( !prompts->isReadable() ) return new PromptsTable();
-
-  QString label;
-  QString prompt;
-  QString line;
-  int labelend;
-  while ( !prompts->atEnd() ) {                   //for each line that was successfully read
-    QByteArray rawLine = prompts->readLine ( 1024 );
-    line = QString::fromUtf8(rawLine);
-    if (line.trimmed().isEmpty()) continue;
-    labelend = line.indexOf ( ' ' );
-    label = line.left ( labelend );
-    prompt = line.mid ( labelend ).trimmed();
-
-    promptsTable->insert ( label, prompt );
-  }
-  prompts->close();
-  prompts->deleteLater();
-  Logger::log ( i18n ( "%1 Prompts read", promptsTable->count() ) );
-  return promptsTable;
+    return new PromptsTable(promptspath);
 }
 
 
 bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 {
-  QMutexLocker lock(&promptsLock);
+  QMutexLocker lock(&m_promptsLock);
 
   SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 
@@ -287,7 +230,7 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 
 
 /**
- * \brief chechs if all words in the dict and returns those that aren't
+ * \brief checks if all words are in the dict and returns those that aren't
  * \author Susanne Tschernegg, Peter Grasch
  * @return Missing words
  */
@@ -339,7 +282,7 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
   int probability=0;
   int curWordCount=0;
 
-  promptsLock.lock();
+  m_promptsLock.lock();
   int textWordCount=text->getPageCount();
   for ( int i=0; i<textWordCount; i++ ) {
     currPage = text->getPage ( i );
@@ -364,7 +307,7 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
       probability += getProbability ( currentWord );
     }
   }
-  promptsLock.unlock();
+  m_promptsLock.unlock();
 
   if ( wordCount > 0 )
     return qRound ( probability/wordCount );
@@ -373,7 +316,7 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
 
 
 /**
- * \brief Returns the probability of the name (it is pulled out of the promptsTable)
+ * \brief Returns the probability of the name (it is pulled out of the m_promptsTable)
  * \author Peter Grasch
  * \param QString wordname
  * Name of the word
@@ -382,13 +325,13 @@ float TrainingManager::calcRelevance ( const TrainingText *text )
  */
 int TrainingManager::getProbability ( QString wordname )
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
   wordname = wordname.toUpper();
-  if (wordRelevance.contains(wordname))
-    return wordRelevance.value(wordname);
+  if (m_wordRelevance.contains(wordname))
+    return m_wordRelevance.value(wordname);
 
-  QStringList prompts = promptsTable->values();
+  QStringList prompts = m_promptsTable->words();
   int prob=0;
   int i=0;
   int promptscount=prompts.count();
@@ -406,25 +349,25 @@ int TrainingManager::getProbability ( QString wordname )
     i++;
   }
 
-  wordRelevance.insert(wordname, prob);
+  m_wordRelevance.insert(wordname, prob);
   return prob;
 }
 
 
-bool TrainingManager::addSample ( const QString& fileBaseName, const QString& prompt )
+bool TrainingManager::addSample (const QString &fileBaseName, const QString &sampleGroup, const QString &prompt)
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
-  if (promptsTable->contains(fileBaseName))
+  if (m_promptsTable->contains(fileBaseName))
     return false;
 
-  promptsTable->insert(fileBaseName, prompt.toUpper());
+  m_promptsTable->insert(fileBaseName, sampleGroup, prompt.toUpper());
 
   QStringList words = prompt.split(' ');
   foreach (const QString& word, words)
-    promptsTable->remove(word);                   //removed cached recognition rates
+    m_promptsTable->deletePrompt(word);                   //removed cached recognition rates
 
-  dirty=true;
+  m_dirty=true;
   return true;
 }
 
@@ -432,11 +375,11 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 /*
 bool TrainingManager::removeSample(const QString& fileBaseName)
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
-  if (promptsTable->remove(fileBaseName) > 0)
+  if (m_promptsTable->remove(fileBaseName) > 0)
   {
-    dirty=true;
+    m_dirty=true;
     return true;
   } else return false;
 }
@@ -444,16 +387,9 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 
 bool TrainingManager::clear()
 {
-  if (!promptsTable) init();
+  if (!m_promptsTable) init();
 
-  QStringList fileNames = promptsTable->keys();
-  foreach (const QString& path, fileNames) {
-    kDebug() << "Path: " << path;
-    deletePrompt (path);
-  }
-
-  promptsTable->clear();
-  return savePrompts();
+  return m_promptsTable->clear();
 }
 
 
@@ -464,6 +400,6 @@ bool TrainingManager::clear()
  */
 TrainingManager::~TrainingManager()
 {
-  qDeleteAll(*trainingTexts);
-  delete trainingTexts;
+  qDeleteAll(*m_trainingTexts);
+  delete m_trainingTexts;
 }

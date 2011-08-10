@@ -183,6 +183,14 @@ QStringList RecWidget::getFileNames()
   return fileNames;
 }
 
+QString RecWidget::getSampleGroup()
+{
+    if (!ui->cbSampleGroup->currentText().isEmpty())
+        return ui->cbSampleGroup->currentText();
+
+    else
+        return "default";
+}
 
 QStringList RecWidget::getDevices()
 {
@@ -308,6 +316,9 @@ void RecWidget::record()
   ui->pbRecord->setChecked(someoneIsRecording);
   disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
   connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+
+  //this will limit the sample groups to one per RecWidget (the group cannot be changed after the first recording)
+  ui->cbSampleGroup->setEnabled(false);
 
   emit recording();
 

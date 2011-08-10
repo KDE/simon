@@ -45,6 +45,8 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
 )
 
 
@@ -82,6 +84,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistelements.h
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
 )
 
 

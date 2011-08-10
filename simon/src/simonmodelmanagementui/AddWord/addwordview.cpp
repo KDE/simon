@@ -96,7 +96,10 @@ void AddWordView::accept()
   foreach (AddWordRecordPage *rec, recordPages) {
     //if rec doesn't have sample this list will be empty
     foreach (const QString& fileName, rec->getFileNames())
+    {
       promptsToAdd.insert(fileName, rec->getPrompt());
+      sampleGroupsToAdd.insert(fileName, rec->getSampleGroup());
+    }
 
   }
 
@@ -130,6 +133,7 @@ void AddWordView::cleanUp()
       qDeleteAll(*listToAdd);
       listToAdd->clear();
       promptsToAdd.clear();
+      sampleGroupsToAdd.clear();
     }
   }
   record1->cleanUp();
@@ -199,13 +203,14 @@ void AddWordView::commitList()
   ModelManagerUiProxy::getInstance()->startGroup();
   QStringList promptsKeys = promptsToAdd.keys();
   foreach (const QString& key, promptsKeys) {
-    if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
+    if (!TrainingManager::getInstance()->addSample(key, sampleGroupsToAdd.value(key), promptsToAdd.value(key)))
       KMessageBox::error(this, i18n("Could not add %1 to the Prompts-Table", key));
   }
   if (!TrainingManager::getInstance()->savePrompts())
     KMessageBox::error(this, i18n("Could not save prompts"));
 
   promptsToAdd.clear();
+  sampleGroupsToAdd.clear();
 
   for (int i=0; i < listToAdd->count(); i++) {
     Word *w = listToAdd->takeAt(i);
