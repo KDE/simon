@@ -50,13 +50,6 @@ void ImportTrainingData::run()
       return;
     }
 
-    prompts->sampleGroup("dsfbhjf");
-    prompts->remove("asdads");
-
-    prompts->contains("assdd");
-    prompts->words();
-    prompts->keys();
-
     emit progress(0, prompts->count());
     emit status(i18n("Importing %1 Files...", prompts->count()));
 
