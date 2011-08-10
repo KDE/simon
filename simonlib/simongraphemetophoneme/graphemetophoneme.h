@@ -42,8 +42,7 @@ public:
     RampUp2=3,
     RampUp3=4,
     RampUp4=5,
-    Finished=6,
-    Error=6
+    Finished=6
   };
   
 private:
@@ -55,14 +54,18 @@ private:
   
   
 private slots:
-  void parseErrorLog();
-  
-  void nextStep();
+  void nextStep(int finish=0);
   
 public:
   GraphemeToPhoneme(QObject *parent=0);
 
   bool createProfile();
+  
+  /**
+   * \return True if sequitur was found
+   * \param out Either the path to sequitur or an error message
+   */
+  static bool findSequitur(QString& out);
   
   /**
    * \return True if the transcription was successful

@@ -31,6 +31,7 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KDateTime>
+#include <simongraphemetophoneme/graphemetophoneme.h>
 
 ScenarioManager* ScenarioManager::instance;
 
@@ -80,7 +81,10 @@ QString ScenarioManager::transcribe(QString word)
   }
   
   //sequitur
-  return "seas";
+  QString transcription;
+  if (GraphemeToPhoneme::transcribe(word, KStandardDirs::locate("appdata", "model/languageProfile"), transcription))
+    return transcription;
+  return QString();
 }
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)

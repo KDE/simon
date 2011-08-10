@@ -22,26 +22,32 @@
 #include <KStandardDirs>
 #include <KDebug>
 #include <KLocalizedString>
+#include <QFile>
 
 GraphemeToPhoneme::GraphemeToPhoneme(QObject *parent) : QObject(parent),
 	sequitur(new KProcess(this)),
 	m_state(GraphemeToPhoneme::Idle)
 {
-  connect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
-  
-  connect(sequitur, SIGNAL(finished(int)), this, SLOT(nextStep()));
+  connect(sequitur, SIGNAL(finished(int)), this, SLOT(nextStep(int)));
 }
 
-
-bool GraphemeToPhoneme::createProfile()
+bool GraphemeToPhoneme::findSequitur(QString& out)
 {
-  sequiturExe = KStandardDirs::findExe("g2p.py");
+  out = KStandardDirs::findExe("g2p.py");
   
-  if (sequiturExe.isEmpty()) {
-    error = i18n("<html><body>Sequitur G2P is required to use this feature.\n\n"
+  if (out.isEmpty()) {
+    out = i18n("<html><body>Sequitur G2P is required to use this feature.\n\n"
 	"It's free software and you can download it from "
 	"<a href=\"http://www-i6.informatik.rwth-aachen.de/web/Software/g2p.html\">"
 	"its homepage the university of Aachen</a>.</body></html>");
+    return false;
+  }
+  return true;
+}
+
+bool GraphemeToPhoneme::createProfile()
+{
+  if (!findSequitur(sequiturExe)) {
     emit failed();
     return false;
   }
@@ -53,8 +59,20 @@ bool GraphemeToPhoneme::createProfile()
   return true;
 }
 
-void GraphemeToPhoneme::nextStep()
+void GraphemeToPhoneme::nextStep(int finish)
 {
+  if (finish != 0) {
+    //error handling
+    error = i18n("An unexpected error occurred when creating the model with sequitur:\n\n%1").arg(QString::fromUtf8(sequitur->readAllStandardError()));
+    
+    sequitur->terminate(); //if we are not yet done, abort
+    m_state = Idle;
+    kDebug() << "Error: " << error;
+    
+    emit failed();
+    return;
+  }
+  
   switch(m_state) {
     case Idle:
       sequitur->setProgram(sequiturExe, QStringList() << "--train" << "train.lex" << "--devel" << "5%" << "--write-model" << "model1");
@@ -86,28 +104,12 @@ void GraphemeToPhoneme::nextStep()
       emit success(KStandardDirs::locateLocal("tmp", "simon/sequitur/model5"));
       break;
     }
-    case Error:
-      emit failed();
-      return;
     default:
       kDebug() << "Not implemented";
       return;
   };
 
    sequitur->start();
-}
-
-void GraphemeToPhoneme::parseErrorLog()
-{
-  disconnect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
-  
-  error = i18n("An unexpected error occurred when creating the model with sequitur:\n\n%1").arg(QString::fromUtf8(sequitur->readAllStandardError()));
-  
-  sequitur->terminate(); //if we are not yet done, abort
-  m_state = Error;
-  kDebug() << "Error: " << error;
-  
-  connect(sequitur, SIGNAL(readyReadStandardError()), this, SLOT(parseErrorLog()));
 }
 
 void GraphemeToPhoneme::abort()
@@ -124,3 +126,30 @@ QString GraphemeToPhoneme::getError()
 {
   return error;
 }
+
+bool GraphemeToPhoneme::transcribe(const QString& word, const QString& pathToModel, QString& transcription)
+{
+  QString sequiturExe;
+  if (!findSequitur(sequiturExe))
+    return false;
+
+  QString tempFilePath = KStandardDirs::locateLocal("tmp", "simon/sequitur/toTranscribe");
+  QFile f(tempFilePath);
+  if (!f.open(QIODevice::WriteOnly))
+    return false;
+  f.write(word.toUtf8().toUpper()+"\n");
+  f.close();
+  
+  KProcess sequitur;
+  sequitur.setProgram(sequiturExe, QStringList() << "-m" << pathToModel << "-a" << tempFilePath);
+  sequitur.setOutputChannelMode(KProcess::OnlyStdoutChannel);
+  sequitur.start();
+  if (!sequitur.waitForFinished(3000))
+    sequitur.terminate();
+  
+  transcription = QString::fromUtf8(sequitur.readAllStandardOutput()).trimmed();
+  transcription.remove(0, transcription.indexOf('\t')+1);
+  transcription = transcription.left(transcription.indexOf('\n'));
+  return true;
+}
+
