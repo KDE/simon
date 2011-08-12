@@ -48,13 +48,28 @@ public:
     ~LinuxProcessInfoGatherer();
 
 private:
+    /** \brief Helper object which resides in the main GUI thread
+      *
+      * The LinuxProcessInfoGatherer runs on a separate thread which means that it cannot access certian x11 functions that it needs
+      * in order to gather active window information.  The helper object resides in the main thread and relays such information
+      * to the LinuxProcessInfoGatherer.
+      */
     LinuxProcessInfoGathererHelper* m_helper;
 
 protected:
+    /** \brief Reimplemented checkCurrentProcesses() function that checks the current processes on a Linux-like system
+      *
+      */
     void checkCurrentProcesses();
+    /** \brief Reimplemented checkActiveWindow() function that checks the process and name of the active window on a Linux-like system
+      *
+      * This function makes use of a LinuxProcessInfoGathererHelper in order to get information that must be gathered from the main GUI thread
+      *
+      */
     void checkActiveWindow();
 
 signals:
+    /// Triggers the LinuxProcessInfoGathererHelper to gather active window data
     void triggerHelper();
 
 public slots:

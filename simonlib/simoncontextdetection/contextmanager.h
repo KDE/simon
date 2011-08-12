@@ -83,14 +83,21 @@ public:
      */
     QList<Condition*>* getConditions();
 
+    /**
+     * \return A QDomElement specification of an empty condition plugin of the type specified by \var pluginName
+     */
     QDomElement getEmptyCondition(const QString &pluginName);
 
 private:
     explicit ContextManager(QObject *parent = 0);
     
+    /// The ContextManager instance
     static ContextManager* m_instance;
   
+    /// A hash table where currently existing Condition objects can be looked up by their xml specifications in QString format
     QHash<QString, Condition*> m_conditionLookup;
+
+    /// A list of the corrently existing Condition objects
     QList<Condition*> m_conditions;
 
 signals:

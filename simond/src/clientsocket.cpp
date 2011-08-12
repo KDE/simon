@@ -198,6 +198,8 @@ void ClientSocket::processRequest()
 
             connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
                     this, SLOT(activeModelLoadedFromCache()));
+            connect(contextAdapter, SIGNAL(forceModelRecompilation()),
+                    this, SLOT(startModelCompilation()));
 
 
           if (recognitionControl)

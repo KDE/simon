@@ -99,6 +99,7 @@ public slots:
 
 signals:
     void modelLoadedFromCache();
+    void forceModelRecompilation();
 
     //for relaying compilation adapter signals
     void adaptStatus(QString, int progressNow);

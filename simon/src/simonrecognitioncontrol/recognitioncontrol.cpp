@@ -1642,8 +1642,15 @@ void RecognitionControl::messageReceived()
         case Simond::ModelCompilationCompleted:
         {
           advanceStream(sizeof(qint32));
-          modelCompilationOperation->finished();
-          modelCompilationOperation=0;
+          if (modelCompilationOperation)
+          {
+            modelCompilationOperation->finished();
+            modelCompilationOperation=0;
+          }
+          else
+          {
+              kDebug() << "modelCompilationOperation was NULL on compilation completion!!";
+          }
           break;
         }
 

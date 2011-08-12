@@ -49,29 +49,99 @@ class ProcessInfoGatherer : public QThread
 {
     Q_OBJECT
 public:
+    /** \brief Constructor
+      *
+      */
     explicit ProcessInfoGatherer(QObject *parent = 0);
+
+    /** \brief Destructor
+      *
+      */
     ~ProcessInfoGatherer();
 
 private:
+    /** \brief Boolean value that determines if the ProcessInfoGatherer should terminate its infinite loop
+      *
+      */
     bool m_abort;
+
+    /** \brief Mutex used to make sure that \var m_abort is only accessed by one thread at a time
+      *
+      */
     QMutex m_mutex;
 
 protected:
+    /** \brief Reimplemented run() function which contains the main loop of the ProcessInfoGatherer
+      *
+      */
     void run();
+
+    /** \brief The previously determined list of running processes
+      *
+      */
     QStringList m_previouslyRunningProcesses;
+
+    /** \brief The most recently determined list of running processes
+      *
+      */
     QStringList m_currentlyRunningProcesses;
+
+    /** \brief The most recently determined active window title
+      *
+      */
     QString m_currentActiveWindowTitle;
+
+    /** \brief The most recently determined active-window-controlling process
+      *
+      */
     QString m_currentActiveWindowProgram;
+
+    /** \brief Checks the current processes
+      * It is a pure virtual function that must be reimplemented by any derived ProcessInfoGatherer class.
+      *
+      */
     virtual void checkCurrentProcesses()=0;
+
+    /** \brief Checks the current active window title and controlling process
+      * It is a pure virtual function that must be reimplemented by any derived ProcessInfoGatherer class.
+      *
+      */
     virtual void checkActiveWindow()=0;
+
+    /** \brief Checks for any discrepancies between the previously determined list of processes and the most recently determined list of running processes
+      *
+      */
     void checkProcessListChanges();
 
 signals:
+    /** \brief Emits the name of any process that has newly started running
+      *
+      */
     void processAdded(QString);
+
+    /** \brief Emits the name of a process that is newly finished running
+      *
+      */
     void processRemoved(QString);
+
+    /** \brief Emits the list of currently running processes whenever that list changes
+      *
+      */
     void updateProcesses(QStringList);
+
+    /** \brief Emits the name of the active window title whenever it changes
+      *
+      */
     void activeWindowTitleChanged(QString);
+
+    /** \brief Emits the name of the active-window-controlling process whenever it changes
+      *
+      */
     void activeWindowProcessChanged(QString);
+
+    /** \brief Emits whenever an iteration of the process-info-gathering loop finishes
+      *
+      */
     void finishedGatheringStep();
 
 public slots:

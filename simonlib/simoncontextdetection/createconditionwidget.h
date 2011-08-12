@@ -107,10 +107,16 @@ class SIMONCONTEXTDETECTION_EXPORT CreateConditionWidget : public QWidget
      */
     virtual bool isComplete()=0;
 
+    /**
+     * \brief Constructor
+     */
     explicit CreateConditionWidget(CompoundCondition *compoundCondition, QWidget *parent=0) : QWidget(parent),
       m_compoundCondition(compoundCondition)
       {}
 
+    /**
+     * \brief Destructor
+     */
     virtual ~CreateConditionWidget() {}
 };
 #endif

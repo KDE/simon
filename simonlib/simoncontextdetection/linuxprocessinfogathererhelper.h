@@ -30,14 +30,29 @@ public:
     explicit LinuxProcessInfoGathererHelper(QObject *parent = 0);
 
 private:
+    /** \brief The current active window name/title
+      *
+      */
     QString m_currentActiveWindowTitle;
+    /** \brief The current active window process
+      *
+      */
     QString m_currentActiveWindowProgram;
 
 signals:
+    /** \brief Emits the name of the active window name/title when it changes
+      *
+      */
     void activeWindowTitleChanged(QString);
+    /** \brief Emits the name of the active window process when it changes
+      *
+      */
     void activeWindowProcessChanged(QString);
 
 public slots:
+    /** \brief Checks the current active window to see if it has changed
+      *
+      */
     void checkActiveWindow();
 
 };

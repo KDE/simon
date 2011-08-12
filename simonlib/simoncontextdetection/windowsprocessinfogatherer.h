@@ -48,7 +48,14 @@ public:
 signals:
 
 public slots:
+    /** \brief Reimplemented function for gathering active window information on Windows
+      *
+      */
     void checkActiveWindow();
+
+    /** \brief Reimplemented function for gathering current process list information on Windows
+      *
+      */
     void checkCurrentProcesses();
 };
 

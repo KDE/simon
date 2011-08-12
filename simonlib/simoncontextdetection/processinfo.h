@@ -49,41 +49,94 @@ class SIMONCONTEXTDETECTION_EXPORT ProcessInfo : public QObject
 {
     Q_OBJECT
 public:
+    /** \brief Gets the singleton instance of the ProcessInfo class
+      *
+      */
     static ProcessInfo* instance();
+
+    /** \brief Destructor
+      *
+      */
     ~ProcessInfo();
 
+    /** \return The list of running processes as most recently determined by the ProcessInfoGatherer
+      *
+      */
     QStringList getRunningProcesses() {return m_runningProcesses;}
 
 private:
+    /** \brief Private Constructor
+      *
+      */
     explicit ProcessInfo();
     //ProcessInfo(const ProcessInfo&) {}
     //ProcessInfo& operator=(const ProcessInfo&) {}
 
+    /** \brief The list of running processes as most recently determined by the ProcessInfoGatherer
+      *
+      */
     QStringList m_runningProcesses;
+
+    /** \brief The ProcessInfoGatherer of this ProcessInfo instance
+      *
+      */
     ProcessInfoGatherer *m_gatherer;
+
+    /** \brief The ProcessInfo instance
+      *
+      */
     static ProcessInfo *m_instance;
 
 signals:
+    /** \brief Emits a process name whenever that process is found to be newly running
+      *
+      */
     void processAdded(QString);
+
+    /** \brief Emits a process name whenever that process is found to be no longer running (after having been running)
+      *
+      */
     void processRemoved(QString);
+
+    /** \brief Emits the active window title whenever the title of the active window changes
+      *
+      */
     void activeWindowTitleChanged(QString);
+
+    /** \brief Emits the process controlling the active window whenever its controlling process changes
+      *
+      */
     void activeWindowProcessChanged(QString);
 
 public slots:
+    /** \brief Sets the list of currently running processes
+      *
+      */
     void checkRunningProcesses(QStringList names) { m_runningProcesses = names; }
+
+    /** \brief Relays newly added process information from the ProcessInfoGatherer
+      *
+      */
     void checkAddedProcesses(QString name) { emit processAdded(name); }
+
+    /** \brief Relays newly removed process information from the ProcessInfoGatherer
+      *
+      */
     void checkRemovedProcesses(QString name) { emit processRemoved(name); }
+
+    /** \brief Relays the active window title from the ProcessInfoGatherer
+      *
+      */
     void checkActiveWindowTitle(QString title) {
         kDebug() << "Title: " << title;
         emit activeWindowTitleChanged(title); }
+
+    /** \brief Relays the active-window-controlling process name from the ProcessInfoGatherer
+      *
+      */
     void checkActiveWindowProcess(QString process) {
         kDebug() << "Process: " << process;
         emit activeWindowProcessChanged(process); }
-
-    void linuxActiveCheck()
-    {
-
-    }
 };
 
 #endif // PROCESSINFO_H
