@@ -179,6 +179,13 @@
           </spacer>
          </item>
          <item>
+          <widget class="KPushButton" name="pbAddWord">
+           <property name="text">
+            <string>Add Word</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="KPushButton" name="pbEditWord">
            <property name="text">
             <string>Edit</string>

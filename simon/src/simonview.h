@@ -133,7 +133,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void setActivation(bool active);
     void representState(SimonControl::SystemStatus status);
     
-    void showAddWordDialog();
     void showRunDialog();
     void showContextDialog();
     void showTrainDialog();

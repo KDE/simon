@@ -42,6 +42,7 @@
 #include <KProgressDialog>
 #include <KIcon>
 #include <KDebug>
+#include "AddWord/addwordview.h"
 
 /**
  * @brief Constructor
@@ -62,6 +63,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 
   connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
   connect(ui.pbEditWord, SIGNAL(clicked()), this, SLOT(editSelectedWord()));
+  connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(addWord()));
   connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
   //connect(ui.leActiveVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshActiveView()));
   //connect(ui.leShadowVocabSearch, SIGNAL(textChanged(const QString&)), this, SLOT(refreshShadowView()));
@@ -84,6 +86,9 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   ui.pbTrainList->setIcon(KIcon("go-next"));
   ui.pbCreateLanguageProfile->setIcon(KIcon("fork"));
 
+  ui.pbAddWord->setIcon(KIcon("list-add"));
+  ui.pbAddWord->setShortcut(Qt::CTRL + Qt::Key_N);
+  
   ui.tvActiveVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui.tvActiveVocab->setSortingEnabled(true);
   ui.tvShadowVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -177,6 +182,11 @@ Word* VocabularyViewPrivate::getCurrentlySelectedWord(bool& isShadowed)
   return static_cast<Word*>(selectedIndex.internalPointer());
 }
 
+void VocabularyViewPrivate::addWord()
+{  
+  AddWordView addWordDialog;
+  addWordDialog.exec();
+}
 
 void VocabularyViewPrivate::editSelectedWord()
 {

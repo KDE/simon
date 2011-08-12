@@ -401,14 +401,6 @@ void SimonView::setupActions()
   connect(connectActivate, SIGNAL(triggered(bool)),
     this, SLOT(toggleConnection()));
 
-  KAction* addWord = new KAction(this);
-  addWord->setText(i18n("Add Word"));
-  addWord->setIcon(KIcon("list-add"));
-  addWord->setShortcut(Qt::CTRL + Qt::Key_N);
-  actionCollection()->addAction("addword", addWord);
-  connect(addWord, SIGNAL(triggered(bool)),
-    this, SLOT(showAddWordDialog()));
-
   KAction* train = new KAction(this);
   train->setText(i18n("Training"));
   train->setIcon(KIcon("view-pim-news"));
@@ -603,20 +595,6 @@ void SimonView::showContextDialog ()
 {
   ui.inlineView->toggleDisplay(contextDialog);
 }
-
-
-/**
- * @brief Shows a dialog to add a new Word to the model
- *
- * @author Peter Grasch
- */
-void SimonView::showAddWordDialog ( )
-{
-  AddWordView *addWordView = new AddWordView();
-  addWordView->show();
-  connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
-}
-
 
 /**
  * @brief Shows a dialog to configure simon

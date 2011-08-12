@@ -5,7 +5,6 @@
 		<text>Main actions</text>
 		<Action name="connectActivate" />
 		<Separator/>
-		<Action name="addword" />
 		<Action name="wordlist" />
 		<Action name="grammar" />
 		<Action name="train" />
@@ -33,7 +32,6 @@
 			
 		<Menu name="modules" >
 			<text>Modules</text>
-			<Action name="addword" />
 			<Action name="wordlist" />
 			<Action name="grammar" />
 			<Action name="train" />
