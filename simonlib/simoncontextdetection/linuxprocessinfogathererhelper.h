@@ -21,7 +21,25 @@
 #ifndef LINUXPROCESSINFOGATHERERHELPER_H
 #define LINUXPROCESSINFOGATHERERHELPER_H
 
+/** \file linuxprocessinfogathererhelper.h
+ * \brief The file containing the LinuxProcessInfoGathererHelper baseclass header.
+ */
+
+
 #include <QObject>
+
+/**
+ *	@class LinuxProcessInfoGathererHelper
+ *	@brief The LinuxProcessInfoGatherer class gathers active window info on Linux-like platforms
+ *
+ *      LinuxProcessInfoGathererHelper runs in the main GUI thread where it has access to x11 resources that are necessary for gathering information about the active window
+ *
+ *      \sa LinuxProcessInfoGatherer, ProcessInfo, ActiveWindow
+ *
+ *	@version 0.1
+ *	@date 8.3.2011
+ *	@author Adam Nash
+ */
 
 class LinuxProcessInfoGathererHelper : public QObject
 {

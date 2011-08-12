@@ -12936,6 +12936,12 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>activewindow.h</name>
+    <path>/home/anash/simon/simonsource/plugins/Conditions/ActiveWindow/</path>
+    <filename>activewindow_8h</filename>
+    <class kind="class">ActiveWindow</class>
+  </compound>
+  <compound kind="file">
     <name>orconditionassociation.h</name>
     <path>/home/anash/simon/simonsource/plugins/Conditions/OrConditionAssociation/</path>
     <filename>orconditionassociation_8h</filename>
@@ -13092,6 +13098,12 @@
       <anchor>af9e81381f47ae5a4829a9b932fea3a56</anchor>
       <arglist>(x, y)</arglist>
     </member>
+  </compound>
+  <compound kind="file">
+    <name>promptstable.h</name>
+    <path>/home/anash/simon/simonsource/simonlib/simonscenarios/</path>
+    <filename>promptstable_8h</filename>
+    <class kind="class">PromptsTable</class>
   </compound>
   <compound kind="file">
     <name>simoncommand.h</name>
@@ -18484,6 +18496,18 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>ActiveWindow</name>
+    <filename>classActiveWindow.html</filename>
+    <base>Condition</base>
+    <member kind="function" virtualness="virtual">
+      <type>virtual QString</type>
+      <name>name</name>
+      <anchorfile>classActiveWindow.html</anchorfile>
+      <anchor>af4d930ae708d073609b152432cfa2620</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>AddServerConnection</name>
     <filename>classAddServerConnection.html</filename>
   </compound>
@@ -19850,6 +19874,13 @@
     </member>
     <member kind="signal">
       <type>void</type>
+      <name>conditionBeingEvaluated</name>
+      <anchorfile>classCompoundCondition.html</anchorfile>
+      <anchor>a2b786612a1b66e5e48e64d7aabf44bab</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
       <name>conditionChanged</name>
       <anchorfile>classCompoundCondition.html</anchorfile>
       <anchor>ace1a15e33aa437677e2b3925053126b5</anchor>
@@ -19887,18 +19918,18 @@
   <compound kind="class">
     <name>CompoundConditionModel</name>
     <filename>classCompoundConditionModel.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>update</name>
+      <anchorfile>classCompoundConditionModel.html</anchorfile>
+      <anchor>a8450b3a760fa7aa1a1a9385041e1de75</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>~CompoundConditionModel</name>
       <anchorfile>classCompoundConditionModel.html</anchorfile>
       <anchor>ae11266d5a40a1a2671662b1155949221</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>update</name>
-      <anchorfile>classCompoundConditionModel.html</anchorfile>
-      <anchor>a8450b3a760fa7aa1a1a9385041e1de75</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="variable" protection="protected">
@@ -20070,6 +20101,32 @@
       <anchorfile>classCoreEvents.html</anchorfile>
       <anchor>a5988a04d7933fb01ec126d2f68ce8d53</anchor>
       <arglist>(const QKeySequence &amp;shortcut, EventSimulation::PressMode mode)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>CreateActiveWindowWidget</name>
+    <filename>classCreateActiveWindowWidget.html</filename>
+    <base>CreateConditionWidget</base>
+    <member kind="function">
+      <type>Condition *</type>
+      <name>createCondition</name>
+      <anchorfile>classCreateActiveWindowWidget.html</anchorfile>
+      <anchor>adbf96d7afe63a4f9433c55e67031b549</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classCreateActiveWindowWidget.html</anchorfile>
+      <anchor>a247c4d018c2978f64d55ffaed6e48913</anchor>
+      <arglist>(Condition *condition)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isComplete</name>
+      <anchorfile>classCreateActiveWindowWidget.html</anchorfile>
+      <anchor>a34c7a7f7fbc19e352bbf6ab12494277b</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -20270,6 +20327,20 @@
       <anchorfile>classCreateConditionWidget.html</anchorfile>
       <anchor>af5bd26dab545b1c22e9ba821df25e615</anchor>
       <arglist>()=0</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>CreateConditionWidget</name>
+      <anchorfile>classCreateConditionWidget.html</anchorfile>
+      <anchor>a832b5d58467ad23c80dc221aa1af7e5f</anchor>
+      <arglist>(CompoundCondition *compoundCondition, QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~CreateConditionWidget</name>
+      <anchorfile>classCreateConditionWidget.html</anchorfile>
+      <anchor>ad4b9e24a66be814c92efc5c1d392a01a</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="variable" protection="protected">
       <type>CompoundCondition *</type>
@@ -23457,6 +23528,27 @@
     <name>LinuxProcessInfoGatherer</name>
     <filename>classLinuxProcessInfoGatherer.html</filename>
     <base>ProcessInfoGatherer</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>triggerHelper</name>
+      <anchorfile>classLinuxProcessInfoGatherer.html</anchorfile>
+      <anchor>a5ca56d60e786778d0753073fb15e24e0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>checkCurrentProcesses</name>
+      <anchorfile>classLinuxProcessInfoGatherer.html</anchorfile>
+      <anchor>aa1d55e3c76362b13dc8f1cfd0578c38d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>checkActiveWindow</name>
+      <anchorfile>classLinuxProcessInfoGatherer.html</anchorfile>
+      <anchor>ac0a2f7674499723b389f973208b08c10</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>ListCommand</name>
@@ -24534,10 +24626,206 @@
   <compound kind="class">
     <name>ProcessInfo</name>
     <filename>classProcessInfo.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkRunningProcesses</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>ad6bbd4fe00214ca3fdad81fd432173ba</anchor>
+      <arglist>(QStringList names)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkAddedProcesses</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a555fdaa299f497de66b3d4f841d25b88</anchor>
+      <arglist>(QString name)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkRemovedProcesses</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a03c153515dfb21c65431f9d18bef83db</anchor>
+      <arglist>(QString name)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkActiveWindowTitle</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a21465c0d71f344a972ebb081227291c4</anchor>
+      <arglist>(QString title)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkActiveWindowProcess</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a51bf39be4bc5fe2d3641c71fcf3d755e</anchor>
+      <arglist>(QString process)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>processAdded</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a2c9c88ba2014c034aa5c605c108a8df2</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>processRemoved</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a7ceddf5aff6321f3d1ee6cbee2ad3e38</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>activeWindowTitleChanged</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>adeb8f9c4af87ba5e7f51460abda59be2</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>activeWindowProcessChanged</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a586a6f069d2b0c12b6653d1ec9878a6e</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ProcessInfo</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>a12e25d10a5d97d20001171b790db9202</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>getRunningProcesses</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>ab44b93642d60ed78ebf98338130fc8af</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ProcessInfo *</type>
+      <name>instance</name>
+      <anchorfile>classProcessInfo.html</anchorfile>
+      <anchor>af39036951c0bc22dafa1d88ab9df0c52</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>ProcessInfoGatherer</name>
     <filename>classProcessInfoGatherer.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>processAdded</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a9dedd6b0d7f9f41360f6724f71aa91e3</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>processRemoved</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a97d9c6a58afff53f00e8d93916ff2951</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>updateProcesses</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a1135aff8a272bb7c5679b8acbce0f086</anchor>
+      <arglist>(QStringList)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>activeWindowTitleChanged</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a8416ec6d8872365a175772c4a6b8a6d2</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>activeWindowProcessChanged</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a3366b259ea75ae598276e5479e811953</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>finishedGatheringStep</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a79b8552e9df14ecdb54eb722d3b1dc19</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ProcessInfoGatherer</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>aeac792cc3b7b7d7bea853b5f14be7c76</anchor>
+      <arglist>(QObject *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ProcessInfoGatherer</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a995f64d13c8f6d2fb4bb6b3da9267451</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>run</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a63cde0d9af6218d422b027716481888c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>checkCurrentProcesses</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a7750b7188574afbcc9ba1becc0454e6c</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual void</type>
+      <name>checkActiveWindow</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a5f1a31c718693763f23417948980465a</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>checkProcessListChanges</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a4fcc129e12ae1342bd761a5ca21503f4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QStringList</type>
+      <name>m_previouslyRunningProcesses</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>adc885bedc7d88007f759154e483368f1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QStringList</type>
+      <name>m_currentlyRunningProcesses</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a4fe754b005cbfb1dd0ff93b5624328d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QString</type>
+      <name>m_currentActiveWindowTitle</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a71c178fa6585559a8de8eabc0e92e68d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QString</type>
+      <name>m_currentActiveWindowProgram</name>
+      <anchorfile>classProcessInfoGatherer.html</anchorfile>
+      <anchor>a6b4fc85490df9f3a2d8efd9f8482c1dd</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>ProcessOpenedCondition</name>
@@ -24554,6 +24842,10 @@
   <compound kind="class">
     <name>ProgressWidget</name>
     <filename>classProgressWidget.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>PromptsTable</name>
+    <filename>classPromptsTable.html</filename>
   </compound>
   <compound kind="class">
     <name>PronunciationTrainingCommandManager</name>
@@ -27668,6 +27960,20 @@
     <name>WindowsProcessInfoGatherer</name>
     <filename>classWindowsProcessInfoGatherer.html</filename>
     <base>ProcessInfoGatherer</base>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkActiveWindow</name>
+      <anchorfile>classWindowsProcessInfoGatherer.html</anchorfile>
+      <anchor>a0733f93b7e076dcb419ebca0a03b72e0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>checkCurrentProcesses</name>
+      <anchorfile>classWindowsProcessInfoGatherer.html</anchorfile>
+      <anchor>a2a785ca058213a076411ef63383d51a6</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>Word</name>
@@ -28139,6 +28445,24 @@
     <dir>accomp/julius/</dir>
   </compound>
   <compound kind="dir">
+    <name>plugins/Conditions/ActiveWindow/</name>
+    <path>/home/anash/simon/simonsource/plugins/Conditions/ActiveWindow/</path>
+    <filename>dir_191db74ce740d958437535b3736cdb59.html</filename>
+    <file>activewindow.cpp</file>
+    <file>activewindow.h</file>
+    <file>createactivewindowwidget.cpp</file>
+    <file>createactivewindowwidget.h</file>
+  </compound>
+  <compound kind="dir">
+    <name>build/plugins/Conditions/ActiveWindow/</name>
+    <path>/home/anash/simon/simonsource/build/plugins/Conditions/ActiveWindow/</path>
+    <filename>dir_46da36032c9be2624e03b61bdf7cac05.html</filename>
+    <file>moc_activewindow.cpp</file>
+    <file>moc_createactivewindowwidget.cpp</file>
+    <file>simonactivewindowplugin_automoc.cpp</file>
+    <file>ui_createactivewindowwidget.h</file>
+  </compound>
+  <compound kind="dir">
     <name>simon/src/simonmodelmanagementui/AddWord/</name>
     <path>/home/anash/simon/simonsource/simon/src/simonmodelmanagementui/AddWord/</path>
     <filename>dir_21a75dc66b2172a7e8f6cb438367c2ef.html</filename>
@@ -28427,6 +28751,7 @@
     <name>plugins/Conditions/</name>
     <path>/home/anash/simon/simonsource/plugins/Conditions/</path>
     <filename>dir_8789535388fecdeadf8a7cca45f7e924.html</filename>
+    <dir>plugins/Conditions/ActiveWindow/</dir>
     <dir>plugins/Conditions/OrConditionAssociation/</dir>
     <dir>plugins/Conditions/ProcessOpened/</dir>
   </compound>
@@ -28434,6 +28759,7 @@
     <name>build/plugins/Conditions/</name>
     <path>/home/anash/simon/simonsource/build/plugins/Conditions/</path>
     <filename>dir_6c296d94c3af75fb0a9de97946df0891.html</filename>
+    <dir>build/plugins/Conditions/ActiveWindow/</dir>
     <dir>build/plugins/Conditions/OrConditionAssociation/</dir>
     <dir>build/plugins/Conditions/ProcessOpened/</dir>
   </compound>
@@ -29636,6 +29962,8 @@
     <file>createconditionwidget.h</file>
     <file>linuxprocessinfogatherer.cpp</file>
     <file>linuxprocessinfogatherer.h</file>
+    <file>linuxprocessinfogathererhelper.cpp</file>
+    <file>linuxprocessinfogathererhelper.h</file>
     <file>processinfo.cpp</file>
     <file>processinfo.h</file>
     <file>processinfogatherer.cpp</file>
@@ -29654,6 +29982,7 @@
     <file>moc_contextmanager.cpp</file>
     <file>moc_createconditionwidget.cpp</file>
     <file>moc_linuxprocessinfogatherer.cpp</file>
+    <file>moc_linuxprocessinfogathererhelper.cpp</file>
     <file>moc_processinfo.cpp</file>
     <file>moc_processinfogatherer.cpp</file>
     <file>moc_windowsprocessinfogatherer.cpp</file>
@@ -29677,10 +30006,12 @@
     <filename>dir_7d85c58f4066aff7fe71e6bd400393ae.html</filename>
     <file>moc_contextview.cpp</file>
     <file>moc_contextviewprivate.cpp</file>
+    <file>moc_newchildscenario.cpp</file>
     <file>moc_newcondition.cpp</file>
     <file>simoncontextui_automoc.cpp</file>
     <file>ui_contextdialog.h</file>
     <file>ui_modifycondition.h</file>
+    <file>ui_newchildscenario.h</file>
   </compound>
   <compound kind="dir">
     <name>build/simond/</name>
@@ -30209,6 +30540,8 @@
     <file>model.h</file>
     <file>modelmanager.cpp</file>
     <file>modelmanager.h</file>
+    <file>promptstable.cpp</file>
+    <file>promptstable.h</file>
     <file>scenario.cpp</file>
     <file>scenario.h</file>
     <file>scenariodisplay.cpp</file>
@@ -30256,8 +30589,10 @@
     <file>moc_createvoiceinterfacecommandwidget.cpp</file>
     <file>moc_createvoiceinterfacecommandwidgetprivate.cpp</file>
     <file>moc_modelmanager.cpp</file>
+    <file>moc_promptstable.cpp</file>
     <file>moc_scenario.cpp</file>
     <file>moc_scenariomanager.cpp</file>
+    <file>moc_scenariotreemodel.cpp</file>
     <file>moc_shadowvocabulary.cpp</file>
     <file>moc_speechmodelsettings.cpp</file>
     <file>moc_trainingmanager.cpp</file>
