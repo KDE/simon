@@ -123,14 +123,14 @@ int sampleRate, bool resampleEnabled, int resampleSampleRate)
   hasChanged=false;
   if ((!deviceName.isEmpty()) &&
   (ui->cbSoundDevice->currentText() != deviceName)) {
-    if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that the sound device "
-            "\"%1\" is no longer available.\n\nThis is perfectly normal if you are "
+    if (KMessageBox::questionYesNoCancel(this, i18n("<html><head/><body><p>simon noticed that the sound device "
+            "\"%1\" is no longer available.</p><p>This is perfectly normal if you are "
             "connected to simond or are otherwise using an application that blocks the "
-            "device.\n\nDid you plug / unplug a device or otherwise change your systems "
-            "audio setup?\n\nSelecting \"Yes\" will allow you to change your sound "
+            "device.</p><p><b>Did you plug / unplug a device or otherwise change your systems "
+            "audio setup?</b></p><p>Selecting \"Yes\" will allow you to change your sound "
             "configuration, essentially deleting your previous configuration. Selecting "
             "\"No\" will temporarily deactivate the sound configuration in order to "
-            "protect your previous configuration from being overwritten.", 
+            "protect your previous configuration from being overwritten.</body></html>", 
             deviceName)) == KMessageBox::Yes) {
       QString defaultDevice; 
 
