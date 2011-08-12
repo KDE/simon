@@ -41,11 +41,11 @@ class SIMONUICOMPONENTS_EXPORT InlineWidget : public QWidget
 {
   Q_OBJECT
 
-    private:
+  private:
     QString title, desc;
     KIcon icon;
 
-    signals:
+  signals:
     void closed();
     void rejected();
     void hidden();

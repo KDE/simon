@@ -133,16 +133,10 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void setActivation(bool active);
     void representState(SimonControl::SystemStatus status);
     
-    void showRunDialog();
-    void showContextDialog();
-    void showTrainDialog();
-    void showWordListDialog();
-    void showGrammarDialog();
     void showSystemDialog();
 
   public:
     explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
-
     ~SimonView();
 
     void closeEvent ( QCloseEvent * event );

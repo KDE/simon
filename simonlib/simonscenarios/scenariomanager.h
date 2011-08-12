@@ -66,7 +66,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool setupScenario(Scenario *s);
     void touchBaseModelAccessTime();
 
-    static ScenarioManager *instance;
     ShadowVocabulary *shadowVocab;
     Scenario *currentScenario;
 
@@ -143,6 +142,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void slotBaseModelChanged();
     QHash< QString, QString > transcribe(QStringList words);
     QString transcribe(QString word);
-
 };
+
+
 #endif

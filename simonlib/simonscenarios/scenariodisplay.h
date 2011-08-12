@@ -19,8 +19,7 @@
 
 #ifndef SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
 #define SIMON_SCENARIODISPLAY_H_330D758226F1491DBED7ADB93AA5C866
-#include <QString>
-#include <QDomElement>
+
 #include "simonmodelmanagement_export.h"
 
 class Scenario;

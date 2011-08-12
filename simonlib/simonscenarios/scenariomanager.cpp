@@ -36,7 +36,12 @@
 #include <KConfigGroup>
 #include <KDateTime>
 
-ScenarioManager* ScenarioManager::instance;
+Q_GLOBAL_STATIC(ScenarioManager, instance);
+
+ScenarioManager *ScenarioManager::getInstance()
+{
+  return instance();
+}
 
 ScenarioManager::ScenarioManager(QObject *parent) : QObject(parent),
 m_inGroup(false),
@@ -46,16 +51,6 @@ m_shadowVocabularyDirty(false),
 currentScenario(0)
 {
 }
-
-ScenarioManager* ScenarioManager::getInstance()
-{
-  if (!instance) {
-    instance = new ScenarioManager();
-    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
-  }
-  return instance;
-}
-
 
 bool ScenarioManager::init()
 {
@@ -622,17 +617,11 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::get
 
 
 ScenarioManager::~ScenarioManager()
-{
+{  
   foreach (Scenario *s, scenarios)
     s->blockSignals(true);
   blockSignals(true);
-  
-  instance = 0;
-  while (!scenarioDisplays.isEmpty()) {
-        kDebug() << "Deleting scenario display..." ;
-  	delete scenarioDisplays.takeFirst();
-  }
-  
+
   delete shadowVocab;
   qDeleteAll(scenarios);
   qDeleteAll(listInterfaceCommands.values());
