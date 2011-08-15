@@ -102,10 +102,17 @@ kde4_add_ui_files(simonsound_LIB_SRCS
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 
+if(LIBSAMPLERATE_FOUND)
+	message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES}
   ${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY} ${LIBSAMPLERATE_LIBRARY}
 		${KDE4_KDEUI_LIBS} simonwav)
-
+else(LIBSAMPLERATE_FOUND)
+	message(STATUS "Disabling resample support")
+target_link_libraries( simonsound ${QT_LIBRARIES}
+  ${QT_MOBILITY_MULTIMEDIAKIT_LIBRARY}
+		${KDE4_KDEUI_LIBS} simonwav)
+endif(LIBSAMPLERATE_FOUND)
 
 set_target_properties( simonsound
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
