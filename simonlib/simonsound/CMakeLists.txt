@@ -10,6 +10,10 @@ IF(UNIX)
   find_package(ALSA REQUIRED)
   set (plattformLibraries ${ALSA_LIBRARY})
   include_directories ( ${ALSA_INCLUDE_DIR} )
+ELSE(UNIX)
+	find_package(DirectSound REQUIRED)
+  set (plattformLibraries ${DIRECTSOUND_LIBRARY})
+  include_directories ( ${DIRECTSOUND_INCLUDE_DIRS} )
 ENDIF(UNIX)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
