@@ -124,7 +124,13 @@ bool TrainingManager::deletePrompt ( QString key )
 {
   if (!m_promptsTable) init();
 
-  return m_promptsTable->deletePrompt(key);
+  if (m_promptsTable->deletePrompt(key))
+  {
+      m_dirty = true;
+      return true;
+  }
+
+  return false;
 }
 
 
@@ -156,19 +162,17 @@ bool TrainingManager::savePrompts()
 
   if (!m_promptsTable) init();
 
-  bool succ = m_promptsTable->save();
-  if (succ)
+  if (!m_promptsTable->save()) return false;
+
+  if (m_dirty)
   {
-      m_dirty=false;
+      m_wordRelevance.clear();                        // drop probability cache
+      emit trainingDataChanged();
   }
 
-  kDebug() << "Writing date..." << QDateTime::currentDateTime();
-  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
-  KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
-  config.sync();
+  m_dirty=false;
 
-  return succ;
+  return true;
 }
 
 

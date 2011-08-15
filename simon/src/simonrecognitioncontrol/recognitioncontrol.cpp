@@ -993,11 +993,11 @@ void RecognitionControl::messageReceived()
         case Simond::GetActiveModelDate:
         {
           if (!synchronisationOperation)
-            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing acitve model"), 1, 100, false);
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing active model"), 1, 100, false);
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
 
-          synchronisationOperation->update(i18n("Synchronizing acitve model"), 1);
+          synchronisationOperation->update(i18n("Synchronizing active model"), 1);
           kDebug() << "Server requested active model modified date";
           sendActiveModelModifiedDate();
           break;
