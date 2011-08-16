@@ -94,6 +94,8 @@ bool CreateOrConditionAssociationWidget::init(Condition *condition)
   m_conditionsProxy->setSourceModel((QAbstractItemModel*) m_compoundAssociationCondition->getProxy());
   ui.lvConditions->setCurrentIndex(m_conditionsProxy->index(0,0));
 
+  ui.cbInverted->setChecked(orConditionAssociation->isInverted());
+
   return true;
 }
 
@@ -105,7 +107,7 @@ Condition* CreateOrConditionAssociationWidget::createCondition()
     conditionElem.setAttribute("name", "simonorconditionassociationplugin.desktop");
 
     QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode("0"));
+    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
     conditionElem.appendChild(invertElem);
 
     //add each condition

@@ -74,6 +74,9 @@ public:
      */
     bool isSatisfied();
 
+    /// \return whether or not the condition is inverted
+    bool isInverted() {return m_inverted;}
+
     /**
      * \brief Serializes the Condition
      *

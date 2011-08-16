@@ -52,7 +52,7 @@ QString OrConditionAssociation::name()
         str += "(" + m_conditions.at(i)->name() + ")";
     }
 
-    return i18n("%1", str);
+    return i18n("%1 %2", (isInverted() ? "Not: " : ""), str);
 }
 
 void OrConditionAssociation::evaluateConditions()

@@ -82,6 +82,7 @@ bool CreateActiveWindowWidget::init(Condition *condition)
   ui.leProgramName->setText(activeWindow->getProcessName());
   ui.leWindowTitle->setText(activeWindow->getWindowName());
   ui.cbRegExp->setChecked(activeWindow->getWindowNameIsRegExp());
+  ui.cbInverted->setChecked(activeWindow->isInverted());
   return true;
 }
 
@@ -94,7 +95,7 @@ Condition* CreateActiveWindowWidget::createCondition()
     conditionElem.setAttribute("name", "simonactivewindowplugin.desktop");
 
     QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode("0"));
+    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
     conditionElem.appendChild(invertElem);
 
     QDomElement programElem = doc.createElement("processname");
@@ -108,6 +109,7 @@ Condition* CreateActiveWindowWidget::createCondition()
     QDomElement regExpElem = doc.createElement("windownameregexp");
     regExpElem.appendChild(doc.createTextNode(ui.cbRegExp->isChecked() ? "1" : "0"));
     conditionElem.appendChild(regExpElem);
+
 
     ContextManager* manager = ContextManager::instance();
 

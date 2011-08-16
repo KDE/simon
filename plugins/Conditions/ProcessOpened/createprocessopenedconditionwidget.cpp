@@ -64,6 +64,7 @@ bool CreateProcessOpenedConditionWidget::init(Condition *condition)
   if (!procOpenCondition) return false;
 
   ui.leProgramName->setText(procOpenCondition->getName());
+  ui.cbInverted->setChecked(procOpenCondition->isInverted());
   return true;
 }
 
@@ -76,7 +77,7 @@ Condition* CreateProcessOpenedConditionWidget::createCondition()
     conditionElem.setAttribute("name", "simonprocessopenedconditionplugin.desktop");
 
     QDomElement invertElem = doc.createElement("inverted");
-    invertElem.appendChild(doc.createTextNode("0"));
+    invertElem.appendChild(doc.createTextNode(ui.cbInverted->isChecked() ? "1" : "0"));
     conditionElem.appendChild(invertElem);
 
     QDomElement openElem = doc.createElement("processname");

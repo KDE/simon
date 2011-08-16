@@ -69,6 +69,22 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QCheckBox" name="cbInverted">
+       <property name="toolTip">
+        <string>An inverted condition is satisfied when its specified details are NOT true</string>
+       </property>
+       <property name="whatsThis">
+        <string>An inverted condition is satisfied when its specified details are NOT true</string>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>Invert Condition</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
