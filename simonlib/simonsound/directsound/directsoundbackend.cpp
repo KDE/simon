@@ -17,13 +17,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "directsoundbackend.h"
 #include <unistd.h>
 #include <simonsound/soundbackendclient.h>
 #include <QThread>
 #include <KDebug>
 #include <KLocalizedString>
+#include "directsoundbackend.h"
 
+#define SAFE_RELEASE(x) if (x) { x->Release(); x = 0; }
 
 class DirectSoundLoop : public QThread {
   protected:
@@ -135,61 +136,64 @@ QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
   return m_devices;
 }
 
-bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer)
+bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer)
 {
   DSBUFFERDESC BufferDesc;
 
   //GET GUID
   // remove everything up to (
-  QByteArray internalDeviceName = device.mid(device.lastIndexOf("(")+1).toAscii();
+  QString internalDeviceName = device.mid(device.lastIndexOf("(")+1);
   // remove )
   internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 
   kDebug() << "Opening device: " << internalDeviceName; // contains the GUID or "" for default
+  wchar_t internalDeviceNameW[internalDeviceName.length()*sizeof(wchar_t)+1];
+  internalDeviceNameW[internalDeviceName.toWCharArray(internalDeviceNameW)] = '\0';
+
   LPGUID deviceID;
-  HRESULT err = CLSIDFromString(internalDeviceName.toWCharArray(), (LPCLSID) deviceID);
+  HRESULT err = CLSIDFromString(internalDeviceNameW, (LPCLSID) deviceID);
   if (err != NOERROR) {
     kWarning() << "Couldn't parse: " << internalDeviceName << err;
     return false;
   }
 
   // Generate DirectSound-Interface
-  if(FAILED(DirectSoundCreate8(deviceID, ppDS8, NULL))) {
+  if (FAILED(DirectSoundCreate8(deviceID, ppDS8, 0))) {
     kWarning() << "Failed to open device";
     emit errorOccured(SimonSound::OpenError);
     return false;
   }
 
-  (*ppDS8)->SetCooperativeLevel(NULL /*WTF?*/, DSSCL_PRIORITY);
+  (*ppDS8)->SetCooperativeLevel(0 /*WTF?*/, DSSCL_PRIORITY);
 
   // Fill DSBUFFERDESC-structure
   BufferDesc.dwSize     = sizeof(DSBUFFERDESC);
   BufferDesc.dwFlags      = DSBCAPS_PRIMARYBUFFER;
   BufferDesc.dwBufferBytes  = 0;
   BufferDesc.dwReserved   = 0;
-  BufferDesc.lpwfxFormat    = NULL;
+  BufferDesc.lpwfxFormat    = 0;
   BufferDesc.guid3DAlgorithm  = GUID_NULL;
 
   // Creating primary sound buffer
   if(FAILED((*ppDS8)->CreateSoundBuffer(&BufferDesc,
-            primaryBuffer, NULL))) {
-    kDebug() << "Failed to create primary sound buffer
+            primaryBuffer, 0))) {
+    kDebug() << "Failed to create primary sound buffer";
     return false;
   }
 
   //init sound
   WAVEFORMATEX    WaveFormat;
-  DSBUFFERDESC    BufferDesc;
+  //DSBUFFERDESC    BufferDesc;
   LPDIRECTSOUNDBUFFER pTemp;
-  SSample*      pSamples;
-  DWORD       dwNumBytes;
-  float       fTime;
-  float       fLeft;
-  float       fRight;
+  //SSample*      pSamples;
+  //DWORD       dwNumBytes;
+  //float       fTime;
+  //float       fLeft;
+  //float       fRight;
 
   // Audioformat ausfüllen
   WaveFormat.wFormatTag   = WAVE_FORMAT_PCM;
-  WaveFormat.nChannels    = channel;
+  WaveFormat.nChannels    = channels;
   WaveFormat.nSamplesPerSec = samplerate;
   WaveFormat.wBitsPerSample = 16; //S16_LE
   WaveFormat.nBlockAlign    = WaveFormat.nChannels * (WaveFormat.wBitsPerSample >> 3);
@@ -210,16 +214,17 @@ bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int cha
 
   // Soundpuffer erstellen
   if(FAILED((*ppDS8)->CreateSoundBuffer(&BufferDesc,
-              &pTemp, NULL)))
+              &pTemp, 0)))
   {
     kWarning() << "Couldn't create sound buffer.";
     emit errorOccured(SimonSound::OpenError);
-    return TB_ERROR;
+    return false;
   }
 
   // 8er-Schnittstelle abfragen und die alte löschen
   pTemp->QueryInterface(IID_IDirectSoundBuffer8, (void**)(secondaryBuffer));
-  TB_SAFE_RELEASE(pTemp);
+  
+  SAFE_RELEASE(pTemp);
   return true;
 }
 
