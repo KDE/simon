@@ -1430,7 +1430,8 @@ bool ModelCompilationManager::buildHMM4()
       hmmdefs4.write(tmp2[copyLine++].toUtf8());
       hmmdefs4.write(tmp2[copyLine++].toUtf8());
       hmmdefs4.write(tmp2[copyLine++].toUtf8());
-      hmmdefs4.write(tmp2[copyLine++].toUtf8());
+      if (withGCONST)
+	      hmmdefs4.write(tmp2[copyLine++].toUtf8());
       copyLine = withGCONST ? 21 : 18;
       hmmdefs4.write(tmp2[copyLine].replace('5', '3').toUtf8());
       hmmdefs4.write("0.000000e+000 1.000000e+000 0.000000e+000\n");
