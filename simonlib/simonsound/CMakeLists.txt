@@ -5,7 +5,12 @@ find_package(KDE4 REQUIRED)
 find_package(QtMobility REQUIRED)
 find_package(LibSampleRate)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
-  ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../ ${LIBSAMPLERATE_INCLUDE_DIR})
+  ${QT_MOBILITY_MULTIMEDIAKIT_INCLUDE_DIR} ../)
+
+if(LIBSAMPLERATE_FOUND)
+include_directories(${LIBSAMPLERATE_INCLUDE_DIR})
+add_definitions(${LIBSAMPLERATE_DEFINITIONS})
+endif(LIBSAMPLERATE_FOUND)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -15,8 +20,6 @@ set (QT_USE_QTMAIN true)
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
-
-add_definitions(${LIBSAMPLERATE_DEFINITIONS})
 
 set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.cpp
