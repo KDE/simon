@@ -42,13 +42,11 @@ class DirectSoundBackend : public SoundBackend
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;
+    LPDIRECTSOUNDNOTIFY m_notify;
 
     LPDIRECTSOUND8 m_handle;
     LPDIRECTSOUNDBUFFER m_primaryBuffer; // absolutely useless?
     LPDIRECTSOUNDBUFFER8 m_secondaryBuffer;
-
-    DWORD m_buffer1Circles;
-    DWORD m_buffer2Circles;
 
     QStringList m_devices;
 
@@ -62,8 +60,9 @@ class DirectSoundBackend : public SoundBackend
     void errorRecoveryFailed();
     void freeAllResources();
     bool stop();
+    bool closeSoundSystem();
 
-    bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer);
+    bool openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate, LPDIRECTSOUND8* ppDS8, LPDIRECTSOUNDBUFFER *primaryBuffer, LPDIRECTSOUNDBUFFER8 *secondaryBuffer, LPDIRECTSOUNDNOTIFY *notify);
 
   public:
     DirectSoundBackend();
