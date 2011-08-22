@@ -104,7 +104,7 @@ void ContextAdapter::storeModelInCache()
     }
 
     cachedModelDir.setNum(m_modelCache.count());
-    kDebug() << "Adding the following entry to cache " + deactivatedList;
+    kDebug() << "Adding the following entry to cache '" + deactivatedList + "'";
     m_modelCache.insert(deactivatedList, cachedModelDir);
     cachedModelDir = cacheDir + cachedModelDir + "/";
     dir.mkpath(cachedModelDir);
@@ -199,9 +199,29 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 
         m_currentScenarioSet = scenarioPathsIn;
 
+        //if the new scenario set does not have any deactivated scenarios, the m_deactivatedScenarios list will not be refreshed,
+        //so this just clears it if that is the case
+        bool deactivationChanged = false;
+        foreach(QString deactivatedScenario, m_deactivatedScenarios)
+        {
+            if (!m_currentScenarioSet.contains(deactivatedScenario))
+            {
+                deactivationChanged = true;
+                break;
+            }
+        }
+        if (deactivationChanged)
+        {
+            m_deactivatedScenarios.clear();
+        }
+
         //we need to generate a new acoustic model
-        m_newAcousticModel = true;
-        kDebug() << "A new acoustic model must be generated unless a base model is being used";
+        if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
+        {
+            kDebug() << "A new acoustic model must be generated";
+            m_newAcousticModel = true;
+        }
+
 
         //save the new base scenario list
         QFile scenariosFile(cacheDir + "ScenarioList");
@@ -261,7 +281,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     }
 
     //otherwise, adapt the model
-    if (m_newAcousticModel && (ModelCompilationAdapter::AdaptAcousticModel & adaptionType))
+    if (m_newAcousticModel)
     {
         //when the acoustic model is recompiled, all scenarios are used in the speech model
         //and then the language model is recompiled with only the active scenarios via the forceModelRecompilation() signal
