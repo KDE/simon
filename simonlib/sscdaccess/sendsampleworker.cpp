@@ -18,8 +18,7 @@
  */
 
 #include "sendsampleworker.h"
-#include "sscconfig.h"
-#include "sampledataprovider.h"
+#include "abstractsampledataprovider.h"
 
 #include <sscdaccess/sscdaccess.h>
 #include <sscobjects/sample.h>

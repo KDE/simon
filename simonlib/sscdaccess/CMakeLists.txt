@@ -8,6 +8,9 @@ add_definitions (${QT_DEFINITIONS})
 set( sscdaccess_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sscdaccesssingleton.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/abstractsampledataprovider.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sendsampleworker.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingsamplesdescriptor.cpp
 )
 
 set( sscdaccess_LIB_HDRS

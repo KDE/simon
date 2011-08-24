@@ -19,11 +19,10 @@ set(ssc_SRCS
    trainingswizard.cpp
    trainsamplepage.cpp
    sendsamplespage.cpp
-   sendsampleworker.cpp
    trainsampleintropage.cpp
    deviceinformationwidget.cpp
    deviceinformationpage.cpp
-   sampledataprovider.cpp
+   sscsampledataprovider.cpp
  )
 
 kde4_add_ui_files( ssc_SRCS

@@ -17,11 +17,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
-#define SIMON_SAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
+#ifndef SIMON_SSCSAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
+#define SIMON_SSCSAMPLEDATAPROVIDER_H_58DB5F6A2C9049A79FFCD02D32604B02
 
 #include <QList>
-#include "trainingswizard.h"
+#include <sscdaccess/abstractsampledataprovider.h>
+#include <sscobjects/sample.h>
 
 class DeviceInformationPage;
 class TrainSamplePage;
@@ -30,49 +31,32 @@ class Microphone;
 class SoundCard;
 
 /**
- *	@class SampleDataProvider
+ *	@class SSCSampleDataProvider
  *	@brief Combines all data gathered from one training session
  *
  *	@date 22.05.2010
  *	@author Peter Grasch
  */
-class SampleDataProvider
+class SSCSampleDataProvider : public AbstractSampleDataProvider
 {
 
   private:
-    qint32 m_userId;
-    TrainingsWizard::TrainingsType m_sampleType;
-    QString m_name;
     DeviceInformationPage* m_infoPage;
     QList<TrainSamplePage*> m_trainSamplePages;
 
-    QList<Sample*> m_samplesToTransmit;
-
     QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
     QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+    QList<TrainingSamplesDescriptor*> buildSampleDescriptors(bool &ok);
 
   public:
-    SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType, const QString& name);
+    SSCSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name);
 
     void registerMicrophoneInfo(DeviceInformationPage* infoPage);
     void registerDataProvider(TrainSamplePage* trainSamplePage);
 
-    bool startTransmission();
     bool store();
 
-    bool hasSamplesToTransmit()
-      { return !m_samplesToTransmit.isEmpty(); }
-
-    int sampleToTransmitCount()
-      { return m_samplesToTransmit.count(); }
-
-    Sample* getSample();
-    void sampleTransmitted();
-
-    void stopTransmission();
-
-    ~SampleDataProvider();
-    void skipSample();
+    ~SSCSampleDataProvider();
 
 };
 #endif

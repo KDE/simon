@@ -11,7 +11,9 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonsampleshare_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonsampledataprovider.cpp
+)
 
 set( simonsampleshare_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/sampleshare.h)
@@ -21,16 +23,13 @@ kde4_add_ui_files( simonsampleshare_LIB_SRCS
 
 kde4_add_library( simonsampleshare  SHARED ${simonsampleshare_LIB_SRCS} )
 
-target_link_libraries( simonsampleshare ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KUTILS_LIBS} simonactions
-simonscenarios simonscenarios simonuicomponents simonactionsui)
+target_link_libraries( simonsampleshare ${QT_LIBRARIES} sscdaccess
+${KDE4_KDEUI_LIBS} sscobjects simonscenarios simonuicomponents simonprogresstracking)
 
 
 set_target_properties( simonsampleshare
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
-
-add_definitions(-D SIMONSAMPLESHARE_EXPORT)
 
 install( FILES ${simonsampleshare_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsampleshare

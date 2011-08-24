@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011 Alessadro Buggin <alessandrobuggin@gmail.com>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,23 +17,21 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMONSAMPLESHARE_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6D1
-#define SIMONSAMPLESHARE_EXPORT_H_DAA46318B9EE4B9888F8F8C2CDDFD6D1
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
+#ifndef SIMONSAMPLEDATAPROVIDER_H
+#define SIMONSAMPLEDATAPROVIDER_H
 
-#ifndef SIMONSAMPLESHARE_EXPORT
-# if defined(MAKE_SIMONSAMPLESHARE_LIB)
-// We are building this library
-#  define SIMONSAMPLESHARE_EXPORT KDE_EXPORT
-# else
-// We are using this library
-#  define SIMONSAMPLESHARE_EXPORT
-# endif
-#endif
+#include <sscdaccess/abstractsampledataprovider.h>
 
-# ifndef SIMONSAMPLESHARE_EXPORT_DEPRECATED
-#  define SIMONSAMPLESHARE_EXPORT_DEPRECATED KDE_DEPRECATED SIMONSAMPLESHARE_EXPORT
-# endif
-#endif
+class SimonSampleDataProvider : public AbstractSampleDataProvider
+{
+protected:
+    QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok);
+    QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok);
+    QList<TrainingSamplesDescriptor*> buildSampleDescriptors(bool &ok);
+public:
+    SimonSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name);
+    bool store();
+};
+
+#endif // SIMONSAMPLEDATAPROVIDER_H

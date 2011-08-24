@@ -17,80 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "sampledataprovider.h"
-#include "sscconfig.h"
+#include "abstractsampledataprovider.h"
+
 #include <sscdaccess/sscdaccess.h>
-#include "deviceinformationpage.h"
-#include "trainsamplepage.h"
+#include <sscdaccess/trainingsamplesdescriptor.h>
 #include <sscobjects/sample.h>
 #include <sscobjects/microphone.h>
 #include <sscobjects/soundcard.h>
 
+#include <QStringList>
 #include <QFile>
-#include <QSettings>
 
 #include <KDebug>
+#include <qvarlengtharray.h>
 
-SampleDataProvider::SampleDataProvider(qint32 userId, TrainingsWizard::TrainingsType sampleType,
+AbstractSampleDataProvider::AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType,
 const QString& name) :
-m_userId(userId), m_sampleType(sampleType), m_name(name), m_infoPage(0)
+m_userId(userId), m_sampleType(sampleType), m_name(name)
 {
 }
 
 
-void SampleDataProvider::registerMicrophoneInfo(DeviceInformationPage* infoPage)
-{
-  m_infoPage = infoPage;
-}
-
-
-void SampleDataProvider::registerDataProvider(TrainSamplePage* trainSamplePage)
-{
-  m_trainSamplePages << trainSamplePage;
-}
-
-
-QHash<QString, Microphone*> SampleDataProvider::buildMicrophoneMappings(bool &ok)
-{
-  return m_infoPage->buildMicrophoneMappings(ok);
-}
-
-
-QHash<QString, SoundCard*> SampleDataProvider::buildSoundCardMappings(bool &ok)
-{
-  return m_infoPage->buildSoundCardMappings(ok);
-}
-
-
-bool SampleDataProvider::store()
-{
-  QString directory = KStandardDirs::locateLocal("appdata", QString("stored/%1/%2/").arg(m_userId).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd.hh-mm-ss-zzz")));
-  fprintf(stderr, "Created directory: %s\n", directory.toAscii().constData());
-  QSettings ini(directory+"/profile.ini", QSettings::IniFormat);
-  kDebug() << "Profiles: " << directory+"/profile.ini";
-
-  ini.setValue("Type", m_sampleType);
-  ini.setValue("Name", m_name);
-
-  bool succ = true;
-  succ = m_infoPage->serializeToStorage(ini) && succ;
-
-  ini.beginGroup("Samples");
-  ini.beginWriteArray("Sample");
-  int i=0;
-  foreach (TrainSamplePage *page, m_trainSamplePages) {
-    ini.setArrayIndex(i);
-    succ = page->serializeToStorage(ini, directory) && succ;
-    i++;
-  }
-  ini.endArray();
-  ini.endGroup();
-
-  return succ;
-}
-
-
-bool SampleDataProvider::startTransmission()
+bool AbstractSampleDataProvider::startTransmission()
 {
   //build m_samplesToTransmit
   bool ok;
@@ -113,19 +61,27 @@ bool SampleDataProvider::startTransmission()
   }
   kDebug() << "Found Soundcards: " << soundCards.keys();
 
+  QList<TrainingSamplesDescriptor*> sampleDescriptors = buildSampleDescriptors(ok);
+  if (!ok) {
+    fprintf(stderr, "Building sample descriptors failed\n");
+    return false;
+  }
+
   fprintf(stderr, "Starting transmission\n");
   kDebug() << "Starting transmission";
-  foreach (TrainSamplePage *page, m_trainSamplePages) {
-    kDebug() << "Processing page";
-    QStringList fileNames = page->getFileNames();
-    QStringList devices = page->getDevices();
 
-	kDebug() << "Page contains these files: " << fileNames;
-	kDebug() << "Recorded with these devices: " << devices;
+  foreach (TrainingSamplesDescriptor *sample, sampleDescriptors) {
+    kDebug() << "Processing page";
+    QStringList fileNames = sample->getFileNames();
+    QStringList devices = sample->getDevices();
+    QString prompt = sample->getPrompt();
+
+    kDebug() << "Page contains these files: " << fileNames;
+    kDebug() << "Recorded with these devices: " << devices;
     Q_ASSERT(fileNames.count() == devices.count());
 
     for (int i=0; i < fileNames.count(); i++) {
-      QString fullPath = /*SSCConfig::sampleDirectory()+*/fileNames[i]/*+".wav"*/;
+      QString fullPath = fileNames[i];
       QFile d(fullPath);
       if (!d.open(QIODevice::ReadOnly)) {
         kWarning() << "Could not open file: " << fullPath << "; Skipping";
@@ -140,7 +96,7 @@ bool SampleDataProvider::startTransmission()
 
       m_samplesToTransmit << new Sample(-1, m_sampleType, m_userId,
         mic->id(), soundCard->id(),
-        fullPath, page->getPrompt(),
+        fullPath, prompt,
         d.readAll());
     }
   }
@@ -150,20 +106,20 @@ bool SampleDataProvider::startTransmission()
 }
 
 
-void SampleDataProvider::stopTransmission()
+void AbstractSampleDataProvider::stopTransmission()
 {
   qDeleteAll(m_samplesToTransmit);
   m_samplesToTransmit.clear();
 }
 
 
-Sample* SampleDataProvider::getSample()
+Sample* AbstractSampleDataProvider::getSample()
 {
   return m_samplesToTransmit.at(0);
 }
 
 
-void SampleDataProvider::sampleTransmitted()
+void AbstractSampleDataProvider::sampleTransmitted()
 {
   Sample *s = m_samplesToTransmit.takeAt(0);
   kDebug() << "Deleting file: " << s->path();
@@ -173,12 +129,13 @@ void SampleDataProvider::sampleTransmitted()
 }
 
 
-void SampleDataProvider::skipSample()
+void AbstractSampleDataProvider::skipSample()
 {
   delete m_samplesToTransmit.takeAt(0);
 }
 
 
-SampleDataProvider::~SampleDataProvider()
+AbstractSampleDataProvider::~AbstractSampleDataProvider()
 {
+  qDeleteAll(m_samplesToTransmit);
 }

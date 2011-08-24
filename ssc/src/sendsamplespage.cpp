@@ -19,10 +19,10 @@
 
 #include "sendsamplespage.h"
 #include "sscconfig.h"
-#include "sendsampleworker.h"
-#include "sampledataprovider.h"
+#include "sscsampledataprovider.h"
 
 #include <sscdaccess/sscdaccess.h>
+#include <sscdaccess/sendsampleworker.h>
 #include <sscobjects/sample.h>
 #include <simonprogresstracking/operation.h>
 #include <simonprogresstracking/progresswidget.h>
@@ -42,7 +42,7 @@
 #include <KDebug>
 #include <sscdaccess/sscdaccesssingleton.h>
 
-SendSamplePage::SendSamplePage(SampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
+SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
     QWizardPage(parent),
     m_isStored(isStored),
     worker(new SendSampleWorker(dataProvider, isStored, ini)),
@@ -87,7 +87,7 @@ void SendSamplePage::setupOperation(const QString& name)
   }
 
   if (m_transmitOperation && m_transmitOperation->isRunning())
-    m_transmitOperation->cancel();
+    m_transmitOperation->canceled();
 
   m_transmitOperation = new Operation(QThread::currentThread(), name, i18n("Initializing"), 0, 0, false);
   m_progressWidget = new ProgressWidget(m_transmitOperation, ProgressWidget::Large, this);
@@ -179,7 +179,7 @@ SendSamplePage::~SendSamplePage()
     //make sure the thread is done before we delete it
     if (futureWatcher->isRunning()) {
       m_transmitOperation->cancel();
-      worker->deleteThatSometimes();
+      worker->deleteThatSometime();
     }
     else {
       worker->deleteLater();

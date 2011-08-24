@@ -21,6 +21,7 @@
 #define SIMON_TRAININGSWIZARD_H_6F6A97AD216E4EABBBE96AC5142A709B
 
 #include <simonuicomponents/simonwizard.h>
+#include <sscobjects/sample.h>
 
 class QWizard;
 class QStringList;
@@ -30,7 +31,7 @@ class TrainingsWizard : public SimonWizard
 {
   Q_OBJECT
 
-    private slots:
+  private slots:
     void submit();
 
   public:
@@ -38,14 +39,7 @@ class TrainingsWizard : public SimonWizard
     //bool init(const TrainingText &text);
     ~TrainingsWizard();
 
-    enum TrainingsType
-    {
-      Repeating=1,
-      Training=2,
-      Interview=3
-    };
-
-    int collectSamples(TrainingsType type, qint32 userId);
+    int collectSamples(Sample::SampleType type, qint32 userId);
     bool init(qint32 userId, const QString& path);
 
   private:
@@ -54,7 +48,7 @@ class TrainingsWizard : public SimonWizard
     QWizardPage* createIntroPage();
     DeviceInformationPage* createDeviceDescPage();
     QWizardPage* createFinishedPage();
-    bool init(qint32 userId, TrainingsType type, const QStringList& prompts, const QString& name);
+    bool init(qint32 userId, Sample::SampleType type, const QStringList& prompts, const QString& name);
 
     QStringList repeatPrompts();
     QStringList trainingPrompts();

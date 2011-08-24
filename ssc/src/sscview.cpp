@@ -513,7 +513,7 @@ void SSCView::repeat()
 
   if (u->repeatingPossible()) {
     QPointer<TrainingsWizard> trainingsWizard = new TrainingsWizard(this);
-    trainingsWizard->collectSamples(TrainingsWizard::Repeating, u->userId());
+    trainingsWizard->collectSamples(Sample::Repeating, u->userId());
     delete trainingsWizard;
   }
   delete u;
@@ -528,7 +528,7 @@ void SSCView::training()
 
   if (u->repeatingPossible()) {
     QPointer<TrainingsWizard> trainingsWizard = new TrainingsWizard(this);
-    trainingsWizard->collectSamples(TrainingsWizard::Training, u->userId());
+    trainingsWizard->collectSamples(Sample::Training, u->userId());
     delete trainingsWizard;
   }
   delete u;
@@ -543,7 +543,7 @@ void SSCView::interview()
 
   if (u->interviewPossible()) {
     QPointer<TrainingsWizard> trainingsWizard = new TrainingsWizard(this);
-    trainingsWizard->collectSamples(TrainingsWizard::Interview, u->userId());
+    trainingsWizard->collectSamples(Sample::Interview, u->userId());
     delete trainingsWizard;
   }
   delete u;

@@ -31,23 +31,98 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="coreLb">
-     <property name="text">
-      <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;This assistant allows you to submit your collected trainings data to a central online repository where it will improve a speaker independent voice model that helps other simon users and maybe even yourself achieve better recognition rates (&lt;a href=&quot;http://voxforge.org/home/about&quot;&gt;More information&lt;/a&gt;).&lt;/p&gt;&lt;p&gt;To ensure high recognition rates the gathered samples are split into different groups depending on language, dialect, etc. Please fill out the form below and click upload to submit your samples. No further information besides the content of this form and your recorded trainings samples will be sent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <widget class="QWidget" name="page">
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="coreLb">
+         <property name="text">
+          <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;This assistant allows you to submit your collected trainings data to a central online repository where it will improve a speaker independent voice model that helps other simon users and maybe even yourself achieve better recognition rates (&lt;a href=&quot;http://voxforge.org/home/about&quot;&gt;More information&lt;/a&gt;).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>13</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Server to use:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLineEdit" name="leRemoteHost">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>voxforge.org:4440</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbUseEncryption">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Use encryption</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Edit host</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="stackedWidgetPage1">
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="coreLb_2">
+         <property name="text">
+          <string>To ensure high recognition rates the gathered samples are split into different groups depending on language, dialect, etc. Please fill out the form below and click upload to submit your samples. No further information besides the content of this form and your recorded trainings samples will be sent.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QLabel" name="genderLb">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -60,7 +135,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="2" column="1">
         <widget class="KComboBox" name="genderComboBox">
          <item>
           <property name="text">
@@ -74,14 +149,14 @@
          </item>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="ageLb">
          <property name="text">
           <string>Age:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="1">
         <widget class="KComboBox" name="ageComboBox">
          <item>
           <property name="text">
@@ -98,6 +173,43 @@
            <string>Senior</string>
           </property>
          </item>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="languageLb">
+         <property name="text">
+          <string>Language:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <layout class="QFormLayout" name="formLayout_4">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::ExpandingFieldsGrow</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QComboBox" name="comboBox">
+           <item>
+            <property name="text">
+             <string>English</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pbAddLanguage">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="dialectLb">
+         <property name="text">
+          <string>Dialect:</string>
+         </property>
         </widget>
        </item>
        <item row="5" column="1">
@@ -174,7 +286,7 @@
          </item>
         </layout>
        </item>
-       <item row="6" column="0" colspan="2">
+       <item row="7" column="0" colspan="2">
         <widget class="QCheckBox" name="licenseBox">
          <property name="text">
           <string>I agree to assign the Copyright to your recorded speech to the Free
@@ -183,73 +295,51 @@ Public License (&quot;GPL&quot;).</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <layout class="QFormLayout" name="formLayout_4">
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       <item row="1" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <item row="0" column="0">
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>English</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pbAddLanguage">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>13</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="languageLb">
-         <property name="text">
-          <string>Language:</string>
+       <item row="6" column="0">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="dialectLb">
-         <property name="text">
-          <string>Dialect:</string>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>13</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="stackedWidgetPage2">
-      <layout class="QHBoxLayout" name="horizontalLayout">
+     <widget class="QWidget" name="swMainUploadPage">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="KRichTextEdit" name="teUploadLog">
-           <property name="documentTitle">
-            <string>Output</string>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-           <property name="tabStopWidth">
-            <number>80</number>
-           </property>
-           <property name="checkSpellingEnabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QProgressBar" name="progressBar">
-           <property name="value">
-            <number>24</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QLabel" name="coreLb_3">
+         <property name="text">
+          <string>Thank you for sharing your training data and improving the speaker independent acoustic model!</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -268,21 +358,44 @@ Public License (&quot;GPL&quot;).</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>KRichTextEdit</class>
-   <extends>KTextEdit</extends>
-   <header>krichtextedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
-  <customwidget>
-   <class>KTextEdit</class>
-   <extends>QTextEdit</extends>
-   <header>ktextedit.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leRemoteHost</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>120</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbUseEncryption</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>489</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>261</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
