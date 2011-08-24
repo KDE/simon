@@ -7,10 +7,12 @@ add_definitions (${QT_DEFINITIONS})
 
 set( sscdaccess_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sscdaccesssingleton.cpp
 )
 
 set( sscdaccess_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/sscdaccess.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/sscdaccesssingleton.h
 )
 
 kde4_add_library( sscdaccess  SHARED ${sscdaccess_LIB_SRCS} )

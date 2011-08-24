@@ -435,7 +435,7 @@ void SimonView::setupActions()
     this, SLOT(manageScenarios()));
 
   KAction* sendSampleShareAction = new KAction(this);
-  sendSampleShareAction->setText(i18n("Contribute to Voxforge"));
+  sendSampleShareAction->setText(i18n("Contribute samples"));
   sendSampleShareAction->setIcon(KIcon("repository"));
   actionCollection()->addAction("sampleShare", sendSampleShareAction);
   connect(sendSampleShareAction, SIGNAL(triggered(bool)),this, SLOT(showSampleShare()));

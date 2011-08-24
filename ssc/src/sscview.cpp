@@ -44,24 +44,27 @@
 #include <KActionCollection>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 SSCView::SSCView(QWidget* parent) : KXmlGuiWindow(parent),
 wantToDisconnect(true)
 {
+  //apply configured timeout
+  SSCDAccessSingleton::getInstance()->setTimeout(SSCConfig::timeout());
+  
   ui.setupUi ( this );
   setupActions();
 
   if (SSCConfig::autoConnect()) {
     connectToServer();
-
   }
 
   disconnected();
 
-  connect(SSCDAccess::getInstance(), SIGNAL(connected()), this, SLOT(connected()));
-  connect(SSCDAccess::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnected()));
-  connect(SSCDAccess::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
-  connect(SSCDAccess::getInstance(), SIGNAL(warning(const QString&)), this, SLOT(displayWarning(const QString&)));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(connected()), this, SLOT(connected()));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnected()));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
+  connect(SSCDAccessSingleton::getInstance(), SIGNAL(warning(const QString&)), this, SLOT(displayWarning(const QString&)));
 
   connect(ui.cbPatientId, SIGNAL(returnPressed()), this, SLOT(getUser()));
   connect(ui.cbPatientId, SIGNAL(currentIndexChanged(int)), this, SLOT(getUser()));
@@ -100,12 +103,12 @@ User* SSCView::retrieveUser()
         KMessageBox::information(this, i18n("Please enter a valid user id."));
         return 0;
       }
-      u = SSCDAccess::getInstance()->getUser(id);
+      u = SSCDAccessSingleton::getInstance()->getUser(id);
     }
   }
 
   if (!u) {
-    KMessageBox::sorry(this, i18n("Could not retrieve user: %1", SSCDAccess::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18n("Could not retrieve user: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return 0;
   }
   return u;
@@ -121,7 +124,7 @@ User* SSCView::getInstituteSpecificUser()
   if (ui.cbPatientId->currentText().isEmpty()) return 0;
 
   bool ok;
-  QList<User*> users = SSCDAccess::getInstance()->getUsers(new User(0, "", "", ' ', 0, "",
+  QList<User*> users = SSCDAccessSingleton::getInstance()->getUsers(new User(0, "", "", ' ', 0, "",
     "", "", "", "", "", -1, -1, -1, "", 2, 2) /* dummy user */,
     SSCConfig::referenceInstitute(),
     ui.cbPatientId->currentText(), &ok);
@@ -165,7 +168,7 @@ void SSCView::findUser()
     SSCConfig::self()->readConfig();
     if (SSCConfig::useInstitutionSpecificIDs()) {
       bool ok, found=false;
-      QList<UserInInstitution*> uiis = SSCDAccess::getInstance()->getUserInInstitutions(u->userId(), &ok);
+      QList<UserInInstitution*> uiis = SSCDAccessSingleton::getInstance()->getUserInInstitutions(u->userId(), &ok);
       if (ok) {
         foreach (UserInInstitution *uii, uiis) {
           if (uii->institutionId() == SSCConfig::referenceInstitute()) {
@@ -264,7 +267,7 @@ void SSCView::setupActions()
 void SSCView::toggleOfflineMode(bool offline)
 {
   if (offline) {
-    if (SSCDAccess::getInstance()->isConnected()) {
+    if (SSCDAccessSingleton::getInstance()->isConnected()) {
       if (KMessageBox::questionYesNoCancel(this, i18n("You are currently connected. If you switch to offline mode you will first be disconnected form the server.\n\nDo you want to continue?")) != KMessageBox::Yes) {
         actionCollection()->action("offline")->setChecked(false);
         return;
@@ -342,8 +345,8 @@ void SSCView::deleteUser()
   if (KMessageBox::questionYesNo(this, i18n("Do you really want to delete the user \"%1\" (\"%2\")?\n\nAll collected samples associated with this user will be irreversibly destroyed!",
     u->userId(), QString("%1, %2").arg(u->surname()).arg(u->givenName()))) ==
   KMessageBox::Yes) {
-    if (!SSCDAccess::getInstance()->deleteUser(u))
-      KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccess::getInstance()->lastError()));
+    if (!SSCDAccessSingleton::getInstance()->deleteUser(u))
+      KMessageBox::sorry(this, i18n("Could not delete user: %1", SSCDAccessSingleton::getInstance()->lastError()));
     else {
       ui.lbPatientName->clear();
       ui.cbPatientId->clear();
@@ -375,7 +378,7 @@ void SSCView::connectToServer()
 {
   actionCollection()->action("offline")->setChecked(false);
 
-  if (SSCDAccess::getInstance()->isConnected()) {
+  if (SSCDAccessSingleton::getInstance()->isConnected()) {
     KMessageBox::information(this, i18n("You are already connected."));
     return;
   }
@@ -383,7 +386,7 @@ void SSCView::connectToServer()
   displayConnectionStatus(i18nc("Connecting to server", "Connecting..."));
 
   SSCConfig::self()->readConfig();
-  SSCDAccess::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
+  SSCDAccessSingleton::getInstance()->connectTo(SSCConfig::host(), SSCConfig::port(), SSCConfig::useEncryption());
 }
 
 
@@ -481,7 +484,7 @@ void SSCView::displayWarning(const QString& warning)
  */
 void SSCView::disconnectFromServer()
 {
-  if (!SSCDAccess::getInstance()->isConnected()) {
+  if (!SSCDAccessSingleton::getInstance()->isConnected()) {
     KMessageBox::information(this, i18n("You are not connected."));
     return;
   }
@@ -489,7 +492,7 @@ void SSCView::disconnectFromServer()
   wantToDisconnect = true;
 
   displayConnectionStatus(i18n("Disconnecting..."));
-  SSCDAccess::getInstance()->disconnectFromServer();
+  SSCDAccessSingleton::getInstance()->disconnectFromServer();
 }
 
 

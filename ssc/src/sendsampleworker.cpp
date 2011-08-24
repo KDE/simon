@@ -39,6 +39,7 @@
 #include <KLocalizedString>
 #include <KPushButton>
 #include <KDebug>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 
 /**
@@ -74,9 +75,9 @@ bool SendSampleWorker::sendSamples()
     emit sendSample(s);
 
     kDebug() << "Emit signal";
-    if (!SSCDAccess::getInstance()->processSampleAnswer() && (retryAmount < 3)) {
+    if (!SSCDAccessSingleton::getInstance()->processSampleAnswer() && (retryAmount < 3)) {
       kDebug() << "Error processing sample";
-      if (!SSCDAccess::getInstance()->isConnected()) {
+      if (!SSCDAccessSingleton::getInstance()->isConnected()) {
         shouldAbort = true;
         successful = false;
       }
@@ -88,7 +89,7 @@ bool SendSampleWorker::sendSamples()
         m_dataProvider->sampleTransmitted();
       else {
         emit error(i18n("Server could not process sample: %1",
-          SSCDAccess::getInstance()->lastError()));
+          SSCDAccessSingleton::getInstance()->lastError()));
         shouldAbort = true;                       //m_dataProvider->skipSample();
       }
       retryAmount = 0;
@@ -122,7 +123,7 @@ bool SendSampleWorker::sendSamples()
   if (shouldDelete)
     deleteLater();
 
-  //SSCDAccess::getInstance()->moveToThread(prevThread);
+  //SSCDAccessSingleton::getInstance()->moveToThread(prevThread);
   return successful;
 }
 

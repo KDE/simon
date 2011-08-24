@@ -48,8 +48,6 @@
 #include <KLocalizedString>
 #include <KDebug>
 
-SSCDAccess* SSCDAccess::instance;
-
 #define parseLengthHeader()     waitForMessage(sizeof(qint64),stream, msg); \
   qint64 length; \
   stream >> length; \
@@ -57,22 +55,14 @@ SSCDAccess* SSCDAccess::instance;
 
 /**
  *	@brief Constructor
- *
- *	Creates the Server and sets it up to listen on the supplied port
- *	Default: 4444
- *
  *	@author Peter Grasch
- *	@param qint16 port
- *	Port the Server should listen to
  */
 SSCDAccess::SSCDAccess(QWidget* parent) : QObject(parent),
 readyToRead(false),
 socket(new QSslSocket()),
+timeout(3000), //default timeout
 timeoutWatcher(new QTimer(this))
-{ 
-  
-  int timeout = 3000;
-
+{
   connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
   connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()), Qt::DirectConnection);
   connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()), Qt::DirectConnection);
@@ -97,7 +87,7 @@ void SSCDAccess::setTimeout(const int& timeout_)
 
 
 void SSCDAccess::connectTo(QString server, quint16 port, bool encrypted)
-{ //timeout = 3000;
+{
   if (socket->state() != QAbstractSocket::UnconnectedState)
     socket->abort();
 
@@ -114,7 +104,6 @@ void SSCDAccess::connectTo(QString server, quint16 port, bool encrypted)
     socket->connectToHost( server, port );
   }
   timeoutWatcher->start(timeout);
-
 }
 
 
@@ -179,7 +168,7 @@ bool SSCDAccess::isConnected()
 
 
 void SSCDAccess::timeoutReached()
-{ //timeout = 3000;
+{
   emit error(i18n("Request timed out (%1 ms) or connection was reset.\n\nPlease check your network connection and try again.", timeout));
   abort();
 }
@@ -285,7 +274,7 @@ bool SSCDAccess::sendRequest (qint32 request, qint32 message, qint32 message2)
 
 
 bool SSCDAccess::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
-{ //timeout = 3000;
+{
   Q_ASSERT(stream.device());
   while (stream.device()->bytesAvailable() < length) {
     if (QThread::currentThread() == socket->thread()) {
@@ -364,7 +353,7 @@ User* SSCDAccess::getUser(qint32 id)
   QByteArray msg;
   QDataStream stream(&msg, QIODevice::ReadOnly);
 
-  waitForMessage(sizeof(qint32),stream, msg/*, timeout*/);
+  waitForMessage(sizeof(qint32),stream, msg);
 
   qint32 type;
   stream >> type;
@@ -417,7 +406,7 @@ QList<User*> SSCDAccess::getUsers(User *filterUser, qint32 institutionId, const 
 
   QByteArray msg;
   QDataStream stream(&msg, QIODevice::ReadOnly);
-  waitForMessage(sizeof(qint32),stream, msg/*, timeout*/);
+  waitForMessage(sizeof(qint32),stream, msg);
   qint32 type;
   stream >> type;
   switch (type) {
@@ -463,7 +452,7 @@ qint32 SSCDAccess::addUser(User* u)
 
   QByteArray msg;
   QDataStream stream(&msg, QIODevice::ReadOnly);
-  waitForMessage(sizeof(qint32),stream, msg/*, timeout*/);
+  waitForMessage(sizeof(qint32),stream, msg);
   qint32 type;
   stream >> type;
   switch (type) {
@@ -575,7 +564,7 @@ QList<SoundCard*> SSCDAccess::getSoundCards(bool *ok)
 
   QByteArray msg;
   QDataStream stream(&msg, QIODevice::ReadOnly);
-  waitForMessage(sizeof(qint32),stream, msg /*timeout*/);
+  waitForMessage(sizeof(qint32),stream, msg);
   qint32 type;
   stream >> type;
   switch (type) {
@@ -1054,7 +1043,7 @@ bool SSCDAccess::sendSample(Sample *s)
 
 
 bool SSCDAccess::processSampleAnswer()
-{ //timeout = 3000;
+{
   fprintf(stderr, "Processing sample answer: %d\n", (int) socket->bytesAvailable());
   QByteArray msg = socket->readAll();
   QDataStream streamRet(&msg, QIODevice::ReadOnly);

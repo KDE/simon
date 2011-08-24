@@ -2,7 +2,7 @@ include(FindQt4)
 include(SimonDirs)
 find_package(KDE4 REQUIRED)
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../simonlib/ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -21,7 +21,7 @@ kde4_add_ui_files( sscsettings_LIB_SRCS
 kde4_add_plugin( sscsettings ${sscsettings_LIB_SRCS} )
 
 target_link_libraries( sscsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
+	${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} sscdaccess)
 
 set_target_properties( sscsettings
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

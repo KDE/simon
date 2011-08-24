@@ -21,7 +21,6 @@ set(ssc_SRCS
    sendsamplespage.cpp
    sendsampleworker.cpp
    trainsampleintropage.cpp
-   #sscdaccess.cpp
    deviceinformationwidget.cpp
    deviceinformationpage.cpp
    sampledataprovider.cpp

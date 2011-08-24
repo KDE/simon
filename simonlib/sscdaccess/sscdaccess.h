@@ -52,27 +52,21 @@ const qint8 protocolVersion=1;
 class SSCDACCESS_EXPORT SSCDAccess : public QObject
 {
   Q_OBJECT
-  int timeout;
 
-    signals:
-  void connected();
-  void disconnected();
+  signals:
+    void connected();
+    void disconnected();
 
-  void error(const QString& errStr);
+    void error(const QString& errStr);
 
-  void warning(const QString&);
+    void warning(const QString&);
 
-  void status(const QString&, int progNow=-1, int progMax=0);
-  void progress(int now, int max=-1);
+    void status(const QString&, int progNow=-1, int progMax=0);
+    void progress(int now, int max=-1);
 
   public:
     SSCDAccess(QWidget *parent=0);
     ~SSCDAccess();
-    
-    static SSCDAccess* getInstance(QWidget *parent=0) {
-      if (!instance) instance = new SSCDAccess(parent);
-      return instance;
-    }
     
     bool isConnected();
     QString lastError();
@@ -111,12 +105,12 @@ class SSCDACCESS_EXPORT SSCDAccess : public QObject
     void setTimeout(const int& timeout_);
   private:
     bool readyToRead;
-    static SSCDAccess *instance;
     QSslSocket *socket;                           //!< QSslSocket for communicating with the sscd-socket
+    int timeout;
 
     QTimer *timeoutWatcher;
     QString lastErrorString;
-    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message/*, int timeout*/);
+    bool waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
   private slots:
     bool sendRequest (qint32 request);

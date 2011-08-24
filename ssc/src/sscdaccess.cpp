@@ -1,1 +1,0 @@
-/home/ahel/gsoc/simonlib/sscdaccess/sscdaccess.cpp

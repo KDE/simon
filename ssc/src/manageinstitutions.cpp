@@ -27,6 +27,7 @@
 #include <KDebug>
 #include <KMessageBox>
 #include <KDialogButtonBox>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 ManageInstitutions::ManageInstitutions(QWidget* parent) :
 KDialog(parent), model(0), proxyModel(new QSortFilterProxyModel(this))
@@ -69,8 +70,8 @@ void ManageInstitutions::addInstitution()
   QString name = KInputDialog::getText(i18n("New Institution"), i18n("Institution name:"));
   if (name.isEmpty()) return;
 
-  if (!SSCDAccess::getInstance()->addInstitution(new Institution(0, name)))
-    KMessageBox::sorry(this, i18n("Could not add institution: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccessSingleton::getInstance()->addInstitution(new Institution(0, name)))
+    KMessageBox::sorry(this, i18n("Could not add institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -100,8 +101,8 @@ void ManageInstitutions::editInstitution()
   if (name.isEmpty()) return;
 
   i->setName(name);
-  if (!SSCDAccess::getInstance()->modifyInstitution(i)) {
-    KMessageBox::sorry(this, i18n("Could not modify institution: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccessSingleton::getInstance()->modifyInstitution(i)) {
+    KMessageBox::sorry(this, i18n("Could not modify institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
     updateList();
   }
 }
@@ -115,8 +116,8 @@ void ManageInstitutions::deleteInstitution()
   Institution *i = getCurrentlySelectedInstitution();
   if (!i) return;
 
-  if (!SSCDAccess::getInstance()->deleteInstitution(i))
-    KMessageBox::sorry(this, i18n("Could not delete institution: %1", SSCDAccess::getInstance()->lastError()));
+  if (!SSCDAccessSingleton::getInstance()->deleteInstitution(i))
+    KMessageBox::sorry(this, i18n("Could not delete institution: %1", SSCDAccessSingleton::getInstance()->lastError()));
 
   updateList();
 }
@@ -128,10 +129,10 @@ void ManageInstitutions::deleteInstitution()
 void ManageInstitutions::updateList()
 {
   bool ok;
-  QList<Institution*> institutions = SSCDAccess::getInstance()->getInstitutions(&ok);
+  QList<Institution*> institutions = SSCDAccessSingleton::getInstance()->getInstitutions(&ok);
 
   if (!ok) {
-    KMessageBox::sorry(this, i18n("Could not retrieve institutions: %1", SSCDAccess::getInstance()->lastError()));
+    KMessageBox::sorry(this, i18n("Could not retrieve institutions: %1", SSCDAccessSingleton::getInstance()->lastError()));
     return;
   }
 

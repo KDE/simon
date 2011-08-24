@@ -26,6 +26,7 @@
 #include <sscobjects/soundcard.h>
 
 #include <QSettings>
+#include <sscdaccess/sscdaccesssingleton.h>
 
 DeviceInformationWidget::DeviceInformationWidget(QWidget* parent) :
 QWidget(parent),
@@ -41,8 +42,8 @@ void DeviceInformationWidget::setup(const SimonSound::DeviceConfiguration& devic
 {
   bool soundCardOk;
   bool microphoneOk;
-  QList<SoundCard*> soundCards = SSCDAccess::getInstance()->getSoundCards(&soundCardOk);
-  QList<Microphone*> microphones = SSCDAccess::getInstance()->getMicrophones(&microphoneOk);
+  QList<SoundCard*> soundCards = SSCDAccessSingleton::getInstance()->getSoundCards(&soundCardOk);
+  QList<Microphone*> microphones = SSCDAccessSingleton::getInstance()->getMicrophones(&microphoneOk);
 
   if (soundCardOk) {
     foreach (SoundCard* card, soundCards) {

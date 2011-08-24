@@ -30,11 +30,10 @@ SampleShare::SampleShare(QWidget* parent):
   ui->setupUi(sampleShareWidget);
   setMainWidget(sampleShareWidget);
   setButtonText(Ok, i18n("Upload"));
-  setButtonIcon(Ok,KIcon("repository"));
+  setWindowIcon(KIcon("repository"));
   enableButtonOk(false);
   connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
-  //connect(this, SIGNAL (okClicked()), this, SLOT(slotButtonClicked()));
-  ui->kTextEdit->setPlainText(i18n("path : " )+ TrainingManager::getInstance()->getTrainingDir()+i18n(" ; \nrecorded files to upload:"));
+  
   ui->progressBar->setValue(0);
   kDebug() << TrainingManager::getInstance()->getTrainingDir() << true;
   kDebug() << TrainingManager::getInstance()->getPrompts()->keys() <<true;
