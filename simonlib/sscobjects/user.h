@@ -81,6 +81,14 @@ class SSCOBJECTS_EXPORT User : public SSCObject
     qint8 interviewPossible() { return m_interviewPossible; }
     qint8 repeatingPossible() { return m_repeatingPossible; }
 
+    void setBirthYear(qint16 birthYear) { m_birthYear = birthYear; }
+    void setInterviewPossible(qint8 interviewPossible) { m_interviewPossible = interviewPossible; }
+    void setRepeatingPossible(qint8 repeatingPossible) { m_repeatingPossible = repeatingPossible; }
+    
+    void setOrientation(qint8 orientation) { m_orientation = orientation; }
+    void setMotorFunction(qint8 motorFunction) { m_motorFunction = motorFunction; }
+    void setCommunication(qint8 communication) { m_communication = communication; }
+    
     ~User() {}
 };
 #endif

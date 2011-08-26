@@ -33,7 +33,7 @@
 #include <KDebug>
 
 SSCSampleDataProvider::SSCSampleDataProvider(qint32 userId, Sample::SampleType sampleType,
-const QString& name) : AbstractSampleDataProvider(userId, sampleType, name),
+const QString& name) : AbstractSampleDataProvider(userId, sampleType, name, false),
 m_infoPage(0)
 {
 }

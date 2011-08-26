@@ -37,13 +37,14 @@ class SSCDACCESS_EXPORT AbstractSampleDataProvider
     Sample::SampleType m_sampleType;
     QString m_name;
     QList<Sample*> m_samplesToTransmit;
+    bool m_keepSamples;
 
     virtual QHash<QString, Microphone*> buildMicrophoneMappings(bool &ok)=0;
     virtual QHash<QString, SoundCard*> buildSoundCardMappings(bool &ok)=0;
     virtual QList<TrainingSamplesDescriptor*> buildSampleDescriptors(bool &ok)=0;
 
   public:
-    AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name);
+    AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name, bool keepSamples);
     virtual ~AbstractSampleDataProvider();
 
     bool startTransmission();

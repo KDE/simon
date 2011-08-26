@@ -230,8 +230,9 @@ void ClientSocket::sendMicrophones()
   }
   QList<SSCObject*> sendMe;
 
-  foreach (Microphone* m, *ml)
+  foreach (Microphone* m, *ml) {
     sendMe << m;
+  }
 
   sendObjects(SSC::Microphones, sendMe);
   qDeleteAll(*ml);

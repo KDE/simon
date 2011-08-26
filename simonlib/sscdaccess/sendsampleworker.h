@@ -28,6 +28,7 @@
 #include <QTimer>
 #include <QPointer>
 
+class SSCDAccess;
 class Operation;
 class AbstractSampleDataProvider;
 class QVBoxLayout;
@@ -47,6 +48,7 @@ class SSCDACCESS_EXPORT SendSampleWorker : public QObject
     void sendSample(Sample *s);
 
   private:
+    SSCDAccess *m_server;
     bool shouldAbort;
     bool shouldDelete;
     AbstractSampleDataProvider *m_dataProvider;
@@ -57,8 +59,10 @@ class SSCDACCESS_EXPORT SendSampleWorker : public QObject
     void abort() { shouldAbort = true; }
 
   public:
-    SendSampleWorker(AbstractSampleDataProvider *dataProvider, bool isStored=false, const QString& storageDirectory=QString()) :
-    shouldAbort(false),
+    SendSampleWorker(SSCDAccess *server, AbstractSampleDataProvider *dataProvider, 
+		     bool isStored=false, const QString& storageDirectory=QString()) :
+      m_server(server),
+      shouldAbort(false),
       shouldDelete(false),
       m_dataProvider(dataProvider),
       m_isStored(isStored),

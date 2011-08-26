@@ -30,12 +30,17 @@
 
 #include <QVBoxLayout>
 #include <QThread>
+#include <QtConcurrentRun>
+#include <QFutureWatcher>
 
+#include <KTitleWidget>
 #include <KMessageBox>
 #include <KProgressDialog>
 #include <KDialog>
 #include <KDebug>
 #include "simonsampledataprovider.h"
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
 
 
 SampleShare::SampleShare(QWidget* parent): 
@@ -53,10 +58,10 @@ SampleShare::SampleShare(QWidget* parent):
   enableButtonOk(true);
   setButtonText(Ok, i18n("Connect to server"));
   
-  connect(ui->licenseBox, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
+  connect(ui->cbLicense, SIGNAL(clicked(bool)), this, SLOT(checkCompletion()));
+  connect(ui->cbDialect, SIGNAL(editTextChanged(const QString&)), this, SLOT(checkCompletion()));
   
-  kDebug() << TrainingManager::getInstance()->getTrainingDir() << true;
-  kDebug() << TrainingManager::getInstance()->getPrompts()->keys() <<true;
+  connect(ui->cbLanguage, SIGNAL(currentIndexChanged(int)), this, SLOT(listDialects()));
   
   connect(server, SIGNAL(error(const QString&)), this, SLOT(transmissionError(const QString&)));
   connect(server, SIGNAL(warning(const QString&)), this, SLOT(transmissionWarning(const QString&)));
@@ -64,24 +69,75 @@ SampleShare::SampleShare(QWidget* parent):
   
   connect(server, SIGNAL(connected()), this, SLOT(connected()));
   connect(server, SIGNAL(disconnected()), this, SLOT(disconnected()));
+  
+  KTitleWidget *titleWidget = new KTitleWidget(this);
+  titleWidget->setText(i18n("Upload samples"));
+  titleWidget->setComment(i18n("Give back to the community by sharing your training data."));
+  titleWidget->setPixmap(KIcon("repository").pixmap(22, 22));
+  dynamic_cast<QVBoxLayout*>(sampleShareWidget->layout())->insertWidget(0, titleWidget);
+  
+  futureWatcher = new QFutureWatcher<bool>(this);
+  connect(futureWatcher, SIGNAL(finished()), this, SLOT(transmissionFinished()));
 }
+
+void SampleShare::transmissionFinished()
+{
+  kDebug() << "Transmission finished";
+  progressWidget->update();
+
+  enableButtonOk(true);
+  setButtonText(Ok, i18n("Ok"));
+  
+  if (!futureWatcher->result())
+    transmissionError(server->lastError());
+}
+
+void SampleShare::checkCompletion()
+{
+  enableButton(Ok, (ui->cbLicense->isChecked() && !(ui->cbDialect->currentText().isEmpty())));
+}
+
 
 void SampleShare::connected()
 {
   connectionProgressDialog->progressBar()->setValue(1);
   //fetch options
   bool ok = true;
+  bool allOk = true;
   ui->stackedWidget->setCurrentIndex(1);
   setButtonText(Ok, i18n("Upload"));
 
-  QList<User*> users = server->getUsers(new User(), 0, QString(), &ok);
-  if (!ok)
+  QList<Microphone*> microphones = server->getMicrophones(&ok);
+  if (ok) {
+    foreach (Microphone* m, microphones) {
+      QString model = m->model();
+      QString type = m->type();
+      QString name;
+      if (model.isEmpty() || model == "Unspecified") //do not translate
+	name = type;
+      else
+	name = QString("%1 (%2)").arg(type).arg(model);
+      
+      ui->cbMicrophone->addItem(name, m->id());
+    }
+  } else {
+    allOk = false;
     transmissionError(server->lastError());
-  else {
-    foreach (User* u, users)
-      kDebug() << "Got user: " << u->givenName();
-    qDeleteAll(users);
-    
+  }
+  
+  QList<Language*> languages = server->getLanguages(&ok);
+  if (ok) {
+    foreach (Language* l, languages)
+      ui->cbLanguage->addItem(l->name(), l->id());
+  } else {
+    allOk = false;
+    transmissionError(server->lastError());
+  }
+  QString userLanguage = KGlobal::locale()->language();
+  userLanguage = userLanguage.left(userLanguage.indexOf("_")); //strip e.g. "_US"
+  ui->cbLanguage->setCurrentIndex(ui->cbLanguage->findData(userLanguage));
+  
+  if (allOk) {   
     connectionProgressDialog->deleteLater();
     connectionProgressDialog = 0;
   }
@@ -120,6 +176,7 @@ void SampleShare::transmissionWarning(const QString& warning)
 }
 
 SampleShare::~SampleShare(){
+  progressWidget->disconnect();
   cleanup();
   //server deleted by qt parent / child relationship
   delete ui;
@@ -187,22 +244,159 @@ void SampleShare::connectToServer()
   server->connectTo(host, port, encrypted);
 }
 
+void SampleShare::listDialects()
+{
+  kDebug() << "Listing dialects...";
+  bool ok = true;
+  User* filter = new User(-1, QString(), QString(), 
+			  ' ', 0, QString(), QString(), QString(), 
+			  ui->cbLanguage->itemData(ui->cbLanguage->currentIndex()).toString(),
+			  ui->cbLanguage->currentText(), QString(), 0, 0, 0, QString(), 2, 2);
+  QList<User*> users = server->getUsers(filter, 0, QString(), &ok);
+  
+  ui->cbDialect->clear();
+  if (!ok) {
+    transmissionError(server->lastError());
+  } else {
+    kDebug() << "got " << users.count() << "users";
+    foreach (User *u, users) {
+      QString dialect = u->surname();
+      if (!u->givenName().isEmpty())
+	dialect += " "+u->givenName();
+      
+      if (!ui->cbDialect->contains(dialect)) //no duplicates (gender, etc.)
+	ui->cbDialect->addItem(dialect, u->givenName());
+    }
+    ui->cbDialect->addItem(i18n("Other / None"));
+  }
+}
+
 
 void SampleShare::startTransmission()
 {
   cleanup();
   
-  qint32 userId;
+  if (TrainingManager::getInstance()->getPrompts()->count() == 0) {
+    KMessageBox::information(this, i18n("No samples to upload.\n\n"
+		    "Please collect training data by reading training texts or "
+		    "running individual training sessions.\n\n"
+		    "Afterwards you can submit your samples with this assistant."));
+    accept();
+    return;
+  }
   
-  worker = new SendSampleWorker(new SimonSampleDataProvider(userId, Sample::Training, i18n("simon training data")));
+  //find (or create "unspecified" sound card)
+  bool ok;
+  QList<SoundCard*> cards = server->getSoundCards(&ok);
+  SoundCard *card = new SoundCard(-1, "Unspecified", "Unspecified"); // do not translate
+  qint32 soundCardId = server->getOrCreateSoundCard(card, &ok);
+  delete card;
+  if (!ok) {
+    transmissionError(server->lastError());
+    return;
+  }
+  
+  qint32 microphoneId = ui->cbMicrophone->itemData(ui->cbMicrophone->currentIndex()).toInt();
+  
+  kDebug() << "Sound card: " << soundCardId << "Microphone: " << microphoneId;
+  
+  //First, find available "Dialects" (user surnames matching a query for the language)
+  QChar userGender((ui->cbGender->currentIndex() == 0) ? 'M' : 'F');
+  QString languageCode(ui->cbLanguage->itemData(ui->cbLanguage->currentIndex()).toString());
+  QString language(ui->cbLanguage->currentText());
+  
+  QString configuredDialect = ui->cbDialect->currentText();
+  QString configuredDialectGivenName = ui->cbDialect->itemData(ui->cbDialect->currentIndex()).toString();
+  QString configuredDialectSurname = configuredDialectGivenName.isEmpty() ? configuredDialect :
+				      configuredDialect.left(configuredDialect.length()-
+					configuredDialectGivenName.length()-1);
+  
+  if (configuredDialectGivenName.isNull()) configuredDialectGivenName = "";
+  qint32 userId = -1;
+  kDebug() << configuredDialectGivenName.isNull();
+  kDebug() << configuredDialectGivenName.isEmpty();
+  kDebug() << "Given name: " << configuredDialectGivenName;
+  User* filter = new User(-1, configuredDialectSurname, configuredDialectGivenName, 
+			  userGender, 0, "", "", "", languageCode,
+			  language, "", 0, 0, 0, "", 2, 2);
+  QList<User*> users = server->getUsers(filter, 0, QString(), &ok);
+  
+  //encode birth range in "years":
+  //	10000 = Youth
+  //	10001 = Adult
+  //	10002 = Senior
+  int encodedBirthYear = 10000 + ui->cbAgeRange->currentIndex();
+  
+  if (!users.isEmpty()) {
+    kDebug() << "Got users: ";
+    foreach (User *u, users) {
+      //if we find one real user, use that one
+      //or in other words: ssc > simon
+      if (u->birthYear() < 10000) {
+	userId = u->userId();
+	break;
+      }
+      if (u->birthYear() == encodedBirthYear)
+	userId = u->userId();
+    }
+  }
+  if (userId == -1) {
+    kDebug() << "User empty - creating a new one with encoded age";
+    filter->setBirthYear(encodedBirthYear);
+    filter->setInterviewPossible(1); //set to true for lack of better knowledge
+    filter->setRepeatingPossible(1);
+    filter->setMotorFunction(1);
+    filter->setCommunication(1);
+    filter->setOrientation(1);
+    userId = server->addUser(filter);
+    if (userId < 1) {
+      transmissionError(server->lastError());
+      return;
+    }
+  }
+  
+  qDeleteAll(users);
+  delete filter;
+  
+  /* mic, soundcard? */
+  worker = new SendSampleWorker(server, new SimonSampleDataProvider(userId, 
+							    new Microphone(microphoneId, QString(), QString()),
+							    new SoundCard(soundCardId, QString(), QString()),
+							    Sample::Training, i18n("simon training data")));
   
   transmissionOperation = new Operation(QThread::currentThread(), i18n("Uploading samples..."), i18n("Initializing"), 0, 0, false);
   progressWidget = new ProgressWidget(transmissionOperation, ProgressWidget::Large, this);
   connect(worker, SIGNAL(aborted()), transmissionOperation, SLOT(canceled()), Qt::QueuedConnection);
   connect(worker, SIGNAL(finished()), transmissionOperation, SLOT(finished()), Qt::QueuedConnection);
   connect(transmissionOperation, SIGNAL(aborting()), worker, SLOT(abort()), Qt::QueuedConnection);
+  
+  connect(worker, SIGNAL(error(QString)), this, SLOT(displayError(QString)), Qt::QueuedConnection);
+  connect(worker, SIGNAL(status(QString, int, int)), this, SLOT(displayStatus(QString, int, int)), Qt::QueuedConnection);
+  
+  connect(worker, SIGNAL(sendSample(Sample*)), this, SLOT(sendSample(Sample*)));
 
   static_cast<QVBoxLayout*>(ui->swMainUploadPage->layout())->addWidget(progressWidget);
   progressWidget->show();
+  
+  QFuture<bool> future = QtConcurrent::run(worker, &SendSampleWorker::sendSamples);
+  futureWatcher->setFuture(future);
+  kDebug() << "Thread started";
+  enableButtonCancel(false); //job has it's own cancel button
 }
 
+void SampleShare::displayError(QString error)
+{
+  KMessageBox::error(this, error);
+}
+
+void SampleShare::displayStatus(QString message, int now, int max)
+{
+  transmissionOperation->update(message, now, max);
+  progressWidget->update();
+}
+
+void SampleShare::sendSample(Sample *s)
+{
+  if (!server->sendSample(s))
+    KMessageBox::error(this, i18n("Could not send sample"));
+}

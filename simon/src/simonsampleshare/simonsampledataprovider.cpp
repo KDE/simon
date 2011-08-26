@@ -19,11 +19,24 @@
 
 
 #include "simonsampledataprovider.h"
+#include <sscobjects/microphone.h>
+#include <sscobjects/soundcard.h>
+#include <sscdaccess/trainingsamplesdescriptor.h>
+#include <simonscenarios/trainingmanager.h>
 #include <KDebug>
 
-SimonSampleDataProvider::SimonSampleDataProvider(qint32 userId, Sample::SampleType sampleType, const QString& name) :
-  AbstractSampleDataProvider(userId, sampleType, name)
+SimonSampleDataProvider::SimonSampleDataProvider(qint32 userId, Microphone *microphone, 
+			    SoundCard *soundCard, Sample::SampleType sampleType, 
+			    const QString& name) :
+  AbstractSampleDataProvider(userId, sampleType, name, true),
+  m_microphone(microphone), m_soundCard(soundCard)
 {
+}
+
+SimonSampleDataProvider::~SimonSampleDataProvider()
+{
+  delete m_soundCard;
+  delete m_microphone;
 }
 
 bool SimonSampleDataProvider::store()
@@ -32,21 +45,34 @@ bool SimonSampleDataProvider::store()
   return false;
 }
 
-//TODO
 QHash< QString, SoundCard* > SimonSampleDataProvider::buildSoundCardMappings(bool& ok)
 {
   ok = true;
-  return QHash< QString, SoundCard* >();
+  QHash< QString, SoundCard* > soundCards;
+  soundCards.insert("simon", new SoundCard(*m_soundCard));
+  return soundCards;
 }
 
 QHash< QString, Microphone* > SimonSampleDataProvider::buildMicrophoneMappings(bool& ok)
 {
   ok = true;
-  return QHash< QString, Microphone* >();
+  QHash< QString, Microphone* > microphones;
+  microphones.insert("simon", new Microphone(*m_microphone));
+  return microphones;
 }
 
 QList< TrainingSamplesDescriptor* > SimonSampleDataProvider::buildSampleDescriptors(bool& ok)
 {
   ok = true;
-  return QList< TrainingSamplesDescriptor* >();
+  QList< TrainingSamplesDescriptor* > sampleDescriptors;
+  
+  PromptsTable *prompts = TrainingManager::getInstance()->getPrompts();
+  QString dir = TrainingManager::getInstance()->getTrainingDir();
+  for (QHash<QString, QString>::const_iterator i = prompts->constBegin();
+       i != prompts->constEnd(); i++) {
+    sampleDescriptors << new TrainingSamplesDescriptor(i.value(),
+						       QStringList() << dir+i.key()+".wav",
+						       QStringList() << "simon");
+  }
+  return sampleDescriptors;
 }

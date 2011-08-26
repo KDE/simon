@@ -26,6 +26,8 @@
 #include <QList>
 #include <QPointer>
 
+class QMutex;
+class QTimer;
 class QThread;
 class Operation;
 class StatusManager;
@@ -93,6 +95,8 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject
 
   private:
     QThread* m_thread;
+    QMutex *m_deletionLocker;
+    QTimer *m_deletionTimer;
     QString m_name, m_currentAction;
     int m_now, m_max;
     bool m_cancel, m_isAtomic;

@@ -45,7 +45,7 @@
 SendSamplePage::SendSamplePage(AbstractSampleDataProvider* dataProvider, bool isStored, const QString& ini, QWidget* parent) :
     QWizardPage(parent),
     m_isStored(isStored),
-    worker(new SendSampleWorker(dataProvider, isStored, ini)),
+    worker(new SendSampleWorker(SSCDAccessSingleton::getInstance(), dataProvider, isStored, ini)),
     layout(new QVBoxLayout()),
     m_transmitOperation(0),
     m_progressWidget(0)

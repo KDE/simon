@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>395</height>
+    <width>605</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>voxforge.org:4440</string>
+              <string>localhost:4440</string>
              </property>
             </widget>
            </item>
@@ -112,18 +112,37 @@
      </widget>
      <widget class="QWidget" name="stackedWidgetPage1">
       <layout class="QFormLayout" name="formLayout">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
        <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="coreLb_2">
          <property name="text">
-          <string>To ensure high recognition rates the gathered samples are split into different groups depending on language, dialect, etc. Please fill out the form below and click upload to submit your samples. No further information besides the content of this form and your recorded trainings samples will be sent.</string>
+          <string>To ensure high recognition rates, the gathered samples are split into different groups depending on language, dialect, etc. Please fill out the form below and click upload to submit your samples. No further information besides the content of this form and your recorded trainings samples will be sent.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="genderLb">
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>13</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lbGender">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -135,8 +154,8 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="KComboBox" name="genderComboBox">
+       <item row="3" column="1">
+        <widget class="KComboBox" name="cbGender">
          <item>
           <property name="text">
            <string>Male</string>
@@ -149,15 +168,94 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="ageLb">
+       <item row="4" column="0">
+        <widget class="QLabel" name="lbAgeRange">
          <property name="text">
-          <string>Age:</string>
+          <string>Age range:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="KComboBox" name="ageComboBox">
+       <item row="6" column="0">
+        <widget class="QLabel" name="lbLanguage">
+         <property name="text">
+          <string>Language:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QComboBox" name="cbLanguage"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="lbDialect">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Dialect:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="KComboBox" name="cbDialect">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>13</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="10" column="1">
+        <widget class="QCheckBox" name="cbLicense">
+         <property name="text">
+          <string>Accept license (mandatory)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="KComboBox" name="cbMicrophone">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbMicrophone">
+         <property name="text">
+          <string>Microphone:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="cbAgeRange">
          <item>
           <property name="text">
            <string>Youth</string>
@@ -175,157 +273,18 @@
          </item>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="languageLb">
+       <item row="9" column="0" colspan="2">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Language:</string>
+          <string>&lt;html&gt;&lt;body&gt;&lt;p&gt;I agree to assign the Copyright to your recorded speech to the Free Software Foundation and to license your submission under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-3.0.html&quot;&gt;GNU General Public License (GPL)&lt;/a&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>true</bool>
          </property>
         </widget>
-       </item>
-       <item row="4" column="1">
-        <layout class="QFormLayout" name="formLayout_4">
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::ExpandingFieldsGrow</enum>
-         </property>
-         <item row="0" column="0">
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>English</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pbAddLanguage">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="dialectLb">
-         <property name="text">
-          <string>Dialect:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <layout class="QFormLayout" name="formLayout_diabox_add">
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::ExpandingFieldsGrow</enum>
-         </property>
-         <item row="0" column="0">
-          <widget class="KComboBox" name="dialectComboBox">
-           <property name="editable">
-            <bool>false</bool>
-           </property>
-           <property name="currentIndex">
-            <number>0</number>
-           </property>
-           <item>
-            <property name="text">
-             <string>Australian English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>American English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>British English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Canadian English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>European English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Indian English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Irish English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>New Zeland English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>South African English</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Other</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pbAddDialect">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="7" column="0" colspan="2">
-        <widget class="QCheckBox" name="licenseBox">
-         <property name="text">
-          <string>I agree to assign the Copyright to your recorded speech to the Free
-Software Foundation and to license your submission under the GNU
-Public License (&quot;GPL&quot;).</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>13</width>
-           <height>13</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="6" column="0">
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>13</width>
-           <height>13</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -345,18 +304,9 @@ Public License (&quot;GPL&quot;).</string>
      </widget>
     </widget>
    </item>
-   <item>
-    <widget class="KDialog" name="kdialog"/>
-   </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDialog</class>
-   <extends>QDialog</extends>
-   <header>kdialog.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

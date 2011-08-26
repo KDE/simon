@@ -23,8 +23,11 @@
 
 #include <KDialog>
 #include <KDebug>
+#include <QPointer>
 #include "simonsampleshareui_export.h"
 
+template<class T >
+class QFutureWatcher;
 class ProgressWidget;
 
 class SendSampleWorker;
@@ -35,6 +38,7 @@ namespace Ui {
 class SSCDAccess;
 class Operation;
 class KProgressDialog;
+class Sample;
 
 class SIMONSAMPLESHARE_EXPORT SampleShare : public KDialog{
   Q_OBJECT
@@ -43,12 +47,12 @@ private:
   Ui::SampleShareDlg *ui;
   SSCDAccess *server;
   SendSampleWorker *worker;
-  Operation *transmissionOperation;
+  QPointer<Operation> transmissionOperation;
   ProgressWidget *progressWidget;
   KProgressDialog *connectionProgressDialog;
+  QFutureWatcher<bool> *futureWatcher;
   
   void connectToServer();
-  void displayOptions();
   void startTransmission();
   void cleanup();
   
@@ -58,6 +62,12 @@ private slots:
   void transmissionStatus(const QString&);
   void connected();
   void disconnected();
+  void listDialects();
+  void checkCompletion();
+  void transmissionFinished();
+  void sendSample(Sample *s);
+  void displayStatus(QString message, int now, int max);
+  void displayError(QString error);
   
 public:
   SampleShare( QWidget *parent = 0 );

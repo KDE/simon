@@ -32,8 +32,8 @@
 #include <qvarlengtharray.h>
 
 AbstractSampleDataProvider::AbstractSampleDataProvider(qint32 userId, Sample::SampleType sampleType,
-const QString& name) :
-m_userId(userId), m_sampleType(sampleType), m_name(name)
+const QString& name, bool keepSamples) :
+m_userId(userId), m_sampleType(sampleType), m_name(name), m_keepSamples(keepSamples)
 {
 }
 
@@ -108,6 +108,7 @@ bool AbstractSampleDataProvider::startTransmission()
 
 void AbstractSampleDataProvider::stopTransmission()
 {
+  kDebug() << "Calling stop transmission!";
   qDeleteAll(m_samplesToTransmit);
   m_samplesToTransmit.clear();
 }
@@ -122,9 +123,11 @@ Sample* AbstractSampleDataProvider::getSample()
 void AbstractSampleDataProvider::sampleTransmitted()
 {
   Sample *s = m_samplesToTransmit.takeAt(0);
-  kDebug() << "Deleting file: " << s->path();
-  bool succ = s->deleteFile();
-  kDebug() << "Deleted file: " << succ;
+  if (!m_keepSamples) {
+    kDebug() << "Deleting file: " << s->path();
+    bool succ = s->deleteFile();
+    kDebug() << "Deleted file: " << succ;
+  }
   delete s;
 }
 
@@ -137,5 +140,6 @@ void AbstractSampleDataProvider::skipSample()
 
 AbstractSampleDataProvider::~AbstractSampleDataProvider()
 {
+  kDebug() << "Deleting abstract sample data provider";
   qDeleteAll(m_samplesToTransmit);
 }
