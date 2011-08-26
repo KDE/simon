@@ -258,16 +258,21 @@ void SampleShare::listDialects()
   if (!ok) {
     transmissionError(server->lastError());
   } else {
+    bool otherAlreadyIn = false;
     kDebug() << "got " << users.count() << "users";
     foreach (User *u, users) {
       QString dialect = u->surname();
       if (!u->givenName().isEmpty())
 	dialect += " "+u->givenName();
       
+      if (dialect == i18n("Other / None"))
+	otherAlreadyIn = true;
+      
       if (!ui->cbDialect->contains(dialect)) //no duplicates (gender, etc.)
 	ui->cbDialect->addItem(dialect, u->givenName());
     }
-    ui->cbDialect->addItem(i18n("Other / None"));
+    if (!otherAlreadyIn)
+      ui->cbDialect->addItem(i18n("Other / None"));
   }
 }
 
