@@ -24,6 +24,7 @@
 #include <QApplication>
 #include "../../version.h"
 #include "basedirectory.h"
+#include <QStringList>
 
 int main(int argc, char **argv)
 {
@@ -31,6 +32,11 @@ int main(int argc, char **argv)
 
   QCoreApplication app(argc,argv);
 
+  if (app.arguments().contains("-h") || app.arguments().contains("--help")) {
+    qWarning() << "Run without arguments to start a full server (to be used with SSC).";
+    qWarning() << "Use the -l Argument (or --locked) to only allow functions needed to submit samples with simon.";
+    return 0;
+  }
   SSCDControl *control = new SSCDControl();
   if (!control->init())
     return 2;

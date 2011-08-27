@@ -51,7 +51,7 @@
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* _databaseAccess, QObject *parent) : QSslSocket(parent),
 databaseAccess(_databaseAccess)
 {
-
+  lockedDown = (qApp->arguments().contains("-l") || qApp->arguments().contains("--locked"));
   qDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 
   this->setSocketDescriptor(socketDescriptor);
@@ -359,12 +359,17 @@ void ClientSocket::processRequest()
         stream >> userByte;
         User *u = new User();
         u->deserialize(userByte);
-        if (databaseAccess->modifyUser(u)) {
-          sendCode(SSC::Ok);
-        }
-        else {
-          sendCode(SSC::UserRetrievalFailed);
-        }
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else {
+	  if (databaseAccess->modifyUser(u)) {
+	    sendCode(SSC::Ok);
+	  }
+	  else {
+	    sendCode(SSC::UserRetrievalFailed);
+	  }
+	}
         delete u;
         break;
       }
@@ -373,7 +378,11 @@ void ClientSocket::processRequest()
         qint32 id;
         waitForMessage(sizeof(qint32), stream, msg);
         stream >> id;
-        removeUser(id);
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else
+	  removeUser(id);
         break;
       }
 
@@ -398,11 +407,16 @@ void ClientSocket::processRequest()
         m->deserialize(micByte);
 
         qint32 microphoneId;
-        if (databaseAccess->getOrCreateMicrophone(m, microphoneId)) {
-          qDebug() << "Mic id: " << microphoneId;
-          sendResponse(SSC::GotMicrophone, microphoneId);
-        }
-        else sendCode(SSC::MicrophoneRetrievalFailed);
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else {
+	  if (databaseAccess->getOrCreateMicrophone(m, microphoneId)) {
+	    qDebug() << "Mic id: " << microphoneId;
+	    sendResponse(SSC::GotMicrophone, microphoneId);
+	  }
+	  else sendCode(SSC::MicrophoneRetrievalFailed);
+	}
         delete m;
         break;
       }
@@ -423,7 +437,11 @@ void ClientSocket::processRequest()
       }
 
       case SSC::GetInstitutions:
-        sendInstitutions();
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else
+	  sendInstitutions();
         break;
 
       case SSC::AddInstitution:
@@ -436,9 +454,13 @@ void ClientSocket::processRequest()
         Institution *i = new Institution();
         i->deserialize(institutionByte);
 
-        if (databaseAccess->addInstitution(i))
-          sendCode(SSC::Ok);
-        else sendCode(SSC::AddInstitutionFailed);
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else {
+	  if (databaseAccess->addInstitution(i))
+	    sendCode(SSC::Ok);
+	  else sendCode(SSC::AddInstitutionFailed);
+	}
 
         delete i;
         break;
@@ -451,12 +473,17 @@ void ClientSocket::processRequest()
         stream >> institutionByte;
         Institution *i = new Institution();
         i->deserialize(institutionByte);
-        if (databaseAccess->modifyInstitution(i)) {
-          sendCode(SSC::Ok);
-        }
-        else {
-          sendCode(SSC::InstitutionRetrievalFailed);
-        }
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else {
+	  if (databaseAccess->modifyInstitution(i)) {
+	    sendCode(SSC::Ok);
+	  }
+	  else {
+	    sendCode(SSC::InstitutionRetrievalFailed);
+	  }
+	}
         delete i;
         break;
       }
@@ -465,7 +492,11 @@ void ClientSocket::processRequest()
         qint32 id;
         waitForMessage(sizeof(qint32), stream, msg);
         stream >> id;
-        removeInstitution(id);
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else
+	  removeInstitution(id);
         break;
       }
 
@@ -487,15 +518,19 @@ void ClientSocket::processRequest()
         UserInInstitution *uii = new UserInInstitution();
         uii->deserialize(uiiByte);
 
-        int ret = databaseAccess->addUserInstitutionAssociation(uii);
-        switch (ret) {
-          case 0:
-            sendCode(SSC::Ok);
-          case -1:
-            sendCode(SSC::UserRetrievalFailed);
-          case -2:
-            sendCode(SSC::InstitutionRetrievalFailed);
-        }
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else {
+	  int ret = databaseAccess->addUserInstitutionAssociation(uii);
+	  switch (ret) {
+	    case 0:
+	      sendCode(SSC::Ok);
+	    case -1:
+	      sendCode(SSC::UserRetrievalFailed);
+	    case -2:
+	      sendCode(SSC::InstitutionRetrievalFailed);
+	  }
+	}
         delete uii;
         break;
       }
@@ -506,7 +541,11 @@ void ClientSocket::processRequest()
         waitForMessage(2*sizeof(qint32), stream, msg);
         stream >> userId;
         stream >> institutionId;
-        removeUserInInstitution(userId, institutionId);
+	
+	if (lockedDown)
+	  sendCode(SSC::InsufficientPrivileges);
+	else 
+	  removeUserInInstitution(userId, institutionId);
         break;
       }
 
@@ -520,14 +559,6 @@ void ClientSocket::processRequest()
         s->deserialize(sampleByte);
 
         storeSample(s);
-
-        /////////////////////
-        //DEBUG: Simulate bug
-        //static bool fail = false;
-        //if (fail)
-        //  delete this;
-        //fail = true;
-        ///////////////////////
 
         delete s;
         break;

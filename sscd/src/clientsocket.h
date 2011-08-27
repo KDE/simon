@@ -36,7 +36,8 @@ class ClientSocket : public QSslSocket
 {
   Q_OBJECT
 
-    private:
+  private:
+    bool lockedDown;
     QMutex messageLocker;
 
     DatabaseAccess *databaseAccess;
