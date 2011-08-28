@@ -80,7 +80,7 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>localhost:4440</string>
+              <string>voxforge.org:4440</string>
              </property>
             </widget>
            </item>
