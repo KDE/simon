@@ -29,7 +29,7 @@ SoundInputBuffer::SoundInputBuffer(SimonSoundInput* input): SoundBuffer(input),
 
 void SoundInputBuffer::write(const char *toWrite, qint64 len)
 {
-  kDebug() << "Writing: " << len;
+//   kDebug() << "Writing: " << len;
 
   m_bufferAllocLock.lock();
   char *newBuffer = (char*) malloc(sizeof(char)*(m_bufferLength+len+1));
@@ -66,7 +66,7 @@ void SoundInputBuffer::run()
 
     //killLock.lock();
     m_bufferAllocLock.lock();
-    kDebug() << "new buffer length: " << bufferSize;
+//     kDebug() << "new buffer length: " << bufferSize;
     QByteArray currentData(m_buffer, bufferSize);
 
 
@@ -99,7 +99,7 @@ void SoundInputBuffer::run()
 
     //m_buffer = m_buffer.mid(bufferSize);
     //killLock.unlock();
-    kDebug()  << "Local buffer size: " << m_bufferLength;
+//     kDebug()  << "Local buffer size: " << m_bufferLength;
   }
 }
 

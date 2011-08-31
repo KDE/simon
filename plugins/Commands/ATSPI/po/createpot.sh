@@ -1,6 +1,6 @@
 #!/bin/sh
 BASEDIR="../"   # root of translatable sources
-PROJECT="simonatintegrationcommand"  # project name
+PROJECT="simonatspicommand"  # project name
 BUGADDR="http://sourceforge.net/tracker/?atid=935103&group_id=190872"      # MSGID-Bugs
 WDIR=`pwd`          # working dir
  

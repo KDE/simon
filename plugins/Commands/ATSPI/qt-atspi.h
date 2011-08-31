@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,38 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMON_ATO_H_41A2DE477ABC4B438699B1F9F856549D
-#define SIMON_ATO_H_41A2DE477ABC4B438699B1F9F856549D
-#include <QMetaType>
+#include <QList>
 
-struct ATOLocation
-{
-  qint32 x;
-  qint32 y;
-  qint32 width;
-  qint32 height;
-};
-Q_DECLARE_METATYPE(ATOLocation)
-
-struct ATOPosition
-{
-  qint32 x;
-  qint32 y;
-};
-Q_DECLARE_METATYPE(ATOPosition)
-
-enum ATOMenuType
-{
-  None=0,
-  MenuBar=1,
-  ToolBar=2,
-  Entry=3
-};
-struct ATOMenu
-{
-  QString title;
-  ATOMenuType type;
-  ATOLocation geometry;
-  QList<ATOMenu*> actions;
-};
-#endif
+typedef QList<uint> QSpiUIntList;
+Q_DECLARE_METATYPE(QSpiUIntList)
