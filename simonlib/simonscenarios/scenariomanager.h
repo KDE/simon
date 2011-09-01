@@ -65,6 +65,14 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool setupScenario(Scenario *s);
     void touchBaseModelAccessTime();
 
+    static ScenarioManager *instance;
+    ShadowVocabulary *shadowVocab;
+    Scenario *currentScenario;
+
+    QList<Scenario*> scenarios;
+    QList<ScenarioDisplay*> scenarioDisplays;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+
   public:
     static ScenarioManager *getInstance();
 
@@ -127,15 +135,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     void slotBaseModelChanged();
     QString transcribe(QString word);
-
-  private:
-    static ScenarioManager *instance;
-    ShadowVocabulary *shadowVocab;
-    Scenario *currentScenario;
-
-    QList<Scenario*> scenarios;
-    QList<ScenarioDisplay*> scenarioDisplays;
-    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
 };
 #endif

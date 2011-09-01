@@ -27,7 +27,7 @@ class DBusConnection
 {
 public:
   DBusConnection();
-  QDBusConnection connection() const;
+  QDBusConnection& connection();
 
 private:
   QString getAccessibilityBusAddress() const;

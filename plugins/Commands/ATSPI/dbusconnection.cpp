@@ -80,7 +80,7 @@ QString DBusConnection::getAccessibilityBusAddress() const
   return busAddress;
 }
 
-QDBusConnection DBusConnection::connection() const
+QDBusConnection& DBusConnection::connection()
 {
   return dbusConnection;
 }

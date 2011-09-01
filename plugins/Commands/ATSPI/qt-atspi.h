@@ -17,7 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef QT_ATSPI_H
+#define QT_ATSPI_H
+
 #include <QList>
+#include <QString>
+#include <QDBusObjectPath>
+#include <QDBusConnection>
 
 typedef QList<uint> QSpiUIntList;
-Q_DECLARE_METATYPE(QSpiUIntList)
+Q_DECLARE_METATYPE(QSpiUIntList);
+
+struct QSpiObjectReference
+{
+    QString service;
+    QDBusObjectPath path;
+
+    QSpiObjectReference();
+    QSpiObjectReference(const QDBusConnection& connection, const QDBusObjectPath& path)
+        : service(connection.baseService()), path(path) {}
+};
+
+Q_DECLARE_METATYPE(QSpiObjectReference);
+
+#endif

@@ -21,51 +21,78 @@
 #ifndef ACCESSIBLEOBJECT_H
 #define ACCESSIBLEOBJECT_H
 
+
+#include "qt-atspi.h"
+
 #include <QString>
 #include <QVariant>
+#include <QVariantList>
 #include <QVector>
 #include <QDBusMessage>
 #include <QDBusConnection>
+#include <QDBusArgument>
 
 class ATSPIAction;
 class QStringList;
 
-class AccessibleObject
+class AccessibleObject : public QObject
 {
+Q_OBJECT
 public:
-  AccessibleObject(const QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent = 0);
+  AccessibleObject(QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent );
+  ~AccessibleObject();
 
+  //getter functions
   QString name() const;
+  AccessibleObject *getChild(int index) const;
+  AccessibleObject *getParent() const;
+  QString path() const;
   int indexInParent() const;
   int childCount() const;
   int role() const;
   bool isShown() const;
   bool isSelectable() const;
   bool hasActions() const;
+  QList<ATSPIAction*> actions() const;
+  
+  //info functions (expensive)
   QString roleName() const;
-  AccessibleObject *getChild(int index) const;
-  AccessibleObject *getParent() const;
-  QString path() const;
   
+  //actions
   bool trigger(const QString& name) const;
-  
-  ~AccessibleObject();
 
 private:
-  QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name) const;
-
-  QDBusConnection m_conn;
+  //set in constructor
+  AccessibleObject *m_parent;
+  QDBusConnection& m_conn;
   QString m_service;
   QString m_path;
+  
+  //fetched in constructor
+  QString m_name;
+  int m_role;
+  qint64 m_state;
+  int m_indexInParent;
+  int m_childCount;
 
-  AccessibleObject *m_parent;
+  //fetch on demand
   mutable QList<AccessibleObject*> m_children;
   mutable QList<ATSPIAction*> *m_actions;
   
-  qint64 getState() const;
+  //helper functions
+  QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name) const;
+  
+  //fetching data
   void fetchActions() const;
   
-  QList<ATSPIAction*> actions() const;
+  void fetchState();
+  void fetchName();
+  void fetchRole();
+  void fetchIndexInParent();
+  void fetchChildCount();
+  
+private slots:
+  void slotStateChanged(const QString& change, int, int, QDBusVariant);
 };
 
 #endif // ACCESSIBLEOBJECT_H

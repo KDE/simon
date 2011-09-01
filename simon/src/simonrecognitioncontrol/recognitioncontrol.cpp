@@ -48,6 +48,7 @@
 #include <KDateTime>
 #include <QStringList>
 #include <QPointer>
+#include <QCoreApplication>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -120,7 +121,10 @@ timeoutWatcher(new QTimer(this))
 
 RecognitionControl* RecognitionControl::getInstance()
 {
-  if (!instance) instance = new RecognitionControl();
+  if (!instance) {
+    instance = new RecognitionControl();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 

@@ -16,6 +16,7 @@ set (simonatspicommandplugin_SRCS
 	dbusconnection.cpp
         atspiaction.cpp
         accessibleobject.cpp
+        qt-atspi.cpp
     )
 
 kde4_add_ui_files(simonatspicommandplugin_SRCS 

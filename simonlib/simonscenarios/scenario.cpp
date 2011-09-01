@@ -784,10 +784,9 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 
 Scenario::~Scenario()
 {
-  kDebug() << "I am deleted!";
+  //plugins might do something with the scenario when deleted so kill them first
+  delete m_actionCollection;
   qDeleteAll(m_authors);
-  if (m_actionCollection)
-    m_actionCollection->deleteLater();
   if (m_grammar)
     m_grammar->deleteLater();
   if (m_texts)

@@ -124,7 +124,7 @@ void ATSPICommandManager::registry(const QDBusMessage &message)
         arg >> path;
         arg.endStructure();
         kDebug() << "Registered accessible application: " << service << path.path();
-	AccessibleObject *object = new AccessibleObject(c->connection(), service, path.path());
+	AccessibleObject *object = new AccessibleObject(c->connection(), service, path.path(), 0 /*root element*/);
 	rootAccessibles.append(object);
         
         QStringList commands = traverseObject(object);
@@ -201,6 +201,9 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
 
 ATSPICommandManager::~ATSPICommandManager()
 {
+  kWarning() << "here";
+  kDebug() << "Deleting atspi command manager";
+  clearDynamicLanguageModel();
   qDeleteAll(rootAccessibles);
   delete c;
 }

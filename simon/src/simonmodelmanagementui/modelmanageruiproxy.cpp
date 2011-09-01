@@ -19,6 +19,7 @@
 
 #include "modelmanageruiproxy.h"
 #include "AddWord/addwordview.h"
+#include <QCoreApplication>
 #include <KMessageBox>
 #include <KDebug>
 #include <KStandardDirs>
@@ -34,8 +35,11 @@ ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 
 ModelManagerUiProxy* ModelManagerUiProxy::getInstance()
 {
-	if (!instance) instance = new ModelManagerUiProxy();
-	return instance;
+  if (!instance) {
+    instance = new ModelManagerUiProxy();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
+  return instance;
 }
 
 void ModelManagerUiProxy::slotModelChanged()
@@ -111,5 +115,5 @@ bool ModelManagerUiProxy::storeSample(const QByteArray& sample)
 
 ModelManagerUiProxy::~ModelManagerUiProxy()
 {
-
+  instance = 0;
 }

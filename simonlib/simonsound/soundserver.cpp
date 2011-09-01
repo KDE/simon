@@ -26,6 +26,7 @@
 #include "soundbackend.h"
 
 #include <QObject>
+#include <QCoreApplication>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -45,8 +46,11 @@ SoundServer::SoundServer(QObject* parent) : QObject(parent)
 
 SoundServer* SoundServer::getInstance()
 {
-	if (!instance) instance = new SoundServer(0);
-	return instance;
+  if (!instance) {
+    instance = new SoundServer(0);
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
+  return instance;
 }
 
 QString SoundServer::defaultInputDevice()
@@ -83,7 +87,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (!inputs.contains(client->deviceConfiguration())) {
     kDebug() << "No input for this particular configuration... Creating one";
 
-    SimonSoundInput *soundInput = new SimonSoundInput(this);
+    SimonSoundInput *soundInput = new SimonSoundInput(0);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
@@ -237,7 +241,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
     //create output for this configuration
     kDebug() << "No output for this particular configuration... Creating one";
 
-    SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
+    SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
     connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
     //then start playback
@@ -463,10 +467,6 @@ void SoundServer::uninitializeSoundSystem()
     j.value()->stopPlayback();
   }
   outputs.clear();
-
-  backend->stopPlayback();
-  backend->stopRecording();
-
 }
 
 
@@ -475,6 +475,7 @@ void SoundServer::uninitializeSoundSystem()
  */
 SoundServer::~SoundServer()
 {
+  instance = 0;
   uninitializeSoundSystem();
-  backend->deleteLater();
+  delete backend;
 }

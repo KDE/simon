@@ -19,19 +19,22 @@
 
 #include "scenariomanager.h"
 #include "speechmodelmanagementconfiguration.h"
+#include "scenariodisplay.h"
+#include "voiceinterfacecommand.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/shadowvocabulary.h>
-#include "scenariodisplay.h"
+#include <simongraphemetophoneme/graphemetophoneme.h>
 
 #include <QFileInfo>
+#include <QCoreApplication>
+
 #include <KDebug>
 #include <KGlobal>
 #include <KStandardDirs>
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KDateTime>
-#include <simongraphemetophoneme/graphemetophoneme.h>
 
 ScenarioManager* ScenarioManager::instance;
 
@@ -46,7 +49,10 @@ currentScenario(0)
 
 ScenarioManager* ScenarioManager::getInstance()
 {
-  if (!instance) instance = new ScenarioManager();
+  if (!instance) {
+    instance = new ScenarioManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -550,5 +556,14 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::get
 
 ScenarioManager::~ScenarioManager()
 {
+  instance = 0;
+  foreach (ScenarioDisplay *d, scenarioDisplays) {
+    kDebug() << "Deleting scenario display: " << d;
+    delete d;
+  }
+  scenarioDisplays.clear();
+  
+  delete shadowVocab;
+  qDeleteAll(scenarios);
+  qDeleteAll(listInterfaceCommands.values());
 }
-

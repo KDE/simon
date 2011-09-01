@@ -29,13 +29,14 @@
 #include <QStringList>
 #include <QString>
 #include <QObject>
-#include <KDateTime>
 #include <QTextStream>
+#include <QCoreApplication>
 #include <QVariant>
 #include <QTime>
 #include <QRegExp>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KDateTime>
 #include <KLocale>
 #include <math.h>
 
@@ -84,8 +85,10 @@ void TrainingManager::trainingSettingsSaved()
 
 TrainingManager* TrainingManager::getInstance()
 {
-  if (!instance)
+  if (!instance) {
     instance = new TrainingManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 

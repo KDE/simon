@@ -86,6 +86,6 @@ int main(int argc, char *argv[])
 
   SimonView *pv = new SimonView();
   int ret= app.exec();
-  delete pv;
+//   delete pv; //deleted automatically
   return ret;
 }

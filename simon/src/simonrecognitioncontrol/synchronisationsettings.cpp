@@ -27,11 +27,6 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 
-/**
- * \brief Constructor - inits the help text and the gui
- * \author Peter Grasch
- * @param parent the parent of the widget
- */
 SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
   Q_UNUSED(args);
