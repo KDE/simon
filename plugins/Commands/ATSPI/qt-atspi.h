@@ -24,6 +24,7 @@
 #include <QString>
 #include <QDBusObjectPath>
 #include <QDBusConnection>
+#include <QDBusArgument>
 
 typedef QList<uint> QSpiUIntList;
 Q_DECLARE_METATYPE(QSpiUIntList);
@@ -39,5 +40,9 @@ struct QSpiObjectReference
 };
 
 Q_DECLARE_METATYPE(QSpiObjectReference);
+
+
+QDBusArgument &operator<<(QDBusArgument &argument, const QSpiObjectReference &address);
+const QDBusArgument &operator>>(const QDBusArgument &argument, QSpiObjectReference &address);
 
 #endif

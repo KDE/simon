@@ -30,6 +30,9 @@
 AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent )
     : QObject(parent), m_parent ( parent ), m_conn ( conn ), m_service ( service ), m_path ( path ), m_actions(0)
 {
+  if (parent)
+    connect(this, SIGNAL(changed()), parent, SIGNAL(changed()));
+  
   qRegisterMetaType<QSpiUIntList>();
   qRegisterMetaType<QSpiObjectReference>();
   
@@ -40,8 +43,14 @@ AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &servi
   fetchChildCount();
   
   //setting up monitoring
-  kDebug() << m_conn.connect(m_service, m_path, "org.a11y.atspi.Event.Object", "StateChanged", this, 
+  m_conn.connect(m_service, m_path, "org.a11y.atspi.Event.Object", "StateChanged", this, 
                              SLOT(slotStateChanged(QString, int, int, QDBusVariant)));
+  m_conn.connect(m_service, m_path, "org.a11y.atspi.Event.Object", "ChildrenChanged", this, 
+                             SLOT(slotChildrenChanged(QString, int, int, QDBusVariant)));
+  m_conn.connect(m_service, m_path, "org.a11y.atspi.Event.Object", "PropertyChanged", this, 
+                             SLOT(slotPropertyChange(QString, int, int, QDBusVariant)));
+  
+  kDebug() << "Listening on " << m_service << m_path;
 }
 
 AccessibleObject::~AccessibleObject()
@@ -54,7 +63,36 @@ AccessibleObject::~AccessibleObject()
 
 void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg2, QDBusVariant)
 {
-  kDebug() << "STATE CHANGED!" << change << arg1 << arg2;
+  kDebug() << "State changed of " << m_name << ": " << change << arg1 << arg2;
+  fetchState();
+  emit changed();
+}
+
+void AccessibleObject::slotChildrenChanged(const QString& change, int arg1, int arg2, QDBusVariant data)
+{
+  kDebug() << "Children changed of " << m_name << ": " << change << arg1 << arg2 << data.variant().canConvert<QSpiObjectReference>() << data.variant().isValid() << data.variant().isNull() << data.variant().typeName();
+  fetchChildCount();
+  
+  QDBusArgument dataArg(data.variant().value<QDBusArgument>());
+  QSpiObjectReference ref;
+  dataArg >> ref;
+  kDebug() << ref.path.path() << ref.service;
+  
+  if (change == "remove") {
+    
+  }
+  
+  //update children
+  emit changed();
+}
+
+void AccessibleObject::slotPropertyChange(const QString& change, int arg1, int arg2, QDBusVariant)
+{
+  kDebug() << "Property changed of " << m_name << ": " << change << arg1 << arg2;
+  fetchName();
+  //don't need to fetch child count (the other relevant property) as that will fire another
+  //ChildrenChanged signal
+  emit changed();
 }
 
 
@@ -70,7 +108,7 @@ void AccessibleObject::fetchIndexInParent()
 {
   QDBusMessage indexInParentReply = m_conn.call (QDBusMessage::createMethodCall(
                            m_service, m_path, "org.a11y.atspi.Accessible", "GetIndexInParent"));
-  m_indexInParent = indexInParentReply.arguments().at ( 0 ).toInt();
+  m_indexInParent = (indexInParentReply.arguments().isEmpty()) ? -1 : indexInParentReply.arguments().at ( 0 ).toInt();
 }
 
 void AccessibleObject::fetchName()
@@ -260,7 +298,7 @@ QString AccessibleObject::roleName() const
                            m_service, m_path, "org.a11y.atspi.Accessible", "GetRoleName" );
 
   QDBusMessage reply = m_conn.call ( message );
-  return reply.arguments().at ( 0 ).toString();
+  return (reply.arguments().isEmpty()) ? QString() : reply.arguments().at ( 0 ).toString();
 }
 
 
@@ -298,13 +336,13 @@ bool AccessibleObject::trigger(const QString& name_) const
 
       QDBusMessage reply = m_conn.call ( message );
 
-      if (reply.arguments().at ( 0 ).toBool())
+      if (!reply.arguments().isEmpty() && reply.arguments().at ( 0 ).toBool())
         return true;
     }
   }
   
-  foreach (AccessibleObject *o, m_children)
-    if (o->trigger(name_)) return true;
+  for (int i=0; i < childCount(); i++)
+    if (getChild(i)->trigger(name_)) return true;
   
   return false;
 }

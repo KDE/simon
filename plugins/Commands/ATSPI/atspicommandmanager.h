@@ -28,6 +28,7 @@ class ATSPIConfiguration;
 class AccessibleObject;
 class DBusConnection;
 class QDBusMessage;
+class QTimer;
 
 class ATSPICommandManager : public CommandManager
 {
@@ -36,9 +37,15 @@ class ATSPICommandManager : public CommandManager
 private slots:
   ATSPIConfiguration* getATSPIConfiguration();
   void registry(const QDBusMessage &message);
+  void objectChanged();
+  
+  void setupObjects();
   
 private:
   DBusConnection *c;
+  QTimer* setupObjectsTimeout;
+  
+  QStringList lastCommands;
 
   QList<AccessibleObject*> rootAccessibles;
   QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name);

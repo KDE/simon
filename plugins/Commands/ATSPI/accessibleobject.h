@@ -38,6 +38,9 @@ class QStringList;
 class AccessibleObject : public QObject
 {
 Q_OBJECT
+signals:
+  void changed();
+  
 public:
   AccessibleObject(QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent );
   ~AccessibleObject();
@@ -92,7 +95,9 @@ private:
   void fetchChildCount();
   
 private slots:
+  void slotPropertyChange(const QString& change, int, int, QDBusVariant);
   void slotStateChanged(const QString& change, int, int, QDBusVariant);
+  void slotChildrenChanged(const QString& change, int, int, QDBusVariant);
 };
 
 #endif // ACCESSIBLEOBJECT_H

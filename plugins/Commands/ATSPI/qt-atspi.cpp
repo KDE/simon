@@ -26,7 +26,6 @@ QSpiObjectReference::QSpiObjectReference()
     : path(QDBusObjectPath(QSPI_OBJECT_PATH_NULL))
 {}
 
-
 /* QSpiObjectReference */
 /*---------------------------------------------------------------------------*/
 

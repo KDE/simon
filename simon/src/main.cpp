@@ -85,7 +85,8 @@ int main(int argc, char *argv[])
   app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
   SimonView *pv = new SimonView();
+  Q_UNUSED(pv);
   int ret= app.exec();
-//   delete pv; //deleted automatically
+//   pv is deleted automatically
   return ret;
 }

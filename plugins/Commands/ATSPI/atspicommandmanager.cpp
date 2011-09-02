@@ -25,6 +25,7 @@
 #include <QDBusMessage>
 #include <QDBusVariant>
 #include <QDBusArgument>
+#include <QTimer>
 
 #include <KLocalizedString>
 #include <KDebug>
@@ -39,9 +40,36 @@ registerPlugin< ATSPICommandManager >();
 K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  c(0)
+  c(0), setupObjectsTimeout(new QTimer(this))
 {
+  setupObjectsTimeout->setInterval(1000);
+  setupObjectsTimeout->setSingleShot(true);
+  connect(setupObjectsTimeout, SIGNAL(timeout()), this, SLOT(setupObjects()));
 }
+
+void ATSPICommandManager::objectChanged()
+{
+  setupObjectsTimeout->stop();
+  setupObjectsTimeout->start();
+}
+
+void ATSPICommandManager::setupObjects()
+{
+  kDebug() << "Setting up objects";
+  
+  QStringList commands;
+  foreach (AccessibleObject *object, rootAccessibles) {     
+    QStringList thisCommands = traverseObject(object);
+    foreach (const QString& c, thisCommands)
+      if (!commands.contains(c))
+        commands << c;
+  }
+  
+  kDebug() << "Got commands: " << commands;
+  if (dynamic_cast<ATSPIConfiguration*>(config)->createLanguageModel())
+    setupLanguageModel(commands);
+}
+
 
 const QString ATSPICommandManager::iconSrc() const
 {
@@ -125,14 +153,11 @@ void ATSPICommandManager::registry(const QDBusMessage &message)
         arg.endStructure();
         kDebug() << "Registered accessible application: " << service << path.path();
 	AccessibleObject *object = new AccessibleObject(c->connection(), service, path.path(), 0 /*root element*/);
+        connect(object, SIGNAL(changed()), this, SLOT(objectChanged()));
 	rootAccessibles.append(object);
-        
-        QStringList commands = traverseObject(object);
-        kDebug() << "Got commands: " << commands;
-        if (dynamic_cast<ATSPIConfiguration*>(config)->createLanguageModel())
-          setupLanguageModel(commands);
     }
     arg.endArray();
+    setupObjects();
 }
 
 QStringList ATSPICommandManager::traverseObject(AccessibleObject* o)
@@ -151,6 +176,10 @@ QStringList ATSPICommandManager::traverseObject(AccessibleObject* o)
 
 void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
 {
+  QStringList newCommands = commands;
+  foreach (const QString& c, lastCommands)
+    newCommands.removeAll(c);
+  
   ActiveVocabulary *vocab = parentScenario->vocabulary();
   Grammar *grammar = parentScenario->grammar();
   
@@ -158,7 +187,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
   
   QHash<QString,QString> wordTerminals;
   int sentenceNr = 0;
-  foreach (const QString& sentence, commands) {
+  foreach (const QString& sentence, newCommands) {
     QStringList words = sentence.split(" ");
     
     ++sentenceNr;
@@ -186,6 +215,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
   }
   
   parentScenario->commitGroup();
+  lastCommands = commands;
 }
 
 bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
@@ -201,8 +231,6 @@ bool ATSPICommandManager::trigger(const QString& triggerName, bool silent)
 
 ATSPICommandManager::~ATSPICommandManager()
 {
-  kWarning() << "here";
-  kDebug() << "Deleting atspi command manager";
   clearDynamicLanguageModel();
   qDeleteAll(rootAccessibles);
   delete c;
