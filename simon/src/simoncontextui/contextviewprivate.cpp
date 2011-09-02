@@ -54,8 +54,6 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   conditionsProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   ui.lvConditions->setModel(conditionsProxy);
 
-  ui.lwParentScenario->setMaximumHeight(QFontMetrics(QFont()).height() + 8);
-
   connect(ui.leConditionsFilter, SIGNAL(textChanged(const QString&)), conditionsProxy, SLOT(setFilterRegExp(const QString&)));
 
   connect(ui.lvConditions->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(selectionChanged()));
@@ -161,16 +159,21 @@ void ContextViewPrivate::displayScenarioPrivate(Scenario *scenario)
   conditionsProxy->setSourceModel((QAbstractItemModel*) compoundCondition->getProxy());
   ui.lvConditions->setCurrentIndex(conditionsProxy->index(0,0));
 
-  //fill in parent scenario box
-  ui.lwParentScenario->clear();
-  if (scenario->parentScenario())
+  //fill in inherited activation requirments list
+  ui.lwParentActivationRequirements->clear();
+  QStringList inheritedRequirements;
+  Scenario* parent = scenario->parentScenario();
+  while (parent)
   {
-      ui.lwParentScenario->addItem(new QListWidgetItem(scenario->parentScenario()->icon(), scenario->parentScenario()->name()));
+      QList<Condition*> conditions = parent->compoundCondition()->getConditions();
+      foreach(Condition* c, conditions)
+      {
+          inheritedRequirements.push_back("[" + parent->name() + "]: " + c->name());
+      }
+
+      parent = parent->parentScenario();
   }
-  else
-  {
-      ui.lwParentScenario->addItem(new QListWidgetItem(QIcon(), i18n("None")));
-  }
+  ui.lwParentActivationRequirements->addItems(inheritedRequirements);
 
   //fill in child scenario tree
   ui.twChildScenarios->clear();
