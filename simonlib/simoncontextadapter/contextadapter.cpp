@@ -3,6 +3,8 @@
 #include <QDir>
 #include <KStandardDirs>
 #include <QTextStream>
+#include <KDateTime>
+#include <KConfigGroup>
 
 ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     QObject(parent)
@@ -275,6 +277,12 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         QFile::copy(cachedModelDir+"julius.log", activeDir+"julius.log");
         QFile::remove(activeDir+"julius.jconf");
         QFile::copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
+
+        //update the date of the current model
+        KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
+        KConfigGroup cGroup(&config, "");
+        cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
+        config.sync();
 
         emit modelLoadedFromCache();
         return true;
