@@ -21,6 +21,7 @@
 #include "compoundconditionmodel.h"
 #include <KDebug>
 #include <QFont>
+#include <KColorScheme>
 
 CompoundConditionModel::CompoundConditionModel(CompoundCondition *base) : m_ref(base)
 {
@@ -46,7 +47,7 @@ QVariant CompoundConditionModel::data(const QModelIndex &index, int role) const
           return font;
       }
       else if (role == Qt::ForegroundRole && !m_conditions.at(index.row())->isSatisfied())
-          return Qt::darkGray;
+          return KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
   }
 
   return QVariant();

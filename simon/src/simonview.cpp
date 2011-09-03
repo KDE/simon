@@ -75,6 +75,7 @@
 #include <KPageWidgetItem>
 #include <KIconLoader>
 #include <KCmdLineArgs>
+#include <KColorScheme>
 
 #include <simonsound/soundserver.h>
 
@@ -298,7 +299,7 @@ void SimonView::displayScenarios()
   cbCurrentScenario->clear();
 
   QVariant deactivatedFont = QVariant(QFont("Arial", -1, -1, true));
-  QVariant deactivatedColor = QVariant(Qt::gray);
+  QVariant deactivatedColor = QVariant(KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText));
 
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
   foreach (Scenario* s, scenarioList) {
