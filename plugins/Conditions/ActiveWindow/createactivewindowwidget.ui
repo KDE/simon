@@ -24,6 +24,9 @@
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
+       <property name="buddy">
+        <cstring>leWindowTitle</cstring>
+       </property>
       </widget>
      </item>
      <item row="0" column="1">
@@ -36,6 +39,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="buddy">
+        <cstring>leProgramName</cstring>
        </property>
       </widget>
      </item>
@@ -102,6 +108,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>leWindowTitle</tabstop>
+  <tabstop>cbRegExp</tabstop>
+  <tabstop>leProgramName</tabstop>
+  <tabstop>pbLocateProgram</tabstop>
+  <tabstop>cbInverted</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

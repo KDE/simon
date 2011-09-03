@@ -73,6 +73,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lvConditions</tabstop>
+  <tabstop>pbNewCondition</tabstop>
+  <tabstop>pbEditCondition</tabstop>
+  <tabstop>pbDeleteCondition</tabstop>
+  <tabstop>cbInverted</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
