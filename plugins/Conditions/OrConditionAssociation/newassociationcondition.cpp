@@ -33,8 +33,6 @@ m_conditionCreators(0)
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
 
-  this->move(this->x() + 10, this->y() + 10);
-
   ui.swConditionCreators->removeWidget(ui.swConditionCreators->currentWidget());
 
   setMainWidget( widget );
