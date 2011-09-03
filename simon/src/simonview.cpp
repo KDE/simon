@@ -298,19 +298,34 @@ void SimonView::displayScenarios()
   setUpdatesEnabled(false);
   cbCurrentScenario->clear();
 
-  QVariant deactivatedFont = QVariant(QFont("Arial", -1, -1, true));
-  QVariant deactivatedColor = QVariant(KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText));
+  QFont activatedFont = QFont();
+  QFont deactivatedFont = QFont();
+  deactivatedFont.setItalic(true);
+  //QBrush activatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::ActiveText);
+  QBrush deactivatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
+
+  //cbCurrentScenario->setForegroundRole(QPalette::ButtonText);
+  cbCurrentScenario->setFont(activatedFont);
 
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
   foreach (Scenario* s, scenarioList) {
     cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
     if (!s->isActive())
     {
-        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, deactivatedFont, Qt::FontRole);
-        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, deactivatedColor, Qt::ForegroundRole);
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedFont), Qt::FontRole);
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedColor), Qt::ForegroundRole);
+
+        if (s->name() == currentData)
+        {
+            //cbCurrentScenario->setForegroundRole(QPalette::BrightText);
+            cbCurrentScenario->setFont(deactivatedFont);
+        }
     }
   }
   cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(currentData));
+
+
+
   setUpdatesEnabled(true);
 }
 
