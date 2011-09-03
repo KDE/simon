@@ -52,6 +52,7 @@ class ContextViewPrivate : public QWidget, public ScenarioDisplay
 
     signals:
   void actionsChanged();
+  void manageScenariosTriggered();
 
   private:
     Ui::ContextDlg ui;

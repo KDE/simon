@@ -50,6 +50,7 @@ class SIMONCONTEXTUI_EXPORT ContextView : public InlineWidget, public ScenarioDi
 
     signals:
   void actionsChanged();
+  void manageScenariosTriggered();
 
   private:
     ContextViewPrivate *d;

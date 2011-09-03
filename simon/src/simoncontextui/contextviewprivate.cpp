@@ -42,6 +42,8 @@ ContextViewPrivate::ContextViewPrivate(QWidget *parent) : QWidget(parent)
   connect ( ui.pbEditCondition, SIGNAL(clicked()), this, SLOT(editCondition()));
   connect ( ui.pbDeleteCondition, SIGNAL(clicked()), this, SLOT(deleteCondition()));
 
+  connect ( ui.pbEditHierarchy, SIGNAL(clicked()), this, SIGNAL(manageScenariosTriggered()));
+
   ui.lvConditions->setIconSize(QSize(24,24));
   ui.lvConditions->setSpacing(2);
 

@@ -28,6 +28,8 @@ i18n("Modify the context dependence of the scenario"), parent),
 d(new ContextViewPrivate(this))
 {
   connect(d, SIGNAL(actionsChanged()), this, SIGNAL(actionsChanged()));
+  connect(d, SIGNAL(manageScenariosTriggered()), this, SIGNAL(manageScenariosTriggered()));
+
   QVBoxLayout *lay = new QVBoxLayout(this);
   lay->addWidget(d);
 

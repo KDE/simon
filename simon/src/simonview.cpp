@@ -160,6 +160,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
   this->contextDialog = new ContextView(this);
+  connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
