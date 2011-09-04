@@ -19,6 +19,8 @@
 
 #ifndef QT_ATSPI_H
 #define QT_ATSPI_H
+#define QSPI_OBJECT_PATH_ACCESSIBLE  "/org/a11y/atspi/accessible"
+#define QSPI_OBJECT_PATH_ACCESSIBLE_NULL  QSPI_OBJECT_PATH_ACCESSIBLE"/null"
 
 #include <QList>
 #include <QString>
@@ -28,6 +30,10 @@
 
 typedef QList<uint> QSpiUIntList;
 Q_DECLARE_METATYPE(QSpiUIntList);
+
+namespace QtATSPI {
+  void registerTypes();
+}
 
 struct QSpiObjectReference
 {

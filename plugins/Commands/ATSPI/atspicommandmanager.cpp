@@ -32,6 +32,8 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
 #include <simonscenarios/activevocabulary.h>
+#include "atspiwatcher.h"
+
 
 K_PLUGIN_FACTORY( ATSPICommandPluginFactory,
 registerPlugin< ATSPICommandManager >();
@@ -107,7 +109,9 @@ void ATSPICommandManager::clearDynamicLanguageModel()
 
 bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
 {
-  if (!config) config->deleteLater();
+  QtATSPI::registerTypes();
+  
+  if (config) config->deleteLater();
   config = new ATSPIConfiguration(this, parentScenario);
   bool succ = config->deSerialize(elem);
   
@@ -115,6 +119,16 @@ bool ATSPICommandManager::deSerializeConfig(const QDomElement& elem)
   
   if (c) delete c;
   c = new DBusConnection();
+  
+  bool connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Activate", this, 
+                                  SLOT(newClient(const QString&, int, int, QDBusVariant, QSpiObjectReference)));
+  connected = c->connection().connect("", "", "org.a11y.atspi.Event.Window", "Create", this, 
+                                  SLOT(newClient(const QString&, int, int, QDBusVariant, QSpiObjectReference))) && connected;
+  
+  if (!connected) {
+    kWarning() << "DBus connection failed";
+    succ = false;
+  }
 
   QDBusMessage message = QDBusMessage::createMethodCall("org.a11y.atspi.Registry", "/org/a11y/atspi/accessible/root", "org.a11y.atspi.Accessible", "GetChildren");
   c->connection().callWithCallback(message, this, SLOT(registry(QDBusMessage)));
@@ -151,19 +165,46 @@ void ATSPICommandManager::registry(const QDBusMessage &message)
         arg >> service;
         arg >> path;
         arg.endStructure();
-        kDebug() << "Registered accessible application: " << service << path.path();
-	AccessibleObject *object = new AccessibleObject(c->connection(), service, path.path(), 0 /*root element*/);
-        connect(object, SIGNAL(changed()), this, SLOT(objectChanged()));
-	rootAccessibles.append(object);
+        setupService(service, path.path());
     }
     arg.endArray();
     setupObjects();
 }
 
+void ATSPICommandManager::newClient(const QString& change, int, int, QDBusVariant data, QSpiObjectReference reference)
+{
+  kDebug() << "New client!";
+  Q_UNUSED(change);
+  QString windowTitle = data.variant().toString();
+  kDebug() << change << windowTitle << reference.path.path() << reference.service;
+  
+  foreach (AccessibleObject *o, rootAccessibles) {
+    if (o->service() == reference.service)
+      return;
+  }
+  setupService(reference.service, reference.path.path());
+  setupObjects();
+}
+
+void ATSPICommandManager::setupService(const QString& service, const QString& path)
+{
+  kDebug() << "Registered accessible application: " << service << path;
+  AccessibleObject *object = new AccessibleObject(c->connection(), service, path, 0 /*root element*/);
+  connect(object, SIGNAL(changed()), this, SLOT(objectChanged()));
+  connect(object, SIGNAL(serviceRemoved(AccessibleObject*)), this, SLOT(serviceRemoved(AccessibleObject*)));
+  rootAccessibles.append(object);
+}
+
+void ATSPICommandManager::serviceRemoved(AccessibleObject* service)
+{
+  rootAccessibles.removeAll(service);
+  service->deleteLater();
+  setupObjects();
+}
+
+
 QStringList ATSPICommandManager::traverseObject(AccessibleObject* o)
 {
-//   kDebug() << "Traversing: " << o->name() << "Path: " << o->path() << " Role: " << o->role() << " Rolename: " << o->roleName() << " Shown: " << o->isShown() << o->hasActions();
-
   QStringList names;
   if (o->isShown() && o->hasActions())
     names << o->name();
@@ -177,13 +218,44 @@ QStringList ATSPICommandManager::traverseObject(AccessibleObject* o)
 void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
 {
   QStringList newCommands = commands;
-  foreach (const QString& c, lastCommands)
-    newCommands.removeAll(c);
+  QStringList commandsToRemove = lastCommands;
+  foreach (const QString& c, lastCommands) {
+    if (newCommands.removeAll(c) != 0)
+      commandsToRemove.removeAll(c);
+  }
+  //now all removed commands remain in lastCommands
   
   ActiveVocabulary *vocab = parentScenario->vocabulary();
   Grammar *grammar = parentScenario->grammar();
   
   parentScenario->startGroup();
+  //remove old stuff
+  if (!commandsToRemove.isEmpty()) {
+    kDebug() << "Commands to remove: " << commandsToRemove;
+    QStringList currentStructures = grammar->getStructures();
+    for (int i=0; i < grammar->structureCount(); i++) {
+      QString sent = grammar->getStructure(i);
+      //find sentence
+      QStringList exampleSentences = parentScenario->getExampleSentencesOfStructure(sent);
+      if (exampleSentences.count() != 1) {
+        //user generated sentence
+        continue;
+      }
+      
+      int commandIndex = commandsToRemove.indexOf(exampleSentences.at(0));
+      if (commandIndex == -1) continue;
+      
+      QStringList terminals = sent.split(" ");
+      
+      foreach (const QString& t, terminals) {
+        QList<Word*> w = vocab->findWordsByTerminal(t);
+        Q_ASSERT(w.count() == 1);
+        vocab->removeWord(w.at(0));
+      }
+      grammar->deleteStructure(i--);
+    }
+  }
+  
   
   QHash<QString,QString> wordTerminals;
   int sentenceNr = 0;

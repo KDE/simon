@@ -18,12 +18,19 @@
  */
 #include "qt-atspi.h"
 #include <QDBusArgument>
+#include <qdbusmetatype.h>
 
-#define QSPI_OBJECT_PATH_PREFIX  "/org/a11y/atspi/accessible/"
-#define QSPI_OBJECT_PATH_NULL    QSPI_OBJECT_PATH_PREFIX "null"
+void QtATSPI::registerTypes()
+{
+  qRegisterMetaType<QSpiUIntList>();
+  qRegisterMetaType<QSpiObjectReference>();
+  qDBusRegisterMetaType<QSpiUIntList>();
+  qDBusRegisterMetaType<QSpiObjectReference>();
+}
+
 
 QSpiObjectReference::QSpiObjectReference()
-    : path(QDBusObjectPath(QSPI_OBJECT_PATH_NULL))
+    : path(QDBusObjectPath(QSPI_OBJECT_PATH_ACCESSIBLE_NULL))
 {}
 
 /* QSpiObjectReference */

@@ -556,9 +556,15 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::get
 
 ScenarioManager::~ScenarioManager()
 {
+  foreach (Scenario *s, scenarios)
+    s->blockSignals(true);
+  blockSignals(true);
+  
   instance = 0;
-  foreach (ScenarioDisplay *d, scenarioDisplays)
+  foreach (ScenarioDisplay *d, scenarioDisplays) {
+    kDebug() << "Deleting scenario display: " << d;
     delete d;
+  }
   scenarioDisplays.clear();
   
   delete shadowVocab;

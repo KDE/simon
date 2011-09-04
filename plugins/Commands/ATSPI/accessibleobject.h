@@ -40,13 +40,15 @@ class AccessibleObject : public QObject
 Q_OBJECT
 signals:
   void changed();
+  void serviceRemoved(AccessibleObject*);
   
 public:
-  AccessibleObject(QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent );
+  AccessibleObject(QDBusConnection &conn, const QString &service, const QString &path, AccessibleObject *parent);
   ~AccessibleObject();
 
   //getter functions
   QString name() const;
+  QString service() const;
   AccessibleObject *getChild(int index) const;
   AccessibleObject *getParent() const;
   QString path() const;
@@ -63,6 +65,12 @@ public:
   
   //actions
   bool trigger(const QString& name) const;
+  
+  //monitoring
+  void setPropertyChanged(const QString& change, int, int, QDBusVariant);
+  void setStateChanged(const QString& change, int, int, QDBusVariant);
+  void setChildrenChanged(const QString& change, int, int, QDBusVariant);
+  void resetChildren();
 
 private:
   //set in constructor
@@ -93,6 +101,9 @@ private:
   void fetchRole();
   void fetchIndexInParent();
   void fetchChildCount();
+  
+  AccessibleObject* findChild(const QString& path);
+  AccessibleObject* findOrCreateChild(QDBusVariant reference);
   
 private slots:
   void slotPropertyChange(const QString& change, int, int, QDBusVariant);

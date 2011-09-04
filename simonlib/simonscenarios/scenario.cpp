@@ -65,6 +65,7 @@ m_actionCollection(0)
  */
 bool Scenario::init(QString path)
 {
+  startGroup(); //ensure we have completely initialized the scenario before saving it
   QDomDocument *doc=0;
   bool deleteDoc;
   if (!setupToParse(path, doc, deleteDoc)) return false;
@@ -84,6 +85,7 @@ bool Scenario::init(QString path)
   if (!readTrainingsTexts(path, doc)) return false;
 
   delete doc;
+  commitGroup();
   return true;
 }
 
@@ -342,6 +344,7 @@ bool Scenario::save(QString path)
     m_dirty = true;
     return true;
   }
+  kDebug() << "Saving scenario";
 
   m_lastModifiedDate = utcTime();
   QString serialized = serialize();
@@ -369,6 +372,7 @@ bool Scenario::save(QString path)
   m_dirty = false;
   emit changed(this);
 
+  kDebug() << "Done saving scenario...";
   return true;
 }
 
@@ -610,7 +614,7 @@ QStringList Scenario::getAllPossibleSentences()
 }
 
 
-QStringList Scenario::getExampleSentencesOfStructur(const QString& structure)
+QStringList Scenario::getExampleSentencesOfStructure(const QString& structure)
 {
   int alreadyFoundExamples = 0;
   return getAllPossibleSentencesOfStructure(structure, &alreadyFoundExamples);

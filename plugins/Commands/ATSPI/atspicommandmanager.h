@@ -21,8 +21,12 @@
 #ifndef SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 #define SIMON_ATSPICOMMANDMANAGER_H_7A7B9100FF5245329569C1B540119C37
 
+#include "qt-atspi.h"
 #include <simonscenarios/commandmanager.h>
 #include <QVariantList>
+#include <QDBusVariant>
+#include <QDBusArgument>
+#include <QDBusMessage>
 
 class ATSPIConfiguration;
 class AccessibleObject;
@@ -39,6 +43,10 @@ private slots:
   void registry(const QDBusMessage &message);
   void objectChanged();
   
+  void newClient(const QString& change, int, int, QDBusVariant data, QSpiObjectReference reference);
+  
+  void serviceRemoved(AccessibleObject *service);
+  
   void setupObjects();
   
 private:
@@ -53,6 +61,8 @@ private:
   
   void setupLanguageModel(const QStringList& commands);
   void clearDynamicLanguageModel();
+  
+  void setupService(const QString& service, const QString& path);
 
 public:
   const QString preferredTrigger() const { return QString(); }

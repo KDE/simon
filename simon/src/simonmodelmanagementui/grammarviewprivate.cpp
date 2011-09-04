@@ -75,7 +75,7 @@ void GrammarViewPrivate::currentSelectionChanged()
 
     QString selectedStructure = ScenarioManager::getInstance()->getCurrentScenario()->grammar()->getStructure(structureIndex);
 
-    QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getExampleSentencesOfStructur(selectedStructure);
+    QStringList examples = ScenarioManager::getInstance()->getCurrentScenario()->getExampleSentencesOfStructure(selectedStructure);
     ui.lwExamples->addItems(examples);
   }
 }
