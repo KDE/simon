@@ -42,9 +42,9 @@ registerPlugin< ATSPICommandManager >();
 K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  wordNr(0), sentenceNr(0), c(0), setupObjectsTimeout(new QTimer(this))
+  sentenceNr(0), c(0), setupObjectsTimeout(new QTimer(this))
 {
-  setupObjectsTimeout->setInterval(1000);
+  setupObjectsTimeout->setInterval(150);
   setupObjectsTimeout->setSingleShot(true);
   connect(setupObjectsTimeout, SIGNAL(timeout()), this, SLOT(setupObjects()));
 }
@@ -292,32 +292,42 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
 //         grammar->deleteStructure(i--);
 //     }
 //   }
-  
-  QHash<QString,QString> wordTerminals;
-  foreach (const QString& sentence, newCommands) {
-    QStringList words = sentence.split(" ");
-    
-    ++sentenceNr;
-    bool allTranscribed = true;
-    
-    QString structure;
-    foreach (const QString& word, words) {
-      QString terminal = QString("ATSPI_INTERNAL_%1_%2").arg(sentenceNr).arg(++wordNr);
-      structure.append(terminal+" ");
-      
-      QString transcription = ScenarioManager::getInstance()->transcribe(word);
-      if (transcription.isEmpty()) {
-        kWarning() << "Couldn't transcribe " << word;
-        allTranscribed = false;
-        break;
-      } else {
-        vocab->addWord(new Word(word, transcription, terminal));
-        kDebug() << "Adding word";
-      }
-      
+
+
+  if (!newCommands.isEmpty()) { //add new words
+    QStringList allWords;
+    QList<QStringList> sentenceWords;
+    foreach (const QString& command, newCommands) {
+      QStringList words = command.split(" ");
+      allWords << words;
+      sentenceWords << words;
     }
-    if (allTranscribed)
-      grammar->addStructure(structure.trimmed());
+    
+    unsigned int wordNr = 0;
+    QStringList transcriptions = ScenarioManager::getInstance()->transcribe(allWords);
+    for (int i=0; i < newCommands.count(); i++) {
+      ++sentenceNr;
+      bool allTranscribed = true;
+      
+      QString structure;
+      foreach (const QString& word, sentenceWords[i]) {
+        QString terminal = QString("ATSPI_INTERNAL_%1_%2").arg(sentenceNr).arg(++wordNr);
+        structure.append(terminal+" ");
+        
+        QString transcription = transcriptions[wordNr-1];
+        if (transcription.isEmpty()) {
+          kWarning() << "Couldn't transcribe " << word;
+          allTranscribed = false;
+          break;
+        } else {
+          vocab->addWord(new Word(word, transcription, terminal));
+          kDebug() << "Adding word";
+        }
+        
+      }
+      if (allTranscribed)
+        grammar->addStructure(structure.trimmed());
+    }
   }
   
   parentScenario->commitGroup();

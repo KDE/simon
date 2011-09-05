@@ -68,9 +68,6 @@ public:
   bool trigger(const QString& name) const;
   
   //monitoring
-  void setPropertyChanged();
-  void setStateChanged();
-  void setChildrenChanged();
   void resetChildren();
 
 private:

@@ -127,29 +127,63 @@ QString GraphemeToPhoneme::getError()
   return error;
 }
 
-bool GraphemeToPhoneme::transcribe(const QString& word, const QString& pathToModel, QString& transcription)
+QList< TranscriptionResult > GraphemeToPhoneme::transcribe(const QStringList& words, const QString& pathToModel)
 {
+  kDebug() << "Transcribing: " << words;
+  QList<TranscriptionResult> results;
+  
   QString sequiturExe;
   if (!findSequitur(sequiturExe))
-    return false;
+    return results;
 
   QString tempFilePath = KStandardDirs::locateLocal("tmp", "simon/sequitur/toTranscribe");
   QFile f(tempFilePath);
   if (!f.open(QIODevice::WriteOnly))
-    return false;
-  f.write(word.toUtf8().toUpper()+"\n");
+    return results;
+  
+  QList<QByteArray> wordListPrepared;
+  foreach (const QString& word, words) {
+    QByteArray w = word.toUtf8().toUpper();
+    if (!wordListPrepared.contains(w)) {
+      wordListPrepared << w;
+      f.write(w+"\n");
+    }
+  }
   f.close();
   
   KProcess sequitur;
   sequitur.setProgram(sequiturExe, QStringList() << "-m" << pathToModel << "-a" << tempFilePath);
-  sequitur.setOutputChannelMode(KProcess::OnlyStdoutChannel);
+  sequitur.setOutputChannelMode(KProcess::SeparateChannels);
   sequitur.start();
   if (!sequitur.waitForFinished(3000))
     sequitur.terminate();
+  if (sequitur.exitStatus() != QProcess::NormalExit)
+    return results;
   
-  transcription = QString::fromUtf8(sequitur.readAllStandardOutput()).trimmed();
-  transcription.remove(0, transcription.indexOf('\t')+1);
-  transcription = transcription.left(transcription.indexOf('\n'));
-  return true;
+  QStringList errors = QString::fromUtf8(sequitur.readAllStandardError()).trimmed().split('\n');
+  QStringList outputLines = QString::fromUtf8(sequitur.readAllStandardOutput()).trimmed().split('\n');
+  int errorIndex = 0;
+  int outputIndex = 0;
+  QHash<QByteArray, TranscriptionResult> transcribed;
+  for (int i=0; i < wordListPrepared.count(); i++) {
+    const QByteArray& key = wordListPrepared[i];
+    if (outputIndex == outputLines.count()) {
+      for (int j = errorIndex; j < errors.count() - 1; j++)
+        transcribed.insert(key, TranscriptionResult(false, errors[j]));
+      break;
+    }
+    
+    QString line = outputLines[outputIndex++];
+    QByteArray thisWord = words[i].toUtf8().toUpper();
+    if (line.startsWith(thisWord+'\t'))
+      transcribed.insert(key, TranscriptionResult(true, line.mid(thisWord.length()+1)));
+    else
+      transcribed.insert(key, TranscriptionResult(false, errors[errorIndex++]));
+  }
+  
+  foreach (const QString& word, words) { //restore duplicates 
+    kDebug() << "Adding result for " << word << transcribed.value(word.toUtf8().toUpper()).getData();
+    results << transcribed.value(word.toUtf8().toUpper());
+  }
+  return results;
 }
-

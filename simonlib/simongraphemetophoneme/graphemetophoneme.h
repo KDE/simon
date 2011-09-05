@@ -22,6 +22,7 @@
 
 #include "simongraphemetophoneme_export.h"
 #include <QObject>
+#include "transcriptionresult.h"
 
 class KProcess;
 
@@ -67,11 +68,7 @@ public:
    */
   static bool findSequitur(QString& out);
   
-  /**
-   * \return True if the transcription was successful
-   * \param transcription The transcription, if true is returned - otherwise an error string
-   */
-  static bool transcribe(const QString& word, const QString& pathToModel, QString& transcription);
+  static QList<TranscriptionResult> transcribe(const QStringList& words, const QString& pathToModel);
   
   void abort();
   GraphemeToPhonemeState getState();

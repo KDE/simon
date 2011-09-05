@@ -1,7 +1,8 @@
 include(SimonDirs)
 
 set( simongraphemetophoneme_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/graphemetophoneme.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/graphemetophoneme.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/transcriptionresult.cpp
 )
 
 set( simongraphemetophoneme_LIB_HDRS

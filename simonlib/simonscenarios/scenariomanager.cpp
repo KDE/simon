@@ -77,20 +77,49 @@ void ScenarioManager::slotBaseModelChanged()
     emit baseModelChanged();
 }
 
+QStringList ScenarioManager::transcribe(QStringList words)
+{
+  QStringList out;
+  QStringList toTranscribe;
+  QList<int> toTranscribeSpots;
+  foreach (const QString& word, words) {
+    QList<Word*> similar = ScenarioManager::getInstance()->findWords(word,
+        (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
+        SpeechModel::AllScenariosVocabulary), Vocabulary::ExactMatch);
+    if (!similar.isEmpty()) {
+      out << similar.first()->getPronunciation();
+      continue;
+    }
+    toTranscribeSpots << out.size();
+    out << QString(); // to be replaced
+    toTranscribe << word;
+  }
+  if (!toTranscribe.isEmpty()) {
+    //sequitur
+    QString transcription;
+    QList<TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, KStandardDirs::locate("appdata", "model/languageProfile"));
+    if (sequiturResults.isEmpty()) {
+      kWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
+      return out;
+    }
+    
+    Q_ASSERT(sequiturResults.count() == toTranscribe.count());
+    
+    for (int i=0; i < toTranscribeSpots.count(); i++) {
+      const TranscriptionResult& thisResult(sequiturResults[i]);
+      if (thisResult.getSuccess())
+        out.replace(toTranscribeSpots[i], thisResult.getData());
+      else
+        kWarning() << "Failed to transcribe word: " << thisResult.getData();
+    }
+  }
+  kDebug() << out;
+  return out;
+}
+
 QString ScenarioManager::transcribe(QString word)
 {
-  QList<Word*> similar = ScenarioManager::getInstance()->findWords(word,
-    (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
-    SpeechModel::AllScenariosVocabulary), Vocabulary::ExactMatch);
-  if (!similar.isEmpty()) {
-    return similar.first()->getPronunciation();
-  }
-  
-  //sequitur
-  QString transcription;
-  if (GraphemeToPhoneme::transcribe(word, KStandardDirs::locate("appdata", "model/languageProfile"), transcription))
-    return transcription;
-  return QString();
+  return transcribe(QStringList() << word).first();
 }
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)

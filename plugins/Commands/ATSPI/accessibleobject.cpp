@@ -114,7 +114,7 @@ void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg
   kDebug() << "State changed of " << message().path() << ": " << change << arg1 << arg2;
   AccessibleObject *o = findOrCreateChild(message().path());
   if (o) {
-    o->setStateChanged();
+    o->fetchState();
     emit changed();
   }
 }
@@ -131,7 +131,7 @@ void AccessibleObject::slotChildrenChanged(const QString &change, int arg1, int 
     if ((o == this) && (change == "remove")) {
       emit serviceRemoved(this);
     } else {
-      o->setChildrenChanged();
+      o->resetChildren();
       emit changed();
     }
   } else {
@@ -149,38 +149,9 @@ void AccessibleObject::slotPropertyChange(const QString& change, int arg1, int a
   kDebug() << "Property changed of " << message().path() << ": " << change << arg1 << arg2;
   AccessibleObject *o = findOrCreateChild(message().path());
   if (o) {
-    o->setPropertyChanged();
+    o->fetchName();
     emit changed();
   }
-}
-
-////
-
-void AccessibleObject::setStateChanged()
-{
-  fetchState();
-}
-
-void AccessibleObject::setChildrenChanged()
-{
-  resetChildren();
-}
-
-void AccessibleObject::setPropertyChanged()
-{
-  fetchName();
-  //don't need to fetch child count (the other relevant property) as that will fire another
-  //ChildrenChanged signal
-}
-
-void AccessibleObject::resetChildren()
-{
-  //invalidate children cache to be re-build on next access
-  fetchChildCount();
-  qDeleteAll(m_children);
-  m_children.clear();
-  
-  //TODO: Make this a bit smarter...
 }
 
 // Fetching functions
@@ -301,7 +272,8 @@ int AccessibleObject::role() const
 
 bool AccessibleObject::isShown() const
 {
-  return   ((m_state & (quint64(1) << ATSPI_STATE_VISIBLE)) &&
+  return   (!m_name.isEmpty() && 
+            (m_state & (quint64(1) << ATSPI_STATE_VISIBLE)) &&
             (m_state & (quint64(1) << ATSPI_STATE_SHOWING)));
 }
 
@@ -407,6 +379,29 @@ QVariant AccessibleObject::getProperty ( const QString &service, const QString &
   
   QDBusVariant v = reply.arguments().at ( 0 ).value<QDBusVariant>();
   return v.variant();
+}
+
+void AccessibleObject::resetChildren()
+{
+  //invalidate children cache to be re-build on next access
+  QHash<QString, AccessibleObject*> oldChildren;
+  foreach (AccessibleObject *o, m_children)
+    if (o)
+      oldChildren.insert(o->path(), o);
+  m_children.clear();
+  fetchChildCount();
+  
+  for (int i=0; i < m_childCount; i++) {
+    AccessibleObject *newObject = getChild(i);
+    QString childPath = newObject->path();
+    //replace newly created child with old one
+    if (oldChildren.contains(childPath)) {
+      delete m_children.takeAt(i);
+      m_children.insert(i, oldChildren.take(childPath));
+    }
+  }
+  
+  qDeleteAll(oldChildren.values());
 }
 
 // Logic functions
