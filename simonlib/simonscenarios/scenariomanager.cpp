@@ -77,40 +77,35 @@ void ScenarioManager::slotBaseModelChanged()
     emit baseModelChanged();
 }
 
-QStringList ScenarioManager::transcribe(QStringList words)
+QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
 {
-  QStringList out;
+  QHash<QString,QString> out;
   QStringList toTranscribe;
-  QList<int> toTranscribeSpots;
   foreach (const QString& word, words) {
     QList<Word*> similar = ScenarioManager::getInstance()->findWords(word,
         (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
         SpeechModel::AllScenariosVocabulary), Vocabulary::ExactMatch);
     if (!similar.isEmpty()) {
-      out << similar.first()->getPronunciation();
+      out.insert(word.toUpper(), similar.first()->getPronunciation());
       continue;
     }
-    toTranscribeSpots << out.size();
-    out << QString(); // to be replaced
     toTranscribe << word;
   }
   if (!toTranscribe.isEmpty()) {
     //sequitur
     QString transcription;
-    QList<TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, KStandardDirs::locate("appdata", "model/languageProfile"));
+    QHash<QString, TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, KStandardDirs::locate("appdata", "model/languageProfile"));
     if (sequiturResults.isEmpty()) {
       kWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
       return out;
     }
     
-    Q_ASSERT(sequiturResults.count() == toTranscribe.count());
-    
-    for (int i=0; i < toTranscribeSpots.count(); i++) {
-      const TranscriptionResult& thisResult(sequiturResults[i]);
-      if (thisResult.getSuccess())
-        out.replace(toTranscribeSpots[i], thisResult.getData());
+    for (QHash<QString,TranscriptionResult>::const_iterator i = sequiturResults.constBegin();
+         i != sequiturResults.constEnd(); i++) {
+      if (i.value().getSuccess())
+        out.insert(i.key(), i.value().getData());
       else
-        kWarning() << "Failed to transcribe word: " << thisResult.getData();
+        kWarning() << i.key() << "could not be transcribed";
     }
   }
   kDebug() << out;
@@ -119,7 +114,7 @@ QStringList ScenarioManager::transcribe(QStringList words)
 
 QString ScenarioManager::transcribe(QString word)
 {
-  return transcribe(QStringList() << word).first();
+  return transcribe(QStringList() << word).value(word.toUpper());
 }
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)

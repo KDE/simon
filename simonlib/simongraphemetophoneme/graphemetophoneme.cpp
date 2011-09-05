@@ -127,19 +127,19 @@ QString GraphemeToPhoneme::getError()
   return error;
 }
 
-QList< TranscriptionResult > GraphemeToPhoneme::transcribe(const QStringList& words, const QString& pathToModel)
+QHash< QString, TranscriptionResult > GraphemeToPhoneme::transcribe(const QStringList& words, const QString& pathToModel)
 {
   kDebug() << "Transcribing: " << words;
-  QList<TranscriptionResult> results;
+  QHash<QString, TranscriptionResult> transcribed;
   
   QString sequiturExe;
   if (!findSequitur(sequiturExe))
-    return results;
+    return transcribed;
 
   QString tempFilePath = KStandardDirs::locateLocal("tmp", "simon/sequitur/toTranscribe");
   QFile f(tempFilePath);
   if (!f.open(QIODevice::WriteOnly))
-    return results;
+    return transcribed;
   
   QList<QByteArray> wordListPrepared;
   foreach (const QString& word, words) {
@@ -158,32 +158,33 @@ QList< TranscriptionResult > GraphemeToPhoneme::transcribe(const QStringList& wo
   if (!sequitur.waitForFinished(3000))
     sequitur.terminate();
   if (sequitur.exitStatus() != QProcess::NormalExit)
-    return results;
+    return transcribed;
   
   QStringList errors = QString::fromUtf8(sequitur.readAllStandardError()).trimmed().split('\n');
   QStringList outputLines = QString::fromUtf8(sequitur.readAllStandardOutput()).trimmed().split('\n');
+  kDebug() << "Errors: " << errors;
+  kDebug() << "Output: " << outputLines;
   int errorIndex = 0;
   int outputIndex = 0;
-  QHash<QByteArray, TranscriptionResult> transcribed;
   for (int i=0; i < wordListPrepared.count(); i++) {
-    const QByteArray& key = wordListPrepared[i];
+    const QString& key = QString::fromUtf8(wordListPrepared[i]);
     if (outputIndex == outputLines.count()) {
       for (int j = errorIndex; j < errors.count() - 1; j++)
         transcribed.insert(key, TranscriptionResult(false, errors[j]));
       break;
     }
     
-    QString line = outputLines[outputIndex++];
-    QByteArray thisWord = words[i].toUtf8().toUpper();
-    if (line.startsWith(thisWord+'\t'))
-      transcribed.insert(key, TranscriptionResult(true, line.mid(thisWord.length()+1)));
-    else
+    QString line = outputLines[outputIndex];
+    kDebug() << "Word result: " << key;
+    if (line.startsWith(key+'\t')) {
+      transcribed.insert(key, TranscriptionResult(true, line.mid(key.length()+1)));
+      outputIndex++;
+      kDebug() << "Found!" << line;
+    } else {
+      kDebug() << "Error!" << errors[errorIndex];
       transcribed.insert(key, TranscriptionResult(false, errors[errorIndex++]));
+    }
   }
   
-  foreach (const QString& word, words) { //restore duplicates 
-    kDebug() << "Adding result for " << word << transcribed.value(word.toUtf8().toUpper()).getData();
-    results << transcribed.value(word.toUtf8().toUpper());
-  }
-  return results;
+  return transcribed;
 }

@@ -20,9 +20,10 @@
 #ifndef SIMON_GRAPHEMETOPHONEME_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
 #define SIMON_GRAPHEMETOPHONEME_H_DA7C3A7BA63E42D7A49216FBDDA84C6D
 
+#include "transcriptionresult.h"
 #include "simongraphemetophoneme_export.h"
 #include <QObject>
-#include "transcriptionresult.h"
+#include <QHash>
 
 class KProcess;
 
@@ -68,7 +69,7 @@ public:
    */
   static bool findSequitur(QString& out);
   
-  static QList<TranscriptionResult> transcribe(const QStringList& words, const QString& pathToModel);
+  static QHash<QString, TranscriptionResult> transcribe(const QStringList& words, const QString& pathToModel);
   
   void abort();
   GraphemeToPhonemeState getState();

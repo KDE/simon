@@ -46,7 +46,7 @@ AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &servi
                               SLOT(slotPropertyChange(QString, int, int, QDBusVariant, QSpiObjectReference)));
   }
   
-  kDebug() << "Created new accessible object: " << m_name;
+  kDebug() << "Created new accessible object: " << m_name << m_path;
 }
 
 AccessibleObject::~AccessibleObject()
@@ -111,6 +111,8 @@ AccessibleObject* AccessibleObject::findOrCreateChild(const QString& pathOfChild
 
 void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
+  Q_UNUSED(data);
+  Q_UNUSED(reference);
   kDebug() << "State changed of " << message().path() << ": " << change << arg1 << arg2;
   AccessibleObject *o = findOrCreateChild(message().path());
   if (o) {
@@ -121,6 +123,7 @@ void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg
 
 void AccessibleObject::slotChildrenChanged(const QString &change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
+  Q_UNUSED(reference);
   QDBusArgument dataArg(data.variant().value<QDBusArgument>());
   QSpiObjectReference ref;
   dataArg >> ref;
@@ -131,7 +134,7 @@ void AccessibleObject::slotChildrenChanged(const QString &change, int arg1, int 
     if ((o == this) && (change == "remove")) {
       emit serviceRemoved(this);
     } else {
-      o->resetChildren();
+      o->getParent()->resetChildren(); //because o != this there will be a parent
       emit changed();
     }
   } else {
@@ -143,6 +146,8 @@ void AccessibleObject::slotChildrenChanged(const QString &change, int arg1, int 
 
 void AccessibleObject::slotPropertyChange(const QString& change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
+  Q_UNUSED(data);
+  Q_UNUSED(reference);
   if (change != "accessible-name")
     return; //everything is irrelevant for us
   
@@ -172,6 +177,14 @@ void AccessibleObject::fetchIndexInParent()
 void AccessibleObject::fetchName()
 {
   m_name = getProperty ( m_service, m_path, "org.a11y.atspi.Accessible", "Name" ).toString();
+  
+  m_name.remove(QRegExp("<[^>]*>")); //strip html tags
+  m_name.remove('\n'); //remove linebreaks
+  
+  //TODO: NUMBERS!
+  m_name.remove(QRegExp("[^a-z A-Z]")); //strip everything except characters and spaces
+  m_name.replace(QRegExp("  +"), " "); //eliminate double spacing
+  m_name = m_name.trimmed();
 }
 
 void AccessibleObject::fetchRole()

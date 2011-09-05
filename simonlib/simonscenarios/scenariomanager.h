@@ -134,7 +134,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void updateDisplays(Scenario* scenario, bool force=false);
 
     void slotBaseModelChanged();
-    QStringList transcribe(QStringList words);
+    QHash< QString, QString > transcribe(QStringList words);
     QString transcribe(QString word);
 
 };

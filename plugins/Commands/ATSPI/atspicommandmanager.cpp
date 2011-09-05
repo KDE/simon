@@ -257,7 +257,6 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
       grammar->deleteStructure(i--);
     }
   }
-  
 //   Slower version that could potentially handle merged grammar (untested draft)
 //   TODO: Determine which is faster: Speeding up dfa with combined sentence structures
 //         at the cost of setup time or faster setup (each word has a unique terminal)
@@ -304,7 +303,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     }
     
     unsigned int wordNr = 0;
-    QStringList transcriptions = ScenarioManager::getInstance()->transcribe(allWords);
+    QHash<QString,QString> transcriptions = ScenarioManager::getInstance()->transcribe(allWords);
     for (int i=0; i < newCommands.count(); i++) {
       ++sentenceNr;
       bool allTranscribed = true;
@@ -314,7 +313,7 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
         QString terminal = QString("ATSPI_INTERNAL_%1_%2").arg(sentenceNr).arg(++wordNr);
         structure.append(terminal+" ");
         
-        QString transcription = transcriptions[wordNr-1];
+        QString transcription = transcriptions.value(word.toUpper());
         if (transcription.isEmpty()) {
           kWarning() << "Couldn't transcribe " << word;
           allTranscribed = false;
