@@ -42,7 +42,7 @@ registerPlugin< ATSPICommandManager >();
 K_EXPORT_PLUGIN( ATSPICommandPluginFactory("simonatspicommand") )
 
 ATSPICommandManager::ATSPICommandManager(QObject* parent, const QVariantList& args) : CommandManager((Scenario*) parent, args),
-  c(0), setupObjectsTimeout(new QTimer(this))
+  wordNr(0), sentenceNr(0), c(0), setupObjectsTimeout(new QTimer(this))
 {
   setupObjectsTimeout->setInterval(1000);
   setupObjectsTimeout->setSingleShot(true);
@@ -197,6 +197,7 @@ void ATSPICommandManager::setupService(const QString& service, const QString& pa
 
 void ATSPICommandManager::serviceRemoved(AccessibleObject* service)
 {
+  service->blockSignals(true);
   rootAccessibles.removeAll(service);
   service->deleteLater();
   setupObjects();
@@ -223,7 +224,9 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     if (newCommands.removeAll(c) != 0)
       commandsToRemove.removeAll(c);
   }
-  //now all removed commands remain in lastCommands
+  
+  kDebug() << "Commands to remove: " << commandsToRemove;
+  kDebug() << "Commands to add: " << newCommands;
   
   ActiveVocabulary *vocab = parentScenario->vocabulary();
   Grammar *grammar = parentScenario->grammar();
@@ -231,7 +234,6 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
   parentScenario->startGroup();
   //remove old stuff
   if (!commandsToRemove.isEmpty()) {
-    kDebug() << "Commands to remove: " << commandsToRemove;
     QStringList currentStructures = grammar->getStructures();
     for (int i=0; i < grammar->structureCount(); i++) {
       QString sent = grammar->getStructure(i);
@@ -256,14 +258,46 @@ void ATSPICommandManager::setupLanguageModel(const QStringList& commands)
     }
   }
   
+//   Slower version that could potentially handle merged grammar (untested draft)
+//   TODO: Determine which is faster: Speeding up dfa with combined sentence structures
+//         at the cost of setup time or faster setup (each word has a unique terminal)
+//         at the cost of much more sentences.
+//         Maybe we can merge trivial sentences (only one word) into one terminal - then
+//         the setup time should still be comperably slow but it should keep the grammar
+//         much smaller
+//         
+//     if (!commandsToRemove.isEmpty()) {
+//     kDebug() << "Commands to remove: " << commandsToRemove;
+//     QStringList currentStructures = grammar->getStructures();
+//     for (int i=0; i < grammar->structureCount(); i++) {
+//       QString sent = grammar->getStructure(i);
+//       //find sentence
+//       QStringList exampleSentences = parentScenario->getExampleSentencesOfStructure(sent);
+//       bool allDeleted = true;
+//       for (int j=0; j < exampleSentences.size(); j++) {
+//         QString exampleSentence = exampleSentences[j];
+//         if (commandsToRemove.contains(exampleSentence)) {
+//           QStringList terminals = sent.split(" ");
+//           QStringList words = exampleSentence.split(" ");
+//           for (int k = 0; k < terminals.count(); k++) {
+//             QList<Word*> words = vocab->findWordsByTerminal(terminals[k]);
+//             foreach (Word* w, words) {
+//               if (w->getWord() == words[k])
+//                 vocab->removeWord(w);
+//             }
+//           }
+//         }
+//       }
+//       if (allDeleted)
+//         grammar->deleteStructure(i--);
+//     }
+//   }
   
   QHash<QString,QString> wordTerminals;
-  int sentenceNr = 0;
   foreach (const QString& sentence, newCommands) {
     QStringList words = sentence.split(" ");
     
     ++sentenceNr;
-    int wordNr = 0;
     bool allTranscribed = true;
     
     QString structure;

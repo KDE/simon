@@ -50,6 +50,8 @@ private slots:
   void setupObjects();
   
 private:
+  unsigned int wordNr;
+  unsigned int sentenceNr;
   DBusConnection *c;
   QTimer* setupObjectsTimeout;
   

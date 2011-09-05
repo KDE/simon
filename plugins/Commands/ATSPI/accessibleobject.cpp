@@ -39,12 +39,14 @@ AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &servi
   //setting up monitoring
   if (!parent) {
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "StateChanged", this, 
-                              SLOT(slotStateChanged(QString, int, int, QDBusVariant)));
+                              SLOT(slotStateChanged(QString, int, int, QDBusVariant, QSpiObjectReference)));
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "ChildrenChanged", this, 
-                              SLOT(slotChildrenChanged(QString, int, int, QDBusVariant)));
+                              SLOT(slotChildrenChanged(QString, int, int, QDBusVariant, QSpiObjectReference)));
     m_conn.connect(m_service, "", "org.a11y.atspi.Event.Object", "PropertyChanged", this, 
-                              SLOT(slotPropertyChange(QString, int, int, QDBusVariant)));
+                              SLOT(slotPropertyChange(QString, int, int, QDBusVariant, QSpiObjectReference)));
   }
+  
+  kDebug() << "Created new accessible object: " << m_name;
 }
 
 AccessibleObject::~AccessibleObject()
@@ -71,13 +73,8 @@ AccessibleObject* AccessibleObject::findChild(const QString& path)
   return 0;
 }
 
-AccessibleObject* AccessibleObject::findOrCreateChild(QDBusVariant reference)
+AccessibleObject* AccessibleObject::findOrCreateChild(const QString& pathOfChild)
 {
-  QDBusArgument dataArg(reference.variant().value<QDBusArgument>());
-  QSpiObjectReference ref;
-  dataArg >> ref;
-  
-  QString pathOfChild = ref.path.path();
   AccessibleObject *changedObject = findChild(pathOfChild);
   if (!changedObject) {
     //find parent object
@@ -112,63 +109,65 @@ AccessibleObject* AccessibleObject::findOrCreateChild(QDBusVariant reference)
   return changedObject;
 }
 
-void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg2, QDBusVariant data)
+void AccessibleObject::slotStateChanged(const QString& change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
-  AccessibleObject *o = findOrCreateChild(data);
+  kDebug() << "State changed of " << message().path() << ": " << change << arg1 << arg2;
+  AccessibleObject *o = findOrCreateChild(message().path());
   if (o) {
-    o->setStateChanged(change, arg1, arg2, data);
+    o->setStateChanged();
     emit changed();
   }
 }
 
-void AccessibleObject::slotChildrenChanged(const QString& change, int arg1, int arg2, QDBusVariant data)
+void AccessibleObject::slotChildrenChanged(const QString &change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
-  AccessibleObject *o = findOrCreateChild(data);
+  QDBusArgument dataArg(data.variant().value<QDBusArgument>());
+  QSpiObjectReference ref;
+  dataArg >> ref;
+
+  kDebug() << "Children changed of " << ref.path.path() << ": " << change << arg1 << arg2;
+  AccessibleObject *o = findOrCreateChild(ref.path.path());
   if (o) {
     if ((o == this) && (change == "remove")) {
       emit serviceRemoved(this);
     } else {
-      o->setChildrenChanged(change, arg1, arg2, data);
+      o->setChildrenChanged();
       emit changed();
     }
+  } else {
+    //can't do anything else but re-fresh everything at this point...
+    resetChildren();
+    emit changed();
   }
 }
 
-void AccessibleObject::slotPropertyChange(const QString& change, int arg1, int arg2, QDBusVariant data)
+void AccessibleObject::slotPropertyChange(const QString& change, int arg1, int arg2, QDBusVariant data, QSpiObjectReference reference)
 {
-  AccessibleObject *o = findOrCreateChild(data);
+  if (change != "accessible-name")
+    return; //everything is irrelevant for us
+  
+  kDebug() << "Property changed of " << message().path() << ": " << change << arg1 << arg2;
+  AccessibleObject *o = findOrCreateChild(message().path());
   if (o) {
-    o->setPropertyChanged(change, arg1, arg2, data);
+    o->setPropertyChanged();
     emit changed();
   }
 }
 
 ////
 
-void AccessibleObject::setStateChanged(const QString& change, int arg1, int arg2, QDBusVariant)
+void AccessibleObject::setStateChanged()
 {
-  kDebug() << "State changed of " << m_name << ": " << change << arg1 << arg2;
   fetchState();
 }
 
-void AccessibleObject::setChildrenChanged(const QString& change, int arg1, int arg2, QDBusVariant data)
+void AccessibleObject::setChildrenChanged()
 {
-  kDebug() << "Children changed of " << m_name << ": " << change << arg1 << arg2;
-  fetchChildCount();
-  
-  QDBusArgument dataArg(data.variant().value<QDBusArgument>());
-  QSpiObjectReference ref;
-  dataArg >> ref;
-  kDebug() << ref.path.path() << ref.service;
-  
-//   if (change == "remove") {
-//     
-//   }
+  resetChildren();
 }
 
-void AccessibleObject::setPropertyChanged(const QString& change, int arg1, int arg2, QDBusVariant)
+void AccessibleObject::setPropertyChanged()
 {
-  kDebug() << "Property changed of " << m_name << ": " << change << arg1 << arg2;
   fetchName();
   //don't need to fetch child count (the other relevant property) as that will fire another
   //ChildrenChanged signal
@@ -180,6 +179,8 @@ void AccessibleObject::resetChildren()
   fetchChildCount();
   qDeleteAll(m_children);
   m_children.clear();
+  
+  //TODO: Make this a bit smarter...
 }
 
 // Fetching functions

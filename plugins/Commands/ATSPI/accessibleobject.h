@@ -31,11 +31,12 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QDBusArgument>
+#include <QDBusContext>
 
 class ATSPIAction;
 class QStringList;
 
-class AccessibleObject : public QObject
+class AccessibleObject : public QObject, protected QDBusContext
 {
 Q_OBJECT
 signals:
@@ -67,9 +68,9 @@ public:
   bool trigger(const QString& name) const;
   
   //monitoring
-  void setPropertyChanged(const QString& change, int, int, QDBusVariant);
-  void setStateChanged(const QString& change, int, int, QDBusVariant);
-  void setChildrenChanged(const QString& change, int, int, QDBusVariant);
+  void setPropertyChanged();
+  void setStateChanged();
+  void setChildrenChanged();
   void resetChildren();
 
 private:
@@ -103,12 +104,12 @@ private:
   void fetchChildCount();
   
   AccessibleObject* findChild(const QString& path);
-  AccessibleObject* findOrCreateChild(QDBusVariant reference);
+  AccessibleObject* findOrCreateChild(const QString& path);
   
 private slots:
-  void slotPropertyChange(const QString& change, int, int, QDBusVariant);
-  void slotStateChanged(const QString& change, int, int, QDBusVariant);
-  void slotChildrenChanged(const QString& change, int, int, QDBusVariant);
+  void slotPropertyChange(const QString& change, int, int, QDBusVariant, QSpiObjectReference);
+  void slotStateChanged(const QString& change, int, int, QDBusVariant, QSpiObjectReference);
+  void slotChildrenChanged(const QString& change, int, int, QDBusVariant, QSpiObjectReference);
 };
 
 #endif // ACCESSIBLEOBJECT_H

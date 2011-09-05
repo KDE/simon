@@ -344,7 +344,6 @@ bool Scenario::save(QString path)
     m_dirty = true;
     return true;
   }
-  kDebug() << "Saving scenario";
 
   m_lastModifiedDate = utcTime();
   QString serialized = serialize();
@@ -372,7 +371,6 @@ bool Scenario::save(QString path)
   m_dirty = false;
   emit changed(this);
 
-  kDebug() << "Done saving scenario...";
   return true;
 }
 
