@@ -19,13 +19,13 @@
  * @author Akinobu Lee
  * @date   Wed Aug  8 15:04:28 2007
  *
- * $Revision: 1.6 $
+ * $Revision: 1.8 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -315,6 +315,45 @@ j_internal_error(char *fmt, ...)
 
 /** 
  * <EN>
+ * If multiple instances defined from init, remove initial one (id=0)
+ * </EN>
+ * <JA>
+ * 複数インスタンスが定義されている場合、初期インスタンス(id=0)は
+ * 無効なので消す. 
+ * </JA>
+ * 
+ * @param jconf [i/o] global configuration instance
+ * 
+ * @callgraph
+ * @callergraph
+ * @ingroup jconf
+ */
+static void
+j_config_remove_initial(Jconf *jconf)
+{
+  JCONF_AM *am;
+  JCONF_LM *lm;
+  JCONF_SEARCH *s;
+
+  if(jconf->am_root->next != NULL && jconf->am_root->id == 0) {
+    am = jconf->am_root->next;
+    free(jconf->am_root);
+    jconf->am_root = am;
+  }
+  if(jconf->lm_root->next != NULL && jconf->lm_root->id == 0) {
+    lm = jconf->lm_root->next;
+    free(jconf->lm_root);
+    jconf->lm_root = lm;
+  }
+  if(jconf->search_root->next != NULL && jconf->search_root->id == 0) {
+    s = jconf->search_root->next;
+    free(jconf->search_root);
+    jconf->search_root = s;
+  }
+}
+
+/** 
+ * <EN>
  * Load parameters from command argments, and set to each configuration
  * instances in jconf.
  * </EN>
@@ -336,30 +375,49 @@ j_internal_error(char *fmt, ...)
 int
 j_config_load_args(Jconf *jconf, int argc, char *argv[])
 {
-  JCONF_AM *am;
-  JCONF_LM *lm;
-  JCONF_SEARCH *s;
-
   /* parse options and set variables */
   if (opt_parse(argc, argv, NULL, jconf) == FALSE) {
     return -1;
   }
   /* if multiple instances defined from init, remove initial one (id=0) */
-  if(jconf->am_root->next != NULL && jconf->am_root->id == 0) {
-    am = jconf->am_root->next;
-    free(jconf->am_root);
-    jconf->am_root = am;
+  j_config_remove_initial(jconf);
+
+  return 0;
+}
+
+/** 
+ * <EN>
+ * Load parameters from command argment string, and set to each configuration
+ * instances in jconf.
+ * </EN>
+ * <JA>
+ * コマンド引数を含む文字列からパラメータを読み込み，jconf 内の各設定インスタンスに
+ * 値を格納する. 
+ * </JA>
+ * 
+ * @param jconf [i/o] global configuration instance
+ * @param argstr [in] argument string
+ * 
+ * @return 0 on success, or -1 on failure.
+ * 
+ * @callgraph
+ * @callergraph
+ * @ingroup jconf
+ */
+int
+j_config_load_string(Jconf *jconf, char *string)
+{
+  int argc;
+  char **argv;
+  char *buf;
+  
+  /* parse options and set variables */
+  if (config_string_parse(string, jconf) == FALSE) {
+    return -1;
   }
-  if(jconf->lm_root->next != NULL && jconf->lm_root->id == 0) {
-    lm = jconf->lm_root->next;
-    free(jconf->lm_root);
-    jconf->lm_root = lm;
-  }
-  if(jconf->search_root->next != NULL && jconf->search_root->id == 0) {
-    s = jconf->search_root->next;
-    free(jconf->search_root);
-    jconf->search_root = s;
-  }
+  /* if multiple instances defined from init, remove initial one (id=0) */
+  j_config_remove_initial(jconf);
+
   return 0;
 }
 
@@ -385,30 +443,13 @@ j_config_load_args(Jconf *jconf, int argc, char *argv[])
 int
 j_config_load_file(Jconf *jconf, char *filename)
 {
-  JCONF_AM *am;
-  JCONF_LM *lm;
-  JCONF_SEARCH *s;
-
   /* parse options and set variables */
   if (config_file_parse(filename, jconf) == FALSE) {
     return -1;
   }
   /* if multiple instances defined from init, remove initial one (id=0) */
-  if(jconf->am_root->next != NULL && jconf->am_root->id == 0) {
-    am = jconf->am_root->next;
-    free(jconf->am_root);
-    jconf->am_root = am;
-  }
-  if(jconf->lm_root->next != NULL && jconf->lm_root->id == 0) {
-    lm = jconf->lm_root->next;
-    free(jconf->lm_root);
-    jconf->lm_root = lm;
-  }
-  if(jconf->search_root->next != NULL && jconf->search_root->id == 0) {
-    s = jconf->search_root->next;
-    free(jconf->search_root);
-    jconf->search_root = s;
-  }
+  j_config_remove_initial(jconf);
+
   return 0;
 }
 
@@ -435,31 +476,10 @@ Jconf *
 j_config_load_args_new(int argc, char *argv[])
 {
   Jconf *jconf;
-  JCONF_AM *am;
-  JCONF_LM *lm;
-  JCONF_SEARCH *s;
-
   jconf = j_jconf_new();
-  /* parse options and set variables */
-  if (opt_parse(argc, argv, NULL, jconf) == FALSE) {
+  if (j_config_load_args(jconf, argc, argv) == -1) {
     j_jconf_free(jconf);
     return NULL;
-  }
-  /* if multiple instances defined from init, remove initial one (id=0) */
-  if(jconf->am_root->next != NULL && jconf->am_root->id == 0) {
-    am = jconf->am_root->next;
-    free(jconf->am_root);
-    jconf->am_root = am;
-  }
-  if(jconf->lm_root->next != NULL && jconf->lm_root->id == 0) {
-    lm = jconf->lm_root->next;
-    free(jconf->lm_root);
-    jconf->lm_root = lm;
-  }
-  if(jconf->search_root->next != NULL && jconf->search_root->id == 0) {
-    s = jconf->search_root->next;
-    free(jconf->search_root);
-    jconf->search_root = s;
   }
   return jconf;
 }
@@ -486,33 +506,104 @@ Jconf *
 j_config_load_file_new(char *filename)
 {
   Jconf *jconf;
-  JCONF_AM *am;
-  JCONF_LM *lm;
-  JCONF_SEARCH *s;
-
   jconf = j_jconf_new();
-  /* parse options and set variables */
-  if (config_file_parse(filename, jconf) == FALSE) {
+  if (j_config_load_file(jconf, filename) == -1) {
     j_jconf_free(jconf);
     return NULL;
   }
-  /* if multiple instances defined from init, remove initial one (id=0) */
-  if(jconf->am_root->next != NULL && jconf->am_root->id == 0) {
-    am = jconf->am_root->next;
-    free(jconf->am_root);
-    jconf->am_root = am;
-  }
-  if(jconf->lm_root->next != NULL && jconf->lm_root->id == 0) {
-    lm = jconf->lm_root->next;
-    free(jconf->lm_root);
-    jconf->lm_root = lm;
-  }
-  if(jconf->search_root->next != NULL && jconf->search_root->id == 0) {
-    s = jconf->search_root->next;
-    free(jconf->search_root);
-    jconf->search_root = s;
+  return jconf;
+}
+
+/** 
+ * <EN>
+ * Create a new configuration instance and load parameters from string
+ * file.
+ * </EN>
+ * <JA>
+ * 新たな設定インスタンスを割り付け，そこに
+ * 文字列から設定パラメータを読み込んで返す. 
+ * </JA>
+ * 
+ * @param string [in] option string
+ * 
+ * @return the newly allocated global configuration instance.
+ * 
+ * @callgraph
+ * @callergraph
+ * @ingroup jconf
+ */
+Jconf *
+j_config_load_string_new(char *string)
+{
+  Jconf *jconf;
+  jconf = j_jconf_new();
+  if (j_config_load_string(jconf, string) == -1) {
+    j_jconf_free(jconf);
+    return NULL;
   }
   return jconf;
+}
+
+/** 
+ * <EN>
+ * Book to read an additional dictionary file to be read.
+ * when called multiple times, all the file name will be stored and read.
+ * The file will be read just after the normal dictionary at startup.
+ * </EN>
+ * <JA>
+ * 追加辞書ファイルの読み込みを指定する.
+ * 複数回呼ばれた場合、すべて読み込まれる。
+ * 指定された辞書は起動時に通常の辞書のあとに続けて読み込まれる.
+ * </JA>
+ *
+ * @param lm [i/o] a LM configuration
+ * @param dictfile [in] dictinoary file name
+ * 
+ * @return the newly allocated global configuration instance.
+ * 
+ * @callgraph
+ * @callergraph
+ * @ingroup jconf
+ */
+void
+j_add_dict(JCONF_LM *lm, char *dictfile)
+{
+  JCONF_LM_NAMELIST *nl;
+  nl = (JCONF_LM_NAMELIST *)mymalloc(sizeof(JCONF_LM_NAMELIST));
+  nl->name = (char *)mymalloc(strlen(dictfile) + 1);
+  strcpy(nl->name, dictfile);
+  nl->next = lm->additional_dict_files;
+  lm->additional_dict_files = nl;
+}
+
+/** 
+ * <EN>
+ * Add an additional word entry.
+ * The string should contain a word entry in as the same format as dictionary.
+ * If called multiple times, all the specified words will be appended.
+ * </EN>
+ * <JA>
+ * 追加の単語エントリを指定する.
+ * 内容は辞書ファイルと同じフォーマット.
+ * 起動までに複数回呼ばれた場合、そのすべてが起動時に追加される.
+ * </JA>
+ *
+ * @param lm [i/o] a LM configuration
+ * @param wordentry [in] word entry string in dictionary format
+ * 
+ * @callgraph
+ * @callergraph
+ * @ingroup jconf
+ */
+void
+j_add_word(JCONF_LM *lm, char *wordentry)
+{
+  JCONF_LM_NAMELIST *nl;
+  nl = (JCONF_LM_NAMELIST *)mymalloc(sizeof(JCONF_LM_NAMELIST));
+  nl->name = (char *)mymalloc(strlen(wordentry) + 1);
+  strcpy(nl->name, wordentry);
+  nl->next = lm->additional_dict_entries;
+  lm->additional_dict_entries = nl;
 }
 
 /** 

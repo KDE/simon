@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Tue Feb 15 23:05:33 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.6 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -96,8 +96,13 @@ hmminfo_new()
 boolean
 hmminfo_free(HTK_HMM_INFO *hmm)
 {
-  /* cdset does not use bmalloc, so free them separately */
-  free_cdset(&(hmm->cdset_info.cdtree), &(hmm->cdset_root));
+  if (hmm->cdset_info.binary_malloc) {
+    /* cdset are allocated by bmalloc (in case read from binary hmmlist) */
+    if (hmm->cdset_root != NULL) mybfree2(&(hmm->cdset_root));
+  } else {
+    /* cdset does not use bmalloc, so free them separately */
+    free_cdset(&(hmm->cdset_info.cdtree), &(hmm->cdset_root));
+  }
 
   /* free all memory that has been allocated by bmalloc2() */
   if (hmm->mroot != NULL) mybfree2(&(hmm->mroot));

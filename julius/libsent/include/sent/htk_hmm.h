@@ -16,13 +16,13 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 19:36:47 2005
  *
- * $Revision: 1.7 $
+ * $Revision: 1.9 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -112,6 +112,7 @@ typedef struct _HTK_HMM_trans {
   char *name;			///< Name (NULL if not defined as Macro)
   short statenum;		///< Number of state
   PROB **a;			///< Matrix of transition probabilities
+  int id; 			///< Uniq transition id starting from 0
   struct _HTK_HMM_trans *next;  ///< Pointer to next data, NULL if last
 } HTK_HMM_Trans;
 
@@ -266,6 +267,7 @@ typedef struct _cd_set{
 } CD_Set;
 /// Top structure to hold all the %HMM sets
 typedef struct {
+  boolean binary_malloc;	///< TRUE if read from binary
   APATNODE *cdtree;		///< Root of index tree for name lookup
 } HMM_CDSET_INFO;
 //@}
@@ -389,6 +391,7 @@ typedef struct {
   LOGPROB iwsp_penalty;		///< Extra ransition penalty for interword skippable short pause insertion for multi-path mode
   boolean variance_inversed;	///< TRUE if variances are inversed
   
+  int totaltransnum;		///< Total number of transitions
   int totalmixnum;		///< Total number of defined mixtures
   int totalstatenum;		///< Total number of states
   int totalhmmnum;		///< Total number of physical %HMM
@@ -409,6 +412,8 @@ typedef struct {
 #ifdef ENABLE_MSD
   boolean has_msd;		///< TRUE if this model contains MSD part
 #endif
+
+  void *hook;			///< General purpose hook
 
   //@}
 } HTK_HMM_INFO;

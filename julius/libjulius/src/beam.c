@@ -42,13 +42,13 @@
  * @author Akinobu LEE
  * @date   Tue Feb 22 17:00:45 2005
  *
- * $Revision: 1.14 $
+ * $Revision: 1.18 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -219,6 +219,7 @@ link_lattice_by_time(WordGraph *root)
 static void
 re_compute_lattice_lm(WordGraph *root, WCHMM_INFO *wchmm)
 {
+  WordGraph *wg;
   int i;
   
   for(wg=root;wg;wg=wg->next) {
@@ -1875,6 +1876,11 @@ get_back_trellis_init(HTK_Param *param,	RecogProcess *r)
   }
 #endif
 
+#ifdef SCORE_PRUNING
+  d->score_pruning_threshold = LOG_ZERO;
+  d->score_pruning_count = 0;
+#endif
+
   return TRUE;
 }
 
@@ -2514,7 +2520,12 @@ beam_inter_word_factoring(WCHMM_INFO *wchmm, FSBeam *d)
     if (wchmm->winfo->is_transparent[sword] && wchmm->winfo->is_transparent[d->wordend_best_last_cword]) {
       tmpsum += d->lm_penalty_trans;
     }
-
+#ifdef SCORE_PRUNING
+    if (tmpsum < d->score_pruning_threshold) {
+      d->score_pruning_count++;
+      continue;
+    }
+#endif
     if (wchmm->hmminfo->multipath) {
       /* since top node has no ouput, we should go one more step further */
       if (wchmm->self_a[next_node] != LOG_ZERO) {
@@ -2605,6 +2616,7 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
   FSBeam *d;
   int j;
   TOKEN2  *tk;
+  LOGPROB minscore;
 
   /* local copied variables */
   int tn, tl;
@@ -2686,6 +2698,12 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
       /* tk: token data  node: lexicon tree node ID that holds the 'tk' */
       tk = &(d->tlist[tl][d->tindex[tl][j]]);
       if (tk->score <= LOG_ZERO) continue; /* invalid node */
+#ifdef SCORE_PRUNING
+      if (tk->score < d->score_pruning_threshold) {
+	d->score_pruning_count++;
+	continue;
+      }
+#endif
       node = tk->node;
       /*********************************/
       /* 2.1. 単語内遷移               */
@@ -2706,7 +2724,12 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
     for(j = d->n_start; j <= d->n_end; j++) {
       tk = &(d->tlist[tn][d->tindex[tn][j]]);
       node = tk->node;
-      
+#ifdef SCORE_PRUNING
+      if (tk->score < d->score_pruning_threshold) {
+	d->score_pruning_count++;
+	continue;
+      }
+#endif
       /* 遷移元ノードが単語終端ならば */
       /* if source node is end state of a word, */
       if (wchmm->stend[node] != WORD_INVALID) {
@@ -2761,6 +2784,12 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
       /* tk: token data  node: lexicon tree node ID that holds the 'tk' */
       tk = &(d->tlist[tl][d->tindex[tl][j]]);
       if (tk->score <= LOG_ZERO) continue; /* invalid node */
+#ifdef SCORE_PRUNING
+      if (tk->score < d->score_pruning_threshold) {
+	d->score_pruning_count++;
+	continue;
+      }
+#endif
       node = tk->node;
       
       /*********************************/
@@ -2838,6 +2867,10 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
   /* 今扱っているのが入力の最終フレームの場合出力確率は計算しない */
   /* don't calculate the last frame (transition only) */
 
+#ifdef SCORE_PRUNING
+  d->score_pruning_max = LOG_ZERO;
+  minscore = 0.0;
+#endif
   if (wchmm->hmminfo->multipath) {
     if (! final_for_multipath) {
       for (j = 0; j < d->tnum[tn]; j++) {
@@ -2845,15 +2878,31 @@ get_back_trellis_proceed(int t, HTK_Param *param, RecogProcess *r, boolean final
 	/* skip non-output state */
 	if (wchmm->state[tk->node].out.state == NULL) continue;
 	tk->score += outprob_style(wchmm, tk->node, tk->last_tre->wid, t, param);
+#ifdef SCORE_PRUNING
+	if (d->score_pruning_max < tk->score) d->score_pruning_max = tk->score;
+	if (minscore > tk->score) minscore = tk->score;
+#endif
       }
     }
   } else {
     for (j = 0; j < d->tnum[tn]; j++) {
       tk = &(d->tlist[tn][d->tindex[tn][j]]);
       tk->score += outprob_style(wchmm, tk->node, tk->last_tre->wid, t, param);
+#ifdef SCORE_PRUNING
+      if (d->score_pruning_max < tk->score) d->score_pruning_max = tk->score;
+      if (minscore > tk->score) minscore = tk->score;
+#endif
     }
   }
-
+#ifdef SCORE_PRUNING
+  if (r->config->pass1.score_pruning_width >= 0.0) {
+    d->score_pruning_threshold = d->score_pruning_max - r->config->pass1.score_pruning_width;
+    //printf("width=%f, tnum=%d\n", d->score_pruning_max - minscore, d->tnum[tn]);
+  } else {
+    // disable score pruning
+    d->score_pruning_threshold = LOG_ZERO;
+  }
+#endif
   /*******************************************************/
   /* 4. スコアでトークンをソートしビーム幅分の上位を決定 */
   /*    sort tokens by score up to beam width            */
@@ -2980,6 +3029,9 @@ get_back_trellis_end(HTK_Param *param, RecogProcess *r)
     }
 
   }
+#ifdef SCORE_PRUNING
+  if (debug2_flag) jlog("STAT: %d tokens pruned by score beam\n", d->score_pruning_count);
+#endif
     
 }
 

@@ -41,13 +41,13 @@
  * @author Akinobu LEE
  * @date   Tue Mar 15 05:14:10 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 
 /*
  * Copyright (c) 2003-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 

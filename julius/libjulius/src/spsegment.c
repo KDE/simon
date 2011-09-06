@@ -58,13 +58,13 @@
  * @author Akinobu Lee
  * @date   Wed Oct 17 12:47:29 2007
  *
- * $Revision: 1.2 $
+ * $Revision: 1.4 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -840,8 +840,8 @@ spsegment_need_restart(Recog *recog, int *rf_ret, boolean *repro_ret)
   RecogProcess *p;
 #endif
   boolean ok_p;
-  int rewind_frame;
-  boolean reprocess;
+  int rewind_frame = 0;
+  boolean reprocess = FALSE;
 
   ok_p = FALSE;
   if (recog->jconf->decodeopt.segment) {

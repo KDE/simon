@@ -1,9 +1,9 @@
-# Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+# Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
 # Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
-# Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+# Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
 # All rights reserved
 #
-# $Id: Makefile.in,v 1.8 2008/10/02 15:01:59 sumomo Exp $
+# $Id: Makefile.in,v 1.11 2011/04/29 05:09:15 sumomo Exp $
 #
 
 SHELL=/bin/sh
@@ -156,11 +156,11 @@ install.bin: libsent-config-dist
 	${INSTALL_PROGRAM} libsent-config-dist ${bindir}/libsent-config
 
 clean:
-	$(RM) *~ src/*/*~ src/*/*.o src/*/*/*.o include/sent/*~ 
+	$(RM) *~ src/*/*~ src/*/*.o src/*/*/*.o src/*/*/*/*.o src/*/*/*/*/*.o include/sent/*~ 
 	$(RM) config.log config.cache
 
 distclean:
-	$(RM) *~ src/*/*~ src/*/*.o src/*/*/*.o include/sent/*~
+	$(RM) *~ src/*/*~ src/*/*.o src/*/*/*.o src/*/*/*/*.o src/*/*/*/*/*.o include/sent/*~ 
 	$(RM) config.log config.cache
 	$(RM) libsent-config libsent-config-dist
 	$(RM) config.status include/sent/config.h

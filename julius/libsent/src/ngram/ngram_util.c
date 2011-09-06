@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 17:18:55 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.7 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -90,7 +90,9 @@ print_ngram_info(FILE *fp, NGRAM_INFO *ndata)
   }
   if (ndata->isopen) {
     fprintf(fp, "\t        OOV word = %s(id=%d)\n", ndata->wname[ndata->unk_id],ndata->unk_id);
-    fprintf(fp, "\t        OOV size = %d words in dict\n", ndata->unk_num);
+    if (ndata->unk_num != 0) {
+      fprintf(fp, "\t        OOV size = %d words in dict\n", ndata->unk_num);
+    }
   } else {
     fprintf(fp, "\t        OOV word = none (assume close vocabulary)\n");
   }

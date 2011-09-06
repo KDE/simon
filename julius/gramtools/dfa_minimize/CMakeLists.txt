@@ -6,3 +6,4 @@ set (dfa_minimize_SRCS ./dfa_minimize.c)
 add_executable(dfa_minimize ${dfa_minimize_SRCS})
 target_link_libraries(dfa_minimize sent)
 install (TARGETS dfa_minimize DESTINATION bin COMPONENT julius)
+

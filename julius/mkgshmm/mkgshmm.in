@@ -1,7 +1,7 @@
 #!@PERL@
-# Copyright (c) 2001-2007 Kawahara Lab., Kyoto University
+# Copyright (c) 2001-2011 Kawahara Lab., Kyoto University
 # Copyright (c) 2001-2005 Shikano Lab., Nara Institute of Science and Technology
-# Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+# Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
 # All rights reserved
 #
 # mkgshmm.pl --- output Gaussian Mixture Selection model for Julius-3.2

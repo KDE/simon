@@ -12,13 +12,13 @@
  * @author Akinobu Lee
  * @date   Tue Nov  6 22:41:00 2007
  * 
- * $Revision: 1.7 $
+ * $Revision: 1.9 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -52,9 +52,13 @@ void j_disable_verbose_message();
 void j_internal_error(char *fmt, ...);
 
 int j_config_load_args(Jconf *jconf, int argc, char *argv[]);
+int j_config_load_string(Jconf *jconf, char *string);
 int j_config_load_file(Jconf *jconf, char *filename);
 Jconf *j_config_load_args_new(int argc, char *argv[]);
+Jconf *j_config_load_string_new(char *string);
 Jconf *j_config_load_file_new(char *filename);
+void j_add_dict(JCONF_LM *lm, char *dictfile);
+void j_add_word(JCONF_LM *lm, char *wordentry);
 boolean j_adin_init(Recog *recog);
 char *j_get_current_filename(Recog *recog);
 void j_recog_info(Recog *recog);

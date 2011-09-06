@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 15:34:39 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.6 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -89,15 +89,16 @@ where_the_bit_differ(char *str1, char *str2)
 /** 
  * Allocate a new node.
  * 
+ * @param mroot [i/o] base pointer for block malloc
  * 
  * @return pointer to the new node.
  */
 static PATNODE *
-new_node()
+new_node(BMALLOC_BASE **mroot)
 {
   PATNODE *tmp;
 
-  tmp = (PATNODE *)mymalloc(sizeof(PATNODE));
+  tmp = (PATNODE *)mybmalloc2(sizeof(PATNODE), mroot);
   tmp->left0 = NULL;
   tmp->right1 = NULL;
 
@@ -112,11 +113,12 @@ new_node()
  * @param data [in] integer value corresponding to each string in @a words
  * @param wordsnum [in] number of above
  * @param bitplace [in] current scan bit.
+ * @param mroot [i/o] base pointer for block malloc
  * 
  * @return pointer to the root node index.
  */
 PATNODE *
-make_ptree(char **words, int *data, int wordsnum, int bitplace)
+make_ptree(char **words, int *data, int wordsnum, int bitplace, BMALLOC_BASE **mroot)
 {
   int i,j, tmp;
   char *p;
@@ -134,7 +136,7 @@ make_ptree(char **words, int *data, int wordsnum, int bitplace)
 
   if (wordsnum == 1) {
     /* word identified: this is leaf node */
-    ntmp = new_node();
+    ntmp = new_node(mroot);
     ntmp->value.data = data[0];
     return(ntmp);
   }
@@ -147,7 +149,7 @@ make_ptree(char **words, int *data, int wordsnum, int bitplace)
   }
   if (newnum == 0 || newnum == wordsnum) {
     /* all words has same bit, continue to descend */
-    return(make_ptree(words, data, wordsnum, bitplace + 1));
+    return(make_ptree(words, data, wordsnum, bitplace + 1, mroot));
   } else {
     /* sort word pointers by tested bit */
     j = wordsnum-1;
@@ -163,10 +165,10 @@ make_ptree(char **words, int *data, int wordsnum, int bitplace)
       }
     }
     /* create node and descend for each node */
-    ntmp = new_node();
+    ntmp = new_node(mroot);
     ntmp->value.thres_bit = bitplace;
-    ntmp->right1 = make_ptree(words, data, newnum, bitplace+1);
-    ntmp->left0  = make_ptree(&(words[newnum]), &(data[newnum]), wordsnum-newnum, bitplace+1);
+    ntmp->right1 = make_ptree(words, data, newnum, bitplace+1, mroot);
+    ntmp->left0  = make_ptree(&(words[newnum]), &(data[newnum]), wordsnum-newnum, bitplace+1, mroot);
     return(ntmp);
   }
 }
@@ -293,15 +295,16 @@ ptree_replace_data(char *str, int val, PATNODE *node)
  * Make a root node of a index tree.
  * 
  * @param data [in] the first data
+ * @param mroot [i/o] base pointer for block malloc
  * 
  * @return the newly allocated root node.
  */
 PATNODE *
-ptree_make_root_node(int data)
+ptree_make_root_node(int data, BMALLOC_BASE **mroot)
 {
   PATNODE *nnew;
   /* make new leaf node for newstr */
-  nnew = new_node();
+  nnew = new_node(mroot);
   nnew->value.data = data;
   return(nnew);
 }
@@ -313,9 +316,10 @@ ptree_make_root_node(int data)
  * @param bitloc [in] bit branch to which this node will be added
  * @param data [in] new data integer value
  * @param parentlink [i/o] the parent node to which this node will be added
+ * @param mroot [i/o] base pointer for block malloc
  */
 static void
-ptree_add_entry_at(char *str, int slen, int bitloc, int data, PATNODE **parentlink)
+ptree_add_entry_at(char *str, int slen, int bitloc, int data, PATNODE **parentlink, BMALLOC_BASE **mroot)
 {
   PATNODE *node;
   node = *parentlink;
@@ -323,9 +327,9 @@ ptree_add_entry_at(char *str, int slen, int bitloc, int data, PATNODE **parentli
       (node->left0 == NULL && node->right1 == NULL)) {
     PATNODE *newleaf, *newbranch;
     /* insert between [parent] and [node] */
-    newleaf = new_node();
+    newleaf = new_node(mroot);
     newleaf->value.data = data;
-    newbranch = new_node();
+    newbranch = new_node(mroot);
     newbranch->value.thres_bit = bitloc;
     *parentlink = newbranch;
     if (testbit(str, slen, bitloc) ==0) {
@@ -338,9 +342,9 @@ ptree_add_entry_at(char *str, int slen, int bitloc, int data, PATNODE **parentli
     return;
   } else {
     if (testbit(str, slen, node->value.thres_bit) != 0) {
-      ptree_add_entry_at(str, slen, bitloc, data, &(node->right1));
+      ptree_add_entry_at(str, slen, bitloc, data, &(node->right1), mroot);
     } else {
-      ptree_add_entry_at(str, slen, bitloc, data, &(node->left0));
+      ptree_add_entry_at(str, slen, bitloc, data, &(node->left0), mroot);
     }
   }
 }
@@ -353,31 +357,18 @@ ptree_add_entry_at(char *str, int slen, int bitloc, int data, PATNODE **parentli
  * @param matchstr [in] the most matching data already exist in the index tree,
  * as obtained by aptree_search_data()
  * @param rootnode [i/o] pointer to root index node
+ * @param mroot [i/o] base pointer for block malloc
  */
 void
-ptree_add_entry(char *str, int data, char *matchstr, PATNODE **rootnode)
+ptree_add_entry(char *str, int data, char *matchstr, PATNODE **rootnode, BMALLOC_BASE **mroot)
 {
   int bitloc;
 
   bitloc = where_the_bit_differ(str, matchstr);
   if (*rootnode == NULL) {
-    *rootnode = ptree_make_root_node(data);
+    *rootnode = ptree_make_root_node(data, mroot);
   } else {
-    ptree_add_entry_at(str, strlen(str), bitloc, data, rootnode);
+    ptree_add_entry_at(str, strlen(str), bitloc, data, rootnode, mroot);
   }
 
-}
-
-/** 
- * Free all the sub nodes from specified node.
- * 
- * @param node [in] current node.
- */
-void
-free_ptree(PATNODE *node)
-{
-  if (node == NULL) return;
-  if (node->left0 != NULL) free_ptree(node->left0);
-  if (node->right1 != NULL) free_ptree(node->right1);
-  free(node);
 }

@@ -1,10 +1,10 @@
-dnl Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+dnl Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
 dnl Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
 dnl Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
-dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+dnl Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 dnl
-dnl $Id: configure.in,v 1.13 2010/05/17 09:04:17 sumomo Exp $
+dnl $Id: configure.in,v 1.14 2011/04/29 01:57:20 sumomo Exp $
 dnl
 
 AC_INIT(src/search_bestfirst_main.c)
@@ -12,7 +12,7 @@ AC_CONFIG_HEADER(include/julius/config.h)
 AC_CONFIG_AUX_DIR(../support)
 
 JULIUS_PRODUCTNAME=JuliusLib
-JULIUS_VERSION=4.1.5
+JULIUS_VERSION=4.2
 
 dnl Checks for options
 

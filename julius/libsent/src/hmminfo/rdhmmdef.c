@@ -30,13 +30,13 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 00:17:18 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.6 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -47,7 +47,7 @@
 #define MAXBUFLEN  4096		///< Maximum length of a line in the input
 
 char *rdhmmdef_token;		///< Current token string (GLOBAL)
-static char *buf = NULL;	///< Local work area for token reading
+static char buf[MAXBUFLEN];	///< Local work area for token reading
 static int line;		///< Input Line count
 
 /* global functions for rdhmmdef_*.c */
@@ -79,16 +79,9 @@ rderr(char *str)
 char *
 read_token(FILE *fp)
 {
-  if (buf != NULL) {
-    /* already have buffer */
-    if ((rdhmmdef_token = mystrtok_quote(NULL, HMMDEF_DELM)) != NULL) {
-      /* return next token */
-      return rdhmmdef_token;
-    }
-  } else {
-    /* init: allocate buffer for the first time */
-    buf = (char *)mymalloc(MAXBUFLEN);
-    line = 1;
+  if ((rdhmmdef_token = mystrtok_quote(NULL, HMMDEF_DELM)) != NULL) {
+    /* return next token */
+    return rdhmmdef_token;
   }
   /* read new 1 line */
   if (getl(buf, MAXBUFLEN, fp) == NULL) {
@@ -190,7 +183,13 @@ rdhmmdef(FILE *fp, HTK_HMM_INFO *hmm)
   hmm->variance_inversed = FALSE;
 
   /* read the first token */
-  read_token(fp);
+  /* read new 1 line */
+  line = 1;
+  if (getl(buf, MAXBUFLEN, fp) == NULL) {
+    rdhmmdef_token = NULL;
+  } else {
+    rdhmmdef_token = mystrtok_quote(buf, HMMDEF_DELM);
+  }
   
   /* the toplevel loop */
   while (rdhmmdef_token != NULL) {/* break on EOF */
@@ -349,6 +348,15 @@ rdhmmdef(FILE *fp, HTK_HMM_INFO *hmm)
       n++;
     }
     hmm->totalpdfnum = n;
+  }
+  /* assign ID number for all HTK_HMM_Trans */
+  {
+    HTK_HMM_Trans *ttmp;
+    int n = 0;
+    for (ttmp = hmm->trstart; ttmp; ttmp = ttmp->next) {
+      ttmp->id = n++;
+    }
+    hmm->totaltransnum = n;
   }
 #ifdef ENABLE_MSD
   /* check if MSD-HMM */

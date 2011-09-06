@@ -152,207 +152,20 @@
  * @author Akinobu LEE
  * @date   Mon Mar  7 23:20:26 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.5 $
  * 
  */
 
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
 #include <julius/julius.h>
 
 /*----------------------------------------------------------------------*/
-
-/** 
- * <JA>
- * @brief  木構造化辞書上のあるノードの successor list に単語を追加する. 
- * 
- * すでに同じ単語が登録されていれば，新たに登録はされない. 
- * 単語はIDで昇順に保存される. 
- * 
- * @param wchmm [i/o] 木構造化辞書
- * @param node [in] ノード番号
- * @param w [in] 単語ID
- * </JA>
- * <EN>
- * @brief  Add a word to the successor list on a node in tree lexicon.
- * Words in lists should be ordered by ID.
- * 
- * @param wchmm [i/o] tree lexicon
- * @param node [in] node id
- * @param w [in] word id
- * </EN>
- */
-static void
-add_successor(WCHMM_INFO *wchmm, int node, WORD_ID w)
-{
-  S_CELL *sctmp, *sc;
-
-  /* malloc a new successor list element */
-  sctmp=(S_CELL *) mymalloc(sizeof(S_CELL));
-  /* assign word ID to the new element */
-  sctmp->word = w;
-  /* add the new element to existing list (keeping order) */
-  if (wchmm->state[node].scid == 0) {
-    j_internal_error("add_successor: sclist id not assigned to branch node?\n");
-  }
-  sc = wchmm->sclist[wchmm->state[node].scid];
-  if (sc == NULL || sctmp->word < sc->word) {
-    sctmp->next = sc;
-    wchmm->sclist[wchmm->state[node].scid] = sctmp;
-  } else {
-    for(;sc;sc=sc->next) {
-      if (sc->next == NULL || sctmp->word < (sc->next)->word) {
-	if (sctmp->word == sc->word) break; /* avoid duplication */
-	sctmp->next = sc->next;
-	sc->next = sctmp;
-	break;
-      }
-    }
-  }
-}
-
-/** 
- * <JA>
- * ２つのノード上の successor list が一致するかどうかチェックする
- * 
- * @param wchmm [in] 木構造化辞書
- * @param node1 [in] １つめのノードID
- * @param node2 [in] ２つめのノードID
- * 
- * @return 完全に一致すれば TRUE，一致しなければ FALSE. 
- * </JA>
- * <EN>
- * Check if successor lists on two nodes are the same.
- * 
- * @param wchmm [in] tree lexicon
- * @param node1 [in] 1st node id
- * @param node2 [in] 2nd node id
- * 
- * @return TRUE if they have the same successor list, or FALSE if they differ.
- * </EN>
- */
-static boolean
-match_successor(WCHMM_INFO *wchmm, int node1, int node2)
-{
-  S_CELL *sc1,*sc2;
-
-  /* assume successor is sorted by ID */
-  if (wchmm->state[node1].scid == 0 || wchmm->state[node2].scid == 0) {
-    j_internal_error("match_successor: sclist id not assigned to branch node?\n");
-  }
-  sc1 = wchmm->sclist[wchmm->state[node1].scid];
-  sc2 = wchmm->sclist[wchmm->state[node2].scid];
-  for (;;) {
-    if (sc1 == NULL || sc2 == NULL) {
-      if (sc1 == NULL && sc2 == NULL) {
-	return TRUE;
-      } else {
-	return FALSE;
-      }
-    } else if (sc1->word != sc2->word) {
-      return FALSE;
-    }
-    sc1 = sc1->next;
-    sc2 = sc2->next;
-  }
-}
-
-/** 
- * <JA>
- * 指定ノード上の successor list を空にする. 
- * 
- * @param wchmm [i/o] 木構造化辞書
- * @param scid [in] node id
- * </JA>
- * <EN>
- * Free successor list at the node
- * 
- * @param wchmm [i/o] tree lexicon
- * @param scid [in] node id
- * </EN>
- */
-static void
-free_successor(WCHMM_INFO *wchmm, int scid)
-{
-  S_CELL *sc;
-  S_CELL *sctmp;
-
-  /* free sclist */
-  sc = wchmm->sclist[scid];
-  while (sc != NULL) {
-    sctmp = sc;
-    sc = sc->next;
-    free(sctmp);
-  }
-}
-
-/** 
- * <JA>
- * 木構造化辞書上からリンクが消された successor list について，
- * その実体を削除してリストを詰めるガーベージコレクションを行う. 
- * 
- * @param wchmm [i/o] 木構造化辞書
- * </JA>
- * <EN>
- * Garbage collection of the successor list, by deleting successor lists
- * to which the link was deleted on the lexicon tree.
- * 
- * @param wchmm [i/o] tree lexiton
- * </EN>
- */
-static void
-compaction_successor(WCHMM_INFO *wchmm)
-{
-  int src, dst;
-
-  dst = 1;
-  for(src=1;src<wchmm->scnum;src++) {
-    if (wchmm->state[wchmm->sclist2node[src]].scid <= 0) {
-      /* already freed, skip */
-      continue;
-    }
-    if (dst != src) {
-      wchmm->sclist[dst] = wchmm->sclist[src];
-      wchmm->sclist2node[dst] = wchmm->sclist2node[src];
-      wchmm->state[wchmm->sclist2node[dst]].scid = dst;
-    }
-    dst++;
-  }
-  if (debug2_flag) {
-    jlog("DEBUG: successor list shrinked from %d to %d\n", wchmm->scnum, dst);
-  }
-  wchmm->scnum = dst;
-}
-
-/** 
- * <JA>
- * successor list 用に割り付けられたメモリ領域を有効な長さに縮める. 
- * 初期構築時や，1-gram factoring のために削除された successor list 分の
- * メモリを解放する. 
- * 
- * @param wchmm [i/o] 木構造化辞書
- * </JA>
- * <EN>
- * Shrink the memory area that has been allocated for building successor list.
- * 
- * @param wchmm [i/o] tree lexicon
- * </EN>
- */
-static void
-shrink_successor(WCHMM_INFO *wchmm)
-{
-  if (wchmm->sclist) {
-    wchmm->sclist = (S_CELL **)myrealloc(wchmm->sclist, sizeof(S_CELL *) * wchmm->scnum);
-  }
-  if (wchmm->sclist2node) {
-    wchmm->sclist2node = (int *)myrealloc(wchmm->sclist2node, sizeof(int) * wchmm->scnum);
-  }
-}
 
 /** 
  * <JA>
@@ -375,9 +188,13 @@ make_successor_list(WCHMM_INFO *wchmm)
 {
   int node;
   WORD_ID w;
-  int i;
-  boolean *freemark;
+  int i, j;
   int s;
+  WORD_ID *scnumlist;
+  WORD_ID *sclen;
+  int scnum, new_scnum;
+  int *scidmap;
+  boolean *freemark;
 
   jlog("STAT: make successor lists for factoring\n");
 
@@ -385,49 +202,38 @@ make_successor_list(WCHMM_INFO *wchmm)
   /* initialize node->sclist index on wchmm tree */
   for (node=0;node<wchmm->n;node++) wchmm->state[node].scid = 0;
 
-  /* parse the tree to get the maximum size of successor list */
-  s = 1;
+  /* parse the tree to assign unique scid and get the maximum size of
+     successor list */
+  scnum = 1;
   for (w=0;w<wchmm->winfo->num;w++) {
     for (i=0;i<wchmm->winfo->wlen[w];i++) {
       if (wchmm->state[wchmm->offset[w][i]].scid == 0) {
-	wchmm->state[wchmm->offset[w][i]].scid = s;
-	s++;
+	wchmm->state[wchmm->offset[w][i]].scid = scnum;
+	scnum++;
       }
     }
     if (wchmm->state[wchmm->wordend[w]].scid == 0) {
-      wchmm->state[wchmm->wordend[w]].scid = s;
-      s++;
+      wchmm->state[wchmm->wordend[w]].scid = scnum;
+      scnum++;
     }
   }
-  wchmm->scnum = s;
   if (debug2_flag) {
-    jlog("DEBUG: initial successor list size = %d\n", wchmm->scnum);
+    jlog("DEBUG: initial successor list size = %d\n", scnum);
   }
 
-  /* allocate successor list for the maximum size */
-  wchmm->sclist = (S_CELL **)mymalloc(sizeof(S_CELL *) * wchmm->scnum);
-  for (i=1;i<wchmm->scnum;i++) wchmm->sclist[i] = NULL;
-  wchmm->sclist2node = (int *)mymalloc(sizeof(int) * wchmm->scnum);
-
-  /* allocate misc. work area */
-  freemark = (boolean *)mymalloc(sizeof(boolean) * wchmm->scnum);
-  for (i=1;i<wchmm->scnum;i++) freemark[i] = FALSE;
-
-  /* 2. make initial successor list: assign at all possible nodes */
+  /* 2. count number of each successor */
+  sclen = (WORD_ID *)mymalloc(sizeof(WORD_ID) * scnum);
+  for (i=1;i<scnum;i++) sclen[i] = 0;
   for (w=0;w<wchmm->winfo->num;w++) {
-    /* at each start node of phonemes */
     for (i=0;i<wchmm->winfo->wlen[w];i++) {
-      wchmm->sclist2node[wchmm->state[wchmm->offset[w][i]].scid] = wchmm->offset[w][i];
-      add_successor(wchmm, wchmm->offset[w][i], w);
+      sclen[wchmm->state[wchmm->offset[w][i]].scid]++;
     }
-    /* at word end */
-    wchmm->sclist2node[wchmm->state[wchmm->wordend[w]].scid] = wchmm->wordend[w];
-    add_successor(wchmm, wchmm->wordend[w], w);
+    sclen[wchmm->state[wchmm->wordend[w]].scid]++;
   }
-  
-  /* 3. erase unnecessary successor list */
-  /* sucessor list same as the previous node is not needed, so */
-  /* parse lexicon tree from every leaf to find the same succesor list */
+
+  /* 3. delete bogus successor lists */
+  freemark = (boolean *)mymalloc(sizeof(boolean) * scnum);
+  for (i=1;i<scnum;i++) freemark[i] = FALSE;
   for (w=0;w<wchmm->winfo->num;w++) {
     node = wchmm->wordend[w];	/* begin from the word end node */
     i = wchmm->winfo->wlen[w]-1;
@@ -437,30 +243,82 @@ make_successor_list(WCHMM_INFO *wchmm)
 	i--;
 	continue;
       }
-      if (match_successor(wchmm, node, wchmm->offset[w][i])) {
+      if (wchmm->state[node].scid == 0) break; /* already parsed */
+      if (sclen[wchmm->state[node].scid] == sclen[wchmm->state[wchmm->offset[w][i]].scid]) {
 	freemark[wchmm->state[node].scid] = TRUE;	/* mark the node */
+	wchmm->state[node].scid = 0;
       }
-/* 
- *	 if (freemark[wchmm->offset[w][i]] != FALSE) {
- *	   break;
- *	 }
- */
       node = wchmm->offset[w][i];
       i--;
     }
   }
-  /* really free */
-  for (i=1;i<wchmm->scnum;i++) {
-    if (freemark[i] == TRUE) {
-      free_successor(wchmm, i);
-      /* reset node -> sclist link */
-      wchmm->state[wchmm->sclist2node[i]].scid = 0;
+  /* build compaction map */
+  scidmap = (int *)mymalloc(sizeof(int) * scnum);
+  scidmap[0] = 0;
+  j = 1;
+  for (i=1;i<scnum;i++) {
+    if (freemark[i]) {
+      scidmap[i] = 0;
+    } else {
+      scidmap[i] = j;
+      j++;
     }
   }
-  /* garbage collection of deleted sclist */
-  compaction_successor(wchmm);
+  new_scnum = j;
+  if (debug2_flag) {
+    jlog("DEBUG: compacted successor list size = %d\n", new_scnum);
+  }
 
+  /* 4. rewrite scid and do compaction for new sclen */
+  for (node=0;node<wchmm->n;node++) {
+    if (wchmm->state[node].scid > 0) {
+      wchmm->state[node].scid = scidmap[wchmm->state[node].scid];
+    }
+  }
+  wchmm->sclen = (WORD_ID *)mybmalloc2(sizeof(WORD_ID) * new_scnum, &(wchmm->malloc_root));
+  for (i=1;i<scnum;i++) {
+    if (scidmap[i] != 0) wchmm->sclen[scidmap[i]] = sclen[i];
+  }
+  wchmm->scnum = new_scnum;
+
+  free(scidmap);
   free(freemark);
+  free(sclen);
+
+  /* 5. now index completed, make word list for each list */
+  wchmm->sclist = (WORD_ID **)mybmalloc2(sizeof(WORD_ID *) * wchmm->scnum, &(wchmm->malloc_root));
+  scnumlist = (WORD_ID *)mymalloc(sizeof(WORD_ID) * wchmm->scnum);
+  for(i=1;i<wchmm->scnum;i++) {
+    wchmm->sclist[i] = (WORD_ID *)mybmalloc2(sizeof(WORD_ID) * wchmm->sclen[i], &(wchmm->malloc_root));
+    scnumlist[i] = 0;
+  }
+  {
+    int scid;
+    for (w=0;w<wchmm->winfo->num;w++) {
+      for (i=0;i<wchmm->winfo->wlen[w];i++) {
+	scid = wchmm->state[wchmm->offset[w][i]].scid;
+	if (scid != 0) {
+	  wchmm->sclist[scid][scnumlist[scid]] = w;
+	  scnumlist[scid]++;
+	  if (scnumlist[scid] > wchmm->sclen[scid]) {
+	    jlog("hogohohoho\n");
+	    exit(1);
+	  }
+	}
+      }
+      /* at word end */
+      scid = wchmm->state[wchmm->wordend[w]].scid;
+      if (scid != 0) {
+	wchmm->sclist[scid][scnumlist[scid]] = w;
+	scnumlist[scid]++;
+	  if (scnumlist[scid] > wchmm->sclen[scid]) {
+	    jlog("hogohohoho\n");
+	    exit(1);
+	  }
+      }
+    }
+  }
+  free(scnumlist);
 
   jlog("STAT: done\n");
 }
@@ -502,6 +360,7 @@ make_successor_list_unigram_factoring(WCHMM_INFO *wchmm)
   int i, j, n, f;
   int s;
   LOGPROB tmpprob;
+  WORD_ID *mtmp;
 
   jlog("STAT: make successor lists for unigram factoring\n");
 
@@ -515,10 +374,8 @@ make_successor_list_unigram_factoring(WCHMM_INFO *wchmm)
     jlog("DEBUG: successor list size = %d\n", wchmm->scnum);
   }
 
-  /* allocate successor list */
-  wchmm->sclist = (S_CELL **)mymalloc(sizeof(S_CELL *) * wchmm->scnum);
-  for (i=1;i<wchmm->scnum;i++) wchmm->sclist[i] = NULL;
-  /* sclist2node is not used */
+  /* allocate successor list for 1-gram factoring */
+  wchmm->scword = (WORD_ID *)mybmalloc2(sizeof(WORD_ID) * wchmm->scnum, &(wchmm->malloc_root));
 
   /* 2. make successor list, and count needed fscore num */
   f = 1;
@@ -532,17 +389,18 @@ make_successor_list_unigram_factoring(WCHMM_INFO *wchmm)
       }
       if (wchmm->state[node].scid == 0) { /* not assigned */
 	/* new node found, assign new and exit here */
-	wchmm->state[node].scid = s++;
+	wchmm->state[node].scid = s;
+	wchmm->scword[s] = w;
+	s++;
 	if (s > wchmm->scnum) {
 	  jlog("InternalError: make_successor_list_unigram_factoring: scid num exceeded?\n");
 	  return;
 	}
-	add_successor(wchmm, node, w);
 	break;
       } else if (wchmm->state[node].scid > 0) {
-	/* that node has sclist */
+	/* that node has successor */
 	/* move it to the current first isolated node in that word */
-	w2 = wchmm->sclist[wchmm->state[node].scid]->word;
+	w2 = wchmm->scword[wchmm->state[node].scid];
 	for(j=i+1;j<wchmm->winfo->wlen[w2] + 1;j++) {
 	  if (j < wchmm->winfo->wlen[w2]) {
 	    node2 = wchmm->offset[w2][j];
@@ -550,7 +408,7 @@ make_successor_list_unigram_factoring(WCHMM_INFO *wchmm)
 	    node2 = wchmm->wordend[w2];
 	  }
 	  if (wchmm->state[node2].scid == 0) { /* not assigned */
-	    /* move sclist to there */
+	    /* move successor to there */
 	    wchmm->state[node2].scid = wchmm->state[node].scid;
 	    break;
 	  }
@@ -732,9 +590,6 @@ max_successor_cache_init(WCHMM_INFO *wchmm)
   LM_PROB_CACHE *l;
   WORD_ID wnum;
 
-  /* finally shrink the memory area of successor list here */
-  shrink_successor(wchmm);
-
   /* for word-internal */
   l = &(wchmm->lmcache);
 
@@ -880,6 +735,8 @@ make_iwcache_index(WCHMM_INFO *wchmm)
   wchmm->isolatenum = num;
 }
 
+#ifndef FAST_FACTOR1_SUCCESSOR_LIST
+
 /** 
  * <JA>
  * @brief  木構造化辞書上の 1-gram factoring 値を計算して格納する. 
@@ -977,6 +834,8 @@ calc_all_unigram_factoring_values(WCHMM_INFO *wchmm)
   compaction_successor(wchmm);
 }
 
+#endif
+
 #else  /* ~UNIGRAM_FACTORING */
 
 /** 
@@ -1004,27 +863,31 @@ calc_all_unigram_factoring_values(WCHMM_INFO *wchmm)
 static LOGPROB
 calc_successor_prob(WCHMM_INFO *wchmm, WORD_ID lastword, int node)
 {
-  S_CELL *sc;
   LOGPROB tmpprob, maxprob;
-  WORD_ID lw;
+  WORD_ID lw, w;
+  int i;
+  int scid;
 
   maxprob = LOG_ZERO;
   if (wchmm->ngram) {
     lw = wchmm->winfo->wton[lastword];
   }
 
-  for (sc = wchmm->sclist[wchmm->state[node].scid]; sc; sc = sc->next) {
+  scid = wchmm->state[node].scid;
+
+  for (i = 0; i < wchmm->sclen[scid]; i++) {
+    w = wchmm->sclist[scid][i];
     if (wchmm->ngram) {
-      tmpprob = (*(wchmm->ngram->bigram_prob))(wchmm->ngram, lw , wchmm->winfo->wton[sc->word])
+      tmpprob = (*(wchmm->ngram->bigram_prob))(wchmm->ngram, lw , wchmm->winfo->wton[w])
 #ifdef CLASS_NGRAM
-	+ wchmm->winfo->cprob[sc->word]
+	+ wchmm->winfo->cprob[w]
 #endif
 	;
     } else {
       tmpprob = LOG_ZERO;
     }
     if (wchmm->lmvar == LM_NGRAM_USER) {
-      tmpprob = (*(wchmm->bi_prob_user))(wchmm->winfo, lastword, sc->word, tmpprob);
+      tmpprob = (*(wchmm->bi_prob_user))(wchmm->winfo, lastword, w, tmpprob);
     }
     if (maxprob < tmpprob) maxprob = tmpprob;
   }
@@ -1102,7 +965,7 @@ max_successor_prob(WCHMM_INFO *wchmm, WORD_ID lastword, int node)
       /* return precise 2-gram score */
       if (last_nword != l->lastwcache[scid]) {
 	/* calc and cache */
-	w = (wchmm->sclist[scid])->word;
+	w = wchmm->scword[scid];
 	if (wchmm->ngram) {
 	  maxprob = (*(wchmm->ngram->bigram_prob))(wchmm->ngram, last_nword, wchmm->winfo->wton[w])
 #ifdef CLASS_NGRAM
@@ -1251,7 +1114,7 @@ max_successor_prob_iw(WCHMM_INFO *wchmm, WORD_ID lastword)
       /* should not happen!!! below is just for debugging */
       j_internal_error("max_successor_prob_iw: isolated (not shared) tree root node has unigram factoring value??\n");
     } else {
-      w = (wchmm->sclist[wchmm->state[node].scid])->word;
+      w = wchmm->scword[wchmm->state[node].scid];
       if (wchmm->ngram) {
 	p = (*(wchmm->ngram->bigram_prob))(wchmm->ngram, last_nword, wchmm->winfo->wton[w])
 #ifdef CLASS_NGRAM
@@ -1333,19 +1196,22 @@ boolean
 can_succeed(WCHMM_INFO *wchmm, WORD_ID lastword, int node)
 {
   int lc;
-  S_CELL *sc;
+  int i;
+  int s;
 
   /* return TRUE if at least one subtree word can connect */
 
+  s = wchmm->state[node].scid;
+
   if (lastword == WORD_INVALID) { /* case at beginning-of-word */
-    for (sc=wchmm->sclist[wchmm->state[node].scid];sc;sc=sc->next) {
-      if (dfa_cp_begin(wchmm->dfa, sc->word) == TRUE) return(TRUE);
+    for (i = 0; i < wchmm->sclen[s]; i++) {
+      if (dfa_cp_begin(wchmm->dfa, wchmm->sclist[s][i]) == TRUE) return(TRUE);
     }
     return(FALSE);
   } else {
     lc = wchmm->winfo->wton[lastword];
-    for (sc=wchmm->sclist[wchmm->state[node].scid];sc;sc=sc->next) {
-      if (dfa_cp(wchmm->dfa, lc, sc->word) == TRUE) return(TRUE);
+    for (i = 0; i < wchmm->sclen[s]; i++) {
+      if (dfa_cp(wchmm->dfa, lc, wchmm->sclist[s][i]) == TRUE) return(TRUE);
     }
     return(FALSE);
   }

@@ -35,13 +35,13 @@
  * @author Akinobu Lee
  * @date   Thu Sep 08 11:51:12 2005
  *
- * $Revision: 1.9 $
+ * $Revision: 1.11 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -658,11 +658,15 @@ cm_compute_from_nbest(StackDecode *sd, NODE *start, int stacknum, JCONF_SEARCH *
     sd->sentcm = (LOGPROB *)mymalloc(sizeof(LOGPROB)*stacknum);
     sd->sentnum = stacknum;
   } else if (sd->sentnum < stacknum) { /* need expanded */
-    sd->sentcm = (LOGPROB *)myrealloc(sentcm, sizeof(LOGPROB)*stacknum);
+    sd->sentcm = (LOGPROB *)myrealloc(sd->sentcm, sizeof(LOGPROB)*stacknum);
     sd->sentnum = stacknum;
   }
   if (sd->wordcm == NULL) {
     sd->wordcm = (LOGPROB *)mymalloc(sizeof(LOGPROB) * winfo->num);
+    sd->wordnum = winfo->num;
+  } else if (sd->wordnum < winfo->num) {
+    sd->wordcm = (LOGPROB *)myremalloc(sd->wordcm, sizeof(LOGPROB) * winfo->num);
+    sd->wordnum = winfo->num;
   }
   
   cm_alpha = jconf->annotate.cm_alpha;
@@ -670,7 +674,7 @@ cm_compute_from_nbest(StackDecode *sd, NODE *start, int stacknum, JCONF_SEARCH *
   for (j = 0, cm_alpha = jconf->annotate.cm_alpha_bgn; cm_alpha <= jconf->annotate.cm_alpha_end; cm_alpha += jconf->annotate.cm_alpha_step) {
 #endif
     /* clear whole word cm buffer */
-    for(w=0;w<winfo->num;w++) {
+    for(w=0;w<sd->wordnum;w++) {
       sd->wordcm[w] = 0.0;
     }
     /* get best score */

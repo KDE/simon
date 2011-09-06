@@ -19,12 +19,12 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 17:22:36 2005
  *
- * $Revision: 1.7 $ 
+ * $Revision: 1.11 $ 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -33,18 +33,6 @@
 
 #include <sent/stddefs.h>
 #include <sent/speech.h>
-
-#if defined(HAVE_ALSA_ASOUNDLIB_H) || defined(HAVE_SYS_ASOUNDLIB_H)
-//#define HAS_ALSA
-#endif
-#ifdef __linux__
-#if defined(HAVE_SYS_SOUNDCARD_H) || defined(HAVE_MACHINE_SOUNDCARD_H)
-//#define HAS_OSS
-#endif
-#endif /* __linux__ */
-#ifdef HAVE_ESD_H
-#define HAS_ESD
-#endif
 
 /// Speech input type
 enum {
@@ -68,11 +56,9 @@ enum {
   SP_INPUT_DEFAULT,
   SP_INPUT_ALSA,
   SP_INPUT_OSS,
-  SP_INPUT_ESD
+  SP_INPUT_ESD,
+  SP_INPUT_PULSEAUDIO
 };
-
-/// Default unit size of speech input segment in bytes
-#define DEFAULT_WSTEP 1000
 
 /**
  * @def SUPPORTED_WAVEFILE_FORMAT
@@ -173,6 +159,12 @@ boolean adin_esd_begin(char *pathname);
 boolean adin_esd_end();
 int adin_esd_read(SP16 *buf, int sampnum);
 char *adin_esd_input_name();
+/* adin/adin_pulseaudio.c */
+boolean adin_pulseaudio_standby(int freq, void *arg);
+boolean adin_pulseaudio_begin(char *pathname);
+boolean adin_pulseaudio_end();
+int adin_pulseaudio_read(SP16 *buf, int sampnum);
+char *adin_pulseaudio_input_name();
 /* adin/adin_netaudio.c  and adin/adin_na.c */
 boolean adin_netaudio_standby(int freq, void *arg);
 boolean adin_netaudio_begin(char *pathname);
@@ -229,8 +221,6 @@ void sub_zmean(SP16 *speech, int samplenum);
 DS_BUFFER *ds48to16_new();
 void ds48to16_free(DS_BUFFER *ds);
 int ds48to16(SP16 *dst, SP16 *src, int srclen, int maxdstlen, DS_BUFFER *ds);
-
-
 
 #ifdef __cplusplus
 }

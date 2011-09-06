@@ -20,13 +20,13 @@
  * @author Akinobu Lee
  * @date   Thu May 12 13:31:47 2005
  *
- * $Revision: 1.14 $
+ * $Revision: 1.21 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -122,12 +122,17 @@ initialize_HMM(JCONF_AM *amconf, Jconf *jconf)
 #ifdef PASS1_IWCD
   /* make state clusters of same context for inter-word triphone approx. */
   if (hmminfo->is_triphone) {
-    jlog("STAT: making pseudo bi/mono-phone for IW-triphone\n");
-    if (make_cdset(hmminfo) == FALSE) {
-      jlog("ERROR: m_fusion: failed to make context-dependent state set\n");
-      hmminfo_free(hmminfo);
-      return NULL;
+    if (hmminfo->cdset_root == NULL) {
+      jlog("STAT: making pseudo bi/mono-phone for IW-triphone\n");
+      if (make_cdset(hmminfo) == FALSE) {
+	jlog("ERROR: m_fusion: failed to make context-dependent state set\n");
+	hmminfo_free(hmminfo);
+	return NULL;
+      }
+    } else {
+      jlog("STAT: pseudo phones are loaded from binary hmmlist file\n");
     }
+
     /* add those `pseudo' biphone and monophone to the logical HMM names */
     /* they points not to the defined HMM, but to the CD_Set structure */
     hmm_add_pseudo_phones(hmminfo);
@@ -285,6 +290,9 @@ static WORD_INFO *
 initialize_dict(JCONF_LM *lmconf, HTK_HMM_INFO *hmminfo)
 {
   WORD_INFO *winfo;
+  JCONF_LM_NAMELIST *nl;
+  char buf[MAXLINELEN];
+  int n;
 
   /* allocate new word dictionary */
   winfo = word_info_new();
@@ -300,6 +308,50 @@ initialize_dict(JCONF_LM *lmconf, HTK_HMM_INFO *hmminfo)
     jlog("ERROR: m_fusion: failed to read dictionary, terminated\n");
     word_info_free(winfo);
     return NULL;
+  }
+
+  /* load additional entries */
+  for (nl = lmconf->additional_dict_files; nl; nl=nl->next) {
+    FILE *fp;
+    if ((fp = fopen(nl->name, "rb")) == NULL) {
+      jlog("ERROR: m_fusion: failed to open %s\n",nl->name);
+      word_info_free(winfo);
+      return NULL;
+    }
+    n = winfo->num;
+    while (getl_fp(buf, MAXLINELEN, fp) != NULL) {
+      if (voca_load_line(buf, winfo, hmminfo) == FALSE) break;
+    }
+    if (voca_load_end(winfo) == FALSE) {
+      if (lmconf->forcedict_flag) {
+	jlog("Warning: m_fusion: the error words above are ignored\n");
+      } else {
+	jlog("ERROR: m_fusion: error in reading dictionary %s\n", nl->name);
+	fclose(fp);
+	word_info_free(winfo);
+	return NULL;
+      }
+    }
+    if (fclose(fp) == -1) {
+      jlog("ERROR: m_fusion: failed to close %s\n", nl->name);
+      word_info_free(winfo);
+      return NULL;
+    }
+    jlog("STAT: + additional dictionary: %s (%d words)\n", nl->name, winfo->num - n);
+  }
+  n = winfo->num;
+  for (nl = lmconf->additional_dict_entries; nl; nl=nl->next) {
+    if (voca_load_line(nl->name, winfo, hmminfo) == FALSE) {
+      jlog("ERROR: m_fusion: failed to set entry: %s\n", nl->name);
+    }
+  }
+  if (lmconf->additional_dict_entries) {
+    if (voca_load_end(winfo) == FALSE) {
+      jlog("ERROR: m_fusion: failed to read additinoal word entry\n");
+      word_info_free(winfo);
+      return NULL;
+    }
+    jlog("STAT: + additional entries: %d words\n", winfo->num - n);
   }
 
   if (lmconf->lmtype == LM_PROB) {
@@ -409,7 +461,9 @@ initialize_ngram(JCONF_LM *lmconf, WORD_INFO *winfo)
   }
 
   /* set unknown (=OOV) word id */
-  set_unknown_id(ngram, lmconf->unknown_name);
+  if (strcmp(lmconf->unknown_name, UNK_WORD_DEFAULT)) {
+    set_unknown_id(ngram, lmconf->unknown_name);
+  }
 
   /* map dict item to N-gram entry */
   if (make_voca_ref(ngram, winfo) == FALSE) {
@@ -976,7 +1030,9 @@ j_launch_recognition_instance(Recog *recog, JCONF_SEARCH *sconf)
       }
       p->am->hmminfo->iwsp_penalty = p->am->config->iwsp_penalty;
     } else {
-      jlog("Warning: \"-iwsp\" is supported on multi-path mode, ignored\n");
+      jlog("ERROR: \"-iwsp\" needs multi-path mode\n");
+      jlog("ERROR: you should use multi-path AM, or specify \"-multipath\" with \"-iwsp\"\n");
+      return FALSE;
     }
   }
 

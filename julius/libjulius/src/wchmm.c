@@ -31,13 +31,13 @@
  * @author Akinobu Lee
  * @date   Mon Sep 19 23:39:15 2005
  *
- * $Revision: 1.7 $
+ * $Revision: 1.9 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -136,11 +136,12 @@ wchmm_init(WCHMM_INFO *wchmm)
   wchmm->isolatenum = 0;
 #endif
   if (!wchmm->category_tree) {
-    wchmm->sclist = NULL;
-    wchmm->sclist2node = NULL;
 #ifdef UNIGRAM_FACTORING
+    wchmm->scword = NULL;
     wchmm->fscore = NULL;
 #endif
+    wchmm->sclist = NULL;
+    wchmm->sclen = NULL;
   }
 
   wchmm->n = 0;
@@ -212,28 +213,16 @@ wchmm_extend_startnode(WCHMM_INFO *wchmm)
 void
 wchmm_free(WCHMM_INFO *w)
 {
-  S_CELL *sc, *sctmp;
   int i;
   /* wchmm->state[i].ac malloced by mybmalloc2() */
   /* wchmm->offset[][] malloced by mybmalloc2() */
 #ifdef PASS1_IWCD
   /* LRC_INFO, RC_INFO in wchmm->state[i].outsty malloced by mybmalloc2() */
 #endif
+  /* wchmm->sclist[][] and wchmm->sclen[] malloced by mybmalloc2() */
   /* they all will be freed by a single mybfree2() call */
   mybfree2(&(w->malloc_root));
   if (!w->category_tree) {
-    if (w->sclist != NULL) {
-      for(i=1;i<w->scnum;i++) {
-	sc = w->sclist[i];
-	while(sc) {
-	  sctmp = sc->next;
-	  free(sc);
-	  sc = sctmp;
-	}
-      }
-      free(w->sclist);
-    }
-    if (w->sclist2node != NULL) free(w->sclist2node);
 #ifdef UNIGRAM_FACTORING
     if (w->fscore != NULL) free(w->fscore);
 #endif
@@ -1724,12 +1713,6 @@ build_wchmm(WCHMM_INFO *wchmm, JCONF_LM *lmconf)
     }
 #endif /* UNIGRAM_FACTORING */
 
-    /* sclist2node is no longer used */
-    if (wchmm->sclist2node != NULL) {
-      free(wchmm->sclist2node);
-      wchmm->sclist2node = NULL;
-    }
-
   }
 
   jlog("STAT: done\n");
@@ -1976,12 +1959,6 @@ build_wchmm2(WCHMM_INFO *wchmm, JCONF_LM *lmconf)
     }
 #endif /* UNIGRAM_FACTORING */
 
-    /* sclist2node is no longer used */
-    if (wchmm->sclist2node != NULL) {
-      free(wchmm->sclist2node);
-      wchmm->sclist2node = NULL;
-    }
-
   }
 
   //jlog("STAT: done\n");
@@ -2049,8 +2026,16 @@ build_wchmm2(WCHMM_INFO *wchmm, JCONF_LM *lmconf)
     }
 #endif
     if (!wchmm->category_tree) {
-      jlog("STAT: %9d bytes: wchmm->sclist[]\n", wchmm->scnum * sizeof(S_CELL *));
-      jlog("STAT: %9d bytes: wchmm->sclist2node[]\n", wchmm->scnum * sizeof(int));
+      int c = 0;
+#ifdef UNIGRAM_FACTORING
+      jlog("STAT: %9d bytes: wchmm->scword[]\n", sizeof(WORD_ID) * wchmm->scnum);
+#else
+      for(i=1;i<wchmm->scnum;i++) {
+	c += wchmm->sclen[i];
+      }
+      jlog("STAT: %9d bytes: wchmm->sclist[]\n", c * sizeof(WORD_ID) + wchmm->scnum * sizeof(WORD_ID *));
+      jlog("STAT: %9d bytes: wchmm->sclen[]\n", wchmm->scnum * sizeof(WORD_ID));
+#endif
 #ifdef UNIGRAM_FACTORING
       if (wchmm->lmtype == LM_PROB) {
 	jlog("STAT: %9d bytes: wchmm->fscore[]\n", wchmm->fsnum * sizeof(LOGPROB));
@@ -2069,11 +2054,6 @@ build_wchmm2(WCHMM_INFO *wchmm, JCONF_LM *lmconf)
       }
       jlog("STAT: %9d bytes: A_CELL2\n", count);
     }
-    if (!wchmm->category_tree) {
-      jlog("STAT: %9d bytes: sclist\n", wchmm->scnum * sizeof(S_CELL *));
-      jlog("STAT: %9d bytes: sclist2node\n", wchmm->scnum * sizeof(int));
-    }
-
   }
 
 #endif /* WCHMM_SIZE_CHECK */

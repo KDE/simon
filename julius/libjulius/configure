@@ -592,7 +592,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 
 
 JULIUS_PRODUCTNAME=JuliusLib
-JULIUS_VERSION=4.1.5
+JULIUS_VERSION=4.2
 
 
 # Check whether --enable-pthread or --disable-pthread was given.
@@ -1587,7 +1587,7 @@ else
   if { (eval echo configure:1588: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; }; then
     for file in conftest.*; do
       case $file in
-      *.$ac_ext | *.c | *.o | *.obj) ;;
+      *.c | *.o | *.obj) ;;
       *) ac_cv_exeext=`echo $file | sed -e s/conftest//` ;;
       esac
     done

@@ -28,13 +28,13 @@
  * @author Akinobu Lee
  * @date   Sun Sep 18 21:31:32 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.6 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -42,16 +42,6 @@
 #define __J_WORD_CONJ_HMM_H__
 
 //#define		MAXWCNSTEP  40000 ///< Number of states to be allocated at once
-
-/**
- * Element of successor word list for LM factoring computation.
- * 
- */
-typedef struct s_cell {
-  WORD_ID word;			///< N-gram word ID
-  struct s_cell *next;		///< Pointer to next element, or NULL if terminated
-} S_CELL;
-
 
 #ifdef PASS1_IWCD
 
@@ -251,13 +241,16 @@ typedef struct wchmm_info {
 #endif
   /* Successor lists on the tree are stored on sequencial list at @a sclist,
      and each node has index to the list */
-  S_CELL **sclist;		///< List of successor list [scid]
-  int *sclist2node;		///< Mapping successor list [scid] to node
-  int   scnum;			///< Number of factoring nodes that has successor list
+  /* sclist and sclen are used at 2-gram factoring only */
+  /* scword is used at 1-gram factoring only */
 #ifdef UNIGRAM_FACTORING
+  WORD_ID *scword;		///< successor word[scid]
   LOGPROB *fscore;		///< List of 1-gram factoring score [-scid]
   int fsnum;			///< Number of @a fscore
 #endif
+  WORD_ID **sclist;		///< List of successor list [scid]
+  WORD_ID *sclen;		///< Length of each succcessor list [scid]
+  int   scnum;			///< Total number of factoring nodes that has successor list
   BMALLOC_BASE *malloc_root;	///< Pointer for block memory allocation
 #ifdef PASS1_IWCD
   APATNODE *lcdset_category_root; ///< Index of lexicon-dependent category-aware pseudo phone set when used on Julian

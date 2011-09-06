@@ -95,13 +95,13 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 13:20:53 2005
  *
- * $Revision: 1.12 $
+ * $Revision: 1.17 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -163,12 +163,17 @@ adin_setup_param(ADIn *adin, Jconf *jconf)
   /* calc & set internal parameter from configuration */
   freq = jconf->input.sfreq;
   samples_in_msec = (float) freq / (float)1000.0;
+  adin->chunk_size = jconf->detect.chunk_size;
   /* cycle buffer length = head margin length */
   adin->c_length = (int)((float)jconf->detect.head_margin_msec * samples_in_msec);	/* in msec. */
+  if (adin->chunk_size > adin->c_length) {
+    jlog("ERROR: adin_setup_param: chunk size (%d) > header margin (%d)\n", adin->chunk_size, adin->c_length);
+    return FALSE;
+  }
   /* compute zerocross trigger count threshold in the cycle buffer */
   adin->noise_zerocross = jconf->detect.zero_cross_num * adin->c_length / freq;
   /* variables that comes from the tail margin length (in wstep) */
-  adin->nc_max = (int)((float)(jconf->detect.tail_margin_msec * samples_in_msec / (float)DEFAULT_WSTEP)) + 2;
+  adin->nc_max = (int)((float)(jconf->detect.tail_margin_msec * samples_in_msec / (float)adin->chunk_size)) + 2;
   adin->sbsize = jconf->detect.tail_margin_msec * samples_in_msec + (adin->c_length * jconf->detect.zero_cross_num / 200);
   adin->c_offset = 0;
 
@@ -300,7 +305,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
   int ad_process_ret;
   int imax, len, cnt;
   int wstep;
-  int end_status;	/* return value */
+  int end_status = 0;	/* return value */
   boolean transfer_online_local;	/* local repository of transfer_online */
   int zc;		/* count of zero cross */
 
@@ -365,7 +370,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 	If no data exists in the device (in case of mic input), ad_read()
 	will return 0.  If reached end of stream (in case end of file or
 	receive end ack from tcpip client), it will return -1.
-	If error, returns -2.
+	If error, returns -2. If the device requests segmentation, returns -3.
       */
       if (a->down_sample) {
 	/* get 48kHz samples to temporal buffer */
@@ -502,7 +507,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
     /* prepare for processing samples in temporary buffer */
     /******************************************************/
     
-    wstep = DEFAULT_WSTEP;	/* process unit (should be smaller than cycle buffer) */
+    wstep = a->chunk_size;	/* process unit (should be smaller than cycle buffer) */
 
     /* imax: total length that should be processed at one ad_read() call */
     /* if in real-time mode and not threaded, recognition process 
@@ -571,6 +576,10 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 	    /* record time */
 	    a->last_trigger_sample = a->total_captured_len - a->current_len + i + wstep - a->zc.valid_len;
 	    callback_exec(CALLBACK_EVENT_SPEECH_START, recog);
+	    a->last_trigger_len = 0;
+	    if (a->zc.valid_len > wstep) {
+	      a->last_trigger_len += a->zc.valid_len - wstep;
+	    }
 
 	    /****************************************/
 	    /* flush samples stored in cycle buffer */
@@ -646,6 +655,10 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 #endif
 	      /* reset noise counter */
 	      a->nc = 0;
+
+	      if (a->sblen > 0) {
+		a->last_trigger_len += a->sblen;
+	      }
 
 #ifdef TMP_FIX_200602
 	      if (ad_process != NULL
@@ -780,6 +793,8 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
 	    jlog("DEBUG: %d processed, rest_tail=%d\n", wstep, a->rest_tail);
 #endif
 	  }
+	  a->last_trigger_len += wstep;
+
 #ifdef TMP_FIX_200602
 	  if (ad_process != NULL
 #ifdef HAVE_PTHREAD
@@ -884,7 +899,9 @@ break_input:
       /* reset status */
       a->need_init = TRUE;		/* bufer status shoule be reset at next call */
     }
-    end_status = (a->bp) ? 1 : 0;
+    if (end_status >= 0) {
+      end_status = (a->bp) ? 1 : 0;
+    }
   }
   
   return(end_status);
@@ -957,7 +974,9 @@ adin_thread_input_main(void *dummy)
 
   ret = adin_cut(adin_store_buffer, NULL, recog);
 
-  if (ret == -1) {		/* error */
+  if (ret == -2) {		/* termination request by ad_check? */
+    jlog("Error: adin thread exit with termination request by checker\n");
+  } else if (ret == -1) {	/* error */
     jlog("Error: adin thread exit with error\n");
   } else if (ret == 0) {	/* EOF */
     jlog("Stat: adin thread end with EOF\n");
@@ -1030,17 +1049,40 @@ adin_thread_cancel(Recog *recog)
 
   if ((adin_cut_should_run == FALSE) || recog->adin->adinthread_ended) return TRUE;
 
+  /* send a cencellation request to the A/D-in thread */
   ret = pthread_cancel(recog->adin->adin_thread);
-  if (ret == 0) {
-    jlog("STAT: AD-in thread deleted\n");
-  } else {
+  if (ret != 0) {
     if (ret == ESRCH) {
       jlog("STAT: adin_thread_cancel: no A/D-in thread\n");
+      recog->adin->adinthread_ended = TRUE;
+      return TRUE;
     } else {
       jlog("Error: adin_thread_cancel: failed to cancel A/D-in thread\n");
       return FALSE;
     }
   }
+  /* wait for the thread to terminate */
+  ret = pthread_join(recog->adin->adin_thread, NULL);
+  if (ret != 0) {
+    if (ret == EINVAL) {
+      jlog("InternalError: adin_thread_cancel: AD-in thread is invalid\n");
+      recog->adin->adinthread_ended = TRUE;
+      return FALSE;
+    } else if (ret == ESRCH) {
+      jlog("STAT: adin_thread_cancel: no A/D-in thread\n");
+      recog->adin->adinthread_ended = TRUE;
+      return TRUE;
+    } else if (ret == EDEADLK) {
+      jlog("InternalError: adin_thread_cancel: dead lock or self thread?\n");
+      recog->adin->adinthread_ended = TRUE;
+      return FALSE;
+    } else {
+      jlog("Error: adin_thread_cancel: failed to wait end of A/D-in thread\n");
+      return FALSE;
+    }
+  }
+
+  jlog("STAT: AD-in thread deleted\n");
   recog->adin->adinthread_ended = TRUE;
   return TRUE;
 }
@@ -1093,6 +1135,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
 #ifdef THREAD_DEBUG
   jlog("DEBUG: process: reset, speechlen = %d, online=%d\n", a->speechlen, a->transfer_online);
 #endif
+  a->adinthread_buffer_overflowed = FALSE;
   pthread_mutex_unlock(&(a->mutex));
 
   /* main processing loop */
@@ -1115,7 +1158,6 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
       jlog("WARNING: adin_thread_process: too long input (> %d samples), segmented now\n", MAXSPEECHLEN);
       /* segment input here */
       pthread_mutex_lock(&(a->mutex));
-      a->adinthread_buffer_overflowed = FALSE;
       a->speechlen = 0;
       a->transfer_online = transfer_online_local = FALSE;
       pthread_mutex_unlock(&(a->mutex));
@@ -1298,6 +1340,7 @@ adin_begin(ADIn *a, char *file_or_dev_name)
   if (debug2_flag && a->input_side_segment) jlog("Stat: adin_begin: skip\n");
   if (a->input_side_segment == FALSE) {
     a->total_captured_len = 0;
+    a->last_trigger_len = 0;
     if (a->need_zmean) zmean_reset();
     if (a->ad_begin != NULL) return(a->ad_begin(file_or_dev_name));
   }
