@@ -24,7 +24,6 @@
 #include "commandsettingsinternal.h"
 
 #include <simoninfo/simoninfo.h>
-//#include <simonscenarios/commandconfiguration.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/createcommandwidget.h>
@@ -34,6 +33,7 @@
 #include <QFile>
 #include <QMetaObject>
 #include <QDBusConnection>
+#include <QCoreApplication>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -65,7 +65,10 @@ useDYM(false)
 
 ActionManager* ActionManager::getInstance()
 {
-  if (!instance) instance = new ActionManager();
+  if (!instance) {
+    instance = new ActionManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -267,4 +270,5 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGl
 ActionManager::~ActionManager()
 {
   delete greedyReceivers;
+  delete currentlyPromptedListOfResults;
 }

@@ -20,17 +20,17 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 16:52:24 2005
  *
- * $Revision: 1.16 $
+ * $Revision: 1.18 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
-/* $Id: ngram_read_arpa.c,v 1.16 2009/07/04 14:11:43 sumomo Exp $ */
+/* $Id: ngram_read_arpa.c,v 1.18 2011/04/29 05:09:17 sumomo Exp $ */
 
 /* words should be alphabetically sorted */
 
@@ -152,7 +152,7 @@ set_unigram(FILE *fp, NGRAM_INFO *ndata)
 
     /* add entry name to index tree */
     if (ndata->root == NULL) {
-      ndata->root = ptree_make_root_node(nid);
+      ndata->root = ptree_make_root_node(nid, &(ndata->mroot));
     } else {
       resid = ptree_search_data(name, ndata->root);
       if (resid != -1 && strmatch(name, ndata->wname[resid])) { /* already exist */
@@ -160,7 +160,7 @@ set_unigram(FILE *fp, NGRAM_INFO *ndata)
 	ok_p = FALSE;
 	continue;
       } else {
-	ptree_add_entry(name, nid, ndata->wname[resid], &(ndata->root));
+	ptree_add_entry(name, nid, ndata->wname[resid], &(ndata->root), &(ndata->mroot));
       }
     }
 

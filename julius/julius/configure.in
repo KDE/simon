@@ -1,10 +1,10 @@
-dnl Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+dnl Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
 dnl Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
 dnl Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
-dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+dnl Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 dnl
-dnl $Id: configure.in,v 1.5 2010/02/03 10:11:58 sumomo Exp $
+dnl $Id: configure.in,v 1.6 2011/04/29 01:57:20 sumomo Exp $
 dnl
 
 AC_INIT(main.c)

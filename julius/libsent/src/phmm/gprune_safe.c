@@ -39,20 +39,20 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 05:28:12 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
 /* gprune_safe.c --- calculate probability of Gaussian densities */
 /*                   with Gaussian pruning (safe) */
 
-/* $Id: gprune_safe.c,v 1.4 2008/07/19 16:51:35 sumomo Exp $ */
+/* $Id: gprune_safe.c,v 1.5 2011/04/29 05:09:17 sumomo Exp $ */
 
 #include <sent/stddefs.h>
 #include <sent/htk_hmm.h>

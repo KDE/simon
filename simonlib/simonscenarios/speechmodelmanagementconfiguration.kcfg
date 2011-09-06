@@ -44,4 +44,11 @@
       <tooltip>Where to save the trainings samples.</tooltip>
     </entry>
   </group>
+  <group name="LanguageProfile">
+    <entry name="LanguageProfileName" type="String">
+      <label>The (file) name of the last loaded language profile</label>
+      <default>None</default>
+      <tooltip>The (file) name of the last loaded language profile</tooltip>
+    </entry>
+  </group>
 </kcfg>

@@ -12,13 +12,13 @@
  * @author Akinobu Lee
  * @date   Fri May 13 15:04:34 2005
  *
- * $Revision: 1.12 $
+ * $Revision: 1.16 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -77,6 +77,9 @@ j_output_argument_help(FILE *fp)
 # ifdef HAS_ESD
   fprintf(fp, "         esd               use ESounD interface\n");
 # endif
+# ifdef HAS_PULSEAUDIO
+  fprintf(fp, "         pulseaudio        use PulseAudio interface\n");
+# endif
 #endif
 #ifdef USE_NETAUDIO
   fprintf(fp, "         netaudio          DatLink/NetAudio server\n");
@@ -124,6 +127,7 @@ j_output_argument_help(FILE *fp)
   fprintf(fp, "    [-zc zerocrossnum]  zerocross num threshold per sec.      (%d)\n", jconf->detect.zero_cross_num);
   fprintf(fp, "    [-headmargin msec]  header margin length in msec.         (%d)\n", jconf->detect.head_margin_msec);
   fprintf(fp, "    [-tailmargin msec]  tail margin length in msec.           (%d)\n", jconf->detect.tail_margin_msec);
+  fprintf(fp, "    [-chunksize sample] unit length for processing            (%d)\n", jconf->detect.chunk_size);
 
   fprintf(fp, "\n GMM utterance verification:\n");
   fprintf(fp, "    -gmm filename       GMM definition file\n");
@@ -263,6 +267,8 @@ j_output_argument_help(FILE *fp)
   fprintf(fp, "    [-forcedict]        ignore error entry and keep running\n");
   fprintf(fp, "    [-iwspword]         (n-gram) add short-pause word for inter-word CD sp\n");
   fprintf(fp, "    [-iwspentry entry]  (n-gram) word entry for \"-iwspword\" (%s)\n", IWSPENTRY_DEFAULT);
+  fprintf(fp, "    [-adddict dictfile] (n-gram) load extra dictionary\n");
+  fprintf(fp, "    [-addentry entry]   (n-gram) load extra word entry\n");
   
   fprintf(fp, "\n Isolated Word Recognition:\n");
   fprintf(fp, "    -w file[,file2...]  (list of) wordlist file name(s)\n");
@@ -283,6 +289,10 @@ j_output_argument_help(FILE *fp)
   fprintf(fp, "\n Search Parameters for the First Pass:\n");
   fprintf(fp, "    [-b beamwidth]      beam width (by state num)             (guessed)\n");
   fprintf(fp, "                        (0: full search, -1: force guess)\n");
+#ifdef SCORE_PRUNING
+  fprintf(fp, "    [-bs score_width]   beam width (by score offset)          (disabled)\n");
+  fprintf(fp, "                        (-1: disable)\n");
+#endif
 #ifdef WPAIR
 # ifdef WPAIR_KEEP_NLIMIT
   fprintf(fp, "    [-nlimit N]         keeps only N tokens on each state     (%d)\n", jconf->search_root->pass1.wpair_keep_nlimit);

@@ -142,4 +142,7 @@ void InlineWidgetView::keyPressEvent ( QKeyEvent * event )
  */
 InlineWidgetView::~InlineWidgetView()
 {
+  while (currentWidget()) {
+    currentWidget()->setParent(0);
+  }
 }

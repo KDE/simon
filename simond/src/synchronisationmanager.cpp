@@ -454,32 +454,37 @@ LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
 
   QFile treeHed(path+"tree1.hed");
   QFile shadowVocab(path+"shadowlexicon.xml");
+  QFile languageProfile(path+"languageProfile"); //optional
 
   if ((!treeHed.open(QIODevice::ReadOnly))
     || (!shadowVocab.open(QIODevice::ReadOnly)))
     return 0;
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll());
+  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll(), languageProfile.readAll());
 }
 
 
 bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
-const QByteArray& treeHed)
+const QByteArray& treeHed, const QByteArray& languageProfile)
 {
   if (username.isEmpty()) return false;
 
   QFile treeHedFile(srcContainerTempPath+"tree1.hed");
   QFile shadowVocabFile(srcContainerTempPath+"shadowlexicon.xml");
+  QFile languageProfileFile(srcContainerTempPath+"languageProfile");
 
   if ((!treeHedFile.open(QIODevice::WriteOnly))
-    || (!shadowVocabFile.open(QIODevice::WriteOnly)))
+    || (!shadowVocabFile.open(QIODevice::WriteOnly))
+    || (!languageProfileFile.open(QIODevice::WriteOnly)))
     return 0;
 
   treeHedFile.write(treeHed);
   shadowVocabFile.write(shadowVocab);
+  languageProfileFile.write(languageProfile);
 
   treeHedFile.close();
   shadowVocabFile.close();
+  languageProfileFile.close();
 
   KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -1026,6 +1031,8 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
   if (!QFile::exists(targetPath+"shadowlexicon.xml") || !QFile::exists(targetPath+"tree1.hed")) {
     if (!QFile::copy(sourcePath+"shadowlexicon.xml", targetPath+"shadowlexicon.xml")) allFine=false;
     if (!QFile::copy(sourcePath+"tree1.hed", targetPath+"tree1.hed")) allFine=false;
+    if (QFile::exists(sourcePath+"languageProfile") && 
+	    !QFile::copy(sourcePath+"languageProfile", targetPath+"languageProfile")) allFine=false;
 
     KConfig config( targetPath+"modelsrcrc", KConfig::SimpleConfig );
     KConfigGroup cGroup(&config, "");

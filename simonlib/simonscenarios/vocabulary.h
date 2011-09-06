@@ -60,6 +60,10 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
       SimilarMatch=2,
       ContainsMatch=4
     };
+    enum ExportFormat
+    {
+      SPHINX=1
+    };
 
     Vocabulary();
     bool deSerialize(const QDomElement&);
@@ -94,6 +98,8 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     virtual bool empty() { return false; }
     void clear();
     void deleteAll();
+    
+    bool exportToFile(const QString& path, Vocabulary::ExportFormat format);
 
     enum VocabularyType
     {

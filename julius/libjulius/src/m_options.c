@@ -18,13 +18,13 @@
  * @author Akinobu Lee
  * @date   Thu May 12 18:52:07 2005
  *
- * $Revision: 1.19 $
+ * $Revision: 1.25 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -374,7 +374,17 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
 	jconf->input.device = SP_INPUT_ESD;
 	jconf->decodeopt.realtime_flag = TRUE;
 #else
-	jlog("ERROR: m_options: \"-input oss\": OSS support is not built-in\n");
+	jlog("ERROR: m_options: \"-input esd\": ESounD support is not built-in\n");
+	return FALSE;
+#endif
+      } else if (strmatch(tmparg,"pulseaudio")) {
+#ifdef HAS_PULSEAUDIO
+	jconf->input.type = INPUT_WAVEFORM;
+	jconf->input.speech_input = SP_MIC;
+	jconf->input.device = SP_INPUT_PULSEAUDIO;
+	jconf->decodeopt.realtime_flag = TRUE;
+#else
+	jlog("ERROR: m_options: \"-input pulseaudio\": PulseAudio support is not built-in\n");
 	return FALSE;
 #endif
 #endif
@@ -559,6 +569,13 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
       jlog("WARNING: m_options: SCAN_BEAM disabled, \"-sb\" ignored\n");
 #endif
       continue;
+#ifdef SCORE_PRUNING
+    } else if (strmatch(argv[i],"-bs")) { /* score beam width for 1st pass */
+      if (!check_section(jconf, argv[i], JCONF_OPT_SR)) return FALSE;
+      GET_TMPARG;
+      jconf->searchnow->pass1.score_pruning_width = atof(tmparg);
+      continue;
+#endif
     } else if (strmatch(argv[i],"-discount")) {	/* (bogus) */
       jlog("WARNING: m_options: option \"-discount\" is now bogus, ignored\n");
       continue;
@@ -597,6 +614,11 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
       if (!check_section(jconf, argv[i], JCONF_OPT_GLOBAL)) return FALSE; 
       GET_TMPARG;
       jconf->detect.tail_margin_msec = atoi(tmparg);
+      continue;
+    } else if (strmatch(argv[i],"-chunksize")) { /* chunk size for detection */
+      if (!check_section(jconf, argv[i], JCONF_OPT_GLOBAL)) return FALSE; 
+      GET_TMPARG;
+      jconf->detect.chunk_size = atoi(tmparg);
       continue;
     } else if (strmatch(argv[i],"-hipass")||strmatch(argv[i],"-hifreq")) { /* frequency of upper band limit */
       if (!check_section(jconf, argv[i], JCONF_OPT_AM)) return FALSE; 
@@ -1270,6 +1292,18 @@ opt_parse(int argc, char *argv[], char *cwd, Jconf *jconf)
       plugin_load_dirs(tmparg);
       continue;
 #endif
+    } else if (strmatch(argv[i],"-adddict")) {
+	if (!check_section(jconf, argv[i], JCONF_OPT_LM)) return FALSE; 
+	GET_TMPARG;
+	tmparg = filepath(tmparg, cwd);
+	j_add_dict(jconf->lmnow, tmparg);
+	free(tmparg);
+	continue;
+    } else if (strmatch(argv[i],"-addentry")) {
+	if (!check_section(jconf, argv[i], JCONF_OPT_LM)) return FALSE; 
+	GET_TMPARG;
+	j_add_word(jconf->lmnow, tmparg);
+	continue;
     }
     if (argv[i][0] == '-' && strlen(argv[i]) == 2) {
       /* 1-letter options */

@@ -22,12 +22,12 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 05:23:59 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.7 $
  * 
  */
 /*
  * Copyright (c) 2003-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -848,6 +848,24 @@ read_binhmm(FILE *fp, HTK_HMM_INFO *hmm, boolean gzfile_p, Value *para)
       n++;
     }
     hmm->totalpdfnum = n;
+  }
+
+  /* re-number state id */
+  {
+    HTK_HMM_State *stmp;
+    int n = 0;
+    for (stmp = hmm->ststart; stmp; stmp = stmp->next) {
+      stmp->id = n++;
+    }
+  }
+  /* assign ID number for all HTK_HMM_Trans */
+  {
+    HTK_HMM_Trans *ttmp;
+    int n = 0;
+    for (ttmp = hmm->trstart; ttmp; ttmp = ttmp->next) {
+      ttmp->id = n++;
+    }
+    hmm->totaltransnum = n;
   }
 
   /* determine whether this model needs multi-path handling */

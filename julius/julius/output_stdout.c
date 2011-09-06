@@ -12,13 +12,13 @@
  * @author Akinobu Lee
  * @date   Tue Sep 06 17:18:46 2005
  *
- * $Revision: 1.7 $
+ * $Revision: 1.9 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -555,8 +555,8 @@ result_pass1_graph(Recog *recog, void *dummy)
     /* debug: output all graph word info */
     wordgraph_dump(stdout, r->result.wg1, winfo);
     for(wg=r->result.wg1;wg;wg=wg->next) {
-      tw1 = (TEXTWIDTH * wg->lefttime) / recog->peseqlen;
-      tw2 = (TEXTWIDTH * wg->righttime) / recog->peseqlen;
+      tw1 = (TEXTWIDTH * wg->lefttime) / r->peseqlen;
+      tw2 = (TEXTWIDTH * wg->righttime) / r->peseqlen;
       printf("%4d:", wg->id);
       for(i=0;i<tw1;i++) printf(" ");
       myprintf(" %s\n", winfo->woutput[wg->wid]);

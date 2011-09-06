@@ -51,11 +51,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void scenarioSelectionChanged();
-  void scenariosChanged();
-  void shadowVocabularyChanged();
-  void baseModelChanged();
+  signals:
+    void scenarioSelectionChanged();
+    void scenariosChanged();
+    void shadowVocabularyChanged();
+    void baseModelChanged();
 
   private:
     bool m_inGroup;
@@ -64,6 +64,14 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     bool m_shadowVocabularyDirty;
     bool setupScenario(Scenario *s);
     void touchBaseModelAccessTime();
+
+    static ScenarioManager *instance;
+    ShadowVocabulary *shadowVocab;
+    Scenario *currentScenario;
+
+    QList<Scenario*> scenarios;
+    QList<ScenarioDisplay*> scenarioDisplays;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
 
   public:
     static ScenarioManager *getInstance();
@@ -110,6 +118,8 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QString baseModelTiedlistName();
     QString baseModelMacros();
     QString baseModelStats();
+    QString languageProfileName();
+    void setLanguageProfileName(const QString& name);
     void setBaseModel(int modelType, const QString& hmmName, const QString& tiedlistName,
       const QString& macrosName, const QString& statsName);
 
@@ -124,15 +134,8 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void updateDisplays(Scenario* scenario, bool force=false);
 
     void slotBaseModelChanged();
-
-  private:
-    static ScenarioManager *instance;
-    ShadowVocabulary *shadowVocab;
-    Scenario *currentScenario;
-
-    QList<Scenario*> scenarios;
-    QList<ScenarioDisplay*> scenarioDisplays;
-    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+    QHash< QString, QString > transcribe(QStringList words);
+    QString transcribe(QString word);
 
 };
 #endif

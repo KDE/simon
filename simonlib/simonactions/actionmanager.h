@@ -43,8 +43,6 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
   private:
     static ActionManager* instance;
 
-    QList<Action::Ptr> actions;
-
     RecognitionResultList *currentlyPromptedListOfResults;
     QList<GreedyReceiver*> *greedyReceivers;
 

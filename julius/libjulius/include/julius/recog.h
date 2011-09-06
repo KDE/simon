@@ -70,13 +70,13 @@
  * @author Akinobu Lee
  * @date   Fri Feb 16 13:42:28 2007
  *
- * $Revision: 1.11 $
+ * $Revision: 1.15 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -123,6 +123,11 @@ typedef struct __FSBeam__ {
   int n_end;            ///< end index of in-beam nodes on @a tindex
   int tl;               ///< Current work area id (0 or 1, swapped for each frame)
   int tn;               ///< Next work area id (0 or 1, swapped for each frame)
+#ifdef SCORE_PRUNING
+  LOGPROB score_pruning_max;	  ///< Maximum score at current frame
+  LOGPROB score_pruning_threshold;///< Score threshold for score pruning
+  int score_pruning_count;	  ///< Number of tokens pruned by score (debug)
+#endif
     
   /* Active token list */
   TOKENID *token;       ///< Active token list that holds currently assigned tokens for each tree node
@@ -224,6 +229,7 @@ typedef struct __StackDecode__ {
   LOGPROB *sentcm = NULL;       ///< Confidence score of each sentence
   LOGPROB *wordcm = NULL;       ///< Confidence score of each word voted from @a sentcm
   int sentnum;          ///< Allocated length of @a sentcm
+  int wordnum;          ///< Allocated length of @a wordcm
 # endif
 #endif /* CONFIDENCE_MEASURE */
 
@@ -356,6 +362,7 @@ typedef struct __adin__ {
   int thres;            ///< Input Level threshold (0-32767)
   int noise_zerocross;  ///< Computed threshold of zerocross num in the cycle buffer
   int nc_max;           ///< Computed number of fragments for tail margin
+  int chunk_size;	///< audio process unit
   boolean adin_cut_on;  ///< TRUE if do input segmentation by silence
   boolean silence_cut_default; ///< Device-dependent default value of adin_cut_on()
   boolean strip_flag;   ///< TRUE if skip invalid zero samples
@@ -426,6 +433,7 @@ typedef struct __adin__ {
 
   unsigned int total_captured_len; ///< Total number of recorded samples from start until now
   unsigned int last_trigger_sample; ///< Last speech area was triggeed at this sample
+  unsigned int last_trigger_len; // Length of last speech area 
 
   char current_input_name[MAXPATHLEN]; ///< File or device name of current input
 

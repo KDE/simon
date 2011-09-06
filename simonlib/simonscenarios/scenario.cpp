@@ -65,6 +65,7 @@ m_actionCollection(0)
  */
 bool Scenario::init(QString path)
 {
+  startGroup(); //ensure we have completely initialized the scenario before saving it
   QDomDocument *doc=0;
   bool deleteDoc;
   if (!setupToParse(path, doc, deleteDoc)) return false;
@@ -84,6 +85,7 @@ bool Scenario::init(QString path)
   if (!readTrainingsTexts(path, doc)) return false;
 
   delete doc;
+  commitGroup();
   return true;
 }
 
@@ -610,7 +612,7 @@ QStringList Scenario::getAllPossibleSentences()
 }
 
 
-QStringList Scenario::getExampleSentencesOfStructur(const QString& structure)
+QStringList Scenario::getExampleSentencesOfStructure(const QString& structure)
 {
   int alreadyFoundExamples = 0;
   return getAllPossibleSentencesOfStructure(structure, &alreadyFoundExamples);
@@ -784,10 +786,9 @@ void Scenario::setListInterfaceCommands(QHash<CommandListElements::Element, Voic
 
 Scenario::~Scenario()
 {
-  kDebug() << "I am deleted!";
+  //plugins might do something with the scenario when deleted so kill them first
+  delete m_actionCollection;
   qDeleteAll(m_authors);
-  if (m_actionCollection)
-    m_actionCollection->deleteLater();
   if (m_grammar)
     m_grammar->deleteLater();
   if (m_texts)

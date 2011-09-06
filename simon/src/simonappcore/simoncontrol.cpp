@@ -44,25 +44,25 @@
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
   setStatus(SimonControl::Disconnected);
-  this->recognitionControl = RecognitionControl::getInstance();
-  QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
-  QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
+  
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(connected()), this, SLOT(connectedToServer()));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 
-  QObject::connect(recognitionControl, SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QString&)), this, SLOT(slotRecognitionError(const QString&, const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(compilationError(const QString&, const QString&)), this, SLOT(slotCompilationError(const QString&, const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionError(const QString&, const QString&)), this, SLOT(slotRecognitionError(const QString&, const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationError(const QString&, const QString&)), this, SLOT(slotCompilationError(const QString&, const QString&)));
 
-  QObject::connect(recognitionControl, SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(slotRecognitionWarning(const QString&)));
-  QObject::connect(recognitionControl, SIGNAL(compilationWarning(const QString&)), this, SLOT(slotCompilationWarning(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionWarning(const QString&)), this, SLOT(slotRecognitionWarning(const QString&)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(compilationWarning(const QString&)), this, SLOT(slotCompilationWarning(const QString&)));
 
-  QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 
-  QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
-  QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
+  QObject::connect(RecognitionControl::getInstance(), SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 
   ActionManager::getInstance();                   // initializing action manager
   SimonTTS::getInstance();                   // initializing TTS system for dbus interface
@@ -76,7 +76,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 void SimonControl::startup()
 {
-  recognitionControl->startup();
+  RecognitionControl::getInstance()->startup();
 }
 
 
@@ -167,25 +167,25 @@ void SimonControl::slotCompilationWarning(const QString& warning)
 
 
 /**
- * @brief Connects to recognitionControl
+ * @brief Connects to RecognitionControl::getInstance()
  *
  *	@author Peter Grasch
  */
 void SimonControl::connectToServer()
 {
   setStatus(SimonControl::Connecting);
-  recognitionControl->startConnecting();
+  RecognitionControl::getInstance()->startConnecting();
 }
 
 
 /**
- * @brief disconnects from recognitionControl
+ * @brief disconnects from RecognitionControl::getInstance()
  *
  *	@author Peter Grasch
  */
 void SimonControl::disconnectFromServer()
 {
-  recognitionControl->disconnectFromServer();
+  RecognitionControl::getInstance()->disconnectFromServer();
 }
 
 
@@ -254,7 +254,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
  * @brief Server connected
  *
  * This is just a feedback function provided to react to the fact that the
- * connection to the recognitionControl socket was established
+ * connection to the RecognitionControl::getInstance() socket was established
  *
  * @author Peter Grasch
  */
@@ -269,7 +269,7 @@ void SimonControl::connectedToServer()
  * @brief Server disconnected
  *
  * This is just a feedback function provided to react to the fact that the
- * connection to the recognitionControl socket was lost
+ * connection to the RecognitionControl::getInstance() socket was lost
  *
  * @author Peter Grasch
  */
@@ -281,14 +281,14 @@ void SimonControl::disconnectedFromServer()
 
 
 /**
- * @brief We want to abort connecting to recognitionControl
+ * @brief We want to abort connecting
  *
  * @author Peter Grasch
  */
 void SimonControl::abortConnecting()
 {
   Logger::log(i18n("Connecting aborted"));
-  this->recognitionControl->disconnectFromServer();
+  RecognitionControl::getInstance()->disconnectFromServer();
 }
 
 
@@ -315,16 +315,17 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
  */
 SimonControl::SystemStatus SimonControl::activateSimon()
 {
+  RecognitionControl::getInstance()->setBlockAutoStart(false);
   if (status == SimonControl::ConnectedDeactivatedReady) {
     Logger::log(i18n("simon activated"));
     setStatus(SimonControl::ConnectedActivating);
-    if (!recognitionControl->startRecognition())
+    if (!RecognitionControl::getInstance()->startRecognition())
             setStatus(SimonControl::ConnectedDeactivatedReady);
   }
   if (status == SimonControl::ConnectedPaused) {
     Logger::log(i18n("Continuing recognition"));
     setStatus(SimonControl::ConnectedResuming);
-    if (!recognitionControl->resumeRecognition())
+    if (!RecognitionControl::getInstance()->resumeRecognition())
             setStatus(SimonControl::ConnectedPaused);
   }
   return status;
@@ -338,10 +339,11 @@ SimonControl::SystemStatus SimonControl::activateSimon()
  */
 SimonControl::SystemStatus SimonControl::deactivateSimon()
 {
+  RecognitionControl::getInstance()->setBlockAutoStart(true);
   if (status == SimonControl::ConnectedActivated) {
     setStatus(SimonControl::ConnectedDeactivating);
     Logger::log(i18n("simon deactivated"));
-    recognitionControl->pauseRecognition();
+    RecognitionControl::getInstance()->pauseRecognition();
   }
   return status;
 }
@@ -349,7 +351,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 
 void SimonControl::compileModel()
 {
-  recognitionControl->startSynchronisation();
+  RecognitionControl::getInstance()->startSynchronisation();
 }
 
 
@@ -360,6 +362,4 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-  SoundServer::getInstance()->uninitializeSoundSystem();
-  recognitionControl->deleteLater();
 }

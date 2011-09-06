@@ -22,6 +22,7 @@
 
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QCoreApplication>
 #include <kio/accessmanager.h>
 #include <KDebug>
 
@@ -40,7 +41,10 @@ SimonJsonConnector::SimonJsonConnector(QObject *parent) : QObject(parent), m_acc
 
 SimonJsonConnector* SimonJsonConnector::getInstance()
 {
-  if (!instance) instance = new SimonJsonConnector;
+  if (!instance) {
+    instance = new SimonJsonConnector;
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -86,5 +90,7 @@ SimonJsonConnector::~SimonJsonConnector()
     delete notificationReceivers.value(reply);
     delete reply;
   }
+  m_accessManager->deleteLater();
+  instance = 0;
 }
 

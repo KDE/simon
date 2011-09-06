@@ -2,22 +2,27 @@
  * @file   adin_portaudio.c
  * 
  * <JA>
- * @brief  ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (portaudioï¿½é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½)
+ * @brief  ¥Þ¥¤¥¯ÆþÎÏ (portaudio¥é¥¤¥Ö¥é¥ê)
  *
- * portaudiooï¿½é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤Î¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½Ø¿ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½
- * ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ configure ï¿½ï¿½ï¿½ï¿½ "--with-mictype=portaudio" ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * Linux ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Win32 ï¿½Ç»ï¿½ï¿½Ñ²ï¿½Ç½ï¿½Ç¤ï¿½ï¿½ï¿½Win32ï¿½â¡¼ï¿½É¤Ç¤Ï¤ï¿½ï¿½ì¤¬
- * ï¿½Ç¥Õ¥ï¿½ï¿½ï¿½ï¿½È¤È¤Ê¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½
+ * portaudioo¥é¥¤¥Ö¥é¥ê¤ò»ÈÍÑ¤·¤¿¥Þ¥¤¥¯ÆþÎÏ¤Î¤¿¤á¤ÎÄã¥ì¥Ù¥ë´Ø¿ô¤Ç¤¹¡¥
+ * »ÈÍÑ¤¹¤ë¤Ë¤Ï configure »þ¤Ë "--with-mictype=portaudio" ¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡¥
+ * Linux ¤ª¤è¤Ó Win32 ¤Ç»ÈÍÑ²ÄÇ½¤Ç¤¹¡¥Win32¥â¡¼¥É¤Ç¤Ï¤³¤ì¤¬
+ * ¥Ç¥Õ¥©¥ë¥È¤È¤Ê¤ê¤Þ¤¹¡¥
  *
- * Juliusï¿½Ï¥ß¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹Ô¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½Ç¥Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½
- * ï¿½ï¿½ï¿½ï¿½Ê¥Þ¥ï¿½ï¿½ï¿½/ï¿½é¥¤ï¿½ï¿½ï¿½Ë¤ï¿½Ï¿ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½å¡¼ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Windowsï¿½ï¿½
- * ï¿½Ö¥Ü¥ï¿½ï¿½å¡¼ï¿½à¥³ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Linux ï¿½ï¿½ xmixer ï¿½Ê¤É¡ï¿½Â¾ï¿½Î¥Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½
- * ï¿½Ô¤Ê¤Ã¤Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Ï¿²»¥Ç¥Ð¥¤¥¹¤Ï WASAPI -> ASIO -> DirectSound -> MME ¤Î½ç¤ÇÁªÂò¤µ¤ì¤Þ¤¹¡£
+ * »ÈÍÑ¤¹¤ë¥Ç¥Ð¥¤¥¹¤ò»ØÄê¤·¤¿¤¤¾ì¹ç¤Ï¡¢´Ä¶­ÊÑ¿ô PORTAUDIO_DEV ¤Ç¥Ç¥Ð¥¤¥¹Ì¾
+ * ¡ÊÀèÆ¬¤«¤éÉôÊ¬¥Þ¥Ã¥Á¡Ë¤ò»ØÄê¤¹¤ë¤«¡¢PORTAUDIO_DEV_NUM ¤Ç¥Ç¥Ð¥¤¥¹ÈÖ¹æ¤ò
+ * »ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£»ÈÍÑ²ÄÇ½¤Ê¥Ç¥Ð¥¤¥¹Ì¾¤È¥Ç¥Ð¥¤¥¹ÈÖ¹æ¤Ïµ¯Æ°»þ¤Ë½ÐÎÏ¤µ¤ì¤Þ¤¹¡£
  *
- * portaudio ï¿½Ï¥Õ¥ê¡¼ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½Ã¥È¥Û¡ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½d
- * ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ libsent/src/adin/pa/ ï¿½Ë´Þ¤Þ¤ï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½
- * ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥É¤ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½callback ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¥°¥Ð¥Ã¥Õ¥ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½
+ * Julius¤Ï¥ß¥­¥µ¡¼¥Ç¥Ð¥¤¥¹¤ÎÀßÄê¤ò°ìÀÚ¹Ô¤¤¤Þ¤»¤ó¡¥Ï¿²»¥Ç¥Ð¥¤¥¹¤Î
+ * ÁªÂò¡Ê¥Þ¥¤¥¯/¥é¥¤¥ó¡Ë¤äÏ¿²»¥Ü¥ê¥å¡¼¥à¤ÎÄ´Àá¤ÏWindows¤Î
+ * ¡Ö¥Ü¥ê¥å¡¼¥à¥³¥ó¥È¥í¡¼¥ë¡× ¤ä Linux ¤Î xmixer ¤Ê¤É¡¤Â¾¤Î¥Ä¡¼¥ë¤Ç
+ * ¹Ô¤Ê¤Ã¤Æ²¼¤µ¤¤¡¥
+ *
+ * portaudio ¤Ï¥Õ¥ê¡¼¤Ç¥¯¥í¥¹¥×¥é¥Ã¥È¥Û¡¼¥à¤Î¥ª¡¼¥Ç¥£¥ªÆþ½ÐÎÏ¥é¥¤¥Ö¥é¥ê
+ * ¤Ç¤¹¡¥¥½¡¼¥¹¤Ï libsent/src/adin/pa/ ¤Ë´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡¥¤³¤Î¥×¥í¥°¥é¥à¤Ç¤Ï
+ * ¥¹¥ì¥Ã¥É¤òÍøÍÑ¤·¤¿callback ¤òÍøÍÑ¤·¤ÆÆþÎÏ²»À¼¤ò¥ê¥ó¥°¥Ð¥Ã¥Õ¥¡¤Ë¼è¤ê¹þ¤ó¤Ç
+ * ¤¤¤Þ¤¹¡¥
  *
  * @sa http://www.portaudio.com/
  * </JA>
@@ -28,6 +33,13 @@
  * To use, please specify "--with-mictype=portaudio" options
  * to configure script.  This function is currently available for Linux and
  * Win32.  On Windows, this is default.
+ *
+ * The audio API will be chosen in the following order: WASAPI, ASIO,
+ * DirectSound and MME.  You can specify which audio capture device to use
+ * by setting the name (entire, or just the first part) to the
+ * environment variable "PORTAUDIO_DEV", or the ID number to 
+ * "PORTAUDIO_DEV_NUM".  The names and ID numbers of available devices will
+ * be scanned and listed at the initialization.
  *
  * Julius does not alter any mixer device setting at all.  You should
  * configure the mixer for recording source (mic/line) and recording volume
@@ -44,12 +56,12 @@
  * @author Akinobu LEE
  * @date   Mon Feb 14 12:03:48 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.18 $
  * 
  */
 /*
  * Copyright (c) 2004-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -58,25 +70,43 @@
 #include <sent/adin.h>
 
 /* sound header */
-/*#include "pa/portaudio.h"*/
 #include <portaudio.h>
-#ifdef linux
-#include <pthread.h>
+
+#ifndef paNonInterleaved
+#define OLDVER
 #endif
-
-#define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
-
 
 #undef DDEBUG
 
+/**
+ * Define this to choose which audio device to open by querying the
+ * device API type in the following order in Windows:
+ *  
+ *  WASAPI -> ASIO -> DirectSound -> MME
+ *  
+ * This will be effective when using portaudio library with multiple
+ * Host API support, in which case Pa_OpenDefaultStream() will open
+ * the first found one (not the one with the optimal performance)
+ *
+ * (not work on OLDVER)
+ * 
+ */
+#ifndef OLDVER
+#define CHOOSE_HOST_API
+#endif
 
 /**
  * Maximum Data fragment Length in msec.  Input can be delayed to this time.
  * You can override this value by specifying environment valuable
  * "LATENCY_MSEC".
+ *
+ * This is not used in the new V19, it uses default value given by the library.
+ * At the new V19, you can force latency by PA_MIN_LATENCY_MSEC instead of LATENCY_MSEC.
  * 
  */
+#ifdef OLDVER
 #define MAX_FRAGMENT_MSEC 128
+#endif
 
 /* temporal buffer */
 static SP16 *speech;		///< cycle buffer for incoming speech data
@@ -84,12 +114,6 @@ static int current;		///< writing point
 static int processed;		///< reading point
 static boolean buffer_overflowed = FALSE; ///< TRUE if buffer overflowed
 static int cycle_buffer_len;	///< length of cycle buffer based on INPUT_DELAY_SEC
-static boolean adin_is_stopped = TRUE;
-static int adin_stream_sfreq = -1;
-
-/*static pthread_mutex_t adin_mutex;*/
-
-boolean adin_stream_should_be_running_pa = FALSE;
 
 /** 
  * PortAudio callback to store the incoming speech data into the cycle
@@ -104,13 +128,19 @@ boolean adin_stream_should_be_running_pa = FALSE;
  * @return 0 when no error, or 1 to terminate recording.
  */
 static int
-Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData)
+#ifdef OLDVER
+Callback(void *inbuf, void *outbuf, unsigned long len, PaTimestamp outTime, void *userdata)
+#else
+Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallbackTimeInfo *outTime, PaStreamCallbackFlags statusFlags, void *userdata)
+#endif
 {
-  if (adin_stream_should_be_running_pa == FALSE)
-	  return paAbort;
-
-  const SP16 *now;
+#ifdef OLDVER
+  SP16 *now;
   int avail;
+#else
+  const SP16 *now;
+  unsigned long avail;
+#endif
   int processed_local;
   int written;
 
@@ -136,7 +166,6 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
     len = avail;
   }
 
-  /*pthread_mutex_lock(&adin_mutex);*/
   /* store to buffer */
   if (current + len <= cycle_buffer_len) {
     memcpy(&(speech[current]), now, len * sizeof(SP16));
@@ -160,15 +189,160 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
   printf("callback-3: new current: %d\n", current);
 #endif
 
-
-  /*pthread_mutex_unlock(&adin_mutex);*/
-
-  if (adin_stream_should_be_running_pa==TRUE)
-	return paContinue;
-  else return paAbort;
+  return(0);
 }
 
-static PaStream *stream=NULL;		///< Stream information
+#ifdef OLDVER
+static PortAudioStream *stream = NULL;		///< Stream information
+#else
+static PaStream *stream = NULL;		///< Stream information
+#endif
+static int srate;		///< Required sampling rate
+
+
+#ifdef CHOOSE_HOST_API
+
+// Get device list
+// If first argument is NULL, return the maximum number of devices
+int
+get_device_list(int *devidlist, char **namelist, int maxstrlen, int maxnum)
+{
+  PaDeviceIndex numDevice = Pa_GetDeviceCount(), i;
+  const PaDeviceInfo *deviceInfo;
+  const PaHostApiInfo *apiInfo;
+  static char buf[256];
+  int n;
+
+  n = 0;
+  for(i=0;i<numDevice;i++) {
+    deviceInfo = Pa_GetDeviceInfo(i);
+    if (!deviceInfo) continue;
+    if (deviceInfo->maxInputChannels <= 0) continue;
+    apiInfo = Pa_GetHostApiInfo(deviceInfo->hostApi);
+    if (!apiInfo) continue;
+    if (devidlist != NULL) {
+      if ( n >= maxnum ) break;
+      snprintf(buf, 255, "%s: %s", apiInfo->name, deviceInfo->name);
+      buf[255] = '\0';
+      devidlist[n] = i;
+      strncpy(namelist[n], buf, maxstrlen);
+    }
+    n++;
+  }
+  
+  return n;
+}
+
+// Automatically choose a device to open
+// 
+// 1. if the env value of "PORTAUDIO_DEV" is defined and matches any of 
+//    "apiInfo->name: deviceInfo->name" string, use it.
+// 2. if the env value "PORTAUDIO_DEV_NUM" is defined, use the (value-1)
+//    as device id.
+// 3. if not yet, default device will be chosen:
+// 3.1. in WIN32 environment, search for supported and available API in
+//      the following order: WASAPI, ASIO, DirectSound, MME.
+//      Note that only the APIs supported by the linked PortAudio
+//      library are available.
+// 3.2  in other environment, use the default input device.
+//
+// store the device id to devId_ret and returns 0.
+// if devId_ret is -1, tell caller to use default.
+// returns -1 on error.
+static int
+auto_determine_device(int *devId_ret)
+{
+  int devId;
+  PaDeviceIndex numDevice = Pa_GetDeviceCount(), i;
+  const PaDeviceInfo *deviceInfo;
+  const PaHostApiInfo *apiInfo;
+  char *devname;
+  static char buf[256];
+#if defined(_WIN32) || defined(__CYGWIN__)
+  // at win32, force preference order: iWASAPI > ASIO > DirectSound > MME > Other
+  int iMME = -1, iDS = -1, iASIO = -1, iWASAPI = -1;
+#endif
+
+  // if PORTAUDIO_DEV is specified, match it against available APIs
+  devname = getenv("PORTAUDIO_DEV");
+  devId = -1;
+
+  // get list of available capture devices
+  jlog("Stat: adin_portaudio: sound capture devices:\n");
+  for(i=0;i<numDevice;i++) {
+    deviceInfo = Pa_GetDeviceInfo(i);
+    if (!deviceInfo) continue;
+    if (deviceInfo->maxInputChannels <= 0) continue;
+    apiInfo = Pa_GetHostApiInfo(deviceInfo->hostApi);
+    if (!apiInfo) continue;
+    snprintf(buf, 255, "%s: %s", apiInfo->name, deviceInfo->name);
+    buf[255] = '\0';
+    jlog("  %d [%s]\n", i+1, buf);
+    if (devname && !strncmp(devname, buf, strlen(devname))) {
+      // device name (partially) matches PORTAUDIO_DEV
+      devId = i;
+    }
+#if defined(_WIN32) || defined(__CYGWIN__)
+    // store the device ID for each API
+    switch(apiInfo->type) {
+    case paWASAPI: if (iWASAPI < 0) iWASAPI = i; break;
+    case paMME:if (iMME   < 0) iMME   = i; break;
+    case paDirectSound:if (iDS    < 0) iDS    = i; break;
+    case paASIO:if (iASIO  < 0) iASIO  = i; break;
+    }
+#endif
+  }
+  if (devname) {
+    if (devId == -1) {
+      jlog("Error: adin_portaudio: PORTAUDIO_DEV=\"%s\", but no device matches it\n", devname);
+      return -1;
+    }
+    jlog("  --> #%d matches PORTAUDIO_DEV, use it\n", devId + 1);
+    *devId_ret = devId;
+    return 0;
+  }
+  if (getenv("PORTAUDIO_DEV_NUM")) {
+    devId = atoi(getenv("PORTAUDIO_DEV_NUM")) - 1;
+    if (devId < 0 || devId >= numDevice) {
+      jlog("Error: PORTAUDIO_DEV_NUM=%d, but device %d not exist\n", devId+1, devId+1);
+      return -1;
+    }
+    jlog("  --> use device %d, specified by PORTAUDIO_DEV_NUM\n", devId + 1);
+    *devId_ret = devId;
+    return 0;
+  }
+#if defined(_WIN32) || defined(__CYGWIN__)
+  jlog("Stat: adin_portaudio: APIs:");
+  if (iWASAPI >= 0) jlog(" WASAPI");
+  if (iASIO >= 0) jlog(" ASIO");
+  if (iDS >= 0) jlog(" DirectSound");
+  if (iMME >= 0) jlog(" MME");
+  jlog("\n");
+  if (iWASAPI >= 0) {
+    jlog("Stat: adin_portaudio: -- WASAPI selected\n");
+    devId = iWASAPI;
+  } else if (iASIO >= 0) {
+    jlog("Stat: adin_portaudio: -- ASIO selected\n");
+    devId = iASIO;
+  } else if (iDS >= 0) {
+    jlog("Stat: adin_portaudio: -- DirectSound selected\n");
+    devId = iDS;
+  } else if (iMME >= 0) {
+    jlog("Stat: adin_portaudio: -- MME selected\n");
+    devId = iMME;
+  } else {
+    jlog("Error: adin_portaudio: no device available, try default\n");
+    devId = -1;
+  }
+  *devId_ret = devId;
+#else
+  jlog("Stat: adin_portaudio: use default device\n");
+  *devId_ret = -1;
+#endif
+  return 0;
+}
+
+#endif
 
 /** 
  * Device initialization: check device capability and open for recording.
@@ -181,7 +355,164 @@ static PaStream *stream=NULL;		///< Stream information
 boolean
 adin_mic_standby(int sfreq, void *dummy)
 {
-  adin_stream_sfreq = sfreq;
+  /* store required sampling rate for checking after opening device */
+  srate = sfreq;
+  return TRUE;
+}
+
+/** 
+ * Open the portaudio device and check capability of the opening device.
+ *
+ * @param arg [in] argument: if number, use it as device ID
+ * 
+ * @return TRUE on success, FALSE on failure.
+ */
+static boolean
+adin_mic_open(char *arg)
+{
+  int sfreq = srate;
+  PaError err;
+#ifdef OLDVER
+  int frames_per_buffer;
+  int num_buffer;
+#endif
+  int latency;
+  char *p;
+  int devId;
+
+  /* set cycle buffer length */
+  cycle_buffer_len = INPUT_DELAY_SEC * sfreq;
+  //jlog("Stat: adin_portaudio: INPUT_DELAY_SEC = %d\n", INPUT_DELAY_SEC);
+  jlog("Stat: adin_portaudio: audio cycle buffer length = %d bytes\n", cycle_buffer_len * sizeof(SP16));
+
+#ifdef OLDVER
+  /* for safety... */
+  if (sizeof(SP16) != paInt16) {
+    jlog("Error: adin_portaudio: SP16 != paInt16 !!\n");
+    return FALSE;
+  }
+  /* set buffer parameter*/
+  frames_per_buffer = 256;
+#endif
+
+  /* allocate and init */
+  current = processed = 0;
+  speech = (SP16 *)mymalloc(sizeof(SP16) * cycle_buffer_len);
+  buffer_overflowed = FALSE;
+
+
+  /* get user-specified latency parameter */
+  latency = 0;
+  if ((p = getenv("LATENCY_MSEC")) != NULL) {
+    latency = atoi(p);
+    jlog("Stat: adin_portaudio: setting latency to %d msec (obtained from LATENCY_MSEC)\n", latency);
+  }
+#ifdef OLDVER
+  if (latency == 0) {
+    latency = MAX_FRAGMENT_MSEC;
+    jlog("Stat: adin_portaudio: setting latency to %d msec\n", latency);
+  }
+  num_buffer = sfreq * latency / (frames_per_buffer * 1000);
+  jlog("Stat: adin_portaudio: framesPerBuffer=%d, NumBuffers(guess)=%d\n",
+       frames_per_buffer, num_buffer);
+  jlog("Stat: adin_portaudio: audio I/O Latency = %d msec (data fragment = %d frames)\n",
+	   (frames_per_buffer * num_buffer) * 1000 / sfreq, 
+	   (frames_per_buffer * num_buffer));
+#endif
+
+  /* initialize device */
+  err = Pa_Initialize();
+  if (err != paNoError) {
+    jlog("Error: adin_portaudio: failed to initialize: %s\n", Pa_GetErrorText(err));
+    return(FALSE);
+  }
+
+#ifdef CHOOSE_HOST_API
+
+  if (arg == NULL) {
+    // first try to determine the best device
+    if (auto_determine_device(&devId) == -1) {
+      jlog("Error: adin_portaudio: failed to choose the specified device\n");
+      return(FALSE);
+    }
+    if (devId == -1) {
+      // No device has been determined, use the default input device
+      devId = Pa_GetDefaultInputDevice();
+      if (devId == paNoDevice) {
+	jlog("Error: adin_portaudio: no default input device is available or an error was encountered\n");
+	return FALSE;
+      }
+    }
+  } else {
+    // use the given number as device id
+    devId = atoi(arg);
+  }
+  // output device information to use
+  {
+    const PaDeviceInfo *deviceInfo;
+    const PaHostApiInfo *apiInfo;
+    static char buf[256];
+    deviceInfo = Pa_GetDeviceInfo(devId);
+    if (deviceInfo == NULL) {
+      jlog("Error: adin_portaudio: failed to get info for device id %d\n", devId);
+      return FALSE;
+    }
+    apiInfo = Pa_GetHostApiInfo(deviceInfo->hostApi);
+    if (apiInfo == NULL) {
+      jlog("Error: adin_portaudio: failed to get API info for device id %d\n", devId);
+      return FALSE;
+    }
+    snprintf(buf, 255, "%s: %s", apiInfo->name, deviceInfo->name);
+    buf[255] = '\0';
+    jlog("Stat: adin_portaudio: [%s]\n", buf);
+    jlog("Stat: adin_portaudio: (you can specify device by \"PORTAUDIO_DEV_NUM=number\"\n");
+  }
+  
+  // open the device
+  {
+    PaStreamParameters param;
+    memset( &param, 0, sizeof(param));
+    param.channelCount = 1;
+    param.device = devId;
+    param.sampleFormat = paInt16;
+    if (latency == 0) {
+      param.suggestedLatency = Pa_GetDeviceInfo(devId)->defaultLowInputLatency;
+      jlog("Stat: adin_portaudio: try to set default low latency from portaudio: %d msec\n", param.suggestedLatency * 1000.0);
+    } else {
+      param.suggestedLatency = latency / 1000.0;
+      jlog("Stat: adin_portaudio: try to set latency to %d msec\n", param.suggestedLatency * 1000.0);
+    }
+    err = Pa_OpenStream(&stream, &param, NULL, sfreq, 
+			0, paNoFlag,
+			Callback, NULL);
+    if (err != paNoError) {
+      jlog("Error: adin_portaudio: error in opening stream: %s\n", Pa_GetErrorText(err));
+      return(FALSE);
+    }
+  }
+  {
+    const PaStreamInfo *stinfo;
+    stinfo = Pa_GetStreamInfo(stream);
+    jlog("Stat: adin_portaudio: latency was set to %f msec\n", stinfo->inputLatency * 1000.0);
+  }
+
+#else
+
+  // Just open the default stream
+  err = Pa_OpenDefaultStream(&stream, 1, 0, paInt16, sfreq, 
+#ifdef OLDVER
+			     frames_per_buffer,
+			     num_buffer, 
+#else
+				 0,
+#endif
+			     Callback, NULL);
+  if (err != paNoError) {
+    jlog("Error: adin_portaudio: error in opening stream: %s\n", Pa_GetErrorText(err));
+    return(FALSE);
+  }
+
+#endif /* CHOOSE_HOST_API */
 
   return(TRUE);
 }
@@ -189,78 +520,25 @@ adin_mic_standby(int sfreq, void *dummy)
 /** 
  * Start recording.
  * 
+ * @param pathname [in] path name to open or NULL for default
+ * 
  * @return TRUE on success, FALSE on failure.
  */
 boolean
-adin_mic_begin(char *pathname)
+adin_mic_begin(char *arg)
 {
-  if (adin_stream_sfreq == -1) {
-	  return(FALSE);
-  }
-
-
-  /* initialize mutex */
-  /*pthread_mutex_init (&adin_mutex, NULL);*/
-
   PaError err;
-  int frames_per_buffer, num_buffer;
-  char *p;
-
-  /* set cycle buffer length */
-  cycle_buffer_len = INPUT_DELAY_SEC * adin_stream_sfreq;
-  jlog("Stat: adin_portaudio: INPUT_DELAY_SEC = %d\n", INPUT_DELAY_SEC);
-  jlog("Stat: adin_portaudio: audio cycle buffer length = %d bytes\n", cycle_buffer_len * sizeof(SP16));
-
-  /* allocate and init */
-  current = processed = 0;
-  speech = (SP16 *)mymalloc(sizeof(SP16) * cycle_buffer_len);
-  buffer_overflowed = FALSE;
-
-  frames_per_buffer = 256;
-  jlog("Stat: adin_portaudio: framesPerBuffer=%d\n", frames_per_buffer);
 
   /* initialize device and open stream */
-  err = Pa_Initialize();
-  if (err != paNoError) {
-    jlog("Error: adin_portaudio: failed to initialize: %s\n", Pa_GetErrorText(err));
+  if (adin_mic_open(arg) == FALSE) {
+    stream = NULL;
     return(FALSE);
   }
-
-  adin_is_stopped = FALSE;
-
-  PaStreamParameters  inputParameters;
-  bzero( &inputParameters, sizeof( inputParameters ) );
-  int device;
-  char* inputDevice = getenv("SIMONDEV");
-  if (!inputDevice) device = 0;
-  else
-	  device = atoi(inputDevice);
-  inputParameters.device = device; 
-  inputParameters.channelCount = 1;
-  inputParameters.sampleFormat = paInt16;
-  const PaDeviceInfo *info = Pa_GetDeviceInfo( inputParameters.device );
-  if (!info) {
-    return (FALSE);
-  }
-
-  inputParameters.suggestedLatency = info->defaultLowInputLatency;
-  inputParameters.hostApiSpecificStreamInfo = NULL;
-
-
-  err = Pa_OpenStream(&stream, &inputParameters, NULL, adin_stream_sfreq, 
-			     frames_per_buffer, /*num_buffer, */ paClipOff,
-			     Callback, NULL);
-  if (err != paNoError) {
-    jlog("Error: adin_portaudio: error in opening stream: %s\n", Pa_GetErrorText(err));
-    return(FALSE);
-  }
-
-  adin_stream_should_be_running_pa=TRUE;
   /* start stream */
   err = Pa_StartStream(stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to begin stream: %s\n", Pa_GetErrorText(err));
-    adin_stream_should_be_running_pa=FALSE;
+    stream = NULL;
     return(FALSE);
   }
   
@@ -275,42 +553,30 @@ adin_mic_begin(char *pathname)
 boolean
 adin_mic_end()
 {
-  fprintf(stderr, "\nadin_mic_end()\n");
-  if (adin_is_stopped || (stream==NULL)) {
-	return(TRUE); // we have already stopped
-  }
-
-  /*pthread_mutex_lock(&adin_mutex);*/
-
-  PaStream *real_stream = stream;
-  stream=NULL;
-  
-  adin_stream_should_be_running_pa=FALSE;
   PaError err;
 
-  /* stop stream */
-  err = Pa_StopStream(real_stream);
+  if (stream == NULL) return(TRUE);
+
+  /* stop stream (do not wait callback and buffer flush, stop immediately) */
+  err = Pa_AbortStream(stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to stop stream: %s\n", Pa_GetErrorText(err));
     return(FALSE);
   }
-  err = Pa_CloseStream(real_stream);
+  /* close stream */
+  err = Pa_CloseStream(stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to close stream: %s\n", Pa_GetErrorText(err));
     return(FALSE);
   }
+  /* terminate library */
   err = Pa_Terminate();
   if (err != paNoError) {
-    jlog("Error: adin_portaudio: failed to terminate portaudio: %s\n", Pa_GetErrorText(err));
+    jlog("Error: adin_portaudio: failed to terminate library: %s\n", Pa_GetErrorText(err));
     return(FALSE);
   }
-  current = processed = 0;
-  adin_is_stopped = TRUE;
-
-  /*pthread_mutex_unlock(&adin_mutex);*/
-
-  /* destroy the mutex and unallocate any memory associated to it */
-  /*pthread_mutex_destroy (&adin_mutex);*/
+  
+  stream = NULL;
 
   return TRUE;
 }
@@ -330,9 +596,6 @@ adin_mic_end()
 int
 adin_mic_read(SP16 *buf, int sampnum)
 {
-  if (adin_stream_should_be_running_pa==FALSE)
-	return -1;
-
   int current_local;
   int avail;
   int len;
@@ -342,21 +605,12 @@ adin_mic_read(SP16 *buf, int sampnum)
     buffer_overflowed = FALSE;
   }
 
-  while ((current == processed) && adin_stream_should_be_running_pa) {
+  while (current == processed) {
 #ifdef DDEBUG
     printf("process  : current == processed: %d: wait\n", current);
 #endif
-    Pa_Sleep(30); /* wait till some input comes */
-  }
-
-  /*pthread_mutex_lock(&adin_mutex);*/ /* lock the mutex */
-
-  if ((current == processed)
-	|| (adin_stream_should_be_running_pa == FALSE)
-        || (speech==NULL)) {
-    /* any of these conditions mean that we have stopped recording */
-    /*pthread_mutex_unlock(&adin_mutex);*/
-    return -1;
+    Pa_Sleep(20); /* wait till some input comes */
+    if (stream == NULL) return(-1);
   }
 
   current_local = current;
@@ -368,16 +622,6 @@ adin_mic_read(SP16 *buf, int sampnum)
   if (processed < current_local) {
     avail = current_local - processed;
     if (avail > sampnum) avail = sampnum;
-
-    /*
-    if (adin_stream_should_be_running_pa == TRUE)
-	    fprintf(stderr, "Adin should be running: TRUE\n");
-    else
-	    fprintf(stderr, "Adin should be running: TRUE\n");
-    fprintf(stderr, "Available: %d\n", avail);
-    fprintf(stderr, "Processed: %d\n", processed);
-    */
-    //if the following line crashes you forgot to call j_close_stream()
     memcpy(buf, &(speech[processed]), avail * sizeof(SP16));
 #ifdef DDEBUG
     printf("process-2: [%d..%d] %d samples read\n", processed, processed+avail, avail);
@@ -414,8 +658,6 @@ adin_mic_read(SP16 *buf, int sampnum)
 #ifdef DDEBUG
   printf("process-3: new processed: %d\n", processed);
 #endif
-  /*pthread_mutex_unlock(&adin_mutex);*/ /* unlock mutex */
-  if (len == 0) return -1;
   return len;
 }
 
@@ -429,6 +671,5 @@ adin_mic_read(SP16 *buf, int sampnum)
 char *
 adin_mic_input_name()
 {
-  return("Portaudio device set by simon");
+  return("Portaudio default device");
 }
-

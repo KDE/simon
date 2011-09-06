@@ -38,7 +38,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget, public S
     void displayScenarioPrivate(Scenario *scenario);
 
   public:
-    TrainingView(QWidget *parent);
+    TrainingView(QWidget *parent=0);
     ~TrainingView();
 };
 #endif

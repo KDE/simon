@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 07:40:53 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.8 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -50,6 +50,10 @@ init_ngram_bin(NGRAM_INFO *ndata, char *bin_ngram_file)
     jlog("Error: init_ngram: failed to close \"%s\"\n", bin_ngram_file);
     return FALSE;
   }
+
+  /* set default unknown (=OOV) word id */
+  set_default_unknown_id(ndata);
+
   jlog("Stat: init_ngram: finished reading n-gram\n");
   return TRUE;
 }
@@ -83,8 +87,11 @@ init_ngram_arpa(NGRAM_INFO *ndata, char *ngram_file, int dir)
     jlog("Error: init_ngram: failed to close \"%s\"\n", ngram_file);
     return FALSE;
   }
-  jlog("Stat: init_ngram: finished reading n-gram\n");
 
+  /* set default unknown (=OOV) word id */
+  set_default_unknown_id(ndata);
+
+  jlog("Stat: init_ngram: finished reading n-gram\n");
   return TRUE;
 }
 
@@ -159,32 +166,47 @@ make_voca_ref(NGRAM_INFO *ndata, WORD_INFO *winfo)
 }
 
 /** 
- * @brief  Set unknown word ID to the N-gram data.
- *
+ * @brief  Set default unknown word ID to the N-gram data.
+ * If default "<unk>" is not found, also try "<UNK>".
  * 
+ * @param ndata [out] N-gram data to set unknown word ID.
+ */
+void
+set_default_unknown_id(NGRAM_INFO *ndata)
+{
+  ndata->unk_id = ngram_lookup_word(ndata, UNK_WORD_DEFAULT);
+  if (ndata->unk_id != WORD_INVALID) {
+    jlog("Stat: init_ngram: found unknown word entry \"%s\"\n", UNK_WORD_DEFAULT);
+    ndata->isopen = TRUE;
+  } else {
+    ndata->unk_id = ngram_lookup_word(ndata, UNK_WORD_DEFAULT2);
+    if (ndata->unk_id != WORD_INVALID) {
+      jlog("Stat: init_ngram: found unknown word entry \"%s\"\n", UNK_WORD_DEFAULT2);
+      ndata->isopen = TRUE;
+    } else{
+      jlog("Stat: init_ngram: neither \"%s\" nor \"%s\" was found, assuming close vocabulary LM\n", UNK_WORD_DEFAULT, UNK_WORD_DEFAULT2);
+      ndata->isopen = FALSE;
+    }
+  }
+  ndata->unk_num = 0;
+}
+
+/** 
+ * @brief  Set user-specified word ID to the N-gram data.
+ *
  * @param ndata [out] N-gram data to set unknown word ID.
  * @param str [in] word name string of unknown word
  */
 void
 set_unknown_id(NGRAM_INFO *ndata, char *str)
 {
-  ndata->unk_id = ngram_lookup_word(ndata, str);
-  if (ndata->unk_id == WORD_INVALID) {
-    if (strmatch(str, UNK_WORD_DEFAULT)) {
-      /* if default "<unk>" is not found, also try "<UNK>" */
-      ndata->unk_id = ngram_lookup_word(ndata, UNK_WORD_DEFAULT2);
-      if (ndata->unk_id == WORD_INVALID) {
-	jlog("Stat: init_ngram: either \"%s\" and \"%s\" not found, assuming close vocabulary LM\n", UNK_WORD_DEFAULT, UNK_WORD_DEFAULT2);
-	ndata->isopen = FALSE;
-	return;
-      }
-    }
-  }
-  if (ndata->unk_id == WORD_INVALID) {
-    jlog("Stat: init_ngram: \"%s\" not found, assuming close vocabulary LM\n", str);
-    ndata->isopen = FALSE;
+  WORD_ID w;
+  w = ngram_lookup_word(ndata, str);
+  if (w == WORD_INVALID) {
+    jlog("Stat: init_ngram: \"%s\" not found", str);
   } else {
-    jlog("Stat: init_ngram: unknown words will be mapped to \"%s\"\n", str);
+    jlog("Stat: init_ngram: unknown word entry was set to \"%s\"\n", str);
+    ndata->unk_id = w;
     ndata->isopen = TRUE;
   }
 }

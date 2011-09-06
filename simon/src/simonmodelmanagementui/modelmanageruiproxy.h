@@ -37,8 +37,8 @@ class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
 {
   Q_OBJECT
 
-    signals:
-  void recompileModel();
+  signals:
+    void recompileModel();
 
   private slots:
     void slotModelChanged();
@@ -56,7 +56,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT ModelManagerUiProxy : public ModelManager
       const QByteArray& hmmDefs, const QByteArray& tiedList,
       const QByteArray& macros, const QByteArray& stats);
     bool storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-      const QByteArray& treeHed);
+      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
     bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
       const QByteArray& prompts);
     bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ModelDlg</class>
+ <widget class="QWidget" name="ModelDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>331</width>
+    <height>324</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Model type:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbStatic">
+     <property name="text">
+      <string>Static model</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbBaseModel">
+     <property name="text">
+      <string>Adapted base model</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbDynamic">
+     <property name="text">
+      <string>User generated model</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Base model</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbBaseHMM">
+        <property name="text">
+         <string>HMM definition:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="lbLastLoadedBaseHMM">
+        <property name="text">
+         <string comment="No filename is set">None</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" rowspan="3">
+       <widget class="KPushButton" name="pbLoadBaseHMM">
+        <property name="text">
+         <string comment="Load from file">Load</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" rowspan="2">
+       <widget class="QLabel" name="lbBaseTiedlist">
+        <property name="text">
+         <string>Tiedlist:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" rowspan="2">
+       <widget class="QLabel" name="lbLastLoadedBaseTiedlist">
+        <property name="text">
+         <string comment="No filename is set">None</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="KPushButton" name="pbLoadBaseTiedlist">
+        <property name="text">
+         <string comment="Load from file">Load</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="lbBaseMacros">
+        <property name="text">
+         <string>Macros:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="lbBaseStats">
+        <property name="text">
+         <string>Stats:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="lbLastLoadedBaseMacros">
+        <property name="text">
+         <string comment="No filename is set">None</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="lbLastLoadedBaseStats">
+        <property name="text">
+         <string comment="No filename is set">None</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="KPushButton" name="pbLoadBaseMacros">
+        <property name="text">
+         <string comment="Load from file">Load</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="KPushButton" name="pbLoadBaseStats">
+        <property name="text">
+         <string comment="Load from file">Load</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pbHelp">
+        <property name="text">
+         <string>Help</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>rbDynamic</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>135</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

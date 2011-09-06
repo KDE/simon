@@ -1,3 +1,49 @@
+4.2 (2011.05.01)
+=================
+
+New features:
+- Additional score-based pruning at the 1st pass.  It is disabled by
+  default, you can enable by using an option "-bs arg". The argument
+  is score range.
+- New support for PulseAudio (--with-mictype=pulseaudio)
+- New Option "-adddict", "-addword" to read additional dictionaries / words.
+- Portaudio library updated to V19.  Audio capture device can be
+  changed by env. "PORTAUDIO_DEV_NUM".  The device list will be
+  output at start up.
+
+Changed behavior:
+- "mkbinhmmlist" now saves pseudo phone list extracted from AM for
+  faster start up. The output should be used with the same AM
+  specified at generation.  Note that the converted binhmmlist file
+  can not be used with older Julius.
+- Audio library linking was modified at configure script.
+  When "--with-mictype=..." is explicitly specified, Julius will link
+  ONLY the audio library.  If not specified, Julius will link all the
+  audio devices whose development file was detected by the configure.
+
+Library functions:
+- j_config_load_string_new(char *str): like j_config_load_file(), but
+  parse the given string to set parameters.
+- add_dict(), add_word(): the same as "-adddict" and "-addword".
+  (They should be called at start up before starting engine)
+- (portaudio/Windows) j_open_stream(recog, NUMSTR) to choose device NUM.
+  ex. 'j_open_stream(recog, "1")' will open device number one.
+- (portaudio/Windows) get_device_list(): obtain list of available devices.
+
+Fixes:
+- Improved tree lexicon structure for better memory management.
+- Reduce malloc calls at reading N-gram.
+- Eliminated memory leaks using Valgrind.
+- Workarounds to avoid crash with j_close_stream().
+- Now allow "-iwsp" only with multi-path acoustic model.
+
+
+4.1.5.1 (2010.12.25)
+=====================
+
+Modified:
+ - Fixed problem related to the license.
+
 4.1.5 (2010.06.04)
 ===================
 Bug fixes:

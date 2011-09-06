@@ -24,7 +24,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 17:43:35 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.6 $
  * 
  */
 
@@ -94,7 +94,7 @@ Wav2MFCC(SP16 *wave, float **mfcc, Value *para, int nSamples, MFCCWork *w)
   if (para->acc) Accel(mfcc, frame_num, para);
 
   /* Cepstrum Mean and/or Variance Normalization */
-  if (para->cmn && ! para->cvn) CMN(mfcc, frame_num, para->mfcc_dim);
+  if (para->cmn && ! para->cvn) CMN(mfcc, frame_num, para->mfcc_dim + (para->c0 ? 1 : 0));
   else if (para->cmn || para->cvn) MVN(mfcc, frame_num, para);
 
   return(frame_num);
@@ -252,7 +252,7 @@ void MVN(float **mfcc, int frame_num, Value *para)
   float x;
   int basedim;
 
-  basedim = para->mfcc_dim; // + (para->c0 ? 1 : 0);
+  basedim = para->mfcc_dim + (para->c0 ? 1 : 0);
 
   mfcc_mean = (float *)mycalloc(para->veclen, sizeof(float));
   if (para->cvn) mfcc_sd = (float *)mycalloc(para->veclen, sizeof(float));

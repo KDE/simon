@@ -249,6 +249,7 @@ bool SimonSoundInput::stopRecording()
   kDebug() << "Now stopping buffer";
   killBuffer();
   kDebug() << "Done";
+  
   return true;
 }
 
@@ -268,6 +269,6 @@ SimonSoundInput::~SimonSoundInput()
     stopRecording();
 
   kDebug() << "Deleting during deletion";
-  m_input->deleteLater();
   killBuffer();
+  m_input->deleteLater();
 }

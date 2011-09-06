@@ -12,13 +12,13 @@
  * @author Akinobu Lee
  * @date   Thu May 12 14:14:01 2005
  *
- * $Revision: 1.9 $
+ * $Revision: 1.14 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -434,6 +434,24 @@ print_engine_info(Recog *recog)
       if (lm->config->enable_iwspword) {
 	jlog("\tIW-sp word added to dict= \"%s\"\n", lm->config->iwspentry);
       }
+      if (lm->config->additional_dict_files) {
+	JCONF_LM_NAMELIST *nl;
+	jlog("\tadditional dictionaries:\n");
+	for(nl=lm->config->additional_dict_files;nl;nl=nl->next) {
+	  jlog("\t\t\t%s\n", nl->name);
+	}
+	jlog("\n");
+      }
+      if (lm->config->additional_dict_entries) {
+	JCONF_LM_NAMELIST *nl;
+	int n = 0;
+	jlog("\tadditional dict entries:\n");
+	for(nl=lm->config->additional_dict_entries;nl;nl=nl->next) {
+	  jlog("\t\t\t%s\n", nl->name);
+	  n++;
+	}
+	jlog("--- total %d entries\n", n);
+      }
     }
 
     if (lm->lmtype == LM_PROB) {    
@@ -557,6 +575,13 @@ print_engine_info(Recog *recog)
     } else {
       jlog("\n");
     }
+#ifdef SCORE_PRUNING
+    if (r->config->pass1.score_pruning_width < 0.0) {
+      jlog("\t(-bs)score pruning thres= disabled\n");
+    } else {
+      jlog("\t(-bs)score pruning thres= %f\n", r->config->pass1.score_pruning_width);
+    }
+#endif
     jlog("\t(-n)search candidate num= %d\n", r->config->pass2.nbest);
     jlog("\t(-s)  search stack size = %d\n", r->config->pass2.stack_size);
     jlog("\t(-m)    search overflow = after %d hypothesis poped\n", r->config->pass2.hypo_overflow);
@@ -811,6 +836,7 @@ print_engine_info(Recog *recog)
     case SP_INPUT_ALSA: jlog("alsa\n"); break;
     case SP_INPUT_OSS: jlog("oss\n"); break;
     case SP_INPUT_ESD: jlog("esd\n"); break;
+    case SP_INPUT_PULSEAUDIO: jlog("pulseaudio\n"); break;
     }
   }
   if (jconf->input.type == INPUT_WAVEFORM) {
@@ -852,6 +878,7 @@ print_engine_info(Recog *recog)
       jlog("\t         zerocross thres = %d / sec.\n", jconf->detect.zero_cross_num);
       jlog("\t             head margin = %d msec.\n", jconf->detect.head_margin_msec);
       jlog("\t             tail margin = %d msec.\n", jconf->detect.tail_margin_msec);
+      jlog("\t              chunk size = %d samples\n", jconf->detect.chunk_size);
     } else {
       jlog("\t         silence cutting = off\n");
     }

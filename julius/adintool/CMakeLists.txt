@@ -8,3 +8,4 @@ add_executable(adintool ${adin_SRCS})
 target_link_libraries(adintool julius sent)
 
 install (TARGETS adintool DESTINATION bin COMPONENT julius)
+

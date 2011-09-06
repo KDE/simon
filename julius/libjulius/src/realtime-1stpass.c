@@ -111,13 +111,13 @@
  * @author Akinobu Lee
  * @date   Tue Aug 23 11:44:14 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.8 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -774,9 +774,10 @@ proceed_one_frame(Recog *recog)
  * @param nowlen [in] length of above
  * @param recog [i/o] engine instance
  * 
- * @return -1 on error (tell caller to terminate), 0 on success (allow caller
- * to call me for the next segment).  It returns 1 when telling the caller to
- * terminate input and go on to the next pass.
+ * @return -1 on error (will close stream and terminate recognition),
+ * 0 on success (allow caller to call me for the next segment).  It
+ * returns 1 when telling the caller to segment now at the middle of
+ * input , and 2 when input length overflow is detected.
  * </EN>
  *
  * @callgraph
