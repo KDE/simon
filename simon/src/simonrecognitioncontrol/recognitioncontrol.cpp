@@ -94,6 +94,7 @@ RecognitionControl* RecognitionControl::instance;
  */
 RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
+blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
 recognitionReady(false),
 socket(new QSslSocket()),
@@ -1650,9 +1651,8 @@ void RecognitionControl::messageReceived()
           recognitionReady = false;
 
           RecognitionConfiguration::self()->readConfig();
-          if (RecognitionConfiguration::automaticallyEnableRecognition()) {
+          if (!blockAutoStart && RecognitionConfiguration::automaticallyEnableRecognition())
             sendRequest(Simond::StartRecognition);
-          }
 
           break;
         }
@@ -1938,6 +1938,10 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
   socket->write(toWrite);
 }
 
+void RecognitionControl::setBlockAutoStart(bool block)
+{
+  blockAutoStart = block;
+}
 
 /**
  *	@brief Destructor

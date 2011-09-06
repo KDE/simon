@@ -46,7 +46,7 @@ AccessibleObject::AccessibleObject ( QDBusConnection &conn, const QString &servi
                               SLOT(slotPropertyChange(QString, int, int, QDBusVariant, QSpiObjectReference)));
   }
   
-  kDebug() << "Created new accessible object: " << m_name << m_path;
+  kDebug() << "Created new accessible object: " << m_name << m_path << role() << roleName();
 }
 
 AccessibleObject::~AccessibleObject()
@@ -66,7 +66,13 @@ AccessibleObject* AccessibleObject::findChild(const QString& path)
     return this;
   
   for (int i=0; i < childCount(); i++) {
-    AccessibleObject *c = getChild(i)->findChild(path);
+    AccessibleObject *child = getChild(i);
+    if (!child) {
+      resetChildren();
+      i=0; //restart
+      continue;
+    }
+    AccessibleObject *c = child->findChild(path);
     if (c) return c;
   }
   
@@ -179,9 +185,9 @@ void AccessibleObject::fetchName()
   m_name = getProperty ( m_service, m_path, "org.a11y.atspi.Accessible", "Name" ).toString();
   
   m_name.remove(QRegExp("<[^>]*>")); //strip html tags
-  m_name.remove('\n'); //remove linebreaks
+  m_name.replace('\n', ' '); //remove linebreaks
   
-  //TODO: NUMBERS!
+  //TODO: NUMBERS, Abbreviations, etc.!
   m_name.remove(QRegExp("[^a-z A-Z]")); //strip everything except characters and spaces
   m_name.replace(QRegExp("  +"), " "); //eliminate double spacing
   m_name = m_name.trimmed();
@@ -255,56 +261,6 @@ void AccessibleObject::fetchActions() const
   returnVal.endArray();
 }
 
-// Getter functions
-//////////////////////////////
-
-QString AccessibleObject::name() const
-{
-  return m_name;
-}
-
-QString AccessibleObject::service() const
-{
-  return m_service;
-}
-
-int AccessibleObject::indexInParent() const
-{
- return m_indexInParent;
-}
-
-int AccessibleObject::childCount() const
-{
-  return m_childCount;
-}
-
-int AccessibleObject::role() const
-{
-  return m_role;
-}
-
-bool AccessibleObject::isShown() const
-{
-  return   (!m_name.isEmpty() && 
-            (m_state & (quint64(1) << ATSPI_STATE_VISIBLE)) &&
-            (m_state & (quint64(1) << ATSPI_STATE_SHOWING)));
-}
-
-bool AccessibleObject::isSelectable() const
-{
-  return   (m_state & (quint64(1) << ATSPI_STATE_SELECTABLE));
-}
-
-AccessibleObject *AccessibleObject::getParent() const
-{
-  return m_parent;
-}
-
-QString AccessibleObject::path() const
-{
-  return m_path;
-}
-
 // Getter functions (lazy)
 //////////////////////////////
 
@@ -343,19 +299,15 @@ AccessibleObject *AccessibleObject::getChild ( int index ) const
   message.setArguments ( inargs );
 
   QDBusMessage reply = m_conn.call ( message );
-
   QString service;
-
   QString path;
-
+  if (reply.arguments().isEmpty())
+    return 0;
   const QDBusArgument arg = reply.arguments().at ( 0 ).value<QDBusArgument>();
 
   arg.beginStructure();
-
   arg >> service;
-
   arg >> path;
-
   arg.endStructure();
 
   m_children[index] = new AccessibleObject ( m_conn, service, path, const_cast<AccessibleObject*> ( this ) );
@@ -406,6 +358,15 @@ void AccessibleObject::resetChildren()
   
   for (int i=0; i < m_childCount; i++) {
     AccessibleObject *newObject = getChild(i);
+    if (!newObject) { //children changed again...
+      foreach (AccessibleObject *o, m_children)
+        if (o)
+          oldChildren.insert(o->path(), o); // move to oldChildren again
+      m_children.clear();
+      fetchChildCount();
+      i=0;
+      continue;
+    }
     QString childPath = newObject->path();
     //replace newly created child with old one
     if (oldChildren.contains(childPath)) {
@@ -420,27 +381,66 @@ void AccessibleObject::resetChildren()
 // Logic functions
 //////////////////////////////
 
+bool AccessibleObject::isShown() const
+{
+  switch (m_role) {
+    case ATSPI_ROLE_APPLICATION:
+      return true;
+    case ATSPI_ROLE_DIALOG:
+    case ATSPI_ROLE_FRAME:
+    case ATSPI_ROLE_WINDOW:
+      return (m_state & (quint64(1) << ATSPI_STATE_ACTIVE));
+    default:
+      return ((m_state & (quint64(1) << ATSPI_STATE_VISIBLE)) &&
+              (m_state & (quint64(1) << ATSPI_STATE_SHOWING)));
+  }
+}
+
+QStringList AccessibleObject::traverseObject()
+{
+  QStringList names;
+  if (isShown()) {
+    if (hasActions() && !m_name.isEmpty())
+      names << m_name;
+  
+    for (int i=0; i < childCount(); i++) {
+      AccessibleObject *child = getChild(i);
+      if (!child) {
+        resetChildren();
+        i=0;
+        continue;
+      }
+      names << child->traverseObject();
+    }
+  } else
+    kDebug() << "Not visible: " << m_name;
+  
+  return names;
+}
+
 bool AccessibleObject::trigger(const QString& name_) const
 {
-  if (name() == name_) {
-    QList<ATSPIAction*> a = actions();
-    if (!a.isEmpty()) { 
-      QVariantList inargs;
-      inargs << 0; //TODO: display list for ambiguous actions
+  if (isShown()) {
+    if (name() == name_) {
+      QList<ATSPIAction*> a = actions();
+      if (!a.isEmpty()) { 
+        QVariantList inargs;
+        inargs << 0; //TODO: display list for ambiguous actions
 
-      QDBusMessage message = QDBusMessage::createMethodCall (
-                              m_service, m_path, "org.a11y.atspi.Action", "DoAction" );
-      message.setArguments ( inargs );
+        QDBusMessage message = QDBusMessage::createMethodCall (
+                                m_service, m_path, "org.a11y.atspi.Action", "DoAction" );
+        message.setArguments ( inargs );
 
-      QDBusMessage reply = m_conn.call ( message );
+        QDBusMessage reply = m_conn.call ( message );
 
-      if (!reply.arguments().isEmpty() && reply.arguments().at ( 0 ).toBool())
-        return true;
+        if (!reply.arguments().isEmpty() && reply.arguments().at ( 0 ).toBool())
+          return true;
+      }
     }
-  }
   
-  for (int i=0; i < childCount(); i++)
-    if (getChild(i)->trigger(name_)) return true;
+    for (int i=0; i < childCount(); i++)
+      if (getChild(i)->trigger(name_)) return true;
+  }
   
   return false;
 }

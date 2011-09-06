@@ -50,21 +50,24 @@ public:
   //getter functions
   QString name() const;
   QString service() const;
-  AccessibleObject *getChild(int index) const;
   AccessibleObject *getParent() const;
   QString path() const;
   int indexInParent() const;
   int childCount() const;
   int role() const;
-  bool isShown() const;
-  bool isSelectable() const;
   bool hasActions() const;
   QList<ATSPIAction*> actions() const;
+  bool isShown() const;
+  AccessibleObject *getChild(int index) const;
   
   //info functions (expensive)
   QString roleName() const;
   
   //actions
+  /**
+   * \return List of currently visible commands
+   */
+  QStringList traverseObject();
   bool trigger(const QString& name) const;
   
   //monitoring
@@ -108,5 +111,44 @@ private slots:
   void slotStateChanged(const QString& change, int, int, QDBusVariant, QSpiObjectReference);
   void slotChildrenChanged(const QString& change, int, int, QDBusVariant, QSpiObjectReference);
 };
+
+
+// Getter functions
+//////////////////////////////
+
+inline QString AccessibleObject::name() const
+{
+  return m_name;
+}
+
+inline QString AccessibleObject::service() const
+{
+  return m_service;
+}
+
+inline int AccessibleObject::indexInParent() const
+{
+ return m_indexInParent;
+}
+
+inline int AccessibleObject::childCount() const
+{
+  return m_childCount;
+}
+
+inline int AccessibleObject::role() const
+{
+  return m_role;
+}
+
+inline AccessibleObject *AccessibleObject::getParent() const
+{
+  return m_parent;
+}
+
+inline QString AccessibleObject::path() const
+{
+  return m_path;
+}
 
 #endif // ACCESSIBLEOBJECT_H

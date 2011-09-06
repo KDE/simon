@@ -315,6 +315,7 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
  */
 SimonControl::SystemStatus SimonControl::activateSimon()
 {
+  RecognitionControl::getInstance()->setBlockAutoStart(false);
   if (status == SimonControl::ConnectedDeactivatedReady) {
     Logger::log(i18n("simon activated"));
     setStatus(SimonControl::ConnectedActivating);
@@ -338,6 +339,7 @@ SimonControl::SystemStatus SimonControl::activateSimon()
  */
 SimonControl::SystemStatus SimonControl::deactivateSimon()
 {
+  RecognitionControl::getInstance()->setBlockAutoStart(true);
   if (status == SimonControl::ConnectedActivated) {
     setStatus(SimonControl::ConnectedDeactivating);
     Logger::log(i18n("simon deactivated"));

@@ -61,7 +61,7 @@ void ATSPICommandManager::setupObjects()
   
   QStringList commands;
   foreach (AccessibleObject *object, rootAccessibles) {     
-    QStringList thisCommands = traverseObject(object);
+    QStringList thisCommands = object->traverseObject();
     foreach (const QString& c, thisCommands)
       if (!commands.contains(c))
         commands << c;
@@ -201,19 +201,6 @@ void ATSPICommandManager::serviceRemoved(AccessibleObject* service)
   rootAccessibles.removeAll(service);
   service->deleteLater();
   setupObjects();
-}
-
-
-QStringList ATSPICommandManager::traverseObject(AccessibleObject* o)
-{
-  QStringList names;
-  if (o->isShown() && o->hasActions())
-    names << o->name();
-  
-  for (int i=0; i < o->childCount(); i++)
-    names << traverseObject(o->getChild(i));
-  
-  return names;
 }
 
 void ATSPICommandManager::setupLanguageModel(const QStringList& commands)

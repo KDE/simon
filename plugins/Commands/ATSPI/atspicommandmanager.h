@@ -58,7 +58,6 @@ private:
 
   QList<AccessibleObject*> rootAccessibles;
   QVariant getProperty(const QString &service, const QString &path, const QString &interface, const QString &name);
-  QStringList traverseObject(AccessibleObject *o);
   
   void setupLanguageModel(const QStringList& commands);
   void clearDynamicLanguageModel();

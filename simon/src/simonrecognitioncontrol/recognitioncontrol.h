@@ -75,6 +75,7 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
   private:
     static RecognitionControl *instance;
     QProcess *localSimond;
+    bool blockAutoStart;
 
     SimondStreamer* simondStreamer;
 
@@ -89,7 +90,6 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     Operation* createModelCompilationOperation();
 
     QTimer *timeoutWatcher;
-    //	ModelManagerUiProxy *modelManager;
 
     QStringList serverConnectionsToTry;
     QStringList serverConnectionErrors;
@@ -140,6 +140,9 @@ class RECOGNITIONCONTROL_EXPORT RecognitionControl : public SimonSender
     void fetchCompilationProtocol();
     void askStartSynchronisation();
     void startSynchronisation();
+    
+  public:
+    void setBlockAutoStart(bool block);
 
   private slots:
     void actOnAutoConnect();
