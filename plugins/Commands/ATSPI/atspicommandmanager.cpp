@@ -92,6 +92,8 @@ ATSPIConfiguration* ATSPICommandManager::getATSPIConfiguration()
 
 void ATSPICommandManager::clearDynamicLanguageModel()
 {
+  if (!parentScenario) return;
+
   //delete leftover words and grammarfrom last time
   parentScenario->startGroup();
   foreach (Word *w, parentScenario->vocabulary()->getWords()) {

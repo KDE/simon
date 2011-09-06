@@ -475,6 +475,11 @@ void JuliusControl::run()
 {
   Q_ASSERT(recog);
   shouldBeRunning=true;
+  
+  if (!recog) {
+    emit recognitionDone(currentFileName);
+    return;
+  }
 
   switch(j_open_stream(recog, currentFileName.toUtf8().data())) {
     case 0:
