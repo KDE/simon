@@ -21,7 +21,7 @@
 #ifndef ATSPIWATCHER_H
 #define ATSPIWATCHER_H
 
-#include <qt4/QtDBus/qdbusvirtualobject.h>
+#include <QtDBus/qdbusvirtualobject.h>
 
 
 class ATSPIWatcher : public QDBusVirtualObject
