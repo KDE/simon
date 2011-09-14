@@ -118,7 +118,7 @@ void SSCDControl::connectionClosing(QAbstractSocket::SocketState state)
 
   for (int i=0; i<clients.count(); i++) {
     if (clients[i]->state() == state) {
-      qDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
+      qDebug() << "Connection dropped from " << clients[i]->peerAddress().toString();
       clients.takeAt(i)->deleteLater();
       i--;
     }
