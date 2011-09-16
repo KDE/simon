@@ -39,7 +39,7 @@ class MODELMANAGEMENT_EXPORT ScenarioDisplay
 
     Scenario* currentScenario() { return scenario; }
 
-    virtual ~ScenarioDisplay() {}
+    virtual ~ScenarioDisplay();
 
 };
 #endif

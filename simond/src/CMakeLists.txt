@@ -10,6 +10,7 @@ set(simond_SRCS
    simondcontrol.cpp
    clientsocket.cpp
    synchronisationmanager.cpp
+   recognitioncontrolfactory.cpp
    recognitioncontrol.cpp
    juliuscontrol.cpp
  )

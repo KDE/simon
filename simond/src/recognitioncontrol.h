@@ -34,6 +34,7 @@ class RecognitionControl : public QThread
   private:
     QDateTime m_lastSuccessfulStart;
     QDateTime m_lastFailedStart;
+    int m_refCounter;
 
   signals:
     void recognitionReady();
@@ -52,6 +53,7 @@ class RecognitionControl : public QThread
   protected:
     void touchLastSuccessfulStart();
     QString username;
+    int m_startRequests;
 
   public:
     //QDateTime lastSuccessfulStart() { return m_lastSuccessfulStart; }
@@ -60,10 +62,18 @@ class RecognitionControl : public QThread
 
     virtual bool initializeRecognition()=0;
     virtual bool isInitialized()=0;
+    
     virtual bool startRecognition()=0;
-    virtual void stop()=0;
+    
+    virtual bool stop()=0;
 
     virtual void recognize(const QString& fileName)=0;
+    
+    bool recognitionRunning();
+    
+    void pop();
+    void push();
+    bool isEmpty() const;
 
     ~RecognitionControl();
 

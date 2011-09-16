@@ -204,6 +204,10 @@ void ScenarioManager::registerScenarioDisplay(ScenarioDisplay *display)
     display->displayScenario(currentScenario);
 }
 
+void ScenarioManager::deRegisterScenarioDisplay(ScenarioDisplay* display)
+{
+  scenarioDisplays.removeAll(display);
+}
 
 Scenario* ScenarioManager::getScenario(const QString& id)
 {
@@ -585,11 +589,10 @@ ScenarioManager::~ScenarioManager()
   blockSignals(true);
   
   instance = 0;
-  foreach (ScenarioDisplay *d, scenarioDisplays) {
-    kDebug() << "Deleting scenario display: " << d;
-    delete d;
+  while (!scenarioDisplays.isEmpty()) {
+        kDebug() << "Deleting scenario display..." ;
+  	delete scenarioDisplays.takeFirst();
   }
-  scenarioDisplays.clear();
   
   delete shadowVocab;
   qDeleteAll(scenarios);

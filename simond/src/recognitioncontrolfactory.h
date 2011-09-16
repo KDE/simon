@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,16 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "scenariodisplay.h"
-#include "scenariomanager.h"
 
-void ScenarioDisplay::displayScenario(Scenario *scenario)
-{
-  this->scenario = scenario;
-  displayScenarioPrivate(scenario);
-}
+#ifndef RECOGNITIONCONTROLFACTORY_H
+#define RECOGNITIONCONTROLFACTORY_H
 
-ScenarioDisplay::~ScenarioDisplay()
+#include <QHash>
+#include <QString>
+class RecognitionControl;
+
+class RecognitionControlFactory
 {
-  ScenarioManager::getInstance()->deRegisterScenarioDisplay(this);
-}
+private:
+  QHash<QString, RecognitionControl*> m_recognitionControls;
+  
+public:
+  RecognitionControl* recognitionControl(const QString& user);
+  void closeRecognitionControl(const QString& user);
+  
+};
+
+#endif // RECOGNITIONCONTROLFACTORY_H

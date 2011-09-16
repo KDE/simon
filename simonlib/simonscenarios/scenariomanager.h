@@ -81,6 +81,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
 
     QList<Scenario*> getScenarios() { return scenarios; }
     void registerScenarioDisplay(ScenarioDisplay *display);
+    void deRegisterScenarioDisplay(ScenarioDisplay *display);
 
     Scenario *getScenario(const QString& id);
     Scenario *getCurrentScenario() { return currentScenario; }

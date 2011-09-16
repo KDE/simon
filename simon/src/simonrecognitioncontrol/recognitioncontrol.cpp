@@ -1645,9 +1645,6 @@ void RecognitionControl::messageReceived()
 
           emit recognitionStatusChanged(RecognitionControl::Ready);
 
-          //					if (RecognitionConfiguration::automaticallyEnableRecognition())
-          //						startRecognition();
-
           recognitionReady = false;
 
           RecognitionConfiguration::self()->readConfig();

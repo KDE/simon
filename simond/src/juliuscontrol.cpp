@@ -304,10 +304,11 @@ bool JuliusControl::isInitialized()
 
 void JuliusControl::uninitialize()
 {
+  kDebug() << "Uninitializing julius control";
   if (!m_initialized) return;
 
   if (isRunning()) {
-    stop();
+    stopPrivate();
     wait(1000);
   }
 
@@ -409,11 +410,14 @@ void JuliusControl::emitError(const QString& error)
 
 bool JuliusControl::initializeRecognition()
 {
+  kDebug() << "Initializing";
   if (isInitialized()) {
     kDebug() << "Initializing recognition that was already initialized; uninitializing...";
-    stop();
+    uninitialize();
+    m_startRequests = 0;
   }
 
+  kDebug() << "Emitting recognition ready";
   emit recognitionReady();
   return true;
 }
@@ -421,6 +425,17 @@ bool JuliusControl::initializeRecognition()
 
 bool JuliusControl::startRecognition()
 {
+  kDebug() << "Starting recognition" << ++m_startRequests;
+  if (isInitialized() && (m_startRequests > 1))  {
+    emit recognitionStarted();
+    return true;
+  }
+  kDebug() << "Starting recognition: Continuing";
+  return startRecognitionPrivate();
+}
+
+bool JuliusControl::startRecognitionPrivate()
+{ 
   uninitialize();
 
   QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
@@ -475,8 +490,8 @@ void JuliusControl::run()
 {
   Q_ASSERT(recog);
   shouldBeRunning=true;
-  
   if (!recog) {
+    kDebug() << "no recog - aren't we initialized?";
     emit recognitionDone(currentFileName);
     return;
   }
@@ -512,13 +527,27 @@ void JuliusControl::run()
 }
 
 
-void JuliusControl::stop()
+bool JuliusControl::stop()
 {
-  if (!recog) return;
+  kDebug() << "Stopping recognition" << m_startRequests;
+  if (--m_startRequests > 0) 
+    return true;
+  
+  if (m_startRequests < 0)
+    m_startRequests = 0;
+  
+  kDebug() << "Stopping recognition: Continuing";
+  return stopPrivate();
+}
+
+bool JuliusControl::stopPrivate()
+{
+  
+  if (!recog) return true;
 
   shouldBeRunning=false;
 
-  if (!isRunning()) return;
+  if (!isRunning()) return true;
 
   if (recog) {
     j_request_terminate(recog);
@@ -534,6 +563,7 @@ void JuliusControl::stop()
       wait(500);
     }
   }
+  return true;
 }
 
 
@@ -579,5 +609,6 @@ void JuliusControl::recognize(const QString& fileName)
 
 JuliusControl::~JuliusControl()
 {
+  kDebug() << "Deleting julius control";
   uninitialize();
 }

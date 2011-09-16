@@ -26,15 +26,17 @@
 #include <QTcpServer>
 #include <QList>
 
+class RecognitionControlFactory;
 class DatabaseAccess;
 class QTcpServer;
 
 class SimondControl : public QTcpServer
 {
   Q_OBJECT
-    private:
+  private:
     QList<ClientSocket*> clients;
     DatabaseAccess *db;
+    RecognitionControlFactory *m_recognitionControlFactory;
     bool m_keepSamples;
 
   private slots:
@@ -46,8 +48,6 @@ class SimondControl : public QTcpServer
     void incomingConnection (int descriptor);
 
     void connectionClosing(QAbstractSocket::SocketState state);
-
-    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
 
   public:
     SimondControl(QObject *parent=0);

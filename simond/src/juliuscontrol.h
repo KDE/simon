@@ -67,7 +67,7 @@ class JuliusControl : public RecognitionControl
 {
   Q_OBJECT
 
-    public:
+  public:
     enum Request
     {
       None=0,
@@ -79,7 +79,7 @@ class JuliusControl : public RecognitionControl
     bool initializeRecognition();
 
     bool startRecognition();
-    void stop();
+    bool stop();
     bool isInitialized();
 
     bool isStopping() { return stopping; }
@@ -112,6 +112,8 @@ class JuliusControl : public RecognitionControl
     QByteArray getBuildLog();
     void emitError(const QString& error);
     void closeLog();
+    bool stopPrivate();
+    bool startRecognitionPrivate();
 
 };
 #endif

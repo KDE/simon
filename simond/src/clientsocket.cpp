@@ -18,7 +18,8 @@
 
 #include "clientsocket.h"
 #include "synchronisationmanager.h"
-#include "juliuscontrol.h"
+#include "recognitioncontrol.h"
+#include "recognitioncontrolfactory.h"
 
 #include <simonddatabaseaccess/databaseaccess.h>
 
@@ -50,10 +51,11 @@
 
 #include <KConfig>
 
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, bool keepSamples, QObject *parent)
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, RecognitionControlFactory *factory, bool keepSamples, QObject *parent)
 : QSslSocket(parent),
 m_keepSamples(keepSamples),
 synchronisationRunning(false),
+recognitionControlFactory(factory),
 recognitionControl(0),
 synchronisationManager(0),
 modelCompilationManager(0),
@@ -166,7 +168,7 @@ void ClientSocket::processRequest()
           if (recognitionControl)
             recognitionControl->deleteLater();
 
-          recognitionControl = new JuliusControl(username, this);
+          recognitionControl = recognitionControlFactory->recognitionControl(username);
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
           connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
           connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
@@ -174,6 +176,7 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
           connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
           connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
+          
 
           if (synchronisationManager )
             synchronisationManager->deleteLater();
@@ -182,10 +185,12 @@ void ClientSocket::processRequest()
 
           sendCode(Simond::LoginSuccessful);
 
-          if (synchronisationManager->hasActiveModel())
-            recognitionControl->initializeRecognition();
+          if (recognitionControl->recognitionRunning())
+            sendCode(Simond::RecognitionStarted);
+          else
+            initializeRecognitionSmartly();
         } else
-        sendCode(Simond::AuthenticationFailed);
+          sendCode(Simond::AuthenticationFailed);
 
         kDebug() << "Done with login";
 
@@ -1478,22 +1483,14 @@ void ClientSocket::synchronisationDone()
   //reset modelsource
   Q_ASSERT(recognitionControl);
 
-  //simond(15006) ClientSocket::synchronisationDone: Restart:  false
-  //simond(15006) ClientSocket::synchronisationDone: Restart:  QDateTime("Do. Apr 22 21:26:36 2010") QDateTime("Do. Apr 22 21:16:56 2010")
+  initializeRecognitionSmartly();
+}
 
-  //kDebug() << "Restart: " << (recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate());
-  //kDebug() << "Restart: " << recognitionControl->lastSuccessfulStart() <<  synchronisationManager->getActiveModelDate();
+void ClientSocket::initializeRecognitionSmartly()
+{
   kDebug() << "Recognition is initialized: " << recognitionControl->isInitialized();
   kDebug() << "Synchronizationmanager has active model: " << synchronisationManager->hasActiveModel();
   kDebug() << "Modelcompilationmanager is running: : " << modelCompilationManager->isRunning();
-
-  /*
-  if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
-    ((recognitionControl->isInitialized() &&
-    (recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())))
-    //(recognitionControl->lastSuccessfulStart() <  synchronisationManager->getActiveModelDate()))
-  || !recognitionControl->isInitialized())) {
-  */
 
   if (synchronisationManager->hasActiveModel() && !modelCompilationManager->isRunning() &&
     recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
@@ -1659,11 +1656,12 @@ void ClientSocket::processRecognitionResults(const QString& fileName, const Reco
     kWarning() << "Can not open output log for sample";
   }
 
-  emit recognized(username, fileName, recognitionResults);
+  sendRecognitionResult(fileName, recognitionResults);
 }
 
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
+  Q_UNUSED(fileName);
   QByteArray toWrite;
   QDataStream stream(&toWrite, QIODevice::WriteOnly);
   QByteArray body;
@@ -1693,8 +1691,16 @@ ClientSocket::~ClientSocket()
 {
   kDebug() << "Deleting client";
   //leave databaseAccess alone since it is shared
-  if (recognitionControl)
-    recognitionControl->deleteLater();
+  if (recognitionControl) {
+    disconnect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
+    disconnect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
+    disconnect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+    disconnect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
+    disconnect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
+    disconnect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
+    disconnect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
+    recognitionControlFactory->closeRecognitionControl(username);
+  }
   if (synchronisationManager)
     synchronisationManager->deleteLater();
   if (modelCompilationManager)

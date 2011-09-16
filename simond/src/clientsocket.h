@@ -29,6 +29,7 @@
 #include <QMutex>
 #include <QString>
 
+class RecognitionControlFactory;
 const qint8 protocolVersion=5;
 
 class DatabaseAccess;
@@ -43,9 +44,6 @@ class ClientSocket : public QSslSocket
 {
   Q_OBJECT
 
-  signals:
-    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
-
   private:
     bool m_keepSamples;
 
@@ -55,6 +53,7 @@ class ClientSocket : public QSslSocket
     QMutex messageLocker;
 
     DatabaseAccess *databaseAccess;
+    RecognitionControlFactory *recognitionControlFactory;
     RecognitionControl *recognitionControl;
     SynchronisationManager *synchronisationManager;
     ModelCompilationManager *modelCompilationManager;
@@ -69,6 +68,8 @@ class ClientSocket : public QSslSocket
     bool shouldRecompileModel();
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
     void writeHashesToConfig();
+    
+    void initializeRecognitionSmartly();
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
@@ -131,7 +132,7 @@ class ClientSocket : public QSslSocket
     void activeModelCompilationAborted();
 
   public:
-    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
+    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, RecognitionControlFactory *factory, bool keepSamples, QObject *parent=0);
 
     virtual ~ClientSocket();
 

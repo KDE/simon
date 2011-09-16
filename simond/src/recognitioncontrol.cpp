@@ -22,11 +22,33 @@
 #include <KDebug>
 
 RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
-username(user_name)
+m_refCounter(0),
+username(user_name),
+m_startRequests(0)
 {
   connect(this, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(touchLastFailedStart()));
 }
 
+bool RecognitionControl::isEmpty() const
+{
+  return (m_refCounter == 0);
+}
+
+void RecognitionControl::push()
+{
+  ++m_refCounter;
+}
+
+void RecognitionControl::pop()
+{
+  --m_refCounter;
+}
+
+bool RecognitionControl::recognitionRunning()
+{
+  kDebug() << m_startRequests;
+  return (m_startRequests > 0);
+}
 
 void RecognitionControl::touchLastSuccessfulStart()
 {

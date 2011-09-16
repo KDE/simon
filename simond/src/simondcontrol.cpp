@@ -18,6 +18,7 @@
  */
 
 #include "simondcontrol.h"
+#include "recognitioncontrolfactory.h"
 #include <simonddatabaseaccess/databaseaccess.h>
 
 #include <KConfig>
@@ -26,7 +27,8 @@
 #include <KDebug>
 
 SimondControl::SimondControl(QObject* parent) : QTcpServer(parent),
-db(new DatabaseAccess(this))
+db(new DatabaseAccess(this)),
+m_recognitionControlFactory(new RecognitionControlFactory())
 {
   connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
 }
@@ -87,7 +89,7 @@ void SimondControl::stopServer()
 
 void SimondControl::incomingConnection (int descriptor)
 {
-  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, this);
+  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_recognitionControlFactory, m_keepSamples, this);
 
   //TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
   //(configuration item)
@@ -98,22 +100,9 @@ void SimondControl::incomingConnection (int descriptor)
 
   connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
     this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
-  connect(clientSocket, SIGNAL(recognized(const QString&, const QString&, const RecognitionResultList&)),
-    this, SLOT(recognized(const QString&, const QString&, const RecognitionResultList&)));
 
   clients << clientSocket;
 }
-
-void SimondControl::recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults)
-{
-  foreach (ClientSocket *client, clients) {
-    if (client->getUsername() == username) {
-      client->sendRecognitionResult(fileName, recognitionResults);
-      kDebug() << "Relaying sample to clients...";
-    }
-  }
-}
-
 
 void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
 {
