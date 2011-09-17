@@ -366,13 +366,21 @@ class MODELMANAGEMENT_EXPORT CommandManager : public QAbstractItemModel, public 
 
     virtual QDomElement serializeCommands(QDomDocument *doc);
 
-    virtual bool trigger(const QString& triggerName);
-    virtual bool triggerCommand(Command *command);
+    virtual bool trigger(const QString& triggerName, bool silent);
+    virtual bool triggerCommand(Command *command, bool silent);
 
     virtual bool installInterfaceCommand(QObject* object, const QString& slot,
     const QString& actionName, const QString& iconSrc,
     const QString& description, bool announce, bool showIcon=false,
     int state=SimonCommand::DefaultState,
+    int newState=SimonCommand::DefaultState,
+    const QString& defaultVisibleTrigger=QString(),
+    QString id=QString());
+    
+    virtual bool installInterfaceCommand(QObject* object, const QString& slot,
+    const QString& actionName, const QString& iconSrc,
+    const QString& description, bool announce, bool showIcon,
+    QList<int> states,
     int newState=SimonCommand::DefaultState,
     const QString& defaultVisibleTrigger=QString(),
     QString id=QString());

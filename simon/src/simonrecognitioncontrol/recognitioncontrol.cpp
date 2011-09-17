@@ -45,9 +45,10 @@
 #include <QProcess>
 #include <QFile>
 #include <QDataStream>
-#include <QDateTime>
+#include <KDateTime>
 #include <QStringList>
 #include <QPointer>
+#include <QCoreApplication>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -93,6 +94,7 @@ RecognitionControl* RecognitionControl::instance;
  */
 RecognitionControl::RecognitionControl() : SimonSender(),
 localSimond(0),
+blockAutoStart(false),
 simondStreamer(new SimondStreamer(this, this)),
 recognitionReady(false),
 socket(new QSslSocket()),
@@ -120,7 +122,10 @@ timeoutWatcher(new QTimer(this))
 
 RecognitionControl* RecognitionControl::getInstance()
 {
-  if (!instance) instance = new RecognitionControl();
+  if (!instance) {
+    instance = new RecognitionControl();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -719,7 +724,8 @@ void RecognitionControl::sendLanguageDescription()
 
   bodyStream << ModelManagerUiProxy::getInstance()->getLanguageDescriptionModifiedTime()
     << languageDescription->treeHed()
-    << languageDescription->shadowVocab();
+    << languageDescription->shadowVocab()
+    << languageDescription->languageProfile();
 
   out << (qint32) Simond::LanguageDescription
     << (qint64) body.count();
@@ -1244,7 +1250,7 @@ void RecognitionControl::messageReceived()
           KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
           KConfigGroup cg(config, "");
           cg.writeEntry("SelectedScenarios", list);
-          cg.writeEntry("LastModified", QDateTime::currentDateTime());
+          cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
 
           if (!ScenarioManager::getInstance()->setupScenarios())
             emit synchronisationError(i18n("Could not re-initialize scenarios. Please restart simon!"));
@@ -1359,12 +1365,14 @@ void RecognitionControl::messageReceived()
 
           kDebug() << "Server sent languagedescription";
 
-          QByteArray treeHed, shadowVocab;
+          QByteArray treeHed, shadowVocab, languageProfile;
           QDateTime changedTime;
           msg >> changedTime;
           msg >> treeHed;
           msg >> shadowVocab;
-          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed);
+          msg >> languageProfile;
+	  
+          ModelManagerUiProxy::getInstance()->storeLanguageDescription(changedTime,shadowVocab, treeHed, languageProfile);
           advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 
           sendRequest(Simond::StartTrainingsSampleSynchronisation);
@@ -1643,9 +1651,8 @@ void RecognitionControl::messageReceived()
           recognitionReady = false;
 
           RecognitionConfiguration::self()->readConfig();
-          if (RecognitionConfiguration::automaticallyEnableRecognition()) {
+          if (!blockAutoStart && RecognitionConfiguration::automaticallyEnableRecognition())
             sendRequest(Simond::StartRecognition);
-          }
 
           break;
         }
@@ -1931,6 +1938,10 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
   socket->write(toWrite);
 }
 
+void RecognitionControl::setBlockAutoStart(bool block)
+{
+  blockAutoStart = block;
+}
 
 /**
  *	@brief Destructor
@@ -1939,6 +1950,8 @@ void RecognitionControl::recognizeSamplePrivate(qint8 id)
  */
 RecognitionControl::~RecognitionControl()
 {
+  simondStreamer->stop();
+  simondStreamer->deleteLater();
   if (localSimond) {
     localSimond->terminate();
     localSimond->waitForFinished(1000);

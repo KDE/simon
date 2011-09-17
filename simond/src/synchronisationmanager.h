@@ -87,7 +87,7 @@ class SynchronisationManager : public QObject
     bool hasLanguageDescription(const QString& modelPath=QString());
     LanguageDescriptionContainer* getLanguageDescription();
     bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
-      const QByteArray& treeHed);
+      const QByteArray& treeHed, const QByteArray& languageProfile=QByteArray());
 
     QDateTime getTrainingDate(QString path=QString());
     bool hasTraining(const QString& modelPath=QString());

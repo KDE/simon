@@ -208,9 +208,9 @@ const QString DialogCommandManager::name() const
   return i18n("Dialog");
 }
 
-bool DialogCommandManager::trigger(const QString& triggerName)
+bool DialogCommandManager::trigger(const QString& triggerName, bool silent)
 {
-  bool found = CommandManager::trigger(triggerName);
+  bool found = CommandManager::trigger(triggerName, silent);
   if (!currentDialogSate)
     return found;
 
@@ -236,7 +236,7 @@ bool DialogCommandManager::trigger(const QString& triggerName)
 
 bool DialogCommandManager::greedyTrigger(const QString& inputText)
 {
-  return trigger(inputText);
+  return trigger(inputText, false /* silent */);
 }
 
 

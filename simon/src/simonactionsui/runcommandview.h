@@ -41,7 +41,7 @@ class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget, public Scenari
     void displayScenarioPrivate(Scenario *scenario);
 
   public:
-    RunCommandView(QWidget *parent);
+    RunCommandView(QWidget *parent=0);
 
     ~RunCommandView();
 

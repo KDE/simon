@@ -25,6 +25,7 @@
 
 //sonnet speller
 #include <sonnet/speller.h>
+#include <QFile>
 
 /**
  * Empty, private constructor
@@ -443,6 +444,25 @@ void Vocabulary::clear()
 {
   m_words.clear();
   reset();
+}
+
+bool Vocabulary::exportToFile(const QString& path, Vocabulary::ExportFormat format)
+{
+  QFile f(path);
+  if (!f.open(QIODevice::WriteOnly))
+    return false;
+  foreach (Word *w, m_words) {
+    switch (format) {
+      case SPHINX:
+	f.write(w->getWord().toUtf8()+"\t"+w->getPronunciation().toUtf8()+"\n");
+	break;
+      default:
+	kWarning() << "Export format not implemented: " << format;
+	return false;
+    }
+  }
+  f.close();
+  return true;
 }
 
 

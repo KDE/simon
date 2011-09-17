@@ -52,6 +52,13 @@ bool SimondControl::init()
     startServer(QHostAddress::Any, port);
   }
 
+  if (cGroup.readEntry("LimitedWriteAccess", true)) {
+    m_WriteAccessHost = cGroup.readEntry("WriteAccessHost", "127.0.0.1");
+  }
+  else {
+    m_WriteAccessHost = QHostAddress::Any;
+  }
+    
   return true;
 }
 
@@ -86,8 +93,8 @@ void SimondControl::stopServer()
 
 
 void SimondControl::incomingConnection (int descriptor)
-{
-  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, this);
+{  
+  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_keepSamples, m_WriteAccessHost, this);
 
   //TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
   //(configuration item)
@@ -98,8 +105,20 @@ void SimondControl::incomingConnection (int descriptor)
 
   connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
     this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
+  connect(clientSocket, SIGNAL(recognized(const QString&, const QString&, const RecognitionResultList&)),
+    this, SLOT(recognized(const QString&, const QString&, const RecognitionResultList&)));
 
   clients << clientSocket;
+}
+
+void SimondControl::recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults)
+{
+  foreach (ClientSocket *client, clients) {
+    if (client->getUsername() == username) {
+      client->sendRecognitionResult(fileName, recognitionResults);
+      kDebug() << "Relaying sample to clients...";
+    }
+  }
 }
 
 
@@ -110,10 +129,13 @@ void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
   for (int i=0; i<clients.count(); i++) {
     if (clients[i]->state() == state) {
       kDebug() << "Connection dropped from " << clients[i]->localAddress().toString();
+      clients[i]->disconnectFromHost();
+      clients[i]->waitForDisconnected();
       clients.takeAt(i)->deleteLater();
       i--;
     }
   }
+  kDebug() << "client count: " << clients.count();
 }
 
 

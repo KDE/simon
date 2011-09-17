@@ -12,7 +12,7 @@
 #
 # ripped from gtk's gtk-config.in
 #
-# $Id: libsent-config-dist.in,v 1.1 2008/10/02 15:01:59 sumomo Exp $
+# $Id: libsent-config-dist.in,v 1.2 2011/03/04 03:01:48 sumomo Exp $
 #
 
 #
@@ -28,15 +28,16 @@ info="\
 Julius/Julian libsent library rev.@LIBSENT_VERSION@:
 
 - Audio I/O
-    primary mic device API  : @altype@ (@aldesc@)
-    supported audio format  : @wavefile_support@
-    NetAudio support        : @use_netaudio@
+    primary mic device API   : @altype@ (@aldesc@)
+    available mic device API :@adinlist@
+    supported audio format   : @wavefile_support@
+    NetAudio support         : @use_netaudio@
 - Language Modeling
-    class N-gram support    : @use_class_ngram@
+    class N-gram support     : @use_class_ngram@
 - Libraries
-    file decompression by   : @gzdesc@
+    file decompression by    : @gzdesc@
 - Process management
-    fork on adinnet input   : @use_fork@
+    fork on adinnet input    : @use_fork@
  
   Note: compilation time flags are now stored in \"libsent-config\".
         If you link this library, please add output of

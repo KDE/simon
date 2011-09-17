@@ -7,6 +7,7 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(${QT_INCLUDES} ${KDE4_INCLUDES}
 	${QT_QTDBUS_INCLUDE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib
 	${CMAKE_CURRENT_SOURCE_DIR}/libskype
 	${CMAKE_CURRENT_SOURCE_DIR}/libskype/skypedbus
 
@@ -56,7 +57,7 @@ set(
 kde4_add_executable(simonskype ${simon_skype_SRCS})
 
 target_link_libraries(
-	simonskype
+	simonskype eventsimulation
 	${KDE4_KDEUI_LIBS}
 	${X11_X11_LIB}
 )

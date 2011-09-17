@@ -145,22 +145,22 @@ welcomePart(0), shownDialogs(0), configDialog(0)
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading training..." ) );
-  this->trainDialog = new TrainingView(this);
+  this->trainDialog = new TrainingView();
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
-  vocabularyView = new VocabularyView(this);
+  vocabularyView = new VocabularyView();
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading grammar..." ) );
-  this->grammarView = new GrammarView(this);
+  this->grammarView = new GrammarView();
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
-  this->runDialog = new RunCommandView ( this );
+  this->runDialog = new RunCommandView ();
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
   kDebug() << "SoundServer: " << SoundServer::getInstance();
@@ -586,7 +586,7 @@ void SimonView::showSystemDialog ()
     configDialog->addModule("simonsoundconfig", QStringList() << "");
     configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
     //configDialog->addModule("simonsimonscenariosconfig", QStringList() << "");
-    configDialog->addModule("simonmodelconfig", QStringList() << "");
+    configDialog->addModule("simonmodelextensionconfig", QStringList() << "");
     configDialog->addModule("simonrecognitionconfig", QStringList() << "");
     //		configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
     configDialog->addModule("simonactionsconfig", QStringList() << "");
@@ -890,6 +890,6 @@ SimonView::~SimonView()
 
   Logger::log ( i18n ( "Quitting..." ) );
   trayManager->deleteLater();
-  control->deleteLater();
+  delete control;
   Logger::close();
 }

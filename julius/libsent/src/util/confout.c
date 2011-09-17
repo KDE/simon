@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 15:34:39 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.8 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -62,6 +62,9 @@ confout_audio(FILE *strm)
 #endif
 #ifdef HAS_ESD
   fprintf(strm, " esd");
+#endif
+#ifdef HAS_PULSEAUDIO
+  fprintf(strm, " pulseaudio");
 #endif
 #ifdef USE_NETAUDIO
   fprintf(strm, " DATLink/NetAudio");

@@ -1,13 +1,13 @@
 /*
- * Copyright (c) 2003-2007 Kawahara Lab., Kyoto University 
+ * Copyright (c) 2003-2011 Kawahara Lab., Kyoto University 
  * Copyright (c) 2003-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
 /* mkbinhmmlist --- read in ascii hmmlist file and write in binary format */
 
-/* $Id: mkbinhmmlist.c,v 1.1 2008/09/30 03:58:18 sumomo Exp $ */
+/* $Id: mkbinhmmlist.c,v 1.3 2011/04/29 05:09:20 sumomo Exp $ */
 
 #include <sent/stddefs.h>
 #include <sent/htk_hmm.h>
@@ -68,13 +68,21 @@ main(int argc, char *argv[])
     return -1;
   }
 
+  if (hmminfo->is_triphone) {
+    fprintf(stderr, "making pseudo bi/mono-phone for IW-triphone\n");
+    if (make_cdset(hmminfo) == FALSE) {
+      fprintf(stderr, "ERROR: m_fusion: failed to make context-dependent state set\n");
+      return -1;
+    }
+  }
+
   printf("\n------------------------------------------------------------\n");
   print_hmmdef_info(stdout, hmminfo);
   printf("\n");
 
   printf("------------------------------------------------------------\n");
 
-  printf("---- writing ----\n");
+  printf("---- writing logical-to-physical mapping and pseudo phone info ----\n");
   printf("filename: %s\n", outfile);
 
   if ((fp = fopen_writefile(outfile)) == NULL) {
@@ -91,7 +99,7 @@ main(int argc, char *argv[])
   }
 
   printf("\n");
-  printf("binary HMMList written to \"%s\"\n", outfile);
+  printf("binary HMMList and pseudo phone definitions are written to \"%s\"\n", outfile);
 
   return 0;
 }

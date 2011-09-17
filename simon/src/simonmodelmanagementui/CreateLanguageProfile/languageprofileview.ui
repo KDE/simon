@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LanguageProfileView</class>
+ <widget class="QWidget" name="LanguageProfileView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>399</width>
+    <height>203</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lbDescription">
+     <property name="text">
+      <string>Here you can create a language profile from your currently running shadow dictionary.
+
+With a language profile, simon can automatically transcribe words even if they are not yet in your shadow dictionary
+
+Depending on the size of your shadow dictionary this process can take a very long time.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="pbTotal">
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="format">
+      <string>Waiting</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

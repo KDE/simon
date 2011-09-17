@@ -20,13 +20,13 @@
  * @author Akinobu LEE
  * @date   Thu Feb 17 18:12:30 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.7 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -253,7 +253,7 @@ CMN_realtime_new(Value *para, float weight)
   c = (CMNWork *)mymalloc(sizeof(CMNWork));
 
   c->cweight = weight;
-  c->mfcc_dim = para->mfcc_dim; // + (para->c0 ? 1 : 0);
+  c->mfcc_dim = para->mfcc_dim + (para->c0 ? 1 : 0);
   c->veclen = para->veclen;
   c->mean = para->cmn ? TRUE : FALSE;
   c->var = para->cvn ? TRUE : FALSE;

@@ -29,7 +29,7 @@
 #include <QMutex>
 #include <QString>
 
-const qint8 protocolVersion=4;
+const qint8 protocolVersion=5;
 
 class DatabaseAccess;
 class RecognitionControl;
@@ -38,13 +38,18 @@ class ModelCompilationManager;
 class ModelCompilationAdapter;
 class Model;
 class WAV;
+class QHostAddress;
 
 class ClientSocket : public QSslSocket
 {
   Q_OBJECT
 
-    private:
+  signals:
+    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
+
+  private:
     bool m_keepSamples;
+    bool m_writeAccess;
 
     bool synchronisationRunning;
 
@@ -69,10 +74,12 @@ class ClientSocket : public QSslSocket
 
   public slots:
     void sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults);
-    void recognitionDone(const QString& fileName);
 
   private slots:
+    void processRecognitionResults(const QString& fileName, const RecognitionResultList& recognitionResults);
+
     void startSynchronisation();
+    void recognitionDone(const QString& fileName);
 
     void sendCode(Simond::Request code);
     void processRequest();
@@ -126,9 +133,11 @@ class ClientSocket : public QSslSocket
     void activeModelCompilationAborted();
 
   public:
-    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, QObject *parent=0);
+    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, bool keepSamples, const QHostAddress& address, QObject *parent=0);
 
     virtual ~ClientSocket();
+
+    QString getUsername();
 
 };
 #endif

@@ -4,11 +4,8 @@
 
                                 Julius
 
+                                                (Rev 4.2   2011/05/01)
                                                 (Rev 4.1.5 2010/06/04)
-                                                (Rev 4.1.4 2009/12/25)
-                                                (Rev 4.1.3 2009/11/02)
-                                                (Rev 4.1.2 2009/02/12)
-                                                (Rev 4.1.1 2008/12/13)
                                                 (Rev 4.1   2008/10/03)
                                                 (Rev 4.0.2 2008/05/27)
                                                 (Rev 4.0   2007/12/19)
@@ -17,10 +14,10 @@
                                                 (Rev 2.0   1999/02/20)
                                                 (Rev 1.0   1998/02/20)
 
- Copyright (c) 1991-2010 Kawahara Lab., Kyoto University
+ Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
  Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- Copyright (c) 2005-2010 Julius project team, Nagoya Institute of Technology
+ Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  All rights reserved
 ======================================================================
 
@@ -49,21 +46,22 @@ on Windows (SAPI/console). Julius is distributed with open license
 together with source codes.
 
 
-What's new in Julius-4.1.5
+What's new in Julius-4.2
 ===========================
 
-The version 4.1.5 is a bug-fix release.  Two bugs are found relating
-search algorithm, word insertion penalty handling on grammar
-recognition and LM score handling of the first word on the second
-pass.  They have been fixed on this release.  If you have been
-encountering unreasonable search failures on the second pass, they 
-may be eased by using the newest version.
+Version 4.2 includes new features, improvements and bug fixes.  Score
+pruning (-bs) is implemented at the 1st pass search for faster
+decoding.  It can be used in conjunction with the conventional rank
+pruning (-b).  For audio interface, PulseAudio API is newly supported,
+and PortAudio library are updated to V19.  At pulseaudio (i.e. Windows
+OS), you can choose the capture device by environment variable etc.
+The part of codes are refined for stability, by eliminating memory
+leaks and efficiency.  Some other bugs are fixed.
 
-Other bugs are also fixed.  See "Release.txt" for the full list of the
-fixed bugs.
+See the "Release.txt" file for the full list of updates.
 
 
-Contents of Julius-4.1.5
+Contents of Julius-4.2
 =========================
 
 	(Documents with suffix "ja" are written in Japanese)

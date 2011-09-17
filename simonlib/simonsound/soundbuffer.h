@@ -20,9 +20,9 @@
 #define SOUNDBUFFER_H
 
 #include <QThread>
-#include <QSemaphore>
 #include <QByteArray>
 #include <QMutex>
+#include "qsemaphore2.h"
 
 #define BUFFER_MAX_LENGTH 4*8192
 
@@ -35,8 +35,7 @@ public:
 protected:
     QMutex killLock;
     bool m_shouldBeRunning;
-    QByteArray m_buffer;
-    QSemaphore m_bufferLock;
+    QSemaphore2 m_bufferLock;
 };
 
 #endif // SOUNDBUFFER_H

@@ -17,13 +17,13 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 17:27:24 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.7 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -72,13 +72,12 @@ extern "C" {
 int testbit(char *str, int slen, int bitplace);
 int testbit_max(char *str, int bitplace, int maxbitplace);
 int where_the_bit_differ(char *str1, char *str2);
-PATNODE *make_ptree(char **words, int *data, int wordsnum, int bitplace);
+PATNODE *make_ptree(char **words, int *data, int wordsnum, int bitplace, BMALLOC_BASE **mroot);
 void disp_ptree(PATNODE *node, int level);
 int ptree_search_data(char *str, PATNODE *rootnode);
 int ptree_replace_data(char *str, int val, PATNODE *node);
-PATNODE *ptree_make_root_node(int data);
-void ptree_add_entry(char *str, int data, char *matchstr, PATNODE **rootnode);
-void free_ptree(PATNODE *rootnode);
+PATNODE *ptree_make_root_node(int data, BMALLOC_BASE **mroot);
+void ptree_add_entry(char *str, int data, char *matchstr, PATNODE **rootnode, BMALLOC_BASE **mroot);
 
 void *aptree_search_data(char *str, APATNODE *rootnode);
 APATNODE *aptree_make_root_node(void *data, BMALLOC_BASE **mroot);

@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Fri Feb 18 21:33:29 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.4 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -38,6 +38,7 @@ word_info_new()
 
   new = (WORD_INFO *)mymalloc(sizeof(WORD_INFO));
   new->mroot = NULL;
+  new->work = NULL;
 
   return(new);
 }

@@ -44,7 +44,7 @@ class AICommandManager : public CommandManager
     KProcess *festivalProc;
 
   protected:
-    bool trigger(const QString& triggerName);
+    bool trigger(const QString& triggerName, bool silent);
 
   public:
     bool deSerializeConfig(const QDomElement& elem);

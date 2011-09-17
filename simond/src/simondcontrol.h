@@ -36,6 +36,7 @@ class SimondControl : public QTcpServer
     QList<ClientSocket*> clients;
     DatabaseAccess *db;
     bool m_keepSamples;
+    QHostAddress m_WriteAccessHost;
 
   private slots:
     void handleError(const QString& error);
@@ -46,6 +47,8 @@ class SimondControl : public QTcpServer
     void incomingConnection (int descriptor);
 
     void connectionClosing(QAbstractSocket::SocketState state);
+
+    void recognized(const QString& username, const QString& fileName, const RecognitionResultList& recognitionResults);
 
   public:
     SimondControl(QObject *parent=0);

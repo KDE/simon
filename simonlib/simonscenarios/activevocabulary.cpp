@@ -93,8 +93,9 @@ bool ActiveVocabulary::addWord(Word *w)
 
 bool ActiveVocabulary::reOrder(Word* w)
 {
+  parentScenario->startGroup();
   if (!Vocabulary::reOrder(w)) return false;
-  return parentScenario->save();
+  return parentScenario->commitGroup();
 }
 
 

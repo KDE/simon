@@ -46,3 +46,4 @@ add_subdirectory(package/KDE)
 ENDIF(WIN32)
 
 include(simon_package_settings)
+

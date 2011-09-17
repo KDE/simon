@@ -38,7 +38,7 @@
 
 #include <QDir>
 #include <QTime>
-#include <QDateTime>
+#include <KDateTime>
 #include <QHostAddress>
 #include <QMap>
 
@@ -50,17 +50,17 @@
 
 #include <KConfig>
 
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, bool keepSamples, QObject *parent)
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent)
 : QSslSocket(parent),
-m_keepSamples(keepSamples),
-synchronisationRunning(false),
-recognitionControl(0),
-synchronisationManager(0),
-modelCompilationManager(0),
-modelCompilationAdapter(0),
-newLexiconHash(0),
-newGrammarHash(0),
-newVocaHash(0)
+  m_keepSamples(keepSamples),
+  synchronisationRunning(false),
+  recognitionControl(0),
+  synchronisationManager(0),
+  modelCompilationManager(0),
+  modelCompilationAdapter(0),
+  newLexiconHash(0),
+  newGrammarHash(0),
+  newVocaHash(0)
 {
   qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -70,7 +70,7 @@ newVocaHash(0)
   kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 
   this->setSocketDescriptor(socketDescriptor);
-  connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
+   connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
   connect(this, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotSocketError()));
 
   //TODO: Implement encryption
@@ -78,7 +78,10 @@ newVocaHash(0)
     connect(this, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(slotSocketError()));
     startServerEncryption();
   }
-
+  
+  this->m_writeAccess = (writeAccessHost == QHostAddress::Any)||(writeAccessHost == this->peerAddress());
+  
+  kDebug() << "Done constructing";
 }
 
 
@@ -99,6 +102,7 @@ void ClientSocket::processRequest()
   qint32 type;
 
   while (!stream.atEnd()) {
+    waitForMessage(sizeof(qint32), stream, msg);
     Simond::Request request;
     stream >> type;
     request = (Simond::Request) type;
@@ -106,8 +110,29 @@ void ClientSocket::processRequest()
     if ((request != Simond::Login) &&  (username.isEmpty())) {
       sendCode(Simond::AccessDenied);
       break;
+    } else if(!m_writeAccess) {
+      bool skip_request = true;
+      
+      switch(request) {
+	case Simond::Login:
+	case Simond::StartRecognition:
+	case Simond::RecognitionStartSample:
+	case Simond::RecognitionSampleData:
+	case Simond::RecognitionSampleFinished:
+	case Simond::StopRecognition:
+	  skip_request = false;  
+	  break;
+	default: 
+	  break;
+      }
+      
+      if(skip_request) {
+	sendCode(Simond::AccessDenied);
+	break;
+      }
+      
     }
-
+    
     switch (request) {
       case Simond::Login:
       {
@@ -171,7 +196,7 @@ void ClientSocket::processRequest()
           connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
           connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
           connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-          connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const QString&, const RecognitionResultList&)));
+          connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
           connect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
 
           if (synchronisationManager )
@@ -185,6 +210,8 @@ void ClientSocket::processRequest()
             recognitionControl->initializeRecognition();
         } else
         sendCode(Simond::AuthenticationFailed);
+
+        kDebug() << "Done with login";
 
         break;
 
@@ -615,9 +642,6 @@ void ClientSocket::processRequest()
 
         Q_ASSERT(synchronisationManager);
 
-        //FIXME: The direct comparison (without toTime_t() doesn't work)
-        //kDebug() << "Language description: " << remoteLanguageDescriptionDate << localLanguageDescriptionDate;
-        //kDebug() << "Language description: " << remoteLanguageDescriptionDate.toTime_t() << localLanguageDescriptionDate.toTime_t();
         if (remoteLanguageDescriptionDate.toTime_t() != localLanguageDescriptionDate.toTime_t()) {
           kDebug() << "Language description differs";
           if (localLanguageDescriptionDate.toTime_t() > remoteLanguageDescriptionDate.toTime_t()) {
@@ -655,14 +679,15 @@ void ClientSocket::processRequest()
 
         waitForMessage(length, stream, msg);
 
-        QByteArray treeHed, shadowVocab;
+        QByteArray treeHed, shadowVocab, languageProfile;
         QDateTime changedTime;
 
         stream >> changedTime;
         stream >> treeHed;
         stream >> shadowVocab;
+        stream >> languageProfile;
 
-        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed)) {
+        if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed, languageProfile)) {
           sendCode(Simond::LanguageDescriptionStorageFailed);
         } else
         synchronizeSamples();
@@ -777,6 +802,7 @@ void ClientSocket::processRequest()
 
       case Simond::StartRecognition:
       {
+        kDebug() << "Got start recognition";
         recognitionControl->startRecognition();
         break;
       }
@@ -810,7 +836,7 @@ void ClientSocket::processRequest()
         }
 
         WAV *currentSample = new WAV(KStandardDirs::locateLocal("appdata", "models/"+username+"/recognitionsamples/"+
-          QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
+          KDateTime::currentUtcDateTime().dateTime().toString("yyyy-MM-dd_hh-mm-ss-zzzz")+'.'+QString::number(id)+".wav"),
           channels, sampleRate);
         currentSamples.insert(id, currentSample);
         currentSample->beginAddSequence();
@@ -858,7 +884,7 @@ void ClientSocket::processRequest()
 
       default:
       {
-        kDebug() << "Unknown request: " << msg;
+        kDebug() << "Unknown request: " << request << msg;
       }
     }
 
@@ -1537,7 +1563,8 @@ bool ClientSocket::sendLanguageDescription()
 
   bodyStream << synchronisationManager->getLanguageDescriptionDate()
     << languageDescription->treeHed()
-    << languageDescription->shadowVocab();
+    << languageDescription->shadowVocab()
+    << languageDescription->languageProfile();
 
   out << (qint32) Simond::LanguageDescription
     << (qint64) body.count();
@@ -1643,6 +1670,22 @@ void ClientSocket::recognitionDone(const QString& fileName)
   }
 }
 
+void ClientSocket::processRecognitionResults(const QString& fileName, const RecognitionResultList& recognitionResults)
+{
+  if (m_keepSamples) {
+    QFile f(fileName+"-log.txt");
+    if (f.open(QIODevice::WriteOnly)) {
+      foreach (const RecognitionResult& result, recognitionResults)
+        f.write(result.toString().toUtf8()+'\n');
+
+      f.close();
+    } else
+    kWarning() << "Can not open output log for sample";
+  }
+
+  emit recognized(username, fileName, recognitionResults);
+}
+
 void ClientSocket::sendRecognitionResult(const QString& fileName, const RecognitionResultList& recognitionResults)
 {
   QByteArray toWrite;
@@ -1663,19 +1706,12 @@ void ClientSocket::sendRecognitionResult(const QString& fileName, const Recognit
   stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
   write(toWrite);
   write(body);
-
-  if (m_keepSamples) {
-    QFile f(fileName+"-log.txt");
-    if (f.open(QIODevice::WriteOnly)) {
-      foreach (const RecognitionResult& result, recognitionResults)
-        f.write(result.toString().toUtf8()+'\n');
-
-      f.close();
-    } else
-    kWarning() << "Can not open output log for sample";
-  }
 }
 
+QString ClientSocket::getUsername()
+{
+  return username;
+}
 
 ClientSocket::~ClientSocket()
 {

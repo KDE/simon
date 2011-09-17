@@ -19,17 +19,22 @@
 
 #include "scenariomanager.h"
 #include "speechmodelmanagementconfiguration.h"
+#include "scenariodisplay.h"
+#include "voiceinterfacecommand.h"
 
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/shadowvocabulary.h>
-#include "scenariodisplay.h"
+#include <simongraphemetophoneme/graphemetophoneme.h>
 
 #include <QFileInfo>
+#include <QCoreApplication>
+
 #include <KDebug>
 #include <KGlobal>
 #include <KStandardDirs>
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <KDateTime>
 
 ScenarioManager* ScenarioManager::instance;
 
@@ -44,7 +49,10 @@ currentScenario(0)
 
 ScenarioManager* ScenarioManager::getInstance()
 {
-  if (!instance) instance = new ScenarioManager();
+  if (!instance) {
+    instance = new ScenarioManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -69,6 +77,45 @@ void ScenarioManager::slotBaseModelChanged()
     emit baseModelChanged();
 }
 
+QHash<QString,QString> ScenarioManager::transcribe(QStringList words)
+{
+  QHash<QString,QString> out;
+  QStringList toTranscribe;
+  foreach (const QString& word, words) {
+    QList<Word*> similar = ScenarioManager::getInstance()->findWords(word,
+        (SpeechModel::ModelElements) (SpeechModel::ShadowVocabulary|
+        SpeechModel::AllScenariosVocabulary), Vocabulary::ExactMatch);
+    if (!similar.isEmpty()) {
+      out.insert(word.toUpper(), similar.first()->getPronunciation());
+      continue;
+    }
+    toTranscribe << word;
+  }
+  if (!toTranscribe.isEmpty()) {
+    //sequitur
+    QString transcription;
+    QHash<QString, TranscriptionResult> sequiturResults = GraphemeToPhoneme::transcribe(toTranscribe, KStandardDirs::locate("appdata", "model/languageProfile"));
+    if (sequiturResults.isEmpty()) {
+      kWarning() << "Sequitur transcription failed. Is sequitur installed and do you have a valid model?";
+      return out;
+    }
+    
+    for (QHash<QString,TranscriptionResult>::const_iterator i = sequiturResults.constBegin();
+         i != sequiturResults.constEnd(); i++) {
+      if (i.value().getSuccess())
+        out.insert(i.key(), i.value().getData());
+      else
+        kWarning() << i.key() << "could not be transcribed";
+    }
+  }
+  kDebug() << out;
+  return out;
+}
+
+QString ScenarioManager::transcribe(QString word)
+{
+  return transcribe(QStringList() << word).value(word.toUpper());
+}
 
 QStringList ScenarioManager::getAllAvailableScenarioIds(const QString& dataPrefix)
 {
@@ -191,7 +238,7 @@ bool ScenarioManager::setupScenarios(bool forceChange)
   else {
     scenarioIds = defaultScenarioIds;
     cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-    cg.writeEntry("LastModified", QDateTime::currentDateTime());
+    cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
     cg.sync();
   }
 
@@ -363,11 +410,11 @@ QStringList ScenarioManager::getExampleSentences(const QString& name, const QStr
 }
 
 
-bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger)
+bool ScenarioManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
   kDebug() << "Should execute command " << type << trigger;
   foreach (Scenario *s, scenarios) {
-    if (s->triggerCommand(type, trigger))
+    if (s->triggerCommand(type, trigger, silent))
       return true;
   }
 
@@ -448,7 +495,7 @@ void ScenarioManager::touchBaseModelAccessTime()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("BaseModelDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("BaseModelDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   if (m_inGroup)
@@ -508,33 +555,43 @@ const QString& macrosName, const QString& statsName)
   touchBaseModelAccessTime();
 }
 
-//#include "voiceinterfacecommand.h"
+QString ScenarioManager::languageProfileName()
+{
+  return SpeechModelManagementConfiguration::languageProfileName();
+}
+void ScenarioManager::setLanguageProfileName(const QString& name)
+{
+  SpeechModelManagementConfiguration::setLanguageProfileName(name);
+  SpeechModelManagementConfiguration::self()->writeConfig();
+}
+
+
 void ScenarioManager::setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands)
 {
   kDebug() << "Setting list interface commands";
   this->listInterfaceCommands = listInterfaceCommands;
-//
-  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  //while (i.hasNext()) {
-    //i.next();
-    //// i.value() is not a valid command
-    //kDebug() << (*(i.value())).getTrigger();
-  //}
 }
 
 QHash<CommandListElements::Element, VoiceInterfaceCommand*> ScenarioManager::getListBaseConfiguration()
 {
-  //QHashIterator<CommandListElements::Element, VoiceInterfaceCommand*> i(listInterfaceCommands);
-  //while (i.hasNext()) {
-    //i.next();
-    //// i.value() is not a valid command
-    //kDebug() << (*(i.value())).getTrigger();
-  //}
-
   return listInterfaceCommands;
 }
 
+
 ScenarioManager::~ScenarioManager()
 {
+  foreach (Scenario *s, scenarios)
+    s->blockSignals(true);
+  blockSignals(true);
+  
+  instance = 0;
+  foreach (ScenarioDisplay *d, scenarioDisplays) {
+    kDebug() << "Deleting scenario display: " << d;
+    delete d;
+  }
+  scenarioDisplays.clear();
+  
+  delete shadowVocab;
+  qDeleteAll(scenarios);
+  qDeleteAll(listInterfaceCommands.values());
 }
-

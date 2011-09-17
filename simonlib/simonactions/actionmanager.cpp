@@ -24,7 +24,6 @@
 #include "commandsettingsinternal.h"
 
 #include <simoninfo/simoninfo.h>
-//#include <simonscenarios/commandconfiguration.h>
 #include <simonscenarios/scenariomanager.h>
 #include <simonscenarios/commandmanager.h>
 #include <simonscenarios/createcommandwidget.h>
@@ -34,6 +33,7 @@
 #include <QFile>
 #include <QMetaObject>
 #include <QDBusConnection>
+#include <QCoreApplication>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -65,7 +65,10 @@ useDYM(false)
 
 ActionManager* ActionManager::getInstance()
 {
-  if (!instance) instance = new ActionManager();
+  if (!instance) {
+    instance = new ActionManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -91,7 +94,7 @@ void ActionManager::retrieveRecognitionResultFilteringParameters()
 }
 
 
-bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
+bool ActionManager::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
   if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
     //result from a did-you-mean popup
@@ -112,7 +115,7 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
     return true;
   }
 
-  return ScenarioManager::getInstance()->triggerCommand(type, trigger);
+  return ScenarioManager::getInstance()->triggerCommand(type, trigger, silent);
 }
 
 
@@ -162,7 +165,10 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 
     kDebug() << "Viable recognition results: " << selectedRecognitionResults->count();
 
-    if (selectedRecognitionResults->count() == 0) return;
+    if (selectedRecognitionResults->count() == 0) {
+      delete selectedRecognitionResults;
+      return;
+    }
   }
   else {
     //we are already asking...
@@ -239,7 +245,7 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
   connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
   connect(list, SIGNAL(entrySelected()), list, SLOT(deleteLater()));
   int state = SimonCommand::DefaultState;
-  list->trigger(&state);
+  list->trigger(&state, true /* silent */);
 }
 
 
@@ -264,4 +270,5 @@ QHash<CommandListElements::Element, VoiceInterfaceCommand*> ActionManager::getGl
 ActionManager::~ActionManager()
 {
   delete greedyReceivers;
+  delete currentlyPromptedListOfResults;
 }

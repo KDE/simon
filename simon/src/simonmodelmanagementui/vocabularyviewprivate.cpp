@@ -22,6 +22,7 @@
 #include "editworddialog.h"
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
+#include "CreateLanguageProfile/languageprofileview.h"
 
 #include <simonscenarios/activevocabulary.h>
 #include <simonscenarios/scenariomanager.h>
@@ -71,6 +72,8 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 
   connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
   connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
+  
+  connect(ui.pbCreateLanguageProfile, SIGNAL(clicked()), this, SLOT(createLanguageProfile()));
 
   ui.pbImport->setIcon(KIcon("document-import"));
   ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
@@ -79,6 +82,7 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   ui.pbClear->setIcon(KIcon("edit-clear-list"));
   ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
   ui.pbTrainList->setIcon(KIcon("go-next"));
+  ui.pbCreateLanguageProfile->setIcon(KIcon("fork"));
 
   ui.tvActiveVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui.tvActiveVocab->setSortingEnabled(true);
@@ -95,6 +99,12 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
   shadowProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
   shadowProxy->setSourceModel(ScenarioManager::getInstance()->getShadowVocabulary());
   ui.tvShadowVocab->setModel(shadowProxy);
+}
+
+void VocabularyViewPrivate::createLanguageProfile()
+{
+  LanguageProfileView l(this);
+  l.exec();
 }
 
 

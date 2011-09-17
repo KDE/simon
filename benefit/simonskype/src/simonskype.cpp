@@ -20,15 +20,18 @@
 
 #include "simonskype.h"
 #include "unistd.h"
+#include <eventsimulation/eventhandler.h>
 #include <KDebug>
 #include <QTimer>
+#include <QKeySequence>
+#include <QApplication>
 #include <KCmdLineArgs>
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDBusInterface>
 
 
-SimonSkype::SimonSkype()
+SimonSkype::SimonSkype() : dropVoiceMail(false)
 {
   connect(&s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
   connect(&s, SIGNAL(callStatus(const QString&, const QString&)), this, SLOT(callStatus(const QString&, const QString&)));
@@ -48,17 +51,31 @@ SimonSkype::SimonSkype()
     exit(0);
   }
   if (KCmdLineArgs::parsedArgs()->isSet("n")) {
+    QTimer::singleShot(5000, qApp, SLOT(quit()));
+    connect(&s, SIGNAL(voiceMailActive(int)), this, SLOT(voiceMailActive(int)));
+    connect(&s, SIGNAL(voiceMessageSent()), this, SLOT(voiceMessageSent()));
+    dropVoiceMail = true;
     foreach (const QString& call, s.searchActiveCalls())
       s.hangUp(call);
-    exit(0);
-  }
-
-  if (!KCmdLineArgs::parsedArgs()->isSet("d")) {
+    //exit(0);
+  } else if (!KCmdLineArgs::parsedArgs()->isSet("d")) {
     kWarning() << "Nothing to do. Provide either c, y, n or d switches to use simonskype. See: simonskype --help";
     exit(0);
   }
 
-  s.setOnline();
+  //s.setOnline();
+}
+
+void SimonSkype::voiceMessageSent()
+{
+  kDebug() << "Sent voice message!";
+  EventHandler::getInstance()->sendShortcut(QKeySequence("Meta+Shift+C"));
+}
+
+void SimonSkype::voiceMailActive(int id)
+{
+  if (!dropVoiceMail) return;
+  s.stopVoiceMail(id);
 }
 
 void SimonSkype::callStatus(const QString &callId, const QString &status)
@@ -71,6 +88,9 @@ void SimonSkype::callStatus(const QString &callId, const QString &status)
 
 void SimonSkype::newCall(const QString& callId, const QString& userId)
 {
+  if (dropVoiceMail) {
+      s.hangUp(callId);
+  }
   if (!KCmdLineArgs::parsedArgs()->isSet("d"))
     return;
 

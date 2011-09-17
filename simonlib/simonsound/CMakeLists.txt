@@ -62,6 +62,8 @@ set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/soundinputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundoutputbuffer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/soundbackend.cpp
+	
+  ${CMAKE_CURRENT_SOURCE_DIR}/qsemaphore2.cpp
 )
 
 IF(WIN32)
@@ -132,11 +134,13 @@ kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 if(LIBSAMPLERATE_FOUND)
 	message(STATUS "Enabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
+  simonlogging
   ${LIBSAMPLERATE_LIBRARY}
 		${KDE4_KDEUI_LIBS} simonwav)
 else(LIBSAMPLERATE_FOUND)
 	message(STATUS "Disabling resample support")
 target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
+  simonlogging
   ${KDE4_KDEUI_LIBS} simonwav)
 endif(LIBSAMPLERATE_FOUND)
 

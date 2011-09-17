@@ -79,7 +79,14 @@ bool DBusCommand::triggerPrivate(int *state)
     while ((arg.contains("%")) && (i < currentArguments().count())) {
       arg = arg.arg(currentArguments()[i++]);
     }
-    args.append(arg);
+    
+    //check for integers
+    bool ok = true;
+    int a = arg.toInt(&ok);
+    if (ok)
+      args.append(QVariant(a));
+    else
+      args.append(arg);
   }
 
   kDebug() << args;

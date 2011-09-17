@@ -18,19 +18,19 @@
  * @author Akinobu LEE
  * @date   Thu Mar 24 12:22:27 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.4 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
 /* mkbingram --- make binary n-gram for JULIUS from ARPA standard format */
 
-/* $Id: mkbingram.c,v 1.3 2009/02/09 17:27:48 sumomo Exp $ */
+/* $Id: mkbingram.c,v 1.4 2011/04/29 05:09:20 sumomo Exp $ */
 
 #include <sent/stddefs.h>
 #include <sent/ngram2.h>

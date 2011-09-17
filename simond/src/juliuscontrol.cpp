@@ -117,12 +117,6 @@ Jconf* JuliusControl::setupJconf()
 
   hmm.close();
 
-  //	QString configPath = dirPath+"activerc";
-  //	KConfig config( configPath, KConfig::SimpleConfig );
-  //	KConfigGroup cGroup(&config, "");
-  //	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
-  //	this->sampleRate = cGroup.readEntry("SampleRate", 0);
-
   int argc=11;
   char* argv[] = {
     "simond", "-C", jConfPath.data(),
@@ -131,26 +125,10 @@ Jconf* JuliusControl::setupJconf()
     "-hlist", tiedList.data(),
     "-input", "file"
   };
-  //			 "-smpFreq", smpFreq.data()};
 
   return j_config_load_args_new(argc, argv);
 }
 
-
-void statusRecstart(Recog *recog, void *)
-{
-  if (recog->jconf->input.speech_input == SP_MIC || recog->jconf->input.speech_input == SP_NETAUDIO) {
-    kDebug() << "\nListening...\n";
-  }
-}
-
-
-void statusRecready(Recog *recog, void *)
-{
-  if (recog->jconf->input.speech_input == SP_MIC || recog->jconf->input.speech_input == SP_NETAUDIO) {
-    kDebug() << "<<< please speak >>>";
-  }
-}
 
 
 QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
@@ -306,28 +284,6 @@ void outputResult(Recog *recog, void *control)
   }
 }
 
-
-/**
-void juliusCallbackPoll(Recog *recog, void *control)
-{
-  Q_UNUSED(recog);
-
-  JuliusControl *juliusControl = (JuliusControl*) control;
-  Q_ASSERT(juliusControl);
-
-  JuliusControl::Request request = juliusControl->popNextRequest();
-  switch (request)
-  {
-case JuliusControl::None:
-return; //speed
-
-case JuliusControl::Stop:
-kDebug() << "Stopping...";
-break;
-
-}
-}
-*/
 
 JuliusControl::Request JuliusControl::popNextRequest()
 {
@@ -495,16 +451,11 @@ bool JuliusControl::startRecognition()
     return false;
   }
 
-  callback_add(recog, CALLBACK_EVENT_SPEECH_READY, statusRecready, this);
-  callback_add(recog, CALLBACK_EVENT_SPEECH_START, statusRecstart, this);
   callback_add(recog, CALLBACK_RESULT, outputResult, this);
-  //	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
 
   touchLastSuccessfulStart();
 
   m_initialized=true;
-
-  //==========================0
 
   /**************************/
   if (j_adin_init(recog) == false) {              /* error */
@@ -524,6 +475,11 @@ void JuliusControl::run()
 {
   Q_ASSERT(recog);
   shouldBeRunning=true;
+  
+  if (!recog) {
+    emit recognitionDone(currentFileName);
+    return;
+  }
 
   switch(j_open_stream(recog, currentFileName.toUtf8().data())) {
     case 0:

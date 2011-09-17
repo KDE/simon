@@ -60,13 +60,13 @@
  * @author Akinobu LEE
  * @date   Tue Feb 15 17:58:54 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.6 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -87,6 +87,7 @@
 static void
 cdset_init(HTK_HMM_INFO *hmminfo)
 {
+  hmminfo->cdset_info.binary_malloc = FALSE;
   hmminfo->cdset_info.cdtree = NULL;
 }
 
@@ -164,6 +165,7 @@ put_cdset(void *ptr)
 {
   int i;
   CD_Set *a;
+  int j;
 
   a = ptr;
   printf("name: %s\n", a->name);
@@ -174,11 +176,13 @@ put_cdset(void *ptr)
     } else {
       printf("\t[state %d]  %d variants\n", i, a->stateset[i].num);
     }
-    /*
-      for(j=0;j<a->stateset[i].num;j++) {
-        put_htk_state(stdout, a->stateset[i].s[j]);
+    for(j=0;j<a->stateset[i].num;j++) {
+      if (a->stateset[i].s[j]->name) {
+	printf("\t\t%s %d\n", a->stateset[i].s[j]->name, a->stateset[i].s[j]->id);
+      } else {
+	printf("\t\t(NULL) %d\n", a->stateset[i].s[j]->id);
       }
-    */
+    }
   }
 }
 
@@ -344,6 +348,7 @@ make_cdset(HTK_HMM_INFO *hmminfo)
   }
 
   /* now that cdset is completely built */
+  hmminfo->cdset_info.binary_malloc = FALSE;
   
   return(TRUE);
 }

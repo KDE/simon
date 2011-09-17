@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>789</width>
-    <height>425</height>
+    <height>407</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -152,6 +152,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pbCreateLanguageProfile">
+           <property name="text">
+            <string>Create Language Profile</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="KPushButton" name="pbClear">
            <property name="text">
             <string comment="Remove every entry">Clear</string>
@@ -174,14 +181,14 @@
          <item>
           <widget class="KPushButton" name="pbEditWord">
            <property name="text">
-            <string>Edit Word</string>
+            <string>Edit</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="KPushButton" name="pbRemoveWord">
            <property name="text">
-            <string>Remove Word</string>
+            <string>Remove</string>
            </property>
           </widget>
          </item>
@@ -280,9 +287,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
@@ -290,9 +297,9 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

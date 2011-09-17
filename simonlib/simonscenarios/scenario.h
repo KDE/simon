@@ -103,7 +103,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QStringList getAllPossibleSentences();
     QStringList getAllPossibleSentencesOfStructure(const QString& structure, int* alreadyFoundExamples=0);
 
-    QStringList getExampleSentencesOfStructur(const QString& structure);
+    QStringList getExampleSentencesOfStructure(const QString& structure);
 
     QStringList getExampleSentences(const QString& name, const QString& terminal, int count);
     QString fillGrammarSentenceWithExamples(const QString& terminalSentence, bool &ok, const QString& toDemonstrate=QString(),
@@ -143,7 +143,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     QString autorunTrigger();
 
     bool processResult(RecognitionResult recognitionResult);
-    bool triggerCommand(const QString& type, const QString& trigger);
+    bool triggerCommand(const QString& type, const QString& trigger, bool silent);
 
     CommandList* getCommandList();
 

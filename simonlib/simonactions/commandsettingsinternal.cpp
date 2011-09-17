@@ -36,11 +36,10 @@ CommandSettingsInternal::CommandSettingsInternal(QWidget *parent) : QObject(pare
   if (instance) instance->deleteLater();
 
   instance = this;
-	
   config = KSharedConfig::openConfig(KGlobal::mainComponent(),
     "simoncommandrc");
 
-	load();
+  load();
 }
 
 
@@ -111,10 +110,7 @@ void CommandSettingsInternal::save(bool dym, float confidence, const QFont& font
 
   cg.sync();
 
-  //	emit recognitionResultsFilterParametersChanged();
-  //
   ActionManager::getInstance()->retrieveRecognitionResultFilteringParameters();
-  //	ActionManager::getInstance()->setListInterfaceCommands(listInterfaceCommands);
 }
 
 void CommandSettingsInternal::load()

@@ -1,6 +1,6 @@
 #
 # Sample Jconf configuration file
-# for Julius library rev.4.1.1
+# for Julius library rev.4.2
 #
 # 1) Options can also be specified in command line option.
 #    The values are default values in Julius.
@@ -204,6 +204,8 @@
 #-iwspword			# add a pause word to the dictionary
 #-iwspentry "<UNK> [sp] sp sp"	# word that will be added by "-iwspword"
 #-sepnum 150			# num of high freq words to linearize 
+#-adddict dictfile              # append additional word dictionary
+#-addword entry                 # append additional word entry
 
 ####
 #### Grammar
@@ -326,6 +328,7 @@
 #-lmp weight penalty		# LM weight and word insertion penalty (pass1)
 #-penalty1 penalty		# word insertion penalty for grammar (pass1)
 #-b width			# beam width (# of nodes)
+#-bs score                      # beam width (score)
 #-nlimit 3			# with enable-wpair-nlimit, set max N at nodes
 #-progout			# progressive output while decoding
 #-proginterval 300		# output interval in msec for "-progout"

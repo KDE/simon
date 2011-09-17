@@ -1,6 +1,6 @@
 find_package(Portaudio)
 if (PORTAUDIO_FOUND )
-add_definitions(-DUSE_PORTAUDIO -DUSE_MIC=1)
+  add_definitions(-DUSE_PORTAUDIO -DUSE_MIC=1)
 endif (PORTAUDIO_FOUND )
 
 add_subdirectory(libsent)

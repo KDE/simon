@@ -25,6 +25,10 @@ class SoundInputBuffer : public SoundBuffer
 {
 private:
   SimonSoundInput *m_input;
+  char *m_buffer;
+  int m_bufferLength;
+  QMutex m_bufferAllocLock;
+  QSemaphore2 m_bufferLock;
   
 public:
   SoundInputBuffer(SimonSoundInput* input);

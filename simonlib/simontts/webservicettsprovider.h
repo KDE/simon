@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QBuffer>
 #include <QQueue>
+#include <QFile>
 
 class QString;
 class WavPlayerClient;
@@ -46,6 +47,7 @@ class WebserviceTTSProvider : public QObject, public SimonTTSProvider
     QQueue<QBuffer*> filesToPlay;
     QNetworkReply *currentConnection;
     
+    QFile f;
     QNetworkAccessManager *net;
     WavPlayerClient *player;
     void enquePlayback();

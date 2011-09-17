@@ -29,13 +29,14 @@
 #include <QStringList>
 #include <QString>
 #include <QObject>
-#include <QDate>
 #include <QTextStream>
+#include <QCoreApplication>
 #include <QVariant>
 #include <QTime>
 #include <QRegExp>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KDateTime>
 #include <KLocale>
 #include <math.h>
 
@@ -75,7 +76,7 @@ void TrainingManager::trainingSettingsSaved()
 {
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   emit trainingSettingsChanged();
@@ -84,8 +85,10 @@ void TrainingManager::trainingSettingsSaved()
 
 TrainingManager* TrainingManager::getInstance()
 {
-  if (!instance)
+  if (!instance) {
     instance = new TrainingManager();
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
   return instance;
 }
 
@@ -208,10 +211,10 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
     promptsFile.write ( samples[i].toUtf8() +' '+prompts->value ( samples[i] ).toUtf8() +'\n' );
   promptsFile.close();
 
-  kDebug() << "Writing date..." << QDateTime::currentDateTime();
+  kDebug() << "Writing date..." << KDateTime::currentUtcDateTime().dateTime();
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   return true;

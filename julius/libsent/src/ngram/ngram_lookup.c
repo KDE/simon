@@ -12,13 +12,13 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 16:42:38 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.5 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -47,7 +47,7 @@ ngram_make_lookup_tree(NGRAM_INFO *ndata)
     wnameindex[i] = ndata->wname[i];
   }
 
-  ndata->root = make_ptree(wnameindex, windex, ndata->max_word_num, 0);
+  ndata->root = make_ptree(wnameindex, windex, ndata->max_word_num, 0, &(ndata->mroot));
 
   free(windex);
   free(wnameindex);

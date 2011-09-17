@@ -81,19 +81,21 @@ QVariant ActionModel::data(const QModelIndex &index, int role) const
 {
   if (!index.isValid()) return QVariant();
 
-  if (role == Qt::DisplayRole) {
+  if ((role == Qt::DisplayRole) || (role == Qt::DecorationRole)) {
     Action *a = m_actions.at(index.row());
 
+    //kDebug() << a->source();
     Q_ASSERT(a);
 
-    QString name = a->manager()->name();
-    QString trigger = a->trigger();
-    if (trigger.isEmpty()) return name;
-    else return name+" ("+trigger+')';
+    if (role == Qt::DecorationRole)
+      return a->manager()->icon();
+    if (role == Qt::DisplayRole) {
+      QString name = a->manager()->name();
+      QString trigger = a->trigger();
+      if (trigger.isEmpty()) return name;
+      else return name+" ("+trigger+')';
+    }
   }
-
-  if (role == Qt::DecorationRole)
-    return m_actions.at(index.row())->manager()->icon();
 
   return QVariant();
 }

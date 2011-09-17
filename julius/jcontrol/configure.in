@@ -1,6 +1,6 @@
-dnl Copyright (c) 2002-2007 Kawahara Lab., Kyoto University
+dnl Copyright (c) 2002-2011 Kawahara Lab., Kyoto University
 dnl Copyright (c) 2002-2005 Shikano Lab., Nara Institute of Science and Technology
-dnl Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+dnl Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
 dnl All rights reserved
 AC_INIT(jcontrol.c)
 AC_CANONICAL_HOST

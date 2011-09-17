@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Service
+Icon=view-statistics
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=simonmodelmanagementuikcm
+
+X-DocPath=help:/simon/configuration.html#configuration_model
+
+X-KDE-FactoryName=speechmodelmanagementuifactory
+X-KDE-ParentComponents=libsimonmodelmanagementui
+
+X-KDE-ParentApp=simon
+# X-KDE-System-Settings-Parent-Category=simon
+
+Name=Model Extensions
+Name[de]=Modell Erweiterungen
+
+#X-KDE-PluginKeyword=ModelSettings
+
+Comment=Configuration of the simon speech model extensions
+Comment[de]=Konfiguration der Erweiterungen des Sprachmodells

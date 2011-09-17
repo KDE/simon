@@ -28,10 +28,9 @@
 
 #include <simonscenarios/scenariomanager.h>
 
-//#include <stdlib.h>
-
 #include <KStandardDirs>
 #include <KMimeType>
+#include <KDateTime>
 #include <KFilterBase>
 #include <KFilterDev>
 #include <QFile>
@@ -249,11 +248,14 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 {
   QFile treeHed(KStandardDirs::locate("appdata", "model/tree1.hed"));
   QFile shadowVocab(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
+  QFile languageProfile(KStandardDirs::locate("appdata", "model/languageProfile"));
+  
+  languageProfile.open(QIODevice::ReadOnly); //optional, so we don't care if that doesn't exist - readAll works fine
 
   if (!(shadowVocab.open(QIODevice::ReadOnly)) || (!treeHed.open(QIODevice::ReadOnly)))
     return 0;
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll());
+  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll(), languageProfile.readAll());
 }
 
 
@@ -269,7 +271,7 @@ QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 
 
 bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, QByteArray& shadowVocab,
-const QByteArray& treeHed)
+    const QByteArray& treeHed, const QByteArray& languageProfile)
 {
   ShadowVocabulary *vocab = ScenarioManager::getInstance()->getShadowVocabulary();
 
@@ -284,31 +286,6 @@ const QByteArray& treeHed)
 
   vocabDev = KFilterDev::deviceForFile(vocabTempPath, KMimeType::findByFileContent(vocabTempPath)->name());
 
-  /*
-  //KMimeType can not resolve mimetype like this
-  KMimeType::Ptr mime = KMimeType::findByContent(shadowVocab);
-  QStringList parentMimeTypes;
-  if (mime)
-    parentMimeTypes = mime->parentMimeTypes();
-  kDebug() << "Shadow mime type" << parentMimeTypes;
-
-  KFilterBase *base = 0;
-  int i=0;
-  while (!base && i < parentMimeTypes.count())
-  {
-  base = KFilterBase::findFilterByMimeType(parentMimeTypes[i]);
-  i++;
-  }
-  if (base == 0)
-  {
-  kDebug() << "Could not resolve mime type";
-  vocabDev = new QBuffer(&shadowVocab);
-  } else {
-  kDebug() << "Using mime type filter";
-  vocabDev = base->device();
-  }
-  */
-
   if (!vocab->reset(vocabDev) || !vocab->save()) return false;
   delete vocabDev;
 
@@ -319,6 +296,13 @@ const QByteArray& treeHed)
   treeHedF.write(treeHed);
   treeHedF.close();
 
+  QFile languageProfileF(KStandardDirs::locateLocal("appdata", "model/languageProfile"));
+  if (!languageProfileF.open(QIODevice::WriteOnly))
+    return false;
+
+  languageProfileF.write(languageProfile);
+  languageProfileF.close();
+  
   KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("LanguageDescriptionDate", changedTime);
@@ -414,6 +398,14 @@ QString ModelManager::missingSample()
   return missingFiles.at(0);
 }
 
+void ModelManager::touchLanguageDescription()
+{
+  KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+  KConfigGroup cGroup(&config, "");
+  cGroup.writeEntry("LanguageDescriptionDate", KDateTime::currentUtcDateTime().dateTime());
+  config.sync();
+  modelHasChanged();
+}
 
 bool ModelManager::hasTraining()
 {

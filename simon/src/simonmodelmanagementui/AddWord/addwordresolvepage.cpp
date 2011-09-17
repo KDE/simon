@@ -47,11 +47,10 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
   connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
   connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
 
-  connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(setTerminalDirty()));
   connect (ui.cbSimilarSearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
   connect (ui.cbContainsSearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
   connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(fetchSimilar()));
-  //	connect(ui.tbFetchSimilar, SIGNAL(clicked()), this, SLOT(fetchSimilar()));
+  connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(transcribeWord()));
 
   registerField("wordExample1*", ui.leExample1);
   registerField("wordExample2*", ui.leExample2);
@@ -63,6 +62,11 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
   ui.pbReGuess->setIcon(KIcon("view-refresh"));
 }
 
+void AddWordResolvePage::transcribeWord()
+{
+  ui.leSampa->setText(ScenarioManager::getInstance()->transcribe(ui.leWord->text()));
+}
+
 
 bool AddWordResolvePage::validatePage()
 {
@@ -71,9 +75,6 @@ bool AddWordResolvePage::validatePage()
     return false;
   }
   bool exists = ScenarioManager::getInstance()->getCurrentScenario()->containsWord(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
-  //	Word *search = new Word(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
-  //		WordListManager::getInstance()->mainWordListContains(search);
-  //	delete search;
   if (exists) {
     KMessageBox::error(this, i18n("The vocabulary already contains this word."));
     return false;
@@ -119,7 +120,6 @@ void AddWordResolvePage::initializePage()
   if(meCh7(MKW))q_Ml MKW+QString(" deaktivieren?") dw3_ close;
 
   ui.cbType->clear();
-  ui.leSampa->clear();
   QStringList terminals = ScenarioManager::getInstance()->getTerminals(
     (SpeechModel::ModelElements)
     (SpeechModel::ShadowVocabulary|
@@ -134,8 +134,8 @@ void AddWordResolvePage::initializePage()
   ui.leSampa->clear();
 
   setUpdatesEnabled(true);
-  terminalDirty=false;
   fetchSimilar();
+  transcribeWord();
 }
 
 
@@ -159,21 +159,6 @@ void AddWordResolvePage::fetchSimilar()
     SpeechModel::AllScenariosVocabulary), match);
   displayWords(similar);
 
-  if (ui.twSuggestions->rowCount() > 0)
-    ui.twSuggestions->selectRow(0);
-
-  if (similar.count() > 0) {
-    //select the first suggestion
-    if (ui.leSampa->text().isEmpty() || (ui.leSampa->text() == suggestedSampa)) {
-      suggestedSampa = similar[0]->getPronunciation();
-      ui.leSampa->setText(suggestedSampa);
-    }
-    if (!terminalDirty) {
-      QString suggestedTerminal  = similar[0]->getTerminal();
-      ui.cbType->setCurrentIndex(ui.cbType->findText(suggestedTerminal));
-      terminalDirty=false;
-    }
-  }
   connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
   connect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
   createExamples();
@@ -187,9 +172,6 @@ void AddWordResolvePage::fetchSimilar()
 void AddWordResolvePage::createExamples()
 {
   if (ui.cbType->currentIndex() == -1) return;
-  if ((ui.leWord->text() == wordLastUsedToGenerateExamples)&&
-    (ui.cbType->currentText() == terminalLastUsedToGenerateExamples)&&
-    (sender() != ui.pbReGuess)) return;
 
   QString terminal = ui.cbType->currentText();
 
@@ -209,8 +191,6 @@ void AddWordResolvePage::createExamples()
     ui.leExample1->setText(error);
     ui.leExample2->setText(error);
   }
-  wordLastUsedToGenerateExamples = ui.leWord->text();
-  terminalLastUsedToGenerateExamples = ui.cbType->currentText();
 }
 
 
@@ -235,13 +215,11 @@ void AddWordResolvePage::suggest()
   }
 
   QString sampa = ui.twSuggestions->item(row,1)->text();
-  suggestedSampa = sampa;
   ui.leSampa->setText(sampa);
 
   QString terminal = ui.twSuggestions->item(row,2)->text();
 
   ui.cbType->setCurrentIndex(ui.cbType->findText(terminal));
-  terminalDirty=false;
   createExamples();
 }
 
@@ -259,7 +237,7 @@ void AddWordResolvePage::displayWords(QList<Word*> words)
     KMessageBox::information(this, i18n("The search for similar words yielded more than 1000 results.\n\nOnly the first 1000 are shown."));
   setUpdatesEnabled(false);                       //to prevent endless lookups
   ui.twSuggestions->clearContents();
-  ui.twSuggestions->setRowCount(qMin(words.count(), 1000));
+  ui.twSuggestions->setRowCount(qMin(words.count(), limit));
   while ((i < words.count()) && (i < limit)) {
     ui.twSuggestions->setItem(i, 0, new QTableWidgetItem(words.at(i)->getWord()));
     ui.twSuggestions->setItem(i, 1, new QTableWidgetItem(words.at(i)->getPronunciation()));

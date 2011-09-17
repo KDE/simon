@@ -24,9 +24,9 @@
 #include <KDebug>
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, const QString& trigger, const QString& iconSrc,
-const QString& description, const QString& id, int state, int newState,const QString& visibleTrigger,
+const QString& description, const QString& id, QList<int> states, int newState,const QString& visibleTrigger,
 bool showIcon, bool announce) :
-Command(trigger, iconSrc, description, state, newState, announce),
+Command(trigger, iconSrc, description, states, newState, announce),
 m_id(id),
 m_visibleTrigger(visibleTrigger),
 m_receiver(0),
@@ -38,7 +38,7 @@ m_showIcon(showIcon)
 
 //copy constructor
 VoiceInterfaceCommand::VoiceInterfaceCommand(const VoiceInterfaceCommand& b) :
-Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundState(), b.getTargetState(), b.getAnnounce()),
+Command(b.getTrigger(), b.getIconSrc(), b.getDescription(), b.getBoundStates(), b.getTargetState(), b.getAnnounce()),
 m_id(b.id()),
 m_visibleTrigger(b.visibleTrigger()),
 m_receiver(b.receiver()),
@@ -49,7 +49,7 @@ m_showIcon(b.showIcon())
 
 
 VoiceInterfaceCommand::VoiceInterfaceCommand(CommandManager *parentManager, VoiceInterfaceCommandTemplate *tem) :
-Command(tem->actionName(), tem->icon(), tem->description(), tem->state(), tem->newState(), tem->announce()),
+Command(tem->actionName(), tem->icon(), tem->description(), tem->states(), tem->newState(), tem->announce()),
 m_id(tem->id()),
 m_visibleTrigger(tem->defaultVisibleTrigger()),
 m_receiver(0),

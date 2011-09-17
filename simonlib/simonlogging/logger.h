@@ -30,12 +30,14 @@
 
 class QTextStream;
 class QFile;
+class QMutex;
 
 class SIMONLOGGING_EXPORT Logger
 {
   private:
     static QTextStream *logFile;
     static QFile *logF;
+    static QMutex *lock;
 
   public:
     enum LogType {

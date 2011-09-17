@@ -19,6 +19,7 @@
 
 #include "webservicettsprovider.h"
 #include "ttsconfiguration.h"
+#include <limits.h>
 #include <simonsound/wavplayerclient.h>
 #include <simonsound/soundserver.h>
 #include <QStringList>
@@ -38,6 +39,8 @@ WebserviceTTSProvider::WebserviceTTSProvider() : QObject(),
 {
   initializeOutput();
   connect(SoundServer::getInstance(), SIGNAL(devicesChanged()), this, SLOT(initializeOutput()));
+  f.setFileName("/home/bedahr/foo.wav");
+  f.open(QIODevice::WriteOnly);
 }
 
 
@@ -56,6 +59,7 @@ bool WebserviceTTSProvider::initialize()
 
 void WebserviceTTSProvider::replyReceived()
 {
+f.close();
   QNetworkReply* reply = dynamic_cast<QNetworkReply*>(sender());
   if (!reply) return;
   
@@ -140,10 +144,13 @@ bool WebserviceTTSProvider::say(const QString& text)
   return true;
 }
 
+
 void WebserviceTTSProvider::downloadProgress(qint64 now, qint64 max)
 {
   kDebug() << "Download progress: " << now << max;
-  filesToPlay.first()->buffer() += currentConnection->readAll();
+  QByteArray buf = currentConnection->readAll();
+  filesToPlay.first()->buffer() += buf;
+  f.write(buf);
   enquePlayback();
 }
 

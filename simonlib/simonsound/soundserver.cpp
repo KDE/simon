@@ -26,6 +26,7 @@
 #include "soundbackend.h"
 
 #include <QObject>
+#include <QCoreApplication>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -45,8 +46,11 @@ SoundServer::SoundServer(QObject* parent) : QObject(parent)
 
 SoundServer* SoundServer::getInstance()
 {
-	if (!instance) instance = new SoundServer(0);
-	return instance;
+  if (!instance) {
+    instance = new SoundServer(0);
+    connect(qApp, SIGNAL(aboutToQuit()), instance, SLOT(deleteLater()));
+  }
+  return instance;
 }
 
 QString SoundServer::defaultInputDevice()
@@ -83,7 +87,7 @@ bool SoundServer::registerInputClient(SoundInputClient* client)
   if (!inputs.contains(client->deviceConfiguration())) {
     kDebug() << "No input for this particular configuration... Creating one";
 
-    SimonSoundInput *soundInput = new SimonSoundInput(this);
+    SimonSoundInput *soundInput = new SimonSoundInput(0);
     connect(soundInput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundInput, SIGNAL(recordingFinished()), this, SLOT(slotRecordingFinished()));
     //then start recording
@@ -237,7 +241,7 @@ bool SoundServer::registerOutputClient(SoundOutputClient* client)
     //create output for this configuration
     kDebug() << "No output for this particular configuration... Creating one";
 
-    SimonSoundOutput *soundOutput = new SimonSoundOutput(this);
+    SimonSoundOutput *soundOutput = new SimonSoundOutput(0);
     connect(soundOutput, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(soundOutput, SIGNAL(playbackFinished()), this, SLOT(slotPlaybackFinished()));
     //then start playback
@@ -448,11 +452,30 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getTrainingOutputDevices()
   return getOutputDevices(SimonSound::Training);
 }
 
+void SoundServer::uninitializeSoundSystem()
+{
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundInput*> i(inputs);
+  while (i.hasNext()) {
+    i.next();
+    i.value()->stopRecording();
+  }
+  inputs.clear();
+
+  QHashIterator<SimonSound::DeviceConfiguration, SimonSoundOutput*> j(outputs);
+  while (j.hasNext()) {
+    j.next();
+    j.value()->stopPlayback();
+  }
+  outputs.clear();
+}
+
 
 /**
  * \brief Destructor
  */
 SoundServer::~SoundServer()
 {
-  backend->deleteLater();;
+  instance = 0;
+  uninitializeSoundSystem();
+  delete backend;
 }

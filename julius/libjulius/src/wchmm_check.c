@@ -24,13 +24,13 @@
  * @author Akinobu Lee
  * @date   Sat Sep 24 15:45:06 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.5 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -235,8 +235,7 @@ print_wchmm_s_arc(WCHMM_INFO *wchmm, int node)
 static void
 print_wchmm_s_successor(WCHMM_INFO *wchmm, int node)
 {
-  S_CELL *sc;
-  int i = 0;
+  int i = 0, j;
   int scid;
 
   scid = wchmm->state[node].scid;
@@ -250,12 +249,17 @@ print_wchmm_s_successor(WCHMM_INFO *wchmm, int node)
     }
 #endif
   } else {
+#ifdef UNIGRAM_FACTORING
     printf("successor id: %d\n", scid);
-    for (sc=wchmm->sclist[scid];sc;sc=sc->next) {
-      printf(" %d\n",sc->word);
+    printf(" %d\n", wchmm->scword[scid]);
+#else
+    printf("successor id: %d\n", scid);
+    for (j = 0; j < wchmm->sclen[scid]; j++) {
+      printf(" %d\n", wchmm->sclist[scid][j]);
       i++;
     }
     printf(" total %d successors\n",i);
+#endif
   }
 }
 

@@ -32,8 +32,9 @@ DictationCommandManager::DictationCommandManager(QObject* parent, const QVariant
 }
 
 
-bool DictationCommandManager::trigger(const QString& triggerName)
+bool DictationCommandManager::trigger(const QString& triggerName, bool silent)
 {
+  Q_UNUSED(silent);
   QString appendText = static_cast<DictationConfiguration*>(config)->appendText();
   EventHandler::getInstance()->sendWord(triggerName+appendText);
   return true;

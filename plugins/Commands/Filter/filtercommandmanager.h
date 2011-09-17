@@ -23,6 +23,8 @@
 #include <simonscenarios/commandmanager.h>
 
 #include <QVariantList>
+#include <QTimer>
+
 
 class KAction;
 class FilterConfiguration;
@@ -42,7 +44,9 @@ class FilterCommandManager : public CommandManager
   protected:
     bool isActive;
     bool stageOne;
-    bool trigger(const QString& triggerName);
+    QTimer timeoutTimer;
+    
+    bool trigger(const QString& triggerName, bool silent);
     void updateAction();
     FilterConfiguration* configuration();
 

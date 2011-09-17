@@ -45,7 +45,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT VocabularyView : public InlineWidget, public
     void displayScenarioPrivate(Scenario *scenario);
 
   public:
-    VocabularyView(QWidget *parent);
+    VocabularyView(QWidget *parent=0);
 
     ~VocabularyView();
 

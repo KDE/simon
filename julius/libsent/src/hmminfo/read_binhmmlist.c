@@ -41,13 +41,13 @@
  * @author Akinobu LEE
  * @date   Wed Feb 16 04:04:23 2005
  *
- * $Revision: 1.1 $
+ * $Revision: 1.3 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -55,6 +55,15 @@
 #include <sent/htk_hmm.h>
 #include <sent/ptree.h>
 
+/** 
+ * Callback to read hmmlist data from file.
+ * 
+ * @param data_p [out] pointer to index tree node to store the leaf content
+ * @param data [in] user data
+ * @param fp [in] file pointer to read
+ * 
+ * @return TRUE on success, FALSE on failure.
+ */
 static boolean
 load_hmmlist_callback(void **data_p, void *data, FILE *fp)
 {
@@ -90,16 +99,105 @@ load_hmmlist_callback(void **data_p, void *data, FILE *fp)
   return TRUE;
 }
 
+typedef struct {
+  HTK_HMM_Trans **tr;
+  HTK_HMM_State **st;
+} ListData;
+
+/** 
+ * Callback to read cdset data from file.
+ * 
+ * @param data_p [out] pointer to index tree node to store the leaf content
+ * @param data [in] user data
+ * @param fp [in] file pointer to read
+ * 
+ * @return TRUE on success, FALSE on failure.
+ */
+static boolean
+load_cdset_callback(void **data_p, void *data, FILE *fp)
+{
+  HTK_HMM_INFO *hmminfo = data;
+  ListData *ld = (ListData *)hmminfo->hook;
+  CD_Set *new;
+  int len;
+  int id;
+  int i, j;
+  HTK_HMM_Trans *ttmp;
+
+  new = (CD_Set *)mybmalloc2(sizeof(CD_Set), &(hmminfo->cdset_root));
+  if (myfread(&len, sizeof(int), 1, fp) < 1) return FALSE;
+  new->name = (char *)mybmalloc2(len, &(hmminfo->cdset_root));
+  if (myfread(new->name, len, 1, fp) < 1) return FALSE;
+  if (myfread(&id, sizeof(int), 1, fp) < 1) return FALSE;
+  new->tr = ld->tr[id];
+  if (myfread(&(new->state_num), sizeof(unsigned short), 1, fp) < 1) return FALSE;
+  new->stateset = (CD_State_Set *)mybmalloc2(sizeof(CD_State_Set) * new->state_num, &(hmminfo->cdset_root));
+  for(i=0;i<new->state_num;i++) {
+    if (myfread(&(new->stateset[i].num), sizeof(unsigned short), 1, fp) < 1) return FALSE;
+    new->stateset[i].maxnum = new->stateset[i].num;
+    new->stateset[i].s = (HTK_HMM_State **)mybmalloc2(sizeof(HTK_HMM_State *) * new->stateset[i].num, &(hmminfo->cdset_root));
+    for(j=0;j<new->stateset[i].num;j++) {
+      if (myfread(&id, sizeof(int), 1, fp) < 1) return FALSE;
+      new->stateset[i].s[j] = ld->st[id];
+    }
+  }  
+
+  *data_p = new;
+  
+  return TRUE;
+}
+
+/** 
+ * Load HMMList and CDSet data from binary file.
+ * 
+ * @param fp [in] file pointer to read
+ * @param hmminfo [in] HMM definition
+ * 
+ * @return TRUE on success, FALSE on failure.
+ */
 boolean
 load_hmmlist_bin(FILE *fp, HTK_HMM_INFO *hmminfo)
 {
   HMM_Logical *l;
   int n;
+  HTK_HMM_Trans *t;
+  HTK_HMM_State *s;
+  ListData ld;
 
+  /* build id->entity list */
+  ld.tr = (HTK_HMM_Trans **)mymalloc(sizeof(HTK_HMM_Trans *) * hmminfo->totaltransnum);
+  n = 0;
+  for (t = hmminfo->trstart; t; t = t->next) {
+    ld.tr[n++] = t;
+  }
+  ld.st = (HTK_HMM_State **)mymalloc(sizeof(HTK_HMM_State *) * hmminfo->totalstatenum);
+  n = 0;
+  for (s = hmminfo->ststart; s; s = s->next) {
+    ld.st[n++] = s;
+  }
+  /* set it to hook */
+  hmminfo->hook = &ld;
+
+  /* load hmmlist */
+  jlog("Stat: load_hmmlist_bin: reading hmmlist\n");
   if (aptree_read(fp, &(hmminfo->logical_root), &(hmminfo->lroot), hmminfo, load_hmmlist_callback) == FALSE) {
     jlog("Error: load_hmmlist_bin: failed to read hmmlist from binary file\n");
     return FALSE;
   }
+  /* load cdset */
+  jlog("Stat: load_hmmlist_bin: reading pseudo phone set\n");
+  if (aptree_read(fp, &(hmminfo->cdset_info.cdtree), &(hmminfo->cdset_root), hmminfo, load_cdset_callback) == FALSE) {
+    jlog("Warning: load_hmmlist_bin: cdset not in binary file, skip reading\n");
+  } else {
+    hmminfo->cdset_info.binary_malloc = TRUE;
+  }
+
+  /* remove data */
+  free(ld.st);
+  free(ld.tr);
+  hmminfo->hook = NULL;
+
+  /* form other data */
   n = 0;
   for(l=hmminfo->lgstart;l;l=l->next) n++;
   hmminfo->totallogicalnum = n;

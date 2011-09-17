@@ -13,13 +13,13 @@
  * @author Akinobu LEE
  * @date   Sun Jul 22 13:29:32 2007
  *
- * $Revision: 1.5 $
+ * $Revision: 1.7 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -325,12 +325,24 @@ voca_load_wordlist_line(char *buf, WORD_ID *vnum_p, int linenum, WORD_INFO *winf
 	  cycle_triphone(NULL);
 	  /* insert head phone at beginning of word */
 	  if (contextphone) {
+	    if (strlen(contextphone) >= MAX_HMMNAME_LEN) {
+	      jlog("Error: voca_load_htkdict: line %d: too long phone name: %s\n", linenum, contextphone);
+	      winfo->errnum++;
+	      *ok_flag = FALSE;
+	      return TRUE;
+	    }
 	    cycle_triphone(contextphone);
 	  } else {
 	    cycle_triphone("NULL_C");
 	  }
 	  if ((lp = mystrtok(NULL, " \t\n")) == NULL) {
 	    jlog("Error: voca_load_wordlist: line %d: word %s has no phoneme:\n> %s\n", linenum, winfo->wname[vnum], bufbak);
+	    winfo->errnum++;
+	    *ok_flag = FALSE;
+	    return TRUE;
+	  }
+	  if (strlen(lp) >= MAX_HMMNAME_LEN) {
+	    jlog("Error: voca_load_htkdict: line %d: too long phone name: %s\n", linenum, lp);
 	    winfo->errnum++;
 	    *ok_flag = FALSE;
 	    return TRUE;
@@ -342,10 +354,22 @@ voca_load_wordlist_line(char *buf, WORD_ID *vnum_p, int linenum, WORD_INFO *winf
 	    lp = mystrtok(NULL, " \t\n");
 	    if (lp != NULL) {
 	      /* token exist */
+	      if (strlen(lp) >= MAX_HMMNAME_LEN) {
+		jlog("Error: voca_load_htkdict: line %d: too long phone name: %s\n", linenum, lp);
+		winfo->errnum++;
+		*ok_flag = FALSE;
+		return TRUE;
+	      }
 	      p = cycle_triphone(lp);
 	    } else {
 	      /* no more token, insert tail phone at end of word */
 	      if (contextphone) {
+		if (strlen(contextphone) >= MAX_HMMNAME_LEN) {
+		  jlog("Error: voca_load_htkdict: line %d: too long phone name: %s\n", linenum, contextphone);
+		  winfo->errnum++;
+		  *ok_flag = FALSE;
+		  return TRUE;
+		}
 		p = cycle_triphone(contextphone);
 	      } else {
 		p = cycle_triphone("NULL_C");

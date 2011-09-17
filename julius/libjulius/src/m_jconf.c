@@ -37,13 +37,13 @@
  * @author Akinobu Lee
  * @date   Thu May 12 14:16:18 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.8 $
  * 
  */
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 
@@ -54,6 +54,7 @@
 #endif
 
 #define ISTOKEN(A) (A == ' ' || A == '\t' || A == '\n') ///< Determine token characters
+#define BUFLEN 512
 
 /** 
  * <JA>
@@ -359,13 +360,143 @@ expand_env(char *str)
 /* read-in and parse jconf file and process those using m_options */
 /** 
  * <JA>
- * jconf 設定ファイルを読み込んで解析し，対応するオプションを設定する. 
+ * @brief  オプション文字列を分解して追加格納する.
+ *
+ * @param buf [in] 文字列
+ * @param argv [i/o] オプション列へのポインタ
+ * @param argc [i/o] オプション列の数へのポインタ
+ * @param maxnum [i/o] オプション列の割付最大数
+ * </JA>
+ * <EN>
+ * @brief  Divide option string into option arguments and append to array.
+ *
+ * @param buf [in] option string
+ * @param argv [i/o] pointer to option array
+ * @param argc [i/o] pointer to the length of option array
+ * @param maxnum [i/o] pointer to the allocated length of option array
+ * </EN>
+ */
+static void
+add_to_arglist(char *buf, char ***argv_ret, int *argc_ret, int *maxnum_ret)
+{
+  char *p = buf;
+  char cpy[BUFLEN];
+  char *dst, *dst_from;
+  char **argv = *argv_ret;
+  int argc = *argc_ret;
+  int maxnum = *maxnum_ret;
+
+  dst = cpy;
+  while (1) {
+    while (*p != '\0' && ISTOKEN(*p)) p++;
+    if (*p == '\0') break;
+      
+    dst_from = dst;
+      
+    while (*p != '\0' && (!ISTOKEN(*p))) {
+      if (*p == '\\') {     /* escape by '\' */
+	if (*(++p) == '\0') break;
+	*(dst++) = *(p++);
+      } else {
+	if (*p == '"') { /* quote by "" */
+	  p++;
+	  while (*p != '\0' && *p != '"') *(dst++) = *(p++);
+	  if (*p == '\0') break;
+	  p++;
+	} else if (*p == '\'') { /* quote by '' */
+	  p++;
+	  while (*p != '\0' && *p != '\'') *(dst++) = *(p++);
+	  if (*p == '\0') break;
+	  p++;
+	} else if (*p == '#') { /* comment out by '#' */
+	  *p = '\0';
+	  break;
+	} else {		/* other */
+	  *(dst++) = *(p++);
+	}
+      }
+    }
+    if (dst != dst_from) {
+      *dst = '\0'; dst++;
+      if ( argc >= maxnum) {
+	maxnum += 20;
+	argv = (char **)myrealloc(argv, sizeof(char *) * maxnum);
+      }
+      argv[argc++] = strcpy((char*)mymalloc(strlen(dst_from)+1), dst_from);
+    }
+  }
+  *argv_ret = argv;
+  *argc_ret = argc;
+  *maxnum_ret = maxnum;
+}
+
+/** 
+ * <JA>
+ * オプション指定を含む文字列を解析して値をセットする.
+ * 相対パス名はカレントからの相対として扱われる.
+ * 
+ * @param str [in] オプション指定を含む文字列
+ * @param jconf [out] 値をセットする jconf 設定データ
+ * </JA>
+ * <EN>
+ * Parse a string and set the specified option values.
+ * Relative paths will be treated as relative to current directory.
+ * 
+ * @param str [in] string which contains options
+ * @param jconf [out] global configuration data to be written.
+ * </EN>
+ *
+ * @callgraph
+ * @callergraph
+ */
+boolean
+config_string_parse(char *str, Jconf *jconf)
+{
+  int c_argc;
+  char **c_argv;
+  int maxnum;
+  char buf[BUFLEN];
+  char *cdir;
+  int i;
+  boolean ret;
+
+  jlog("STAT: parsing option string: \"%s\"\n", str);
+  
+  /* set the content of jconf file into argument list c_argv[1..c_argc-1] */
+  maxnum = 20;
+  c_argv = (char **)mymalloc(sizeof(char *) * maxnum);
+  c_argv[0] = strcpy((char *)mymalloc(7), "string");
+  c_argc = 1;
+  add_to_arglist(str, &c_argv, &c_argc, &maxnum);
+  /* env expansion */
+  for (i=1;i<c_argc;i++) {
+    c_argv[i] = expand_env(c_argv[i]);
+  }
+  /* now that options are in c_argv[][], call opt_parse() to process them */
+  /* relative paths in string are relative to current */
+  ret = opt_parse(c_argc, c_argv, NULL, jconf);
+
+  /* free arguments */
+  while (c_argc-- > 0) {
+    free(c_argv[c_argc]);
+  }
+  free(c_argv);
+
+  return(ret);
+}
+
+/** 
+ * <JA>
+ * jconf 設定ファイルを読み込んで解析し，対応するオプションを設定する.
+ * オプション内の相対パスは、その jconf 設定ファイルからの相対となる.
  * 
  * @param conffile [in] jconf ファイルのパス名
  * @param jconf [out] 値をセットする jconf 設定データ
  * </JA>
  * <EN>
  * Read and parse a jconf file, and set the specified option values.
+ * Relative paths in the file will be treated as relative to the file,
+ * not the application current.
  * 
  * @param conffile [in] jconf file path name
  * @param jconf [out] global configuration data to be written.
@@ -380,10 +511,8 @@ config_file_parse(char *conffile, Jconf *jconf)
   int c_argc;
   char **c_argv;
   FILE *fp;
-  int maxnum, step;
-#define BUFLEN 512
-  char buf[BUFLEN], cpy[BUFLEN];
-  char *p, *dst, *dst_from;
+  int maxnum;
+  char buf[BUFLEN];
   char *cdir;
   int i;
   boolean ret;
@@ -397,52 +526,13 @@ config_file_parse(char *conffile, Jconf *jconf)
     jlog("ERROR: m_jconf: failed to open jconf file: %s\n", conffile);
     return FALSE;
   }
-  step = 20;
-  maxnum = step;
+  maxnum = 20;
   c_argv = (char **)mymalloc(sizeof(char *) * maxnum);
   c_argv[0] = strcpy((char *)mymalloc(strlen(conffile)+1), conffile);
   c_argc = 1;
   while (fgets_jconf(buf, BUFLEN, fp) != NULL) {
     if (buf[0] == '\0') continue;
-    p = buf; dst = cpy;
-    while (1) {
-      while (*p != '\0' && ISTOKEN(*p)) p++;
-      if (*p == '\0') break;
-      
-      dst_from = dst;
-      
-      while (*p != '\0' && (!ISTOKEN(*p))) {
-	if (*p == '\\') {     /* escape by '\' */
-	  if (*(++p) == '\0') break;
-	  *(dst++) = *(p++);
-	} else {
-	  if (*p == '"') { /* quote by "" */
-	    p++;
-	    while (*p != '\0' && *p != '"') *(dst++) = *(p++);
-	    if (*p == '\0') break;
-	    p++;
-	  } else if (*p == '\'') { /* quote by '' */
-	    p++;
-	    while (*p != '\0' && *p != '\'') *(dst++) = *(p++);
-	    if (*p == '\0') break;
-	    p++;
-	  } else if (*p == '#') { /* comment out by '#' */
-	    *p = '\0';
-	    break;
-	  } else {		/* other */
-	    *(dst++) = *(p++);
-	  }
-	}
-      }
-      if (dst != dst_from) {
-	*dst = '\0'; dst++;
-	if (c_argc >= maxnum) {
-	  maxnum += step;
-	  c_argv = (char **)myrealloc(c_argv, sizeof(char *) * maxnum);
-	}
-	c_argv[c_argc++] = strcpy((char*)mymalloc(strlen(dst_from)+1), dst_from);
-      }
-    }
+    add_to_arglist(buf, &c_argv, &c_argc, &maxnum);
   }
   if (fclose(fp) == -1) {
     jlog("ERROR: m_jconf: cannot close jconf file\n");

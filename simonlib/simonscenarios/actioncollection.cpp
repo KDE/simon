@@ -30,9 +30,7 @@
 ActionCollection::ActionCollection(Scenario *parent) : ScenarioObject(parent)
 {
   proxy = new ActionCommandModel(this);
-
 }
-
 
 /**
  * Factory function
@@ -113,7 +111,7 @@ bool ActionCollection::deSerialize(const QDomElement& actionCollectionElem)
 
   if (m_autorunActive)
   {
-    bool succ = triggerCommand(m_autorunType, m_autorunCommand);
+    bool succ = triggerCommand(m_autorunType, m_autorunCommand, true /* silent */);
     kDebug() << "Executed autorun command; Success: " << succ;
   }
 
@@ -363,11 +361,11 @@ bool ActionCollection::processResult(RecognitionResult recognitionResult)
 }
 
 
-bool ActionCollection::triggerCommand(const QString& type, const QString& trigger)
+bool ActionCollection::triggerCommand(const QString& type, const QString& trigger, bool silent)
 {
   foreach (Action *a, m_actions)
     if (a->manager()->name() == type)
-    return a->manager()->trigger(trigger);
+    return a->manager()->trigger(trigger, silent);
 
   return false;
 }
@@ -408,6 +406,8 @@ void ActionCollection::setPluginFont(const QFont& font)
 
 ActionCollection::~ActionCollection()
 {
+  kDebug() << "Deleting action collection";
   qDeleteAll(m_actions);
+  delete proxy;
   qDeleteAll(listInterfaceCommands);
 }

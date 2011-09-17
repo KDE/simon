@@ -226,7 +226,7 @@ void DialogCommand::createStateLink(int thisState)
 void DialogCommand::autoTrigger()
 {
   m_autoTimer->stop();
-  trigger(0);
+  trigger(0, false);
 }
 
 void DialogCommand::left()

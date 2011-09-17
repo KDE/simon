@@ -35,6 +35,7 @@
 #include <KComponentData>
 #include <KAboutData>
 #include <KConfig>
+#include <KDateTime>
 #include <KConfigGroup>
 #include <KDebug>
 
@@ -405,7 +406,7 @@ void SynchronisationManager::modelCompiled()
   QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
   KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("Date", QDateTime::currentDateTime());
+  cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 }
 
@@ -453,32 +454,37 @@ LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
 
   QFile treeHed(path+"tree1.hed");
   QFile shadowVocab(path+"shadowlexicon.xml");
+  QFile languageProfile(path+"languageProfile"); //optional
 
   if ((!treeHed.open(QIODevice::ReadOnly))
     || (!shadowVocab.open(QIODevice::ReadOnly)))
     return 0;
 
-  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll());
+  return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll(), languageProfile.readAll());
 }
 
 
 bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab,
-const QByteArray& treeHed)
+const QByteArray& treeHed, const QByteArray& languageProfile)
 {
   if (username.isEmpty()) return false;
 
   QFile treeHedFile(srcContainerTempPath+"tree1.hed");
   QFile shadowVocabFile(srcContainerTempPath+"shadowlexicon.xml");
+  QFile languageProfileFile(srcContainerTempPath+"languageProfile");
 
   if ((!treeHedFile.open(QIODevice::WriteOnly))
-    || (!shadowVocabFile.open(QIODevice::WriteOnly)))
+    || (!shadowVocabFile.open(QIODevice::WriteOnly))
+    || (!languageProfileFile.open(QIODevice::WriteOnly)))
     return 0;
 
   treeHedFile.write(treeHed);
   shadowVocabFile.write(shadowVocab);
+  languageProfileFile.write(languageProfile);
 
   treeHedFile.close();
   shadowVocabFile.close();
+  languageProfileFile.close();
 
   KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
@@ -965,7 +971,7 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
 void SynchronisationManager::touchTempModel()
 {
-  QDateTime newModelDate = QDateTime::currentDateTime();
+  QDateTime newModelDate = KDateTime::currentUtcDateTime().dateTime();
   KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("TrainingDate", newModelDate);
@@ -994,7 +1000,7 @@ bool SynchronisationManager::createTrainingData(const QString& dest)
 
   KConfig config( dest+"modelsrcrc", KConfig::SimpleConfig );
   KConfigGroup cGroup(&config, "");
-  cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+  cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
   config.sync();
 
   return allFine;
@@ -1025,6 +1031,8 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
   if (!QFile::exists(targetPath+"shadowlexicon.xml") || !QFile::exists(targetPath+"tree1.hed")) {
     if (!QFile::copy(sourcePath+"shadowlexicon.xml", targetPath+"shadowlexicon.xml")) allFine=false;
     if (!QFile::copy(sourcePath+"tree1.hed", targetPath+"tree1.hed")) allFine=false;
+    if (QFile::exists(sourcePath+"languageProfile") && 
+	    !QFile::copy(sourcePath+"languageProfile", targetPath+"languageProfile")) allFine=false;
 
     KConfig config( targetPath+"modelsrcrc", KConfig::SimpleConfig );
     KConfigGroup cGroup(&config, "");
@@ -1080,7 +1088,7 @@ bool SynchronisationManager::copyScenarios(const QString& source, const QString&
           continue;
         }
 
-        doc.documentElement().setAttribute("lastModified", QDateTime::currentDateTime().toString(Qt::ISODate));
+        doc.documentElement().setAttribute("lastModified", KDateTime::currentUtcDateTime().dateTime().toString(Qt::ISODate));
 
         file.close();
         file.remove(destPath);

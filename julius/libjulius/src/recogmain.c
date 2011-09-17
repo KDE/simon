@@ -12,15 +12,15 @@
  * @author Akinobu Lee
  * @date   Wed Aug  8 14:53:53 2007
  *
- * $Revision: 1.14 $
+ * $Revision: 1.19 $
  * 
  */
 
 /*
- * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
+ * Copyright (c) 1991-2011 Kawahara Lab., Kyoto University
  * Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
  * Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
- * Copyright (c) 2005-2007 Julius project team, Nagoya Institute of Technology
+ * Copyright (c) 2005-2011 Julius project team, Nagoya Institute of Technology
  * All rights reserved
  */
 /**
@@ -595,10 +595,6 @@ j_close_stream(Recog *recog)
       recog->adin->end_of_stream = TRUE;
     }
 #endif
-    /* end A/D input */
-    if (adin_end(recog->adin) == FALSE) {
-      return -2;
-    }
   } else {
     switch(jconf->input.speech_input) {
     case SP_MFCMODULE:
@@ -957,6 +953,23 @@ j_recognize_stream_core(Recog *recog)
       /******************************************************************/
       /* speech stream has been processed on-the-fly, and 1st pass ends */
       /******************************************************************/
+      if (ret == 1 || ret == 2) {		/* segmented */
+#ifdef HAVE_PTHREAD
+	/* check for audio overflow */
+	if (recog->adin->enable_thread && recog->adin->adinthread_buffer_overflowed) {
+	  jlog("Warning: input buffer overflow: some input may be dropped, so disgard the input\n");
+	  result_error(recog, J_RESULT_STATUS_BUFFER_OVERFLOW);
+	  /* skip 2nd pass */
+	  goto end_recog;
+	}
+#endif
+	/* check for long input */
+	for (mfcc = recog->mfcclist; mfcc; mfcc = mfcc->next) {
+	  if (mfcc->f >= recog->real.maxframelen) {
+	    jlog("Warning: too long input (> %d frames), segment it now\n", recog->real.maxframelen);
+	  }
+	}
+      }
       /* last procedure of 1st-pass */
       if (RealTimeParam(recog) == FALSE) {
 	jlog("ERROR: fatal error occured, program terminates now\n");
@@ -969,6 +982,12 @@ j_recognize_stream_core(Recog *recog)
 	goto end_recog;
       }
 #endif
+
+      /* output segment status */
+      if (recog->adin->adin_cut_on && (jconf->input.speech_input == SP_RAWFILE || jconf->input.speech_input == SP_STDIN)) {
+	seclen = (float)recog->adin->last_trigger_sample / (float)jconf->input.sfreq;
+	jlog("STAT: triggered: [%d..%d] %.2fs from %02d:%02d:%02.2f\n", recog->adin->last_trigger_sample, recog->adin->last_trigger_sample + recog->adin->last_trigger_len, (float)(recog->adin->last_trigger_len) / (float)jconf->input.sfreq, (int)(seclen / 3600), (int)(seclen / 60), seclen - (int)(seclen / 60) * 60);
+      }
 
       /* execute callback for 1st pass result */
       /* result.status <0 must be skipped inside callback */
