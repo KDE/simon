@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>311</height>
+    <width>511</width>
+    <height>231</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QFormLayout" name="formLayout_2">
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -59,6 +59,20 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="1" column="1">
       <widget class="KLineEdit" name="kcfg_Host">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="kcfg_LimitedWriteAccess">
+       <property name="text">
+        <string>Only allow write access from:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="KLineEdit" name="kcfg_WriteAccessHost">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -122,25 +136,27 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlComboRequester</class>
-   <extends>KUrlRequester</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlComboRequester</class>
+   <extends>KUrlRequester</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../juliusd_old/src/juliusd.qrc"/>
-  <include location="../../../../../../juliusd.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>kcfg_BindTo</sender>
@@ -149,12 +165,28 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>144</x>
-     <y>56</y>
+     <x>90</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
-     <x>310</x>
-     <y>45</y>
+     <x>286</x>
+     <y>73</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_LimitedWriteAccess</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_WriteAccessHost</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>267</x>
+     <y>98</y>
     </hint>
    </hints>
   </connection>

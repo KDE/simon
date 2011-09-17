@@ -36,6 +36,7 @@ class SimondControl : public QTcpServer
     QList<ClientSocket*> clients;
     DatabaseAccess *db;
     bool m_keepSamples;
+    QHostAddress m_WriteAccessHost;
 
   private slots:
     void handleError(const QString& error);
