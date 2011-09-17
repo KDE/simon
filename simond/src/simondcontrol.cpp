@@ -54,6 +54,13 @@ bool SimondControl::init()
     startServer(QHostAddress::Any, port);
   }
 
+  if (cGroup.readEntry("LimitedWriteAccess", true)) {
+    m_writeAccessHost = cGroup.readEntry("WriteAccessHost", "127.0.0.1");
+  }
+  else {
+    m_writeAccessHost = QHostAddress::Any;
+  }
+    
   return true;
 }
 
@@ -89,7 +96,7 @@ void SimondControl::stopServer()
 
 void SimondControl::incomingConnection (int descriptor)
 {
-  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_recognitionControlFactory, m_keepSamples, this);
+  ClientSocket *clientSocket = new ClientSocket(descriptor, db, m_recognitionControlFactory, m_keepSamples, m_writeAccessHost, this);
 
   //TODO: Implement the "ForceEncryption" setting which only allows encrypted settings
   //(configuration item)

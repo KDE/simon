@@ -38,6 +38,7 @@ class SimondControl : public QTcpServer
     DatabaseAccess *db;
     RecognitionControlFactory *m_recognitionControlFactory;
     bool m_keepSamples;
+    QHostAddress m_writeAccessHost;
 
   private slots:
     void handleError(const QString& error);

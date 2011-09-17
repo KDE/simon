@@ -39,6 +39,7 @@ class ModelCompilationManager;
 class ModelCompilationAdapter;
 class Model;
 class WAV;
+class QHostAddress;
 
 class ClientSocket : public QSslSocket
 {
@@ -46,6 +47,7 @@ class ClientSocket : public QSslSocket
 
   private:
     bool m_keepSamples;
+    bool m_writeAccess;
 
     bool synchronisationRunning;
 
@@ -132,7 +134,7 @@ class ClientSocket : public QSslSocket
     void activeModelCompilationAborted();
 
   public:
-    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, RecognitionControlFactory *factory, bool keepSamples, QObject *parent=0);
+    ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, RecognitionControlFactory *factory, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent=0);
 
     virtual ~ClientSocket();
 

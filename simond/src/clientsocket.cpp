@@ -51,18 +51,18 @@
 
 #include <KConfig>
 
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, RecognitionControlFactory *factory, bool keepSamples, QObject *parent)
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, RecognitionControlFactory *factory, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent)
 : QSslSocket(parent),
-m_keepSamples(keepSamples),
-synchronisationRunning(false),
-recognitionControlFactory(factory),
-recognitionControl(0),
-synchronisationManager(0),
-modelCompilationManager(0),
-modelCompilationAdapter(0),
-newLexiconHash(0),
-newGrammarHash(0),
-newVocaHash(0)
+  m_keepSamples(keepSamples),
+  synchronisationRunning(false),
+  recognitionControlFactory(factory),
+  recognitionControl(0),
+  synchronisationManager(0),
+  modelCompilationManager(0),
+  modelCompilationAdapter(0),
+  newLexiconHash(0),
+  newGrammarHash(0),
+  newVocaHash(0)
 {
   qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -72,7 +72,7 @@ newVocaHash(0)
   kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 
   this->setSocketDescriptor(socketDescriptor);
-  connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
+   connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
   connect(this, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotSocketError()));
 
   //TODO: Implement encryption
@@ -80,6 +80,9 @@ newVocaHash(0)
     connect(this, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(slotSocketError()));
     startServerEncryption();
   }
+  
+  this->m_writeAccess = (writeAccessHost == QHostAddress::Any)||(writeAccessHost == this->peerAddress());
+  
   kDebug() << "Done constructing";
 }
 
@@ -109,8 +112,29 @@ void ClientSocket::processRequest()
     if ((request != Simond::Login) &&  (username.isEmpty())) {
       sendCode(Simond::AccessDenied);
       break;
+    } else if(!m_writeAccess) {
+      bool skip_request = true;
+      
+      switch(request) {
+	case Simond::Login:
+	case Simond::StartRecognition:
+	case Simond::RecognitionStartSample:
+	case Simond::RecognitionSampleData:
+	case Simond::RecognitionSampleFinished:
+	case Simond::StopRecognition:
+	  skip_request = false;  
+	  break;
+	default: 
+	  break;
+      }
+      
+      if(skip_request) {
+	sendCode(Simond::AccessDenied);
+	break;
+      }
+      
     }
-
+    
     switch (request) {
       case Simond::Login:
       {

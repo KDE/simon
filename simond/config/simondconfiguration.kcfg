@@ -18,9 +18,20 @@
       <tooltip>Whether we want to restrict access to a certain ip.</tooltip>
     </entry>
     <entry name="Host" type="String">
-      <label>The only host to allow to connect to the server.</label>
+      <label>The only host allow to connect to the server.</label>
       <default>127.0.0.1</default>
-      <tooltip>The only host to allow to connect to the server.</tooltip>
+      <tooltip>The only host allowed to connect to the server.</tooltip>
+    </entry>
+    
+    <entry name="LimitedWriteAccess" type="Bool">
+      <label>whether we want to restrict write access to a certain ip.</label>
+      <default>true</default>
+      <tooltip>Whether we want to restrict write access to a certain ip.</tooltip>
+    </entry>
+    <entry name="WriteAccessHost" type="String">
+      <label>The only host allowed to write.</label>
+      <default>127.0.0.1</default>
+      <tooltip>The only host allowed to write.</tooltip>
     </entry>
 
     <entry name="UseEncryption" type="Bool">
