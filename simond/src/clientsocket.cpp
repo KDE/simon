@@ -110,6 +110,7 @@ void ClientSocket::processRequest()
     request = (Simond::Request) type;
 
     if ((request != Simond::Login) &&  (username.isEmpty())) {
+      kDebug() << "Sending access denied because user sent request: " << request;
       sendCode(Simond::AccessDenied);
       break;
     } else if(!m_writeAccess) {
