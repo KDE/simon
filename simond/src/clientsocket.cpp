@@ -190,8 +190,9 @@ void ClientSocket::processRequest()
           connect(modelCompilationAdapter, SIGNAL(error(QString)), this, SLOT(slotModelAdaptionError(QString)));
 
           if (recognitionControl)
-            recognitionControl->deleteLater();
+            closeRecognitionControl();
 
+          // MANI TODO
           recognitionControl = recognitionControlFactory->recognitionControl(username);
           connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
           connect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
@@ -1711,20 +1712,25 @@ QString ClientSocket::getUsername()
   return username;
 }
 
+void ClientSocket::closeRecognitionControl()
+{
+  disconnect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
+  disconnect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
+  disconnect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+  disconnect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
+  disconnect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
+  disconnect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
+  disconnect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
+  recognitionControlFactory->closeRecognitionControl(username,recognitionControl);
+}
+
 ClientSocket::~ClientSocket()
 {
   kDebug() << "Deleting client";
   //leave databaseAccess alone since it is shared
-  if (recognitionControl) {
-    disconnect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-    disconnect(recognitionControl, SIGNAL(recognitionError(const QString&, const QByteArray&)), this, SLOT(recognitionError(const QString&, const QByteArray&)));
-    disconnect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
-    disconnect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
-    disconnect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-    disconnect(recognitionControl, SIGNAL(recognitionResult(const QString&, const RecognitionResultList&)), this, SLOT(processRecognitionResults(const QString&, const RecognitionResultList&)));
-    disconnect(recognitionControl, SIGNAL(recognitionDone(const QString&)), this, SLOT(recognitionDone(const QString&)));
-    recognitionControlFactory->closeRecognitionControl(username);
-  }
+  if (recognitionControl)
+    closeRecognitionControl();
+
   if (synchronisationManager)
     synchronisationManager->deleteLater();
   if (modelCompilationManager)

@@ -55,6 +55,11 @@
       <default>false</default>
       <tooltip>Keep the samples used for the recognition.</tooltip>
     </entry>
+    <entry name="IsolatedMode" type="Bool">
+      <label>exlusive recognition instance for each connection.</label>
+      <default>false</default>
+      <tooltip>Exclusive recognition instance for each connection instead of shared rec. instance for each user.</tooltip>
+    </entry>
   </group>
   <group name="Database">
     <entry name="DatabaseUrl" type="Url">

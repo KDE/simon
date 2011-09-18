@@ -21,18 +21,23 @@
 #ifndef RECOGNITIONCONTROLFACTORY_H
 #define RECOGNITIONCONTROLFACTORY_H
 
-#include <QHash>
+#include <QMultiHash>
 #include <QString>
 class RecognitionControl;
 
 class RecognitionControlFactory
 {
 private:
-  QHash<QString, RecognitionControl*> m_recognitionControls;
+  QMultiHash<QString, RecognitionControl*> m_recognitionControls;
+  bool m_isolatedMode;
+
+public: // TODO: friend for SimondControl
+  void setIsolatedMode(bool isolatedMode);
   
 public:
+  RecognitionControlFactory();
   RecognitionControl* recognitionControl(const QString& user);
-  void closeRecognitionControl(const QString& user);
+  void closeRecognitionControl(const QString& user, RecognitionControl* r);
   
 };
 

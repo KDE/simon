@@ -21,22 +21,42 @@
 #include "recognitioncontrolfactory.h"
 #include "juliuscontrol.h"
 
+RecognitionControlFactory::RecognitionControlFactory()
+  : m_isolatedMode(false)
+{
+}
+
+void RecognitionControlFactory::setIsolatedMode(bool isolatedMode)
+{
+    kDebug() << "Isolated Mode " << (isolatedMode?"ON":"OFF");
+    m_isolatedMode = isolatedMode;
+}
+
 RecognitionControl* RecognitionControlFactory::recognitionControl(const QString& user)
 {
-  if (!m_recognitionControls.contains(user)) {
-    m_recognitionControls.insert(user, new JuliusControl(user));
+  RecognitionControl *r = NULL;
+  if (m_isolatedMode || m_recognitionControls.count(user) == 0) {
+    kDebug() << "RecognitionControls: generate new RC...";
+    r = new JuliusControl(user);
+    m_recognitionControls.insert(user, r);
+    kDebug() << "RecognitionControls: Inserted for User \"" << user << "\" [" << r << "] new RC... new user count: : " << QString::number(m_recognitionControls.count(user));
+  } else /* isolatedMode = false and count > 0 (count = 1) */ {
+    kDebug() << "RecognitionControls: use existing RC... count:" << m_recognitionControls.values(user).size();
+    r = m_recognitionControls.values(user).first();
+    kDebug() << "RecognitionControls: Using for User \"" << user << "\" [" << r << "] existing RC";
   }
-  RecognitionControl *r = m_recognitionControls.value(user);
   r->push();
   return r;
 }
 
-void RecognitionControlFactory::closeRecognitionControl(const QString& user)
+void RecognitionControlFactory::closeRecognitionControl(const QString& user, RecognitionControl* r)
 {
-  RecognitionControl *r = m_recognitionControls.value(user);
   r->pop();
   if (r->isEmpty()) {
-    m_recognitionControls.remove(user);
+    m_recognitionControls.remove(user, r);
+    kDebug() << "RecognitionControls: Removed for User \"" << user << "\" [" << r << "] existing RC... new user count: " << QString::number(m_recognitionControls.count(user));
     delete r;
+  } else {
+    kDebug() << "RecognitionControls: Keep for User \"" << user << "\" [" << r << "] existing RC ... still in use";
   }
 }

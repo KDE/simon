@@ -43,6 +43,11 @@ bool SimondControl::init()
   KConfig config(KStandardDirs::locate("config", "simondrc"));
   KConfigGroup cGroup2(&config, "User");
   m_keepSamples = cGroup2.readEntry("KeepRecognitionSamples", false);
+  kDebug() << "FOO1" << m_keepSamples;
+
+  bool isolatedMode = cGroup2.readEntry("IsolatedMode", false);
+  kDebug() << "FOO2" << isolatedMode;
+  m_recognitionControlFactory->setIsolatedMode(isolatedMode);
 
   KConfigGroup cGroup(&config, "Network");
   int port = cGroup.readEntry("Port", 4444);

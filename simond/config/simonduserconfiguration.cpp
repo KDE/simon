@@ -41,6 +41,7 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
   connect (ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
   connect (ui.pbChangePassword, SIGNAL(clicked()), this, SLOT(changePassword()));
   connect (ui.cbKeepSamples, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect (ui.cbIsolatedMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   ui.pbAdd->setIcon(KIcon("list-add"));
   ui.pbDelete->setIcon(KIcon("edit-delete"));
@@ -186,12 +187,14 @@ void SimondUserConfiguration::load()
   }
   KCModule::load();
   ui.cbKeepSamples->setChecked(SimondConfiguration::keepRecognitionSamples());
+  ui.cbIsolatedMode->setChecked(SimondConfiguration::isolatedMode());
 }
 
 
 void SimondUserConfiguration::save()
 {
   SimondConfiguration::setKeepRecognitionSamples(ui.cbKeepSamples->isChecked());
+  SimondConfiguration::setIsolatedMode(ui.cbIsolatedMode->isChecked());
   KCModule::save();
   SimondConfiguration::self()->writeConfig();
 }

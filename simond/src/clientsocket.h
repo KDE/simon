@@ -133,6 +133,8 @@ class ClientSocket : public QSslSocket
     void activeModelCompiled();
     void activeModelCompilationAborted();
 
+    void closeRecognitionControl();
+
   public:
     ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, RecognitionControlFactory *factory, bool keepSamples, const QHostAddress& writeAccessHost, QObject *parent=0);
 
