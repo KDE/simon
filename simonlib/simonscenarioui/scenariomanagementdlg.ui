@@ -94,7 +94,11 @@
        <item>
         <widget class="QLabel" name="lbSelected">
          <property name="text">
-          <string>Selected:</string>
+          <string>Selected: 
+(drag-and-drop scenarios onto each other in order to create a hierarchy)</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
          <property name="buddy">
           <cstring>twSelected</cstring>
