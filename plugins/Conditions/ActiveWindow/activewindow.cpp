@@ -33,6 +33,11 @@ ActiveWindow::ActiveWindow(QObject *parent, const QVariantList &args) :
 {
     m_processName = "";
     m_windowName = "";
+    m_windowNameIsRegularExpression = false;
+    m_windowNameRegExp = QRegExp();
+    m_currentProcessName = "";
+    m_currentWindowName = "";
+
     m_pluginName = "simonactivewindowplugin.desktop";
 }
 
