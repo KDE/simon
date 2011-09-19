@@ -65,6 +65,11 @@ ui(new Ui::ScenarioManagementDialog()), m_dataPrefix(dataPrefix), m_dirty(false)
   connect(ui->twSelected, SIGNAL(clicked(const QModelIndex&)),
     this, SLOT(updateLastSelectedIndex(const QModelIndex&)));
 
+  connect(ui->twAvailable, SIGNAL(doubleClicked(QModelIndex)),
+          ui->pbAddToSelected, SIGNAL(clicked()));
+  connect(ui->twSelected, SIGNAL(doubleClicked(QModelIndex)),
+          ui->pbRemoveFromSelected, SIGNAL(clicked()));
+
   connect(ui->pbAddToSelected, SIGNAL(clicked()), this, SLOT(slotAdded()));
   connect(ui->pbMoveUp, SIGNAL(clicked()), this, SLOT(slotMovedUp()));
   connect(ui->pbMoveDown, SIGNAL(clicked()), this, SLOT(slotMovedDown()));

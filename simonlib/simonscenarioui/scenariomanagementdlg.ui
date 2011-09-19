@@ -23,6 +23,9 @@
          <property name="text">
           <string>Available:</string>
          </property>
+         <property name="buddy">
+          <cstring>twAvailable</cstring>
+         </property>
         </widget>
        </item>
        <item>
@@ -92,6 +95,9 @@
         <widget class="QLabel" name="lbSelected">
          <property name="text">
           <string>Selected:</string>
+         </property>
+         <property name="buddy">
+          <cstring>twSelected</cstring>
          </property>
         </widget>
        </item>
@@ -231,6 +237,19 @@
    <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>twAvailable</tabstop>
+  <tabstop>twSelected</tabstop>
+  <tabstop>pbAddToSelected</tabstop>
+  <tabstop>pbRemoveFromSelected</tabstop>
+  <tabstop>pbMoveUp</tabstop>
+  <tabstop>pbMoveDown</tabstop>
+  <tabstop>pbCreateScenario</tabstop>
+  <tabstop>pbImportScenario</tabstop>
+  <tabstop>pbExportScenario</tabstop>
+  <tabstop>pbEditScenario</tabstop>
+  <tabstop>pbDeleteScenario</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
