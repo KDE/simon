@@ -450,7 +450,7 @@ void ClientSocket::processRequest()
 
       contextAdapter->updateDeactivatedScenarios(scenarioIds);
 
-      recompileModel();
+      startModelCompilation();
       break;
     }
 
@@ -962,12 +962,8 @@ void ClientSocket::activeModelCompiled()
 //that activeModelCompiled does in order to work
 void ClientSocket::activeModelLoadedFromCache()
 {
-    synchronisationManager->modelCompiled();
-    writeHashesToConfig();
-
     sendCode(Simond::ModelCompilationCompleted);
-
-    startSynchronisation();
+    recognitionControl->initializeRecognition();
 }
 
 
