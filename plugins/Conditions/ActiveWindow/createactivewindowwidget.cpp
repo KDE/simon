@@ -21,6 +21,7 @@
 #include "activewindow.h"
 #include <QLineEdit>
 #include "simoncontextdetection/contextmanager.h"
+#include "simonuicomponents/selectprogramdialog.h"
 #include <QFileDialog>
 #include <QStringList>
 
@@ -40,13 +41,11 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 
 void CreateActiveWindowWidget::processFileDialog()
 {
-    QFileDialog *dlg = new QFileDialog(this);
-    dlg->setFileMode(QFileDialog::ExistingFile);
-    dlg->setLabelText(QFileDialog::Accept, i18n("Accept"));
+    SelectProgramDialog *dlg = new SelectProgramDialog(this);
 
-    if (dlg->exec())
+    if (dlg->selectCommand())
     {
-        ui.leProgramName->setText(dlg->selectedFiles().at(0).split(QRegExp("/+|\\\\+")).back());
+        ui.leProgramName->setText(dlg->getExecPath().split(QRegExp("/+|\\\\+")).back());
     }
 
     dlg->deleteLater();

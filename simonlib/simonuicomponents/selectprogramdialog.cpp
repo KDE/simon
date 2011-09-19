@@ -18,6 +18,7 @@
  */
 
 #include "selectprogramdialog.h"
+#include "ui_selectprogramdlg.h"
 
 #include <KListWidget>
 #include <QListWidgetItem>
@@ -33,17 +34,19 @@
 *   @author Susanne Tschernegg, Peter Grasch
 *   @param QWidget *parent
 */
-SelectProgramDialog::SelectProgramDialog(QWidget* parent): KDialog(parent)
+SelectProgramDialog::SelectProgramDialog(QWidget* parent):
+    ui(new Ui::SelectProgramDlg),
+    KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
-  ui.setupUi(widget);
+  ui->setupUi(widget);
   setMainWidget( widget );
   setCaption( i18n("Select program") );
 
-  connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+  connect(ui->lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 
-  ui.lwCategories->setIconSize(QSize(24,24));
-  ui.lwPrograms->setIconSize(QSize(24,24));
+  ui->lwCategories->setIconSize(QSize(24,24));
+  ui->lwPrograms->setIconSize(QSize(24,24));
 }
 
 
@@ -51,7 +54,7 @@ bool SelectProgramDialog::selectCommand()
 {
   initialize();
 
-  if ((!exec()) || (!ui.lwPrograms->currentItem()))
+  if ((!exec()) || (!ui->lwPrograms->currentItem()))
     return false;
 
   return true;
@@ -84,7 +87,7 @@ void SelectProgramDialog::findCategories(QString relPath)
 
       QListWidgetItem *item = new QListWidgetItem(KIcon(serviceGroup->icon()), serviceGroup->caption());
       item->setData(Qt::UserRole, serviceGroup->relPath());
-      ui.lwCategories->addItem(item);
+      ui->lwCategories->addItem(item);
       findCategories(serviceGroup->relPath());
     }
   }
@@ -98,7 +101,7 @@ void SelectProgramDialog::findCategories(QString relPath)
  */
 SelectProgramDialog::~SelectProgramDialog()
 {
-
+    delete ui;
 }
 
 
@@ -109,9 +112,9 @@ SelectProgramDialog::~SelectProgramDialog()
  */
 void SelectProgramDialog::searchForPrograms()
 {
-  ui.lwPrograms->clear();
+  ui->lwPrograms->clear();
 
-  QListWidgetItem *curCategory = ui.lwCategories->currentItem();
+  QListWidgetItem *curCategory = ui->lwCategories->currentItem();
   if (!curCategory) return;
 
   KServiceGroup::Ptr root = KServiceGroup::group(curCategory->data(Qt::UserRole).toString());
@@ -143,7 +146,7 @@ void SelectProgramDialog::searchForPrograms()
       item->setData(Qt::UserRole+2, service->icon());
       item->setData(Qt::UserRole+3, service->path());
       item->setData(Qt::UserRole+4, service->comment());
-      ui.lwPrograms->addItem(item);
+      ui->lwPrograms->addItem(item);
     }
   }
 }
@@ -158,8 +161,8 @@ void SelectProgramDialog::searchForPrograms()
  */
 QString SelectProgramDialog::getExecPath()
 {
-  Q_ASSERT(ui.lwPrograms->currentItem());
-  return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
+  Q_ASSERT(ui->lwPrograms->currentItem());
+  return ui->lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
 }
 
 
@@ -170,8 +173,8 @@ QString SelectProgramDialog::getExecPath()
  */
 QString SelectProgramDialog::getIcon()
 {
-  Q_ASSERT(ui.lwPrograms->currentItem());
-  return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
+  Q_ASSERT(ui->lwPrograms->currentItem());
+  return ui->lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
 }
 
 
@@ -184,14 +187,14 @@ QString SelectProgramDialog::getIcon()
  */
 QString SelectProgramDialog::getWorkingDirectory()
 {
-  return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
+  return ui->lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
 }
 
 
 QString SelectProgramDialog::getDescription()
 {
-  Q_ASSERT(ui.lwPrograms->currentItem());
-  return ui.lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
+  Q_ASSERT(ui->lwPrograms->currentItem());
+  return ui->lwPrograms->currentItem()->data(Qt::UserRole+4).toString();
 }
 
 
@@ -204,6 +207,6 @@ QString SelectProgramDialog::getDescription()
  */
 QString SelectProgramDialog::getName()
 {
-  Q_ASSERT(ui.lwPrograms->currentItem());
-  return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
+  Q_ASSERT(ui->lwPrograms->currentItem());
+  return ui->lwPrograms->currentItem()->data(Qt::UserRole).toString();
 }

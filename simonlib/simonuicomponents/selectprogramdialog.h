@@ -22,7 +22,11 @@
 
 #include <KDialog>
 #include "simonuicomponents_export.h"
-#include "ui_selectprogramdlg.h"
+
+namespace Ui
+{
+class SelectProgramDlg;
+}
 
 /**
  * \class SelectProgramDialog
@@ -37,7 +41,7 @@ class SIMONUICOMPONENTS_EXPORT SelectProgramDialog : public KDialog
   Q_OBJECT
 
     private:
-    Ui::SelectProgramDlg ui;
+    Ui::SelectProgramDlg *ui;
 
     void initialize();
 
