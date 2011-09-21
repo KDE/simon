@@ -448,9 +448,15 @@ void ClientSocket::processRequest()
 
       kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
 
-      contextAdapter->updateDeactivatedScenarios(scenarioIds);
+      if (contextAdapter->updateDeactivatedScenarios(scenarioIds))
+      {
+          startModelCompilation();
+      }
+      {
+          kDebug() << "Received a redundant deactivated scenarios list.  It will be ignored.";
+      }
 
-      startModelCompilation();
+
       break;
     }
 

@@ -42,10 +42,10 @@ public:
 
     ~ContextAdapter();
 
-    void updateDeactivatedScenarios(QStringList deactivatedScenarios);
+    bool updateDeactivatedScenarios(QStringList deactivatedScenarios);
     void clearCache();
 
-    void updateAcousticModelSampleGroup(QString sampleGroup);
+    bool updateAcousticModelSampleGroup(QString sampleGroup);
 
     //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,

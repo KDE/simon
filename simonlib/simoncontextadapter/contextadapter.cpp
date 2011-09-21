@@ -120,14 +120,27 @@ ContextAdapter::~ContextAdapter()
         m_modelCompilationAdapter->deleteLater();
 }
 
-void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
+bool ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
 {
-    m_deactivatedScenarios = deactivatedScenarios;
+    if (m_deactivatedScenarios.join(",") != deactivatedScenarios.join(","))
+    {
+        m_deactivatedScenarios = deactivatedScenarios;
+        return true;
+    }
+
+    return false;
 }
 
-void ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
+bool ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
 {
-    m_currentSampleGroup = sampleGroup;
+    if (m_currentSampleGroup != sampleGroup)
+    {
+        m_currentSampleGroup = sampleGroup;
+
+        return true;
+    }
+
+    return false;
 }
 
 void ContextAdapter::storeModelInCache()
