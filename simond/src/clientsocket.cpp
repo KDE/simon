@@ -612,7 +612,7 @@ void ClientSocket::processRequest()
 
         Q_ASSERT(synchronisationManager);
 
-        //				kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
+                                        kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
         if (remoteTrainingDate != localTrainingDate) {
           //Training changed
           if (localTrainingDate > remoteTrainingDate) {

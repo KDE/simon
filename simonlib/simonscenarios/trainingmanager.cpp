@@ -38,6 +38,7 @@
 #include <KStandardDirs>
 #include <KDateTime>
 #include <KLocale>
+#include <KDateTime>
 #include <math.h>
 
 TrainingManager* TrainingManager::m_instance;
@@ -167,6 +168,12 @@ bool TrainingManager::savePrompts()
   if (m_dirty)
   {
       m_wordRelevance.clear();                        // drop probability cache
+
+      //Update the training date and signal a change in the data
+      KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+      KConfigGroup cGroup(&config, "");
+      cGroup.writeEntry("TrainingDate", KDateTime::currentUtcDateTime().dateTime());
+      config.sync();
       emit trainingDataChanged();
   }
 
