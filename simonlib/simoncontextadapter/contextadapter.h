@@ -45,6 +45,8 @@ public:
     void updateDeactivatedScenarios(QStringList deactivatedScenarios);
     void clearCache();
 
+    void updateAcousticModelSampleGroup(QString sampleGroup);
+
     //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
       const QString& grammarPathOut, const QString& simpleVocabPathOut,
@@ -88,11 +90,16 @@ private:
     QStringList m_deactivatedScenarios;
     QStringList m_currentScenarioSet;
     QString m_username;
+    QString m_currentSampleGroup;
     bool m_newAcousticModel;
 
     //key: comma concatenated list of deactivated scenarios
     //value: directory of the model cache
     QHash<QString, QString> m_modelCache;
+
+    //key: sample group name
+    //value: name of directory with a prompts file and acoustic model for just that sample group
+    QHash<QString, QString> m_acousticModelCache;
 
 public slots:
     void storeModelInCache();
