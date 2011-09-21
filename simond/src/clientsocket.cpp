@@ -962,8 +962,8 @@ void ClientSocket::activeModelCompiled()
 //that activeModelCompiled does in order to work
 void ClientSocket::activeModelLoadedFromCache()
 {
+    kDebug() << "Model is ready after being loaded from cache.";
     sendCode(Simond::ModelCompilationCompleted);
-    recognitionControl->initializeRecognition();
 }
 
 
