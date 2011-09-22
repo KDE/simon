@@ -43,6 +43,8 @@ public:
     ~ContextAdapter();
 
     bool updateDeactivatedScenarios(QStringList deactivatedScenarios);
+    bool loadLanguageModelFromCache();
+    bool loadAcousticModelFromCache();
     void clearCache();
 
     bool updateAcousticModelSampleGroup(QString sampleGroup);

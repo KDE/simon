@@ -15,7 +15,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_deactivatedScenarios = QStringList();
     m_currentScenarioSet = QStringList();
     m_newAcousticModel = false;
-    m_currentSampleGroup = "";
+    m_currentSampleGroup = "default";
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
 
@@ -133,6 +133,8 @@ bool ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios
 
 bool ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
 {
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
+
     if (m_currentSampleGroup != sampleGroup)
     {
         m_currentSampleGroup = sampleGroup;
@@ -203,9 +205,80 @@ void ContextAdapter::storeModelInCache()
         lookupFile.close();
         kDebug() << "Acoustic model cache lookup saved: " << m_acousticModelCache;
 
+        //save current sample group
+        QFile sampleGroupFile(acousticDir + "SampleGroup");
+        sampleGroupFile.open(QFile::WriteOnly | QFile::Truncate);
+        QDataStream sampleGroupStream(&sampleGroupFile);
+        sampleGroupStream << m_currentSampleGroup;
+        sampleGroupFile.close();
+
         kDebug() << "The speech model which includes all scenarios has been compiled.  Now the language model will be recompiled to only include the active scenarios.";
         emit forceModelRecompilation();
     }
+}
+
+bool ContextAdapter::loadLanguageModelFromCache()
+{
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString cachedModelDir;
+    QString deactivatedList = m_deactivatedScenarios.join(",");
+
+    kDebug() << "Checking cache for the following entry: " + deactivatedList;
+
+    if (!m_modelCache.value(deactivatedList, "").isEmpty())
+    {
+        kDebug() << "Entry found!  Retrieving files from cache";
+
+        //if so, replace the active files with the cached ones and return
+        cachedModelDir = cacheDir + m_modelCache.value(deactivatedList) + "/";
+
+        QFile::remove(activeDir+"lexicon");
+        QFile::copy(cachedModelDir+"lexicon", activeDir+"lexicon");
+        QFile::remove(activeDir+"model.grammar");
+        QFile::copy(cachedModelDir+"model.grammar", activeDir+"model.grammar");
+        QFile::remove(activeDir+"simple.voca");
+        QFile::copy(cachedModelDir+"simple.voca", activeDir+"simple.voca");
+        QFile::remove(activeDir+"model.dict");
+        QFile::copy(cachedModelDir+"model.dict", activeDir+"model.dict");
+        QFile::remove(activeDir+"model.dfa");
+        QFile::copy(cachedModelDir+"model.dfa", activeDir+"model.dfa");
+        QFile::remove(activeDir+"activerc");
+        QFile::copy(cachedModelDir+"activerc", activeDir+"activerc");
+        QFile::remove(activeDir+"julius.log");
+        QFile::copy(cachedModelDir+"julius.log", activeDir+"julius.log");
+        QFile::remove(activeDir+"julius.jconf");
+        QFile::copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
+
+        //update the date of the current model
+        KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
+        KConfigGroup cGroup(&config, "");
+        cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
+        config.sync();
+
+        return true;
+    }
+
+    return false;
+}
+
+bool ContextAdapter::loadAcousticModelFromCache()
+{
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
+
+    if (!m_acousticModelCache.value(m_currentSampleGroup, "").isEmpty())
+    {
+        QString cachedDir = m_acousticModelCache.value(m_currentSampleGroup);
+
+        QFile::remove(activeDir+"hmmdefs");
+        QFile::copy(cachedDir+"hmmdefs", activeDir+"hmmdefs");
+        QFile::remove(activeDir+"tiedlist");
+        QFile::copy(cachedDir+"tiedlist", activeDir+"tiedlist");
+
+        return true;
+    }
+
+    return false;
 }
 
 void ContextAdapter::clearCache()
@@ -288,9 +361,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
                                    const QString& promptsIn)
 {
     //Get paths for caching
-    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
-    QString cachedModelDir;
 
     //check to see if the base scenarios are different (in which case the cache would need to be cleared)
     if (m_currentScenarioSet.join(",") != scenarioPathsIn.join(","))
@@ -307,14 +378,13 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             m_newAcousticModel = true;
         }
 
-
         //save the new base scenario list
         QFile scenariosFile(cacheDir + "ScenarioList");
         scenariosFile.open(QFile::Truncate | QFile::WriteOnly);
         QDataStream fileStream(&scenariosFile);
         fileStream << m_currentScenarioSet;
         scenariosFile.close();
-         kDebug() << "Saved new base scenario list: " << m_currentScenarioSet;
+        kDebug() << "Saved new base scenario list: " << m_currentScenarioSet;
     }
     else
     {
@@ -348,38 +418,8 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     }
 
     //see if these are in the cache
-    QString deactivatedList = m_deactivatedScenarios.join(",");
-    kDebug() << "Checking cache for the following entry: " + deactivatedList;
-    if (!m_modelCache.value(deactivatedList, "").isEmpty())
+    if (loadLanguageModelFromCache())
     {
-        kDebug() << "Entry found!  Retrieving files from cache";
-
-        //if so, replace the active files with the cached ones and return
-        cachedModelDir = cacheDir + m_modelCache.value(deactivatedList) + "/";
-
-        QFile::remove(activeDir+"lexicon");
-        QFile::copy(cachedModelDir+"lexicon", activeDir+"lexicon");
-        QFile::remove(activeDir+"model.grammar");
-        QFile::copy(cachedModelDir+"model.grammar", activeDir+"model.grammar");
-        QFile::remove(activeDir+"simple.voca");
-        QFile::copy(cachedModelDir+"simple.voca", activeDir+"simple.voca");
-        QFile::remove(activeDir+"model.dict");
-        QFile::copy(cachedModelDir+"model.dict", activeDir+"model.dict");
-        QFile::remove(activeDir+"model.dfa");
-        QFile::copy(cachedModelDir+"model.dfa", activeDir+"model.dfa");
-        QFile::remove(activeDir+"activerc");
-        QFile::copy(cachedModelDir+"activerc", activeDir+"activerc");
-        QFile::remove(activeDir+"julius.log");
-        QFile::copy(cachedModelDir+"julius.log", activeDir+"julius.log");
-        QFile::remove(activeDir+"julius.jconf");
-        QFile::copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
-
-        //update the date of the current model
-        KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
-        KConfigGroup cGroup(&config, "");
-        cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
-        config.sync();
-
         emit modelLoadedFromCache();
         return true;
     }
