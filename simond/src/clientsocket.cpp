@@ -199,7 +199,7 @@ void ClientSocket::processRequest()
             connect(contextAdapter, SIGNAL(modelLoadedFromCache()),
                     this, SLOT(activeModelLoadedFromCache()));
             connect(contextAdapter, SIGNAL(forceModelRecompilation()),
-                    this, SLOT(startModelCompilation()));
+                    this, SLOT(startForcedRecompile()));
 
 
           if (recognitionControl)
@@ -967,8 +967,13 @@ void ClientSocket::activeModelCompiled()
 
 void ClientSocket::activeModelLoadedFromCache()
 {
+    readHashesFromActiveModel();
+    writeHashesToConfig();
+
     kDebug() << "Model is ready after being loaded from cache.";
     sendCode(Simond::ModelCompilationCompleted);
+
+    recognitionControl->initializeRecognition();
 }
 
 
@@ -1246,6 +1251,14 @@ void ClientSocket::startModelCompilation()
   recompileModel();
 }
 
+void ClientSocket::startForcedRecompile()
+{
+    readHashesFromActiveModel();
+    writeHashesToConfig();
+
+    startModelCompilation();
+}
+
 
 void ClientSocket::recompileModel()
 {
@@ -1288,6 +1301,37 @@ void ClientSocket::recompileModel()
   }
 }
 
+bool ClientSocket::readHashesFromActiveModel()
+{
+    QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+
+    QFile lexiconF(activeDir+"lexicon");
+    QFile vocaF(activeDir+"simple.voca");
+    QFile grammarF(activeDir+"model.grammar");
+    if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
+      return false;                                  //technically this will most likely cause the compile to fail but this
+    // will at least produce a proper error, AND it is not off the table
+    // that some weird model compilation manager can work around this... somehow :)
+
+    newLexiconHash = qHash(lexiconF.readAll());
+
+    ////////
+    lexiconF.seek(0);
+    kDebug() << "Lexicon hash: " << newLexiconHash  << "Lexicon: " << lexiconF.readAll();
+    ////////
+
+    newVocaHash = qHash(vocaF.readAll());
+
+    newGrammarHash = qHash(grammarF.readAll());
+    kDebug() << "Grammar hash: " << newGrammarHash  << "Lexicon: " << grammarF.readAll();
+
+    lexiconF.close();
+    vocaF.close();
+    grammarF.close();
+
+    return true;
+}
+
 
 bool ClientSocket::shouldRecompileModel()
 {
@@ -1303,23 +1347,8 @@ bool ClientSocket::shouldRecompileModel()
   uint grammarHash = cg.readEntry("GrammarHash", 0);
 
   //check if simple.voca, lexicon or model.grammar changed
-  QFile lexiconF(activeDir+"lexicon");
-  QFile vocaF(activeDir+"simple.voca");
-  QFile grammarF(activeDir+"model.grammar");
-  if (!lexiconF.open(QIODevice::ReadOnly) || !vocaF.open(QIODevice::ReadOnly) || !grammarF.open(QIODevice::ReadOnly))
-    return true;                                  //technically this will most likely cause the compile to fail but this
-  // will at least produce a proper error, AND it is not off the table
-  // that some weird model compilation manager can work around this... somehow :)
-
-  newLexiconHash = qHash(lexiconF.readAll());
-
-  ////////
-  lexiconF.seek(0);
-  kDebug() << "Lexicon hash: " << newLexiconHash << lexiconHash << "Lexicon: " << lexiconF.readAll();
-  ////////
-  
-  newVocaHash = qHash(vocaF.readAll());
-  newGrammarHash = qHash(grammarF.readAll());
+  if (!readHashesFromActiveModel())
+      return true;
 
   if (!newVocaHash || !newGrammarHash || !newLexiconHash)
     return true;
@@ -1359,6 +1388,7 @@ void ClientSocket::slotModelAdaptionComplete()
 {
   if (!shouldRecompileModel())
   {
+      kDebug() << "Aborting recompilation after adaption.";
     slotModelAdaptionAborted();
     return;
   }

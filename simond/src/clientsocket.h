@@ -69,6 +69,7 @@ class ClientSocket : public QSslSocket
 
     bool shouldRecompileModel();
     void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+    bool readHashesFromActiveModel();
     void writeHashesToConfig();
     
     void initializeRecognitionSmartly();
@@ -102,6 +103,7 @@ class ClientSocket : public QSslSocket
     void sendAvailableModels();
 
     void startModelCompilation();
+    void startForcedRecompile();
     void recompileModel();
 
     void sendModelCompilationLog();

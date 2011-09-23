@@ -45,6 +45,8 @@ public:
     bool updateDeactivatedScenarios(QStringList deactivatedScenarios);
     bool loadLanguageModelFromCache();
     bool loadAcousticModelFromCache();
+    void storeLanguageModelInCache();
+    void storeAcousticModelInCache();
     void clearCache();
 
     bool updateAcousticModelSampleGroup(QString sampleGroup);
@@ -104,7 +106,7 @@ private:
     QHash<QString, QString> m_acousticModelCache;
 
 public slots:
-    void storeModelInCache();
+    void hasNewlyGeneratedModel();
 
 signals:
     void modelLoadedFromCache();
