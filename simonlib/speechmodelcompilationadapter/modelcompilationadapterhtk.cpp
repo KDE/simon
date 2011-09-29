@@ -144,7 +144,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
 
       //			bool allWordsDefined = true;
 
-      kDebug() << "checking prompts file: " << line;
       //new format
       if (line.split('"').count() == 3)
       {
@@ -157,7 +156,6 @@ bool ModelCompilationAdapterHTK::storeModel(ModelCompilationAdapter::AdaptionTyp
       }
 
       foreach (const QString& word, words) {
-          kDebug() << "Prompts file contains word: " << word;
         if (!vocab->containsWord(word)) {
           kDebug() << "Word not defined in vocabulary: " << word;
           //allWordsDefined = false;

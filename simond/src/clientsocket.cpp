@@ -450,8 +450,10 @@ void ClientSocket::processRequest()
 
       if (contextAdapter->updateDeactivatedScenarios(scenarioIds))
       {
+          contextAdapter->abort();
           startModelCompilation();
       }
+      else
       {
           kDebug() << "Received a redundant deactivated scenarios list.  It will be ignored.";
       }
@@ -972,8 +974,6 @@ void ClientSocket::activeModelLoadedFromCache()
 
     kDebug() << "Model is ready after being loaded from cache.";
     sendCode(Simond::ModelCompilationCompleted);
-
-    recognitionControl->initializeRecognition();
 }
 
 
@@ -1321,9 +1321,7 @@ bool ClientSocket::readHashesFromActiveModel()
     ////////
 
     newVocaHash = qHash(vocaF.readAll());
-
     newGrammarHash = qHash(grammarF.readAll());
-    kDebug() << "Grammar hash: " << newGrammarHash  << "Lexicon: " << grammarF.readAll();
 
     lexiconF.close();
     vocaF.close();

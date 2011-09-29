@@ -12,9 +12,9 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_modelCompilationManager = new ModelCompilationManager(username, this);
     m_modelCompilationAdapter = new ModelCompilationAdapterHTK(username, this);
     m_username = username;
-    m_deactivatedScenarios = QStringList();
-    m_currentScenarioSet = QStringList();
-    m_newAcousticModel = false;
+    m_deactivatedScenarios = QStringList("none");
+    m_currentScenarioSet = QStringList("nothing");
+    m_newAcousticModel = true;
     m_currentSampleGroup = "default";
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
@@ -127,13 +127,13 @@ ContextAdapter::~ContextAdapter()
 
 bool ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
 {
-    if (m_deactivatedScenarios.join(",") != deactivatedScenarios.join(","))
-    {
+    //if (m_deactivatedScenarios.join(",") != deactivatedScenarios.join(","))
+    //{
         m_deactivatedScenarios = deactivatedScenarios;
         return true;
-    }
+    //}
 
-    return false;
+    //return false;
 }
 
 bool ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
@@ -196,9 +196,11 @@ void ContextAdapter::storeAcousticModelInCache()
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString acousticDir = cacheDir + "/acoustic models/";
     QString cachedModelDir;
+    QDir dir;
 
     kDebug() << "Storing acoustic model for sample group '" << m_currentSampleGroup << "' in cache.";
     cachedModelDir = acousticDir + m_currentSampleGroup + "/";
+    dir.mkpath(cachedModelDir);
     QFile::copy(activeDir+"hmmDefs", cachedModelDir+"hmmDefs");
     QFile::copy(activeDir+"tiedList", cachedModelDir+"tiedList");
 
@@ -238,6 +240,7 @@ void ContextAdapter::hasNewlyGeneratedModel()
     }
     else
     {
+        kDebug() << "The model has been compiled and cached, and now ClientSocket is being notified via the modelCompiled signal";
         emit modelCompiled();
     }
 }
@@ -359,6 +362,7 @@ void ContextAdapter::clearCache()
         dir.setCurrent(cacheDir);
         dir.rmdir(dirInfo);
     }
+    m_newAcousticModel = true;
 
     //clear the language model cache
     dir.setCurrent(languageDir);
@@ -413,6 +417,13 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     else
     {
         kDebug() << "Still using base scenario list: " << m_currentScenarioSet;
+    }
+
+    //if for some reason newAcousticModel is true (right now a cache refresh will do it)
+    //but a static model is being used, set it to false
+    if (!ModelCompilationAdapter::AdaptAcousticModel & adaptionType && m_newAcousticModel)
+    {
+        m_newAcousticModel = false;
     }
 
     //get the list of NOT deactivated scenario paths
