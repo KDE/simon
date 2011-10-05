@@ -350,6 +350,8 @@ bool ModelCompilationManager::processError()
 void ModelCompilationManager::abort()
 {
   if (isRunning()) {
+      kDebug() << "Compilation Manager Aborting.";
+
     keepGoing=false;
 
     foreach (QProcess *proc, activeProcesses)

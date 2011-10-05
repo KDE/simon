@@ -83,6 +83,7 @@ void ModelCompilationAdapter::abort()
 {
     if (isRunning())
     {
+        kDebug() << "Aborting current adaption";
         keepGoing = false;
         wait();
         emit adaptionAborted();
