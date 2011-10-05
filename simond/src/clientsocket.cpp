@@ -970,6 +970,12 @@ void ClientSocket::activeModelLoadedFromCache()
 
     kDebug() << "Model is ready after being loaded from cache.";
     sendCode(Simond::ModelCompilationCompleted);
+
+    if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
+      recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
+      kDebug() << "Initialize recognition after loading a model from cache";
+      recognitionControl->initializeRecognition();
+    }
 }
 
 
@@ -1593,7 +1599,7 @@ void ClientSocket::initializeRecognitionSmartly()
 
   if (synchronisationManager->hasActiveModel() && !contextAdapter->managerIsRunning() &&
     recognitionControl->shouldTryToStart(synchronisationManager->getActiveModelDate())) {
-    kDebug() << "Initialize recognition";
+    kDebug() << "Initialize recognition after synchronization";
     recognitionControl->initializeRecognition();
   }
 }
