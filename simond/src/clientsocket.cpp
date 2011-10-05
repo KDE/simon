@@ -448,16 +448,9 @@ void ClientSocket::processRequest()
 
       kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
 
-      if (contextAdapter->updateDeactivatedScenarios(scenarioIds))
-      {
-          contextAdapter->abort();
-          startModelCompilation();
-      }
-      else
-      {
-          kDebug() << "Received a redundant deactivated scenarios list.  It will be ignored.";
-      }
-
+      contextAdapter->abort();
+      contextAdapter->updateDeactivatedScenarios(scenarioIds);
+      startModelCompilation();
 
       break;
     }
@@ -959,6 +952,7 @@ void ClientSocket::activeModelCompiled()
 {
   Q_ASSERT(synchronisationManager);
   synchronisationManager->modelCompiled();
+  readHashesFromActiveModel();
   writeHashesToConfig();
 
   sendCode(Simond::ModelCompilationCompleted);
