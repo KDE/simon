@@ -82,11 +82,14 @@ public:
     bool hasBuildLog() { return m_modelCompilationManager->hasBuildLog(); }
     QString getGraphicBuildLog() { return m_modelCompilationManager->getGraphicBuildLog(); }
     QString getBuildLog() { return m_modelCompilationManager->getBuildLog(); }
-    void abort() { m_modelCompilationManager->abort(); }
     static QString information(bool condensed=false) { return ModelCompilationManager::information(condensed); }
     bool codeAudioDataFromScp(const QString& path) { return m_modelCompilationManager->codeAudioDataFromScp(path); }
     bool reestimate(const QString& command) { return m_modelCompilationManager->reestimate(command); }
     bool managerIsRunning() { return m_modelCompilationManager->isRunning(); }
+
+    //wrapper function for both
+    void abort() { m_modelCompilationManager->abort();
+                   m_modelCompilationAdapter->abort();}
 
 private:
     ModelCompilationAdapter *m_modelCompilationAdapter;
