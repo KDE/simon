@@ -969,6 +969,8 @@ void ClientSocket::activeModelCompiled()
 
 void ClientSocket::activeModelLoadedFromCache()
 {
+    //save the loaded model's info to the config file
+    synchronisationManager->modelCompiled();
     readHashesFromActiveModel();
     writeHashesToConfig();
 
@@ -1253,9 +1255,15 @@ void ClientSocket::startModelCompilation()
 
 void ClientSocket::startForcedRecompile()
 {
+    //save the compiled model's information in config files
+    synchronisationManager->modelCompiled();
     readHashesFromActiveModel();
     writeHashesToConfig();
 
+    //notify the client of compilation completion
+    sendCode(Simond::ModelCompilationCompleted);
+
+    //start a new compilation
     startModelCompilation();
 }
 

@@ -38,6 +38,7 @@
 #include <KDateTime>
 #include <KConfigGroup>
 #include <KDebug>
+#include <KDateTime>
 
 SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
 username(user_name),

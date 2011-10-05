@@ -279,12 +279,6 @@ bool ContextAdapter::loadLanguageModelFromCache()
         QFile::remove(activeDir+"julius.jconf");
         QFile::copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
 
-        //update the date of the current model
-        KConfig config( activeDir+"activerc", KConfig::SimpleConfig );
-        KConfigGroup cGroup(&config, "");
-        cGroup.writeEntry("Date", KDateTime::currentUtcDateTime().dateTime());
-        config.sync();
-
         return true;
     }
 
