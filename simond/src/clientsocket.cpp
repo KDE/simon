@@ -59,10 +59,10 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess,
   recognitionControlFactory(factory),
   recognitionControl(0),
   synchronisationManager(0),
+  contextAdapter(0),
   newLexiconHash(0),
   newGrammarHash(0),
-  newVocaHash(0),
-  contextAdapter(0)
+  newVocaHash(0)
 {
   qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
@@ -448,9 +448,7 @@ void ClientSocket::processRequest()
 
       kDebug() << "DEACTIVATED Scenario list: " << scenarioIds;
 
-      contextAdapter->abort();
       contextAdapter->updateDeactivatedScenarios(scenarioIds);
-      startModelCompilation();
 
       break;
     }
@@ -982,6 +980,7 @@ void ClientSocket::activeModelLoadedFromCache()
 void ClientSocket::activeModelCompilationAborted()
 {
   sendCode(Simond::ModelCompilationAborted);
+  contextAdapter->aborted();
 }
 
 

@@ -12,8 +12,9 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_modelCompilationManager = new ModelCompilationManager(username, this);
     m_modelCompilationAdapter = new ModelCompilationAdapterHTK(username, this);
     m_username = username;
-    m_deactivatedScenarios = QStringList("none");
-    m_currentScenarioSet = QStringList("nothing");
+    m_currentModelDeactivatedScenarios = QStringList("unknown");
+    m_requestedDeactivatedScenarios = QStringList();
+    m_currentScenarioSet = QStringList("unknown");
     m_newAcousticModel = true;
     m_currentSampleGroup = "default";
     m_modelCache = QHash<QString, QString>();
@@ -125,41 +126,47 @@ ContextAdapter::~ContextAdapter()
         m_modelCompilationAdapter->deleteLater();
 }
 
-bool ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
+void ContextAdapter::aborted()
 {
-    //if (m_deactivatedScenarios.join(",") != deactivatedScenarios.join(","))
-    //{
-        m_deactivatedScenarios = deactivatedScenarios;
-        return true;
-    //}
+    m_currentActivity = ContextAdapter::NoActivity;
 
-    //return false;
-}
-
-bool ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
-{
-    if (m_currentSampleGroup != sampleGroup)
+    if (shouldRecompileModel())
     {
-        m_currentSampleGroup = sampleGroup;
-
-        return true;
+        kDebug() << "Forcing model recompilation after compilation was aborted due to need for recompilation.";
+        emit forceModelRecompilation();
     }
-
-    return false;
 }
 
-void ContextAdapter::storeLanguageModelInCache()
+void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
+{
+    m_requestedDeactivatedScenarios = deactivatedScenarios;
+
+    //if there is no compilation in progress, force a recompile, otherwise, one will be forced upon completion of the current compilation
+    if (m_currentActivity == ContextAdapter::NoActivity)
+    {
+        kDebug() << "Forcing model recompilation due to a new deactivated scenarios list.  Context adapter is not busy.";
+        emit forceModelRecompilation();
+    }
+}
+
+void ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
+{
+    m_currentSampleGroup = sampleGroup;
+}
+
+void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
 {
     QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
     QString cachedModelDir;
     QDir dir;
-    QString deactivatedList = m_deactivatedScenarios.join(",");
+    QString deactivatedList = deactivatedScenarios.join(",");
 
-    if (m_newAcousticModel)
+    if (!QFile::exists(activeDir + "lexicon"))
     {
-        deactivatedList.clear();
+        kDebug() << "There is no language file to store";
+        return;
     }
 
     cachedModelDir.setNum(m_modelCache.count());
@@ -169,16 +176,19 @@ void ContextAdapter::storeLanguageModelInCache()
     dir.mkpath(cachedModelDir);
     kDebug() << "With the following cache directory " + cachedModelDir;
 
+    //make sure cache directory exists
+    dir.mkpath(cachedModelDir);
+
     kDebug() << "Storing files in cache";
 
-    QFile::copy(activeDir+"lexicon", cachedModelDir+"lexicon");
-    QFile::copy(activeDir+"model.grammar", cachedModelDir+"model.grammar");
-    QFile::copy(activeDir+"simple.voca", cachedModelDir+"simple.voca");
-    QFile::copy(activeDir+"model.dict", cachedModelDir+"model.dict");
-    QFile::copy(activeDir+"model.dfa", cachedModelDir+"model.dfa");
-    QFile::copy(activeDir+"activerc", cachedModelDir+"activerc");
-    QFile::copy(activeDir+"julius.log", cachedModelDir+"julius.log");
-    QFile::copy(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
+    dir.rename(activeDir+"lexicon", cachedModelDir+"lexicon");
+    dir.rename(activeDir+"model.grammar", cachedModelDir+"model.grammar");
+    dir.rename(activeDir+"simple.voca", cachedModelDir+"simple.voca");
+    dir.rename(activeDir+"model.dict", cachedModelDir+"model.dict");
+    dir.rename(activeDir+"model.dfa", cachedModelDir+"model.dfa");
+    dir.rename(activeDir+"activerc", cachedModelDir+"activerc");
+    dir.rename(activeDir+"julius.log", cachedModelDir+"julius.log");
+    dir.rename(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
 
     //save model cache lookup
     QFile lookupFile(languageDir + "CacheLookup");
@@ -190,21 +200,27 @@ void ContextAdapter::storeLanguageModelInCache()
 }
 
 
-void ContextAdapter::storeAcousticModelInCache()
+void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
 {
     QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
-    QString acousticDir = cacheDir + "/acoustic models/";
+    QString acousticDir = cacheDir + "acoustic models/";
     QString cachedModelDir;
     QDir dir;
 
-    kDebug() << "Storing acoustic model for sample group '" << m_currentSampleGroup << "' in cache.";
-    cachedModelDir = acousticDir + m_currentSampleGroup + "/";
-    dir.mkpath(cachedModelDir);
-    QFile::copy(activeDir+"hmmDefs", cachedModelDir+"hmmDefs");
-    QFile::copy(activeDir+"tiedList", cachedModelDir+"tiedList");
+    kDebug() << "Storing acoustic model for sample group '" << sampleGroup << "' in cache.";
+    cachedModelDir = acousticDir + sampleGroup + "/";
 
-    m_acousticModelCache.insert(m_currentSampleGroup, cachedModelDir);
+    //make sure cache directory exists
+    dir.mkpath(cachedModelDir);
+
+    dir.rename(activeDir+"hmmDefs", cachedModelDir+"hmmDefs");
+    dir.rename(activeDir+"tiedList", cachedModelDir+"tiedList");
+
+    //this might be completely stupid (having a hash that stores the key and value as the same thing)
+    //but it was done as a quick change, and it could potentially allow the key or value to be derived differently if so desired
+    m_acousticModelCache.insert(sampleGroup, sampleGroup);
+
     //save model cache lookup
     QFile lookupFile(acousticDir + "CacheLookup");
     lookupFile.open(QFile::WriteOnly | QFile::Truncate);
@@ -224,60 +240,48 @@ void ContextAdapter::storeAcousticModelInCache()
 
 void ContextAdapter::hasNewlyGeneratedModel()
 {
-    //store the language model that was just generated in the cache
-    storeLanguageModelInCache();
-
-    //check to see if this was an initial acoustic model compilation
-    //if so, the acoustic model needs to be cached, and the language model may need to be recompiled
     if (m_newAcousticModel)
     {
         m_newAcousticModel = false;
-
-        storeAcousticModelInCache();
-
-        kDebug() << "The speech model which includes all scenarios has been compiled.  Now the language model will be recompiled to only include the active scenarios.";
-        emit forceModelRecompilation();
     }
-    else
+
+    emit modelCompiled();
+    m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
+    m_currentActivity = ContextAdapter::NoActivity;
+
+    if (shouldRecompileModel())
     {
-        kDebug() << "The model has been compiled and cached, and now ClientSocket is being notified via the modelCompiled signal";
-        emit modelCompiled();
+        kDebug() << "Forcing model recompilation after completed compilation due to determination by ContextAdapter::shouldRecompileModel.";
+        emit forceModelRecompilation();
     }
 }
 
-bool ContextAdapter::loadLanguageModelFromCache()
+bool ContextAdapter::loadLanguageModelFromCache(QStringList deactivatedScenarios)
 {
     QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
     QString cachedModelDir;
-    QString deactivatedList = m_deactivatedScenarios.join(",");
+    QString deactivatedList = deactivatedScenarios.join(",");
+    QDir dir;
 
     kDebug() << "Checking cache for the following entry: " + deactivatedList;
 
     if (!m_modelCache.value(deactivatedList, "").isEmpty())
     {
-        kDebug() << "Entry found!  Retrieving files from cache";
+        kDebug() << "Entry found!  Retrieving files from cache location " << m_modelCache.value(deactivatedList);
 
         //if so, replace the active files with the cached ones and return
         cachedModelDir = languageDir + m_modelCache.value(deactivatedList) + "/";
 
-        QFile::remove(activeDir+"lexicon");
-        QFile::copy(cachedModelDir+"lexicon", activeDir+"lexicon");
-        QFile::remove(activeDir+"model.grammar");
-        QFile::copy(cachedModelDir+"model.grammar", activeDir+"model.grammar");
-        QFile::remove(activeDir+"simple.voca");
-        QFile::copy(cachedModelDir+"simple.voca", activeDir+"simple.voca");
-        QFile::remove(activeDir+"model.dict");
-        QFile::copy(cachedModelDir+"model.dict", activeDir+"model.dict");
-        QFile::remove(activeDir+"model.dfa");
-        QFile::copy(cachedModelDir+"model.dfa", activeDir+"model.dfa");
-        QFile::remove(activeDir+"activerc");
-        QFile::copy(cachedModelDir+"activerc", activeDir+"activerc");
-        QFile::remove(activeDir+"julius.log");
-        QFile::copy(cachedModelDir+"julius.log", activeDir+"julius.log");
-        QFile::remove(activeDir+"julius.jconf");
-        QFile::copy(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
+        dir.rename(cachedModelDir+"lexicon", activeDir+"lexicon");
+        dir.rename(cachedModelDir+"model.grammar", activeDir+"model.grammar");
+        dir.rename(cachedModelDir+"simple.voca", activeDir+"simple.voca");
+        dir.rename(cachedModelDir+"model.dict", activeDir+"model.dict");
+        dir.rename(cachedModelDir+"model.dfa", activeDir+"model.dfa");
+        dir.rename(cachedModelDir+"activerc", activeDir+"activerc");
+        dir.rename(cachedModelDir+"julius.log", activeDir+"julius.log");
+        dir.rename(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
 
         return true;
     }
@@ -285,18 +289,19 @@ bool ContextAdapter::loadLanguageModelFromCache()
     return false;
 }
 
-bool ContextAdapter::loadAcousticModelFromCache()
+bool ContextAdapter::loadAcousticModelFromCache(QString sampleGroup)
 {
     QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/active/");
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString acousticDir = cacheDir + "acoustic models/";
+    QDir dir;
 
-    if (!m_acousticModelCache.value(m_currentSampleGroup, "").isEmpty())
+    if (!m_acousticModelCache.value(sampleGroup, "").isEmpty())
     {
-        QString cachedDir = m_acousticModelCache.value(m_currentSampleGroup);
+        QString cachedDir = acousticDir + m_acousticModelCache.value(m_currentSampleGroup);
 
-        QFile::remove(activeDir+"hmmdefs");
-        QFile::copy(cachedDir+"hmmdefs", activeDir+"hmmdefs");
-        QFile::remove(activeDir+"tiedlist");
-        QFile::copy(cachedDir+"tiedlist", activeDir+"tiedlist");
+        dir.rename(cachedDir+"hmmdefs", activeDir+"hmmdefs");
+        dir.rename(cachedDir+"tiedlist", activeDir+"tiedlist");
 
         return true;
     }
@@ -376,11 +381,22 @@ void ContextAdapter::clearCache()
     dir.setCurrent(initialDir.dirName());
 }
 
+bool ContextAdapter::shouldRecompileModel()
+{
+    if (m_requestedDeactivatedScenarios.join(",") != m_currentModelDeactivatedScenarios.join(",")
+            && m_currentActivity == ContextAdapter::NoActivity)
+        return true;
+
+    return false;
+}
+
 bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
                                    const QString& grammarPathOut, const QString& simpleVocabPathOut,
                                    const QString& promptsPathOut, const QStringList& scenarioPathsIn,
                                    const QString& promptsIn)
 {
+    m_currentActivity = ContextAdapter::CompilingModel;
+
     //Get paths for caching
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
@@ -393,7 +409,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
 
         m_currentScenarioSet = scenarioPathsIn;
 
-        //we need to generate a new acoustic model
+        //do we need to generate a new acoustic model?
         if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
         {
             kDebug() << "A new acoustic model must be generated";
@@ -421,12 +437,13 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     }
 
     //get the list of NOT deactivated scenario paths
+    m_currentlyCompilingDeactivatedScenarios = m_requestedDeactivatedScenarios;
     QStringList activeScenarioPathsIn;
     QRegExp slashes = QRegExp("/+");
     bool hasDeactivatedScenarios = false;
     foreach (QString path, scenarioPathsIn)
     {
-        if (!m_deactivatedScenarios.contains(path.split(slashes).back()))
+        if (!m_currentlyCompilingDeactivatedScenarios.contains(path.split(slashes).back()))
         {
             kDebug() << path.split(slashes).back() + " is active";
             activeScenarioPathsIn << path;
@@ -438,16 +455,20 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         }
     }
 
-    //if the new scenario set does not have any deactivated scenarios, the m_deactivatedScenarios list will not be refreshed,
+    //if the new scenario set does not have any deactivated scenarios, the m_requestedDeactivatedScenarios list will not be refreshed,
     //so this just clears it if that is the case (it will also clear it if it is just empty anyways)
     if (!hasDeactivatedScenarios)
     {
-        m_deactivatedScenarios.clear();
+        m_requestedDeactivatedScenarios.clear();
+        m_currentlyCompilingDeactivatedScenarios.clear();
     }
 
-    //otherwise, adapt the model
+    //TODO: save the current model to cache here
+
+    //adapt the model
     if (m_newAcousticModel)
     {
+        m_currentlyCompilingDeactivatedScenarios.clear();
         //when the acoustic model is recompiled, all scenarios are used in the speech model
         //and then the language model is recompiled with only the active scenarios via the forceModelRecompilation() signal
         kDebug() << "Compiling acoustic model as well as language model with all scenarios";
@@ -462,10 +483,19 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     //}
     else
     {
+
         //see if these are in the cache
-        if (loadLanguageModelFromCache())
+        if (loadLanguageModelFromCache(m_currentlyCompilingDeactivatedScenarios))
         {
             emit modelLoadedFromCache();
+            m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
+            m_currentActivity = ContextAdapter::NoActivity;
+
+            if (shouldRecompileModel())
+            {
+                emit forceModelRecompilation();
+            }
+
             return true;
         }
 

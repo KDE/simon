@@ -42,14 +42,23 @@ public:
 
     ~ContextAdapter();
 
-    bool updateDeactivatedScenarios(QStringList deactivatedScenarios);
-    bool loadLanguageModelFromCache();
-    bool loadAcousticModelFromCache();
-    void storeLanguageModelInCache();
-    void storeAcousticModelInCache();
-    void clearCache();
+    enum Activity
+    {
+        NoActivity,
+        CompilingModel
+    };
 
-    bool updateAcousticModelSampleGroup(QString sampleGroup);
+    void updateDeactivatedScenarios(QStringList deactivatedScenarios);
+    bool loadLanguageModelFromCache(QStringList deactivatedScenarios);
+    void storeLanguageModelInCache(QStringList deactivatedScenarios);
+
+    void updateAcousticModelSampleGroup(QString sampleGroup);
+    bool loadAcousticModelFromCache(QString sampleGroup);
+    void storeAcousticModelInCache(QString sampleGroup);
+
+    void clearCache();
+    void currentCompilationAborted();
+    bool shouldRecompileModel();
 
     //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
@@ -94,11 +103,15 @@ public:
 private:
     ModelCompilationAdapter *m_modelCompilationAdapter;
     ModelCompilationManager *m_modelCompilationManager;
-    QStringList m_deactivatedScenarios;
+    QStringList m_requestedDeactivatedScenarios;
+    QStringList m_currentModelDeactivatedScenarios;
+    QStringList m_currentlyCompilingDeactivatedScenarios;
     QStringList m_currentScenarioSet;
     QString m_username;
     QString m_currentSampleGroup;
     bool m_newAcousticModel;
+
+    ContextAdapter::Activity m_currentActivity;
 
     //key: comma concatenated list of deactivated scenarios
     //value: directory of the model cache
@@ -110,6 +123,7 @@ private:
 
 public slots:
     void hasNewlyGeneratedModel();
+    void aborted();
 
 signals:
     void modelLoadedFromCache();
