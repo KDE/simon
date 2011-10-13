@@ -423,6 +423,8 @@ void ContextAdapter::clearCache()
     }
 
     dir.setCurrent(initialDir.dirName());
+
+    m_currentModelDeactivatedScenarios = QStringList("unknown");
 }
 
 bool ContextAdapter::shouldRecompileModel()
