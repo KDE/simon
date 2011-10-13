@@ -100,7 +100,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
         fileStream >> m_currentModelDeactivatedScenarios;
         deactivatedFile.close();
 
-        kDebug() << "Loaded deactivated scenario list for current model: " << m_currentScenarioSet;
+        kDebug() << "Loaded deactivated scenario list for current model: " << m_currentModelDeactivatedScenarios;
     }
 
     //load the current Sample Group
@@ -126,8 +126,6 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
 
         kDebug() << "Loaded acoustic model cache lookup: " << m_acousticModelCache;
     }
-
-    clearCache();
 }
 
 ContextAdapter::~ContextAdapter()
@@ -275,6 +273,9 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
 
 void ContextAdapter::hasNewlyGeneratedModel()
 {
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString languageDir = cacheDir + "/language models/";
+
     if (m_newAcousticModel)
     {
         m_newAcousticModel = false;
@@ -283,6 +284,14 @@ void ContextAdapter::hasNewlyGeneratedModel()
     emit modelCompiled();
     m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
     m_currentActivity = ContextAdapter::NoActivity;
+
+    //save the current model's deativated scenario set
+    QFile lookupFile(languageDir + "DeactivatedList");
+    lookupFile.open(QFile::WriteOnly | QFile::Truncate);
+    QDataStream lookupStream(&lookupFile);
+    lookupStream << m_currentModelDeactivatedScenarios;
+    lookupFile.close();
+    kDebug() << "Current model deactivated scenario list saved: " << m_currentModelDeactivatedScenarios;
 
     if (shouldRecompileModel())
     {
@@ -414,8 +423,6 @@ void ContextAdapter::clearCache()
     }
 
     dir.setCurrent(initialDir.dirName());
-
-    m_currentModelDeactivatedScenarios = QStringList("unknown");
 }
 
 bool ContextAdapter::shouldRecompileModel()
@@ -452,7 +459,6 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         clearCache();
 
         m_currentScenarioSet = scenarioPathsIn;
-        m_currentModelDeactivatedScenarios = QStringList("unknown");
 
         //do we need to generate a new acoustic model?
         if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
@@ -537,6 +543,14 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             emit modelLoadedFromCache();
             m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
             m_currentActivity = ContextAdapter::NoActivity;
+
+            //save the current model's deativated scenario set
+            QFile lookupFile(languageDir + "DeactivatedList");
+            lookupFile.open(QFile::WriteOnly | QFile::Truncate);
+            QDataStream lookupStream(&lookupFile);
+            lookupStream << m_currentModelDeactivatedScenarios;
+            lookupFile.close();
+            kDebug() << "Current model deactivated scenario list saved: " << m_currentModelDeactivatedScenarios;
 
             if (shouldRecompileModel())
             {
