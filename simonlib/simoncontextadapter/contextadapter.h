@@ -109,6 +109,8 @@ private:
     QStringList m_currentScenarioSet;
     QString m_username;
     QString m_currentSampleGroup;
+    QString m_requestedSampleGroup;
+    QString m_compilingSampleGroup;
     bool m_newAcousticModel;
 
     ContextAdapter::Activity m_currentActivity;

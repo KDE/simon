@@ -351,9 +351,9 @@ void ClientSocket::processRequest()
 
         QDateTime localModelDate = synchronisationManager->getBaseModelDate();
         if (remoteModelDate != localModelDate) {
-          if (remoteModelDate > localModelDate)
-            sendCode(Simond::GetBaseModel);
-          else if (!sendBaseModel())
+//          if (remoteModelDate > localModelDate)
+//            sendCode(Simond::GetBaseModel);
+//          else if (!sendBaseModel())
             sendCode(Simond::GetBaseModel);
         }
         else {
@@ -940,8 +940,11 @@ void ClientSocket::startSynchronisation()
     sendCode(Simond::SynchronisationAlreadyRunning);
   }
   else {
-    kDebug() << "Requesting ActiveModelDate";
-    sendCode(Simond::GetActiveModelDate);
+//    kDebug() << "Requesting ActiveModelDate";
+//    sendCode(Simond::GetActiveModelDate);
+
+      kDebug() << "Requesting BaseModelDate";
+      sendCode(Simond::GetBaseModelDate);
   }
 }
 
@@ -1417,6 +1420,7 @@ void ClientSocket::slotModelAdaptionComplete()
   if (!hasPrompts) {
     switch (baseModelType) {
       case 1:
+        kDebug() << "No Prompts!  Switching to static model!";
         baseModelType = 0;
         break;
       case 2:                                     //do not bother creating the model without prompts

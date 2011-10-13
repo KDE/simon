@@ -1075,6 +1075,9 @@ void RecognitionControl::messageReceived()
 
         case Simond::GetBaseModelDate:
         {
+          if (!synchronisationOperation)
+            synchronisationOperation = new Operation(thread(), i18n("Model synchronization"), i18n("Synchronizing base model"), 1, 100, false);
+
           advanceStream(sizeof(qint32));
           checkIfSynchronisationIsAborting();
           sendBaseModelDate();
