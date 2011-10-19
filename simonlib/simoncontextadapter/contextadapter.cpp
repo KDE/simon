@@ -13,10 +13,11 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_modelCompilationAdapter = new ModelCompilationAdapterHTK(username, this);
     m_username = username;
     m_currentModelDeactivatedScenarios = QStringList("unknown");
-    m_requestedDeactivatedScenarios = QStringList();
+    m_requestedDeactivatedScenarios = QStringList("unknown");
     m_currentScenarioSet = QStringList("unknown");
     m_newAcousticModel = true;
     m_currentSampleGroup = "default";
+    m_requestedSampleGroup = "default";
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
     m_currentActivity = ContextAdapter::NoActivity;
@@ -101,6 +102,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
         deactivatedFile.close();
 
         kDebug() << "Loaded deactivated scenario list for current model: " << m_currentModelDeactivatedScenarios;
+        m_requestedDeactivatedScenarios = m_currentModelDeactivatedScenarios;
     }
 
     //load the current Sample Group
@@ -113,6 +115,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
         sampleGroupFile.close();
 
         kDebug() << "Loaded current sample group: " << m_currentSampleGroup;
+        m_requestedSampleGroup = m_currentSampleGroup;
     }
 
     //load the acoustic model cache lookup hash table
