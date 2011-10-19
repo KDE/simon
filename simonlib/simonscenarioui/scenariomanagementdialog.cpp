@@ -527,23 +527,13 @@ void ScenarioManagementDialog::saveChildConfiguration(QTreeWidgetItem *parentIte
 
         //save the item's child configuration
         QStringList ids = getChildScenarioIds(item);
-        Scenario *s = ScenarioManager::getInstance()->getScenario(item->data(0, Qt::UserRole).toString());
-        kDebug() << "Saving: " << item->data(0, Qt::UserRole).toString();
-        if (!s)
-        {
-            s = new Scenario(item->data(0, Qt::UserRole).toString());
-            if (s->init())
-            {
-                s->setChildScenarioIds(ids);
-                s->save();
-                s->deleteLater();
-            }
-        }
-        else
+        Scenario *s = new Scenario(item->data(0, Qt::UserRole).toString());
+        if (s->init())
         {
             s->setChildScenarioIds(ids);
             s->save();
         }
+
         ids.clear();
 
         //configure item's children's children

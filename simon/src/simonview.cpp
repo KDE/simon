@@ -517,8 +517,11 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 void SimonView::manageScenarios()
 {
   ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
-  if (dlg->updateScenarioConfiguration()) {
+  if (dlg->updateScenarioConfiguration())
+  {
     //reload scenario information
+    kDebug() << "Reloading Scenario Information";
+
     if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
       KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart simon!"));
 
