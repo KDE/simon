@@ -174,7 +174,11 @@ void ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
 {
     m_requestedSampleGroup = sampleGroup;
 
-    //TODO: setup recompiles similar to the ones done when the deactivated scenarios change
+    if (shouldRecompileModel())
+    {
+        kDebug() << "Forcing model recompilation due to a new sample group.";
+        emit forceModelRecompilation();
+    }
 }
 
 void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
