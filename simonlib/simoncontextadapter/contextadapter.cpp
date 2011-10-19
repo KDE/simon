@@ -432,9 +432,10 @@ void ContextAdapter::clearCache()
 
 bool ContextAdapter::shouldRecompileModel()
 {
-    if (m_requestedDeactivatedScenarios.join(",") == m_currentModelDeactivatedScenarios.join(","))
+    if (m_requestedDeactivatedScenarios.join(",") == m_currentModelDeactivatedScenarios.join(",")
+            && m_currentSampleGroup == m_requestedSampleGroup)
     {
-        kDebug() << "requested deactivated list is the same as the current model's!";
+        kDebug() << "requested deactivated list and sample group is the same as the current model's!";
         return false;
     }
     else if (m_currentActivity != ContextAdapter::NoActivity)
