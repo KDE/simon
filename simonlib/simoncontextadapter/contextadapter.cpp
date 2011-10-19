@@ -14,10 +14,12 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_username = username;
     m_currentModelDeactivatedScenarios = QStringList("unknown");
     m_requestedDeactivatedScenarios = QStringList("unknown");
+    m_currentlyCompilingDeactivatedScenarios = QStringList("unknown");
     m_currentScenarioSet = QStringList("unknown");
     m_newAcousticModel = true;
     m_currentSampleGroup = "default";
     m_requestedSampleGroup = "default";
+    m_compilingSampleGroup = "default";
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
     m_currentActivity = ContextAdapter::NoActivity;
@@ -103,6 +105,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
 
         kDebug() << "Loaded deactivated scenario list for current model: " << m_currentModelDeactivatedScenarios;
         m_requestedDeactivatedScenarios = m_currentModelDeactivatedScenarios;
+        m_compilingSampleGroup = m_currentSampleGroup;
     }
 
     //load the current Sample Group
@@ -116,6 +119,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
 
         kDebug() << "Loaded current sample group: " << m_currentSampleGroup;
         m_requestedSampleGroup = m_currentSampleGroup;
+        m_compilingSampleGroup = m_currentSampleGroup;
     }
 
     //load the acoustic model cache lookup hash table
@@ -273,6 +277,11 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
 
 void ContextAdapter::hasNewlyGeneratedModel()
 {
+    finishedModelRequest(false);
+}
+
+void ContextAdapter::finishedModelRequest(bool viaCache)
+{
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
 
@@ -300,7 +309,15 @@ void ContextAdapter::hasNewlyGeneratedModel()
     sampleGroupFile.close();
 
     m_currentActivity = ContextAdapter::NoActivity;
-    emit modelCompiled();
+
+    if (viaCache)
+    {
+        emit modelLoadedFromCache();
+    }
+    else
+    {
+        emit modelCompiled();
+    }
 
     if (shouldRecompileModel())
     {
@@ -552,22 +569,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         //see if these are in the cache
         if (loadLanguageModelFromCache(m_currentlyCompilingDeactivatedScenarios))
         {
-            emit modelLoadedFromCache();
-            m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
-            m_currentActivity = ContextAdapter::NoActivity;
-
-            //save the current model's deativated scenario set
-            QFile lookupFile(languageDir + "DeactivatedList");
-            lookupFile.open(QFile::WriteOnly | QFile::Truncate);
-            QDataStream lookupStream(&lookupFile);
-            lookupStream << m_currentModelDeactivatedScenarios;
-            lookupFile.close();
-            kDebug() << "Current model deactivated scenario list saved: " << m_currentModelDeactivatedScenarios;
-
-            if (shouldRecompileModel())
-            {
-                emit forceModelRecompilation();
-            }
+            finishedModelRequest(true);
 
             return true;
         }

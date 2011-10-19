@@ -123,8 +123,12 @@ private:
     //value: name of directory with a prompts file and acoustic model for just that sample group
     QHash<QString, QString> m_acousticModelCache;
 
-public slots:
+    void finishedModelRequest(bool viaCache);
+
+private slots:
     void hasNewlyGeneratedModel();
+
+public slots:
     void aborted();
 
 signals:
