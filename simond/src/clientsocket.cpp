@@ -453,6 +453,17 @@ void ClientSocket::processRequest()
       break;
     }
 
+    case Simond::SampleGroup:
+    {
+        QString sampleGroup;
+        waitForMessage(sizeof(QString), stream, msg);
+        stream >> sampleGroup;
+
+        kDebug() << "Received Sample Group: " << sampleGroup;
+
+        contextAdapter->updateAcousticModelSampleGroup(sampleGroup);
+    }
+
       case Simond::StartScenarioSynchronisation:
       {
         kDebug() << "Starting scenario synchronization";
