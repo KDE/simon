@@ -268,13 +268,6 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
     lookupStream << m_acousticModelCache;
     lookupFile.close();
     kDebug() << "Acoustic model cache lookup saved: " << m_acousticModelCache;
-
-    //save current sample group
-    QFile sampleGroupFile(acousticDir + "SampleGroup");
-    sampleGroupFile.open(QFile::WriteOnly | QFile::Truncate);
-    QDataStream sampleGroupStream(&sampleGroupFile);
-    sampleGroupStream << m_currentSampleGroup;
-    sampleGroupFile.close();
 }
 
 
@@ -288,9 +281,8 @@ void ContextAdapter::hasNewlyGeneratedModel()
         m_newAcousticModel = false;
     }
 
-    emit modelCompiled();
     m_currentModelDeactivatedScenarios = m_currentlyCompilingDeactivatedScenarios;
-    m_currentActivity = ContextAdapter::NoActivity;
+    m_currentSampleGroup = m_compilingSampleGroup;
 
     //save the current model's deativated scenario set
     QFile lookupFile(languageDir + "DeactivatedList");
@@ -299,6 +291,16 @@ void ContextAdapter::hasNewlyGeneratedModel()
     lookupStream << m_currentModelDeactivatedScenarios;
     lookupFile.close();
     kDebug() << "Current model deactivated scenario list saved: " << m_currentModelDeactivatedScenarios;
+
+    //save current sample group
+    QFile sampleGroupFile(acousticDir + "SampleGroup");
+    sampleGroupFile.open(QFile::WriteOnly | QFile::Truncate);
+    QDataStream sampleGroupStream(&sampleGroupFile);
+    sampleGroupStream << m_currentSampleGroup;
+    sampleGroupFile.close();
+
+    m_currentActivity = ContextAdapter::NoActivity;
+    emit modelCompiled();
 
     if (shouldRecompileModel())
     {
