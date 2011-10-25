@@ -268,6 +268,13 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
     QString cachedModelDir;
     QDir dir;
 
+    if (!QFile::exists(activeDir + "hmmDefs")
+            || !QFile::exists(activeDir + "tiedList"))
+    {
+        kDebug() << "There is no acoustic model to store";
+        return;
+    }
+
     kDebug() << "Storing acoustic model for sample group '" << sampleGroup << "' in cache.";
     cachedModelDir = acousticDir + sampleGroup + "/";
 

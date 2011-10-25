@@ -61,6 +61,7 @@ public:
     bool shouldRecompileModel();
 
     void setShouldRecompileOnAbort(bool attemptRecompile) {m_attemptRecompileOnAbort = attemptRecompile;}
+    void setShouldCompileAcousticModel(bool newAcousticModel) {m_newAcousticModel = newAcousticModel;}
 
     //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,

@@ -388,6 +388,12 @@ void ClientSocket::processRequest()
         stream >> macros;
         stream >> stats;
 
+        //if the new base model type is different from the old one, a new acoustic model should be compiled
+        if (baseModelType != synchronisationManager->getBaseModelType())
+        {
+            contextAdapter->setShouldCompileAcousticModel(true);
+        }
+
         if (!synchronisationManager->storeBaseModel(changedDate, baseModelType,
         hmmdefs, tiedlist, macros, stats)) {
           sendCode(Simond::BaseModelStorageFailed);
