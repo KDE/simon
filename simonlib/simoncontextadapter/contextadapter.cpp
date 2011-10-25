@@ -247,8 +247,6 @@ void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
     dir.rename(activeDir+"simple.voca", cachedModelDir+"simple.voca");
     dir.rename(activeDir+"model.dict", cachedModelDir+"model.dict");
     dir.rename(activeDir+"model.dfa", cachedModelDir+"model.dfa");
-    dir.rename(activeDir+"julius.log", cachedModelDir+"julius.log");
-    dir.rename(activeDir+"julius.jconf", cachedModelDir+"julius.jconf");
 
     //save model cache lookup
     QFile lookupFile(languageDir + "CacheLookup");
@@ -373,8 +371,6 @@ bool ContextAdapter::loadLanguageModelFromCache(QStringList deactivatedScenarios
         dir.rename(cachedModelDir+"simple.voca", activeDir+"simple.voca");
         dir.rename(cachedModelDir+"model.dict", activeDir+"model.dict");
         dir.rename(cachedModelDir+"model.dfa", activeDir+"model.dfa");
-        dir.rename(cachedModelDir+"julius.log", activeDir+"julius.log");
-        dir.rename(cachedModelDir+"julius.jconf", activeDir+"julius.jconf");
 
         return true;
     }
