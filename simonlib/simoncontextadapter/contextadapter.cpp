@@ -210,7 +210,13 @@ void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
         return;
     }
 
-    if (!QFile::exists(activeDir + "lexicon"))
+    if (!QFile::exists(activeDir + "lexicon")
+            || !QFile::exists(activeDir + "model.grammar")
+            || !QFile::exists(activeDir + "simple.voca")
+            || !QFile::exists(activeDir + "model.dict")
+            || !QFile::exists(activeDir + "model.dfa")
+            || !QFile::exists(activeDir + "julius.log")
+            || !QFile::exists(activeDir + "julius.jconf"))
     {
         kDebug() << "There is no language model to store";
         return;
