@@ -52,6 +52,8 @@ class ClientSocket : public QSslSocket
 
     bool synchronisationRunning;
 
+    bool recompileOverride;
+
     QString username;
     QMutex messageLocker;
 

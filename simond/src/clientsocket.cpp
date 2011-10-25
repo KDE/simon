@@ -392,6 +392,8 @@ void ClientSocket::processRequest()
         if (baseModelType != synchronisationManager->getBaseModelType())
         {
             contextAdapter->setShouldCompileAcousticModel(true);
+            contextAdapter->clearCache();
+            recompileOverride = true;
         }
 
         if (!synchronisationManager->storeBaseModel(changedDate, baseModelType,
@@ -1371,6 +1373,12 @@ bool ClientSocket::shouldRecompileModel()
   uint vocaHash = cg.readEntry("VocaHash", 0);
   uint grammarHash = cg.readEntry("GrammarHash", 0);
 
+  if (recompileOverride)
+  {
+      recompileOverride = false;
+      return true;
+  }
+
   //check if simple.voca, lexicon or model.grammar changed
   if (!readHashesFromActiveModel())
       return true;
@@ -1637,6 +1645,11 @@ void ClientSocket::synchronisationComplete()
     sendCode(Simond::SynchronisationComplete);
 
     bool shouldRecompileModel = synchronisationManager->shouldRecompileModel();
+    if (recompileOverride)
+    {
+        shouldRecompileModel = true;
+        recompileOverride = false;
+    }
     kDebug() << "Should recompile model: " << shouldRecompileModel;
 
     if (shouldRecompileModel)
