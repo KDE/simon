@@ -284,6 +284,7 @@ void ContextAdapter::finishedModelRequest(bool viaCache)
 {
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
+    QString acousticDir = cacheDir + "acoustic models/";
 
     if (m_newAcousticModel)
     {
