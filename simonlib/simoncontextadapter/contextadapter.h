@@ -60,6 +60,8 @@ public:
     void currentCompilationAborted();
     bool shouldRecompileModel();
 
+    void setShouldRecompileOnAbort(bool attemptRecompile) {m_attemptRecompileOnAbort = attemptRecompile;}
+
     //wrapper functions for ModelCompilationAdapter
     bool startAdaption(ModelCompilationAdapter::AdaptionType adaptionType, const QString& lexiconPathOut,
       const QString& grammarPathOut, const QString& simpleVocabPathOut,
@@ -112,6 +114,7 @@ private:
     QString m_requestedSampleGroup;
     QString m_compilingSampleGroup;
     bool m_newAcousticModel;
+    bool m_attemptRecompileOnAbort;
 
     ContextAdapter::Activity m_currentActivity;
 

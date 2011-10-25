@@ -23,6 +23,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
     m_currentActivity = ContextAdapter::NoActivity;
+    m_attemptRecompileOnAbort = true;
 
     connect(m_modelCompilationManager, SIGNAL(modelCompiled()),
             this, SLOT(hasNewlyGeneratedModel()));
@@ -149,14 +150,21 @@ void ContextAdapter::aborted()
 
     //TODO: account for all of the possible reasons for compilation aborting.  There is probably no model or a partially complete model in the active folder...
     //the most common reason for this seems to be when there is no grammar (all scenarios disabled due to context), so this should probably trigger a silent deactivation of recognition.
+    //Things that can cause trouble here:
+    //1. If there is no grammar between the activated scenarios (eg. all of the scenarios are deactivated) - there can be an infinite loop of recompiles
+    //2. If the acoustic model is being user-generated and the prompts files do not cover the vocabulary enough for there to be a grammar - there can be an infinite loop of recompiles
+    //
+    //The current simple solution - do not allow more than one recompile in a row in this way (set m_attemptRecompileOnAbort to false after an attempted recompile)
+    //And reset m_attemptRecompileOnAbort when a significant change happens (new deactivated scenarios, new scenario list, etc..)
 
 //    m_currentModelDeactivatedScenarios = QStringList("unknown");
 
-    if (m_currentlyCompilingDeactivatedScenarios.join(",") != m_requestedDeactivatedScenarios.join(","))
+    if (m_currentlyCompilingDeactivatedScenarios.join(",") != m_requestedDeactivatedScenarios.join(",")  && m_attemptRecompileOnAbort)
     {
         if (shouldRecompileModel())
         {
             kDebug() << "Forcing model recompilation after compilation was aborted due to need for recompilation.";
+            m_attemptRecompileOnAbort = false;
             emit forceModelRecompilation();
         }
     }
@@ -165,6 +173,7 @@ void ContextAdapter::aborted()
 void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios)
 {
     m_requestedDeactivatedScenarios = deactivatedScenarios;
+    m_attemptRecompileOnAbort = true;
 
     //if there is no compilation in progress, force a recompile, otherwise, one will be forced upon completion of the current compilation
     if (shouldRecompileModel())
@@ -177,6 +186,7 @@ void ContextAdapter::updateDeactivatedScenarios(QStringList deactivatedScenarios
 void ContextAdapter::updateAcousticModelSampleGroup(QString sampleGroup)
 {
     m_requestedSampleGroup = sampleGroup;
+    m_attemptRecompileOnAbort = true;
 
     if (shouldRecompileModel())
     {
@@ -487,6 +497,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     {
         kDebug() << "There is a new base scenario list!";
         clearCache();
+        m_attemptRecompileOnAbort = true;
 
         m_currentScenarioSet = scenarioPathsIn;
 
