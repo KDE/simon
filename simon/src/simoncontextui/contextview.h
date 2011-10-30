@@ -59,7 +59,7 @@ class SIMONCONTEXTUI_EXPORT ContextView : public InlineWidget, public ScenarioDi
     void displayScenarioPrivate(Scenario *scenario);
 
   public:
-    ContextView(QWidget *parent);
+    ContextView(QWidget *parent=0);
 
     ~ContextView();
 

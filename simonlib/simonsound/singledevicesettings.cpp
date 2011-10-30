@@ -37,9 +37,9 @@ enabled(true),
 hasChanged(true),
 m_type(type),
 m_deviceName(deviceName),
-m_defaultSampleGroup(defaultSampleGroup),
 m_uses(selectedUses),
-m_options(options)
+m_options(options),
+m_defaultSampleGroup(defaultSampleGroup)
 {
   ui = new Ui::SingleDeviceConfiguration();
 

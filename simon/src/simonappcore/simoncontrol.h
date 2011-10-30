@@ -127,7 +127,5 @@ class SIMONAPPCORE_EXPORT SimonControl : public QObject
 
   private:
     SimonControl::SystemStatus status;
-
-    RecognitionControl *recognitionControl;       //!< Julius Backend
 };
 #endif
