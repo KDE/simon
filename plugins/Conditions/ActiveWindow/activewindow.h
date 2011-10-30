@@ -50,7 +50,7 @@
  *	@author Adam Nash
  */
 
-class SIMONCONTEXTDETECTION_EXPORT ActiveWindow : public Condition
+class ActiveWindow : public Condition
 {
     Q_OBJECT
 public:

@@ -30,8 +30,8 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 {
   ui.setupUi(this);
 
-  //setWindowIcon();
-  setWindowTitle("Active Window Condition");
+  setWindowTitle(i18n("Active Window Condition"));
+  setWindowIcon(KIcon("window-duplicate"));
 
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.leWindowTitle, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));

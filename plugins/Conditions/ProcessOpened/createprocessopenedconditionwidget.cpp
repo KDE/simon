@@ -30,8 +30,8 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 {
   ui.setupUi(this);
 
-  //setWindowIcon();
-  setWindowTitle("Process Opened Condition");
+  setWindowTitle(i18n("Process Opened Condition"));
+  setWindowIcon(KIcon("view-process-all"));
 
   connect(ui.leProgramName, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
   connect(ui.pbLocateProgram, SIGNAL(clicked()), this, SLOT(processFileDialog()));

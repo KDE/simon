@@ -33,8 +33,8 @@ QWidget *parent) : CreateConditionWidget(compoundCondition, parent)
 {
   ui.setupUi(this);
 
-  //setWindowIcon();
   setWindowTitle("Or Condition Association");
+  setWindowIcon(KIcon("view-choose"));
 
   //initialize compound association condition
   QDomDocument * doc = new QDomDocument();

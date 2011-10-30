@@ -22,11 +22,11 @@
 #include "createactivewindowwidget.h"
 #include <QWidget>
 
-K_PLUGIN_FACTORY( ProcessOpenedPluginFactory,
+K_PLUGIN_FACTORY( ActiveWindowPluginFactory,
 registerPlugin< ActiveWindow >();
 )
 
-K_EXPORT_PLUGIN( ProcessOpenedPluginFactory("simonactivewindow") )
+K_EXPORT_PLUGIN( ActiveWindowPluginFactory("simonactivewindow") )
 
 ActiveWindow::ActiveWindow(QObject *parent, const QVariantList &args) :
     Condition(parent, args)

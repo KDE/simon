@@ -49,7 +49,7 @@
  *	@author Adam Nash
  */
 
-class SIMONCONTEXTDETECTION_EXPORT ProcessOpenedCondition : public Condition
+class ProcessOpenedCondition : public Condition
 {
     Q_OBJECT
 public:

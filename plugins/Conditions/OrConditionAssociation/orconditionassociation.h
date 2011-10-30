@@ -46,7 +46,7 @@
  *	@author Adam Nash
  */
 
-class SIMONCONTEXTDETECTION_EXPORT OrConditionAssociation : public ConditionAssociation
+class OrConditionAssociation : public ConditionAssociation
 {
     Q_OBJECT
 public:
