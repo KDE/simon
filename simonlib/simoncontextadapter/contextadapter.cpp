@@ -576,9 +576,9 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         kDebug() << "Still using base scenario list: " << m_currentScenarioSet;
     }
 
-    //check if there is a new prompts file
     if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
     {
+        //check if there is a new prompts file
         QFile promptsFile(promptsIn);
         promptsFile.open(QIODevice::ReadOnly);
         uint newPromptsHash = qHash(promptsFile.readAll());
@@ -599,6 +599,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
             kDebug() << "Saved new prompts hash: " << m_promptsHash;
         }
     }
+
 
     //if for some reason newAcousticModel is true
     //but a static model is being used, set it to false
@@ -637,23 +638,42 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     //adapt the model
     if (m_newAcousticModel)
     {
+        //whenever a new acoustic model is requested, the old acoustic model cache should have been cleared, and the active acoustic model (if there is one) may be obsolete for some reason (eg. incomplete prompts used)
+        //for these reasons, the current sample group is irrelevant, and does not need to be stored in the cache
         m_compilingSampleGroup = m_requestedSampleGroup;
 
         storeLanguageModelInCache(m_currentModelDeactivatedScenarios);
-        //storeAcousticModelInCache(m_currentSampleGroup);
         m_currentlyCompilingDeactivatedScenarios.clear();
+        QString sampleGroupPromptsIn = acousticDir + m_compilingSampleGroup + "/prompts";
+
         //when the acoustic model is recompiled, all scenarios are used in the speech model
         //and then the language model is recompiled with only the active scenarios via the forceModelRecompilation() signal
         kDebug() << "Compiling acoustic model as well as language model with all scenarios";
+        m_currentAdaptionType = adaptionType;
         return m_modelCompilationAdapter->startAdaption(adaptionType, lexiconPathOut,
                                                             grammarPathOut, simpleVocabPathOut,
                                                             promptsPathOut, scenarioPathsIn,
+                                                            sampleGroupPromptsIn);
+    }
+    else if (m_requestedSampleGroup != m_currentSampleGroup)
+    {
+        storeAcousticModelInCache(m_currentSampleGroup);
+        m_compilingSampleGroup = m_requestedSampleGroup;
+        //check the cache for that sample group and start an adaption like above otherwise
+        if (loadAcousticModelFromCache(m_compilingSampleGroup))
+        {
+            finishedModelRequest(true);
+
+            return true;
+        }
+
+        kDebug() << "Compiling just the acoustic model with the currently active scenarios";
+        m_currentAdaptionType = ModelCompilationAdapter::AdaptAcousticModel;
+        return m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptAcousticModel, lexiconPathOut,
+                                                            grammarPathOut, simpleVocabPathOut,
+                                                            promptsPathOut, activeScenarioPathsIn,
                                                             promptsIn);
     }
-    //else if (m_currentSampleGroup != m_activeSampleGroup)
-    //{
-    //  //check the cache for that sample group and start an adaption like above otherwise
-    //}
     else
     {
         storeLanguageModelInCache(m_currentModelDeactivatedScenarios);
@@ -666,6 +686,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         }
 
         kDebug() << "Compiling just the language model with the currently active scenarios";
+        m_currentAdaptionType = ModelCompilationAdapter::AdaptLanguageModel;
         return m_modelCompilationAdapter->startAdaption(ModelCompilationAdapter::AdaptLanguageModel, lexiconPathOut,
                                                             grammarPathOut, simpleVocabPathOut,
                                                             promptsPathOut, activeScenarioPathsIn,
@@ -684,7 +705,7 @@ bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType c
   const QString& treeHedPath, const QString& wavConfigPath,
   const QString& scriptBasePrefix)
 {
-    if (m_newAcousticModel)
+    if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel && m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
     {
         return m_modelCompilationManager->startCompilation(compilationType,
                                                            hmmDefsPath,
@@ -704,7 +725,7 @@ bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType c
                                                            wavConfigPath,
                                                            scriptBasePrefix);
     }
-    else
+    else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptLanguageModel)
     {
         return m_modelCompilationManager->startCompilation(ModelCompilationManager::CompileLanguageModel,
                                                            hmmDefsPath,
@@ -723,6 +744,32 @@ bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType c
                                                            treeHedPath,
                                                            wavConfigPath,
                                                            scriptBasePrefix);
+    }
+    else if (m_currentAdaptionType & ModelCompilationAdapter::AdaptAcousticModel)
+    {
+        ModelCompilationManager::CompilationType acousticType = ModelCompilationManager::CompilationType(compilationType & ModelCompilationManager::CompilationType(6));
+        return m_modelCompilationManager->startCompilation(acousticType,
+                                                           hmmDefsPath,
+                                                           tiedListPath,
+                                                           dictPath,
+                                                           dfaPath,
+                                                           baseHmmDefsPath,
+                                                           baseTiedlistPath,
+                                                           baseStatsPath,
+                                                           baseMacrosPath,
+                                                           samplePath,
+                                                           lexiconPath,
+                                                           grammarPath,
+                                                           vocabPath,
+                                                           promptsPath,
+                                                           treeHedPath,
+                                                           wavConfigPath,
+                                                           scriptBasePrefix);
+    }
+    else
+    {
+        kDebug() << "No valid current adaption type!";
+        return false;
     }
 }
 

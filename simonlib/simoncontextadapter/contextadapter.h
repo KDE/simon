@@ -119,6 +119,7 @@ private:
     uint m_promptsHash;
     bool m_newAcousticModel;
     bool m_attemptRecompileOnAbort;
+    ModelCompilationAdapter::AdaptionType m_currentAdaptionType;
 
     void setupAcousticModelCache(const QString &promptsIn);
 
