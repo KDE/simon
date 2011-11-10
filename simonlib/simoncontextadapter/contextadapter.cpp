@@ -232,6 +232,16 @@ void ContextAdapter::storeLanguageModelInCache(QStringList deactivatedScenarios)
             || !QFile::exists(activeDir + "julius.jconf"))
     {
         kDebug() << "There is no language model to store";
+
+        //delete any partial model that exists
+        QFile::remove(activeDir + "lexicon");
+        QFile::remove(activeDir + "model.grammar");
+        QFile::remove(activeDir + "simple.voca");
+        QFile::remove(activeDir + "model.dict");
+        QFile::remove(activeDir + "model.dfa");
+        QFile::remove(activeDir + "julius.log");
+        QFile::remove(activeDir + "julius.jconf");
+
         return;
     }
 
@@ -283,6 +293,11 @@ void ContextAdapter::storeAcousticModelInCache(QString sampleGroup)
             || !QFile::exists(activeDir + "tiedList"))
     {
         kDebug() << "There is no acoustic model to store";
+
+        //delete any partial model that exists
+        QFile::remove(activeDir + "hmmDefs");
+        QFile::remove(activeDir + "tiedList");
+
         return;
     }
 
