@@ -57,6 +57,8 @@ public:
     void storeAcousticModelInCache(QString sampleGroup);
 
     void clearCache();
+    void clearAcousticModelCache();
+    void clearLanguageModelCache();
     void currentCompilationAborted();
     bool shouldRecompileModel();
 
@@ -114,8 +116,11 @@ private:
     QString m_currentSampleGroup;
     QString m_requestedSampleGroup;
     QString m_compilingSampleGroup;
+    uint m_promptsHash;
     bool m_newAcousticModel;
     bool m_attemptRecompileOnAbort;
+
+    void setupAcousticModelCache(const QString &promptsIn);
 
     ContextAdapter::Activity m_currentActivity;
 

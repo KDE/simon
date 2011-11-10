@@ -20,6 +20,7 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
     m_currentSampleGroup = "default";
     m_requestedSampleGroup = "default";
     m_compilingSampleGroup = "default";
+    m_promptsHash = 0;
     m_modelCache = QHash<QString, QString>();
     m_acousticModelCache = QHash<QString, QString>();
     m_currentActivity = ContextAdapter::NoActivity;
@@ -133,6 +134,18 @@ ContextAdapter::ContextAdapter(QString username, QObject *parent) :
         lookupFile.close();
 
         kDebug() << "Loaded acoustic model cache lookup: " << m_acousticModelCache;
+    }
+
+    //load the prompts hash
+    lookupFile.setFileName(acousticDir + "PromptsHash");
+    if (lookupFile.exists())
+    {
+        lookupFile.open(QFile::ReadOnly);
+        QDataStream lookupStream(&lookupFile);
+        lookupStream >> m_promptsHash;
+        lookupFile.close();
+
+        kDebug() << "Loaded prompts hash: " << m_promptsHash;
     }
 }
 
@@ -400,13 +413,59 @@ bool ContextAdapter::loadAcousticModelFromCache(QString sampleGroup)
 
 void ContextAdapter::clearCache()
 {
+    clearLanguageModelCache();
+    clearAcousticModelCache();
+}
+
+void ContextAdapter::clearAcousticModelCache()
+{
     QDir dir;
     QStringList cacheDirs;
     QStringList cachedFiles;
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString acousticDir = cacheDir + "/acoustic models/";
-    QString languageDir = cacheDir + "/language models/";
 
+    m_acousticModelCache.clear();
+
+    QFile lookupFile;
+    lookupFile.setFileName(acousticDir + "CacheLookup");
+    if (lookupFile.exists())
+    {
+        lookupFile.open(QFile::Truncate | QFile::WriteOnly);
+        QDataStream lookupStream(&lookupFile);
+        lookupStream << m_acousticModelCache;
+        lookupFile.close();
+
+        kDebug() << "Acoustic model cache lookup refreshed";
+    }
+
+    QDir initialDir = dir.current();
+    //clear the acoustic model cache
+    dir.setCurrent(acousticDir);
+    cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
+    foreach (QString dirInfo, cacheDirs)
+    {
+        dir.setCurrent(dir.absolutePath() + "/" + dirInfo);
+        cachedFiles = dir.entryList(QDir::Files);
+        foreach (QString fileInfo, cachedFiles)
+        {
+            QFile::remove(fileInfo);
+        }
+        dir.setCurrent(acousticDir);
+        dir.rmdir(dirInfo);
+    }
+    dir.setCurrent(initialDir.dirName());
+
+    m_promptsHash = 0;
+}
+
+void ContextAdapter::clearLanguageModelCache()
+{
+    QDir dir;
+    QStringList cacheDirs;
+    QStringList cachedFiles;
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString languageDir = cacheDir + "/language models/";
 
     kDebug() << "Clearing cache";
 
@@ -422,35 +481,7 @@ void ContextAdapter::clearCache()
         kDebug() << "Language model cache lookup refreshed";
     }
 
-    m_acousticModelCache.clear();
-    lookupFile.setFileName(acousticDir + "CacheLookup");
-    if (lookupFile.exists())
-    {
-        lookupFile.open(QFile::Truncate | QFile::WriteOnly);
-        QDataStream lookupStream(&lookupFile);
-        lookupStream << m_acousticModelCache;
-        lookupFile.close();
-
-        kDebug() << "Acoustic model cache lookup refreshed";
-    }
-
     QDir initialDir = dir.current();
-
-    //clear the acoustic model cache
-    dir.setCurrent(acousticDir);
-    cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
-    foreach (QString dirInfo, cacheDirs)
-    {
-        dir.setCurrent(dir.absolutePath() + "/" + dirInfo);
-        cachedFiles = dir.entryList(QDir::Files);
-        foreach (QString fileInfo, cachedFiles)
-        {
-            QFile::remove(fileInfo);
-        }
-        dir.setCurrent(acousticDir);
-        dir.rmdir(dirInfo);
-    }
-
     //clear the language model cache
     dir.setCurrent(languageDir);
     cacheDirs = dir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
@@ -467,7 +498,6 @@ void ContextAdapter::clearCache()
         dir.setCurrent(languageDir);
         dir.rmdir(dirInfo);
     }
-
     dir.setCurrent(initialDir.dirName());
 
     m_currentModelDeactivatedScenarios = QStringList("unknown");
@@ -500,6 +530,7 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
     //Get paths for caching
     QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
     QString languageDir = cacheDir + "/language models/";
+    QString acousticDir = cacheDir + "/acoustic models/";
 
     //check to see if the base scenarios are different (in which case the cache would need to be cleared)
     if (m_currentScenarioSet.join(",") != scenarioPathsIn.join(","))
@@ -530,7 +561,31 @@ bool ContextAdapter::startAdaption(ModelCompilationAdapter::AdaptionType adaptio
         kDebug() << "Still using base scenario list: " << m_currentScenarioSet;
     }
 
-    //if for some reason newAcousticModel is true (right now a cache refresh will do it)
+    //check if there is a new prompts file
+    if (ModelCompilationAdapter::AdaptAcousticModel & adaptionType)
+    {
+        QFile promptsFile(promptsIn);
+        promptsFile.open(QIODevice::ReadOnly);
+        uint newPromptsHash = qHash(promptsFile.readAll());
+        promptsFile.close();
+        if (m_promptsHash != newPromptsHash)
+        {
+            kDebug() << "New Prompts File!  Resetting acoustic model cache.";
+            setupAcousticModelCache(promptsIn);
+            m_newAcousticModel = true;
+
+            m_promptsHash = newPromptsHash;
+            //save the new prompts hash
+            QFile promptsHashFile(acousticDir + "PromptsHash");
+            promptsHashFile.open(QFile::Truncate | QFile::WriteOnly);
+            QDataStream fileStream(&promptsHashFile);
+            fileStream << m_promptsHash;
+            promptsHashFile.close();
+            kDebug() << "Saved new prompts hash: " << m_promptsHash;
+        }
+    }
+
+    //if for some reason newAcousticModel is true
     //but a static model is being used, set it to false
     if (!ModelCompilationAdapter::AdaptAcousticModel & adaptionType && m_newAcousticModel)
     {
@@ -653,5 +708,70 @@ bool ContextAdapter::startCompilation(ModelCompilationManager::CompilationType c
                                                            treeHedPath,
                                                            wavConfigPath,
                                                            scriptBasePrefix);
+    }
+}
+
+void ContextAdapter::setupAcousticModelCache(const QString &promptsIn)
+{
+    QString cacheDir = KStandardDirs::locateLocal("appdata", "models/"+m_username+"/cached/");
+    QString acousticDir = cacheDir + "/acoustic models/";
+
+    clearAcousticModelCache();
+
+    QMultiHash<QString, QString> linesBySampleGroup;
+
+    QFile promptsFile(promptsIn);
+    promptsFile.open(QIODevice::ReadOnly);
+
+    QTextStream stream(&promptsFile);
+    QString line = stream.readLine();
+    while (!stream.atEnd())
+    {
+        line = stream.readLine();
+
+        QString sampleGroup;
+        //new format
+        if (line.split('"').count() == 3)
+        {
+            sampleGroup = line.split('"').at(1);
+        }
+        //old format
+        else
+        {
+            sampleGroup = "default";
+        }
+
+        if (sampleGroup == "default")
+        {
+            linesBySampleGroup.insert(sampleGroup, line);
+        }
+        else
+        {
+            linesBySampleGroup.insert(sampleGroup, line);
+            linesBySampleGroup.insert("default", line);
+        }
+    }
+    promptsFile.close();
+
+    QStringList sampleGroups = linesBySampleGroup.keys();
+
+    foreach (QString sampleGroup, sampleGroups)
+    {
+        //make the directory in the cache
+        QDir dir;
+        QString sampleGroupDir = acousticDir + sampleGroup;
+        dir.mkpath(sampleGroupDir);
+
+        //make the prompts file
+        QFile sampleGroupFile(sampleGroupDir + "/prompts");
+        sampleGroupFile.open(QIODevice::Truncate | QIODevice::WriteOnly);
+        QTextStream sampleGroupStream(&sampleGroupFile);
+        QStringList lines = linesBySampleGroup.values(sampleGroup);
+
+        foreach (QString promptsLine, lines)
+        {
+            sampleGroupStream << promptsLine + "\n";
+        }
+        sampleGroupFile.close();
     }
 }
