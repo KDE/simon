@@ -19,6 +19,7 @@ set( simonuicomponents_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/textlistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simonwizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.cpp
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonmainwindow.cpp
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.cpp
@@ -47,6 +48,7 @@ set( simonuicomponents_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/multikcmview.h
 	${CMAKE_CURRENT_SOURCE_DIR}/textlistwidget.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/selectprogramdialog.h
 
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlineedit.h
 	#${CMAKE_CURRENT_SOURCE_DIR}/simontablewidget.h
@@ -62,6 +64,10 @@ set( simonuicomponents_LIB_HDRS
 	#${CMAKE_CURRENT_SOURCE_DIR}/simonlistwidget.h
 	#${CMAKE_CURRENT_SOURCE_DIR}/simontabwidget.h
 )
+
+kde4_add_ui_files(simonuicomponents_LIB_SRCS
+        selectprogramdlg.ui
+    )
 
 kde4_add_library( simonuicomponents  SHARED ${simonuicomponents_LIB_SRCS} )
 

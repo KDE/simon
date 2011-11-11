@@ -31,6 +31,7 @@
 
 #include <simonactions/commandsettings.h>
 #include <simonactionsui/runcommandview.h>
+#include <simoncontextui/contextview.h>
 #include <simonuicomponents/trayiconmanager.h>
 
 #include <simonprogresstracking/statusmanager.h>
@@ -56,7 +57,7 @@
 #include <KToolBar>
 #include <QLabel>
 #include <QHBoxLayout>
-#include <KComboBox>
+#include <KDE/KComboBox>
 #include <QDesktopServices>
 
 #include <KMessageBox>
@@ -74,9 +75,10 @@
 #include <KPageWidgetItem>
 #include <KIconLoader>
 #include <KCmdLineArgs>
+#include <KColorScheme>
 
 #include <simonsound/soundserver.h>
- 
+
 /**
  * @brief Constructor
  *
@@ -157,6 +159,12 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
+    info->writeToSplash ( i18n ( "Loading context..." ) );
+  this->contextDialog = new ContextView();
+  connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
+  ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
+
+  if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
   this->runDialog = new RunCommandView ();
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
@@ -184,6 +192,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
     info->hideSplash();
     delete info;
   }
+
 
   if (!control->startMinimized())
     show();
@@ -289,11 +298,34 @@ void SimonView::displayScenarios()
   setUpdatesEnabled(false);
   cbCurrentScenario->clear();
 
+  QFont activatedFont = QFont();
+  QFont deactivatedFont = QFont();
+  deactivatedFont.setItalic(true);
+  //QBrush activatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::ActiveText);
+  QBrush deactivatedColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText);
+
+  //cbCurrentScenario->setForegroundRole(QPalette::ButtonText);
+  cbCurrentScenario->setFont(activatedFont);
+
   QList<Scenario*> scenarioList = ScenarioManager::getInstance()->getScenarios();
   foreach (Scenario* s, scenarioList) {
     cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
+    if (!s->isActive())
+    {
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedFont), Qt::FontRole);
+        cbCurrentScenario->setItemData(cbCurrentScenario->count()-1, QVariant(deactivatedColor), Qt::ForegroundRole);
+
+        if (s->name() == currentData)
+        {
+            //cbCurrentScenario->setForegroundRole(QPalette::BrightText);
+            cbCurrentScenario->setFont(deactivatedFont);
+        }
+    }
   }
   cbCurrentScenario->setCurrentIndex(cbCurrentScenario->findData(currentData));
+
+
+
   setUpdatesEnabled(true);
 }
 
@@ -313,6 +345,16 @@ void SimonView::updateScenarioDisplays()
 
   QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
   Scenario *scenario = ScenarioManager::getInstance()->getScenario(currentId);
+
+
+//  QFont selectedFont;
+//  QByteArray fontData;
+//  QDataStream fontStream(&fontData, QIODevice::ReadWrite);
+//  fontStream << cbCurrentScenario->itemData(currentIndex, Qt::FontRole);
+//  fontStream >> selectedFont;
+
+  //cbCurrentScenario->setForegroundRole((QBrush)cbCurrentScenario->itemData(currentIndex, Qt::ForegroundRole));
+
   kDebug() << "Scenario " << scenario;
   if (!scenario) {
     KMessageBox::error(this, i18n("Could not retrieve Scenario \"%1\"", currentId));
@@ -382,6 +424,14 @@ void SimonView::setupActions()
   actionCollection()->addAction("commands", commands);
   connect(commands, SIGNAL(triggered(bool)),
     this, SLOT(showRunDialog()));
+
+  KAction* context = new KAction(this);
+  context->setText(i18n("Context"));
+  context->setIcon(KIcon("preferences-activities"));
+  context->setShortcut(Qt::CTRL + Qt::Key_E);
+  actionCollection()->addAction("context", context);
+  connect(context, SIGNAL(triggered(bool)),
+    this, SLOT(showContextDialog()));
 
   KAction* volumeCalibration = new KAction(this);
   volumeCalibration->setText(i18n("Volume calibration"));
@@ -467,8 +517,11 @@ void SimonView::displayScenarioPrivate(Scenario *scenario)
 void SimonView::manageScenarios()
 {
   ScenarioManagementDialog *dlg = new ScenarioManagementDialog("simon/", this);
-  if (dlg->updateScenarioConfiguration()) {
+  if (dlg->updateScenarioConfiguration())
+  {
     //reload scenario information
+    kDebug() << "Reloading Scenario Information";
+
     if (!ScenarioManager::getInstance()->setupScenarios(true /* force change */))
       KMessageBox::sorry(this, i18n("Could not re-initialize scenarios. Please restart simon!"));
 
@@ -492,6 +545,7 @@ void SimonView::setupSignalSlots()
   connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
   connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
+  connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
 }
 
 
@@ -538,6 +592,16 @@ void SimonView::displayError ( const QString& error )
 void SimonView::showRunDialog ()
 {
   ui.inlineView->toggleDisplay(runDialog);
+}
+
+/**
+ * @brief Shows the Context Dialog
+ *
+ * @author Adam Nash
+ */
+void SimonView::showContextDialog ()
+{
+  ui.inlineView->toggleDisplay(contextDialog);
 }
 
 
@@ -593,7 +657,7 @@ void SimonView::showTrainDialog ()
 
 
 /**
- * @brief Shows a dialog to Control the Laguage Model
+ * @brief Shows a dialog to Control the Language Model
  *
  * @author Peter Grasch
  */
@@ -604,7 +668,7 @@ void SimonView::showWordListDialog ()
 
 
 /**
- * @brief Shows a dialog to Control the Laguage Model
+ * @brief Shows a dialog to Control the Language Model
  *
  * @author Peter Grasch
  */

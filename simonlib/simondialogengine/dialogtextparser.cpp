@@ -143,8 +143,6 @@ bool DialogTextParser::parseBoundValues(QString& data)
 {
   QString outData = data;
 
-  //TODO: processing
-
   int beginPos = outData.indexOf("$");
   int endPos = -1;
 

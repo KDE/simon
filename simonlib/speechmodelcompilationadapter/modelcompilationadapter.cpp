@@ -58,12 +58,7 @@ bool ModelCompilationAdapter::startAdaption(ModelCompilationAdapter::AdaptionTyp
 const QString& lexiconPathOut, const QString& grammarPathOut, const QString& simpleVocabPathOut,
 const QString& promptsPathOut, const QStringList& scenarioPathsIn, const QString& promptsIn)
 {
-  if (isRunning()) {
-    keepGoing=false;
-    //terminate();
-    wait();
-    emit adaptionAborted();
-  }
+  abort();
 
   m_adaptionType = adaptionType;
   m_lexiconPathOut = lexiconPathOut;
@@ -82,4 +77,15 @@ const QString& promptsPathOut, const QStringList& scenarioPathsIn, const QString
 
 ModelCompilationAdapter::~ModelCompilationAdapter()
 {
+}
+
+void ModelCompilationAdapter::abort()
+{
+    if (isRunning())
+    {
+        kDebug() << "Aborting current adaption";
+        keepGoing = false;
+        wait();
+        emit adaptionAborted();
+    }
 }

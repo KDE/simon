@@ -151,6 +151,8 @@ void RecWidget::registerDevice(const SimonSound::DeviceConfiguration& device, co
   connect(wg, SIGNAL(playing()), this, SLOT(slotEnableDeleteAll()));
   connect(wg, SIGNAL(playbackFinished()), this, SLOT(slotEnableDeleteAll()));
 
+  ui->cbSampleGroup->addItem(device.defaultSampleGroup());
+
   waves << wg;
 }
 
@@ -181,6 +183,14 @@ QStringList RecWidget::getFileNames()
   return fileNames;
 }
 
+QString RecWidget::getSampleGroup()
+{
+    if (!ui->cbSampleGroup->currentText().isEmpty())
+        return ui->cbSampleGroup->currentText();
+
+    else
+        return "default";
+}
 
 QStringList RecWidget::getDevices()
 {
@@ -210,6 +220,8 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
     devices = *forcedDevices;
 	
   if (m_simpleMode) {
+      ui->cbSampleGroup->hide();
+      ui->lbSampleGroup->hide();
     //which device?
     QStringList deviceNames;
     foreach (const SimonSound::DeviceConfiguration& dev, devices)
@@ -228,6 +240,8 @@ void RecWidget::initialize(QList<SimonSound::DeviceConfiguration>* forcedDevices
     }
   }
   else {
+
+
     for (int i=0; i < devices.count(); i++)
       registerDevice(devices[i], '.'+QString::number(i));
   }
@@ -302,6 +316,9 @@ void RecWidget::record()
   ui->pbRecord->setChecked(someoneIsRecording);
   disconnect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(record()));
   connect(ui->pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+
+  //this will limit the sample groups to one per RecWidget (the group cannot be changed after the first recording)
+  ui->cbSampleGroup->setEnabled(false);
 
   emit recording();
 

@@ -1,10 +1,10 @@
-/init_ngram.c/1.8/Tue Sep  6 10:29:59 2011//
-/ngram_access.c/1.6/Tue Sep  6 10:29:59 2011//
-/ngram_compact_context.c/1.8/Tue Sep  6 10:29:59 2011//
-/ngram_lookup.c/1.5/Tue Sep  6 10:29:59 2011//
-/ngram_malloc.c/1.6/Tue Sep  6 10:29:59 2011//
-/ngram_read_arpa.c/1.18/Tue Sep  6 10:29:59 2011//
-/ngram_read_bin.c/1.8/Tue Sep  6 10:29:59 2011//
-/ngram_util.c/1.7/Tue Sep  6 10:29:59 2011//
-/ngram_write_bin.c/1.5/Tue Sep  6 10:29:59 2011//
+/init_ngram.c/1.8/Mon Sep 19 14:44:32 2011//
+/ngram_access.c/1.6/Mon Sep 19 14:44:32 2011//
+/ngram_compact_context.c/1.8/Mon Sep 19 14:44:32 2011//
+/ngram_lookup.c/1.5/Mon Sep 19 14:44:32 2011//
+/ngram_malloc.c/1.6/Mon Sep 19 14:44:32 2011//
+/ngram_read_arpa.c/1.18/Mon Sep 19 14:44:32 2011//
+/ngram_read_bin.c/1.8/Mon Sep 19 14:44:32 2011//
+/ngram_util.c/1.7/Mon Sep 19 14:44:32 2011//
+/ngram_write_bin.c/1.5/Mon Sep 19 14:44:32 2011//
 D

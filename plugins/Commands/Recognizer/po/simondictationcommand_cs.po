@@ -1,0 +1,178 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Pavel Fric <pavelfric@seznam.cz>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: simondictationcommand\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"PO-Revision-Date: 2009-03-02 21:22+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: dictationcommandmanager.cpp:45 dictationconfiguration.cpp:30
+#: dictationconfiguration.cpp:31
+msgid "Dictation"
+msgstr "Diktování"
+
+#. i18n: file: dictationconfigurationdlg.ui:25
+#. i18n: ectx: property (text), widget (QLabel, lbAppend)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Append text after result:"
+msgstr ""
+
+#: po/rc.cpp:4 rc.cpp:4
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Pavel Fric"
+
+#: po/rc.cpp:5 rc.cpp:5
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pavelfric@seznam.cz"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Location"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Saturation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "applications"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Orientation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgctxt "The duration of a journey"
+#~ msgid "Duration:"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Calculation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Actions"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Your name:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Surname:"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Education:"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Institution"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Orientation:"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Communication:"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Subtraction"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Multiplication"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Dialog option"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Action"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Surname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Forename"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "Occupation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Communication"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "&Rotation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "KDE Documentation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "without name"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu Navigation Bar"
+#~ msgid "Edit Location"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Direction"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "&Orientation"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Suriname"
+#~ msgstr "Pavel Fric"
+
+#, fuzzy
+#~ msgid "United Nations"
+#~ msgstr "Diktování"
+
+#, fuzzy
+#~ msgid "Annotation"
+#~ msgid_plural "%1 Annotations"
+#~ msgstr[0] "Diktování"
+#~ msgstr[1] "Diktování"
+#~ msgstr[2] "Diktování"
+
+#, fuzzy
+#~ msgctxt "@title:column"
+#~ msgid "Description"
+#~ msgstr "Diktování"

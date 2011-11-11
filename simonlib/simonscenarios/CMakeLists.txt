@@ -18,7 +18,7 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtextcollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
@@ -45,6 +45,8 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
 )
 
 
@@ -82,6 +84,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistelements.h
+
+        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
 )
 
 
@@ -97,8 +101,7 @@ kde4_add_kcfg_files(simonscenarios_LIB_SRCS
 kde4_add_library( simonscenarios SHARED ${simonscenarios_LIB_SRCS} )
 target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
 	simonxml simonlogging simoninfo simonrecognitionresult
-	simonscenariobase simongraphemetophoneme )
-
+	simonscenariobase simoncontextdetection simongraphemetophoneme )
 
 set_target_properties( simonscenarios
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

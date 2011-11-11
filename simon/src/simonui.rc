@@ -10,6 +10,7 @@
 		<Action name="grammar" />
 		<Action name="train" />
 		<Action name="commands" />
+                <Action name="context" />
 		<Separator/>
 		<Action name="compileModel" />
 	</ToolBar>
@@ -37,6 +38,7 @@
 			<Action name="grammar" />
 			<Action name="train" />
 			<Action name="commands" />
+                        <Action name="context" />
 			<Action name="volumeCalibration" />
 		</Menu>
 		<Menu name="commands">

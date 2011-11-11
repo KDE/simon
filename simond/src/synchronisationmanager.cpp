@@ -38,6 +38,7 @@
 #include <KDateTime>
 #include <KConfigGroup>
 #include <KDebug>
+#include <KDateTime>
 
 SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
 username(user_name),
@@ -353,12 +354,18 @@ int SynchronisationManager::getBaseModelType()
 
   bool ok;
   int baseModelType = cGroup.readEntry("BaseModelType").toInt(&ok);
-  if (!ok) return 2;
-
+  if (!ok)
+  {
+      kDebug() << "Could not read BaseModelType!!  Defaulting to user generated model.";
+      return 2;
+  }
 
   if ((baseModelType == 1) /*adapted*/ &&
-      (getPromptsPath().isEmpty()))
-    baseModelType = 0;
+          (getPromptsPath().isEmpty()))
+  {
+      kDebug() << "Could not find prompts for adapted base model!!  Defaulting to static base model.";
+      baseModelType = 0;
+  }
 
   return baseModelType;
 }
@@ -396,6 +403,7 @@ const QByteArray& macros, const QByteArray& stats)
   KConfigGroup cGroup(&config, "");
   cGroup.writeEntry("BaseModelDate", changedDate);
   cGroup.writeEntry("BaseModelType", modelType);
+  kDebug() << "Base model type has been written!!! It is: " << modelType;
   config.sync();
   return true;
 }

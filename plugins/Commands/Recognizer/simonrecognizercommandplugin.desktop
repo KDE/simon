@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Service
+Icon=text-field
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonrecognizercommandplugin
+Name=simon Recognizer Plugin
+Name[de]=simon Recognizer Modul
+Name[fr]=Module de Recognizer de simon
+Comment=Recognize
+Comment[de]=Recognize
+Comment[fr]=Recognize
+
+X-KDE-PluginInfo-Author=Adam Nash
+X-KDE-PluginInfo-Email=adam.t.nash@gmail.com
+X-KDE-PluginInfo-Name=simonrecognizercommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=simon

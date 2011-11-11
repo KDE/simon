@@ -137,6 +137,28 @@ QStringList ScenarioManager::getAllAvailableScenarioIds()
   return getAllAvailableScenarioIds("simon/");
 }
 
+QStringList ScenarioManager::getAllDeactivatedScenarioIds()
+{
+    QStringList deactivatedScenarios;
+
+    kDebug() << "Preparing a list of deactivated scenarios...";
+
+    foreach (Scenario* scenario, scenarios)
+    {
+        if (!scenario->isActive())
+        {
+            deactivatedScenarios.push_back(scenario->id());
+            kDebug() << scenario->id() + " is deactivated";
+        }
+        else
+        {
+            kDebug() << scenario->id() + " is activated";
+        }
+    }
+
+    return deactivatedScenarios;
+}
+
 
 bool ScenarioManager::storeScenario(const QString& id, const QByteArray& data)
 {
@@ -221,62 +243,71 @@ Scenario* ScenarioManager::getScenario(const QString& id)
 
 bool ScenarioManager::setupScenarios(bool forceChange)
 {
-  bool success = true;
+    bool success = true;
 
-  qDeleteAll(scenarios);
-  scenarios.clear();
+    kDebug() << "Setting up scenarios...";
 
-  kDebug() << "Setting up scenarios...";
+    QStringList defaultScenarioIds;
+    defaultScenarioIds << "general";
 
-  KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
-  KConfigGroup cg(config, "");
+    QStringList scenarioIds;
 
-  QStringList defaultScenarioIds;
-  defaultScenarioIds << "general";
+    qDeleteAll(scenarios);
+    scenarios.clear();
 
-  QStringList scenarioIds;
+    KSharedConfigPtr config = KSharedConfig::openConfig("simonscenariosrc");
+    KConfigGroup cg(config, "");
 
-  if (cg.hasKey("SelectedScenarios")) {
-    scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
-  }
-  else {
-    scenarioIds = defaultScenarioIds;
-    cg.writeEntry("SelectedScenarios", defaultScenarioIds);
-    cg.writeEntry("LastModified", KDateTime::currentUtcDateTime().dateTime());
-    cg.sync();
-  }
-
-  kDebug() << "Loading scenario: " << scenarioIds;
-
-  foreach (const QString& id, scenarioIds) {
-    Scenario *s = new Scenario(id);
-    kDebug() << "Initializing scenario" << id;
-
-    if (setupScenario(s))
-      scenarios << s;
-    else {
-      success = false;
-      kDebug() << "Could not initialize scenario: " << id;
+    if (cg.hasKey("SelectedScenarios")) {
+        scenarioIds = cg.readEntry("SelectedScenarios", defaultScenarioIds);
     }
-  }
+    else {
+        scenarioIds = defaultScenarioIds;
+        cg.writeEntry("SelectedScenarios", defaultScenarioIds);
+        cg.writeEntry("LastModified", QDateTime::currentDateTime());
+        cg.sync();
+    }
 
-  if (forceChange) {
-    if (m_inGroup)
-      m_scenariosDirty = true;
-    else
-      emit scenariosChanged();
-  }
+    kDebug() << "Loading scenario: " << scenarioIds;
 
-  emit scenarioSelectionChanged();
+    foreach (const QString& id, scenarioIds) {
+        Scenario *s = new Scenario(id);
+        kDebug() << "Initializing scenario" << id;
 
-  //we have to have at least one scenario loaded anyways; If not this
-  //crash here is the least of our worries...
-  kDebug() << "Updating displays here";
-  updateDisplays(scenarios[0], true);
+        if (setupScenario(s))
+            scenarios << s;
+        else {
+            success = false;
+            kDebug() << "Could not initialize scenario: " << id;
+        }
+    }
 
-  return success;
+    setupAllChildScenarios();
+
+    if (forceChange) {
+        if (m_inGroup)
+            m_scenariosDirty = true;
+        else
+            emit scenariosChanged();
+    }
+
+    emit scenarioSelectionChanged();
+
+    //we have to have at least one scenario loaded anyways; If not this
+    //crash here is the least of our worries...
+    kDebug() << "Updating displays here";
+    updateDisplays(scenarios[0], true);
+
+    return success;
 }
 
+void ScenarioManager::setupAllChildScenarios()
+{
+    foreach(Scenario* loadedScenario, scenarios)
+    {
+        loadedScenario->setupChildScenarios();
+    }
+}
 
 void ScenarioManager::setPluginFont(const QFont& font)
 {
@@ -294,7 +325,15 @@ bool ScenarioManager::setupScenario(Scenario *s)
   }
   //	connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
   connect(s, SIGNAL(changed(Scenario*)), this, SIGNAL(scenariosChanged()));
+  connect(s, SIGNAL(activationChanged()), this, SLOT(scenarioActivationChanged()));
   return true;
+}
+
+void ScenarioManager::scenarioActivationChanged()
+{
+    kDebug() << "ScenarioManager is preparing the list of deactivated scenarios!";
+
+    emit deactivatedScenarioListChanged();
 }
 
 

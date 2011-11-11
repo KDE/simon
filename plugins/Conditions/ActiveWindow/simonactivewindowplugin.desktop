@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Service
+Icon=text-field
+ServiceTypes=simon/ConditionPlugin
+X-KDE-Library=simonactivewindowplugin
+Name=simon Active Window Plugin
+Name[de]=simon Active Window Modul
+Name[fr]=Module de Active Window de simon
+Comment=Checks for Active Window
+Comment[de]=Checks for Active Window
+Comment[fr]=Checks for Active Window
+
+X-KDE-PluginInfo-Author=Adam Nash
+X-KDE-PluginInfo-Email=adam.t.nash@gmail.com
+X-KDE-PluginInfo-Name=simonactivewindowplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

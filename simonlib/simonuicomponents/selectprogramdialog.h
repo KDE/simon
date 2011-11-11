@@ -21,33 +21,31 @@
 #define SIMON_SELECTPROGRAMDIALOG_H_5C48BD3D50AE452B9063AD517C4E8E94
 
 #include <KDialog>
-#include "ui_selectprogramdlg.h"
+#include "simonuicomponents_export.h"
 
-class ExecutableCommand;
+namespace Ui
+{
+class SelectProgramDlg;
+}
 
 /**
  * \class SelectProgramDialog
  * \author Peter Grasch
- * \date 16.08.2007
+ * \date 16.08.2007 (moved from the Executable plugin to simonuicomponents by Adam Nash on 16.9.2011)
  * \version 0.1
  * \brief The user must choose a category, to display the corresponding programs, where he also must choose one to continue.
  */
-class SelectProgramDialog : public KDialog
+
+class SIMONUICOMPONENTS_EXPORT SelectProgramDialog : public KDialog
 {
   Q_OBJECT
 
     private:
-    Ui::SelectProgramDlg ui;
+    Ui::SelectProgramDlg *ui;
 
     void initialize();
 
     void findCategories(QString relPath);
-
-    QString getExecPath();
-    QString getName();
-    QString getIcon();
-    QString getDescription();
-    QString getWorkingDirectory();
 
   private slots:
     void searchForPrograms();
@@ -56,7 +54,13 @@ class SelectProgramDialog : public KDialog
     SelectProgramDialog(QWidget* parent);
     ~SelectProgramDialog();
 
-    ExecutableCommand* selectCommand();
+    bool selectCommand();
+
+    QString getExecPath();
+    QString getName();
+    QString getIcon();
+    QString getDescription();
+    QString getWorkingDirectory();
 
 };
 #endif

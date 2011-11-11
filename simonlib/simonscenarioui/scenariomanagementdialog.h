@@ -27,8 +27,8 @@
 #include "simonscenarioui_export.h"
 
 class Scenario;
-class QListWidget;
-class QListWidgetItem;
+class QTreeWidget;
+class QTreeWidgetItem;
 
 namespace Ui
 {
@@ -49,12 +49,15 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
     bool m_dirty;
 
     void initDisplay();
-    void displayScenario(Scenario *scenario, QListWidget* widget);
-    void setupItemToScenario(QListWidgetItem *item, Scenario *scenario);
+    QTreeWidgetItem* displayScenario(Scenario *scenario, QTreeWidget* widget);
+    void setupItemToScenario(QTreeWidgetItem *item, Scenario *scenario);
 
     Scenario* getCurrentlySelectedScenario();
+    QStringList getChildScenarioIds(QTreeWidgetItem* parentItem);
+    QStringList getAllLevelChildScenarioIds(QTreeWidgetItem* parentItem);
 
     bool save();
+    void saveChildConfiguration(QTreeWidgetItem *parentItem);
 
   private slots:
     void availableScenarioSelected();
@@ -68,10 +71,10 @@ class SIMONSCENARIOUI_EXPORT ScenarioManagementDialog : public KDialog
     void deleteScenario();
 
     void updateLastSelectedIndex(const QModelIndex&);
-    void slotAdded(QListWidgetItem*);
-    void slotMovedDown(QListWidgetItem*);
-    void slotMovedUp(QListWidgetItem*);
-    void slotRemoved(QListWidgetItem*);
+    void slotAdded();
+    void slotMovedDown();
+    void slotMovedUp();
+    void slotRemoved();
 
   public slots:
     int exec();

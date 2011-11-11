@@ -91,7 +91,8 @@ void ImportTrainingData::run()
       filename = filename.left(filename.lastIndexOf('.'));
       filename = filename.mid(filename.lastIndexOf(QDir::separator())+1);
 
-      TrainingManager::getInstance()->addSample(filename, content.toUpper());
+      //TODO: allow imported files to have customized sample groups
+      TrainingManager::getInstance()->addSample(filename, "default", content.toUpper());
       i++;
     }
 
@@ -218,7 +219,8 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
     fileName = fileInfo.fileName();
 
     said = extractSaid(fileName);
-    train->addSample(fileName.left(fileName.lastIndexOf('.')), said.toUpper());
+    //TODO: allow imported files to have customized sample groups
+    train->addSample(fileName.left(fileName.lastIndexOf('.')), "default", said.toUpper());
   }
   train->savePrompts();
   return true;

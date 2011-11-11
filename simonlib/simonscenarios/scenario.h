@@ -31,6 +31,7 @@
 #include "scenariomanager.h"
 #include <simonrecognitionresult/recognitionresult.h>
 #include "simonmodelmanagement_export.h"
+#include <simoncontextdetection/compoundcondition.h>
 
 class ScenarioObject;
 class Author;
@@ -48,12 +49,14 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     signals:
   void changed(Scenario*);
+  void activationChanged();
 
   private:
     QString m_prefix;
     int m_inGroup;
     bool m_dirty;
     QString m_scenarioId;
+    bool m_active;
 
     QDateTime m_lastModifiedDate;
 
@@ -68,6 +71,10 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     TrainingTextCollection *m_texts;
     Grammar *m_grammar;
     ActionCollection* m_actionCollection;
+    CompoundCondition* m_compoundCondition;
+    QStringList m_childScenarioIds;
+    QList<Scenario*> m_childScenarios;
+    Scenario* m_parentScenario;
 
     QStringList getValidSentences(QList< QList<Word*> > sentenceMatrix, int* alreadyFoundExamples=0);
 
@@ -88,6 +95,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     VersionNumber* simonMaxVersion() { return m_simonMaxVersion; }
     QList<Author*> authors() { return m_authors; }
     QDateTime modifiedDate() { return m_lastModifiedDate; }
+    bool isActive() {return m_active;}
 
     QString serialize();
 
@@ -121,16 +129,26 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     bool readLanguageModel(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readActions(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool readTrainingsTexts(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readCompoundCondition(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
+    bool readChildScenarioIds(QString path=QString(), QDomDocument* doc=0, bool deleteDoc=false);
     bool init(QString path=QString());
     bool create(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
     bool update(const QString& name, const QString& iconSrc, int version, VersionNumber* simonMinVersion,
       VersionNumber* simonMaxVersion, const QString& license, QList<Author*> authors);
 
+    bool setupChildScenarios();
+    QList<Scenario*> childScenarios() const;
+    QStringList childScenarioIds() const;
+    Scenario* parentScenario();
+    void setParentScenario(Scenario* parent);
+    void setChildScenarioIds(QStringList ids);
+
     ActiveVocabulary* vocabulary() { return m_vocabulary; }
     Grammar* grammar() { return m_grammar; }
     TrainingTextCollection* texts() { return m_texts; }
     ActionCollection* actionCollection() { return m_actionCollection; }
+    CompoundCondition* compoundCondition() {return m_compoundCondition;}
 
     bool removeText(TrainingText* text);
     bool addTrainingText(TrainingText* text);
@@ -161,6 +179,6 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
   public slots:
     bool save(QString path=QString());
-
+    void updateActivation();
 };
 #endif

@@ -83,6 +83,8 @@ class MODELCOMPILATIONADAPTER_EXPORT ModelCompilationAdapter : public QThread
     void clearPoisonedPhonemes() { poisonedPhonemes.clear(); }
     void poisonPhoneme( const QString& phoneme ) { poisonedPhonemes << phoneme; }
 
+    void abort();
+
   protected:
     bool keepGoing;
     AdaptionType m_adaptionType;

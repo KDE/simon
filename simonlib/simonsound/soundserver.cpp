@@ -58,6 +58,11 @@ QString SoundServer::defaultInputDevice()
   return SoundServer::getInstance()->defaultInputDevicePrivate();
 }
 
+QString SoundServer::defaultSampleGroup()
+{
+    return "default";
+}
+
 
 QString SoundServer::defaultOutputDevice()
 {
@@ -400,13 +405,14 @@ QList<SimonSound::DeviceConfiguration> SoundServer::getInputDevices(SimonSound::
   QList<int> soundInputResampleEnabled = SoundConfiguration::soundInputResampleEnabled();
   QList<int> soundInputResampleSampleRates = SoundConfiguration::soundInputResampleSampleRates();
   QList<int> soundInputUses = SoundConfiguration::soundInputUses();
+  QStringList soundInputDefaultSampleGroups = SoundConfiguration::soundInputDefaultSampleGroups();
 
   for (int i=0; i < soundInputDevices.count(); i++) {
     if (!(soundInputUses[i] & uses))
       continue;
 
     devices << SimonSound::DeviceConfiguration(soundInputDevices[i], soundInputChannels[i], soundInputSampleRates[i],
-        soundInputResampleEnabled[i], soundInputResampleSampleRates[i]);
+        soundInputResampleEnabled[i], soundInputResampleSampleRates[i], soundInputDefaultSampleGroups[i]);
   }
 
   return devices;

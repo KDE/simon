@@ -19,7 +19,7 @@
 
 #include "createexecutablecommandwidget.h"
 #include "executablecommand.h"
-#include "selectprogramdialog.h"
+#include "simonuicomponents/selectprogramdialog.h"
 #include <KLineEdit>
 
 CreateExecutableCommandWidget::CreateExecutableCommandWidget(CommandManager *manager, QWidget* parent) : CreateCommandWidget(manager, parent)
@@ -60,10 +60,15 @@ bool CreateExecutableCommandWidget::isComplete()
 void CreateExecutableCommandWidget::selectProgram()
 {
   SelectProgramDialog *select = new SelectProgramDialog(this);
-  Command *c = select->selectCommand();
 
-  if (c)
-    emit propagateCreatedCommand(c);
+  if (select->selectCommand())
+  {
+      Command *c = new ExecutableCommand(select->getName(), select->getIcon(), select->getDescription(),
+                                         select->getExecPath(), select->getWorkingDirectory());
+
+      if (c)
+        emit propagateCreatedCommand(c);
+  }
 
   select->deleteLater();
 }

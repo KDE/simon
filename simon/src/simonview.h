@@ -33,7 +33,7 @@
  */
 
 #include "ui_simonview.h"
-#include <KXmlGuiWindow>
+#include <KDE/KXmlGuiWindow>
 #include <simoncontrol.h>
 #include <simonscenarios/scenariodisplay.h>
 
@@ -44,7 +44,7 @@
 #include <QTimer>
 #endif
 
-#include <KHTMLPart>
+#include <KDE/KHTMLPart>
 // #include "operation.h"
 
 class QPoint;
@@ -60,6 +60,7 @@ class TrayIconManager;
 class RunCommandView;
 class QAction;
 class GrammarView;
+class ContextView;
 class KCMultiDialog;
 class KAction;
 class Operation;
@@ -97,6 +98,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     GrammarView *grammarView;                     //!< Pointer on the Dialog "WordList"
     RunCommandView *runDialog;                    //!< Pointer on the Dialog "RunCommand"
     TrainingView *trainDialog;                    //!< Pointer on the Dialog "Training"
+    ContextView *contextDialog;
     KCMultiDialog *configDialog;
 
     KComboBox *cbCurrentScenario;
@@ -133,6 +135,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     
     void showAddWordDialog();
     void showRunDialog();
+    void showContextDialog();
     void showTrainDialog();
     void showWordListDialog();
     void showGrammarDialog();

@@ -44,6 +44,7 @@ class TrainSamplePage : public QWizardPage
 
     QString getPrompt() { return prompt; }
     QStringList getFileNames();
+    QString getSampleGroup();
 
   public slots:
     bool submit();
