@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2009-01-14 12:05+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: aicommandmanager.cpp:53 aicommandmanager.cpp:113 aiconfiguration.cpp:32
+#: aicommandmanager.cpp:53 aicommandmanager.cpp:114 aiconfiguration.cpp:32
 msgid "Artificial Intelligence"
 msgstr "Kunstmatige intelligentie"
 
-#: aicommandmanager.cpp:113
+#: aicommandmanager.cpp:114
 msgid "Loading artificial intelligence..."
 msgstr "Kunstmatige intelligentie laden..."
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-07-22 21:42+0200\n"
 "Last-Translator: Yann Cantin <yann.cantinlaposte.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -35,28 +35,28 @@ msgstr "Désactiver le filtre"
 msgid "Changing filter state..."
 msgstr "[INF] Changement d'état du filtre"
 
-#: filtercommandmanager.cpp:165
+#: filtercommandmanager.cpp:168
 msgid "Activate filter"
 msgstr "Activer le filtre"
 
-#: filtercommandmanager.cpp:166
+#: filtercommandmanager.cpp:169
 msgid "Starts filtering"
 msgstr "Démarrer le filtrage"
 
-#: filtercommandmanager.cpp:172
+#: filtercommandmanager.cpp:175
 msgid "Deactivate filter"
 msgstr "Désactiver le filtre"
 
-#: filtercommandmanager.cpp:173
+#: filtercommandmanager.cpp:176
 msgid "Stops filtering"
 msgstr "Arrêter le filtrage"
 
-#: filtercommandmanager.cpp:179
+#: filtercommandmanager.cpp:182
 #, fuzzy
 msgid "Deactivate filter once"
 msgstr "Désactiver le filtre"
 
-#: filtercommandmanager.cpp:180
+#: filtercommandmanager.cpp:183
 msgid ""
 "When two stage mode is activated; Will consider the next recognition result "
 "and either only listen for the command to deactivate the filter completely "

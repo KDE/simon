@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-02-09 13:32+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -34,28 +34,28 @@ msgstr "Deaktiviere Filter"
 msgid "Changing filter state..."
 msgstr "[INF] Filter Status geändert..."
 
-#: filtercommandmanager.cpp:165
+#: filtercommandmanager.cpp:168
 msgid "Activate filter"
 msgstr "Aktiviere Filter"
 
-#: filtercommandmanager.cpp:166
+#: filtercommandmanager.cpp:169
 msgid "Starts filtering"
 msgstr "Starte Filterung"
 
-#: filtercommandmanager.cpp:172
+#: filtercommandmanager.cpp:175
 msgid "Deactivate filter"
 msgstr "Deaktiviere Filter"
 
-#: filtercommandmanager.cpp:173
+#: filtercommandmanager.cpp:176
 msgid "Stops filtering"
 msgstr "Stoppe Filterung"
 
-#: filtercommandmanager.cpp:179
+#: filtercommandmanager.cpp:182
 #, fuzzy
 msgid "Deactivate filter once"
 msgstr "Deaktiviere Filter"
 
-#: filtercommandmanager.cpp:180
+#: filtercommandmanager.cpp:183
 msgid ""
 "When two stage mode is activated; Will consider the next recognition result "
 "and either only listen for the command to deactivate the filter completely "

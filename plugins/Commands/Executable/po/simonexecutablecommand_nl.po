@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2009-01-14 12:03+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Werkmap"
 
 #. i18n: file: createexecutablecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:3 selectprogramdialog.cpp:42 rc.cpp:3
+#: po/rc.cpp:3 rc.cpp:3
 #, fuzzy
 msgid "Select program"
 msgstr "Programma toevoegen"
@@ -82,9 +82,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
 
-#: selectprogramdialog.cpp:132
-msgid "%1 (%2)"
-msgstr "%1 (%2)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
 
 #, fuzzy
 #~ msgid "Director"
