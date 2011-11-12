@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-06-26 21:21+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -83,6 +83,15 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
+#: pronunciationtrainingcommandmanager.cpp:39
+msgid "Activate Pronunciation Training"
+msgstr "Zapnout procvičování výslovnosti"
+
+#: pronunciationtrainingcommandmanager.cpp:74
+#, fuzzy
+msgid "Activating pronunciationtraining"
+msgstr "[INF] Zapíná se procvičování výslovnosti"
+
 #: pronunciationtraining.cpp:64
 msgid "There are no words to train. Please check your configuration."
 msgstr ""
@@ -92,15 +101,6 @@ msgstr ""
 #: pronunciationtraining.cpp:90
 msgid "Sample %1 of %2:"
 msgstr "Nahrávka %1 z %2:"
-
-#: pronunciationtrainingcommandmanager.cpp:39
-msgid "Activate Pronunciation Training"
-msgstr "Zapnout procvičování výslovnosti"
-
-#: pronunciationtrainingcommandmanager.cpp:72
-#, fuzzy
-msgid "Activating pronunciationtraining"
-msgstr "[INF] Zapíná se procvičování výslovnosti"
 
 #, fuzzy
 #~ msgid "Play previous"

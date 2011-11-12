@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonexecutablecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2010-06-25 11:13+0200\n"
 "Last-Translator: Pavel\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Pracovní adresář"
 
 #. i18n: file: createexecutablecommandwidget.ui:20
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:3 selectprogramdialog.cpp:42 rc.cpp:3
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Select program"
 msgstr "Vybrat program"
 
@@ -82,9 +82,8 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
-#: selectprogramdialog.cpp:132
-msgid "%1 (%2)"
-msgstr "%1 (%2)"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
 
 #, fuzzy
 #~ msgid "Director"

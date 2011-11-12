@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simondictationcommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2011-02-03 16:13+0100\n"
+"POT-Creation-Date: 2011-11-11 17:12+0100\n"
 "PO-Revision-Date: 2009-03-02 21:22+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: dictationcommandmanager.cpp:45 dictationconfiguration.cpp:30
+#: dictationcommandmanager.cpp:46 dictationconfiguration.cpp:30
 #: dictationconfiguration.cpp:31
 msgid "Dictation"
 msgstr "Diktování"
