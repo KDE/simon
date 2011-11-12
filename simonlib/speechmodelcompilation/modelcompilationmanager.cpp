@@ -1558,9 +1558,17 @@ bool ModelCompilationManager::makeMonophones()
   QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(getScriptFile("global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
   if (!execute(execStr)) return false;
 
+  //add sil phoneme if not in there
+  QFile monophones1(tempDir+"/monophones1");
+  if (!monophones1.open(QIODevice::ReadWrite))
+    return false;
+  if (!monophones1.readAll().contains(QRegExp("^sil$")))
+    monophones1.write("sil\n")
+
+  monophones1.seek(0);
+
   //make monophones0
   //ditch the "sp" phoneme
-  QFile monophones1(tempDir+"/monophones1");
   QFile monophones0(tempDir+"/monophones0");
   if (!monophones1.open(QIODevice::ReadOnly))
     return false;

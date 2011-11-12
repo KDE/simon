@@ -118,9 +118,6 @@ bool ActiveWindow::privateDeSerialize(QDomElement elem)
     connect(processInfo, SIGNAL(activeWindowTitleChanged(QString)),
             this, SLOT(checkActiveWindowTitle(QString)));
 
-    //initialize the condition
-    //TODO
-
     return true;
 }
 
