@@ -512,11 +512,12 @@ YY_MALLOC_DECL
 			errno=0; \
 			clearerr(yyin); \
 			} \
-		int n; \
-		for(n = 0; n < result; n++) { \
-		  if (buf[n] == '\n') { \
-		    if (n >= 1 && buf[n-1] == '\r') { \
+		{\
+		        int n; \
+			for(n = 0; n < result; n++) { \if (buf[n] == '\n') { \
+			if (n >= 1 && buf[n-1] == '\r') { \
 			buf[n-1] = '\n'; \
+		}\
 		    } \
 		  } \
 		} \
