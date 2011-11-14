@@ -7,7 +7,10 @@ if(UNIX)
 endif(UNIX)
 
 include(SimonDirs)
-
+if(WIN32)
+    find_package(KDEWin REQUIRED)
+    include_directories(${KDEWIN_INCLUDES})
+endif(WIN32)
 add_definitions(-DHAVE_ZLIB)
 #add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99)
 
