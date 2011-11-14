@@ -43,11 +43,7 @@
 #define __SENT_STANDARD_DEFS__
 
 /* load site-dependent configuration by configure script */
-#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-#include <config-msvc-libsent.h>
-#else
 #include <sent/config.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
