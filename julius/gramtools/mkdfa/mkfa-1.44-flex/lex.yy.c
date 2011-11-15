@@ -512,12 +512,13 @@ YY_MALLOC_DECL
 			errno=0; \
 			clearerr(yyin); \
 			} \
-		{\
+		{ \
 		        int n; \
-			for(n = 0; n < result; n++) { \if (buf[n] == '\n') { \
-			if (n >= 1 && buf[n-1] == '\r') { \
+			for(n = 0; n < result; n++) { \
+			if (buf[n] == '\n') { \
+				if (n >= 1 && buf[n-1] == '\r') { \
 			buf[n-1] = '\n'; \
-		}\
+		} \
 		    } \
 		  } \
 		} \
@@ -573,7 +574,7 @@ YY_DECL
 
 #line 1 "gram.l"
 
-#line 555 "lex.yy.c"
+#line 576 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -741,7 +742,7 @@ YY_RULE_SETUP
 #line 35 "gram.l"
 ECHO;
 	YY_BREAK
-#line 723 "lex.yy.c"
+#line 744 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
