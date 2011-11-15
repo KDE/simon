@@ -4,5 +4,7 @@ if (KDEPIMLIBS_FOUND)
 add_subdirectory(speechcal)
 endif (KDEPIMLIBS_FOUND)
 
-add_subdirectory(simonskype)
+if(NOT WIN32)
+    add_subdirectory(simonskype)
+endif(NOT WIN32)
 add_subdirectory(simonstatus)
