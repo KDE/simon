@@ -23,7 +23,7 @@
 #include <KMessageBox>
 #include <ctype.h>
 #include <windows.h>
-#include <winable.h>
+#include <winuser.h>
 
 #define VK_BROWSER_BACK 0xA6
 #define VK_BROWSER_FAVORITES  0xAB
