@@ -259,6 +259,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
         LPDIRECTSOUNDNOTIFY *notify)
 {
   DSBUFFERDESC BufferDesc;
+  DSCBUFFERDESC CaptureBufferDesc;
 
   //GET GUID
   // remove everything up to (
@@ -298,7 +299,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   kWarning() << "Setting cooperation level";
   if (type == SimonSound::Output)
     (*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
-//   TODO:fix 'SetCooperativeLevel' : is not a member of 'IDirectSoundCapture'
+//   TODO:fix 'SetCooperativeLevel' : is not a member of 'IDirectSoundCapture', so maybe jut not needed
 //   else
 //     (*ppDS8C)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
 
@@ -310,6 +311,16 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   BufferDesc.dwReserved   = 0;
   BufferDesc.lpwfxFormat    = 0;
   BufferDesc.guid3DAlgorithm  = GUID_NULL;
+  
+    CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
+    CaptureBufferDesc.dwFlags      = DSBCAPS_CTRLPOSITIONNOTIFY |
+                                DSBCAPS_CTRLFREQUENCY |
+                                DSBCAPS_GLOBALFOCUS;
+    CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
+    CaptureBufferDesc.dwReserved   = 0;
+    CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
+    CaptureBufferDesc.dwFXCount = 0;
+    CaptureBufferDesc.lpDSCFXDesc  = NULL;
 
   // Creating primary sound buffer
   kWarning() << "Creating primary buffer";
@@ -323,7 +334,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
       return false;
     }
   } else { // recording
-    if(FAILED((*ppDS8C)->CreateCaptureBuffer(&BufferDesc,
+    if(FAILED((*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc,
               primaryBufferC, 0))) {
       kWarning() << "Failed to create primary recording buffer";
       (*ppDS8C)->Release();
@@ -372,13 +383,24 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
       emit errorOccured(SimonSound::OpenError);
       return false;
     }
+    
+    CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
+    CaptureBufferDesc.dwFlags      = DSBCAPS_CTRLPOSITIONNOTIFY |
+                                DSBCAPS_CTRLFREQUENCY |
+                                DSBCAPS_GLOBALFOCUS;
+    CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
+    CaptureBufferDesc.dwReserved   = 0;
+    CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
+    CaptureBufferDesc.dwFXCount = 0;
+    CaptureBufferDesc.lpDSCFXDesc  = NULL;
+    
 
     kWarning() << "Query interface";
     pTemp->QueryInterface(IID_IDirectSoundBuffer8, (void**)(secondaryBuffer));
     SAFE_RELEASE(pTemp);
   } else { // capture
     LPDIRECTSOUNDCAPTUREBUFFER pTemp;
-    if(FAILED((*ppDS8C)->CreateCaptureBuffer(&BufferDesc, &pTemp, 0))) {
+    if(FAILED((*ppDS8C)->CreateCaptureBuffer(&CaptureBufferDesc, &pTemp, 0))) {
       kWarning() << "Couldn't create sound buffer.";
       (*ppDS8C)->Release();
       *ppDS8C = 0;
