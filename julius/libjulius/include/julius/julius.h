@@ -26,13 +26,8 @@
 #define __J_JULIUS_H__
 
 /* read configurable definitions */
-#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-# include <config-msvc-libjulius.h>
-# include <config-msvc-libsent.h>
-#else
 #include <julius/config.h>
 #include <sent/config.h>
-#endif
 /* read built-in definitions */
 #include <julius/define.h>
 
