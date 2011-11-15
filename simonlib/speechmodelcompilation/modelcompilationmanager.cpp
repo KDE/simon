@@ -1562,7 +1562,7 @@ bool ModelCompilationManager::makeMonophones()
   QFile monophones1(tempDir+"/monophones1");
   if (!monophones1.open(QIODevice::ReadWrite))
     return false;
-  if (!monophones1.readAll().contains("^sil$"))
+  if (!monophones1.readAll().contains("sil"))
     monophones1.write("sil\n");
 
   monophones1.seek(0);
