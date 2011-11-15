@@ -279,8 +279,9 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   }
 
   // Generate DirectSound-Interface
+  //TODO: are in and output switched?
   if (((type == SimonSound:: Input) && FAILED(DirectSoundCreate8(&deviceID, ppDS8, 0))) ||
-      ((type == SimonSound:: Output) && FAILED(DirectSoundCaptureCreate8(&deviceID, ppDS8, 0)))) {
+      ((type == SimonSound:: Output) && FAILED(DirectSoundCaptureCreate8(&deviceID, ppDS8C, 0)))) {
     kWarning() << "Failed to open device";
     *ppDS8 = 0;
     *ppDS8C = 0;
@@ -297,8 +298,9 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   kWarning() << "Setting cooperation level";
   if (type == SimonSound::Output)
     (*ppDS8)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
-  else
-    (*ppDS8C)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
+//   TODO:fix 'SetCooperativeLevel' : is not a member of 'IDirectSoundCapture'
+//   else
+//     (*ppDS8C)->SetCooperativeLevel(hWnd, DSSCL_PRIORITY);
 
   // Fill DSBUFFERDESC-structure
   kWarning() << "Setting up buffer structure";
@@ -321,7 +323,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
       return false;
     }
   } else { // recording
-    if(FAILED((*ppDS8)->CreateCaptureBuffer(&BufferDesc,
+    if(FAILED((*ppDS8C)->CreateCaptureBuffer(&BufferDesc,
               primaryBufferC, 0))) {
       kWarning() << "Failed to create primary recording buffer";
       (*ppDS8C)->Release();
