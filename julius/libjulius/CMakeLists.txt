@@ -43,12 +43,13 @@ set (libjulius_SRCS ./src/m_usage.c
   ./src/search_bestfirst_main.c 
   ./src/confnet.c)
 
-add_library(julius SHARED ${libjulius_SRCS})
 
 if(WIN32)
+  add_library(julius STATIC ${libjulius_SRCS})
   target_link_libraries(julius sent)
 ENDIF(WIN32)
 if(UNIX)
+  add_library(julius SHARED ${libjulius_SRCS})
   target_link_libraries(julius sent dl)
 ENDIF(UNIX)
 
