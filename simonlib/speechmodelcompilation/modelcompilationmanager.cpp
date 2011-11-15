@@ -1562,8 +1562,8 @@ bool ModelCompilationManager::makeMonophones()
   QFile monophones1(tempDir+"/monophones1");
   if (!monophones1.open(QIODevice::ReadWrite))
     return false;
-  if (!monophones1.readAll().contains(QRegExp("^sil$")))
-    monophones1.write("sil\n")
+  if (!monophones1.readAll().contains("sil"))
+    monophones1.write("sil\n");
 
   monophones1.seek(0);
 
@@ -1915,7 +1915,7 @@ bool ModelCompilationManager::reestimate(const QString& mlf, bool useStats, cons
     command += additionalParameters+" ";
 
   //Pruning threshold (was: 3000.0 / 1000.0)
-  command += "-I \""+mlf+"\" -t 250.0 50.0 3000.0 ";
+  command += "-I \""+mlf+"\" -t 250.0 150.0 3000.0 ";
   if (useStats)
     command += "-s \""+htkIfyPath(tempDir)+"/stats\" ";
 

@@ -15,7 +15,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. i18n: file: config.ui:14
@@ -48,6 +48,7 @@ msgstr ""
 
 #: simonoid.cpp:47
 msgid "Could not load simon icon!"
+msgstr ""
 
 #: simonoid.cpp:63 simonoid.cpp:165
 msgid "Waiting"
@@ -67,7 +68,7 @@ msgstr ""
 
 #: simonoid.cpp:153
 msgid "Listening"
-msgstr "Höre zu"
+msgstr ""
 
 #: simonoid.cpp:159
 msgid "Processing"
