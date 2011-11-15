@@ -267,19 +267,20 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 
   kDebug() << "Opening device: " << internalDeviceName; // contains the GUID or "" for default
-  wchar_t internalDeviceNameW[internalDeviceName.length()*sizeof(wchar_t)+1];
+  wchar_t *internalDeviceNameW= new wchar_t[internalDeviceName.length()*sizeof(wchar_t)+1];
   internalDeviceNameW[internalDeviceName.toWCharArray(internalDeviceNameW)] = '\0';
 
-  LPGUID deviceID;
-  HRESULT err = CLSIDFromString(internalDeviceNameW, (LPCLSID) deviceID);
+  GUID deviceID;
+  HRESULT err = CLSIDFromString(internalDeviceNameW, &deviceID);
+  delete [] internalDeviceNameW;
   if (err != NOERROR) {
     kWarning() << "Couldn't parse: " << internalDeviceName << " assuming default";
-    deviceID = (type == SimonSound::Output) ? 0 : DSDEVID_DefaultVoiceCapture;
+    deviceID = ((type == SimonSound::Output) ? GUID_NULL : DSDEVID_DefaultVoiceCapture);
   }
 
   // Generate DirectSound-Interface
-  if (((type == SimonSound:: Input) && FAILED(DirectSoundCreate8(deviceID, ppDS8, 0))) ||
-      ((type == SimonSound:: Output) && FAILED(DirectSoundCaptureCreate8(deviceID, ppDS8, 0)))) {
+  if (((type == SimonSound:: Input) && FAILED(DirectSoundCreate8(&deviceID, ppDS8, 0))) ||
+      ((type == SimonSound:: Output) && FAILED(DirectSoundCaptureCreate8(&deviceID, ppDS8, 0)))) {
     kWarning() << "Failed to open device";
     *ppDS8 = 0;
     *ppDS8C = 0;

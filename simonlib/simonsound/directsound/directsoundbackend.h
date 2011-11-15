@@ -23,8 +23,10 @@
 #include <simonsound/simonsound.h>
 #include <simonsound/soundbackend.h>
 #include <QStringList>
+#include <windows.h>
+#include <mmsystem.h>
 #include <dsound.h>
-#include <dxerr9.h>
+// #include <dxerr.h>
 
 class DirectSoundLoop;
 class DirectSoundCaptureLoop;
