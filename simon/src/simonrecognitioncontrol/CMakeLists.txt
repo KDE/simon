@@ -9,7 +9,7 @@ set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ ../  ../../../julius/libjulius/include 
  ../../../julius/libsent/include)
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} )
 
 
 IF(WIN32)
@@ -41,7 +41,7 @@ target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} DEFINE_SYMBOL MAKE_RECOGNITIONCONTROL_LIB
 )
 
 install( FILES ${simonrecognition_LIB_HDRS}

@@ -29,7 +29,7 @@
 #  define SIMONPROGRESSTRACKING_EXPORT KDE_EXPORT
 # else
 // We are using this library
-#  define SIMONPROGRESSTRACKING_EXPORT
+#  define SIMONPROGRESSTRACKING_EXPORT KDE_IMPORT
 # endif
 #endif
 
