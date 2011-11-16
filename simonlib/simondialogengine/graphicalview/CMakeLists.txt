@@ -29,7 +29,7 @@ kde4_add_ui_files(simondialogenginegraphicalview_SRCS
 kde4_add_library(simondialogenginegraphicalview SHARED ${simondialogenginegraphicalview_SRCS})
 
 target_link_libraries(simondialogenginegraphicalview 
-  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonactions simondialogengine)
+  ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonactions simondialogengine simonscenarios)
 
 install(TARGETS simondialogenginegraphicalview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
