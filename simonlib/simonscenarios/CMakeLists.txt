@@ -7,7 +7,7 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
 			${CMAKE_CURRENT_SOURCE_DIR}/../
 )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonscenarios_LIB_SRCS
@@ -104,7 +104,7 @@ target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE
 	simonscenariobase simoncontextdetection simongraphemetophoneme )
 
 set_target_properties( simonscenarios
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} DEFINE_SYMBOL MAKE_MODELMANAGEMENT_LIB
 )
 
 install( FILES ${simonscenarios_LIB_HDRS}
@@ -132,7 +132,7 @@ kde4_add_kcfg_files(kcm_simonscenarios_LIB_SRCS speechmodelmanagementconfigurati
 
 kde4_add_plugin(simonscenarioskcm ${kcm_simonscenarios_LIB_SRCS})
 target_link_libraries( simonscenarioskcm  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-simonscenarios
+simonscenarios simonscenariobase
 )
 
 install(TARGETS simonscenarioskcm DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT
