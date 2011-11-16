@@ -42,14 +42,7 @@
 #include <io.h>
 #include <winsock.h>
 #define WINSOCK
-/* use winsock functions */
-#define access _access        
-#define close _close
-#define open _open
-#define read _read
-#define write _write
-#define vsnprintf _vsnprintf
-#define snprintf _snprintf
+/* use winsock functions */    
 #endif
 
 /* file test operators */

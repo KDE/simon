@@ -169,9 +169,9 @@ endif(UNIX)
 if(WIN32)
 if (PORTAUDIO_FOUND)
 target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY}
-       wsock32 winmm ws2_32)
+       wsock32 winmm ws2_32 ${KDEWIN_LIBRARIES})
 else (PORTAUDIO_FOUND)
-target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32)
+target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32 ${KDEWIN_LIBRARIES})
 endif (PORTAUDIO_FOUND)
 endif(WIN32)
 

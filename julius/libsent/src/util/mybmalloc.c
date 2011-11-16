@@ -39,6 +39,10 @@
 
 #include <sent/stddefs.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 static boolean mybmalloc_initialized = FALSE; ///< TRUE if mybmalloc has already initialized
 static unsigned int pagesize;		///< Page size for memoly allocation
 static unsigned int blocksize;  ///< Block size in bytes
@@ -55,7 +59,13 @@ mybmalloc_set_param()
   unsigned int blockpagenum;
 
   /* block size should be rounded up by page size */
+#ifdef _WIN32
+  SYSTEM_INFO info;
+  GetSystemInfo (&info);
+  pagesize = info.dwPageSize;
+#else
   pagesize = getpagesize();
+#endif
   blockpagenum = (MYBMALLOC_BLOCK_SIZE + (pagesize - 1)) / pagesize;
   blocksize = pagesize * blockpagenum;
 
