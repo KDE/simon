@@ -25,12 +25,12 @@ FIND_PATH(DIRECTSOUND_SAL_INCLUDE_DIR sal.h PATHS
 
 FIND_LIBRARY(_DSOUD_LIB NAMES dsound )
 
-# FIND_LIBRARY(_DXGUID_LIB NAMES dxguid PATHS
-#     ${CMAKE_CURRENT_SOURCE_DIR}
-#     "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86"
-#     C:/Windows/system32)
+FIND_LIBRARY(_DXGUID_LIB NAMES dxguid PATHS
+     ${CMAKE_CURRENT_SOURCE_DIR}
+     "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86" #TODO:better esearch path ant cosinder achitecture
+     C:/Windows/system32)
 
-SET (DIRECTSOUND_LIBRARY ${_DSOUD_LIB})#${_DXGUID_LIB} )
+SET (DIRECTSOUND_LIBRARY ${_DSOUD_LIB} ${_DXGUID_LIB} )
 
 set(DIRECTSOUND_INCLUDE_DIRS ${DIRECTSOUND_INCLUDE_DIR})# ${DIRECTSOUND_SAL_INCLUDE_DIR})
 
