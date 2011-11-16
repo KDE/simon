@@ -24,16 +24,12 @@
 #include <kdemacros.h>
 
 #ifndef MODELTEST_EXPORT
-# if defined(MAKE_MODELTEST_LIB)
+# if defined(MAKE_SIMONMODELTEST_LIB)
 // We are building this library
 #  define MODELTEST_EXPORT KDE_EXPORT
 # else
 // We are using this library
-#ifdef Q_OS_WIN
-#  define MODELTEST_EXPORT
-#else
 #  define MODELTEST_EXPORT KDE_IMPORT
-#endif
 # endif
 #endif
 
