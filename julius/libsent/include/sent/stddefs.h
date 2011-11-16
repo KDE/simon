@@ -101,6 +101,11 @@ typedef unsigned char boolean;
 #define TRUE 1
 #define FALSE 0
 
+#ifdef _MSC_VER
+#define _CRT_NONSTDC_NO_DEPRECATE
+#define snprintf _snprintf
+#endif
+
 #ifndef R_OK
 #define R_OK 4
 #endif

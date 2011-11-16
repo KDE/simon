@@ -2,8 +2,6 @@
 
 #add_definitions(-lang-c-c++-comments -std=c99)
 if(WIN32)
-    find_package(KDEWin REQUIRED)
-    include_directories(${KDEWIN_INCLUDES})
     if(MSVC)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     endif(MSVC)
@@ -29,10 +27,7 @@ ENDIF(WIN32)
 
 
 add_executable(juliusexe ${juliusexe_SRCS} ${juliusexe_NonPortable_SRCS})
-if(WIN32)
-    target_link_libraries(juliusexe julius sent ${KDEWIN_LIBRARIES})
-else(WIN32)
-    target_link_libraries(juliusexe julius sent)
-endif(WIN32)
+target_link_libraries(juliusexe julius sent)
+
 install (TARGETS juliusexe DESTINATION bin COMPONENT julius)
 
