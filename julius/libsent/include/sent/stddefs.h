@@ -101,27 +101,6 @@ typedef unsigned char boolean;
 #define TRUE 1
 #define FALSE 0
 
-#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-/* win32 functions */
-#define getpagesize() (4096)
-#define access _access        
-#define chmod _chmod
-#define close _close
-#define eof _eof
-#define filelength _filelength
-#define lseek _lseek
-#define open _open
-#define read _read
-#define write _write
-#define mkdir _mkdir
-#define unlink _unlink
-#define getcwd _getcwd
-#define getpid _getpid
-#define vsnprintf _vsnprintf
-#define snprintf _snprintf
-#define strdup _strdup
-#endif
-
 #ifndef R_OK
 #define R_OK 4
 #endif
