@@ -109,7 +109,7 @@
 #define HAVE_ZLIB 1
 
 /* Define if you have strcasecmp function  */
-#ifdef _MSC_VER
+#ifndef _MSC_VER
 #define HAVE_STRCASECMP 1
 #endif
 /* Define if you have sleep function  */
