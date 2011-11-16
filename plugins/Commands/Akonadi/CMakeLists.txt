@@ -1,7 +1,11 @@
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 include(KDE4Macros)
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -fexceptions)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-fexceptions)
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDEPIMLIBS_INCLUDE_DIRS}

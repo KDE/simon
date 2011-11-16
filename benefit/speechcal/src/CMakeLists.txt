@@ -2,7 +2,10 @@ find_package(KDE4 REQUIRED)
 find_package (KdepimLibs REQUIRED)
 include (KDE4Defaults)
 
-add_definitions(-fexceptions)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-fexceptions)
+endif(CMAKE_COMPILER_IS_GNUCXX)
+
 include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${KDEPIMLIBS_INCLUDE_DIRS}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib
