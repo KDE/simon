@@ -10,9 +10,8 @@
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 
-set(DIRECTSOUND_INCLUDE_DIRS $ENV{DXSDK_DIR}/include $ENV{DXSDK_DIR})
-
 if(MSVC)
+    set(DIRECTSOUND_INCLUDE_DIRS $ENV{DXSDK_DIR}/include $ENV{DXSDK_DIR})
     IF(CMAKE_CL_64)
         SET(CMAKE_MSVC_ARCH amd64)
     ELSE(CMAKE_CL_64)
@@ -24,6 +23,7 @@ if(MSVC)
 
     FIND_LIBRARY(_DXGUID_LIB NAMES dxguid PATHS
         $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
+
     SET (DIRECTSOUND_LIBRARY ${_DSOUD_LIB} ${_DXGUID_LIB} )
 else(MSVC)
     set (DIRECTSOUND_LIBRARY dsound dxguid)
