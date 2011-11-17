@@ -312,15 +312,15 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   BufferDesc.lpwfxFormat    = 0;
   BufferDesc.guid3DAlgorithm  = GUID_NULL;
   
-    CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
-    CaptureBufferDesc.dwFlags      = DSBCAPS_CTRLPOSITIONNOTIFY |
-                                DSBCAPS_CTRLFREQUENCY |
-                                DSBCAPS_GLOBALFOCUS;
-    CaptureBufferDesc.dwBufferBytes  = m_waveFormat.nAvgBytesPerSec * 2; // 2 seconds of sound
-    CaptureBufferDesc.dwReserved   = 0;
-    CaptureBufferDesc.lpwfxFormat    = &m_waveFormat;
-    CaptureBufferDesc.dwFXCount = 0;
-    CaptureBufferDesc.lpDSCFXDesc  = NULL;
+  CaptureBufferDesc.dwSize     = sizeof(DSCBUFFERDESC);
+  CaptureBufferDesc.dwFlags      = DSBCAPS_CTRLPOSITIONNOTIFY |
+								DSBCAPS_CTRLFREQUENCY |
+								DSBCAPS_GLOBALFOCUS;
+  CaptureBufferDesc.dwBufferBytes  = 0; // 2 seconds of sound
+  CaptureBufferDesc.dwReserved   = 0;
+  CaptureBufferDesc.lpwfxFormat    = 0;
+  CaptureBufferDesc.dwFXCount = 0;
+  CaptureBufferDesc.lpDSCFXDesc  = NULL;
 
   // Creating primary sound buffer
   kWarning() << "Creating primary buffer";
@@ -369,6 +369,7 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   BufferDesc.dwReserved   = 0;
   BufferDesc.lpwfxFormat    = &m_waveFormat;
   BufferDesc.guid3DAlgorithm  = GUID_NULL;
+
 
   kWarning() << "Creating sound buffer";
   // Sound buffer
