@@ -32,7 +32,6 @@
 #include <simonscenarios/scenario.h>
 #include <simonscenarios/grammar.h>
 #include <simonscenarios/activevocabulary.h>
-#include "atspiwatcher.h"
 
 
 K_PLUGIN_FACTORY( ATSPICommandPluginFactory,
