@@ -13,11 +13,17 @@
 set(DIRECTSOUND_INCLUDE_DIRS $ENV{DXSDK_DIR}/include $ENV{DXSDK_DIR})
 
 if(MSVC)
+    IF(CMAKE_CL_64)
+        SET(CMAKE_MSVC_ARCH amd64)
+    ELSE(CMAKE_CL_64)
+        SET(CMAKE_MSVC_ARCH x86)
+    ENDIF(CMAKE_CL_64)
+
     FIND_LIBRARY(_DSOUD_LIB NAMES dsound PATHS
-        $ENV{DXSDK_DIR}/Lib/x86)
+        $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
 
     FIND_LIBRARY(_DXGUID_LIB NAMES dxguid PATHS
-        $ENV{DXSDK_DIR}/Lib/x86) #TODO:better esearch path ant cosinder achitecture
+        $ENV{DXSDK_DIR}/Lib/${CMAKE_MSVC_ARCH})
     SET (DIRECTSOUND_LIBRARY ${_DSOUD_LIB} ${_DXGUID_LIB} )
 else(MSVC)
     set (DIRECTSOUND_LIBRARY dsound dxguid)
