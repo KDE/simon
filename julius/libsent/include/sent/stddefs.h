@@ -108,6 +108,8 @@ typedef unsigned char boolean;
 #ifndef snprintf 
 #define snprintf _snprintf
 #endif
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
 #endif
 
 #ifndef R_OK
