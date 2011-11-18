@@ -24,7 +24,7 @@ target_link_libraries( simonscenariobase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${K
 
 
 set_target_properties( simonscenariobase
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonscenariobase_LIB_HDRS}

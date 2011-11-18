@@ -19,7 +19,7 @@
 
 #include "simonview.h"
 #include "firstrunwizard.h"
-#include "../version.h"
+#include "version.h"
 
 #include <simonuicomponents/inlinewidgetview.h>
 #include <simonscenarioui/scenariomanagementdialog.h>

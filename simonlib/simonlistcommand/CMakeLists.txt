@@ -34,7 +34,7 @@ target_link_libraries( simonlistcommand ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
 
 
 set_target_properties( simonlistcommand
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonlistcommand_LIB_HDRS}

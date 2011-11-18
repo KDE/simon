@@ -6,6 +6,7 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../..
   ${Qwt6_INCLUDE_DIR}
+  ${CMAKE_BINARY_DIR}
 )
 
 

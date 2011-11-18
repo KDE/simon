@@ -2,9 +2,11 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
-			${CMAKE_CURRENT_SOURCE_DIR}/..
-			${CMAKE_CURRENT_SOURCE_DIR}/../
+include_directories(
+	${KDE4_INCLUDES}
+	${QT_INCLUDES}
+	${CMAKE_CURRENT_SOURCE_DIR}/..
+	${CMAKE_BINARY_DIR}
 )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
@@ -99,7 +101,7 @@ target_link_libraries( simonscenarios ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE
 	simonscenariobase simoncontextdetection simongraphemetophoneme )
 
 set_target_properties( simonscenarios
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonscenarios_LIB_HDRS}

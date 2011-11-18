@@ -16,7 +16,7 @@ target_link_libraries( simongraphemetophoneme ${QT_LIBRARIES} ${KDE4_KDECORE_LIB
 
 
 set_target_properties( simongraphemetophoneme
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simongraphemetophoneme_LIB_HDRS}

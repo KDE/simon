@@ -18,7 +18,7 @@ set( simondialogenginettsview_LIB_HDRS
 
 kde4_add_library(simondialogenginettsview SHARED ${simondialogenginettsview_SRCS})
 set_target_properties( simondialogenginettsview
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 target_link_libraries(simondialogenginettsview 

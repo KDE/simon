@@ -47,7 +47,7 @@ target_link_libraries( simoncontextdetection ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS
 
 
 set_target_properties( simoncontextdetection
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simoncontextdetection_LIB_HDRS}

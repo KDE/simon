@@ -36,7 +36,7 @@ target_link_libraries( simontts simonsound simonwav ${QT_LIBRARIES} ${KDE4_KDECO
 
 
 set_target_properties( simontts
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simontts_LIB_HDRS}

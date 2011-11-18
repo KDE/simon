@@ -53,7 +53,7 @@ kde4_add_ui_files(simondialogengineconfui_SRCS
 
 kde4_add_library(simondialogengineconfui SHARED ${simondialogengineconfui_SRCS})
 set_target_properties( simondialogengineconfui
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 if (USE_PLASMA)

@@ -136,7 +136,7 @@ ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging simonscenarios simoninfo simonx
 simonsound simonuicomponents simongraphemetophoneme)
 
 set_target_properties( simonmodelmanagementui
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonmodelmanagementui_LIB_HDRS}

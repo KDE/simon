@@ -63,7 +63,7 @@ endif(USE_PLASMA)
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})
 
 set_target_properties( simondialogengine
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 if (USE_PLASMA)

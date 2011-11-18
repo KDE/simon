@@ -145,7 +145,7 @@ target_link_libraries( simonsound ${QT_LIBRARIES} ${plattformLibraries}
 endif(LIBSAMPLERATE_FOUND)
 
 set_target_properties( simonsound
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonsound_LIB_HDRS}

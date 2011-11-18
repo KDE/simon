@@ -32,7 +32,7 @@ target_link_libraries(simondialogenginegraphicalview
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} simonactions simondialogengine)
 
 set_target_properties( simondialogenginegraphicalview
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install(TARGETS simondialogenginegraphicalview DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )

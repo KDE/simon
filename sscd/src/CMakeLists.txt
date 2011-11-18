@@ -12,8 +12,12 @@ ENDIF(WIN32)
 
 set(QT_CONFIG "terminal")
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} 
-	../../simonlib)
+include_directories(
+	${KDE4_INCLUDES}
+	${QT_INCLUDES} 
+	${CMAKE_BINARY_DIR}
+	../../simonlib
+)
 
 set(sscd_SRCS
    main.cpp
