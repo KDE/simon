@@ -5,8 +5,8 @@ include_directories ( ${QT_INCLUDES} ${KDE_INCLUDES}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include
 	${CMAKE_CURRENT_SOURCE_DIR}/../..
-  ${Qwt6_INCLUDE_DIR}
-  ${CMAKE_BINARY_DIR}
+	${Qwt6_INCLUDE_DIR}
+	${CMAKE_BINARY_DIR}
 )
 
 
@@ -31,12 +31,12 @@ set(sam_SRCS
  )
 
 kde4_add_ui_files( sam_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/corpusinformation.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/testresult.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/conservativetraining.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/testconfiguration.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/exporttestresultsdlg.ui
+  main.ui
+  corpusinformation.ui
+  testresult.ui
+  conservativetraining.ui
+  testconfiguration.ui
+  exporttestresultsdlg.ui
 )
 
 
