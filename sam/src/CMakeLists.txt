@@ -49,7 +49,9 @@ kde4_add_executable(sam ${sam_SRCS})
 target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	${KDE4_KIO_LIBS} simonmodelcompilation simonmodelcompilationadapter
 	simonmodeltest simonsound ${Qwt6_Qt4_LIBRARY}
-	simonrecognitionresult simonscenarioui)
+	simonrecognitionresult simonscenarioui
+	rt
+)
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
 
