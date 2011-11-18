@@ -236,6 +236,42 @@ void SpeechModelSettings::touchLanguageProfileDate()
   config.sync();
 }
 
+void SpeechModelSettings::importBaseModelFromDirectory(QDir dir)
+{
+  lastDirectory = dir.path();
+  dir.setFilter(QDir::Files);
+  
+  Q_FOREACH(const QString& file, dir.entryList()) {
+    if (m_hmmDefsToImport.isEmpty() && file.toLower().contains("hmm")) {
+      m_tiedlistToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+    }
+    
+    if (m_tiedlistToImport.isEmpty() && file.toLower().contains("tiedlist")) {
+      m_tiedlistToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+    }
+    
+    if (m_macrosToImport.isEmpty() && file.toLower().contains("macros")) {
+      m_macrosToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseMacros->setText(QFileInfo(file).fileName());
+    }
+    
+    if (m_statsToImport.isEmpty() && file.toLower().contains("stats")) {
+      m_statsToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseStats->setText(f.fileName());
+    }
+  }
+  emit changed(true);
+}
 
 void SpeechModelSettings::loadBaseHMM()
 {
@@ -243,11 +279,8 @@ void SpeechModelSettings::loadBaseHMM()
   if (path.isEmpty()) return;
 
   m_hmmDefsToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseHMM->setText(f.fileName());
+  ui.lbLastLoadedBaseHMM->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -257,12 +290,8 @@ void SpeechModelSettings::loadBaseTiedlist()
   if (path.isEmpty()) return;
 
   m_tiedlistToImport = path;
-
-  emit changed(true);
-
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+  ui.lbLastLoadedBaseTiedlist->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -272,11 +301,8 @@ void SpeechModelSettings::loadBaseMacros()
   if (path.isEmpty()) return;
 
   m_macrosToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseMacros->setText(f.fileName());
+  ui.lbLastLoadedBaseMacros->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -286,11 +312,8 @@ void SpeechModelSettings::loadBaseStats()
   if (path.isEmpty()) return;
 
   m_statsToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseStats->setText(f.fileName());
+  ui.lbLastLoadedBaseStats->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
