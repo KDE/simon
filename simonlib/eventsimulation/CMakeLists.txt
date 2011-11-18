@@ -48,11 +48,6 @@ IF(WIN32)
 	target_link_libraries( eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
 ENDIF(WIN32)
 
-
-set_target_properties( eventsimulation
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
-)
-
 install( FILES ${eventsimulation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/eventsimulation
   COMPONENT simondevel

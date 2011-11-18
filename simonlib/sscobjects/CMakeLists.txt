@@ -1,4 +1,5 @@
 include(SimonDirs)
+include(KDE4Defaults)
 find_package(Qt4 COMPONENTS QtCore REQUIRED)
 
 include_directories( ${QT_INCLUDES} ../ ../../)

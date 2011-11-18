@@ -43,33 +43,29 @@ set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncollection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.cpp
-
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.cpp
-
-        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.cpp
 )
 
 
 set( simonscenarios_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/word.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/model.h
-
-
-${CMAKE_CURRENT_SOURCE_DIR}/author.h
-${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
+	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
+	${CMAKE_CURRENT_SOURCE_DIR}/shadowvocabulary.h
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariomanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
+	${CMAKE_CURRENT_SOURCE_DIR}/speechmodel.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
+	${CMAKE_CURRENT_SOURCE_DIR}/word.h
+	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingcontainer.h
+	${CMAKE_CURRENT_SOURCE_DIR}/model.h
+	${CMAKE_CURRENT_SOURCE_DIR}/author.h
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmanager.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandparameter.h
@@ -84,8 +80,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actioncommandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistelements.h
-
-        ${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
+	${CMAKE_CURRENT_SOURCE_DIR}/promptstable.h
 )
 
 

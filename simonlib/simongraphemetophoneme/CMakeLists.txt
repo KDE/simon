@@ -1,4 +1,5 @@
 include(SimonDirs)
+include(KDE4Defaults)
 
 set( simongraphemetophoneme_LIB_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/graphemetophoneme.cpp
