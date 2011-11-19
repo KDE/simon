@@ -1,5 +1,5 @@
 find_package(Qt4 COMPONENTS QtCore QtDbus QtGui)
-find_package(KDE4)
+
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 ########### next target ###############

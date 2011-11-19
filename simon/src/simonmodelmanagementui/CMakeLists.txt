@@ -1,9 +1,9 @@
-include(FindQt4)
+
 include(KDE4Macros)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_PATH})
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/simonscenarios ${KCFG_INSTALL_DIR} )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SIMONMODELMANAGEMENTUI_LIB)

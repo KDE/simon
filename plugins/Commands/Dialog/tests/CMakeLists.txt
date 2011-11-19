@@ -1,6 +1,6 @@
 ENABLE_TESTING()
 find_package(Qt4 COMPONENTS QtCore QtGui QtTest QtXml QtScript REQUIRED)
-find_package(KDE4 REQUIRED)
+
 
 include(KDE4Defaults)
 

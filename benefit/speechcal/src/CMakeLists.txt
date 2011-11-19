@@ -1,4 +1,4 @@
-find_package(KDE4 REQUIRED)
+
 find_package (KdepimLibs REQUIRED)
 include (KDE4Defaults)
 

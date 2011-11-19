@@ -1,8 +1,8 @@
 find_package(Qt4 COMPONENTS QtCore QtDbus)
-include(FindQt4)
+
 include(SimonDirs)
 
-find_package(KDE4 REQUIRED)
+
 
 #set (QT_USE_QTNETWORK true)
 #include(${QT_USE_FILE})

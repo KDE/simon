@@ -1,5 +1,5 @@
-find_package(KDE4 REQUIRED)
-include(FindQt4)
+
+
 
 set (QT_USE_QTMAIN true)
 set (QT_USE_QTSVG true)

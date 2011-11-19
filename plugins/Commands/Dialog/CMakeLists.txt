@@ -3,7 +3,7 @@ ENABLE_TESTING()
 find_package(Qt4 COMPONENTS QtCore QtGui QtXml QtScript REQUIRED)
 include (${QT_USE_FILE})
 
-find_package(KDE4 REQUIRED)
+
 include(KDE4Defaults)
 include(KDE4Macros)
 

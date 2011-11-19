@@ -1,6 +1,6 @@
-include(FindQt4)
+
 include(SimonDirs)
-find_package(KDE4 REQUIRED)
+
 set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ )
 
