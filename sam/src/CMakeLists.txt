@@ -52,9 +52,9 @@ target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	simonrecognitionresult simonscenarioui
 )
 
-if(NOT WINDOWS)
+if(NOT WIN32)
     target_link_libraries(sam rt)
-endif(NOT WINDOWS)
+endif(NOT WIN32)
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
 
