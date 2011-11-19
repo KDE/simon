@@ -94,7 +94,7 @@
  */
 SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 : KXmlGuiWindow(parent, flags), ScenarioDisplay(),
-welcomePart(0), shownDialogs(0), configDialog(0)
+  shownDialogs(0), configDialog(0)
 {
   Logger::log ( i18n ( "Starting simon..." ) );
 
@@ -170,13 +170,11 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading interface..." ) );
 
-  displayAboutPage();
-
-  settingsShown=false;
+  setupWelcomePage();
+  settingsShown = false;
 
   displayScenarios();
   updateScenarioDisplays();
-
   setupActions();
 
   setupGUI();
@@ -187,7 +185,7 @@ welcomePart(0), shownDialogs(0), configDialog(0)
   ui.inlineView->registerPage(contextDialog);
   ui.inlineView->registerPage(runDialog);
   ui.inlineView->registerPage(trainDialog);
-  ui.inlineView->setCurrentIndex(0);
+//   ui.inlineView->setCurrentIndex(0);
   
   setupSignalSlots();
 
@@ -221,7 +219,7 @@ void SimonView::testSlot()
 }
 #endif
 
-void SimonView::displayAboutPage()
+void SimonView::setupWelcomePage()
 {
   QString location = KStandardDirs::locate("data", "simon/about/main.html");
 
@@ -250,9 +248,7 @@ void SimonView::displayAboutPage()
   QString simoncss = KStandardDirs::locate( "appdata", "about/simon.css" );
   QString rtl = kapp->isRightToLeft() ? QString("@import \"%1\";" ).arg( KStandardDirs::locate( "data", "kdeui/about/kde_infopage_rtl.css" )) : QString();
 
-  if (welcomePart)
-    welcomePart->deleteLater();
-  welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
+  WelcomeHTMLPart *welcomePart = new WelcomeHTMLPart(ui.inlineView, this);
 
   KIconLoader *iconLoader = KIconLoader::global();
   QString internetIconPath = iconLoader->iconPath("applications-internet", KIconLoader::Desktop);
@@ -819,10 +815,7 @@ const KParts::BrowserArguments& browserArgs)
  */
 SimonView::~SimonView()
 {
-  if (welcomePart)
-    welcomePart->deleteLater();
-
-  Logger::log ( i18n ( "Quitting..." ) );
+  Logger::log( i18n ( "Quitting..." ) );
   trayManager->deleteLater();
   delete control;
   Logger::close();

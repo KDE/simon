@@ -80,7 +80,6 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     QTimer t;
     int wordI;
   #endif
-    WelcomeHTMLPart *welcomePart;
     QMutex guiUpdateMutex;
 
     bool settingsShown;
@@ -106,8 +105,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void setupSignalSlots();
     void setupActions();
 
-  protected:
-    void displayAboutPage();
+    void setupWelcomePage();
     void displayScenarioPrivate(Scenario *scenario);
 
   private slots:
