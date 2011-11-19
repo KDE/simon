@@ -281,8 +281,10 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
 
   // Generate DirectSound-Interface
   //TODO: are in and output switched?
-  if (((type == SimonSound:: Input) && FAILED(DirectSoundCreate8(&deviceID, ppDS8, 0))) ||
-      ((type == SimonSound:: Output) && FAILED(DirectSoundCaptureCreate8(&deviceID, ppDS8C, 0)))) {
+  HRESULT routput = DirectSoundCreate8(&deviceID, ppDS8, 0);
+  HRESULT rinput = DirectSoundCaptureCreate8(&deviceID, ppDS8C, 0);
+  if (((type == SimonSound::Output) && FAILED(routput)) ||
+      ((type == SimonSound::Input) && FAILED(rinput))) {
     kWarning() << "Failed to open device";
     *ppDS8 = 0;
     *ppDS8C = 0;
