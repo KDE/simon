@@ -50,8 +50,11 @@ target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
 	${KDE4_KIO_LIBS} simonmodelcompilation simonmodelcompilationadapter
 	simonmodeltest simonsound ${Qwt6_Qt4_LIBRARY}
 	simonrecognitionresult simonscenarioui
-	rt
 )
+
+if(NOT WINDOWS)
+    target_link_libraries(sam rt)
+endif(NOT WINDOWS)
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
 
