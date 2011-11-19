@@ -26,7 +26,7 @@ target_link_libraries( simonmodelcompilationadapter ${QT_LIBRARIES}
 
 
 set_target_properties( simonmodelcompilationadapter
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonmodelcompilationadapter_LIB_HDRS}

@@ -41,7 +41,7 @@ target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
   simonmodelmanagementui simonscenarios simonrecognitionresult simonprogresstracking )
 
 set_target_properties( simonrecognitioncontrol
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} DEFINE_SYMBOL MAKE_RECOGNITIONCONTROL_LIB
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR} DEFINE_SYMBOL MAKE_RECOGNITIONCONTROL_LIB
 )
 
 install( FILES ${simonrecognition_LIB_HDRS}

@@ -40,7 +40,7 @@ simonscenarios simonscenarios simonuicomponents)
 
 
 set_target_properties( simonactionsui
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonactionsui_LIB_HDRS}

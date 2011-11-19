@@ -1,1 +1,5 @@
+# ignore all kinds of temporary files
 *~
+*.kdev4
+
+

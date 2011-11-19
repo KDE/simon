@@ -7,12 +7,16 @@ set (QT_USE_QTSVG true)
 include(${QT_USE_FILE})
 
 
-include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE 
-		     ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
-		     ${CMAKE_CURRENT_SOURCE_DIR}/simonappcore
-		     ${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui
-                     ${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui
-		     ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
+include_directories(
+	${KDE4_INCLUDE_DIR}
+	${QT_INCLUDES}
+	${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
+	${CMAKE_CURRENT_SOURCE_DIR}/simonappcore
+	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui
+	${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui
+	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui
+	${CMAKE_BINARY_DIR}
+)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoncontextui)

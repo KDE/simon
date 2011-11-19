@@ -31,7 +31,7 @@
 #endif
 #include <KAboutData>
 #include <KCmdLineArgs>
-#include "../../version.h"
+#include "version.h"
 
 #include <KDebug>
 

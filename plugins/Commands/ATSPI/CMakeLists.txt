@@ -17,7 +17,7 @@ set (simonatspicommandplugin_SRCS
         atspiaction.cpp
         accessibleobject.cpp
         qt-atspi.cpp
-        atspiwatcher.cpp
+        #atspiwatcher.cpp
     )
 
 kde4_add_ui_files(simonatspicommandplugin_SRCS 

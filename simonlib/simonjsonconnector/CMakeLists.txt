@@ -25,7 +25,7 @@ target_link_libraries( simonjsonconnector ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS}
 
 
 set_target_properties( simonjsonconnector
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonjsonconnector_LIB_HDRS}

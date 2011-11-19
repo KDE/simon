@@ -62,6 +62,10 @@ endif(USE_PLASMA)
 
 kde4_add_library(simondialogengine SHARED ${simondialogengine_SRCS})
 
+set_target_properties( simondialogengine
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
+)
+
 if (USE_PLASMA)
 target_link_libraries(simondialogengine 
   ${QT_LIBRARIES} ${KDE4_KIO_LIBS} ${KDE4_PLASMA_LIBS} simonscenarios

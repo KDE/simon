@@ -76,7 +76,6 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   ui.pbLoadBaseTiedlist->setIcon(KIcon("document-open"));
   ui.pbLoadBaseMacros->setIcon(KIcon("document-open"));
   ui.pbLoadBaseStats->setIcon(KIcon("document-open"));
-  ui.pbHelp->setIcon(KIcon("help-about"));
   
   connect(uiLanguageProfile.pbLoadLanguageProfile, SIGNAL(clicked()), this, SLOT(loadLanguageProfile()));
 
@@ -84,21 +83,7 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
   connect(ui.pbLoadBaseTiedlist, SIGNAL(clicked()), this, SLOT(loadBaseTiedlist()));
   connect(ui.pbLoadBaseMacros, SIGNAL(clicked()), this, SLOT(loadBaseMacros()));
   connect(ui.pbLoadBaseStats, SIGNAL(clicked()), this, SLOT(loadBaseStats()));
-
-  connect(ui.pbHelp, SIGNAL(clicked()), this, SLOT(displayHelp()));
 }
-
-
-
-void SpeechModelSettings::displayHelp()
-{
-  KMessageBox::information(this, i18n("<html><head /><body><p>With simon you can create and manage those models yourself or you can "
-    "simply download and use general models that describe the average speaker of your target language. We call these models \"basemodels\".</p>"
-    "<p>You can find basemodels and more information on "
-    "<a href=\"http://www.simon-listens.org/wiki/index.php/English:_Base_models\">our wiki</a>.</p></body></html>"),
-    QString(), QString(), KMessageBox::Notify|KMessageBox::AllowLink);
-}
-
 
 void SpeechModelSettings::slotChanged()
 {
@@ -251,6 +236,42 @@ void SpeechModelSettings::touchLanguageProfileDate()
   config.sync();
 }
 
+void SpeechModelSettings::importBaseModelFromDirectory(QDir dir)
+{
+  lastDirectory = dir.path();
+  dir.setFilter(QDir::Files);
+  
+  Q_FOREACH(const QString& file, dir.entryList()) {
+    if (m_hmmDefsToImport.isEmpty() && file.toLower().contains("hmm")) {
+      m_tiedlistToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+    }
+    
+    if (m_tiedlistToImport.isEmpty() && file.toLower().contains("tiedlist")) {
+      m_tiedlistToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+    }
+    
+    if (m_macrosToImport.isEmpty() && file.toLower().contains("macros")) {
+      m_macrosToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseMacros->setText(QFileInfo(file).fileName());
+    }
+    
+    if (m_statsToImport.isEmpty() && file.toLower().contains("stats")) {
+      m_statsToImport = file;
+      QFileInfo f(file);
+      lastDirectory = f.path();
+      ui.lbLastLoadedBaseStats->setText(f.fileName());
+    }
+  }
+  emit changed(true);
+}
 
 void SpeechModelSettings::loadBaseHMM()
 {
@@ -258,11 +279,8 @@ void SpeechModelSettings::loadBaseHMM()
   if (path.isEmpty()) return;
 
   m_hmmDefsToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseHMM->setText(f.fileName());
+  ui.lbLastLoadedBaseHMM->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -272,12 +290,8 @@ void SpeechModelSettings::loadBaseTiedlist()
   if (path.isEmpty()) return;
 
   m_tiedlistToImport = path;
-
-  emit changed(true);
-
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseTiedlist->setText(f.fileName());
+  ui.lbLastLoadedBaseTiedlist->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -287,11 +301,8 @@ void SpeechModelSettings::loadBaseMacros()
   if (path.isEmpty()) return;
 
   m_macrosToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseMacros->setText(f.fileName());
+  ui.lbLastLoadedBaseMacros->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 
@@ -301,11 +312,8 @@ void SpeechModelSettings::loadBaseStats()
   if (path.isEmpty()) return;
 
   m_statsToImport = path;
-
-  emit changed(true);
-  QFileInfo f(path);
-  lastDirectory = f.path();
-  ui.lbLastLoadedBaseStats->setText(f.fileName());
+  ui.lbLastLoadedBaseStats->setText(QFileInfo(path).fileName());
+  importBaseModelFromDirectory(QDir(QFileInfo(path).path()));
 }
 
 

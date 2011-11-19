@@ -28,7 +28,7 @@ simonsound simontts simoncontextdetection
 )
 
 set_target_properties( simonappcore
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${simonappcore_LIB_HDRS}

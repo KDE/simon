@@ -34,10 +34,30 @@
 class SpeechModelSettings : public KCModule
 {
   Q_OBJECT
+  
+  public:
+    explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    ~SpeechModelSettings();
+
+  public slots:
+    void load();
+    void save();
+    void defaults();
+    
+  signals:
+    void changed(bool);
+    
+  private slots:
+    void slotChanged();
+    void loadLanguageProfile();
+    void loadBaseHMM();
+    void loadBaseTiedlist();
+    void loadBaseMacros();
+    void loadBaseStats();
+
   private:
     Ui::TrainingSettingsWidget uiTrainingsData;
     Ui::LanguageProfileSettingsWidget uiLanguageProfile;
-
     Ui::ModelDlg ui;
     QString lastDirectory;
     QString m_hmmDefsToImport;
@@ -51,27 +71,6 @@ class SpeechModelSettings : public KCModule
     
     QString translateDefault(const QString& in);
     
-  signals:
-    void changed(bool);
-    
-  private slots:
-    void slotChanged();
-    void loadLanguageProfile();
-    void loadBaseHMM();
-    void loadBaseTiedlist();
-    void loadBaseMacros();
-    void loadBaseStats();
-    void displayHelp();
-    
-  public slots:
-    void load();
-    void save();
-    void defaults();
-
-  public:
-    explicit SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
-
-    ~SpeechModelSettings();
-
+    void importBaseModelFromDirectory(QDir dir);
 };
 #endif

@@ -1,4 +1,5 @@
 include(SimonDirs)
+include(KDE4Defaults)
 find_package(Qt4 COMPONENTS QtCore REQUIRED)
 
 include_directories( ${QT_INCLUDES} ../ ../../)
@@ -36,7 +37,7 @@ target_link_libraries( sscobjects ${QT_LIBRARIES} ${QT_QTCORE_LIBRARY} )
 
 
 set_target_properties( sscobjects
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${CMAKE_SIMON_VERSION_STRING} SOVERSION ${CMAKE_SIMON_VERSION_MAJOR}
 )
 
 install( FILES ${sscobjects_LIB_HDRS}

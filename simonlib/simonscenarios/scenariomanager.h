@@ -56,7 +56,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void scenariosChanged();
     void shadowVocabularyChanged();
     void baseModelChanged();
-  void deactivatedScenarioListChanged();
+    void deactivatedScenarioListChanged();
 
   private:
     bool m_inGroup;

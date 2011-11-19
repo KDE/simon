@@ -173,8 +173,9 @@ target_link_libraries(sent ${ZLIB_LIBRARY} wsock32 winmm ws2_32 )
 endif (PORTAUDIO_FOUND)
 endif(WIN32)
 
-set_target_properties( sent
-  PROPERTIES VERSION 4 SOVERSION 1
+set_target_properties( sent PROPERTIES
+  VERSION "4.2"
+  SOVERSION 4
 )
 
 install( FILES ${libsent_LIB_HDRS}

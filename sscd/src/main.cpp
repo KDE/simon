@@ -22,7 +22,7 @@
 #include <QCoreApplication>
 
 #include <QApplication>
-#include "../../version.h"
+#include "version.h"
 #include "basedirectory.h"
 
 int main(int argc, char **argv)
