@@ -141,28 +141,29 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading training..." ) );
-  trainDialog = new TrainingView(this);
+  TrainingView *trainDialog = new TrainingView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(trainDialog);
+  connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading vocabulary..." ) );
-  vocabularyView = new VocabularyView(this);
+  VocabularyView *vocabularyView = new VocabularyView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(vocabularyView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading grammar..." ) );
-  grammarView = new GrammarView(this);
+  GrammarView *grammarView = new GrammarView(this);
   ScenarioManager::getInstance()->registerScenarioDisplay(grammarView);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading context..." ) );
-  contextDialog = new ContextView(this);
+  ContextView *contextDialog = new ContextView(this);
   connect(contextDialog, SIGNAL(manageScenariosTriggered()), this, SLOT(manageScenarios()));
   ScenarioManager::getInstance()->registerScenarioDisplay(contextDialog);
 
   if (showSplash)
     info->writeToSplash ( i18n ( "Loading run..." ) );
-  runDialog = new RunCommandView(this);
+  RunCommandView *runDialog = new RunCommandView(this);
   connect(runDialog, SIGNAL(actionsChanged()), this, SLOT(updateActionList()));
   ScenarioManager::getInstance()->registerScenarioDisplay(runDialog);
   kDebug() << "SoundServer: " << SoundServer::getInstance();
@@ -493,7 +494,6 @@ void SimonView::setupSignalSlots()
   QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
   connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
-  connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
   connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
   connect(ScenarioManager::getInstance(), SIGNAL(scenarioSelectionChanged()), this, SLOT(displayScenarios()));
   connect(ScenarioManager::getInstance(), SIGNAL(deactivatedScenarioListChanged()), this, SLOT(displayScenarios()));
