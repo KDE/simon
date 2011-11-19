@@ -47,9 +47,9 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 {
   Q_OBJECT
 
-    signals:
-  void changed(Scenario*);
-  void activationChanged();
+  signals:
+    void changed(Scenario*);
+    void activationChanged();
 
   private:
     QString m_prefix;
@@ -70,8 +70,8 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     ActiveVocabulary *m_vocabulary;
     TrainingTextCollection *m_texts;
     Grammar *m_grammar;
-    ActionCollection* m_actionCollection;
-    CompoundCondition* m_compoundCondition;
+    ActionCollection *m_actionCollection;
+    CompoundCondition *m_compoundCondition;
     QStringList m_childScenarioIds;
     QList<Scenario*> m_childScenarios;
     Scenario* m_parentScenario;
