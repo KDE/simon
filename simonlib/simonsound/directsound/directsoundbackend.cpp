@@ -239,17 +239,17 @@ void DirectSoundBackend::deviceFound(const QString& name)
 
 QStringList DirectSoundBackend::getDevices(SimonSound::SoundDeviceType type)
 {
-  Q_UNUSED(type);
   m_devices.clear();
 
   m_devices << i18n("Default audio device");
 
   if (type == SimonSound::Input)
-    DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
-  else
     DirectSoundCaptureEnumerate(DirectSoundEnumerateCallback, this);
+  else
+    DirectSoundEnumerate(DirectSoundEnumerateCallback, this);
 
-  Sleep(1000); // yes, this is the ugliest hack in the universe
+
+  Sleep(1000); // yes, this is the ugliest hack in the universe // have seen more ugly thingss
   return m_devices;
 }
 
@@ -280,11 +280,8 @@ bool DirectSoundBackend::openDevice(SimonSound::SoundDeviceType type, const QStr
   }
 
   // Generate DirectSound-Interface
-  //TODO: are in and output switched?
-  HRESULT routput = DirectSoundCreate8(&deviceID, ppDS8, 0);
-  HRESULT rinput = DirectSoundCaptureCreate8(&deviceID, ppDS8C, 0);
-  if (((type == SimonSound::Output) && FAILED(routput)) ||
-      ((type == SimonSound::Input) && FAILED(rinput))) {
+  if (((type == SimonSound::Output) && FAILED(DirectSoundCreate8(&deviceID, ppDS8, 0))) ||
+      ((type == SimonSound::Input) && FAILED(DirectSoundCaptureCreate8(&deviceID, ppDS8C, 0)))) {
     kWarning() << "Failed to open device";
     *ppDS8 = 0;
     *ppDS8C = 0;
