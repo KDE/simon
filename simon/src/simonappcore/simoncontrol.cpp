@@ -203,13 +203,12 @@ void SimonControl::disconnectFromServer()
  *
  *	@author Peter Grasch
  */
-void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
+void SimonControl::wordRecognised(RecognitionResultList recognitionResults)
 {
   if (status != SimonControl::ConnectedActivated) return;
 
   kDebug() << "Received recognition results...";
   ActionManager::getInstance()->processRawResults(recognitionResults);
-  delete recognitionResults;
 }
 
 
@@ -250,10 +249,10 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 }
 
 
-void SimonControl::setStatus(SimonControl::SystemStatus status)
+void SimonControl::setStatus(SimonControl::SystemStatus newStatus)
 {
-  this->status = status;
-  emit systemStatusChanged(status);
+  status = newStatus;
+  emit systemStatusChanged(newStatus);
 }
 
 

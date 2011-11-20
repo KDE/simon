@@ -44,8 +44,8 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
   private:
     static ActionManager* instance;
 
-    RecognitionResultList *currentlyPromptedListOfResults;
-    QList<GreedyReceiver*> *greedyReceivers;
+    RecognitionResultList currentlyPromptedListOfResults;
+    QList<GreedyReceiver*> greedyReceivers;
 
     float minimumConfidenceThreshold;
     bool useDYM;
@@ -57,8 +57,8 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
     ActionManager(QObject *parent=0);
 
   public slots:
-    void processRawResults(RecognitionResultList* recognitionResults);
-    void presentUserWithResults(RecognitionResultList* recognitionResults);
+    void processRawResults(const RecognitionResultList &recognitionResults);
+    void presentUserWithResults(const RecognitionResultList &recognitionResults);
     bool processResult(RecognitionResult recognitionResult);
     bool triggerCommand(const QString& type, const QString& trigger, bool silent=false);
 
