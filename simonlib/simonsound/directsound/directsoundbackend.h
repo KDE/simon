@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2011 Patrick von Reth <patrick.vonreth@gmail.com>
  *   Copyright (C) 2011 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -26,7 +27,14 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <dsound.h>
-// #include <dxerr.h>
+
+#ifdef __MINGW64_VERSION_MAJOR
+    //libdxerr.a is missing on mingw so no error support :(
+    #define DXGetErrorString(x) x
+#else
+    #include <dxerr.h>
+#endif
+
 
 class DirectSoundLoop;
 class DirectSoundCaptureLoop;
@@ -44,6 +52,7 @@ class DirectSoundBackend : public SoundBackend
     WAVEFORMATEX    m_waveFormat;
 
     LPBYTE m_audioBuffer;
+    LPBYTE m_audioBufferC;
     LPDIRECTSOUNDNOTIFY m_notify;
 
     LPDIRECTSOUND8 m_handle;
@@ -57,6 +66,7 @@ class DirectSoundBackend : public SoundBackend
     QStringList m_devices;
 
     int m_bufferSize;
+    int m_bufferSizeC;
     int m_blockAlign;
     int m_sampleRate;
 
