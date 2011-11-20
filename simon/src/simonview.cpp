@@ -186,10 +186,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
   ui.inlineView->registerPage(contextDialog);
   ui.inlineView->registerPage(runDialog);
   ui.inlineView->registerPage(trainDialog);
-//   ui.inlineView->setCurrentIndex(0);
   
   setupSignalSlots();
-
   control->startup();
 
   //hiding splash again after loading
@@ -560,7 +558,10 @@ void SimonView::showSystemDialog ()
   configDialog = 0;
 }
 
-
+void SimonView::showTrainDialog()
+{
+  ui.inlineView->setCurrentIndex(5);
+}
 
 /**
  * @brief Toggles the activation state

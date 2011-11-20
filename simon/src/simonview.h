@@ -72,6 +72,7 @@ class SimonView : public KXmlGuiWindow, public ScenarioDisplay
     void representState(SimonControl::SystemStatus status);
     
     void showSystemDialog();
+    void showTrainDialog();
     
    private slots:
     void manageScenarios();

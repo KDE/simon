@@ -31,9 +31,10 @@
 #include <KIcon>
 #include <simonscenarios/action.h>
 
+class Action;
 class CommandManager;
 class CommandSettings;
-class Action;
+class VoiceInterfaceCommand;
 
 class SIMONACTIONS_EXPORT ActionManager : public QObject
 {
