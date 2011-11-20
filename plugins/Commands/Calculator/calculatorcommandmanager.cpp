@@ -18,22 +18,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "calculatorcommandmanager.h"
-#include "calculatorconfiguration.h"
-#include <eventsimulation/eventhandler.h>
-#include <simonactions/actionmanager.h>
-#include <simonscenarios/simoncommand.h>
-#include <simoninfo/simoninfo.h>
-#include <simonactions/commandlistwidget.h>
-
-#include <QDesktopWidget>
-#include <KDialog>
-#include <QList>
-
-#include <KLocalizedString>
-#include <KAction>
-#include <klocale.h>
-#include <kglobal.h>
-#include <KDebug>
 
 #ifdef Q_OS_WIN32
 #include <windows.h>
@@ -41,6 +25,20 @@
 #include <unistd.h>
 #endif
 #include <stdlib.h>
+
+#include <QDesktopWidget>
+#include <QStack>
+#include <KAction>
+#include <KDialog>
+
+#include <eventsimulation/eventhandler.h>
+#include <simonactions/actionmanager.h>
+#include <simonactions/commandlistwidget.h>
+#include <simoninfo/simoninfo.h>
+
+#include "calculatorconfiguration.h"
+#include "token.h"
+
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory,
 registerPlugin< CalculatorCommandManager >();

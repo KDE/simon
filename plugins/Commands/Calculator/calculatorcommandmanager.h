@@ -22,14 +22,13 @@
 
 #include <simonscenarios/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
-#include <QVariantList>
-#include <QList>
-#include <QStack>
+
 #include "ui_calculatorwidget.h"
-#include "token.h"
 
 class KDialog;
+
 class CommandListWidget;
+class Token;
 
 /**
  *	@class CalculatorCommandManager
