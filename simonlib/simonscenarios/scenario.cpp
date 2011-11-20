@@ -39,7 +39,8 @@
 #include <KDateTime>
 #include <KConfigGroup>
 
-Scenario::Scenario(const QString& scenarioId, const QString& prefix) :
+Scenario::Scenario(const QString& scenarioId, const QString& prefix, QObject *parent)
+: QObject(parent),
 m_prefix(prefix),
 m_inGroup(0),
 m_dirty(true),

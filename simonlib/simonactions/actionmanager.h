@@ -41,15 +41,6 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
   Q_OBJECT
   Q_CLASSINFO("simons action interface", "org.simon-listens.ActionManager")
 
-  private:
-    static ActionManager* instance;
-
-    RecognitionResultList currentlyPromptedListOfResults;
-    QList<GreedyReceiver*> greedyReceivers;
-
-    float minimumConfidenceThreshold;
-    bool useDYM;
-
   private slots:
     void resultSelectionDone();
 
@@ -78,5 +69,12 @@ class SIMONACTIONS_EXPORT ActionManager : public QObject
 
     ~ActionManager();
 
+  private:
+    RecognitionResultList currentlyPromptedListOfResults;
+    QList<GreedyReceiver*> greedyReceivers;
+    static ActionManager *instance;
+
+    float minimumConfidenceThreshold;
+    bool useDYM;
 };
 #endif

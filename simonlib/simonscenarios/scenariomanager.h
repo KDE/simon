@@ -76,8 +76,6 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
   public:
     static ScenarioManager *getInstance();
 
-    ScenarioManager(QObject *parent=0);
-    ~ScenarioManager();
 
     QList<Scenario*> getScenarios() { return scenarios; }
     void registerScenarioDisplay(ScenarioDisplay *display);
@@ -107,7 +105,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     QStringList getAllDeactivatedScenarioIds();
 
     bool triggerCommand(const QString& type, const QString& trigger, bool silent);
-    
+
     bool processResult(RecognitionResult recognitionResult);
 
     CommandList getCommandList();
@@ -131,7 +129,7 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void setListBaseConfiguration(QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands);
 
     QHash<CommandListElements::Element, VoiceInterfaceCommand*> getListBaseConfiguration();
-   
+
 
   public slots:
     // If force is true, every registered display will switch to this scenario
@@ -142,6 +140,11 @@ class MODELMANAGEMENT_EXPORT ScenarioManager : public QObject
     void slotBaseModelChanged();
     QHash< QString, QString > transcribe(QStringList words);
     QString transcribe(QString word);
+
+  private:
+    ScenarioManager(QObject *parent=0);
+    ~ScenarioManager();
+    static ScenarioManager *instance;
 };
 
 

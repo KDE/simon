@@ -30,7 +30,8 @@
 /**
  * Empty, private constructor
  */
-Vocabulary::Vocabulary()                          /*: m_resolveProbability(false)*/
+Vocabulary::Vocabulary(QObject *parent)
+  : QAbstractItemModel(parent)
 {
 }
 

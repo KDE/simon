@@ -403,7 +403,6 @@ void ActionCollection::setPluginFont(const QFont& font)
 ActionCollection::~ActionCollection()
 {
   kDebug() << "Deleting action collection";
-  qDeleteAll(m_actions);
   delete proxy;
   qDeleteAll(listInterfaceCommands);
 }

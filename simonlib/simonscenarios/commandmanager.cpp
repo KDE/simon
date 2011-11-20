@@ -948,7 +948,7 @@ void CommandManager::switchToState(int newState)
  * \warning Beware of dangling pointers!
  */
 CommandManager::~CommandManager()
-{
+{ 
   qDeleteAll(commands);
 
   if (config)

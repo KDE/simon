@@ -26,27 +26,24 @@
 
 class MODELMANAGEMENT_EXPORT ActionCommandModel : public QAbstractItemModel
 {
-
-  protected:
-    QList<Action*> m_actions;
-    ActionCollection *ref;
-
-    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-    QVariant headerData(int, Qt::Orientation orientation,
-      int role = Qt::DisplayRole) const;
-    QModelIndex parent(const QModelIndex &index) const;
-
-  protected:
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-
   public:
     ActionCommandModel(ActionCollection *base);
     ~ActionCommandModel();
 
     void update();
 
+  private:
+    QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QVariant headerData(int, Qt::Orientation orientation,
+      int role = Qt::DisplayRole) const;
+    QModelIndex parent(const QModelIndex &index) const;
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
+    QList<Action*> m_actions;
+    ActionCollection *ref;
 };
 #endif

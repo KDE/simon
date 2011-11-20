@@ -40,13 +40,6 @@ class VoiceInterfaceCommand;
 
 class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public ActionModel
 {
-
-  private:
-    ActionCommandModel *proxy;
-    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
-    bool m_autorunActive;
-    QString m_autorunCommand, m_autorunType;
-
   public:
     ActionCollection(Scenario *parent);
 
@@ -88,5 +81,10 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
     QList<QAction*> getGuiActions();
     ~ActionCollection();
 
+  private:
+    ActionCommandModel *proxy;
+    QHash<CommandListElements::Element, VoiceInterfaceCommand*> listInterfaceCommands;
+    bool m_autorunActive;
+    QString m_autorunCommand, m_autorunType;
 };
 #endif

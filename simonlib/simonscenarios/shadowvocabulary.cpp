@@ -32,7 +32,8 @@
 /**
  * Empty, private constructor
  */
-ShadowVocabulary::ShadowVocabulary() : Vocabulary(), loadFailed(false)
+ShadowVocabulary::ShadowVocabulary(QObject *parent)
+  : Vocabulary(parent), loadFailed(false)
 {
   kDebug() << "Initializing shadow dictionary: " << this;
   QString vocabFilename = KStandardDirs::locate("appdata", "shadowvocabulary.xml");

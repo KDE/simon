@@ -21,7 +21,8 @@
 #include "action.h"
 #include "commandmanager.h"
 
-ActionModel::ActionModel(QObject *parent) : QAbstractItemModel(parent)
+ActionModel::ActionModel(QObject *parent)
+  : QAbstractItemModel(parent)
 {
 
 }
@@ -158,4 +159,5 @@ QModelIndex ActionModel::index(int row, int column, const QModelIndex &parent) c
 
 ActionModel::~ActionModel()
 {
+  qDeleteAll(m_actions);
 }

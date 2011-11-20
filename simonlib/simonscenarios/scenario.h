@@ -83,7 +83,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
     static QDateTime utcTime();
 
   public:
-    explicit Scenario(const QString& scenarioId, const QString& prefix=QString());
+    explicit Scenario(const QString& scenarioId, const QString& prefix=QString(), QObject *parent = 0);
 
     KIcon icon() { return KIcon(m_iconSrc); }
     QString iconSrc() { return m_iconSrc; }

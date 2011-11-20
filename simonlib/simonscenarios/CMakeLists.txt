@@ -1,5 +1,5 @@
-
 include(SimonDirs)
+include(KDE4Defaults)
 
 
 include_directories(
@@ -10,7 +10,6 @@ include_directories(
 )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
-include(KDE4Defaults)
 
 set( simonscenarios_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp

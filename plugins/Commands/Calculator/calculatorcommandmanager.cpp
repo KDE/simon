@@ -839,8 +839,6 @@ void CalculatorCommandManager::printCancel()
 void CalculatorCommandManager::activate()
 {
   clear();
-  QDesktopWidget* tmp = QApplication::desktop();
-  int x,y;
   switch (static_cast<CalculatorConfiguration*>(config)->controlMode()) {
     case CalculatorConfiguration::FullCalculator:
       ui.wgCalculator->show();
@@ -858,6 +856,8 @@ void CalculatorCommandManager::activate()
 
   widget->resize(widget->sizeHint());
 
+  QDesktopWidget* tmp = QApplication::desktop();
+  int x,y;
   x=(tmp->width()/2)-(widget->width()/2);
   y=(tmp->height()/2)-(widget->height()/2);
   widget->move(x, y);

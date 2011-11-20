@@ -41,7 +41,27 @@ class Token;
 class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 {
   Q_OBJECT
-    private:
+
+  public:
+    const QString preferredTrigger() const;
+    const QString iconSrc() const;
+    const QString name() const;
+    void setFont(const QFont& font);
+
+    bool deSerializeConfig(const QDomElement& elem);
+
+    //CommandList getCommands() const { return 0; }
+
+    /**
+     * @brief Constructor
+     *
+     *	@author Peter Grasch
+     */
+    CalculatorCommandManager(QObject* parent, const QVariantList& args);
+
+    ~CalculatorCommandManager();
+
+  private:
     enum NumberType
     {
       Default=1,
@@ -110,25 +130,5 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
 
   public slots:
     void activate();
-
-  public:
-    const QString preferredTrigger() const;
-    const QString iconSrc() const;
-    const QString name() const;
-    void setFont(const QFont& font);
-
-    bool deSerializeConfig(const QDomElement& elem);
-
-    //CommandList getCommands() const { return 0; }
-
-    /**
-     * @brief Constructor
-     *
-     *	@author Peter Grasch
-     */
-    CalculatorCommandManager(QObject* parent, const QVariantList& args);
-
-    ~CalculatorCommandManager();
-
 };
 #endif

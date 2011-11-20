@@ -25,7 +25,8 @@
 #include <simonscenarios/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
-Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection) : ScenarioObject(parent),
+Action::Action(Scenario *parent, const QString& source, const QString& trigger, ActionCollection *actionCollection)
+  : ScenarioObject(parent),
 m_source(source),
 pluginMinVersion(0),
 pluginMaxVersion(0),
