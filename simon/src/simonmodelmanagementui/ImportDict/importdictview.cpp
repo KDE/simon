@@ -184,13 +184,13 @@ QWizardPage* ImportDictView::createFinishedPage()
 }
 
 
-QList<Word*>* ImportDictView::importDict(Vocabulary::VocabularyType& type)
+QList<Word*> ImportDictView::importDict(Vocabulary::VocabularyType& type)
 {
   if (exec()) {
     type = (Vocabulary::VocabularyType) field("targetType").toInt();
     return workingPage->getCurrentWordList();
   }
-  return 0;
+  return QList<Word*>();
 }
 
 

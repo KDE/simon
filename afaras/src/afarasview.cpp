@@ -219,7 +219,7 @@ void AfarasView::setupRecorder()
   recorder = 0;
 
   recorder = new RecWidget("", prompt,
-                            file, true, this, 0, true);
+                            file, true, this, QList<SimonSound::DeviceConfiguration>(), true);
   ui.wgRecording->layout()->addWidget(recorder);
 }
 

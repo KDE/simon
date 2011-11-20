@@ -99,7 +99,7 @@ class MODELMANAGEMENT_EXPORT Scenario : public QObject
 
     QString serialize();
 
-    bool addWords(QList<Word*>* w);
+    bool addWords(QList<Word*> w);
     bool addWord(Word* w);
     bool removeWord(Word* w);
 

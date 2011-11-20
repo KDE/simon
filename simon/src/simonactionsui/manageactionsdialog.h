@@ -43,7 +43,7 @@ class ManageActionsDialog : public KDialog
 
     QHash<CommandConfiguration*, KPageWidgetItem*> pages;
 
-    QList<CommandConfiguration*>* configurationPages;
+    QList<CommandConfiguration*> configurationPages;
 
     ManageActionsAutorunWidget *manageActionsAutorunWidget;
     ListConfiguration *listConfiguration;

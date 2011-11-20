@@ -188,10 +188,9 @@ bool ShadowVocabulary::save()
 }
 
 
-bool ShadowVocabulary::addWords(QList<Word*>* w)
+bool ShadowVocabulary::addWords(QList<Word*> w)
 {
   if (!Vocabulary::addWords(w)) return false;
-
   return save();
 }
 

@@ -73,7 +73,7 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
     /**
      * Adds the specified words to the vocabulary
      */
-    virtual bool addWords(QList<Word*> *w);
+    virtual bool addWords(QList<Word*> w);
     virtual bool addWord(Word* w);
 
     virtual bool reOrder(Word* w);

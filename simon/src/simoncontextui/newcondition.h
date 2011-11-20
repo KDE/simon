@@ -53,7 +53,7 @@ class SIMONCONTEXTUI_EXPORT NewCondition : protected KDialog
 
   private:
     Ui::DlgModifyCondition ui;
-    QList<CreateConditionWidget*> *m_conditionCreators;
+    QList<CreateConditionWidget*> m_conditionCreators;
     //void switchToTypeOfCondition(Condition* condition);
 
   private slots:
@@ -64,7 +64,7 @@ class SIMONCONTEXTUI_EXPORT NewCondition : protected KDialog
     NewCondition(QWidget *parent=0);
     ~NewCondition();
 
-    bool registerCreators(QList<CreateConditionWidget*>* conditionCreators);
+    bool registerCreators(QList<CreateConditionWidget*> conditionCreators);
 
     bool newCondition();
 

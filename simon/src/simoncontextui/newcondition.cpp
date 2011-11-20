@@ -27,8 +27,7 @@
 #include <KDE/KKeySequenceWidget>
 #include <KDE/KDialogButtonBox>
 
-NewCondition::NewCondition(QWidget* parent) : KDialog(parent),
-m_conditionCreators(0)
+NewCondition::NewCondition(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -48,14 +47,11 @@ void NewCondition::deleteLater()
 }
 
 
-bool NewCondition::registerCreators(QList<CreateConditionWidget *> *conditionCreators)
+bool NewCondition::registerCreators(QList<CreateConditionWidget *> conditionCreators)
 {
-  if (m_conditionCreators) {
-    qDeleteAll(*m_conditionCreators);
-    delete m_conditionCreators;
-  }
-
-  foreach (CreateConditionWidget *widget, *conditionCreators) {
+  qDeleteAll(m_conditionCreators);
+ 
+  foreach (CreateConditionWidget *widget, conditionCreators) {
     ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui.swConditionCreators->addWidget(widget);
     connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
@@ -79,7 +75,7 @@ void NewCondition::init(Condition *condition)
 
   bool found=false;
   int i=0;
-  foreach (CreateConditionWidget *widget, *m_conditionCreators) {
+  foreach (CreateConditionWidget *widget, m_conditionCreators) {
     if (widget->isInstanceOfSameCondition(condition)) {
       widget->init(condition);
       found=true;
@@ -132,8 +128,5 @@ bool NewCondition::newCondition()
 
 NewCondition::~NewCondition()
 {
-  if (m_conditionCreators) {
-    qDeleteAll(*m_conditionCreators);
-    delete m_conditionCreators;
-  }
+  qDeleteAll(m_conditionCreators);
 }

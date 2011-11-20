@@ -15,34 +15,19 @@
 	</ToolBar>
 	
 	<MenuBar>
-		<Menu name="scenarios">
-			<text>Scenarios</text>
-			<Action name="manageScenarios" />
-		</Menu>
-		<Menu name="simond">
-			<text>Recognition</text>
+		<Menu name="file">
 			<Action name="connect" />
-		</Menu>
-			
-		<Menu name="modules" >
-			<text>Modules</text>
-			<Action name="wordlist" />
-			<Action name="grammar" />
-			<Action name="train" />
-			<Action name="commands" />
-			<Action name="volumeCalibration" />
+			<Action name="manageScenarios" />
 		</Menu>
 		<Menu name="commands">
 			<text>Commands</text>
+			<Action name="compileModel" />
 			<Action name="activate" />
 			<ActionList name="command_actionlist" />
 		</Menu>
-		<Menu name="actions">
-			<text>Actions</text>
-			<Action name="compileModel" />
-		</Menu>
-		<Menu name="settings">
+		<Menu name="settings">		  
 			<text>Preferences</text>
+			<Action name="volumeCalibration" />
 			<Action name="configuration" />
 		</Menu>
 	</MenuBar>

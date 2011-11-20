@@ -160,30 +160,30 @@ QDomElement ActionCollection::serialize(QDomDocument *doc)
 }
 
 
-QList<CreateCommandWidget*>* ActionCollection::getCreateCommandWidgets(QWidget *parent)
+QList<CreateCommandWidget*> ActionCollection::getCreateCommandWidgets(QWidget *parent)
 {
-  QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
+  QList<CreateCommandWidget*> out;
 
   foreach (Action* action, m_actions) {
     CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
     if (widget)
-      *out << widget;
+      out << widget;
 
     CreateCommandWidget* voiceWidget = (CreateCommandWidget*) action->manager()->getCreateVoiceInterfaceCommandWidget(parent);
     if (voiceWidget)
-      *out << voiceWidget;
+      out << voiceWidget;
   }
   return out;
 }
 
 
-QList<CommandConfiguration*>* ActionCollection::getConfigurationPages()
+QList<CommandConfiguration*> ActionCollection::getConfigurationPages()
 {
-  QList<CommandConfiguration*>* configs = new QList<CommandConfiguration*>();
+  QList<CommandConfiguration*> configs;
   foreach (Action* a, m_actions) {
     CommandConfiguration *cm = a->getConfigurationPage();
     if (cm)
-      configs->append(cm);
+      configs.append(cm);
   }
   return configs;
 }

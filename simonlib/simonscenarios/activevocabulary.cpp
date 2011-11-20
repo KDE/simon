@@ -77,7 +77,7 @@ QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
 }
 
 
-bool ActiveVocabulary::addWords(QList<Word*>* w)
+bool ActiveVocabulary::addWords(QList<Word*> w)
 {
   if (!Vocabulary::addWords(w)) return false;
   return parentScenario->save();

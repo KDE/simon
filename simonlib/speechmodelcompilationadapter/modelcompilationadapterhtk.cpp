@@ -59,9 +59,9 @@ bool ModelCompilationAdapterHTK::adaptModel(ModelCompilationAdapter::AdaptionTyp
 
     QList<Word*> words = vocab->getWords();
     vocab->clear();                               // make sure they are not removed from the scenario when we delete that
-    QList<Word*> *wordsTmp = new QList<Word*>();
+    QList<Word*> wordsTmp;
     foreach (Word* w, words)
-      wordsTmp->append(w);
+      wordsTmp.append(w);
 
     //list will be deleted by addWords
     mergedVocabulary->addWords(wordsTmp);

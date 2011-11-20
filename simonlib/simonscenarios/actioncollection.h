@@ -55,8 +55,8 @@ class MODELMANAGEMENT_EXPORT ActionCollection : public ScenarioObject, public Ac
     QDomElement serialize(QDomDocument *doc);
     static QDomElement createEmpty(QDomDocument *doc);
 
-    QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
-    QList<CommandConfiguration*>* getConfigurationPages();
+    QList<CreateCommandWidget*> getCreateCommandWidgets(QWidget *parent);
+    QList<CommandConfiguration*> getConfigurationPages();
 
     ActionCommandModel* getProxy() { return proxy; }
 

@@ -142,17 +142,15 @@ void VocabularyViewPrivate::showImportDictDialog()
 {
   ImportDictView *importDictView = new ImportDictView(this);
   Vocabulary::VocabularyType type;
-  QList<Word*>* words = importDictView->importDict(type);
+  QList<Word*> words = importDictView->importDict(type);
   bool worked = true;
-  if (words) {
-    switch (type) {
-      case Vocabulary::ActiveVocabulary:
-        worked = scenario->vocabulary()->addWords(words);
-        break;
-      case Vocabulary::ShadowVocabulary:
-        worked = ScenarioManager::getInstance()->getShadowVocabulary()->addWords(words);
-        break;
-    }
+  switch (type) {
+    case Vocabulary::ActiveVocabulary:
+      worked = scenario->vocabulary()->addWords(words);
+      break;
+    case Vocabulary::ShadowVocabulary:
+      worked = ScenarioManager::getInstance()->getShadowVocabulary()->addWords(words);
+      break;
   }
   if (!worked)  KMessageBox::error(this, i18n("Could not add words to the list"));
 

@@ -604,7 +604,7 @@ QString Scenario::serialize()
 }
 
 
-bool Scenario::addWords(QList<Word*>* w)
+bool Scenario::addWords(QList<Word*> w)
 {
   return (m_vocabulary->addWords(w));
 }

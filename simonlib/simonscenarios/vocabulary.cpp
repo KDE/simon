@@ -200,8 +200,8 @@ bool Vocabulary::insertWordRaw(int pos, Word* w)
 
 bool Vocabulary::addWord(Word *w)
 {
-  QList<Word*> *wList = new QList<Word*>();
-  wList->append(w);
+  QList<Word*> wList;
+  wList.append(w);
   return addWords(wList);
 }
 
@@ -218,40 +218,36 @@ bool Vocabulary::reOrder(Word* w)
  * The list of words has to be sorted
  * The input list will be destroyed!
  */
-bool Vocabulary::addWords(QList<Word*> *w)
+bool Vocabulary::addWords(QList<Word*> w)
 {
-  if (!w) return false;
-  if (w->isEmpty()) {
-    delete w;
+  if (w.isEmpty()) {
     return true;
   }
 
   //insertion
   for (int i=0; i < m_words.count(); i++) {
-    if (!( *(m_words[i]) < *(w->at(0)) )) {
-      if (*(m_words[i]) != *(w->at(0))) {
-        if (!terminals.contains(w->at(0)->getTerminal()))
-          terminals << w->at(0)->getTerminal();
-        m_words.insert(i, w->takeAt(0));
-        if (w->isEmpty()) break;
+    if (!( *(m_words[i]) < *(w.at(0)) )) {
+      if (*(m_words[i]) != *(w.at(0))) {
+        if (!terminals.contains(w.at(0)->getTerminal()))
+          terminals << w.at(0)->getTerminal();
+        m_words.insert(i, w.takeAt(0));
+        if (w.isEmpty()) break;
       }
       else {
         //word already in the list
-        delete w->takeAt(0);
-        if (w->isEmpty()) break;
+        delete w.takeAt(0);
+        if (w.isEmpty()) break;
       }
     }
   }
 
-  if (!w->isEmpty()) {
-    foreach (Word *word, *w) {
+  if (!w.isEmpty()) {
+    foreach (Word *word, w) {
       if (!terminals.contains(word->getTerminal()))
         terminals << word->getTerminal();
       m_words.append(word);
     }
   }
-
-  delete w;
 
   reset();
 

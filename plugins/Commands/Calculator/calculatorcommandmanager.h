@@ -52,9 +52,9 @@ class CalculatorCommandManager : public CommandManager, public GreedyReceiver
     Ui::CalculatorDlg ui;
     KDialog *widget;
     CommandListWidget *commandListWidget;
-    QList<Token *> * parseString(QString calc);
-    QList<Token *> * toPostfix(QList<Token *> *calcList);
-    double calculate(QList<Token *>* postList);
+    QList<Token *> parseString(QString calc, bool *success = 0);
+    QList<Token *> toPostfix(QList<Token *> calcList, bool *success = 0);
+    double calculate(QList<Token *> postList);
 
     double currentResult;
     bool resultCurrentlyDisplayed;

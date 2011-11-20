@@ -27,8 +27,7 @@
 #include <KDE/KKeySequenceWidget>
 #include <KDE/KDialogButtonBox>
 
-NewAssociationCondition::NewAssociationCondition(QWidget* parent) : KDialog(parent),
-m_conditionCreators(0)
+NewAssociationCondition::NewAssociationCondition(QWidget* parent) : KDialog(parent)
 {
   QWidget *widget = new QWidget( this );
   ui.setupUi(widget);
@@ -48,14 +47,11 @@ void NewAssociationCondition::deleteLater()
 }
 
 
-bool NewAssociationCondition::registerCreators(QList<CreateConditionWidget *> *conditionCreators)
+bool NewAssociationCondition::registerCreators(QList<CreateConditionWidget *> conditionCreators)
 {
-  if (m_conditionCreators) {
-    qDeleteAll(*m_conditionCreators);
-    delete m_conditionCreators;
-  }
+  qDeleteAll(m_conditionCreators);
 
-  foreach (CreateConditionWidget *widget, *conditionCreators) {
+  foreach (CreateConditionWidget *widget, conditionCreators) {
     ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
     ui.swConditionCreators->addWidget(widget);
     connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
@@ -79,7 +75,7 @@ void NewAssociationCondition::init(Condition *condition)
 
   bool found=false;
   int i=0;
-  foreach (CreateConditionWidget *widget, *m_conditionCreators) {
+  foreach (CreateConditionWidget *widget, m_conditionCreators) {
     if (widget->isInstanceOfSameCondition(condition)) {
       widget->init(condition);
       found=true;
@@ -132,8 +128,5 @@ bool NewAssociationCondition::newAssociationCondition()
 
 NewAssociationCondition::~NewAssociationCondition()
 {
-  if (m_conditionCreators) {
-    qDeleteAll(*m_conditionCreators);
-    delete m_conditionCreators;
-  }
+  qDeleteAll(m_conditionCreators);
 }

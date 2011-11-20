@@ -181,7 +181,7 @@ void ImportDictWorkingPage::importJulius(QString path)
 }
 
 
-QList<Word*>* ImportDictWorkingPage::getCurrentWordList()
+QList<Word*> ImportDictWorkingPage::getCurrentWordList()
 {
   return import->getCurrentWordList();
 }
